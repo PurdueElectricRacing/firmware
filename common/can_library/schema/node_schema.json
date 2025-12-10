@@ -1,0 +1,33 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["node_name", "scheduler", "busses"],
+    "properties": {
+        "node_name": { "type": "string" },
+        "scheduler": { "enum": ["psched", "freertos"]},
+        "busses": {
+            "type": "object",
+            "additionalProperties": {
+                "$ref": "#/$defs/bus_messages"
+            },
+            "minProperties": 1
+        }
+    },
+    "$defs": {
+        "bus_messages": {
+            "type": "object",
+            "required": ["peripheral"],
+            "properties": {
+                "peripheral": { "enum": ["CAN1", "CAN2"] },
+                "tx": {
+                    "type": "array",
+                    "items": { "$ref": "file:///message_schema.json#/$defs/tx_message" }
+                },
+                "rx": {
+                    "type": "array",
+                    "items": { "$ref": "file:///message_schema.json#/$defs/rx_message" }
+                }
+            }
+        }
+    }
+}

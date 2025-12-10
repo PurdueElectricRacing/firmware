@@ -1,0 +1,22 @@
+{
+    "busses": [
+        {
+            "name": "VCAN",
+            "baud_rate": 500000,
+            "is_extended_id": true,
+            "is_flexible_data_rate": false
+        },
+        {
+            "name": "MCAN",
+            "baud_rate": 500000,
+            "is_extended_id": true,
+            "is_flexible_data_rate": false
+        },
+        {
+            "name": "CCAN",
+            "baud_rate": 500000,
+            "is_extended_id": true,
+            "is_flexible_data_rate": false
+        }
+    ]
+}

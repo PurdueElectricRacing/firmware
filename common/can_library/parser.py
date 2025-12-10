@@ -1,0 +1,201 @@
+from dataclasses import dataclass, field
+from typing import List, Optional, Dict
+from pathlib import Path
+from utils import load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, COMMON_TYPES_CONFIG_PATH, CTYPE_SIZES, print_as_error, print_as_ok, print_as_success, print_as_success
+
+@dataclass
+class Signal:
+    name: str
+    datatype: str
+    desc: str = ""
+    length: int = 0
+    unit: Optional[str] = None
+    choices: Optional[List[str]] = None
+    scale: float = 1.0
+    offset: float = 0.0
+    min_val: Optional[float] = None
+    max_val: Optional[float] = None
+
+    def get_bit_length(self, custom_types: Optional[Dict] = None) -> int:
+        if self.length > 0:
+            return self.length
+        
+        if self.datatype in CTYPE_SIZES:
+            return CTYPE_SIZES[self.datatype]
+        
+        if custom_types and self.datatype in custom_types:
+            base = custom_types[self.datatype]['base_type']
+            return CTYPE_SIZES.get(base, 0)
+            
+        return 0
+
+@dataclass
+class Message:
+    name: str
+    desc: str = ""
+    signals: List[Signal] = field(default_factory=list)
+    priority: int = 0
+    period: int = 0
+    id_override: Optional[str] = None
+    is_extended: bool = False
+    final_id: int = 0
+    
+    def validate_semantics(self, custom_types: Dict) -> None:
+        """
+        Perform semantic checks that require external context (like custom types).
+        Raises ValueError if invalid.
+        """
+        total_length = sum(sig.get_bit_length(custom_types) for sig in self.signals)
+
+        for sig in self.signals:
+            if sig.datatype not in CTYPE_SIZES and sig.datatype not in custom_types:
+                print_as_error(f"Signal '{sig.name}' in message '{self.name}' has unknown type '{sig.datatype}'")
+                raise ValueError("Unknown signal type")
+
+        if total_length > 64:
+            print_as_error(f"Message '{self.name}' exceeds 64 bits (has {total_length})")
+            raise ValueError("Message too long")
+
+    def get_total_bit_length(self, custom_types: Optional[Dict] = None) -> int:
+        return sum(sig.get_bit_length(custom_types) for sig in self.signals)
+
+@dataclass
+class RxMessage:
+    name: str
+    callback: bool = False
+    irq: bool = False
+
+@dataclass
+class Bus:
+    name: str
+    peripheral: str
+    tx_messages: List[Message] = field(default_factory=list)
+    rx_messages: List[RxMessage] = field(default_factory=list)
+
+@dataclass
+class Node:
+    name: str
+    busses: Dict[str, Bus] = field(default_factory=dict)
+    is_external: bool = False
+
+# --- Parsing Logic ---
+
+def load_custom_types() -> Dict:
+    """Load custom types from common_types.json"""
+    try:
+        data = load_json(COMMON_TYPES_CONFIG_PATH)
+        custom_types = {}
+        for t in data.get("types", []):
+            custom_types[t["name"]] = t
+        return custom_types
+    except FileNotFoundError:
+        return {}
+
+def parse_all() -> List[Node]:
+    """
+    Parse all configuration files into Node objects.
+    Performs semantic validation during parsing.
+    """
+
+    print("Parsing configs and performing semantic validation...")
+
+    nodes = []
+    custom_types = load_custom_types()
+
+    # Parse Internal Nodes
+    if NODE_CONFIG_DIR.exists():
+        for node_file in sorted(NODE_CONFIG_DIR.glob('*.json')):
+            node = parse_internal_node(node_file)
+            validate_node(node, custom_types)
+            nodes.append(node)
+            print_as_ok(f"Parsed {node.name}")
+
+    # Parse External Nodes
+    if EXTERNAL_NODE_CONFIG_DIR.exists():
+        for node_file in sorted(EXTERNAL_NODE_CONFIG_DIR.glob('*.json')):
+            node = parse_external_node(node_file)
+            validate_node(node, custom_types)
+            nodes.append(node)
+            print_as_ok(f"Parsed {node.name}")
+    
+    print_as_success("All nodes parsed successfully");
+    return nodes
+
+def validate_node(node: Node, custom_types: Dict):
+    """Run semantic validation on a node"""
+    for bus in node.busses.values():
+        for msg in bus.tx_messages:
+            msg.validate_semantics(custom_types)
+
+def parse_signal(data: Dict) -> Signal:
+    return Signal(
+        name=data['sig_name'],
+        datatype=data['type'],
+        desc=data.get('sig_desc', ''),
+        length=data.get('length', 0),
+        unit=data.get('unit'),
+        choices=data.get('choices'),
+        scale=data.get('scale', 1.0),
+        offset=data.get('offset', 0.0),
+        min_val=data.get('min'),
+        max_val=data.get('max')
+    )
+
+def parse_message(data: Dict) -> Message:
+    # Handle is_extended logic: default False, check is_standard_id (inverse) or is_extended_id
+    is_extended = data.get('is_extended_id', not data.get('is_standard_id', True))
+
+    return Message(
+        name=data['msg_name'],
+        desc=data.get('msg_desc', ''),
+        signals=[parse_signal(s) for s in data.get('signals', [])],
+        priority=data.get('msg_priority', 0),
+        period=data.get('msg_period', 0),
+        id_override=data.get('msg_id_override'),
+        is_extended=is_extended
+    )
+
+def parse_rx_message(data: Dict) -> RxMessage:
+    return RxMessage(
+        name=data['msg_name'],
+        callback=data.get('callback', False),
+        irq=data.get('irq', False)
+    )
+
+def parse_bus(name: str, data: Dict) -> Bus:
+    return Bus(
+        name=name,
+        peripheral=data.get('peripheral', 'UNKNOWN'),
+        tx_messages=[parse_message(m) for m in data.get('tx', [])],
+        rx_messages=[parse_rx_message(m) for m in data.get('rx', [])]
+    )
+
+def parse_internal_node(filepath: Path) -> Node:
+    data = load_json(filepath)
+    busses = {}
+    for bus_name, bus_data in data.get('busses', {}).items():
+        busses[bus_name] = parse_bus(bus_name, bus_data)
+    
+    return Node(
+        name=data['node_name'],
+        busses=busses,
+        is_external=False
+    )
+
+def parse_external_node(filepath: Path) -> Node:
+    data = load_json(filepath)
+    bus_name = data['bus_name']
+    
+    # Create a single bus from the flattened structure
+    bus = Bus(
+        name=bus_name,
+        peripheral="UNKNOWN",
+        tx_messages=[parse_message(m) for m in data.get('tx', [])],
+        rx_messages=[parse_rx_message(m) for m in data.get('rx', [])]
+    )
+    
+    return Node(
+        name=data['node_name'],
+        busses={bus_name: bus},
+        is_external=True
+    )

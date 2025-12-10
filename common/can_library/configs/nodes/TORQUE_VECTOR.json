@@ -1,0 +1,371 @@
+{
+    "node_name": "TORQUE_VECTOR",
+    "busses": {
+        "VCAN": {
+            "peripheral": "CAN1",
+            "tx": [
+                {
+                    "msg_name": "gps_velocity",
+                    "msg_desc": "gps velocity",
+                    "signals": [
+                        {
+                            "sig_name": "gps_vel_n",
+                            "type": "int16_t",
+                            "unit": "m/s",
+                            "scale": 0.01
+                        },
+                        {
+                            "sig_name": "gps_vel_e",
+                            "type": "int16_t",
+                            "unit": "m/s",
+                            "scale": 0.01
+                        },
+                        {
+                            "sig_name": "gps_vel_d",
+                            "type": "int16_t",
+                            "unit": "m/s",
+                            "scale": 0.01
+                        }
+                    ],
+                    "msg_period": 40,
+                    "msg_priority": 3
+                },
+                {
+                    "msg_name": "gps_speed",
+                    "msg_desc": "gps speed",
+                    "signals": [
+                        {
+                            "sig_name": "gps_speed",
+                            "type": "int16_t",
+                            "unit": "m/s",
+                            "scale": 0.01
+                        },
+                        {
+                            "sig_name": "gps_heading",
+                            "type": "int16_t",
+                            "unit": "none",
+                            "scale": 0.1
+                        }
+                    ],
+                    "msg_period": 40,
+                    "msg_priority": 3
+                },
+                {
+                    "msg_name": "gps_position",
+                    "msg_desc": "gps position",
+                    "signals": [
+                        {
+                            "sig_name": "height",
+                            "type": "int16_t",
+                            "unit": "m",
+                            "scale": 0.01
+                        }
+                    ],
+                    "msg_period": 40,
+                    "msg_priority": 3
+                },
+                {
+                    "msg_name": "gps_coordinates",
+                    "msg_desc": "gps coordinates",
+                    "signals": [
+                        {
+                            "sig_name": "latitude",
+                            "type": "int32_t",
+                            "unit": "deg"
+                        },
+                        {
+                            "sig_name": "longitude",
+                            "type": "int32_t",
+                            "unit": "deg"
+                        }
+                    ],
+                    "msg_period": 40,
+                    "msg_priority": 3
+                },
+                {
+                    "msg_name": "gps_time",
+                    "msg_desc": "gps time in UTC",
+                    "signals": [
+                        {
+                            "sig_name": "year",
+                            "type": "uint8_t",
+                            "unit": "yr"
+                        },
+                        {
+                            "sig_name": "month",
+                            "type": "uint8_t",
+                            "unit": "mo"
+                        },
+                        {
+                            "sig_name": "day",
+                            "type": "uint8_t",
+                            "unit": "d"
+                        },
+                        {
+                            "sig_name": "hour",
+                            "type": "uint8_t",
+                            "unit": "h"
+                        },
+                        {
+                            "sig_name": "minute",
+                            "type": "uint8_t",
+                            "unit": "m"
+                        },
+                        {
+                            "sig_name": "second",
+                            "type": "uint8_t",
+                            "unit": "s"
+                        },
+                        {
+                            "sig_name": "millisecond",
+                            "type": "uint16_t",
+                            "unit": "ms"
+                        }
+                    ],
+                    "msg_period": 40,
+                    "msg_priority": 3
+                },
+                {
+                    "msg_name": "imu_gyro",
+                    "msg_desc": "gyroscope from imu",
+                    "signals": [
+                        {
+                            "sig_name": "imu_gyro_x",
+                            "type": "int16_t",
+                            "scale": 0.01,
+                            "unit": "rad/s"
+                        },
+                        {
+                            "sig_name": "imu_gyro_y",
+                            "type": "int16_t",
+                            "scale": 0.01,
+                            "unit": "rad/s"
+                        },
+                        {
+                            "sig_name": "imu_gyro_z",
+                            "type": "int16_t",
+                            "scale": 0.01,
+                            "unit": "rad/s"
+                        }
+                    ],
+                    "msg_period": 20,
+                    "msg_priority": 3
+                },
+                {
+                    "msg_name": "imu_accel",
+                    "msg_desc": "acceleration from imu",
+                    "signals": [
+                        {
+                            "sig_name": "imu_accel_x",
+                            "type": "int16_t",
+                            "scale": 0.01,
+                            "unit": "m/s^2"
+                        },
+                        {
+                            "sig_name": "imu_accel_y",
+                            "type": "int16_t",
+                            "scale": 0.01,
+                            "unit": "m/s^2"
+                        },
+                        {
+                            "sig_name": "imu_accel_z",
+                            "type": "int16_t",
+                            "scale": 0.01,
+                            "unit": "m/s^2"
+                        }
+                    ],
+                    "msg_period": 20,
+                    "msg_priority": 3
+                },
+                {
+                    "msg_name": "VCU_torques_speeds",
+                    "msg_desc": "All torque setpoints and speed setpoints",
+                    "signals": [
+                        {
+                            "sig_name": "TO_VT_left",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.01
+                        },
+                        {
+                            "sig_name": "TO_VT_right",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.01
+                        },
+                        {
+                            "sig_name": "TO_PT_equal",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.01
+                        },
+                        {
+                            "sig_name": "VCU_mode",
+                            "type": "int8_t",
+                            "scale": 1,
+                            "choices": [
+                                "equal_speed",
+                                "equal_torque",
+                                "equal_torque_with_safety",
+                                "variable_speed",
+                                "variable_torque",
+                                "invalid"
+                            ]
+                        }
+                    ],
+                    "msg_period": 20,
+                    "msg_priority": 3
+                },
+                {
+                    "msg_name": "vcu_soc_estimate",
+                    "msg_desc": "Estimated Voc and SOC for HV battery",
+                    "signals": [
+                        {
+                            "sig_name": "SOC_estimate",
+                            "type": "int16_t",
+                            "unit": "none",
+                            "scale": 0.01
+                        },
+                        {
+                            "sig_name": "Voc_estimate",
+                            "type": "int16_t",
+                            "unit": "V",
+                            "scale": 0.1
+                        }
+                    ],
+                    "msg_period": 20,
+                    "msg_priority": 3
+                },
+                {
+                    "msg_name": "drive_modes",
+                    "msg_desc": "Drive Modes",
+                    "signals": [
+                        {
+                            "sig_name": "VT_mode",
+                            "type": "int8_t",
+                            "scale": 1
+                        },
+                        {
+                            "sig_name": "WS_VS_equal",
+                            "type": "int16_t",
+                            "unit": "rad/s",
+                            "scale": 1
+                        }
+                    ],
+                    "msg_period": 20,
+                    "msg_priority": 3
+                },
+                {
+                    "msg_name": "tv_can_stats",
+                    "msg_desc": "CAN diagnostics",
+                    "signals": [
+                        {
+                            "sig_name": "can_tx_overflow",
+                            "type": "uint8_t",
+                            "sig_desc": "VCAN Tx queue overflow count"
+                        },
+                        {
+                            "sig_name": "can_tx_fail",
+                            "type": "uint8_t",
+                            "sig_desc": "VCAN Tx fail count (due to timeout in mailbox)"
+                        },
+                        {
+                            "sig_name": "can_rx_overflow",
+                            "type": "uint8_t",
+                            "sig_desc": "VCAN Rx queue overflow count"
+                        },
+                        {
+                            "sig_name": "can_rx_overrun",
+                            "type": "uint8_t",
+                            "sig_desc": "VCAN Rx FIFO overrun count"
+                        }
+                    ],
+                    "msg_period": 1000,
+                    "msg_priority": 3
+                },
+                {
+                    "msg_name": "tv_version",
+                    "msg_desc": "Torque Vector version",
+                    "signals": [
+                        {
+                            "sig_name": "git_hash",
+                            "type": "uint64_t",
+                            "sig_desc": "int representation of git short hash"
+                        }
+                    ],
+                    "msg_priority": 5,
+                    "msg_period": 5000
+                }
+            ],
+            "rx": [
+                {
+                    "msg_name": "torquevector_bl_cmd",
+                    "callback": true,
+                    "msg_priority": 3,
+                    "msg_period": 0
+                },
+                {
+                    "msg_name": "filt_throttle_brake",
+                    "msg_priority": 3,
+                    "msg_period": 0
+                },
+                {
+                    "msg_name": "LWS_Standard",
+                    "msg_priority": 3,
+                    "msg_period": 0
+                },
+                {
+                    "msg_name": "orion_currents_volts",
+                    "msg_priority": 3,
+                    "msg_period": 0
+                },
+                {
+                    "msg_name": "main_hb",
+                    "msg_priority": 3,
+                    "msg_period": 0
+                },
+                {
+                    "msg_name": "rear_wheel_speeds",
+                    "msg_priority": 3,
+                    "msg_period": 0
+                },
+                {
+                    "msg_name": "rear_motor_temps",
+                    "msg_priority": 3,
+                    "msg_period": 0
+                },
+                {
+                    "msg_name": "max_cell_temp",
+                    "msg_priority": 3,
+                    "msg_period": 0
+                },
+                {
+                    "msg_name": "INVA_CRIT",
+                    "msg_priority": 3,
+                    "msg_period": 0
+                },
+                {
+                    "msg_name": "INVB_CRIT",
+                    "msg_priority": 3,
+                    "msg_period": 0
+                },
+                {
+                    "msg_name": "INVA_TEMPS",
+                    "msg_priority": 3,
+                    "msg_period": 0
+                },
+                {
+                    "msg_name": "INVB_TEMPS",
+                    "msg_priority": 3,
+                    "msg_period": 0
+                },
+                {
+                    "msg_name": "dashboard_vcu_parameters",
+                    "msg_priority": 3,
+                    "msg_period": 0
+                }
+            ]
+        }
+    },
+    "scheduler": "psched"
+}

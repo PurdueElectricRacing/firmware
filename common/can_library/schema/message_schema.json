@@ -1,0 +1,46 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "$defs": {
+        "tx_message": {
+            "type": "object",
+            "required": ["msg_name", "msg_desc", "signals", "msg_priority"],
+            "properties": {
+                "msg_name": { "type": "string" },
+                "msg_desc": { "type": "string" },
+                "msg_priority": { "type": "integer", "minimum": 1, "maximum": 5 },
+                "msg_period": { "type": "integer" },
+                "msg_id_override": { "type": "string" },
+                "signals": {
+                    "type": "array",
+                    "items": { "$ref": "#/$defs/signal" }
+                }
+            }
+        },
+        "rx_message": {
+            "type": "object",
+            "required": ["msg_name"],
+            "properties": {
+                "msg_name": { "type": "string" },
+                "callback": { "type": "boolean" },
+                "irq": { "type": "boolean" }
+            }
+        },
+        "signal": {
+            "type": "object",
+            "required": ["sig_name", "type"],
+            "properties": {
+                "sig_name": { "type": "string" },
+                "sig_desc": { "type": "string" },
+                "type": { "type": "string" },
+                "length": { "type": "integer" },
+                "scale": { "type": "number" },
+                "offset": { "type": "number" },
+                "min": { "type": "number" },
+                "max": { "type": "number" },
+                "unit": { "type": "string" },
+                "choices": { "type": "array", "items": { "type": "string" } }
+            }
+        }
+    }
+}

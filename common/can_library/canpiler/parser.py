@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List, Optional, Dict
 from pathlib import Path
-from utils import load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, COMMON_TYPES_CONFIG_PATH, CTYPE_SIZES, print_as_error, print_as_ok, print_as_success, print_as_success
+from utils import load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, COMMON_TYPES_CONFIG_PATH, CTYPE_SIZES, print_as_error, print_as_ok, print_as_success, to_macro_name
 
 @dataclass
 class Signal:
@@ -15,6 +15,16 @@ class Signal:
     offset: float = 0.0
     min_val: Optional[float] = None
     max_val: Optional[float] = None
+    
+    # Resolved during parsing/linking
+    bit_offset: int = 0
+    bit_shift: int = 0
+    is_signed: bool = False
+    mask: int = 0
+
+    @property
+    def macro_name(self) -> str:
+        return to_macro_name(self.name)
 
     def get_bit_length(self, custom_types: Optional[Dict] = None) -> int:
         if self.length > 0:
@@ -40,6 +50,35 @@ class Message:
     is_extended: bool = False
     final_id: int = 0
     
+    @property
+    def macro_name(self) -> str:
+        return to_macro_name(self.name)
+
+    @property
+    def stale_threshold(self) -> int:
+        return int(self.period * 2.5)
+
+    def resolve_layout(self, custom_types: Dict) -> None:
+        """
+        Calculate bit offsets, shifts, and masks for all signals.
+        This is intrinsic to the message definition.
+        """
+        current_offset = 0
+        for sig in self.signals:
+            length = sig.get_bit_length(custom_types)
+            sig.length = length
+            sig.bit_offset = current_offset
+            sig.bit_shift = 64 - current_offset - length
+            sig.mask = (1 << length) - 1
+            
+            # Resolve signedness
+            base_type = sig.datatype
+            if custom_types and sig.datatype in custom_types:
+                base_type = custom_types[sig.datatype]['base_type']
+            sig.is_signed = base_type.startswith('int')
+            
+            current_offset += length
+
     def validate_semantics(self, custom_types: Dict) -> None:
         """
         Perform semantic checks that require external context (like custom types).

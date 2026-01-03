@@ -2,8 +2,10 @@ import sys
 from validator import validate_all
 from parser import parse_all
 from linker import link_all
+from mapper import map_hardware
 from dbcgen import generate_debug
 from codegen import generate_headers
+from utils import load_json, BUS_CONFIG_PATH
 
 def build():
     if not validate_all():
@@ -11,8 +13,13 @@ def build():
     
     try:
         nodes = parse_all()
-        
         link_all(nodes)
+        
+        # Load bus configs for mapper and codegen
+        bus_configs = load_json(BUS_CONFIG_PATH)
+        busses = {b['name']: b for b in bus_configs['busses']}
+        
+        mappings = map_hardware(nodes, busses)
         
     except ValueError as e:
         print(f"Error: {e}")
@@ -22,7 +29,7 @@ def build():
         sys.exit(1)
 
     generate_debug(nodes)
-    generate_headers(nodes)
+    generate_headers(nodes, mappings)
     # TODO dbcgen
 
 if __name__ == "__main__":

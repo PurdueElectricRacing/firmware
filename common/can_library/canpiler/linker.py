@@ -1,6 +1,6 @@
 from typing import List, Dict, Set, DefaultDict
 from collections import defaultdict
-from parser import Node, Message, Signal
+from parser import Node, Message, Signal, load_custom_types
 from utils import print_as_error, print_as_success
 
 class BusLinker:
@@ -131,5 +131,12 @@ def link_all(nodes: List[Node]) -> List[Node]:
                 else:
                     print_as_error(f"Node '{node.name}': RX message '{rx_msg.name}' not found in any bus")
                     raise ValueError(f"Unresolved RX message: {rx_msg.name}")
+
+    # 4. Resolve Signal Layouts
+    custom_types = load_custom_types()
+    for node in nodes:
+        for bus in node.busses.values():
+            for msg in bus.tx_messages:
+                msg.resolve_layout(custom_types)
 
     return nodes

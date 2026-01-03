@@ -47,3 +47,6 @@ def load_json(filepath):
     """Load JSON file"""
     with open(filepath) as f:
         return json.load(f)
+
+def to_macro_name(name: str) -> str:
+    return name.upper()

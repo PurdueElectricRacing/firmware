@@ -112,4 +112,24 @@ def link_all(nodes: List[Node]) -> List[Node]:
             print_as_error(f"Failed to link bus '{bus_name}'")
             raise
 
+    # 3. Resolve RX Messages
+    # Build global message map
+    all_tx_messages: Dict[str, Message] = {}
+    for node in nodes:
+        for bus in node.busses.values():
+            for msg in bus.tx_messages:
+                if msg.name in all_tx_messages:
+                    # This should be caught by validator, but good to check
+                    print_as_error(f"Duplicate message name '{msg.name}' found during linking")
+                all_tx_messages[msg.name] = msg
+
+    for node in nodes:
+        for bus_name, bus in node.busses.items():
+            for rx_msg in bus.rx_messages:
+                if rx_msg.name in all_tx_messages:
+                    rx_msg.resolved_message = all_tx_messages[rx_msg.name]
+                else:
+                    print_as_error(f"Node '{node.name}': RX message '{rx_msg.name}' not found in any bus")
+                    raise ValueError(f"Unresolved RX message: {rx_msg.name}")
+
     return nodes

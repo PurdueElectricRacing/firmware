@@ -75,6 +75,43 @@ void CAN_tx_update() {
     }
 }
 
+void CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo) {
+    CanMsgTypeDef_t rx_msg;
+    while (PHAL_rxCANMessage(bus, fifo, &rx_msg)) {
+        if (qSendToBack(&q_rx_can, &rx_msg) != SUCCESS_G) {
+            can_stats.rx_of++;
+        }
+    }
+}
+
+void CAN_rx_update() {
+    CanMsgTypeDef_t rx_msg;
+    while (qReceive(&q_rx_can, &rx_msg) == SUCCESS_G) {
+        uint8_t periph_idx = GET_PERIPH_IDX(rx_msg.Bus);
+        CAN_rx_dispatcher(rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId, rx_msg.Data, rx_msg.DLC, periph_idx);
+    }
+}
+
+#ifdef USE_CAN1
+void CAN1_RX0_IRQHandler() {
+    CAN_handle_irq(CAN1, 0);
+}
+
+void CAN1_RX1_IRQHandler() {
+    CAN_handle_irq(CAN1, 1);
+}
+#endif
+
+#ifdef USE_CAN2
+void CAN2_RX0_IRQHandler() {
+    CAN_handle_irq(CAN2, 0);
+}
+
+void CAN2_RX1_IRQHandler() {
+    CAN_handle_irq(CAN2, 1);
+}
+#endif
+
 bool CAN_prepare_filter_config(CAN_TypeDef *can) {
     can->MCR |= CAN_MCR_INRQ; // Enter back into INIT state (required for changing scale)
     uint32_t timeout = 0;
@@ -114,6 +151,7 @@ bool CAN_library_init() {
     }
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
     can_stats = (can_stats_t){0};
+    CAN_data_init();
     
 #ifdef USE_CAN1
     if (!CAN_prepare_filter_config(CAN1)) {

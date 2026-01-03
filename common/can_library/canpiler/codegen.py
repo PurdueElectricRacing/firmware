@@ -1,5 +1,5 @@
 from typing import List, Dict, Tuple
-from parser import Node, Message, load_custom_types
+from parser import Node, Message, RxMessage, load_custom_types
 from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success
 
 def to_macro_name(name: str) -> str:
@@ -52,19 +52,12 @@ def generate_router_header(nodes: List[Node]):
     print_as_success(f"Generated {filename.name}")
 
 def generate_node_headers(nodes: List[Node], bus_configs: Dict, custom_types: Dict):
-    # Build global message map for RX lookup
-    all_messages: Dict[str, Message] = {}
-    for node in nodes:
-        for bus in node.busses.values():
-            for msg in bus.tx_messages:
-                all_messages[msg.name] = msg
-
     for node in nodes:
         if node.is_external:
             continue
-        generate_node_header(node, all_messages, bus_configs, custom_types)
+        generate_node_header(node, bus_configs, custom_types)
 
-def generate_node_header(node: Node, all_messages: Dict[str, Message], bus_configs: Dict, custom_types: Dict):
+def generate_node_header(node: Node, bus_configs: Dict, custom_types: Dict):
     filename = GENERATED_DIR / f"{node.name}.h"
     
     with open(filename, 'w') as f:
@@ -75,6 +68,7 @@ def generate_node_header(node: Node, all_messages: Dict[str, Message], bus_confi
         for bus_name in sorted(node.busses.keys()):
             f.write(f'#include "{bus_name}.h"\n')
         f.write('\n#include <string.h>\n')
+        f.write('#include "common/psched/psched.h"\n')
         f.write('#include "common/can_library/can_common.h"\n\n')
         
         # Macros
@@ -87,20 +81,21 @@ def generate_node_header(node: Node, all_messages: Dict[str, Message], bus_confi
         
         # RX Data Struct
         f.write("typedef struct {\n")
-        rx_msgs = [] # List of (Message, peripheral, bus_name)
+        rx_msgs = [] # List of (RxMessage, peripheral, bus_name)
         for bus_name in sorted(node.busses.keys()):
             bus = node.busses[bus_name]
             for rx_msg in bus.rx_messages:
-                if rx_msg.name in all_messages:
+                if rx_msg.resolved_message:
                     f.write(f"\t{rx_msg.name}_data_t {rx_msg.name};\n")
-                    rx_msgs.append((all_messages[rx_msg.name], bus.peripheral, bus_name))
+                    rx_msgs.append((rx_msg, bus.peripheral, bus_name))
         f.write("} can_data_t;\n")
         f.write("extern can_data_t can_data;\n\n")
         
         # RX Functions
-        for msg, peripheral, bus_name in rx_msgs:
-            generate_rx_func(f, msg, custom_types)
-            
+        generate_rx_dispatcher(f, node, rx_msgs, custom_types)
+        generate_stale_check(f, node, rx_msgs)
+        generate_data_init(f, node, rx_msgs)
+        
         # TX Functions
         for bus_name in sorted(node.busses.keys()):
             bus = node.busses[bus_name]
@@ -113,13 +108,13 @@ def generate_node_header(node: Node, all_messages: Dict[str, Message], bus_confi
         f.write("#endif\n")
     print_as_success(f"Generated {filename.name}")
 
-def generate_filter_funcs(f, node: Node, rx_msgs: List[Tuple[Message, str, str]], bus_configs: Dict):
+def generate_filter_funcs(f, node: Node, rx_msgs: List[Tuple[RxMessage, str, str]], bus_configs: Dict):
     peripherals = sorted(list(set(bus.peripheral for bus in node.busses.values())))
     
     # Group RX messages by peripheral
     periph_to_msgs = {p: [] for p in peripherals}
-    for msg, periph, bus_name in rx_msgs:
-        periph_to_msgs[periph].append((msg, bus_name))
+    for rx_msg, periph, bus_name in rx_msgs:
+        periph_to_msgs[periph].append((rx_msg, bus_name))
         
     for periph in peripherals:
         msgs = periph_to_msgs[periph]
@@ -138,8 +133,10 @@ def generate_filter_funcs(f, node: Node, rx_msgs: List[Tuple[Message, str, str]]
         
         for i in range(0, len(msgs), 2):
             bank_idx = bank_offset + (i // 2)
-            msg1, bus1 = msgs[i]
-            msg2, bus2 = msgs[i+1] if i+1 < len(msgs) else (None, None)
+            rx_msg1, bus1 = msgs[i]
+            msg1 = rx_msg1.resolved_message
+            rx_msg2, bus2 = msgs[i+1] if i+1 < len(msgs) else (None, None)
+            msg2 = rx_msg2.resolved_message if rx_msg2 else None
             
             f.write(f"\t// Bank {bank_idx}: {msg1.name}" + (f", {msg2.name}" if msg2 else "") + "\n")
             f.write(f"\tCAN1->FM1R |= (1 << {bank_idx});\n")
@@ -161,32 +158,82 @@ def generate_filter_funcs(f, node: Node, rx_msgs: List[Tuple[Message, str, str]]
                 else:
                     f.write(f"\tCAN1->sFilterRegister[{bank_idx}].FR2 = ({m2_macro} << 21);\n")
             else:
+                # If no second message, repeat the first one to fill the bank
                 if is_ext1:
                     f.write(f"\tCAN1->sFilterRegister[{bank_idx}].FR2 = ({m1_macro} << 3) | 4;\n")
                 else:
                     f.write(f"\tCAN1->sFilterRegister[{bank_idx}].FR2 = ({m1_macro} << 21);\n")
-                
-            f.write(f"\tCAN1->FA1R |= (1 << {bank_idx});\n")
             
-        f.write(f"\tCAN1->FMR &= ~CAN_FMR_FINIT;\n")
-        f.write(f"}}\n\n")
-
-def generate_rx_func(f, msg: Message, custom_types: Dict):
-    f.write(f"[[gnu::always_inline]]\n")
-    f.write(f"static inline void CAN_RECEIVE_{msg.name}(const uint64_t data_raw) {{\n")
-    f.write(f"\tuint64_t data = __builtin_bswap64(data_raw);\n\n")
-    
-    bit_offset = 0
-    for sig in msg.signals:
-        length = sig.get_bit_length(custom_types)
-        mask = (1 << length) - 1
-        shift = 64 - bit_offset - length
-        f.write(f"\tcan_data.{msg.name}.{sig.name} = ({sig.datatype})((data >> {shift}) & {hex(mask)});\n")
-        bit_offset += length
+            f.write(f"\tCAN1->FA1R |= (1 << {bank_idx});\n")
         
-    f.write(f"\n\tcan_data.{msg.name}.last_rx = 0; // TODO: Get current timestamp\n")
-    f.write(f"\tcan_data.{msg.name}.stale = false;\n")
-    f.write(f"}}\n\n")
+        f.write(f"\tCAN1->FMR &= ~CAN_FMR_FINIT;\n")
+        f.write("}\n\n")
+
+def generate_rx_dispatcher(f, node: Node, rx_msgs: List[Tuple[RxMessage, str, str]], custom_types: Dict):
+    f.write("static inline void CAN_rx_dispatcher(uint32_t id, uint8_t* data, uint8_t len, uint8_t peripheral_idx) {\n")
+    f.write("\tswitch(id) {\n")
+    
+    for rx_msg, periph, bus_name in rx_msgs:
+        msg = rx_msg.resolved_message
+        msg_macro_base = to_macro_name(msg.name)
+        f.write(f"\t\tcase {msg_macro_base}_MSG_ID:\n")
+        f.write(f"\t\t\tif (peripheral_idx == {periph}_IDX) {{\n")
+        
+        f.write(f"\t\t\t\tuint64_t wire_data = 0;\n")
+        f.write(f"\t\t\t\tmemcpy(&wire_data, data, len);\n")
+        f.write(f"\t\t\t\tuint64_t host_data = __builtin_bswap64(wire_data);\n")
+        
+        bit_offset = 0
+        for sig in msg.signals:
+            length = sig.get_bit_length(custom_types)
+            mask = (1 << length) - 1
+            shift = 64 - bit_offset - length
+            
+            # Determine if we need sign extension
+            base_type = sig.datatype
+            if custom_types and sig.datatype in custom_types:
+                base_type = custom_types[sig.datatype]['base_type']
+            
+            is_signed = base_type.startswith('int')
+            
+            if is_signed and length < 64:
+                # Sign extension using arithmetic shift
+                f.write(f"\t\t\t\tcan_data.{msg.name}.{sig.name} = ({sig.datatype})(((int64_t)((host_data >> {shift}) & {hex(mask)}) << {64 - length}) >> {64 - length});\n")
+            else:
+                f.write(f"\t\t\t\tcan_data.{msg.name}.{sig.name} = ({sig.datatype})((host_data >> {shift}) & {hex(mask)});\n")
+            
+            bit_offset += length
+            
+        f.write(f"\t\t\t\tcan_data.{msg.name}.last_rx = sched.os_ticks;\n")
+        f.write(f"\t\t\t\tcan_data.{msg.name}.stale = false;\n")
+        f.write("\t\t\t}\n")
+        f.write("\t\t\tbreak;\n")
+        
+    f.write("\t\tdefault:\n")
+    f.write("\t\t\tbreak;\n")
+    f.write("\t}\n")
+    f.write("}\n\n")
+
+def generate_stale_check(f, node: Node, rx_msgs: List[Tuple[RxMessage, str, str]]):
+    f.write("static inline void CAN_check_stale() {\n")
+    for rx_msg, periph, bus_name in rx_msgs:
+        msg = rx_msg.resolved_message
+        if msg.period > 0:
+            # Use 2.5x period as threshold
+            threshold = int(msg.period * 2.5)
+            f.write(f"\tif (sched.os_ticks - can_data.{msg.name}.last_rx > {threshold}) {{\n")
+            f.write(f"\t\tcan_data.{msg.name}.stale = true;\n")
+            f.write(f"\t}}\n")
+    f.write("}\n\n")
+
+def generate_data_init(f, node: Node, rx_msgs: List[Tuple[RxMessage, str, str]]):
+    f.write("static inline void CAN_data_init() {\n")
+    f.write("\tmemset(&can_data, 0, sizeof(can_data));\n")
+    for rx_msg, periph, bus_name in rx_msgs:
+        msg = rx_msg.resolved_message
+        if msg.period > 0:
+            f.write(f"\tcan_data.{msg.name}.stale = true;\n")
+    f.write("}\n\n")
 
 def generate_tx_func(f, msg: Message, peripheral: str, bus_name: str, bus_configs: Dict, custom_types: Dict):
     msg_macro_base = to_macro_name(msg.name)

@@ -32,4 +32,6 @@ typedef struct {
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg);
 void CAN_tx_update();
+void CAN_rx_update();
+void CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo);
 bool CAN_library_init();

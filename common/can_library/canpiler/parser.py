@@ -69,6 +69,7 @@ class RxMessage:
     name: str
     callback: bool = False
     irq: bool = False
+    resolved_message: Optional[Message] = None # Resolved during linking stage
 
 @dataclass
 class Bus:

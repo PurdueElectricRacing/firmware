@@ -1,4 +1,3 @@
-#include "common/can_library/generated/can_router.h"
 #include "common/can_library/can_common.h"
 #include "common/queue/queue.h"
 #include "common/psched/psched.h"

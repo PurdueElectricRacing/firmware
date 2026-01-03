@@ -4,46 +4,44 @@ cmake_minimum_required(VERSION 3.13)
 set(CAN_GEN_DIR ${CMAKE_CURRENT_LIST_DIR}/generated)
 
 # 2. Define the command to run the generator
-# We use a custom target to ensure this runs before compilation
-# Note: We assume build.py generates can_common.c/h and can_<NODE>.c/h in the generated folder
+# We use can_router.h as the sentinel file for generation
 add_custom_command(
-    OUTPUT ${CAN_GEN_DIR}/can_common.c
-    COMMAND python3 ${CMAKE_CURRENT_LIST_DIR}/generation/build.py
-    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
-    COMMENT "Generating CAN Library..."
-    VERBATIM
+	OUTPUT ${CAN_GEN_DIR}/can_router.h
+	COMMAND python3 ${CMAKE_CURRENT_LIST_DIR}/canpiler/build.py
+	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+	COMMENT "Generating CAN Library..."
+	VERBATIM
 )
 
 # 3. Create a target that triggers the generation
-add_custom_target(can_generation DEPENDS ${CAN_GEN_DIR}/can_common.c)
+add_custom_target(can_generation DEPENDS ${CAN_GEN_DIR}/can_router.h)
 
-# 4. Create the Common Library
-# This library contains definitions shared by all nodes
-# We use INTERFACE libraries so sources are compiled with the target application's flags (Arch, Defines, etc.)
-add_library(can_common INTERFACE)
-target_sources(can_common INTERFACE ${CAN_GEN_DIR}/can_common.c)
-add_dependencies(can_common can_generation)
-target_include_directories(can_common INTERFACE ${CAN_GEN_DIR})
-target_include_directories(can_common INTERFACE ${CMAKE_CURRENT_LIST_DIR}/include)
+# 4. Create the Common Headers Library
+# This provides the include paths for the generated headers and the project root
+add_library(can_common_headers INTERFACE)
+target_include_directories(can_common_headers INTERFACE 
+	${CAN_GEN_DIR}
+	${CMAKE_SOURCE_DIR}
+)
+add_dependencies(can_common_headers can_generation)
 
-# 5. Create Node-Specific Libraries (Macro for convenience)
+# 5. Create Node-Specific Libraries
+# Each node gets its own static library which compiles can_common.c 
+# with a node-specific define.
 macro(create_can_node_lib NODE_NAME)
-    set(LIB_NAME "can_node_${NODE_NAME}")
-    
-    add_library(${LIB_NAME} INTERFACE)
-    
-    # Sources: The generated node code AND the hardware driver
-    # They are bundled together so the driver can call generated functions (like init_filters)
-    target_sources(${LIB_NAME} INTERFACE 
-        ${CAN_GEN_DIR}/can_${NODE_NAME}.c
-        ${CMAKE_CURRENT_LIST_DIR}/can_base.c
-    )
-    
-    # Link to common definitions
-    target_link_libraries(${LIB_NAME} INTERFACE can_common)
-    
-    # Ensure generation happens before this lib is built
-    add_dependencies(${LIB_NAME} can_generation)
+	set(LIB_NAME "can_node_${NODE_NAME}")
+	
+	# We use a static library so each node has its own object file for can_common.c
+	add_library(${LIB_NAME} STATIC ${CMAKE_CURRENT_LIST_DIR}/can_common.c)
+	
+	# Set the node-specific define so can_router.h knows which header to include
+	target_compile_definitions(${LIB_NAME} PRIVATE "NODE_${NODE_NAME}")
+	
+	# Link to common headers and project root
+	target_link_libraries(${LIB_NAME} PUBLIC can_common_headers)
+	
+	# Ensure generation happens before compilation
+	add_dependencies(${LIB_NAME} can_generation)
 endmacro()
 
 # 6. Instantiate the libraries for your known nodes

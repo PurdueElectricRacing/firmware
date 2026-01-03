@@ -20,6 +20,9 @@ def generate_headers(nodes: List[Node], mappings: Dict[str, NodeMapping]):
     # Ensure generated directory exists
     GENERATED_DIR.mkdir(exist_ok=True)
 
+    # Generate types header
+    generate_types_header(custom_types)
+
     # Generate header for each bus
     for bus_name, config in busses.items():
         generate_bus_header(bus_name, config, bus_messages.get(bus_name, []), custom_types)
@@ -29,6 +32,22 @@ def generate_headers(nodes: List[Node], mappings: Dict[str, NodeMapping]):
 
     # Generate router header
     generate_router_header(nodes)
+
+def generate_types_header(custom_types: Dict):
+    filename = GENERATED_DIR / "can_types.h"
+    with open(filename, 'w') as f:
+        f.write("#ifndef CAN_TYPES_H\n")
+        f.write("#define CAN_TYPES_H\n\n")
+        f.write("#include <stdint.h>\n\n")
+        
+        for type_name, config in custom_types.items():
+            f.write(f"typedef enum {{\n")
+            for i, choice in enumerate(config.get('choices', [])):
+                f.write(f"\t{type_name.upper()}_{choice.upper()} = {i},\n")
+            f.write(f"}} {type_name};\n\n")
+            
+        f.write("#endif\n")
+    print_as_success(f"Generated {filename.name}")
 
 def generate_router_header(nodes: List[Node]):
     filename = GENERATED_DIR / "can_router.h"
@@ -42,7 +61,7 @@ def generate_router_header(nodes: List[Node]):
         if internal_nodes:
             for i, node in enumerate(internal_nodes):
                 directive = "#if" if i == 0 else "#elif"
-                f.write(f"{directive} defined(NODE_{node.name})\n")
+                f.write(f"{directive} defined(CAN_NODE_{node.name})\n")
                 f.write(f'\t#include "{node.name}.h"\n')
             f.write("#endif\n")
             
@@ -62,13 +81,6 @@ def generate_node_header(node: Node, bus_configs: Dict, custom_types: Dict, mapp
         f.write(f"#ifndef {node.name}_H\n")
         f.write(f"#define {node.name}_H\n\n")
         
-        # Includes
-        for bus_name in sorted(node.busses.keys()):
-            f.write(f'#include "{bus_name}.h"\n')
-        f.write('\n#include <string.h>\n')
-        f.write('#include "common/psched/psched.h"\n')
-        f.write('#include "common/can_library/can_common.h"\n\n')
-        
         # Macros
         peripherals = sorted(list(set(bus.peripheral for bus in node.busses.values())))
         f.write(f"#define NUM_CAN_PERIPHERALS {len(peripherals)}\n")
@@ -76,6 +88,13 @@ def generate_node_header(node: Node, bus_configs: Dict, custom_types: Dict, mapp
             f.write(f"#define USE_{peripheral}\n")
             f.write(f"#define {peripheral}_IDX {i}\n")
         f.write("\n")
+
+        # Includes
+        for bus_name in sorted(node.busses.keys()):
+            f.write(f'#include "{bus_name}.h"\n')
+        f.write('\n#include <string.h>\n')
+        f.write('#include "common/psched/psched.h"\n')
+        f.write('#include "common/can_library/can_common.h"\n\n')
         
         # RX Data Struct
         f.write("typedef struct {\n")
@@ -116,35 +135,35 @@ def generate_filter_funcs(f, mapping: NodeMapping):
             f.write("}\n\n")
             continue
             
-        f.write(f"\tCAN1->FMR  |= CAN_FMR_FINIT;\n")
+        f.write(f"\t{periph}->FMR  |= CAN_FMR_FINIT;\n")
         
         for fb in banks:
             f.write(f"\t// Bank {fb.bank_idx}: {fb.msg1.name}" + (f", {fb.msg2.name}" if fb.msg2 else "") + "\n")
-            f.write(f"\tCAN1->FM1R |= (1 << {fb.bank_idx});\n")
-            f.write(f"\tCAN1->FS1R |= (1 << {fb.bank_idx});\n")
+            f.write(f"\t{periph}->FM1R |= (1 << {fb.bank_idx});\n")
+            f.write(f"\t{periph}->FS1R |= (1 << {fb.bank_idx});\n")
             
             m1_macro = f"{fb.msg1.macro_name}_MSG_ID"
             if fb.is_ext1:
-                f.write(f"\tCAN1->sFilterRegister[{fb.bank_idx}].FR1 = ({m1_macro} << 3) | 4;\n")
+                f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR1 = ({m1_macro} << 3) | 4;\n")
             else:
-                f.write(f"\tCAN1->sFilterRegister[{fb.bank_idx}].FR1 = ({m1_macro} << 21);\n")
+                f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR1 = ({m1_macro} << 21);\n")
             
             if fb.msg2:
                 m2_macro = f"{fb.msg2.macro_name}_MSG_ID"
                 if fb.is_ext2:
-                    f.write(f"\tCAN1->sFilterRegister[{fb.bank_idx}].FR2 = ({m2_macro} << 3) | 4;\n")
+                    f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR2 = ({m2_macro} << 3) | 4;\n")
                 else:
-                    f.write(f"\tCAN1->sFilterRegister[{fb.bank_idx}].FR2 = ({m2_macro} << 21);\n")
+                    f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR2 = ({m2_macro} << 21);\n")
             else:
                 # If no second message, repeat the first one to fill the bank
                 if fb.is_ext1:
-                    f.write(f"\tCAN1->sFilterRegister[{fb.bank_idx}].FR2 = ({m1_macro} << 3) | 4;\n")
+                    f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR2 = ({m1_macro} << 3) | 4;\n")
                 else:
-                    f.write(f"\tCAN1->sFilterRegister[{fb.bank_idx}].FR2 = ({m1_macro} << 21);\n")
+                    f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR2 = ({m1_macro} << 21);\n")
             
-            f.write(f"\tCAN1->FA1R |= (1 << {fb.bank_idx});\n")
+            f.write(f"\t{periph}->FA1R |= (1 << {fb.bank_idx});\n")
         
-        f.write(f"\tCAN1->FMR &= ~CAN_FMR_FINIT;\n")
+        f.write(f"\t{periph}->FMR &= ~CAN_FMR_FINIT;\n")
         f.write("}\n\n")
 
 def generate_rx_dispatcher(f, node: Node, rx_msgs: List[Tuple[RxMessage, str, str]], custom_types: Dict):

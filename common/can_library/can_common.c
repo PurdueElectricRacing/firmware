@@ -93,21 +93,21 @@ void CAN_rx_update() {
 }
 
 #ifdef USE_CAN1
-void CAN1_RX0_IRQHandler() {
+void __attribute__((used)) CAN1_RX0_IRQHandler() {
     CAN_handle_irq(CAN1, 0);
 }
 
-void CAN1_RX1_IRQHandler() {
+void __attribute__((used)) CAN1_RX1_IRQHandler() {
     CAN_handle_irq(CAN1, 1);
 }
 #endif
 
 #ifdef USE_CAN2
-void CAN2_RX0_IRQHandler() {
+void __attribute__((used)) CAN2_RX0_IRQHandler() {
     CAN_handle_irq(CAN2, 0);
 }
 
-void CAN2_RX1_IRQHandler() {
+void __attribute__((used)) CAN2_RX1_IRQHandler() {
     CAN_handle_irq(CAN2, 1);
 }
 #endif

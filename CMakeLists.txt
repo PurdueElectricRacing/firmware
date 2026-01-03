@@ -1,12 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
 
-# Run DAQ automatic code generation
-execute_process(COMMAND python3 ${CMAKE_SOURCE_DIR}/common/daq/generation/generator.py
-                RESULT_VARIABLE ret)
-if(ret EQUAL "1")
-    message(FATAL_ERROR "CAN Generation Failed")
-endif()
-
 # Run automatic code generation for Fault Library
 execute_process(COMMAND python3 ${CMAKE_SOURCE_DIR}/common/faults/generation/generator.py
                 RESULT_VARIABLE ret)
@@ -49,6 +42,9 @@ make_cmsis_library(CMSIS_F732 STM32F7xx STM32F732xx ${CMAKE_SOURCE_DIR}/external
 make_cmsis_library(CMSIS_G474 STM32G4xx STM32G474xx ${CMAKE_SOURCE_DIR}/external/STM32CubeG4/Drivers/CMSIS)
 
 include(cmake/FindFreeRTOS.cmake)
+
+# Include new CAN Library
+include(common/can_library/can_library.cmake)
 
 # Function to apply analyzer flags to targets based on type
 function(apply_analyzer_to_directory DIR_PATH TARGET_TYPE_FILTER)

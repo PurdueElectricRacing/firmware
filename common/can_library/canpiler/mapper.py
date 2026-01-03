@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
-from typing import List, Dict, Tuple, Optional
-from parser import Node, Message, RxMessage
+from typing import List, Dict, Optional
+from parser import Node, Message
 
 @dataclass
 class FilterBank:

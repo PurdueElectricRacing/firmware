@@ -1,7 +1,7 @@
 from typing import List, Dict, Tuple, Optional
 from parser import Node, Message, RxMessage, load_custom_types
 from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success, to_macro_name
-from mapper import NodeMapping, FilterBank
+from mapper import NodeMapping
 
 def generate_headers(nodes: List[Node], mappings: Dict[str, NodeMapping]):
     # Load bus configs
@@ -41,9 +41,13 @@ def generate_types_header(custom_types: Dict):
         f.write("#include <stdint.h>\n\n")
         
         for type_name, config in custom_types.items():
+            # Chop off _t for the prefix
+            prefix = type_name[:-2] if type_name.endswith('_t') else type_name
+            prefix = prefix.upper()
+            
             f.write(f"typedef enum {{\n")
             for i, choice in enumerate(config.get('choices', [])):
-                f.write(f"\t{type_name.upper()}_{choice.upper()} = {i},\n")
+                f.write(f"\t{prefix}_{choice.upper()} = {i},\n")
             f.write(f"}} {type_name};\n\n")
             
         f.write("#endif\n")
@@ -108,6 +112,12 @@ def generate_node_header(node: Node, bus_configs: Dict, custom_types: Dict, mapp
         f.write("} can_data_t;\n")
         f.write("extern can_data_t can_data;\n\n")
         
+        # Callback Declarations
+        for rx_msg, _, _ in rx_msgs:
+            if rx_msg.callback:
+                f.write(f"extern void {rx_msg.name}_CALLBACK(can_data_t* can_data);\n")
+        f.write("\n")
+
         # RX Functions
         generate_rx_dispatcher(f, node, rx_msgs, custom_types)
         generate_stale_check(f, node, rx_msgs)
@@ -188,6 +198,8 @@ def generate_rx_dispatcher(f, node: Node, rx_msgs: List[Tuple[RxMessage, str, st
             
         f.write(f"\t\t\t\tcan_data.{msg.name}.last_rx = sched.os_ticks;\n")
         f.write(f"\t\t\t\tcan_data.{msg.name}.stale = false;\n")
+        if rx_msg.callback:
+            f.write(f"\t\t\t\t{rx_msg.name}_CALLBACK(&can_data);\n")
         f.write("\t\t\t}\n")
         f.write("\t\t\tbreak;\n")
         
@@ -239,7 +251,13 @@ def generate_tx_func(f, msg: Message, peripheral: str, bus_name: str, bus_config
     f.write(f"\tuint64_t data = 0;\n")
     
     for sig in msg.signals:
-        f.write(f"\tdata |= ((uint64_t)({sig.name} & {hex(sig.mask)}) << {sig.bit_shift});\n")
+        if sig.datatype in ['float', 'double']:
+            union_type = "uint32_t" if sig.datatype == 'float' else "uint64_t"
+            f.write(f"\tunion {{ {sig.datatype} f; {union_type} u; }} _{sig.name}_u;\n")
+            f.write(f"\t_{sig.name}_u.f = {sig.name};\n")
+            f.write(f"\tdata |= ((uint64_t)(_{sig.name}_u.u & {hex(sig.mask)}) << {sig.bit_shift});\n")
+        else:
+            f.write(f"\tdata |= ((uint64_t)({sig.name} & {hex(sig.mask)}) << {sig.bit_shift});\n")
         
     f.write(f"\n\tuint64_t wire_data = __builtin_bswap64(data);\n")
     f.write(f"\tmemcpy(outgoing.Data, &wire_data, {msg.macro_name}_DLC);\n\n")
@@ -253,7 +271,9 @@ def generate_bus_header(bus_name: str, config: Dict, messages: List[Message], cu
         f.write(f"#ifndef {bus_name}_H\n")
         f.write(f"#define {bus_name}_H\n\n")
         
-        f.write("#include <stdint.h>\n\n")
+        f.write("#include <stdint.h>\n")
+        f.write("#include <stdbool.h>\n")
+        f.write("#include \"can_types.h\"\n\n")
         
         # Bus Properties
         f.write("// Bus Properties\n")
@@ -267,6 +287,9 @@ def generate_bus_header(bus_name: str, config: Dict, messages: List[Message], cu
         for msg in messages:
             f.write(f"#define {msg.macro_name}_MSG_ID (0x{msg.final_id:03X})\n")
             f.write(f"#define {msg.macro_name}_DLC ({msg.get_dlc(custom_types)})\n")
+            if msg.period > 0:
+                f.write(f"#define {msg.macro_name}_PERIOD ({msg.period})\n")
+                f.write(f"#define PERIOD_{msg.macro_name}_MS ({msg.period})\n")
             
             f.write(f"typedef struct {{\n")
             for sig in msg.signals:

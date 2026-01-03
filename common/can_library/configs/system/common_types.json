@@ -15,6 +15,18 @@
                 "recover",
                 "constant_torque"
             ]
+        },
+        {
+            "name": "VCU_mode_t",
+            "base_type": "uint8_t",
+            "choices": [
+                "invalid",
+                "equal_speed",
+                "variable_speed",
+                "equal_torque",
+                "equal_torque_with_safety",
+                "variable_torque"
+            ]
         }
     ]
 }

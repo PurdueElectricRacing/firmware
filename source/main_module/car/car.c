@@ -34,7 +34,7 @@ bool validatePrecharge();
 bool carInit() {
     /* Set initial states */
     car                       = (Car_t) {0}; // Everything to zero
-    car.state                 = CAR_STATE_IDLE;
+    car.state                 = CARSTATE_IDLE;
     car.torque_src            = CAR_TORQUE_TV;
     car.regen_enabled         = false;
     car.sdc_close             = true; // We want to initialize SDC as "good"
@@ -60,8 +60,8 @@ bool carInit() {
 }
 
 void carHeartbeat() {
-    SEND_MAIN_HB(car.state, car.pchg.pchg_complete);
-    SEND_MAIN_HB_AMK(car.state, car.pchg.pchg_complete);
+    CAN_SEND_main_hb(car.state, car.pchg.pchg_complete);
+    CAN_SEND_main_hb_amk(car.state, car.pchg.pchg_complete);
 }
 
 /**
@@ -81,8 +81,8 @@ void carPeriodic() {
     car.sdc_close             = true;
 
     // TSMS/HVD Disconnecting is not an error, so go back to init state. However, we must keep fatal state latched
-    if (checkFault(ID_TSMS_DISC_FAULT) || checkFault(ID_HVD_DISC_FAULT) && car.state != CAR_STATE_FATAL)
-        car.state = CAR_STATE_IDLE;
+    if (checkFault(ID_TSMS_DISC_FAULT) || checkFault(ID_HVD_DISC_FAULT) && car.state != CARSTATE_FATAL)
+        car.state = CARSTATE_IDLE;
 
     /* Process Inputs */
 
@@ -108,7 +108,7 @@ void carPeriodic() {
     car.pchg.pchg_complete = (pchg_complete_stat > 0.5f);
 
     /* AMK Control */
-    enableAMKs = (car.state == CAR_STATE_READY2DRIVE || car.state == CAR_STATE_CONSTANT_TORQUE);
+    enableAMKs = (car.state == CARSTATE_READY2DRIVE || car.state == CARSTATE_CONSTANT_TORQUE);
 
     /**
      * Brake Light Control
@@ -127,19 +127,19 @@ void carPeriodic() {
     }
 
     if (checkFault(ID_RTD_EXIT_FAULT)) {
-        car.state = CAR_STATE_IDLE;
+        car.state = CARSTATE_IDLE;
     }
 
     // An error fault has higher priority
     // than the RTD Exit Fault
     if (errorLatched()) {
-        car.state = CAR_STATE_ERROR;
+        car.state = CARSTATE_ERROR;
     }
 
     // A fatal fault has higher priority
     // than an error fault
     if (fatalLatched()) {
-        car.state = CAR_STATE_FATAL;
+        car.state = CARSTATE_FATAL;
     }
 
     /* State Dependent Operations */
@@ -152,53 +152,53 @@ void carPeriodic() {
     //                   - brake pedal pressed and held
     //                   - start button press
 
-    // car.state = CAR_STATE_READY2DRIVE;
+    // car.state = CARSTATE_READY2DRIVE;
     // // simulate precharge
     // car.pchg.pchg_complete = 1;
 
-    if (car.state == CAR_STATE_FATAL) {
+    if (car.state == CARSTATE_FATAL) {
         // SDC critical error has occured, open sdc
         // Currently latches into this state
         car.sdc_close = false;
-    } else if (car.state == CAR_STATE_ERROR) {
+    } else if (car.state == CARSTATE_ERROR) {
         // Error has occured, leave HV on but do not drive
         // Recover once error gone
         if (!errorLatched())
-            car.state = CAR_STATE_IDLE;
+            car.state = CARSTATE_IDLE;
         prchg_start = false;
-    } else if (car.state == CAR_STATE_IDLE) {
+    } else if (car.state == CARSTATE_IDLE) {
         prchg_start = false;
         if (sdc_mux.tsms_stat) {
-            car.state = CAR_STATE_PRECHARGING;
+            car.state = CARSTATE_PRECHARGING;
         }
-    } else if (car.state == CAR_STATE_PRECHARGING) {
+    } else if (car.state == CARSTATE_PRECHARGING) {
         if (car.pchg.pchg_complete) {
-            car.state = CAR_STATE_ENERGIZED;
+            car.state = CARSTATE_ENERGIZED;
         }
-    } else if (car.state == CAR_STATE_ENERGIZED) {
+    } else if (car.state == CARSTATE_ENERGIZED) {
         prchg_start = false;
 
         if (car.start_btn_debounced && can_data.filt_throttle_brake.brake > BRAKE_PRESSED_THRESHOLD) {
-            car.state           = CAR_STATE_BUZZING;
+            car.state           = CARSTATE_BUZZING;
             car.buzzer_start_ms = sched.os_ticks;
         }
-    } else if (car.state == CAR_STATE_BUZZING) {
+    } else if (car.state == CARSTATE_BUZZING) {
         // EV.10.5 - Ready to drive sound
         // 1-3 seconds, unique from other sounds
         if (sched.os_ticks - car.buzzer_start_ms > BUZZER_DURATION_MS) {
             if (daq_constant_tq)
-                car.state = CAR_STATE_CONSTANT_TORQUE;
+                car.state = CARSTATE_CONSTANT_TORQUE;
             else
-                car.state = CAR_STATE_READY2DRIVE;
+                car.state = CARSTATE_READY2DRIVE;
         }
-    } else if (car.state == CAR_STATE_READY2DRIVE) {
+    } else if (car.state == CARSTATE_READY2DRIVE) {
         if (!car.pchg.pchg_complete) {
-            car.state = CAR_STATE_IDLE;
+            car.state = CARSTATE_IDLE;
         }
 
         // Check if requesting to exit ready2drive
         if (car.start_btn_debounced) {
-            car.state = CAR_STATE_IDLE;
+            car.state = CARSTATE_IDLE;
         } else {
             float t_req_pedal = 0;
             float t_req_tv_l  = 0;
@@ -312,7 +312,7 @@ void carPeriodic() {
                     // requested torque and must not increase it
                     temp_t_req.torque_left  = CLAMP(temp_t_req.torque_left, 0, t_req_pedal);
                     temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, 0, t_req_pedal);
-                    SEND_SIMULATED_TV(temp_t_req.torque_left, temp_t_req.torque_right);
+                    CAN_SEND_simulated_tv(temp_t_req.torque_left, temp_t_req.torque_right);
                     temp_t_req.torque_left  = t_req_pedal;
                     temp_t_req.torque_right = t_req_pedal;
                     break;
@@ -340,13 +340,13 @@ void carPeriodic() {
 
             car.torque_r = temp_t_req;
         }
-    } else if (car.state == CAR_STATE_CONSTANT_TORQUE) {
+    } else if (car.state == CARSTATE_CONSTANT_TORQUE) {
         static bool throttle_pressed;
         static bool brake_pressed;
         // Check if requesting to exit ready2drive
         // if (car.start_btn_debounced)
         // {
-        //     car.state = CAR_STATE_IDLE;
+        //     car.state = CARSTATE_IDLE;
         // }
         // else
         // {
@@ -387,7 +387,7 @@ void carPeriodic() {
     }
 
     /* Update System Outputs */
-    car.buzzer         = car.state == CAR_STATE_BUZZING || daq_buzzer;
+    car.buzzer         = car.state == CARSTATE_BUZZING || daq_buzzer;
     buzzer_brake_fault = PHAL_readGPIO(BRK_BUZZER_STAT_GPIO_Port, BRK_BUZZER_STAT_Pin);
     PHAL_writeGPIO(SDC_CTRL_GPIO_Port, SDC_CTRL_Pin, car.sdc_close);
     PHAL_writeGPIO(BRK_LIGHT_GPIO_Port, BRK_LIGHT_Pin, car.brake_light | daq_brake);
@@ -407,7 +407,7 @@ void parseMCDataPeriodic(void) {
     amkPeriodic(&car.motor_l);
     amkPeriodic(&car.motor_r);
     wheelSpeedsPeriodic();
-    SEND_REAR_WHEEL_SPEEDS(wheel_speeds.left_rad_s_x100, wheel_speeds.right_rad_s_x100);
+    CAN_SEND_rear_wheel_speeds(wheel_speeds.left_rad_s_x100, wheel_speeds.right_rad_s_x100);
 }
 
 /**
@@ -429,7 +429,7 @@ void send_shockpots() {
     
     shock_l_scaled = (int16_t)(shock_l_parsed * SCALE_INV_SHOCK_REAR_LEFT_SHOCK);
     shock_r_scaled = (int16_t)(shock_r_parsed * SCALE_INV_SHOCK_REAR_RIGHT_SHOCK);
-    SEND_SHOCK_REAR(shock_l_scaled, shock_r_scaled);
+    CAN_SEND_shock_rear(shock_l_scaled, shock_r_scaled);
 }
 
 /**
@@ -576,7 +576,7 @@ void monitorSDCPeriodic() {
     if (index == SDC_MUX_HIGH_IDX) {
         index   = 0;
         sdc_mux = sdc_nodes_raw;
-        SEND_SDC_STATUS(sdc_mux.main_stat, sdc_mux.c_stop_stat, sdc_mux.inertia_stat, sdc_mux.bots_stat, sdc_mux.bspd_stat, sdc_mux.bms_stat, sdc_mux.imd_stat, sdc_mux.r_stop_stat, sdc_mux.l_stop_stat, sdc_mux.hvd_stat, sdc_mux.emeter_stat, sdc_mux.r_hub_stat, sdc_mux.tsms_stat, sdc_mux.pchg_out_stat);
+        CAN_SEND_sdc_status(sdc_mux.main_stat, sdc_mux.c_stop_stat, sdc_mux.inertia_stat, sdc_mux.bots_stat, sdc_mux.bspd_stat, sdc_mux.bms_stat, sdc_mux.imd_stat, sdc_mux.r_stop_stat, sdc_mux.l_stop_stat, sdc_mux.hvd_stat, sdc_mux.emeter_stat, sdc_mux.r_hub_stat, sdc_mux.tsms_stat, sdc_mux.pchg_out_stat);
     }
 
     PHAL_writeGPIO(SDC_MUX_S0_GPIO_Port, SDC_MUX_S0_Pin, (index & 0x01));

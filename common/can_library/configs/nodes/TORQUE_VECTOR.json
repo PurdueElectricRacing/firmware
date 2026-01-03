@@ -242,8 +242,7 @@
                     "signals": [
                         {
                             "sig_name": "VT_mode",
-                            "type": "int8_t",
-                            "scale": 1
+                            "type": "VCU_mode_t"
                         },
                         {
                             "sig_name": "WS_VS_equal",

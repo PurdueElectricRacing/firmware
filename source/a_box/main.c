@@ -322,8 +322,8 @@ void canTxUpdate(void) {
     }
 }
 
-void a_box_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a) {
-    if (can_data.a_box_bl_cmd.cmd == BLCMD_RST)
+void a_box_bl_cmd_CALLBACK(can_data_t* can_data_a) {
+    if (can_data_a->a_box_bl_cmd.cmd == BLCMD_RST)
         Bootloader_ResetForFirmwareDownload();
 }
 

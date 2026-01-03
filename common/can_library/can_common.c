@@ -5,6 +5,7 @@
 // common data structures
 can_data_t can_data;
 can_stats_t can_stats;
+volatile uint32_t last_can_rx_time_ms;
 
 #if defined(STM32F407xx) || defined(STM32F732xx)
 
@@ -87,27 +88,28 @@ void CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo) {
 void CAN_rx_update() {
     CanMsgTypeDef_t rx_msg;
     while (qReceive(&q_rx_can, &rx_msg) == SUCCESS_G) {
+        last_can_rx_time_ms = sched.os_ticks;
         uint8_t periph_idx = GET_PERIPH_IDX(rx_msg.Bus);
         CAN_rx_dispatcher(rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId, rx_msg.Data, rx_msg.DLC, periph_idx);
     }
 }
 
 #ifdef USE_CAN1
-void __attribute__((used)) CAN1_RX0_IRQHandler() {
+void __attribute__((weak, used)) CAN1_RX0_IRQHandler() {
     CAN_handle_irq(CAN1, 0);
 }
 
-void __attribute__((used)) CAN1_RX1_IRQHandler() {
+void __attribute__((weak, used)) CAN1_RX1_IRQHandler() {
     CAN_handle_irq(CAN1, 1);
 }
 #endif
 
 #ifdef USE_CAN2
-void __attribute__((used)) CAN2_RX0_IRQHandler() {
+void __attribute__((weak, used)) CAN2_RX0_IRQHandler() {
     CAN_handle_irq(CAN2, 0);
 }
 
-void __attribute__((used)) CAN2_RX1_IRQHandler() {
+void __attribute__((weak, used)) CAN2_RX1_IRQHandler() {
     CAN_handle_irq(CAN2, 1);
 }
 #endif

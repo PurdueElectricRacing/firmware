@@ -28,7 +28,7 @@
 /* -------------------------------------------------------
     Module Includes
 -------------------------------------------------------- */
-#include "can_parse.h"
+#include "can_router.h"
 #include "car.h"
 #include "cooling.h"
 #include "daq.h"
@@ -196,8 +196,8 @@ int main(void) {
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
 
     /* Background Tasks */
-    taskCreateBackground(canTxUpdate);
-    taskCreateBackground(canRxUpdate);
+    taskCreateBackground(CAN_tx_update);
+    taskCreateBackground(CAN_rx_update);
 
     /* Start all tasks */
     schedStart();
@@ -219,10 +219,10 @@ void calibrate_lws(void) {
     // Call function at delay ~3 seconds
     static uint8_t status = 0;
     if (status == 0) {
-        SEND_LWS_CONFIG(0x05, 0, 0); // reset cal
+        CAN_SEND_LWS_Config(0x05, 0, 0); // reset cal
         status = 1;
     } else if (status == 1) {
-        SEND_LWS_CONFIG(0x03, 0, 0); // start new
+        CAN_SEND_LWS_Config(0x03, 0, 0); // start new
         status = 2;
     } else {
         // done
@@ -238,16 +238,21 @@ void preflightChecks(void) {
             if (false == PHAL_initCAN(CAN1, false, VCAN_BPS)) {
                 HardFault_Handler();
             }
-            NVIC_EnableIRQ(CAN1_RX0_IRQn);
             break;
         case 1:
             /* MCAN */
             if (false == PHAL_initCAN(CAN2, false, MCAN_BPS)) {
                 HardFault_Handler();
             }
-            NVIC_EnableIRQ(CAN2_RX0_IRQn);
             break;
         case 2:
+            if (!CAN_library_init()) {
+                HardFault_Handler();
+            }
+            NVIC_EnableIRQ(CAN1_RX0_IRQn);
+            NVIC_EnableIRQ(CAN2_RX0_IRQn);
+            break;
+        case 3:
             /* ADC */
             if (false == PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
                 HardFault_Handler();
@@ -258,8 +263,6 @@ void preflightChecks(void) {
             PHAL_startTxfer(&adc_dma_config);
             PHAL_startADC(ADC1);
             break;
-        case 3:
-            break;
         case 4:
             /* Module Initialization */
             carInit();
@@ -269,7 +272,6 @@ void preflightChecks(void) {
             /* Lights off first */
             PHAL_writeGPIO(SAFE_STAT_G_GPIO_Port, SAFE_STAT_G_GPIO_Pin, 0);
             PHAL_writeGPIO(SAFE_STAT_R_GPIO_Port, SAFE_STAT_R_GPIO_Pin, 0);
-            initCANParse();
             if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO])) {
                 HardFault_Handler();
             }
@@ -318,9 +320,9 @@ void heartBeatLED(void) {
     }
     // Send every other time (1000 ms)
     if (trig) {
-        SEND_MCU_STATUS(sched.skips, (uint8_t)sched.fg_time.cpu_use, (uint8_t)sched.bg_time.cpu_use, sched.error);
+        CAN_SEND_mcu_status(sched.skips, (uint8_t)sched.fg_time.cpu_use, (uint8_t)sched.bg_time.cpu_use, sched.error);
     } else {
-        SEND_MAIN_MODULE_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of, can_stats.can_peripheral_stats[CAN2_IDX].tx_of, can_stats.can_peripheral_stats[CAN1_IDX].tx_fail, can_stats.can_peripheral_stats[CAN2_IDX].tx_fail, can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun, can_stats.can_peripheral_stats[CAN2_IDX].rx_overrun);
+        CAN_SEND_main_module_can_stats(can_stats.can_peripheral_stats[CAN1_IDX].tx_of, can_stats.can_peripheral_stats[CAN2_IDX].tx_of, can_stats.can_peripheral_stats[CAN1_IDX].tx_fail, can_stats.can_peripheral_stats[CAN2_IDX].tx_fail, can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun, can_stats.can_peripheral_stats[CAN2_IDX].rx_overrun);
     }
     trig = !trig;
 }
@@ -358,29 +360,6 @@ void interpretLoadSensor(void) {
 }
 
 /* CAN Message Handling */
-
-extern q_handle_t q_tx_can2_s[CAN_TX_MAILBOX_CNT];
-extern uint32_t can2_mbx_last_send_time[CAN_TX_MAILBOX_CNT];
-
-void can2TxUpdate(void) {
-    CanMsgTypeDef_t tx_msg;
-    for (uint8_t i = 0; i < CAN_TX_MAILBOX_CNT; ++i) {
-        if (PHAL_txMailboxFree(CAN2, i)) {
-            if (qReceive(&q_tx_can2_s[i], &tx_msg) == SUCCESS_G) // Check queue for items and take if there is one
-            {
-                PHAL_txCANMessage(&tx_msg, i);
-                can2_mbx_last_send_time[i] = sched.os_ticks;
-            }
-        } else if (sched.os_ticks - can2_mbx_last_send_time[i] > CAN_TX_TIMEOUT_MS) {
-            PHAL_txCANAbort(CAN2, i); // aborts tx and empties the mailbox
-            can_stats.can_peripheral_stats[CAN2_IDX].tx_fail++;
-        }
-    }
-}
-
-void CAN1_RX0_IRQHandler() {
-    canParseIRQHandler(CAN1);
-}
 
 void CAN2_RX0_IRQHandler() {
     can2Relaycan1(CAN2);
@@ -434,12 +413,12 @@ void can2Relaycan1(CAN_TypeDef* can_h) {
 
         /* Pass through CAN2 messages onto CAN1 */
         rx.Bus = CAN1; // Override
-        canTxSendToBack(&rx);
+        CAN_enqueue_tx(&rx);
     }
 }
 
-void main_module_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a) {
-    if (can_data.main_module_bl_cmd.cmd == BLCMD_RST) {
+void main_module_bl_cmd_CALLBACK(can_data_t* can_data_a) {
+    if (can_data_a->main_module_bl_cmd.cmd == BLCMD_RST) {
         Bootloader_ResetForFirmwareDownload();
     }
 }

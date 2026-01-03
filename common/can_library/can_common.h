@@ -36,6 +36,8 @@ typedef struct {
 
 extern can_stats_t can_stats;
 extern q_handle_t q_tx_can[][CAN_TX_MAILBOX_CNT];
+extern q_handle_t q_rx_can;
+extern volatile uint32_t last_can_rx_time_ms;
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg);
 

@@ -1,6 +1,6 @@
 from typing import List, Dict, Set, DefaultDict
 from collections import defaultdict
-from parser import Node, Message, Signal, load_custom_types
+from parser import Node, Message, load_custom_types
 from utils import print_as_error, print_as_success
 
 class BusLinker:

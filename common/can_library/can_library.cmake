@@ -15,16 +15,21 @@ add_custom_command(
 )
 
 # 3. Create a target that triggers the generation
-add_custom_target(can_generation DEPENDS ${CAN_GEN_DIR}/can_router.h)
+if (NOT TARGET can_generation)
+	add_custom_target(can_generation DEPENDS ${CAN_GEN_DIR}/can_router.h)
+endif()
 
 # 4. Create the Common Headers Library
 # This provides the include paths for the generated headers and the project root
-add_library(can_common_headers INTERFACE)
-target_include_directories(can_common_headers INTERFACE 
-	${CAN_GEN_DIR}
-	${CMAKE_SOURCE_DIR}
-)
-add_dependencies(can_common_headers can_generation)
+if (NOT TARGET can_common_headers)
+	add_library(can_common_headers INTERFACE)
+	target_include_directories(can_common_headers INTERFACE 
+		${CAN_GEN_DIR}
+		${CAN_LIB_DIR}
+		${CMAKE_SOURCE_DIR}
+	)
+	add_dependencies(can_common_headers can_generation)
+endif()
 
 # 5. Create Node-Specific Libraries
 # Each node gets its own static library which compiles can_common.c 

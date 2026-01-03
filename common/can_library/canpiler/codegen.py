@@ -80,8 +80,9 @@ def generate_node_header(node: Node, all_messages: Dict[str, Message], bus_confi
         # Macros
         peripherals = sorted(list(set(bus.peripheral for bus in node.busses.values())))
         f.write(f"#define NUM_CAN_PERIPHERALS {len(peripherals)}\n")
-        for peripheral in peripherals:
+        for i, peripheral in enumerate(peripherals):
             f.write(f"#define USE_{peripheral}\n")
+            f.write(f"#define {peripheral}_IDX {i}\n")
         f.write("\n")
         
         # RX Data Struct

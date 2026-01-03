@@ -3,13 +3,6 @@
 #include "common/can_library/generated/can_router.h"
 
 typedef struct {
-    uint8_t bus;
-    bool is_extended_id;
-    uint32_t unmasked_id;
-    uint64_t data_BE;
-} can_msg_t;
-
-typedef struct {
   uint32_t tx_of;      // queue overflow
   uint32_t tx_fail;    // timed out
   uint32_t rx_overrun; // fifo overrun
@@ -17,10 +10,20 @@ typedef struct {
 
 #define CAN_TX_MAILBOX_CNT (3)
 #define CAN_TX_TIMEOUT_MS (15)
-#define CAN_TX_BLOCK_TIMEOUT       (30 * 16000)
+#define CAN_TX_BLOCK_TIMEOUT (30 * 16000)
 
+#define CAN_MAILBOX_HIGH_PRIO 0
+#define CAN_MAILBOX_MED_PRIO  1
+#define CAN_MAILBOX_LOW_PRIO  2
+
+#ifndef CAN1_IDX
 #define CAN1_IDX 0
-#define CAN2_IDX 1
+#endif
+#ifndef CAN2_IDX
+#define CAN2_IDX 0
+#endif
+
+#define GET_PERIPH_IDX(bus) ((bus == CAN1) ? CAN1_IDX : CAN2_IDX)
 
 typedef struct {
     uint32_t rx_of;      // queue overflow

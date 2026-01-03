@@ -29,6 +29,28 @@ def generate_headers(nodes: List[Node]):
     # Generate header for each node
     generate_node_headers(nodes, custom_types)
 
+    # Generate router header
+    generate_router_header(nodes)
+
+def generate_router_header(nodes: List[Node]):
+    filename = GENERATED_DIR / "can_router.h"
+    
+    with open(filename, 'w') as f:
+        f.write("#ifndef CAN_ROUTER_H\n")
+        f.write("#define CAN_ROUTER_H\n\n")
+        
+        internal_nodes = sorted([n for n in nodes if not n.is_external], key=lambda x: x.name)
+        
+        if internal_nodes:
+            for i, node in enumerate(internal_nodes):
+                directive = "#if" if i == 0 else "#elif"
+                f.write(f"{directive} defined(NODE_{node.name})\n")
+                f.write(f'\t#include "{node.name}.h"\n')
+            f.write("#endif\n")
+            
+        f.write("\n#endif\n")
+    print_as_success(f"Generated {filename.name}")
+
 def generate_node_headers(nodes: List[Node], custom_types: Dict):
     # Build global message map for RX lookup
     all_messages: Dict[str, Message] = {}
@@ -69,9 +91,9 @@ def generate_node_header(node: Node, all_messages: Dict[str, Message], custom_ty
             bus = node.busses[bus_name]
             for rx_msg in bus.rx_messages:
                 if rx_msg.name in all_messages:
-                    f.write(f"    {rx_msg.name}_data_t {rx_msg.name};\n")
+                    f.write(f"\t{rx_msg.name}_data_t {rx_msg.name};\n")
                     rx_msgs.append((all_messages[rx_msg.name], bus.peripheral))
-        f.write("} can_data_t;\n\n")
+        f.write("} can_data_t;\n")
         f.write("extern can_data_t can_data;\n\n")
         
         # RX Functions
@@ -90,18 +112,18 @@ def generate_node_header(node: Node, all_messages: Dict[str, Message], custom_ty
 def generate_rx_func(f, msg: Message, custom_types: Dict):
     f.write(f"[[gnu::always_inline]]\n")
     f.write(f"static inline void CAN_RECEIVE_{msg.name}(const uint64_t data_raw) {{\n")
-    f.write(f"    uint64_t data = __builtin_bswap64(data_raw);\n\n")
+    f.write(f"\tuint64_t data = __builtin_bswap64(data_raw);\n\n")
     
     bit_offset = 0
     for sig in msg.signals:
         length = sig.get_bit_length(custom_types)
         mask = (1 << length) - 1
         shift = 64 - bit_offset - length
-        f.write(f"    can_data.{msg.name}.{sig.name} = ({sig.datatype})((data >> {shift}) & {hex(mask)});\n")
+        f.write(f"\tcan_data.{msg.name}.{sig.name} = ({sig.datatype})((data >> {shift}) & {hex(mask)});\n")
         bit_offset += length
         
-    f.write(f"\n    can_data.{msg.name}.last_rx = 0; // TODO: Get current timestamp\n")
-    f.write(f"    can_data.{msg.name}.stale = false;\n")
+    f.write(f"\n\tcan_data.{msg.name}.last_rx = 0; // TODO: Get current timestamp\n")
+    f.write(f"\tcan_data.{msg.name}.stale = false;\n")
     f.write(f"}}\n\n")
 
 def generate_tx_func(f, msg: Message, peripheral: str, custom_types: Dict):
@@ -110,25 +132,25 @@ def generate_tx_func(f, msg: Message, peripheral: str, custom_types: Dict):
     
     f.write(f"[[gnu::always_inline]]\n")
     f.write(f"static inline void CAN_SEND_{msg.name}({args}) {{\n")
-    f.write(f"    CanMsgTypeDef_t outgoing = {{\n")
-    f.write(f"        .Bus={peripheral},\n")
-    f.write(f"        .ExtId={msg_macro_base}_MSG_ID,\n")
-    f.write(f"        .DLC={msg_macro_base}_DLC,\n")
-    f.write(f"        .IDE={1 if msg.is_extended else 0}\n")
-    f.write(f"    }};\n\n")
-    f.write(f"    uint64_t data = 0;\n\n")
+    f.write(f"\tCanMsgTypeDef_t outgoing = {{\n")
+    f.write(f"\t\t.Bus={peripheral},\n")
+    f.write(f"\t\t.ExtId={msg_macro_base}_MSG_ID,\n")
+    f.write(f"\t\t.DLC={msg_macro_base}_DLC,\n")
+    f.write(f"\t\t.IDE={1 if msg.is_extended else 0}\n")
+    f.write(f"\t}};\n\n")
+    f.write(f"\tuint64_t data = 0;\n")
     
     bit_offset = 0
     for sig in msg.signals:
         length = sig.get_bit_length(custom_types)
         mask = (1 << length) - 1
         shift = 64 - bit_offset - length
-        f.write(f"    data |= ((uint64_t)({sig.name} & {hex(mask)}) << {shift});\n")
+        f.write(f"\tdata |= ((uint64_t)({sig.name} & {hex(mask)}) << {shift});\n")
         bit_offset += length
         
-    f.write(f"\n    uint64_t wire_data = __builtin_bswap64(data);\n")
-    f.write(f"    memcpy(outgoing.Data, &wire_data, {msg_macro_base}_DLC);\n\n")
-    f.write(f"    CAN_enqueue_tx(&outgoing);\n")
+    f.write(f"\n\tuint64_t wire_data = __builtin_bswap64(data);\n")
+    f.write(f"\tmemcpy(outgoing.Data, &wire_data, {msg_macro_base}_DLC);\n\n")
+    f.write(f"\tCAN_enqueue_tx(&outgoing);\n")
     f.write(f"}}\n\n")
 
 def generate_bus_header(bus_name: str, config: Dict, messages: List[Message], custom_types: Dict):
@@ -159,11 +181,11 @@ def generate_bus_header(bus_name: str, config: Dict, messages: List[Message], cu
                 comment = ""
                 if sig.length > 0:
                      comment = f" // {sig.length} bits"
-                f.write(f"    {sig.datatype} {sig.name};{comment}\n")
+                f.write(f"\t{sig.datatype} {sig.name};{comment}\n")
             
             f.write("\n")
-            f.write(f"    uint32_t last_rx;\n")
-            f.write(f"    bool stale;\n")
+            f.write(f"\tuint32_t last_rx;\n")
+            f.write(f"\tbool stale;\n")
             f.write(f"}} {msg.name}_data_t;\n\n")
             
         f.write("#endif\n")

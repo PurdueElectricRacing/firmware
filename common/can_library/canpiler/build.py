@@ -3,6 +3,7 @@ from validator import validate_all
 from parser import parse_all
 from linker import link_all
 from dbcgen import generate_debug
+from codegen import generate_headers
 
 def build():
     if not validate_all():
@@ -21,7 +22,7 @@ def build():
         sys.exit(1)
 
     generate_debug(nodes)
-    # TODO codegen
+    generate_headers(nodes)
     # TODO dbcgen
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include "common/phal/can.h"
 
 typedef struct {
     uint8_t bus;
@@ -25,6 +26,6 @@ typedef struct {
     can_peripheral_stats_t can_peripheral_stats[NUM_CAN_PERIPHERALS];
 } can_stats_t;
 
-void CAN_enqueue_tx();
+void CAN_enqueue_tx(CanMsgTypeDef_t *msg);
 void CAN_tx_update();
 bool CAN_library_init();

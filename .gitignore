@@ -27,6 +27,8 @@ __pycache__/
 *.dbc
 source/*/can/can_parse.*
 
+common/can_library/generated/
+
 # Dont include venv and local dependencies
 venv
 .venv

@@ -1,5 +1,0 @@
-Debug Output for Bus: MCAN
-==============================
-0x001 : main_hb_amk
-0x188 : INVA_SET
-0x189 : INVB_SET

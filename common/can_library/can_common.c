@@ -1,4 +1,3 @@
-#include "common/phal/can.h"
 #include "common/can_library/generated/can_router.h"
 #include "common/can_library/can_common.h"
 #include "common/queue/queue.h"
@@ -11,7 +10,6 @@ can_stats_t can_stats;
 #if defined(STM32F407xx) || defined(STM32F732xx)
 
 
-
 // todo mailbox based implementation here
 q_handle_t q_tx_can[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
 q_handle_t q_rx_can;
@@ -19,7 +17,7 @@ q_handle_t q_rx_can;
 uint32_t can_mbx_last_send_time[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
 
 
-void CAN_enqueue_tx() {
+void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
     uint32_t t = 0;
     /* Don't use multiple mailboxes to guarantee in-order transmission */
     while (!PHAL_txMailboxFree(CAN1, 0) && (t++ < CAN_TX_BLOCK_TIMEOUT))

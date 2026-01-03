@@ -59,6 +59,11 @@ class Message:
     def get_total_bit_length(self, custom_types: Optional[Dict] = None) -> int:
         return sum(sig.get_bit_length(custom_types) for sig in self.signals)
 
+    def get_dlc(self, custom_types: Dict) -> int:
+        """Calculate the Data Length Code (DLC) in bytes."""
+        total_bits = self.get_total_bit_length(custom_types)
+        return (total_bits + 7) // 8
+
 @dataclass
 class RxMessage:
     name: str

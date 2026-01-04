@@ -7,6 +7,6 @@
 #define TEST_USART  2
 
 // Change this define to set the test compiled
-#define G4_TESTING_CHOSEN TEST_USART
+#define G4_TESTING_CHOSEN TEST_FDCAN
 
 #endif // __G4_TESTING__

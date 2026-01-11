@@ -75,9 +75,9 @@ void daq_create_threads(void) {
 
 static void daq_heartbeat(void) {
     PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
-    SEND_DAQ_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of, can_stats.can_peripheral_stats[CAN1_IDX].tx_fail, can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
+    CAN_SEND_daq_can_stats(can_stats.can_peripheral_stats[CAN1_IDX].tx_of, can_stats.can_peripheral_stats[CAN1_IDX].tx_fail, can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
     if (daq_hub.bcan_rx_overflow || daq_hub.can1_rx_overflow || daq_hub.sd_rx_overflow || daq_hub.tcp_tx_overflow) {
-        SEND_DAQ_QUEUE_STATS(daq_hub.bcan_rx_overflow, daq_hub.can1_rx_overflow, daq_hub.sd_rx_overflow, daq_hub.tcp_tx_overflow); // TODO reset & only send once?
+        CAN_SEND_daq_queue_stats(daq_hub.bcan_rx_overflow, daq_hub.can1_rx_overflow, daq_hub.sd_rx_overflow, daq_hub.tcp_tx_overflow); // TODO reset & only send once?
     }
 }
 

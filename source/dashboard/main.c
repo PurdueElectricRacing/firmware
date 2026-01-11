@@ -373,7 +373,7 @@ void interpretLoadSensor(void) {
     float force_load_r = voltToForce(raw_adc_values.load_r);
     //send a can message w/ minimal force info
     //every 15 milliseconds
-    SEND_LOAD_SENSOR_READINGS_DASH(force_load_l, force_load_r);
+    CAN_SEND_load_sensor_readings_dash(force_load_l, force_load_r);
 #endif
 }
 
@@ -663,7 +663,7 @@ void sendVoltageData() {
     float vin_24v = adc_voltage * (LV_24V_PULLUP + LV_24V_PULLDOWN) / LV_24V_PULLDOWN;
 
     // Scale to 100x before sending
-    SEND_DASHBOARD_VOLTAGE(vin_3v3 * 100, vin_5v * 100, vin_12v * 100, vin_24v * 100);
+    CAN_SEND_dashboard_voltage(vin_3v3 * 100, vin_5v * 100, vin_12v * 100, vin_24v * 100);
 }
 
 void pollBrakeStatus() {

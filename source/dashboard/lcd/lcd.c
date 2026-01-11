@@ -584,7 +584,7 @@ void calibrationTelemetryUpdate() {
  * @brief Sends TV parameters to TV using current values from tv_elements array
  */
 void sendTVParameters() {
-    SEND_DASHBOARD_VCU_PARAMETERS(
+    CAN_SEND_dashboard_vcu_parameters(
         tv_elements[TV_VCU_PERMIT_INDEX].current_value,
         tv_elements[TV_VCU_CONTROL_INDEX].current_value,
         tv_elements[TV_DEADBAND_INDEX].current_value,
@@ -597,7 +597,7 @@ void sendTVParameters() {
  * @brief Sends Cooling parameters to PDU using current values from cooling_elements array.
  */
 void sendCoolingParameters() {
-    SEND_COOLING_DRIVER_REQUEST(
+    CAN_SEND_cooling_driver_request(
         cooling_elements[COOLING_B_PUMP_INDEX].current_value,
         cooling_elements[COOLING_B_FAN_INDEX].current_value,
         cooling_elements[COOLING_DT_PUMP_INDEX].current_value,
@@ -609,7 +609,7 @@ void sendCoolingParameters() {
  * @brief Sends Logging parameters to DAQ using current values from logging_elements array.
  */
 void sendLoggingParameters() {
-    SEND_DASHBOARD_START_LOGGING(logging_elements[LOGGING_OP_INDEX].current_value);
+    CAN_SEND_dashboard_start_logging(logging_elements[LOGGING_OP_INDEX].current_value);
 }
 
 /**

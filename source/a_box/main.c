@@ -223,7 +223,7 @@ void preflightChecks(void) {
 void sendhbmsg() {
     bool imd_status = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
 
-    SEND_PRECHARGE_HB(imd_status, orion_error);
+    CAN_SEND_precharge_hb(imd_status, orion_error);
 }
 
 void preflightAnimation(void) {
@@ -258,7 +258,7 @@ void heartBeatLED() {
 
     static uint8_t trig;
     if (trig)
-        SEND_A_BOX_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of, can_stats.can_peripheral_stats[CAN2_IDX].tx_of, can_stats.can_peripheral_stats[CAN1_IDX].tx_fail, can_stats.can_peripheral_stats[CAN2_IDX].tx_fail, can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun, can_stats.can_peripheral_stats[CAN2_IDX].rx_overrun);
+        CAN_SEND_a_box_can_stats(can_stats.can_peripheral_stats[CAN1_IDX].tx_of, can_stats.can_peripheral_stats[CAN2_IDX].tx_of, can_stats.can_peripheral_stats[CAN1_IDX].tx_fail, can_stats.can_peripheral_stats[CAN2_IDX].tx_fail, can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun, can_stats.can_peripheral_stats[CAN2_IDX].rx_overrun);
     trig = !trig;
 }
 
@@ -310,5 +310,5 @@ void readCurrents() {
     int16_t i_ch1 = (Vout_ch1 - V_offset) / G1 * 100;
     int16_t i_ch2 = (Vout_ch2 - V_offset) / G2 * 100;
     // sending currents over CAN
-    SEND_I_SENSE(i_ch1, i_ch2);
+    CAN_SEND_i_sense(i_ch1, i_ch2);
 }

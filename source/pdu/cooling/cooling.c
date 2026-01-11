@@ -43,7 +43,7 @@ void update_cooling_periodic() {
     if (cr.fan2_status)
         setFan2Speed(cr.fan2_speed);
 
-    SEND_COOLANT_OUT(cr.fan1_speed, cr.fan2_speed, cr.pump2_status, cr.aux_status, cr.pump1_status);
+    CAN_SEND_coolant_out(cr.fan1_speed, cr.fan2_speed, cr.pump2_status, cr.aux_status, cr.pump1_status);
 }
 
 static void calculate_cooling_periodic() {

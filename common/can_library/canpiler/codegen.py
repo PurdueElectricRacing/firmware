@@ -375,9 +375,9 @@ def generate_rx_dispatcher(f, node: Node, rx_msgs: List[Tuple[RxMessage, str, st
         for sig in msg.signals:
             if sig.is_signed and sig.length < 64:
                 # Sign extension using arithmetic shift
-                f.write(f"\t\t\t\tcan_data.{msg.name}.{sig.name} = ({sig.datatype})(((int64_t)((host_data >> {sig.bit_shift}) & {hex(sig.mask)}) << {64 - sig.length}) >> {64 - sig.length});\n")
+                f.write(f"\t\t\t\tcan_data.{msg.name}.{sig.name} = ({sig.c_type})(((int64_t)((host_data >> {sig.bit_shift}) & {hex(sig.mask)}) << {64 - sig.length}) >> {64 - sig.length});\n")
             else:
-                f.write(f"\t\t\t\tcan_data.{msg.name}.{sig.name} = ({sig.datatype})((host_data >> {sig.bit_shift}) & {hex(sig.mask)});\n")
+                f.write(f"\t\t\t\tcan_data.{msg.name}.{sig.name} = ({sig.c_type})((host_data >> {sig.bit_shift}) & {hex(sig.mask)});\n")
             
         f.write(f"\t\t\t\tcan_data.{msg.name}.last_rx = OS_TICKS;\n")
         f.write(f"\t\t\t\tcan_data.{msg.name}.stale = false;\n")
@@ -422,7 +422,7 @@ def generate_tx_func(f, msg: Message, peripheral: str, bus_name: str, bus_config
         f.write(f"static inline void CAN_SEND_{msg.name}(\n")
         for i, sig in enumerate(msg.signals):
             comma = "," if i < len(msg.signals) - 1 else ""
-            f.write(f"\t{sig.datatype} {sig.name}{comma}\n")
+            f.write(f"\t{sig.c_type} {sig.name}{comma}\n")
         f.write(") {\n")
     
     f.write(f"\tCanMsgTypeDef_t outgoing = {{\n")
@@ -434,9 +434,9 @@ def generate_tx_func(f, msg: Message, peripheral: str, bus_name: str, bus_config
     f.write(f"\tuint64_t data = 0;\n")
     
     for sig in msg.signals:
-        if sig.datatype in ['float', 'double']:
-            union_type = "uint32_t" if sig.datatype == 'float' else "uint64_t"
-            f.write(f"\tunion {{ {sig.datatype} f; {union_type} u; }} _{sig.name}_u;\n")
+        if sig.is_floating_point:
+            union_type = "uint32_t" if sig.c_type == 'float' else "uint64_t"
+            f.write(f"\tunion {{ {sig.c_type} f; {union_type} u; }} _{sig.name}_u;\n")
             f.write(f"\t_{sig.name}_u.f = {sig.name};\n")
             f.write(f"\tdata |= ((uint64_t)(_{sig.name}_u.u & {hex(sig.mask)}) << {sig.bit_shift});\n")
         else:
@@ -445,9 +445,7 @@ def generate_tx_func(f, msg: Message, peripheral: str, bus_name: str, bus_config
     f.write(f"\n\tuint64_t wire_data = __builtin_bswap64(data);\n")
     f.write(f"\tmemcpy(outgoing.Data, &wire_data, {msg.macro_name}_DLC);\n\n")
     f.write(f"\tCAN_enqueue_tx(&outgoing);\n")
-    f.write(f"}}\n")
-    # Old system alias
-    f.write(f"#define SEND_{msg.macro_name} CAN_SEND_{msg.name}\n\n")
+    f.write(f"}}\n\n")
 
 def generate_bus_header(bus_name: str, config: Dict, messages: List[Message], custom_types: Dict):
     filename = GENERATED_DIR / f"{bus_name}.h"

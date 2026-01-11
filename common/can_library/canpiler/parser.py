@@ -26,6 +26,14 @@ class Signal:
     def macro_name(self) -> str:
         return to_macro_name(self.name)
 
+    @property
+    def c_type(self) -> str:
+        return self.datatype
+
+    @property
+    def is_floating_point(self) -> bool:
+        return self.datatype in ['float', 'double']
+
     def get_bit_length(self, custom_types: Optional[Dict] = None) -> int:
         if self.length > 0:
             return self.length

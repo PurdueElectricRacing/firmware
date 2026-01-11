@@ -1,9 +1,10 @@
 from typing import List, Dict, Tuple, Optional
-from parser import Node, Message, RxMessage, FaultModule, Fault, load_custom_types
-from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success, to_macro_name, get_git_hash
+from parser import Node, Message, RxMessage, load_custom_types
+from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success, to_macro_name, to_c_enum_prefix, get_git_hash
 from mapper import NodeMapping
 
-def generate_headers(nodes: List[Node], mappings: Dict[str, NodeMapping], fault_modules: List[FaultModule]):
+def generate_headers(nodes: List[Node], mappings: Dict[str, NodeMapping]):
+    print("Generating headers...")
     # Load bus configs
     bus_configs = load_json(BUS_CONFIG_PATH)
     busses = {b['name']: b for b in bus_configs['busses']}
@@ -33,103 +34,6 @@ def generate_headers(nodes: List[Node], mappings: Dict[str, NodeMapping], fault_
     # Generate router header
     generate_router_header(nodes)
 
-    # Generate fault data
-    if fault_modules:
-        generate_fault_data(fault_modules)
-
-def generate_fault_data(fault_modules: List[FaultModule]):
-    generate_fault_header(fault_modules)
-    generate_fault_source(fault_modules)
-
-def generate_fault_header(fault_modules: List[FaultModule]):
-    filename = GENERATED_DIR / "fault_data.h"
-    total_faults = sum(len(m.faults) for m in fault_modules)
-
-    with open(filename, 'w') as f:
-        f.write("#ifndef FAULT_DATA_H\n")
-        f.write("#define FAULT_DATA_H\n\n")
-        f.write("#include \"common/faults/faults.h\"\n\n")
-
-        f.write("// Total counts\n")
-        for m in fault_modules:
-            f.write(f"#define TOTAL_{m.node_name.upper()}_FAULTS {len(m.faults)}\n")
-        f.write(f"#define TOTAL_NUM_FAULTS {total_faults}\n\n")
-
-        f.write("// Accessor Macros\n")
-        f.write("#define GET_IDX(id) (id & 0xFFF)\n")
-        f.write("#define GET_OWNER(id) (id >> 12)\n\n")
-
-        f.write("// Fault IDs\n")
-        for m in fault_modules:
-            for fault in m.faults:
-                f.write(f"#define ID_{fault.macro_name}_FAULT 0x{fault.id:x}\n")
-        f.write("\n")
-
-        f.write("// Latch times (ms)\n")
-        for m in fault_modules:
-            for fault in m.faults:
-                f.write(f"#define {fault.macro_name}_LATCH_TIME {fault.time_to_latch}\n")
-                f.write(f"#define {fault.macro_name}_UNLATCH_TIME {fault.time_to_unlatch}\n")
-        f.write("\n")
-
-        f.write("// Priorities\n")
-        for m in fault_modules:
-            for fault in m.faults:
-                f.write(f"#define {fault.macro_name}_PRIORITY FAULT_{fault.priority.upper()}\n")
-        f.write("\n")
-
-        f.write("// Messages\n")
-        for m in fault_modules:
-            for fault in m.faults:
-                f.write(f"#define {fault.macro_name}_MSG \"{fault.lcd_message}\"\n")
-        f.write("\n")
-
-        f.write("extern uint16_t faultLatchTime[TOTAL_NUM_FAULTS];\n")
-        f.write("extern uint16_t faultULatchTime[TOTAL_NUM_FAULTS];\n")
-        f.write("extern fault_status_t statusArray[TOTAL_NUM_FAULTS];\n")
-        f.write("extern fault_attributes_t faultArray[TOTAL_NUM_FAULTS];\n\n")
-
-        f.write("#endif\n")
-    print_as_success(f"Generated {filename.name}")
-
-def generate_fault_source(all_modules: List[FaultModule]):
-    filename = GENERATED_DIR / "fault_data.c"
-    
-    with open(filename, 'w') as f:
-        f.write("#include \"fault_data.h\"\n\n")
-
-        # Latch Time Array
-        f.write(f"uint16_t faultLatchTime[TOTAL_NUM_FAULTS] = {{\n")
-        for m in all_modules:
-            for fault in m.faults:
-                f.write(f"\t{fault.macro_name}_LATCH_TIME,\n")
-        f.write("};\n\n")
-
-        # Unlatch Time Array
-        f.write(f"uint16_t faultULatchTime[TOTAL_NUM_FAULTS] = {{\n")
-        for m in all_modules:
-            for fault in m.faults:
-                f.write(f"\t{fault.macro_name}_UNLATCH_TIME,\n")
-        f.write("};\n\n")
-
-        # Status Array
-        f.write(f"fault_status_t statusArray[TOTAL_NUM_FAULTS] = {{\n")
-        for m in all_modules:
-            for fault in m.faults:
-                f.write(f"\t{{false, ID_{fault.macro_name}_FAULT}},\n")
-        f.write("};\n\n")
-
-        # Attributes Array
-        f.write(f"fault_attributes_t faultArray[TOTAL_NUM_FAULTS] = {{\n")
-        global_idx = 0
-        for m in all_modules:
-            for fault in m.faults:
-                f.write(f"\t{{false, false, {fault.macro_name}_PRIORITY, 0, 0, {fault.max_val}, {fault.min_val}, &statusArray[{global_idx}], 0, {fault.macro_name}_MSG}},\n")
-                global_idx += 1
-        f.write("};\n")
-
-    print_as_success(f"Generated {filename.name}")
-
 def format_float(val: float) -> str:
     """Format float to .6g and ensure it looks like a float literal in C"""
     s = f"{val:.6g}"
@@ -145,9 +49,7 @@ def generate_types_header(custom_types: Dict):
         f.write("#include <stdint.h>\n\n")
         
         for type_name, config in custom_types.items():
-            # Chop off _t for the prefix
-            prefix = type_name[:-2] if type_name.endswith('_t') else type_name
-            prefix = prefix.upper()
+            prefix = to_c_enum_prefix(type_name)
             
             f.write(f"typedef enum {{\n")
             for i, choice in enumerate(config.get('choices', [])):
@@ -169,7 +71,7 @@ def generate_router_header(nodes: List[Node]):
         if internal_nodes:
             for i, node in enumerate(internal_nodes):
                 directive = "#if" if i == 0 else "#elif"
-                f.write(f"{directive} defined(CAN_NODE_{node.name})\n")
+                f.write(f"{directive} defined(CAN_NODE_{node.macro_name})\n")
                 f.write(f'\t#include "{node.name}.h"\n')
             f.write("#endif\n")
             
@@ -222,16 +124,16 @@ def generate_node_header(node: Node, bus_configs: Dict, custom_types: Dict, mapp
                 # Determine primary macro name
                 if name.startswith("daq_response"):
                     bus_name = name.replace("daq_response_", "").upper()
-                    macro_name = f"ID_DAQ_RESPONSE_{node.name.upper()}_{bus_name}"
+                    macro_name = f"ID_DAQ_RESPONSE_{node.macro_name}_{bus_name}"
                 elif name == "fault_sync":
-                    macro_name = f"ID_FAULT_SYNC_{node.name.upper()}"
+                    macro_name = f"ID_FAULT_SYNC_{node.macro_name}"
                 else:
-                    macro_name = f"ID_{name.upper()}_{node.name.upper()}"
+                    macro_name = f"ID_{name.upper()}_{node.macro_name}"
                 
                 f.write(f"#define {macro_name} (0x{val:x})\n")
                 
                 # MAIN_MODULE alias for backward compatibility
-                if node.name.upper() == "MAIN":
+                if node.macro_name == "MAIN":
                     alias_name = macro_name.replace("MAIN", "MAIN_MODULE")
                     f.write(f"#define {alias_name} {macro_name}\n")
             f.write("\n")
@@ -401,7 +303,7 @@ def generate_data_init(f, node: Node, rx_msgs: List[Tuple[RxMessage, str, str]])
     f.write("}\n\n")
 
 def generate_tx_func(f, msg: Message, peripheral: str, bus_name: str, bus_configs: Dict, custom_types: Dict):
-    is_ext = msg.is_extended or bus_configs.get(bus_name, {}).get('is_extended_id', False)
+    is_ext = msg.is_extended_frame
     
     f.write(f"[[gnu::always_inline]]\n")
     if not msg.signals:
@@ -443,7 +345,6 @@ def generate_bus_header(bus_name: str, config: Dict, messages: List[Message], cu
         f.write(f"#define {bus_name}_H\n\n")
         
         f.write("#include <stdint.h>\n")
-        f.write("#include <stdbool.h>\n")
         f.write("#include \"can_types.h\"\n\n")
         
         # Bus Properties

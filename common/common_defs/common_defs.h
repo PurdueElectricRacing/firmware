@@ -13,7 +13,6 @@
 #define COMMON_DEFS_H_
 
 #include <stdint.h>
-#include <stdbool.h>
 
 /* Math Functions */
 static inline int32_t min_i(int32_t x, int32_t y) { return (x < y) ? x : y; }

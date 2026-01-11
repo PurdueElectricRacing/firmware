@@ -54,6 +54,11 @@ def load_json(filepath):
 def to_macro_name(name: str) -> str:
     return name.upper()
 
+def to_c_enum_prefix(type_name: str) -> str:
+    """Removes _t suffix and converts to upper case for enum value prefixes."""
+    prefix = type_name[:-2] if type_name.endswith('_t') else type_name
+    return prefix.upper()
+
 def get_git_hash():
     """
     Returns the short git hash of the current commit

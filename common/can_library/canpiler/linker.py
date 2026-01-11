@@ -65,10 +65,12 @@ class BusLinker:
                 raise ValueError("Dynamic ID Overflow")
 
         # 2. Assign IDs
-        # Sort messages: Overrides first, then dynamic (stable sort)
-        # Actually, order doesn't strictly matter for dynamic within same priority, 
-        # but let's keep it deterministic.
-        for msg in msgs:
+        # To ensure absolute determinism across systems, we sort messages
+        # by name within the priority group before assigning IDs.
+        # This keeps IDs stable even if node discovery order or JSON insertion order changes.
+        sorted_msgs = sorted(msgs, key=lambda x: x.name)
+        
+        for msg in sorted_msgs:
             if msg.id_override:
                 msg.final_id = int(msg.id_override, 0)
             else:

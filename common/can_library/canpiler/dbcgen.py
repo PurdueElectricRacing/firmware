@@ -1,5 +1,5 @@
 from typing import List, Dict
-from parser import Node, Message, Signal
+from parser import Node, Message
 from cantools import db
 from utils import DBC_DIR, load_json, COMMON_TYPES_CONFIG_PATH, print_as_success, get_git_hash
 
@@ -7,6 +7,8 @@ def generate_dbcs(nodes: List[Node]):
     """
     Generates DBC files for each bus in the system.
     """
+    print("Generating DBCs...")
+
     custom_types = {}
     try:
         types_data = load_json(COMMON_TYPES_CONFIG_PATH)
@@ -83,7 +85,7 @@ def generate_dbcs(nodes: List[Node]):
                 length=msg.get_dlc(custom_types),
                 signals=signals,
                 comment=msg.desc,
-                is_extended_frame=msg.is_extended or msg.final_id > 0x7FF,
+                is_extended_frame=msg.is_extended_frame,
                 senders=[sender]
             ))
         

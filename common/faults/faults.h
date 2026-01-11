@@ -11,7 +11,6 @@
 #ifndef _FAULTS_H_
 #define _FAULTS_H_
 
-#include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
 

@@ -59,6 +59,14 @@ class Message:
     final_id: int = 0
     
     @property
+    def is_extended_frame(self) -> bool:
+        """
+        Source of Truth for frame type. 
+        Forces Extended if explicitly requested OR if the ID exceeds 11 bits (0x7FF).
+        """
+        return self.is_extended or self.final_id > 0x7FF
+
+    @property
     def macro_name(self) -> str:
         return to_macro_name(self.name)
 
@@ -126,6 +134,10 @@ class Bus:
     rx_messages: List[RxMessage] = field(default_factory=list)
     accept_all_messages: bool = False
 
+    @property
+    def macro_name(self) -> str:
+        return to_macro_name(self.name)
+
 @dataclass
 class Node:
     name: str
@@ -134,6 +146,10 @@ class Node:
     busses: Dict[str, Bus] = field(default_factory=dict)
     is_external: bool = False
     scheduler: str = "psched"
+
+    @property
+    def macro_name(self) -> str:
+        return to_macro_name(self.name)
 
     def generate_system_ids(self) -> None:
         """Generate system-level CAN IDs based on node_id."""
@@ -174,6 +190,10 @@ class FaultModule:
     generate_strings: bool
     faults: List[Fault] = field(default_factory=list)
     node_id: int = 0
+
+    @property
+    def macro_name(self) -> str:
+        return to_macro_name(self.node_name)
 
 # --- Parsing Logic ---
 

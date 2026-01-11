@@ -29,7 +29,7 @@ def build():
         print(f"Unexpected Error: {e}")
         sys.exit(1)
 
-    generate_debug(nodes)
+    # generate_debug(nodes)
     generate_headers(nodes, mappings, fault_modules)
     generate_dbcs(nodes)
 

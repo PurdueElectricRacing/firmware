@@ -1,3 +1,11 @@
+/**
+ * @file can_common.c
+ * todo file description
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Luke Oxley (lcoxley@purdue.edu)
+ */
+
 #include "common/can_library/can_common.h"
 #include "common/can_library/generated/can_router.h"
 #include "common/queue/queue.h"

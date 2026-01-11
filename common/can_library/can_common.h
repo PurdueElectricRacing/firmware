@@ -1,6 +1,14 @@
 #ifndef CAN_COMMON_H
 #define CAN_COMMON_H
 
+/**
+ * @file can_common.h
+ * todo file description
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Luke Oxley (lcoxley@purdue.edu)
+ */
+
 #include <stdint.h>
 #include "common/phal/can.h"
 #include "common/can_library/generated/can_types.h"

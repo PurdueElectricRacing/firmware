@@ -237,59 +237,78 @@ static inline bool PHAL_readGPIO(GPIO_TypeDef *bank, uint8_t pin) {
                  GPIO_OUTPUT_OPEN_DRAIN, \
                  GPIO_INPUT_OPEN_DRAIN)
 
-/* SPI1 default pins: PA5=SCK (AF5), PA6=MISO (AF5), PA7=MOSI (AF5); optional software NSS on PA4 */
+/* * SPI1 Pins (Standard for both RET and CET)
+ * PA5=SCK, PA6=MISO, PA7=MOSI, PA4 or PA15=NSS (AF5) 
+ */
 #define GPIO_INIT_SPI1SCK_PA5 \
     GPIO_INIT_AF(GPIOA, 5, 5, GPIO_OUTPUT_ULTRA_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN)
+
 #define GPIO_INIT_SPI1MISO_PA6 \
-    GPIO_INIT_AF(GPIOA, \
-                 6, \
-                 5, \
-                 GPIO_OUTPUT_ULTRA_SPEED, \
-                 GPIO_OUTPUT_OPEN_DRAIN, \
-                 GPIO_INPUT_OPEN_DRAIN)
-#define GPIO_INIT_SPI1MISO_PP_PA6 \
-    GPIO_INIT_AF(GPIOA, 6, 5, GPIO_OUTPUT_ULTRA_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN)
+    GPIO_INIT_AF(GPIOA, 6, 5, GPIO_OUTPUT_ULTRA_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_UP)
+
 #define GPIO_INIT_SPI1MOSI_PA7 \
     GPIO_INIT_AF(GPIOA, 7, 5, GPIO_OUTPUT_ULTRA_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN)
-#define GPIO_INIT_OUTPUT_PA4 GPIO_INIT_OUTPUT(GPIOA, 4, GPIO_OUTPUT_ULTRA_SPEED)
 
-/* SPI2 default pins: PB13=SCK (AF5), PB14=MISO (AF5), PB15=MOSI (AF5); optional software NSS on PB12 */
-#define GPIO_INIT_SPI2SCK_PB13 \
+#define GPIO_INIT_SPI1NSS_PA4 \
+    GPIO_INIT_AF(GPIOA, 4, 5, GPIO_OUTPUT_ULTRA_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN)
+
+#define GPIO_INIT_SPI1NSS_PA15 \
+    GPIO_INIT_AF(GPIOA, \
+                 15, \
+                 5, \
+                 GPIO_OUTPUT_ULTRA_SPEED, \
+                 GPIO_OUTPUT_PUSH_PULL, \
+                 GPIO_INPUT_OPEN_DRAIN)
+
+/* * SPI2 Pins - RET Package (64-pin)
+ * PB13=SCK, PB14=MISO, PB15=MOSI, PB12=NSS (AF5)
+ */
+#define GPIO_INIT_SPI2SCK_RET_PB13 \
     GPIO_INIT_AF(GPIOB, \
                  13, \
                  5, \
                  GPIO_OUTPUT_ULTRA_SPEED, \
                  GPIO_OUTPUT_PUSH_PULL, \
                  GPIO_INPUT_OPEN_DRAIN)
-#define GPIO_INIT_SPI2MISO_PB14 \
-    GPIO_INIT_AF(GPIOB, \
-                 14, \
-                 5, \
-                 GPIO_OUTPUT_ULTRA_SPEED, \
-                 GPIO_OUTPUT_OPEN_DRAIN, \
-                 GPIO_INPUT_OPEN_DRAIN)
-#define GPIO_INIT_SPI2MISO_PP_PB14 \
-    GPIO_INIT_AF(GPIOB, \
-                 14, \
-                 5, \
-                 GPIO_OUTPUT_ULTRA_SPEED, \
-                 GPIO_OUTPUT_PUSH_PULL, \
-                 GPIO_INPUT_OPEN_DRAIN)
-#define GPIO_INIT_SPI2MOSI_PB15 \
+
+#define GPIO_INIT_SPI2MISO_RET_PB14 \
+    GPIO_INIT_AF(GPIOB, 14, 5, GPIO_OUTPUT_ULTRA_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_UP)
+
+#define GPIO_INIT_SPI2MOSI_RET_PB15 \
     GPIO_INIT_AF(GPIOB, \
                  15, \
                  5, \
                  GPIO_OUTPUT_ULTRA_SPEED, \
                  GPIO_OUTPUT_PUSH_PULL, \
                  GPIO_INPUT_OPEN_DRAIN)
-#define GPIO_INIT_SPI2NSS_PB12 \
+
+#define GPIO_INIT_SPI2NSS_RET_PB12 \
     GPIO_INIT_AF(GPIOB, \
                  12, \
                  5, \
                  GPIO_OUTPUT_ULTRA_SPEED, \
                  GPIO_OUTPUT_PUSH_PULL, \
                  GPIO_INPUT_OPEN_DRAIN)
-#define GPIO_INIT_OUTPUT_PB12 GPIO_INIT_OUTPUT(GPIOB, 12, GPIO_OUTPUT_ULTRA_SPEED)
+
+/* * SPI2 Pins - CET Package (48-pin)
+ * PA9=SCK, PA10=MISO, PA11=MOSI, PA8=NSS (AF5)
+ */
+#define GPIO_INIT_SPI2SCK_CET_PA9 \
+    GPIO_INIT_AF(GPIOA, 9, 5, GPIO_OUTPUT_ULTRA_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN)
+
+#define GPIO_INIT_SPI2MISO_CET_PA10 \
+    GPIO_INIT_AF(GPIOA, 10, 5, GPIO_OUTPUT_ULTRA_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_UP)
+
+#define GPIO_INIT_SPI2MOSI_CET_PA11 \
+    GPIO_INIT_AF(GPIOA, \
+                 11, \
+                 5, \
+                 GPIO_OUTPUT_ULTRA_SPEED, \
+                 GPIO_OUTPUT_PUSH_PULL, \
+                 GPIO_INPUT_OPEN_DRAIN)
+
+#define GPIO_INIT_SPI2NSS_CET_PA8 \
+    GPIO_INIT_AF(GPIOA, 8, 5, GPIO_OUTPUT_ULTRA_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN)
 
 /**
  * @brief Write a logic value to an output pin

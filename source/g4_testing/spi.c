@@ -28,15 +28,17 @@ extern uint32_t APB2ClockRateHz;
 // Adjust to your board wiring. SPI1: PA5=SCK, PA7=MOSI, PA6=MISO; PA4=CS
 // SPI2: PB13=SCK, PB15=MOSI, PB14=MISO; PB12=CS
 GPIOInitConfig_t gpio_config[] = {
+    // SPI1 - Standard Pins
     GPIO_INIT_SPI1SCK_PA5,
     GPIO_INIT_SPI1MOSI_PA7,
-    GPIO_INIT_SPI1MISO_PP_PA6,
-    GPIO_INIT_OUTPUT_PA4, // CS as software output
+    GPIO_INIT_SPI1MISO_PA6,
+    GPIO_INIT_OUTPUT(GPIOA, 4, GPIO_OUTPUT_ULTRA_SPEED), // NSS as software output for master
 
-    GPIO_INIT_SPI2SCK_PB13,
-    GPIO_INIT_SPI2MOSI_PB15,
-    GPIO_INIT_SPI2MISO_PP_PB14,
-    GPIO_INIT_SPI2NSS_PB12, // Hardware NSS for SPI2 slave
+    // SPI2 - RET Specific (Port B)
+    GPIO_INIT_SPI2SCK_RET_PB13,
+    GPIO_INIT_SPI2MOSI_RET_PB15,
+    GPIO_INIT_SPI2MISO_RET_PB14,
+    GPIO_INIT_SPI2NSS_RET_PB12, // Hardware NSS for SPI2 slave
 };
 
 // DMA Buffers

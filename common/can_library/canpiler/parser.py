@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Set
 from pathlib import Path
 from utils import load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, COMMON_TYPES_CONFIG_PATH, FAULT_CONFIG_PATH, CTYPE_SIZES, print_as_error, print_as_ok, print_as_success, to_macro_name
 
@@ -151,6 +151,14 @@ class Node:
     def macro_name(self) -> str:
         return to_macro_name(self.name)
 
+    @property
+    def messages(self) -> List[Message]:
+        """Returns all TX messages across all busses for this node."""
+        all_msgs = []
+        for bus in self.busses.values():
+            all_msgs.extend(bus.tx_messages)
+        return all_msgs
+
     def generate_system_ids(self) -> None:
         """Generate system-level CAN IDs based on node_id."""
         if self.node_id is None:
@@ -194,6 +202,21 @@ class FaultModule:
     @property
     def macro_name(self) -> str:
         return to_macro_name(self.node_name)
+
+@dataclass
+class BusView:
+    name: str
+    messages: List[Message] = field(default_factory=list)
+    nodes: Set[str] = field(default_factory=set)
+    sender_map: Dict[str, str] = field(default_factory=dict) # msg_name -> sender_node_name
+
+@dataclass
+class SystemContext:
+    nodes: List[Node] = field(default_factory=list)
+    busses: Dict[str, BusView] = field(default_factory=dict)
+    mappings: Dict = field(default_factory=dict)
+    fault_modules: List['FaultModule'] = field(default_factory=list)
+    bus_configs: Dict = field(default_factory=dict)
 
 # --- Parsing Logic ---
 

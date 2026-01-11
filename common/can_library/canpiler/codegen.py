@@ -1,22 +1,11 @@
 from typing import List, Dict, Tuple, Optional
-from parser import Node, Message, RxMessage, load_custom_types
-from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success, to_macro_name, to_c_enum_prefix, get_git_hash
+from parser import Node, Message, RxMessage, load_custom_types, SystemContext
 from mapper import NodeMapping
+from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success, to_macro_name, to_c_enum_prefix, get_git_hash
 
-def generate_headers(nodes: List[Node], mappings: Dict[str, NodeMapping]):
+def generate_headers(context: SystemContext):
     print("Generating headers...")
-    # Load bus configs
-    bus_configs = load_json(BUS_CONFIG_PATH)
-    busses = {b['name']: b for b in bus_configs['busses']}
     custom_types = load_custom_types()
-    
-    # Aggregate messages by bus
-    bus_messages: Dict[str, List[Message]] = {name: [] for name in busses}
-    
-    for node in nodes:
-        for bus_name, bus in node.busses.items():
-            if bus_name in bus_messages:
-                bus_messages[bus_name].extend(bus.tx_messages)
     
     # Ensure generated directory exists
     GENERATED_DIR.mkdir(exist_ok=True)
@@ -25,14 +14,15 @@ def generate_headers(nodes: List[Node], mappings: Dict[str, NodeMapping]):
     generate_types_header(custom_types)
 
     # Generate header for each bus
-    for bus_name, config in busses.items():
-        generate_bus_header(bus_name, config, bus_messages.get(bus_name, []), custom_types)
+    for bus_name, view in context.busses.items():
+        config = context.bus_configs.get(bus_name, {})
+        generate_bus_header(bus_name, config, view.messages, custom_types)
 
     # Generate header for each node
-    generate_node_headers(nodes, busses, custom_types, mappings)
+    generate_node_headers(context, custom_types)
 
     # Generate router header
-    generate_router_header(nodes)
+    generate_router_header(context.nodes)
 
 def format_float(val: float) -> str:
     """Format float to .6g and ensure it looks like a float literal in C"""
@@ -78,11 +68,11 @@ def generate_router_header(nodes: List[Node]):
         f.write("\n#endif\n")
     print_as_success(f"Generated {filename.name}")
 
-def generate_node_headers(nodes: List[Node], bus_configs: Dict, custom_types: Dict, mappings: Dict[str, NodeMapping]):
-    for node in nodes:
+def generate_node_headers(context: SystemContext, custom_types: Dict):
+    for node in context.nodes:
         if node.is_external:
             continue
-        generate_node_header(node, bus_configs, custom_types, mappings.get(node.name))
+        generate_node_header(node, context.bus_configs, custom_types, context.mappings.get(node.name))
 
 def generate_node_header(node: Node, bus_configs: Dict, custom_types: Dict, mapping: Optional[NodeMapping]):
     filename = GENERATED_DIR / f"{node.name}.h"

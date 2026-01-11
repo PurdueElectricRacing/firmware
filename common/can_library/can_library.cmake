@@ -5,18 +5,40 @@ set(CAN_LIB_DIR ${CMAKE_CURRENT_LIST_DIR})
 set(CAN_GEN_DIR ${CAN_LIB_DIR}/generated)
 
 # 2. Define the command to run the generator
-# We use can_router.h as the sentinel file for generation
+# Define all files produced by the script so Ninja knows the full impact
+set(CAN_GEN_OUTPUTS
+    ${CAN_GEN_DIR}/can_router.h
+    ${CAN_GEN_DIR}/can_types.h
+    ${CAN_GEN_DIR}/fault_data.h
+    ${CAN_GEN_DIR}/fault_data.c
+    ${CAN_GEN_DIR}/CCAN.h
+    ${CAN_GEN_DIR}/MCAN.h
+    ${CAN_GEN_DIR}/VCAN.h
+)
+
 add_custom_command(
-	OUTPUT ${CAN_GEN_DIR}/can_router.h
-	COMMAND python3 ${CAN_LIB_DIR}/canpiler/build.py
-	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-	COMMENT "Generating CAN Library..."
-	VERBATIM
+    OUTPUT ${CAN_GEN_OUTPUTS}
+    COMMAND python3 ${CAN_LIB_DIR}/canpiler/build.py
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    DEPENDS 
+        ${CAN_LIB_DIR}/canpiler/build.py
+        ${CAN_LIB_DIR}/canpiler/parser.py
+        ${CAN_LIB_DIR}/canpiler/linker.py
+        ${CAN_LIB_DIR}/canpiler/mapper.py
+        ${CAN_LIB_DIR}/canpiler/codegen.py
+        ${CAN_LIB_DIR}/canpiler/dbcgen.py
+        ${CAN_LIB_DIR}/canpiler/faultgen.py
+        ${CAN_LIB_DIR}/canpiler/utils.py
+        ${CAN_LIB_DIR}/configs/system/bus_configs.json
+        ${CAN_LIB_DIR}/configs/system/common_types.json
+        ${CAN_LIB_DIR}/configs/system/faults.json
+    COMMENT "Generating CAN Library..."
+    VERBATIM
 )
 
 # 3. Create a target that triggers the generation
 if (NOT TARGET can_generation)
-	add_custom_target(can_generation DEPENDS ${CAN_GEN_DIR}/can_router.h)
+    add_custom_target(can_generation DEPENDS ${CAN_GEN_OUTPUTS})
 endif()
 
 # 4. Create the Common Headers Library

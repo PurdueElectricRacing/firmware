@@ -31,6 +31,11 @@ MACRO(COMMON_FIRMWARE_COMPONENT TARGET_NAME)
     target_link_libraries(${TARGET_NAME} common_defs)
     target_link_libraries(${TARGET_NAME} SYSCALLS)
 
+    # Force this component to wait for CAN generation before compiling any of its .c files
+    if (TARGET can_generation)
+        add_dependencies(${TARGET_NAME} can_generation)
+    endif()
+
     target_link_options(${TARGET_NAME} PRIVATE
         "-Wl,--whole-archive"
         "$<TARGET_FILE:SYSCALLS>"
@@ -87,6 +92,11 @@ MACRO(COMMON_BOOTLOADER_COMPONENT TARGET_NAME)
     endforeach()
     target_link_libraries(${TARGET_NAME} common_defs)
     target_link_libraries(${TARGET_NAME} SYSCALLS)
+
+    # Force this component to wait for CAN generation before compiling any of its .c files
+    if (TARGET can_generation)
+        add_dependencies(${TARGET_NAME} can_generation)
+    endif()
 
     target_link_options(${TARGET_NAME} PRIVATE
         "-Wl,--whole-archive"

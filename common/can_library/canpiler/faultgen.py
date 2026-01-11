@@ -1,9 +1,10 @@
 from typing import List
-from parser import FaultModule
+from parser import SystemContext, FaultModule
 from utils import GENERATED_DIR, print_as_success
 
-def generate_fault_data(fault_modules: List[FaultModule]):
+def generate_fault_data(context: SystemContext):
     print("Generating fault library data...")
+    fault_modules = context.fault_modules
     generate_fault_header(fault_modules)
     generate_fault_source(fault_modules)
 

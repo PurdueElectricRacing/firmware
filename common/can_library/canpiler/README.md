@@ -13,17 +13,26 @@ Modeled After the traditional compiler pipeline. Written in python for ease of m
 - typos, missing fields, etc
 
 #### 2. Parsing and Semantic Validation
-`parser.py`: Parses the configuration files into IR `@dataclasses`. "Logical" config errors are caught during this phase.
-- Invalid types, signals contains more information than 64 bits, etc
+`parser.py`: Parses configurations into IR `@dataclasses`. "Logical" config errors are caught during this phase.
+- Invalid types, signals exceeding 64 bits, etc.
+- Aggregates all data into a unified `SystemContext` for subsequent stages.
 
 #### 3. Linker
-`linker.py`: Transforms the IR into a linked IR with resolved message IDs.
-The linker algorithm is as follows:
-1. Set "anchors" for each priority group using message ID overrides. If a priority group does not contain any messages with overrides, use the first item in sorted list.
-2. "Fill" each priority group by assigning an ID in incrementing order
-- A collision is when the algorithm assigns two messages the same ID. When this happens a valid bus cannot be generated with given the constraints, so the linker will throw an exception
+`linker.py`: Transforms the IR into a linked IR with resolved message IDs using a two-pass "Water Level" algorithm.
+- **Pass 1: Constraint Verification**: Ensures manual `msg_id_override` values respect priority monotonicity (messages in priority $N$ cannot have IDs higher than messages in priority $N+1$).
+- **Pass 2: ID Assignment**: Assigns remaining dynamic IDs priority-by-priority.
+    - Within each priority group, messages are sorted alphabetically by `msg_name` to ensure deterministic builds.
+    - The "Water Level" tracks the next available ID; it incrementially rises as IDs are assigned and skips over reserved override ranges.
+- **Dependency Resolution**: Resolves RX message references and calculates bit-level layout (offsets, shifts, masks).
 
 #### 4. Mapper
-
+`mapper.py`: Maps CAN IDs to physical hardware resources.
+- **bxCAN Filter Groups**: Optimizes STM32 bxCAN filter bank usage by grouping messages into 32-bit filter slots.
+- **Promiscuous Mode**: Configures all-pass filters for buses where `accept_all_messages` is enabled.
+- **Initialization Code**: Generates the bitmasks required for hardware filter initialization.
 
 #### 5. Generation
+Produces the final build artifacts from the `SystemContext`.
+- `codegen.py`: Generates C headers and source files for each node, including packed bit-field structs and endianness-safe accessors.
+- `dbcgen.py`: Produces deterministic, versioned DBC files using the `cantools` library for external telemetry and analysis.
+- `faultgen.py`: Generates global fault data maps (`fault_data.c/h`) to bridge CAN messages with the system-wide fault library.

@@ -1,19 +1,7 @@
-import subprocess
 from typing import List, Dict, Tuple, Optional
 from parser import Node, Message, RxMessage, FaultModule, Fault, load_custom_types
-from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success, to_macro_name
+from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success, to_macro_name, get_git_hash
 from mapper import NodeMapping
-
-def get_git_hash():
-    """
-    Returns the short git has of the current commit
-    """
-    try:
-        result = subprocess.run(['git', 'rev-parse', '--short=7', 'HEAD'], 
-						        capture_output=True, text=True, check=True)
-        return result.stdout.strip()
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        return "unknown"
 
 def generate_headers(nodes: List[Node], mappings: Dict[str, NodeMapping], fault_modules: List[FaultModule]):
     # Load bus configs

@@ -3,7 +3,7 @@ from validator import validate_all
 from parser import parse_all, parse_faults
 from linker import link_all
 from mapper import map_hardware
-from dbcgen import generate_debug
+from dbcgen import generate_debug, generate_dbcs
 from codegen import generate_headers
 from utils import load_json, BUS_CONFIG_PATH
 
@@ -31,7 +31,7 @@ def build():
 
     generate_debug(nodes)
     generate_headers(nodes, mappings, fault_modules)
-    # TODO dbcgen
+    generate_dbcs(nodes)
 
 if __name__ == "__main__":
     build()

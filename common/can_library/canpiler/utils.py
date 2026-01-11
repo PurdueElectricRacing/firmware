@@ -1,4 +1,5 @@
 import json
+import subprocess
 from pathlib import Path
 
 BASE_DIR = Path(__file__).parent.parent
@@ -7,6 +8,7 @@ CONFIG_DIR = BASE_DIR / 'configs'
 NODE_CONFIG_DIR = CONFIG_DIR / 'nodes'
 EXTERNAL_NODE_CONFIG_DIR = CONFIG_DIR / 'external_nodes'
 GENERATED_DIR = BASE_DIR / 'generated'
+DBC_DIR = BASE_DIR / 'dbc'
 BUS_CONFIG_PATH = CONFIG_DIR / 'system' / 'bus_configs.json'
 COMMON_TYPES_CONFIG_PATH = CONFIG_DIR / 'system' / 'common_types.json'
 FAULT_CONFIG_PATH = CONFIG_DIR / 'system' / 'faults.json'
@@ -51,3 +53,14 @@ def load_json(filepath):
 
 def to_macro_name(name: str) -> str:
     return name.upper()
+
+def get_git_hash():
+    """
+    Returns the short git hash of the current commit
+    """
+    try:
+        result = subprocess.run(['git', 'rev-parse', '--short=7', 'HEAD'], 
+                                capture_output=True, text=True, check=True)
+        return result.stdout.strip()
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return "unknown"

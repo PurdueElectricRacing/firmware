@@ -42,5 +42,5 @@ jobs:
             output/**/*.elf
             output/**/*.hex
             output/**/*.tar.gz
-            common/daq/*.dbc
+            common/can_library/dbc/*.dbc
           retention-days: ${{ github.ref == 'refs/heads/master' && 90 || 7 }}

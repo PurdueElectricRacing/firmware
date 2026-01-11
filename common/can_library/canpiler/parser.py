@@ -278,7 +278,12 @@ def parse_signal(data: Dict) -> Signal:
 
 def parse_message(data: Dict) -> Message:
     # Handle is_extended logic: default False, check is_standard_id (inverse) or is_extended_id
+    # If a long ID override is provided, assume extended
+    id_override = data.get('msg_id_override')
     is_extended = data.get('is_extended_id', not data.get('is_standard_id', True))
+    
+    if id_override and int(id_override, 0) > 0x7FF:
+        is_extended = True
 
     return Message(
         name=data['msg_name'],
@@ -286,7 +291,7 @@ def parse_message(data: Dict) -> Message:
         signals=[parse_signal(s) for s in data.get('signals', [])],
         priority=data.get('msg_priority', 0),
         period=data.get('msg_period', 0),
-        id_override=data.get('msg_id_override'),
+        id_override=id_override,
         is_extended=is_extended
     )
 

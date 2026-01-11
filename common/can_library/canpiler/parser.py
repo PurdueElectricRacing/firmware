@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List, Optional, Dict
 from pathlib import Path
-from utils import load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, COMMON_TYPES_CONFIG_PATH, CTYPE_SIZES, print_as_error, print_as_ok, print_as_success, to_macro_name
+from utils import load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, COMMON_TYPES_CONFIG_PATH, FAULT_CONFIG_PATH, CTYPE_SIZES, print_as_error, print_as_ok, print_as_success, to_macro_name
 
 @dataclass
 class Signal:
@@ -123,6 +123,29 @@ class Node:
     busses: Dict[str, Bus] = field(default_factory=dict)
     is_external: bool = False
 
+@dataclass
+class Fault:
+    name: str
+    max_val: int
+    min_val: int
+    priority: str
+    time_to_latch: int
+    time_to_unlatch: int
+    lcd_message: str
+    absolute_index: int = 0
+    id: int = 0
+
+    @property
+    def macro_name(self) -> str:
+        return to_macro_name(self.name)
+
+@dataclass
+class FaultModule:
+    node_name: str
+    generate_strings: bool
+    faults: List[Fault] = field(default_factory=list)
+    node_id: int = 0
+
 # --- Parsing Logic ---
 
 def load_custom_types() -> Dict:
@@ -165,6 +188,44 @@ def parse_all() -> List[Node]:
     
     print_as_success("All nodes parsed successfully");
     return nodes
+
+def parse_faults() -> List[FaultModule]:
+    """Parse fault configurations and assign indices and IDs."""
+    if not FAULT_CONFIG_PATH.exists():
+        return []
+
+    print("Parsing fault configurations...")
+    data = load_json(FAULT_CONFIG_PATH)
+    fault_modules = []
+    global_index = 0
+
+    for i, m_data in enumerate(data.get("nodes", [])):
+        module = FaultModule(
+            node_name=m_data["node_name"],
+            generate_strings=m_data.get("generate_strings", False),
+            node_id=i
+        )
+        
+        for f_data in m_data.get("faults", []):
+            fault = Fault(
+                name=f_data["fault_name"],
+                max_val=f_data["max"],
+                min_val=f_data["min"],
+                priority=f_data["priority"],
+                time_to_latch=f_data["time_to_latch"],
+                time_to_unlatch=f_data["time_to_unlatch"],
+                lcd_message=f_data["lcd_message"],
+                absolute_index=global_index,
+                id=(i << 12) | global_index
+            )
+            module.faults.append(fault)
+            global_index += 1
+            
+        fault_modules.append(module)
+        print_as_ok(f"Parsed faults for {module.node_name}")
+
+    print_as_success(f"Successfully parsed {global_index} faults")
+    return fault_modules
 
 def validate_node(node: Node, custom_types: Dict):
     """Run semantic validation on a node"""

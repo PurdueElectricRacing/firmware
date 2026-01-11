@@ -1,6 +1,6 @@
 import sys
 from validator import validate_all
-from parser import parse_all
+from parser import parse_all, parse_faults
 from linker import link_all
 from mapper import map_hardware
 from dbcgen import generate_debug
@@ -13,6 +13,7 @@ def build():
     
     try:
         nodes = parse_all()
+        fault_modules = parse_faults()
         link_all(nodes)
         
         # Load bus configs for mapper and codegen
@@ -29,7 +30,7 @@ def build():
         sys.exit(1)
 
     generate_debug(nodes)
-    generate_headers(nodes, mappings)
+    generate_headers(nodes, mappings, fault_modules)
     # TODO dbcgen
 
 if __name__ == "__main__":

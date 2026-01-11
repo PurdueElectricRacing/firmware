@@ -1,9 +1,9 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
-    "required": ["modules"],
+    "required": ["nodes"],
     "properties": {
-        "modules": {
+        "nodes": {
             "type": "array",
             "items":{"$ref":"#/$defs/node"}
         }
@@ -16,6 +16,10 @@
                 "node_name":{
                     "type":"string",
                     "description":"name of the node (MCU)"
+                },
+                "generate_strings": {
+                    "type": "boolean",
+                    "description": "If true, the generator will produce the LCD message string arrays for this node. Useful for saving Flash on nodes without screens."
                 },
                 "can_name": {
                     "type": "string",

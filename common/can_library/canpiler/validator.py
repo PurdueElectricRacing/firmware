@@ -68,6 +68,17 @@ def validate_external_nodes(schema_store) -> bool:
             all_valid = False
     return all_valid
 
+def validate_faults() -> bool:
+    fault_schema = load_json(SCHEMA_DIR / 'fault_schema.json')
+    faults = load_json(FAULT_CONFIG_PATH)
+
+    if validate_against_schema(faults, fault_schema, filename='faults.json'):
+        print_as_ok("faults.json")
+        return True
+    else:
+        print_as_error("Validation failed for faults.json")
+        return False
+
 def validate_all() -> bool:
     print("Validating configs against schema...")
 
@@ -85,6 +96,10 @@ def validate_all() -> bool:
 
     # Validate bus configs
     if not validate_bus_config(schema_store):
+        all_valid = False
+    
+    # Validate fault configs
+    if not validate_faults():
         all_valid = False
     
     # Validate node configs

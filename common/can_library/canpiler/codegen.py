@@ -1,9 +1,9 @@
 from typing import List, Dict, Tuple, Optional
-from parser import Node, Message, RxMessage, load_custom_types
+from parser import Node, Message, RxMessage, FaultModule, Fault, load_custom_types
 from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success, to_macro_name
 from mapper import NodeMapping
 
-def generate_headers(nodes: List[Node], mappings: Dict[str, NodeMapping]):
+def generate_headers(nodes: List[Node], mappings: Dict[str, NodeMapping], fault_modules: List[FaultModule]):
     # Load bus configs
     bus_configs = load_json(BUS_CONFIG_PATH)
     busses = {b['name']: b for b in bus_configs['busses']}
@@ -32,6 +32,110 @@ def generate_headers(nodes: List[Node], mappings: Dict[str, NodeMapping]):
 
     # Generate router header
     generate_router_header(nodes)
+
+    # Generate fault data
+    if fault_modules:
+        generate_fault_data(fault_modules)
+
+def generate_fault_data(fault_modules: List[FaultModule]):
+    generate_fault_header(fault_modules)
+    generate_fault_source(fault_modules)
+
+def generate_fault_header(fault_modules: List[FaultModule]):
+    filename = GENERATED_DIR / "fault_data.h"
+    total_faults = sum(len(m.faults) for m in fault_modules)
+
+    with open(filename, 'w') as f:
+        f.write("#ifndef FAULT_DATA_H\n")
+        f.write("#define FAULT_DATA_H\n\n")
+        f.write("#include \"common/faults/faults.h\"\n\n")
+
+        f.write("// Total counts\n")
+        for m in fault_modules:
+            f.write(f"#define TOTAL_{m.node_name.upper()}_FAULTS {len(m.faults)}\n")
+        f.write(f"#define TOTAL_NUM_FAULTS {total_faults}\n\n")
+
+        f.write("// Accessor Macros\n")
+        f.write("#define GET_IDX(id) (id & 0xFFF)\n")
+        f.write("#define GET_OWNER(id) (id >> 12)\n\n")
+
+        f.write("// Fault IDs\n")
+        for m in fault_modules:
+            for fault in m.faults:
+                f.write(f"#define ID_{fault.macro_name}_FAULT 0x{fault.id:x}\n")
+        f.write("\n")
+
+        f.write("// Latch times (ms)\n")
+        for m in fault_modules:
+            for fault in m.faults:
+                f.write(f"#define {fault.macro_name}_LATCH_TIME {fault.time_to_latch}\n")
+                f.write(f"#define {fault.macro_name}_UNLATCH_TIME {fault.time_to_unlatch}\n")
+        f.write("\n")
+
+        f.write("// Priorities\n")
+        for m in fault_modules:
+            for fault in m.faults:
+                f.write(f"#define {fault.macro_name}_PRIORITY FAULT_{fault.priority.upper()}\n")
+        f.write("\n")
+
+        f.write("// Messages\n")
+        for m in fault_modules:
+            for fault in m.faults:
+                f.write(f"#define {fault.macro_name}_MSG \"{fault.lcd_message}\"\n")
+        f.write("\n")
+
+        f.write("extern uint16_t faultLatchTime[TOTAL_NUM_FAULTS];\n")
+        f.write("extern uint16_t faultULatchTime[TOTAL_NUM_FAULTS];\n")
+        f.write("extern fault_status_t statusArray[TOTAL_NUM_FAULTS];\n")
+        f.write("extern fault_attributes_t faultArray[TOTAL_NUM_FAULTS];\n\n")
+
+        f.write("#endif\n")
+    print_as_success(f"Generated {filename.name}")
+
+def generate_fault_source(all_modules: List[FaultModule]):
+    filename = GENERATED_DIR / "fault_data.c"
+    
+    with open(filename, 'w') as f:
+        f.write("#include \"fault_data.h\"\n\n")
+
+        # Latch Time Array
+        f.write(f"uint16_t faultLatchTime[TOTAL_NUM_FAULTS] = {{\n")
+        for m in all_modules:
+            for fault in m.faults:
+                f.write(f"\t{fault.macro_name}_LATCH_TIME,\n")
+        f.write("};\n\n")
+
+        # Unlatch Time Array
+        f.write(f"uint16_t faultULatchTime[TOTAL_NUM_FAULTS] = {{\n")
+        for m in all_modules:
+            for fault in m.faults:
+                f.write(f"\t{fault.macro_name}_UNLATCH_TIME,\n")
+        f.write("};\n\n")
+
+        # Status Array
+        f.write(f"fault_status_t statusArray[TOTAL_NUM_FAULTS] = {{\n")
+        for m in all_modules:
+            for fault in m.faults:
+                f.write(f"\t{{false, ID_{fault.macro_name}_FAULT}},\n")
+        f.write("};\n\n")
+
+        # Attributes Array
+        f.write(f"fault_attributes_t faultArray[TOTAL_NUM_FAULTS] = {{\n")
+        global_idx = 0
+        for m in all_modules:
+            for fault in m.faults:
+                f.write(f"\t{{false, false, {fault.macro_name}_PRIORITY, 0, 0, {fault.max_val}, {fault.min_val}, &statusArray[{global_idx}], 0, {fault.macro_name}_MSG}},\n")
+                global_idx += 1
+        f.write("};\n")
+
+    print_as_success(f"Generated {filename.name}")
+
+def format_float(val: float) -> str:
+    """Format float to .6g and ensure it looks like a float literal in C"""
+    s = f"{val:.6g}"
+    if '.' not in s and 'e' not in s:
+        s = f"{val:.1f}"
+    return s + "f"
 
 def generate_types_header(custom_types: Dict):
     filename = GENERATED_DIR / "can_types.h"
@@ -98,8 +202,33 @@ def generate_node_header(node: Node, bus_configs: Dict, custom_types: Dict, mapp
             f.write(f'#include "{bus_name}.h"\n')
         f.write('\n#include <string.h>\n')
         f.write('#include "common/psched/psched.h"\n')
-        f.write('#include "common/can_library/can_common.h"\n\n')
+        f.write('#include "common/can_library/can_common.h"\n')
+        f.write('#include "fault_data.h"\n\n')
         
+        # Scaling Macros
+        f.write("// Scaling Macros\n")
+        macros_written = False
+        for bus_name, bus in sorted(node.busses.items()):
+            # TX Messages -> PACK_COEFF
+            for msg in bus.tx_messages:
+                for sig in msg.signals:
+                    if sig.scale != 1.0:
+                        s_name = f"PACK_COEFF_{msg.macro_name}_{sig.macro_name}"
+                        f.write(f"#define {s_name} ({format_float(1.0/sig.scale)})\n")
+                        macros_written = True
+            
+            # RX Messages -> UNPACK_COEFF
+            for rx_msg in bus.rx_messages:
+                if rx_msg.resolved_message:
+                    msg = rx_msg.resolved_message
+                    for sig in msg.signals:
+                        if sig.scale != 1.0:
+                            s_name = f"UNPACK_COEFF_{msg.macro_name}_{sig.macro_name}"
+                            f.write(f"#define {s_name} ({format_float(sig.scale)})\n")
+                            macros_written = True
+        if macros_written:
+            f.write("\n")
+
         # RX Data Struct
         f.write("typedef struct {\n")
         rx_msgs = [] # List of (RxMessage, peripheral, bus_name)

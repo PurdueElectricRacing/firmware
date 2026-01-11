@@ -295,8 +295,8 @@ void sendShockpots() {
     float shock_l_parsed = -1.0 * ((POT_MAX_DIST - ((shock_l / (POT_VOLT_MIN_L - POT_VOLT_MAX_L)) * POT_MAX_DIST)) - POT_DIST_DROOP_L);
     float shock_r_parsed = -1.0 * ((POT_MAX_DIST - ((shock_r / (POT_VOLT_MIN_R - POT_VOLT_MAX_R)) * POT_MAX_DIST)) - POT_DIST_DROOP_R);
     
-    shock_l_scaled = (int16_t)(shock_l_parsed * SCALE_INV_SHOCK_FRONT_LEFT_SHOCK);
-    shock_r_scaled = (int16_t)(shock_r_parsed * SCALE_INV_SHOCK_FRONT_RIGHT_SHOCK);
+    shock_l_scaled = (int16_t)(shock_l_parsed * PACK_COEFF_SHOCK_FRONT_LEFT_SHOCK);
+    shock_r_scaled = (int16_t)(shock_r_parsed * PACK_COEFF_SHOCK_FRONT_RIGHT_SHOCK);
     SEND_SHOCK_FRONT(shock_l_scaled, shock_r_scaled);
 }
 

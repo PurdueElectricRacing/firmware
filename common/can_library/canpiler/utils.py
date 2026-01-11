@@ -9,6 +9,7 @@ EXTERNAL_NODE_CONFIG_DIR = CONFIG_DIR / 'external_nodes'
 GENERATED_DIR = BASE_DIR / 'generated'
 BUS_CONFIG_PATH = CONFIG_DIR / 'system' / 'bus_configs.json'
 COMMON_TYPES_CONFIG_PATH = CONFIG_DIR / 'system' / 'common_types.json'
+FAULT_CONFIG_PATH = CONFIG_DIR / 'system' / 'faults.json'
 
 MAX_DATA_SIZE = 64
 CTYPE_SIZES = {

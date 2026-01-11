@@ -1,8 +1,8 @@
 {
-    "$schema":"./fault_schema.json",
-    "modules": [
+    "nodes": [
         {
             "node_name": "pdu",
+            "generate_strings": false,
             "faults": [
                 {
                     "fault_name": "pdu_mcu_temp_high",
@@ -125,6 +125,7 @@
         },
         {
             "node_name": "main_module",
+            "generate_strings": false,
             "faults": [
                 {
                     "fault_name": "tv_stale",
@@ -391,6 +392,7 @@
         },
         {
             "node_name": "dashboard",
+            "generate_strings": true,
             "faults": [
                 {
                     "fault_name": "APPS_wiring_t1",
@@ -450,6 +452,7 @@
         },
         {
             "node_name": "a_box",
+            "generate_strings": false,
             "faults": [
                 {
                     "fault_name": "discharge_limit_enforce",
@@ -717,6 +720,7 @@
         },
         {
             "node_name":"torque_vector",
+            "generate_strings": false,
             "faults": [
                 {
                     "fault_name": "ES_Enabled",
@@ -785,6 +789,7 @@
         },
         {
             "node_name": "test",
+            "generate_strings": false,
             "can_name": "test_node",
             "faults": [
                 {

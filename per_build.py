@@ -97,7 +97,6 @@ def print_available_targets():
     modules = [
         "main_module",
         "bootloader",
-        "l4_testing",
         "f4_testing",
         "f7_testing",
         "g4_testing",

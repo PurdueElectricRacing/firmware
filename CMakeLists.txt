@@ -106,7 +106,6 @@ if(MODULES STREQUAL "")
         f4_testing
         f7_testing
         g4_testing
-        l4_testing
         main_module
         pdu
         torque_vector

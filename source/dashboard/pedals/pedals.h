@@ -20,7 +20,7 @@
 /* Module Includes */
 #include <stdint.h>
 
-#include "can_parse.h"
+#include "DASHBOARD.h"
 
 #define MAX_PEDAL_MEAS (4095)
 

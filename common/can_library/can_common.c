@@ -1,6 +1,6 @@
 #include "common/can_library/can_common.h"
+#include "common/can_library/generated/can_router.h"
 #include "common/queue/queue.h"
-#include "common/psched/psched.h"
 
 // common data structures
 can_data_t can_data;
@@ -53,9 +53,9 @@ void CAN_tx_update() {
         if (PHAL_txMailboxFree(CAN1, i)) {
             if (qReceive(&q_tx_can[CAN1_IDX][i], &tx_msg) == SUCCESS_G) {
                 PHAL_txCANMessage(&tx_msg, i);
-                can_mbx_last_send_time[CAN1_IDX][i] = sched.os_ticks;
+                can_mbx_last_send_time[CAN1_IDX][i] = OS_TICKS;
             }
-        } else if (sched.os_ticks - can_mbx_last_send_time[CAN1_IDX][i] > CAN_TX_TIMEOUT_MS) {
+        } else if (OS_TICKS - can_mbx_last_send_time[CAN1_IDX][i] > CAN_TX_TIMEOUT_MS) {
             PHAL_txCANAbort(CAN1, i);
             can_stats.can_peripheral_stats[CAN1_IDX].tx_fail++;
         }
@@ -66,9 +66,9 @@ void CAN_tx_update() {
         if (PHAL_txMailboxFree(CAN2, i)) {
             if (qReceive(&q_tx_can[CAN2_IDX][i], &tx_msg) == SUCCESS_G) {
                 PHAL_txCANMessage(&tx_msg, i);
-                can_mbx_last_send_time[CAN2_IDX][i] = sched.os_ticks;
+                can_mbx_last_send_time[CAN2_IDX][i] = OS_TICKS;
             }
-        } else if (sched.os_ticks - can_mbx_last_send_time[CAN2_IDX][i] > CAN_TX_TIMEOUT_MS) {
+        } else if (OS_TICKS - can_mbx_last_send_time[CAN2_IDX][i] > CAN_TX_TIMEOUT_MS) {
             PHAL_txCANAbort(CAN2, i);
             can_stats.can_peripheral_stats[CAN2_IDX].tx_fail++;
         }
@@ -88,7 +88,7 @@ void CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo) {
 void CAN_rx_update() {
     CanMsgTypeDef_t rx_msg;
     while (qReceive(&q_rx_can, &rx_msg) == SUCCESS_G) {
-        last_can_rx_time_ms = sched.os_ticks;
+        last_can_rx_time_ms = OS_TICKS;
         uint8_t periph_idx = GET_PERIPH_IDX(rx_msg.Bus);
         CAN_rx_dispatcher(rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId, rx_msg.Data, rx_msg.DLC, periph_idx);
     }

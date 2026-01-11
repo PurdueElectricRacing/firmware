@@ -299,7 +299,7 @@ static void conv_tcp_frame_to_can_msg(timestamped_frame_t* tcp_frame, CanMsgType
 static void eth_tcp_relay_can_frame(timestamped_frame_t* frame) {
     CanMsgTypeDef_t msg;
     conv_tcp_frame_to_can_msg(frame, &msg);
-    canTxSendToBack(&msg);
+    CAN_enqueue_tx(&msg);
 }
 
 // Pull out of TCP queue and add it to UDS queue

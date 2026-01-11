@@ -1,8 +1,7 @@
 #include "main.h"
 
 #include "buffer.h"
-#include "can_flags.h"
-#include "can_parse.h"
+#include "DAQ.h"
 #include "common/common_defs/common_defs.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
@@ -158,15 +157,17 @@ int main() {
         HardFault_Handler();
     log_yellow("PER PER PER\n");
 
-    PHAL_initCAN(CAN1, false, MCAN_BPS);
+    PHAL_initCAN(CAN1, false, MCAN_BAUD_RATE);
     // CAN1->IER |= CAN_IER_ERRIE | CAN_IER_LECIE |
     //              CAN_IER_BOFIE | CAN_IER_EPVIE |
     //              CAN_IER_EWGIE;
 
-    if (!PHAL_initCAN(CAN2, false, VCAN_BPS))
+    if (!PHAL_initCAN(CAN2, false, VCAN_BAUD_RATE))
         HardFault_Handler();
 
-    initCANParse();
+    if (!CAN_library_init())
+        HardFault_Handler();
+
     daq_spi_register_callbacks(); // Link SPI for ethernet driver
     //uds_init();
     daq_hub_init();
@@ -240,33 +241,16 @@ static void can_rx_irq_handler(CAN_TypeDef* can_h) {
             rx->data[6] = (uint8_t)(can_h->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
             rx->data[7] = (uint8_t)(can_h->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
 
-            // TODO: cannot guarantee that messages will be processed as fast as it logs, so currently keeping a separate queue for messages to be processed
-
-// Disable UDS for now
-#if 0
-            // TODO create a UDS CAN ID mask
-            if (rx->msg_id == (ID_UDS_RESPONSE_A_BOX         | CAN_EFF_FLAG) ||
-                rx->msg_id == (ID_UDS_RESPONSE_DASHBOARD     | CAN_EFF_FLAG) ||
-                rx->msg_id == (ID_UDS_RESPONSE_MAIN_MODULE   | CAN_EFF_FLAG) ||
-                rx->msg_id == (ID_UDS_RESPONSE_PDU           | CAN_EFF_FLAG) ||
-                rx->msg_id == (ID_UDS_RESPONSE_TORQUE_VECTOR | CAN_EFF_FLAG))
-            {
-                if ((dh.eth_tcp_state == ETH_TCP_ESTABLISHED) && (xQueueSendToBackFromISR(q_tcp_tx, rx, &xHigherPriorityTaskWoken) != pdPASS))
-                {
-                    daq_catch_error();
-                }
-            }
-
-            // Check for CAN messages intended for DAQ, which is only really UDS
-            if (rx->msg_id == (ID_UDS_COMMAND_DAQ | CAN_EFF_FLAG))
-            {
-                if (xQueueSendToBackFromISR(q_can1_rx, rx, &xHigherPriorityTaskWoken) != pdPASS)
-                {
-                    daq_catch_error();
-                }
-            }
-#endif
             bCommitWrite(&b_rx_can, 1);
+
+            CanMsgTypeDef_t msg;
+            msg.Bus = can_h;
+            msg.IDE = (rx->msg_id & CAN_EFF_FLAG) ? 1 : 0;
+            if (msg.IDE == 1) msg.ExtId = rx->msg_id & ~CAN_EFF_FLAG;
+            else msg.StdId = rx->msg_id;
+            msg.DLC = rx->dlc;
+            memcpy(msg.Data, rx->data, 8);
+            qSendToBack(&q_rx_can, &msg);
         } else {
             daq_hub.bcan_rx_overflow++;
         }
@@ -399,4 +383,9 @@ void HardFault_Handler() {
     while (1) {
         __asm__("nop");
     }
+}
+
+void daq_bl_cmd_CALLBACK(can_data_t* p_can_data)
+{
+    // Handle bootloader commands
 }

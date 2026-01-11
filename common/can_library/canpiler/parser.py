@@ -116,12 +116,33 @@ class Bus:
     peripheral: str
     tx_messages: List[Message] = field(default_factory=list)
     rx_messages: List[RxMessage] = field(default_factory=list)
+    accept_all_messages: bool = False
 
 @dataclass
 class Node:
     name: str
+    node_id: Optional[int] = None
+    system_ids: Dict[str, int] = field(default_factory=dict)
     busses: Dict[str, Bus] = field(default_factory=dict)
     is_external: bool = False
+    scheduler: str = "psched"
+
+    def generate_system_ids(self) -> None:
+        """Generate system-level CAN IDs based on node_id."""
+        if self.node_id is None:
+            return
+            
+        # Formula: ((priority - 1) << 26) | (node_id << 21) | (msg_index << 9)
+        # Using high message indices (0x700+) for system messages to avoid collisions
+        
+        # DAQ Response: Priority 3 (bits 26-28 = 2), Msg Index 0x7E0
+        daq_base = (2 << 26) | (self.node_id << 21) | (0x7E0 << 9)
+        
+        # Fault Sync: Priority 1 (bits 26-28 = 0), Msg Index 0x7E1
+        self.system_ids["fault_sync"] = (0 << 26) | (self.node_id << 21) | (0x7E1 << 9)
+
+        for bus_name in self.busses:
+            self.system_ids[f"daq_response_{bus_name}"] = daq_base
 
 @dataclass
 class Fault:
@@ -273,7 +294,8 @@ def parse_bus(name: str, data: Dict) -> Bus:
         name=name,
         peripheral=data.get('peripheral', 'UNKNOWN'),
         tx_messages=[parse_message(m) for m in data.get('tx', [])],
-        rx_messages=[parse_rx_message(m) for m in data.get('rx', [])]
+        rx_messages=[parse_rx_message(m) for m in data.get('rx', [])],
+        accept_all_messages=data.get('accept_all_messages', False)
     )
 
 def parse_internal_node(filepath: Path) -> Node:
@@ -282,11 +304,15 @@ def parse_internal_node(filepath: Path) -> Node:
     for bus_name, bus_data in data.get('busses', {}).items():
         busses[bus_name] = parse_bus(bus_name, bus_data)
     
-    return Node(
+    node = Node(
         name=data['node_name'],
+        node_id=data.get('node_id'),
         busses=busses,
-        is_external=False
+        is_external=False,
+        scheduler=data.get('scheduler', 'psched')
     )
+    node.generate_system_ids()
+    return node
 
 def parse_external_node(filepath: Path) -> Node:
     data = load_json(filepath)

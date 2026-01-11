@@ -12,7 +12,7 @@
 #include "common/psched/psched.h"
 
 /* Module Includes */
-#include "can_parse.h"
+#include "DASHBOARD.h"
 #include "daq.h"
 #include "lcd.h"
 #include "main.h"
@@ -212,8 +212,8 @@ int main(void) {
     taskCreate(sendTVParameters, 500);
     taskCreate(sendVoltageData, 5000);
     taskCreateBackground(lcdTxUpdate);
-    taskCreateBackground(canTxUpdate);
-    taskCreateBackground(canRxUpdate);
+    taskCreateBackground(CAN_tx_update);
+    taskCreateBackground(CAN_rx_update);
 
     schedStart();
 
@@ -230,7 +230,7 @@ void preflightChecks(void) {
 
     switch (state++) {
         case 0:
-            if (false == PHAL_initCAN(CAN1, false, VCAN_BPS)) {
+            if (false == PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
                 HardFault_Handler();
             }
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
@@ -252,7 +252,7 @@ void preflightChecks(void) {
             break;
         case 3:
             /* Module Initialization */
-            initCANParse();
+            CAN_library_init();
             if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
                 HardFault_Handler();
             break;
@@ -275,7 +275,7 @@ void preflightChecks(void) {
 void sendVersion() {
     char git_hash[8]      = GIT_HASH;
     uint64_t git_hash_num = EIGHT_CHAR_TO_U64_LE(git_hash);
-    SEND_DASH_VERSION(git_hash_num);
+    CAN_SEND_dash_version(git_hash_num);
 }
 
 /**
@@ -297,7 +297,7 @@ void sendShockpots() {
     
     shock_l_scaled = (int16_t)(shock_l_parsed * PACK_COEFF_SHOCK_FRONT_LEFT_SHOCK);
     shock_r_scaled = (int16_t)(shock_r_parsed * PACK_COEFF_SHOCK_FRONT_RIGHT_SHOCK);
-    SEND_SHOCK_FRONT(shock_l_scaled, shock_r_scaled);
+    CAN_SEND_shock_front(shock_l_scaled, shock_r_scaled);
 }
 
 // jose was here
@@ -419,7 +419,7 @@ void heartBeatLED() {
 
     static uint8_t trig;
     if (trig) {
-        SEND_DASH_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
+        CAN_SEND_dash_can_stats(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
                             can_stats.can_peripheral_stats[CAN1_IDX].tx_fail,
                             can_stats.rx_of,
                             can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
@@ -579,7 +579,7 @@ void handleDashboardInputs() {
 
     if (input_state.start_button) {
         input_state.start_button = 0;
-        SEND_START_BUTTON(1);
+        CAN_SEND_start_button(1);
     }
 }
 
@@ -632,11 +632,11 @@ void lcdTxUpdate() {
 }
 
 void CAN1_RX0_IRQHandler() {
-    canParseIRQHandler(CAN1);
+    CAN_rx_update();
 }
 
-void dashboard_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a) {
-    if (can_data.dashboard_bl_cmd.cmd == BLCMD_RST)
+void dashboard_bl_cmd_CALLBACK(can_data_t* can_data) {
+    if (can_data->dashboard_bl_cmd.cmd == BLCMD_RST)
         Bootloader_ResetForFirmwareDownload();
 }
 

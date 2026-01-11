@@ -11,7 +11,7 @@
 
 /* Module Includes */
 #include "auto_switch.h"
-#include "can_parse.h"
+#include "PDU.h"
 #include "cooling.h"
 #include "daq.h"
 #include "fan_control.h"
@@ -200,8 +200,8 @@ int main() {
     taskCreate(heartBeatTask, 100);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(LED_periodic, 500);
-    taskCreateBackground(canTxUpdate);
-    taskCreateBackground(canRxUpdate);
+    taskCreateBackground(CAN_tx_update);
+    taskCreateBackground(CAN_rx_update);
     taskCreate(autoSwitchPeriodic, 15);
     taskCreate(update_cooling_periodic, 100);
     taskCreate(send_iv_readings, 500);
@@ -216,13 +216,13 @@ void preflightChecks(void) {
 
     switch (state++) {
         case 0:
-            if (!PHAL_initCAN(CAN1, false, VCAN_BPS)) {
+            if (!PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
                 HardFault_Handler();
             }
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
             break;
         case 1:
-            initCANParse();
+            CAN_library_init();
             if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
                 HardFault_Handler();
             break;
@@ -319,11 +319,11 @@ void heatBeatLED() {
 }
 
 void CAN1_RX0_IRQHandler() {
-    canParseIRQHandler(CAN1);
+    CAN_rx_update();
 }
 
-void pdu_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a) {
-    if (can_data.pdu_bl_cmd.cmd == BLCMD_RST)
+void pdu_bl_cmd_CALLBACK(can_data_t* can_data) {
+    if (can_data->pdu_bl_cmd.cmd == BLCMD_RST)
         Bootloader_ResetForFirmwareDownload();
 }
 

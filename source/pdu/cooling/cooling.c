@@ -90,7 +90,7 @@ static void calculate_cooling_periodic() {
     }
 }
 
-void cooling_driver_request_CALLBACK(CanParsedData_t* msg_data_a) {
+void cooling_driver_request_CALLBACK(can_data_t* p_can_data) {
     // Only receive fan speed values from dash now
     cr.fan1_speed = CLAMP(can_data.cooling_driver_request.batt_fan, 0, 100);
     cr.fan2_speed = CLAMP(can_data.cooling_driver_request.dt_fan, 0, 100);

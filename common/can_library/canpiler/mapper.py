@@ -15,6 +15,8 @@ class NodeMapping:
     node_name: str
     # Peripheral -> List of FilterBanks
     filters: Dict[str, List[FilterBank]] = field(default_factory=dict)
+    # Peripheral -> bool
+    accept_all: Dict[str, bool] = field(default_factory=dict)
 
 def map_hardware(nodes: List[Node], bus_configs: Dict) -> Dict[str, NodeMapping]:
     """
@@ -43,6 +45,7 @@ def map_node_hardware(node: Node, bus_configs: Dict) -> NodeMapping:
     for periph in peripherals:
         msgs = periph_to_msgs[periph]
         mapping.filters[periph] = []
+        mapping.accept_all[periph] = any(bus.accept_all_messages for bus in node.busses.values() if bus.peripheral == periph)
         
         if not msgs:
             continue

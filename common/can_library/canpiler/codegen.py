@@ -1,7 +1,19 @@
+import subprocess
 from typing import List, Dict, Tuple, Optional
 from parser import Node, Message, RxMessage, FaultModule, Fault, load_custom_types
 from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success, to_macro_name
 from mapper import NodeMapping
+
+def get_git_hash():
+    """
+    Returns the short git has of the current commit
+    """
+    try:
+        result = subprocess.run(['git', 'rev-parse', '--short=7', 'HEAD'], 
+						        capture_output=True, text=True, check=True)
+        return result.stdout.strip()
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return "unknown"
 
 def generate_headers(nodes: List[Node], mappings: Dict[str, NodeMapping], fault_modules: List[FaultModule]):
     # Load bus configs
@@ -201,10 +213,41 @@ def generate_node_header(node: Node, bus_configs: Dict, custom_types: Dict, mapp
         for bus_name in sorted(node.busses.keys()):
             f.write(f'#include "{bus_name}.h"\n')
         f.write('\n#include <string.h>\n')
-        f.write('#include "common/psched/psched.h"\n')
+        
+        if node.scheduler == "freertos":
+            f.write('#include "common/freertos/freertos.h"\n')
+            f.write('#define OS_TICKS (xTaskGetTickCount())\n')
+        else:
+            f.write('#include "common/psched/psched.h"\n')
+            f.write('#define OS_TICKS (sched.os_ticks)\n')
+
         f.write('#include "common/can_library/can_common.h"\n')
         f.write('#include "fault_data.h"\n\n')
+
+        # Git Hash
+        f.write(f"#define GIT_HASH \"{get_git_hash()}\"\n\n")
         
+        # System IDs
+        if node.system_ids:
+            f.write("// System IDs\n")
+            for name, val in sorted(node.system_ids.items()):
+                # Determine primary macro name
+                if name.startswith("daq_response"):
+                    bus_name = name.replace("daq_response_", "").upper()
+                    macro_name = f"ID_DAQ_RESPONSE_{node.name.upper()}_{bus_name}"
+                elif name == "fault_sync":
+                    macro_name = f"ID_FAULT_SYNC_{node.name.upper()}"
+                else:
+                    macro_name = f"ID_{name.upper()}_{node.name.upper()}"
+                
+                f.write(f"#define {macro_name} (0x{val:x})\n")
+                
+                # MAIN_MODULE alias for backward compatibility
+                if node.name.upper() == "MAIN":
+                    alias_name = macro_name.replace("MAIN", "MAIN_MODULE")
+                    f.write(f"#define {alias_name} {macro_name}\n")
+            f.write("\n")
+
         # Scaling Macros
         f.write("// Scaling Macros\n")
         macros_written = False
@@ -269,38 +312,49 @@ def generate_filter_funcs(f, mapping: NodeMapping):
     for periph, banks in mapping.filters.items():
         f.write(f"static inline void {periph}_set_filters() {{\n")
         
-        if not banks:
+        accept_all = mapping.accept_all.get(periph, False)
+        
+        if not banks and not accept_all:
             f.write("\treturn;\n")
             f.write("}\n\n")
             continue
             
         f.write(f"\t{periph}->FMR  |= CAN_FMR_FINIT;\n")
         
-        for fb in banks:
-            f.write(f"\t// Bank {fb.bank_idx}: {fb.msg1.name}" + (f", {fb.msg2.name}" if fb.msg2 else "") + "\n")
-            f.write(f"\t{periph}->FM1R |= (1 << {fb.bank_idx});\n")
-            f.write(f"\t{periph}->FS1R |= (1 << {fb.bank_idx});\n")
-            
-            m1_macro = f"{fb.msg1.macro_name}_MSG_ID"
-            if fb.is_ext1:
-                f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR1 = ({m1_macro} << 3) | 4;\n")
-            else:
-                f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR1 = ({m1_macro} << 21);\n")
-            
-            if fb.msg2:
-                m2_macro = f"{fb.msg2.macro_name}_MSG_ID"
-                if fb.is_ext2:
-                    f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR2 = ({m2_macro} << 3) | 4;\n")
-                else:
-                    f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR2 = ({m2_macro} << 21);\n")
-            else:
-                # If no second message, repeat the first one to fill the bank
+        if accept_all:
+            f.write("\t// Accept all messages\n")
+            bank_idx = 0 if periph == "CAN1" else 14
+            f.write(f"\t{periph}->FM1R &= ~(1 << {bank_idx}); // Mask mode\n")
+            f.write(f"\t{periph}->FS1R |= (1 << {bank_idx});  // 32-bit scale\n")
+            f.write(f"\t{periph}->sFilterRegister[{bank_idx}].FR1 = 0;\n")
+            f.write(f"\t{periph}->sFilterRegister[{bank_idx}].FR2 = 0;\n")
+            f.write(f"\t{periph}->FA1R |= (1 << {bank_idx});\n")
+        else:
+            for fb in banks:
+                f.write(f"\t// Bank {fb.bank_idx}: {fb.msg1.name}" + (f", {fb.msg2.name}" if fb.msg2 else "") + "\n")
+                f.write(f"\t{periph}->FM1R |= (1 << {fb.bank_idx});\n")
+                f.write(f"\t{periph}->FS1R |= (1 << {fb.bank_idx});\n")
+                
+                m1_macro = f"{fb.msg1.macro_name}_MSG_ID"
                 if fb.is_ext1:
-                    f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR2 = ({m1_macro} << 3) | 4;\n")
+                    f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR1 = ({m1_macro} << 3) | 4;\n")
                 else:
-                    f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR2 = ({m1_macro} << 21);\n")
-            
-            f.write(f"\t{periph}->FA1R |= (1 << {fb.bank_idx});\n")
+                    f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR1 = ({m1_macro} << 21);\n")
+                
+                if fb.msg2:
+                    m2_macro = f"{fb.msg2.macro_name}_MSG_ID"
+                    if fb.is_ext2:
+                        f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR2 = ({m2_macro} << 3) | 4;\n")
+                    else:
+                        f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR2 = ({m2_macro} << 21);\n")
+                else:
+                    # If no second message, repeat the first one to fill the bank
+                    if fb.is_ext1:
+                        f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR2 = ({m1_macro} << 3) | 4;\n")
+                    else:
+                        f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR2 = ({m1_macro} << 21);\n")
+                
+                f.write(f"\t{periph}->FA1R |= (1 << {fb.bank_idx});\n")
         
         f.write(f"\t{periph}->FMR &= ~CAN_FMR_FINIT;\n")
         f.write("}\n\n")
@@ -325,7 +379,7 @@ def generate_rx_dispatcher(f, node: Node, rx_msgs: List[Tuple[RxMessage, str, st
             else:
                 f.write(f"\t\t\t\tcan_data.{msg.name}.{sig.name} = ({sig.datatype})((host_data >> {sig.bit_shift}) & {hex(sig.mask)});\n")
             
-        f.write(f"\t\t\t\tcan_data.{msg.name}.last_rx = sched.os_ticks;\n")
+        f.write(f"\t\t\t\tcan_data.{msg.name}.last_rx = OS_TICKS;\n")
         f.write(f"\t\t\t\tcan_data.{msg.name}.stale = false;\n")
         if rx_msg.callback:
             f.write(f"\t\t\t\t{rx_msg.name}_CALLBACK(&can_data);\n")
@@ -344,7 +398,7 @@ def generate_stale_check(f, node: Node, rx_msgs: List[Tuple[RxMessage, str, str]
         if msg.period > 0:
             # Use 2.5x period as threshold
             threshold = int(msg.period * 2.5)
-            f.write(f"\tif (sched.os_ticks - can_data.{msg.name}.last_rx > {threshold}) {{\n")
+            f.write(f"\tif (OS_TICKS - can_data.{msg.name}.last_rx > {threshold}) {{\n")
             f.write(f"\t\tcan_data.{msg.name}.stale = true;\n")
             f.write(f"\t}}\n")
     f.write("}\n\n")
@@ -391,7 +445,9 @@ def generate_tx_func(f, msg: Message, peripheral: str, bus_name: str, bus_config
     f.write(f"\n\tuint64_t wire_data = __builtin_bswap64(data);\n")
     f.write(f"\tmemcpy(outgoing.Data, &wire_data, {msg.macro_name}_DLC);\n\n")
     f.write(f"\tCAN_enqueue_tx(&outgoing);\n")
-    f.write(f"}}\n\n")
+    f.write(f"}}\n")
+    # Old system alias
+    f.write(f"#define SEND_{msg.macro_name} CAN_SEND_{msg.name}\n\n")
 
 def generate_bus_header(bus_name: str, config: Dict, messages: List[Message], custom_types: Dict):
     filename = GENERATED_DIR / f"{bus_name}.h"

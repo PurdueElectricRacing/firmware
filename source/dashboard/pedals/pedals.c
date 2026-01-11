@@ -2,7 +2,7 @@
 //#include "common/phal/flash.h"
 #include <stdint.h>
 
-#include "can_parse.h"
+#include "DASHBOARD.h"
 #include "common/faults/faults.h"
 #include "common/phal/gpio.h"
 #include "common_defs.h"

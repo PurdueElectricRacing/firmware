@@ -1,12 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
 
-# Run automatic code generation for Fault Library
-execute_process(COMMAND python3 ${CMAKE_SOURCE_DIR}/common/faults/generation/generator.py
-                RESULT_VARIABLE ret)
-if(ret EQUAL "1")
-    message(FATAL_ERROR "Fault Generation Failed")
-endif()
-
 # Check for bootloader generation
 if (NOT BOOTLOADER_BUILD)
     message(STATUS "Not building applications for bootloaders.")

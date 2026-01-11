@@ -1,5 +1,7 @@
 {
     "node_name": "TORQUE_VECTOR",
+    "scheduler": "psched",
+    "node_id": 2,
     "busses": {
         "VCAN": {
             "peripheral": "CAN1",
@@ -365,6 +367,5 @@
                 }
             ]
         }
-    },
-    "scheduler": "psched"
+    }
 }

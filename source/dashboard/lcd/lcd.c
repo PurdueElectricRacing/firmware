@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "can_parse.h"
+#include "DASHBOARD.h"
 #include "common/faults/faults.h"
 #include "common_defs.h"
 #include "main.h"
@@ -911,12 +911,12 @@ void coolingSelect() {
  *
  * @param msg_data_a Pointer to the parsed CAN message data
  */
-void coolant_out_CALLBACK(CanParsedData_t* msg_data_a) {
+void coolant_out_CALLBACK(can_data_t* can_data) {
     if (curr_page != PAGE_COOLING) {
-        cooling_elements[COOLING_B_FAN_INDEX].current_value   = msg_data_a->coolant_out.dt_fan;
-        cooling_elements[COOLING_B_PUMP_INDEX].current_value  = msg_data_a->coolant_out.dt_pump;
-        cooling_elements[COOLING_DT_FAN_INDEX].current_value  = msg_data_a->coolant_out.bat_fan;
-        cooling_elements[COOLING_DT_PUMP_INDEX].current_value = msg_data_a->coolant_out.bat_pump;
+        cooling_elements[COOLING_B_FAN_INDEX].current_value   = can_data->coolant_out.dt_fan;
+        cooling_elements[COOLING_B_PUMP_INDEX].current_value  = can_data->coolant_out.dt_pump;
+        cooling_elements[COOLING_DT_FAN_INDEX].current_value  = can_data->coolant_out.bat_fan;
+        cooling_elements[COOLING_DT_PUMP_INDEX].current_value = can_data->coolant_out.bat_pump;
     }
 }
 
@@ -1151,31 +1151,31 @@ void raceTelemetryUpdate() {
         NXT_setFontColor(CAR_STAT, WHITE);
     } else {
         switch (can_data.main_hb.car_state) {
-            case CAR_STATE_PRECHARGING:
+            case CARSTATE_PRECHARGING:
                 NXT_setFontColor(CAR_STAT, ORANGE);
                 NXT_setText(CAR_STAT, "PRECHARGE");
                 break;
-            case CAR_STATE_ENERGIZED:
+            case CARSTATE_ENERGIZED:
                 NXT_setFontColor(CAR_STAT, ORANGE);
                 NXT_setText(CAR_STAT, "ENERGIZED");
                 break;
-            case CAR_STATE_IDLE:
+            case CARSTATE_IDLE:
                 NXT_setFontColor(CAR_STAT, INFO_GRAY);
                 NXT_setText(CAR_STAT, "IDLE");
                 break;
-            case CAR_STATE_READY2DRIVE:
+            case CARSTATE_READY2DRIVE:
                 NXT_setFontColor(CAR_STAT, GREEN);
                 NXT_setText(CAR_STAT, "R2D");
                 break;
-            case CAR_STATE_ERROR:
+            case CARSTATE_ERROR:
                 NXT_setFontColor(CAR_STAT, YELLOW);
                 NXT_setText(CAR_STAT, "ERROR");
                 break;
-            case CAR_STATE_FATAL:
+            case CARSTATE_FATAL:
                 NXT_setFontColor(CAR_STAT, RED);
                 NXT_setText(CAR_STAT, "FATAL");
                 break;
-            case CAR_STATE_CONSTANT_TORQUE:
+            case CARSTATE_CONSTANT_TORQUE:
                 NXT_setFontColor(CAR_STAT, GREEN);
                 NXT_setText(CAR_STAT, "CONST TRQ");
                 break;

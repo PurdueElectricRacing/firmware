@@ -1,8 +1,10 @@
 {
     "node_name": "DAQ",
+    "scheduler": "freertos",
     "busses": {
         "VCAN": {
-            "peripheral": "CAN1",
+            "peripheral": "CAN2",
+            "accept_all_messages": true,
             "tx": [
                 {
                     "msg_name": "daq_can_stats",
@@ -82,7 +84,10 @@
                     "msg_period": 0
                 }
             ]
+        },
+        "MCAN": {
+            "peripheral": "CAN1",
+            "accept_all_messages": true
         }
-    },
-    "scheduler": "psched"
+    }
 }

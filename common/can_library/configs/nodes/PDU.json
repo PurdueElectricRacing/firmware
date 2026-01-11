@@ -1,5 +1,7 @@
 {
     "node_name": "PDU",
+    "scheduler": "psched",
+    "node_id": 6,
     "busses": {
         "VCAN": {
             "peripheral": "CAN1",
@@ -274,6 +276,5 @@
                 }
             ]
         }
-    },
-    "scheduler": "psched"
+    }
 }

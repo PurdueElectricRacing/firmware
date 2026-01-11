@@ -235,13 +235,13 @@ void preflightChecks(void) {
     switch (state++) {
         case 0:
             /* VCAN */
-            if (false == PHAL_initCAN(CAN1, false, VCAN_BPS)) {
+            if (false == PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
                 HardFault_Handler();
             }
             break;
         case 1:
             /* MCAN */
-            if (false == PHAL_initCAN(CAN2, false, MCAN_BPS)) {
+            if (false == PHAL_initCAN(CAN2, false, MCAN_BAUD_RATE)) {
                 HardFault_Handler();
             }
             break;

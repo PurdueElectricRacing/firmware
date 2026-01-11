@@ -11,6 +11,7 @@
 #ifndef _DAQ_H_
 #define _DAQ_H_
 
+#include "common/queue/queue.h"
 #include "MAIN.h"
 
 // Make this match the node name within the daq_config.json

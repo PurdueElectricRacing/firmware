@@ -1,5 +1,7 @@
 {
     "node_name": "DASHBOARD",
+    "scheduler": "psched",
+    "node_id": 1,
     "busses": {
         "VCAN": {
             "peripheral": "CAN1",
@@ -385,6 +387,5 @@
                 }
             ]
         }
-    },
-    "scheduler": "psched"
+    }
 }

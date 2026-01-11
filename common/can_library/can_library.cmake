@@ -47,6 +47,9 @@ macro(create_can_node_lib NODE_NAME ARCH_LIB)
 	# Link to common headers, project root, and architecture-specific CMSIS
 	target_link_libraries(${LIB_NAME} PUBLIC can_common_headers ${ARCH_LIB} QUEUE)
 	
+	# Include the current directory so FreeRTOSConfig.h can be found if needed
+	target_include_directories(${LIB_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
 	# Ensure generation happens before compilation
 	add_dependencies(${LIB_NAME} can_generation)
 endmacro()

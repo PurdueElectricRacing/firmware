@@ -5,7 +5,7 @@
 #include <string.h>
 
 #include "bmi088.h"
-#include "common/can_library/can_common.h"
+#include "TORQUE_VECTOR.h"
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
 #include "common/faults/faults.h"
@@ -234,7 +234,7 @@ void preflightChecks(void) {
     switch (state++) {
         case 0:
             /* VCAN Initialization */
-            if (false == PHAL_initCAN(CAN1, false, VCAN_BPS)) {
+            if (false == PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
                 HardFault_Handler();
             }
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
@@ -461,6 +461,14 @@ void txUsart() {
     PHAL_usartTxDma(&usb, (uint16_t *)txbuffer, 290);
 }
 
+void torquevector_bl_cmd_CALLBACK(can_data_t* p_can_data)
+{
+    if (p_can_data->torquevector_bl_cmd.cmd == BLCMD_RST)
+    {
+        Bootloader_ResetForFirmwareDownload();
+    }
+}
+
 void VCU_MAIN(void) {
     /* Fill in X & F */
     vcu_pp(&fVCU, &xVCU, &gps_handle, &bmi_handle);
@@ -476,11 +484,6 @@ void VCU_MAIN(void) {
     setFault(ID_VS_ENABLED_FAULT, (yVCU.VCU_mode == 4));
     setFault(ID_NO_GPS_FIX_FAULT, (fVCU.GS_FFLAG < 3));
     setFault(ID_YES_GPS_FIX_FAULT, (fVCU.GS_FFLAG == 3));
-
-    /* Handle Bootloader Reset */
-    if (can_data.torquevector_bl_cmd.cmd == BLCMD_RST) {
-        Bootloader_ResetForFirmwareDownload();
-    }
 
     /* Send VCU messages */
     CAN_SEND_VCU_torques_speeds((int16_t)(100 * yVCU.TO_VT[0]), (int16_t)(100 * yVCU.TO_VT[1]), (int16_t)(100 * yVCU.TO_PT[0]), (int8_t)(yVCU.VCU_mode));

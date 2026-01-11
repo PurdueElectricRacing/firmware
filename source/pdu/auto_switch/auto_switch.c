@@ -10,7 +10,7 @@
  */
 #include "auto_switch.h"
 
-#include "can_parse.h"
+#include "PDU.h"
 #include "common/faults/faults.h"
 #include "common/phal/gpio.h"
 #include "led.h"

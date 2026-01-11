@@ -35,15 +35,9 @@
             }
         },
         {
-            "label": "can_gen",
+            "label": "canlib_gen",
             "type": "shell",
-            "command": "python3 ./common/daq/generation/generator.py",
-            "problemMatcher": []
-        },
-        {
-            "label": "faults_gen",
-            "type": "shell",
-            "command": "python3 ./common/faults/generation/generator.py",
+            "command": "python3 ./common/can_library/canpiler/build.py",
             "problemMatcher": []
         },
         {

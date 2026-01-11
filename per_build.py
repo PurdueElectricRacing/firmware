@@ -112,25 +112,6 @@ def print_available_targets():
     for m in modules_sorted:
         print(f'\t{m}')
 
-def print_available_targets():
-    modules = [
-        "main_module",
-        "bootloader",
-        "l4_testing",
-        "f4_testing",
-        "f7_testing",
-        "g4_testing",
-        "a_box",
-        "torque_vector",
-        "dashboard",
-        "pdu",
-        "daq"
-    ]
-    modules_sorted = sorted(modules)
-    print("Available targets to build:")
-    for m in modules_sorted:
-        print(f'\t{m}')
-
 (options, args) = parser.parse_args()
 if options.list:
     # User ran `-t` with no argument: print available targets

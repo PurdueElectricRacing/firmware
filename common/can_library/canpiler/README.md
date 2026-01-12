@@ -36,3 +36,9 @@ Produces the final build artifacts from the `SystemContext`.
 - `codegen.py`: Generates C headers and source files for each node, including packed bit-field structs and endianness-safe accessors.
 - `dbcgen.py`: Produces deterministic, versioned DBC files using the `cantools` library for external telemetry and analysis.
 - `faultgen.py`: Generates global fault data maps (`fault_data.c/h`) to bridge CAN messages with the system-wide fault library.
+
+#### 6. Analysis
+`load_calc.py`: Performs post-generation capacity analysis for each bus in the system.
+- **Frame Estimation**: Calculates total bits per frame based on protocol overhead (Standard: 47 bits, Extended: 67 bits) and signal DLC.
+- **Bit-Stuffing**: Applies a $1.2\times$ factor to account for average bit-stuffing overhead.
+- **Health Monitoring**: Reports estimated bus utilization percentage with color-coded alerts (Green < 50%, Yellow < 70%, Red > 70%).

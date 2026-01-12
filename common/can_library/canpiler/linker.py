@@ -1,7 +1,7 @@
 from typing import List, Dict, Set, DefaultDict
 from collections import defaultdict
 from parser import Node, Message, load_custom_types
-from utils import print_as_error, print_as_success
+from utils import print_as_error, print_as_success, print_as_ok
 
 class BusLinker:
     def __init__(self, bus_name: str):
@@ -109,7 +109,7 @@ def link_all(nodes: List[Node]) -> List[Node]:
     for bus_name, linker in linkers.items():
         try:
             linker.link()
-            print_as_success(f"Bus '{bus_name}' linked successfully")
+            print_as_ok(f"Bus '{bus_name}' linked successfully")
         except ValueError:
             print_as_error(f"Failed to link bus '{bus_name}'")
             raise
@@ -141,4 +141,5 @@ def link_all(nodes: List[Node]) -> List[Node]:
             for msg in bus.tx_messages:
                 msg.resolve_layout(custom_types)
 
+    print_as_success("Successfully linked all CAN IDs and signals")
     return nodes

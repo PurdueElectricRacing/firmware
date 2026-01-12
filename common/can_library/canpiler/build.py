@@ -1,20 +1,22 @@
 import sys
 from validator import validate_all
-from parser import parse_all, parse_faults, SystemContext, BusView
+from parser import parse_all, parse_faults, SystemContext, BusView, load_custom_types
 from linker import link_all
 from mapper import map_hardware
 from dbcgen import generate_dbcs
 from codegen import generate_headers
 from faultgen import generate_fault_data
-from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR
+from load_calc import calculate_bus_load
+from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success
 
-def create_context(nodes, mappings, fault_modules, bus_configs):
+def create_context(nodes, mappings, fault_modules, bus_configs, custom_types):
     """Aggregates all system data into a single context object for generators."""
     context = SystemContext(
         nodes=nodes, 
         fault_modules=fault_modules, 
         mappings=mappings,
-        bus_configs=bus_configs
+        bus_configs=bus_configs,
+        custom_types=custom_types
     )
     
     # Identify all busses across all nodes
@@ -59,9 +61,10 @@ def build():
         busses = {b['name']: b for b in bus_configs['busses']}
         
         mappings = map_hardware(nodes, busses)
+        custom_types = load_custom_types()
         
         # Create the unified context
-        context = create_context(nodes, mappings, fault_modules, busses)
+        context = create_context(nodes, mappings, fault_modules, busses, custom_types)
         
     except ValueError as e:
         print(f"Error: {e}")
@@ -75,6 +78,11 @@ def build():
     if context.fault_modules:
         generate_fault_data(context)
     generate_dbcs(context)
+
+    # Final Analysis
+    calculate_bus_load(context)
+    
+    print_as_success("CAN library generation complete")
 
 if __name__ == "__main__":
     build()

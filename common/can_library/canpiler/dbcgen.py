@@ -1,15 +1,12 @@
-from typing import List, Dict
-from parser import SystemContext, load_custom_types
+from parser import SystemContext
 from cantools import db
-from utils import DBC_DIR, load_json, COMMON_TYPES_CONFIG_PATH, print_as_success, get_git_hash
+from utils import DBC_DIR, print_as_success, print_as_ok, get_git_hash
 
 def generate_dbcs(context: SystemContext):
     """
     Generates DBC files for each bus in the system.
     """
     print("Generating DBCs...")
-
-    custom_types = load_custom_types()
 
     # Ensure output directory exists and is clean
     if DBC_DIR.exists():
@@ -55,7 +52,7 @@ def generate_dbcs(context: SystemContext):
             can_db.messages.append(db.Message(
                 frame_id=msg.final_id,
                 name=msg.name,
-                length=msg.get_dlc(custom_types),
+                length=msg.get_dlc(context.custom_types),
                 signals=signals,
                 comment=msg.desc,
                 is_extended_frame=msg.is_extended_frame,
@@ -67,5 +64,7 @@ def generate_dbcs(context: SystemContext):
         with open(output_path, 'w', newline='\n') as f:
             f.write(can_db.as_dbc_string())
         
-        print_as_success(f"Generated {filename}")
+        print_as_ok(f"Generated {filename}")
+
+    print_as_success("Successfully generated DBC files")
 

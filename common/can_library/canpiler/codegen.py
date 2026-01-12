@@ -1,28 +1,29 @@
 from typing import List, Dict, Tuple, Optional
-from parser import Node, Message, RxMessage, load_custom_types, SystemContext
+from parser import Node, Message, RxMessage, SystemContext
 from mapper import NodeMapping
-from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success, to_macro_name, to_c_enum_prefix, get_git_hash
+from utils import GENERATED_DIR, print_as_success, print_as_ok, to_c_enum_prefix, get_git_hash
 
 def generate_headers(context: SystemContext):
     print("Generating headers...")
-    custom_types = load_custom_types()
     
     # Ensure generated directory exists
     GENERATED_DIR.mkdir(exist_ok=True)
 
     # Generate types header
-    generate_types_header(custom_types)
+    generate_types_header(context.custom_types)
 
     # Generate header for each bus
     for bus_name, view in context.busses.items():
         config = context.bus_configs.get(bus_name, {})
-        generate_bus_header(bus_name, config, view.messages, custom_types)
+        generate_bus_header(bus_name, config, view.messages, context.custom_types)
 
     # Generate header for each node
-    generate_node_headers(context, custom_types)
+    generate_node_headers(context)
 
     # Generate router header
     generate_router_header(context.nodes)
+    
+    print_as_success("Successfully generated C headers")
 
 def format_float(val: float) -> str:
     """Format float to .6g and ensure it looks like a float literal in C"""
@@ -47,7 +48,7 @@ def generate_types_header(custom_types: Dict):
             f.write(f"}} {type_name};\n\n")
             
         f.write("#endif\n")
-    print_as_success(f"Generated {filename.name}")
+    print_as_ok(f"Generated {filename.name}")
 
 def generate_router_header(nodes: List[Node]):
     filename = GENERATED_DIR / "can_router.h"
@@ -66,13 +67,13 @@ def generate_router_header(nodes: List[Node]):
             f.write("#endif\n")
             
         f.write("\n#endif\n")
-    print_as_success(f"Generated {filename.name}")
+    print_as_ok(f"Generated {filename.name}")
 
-def generate_node_headers(context: SystemContext, custom_types: Dict):
+def generate_node_headers(context: SystemContext):
     for node in context.nodes:
         if node.is_external:
             continue
-        generate_node_header(node, context.bus_configs, custom_types, context.mappings.get(node.name))
+        generate_node_header(node, context.bus_configs, context.custom_types, context.mappings.get(node.name))
 
 def generate_node_header(node: Node, bus_configs: Dict, custom_types: Dict, mapping: Optional[NodeMapping]):
     filename = GENERATED_DIR / f"{node.name}.h"
@@ -186,7 +187,7 @@ def generate_node_header(node: Node, bus_configs: Dict, custom_types: Dict, mapp
             generate_filter_funcs(f, mapping)
                 
         f.write("#endif\n")
-    print_as_success(f"Generated {filename.name}")
+    print_as_ok(f"Generated {filename.name}")
 
 def generate_filter_funcs(f, mapping: NodeMapping):
     for periph, banks in mapping.filters.items():
@@ -367,5 +368,5 @@ def generate_bus_header(bus_name: str, config: Dict, messages: List[Message], cu
             
         f.write("#endif\n")
         
-    print_as_success(f"Generated {filename.name}")
+    print_as_ok(f"Generated {filename.name}")
 

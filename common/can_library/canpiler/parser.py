@@ -217,6 +217,7 @@ class SystemContext:
     mappings: Dict = field(default_factory=dict)
     fault_modules: List['FaultModule'] = field(default_factory=list)
     bus_configs: Dict = field(default_factory=dict)
+    custom_types: Dict = field(default_factory=dict)
 
 # --- Parsing Logic ---
 

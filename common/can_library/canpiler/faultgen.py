@@ -1,12 +1,13 @@
 from typing import List
 from parser import SystemContext, FaultModule
-from utils import GENERATED_DIR, print_as_success
+from utils import GENERATED_DIR, print_as_success, print_as_ok
 
 def generate_fault_data(context: SystemContext):
     print("Generating fault library data...")
     fault_modules = context.fault_modules
     generate_fault_header(fault_modules)
     generate_fault_source(fault_modules)
+    print_as_success("Successfully generated fault library data")
 
 def generate_fault_header(fault_modules: List[FaultModule]):
     filename = GENERATED_DIR / "fault_data.h"
@@ -57,7 +58,7 @@ def generate_fault_header(fault_modules: List[FaultModule]):
         f.write("extern fault_attributes_t faultArray[TOTAL_NUM_FAULTS];\n\n")
 
         f.write("#endif\n")
-    print_as_success(f"Generated {filename.name}")
+    print_as_ok(f"Generated {filename.name}")
 
 def generate_fault_source(all_modules: List[FaultModule]):
     filename = GENERATED_DIR / "fault_data.c"
@@ -95,4 +96,4 @@ def generate_fault_source(all_modules: List[FaultModule]):
                 global_idx += 1
         f.write("};\n")
 
-    print_as_success(f"Generated {filename.name}")
+    print_as_ok(f"Generated {filename.name}")

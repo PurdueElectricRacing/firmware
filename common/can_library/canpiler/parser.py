@@ -1,3 +1,9 @@
+"""
+parser.py
+
+Author: Irving Wang (irvingw@purdue.edu)
+"""
+
 from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Set
 from pathlib import Path

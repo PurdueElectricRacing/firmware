@@ -1,3 +1,9 @@
+"""
+codegen.py
+
+Author: Irving Wang (irvingw@purdue.edu)
+"""
+
 from typing import List, Dict, Tuple, Optional
 from parser import Node, Message, RxMessage, SystemContext
 from mapper import NodeMapping

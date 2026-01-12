@@ -1,3 +1,9 @@
+"""
+utils.py
+
+Author: Irving Wang (irvingw@purdue.edu)
+"""
+
 import json
 import subprocess
 from pathlib import Path

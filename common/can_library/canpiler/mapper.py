@@ -1,3 +1,9 @@
+"""
+mapper.py
+
+Author: Irving Wang (irvingw@purdue.edu)
+"""
+
 from dataclasses import dataclass, field
 from typing import List, Dict, Optional
 from parser import Node, Message

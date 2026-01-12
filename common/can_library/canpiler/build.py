@@ -1,3 +1,9 @@
+"""
+build.py
+
+Author: Irving Wang (irvingw@purdue.edu)
+"""
+
 import sys
 from validator import validate_all
 from parser import parse_all, parse_faults, SystemContext, BusView, load_custom_types

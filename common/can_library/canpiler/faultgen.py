@@ -1,3 +1,9 @@
+"""
+faultgen.py
+
+Author: Irving Wang (irvingw@purdue.edu)
+"""
+
 from typing import List
 from parser import SystemContext, FaultModule
 from utils import GENERATED_DIR, print_as_success, print_as_ok

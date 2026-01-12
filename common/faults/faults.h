@@ -41,9 +41,9 @@ typedef struct {
     uint16_t time_since_latch;
     int f_max;
     int f_min;
-    fault_status_t* status;
+    fault_status_t *status;
     uint32_t start_ticks;
-    char* screen_MSG;
+    char *screen_MSG;
 } fault_attributes_t;
 
 //Union to package CAN messages
@@ -57,7 +57,7 @@ typedef union {
 } __attribute__((packed)) fault_can_format_t;
 
 //Function defs
-void initFaultLibrary(uint8_t mcu, q_handle_t* txQ, uint32_t ext);
+void initFaultLibrary(uint8_t mcu, q_handle_t *txQ, uint32_t ext);
 bool setFault(int, int);
 static void forceFault(int id, bool state);
 static void unForce(int);

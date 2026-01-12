@@ -11,18 +11,18 @@
 
 #include <stdint.h>
 
-#include "common/phal/can.h"
 #include "common/can_library/generated/can_types.h"
+#include "common/phal/can.h"
 #include "common/queue/queue.h"
 
 typedef struct {
-  uint32_t tx_of;      // queue overflow
-  uint32_t tx_fail;    // timed out
-  uint32_t rx_overrun; // fifo overrun
+    uint32_t tx_of;      // queue overflow
+    uint32_t tx_fail;    // timed out
+    uint32_t rx_overrun; // fifo overrun
 } can_peripheral_stats_t;
 
-#define CAN_TX_MAILBOX_CNT (3)
-#define CAN_TX_TIMEOUT_MS (15)
+#define CAN_TX_MAILBOX_CNT   (3)
+#define CAN_TX_TIMEOUT_MS    (15)
 #define CAN_TX_BLOCK_TIMEOUT (30 * 16000)
 
 #define CAN_MAILBOX_HIGH_PRIO 0
@@ -40,15 +40,15 @@ typedef struct {
 #define CAN_ERR_MASK 0x1FFFFFFFU /* omit EFF, RTR, ERR flags */
 
 /* Error class interrupts */
-#define CAN_ERR_TX_TIMEOUT   0x00000001U /* TX timeout (not possible in bxCAN) */
-#define CAN_ERR_LOSTARB      0x00000002U /* lost arbitration */
-#define CAN_ERR_CRTL         0x00000004U /* controller problems */
-#define CAN_ERR_PROT         0x00000008U /* protocol violations */
-#define CAN_ERR_TRX          0x00000010U /* transceiver status */
-#define CAN_ERR_ACK          0x00000020U /* received no ACK on transmission */
-#define CAN_ERR_BUSOFF       0x00000040U /* bus off */
-#define CAN_ERR_BUSERROR     0x00000080U /* bus error */
-#define CAN_ERR_RESTARTED    0x00000100U /* controller restarted */
+#define CAN_ERR_TX_TIMEOUT 0x00000001U /* TX timeout (not possible in bxCAN) */
+#define CAN_ERR_LOSTARB    0x00000002U /* lost arbitration */
+#define CAN_ERR_CRTL       0x00000004U /* controller problems */
+#define CAN_ERR_PROT       0x00000008U /* protocol violations */
+#define CAN_ERR_TRX        0x00000010U /* transceiver status */
+#define CAN_ERR_ACK        0x00000020U /* received no ACK on transmission */
+#define CAN_ERR_BUSOFF     0x00000040U /* bus off */
+#define CAN_ERR_BUSERROR   0x00000080U /* bus error */
+#define CAN_ERR_RESTARTED  0x00000100U /* controller restarted */
 
 /* error status of CAN-controller / data[1] */
 #define CAN_ERR_CRTL_UNSPEC      0x00 /* unspecified */
@@ -60,15 +60,15 @@ typedef struct {
 #define CAN_ERR_CRTL_TX_PASSIVE  0x20 /* reached error passive status TX */
 
 /* error in CAN protocol (type) / data[2] */
-#define CAN_ERR_PROT_UNSPEC      0x00 /* unspecified */
-#define CAN_ERR_PROT_BIT         0x01 /* single bit error */
-#define CAN_ERR_PROT_FORM        0x02 /* frame format error */
-#define CAN_ERR_PROT_STUFF       0x04 /* bit stuffing error */
-#define CAN_ERR_PROT_BIT0        0x08 /* unable to send dominant bit */
-#define CAN_ERR_PROT_BIT1        0x10 /* unable to send recessive bit */
-#define CAN_ERR_PROT_OVERLOAD    0x20 /* bus overload */
-#define CAN_ERR_PROT_ACTIVE      0x40 /* active error announcement */
-#define CAN_ERR_PROT_TX          0x80 /* error occurred on transmission */
+#define CAN_ERR_PROT_UNSPEC   0x00 /* unspecified */
+#define CAN_ERR_PROT_BIT      0x01 /* single bit error */
+#define CAN_ERR_PROT_FORM     0x02 /* frame format error */
+#define CAN_ERR_PROT_STUFF    0x04 /* bit stuffing error */
+#define CAN_ERR_PROT_BIT0     0x08 /* unable to send dominant bit */
+#define CAN_ERR_PROT_BIT1     0x10 /* unable to send recessive bit */
+#define CAN_ERR_PROT_OVERLOAD 0x20 /* bus overload */
+#define CAN_ERR_PROT_ACTIVE   0x40 /* active error announcement */
+#define CAN_ERR_PROT_TX       0x80 /* error occurred on transmission */
 
 /* error in CAN protocol (location) / data[3] */
 #define CAN_ERR_PROT_LOC_UNSPEC  0x00 /* unspecified */
@@ -102,7 +102,7 @@ typedef struct {
 #define CAN_ERR_TRX_CANL_SHORT_TO_GND  0x70 /* CANL: short to GND */
 #define CAN_ERR_TRX_CANL_SHORT_TO_CANH 0x80 /* CANL: short to CANH */
 
-#define CAN_ERR_DLC 8
+#define CAN_ERR_DLC            8
 #define CAN_ERR_LOSTARB_UNSPEC 0x00
 
 #ifndef CAN1_IDX
@@ -115,7 +115,7 @@ typedef struct {
 #define GET_PERIPH_IDX(bus) ((bus == CAN1) ? CAN1_IDX : CAN2_IDX)
 
 typedef struct {
-    uint32_t rx_of;      // queue overflow
+    uint32_t rx_of; // queue overflow
     can_peripheral_stats_t can_peripheral_stats[2];
 } can_stats_t;
 

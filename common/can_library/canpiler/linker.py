@@ -1,3 +1,9 @@
+"""
+linker.py
+
+Author: Irving Wang (irvingw@purdue.edu)
+"""
+
 from typing import List, Dict, Set, DefaultDict
 from collections import defaultdict
 from parser import Node, Message, load_custom_types

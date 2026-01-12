@@ -1,3 +1,9 @@
+"""
+validator.py
+
+Author: Irving Wang (irvingw@purdue.edu)
+"""
+
 import sys
 from jsonschema import RefResolver, Draft7Validator, ValidationError
 from utils import *

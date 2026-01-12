@@ -7,6 +7,7 @@
  */
 
 #include "common/can_library/can_common.h"
+
 #include "common/can_library/generated/can_router.h"
 #include "common/queue/queue.h"
 
@@ -95,8 +96,11 @@ void CAN_rx_update() {
     CanMsgTypeDef_t rx_msg;
     while (qReceive(&q_rx_can, &rx_msg) == SUCCESS_G) {
         last_can_rx_time_ms = OS_TICKS;
-        uint8_t periph_idx = GET_PERIPH_IDX(rx_msg.Bus);
-        CAN_rx_dispatcher(rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId, rx_msg.Data, rx_msg.DLC, periph_idx);
+        uint8_t periph_idx  = GET_PERIPH_IDX(rx_msg.Bus);
+        CAN_rx_dispatcher(rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId,
+                          rx_msg.Data,
+                          rx_msg.DLC,
+                          periph_idx);
     }
 }
 
@@ -129,8 +133,8 @@ bool CAN_prepare_filter_config(CAN_TypeDef *can) {
         return false;
 
     can->FMR |= CAN_FMR_FINIT; // Enter init mode for filter banks
-    can->FM1R |= 0x07FFFFFF; // Set banks 0-27 to id mode
-    can->FS1R |= 0x07FFFFFF; // Set banks 0-27 to 32-bit scale
+    can->FM1R |= 0x07FFFFFF;   // Set banks 0-27 to id mode
+    can->FS1R |= 0x07FFFFFF;   // Set banks 0-27 to 32-bit scale
 
     return true;
 }
@@ -147,25 +151,22 @@ bool CAN_exit_filter_config(CAN_TypeDef *can) {
     return timeout != PHAL_CAN_INIT_TIMEOUT;
 }
 
-
 bool CAN_library_init() {
-    for (uint8_t can_periph = 0; can_periph < NUM_CAN_PERIPHERALS; can_periph++)
-    {
-      for (uint8_t mbx = 0; mbx < CAN_TX_MAILBOX_CNT; mbx++)
-      {
-        qConstruct(&q_tx_can[can_periph][mbx], sizeof(CanMsgTypeDef_t));
-        can_mbx_last_send_time[can_periph][mbx] = 0;
-      }
+    for (uint8_t can_periph = 0; can_periph < NUM_CAN_PERIPHERALS; can_periph++) {
+        for (uint8_t mbx = 0; mbx < CAN_TX_MAILBOX_CNT; mbx++) {
+            qConstruct(&q_tx_can[can_periph][mbx], sizeof(CanMsgTypeDef_t));
+            can_mbx_last_send_time[can_periph][mbx] = 0;
+        }
     }
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
-    can_stats = (can_stats_t){0};
+    can_stats = (can_stats_t) {0};
     CAN_data_init();
-    
+
 #ifdef USE_CAN1
     if (!CAN_prepare_filter_config(CAN1)) {
         return false;
     }
-    
+
     CAN1_set_filters(); // from NODE.h
 
     if (!CAN_exit_filter_config(CAN1)) {
@@ -177,7 +178,7 @@ bool CAN_library_init() {
     if (!CAN_prepare_filter_config(CAN2)) {
         return false;
     }
-    
+
     CAN2_set_filters(); // from NODE.h
 
     if (!CAN_exit_filter_config(CAN2)) {
@@ -192,11 +193,7 @@ bool CAN_library_init() {
 
 // todo ram based implementation here
 
-
-
-void init_CAN1() {
-
-}
+void init_CAN1() {}
 
 #else
 #error "Unsupported architecture"

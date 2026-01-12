@@ -1,3 +1,9 @@
+"""
+load_calc.py
+
+Author: Irving Wang (irvingw@purdue.edu)
+"""
+
 from parser import SystemContext
 from utils import bcolors, print_as_warning, print_as_ok
 

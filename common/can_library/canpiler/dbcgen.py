@@ -1,3 +1,9 @@
+"""
+dbcgen.py
+
+Author: Irving Wang (irvingw@purdue.edu)
+"""
+
 from parser import SystemContext
 from cantools import db
 from utils import DBC_DIR, print_as_success, print_as_ok, get_git_hash

@@ -351,8 +351,7 @@ def generate_bus_header(bus_name: str, config: Dict, messages: List[Message], cu
             f.write(f"#define {msg.macro_name}_MSG_ID (0x{msg.final_id:03X})\n")
             f.write(f"#define {msg.macro_name}_DLC ({msg.get_dlc(custom_types)})\n")
             if msg.period > 0:
-                f.write(f"#define {msg.macro_name}_PERIOD ({msg.period})\n")
-                f.write(f"#define PERIOD_{msg.macro_name}_MS ({msg.period})\n")
+                f.write(f"#define {msg.macro_name}_PERIOD_MS ({msg.period})\n")
             
             f.write(f"typedef struct {{\n")
             for sig in msg.signals:

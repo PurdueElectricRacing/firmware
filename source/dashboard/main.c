@@ -204,7 +204,7 @@ int main(void) {
     taskCreate(pedalsPeriodic, 15);
     taskCreate(handleDashboardInputs, 50);
     taskCreate(heartBeatTask, 100);
-    taskCreate(sendShockpots, PERIOD_SHOCK_FRONT_MS);
+    taskCreate(sendShockpots, SHOCK_FRONT_PERIOD_MS);
     taskCreate(sendVersion, 5000);
     taskCreate(interpretLoadSensor, 15);
     taskCreate(updateTelemetryPages, 200);

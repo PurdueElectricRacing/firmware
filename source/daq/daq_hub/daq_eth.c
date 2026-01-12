@@ -20,6 +20,7 @@
 #include "main.h"
 #include "w5500/socket.h"
 #include "w5500/wizchip_conf.h"
+#include "common/can_library/generated/DAQ.h"
 
 static int8_t eth_init(void);
 static int8_t eth_get_link_up(void);

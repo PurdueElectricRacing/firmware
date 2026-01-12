@@ -1,8 +1,7 @@
 #include "main.h"
 
 #include "buffer.h"
-#include "DAQ.h"
-#include "common/common_defs/common_defs.h"
+#include "common/can_library/generated/DAQ.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"

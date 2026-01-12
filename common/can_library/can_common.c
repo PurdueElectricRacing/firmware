@@ -20,9 +20,7 @@ volatile uint32_t last_can_rx_time_ms;
 // todo mailbox based implementation here
 q_handle_t q_tx_can[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
 q_handle_t q_rx_can;
-
 uint32_t can_mbx_last_send_time[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
-
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
     uint8_t mailbox;

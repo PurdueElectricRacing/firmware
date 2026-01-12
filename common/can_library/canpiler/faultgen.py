@@ -64,7 +64,7 @@ def generate_fault_source(all_modules: List[FaultModule]):
     filename = GENERATED_DIR / "fault_data.c"
     
     with open(filename, 'w') as f:
-        f.write("#include \"fault_data.h\"\n\n")
+        f.write("#include \"common/can_library/generated/fault_data.h\"\n\n")
 
         # Latch Time Array
         f.write(f"uint16_t faultLatchTime[TOTAL_NUM_FAULTS] = {{\n")

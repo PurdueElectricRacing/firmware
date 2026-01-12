@@ -63,7 +63,7 @@ def generate_router_header(nodes: List[Node]):
             for i, node in enumerate(internal_nodes):
                 directive = "#if" if i == 0 else "#elif"
                 f.write(f"{directive} defined(CAN_NODE_{node.macro_name})\n")
-                f.write(f'\t#include "{node.name}.h"\n')
+                f.write(f'\t#include "common/can_library/generated/{node.name}.h"\n')
             f.write("#endif\n")
             
         f.write("\n#endif\n")
@@ -91,9 +91,11 @@ def generate_node_header(node: Node, bus_configs: Dict, custom_types: Dict, mapp
         f.write("\n")
 
         # Includes
+        f.write('#include <string.h>\n\n')
+
+        f.write('#include "common/can_library/can_common.h"\n')
         for bus_name in sorted(node.busses.keys()):
-            f.write(f'#include "{bus_name}.h"\n')
-        f.write('\n#include <string.h>\n')
+            f.write(f'#include "common/can_library/generated/{bus_name}.h"\n')
         
         if node.scheduler == "freertos":
             f.write('#include "common/freertos/freertos.h"\n')
@@ -102,8 +104,7 @@ def generate_node_header(node: Node, bus_configs: Dict, custom_types: Dict, mapp
             f.write('#include "common/psched/psched.h"\n')
             f.write('#define OS_TICKS (sched.os_ticks)\n')
 
-        f.write('#include "common/can_library/can_common.h"\n')
-        f.write('#include "fault_data.h"\n\n')
+        f.write('#include "common/can_library/generated/fault_data.h"\n\n')
 
         # Git Hash
         f.write(f"#define GIT_HASH \"{get_git_hash()}\"\n\n")
@@ -336,7 +337,7 @@ def generate_bus_header(bus_name: str, config: Dict, messages: List[Message], cu
         f.write(f"#define {bus_name}_H\n\n")
         
         f.write("#include <stdint.h>\n")
-        f.write("#include \"can_types.h\"\n\n")
+        f.write("#include \"common/can_library/generated/can_types.h\"\n\n")
         
         # Bus Properties
         f.write("// Bus Properties\n")

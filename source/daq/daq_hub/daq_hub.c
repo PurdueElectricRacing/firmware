@@ -22,6 +22,7 @@
 #include "daq_eth.h"
 #include "daq_sd.h"
 #include "main.h"
+#include "common/can_library/generated/DAQ.h"
 
 daq_hub_t daq_hub;
 

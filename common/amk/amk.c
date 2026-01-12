@@ -12,6 +12,8 @@
 
 #include "amk.h"
 
+#include "common/can_library/generated/MAIN.h"
+
 /**
  * Procedure: amkInit()
  *

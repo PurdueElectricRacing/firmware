@@ -360,6 +360,9 @@ void interpretLoadSensor(void) {
 }
 
 /* CAN Message Handling */
+void CAN1_RX0_IRQHandler() {
+    CAN_handle_irq(CAN1, 0);
+}
 
 void CAN2_RX0_IRQHandler() {
     can2Relaycan1(CAN2);

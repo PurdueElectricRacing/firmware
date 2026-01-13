@@ -104,6 +104,7 @@ void CAN_rx_update() {
     }
 }
 
+// ! Define these in your main.c for now !
 #ifdef USE_CAN1
 void __attribute__((weak, used)) CAN1_RX0_IRQHandler() {
     CAN_handle_irq(CAN1, 0);
@@ -124,7 +125,8 @@ void __attribute__((weak, used)) CAN2_RX1_IRQHandler() {
 }
 #endif
 
-bool CAN_prepare_filter_config(CAN_TypeDef *can) {
+[[gnu::always_inline]]
+static inline bool CAN_prepare_filter_config(CAN_TypeDef *can) {
     can->MCR |= CAN_MCR_INRQ; // Enter back into INIT state (required for changing scale)
     uint32_t timeout = 0;
     while (!(can->MSR & CAN_MSR_INAK) && ++timeout < PHAL_CAN_INIT_TIMEOUT)
@@ -133,13 +135,14 @@ bool CAN_prepare_filter_config(CAN_TypeDef *can) {
         return false;
 
     can->FMR |= CAN_FMR_FINIT; // Enter init mode for filter banks
-    can->FM1R |= 0x07FFFFFF;   // Set banks 0-27 to id mode
-    can->FS1R |= 0x07FFFFFF;   // Set banks 0-27 to 32-bit scale
+    can->FM1R |= 0x07FFFFFF; // Set banks 0-27 to id mode
+    can->FS1R |= 0x07FFFFFF; // Set banks 0-27 to 32-bit scale
 
     return true;
 }
 
-bool CAN_exit_filter_config(CAN_TypeDef *can) {
+[[gnu::always_inline]]
+static inline bool CAN_exit_filter_config(CAN_TypeDef *can) {
     can->FMR &= ~CAN_FMR_FINIT; // Enable Filters (exit filter init mode)
 
     // Enter back into NORMAL mode

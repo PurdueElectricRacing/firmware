@@ -206,8 +206,6 @@ def generate_filter_funcs(f, mapping: NodeMapping):
             f.write("\treturn;\n")
             f.write("}\n\n")
             continue
-            
-        f.write(f"\t{periph}->FMR  |= CAN_FMR_FINIT;\n")
         
         if accept_all:
             f.write("\t// Accept all messages\n")
@@ -220,8 +218,7 @@ def generate_filter_funcs(f, mapping: NodeMapping):
         else:
             for fb in banks:
                 f.write(f"\t// Bank {fb.bank_idx}: {fb.msg1.name}" + (f", {fb.msg2.name}" if fb.msg2 else "") + "\n")
-                f.write(f"\t{periph}->FM1R |= (1 << {fb.bank_idx});\n")
-                f.write(f"\t{periph}->FS1R |= (1 << {fb.bank_idx});\n")
+                f.write(f"\t{periph}->FA1R |= (1 << {fb.bank_idx});\n")
                 
                 m1_macro = f"{fb.msg1.macro_name}_MSG_ID"
                 if fb.is_ext1:
@@ -241,10 +238,7 @@ def generate_filter_funcs(f, mapping: NodeMapping):
                         f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR2 = ({m1_macro} << 3) | 4;\n")
                     else:
                         f.write(f"\t{periph}->sFilterRegister[{fb.bank_idx}].FR2 = ({m1_macro} << 21);\n")
-                
-                f.write(f"\t{periph}->FA1R |= (1 << {fb.bank_idx});\n")
         
-        f.write(f"\t{periph}->FMR &= ~CAN_FMR_FINIT;\n")
         f.write("}\n\n")
 
 def generate_rx_dispatcher(f, node: Node, rx_msgs: List[Tuple[RxMessage, str, str]], custom_types: Dict):

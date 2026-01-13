@@ -2,12 +2,14 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "required": ["types"],
+    "additionalProperties": false,
     "properties": {
         "types": {
             "type": "array",
             "items": {
                 "type": "object",
                 "required": ["name", "base_type"],
+                "additionalProperties": false,
                 "properties": {
                     "name": { 
                         "type": "string",

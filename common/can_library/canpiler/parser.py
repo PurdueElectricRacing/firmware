@@ -7,7 +7,7 @@ Author: Irving Wang (irvingw@purdue.edu)
 from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Set
 from pathlib import Path
-from utils import load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, COMMON_TYPES_CONFIG_PATH, FAULT_CONFIG_PATH, CTYPE_SIZES, print_as_error, print_as_ok, print_as_success, to_macro_name
+from utils import load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, COMMON_TYPES_CONFIG_PATH, FAULT_CONFIG_PATH, BUS_CONFIG_PATH, CTYPE_SIZES, print_as_error, print_as_ok, print_as_success, to_macro_name
 
 @dataclass
 class Signal:
@@ -63,14 +63,6 @@ class Message:
     id_override: Optional[str] = None
     is_extended: bool = False
     final_id: int = 0
-    
-    @property
-    def is_extended_frame(self) -> bool:
-        """
-        Source of Truth for frame type. 
-        Forces Extended if explicitly requested OR if the ID exceeds 11 bits (0x7FF).
-        """
-        return self.is_extended or self.final_id > 0x7FF
 
     @property
     def macro_name(self) -> str:
@@ -116,6 +108,22 @@ class Message:
         if total_length > 64:
             print_as_error(f"Message '{self.name}' exceeds 64 bits (has {total_length})")
             raise ValueError("Message too long")
+        
+        # Validate ID Override Range
+        if self.id_override:
+            try:
+                raw_id = int(self.id_override, 0)
+                if not self.is_extended and raw_id > 0x7FF:
+                    print_as_error(f"Message '{self.name}' has override ID {hex(raw_id)} which exceeds 11-bit limit for standard bus.")
+                    raise ValueError(f"ID override too large for standard bus: {self.name}")
+                if raw_id > 0x1FFFFFFF:
+                    print_as_error(f"Message '{self.name}' has override ID {hex(raw_id)} which exceeds 29-bit CAN limit.")
+                    raise ValueError(f"ID override exceeds CAN protocol limits: {self.name}")
+            except ValueError as e:
+                if "invalid literal" in str(e):
+                    print_as_error(f"Message '{self.name}' has invalid ID override format: {self.id_override}")
+                    raise ValueError("Invalid ID override format")
+                raise
 
     def get_total_bit_length(self, custom_types: Optional[Dict] = None) -> int:
         return sum(sig.get_bit_length(custom_types) for sig in self.signals)
@@ -225,6 +233,37 @@ class SystemContext:
     bus_configs: Dict = field(default_factory=dict)
     custom_types: Dict = field(default_factory=dict)
 
+def create_system_context(nodes, mappings, fault_modules, bus_configs, custom_types) -> SystemContext:
+    """Aggregates all system data into a single context object and performs final validation."""
+    context = SystemContext(
+        nodes=nodes, 
+        fault_modules=fault_modules, 
+        mappings=mappings,
+        bus_configs=bus_configs,
+        custom_types=custom_types
+    )
+    
+    # Identify all busses across all nodes
+    all_bus_names = set()
+    for node in nodes:
+        all_bus_names.update(node.busses)
+    
+    for bus_name in sorted(all_bus_names):
+        view = BusView(name=bus_name)
+        
+        for node in nodes:
+            if bus_name in node.busses:
+                view.nodes.add(node.name)
+                for msg in node.busses[bus_name].tx_messages:
+                    view.messages.append(msg)
+                    view.sender_map[msg.name] = node.name
+        
+        # Deterministic sorting for downstream generators
+        view.messages.sort(key=lambda x: (x.final_id or 0, x.name))
+        context.busses[bus_name] = view
+        
+    return context
+
 # --- Parsing Logic ---
 
 def load_custom_types() -> Dict:
@@ -238,6 +277,14 @@ def load_custom_types() -> Dict:
     except FileNotFoundError:
         return {}
 
+def load_bus_configs() -> Dict:
+    """Load bus configurations from bus_configs.json"""
+    try:
+        data = load_json(BUS_CONFIG_PATH)
+        return {b["name"]: b for b in data.get("busses", [])}
+    except FileNotFoundError:
+        return {}
+
 def parse_all() -> List[Node]:
     """
     Parse all configuration files into Node objects.
@@ -248,11 +295,12 @@ def parse_all() -> List[Node]:
 
     nodes = []
     custom_types = load_custom_types()
+    bus_configs = load_bus_configs()
 
     # Parse Internal Nodes
     if NODE_CONFIG_DIR.exists():
         for node_file in sorted(NODE_CONFIG_DIR.glob('*.json')):
-            node = parse_internal_node(node_file)
+            node = parse_internal_node(node_file, bus_configs)
             validate_node(node, custom_types)
             nodes.append(node)
             print_as_ok(f"Parsed {node.name}")
@@ -260,7 +308,7 @@ def parse_all() -> List[Node]:
     # Parse External Nodes
     if EXTERNAL_NODE_CONFIG_DIR.exists():
         for node_file in sorted(EXTERNAL_NODE_CONFIG_DIR.glob('*.json')):
-            node = parse_external_node(node_file)
+            node = parse_external_node(node_file, bus_configs)
             validate_node(node, custom_types)
             nodes.append(node)
             print_as_ok(f"Parsed {node.name}")
@@ -326,14 +374,9 @@ def parse_signal(data: Dict) -> Signal:
         max_val=data.get('max')
     )
 
-def parse_message(data: Dict) -> Message:
-    # Handle is_extended logic: default False, check is_standard_id (inverse) or is_extended_id
-    # If a long ID override is provided, assume extended
-    id_override = data.get('msg_id_override')
-    is_extended = data.get('is_extended_id', not data.get('is_standard_id', True))
-    
-    if id_override and int(id_override, 0) > 0x7FF:
-        is_extended = True
+def parse_message(data: Dict, bus_config: Dict) -> Message:
+    # Single source of truth: the bus configuration
+    is_extended = bus_config.get('is_extended_id', False)
 
     return Message(
         name=data['msg_name'],
@@ -341,7 +384,7 @@ def parse_message(data: Dict) -> Message:
         signals=[parse_signal(s) for s in data.get('signals', [])],
         priority=data.get('msg_priority', 0),
         period=data.get('msg_period', 0),
-        id_override=id_override,
+        id_override=data.get('msg_id_override'),
         is_extended=is_extended
     )
 
@@ -352,20 +395,21 @@ def parse_rx_message(data: Dict) -> RxMessage:
         irq=data.get('irq', False)
     )
 
-def parse_bus(name: str, data: Dict) -> Bus:
+def parse_bus(name: str, data: Dict, bus_configs: Dict) -> Bus:
+    bus_config = bus_configs.get(name, {})
     return Bus(
         name=name,
         peripheral=data.get('peripheral', 'UNKNOWN'),
-        tx_messages=[parse_message(m) for m in data.get('tx', [])],
+        tx_messages=[parse_message(m, bus_config) for m in data.get('tx', [])],
         rx_messages=[parse_rx_message(m) for m in data.get('rx', [])],
         accept_all_messages=data.get('accept_all_messages', False)
     )
 
-def parse_internal_node(filepath: Path) -> Node:
+def parse_internal_node(filepath: Path, bus_configs: Dict) -> Node:
     data = load_json(filepath)
     busses = {}
     for bus_name, bus_data in data.get('busses', {}).items():
-        busses[bus_name] = parse_bus(bus_name, bus_data)
+        busses[bus_name] = parse_bus(bus_name, bus_data, bus_configs)
     
     node = Node(
         name=data['node_name'],
@@ -377,15 +421,16 @@ def parse_internal_node(filepath: Path) -> Node:
     node.generate_system_ids()
     return node
 
-def parse_external_node(filepath: Path) -> Node:
+def parse_external_node(filepath: Path, bus_configs: Dict) -> Node:
     data = load_json(filepath)
     bus_name = data['bus_name']
+    bus_config = bus_configs.get(bus_name, {})
     
     # Create a single bus from the flattened structure
     bus = Bus(
         name=bus_name,
         peripheral="UNKNOWN",
-        tx_messages=[parse_message(m) for m in data.get('tx', [])],
+        tx_messages=[parse_message(m, bus_config) for m in data.get('tx', [])],
         rx_messages=[parse_rx_message(m) for m in data.get('rx', [])]
     )
     

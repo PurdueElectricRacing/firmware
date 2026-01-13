@@ -301,69 +301,43 @@
             "rx": [
                 {
                     "msg_name": "torquevector_bl_cmd",
-                    "callback": true,
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "callback": true
                 },
                 {
-                    "msg_name": "filt_throttle_brake",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "filt_throttle_brake"
                 },
                 {
-                    "msg_name": "LWS_Standard",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "LWS_Standard"
                 },
                 {
-                    "msg_name": "orion_currents_volts",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "orion_currents_volts"
                 },
                 {
-                    "msg_name": "main_hb",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "main_hb"
                 },
                 {
-                    "msg_name": "rear_wheel_speeds",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "rear_wheel_speeds"
                 },
                 {
-                    "msg_name": "rear_motor_temps",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "rear_motor_temps"
                 },
                 {
-                    "msg_name": "max_cell_temp",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "max_cell_temp"
                 },
                 {
-                    "msg_name": "INVA_CRIT",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "INVA_CRIT"
                 },
                 {
-                    "msg_name": "INVB_CRIT",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "INVB_CRIT"
                 },
                 {
-                    "msg_name": "INVA_TEMPS",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "INVA_TEMPS"
                 },
                 {
-                    "msg_name": "INVB_TEMPS",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "INVB_TEMPS"
                 },
                 {
-                    "msg_name": "dashboard_vcu_parameters",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "dashboard_vcu_parameters"
                 }
             ]
         }

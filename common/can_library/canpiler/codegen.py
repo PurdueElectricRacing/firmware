@@ -295,7 +295,7 @@ def generate_data_init(f, node: Node, rx_msgs: List[Tuple[RxMessage, str, str]])
     f.write("}\n\n")
 
 def generate_tx_func(f, msg: Message, peripheral: str, bus_name: str, bus_configs: Dict, custom_types: Dict):
-    is_ext = msg.is_extended_frame
+    is_ext = msg.is_extended
     
     f.write(f"[[gnu::always_inline]]\n")
     if not msg.signals:
@@ -309,9 +309,13 @@ def generate_tx_func(f, msg: Message, peripheral: str, bus_name: str, bus_config
     
     f.write(f"\tCanMsgTypeDef_t outgoing = {{\n")
     f.write(f"\t\t.Bus={peripheral},\n")
-    f.write(f"\t\t.ExtId={msg.macro_name}_MSG_ID,\n")
-    f.write(f"\t\t.DLC={msg.macro_name}_DLC,\n")
-    f.write(f"\t\t.IDE={1 if is_ext else 0}\n")
+    if is_ext:
+        f.write(f"\t\t.ExtId={msg.macro_name}_MSG_ID,\n")
+        f.write(f"\t\t.IDE=1,\n")
+    else:
+        f.write(f"\t\t.StdId={msg.macro_name}_MSG_ID,\n")
+        f.write(f"\t\t.IDE=0,\n")
+    f.write(f"\t\t.DLC={msg.macro_name}_DLC\n")
     f.write(f"\t}};\n\n")
     f.write(f"\tuint64_t data = 0;\n")
     

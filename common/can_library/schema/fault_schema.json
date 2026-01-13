@@ -2,6 +2,7 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "required": ["nodes"],
+    "additionalProperties": false,
     "properties": {
         "nodes": {
             "type": "array",
@@ -12,6 +13,7 @@
         "node": {
             "type": "object",
             "required": ["node_name", "faults"],
+            "additionalProperties": false,
             "properties": {
                 "node_name":{
                     "type":"string",
@@ -35,6 +37,7 @@
         "fault_config": {
             "type": "object",
             "required": ["fault_name", "max", "min", "priority", "time_to_latch", "time_to_unlatch", "lcd_message"],
+            "additionalProperties": false,
             "properties": {
                 "fault_name":  {
                     "type": "string",

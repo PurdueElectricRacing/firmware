@@ -61,7 +61,7 @@ def generate_dbcs(context: SystemContext):
                 length=msg.get_dlc(context.custom_types),
                 signals=signals,
                 comment=msg.desc,
-                is_extended_frame=msg.is_extended_frame,
+                is_extended_frame=msg.is_extended,
                 senders=[sender]
             ))
         

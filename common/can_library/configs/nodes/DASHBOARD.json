@@ -101,7 +101,8 @@
                             "sig_name": "dt_fan",
                             "type": "uint8_t",
                             "unit": "%",
-                            "maximum": 100
+                            "min": 0,
+                            "max": 100
                         },
                         {
                             "sig_name": "batt_pump",
@@ -115,7 +116,8 @@
                             "sig_name": "batt_fan",
                             "type": "uint8_t",
                             "unit": "%",
-                            "maximum": 100
+                            "min": 0,
+                            "max": 100
                         }
                     ],
                     "msg_period": 0,
@@ -294,96 +296,60 @@
             ],
             "rx": [
                 {
-                    "msg_name": "main_hb",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "main_hb"
                 },
                 {
-                    "msg_name": "rear_motor_currents_volts",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "rear_motor_currents_volts"
                 },
                 {
-                    "msg_name": "orion_info",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "orion_info"
                 },
                 {
-                    "msg_name": "orion_currents_volts",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "orion_currents_volts"
                 },
                 {
-                    "msg_name": "orion_errors",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "orion_errors"
                 },
                 {
-                    "msg_name": "max_cell_temp",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "max_cell_temp"
                 },
                 {
-                    "msg_name": "precharge_hb",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "precharge_hb"
                 },
                 {
-                    "msg_name": "rear_wheel_speeds",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "rear_wheel_speeds"
                 },
                 {
-                    "msg_name": "coolant_temps",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "coolant_temps"
                 },
                 {
                     "msg_name": "coolant_out",
-                    "callback": true,
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "callback": true
                 },
                 {
-                    "msg_name": "gearbox",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "gearbox"
                 },
                 {
                     "msg_name": "dashboard_bl_cmd",
-                    "callback": true,
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "callback": true
                 },
                 {
-                    "msg_name": "sdc_status",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "sdc_status"
                 },
                 {
-                    "msg_name": "gps_speed",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "gps_speed"
                 },
                 {
-                    "msg_name": "INVA_TEMPS",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "INVA_TEMPS"
                 },
                 {
-                    "msg_name": "INVB_TEMPS",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "INVB_TEMPS"
                 },
                 {
-                    "msg_name": "INVA_CRIT",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "INVA_CRIT"
                 },
                 {
-                    "msg_name": "INVB_CRIT",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "INVB_CRIT"
                 }
             ]
         }

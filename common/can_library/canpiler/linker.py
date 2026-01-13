@@ -145,6 +145,9 @@ def link_all(nodes: List[Node]) -> List[Node]:
     for node in nodes:
         for bus in node.busses.values():
             for msg in bus.tx_messages:
+                if msg.final_id > 0x7FF and not msg.is_extended:
+                    print_as_error(f"Message '{msg.name}' has ID {hex(msg.final_id)} but is not marked as extended.")
+                    raise ValueError(f"Standard CAN ID exceeds 0x7FF: {hex(msg.final_id)}")
                 msg.resolve_layout(custom_types)
 
     print_as_success("Successfully linked all CAN IDs and signals")

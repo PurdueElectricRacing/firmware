@@ -52,7 +52,6 @@
             ],
             "msg_period": 15,
             "msg_id_override": "0x2B0",
-            "is_standard_id": true,
             "msg_priority": 3
         }
     ],

@@ -2,8 +2,10 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "required": ["node_name", "scheduler", "busses"],
+    "additionalProperties": false,
     "properties": {
         "node_name": { "type": "string" },
+        "node_id": { "type": "integer", "minimum": 0, "maximum": 31 },
         "scheduler": { "enum": ["psched", "freertos"]},
         "busses": {
             "type": "object",
@@ -17,8 +19,10 @@
         "bus_messages": {
             "type": "object",
             "required": ["peripheral"],
+            "additionalProperties": false,
             "properties": {
                 "peripheral": { "enum": ["CAN1", "CAN2"] },
+                "accept_all_messages": { "type": "boolean" },
                 "tx": {
                     "type": "array",
                     "items": { "$ref": "file:///message_schema.json#/$defs/tx_message" }

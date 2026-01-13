@@ -502,25 +502,17 @@
             ],
             "rx": [
                 {
-                    "msg_name": "orion_info",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "orion_info"
                 },
                 {
-                    "msg_name": "orion_currents_volts",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "orion_currents_volts"
                 },
                 {
-                    "msg_name": "orion_errors",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "orion_errors"
                 },
                 {
                     "msg_name": "a_box_bl_cmd",
-                    "callback": true,
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "callback": true
                 }
             ],
             "accept_all_messages": false
@@ -1011,24 +1003,16 @@
             ],
             "rx": [
                 {
-                    "msg_name": "elcon_charger_status",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "elcon_charger_status"
                 },
                 {
-                    "msg_name": "orion_info_charger",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "orion_info_charger"
                 },
                 {
-                    "msg_name": "orion_currents_volts_charger",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "orion_currents_volts_charger"
                 },
                 {
-                    "msg_name": "orion_errors_charger",
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "msg_name": "orion_errors_charger"
                 }
             ],
             "accept_all_messages": false

@@ -1,10 +1,12 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
+    "additionalProperties": false,
     "$defs": {
         "tx_message": {
             "type": "object",
             "required": ["msg_name", "msg_desc", "signals", "msg_priority"],
+            "additionalProperties": false,
             "properties": {
                 "msg_name": { "type": "string" },
                 "msg_desc": { "type": "string" },
@@ -20,6 +22,7 @@
         "rx_message": {
             "type": "object",
             "required": ["msg_name"],
+            "additionalProperties": false,
             "properties": {
                 "msg_name": { "type": "string" },
                 "callback": { "type": "boolean" },
@@ -29,6 +32,7 @@
         "signal": {
             "type": "object",
             "required": ["sig_name", "type"],
+            "additionalProperties": false,
             "properties": {
                 "sig_name": { "type": "string" },
                 "sig_desc": { "type": "string" },

@@ -79,9 +79,7 @@
             "rx": [
                 {
                     "msg_name": "daq_bl_cmd",
-                    "callback": true,
-                    "msg_priority": 3,
-                    "msg_period": 0
+                    "callback": true
                 }
             ]
         },

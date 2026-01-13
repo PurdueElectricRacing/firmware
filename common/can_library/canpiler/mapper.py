@@ -65,10 +65,10 @@ def map_node_hardware(node: Node, bus_configs: Dict) -> NodeMapping:
             msg1, bus1 = msgs[i]
             msg2, bus2 = msgs[i+1] if i+1 < len(msgs) else (None, None)
             
-            is_ext1 = msg1.is_extended or bus_configs.get(bus1, {}).get('is_extended_id', False)
+            is_ext1 = msg1.is_extended
             is_ext2 = False
             if msg2:
-                is_ext2 = msg2.is_extended or bus_configs.get(bus2, {}).get('is_extended_id', False)
+                is_ext2 = msg2.is_extended
             
             fb = FilterBank(
                 bank_idx=bank_idx,

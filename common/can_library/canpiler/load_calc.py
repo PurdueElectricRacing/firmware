@@ -35,7 +35,7 @@ def calculate_bus_load(context: SystemContext):
             fps = 1000.0 / msg.period if msg.period > 0 else 1.0
 
             # 2. Bits per frame (Overhead + Data)
-            overhead = EXTENDED_OVERHEAD if msg.is_extended_frame else STANDARD_OVERHEAD
+            overhead = EXTENDED_OVERHEAD if msg.is_extended else STANDARD_OVERHEAD
             dlc = msg.get_dlc(context.custom_types)
             bits_per_frame = overhead + (dlc * 8)
 

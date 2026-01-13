@@ -12,8 +12,7 @@
 - `msg_desc`: Short description of message purpose.
 - `msg_priority`: [0-5]. See priority convention below.
 - `msg_period`: Transmission frequency in ms.
-- `msg_id_override`: Optional. Manual ID (supports hex `0x...`). Overrides automatic linking.
-- `is_extended_id`: Boolean. Forces 29-bit frame. Automatically set if ID > 0x7FF.
+- `msg_id_override`: Optional. Manual ID (supports hex `0x...`). Overrides automatic linking. Must be within bus framing limits (e.g. <= 0x7FF for Standard buses).
 
 ## RX Message Attributes
 - `msg_name`: Name of the message to receive (must exist on the bus).

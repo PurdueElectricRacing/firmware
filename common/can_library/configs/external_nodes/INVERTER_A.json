@@ -32,7 +32,6 @@
             ],
             "msg_period": 15,
             "msg_id_override": "0x282",
-            "is_standard_id": true,
             "msg_priority": 3
         },
         {
@@ -63,7 +62,6 @@
             ],
             "msg_period": 500,
             "msg_id_override": "0x284",
-            "is_standard_id": true,
             "msg_priority": 3
         },
         {
@@ -133,7 +131,6 @@
             ],
             "msg_period": 500,
             "msg_id_override": "0x286",
-            "is_standard_id": true,
             "msg_priority": 3
         },
         {
@@ -153,7 +150,6 @@
             ],
             "msg_period": 2000,
             "msg_id_override": "0x288",
-            "is_standard_id": true,
             "msg_priority": 3
         },
         {
@@ -173,7 +169,6 @@
             ],
             "msg_period": 2000,
             "msg_id_override": "0x290",
-            "is_standard_id": true,
             "msg_priority": 3
         },
         {
@@ -188,15 +183,12 @@
             ],
             "msg_period": 250,
             "msg_id_override": "0x292",
-            "is_standard_id": true,
             "msg_priority": 3
         }
     ],
     "rx": [
         {
-            "msg_name": "INVA_SET",
-            "msg_priority": 3,
-            "msg_period": 0
+            "msg_name": "INVA_SET"
         }
     ]
 }

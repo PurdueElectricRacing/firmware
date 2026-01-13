@@ -6,14 +6,14 @@ Author: Irving Wang (irvingw@purdue.edu)
 
 import sys
 from validator import validate_all
-from parser import parse_all, parse_faults, SystemContext, load_custom_types, create_system_context
+from parser import parse_all, parse_faults, load_custom_types, create_system_context
 from linker import link_all
 from mapper import map_hardware
 from dbcgen import generate_dbcs
 from codegen import generate_headers
 from faultgen import generate_fault_data
 from load_calc import calculate_bus_load
-from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success, print_as_error
+from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success
 
 
 def build():

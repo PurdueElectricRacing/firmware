@@ -4,6 +4,7 @@
 from optparse import OptionParser
 import pathlib
 import subprocess
+import sys
 import tarfile
 import zlib
 
@@ -115,7 +116,7 @@ def print_available_targets():
 if options.list:
     # User ran `-t` with no argument: print available targets
     print_available_targets()
-    exit(0)
+    sys.exit(0)
 
 BUILD_TYPE = "Release" if options.release else "Debug"
 VERBOSE = "--verbose" if options.verbose else ""
@@ -153,7 +154,7 @@ if options.target or not options.clean:
         subprocess.run(["cmake"] + CMAKE_OPTIONS, check=True)
     except subprocess.CalledProcessError as e:
         log_error("Unable to configure CMake, see the CMake output above.")
-        exit()
+        sys.exit(1)
 
     log_success("Sucessfully generated build files.")
     print(f"Running Build command {' '.join(NINJA_COMMAND)}")
@@ -162,10 +163,11 @@ if options.target or not options.clean:
         ninja_build = subprocess.run(NINJA_COMMAND)
     except subprocess.CalledProcessError as e:
         log_error("Unable to configure compile sources, see the Ninja output above.")
-        exit()
+        sys.exit(1)
 
     if ninja_build.returncode != 0:
         log_error("Unable to generate targets.")
+        sys.exit(1)
     else:
         log_success("Sucessfully built targets.")
 
@@ -187,7 +189,7 @@ def get_git_hash_or_tag():
 def add_crc_to_files():
     if not OUT_DIR.exists():
         log_error(f"Output directory does not exist: {OUT_DIR}")
-        exit(1)
+        sys.exit(1)
     for board in BOARD_TARGETS:
         hex_path = OUT_DIR / board / f"{board}.hex"
         if hex_path.exists():

@@ -4,6 +4,19 @@ cmake_minimum_required(VERSION 3.13)
 set(CAN_LIB_DIR ${CMAKE_CURRENT_LIST_DIR})
 set(CAN_GEN_DIR ${CAN_LIB_DIR}/generated)
 
+# Run the generator during configuration to ensure files exist for compile checks
+# This fixes the cases where CMake fails because generated source files are missing
+message(STATUS "Running CAN generator (configuration phase)...")
+execute_process(
+    COMMAND python3 ${CAN_LIB_DIR}/canpiler/build.py
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    RESULT_VARIABLE CAN_GEN_RESULT
+)
+
+if (NOT CAN_GEN_RESULT EQUAL 0)
+    message(FATAL_ERROR "CAN generation failed during configuration! Return code: ${CAN_GEN_RESULT}")
+endif()
+
 # 2. Define the command to run the generator
 if (NOT TARGET can_generation)
     add_custom_target(can_generation ALL

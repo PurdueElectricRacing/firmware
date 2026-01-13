@@ -15,7 +15,6 @@ from faultgen import generate_fault_data
 from load_calc import calculate_bus_load
 from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success
 
-
 def build():
     if not validate_all():
         sys.exit(1)

@@ -135,8 +135,6 @@ static inline bool CAN_prepare_filter_config(CAN_TypeDef *can) {
         return false;
 
     can->FMR |= CAN_FMR_FINIT; // Enter init mode for filter banks
-    can->FM1R |= 0x07FFFFFF; // Set banks 0-27 to id mode
-    can->FS1R |= 0x07FFFFFF; // Set banks 0-27 to 32-bit scale
 
     return true;
 }

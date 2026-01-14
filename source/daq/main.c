@@ -164,8 +164,8 @@ int main() {
     if (!PHAL_initCAN(CAN2, false, VCAN_BAUD_RATE))
         HardFault_Handler();
 
-    if (!CAN_library_init())
-        HardFault_Handler();
+    // if (!CAN_library_init())
+        // HardFault_Handler();
 
     daq_spi_register_callbacks(); // Link SPI for ethernet driver
     //uds_init();

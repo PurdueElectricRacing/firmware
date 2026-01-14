@@ -212,10 +212,15 @@ def generate_filter_funcs(f, mapping: NodeMapping):
             bank_idx = 0 if periph == "CAN1" else 14
             f.write(f"\t{periph}->FM1R &= ~(1 << {bank_idx}); // Mask mode\n")
             f.write(f"\t{periph}->FS1R |= (1 << {bank_idx});  // 32-bit scale\n")
+            f.write(f"\t{periph}->FA1R |= (1 << {bank_idx});\n")
             f.write(f"\t{periph}->sFilterRegister[{bank_idx}].FR1 = 0;\n")
             f.write(f"\t{periph}->sFilterRegister[{bank_idx}].FR2 = 0;\n")
-            f.write(f"\t{periph}->FA1R |= (1 << {bank_idx});\n")
         else:
+            f.write(f"\t{periph}->FM1R |= 0x07FFFFFF; ")
+            f.write("// Set banks 0-27 to id mode\n")
+            f.write(f"\t{periph}->FS1R |= 0x07FFFFFF; ")
+            f.write("// Set banks 0-27 to 32-bit scale\n")
+
             for fb in banks:
                 f.write(f"\t// Bank {fb.bank_idx}: {fb.msg1.name}" + (f", {fb.msg2.name}" if fb.msg2 else "") + "\n")
                 f.write(f"\t{periph}->FA1R |= (1 << {fb.bank_idx});\n")

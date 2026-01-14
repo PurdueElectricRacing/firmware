@@ -44,6 +44,7 @@ CWD = pathlib.Path.cwd()
 BUILD_DIR = CWD/"build"
 SOURCE_DIR = CWD
 OUT_DIR = CWD/"output"
+CAN_GEN_DIR = SOURCE_DIR/"common"/"can_library"/"generated"
 
 # Setup cli arguments
 parser = OptionParser()
@@ -132,8 +133,8 @@ else:
 
 # Always clean if we specify
 if options.clean or options.package:
-    subprocess.run(["cmake", "-E", "rm", "-rf", str(BUILD_DIR), str(OUT_DIR)])
-    print("Build and output directories clean.")
+    subprocess.run(["cmake", "-E", "rm", "-rf", str(BUILD_DIR), str(OUT_DIR), str(CAN_GEN_DIR)])
+    print("Build, output, and generated CAN directories clean.")
 
 # Build the target if specified or we did not clean
 if options.target or not options.clean:

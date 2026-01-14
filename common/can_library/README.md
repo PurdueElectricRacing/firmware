@@ -10,3 +10,8 @@ Standardized framework for CAN communication within PER vehicles.
 **Core Files:**
 - `can_common.h / .c`: Shared hardware abstraction and logic.
 - `can_library.cmake`: CMake integration and node library generation.
+
+> [!NOTE]
+> Weird quirk: we run the CANpiler twice.
+> Once during CMake configuration time and one during build time.
+> This avoids any possibility of building with stale generated files.

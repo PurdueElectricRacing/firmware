@@ -11,6 +11,11 @@ Standardized framework for CAN communication within PER vehicles.
 - `can_common.h / .c`: Shared hardware abstraction and logic.
 - `can_library.cmake`: CMake integration and node library generation.
 
+## Usage
+1. Define your CAN network in `common/can_library/configs/` using the provided JSON schemas.
+2. Add to `COMMON_LIBRARIES` of your target: `can_node_<node_name>`.
+3. Define your RX interrupt handlers to call `CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo)`
+
 > [!NOTE]
 > Weird quirk: we run the CANpiler twice.
 > Once during CMake configuration time and one during build time.

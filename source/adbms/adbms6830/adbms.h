@@ -81,8 +81,8 @@ typedef struct {
 #define ADBMS_CONNECT_RETRY_PERIOD_MS 500
 
 void adbms_wake(adbms_t *bms);
-bool adbms_send_command(adbms_t *bms, const uint8_t cmd[2]);
-bool adbms_send_data(adbms_t *bms, const uint8_t data[TX_DATA_LEN]);
+void adbms_send_command(adbms_t *bms, const uint8_t cmd[2]);
+void adbms_send_data(adbms_t *bms, const uint8_t data[TX_DATA_LEN]);
 bool adbms_connect(adbms_t *bms);
 bool adbms_read_cell_voltages(adbms_t *bms);
 bool adbms_passive_balance(adbms_t *bms);

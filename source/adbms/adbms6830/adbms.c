@@ -108,7 +108,7 @@ bool adbms_connect(adbms_t *bms) {
     adbms_send_command(bms, RDCFGA);
 
     adbms_set_cs(bms, 0);
-    if (false == PHAL_SPI_transfer_noDMA(bms->spi, &(txstring.data), txstring.length, RX_DATA_LEN, bms->rx_buffer)) {
+    if (false == PHAL_SPI_transfer_noDMA(bms->spi, (const uint8_t *) &(txstring.data), txstring.length, RX_DATA_LEN, bms->rx_buffer)) {
     	bms->last_fault_time[13] = xTaskGetTickCount();
         adbms_set_cs(bms, 1);
         return false;
@@ -127,7 +127,7 @@ bool adbms_connect(adbms_t *bms) {
     	adbms_set_cs(bms, 1);
     	return false;
     };
-    if (0 != memcmp(bms->rx_buffer + 8, bms->regb_cfg, 6)) {
+    if (0 != memcmp(bms->rx_buffer + 8, bms->rega_cfg, 6)) {
     	bms->last_fault_time[16] = xTaskGetTickCount();
     	adbms_set_cs(bms, 1);
     	return false;

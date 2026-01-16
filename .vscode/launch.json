@@ -7,7 +7,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32L432KC",
+            "device": "STM32L432KC",
             "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -30,7 +30,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F407VG",
+            "device": "STM32F407VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -53,7 +53,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F407VG",
+            "device": "STM32F407VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -76,7 +76,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F732RE",
+            "device": "STM32F732RE",
             "svdFile": "${workspaceRoot}/common/svd/STM32F7x.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -99,7 +99,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F407VG",
+            "device": "STM32F407VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -123,7 +123,7 @@
             "request": "attach",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F407VG",
+            "device": "STM32F407VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -146,7 +146,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32L432KC",
+            "device": "STM32L432KC",
             "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -169,7 +169,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F407VG",
+            "device": "STM32F407VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -192,7 +192,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F732RET6",
+            "device": "STM32F732RET6",
             "svdFile": "${workspaceRoot}/common/svd/STM32F7x.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -216,7 +216,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32G474CET6",
+            "device": "STM32G474CET6",
             "svdFile": "${workspaceRoot}/common/svd/STM32G474xx.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -239,7 +239,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F407VG",
+            "device": "STM32F407VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -262,7 +262,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F407VG",
+            "device": "STM32F407VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -285,7 +285,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F407VG",
+            "device": "STM32F407VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -308,7 +308,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F732RE",
+            "device": "STM32F732RE",
             "svdFile": "${workspaceRoot}/common/svd/STM32F7x.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -331,7 +331,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F407VG",
+            "device": "STM32F407VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -354,7 +354,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F407VG",
+            "device": "STM32F407VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -377,7 +377,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F407VG",
+            "device": "STM32F407VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -400,7 +400,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32L432KC",
+            "device": "STM32L432KC",
             "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -423,7 +423,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F407VG",
+            "device": "STM32F407VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -447,7 +447,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F407VG",
+            "device": "STM32F407VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -470,7 +470,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F732RE",
+            "device": "STM32F732RE",
             "svdFile": "${workspaceRoot}/common/svd/STM32F7x.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -494,7 +494,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F407VG",
+            "device": "STM32F407VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -517,7 +517,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F407VG",
+            "device": "STM32F407VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -540,7 +540,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32F407VG",
+            "device": "STM32F407VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -564,7 +564,7 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device:": "STM32L432KC",
+            "device": "STM32L432KC",
             "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
             "configFiles": [
                 "interface/stlink.cfg",

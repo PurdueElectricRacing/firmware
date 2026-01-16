@@ -1,19 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
 
-# Run DAQ automatic code generation
-execute_process(COMMAND python3 ${CMAKE_SOURCE_DIR}/common/daq/generation/generator.py
-                RESULT_VARIABLE ret)
-if(ret EQUAL "1")
-    message(FATAL_ERROR "CAN Generation Failed")
-endif()
-
-# Run automatic code generation for Fault Library
-execute_process(COMMAND python3 ${CMAKE_SOURCE_DIR}/common/faults/generation/generator.py
-                RESULT_VARIABLE ret)
-if(ret EQUAL "1")
-    message(FATAL_ERROR "Fault Generation Failed")
-endif()
-
 # Check for bootloader generation
 if (NOT BOOTLOADER_BUILD)
     message(STATUS "Not building applications for bootloaders.")
@@ -42,13 +28,14 @@ include(cmake/FindSTM32HAL.cmake)
 
 # See cmake/FindCMSIS.cmake and cmake/FindSTM32HAL.cmake for constructing additional libraries
 make_cmsis_library(CMSIS_L432 STM32L4xx STM32L432xx ${CMAKE_SOURCE_DIR}/external/STM32CubeL4/Drivers/CMSIS)
-make_cmsis_library(CMSIS_L471 STM32L4xx STM32L471xx ${CMAKE_SOURCE_DIR}/external/STM32CubeL4/Drivers/CMSIS)
-make_cmsis_library(CMSIS_L496 STM32L4xx STM32L496xx ${CMAKE_SOURCE_DIR}/external/STM32CubeL4/Drivers/CMSIS)
 make_cmsis_library(CMSIS_F407 STM32F4xx STM32F407xx ${CMAKE_SOURCE_DIR}/external/STM32CubeF4/Drivers/CMSIS)
 make_cmsis_library(CMSIS_F732 STM32F7xx STM32F732xx ${CMAKE_SOURCE_DIR}/external/STM32CubeF7/Drivers/CMSIS)
 make_cmsis_library(CMSIS_G474 STM32G4xx STM32G474xx ${CMAKE_SOURCE_DIR}/external/STM32CubeG4/Drivers/CMSIS)
 
 include(cmake/FindFreeRTOS.cmake)
+
+# Include new CAN Library
+include(common/can_library/can_library.cmake)
 
 # Function to apply analyzer flags to targets based on type
 function(apply_analyzer_to_directory DIR_PATH TARGET_TYPE_FILTER)
@@ -119,7 +106,6 @@ if(MODULES STREQUAL "")
         f4_testing
         f7_testing
         g4_testing
-        l4_testing
         main_module
         pdu
         torque_vector

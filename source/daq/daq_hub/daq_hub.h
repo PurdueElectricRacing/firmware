@@ -17,7 +17,6 @@
 #include <assert.h>
 #include <stdint.h>
 
-#include "can_flags.h"
 #include "common/freertos/freertos.h"
 #include "daq_eth.h"
 #include "daq_sd.h"

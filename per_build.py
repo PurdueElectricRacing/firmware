@@ -4,6 +4,7 @@
 from optparse import OptionParser
 import pathlib
 import subprocess
+import sys
 import tarfile
 import zlib
 
@@ -43,6 +44,7 @@ CWD = pathlib.Path.cwd()
 BUILD_DIR = CWD/"build"
 SOURCE_DIR = CWD
 OUT_DIR = CWD/"output"
+CAN_GEN_DIR = SOURCE_DIR/"common"/"can_library"/"generated"
 
 # Setup cli arguments
 parser = OptionParser()
@@ -97,26 +99,6 @@ def print_available_targets():
     modules = [
         "main_module",
         "bootloader",
-        "l4_testing",
-        "f4_testing",
-        "f7_testing",
-        "g4_testing",
-        "a_box",
-        "torque_vector",
-        "dashboard",
-        "pdu",
-        "daq"
-    ]
-    modules_sorted = sorted(modules)
-    print("Available targets to build:")
-    for m in modules_sorted:
-        print(f'\t{m}')
-
-def print_available_targets():
-    modules = [
-        "main_module",
-        "bootloader",
-        "l4_testing",
         "f4_testing",
         "f7_testing",
         "g4_testing",
@@ -135,7 +117,7 @@ def print_available_targets():
 if options.list:
     # User ran `-t` with no argument: print available targets
     print_available_targets()
-    exit(0)
+    sys.exit(0)
 
 BUILD_TYPE = "Release" if options.release else "Debug"
 VERBOSE = "--verbose" if options.verbose else ""
@@ -151,8 +133,8 @@ else:
 
 # Always clean if we specify
 if options.clean or options.package:
-    subprocess.run(["cmake", "-E", "rm", "-rf", str(BUILD_DIR), str(OUT_DIR)])
-    print("Build and output directories clean.")
+    subprocess.run(["cmake", "-E", "rm", "-rf", str(BUILD_DIR), str(OUT_DIR), str(CAN_GEN_DIR)])
+    print("Build, output, and generated CAN directories clean.")
 
 # Build the target if specified or we did not clean
 if options.target or not options.clean:
@@ -173,7 +155,7 @@ if options.target or not options.clean:
         subprocess.run(["cmake"] + CMAKE_OPTIONS, check=True)
     except subprocess.CalledProcessError as e:
         log_error("Unable to configure CMake, see the CMake output above.")
-        exit()
+        sys.exit(1)
 
     log_success("Sucessfully generated build files.")
     print(f"Running Build command {' '.join(NINJA_COMMAND)}")
@@ -182,10 +164,11 @@ if options.target or not options.clean:
         ninja_build = subprocess.run(NINJA_COMMAND)
     except subprocess.CalledProcessError as e:
         log_error("Unable to configure compile sources, see the Ninja output above.")
-        exit()
+        sys.exit(1)
 
     if ninja_build.returncode != 0:
         log_error("Unable to generate targets.")
+        sys.exit(1)
     else:
         log_success("Sucessfully built targets.")
 
@@ -207,7 +190,7 @@ def get_git_hash_or_tag():
 def add_crc_to_files():
     if not OUT_DIR.exists():
         log_error(f"Output directory does not exist: {OUT_DIR}")
-        exit(1)
+        sys.exit(1)
     for board in BOARD_TARGETS:
         hex_path = OUT_DIR / board / f"{board}.hex"
         if hex_path.exists():

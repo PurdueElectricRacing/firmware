@@ -12,28 +12,55 @@
 #ifndef COMMON_DEFS_H_
 #define COMMON_DEFS_H_
 
+#include <stdint.h>
+
 /* Math Functions */
-#define MIN(x, y)          ((x) < (y) ? (x) : (y))
-#define MAX(x, y)          ((x) < (y) ? (y) : (x))
-#define CLAMP(x, min, max) MAX((min), MIN((x), (max)))
-#define ABS(x)             ((x) < 0 ? (-1 * (x)) : (x))
+static inline int32_t min_i(int32_t x, int32_t y) { return (x < y) ? x : y; }
+static inline float min_f(float x, float y) { return (x < y) ? x : y; }
+#define MIN(x, y) _Generic((x), float: min_f, double: min_f, default: min_i)((x), (y))
+
+static inline int32_t max_i(int32_t x, int32_t y) { return (x < y) ? y : x; }
+static inline float max_f(float x, float y) { return (x < y) ? y : x; }
+#define MAX(x, y) _Generic((x), float: max_f, double: max_f, default: max_i)((x), (y))
+
+static inline int32_t clamp_i(int32_t x, int32_t min, int32_t max) {
+    if (x < min) return min;
+    if (x > max) return max;
+    return x;
+}
+static inline float clamp_f(float x, float min, float max) {
+    if (x < min) return min;
+    if (x > max) return max;
+    return x;
+}
+#define CLAMP(x, min, max) _Generic((x), \
+    float: clamp_f, \
+    double: clamp_f, \
+    default: clamp_i \
+)((x), (min), (max))
+
+static inline int32_t abs_i(int32_t x) { return (x < 0) ? -x : x; }
+static inline float abs_f(float x) { return (x < 0.0f) ? -x : x; }
+#define ABS(x) _Generic((x), float: abs_f, double: abs_f, default: abs_i)(x)
 
 // Base-2 logarithm that rounds down
-#define LOG2_DOWN(x) (31U - __builtin_clzl((x)))
-// Base-2 logarithm that rounds up
-#define LOG2_UP(x) (LOG2_DOWN((x) - 1) + 1)
+static inline uint32_t LOG2_DOWN(uint32_t x) {
+    return 31U - (uint32_t)__builtin_clz(x);
+}
 
-#define ROUNDDOWN(a, n) \
-    ({ \
-        uint32_t __a = (uint32_t)(a); \
-        (typeof(a))(__a - __a % (n)); \
-    })
+// Base-2 logarithm that rounds up
+static inline uint32_t LOG2_UP(uint32_t x) {
+    return LOG2_DOWN(x - 1) + 1;
+}
+
+static inline uint32_t ROUNDDOWN(uint32_t a, uint32_t n) {
+    return a - (a % n);
+}
+
 // Round up to the nearest multiple of n
-#define ROUNDUP(a, n) \
-    ({ \
-        uint32_t __n = (uint32_t)(n); \
-        (typeof(a))(ROUNDDOWN((uint32_t)(a) + __n - 1, __n)); \
-    })
+static inline uint32_t ROUNDUP(uint32_t a, uint32_t n) {
+    return ROUNDDOWN(a + n - 1, n);
+}
 
 /* Constants */
 #define PI (3.14159f)
@@ -41,12 +68,6 @@
 /* Unit Conversions */
 #define DEG_TO_RAD (PI / 180.0f)
 #define G_TO_M_S   (9.80665f)
-
-/* CAN Bus Frequency */
-#define VCAN_BPS 500000 // Main vehicle CAN bus
-#define DCAN_BPS 500000 // Steering angle, DAQ, (wheel temps)
-#define MCAN_BPS 500000 // Motor CAN Bus (Main, DAQ, Inverters)
-#define CCAN_BPS 250000 // Charger CAN bus (ELCON, A_Box, Orion)
 
 /* Per-Node HSI RCC Trim Constants */
 #define HSI_TRIM_TORQUE_VECTOR 15
@@ -57,7 +78,8 @@
 #define HSI_TRIM_A_BOX         16
 
 // Convert 8 byte char array to uint64_t in little-endian format
-#define EIGHT_CHAR_TO_U64_LE(x) \
-    ((uint64_t)(x[0]) | (uint64_t)(x[1]) << 8 | (uint64_t)(x[2]) << 16 | (uint64_t)(x[3]) << 24 | (uint64_t)(x[4]) << 32 | (uint64_t)(x[5]) << 40 | (uint64_t)(x[6]) << 48 | (uint64_t)(x[7]) << 56)
+static inline uint64_t EIGHT_CHAR_TO_U64_LE(const char x[8]) {
+    return ((uint64_t)(x[0]) | (uint64_t)(x[1]) << 8 | (uint64_t)(x[2]) << 16 | (uint64_t)(x[3]) << 24 | (uint64_t)(x[4]) << 32 | (uint64_t)(x[5]) << 40 | (uint64_t)(x[6]) << 48 | (uint64_t)(x[7]) << 56);
+}
 
 #endif /* COMMON_DEFS_H_ */

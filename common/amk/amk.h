@@ -32,7 +32,7 @@
 #include <stdint.h>
 
 #include "common/faults/faults.h"
-#include "source/main_module/can/can_parse.h"
+#include "common/can_library/can_common.h"
 
 /* -------------------------------------------------------
     AMK Inverter Status

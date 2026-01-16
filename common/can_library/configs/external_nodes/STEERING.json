@@ -1,0 +1,59 @@
+{
+    "node_name": "STEERING",
+    "bus_name": "VCAN",
+    "tx": [
+        {
+            "msg_name": "LWS_Standard",
+            "msg_desc": "Standard steering angle and speed",
+            "signals": [
+                {
+                    "sig_name": "LWS_ANGLE",
+                    "sig_desc": "Steering Angle",
+                    "type": "int16_t",
+                    "unit": "deg",
+                    "scale": 0.1
+                },
+                {
+                    "sig_name": "LWS_SPEED",
+                    "sig_desc": "Angular speed of steering input",
+                    "type": "uint8_t",
+                    "unit": "deg/s",
+                    "scale": 4,
+                    "length": 8
+                },
+                {
+                    "sig_name": "Ok",
+                    "sig_desc": "Sensor failure status",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "Cal",
+                    "sig_desc": "Sensor calibration status",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "Trim",
+                    "sig_desc": "Sensor information validity flag (invalid if 0)",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "Reserved_1",
+                    "type": "uint8_t",
+                    "length": 5
+                },
+                {
+                    "sig_name": "Reserved_2",
+                    "type": "uint8_t",
+                    "length": 8
+                }
+            ],
+            "msg_period": 15,
+            "msg_id_override": "0x2B0",
+            "msg_priority": 3
+        }
+    ],
+    "rx": []
+}

@@ -13,7 +13,7 @@
 
 #include <stdbool.h>
 
-#include "can_parse.h"
+#include "MAIN.h"
 #include "common/amk/amk.h"
 #include "common/faults/faults.h"
 #include "common/phal/gpio.h"
@@ -92,7 +92,7 @@ typedef struct
 
 typedef struct
 {
-    car_state_t state;
+    CarState_t state;
     amk_motor_t motor_l;
     amk_motor_t motor_r;
 

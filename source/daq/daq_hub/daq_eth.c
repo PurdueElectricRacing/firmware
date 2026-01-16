@@ -20,6 +20,7 @@
 #include "main.h"
 #include "w5500/socket.h"
 #include "w5500/wizchip_conf.h"
+#include "common/can_library/generated/DAQ.h"
 
 static int8_t eth_init(void);
 static int8_t eth_get_link_up(void);
@@ -299,15 +300,17 @@ static void conv_tcp_frame_to_can_msg(timestamped_frame_t* tcp_frame, CanMsgType
 static void eth_tcp_relay_can_frame(timestamped_frame_t* frame) {
     CanMsgTypeDef_t msg;
     conv_tcp_frame_to_can_msg(frame, &msg);
-    canTxSendToBack(&msg);
+    CAN_enqueue_tx(&msg);
 }
 
+/*
 // Pull out of TCP queue and add it to UDS queue
 static void eth_tcp_relay_uds_frame(timestamped_frame_t* frame) {
     if (xQueueSendToBack(q_can1_rx, frame, (TickType_t)10) != pdPASS) {
         daq_hub.can1_rx_overflow++;
     }
 }
+*/
 
 static void eth_tcp_receive_periodic(void) {
     if (daq_hub.eth_tcp_state != ETH_TCP_ESTABLISHED)
@@ -324,9 +327,9 @@ static void eth_tcp_receive_periodic(void) {
                 case DAQ_FRAME_TCP2CAN:
                     eth_tcp_relay_can_frame(frame);
                     break;
-                case DAQ_FRAME_TCP2DAQ:
-                    eth_tcp_relay_uds_frame(frame);
-                    break;
+                // case DAQ_FRAME_TCP2DAQ:
+                //     eth_tcp_relay_uds_frame(frame);
+                //     break;
                 default:
                     break;
             }

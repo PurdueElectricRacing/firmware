@@ -11,7 +11,7 @@
 
 /* Module Includes */
 #include "auto_switch.h"
-#include "can_parse.h"
+#include "PDU.h"
 #include "cooling.h"
 #include "daq.h"
 #include "fan_control.h"
@@ -200,8 +200,8 @@ int main() {
     taskCreate(heartBeatTask, 100);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(LED_periodic, 500);
-    taskCreateBackground(canTxUpdate);
-    taskCreateBackground(canRxUpdate);
+    taskCreateBackground(CAN_tx_update);
+    taskCreateBackground(CAN_rx_update);
     taskCreate(autoSwitchPeriodic, 15);
     taskCreate(update_cooling_periodic, 100);
     taskCreate(send_iv_readings, 500);
@@ -216,13 +216,13 @@ void preflightChecks(void) {
 
     switch (state++) {
         case 0:
-            if (!PHAL_initCAN(CAN1, false, VCAN_BPS)) {
+            if (!PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
                 HardFault_Handler();
             }
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
             break;
         case 1:
-            initCANParse();
+            CAN_library_init();
             if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
                 HardFault_Handler();
             break;
@@ -299,7 +299,7 @@ void preflightAnimation(void) {
 }
 
 void send_flowrates() {
-    SEND_FLOWRATES(getFlowRate1(), getFlowRate2());
+    CAN_SEND_flowrates(getFlowRate1(), getFlowRate2());
 }
 
 void heatBeatLED() {
@@ -311,7 +311,7 @@ void heatBeatLED() {
 
     static uint8_t trig;
     if (trig)
-        SEND_PDU_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
+        CAN_SEND_pdu_can_stats(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
                            can_stats.can_peripheral_stats[CAN1_IDX].tx_fail,
                            can_stats.rx_of,
                            can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
@@ -319,11 +319,11 @@ void heatBeatLED() {
 }
 
 void CAN1_RX0_IRQHandler() {
-    canParseIRQHandler(CAN1);
+    CAN_rx_update();
 }
 
-void pdu_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a) {
-    if (can_data.pdu_bl_cmd.cmd == BLCMD_RST)
+void pdu_bl_cmd_CALLBACK(can_data_t* can_data) {
+    if (can_data->pdu_bl_cmd.cmd == BLCMD_RST)
         Bootloader_ResetForFirmwareDownload();
 }
 
@@ -333,10 +333,10 @@ void send_iv_readings() {
     setFault(ID_LV_GETTING_LOW_FAULT, auto_switches.voltage.in_24v);
     setFault(ID_LV_CRITICAL_LOW_FAULT, auto_switches.voltage.in_24v);
     // Send CAN messages containing voltage and current data
-    SEND_V_RAILS(auto_switches.voltage.in_24v, auto_switches.voltage.out_5v, auto_switches.voltage.out_3v3, auto_switches.voltage.amk_24v);
-    SEND_RAIL_CURRENTS(auto_switches.current[CS_24V], auto_switches.current[CS_5V]);
-    SEND_PUMP_AND_FAN_CURRENT(auto_switches.current[SW_PUMP_1], auto_switches.current[SW_PUMP_2], auto_switches.current[SW_FAN_1], auto_switches.current[SW_FAN_2]);
-    SEND_OTHER_CURRENTS(auto_switches.current[SW_SDC], auto_switches.current[SW_AUX], auto_switches.current[SW_DASH], auto_switches.current[SW_ABOX], auto_switches.current[SW_MAIN]);
+    CAN_SEND_v_rails(auto_switches.voltage.in_24v, auto_switches.voltage.out_5v, auto_switches.voltage.out_3v3, auto_switches.voltage.amk_24v);
+    CAN_SEND_rail_currents(auto_switches.current[CS_24V], auto_switches.current[CS_5V]);
+    CAN_SEND_pump_and_fan_current(auto_switches.current[SW_PUMP_1], auto_switches.current[SW_PUMP_2], auto_switches.current[SW_FAN_1], auto_switches.current[SW_FAN_2]);
+    CAN_SEND_other_currents(auto_switches.current[SW_SDC], auto_switches.current[SW_AUX], auto_switches.current[SW_DASH], auto_switches.current[SW_ABOX], auto_switches.current[SW_MAIN]);
 
     // DS8626 Rev 10 pg 139
     // Reference voltage is 3.3
@@ -345,7 +345,7 @@ void send_iv_readings() {
     // Average slope is 2.5mV per degree c
     float vsense = (adc_readings.internal_therm / (float)4095) * 3.3;
     float temp   = ((vsense - 0.76) / 0.0025) + 25;
-    SEND_PDU_TEMPS((uint16_t)temp);
+    CAN_SEND_pdu_temps((uint16_t)temp);
 }
 
 void HardFault_Handler() {

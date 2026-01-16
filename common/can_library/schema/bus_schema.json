@@ -1,0 +1,27 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": ["busses"],
+    "additionalProperties": false,
+    "properties": {
+        "busses": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/bus"
+            }
+        }
+    },
+    "$defs": {
+        "bus": {
+            "type": "object",
+            "required": ["name", "baud_rate", "is_extended_id", "is_flexible_data_rate"],
+            "additionalProperties": false,
+            "properties": {
+                "name": { "type": "string" },
+                "baud_rate": { "type": "integer" },
+                "is_extended_id": { "type": "boolean" },
+                "is_flexible_data_rate": { "type": "boolean" }
+            }
+        }
+    }
+}

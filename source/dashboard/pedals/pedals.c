@@ -2,7 +2,7 @@
 //#include "common/phal/flash.h"
 #include <stdint.h>
 
-#include "can_parse.h"
+#include "DASHBOARD.h"
 #include "common/faults/faults.h"
 #include "common/phal/gpio.h"
 #include "common_defs.h"
@@ -110,10 +110,10 @@ void pedalsPeriodic(void) {
     pedal_values.brake    = b1_final;
 
     // Log the raw pedal values
-    SEND_RAW_THROTTLE_BRAKE(t1_raw, t2_raw, b1_raw, b2_raw, 0);
+    CAN_SEND_raw_throttle_brake(t1_raw, t2_raw, b1_raw, b2_raw, 0);
 
     // Send the normalized pedal values to Main and TV
-    SEND_FILT_THROTTLE_BRAKE(t1_final, b1_final);
+    CAN_SEND_filt_throttle_brake(t1_final, b1_final);
 }
 
 // ! the code below will work only if watchdog is disabled

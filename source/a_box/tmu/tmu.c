@@ -2,7 +2,7 @@
 
 #include <string.h>
 
-#include "can_parse.h"
+#include "A_BOX.h"
 #include "common/common_defs/common_defs.h"
 #include "common/faults/faults.h"
 #include "common/phal/gpio.h"
@@ -81,11 +81,11 @@ uint8_t readTemps() {
     module_temp_info_t* module_five  = &tmu.module_temps[TMU_MODULE_FIVE];
 
     // send temperatures over CAN (sent multiplied by 10, so 221 would be 22.1 deg C)
-    SEND_RAW_CELL_TEMP_MODULE1(curr_therm, module_one->left_readings.temp_readings[curr_therm], module_one->left_readings.temp_readings[curr_therm]);
-    SEND_RAW_CELL_TEMP_MODULE2(curr_therm, module_two->left_readings.temp_readings[curr_therm], module_two->left_readings.temp_readings[curr_therm]);
-    SEND_RAW_CELL_TEMP_MODULE3(curr_therm, module_three->left_readings.temp_readings[curr_therm], module_three->left_readings.temp_readings[curr_therm]);
-    SEND_RAW_CELL_TEMP_MODULE4(curr_therm, module_four->left_readings.temp_readings[curr_therm], module_four->left_readings.temp_readings[curr_therm]);
-    SEND_RAW_CELL_TEMP_MODULE5(curr_therm, module_five->left_readings.temp_readings[curr_therm], module_five->left_readings.temp_readings[curr_therm]);
+    CAN_SEND_raw_cell_temp_module1(curr_therm, module_one->left_readings.temp_readings[curr_therm], module_one->left_readings.temp_readings[curr_therm]);
+    CAN_SEND_raw_cell_temp_module2(curr_therm, module_two->left_readings.temp_readings[curr_therm], module_two->left_readings.temp_readings[curr_therm]);
+    CAN_SEND_raw_cell_temp_module3(curr_therm, module_three->left_readings.temp_readings[curr_therm], module_three->left_readings.temp_readings[curr_therm]);
+    CAN_SEND_raw_cell_temp_module4(curr_therm, module_four->left_readings.temp_readings[curr_therm], module_four->left_readings.temp_readings[curr_therm]);
+    CAN_SEND_raw_cell_temp_module5(curr_therm, module_five->left_readings.temp_readings[curr_therm], module_five->left_readings.temp_readings[curr_therm]);
 
     if (curr_therm < (NUM_THERM - 1)) {
         curr_therm++;
@@ -108,16 +108,16 @@ uint8_t readTemps() {
         module_temp_info_t* module_five  = &tmu.module_temps[TMU_MODULE_FIVE];
 
         // finished incrementing, sending max and min values, sending averages, setting faults
-        SEND_MOD_CELL_TEMP_AVG_A_B_C(module_one->total_avg_temp, module_two->total_avg_temp, module_three->total_avg_temp);
-        SEND_MOD_CELL_TEMP_AVG_D_E(module_four->total_avg_temp, module_five->total_avg_temp);
-        SEND_MOD_CELL_TEMP_MAX_A_B_C(module_one->total_max_temp, module_two->total_max_temp, module_three->total_max_temp);
-        SEND_MOD_CELL_TEMP_MAX_D_E(module_four->total_max_temp, module_five->total_max_temp);
-        SEND_MOD_CELL_TEMP_MIN_A_B_C(module_one->total_min_temp, module_two->total_min_temp, module_three->total_min_temp);
-        SEND_MOD_CELL_TEMP_MIN_D_E(module_four->total_min_temp, module_five->total_min_temp);
+        CAN_SEND_mod_cell_temp_avg_a_b_c(module_one->total_avg_temp, module_two->total_avg_temp, module_three->total_avg_temp);
+        CAN_SEND_mod_cell_temp_avg_d_e(module_four->total_avg_temp, module_five->total_avg_temp);
+        CAN_SEND_mod_cell_temp_max_a_b_c(module_one->total_max_temp, module_two->total_max_temp, module_three->total_max_temp);
+        CAN_SEND_mod_cell_temp_max_d_e(module_four->total_max_temp, module_five->total_max_temp);
+        CAN_SEND_mod_cell_temp_min_a_b_c(module_one->total_min_temp, module_two->total_min_temp, module_three->total_min_temp);
+        CAN_SEND_mod_cell_temp_min_d_e(module_four->total_min_temp, module_five->total_min_temp);
         int16_t max_temp = MAX(MAX(MAX(module_one->total_max_temp, module_two->total_max_temp), MAX(module_three->total_max_temp, module_four->total_max_temp)), module_five->total_max_temp);
         int16_t min_temp = MIN(MIN(MIN(module_one->total_min_temp, module_two->total_min_temp), MIN(module_three->total_min_temp, module_four->total_min_temp)), module_five->total_min_temp);
-        SEND_MAX_CELL_TEMP(max_temp);
-        SEND_NUM_THERM_BAD(module_one->left_readings.num_bad, module_one->left_readings.num_bad, module_two->left_readings.num_bad, module_two->left_readings.num_bad, module_three->left_readings.num_bad, module_three->left_readings.num_bad, module_four->left_readings.num_bad, module_four->left_readings.num_bad, module_five->left_readings.num_bad, module_five->left_readings.num_bad);
+        CAN_SEND_max_cell_temp(max_temp);
+        CAN_SEND_num_therm_bad(module_one->left_readings.num_bad, module_one->left_readings.num_bad, module_two->left_readings.num_bad, module_two->left_readings.num_bad, module_three->left_readings.num_bad, module_three->left_readings.num_bad, module_four->left_readings.num_bad, module_four->left_readings.num_bad, module_five->left_readings.num_bad, module_five->left_readings.num_bad);
         setFault(ID_PACK_TEMP_FAULT, max_temp);
         setFault(ID_PACK_TEMP_EXCEEDED_FAULT, max_temp);
         // setFault(ID_MIN_PACK_TEMP_FAULT, min_temp);

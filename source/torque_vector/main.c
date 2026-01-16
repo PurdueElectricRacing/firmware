@@ -5,7 +5,7 @@
 #include <string.h>
 
 #include "bmi088.h"
-#include "can/can_parse.h"
+#include "TORQUE_VECTOR.h"
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
 #include "common/faults/faults.h"
@@ -174,8 +174,8 @@ int main(void) {
     schedInit(APB1ClockRateHz);
     configureAnim(preflightAnimation, preflightChecks, 74, 1000);
 
-    taskCreateBackground(canTxUpdate);
-    taskCreateBackground(canRxUpdate);
+    taskCreateBackground(CAN_tx_update);
+    taskCreateBackground(CAN_rx_update);
 
     taskCreate(heartBeatLED, 500);
     taskCreate(parseIMU, 20);
@@ -204,22 +204,22 @@ void reportData() {
     scaled_accel_x = (int16_t)(bmi_handle.data.accel_x * 100);
     scaled_accel_y = (int16_t)(bmi_handle.data.accel_y * 100);
     scaled_accel_z = (int16_t)(bmi_handle.data.accel_z * 100);
-    SEND_IMU_ACCEL(scaled_accel_x, scaled_accel_y, scaled_accel_z);
+    CAN_SEND_imu_accel(scaled_accel_x, scaled_accel_y, scaled_accel_z);
 
     scaled_gyro_x = (int16_t)(bmi_handle.data.gyro_x * 100);
     scaled_gyro_y = (int16_t)(bmi_handle.data.gyro_y * 100);
     scaled_gyro_z = (int16_t)(bmi_handle.data.gyro_z * 100);
-    SEND_IMU_GYRO(scaled_gyro_x, scaled_gyro_y, scaled_gyro_z);
+    CAN_SEND_imu_gyro(scaled_gyro_x, scaled_gyro_y, scaled_gyro_z);
 
-    SEND_GPS_COORDINATES(gps_handle.data.latitude, gps_handle.data.longitude);
+    CAN_SEND_gps_coordinates(gps_handle.data.latitude, gps_handle.data.longitude);
 
     scaled_speed   = (int16_t)(gps_handle.data.groundSpeed * 100);
     scaled_heading = (int16_t)(gps_handle.data.headingMotion * 100);
-    SEND_GPS_SPEED(scaled_speed, scaled_heading);
+    CAN_SEND_gps_speed(scaled_speed, scaled_heading);
 
     uint8_t abbreviated_year = (uint8_t)(gps_handle.data.year % 100);
     uint8_t millis           = (uint8_t)(gps_handle.data.nano / 1000);
-    SEND_GPS_TIME(abbreviated_year,
+    CAN_SEND_gps_time(abbreviated_year,
                   gps_handle.data.month,
                   gps_handle.data.day,
                   gps_handle.data.hour,
@@ -234,7 +234,7 @@ void preflightChecks(void) {
     switch (state++) {
         case 0:
             /* VCAN Initialization */
-            if (false == PHAL_initCAN(CAN1, false, VCAN_BPS)) {
+            if (false == PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
                 HardFault_Handler();
             }
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
@@ -268,7 +268,7 @@ void preflightChecks(void) {
             break;
         case 5:
             //PHAL_usartRxDma(&usb, rxbuffer, sizeof(rxbuffer), 1);
-            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
+            // initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
             break;
         case 6:
             /* BMI Initialization */
@@ -295,7 +295,7 @@ void preflightChecks(void) {
         }
         default:
             if (state > 66) {
-                initCANParse();
+                CAN_library_init();
                 registerPreflightComplete(1);
                 state = 66; /* prevent wrap around */
             }
@@ -329,17 +329,17 @@ void preflightAnimation(void) {
 void heartBeatLED(void) {
     PHAL_toggleGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin);
 
-    if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
+    if ((sched.os_ticks - can_data.main_hb.last_rx) >= CONN_LED_MS_THRESH)
         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     else
         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
 
     static uint8_t trig;
     if (trig)
-        SEND_TV_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
-                          can_stats.can_peripheral_stats[CAN1_IDX].tx_fail,
-                          can_stats.rx_of,
-                          can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
+        CAN_SEND_tv_can_stats(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
+                              can_stats.can_peripheral_stats[CAN1_IDX].tx_fail,
+                              can_stats.rx_of,
+                              can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
     trig = !trig;
 }
 
@@ -461,9 +461,12 @@ void txUsart() {
     PHAL_usartTxDma(&usb, (uint16_t *)txbuffer, 290);
 }
 
-/* CAN Message Handling */
-void CAN1_RX0_IRQHandler() {
-    canParseIRQHandler(CAN1);
+void torquevector_bl_cmd_CALLBACK(can_data_t* p_can_data)
+{
+    if (p_can_data->torquevector_bl_cmd.cmd == BLCMD_RST)
+    {
+        Bootloader_ResetForFirmwareDownload();
+    }
 }
 
 void VCU_MAIN(void) {
@@ -483,16 +486,9 @@ void VCU_MAIN(void) {
     setFault(ID_YES_GPS_FIX_FAULT, (fVCU.GS_FFLAG == 3));
 
     /* Send VCU messages */
-
-    SEND_VCU_TORQUES_SPEEDS((int16_t)(100 * yVCU.TO_VT[0]), (int16_t)(100 * yVCU.TO_VT[1]), (int16_t)(100 * yVCU.TO_PT[0]), (int8_t)(yVCU.VCU_mode));
-    SEND_VCU_SOC_ESTIMATE((int16_t)(100 * yVCU.Batt_SOC), (int16_t)(10 * yVCU.Batt_Voc));
-    SEND_DRIVE_MODES((int8_t)(yVCU.VT_mode), (int16_t)(yVCU.WM_VS[0]));
-}
-
-void torquevector_bl_cmd_CALLBACK(CanParsedData_t *msg_data_a) {
-    if (can_data.torquevector_bl_cmd.cmd == BLCMD_RST) {
-        Bootloader_ResetForFirmwareDownload();
-    }
+    CAN_SEND_VCU_torques_speeds((int16_t)(100 * yVCU.TO_VT[0]), (int16_t)(100 * yVCU.TO_VT[1]), (int16_t)(100 * yVCU.TO_PT[0]), (int8_t)(yVCU.VCU_mode));
+    CAN_SEND_vcu_soc_estimate((int16_t)(100 * yVCU.Batt_SOC), (int16_t)(10 * yVCU.Batt_Voc));
+    CAN_SEND_drive_modes((int8_t)(yVCU.VT_mode), (int16_t)(yVCU.WM_VS[0]));
 }
 
 void HardFault_Handler() {

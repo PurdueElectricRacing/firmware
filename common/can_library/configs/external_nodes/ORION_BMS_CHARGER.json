@@ -1,0 +1,350 @@
+{
+    "node_name": "ORION_BMS",
+    "bus_name": "CCAN",
+    "tx": [
+        {
+            "msg_name": "orion_info_charger",
+            "msg_desc": "charge, State, Current/voltage limits",
+            "signals": [
+                {
+                    "sig_name": "discharge_enable",
+                    "sig_desc": "Main BMS SDC control input - allows current to be drawn from pack",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "charge_enable",
+                    "sig_desc": "Permits intermittent charging of pack - AKA Regen (Not currently used)",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "charger_safety",
+                    "sig_desc": "Charger BMS SDC control input - allows current to flow into pack",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "dtc_status",
+                    "sig_desc": "General error status of OrionBMS",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "multi_input",
+                    "sig_desc": "Orion multi purpose input status - unused",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "always_on",
+                    "sig_desc": "Orion's low power sleep input is configured",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "is_ready",
+                    "sig_desc": "Orion is in 'READY' (discharge) mode",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "is_charging",
+                    "sig_desc": "Orion is in 'CHARGE' mode - controlled by charge power pin",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "multi_input_2",
+                    "sig_desc": "Orion multi purpose input status - unused",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "multi_input_3",
+                    "sig_desc": "Orion multi purpose input status - unused",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "reserved",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "multi_output_2",
+                    "sig_desc": "Orion multi purpose output status - unused",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "multi_output_3",
+                    "sig_desc": "Orion multi purpose output status - unused",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "multi_output_4",
+                    "sig_desc": "Orion multi purpose output status - unused",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "multi_enable",
+                    "sig_desc": "Orion multi purpose output with watchdog functionality - unused",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "multi_output_1",
+                    "sig_desc": "Orion multi purpose output status - unused",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "pack_dcl",
+                    "sig_desc": "Pack discharge current limit",
+                    "type": "uint16_t",
+                    "length": 16,
+                    "unit": "A",
+                    "scale": 1
+                },
+                {
+                    "sig_name": "pack_ccl",
+                    "sig_desc": "Pack charge current limit",
+                    "type": "uint16_t",
+                    "length": 16,
+                    "unit": "A",
+                    "scale": 1
+                },
+                {
+                    "sig_name": "pack_soc",
+                    "sig_desc": "Pack State of Charge",
+                    "type": "uint8_t",
+                    "length": 8,
+                    "unit": "%",
+                    "scale": 0.5
+                }
+            ],
+            "msg_period": 32,
+            "msg_priority": 3,
+            "msg_id_override": "0x140006B8"
+        },
+        {
+            "msg_name": "orion_currents_volts_charger",
+            "msg_desc": "Pack current + voltage",
+            "signals": [
+                {
+                    "sig_name": "pack_current",
+                    "type": "int16_t",
+                    "unit": "A",
+                    "scale": 0.1
+                },
+                {
+                    "sig_name": "pack_voltage",
+                    "type": "uint16_t",
+                    "length": 16,
+                    "unit": "V",
+                    "scale": 0.1
+                }
+            ],
+            "msg_period": 32,
+            "msg_priority": 3,
+            "msg_id_override": "0x140006F8"
+        },
+        {
+            "msg_name": "orion_errors_charger",
+            "msg_desc": "Pack DTC (Diagnostic Trouble Code) Flags",
+            "signals": [
+                {
+                    "sig_name": "discharge_limit_enforce",
+                    "sig_desc": "Discharge current limit exceed",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "charger_safety_relay",
+                    "sig_desc": "Charge Current limit exceeded - set if violation occured with 'charger safety' relay",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "internal_hardware",
+                    "sig_desc": "Orion has detected a hardware failure within itself",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "heatsink_thermistor",
+                    "sig_desc": "Orion can't detect it's internal temperature",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "software",
+                    "sig_desc": "Bug in internal software led to invalid operation",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "max_cellv_high",
+                    "sig_desc": "An individual cell has exceeded its maximum allowable voltage",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "min_cellv_low",
+                    "sig_desc": "An individual cell has gone under its minimum allowable voltage",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "pack_overheat",
+                    "sig_desc": "Pack temp has exceeded its max allowable value for >30s",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "reserved0",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "reserved1",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "reserved2",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "reserved3",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "reserved4",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "reserved5",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "reserved6",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "reserved7",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "internal_comms",
+                    "sig_desc": "Orion cannot communicate with its isolated cell voltage measurement hardware",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "cell_balancing_foff",
+                    "sig_desc": "At least one cell balancing circuit is not working",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "weak_cell",
+                    "sig_desc": "Orion has either detected a weak cell within the pack, or a cell that is too far out of balance",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "low_cellv",
+                    "sig_desc": "One or more cells have an extremely low cell voltage (likely dead or wiring problem) (threshold configurable)",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "open_wire",
+                    "sig_desc": "Cell tap wire is either weakly connected or fully disconnected",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "current_sensor",
+                    "sig_desc": "BMS has detected a problem with the current sensor (check fault subcodes)",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "max_cellv_o5v",
+                    "sig_desc": "A cell in the pack has been detected to have a cell voltage over 5V",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "cell_asic",
+                    "sig_desc": "Orion has detected a communication problem with its cell voltage measurement circuitry - check fault subcode",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "weak_pack",
+                    "sig_desc": "Pack state of health estimation falls below provided threshold",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "fan_monitor",
+                    "sig_desc": "Voltage on fan monitor (multi-input-3) goes outside provided threshold (if enabled)",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "thermistor",
+                    "sig_desc": "A thermistor reading has fallen out of it expected operating range",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "external_comms",
+                    "sig_desc": "Expected CAN messages (must be configured) have not been recieved",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "redundant_psu",
+                    "sig_desc": "The BMS has lost the 'always on' power supply, meaning it is no longer redundant (must be configured)",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "hv_isolation",
+                    "sig_desc": "BMS has detected a breakdown in HV/LV isolation",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "input_psu",
+                    "sig_desc": "Orion is not recieving a stable power supply between 9v and 30v",
+                    "type": "uint8_t",
+                    "length": 1
+                },
+                {
+                    "sig_name": "charge_limit_enforce",
+                    "sig_desc": "The orion pack charge curent limit was exceeded - set if violation occured with 'charge enable' relay",
+                    "type": "uint8_t",
+                    "length": 1
+                }
+            ],
+            "msg_period": 1000,
+            "msg_priority": 3,
+            "msg_id_override": "0x0C000738"
+        }
+    ],
+    "rx": []
+}

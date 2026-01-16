@@ -1,5 +1,5 @@
 /* System Includes */
-#include "can_parse.h"
+#include "A_BOX.h"
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
 #include "common/faults/faults.h"
@@ -154,7 +154,7 @@ int main(void) {
     PHAL_startTxfer(&adc_dma_config);
     PHAL_startADC(ADC1);
 
-    initCANParse();
+    CAN_library_init();
     orionInit();
 
     bms_daq_override = false;
@@ -177,8 +177,8 @@ int main(void) {
     taskCreate(sendhbmsg, 500);
     taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(readCurrents, 50);
-    taskCreateBackground(canTxUpdate);
-    taskCreateBackground(canRxUpdate);
+    taskCreateBackground(CAN_tx_update);
+    taskCreateBackground(CAN_rx_update);
 
     /* No Way Home */
     schedStart();
@@ -200,13 +200,13 @@ void preflightChecks(void) {
             break;
         case 2:
             /* Initialize VCAN */
-            if (false == PHAL_initCAN(CAN1, false, VCAN_BPS)) {
+            if (false == PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
                 PHAL_FaultHandler();
             }
             NVIC_EnableIRQ(CAN1_RX0_IRQn);
         case 3:
             /* Initialize CCAN */
-            if (false == PHAL_initCAN(CAN2, false, CCAN_BPS)) {
+            if (false == PHAL_initCAN(CAN2, false, CCAN_BAUD_RATE)) {
                 PHAL_FaultHandler();
             }
             NVIC_EnableIRQ(CAN2_RX0_IRQn);
@@ -223,7 +223,7 @@ void preflightChecks(void) {
 void sendhbmsg() {
     bool imd_status = !PHAL_readGPIO(IMD_STATUS_GPIO_Port, IMD_STATUS_Pin);
 
-    SEND_PRECHARGE_HB(imd_status, orion_error);
+    CAN_SEND_precharge_hb(imd_status, orion_error);
 }
 
 void preflightAnimation(void) {
@@ -258,7 +258,7 @@ void heartBeatLED() {
 
     static uint8_t trig;
     if (trig)
-        SEND_A_BOX_CAN_STATS(can_stats.can_peripheral_stats[CAN1_IDX].tx_of, can_stats.can_peripheral_stats[CAN2_IDX].tx_of, can_stats.can_peripheral_stats[CAN1_IDX].tx_fail, can_stats.can_peripheral_stats[CAN2_IDX].tx_fail, can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun, can_stats.can_peripheral_stats[CAN2_IDX].rx_overrun);
+        CAN_SEND_a_box_can_stats(can_stats.can_peripheral_stats[CAN1_IDX].tx_of, can_stats.can_peripheral_stats[CAN2_IDX].tx_of, can_stats.can_peripheral_stats[CAN1_IDX].tx_fail, can_stats.can_peripheral_stats[CAN2_IDX].tx_fail, can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun, can_stats.can_peripheral_stats[CAN2_IDX].rx_overrun);
     trig = !trig;
 }
 
@@ -284,46 +284,8 @@ void monitorStatus() {
 }
 
 // *** Compulsory CAN Tx/Rx callbacks ***
-void CAN1_RX0_IRQHandler() {
-    canParseIRQHandler(CAN1);
-}
-
-void CAN2_RX0_IRQHandler() {
-    canParseIRQHandler(CAN2);
-}
-
-static bool chargerCANConnected;
-
-void canTxUpdate(void) {
-    // Only broadcast on CAN2 if Charger is present
-    chargerCANConnected = !can_data.elcon_charger_status.stale;
-    CanMsgTypeDef_t txMSG;
-    uint8_t canIDX             = CAN1_IDX;
-    CAN_TypeDef* busPeripheral = (chargerCANConnected ? CAN2 : CAN1);
-    if (chargerCANConnected) {
-        canIDX = CAN2_IDX;
-    }
-    // Set proper TX queue for DAQ protocol
-    for (uint8_t i = 0; i < CAN_TX_MAILBOX_CNT; ++i) {
-        // Handle CAN1
-        if (PHAL_txMailboxFree(busPeripheral, i)) {
-            if (qReceive(&q_tx_can[CAN1_IDX][i], &txMSG) == SUCCESS_G) // Check queue for items and take if there is one
-            {
-                if (chargerCANConnected) {
-                    txMSG.Bus = CAN2;
-                }
-                PHAL_txCANMessage(&txMSG, i);
-                can_mbx_last_send_time[canIDX][i] = sched.os_ticks;
-            }
-        } else if (sched.os_ticks - can_mbx_last_send_time[canIDX][i] > CAN_TX_TIMEOUT_MS) {
-            PHAL_txCANAbort(busPeripheral, i); // aborts tx and empties the mailbox
-            can_stats.can_peripheral_stats[canIDX].tx_fail++;
-        }
-    }
-}
-
-void a_box_bl_cmd_CALLBACK(CanParsedData_t* msg_data_a) {
-    if (can_data.a_box_bl_cmd.cmd == BLCMD_RST)
+void a_box_bl_cmd_CALLBACK(can_data_t* p_can_data) {
+    if (p_can_data->a_box_bl_cmd.cmd == BLCMD_RST)
         Bootloader_ResetForFirmwareDownload();
 }
 
@@ -348,5 +310,5 @@ void readCurrents() {
     int16_t i_ch1 = (Vout_ch1 - V_offset) / G1 * 100;
     int16_t i_ch2 = (Vout_ch2 - V_offset) / G2 * 100;
     // sending currents over CAN
-    SEND_I_SENSE(i_ch1, i_ch2);
+    CAN_SEND_i_sense(i_ch1, i_ch2);
 }

@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 
-#include "can_parse.h"
+#include "A_BOX.h"
 
 #define MAX_TEMP (550)
 #define MAX_VOLT (598) // Max Pack voltage per ESF is 598 volts.

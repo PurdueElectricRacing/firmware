@@ -221,6 +221,40 @@ void PHAL_txCANAbort(CAN_TypeDef* bus, uint8_t mbx) {
     }
 }
 
+bool PHAL_rxCANMessage(CAN_TypeDef *bus, uint8_t fifo, CanMsgTypeDef_t *msg) {
+    if (fifo > 1) return false;
+    if (fifo == 0 && !(bus->RF0R & CAN_RF0R_FMP0)) return false;
+    if (fifo == 1 && !(bus->RF1R & CAN_RF1R_FMP1)) return false;
+
+    msg->Bus = bus;
+    if (bus->sFIFOMailBox[fifo].RIR & CAN_RI0R_IDE) {
+        msg->IDE = 1;
+        msg->ExtId = bus->sFIFOMailBox[fifo].RIR >> CAN_RI0R_EXID_Pos;
+    } else {
+        msg->IDE = 0;
+        msg->StdId = bus->sFIFOMailBox[fifo].RIR >> CAN_RI0R_STID_Pos;
+    }
+
+    msg->DLC = (bus->sFIFOMailBox[fifo].RDTR & CAN_RDT0R_DLC) >> CAN_RDT0R_DLC_Pos;
+
+    uint32_t low = bus->sFIFOMailBox[fifo].RDLR;
+    uint32_t high = bus->sFIFOMailBox[fifo].RDHR;
+
+    msg->Data[0] = (low >> 0) & 0xFF;
+    msg->Data[1] = (low >> 8) & 0xFF;
+    msg->Data[2] = (low >> 16) & 0xFF;
+    msg->Data[3] = (low >> 24) & 0xFF;
+    msg->Data[4] = (high >> 0) & 0xFF;
+    msg->Data[5] = (high >> 8) & 0xFF;
+    msg->Data[6] = (high >> 16) & 0xFF;
+    msg->Data[7] = (high >> 24) & 0xFF;
+
+    if (fifo == 0) bus->RF0R |= CAN_RF0R_RFOM0;
+    else bus->RF1R |= CAN_RF1R_RFOM1;
+
+    return true;
+}
+
 void __attribute__((weak)) CAN1_RX0_IRQHandler() {
     // Implement for RX Mailbox 0 Handler
 }

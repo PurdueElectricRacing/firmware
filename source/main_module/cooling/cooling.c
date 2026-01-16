@@ -48,9 +48,9 @@ void coolingPeriodic() {
 
     // Only send data once all new thermistors are updated to avoid clutter on CAN bus
     if (curr_therm == 0) {
-        SEND_COOLANT_TEMPS(cooling.bat_therm_in_C, cooling.bat_therm_out_C, cooling.dt_therm_in_C, cooling.dt_therm_out_C);
+        CAN_SEND_coolant_temps(cooling.bat_therm_in_C, cooling.bat_therm_out_C, cooling.dt_therm_in_C, cooling.dt_therm_out_C);
 
-        SEND_GEARBOX(cooling.gb_therm_l_c, cooling.gb_therm_r_c);
+        CAN_SEND_gearbox(cooling.gb_therm_l_c, cooling.gb_therm_r_c);
     }
 
     //TODO: After mc parse library, update these with actual faults

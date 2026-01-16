@@ -11,7 +11,6 @@ var searchData=
   ['updatesdcstatus_8',['updateSDCStatus',['../lcd_8c.html#abfa214fccc53b7ab6c6810249d863a72',1,'lcd.c']]],
   ['updatetelemetrypages_9',['updateTelemetryPages',['../lcd_8c.html#a9ceeac8764aca15be67680bddfe70704',1,'updateTelemetryPages():&#160;lcd.c'],['../lcd_8h.html#a9ceeac8764aca15be67680bddfe70704',1,'updateTelemetryPages():&#160;lcd.c']]],
   ['updatetherm_10',['updateTherm',['../a__box_2main_8c.html#a1415f36811db7035a9cc07ecc9c74df5',1,'main.c']]],
-  ['usart_5freceive_5fcomplete_5fcallback_11',['usart_receive_complete_callback',['../source_2g4__testing_2usart_8c.html#aef8ccb0b3894da42dce90d590b523a4a',1,'usart.c']]],
-  ['usart_5frecieve_5fcomplete_5fcallback_12',['usart_recieve_complete_callback',['../torque__vector_2main_8c.html#a61341976b0cee71be1b6cf3bc17db4de',1,'usart_recieve_complete_callback(usart_init_t *handle):&#160;main.c'],['../common_2phal__F4__F7_2usart_2usart_8c.html#afd98e1acca0fdcf343db884ea257b819',1,'usart_recieve_complete_callback(usart_init_t *handle):&#160;usart.c'],['../phal__F4__F7_2usart_2usart_8h.html#a61341976b0cee71be1b6cf3bc17db4de',1,'usart_recieve_complete_callback(usart_init_t *handle):&#160;main.c']]],
-  ['usarttxtest_13',['usartTXTest',['../l4__testing_2main_8c.html#a77d20b90aa92fc8d1f4826b38809b401',1,'main.c']]]
+  ['usart_5frecieve_5fcomplete_5fcallback_11',['usart_recieve_complete_callback',['../torque__vector_2main_8c.html#a61341976b0cee71be1b6cf3bc17db4de',1,'usart_recieve_complete_callback(usart_init_t *handle):&#160;main.c'],['../common_2phal__F4__F7_2usart_2usart_8c.html#afd98e1acca0fdcf343db884ea257b819',1,'usart_recieve_complete_callback(usart_init_t *handle):&#160;usart.c'],['../phal__F4__F7_2usart_2usart_8h.html#a61341976b0cee71be1b6cf3bc17db4de',1,'usart_recieve_complete_callback(usart_init_t *handle):&#160;main.c']]],
+  ['usarttxtest_12',['usartTXTest',['../l4__testing_2main_8c.html#a77d20b90aa92fc8d1f4826b38809b401',1,'main.c']]]
 ];

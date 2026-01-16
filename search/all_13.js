@@ -554,7 +554,7 @@ var searchData=
   ['speedaccuracy_551',['speedAccuracy',['../structNAV__PVT__t.html#a57120062324a4e029289a4cb4d9d4b66',1,'NAV_PVT_t']]],
   ['spi_552',['SPI',['../union____WIZCHIP_1_1__IF.html#a2e940ff33177a6f6eee83e5889071b16',1,'__WIZCHIP::_IF']]],
   ['spi_553',['spi',['../structBMI088__Handle__t.html#a5941f2702b4e66163cbf2f03f740e12e',1,'BMI088_Handle_t::spi'],['../structeeprom.html#a133ee79c02861c20a8a51de9c441faab',1,'eeprom::spi']]],
-  ['spi_2ec_554',['spi.c',['../phal__F4__F7_2spi_2spi_8c.html',1,'(Global Namespace)'],['../phal__L4_2spi_2spi_8c.html',1,'(Global Namespace)']]],
+  ['spi_2ec_554',['spi.c',['../common_2phal__F4__F7_2spi_2spi_8c.html',1,'(Global Namespace)'],['../common_2phal__L4_2spi_2spi_8c.html',1,'(Global Namespace)'],['../source_2g4__testing_2spi_8c.html',1,'(Global Namespace)']]],
   ['spi_2eh_555',['spi.h',['../phal__F4__F7_2spi_2spi_8h.html',1,'(Global Namespace)'],['../phal__L4_2spi_2spi_8h.html',1,'(Global Namespace)']]],
   ['spi1_5flock_556',['spi1_lock',['../daq_2main_8h.html#ae22098d7a44a0de1e81110ffc31e5377',1,'main.h']]],
   ['spi1_5fmiso_5fgpio_5fport_557',['SPI1_MISO_GPIO_Port',['../main__module_2main_8h.html#a35a9c248e29ddc8522e08a3940a96c76',1,'main.h']]],

@@ -37,7 +37,7 @@ var searchData=
   ['rx_34',['rx',['../namespacecan__test.html#acd5b4137e983d16a57987e9e006af168',1,'can_test.rx'],['../namespacedaq__test.html#ad573c754b1029759298151aefcfe29af',1,'daq_test.rx']]],
   ['rx_5fbuf_35',['rx_buf',['../structusart__rx__buf__t.html#a0ce142c8f93c31c3b7de0dfb91edc4a7',1,'usart_rx_buf_t']]],
   ['rx_5fbuf_5fsize_36',['rx_buf_size',['../structusart__rx__buf__t.html#aabf56296adcc75e55b146afe4c1ddf85',1,'usart_rx_buf_t']]],
-  ['rx_5fbuffer_37',['rx_buffer',['../test__buffer_8c.html#a915a1f4b2627f8c3dcf303da38c1ebd4',1,'rx_buffer:&#160;test_buffer.c'],['../source_2g4__testing_2usart_8c.html#a84a9d93692a50eea6e1d36a7dcd3f7b2',1,'rx_buffer:&#160;usart.c']]],
+  ['rx_5fbuffer_37',['rx_buffer',['../test__buffer_8c.html#a915a1f4b2627f8c3dcf303da38c1ebd4',1,'test_buffer.c']]],
   ['rx_5fdma_5fcfg_38',['rx_dma_cfg',['../structi2c__handle__t.html#abfdf4ddb6a3234db7df25862c58eb643',1,'i2c_handle_t::rx_dma_cfg'],['../structSPI__InitConfig__t.html#accb8a2f6b9a30e8e5bdbb4d553d76fb6',1,'SPI_InitConfig_t::rx_dma_cfg'],['../structusart__init__t.html#af5d23adc2cedc26541544b41b6a56701',1,'usart_init_t::rx_dma_cfg']]],
   ['rx_5ferrors_39',['rx_errors',['../structusart__init__t.html#a24612c03fe5128673f397644b7277840',1,'usart_init_t']]],
   ['rx_5finv_40',['rx_inv',['../structadv__feature__t.html#adca02addd4d7f2797554f6e28228a082',1,'adv_feature_t']]],

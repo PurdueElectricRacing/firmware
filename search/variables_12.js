@@ -100,12 +100,11 @@ var searchData=
   ['tv_5fst_5fbrkpt_97',['TV_ST_brkpt',['../structpVCU__struct.html#a9f2eb5896e9659f3bbc328061fcbe01a',1,'pVCU_struct']]],
   ['tv_5fst_5flb_98',['TV_ST_lb',['../structpVCU__struct.html#afbf89b60ab6b8949cbd6128a7e6ca058',1,'pVCU_struct']]],
   ['tv_5fst_5fub_99',['TV_ST_ub',['../structpVCU__struct.html#a6dd8d1d41d7f7a3b2ca9e654afe41325',1,'pVCU_struct']]],
-  ['tx_5fbuffer_100',['tx_buffer',['../source_2g4__testing_2usart_8c.html#a52ebeb7456ff616bab00996c8b074dee',1,'usart.c']]],
-  ['tx_5fdma_5fcfg_101',['tx_dma_cfg',['../structi2c__handle__t.html#a301eb8f5d7140477f13d4768f530af74',1,'i2c_handle_t::tx_dma_cfg'],['../structSPI__InitConfig__t.html#aaa9a3f6785303663045a517526a64da1',1,'SPI_InitConfig_t::tx_dma_cfg'],['../structusart__init__t.html#a0c7fab65ad8ab4ea54185a97147a9d06',1,'usart_init_t::tx_dma_cfg']]],
-  ['tx_5ferrors_102',['tx_errors',['../structusart__init__t.html#a07ef62d79c7f5cc1e02a13fa3333652f',1,'usart_init_t']]],
-  ['tx_5finv_103',['tx_inv',['../structadv__feature__t.html#aa52422800ade8f537f694a355015a9f4',1,'adv_feature_t']]],
-  ['tx_5fisr_5fen_104',['tx_isr_en',['../structdma__init__t.html#aee8a7152d6ecb69597564f6d225ecd8d',1,'dma_init_t']]],
-  ['tx_5frx_5fswp_105',['tx_rx_swp',['../structadv__feature__t.html#abe81c2b86150c6d7cef84e31186a4c59',1,'adv_feature_t']]],
-  ['tx_5fsize_106',['tx_size',['../structdma__init__t.html#a81eb8f7dce1c3c47734559a5b56b61e2',1,'dma_init_t']]],
-  ['type_107',['type',['../structftpd.html#a85cfbc24f46602d89ddd1f389626d41f',1,'ftpd::type'],['../structmenu__element__t.html#a48c019b36c431966683a03305236aa67',1,'menu_element_t::type'],['../structGPIOInitConfig__t.html#a1754a3977a0df8a75a29b4960910cdb2',1,'GPIOInitConfig_t::type']]]
+  ['tx_5fdma_5fcfg_100',['tx_dma_cfg',['../structi2c__handle__t.html#a301eb8f5d7140477f13d4768f530af74',1,'i2c_handle_t::tx_dma_cfg'],['../structSPI__InitConfig__t.html#aaa9a3f6785303663045a517526a64da1',1,'SPI_InitConfig_t::tx_dma_cfg'],['../structusart__init__t.html#a0c7fab65ad8ab4ea54185a97147a9d06',1,'usart_init_t::tx_dma_cfg']]],
+  ['tx_5ferrors_101',['tx_errors',['../structusart__init__t.html#a07ef62d79c7f5cc1e02a13fa3333652f',1,'usart_init_t']]],
+  ['tx_5finv_102',['tx_inv',['../structadv__feature__t.html#aa52422800ade8f537f694a355015a9f4',1,'adv_feature_t']]],
+  ['tx_5fisr_5fen_103',['tx_isr_en',['../structdma__init__t.html#aee8a7152d6ecb69597564f6d225ecd8d',1,'dma_init_t']]],
+  ['tx_5frx_5fswp_104',['tx_rx_swp',['../structadv__feature__t.html#abe81c2b86150c6d7cef84e31186a4c59',1,'adv_feature_t']]],
+  ['tx_5fsize_105',['tx_size',['../structdma__init__t.html#a81eb8f7dce1c3c47734559a5b56b61e2',1,'dma_init_t']]],
+  ['type_106',['type',['../structftpd.html#a85cfbc24f46602d89ddd1f389626d41f',1,'ftpd::type'],['../structmenu__element__t.html#a48c019b36c431966683a03305236aa67',1,'menu_element_t::type'],['../structGPIOInitConfig__t.html#a1754a3977a0df8a75a29b4960910cdb2',1,'GPIOInitConfig_t::type']]]
 ];

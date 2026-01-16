@@ -100,7 +100,7 @@ $(function(){ initResizable(false); });
 <code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
-<code>#include &quot;can_parse.h&quot;</code><br />
+<code>#include &quot;DASHBOARD.h&quot;</code><br />
 <code>#include &quot;common/faults/faults.h&quot;</code><br />
 <code>#include &quot;common_defs.h&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
@@ -255,9 +255,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a7b6beed0e6479ed4a5fd25aaabc45dff" id="r_a7b6beed0e6479ed4a5fd25aaabc45dff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b6beed0e6479ed4a5fd25aaabc45dff">updateFaultDisplay</a> ()</td></tr>
 <tr class="memdesc:a7b6beed0e6479ed4a5fd25aaabc45dff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates fault messages on LCD screen based on priority and timing.  <br /></td></tr>
 <tr class="separator:a7b6beed0e6479ed4a5fd25aaabc45dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cc7d939574f518f5f626a0ae75b2f0e" id="r_a6cc7d939574f518f5f626a0ae75b2f0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6cc7d939574f518f5f626a0ae75b2f0e">coolant_out_CALLBACK</a> (CanParsedData_t *msg_data_a)</td></tr>
-<tr class="memdesc:a6cc7d939574f518f5f626a0ae75b2f0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for coolant_in message that updates the cooling page.  <br /></td></tr>
-<tr class="separator:a6cc7d939574f518f5f626a0ae75b2f0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1c8cf03cbbe5c8c30ea5ef39570f21e" id="r_aa1c8cf03cbbe5c8c30ea5ef39570f21e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1c8cf03cbbe5c8c30ea5ef39570f21e">coolant_out_CALLBACK</a> (can_data_t *<a class="el" href="bootloader_2can_2can__parse__starter_8c.html#a8eaf23ac1da3fc4a879c3b1b11733ea2">can_data</a>)</td></tr>
+<tr class="memdesc:aa1c8cf03cbbe5c8c30ea5ef39570f21e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for coolant_in message that updates the cooling page.  <br /></td></tr>
+<tr class="separator:aa1c8cf03cbbe5c8c30ea5ef39570f21e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c83700ea3c787004b4f24072139d85f" id="r_a3c83700ea3c787004b4f24072139d85f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3c83700ea3c787004b4f24072139d85f">clearFault</a> (int index)</td></tr>
 <tr class="memdesc:a3c83700ea3c787004b4f24072139d85f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears a fault from the fault buffer by removing it and shifting remaining faults.  <br /></td></tr>
 <tr class="separator:a3c83700ea3c787004b4f24072139d85f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -479,8 +479,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a6cc7d939574f518f5f626a0ae75b2f0e" name="a6cc7d939574f518f5f626a0ae75b2f0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6cc7d939574f518f5f626a0ae75b2f0e">&#9670;&#160;</a></span>coolant_out_CALLBACK()</h2>
+<a id="aa1c8cf03cbbe5c8c30ea5ef39570f21e" name="aa1c8cf03cbbe5c8c30ea5ef39570f21e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1c8cf03cbbe5c8c30ea5ef39570f21e">&#9670;&#160;</a></span>coolant_out_CALLBACK()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -488,7 +488,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void coolant_out_CALLBACK </td>
           <td>(</td>
-          <td class="paramtype">CanParsedData_t *</td>          <td class="paramname"><span class="paramname"><em>msg_data_a</em></span></td><td>)</td>
+          <td class="paramtype">can_data_t *</td>          <td class="paramname"><span class="paramname"><em>can_data</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

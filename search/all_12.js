@@ -149,14 +149,12 @@ var searchData=
   ['rx_5fdma_5fcfg_146',['rx_dma_cfg',['../structi2c__handle__t.html#abfdf4ddb6a3234db7df25862c58eb643',1,'i2c_handle_t::rx_dma_cfg'],['../structSPI__InitConfig__t.html#accb8a2f6b9a30e8e5bdbb4d553d76fb6',1,'SPI_InitConfig_t::rx_dma_cfg'],['../structusart__init__t.html#af5d23adc2cedc26541544b41b6a56701',1,'usart_init_t::rx_dma_cfg']]],
   ['rx_5ferrors_147',['rx_errors',['../structusart__init__t.html#a24612c03fe5128673f397644b7277840',1,'usart_init_t']]],
   ['rx_5finv_148',['rx_inv',['../structadv__feature__t.html#adca02addd4d7f2797554f6e28228a082',1,'adv_feature_t']]],
-  ['rx_5fof_149',['rx_of',['../structcan__stats__t.html#a0f8c66035803b2d3d7b368cc5c6a9177',1,'can_stats_t']]],
-  ['rx_5foverrun_150',['rx_overrun',['../structcan__stats__t.html#a4e7a5d3674b2af5648c9e67fc3f11565',1,'can_stats_t']]],
-  ['rx_5ftail_5fcan_5frx_151',['RX_TAIL_CAN_RX',['../daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eaba2a3716a137c29f391335d5cd9c6b7a',1,'main.h']]],
-  ['rx_5ftail_5fcount_152',['RX_TAIL_COUNT',['../daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eaf5995c00a7328cdd412146eb17f0b29a',1,'main.h']]],
-  ['rx_5ftail_5fct_153',['RX_TAIL_CT',['../test__buffer_8c.html#ace0165f1b9d5db787f29dbee3342f46d',1,'test_buffer.c']]],
-  ['rx_5ftail_5fsd_154',['RX_TAIL_SD',['../daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eac5730401cd73ab69d719b44b60b9eaea',1,'main.h']]],
-  ['rx_5ftail_5ft_155',['rx_tail_t',['../daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5e',1,'main.h']]],
-  ['rx_5ftail_5fudp_156',['RX_TAIL_UDP',['../daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eade4eeb1f809c50af8d1a8439c1166836',1,'main.h']]],
-  ['rx_5ftail_5fusb_157',['RX_TAIL_USB',['../daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5ea8a330fe6cb6b734425eeb74efe79e16f',1,'main.h']]],
-  ['rxfer_5fsize_158',['rxfer_size',['../structusart__active__transfer__t.html#a6e3ea925b24b1ff38a1c5c910dd56010',1,'usart_active_transfer_t']]]
+  ['rx_5ftail_5fcan_5frx_149',['RX_TAIL_CAN_RX',['../daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eaba2a3716a137c29f391335d5cd9c6b7a',1,'main.h']]],
+  ['rx_5ftail_5fcount_150',['RX_TAIL_COUNT',['../daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eaf5995c00a7328cdd412146eb17f0b29a',1,'main.h']]],
+  ['rx_5ftail_5fct_151',['RX_TAIL_CT',['../test__buffer_8c.html#ace0165f1b9d5db787f29dbee3342f46d',1,'test_buffer.c']]],
+  ['rx_5ftail_5fsd_152',['RX_TAIL_SD',['../daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eac5730401cd73ab69d719b44b60b9eaea',1,'main.h']]],
+  ['rx_5ftail_5ft_153',['rx_tail_t',['../daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5e',1,'main.h']]],
+  ['rx_5ftail_5fudp_154',['RX_TAIL_UDP',['../daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eade4eeb1f809c50af8d1a8439c1166836',1,'main.h']]],
+  ['rx_5ftail_5fusb_155',['RX_TAIL_USB',['../daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5ea8a330fe6cb6b734425eeb74efe79e16f',1,'main.h']]],
+  ['rxfer_5fsize_156',['rxfer_size',['../structusart__active__transfer__t.html#a6e3ea925b24b1ff38a1c5c910dd56010',1,'usart_active_transfer_t']]]
 ];

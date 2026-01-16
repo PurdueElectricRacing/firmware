@@ -95,48 +95,50 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#ifndef _DAQ_H_</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#define _DAQ_H_</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;can_parse.h&quot;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">// Make this match the node name within the daq_config.json</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a8cc8d559acdd2f74085b20977182d5b7">   17</a></span><span class="preprocessor">#define NODE_NAME &quot;Main_Module&quot;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a8840365d33ad9746c4178056748b30f6">   19</a></span><span class="preprocessor">#define DAQ_UPDATE_PERIOD 15 </span><span class="comment">// ms</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">// BEGIN AUTO VAR COUNT</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a56487323585c1b73f01a0e01e875027e">   22</a></span><span class="preprocessor">#define NUM_VARS 19</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">// END AUTO VAR COUNT</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">// BEGIN AUTO VAR IDs</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a101639c4c3c0ed714bee06dad925fb1d">   26</a></span><span class="preprocessor">#define DAQ_ID_SDC_MAIN_STATUS 0</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a6c53bad3fc9135a1475ff21d230872b7">   27</a></span><span class="preprocessor">#define DAQ_ID_SDC_CENTER_STOP_STATUS 1</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a5a169b1653cb9b1edd227439e5649403">   28</a></span><span class="preprocessor">#define DAQ_ID_SDC_INERTIA_SW_STATUS 2</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#acc63b851f727a3c4e17888a2795a1e00">   29</a></span><span class="preprocessor">#define DAQ_ID_SDC_BOTS_STAT 3</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a4af454ae5f3d7e4b46c99f2fba74dff8">   30</a></span><span class="preprocessor">#define DAQ_ID_SDC_BSPD_STAT 4</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#aa9a9ac3a27ce70454a6d1d8b54a3e482">   31</a></span><span class="preprocessor">#define DAQ_ID_SDC_BMS_STAT 5</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a73824684e9ab22f53af0b12965b1ef39">   32</a></span><span class="preprocessor">#define DAQ_ID_SDC_IMD_STAT 6</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a42a44f8f3c0f6e61fd06f10df20d5ff7">   33</a></span><span class="preprocessor">#define DAQ_ID_SDC_R_ESTOP_STAT 7</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a2e209690195709d28893a7f2ed9d2b14">   34</a></span><span class="preprocessor">#define DAQ_ID_SDC_L_ESTOP_STAT 8</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a943408aec6b5d5dcc31869c2f4ab31e4">   35</a></span><span class="preprocessor">#define DAQ_ID_SDC_HVD_STAT 9</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a874e2da1916c2bf0a342653cb019d0cb">   36</a></span><span class="preprocessor">#define DAQ_ID_SDC_REAR_HUB_STAT 10</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#afbafef64abf8b6d4d2ba1a5b14c32b63">   37</a></span><span class="preprocessor">#define DAQ_ID_SDC_TSMS_STAT 11</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a349744947687e064c810a073cbdb94c6">   38</a></span><span class="preprocessor">#define DAQ_ID_SDC_PCHG_OUT_STAT 12</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a914e79cf59d129134ce3e7ce31007fa5">   39</a></span><span class="preprocessor">#define DAQ_ID_DAQ_BUZZER 13</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#accc5349604c2b6e513627c3a79a174b7">   40</a></span><span class="preprocessor">#define DAQ_ID_DAQ_BRAKE 14</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a63e04414d06cb606b33f8cf125ec2768">   41</a></span><span class="preprocessor">#define DAQ_ID_DAQ_CONSTANT_TORQUE 15</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a358b52ddbc3a0945378eced5f32007eb">   42</a></span><span class="preprocessor">#define DAQ_ID_CONST_TQ_VAL 16</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a615e308c2efe2fe698d9cfe8b6bc8bea">   43</a></span><span class="preprocessor">#define DAQ_ID_DAQ_BUZZER_BRAKE_STATUS 17</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#ad33f6ab0e939f518b1ff3f26ebb5307d">   44</a></span><span class="preprocessor">#define DAQ_ID_CAN_ESR 18</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">// END AUTO VAR IDs</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">// BEGIN AUTO FILE STRUCTS</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">// END AUTO FILE STRUCTS</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keywordtype">bool</span> <a class="code hl_function" href="a__box_2daq_2daq_8h.html#affaa9e66e1e3ac63d9361f1566006149">daqInit</a>(<a class="code hl_struct" href="structq__handle__t.html">q_handle_t</a>* tx_a);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keywordtype">void</span> <a class="code hl_function" href="a__box_2daq_2daq_8h.html#ae20bf9e20e691cc6cbbdaf45aad39ec2">daqPeriodic</a>();</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="queue_8h.html">common/queue/queue.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;MAIN.h&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">// Make this match the node name within the daq_config.json</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a8cc8d559acdd2f74085b20977182d5b7">   18</a></span><span class="preprocessor">#define NODE_NAME &quot;Main_Module&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a8840365d33ad9746c4178056748b30f6">   20</a></span><span class="preprocessor">#define DAQ_UPDATE_PERIOD 15 </span><span class="comment">// ms</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">// BEGIN AUTO VAR COUNT</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a56487323585c1b73f01a0e01e875027e">   23</a></span><span class="preprocessor">#define NUM_VARS 19</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">// END AUTO VAR COUNT</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">// BEGIN AUTO VAR IDs</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a101639c4c3c0ed714bee06dad925fb1d">   27</a></span><span class="preprocessor">#define DAQ_ID_SDC_MAIN_STATUS 0</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a6c53bad3fc9135a1475ff21d230872b7">   28</a></span><span class="preprocessor">#define DAQ_ID_SDC_CENTER_STOP_STATUS 1</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a5a169b1653cb9b1edd227439e5649403">   29</a></span><span class="preprocessor">#define DAQ_ID_SDC_INERTIA_SW_STATUS 2</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#acc63b851f727a3c4e17888a2795a1e00">   30</a></span><span class="preprocessor">#define DAQ_ID_SDC_BOTS_STAT 3</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a4af454ae5f3d7e4b46c99f2fba74dff8">   31</a></span><span class="preprocessor">#define DAQ_ID_SDC_BSPD_STAT 4</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#aa9a9ac3a27ce70454a6d1d8b54a3e482">   32</a></span><span class="preprocessor">#define DAQ_ID_SDC_BMS_STAT 5</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a73824684e9ab22f53af0b12965b1ef39">   33</a></span><span class="preprocessor">#define DAQ_ID_SDC_IMD_STAT 6</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a42a44f8f3c0f6e61fd06f10df20d5ff7">   34</a></span><span class="preprocessor">#define DAQ_ID_SDC_R_ESTOP_STAT 7</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a2e209690195709d28893a7f2ed9d2b14">   35</a></span><span class="preprocessor">#define DAQ_ID_SDC_L_ESTOP_STAT 8</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a943408aec6b5d5dcc31869c2f4ab31e4">   36</a></span><span class="preprocessor">#define DAQ_ID_SDC_HVD_STAT 9</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a874e2da1916c2bf0a342653cb019d0cb">   37</a></span><span class="preprocessor">#define DAQ_ID_SDC_REAR_HUB_STAT 10</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#afbafef64abf8b6d4d2ba1a5b14c32b63">   38</a></span><span class="preprocessor">#define DAQ_ID_SDC_TSMS_STAT 11</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a349744947687e064c810a073cbdb94c6">   39</a></span><span class="preprocessor">#define DAQ_ID_SDC_PCHG_OUT_STAT 12</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a914e79cf59d129134ce3e7ce31007fa5">   40</a></span><span class="preprocessor">#define DAQ_ID_DAQ_BUZZER 13</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#accc5349604c2b6e513627c3a79a174b7">   41</a></span><span class="preprocessor">#define DAQ_ID_DAQ_BRAKE 14</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a63e04414d06cb606b33f8cf125ec2768">   42</a></span><span class="preprocessor">#define DAQ_ID_DAQ_CONSTANT_TORQUE 15</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a358b52ddbc3a0945378eced5f32007eb">   43</a></span><span class="preprocessor">#define DAQ_ID_CONST_TQ_VAL 16</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#a615e308c2efe2fe698d9cfe8b6bc8bea">   44</a></span><span class="preprocessor">#define DAQ_ID_DAQ_BUZZER_BRAKE_STATUS 17</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="main__module_2daq_2daq_8h.html#ad33f6ab0e939f518b1ff3f26ebb5307d">   45</a></span><span class="preprocessor">#define DAQ_ID_CAN_ESR 18</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">// END AUTO VAR IDs</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">// BEGIN AUTO FILE STRUCTS</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">// END AUTO FILE STRUCTS</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keywordtype">bool</span> <a class="code hl_function" href="a__box_2daq_2daq_8h.html#affaa9e66e1e3ac63d9361f1566006149">daqInit</a>(<a class="code hl_struct" href="structq__handle__t.html">q_handle_t</a>* tx_a);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keywordtype">void</span> <a class="code hl_function" href="a__box_2daq_2daq_8h.html#ae20bf9e20e691cc6cbbdaf45aad39ec2">daqPeriodic</a>();</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa__box_2daq_2daq_8h_html_ae20bf9e20e691cc6cbbdaf45aad39ec2"><div class="ttname"><a href="a__box_2daq_2daq_8h.html#ae20bf9e20e691cc6cbbdaf45aad39ec2">daqPeriodic</a></div><div class="ttdeci">void daqPeriodic()</div><div class="ttdef"><b>Definition</b> daq.c:55</div></div>
 <div class="ttc" id="aa__box_2daq_2daq_8h_html_affaa9e66e1e3ac63d9361f1566006149"><div class="ttname"><a href="a__box_2daq_2daq_8h.html#affaa9e66e1e3ac63d9361f1566006149">daqInit</a></div><div class="ttdeci">bool daqInit(q_handle_t *tx_a)</div><div class="ttdef"><b>Definition</b> daq.c:48</div></div>
+<div class="ttc" id="aqueue_8h_html"><div class="ttname"><a href="queue_8h.html">queue.h</a></div></div>
 <div class="ttc" id="astructq__handle__t_html"><div class="ttname"><a href="structq__handle__t.html">q_handle_t</a></div><div class="ttdef"><b>Definition</b> queue.h:25</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

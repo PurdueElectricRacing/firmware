@@ -97,9 +97,7 @@ $(function(){ initResizable(false); });
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="daq_2main_8h_source.html">main.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="buffer_8h_source.html">buffer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="can__flags_8h_source.html">can_flags.h</a>&quot;</code><br />
-<code>#include &quot;can_parse.h&quot;</code><br />
-<code>#include &quot;common/common_defs/common_defs.h&quot;</code><br />
+<code>#include &quot;common/can_library/generated/DAQ.h&quot;</code><br />
 <code>#include &quot;common/freertos/freertos.h&quot;</code><br />
 <code>#include &quot;common/phal/can.h&quot;</code><br />
 <code>#include &quot;common/phal/gpio.h&quot;</code><br />
@@ -141,6 +139,8 @@ Functions</h2></td></tr>
 <tr class="separator:a2089b233bd8d6f7dbf78e075033696e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2af56a8bf3197b2f06cac4c0b84ffc3e" id="r_a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2af56a8bf3197b2f06cac4c0b84ffc3e">HardFault_Handler</a> ()</td></tr>
 <tr class="separator:a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae81a38fcf28e8f2439cea02df3c1f167" id="r_ae81a38fcf28e8f2439cea02df3c1f167"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae81a38fcf28e8f2439cea02df3c1f167">daq_bl_cmd_CALLBACK</a> (can_data_t *p_can_data)</td></tr>
+<tr class="separator:ae81a38fcf28e8f2439cea02df3c1f167"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -265,6 +265,23 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="test__buffer_8c.html#a701a0c393412d734f5261b6b191bd0bf">timestamped_frame_t</a> *</td>          <td class="paramname"><span class="paramname"><em>frame</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae81a38fcf28e8f2439cea02df3c1f167" name="ae81a38fcf28e8f2439cea02df3c1f167"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae81a38fcf28e8f2439cea02df3c1f167">&#9670;&#160;</a></span>daq_bl_cmd_CALLBACK()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void daq_bl_cmd_CALLBACK </td>
+          <td>(</td>
+          <td class="paramtype">can_data_t *</td>          <td class="paramname"><span class="paramname"><em>p_can_data</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -493,7 +510,7 @@ Variables</h2></td></tr>
 <div class="line">    .<a class="code hl_variable" href="test__buffer_8c.html#a7714498089735783d3ac3693cc363b69">tails</a>     = <a class="code hl_variable" href="test__buffer_8c.html#a7714498089735783d3ac3693cc363b69">tails</a>,</div>
 <div class="line">    .num_tails = <a class="code hl_enumvalue" href="daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eaf5995c00a7328cdd412146eb17f0b29a">RX_TAIL_COUNT</a>,</div>
 <div class="line">}</div>
-<div class="ttc" id="adaq_2main_8c_html_a669ae2dcb7af820726f2a2794e7f6a6b"><div class="ttname"><a href="#a669ae2dcb7af820726f2a2794e7f6a6b">can_rx_buffer</a></div><div class="ttdeci">volatile timestamped_frame_t can_rx_buffer[RX_BUFF_ITEM_COUNT]</div><div class="ttdef"><b>Definition</b> main.c:121</div></div>
+<div class="ttc" id="adaq_2main_8c_html_a669ae2dcb7af820726f2a2794e7f6a6b"><div class="ttname"><a href="#a669ae2dcb7af820726f2a2794e7f6a6b">can_rx_buffer</a></div><div class="ttdeci">volatile timestamped_frame_t can_rx_buffer[RX_BUFF_ITEM_COUNT]</div><div class="ttdef"><b>Definition</b> main.c:119</div></div>
 <div class="ttc" id="adaq_2main_8h_html_af1474df41a710f0f2a484830c6cc4a5eaf5995c00a7328cdd412146eb17f0b29a"><div class="ttname"><a href="daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eaf5995c00a7328cdd412146eb17f0b29a">RX_TAIL_COUNT</a></div><div class="ttdeci">@ RX_TAIL_COUNT</div><div class="ttdef"><b>Definition</b> main.h:77</div></div>
 <div class="ttc" id="atest__buffer_8c_html_a7714498089735783d3ac3693cc363b69"><div class="ttname"><a href="test__buffer_8c.html#a7714498089735783d3ac3693cc363b69">tails</a></div><div class="ttdeci">b_tail_t tails[RX_TAIL_CT]</div><div class="ttdef"><b>Definition</b> test_buffer.c:20</div></div>
 </div><!-- fragment -->
@@ -596,8 +613,8 @@ Variables</h2></td></tr>
 <div class="line">    .tx_dma_cfg    = &amp;<a class="code hl_variable" href="#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a>,</div>
 <div class="line">    .periph        = SPI1,</div>
 <div class="line">}</div>
-<div class="ttc" id="adaq_2main_8c_html_a048ceaccc44b006a77f0c988ae1877ce"><div class="ttname"><a href="#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a></div><div class="ttdeci">dma_init_t spi_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:77</div></div>
-<div class="ttc" id="adaq_2main_8c_html_ac9d88a12a20b964301d43f839eee3f94"><div class="ttname"><a href="#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a></div><div class="ttdeci">dma_init_t spi_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:78</div></div>
+<div class="ttc" id="adaq_2main_8c_html_a048ceaccc44b006a77f0c988ae1877ce"><div class="ttname"><a href="#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a></div><div class="ttdeci">dma_init_t spi_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:75</div></div>
+<div class="ttc" id="adaq_2main_8c_html_ac9d88a12a20b964301d43f839eee3f94"><div class="ttname"><a href="#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a></div><div class="ttdeci">dma_init_t spi_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:76</div></div>
 <div class="ttc" id="adaq_2main_8h_html_a2107ae7691edb9a15edccada3ee54a43"><div class="ttname"><a href="daq_2main_8h.html#a2107ae7691edb9a15edccada3ee54a43">ETH_CS_PORT</a></div><div class="ttdeci">#define ETH_CS_PORT</div><div class="ttdef"><b>Definition</b> main.h:29</div></div>
 <div class="ttc" id="adaq_2main_8h_html_a8c72b0130a3a8067c2e9ce362cd305b9"><div class="ttname"><a href="daq_2main_8h.html#a8c72b0130a3a8067c2e9ce362cd305b9">ETH_CS_PIN</a></div><div class="ttdeci">#define ETH_CS_PIN</div><div class="ttdef"><b>Definition</b> main.h:30</div></div>
 </div><!-- fragment -->
@@ -641,8 +658,8 @@ Variables</h2></td></tr>
 <div class="line">     .usart_active_num = USART6_ACTIVE_IDX,</div>
 <div class="line">     .tx_dma_cfg       = &amp;<a class="code hl_variable" href="#a1f94964a4032ad7e8b644485a417b00f">usart_tx_dma_config</a>,</div>
 <div class="line">     .rx_dma_cfg       = &amp;<a class="code hl_variable" href="#ab5e5c5f93446e92415dfe222fd3d0e6e">usart_rx_dma_config</a>}</div>
-<div class="ttc" id="adaq_2main_8c_html_a1f94964a4032ad7e8b644485a417b00f"><div class="ttname"><a href="#a1f94964a4032ad7e8b644485a417b00f">usart_tx_dma_config</a></div><div class="ttdeci">dma_init_t usart_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:101</div></div>
-<div class="ttc" id="adaq_2main_8c_html_ab5e5c5f93446e92415dfe222fd3d0e6e"><div class="ttname"><a href="#ab5e5c5f93446e92415dfe222fd3d0e6e">usart_rx_dma_config</a></div><div class="ttdeci">dma_init_t usart_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:102</div></div>
+<div class="ttc" id="adaq_2main_8c_html_a1f94964a4032ad7e8b644485a417b00f"><div class="ttname"><a href="#a1f94964a4032ad7e8b644485a417b00f">usart_tx_dma_config</a></div><div class="ttdeci">dma_init_t usart_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:99</div></div>
+<div class="ttc" id="adaq_2main_8c_html_ab5e5c5f93446e92415dfe222fd3d0e6e"><div class="ttname"><a href="#ab5e5c5f93446e92415dfe222fd3d0e6e">usart_rx_dma_config</a></div><div class="ttdeci">dma_init_t usart_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:100</div></div>
 <div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a></div><div class="ttdeci">@ WORD_8</div><div class="ttdef"><b>Definition</b> usart.h:35</div></div>
 <div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a></div><div class="ttdeci">@ HW_DISABLE</div><div class="ttdef"><b>Definition</b> usart.h:54</div></div>
 <div class="ttc" id="aphal__L4_2usart_2usart_8h_html_a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a></div><div class="ttdeci">@ OB_DISABLE</div><div class="ttdef"><b>Definition</b> usart.h:66</div></div>

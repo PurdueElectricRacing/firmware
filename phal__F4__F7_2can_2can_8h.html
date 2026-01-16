@@ -140,6 +140,8 @@ Functions</h2></td></tr>
 <tr class="separator:a65d09c3c6b1c24a5fc09bbf7f71659bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22269e3f8f5f895a2a2b8e2865814369" id="r_a22269e3f8f5f895a2a2b8e2865814369"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a22269e3f8f5f895a2a2b8e2865814369">PHAL_txCANAbort</a> (CAN_TypeDef *bus, uint8_t mbx)</td></tr>
 <tr class="separator:a22269e3f8f5f895a2a2b8e2865814369"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f302cb498ee6478f4ef4f184b36b01e" id="r_a1f302cb498ee6478f4ef4f184b36b01e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f302cb498ee6478f4ef4f184b36b01e">PHAL_rxCANMessage</a> (CAN_TypeDef *bus, uint8_t fifo, <a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg)</td></tr>
+<tr class="separator:a1f302cb498ee6478f4ef4f184b36b01e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Adam Busch (<a href="#" onclick="location.href='mai'+'lto:'+'bus'+'ch'+'8@p'+'ur'+'due'+'.e'+'du'; return false;">busch<span class="obfuscator">.nosp@m.</span>8@pu<span class="obfuscator">.nosp@m.</span>rdue.<span class="obfuscator">.nosp@m.</span>edu</a>) </dd></dl>
@@ -347,6 +349,32 @@ false Peripheral stalled during initilization</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>true Peripheral sucessfully initalized </dd>
 <dd>
 false Peripheral stalled during initilization </dd></dl>
+
+</div>
+</div>
+<a id="a1f302cb498ee6478f4ef4f184b36b01e" name="a1f302cb498ee6478f4ef4f184b36b01e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f302cb498ee6478f4ef4f184b36b01e">&#9670;&#160;</a></span>PHAL_rxCANMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PHAL_rxCANMessage </td>
+          <td>(</td>
+          <td class="paramtype">CAN_TypeDef *</td>          <td class="paramname"><span class="paramname"><em>bus</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>fifo</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *</td>          <td class="paramname"><span class="paramname"><em>msg</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

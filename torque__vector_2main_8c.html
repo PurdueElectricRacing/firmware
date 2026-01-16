@@ -100,7 +100,7 @@ $(function(){ initResizable(false); });
 <code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="bmi088_8h_source.html">bmi088.h</a>&quot;</code><br />
-<code>#include &quot;can/can_parse.h&quot;</code><br />
+<code>#include &quot;TORQUE_VECTOR.h&quot;</code><br />
 <code>#include &quot;common/bootloader/bootloader_common.h&quot;</code><br />
 <code>#include &quot;common/common_defs/common_defs.h&quot;</code><br />
 <code>#include &quot;common/faults/faults.h&quot;</code><br />
@@ -142,10 +142,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a61341976b0cee71be1b6cf3bc17db4de" id="r_a61341976b0cee71be1b6cf3bc17db4de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61341976b0cee71be1b6cf3bc17db4de">usart_recieve_complete_callback</a> (<a class="el" href="structusart__init__t.html">usart_init_t</a> *handle)</td></tr>
 <tr class="memdesc:a61341976b0cee71be1b6cf3bc17db4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function called immediately after reception of a USART RX message Uses USART IDLE line interrupt.  <br /></td></tr>
 <tr class="separator:a61341976b0cee71be1b6cf3bc17db4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a990c3a82a9723ab422570b787af03f72" id="r_a990c3a82a9723ab422570b787af03f72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a990c3a82a9723ab422570b787af03f72">CAN1_RX0_IRQHandler</a> ()</td></tr>
-<tr class="separator:a990c3a82a9723ab422570b787af03f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f68820222c3f559999ca8ea7d339ec6" id="r_a8f68820222c3f559999ca8ea7d339ec6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f68820222c3f559999ca8ea7d339ec6">torquevector_bl_cmd_CALLBACK</a> (CanParsedData_t *msg_data_a)</td></tr>
-<tr class="separator:a8f68820222c3f559999ca8ea7d339ec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c13d7dad37f5c316106ea72675da7cf" id="r_a0c13d7dad37f5c316106ea72675da7cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c13d7dad37f5c316106ea72675da7cf">torquevector_bl_cmd_CALLBACK</a> (can_data_t *p_can_data)</td></tr>
+<tr class="separator:a0c13d7dad37f5c316106ea72675da7cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -216,23 +214,6 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a990c3a82a9723ab422570b787af03f72" name="a990c3a82a9723ab422570b787af03f72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a990c3a82a9723ab422570b787af03f72">&#9670;&#160;</a></span>CAN1_RX0_IRQHandler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CAN1_RX0_IRQHandler </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a2bffc10d5bd4106753b7c30e86903bea" name="a2bffc10d5bd4106753b7c30e86903bea"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2bffc10d5bd4106753b7c30e86903bea">&#9670;&#160;</a></span>HardFault_Handler()</h2>
 
@@ -377,8 +358,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a8f68820222c3f559999ca8ea7d339ec6" name="a8f68820222c3f559999ca8ea7d339ec6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f68820222c3f559999ca8ea7d339ec6">&#9670;&#160;</a></span>torquevector_bl_cmd_CALLBACK()</h2>
+<a id="a0c13d7dad37f5c316106ea72675da7cf" name="a0c13d7dad37f5c316106ea72675da7cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c13d7dad37f5c316106ea72675da7cf">&#9670;&#160;</a></span>torquevector_bl_cmd_CALLBACK()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -386,7 +367,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void torquevector_bl_cmd_CALLBACK </td>
           <td>(</td>
-          <td class="paramtype">CanParsedData_t *</td>          <td class="paramname"><span class="paramname"><em>msg_data_a</em></span></td><td>)</td>
+          <td class="paramtype">can_data_t *</td>          <td class="paramname"><span class="paramname"><em>p_can_data</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -850,8 +831,8 @@ Variables</h2></td></tr>
 <div class="line">        .rx_dma_cfg    = &amp;<a class="code hl_variable" href="daq_2main_8c.html#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a>,</div>
 <div class="line">        .tx_dma_cfg    = &amp;<a class="code hl_variable" href="daq_2main_8c.html#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a>,</div>
 <div class="line">        .periph        = SPI1}</div>
-<div class="ttc" id="adaq_2main_8c_html_a048ceaccc44b006a77f0c988ae1877ce"><div class="ttname"><a href="daq_2main_8c.html#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a></div><div class="ttdeci">dma_init_t spi_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:77</div></div>
-<div class="ttc" id="adaq_2main_8c_html_ac9d88a12a20b964301d43f839eee3f94"><div class="ttname"><a href="daq_2main_8c.html#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a></div><div class="ttdeci">dma_init_t spi_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:78</div></div>
+<div class="ttc" id="adaq_2main_8c_html_a048ceaccc44b006a77f0c988ae1877ce"><div class="ttname"><a href="daq_2main_8c.html#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a></div><div class="ttdeci">dma_init_t spi_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:75</div></div>
+<div class="ttc" id="adaq_2main_8c_html_ac9d88a12a20b964301d43f839eee3f94"><div class="ttname"><a href="daq_2main_8c.html#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a></div><div class="ttdeci">dma_init_t spi_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:76</div></div>
 </div><!-- fragment -->
 </div>
 </div>

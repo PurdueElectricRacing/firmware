@@ -106,7 +106,7 @@ $(function(){ initResizable(false); });
 <code>#include &quot;common/phal/rcc.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="queue_8h_source.html">common/queue/queue.h</a>&quot;</code><br />
-<code>#include &quot;can_parse.h&quot;</code><br />
+<code>#include &quot;can_router.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="car_8h_source.html">car.h</a>&quot;</code><br />
 <code>#include &quot;cooling.h&quot;</code><br />
 <code>#include &quot;daq.h&quot;</code><br />
@@ -142,14 +142,12 @@ Functions</h2></td></tr>
 <tr class="separator:a4d9a71c2c0e8ca114ca5f4cbb1688ecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26c88d96a73883e3e5845ee8e0f428f2" id="r_a26c88d96a73883e3e5845ee8e0f428f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26c88d96a73883e3e5845ee8e0f428f2">can2TxUpdate</a> (void)</td></tr>
-<tr class="separator:a26c88d96a73883e3e5845ee8e0f428f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a990c3a82a9723ab422570b787af03f72" id="r_a990c3a82a9723ab422570b787af03f72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a990c3a82a9723ab422570b787af03f72">CAN1_RX0_IRQHandler</a> ()</td></tr>
 <tr class="separator:a990c3a82a9723ab422570b787af03f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b1e6757f968cf4456a655d61e249555" id="r_a8b1e6757f968cf4456a655d61e249555"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b1e6757f968cf4456a655d61e249555">CAN2_RX0_IRQHandler</a> ()</td></tr>
 <tr class="separator:a8b1e6757f968cf4456a655d61e249555"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97e5ebcdeb487fa76c87a3c5200d704c" id="r_a97e5ebcdeb487fa76c87a3c5200d704c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a97e5ebcdeb487fa76c87a3c5200d704c">main_module_bl_cmd_CALLBACK</a> (CanParsedData_t *msg_data_a)</td></tr>
-<tr class="separator:a97e5ebcdeb487fa76c87a3c5200d704c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62eed14c1a399ceea790228084d62e5e" id="r_a62eed14c1a399ceea790228084d62e5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62eed14c1a399ceea790228084d62e5e">main_module_bl_cmd_CALLBACK</a> (can_data_t *can_data_a)</td></tr>
+<tr class="separator:a62eed14c1a399ceea790228084d62e5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -173,10 +171,6 @@ Variables</h2></td></tr>
 <tr class="separator:a900ff7ac22bd3d9e8566f23458355b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed595ebe33fb020bde82d6a1bcca6052" id="r_aed595ebe33fb020bde82d6a1bcca6052"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed595ebe33fb020bde82d6a1bcca6052">adc_dma_config</a></td></tr>
 <tr class="separator:aed595ebe33fb020bde82d6a1bcca6052"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a838479af74d9a2fd1f3ddb9a11f33418" id="r_a838479af74d9a2fd1f3ddb9a11f33418"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structq__handle__t.html">q_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a838479af74d9a2fd1f3ddb9a11f33418">q_tx_can2_s</a> [<a class="el" href="daq__can_8h.html#a15ff5b005bbef3c1b021fb605f9d8e6c">CAN_TX_MAILBOX_CNT</a>]</td></tr>
-<tr class="separator:a838479af74d9a2fd1f3ddb9a11f33418"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a635e3b76f34b4af39b50ae0dd4894fb2" id="r_a635e3b76f34b4af39b50ae0dd4894fb2"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a635e3b76f34b4af39b50ae0dd4894fb2">can2_mbx_last_send_time</a> [<a class="el" href="daq__can_8h.html#a15ff5b005bbef3c1b021fb605f9d8e6c">CAN_TX_MAILBOX_CNT</a>]</td></tr>
-<tr class="separator:a635e3b76f34b4af39b50ae0dd4894fb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a53f1d055ee0e79b0a01d53f86a97c1cf" name="a53f1d055ee0e79b0a01d53f86a97c1cf"></a>
@@ -278,23 +272,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a26c88d96a73883e3e5845ee8e0f428f2" name="a26c88d96a73883e3e5845ee8e0f428f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26c88d96a73883e3e5845ee8e0f428f2">&#9670;&#160;</a></span>can2TxUpdate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void can2TxUpdate </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a2af56a8bf3197b2f06cac4c0b84ffc3e" name="a2af56a8bf3197b2f06cac4c0b84ffc3e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2af56a8bf3197b2f06cac4c0b84ffc3e">&#9670;&#160;</a></span>HardFault_Handler()</h2>
 
@@ -371,8 +348,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a97e5ebcdeb487fa76c87a3c5200d704c" name="a97e5ebcdeb487fa76c87a3c5200d704c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97e5ebcdeb487fa76c87a3c5200d704c">&#9670;&#160;</a></span>main_module_bl_cmd_CALLBACK()</h2>
+<a id="a62eed14c1a399ceea790228084d62e5e" name="a62eed14c1a399ceea790228084d62e5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62eed14c1a399ceea790228084d62e5e">&#9670;&#160;</a></span>main_module_bl_cmd_CALLBACK()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -380,7 +357,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void main_module_bl_cmd_CALLBACK </td>
           <td>(</td>
-          <td class="paramtype">CanParsedData_t *</td>          <td class="paramname"><span class="paramname"><em>msg_data_a</em></span></td><td>)</td>
+          <td class="paramtype">can_data_t *</td>          <td class="paramname"><span class="paramname"><em>can_data_a</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -612,28 +589,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a635e3b76f34b4af39b50ae0dd4894fb2" name="a635e3b76f34b4af39b50ae0dd4894fb2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a635e3b76f34b4af39b50ae0dd4894fb2">&#9670;&#160;</a></span>can2_mbx_last_send_time</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t can2_mbx_last_send_time[<a class="el" href="daq__can_8h.html#a15ff5b005bbef3c1b021fb605f9d8e6c">CAN_TX_MAILBOX_CNT</a>]</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a2e372d6fcb26e99141502c56d908f788" name="a2e372d6fcb26e99141502c56d908f788"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2e372d6fcb26e99141502c56d908f788">&#9670;&#160;</a></span>clock_config</h2>
 
@@ -687,28 +642,6 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">uint32_t PLLClockRateHz</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a838479af74d9a2fd1f3ddb9a11f33418" name="a838479af74d9a2fd1f3ddb9a11f33418"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a838479af74d9a2fd1f3ddb9a11f33418">&#9670;&#160;</a></span>q_tx_can2_s</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structq__handle__t.html">q_handle_t</a> q_tx_can2_s[<a class="el" href="daq__can_8h.html#a15ff5b005bbef3c1b021fb605f9d8e6c">CAN_TX_MAILBOX_CNT</a>]</td>
         </tr>
       </table>
   </td>

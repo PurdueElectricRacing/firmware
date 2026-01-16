@@ -95,7 +95,7 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">main.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;can_parse.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;A_BOX.h&quot;</code><br />
 <code>#include &quot;common/bootloader/bootloader_common.h&quot;</code><br />
 <code>#include &quot;common/common_defs/common_defs.h&quot;</code><br />
 <code>#include &quot;common/faults/faults.h&quot;</code><br />
@@ -140,14 +140,8 @@ Functions</h2></td></tr>
 <tr class="separator:a519bb846411f7b3cfc628c8acaaaac96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a990c3a82a9723ab422570b787af03f72" id="r_a990c3a82a9723ab422570b787af03f72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a990c3a82a9723ab422570b787af03f72">CAN1_RX0_IRQHandler</a> ()</td></tr>
-<tr class="separator:a990c3a82a9723ab422570b787af03f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b1e6757f968cf4456a655d61e249555" id="r_a8b1e6757f968cf4456a655d61e249555"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b1e6757f968cf4456a655d61e249555">CAN2_RX0_IRQHandler</a> ()</td></tr>
-<tr class="separator:a8b1e6757f968cf4456a655d61e249555"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a095c1ccd861a43e4cbdf41e1f25b0c1a" id="r_a095c1ccd861a43e4cbdf41e1f25b0c1a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a095c1ccd861a43e4cbdf41e1f25b0c1a">canTxUpdate</a> (void)</td></tr>
-<tr class="separator:a095c1ccd861a43e4cbdf41e1f25b0c1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50a2a1b6100f6bc248f0b4d93d6aceec" id="r_a50a2a1b6100f6bc248f0b4d93d6aceec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50a2a1b6100f6bc248f0b4d93d6aceec">a_box_bl_cmd_CALLBACK</a> (CanParsedData_t *msg_data_a)</td></tr>
-<tr class="separator:a50a2a1b6100f6bc248f0b4d93d6aceec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9948c8dbccc73230d7e4489a7b017f21" id="r_a9948c8dbccc73230d7e4489a7b017f21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9948c8dbccc73230d7e4489a7b017f21">a_box_bl_cmd_CALLBACK</a> (can_data_t *p_can_data)</td></tr>
+<tr class="separator:a9948c8dbccc73230d7e4489a7b017f21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -165,7 +159,7 @@ Variables</h2></td></tr>
 <tr class="separator:aac132aa42c20a1d3744db9df04f31c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb7ab4d4c53c668af9006f8e73c89b38" id="r_adb7ab4d4c53c668af9006f8e73c89b38"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb7ab4d4c53c668af9006f8e73c89b38">orion_error</a></td></tr>
 <tr class="separator:adb7ab4d4c53c668af9006f8e73c89b38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fc9945bc3958ded2f0adfa7771808cd" id="r_a6fc9945bc3958ded2f0adfa7771808cd"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6fc9945bc3958ded2f0adfa7771808cd">can_mbx_last_send_time</a> [NUM_CAN_PERIPHERALS][<a class="el" href="daq__can_8h.html#a15ff5b005bbef3c1b021fb605f9d8e6c">CAN_TX_MAILBOX_CNT</a>]</td></tr>
+<tr class="memitem:a6fc9945bc3958ded2f0adfa7771808cd" id="r_a6fc9945bc3958ded2f0adfa7771808cd"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6fc9945bc3958ded2f0adfa7771808cd">can_mbx_last_send_time</a> [NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT]</td></tr>
 <tr class="separator:a6fc9945bc3958ded2f0adfa7771808cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5dc2833c28e9934f6ee1f171042f455" id="r_ae5dc2833c28e9934f6ee1f171042f455"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5dc2833c28e9934f6ee1f171042f455">bms_daq_override</a> = false</td></tr>
 <tr class="separator:ae5dc2833c28e9934f6ee1f171042f455"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -196,8 +190,8 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a50a2a1b6100f6bc248f0b4d93d6aceec" name="a50a2a1b6100f6bc248f0b4d93d6aceec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50a2a1b6100f6bc248f0b4d93d6aceec">&#9670;&#160;</a></span>a_box_bl_cmd_CALLBACK()</h2>
+<a id="a9948c8dbccc73230d7e4489a7b017f21" name="a9948c8dbccc73230d7e4489a7b017f21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9948c8dbccc73230d7e4489a7b017f21">&#9670;&#160;</a></span>a_box_bl_cmd_CALLBACK()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -205,58 +199,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void a_box_bl_cmd_CALLBACK </td>
           <td>(</td>
-          <td class="paramtype">CanParsedData_t *</td>          <td class="paramname"><span class="paramname"><em>msg_data_a</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a990c3a82a9723ab422570b787af03f72" name="a990c3a82a9723ab422570b787af03f72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a990c3a82a9723ab422570b787af03f72">&#9670;&#160;</a></span>CAN1_RX0_IRQHandler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CAN1_RX0_IRQHandler </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8b1e6757f968cf4456a655d61e249555" name="a8b1e6757f968cf4456a655d61e249555"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b1e6757f968cf4456a655d61e249555">&#9670;&#160;</a></span>CAN2_RX0_IRQHandler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CAN2_RX0_IRQHandler </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a095c1ccd861a43e4cbdf41e1f25b0c1a" name="a095c1ccd861a43e4cbdf41e1f25b0c1a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a095c1ccd861a43e4cbdf41e1f25b0c1a">&#9670;&#160;</a></span>canTxUpdate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void canTxUpdate </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">can_data_t *</td>          <td class="paramname"><span class="paramname"><em>p_can_data</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -652,7 +595,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t can_mbx_last_send_time[NUM_CAN_PERIPHERALS][<a class="el" href="daq__can_8h.html#a15ff5b005bbef3c1b021fb605f9d8e6c">CAN_TX_MAILBOX_CNT</a>]</td>
+          <td class="memname">uint32_t can_mbx_last_send_time[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT]</td>
         </tr>
       </table>
   </td>

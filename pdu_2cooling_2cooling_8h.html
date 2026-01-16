@@ -95,7 +95,7 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">cooling.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;can_parse.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;PDU.h&quot;</code><br />
 </div>
 <p><a href="pdu_2cooling_2cooling_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -123,9 +123,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a3e02c27284622cd9e494e2af92cbe398" id="r_a3e02c27284622cd9e494e2af92cbe398"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3e02c27284622cd9e494e2af92cbe398">update_cooling_periodic</a> ()</td></tr>
 <tr class="memdesc:a3e02c27284622cd9e494e2af92cbe398"><td class="mdescLeft">&#160;</td><td class="mdescRight">Periodic function that sets switches and fan speeds based off of values in the cooling_request struct.  <br /></td></tr>
 <tr class="separator:a3e02c27284622cd9e494e2af92cbe398"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83596406fd7d81df43e282cb5426f401" id="r_a83596406fd7d81df43e282cb5426f401"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83596406fd7d81df43e282cb5426f401">cooling_driver_request_CALLBACK</a> (CanParsedData_t *msg_data_a)</td></tr>
-<tr class="memdesc:a83596406fd7d81df43e282cb5426f401"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for cooling_driver_request message sent from dashboard, updates values in cooling_request struct based off signal values.  <br /></td></tr>
-<tr class="separator:a83596406fd7d81df43e282cb5426f401"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae983f748767d33f50733d2914821f3e1" id="r_ae983f748767d33f50733d2914821f3e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae983f748767d33f50733d2914821f3e1">cooling_driver_request_CALLBACK</a> (can_data_t *p_can_data)</td></tr>
+<tr class="memdesc:ae983f748767d33f50733d2914821f3e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for cooling_driver_request message sent from dashboard, updates values in cooling_request struct based off signal values.  <br /></td></tr>
+<tr class="separator:ae983f748767d33f50733d2914821f3e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Nicolas Vera (<a href="#" onclick="location.href='mai'+'lto:'+'nve'+'ra'+'pae'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">nvera<span class="obfuscator">.nosp@m.</span>pae@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd></dl>
@@ -190,8 +190,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a83596406fd7d81df43e282cb5426f401" name="a83596406fd7d81df43e282cb5426f401"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83596406fd7d81df43e282cb5426f401">&#9670;&#160;</a></span>cooling_driver_request_CALLBACK()</h2>
+<a id="ae983f748767d33f50733d2914821f3e1" name="ae983f748767d33f50733d2914821f3e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae983f748767d33f50733d2914821f3e1">&#9670;&#160;</a></span>cooling_driver_request_CALLBACK()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,7 +199,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void cooling_driver_request_CALLBACK </td>
           <td>(</td>
-          <td class="paramtype">CanParsedData_t *</td>          <td class="paramname"><span class="paramname"><em>msg_data_a</em></span></td><td>)</td>
+          <td class="paramtype">can_data_t *</td>          <td class="paramname"><span class="paramname"><em>p_can_data</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

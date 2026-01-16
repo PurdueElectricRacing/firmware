@@ -41,7 +41,5 @@ var searchData=
   ['rx_5fdma_5fcfg_38',['rx_dma_cfg',['../structi2c__handle__t.html#abfdf4ddb6a3234db7df25862c58eb643',1,'i2c_handle_t::rx_dma_cfg'],['../structSPI__InitConfig__t.html#accb8a2f6b9a30e8e5bdbb4d553d76fb6',1,'SPI_InitConfig_t::rx_dma_cfg'],['../structusart__init__t.html#af5d23adc2cedc26541544b41b6a56701',1,'usart_init_t::rx_dma_cfg']]],
   ['rx_5ferrors_39',['rx_errors',['../structusart__init__t.html#a24612c03fe5128673f397644b7277840',1,'usart_init_t']]],
   ['rx_5finv_40',['rx_inv',['../structadv__feature__t.html#adca02addd4d7f2797554f6e28228a082',1,'adv_feature_t']]],
-  ['rx_5fof_41',['rx_of',['../structcan__stats__t.html#a0f8c66035803b2d3d7b368cc5c6a9177',1,'can_stats_t']]],
-  ['rx_5foverrun_42',['rx_overrun',['../structcan__stats__t.html#a4e7a5d3674b2af5648c9e67fc3f11565',1,'can_stats_t']]],
-  ['rxfer_5fsize_43',['rxfer_size',['../structusart__active__transfer__t.html#a6e3ea925b24b1ff38a1c5c910dd56010',1,'usart_active_transfer_t']]]
+  ['rxfer_5fsize_41',['rxfer_size',['../structusart__active__transfer__t.html#a6e3ea925b24b1ff38a1c5c910dd56010',1,'usart_active_transfer_t']]]
 ];

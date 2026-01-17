@@ -6,7 +6,7 @@
 
 
 #define NUM_CELLS 16
-#define ADBMS_WAKE_DELAY_MS 5
+#define ADBMS_WAKE_DELAY_MS 4
 
 #define TX_CMD_LEN 4
 #define TX_DATA_LEN 6

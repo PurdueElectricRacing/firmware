@@ -56,13 +56,13 @@ void adbms_periodic(adbms_t *bms) {
             break;
         }
         case ADBMS_DISCHARGING: {
-            // adbms_read_cell_voltages(bms);
+            adbms_read_cell_voltages(bms);
 
 
             // if (bms->enable_balance) {
             //     adbms_passive_balance(bms);
             // }
-            // break;
+            break;
         }
         case ADBMS_CHARGING: {
             // adbms_read_cell_voltages(bms);
@@ -108,13 +108,15 @@ bool adbms_connect(adbms_t *bms) {
     adbms_send_command(bms, RDCFGA);
 
     adbms_set_cs(bms, 0);
-    if (false == PHAL_SPI_transfer_noDMA(bms->spi, (const uint8_t *) &(txstring.data), txstring.length, RX_DATA_LEN, bms->rx_buffer)) {
+    // if (false == PHAL_SPI_transfer_noDMA(bms->spi, (const uint8_t *) &(txstring.data), txstring.length, RX_DATA_LEN, bms->rx_buffer)) {
+    if (false == PHAL_SPI_transfer_noDMA(bms->spi, (const uint8_t *) &(txstring.data), txstring.length, 0, NULL)) {
     	bms->last_fault_time[13] = xTaskGetTickCount();
         adbms_set_cs(bms, 1);
         return false;
     }
     size_t rx_len = RX_DATA_LEN * 2; // 2 BMS
-    if (false == PHAL_SPI_transfer_noDMA(bms->spi, NULL, 0, rx_len, bms->rx_buffer)) {
+    uint8_t rx_buffer[RX_DATA_LEN * 2] = {0};
+    if (false == PHAL_SPI_transfer_noDMA(bms->spi, NULL, 0, rx_len, rx_buffer)) {
     	bms->last_fault_time[14] = xTaskGetTickCount();
         adbms_set_cs(bms, 1);
         return false;
@@ -122,12 +124,12 @@ bool adbms_connect(adbms_t *bms) {
     adbms_set_cs(bms, 1);
 
     // Check configs
-    if (0 != memcmp(bms->rx_buffer, bms->rega_cfg, 6)) {
+    if (0 != memcmp(rx_buffer, bms->rega_cfg, 6)) {
     	bms->last_fault_time[15] = xTaskGetTickCount();
     	adbms_set_cs(bms, 1);
     	return false;
     };
-    if (0 != memcmp(bms->rx_buffer + 8, bms->rega_cfg, 6)) {
+    if (0 != memcmp(rx_buffer + 8, bms->rega_cfg, 6)) {
     	bms->last_fault_time[16] = xTaskGetTickCount();
     	adbms_set_cs(bms, 1);
     	return false;
@@ -346,57 +348,98 @@ void adBms6830_Adcv(uint8_t *cmd, uint8_t rd, uint8_t cont, uint8_t dcp, uint8_t
 }
 
 bool adbms_read_cell_voltages(adbms_t *bms) {
-	// adbms_connect(bms);
+	bool connect_result = adbms_connect(bms);
+	if (!connect_result) {
+	    return false;
+	}
 
-	// osDelay(5);
+	osDelay(5);
 
-    // uint8_t cmd[2] = { 0 };
-    // adBms6830_Adcv(cmd, 0, 0, 0, 0, 0);
+    uint8_t cmd[2] = { 0 };
+    adBms6830_Adcv(cmd, 0, 0, 0, 0, 0); // what parameters???
 
-    // adbms_set_cs(bms, 0);
-    // if (false == adbms_send_command(bms, cmd)) {
-	//     adbms_set_cs(bms, 1);
-    // 	bms->last_fault_time[6] = xTaskGetTickCount();
-    //     return false;
-    // }
-    // adbms_set_cs(bms, 1);
+    clear_string(&txstring);
+    adbms_send_command(bms, cmd);
 
-    // // dont delay 7 or else isoSPI sleeps
-    // osDelay(20);
-    // adbms_wake(bms);
+    // Send ADCV, we don't need a response?
+    adbms_set_cs(bms, 0);
+    if (false == PHAL_SPI_transfer_noDMA(bms->spi, (const uint8_t *) &(txstring.data), txstring.length, 0, NULL)) {
+    	bms->last_fault_time[6] = xTaskGetTickCount();
+        adbms_set_cs(bms, 1);
+        return false;
+    }
+    adbms_set_cs(bms, 1);
 
-    // const uint8_t *cmd_list[6] = {RDCVA, RDCVB, RDCVC, RDCVD, RDCVE, RDCVF};
 
-    // bms->any_skipped = false;
+    // dont delay 7 or else isoSPI sleeps
+    // MARK: idk about this one
+    osDelay(20);
+    adbms_wake(bms);
 
-    // for (int group = 0; group < 6; group++) {
-	//     adbms_set_cs(bms, 0);
-    //     if (false == adbms_send_command(bms, cmd_list[group])) {
-	// 	    adbms_set_cs(bms, 1);
-	//     	bms->last_fault_time[7] = xTaskGetTickCount();
-    //         return false;
-    //     }
-    //     if (false == adbms_receive_response(bms)) {
-	// 	    adbms_set_cs(bms, 1);
-	//     	bms->last_fault_time[8] = xTaskGetTickCount();
-    //         return false;
-    //     }
-	//     adbms_set_cs(bms, 1);
+    const uint8_t *cmd_list[6] = {RDCVA, RDCVB, RDCVC, RDCVD, RDCVE, RDCVF};
 
-    //     size_t cells_read = (group <= 4) ? 3 : 1;
-    //    	size_t cell_idx_base = group * 3;
-    //    	for (int j = 0; j < cells_read; j++) {
-	// 		int16_t raw = extract_i16(bms->rx_buffer, j);
-    //   		size_t idx = cell_idx_base + j;
-	// 		float cell_v = raw_to_cell_v(raw);
-	// 		// bms->cell_voltages[idx] = (float)raw;
-	// 		if (cell_v >= 0) {
-	// 			bms->cell_voltages[idx] = cell_v;
-	// 		} else {
-	// 			bms->any_skipped = true;
-	// 		}
-    //    	}
-    // }
+    bms->any_skipped = false;
+
+    for (int group = 0; group < 6; group++) {
+	    // adbms_set_cs(bms, 0);
+        // if (false == adbms_send_command(bms, cmd_list[group])) {
+		//     adbms_set_cs(bms, 1);
+	    // 	bms->last_fault_time[7] = xTaskGetTickCount();
+        //     return false;
+        // }
+        // if (false == adbms_receive_response(bms)) {
+		//     adbms_set_cs(bms, 1);
+	    // 	bms->last_fault_time[8] = xTaskGetTickCount();
+        //     return false;
+        // }
+	    // adbms_set_cs(bms, 1);
+        clear_string(&txstring);
+        adbms_send_command(bms, cmd_list[group]);
+        adbms_set_cs(bms, 0);
+        if (false == PHAL_SPI_transfer_noDMA(bms->spi, (const uint8_t *) &(txstring.data), txstring.length, 0, NULL)) {
+        	bms->last_fault_time[7] = xTaskGetTickCount();
+            adbms_set_cs(bms, 1);
+            return false;
+        }
+        size_t rx_len = RX_DATA_LEN * 2; // 2 BMS
+        uint8_t rx_buffer[RX_DATA_LEN * 2] = {0};
+        if (false == PHAL_SPI_transfer_noDMA(bms->spi, NULL, 0, rx_len, rx_buffer)) {
+        	bms->last_fault_time[8] = xTaskGetTickCount();
+            adbms_set_cs(bms, 1);
+            return false;
+        }
+        adbms_set_cs(bms, 1);
+
+        // size_t cells_read = (group <= 4) ? 3 : 1;
+       	// size_t cell_idx_base = group * 3;
+       	// for (int j = 0; j < cells_read; j++) {
+		// 	int16_t raw = extract_i16(bms->rx_buffer, j);
+      	// 	size_t idx = cell_idx_base + j;
+		// 	float cell_v = raw_to_cell_v(raw);
+		// 	// bms->cell_voltages[idx] = (float)raw;
+		// 	if (cell_v >= 0) {
+		// 		bms->cell_voltages[idx] = cell_v;
+		// 	} else {
+		// 		bms->any_skipped = true;
+		// 	}
+       	// }
+        // Can't segfault if there is no kernel
+        for (int bms_idx = 0; bms_idx < 2; bms_idx++) {
+        	size_t cells_read = (group <= 4) ? 3 : 1;
+        	size_t cell_idx_base = group * 3 + bms_idx * NUM_CELLS;
+        	for (int j = 0; j < cells_read; j++) {
+        		int16_t raw = extract_i16(rx_buffer + bms_idx * RX_DATA_LEN, j);
+          		size_t idx = cell_idx_base + j;
+        		float cell_v = raw_to_cell_v(raw);
+                bms->cell_voltages_raw[idx] = raw;
+        		if (cell_v >= 0) {
+        			bms->cell_voltages[idx] = cell_v;
+        		} else {
+        			bms->any_skipped = true;
+        		}
+        	}
+        }
+    }
 
     return true;
 }

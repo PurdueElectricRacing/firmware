@@ -375,6 +375,7 @@ bool adbms_cfg_regb(adbms_t *bms) {
     // return true;
 
     // // DAIY x2: send command once, send data twice
+    clear_string(&txstring);
     adbms_send_command(bms, WRCFGB);
     adbms_send_data(bms, regb_cfg);
     adbms_send_data(bms, regb_cfg);

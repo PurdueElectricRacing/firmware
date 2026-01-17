@@ -55,7 +55,8 @@ typedef struct {
     uint32_t last_connection_time_ms;
     bool enable_balance;
 
-    float cell_voltages[NUM_CELLS];
+    float cell_voltages[NUM_CELLS * 2]; // support up to 2 BMS??
+    int16_t cell_voltages_raw[NUM_CELLS * 2]; // support up to 2 BMS??
     adbms_pwm_duty_t cell_pwms[NUM_CELLS];
 
     uint32_t last_fault_time[27];

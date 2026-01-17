@@ -30,6 +30,7 @@ void push_back_string(string_t *str, uint8_t *buf, size_t len) {
 }
 
 string_t txstring = {0};
+uint8_t tmp_rx_buffer[RX_DATA_LEN * 2] = {0}; // 2 BMS
 
 void adbms_periodic(adbms_t *bms) {
     bms->curr_state = bms->next_state;
@@ -121,17 +122,16 @@ bool adbms_connect(adbms_t *bms) {
         adbms_set_cs(bms, 1);
         return false;
     }
+    memcpy(&tmp_rx_buffer, &rx_buffer, rx_len);
     adbms_set_cs(bms, 1);
 
     // Check configs
     if (0 != memcmp(rx_buffer, bms->rega_cfg, 6)) {
     	bms->last_fault_time[15] = xTaskGetTickCount();
-    	adbms_set_cs(bms, 1);
     	return false;
     };
     if (0 != memcmp(rx_buffer + 8, bms->rega_cfg, 6)) {
     	bms->last_fault_time[16] = xTaskGetTickCount();
-    	adbms_set_cs(bms, 1);
     	return false;
     };
 

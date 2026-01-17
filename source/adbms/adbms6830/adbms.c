@@ -25,7 +25,7 @@ void clear_string(string_t *str) {
 }
 
 void push_back_string(string_t *str, uint8_t *buf, size_t len) {
-    memcpy(&(str->data[str->length]), buf, len);
+    memcpy(str->data + str->length, buf, len);
     str->length += len;
 }
 
@@ -57,7 +57,7 @@ void adbms_periodic(adbms_t *bms) {
             break;
         }
         case ADBMS_DISCHARGING: {
-            // adbms_read_cell_voltages(bms);
+            adbms_read_cell_voltages(bms);
 
 
             // if (bms->enable_balance) {
@@ -137,12 +137,12 @@ bool adbms_connect(adbms_t *bms) {
     osDelay(2);
 
     // adbms_set_cs(bms, 0);
-    // if (false == adbms_send_command(bms, RDCFGA)) {
+    // if (false == adbms_send_command2(bms, RDCFGA)) {
     //     adbms_set_cs(bms, 1);
     // 	bms->last_fault_time[13] = xTaskGetTickCount();
     //     return false;
     // }
-    // if (false == adbms_receive_response(bms)) {
+    // if (false == adbms_receive_response2(bms)) {
     //     adbms_set_cs(bms, 1);
     // 	bms->last_fault_time[14] = xTaskGetTickCount();
     //     return false;
@@ -153,52 +153,37 @@ bool adbms_connect(adbms_t *bms) {
     // 	return false;
     // };
 
-    if (false == adbms_send_command2(bms, RDCFGA)) {
-        adbms_set_cs(bms, 1);
+
+    clear_string(&txstring);
+
+    adbms_send_command(bms, RDCFGA);
+
+    // if (false == PHAL_SPI_transfer_noDMA(bms->spi, (const uint8_t *) &(txstring.data), txstring.length, RX_DATA_LEN, bms->rx_buffer)) {
+    adbms_set_cs(bms, 0);
+    if (false == PHAL_SPI_transfer_noDMA(bms->spi, (const uint8_t *) &(txstring.data), txstring.length, 0, NULL)) {
     	bms->last_fault_time[13] = xTaskGetTickCount();
+        adbms_set_cs(bms, 1);
         return false;
     }
-    if (false == adbms_receive_response2(bms)) {
-        adbms_set_cs(bms, 1);
+    size_t rx_len = RX_DATA_LEN * 2; // 2 BMS
+    uint8_t rx_buffer[RX_DATA_LEN * 2] = {0};
+    if (false == PHAL_SPI_transfer_noDMA(bms->spi, NULL, 0, rx_len, rx_buffer)) {
     	bms->last_fault_time[14] = xTaskGetTickCount();
+        adbms_set_cs(bms, 1);
         return false;
     }
     adbms_set_cs(bms, 1);
-    if (0 != memcmp(bms->rx_buffer, bms->rega_cfg, 6)) {
+    memcpy(&tmp_rx_buffer, &rx_buffer, rx_len);
+
+    // Check configs
+    if (0 != memcmp(rx_buffer, bms->rega_cfg, 6)) {
     	bms->last_fault_time[15] = xTaskGetTickCount();
     	return false;
     };
-
-    // clear_string(&txstring);
-
-    // adbms_set_cs(bms, 0);
-    // adbms_send_command(bms, RDCFGA);
-
-    // // if (false == PHAL_SPI_transfer_noDMA(bms->spi, (const uint8_t *) &(txstring.data), txstring.length, RX_DATA_LEN, bms->rx_buffer)) {
-    // // if (false == PHAL_SPI_transfer_noDMA(bms->spi, (const uint8_t *) &(txstring.data), txstring.length, 0, NULL)) {
-    // // 	bms->last_fault_time[13] = xTaskGetTickCount();
-    // //     adbms_set_cs(bms, 1);
-    // //     return false;
-    // // }
-    // // size_t rx_len = RX_DATA_LEN; // 2 BMS
-    // // uint8_t rx_buffer[RX_DATA_LEN * 2] = {0};
-    // if (false == PHAL_SPI_transfer_noDMA(bms->spi, NULL, 0, RX_DATA_LEN, bms->rx_buffer)) {
-    // 	bms->last_fault_time[14] = xTaskGetTickCount();
-    //     adbms_set_cs(bms, 1);
-    //     return false;
-    // }
-    // adbms_set_cs(bms, 1);
-    // // memcpy(&tmp_rx_buffer, &rx_buffer, rx_len);
-
-    // // Check configs
-    // if (0 != memcmp(bms->rx_buffer, bms->rega_cfg, 6)) {
-    // 	bms->last_fault_time[15] = xTaskGetTickCount();
-    // 	return false;
-    // };
-    // // if (0 != memcmp(rx_buffer + 8, bms->rega_cfg, 6)) {
-    // // 	bms->last_fault_time[16] = xTaskGetTickCount();
-    // // 	return false;
-    // // };
+    if (0 != memcmp(rx_buffer + 8, bms->rega_cfg, 6)) {
+    	bms->last_fault_time[16] = xTaskGetTickCount();
+    	return false;
+    };
 
     bms->last_connection_time_ms = xTaskGetTickCount();
     return true;
@@ -230,15 +215,15 @@ void adbms_send_command(adbms_t *bms, const uint8_t cmd[2]) {
     outgoing.CMD[3] = pec & 0xFF;
 
     // spi transfer
-    if (false == PHAL_SPI_transfer_noDMA(bms->spi, (uint8_t *)&outgoing, sizeof(adbms_cmd_pkt_t), 0, NULL)) {
-    	bms->last_fault_time[0] = xTaskGetTickCount();
-        // return false;
-    }
+    // if (false == PHAL_SPI_transfer_noDMA(bms->spi, (uint8_t *)&outgoing, sizeof(adbms_cmd_pkt_t), 0, NULL)) {
+    // 	bms->last_fault_time[0] = xTaskGetTickCount();
+    //     // return false;
+    // }
 
     // return true;
     //
     // ptxstring
-    // push_back_string(&txstring, (uint8_t *)&outgoing, sizeof(adbms_cmd_pkt_t));
+    push_back_string(&txstring, (uint8_t *)&outgoing, sizeof(adbms_cmd_pkt_t));
 }
 
 void adbms_send_data(adbms_t *bms, const uint8_t data[TX_DATA_LEN]) {
@@ -307,24 +292,26 @@ bool adbms_cfg_rega(adbms_t *bms) {
     // memcpy(bms->rega_cfg, rega_cfg, 6);
 
     // adbms_set_cs(bms, 0);
-    // if (false == adbms_send_command(bms, WRCFGA)) {
+    // if (false == adbms_send_command2(bms, WRCFGA)) {
 	   //  adbms_set_cs(bms, 1);
     // 	bms->last_fault_time[2] = xTaskGetTickCount();
     //     return false;
     // }
 
-    // if (false == adbms_send_data(bms, rega_cfg)) {
+    // if (false == adbms_send_data2(bms, rega_cfg)) {
 	   //  adbms_set_cs(bms, 1);
     // 	bms->last_fault_time[3] = xTaskGetTickCount();
     //     return false;
     // }
     // adbms_set_cs(bms, 1);
 
+    // return true;
+
     // DAIY x2: send command once, send data twice
     clear_string(&txstring);
     adbms_send_command(bms, WRCFGA);
     adbms_send_data(bms, rega_cfg);
-    // adbms_send_data(bms, rega_cfg);
+    adbms_send_data(bms, rega_cfg);
 
     adbms_set_cs(bms, 0);
     if (false == PHAL_SPI_transfer_noDMA(bms->spi, (const uint8_t*) &txstring.data, txstring.length, 0, NULL)) {
@@ -373,12 +360,12 @@ bool adbms_cfg_regb(adbms_t *bms) {
     adbms_wake(bms);
 
     // adbms_set_cs(bms, 0);
-    // if (false == adbms_send_command(bms, WRCFGB)) {
+    // if (false == adbms_send_command2(bms, WRCFGB)) {
 	//     adbms_set_cs(bms, 1);
     // 	bms->last_fault_time[4] = xTaskGetTickCount();
     //     return false;
     // }
-    // if (false == adbms_send_data(bms, regb_cfg)) {
+    // if (false == adbms_send_data2(bms, regb_cfg)) {
 	//     adbms_set_cs(bms, 1);
     // 	bms->last_fault_time[5] = xTaskGetTickCount();
     //     return false;
@@ -387,14 +374,17 @@ bool adbms_cfg_regb(adbms_t *bms) {
 
     // return true;
 
-    // DAIY x2: send command once, send data twice
+    // // DAIY x2: send command once, send data twice
     adbms_send_command(bms, WRCFGB);
     adbms_send_data(bms, regb_cfg);
-    // adbms_send_data(bms, regb_cfg);
+    adbms_send_data(bms, regb_cfg);
+    adbms_set_cs(bms, 0);
     if (false == PHAL_SPI_transfer_noDMA(bms->spi, (const uint8_t*) &txstring.data, txstring.length, 0, NULL)) {
     	bms->last_fault_time[5] = xTaskGetTickCount();
+        adbms_set_cs(bms, 1);
         return false;
     }
+    adbms_set_cs(bms, 1);
     return true;
 }
 

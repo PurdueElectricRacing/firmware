@@ -35,9 +35,13 @@ void HardFault_Handler();
 
 static void ledblink1(void);
 static void can_tx_100hz(void);
+static void can_rx_1khz(void);
 
 defineThreadStack(ledblink1, 1000, osPriorityNormal, 64);
 defineThreadStack(can_tx_100hz, 10, osPriorityHigh, 256);
+defineThreadStack(can_rx_1khz, 1, osPriorityHigh, 256);
+
+defineStaticQueue(q_can_rx, CanMsgTypeDef_t, 256);
 
 int main() {
     osKernelInitialize();
@@ -54,9 +58,20 @@ int main() {
         HardFault_Handler();
     }
 
+    uint32_t sids[8] = {0x300, 0x301};
+    uint32_t xids[8] = {0x1ABCDE1, 0x1ABCDE2, 0x1ABCDE3};
+    PHAL_FDCAN_setFilters(FDCAN1, sids, 2, xids, 3);
+
     // Create threads
     createThread(ledblink1);
     createThread(can_tx_100hz);
+    createThread(can_rx_1khz);
+
+    q_can_rx = createStaticQueue(q_can_rx, CanMsgTypeDef_t, 256);
+
+    // NVIC
+    NVIC_SetPriority(FDCAN1_IT0_IRQn, 6);
+    NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
 
     osKernelStart(); // Go!
 
@@ -85,6 +100,24 @@ static void can_tx_100hz(void)
 {
     PHAL_FDCAN_testStandard();
 }
+
+void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t* msg) {
+    if (xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) {
+        BaseType_t xHigherPriorityTaskWoken = 0;
+        xQueueSendFromISR(q_can_rx, msg, &xHigherPriorityTaskWoken);
+        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+    }
+}
+
+volatile CanMsgTypeDef_t rx_frame_0;
+static void can_rx_1khz(void) {
+    CanMsgTypeDef_t rx_frame;
+    while (xQueueReceive(q_can_rx, &rx_frame, (TickType_t)0) == pdTRUE) {
+        rx_frame_0 = rx_frame;
+        ;
+    }
+}
+
 
 void HardFault_Handler() {
     while (1) {

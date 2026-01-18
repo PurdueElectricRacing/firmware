@@ -171,7 +171,6 @@ int main(void) {
     taskCreate(heartBeatLED, 500);
     taskCreate(pedalsPeriodic, 15);
     taskCreate(handleDashboardInputs, 50);
-    taskCreate(heartBeatTask, 100);
     taskCreate(sendVersion, 5000);
     taskCreate(updateTelemetryPages, 200);
     taskCreate(pollBrakeStatus, 1000);
@@ -221,12 +220,9 @@ void preflightChecks(void) {
             CAN_library_init();
             break;
         case 4:
-            // Zero Rotary Encoder
-            break;
-        case 5:
             enableInterrupts();
             break;
-        case 6:
+        case 5:
             initLCD();
             break;
         default:
@@ -331,41 +327,28 @@ void heartBeatLED() {
     trig = !trig;
 }
 
-static volatile uint32_t last_input_time;
 void EXTI9_5_IRQHandler() {
     // EXTI9 (LEFT Button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR9) {
-        if (!(sched.os_ticks - last_input_time < 200)) {
-            input_state.left_button = 1;
-        }
-        last_input_time = sched.os_ticks;
+        input_state.left_button = 1;
         EXTI->PR |= EXTI_PR_PR9;
     }
 
     // EXTI8 (RIGHT Button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR8) {
-        if (!(sched.os_ticks - last_input_time < 200)) {
-            input_state.right_button = 1;
-        }
-        last_input_time = sched.os_ticks;
+        input_state.right_button = 1;
         EXTI->PR |= EXTI_PR_PR8;
     }
 
     // EXTI7 (DOWN Button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR7) {
-        if (!(sched.os_ticks - last_input_time < 200)) {
-            input_state.down_button = 1;
-        }
-        last_input_time = sched.os_ticks;
+        input_state.down_button = 1;
         EXTI->PR |= EXTI_PR_PR7;
     }
 
     // EXTI6 (UP Button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR6) {
-        if (!(sched.os_ticks - last_input_time < 200)) {
-            input_state.up_button = 1;
-        }
-        last_input_time = sched.os_ticks;
+        input_state.up_button = 1;
         EXTI->PR |= EXTI_PR_PR6;
     }
 }
@@ -373,19 +356,13 @@ void EXTI9_5_IRQHandler() {
 void EXTI15_10_IRQHandler() {
     // EXTI15 (SELECT button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR15) {
-        if (!(sched.os_ticks - last_input_time < 200)) {
-            input_state.select_button = 1;
-        }
-        last_input_time = sched.os_ticks;
+        input_state.select_button = 1;
         EXTI->PR |= EXTI_PR_PR15;
     }
 
     // EXTI14 (START button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR14) {
-        if (!(sched.os_ticks - last_input_time < 200)) {
-            input_state.start_button = 1;
-        }
-        last_input_time = sched.os_ticks;
+        input_state.start_button = 1;
         EXTI->PR |= EXTI_PR_PR14;
     }
 }
@@ -436,7 +413,7 @@ void enableInterrupts() {
     // Enable the SYSCFG clock for interrupts
     RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
 
-    // Map EXTI lines to correct GPIO ports based on schematic
+    // Map EXTI lines to correct GPIO ports
     // PC6, PC7 (EXTI6, 7)
     SYSCFG->EXTICR[1] |= (SYSCFG_EXTICR2_EXTI6_PC | SYSCFG_EXTICR2_EXTI7_PC);
     // PC8, PC9 (EXTI8, 9)

@@ -374,19 +374,49 @@ void initLCD() {
 }
 
 /**
- * @brief Updates LCD display page based on encoder position
+ * @brief Advances to the next selectable page
+ */
+void advancePage() {
+    bool is_error_page = (curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL);
+    if (is_error_page) return;
+
+    if (curr_page == PAGE_CALIBRATION) {
+        curr_page = PAGE_RACE;
+    } else {
+        curr_page++;
+    }
+
+    updatePage();
+}
+
+/**
+ * @brief Moves to the previous selectable page
+ */
+void backPage() {
+    bool is_error_page = (curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL);
+    if (is_error_page) return;
+
+    if (curr_page == PAGE_RACE) {
+        curr_page = PAGE_CALIBRATION;
+    } else {
+        curr_page--;
+    }
+
+    updatePage();
+}
+
+/**
+ * @brief Updates LCD display page
  *
  * Key behaviors:
- * - Updates current page based on encoder for non-error pages
  * - Maintains display of error pages when active
  */
 void updatePage() {
-    // Only update the encoder if we are on a "selectable" page
+    // Only update if we are on a "selectable" page
     bool is_error_page = (curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL);
 
     // Only update prev_page for non-error pages
     if (!is_error_page) {
-        curr_page            = input_state.encoder_position;
         fault_time_displayed = 0;
     }
 

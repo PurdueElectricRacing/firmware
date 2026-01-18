@@ -49,6 +49,8 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_INPUT(B_SELECT_GPIO_Port, B_SELECT_Pin, GPIO_INPUT_PULL_UP),
     GPIO_INIT_INPUT(B_DOWN_GPIO_Port, B_DOWN_Pin, GPIO_INPUT_PULL_UP),
     GPIO_INIT_INPUT(B_UP_GPIO_Port, B_UP_Pin, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(B_LEFT_GPIO_Port, B_LEFT_Pin, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(B_RIGHT_GPIO_Port, B_RIGHT_Pin, GPIO_INPUT_PULL_UP),
     GPIO_INIT_INPUT(DAQ_SWITCH_GPIO_Port, DAQ_SWITCH_Pin, GPIO_INPUT_OPEN_DRAIN),
 
     GPIO_INIT_INPUT(BRK_1_DIG_GPIO_Port, BRK_1_DIG_GPIO_Pin, GPIO_INPUT_OPEN_DRAIN),
@@ -330,46 +332,61 @@ void heartBeatLED() {
 }
 
 static volatile uint32_t last_input_time;
-void EXTI15_10_IRQHandler() {
+void EXTI9_5_IRQHandler() {
+    // EXTI9 (LEFT Button) triggered the interrupt
+    if (EXTI->PR & EXTI_PR_PR9) {
+        if (!(sched.os_ticks - last_input_time < 200)) {
+            input_state.left_button = 1;
+        }
+        last_input_time = sched.os_ticks;
+        EXTI->PR |= EXTI_PR_PR9;
+    }
 
-    // EXTI14 (UP Button) triggered the interrupt
+    // EXTI8 (RIGHT Button) triggered the interrupt
+    if (EXTI->PR & EXTI_PR_PR8) {
+        if (!(sched.os_ticks - last_input_time < 200)) {
+            input_state.right_button = 1;
+        }
+        last_input_time = sched.os_ticks;
+        EXTI->PR |= EXTI_PR_PR8;
+    }
+
+    // EXTI7 (DOWN Button) triggered the interrupt
+    if (EXTI->PR & EXTI_PR_PR7) {
+        if (!(sched.os_ticks - last_input_time < 200)) {
+            input_state.down_button = 1;
+        }
+        last_input_time = sched.os_ticks;
+        EXTI->PR |= EXTI_PR_PR7;
+    }
+
+    // EXTI6 (UP Button) triggered the interrupt
+    if (EXTI->PR & EXTI_PR_PR6) {
+        if (!(sched.os_ticks - last_input_time < 200)) {
+            input_state.up_button = 1;
+        }
+        last_input_time = sched.os_ticks;
+        EXTI->PR |= EXTI_PR_PR6;
+    }
+}
+
+void EXTI15_10_IRQHandler() {
+    // EXTI15 (SELECT button) triggered the interrupt
+    if (EXTI->PR & EXTI_PR_PR15) {
+        if (!(sched.os_ticks - last_input_time < 200)) {
+            input_state.select_button = 1;
+        }
+        last_input_time = sched.os_ticks;
+        EXTI->PR |= EXTI_PR_PR15;
+    }
+
+    // EXTI14 (START button) triggered the interrupt
     if (EXTI->PR & EXTI_PR_PR14) {
         if (!(sched.os_ticks - last_input_time < 200)) {
-            input_state.up_button = 1; // Set flag for up button
+            input_state.start_button = 1;
         }
-
         last_input_time = sched.os_ticks;
-        EXTI->PR |= EXTI_PR_PR14; // Clear the interrupt pending bit for EXTI14
-    }
-
-    // EXTI13 (DOWN button) triggered the interrupt
-    if (EXTI->PR & EXTI_PR_PR13) {
-        if (!(sched.os_ticks - last_input_time < 200)) {
-            input_state.down_button = 1; // Set flag for down button
-        }
-
-        last_input_time = sched.os_ticks;
-        EXTI->PR |= EXTI_PR_PR13; // Clear the interrupt pending bit for EXTI13
-    }
-
-    // EXTI12 (SELECT button) triggered the interrupt
-    if (EXTI->PR & EXTI_PR_PR12) {
-        if (!(sched.os_ticks - last_input_time < 200)) {
-            input_state.select_button = 1; // Set flag for select button
-        }
-
-        last_input_time = sched.os_ticks;
-        EXTI->PR |= EXTI_PR_PR12; // Clear the interrupt pending bit for EXTI12
-    }
-
-    // EXTI11 (START button) triggered the interrupt
-    if (EXTI->PR & EXTI_PR_PR11) {
-        if (!(sched.os_ticks - last_input_time < 200)) {
-            input_state.start_button = 1; // Set flag for start button
-        }
-
-        last_input_time = sched.os_ticks;
-        EXTI->PR |= EXTI_PR_PR11; // Clear the interrupt pending bit for EXTI11
+        EXTI->PR |= EXTI_PR_PR14;
     }
 }
 
@@ -387,6 +404,16 @@ void handleDashboardInputs() {
     if (input_state.down_button) {
         input_state.down_button = 0;
         moveDown();
+    }
+
+    if (input_state.left_button) {
+        input_state.left_button = 0;
+        backPage();
+    }
+
+    if (input_state.right_button) {
+        input_state.right_button = 0;
+        advancePage();
     }
 
     if (input_state.select_button) {
@@ -409,31 +436,23 @@ void enableInterrupts() {
     // Enable the SYSCFG clock for interrupts
     RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
 
-    // START_FLT is on PD11 (EXTI11)
-    SYSCFG->EXTICR[2] |= SYSCFG_EXTICR3_EXTI11_PD; // Map PD11 to EXTI11
+    // Map EXTI lines to correct GPIO ports based on schematic
+    // PC6, PC7 (EXTI6, 7)
+    SYSCFG->EXTICR[1] |= (SYSCFG_EXTICR2_EXTI6_PC | SYSCFG_EXTICR2_EXTI7_PC);
+    // PC8, PC9 (EXTI8, 9)
+    SYSCFG->EXTICR[2] |= (SYSCFG_EXTICR3_EXTI8_PC | SYSCFG_EXTICR3_EXTI9_PC);
+    // PB14, PB15 (EXTI14, 15)
+    SYSCFG->EXTICR[3] |= (SYSCFG_EXTICR4_EXTI14_PB | SYSCFG_EXTICR4_EXTI15_PB);
 
-    EXTI->IMR |= EXTI_IMR_MR11; // Unmask EXTI11
-    EXTI->RTSR &= ~EXTI_RTSR_TR11; // Disable the rising edge trigger for START_FLT
-    EXTI->FTSR |= EXTI_FTSR_TR11; // Enable the falling edge trigger for START_FLT
+    // Unmask interrupts
+    EXTI->IMR |= (EXTI_IMR_MR6 | EXTI_IMR_MR7 | EXTI_IMR_MR8 | EXTI_IMR_MR9 | EXTI_IMR_MR14 | EXTI_IMR_MR15);
+    
+    // Set falling edge trigger for all buttons (pull-up)
+    EXTI->RTSR &= ~(EXTI_RTSR_TR6 | EXTI_RTSR_TR7 | EXTI_RTSR_TR8 | EXTI_RTSR_TR9 | EXTI_RTSR_TR14 | EXTI_RTSR_TR15);
+    EXTI->FTSR |= (EXTI_FTSR_TR6 | EXTI_FTSR_TR7 | EXTI_FTSR_TR8 | EXTI_FTSR_TR9 | EXTI_FTSR_TR14 | EXTI_FTSR_TR15);
 
-    // ENC_B_FLT is on PD9 (EXTI9)
-    // ENC_A_FLT is on PD10 (EXTI10)
-    SYSCFG->EXTICR[2] |= SYSCFG_EXTICR3_EXTI9_PD; // Map PD9 to EXTI9
-    SYSCFG->EXTICR[2] |= SYSCFG_EXTICR3_EXTI10_PD; // Map PD10 to EXTI10
-
-    // B3_FLT is on PD12 (EXTI 12)
-    // B2_FLT is on PD13 (EXTI 13)
-    // B1_FLT is on PD14 (EXTI 14)
-    SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI12_PD; // Map PD12 to EXTI 12
-    SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI13_PD; // Map PD13 to EXTI 13
-    SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI14_PD; // Map PD14 to EXTI 14
-
-    EXTI->IMR |= (EXTI_IMR_MR12 | EXTI_IMR_MR13 | EXTI_IMR_MR14); // Unmask EXTI12, EXTI13, and EXTI 14
-    EXTI->RTSR &= ~(EXTI_RTSR_TR12 | EXTI_RTSR_TR13 | EXTI_RTSR_TR14); // Disable the rising edge trigger for B3_FLT, B2_FLT, B1_FLT
-    EXTI->FTSR |= (EXTI_FTSR_TR12 | EXTI_FTSR_TR13 | EXTI_FTSR_TR14); // Enable the falling edge trigger for B3_FLT, B2_FLT, B1_FLT
-
-    NVIC_EnableIRQ(EXTI9_5_IRQn); // Enable EXTI9_5 IRQ for ENC_B_FLT
-    NVIC_EnableIRQ(EXTI15_10_IRQn); // Enable EXTI15_10 IRQ: START_FLT, ENC_A_FLT, B3_FLT, B2_FLT, B1_FLT
+    NVIC_EnableIRQ(EXTI9_5_IRQn);
+    NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
 /**

@@ -39,12 +39,11 @@ typedef struct __attribute__((packed)) {
 volatile extern raw_adc_values_t raw_adc_values;
 
 typedef struct {
-    int8_t encoder_position;
-    uint32_t debounce_ticks;
-    int8_t prev_encoder_position;
     uint8_t update_page;
     uint8_t up_button;
     uint8_t down_button;
+    uint8_t left_button;
+    uint8_t right_button;
     uint8_t select_button;
     uint8_t start_button;
 } dashboard_input_state_t;

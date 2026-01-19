@@ -31,7 +31,6 @@
 #include "can_router.h"
 #include "car.h"
 #include "cooling.h"
-#include "daq.h"
 #include "main.h"
 
 /* -------------------------------------------------------
@@ -193,7 +192,6 @@ int main(void) {
     taskCreate(send_shockpots, SHOCK_REAR_PERIOD_MS);
     taskCreate(update_lights, 500);
     taskCreate(parseMCDataPeriodic, 15);
-    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
 
     /* Background Tasks */
     taskCreateBackground(CAN_tx_update);
@@ -272,9 +270,6 @@ void preflightChecks(void) {
             /* Lights off first */
             PHAL_writeGPIO(SAFE_STAT_G_GPIO_Port, SAFE_STAT_G_GPIO_Pin, 0);
             PHAL_writeGPIO(SAFE_STAT_R_GPIO_Port, SAFE_STAT_R_GPIO_Pin, 0);
-            if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO])) {
-                HardFault_Handler();
-            }
             initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_MAIN_MODULE);
             break;
         case 6:

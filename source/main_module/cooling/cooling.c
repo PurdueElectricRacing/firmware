@@ -1,4 +1,5 @@
 #include "cooling.h"
+#include "common/can_library/generated/MAIN_MODULE.h"
 
 #include "common_defs.h"
 

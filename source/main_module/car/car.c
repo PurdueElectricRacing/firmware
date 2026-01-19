@@ -2,8 +2,9 @@
 
 #include <string.h>
 
-#include "main.h"
+
 #include "wheel_speeds.h"
+#include "common/can_library/generated/MAIN_MODULE.h"
 
 Car_t car;
 extern uint16_t num_failed_msgs_l, num_failed_msgs_r;

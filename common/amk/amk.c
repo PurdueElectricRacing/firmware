@@ -12,7 +12,7 @@
 
 #include "amk.h"
 
-#include "common/can_library/generated/MAIN.h"
+#include "common/can_library/generated/MAIN_MODULE.h"
 
 /**
  * Procedure: amkInit()

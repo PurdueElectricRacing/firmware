@@ -24,6 +24,7 @@
 #include "common/phal/rcc.h"
 #include "common/psched/psched.h"
 #include "common/queue/queue.h"
+#include "common/can_library/generated/MAIN_MODULE.h"
 
 /* -------------------------------------------------------
     Module Includes

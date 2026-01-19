@@ -12,7 +12,6 @@
 #include "stm32f407xx.h"
 
 /* Module Includes */
-#include "daq.h"
 #include "main.h"
 #include "orion.h"
 #include "tmu.h"
@@ -89,9 +88,6 @@ extern uint8_t orion_error;
 
 extern uint32_t can_mbx_last_send_time[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
 
-bool bms_daq_override = false;
-bool bms_daq_stat     = false;
-
 void PHAL_FaultHandler();
 extern void HardFault_Handler();
 
@@ -157,13 +153,6 @@ int main(void) {
     CAN_library_init();
     orionInit();
 
-    bms_daq_override = false;
-    bms_daq_stat     = false;
-
-    if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO])) {
-        HardFault_Handler();
-    }
-
     /* Module init */
     schedInit(APB1ClockRateHz * 2); // See Datasheet DS11451 Figure. 4 for clock tree
 
@@ -175,7 +164,6 @@ int main(void) {
     taskCreate(orionChargePeriodic, 50);
     taskCreate(heartBeatTask, 100);
     taskCreate(sendhbmsg, 500);
-    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(readCurrents, 50);
     taskCreateBackground(CAN_tx_update);
     taskCreateBackground(CAN_rx_update);
@@ -270,16 +258,11 @@ void monitorStatus() {
 
     //    PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, !bms_err);
 
-    if (bms_daq_override | tmu_daq_override)
-        PHAL_toggleGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin);
-    else
-        PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err);
+    PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err);
 
     setFault(ID_IMD_FAULT, imd_err);
 
     uint8_t stat = bms_err | tmu_err;
-    if (bms_daq_override)
-        stat = bms_daq_stat;
     PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, stat);
 }
 

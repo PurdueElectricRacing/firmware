@@ -60,7 +60,7 @@ set(COMMON_MODULES
     common/common_defs
     common/log
     common/faults
-    common/daq
+    # common/daq
     common/amk
     common/modules/wheel_speeds
     common/syscalls

@@ -120,10 +120,7 @@ def generate_node_header(node: Node, bus_configs: Dict, custom_types: Dict, mapp
             f.write("// System IDs\n")
             for name, val in sorted(node.system_ids.items()):
                 # Determine primary macro name
-                if name.startswith("daq_response"):
-                    bus_name = name.replace("daq_response_", "").upper()
-                    macro_name = f"ID_DAQ_RESPONSE_{node.macro_name}_{bus_name}"
-                elif name == "fault_sync":
+                if name == "fault_sync":
                     macro_name = f"ID_FAULT_SYNC_{node.macro_name}"
                 else:
                     macro_name = f"ID_{name.upper()}_{node.macro_name}"

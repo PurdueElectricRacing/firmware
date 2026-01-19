@@ -18,6 +18,7 @@
 #include <stdint.h>
 
 #include "common/freertos/freertos.h"
+#include "common/phal/can.h"
 #include "daq_eth.h"
 #include "daq_sd.h"
 #include "ff.h"
@@ -74,5 +75,6 @@ void daq_hub_init(void);
 void daq_create_threads(void);
 void uds_receive_periodic(void);
 void daq_shutdown_hook(void);
+void rtc_config_cb(CanMsgTypeDef_t*);
 
 #endif // _DAQ_HUB_H_

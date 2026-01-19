@@ -132,3 +132,7 @@ void daq_shutdown_hook(void) {
     // Hooray, we made it, blink an LED to show the world
     PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
 }
+
+void rtc_config_cb(CanMsgTypeDef_t *msg) {
+    
+}

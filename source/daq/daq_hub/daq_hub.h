@@ -21,6 +21,7 @@
 #include "common/phal/can.h"
 #include "daq_eth.h"
 #include "daq_sd.h"
+#include "daq_rtc_config.h"
 #include "ff.h"
 #include "sdio.h"
 
@@ -40,6 +41,7 @@ typedef struct
 {
     // Ethernet
     eth_state_t eth_state;
+    rtc_config_state_t rtc_config_state;
     eth_tcp_state_t eth_tcp_state;
     uint32_t eth_error_ct;
     eth_error_t eth_last_err;
@@ -75,6 +77,5 @@ void daq_hub_init(void);
 void daq_create_threads(void);
 void uds_receive_periodic(void);
 void daq_shutdown_hook(void);
-void rtc_config_cb(CanMsgTypeDef_t*);
 
 #endif // _DAQ_HUB_H_

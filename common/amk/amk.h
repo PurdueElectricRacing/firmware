@@ -31,7 +31,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "common/faults/faults.h"
+#include "common/faults/faults_common.h"
 #include "common/can_library/can_common.h"
 
 /* -------------------------------------------------------
@@ -105,8 +105,8 @@ typedef struct
     uint32_t error_info_2; /* Inverter-Reported Error Part 2 */
     uint32_t error_info_3; /* Inverter-Reported Error Part 3 */
     bool* pchg_complete; /* Pointer to the car's precharge status */
-    int stale_fault_id; /* Stale CAN fault ID */
-    int error_fault_id; /* Error CAN fault ID */
+    fault_index_t stale_fault_id; /* Stale CAN fault ID */
+    fault_index_t error_fault_id; /* Error CAN fault ID */
 
 } amk_motor_t;
 

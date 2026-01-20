@@ -1,10 +1,7 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
-#include "common/faults/fault_nodes.h"
 #include "common/phal_L4/can/can.h"
-
-#define FAULT_NODE_NAME NODE_TEST
 
 // Inputs
 #define BUTTON_1_Pin       (8)

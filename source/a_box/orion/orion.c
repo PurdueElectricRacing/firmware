@@ -2,8 +2,8 @@
 
 #include <stdbool.h>
 
-#include "A_BOX.h"
-#include "common/faults/faults.h"
+#include "common/can_library/generated/A_BOX.h"
+#include "common/faults/faults_common.h"
 #include "common_defs.h"
 
 uint8_t charge_request_user          = false; // Enable charge algo
@@ -21,30 +21,30 @@ bool orionErrors() {
     static uint8_t counter;
     bool bms_err = false;
 
-    setFault(ID_DISCHARGE_LIMIT_ENFORCE_FAULT, can_data.orion_errors.discharge_limit_enforce | can_data.orion_errors_charger.discharge_limit_enforce);
-    setFault(ID_CHARGER_SAFETY_RELAY_FAULT, can_data.orion_errors.charger_safety_relay | can_data.orion_errors_charger.charger_safety_relay);
-    setFault(ID_INTERNAL_HARDWARE_FAULT, can_data.orion_errors.internal_hardware | can_data.orion_errors_charger.internal_hardware);
-    setFault(ID_HEATSINK_THERMISTOR_FAULT, can_data.orion_errors.heatsink_thermistor | can_data.orion_errors_charger.heatsink_thermistor);
-    setFault(ID_SOFTWARE_FAULT, can_data.orion_errors.software | can_data.orion_errors_charger.software);
-    setFault(ID_MAX_CELLV_HIGH_FAULT, can_data.orion_errors.max_cellv_high | can_data.orion_errors_charger.max_cellv_high);
-    setFault(ID_MIN_CELLV_LOW_FAULT, can_data.orion_errors.min_cellv_low | can_data.orion_errors_charger.min_cellv_low);
-    setFault(ID_PACK_OVERHEAT_ORION_FAULT, can_data.orion_errors.pack_overheat | can_data.orion_errors_charger.pack_overheat);
-    setFault(ID_INTERNAL_COMMS_FAULT, can_data.orion_errors.internal_comms | can_data.orion_errors_charger.internal_comms);
-    setFault(ID_CELL_BALANCING_FOFF_FAULT, can_data.orion_errors.cell_balancing_foff | can_data.orion_errors_charger.cell_balancing_foff);
-    setFault(ID_WEAK_CELL_FAULT, can_data.orion_errors.weak_cell | can_data.orion_errors_charger.weak_cell);
-    setFault(ID_LOW_CELLV_FAULT, can_data.orion_errors.low_cellv | can_data.orion_errors_charger.low_cellv);
-    setFault(ID_OPEN_WIRE_FAULT, can_data.orion_errors.open_wire | can_data.orion_errors_charger.open_wire);
-    setFault(ID_CURRENT_SENSOR_FAULT, can_data.orion_errors.current_sensor | can_data.orion_errors_charger.current_sensor);
-    setFault(ID_MAX_CELLV_O5V_FAULT, can_data.orion_errors.max_cellv_o5v | can_data.orion_errors_charger.max_cellv_o5v);
-    setFault(ID_CELL_ASIC_FAULT, can_data.orion_errors.cell_asic | can_data.orion_errors_charger.cell_asic);
-    setFault(ID_WEAK_PACK_FAULT, can_data.orion_errors.weak_pack | can_data.orion_errors_charger.weak_pack);
-    setFault(ID_FAN_MONITOR_FAULT, can_data.orion_errors.fan_monitor | can_data.orion_errors_charger.fan_monitor);
-    setFault(ID_THERMISTOR_FAULT, can_data.orion_errors.thermistor | can_data.orion_errors_charger.thermistor);
-    setFault(ID_EXTERNAL_COMMS_FAULT, can_data.orion_errors.external_comms | can_data.orion_errors_charger.external_comms);
-    setFault(ID_REDUNDANT_PSU_FAULT, can_data.orion_errors.redundant_psu | can_data.orion_errors_charger.redundant_psu);
-    setFault(ID_HV_ISOLATION_FAULT, can_data.orion_errors.hv_isolation | can_data.orion_errors_charger.hv_isolation);
-    setFault(ID_INPUT_PSU_FAULT, can_data.orion_errors.input_psu | can_data.orion_errors_charger.input_psu);
-    setFault(ID_CHARGE_LIMIT_ENFORCE_FAULT, can_data.orion_errors.charge_limit_enforce | can_data.orion_errors_charger.charge_limit_enforce);
+    set_fault(FAULT_INDEX_A_BOX_DISCHARGE_LIMIT_ENFORCE, can_data.orion_errors.discharge_limit_enforce | can_data.orion_errors_charger.discharge_limit_enforce);
+    set_fault(FAULT_INDEX_A_BOX_CHARGER_SAFETY_RELAY, can_data.orion_errors.charger_safety_relay | can_data.orion_errors_charger.charger_safety_relay);
+    set_fault(FAULT_INDEX_A_BOX_INTERNAL_HARDWARE, can_data.orion_errors.internal_hardware | can_data.orion_errors_charger.internal_hardware);
+    set_fault(FAULT_INDEX_A_BOX_HEATSINK_THERMISTOR, can_data.orion_errors.heatsink_thermistor | can_data.orion_errors_charger.heatsink_thermistor);
+    set_fault(FAULT_INDEX_A_BOX_SOFTWARE, can_data.orion_errors.software | can_data.orion_errors_charger.software);
+    set_fault(FAULT_INDEX_A_BOX_MAX_CELLV_HIGH, can_data.orion_errors.max_cellv_high | can_data.orion_errors_charger.max_cellv_high);
+    set_fault(FAULT_INDEX_A_BOX_MIN_CELLV_LOW, can_data.orion_errors.min_cellv_low | can_data.orion_errors_charger.min_cellv_low);
+    set_fault(FAULT_INDEX_A_BOX_PACK_OVERHEAT_ORION, can_data.orion_errors.pack_overheat | can_data.orion_errors_charger.pack_overheat);
+    set_fault(FAULT_INDEX_A_BOX_INTERNAL_COMMS, can_data.orion_errors.internal_comms | can_data.orion_errors_charger.internal_comms);
+    set_fault(FAULT_INDEX_A_BOX_CELL_BALANCING_FOFF, can_data.orion_errors.cell_balancing_foff | can_data.orion_errors_charger.cell_balancing_foff);
+    set_fault(FAULT_INDEX_A_BOX_WEAK_CELL, can_data.orion_errors.weak_cell | can_data.orion_errors_charger.weak_cell);
+    set_fault(FAULT_INDEX_A_BOX_LOW_CELLV, can_data.orion_errors.low_cellv | can_data.orion_errors_charger.low_cellv);
+    set_fault(FAULT_INDEX_A_BOX_OPEN_WIRE, can_data.orion_errors.open_wire | can_data.orion_errors_charger.open_wire);
+    set_fault(FAULT_INDEX_A_BOX_CURRENT_SENSOR, can_data.orion_errors.current_sensor | can_data.orion_errors_charger.current_sensor);
+    set_fault(FAULT_INDEX_A_BOX_MAX_CELLV_O5V, can_data.orion_errors.max_cellv_o5v | can_data.orion_errors_charger.max_cellv_o5v);
+    set_fault(FAULT_INDEX_A_BOX_CELL_ASIC, can_data.orion_errors.cell_asic | can_data.orion_errors_charger.cell_asic);
+    set_fault(FAULT_INDEX_A_BOX_WEAK_PACK, can_data.orion_errors.weak_pack | can_data.orion_errors_charger.weak_pack);
+    set_fault(FAULT_INDEX_A_BOX_FAN_MONITOR, can_data.orion_errors.fan_monitor | can_data.orion_errors_charger.fan_monitor);
+    set_fault(FAULT_INDEX_A_BOX_THERMISTOR, can_data.orion_errors.thermistor | can_data.orion_errors_charger.thermistor);
+    set_fault(FAULT_INDEX_A_BOX_EXTERNAL_COMMS, can_data.orion_errors.external_comms | can_data.orion_errors_charger.external_comms);
+    set_fault(FAULT_INDEX_A_BOX_REDUNDANT_PSU, can_data.orion_errors.redundant_psu | can_data.orion_errors_charger.redundant_psu);
+    set_fault(FAULT_INDEX_A_BOX_HV_ISOLATION, can_data.orion_errors.hv_isolation | can_data.orion_errors_charger.hv_isolation);
+    set_fault(FAULT_INDEX_A_BOX_INPUT_PSU, can_data.orion_errors.input_psu | can_data.orion_errors_charger.input_psu);
+    set_fault(FAULT_INDEX_A_BOX_CHARGE_LIMIT_ENFORCE, can_data.orion_errors.charge_limit_enforce | can_data.orion_errors_charger.charge_limit_enforce);
 
     // Require dtc to be held high 4x before signaling error
     counter = (can_data.orion_info.dtc_status | can_data.orion_info_charger.dtc_status) ? counter + 1 : 0;
@@ -76,7 +76,7 @@ void orionChargePeriodic() {
     orion_charger_status = can_data.orion_info_charger.is_charging && !can_data.orion_info_charger.stale;
 
     charge_request_user &= !can_data.elcon_charger_status.stale;
-    if (charge_request_user && orion_charger_status && !orionErrors() && !errorLatched() && !fatalLatched()) {
+    if (charge_request_user && orion_charger_status && !orionErrors() && !warning_latched() && !fatal_latched()) {
         elcon_charge_enable = true;
 
         //user_charge_current_request = 10;

@@ -59,7 +59,6 @@ set(COMMON_MODULES
     common/queue
     common/common_defs
     common/log
-    common/faults
     # common/daq
     common/amk
     common/modules/wheel_speeds

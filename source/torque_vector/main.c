@@ -5,10 +5,10 @@
 #include <string.h>
 
 #include "bmi088.h"
-#include "TORQUE_VECTOR.h"
+#include "common/can_library/generated/TORQUE_VECTOR.h"
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
-#include "common/faults/faults.h"
+#include "common/faults/faults_common.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "common/phal/spi.h"
@@ -268,7 +268,6 @@ void preflightChecks(void) {
             break;
         case 5:
             //PHAL_usartRxDma(&usb, rxbuffer, sizeof(rxbuffer), 1);
-            // initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
             break;
         case 6:
             /* BMI Initialization */
@@ -477,13 +476,13 @@ void VCU_MAIN(void) {
     vcu_step(&pVCU, &fVCU, &xVCU, &yVCU);
 
     /* Set VCU faults */
-    setFault(ID_ES_ENABLED_FAULT, (yVCU.VCU_mode == 0));
-    setFault(ID_ET_ENABLED_FAULT, (yVCU.VCU_mode == 1));
-    setFault(ID_PT_ENABLED_FAULT, (yVCU.VCU_mode == 2));
-    setFault(ID_VT_ENABLED_FAULT, (yVCU.VCU_mode == 3));
-    setFault(ID_VS_ENABLED_FAULT, (yVCU.VCU_mode == 4));
-    setFault(ID_NO_GPS_FIX_FAULT, (fVCU.GS_FFLAG < 3));
-    setFault(ID_YES_GPS_FIX_FAULT, (fVCU.GS_FFLAG == 3));
+    set_fault(FAULT_INDEX_TORQUE_VECTOR_ES_ENABLED, (yVCU.VCU_mode == 0));
+    set_fault(FAULT_INDEX_TORQUE_VECTOR_ET_ENABLED, (yVCU.VCU_mode == 1));
+    set_fault(FAULT_INDEX_TORQUE_VECTOR_PT_ENABLED, (yVCU.VCU_mode == 2));
+    set_fault(FAULT_INDEX_TORQUE_VECTOR_VT_ENABLED, (yVCU.VCU_mode == 3));
+    set_fault(FAULT_INDEX_TORQUE_VECTOR_VS_ENABLED, (yVCU.VCU_mode == 4));
+    set_fault(FAULT_INDEX_TORQUE_VECTOR_NO_GPS_FIX, (fVCU.GS_FFLAG < 3));
+    set_fault(FAULT_INDEX_TORQUE_VECTOR_YES_GPS_FIX, (fVCU.GS_FFLAG == 3));
 
     /* Send VCU messages */
     CAN_SEND_VCU_torques_speeds((int16_t)(100 * yVCU.TO_VT[0]), (int16_t)(100 * yVCU.TO_VT[1]), (int16_t)(100 * yVCU.TO_PT[0]), (int8_t)(yVCU.VCU_mode));

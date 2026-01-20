@@ -2,8 +2,8 @@
 //#include "common/phal/flash.h"
 #include <stdint.h>
 
-#include "DASHBOARD.h"
-#include "common/faults/faults.h"
+#include "common/can_library/generated/DASHBOARD.h"
+#include "common/faults/faults_common.h"
 #include "common/phal/gpio.h"
 #include "common_defs.h"
 #include "main.h"
@@ -76,9 +76,9 @@ void pedalsPeriodic(void) {
     b2_raw = raw_adc_values.b2;
 
     // Check for wiring faults
-    setFault(ID_APPS_WIRING_T1_FAULT, t1_raw);
-    setFault(ID_APPS_WIRING_T2_FAULT, t2_raw);
-    setFault(ID_BSE_FAULT, PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin));
+    set_fault(FAULT_INDEX_DASHBOARD_APPS_WIRING_T1, t1_raw);
+    set_fault(FAULT_INDEX_DASHBOARD_APPS_WIRING_T2, t2_raw);
+    set_fault(FAULT_INDEX_DASHBOARD_BSE, PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin));
 
     // Hard clamp the raw values to the min and max values to account for physical limits
     uint16_t t1_clamped = CLAMP(t1_raw, pedal_calibration.t1_min, pedal_calibration.t1_max);
@@ -93,17 +93,17 @@ void pedalsPeriodic(void) {
     b2_final = normalize(b2_clamped, pedal_calibration.b2_min, pedal_calibration.b2_max);
 
     // If both pedals are pressed, set a fault
-    if ((b1_final >= APPS_BRAKE_THRESHOLD && t1_final >= APPS_THROTTLE_FAULT_THRESHOLD) || (checkFault(ID_APPS_BRAKE_FAULT) && t1_final >= APPS_THROTTLE_CLEARFAULT_THRESHOLD)) {
+    if ((b1_final >= APPS_BRAKE_THRESHOLD && t1_final >= APPS_THROTTLE_FAULT_THRESHOLD) || (is_latched(FAULT_INDEX_DASHBOARD_APPS_BRAKE) && t1_final >= APPS_THROTTLE_CLEARFAULT_THRESHOLD)) {
         // Set APPS to 0
         t2_final = 0;
         t1_final = 0;
-        setFault(ID_APPS_BRAKE_FAULT, true);
+        set_fault(FAULT_INDEX_DASHBOARD_APPS_BRAKE, 1);
     } else if (t1_final <= APPS_THROTTLE_CLEARFAULT_THRESHOLD) { // Clear fault if throttle is released
-        setFault(ID_APPS_BRAKE_FAULT, false);
+        set_fault(FAULT_INDEX_DASHBOARD_APPS_BRAKE, 0);
     }
 
     // Check for APPS sensor deviations (10%)
-    setFault(ID_IMPLAUS_DETECTED_FAULT, ABS((int16_t)t1_final - (int16_t)t2_final));
+    set_fault(FAULT_INDEX_DASHBOARD_IMPLAUS_DETECTED, ABS((int16_t)t1_final - (int16_t)t2_final));
 
     // Update the pedal values for external use
     pedal_values.throttle = t1_final;

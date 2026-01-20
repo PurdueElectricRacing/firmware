@@ -15,7 +15,7 @@
 
 #include "MAIN.h"
 #include "common/amk/amk.h"
-#include "common/faults/faults.h"
+#include "common/faults/faults_common.h"
 #include "common/phal/gpio.h"
 #include "common/psched/psched.h"
 #include "cooling.h"

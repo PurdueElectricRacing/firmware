@@ -13,10 +13,7 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-#include "common/faults/fault_nodes.h"
 #include "common/phal/can.h"
-
-#define FAULT_NODE_NAME NODE_MAIN_MODULE
 
 #define DIS_VOLT_DIAG_GPIO_Port (GPIOC)
 #define DIS_VOLT_DIAG_GPIO_Pin  (4)

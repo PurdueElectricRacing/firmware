@@ -11,7 +11,7 @@
 #ifndef _COOLING_H_
 #define _COOLING_H_
 
-#include "PDU.h"
+#include "common/can_library/generated/PDU.h"
 
 #define GPS_SPEED_MOVING          2 // TODO determine
 #define MOTOR_COOLING_ENABLE_TEMP 60

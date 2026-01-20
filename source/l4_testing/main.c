@@ -257,8 +257,6 @@ int main(void) {
     //     HardFault_Handler();
     // }
 
-    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can_0, ID_FAULT_SYNC_TEST_NODE);
-
     /* Task Creation */
     schedInit(APB1ClockRateHz);
     // taskCreate(usartTXTest, 1000);

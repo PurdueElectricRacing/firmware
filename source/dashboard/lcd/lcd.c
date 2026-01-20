@@ -5,8 +5,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "DASHBOARD.h"
-#include "common/faults/faults.h"
+#include "common/can_library/generated/DASHBOARD.h"
+#include "common/faults/faults_common.h"
 #include "common_defs.h"
 #include "main.h"
 #include "menu_system.h"
@@ -85,7 +85,7 @@ void calibrationTelemetryUpdate();
 
 // Utility Functions
 void updateSDCStatus(uint8_t status, char* element);
-void setFaultIndicator(uint16_t fault, char* element);
+void set_faultIndicator(uint16_t fault, char* element);
 
 // Page handlers array stored in flash
 const page_handler_t page_handlers[] = {
@@ -619,98 +619,8 @@ void sendLoggingParameters() {
  * screen according to fault priorities and display timing requirements.
  */
 void updateFaultDisplay() {
-    if ((curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL)) {
-        fault_time_displayed++;
-        uint8_t fault_time_percentage = (uint8_t)(100 - (fault_time_displayed / 8.0) * 100);
-        NXT_setValue(TIME_BAR, fault_time_percentage);
-        lcdTxUpdate();
-
-        if (fault_time_displayed > 8) { // reset after 8 cycles
-            fault_time_displayed = 0;
-
-            curr_page = prev_page;
-            prev_page = PAGE_PREFLIGHT;
-            updatePage();
-            lcdTxUpdate();
-            return;
-        }
-    } else {
-        fault_time_displayed = 0; // reset if not on error page
-    }
-
-    // No new fault to display
-    if (qIsEmpty(&q_fault_history) && (most_recent_latched == 0xFFFF)) {
-        return;
-    }
-
-    // Track if we alrady have this fault in the display buffer
-    bool pageUpdateRequired = false;
-
-    // Process up to 5 faults each time for now
-    for (int i = 0; i < 5; i++) {
-        uint16_t next_to_check = 0xFFFF;
-
-        if (!qReceive(&q_fault_history, &next_to_check)) { // Break out if issue or the queue is empty
-            break;
-        }
-
-        // Iterate through fault buffer for existance of fault already
-        bool faultAlreadyInBuffer = false;
-        for (int j = 0; j < 5; j++) {
-            // This should be based off of the queue item not anything else
-            if (fault_buf[j] == next_to_check) {
-                faultAlreadyInBuffer = true;
-                break;
-            }
-        }
-
-        if (faultAlreadyInBuffer) {
-            continue;
-        }
-
-        // Try all the slots for inserting the fault
-        bool faultWasInserted = false;
-        for (uint8_t k = 0; k < 5; k++) {
-            // If fault is currently not in our fault buffer, replace it if the
-            // current fault is cleared,
-            //  or if the new fault has higher priority
-            if (fault_buf[cur_fault_buf_ndx] != 0xFFFF) {
-                if ((checkFault(fault_buf[cur_fault_buf_ndx]) == false) || (faultArray[next_to_check].priority > faultArray[fault_buf[cur_fault_buf_ndx]].priority)) {
-                    fault_buf[cur_fault_buf_ndx] = next_to_check;
-                    faultWasInserted             = true;
-                    pageUpdateRequired           = true;
-                    break;
-                }
-            } else {
-                // Empty slot just insert
-                fault_buf[cur_fault_buf_ndx] = next_to_check;
-                faultWasInserted             = true;
-                pageUpdateRequired           = true;
-                break;
-            }
-            cur_fault_buf_ndx = (cur_fault_buf_ndx + 1) % 5;
-        }
-
-        // Put back in the queue if it wasn't processed
-        if (!faultWasInserted) {
-            qSendToBack(&q_fault_history, &next_to_check);
-        }
-    }
-
-    // Set the alert page to show based on most_recent_latched
-    if ((most_recent_latched != 0xFFFF)) {
-        curr_page          = faultArray[most_recent_latched].priority + PAGE_WARNING;
-        errorText          = faultArray[most_recent_latched].screen_MSG;
-        pageUpdateRequired = true;
-    }
-
-    // Update page if required
-    if (pageUpdateRequired) {
-        updatePage();
-    }
-
-    // Await next fault
-    most_recent_latched = 0xFFFF;
+    // ! TODO Reimplement this function using the new fault library
+    return;
 }
 
 /**
@@ -721,11 +631,11 @@ void faultTelemetryUpdate() {
         return;
     }
 
-    setFaultIndicator(fault_buf[0], FAULT1_TXT);
-    setFaultIndicator(fault_buf[1], FAULT2_TXT);
-    setFaultIndicator(fault_buf[2], FAULT3_TXT);
-    setFaultIndicator(fault_buf[3], FAULT4_TXT);
-    setFaultIndicator(fault_buf[4], FAULT5_TXT);
+    set_faultIndicator(fault_buf[0], FAULT1_TXT);
+    set_faultIndicator(fault_buf[1], FAULT2_TXT);
+    set_faultIndicator(fault_buf[2], FAULT3_TXT);
+    set_faultIndicator(fault_buf[3], FAULT4_TXT);
+    set_faultIndicator(fault_buf[4], FAULT5_TXT);
 }
 
 /**
@@ -744,7 +654,7 @@ void sdcTelemetryUpdate() {
     if (update_group) {
         updateSDCStatus(can_data.precharge_hb.IMD, SDC_IMD_STAT_TXT); // IMD from ABOX
         updateSDCStatus(can_data.precharge_hb.BMS, SDC_BMS_STAT_TXT);
-        updateSDCStatus(!checkFault(ID_BSPD_LATCHED_FAULT), SDC_BSPD_STAT_TXT);
+        updateSDCStatus(!is_latched(FAULT_INDEX_DASHBOARD_BSPD), SDC_BSPD_STAT_TXT);
         updateSDCStatus(can_data.sdc_status.BOTS, SDC_BOTS_STAT_TXT);
         updateSDCStatus(can_data.sdc_status.inertia, SDC_INER_STAT_TXT);
         updateSDCStatus(can_data.sdc_status.c_estop, SDC_CSTP_STAT_TXT);
@@ -977,31 +887,31 @@ void updateFaultMessages() {
     if (fault_buf[0] == 0xFFFF) {
         NXT_setText(FAULT1_TXT, FAULT_NONE_STRING);
     } else {
-        NXT_setText(FAULT1_TXT, faultArray[fault_buf[0]].screen_MSG);
+        // NXT_setText(FAULT1_TXT, faultArray[fault_buf[0]].screen_MSG);
     }
 
     if (fault_buf[1] == 0xFFFF) {
         NXT_setText(FAULT2_TXT, FAULT_NONE_STRING);
     } else {
-        NXT_setText(FAULT2_TXT, faultArray[fault_buf[1]].screen_MSG);
+        // NXT_setText(FAULT2_TXT, faultArray[fault_buf[1]].screen_MSG);
     }
 
     if (fault_buf[2] == 0xFFFF) {
         NXT_setText(FAULT3_TXT, FAULT_NONE_STRING);
     } else {
-        NXT_setText(FAULT3_TXT, faultArray[fault_buf[2]].screen_MSG);
+        // NXT_setText(FAULT3_TXT, faultArray[fault_buf[2]].screen_MSG);
     }
 
     if (fault_buf[3] == 0xFFFF) {
         NXT_setText(FAULT4_TXT, FAULT_NONE_STRING);
     } else {
-        NXT_setText(FAULT4_TXT, faultArray[fault_buf[3]].screen_MSG);
+        // NXT_setText(FAULT4_TXT, faultArray[fault_buf[3]].screen_MSG);
     }
 
     if (fault_buf[4] == 0xFFFF) {
         NXT_setText(FAULT5_TXT, FAULT_NONE_STRING);
     } else {
-        NXT_setText(FAULT5_TXT, faultArray[fault_buf[4]].screen_MSG);
+        // NXT_setText(FAULT5_TXT, faultArray[fault_buf[4]].screen_MSG);
     }
 }
 
@@ -1037,7 +947,7 @@ void clearFault(int index) {
         return;
     }
 
-    if (checkFault(fault_buf[index])) { // Check if fault is not latched
+    if (is_latched(fault_buf[index])) { // Check if fault is not latched
         return;
     }
 
@@ -1243,13 +1153,13 @@ void loggingSelect() {
  * @param fault The fault code to check (0xFFFF indicates no fault)
  * @param element Pointer to the display element to be colored
  */
-void setFaultIndicator(uint16_t fault, char* element) {
+void set_faultIndicator(uint16_t fault, char* element) {
     if (fault == 0xFFFF) {
         NXT_setFontColor(element, WHITE);
         return;
     }
 
-    if (checkFault(fault)) {
+    if (is_latched(fault)) {
         NXT_setFontColor(element, RED);
     } else {
         NXT_setFontColor(element, GREEN);

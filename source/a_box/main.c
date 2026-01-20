@@ -1,8 +1,8 @@
 /* System Includes */
-#include "A_BOX.h"
+#include "common/can_library/generated/A_BOX.h"
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
-#include "common/faults/faults.h"
+#include "common/faults/faults_common.h"
 #include "common/phal/adc.h"
 #include "common/phal/can.h"
 #include "common/phal/dma.h"
@@ -162,7 +162,7 @@ int main(void) {
     taskCreate(heartBeatLED, 500);
     taskCreate(monitorStatus, 50);
     taskCreate(orionChargePeriodic, 50);
-    taskCreate(heartBeatTask, 100);
+    taskCreate(fault_library_periodic, 100);
     taskCreate(sendhbmsg, 500);
     taskCreate(readCurrents, 50);
     taskCreateBackground(CAN_tx_update);
@@ -184,7 +184,6 @@ void preflightChecks(void) {
             initTMU();
             break;
         case 1:
-            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_A_BOX);
             break;
         case 2:
             /* Initialize VCAN */
@@ -260,7 +259,7 @@ void monitorStatus() {
 
     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err);
 
-    setFault(ID_IMD_FAULT, imd_err);
+    set_fault(FAULT_INDEX_A_BOX_IMD, imd_err);
 
     uint8_t stat = bms_err | tmu_err;
     PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, stat);

@@ -16,7 +16,7 @@
 #include "common/amk/amk.h"
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
-#include "common/faults/faults.h"
+#include "common/faults/faults_common.h"
 #include "common/phal/adc.h"
 #include "common/phal/can.h"
 #include "common/phal/dma.h"
@@ -29,7 +29,7 @@
 /* -------------------------------------------------------
     Module Includes
 -------------------------------------------------------- */
-#include "can_router.h"
+#include "common/can_library/generated/can_router.h"
 #include "car.h"
 #include "cooling.h"
 #include "main.h"
@@ -189,7 +189,7 @@ int main(void) {
     taskCreate(carPeriodic, 15);
     taskCreate(interpretLoadSensor, 15);
     taskCreate(updateSDCFaults, 300);
-    taskCreate(heartBeatTask, 100);
+    taskCreate(fault_library_periodic, 100);
     taskCreate(send_shockpots, SHOCK_REAR_PERIOD_MS);
     taskCreate(update_lights, 500);
     taskCreate(parseMCDataPeriodic, 15);
@@ -271,7 +271,6 @@ void preflightChecks(void) {
             /* Lights off first */
             PHAL_writeGPIO(SAFE_STAT_G_GPIO_Port, SAFE_STAT_G_GPIO_Pin, 0);
             PHAL_writeGPIO(SAFE_STAT_R_GPIO_Port, SAFE_STAT_R_GPIO_Pin, 0);
-            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_MAIN_MODULE);
             break;
         case 6:
             for (uint8_t i = 0; i < SDC_MUX_HIGH_IDX; i++) {

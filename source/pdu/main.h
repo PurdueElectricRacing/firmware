@@ -14,10 +14,7 @@
 
 //STM32F407VGT6
 
-#include "common/faults/fault_nodes.h"
 #include "common/phal/can.h"
-
-#define FAULT_NODE_NAME NODE_PDU
 
 // Status Indicators
 #define ERR_LED_GPIO_Port   (GPIOC)

@@ -227,7 +227,6 @@ def generate_fault_header(context: SystemContext):
         f.write("#ifndef FAULT_DATA_H\n")
         f.write("#define FAULT_DATA_H\n\n")
         f.write("#include <stdint.h>\n")
-        f.write("#include <stdbool.h>\n")
         f.write("#include \"common/can_library/generated/can_types.h\"\n\n")
         
         # Determine if current node should have strings
@@ -297,6 +296,7 @@ def generate_fault_source(context: SystemContext):
 
         for module in context.fault_modules:
             f.write(f"// --- {module.node_name} Callbacks ---\n")
+            f.write(f"#ifndef CAN_NODE_{module.node_name.upper()}\n")
             
             # SYNC CALLBACK
             f.write(f"void {module.node_name.lower()}_fault_sync_CALLBACK(can_data_t* can_data) {{\n")
@@ -311,18 +311,23 @@ def generate_fault_source(context: SystemContext):
             f.write(f"\tif (idx < TOTAL_NUM_FAULTS) {{\n")
             f.write(f"\t\tfaults[idx].is_latched = (can_data->{module.node_name.lower()}_fault_event.state != 0);\n")
             f.write(f"\t}}\n")
-            f.write("}\n\n")
+            f.write("}\n")
+            f.write("#else\n")
+            f.write(f"void {module.node_name.lower()}_fault_sync_CALLBACK(can_data_t* can_data) {{ (void)can_data; }}\n")
+            f.write(f"void {module.node_name.lower()}_fault_event_CALLBACK(can_data_t* can_data) {{ (void)can_data; }}\n")
+            f.write("#endif\n\n")
 
         # TX Helpfer: tx_fault_sync
         f.write("// --- Transmission Helpers ---\n")
         f.write("void tx_fault_sync(void) {\n")
         for module in context.fault_modules:
             f.write(f"#ifdef CAN_NODE_{module.node_name.upper()}\n")
-            f.write(f"\tcan_data_t data = {{0}};\n")
-            for fault in module.faults:
+            f.write(f"\tCAN_SEND_{module.node_name.lower()}_fault_sync(\n")
+            for i, fault in enumerate(module.faults):
                 enum_val = f"FAULT_INDEX_{module.node_name.upper()}_{fault.name.upper()}"
-                f.write(f"\tdata.{module.node_name.lower()}_fault_sync.{fault.name} = faults[{enum_val}].is_latched;\n")
-            f.write(f"\tSEND_{module.node_name.upper()}_FAULT_SYNC(&data);\n")
+                comma = "," if i < len(module.faults) - 1 else ""
+                f.write(f"\t\tfaults[{enum_val}].is_latched{comma}\n")
+            f.write(f"\t);\n")
             f.write("#endif\n")
         f.write("}\n\n")
 
@@ -335,11 +340,7 @@ def generate_fault_source(context: SystemContext):
             
             f.write(f"#ifdef CAN_NODE_{module.node_name.upper()}\n")
             f.write(f"\tif (idx >= {f_start} && idx <= {f_end}) {{\n")
-            f.write(f"\t\tcan_data_t data = {{0}};\n")
-            f.write(f"\t\tdata.{module.node_name.lower()}_fault_event.idx = idx;\n")
-            f.write(f"\t\tdata.{module.node_name.lower()}_fault_event.state = faults[idx].is_latched;\n")
-            f.write(f"\t\tdata.{module.node_name.lower()}_fault_event.val = value;\n")
-            f.write(f"\t\tSEND_{module.node_name.upper()}_FAULT_EVENT(&data);\n")
+            f.write(f"\t\tCAN_SEND_{module.node_name.lower()}_fault_event(idx, faults[idx].is_latched, value);\n")
             f.write(f"\t}}\n")
             f.write("#endif\n")
         f.write("}\n")

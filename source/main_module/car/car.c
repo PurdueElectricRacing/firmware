@@ -5,6 +5,7 @@
 
 #include "wheel_speeds.h"
 #include "common/can_library/generated/MAIN_MODULE.h"
+#include "main.h"
 
 Car_t car;
 extern uint16_t num_failed_msgs_l, num_failed_msgs_r;
@@ -82,7 +83,7 @@ void carPeriodic() {
     car.sdc_close             = true;
 
     // TSMS/HVD Disconnecting is not an error, so go back to init state. However, we must keep fatal state latched
-    if (checkFault(ID_TSMS_DISC_FAULT) || checkFault(ID_HVD_DISC_FAULT) && car.state != CARSTATE_FATAL)
+    if (is_latched(FAULT_INDEX_MAIN_MODULE_TSMS_DISC) || is_latched(FAULT_INDEX_MAIN_MODULE_HVD_DISC) && car.state != CARSTATE_FATAL)
         car.state = CARSTATE_IDLE;
 
     /* Process Inputs */
@@ -127,19 +128,19 @@ void carPeriodic() {
         }
     }
 
-    if (checkFault(ID_RTD_EXIT_FAULT)) {
+    if (is_latched(FAULT_INDEX_MAIN_MODULE_RTD_EXIT)) {
         car.state = CARSTATE_IDLE;
     }
 
     // An error fault has higher priority
     // than the RTD Exit Fault
-    if (errorLatched()) {
+    if (error_latched()) {
         car.state = CARSTATE_ERROR;
     }
 
     // A fatal fault has higher priority
     // than an error fault
-    if (fatalLatched()) {
+    if (fatal_latched()) {
         car.state = CARSTATE_FATAL;
     }
 
@@ -164,7 +165,7 @@ void carPeriodic() {
     } else if (car.state == CARSTATE_ERROR) {
         // Error has occured, leave HV on but do not drive
         // Recover once error gone
-        if (!errorLatched())
+        if (!error_latched())
             car.state = CARSTATE_IDLE;
         prchg_start = false;
     } else if (car.state == CARSTATE_IDLE) {
@@ -228,12 +229,12 @@ void carPeriodic() {
             }
 
             if (car.torque_src == CAR_TORQUE_TV || car.torque_src == CAR_TORQUE_TV_TEST) {
-                setFault(ID_TV_STALE_FAULT, any_tv_msg_stale);
+                set_fault(FAULT_INDEX_MAIN_MODULE_TV_STALE, any_tv_msg_stale);
             }
 
             // Final check to see if we can run TV
             // Debounce TV stale (if TV goes in/out of being stale)
-            if (checkFault(ID_TV_STALE_FAULT)) {
+            if (is_latched(FAULT_INDEX_MAIN_MODULE_TV_STALE)) {
                 requested_tv_mode = VCU_MODE_INVALID;
             }
 
@@ -487,21 +488,21 @@ void updateSDCFaults() {
         switch (i) {
             case (SDC_C_STOP):
                 if (!sdc_mux.c_stop_stat && sdc_mux.inertia_stat) {
-                    setFault(ID_COCKPIT_ESTOP_FAULT, 1);
+                    set_fault(FAULT_INDEX_MAIN_MODULE_COCKPIT_ESTOP, 1);
                 } else {
-                    setFault(ID_COCKPIT_ESTOP_FAULT, 0);
+                    set_fault(FAULT_INDEX_MAIN_MODULE_COCKPIT_ESTOP, 0);
                 }
                 break;
             case (SDC_INERTIA):
                 if (!sdc_mux.inertia_stat && sdc_mux.bots_stat) {
-                    setFault(ID_INERTIA_FAIL_FAULT, 1);
+                    set_fault(FAULT_INDEX_MAIN_MODULE_INERTIA_FAIL, 1);
                 } else {
-                    setFault(ID_INERTIA_FAIL_FAULT, 0);
+                    set_fault(FAULT_INDEX_MAIN_MODULE_INERTIA_FAIL, 0);
                 }
                 break;
             case (SDC_BOTS):
                 //If bots is down, we need to check whether BOTS was tripped or BSPD was tripped
-                // if (!sdc_mux.bots_stat && !checkFault(ID_IMD_FAULT) && (PHAL_readGPIO(BMS_STAT_GPIO_Port, BMS_STAT_Pin) || can_data.orion_currents_volts.stale))
+                // if (!sdc_mux.bots_stat && !is_latched(FAULT_INDEX_A_BOX_IMD) && (PHAL_readGPIO(BMS_STAT_GPIO_Port, BMS_STAT_Pin) || can_data.orion_currents_volts.stale))
                 // {
                 //     int32_t total_current = 0;
                 //     for (int16_t i = 0; i < NUM_HIST_BSPD; i++)
@@ -510,51 +511,51 @@ void updateSDCFaults() {
                 //     }
                 //     if (total_current > 5000)
                 //     {
-                //         setFault(ID_BSPD_LATCHED_FAULT, 1);
+                //         set_fault(FAULT_INDEX_MAIN_MODULE_BSPD_LATCHED, 1);
                 //     }
                 //     else if (brake_fail)
-                //         setFault(ID_BSPD_LATCHED_FAULT, 1);
+                //         set_fault(FAULT_INDEX_MAIN_MODULE_BSPD_LATCHED, 1);
                 //     else
-                //         setFault(ID_BOTS_FAIL_FAULT, 1);
+                //         set_fault(FAULT_INDEX_MAIN_MODULE_BOTS_FAIL, 1);
                 // }
-                // else if (checkFault(ID_BOTS_FAIL_FAULT) && sdc_mux.bots_stat)
+                // else if (is_latched(FAULT_INDEX_MAIN_MODULE_BOTS_FAIL) && sdc_mux.bots_stat)
                 // {
-                //     setFault(ID_BOTS_FAIL_FAULT, 0);
+                //     set_fault(FAULT_INDEX_MAIN_MODULE_BOTS_FAIL, 0);
                 // }
                 break;
             case (SDC_L_STOP):
                 if (!sdc_mux.l_stop_stat && sdc_mux.r_stop_stat) {
-                    setFault(ID_LEFT_ESTOP_FAULT, 1);
+                    set_fault(FAULT_INDEX_MAIN_MODULE_LEFT_ESTOP, 1);
                 } else {
-                    setFault(ID_LEFT_ESTOP_FAULT, 0);
+                    set_fault(FAULT_INDEX_MAIN_MODULE_LEFT_ESTOP, 0);
                 }
                 break;
             case (SDC_R_STOP):
                 if (!sdc_mux.r_stop_stat && sdc_mux.main_stat) {
-                    setFault(ID_RIGHT_ESTOP_FAULT, 1);
+                    set_fault(FAULT_INDEX_MAIN_MODULE_RIGHT_ESTOP, 1);
                 } else {
-                    setFault(ID_RIGHT_ESTOP_FAULT, 0);
+                    set_fault(FAULT_INDEX_MAIN_MODULE_RIGHT_ESTOP, 0);
                 }
                 break;
             case (SDC_HVD):
                 if (!sdc_mux.hvd_stat && sdc_mux.l_stop_stat) {
-                    setFault(ID_HVD_DISC_FAULT, 1);
+                    set_fault(FAULT_INDEX_MAIN_MODULE_HVD_DISC, 1);
                 } else {
-                    setFault(ID_HVD_DISC_FAULT, 0);
+                    set_fault(FAULT_INDEX_MAIN_MODULE_HVD_DISC, 0);
                 }
                 break;
             case (SDC_HUB):
                 if (!sdc_mux.r_hub_stat && sdc_mux.hvd_stat) {
-                    setFault(ID_HUB_DISC_FAULT, 1);
+                    set_fault(FAULT_INDEX_MAIN_MODULE_HUB_DISC, 1);
                 } else {
-                    setFault(ID_HUB_DISC_FAULT, 0);
+                    set_fault(FAULT_INDEX_MAIN_MODULE_HUB_DISC, 0);
                 }
                 break;
             case (SDC_TSMS):
                 if (!sdc_mux.tsms_stat && sdc_mux.r_hub_stat) {
-                    setFault(ID_TSMS_DISC_FAULT, 1);
+                    set_fault(FAULT_INDEX_MAIN_MODULE_TSMS_DISC, 1);
                 } else {
-                    setFault(ID_TSMS_DISC_FAULT, 0);
+                    set_fault(FAULT_INDEX_MAIN_MODULE_TSMS_DISC, 0);
                 }
                 break;
         }
@@ -591,7 +592,7 @@ void update_lights(void) {
     bool unsafe_condition_detected = false;
 
     // Software checks for IMD or BMS fault
-    unsafe_condition_detected |= checkFault(ID_HV_ISOLATION_FAULT);
+    unsafe_condition_detected |= is_latched(FAULT_INDEX_A_BOX_HV_ISOLATION);
     unsafe_condition_detected |= can_data.orion_info.dtc_status;
 
     // Hardware checks for IMD or BMS fault

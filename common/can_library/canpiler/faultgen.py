@@ -149,7 +149,7 @@ def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], b
             desc=f"Immediate fault event signal for {node.name}",
             priority=0,
             signals=[
-                Signal(name="idx", datatype="uint16_t", desc="Global Fault Index"),
+                Signal(name="idx", datatype="fault_index_t", desc="Global Fault Index"),
                 Signal(name="state", datatype="bool", desc="Latch State (0=unlatched, 1=latched)"),
                 Signal(name="val", datatype="uint16_t", desc="Trigger Value")
             ]

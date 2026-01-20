@@ -26,7 +26,7 @@ bool set_fault(fault_index_t idx, uint16_t value) {
 
     bool current_out_of_bounds = (value >= attr->max_value || value < attr->min_value);
 
-    uint32_t now = sched.os_ticks;
+    uint32_t now = OS_TICKS;
 
     if (current_out_of_bounds) {
         if (!status->temp_state) {

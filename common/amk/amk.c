@@ -27,11 +27,13 @@
  *
  */
 
-void amkInit(amk_motor_t* motor, bool* pchg_complete, uint8_t id) {
+void amkInit(amk_motor_t* motor, bool* pchg_complete, uint8_t id, fault_index_t stale_fault_id, fault_index_t error_fault_id) {
     *motor = (amk_motor_t) {
         .state                  = AMK_STATE_OFF,
         .pchg_complete          = pchg_complete,
         .id                     = id,
+        .stale_fault_id         = stale_fault_id,
+        .error_fault_id         = error_fault_id,
         .torque_set_ppt_nom     = ZERO_DECI_NM,
         .torque_lim_pos_ppt_nom = DEFAULT_POSITIVE_TORQUE_LIMIT,
         .torque_lim_neg_ppt_nom = DEFAULT_NEGATIVE_TORQUE_LIMIT,};

@@ -110,7 +110,7 @@ typedef struct
 
 } amk_motor_t;
 
-void amkInit(amk_motor_t* motor, bool* pchg_complete, uint8_t id);
+void amkInit(amk_motor_t* motor, bool* pchg_complete, uint8_t id, fault_index_t stale_fault_id, fault_index_t error_fault_id);
 void amkPeriodic(amk_motor_t* motor);
 void amkSetTorque(amk_motor_t* motor, int16_t torque_setpoint);
 

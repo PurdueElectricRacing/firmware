@@ -51,8 +51,8 @@ bool carInit() {
     const_tq_val    = 0;
     hist_curr_idx   = 0;
     enableAMKs      = false;
-    amkInit(&car.motor_l, &enableAMKs, INVA_ID);
-    amkInit(&car.motor_r, &enableAMKs, INVB_ID);
+    amkInit(&car.motor_l, &enableAMKs, INVA_ID, FAULT_INDEX_MAIN_MODULE_LEFT_MC_CONN, FAULT_INDEX_MAIN_MODULE_LEFT_MC_ERROR);
+    amkInit(&car.motor_r, &enableAMKs, INVB_ID, FAULT_INDEX_MAIN_MODULE_RIGHT_MC_CONN, FAULT_INDEX_MAIN_MODULE_RIGHT_MC_ERROR);
 
     PHAL_writeGPIO(SDC_MUX_S0_GPIO_Port, SDC_MUX_S0_Pin, 0);
     PHAL_writeGPIO(SDC_MUX_S1_GPIO_Port, SDC_MUX_S1_Pin, 0);

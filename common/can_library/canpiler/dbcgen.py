@@ -37,6 +37,17 @@ def generate_dbcs(context: SystemContext):
             sorted_signals = sorted(msg.signals, key=lambda x: x.bit_offset)
             
             for sig in sorted_signals:
+                # Resolve choices (enums) for VAL_ table in DBC
+                choices = None
+                if sig.choices:
+                    choices = {i: c for i, c in enumerate(sig.choices)}
+                elif sig.datatype in context.custom_types:
+                    type_info = context.custom_types[sig.datatype]
+                    if 'choices' in type_info:
+                        choices = {i: c for i, c in enumerate(type_info['choices'])}
+                elif sig.datatype == 'bool':
+                    choices = {0: "OFF", 1: "ON"}
+
                 signals.append(db.Signal(
                     name=sig.name,
                     start=sig.bit_offset,
@@ -49,7 +60,8 @@ def generate_dbcs(context: SystemContext):
                     minimum=sig.min_val,
                     maximum=sig.max_val,
                     unit=sig.unit if sig.unit else "",
-                    comment=sig.desc
+                    comment=sig.desc,
+                    choices=choices
                 ))
             
             # Use pre-calculated sender mapping

@@ -6,7 +6,7 @@ Author: Irving Wang (irvingw@purdue.edu)
 
 from parser import SystemContext
 from cantools import db
-from utils import DBC_DIR, print_as_success, print_as_ok, get_git_hash
+from utils import DBC_DIR, print_as_success, print_as_ok
 
 def generate_dbcs(context: SystemContext):
     """
@@ -20,7 +20,7 @@ def generate_dbcs(context: SystemContext):
             f.unlink()
     DBC_DIR.mkdir(exist_ok=True)
 
-    git_hash = get_git_hash()
+    git_hash = context.version
 
     for bus_name, view in context.busses.items():
         can_db = db.Database()

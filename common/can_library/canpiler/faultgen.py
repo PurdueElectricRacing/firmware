@@ -76,7 +76,7 @@ def validate_fault_injection(nodes: List[Node], fault_modules: List[FaultModule]
     
     return fault_bus_name
 
-def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], bus_configs: Dict, fault_bus_name: str):
+def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], bus_configs: Dict, fault_bus_name: str, custom_types: Dict):
     """Inject TX and RX messages for faults into Node objects."""
     
     print("Injecting fault communication messages into pipeline...")
@@ -106,6 +106,7 @@ def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], b
                 Signal(name="val", datatype="uint16_t", desc="Trigger Value")
             ]
         )
+        event_msg.resolve_layout(custom_types)
         bus.tx_messages.append(event_msg)
         all_fault_event_msgs.append(event_name)
         
@@ -120,6 +121,7 @@ def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], b
                 Signal(name=f.name, datatype="bool", length=1) for f in module.faults
             ]
         )
+        sync_msg.resolve_layout(custom_types)
         bus.tx_messages.append(sync_msg)
         all_fault_sync_msgs.append(sync_name)
         
@@ -177,8 +179,8 @@ def augment_system_with_faults(nodes: List[Node], bus_configs: Dict, custom_type
 
     validate_fault_configs(fault_modules)
     fault_bus_name = validate_fault_injection(nodes, fault_modules, bus_configs)
-    inject_fault_messages(nodes, fault_modules, bus_configs, fault_bus_name)
     inject_fault_types(custom_types, fault_modules)
+    inject_fault_messages(nodes, fault_modules, bus_configs, fault_bus_name, custom_types)
 
 def generate_fault_data(context: SystemContext):
     """Entry point for implementation generation. Consumed by build.py."""

@@ -6,7 +6,7 @@ Author: Irving Wang (irvingw@purdue.edu)
 
 from typing import List, Dict, Set, DefaultDict
 from collections import defaultdict
-from parser import Node, Message, load_custom_types
+from parser import Node, Message
 from utils import print_as_error, print_as_success, print_as_ok
 
 class BusLinker:
@@ -153,15 +153,13 @@ def link_all(nodes: List[Node]) -> List[Node]:
                     print_as_error(f"Node '{node.name}': RX message '{rx_msg.name}' not found in any bus")
                     raise ValueError(f"Unresolved RX message: {rx_msg.name}")
 
-    # 4. Resolve Signal Layouts
-    custom_types = load_custom_types()
+    # 4. Final Validation
     for node in nodes:
         for bus in node.busses.values():
             for msg in bus.tx_messages:
                 if msg.final_id > 0x7FF and not msg.is_extended:
                     print_as_error(f"Message '{msg.name}' has ID {hex(msg.final_id)} but is not marked as extended.")
                     raise ValueError(f"Standard CAN ID exceeds 0x7FF: {hex(msg.final_id)}")
-                msg.resolve_layout(custom_types)
 
-    print_as_success("Successfully linked all CAN IDs and signals")
+    print_as_success("Successfully linked all CAN IDs")
     return nodes

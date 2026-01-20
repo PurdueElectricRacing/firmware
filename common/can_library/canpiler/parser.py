@@ -7,7 +7,7 @@ Author: Irving Wang (irvingw@purdue.edu)
 from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Set
 from pathlib import Path
-from utils import load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, COMMON_TYPES_CONFIG_PATH, FAULT_CONFIG_PATH, BUS_CONFIG_PATH, CTYPE_SIZES, print_as_error, print_as_ok, print_as_success, to_macro_name
+from utils import load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, COMMON_TYPES_CONFIG_PATH, FAULT_CONFIG_PATH, BUS_CONFIG_PATH, CTYPE_SIZES, print_as_error, print_as_ok, print_as_success, to_macro_name, get_git_hash
 
 @dataclass
 class Signal:
@@ -217,6 +217,7 @@ class SystemContext:
     fault_modules: List['FaultModule'] = field(default_factory=list)
     bus_configs: Dict = field(default_factory=dict)
     custom_types: Dict = field(default_factory=dict)
+    version: str = ""
 
 def create_system_context(nodes, mappings, bus_configs, custom_types) -> SystemContext:
     """Aggregates all system data into a single context object and performs final validation."""
@@ -237,7 +238,8 @@ def create_system_context(nodes, mappings, bus_configs, custom_types) -> SystemC
         fault_modules=fault_modules, 
         mappings=mappings,
         bus_configs=bus_configs,
-        custom_types=custom_types
+        custom_types=custom_types,
+        version=get_git_hash()
     )
     
     # Identify all busses across all nodes
@@ -314,10 +316,11 @@ def parse_all() -> List[Node]:
     return nodes
 
 def validate_node(node: Node, custom_types: Dict):
-    """Run semantic validation on a node"""
+    """Run semantic validation and resolve bit layouts for a node"""
     for bus in node.busses.values():
         for msg in bus.tx_messages:
             msg.validate_semantics(custom_types)
+            msg.resolve_layout(custom_types)
 
 def parse_signal(data: Dict) -> Signal:
     return Signal(

@@ -7,7 +7,7 @@ Author: Irving Wang (irvingw@purdue.edu)
 from typing import List, Dict, Tuple, Optional
 from parser import Node, Message, RxMessage, SystemContext
 from mapper import NodeMapping
-from utils import GENERATED_DIR, print_as_success, print_as_ok, to_c_enum_prefix, get_git_hash
+from utils import GENERATED_DIR, print_as_success, print_as_ok, to_c_enum_prefix
 
 def generate_headers(context: SystemContext):
     print("Generating headers...")
@@ -84,10 +84,13 @@ def generate_node_headers(context: SystemContext):
     for node in context.nodes:
         if node.is_external:
             continue
-        generate_node_header(node, context.bus_configs, context.custom_types, context.mappings.get(node.name))
+        generate_node_header(node, context)
 
-def generate_node_header(node: Node, bus_configs: Dict, custom_types: Dict, mapping: Optional[NodeMapping]):
+def generate_node_header(node: Node, context: SystemContext):
     filename = GENERATED_DIR / f"{node.name}.h"
+    mapping = context.mappings.get(node.name)
+    bus_configs = context.bus_configs
+    custom_types = context.custom_types
     
     with open(filename, 'w') as f:
         f.write(f"#ifndef {node.name}_H\n")
@@ -118,7 +121,7 @@ def generate_node_header(node: Node, bus_configs: Dict, custom_types: Dict, mapp
         f.write('#include "common/can_library/generated/fault_data.h"\n\n')
 
         # Git Hash
-        f.write(f"#define GIT_HASH \"{get_git_hash()}\"\n\n")
+        f.write(f"#define GIT_HASH \"{context.version}\"\n\n")
         
         # System IDs
         if node.system_ids:

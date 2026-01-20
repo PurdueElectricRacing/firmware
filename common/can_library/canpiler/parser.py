@@ -159,6 +159,9 @@ class Node:
     busses: Dict[str, Bus] = field(default_factory=dict)
     is_external: bool = False
     scheduler: str = "psched"
+    faults: List['Fault'] = field(default_factory=list)
+    generate_fault_strings: bool = False
+    node_id: int = 0
 
     @property
     def macro_name(self) -> str:
@@ -215,8 +218,20 @@ class SystemContext:
     bus_configs: Dict = field(default_factory=dict)
     custom_types: Dict = field(default_factory=dict)
 
-def create_system_context(nodes, mappings, fault_modules, bus_configs, custom_types) -> SystemContext:
+def create_system_context(nodes, mappings, bus_configs, custom_types) -> SystemContext:
     """Aggregates all system data into a single context object and performs final validation."""
+    
+    # Derivation: Populate fault modules from node objects (A)
+    fault_modules = []
+    for node in nodes:
+        if node.faults:
+            fault_modules.append(FaultModule(
+                node_name=node.name,
+                generate_strings=node.generate_fault_strings,
+                faults=node.faults,
+                node_id=node.node_id
+            ))
+
     context = SystemContext(
         nodes=nodes, 
         fault_modules=fault_modules, 
@@ -339,6 +354,17 @@ def parse_rx_message(data: Dict) -> RxMessage:
         irq=data.get('irq', False)
     )
 
+def parse_fault(data: Dict) -> 'Fault':
+    return Fault(
+        name=data["fault_name"],
+        max_val=data["max"],
+        min_val=data["min"],
+        priority=data["priority"],
+        time_to_latch=data["time_to_latch"],
+        time_to_unlatch=data["time_to_unlatch"],
+        lcd_message=data["lcd_message"]
+    )
+
 def parse_bus(name: str, data: Dict, bus_configs: Dict) -> Bus:
     bus_config = bus_configs.get(name, {})
     return Bus(
@@ -359,7 +385,10 @@ def parse_internal_node(filepath: Path, bus_configs: Dict) -> Node:
         name=data['node_name'],
         busses=busses,
         is_external=False,
-        scheduler=data.get('scheduler', 'psched')
+        scheduler=data.get('scheduler', 'psched'),
+        faults=[parse_fault(f) for f in data.get('faults', [])],
+        generate_fault_strings=data.get("generate_fault_messages", False),
+        node_id=data.get("node_id", 0)
     )
     return node
 
@@ -379,5 +408,8 @@ def parse_external_node(filepath: Path, bus_configs: Dict) -> Node:
     return Node(
         name=data['node_name'],
         busses={bus_name: bus},
-        is_external=True
+        is_external=True,
+        faults=[],
+        generate_fault_strings=False,
+        node_id=data.get("node_id", 0)
     )

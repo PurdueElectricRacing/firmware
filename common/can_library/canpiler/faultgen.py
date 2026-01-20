@@ -10,45 +10,6 @@ from parser import Node, Message, Signal, RxMessage, FaultModule, Fault, SystemC
 from utils import (GENERATED_DIR, print_as_success, print_as_ok, 
                    print_as_error, load_json, NODE_CONFIG_DIR)
 
-def parse_all_faults() -> List[FaultModule]:
-    """
-    Parses faults directly from the node configuration files.
-    """
-    print("Parsing fault configurations from nodes...")
-    fault_modules = []
-    
-    if not NODE_CONFIG_DIR.exists():
-        return []
-
-    # Sort node files for determinism
-    for node_file in sorted(NODE_CONFIG_DIR.glob('*.json')):
-        data = load_json(node_file)
-        if "faults" not in data or not data["faults"]:
-            continue
-            
-        module = FaultModule(
-            node_name=data["node_name"],
-            generate_strings=data.get("generate_fault_messages", False),
-            node_id=data.get("node_id", 0)
-        )
-        
-        for f_data in data["faults"]:
-            fault = Fault(
-                name=f_data["fault_name"],
-                max_val=f_data["max"],
-                min_val=f_data["min"],
-                priority=f_data["priority"],
-                time_to_latch=f_data["time_to_latch"],
-                time_to_unlatch=f_data["time_to_unlatch"],
-                lcd_message=f_data["lcd_message"]
-            )
-            module.faults.append(fault)
-        
-        fault_modules.append(module)
-        print_as_ok(f"Parsed {len(module.faults)} faults for {module.node_name}")
-        
-    return fault_modules
-
 def validate_fault_configs(fault_modules: List[FaultModule]):
     """Semantic validation for faults."""
     print("Validating fault configurations...")
@@ -117,16 +78,9 @@ def validate_fault_injection(nodes: List[Node], fault_modules: List[FaultModule]
     
     return fault_bus_name
 
-def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], bus_configs: Dict):
+def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], bus_configs: Dict, fault_bus_name: str):
     """Inject TX and RX messages for faults into Node objects."""
     
-    # Validation stage should have already run, but we re-fetch the bus name for local use
-    fault_bus_name = None
-    for b_conf in bus_configs.get('busses', []):
-        if b_conf.get('host_fault_library', False):
-            fault_bus_name = b_conf['name']
-            break
-            
     print("Injecting fault communication messages into pipeline...")
     node_map = {n.name.upper(): n for n in nodes if not n.is_external}
     
@@ -209,6 +163,24 @@ def inject_fault_types(custom_types: Dict, fault_modules: List[FaultModule]):
         "base_type": base_type
     }
     print_as_ok(f"Injected fault_index_t with {global_idx} total faults")
+
+def augment_system_with_faults(nodes: List[Node], bus_configs: Dict, custom_types: Dict):
+    """
+    Middleware: Enriches Nodes with fault communication protocols and 
+    registers fault types in the global type system. (Change B)
+    """
+    fault_modules = [
+        FaultModule(n.name, n.generate_fault_strings, n.faults, n.node_id) 
+        for n in nodes if n.faults
+    ]
+    
+    if not fault_modules:
+        return
+
+    validate_fault_configs(fault_modules)
+    fault_bus_name = validate_fault_injection(nodes, fault_modules, bus_configs)
+    inject_fault_messages(nodes, fault_modules, bus_configs, fault_bus_name)
+    inject_fault_types(custom_types, fault_modules)
 
 def generate_fault_data(context: SystemContext):
     """Entry point for implementation generation. Consumed by build.py."""

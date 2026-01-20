@@ -29,31 +29,22 @@ def build():
     try:
         nodes = parse_all()
         
-        # Load bus configs
+        # Load bus configs and custom types
         bus_configs = load_json(BUS_CONFIG_PATH)
-        
-        # Fault library extension hooks
-        from faultgen import parse_all_faults, validate_fault_configs, validate_fault_injection, inject_fault_messages, inject_fault_types
-        fault_modules = parse_all_faults()
-        validate_fault_configs(fault_modules)
-        
-        # New pre-injection semantic validation phase
-        validate_fault_injection(nodes, fault_modules, bus_configs)
-        
-        inject_fault_messages(nodes, fault_modules, bus_configs)
+        custom_types = load_custom_types()
+
+        # Fault system middleware (B) - enriches nodes and types in one pass
+        from faultgen import augment_system_with_faults
+        augment_system_with_faults(nodes, bus_configs, custom_types)
 
         link_all(nodes)
             
         # Mapper needs dict of configs
         busses = {b['name']: b for b in bus_configs['busses']}
         mappings = map_hardware(nodes, busses)
-        custom_types = load_custom_types()
-
-        # Inject fault types into the system context
-        inject_fault_types(custom_types, fault_modules)
         
-        # Create the unified context (performs final validations)
-        context = create_system_context(nodes, mappings, fault_modules, busses, custom_types)
+        # Create the unified context (A) - derives fault modules automatically from nodes
+        context = create_system_context(nodes, mappings, busses, custom_types)
         
     except ValueError as e:
         print(f"Error: {e}")

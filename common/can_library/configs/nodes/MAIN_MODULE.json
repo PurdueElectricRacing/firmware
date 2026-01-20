@@ -1,6 +1,5 @@
 {
     "node_name": "MAIN_MODULE",
-    "node_id": 4,
     "scheduler": "psched",
     "busses": {
         "VCAN": {

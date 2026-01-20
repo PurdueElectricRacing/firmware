@@ -4,102 +4,302 @@ faultgen.py
 Author: Irving Wang (irvingw@purdue.edu)
 """
 
-from typing import List
-from parser import SystemContext, FaultModule
-from utils import GENERATED_DIR, print_as_success, print_as_ok
+import sys
+from typing import List, Dict
+from parser import Node, Message, Signal, RxMessage, FaultModule, Fault, SystemContext
+from utils import (GENERATED_DIR, print_as_success, print_as_ok, 
+                   print_as_error, load_json, NODE_CONFIG_DIR)
+
+def parse_all_faults() -> List[FaultModule]:
+    """
+    Parses faults directly from the node configuration files.
+    """
+    print("Parsing fault configurations from nodes...")
+    fault_modules = []
+    
+    if not NODE_CONFIG_DIR.exists():
+        return []
+
+    # Sort node files for determinism
+    for node_file in sorted(NODE_CONFIG_DIR.glob('*.json')):
+        data = load_json(node_file)
+        if "faults" not in data or not data["faults"]:
+            continue
+            
+        module = FaultModule(
+            node_name=data["node_name"],
+            generate_strings=data.get("generate_fault_messages", False),
+            node_id=data.get("node_id", 0)
+        )
+        
+        for f_data in data["faults"]:
+            fault = Fault(
+                name=f_data["fault_name"],
+                max_val=f_data["max"],
+                min_val=f_data["min"],
+                priority=f_data["priority"],
+                time_to_latch=f_data["time_to_latch"],
+                time_to_unlatch=f_data["time_to_unlatch"],
+                lcd_message=f_data["lcd_message"]
+            )
+            module.faults.append(fault)
+        
+        fault_modules.append(module)
+        print_as_ok(f"Parsed {len(module.faults)} faults for {module.node_name}")
+        
+    return fault_modules
+
+def validate_fault_configs(fault_modules: List[FaultModule]):
+    """Semantic validation for faults."""
+    print("Validating fault configurations...")
+    fault_names = set()
+    
+    for module in fault_modules:
+        if len(module.faults) > 64:
+            print_as_error(f"Node '{module.node_name}' has {len(module.faults)} faults, exceeding the 64-bit bitfield limit.")
+            raise ValueError("Too many faults for bitfield sync")
+        
+        for fault in module.faults:
+            # Use node + fault name to ensure global uniqueness in the enum
+            full_name = f"{module.node_name}_{fault.name}".upper()
+            if full_name in fault_names:
+                print_as_error(f"Duplicate fault name detected: {full_name}")
+                raise ValueError(f"Duplicate fault name: {full_name}")
+            fault_names.add(full_name)
+            
+            if fault.min_val >= fault.max_val:
+                print_as_error(f"Fault '{fault.name}' in node '{module.node_name}' has invalid limits: min({fault.min_val}) >= max({fault.max_val})")
+                raise ValueError("Invalid fault limits")
+    
+    print_as_success("Fault configurations validated")
+
+def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], bus_configs: Dict):
+    """Inject TX and RX messages for faults into Node objects."""
+    print("Injecting fault communication messages into pipeline...")
+    
+    # 0. Find the bus that hosts the fault library
+    fault_bus_name = None
+    for b_conf in bus_configs.get('busses', []):
+        if b_conf.get('host_fault_library', False):
+            fault_bus_name = b_conf['name']
+            break
+            
+    if not fault_bus_name:
+        print_as_error("No bus configured with 'host_fault_library': true. Skipping injection.")
+        return
+
+    node_map = {n.name.upper(): n for n in nodes if not n.is_external}
+    
+    all_fault_sync_msgs = []
+    all_fault_event_msgs = []
+    
+    # 1. Inject TX Messages
+    for module in fault_modules:
+        m_name_upper = module.node_name.upper()
+        if m_name_upper not in node_map:
+            continue
+            
+        node = node_map[m_name_upper]
+        if fault_bus_name not in node.busses:
+            print_as_warning(f"Node '{node.name}' has faults but no {fault_bus_name} bus. Skipping injection.")
+            continue
+            
+        bus = node.busses[fault_bus_name]
+        
+        # Fault Event (Priority 0) - Fired on state change
+        event_name = f"{node.name.lower()}_fault_event"
+        event_msg = Message(
+            name=event_name,
+            desc=f"Immediate fault event signal for {node.name}",
+            priority=0,
+            signals=[
+                Signal(name="idx", datatype="uint16_t", desc="Global Fault Index"),
+                Signal(name="state", datatype="bool", desc="Latch State (0=unlatched, 1=latched)"),
+                Signal(name="val", datatype="uint16_t", desc="Trigger Value")
+            ]
+        )
+        bus.tx_messages.append(event_msg)
+        all_fault_event_msgs.append(event_name)
+        
+        # Fault Sync (Priority 1) - Periodic bitfield
+        sync_name = f"{node.name.lower()}_fault_sync"
+        sync_msg = Message(
+            name=sync_name,
+            desc=f"Periodic fault synchronization for {node.name}",
+            priority=1,
+            period=100,
+            signals=[
+                Signal(name=f.name, datatype="bool", length=1) for f in module.faults
+            ]
+        )
+        bus.tx_messages.append(sync_msg)
+        all_fault_sync_msgs.append(sync_name)
+        
+    # 2. Global Subscription
+    # Every internal node subscribes to every other node's sync and event messages
+    all_msgs = all_fault_event_msgs + all_fault_sync_msgs
+    
+    for node in nodes:
+        if node.is_external or fault_bus_name not in node.busses:
+            continue
+            
+        bus = node.busses[fault_bus_name]
+        tx_names = {m.name for m in bus.tx_messages}
+        
+        for msg_name in all_msgs:
+            if msg_name not in tx_names:
+                bus.rx_messages.append(RxMessage(name=msg_name, callback=True))
+                
+    print_as_success(f"Injected {len(all_fault_event_msgs)} events and {len(all_fault_sync_msgs)} sync messages on {fault_bus_name}")
+
+def inject_fault_types(custom_types: Dict, fault_modules: List[FaultModule]):
+    """Inject fault_index_t enum into the common types list."""
+    choices = []
+    global_idx = 0
+    for module in fault_modules:
+        for fault in module.faults:
+            # The prefix will be FAULT_INDEX_
+            choices.append(f"{module.node_name}_{fault.name}")
+            fault.absolute_index = global_idx
+            global_idx += 1
+            
+    custom_types["fault_index_t"] = {
+        "name": "fault_index_t",
+        "choices": choices
+    }
+    print_as_ok(f"Injected fault_index_t with {global_idx} total faults")
 
 def generate_fault_data(context: SystemContext):
-    print("Generating fault library data...")
-    fault_modules = context.fault_modules
-    generate_fault_header(fault_modules)
-    generate_fault_source(fault_modules)
-    print_as_success("Successfully generated fault library data")
+    """Entry point for implementation generation. Consumed by build.py."""
+    print("Generating fault library implementation data...")
+    
+    generate_fault_header(context)
+    generate_fault_source(context)
+    
+    print_as_success("Fault library implementation files generated")
 
-def generate_fault_header(fault_modules: List[FaultModule]):
+def generate_fault_header(context: SystemContext):
     filename = GENERATED_DIR / "fault_data.h"
-    total_faults = sum(len(m.faults) for m in fault_modules)
-
+    total_faults = sum(len(m.faults) for m in context.fault_modules)
+    
     with open(filename, 'w') as f:
         f.write("#ifndef FAULT_DATA_H\n")
         f.write("#define FAULT_DATA_H\n\n")
-        f.write("#include \"common/faults/faults.h\"\n\n")
+        f.write("#include <stdint.h>\n")
+        f.write("#include <stdbool.h>\n")
+        f.write("#include \"common/can_library/generated/can_types.h\"\n\n")
+        
+        # Determine if current node should have strings
+        f.write("// Fault string configuration\n")
+        string_nodes = [m.node_name.upper() for m in context.fault_modules if m.generate_strings]
+        if string_nodes:
+            f.write("#if " + " || ".join([f"defined(CAN_NODE_{name})" for name in string_nodes]) + "\n")
+            f.write("#define HAS_FAULT_STRINGS\n")
+            f.write("#endif\n")
 
-        f.write("// Total counts\n")
-        for m in fault_modules:
-            f.write(f"#define TOTAL_{m.macro_name}_FAULTS {len(m.faults)}\n")
-        f.write(f"#define TOTAL_NUM_FAULTS {total_faults}\n\n")
+        f.write("#include \"common/faults/faults_common.h\"\n\n")
+        f.write(f"#define TOTAL_NUM_FAULTS {total_faults}\n")
+        
+        f.write("\n// Global fault state and attribute arrays\n")
+        f.write("extern fault_status_t faults[TOTAL_NUM_FAULTS];\n")
+        f.write("extern const fault_attributes_t fault_attributes[TOTAL_NUM_FAULTS];\n\n")
+        
+        f.write("#ifdef HAS_FAULT_STRINGS\n")
+        f.write("extern const char* const fault_strings[TOTAL_NUM_FAULTS];\n")
+        f.write("#endif\n\n")
 
-        f.write("// Accessor Macros\n")
-        f.write("#define GET_IDX(id) (id & 0xFFF)\n")
-        f.write("#define GET_OWNER(id) (id >> 12)\n\n")
-
-        f.write("// Fault IDs\n")
-        for m in fault_modules:
-            for fault in m.faults:
-                f.write(f"#define ID_{fault.macro_name}_FAULT 0x{fault.id:x}\n")
+        f.write("// Node limits for current build\n")
+        for module in context.fault_modules:
+            f_start = f"FAULT_INDEX_{module.node_name.upper()}_{module.faults[0].name.upper()}"
+            f_end = f"FAULT_INDEX_{module.node_name.upper()}_{module.faults[-1].name.upper()}"
+            f.write(f"#ifdef CAN_NODE_{module.node_name.upper()}\n")
+            f.write(f"#define MY_FAULT_START {f_start}\n")
+            f.write(f"#define MY_FAULT_END {f_end}\n")
+            f.write("#endif\n")
         f.write("\n")
 
-        f.write("// Latch times (ms)\n")
-        for m in fault_modules:
-            for fault in m.faults:
-                f.write(f"#define {fault.macro_name}_LATCH_TIME {fault.time_to_latch}\n")
-                f.write(f"#define {fault.macro_name}_UNLATCH_TIME {fault.time_to_unlatch}\n")
-        f.write("\n")
-
-        f.write("// Priorities\n")
-        for m in fault_modules:
-            for fault in m.faults:
-                f.write(f"#define {fault.macro_name}_PRIORITY FAULT_{fault.priority.upper()}\n")
-        f.write("\n")
-
-        f.write("// Messages\n")
-        for m in fault_modules:
-            for fault in m.faults:
-                f.write(f"#define {fault.macro_name}_MSG \"{fault.lcd_message}\"\n")
-        f.write("\n")
-
-        f.write("extern uint16_t faultLatchTime[TOTAL_NUM_FAULTS];\n")
-        f.write("extern uint16_t faultULatchTime[TOTAL_NUM_FAULTS];\n")
-        f.write("extern fault_status_t statusArray[TOTAL_NUM_FAULTS];\n")
-        f.write("extern fault_attributes_t faultArray[TOTAL_NUM_FAULTS];\n\n")
-
+        f.write("// Transmission Helpers\n")
+        f.write("void tx_fault_sync(void);\n")
+        f.write("void tx_fault_event(fault_index_t idx, uint16_t value);\n\n")
+        
         f.write("#endif\n")
     print_as_ok(f"Generated {filename.name}")
 
-def generate_fault_source(all_modules: List[FaultModule]):
+def generate_fault_source(context: SystemContext):
     filename = GENERATED_DIR / "fault_data.c"
     
     with open(filename, 'w') as f:
-        f.write("#include \"common/can_library/generated/fault_data.h\"\n\n")
-
-        # Latch Time Array
-        f.write(f"uint16_t faultLatchTime[TOTAL_NUM_FAULTS] = {{\n")
-        for m in all_modules:
-            for fault in m.faults:
-                f.write(f"\t{fault.macro_name}_LATCH_TIME,\n")
+        f.write("#include \"common/can_library/generated/fault_data.h\"\n")
+        f.write("#include \"common/can_library/generated/can_router.h\"\n\n")
+        
+        f.write(f"fault_status_t faults[TOTAL_NUM_FAULTS] = {{0}};\n\n")
+        
+        f.write(f"const fault_attributes_t fault_attributes[TOTAL_NUM_FAULTS] = {{\n")
+        for module in context.fault_modules:
+            f.write(f"\t// --- {module.node_name} ---\n")
+            for fault in module.faults:
+                f.write(f"\t{{{fault.time_to_latch}, {fault.max_val}, {fault.min_val}, {fault.time_to_latch}, {fault.time_to_unlatch}, FAULT_PRIO_{fault.priority.upper()}}},\n")
         f.write("};\n\n")
 
-        # Unlatch Time Array
-        f.write(f"uint16_t faultULatchTime[TOTAL_NUM_FAULTS] = {{\n")
-        for m in all_modules:
-            for fault in m.faults:
-                f.write(f"\t{fault.macro_name}_UNLATCH_TIME,\n")
-        f.write("};\n\n")
-
-        # Status Array
-        f.write(f"fault_status_t statusArray[TOTAL_NUM_FAULTS] = {{\n")
-        for m in all_modules:
-            for fault in m.faults:
-                f.write(f"\t{{false, ID_{fault.macro_name}_FAULT}},\n")
-        f.write("};\n\n")
-
-        # Attributes Array
-        f.write(f"fault_attributes_t faultArray[TOTAL_NUM_FAULTS] = {{\n")
-        global_idx = 0
-        for m in all_modules:
-            for fault in m.faults:
-                f.write(f"\t{{false, false, {fault.macro_name}_PRIORITY, 0, 0, {fault.max_val}, {fault.min_val}, &statusArray[{global_idx}], 0, {fault.macro_name}_MSG}},\n")
-                global_idx += 1
+        # Conditional string array
+        f.write("#ifdef HAS_FAULT_STRINGS\n")
+        f.write("const char* const fault_strings[TOTAL_NUM_FAULTS] = {\n")
+        for module in context.fault_modules:
+            f.write(f"\t// --- {module.node_name} ---\n")
+            for fault in module.faults:
+                msg = f'"{fault.lcd_message}"' if fault.lcd_message else "nullptr"
+                f.write(f"\t{msg},\n")
         f.write("};\n")
+        f.write("#endif\n\n")
+
+        for module in context.fault_modules:
+            f.write(f"// --- {module.node_name} Callbacks ---\n")
+            
+            # SYNC CALLBACK
+            f.write(f"void {module.node_name.lower()}_fault_sync_CALLBACK(can_data_t* can_data) {{\n")
+            for fault in module.faults:
+                enum_val = f"FAULT_INDEX_{module.node_name.upper()}_{fault.name.upper()}"
+                f.write(f"\tfaults[{enum_val}].is_latched = can_data->{module.node_name.lower()}_fault_sync.{fault.name};\n")
+            f.write("}\n\n")
+            
+            # EVENT CALLBACK
+            f.write(f"void {module.node_name.lower()}_fault_event_CALLBACK(can_data_t* can_data) {{\n")
+            f.write(f"\tuint16_t idx = can_data->{module.node_name.lower()}_fault_event.idx;\n")
+            f.write(f"\tif (idx < TOTAL_NUM_FAULTS) {{\n")
+            f.write(f"\t\tfaults[idx].is_latched = (can_data->{module.node_name.lower()}_fault_event.state != 0);\n")
+            f.write(f"\t}}\n")
+            f.write("}\n\n")
+
+        # TX Helpfer: tx_fault_sync
+        f.write("// --- Transmission Helpers ---\n")
+        f.write("void tx_fault_sync(void) {\n")
+        for module in context.fault_modules:
+            f.write(f"#ifdef CAN_NODE_{module.node_name.upper()}\n")
+            f.write(f"\tcan_data_t data = {{0}};\n")
+            for fault in module.faults:
+                enum_val = f"FAULT_INDEX_{module.node_name.upper()}_{fault.name.upper()}"
+                f.write(f"\tdata.{module.node_name.lower()}_fault_sync.{fault.name} = faults[{enum_val}].is_latched;\n")
+            f.write(f"\tSEND_{module.node_name.upper()}_FAULT_SYNC(&data);\n")
+            f.write("#endif\n")
+        f.write("}\n\n")
+
+        # TX Helper: tx_fault_event
+        f.write("void tx_fault_event(fault_index_t idx, uint16_t value) {\n")
+        for module in context.fault_modules:
+            # We determine the start and end of this node's range for validation
+            f_start = f"FAULT_INDEX_{module.node_name.upper()}_{module.faults[0].name.upper()}"
+            f_end = f"FAULT_INDEX_{module.node_name.upper()}_{module.faults[-1].name.upper()}"
+            
+            f.write(f"#ifdef CAN_NODE_{module.node_name.upper()}\n")
+            f.write(f"\tif (idx >= {f_start} && idx <= {f_end}) {{\n")
+            f.write(f"\t\tcan_data_t data = {{0}};\n")
+            f.write(f"\t\tdata.{module.node_name.lower()}_fault_event.idx = idx;\n")
+            f.write(f"\t\tdata.{module.node_name.lower()}_fault_event.state = faults[idx].is_latched;\n")
+            f.write(f"\t\tdata.{module.node_name.lower()}_fault_event.val = value;\n")
+            f.write(f"\t\tSEND_{module.node_name.upper()}_FAULT_EVENT(&data);\n")
+            f.write(f"\t}}\n")
+            f.write("#endif\n")
+        f.write("}\n")
 
     print_as_ok(f"Generated {filename.name}")
+

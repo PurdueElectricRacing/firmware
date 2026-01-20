@@ -6,7 +6,7 @@ Author: Irving Wang (irvingw@purdue.edu)
 
 import sys
 from validator import validate_all
-from parser import parse_all, parse_faults, load_custom_types, create_system_context
+from parser import parse_all, load_custom_types, create_system_context
 from linker import link_all
 from mapper import map_hardware
 from dbcgen import generate_dbcs
@@ -28,15 +28,25 @@ def build():
 
     try:
         nodes = parse_all()
-        fault_modules = parse_faults()
+        
+        # Load bus configs
+        bus_configs = load_json(BUS_CONFIG_PATH)
+        
+        # Fault library extension hooks
+        from faultgen import parse_all_faults, validate_fault_configs, inject_fault_messages, inject_fault_types
+        fault_modules = parse_all_faults()
+        validate_fault_configs(fault_modules)
+        inject_fault_messages(nodes, fault_modules, bus_configs)
+
         link_all(nodes)
             
-        # Load bus configs for mapper
-        bus_configs = load_json(BUS_CONFIG_PATH)
+        # Mapper needs dict of configs
         busses = {b['name']: b for b in bus_configs['busses']}
-        
         mappings = map_hardware(nodes, busses)
         custom_types = load_custom_types()
+
+        # Inject fault types into the system context
+        inject_fault_types(custom_types, fault_modules)
         
         # Create the unified context (performs final validations)
         context = create_system_context(nodes, mappings, fault_modules, busses, custom_types)

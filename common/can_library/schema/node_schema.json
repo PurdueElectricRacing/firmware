@@ -5,7 +5,6 @@
     "additionalProperties": false,
     "properties": {
         "node_name": { "type": "string" },
-        "node_id": { "type": "integer", "minimum": 0, "maximum": 31 },
         "scheduler": { "enum": ["psched", "freertos"]},
         "busses": {
             "type": "object",

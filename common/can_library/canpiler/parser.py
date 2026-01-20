@@ -155,7 +155,6 @@ class Bus:
 @dataclass
 class Node:
     name: str
-    node_id: Optional[int] = None
     system_ids: Dict[str, int] = field(default_factory=dict)
     busses: Dict[str, Bus] = field(default_factory=dict)
     is_external: bool = False
@@ -172,17 +171,6 @@ class Node:
         for bus in self.busses.values():
             all_msgs.extend(bus.tx_messages)
         return all_msgs
-
-    def generate_system_ids(self) -> None:
-        """Generate system-level CAN IDs based on node_id."""
-        if self.node_id is None:
-            return
-            
-        # Formula: ((priority - 1) << 26) | (node_id << 21) | (msg_index << 9)
-        # Using high message indices (0x700+) for system messages to avoid collisions
-        
-        # Fault Sync: Priority 1 (bits 26-28 = 0), Msg Index 0x7E1
-        self.system_ids["fault_sync"] = (0 << 26) | (self.node_id << 21) | (0x7E1 << 9)
 
 @dataclass
 class Fault:
@@ -310,44 +298,6 @@ def parse_all() -> List[Node]:
     print_as_success("All nodes parsed successfully");
     return nodes
 
-def parse_faults() -> List[FaultModule]:
-    """Parse fault configurations and assign indices and IDs."""
-    if not FAULT_CONFIG_PATH.exists():
-        return []
-
-    print("Parsing fault configurations...")
-    data = load_json(FAULT_CONFIG_PATH)
-    fault_modules = []
-    global_index = 0
-
-    for i, m_data in enumerate(data.get("nodes", [])):
-        module = FaultModule(
-            node_name=m_data["node_name"],
-            generate_strings=m_data.get("generate_strings", False),
-            node_id=i
-        )
-        
-        for f_data in m_data.get("faults", []):
-            fault = Fault(
-                name=f_data["fault_name"],
-                max_val=f_data["max"],
-                min_val=f_data["min"],
-                priority=f_data["priority"],
-                time_to_latch=f_data["time_to_latch"],
-                time_to_unlatch=f_data["time_to_unlatch"],
-                lcd_message=f_data["lcd_message"],
-                absolute_index=global_index,
-                id=(i << 12) | global_index
-            )
-            module.faults.append(fault)
-            global_index += 1
-            
-        fault_modules.append(module)
-        print_as_ok(f"Parsed faults for {module.node_name}")
-
-    print_as_success(f"Successfully parsed {global_index} faults")
-    return fault_modules
-
 def validate_node(node: Node, custom_types: Dict):
     """Run semantic validation on a node"""
     for bus in node.busses.values():
@@ -407,12 +357,10 @@ def parse_internal_node(filepath: Path, bus_configs: Dict) -> Node:
     
     node = Node(
         name=data['node_name'],
-        node_id=data.get('node_id'),
         busses=busses,
         is_external=False,
         scheduler=data.get('scheduler', 'psched')
     )
-    node.generate_system_ids()
     return node
 
 def parse_external_node(filepath: Path, bus_configs: Dict) -> Node:

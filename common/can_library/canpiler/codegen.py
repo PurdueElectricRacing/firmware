@@ -119,11 +119,7 @@ def generate_node_header(node: Node, bus_configs: Dict, custom_types: Dict, mapp
         if node.system_ids:
             f.write("// System IDs\n")
             for name, val in sorted(node.system_ids.items()):
-                # Determine primary macro name
-                if name == "fault_sync":
-                    macro_name = f"ID_FAULT_SYNC_{node.macro_name}"
-                else:
-                    macro_name = f"ID_{name.upper()}_{node.macro_name}"
+                macro_name = f"ID_{name.upper()}_{node.macro_name}"
                 
                 f.write(f"#define {macro_name} (0x{val:x})\n")
                 

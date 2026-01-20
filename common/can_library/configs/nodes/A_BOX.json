@@ -1,6 +1,5 @@
 {
     "node_name": "A_BOX",
-    "node_id": 3,
     "scheduler": "psched",
     "busses": {
         "VCAN": {

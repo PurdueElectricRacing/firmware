@@ -47,3 +47,6 @@ PER vehicle convention:
 	- battery voltage
 5. High frequency "best effort" telemetry
 	- IMU raw data, shock pots, battery current
+
+
+## Fault Library

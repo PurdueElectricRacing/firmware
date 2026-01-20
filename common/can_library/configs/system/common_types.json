@@ -27,6 +27,11 @@
                 "equal_torque_with_safety",
                 "variable_torque"
             ]
+        },
+        {
+            "name": "fault_index_t",
+            "base_type": "uint16_t",
+            "choices": ["reserved_type"]
         }
     ]
 }

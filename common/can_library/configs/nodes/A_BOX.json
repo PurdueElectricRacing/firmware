@@ -1017,5 +1017,269 @@
             ],
             "accept_all_messages": false
         }
-    }
+    },
+    "generate_fault_messages": false,
+    "faults": [
+        {
+            "fault_name": "discharge_limit_enforce",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Orion Discharge Limit"
+        },
+        {
+            "fault_name": "charger_safety_relay",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Orion Charger Safety Error"
+        },
+        {
+            "fault_name": "internal_hardware",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Orion Internal Fault"
+        },
+        {
+            "fault_name": "heatsink_thermistor",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Orion Overheating"
+        },
+        {
+            "fault_name": "software",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Orion Software Error"
+        },
+        {
+            "fault_name": "max_cellv_high",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Max Cell Volts too High"
+        },
+        {
+            "fault_name": "min_cellv_low",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Min Cell Volts too Low"
+        },
+        {
+            "fault_name": "pack_overheat_orion",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Orion Pack Overheat Fault"
+        },
+        {
+            "fault_name": "internal_comms",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Orion Internal Comms Error"
+        },
+        {
+            "fault_name": "cell_balancing_foff",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Cell Balancing Offline"
+        },
+        {
+            "fault_name": "weak_cell",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Weak Cell Fault"
+        },
+        {
+            "fault_name": "low_cellv",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Low Cell Voltage Fault"
+        },
+        {
+            "fault_name": "open_wire",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Orion Open Wire Fault"
+        },
+        {
+            "fault_name": "current_sensor",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Orion Current Sensor Fault"
+        },
+        {
+            "fault_name": "max_cellv_o5v",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Max CellV > 5"
+        },
+        {
+            "fault_name": "cell_asic",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Orion Cell ASIC"
+        },
+        {
+            "fault_name": "weak_pack",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Orion Weak Pack Fault"
+        },
+        {
+            "fault_name": "fan_monitor",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Orion Fan Monitor Fault"
+        },
+        {
+            "fault_name": "thermistor",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Orion Thermistor Fault"
+        },
+        {
+            "fault_name": "external_comms",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Orion External Communication Fault"
+        },
+        {
+            "fault_name": "redundant_psu",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Orion Redundant PSU Found"
+        },
+        {
+            "fault_name": "hv_isolation",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Orion HV Isolation Fault"
+        },
+        {
+            "fault_name": "input_psu",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Orion Input PSU Fault"
+        },
+        {
+            "fault_name": "charge_limit_enforce",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5,
+            "time_to_unlatch": 5,
+            "lcd_message": "Orion Charge Limit"
+        },
+        {
+            "fault_name": "pack_temp",
+            "max": 500,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 2000,
+            "time_to_unlatch": 5000,
+            "lcd_message": "Pack Temp High (> 50)"
+        },
+        {
+            "fault_name": "pack_temp_exceeded",
+            "max": 600,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 500,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Pack Overheating"
+        },
+        {
+            "fault_name": "min_pack_temp",
+            "max": 10000,
+            "min": 100,
+            "priority": "error",
+            "time_to_latch": 2000,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Pack Minimum temp < 10"
+        },
+        {
+            "fault_name": "imd",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 5000,
+            "lcd_message": "IMD Isolation Fault"
+        },
+        {
+            "fault_name": "tmu_power_lost",
+            "max": 5,
+            "min": 3,
+            "priority": "error",
+            "time_to_latch": 100,
+            "time_to_unlatch": 5000,
+            "lcd_message": "Poopy! TMU Power Lost!"
+        }
+    ]
 }

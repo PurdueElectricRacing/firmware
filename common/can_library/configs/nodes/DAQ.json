@@ -87,5 +87,7 @@
             "peripheral": "CAN1",
             "accept_all_messages": true
         }
-    }
+    },
+    "generate_fault_messages": false,
+    "faults": []
 }

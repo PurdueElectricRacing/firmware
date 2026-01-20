@@ -33,9 +33,13 @@ def build():
         bus_configs = load_json(BUS_CONFIG_PATH)
         
         # Fault library extension hooks
-        from faultgen import parse_all_faults, validate_fault_configs, inject_fault_messages, inject_fault_types
+        from faultgen import parse_all_faults, validate_fault_configs, validate_fault_injection, inject_fault_messages, inject_fault_types
         fault_modules = parse_all_faults()
         validate_fault_configs(fault_modules)
+        
+        # New pre-injection semantic validation phase
+        validate_fault_injection(nodes, fault_modules, bus_configs)
+        
         inject_fault_messages(nodes, fault_modules, bus_configs)
 
         link_all(nodes)

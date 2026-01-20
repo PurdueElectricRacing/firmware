@@ -60,12 +60,12 @@ def validate_fault_configs(fault_modules: List[FaultModule]):
             raise ValueError("Too many faults for bitfield sync")
         
         for fault in module.faults:
-            # Use node + fault name to ensure global uniqueness in the enum
-            full_name = f"{module.node_name}_{fault.name}".upper()
-            if full_name in fault_names:
-                print_as_error(f"Duplicate fault name detected: {full_name}")
-                raise ValueError(f"Duplicate fault name: {full_name}")
-            fault_names.add(full_name)
+            # Enforce global fault name uniqueness
+            name_upper = fault.name.upper()
+            if name_upper in fault_names:
+                print_as_error(f"Duplicate fault name detected across system: {name_upper}")
+                raise ValueError(f"Global fault name collision: {name_upper}")
+            fault_names.add(name_upper)
             
             if fault.min_val >= fault.max_val:
                 print_as_error(f"Fault '{fault.name}' in node '{module.node_name}' has invalid limits: min({fault.min_val}) >= max({fault.max_val})")
@@ -73,11 +73,14 @@ def validate_fault_configs(fault_modules: List[FaultModule]):
     
     print_as_success("Fault configurations validated")
 
-def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], bus_configs: Dict):
-    """Inject TX and RX messages for faults into Node objects."""
-    print("Injecting fault communication messages into pipeline...")
-    
-    # 0. Find the bus that hosts the fault library
+def validate_fault_injection(nodes: List[Node], fault_modules: List[FaultModule], bus_configs: Dict) -> str:
+    """
+    Check for potential issues that would prevent successful injection.
+    Runs BEFORE inject_fault_messages to ensure 'clean' state.
+    """
+    print("Pre-flight validation for fault injection...")
+
+    # 1. Check for host bus library
     fault_bus_name = None
     for b_conf in bus_configs.get('busses', []):
         if b_conf.get('host_fault_library', False):
@@ -85,9 +88,46 @@ def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], b
             break
             
     if not fault_bus_name:
-        print_as_error("No bus configured with 'host_fault_library': true. Skipping injection.")
-        return
+        print_as_error("No bus configured with 'host_fault_library': true. This is required for decentralised faults.")
+        raise ValueError("Missing host_fault_library configuration")
 
+    node_map = {n.name.upper(): n for n in nodes if not n.is_external}
+
+    for module in fault_modules:
+        m_name_upper = module.node_name.upper()
+        if m_name_upper not in node_map:
+            continue
+            
+        node = node_map[m_name_upper]
+        
+        # 2. Check if node is on the fault bus
+        if fault_bus_name not in node.busses:
+            print_as_error(f"Node '{node.name}' has faults but no {fault_bus_name} bus. This bus is required for fault communication.")
+            raise ValueError(f"Node {node.name} missing fault bus {fault_bus_name}")
+
+        # 3. Check for message shadowing
+        bus = node.busses[fault_bus_name]
+        existing_msg_names = {m.name.lower() for m in bus.tx_messages}
+        
+        for suffix in ["_fault_event", "_fault_sync"]:
+            msg_name = f"{node.name.lower()}{suffix}"
+            if msg_name in existing_msg_names:
+                print_as_error(f"Conflict: Node {node.name} already has a message named {msg_name}. Shadowing injected faults is forbidden.")
+                raise ValueError(f"Message name shadowing: {msg_name}")
+    
+    return fault_bus_name
+
+def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], bus_configs: Dict):
+    """Inject TX and RX messages for faults into Node objects."""
+    
+    # Validation stage should have already run, but we re-fetch the bus name for local use
+    fault_bus_name = None
+    for b_conf in bus_configs.get('busses', []):
+        if b_conf.get('host_fault_library', False):
+            fault_bus_name = b_conf['name']
+            break
+            
+    print("Injecting fault communication messages into pipeline...")
     node_map = {n.name.upper(): n for n in nodes if not n.is_external}
     
     all_fault_sync_msgs = []
@@ -100,10 +140,6 @@ def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], b
             continue
             
         node = node_map[m_name_upper]
-        if fault_bus_name not in node.busses:
-            print_as_warning(f"Node '{node.name}' has faults but no {fault_bus_name} bus. Skipping injection.")
-            continue
-            
         bus = node.busses[fault_bus_name]
         
         # Fault Event (Priority 0) - Fired on state change
@@ -145,9 +181,10 @@ def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], b
             
         bus = node.busses[fault_bus_name]
         tx_names = {m.name for m in bus.tx_messages}
+        rx_names = {m.name for m in bus.rx_messages}
         
         for msg_name in all_msgs:
-            if msg_name not in tx_names:
+            if msg_name not in tx_names and msg_name not in rx_names:
                 bus.rx_messages.append(RxMessage(name=msg_name, callback=True))
                 
     print_as_success(f"Injected {len(all_fault_event_msgs)} events and {len(all_fault_sync_msgs)} sync messages on {fault_bus_name}")
@@ -163,9 +200,13 @@ def inject_fault_types(custom_types: Dict, fault_modules: List[FaultModule]):
             fault.absolute_index = global_idx
             global_idx += 1
             
+    # Preserve base_type if it exists in the original definition from common_types.json
+    base_type = custom_types.get("fault_index_t", {}).get("base_type", "uint16_t")
+
     custom_types["fault_index_t"] = {
         "name": "fault_index_t",
-        "choices": choices
+        "choices": choices,
+        "base_type": base_type
     }
     print_as_ok(f"Injected fault_index_t with {global_idx} total faults")
 
@@ -238,7 +279,8 @@ def generate_fault_source(context: SystemContext):
         for module in context.fault_modules:
             f.write(f"\t// --- {module.node_name} ---\n")
             for fault in module.faults:
-                f.write(f"\t{{{fault.time_to_latch}, {fault.max_val}, {fault.min_val}, {fault.time_to_latch}, {fault.time_to_unlatch}, FAULT_PRIO_{fault.priority.upper()}}},\n")
+                enum_val = f"FAULT_INDEX_{module.node_name.upper()}_{fault.name.upper()}"
+                f.write(f"\t[{enum_val}] = {{{fault.time_to_latch}, {fault.max_val}, {fault.min_val}, {fault.time_to_latch}, {fault.time_to_unlatch}, FAULT_PRIO_{fault.priority.upper()}}},\n")
         f.write("};\n\n")
 
         # Conditional string array
@@ -247,8 +289,9 @@ def generate_fault_source(context: SystemContext):
         for module in context.fault_modules:
             f.write(f"\t// --- {module.node_name} ---\n")
             for fault in module.faults:
+                enum_val = f"FAULT_INDEX_{module.node_name.upper()}_{fault.name.upper()}"
                 msg = f'"{fault.lcd_message}"' if fault.lcd_message else "nullptr"
-                f.write(f"\t{msg},\n")
+                f.write(f"\t[{enum_val}] = {msg},\n")
         f.write("};\n")
         f.write("#endif\n\n")
 

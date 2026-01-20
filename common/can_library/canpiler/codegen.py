@@ -47,8 +47,13 @@ def generate_types_header(custom_types: Dict):
         
         for type_name, config in custom_types.items():
             prefix = to_c_enum_prefix(type_name)
+            base_type = config.get('base_type')
             
-            f.write(f"typedef enum {{\n")
+            if base_type:
+                f.write(f"typedef enum : {base_type} {{\n")
+            else:
+                f.write(f"typedef enum {{\n")
+
             for i, choice in enumerate(config.get('choices', [])):
                 f.write(f"\t{prefix}_{choice.upper()} = {i},\n")
             f.write(f"}} {type_name};\n\n")

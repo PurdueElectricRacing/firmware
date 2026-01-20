@@ -13,7 +13,7 @@ from dbcgen import generate_dbcs
 from codegen import generate_headers
 from faultgen import generate_fault_data
 from load_calc import calculate_bus_load
-from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success
+from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success, print_as_error, print_as_warning
 
 def build():
     if not validate_all():
@@ -47,10 +47,12 @@ def build():
         context = create_system_context(nodes, mappings, busses, custom_types)
         
     except ValueError as e:
-        print(f"Error: {e}")
+        print_as_error(f"Validation failure: {e}")
         sys.exit(1)
     except Exception as e:
-        print(f"Unexpected Error: {e}")
+        print_as_error(f"Unexpected compiler error: {e}")
+        import traceback
+        traceback.print_exc()
         sys.exit(1)
 
     # All generators now consume the context

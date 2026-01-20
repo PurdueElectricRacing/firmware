@@ -15,11 +15,16 @@ class BusLinker:
         self.next_avail_id = 1
         self.msgs_by_prio: DefaultDict[int, List[Message]] = defaultdict(list)
         self.overrides_by_prio: DefaultDict[int, Set[int]] = defaultdict(set)
+        self.all_used_ids: Set[int] = set()
 
     def add_message(self, msg: Message):
         self.msgs_by_prio[msg.priority].append(msg)
         if msg.id_override:
-            self.overrides_by_prio[msg.priority].add(int(msg.id_override, 0))
+            override_val = int(msg.id_override, 0)
+            if override_val in self.all_used_ids:
+                raise ValueError(f"Bus '{self.bus_name}': Duplicate ID override {hex(override_val)} detected.")
+            self.overrides_by_prio[msg.priority].add(override_val)
+            self.all_used_ids.add(override_val)
 
     def link(self):
         """Execute the two-pass linking algorithm"""
@@ -81,11 +86,19 @@ class BusLinker:
                 msg.final_id = int(msg.id_override, 0)
             else:
                 # Find next free slot
-                while self.next_avail_id in group_overrides:
+                # Skip IDs used by overrides in ANY priority group
+                while self.next_avail_id in self.all_used_ids:
                     self.next_avail_id += 1
                 
                 msg.final_id = self.next_avail_id
+                self.all_used_ids.add(msg.final_id)
                 self.next_avail_id += 1
+            
+            # ID Range Validation
+            limit = 0x1FFFFFFF if msg.is_extended else 0x7FF
+            if msg.final_id > limit:
+                type_str = "Extended" if msg.is_extended else "Standard"
+                raise ValueError(f"Bus '{self.bus_name}': Message '{msg.name}' ID {hex(msg.final_id)} exceeds {type_str} CAN limit ({hex(limit)})")
 
         # 3. Update Water Level
         # Ensure next priority group starts AFTER the highest ID used in this group

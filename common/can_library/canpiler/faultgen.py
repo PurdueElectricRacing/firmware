@@ -4,11 +4,9 @@ faultgen.py
 Author: Irving Wang (irvingw@purdue.edu)
 """
 
-import sys
 from typing import List, Dict
-from parser import Node, Message, Signal, RxMessage, FaultModule, Fault, SystemContext
-from utils import (GENERATED_DIR, print_as_success, print_as_ok, 
-                   print_as_error, load_json, NODE_CONFIG_DIR)
+from parser import Node, Message, Signal, RxMessage, FaultModule, SystemContext
+from utils import GENERATED_DIR, print_as_success, print_as_ok, print_as_error
 
 def validate_fault_configs(fault_modules: List[FaultModule]):
     """Semantic validation for faults."""

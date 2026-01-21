@@ -1,0 +1,45 @@
+#ifndef FAULT_DATA_H
+#define FAULT_DATA_H
+
+#include <stdint.h>
+#include "common/can_library/generated/can_types.h"
+
+// Fault string configuration
+{% set string_nodes = [] %}
+{% for module in fault_modules %}
+    {% if module.generate_strings %}
+        {% set _ = string_nodes.append(module.node_name|upper) %}
+    {% endif %}
+{% endfor %}
+{% if string_nodes %}
+#if {% for node in string_nodes %}defined(CAN_NODE_{{ node }}){{ " || " if not loop.last }}{% endfor %}
+
+#define HAS_FAULT_STRINGS
+#endif
+{% endif %}
+
+#include "common/faults/faults_common.h"
+
+#define TOTAL_NUM_FAULTS {{ total_faults }}
+
+// Global fault state and attribute arrays
+extern fault_status_t faults[TOTAL_NUM_FAULTS];
+extern const fault_attributes_t fault_attributes[TOTAL_NUM_FAULTS];
+
+#ifdef HAS_FAULT_STRINGS
+extern const char* const fault_strings[TOTAL_NUM_FAULTS];
+#endif
+
+// Node limits for current build
+{% for module in fault_modules %}
+#ifdef CAN_NODE_{{ module.node_name|upper }}
+#define MY_FAULT_START FAULT_INDEX_{{ module.node_name|upper }}_{{ module.faults[0].name|upper }}
+#define MY_FAULT_END FAULT_INDEX_{{ module.node_name|upper }}_{{ module.faults[-1].name|upper }}
+#endif
+{% endfor %}
+
+// Transmission Helpers
+void tx_fault_sync(void);
+void tx_fault_event(fault_index_t idx, uint16_t value);
+
+#endif

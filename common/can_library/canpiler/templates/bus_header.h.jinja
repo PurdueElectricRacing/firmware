@@ -1,0 +1,23 @@
+#ifndef {{ bus_name|upper }}_H
+#define {{ bus_name|upper }}_H
+
+#include <stdint.h>
+#include "common/can_library/generated/can_types.h"
+
+#define {{ bus_name|upper }}_BAUD_RATE ({{ config.baud_rate }})
+
+{% for msg in messages %}
+#define {{ msg.macro_name }}_MSG_ID ({{ msg.final_id|to_c_hex }})
+#define {{ msg.macro_name }}_DLC ({{ msg.dlc }})
+#define {{ msg.macro_name }}_PERIOD_MS ({{ msg.period }})
+
+typedef struct {
+{% for sig in msg.signals %}
+    {{ sig.c_type }} {{ sig.name }};
+{% endfor %}
+    uint32_t last_rx;
+    bool stale;
+} {{ msg.name }}_data_t;
+
+{% endfor %}
+#endif

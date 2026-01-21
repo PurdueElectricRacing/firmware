@@ -6,7 +6,7 @@ Author: Irving Wang (irvingw@purdue.edu)
 
 from typing import List, Dict
 from parser import Node, Message, Signal, RxMessage, FaultModule, SystemContext
-from utils import GENERATED_DIR, print_as_success, print_as_ok, print_as_error
+from utils import GENERATED_DIR, print_as_success, print_as_ok, print_as_error, get_jinja_env, render_template
 
 def validate_fault_configs(fault_modules: List[FaultModule]):
     """Semantic validation for faults."""
@@ -186,136 +186,20 @@ def generate_fault_data(context: SystemContext):
     """Entry point for implementation generation. Consumed by build.py."""
     print("Generating fault library implementation data...")
     
-    generate_fault_header(context)
-    generate_fault_source(context)
+    env = get_jinja_env()
+    
+    total_faults = sum(len(m.faults) for m in context.fault_modules)
+    template_context = {
+        'fault_modules': context.fault_modules,
+        'total_faults': total_faults,
+        'version': context.version
+    }
+
+    render_template(env, 'fault_data.h.jinja', GENERATED_DIR / "fault_data.h", **template_context)
+    print_as_ok("Generated fault_data.h")
+
+    render_template(env, 'fault_data.c.jinja', GENERATED_DIR / "fault_data.c", **template_context)
+    print_as_ok("Generated fault_data.c")
     
     print_as_success("Fault library implementation files generated")
-
-def generate_fault_header(context: SystemContext):
-    filename = GENERATED_DIR / "fault_data.h"
-    total_faults = sum(len(m.faults) for m in context.fault_modules)
-    
-    with open(filename, 'w') as f:
-        f.write("#ifndef FAULT_DATA_H\n")
-        f.write("#define FAULT_DATA_H\n\n")
-        f.write("#include <stdint.h>\n")
-        f.write("#include \"common/can_library/generated/can_types.h\"\n\n")
-        
-        # Determine if current node should have strings
-        f.write("// Fault string configuration\n")
-        string_nodes = [m.node_name.upper() for m in context.fault_modules if m.generate_strings]
-        if string_nodes:
-            f.write("#if " + " || ".join([f"defined(CAN_NODE_{name})" for name in string_nodes]) + "\n")
-            f.write("#define HAS_FAULT_STRINGS\n")
-            f.write("#endif\n")
-
-        f.write("#include \"common/faults/faults_common.h\"\n\n")
-        f.write(f"#define TOTAL_NUM_FAULTS {total_faults}\n")
-        
-        f.write("\n// Global fault state and attribute arrays\n")
-        f.write("extern fault_status_t faults[TOTAL_NUM_FAULTS];\n")
-        f.write("extern const fault_attributes_t fault_attributes[TOTAL_NUM_FAULTS];\n\n")
-        
-        f.write("#ifdef HAS_FAULT_STRINGS\n")
-        f.write("extern const char* const fault_strings[TOTAL_NUM_FAULTS];\n")
-        f.write("#endif\n\n")
-
-        f.write("// Node limits for current build\n")
-        for module in context.fault_modules:
-            f_start = f"FAULT_INDEX_{module.node_name.upper()}_{module.faults[0].name.upper()}"
-            f_end = f"FAULT_INDEX_{module.node_name.upper()}_{module.faults[-1].name.upper()}"
-            f.write(f"#ifdef CAN_NODE_{module.node_name.upper()}\n")
-            f.write(f"#define MY_FAULT_START {f_start}\n")
-            f.write(f"#define MY_FAULT_END {f_end}\n")
-            f.write("#endif\n")
-        f.write("\n")
-
-        f.write("// Transmission Helpers\n")
-        f.write("void tx_fault_sync(void);\n")
-        f.write("void tx_fault_event(fault_index_t idx, uint16_t value);\n\n")
-        
-        f.write("#endif\n")
-    print_as_ok(f"Generated {filename.name}")
-
-def generate_fault_source(context: SystemContext):
-    filename = GENERATED_DIR / "fault_data.c"
-    
-    with open(filename, 'w') as f:
-        f.write("#include \"common/can_library/generated/fault_data.h\"\n")
-        f.write("#include \"common/can_library/generated/can_router.h\"\n\n")
-        
-        f.write(f"fault_status_t faults[TOTAL_NUM_FAULTS] = {{0}};\n\n")
-        
-        f.write(f"const fault_attributes_t fault_attributes[TOTAL_NUM_FAULTS] = {{\n")
-        for module in context.fault_modules:
-            f.write(f"\t// --- {module.node_name} ---\n")
-            for fault in module.faults:
-                enum_val = f"FAULT_INDEX_{module.node_name.upper()}_{fault.name.upper()}"
-                f.write(f"\t[{enum_val}] = {{{fault.time_to_latch}, {fault.max_val}, {fault.min_val}, {fault.time_to_latch}, {fault.time_to_unlatch}, FAULT_PRIO_{fault.priority.upper()}}},\n")
-        f.write("};\n\n")
-
-        # Conditional string array
-        f.write("#ifdef HAS_FAULT_STRINGS\n")
-        f.write("const char* const fault_strings[TOTAL_NUM_FAULTS] = {\n")
-        for module in context.fault_modules:
-            f.write(f"\t// --- {module.node_name} ---\n")
-            for fault in module.faults:
-                enum_val = f"FAULT_INDEX_{module.node_name.upper()}_{fault.name.upper()}"
-                msg = f'"{fault.lcd_message}"' if fault.lcd_message else "nullptr"
-                f.write(f"\t[{enum_val}] = {msg},\n")
-        f.write("};\n")
-        f.write("#endif\n\n")
-
-        for module in context.fault_modules:
-            f.write(f"// --- {module.node_name} Callbacks ---\n")
-            f.write(f"#ifndef CAN_NODE_{module.node_name.upper()}\n")
-            
-            # SYNC CALLBACK
-            f.write(f"void {module.node_name.lower()}_fault_sync_CALLBACK(can_data_t* can_data) {{\n")
-            for fault in module.faults:
-                enum_val = f"FAULT_INDEX_{module.node_name.upper()}_{fault.name.upper()}"
-                f.write(f"\tfaults[{enum_val}].is_latched = can_data->{module.node_name.lower()}_fault_sync.{fault.name};\n")
-            f.write("}\n\n")
-            
-            # EVENT CALLBACK
-            f.write(f"void {module.node_name.lower()}_fault_event_CALLBACK(can_data_t* can_data) {{\n")
-            f.write(f"\tuint16_t idx = can_data->{module.node_name.lower()}_fault_event.idx;\n")
-            f.write(f"\tif (idx < TOTAL_NUM_FAULTS) {{\n")
-            f.write(f"\t\tfaults[idx].is_latched = (can_data->{module.node_name.lower()}_fault_event.state != 0);\n")
-            f.write(f"\t}}\n")
-            f.write("}\n")
-            f.write("#else\n")
-            f.write(f"void {module.node_name.lower()}_fault_sync_CALLBACK(can_data_t* can_data) {{ (void)can_data; }}\n")
-            f.write(f"void {module.node_name.lower()}_fault_event_CALLBACK(can_data_t* can_data) {{ (void)can_data; }}\n")
-            f.write("#endif\n\n")
-
-        # TX Helpfer: tx_fault_sync
-        f.write("// --- Transmission Helpers ---\n")
-        f.write("void tx_fault_sync(void) {\n")
-        for module in context.fault_modules:
-            f.write(f"#ifdef CAN_NODE_{module.node_name.upper()}\n")
-            f.write(f"\tCAN_SEND_{module.node_name.lower()}_fault_sync(\n")
-            for i, fault in enumerate(module.faults):
-                enum_val = f"FAULT_INDEX_{module.node_name.upper()}_{fault.name.upper()}"
-                comma = "," if i < len(module.faults) - 1 else ""
-                f.write(f"\t\tfaults[{enum_val}].is_latched{comma}\n")
-            f.write(f"\t);\n")
-            f.write("#endif\n")
-        f.write("}\n\n")
-
-        # TX Helper: tx_fault_event
-        f.write("void tx_fault_event(fault_index_t idx, uint16_t value) {\n")
-        for module in context.fault_modules:
-            # We determine the start and end of this node's range for validation
-            f_start = f"FAULT_INDEX_{module.node_name.upper()}_{module.faults[0].name.upper()}"
-            f_end = f"FAULT_INDEX_{module.node_name.upper()}_{module.faults[-1].name.upper()}"
-            
-            f.write(f"#ifdef CAN_NODE_{module.node_name.upper()}\n")
-            f.write(f"\tif (idx >= {f_start} && idx <= {f_end}) {{\n")
-            f.write(f"\t\tCAN_SEND_{module.node_name.lower()}_fault_event(idx, faults[idx].is_latched, value);\n")
-            f.write(f"\t}}\n")
-            f.write("#endif\n")
-        f.write("}\n")
-
-    print_as_ok(f"Generated {filename.name}")
 

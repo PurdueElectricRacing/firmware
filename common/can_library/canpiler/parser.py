@@ -63,6 +63,7 @@ class Message:
     id_override: Optional[str] = None
     is_extended: bool = False
     final_id: int = 0
+    dlc: int = 0
 
     @property
     def macro_name(self) -> str:
@@ -92,6 +93,8 @@ class Message:
             sig.is_signed = base_type.startswith('int')
             
             current_offset += length
+        
+        self.dlc = (current_offset + 7) // 8
 
     def validate_semantics(self, custom_types: Dict) -> None:
         """

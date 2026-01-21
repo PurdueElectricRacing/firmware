@@ -86,12 +86,12 @@ SPI_InitConfig_t eth_spi_config = {
 
 RTC_timestamp_t start_time =
     {
-        .date = {.month_bcd = RTC_MONTH_FEBRUARY,
-                 .weekday   = RTC_WEEKDAY_TUESDAY,
-                 .day_bcd   = 0x27,
-                 .year_bcd  = 0x24},
-        .time = {.hours_bcd   = 0x18,
-                 .minutes_bcd = 0x27,
+        .date = {.month_bcd = RTC_MONTH_UNKNOWN,
+                 .weekday   = RTC_WEEKDAY_UNKNOWN,
+                 .day_bcd   = 0x00,
+                 .year_bcd  = 0x00},
+        .time = {.hours_bcd   = 0x00,
+                 .minutes_bcd = 0x00,
                  .seconds_bcd = 0x00,
                  .time_format = RTC_FORMAT_24_HOUR},
 };

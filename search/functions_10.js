@@ -27,5 +27,6 @@ var searchData=
   ['registerpreflightcomplete_24',['registerPreflightComplete',['../psched_8c.html#ab48a10022f67b9c0a77652f859330cf2',1,'registerPreflightComplete(uint8_t status):&#160;psched.c'],['../psched_8h.html#ab48a10022f67b9c0a77652f859330cf2',1,'registerPreflightComplete(uint8_t status):&#160;psched.c']]],
   ['reportdata_25',['reportData',['../torque__vector_2main_8c.html#a674019d47e776a1d3f5afc915cdf4b4d',1,'main.c']]],
   ['requestflush_26',['requestFlush',['../eeprom__spi_8c.html#a04e6ba9a69837fd8a177a0a2034a77e7',1,'requestFlush(char *name):&#160;eeprom_spi.c'],['../eeprom__spi_8h.html#a04e6ba9a69837fd8a177a0a2034a77e7',1,'requestFlush(char *name):&#160;eeprom_spi.c']]],
-  ['requestload_27',['requestLoad',['../eeprom__spi_8c.html#a8153a951a16feb54ddc933f7f18bd58c',1,'requestLoad(char *name):&#160;eeprom_spi.c'],['../eeprom__spi_8h.html#a8153a951a16feb54ddc933f7f18bd58c',1,'requestLoad(char *name):&#160;eeprom_spi.c']]]
+  ['requestload_27',['requestLoad',['../eeprom__spi_8c.html#a8153a951a16feb54ddc933f7f18bd58c',1,'requestLoad(char *name):&#160;eeprom_spi.c'],['../eeprom__spi_8h.html#a8153a951a16feb54ddc933f7f18bd58c',1,'requestLoad(char *name):&#160;eeprom_spi.c']]],
+  ['rtc_5fconfig_5fcb_28',['rtc_config_cb',['../daq__rtc__config_8c.html#a14121263e2cb222ad9b32397c7bf2efb',1,'rtc_config_cb(CanMsgTypeDef_t *msg):&#160;daq_rtc_config.c'],['../daq__rtc__config_8h.html#aa1f1fdd90a10cba07a883c0944b138f3',1,'rtc_config_cb(CanMsgTypeDef_t *):&#160;daq_rtc_config.c']]]
 ];

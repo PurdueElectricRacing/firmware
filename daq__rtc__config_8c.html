@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: source/daq/daq_hub/daq_can.c File Reference</title>
+<title>PER Firmware: source/daq/daq_hub/daq_rtc_config.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -89,93 +89,34 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
-  <div class="headertitle"><div class="title">daq_can.c File Reference</div></div>
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">daq_rtc_config.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="daq__can_8h_source.html">daq_can.h</a>&quot;</code><br />
-<code>#include &quot;common/freertos/freertos.h&quot;</code><br />
-<code>#include &quot;common/phal/can.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;common/phal/can.h&quot;</code><br />
+<code>#include &quot;common/phal/rtc.h&quot;</code><br />
+<code>#include &quot;common/phal/gpio.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="daq__can_8h_source.html">daq_can.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="daq__hub_8h_source.html">daq_hub.h</a>&quot;</code><br />
+<code>#include &quot;main.h&quot;</code><br />
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a6425fe407d29245e0fe0a98a9fd23f75" id="r_a6425fe407d29245e0fe0a98a9fd23f75"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6425fe407d29245e0fe0a98a9fd23f75">CAN_TX_BLOCK_TIMEOUT</a>&#160;&#160;&#160;(30 * 16000)</td></tr>
-<tr class="separator:a6425fe407d29245e0fe0a98a9fd23f75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a77a9a85a7a3386905bff0a072b10f660" id="r_a77a9a85a7a3386905bff0a072b10f660"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a77a9a85a7a3386905bff0a072b10f660">initCANParse</a> ()</td></tr>
-<tr class="separator:a77a9a85a7a3386905bff0a072b10f660"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4815a2b32e2a6f5a2902f820ef92501" id="r_ad4815a2b32e2a6f5a2902f820ef92501"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4815a2b32e2a6f5a2902f820ef92501">canTxSendToBack</a> (<a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg)</td></tr>
-<tr class="separator:ad4815a2b32e2a6f5a2902f820ef92501"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a4159a6a33572f9518412fb7448192955" id="r_a4159a6a33572f9518412fb7448192955"><td class="memItemLeft" align="right" valign="top">can_stats_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4159a6a33572f9518412fb7448192955">can_stats_daq</a></td></tr>
-<tr class="separator:a4159a6a33572f9518412fb7448192955"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14121263e2cb222ad9b32397c7bf2efb" id="r_a14121263e2cb222ad9b32397c7bf2efb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14121263e2cb222ad9b32397c7bf2efb">rtc_config_cb</a> (<a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg)</td></tr>
+<tr class="separator:a14121263e2cb222ad9b32397c7bf2efb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a6425fe407d29245e0fe0a98a9fd23f75" name="a6425fe407d29245e0fe0a98a9fd23f75"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6425fe407d29245e0fe0a98a9fd23f75">&#9670;&#160;</a></span>CAN_TX_BLOCK_TIMEOUT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN_TX_BLOCK_TIMEOUT&#160;&#160;&#160;(30 * 16000)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ad4815a2b32e2a6f5a2902f820ef92501" name="ad4815a2b32e2a6f5a2902f820ef92501"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4815a2b32e2a6f5a2902f820ef92501">&#9670;&#160;</a></span>canTxSendToBack()</h2>
+<a id="a14121263e2cb222ad9b32397c7bf2efb" name="a14121263e2cb222ad9b32397c7bf2efb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14121263e2cb222ad9b32397c7bf2efb">&#9670;&#160;</a></span>rtc_config_cb()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void canTxSendToBack </td>
+          <td class="memname">void rtc_config_cb </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *</td>          <td class="paramname"><span class="paramname"><em>msg</em></span></td><td>)</td>
           <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a77a9a85a7a3386905bff0a072b10f660" name="a77a9a85a7a3386905bff0a072b10f660"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77a9a85a7a3386905bff0a072b10f660">&#9670;&#160;</a></span>initCANParse()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void initCANParse </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="a4159a6a33572f9518412fb7448192955" name="a4159a6a33572f9518412fb7448192955"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4159a6a33572f9518412fb7448192955">&#9670;&#160;</a></span>can_stats_daq</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">can_stats_t can_stats_daq</td>
         </tr>
       </table>
 </div><div class="memdoc">

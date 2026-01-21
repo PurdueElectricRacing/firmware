@@ -114,6 +114,27 @@ Files</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top"><a href="daq_2main_8h_source.html"><span class="icondoc"></span></a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="daq_2main_8h.html">main.h</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>This directory contains the firmware source code for the Data Acquisition (DAQ) board, responsible for data collection, storage, and communication.</p>
+<h1><a class="anchor" id="autotoc_md14"></a>
+Directory Structure</h1>
+<ul>
+<li><b><code>buffer/</code></b> - Files for creating and managing data buffers</li>
+<li><b><code>daq_hub/</code></b> - Central hub defining behavior for SD card writing, Ethernet communication, SPI transactions, threads, etc.</li>
+<li><b><code>fatfs/</code></b> - FatFs filesystem module for FAT/exFAT support on embedded systems; enables SD card writing</li>
+<li><b><code>ftp/</code></b> - FTP server library files (see <a class="el" href="source_2daq_2ftp_2README_8md.html">ftp/README.md</a>)</li>
+<li><b><code>sdio/</code></b> - SDIO peripheral drivers for high-speed SD card communication</li>
+<li><b><code>w5500/</code></b> - WIZnet TCP/IP chip drivers and application protocols (see <a class="el" href="source_2daq_2w5500_2README_8md.html">w5500/README.md</a>)</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md15"></a>
+Main Entry Point</h1>
+<p><b><code>main.c/main.h</code></b> - Initializes the board with:</p><ul>
+<li>GPIO configuration</li>
+<li>Interrupt setup</li>
+<li>CAN communication initialization</li>
+<li>Buffer creation</li>
+<li>Thread spawning </li>
+</ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

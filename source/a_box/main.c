@@ -2,7 +2,7 @@
 #include "common/can_library/generated/A_BOX.h"
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
-#include "common/faults/faults_common.h"
+#include "common/can_library/faults_common.h"
 #include "common/phal/adc.h"
 #include "common/phal/can.h"
 #include "common/phal/dma.h"

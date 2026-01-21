@@ -6,7 +6,7 @@
 #include <string.h>
 
 #include "common/can_library/generated/DASHBOARD.h"
-#include "common/faults/faults_common.h"
+#include "common/can_library/faults_common.h"
 #include "common_defs.h"
 #include "main.h"
 #include "menu_system.h"

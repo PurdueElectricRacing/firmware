@@ -31,7 +31,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "common/faults/faults_common.h"
+#include "common/can_library/faults_common.h"
 #include "common/can_library/can_common.h"
 
 /* -------------------------------------------------------

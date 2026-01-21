@@ -3,7 +3,7 @@
 #include <stdbool.h>
 
 #include "common/can_library/generated/A_BOX.h"
-#include "common/faults/faults_common.h"
+#include "common/can_library/faults_common.h"
 #include "common_defs.h"
 
 uint8_t charge_request_user          = false; // Enable charge algo

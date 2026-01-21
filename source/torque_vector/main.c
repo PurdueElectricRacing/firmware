@@ -8,7 +8,7 @@
 #include "common/can_library/generated/TORQUE_VECTOR.h"
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
-#include "common/faults/faults_common.h"
+#include "common/can_library/faults_common.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "common/phal/spi.h"

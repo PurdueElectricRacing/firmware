@@ -35,7 +35,7 @@ macro(create_can_node_lib NODE_NAME ARCH_LIB)
 	# We use a static library so each node has its own object file for can_common.c and faults
 	add_library(${LIB_NAME} STATIC 
         ${CAN_LIB_DIR}/can_common.c
-        ${CMAKE_SOURCE_DIR}/common/faults/faults_common.c
+        ${CAN_LIB_DIR}/faults_common.c
         ${CAN_GEN_DIR}/fault_data.c
     )
 	

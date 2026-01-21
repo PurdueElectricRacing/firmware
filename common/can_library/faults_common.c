@@ -6,7 +6,7 @@
  * Creating a library of faults to create an easy to debug atmosphere on the car
  */
 
-#include "common/faults/faults_common.h"
+#include "common/can_library/faults_common.h"
 #include "common/can_library/generated/fault_data.h"
 #include "common/can_library/generated/can_router.h"
 #include "common/psched/psched.h"

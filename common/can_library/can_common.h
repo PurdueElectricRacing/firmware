@@ -11,7 +11,6 @@
 
 #include <stdint.h>
 
-#include "common/can_library/generated/can_types.h"
 #include "common/phal/can.h"
 #include "common/queue/queue.h"
 

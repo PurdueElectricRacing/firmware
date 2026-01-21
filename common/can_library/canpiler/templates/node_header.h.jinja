@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "common/can_library/can_common.h"
+#include "common/can_library/generated/can_types.h"
 {% for bus_name in node_busses|sort %}
 #include "common/can_library/generated/{{ bus_name }}.h"
 {% endfor %}
@@ -21,10 +22,10 @@
 #define GIT_HASH "{{ context.version }}"
 
 // Peripheral Configuration
-#define NUM_CAN_PERIPHERALS {{ peripherals|length }}
+static constexpr uint8_t NUM_CAN_PERIPHERALS = {{ peripherals|length }};
 {% for periph in peripherals %}
 #define USE_{{ periph }}
-#define {{ periph }}_IDX {{ loop.index0 }}
+static constexpr uint8_t {{ periph }}_INDEX = {{ loop.index0 }};
 {% endfor %}
 
 // Scaling Macros
@@ -34,8 +35,8 @@
 {% if scaling_sigs %}
 // {{ msg.name }}
 {% for sig in scaling_sigs %}
-#define UNPACK_COEFF_{{ msg.macro_name }}_{{ sig.macro_name }} ({{ sig.scale|format_float }})
-#define PACK_COEFF_{{ msg.macro_name }}_{{ sig.macro_name }} ({{ (1.0/sig.scale)|format_float }})
+static constexpr float UNPACK_COEFF_{{ msg.macro_name }}_{{ sig.macro_name }} = {{ sig.scale|format_float }};
+static constexpr float PACK_COEFF_{{ msg.macro_name }}_{{ sig.macro_name }} = {{ (1.0/sig.scale)|format_float }};
 {% endfor %}
 {% endif %}
 {% endfor %}
@@ -62,14 +63,14 @@ static inline void CAN_rx_dispatcher(uint32_t id, uint8_t* data, uint8_t len, ui
     {% for rx_msg, periph, bus in rx_msgs %}
     {% set msg = rx_msg.resolved_message %}
         case {{ msg.macro_name }}_MSG_ID:
-            if (peripheral_idx == {{ periph }}_IDX) {
+            if (peripheral_idx == {{ periph }}_INDEX) {
                 uint64_t wire_data = 0;
                 memcpy(&wire_data, data, len);
                 uint64_t host_data = __builtin_bswap64(wire_data);
                 
                 {% for sig in msg.signals %}
                 {% if sig.is_signed and sig.length < 64 %}
-                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})((int64_t)((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }}) << {{ 64 - sig.length }} >> {{ 64 - sig.length }});
+                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})((int64_t)((uint64_t)((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }}) << ({{ 64 - sig.length }})) >> ({{ 64 - sig.length }}));
                 {% else %}
                 can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }});
                 {% endif %}
@@ -136,9 +137,9 @@ static inline void CAN_SEND_{{ tx_msg.name }}(
     {% set union_type = "uint32_t" if sig.c_type == 'float' else "uint64_t" %}
     union { {{ sig.c_type }} f; {{ union_type }} u; } _{{ sig.name }}_u;
     _{{ sig.name }}_u.f = {{ sig.name }};
-    data |= ((uint64_t)(_{{ sig.name }}_u.u & {{ sig.mask|to_c_hex }})) << {{ sig.bit_shift }};
+    data |= ((uint64_t)(_{{ sig.name }}_u.u & {{ sig.mask|to_c_hex }})) << ({{ sig.bit_shift }});
     {% else %}
-    data |= ((uint64_t)({{ sig.name }} & {{ sig.mask|to_c_hex }})) << {{ sig.bit_shift }};
+    data |= ((uint64_t)({{ sig.name }} & {{ sig.mask|to_c_hex }})) << ({{ sig.bit_shift }});
     {% endif %}
     {% endfor %}
 
@@ -174,22 +175,22 @@ static inline void {{ periph }}_set_filters() {
     {{ periph }}->FA1R |= (1 << {{ fb.bank_idx }});
     {% set m1_macro = fb.msg1.macro_name ~ "_MSG_ID" %}
     {% if fb.is_ext1 %}
-    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR1 = ({{ m1_macro }} << 3) | 4;
+    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR1 = (({{ m1_macro }}) << 3) | 4;
     {% else %}
-    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR1 = ({{ m1_macro }} << 21);
+    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR1 = (({{ m1_macro }}) << 21);
     {% endif %}
     {% if fb.msg2 %}
     {% set m2_macro = fb.msg2.macro_name ~ "_MSG_ID" %}
     {% if fb.is_ext2 %}
-    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = ({{ m2_macro }} << 3) | 4;
+    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m2_macro }}) << 3) | 4;
     {% else %}
-    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = ({{ m2_macro }} << 21);
+    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m2_macro }}) << 21);
     {% endif %}
     {% else %}
     {% if fb.is_ext1 %}
-    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = ({{ m1_macro }} << 3) | 4;
+    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m1_macro }}) << 3) | 4;
     {% else %}
-    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = ({{ m1_macro }} << 21);
+    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m1_macro }}) << 21);
     {% endif %}
     {% endif %}
     {% endfor %}

@@ -201,20 +201,20 @@ int16_t scaled_speed;
 int16_t scaled_heading;
 
 void reportData() {
-    scaled_accel_x = (int16_t)(bmi_handle.data.accel_x * 100);
-    scaled_accel_y = (int16_t)(bmi_handle.data.accel_y * 100);
-    scaled_accel_z = (int16_t)(bmi_handle.data.accel_z * 100);
+    scaled_accel_x = (int16_t)(bmi_handle.data.accel_x * PACK_COEFF_IMU_ACCEL_IMU_ACCEL_X);
+    scaled_accel_y = (int16_t)(bmi_handle.data.accel_y * PACK_COEFF_IMU_ACCEL_IMU_ACCEL_Y);
+    scaled_accel_z = (int16_t)(bmi_handle.data.accel_z * PACK_COEFF_IMU_ACCEL_IMU_ACCEL_Z);
     CAN_SEND_imu_accel(scaled_accel_x, scaled_accel_y, scaled_accel_z);
 
-    scaled_gyro_x = (int16_t)(bmi_handle.data.gyro_x * 100);
-    scaled_gyro_y = (int16_t)(bmi_handle.data.gyro_y * 100);
-    scaled_gyro_z = (int16_t)(bmi_handle.data.gyro_z * 100);
+    scaled_gyro_x = (int16_t)(bmi_handle.data.gyro_x * PACK_COEFF_IMU_GYRO_IMU_GYRO_X);
+    scaled_gyro_y = (int16_t)(bmi_handle.data.gyro_y * PACK_COEFF_IMU_GYRO_IMU_GYRO_Y);
+    scaled_gyro_z = (int16_t)(bmi_handle.data.gyro_z * PACK_COEFF_IMU_GYRO_IMU_GYRO_Z);
     CAN_SEND_imu_gyro(scaled_gyro_x, scaled_gyro_y, scaled_gyro_z);
 
     CAN_SEND_gps_coordinates(gps_handle.data.latitude, gps_handle.data.longitude);
 
-    scaled_speed   = (int16_t)(gps_handle.data.groundSpeed * 100);
-    scaled_heading = (int16_t)(gps_handle.data.headingMotion * 100);
+    scaled_speed   = (int16_t)(gps_handle.data.groundSpeed * PACK_COEFF_GPS_SPEED_GPS_SPEED); 
+    scaled_heading = (int16_t)(gps_handle.data.headingMotion * PACK_COEFF_GPS_SPEED_GPS_HEADING);
     CAN_SEND_gps_speed(scaled_speed, scaled_heading);
 
     uint8_t abbreviated_year = (uint8_t)(gps_handle.data.year % 100);

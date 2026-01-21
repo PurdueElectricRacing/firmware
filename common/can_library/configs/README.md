@@ -35,11 +35,11 @@
 Lower = higher priority.
 Range: [0-5].
 PER vehicle convention:
-0. uninterruptible critical messages
-	- Bootloader
-1. safety-critical vehicle operation
-	- Motor commands, fault library, charging
-2. torque path relevant
+0. event based, safety-critical
+	- fault events, charge commands
+1. periodic safety-critical vehicle operation
+	- Motor commands, fault sync, charging
+2. periodic torque path relevant
 	- throttle, torque vectoring commands, steering angle
 3. non torque path vehicle operation
 	- cooling commands, daq log enable
@@ -47,3 +47,18 @@ PER vehicle convention:
 	- battery voltage
 5. High frequency "best effort" telemetry
 	- IMU raw data, shock pots, battery current
+
+## Fault Configuration
+Internal faults can be defined on a per-node basis. The library automatically generates bitfield-sync and event messages for fault communication.
+
+### Node Level
+- `generate_fault_messages`: Boolean. If true, generates LCD string arrays for the node (usually only true for nodes with displays).
+
+### Fault Attributes
+- `fault_name`: Unique name within the node.
+- `min`: Minimum healthy value (inclusive). Triggers fault if value < min.
+- `max`: Maximum healthy value (exclusive). Triggers fault if value >= max.
+- `priority`: Impact of the fault (`warning`, `error`, `fatal`).
+- `time_to_latch`: Time in ms the condition must persist before the fault is latched.
+- `time_to_unlatch`: Time in ms the condition must be healthy before the fault is cleared.
+- `lcd_message`: String text for display on the dashboard or log.

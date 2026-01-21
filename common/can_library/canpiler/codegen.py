@@ -56,7 +56,6 @@ def generate_node_header(env, node: Node, context: SystemContext):
     # Collect all messages this node sees (TX and RX)
     rx_msgs = []
     tx_msgs = []
-    all_messages = {} # name -> Message
     
     peripherals = sorted(list(set(bus.peripheral for bus in node.busses.values())))
     node_busses = sorted(node.busses.keys())
@@ -66,10 +65,8 @@ def generate_node_header(env, node: Node, context: SystemContext):
         for rx_msg in bus.rx_messages:
             if rx_msg.resolved_message:
                 rx_msgs.append((rx_msg, bus.peripheral, bus_name))
-                all_messages[rx_msg.resolved_message.name] = rx_msg.resolved_message
         for msg in bus.tx_messages:
             tx_msgs.append((msg, bus.peripheral, bus_name))
-            all_messages[msg.name] = msg
             
     render_template(env, 'node_header.h.jinja',
                     filename,
@@ -78,7 +75,6 @@ def generate_node_header(env, node: Node, context: SystemContext):
                     mapping=mapping,
                     rx_msgs=rx_msgs,
                     tx_msgs=tx_msgs,
-                    all_messages=sorted(list(all_messages.values()), key=lambda x: x.final_id),
                     peripherals=peripherals,
                     node_busses=node_busses)
     print_as_ok(f"Generated {filename.name}")

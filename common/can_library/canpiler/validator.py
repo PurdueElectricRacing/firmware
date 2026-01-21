@@ -6,7 +6,7 @@ Author: Irving Wang (irvingw@purdue.edu)
 
 import sys
 from jsonschema import RefResolver, Draft7Validator, ValidationError
-from utils import *
+from utils import load_json, SCHEMA_DIR, COMMON_TYPES_CONFIG_PATH, BUS_CONFIG_PATH, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, print_as_error, print_as_ok, print_as_warning, print_as_success
 
 def validate_against_schema(data, schema, schema_store=None, base_uri='', filename="<unknown>") -> bool:
     """

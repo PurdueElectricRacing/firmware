@@ -7,7 +7,7 @@ Author: Irving Wang (irvingw@purdue.edu)
 from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Set
 from pathlib import Path
-from utils import load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, COMMON_TYPES_CONFIG_PATH, FAULT_CONFIG_PATH, BUS_CONFIG_PATH, CTYPE_SIZES, print_as_error, print_as_ok, print_as_success, to_macro_name, get_git_hash
+from utils import load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, COMMON_TYPES_CONFIG_PATH, BUS_CONFIG_PATH, CTYPE_SIZES, print_as_error, print_as_ok, print_as_success, to_macro_name, get_git_hash
 
 @dataclass
 class Signal:
@@ -68,10 +68,6 @@ class Message:
     @property
     def macro_name(self) -> str:
         return to_macro_name(self.name)
-
-    @property
-    def stale_threshold(self) -> int:
-        return int(self.period * 2.5)
 
     def resolve_layout(self, custom_types: Dict) -> None:
         """

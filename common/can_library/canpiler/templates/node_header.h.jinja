@@ -28,19 +28,16 @@
 {% endfor %}
 
 // Scaling Macros
-{% for rx_msg, periph, bus in rx_msgs %}
-{% for sig in rx_msg.resolved_message.signals %}
-{% if sig.scale != 1.0 %}
-#define UNPACK_COEFF_{{ rx_msg.resolved_message.macro_name }}_{{ sig.macro_name }} ({{ sig.scale|format_float }})
+{% set all_msgs = (tx_msgs | map(attribute='0') | list) + (rx_msgs | map(attribute='0') | map(attribute='resolved_message') | list) %}
+{% for msg in all_msgs | unique(attribute='name') | sort(attribute='name') %}
+{% set scaling_sigs = msg.signals | selectattr("scale", "ne", 1.0) | list %}
+{% if scaling_sigs %}
+// {{ msg.name }}
+{% for sig in scaling_sigs %}
+#define UNPACK_COEFF_{{ msg.macro_name }}_{{ sig.macro_name }} ({{ sig.scale|format_float }})
+#define PACK_COEFF_{{ msg.macro_name }}_{{ sig.macro_name }} ({{ (1.0/sig.scale)|format_float }})
+{% endfor %}
 {% endif %}
-{% endfor %}
-{% endfor %}
-{% for tx_msg, periph, bus in tx_msgs %}
-{% for sig in tx_msg.signals %}
-{% if sig.scale != 1.0 %}
-#define PACK_COEFF_{{ tx_msg.macro_name }}_{{ sig.macro_name }} ({{ (1.0/sig.scale)|format_float }})
-{% endif %}
-{% endfor %}
 {% endfor %}
 
 // Data Structures
@@ -58,9 +55,6 @@ extern can_data_t can_data;
 extern void {{ rx_msg.name }}_CALLBACK(can_data_t* can_data);
 {% endif %}
 {% endfor %}
-
-// Function Prototypes
-void init_can(void);
 
 // RX Dispatcher
 static inline void CAN_rx_dispatcher(uint32_t id, uint8_t* data, uint8_t len, uint8_t peripheral_idx) {

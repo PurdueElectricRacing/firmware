@@ -18,9 +18,7 @@ GENERATED_DIR = BASE_DIR / 'generated'
 DBC_DIR = BASE_DIR / 'dbc'
 BUS_CONFIG_PATH = CONFIG_DIR / 'system' / 'bus_configs.json'
 COMMON_TYPES_CONFIG_PATH = CONFIG_DIR / 'system' / 'common_types.json'
-FAULT_CONFIG_PATH = CONFIG_DIR / 'system' / 'faults.json'
 
-MAX_DATA_SIZE = 64
 CTYPE_SIZES = {
     "uint8_t": 8, "int8_t": 8,
     "uint16_t": 16, "int16_t": 16,

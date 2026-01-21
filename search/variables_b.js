@@ -56,6 +56,6 @@ var searchData=
   ['mt_5flb_53',['MT_lb',['../structpVCU__struct.html#ae5c3092f5b87119fd4dff9191fecba7e',1,'pVCU_struct']]],
   ['mt_5fraw_54',['MT_RAW',['../structxVCU__struct.html#a715465afe7a13a2fcec45d2c72e8bb4c',1,'xVCU_struct']]],
   ['mt_5fub_55',['MT_ub',['../structpVCU__struct.html#aa7bfd79e99e81961284bb648c1b68b1a',1,'pVCU_struct']]],
-  ['my_5fcounter_56',['my_counter',['../l4__testing_2daq_2daq_8c.html#ab05997d286451b50b3f332495d4e4450',1,'my_counter:&#160;main.c'],['../l4__testing_2main_8c.html#ad46f602a98e6e98dfaca884da87c5f53',1,'my_counter:&#160;main.c']]],
-  ['my_5fcounter2_57',['my_counter2',['../l4__testing_2daq_2daq_8c.html#a40b9a70c3c134f75f0c77514ebf0b17b',1,'my_counter2:&#160;main.c'],['../l4__testing_2main_8c.html#a40b9a70c3c134f75f0c77514ebf0b17b',1,'my_counter2:&#160;main.c']]]
+  ['my_5fcounter_56',['my_counter',['../daq_8c.html#ab05997d286451b50b3f332495d4e4450',1,'my_counter:&#160;main.c'],['../l4__testing_2main_8c.html#ad46f602a98e6e98dfaca884da87c5f53',1,'my_counter:&#160;main.c']]],
+  ['my_5fcounter2_57',['my_counter2',['../daq_8c.html#a40b9a70c3c134f75f0c77514ebf0b17b',1,'my_counter2:&#160;main.c'],['../l4__testing_2main_8c.html#a40b9a70c3c134f75f0c77514ebf0b17b',1,'my_counter2:&#160;main.c']]]
 ];

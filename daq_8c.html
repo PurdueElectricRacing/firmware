@@ -94,7 +94,7 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">daq.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="l4__testing_2daq_2daq_8h_source.html">daq.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="daq_8h_source.html">daq.h</a>&quot;</code><br />
 <code>#include &quot;common/daq/daq_base.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__L4_2can_2can_8h_source.html">common/phal_L4/can/can.h</a>&quot;</code><br />
 </div><table class="memberdecls">
@@ -115,7 +115,7 @@ Variables</h2></td></tr>
 <tr class="separator:a40b9a70c3c134f75f0c77514ebf0b17b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab84f8aed561146f738758e941a2a545b" id="r_ab84f8aed561146f738758e941a2a545b"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab84f8aed561146f738758e941a2a545b">charge_enable</a></td></tr>
 <tr class="separator:ab84f8aed561146f738758e941a2a545b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadd7ec9e005fb221804460d34229a95a" id="r_aadd7ec9e005fb221804460d34229a95a"><td class="memItemLeft" align="right" valign="top">daq_variable_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aadd7ec9e005fb221804460d34229a95a">tracked_vars</a> [<a class="el" href="a__box_2daq_2daq_8h.html#a56487323585c1b73f01a0e01e875027e">NUM_VARS</a>]</td></tr>
+<tr class="memitem:aadd7ec9e005fb221804460d34229a95a" id="r_aadd7ec9e005fb221804460d34229a95a"><td class="memItemLeft" align="right" valign="top">daq_variable_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aadd7ec9e005fb221804460d34229a95a">tracked_vars</a> [<a class="el" href="daq_8h.html#a56487323585c1b73f01a0e01e875027e">NUM_VARS</a>]</td></tr>
 <tr class="separator:aadd7ec9e005fb221804460d34229a95a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25ce4b69d296fc9a3324b494542c2420" id="r_a25ce4b69d296fc9a3324b494542c2420"><td class="memItemLeft" align="right" valign="top">config_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25ce4b69d296fc9a3324b494542c2420">config</a></td></tr>
 <tr class="separator:a25ce4b69d296fc9a3324b494542c2420"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -274,7 +274,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">daq_variable_t tracked_vars[<a class="el" href="a__box_2daq_2daq_8h.html#a56487323585c1b73f01a0e01e875027e">NUM_VARS</a>]</td>
+          <td class="memname">daq_variable_t tracked_vars[<a class="el" href="daq_8h.html#a56487323585c1b73f01a0e01e875027e">NUM_VARS</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -290,10 +290,10 @@ Variables</h2></td></tr>
 <div class="line">    {.is_read_only=0, .bit_length=32, .read_var_a=&amp;(<a class="code hl_variable" href="#a25ce4b69d296fc9a3324b494542c2420">config</a>.charge_voltage), .write_var_a=&amp;(<a class="code hl_variable" href="#a25ce4b69d296fc9a3324b494542c2420">config</a>.charge_voltage), },</div>
 <div class="line">    {.is_read_only=0, .bit_length=16, .read_var_a=&amp;(<a class="code hl_variable" href="#a25ce4b69d296fc9a3324b494542c2420">config</a>.trim), .write_var_a=&amp;(<a class="code hl_variable" href="#a25ce4b69d296fc9a3324b494542c2420">config</a>.trim), },</div>
 <div class="line">}</div>
-<div class="ttc" id="al4__testing_2daq_2daq_8c_html_a25ce4b69d296fc9a3324b494542c2420"><div class="ttname"><a href="#a25ce4b69d296fc9a3324b494542c2420">config</a></div><div class="ttdeci">config_t config</div><div class="ttdef"><b>Definition</b> daq.c:39</div></div>
-<div class="ttc" id="al4__testing_2daq_2daq_8c_html_a40b9a70c3c134f75f0c77514ebf0b17b"><div class="ttname"><a href="#a40b9a70c3c134f75f0c77514ebf0b17b">my_counter2</a></div><div class="ttdeci">uint16_t my_counter2</div><div class="ttdef"><b>Definition</b> main.c:152</div></div>
-<div class="ttc" id="al4__testing_2daq_2daq_8c_html_ab05997d286451b50b3f332495d4e4450"><div class="ttname"><a href="#ab05997d286451b50b3f332495d4e4450">my_counter</a></div><div class="ttdeci">uint16_t my_counter</div><div class="ttdef"><b>Definition</b> main.c:151</div></div>
-<div class="ttc" id="al4__testing_2daq_2daq_8c_html_ab84f8aed561146f738758e941a2a545b"><div class="ttname"><a href="#ab84f8aed561146f738758e941a2a545b">charge_enable</a></div><div class="ttdeci">uint8_t charge_enable</div><div class="ttdef"><b>Definition</b> main.c:98</div></div>
+<div class="ttc" id="adaq_8c_html_a25ce4b69d296fc9a3324b494542c2420"><div class="ttname"><a href="#a25ce4b69d296fc9a3324b494542c2420">config</a></div><div class="ttdeci">config_t config</div><div class="ttdef"><b>Definition</b> daq.c:39</div></div>
+<div class="ttc" id="adaq_8c_html_a40b9a70c3c134f75f0c77514ebf0b17b"><div class="ttname"><a href="#a40b9a70c3c134f75f0c77514ebf0b17b">my_counter2</a></div><div class="ttdeci">uint16_t my_counter2</div><div class="ttdef"><b>Definition</b> main.c:152</div></div>
+<div class="ttc" id="adaq_8c_html_ab05997d286451b50b3f332495d4e4450"><div class="ttname"><a href="#ab05997d286451b50b3f332495d4e4450">my_counter</a></div><div class="ttdeci">uint16_t my_counter</div><div class="ttdef"><b>Definition</b> main.c:151</div></div>
+<div class="ttc" id="adaq_8c_html_ab84f8aed561146f738758e941a2a545b"><div class="ttname"><a href="#ab84f8aed561146f738758e941a2a545b">charge_enable</a></div><div class="ttdeci">uint8_t charge_enable</div><div class="ttdef"><b>Definition</b> main.c:98</div></div>
 </div><!-- fragment -->
 </div>
 </div>

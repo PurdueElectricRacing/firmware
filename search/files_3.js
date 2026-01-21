@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['daq_2ec_0',['daq.c',['../a__box_2daq_2daq_8c.html',1,'(Global Namespace)'],['../dashboard_2daq_2daq_8c.html',1,'(Global Namespace)'],['../l4__testing_2daq_2daq_8c.html',1,'(Global Namespace)'],['../main__module_2daq_2daq_8c.html',1,'(Global Namespace)'],['../pdu_2daq_2daq_8c.html',1,'(Global Namespace)']]],
-  ['daq_2eh_1',['daq.h',['../a__box_2daq_2daq_8h.html',1,'(Global Namespace)'],['../dashboard_2daq_2daq_8h.html',1,'(Global Namespace)'],['../l4__testing_2daq_2daq_8h.html',1,'(Global Namespace)'],['../main__module_2daq_2daq_8h.html',1,'(Global Namespace)'],['../pdu_2daq_2daq_8h.html',1,'(Global Namespace)']]],
+  ['daq_2ec_0',['daq.c',['../daq_8c.html',1,'']]],
+  ['daq_2eh_1',['daq.h',['../daq_8h.html',1,'']]],
   ['daq_5fcan_2ec_2',['daq_can.c',['../daq__can_8c.html',1,'']]],
   ['daq_5fcan_2eh_3',['daq_can.h',['../daq__can_8h.html',1,'']]],
   ['daq_5feth_2ec_4',['daq_eth.c',['../daq__eth_8c.html',1,'']]],

@@ -6,14 +6,14 @@ Author: Irving Wang (irvingw@purdue.edu)
 
 import sys
 from validator import validate_all
-from parser import parse_all, load_custom_types, create_system_context
+from parser import parse_all, load_custom_types, create_system_context, load_bus_configs
 from linker import link_all
 from mapper import map_hardware
 from dbcgen import generate_dbcs
 from codegen import generate_headers
 from faultgen import generate_fault_data
 from load_calc import calculate_bus_load
-from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success, print_as_error, print_as_warning
+from utils import GENERATED_DIR, print_as_success, print_as_error
 
 def build():
     if not validate_all():
@@ -30,7 +30,7 @@ def build():
         nodes = parse_all()
         
         # Load bus configs and custom types
-        bus_configs = load_json(BUS_CONFIG_PATH)
+        bus_configs = load_bus_configs()
         custom_types = load_custom_types()
 
         # Fault system middleware (B) - enriches nodes and types in one pass
@@ -40,11 +40,10 @@ def build():
         link_all(nodes)
             
         # Mapper needs dict of configs
-        busses = {b['name']: b for b in bus_configs['busses']}
-        mappings = map_hardware(nodes, busses)
+        mappings = map_hardware(nodes, bus_configs)
         
         # Create the unified context (A) - derives fault modules automatically from nodes
-        context = create_system_context(nodes, mappings, busses, custom_types)
+        context = create_system_context(nodes, mappings, bus_configs, custom_types)
         
     except ValueError as e:
         print_as_error(f"Validation failure: {e}")

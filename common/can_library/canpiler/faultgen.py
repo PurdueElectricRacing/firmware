@@ -41,9 +41,9 @@ def validate_fault_injection(nodes: List[Node], fault_modules: List[FaultModule]
 
     # 1. Check for host bus library
     fault_bus_name = None
-    for b_conf in bus_configs.get('busses', []):
+    for b_name, b_conf in bus_configs.items():
         if b_conf.get('host_fault_library', False):
-            fault_bus_name = b_conf['name']
+            fault_bus_name = b_name
             break
             
     if not fault_bus_name:
@@ -86,6 +86,8 @@ def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], b
     all_fault_event_msgs = []
     
     # 1. Inject TX Messages
+    is_extended = bus_configs.get(fault_bus_name, {}).get('is_extended_id', False)
+
     for module in fault_modules:
         m_name_upper = module.node_name.upper()
         if m_name_upper not in node_map:
@@ -100,6 +102,7 @@ def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], b
             name=event_name,
             desc=f"Immediate fault event signal for {node.name}",
             priority=0,
+            is_extended=is_extended,
             signals=[
                 Signal(name="idx", datatype="fault_index_t", desc="Global Fault Index"),
                 Signal(name="state", datatype="bool", desc="Latch State (0=unlatched, 1=latched)"),
@@ -116,6 +119,7 @@ def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], b
             name=sync_name,
             desc=f"Periodic fault synchronization for {node.name}",
             priority=1,
+            is_extended=is_extended,
             period=100,
             signals=[
                 Signal(name=f.name, datatype="bool", length=1) for f in module.faults
@@ -170,7 +174,7 @@ def augment_system_with_faults(nodes: List[Node], bus_configs: Dict, custom_type
     registers fault types in the global type system. (Change B)
     """
     fault_modules = [
-        FaultModule(n.name, n.generate_fault_strings, n.faults, n.node_id) 
+        FaultModule(n.name, n.generate_fault_strings, n.faults) 
         for n in nodes if n.faults
     ]
     

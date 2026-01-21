@@ -2,7 +2,6 @@
 #define {{ node.name|upper }}_H
 
 #include <stdint.h>
-#include <stdbool.h>
 #include <string.h>
 
 #include "common/can_library/can_common.h"
@@ -18,11 +17,8 @@
 #define OS_TICKS (sched.os_ticks)
 {% endif %}
 
-#include "common/can_library/generated/fault_data.h"
-
 // System Version: {{ context.version }}
 #define GIT_HASH "{{ context.version }}"
-#define CAN_SYSTEM_VERSION 0x{{ context.version[:8] }}
 
 // Peripheral Configuration
 #define NUM_CAN_PERIPHERALS {{ peripherals|length }}
@@ -30,16 +26,6 @@
 #define USE_{{ periph }}
 #define {{ periph }}_IDX {{ loop.index0 }}
 {% endfor %}
-
-{% if node.system_ids %}
-// System IDs
-{% for name, val in node.system_ids.items()|sort %}
-#define ID_{{ name|upper }}_{{ node.macro_name }} ({{ val|to_c_hex }})
-{% if node.macro_name == "MAIN" %}
-#define ID_{{ name|upper }}_MAIN_MODULE ID_{{ name|upper }}_{{ node.macro_name }}
-{% endif %}
-{% endfor %}
-{% endif %}
 
 // Scaling Macros
 {% for rx_msg, periph, bus in rx_msgs %}
@@ -167,6 +153,7 @@ static inline void CAN_SEND_{{ tx_msg.name }}(
 
     CAN_enqueue_tx(&outgoing);
 }
+
 {% endfor %}
 
 // Filter configuration
@@ -189,6 +176,7 @@ static inline void {{ periph }}_set_filters() {
 
     {% for fb in banks %}
     // Bank {{ fb.bank_idx }}: {{ fb.msg1.name }}{% if fb.msg2 %}, {{ fb.msg2.name }}{% endif %}
+
     {{ periph }}->FA1R |= (1 << {{ fb.bank_idx }});
     {% set m1_macro = fb.msg1.macro_name ~ "_MSG_ID" %}
     {% if fb.is_ext1 %}
@@ -196,7 +184,6 @@ static inline void {{ periph }}_set_filters() {
     {% else %}
     {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR1 = ({{ m1_macro }} << 21);
     {% endif %}
-    
     {% if fb.msg2 %}
     {% set m2_macro = fb.msg2.macro_name ~ "_MSG_ID" %}
     {% if fb.is_ext2 %}

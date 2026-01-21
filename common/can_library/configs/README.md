@@ -4,7 +4,6 @@
 
 ## Node Attributes
 - `node_name`: Name of the node. Must be unique.
-- `node_id`: [0-31] Used for generating system-level IDs (DAQ, Fault Sync).
 - `scheduler`: Target operating system/scheduler (`freertos` or `psched`).
 
 ## CAN Message Attributes (TX)

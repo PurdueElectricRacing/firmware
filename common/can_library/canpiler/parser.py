@@ -158,13 +158,11 @@ class Bus:
 @dataclass
 class Node:
     name: str
-    system_ids: Dict[str, int] = field(default_factory=dict)
     busses: Dict[str, Bus] = field(default_factory=dict)
     is_external: bool = False
     scheduler: str = "psched"
     faults: List['Fault'] = field(default_factory=list)
     generate_fault_strings: bool = False
-    node_id: int = 0
 
     @property
     def macro_name(self) -> str:
@@ -199,7 +197,6 @@ class FaultModule:
     node_name: str
     generate_strings: bool
     faults: List[Fault] = field(default_factory=list)
-    node_id: int = 0
 
     @property
     def macro_name(self) -> str:
@@ -232,8 +229,7 @@ def create_system_context(nodes, mappings, bus_configs, custom_types) -> SystemC
             fault_modules.append(FaultModule(
                 node_name=node.name,
                 generate_strings=node.generate_fault_strings,
-                faults=node.faults,
-                node_id=node.node_id
+                faults=node.faults
             ))
 
     context = SystemContext(
@@ -393,8 +389,7 @@ def parse_internal_node(filepath: Path, bus_configs: Dict) -> Node:
         is_external=False,
         scheduler=data.get('scheduler', 'psched'),
         faults=[parse_fault(f) for f in data.get('faults', [])],
-        generate_fault_strings=data.get("generate_fault_messages", False),
-        node_id=data.get("node_id", 0)
+        generate_fault_strings=data.get("generate_fault_messages", False)
     )
     return node
 
@@ -416,6 +411,5 @@ def parse_external_node(filepath: Path, bus_configs: Dict) -> Node:
         busses={bus_name: bus},
         is_external=True,
         faults=[],
-        generate_fault_strings=False,
-        node_id=data.get("node_id", 0)
+        generate_fault_strings=False
     )

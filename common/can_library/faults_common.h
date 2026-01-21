@@ -1,6 +1,14 @@
 #ifndef FAULTS_COMMON_H
 #define FAULTS_COMMON_H
 
+/**
+ * @file faults_common.h
+ * @brief Creating a library of faults to create an easy to debug atmosphere on the car
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Aditya Anand (anand89@purdue.edu)
+ */
+
 #include <stdint.h>
 #include <stdbool.h>
 #include "common/can_library/generated/can_types.h"

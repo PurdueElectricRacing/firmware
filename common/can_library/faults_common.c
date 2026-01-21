@@ -1,9 +1,9 @@
 /**
  * @file faults_common.c
+ * @brief Creating a library of faults to create an easy to debug atmosphere on the car
+ *
  * @author Irving Wang (irvingw@purdue.edu)
  * @author Aditya Anand (anand89@purdue.edu)
- * 
- * Creating a library of faults to create an easy to debug atmosphere on the car
  */
 
 #include "common/can_library/faults_common.h"

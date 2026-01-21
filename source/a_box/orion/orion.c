@@ -5,7 +5,6 @@
 #include "A_BOX.h"
 #include "common/faults/faults.h"
 #include "common_defs.h"
-#include "daq.h"
 
 uint8_t charge_request_user          = false; // Enable charge algo
 uint16_t user_charge_current_request = 0;

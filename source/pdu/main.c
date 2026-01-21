@@ -13,7 +13,6 @@
 #include "auto_switch.h"
 #include "PDU.h"
 #include "cooling.h"
-#include "daq.h"
 #include "fan_control.h"
 #include "flow_rate.h"
 #include "led.h"
@@ -198,7 +197,6 @@ int main() {
     /* Schedule Periodic tasks here */
     taskCreate(heatBeatLED, 500);
     taskCreate(heartBeatTask, 100);
-    taskCreate(daqPeriodic, DAQ_UPDATE_PERIOD);
     taskCreate(LED_periodic, 500);
     taskCreateBackground(CAN_tx_update);
     taskCreateBackground(CAN_rx_update);
@@ -223,8 +221,6 @@ void preflightChecks(void) {
             break;
         case 1:
             CAN_library_init();
-            if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
-                HardFault_Handler();
             break;
         case 2:
             if (!PHAL_SPI_init(&spi_config)) {

@@ -13,7 +13,6 @@
 
 /* Module Includes */
 #include "DASHBOARD.h"
-#include "daq.h"
 #include "lcd.h"
 #include "main.h"
 #include "nextion.h"
@@ -253,8 +252,6 @@ void preflightChecks(void) {
         case 3:
             /* Module Initialization */
             CAN_library_init();
-            if (daqInit(&q_tx_can[CAN1_IDX][CAN_MAILBOX_LOW_PRIO]))
-                HardFault_Handler();
             break;
         case 4:
             // Zero Rotary Encoder

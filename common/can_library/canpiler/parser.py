@@ -181,14 +181,8 @@ class Node:
         # Formula: ((priority - 1) << 26) | (node_id << 21) | (msg_index << 9)
         # Using high message indices (0x700+) for system messages to avoid collisions
         
-        # DAQ Response: Priority 3 (bits 26-28 = 2), Msg Index 0x7E0
-        daq_base = (2 << 26) | (self.node_id << 21) | (0x7E0 << 9)
-        
         # Fault Sync: Priority 1 (bits 26-28 = 0), Msg Index 0x7E1
         self.system_ids["fault_sync"] = (0 << 26) | (self.node_id << 21) | (0x7E1 << 9)
-
-        for bus_name in self.busses:
-            self.system_ids[f"daq_response_{bus_name}"] = daq_base
 
 @dataclass
 class Fault:

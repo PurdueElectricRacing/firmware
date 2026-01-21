@@ -1,17 +1,19 @@
 ## Bus Attributes
 - `peripheral`: Hardware identifier (e.g., `CAN1`, `CAN2`, `CAN3`).
 - `accept_all_messages`: Boolean. If true, disables hardware filter optimization (promiscuous mode).
+- `is_extended_id`: Boolean. Set at the bus level. Mixed-ID buses are not supported; all messages on a bus will share this framing.
 
 ## Node Attributes
 - `node_name`: Name of the node. Must be unique.
 - `scheduler`: Target operating system/scheduler (`freertos` or `psched`).
+- `faults`: (Optional) Array of fault definitions specific to this node.
 
 ## CAN Message Attributes (TX)
 - `msg_name`: Unique identifier.
 - `msg_desc`: Short description of message purpose.
 - `msg_priority`: [0-5]. See priority convention below.
 - `msg_period`: Transmission frequency in ms.
-- `msg_id_override`: Optional. Manual ID (supports hex `0x...`). Overrides automatic linking. Must be within bus framing limits (e.g. <= 0x7FF for Standard buses).
+- `msg_id_override`: Optional. Manual ID (supports hex `0x...`). Overrides automatic linking. Must respect the bus framing limits.
 
 ## RX Message Attributes
 - `msg_name`: Name of the message to receive (must exist on the bus).
@@ -29,6 +31,10 @@
 - `min_val`: (Optional) Minimum theoretical value.
 - `max_val`: (Optional) Maximum theoretical value.
 - `choices`: (Optional) List of strings for enum-like labels in DBC.
+
+> [!TIP]
+> **Scaling Constants:** The library generates `static constexpr float` constants for every signal with a scale != 1.0. 
+> format: `PACK_COEFF_<MSG>_<SIG>` and `UNPACK_COEFF_<MSG>_<SIG>`. Use these to avoid magic numbers in your application code.
 
 ### Message Priority
 Lower = higher priority.
@@ -48,10 +54,13 @@ PER vehicle convention:
 	- IMU raw data, shock pots, battery current
 
 ## Fault Configuration
-Internal faults can be defined on a per-node basis. The library automatically generates bitfield-sync and event messages for fault communication.
+Node-specific faults are defined directly in the node JSON under the `"faults"` key. The library automatically generates bitfield-sync and event messages for fault communication based on these definitions.
+
+### Global Configuration
+- `host_fault_library`: (Bus attribute) Boolean. If true, indicates this bus is the primary uplink for fault communication (usually VCAN).
 
 ### Node Level
-- `generate_fault_messages`: Boolean. If true, generates LCD string arrays for the node (usually only true for nodes with displays).
+- `generate_fault_messages`: Boolean. If true, generates LCD string arrays for the node (usually only true for nodes with displays like the Dashboard).
 
 ### Fault Attributes
 - `fault_name`: Unique name within the node.

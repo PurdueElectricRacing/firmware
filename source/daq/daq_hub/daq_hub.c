@@ -21,6 +21,7 @@
 #include "daq_can.h"
 #include "daq_eth.h"
 #include "daq_sd.h"
+#include "daq_rtc_config.h"
 #include "main.h"
 #include "common/can_library/generated/DAQ.h"
 
@@ -53,6 +54,8 @@ void daq_hub_init(void) {
     daq_hub.sd_last_err        = SD_ERROR_NONE;
     daq_hub.sd_last_err_res    = 0;
 
+    daq_hub.rtc_config_state = RTC_SYNC_PENDING;
+    
     daq_hub.last_file_ms   = 0;
     daq_hub.last_write_ms  = 0;
     daq_hub.log_enable_sw  = false;

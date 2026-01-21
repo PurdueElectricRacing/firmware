@@ -17,7 +17,7 @@
 
 
 
-### run init funciton  in main funcion
+### Run init function in main function
 
     Reset_WIZCHIP();
 	reg_wizchip_bus_cbfunc(Chip_read, Chip_write);
@@ -59,6 +59,6 @@
 
     #define ftp_PW 		"wiznet54321"
 
-### Connedtion remain count
+### Connection remain count
 
     #define remain_time 400000

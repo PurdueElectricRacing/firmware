@@ -18,8 +18,10 @@
 #include <stdint.h>
 
 #include "common/freertos/freertos.h"
+#include "common/phal/can.h"
 #include "daq_eth.h"
 #include "daq_sd.h"
+#include "daq_rtc_config.h"
 #include "ff.h"
 #include "sdio.h"
 
@@ -39,6 +41,7 @@ typedef struct
 {
     // Ethernet
     eth_state_t eth_state;
+    rtc_config_state_t rtc_config_state;
     eth_tcp_state_t eth_tcp_state;
     uint32_t eth_error_ct;
     eth_error_t eth_last_err;

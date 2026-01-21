@@ -19,6 +19,10 @@ typedef enum {
     ETH_LINK_UP       = 3,
     ETH_LINK_FAIL     = 4,
 } eth_state_t;
+typedef enum {
+    RTC_SYNC_PENDING   = 0,
+    RTC_SYNC_COMPLETE  = 1,
+} rtc_config_state_t;
 
 typedef enum {
     ETH_TCP_IDLE        = 0,

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: source/pdu/fan_control/fan_control.c File Reference</title>
+<title>PER Firmware: common/phal_F4_F7/pwm/pwm.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,74 +83,78 @@ $(function(){ initResizable(false); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_9d9eb10f0bbaade9ac8f82a0e05a480b.html">pdu</a></li><li class="navelem"><a class="el" href="dir_ecd0ac10a54b3ebe292bcf151ee9b5e2.html">fan_control</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_bdd9a5d540de89e9fe90efdfc6973a4f.html">common</a></li><li class="navelem"><a class="el" href="dir_a828499ce5b3216570db528e38974466.html">phal_F4_F7</a></li><li class="navelem"><a class="el" href="dir_de701a946b9b364c7aa1bf8586f35be8.html">pwm</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">fan_control.c File Reference</div></div>
+  <div class="headertitle"><div class="title">pwm.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="fan__control_8h_source.html">fan_control.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="pwm_8h_source.html">common/phal_F4_F7/pwm/pwm.h</a>&quot;</code><br />
-</div><table class="memberdecls">
+<div class="textblock"><code>#include &quot;<a class="el" href="phal__F4__F7_8h_source.html">common/phal_F4_F7/phal_F4_F7.h</a>&quot;</code><br />
+<code>#include &quot;common/phal/gpio.h&quot;</code><br />
+</div>
+<p><a href="pwm_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a53411fffcc6fec6fb84fe2f620dd0448" id="r_a53411fffcc6fec6fb84fe2f620dd0448"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53411fffcc6fec6fb84fe2f620dd0448">fanControlInit</a> ()</td></tr>
-<tr class="separator:a53411fffcc6fec6fb84fe2f620dd0448"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5edf1747c65c321ec71071a4576d589" id="r_ae5edf1747c65c321ec71071a4576d589"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5edf1747c65c321ec71071a4576d589">setFan1Speed</a> (uint8_t fan_speed)</td></tr>
-<tr class="separator:ae5edf1747c65c321ec71071a4576d589"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af20d109abcc21788b274f9ee36850180" id="r_af20d109abcc21788b274f9ee36850180"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af20d109abcc21788b274f9ee36850180">setFan2Speed</a> (uint8_t fan_speed)</td></tr>
-<tr class="separator:af20d109abcc21788b274f9ee36850180"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab72396114a93e461ec3d59ba61aaa976" id="r_ab72396114a93e461ec3d59ba61aaa976"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab72396114a93e461ec3d59ba61aaa976">PHAL_initPWM</a> (uint32_t frequency_hz, TIM_TypeDef *tim, uint8_t channelsToEnable)</td></tr>
+<tr class="separator:ab72396114a93e461ec3d59ba61aaa976"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0feea9f1d41ed207ccc9901fb1ec3be2" id="r_a0feea9f1d41ed207ccc9901fb1ec3be2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0feea9f1d41ed207ccc9901fb1ec3be2">PHAL_PWMsetPercent</a> (TIM_TypeDef *tim, uint8_t channel, uint8_t percent)</td></tr>
+<tr class="separator:a0feea9f1d41ed207ccc9901fb1ec3be2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a53411fffcc6fec6fb84fe2f620dd0448" name="a53411fffcc6fec6fb84fe2f620dd0448"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53411fffcc6fec6fb84fe2f620dd0448">&#9670;&#160;</a></span>fanControlInit()</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Seth Baird (<a href="#" onclick="location.href='mai'+'lto:'+'bai'+'rd'+'33@'+'pu'+'rdu'+'e.'+'edu'; return false;">baird<span class="obfuscator">.nosp@m.</span>33@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2025-10-02 </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="ab72396114a93e461ec3d59ba61aaa976" name="ab72396114a93e461ec3d59ba61aaa976"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab72396114a93e461ec3d59ba61aaa976">&#9670;&#160;</a></span>PHAL_initPWM()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool fanControlInit </td>
+          <td class="memname">bool PHAL_initPWM </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>frequency_hz</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">TIM_TypeDef *</td>          <td class="paramname"><span class="paramname"><em>tim</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>channelsToEnable</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ae5edf1747c65c321ec71071a4576d589" name="ae5edf1747c65c321ec71071a4576d589"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5edf1747c65c321ec71071a4576d589">&#9670;&#160;</a></span>setFan1Speed()</h2>
+<a id="a0feea9f1d41ed207ccc9901fb1ec3be2" name="a0feea9f1d41ed207ccc9901fb1ec3be2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0feea9f1d41ed207ccc9901fb1ec3be2">&#9670;&#160;</a></span>PHAL_PWMsetPercent()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void setFan1Speed </td>
+          <td class="memname">void PHAL_PWMsetPercent </td>
           <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>fan_speed</em></span></td><td>)</td>
-          <td></td>
+          <td class="paramtype">TIM_TypeDef *</td>          <td class="paramname"><span class="paramname"><em>tim</em></span>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af20d109abcc21788b274f9ee36850180" name="af20d109abcc21788b274f9ee36850180"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af20d109abcc21788b274f9ee36850180">&#9670;&#160;</a></span>setFan2Speed()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">void setFan2Speed </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>fan_speed</em></span></td><td>)</td>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>channel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>percent</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

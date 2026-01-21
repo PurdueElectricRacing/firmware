@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: File Members</title>
+<title>PER Firmware: common/phal_F4_F7/pwm/pwm.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -55,8 +55,6 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="doc-content">
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function(){ initResizable(false); });
@@ -83,20 +81,32 @@ $(function(){ initResizable(false); });
 </div>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_bdd9a5d540de89e9fe90efdfc6973a4f.html">common</a></li><li class="navelem"><a class="el" href="dir_a828499ce5b3216570db528e38974466.html">phal_F4_F7</a></li><li class="navelem"><a class="el" href="dir_de701a946b9b364c7aa1bf8586f35be8.html">pwm</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="headertitle"><div class="title">pwm.h</div></div>
+</div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all functions with links to the files they belong to:</div>
-
-<h3><a id="index_l" name="index_l"></a>- l -</h3><ul>
-<li>l4_testing_bl_cmd_CALLBACK()&#160;:&#160;<a class="el" href="l4__testing_2main_8c.html#acfea4ae6140b883485b66003722ecd5e">main.c</a></li>
-<li>lcdTxUpdate()&#160;:&#160;<a class="el" href="dashboard_2main_8c.html#add302dc431eea83803626acf46f76028">main.c</a>, <a class="el" href="dashboard_2main_8h.html#add302dc431eea83803626acf46f76028">main.h</a></li>
-<li>LED_control()&#160;:&#160;<a class="el" href="led_8c.html#a25f4f6c595a65e2015d9d76af5fab4ac">led.c</a>, <a class="el" href="led_8h.html#a25f4f6c595a65e2015d9d76af5fab4ac">led.h</a></li>
-<li>LED_periodic()&#160;:&#160;<a class="el" href="led_8c.html#a1d38b8e14425dcbf14215634bcfa5290">led.c</a>, <a class="el" href="led_8h.html#a1d38b8e14425dcbf14215634bcfa5290">led.h</a></li>
-<li>ledBlink()&#160;:&#160;<a class="el" href="l4__testing_2main_8c.html#a759ba90fd772c6315a455c0465a0939d">main.c</a></li>
-<li>listen()&#160;:&#160;<a class="el" href="group__WIZnet__socket__APIs.html#ga58ae959798d5d874ac5ea796da90db8c">socket.c</a>, <a class="el" href="group__WIZnet__socket__APIs.html#ga58ae959798d5d874ac5ea796da90db8c">socket.h</a></li>
-<li>loggingPageUpdate()&#160;:&#160;<a class="el" href="lcd_8c.html#aac825257435288687ed7b01e6ae3b73b">lcd.c</a></li>
-<li>loggingSelect()&#160;:&#160;<a class="el" href="lcd_8c.html#a1ddaac6cdbb0a2e17abf0a3be400b322">lcd.c</a></li>
-</ul>
-</div><!-- contents -->
+<a href="pwm_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#ifndef _PHAL_PWM_H</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#define _PHAL_PWM_H</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="phal__F4__F7_8h.html">common/phal_F4_F7/phal_F4_F7.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;common/phal/gpio.h&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keywordtype">bool</span> <a class="code hl_function" href="pwm_8h.html#ab72396114a93e461ec3d59ba61aaa976">PHAL_initPWM</a>(uint32_t frequency_hz, TIM_TypeDef* tim, uint8_t channelsToEnable);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keywordtype">void</span> <a class="code hl_function" href="pwm_8h.html#a0feea9f1d41ed207ccc9901fb1ec3be2">PHAL_PWMsetPercent</a>(TIM_TypeDef* tim, uint8_t channel, uint8_t percent);</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aphal__F4__F7_8h_html"><div class="ttname"><a href="phal__F4__F7_8h.html">phal_F4_F7.h</a></div></div>
+<div class="ttc" id="apwm_8h_html_a0feea9f1d41ed207ccc9901fb1ec3be2"><div class="ttname"><a href="pwm_8h.html#a0feea9f1d41ed207ccc9901fb1ec3be2">PHAL_PWMsetPercent</a></div><div class="ttdeci">void PHAL_PWMsetPercent(TIM_TypeDef *tim, uint8_t channel, uint8_t percent)</div><div class="ttdef"><b>Definition</b> pwm.c:139</div></div>
+<div class="ttc" id="apwm_8h_html_ab72396114a93e461ec3d59ba61aaa976"><div class="ttname"><a href="pwm_8h.html#ab72396114a93e461ec3d59ba61aaa976">PHAL_initPWM</a></div><div class="ttdeci">bool PHAL_initPWM(uint32_t frequency_hz, TIM_TypeDef *tim, uint8_t channelsToEnable)</div><div class="ttdef"><b>Definition</b> pwm.c:15</div></div>
+</div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2

@@ -158,6 +158,8 @@ bool adbms_connect(adbms_t *bms) {
 
     adbms_send_command(bms, RDCFGA);
 
+    adbms_wake(bms);
+
     // if (false == PHAL_SPI_transfer_noDMA(bms->spi, (const uint8_t *) &(txstring.data), txstring.length, RX_DATA_LEN, bms->rx_buffer)) {
     adbms_set_cs(bms, 0);
     if (false == PHAL_SPI_transfer_noDMA(bms->spi, (const uint8_t *) &(txstring.data), txstring.length, 0, NULL)) {
@@ -166,22 +168,24 @@ bool adbms_connect(adbms_t *bms) {
         return false;
     }
     size_t rx_len = RX_DATA_LEN * 2; // 2 BMS
-    uint8_t rx_buffer[RX_DATA_LEN * 2] = {0};
-    if (false == PHAL_SPI_transfer_noDMA(bms->spi, NULL, 0, rx_len, rx_buffer)) {
+    // uint8_t rx_buffer[RX_DATA_LEN * 2] = {0};
+    if (false == PHAL_SPI_transfer_noDMA(bms->spi, NULL, 0, rx_len, tmp_rx_buffer)) {
     	bms->last_fault_time[14] = xTaskGetTickCount();
         adbms_set_cs(bms, 1);
         return false;
     }
     adbms_set_cs(bms, 1);
-    memcpy(&tmp_rx_buffer, &rx_buffer, rx_len);
+    // memcpy(&tmp_rx_buffer, &rx_buffer, rx_len);
 
     // Check configs
-    if (0 != memcmp(rx_buffer, bms->rega_cfg, 6)) {
+    if (0 != memcmp(tmp_rx_buffer, bms->rega_cfg, 6)) {
     	bms->last_fault_time[15] = xTaskGetTickCount();
+        adbms_set_cs(bms, 1);
     	return false;
     };
-    if (0 != memcmp(rx_buffer + 8, bms->rega_cfg, 6)) {
+    if (0 != memcmp(tmp_rx_buffer + 8, bms->rega_cfg, 6)) {
     	bms->last_fault_time[16] = xTaskGetTickCount();
+        adbms_set_cs(bms, 1);
     	return false;
     };
 
@@ -197,9 +201,9 @@ void adbms_wake(adbms_t *bms) {
         GPIO_TypeDef *cs_port = bms->spi->nss_gpio_port;
         uint32_t cs_pin = bms->spi->nss_gpio_pin;
 
-        PHAL_writeGPIO(cs_port, cs_pin, 0);
+        adbms_set_cs(bms, 0);
         osDelay(ADBMS_WAKE_DELAY_MS);
-        PHAL_writeGPIO(cs_port, cs_pin, 1);
+        adbms_set_cs(bms, 1);
         osDelay(ADBMS_WAKE_DELAY_MS);
     }
 }
@@ -280,7 +284,7 @@ bool adbms_cfg_rega(adbms_t *bms) {
 
     memcpy(bms->rega_cfg, rega_cfg, 6);
 
-    adbms_wake(bms);
+    // adbms_wake(bms);
 
     // TEST:
     // rega_cfg[0] = 0x0F;
@@ -310,8 +314,12 @@ bool adbms_cfg_rega(adbms_t *bms) {
     // DAIY x2: send command once, send data twice
     clear_string(&txstring);
     adbms_send_command(bms, WRCFGA);
-    adbms_send_data(bms, rega_cfg);
-    adbms_send_data(bms, rega_cfg);
+    rega_cfg[2] = 1; // change soak settings for 2nd write
+    adbms_send_data(bms, rega_cfg); // dev 2
+    rega_cfg[2] = 0; // change soak settings for 2nd write
+    adbms_send_data(bms, rega_cfg); // dev 1
+
+    adbms_wake(bms);
 
     adbms_set_cs(bms, 0);
     if (false == PHAL_SPI_transfer_noDMA(bms->spi, (const uint8_t*) &txstring.data, txstring.length, 0, NULL)) {
@@ -357,7 +365,7 @@ bool adbms_cfg_regb(adbms_t *bms) {
 
     memcpy(bms->regb_cfg, regb_cfg, 6);
 
-    adbms_wake(bms);
+    // adbms_wake(bms);
 
     // adbms_set_cs(bms, 0);
     // if (false == adbms_send_command2(bms, WRCFGB)) {
@@ -379,6 +387,9 @@ bool adbms_cfg_regb(adbms_t *bms) {
     adbms_send_command(bms, WRCFGB);
     adbms_send_data(bms, regb_cfg);
     adbms_send_data(bms, regb_cfg);
+
+    adbms_wake(bms);
+
     adbms_set_cs(bms, 0);
     if (false == PHAL_SPI_transfer_noDMA(bms->spi, (const uint8_t*) &txstring.data, txstring.length, 0, NULL)) {
     	bms->last_fault_time[5] = xTaskGetTickCount();

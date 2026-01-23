@@ -16,7 +16,6 @@
                 "-d",
                 "${workspaceFolder}/source/adbms"
             ],
-            "preLaunchTask": "build",
             "runToEntryPoint": "main",
             "liveWatch": {
                 "enabled":true,

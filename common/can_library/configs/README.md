@@ -2,6 +2,7 @@
 - `peripheral`: Hardware identifier (e.g., `CAN1`, `CAN2`, `CAN3`).
 - `accept_all_messages`: Boolean. If true, disables hardware filter optimization (promiscuous mode).
 - `is_extended_id`: Boolean. Set at the bus level. Mixed-ID buses are not supported; all messages on a bus will share this framing.
+- `host_fault_library`: Boolean. If true, indicates this bus is the primary uplink for fault communication (usually VCAN).
 
 ## Node Attributes
 - `node_name`: Name of the node. Must be unique.
@@ -55,9 +56,6 @@ PER vehicle convention:
 
 ## Fault Configuration
 Node-specific faults are defined directly in the node JSON under the `"faults"` key. The library automatically generates bitfield-sync and event messages for fault communication based on these definitions.
-
-### Global Configuration
-- `host_fault_library`: (Bus attribute) Boolean. If true, indicates this bus is the primary uplink for fault communication (usually VCAN).
 
 ### Node Level
 - `generate_fault_messages`: Boolean. If true, generates LCD string arrays for the node (usually only true for nodes with displays like the Dashboard).

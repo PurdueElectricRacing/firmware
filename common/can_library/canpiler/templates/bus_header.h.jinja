@@ -19,10 +19,12 @@ static constexpr uint8_t  {{ msg.macro_name }}_DLC = {{ msg.dlc }};
 static constexpr uint32_t {{ msg.macro_name }}_PERIOD_MS = {{ msg.period }};
 
 typedef struct {
+    uint32_t last_rx;
+    // Begin signal defs
 {% for sig in msg.signals %}
     {{ sig.c_type }} {{ sig.name }};
 {% endfor %}
-    uint32_t last_rx;
+    // End signal defs
     bool stale;
 } {{ msg.name }}_data_t;
 

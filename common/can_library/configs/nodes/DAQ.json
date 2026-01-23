@@ -68,7 +68,7 @@
                     "signals": [
                         {
                             "sig_name": "git_hash",
-                            "type": "uint64_t",
+                            "type": "uint32_t",
                             "sig_desc": "int representation of git short hash"
                         }
                     ],

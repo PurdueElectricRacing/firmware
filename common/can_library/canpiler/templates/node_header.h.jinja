@@ -26,7 +26,7 @@
 {% endif %}
 
 // System Version: {{ context.version }}
-#define GIT_HASH "{{ context.version }}"
+static constexpr uint64_t GIT_HASH = 0x{{ context.version }};
 
 // Peripheral Configuration
 static constexpr uint8_t NUM_CAN_PERIPHERALS = {{ peripherals|length }};

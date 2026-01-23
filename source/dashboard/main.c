@@ -268,9 +268,7 @@ void preflightChecks(void) {
 }
 
 void sendVersion() {
-    char git_hash[8]      = GIT_HASH;
-    uint64_t git_hash_num = EIGHT_CHAR_TO_U64_LE(git_hash);
-    CAN_SEND_dash_version(git_hash_num);
+    CAN_SEND_dash_version(GIT_HASH);
 }
 
 /**

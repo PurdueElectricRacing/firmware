@@ -105,8 +105,8 @@ def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], b
             is_extended=is_extended,
             signals=[
                 Signal(name="idx", datatype="fault_index_t", desc="Global Fault Index"),
-                Signal(name="state", datatype="bool", desc="Latch State (0=unlatched, 1=latched)"),
-                Signal(name="val", datatype="uint16_t", desc="Trigger Value")
+                Signal(name="val", datatype="uint16_t", desc="Trigger Value"),
+                Signal(name="state", datatype="bool", desc="Latch State (0=unlatched, 1=latched)")
             ]
         )
         event_msg.resolve_layout(custom_types)

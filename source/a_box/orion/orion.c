@@ -76,7 +76,7 @@ void orionChargePeriodic() {
     orion_charger_status = can_data.orion_info_charger.is_charging && !can_data.orion_info_charger.stale;
 
     charge_request_user &= !can_data.elcon_charger_status.stale;
-    if (charge_request_user && orion_charger_status && !orionErrors() && !warning_latched() && !fatal_latched()) {
+    if (charge_request_user && orion_charger_status && !orionErrors() && !is_warning_latched() && !is_fatal_latched()) {
         elcon_charge_enable = true;
 
         //user_charge_current_request = 10;

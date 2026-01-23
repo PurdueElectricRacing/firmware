@@ -3,10 +3,9 @@
 
 /**
  * @file faults_common.h
- * @brief Creating a library of faults to create an easy to debug atmosphere on the car
+ * @brief Event-based FIDR system
  *
  * @author Irving Wang (irvingw@purdue.edu)
- * @author Aditya Anand (anand89@purdue.edu)
  */
 
 #include <stdint.h>
@@ -28,26 +27,25 @@ typedef enum : uint8_t {
 
 typedef struct {
     uint32_t start_time_ms;
-    char *message;
     uint16_t max_value;
     uint16_t min_value;
     uint16_t latch_time_ms;
     uint16_t unlatch_time_ms;
     fault_state_t state;
     fault_priority_t priority;
-    // 1 byte padding
+    // 2 byte padding
 } fault_t;
 
 // API
-bool update_fault(fault_index_t idx, uint16_t value);
+void update_fault(fault_index_t idx, uint16_t value);
 bool is_latched(fault_index_t idx);
 void fault_library_periodic();
 
-bool warning_latched();
-bool error_latched();
-bool fatal_latched();
-bool curr_mcu_latched();
-bool other_mcus_latched();
+bool is_warning_latched();
+bool is_error_latched();
+bool is_fatal_latched();
+bool is_curr_mcu_latched();
+bool is_other_mcus_latched();
 bool is_any_latched();
 
 #ifdef HAS_FAULT_STRINGS

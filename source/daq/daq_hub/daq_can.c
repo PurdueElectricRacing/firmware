@@ -4,6 +4,8 @@
 #include "common/phal/can.h"
 #include "daq_hub.h"
 
+#include <string.h>
+
 
 // TODO move to freertos queues
 can_stats_t can_stats_daq;

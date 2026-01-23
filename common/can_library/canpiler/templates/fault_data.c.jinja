@@ -8,13 +8,19 @@
 #include "common/can_library/generated/fault_data.h"
 #include "common/can_library/generated/can_router.h"
 
-fault_status_t faults[TOTAL_NUM_FAULTS] = {0};
-
-const fault_attributes_t fault_attributes[TOTAL_NUM_FAULTS] = {
+fault_t faults[TOTAL_NUM_FAULTS] = {
 {% for module in fault_modules %}
     // --- {{ module.node_name }} ---
 {% for fault in module.faults %}
-    [FAULT_INDEX_{{ module.node_name|upper }}_{{ fault.name|upper }}] = { {{ fault.time_to_latch }}, {{ fault.max_val }}, {{ fault.min_val }}, {{ fault.time_to_latch }}, {{ fault.time_to_unlatch }}, FAULT_PRIO_{{ fault.priority|upper }} },
+    [FAULT_INDEX_{{ module.node_name|upper }}_{{ fault.name|upper }}] = {
+        .start_time_ms = 0,
+        .max_value = {{ fault.max_val }},
+        .min_value = {{ fault.min_val }},
+        .latch_time_ms = {{ fault.time_to_latch }},
+        .unlatch_time_ms = {{ fault.time_to_unlatch }},
+        .state = FAULT_STATE_OK,
+        .priority = FAULT_PRIO_{{ fault.priority|upper }}
+    },
 {% endfor %}
 {% endfor %}
 };
@@ -35,14 +41,14 @@ const char* const fault_strings[TOTAL_NUM_FAULTS] = {
 #ifndef CAN_NODE_{{ module.node_name|upper }}
 void {{ module.node_name|lower }}_fault_sync_CALLBACK(can_data_t* can_data) {
 {% for fault in module.faults %}
-    faults[FAULT_INDEX_{{ module.node_name|upper }}_{{ fault.name|upper }}].is_latched = can_data->{{ module.node_name|lower }}_fault_sync.{{ fault.name }};
+    faults[FAULT_INDEX_{{ module.node_name|upper }}_{{ fault.name|upper }}].state = can_data->{{ module.node_name|lower }}_fault_sync.{{ fault.name }} ? FAULT_STATE_LATCHED : FAULT_STATE_OK;
 {% endfor %}
 }
 
 void {{ module.node_name|lower }}_fault_event_CALLBACK(can_data_t* can_data) {
     uint16_t idx = can_data->{{ module.node_name|lower }}_fault_event.idx;
     if (idx < TOTAL_NUM_FAULTS) {
-        faults[idx].is_latched = (can_data->{{ module.node_name|lower }}_fault_event.state != 0);
+        faults[idx].state = (can_data->{{ module.node_name|lower }}_fault_event.state != 0) ? FAULT_STATE_LATCHED : FAULT_STATE_OK;
     }
 }
 #else
@@ -57,7 +63,7 @@ void tx_fault_sync(void) {
 #ifdef CAN_NODE_{{ module.node_name|upper }}
     CAN_SEND_{{ module.node_name|lower }}_fault_sync(
 {% for fault in module.faults %}
-        faults[FAULT_INDEX_{{ module.node_name|upper }}_{{ fault.name|upper }}].is_latched{{ "," if not loop.last }}
+        (faults[FAULT_INDEX_{{ module.node_name|upper }}_{{ fault.name|upper }}].state == FAULT_STATE_LATCHED){{ "," if not loop.last }}
 {% endfor %}
     );
 #endif
@@ -68,7 +74,7 @@ void tx_fault_event(fault_index_t idx, uint16_t value) {
 {% for module in fault_modules %}
 #ifdef CAN_NODE_{{ module.node_name|upper }}
     if (idx >= FAULT_INDEX_{{ module.node_name|upper }}_{{ module.faults[0].name|upper }} && idx <= FAULT_INDEX_{{ module.node_name|upper }}_{{ module.faults[-1].name|upper }}) {
-        CAN_SEND_{{ module.node_name|lower }}_fault_event(idx, faults[idx].is_latched, value);
+        CAN_SEND_{{ module.node_name|lower }}_fault_event(idx, (faults[idx].state == FAULT_STATE_LATCHED), value);
     }
 #endif
 {% endfor %}

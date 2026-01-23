@@ -134,13 +134,13 @@ void carPeriodic() {
 
     // An error fault has higher priority
     // than the RTD Exit Fault
-    if (error_latched()) {
+    if (is_error_latched()) {
         car.state = CARSTATE_ERROR;
     }
 
     // A fatal fault has higher priority
     // than an error fault
-    if (fatal_latched()) {
+    if (is_fatal_latched()) {
         car.state = CARSTATE_FATAL;
     }
 
@@ -165,7 +165,7 @@ void carPeriodic() {
     } else if (car.state == CARSTATE_ERROR) {
         // Error has occured, leave HV on but do not drive
         // Recover once error gone
-        if (!error_latched())
+        if (!is_error_latched())
             car.state = CARSTATE_IDLE;
         prchg_start = false;
     } else if (car.state == CARSTATE_IDLE) {

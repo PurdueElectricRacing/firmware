@@ -259,7 +259,7 @@ void monitorStatus() {
 
     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, bms_err);
 
-    set_fault(FAULT_INDEX_A_BOX_IMD, imd_err);
+    update_fault(FAULT_INDEX_A_BOX_IMD, imd_err);
 
     uint8_t stat = bms_err | tmu_err;
     PHAL_writeGPIO(BMS_STATUS_GPIO_Port, BMS_STATUS_Pin, stat);

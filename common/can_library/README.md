@@ -23,3 +23,8 @@ Standardized framework for CAN communication and system-wide fault management wi
 > Weird quirk: we run the CANpiler twice.
 > Once during CMake configuration time and one during build time.
 > This avoids any possibility of building with stale generated files.
+
+## CAN Common
+
+
+## Fault Common

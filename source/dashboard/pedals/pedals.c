@@ -76,9 +76,9 @@ void pedalsPeriodic(void) {
     b2_raw = raw_adc_values.b2;
 
     // Check for wiring faults
-    set_fault(FAULT_INDEX_DASHBOARD_APPS_WIRING_T1, t1_raw);
-    set_fault(FAULT_INDEX_DASHBOARD_APPS_WIRING_T2, t2_raw);
-    set_fault(FAULT_INDEX_DASHBOARD_BSE, PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin));
+    update_fault(FAULT_INDEX_DASHBOARD_APPS_WIRING_T1, t1_raw);
+    update_fault(FAULT_INDEX_DASHBOARD_APPS_WIRING_T2, t2_raw);
+    update_fault(FAULT_INDEX_DASHBOARD_BSE, PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin));
 
     // Hard clamp the raw values to the min and max values to account for physical limits
     uint16_t t1_clamped = CLAMP(t1_raw, pedal_calibration.t1_min, pedal_calibration.t1_max);
@@ -97,13 +97,13 @@ void pedalsPeriodic(void) {
         // Set APPS to 0
         t2_final = 0;
         t1_final = 0;
-        set_fault(FAULT_INDEX_DASHBOARD_APPS_BRAKE, 1);
+        update_fault(FAULT_INDEX_DASHBOARD_APPS_BRAKE, 1);
     } else if (t1_final <= APPS_THROTTLE_CLEARFAULT_THRESHOLD) { // Clear fault if throttle is released
-        set_fault(FAULT_INDEX_DASHBOARD_APPS_BRAKE, 0);
+        update_fault(FAULT_INDEX_DASHBOARD_APPS_BRAKE, 0);
     }
 
     // Check for APPS sensor deviations (10%)
-    set_fault(FAULT_INDEX_DASHBOARD_IMPLAUS_DETECTED, ABS((int16_t)t1_final - (int16_t)t2_final));
+    update_fault(FAULT_INDEX_DASHBOARD_IMPLAUS_DETECTED, ABS((int16_t)t1_final - (int16_t)t2_final));
 
     // Update the pedal values for external use
     pedal_values.throttle = t1_final;

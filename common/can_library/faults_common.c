@@ -11,75 +11,82 @@
 #include "common/can_library/generated/can_router.h"
 #include "common/psched/psched.h"
 
-static uint16_t fault_priorities[NUM_FAULT_PRIOS];
+static uint16_t fault_counters[NUM_FAULT_PRIOS];
 
-bool is_latched(fault_index_t idx) {
-    if (idx >= TOTAL_NUM_FAULTS) return false;
-    return faults[idx].is_latched;
-}
-
-bool set_fault(fault_index_t idx, uint16_t value) {
-    if (idx >= TOTAL_NUM_FAULTS) return false;
-
-    const fault_attributes_t *attr = &fault_attributes[idx];
-    fault_status_t *status = &faults[idx];
-
-    bool current_out_of_bounds = (value >= attr->max_value || value < attr->min_value);
-
-    uint32_t now = OS_TICKS;
-
-    if (current_out_of_bounds) {
-        if (!status->temp_state) {
-            // Entered out-of-bounds state
-            status->temp_state = true;
-            status->start_ticks = now;
-            
-            // If latch time is 0, latch immediately
-            if (attr->latch_ms == 0 && !status->is_latched) {
-                status->is_latched = true;
-                tx_fault_event(idx, value);
-            }
-        } else {
-            // Sustained out-of-bounds state
-            if (!status->is_latched && (now - status->start_ticks) >= attr->latch_ms) {
-                status->is_latched = true;
-                tx_fault_event(idx, value);
-            }
-        }
-    } else {
-        // Value is within limits
-        if (status->temp_state) {
-            // Entered within-limits state
-            status->temp_state = false;
-            status->start_ticks = now;
-            
-            // If unlatch time is 0, unlatch immediately
-            if (attr->unlatch_ms == 0 && status->is_latched) {
-                status->is_latched = false;
-                tx_fault_event(idx, value);
-            }
-        } else {
-            // Sustained within-limits state
-            if (status->is_latched && (now - status->start_ticks) >= attr->unlatch_ms) {
-                status->is_latched = false;
-                tx_fault_event(idx, value);
-            }
-        }
+inline bool is_latched(fault_index_t idx) {
+    if (idx >= TOTAL_NUM_FAULTS) {
+        return false;
     }
 
-    return status->is_latched;
+    return faults[idx].state == FAULT_STATE_LATCHED;
+}
+
+void update_fault(fault_index_t idx, uint16_t value) {
+    if (idx >= TOTAL_NUM_FAULTS) {
+        return;
+    }
+
+    fault_t *fault = &faults[idx];
+    uint32_t now = OS_TICKS;
+
+    bool is_out_of_bounds = (value > fault->max_value) || (value < fault->min_value);
+
+    switch(fault->state) {
+        case FAULT_STATE_OK: {
+            if (is_out_of_bounds) {
+                fault->state = FAULT_STATE_PENDING;
+                fault->start_time_ms = now;
+            }
+            break;
+        }
+        case FAULT_STATE_PENDING: {
+            if (!is_out_of_bounds) {
+                fault->state = FAULT_STATE_OK;
+                break;
+            }
+
+            uint32_t elapsed = now - fault->start_time_ms;
+            // do not update the start_time
+            if (elapsed > fault->latch_time_ms) {
+                fault->state = FAULT_STATE_LATCHED;
+            }
+            break;
+
+        }
+        case FAULT_STATE_LATCHED: {
+            if (!is_out_of_bounds) {
+                fault->state = FAULT_STATE_RECOVERING;
+                fault->start_time_ms = now;
+            }
+
+            break;
+        }
+        case FAULT_STATE_RECOVERING: {
+            if (is_out_of_bounds) {
+                fault->state = FAULT_STATE_LATCHED;
+                break;
+            }
+
+            uint32_t elapsed = now - fault->start_time_ms;
+            // do not update the start_time
+            if (elapsed > fault->unlatch_time_ms) {
+                fault->state = FAULT_STATE_OK;
+            }
+            break;
+        }
+    }
 }
 
 void fault_library_periodic() {
     // Reset priority counters
     for (int i = 0; i < NUM_FAULT_PRIOS; i++) {
-        fault_priorities[i] = 0;
+        fault_counters[i] = 0;
     }
 
     // Count latched faults
     for (int i = 0; i < TOTAL_NUM_FAULTS; i++) {
         if (faults[i].is_latched) {
-            fault_priorities[fault_attributes[i].priority]++;
+            fault_counters[fault_attributes[i].priority]++;
         }
     }
     
@@ -88,15 +95,15 @@ void fault_library_periodic() {
 }
 
 bool warning_latched() {
-    return fault_priorities[FAULT_PRIO_WARNING] > 0;
+    return fault_counters[FAULT_PRIO_WARNING] > 0;
 }
 
 bool error_latched() {
-    return fault_priorities[FAULT_PRIO_ERROR] > 0;
+    return fault_counters[FAULT_PRIO_ERROR] > 0;
 }
 
 bool fatal_latched() {
-    return fault_priorities[FAULT_PRIO_FATAL] > 0;
+    return fault_counters[FAULT_PRIO_FATAL] > 0;
 }
 
 #ifdef HAS_FAULT_STRINGS

@@ -58,7 +58,7 @@ void amkPeriodic(amk_motor_t* motor) {
                 if (AMK_CAN_ERR_ID == motor->diagnostic_num || AMK_DC_BUS_ID == motor->diagnostic_num) {
                     amkReset(motor);
                 } else {
-                    set_fault(motor->error_fault_id, true);
+                    update_fault(motor->error_fault_id, true);
                 }
             } else {
                 if (*(motor->pchg_complete)) {
@@ -97,7 +97,7 @@ void amkPeriodic(amk_motor_t* motor) {
             if ((motor->status.AMK_bSystemReady) && *(motor->pchg_complete)) {
                 /* System error */
                 if (motor->status.AMK_bError) {
-                    set_fault(motor->error_fault_id, true);
+                    update_fault(motor->error_fault_id, true);
                     motor->state = AMK_STATE_OFF;
                 }
                 // Set torque limit
@@ -204,7 +204,7 @@ void amkSetTorque(amk_motor_t* motor, int16_t torque_setpoint) {
 static void amkGetData(amk_motor_t* motor) {
     if (INVA_ID == motor->id) {
         if (can_data.INVA_CRIT.stale || can_data.INVA_TEMPS.stale || can_data.INVA_INFO.stale || can_data.INVA_ERR_1.stale || can_data.INVA_ERR_2.stale) {
-            set_fault(motor->stale_fault_id, true);
+            update_fault(motor->stale_fault_id, true);
         } else {
             motor->speed_act_RPM              = can_data.INVA_CRIT.AMK_ActualSpeed;
             motor->torque_act_ppt_nom         = can_data.INVA_CRIT.AMK_ActualTorque;
@@ -229,7 +229,7 @@ static void amkGetData(amk_motor_t* motor) {
         }
     } else if (INVB_ID == motor->id) {
         if (can_data.INVB_CRIT.stale || can_data.INVB_TEMPS.stale || can_data.INVB_INFO.stale || can_data.INVB_ERR_1.stale || can_data.INVB_ERR_2.stale) {
-            set_fault(motor->stale_fault_id, true);
+            update_fault(motor->stale_fault_id, true);
         } else {
             motor->speed_act_RPM              = can_data.INVB_CRIT.AMK_ActualSpeed;
             motor->torque_act_ppt_nom         = can_data.INVB_CRIT.AMK_ActualTorque;

@@ -67,23 +67,23 @@ void coolingPeriodic() {
 
     // Determine if dt/coolant temps are too high
     // DT
-    set_fault(FAULT_INDEX_MAIN_MODULE_DT_L_TEMP_HIGH, cooling.gb_therm_l_c);
-    set_fault(FAULT_INDEX_MAIN_MODULE_DT_L_TEMP_OT, cooling.gb_therm_l_c);
-    set_fault(FAULT_INDEX_MAIN_MODULE_DT_R_TEMP_HIGH, cooling.gb_therm_r_c);
-    set_fault(FAULT_INDEX_MAIN_MODULE_DT_R_TEMP_OT, cooling.gb_therm_r_c);
+    update_fault(FAULT_INDEX_MAIN_MODULE_DT_L_TEMP_HIGH, cooling.gb_therm_l_c);
+    update_fault(FAULT_INDEX_MAIN_MODULE_DT_L_TEMP_OT, cooling.gb_therm_l_c);
+    update_fault(FAULT_INDEX_MAIN_MODULE_DT_R_TEMP_HIGH, cooling.gb_therm_r_c);
+    update_fault(FAULT_INDEX_MAIN_MODULE_DT_R_TEMP_OT, cooling.gb_therm_r_c);
 
     // Cooling Loop
     // set_fault(FAULT_INDEX_MAIN_MODULE_BAT_COOL_LOOP_HIGH, MAX(cooling.bat_therm_in_C, cooling.bat_therm_out_C));
-    set_fault(FAULT_INDEX_MAIN_MODULE_DT_COOL_LOOP_HIGH, MAX(cooling.dt_therm_in_C, cooling.dt_therm_out_C));
+    update_fault(FAULT_INDEX_MAIN_MODULE_DT_COOL_LOOP_HIGH, MAX(cooling.dt_therm_in_C, cooling.dt_therm_out_C));
 
     // Disconnect Faults
     // DT
-    set_fault(FAULT_INDEX_MAIN_MODULE_DT_L_THERM_DISC, cooling.gb_therm_l_c);
-    set_fault(FAULT_INDEX_MAIN_MODULE_DT_R_THERM_DISC, cooling.gb_therm_r_c);
+    update_fault(FAULT_INDEX_MAIN_MODULE_DT_L_THERM_DISC, cooling.gb_therm_l_c);
+    update_fault(FAULT_INDEX_MAIN_MODULE_DT_R_THERM_DISC, cooling.gb_therm_r_c);
 
     // Cooling Loop
     // set_fault(FAULT_INDEX_MAIN_MODULE_BATT_CL_DISC, MIN(cooling.bat_therm_in_C, cooling.bat_therm_out_C));
-    set_fault(FAULT_INDEX_MAIN_MODULE_DT_CL_DISC, MIN(cooling.dt_therm_in_C, cooling.dt_therm_out_C));
+    update_fault(FAULT_INDEX_MAIN_MODULE_DT_CL_DISC, MIN(cooling.dt_therm_in_C, cooling.dt_therm_out_C));
 }
 
 float rawThermtoCelcius(uint16_t t, float a, float b, uint16_t r1) {

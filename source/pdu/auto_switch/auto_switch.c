@@ -255,31 +255,31 @@ void checkSwitchFaults() {
     // Set fault for dash/daq - this is too much for our 1ms window, so send each fault seperately
     switch (fault_num) {
         case 0:
-            set_fault(FAULT_INDEX_PDU_DASH_RAIL, !dash);
+            update_fault(FAULT_INDEX_PDU_DASH_RAIL, !dash);
             break;
         case 1:
-            set_fault(FAULT_INDEX_PDU_ABOX_RAIL, !abox);
+            update_fault(FAULT_INDEX_PDU_ABOX_RAIL, !abox);
             break;
         case 2:
-            set_fault(FAULT_INDEX_PDU_MAIN_RAIL, !main);
+            update_fault(FAULT_INDEX_PDU_MAIN_RAIL, !main);
             break;
         case 3:
-            set_fault(FAULT_INDEX_PDU_DAQ_RAIL, !daq);
+            update_fault(FAULT_INDEX_PDU_DAQ_RAIL, !daq);
             break;
         case 4:
-            set_fault(FAULT_INDEX_PDU_V_CRIT, !vcrit);
+            update_fault(FAULT_INDEX_PDU_V_CRIT, !vcrit);
             break;
         case 5:
-            set_fault(FAULT_INDEX_PDU_V_NONCRIT, !vnc);
+            update_fault(FAULT_INDEX_PDU_V_NONCRIT, !vnc);
             break;
         case 6:
-            set_fault(FAULT_INDEX_PDU_FAN1, !fan1);
+            update_fault(FAULT_INDEX_PDU_FAN1, !fan1);
             break;
         case 7:
-            set_fault(FAULT_INDEX_PDU_FAN2, !fan2);
+            update_fault(FAULT_INDEX_PDU_FAN2, !fan2);
             break;
         case 8:
-            set_fault(FAULT_INDEX_PDU_BULLET_RAIL, !bullet);
+            update_fault(FAULT_INDEX_PDU_BULLET_RAIL, !bullet);
             fault_num = 0;
             break;
     }

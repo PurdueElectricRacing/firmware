@@ -229,7 +229,7 @@ void carPeriodic() {
             }
 
             if (car.torque_src == CAR_TORQUE_TV || car.torque_src == CAR_TORQUE_TV_TEST) {
-                set_fault(FAULT_INDEX_MAIN_MODULE_TV_STALE, any_tv_msg_stale);
+                update_fault(FAULT_INDEX_MAIN_MODULE_TV_STALE, any_tv_msg_stale);
             }
 
             // Final check to see if we can run TV
@@ -488,16 +488,16 @@ void updateSDCFaults() {
         switch (i) {
             case (SDC_C_STOP):
                 if (!sdc_mux.c_stop_stat && sdc_mux.inertia_stat) {
-                    set_fault(FAULT_INDEX_MAIN_MODULE_COCKPIT_ESTOP, 1);
+                    update_fault(FAULT_INDEX_MAIN_MODULE_COCKPIT_ESTOP, 1);
                 } else {
-                    set_fault(FAULT_INDEX_MAIN_MODULE_COCKPIT_ESTOP, 0);
+                    update_fault(FAULT_INDEX_MAIN_MODULE_COCKPIT_ESTOP, 0);
                 }
                 break;
             case (SDC_INERTIA):
                 if (!sdc_mux.inertia_stat && sdc_mux.bots_stat) {
-                    set_fault(FAULT_INDEX_MAIN_MODULE_INERTIA_FAIL, 1);
+                    update_fault(FAULT_INDEX_MAIN_MODULE_INERTIA_FAIL, 1);
                 } else {
-                    set_fault(FAULT_INDEX_MAIN_MODULE_INERTIA_FAIL, 0);
+                    update_fault(FAULT_INDEX_MAIN_MODULE_INERTIA_FAIL, 0);
                 }
                 break;
             case (SDC_BOTS):
@@ -525,37 +525,37 @@ void updateSDCFaults() {
                 break;
             case (SDC_L_STOP):
                 if (!sdc_mux.l_stop_stat && sdc_mux.r_stop_stat) {
-                    set_fault(FAULT_INDEX_MAIN_MODULE_LEFT_ESTOP, 1);
+                    update_fault(FAULT_INDEX_MAIN_MODULE_LEFT_ESTOP, 1);
                 } else {
-                    set_fault(FAULT_INDEX_MAIN_MODULE_LEFT_ESTOP, 0);
+                    update_fault(FAULT_INDEX_MAIN_MODULE_LEFT_ESTOP, 0);
                 }
                 break;
             case (SDC_R_STOP):
                 if (!sdc_mux.r_stop_stat && sdc_mux.main_stat) {
-                    set_fault(FAULT_INDEX_MAIN_MODULE_RIGHT_ESTOP, 1);
+                    update_fault(FAULT_INDEX_MAIN_MODULE_RIGHT_ESTOP, 1);
                 } else {
-                    set_fault(FAULT_INDEX_MAIN_MODULE_RIGHT_ESTOP, 0);
+                    update_fault(FAULT_INDEX_MAIN_MODULE_RIGHT_ESTOP, 0);
                 }
                 break;
             case (SDC_HVD):
                 if (!sdc_mux.hvd_stat && sdc_mux.l_stop_stat) {
-                    set_fault(FAULT_INDEX_MAIN_MODULE_HVD_DISC, 1);
+                    update_fault(FAULT_INDEX_MAIN_MODULE_HVD_DISC, 1);
                 } else {
-                    set_fault(FAULT_INDEX_MAIN_MODULE_HVD_DISC, 0);
+                    update_fault(FAULT_INDEX_MAIN_MODULE_HVD_DISC, 0);
                 }
                 break;
             case (SDC_HUB):
                 if (!sdc_mux.r_hub_stat && sdc_mux.hvd_stat) {
-                    set_fault(FAULT_INDEX_MAIN_MODULE_HUB_DISC, 1);
+                    update_fault(FAULT_INDEX_MAIN_MODULE_HUB_DISC, 1);
                 } else {
-                    set_fault(FAULT_INDEX_MAIN_MODULE_HUB_DISC, 0);
+                    update_fault(FAULT_INDEX_MAIN_MODULE_HUB_DISC, 0);
                 }
                 break;
             case (SDC_TSMS):
                 if (!sdc_mux.tsms_stat && sdc_mux.r_hub_stat) {
-                    set_fault(FAULT_INDEX_MAIN_MODULE_TSMS_DISC, 1);
+                    update_fault(FAULT_INDEX_MAIN_MODULE_TSMS_DISC, 1);
                 } else {
-                    set_fault(FAULT_INDEX_MAIN_MODULE_TSMS_DISC, 0);
+                    update_fault(FAULT_INDEX_MAIN_MODULE_TSMS_DISC, 0);
                 }
                 break;
         }

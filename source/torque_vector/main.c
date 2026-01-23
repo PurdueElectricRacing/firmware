@@ -476,13 +476,13 @@ void VCU_MAIN(void) {
     vcu_step(&pVCU, &fVCU, &xVCU, &yVCU);
 
     /* Set VCU faults */
-    set_fault(FAULT_INDEX_TORQUE_VECTOR_ES_ENABLED, (yVCU.VCU_mode == 0));
-    set_fault(FAULT_INDEX_TORQUE_VECTOR_ET_ENABLED, (yVCU.VCU_mode == 1));
-    set_fault(FAULT_INDEX_TORQUE_VECTOR_PT_ENABLED, (yVCU.VCU_mode == 2));
-    set_fault(FAULT_INDEX_TORQUE_VECTOR_VT_ENABLED, (yVCU.VCU_mode == 3));
-    set_fault(FAULT_INDEX_TORQUE_VECTOR_VS_ENABLED, (yVCU.VCU_mode == 4));
-    set_fault(FAULT_INDEX_TORQUE_VECTOR_NO_GPS_FIX, (fVCU.GS_FFLAG < 3));
-    set_fault(FAULT_INDEX_TORQUE_VECTOR_YES_GPS_FIX, (fVCU.GS_FFLAG == 3));
+    update_fault(FAULT_INDEX_TORQUE_VECTOR_ES_ENABLED, (yVCU.VCU_mode == 0));
+    update_fault(FAULT_INDEX_TORQUE_VECTOR_ET_ENABLED, (yVCU.VCU_mode == 1));
+    update_fault(FAULT_INDEX_TORQUE_VECTOR_PT_ENABLED, (yVCU.VCU_mode == 2));
+    update_fault(FAULT_INDEX_TORQUE_VECTOR_VT_ENABLED, (yVCU.VCU_mode == 3));
+    update_fault(FAULT_INDEX_TORQUE_VECTOR_VS_ENABLED, (yVCU.VCU_mode == 4));
+    update_fault(FAULT_INDEX_TORQUE_VECTOR_NO_GPS_FIX, (fVCU.GS_FFLAG < 3));
+    update_fault(FAULT_INDEX_TORQUE_VECTOR_YES_GPS_FIX, (fVCU.GS_FFLAG == 3));
 
     /* Send VCU messages */
     CAN_SEND_VCU_torques_speeds((int16_t)(100 * yVCU.TO_VT[0]), (int16_t)(100 * yVCU.TO_VT[1]), (int16_t)(100 * yVCU.TO_PT[0]), (int8_t)(yVCU.VCU_mode));

@@ -118,8 +118,8 @@ uint8_t readTemps() {
         int16_t min_temp = MIN(MIN(MIN(module_one->total_min_temp, module_two->total_min_temp), MIN(module_three->total_min_temp, module_four->total_min_temp)), module_five->total_min_temp);
         CAN_SEND_max_cell_temp(max_temp);
         CAN_SEND_num_therm_bad(module_one->left_readings.num_bad, module_one->left_readings.num_bad, module_two->left_readings.num_bad, module_two->left_readings.num_bad, module_three->left_readings.num_bad, module_three->left_readings.num_bad, module_four->left_readings.num_bad, module_four->left_readings.num_bad, module_five->left_readings.num_bad, module_five->left_readings.num_bad);
-        set_fault(FAULT_INDEX_A_BOX_PACK_TEMP, max_temp);
-        set_fault(FAULT_INDEX_A_BOX_PACK_TEMP_EXCEEDED, max_temp);
+        update_fault(FAULT_INDEX_A_BOX_PACK_TEMP, max_temp);
+        update_fault(FAULT_INDEX_A_BOX_PACK_TEMP_EXCEEDED, max_temp);
         // set_fault(FAULT_INDEX_A_BOX_MIN_PACK_TEMP, min_temp);
 
         // resetting

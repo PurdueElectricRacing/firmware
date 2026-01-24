@@ -71,9 +71,8 @@ static inline void CAN_rx_dispatcher(uint32_t id, uint8_t* data, uint8_t len, ui
     {% set msg = rx_msg.resolved_message %}
         case {{ msg.macro_name }}_MSG_ID:
             if (peripheral_idx == {{ periph }}_INDEX) {
-                uint64_t wire_data = 0;
-                memcpy(&wire_data, data, len);
-                uint64_t host_data = __builtin_bswap64(wire_data);
+                uint64_t host_data = 0;
+                memcpy(&host_data, data, len);
                 
                 {% for sig in msg.signals %}
                 {% if sig.is_signed and sig.length < 64 %}
@@ -150,8 +149,7 @@ static inline void CAN_SEND_{{ tx_msg.name }}(
     {% endif %}
     {% endfor %}
 
-    uint64_t wire_data = __builtin_bswap64(data);
-    memcpy(outgoing.Data, &wire_data, {{ tx_msg.macro_name }}_DLC);
+    memcpy(outgoing.Data, &data, {{ tx_msg.macro_name }}_DLC);
 
     CAN_enqueue_tx(&outgoing);
 }

@@ -79,7 +79,7 @@ class Message:
             length = sig.get_bit_length(custom_types)
             sig.length = length
             sig.bit_offset = current_offset
-            sig.bit_shift = 64 - current_offset - length
+            sig.bit_shift = current_offset
             sig.mask = (1 << length) - 1
             
             # Resolve signedness

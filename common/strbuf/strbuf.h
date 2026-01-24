@@ -1,5 +1,5 @@
 /**
- * @file strbuf.c
+ * @file strbuf.h
  * @brief Fixed-size string builder.
  * Useful for building large CMD strings before transmission.
  *

@@ -62,6 +62,7 @@ set(COMMON_MODULES
     common/faults
     common/daq
     common/amk
+    common/strbuf
     common/modules/wheel_speeds
     common/syscalls
 )

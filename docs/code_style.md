@@ -7,6 +7,9 @@ This document defines the general coding style and rules for PER-owned projects.
 The goal is to maintain a consistent and easily maintainable codebase. Following these rules reduces opportunities for hidden bugs and makes the code more readable and reviewable for others.
 
 Additionally, the compiler standard for `firmware` is set to C23, enabling several important modern features.
+- `bool`, `nullptr` as standard keywords
+- `constexpr` for compile-time constants
+- `static_assert` for compile-time assertions
 
 ## Rules and Suggestions
 
@@ -164,7 +167,7 @@ Additionally, the compiler standard for `firmware` is set to C23, enabling sever
     } fault_state_t;
     ```
     
-13. Check null pointers before use
+13. Check null pointers before dereferencing
     
     ```c
     // bad
@@ -174,7 +177,7 @@ Additionally, the compiler standard for `firmware` is set to C23, enabling sever
     
     // good
     void pass_by_reference(uint16_t *ptr) {
-    	if (ptr == NULL) {
+    	if (ptr == nullptr) {
     		return; // or return error code
     	}
     	*ptr = 10

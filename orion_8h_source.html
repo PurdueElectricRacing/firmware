@@ -94,26 +94,24 @@ $(function(){ initResizable(false); });
 <a href="orion_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef _ORION_H_</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define _ORION_H_</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;A_BOX.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="orion_8h.html#aed8ea54a2630aaf2ae3f2bd5fa886959">    8</a></span><span class="preprocessor">#define MAX_TEMP (550)</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="orion_8h.html#ade0415fa3de6a77cec873e8209579f65">    9</a></span><span class="preprocessor">#define MAX_VOLT (598) </span><span class="comment">// Max Pack voltage per ESF is 598 volts.</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="orion_8h.html#a8ce24cac6c1b653ddf932b13f96f6c16">   11</a></span><span class="preprocessor">#define DEFAULT_CHARGE_VOLTAGE_REQUEST 590</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="orion_8h.html#abff1f502842c0b3eb340b2e12380d83c">   12</a></span><span class="preprocessor">#define DEFAULT_CHARGE_CURRENT_REQUEST 2</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">extern</span> uint8_t <a class="code hl_variable" href="orion_8c.html#a21ab338773c5cfe26ddf71a339388f56">charge_request_user</a>;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">extern</span> uint16_t <a class="code hl_variable" href="orion_8c.html#acc9c2cec806fa0236b7f1895c41c4c48">user_charge_current_request</a>;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">extern</span> uint16_t <a class="code hl_variable" href="orion_8c.html#a336188e7564bd84e2186f88be3979685">user_charge_voltage_request</a>;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keywordtype">bool</span> <a class="code hl_function" href="orion_8h.html#a8b39479c31ee4873d1a1da75e1b1d96f">orionErrors</a>();</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="orion_8h.html#a7cf9cb798fef5a1405f5a9abfd132f73">   19</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="orion_8h.html#a7cf9cb798fef5a1405f5a9abfd132f73">orionCheckTempsPeriodic</a>();</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keywordtype">void</span> <a class="code hl_function" href="orion_8h.html#a5ac3f08054b7806df54559c574f18720">orionChargePeriodic</a>();</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keywordtype">void</span> <a class="code hl_function" href="orion_8h.html#a859556d7093b4b367a5cee7a09d0e7b8">orionInit</a>();</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="orion_8h.html#aed8ea54a2630aaf2ae3f2bd5fa886959">    6</a></span><span class="preprocessor">#define MAX_TEMP (550)</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="orion_8h.html#ade0415fa3de6a77cec873e8209579f65">    7</a></span><span class="preprocessor">#define MAX_VOLT (598) </span><span class="comment">// Max Pack voltage per ESF is 598 volts.</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="orion_8h.html#a8ce24cac6c1b653ddf932b13f96f6c16">    9</a></span><span class="preprocessor">#define DEFAULT_CHARGE_VOLTAGE_REQUEST 590</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="orion_8h.html#abff1f502842c0b3eb340b2e12380d83c">   10</a></span><span class="preprocessor">#define DEFAULT_CHARGE_CURRENT_REQUEST 2</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">extern</span> uint8_t <a class="code hl_variable" href="orion_8c.html#a21ab338773c5cfe26ddf71a339388f56">charge_request_user</a>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">extern</span> uint16_t <a class="code hl_variable" href="orion_8c.html#acc9c2cec806fa0236b7f1895c41c4c48">user_charge_current_request</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">extern</span> uint16_t <a class="code hl_variable" href="orion_8c.html#a336188e7564bd84e2186f88be3979685">user_charge_voltage_request</a>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keywordtype">bool</span> <a class="code hl_function" href="orion_8h.html#a8b39479c31ee4873d1a1da75e1b1d96f">orionErrors</a>();</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="orion_8h.html#a7cf9cb798fef5a1405f5a9abfd132f73">   17</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="orion_8h.html#a7cf9cb798fef5a1405f5a9abfd132f73">orionCheckTempsPeriodic</a>();</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keywordtype">void</span> <a class="code hl_function" href="orion_8h.html#a5ac3f08054b7806df54559c574f18720">orionChargePeriodic</a>();</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keywordtype">void</span> <a class="code hl_function" href="orion_8h.html#a859556d7093b4b367a5cee7a09d0e7b8">orionInit</a>();</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aorion_8c_html_a21ab338773c5cfe26ddf71a339388f56"><div class="ttname"><a href="orion_8c.html#a21ab338773c5cfe26ddf71a339388f56">charge_request_user</a></div><div class="ttdeci">uint8_t charge_request_user</div><div class="ttdef"><b>Definition</b> orion.c:9</div></div>
 <div class="ttc" id="aorion_8c_html_a336188e7564bd84e2186f88be3979685"><div class="ttname"><a href="orion_8c.html#a336188e7564bd84e2186f88be3979685">user_charge_voltage_request</a></div><div class="ttdeci">uint16_t user_charge_voltage_request</div><div class="ttdef"><b>Definition</b> orion.c:11</div></div>
 <div class="ttc" id="aorion_8c_html_acc9c2cec806fa0236b7f1895c41c4c48"><div class="ttname"><a href="orion_8c.html#acc9c2cec806fa0236b7f1895c41c4c48">user_charge_current_request</a></div><div class="ttdeci">uint16_t user_charge_current_request</div><div class="ttdef"><b>Definition</b> orion.c:10</div></div>

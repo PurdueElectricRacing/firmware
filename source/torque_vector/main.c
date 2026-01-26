@@ -5,10 +5,10 @@
 #include <string.h>
 
 #include "bmi088.h"
-#include "TORQUE_VECTOR.h"
+#include "common/can_library/generated/TORQUE_VECTOR.h"
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
-#include "common/faults/faults.h"
+#include "common/can_library/faults_common.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "common/phal/spi.h"
@@ -201,20 +201,20 @@ int16_t scaled_speed;
 int16_t scaled_heading;
 
 void reportData() {
-    scaled_accel_x = (int16_t)(bmi_handle.data.accel_x * 100);
-    scaled_accel_y = (int16_t)(bmi_handle.data.accel_y * 100);
-    scaled_accel_z = (int16_t)(bmi_handle.data.accel_z * 100);
+    scaled_accel_x = (int16_t)(bmi_handle.data.accel_x * PACK_COEFF_IMU_ACCEL_IMU_ACCEL_X);
+    scaled_accel_y = (int16_t)(bmi_handle.data.accel_y * PACK_COEFF_IMU_ACCEL_IMU_ACCEL_Y);
+    scaled_accel_z = (int16_t)(bmi_handle.data.accel_z * PACK_COEFF_IMU_ACCEL_IMU_ACCEL_Z);
     CAN_SEND_imu_accel(scaled_accel_x, scaled_accel_y, scaled_accel_z);
 
-    scaled_gyro_x = (int16_t)(bmi_handle.data.gyro_x * 100);
-    scaled_gyro_y = (int16_t)(bmi_handle.data.gyro_y * 100);
-    scaled_gyro_z = (int16_t)(bmi_handle.data.gyro_z * 100);
+    scaled_gyro_x = (int16_t)(bmi_handle.data.gyro_x * PACK_COEFF_IMU_GYRO_IMU_GYRO_X);
+    scaled_gyro_y = (int16_t)(bmi_handle.data.gyro_y * PACK_COEFF_IMU_GYRO_IMU_GYRO_Y);
+    scaled_gyro_z = (int16_t)(bmi_handle.data.gyro_z * PACK_COEFF_IMU_GYRO_IMU_GYRO_Z);
     CAN_SEND_imu_gyro(scaled_gyro_x, scaled_gyro_y, scaled_gyro_z);
 
     CAN_SEND_gps_coordinates(gps_handle.data.latitude, gps_handle.data.longitude);
 
-    scaled_speed   = (int16_t)(gps_handle.data.groundSpeed * 100);
-    scaled_heading = (int16_t)(gps_handle.data.headingMotion * 100);
+    scaled_speed   = (int16_t)(gps_handle.data.groundSpeed * PACK_COEFF_GPS_SPEED_GPS_SPEED); 
+    scaled_heading = (int16_t)(gps_handle.data.headingMotion * PACK_COEFF_GPS_SPEED_GPS_HEADING);
     CAN_SEND_gps_speed(scaled_speed, scaled_heading);
 
     uint8_t abbreviated_year = (uint8_t)(gps_handle.data.year % 100);
@@ -268,7 +268,6 @@ void preflightChecks(void) {
             break;
         case 5:
             //PHAL_usartRxDma(&usb, rxbuffer, sizeof(rxbuffer), 1);
-            // initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_TORQUE_VECTOR);
             break;
         case 6:
             /* BMI Initialization */
@@ -477,13 +476,13 @@ void VCU_MAIN(void) {
     vcu_step(&pVCU, &fVCU, &xVCU, &yVCU);
 
     /* Set VCU faults */
-    setFault(ID_ES_ENABLED_FAULT, (yVCU.VCU_mode == 0));
-    setFault(ID_ET_ENABLED_FAULT, (yVCU.VCU_mode == 1));
-    setFault(ID_PT_ENABLED_FAULT, (yVCU.VCU_mode == 2));
-    setFault(ID_VT_ENABLED_FAULT, (yVCU.VCU_mode == 3));
-    setFault(ID_VS_ENABLED_FAULT, (yVCU.VCU_mode == 4));
-    setFault(ID_NO_GPS_FIX_FAULT, (fVCU.GS_FFLAG < 3));
-    setFault(ID_YES_GPS_FIX_FAULT, (fVCU.GS_FFLAG == 3));
+    update_fault(FAULT_INDEX_TORQUE_VECTOR_ES_ENABLED, (yVCU.VCU_mode == 0));
+    update_fault(FAULT_INDEX_TORQUE_VECTOR_ET_ENABLED, (yVCU.VCU_mode == 1));
+    update_fault(FAULT_INDEX_TORQUE_VECTOR_PT_ENABLED, (yVCU.VCU_mode == 2));
+    update_fault(FAULT_INDEX_TORQUE_VECTOR_VT_ENABLED, (yVCU.VCU_mode == 3));
+    update_fault(FAULT_INDEX_TORQUE_VECTOR_VS_ENABLED, (yVCU.VCU_mode == 4));
+    update_fault(FAULT_INDEX_TORQUE_VECTOR_NO_GPS_FIX, (fVCU.GS_FFLAG < 3));
+    update_fault(FAULT_INDEX_TORQUE_VECTOR_YES_GPS_FIX, (fVCU.GS_FFLAG == 3));
 
     /* Send VCU messages */
     CAN_SEND_VCU_torques_speeds((int16_t)(100 * yVCU.TO_VT[0]), (int16_t)(100 * yVCU.TO_VT[1]), (int16_t)(100 * yVCU.TO_PT[0]), (int8_t)(yVCU.VCU_mode));

@@ -77,9 +77,4 @@ static inline uint32_t ROUNDUP(uint32_t a, uint32_t n) {
 #define HSI_TRIM_DAQ           17
 #define HSI_TRIM_A_BOX         16
 
-// Convert 8 byte char array to uint64_t in little-endian format
-static inline uint64_t EIGHT_CHAR_TO_U64_LE(const char x[8]) {
-    return ((uint64_t)(x[0]) | (uint64_t)(x[1]) << 8 | (uint64_t)(x[2]) << 16 | (uint64_t)(x[3]) << 24 | (uint64_t)(x[4]) << 32 | (uint64_t)(x[5]) << 40 | (uint64_t)(x[6]) << 48 | (uint64_t)(x[7]) << 56);
-}
-
 #endif /* COMMON_DEFS_H_ */

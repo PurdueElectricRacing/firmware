@@ -14,13 +14,14 @@
     "$defs": {
         "bus": {
             "type": "object",
-            "required": ["name", "baud_rate", "is_extended_id", "is_flexible_data_rate"],
+            "required": ["name", "baud_rate", "is_extended_id", "is_flexible_data_rate", "host_fault_library"],
             "additionalProperties": false,
             "properties": {
                 "name": { "type": "string" },
                 "baud_rate": { "type": "integer" },
                 "is_extended_id": { "type": "boolean" },
-                "is_flexible_data_rate": { "type": "boolean" }
+                "is_flexible_data_rate": { "type": "boolean" },
+                "host_fault_library": { "type": "boolean" }
             }
         }
     }

@@ -1,7 +1,6 @@
 {
     "node_name": "TORQUE_VECTOR",
     "scheduler": "psched",
-    "node_id": 2,
     "busses": {
         "VCAN": {
             "peripheral": "CAN1",
@@ -290,7 +289,7 @@
                     "signals": [
                         {
                             "sig_name": "git_hash",
-                            "type": "uint64_t",
+                            "type": "uint32_t",
                             "sig_desc": "int representation of git short hash"
                         }
                     ],
@@ -341,5 +340,71 @@
                 }
             ]
         }
-    }
+    },
+    "generate_fault_messages": false,
+    "faults": [
+        {
+            "fault_name": "ES_Enabled",
+            "max": 1,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 10,
+            "time_to_unlatch": 10,
+            "lcd_message": "Equal Speed"
+        },
+        {
+            "fault_name": "ET_Enabled",
+            "max": 1,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 10,
+            "time_to_unlatch": 10,
+            "lcd_message": "Equal Torque"
+        },
+        {
+            "fault_name": "PT_Enabled",
+            "max": 1,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 10,
+            "time_to_unlatch": 10,
+            "lcd_message": "Equal Torque with Safety"
+        },
+        {
+            "fault_name": "VS_Enabled",
+            "max": 1,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 10,
+            "time_to_unlatch": 10,
+            "lcd_message": "Variable Speed"
+        },
+        {
+            "fault_name": "VT_Enabled",
+            "max": 1,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 10,
+            "time_to_unlatch": 10,
+            "lcd_message": "Variable Torque"
+        },
+        {
+            "fault_name": "No_GPS_Fix",
+            "max": 1,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 10,
+            "time_to_unlatch": 10,
+            "lcd_message": "No GPS Fix"
+        },
+        {
+            "fault_name": "Yes_GPS_Fix",
+            "max": 1,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 10,
+            "time_to_unlatch": 10,
+            "lcd_message": "Yes GPS Fix"
+        }
+    ]
 }

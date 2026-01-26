@@ -1,7 +1,7 @@
 /* System Includes */
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
-#include "common/faults/faults.h"
+#include "common/can_library/faults_common.h"
 #include "common/phal/adc.h"
 #include "common/phal/can.h"
 #include "common/phal/dma.h"
@@ -11,7 +11,7 @@
 
 /* Module Includes */
 #include "auto_switch.h"
-#include "PDU.h"
+#include "common/can_library/generated/PDU.h"
 #include "cooling.h"
 #include "fan_control.h"
 #include "flow_rate.h"
@@ -196,7 +196,7 @@ int main() {
 
     /* Schedule Periodic tasks here */
     taskCreate(heatBeatLED, 500);
-    taskCreate(heartBeatTask, 100);
+    taskCreate(fault_library_periodic, 100);
     taskCreate(LED_periodic, 500);
     taskCreateBackground(CAN_tx_update);
     taskCreateBackground(CAN_rx_update);
@@ -236,7 +236,6 @@ void preflightChecks(void) {
             flowRateInit();
             break;
         case 5:
-            initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_PDU);
             break;
         default:
             if (led_anim_complete) {
@@ -325,9 +324,9 @@ void pdu_bl_cmd_CALLBACK(can_data_t* can_data) {
 
 void send_iv_readings() {
     // Set LV Batt faults
-    // setFault(ID_LV_BATT_FIFTY_FAULT, auto_switches.voltage.in_24v);
-    setFault(ID_LV_GETTING_LOW_FAULT, auto_switches.voltage.in_24v);
-    setFault(ID_LV_CRITICAL_LOW_FAULT, auto_switches.voltage.in_24v);
+    // set_fault(FAULT_INDEX_PDU_LV_BATT_FIFTY, auto_switches.voltage.in_24v);
+    update_fault(FAULT_INDEX_PDU_LV_GETTING_LOW, auto_switches.voltage.in_24v);
+    update_fault(FAULT_INDEX_PDU_LV_CRITICAL_LOW, auto_switches.voltage.in_24v);
     // Send CAN messages containing voltage and current data
     CAN_SEND_v_rails(auto_switches.voltage.in_24v, auto_switches.voltage.out_5v, auto_switches.voltage.out_3v3, auto_switches.voltage.amk_24v);
     CAN_SEND_rail_currents(auto_switches.current[CS_24V], auto_switches.current[CS_5V]);

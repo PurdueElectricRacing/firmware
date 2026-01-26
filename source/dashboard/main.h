@@ -12,10 +12,7 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-#include "common/faults/fault_nodes.h"
 #include "common/phal/can.h"
-
-#define FAULT_NODE_NAME NODE_DASHBOARD
 
 //STM32F407
 

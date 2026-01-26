@@ -10,8 +10,8 @@
  */
 #include "auto_switch.h"
 
-#include "PDU.h"
-#include "common/faults/faults.h"
+#include "common/can_library/generated/PDU.h"
+#include "common/can_library/faults_common.h"
 #include "common/phal/gpio.h"
 #include "led.h"
 
@@ -255,31 +255,31 @@ void checkSwitchFaults() {
     // Set fault for dash/daq - this is too much for our 1ms window, so send each fault seperately
     switch (fault_num) {
         case 0:
-            setFault(ID_DASH_RAIL_FAULT, !dash);
+            update_fault(FAULT_INDEX_PDU_DASH_RAIL, !dash);
             break;
         case 1:
-            setFault(ID_ABOX_RAIL_FAULT, !abox);
+            update_fault(FAULT_INDEX_PDU_ABOX_RAIL, !abox);
             break;
         case 2:
-            setFault(ID_MAIN_RAIL_FAULT, !main);
+            update_fault(FAULT_INDEX_PDU_MAIN_RAIL, !main);
             break;
         case 3:
-            setFault(ID_DAQ_RAIL_FAULT, !daq);
+            update_fault(FAULT_INDEX_PDU_DAQ_RAIL, !daq);
             break;
         case 4:
-            setFault(ID_V_CRIT_FAULT, !vcrit);
+            update_fault(FAULT_INDEX_PDU_V_CRIT, !vcrit);
             break;
         case 5:
-            setFault(ID_V_NONCRIT_FAULT, !vnc);
+            update_fault(FAULT_INDEX_PDU_V_NONCRIT, !vnc);
             break;
         case 6:
-            setFault(ID_FAN1_FAULT, !fan1);
+            update_fault(FAULT_INDEX_PDU_FAN1, !fan1);
             break;
         case 7:
-            setFault(ID_FAN2_FAULT, !fan2);
+            update_fault(FAULT_INDEX_PDU_FAN2, !fan2);
             break;
         case 8:
-            setFault(ID_BULLET_RAIL_FAULT, !bullet);
+            update_fault(FAULT_INDEX_PDU_BULLET_RAIL, !bullet);
             fault_num = 0;
             break;
     }

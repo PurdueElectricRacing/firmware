@@ -1,7 +1,6 @@
 {
     "node_name": "PDU",
     "scheduler": "psched",
-    "node_id": 6,
     "busses": {
         "VCAN": {
             "peripheral": "CAN1",
@@ -233,7 +232,7 @@
                     "signals": [
                         {
                             "sig_name": "git_hash",
-                            "type": "uint64_t",
+                            "type": "uint32_t",
                             "sig_desc": "int representation of git short hash"
                         }
                     ],
@@ -264,5 +263,125 @@
                 }
             ]
         }
-    }
+    },
+    "generate_fault_messages": false,
+    "faults": [
+        {
+            "fault_name": "pdu_mcu_temp_high",
+            "max": 50,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 1000,
+            "time_to_unlatch": 2000,
+            "lcd_message": "HIGH PDU MCU TEMP"
+        },
+        {
+            "fault_name": "dash_rail",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 1000,
+            "lcd_message": "Dash Rail Down"
+        },
+        {
+            "fault_name": "abox_rail",
+            "max": 1,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 100,
+            "time_to_unlatch": 1000,
+            "lcd_message": "ABox Rail Down"
+        },
+        {
+            "fault_name": "main_rail",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 1000,
+            "lcd_message": "Main Rail Down"
+        },
+        {
+            "fault_name": "daq_rail",
+            "max": 1,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 100,
+            "time_to_unlatch": 1000,
+            "lcd_message": "DAQ Rail Down"
+        },
+        {
+            "fault_name": "v_crit",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 1000,
+            "lcd_message": "5v_crit down"
+        },
+        {
+            "fault_name": "v_noncrit",
+            "max": 1,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 100,
+            "time_to_unlatch": 1000,
+            "lcd_message": "5V_NC Rail Down"
+        },
+        {
+            "fault_name": "fan1",
+            "max": 1,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 100,
+            "time_to_unlatch": 1000,
+            "lcd_message": "Fan 1 Rail Down"
+        },
+        {
+            "fault_name": "bullet_rail",
+            "max": 1,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 100,
+            "time_to_unlatch": 1000,
+            "lcd_message": "Bullet Rail Down"
+        },
+        {
+            "fault_name": "fan2",
+            "max": 1,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 100,
+            "time_to_unlatch": 1000,
+            "lcd_message": "Fan 2 Rail Down"
+        },
+        {
+            "fault_name": "lv_critical_low",
+            "max": 50000,
+            "min": 20000,
+            "priority": "warning",
+            "time_to_latch": 500,
+            "time_to_unlatch": 1500,
+            "lcd_message": "LV bat Very Low (20V)"
+        },
+        {
+            "fault_name": "lv_getting_low",
+            "max": 50000,
+            "min": 21000,
+            "priority": "warning",
+            "time_to_latch": 500,
+            "time_to_unlatch": 1500,
+            "lcd_message": "LV bat Low (21V)"
+        },
+        {
+            "fault_name": "lv_batt_fifty",
+            "max": 50000,
+            "min": 25000,
+            "priority": "warning",
+            "time_to_latch": 500,
+            "time_to_unlatch": 1500,
+            "lcd_message": "LV bat Nominal (25V)"
+        }
+    ]
 }

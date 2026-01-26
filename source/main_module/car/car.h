@@ -13,9 +13,8 @@
 
 #include <stdbool.h>
 
-#include "MAIN.h"
 #include "common/amk/amk.h"
-#include "common/faults/faults.h"
+#include "common/can_library/faults_common.h"
 #include "common/phal/gpio.h"
 #include "common/psched/psched.h"
 #include "cooling.h"

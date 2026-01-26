@@ -7,6 +7,8 @@ Modeled After the traditional compiler pipeline. Written in python for ease of m
 
 `build.py`: Main entry point for CANpiler. Coordinates the top-level data flow.
 
+`templates/`: Directory containing Jinja2 templates for all generated build artifacts. Decouples the output formatting from the generation logic.
+
 
 #### 1. Schema Validation
 `validator.py`: Catches syntax errors in the configuration files using `json_schema` library.
@@ -27,18 +29,22 @@ Modeled After the traditional compiler pipeline. Written in python for ease of m
 
 #### 4. Mapper
 `mapper.py`: Maps CAN IDs to physical hardware resources.
-- **bxCAN Filter Groups**: Optimizes STM32 bxCAN filter bank usage by grouping messages into 32-bit filter slots.
+- **bxCAN Filter Groups**: Optimizes STM32 bxCAN filter bank usage. It groups messages into 32-bit identifier-mask pairs to maximize throughput while respecting the hardware limit of **14 filter banks per peripheral**.
 - **Promiscuous Mode**: Configures all-pass filters for buses where `accept_all_messages` is enabled.
 - **Initialization Code**: Generates the bitmasks required for hardware filter initialization.
 
 #### 5. Generation
-Produces the final build artifacts from the `SystemContext`.
-- `codegen.py`: Generates C headers and source files for each node, including packed bit-field structs and endianness-safe accessors.
-- `dbcgen.py`: Produces deterministic, versioned DBC files using the `cantools` library for external telemetry and analysis.
-- `faultgen.py`: Generates global fault data maps (`fault_data.c/h`) to bridge CAN messages with the system-wide fault library.
+Produces the final build artifacts from the `SystemContext` using the **Jinja2** templating engine.
+- **C23 Standard**: All generated code targets the C23 standard, specifically utilizing `static constexpr` for type-safe constants and identifiers.
+- `codegen.py`: Generates node headers with packed bit-field structs and endianness-safe accessors. Includes hardened sign-extension logic for signed signals.
+- `dbcgen.py`: Produces deterministic, versioned DBC files using the `cantools` library.
+- `faultgen.py`: Injects `FAULT_SYNC` and `FAULT_EVENT` messages into node configurations and generates global fault tracking maps (`fault_data.c/h`).
 
 #### 6. Analysis
 `load_calc.py`: Performs post-generation capacity analysis for each bus in the system.
 - **Frame Estimation**: Calculates total bits per frame based on protocol overhead (Standard: 47 bits, Extended: 67 bits) and signal DLC.
 - **Bit-Stuffing**: Applies a $1.2\times$ factor to account for average bit-stuffing overhead.
 - **Health Monitoring**: Reports estimated bus utilization percentage with color-coded alerts (Green < 50%, Yellow < 70%, Red > 70%).
+
+#### Health Monitoring Features
+- **Stale-Checking**: The generated firmware includes `CAN_check_stale()`, which marks received messages as stale if they have not been updated within **2.5x** their expected transmission period.

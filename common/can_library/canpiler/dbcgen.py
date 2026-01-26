@@ -6,7 +6,7 @@ Author: Irving Wang (irvingw@purdue.edu)
 
 from parser import SystemContext
 from cantools import db
-from utils import DBC_DIR, print_as_success, print_as_ok, get_git_hash
+from utils import DBC_DIR, print_as_success, print_as_ok
 
 def generate_dbcs(context: SystemContext):
     """
@@ -20,7 +20,7 @@ def generate_dbcs(context: SystemContext):
             f.unlink()
     DBC_DIR.mkdir(exist_ok=True)
 
-    git_hash = get_git_hash()
+    git_hash = context.version
 
     for bus_name, view in context.busses.items():
         can_db = db.Database()
@@ -37,6 +37,17 @@ def generate_dbcs(context: SystemContext):
             sorted_signals = sorted(msg.signals, key=lambda x: x.bit_offset)
             
             for sig in sorted_signals:
+                # Resolve choices (enums) for VAL_ table in DBC
+                choices = None
+                if sig.choices:
+                    choices = {i: c for i, c in enumerate(sig.choices)}
+                elif sig.datatype in context.custom_types:
+                    type_info = context.custom_types[sig.datatype]
+                    if 'choices' in type_info:
+                        choices = {i: c for i, c in enumerate(type_info['choices'])}
+                elif sig.datatype == 'bool':
+                    choices = {0: "OFF", 1: "ON"}
+
                 signals.append(db.Signal(
                     name=sig.name,
                     start=sig.bit_offset,
@@ -49,7 +60,8 @@ def generate_dbcs(context: SystemContext):
                     minimum=sig.min_val,
                     maximum=sig.max_val,
                     unit=sig.unit if sig.unit else "",
-                    comment=sig.desc
+                    comment=sig.desc,
+                    choices=choices
                 ))
             
             # Use pre-calculated sender mapping

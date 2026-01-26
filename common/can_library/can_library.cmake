@@ -32,8 +32,12 @@ endif()
 macro(create_can_node_lib NODE_NAME ARCH_LIB)
 	set(LIB_NAME "can_node_${NODE_NAME}")
 	
-	# We use a static library so each node has its own object file for can_common.c
-	add_library(${LIB_NAME} STATIC ${CAN_LIB_DIR}/can_common.c)
+	# We use a static library so each node has its own object file for can_common.c and faults
+	add_library(${LIB_NAME} STATIC 
+        ${CAN_LIB_DIR}/can_common.c
+        ${CAN_LIB_DIR}/faults_common.c
+        ${CAN_GEN_DIR}/fault_data.c
+    )
 	
 	# Force use of full include paths relative to project root
 	target_include_directories(${LIB_NAME} PUBLIC ${CMAKE_SOURCE_DIR})

@@ -3,7 +3,7 @@
 
 /**
  * @file can_common.h
- * Common functions and data structures used in every node in the CAN library
+ * @brief Common functions and data structures used in every node in the CAN library
  * 
  * @author Irving Wang (irvingw@purdue.edu)
  * @author Luke Oxley (lcoxley@purdue.edu)
@@ -11,7 +11,6 @@
 
 #include <stdint.h>
 
-#include "common/can_library/generated/can_types.h"
 #include "common/phal/can.h"
 #include "common/queue/queue.h"
 

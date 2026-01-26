@@ -6,7 +6,7 @@ Author: Irving Wang (irvingw@purdue.edu)
 
 from typing import List, Dict, Set, DefaultDict
 from collections import defaultdict
-from parser import Node, Message, load_custom_types
+from parser import Node, Message
 from utils import print_as_error, print_as_success, print_as_ok
 
 class BusLinker:
@@ -15,11 +15,16 @@ class BusLinker:
         self.next_avail_id = 1
         self.msgs_by_prio: DefaultDict[int, List[Message]] = defaultdict(list)
         self.overrides_by_prio: DefaultDict[int, Set[int]] = defaultdict(set)
+        self.all_used_ids: Set[int] = set()
 
     def add_message(self, msg: Message):
         self.msgs_by_prio[msg.priority].append(msg)
         if msg.id_override:
-            self.overrides_by_prio[msg.priority].add(int(msg.id_override, 0))
+            override_val = int(msg.id_override, 0)
+            if override_val in self.all_used_ids:
+                raise ValueError(f"Bus '{self.bus_name}': Duplicate ID override {hex(override_val)} detected.")
+            self.overrides_by_prio[msg.priority].add(override_val)
+            self.all_used_ids.add(override_val)
 
     def link(self):
         """Execute the two-pass linking algorithm"""
@@ -81,11 +86,19 @@ class BusLinker:
                 msg.final_id = int(msg.id_override, 0)
             else:
                 # Find next free slot
-                while self.next_avail_id in group_overrides:
+                # Skip IDs used by overrides in ANY priority group
+                while self.next_avail_id in self.all_used_ids:
                     self.next_avail_id += 1
                 
                 msg.final_id = self.next_avail_id
+                self.all_used_ids.add(msg.final_id)
                 self.next_avail_id += 1
+            
+            # ID Range Validation
+            limit = 0x1FFFFFFF if msg.is_extended else 0x7FF
+            if msg.final_id > limit:
+                type_str = "Extended" if msg.is_extended else "Standard"
+                raise ValueError(f"Bus '{self.bus_name}': Message '{msg.name}' ID {hex(msg.final_id)} exceeds {type_str} CAN limit ({hex(limit)})")
 
         # 3. Update Water Level
         # Ensure next priority group starts AFTER the highest ID used in this group
@@ -140,15 +153,13 @@ def link_all(nodes: List[Node]) -> List[Node]:
                     print_as_error(f"Node '{node.name}': RX message '{rx_msg.name}' not found in any bus")
                     raise ValueError(f"Unresolved RX message: {rx_msg.name}")
 
-    # 4. Resolve Signal Layouts
-    custom_types = load_custom_types()
+    # 4. Final Validation
     for node in nodes:
         for bus in node.busses.values():
             for msg in bus.tx_messages:
                 if msg.final_id > 0x7FF and not msg.is_extended:
                     print_as_error(f"Message '{msg.name}' has ID {hex(msg.final_id)} but is not marked as extended.")
                     raise ValueError(f"Standard CAN ID exceeds 0x7FF: {hex(msg.final_id)}")
-                msg.resolve_layout(custom_types)
 
-    print_as_success("Successfully linked all CAN IDs and signals")
+    print_as_success("Successfully linked all CAN IDs")
     return nodes

@@ -1,0 +1,81 @@
+/**
+ * @file fault_data.c
+ * @brief Auto-generated implementation of the system-wide fault library.
+ * @note This file is auto-generated; do not modify manually.
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
+#include "common/can_library/generated/fault_data.h"
+#include "common/can_library/generated/can_router.h"
+
+fault_t faults[TOTAL_NUM_FAULTS] = {
+{% for module in fault_modules %}
+    // --- {{ module.node_name }} ---
+{% for fault in module.faults %}
+    [FAULT_INDEX_{{ module.node_name|upper }}_{{ fault.name|upper }}] = {
+        .start_time_ms = 0,
+        .max_value = {{ fault.max_val }},
+        .min_value = {{ fault.min_val }},
+        .latch_time_ms = {{ fault.time_to_latch }},
+        .unlatch_time_ms = {{ fault.time_to_unlatch }},
+        .state = FAULT_STATE_OK,
+        .priority = FAULT_PRIO_{{ fault.priority|upper }}
+    },
+{% endfor %}
+{% endfor %}
+};
+
+#ifdef HAS_FAULT_STRINGS
+const char* const fault_strings[TOTAL_NUM_FAULTS] = {
+{% for module in fault_modules %}
+    // --- {{ module.node_name }} ---
+{% for fault in module.faults %}
+    [FAULT_INDEX_{{ module.node_name|upper }}_{{ fault.name|upper }}] = {% if fault.lcd_message %}"{{ fault.lcd_message }}"{% else %}nullptr{% endif %},
+{% endfor %}
+{% endfor %}
+};
+#endif
+
+{% for module in fault_modules %}
+// --- {{ module.node_name }} Callbacks ---
+#ifndef CAN_NODE_{{ module.node_name|upper }}
+void {{ module.node_name|lower }}_fault_sync_CALLBACK(can_data_t* can_data) {
+{% for fault in module.faults %}
+    faults[FAULT_INDEX_{{ module.node_name|upper }}_{{ fault.name|upper }}].state = can_data->{{ module.node_name|lower }}_fault_sync.{{ fault.name }} ? FAULT_STATE_LATCHED : FAULT_STATE_OK;
+{% endfor %}
+}
+
+void {{ module.node_name|lower }}_fault_event_CALLBACK(can_data_t* can_data) {
+    uint16_t idx = can_data->{{ module.node_name|lower }}_fault_event.idx;
+    if (idx < TOTAL_NUM_FAULTS) {
+        faults[idx].state = (can_data->{{ module.node_name|lower }}_fault_event.state != 0) ? FAULT_STATE_LATCHED : FAULT_STATE_OK;
+    }
+}
+#else
+void {{ module.node_name|lower }}_fault_sync_CALLBACK(can_data_t* can_data) { (void)can_data; }
+void {{ module.node_name|lower }}_fault_event_CALLBACK(can_data_t* can_data) { (void)can_data; }
+#endif
+
+{% endfor %}
+// --- Transmission Helpers ---
+void tx_fault_sync(void) {
+{% for module in fault_modules %}
+#ifdef CAN_NODE_{{ module.node_name|upper }}
+    CAN_SEND_{{ module.node_name|lower }}_fault_sync(
+{% for fault in module.faults %}
+        (faults[FAULT_INDEX_{{ module.node_name|upper }}_{{ fault.name|upper }}].state == FAULT_STATE_LATCHED){{ "," if not loop.last }}
+{% endfor %}
+    );
+#endif
+{% endfor %}
+}
+
+void tx_fault_event(fault_index_t idx, uint16_t value) {
+{% for module in fault_modules %}
+#ifdef CAN_NODE_{{ module.node_name|upper }}
+    if (idx >= FAULT_INDEX_{{ module.node_name|upper }}_{{ module.faults[0].name|upper }} && idx <= FAULT_INDEX_{{ module.node_name|upper }}_{{ module.faults[-1].name|upper }}) {
+        CAN_SEND_{{ module.node_name|lower }}_fault_event(idx, (faults[idx].state == FAULT_STATE_LATCHED), value);
+    }
+#endif
+{% endfor %}
+}

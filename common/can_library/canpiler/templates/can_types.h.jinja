@@ -1,0 +1,22 @@
+#ifndef CAN_TYPES_H
+#define CAN_TYPES_H
+
+/**
+ * @file can_types.h
+ * @brief Auto-generated custom types and enums for the CAN library.
+ * @note This file is auto-generated; do not modify manually.
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
+#include <stdint.h>
+
+{% for name, config in custom_types.items() %}
+{% set prefix = name[:-2]|upper if name.endswith('_t') else name|upper %}
+typedef enum {% if config.base_type %}: {{ config.base_type }}{% endif %} {
+{% for choice in config.choices %}
+    {{ prefix }}_{{ choice|upper }} = {{ loop.index0 }},
+{% endfor %}
+} {{ name }};
+
+{% endfor %}
+#endif

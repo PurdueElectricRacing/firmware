@@ -14,13 +14,11 @@
 
 /* System Includes */
 #include "common/common_defs/common_defs.h"
-#include "common/faults/faults.h"
+#include "common/can_library/faults_common.h"
 #include "common/psched/psched.h"
 
 /* Module Includes */
 #include <stdint.h>
-
-#include "DASHBOARD.h"
 
 #define MAX_PEDAL_MEAS (4095)
 

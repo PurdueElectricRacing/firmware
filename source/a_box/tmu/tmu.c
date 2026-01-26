@@ -2,9 +2,9 @@
 
 #include <string.h>
 
-#include "A_BOX.h"
+#include "common/can_library/generated/A_BOX.h"
 #include "common/common_defs/common_defs.h"
-#include "common/faults/faults.h"
+#include "common/can_library/faults_common.h"
 #include "common/phal/gpio.h"
 #include "main.h"
 #include "temp_conversion.h"
@@ -118,9 +118,9 @@ uint8_t readTemps() {
         int16_t min_temp = MIN(MIN(MIN(module_one->total_min_temp, module_two->total_min_temp), MIN(module_three->total_min_temp, module_four->total_min_temp)), module_five->total_min_temp);
         CAN_SEND_max_cell_temp(max_temp);
         CAN_SEND_num_therm_bad(module_one->left_readings.num_bad, module_one->left_readings.num_bad, module_two->left_readings.num_bad, module_two->left_readings.num_bad, module_three->left_readings.num_bad, module_three->left_readings.num_bad, module_four->left_readings.num_bad, module_four->left_readings.num_bad, module_five->left_readings.num_bad, module_five->left_readings.num_bad);
-        setFault(ID_PACK_TEMP_FAULT, max_temp);
-        setFault(ID_PACK_TEMP_EXCEEDED_FAULT, max_temp);
-        // setFault(ID_MIN_PACK_TEMP_FAULT, min_temp);
+        update_fault(FAULT_INDEX_A_BOX_PACK_TEMP, max_temp);
+        update_fault(FAULT_INDEX_A_BOX_PACK_TEMP_EXCEEDED, max_temp);
+        // set_fault(FAULT_INDEX_A_BOX_MIN_PACK_TEMP, min_temp);
 
         // resetting
         curr_therm = 0;
@@ -156,5 +156,5 @@ uint8_t readTemps() {
     PHAL_writeGPIO(MUX_D_Port, MUX_D_Pin, (therm & 0x8));
 
     // checking if faults have latched
-    return checkFault(ID_PACK_TEMP_EXCEEDED_FAULT);
+    return is_latched(FAULT_INDEX_A_BOX_PACK_TEMP_EXCEEDED);
 }

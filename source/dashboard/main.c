@@ -1,7 +1,7 @@
 /* System Includes */
 #include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
-#include "common/faults/faults.h"
+#include "common/can_library/faults_common.h"
 #include "common/phal/adc.h"
 #include "common/phal/can.h"
 #include "common/phal/dma.h"
@@ -12,7 +12,7 @@
 #include "common/psched/psched.h"
 
 /* Module Includes */
-#include "DASHBOARD.h"
+#include "common/can_library/generated/DASHBOARD.h"
 #include "lcd.h"
 #include "main.h"
 #include "nextion.h"
@@ -188,8 +188,6 @@ int main(void) {
         HardFault_Handler();
     }
 
-    initFaultLibrary(FAULT_NODE_NAME, &q_tx_can[CAN1_IDX][CAN_MAILBOX_HIGH_PRIO], ID_FAULT_SYNC_DASHBOARD);
-
     PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, 1);
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
     PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);
@@ -202,7 +200,7 @@ int main(void) {
     taskCreate(heartBeatLED, 500);
     taskCreate(pedalsPeriodic, 15);
     taskCreate(handleDashboardInputs, 50);
-    taskCreate(heartBeatTask, 100);
+    taskCreate(fault_library_periodic, 100);
     taskCreate(sendShockpots, SHOCK_FRONT_PERIOD_MS);
     taskCreate(sendVersion, 5000);
     taskCreate(interpretLoadSensor, 15);
@@ -270,9 +268,7 @@ void preflightChecks(void) {
 }
 
 void sendVersion() {
-    char git_hash[8]      = GIT_HASH;
-    uint64_t git_hash_num = EIGHT_CHAR_TO_U64_LE(git_hash);
-    CAN_SEND_dash_version(git_hash_num);
+    CAN_SEND_dash_version(GIT_HASH);
 }
 
 /**

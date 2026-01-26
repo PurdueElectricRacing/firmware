@@ -6,14 +6,14 @@ Author: Irving Wang (irvingw@purdue.edu)
 
 import sys
 from validator import validate_all
-from parser import parse_all, parse_faults, load_custom_types, create_system_context
+from parser import parse_all, load_custom_types, create_system_context, load_bus_configs
 from linker import link_all
 from mapper import map_hardware
 from dbcgen import generate_dbcs
 from codegen import generate_headers
 from faultgen import generate_fault_data
 from load_calc import calculate_bus_load
-from utils import load_json, BUS_CONFIG_PATH, GENERATED_DIR, print_as_success
+from utils import GENERATED_DIR, print_as_success, print_as_error
 
 def build():
     if not validate_all():
@@ -28,24 +28,30 @@ def build():
 
     try:
         nodes = parse_all()
-        fault_modules = parse_faults()
+        
+        # Load bus configs and custom types
+        bus_configs = load_bus_configs()
+        custom_types = load_custom_types()
+
+        # Fault system middleware (B) - enriches nodes and types in one pass
+        from faultgen import augment_system_with_faults
+        augment_system_with_faults(nodes, bus_configs, custom_types)
+
         link_all(nodes)
             
-        # Load bus configs for mapper
-        bus_configs = load_json(BUS_CONFIG_PATH)
-        busses = {b['name']: b for b in bus_configs['busses']}
+        # Mapper needs dict of configs
+        mappings = map_hardware(nodes, bus_configs)
         
-        mappings = map_hardware(nodes, busses)
-        custom_types = load_custom_types()
-        
-        # Create the unified context (performs final validations)
-        context = create_system_context(nodes, mappings, fault_modules, busses, custom_types)
+        # Create the unified context (A) - derives fault modules automatically from nodes
+        context = create_system_context(nodes, mappings, bus_configs, custom_types)
         
     except ValueError as e:
-        print(f"Error: {e}")
+        print_as_error(f"Validation failure: {e}")
         sys.exit(1)
     except Exception as e:
-        print(f"Unexpected Error: {e}")
+        print_as_error(f"Unexpected compiler error: {e}")
+        import traceback
+        traceback.print_exc()
         sys.exit(1)
 
     # All generators now consume the context

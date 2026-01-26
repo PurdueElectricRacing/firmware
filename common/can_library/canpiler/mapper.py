@@ -59,9 +59,14 @@ def map_node_hardware(node: Node, bus_configs: Dict) -> NodeMapping:
         # bxCAN filter bank assignment
         # CAN1: 0-13, CAN2: 14-27
         bank_offset = 0 if periph == "CAN1" else 14
+        max_bank = 13 if periph == "CAN1" else 27
         
         for i in range(0, len(msgs), 2):
             bank_idx = bank_offset + (i // 2)
+            
+            if bank_idx > max_bank:
+                raise ValueError(f"Node '{node.name}' exceeds available bxCAN filter banks for {periph} (limit 14 filters).")
+
             msg1, bus1 = msgs[i]
             msg2, bus2 = msgs[i+1] if i+1 < len(msgs) else (None, None)
             

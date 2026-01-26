@@ -68,7 +68,7 @@
                     "signals": [
                         {
                             "sig_name": "git_hash",
-                            "type": "uint64_t",
+                            "type": "uint32_t",
                             "sig_desc": "int representation of git short hash"
                         }
                     ],
@@ -87,5 +87,17 @@
             "peripheral": "CAN1",
             "accept_all_messages": true
         }
-    }
+    },
+    "generate_fault_messages": false,
+    "faults": [
+        {
+            "fault_name": "Empty_fault",
+            "max": 5,
+            "min": 1,
+            "priority": "warning",
+            "time_to_latch": 100,
+            "time_to_unlatch": 100,
+            "lcd_message": "Temporary filler"
+        }
+    ]
 }

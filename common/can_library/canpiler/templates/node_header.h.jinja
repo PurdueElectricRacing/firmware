@@ -1,0 +1,206 @@
+#ifndef {{ node.name|upper }}_H
+#define {{ node.name|upper }}_H
+
+/**
+ * @file {{ node.name }}.h
+ * @brief Auto-generated CAN driver for {{ node.name }}.
+ * @note This file is auto-generated; do not modify manually.
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
+#include <stdint.h>
+#include <string.h>
+
+#include "common/can_library/can_common.h"
+#include "common/can_library/generated/can_types.h"
+{% for bus_name in node_busses|sort %}
+#include "common/can_library/generated/{{ bus_name }}.h"
+{% endfor %}
+
+{% if node.scheduler == "freertos" %}
+#include "common/freertos/freertos.h"
+#define OS_TICKS (xTaskGetTickCount())
+{% else %}
+#include "common/psched/psched.h"
+#define OS_TICKS (sched.os_ticks)
+{% endif %}
+
+// System Version: {{ context.version }}
+static constexpr uint32_t GIT_HASH = 0x{{ context.version }};
+
+// Peripheral Configuration
+static constexpr uint8_t NUM_CAN_PERIPHERALS = {{ peripherals|length }};
+{% for periph in peripherals %}
+#define USE_{{ periph }}
+static constexpr uint8_t {{ periph }}_INDEX = {{ loop.index0 }};
+{% endfor %}
+
+// Scaling Macros
+{% set all_msgs = (tx_msgs | map(attribute='0') | list) + (rx_msgs | map(attribute='0') | map(attribute='resolved_message') | list) %}
+{% for msg in all_msgs | unique(attribute='name') | sort(attribute='name') %}
+{% set scaling_sigs = msg.signals | selectattr("scale", "ne", 1.0) | list %}
+{% if scaling_sigs %}
+// {{ msg.name }}
+{% for sig in scaling_sigs %}
+static constexpr float UNPACK_COEFF_{{ msg.macro_name }}_{{ sig.macro_name }} = {{ sig.scale|format_float }};
+static constexpr float PACK_COEFF_{{ msg.macro_name }}_{{ sig.macro_name }} = {{ (1.0/sig.scale)|format_float }};
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+// Data Structures
+typedef struct {
+{% for rx_msg, periph, bus in rx_msgs %}
+    {{ rx_msg.name }}_data_t {{ rx_msg.resolved_message.name }};
+{% endfor %}
+} can_data_t;
+
+extern can_data_t can_data;
+
+// Callback Declarations
+{% for rx_msg, periph, bus in rx_msgs %}
+{% if rx_msg.callback %}
+extern void {{ rx_msg.name }}_CALLBACK(can_data_t* can_data);
+{% endif %}
+{% endfor %}
+
+// RX Dispatcher
+static inline void CAN_rx_dispatcher(uint32_t id, uint8_t* data, uint8_t len, uint8_t peripheral_idx) {
+    switch(id) {
+    {% for rx_msg, periph, bus in rx_msgs %}
+    {% set msg = rx_msg.resolved_message %}
+        case {{ msg.macro_name }}_MSG_ID:
+            if (peripheral_idx == {{ periph }}_INDEX) {
+                uint64_t host_data = 0;
+                memcpy(&host_data, data, len);
+                
+                {% for sig in msg.signals %}
+                {% if sig.is_signed and sig.length < 64 %}
+                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})((int64_t)((uint64_t)((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }}) << ({{ 64 - sig.length }})) >> ({{ 64 - sig.length }}));
+                {% else %}
+                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }});
+                {% endif %}
+                {% endfor %}
+                
+                can_data.{{ msg.name }}.last_rx = OS_TICKS;
+                can_data.{{ msg.name }}.stale = false;
+                {% if rx_msg.callback %}
+                {{ rx_msg.name }}_CALLBACK(&can_data);
+                {% endif %}
+            }
+            break;
+    {% endfor %}
+        default:
+            break;
+    }
+}
+
+// Stale message checking
+static inline void CAN_check_stale() {
+    {% for rx_msg, periph, bus in rx_msgs %}
+    {% set msg = rx_msg.resolved_message %}
+    {% if msg.period > 0 %}
+    if (OS_TICKS - can_data.{{ msg.name }}.last_rx > {{ (msg.period * 2.5)|int }}) {
+        can_data.{{ msg.name }}.stale = true;
+    }
+    {% endif %}
+    {% endfor %}
+}
+
+// Data initialization
+static inline void CAN_data_init() {
+    memset(&can_data, 0, sizeof(can_data));
+    {% for rx_msg, periph, bus in rx_msgs %}
+    {% if rx_msg.resolved_message.period > 0 %}
+    can_data.{{ rx_msg.resolved_message.name }}.stale = true;
+    {% endif %}
+    {% endfor %}
+}
+
+// TX Functions
+{% for tx_msg, periph, bus in tx_msgs %}
+[[gnu::always_inline]]
+static inline void CAN_SEND_{{ tx_msg.name }}(
+{% for sig in tx_msg.signals %}
+    {{ sig.c_type }} {{ sig.name }}{{ "," if not loop.last }}
+{% endfor %}
+) {
+    CanMsgTypeDef_t outgoing = {
+        .Bus={{ periph }},
+        {% if tx_msg.is_extended %}
+        .ExtId={{ tx_msg.macro_name }}_MSG_ID,
+        .IDE=1,
+        {% else %}
+        .StdId={{ tx_msg.macro_name }}_MSG_ID,
+        .IDE=0,
+        {% endif %}
+        .DLC={{ tx_msg.macro_name }}_DLC
+    };
+
+    uint64_t data = 0;
+    {% for sig in tx_msg.signals %}
+    {% if sig.is_floating_point %}
+    {% set union_type = "uint32_t" if sig.c_type == 'float' else "uint64_t" %}
+    union { {{ sig.c_type }} f; {{ union_type }} u; } _{{ sig.name }}_u;
+    _{{ sig.name }}_u.f = {{ sig.name }};
+    data |= ((uint64_t)(_{{ sig.name }}_u.u & {{ sig.mask|to_c_hex }})) << ({{ sig.bit_shift }});
+    {% else %}
+    data |= ((uint64_t)({{ sig.name }} & {{ sig.mask|to_c_hex }})) << ({{ sig.bit_shift }});
+    {% endif %}
+    {% endfor %}
+
+    memcpy(outgoing.Data, &data, {{ tx_msg.macro_name }}_DLC);
+
+    CAN_enqueue_tx(&outgoing);
+}
+
+{% endfor %}
+
+// Filter configuration
+{% for periph, banks in mapping.filters.items() %}
+static inline void {{ periph }}_set_filters() {
+    {% set accept_all = mapping.accept_all.get(periph, False) %}
+    {% if not banks and not accept_all %}
+    return;
+    {% elif accept_all %}
+    // Accept all messages
+    {% set bank_idx = 0 if periph == "CAN1" else 14 %}
+    {{ periph }}->FM1R &= ~(1 << {{ bank_idx }}); // Mask mode
+    {{ periph }}->FS1R |= (1 << {{ bank_idx }});  // 32-bit scale
+    {{ periph }}->FA1R |= (1 << {{ bank_idx }});
+    {{ periph }}->sFilterRegister[{{ bank_idx }}].FR1 = 0;
+    {{ periph }}->sFilterRegister[{{ bank_idx }}].FR2 = 0;
+    {% else %}
+    {{ periph }}->FM1R |= 0x07FFFFFF; // Set banks 0-27 to id mode
+    {{ periph }}->FS1R |= 0x07FFFFFF; // Set banks 0-27 to 32-bit scale
+
+    {% for fb in banks %}
+    // Bank {{ fb.bank_idx }}: {{ fb.msg1.name }}{% if fb.msg2 %}, {{ fb.msg2.name }}{% endif %}
+
+    {{ periph }}->FA1R |= (1 << {{ fb.bank_idx }});
+    {% set m1_macro = fb.msg1.macro_name ~ "_MSG_ID" %}
+    {% if fb.is_ext1 %}
+    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR1 = (({{ m1_macro }}) << 3) | 4;
+    {% else %}
+    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR1 = (({{ m1_macro }}) << 21);
+    {% endif %}
+    {% if fb.msg2 %}
+    {% set m2_macro = fb.msg2.macro_name ~ "_MSG_ID" %}
+    {% if fb.is_ext2 %}
+    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m2_macro }}) << 3) | 4;
+    {% else %}
+    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m2_macro }}) << 21);
+    {% endif %}
+    {% else %}
+    {% if fb.is_ext1 %}
+    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m1_macro }}) << 3) | 4;
+    {% else %}
+    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m1_macro }}) << 21);
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+}
+{% endfor %}
+
+#endif

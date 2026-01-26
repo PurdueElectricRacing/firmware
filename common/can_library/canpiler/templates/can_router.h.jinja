@@ -1,0 +1,22 @@
+#ifndef CAN_ROUTER_H
+#define CAN_ROUTER_H
+
+/**
+ * @file can_router.h
+ * @brief Auto-generated system-wide CAN node inclusion router.
+ * @note This file is auto-generated; do not modify manually.
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
+{% for node in nodes %}
+{% if not node.is_external %}
+{% set directive = "#if" if loop.first else "#elif" %}
+{{ directive }} defined(CAN_NODE_{{ node.macro_name }})
+    #include "common/can_library/generated/{{ node.name }}.h"
+{% endif %}
+{% endfor %}
+{% if nodes|rejectattr("is_external")|list %}
+#endif
+{% endif %}
+
+#endif

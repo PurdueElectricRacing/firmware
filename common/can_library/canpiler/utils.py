@@ -7,6 +7,7 @@ Author: Irving Wang (irvingw@purdue.edu)
 import json
 import subprocess
 from pathlib import Path
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 BASE_DIR = Path(__file__).parent.parent
 SCHEMA_DIR = BASE_DIR / 'schema'
@@ -17,9 +18,7 @@ GENERATED_DIR = BASE_DIR / 'generated'
 DBC_DIR = BASE_DIR / 'dbc'
 BUS_CONFIG_PATH = CONFIG_DIR / 'system' / 'bus_configs.json'
 COMMON_TYPES_CONFIG_PATH = CONFIG_DIR / 'system' / 'common_types.json'
-FAULT_CONFIG_PATH = CONFIG_DIR / 'system' / 'faults.json'
 
-MAX_DATA_SIZE = 64
 CTYPE_SIZES = {
     "uint8_t": 8, "int8_t": 8,
     "uint16_t": 16, "int16_t": 16,
@@ -60,11 +59,6 @@ def load_json(filepath):
 def to_macro_name(name: str) -> str:
     return name.upper()
 
-def to_c_enum_prefix(type_name: str) -> str:
-    """Removes _t suffix and converts to upper case for enum value prefixes."""
-    prefix = type_name[:-2] if type_name.endswith('_t') else type_name
-    return prefix.upper()
-
 def get_git_hash():
     """
     Returns the short git hash of the current commit
@@ -75,3 +69,33 @@ def get_git_hash():
         return result.stdout.strip()
     except (subprocess.CalledProcessError, FileNotFoundError):
         return "unknown"
+
+def get_jinja_env():
+    template_dir = Path(__file__).parent / 'templates'
+    env = Environment(
+        loader=FileSystemLoader(str(template_dir)),
+        autoescape=select_autoescape(),
+        trim_blocks=True,
+        lstrip_blocks=True,
+        keep_trailing_newline=True
+    )
+    
+    # Custom Filters
+    env.filters['to_c_hex'] = lambda v: f"0x{v:X}" if v is not None else "0"
+    
+    def format_float(val: float) -> str:
+        """Format float to .6g and ensure it looks like a float literal in C"""
+        s = f"{val:.6g}"
+        if '.' not in s and 'e' not in s:
+            s = f"{val:.1f}"
+        return s + "f"
+    
+    env.filters['format_float'] = format_float
+    
+    return env
+
+def render_template(env, template_name, output_path, **context):
+    template = env.get_template(template_name)
+    content = template.render(**context)
+    with open(output_path, 'w') as f:
+        f.write(content)

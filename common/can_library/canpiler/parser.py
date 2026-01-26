@@ -7,7 +7,7 @@ Author: Irving Wang (irvingw@purdue.edu)
 from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Set
 from pathlib import Path
-from utils import load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, COMMON_TYPES_CONFIG_PATH, FAULT_CONFIG_PATH, BUS_CONFIG_PATH, CTYPE_SIZES, print_as_error, print_as_ok, print_as_success, to_macro_name
+from utils import load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, COMMON_TYPES_CONFIG_PATH, BUS_CONFIG_PATH, CTYPE_SIZES, print_as_error, print_as_ok, print_as_success, to_macro_name, get_git_hash
 
 @dataclass
 class Signal:
@@ -63,14 +63,11 @@ class Message:
     id_override: Optional[str] = None
     is_extended: bool = False
     final_id: int = 0
+    dlc: int = 0
 
     @property
     def macro_name(self) -> str:
         return to_macro_name(self.name)
-
-    @property
-    def stale_threshold(self) -> int:
-        return int(self.period * 2.5)
 
     def resolve_layout(self, custom_types: Dict) -> None:
         """
@@ -82,7 +79,7 @@ class Message:
             length = sig.get_bit_length(custom_types)
             sig.length = length
             sig.bit_offset = current_offset
-            sig.bit_shift = 64 - current_offset - length
+            sig.bit_shift = current_offset
             sig.mask = (1 << length) - 1
             
             # Resolve signedness
@@ -92,6 +89,8 @@ class Message:
             sig.is_signed = base_type.startswith('int')
             
             current_offset += length
+        
+        self.dlc = (current_offset + 7) // 8
 
     def validate_semantics(self, custom_types: Dict) -> None:
         """
@@ -155,11 +154,11 @@ class Bus:
 @dataclass
 class Node:
     name: str
-    node_id: Optional[int] = None
-    system_ids: Dict[str, int] = field(default_factory=dict)
     busses: Dict[str, Bus] = field(default_factory=dict)
     is_external: bool = False
     scheduler: str = "psched"
+    faults: List['Fault'] = field(default_factory=list)
+    generate_fault_strings: bool = False
 
     @property
     def macro_name(self) -> str:
@@ -172,17 +171,6 @@ class Node:
         for bus in self.busses.values():
             all_msgs.extend(bus.tx_messages)
         return all_msgs
-
-    def generate_system_ids(self) -> None:
-        """Generate system-level CAN IDs based on node_id."""
-        if self.node_id is None:
-            return
-            
-        # Formula: ((priority - 1) << 26) | (node_id << 21) | (msg_index << 9)
-        # Using high message indices (0x700+) for system messages to avoid collisions
-        
-        # Fault Sync: Priority 1 (bits 26-28 = 0), Msg Index 0x7E1
-        self.system_ids["fault_sync"] = (0 << 26) | (self.node_id << 21) | (0x7E1 << 9)
 
 @dataclass
 class Fault:
@@ -205,7 +193,6 @@ class FaultModule:
     node_name: str
     generate_strings: bool
     faults: List[Fault] = field(default_factory=list)
-    node_id: int = 0
 
     @property
     def macro_name(self) -> str:
@@ -226,15 +213,28 @@ class SystemContext:
     fault_modules: List['FaultModule'] = field(default_factory=list)
     bus_configs: Dict = field(default_factory=dict)
     custom_types: Dict = field(default_factory=dict)
+    version: str = ""
 
-def create_system_context(nodes, mappings, fault_modules, bus_configs, custom_types) -> SystemContext:
+def create_system_context(nodes, mappings, bus_configs, custom_types) -> SystemContext:
     """Aggregates all system data into a single context object and performs final validation."""
+    
+    # Derivation: Populate fault modules from node objects (A)
+    fault_modules = []
+    for node in nodes:
+        if node.faults:
+            fault_modules.append(FaultModule(
+                node_name=node.name,
+                generate_strings=node.generate_fault_strings,
+                faults=node.faults
+            ))
+
     context = SystemContext(
         nodes=nodes, 
         fault_modules=fault_modules, 
         mappings=mappings,
         bus_configs=bus_configs,
-        custom_types=custom_types
+        custom_types=custom_types,
+        version=get_git_hash()
     )
     
     # Identify all busses across all nodes
@@ -310,49 +310,12 @@ def parse_all() -> List[Node]:
     print_as_success("All nodes parsed successfully");
     return nodes
 
-def parse_faults() -> List[FaultModule]:
-    """Parse fault configurations and assign indices and IDs."""
-    if not FAULT_CONFIG_PATH.exists():
-        return []
-
-    print("Parsing fault configurations...")
-    data = load_json(FAULT_CONFIG_PATH)
-    fault_modules = []
-    global_index = 0
-
-    for i, m_data in enumerate(data.get("nodes", [])):
-        module = FaultModule(
-            node_name=m_data["node_name"],
-            generate_strings=m_data.get("generate_strings", False),
-            node_id=i
-        )
-        
-        for f_data in m_data.get("faults", []):
-            fault = Fault(
-                name=f_data["fault_name"],
-                max_val=f_data["max"],
-                min_val=f_data["min"],
-                priority=f_data["priority"],
-                time_to_latch=f_data["time_to_latch"],
-                time_to_unlatch=f_data["time_to_unlatch"],
-                lcd_message=f_data["lcd_message"],
-                absolute_index=global_index,
-                id=(i << 12) | global_index
-            )
-            module.faults.append(fault)
-            global_index += 1
-            
-        fault_modules.append(module)
-        print_as_ok(f"Parsed faults for {module.node_name}")
-
-    print_as_success(f"Successfully parsed {global_index} faults")
-    return fault_modules
-
 def validate_node(node: Node, custom_types: Dict):
-    """Run semantic validation on a node"""
+    """Run semantic validation and resolve bit layouts for a node"""
     for bus in node.busses.values():
         for msg in bus.tx_messages:
             msg.validate_semantics(custom_types)
+            msg.resolve_layout(custom_types)
 
 def parse_signal(data: Dict) -> Signal:
     return Signal(
@@ -389,6 +352,17 @@ def parse_rx_message(data: Dict) -> RxMessage:
         irq=data.get('irq', False)
     )
 
+def parse_fault(data: Dict) -> 'Fault':
+    return Fault(
+        name=data["fault_name"],
+        max_val=data["max"],
+        min_val=data["min"],
+        priority=data["priority"],
+        time_to_latch=data["time_to_latch"],
+        time_to_unlatch=data["time_to_unlatch"],
+        lcd_message=data["lcd_message"]
+    )
+
 def parse_bus(name: str, data: Dict, bus_configs: Dict) -> Bus:
     bus_config = bus_configs.get(name, {})
     return Bus(
@@ -407,12 +381,12 @@ def parse_internal_node(filepath: Path, bus_configs: Dict) -> Node:
     
     node = Node(
         name=data['node_name'],
-        node_id=data.get('node_id'),
         busses=busses,
         is_external=False,
-        scheduler=data.get('scheduler', 'psched')
+        scheduler=data.get('scheduler', 'psched'),
+        faults=[parse_fault(f) for f in data.get('faults', [])],
+        generate_fault_strings=data.get("generate_fault_messages", False)
     )
-    node.generate_system_ids()
     return node
 
 def parse_external_node(filepath: Path, bus_configs: Dict) -> Node:
@@ -431,5 +405,7 @@ def parse_external_node(filepath: Path, bus_configs: Dict) -> Node:
     return Node(
         name=data['node_name'],
         busses={bus_name: bus},
-        is_external=True
+        is_external=True,
+        faults=[],
+        generate_fault_strings=False
     )

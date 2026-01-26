@@ -5,6 +5,7 @@
 /output/**
 !/docs
 /docs/**
+!/docs/*.md
 
 # Allow per-user settings and debug states
 !.vscode/tasks.json

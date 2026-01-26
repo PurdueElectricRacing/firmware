@@ -65,8 +65,7 @@
                 {
                     "sig_name": "download_request",
                     "sig_desc": "Request to download new bitstream",
-                    "type": "uint8_t",
-                    "length": 1
+                    "type": "bool"
                 },
                 {
                     "sig_name": "download_size",
@@ -271,8 +270,7 @@
                 {
                     "sig_name": "value",
                     "sig_desc": "Bootloader data",
-                    "type": "uint8_t",
-                    "length": 1
+                    "type": "bool"
                 }
             ],
             "msg_period": 0,

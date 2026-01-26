@@ -152,8 +152,7 @@
                     "signals": [
                         {
                             "sig_name": "start",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         }
                     ],
                     "msg_period": 0,
@@ -209,13 +208,11 @@
                     "signals": [
                         {
                             "sig_name": "vcu_fmode",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "vcu_cmode",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "vt_db_val",
@@ -244,8 +241,7 @@
                         {
                             "sig_name": "logging_enabled",
                             "sig_desc": "Request SD card logging to begin",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         }
                     ],
                     "msg_period": 0,

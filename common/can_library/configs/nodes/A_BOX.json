@@ -46,8 +46,7 @@
                         {
                             "sig_name": "charge_disable",
                             "sig_desc": "Disable charging",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         }
                     ],
                     "msg_id_override": "0x1806E5F4",
@@ -136,8 +135,7 @@
                         {
                             "sig_name": "charge_enable",
                             "sig_desc": "Charge mode enabled",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "voltage",
@@ -560,8 +558,7 @@
                         {
                             "sig_name": "charge_disable",
                             "sig_desc": "Disable charging",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         }
                     ],
                     "msg_id_override": "0x1806E5F4",
@@ -650,8 +647,7 @@
                         {
                             "sig_name": "charge_enable",
                             "sig_desc": "Charge mode enabled",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "voltage",

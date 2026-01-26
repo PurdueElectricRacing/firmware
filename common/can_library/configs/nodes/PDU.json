@@ -143,20 +143,17 @@
                         {
                             "sig_name": "bat_pump",
                             "sig_desc": "Battery pump enabled",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "bat_pump_aux",
                             "sig_desc": "Auxilliary output enable request",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "dt_pump",
                             "sig_desc": "Drivetrain pump enabled",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         }
                     ],
                     "msg_period": 1000,

@@ -29,7 +29,7 @@
                         }
                     ],
                     "msg_period": 40,
-                    "msg_priority": 3
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "gps_speed",
@@ -52,20 +52,6 @@
                     "msg_priority": 3
                 },
                 {
-                    "msg_name": "gps_position",
-                    "msg_desc": "gps position",
-                    "signals": [
-                        {
-                            "sig_name": "height",
-                            "type": "int16_t",
-                            "unit": "m",
-                            "scale": 0.01
-                        }
-                    ],
-                    "msg_period": 40,
-                    "msg_priority": 3
-                },
-                {
                     "msg_name": "gps_coordinates",
                     "msg_desc": "gps coordinates",
                     "signals": [
@@ -81,7 +67,7 @@
                         }
                     ],
                     "msg_period": 40,
-                    "msg_priority": 3
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "gps_time",
@@ -123,8 +109,8 @@
                             "unit": "ms"
                         }
                     ],
-                    "msg_period": 40,
-                    "msg_priority": 3
+                    "msg_period": 1000,
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "imu_gyro",
@@ -149,8 +135,8 @@
                             "unit": "rad/s"
                         }
                     ],
-                    "msg_period": 20,
-                    "msg_priority": 3
+                    "msg_period": 10,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "imu_accel",
@@ -175,8 +161,8 @@
                             "unit": "m/s^2"
                         }
                     ],
-                    "msg_period": 20,
-                    "msg_priority": 3
+                    "msg_period": 10,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "VCU_torques_speeds",
@@ -235,7 +221,7 @@
                         }
                     ],
                     "msg_period": 20,
-                    "msg_priority": 3
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "drive_modes",
@@ -281,7 +267,7 @@
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "tv_version",

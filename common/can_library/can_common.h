@@ -104,6 +104,19 @@ typedef struct {
 #define CAN_ERR_DLC            8
 #define CAN_ERR_LOSTARB_UNSPEC 0x00
 
+#if defined(STM32G474xx)
+#ifndef FDCAN1_IDX
+#define FDCAN1_IDX 0
+#endif
+#ifndef FDCAN2_IDX
+#define FDCAN2_IDX 1
+#endif
+#ifndef FDCAN3_IDX
+#define FDCAN3_IDX 2
+#endif
+
+#define GET_PERIPH_IDX(bus) ((bus == FDCAN1) ? FDCAN1_IDX : ((bus == FDCAN2) ? FDCAN2_IDX : FDCAN3_IDX))
+#else
 #ifndef CAN1_IDX
 #define CAN1_IDX 0
 #endif
@@ -112,6 +125,7 @@ typedef struct {
 #endif
 
 #define GET_PERIPH_IDX(bus) ((bus == CAN1) ? CAN1_IDX : CAN2_IDX)
+#endif
 
 typedef struct {
     uint32_t rx_of; // queue overflow

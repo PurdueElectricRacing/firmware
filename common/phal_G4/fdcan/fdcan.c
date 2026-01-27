@@ -262,6 +262,10 @@ void PHAL_FDCAN_send(CanMsgTypeDef_t* msg) {
     fdcan->TXBAR = (1u << put);
 }
 
+bool PHAL_FDCAN_txFifoFree(FDCAN_GlobalTypeDef* fdcan) {
+    return !(fdcan->TXFQS & FDCAN_TXFQS_TFQF);
+}
+
 static inline uint8_t dlc_to_len(uint8_t dlc) {
     static const uint8_t map[16] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 12, 16, 20, 24, 32, 48, 64};
     return map[dlc & 0xF];

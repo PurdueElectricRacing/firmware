@@ -192,9 +192,147 @@ bool CAN_library_init() {
 
 #elif defined(STM32G474xx)
 
-// todo ram based implementation here
+// G4 FDCAN implementation with priority-based TX queues
+q_handle_t q_tx_can[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
+q_handle_t q_rx_can;
+uint32_t can_mbx_last_send_time[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
 
-void init_CAN1() {}
+void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
+    uint8_t mailbox;
+    uint8_t periph_idx = GET_PERIPH_IDX(msg->Bus);
+
+    if (msg->IDE != 0) {
+        // Extended ID: Use HLP bits (26-28) to determine priority mailbox
+        switch ((msg->ExtId >> 26) & 0b111) {
+            case 0:
+            case 1:
+                mailbox = CAN_MAILBOX_HIGH_PRIO;
+                break;
+            case 2:
+            case 3:
+                mailbox = CAN_MAILBOX_MED_PRIO;
+                break;
+            default:
+                mailbox = CAN_MAILBOX_LOW_PRIO;
+                break;
+        }
+    } else {
+        // Standard ID: Default to high priority
+        mailbox = CAN_MAILBOX_HIGH_PRIO;
+    }
+
+    if (qSendToBack(&q_tx_can[periph_idx][mailbox], msg) != SUCCESS_G) {
+        can_stats.can_peripheral_stats[periph_idx].tx_of++;
+    }
+}
+
+void CAN_tx_update() {
+    CanMsgTypeDef_t tx_msg;
+    for (uint8_t i = 0; i < CAN_TX_MAILBOX_CNT; ++i) {
+#ifdef USE_FDCAN1
+        // Handle FDCAN1
+        if (!(FDCAN1->TXFQS & FDCAN_TXFQS_TFQF)) {
+            if (qReceive(&q_tx_can[FDCAN1_IDX][i], &tx_msg) == SUCCESS_G) {
+                PHAL_FDCAN_send(&tx_msg);
+                can_mbx_last_send_time[FDCAN1_IDX][i] = OS_TICKS;
+            }
+        } else if (OS_TICKS - can_mbx_last_send_time[FDCAN1_IDX][i] > CAN_TX_TIMEOUT_MS) {
+            // TX FIFO full timeout - clear the queue for this priority
+            can_stats.can_peripheral_stats[FDCAN1_IDX].tx_fail++;
+        }
+#endif
+
+#ifdef USE_FDCAN2
+        // Handle FDCAN2
+        if (!(FDCAN2->TXFQS & FDCAN_TXFQS_TFQF)) {
+            if (qReceive(&q_tx_can[FDCAN2_IDX][i], &tx_msg) == SUCCESS_G) {
+                PHAL_FDCAN_send(&tx_msg);
+                can_mbx_last_send_time[FDCAN2_IDX][i] = OS_TICKS;
+            }
+        } else if (OS_TICKS - can_mbx_last_send_time[FDCAN2_IDX][i] > CAN_TX_TIMEOUT_MS) {
+            // TX FIFO full timeout - clear the queue for this priority
+            can_stats.can_peripheral_stats[FDCAN2_IDX].tx_fail++;
+        }
+#endif
+
+#ifdef USE_FDCAN3
+        // Handle FDCAN3
+        if (!(FDCAN3->TXFQS & FDCAN_TXFQS_TFQF)) {
+            if (qReceive(&q_tx_can[FDCAN3_IDX][i], &tx_msg) == SUCCESS_G) {
+                PHAL_FDCAN_send(&tx_msg);
+                can_mbx_last_send_time[FDCAN3_IDX][i] = OS_TICKS;
+            }
+        } else if (OS_TICKS - can_mbx_last_send_time[FDCAN3_IDX][i] > CAN_TX_TIMEOUT_MS) {
+            // TX FIFO full timeout - clear the queue for this priority
+            can_stats.can_peripheral_stats[FDCAN3_IDX].tx_fail++;
+        }
+#endif
+    }
+}
+
+void CAN_rx_update() {
+    CanMsgTypeDef_t rx_msg;
+    while (qReceive(&q_rx_can, &rx_msg) == SUCCESS_G) {
+        last_can_rx_time_ms = OS_TICKS;
+        uint8_t periph_idx  = GET_PERIPH_IDX(rx_msg.Bus);
+        CAN_rx_dispatcher(rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId,
+                          rx_msg.Data,
+                          rx_msg.DLC,
+                          periph_idx);
+    }
+}
+
+// RX callback that enqueues received messages
+void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t* msg) {
+    if (qSendToBack(&q_rx_can, msg) != SUCCESS_G) {
+        can_stats.rx_of++;
+    }
+}
+
+// ! Define these in your main.c for now !
+#ifdef USE_FDCAN1
+void __attribute__((weak, used)) FDCAN1_IT0_IRQHandler() {
+    PHAL_FDCAN_RX_IRQHandler(FDCAN1);
+}
+#endif
+
+#ifdef USE_FDCAN2
+void __attribute__((weak, used)) FDCAN2_IT0_IRQHandler() {
+    PHAL_FDCAN_RX_IRQHandler(FDCAN2);
+}
+#endif
+
+#ifdef USE_FDCAN3
+void __attribute__((weak, used)) FDCAN3_IT0_IRQHandler() {
+    PHAL_FDCAN_RX_IRQHandler(FDCAN3);
+}
+#endif
+
+bool CAN_library_init() {
+    for (uint8_t can_periph = 0; can_periph < NUM_CAN_PERIPHERALS; can_periph++) {
+        for (uint8_t mbx = 0; mbx < CAN_TX_MAILBOX_CNT; mbx++) {
+            qConstruct(&q_tx_can[can_periph][mbx], sizeof(CanMsgTypeDef_t));
+            can_mbx_last_send_time[can_periph][mbx] = 0;
+        }
+    }
+    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+    can_stats = (can_stats_t) {0};
+    CAN_data_init();
+
+#ifdef USE_FDCAN1
+    CAN1_set_filters(); // from NODE.h
+#endif
+
+#ifdef USE_FDCAN2
+    CAN2_set_filters(); // from NODE.h
+#endif
+
+#ifdef USE_FDCAN3
+    CAN3_set_filters(); // from NODE.h
+#endif
+
+    return true;
+}
 
 #else
 #error "Unsupported architecture"

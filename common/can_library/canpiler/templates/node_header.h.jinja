@@ -160,6 +160,48 @@ static inline void CAN_SEND_{{ tx_msg.name }}(
 {% for periph, banks in mapping.filters.items() %}
 static inline void {{ periph }}_set_filters() {
     {% set accept_all = mapping.accept_all.get(periph, False) %}
+    {% if "FDCAN" in periph %}
+    {# FDCAN (G4) filter configuration #}
+    {% if not banks and not accept_all %}
+    return;
+    {% else %}
+    {% set std_ids = [] %}
+    {% set ext_ids = [] %}
+    {% for fb in banks %}
+    {% if not fb.is_ext1 %}
+    {% set _ = std_ids.append(fb.msg1.macro_name ~ "_MSG_ID") %}
+    {% endif %}
+    {% if fb.is_ext1 %}
+    {% set _ = ext_ids.append(fb.msg1.macro_name ~ "_MSG_ID") %}
+    {% endif %}
+    {% if fb.msg2 %}
+    {% if not fb.is_ext2 %}
+    {% set _ = std_ids.append(fb.msg2.macro_name ~ "_MSG_ID") %}
+    {% else %}
+    {% set _ = ext_ids.append(fb.msg2.macro_name ~ "_MSG_ID") %}
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    
+    {% if accept_all %}
+    // Accept all messages - handled by PHAL_FDCAN_init with FDCAN_ACCEPT_IN_RX_FIFO0
+    {% else %}
+    // Configure standard and extended ID filters
+    uint32_t sid_list[{{ std_ids|length }}] = {
+    {% for sid in std_ids %}
+        {{ sid }}{{ "," if not loop.last }}
+    {% endfor %}
+    };
+    uint32_t xid_list[{{ ext_ids|length }}] = {
+    {% for xid in ext_ids %}
+        {{ xid }}{{ "," if not loop.last }}
+    {% endfor %}
+    };
+    PHAL_FDCAN_setFilters({{ periph }}, sid_list, {{ std_ids|length }}, xid_list, {{ ext_ids|length }});
+    {% endif %}
+    {% endif %}
+    {% else %}
+    {# bxCAN (F4/F7/L4) filter configuration #}
     {% if not banks and not accept_all %}
     return;
     {% elif accept_all %}
@@ -199,6 +241,7 @@ static inline void {{ periph }}_set_filters() {
     {% endif %}
     {% endif %}
     {% endfor %}
+    {% endif %}
     {% endif %}
 }
 {% endfor %}

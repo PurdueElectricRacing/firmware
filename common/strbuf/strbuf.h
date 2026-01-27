@@ -21,7 +21,16 @@ typedef struct {
 void strbuf_clear(strbuf_t *sb);
 size_t strbuf_append(strbuf_t *sb, const void *data, size_t length);
 
-#define allocate_strbuf(NAME, MAX_SIZE) \
+/**
+ * @brief Macro to allocate and initialize a strbuf_t with a fixed-size buffer.
+ *        Also creates the underlying data buffer in the same scope.
+ * @param NAME The name of the strbuf_t variable to create.
+ * @param MAX_SIZE The maximum size of the buffer.
+ * Usage:
+ * ALLOCATE_STRBUF(my_buf, 128);
+ * This creates a strbuf_t named my_buf with a buffer of 128 bytes.
+ */
+#define ALLOCATE_STRBUF(NAME, MAX_SIZE) \
     uint8_t NAME##_data[(MAX_SIZE)]; \
     strbuf_t NAME = { \
         .data    = NAME##_data, \

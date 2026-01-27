@@ -17,7 +17,7 @@ void strbuf_clear(strbuf_t *sb) {
 }
 
 /**
- * @brief Appends raw data to the buffer.
+ * @brief Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended.
  * @return Num bytes written to the buffer
  */
 size_t strbuf_append(strbuf_t *sb, const void *data, size_t length) {

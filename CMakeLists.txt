@@ -58,6 +58,7 @@ set(COMMON_MODULES
     common/common_defs
     common/log
     common/amk
+    common/adbms
     common/strbuf
     common/syscalls
 )

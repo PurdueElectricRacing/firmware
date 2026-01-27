@@ -192,6 +192,7 @@ static inline void {{ periph }}_set_filters() {
         {{ sid }}{{ "," if not loop.last }}
     {% endfor %}
     };
+
     uint32_t xid_list[{{ ext_ids|length }}] = {
     {% for xid in ext_ids %}
         {{ xid }}{{ "," if not loop.last }}

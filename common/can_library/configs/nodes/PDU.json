@@ -34,7 +34,7 @@
                         }
                     ],
                     "msg_period": 500,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "rail_currents",
@@ -54,7 +54,7 @@
                         }
                     ],
                     "msg_period": 500,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "pump_and_fan_current",
@@ -84,7 +84,7 @@
                         }
                     ],
                     "msg_period": 500,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "other_currents",
@@ -122,7 +122,7 @@
                         }
                     ],
                     "msg_period": 500,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "coolant_out",
@@ -157,7 +157,7 @@
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "flowrates",
@@ -179,7 +179,7 @@
                         }
                     ],
                     "msg_period": 200,
-                    "msg_priority": 3
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "pdu_temps",
@@ -193,7 +193,7 @@
                         }
                     ],
                     "msg_period": 500,
-                    "msg_priority": 3
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "pdu_can_stats",
@@ -221,7 +221,7 @@
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "pdu_version",

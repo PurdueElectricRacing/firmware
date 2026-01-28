@@ -1,3 +1,4 @@
+#include "common/phal_G4/fdcan/fdcan.h"
 #include "g4_testing.h"
 #if (G4_TESTING_CHOSEN == TEST_CANPILER)
 
@@ -12,12 +13,7 @@
 #include "common/psched/psched.h"
 #include "main.h"
 
-GPIOInitConfig_t gpio_config[] = {
-    GPIO_INIT_FDCAN2RX_PB12,
-    GPIO_INIT_FDCAN2TX_PB13,
-    GPIO_INIT_FDCAN3RX_PA8,
-    GPIO_INIT_FDCAN3TX_PB4,
-};
+GPIOInitConfig_t gpio_config[] = {GPIO_INIT_FDCAN1RX_PA11, GPIO_INIT_FDCAN1TX_PA12};
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
@@ -48,16 +44,20 @@ int main() {
         HardFault_Handler();
     }
 
-    // Send on CAN2, receive on CAN3
     if (!PHAL_FDCAN_init(FDCAN1, false, 500000U)) {
         HardFault_Handler();
     }
 
     CAN_library_init();
 
+    schedInit(APB1ClockRateHz);
+    taskCreate(can_tx_100hz, 100);
+
     // NVIC
     NVIC_SetPriority(FDCAN1_IT0_IRQn, 6);
     NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
+
+    schedStart();
 
     return 0;
 }

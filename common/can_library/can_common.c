@@ -283,7 +283,7 @@ void CAN_rx_update() {
 }
 
 // RX callback that enqueues received messages
-void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t* msg) {
+void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
     if (qSendToBack(&q_rx_can, msg) != SUCCESS_G) {
         can_stats.rx_of++;
     }
@@ -320,15 +320,15 @@ bool CAN_library_init() {
     CAN_data_init();
 
 #ifdef USE_FDCAN1
-    CAN1_set_filters(); // from NODE.h
+    FDCAN1_set_filters(); // from NODE.h
 #endif
 
 #ifdef USE_FDCAN2
-    CAN2_set_filters(); // from NODE.h
+    FDCAN2_set_filters(); // from NODE.h
 #endif
 
 #ifdef USE_FDCAN3
-    CAN3_set_filters(); // from NODE.h
+    FDCAN3_set_filters(); // from NODE.h
 #endif
 
     return true;

@@ -21,7 +21,7 @@
                         }
                     ],
                     "msg_period": 500,
-                    "msg_priority": 3
+                    "msg_priority": 2
                 },
                 {
                     "msg_name": "elcon_charger_command",
@@ -119,7 +119,7 @@
                         }
                     ],
                     "msg_period": 500,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "pack_charge_status",
@@ -155,7 +155,7 @@
                         }
                     ],
                     "msg_period": 50,
-                    "msg_priority": 3
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "max_cell_temp",
@@ -168,7 +168,7 @@
                         }
                     ],
                     "msg_period": 500,
-                    "msg_priority": 3
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "mod_cell_temp_avg_a_b_c",
@@ -190,8 +190,8 @@
                             "scale": 0.1
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "mod_cell_temp_avg_d_e",
@@ -208,8 +208,8 @@
                             "scale": 0.1
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "mod_cell_temp_max_a_b_c",
@@ -231,8 +231,8 @@
                             "scale": 0.1
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "mod_cell_temp_max_d_e",
@@ -249,8 +249,8 @@
                             "scale": 0.1
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "mod_cell_temp_min_a_b_c",
@@ -272,8 +272,8 @@
                             "scale": 0.1
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "mod_cell_temp_min_d_e",
@@ -290,8 +290,8 @@
                             "scale": 0.1
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "raw_cell_temp_module1",
@@ -315,8 +315,8 @@
                             "unit": "C"
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "raw_cell_temp_module2",
@@ -340,8 +340,8 @@
                             "unit": "C"
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "raw_cell_temp_module3",
@@ -365,8 +365,8 @@
                             "unit": "C"
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "raw_cell_temp_module4",
@@ -390,8 +390,8 @@
                             "unit": "C"
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "raw_cell_temp_module5",
@@ -415,8 +415,8 @@
                             "unit": "C"
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "a_box_can_stats",
@@ -459,7 +459,7 @@
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "i_sense",
@@ -481,7 +481,7 @@
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "abox_version",

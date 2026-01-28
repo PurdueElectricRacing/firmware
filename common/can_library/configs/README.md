@@ -28,7 +28,6 @@
 - `length`: (Optional for standard types) Bit-length. Required for custom packing or sub-byte types.
 - `unit`: (Optional) Physical unit label for DBC generation (e.g., `V`, `Amps`, `C`).
 - `scale`: Multiplier for physical value conversion. Default 1.0.
-- `offset`: Manual offset for physical value conversion. Default 0.
 - `min_val`: (Optional) Minimum theoretical value.
 - `max_val`: (Optional) Maximum theoretical value.
 - `choices`: (Optional) List of strings for enum-like labels in DBC.

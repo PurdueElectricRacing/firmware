@@ -26,14 +26,26 @@ int16_t adbms6380_extract_i16(uint8_t* data, int idx);
 float adbms6380_raw_to_cell_v(int16_t raw);
 
 
-void adbms6830_adcv(uint8_t* cmd, uint8_t rd, uint8_t cont, uint8_t dcp, uint8_t rstf, uint8_t ow);
-void adbms6830_adsv(uint8_t* cmd, uint8_t cont, uint8_t dcp, uint8_t ow);
+void adbms6830_adcv(uint8_t* output_cmd, uint8_t rd, uint8_t cont, uint8_t dcp, uint8_t rstf, uint8_t ow);
+void adbms6830_adsv(uint8_t* output_cmd, uint8_t cont, uint8_t dcp, uint8_t ow);
 
-void adbms6380_prepare_command(strbuf_t* buffer, const uint8_t command[ADBMS6380_COMMAND_RAW_SIZE]);
-void adbms6380_prepare_data_packet(strbuf_t* buffer, const uint8_t data[ADBMS6380_SINGLE_DATA_RAW_SIZE]);
+void adbms6380_prepare_command(strbuf_t* output_buffer, const uint8_t command[ADBMS6380_COMMAND_RAW_SIZE]);
+void adbms6380_prepare_data_packet(strbuf_t* output_buffer, const uint8_t data[ADBMS6380_SINGLE_DATA_RAW_SIZE]);
 
-void adbms6380_calculate_cfg_rega(uint8_t* cfg_rega, bool refon, uint8_t cth);
-void adbms6380_calculate_cfg_regb(uint8_t* cfg_regb, float overvoltage_threshold, float undervoltage_threshold);
+/**
+ * @brief Calculate the REG_A configuration register value
+ * @param output_cfg_rega Pointer to output buffer for REG_A configuration (6 bytes)
+ * @param refon 1 = reference remains powered up until watchdog timeout
+ * @param cth C-ADC vs. S-ADC comparison voltage threshold (0b110 = 25.05 mV)
+ */
+void adbms6380_calculate_cfg_rega(uint8_t output_cfg_rega[ADBMS6380_SINGLE_DATA_RAW_SIZE], bool refon, uint8_t cth);
+void adbms6380_calculate_cfg_regb(
+	uint8_t output_cfg_regb[ADBMS6380_SINGLE_DATA_RAW_SIZE],
+	float overvoltage_threshold,
+	float undervoltage_threshold,
+	const bool* is_discharging,
+	const size_t cell_count
+);
 
 void adbms6380_read(SPI_InitConfig_t* spi, size_t module_count, const uint8_t* tx_buffer, uint8_t* rx_buffer, size_t rx_length);
 void adbms6380_read_cell_voltages(const uint8_t* rx_buffer, float* cell_voltages, size_t cell_count);

@@ -6,6 +6,8 @@
 #include "common/phal/spi.h"
 #include "common/psched/psched.h"
 
+#include "pec.h"
+
 
 void adbms6380_set_cs_low(SPI_InitConfig_t* spi) {
 	PHAL_writeGPIO(spi->nss_gpio_port, spi->nss_gpio_pin, false);
@@ -56,4 +58,66 @@ void adbms6830_adsv(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE], uint8_t cont
 	// 10-0: 0, 0, 1, CONT, 1, 1, DCP, 1, 0, OW[1], OW[0]
 	output_cmd[0] = 0x01;
 	output_cmd[1] = (cont << 7) + (dcp << 4) + (ow & 0x03) + 0x68;
+}
+
+
+void adbms6380_prepare_command(strbuf_t* output_buffer, const uint8_t command[ADBMS6380_COMMAND_RAW_SIZE]) {
+	strbuf_append(output_buffer, command, ADBMS6380_COMMAND_RAW_SIZE);
+	uint16_t pec = adbms_pec_get_pec15(ADBMS6380_COMMAND_RAW_SIZE, command);
+	uint8_t pec_bytes[2] = { (uint8_t)((pec >> 8) & 0xFF), (uint8_t)(pec & 0xFF) };
+	strbuf_append(output_buffer, pec_bytes, 2);
+}
+
+void adbms6380_prepare_data_packet(strbuf_t* output_buffer, const uint8_t data[ADBMS6380_SINGLE_DATA_RAW_SIZE]) {
+	strbuf_append(output_buffer, data, ADBMS6380_SINGLE_DATA_RAW_SIZE);
+	uint16_t pec = adbms_pec_get_pec10(false, ADBMS6380_SINGLE_DATA_RAW_SIZE, data);
+	uint8_t pec_bytes[2] = { (uint8_t)((pec >> 8) & 0xFF), (uint8_t)(pec & 0xFF) };
+	strbuf_append(output_buffer, pec_bytes, 2);
+}
+
+
+void adbms6380_calculate_cfg_rega(uint8_t output_cfg_rega[ADBMS6380_SINGLE_DATA_RAW_SIZE], bool refon, uint8_t cth) {
+	output_cfg_rega[0] = (refon << 7) | (cth & 0x07);
+	// all flags 0
+	output_cfg_rega[1] = 0b00000000;
+	// no soak
+	output_cfg_rega[2] = 0;
+	
+    // All GPIO pull down off
+	output_cfg_rega[3] = 0b11111111; // GPIOs [8:0] pull down OFF
+	output_cfg_rega[4] = 0b00000011; // GPIOs [10:9] pull down OFF
+
+	// No SNAP_ST MUTE_ST COMM_BK FC
+    output_cfg_rega[5] = 0;
+}
+
+void adbms6380_calculate_cfg_regb(
+	uint8_t output_cfg_regb[ADBMS6380_SINGLE_DATA_RAW_SIZE],
+	float overvoltage_threshold,
+	float undervoltage_threshold,
+	const bool* is_discharging,
+	const size_t cell_count
+) {
+	// If cell_count != 16, assumes they correlate to the first N cells
+	uint16_t overvoltage_cfg = adbms6380_get_threshold_voltage_cfg(overvoltage_threshold);
+    uint16_t undervoltage_cfg = adbms6380_get_threshold_voltage_cfg(undervoltage_threshold);
+    // 12 bits vov
+    output_cfg_regb[0] = overvoltage_cfg & 0xFF;
+    output_cfg_regb[1] |= (overvoltage_cfg >> 8) & 0xF;
+    // 12 bits vuv
+    output_cfg_regb[1] |= (undervoltage_cfg << 4) & 0xF0;
+    output_cfg_regb[2] |= (undervoltage_cfg >> 4) & 0xFF;
+    // all else default
+    output_cfg_regb[3] = 0;
+	
+	// DCC
+    output_cfg_regb[4] = 0;
+    output_cfg_regb[5] = 0;
+	for (size_t i = 0; i < cell_count; i++) {
+		if (is_discharging[i]) {
+			size_t byte_idx = 4 + (i / 8);
+			size_t bit_idx = i % 8;
+			output_cfg_regb[byte_idx] |= (1 << bit_idx);
+		}
+	}
 }

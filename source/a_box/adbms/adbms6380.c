@@ -46,11 +46,14 @@ float raw_to_cell_v(int16_t raw) {
 	return (raw + 10000) * 0.000150f;
 }
 
-void adbms6830_adcv(uint8_t* cmd, uint8_t rd, uint8_t cont, uint8_t dcp, uint8_t rstf, uint8_t owcs) {
-	cmd[0] = 0x02 + rd;
-    cmd[1] = (cont << 7) + (dcp << 4) + (rstf << 2) + (owcs & 0x03) + 0x60;
+void adbms6830_adcv(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE], uint8_t rd, uint8_t cont, uint8_t dcp, uint8_t rstf, uint8_t ow) {
+	// 10-0: 0, 1, RD, CONT, 1, 1, DCP, 0, RSTF, OW[1], OW[0]
+	output_cmd[0] = 0x02 + rd;
+    output_cmd[1] = (cont << 7) + (dcp << 4) + (rstf << 2) + (ow & 0x03) + 0x60;
 }
 
-void adbms6830_adsv(uint8_t* cmd, uint8_t rd, uint8_t cont, uint8_t dcp, uint8_t rstf, uint8_t owcs) {
-	//! TODO: implement
+void adbms6830_adsv(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE], uint8_t cont, uint8_t dcp, uint8_t ow) {
+	// 10-0: 0, 0, 1, CONT, 1, 1, DCP, 1, 0, OW[1], OW[0]
+	output_cmd[0] = 0x01;
+	output_cmd[1] = (cont << 7) + (dcp << 4) + (ow & 0x03) + 0x68;
 }

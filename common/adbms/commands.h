@@ -1,5 +1,5 @@
-#ifndef _COMMAND_H_
-#define _COMMAND_H_
+#ifndef _ADBMS_COMMAND_H_
+#define _ADBMS_COMMAND_H_
 
 #include <stdint.h>
 
@@ -115,4 +115,4 @@ extern const uint8_t SRST[2];
 /* Read SID command */
 extern const uint8_t RDSID[2];
 
-#endif // _COMMAND_H_
+#endif // _ADBMS_COMMAND_H_

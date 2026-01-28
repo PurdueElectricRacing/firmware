@@ -61,7 +61,6 @@ set(COMMON_MODULES
     common/log
     # common/daq
     common/amk
-    common/adbms
     common/strbuf
     common/modules/wheel_speeds
     common/syscalls

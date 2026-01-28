@@ -14,6 +14,8 @@
 #include "common/freertos/freertos.h"
 
 /* Module Includes */
+#include "adbms.h"
+
 #include "main.h"
 
 /* PER HAL Initilization Structures */

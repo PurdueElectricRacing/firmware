@@ -9,13 +9,13 @@
 #include "common/adbms/adbms6380.h"
 
 
-constexpr size_t ADBMS_MODULE_COUNT = 6;
-constexpr size_t ADBMS_MODULE_CELL_COUNT = 16;
-constexpr size_t ADBMS_MODULE_THERM_COUNT = 10;
+#define ADBMS_MODULE_COUNT       (6)
+#define ADBMS_MODULE_CELL_COUNT  (16)
+#define ADBMS_MODULE_THERM_COUNT (10)
 
 // Max SPI TX is a command + all the data packets for all the modules
-constexpr size_t ADBMS_SPI_TX_BUFFER_SIZE = ADBMS6380_COMMAND_PKT_SIZE + (ADBMS_MODULE_CELL_COUNT * ADBMS6380_SINGLE_DATA_PKT_SIZE);
-constexpr size_t ADBMS_SPI_RX_BUFFER_SIZE = ADBMS_SPI_TX_BUFFER_SIZE; //! Fix for READALL
+#define ADBMS_SPI_TX_BUFFER_SIZE (ADBMS6380_COMMAND_PKT_SIZE + (ADBMS_MODULE_CELL_COUNT * ADBMS6380_SINGLE_DATA_PKT_SIZE))
+#define ADBMS_SPI_RX_BUFFER_SIZE (ADBMS_SPI_TX_BUFFER_SIZE) //! Fix for READALL
 
 typedef enum {
 	ADBMS_STATE_IDLE = 0,

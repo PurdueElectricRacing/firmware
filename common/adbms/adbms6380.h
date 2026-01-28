@@ -22,8 +22,8 @@ float adbms6380_raw_to_cell_v(int16_t raw);
 
 void adbms6380_prepare_command(uint8_t* buffer, const uint8_t command[ADBMS6380_COMMAND_RAW_SIZE]);
 void adbms6380_prepare_data_packet(uint8_t* buffer, const uint8_t data[ADBMS6380_SINGLE_DATA_RAW_SIZE]);
-void adbms6380_calculate_cfg_rega(uint8_t* cfg_rega, bool todo_fill_in); //! TODO: fill in parameters
-void adbms6380_calculate_cfg_regb(uint8_t* cfg_regb, bool todo_fill_in); //! TODO: fill in parameters
+void adbms6380_calculate_cfg_rega(uint8_t* cfg_rega, bool refon, uint8_t cth);
+void adbms6380_calculate_cfg_regb(uint8_t* cfg_regb, float overvoltage_threshold, float undervoltage_threshold);
 void adbms6380_read_cell_voltages(const uint8_t* rx_buffer, float* cell_voltages, size_t cell_count);
 void adbms6380_read_therms(const uint8_t* rx_buffer, float* thermistor_temps, size_t therm_count);
 void adbms6830_adcv(uint8_t* cmd, uint8_t rd, uint8_t cont, uint8_t dcp, uint8_t rstf, uint8_t owcs);

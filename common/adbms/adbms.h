@@ -35,6 +35,9 @@ typedef struct {
 	//! TODO: do we also want min/max/avg for thermistors?
 	bool is_discharging[ADBMS_MODULE_CELL_COUNT]; // if a cell is being discharged for balancing
 
+	uint8_t rega[ADBMS6380_SINGLE_DATA_RAW_SIZE];
+	uint8_t regb[ADBMS6380_SINGLE_DATA_RAW_SIZE];
+
 	bool error_1; //! Fill in actual errors
 } ADBMS_module_t;
 
@@ -48,12 +51,19 @@ typedef struct {
 	float avg_voltage; // in volts
 	float sum_voltage; // in volts
 
-	bool is_discharge_enabled; // If the BMS is allowed to discharge cells for balancing
+	// If the BMS is allowed to discharge cells for balancing. Controlled by higher level logic.
+	bool is_discharge_enabled;
 
-	SPI_InitConfig_t *spi; // Note: must not use auto CS pin, bms driver controls CS manually
+	SPI_InitConfig_t* spi; // Note: must not use auto CS pin, bms driver controls CS manually
 	uint8_t tx_buffer[ADBMS_SPI_TX_BUFFER_SIZE]; //! Change to new buffer type when #247 is done
 	uint8_t rx_buffer[ADBMS_SPI_RX_BUFFER_SIZE];
 } ADBMS_bms_t;
+
+void adbms_periodic(ADBMS_bms_t* bms);
+
+void adbms_init(ADBMS_bms_t* bms, SPI_InitConfig_t* spi);
+void adbms_connect(ADBMS_bms_t* bms);
+void adbms_balance_cells(ADBMS_bms_t* bms, float min_voltage, float min_delta);
 
 
 

@@ -9,6 +9,5 @@ target_sources(${TARGET_NAME} PRIVATE ${SRC_FILES})
 # For libraries, these directories are all referenced to the top level firmware directory, CMAKE_SOURCE_DIR
 target_include_directories(${TARGET_NAME} PUBLIC ${CMAKE_SOURCE_DIR})
 
-target_link_libraries(${TARGET_NAME} "STRBUF")
-# target_link_libraries(${TARGET_NAME} "STRBUF;common_defs;PHAL_F407")
+target_link_libraries(${TARGET_NAME} "STRBUF;PHAL_G4")
 

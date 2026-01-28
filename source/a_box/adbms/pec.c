@@ -65,7 +65,7 @@ static const uint16_t adbms_pec10_table[256] =
 * @return CRC15_Value
 *
 */
-uint16_t adbms_pec_get_pec15(uint8_t len, uint8_t *data) {
+uint16_t adbms_pec_get_pec15(uint8_t len, const uint8_t *data) {
     uint16_t remainder,addr;
     remainder = 16; /* initialize the PEC */
     for (uint8_t i = 0; i<len; i++) { /* loops for each byte in data array */
@@ -76,7 +76,7 @@ uint16_t adbms_pec_get_pec15(uint8_t len, uint8_t *data) {
 }
 
 
-uint16_t adbms_pec_get_pec10(bool bIsRxCmd, uint8_t nLength, uint8_t *pDataBuf) {
+uint16_t adbms_pec_get_pec10(bool bIsRxCmd, uint8_t nLength, const uint8_t *pDataBuf) {
     uint16_t nRemainder = 16u; /* PEC_SEED */
     /* x10 + x7 + x3 + x2 + x + 1 <- the CRC10 polynomial 100 1000 1111 */
     uint16_t nPolynomial = 0x8Fu;

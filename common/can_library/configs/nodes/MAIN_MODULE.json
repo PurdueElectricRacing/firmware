@@ -21,7 +21,7 @@
                         }
                     ],
                     "msg_period": 500,
-                    "msg_priority": 3
+                    "msg_priority": 2
                 },
                 {
                     "msg_name": "coolant_temps",
@@ -53,7 +53,7 @@
                         }
                     ],
                     "msg_period": 3000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "gearbox",
@@ -73,7 +73,7 @@
                         }
                     ],
                     "msg_period": 3000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "LWS_Config",
@@ -116,8 +116,8 @@
                             "unit": "N"
                         }
                     ],
-                    "msg_period": 15,
-                    "msg_priority": 3
+                    "msg_period": 10,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "shock_rear",
@@ -138,8 +138,8 @@
                             "unit": "mm"
                         }
                     ],
-                    "msg_period": 15,
-                    "msg_priority": 3
+                    "msg_period": 10,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "mcu_status",
@@ -169,7 +169,7 @@
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "main_module_can_stats",
@@ -212,7 +212,7 @@
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "num_mc_skips",
@@ -230,7 +230,7 @@
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "INVA_LOG_SET",
@@ -291,7 +291,7 @@
                         }
                     ],
                     "msg_period": 15,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "INVB_LOG_SET",
@@ -352,7 +352,7 @@
                         }
                     ],
                     "msg_period": 15,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "rear_mc_status",
@@ -430,7 +430,7 @@
                         }
                     ],
                     "msg_period": 500,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "rear_motor_currents_volts",
@@ -458,7 +458,7 @@
                         }
                     ],
                     "msg_period": 100,
-                    "msg_priority": 3
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "sdc_status",
@@ -522,7 +522,7 @@
                         }
                     ],
                     "msg_period": 300,
-                    "msg_priority": 3
+                    "msg_priority": 0
                 },
                 {
                     "msg_name": "rear_motor_temps",
@@ -572,7 +572,7 @@
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 3
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "rear_wheel_speeds",
@@ -592,7 +592,7 @@
                         }
                     ],
                     "msg_period": 15,
-                    "msg_priority": 3
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "simulated_tv",

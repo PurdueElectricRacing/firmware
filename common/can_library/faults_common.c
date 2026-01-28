@@ -9,6 +9,8 @@
 #include "common/can_library/generated/fault_data.h"
 #include "common/can_library/generated/can_router.h"
 
+#ifdef FAULT_LIB_ENABLED
+
 static uint16_t fault_counters[NUM_FAULT_PRIOS];
 
 #ifdef MY_FAULT_START
@@ -143,3 +145,5 @@ bool is_other_mcus_latched() {
     }
     return false;
 }
+
+#endif // FAULT_LIB_ENABLED

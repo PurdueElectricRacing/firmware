@@ -11,19 +11,21 @@
 #include <stdint.h>
 #include "common/can_library/generated/can_types.h"
 
-// Fault string configuration
-{% set string_nodes = [] %}
-{% for module in fault_modules %}
-    {% if module.generate_strings %}
-        {% set _ = string_nodes.append(module.node_name|upper) %}
-    {% endif %}
-{% endfor %}
-{% if string_nodes %}
-#if {% for node in string_nodes %}defined(CAN_NODE_{{ node }}){{ " || " if not loop.last }}{% endfor %}
-
+// Node Configuration (Activation & Ownership)
+{% for node in nodes %}
+{% if node.fault_library_enabled %}
+#ifdef CAN_NODE_{{ node.name|upper }}
+#define FAULT_LIB_ENABLED
+{% if node.faults %}
+#define MY_FAULT_START (FAULT_INDEX_{{ node.name|upper }}_{{ node.faults[0].name|upper }})
+#define MY_FAULT_END (FAULT_INDEX_{{ node.name|upper }}_{{ node.faults[-1].name|upper }})
+{% endif %}
+{% if node.generate_fault_strings %}
 #define HAS_FAULT_STRINGS
+{% endif %}
 #endif
 {% endif %}
+{% endfor %}
 
 #include "common/can_library/faults_common.h"
 
@@ -35,14 +37,6 @@ extern fault_t faults[TOTAL_NUM_FAULTS];
 #ifdef HAS_FAULT_STRINGS
 extern const char* const fault_strings[TOTAL_NUM_FAULTS];
 #endif
-
-// Node limits for current build
-{% for module in fault_modules %}
-#ifdef CAN_NODE_{{ module.node_name|upper }}
-#define MY_FAULT_START (FAULT_INDEX_{{ module.node_name|upper }}_{{ module.faults[0].name|upper }})
-#define MY_FAULT_END (FAULT_INDEX_{{ module.node_name|upper }}_{{ module.faults[-1].name|upper }})
-#endif
-{% endfor %}
 
 // Transmission Helpers
 void tx_fault_sync(void);

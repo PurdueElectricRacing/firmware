@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
-    "required": ["node_name", "scheduler", "busses"],
+    "required": ["node_name", "scheduler", "busses", "fault_library_enabled"],
     "additionalProperties": false,
     "properties": {
         "node_name": { "type": "string" },
@@ -12,6 +12,11 @@
                 "$ref": "#/$defs/bus_messages"
             },
             "minProperties": 1
+        },
+        "fault_library_enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "If false, the node will be excluded from the fault system (no sync, no ownership guards, no logic)."
         },
         "generate_fault_messages": {
             "type": "boolean",

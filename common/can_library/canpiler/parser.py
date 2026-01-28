@@ -159,6 +159,7 @@ class Node:
     scheduler: str = "psched"
     faults: List['Fault'] = field(default_factory=list)
     generate_fault_strings: bool = False
+    fault_library_enabled: bool = False
 
     @property
     def macro_name(self) -> str:
@@ -221,7 +222,7 @@ def create_system_context(nodes, mappings, bus_configs, custom_types) -> SystemC
     # Derivation: Populate fault modules from node objects (A)
     fault_modules = []
     for node in nodes:
-        if node.faults:
+        if node.faults and node.fault_library_enabled:
             fault_modules.append(FaultModule(
                 node_name=node.name,
                 generate_strings=node.generate_fault_strings,
@@ -385,7 +386,8 @@ def parse_internal_node(filepath: Path, bus_configs: Dict) -> Node:
         is_external=False,
         scheduler=data.get('scheduler', 'psched'),
         faults=[parse_fault(f) for f in data.get('faults', [])],
-        generate_fault_strings=data.get("generate_fault_messages", False)
+        generate_fault_strings=data.get("generate_fault_messages", False),
+        fault_library_enabled=data.get("fault_library_enabled", True)
     )
     return node
 

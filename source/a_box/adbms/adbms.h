@@ -6,7 +6,7 @@
 
 #include "common/phal/spi.h"
 
-#include "common/adbms/adbms6380.h"
+#include "adbms6380.h"
 
 
 #define ADBMS_MODULE_COUNT       (6)

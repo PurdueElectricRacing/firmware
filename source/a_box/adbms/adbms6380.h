@@ -5,6 +5,8 @@
 #include <stdint.h>
 
 #include "common/phal/spi.h"
+#include "common/strbuf/strbuf.h"
+
 
 #define ADBMS6380_COMMAND_RAW_SIZE     (2)                                 // 2 bytes for command
 #define ADBMS6380_COMMAND_PKT_SIZE     (ADBMS6380_COMMAND_RAW_SIZE + 2)     // 2 extra for PEC
@@ -23,13 +25,17 @@ uint16_t adbms6380_get_threshold_voltage_cfg(float threshold_voltage);
 int16_t adbms6380_extract_i16(uint8_t* data, int idx);
 float adbms6380_raw_to_cell_v(int16_t raw);
 
-void adbms6830_adcv(uint8_t* cmd, uint8_t rd, uint8_t cont, uint8_t dcp, uint8_t rstf, uint8_t owcs);
-void adbms6830_adsv(uint8_t* cmd, uint8_t rd, uint8_t cont, uint8_t dcp, uint8_t rstf, uint8_t owcs); //! TODO: fix params
 
-void adbms6380_prepare_command(uint8_t* buffer, const uint8_t command[ADBMS6380_COMMAND_RAW_SIZE]);
-void adbms6380_prepare_data_packet(uint8_t* buffer, const uint8_t data[ADBMS6380_SINGLE_DATA_RAW_SIZE]);
+void adbms6830_adcv(uint8_t* cmd, uint8_t rd, uint8_t cont, uint8_t dcp, uint8_t rstf, uint8_t ow);
+void adbms6830_adsv(uint8_t* cmd, uint8_t cont, uint8_t dcp, uint8_t ow);
+
+void adbms6380_prepare_command(strbuf_t* buffer, const uint8_t command[ADBMS6380_COMMAND_RAW_SIZE]);
+void adbms6380_prepare_data_packet(strbuf_t* buffer, const uint8_t data[ADBMS6380_SINGLE_DATA_RAW_SIZE]);
+
 void adbms6380_calculate_cfg_rega(uint8_t* cfg_rega, bool refon, uint8_t cth);
 void adbms6380_calculate_cfg_regb(uint8_t* cfg_regb, float overvoltage_threshold, float undervoltage_threshold);
+
+void adbms6380_read(SPI_InitConfig_t* spi, size_t module_count, const uint8_t* tx_buffer, uint8_t* rx_buffer, size_t rx_length);
 void adbms6380_read_cell_voltages(const uint8_t* rx_buffer, float* cell_voltages, size_t cell_count);
 void adbms6380_read_therms(const uint8_t* rx_buffer, float* thermistor_temps, size_t therm_count);
 

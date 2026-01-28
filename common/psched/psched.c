@@ -5,9 +5,9 @@
 static void checkPreflightEnd(void);
 static void schedLoop(void);
 static void schedBg(void);
-static void updateTime(cpu_time_t* time);
-static void calcTime(cpu_time_t* time, uint8_t count, int type);
-static void memsetu(uint8_t* ptr, uint8_t val, size_t size);
+static void updateTime(cpu_time_t *time);
+static void calcTime(cpu_time_t *time, uint8_t count, int type);
+static void memsetu(uint8_t *ptr, uint8_t val, size_t size);
 
 sched_t sched;
 
@@ -52,7 +52,7 @@ int taskCreateBackground(func_ptr_t func) {
 void taskDelete(uint8_t type, uint8_t task) {
     // Locals
     uint8_t i;
-    func_ptr_t* fp;
+    func_ptr_t *fp;
 
     if (type == TASK) {
         fp = sched.task_pointer;
@@ -81,7 +81,10 @@ void taskDelete(uint8_t type, uint8_t task) {
 // @param: preflight: Address of preflight checks
 // @param: anim_time: Animation scheduling time in ms
 // @param: anim_min_time: Minimum animation duration in ms
-void configureAnim(func_ptr_t anim, func_ptr_t preflight, uint16_t anim_time, uint16_t anim_min_time) {
+void configureAnim(func_ptr_t anim,
+                   func_ptr_t preflight,
+                   uint16_t anim_time,
+                   uint16_t anim_min_time) {
     sched.preflight_required = 1;
     sched.anim_time          = anim_time;
     sched.anim_min_time      = anim_min_time;
@@ -132,7 +135,7 @@ void schedInit(uint32_t freq) {
     TIM7->DIER |= TIM_DIER_UIE;
 
     // Default all values
-    memsetu((uint8_t*)&sched, 0, sizeof(sched));
+    memsetu((uint8_t *)&sched, 0, sizeof(sched));
     sched.of = freq;
 }
 
@@ -141,7 +144,13 @@ void schedInit(uint32_t freq) {
 // @brief: Starts tasks. Will never return
 void schedStart() {
     TIM7->CR1 |= TIM_CR1_CEN;
+
+#if (defined(STM32F407xx) || defined(STM32F732xx) || defined(STM32L432xx) || defined(STM32L471xx) || defined(STM32L496xx))
     NVIC->ISER[1] |= 1 << (TIM7_IRQn - 32);
+#else
+    NVIC->ISER[1] |= 1 << (TIM7_DAC_IRQn - 32);
+#endif
+
     IWDG->KR = 0xCCCC;
     IWDG->KR = 0x5555;
     IWDG->PR |= 2;
@@ -166,7 +175,11 @@ void schedStart() {
 //         within 3ms, your MCU will reset
 void schedPause() {
     TIM7->CR1 &= ~TIM_CR1_CEN;
-    NVIC->ISER[1] &= ~(1 << (TIM7_IRQn - 32));
+#if (defined(STM32F407xx) || defined(STM32F732xx) || defined(STM32L432xx) || defined(STM32L471xx) || defined(STM32L496xx))
+    NVIC->ISER[1] |= 1 << (TIM7_IRQn - 32);
+#else
+    NVIC->ISER[1] |= 1 << (TIM7_DAC_IRQn - 32);
+#endif
     sched.running  = 0;
     sched.run_next = 1;
 }
@@ -291,7 +304,7 @@ static void schedBg() {
     }
 }
 
-static void updateTime(cpu_time_t* time) {
+static void updateTime(cpu_time_t *time) {
     uint32_t delta;
 
     delta         = time->cnt_exit - time->cnt_entry;
@@ -304,7 +317,7 @@ static void updateTime(cpu_time_t* time) {
     time->max_cpu_use = (time->cpu_use > time->max_cpu_use) ? time->cpu_use : time->max_cpu_use;
 }
 
-static void calcTime(cpu_time_t* time, uint8_t count, int type) {
+static void calcTime(cpu_time_t *time, uint8_t count, int type) {
     uint8_t error;
     uint8_t e_cnt;
     uint8_t i;
@@ -312,7 +325,8 @@ static void calcTime(cpu_time_t* time, uint8_t count, int type) {
     e_cnt = 0;
 
     for (i = 0; i < count; i++) {
-        error = (type != E_BG_MISS) ? time[i].tick_entry != time[i].tick_exit : time[i].tick_exit - time[i].tick_entry > 1;
+        error = (type != E_BG_MISS) ? time[i].tick_entry != time[i].tick_exit
+                                    : time[i].tick_exit - time[i].tick_entry > 1;
 
         if (error) {
             time[i].cpu_use    = 100;
@@ -337,7 +351,7 @@ static void calcTime(cpu_time_t* time, uint8_t count, int type) {
 // @param: ptr: Pointer to location to set
 // @param: val: Value to set each memory address to
 // @param: size: Length of data to set
-static void memsetu(uint8_t* ptr, uint8_t val, size_t size) {
+static void memsetu(uint8_t *ptr, uint8_t val, size_t size) {
     // Locals
     size_t i;
 
@@ -346,12 +360,22 @@ static void memsetu(uint8_t* ptr, uint8_t val, size_t size) {
     }
 }
 
-// @funcname: TIM7_IRQHandler()
+// @funcname: TIM7_IRQHandler() / TIM7_DAC_IRQHandler()
 //
 // @brief: Timer 7 IRQ. Increments OS ticks and unblocks loop
+//         On G4, this is combined with DAC, so we define both names
+#if defined(STM32G474xx)
+void TIM7_DAC_IRQHandler() {
+    TIM7->SR &= ~TIM_SR_UIF;
+    ++sched.os_ticks;
+
+    sched.run_next = 1;
+}
+#else
 void TIM7_IRQHandler() {
     TIM7->SR &= ~TIM_SR_UIF;
     ++sched.os_ticks;
 
     sched.run_next = 1;
 }
+#endif

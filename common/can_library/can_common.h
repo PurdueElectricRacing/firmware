@@ -115,7 +115,8 @@ typedef struct {
 #define FDCAN3_IDX 2
 #endif
 
-#define GET_PERIPH_IDX(bus) ((bus == FDCAN1) ? FDCAN1_IDX : ((bus == FDCAN2) ? FDCAN2_IDX : FDCAN3_IDX))
+#define GET_PERIPH_IDX(bus) \
+    ((bus == FDCAN1) ? FDCAN1_IDX : ((bus == FDCAN2) ? FDCAN2_IDX : FDCAN3_IDX))
 #else
 #ifndef CAN1_IDX
 #define CAN1_IDX 0
@@ -143,7 +144,11 @@ void CAN_enqueue_tx(CanMsgTypeDef_t *msg);
 
 void CAN_tx_update();
 void CAN_rx_update();
+#if defined(STM32G474xx)
+void CAN_handle_irq(FDCAN_GlobalTypeDef *bus, uint8_t fifo);
+#else
 void CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo);
+#endif
 bool CAN_library_init();
 
 #endif

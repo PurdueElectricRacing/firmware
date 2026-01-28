@@ -1,0 +1,33 @@
+{
+    "node_name": "G4_TESTING",
+    "scheduler": "psched",
+    "busses": {
+        "VCAN": {
+            "peripheral": "FDCAN1",
+            "tx": [
+                {
+                    "msg_name": "test_msg",
+                    "msg_desc": "test message",
+                    "signals": [
+                        {
+                            "sig_name": "test_sig",
+                            "sig_desc": "test signal",
+                            "type": "uint16_t",
+                            "unit": "ms"
+                        }
+                        
+                    ],
+                    "msg_period": 500,
+                    "msg_priority": 3
+                }
+                
+            ],
+            "rx": [
+                {
+                    "msg_name": "test_rx",
+                    "callback": true
+                }
+            ]
+        }
+    }
+}

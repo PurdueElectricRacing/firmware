@@ -24,6 +24,19 @@
                     "msg_priority": 3
                 },
                 {
+                    "msg_name": "test_rx",
+                    "msg_desc": "test receive",
+                    "signals": [
+                        {
+                            "sig_name": "test_sig_rx",
+                            "sig_desc": "test signal receive",
+                            "type": "uint8_t"
+                        }
+                    ],
+                    "msg_period": 500,
+                    "msg_priority": 3
+                },
+                {
                     "msg_name": "elcon_charger_command",
                     "msg_desc": "Charge voltage and current request to ELCON charger",
                     "signals": [

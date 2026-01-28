@@ -7,8 +7,8 @@
 #define PHAL_CAN_HEADER "common/phal_L4/can/can.h"
 #elif defined(PHAL_ARCH_F4_F7)
 #define PHAL_CAN_HEADER "common/phal_F4_F7/can/can.h"
-#elif defined(PHAL_ARCH_G4)
-#define PHAL_CAN_HEADER "common/phal_G4/fdcan/fdcan.h"
+#elif defined(phal_arch_g4)
+#define phal_can_header "common/phal_g4/fdcan/fdcan.h"
 #else
 #error "Unsupported PHAL architecture. Please define a known STM32xx macro."
 #endif

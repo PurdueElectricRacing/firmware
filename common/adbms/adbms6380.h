@@ -6,11 +6,10 @@
 
 #include "common/phal/spi.h"
 
-
-constexpr size_t ADBMS6380_COMMAND_RAW_SIZE = 2; // 2 bytes for command
-constexpr size_t ADBMS6380_COMMAND_PKT_SIZE = ADBMS6380_COMMAND_RAW_SIZE + 2; // 2 extra for PEC
-constexpr size_t ADBMS6380_SINGLE_DATA_RAW_SIZE = 6; // 6 data bytes
-constexpr size_t ADBMS6380_SINGLE_DATA_PKT_SIZE = ADBMS6380_SINGLE_DATA_RAW_SIZE + 2; // 2 extra for PEC
+#define ADBMS6380_COMMAND_RAW_SIZE     (2)                                 // 2 bytes for command
+#define ADBMS6380_COMMAND_PKT_SIZE     (ADBMS6380_COMMAND_RAW_SIZE + 2)     // 2 extra for PEC
+#define ADBMS6380_SINGLE_DATA_RAW_SIZE (6)                                  // 6 data bytes
+#define ADBMS6380_SINGLE_DATA_PKT_SIZE (ADBMS6380_SINGLE_DATA_RAW_SIZE + 2) // 2 extra for PEC
 
 void adbms6380_set_cs_low(SPI_InitConfig_t *spi);
 void adbms6380_set_cs_high(SPI_InitConfig_t *spi);

@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-uint16_t adbms_pec_get_pec15(uint8_t len, uint8_t *data);
-uint16_t adbms_pec_get_pec10(bool bIsRxCmd, uint8_t nLength, uint8_t *pDataBuf);
+uint16_t adbms_pec_get_pec15(uint8_t len, const uint8_t *data);
+uint16_t adbms_pec_get_pec10(bool bIsRxCmd, uint8_t nLength, const uint8_t *pDataBuf);
 
 #endif // _ADBMS_PEC_H_

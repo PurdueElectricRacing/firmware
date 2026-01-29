@@ -1,3 +1,4 @@
+#include "common/can_library/can_common.h"
 #include "common/phal_G4/fdcan/fdcan.h"
 #include "g4_testing.h"
 #if (G4_TESTING_CHOSEN == TEST_CANPILER)
@@ -52,6 +53,7 @@ int main() {
 
     schedInit(APB1ClockRateHz);
     taskCreate(can_tx_100hz, 100);
+    taskCreateBackground(CAN_tx_update);
 
     // NVIC
     NVIC_SetPriority(FDCAN1_IT0_IRQn, 6);

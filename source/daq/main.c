@@ -168,7 +168,6 @@ int main() {
         // HardFault_Handler();
 
     daq_spi_register_callbacks(); // Link SPI for ethernet driver
-    //uds_init();
     daq_hub_init();
     configure_interrupts();
 

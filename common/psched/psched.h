@@ -17,6 +17,9 @@
 #elif defined(STM32L496xx)
 #include "stm32l4xx.h"
 #include "system_stm32l4xx.h"
+#elif defined(STM32G474xx)
+#include "stm32g4xx.h"
+#include "system_stm32g4xx.h"
 #else
 #error "Please define a MCU arch"
 #endif

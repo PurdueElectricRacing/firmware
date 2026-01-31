@@ -141,7 +141,11 @@ void schedInit(uint32_t freq) {
 // @brief: Starts tasks. Will never return
 void schedStart() {
     TIM7->CR1 |= TIM_CR1_CEN;
+    #if (defined(STM32G474xx))
+    NVIC->ISER[1] |= 1 << (TIM7_DAC_IRQn - 32);
+    #else
     NVIC->ISER[1] |= 1 << (TIM7_IRQn - 32);
+    #endif
     IWDG->KR = 0xCCCC;
     IWDG->KR = 0x5555;
     IWDG->PR |= 2;
@@ -166,7 +170,11 @@ void schedStart() {
 //         within 3ms, your MCU will reset
 void schedPause() {
     TIM7->CR1 &= ~TIM_CR1_CEN;
-    NVIC->ISER[1] &= ~(1 << (TIM7_IRQn - 32));
+    #if (defined(STM32G474xx))
+    NVIC->ISER[1] |= 1 << (TIM7_DAC_IRQn - 32);
+    #else
+    NVIC->ISER[1] |= 1 << (TIM7_IRQn - 32);
+    #endif
     sched.running  = 0;
     sched.run_next = 1;
 }
@@ -346,6 +354,20 @@ static void memsetu(uint8_t* ptr, uint8_t val, size_t size) {
     }
 }
 
+
+#if (defined(STM32G474xx))
+// @funcname: TIM7_IRQHandler()
+//
+// @brief: Timer 7 IRQ. Increments OS ticks and unblocks loop
+void TIM7_DAC_IRQHandler() {
+    TIM7->SR &= ~TIM_SR_UIF;
+    ++sched.os_ticks;
+
+    sched.run_next = 1;
+}
+
+#else 
+
 // @funcname: TIM7_IRQHandler()
 //
 // @brief: Timer 7 IRQ. Increments OS ticks and unblocks loop
@@ -355,3 +377,5 @@ void TIM7_IRQHandler() {
 
     sched.run_next = 1;
 }
+
+#endif

@@ -65,7 +65,7 @@
             "required": ["peripheral"],
             "additionalProperties": false,
             "properties": {
-                "peripheral": { "enum": ["CAN1", "CAN2"] },
+                "peripheral": { "enum": ["CAN1", "CAN2", "FDCAN1", "FDCAN2", "FDCAN3"] },
                 "accept_all_messages": { "type": "boolean" },
                 "tx": {
                     "type": "array",

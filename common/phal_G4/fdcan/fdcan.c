@@ -94,8 +94,9 @@ static void PHAL_FDCAN_setExtendedFilter(FDCAN_GlobalTypeDef* fdcan, uint32_t nu
     }
 
     // Set number of extended filters
+    // hardware max is 64
     fdcan->RXGFC &= ~FDCAN_RXGFC_LSE_Msk;
-    fdcan->RXGFC |= ((num_xid & 0x7u) << FDCAN_RXGFC_LSE_Pos);
+    fdcan->RXGFC |= ((num_xid & 0x7Fu) << FDCAN_RXGFC_LSE_Pos);
 
     fdcan->XIDAM = 0x1FFFFFFFu;
 }
@@ -117,9 +118,9 @@ static void PHAL_FDCAN_setStandardFilter(FDCAN_GlobalTypeDef* fdcan,
         ram[i] = (2u << 30) | (1u << 27) | (sid << 16) | 0x7FFu;
     }
 
-    // Set number of standard filters
+    // hardware max is 128
     fdcan->RXGFC &= ~(FDCAN_RXGFC_LSS_Msk);
-    fdcan->RXGFC |= ((num_sid & 0x7Fu) << FDCAN_RXGFC_LSS_Pos);
+    fdcan->RXGFC |= ((num_sid & 0xFFu) << FDCAN_RXGFC_LSS_Pos);
 }
 
 void PHAL_FDCAN_setFilters(FDCAN_GlobalTypeDef* fdcan, uint32_t* sid_list, uint32_t num_sid, uint32_t* xid_list, uint32_t num_xid) {

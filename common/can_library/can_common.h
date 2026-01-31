@@ -110,18 +110,40 @@ typedef struct {
 #ifndef CAN2_IDX
 #define CAN2_IDX 1
 #endif
+#ifndef CAN3_IDX
+#define CAN3_IDX 2
+#endif
 
+#if defined(STM32G474xx)
+// G4 uses FDCAN peripheral
+#define GET_PERIPH_IDX(bus) ((bus == FDCAN1) ? CAN1_IDX : ((bus == FDCAN2) ? CAN2_IDX : CAN3_IDX))
+#else
+// F4/F7/L4 use bxCAN peripheral
 #define GET_PERIPH_IDX(bus) ((bus == CAN1) ? CAN1_IDX : CAN2_IDX)
+#endif
+
+#if defined(STM32G474xx)
+#define NUM_CAN_PERIPHERALS_MAX 3
+#else
+#define NUM_CAN_PERIPHERALS_MAX 2
+#endif
 
 typedef struct {
     uint32_t rx_of; // queue overflow
-    can_peripheral_stats_t can_peripheral_stats[2];
+    can_peripheral_stats_t can_peripheral_stats[NUM_CAN_PERIPHERALS_MAX];
 } can_stats_t;
 
 extern can_stats_t can_stats;
-extern q_handle_t q_tx_can[][CAN_TX_MAILBOX_CNT];
-extern q_handle_t q_rx_can;
 extern volatile uint32_t last_can_rx_time_ms;
+
+#if defined(STM32G474xx)
+// G4/FDCAN uses a single TX queue per peripheral (no mailboxes)
+extern q_handle_t q_tx_can[];
+#else
+// bxCAN uses 3 mailboxes per peripheral
+extern q_handle_t q_tx_can[][CAN_TX_MAILBOX_CNT];
+#endif
+extern q_handle_t q_rx_can;
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg);
 
@@ -129,7 +151,12 @@ void CAN_enqueue_tx(CanMsgTypeDef_t *msg);
 
 void CAN_tx_update();
 void CAN_rx_update();
-void CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo);
 bool CAN_library_init();
+
+#if defined(STM32G474xx)
+// G4/FDCAN IRQ handling is done in fdcan.c via PHAL_FDCAN_rxCallback
+#else
+void CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo);
+#endif
 
 #endif

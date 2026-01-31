@@ -192,9 +192,103 @@ bool CAN_library_init() {
 
 #elif defined(STM32G474xx)
 
-// todo ram based implementation here
+// G4/FDCAN implementation - uses TX FIFO (no mailboxes)
+// FDCAN has 3 TX FIFO slots handled by hardware, so we use a single software queue per peripheral
 
-void init_CAN1() {}
+#ifndef NUM_CAN_PERIPHERALS
+#if defined(USE_FDCAN3)
+#define NUM_CAN_PERIPHERALS 3
+#elif defined(USE_FDCAN2)
+#define NUM_CAN_PERIPHERALS 2
+#elif defined(USE_FDCAN1)
+#define NUM_CAN_PERIPHERALS 1
+#else
+#define NUM_CAN_PERIPHERALS 1
+#endif
+#endif
+
+q_handle_t q_tx_can[NUM_CAN_PERIPHERALS];
+q_handle_t q_rx_can;
+
+void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
+    uint8_t periph_idx = GET_PERIPH_IDX(msg->Bus);
+    
+    if (qSendToBack(&q_tx_can[periph_idx], msg) != SUCCESS_G) {
+        can_stats.can_peripheral_stats[periph_idx].tx_of++;
+    }
+}
+
+void CAN_tx_update() {
+    CanMsgTypeDef_t tx_msg;
+    
+#ifdef USE_FDCAN1
+    while (PHAL_FDCAN_txFifoFree(FDCAN1) && qReceive(&q_tx_can[CAN1_IDX], &tx_msg) == SUCCESS_G) {
+        PHAL_FDCAN_send(&tx_msg);
+    }
+#endif
+
+#ifdef USE_FDCAN2
+    while (PHAL_FDCAN_txFifoFree(FDCAN2) && qReceive(&q_tx_can[CAN2_IDX], &tx_msg) == SUCCESS_G) {
+        PHAL_FDCAN_send(&tx_msg);
+    }
+#endif
+
+#ifdef USE_FDCAN3
+    while (PHAL_FDCAN_txFifoFree(FDCAN3) && qReceive(&q_tx_can[CAN3_IDX], &tx_msg) == SUCCESS_G) {
+        PHAL_FDCAN_send(&tx_msg);
+    }
+#endif
+}
+
+void CAN_rx_update() {
+    CanMsgTypeDef_t rx_msg;
+    while (qReceive(&q_rx_can, &rx_msg) == SUCCESS_G) {
+        last_can_rx_time_ms = OS_TICKS;
+        uint8_t periph_idx  = GET_PERIPH_IDX(rx_msg.Bus);
+        CAN_rx_dispatcher(rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId,
+                          rx_msg.Data,
+                          rx_msg.DLC,
+                          periph_idx);
+    }
+}
+
+// FDCAN RX callback - enqueues received messages to the RX queue
+// This overrides the weak definition in fdcan.c
+void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t* msg) {
+    if (qSendToBack(&q_rx_can, msg) != SUCCESS_G) {
+        can_stats.rx_of++;
+    }
+}
+
+bool CAN_library_init() {
+    // Initialize TX queues (one per peripheral)
+    for (uint8_t i = 0; i < NUM_CAN_PERIPHERALS; i++) {
+        qConstruct(&q_tx_can[i], sizeof(CanMsgTypeDef_t));
+    }
+    
+    // Initialize RX queue
+    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+    
+    // Clear stats
+    can_stats = (can_stats_t) {0};
+    
+    // Initialize CAN data from generated code
+    CAN_data_init();
+
+#ifdef USE_FDCAN1
+    FDCAN1_set_filters();
+#endif
+
+#ifdef USE_FDCAN2
+    FDCAN2_set_filters();
+#endif
+
+#ifdef USE_FDCAN3
+    FDCAN3_set_filters();
+#endif
+
+    return true;
+}
 
 #else
 #error "Unsupported architecture"

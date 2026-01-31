@@ -207,6 +207,11 @@ bool PHAL_FDCAN_init(FDCAN_GlobalTypeDef* fdcan, bool test_mode, uint32_t bit_ra
     return true;
 }
 
+bool PHAL_FDCAN_txFifoFree(FDCAN_GlobalTypeDef* fdcan) {
+    // Returns true if TX FIFO/Queue has at least one free slot
+    return !(fdcan->TXFQS & FDCAN_TXFQS_TFQF);
+}
+
 void PHAL_FDCAN_send(CanMsgTypeDef_t* msg) {
     FDCAN_GlobalTypeDef* fdcan = msg->Bus;
     // TX FIFO/Queue full?

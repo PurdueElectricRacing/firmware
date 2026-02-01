@@ -24,37 +24,6 @@
                     "msg_priority": 3
                 },
                 {
-                    "msg_name": "elcon_charger_command",
-                    "msg_desc": "Charge voltage and current request to ELCON charger",
-                    "signals": [
-                        {
-                            "sig_name": "voltage_limit",
-                            "sig_desc": "Requested charge voltage",
-                            "unit": "V",
-                            "scale": 0.1,
-                            "type": "uint16_t",
-                            "length": 16
-                        },
-                        {
-                            "sig_name": "current_limit",
-                            "sig_desc": "Requested charge current",
-                            "unit": "A",
-                            "scale": 0.1,
-                            "type": "uint16_t",
-                            "length": 16
-                        },
-                        {
-                            "sig_name": "charge_disable",
-                            "sig_desc": "Disable charging",
-                            "type": "uint8_t",
-                            "length": 1
-                        }
-                    ],
-                    "msg_id_override": "0x1806E5F4",
-                    "msg_period": 1000,
-                    "msg_priority": 3
-                },
-                {
                     "msg_name": "num_therm_bad",
                     "msg_desc": "Number of wonky thermistors on pack",
                     "signals": [
@@ -538,37 +507,6 @@
                     "msg_priority": 3
                 },
                 {
-                    "msg_name": "can2_elcon_charger_command",
-                    "msg_desc": "Charge voltage and current request to ELCON charger",
-                    "signals": [
-                        {
-                            "sig_name": "voltage_limit",
-                            "sig_desc": "Requested charge voltage",
-                            "unit": "V",
-                            "scale": 0.1,
-                            "type": "uint16_t",
-                            "length": 16
-                        },
-                        {
-                            "sig_name": "current_limit",
-                            "sig_desc": "Requested charge current",
-                            "unit": "A",
-                            "scale": 0.1,
-                            "type": "uint16_t",
-                            "length": 16
-                        },
-                        {
-                            "sig_name": "charge_disable",
-                            "sig_desc": "Disable charging",
-                            "type": "uint8_t",
-                            "length": 1
-                        }
-                    ],
-                    "msg_id_override": "0x1806E5F4",
-                    "msg_period": 1000,
-                    "msg_priority": 3
-                },
-                {
                     "msg_name": "can2_num_therm_bad",
                     "msg_desc": "Number of wonky thermistors on pack",
                     "signals": [
@@ -1001,9 +939,6 @@
                 }
             ],
             "rx": [
-                {
-                    "msg_name": "elcon_charger_status"
-                },
                 {
                     "msg_name": "orion_info_charger"
                 },

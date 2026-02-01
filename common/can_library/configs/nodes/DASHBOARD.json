@@ -294,65 +294,14 @@
                 }
             ],
             "rx": [
+                {
+                    "msg_name": "main_hb"
+                }
             ]
         }
     },
-    "fault_library_enabled": true,
+    "fault_library_enabled": false,
     "generate_fault_messages": true,
     "faults": [
-        {
-            "fault_name": "APPS_wiring_t1",
-            "max": 3700,
-            "min": 300,
-            "priority": "error",
-            "time_to_latch": 10,
-            "time_to_unlatch": 1000,
-            "lcd_message": "APPS Wiring Fail T1"
-        },
-        {
-            "fault_name": "APPS_wiring_t2",
-            "max": 3700,
-            "min": 300,
-            "priority": "error",
-            "time_to_latch": 10,
-            "time_to_unlatch": 1000,
-            "lcd_message": "APPS Wiring Fail T2"
-        },
-        {
-            "fault_name": "BSE",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 100,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Brake Wiring Fail (BSE)"
-        },
-        {
-            "fault_name": "bspd",
-            "max": 182,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 100,
-            "time_to_unlatch": 1000,
-            "lcd_message": "BSE Wiring Fail B2"
-        },
-        {
-            "fault_name": "Implaus_detected",
-            "max": 4095,
-            "min": -4095,
-            "priority": "error",
-            "time_to_latch": 10,
-            "time_to_unlatch": 100,
-            "lcd_message": "APPS Implaus Detected"
-        },
-        {
-            "fault_name": "APPS_brake",
-            "max": 1,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 100,
-            "time_to_unlatch": 100,
-            "lcd_message": "Release Both Pedals"
-        }
     ]
 }

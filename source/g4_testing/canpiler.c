@@ -52,7 +52,7 @@ int main() {
     schedInit(APB1ClockRateHz);
     taskCreate(can_tx_100hz, 100);
     taskCreateBackground(CAN_tx_update);
-
+    taskCreateBackground(CAN_rx_update);
     // NVIC
     NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);

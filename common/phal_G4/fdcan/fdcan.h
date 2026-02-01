@@ -17,7 +17,7 @@ bool PHAL_FDCAN_init(FDCAN_GlobalTypeDef* fdcan, bool test_mode, uint32_t bit_ra
 void PHAL_FDCAN_setFilters(FDCAN_GlobalTypeDef* fdcan, uint32_t* sid_list, uint32_t num_sid, uint32_t* xid_list, uint32_t num_xid);
 void PHAL_FDCAN_send(CanMsgTypeDef_t* msg);
 bool PHAL_FDCAN_txFifoFree(FDCAN_GlobalTypeDef* fdcan);
-void __attribute__((weak)) PHAL_FDCAN_rxCallback(CanMsgTypeDef_t* msg);
+extern void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t* msg);
 
 #define MAX_NUM_XID_FILTER (8)
 #define MAX_NUM_SID_FILTER (28)

@@ -32,7 +32,7 @@ static constexpr uint32_t GIT_HASH = 0x{{ context.version }};
 static constexpr uint8_t NUM_CAN_PERIPHERALS = {{ peripherals|length }};
 {% for periph in peripherals %}
 #define USE_{{ periph }}
-static constexpr uint8_t {{ periph }}_INDEX = {{ loop.index0 }};
+static constexpr uint8_t {{ periph }}_INDEX = {{ periph[-1]|int - 1 }};
 {% endfor %}
 
 // Scaling Macros

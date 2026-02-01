@@ -47,7 +47,7 @@ int main() {
         HardFault_Handler();
     }
 
-    // CAN_library_init();
+    CAN_library_init();
 
     schedInit(APB1ClockRateHz);
     taskCreate(can_tx_100hz, 100);

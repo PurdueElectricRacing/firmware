@@ -19,7 +19,7 @@ void PHAL_FDCAN_send(CanMsgTypeDef_t* msg);
 bool PHAL_FDCAN_txFifoFree(FDCAN_GlobalTypeDef* fdcan);
 void __attribute__((weak)) PHAL_FDCAN_rxCallback(CanMsgTypeDef_t* msg);
 
-#define MAX_NUM_XID_FILTER (64)
+#define MAX_NUM_XID_FILTER (8)
 #define MAX_NUM_SID_FILTER (28)
 
 #define AF_NUM_FDCAN2           (9)

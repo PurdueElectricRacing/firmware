@@ -11,7 +11,7 @@
 #define FDCAN_REJECT             ((uint32_t)0x00000002U) /*!< Reject              */
 
 #define SRAMCAN_FLS_NBR (28U) /* Max. Filter List Standard Number      */
-#define SRAMCAN_FLE_NBR (64U) /* Max. Filter List Extended Number      */
+#define SRAMCAN_FLE_NBR (8U) /* Max. Filter List Extended Number      */
 #define SRAMCAN_RF0_NBR (3U) /* RX FIFO 0 Elements Number             */
 #define SRAMCAN_RF1_NBR (3U) /* RX FIFO 1 Elements Number             */
 #define SRAMCAN_TEF_NBR (3U) /* TX Event FIFO Elements Number         */

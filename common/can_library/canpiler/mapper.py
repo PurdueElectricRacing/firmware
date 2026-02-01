@@ -10,7 +10,7 @@ from parser import Node, Message
 
 # Maximum FDCAN filter counts (STM32G4)
 MAX_FDCAN_SID_FILTERS = 28
-MAX_FDCAN_XID_FILTERS = 64
+MAX_FDCAN_XID_FILTERS = 8
 
 
 @dataclass

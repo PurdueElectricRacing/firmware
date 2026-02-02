@@ -23,32 +23,27 @@
                 {
                     "sig_name": "hw_fail",
                     "sig_desc": "Hardware failure",
-                    "type": "uint8_t",
-                    "length": 1
+                    "type": "bool"
                 },
                 {
                     "sig_name": "temp_fail",
                     "sig_desc": "Temperature failure",
-                    "type": "uint8_t",
-                    "length": 1
+                    "type": "bool"
                 },
                 {
                     "sig_name": "input_v_fail",
                     "sig_desc": "Input voltage failure",
-                    "type": "uint8_t",
-                    "length": 1
+                    "type": "bool"
                 },
                 {
                     "sig_name": "startup_fail",
                     "sig_desc": "Startup voltage detection failure",
-                    "type": "uint8_t",
-                    "length": 1
+                    "type": "bool"
                 },
                 {
                     "sig_name": "communication_fail",
                     "sig_desc": " 5s timeout from communication failure",
-                    "type": "uint8_t",
-                    "length": 1
+                    "type": "bool"
                 }
             ],
             "msg_id_override": "0x18FF50E5",

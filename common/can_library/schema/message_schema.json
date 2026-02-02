@@ -10,7 +10,7 @@
             "properties": {
                 "msg_name": { "type": "string" },
                 "msg_desc": { "type": "string" },
-                "msg_priority": { "type": "integer", "minimum": 1, "maximum": 5 },
+                "msg_priority": { "type": "integer", "minimum": 0, "maximum": 5 },
                 "msg_period": { "type": "integer" },
                 "msg_id_override": { "type": "string" },
                 "signals": {
@@ -39,7 +39,6 @@
                 "type": { "type": "string" },
                 "length": { "type": "integer" },
                 "scale": { "type": "number" },
-                "offset": { "type": "number" },
                 "min": { "type": "number" },
                 "max": { "type": "number" },
                 "unit": { "type": "string" },

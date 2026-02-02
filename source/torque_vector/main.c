@@ -145,7 +145,9 @@ static uint8_t txbuffer[2 + sizeof(txmsg)] = {0xAA, 0x55};
 void heartBeatLED(void);
 void preflightAnimation(void);
 void preflightChecks(void);
-void reportData(void);
+void reportIMU(void);
+void reportGPS(void);
+void reportUTC(void);
 extern void HardFault_Handler(void);
 
 void parseIMU(void);
@@ -180,7 +182,9 @@ int main(void) {
     taskCreate(heartBeatLED, 500);
     taskCreate(parseIMU, 20);
     taskCreate(VCU_MAIN, 20);
-    taskCreate(reportData, 100);
+    taskCreate(reportIMU, IMU_ACCEL_PERIOD_MS);
+    taskCreate(reportGPS, GPS_SPEED_PERIOD_MS);
+    taskCreate(reportUTC, GPS_TIME_PERIOD_MS);
 
     /* No Way Home */
     schedStart();
@@ -200,7 +204,7 @@ int16_t scaled_gyro_z;
 int16_t scaled_speed;
 int16_t scaled_heading;
 
-void reportData() {
+void reportIMU() {
     scaled_accel_x = (int16_t)(bmi_handle.data.accel_x * PACK_COEFF_IMU_ACCEL_IMU_ACCEL_X);
     scaled_accel_y = (int16_t)(bmi_handle.data.accel_y * PACK_COEFF_IMU_ACCEL_IMU_ACCEL_Y);
     scaled_accel_z = (int16_t)(bmi_handle.data.accel_z * PACK_COEFF_IMU_ACCEL_IMU_ACCEL_Z);
@@ -210,22 +214,28 @@ void reportData() {
     scaled_gyro_y = (int16_t)(bmi_handle.data.gyro_y * PACK_COEFF_IMU_GYRO_IMU_GYRO_Y);
     scaled_gyro_z = (int16_t)(bmi_handle.data.gyro_z * PACK_COEFF_IMU_GYRO_IMU_GYRO_Z);
     CAN_SEND_imu_gyro(scaled_gyro_x, scaled_gyro_y, scaled_gyro_z);
+}
 
+void reportGPS() {
     CAN_SEND_gps_coordinates(gps_handle.data.latitude, gps_handle.data.longitude);
 
     scaled_speed   = (int16_t)(gps_handle.data.groundSpeed * PACK_COEFF_GPS_SPEED_GPS_SPEED); 
     scaled_heading = (int16_t)(gps_handle.data.headingMotion * PACK_COEFF_GPS_SPEED_GPS_HEADING);
     CAN_SEND_gps_speed(scaled_speed, scaled_heading);
+}
 
+void reportUTC() {
     uint8_t abbreviated_year = (uint8_t)(gps_handle.data.year % 100);
     uint8_t millis           = (uint8_t)(gps_handle.data.nano / 1000);
-    CAN_SEND_gps_time(abbreviated_year,
-                  gps_handle.data.month,
-                  gps_handle.data.day,
-                  gps_handle.data.hour,
-                  gps_handle.data.minute,
-                  gps_handle.data.second,
-                  millis);
+    CAN_SEND_gps_time(
+        abbreviated_year,
+        gps_handle.data.month,
+        gps_handle.data.day,
+        gps_handle.data.hour,
+        gps_handle.data.minute,
+        gps_handle.data.second,
+        millis
+    );
 }
 
 void preflightChecks(void) {

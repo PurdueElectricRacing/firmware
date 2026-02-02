@@ -24,20 +24,17 @@
                 {
                     "sig_name": "Ok",
                     "sig_desc": "Sensor failure status",
-                    "type": "uint8_t",
-                    "length": 1
+                    "type": "bool"
                 },
                 {
                     "sig_name": "Cal",
                     "sig_desc": "Sensor calibration status",
-                    "type": "uint8_t",
-                    "length": 1
+                    "type": "bool"
                 },
                 {
                     "sig_name": "Trim",
                     "sig_desc": "Sensor information validity flag (invalid if 0)",
-                    "type": "uint8_t",
-                    "length": 1
+                    "type": "bool"
                 },
                 {
                     "sig_name": "Reserved_1",
@@ -50,7 +47,7 @@
                     "length": 8
                 }
             ],
-            "msg_period": 15,
+            "msg_period": 10,
             "msg_id_override": "0x2B0",
             "msg_priority": 3
         }

@@ -46,7 +46,7 @@
                         }
                     ],
                     "msg_period": 15,
-                    "msg_priority": 3
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "shock_front",
@@ -68,7 +68,7 @@
                         }
                     ],
                     "msg_period": 15,
-                    "msg_priority": 3
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "load_sensor_readings_dash",
@@ -86,7 +86,7 @@
                         }
                     ],
                     "msg_period": 15,
-                    "msg_priority": 3
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "cooling_driver_request",
@@ -144,7 +144,7 @@
                         }
                     ],
                     "msg_period": 15,
-                    "msg_priority": 3
+                    "msg_priority": 2
                 },
                 {
                     "msg_name": "start_button",
@@ -152,12 +152,11 @@
                     "signals": [
                         {
                             "sig_name": "start",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         }
                     ],
                     "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_priority": 1
                 },
                 {
                     "msg_name": "dashboard_mcu_temp",
@@ -169,7 +168,7 @@
                         }
                     ],
                     "msg_period": 4000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "dashboard_voltage",
@@ -201,7 +200,7 @@
                         }
                     ],
                     "msg_period": 5000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "dashboard_vcu_parameters",
@@ -209,13 +208,11 @@
                     "signals": [
                         {
                             "sig_name": "vcu_fmode",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "vcu_cmode",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "vt_db_val",
@@ -244,8 +241,7 @@
                         {
                             "sig_name": "logging_enabled",
                             "sig_desc": "Request SD card logging to begin",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         }
                     ],
                     "msg_period": 0,
@@ -277,7 +273,7 @@
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "dash_version",

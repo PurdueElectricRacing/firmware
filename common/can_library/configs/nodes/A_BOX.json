@@ -21,38 +21,7 @@
                         }
                     ],
                     "msg_period": 500,
-                    "msg_priority": 3
-                },
-                {
-                    "msg_name": "elcon_charger_command",
-                    "msg_desc": "Charge voltage and current request to ELCON charger",
-                    "signals": [
-                        {
-                            "sig_name": "voltage_limit",
-                            "sig_desc": "Requested charge voltage",
-                            "unit": "V",
-                            "scale": 0.1,
-                            "type": "uint16_t",
-                            "length": 16
-                        },
-                        {
-                            "sig_name": "current_limit",
-                            "sig_desc": "Requested charge current",
-                            "unit": "A",
-                            "scale": 0.1,
-                            "type": "uint16_t",
-                            "length": 16
-                        },
-                        {
-                            "sig_name": "charge_disable",
-                            "sig_desc": "Disable charging",
-                            "type": "uint8_t",
-                            "length": 1
-                        }
-                    ],
-                    "msg_id_override": "0x1806E5F4",
-                    "msg_period": 1000,
-                    "msg_priority": 3
+                    "msg_priority": 2
                 },
                 {
                     "msg_name": "num_therm_bad",
@@ -120,7 +89,7 @@
                         }
                     ],
                     "msg_period": 500,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "pack_charge_status",
@@ -136,8 +105,7 @@
                         {
                             "sig_name": "charge_enable",
                             "sig_desc": "Charge mode enabled",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "voltage",
@@ -157,7 +125,7 @@
                         }
                     ],
                     "msg_period": 50,
-                    "msg_priority": 3
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "max_cell_temp",
@@ -170,7 +138,7 @@
                         }
                     ],
                     "msg_period": 500,
-                    "msg_priority": 3
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "mod_cell_temp_avg_a_b_c",
@@ -192,8 +160,8 @@
                             "scale": 0.1
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "mod_cell_temp_avg_d_e",
@@ -210,8 +178,8 @@
                             "scale": 0.1
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "mod_cell_temp_max_a_b_c",
@@ -233,8 +201,8 @@
                             "scale": 0.1
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "mod_cell_temp_max_d_e",
@@ -251,8 +219,8 @@
                             "scale": 0.1
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "mod_cell_temp_min_a_b_c",
@@ -274,8 +242,8 @@
                             "scale": 0.1
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "mod_cell_temp_min_d_e",
@@ -292,8 +260,8 @@
                             "scale": 0.1
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "raw_cell_temp_module1",
@@ -317,8 +285,8 @@
                             "unit": "C"
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "raw_cell_temp_module2",
@@ -342,8 +310,8 @@
                             "unit": "C"
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "raw_cell_temp_module3",
@@ -367,8 +335,8 @@
                             "unit": "C"
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "raw_cell_temp_module4",
@@ -392,8 +360,8 @@
                             "unit": "C"
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "raw_cell_temp_module5",
@@ -417,8 +385,8 @@
                             "unit": "C"
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 3
+                    "msg_period": 50,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "a_box_can_stats",
@@ -461,7 +429,7 @@
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "i_sense",
@@ -483,7 +451,7 @@
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "abox_version",
@@ -560,8 +528,7 @@
                         {
                             "sig_name": "charge_disable",
                             "sig_desc": "Disable charging",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         }
                     ],
                     "msg_id_override": "0x1806E5F4",
@@ -650,8 +617,7 @@
                         {
                             "sig_name": "charge_enable",
                             "sig_desc": "Charge mode enabled",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "voltage",

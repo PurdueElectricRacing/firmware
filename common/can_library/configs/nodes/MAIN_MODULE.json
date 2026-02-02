@@ -17,12 +17,11 @@
                         {
                             "sig_name": "precharge_state",
                             "sig_desc": "Status of Precharge (complete vs not)",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         }
                     ],
                     "msg_period": 500,
-                    "msg_priority": 3
+                    "msg_priority": 2
                 },
                 {
                     "msg_name": "coolant_temps",
@@ -54,7 +53,7 @@
                         }
                     ],
                     "msg_period": 3000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "gearbox",
@@ -74,7 +73,7 @@
                         }
                     ],
                     "msg_period": 3000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "LWS_Config",
@@ -117,8 +116,8 @@
                             "unit": "N"
                         }
                     ],
-                    "msg_period": 15,
-                    "msg_priority": 3
+                    "msg_period": 10,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "shock_rear",
@@ -139,8 +138,8 @@
                             "unit": "mm"
                         }
                     ],
-                    "msg_period": 15,
-                    "msg_priority": 3
+                    "msg_period": 10,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "mcu_status",
@@ -170,7 +169,7 @@
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "main_module_can_stats",
@@ -213,7 +212,7 @@
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "num_mc_skips",
@@ -231,7 +230,7 @@
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "INVA_LOG_SET",
@@ -246,26 +245,22 @@
                         {
                             "sig_name": "AMK_Control_bInverterOn",
                             "sig_desc": "Control word: controller enable",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bDcOn",
                             "sig_desc": "Control word: HV activation",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bEnable",
                             "sig_desc": "Control word: driver enable",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bErrorReset",
                             "sig_desc": "Control word: remove error",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bReserve2",
@@ -296,7 +291,7 @@
                         }
                     ],
                     "msg_period": 15,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "INVB_LOG_SET",
@@ -311,26 +306,22 @@
                         {
                             "sig_name": "AMK_Control_bInverterOn",
                             "sig_desc": "Control word: controller enable",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bDcOn",
                             "sig_desc": "Control word: HV activation",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bEnable",
                             "sig_desc": "Control word: driver enable",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bErrorReset",
                             "sig_desc": "Control word: remove error",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bReserve2",
@@ -361,7 +352,7 @@
                         }
                     ],
                     "msg_period": 15,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "rear_mc_status",
@@ -439,7 +430,7 @@
                         }
                     ],
                     "msg_period": 500,
-                    "msg_priority": 3
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "rear_motor_currents_volts",
@@ -467,7 +458,7 @@
                         }
                     ],
                     "msg_period": 100,
-                    "msg_priority": 3
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "sdc_status",
@@ -475,77 +466,63 @@
                     "signals": [
                         {
                             "sig_name": "main",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "c_estop",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "inertia",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "BOTS",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "BSPD",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "BMS",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "IMD",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "r_estop",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "l_estop",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "HVD",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "emeter",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "hub",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "TSMS",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "pchg_out",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         }
                     ],
                     "msg_period": 300,
-                    "msg_priority": 3
+                    "msg_priority": 0
                 },
                 {
                     "msg_name": "rear_motor_temps",
@@ -595,7 +572,7 @@
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 3
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "rear_wheel_speeds",
@@ -615,7 +592,7 @@
                         }
                     ],
                     "msg_period": 15,
-                    "msg_priority": 3
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "simulated_tv",
@@ -701,8 +678,7 @@
                         },
                         {
                             "sig_name": "precharge_state",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         }
                     ],
                     "msg_period": 500,
@@ -721,26 +697,22 @@
                         {
                             "sig_name": "AMK_Control_bInverterOn",
                             "sig_desc": "Control word: controller enable",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bDcOn",
                             "sig_desc": "Control word: HV activation",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bEnable",
                             "sig_desc": "Control word: driver enable",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bErrorReset",
                             "sig_desc": "Control word: remove error",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bReserve2",
@@ -787,26 +759,22 @@
                         {
                             "sig_name": "AMK_Control_bInverterOn",
                             "sig_desc": "Control word: controller enable",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bDcOn",
                             "sig_desc": "Control word: HV activation",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bEnable",
                             "sig_desc": "Control word: driver enable",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bErrorReset",
                             "sig_desc": "Control word: remove error",
-                            "type": "uint8_t",
-                            "length": 1
+                            "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bReserve2",

@@ -28,7 +28,6 @@
 - `length`: (Optional for standard types) Bit-length. Required for custom packing or sub-byte types.
 - `unit`: (Optional) Physical unit label for DBC generation (e.g., `V`, `Amps`, `C`).
 - `scale`: Multiplier for physical value conversion. Default 1.0.
-- `offset`: Manual offset for physical value conversion. Default 0.
 - `min_val`: (Optional) Minimum theoretical value.
 - `max_val`: (Optional) Maximum theoretical value.
 - `choices`: (Optional) List of strings for enum-like labels in DBC.
@@ -41,7 +40,8 @@
 Lower = higher priority.
 Range: [0-5].
 PER vehicle convention:
-0. event based, safety-critical
+
+0.  event based, safety-critical
 	- fault events, charge commands
 1. periodic safety-critical vehicle operation
 	- Motor commands, fault sync, charging
@@ -49,9 +49,9 @@ PER vehicle convention:
 	- throttle, torque vectoring commands, steering angle
 3. non torque path vehicle operation
 	- cooling commands, daq log enable
-4. Low frequency periodic telemetry
+4. Low frequency (<5HZ) periodic telemetry
 	- battery voltage
-5. High frequency "best effort" telemetry
+5. High frequency (>5HZ) "best effort" telemetry
 	- IMU raw data, shock pots, battery current
 
 ## Fault Configuration

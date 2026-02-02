@@ -94,7 +94,7 @@ void orionChargePeriodic() {
     if (!elcon_charge_enable)
         __asm__("nop"); // for bkpt
 
-    CAN_SEND_elcon_charger_command(charge_voltage_req, charge_current_req, !elcon_charge_enable);
+    // CAN_SEND_elcon_charger_command(charge_voltage_req, charge_current_req, !elcon_charge_enable);
 
     // Parse current values from elcon charger status
     charge_current = can_data.elcon_charger_status.charge_current;

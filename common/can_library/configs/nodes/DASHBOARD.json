@@ -3,7 +3,7 @@
     "scheduler": "psched",
     "busses": {
         "VCAN": {
-            "peripheral": "FDCAN2",
+            "peripheral": "CAN1",
             "tx": [
                 {
                     "msg_name": "raw_throttle_brake",
@@ -351,7 +351,7 @@
             ]
         }
     },
-    "fault_library_enabled": false,
+    "fault_library_enabled": true,
     "generate_fault_messages": true,
     "faults": [
         {

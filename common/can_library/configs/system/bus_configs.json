@@ -3,7 +3,7 @@
         {
             "name": "VCAN",
             "baud_rate": 500000,
-            "is_extended_id": false,
+            "is_extended_id": true,
             "is_flexible_data_rate": false,
             "host_fault_library": true
         },

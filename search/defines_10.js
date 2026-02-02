@@ -12,13 +12,12 @@ var searchData=
   ['ready_5fto_5fdrive_5fstat_5fgpio_5fpin_9',['READY_TO_DRIVE_STAT_GPIO_Pin',['../main__module_2main_8h.html#a8b6cd981b3469fde6713d40cab0e934d',1,'main.h']]],
   ['ready_5fto_5fdrive_5fstat_5fgpio_5fport_10',['READY_TO_DRIVE_STAT_GPIO_Port',['../main__module_2main_8h.html#a40808e72cefa5c8c9a90426acdfd6858',1,'main.h']]],
   ['red_11',['RED',['../nextion_8h.html#a8d23feea868a983c8c2b661e1e16972f',1,'nextion.h']]],
-  ['remain_5ftime_12',['remain_time',['../ftpd_8c.html#ad528fb04514d0507c8820e87b90f12d6',1,'ftpd.c']]],
-  ['rpm_5fto_5fmph_13',['RPM_TO_MPH',['../lcd_8h.html#a97007bae4cca88faeb6c7eed93967751',1,'lcd.h']]],
-  ['rtc_5fasync_5fprescal_14',['RTC_ASYNC_PRESCAL',['../rtc_8h.html#a23265a91627f354343a8bf32bdcab608',1,'rtc.h']]],
-  ['rtc_5fconv_5fto_5fbcd_15',['RTC_CONV_TO_BCD',['../rtc_8h.html#a3056be58546c4e25fed72a5eb743f94a',1,'rtc.h']]],
-  ['rtc_5fsync_5fprescal_16',['RTC_SYNC_PRESCAL',['../rtc_8h.html#a74e42a61f38d2bc8242923e3ce6a68f8',1,'rtc.h']]],
-  ['rush_17',['RUSH',['../menu__system_8c.html#a2e6154fd7a55f45e8eb5988f50eb6a39',1,'menu_system.c']]],
-  ['rx_5fbuff_5fitem_5fcount_18',['RX_BUFF_ITEM_COUNT',['../daq_2main_8h.html#aaa463b6160ae1692d5b6d605503bc5dd',1,'main.h']]],
-  ['rx_5fct_19',['RX_CT',['../test__buffer_8c.html#a2b23e78297b4ebd1ff007837cd8bf644',1,'test_buffer.c']]],
-  ['rx_5ftail_5fct_20',['RX_TAIL_CT',['../test__buffer_8c.html#ace0165f1b9d5db787f29dbee3342f46d',1,'test_buffer.c']]]
+  ['rpm_5fto_5fmph_12',['RPM_TO_MPH',['../lcd_8h.html#a97007bae4cca88faeb6c7eed93967751',1,'lcd.h']]],
+  ['rtc_5fasync_5fprescal_13',['RTC_ASYNC_PRESCAL',['../rtc_8h.html#a23265a91627f354343a8bf32bdcab608',1,'rtc.h']]],
+  ['rtc_5fconv_5fto_5fbcd_14',['RTC_CONV_TO_BCD',['../rtc_8h.html#a3056be58546c4e25fed72a5eb743f94a',1,'rtc.h']]],
+  ['rtc_5fsync_5fprescal_15',['RTC_SYNC_PRESCAL',['../rtc_8h.html#a74e42a61f38d2bc8242923e3ce6a68f8',1,'rtc.h']]],
+  ['rush_16',['RUSH',['../menu__system_8c.html#a2e6154fd7a55f45e8eb5988f50eb6a39',1,'menu_system.c']]],
+  ['rx_5fbuff_5fitem_5fcount_17',['RX_BUFF_ITEM_COUNT',['../daq_2main_8h.html#aaa463b6160ae1692d5b6d605503bc5dd',1,'main.h']]],
+  ['rx_5fct_18',['RX_CT',['../test__buffer_8c.html#a2b23e78297b4ebd1ff007837cd8bf644',1,'test_buffer.c']]],
+  ['rx_5ftail_5fct_19',['RX_TAIL_CT',['../test__buffer_8c.html#ace0165f1b9d5db787f29dbee3342f46d',1,'test_buffer.c']]]
 ];

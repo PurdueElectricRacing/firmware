@@ -19,7 +19,5 @@ var searchData=
   ['usb_16',['usb',['../torque__vector_2main_8c.html#a3f235b0fe34fce8a2a9fc2d8715e912c',1,'main.c']]],
   ['use_5fpll_17',['use_pll',['../structClockRateConfig__t.html#acac53bfa913d0aee434ec90f5acdc394',1,'ClockRateConfig_t']]],
   ['user_5fcharge_5fcurrent_5frequest_18',['user_charge_current_request',['../orion_8c.html#acc9c2cec806fa0236b7f1895c41c4c48',1,'user_charge_current_request:&#160;orion.c'],['../orion_8h.html#acc9c2cec806fa0236b7f1895c41c4c48',1,'user_charge_current_request:&#160;orion.c']]],
-  ['user_5fcharge_5fvoltage_5frequest_19',['user_charge_voltage_request',['../orion_8c.html#a336188e7564bd84e2186f88be3979685',1,'user_charge_voltage_request:&#160;orion.c'],['../orion_8h.html#a336188e7564bd84e2186f88be3979685',1,'user_charge_voltage_request:&#160;orion.c']]],
-  ['username_20',['username',['../structftpd.html#ad6c308a74c7a259d500955227366ec2c',1,'ftpd']]],
-  ['userpassword_21',['userpassword',['../structftpd.html#a073fbafa193dd0acbd067c220bb8c99c',1,'ftpd']]]
+  ['user_5fcharge_5fvoltage_5frequest_19',['user_charge_voltage_request',['../orion_8c.html#a336188e7564bd84e2186f88be3979685',1,'user_charge_voltage_request:&#160;orion.c'],['../orion_8h.html#a336188e7564bd84e2186f88be3979685',1,'user_charge_voltage_request:&#160;orion.c']]]
 ];

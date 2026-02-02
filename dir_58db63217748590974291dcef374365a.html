@@ -100,8 +100,6 @@ Directories</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top"><span class="iconfclosed"></span>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dir_2fa794f5391b1b5554bf731edfe11fb2.html">fatfs</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top"><span class="iconfclosed"></span>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dir_87c4435bdb57dff327fc04ec9f9778e3.html">ftp</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top"><span class="iconfclosed"></span>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dir_e9efd338849be66005b4c49a6980eb80.html">sdio</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top"><span class="iconfclosed"></span>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dir_1fffba04149f20eb341981ee60c48f9f.html">w5500</a></td></tr>
@@ -116,17 +114,16 @@ Files</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>This directory contains the firmware source code for the Data Acquisition (DAQ) board, responsible for data collection, storage, and communication.</p>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<h1><a class="anchor" id="autotoc_md1"></a>
 Directory Structure</h1>
 <ul>
 <li><b><code>buffer/</code></b> - Files for creating and managing data buffers</li>
 <li><b><code>daq_hub/</code></b> - Central hub defining behavior for SD card writing, Ethernet communication, SPI transactions, threads, etc.</li>
 <li><b><code>fatfs/</code></b> - FatFs filesystem module for FAT/exFAT support on embedded systems; enables SD card writing</li>
-<li><b><code>ftp/</code></b> - FTP server library files (see <a class="el" href="source_2daq_2ftp_2README_8md.html">ftp/README.md</a>)</li>
 <li><b><code>sdio/</code></b> - SDIO peripheral drivers for high-speed SD card communication</li>
 <li><b><code>w5500/</code></b> - WIZnet TCP/IP chip drivers and application protocols (see <a class="el" href="source_2daq_2w5500_2README_8md.html">w5500/README.md</a>)</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md15"></a>
+<h1><a class="anchor" id="autotoc_md2"></a>
 Main Entry Point</h1>
 <p><b><code>main.c/main.h</code></b> - Initializes the board with:</p><ul>
 <li>GPIO configuration</li>

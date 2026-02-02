@@ -53,6 +53,5 @@ var searchData=
   ['cw_5fset_5fintrmask_50',['CW_SET_INTRMASK',['../group__DATA__TYPE.html#ggaca023f09ee4830a55aa38846e1bb3b44a8f81b377b722b8b23150b1a3a042b15f',1,'wizchip_conf.h']]],
   ['cw_5fset_5fintrtime_51',['CW_SET_INTRTIME',['../group__DATA__TYPE.html#ggaca023f09ee4830a55aa38846e1bb3b44a49966d90dff60c38ab6e76654f9ac59f',1,'wizchip_conf.h']]],
   ['cw_5fset_5fphyconf_52',['CW_SET_PHYCONF',['../group__DATA__TYPE.html#ggaca023f09ee4830a55aa38846e1bb3b44a2360c312f5437370e65000ad85205a05',1,'wizchip_conf.h']]],
-  ['cw_5fset_5fphypowmode_53',['CW_SET_PHYPOWMODE',['../group__DATA__TYPE.html#ggaca023f09ee4830a55aa38846e1bb3b44a793ecc600c0be24791af73e3e5b4fdf3',1,'wizchip_conf.h']]],
-  ['cwd_5fcmd_54',['CWD_CMD',['../ftpd_8h.html#a5a4e3d4e4521804c23722b3f32f440c3a63287f7d472739e911accbb872ef1487',1,'ftpd.h']]]
+  ['cw_5fset_5fphypowmode_53',['CW_SET_PHYPOWMODE',['../group__DATA__TYPE.html#ggaca023f09ee4830a55aa38846e1bb3b44a793ecc600c0be24791af73e3e5b4fdf3',1,'wizchip_conf.h']]]
 ];

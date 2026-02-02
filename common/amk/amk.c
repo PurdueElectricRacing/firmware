@@ -13,7 +13,6 @@
 #include "amk.h"
 
 #include "common/can_library/generated/MAIN_MODULE.h"
-#include "common/can_library/faults_common.h"
 
 /**
  * Procedure: amkInit()

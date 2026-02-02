@@ -212,7 +212,7 @@ q_handle_t q_rx_can;
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
     uint8_t periph_idx = GET_PERIPH_IDX(msg->Bus);
-    
+
     if (qSendToBack(&q_tx_can[periph_idx], msg) != SUCCESS_G) {
         can_stats.can_peripheral_stats[periph_idx].tx_of++;
     }
@@ -220,7 +220,7 @@ void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
 
 void CAN_tx_update() {
     CanMsgTypeDef_t tx_msg;
-    
+
 #ifdef USE_FDCAN1
     while (PHAL_FDCAN_txFifoFree(FDCAN1) && qReceive(&q_tx_can[CAN1_IDX], &tx_msg) == SUCCESS_G) {
         PHAL_FDCAN_send(&tx_msg);
@@ -254,7 +254,7 @@ void CAN_rx_update() {
 
 // FDCAN RX callback - enqueues received messages to the RX queue
 // This overrides the weak definition in fdcan.c
-void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t* msg) {
+void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
     if (qSendToBack(&q_rx_can, msg) != SUCCESS_G) {
         can_stats.rx_of++;
     }
@@ -265,13 +265,13 @@ bool CAN_library_init() {
     for (uint8_t i = 0; i < NUM_CAN_PERIPHERALS; i++) {
         qConstruct(&q_tx_can[i], sizeof(CanMsgTypeDef_t));
     }
-    
+
     // Initialize RX queue
     qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
-    
+
     // Clear stats
     can_stats = (can_stats_t) {0};
-    
+
     // Initialize CAN data from generated code
     CAN_data_init();
 

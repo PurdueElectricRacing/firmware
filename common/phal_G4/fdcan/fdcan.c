@@ -13,7 +13,7 @@
 
 #include "common/phal_G4/fdcan/fdcan_priv.h"
 
-static uint32_t PHAL_FDCAN_get_ram_base(FDCAN_GlobalTypeDef* fdcan) {
+static uint32_t PHAL_FDCAN_get_ram_base(FDCAN_GlobalTypeDef *fdcan) {
     uint32_t base = (uint32_t)SRAMCAN_BASE;
     if (fdcan == FDCAN2) {
         base += (uint32_t)SRAMCAN_SIZE;
@@ -27,7 +27,7 @@ static uint32_t PHAL_FDCAN_get_ram_base(FDCAN_GlobalTypeDef* fdcan) {
 //       -1 unsupported baud
 //       -2 bad args or BRP out of range (1..512)
 //       -3 ker_hz not an EXACT multiple of (baud * TQ)
-static int PHAL_FDCAN_makeNBTP(uint32_t ker_hz, uint32_t baud_bps, uint32_t* nbtp_out) {
+static int PHAL_FDCAN_makeNBTP(uint32_t ker_hz, uint32_t baud_bps, uint32_t *nbtp_out) {
     if (!nbtp_out || ker_hz == 0u)
         return -2;
 
@@ -72,18 +72,21 @@ static int PHAL_FDCAN_makeNBTP(uint32_t ker_hz, uint32_t baud_bps, uint32_t* nbt
         return -3; // pick a different ker_hz (or use CKDIV) or another TQ shape
     }
 
-    *nbtp_out =
-        ((uint32_t)(brp - 1u) << FDCAN_NBTP_NBRP_Pos) | ((uint32_t)(seg1 - 1u) << FDCAN_NBTP_NTSEG1_Pos) | ((uint32_t)(seg2 - 1u) << FDCAN_NBTP_NTSEG2_Pos) | ((uint32_t)(sjw - 1u) << FDCAN_NBTP_NSJW_Pos);
+    *nbtp_out = ((uint32_t)(brp - 1u) << FDCAN_NBTP_NBRP_Pos)
+        | ((uint32_t)(seg1 - 1u) << FDCAN_NBTP_NTSEG1_Pos)
+        | ((uint32_t)(seg2 - 1u) << FDCAN_NBTP_NTSEG2_Pos)
+        | ((uint32_t)(sjw - 1u) << FDCAN_NBTP_NSJW_Pos);
 
     return 0;
 }
 
-static void PHAL_FDCAN_setExtendedFilter(FDCAN_GlobalTypeDef* fdcan, uint32_t num_xid, uint32_t* xid_list) {
+static void
+PHAL_FDCAN_setExtendedFilter(FDCAN_GlobalTypeDef *fdcan, uint32_t num_xid, uint32_t *xid_list) {
     if (!num_xid || num_xid > MAX_NUM_XID_FILTER) {
         return;
     }
 
-    volatile uint32_t* ram = (volatile uint32_t*)(PHAL_FDCAN_get_ram_base(fdcan) + SRAMCAN_FLESA);
+    volatile uint32_t *ram = (volatile uint32_t *)(PHAL_FDCAN_get_ram_base(fdcan) + SRAMCAN_FLESA);
     // Program num_xid filter elements, 2 words each
     for (uint32_t i = 0; i < num_xid; i++) {
         uint32_t xid = xid_list[i] & 0x1FFFFFFFu;
@@ -100,14 +103,13 @@ static void PHAL_FDCAN_setExtendedFilter(FDCAN_GlobalTypeDef* fdcan, uint32_t nu
     fdcan->XIDAM = 0x1FFFFFFFu;
 }
 
-static void PHAL_FDCAN_setStandardFilter(FDCAN_GlobalTypeDef* fdcan,
-                                         uint32_t num_sid,
-                                         uint32_t* sid_list) {
+static void
+PHAL_FDCAN_setStandardFilter(FDCAN_GlobalTypeDef *fdcan, uint32_t num_sid, uint32_t *sid_list) {
     if (!num_sid || num_sid > MAX_NUM_SID_FILTER) {
         return;
     }
 
-    volatile uint32_t* ram = (volatile uint32_t*)(PHAL_FDCAN_get_ram_base(fdcan) + SRAMCAN_FLSSA);
+    volatile uint32_t *ram = (volatile uint32_t *)(PHAL_FDCAN_get_ram_base(fdcan) + SRAMCAN_FLSSA);
 
     // Program standard filters (1 word each)
     for (uint32_t i = 0; i < num_sid; i++) {
@@ -116,19 +118,21 @@ static void PHAL_FDCAN_setStandardFilter(FDCAN_GlobalTypeDef* fdcan,
         // SFT=10 (classic mask), SFEC=001 (FIFO0), SFID1 = sid, SFID2 = 0x7FF
         ram[i] = (2u << 30) | (1u << 27) | (sid << 16) | 0x7FFu;
     }
-
     // Set number of standard filters
     fdcan->RXGFC &= ~(FDCAN_RXGFC_LSS_Msk);
-    fdcan->RXGFC |= ((num_sid & 0x7Fu) << FDCAN_RXGFC_LSS_Pos);
+    fdcan->RXGFC |= ((num_sid & 0xFFu) << FDCAN_RXGFC_LSS_Pos);
 }
 
-void PHAL_FDCAN_setFilters(FDCAN_GlobalTypeDef* fdcan, uint32_t* sid_list, uint32_t num_sid, uint32_t* xid_list, uint32_t num_xid) {
+void PHAL_FDCAN_setFilters(FDCAN_GlobalTypeDef *fdcan,
+                           uint32_t *sid_list,
+                           uint32_t num_sid,
+                           uint32_t *xid_list,
+                           uint32_t num_xid) {
     fdcan->CCCR |= FDCAN_CCCR_INIT;
     while ((fdcan->CCCR & FDCAN_CCCR_INIT) == 0) {}
     fdcan->CCCR |= FDCAN_CCCR_CCE;
 
-    fdcan->RXGFC = (FDCAN_REJECT << FDCAN_RXGFC_ANFS_Pos)
-        | (FDCAN_REJECT << FDCAN_RXGFC_ANFE_Pos)
+    fdcan->RXGFC = (FDCAN_REJECT << FDCAN_RXGFC_ANFS_Pos) | (FDCAN_REJECT << FDCAN_RXGFC_ANFE_Pos)
         | (FDCAN_ACCEPT_IN_RX_FIFO0 << FDCAN_RXGFC_RRFS_Pos)
         | (FDCAN_ACCEPT_IN_RX_FIFO0 << FDCAN_RXGFC_RRFE_Pos);
 
@@ -139,7 +143,7 @@ void PHAL_FDCAN_setFilters(FDCAN_GlobalTypeDef* fdcan, uint32_t* sid_list, uint3
     while ((fdcan->CCCR & FDCAN_CCCR_INIT) != 0) {}
 }
 
-bool PHAL_FDCAN_init(FDCAN_GlobalTypeDef* fdcan, bool test_mode, uint32_t bit_rate) {
+bool PHAL_FDCAN_init(FDCAN_GlobalTypeDef *fdcan, bool test_mode, uint32_t bit_rate) {
     // Enable clocks
     RCC->CCIPR &= ~RCC_CCIPR_FDCANSEL_Msk;
     RCC->CCIPR |= RCC_FDCANCLKSOURCE_PCLK1;
@@ -159,12 +163,12 @@ bool PHAL_FDCAN_init(FDCAN_GlobalTypeDef* fdcan, bool test_mode, uint32_t bit_ra
 
     /* Classic CAN (no FD) */
     fdcan->CCCR &= ~(FDCAN_CCCR_FDOE | FDCAN_CCCR_BRSE | FDCAN_CCCR_TXP);
-    fdcan->CCCR |= (FDCAN_CCCR_DAR /* Auto retransmission: disable */
+    fdcan->CCCR |= (FDCAN_CCCR_DAR      /* Auto retransmission: disable */
                     | FDCAN_CCCR_PXHD); /* Protocol exception: disable */
     fdcan->CCCR &= ~(FDCAN_CCCR_MON | FDCAN_CCCR_ASM | FDCAN_CCCR_TEST);
 
     fdcan->CCCR &= ~(FDCAN_CCCR_DAR); // Auto retransmission
-    fdcan->CCCR |= FDCAN_CCCR_TXP; // Transmit pause
+    fdcan->CCCR |= FDCAN_CCCR_TXP;    // Transmit pause
 
     uint32_t nbtp;
     // TODO: Get clock frequency
@@ -181,10 +185,10 @@ bool PHAL_FDCAN_init(FDCAN_GlobalTypeDef* fdcan, bool test_mode, uint32_t bit_ra
     // Clear interrupt flags
     fdcan->IR |= 0xFFFFFFFF;
     // Enable RX FIFO0 interrupts
-    fdcan->IE |= FDCAN_IE_RF0NE // New message
-        | FDCAN_IE_RF0FE // FIFO full (optional)
-        | FDCAN_IE_RF0LE; // Message lost (optional)
-    fdcan->ILS = 0; // Route to interrupt line 0
+    fdcan->IE |= FDCAN_IE_RF0NE   // New message
+        | FDCAN_IE_RF0FE          // FIFO full (optional)
+        | FDCAN_IE_RF0LE;         // Message lost (optional)
+    fdcan->ILS = 0;               // Route to interrupt line 0
     fdcan->ILE = FDCAN_ILE_EINT0; // Enable line 0
 
     // Mode
@@ -207,8 +211,13 @@ bool PHAL_FDCAN_init(FDCAN_GlobalTypeDef* fdcan, bool test_mode, uint32_t bit_ra
     return true;
 }
 
-void PHAL_FDCAN_send(CanMsgTypeDef_t* msg) {
-    FDCAN_GlobalTypeDef* fdcan = msg->Bus;
+bool PHAL_FDCAN_txFifoFree(FDCAN_GlobalTypeDef *fdcan) {
+    // Returns true if TX FIFO/Queue has at least one free slot
+    return !(fdcan->TXFQS & FDCAN_TXFQS_TFQF);
+}
+
+void PHAL_FDCAN_send(CanMsgTypeDef_t *msg) {
+    FDCAN_GlobalTypeDef *fdcan = msg->Bus;
     // TX FIFO/Queue full?
     if (fdcan->TXFQS & FDCAN_TXFQS_TFQF) {
         // TODO: count drops
@@ -218,8 +227,7 @@ void PHAL_FDCAN_send(CanMsgTypeDef_t* msg) {
     uint32_t ram_base = PHAL_FDCAN_get_ram_base(fdcan);
     uint32_t put      = (fdcan->TXFQS & FDCAN_TXFQS_TFQPI_Msk) >> FDCAN_TXFQS_TFQPI_Pos;
 
-    volatile uint32_t* tx =
-        (uint32_t*)((ram_base + SRAMCAN_TFQSA) + (put * SRAMCAN_TFQ_SIZE));
+    volatile uint32_t *tx = (uint32_t *)((ram_base + SRAMCAN_TFQSA) + (put * SRAMCAN_TFQ_SIZE));
     uint32_t w0;
     if (msg->IDE == 0) {
         // Standard ID in [28:18], IDE=0
@@ -268,7 +276,7 @@ static inline uint8_t dlc_to_len(uint8_t dlc) {
 }
 
 // Return 0 on success; -2 if FIFO empty; -1 on bad args
-static int PHAL_FDCAN_getRxMessage(FDCAN_GlobalTypeDef* fdcan, CanMsgTypeDef_t* m) {
+static int PHAL_FDCAN_getRxMessage(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t *m) {
     if (!fdcan || !m)
         return -1;
 
@@ -291,9 +299,8 @@ static int PHAL_FDCAN_getRxMessage(FDCAN_GlobalTypeDef* fdcan, CanMsgTypeDef_t* 
     uint32_t get = (f0s & FDCAN_RXF0S_F0GI_Msk) >> FDCAN_RXF0S_F0GI_Pos;
 
     // Message RAM address (your fixed layout macros)
-    uintptr_t ram_base = PHAL_FDCAN_get_ram_base(fdcan);
-    volatile uint32_t* rx =
-        (uint32_t*)((ram_base + SRAMCAN_RF0SA) + (get * SRAMCAN_RF0_SIZE));
+    uintptr_t ram_base    = PHAL_FDCAN_get_ram_base(fdcan);
+    volatile uint32_t *rx = (uint32_t *)((ram_base + SRAMCAN_RF0SA) + (get * SRAMCAN_RF0_SIZE));
 
     uint32_t w0 = rx[0]; // ID + XTD/RTR/ESI
     uint32_t w1 = rx[1]; // TS + DLC/BRS/FDF/FIDX/ANMF
@@ -319,7 +326,7 @@ static int PHAL_FDCAN_getRxMessage(FDCAN_GlobalTypeDef* fdcan, CanMsgTypeDef_t* 
     m->DLC = len_bytes;
 
     // Copy payload (rx[2].. as bytes)
-    const uint8_t* p = (const uint8_t*)&rx[2];
+    const uint8_t *p = (const uint8_t *)&rx[2];
     for (uint8_t i = 0; i < len_bytes; ++i)
         m->Data[i] = p[i];
 
@@ -329,7 +336,7 @@ static int PHAL_FDCAN_getRxMessage(FDCAN_GlobalTypeDef* fdcan, CanMsgTypeDef_t* 
     return 0;
 }
 
-void PHAL_FDCAN_RX_IRQHandler(FDCAN_GlobalTypeDef* fdcan) {
+void PHAL_FDCAN_RX_IRQHandler(FDCAN_GlobalTypeDef *fdcan) {
     uint32_t ir = fdcan->IR;
     if (ir & FDCAN_IR_RF0L) {
         fdcan->IR = FDCAN_IR_RF0L;
@@ -350,7 +357,7 @@ void PHAL_FDCAN_RX_IRQHandler(FDCAN_GlobalTypeDef* fdcan) {
     }
 }
 
-void __attribute__((weak)) PHAL_FDCAN_rxCallback(CanMsgTypeDef_t* msg) {
+void __attribute__((weak)) PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
     (void)msg;
 }
 

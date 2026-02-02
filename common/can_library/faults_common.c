@@ -6,8 +6,11 @@
  */
 
 #include "common/can_library/faults_common.h"
-#include "common/can_library/generated/fault_data.h"
+
 #include "common/can_library/generated/can_router.h"
+#include "common/can_library/generated/fault_data.h"
+
+#ifdef FAULT_LIB_ENABLED
 
 static uint16_t fault_counters[NUM_FAULT_PRIOS];
 
@@ -31,17 +34,17 @@ void update_fault(fault_index_t fault_index, uint16_t value) {
         return;
     }
 
-    fault_t *fault = &faults[fault_index];
-    uint32_t now = OS_TICKS;
+    fault_t *fault        = &faults[fault_index];
+    uint32_t now          = OS_TICKS;
     bool is_out_of_bounds = (value > fault->max_value) || (value < fault->min_value);
 
     // Implementation of the FSM diagram in common/can_library/README
     // I know this FSM is not "mathematically pure", but it must be implemented in this way
     // to satisfy timing constraints/defensive programming
-    switch(fault->state) {
+    switch (fault->state) {
         case FAULT_STATE_OK: {
             if (is_out_of_bounds) {
-                fault->state = FAULT_STATE_PENDING;
+                fault->state         = FAULT_STATE_PENDING;
                 fault->start_time_ms = now;
             }
             break;
@@ -59,11 +62,10 @@ void update_fault(fault_index_t fault_index, uint16_t value) {
                 tx_fault_event(fault_index, value);
             }
             break;
-
         }
         case FAULT_STATE_LATCHED: {
             if (!is_out_of_bounds) {
-                fault->state = FAULT_STATE_RECOVERING;
+                fault->state         = FAULT_STATE_RECOVERING;
                 fault->start_time_ms = now;
             }
 
@@ -97,7 +99,7 @@ void fault_library_periodic() {
             fault_counters[faults[i].priority]++;
         }
     }
-    
+
     // Broadcast our local state to the rest of the car
     tx_fault_sync();
 }
@@ -119,8 +121,9 @@ bool is_any_latched() {
 }
 
 #ifdef HAS_FAULT_STRINGS
-const char* get_fault_string(fault_index_t idx) {
-    if (idx >= TOTAL_NUM_FAULTS) return nullptr;
+const char *get_fault_string(fault_index_t idx) {
+    if (idx >= TOTAL_NUM_FAULTS)
+        return nullptr;
     return fault_strings[idx];
 }
 #endif
@@ -128,7 +131,8 @@ const char* get_fault_string(fault_index_t idx) {
 bool is_curr_mcu_latched() {
 #ifdef MY_FAULT_START
     for (int i = MY_FAULT_START; i <= MY_FAULT_END; i++) {
-        if (is_latched(i)) return true;
+        if (is_latched(i))
+            return true;
     }
 #endif
     return false;
@@ -137,9 +141,13 @@ bool is_curr_mcu_latched() {
 bool is_other_mcus_latched() {
     for (int i = 0; i < TOTAL_NUM_FAULTS; i++) {
 #ifdef MY_FAULT_START
-        if (i >= MY_FAULT_START && i <= MY_FAULT_END) continue;
+        if (i >= MY_FAULT_START && i <= MY_FAULT_END)
+            continue;
 #endif
-        if (is_latched(i)) return true;
+        if (is_latched(i))
+            return true;
     }
     return false;
 }
+
+#endif // FAULT_LIB_ENABLED

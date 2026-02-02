@@ -14,6 +14,7 @@ Standardized framework for CAN communication and system-wide fault management wi
 
 ## Usage
 1. Define your CAN network and global faults in `common/can_library/configs/` using the provided JSON schemas.
+    1. Use FDCAN peripherals on G4 and CAN peripherals on F4/F7.
 2. Add to `COMMON_LIBRARIES` of your target: `can_node_<node_name>`.
 3. Define your RX interrupt handlers to call `CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo)`
 

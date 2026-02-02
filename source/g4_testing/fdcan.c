@@ -42,7 +42,7 @@ ADCChannelConfig_t adc_channel_config[] = {
 };
 
 volatile raw_adc_values_t raw_adc_values = {0};
-dma_init_t adc_dma_config                = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc_values, ADC_NUM_CHANNELS, 0b01);
+dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc_values, ADC_NUM_CHANNELS, 0b01);
 
 #define TargetCoreClockrateHz 16000000
 ClockRateConfig_t clock_config = {
@@ -122,7 +122,7 @@ int main() {
     return 0;
 }
 
-void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t* msg) {
+void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
     if (xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) {
         BaseType_t xHigherPriorityTaskWoken = 0;
         xQueueSendFromISR(q_can_rx, msg, &xHigherPriorityTaskWoken);

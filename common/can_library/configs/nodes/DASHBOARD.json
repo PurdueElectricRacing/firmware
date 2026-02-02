@@ -322,15 +322,13 @@
                     "msg_name": "coolant_temps"
                 },
                 {
-                    "msg_name": "coolant_out",
-                    "callback": true
+                    "msg_name": "coolant_out"
                 },
                 {
                     "msg_name": "gearbox"
                 },
                 {
-                    "msg_name": "dashboard_bl_cmd",
-                    "callback": true
+                    "msg_name": "dashboard_bl_cmd"
                 },
                 {
                     "msg_name": "sdc_status"
@@ -353,6 +351,7 @@
             ]
         }
     },
+    "fault_library_enabled": true,
     "generate_fault_messages": true,
     "faults": [
         {

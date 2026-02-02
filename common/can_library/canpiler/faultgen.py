@@ -134,7 +134,7 @@ def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], b
     all_msgs = all_fault_event_msgs + all_fault_sync_msgs
     
     for node in nodes:
-        if node.is_external or fault_bus_name not in node.busses:
+        if node.is_external or fault_bus_name not in node.busses or not node.fault_library_enabled:
             continue
             
         bus = node.busses[fault_bus_name]
@@ -175,7 +175,7 @@ def augment_system_with_faults(nodes: List[Node], bus_configs: Dict, custom_type
     """
     fault_modules = [
         FaultModule(n.name, n.generate_fault_strings, n.faults) 
-        for n in nodes if n.faults
+        for n in nodes if n.faults and n.fault_library_enabled
     ]
     
     if not fault_modules:
@@ -194,6 +194,7 @@ def generate_fault_data(context: SystemContext):
     
     total_faults = sum(len(m.faults) for m in context.fault_modules)
     template_context = {
+        'nodes': context.nodes,
         'fault_modules': context.fault_modules,
         'total_faults': total_faults,
         'version': context.version

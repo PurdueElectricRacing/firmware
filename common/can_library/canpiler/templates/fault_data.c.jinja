@@ -38,6 +38,7 @@ const char* const fault_strings[TOTAL_NUM_FAULTS] = {
 
 {% for module in fault_modules %}
 // --- {{ module.node_name }} Callbacks ---
+#ifdef FAULT_LIB_ENABLED
 #ifndef CAN_NODE_{{ module.node_name|upper }}
 void {{ module.node_name|lower }}_fault_sync_CALLBACK(can_data_t* can_data) {
 {% for fault in module.faults %}
@@ -55,10 +56,12 @@ void {{ module.node_name|lower }}_fault_event_CALLBACK(can_data_t* can_data) {
 void {{ module.node_name|lower }}_fault_sync_CALLBACK(can_data_t* can_data) { (void)can_data; }
 void {{ module.node_name|lower }}_fault_event_CALLBACK(can_data_t* can_data) { (void)can_data; }
 #endif
+#endif
 
 {% endfor %}
 // --- Transmission Helpers ---
 void tx_fault_sync(void) {
+#ifdef FAULT_LIB_ENABLED
 {% for module in fault_modules %}
 #ifdef CAN_NODE_{{ module.node_name|upper }}
     CAN_SEND_{{ module.node_name|lower }}_fault_sync(
@@ -68,9 +71,11 @@ void tx_fault_sync(void) {
     );
 #endif
 {% endfor %}
+#endif
 }
 
 void tx_fault_event(fault_index_t idx, uint16_t value) {
+#ifdef FAULT_LIB_ENABLED
 {% for module in fault_modules %}
 #ifdef CAN_NODE_{{ module.node_name|upper }}
     if (idx >= FAULT_INDEX_{{ module.node_name|upper }}_{{ module.faults[0].name|upper }} && idx <= FAULT_INDEX_{{ module.node_name|upper }}_{{ module.faults[-1].name|upper }}) {
@@ -78,4 +83,7 @@ void tx_fault_event(fault_index_t idx, uint16_t value) {
     }
 #endif
 {% endfor %}
+#else
+    (void)idx; (void)value;
+#endif
 }

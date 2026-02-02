@@ -36,7 +36,7 @@
 #if 0
 // usage as drop-in replacement for psched:
 
-#include "common/freertos/freertos.h" (also add FREERTOS to cmake.txt LIBS=)
+#include "common/freertos/freertos.h"(also add FREERTOS to cmake.txt LIBS =)
 
 void heartbeat_LED() { PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN); }
 defineThreadStack(heartbeat_LED, 500, osPriorityNormal, 256); // define up here so its global
@@ -114,47 +114,41 @@ void rtosWrapper(void *);
 // PERIOD: period of task in ticks (should be ms)
 // PRIORITY: one of osPriorityNormal, osPriorityHigh, etc
 // STACK: stack size
-#define __defineThread(TASK, PERIOD, PRIORITY, STACK)\
-    ThreadWrapper threadWrapperName(TASK) = {        \
-        .taskFunction = &(TASK),                     \
-        .period = (PERIOD),                          \
-        .attrs = {                                   \
-            .priority = (PRIORITY),                  \
-            .stack_size = (STACK),                   \
-            .name = "\""#TASK"\"",                   \
-        }                                            \
-    };                                               \
+#define __defineThread(TASK, PERIOD, PRIORITY, STACK) \
+    ThreadWrapper threadWrapperName(TASK) = {.taskFunction = &(TASK), \
+                                             .period       = (PERIOD), \
+                                             .attrs        = { \
+                                                        .priority   = (PRIORITY), \
+                                                        .stack_size = (STACK), \
+                                                        .name       = "\"" #TASK "\"", \
+                                             }};
 
-#define defineThread(T, D, P) __defineThread(T, D, P, 1024) // TODO calculate stack size
+#define defineThread(T, D, P)         __defineThread(T, D, P, 1024) // TODO calculate stack size
 #define defineThreadStack(T, D, P, S) __defineThread(T, D, P, S)
 
-#define __createThread(NAME)\
-    threadWrapperName(NAME).handle = osThreadNew(rtosWrapper, &(threadWrapperName(NAME)), &(threadWrapperName(NAME)).attrs);
+#define __createThread(NAME) \
+    threadWrapperName(NAME).handle = \
+        osThreadNew(rtosWrapper, &(threadWrapperName(NAME)), &(threadWrapperName(NAME)).attrs);
 #define createThread(NAME) __createThread(NAME)
 
 #define getTaskHandle(NAME) threadWrapperName(NAME).handle
 
 // queues
-#define defineStaticQueue(NAME, ITEM, COUNT)         \
-    QueueHandle_t NAME;                              \
-    static StaticQueue_t xStaticQueue_##NAME;        \
+#define defineStaticQueue(NAME, ITEM, COUNT) \
+    QueueHandle_t NAME; \
+    static StaticQueue_t xStaticQueue_##NAME; \
     uint8_t ucQueueStorageArea_##NAME[sizeof(ITEM) * (COUNT)];
 
-#define createStaticQueue(NAME, ITEM, COUNT)         \
-    xQueueCreateStatic((COUNT),                      \
-                       sizeof(ITEM),                 \
-                       ucQueueStorageArea_##NAME,    \
-                       &xStaticQueue_##NAME);
+#define createStaticQueue(NAME, ITEM, COUNT) \
+    xQueueCreateStatic((COUNT), sizeof(ITEM), ucQueueStorageArea_##NAME, &xStaticQueue_##NAME);
 
 // semaphores
-#define defineStaticSemaphore(NAME)                 \
-    SemaphoreHandle_t NAME;                         \
+#define defineStaticSemaphore(NAME) \
+    SemaphoreHandle_t NAME; \
     static StaticSemaphore_t xStaticSemaphore_##NAME;
-#define createStaticSemaphore(NAME)                 \
-    xSemaphoreCreateMutexStatic(&(xStaticSemaphore_##NAME));
+#define createStaticSemaphore(NAME) xSemaphoreCreateMutexStatic(&(xStaticSemaphore_##NAME));
 
-
-#define getTick() xTaskGetTickCount()
+#define getTick()   xTaskGetTickCount()
 #define getTickms() pdMS_TO_TICKS(getTick())
 
 #define mDelay(ms) (osDelay(pdMS_TO_TICKS((ms))))

@@ -130,7 +130,7 @@ static void eth_reset_error(void) {
     }
 
     if (daq_hub.eth_state == ETH_LINK_UP) {
-        if (daq_hub.eth_tcp_state == ETH_TCP_ESTABLISHED || daq_hub.ftp_busy)
+        if (daq_hub.eth_tcp_state == ETH_TCP_ESTABLISHED)
             PHAL_toggleGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN); // Blink on TCP
         else
             PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);

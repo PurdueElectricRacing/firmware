@@ -57,13 +57,11 @@ typedef struct
     uint32_t sd_last_error_time;
 
     FIL log_fp;
-    bool ftp_busy;
     uint32_t log_start_ms;
     uint32_t last_write_ms;
     uint32_t last_file_ms;
     bool log_enable_sw; //!< Debounced switch state
     bool log_enable_tcp;
-    bool log_enable_uds;
 
     uint32_t bcan_rx_overflow;
     uint32_t can1_rx_overflow;

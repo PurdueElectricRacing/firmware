@@ -60,8 +60,6 @@ void daq_hub_init(void) {
     daq_hub.last_write_ms  = 0;
     daq_hub.log_enable_sw  = false;
     daq_hub.log_enable_tcp = false;
-    daq_hub.log_enable_uds = false;
-    daq_hub.ftp_busy       = false;
 
     daq_hub.bcan_rx_overflow = 0;
     daq_hub.can1_rx_overflow = 0;
@@ -74,7 +72,7 @@ void daq_create_threads(void) {
     createThread(sd_update_periodic); // SD WRITE
     // createThread(eth_update_periodic); // SD WRITE
     createThread(can_send_periodic); // CAN1 TX
-    //createThread(uds_receive_periodic); // DAQ CAN RX
+
 }
 
 static void daq_heartbeat(void) {

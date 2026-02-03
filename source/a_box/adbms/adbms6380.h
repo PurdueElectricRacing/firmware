@@ -25,7 +25,7 @@ void adbms6380_wake(SPI_InitConfig_t* spi, size_t module_count);
 uint16_t adbms6380_get_threshold_voltage_cfg(float threshold_voltage);
 int16_t adbms6380_extract_i16(uint8_t* data, int idx);
 float adbms6380_raw_to_cell_v(int16_t raw);
-
+float adbms6380_raw_to_gpio_v(int16_t raw);
 
 void adbms6830_adcv(uint8_t* output_cmd, uint8_t rd, uint8_t cont, uint8_t dcp, uint8_t rstf, uint8_t ow);
 void adbms6830_adsv(uint8_t* output_cmd, uint8_t cont, uint8_t dcp, uint8_t ow);
@@ -55,7 +55,13 @@ bool adbms6380_read_cell_voltages(
 	float** cell_voltages,
 	size_t module_count
 );
-void adbms6380_read_therms(const uint8_t* rx_buffer, float* thermistor_temps, size_t therm_count);
+bool adbms6380_read_gpio_voltages(
+	SPI_InitConfig_t* spi,
+	strbuf_t* cmd_buffer,
+	uint8_t* rx_buffer,
+	float** gpio_voltages,
+	size_t module_count
+);
 
 // Other adbms6380 related function declarations can go here
 

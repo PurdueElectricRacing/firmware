@@ -49,6 +49,10 @@ float adbms6380_raw_to_cell_v(int16_t raw) {
 	return (raw + 10000) * 0.000150f;
 }
 
+float adbms6380_raw_to_gpio_v(int16_t raw) {
+	return raw * 0.0001f;
+}
+
 void adbms6830_adcv(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE], uint8_t rd, uint8_t cont, uint8_t dcp, uint8_t rstf, uint8_t ow) {
 	// 10-0: 0, 1, RD, CONT, 1, 1, DCP, 0, RSTF, OW[1], OW[0]
 	output_cmd[0] = 0x02 + rd;
@@ -162,14 +166,46 @@ bool adbms6380_read_cell_voltages(
 			uint8_t* module_data = &rx_buffer[module_idx * ADBMS6380_SINGLE_DATA_PKT_SIZE];
 			for (size_t j = 0; j < cells_read; j++) {
 				size_t cell_idx = cell_in_module_idx_base + j;
-				if (cell_idx >= ADBMS6380_CELL_COUNT) {
-					break; // safety check
-				}
 				int16_t raw = adbms6380_extract_i16(module_data, j);
 				float cell_v = adbms6380_raw_to_cell_v(raw);
-				if (cell_v >= 0) {
-					cell_voltages[module_idx][cell_idx] = cell_v;
-				}
+				cell_voltages[module_idx][cell_idx] = cell_v;
+			}
+		}
+	}
+
+	return true;
+}
+
+bool adbms6380_read_gpio_voltages(
+	SPI_InitConfig_t* spi,
+	strbuf_t* cmd_buffer,
+	uint8_t* rx_buffer,
+	float** gpio_voltages,
+	size_t module_count
+) {
+	// AUX register read commands (datasheet order)
+	const uint8_t* cmd_list[4] = {RDAUXA, RDAUXB, RDAUXC, RDAUXD};
+
+	for (size_t cmd_idx = 0; cmd_idx < 4; cmd_idx++) {
+		strbuf_clear(cmd_buffer);
+		adbms6380_prepare_command(cmd_buffer, cmd_list[cmd_idx]);
+
+		if (!adbms6380_read(spi, module_count, cmd_buffer->data, rx_buffer)) {
+			return false;
+		}
+
+		// AUXA/B/C: 3 GPIOs each, AUXD: GPIO10
+		size_t gpios_read = (cmd_idx < 3) ? 3 : 1;
+		size_t gpio_idx_base = cmd_idx * 3;
+
+		for (size_t module_idx = 0; module_idx < module_count; module_idx++) {
+			uint8_t* module_data = &rx_buffer[module_idx * ADBMS6380_SINGLE_DATA_PKT_SIZE];
+
+			for (size_t j = 0; j < gpios_read; j++) {
+				size_t gpio_idx = gpio_idx_base + j;
+				int16_t raw = adbms6380_extract_i16(module_data, j);
+				float gpio_v = adbms6380_raw_to_gpio_v(raw);
+				gpio_voltages[module_idx][gpio_idx] = gpio_v;
 			}
 		}
 	}

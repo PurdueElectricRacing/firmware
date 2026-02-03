@@ -10,11 +10,10 @@
 
 
 #define ADBMS_MODULE_COUNT       (6)
-#define ADBMS_MODULE_CELL_COUNT  (16)
 #define ADBMS_MODULE_THERM_COUNT (10)
 
 // Max SPI TX is a command + all the data packets for all the modules
-#define ADBMS_SPI_TX_BUFFER_SIZE (ADBMS6380_COMMAND_PKT_SIZE + (ADBMS_MODULE_CELL_COUNT * ADBMS6380_SINGLE_DATA_PKT_SIZE))
+#define ADBMS_SPI_TX_BUFFER_SIZE (ADBMS6380_COMMAND_PKT_SIZE + (ADBMS6380_CELL_COUNT * ADBMS6380_SINGLE_DATA_PKT_SIZE))
 #define ADBMS_SPI_RX_BUFFER_SIZE (ADBMS_SPI_TX_BUFFER_SIZE) //! Fix for READALL
 
 typedef enum {
@@ -26,14 +25,14 @@ typedef enum {
 
 
 typedef struct {
-	float cell_voltages[ADBMS_MODULE_CELL_COUNT]; // in volts
+	float cell_voltages[ADBMS6380_CELL_COUNT]; // in volts
 	float min_voltage; // in volts
 	float max_voltage; // in volts
 	float avg_voltage; // in volts
 	float sum_voltage; // in volts
 	float thermistors[ADBMS_MODULE_THERM_COUNT]; // in degrees Celsius
 	//! TODO: do we also want min/max/avg for thermistors?
-	bool is_discharging[ADBMS_MODULE_CELL_COUNT]; // if a cell is being discharged for balancing
+	bool is_discharging[ADBMS6380_CELL_COUNT]; // if a cell is being discharged for balancing
 
 	uint8_t rega[ADBMS6380_SINGLE_DATA_RAW_SIZE];
 	uint8_t regb[ADBMS6380_SINGLE_DATA_RAW_SIZE];

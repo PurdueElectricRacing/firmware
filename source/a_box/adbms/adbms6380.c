@@ -6,6 +6,7 @@
 #include "common/phal/spi.h"
 #include "common/psched/psched.h"
 
+#include "commands.h"
 #include "pec.h"
 
 
@@ -95,10 +96,8 @@ void adbms6380_calculate_cfg_regb(
 	uint8_t output_cfg_regb[ADBMS6380_SINGLE_DATA_RAW_SIZE],
 	float overvoltage_threshold,
 	float undervoltage_threshold,
-	const bool* is_discharging,
-	const size_t cell_count
+	const bool* is_discharging
 ) {
-	// If cell_count != 16, assumes they correlate to the first N cells
 	uint16_t overvoltage_cfg = adbms6380_get_threshold_voltage_cfg(overvoltage_threshold);
     uint16_t undervoltage_cfg = adbms6380_get_threshold_voltage_cfg(undervoltage_threshold);
     // 12 bits vov
@@ -113,11 +112,12 @@ void adbms6380_calculate_cfg_regb(
 	// DCC
     output_cfg_regb[4] = 0;
     output_cfg_regb[5] = 0;
-	for (size_t i = 0; i < cell_count; i++) {
+	for (size_t i = 0; i < ADBMS6380_CELL_COUNT; i++) {
 		if (is_discharging[i]) {
 			size_t byte_idx = 4 + (i / 8);
 			size_t bit_idx = i % 8;
 			output_cfg_regb[byte_idx] |= (1 << bit_idx);
 		}
 	}
+}
 }

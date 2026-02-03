@@ -48,7 +48,13 @@ void adbms6380_calculate_cfg_regb(
 );
 
 bool adbms6380_read(SPI_InitConfig_t* spi, size_t module_count, const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE], uint8_t* rx_buffer);
-void adbms6380_read_cell_voltages(const uint8_t* rx_buffer, float* cell_voltages);
+bool adbms6380_read_cell_voltages(
+	SPI_InitConfig_t* spi,
+	strbuf_t* cmd_buffer,
+	uint8_t* rx_buffer,
+	float** cell_voltages,
+	size_t module_count
+);
 void adbms6380_read_therms(const uint8_t* rx_buffer, float* thermistor_temps, size_t therm_count);
 
 // Other adbms6380 related function declarations can go here

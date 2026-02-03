@@ -120,4 +120,59 @@ void adbms6380_calculate_cfg_regb(
 		}
 	}
 }
+
+
+bool adbms6380_read(SPI_InitConfig_t* spi, size_t module_count, const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE], uint8_t* rx_buffer) {
+	size_t rx_length = module_count * ADBMS6380_SINGLE_DATA_PKT_SIZE;
+	// First send command. Command is passed to all modules in the daisy chain.
+	if (!PHAL_SPI_transfer_noDMA(spi, cmd_buffer, ADBMS6380_COMMAND_PKT_SIZE, 0, NULL)) {
+		return false;
+	}
+	// Then read data back. Data is in order of module 0 ... module N-1
+	if (!PHAL_SPI_transfer_noDMA(spi, NULL, 0, rx_length, rx_buffer)) {
+		return false;
+	}
+
+	return true;
+}
+
+bool adbms6380_read_cell_voltages(
+	SPI_InitConfig_t* spi,
+	strbuf_t* cmd_buffer,
+	uint8_t* rx_buffer,
+	float** cell_voltages,
+	size_t module_count
+) {
+
+	const uint8_t *cmd_list[6] = {RDCVA, RDCVB, RDCVC, RDCVD, RDCVE, RDCVF};
+	
+	for (size_t cmd_idx = 0; cmd_idx < 6; cmd_idx++) {
+		strbuf_clear(cmd_buffer);
+		adbms6380_prepare_command(cmd_buffer, cmd_list[cmd_idx]);
+
+		if (!adbms6380_read(spi, module_count, cmd_buffer->data, rx_buffer)) {
+			return false;
+		}
+
+		// Data comes back as: module 1, module 2, ..., module N
+		size_t cells_read = (cmd_idx < 5) ? 3 : 1; // First 5 commands read 3 cells, last reads 1 cell = 16 total
+		size_t cell_in_module_idx_base = cmd_idx * 3;
+
+		for (size_t module_idx = 0; module_idx < module_count; module_idx++) {
+			uint8_t* module_data = &rx_buffer[module_idx * ADBMS6380_SINGLE_DATA_PKT_SIZE];
+			for (size_t j = 0; j < cells_read; j++) {
+				size_t cell_idx = cell_in_module_idx_base + j;
+				if (cell_idx >= ADBMS6380_CELL_COUNT) {
+					break; // safety check
+				}
+				int16_t raw = adbms6380_extract_i16(module_data, j);
+				float cell_v = adbms6380_raw_to_cell_v(raw);
+				if (cell_v >= 0) {
+					cell_voltages[module_idx][cell_idx] = cell_v;
+				}
+			}
+		}
+	}
+
+	return true;
 }

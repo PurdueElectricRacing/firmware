@@ -45,7 +45,7 @@ int16_t adbms6380_extract_i16(uint8_t* data, int idx) {
 	return (int16_t)(data[idx * 2 + 0] & 0xff) | ((int16_t)(data[idx * 2 + 1] & 0xff) << 8);
 }
 
-float raw_to_cell_v(int16_t raw) {
+float adbms6380_raw_to_cell_v(int16_t raw) {
 	return (raw + 10000) * 0.000150f;
 }
 

@@ -68,9 +68,15 @@ typedef struct {
 	uint8_t rx_buf[ADBMS_SPI_RX_BUFFER_SIZE];
 } ADBMS_bms_t;
 
+void adbms_init(ADBMS_bms_t* bms, SPI_InitConfig_t* spi);
+
 void adbms_periodic(ADBMS_bms_t* bms);
 
-void adbms_init(ADBMS_bms_t* bms, SPI_InitConfig_t* spi);
+void adbms_write_rega(ADBMS_bms_t* bms);
+void adbms_write_regb(ADBMS_bms_t* bms);
+void adbms_read_and_check_rega(ADBMS_bms_t* bms);
+void adbms_read_and_check_regb(ADBMS_bms_t* bms);
+
 void adbms_connect(ADBMS_bms_t* bms);
 
 void adbms_calculate_balance_cells(ADBMS_bms_t* bms, float min_voltage, float min_delta);

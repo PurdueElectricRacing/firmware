@@ -8,6 +8,7 @@
 #include "common/strbuf/strbuf.h"
 
 #define ADBMS6380_CELL_COUNT           (16)
+#define ADBMS6380_GPIO_COUNT           (10)
 
 #define ADBMS6380_COMMAND_RAW_SIZE     (2)                                 // 2 bytes for command
 #define ADBMS6380_COMMAND_PKT_SIZE     (ADBMS6380_COMMAND_RAW_SIZE + 2)     // 2 extra for PEC

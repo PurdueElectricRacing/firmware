@@ -100,7 +100,7 @@ void adbms6380_calculate_cfg_regb(
 	uint8_t output_cfg_regb[ADBMS6380_SINGLE_DATA_RAW_SIZE],
 	float overvoltage_threshold,
 	float undervoltage_threshold,
-	const bool* is_discharging
+	const bool is_discharging[ADBMS6380_CELL_COUNT]
 ) {
 	uint16_t overvoltage_cfg = adbms6380_get_threshold_voltage_cfg(overvoltage_threshold);
     uint16_t undervoltage_cfg = adbms6380_get_threshold_voltage_cfg(undervoltage_threshold);
@@ -158,10 +158,10 @@ bool adbms6380_read_cell_voltages(
 			return false;
 		}
 
-		// Data comes back as: module 1, module 2, ..., module N
 		size_t cells_read = (cmd_idx < 5) ? 3 : 1; // First 5 commands read 3 cells, last reads 1 cell = 16 total
 		size_t cell_in_module_idx_base = cmd_idx * 3;
 
+		// Data comes back as: module 1, module 2, ..., module N
 		for (size_t module_idx = 0; module_idx < module_count; module_idx++) {
 			uint8_t* module_data = &rx_buffer[module_idx * ADBMS6380_SINGLE_DATA_PKT_SIZE];
 			for (size_t j = 0; j < cells_read; j++) {
@@ -198,6 +198,7 @@ bool adbms6380_read_gpio_voltages(
 		size_t gpios_read = (cmd_idx < 3) ? 3 : 1;
 		size_t gpio_idx_base = cmd_idx * 3;
 
+		// Data comes back as: module 1, module 2, ..., module N
 		for (size_t module_idx = 0; module_idx < module_count; module_idx++) {
 			uint8_t* module_data = &rx_buffer[module_idx * ADBMS6380_SINGLE_DATA_PKT_SIZE];
 

@@ -47,7 +47,8 @@ typedef struct {
 	uint8_t rega[ADBMS6380_SINGLE_DATA_RAW_SIZE];
 	uint8_t regb[ADBMS6380_SINGLE_DATA_RAW_SIZE];
 
-	bool error_1; //! Fill in actual errors
+	bool err_rega_mismatch;
+	bool err_regb_mismatch;
 } ADBMS_module_t;
 
 typedef struct {
@@ -66,6 +67,11 @@ typedef struct {
 	SPI_InitConfig_t* spi; // Note: must not use auto CS pin, bms driver controls CS manually
 	strbuf_t tx_strbuf;
 	uint8_t rx_buf[ADBMS_SPI_RX_BUFFER_SIZE];
+
+	bool err_spi;
+	bool err_connect;
+	bool err_rega_mismatch;
+	bool err_regb_mismatch;
 } ADBMS_bms_t;
 
 void adbms_init(ADBMS_bms_t* bms, SPI_InitConfig_t* spi);

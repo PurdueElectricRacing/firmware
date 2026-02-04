@@ -73,7 +73,8 @@ typedef struct {
 	bool err_regb_mismatch;
 } ADBMS_bms_t;
 
-void adbms_init(ADBMS_bms_t* bms, SPI_InitConfig_t* spi);
+
+void adbms_init(ADBMS_bms_t* bms, SPI_InitConfig_t* spi, uint8_t* tx_buf);
 
 bool adbms_write_rega(ADBMS_bms_t* bms);
 bool adbms_write_regb(ADBMS_bms_t* bms);

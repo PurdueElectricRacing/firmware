@@ -31,7 +31,11 @@ bool adbms_write_rega(ADBMS_bms_t* bms) {
 		adbms6380_prepare_data_packet(&bms->tx_strbuf, bms->modules[i].rega);
 	}
 
-	return PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL);
+	if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
+		bms->err_spi = true;
+		return false;
+	}
+	return true;
 }
 
 bool adbms_write_regb(ADBMS_bms_t* bms) {
@@ -43,39 +47,47 @@ bool adbms_write_regb(ADBMS_bms_t* bms) {
 		adbms6380_prepare_data_packet(&bms->tx_strbuf, bms->modules[i].regb);
 	}
 
-	return PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL);
+	if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
+		bms->err_spi = true;
+		return false;
+	}
+	return true;
 }
 
 bool adbms_read_and_check_rega(ADBMS_bms_t* bms) {
 	strbuf_clear(&bms->tx_strbuf);
 	adbms6380_prepare_command(&bms->tx_strbuf, RDCFGA);
 	if (!adbms6380_read(bms->spi, ADBMS_MODULE_COUNT, bms->tx_strbuf.data, bms->rx_buf)) {
+		bms->err_spi = true;
 		return false;
 	}
+	bms->err_rega_mismatch = false;
 	for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
 		uint8_t* module_data = &bms->rx_buf[i * ADBMS6380_SINGLE_DATA_PKT_SIZE];
 		if (memcmp(&module_data[0], bms->modules[i].rega, ADBMS6380_SINGLE_DATA_RAW_SIZE) != 0) {
-			// TODO: set errors
-			return false;
+			bms->err_rega_mismatch = true;
+			bms->modules[i].err_rega_mismatch = true;
 		}
 	}
-	return true;
+	return bms->err_rega_mismatch;
 }
 
 bool adbms_read_and_check_regb(ADBMS_bms_t* bms) {
 	strbuf_clear(&bms->tx_strbuf);
 	adbms6380_prepare_command(&bms->tx_strbuf, RDCFGB);
 	if (!adbms6380_read(bms->spi, ADBMS_MODULE_COUNT, bms->tx_strbuf.data, bms->rx_buf)) {
+		bms->err_spi = true;
 		return false;
 	}
+	bms->err_regb_mismatch = false;
 	for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
 		uint8_t* module_data = &bms->rx_buf[i * ADBMS6380_SINGLE_DATA_PKT_SIZE];
 		if (memcmp(&module_data[0], bms->modules[i].regb, ADBMS6380_SINGLE_DATA_RAW_SIZE) != 0) {
-			// TODO: set errors
-			return false;
+			bms->err_regb_mismatch = true;
+			bms->modules[i].err_regb_mismatch = true;
 		}
 	}
-	return true;
+	return bms->err_regb_mismatch;
 }
 
 void adbms_connect(ADBMS_bms_t* bms) {
@@ -84,18 +96,22 @@ void adbms_connect(ADBMS_bms_t* bms) {
 
 	if (!adbms_write_rega(bms)) {
 		bms->state = ADBMS_STATE_IDLE;
+		bms->err_connect = true;
 		return;
 	}
 	if (!adbms_write_regb(bms)) {
 		bms->state = ADBMS_STATE_IDLE;
+		bms->err_connect = true;
 		return;
 	}
 	if (!adbms_read_and_check_rega(bms)) {
 		bms->state = ADBMS_STATE_IDLE;
+		bms->err_connect = true;
 		return;
 	}
 	if (!adbms_read_and_check_regb(bms)) {
 		bms->state = ADBMS_STATE_IDLE;
+		bms->err_connect = true;
 		return;
 	}
 
@@ -106,6 +122,8 @@ void adbms_connect(ADBMS_bms_t* bms) {
 	adbms6380_prepare_command(&bms->tx_strbuf, adcv_cmd);
 	if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
 		bms->state = ADBMS_STATE_IDLE;
+		bms->err_spi = true;
+		bms->err_connect = true;
 		return;
 	}
 
@@ -116,9 +134,12 @@ void adbms_connect(ADBMS_bms_t* bms) {
 	adbms6380_prepare_command(&bms->tx_strbuf, adsv_cmd);
 	if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
 		bms->state = ADBMS_STATE_IDLE;
+		bms->err_spi = true;
+		bms->err_connect = true;
 		return;
 	}
 
+	bms->err_connect = false;
 	bms->state = ADBMS_STATE_CONNECTED;
 }
 

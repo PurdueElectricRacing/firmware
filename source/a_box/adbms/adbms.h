@@ -82,6 +82,9 @@ bool adbms_read_and_check_regb(ADBMS_bms_t* bms);
 
 void adbms_connect(ADBMS_bms_t* bms);
 
+void adbms_read_cells(ADBMS_bms_t* bms);
+void adbms_read_therms(ADBMS_bms_t* bms);
+
 void adbms_calculate_balance_cells(ADBMS_bms_t* bms, float min_voltage, float min_delta);
 void adbms_balance_and_update_regb(ADBMS_bms_t* bms, float min_voltage, float min_delta);
 

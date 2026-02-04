@@ -182,6 +182,65 @@ void adbms_balance_and_update_regb(ADBMS_bms_t* bms, float min_voltage, float mi
 	}
 }
 
+void adbms_read_cells(ADBMS_bms_t* bms) {
+	float* cell_voltage_ptrs[ADBMS_MODULE_COUNT] = {0};
+	for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
+		cell_voltage_ptrs[i] = bms->modules[i].cell_voltages;
+	}
+
+	adbms6380_read_cell_voltages(
+		bms->spi,
+		&bms->tx_strbuf,
+		bms->rx_buf,
+		cell_voltage_ptrs,
+		ADBMS_MODULE_COUNT
+	);
+
+	bms->max_voltage = cell_voltage_ptrs[0][0];
+	bms->min_voltage = cell_voltage_ptrs[0][0];
+	bms->sum_voltage = 0.0f;
+	for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
+		bms->modules[i].max_voltage = cell_voltage_ptrs[i][0];
+		bms->modules[i].min_voltage = cell_voltage_ptrs[i][0];
+		bms->modules[i].sum_voltage = 0.0f;
+		for (size_t j = 0; j < ADBMS6380_CELL_COUNT; j++) {
+			float cell_v = cell_voltage_ptrs[i][j];
+			if (cell_v > bms->modules[i].max_voltage) {
+				bms->modules[i].max_voltage = cell_v;
+			}
+			if (cell_v < bms->modules[i].min_voltage) {
+				bms->modules[i].min_voltage = cell_v;
+			}
+			bms->modules[i].sum_voltage += cell_v;
+		}
+		bms->modules[i].avg_voltage = bms->modules[i].sum_voltage / ADBMS6380_CELL_COUNT;
+
+		if (bms->modules[i].max_voltage > bms->max_voltage) {
+			bms->max_voltage = bms->modules[i].max_voltage;
+		}
+		if (bms->modules[i].min_voltage < bms->min_voltage) {
+			bms->min_voltage = bms->modules[i].min_voltage;
+		}
+		bms->sum_voltage += bms->modules[i].sum_voltage;
+	}
+	bms->avg_voltage = bms->sum_voltage / (ADBMS_MODULE_COUNT * ADBMS6380_CELL_COUNT);
+}
+
+void adbms_read_therms(ADBMS_bms_t* bms) {
+	float* gpio_voltage_ptrs[ADBMS_MODULE_COUNT] = {0};
+	for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
+		gpio_voltage_ptrs[i] = bms->modules[i].thermistors;
+	}
+
+	adbms6380_read_gpio_voltages(
+		bms->spi,
+		&bms->tx_strbuf,
+		bms->rx_buf,
+		gpio_voltage_ptrs,
+		ADBMS_MODULE_COUNT
+	);
+}
+
 void adbms_periodic(ADBMS_bms_t* bms) {
 	switch (bms->state) {
 		case ADBMS_STATE_IDLE: {

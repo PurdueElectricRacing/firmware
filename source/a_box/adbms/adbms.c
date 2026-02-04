@@ -188,13 +188,17 @@ void adbms_read_cells(ADBMS_bms_t* bms) {
 		cell_voltage_ptrs[i] = bms->modules[i].cell_voltages;
 	}
 
-	adbms6380_read_cell_voltages(
+	if (!adbms6380_read_cell_voltages(
 		bms->spi,
 		&bms->tx_strbuf,
 		bms->rx_buf,
 		cell_voltage_ptrs,
 		ADBMS_MODULE_COUNT
-	);
+	)) {
+		bms->state = ADBMS_STATE_IDLE;
+		bms->err_spi = true;
+		return;
+	}
 
 	bms->max_voltage = cell_voltage_ptrs[0][0];
 	bms->min_voltage = cell_voltage_ptrs[0][0];
@@ -232,13 +236,17 @@ void adbms_read_therms(ADBMS_bms_t* bms) {
 		gpio_voltage_ptrs[i] = bms->modules[i].thermistors;
 	}
 
-	adbms6380_read_gpio_voltages(
+	if (!adbms6380_read_gpio_voltages(
 		bms->spi,
 		&bms->tx_strbuf,
 		bms->rx_buf,
 		gpio_voltage_ptrs,
 		ADBMS_MODULE_COUNT
-	);
+	)) {
+		bms->state = ADBMS_STATE_IDLE;
+		bms->err_spi = true;
+		return;
+	}
 }
 
 void adbms_periodic(ADBMS_bms_t* bms, float min_voltage_for_balance, float min_delta_for_balance) {

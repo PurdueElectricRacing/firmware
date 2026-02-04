@@ -52,7 +52,7 @@ size_t strbuf_printf(strbuf_t *sb, const char *format, ...) {
     }
 
     va_start(args, format);
-    char *buf_end = (char *)(sb->length + 1);
+    char *buf_end = (char *)(sb->data + sb->length);
     vsnprintf(buf_end, remaining_space + 1, format, args);
     va_end(args);
 

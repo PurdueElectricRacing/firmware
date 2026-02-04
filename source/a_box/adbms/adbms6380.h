@@ -28,8 +28,8 @@ int16_t adbms6380_extract_i16(uint8_t* data, int idx);
 float adbms6380_raw_to_cell_v(int16_t raw);
 float adbms6380_raw_to_gpio_v(int16_t raw);
 
-void adbms6830_adcv(uint8_t* output_cmd, uint8_t rd, uint8_t cont, uint8_t dcp, uint8_t rstf, uint8_t ow);
-void adbms6830_adsv(uint8_t* output_cmd, uint8_t cont, uint8_t dcp, uint8_t ow);
+void adbms6830_adcv(uint8_t* output_cmd, bool rd, bool cont, bool dcp, bool rstf, uint8_t ow);
+void adbms6830_adsv(uint8_t* output_cmd, bool cont, bool dcp, uint8_t ow);
 
 void adbms6380_prepare_command(strbuf_t* output_buffer, const uint8_t command[ADBMS6380_COMMAND_RAW_SIZE]);
 void adbms6380_prepare_data_packet(strbuf_t* output_buffer, const uint8_t data[ADBMS6380_SINGLE_DATA_RAW_SIZE]);

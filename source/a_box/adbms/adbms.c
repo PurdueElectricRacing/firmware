@@ -123,9 +123,6 @@ void adbms_connect(ADBMS_bms_t* bms) {
 }
 
 void adbms_calculate_balance_cells(ADBMS_bms_t* bms, float min_voltage, float min_delta) {
-	if (bms->state != ADBMS_STATE_CONNECTED) {
-		return;
-	}
 	if (!bms->is_discharge_enabled) {
 		// Disable all discharging
 		for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {

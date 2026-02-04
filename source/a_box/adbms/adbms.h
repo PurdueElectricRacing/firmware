@@ -30,7 +30,6 @@
 typedef enum {
 	ADBMS_STATE_IDLE = 0,
 	ADBMS_STATE_CONNECTED,
-	ADBMS_STATE_CHARING,
 } ADBMS_state_t;
 
 
@@ -76,8 +75,6 @@ typedef struct {
 
 void adbms_init(ADBMS_bms_t* bms, SPI_InitConfig_t* spi);
 
-void adbms_periodic(ADBMS_bms_t* bms);
-
 bool adbms_write_rega(ADBMS_bms_t* bms);
 bool adbms_write_regb(ADBMS_bms_t* bms);
 bool adbms_read_and_check_rega(ADBMS_bms_t* bms);
@@ -88,6 +85,7 @@ void adbms_connect(ADBMS_bms_t* bms);
 void adbms_calculate_balance_cells(ADBMS_bms_t* bms, float min_voltage, float min_delta);
 void adbms_balance_and_update_regb(ADBMS_bms_t* bms, float min_voltage, float min_delta);
 
+void adbms_periodic(ADBMS_bms_t* bms);
 
 
 #endif // _BMS_H_

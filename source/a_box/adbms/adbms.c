@@ -181,3 +181,17 @@ void adbms_balance_and_update_regb(ADBMS_bms_t* bms, float min_voltage, float mi
 		return;
 	}
 }
+
+void adbms_periodic(ADBMS_bms_t* bms) {
+	switch (bms->state) {
+		case ADBMS_STATE_IDLE: {
+			adbms_connect(bms);
+		}
+		case ADBMS_STATE_CONNECTED: {
+			// Read cell voltages
+			// Read GPIO voltages
+			// set balance
+			break;
+		}
+	}
+}

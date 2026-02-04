@@ -1,4 +1,4 @@
-#include "adbms.h"#include "adbms.h"
+#include "adbms.h"
 
 #include <string.h>
 
@@ -22,3 +22,81 @@ void adbms_init(ADBMS_bms_t* bms, SPI_InitConfig_t* spi) {
 	// TODO: strbuf init??
 }
 
+void adbms_connect(ADBMS_bms_t* bms) {
+	// Wake, write REGA, REGB, read back to verify, ADCV, ADSV start
+	adbms6380_wake(bms->spi, ADBMS_MODULE_COUNT);
+
+	// REGA
+	strbuf_clear(&bms->tx_strbuf);
+	adbms6380_prepare_command(&bms->tx_strbuf, WRCFGA);
+	// i must be signed
+	for (int i = ADBMS_MODULE_COUNT - 1; i >= 0; i--) {
+		adbms6380_calculate_cfg_rega(bms->modules[i].rega, ADBMS_REFON, ADBMS_CTH);
+		adbms6380_prepare_data_packet(&bms->tx_strbuf, bms->modules[i].rega);
+	}
+
+	if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
+		bms->state = ADBMS_STATE_IDLE;
+		return;
+	}
+
+	// REGB
+	strbuf_clear(&bms->tx_strbuf);
+	adbms6380_prepare_command(&bms->tx_strbuf, WRCFGB);
+	// i must be signed
+	for (int i = ADBMS_MODULE_COUNT - 1; i >= 0; i--) {
+		adbms6380_calculate_cfg_regb(bms->modules[i].regb, ADBMS_OV_THRESHOLD, ADBMS_UV_THRESHOLD, bms->modules[i].is_discharging);
+		adbms6380_prepare_data_packet(&bms->tx_strbuf, bms->modules[i].regb);
+	}
+
+	if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
+		bms->state = ADBMS_STATE_IDLE;
+		return;
+	}
+
+	// Read REGA
+	strbuf_clear(&bms->tx_strbuf);
+	adbms6380_prepare_command(&bms->tx_strbuf, RDCFGA);
+	adbms6380_read(bms->spi, ADBMS_MODULE_COUNT, bms->tx_strbuf.data, bms->rx_buf);
+	for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
+		uint8_t* module_data = &bms->rx_buf[i * ADBMS6380_SINGLE_DATA_PKT_SIZE];
+		if (memcmp(&module_data[0], bms->modules[i].rega, ADBMS6380_SINGLE_DATA_RAW_SIZE) != 0) {
+			bms->state = ADBMS_STATE_IDLE;
+			return;
+		}
+	}
+
+	// Read REGB
+	strbuf_clear(&bms->tx_strbuf);
+	adbms6380_prepare_command(&bms->tx_strbuf, RDCFGB);
+	adbms6380_read(bms->spi, ADBMS_MODULE_COUNT, bms->tx_strbuf.data, bms->rx_buf);
+	for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
+		uint8_t* module_data = &bms->rx_buf[i * ADBMS6380_SINGLE_DATA_PKT_SIZE];
+		if (memcmp(&module_data[0], bms->modules[i].regb, ADBMS6380_SINGLE_DATA_RAW_SIZE) != 0) {
+			bms->state = ADBMS_STATE_IDLE;
+			return;
+		}
+	}
+
+	// Start ADCV
+	strbuf_clear(&bms->tx_strbuf);
+	uint8_t adcv_cmd[2];
+	adbms6830_adcv(adcv_cmd, ADBMS_RD, ADBMS_CONT, ADBMS_DCP, ADBMS_RSTF, ADBMS_OW);
+	adbms6380_prepare_command(&bms->tx_strbuf, adcv_cmd);
+	if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
+		bms->state = ADBMS_STATE_IDLE;
+		return;
+	}
+
+	// Start ADSV
+	strbuf_clear(&bms->tx_strbuf);
+	uint8_t adsv_cmd[2];
+	adbms6830_adsv(adsv_cmd, ADBMS_CONT, ADBMS_DCP, ADBMS_OW);
+	adbms6380_prepare_command(&bms->tx_strbuf, adsv_cmd);
+	if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
+		bms->state = ADBMS_STATE_IDLE;
+		return;
+	}
+
+	bms->state = ADBMS_STATE_CONNECTED;
+}

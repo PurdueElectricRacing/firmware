@@ -5,6 +5,7 @@
 #include <stddef.h>
 
 #include "common/phal/spi.h"
+#include "common/strbuf/strbuf.h"
 
 #include "adbms6380.h"
 
@@ -15,9 +16,19 @@
 #define ADBMS_SPI_TX_BUFFER_SIZE (ADBMS6380_COMMAND_PKT_SIZE + (ADBMS6380_CELL_COUNT * ADBMS6380_SINGLE_DATA_PKT_SIZE))
 #define ADBMS_SPI_RX_BUFFER_SIZE (ADBMS_SPI_TX_BUFFER_SIZE) //! Fix for READALL
 
+#define ADBMS_REFON		   (true)  // REGA
+#define ADBMS_CTH		   (0b110) // REGA - 25.05 mV
+#define ADBMS_OV_THRESHOLD (4.2f)  // REGB - in volts
+#define ADBMS_UV_THRESHOLD (3.0f)  // REGB - in volts
+#define ADBMS_RD           (false) // ADCV
+#define ADBMS_CONT         (true)  // ADCV/ADSV
+#define ADBMS_DCP          (false) // ADCV/ADSV
+#define ADBMS_RSTF         (true)  // ADCV
+#define ADBMS_OW           (0b00)  // ADCV/ADSV
+
+
 typedef enum {
 	ADBMS_STATE_IDLE = 0,
-	ADBMS_STATE_CONNECTING,
 	ADBMS_STATE_CONNECTED,
 	ADBMS_STATE_CHARING,
 } ADBMS_state_t;
@@ -53,8 +64,8 @@ typedef struct {
 	bool is_discharge_enabled;
 
 	SPI_InitConfig_t* spi; // Note: must not use auto CS pin, bms driver controls CS manually
-	uint8_t tx_buffer[ADBMS_SPI_TX_BUFFER_SIZE]; //! Change to new buffer type when #247 is done
-	uint8_t rx_buffer[ADBMS_SPI_RX_BUFFER_SIZE];
+	strbuf_t tx_strbuf;
+	uint8_t rx_buf[ADBMS_SPI_RX_BUFFER_SIZE];
 } ADBMS_bms_t;
 
 void adbms_periodic(ADBMS_bms_t* bms);

@@ -22,11 +22,7 @@ void adbms_init(ADBMS_bms_t* bms, SPI_InitConfig_t* spi) {
 	// TODO: strbuf init??
 }
 
-void adbms_connect(ADBMS_bms_t* bms) {
-	// Wake, write REGA, REGB, read back to verify, ADCV, ADSV start
-	adbms6380_wake(bms->spi, ADBMS_MODULE_COUNT);
-
-	// REGA
+bool adbms_write_rega(ADBMS_bms_t* bms) {
 	strbuf_clear(&bms->tx_strbuf);
 	adbms6380_prepare_command(&bms->tx_strbuf, WRCFGA);
 	// i must be signed
@@ -35,12 +31,10 @@ void adbms_connect(ADBMS_bms_t* bms) {
 		adbms6380_prepare_data_packet(&bms->tx_strbuf, bms->modules[i].rega);
 	}
 
-	if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
-		bms->state = ADBMS_STATE_IDLE;
-		return;
-	}
+	return PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL);
+}
 
-	// REGB
+bool adbms_write_regb(ADBMS_bms_t* bms) {
 	strbuf_clear(&bms->tx_strbuf);
 	adbms6380_prepare_command(&bms->tx_strbuf, WRCFGB);
 	// i must be signed
@@ -49,33 +43,60 @@ void adbms_connect(ADBMS_bms_t* bms) {
 		adbms6380_prepare_data_packet(&bms->tx_strbuf, bms->modules[i].regb);
 	}
 
-	if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
-		bms->state = ADBMS_STATE_IDLE;
-		return;
-	}
+	return PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL);
+}
 
-	// Read REGA
+bool adbms_read_and_check_rega(ADBMS_bms_t* bms) {
 	strbuf_clear(&bms->tx_strbuf);
 	adbms6380_prepare_command(&bms->tx_strbuf, RDCFGA);
-	adbms6380_read(bms->spi, ADBMS_MODULE_COUNT, bms->tx_strbuf.data, bms->rx_buf);
+	if (!adbms6380_read(bms->spi, ADBMS_MODULE_COUNT, bms->tx_strbuf.data, bms->rx_buf)) {
+		return false;
+	}
 	for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
 		uint8_t* module_data = &bms->rx_buf[i * ADBMS6380_SINGLE_DATA_PKT_SIZE];
 		if (memcmp(&module_data[0], bms->modules[i].rega, ADBMS6380_SINGLE_DATA_RAW_SIZE) != 0) {
-			bms->state = ADBMS_STATE_IDLE;
-			return;
+			// TODO: set errors
+			return false;
 		}
 	}
+	return true;
+}
 
-	// Read REGB
+bool adbms_read_and_check_regb(ADBMS_bms_t* bms) {
 	strbuf_clear(&bms->tx_strbuf);
 	adbms6380_prepare_command(&bms->tx_strbuf, RDCFGB);
-	adbms6380_read(bms->spi, ADBMS_MODULE_COUNT, bms->tx_strbuf.data, bms->rx_buf);
+	if (!adbms6380_read(bms->spi, ADBMS_MODULE_COUNT, bms->tx_strbuf.data, bms->rx_buf)) {
+		return false;
+	}
 	for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
 		uint8_t* module_data = &bms->rx_buf[i * ADBMS6380_SINGLE_DATA_PKT_SIZE];
 		if (memcmp(&module_data[0], bms->modules[i].regb, ADBMS6380_SINGLE_DATA_RAW_SIZE) != 0) {
-			bms->state = ADBMS_STATE_IDLE;
-			return;
+			// TODO: set errors
+			return false;
 		}
+	}
+	return true;
+}
+
+void adbms_connect(ADBMS_bms_t* bms) {
+	// Wake, write REGA, REGB, read back to verify, ADCV, ADSV start
+	adbms6380_wake(bms->spi, ADBMS_MODULE_COUNT);
+
+	if (!adbms_write_rega(bms)) {
+		bms->state = ADBMS_STATE_IDLE;
+		return;
+	}
+	if (!adbms_write_regb(bms)) {
+		bms->state = ADBMS_STATE_IDLE;
+		return;
+	}
+	if (!adbms_read_and_check_rega(bms)) {
+		bms->state = ADBMS_STATE_IDLE;
+		return;
+	}
+	if (!adbms_read_and_check_regb(bms)) {
+		bms->state = ADBMS_STATE_IDLE;
+		return;
 	}
 
 	// Start ADCV
@@ -133,29 +154,12 @@ void adbms_calculate_balance_cells(ADBMS_bms_t* bms, float min_voltage, float mi
 void adbms_balance_and_update_regb(ADBMS_bms_t* bms, float min_voltage, float min_delta) {
 	adbms_calculate_balance_cells(bms, min_voltage, min_delta);
 
-	// Update REGB with new discharge settings
-	strbuf_clear(&bms->tx_strbuf);
-	adbms6380_prepare_command(&bms->tx_strbuf, WRCFGB);
-	// i must be signed
-	for (int i = ADBMS_MODULE_COUNT - 1; i >= 0; i--) {
-		adbms6380_calculate_cfg_regb(bms->modules[i].regb, ADBMS_OV_THRESHOLD, ADBMS_UV_THRESHOLD, bms->modules[i].is_discharging);
-		adbms6380_prepare_data_packet(&bms->tx_strbuf, bms->modules[i].regb);
-	}
-
-	if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
+	if (!adbms_write_regb(bms)) {
 		bms->state = ADBMS_STATE_IDLE;
 		return;
 	}
-
-	// Read back REGB to verify
-	strbuf_clear(&bms->tx_strbuf);
-	adbms6380_prepare_command(&bms->tx_strbuf, RDCFGB);
-	adbms6380_read(bms->spi, ADBMS_MODULE_COUNT, bms->tx_strbuf.data, bms->rx_buf);
-	for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
-		uint8_t* module_data = &bms->rx_buf[i * ADBMS6380_SINGLE_DATA_PKT_SIZE];
-		if (memcmp(&module_data[0], bms->modules[i].regb, ADBMS6380_SINGLE_DATA_RAW_SIZE) != 0) {
-			bms->state = ADBMS_STATE_IDLE;
-			return;
-		}
+	if (!adbms_read_and_check_regb(bms)) {
+		bms->state = ADBMS_STATE_IDLE;
+		return;
 	}
 }

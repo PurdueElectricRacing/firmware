@@ -72,10 +72,10 @@ void adbms_init(ADBMS_bms_t* bms, SPI_InitConfig_t* spi);
 
 void adbms_periodic(ADBMS_bms_t* bms);
 
-void adbms_write_rega(ADBMS_bms_t* bms);
-void adbms_write_regb(ADBMS_bms_t* bms);
-void adbms_read_and_check_rega(ADBMS_bms_t* bms);
-void adbms_read_and_check_regb(ADBMS_bms_t* bms);
+bool adbms_write_rega(ADBMS_bms_t* bms);
+bool adbms_write_regb(ADBMS_bms_t* bms);
+bool adbms_read_and_check_rega(ADBMS_bms_t* bms);
+bool adbms_read_and_check_regb(ADBMS_bms_t* bms);
 
 void adbms_connect(ADBMS_bms_t* bms);
 

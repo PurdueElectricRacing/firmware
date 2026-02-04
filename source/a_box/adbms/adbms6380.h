@@ -10,10 +10,12 @@
 #define ADBMS6380_CELL_COUNT           (16)
 #define ADBMS6380_GPIO_COUNT           (10)
 
-#define ADBMS6380_COMMAND_RAW_SIZE     (2)                                 // 2 bytes for command
-#define ADBMS6380_COMMAND_PKT_SIZE     (ADBMS6380_COMMAND_RAW_SIZE + 2)     // 2 extra for PEC
-#define ADBMS6380_SINGLE_DATA_RAW_SIZE (6)                                  // 6 data bytes
-#define ADBMS6380_SINGLE_DATA_PKT_SIZE (ADBMS6380_SINGLE_DATA_RAW_SIZE + 2) // 2 extra for PEC
+#define ADBMS6380_COMMAND_RAW_SIZE      (2)                                 // 2 bytes for command
+#define ADBMS6380_COMMAND_PKT_SIZE      (ADBMS6380_COMMAND_RAW_SIZE + 2)     // 2 extra for PEC
+#define ADBMS6380_SINGLE_DATA_RAW_SIZE  (6)                                  // 6 data bytes
+#define ADBMS6380_SINGLE_DATA_PKT_SIZE  (ADBMS6380_SINGLE_DATA_RAW_SIZE + 2) // 2 extra for PEC
+#define ADBMS6380_RDCVALL_DATA_RAW_SIZE (32)                                // 32 data bytes for RDCVALL
+#define ADBMS6380_RDCVALL_DATA_PKT_SIZE (ADBMS6380_RDCVALL_DATA_RAW_SIZE + 2) // 2 extra for PEC
 
 #define ADBMS6380_WAKE_DELAY_MS (1) // 1 millisecond. Must be a multiple of 100 microseconds
 
@@ -48,7 +50,9 @@ void adbms6380_calculate_cfg_regb(
 	const bool* is_discharging
 );
 
-bool adbms6380_read(SPI_InitConfig_t* spi, size_t module_count, const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE], uint8_t* rx_buffer);
+bool adbms6380_read(SPI_InitConfig_t* spi, size_t module_count, const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE], uint8_t* rx_buffer, size_t rx_length);
+bool adbms6380_read_data(SPI_InitConfig_t* spi, size_t module_count, const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE], uint8_t* rx_buffer);
+
 bool adbms6380_read_cell_voltages(
 	SPI_InitConfig_t* spi,
 	strbuf_t* cmd_buffer,

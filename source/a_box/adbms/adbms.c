@@ -61,7 +61,7 @@ bool adbms_write_regb(ADBMS_bms_t* bms) {
 bool adbms_read_and_check_rega(ADBMS_bms_t* bms) {
 	strbuf_clear(&bms->tx_strbuf);
 	adbms6380_prepare_command(&bms->tx_strbuf, RDCFGA);
-	if (!adbms6380_read(bms->spi, ADBMS_MODULE_COUNT, bms->tx_strbuf.data, bms->rx_buf)) {
+	if (!adbms6380_read_data(bms->spi, ADBMS_MODULE_COUNT, bms->tx_strbuf.data, bms->rx_buf)) {
 		bms->err_spi = true;
 		return false;
 	}
@@ -79,7 +79,7 @@ bool adbms_read_and_check_rega(ADBMS_bms_t* bms) {
 bool adbms_read_and_check_regb(ADBMS_bms_t* bms) {
 	strbuf_clear(&bms->tx_strbuf);
 	adbms6380_prepare_command(&bms->tx_strbuf, RDCFGB);
-	if (!adbms6380_read(bms->spi, ADBMS_MODULE_COUNT, bms->tx_strbuf.data, bms->rx_buf)) {
+	if (!adbms6380_read_data(bms->spi, ADBMS_MODULE_COUNT, bms->tx_strbuf.data, bms->rx_buf)) {
 		bms->err_spi = true;
 		return false;
 	}

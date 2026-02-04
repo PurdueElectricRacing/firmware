@@ -7,8 +7,9 @@
 #define TEST_USART    2
 #define TEST_SPI      3
 #define TEST_CANPILER 4
+#define TEST_PROFILING 5
 
 // Change this define to set the test compiled
-#define G4_TESTING_CHOSEN TEST_FDCAN
+#define G4_TESTING_CHOSEN TEST_PROFILING
 
 #endif // __G4_TESTING__

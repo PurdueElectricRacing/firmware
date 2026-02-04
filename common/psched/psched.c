@@ -1,6 +1,7 @@
 #include "psched.h"
 
 #include <stddef.h>
+#include <common/profiling/profiling.h>
 
 static void checkPreflightEnd(void);
 static void schedLoop(void);
@@ -10,6 +11,7 @@ static void calcTime(cpu_time_t *time, uint8_t count, int type);
 static void memsetu(uint8_t *ptr, uint8_t val, size_t size);
 
 sched_t sched;
+volatile uint16_t curr_task;
 
 // @funcname: taskCreate()
 //
@@ -28,6 +30,18 @@ int taskCreate(func_ptr_t func, uint16_t task_time) {
     return -E_NO_FREE_TASK;
 }
 
+int taskCreateWithProfiling(func_ptr_t func, uint16_t task_time, uint16_t curr_task_id) {
+    if (sched.fg_count != MAX_TASKS) {
+        sched.task_time[sched.fg_count]      = task_time;
+        sched.task_pointer[sched.fg_count++] = func;
+        curr_task = curr_task_id;
+        
+        return 0;
+    }
+
+    return -E_NO_FREE_TASK;
+}
+
 // @funcname: taskCreateBackground()
 //
 // @brief: Adds background task to scheduler
@@ -36,6 +50,17 @@ int taskCreate(func_ptr_t func, uint16_t task_time) {
 int taskCreateBackground(func_ptr_t func) {
     if (sched.bg_count != MAX_TASKS) {
         sched.bg_pointer[sched.bg_count++] = func;
+
+        return 0;
+    }
+
+    return -E_NO_FREE_TASK;
+}
+
+int taskCreateBackgroundWithProfiling(func_ptr_t func, uint16_t task_time, uint16_t curr_task_id) {
+    if (sched.bg_count != MAX_TASKS) {
+        sched.bg_pointer[sched.bg_count++] = func;
+        curr_task = curr_task_id;
 
         return 0;
     }

@@ -11,8 +11,10 @@ function(make_freertos_library LIB_NAME DIRNAME LINK_NAME)
     )
 
     file(GLOB glob_sources "${LIB_PATH}/*.c" "${LIB_PATH}/CMSIS_RTOS_V2/*.c" "${LIB_PATH}/portable/GCC/ARM_CM4F/*.c" "${LIB_PATH}/portable/MemMang/heap_4.c")
+    file(GLOB runtime_stats_sources "${CMAKE_SOURCE_DIR}/common/freertos/runtime_stats.c")
     target_sources(${LIB_NAME}
         PRIVATE ${glob_sources}
+        PRIVATE ${runtime_stats_sources}
     )
     target_link_libraries(${LIB_NAME} ${LINK_NAME})
 

@@ -8,7 +8,7 @@
 #include "commands.h"
 
 
-void adbms_init(ADBMS_bms_t* bms, SPI_InitConfig_t* spi) {
+void adbms_init(ADBMS_bms_t* bms, SPI_InitConfig_t* spi, uint8_t* tx_buf) {
 	bms->spi = spi;
 	bms->state = ADBMS_STATE_IDLE;
 
@@ -19,7 +19,11 @@ void adbms_init(ADBMS_bms_t* bms, SPI_InitConfig_t* spi) {
 		}
 	}
 
-	// TODO: strbuf init??
+	bms->tx_strbuf = (strbuf_t) {
+		.data = tx_buf,
+		.length = 0,
+		.max_len = ADBMS_SPI_TX_BUFFER_SIZE,
+	};
 }
 
 bool adbms_write_rega(ADBMS_bms_t* bms) {

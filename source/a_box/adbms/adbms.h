@@ -88,7 +88,7 @@ void adbms_read_therms(ADBMS_bms_t* bms);
 void adbms_calculate_balance_cells(ADBMS_bms_t* bms, float min_voltage, float min_delta);
 void adbms_balance_and_update_regb(ADBMS_bms_t* bms, float min_voltage, float min_delta);
 
-void adbms_periodic(ADBMS_bms_t* bms);
+void adbms_periodic(ADBMS_bms_t* bms, float min_voltage_for_balance, float min_delta_for_balance);
 
 
 #endif // _BMS_H_

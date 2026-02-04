@@ -241,15 +241,15 @@ void adbms_read_therms(ADBMS_bms_t* bms) {
 	);
 }
 
-void adbms_periodic(ADBMS_bms_t* bms) {
+void adbms_periodic(ADBMS_bms_t* bms, float min_voltage_for_balance, float min_delta_for_balance) {
 	switch (bms->state) {
 		case ADBMS_STATE_IDLE: {
 			adbms_connect(bms);
 		}
 		case ADBMS_STATE_CONNECTED: {
-			// Read cell voltages
-			// Read GPIO voltages
-			// set balance
+			adbms_read_cells(bms);
+			adbms_read_therms(bms);
+			adbms_balance_and_update_regb(bms, min_voltage_for_balance, min_delta_for_balance);
 			break;
 		}
 	}

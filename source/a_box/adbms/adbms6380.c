@@ -147,7 +147,6 @@ bool adbms6380_read_cell_voltages(
 	float** cell_voltages,
 	size_t module_count
 ) {
-
 	const uint8_t *cmd_list[6] = {RDCVA, RDCVB, RDCVC, RDCVD, RDCVE, RDCVF};
 	
 	for (size_t cmd_idx = 0; cmd_idx < 6; cmd_idx++) {
@@ -183,7 +182,6 @@ bool adbms6380_read_gpio_voltages(
 	float** gpio_voltages,
 	size_t module_count
 ) {
-	// AUX register read commands (datasheet order)
 	const uint8_t* cmd_list[4] = {RDAUXA, RDAUXB, RDAUXC, RDAUXD};
 
 	for (size_t cmd_idx = 0; cmd_idx < 4; cmd_idx++) {

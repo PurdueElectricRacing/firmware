@@ -10,7 +10,7 @@
 #include "adbms6380.h"
 
 
-#define ADBMS_MODULE_COUNT       (6)
+#define ADBMS_MODULE_COUNT       (8)
 
 // Max SPI TX is a command + all the data packets for all the modules
 #define ADBMS_SPI_TX_BUFFER_SIZE (ADBMS6380_COMMAND_PKT_SIZE + (ADBMS6380_CELL_COUNT * ADBMS6380_SINGLE_DATA_PKT_SIZE))

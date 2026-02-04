@@ -1,3 +1,10 @@
+/**
+ * @file adbms.h
+ * @brief Primary logic and interface for ADBMS battery management system driver.
+ *
+ * @author Millan Kumar (kumar798@purdue.edu)
+ */
+
 #include "adbms.h"
 
 #include <string.h>
@@ -95,7 +102,6 @@ bool adbms_read_and_check_regb(ADBMS_bms_t* bms) {
 }
 
 void adbms_connect(ADBMS_bms_t* bms) {
-	// Wake, write REGA, REGB, read back to verify, ADCV, ADSV start
 	adbms6380_wake(bms->spi, ADBMS_MODULE_COUNT);
 
 	if (!adbms_write_rega(bms)) {

@@ -1,6 +1,6 @@
 {
     "node_name": "DASHBOARD",
-    "scheduler": "psched",
+    "scheduler": "freertos",
     "busses": {
         "VCAN": {
             "peripheral": "FDCAN2",

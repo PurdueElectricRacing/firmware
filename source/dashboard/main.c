@@ -1,5 +1,4 @@
 /* System Includes */
-#include "common/bootloader/bootloader_common.h"
 #include "common/common_defs/common_defs.h"
 #include "common/can_library/faults_common.h"
 #include "common/phal/adc.h"
@@ -30,8 +29,8 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_INPUT(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin, GPIO_INPUT_OPEN_DRAIN),
 
     // CAN
-    GPIO_INIT_CANRX_PD0,
-    GPIO_INIT_CANTX_PD1,
+    GPIO_INIT_FDCAN2RX_PB5,
+    GPIO_INIT_FDCAN2TX_PB6,
 
     // Throttle
     GPIO_INIT_ANALOG(THTL_1_GPIO_Port, THTL_1_Pin),
@@ -68,12 +67,12 @@ volatile raw_adc_values_t raw_adc_values;
 
 /* ADC Configuration */
 ADCInitConfig_t adc_config = {
-    .clock_prescaler = ADC_CLK_PRESC_2,
+    .prescaler       = ADC_CLK_PRESC_2,
     .resolution      = ADC_RES_12_BIT,
     .data_align      = ADC_DATA_ALIGN_RIGHT,
     .cont_conv_mode  = true,
     .dma_mode        = ADC_DMA_CIRCULAR,
-    .adc_number      = 1,
+    .periph          = ADC1,
 };
 
 ADCChannelConfig_t adc_channel_config[] = {
@@ -195,10 +194,10 @@ void preflightChecks(void) {
 
     switch (state++) {
         case 0:
-            if (false == PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
+            if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
                 HardFault_Handler();
             }
-            NVIC_EnableIRQ(CAN1_RX0_IRQn);
+            NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
             break;
         case 1:
             if (false == PHAL_initUSART(&lcd, APB2ClockRateHz)) {
@@ -206,14 +205,14 @@ void preflightChecks(void) {
             }
             break;
         case 2:
-            if (false == PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
+            if (false == PHAL_initADC(&adc_config, adc_channel_config, sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
                 HardFault_Handler();
             }
             if (false == PHAL_initDMA(&adc_dma_config)) {
                 HardFault_Handler();
             }
             PHAL_startTxfer(&adc_dma_config);
-            PHAL_startADC(ADC1);
+            PHAL_startADC(&adc_config);
             break;
         case 3:
             /* Module Initialization */
@@ -329,41 +328,41 @@ void heartBeatLED() {
 
 void EXTI9_5_IRQHandler() {
     // EXTI9 (LEFT Button) triggered the interrupt
-    if (EXTI->PR & EXTI_PR_PR9) {
+    if (EXTI->PR1 & EXTI_PR1_PIF9) {
         input_state.left_button = 1;
-        EXTI->PR |= EXTI_PR_PR9;
+        EXTI->PR1 |= EXTI_PR1_PIF9;
     }
 
     // EXTI8 (RIGHT Button) triggered the interrupt
-    if (EXTI->PR & EXTI_PR_PR8) {
+    if (EXTI->PR1 & EXTI_PR1_PIF8) {
         input_state.right_button = 1;
-        EXTI->PR |= EXTI_PR_PR8;
+        EXTI->PR1 |= EXTI_PR1_PIF8;
     }
 
     // EXTI7 (DOWN Button) triggered the interrupt
-    if (EXTI->PR & EXTI_PR_PR7) {
+    if (EXTI->PR1 & EXTI_PR1_PIF7) {
         input_state.down_button = 1;
-        EXTI->PR |= EXTI_PR_PR7;
+        EXTI->PR1 |= EXTI_PR1_PIF7;
     }
 
     // EXTI6 (UP Button) triggered the interrupt
-    if (EXTI->PR & EXTI_PR_PR6) {
+    if (EXTI->PR1 & EXTI_PR1_PIF6) {
         input_state.up_button = 1;
-        EXTI->PR |= EXTI_PR_PR6;
+        EXTI->PR1 |= EXTI_PR1_PIF6;
     }
 }
 
 void EXTI15_10_IRQHandler() {
     // EXTI15 (SELECT button) triggered the interrupt
-    if (EXTI->PR & EXTI_PR_PR15) {
+    if (EXTI->PR1 & EXTI_PR1_PIF15) {
         input_state.select_button = 1;
-        EXTI->PR |= EXTI_PR_PR15;
+        EXTI->PR1 |= EXTI_PR1_PIF15;
     }
 
     // EXTI14 (START button) triggered the interrupt
-    if (EXTI->PR & EXTI_PR_PR14) {
+    if (EXTI->PR1 & EXTI_PR1_PIF14) {
         input_state.start_button = 1;
-        EXTI->PR |= EXTI_PR_PR14;
+        EXTI->PR1 |= EXTI_PR1_PIF14;
     }
 }
 
@@ -421,12 +420,16 @@ void enableInterrupts() {
     // PB14, PB15 (EXTI14, 15)
     SYSCFG->EXTICR[3] |= (SYSCFG_EXTICR4_EXTI14_PB | SYSCFG_EXTICR4_EXTI15_PB);
 
-    // Unmask interrupts
-    EXTI->IMR |= (EXTI_IMR_MR6 | EXTI_IMR_MR7 | EXTI_IMR_MR8 | EXTI_IMR_MR9 | EXTI_IMR_MR14 | EXTI_IMR_MR15);
-    
-    // Set falling edge trigger for all buttons (pull-up)
-    EXTI->RTSR &= ~(EXTI_RTSR_TR6 | EXTI_RTSR_TR7 | EXTI_RTSR_TR8 | EXTI_RTSR_TR9 | EXTI_RTSR_TR14 | EXTI_RTSR_TR15);
-    EXTI->FTSR |= (EXTI_FTSR_TR6 | EXTI_FTSR_TR7 | EXTI_FTSR_TR8 | EXTI_FTSR_TR9 | EXTI_FTSR_TR14 | EXTI_FTSR_TR15);
+    // Unmask interrupts (EXTI lines 6,7,8,9,14,15)
+    EXTI->IMR1 |= (EXTI_IMR1_IM6  | EXTI_IMR1_IM7  | EXTI_IMR1_IM8 |
+                   EXTI_IMR1_IM9  | EXTI_IMR1_IM14 | EXTI_IMR1_IM15);
+
+    // Falling edge trigger only (pull-up buttons)
+    EXTI->RTSR1 &= ~(EXTI_RTSR1_RT6  | EXTI_RTSR1_RT7  | EXTI_RTSR1_RT8 |
+                     EXTI_RTSR1_RT9  | EXTI_RTSR1_RT14 | EXTI_RTSR1_RT15);
+
+    EXTI->FTSR1 |= (EXTI_FTSR1_FT6  | EXTI_FTSR1_FT7  | EXTI_FTSR1_FT8 |
+                    EXTI_FTSR1_FT9  | EXTI_FTSR1_FT14 | EXTI_FTSR1_FT15);
 
     NVIC_EnableIRQ(EXTI9_5_IRQn);
     NVIC_EnableIRQ(EXTI15_10_IRQn);
@@ -441,17 +444,12 @@ uint8_t cmd[NXT_STR_SIZE] = {'\0'}; // Buffer for Nextion LCD commands
 
 void lcdTxUpdate() {
     if ((false == PHAL_usartTxBusy(&lcd)) && (SUCCESS_G == qReceive(&q_tx_usart, cmd))) {
-        PHAL_usartTxDma(&lcd, (uint16_t*)cmd, strlen(cmd));
+        PHAL_usartTxDma(&lcd, (uint8_t*)cmd, strlen(cmd));
     }
 }
 
 void CAN1_RX0_IRQHandler() {
     CAN_rx_update();
-}
-
-void dashboard_bl_cmd_CALLBACK(can_data_t* can_data) {
-    if (can_data->dashboard_bl_cmd.cmd == BLCMD_RST)
-        Bootloader_ResetForFirmwareDownload();
 }
 
 /**

@@ -1,5 +1,5 @@
 /**
- * @file adbms6380.h
+ * @file adbms6380.c
  * @brief Low level BMS driver specific to ADBMS6380 chip.
  *
  * @author Millan Kumar (kumar798@purdue.edu)

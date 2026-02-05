@@ -78,6 +78,8 @@ bool adbms_read_and_check_rega(ADBMS_bms_t* bms) {
 		if (memcmp(&module_data[0], bms->modules[i].rega, ADBMS6380_SINGLE_DATA_RAW_SIZE) != 0) {
 			bms->err_rega_mismatch = true;
 			bms->modules[i].err_rega_mismatch = true;
+		} else {
+			bms->modules[i].err_rega_mismatch = false;
 		}
 	}
 	return !bms->err_rega_mismatch;
@@ -96,6 +98,8 @@ bool adbms_read_and_check_regb(ADBMS_bms_t* bms) {
 		if (memcmp(&module_data[0], bms->modules[i].regb, ADBMS6380_SINGLE_DATA_RAW_SIZE) != 0) {
 			bms->err_regb_mismatch = true;
 			bms->modules[i].err_regb_mismatch = true;
+		} else {
+			bms->modules[i].err_regb_mismatch = false;
 		}
 	}
 	return !bms->err_regb_mismatch;

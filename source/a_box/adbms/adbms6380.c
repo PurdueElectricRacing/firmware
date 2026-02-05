@@ -8,6 +8,7 @@
 #include "adbms6380.h"
 
 #include <stdbool.h>
+#include <string.h>
 
 #include "common/phal/gpio.h"
 #include "common/phal/spi.h"
@@ -89,6 +90,8 @@ void adbms6380_prepare_data_packet(strbuf_t* output_buffer, const uint8_t data[A
 
 
 void adbms6380_calculate_cfg_rega(uint8_t output_cfg_rega[ADBMS6380_SINGLE_DATA_RAW_SIZE], bool refon, uint8_t cth) {
+	memset(output_cfg_rega, 0, ADBMS6380_SINGLE_DATA_RAW_SIZE);
+	
 	output_cfg_rega[0] = (refon << 7) | (cth & 0x07);
 	// all flags 0
 	output_cfg_rega[1] = 0b00000000;
@@ -109,6 +112,8 @@ void adbms6380_calculate_cfg_regb(
 	float undervoltage_threshold,
 	const bool is_discharging[ADBMS6380_CELL_COUNT]
 ) {
+	memset(output_cfg_regb, 0, ADBMS6380_SINGLE_DATA_RAW_SIZE);
+
 	uint16_t overvoltage_cfg = adbms6380_get_threshold_voltage_cfg(overvoltage_threshold);
     uint16_t undervoltage_cfg = adbms6380_get_threshold_voltage_cfg(undervoltage_threshold);
     // 12 bits vov

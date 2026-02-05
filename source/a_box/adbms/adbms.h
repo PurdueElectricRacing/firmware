@@ -130,7 +130,7 @@ typedef struct {
 void adbms_init(ADBMS_bms_t* bms, SPI_InitConfig_t* spi, uint8_t* tx_buf);
 
 /**
- * @brief Calculate and REGA configuration to all modules.
+ * @brief Calculate and write REGA configuration to all modules.
  *
  * @param bms Pointer to driver state.
  * @return True on successful SPI transfer, false on failure.

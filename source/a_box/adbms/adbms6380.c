@@ -164,7 +164,7 @@ bool adbms6380_read_cell_voltages(
 	if (!adbms6380_read(spi, module_count, cmd_buffer->data, rx_buffer, rx_length)) {
 		return false;
 	}
-	// Data comes back as: module 1, module 2, ..., module N
+	// Data comes back as: module 0, module 1, ..., module N-1
 	for (size_t module_idx = 0; module_idx < module_count; module_idx++) {
 		uint8_t* module_data = &rx_buffer[module_idx * ADBMS6380_RDCVALL_DATA_PKT_SIZE];
 		for (size_t j = 0; j < ADBMS6380_CELL_COUNT; j++) {
@@ -198,7 +198,7 @@ bool adbms6380_read_gpio_voltages(
 		size_t gpios_read = (cmd_idx < 3) ? 3 : 1;
 		size_t gpio_idx_base = cmd_idx * 3;
 
-		// Data comes back as: module 1, module 2, ..., module N
+		// Data comes back as: module 0, module 1, ..., module N-1
 		for (size_t module_idx = 0; module_idx < module_count; module_idx++) {
 			uint8_t* module_data = &rx_buffer[module_idx * ADBMS6380_SINGLE_DATA_PKT_SIZE];
 

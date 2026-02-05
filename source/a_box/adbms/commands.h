@@ -84,7 +84,7 @@ extern const uint8_t WRPWMA[2];
 extern const uint8_t RDPWMA[2];
 
 extern const uint8_t WRPWMB[2];
-extern const uint8_t RDPWMA[2];
+extern const uint8_t RDPWMB[2];
 
 /* Clear commands */
 extern const uint8_t CLRCELL[2];

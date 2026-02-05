@@ -263,6 +263,7 @@ void adbms_periodic(ADBMS_bms_t* bms, float min_voltage_for_balance, float min_d
 	switch (bms->state) {
 		case ADBMS_STATE_IDLE: {
 			adbms_connect(bms);
+			break;
 		}
 		case ADBMS_STATE_CONNECTED: {
 			adbms_read_cells(bms);

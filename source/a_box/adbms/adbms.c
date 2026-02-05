@@ -1,5 +1,5 @@
 /**
- * @file adbms.h
+ * @file adbms.c
  * @brief Primary logic and interface for ADBMS battery management system driver.
  *
  * @author Millan Kumar (kumar798@purdue.edu)

@@ -4,7 +4,6 @@
 
 #include "common/can_library/generated/DASHBOARD.h"
 #include "common/can_library/faults_common.h"
-#include "common/phal/gpio.h"
 #include "common_defs.h"
 #include "main.h"
 
@@ -119,8 +118,8 @@ void pedalsPeriodic(void) {
 // static const uint32_t* PROFILE_FLASH_START = (uint32_t*)ADDR_FLASH_SECTOR_3;
 // static volatile uint32_t* profile_current_address;
 
-// TODO move to main
-int writePedalProfiles() { // TODO switch to EEPROM
+// TODO deprecate this feature
+int writePedalProfiles() {
     // profile_current_address = (volatile uint32_t*)PROFILE_FLASH_START;
 
     //  // !! This will cause a crash if watchdog is enabled !!

@@ -1,3 +1,12 @@
+/**
+ * @file main.c
+ * @brief "Dashboard" node source code
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Luke Oxley (lcoxley@purdue.edu)
+ * @author Chris Mcgalliard (cpmcgalliard@gmail.com)
+ */
+
 /* System Includes */
 #include "common/can_library/faults_common.h"
 #include "common/common_defs/common_defs.h"

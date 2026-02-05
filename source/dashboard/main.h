@@ -1,12 +1,10 @@
 /**
- * @file main.h
+ * @file main.c
+ * @brief "Dashboard" node source code
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
  * @author Luke Oxley (lcoxley@purdue.edu)
- * @brief  Software to measure pedal state and control the LCD display
- * @version 0.1
- * @date 2022-03-07
- *
- * @copyright Copyright (c) 2022
- *
+ * @author Chris Mcgalliard (cpmcgalliard@gmail.com)
  */
 
 #ifndef _MAIN_H_
@@ -43,7 +41,7 @@ typedef struct {
     uint8_t start_button;
 } dashboard_input_state_t;
 
-// Status LED Indicators
+// On-board Status LEDs
 #define CONN_LED_GPIO_Port  (GPIOB)
 #define CONN_LED_Pin        (7)
 #define CONN_LED_MS_THRESH  (500)
@@ -51,12 +49,18 @@ typedef struct {
 #define HEART_LED_Pin       (9)
 #define ERROR_LED_GPIO_Port (GPIOD)
 #define ERROR_LED_Pin       (2)
-#define PRCHG_LED_GPIO_Port (GPIOC)
-#define PRCHG_LED_Pin       (4)
-#define IMD_LED_GPIO_Port   (GPIOA)
-#define IMD_LED_Pin         (7)
-#define BMS_LED_GPIO_Port   (GPIOA)
-#define BMS_LED_Pin         (6)
+
+// External LED
+#define IMD_LED_GPIO_Port       (GPIOA)
+#define IMD_LED_Pin             (7)
+#define BMS_LED_GPIO_Port       (GPIOA)
+#define BMS_LED_Pin             (6)
+#define PRCHG_LED_GPIO_Port     (GPIOC)
+#define PRCHG_LED_Pin           (4)
+#define MOTOR_OVERTEMP_LED_PORT (GPIOC)
+#define MOTOR_OVERTEMP_LED_PIN  (5)
+#define TIRE_OVERTEMP_LED_PORT (GPIOB)
+#define TIRE_OVERTEMP_LED_PIN  (10)
 
 // Status Inputs
 #define START_BTN_GPIO_Port (GPIOB)

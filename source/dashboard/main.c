@@ -25,8 +25,6 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT_OPEN_DRAIN(IMD_LED_GPIO_Port, IMD_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT_OPEN_DRAIN(BMS_LED_GPIO_Port, BMS_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_INPUT(START_BTN_GPIO_Port, START_BTN_Pin, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_INPUT(BRK_STAT_TAP_GPIO_Port, BRK_STAT_TAP_Pin, GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_INPUT(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin, GPIO_INPUT_OPEN_DRAIN),
 
     // CAN
     GPIO_INIT_FDCAN2RX_PB5,
@@ -39,6 +37,8 @@ GPIOInitConfig_t gpio_config[] = {
     // Brake
     GPIO_INIT_ANALOG(BRK_1_GPIO_Port, BRK_1_Pin),
     GPIO_INIT_ANALOG(BRK_2_GPIO_Port, BRK_2_Pin),
+    GPIO_INIT_ANALOG(BRAKE1_PRESSURE_PORT, BRAKE1_PRESSURE_PIN),
+    GPIO_INIT_ANALOG(BRAKE2_PRESSURE_PORT, BRAKE2_PRESSURE_PIN),
 
     // LCD
     GPIO_INIT_USART1TX_PA9,
@@ -49,18 +49,7 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_INPUT(B_DOWN_GPIO_Port, B_DOWN_Pin, GPIO_INPUT_PULL_UP),
     GPIO_INIT_INPUT(B_UP_GPIO_Port, B_UP_Pin, GPIO_INPUT_PULL_UP),
     GPIO_INIT_INPUT(B_LEFT_GPIO_Port, B_LEFT_Pin, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_INPUT(B_RIGHT_GPIO_Port, B_RIGHT_Pin, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_INPUT(DAQ_SWITCH_GPIO_Port, DAQ_SWITCH_Pin, GPIO_INPUT_OPEN_DRAIN),
-
-    GPIO_INIT_INPUT(BRK_1_DIG_GPIO_Port, BRK_1_DIG_GPIO_Pin, GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_INPUT(BRK_2_DIG_GPIO_Port, BRK_2_DIG_GPIO_Pin, GPIO_INPUT_OPEN_DRAIN),
-
-    // LV Status
-    GPIO_INIT_ANALOG(LV_5V_V_SENSE_GPIO_Port, LV_5V_V_SENSE_Pin),
-    GPIO_INIT_ANALOG(LV_3V3_V_SENSE_GPIO_Port, LV_3V3_V_SENSE_Pin),
-    GPIO_INIT_ANALOG(LV_12_V_SENSE_GPIO_Port, LV_12_V_SENSE_Pin),
-    GPIO_INIT_ANALOG(LV_24_V_SENSE_GPIO_Port, LV_24_V_SENSE_Pin),
-    GPIO_INIT_INPUT(LV_24_V_FAULT_GPIO_Port, LV_24_V_FAULT_Pin, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_INPUT(B_RIGHT_GPIO_Port, B_RIGHT_Pin, GPIO_INPUT_PULL_UP)
 };
 
 volatile raw_adc_values_t raw_adc_values;
@@ -79,7 +68,9 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel = THTL_1_ADC_CHNL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = THTL_2_ADC_CHNL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = BRK_1_ADC_CHNL, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = BRK_2_ADC_CHNL, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480}
+    {.channel = BRK_2_ADC_CHNL, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = BRAKE1_PRESSURE_ADC_CHANNEL, .rank = 5, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = BRAKE2_PRESSURE_ADC_CHANNEL, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480}
 };
 
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc_values, sizeof(raw_adc_values) / sizeof(raw_adc_values.t1), 0b01);
@@ -123,8 +114,6 @@ extern uint32_t PLLClockRateHz;
 extern page_t curr_page;
 volatile dashboard_input_state_t input_state = {0}; // Clear all input states
 
-brake_status_t brake_status = {0};
-
 /* Function Prototypes */
 void preflightChecks(void);
 void preflightAnimation(void);
@@ -134,7 +123,6 @@ void enableInterrupts();
 void encoderISR();
 void handleDashboardInputs();
 void sendBrakeStatus();
-void pollBrakeStatus();
 void sendVersion();
 extern void HardFault_Handler();
 
@@ -167,7 +155,6 @@ int main(void) {
     taskCreate(handleDashboardInputs, 50);
     taskCreate(sendVersion, DASH_VERSION_PERIOD_MS);
     taskCreate(updateTelemetryPages, 200);
-    taskCreate(pollBrakeStatus, 1000);
     taskCreate(sendTVParameters, DASHBOARD_VCU_PARAMETERS_PERIOD_MS);
     taskCreateBackground(lcdTxUpdate);
     taskCreateBackground(CAN_tx_update);
@@ -429,11 +416,6 @@ void lcdTxUpdate() {
     if ((false == PHAL_usartTxBusy(&lcd)) && (SUCCESS_G == qReceive(&q_tx_usart, cmd))) {
         PHAL_usartTxDma(&lcd, (uint8_t *)cmd, strlen(cmd));
     }
-}
-
-void pollBrakeStatus() {
-    brake_status.brake_status = PHAL_readGPIO(BRK_STAT_TAP_GPIO_Port, BRK_STAT_TAP_Pin);
-    brake_status.brake_fail   = PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin);
 }
 
 void HardFault_Handler() {

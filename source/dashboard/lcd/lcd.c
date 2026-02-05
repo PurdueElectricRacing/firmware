@@ -28,7 +28,6 @@ char* errorText; // Pointer to data to display for the Error, Warning, and Criti
 extern pedal_values_t pedal_values; // Global from pedals module for throttle display
 extern q_handle_t q_fault_history; // Global queue from fault library for fault history
 extern volatile dashboard_input_state_t input_state; // Global dashboard input states
-extern brake_status_t brake_status; // Global brake status struct
 extern driver_pedal_profile_t driver_pedal_profiles[4];
 
 // Driver Page Functions
@@ -576,40 +575,9 @@ void calibrationTelemetryUpdate() {
     uint16_t brake1_thresh = 0;
     uint16_t brake2_thresh = 0;
 
-    // 2 updates left in the queue, updaate infrequent items at 1/3 the rate
-    switch (update_group) {
-        case 0:
-            // update brake stat
-            if (brake_status.brake_status) {
-                NXT_setText(CALIBRATION_BRAKE_STAT, "ON");
-                NXT_setFontColor(CALIBRATION_BRAKE_STAT, GREEN);
-            } else {
-                NXT_setText(CALIBRATION_BRAKE_STAT, "OFF");
-                NXT_setFontColor(CALIBRATION_BRAKE_STAT, WHITE);
-            }
-            update_group++;
-            break;
-        case 1:
-            // update brake fail
-            if (brake_status.brake_fail) {
-                NXT_setText(CALIBRATION_BRAKE_FAIL, "FAIL");
-                NXT_setFontColor(CALIBRATION_BRAKE_FAIL, RED);
-            } else {
-                NXT_setText(CALIBRATION_BRAKE_FAIL, "OK");
-                NXT_setFontColor(CALIBRATION_BRAKE_FAIL, GREEN);
-            }
-            update_group++;
-            break;
-        case 2:
-            // update bspd thresholds
-            NXT_setValue(CALIBRATION_BRAKE1_THRESHOLD, brake1_thresh);
-            NXT_setValue(CALIBRATION_BRAKE2_THRESHOLD, brake2_thresh);
-            update_group = 0;
-            break;
-        default:
-            update_group = 0;
-            break;
-    }
+    // update bspd thresholds
+    NXT_setValue(CALIBRATION_BRAKE1_THRESHOLD, brake1_thresh);
+    NXT_setValue(CALIBRATION_BRAKE2_THRESHOLD, brake2_thresh);
 }
 
 /**

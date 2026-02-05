@@ -119,14 +119,14 @@ void adbms6380_adcv(uint8_t* output_cmd, bool rd, bool cont, bool dcp, bool rstf
 void adbms6380_adsv(uint8_t* output_cmd, bool cont, bool dcp, uint8_t ow);
 
 /**
- * @brief Append a command and it's PEC to an output buffer.
+ * @brief Append a command and its PEC to an output buffer.
  *
  * @param output_buffer Buffer to append into.
  * @param command 2-byte command payload.
  */
 void adbms6380_prepare_command(strbuf_t* output_buffer, const uint8_t command[ADBMS6380_COMMAND_RAW_SIZE]);
 /**
- * @brief Append a data payload and it's PEC to an output buffer.
+ * @brief Append a data payload and its PEC to an output buffer.
  *
  * @param output_buffer Buffer to append into.
  * @param data 6-byte data payload.

@@ -60,13 +60,13 @@ float adbms6380_raw_to_gpio_v(int16_t raw) {
 	return raw * 0.0001f;
 }
 
-void adbms6830_adcv(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE], bool rd, bool cont, bool dcp, bool rstf, uint8_t ow) {
+void adbms6380_adcv(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE], bool rd, bool cont, bool dcp, bool rstf, uint8_t ow) {
 	// 10-0: 0, 1, RD, CONT, 1, 1, DCP, 0, RSTF, OW[1], OW[0]
 	output_cmd[0] = 0x02 + (uint8_t)rd;
     output_cmd[1] = ((uint8_t)cont << 7) + ((uint8_t)dcp << 4) + ((uint8_t)rstf << 2) + (ow & 0x03) + 0x60;
 }
 
-void adbms6830_adsv(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE], bool cont, bool dcp, uint8_t ow) {
+void adbms6380_adsv(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE], bool cont, bool dcp, uint8_t ow) {
 	// 10-0: 0, 0, 1, CONT, 1, 1, DCP, 1, 0, OW[1], OW[0]
 	output_cmd[0] = 0x01;
 	output_cmd[1] = ((uint8_t)cont << 7) + ((uint8_t)dcp << 4) + (ow & 0x03) + 0x68;

@@ -132,7 +132,7 @@ void adbms_connect(ADBMS_bms_t* bms) {
 	// Start ADCV
 	strbuf_clear(&bms->tx_strbuf);
 	uint8_t adcv_cmd[2];
-	adbms6830_adcv(adcv_cmd, ADBMS_RD, ADBMS_CONT, ADBMS_DCP, ADBMS_RSTF, ADBMS_OW);
+	adbms6380_adcv(adcv_cmd, ADBMS_RD, ADBMS_CONT, ADBMS_DCP, ADBMS_RSTF, ADBMS_OW);
 	adbms6380_prepare_command(&bms->tx_strbuf, adcv_cmd);
 	if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
 		bms->state = ADBMS_STATE_IDLE;
@@ -144,7 +144,7 @@ void adbms_connect(ADBMS_bms_t* bms) {
 	// Start ADSV
 	strbuf_clear(&bms->tx_strbuf);
 	uint8_t adsv_cmd[2];
-	adbms6830_adsv(adsv_cmd, ADBMS_CONT, ADBMS_DCP, ADBMS_OW);
+	adbms6380_adsv(adsv_cmd, ADBMS_CONT, ADBMS_DCP, ADBMS_OW);
 	adbms6380_prepare_command(&bms->tx_strbuf, adsv_cmd);
 	if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
 		bms->state = ADBMS_STATE_IDLE;

@@ -2,7 +2,7 @@
  * @file pec.c
  * @brief Calculation of PEC (CRC15, CRC10) for ADBMS communication.
  *
- * @author Millan Kumar (kumar798@purdue.edu), Irving Wang (irvingw@purdue.edu)
+ * @author Analog Devices, Millan Kumar (kumar798@purdue.edu), Irving Wang (irvingw@purdue.edu)
  */
 
 #include "pec.h"

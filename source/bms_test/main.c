@@ -8,9 +8,10 @@
 
 /* Module Includes */
 #include "main.h"
-#include "adbms6830/adbms.h"
 #include <string.h>
-#include "adbms6830/commands.h"
+
+#include "adbms.h"
+#include "source/a_box/adbms/adbms.h"
 
 dma_init_t spi_rx_dma_config = SPI2_RXDMA_CONT_CONFIG(NULL, 2);
 dma_init_t spi_tx_dma_config = SPI2_TXDMA_CONT_CONFIG(NULL, 1);
@@ -52,15 +53,14 @@ extern uint32_t PLLClockRateHz;
 void heartbeat_task();
 void HardFault_Handler(void);
 
-adbms_t g_adbms = {0};
+ADBMS_bms_t g_bms = { 0 };
+uint8_t g_bms_tx_buf[ADBMS_SPI_TX_BUFFER_SIZE] = { 0 };
 
-extern void adbms_periodic(adbms_t *bms);
-
-void adbms_g_periodic() {
-	adbms_periodic(&g_adbms);
+void bms_g_periodic() {
+	adbms_periodic(&g_bms, 3.0, 0.1);
 }
 
-defineThreadStack(adbms_g_periodic, 200, osPriorityNormal, 2048);
+defineThreadStack(bms_g_periodic, 200, osPriorityNormal, 2048);
 
 int main(void) {
     osKernelInitialize();
@@ -75,13 +75,13 @@ int main(void) {
     if (!PHAL_SPI_init(&bms_spi_config)) {
         HardFault_Handler();
     }
-    g_adbms.spi = &bms_spi_config;
-    g_adbms.enable_balance = true;
+    
+	adbms_init(&g_bms, &bms_spi_config, g_bms_tx_buf);
 
     // // todo enable user button interrupt
     // RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
 
-    createThread(adbms_g_periodic);
+    createThread(bms_g_periodic);
 
     osKernelStart();
 

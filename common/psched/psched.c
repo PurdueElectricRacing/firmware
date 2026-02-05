@@ -11,7 +11,7 @@ static void calcTime(cpu_time_t *time, uint8_t count, int type);
 static void memsetu(uint8_t *ptr, uint8_t val, size_t size);
 
 sched_t sched;
-volatile uint16_t curr_task;
+volatile uint16_t curr_task = 0;
 
 // @funcname: taskCreate()
 //
@@ -30,7 +30,7 @@ int taskCreate(func_ptr_t func, uint16_t task_time) {
     return -E_NO_FREE_TASK;
 }
 
-int taskCreateWithProfiling(func_ptr_t func, uint16_t task_time, uint16_t curr_task_id) {
+int task_create_with_profiling(func_ptr_t func, uint16_t task_time, uint16_t curr_task_id) {
     if (sched.fg_count != MAX_TASKS) {
         sched.task_time[sched.fg_count]      = task_time;
         sched.task_pointer[sched.fg_count++] = func;
@@ -57,7 +57,7 @@ int taskCreateBackground(func_ptr_t func) {
     return -E_NO_FREE_TASK;
 }
 
-int taskCreateBackgroundWithProfiling(func_ptr_t func, uint16_t task_time, uint16_t curr_task_id) {
+int task_create_background_with_profiling(func_ptr_t func, uint16_t task_time, uint16_t curr_task_id) {
     if (sched.bg_count != MAX_TASKS) {
         sched.bg_pointer[sched.bg_count++] = func;
         curr_task = curr_task_id;

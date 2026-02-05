@@ -192,8 +192,8 @@ header file. */
             ;                     \
     }
 
-#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() (configureTimer())
-#define portGET_RUN_TIME_COUNTER_VALUE() (getCounterValue())
+#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() (configure_timer())
+#define portGET_RUN_TIME_COUNTER_VALUE() (get_counter_value())
 
 /* Definitions that map the FreeRTOS port interrupt handlers to their CMSIS
    standard names. */

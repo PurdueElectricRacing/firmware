@@ -13,7 +13,7 @@
     #error "MCU Arch not supported for runtime stats"
 #endif
 
-void configureTimer(void);
-uint32_t getCounterValue(void);
+void configure_timer(void);
+uint32_t get_counter_value(void);
 
 #endif

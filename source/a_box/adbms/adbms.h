@@ -153,7 +153,7 @@ bool adbms_write_regb(ADBMS_bms_t* bms);
  * not match the cached REGA data.
  *
  * @param bms Pointer to driver state.
- * @return False on SPI failure; otherwise returns the mismatch flag.
+ * @return False on SPI failure and when there is a mismatch; true otherwise.
  */
 bool adbms_read_and_check_rega(ADBMS_bms_t* bms);
 /**
@@ -163,7 +163,7 @@ bool adbms_read_and_check_rega(ADBMS_bms_t* bms);
  * not match the cached REGB data.
  *
  * @param bms Pointer to driver state.
- * @return False on SPI failure; otherwise returns the mismatch flag.
+ * @return False on SPI failure and when there is a mismatch; true otherwise.
  */
 bool adbms_read_and_check_regb(ADBMS_bms_t* bms);
 

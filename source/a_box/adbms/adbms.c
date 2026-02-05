@@ -80,7 +80,7 @@ bool adbms_read_and_check_rega(ADBMS_bms_t* bms) {
 			bms->modules[i].err_rega_mismatch = true;
 		}
 	}
-	return bms->err_rega_mismatch;
+	return !bms->err_rega_mismatch;
 }
 
 bool adbms_read_and_check_regb(ADBMS_bms_t* bms) {
@@ -98,7 +98,7 @@ bool adbms_read_and_check_regb(ADBMS_bms_t* bms) {
 			bms->modules[i].err_regb_mismatch = true;
 		}
 	}
-	return bms->err_regb_mismatch;
+	return !bms->err_regb_mismatch;
 }
 
 void adbms_connect(ADBMS_bms_t* bms) {

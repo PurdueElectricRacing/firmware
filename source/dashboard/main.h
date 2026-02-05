@@ -28,12 +28,6 @@ typedef struct __attribute__((packed)) {
     uint16_t t2;
     uint16_t b1;
     uint16_t b2;
-    uint16_t lv_5v_sense;
-    uint16_t lv_3v3_sense;
-    uint16_t lv_12v_sense;
-    uint16_t lv_24_v_sense;
-    // uint16_t brk1_thr;
-    // uint16_t brk2_thr;
 } raw_adc_values_t;
 
 volatile extern raw_adc_values_t raw_adc_values;
@@ -150,16 +144,15 @@ typedef struct {
 #define LV_5V_SCALE              (0.413F)
 
 // Voltage Sensing Resistors (in kOhms)
-#define LV_3V3_PULLUP   (4.3F)
-#define LV_3V3_PULLDOWN (10.0F)
-#define LV_5V_PULLUP    (4.3F)
-#define LV_5V_PULLDOWN  (3.3F)
-#define LV_12V_PULLUP   (15.8F)
-#define LV_12V_PULLDOWN (3.3F)
-#define LV_24V_PULLUP   (47.0F)
-#define LV_24V_PULLDOWN (3.3F)
-#define ADC_MAX_VALUE   (4095)
-#define ADC_REF_VOLTAGE (3.3F)
+static constexpr float    LV_3V3_PULLUP   = 4.3F;
+static constexpr float    LV_3V3_PULLDOWN = 10.0F;
+static constexpr float    LV_5V_PULLUP    = 4.3F;
+static constexpr float    LV_5V_PULLDOWN  = 3.3F;
+static constexpr float    LV_12V_PULLUP   = 15.8F;
+static constexpr float    LV_12V_PULLDOWN = 3.3F;
+static constexpr float    LV_24V_PULLUP   = 47.0F;
+static constexpr float    LV_24V_PULLDOWN = 3.3F;
+
 
 void canTxSendToBack(CanMsgTypeDef_t* msg);
 void lcdTxUpdate();

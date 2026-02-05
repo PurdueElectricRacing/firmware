@@ -1,6 +1,6 @@
 /* System Includes */
-#include "common/common_defs/common_defs.h"
 #include "common/can_library/faults_common.h"
+#include "common/common_defs/common_defs.h"
 #include "common/phal/adc.h"
 #include "common/phal/can.h"
 #include "common/phal/dma.h"
@@ -67,23 +67,19 @@ volatile raw_adc_values_t raw_adc_values;
 
 /* ADC Configuration */
 ADCInitConfig_t adc_config = {
-    .prescaler       = ADC_CLK_PRESC_2,
-    .resolution      = ADC_RES_12_BIT,
-    .data_align      = ADC_DATA_ALIGN_RIGHT,
-    .cont_conv_mode  = true,
-    .dma_mode        = ADC_DMA_CIRCULAR,
-    .periph          = ADC1,
+    .prescaler      = ADC_CLK_PRESC_2,
+    .resolution     = ADC_RES_12_BIT,
+    .data_align     = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode = true,
+    .dma_mode       = ADC_DMA_CIRCULAR,
+    .periph         = ADC1,
 };
 
 ADCChannelConfig_t adc_channel_config[] = {
     {.channel = THTL_1_ADC_CHNL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = THTL_2_ADC_CHNL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = BRK_1_ADC_CHNL, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = BRK_2_ADC_CHNL, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = LV_5V_V_SENSE_ADC_CHNL, .rank = 5, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = LV_3V3_V_SENSE_ADC_CHNL, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = LV_12_V_SENSE_ADC_CHNL, .rank = 7, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = LV_24_V_SENSE_ADC_CHNL, .rank = 8, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = BRK_2_ADC_CHNL, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480}
 };
 
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc_values, sizeof(raw_adc_values) / sizeof(raw_adc_values.t1), 0b01);
@@ -107,7 +103,7 @@ usart_init_t lcd = {
     .rx_dma_cfg       = &usart_rx_dma_config,
 };
 
-#define TargetCoreClockrateHz 16000000
+static constexpr uint32_t TargetCoreClockrateHz = 16000000;
 ClockRateConfig_t clock_config = {
     .clock_source           = CLOCK_SOURCE_HSI,
     .use_pll                = false,
@@ -138,7 +134,6 @@ void enableInterrupts();
 void encoderISR();
 void handleDashboardInputs();
 void sendBrakeStatus();
-void sendVoltageData();
 void pollBrakeStatus();
 void sendVersion();
 extern void HardFault_Handler();
@@ -168,13 +163,12 @@ int main(void) {
 
     taskCreate(updateFaultDisplay, 500);
     taskCreate(heartBeatLED, 500);
-    taskCreate(pedalsPeriodic, 15);
+    taskCreate(pedalsPeriodic, FILT_THROTTLE_BRAKE_PERIOD_MS);
     taskCreate(handleDashboardInputs, 50);
-    taskCreate(sendVersion, 5000);
+    taskCreate(sendVersion, DASH_VERSION_PERIOD_MS);
     taskCreate(updateTelemetryPages, 200);
     taskCreate(pollBrakeStatus, 1000);
-    taskCreate(sendTVParameters, 500);
-    taskCreate(sendVoltageData, 5000);
+    taskCreate(sendTVParameters, DASHBOARD_VCU_PARAMETERS_PERIOD_MS);
     taskCreateBackground(lcdTxUpdate);
     taskCreateBackground(CAN_tx_update);
     taskCreateBackground(CAN_rx_update);
@@ -314,16 +308,6 @@ void heartBeatLED() {
 
     PHAL_writeGPIO(IMD_LED_GPIO_Port, IMD_LED_Pin, !imd_prev_latched);
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, !bms_prev_latched);
-
-    static uint8_t trig;
-    if (trig) {
-        CAN_SEND_dash_can_stats(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
-                            can_stats.can_peripheral_stats[CAN1_IDX].tx_fail,
-                            can_stats.rx_of,
-                            can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
-    }
-
-    trig = !trig;
 }
 
 void EXTI9_5_IRQHandler() {
@@ -404,7 +388,7 @@ void handleDashboardInputs() {
 
     if (input_state.start_button) {
         input_state.start_button = 0;
-        CAN_SEND_start_button(1);
+        CAN_SEND_start_button(true);
     }
 }
 
@@ -421,15 +405,15 @@ void enableInterrupts() {
     SYSCFG->EXTICR[3] |= (SYSCFG_EXTICR4_EXTI14_PB | SYSCFG_EXTICR4_EXTI15_PB);
 
     // Unmask interrupts (EXTI lines 6,7,8,9,14,15)
-    EXTI->IMR1 |= (EXTI_IMR1_IM6  | EXTI_IMR1_IM7  | EXTI_IMR1_IM8 |
-                   EXTI_IMR1_IM9  | EXTI_IMR1_IM14 | EXTI_IMR1_IM15);
+    EXTI->IMR1 |= (EXTI_IMR1_IM6 | EXTI_IMR1_IM7 | EXTI_IMR1_IM8 |
+                   EXTI_IMR1_IM9 | EXTI_IMR1_IM14 | EXTI_IMR1_IM15);
 
     // Falling edge trigger only (pull-up buttons)
-    EXTI->RTSR1 &= ~(EXTI_RTSR1_RT6  | EXTI_RTSR1_RT7  | EXTI_RTSR1_RT8 |
-                     EXTI_RTSR1_RT9  | EXTI_RTSR1_RT14 | EXTI_RTSR1_RT15);
+    EXTI->RTSR1 &= ~(EXTI_RTSR1_RT6 | EXTI_RTSR1_RT7 | EXTI_RTSR1_RT8 |
+                     EXTI_RTSR1_RT9 | EXTI_RTSR1_RT14 | EXTI_RTSR1_RT15);
 
-    EXTI->FTSR1 |= (EXTI_FTSR1_FT6  | EXTI_FTSR1_FT7  | EXTI_FTSR1_FT8 |
-                    EXTI_FTSR1_FT9  | EXTI_FTSR1_FT14 | EXTI_FTSR1_FT15);
+    EXTI->FTSR1 |= (EXTI_FTSR1_FT6 | EXTI_FTSR1_FT7 | EXTI_FTSR1_FT8 |
+                    EXTI_FTSR1_FT9 | EXTI_FTSR1_FT14 | EXTI_FTSR1_FT15);
 
     NVIC_EnableIRQ(EXTI9_5_IRQn);
     NVIC_EnableIRQ(EXTI15_10_IRQn);
@@ -440,42 +424,11 @@ void enableInterrupts() {
  *
  * @note The queue holds a max of 10 commands. Design your LCD page updates with this in mind.
  */
-uint8_t cmd[NXT_STR_SIZE] = {'\0'}; // Buffer for Nextion LCD commands
-
+char cmd[NXT_STR_SIZE] = {'\0'}; // Buffer for Nextion LCD commands
 void lcdTxUpdate() {
     if ((false == PHAL_usartTxBusy(&lcd)) && (SUCCESS_G == qReceive(&q_tx_usart, cmd))) {
-        PHAL_usartTxDma(&lcd, (uint8_t*)cmd, strlen(cmd));
+        PHAL_usartTxDma(&lcd, (uint8_t *)cmd, strlen(cmd));
     }
-}
-
-void CAN1_RX0_IRQHandler() {
-    CAN_rx_update();
-}
-
-/**
- * @brief Reads ADC values and sends scaled voltage data for different voltage rails
- *
- * Converts raw ADC values to actual voltages using voltage divider calculations
- * for 3.3V, 5V, 12V and 24V rails. Scales values by 100 before sending.
- * Resistor values must be manually updated if hardware changes.
- */
-void sendVoltageData() {
-    float adc_to_voltage = ADC_REF_VOLTAGE / 4095.0;
-
-    float adc_voltage = raw_adc_values.lv_3v3_sense * adc_to_voltage;
-    float vin_3v3     = adc_voltage * (LV_3V3_PULLUP + LV_3V3_PULLDOWN) / LV_3V3_PULLDOWN;
-
-    adc_voltage  = raw_adc_values.lv_5v_sense * adc_to_voltage;
-    float vin_5v = adc_voltage * (LV_5V_PULLUP + LV_5V_PULLDOWN) / LV_5V_PULLDOWN;
-
-    adc_voltage   = raw_adc_values.lv_12v_sense * adc_to_voltage;
-    float vin_12v = adc_voltage * (LV_12V_PULLUP + LV_12V_PULLDOWN) / LV_12V_PULLDOWN;
-
-    adc_voltage   = raw_adc_values.lv_24_v_sense * adc_to_voltage;
-    float vin_24v = adc_voltage * (LV_24V_PULLUP + LV_24V_PULLDOWN) / LV_24V_PULLDOWN;
-
-    // Scale to 100x before sending
-    CAN_SEND_dashboard_voltage(vin_3v3 * 100, vin_5v * 100, vin_12v * 100, vin_24v * 100);
 }
 
 void pollBrakeStatus() {
@@ -485,6 +438,7 @@ void pollBrakeStatus() {
 
 void HardFault_Handler() {
     schedPause();
-    while (1)
+    while (true) {
         IWDG->KR = 0xAAAA; // Reset watchdog
+    }
 }

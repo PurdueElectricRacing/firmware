@@ -22,7 +22,8 @@ volatile uint16_t fault_buf[5] = { // Buffer of displayed faults
     0xFFFF,
     0xFFFF,
     0xFFFF,
-    0xFFFF};
+    0xFFFF
+};
 char* errorText; // Pointer to data to display for the Error, Warning, and Critical Fault codes
 extern pedal_values_t pedal_values; // Global from pedals module for throttle display
 extern q_handle_t q_fault_history; // Global queue from fault library for fault history
@@ -91,18 +92,18 @@ void set_faultIndicator(uint16_t fault, char* element);
 const page_handler_t page_handlers[] = {
     // Order must match page_t enum
     [PAGE_RACE]        = {racePageUpdate, raceUpCallback, raceDownCallback, raceSelect, raceTelemetryUpdate}, // No move handlers, telemetry is passive
-    [PAGE_COOLING]     = {coolingPageUpdate, coolingMoveUp, coolingMoveDown, coolingSelect, NULL},
-    [PAGE_TVSETTINGS]  = {tvPageUpdate, tvMoveUp, tvMoveDown, tvSelect, NULL},
+    [PAGE_COOLING]     = {coolingPageUpdate, coolingMoveUp, coolingMoveDown, coolingSelect, nullptr},
+    [PAGE_TVSETTINGS]  = {tvPageUpdate, tvMoveUp, tvMoveDown, tvSelect, nullptr},
     [PAGE_FAULTS]      = {faultsPageUpdate, faultsMoveUp, faultsMoveDown, faultsSelect, faultTelemetryUpdate},
-    [PAGE_SDCINFO]     = {NULL, NULL, NULL, NULL, sdcTelemetryUpdate}, // SDCINFO is passive
-    [PAGE_DRIVER]      = {driverPageUpdate, driverMoveUp, driverMoveDown, driverSelect, NULL},
+    [PAGE_SDCINFO]     = {nullptr, nullptr, nullptr, nullptr, sdcTelemetryUpdate}, // SDCINFO is passive
+    [PAGE_DRIVER]      = {driverPageUpdate, driverMoveUp, driverMoveDown, driverSelect, nullptr},
     [PAGE_PROFILES]    = {pedalProfilesPageUpdate, pedalProfilesMoveUp, pedalProfilesMoveDown, pedalProfilesSelect, NULL},
-    [PAGE_LOGGING]     = {loggingPageUpdate, NULL, NULL, loggingSelect, NULL},
-    [PAGE_CALIBRATION] = {NULL, NULL, NULL, NULL, calibrationTelemetryUpdate}, // Calibration is passive
-    [PAGE_PREFLIGHT]   = {NULL, NULL, NULL, NULL, NULL}, // Preflight is passive
-    [PAGE_WARNING]     = {NULL, NULL, NULL, errorPageSelect, NULL}, // Error pages share a select handler
-    [PAGE_ERROR]       = {NULL, NULL, NULL, errorPageSelect, NULL}, // Error pages share a select handler
-    [PAGE_FATAL]       = {NULL, NULL, NULL, errorPageSelect, NULL} // Error pages share a select handler
+    [PAGE_LOGGING]     = {loggingPageUpdate, nullptr, nullptr, loggingSelect, nullptr},
+    [PAGE_CALIBRATION] = {nullptr, nullptr, nullptr, nullptr, calibrationTelemetryUpdate}, // Calibration is passive
+    [PAGE_PREFLIGHT]   = {nullptr, nullptr, nullptr, nullptr, nullptr}, // Preflight is passive
+    [PAGE_WARNING]     = {nullptr, nullptr, nullptr, errorPageSelect, nullptr}, // Error pages share a select handler
+    [PAGE_ERROR]       = {nullptr, nullptr, nullptr, errorPageSelect, nullptr}, // Error pages share a select handler
+    [PAGE_FATAL]       = {nullptr, nullptr, nullptr, errorPageSelect, nullptr} // Error pages share a select handler
 };
 
 menu_element_t race_elements[] = {
@@ -111,7 +112,8 @@ menu_element_t race_elements[] = {
         .object_name   = RACE_TV_ON,
         .current_value = 0,
         .on_change     = sendTVParameters,
-    }};
+    }
+};
 
 menu_page_t race_page = {
     .elements            = race_elements,

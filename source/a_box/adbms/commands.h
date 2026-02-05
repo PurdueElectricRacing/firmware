@@ -102,7 +102,7 @@ extern const uint8_t PLSADC[2];
 extern const uint8_t PLAUX1[2];
 extern const uint8_t PLAUX2[2];
 
-// Diagn command
+// Diagnostic command
 extern const uint8_t DIAGN[2];
 
 // GPIOs commands

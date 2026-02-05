@@ -101,7 +101,7 @@ const uint8_t PLSADC[2]        = { 0x07, 0x1D };
 const uint8_t PLAUX1[2]        = { 0x07, 0x1E };
 const uint8_t PLAUX2[2]        = { 0x07, 0x1F };
 
-// Diagn command
+// Diagnostic command
 const uint8_t DIAGN[2]         = { 0x07, 0x15 };
 
 // GPIOs commands

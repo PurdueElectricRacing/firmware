@@ -14,7 +14,9 @@
  */
 
 #include "nextion.h"
+#include "common/strbuf/strbuf.h"
 #include <stdarg.h>
+#include <stdint.h>
 
 /**
  * @brief helper function to queue a strbuf command

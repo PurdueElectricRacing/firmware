@@ -13,6 +13,7 @@ static inline void {{ periph }}_set_filters() {
         {% endfor %}
     };
     {% endif %}
+
     {% if fdcan_filt.ext_ids %}
     static uint32_t xid_list[] = {
         {% for msg in fdcan_filt.ext_ids %}
@@ -20,9 +21,20 @@ static inline void {{ periph }}_set_filters() {
         {% endfor %}
     };
     {% endif %}
-    PHAL_FDCAN_setFilters({{ periph }},
-        {% if fdcan_filt.std_ids %}sid_list, {{ fdcan_filt.std_ids|length }}{% else %}NULL, 0{% endif %},
-        {% if fdcan_filt.ext_ids %}xid_list, {{ fdcan_filt.ext_ids|length }}{% else %}NULL, 0{% endif %});
+
+    PHAL_FDCAN_setFilters(
+        {{ periph }},
+        {% if fdcan_filt.std_ids %}
+        sid_list, {{ fdcan_filt.std_ids|length }},
+        {% else %}
+        NULL, 0,
+        {% endif %}
+        {% if fdcan_filt.ext_ids %}xid_list,
+        {{ fdcan_filt.ext_ids|length }}
+        {% else %}
+        NULL, 0
+        {% endif %}
+    );
     {% else %}
     // No filters configured
     (void)0;

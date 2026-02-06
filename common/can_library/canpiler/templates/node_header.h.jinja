@@ -160,9 +160,11 @@ static inline void CAN_SEND_{{ tx_msg.name }}(
 {% for periph in peripherals %}
 {% if periph.startswith("FDCAN") %}
 {% include "fdcan_filter.c.jinja" %}
+
 {% else %}
 {% include "bxcan_filter.c.jinja" %}
+
 {% endif %}
 {% endfor %}
 
-#endif
+#endif // {{ node.name|upper }}_H

@@ -97,7 +97,7 @@ var searchData=
   ['instruction_5flines_94',['instruction_lines',['../structQUADSPI__Config__t.html#a3aaa740f7f1bd480657c6718be8939a1',1,'QUADSPI_Config_t']]],
   ['internal_5ftherm_95',['internal_therm',['../struct____attribute____.html#ad59b0cb9b369657cb11983576aea1937',1,'__attribute__']]],
   ['internal_5ftherm_5fadc_5fchnl_96',['INTERNAL_THERM_ADC_CHNL',['../main__module_2main_8h.html#a1cbc6a9cd1dee627e19b856033260320',1,'INTERNAL_THERM_ADC_CHNL:&#160;main.h'],['../pdu_2main_8h.html#a1cbc6a9cd1dee627e19b856033260320',1,'INTERNAL_THERM_ADC_CHNL:&#160;main.h']]],
-  ['interpretloadsensor_97',['interpretLoadSensor',['../dashboard_2main_8c.html#a538b9ee9d40df9460e4ca280fd7d7a5a',1,'interpretLoadSensor(void):&#160;main.c'],['../main__module_2main_8c.html#a538b9ee9d40df9460e4ca280fd7d7a5a',1,'interpretLoadSensor(void):&#160;main.c']]],
+  ['interpretloadsensor_97',['interpretLoadSensor',['../main__module_2main_8c.html#a538b9ee9d40df9460e4ca280fd7d7a5a',1,'main.c']]],
   ['interrupt_98',['INTERRUPT',['../phal__L4_2usart_2usart_8h.html#acaaee747d423cb49896842b4c05637f0ad5f5c57f205afd4f9df70a8c4e194b45',1,'usart.h']]],
   ['intlevel_99',['INTLEVEL',['../group__Common__register__group.html#ga44cf25d713df4e47aa2e2129a80d2d81',1,'w5500.h']]],
   ['intr_5fkind_100',['intr_kind',['../group__DATA__TYPE.html#gac6b85cbd7d245ccf3cbfa734760d6ed3',1,'wizchip_conf.h']]],

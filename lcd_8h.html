@@ -341,8 +341,14 @@ Functions</h2></td></tr>
 <tr class="memitem:a08529d00f32f8441dc7669b1a1d3783c" id="r_a08529d00f32f8441dc7669b1a1d3783c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08529d00f32f8441dc7669b1a1d3783c">initLCD</a> ()</td></tr>
 <tr class="separator:a08529d00f32f8441dc7669b1a1d3783c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa13fa254ddd44573fd2a83874763cae8" id="r_aa13fa254ddd44573fd2a83874763cae8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa13fa254ddd44573fd2a83874763cae8">updatePage</a> ()</td></tr>
-<tr class="memdesc:aa13fa254ddd44573fd2a83874763cae8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates LCD display page based on encoder position.  <br /></td></tr>
+<tr class="memdesc:aa13fa254ddd44573fd2a83874763cae8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates LCD display page.  <br /></td></tr>
 <tr class="separator:aa13fa254ddd44573fd2a83874763cae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a685b031373d6540844434c69377f10d2" id="r_a685b031373d6540844434c69377f10d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a685b031373d6540844434c69377f10d2">advancePage</a> ()</td></tr>
+<tr class="memdesc:a685b031373d6540844434c69377f10d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances to the next selectable page.  <br /></td></tr>
+<tr class="separator:a685b031373d6540844434c69377f10d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab328996325a24df855157cc23430de3d" id="r_ab328996325a24df855157cc23430de3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab328996325a24df855157cc23430de3d">backPage</a> ()</td></tr>
+<tr class="memdesc:ab328996325a24df855157cc23430de3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves to the previous selectable page.  <br /></td></tr>
+<tr class="separator:ab328996325a24df855157cc23430de3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75e03afeaf9e13a6399279ed36c0c59f" id="r_a75e03afeaf9e13a6399279ed36c0c59f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75e03afeaf9e13a6399279ed36c0c59f">moveUp</a> ()</td></tr>
 <tr class="separator:a75e03afeaf9e13a6399279ed36c0c59f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a486267210dfc8118e23e6b1bc6090286" id="r_a486267210dfc8118e23e6b1bc6090286"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a486267210dfc8118e23e6b1bc6090286">moveDown</a> ()</td></tr>
@@ -1825,6 +1831,44 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a685b031373d6540844434c69377f10d2" name="a685b031373d6540844434c69377f10d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a685b031373d6540844434c69377f10d2">&#9670;&#160;</a></span>advancePage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void advancePage </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Advances to the next selectable page. </p>
+
+</div>
+</div>
+<a id="ab328996325a24df855157cc23430de3d" name="ab328996325a24df855157cc23430de3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab328996325a24df855157cc23430de3d">&#9670;&#160;</a></span>backPage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void backPage </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Moves to the previous selectable page. </p>
+
+</div>
+</div>
 <a id="a08529d00f32f8441dc7669b1a1d3783c" name="a08529d00f32f8441dc7669b1a1d3783c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a08529d00f32f8441dc7669b1a1d3783c">&#9670;&#160;</a></span>initLCD()</h2>
 
@@ -1985,9 +2029,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Updates LCD display page based on encoder position. </p>
+<p>Updates LCD display page. </p>
 <p>Key behaviors:</p><ul>
-<li>Updates current page based on encoder for non-error pages</li>
 <li>Maintains display of error pages when active </li>
 </ul>
 

@@ -96,19 +96,25 @@ $(function(){ initResizable(false); });
 Directories</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top"><span class="iconfclosed"></span>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dir_c55563ae3dd665c8fbfd7e63a14aea43.html">lcd</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top"><span class="iconfclosed"></span>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dir_f384125825516b78fb50f549a67e0c2d.html">nextion</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top"><span class="iconfclosed"></span>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dir_7d1268d878ebb53f0d1f03000315f147.html">pedals</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="files" name="files"></a>
 Files</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top"><span class="icondoc"></span>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dashboard_2main_8c.html">main.c</a></td></tr>
+<tr class="memdesc:dashboard_2main_8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">"Dashboard" node source code <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top"><a href="dashboard_2main_8h_source.html"><span class="icondoc"></span></a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dashboard_2main_8h.html">main.h</a></td></tr>
-<tr class="memdesc:dashboard_2main_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Software to measure pedal state and control the LCD display. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>This node bears the primary responsibility of managing the pedalbox and thus is a torque-path critical board.</p>
+<p>Additionally, it hosts the main user interface for the vehicle, displaying telemetry via an LCD and handling user input through buttons.</p>
+<p>Notable Files</p><ul>
+<li><code>main.c / .h</code>: Main initialization and application logic for the dashboard node.</li>
+<li><code>pedals/ <a class="el" href="pedals_8c.html">pedals.c</a> / .h</code>: Pedalbox interface and processing logic. Filtering, fault detection, CAN broadcasting for pedal signals.</li>
+<li><code>lcd/</code>: LCD display driver and UI rendering code. </li>
+</ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

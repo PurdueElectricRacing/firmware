@@ -12,5 +12,5 @@ var searchData=
   ['initlcd_9',['initLCD',['../lcd_8c.html#a08529d00f32f8441dc7669b1a1d3783c',1,'initLCD():&#160;lcd.c'],['../lcd_8h.html#a08529d00f32f8441dc7669b1a1d3783c',1,'initLCD():&#160;lcd.c']]],
   ['initmem_10',['initMem',['../eeprom__spi_8c.html#a73ee46b31719dd2669d7a81205ace711',1,'initMem(GPIO_TypeDef *wc_gpio_port, uint32_t wc_gpio_pin, SPI_InitConfig_t *spi, uint16_t version, bool force_init):&#160;eeprom_spi.c'],['../eeprom__spi_8h.html#a73ee46b31719dd2669d7a81205ace711',1,'initMem(GPIO_TypeDef *wc_gpio_port, uint32_t wc_gpio_pin, SPI_InitConfig_t *spi, uint16_t version, bool force_init):&#160;eeprom_spi.c']]],
   ['inittmu_11',['initTMU',['../tmu_8c.html#a436b269988f51ce7a84937426aef67a1',1,'initTMU():&#160;tmu.c'],['../tmu_8h.html#a436b269988f51ce7a84937426aef67a1',1,'initTMU():&#160;tmu.c']]],
-  ['interpretloadsensor_12',['interpretLoadSensor',['../dashboard_2main_8c.html#a538b9ee9d40df9460e4ca280fd7d7a5a',1,'interpretLoadSensor(void):&#160;main.c'],['../main__module_2main_8c.html#a538b9ee9d40df9460e4ca280fd7d7a5a',1,'interpretLoadSensor(void):&#160;main.c']]]
+  ['interpretloadsensor_12',['interpretLoadSensor',['../main__module_2main_8c.html#a538b9ee9d40df9460e4ca280fd7d7a5a',1,'main.c']]]
 ];

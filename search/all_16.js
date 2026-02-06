@@ -50,7 +50,7 @@ var searchData=
   ['volbase_47',['volbase',['../structFATFS.html#a89358c0e7b2293254c9481dcd2984d30',1,'FATFS']]],
   ['voltage_48',['voltage',['../structauto__switches__t.html#ae9cbf95c7dfa1ceba8c1e5beed7ef55b',1,'auto_switches_t']]],
   ['voltage_5ft_49',['voltage_t',['../structvoltage__t.html',1,'']]],
-  ['volttoforce_50',['voltToForce',['../dashboard_2main_8c.html#aeb734be46d90206d4a5216667c8e038b',1,'voltToForce(uint16_t load_read):&#160;main.c'],['../main__module_2main_8c.html#aeb734be46d90206d4a5216667c8e038b',1,'voltToForce(uint16_t load_read):&#160;main.c']]],
+  ['volttoforce_50',['voltToForce',['../main__module_2main_8c.html#aeb734be46d90206d4a5216667c8e038b',1,'main.c']]],
   ['vs_5fmax_5fsr_5fcf_51',['VS_MAX_SR_CF',['../structyVCU__struct.html#a7be6c553d8480c5ff56e251b267694b1',1,'yVCU_struct']]],
   ['vs_5fmax_5fsr_5flb_52',['VS_MAX_SR_lb',['../structpVCU__struct.html#ac75fded1aad7c66654e6adda888cb023',1,'pVCU_struct']]],
   ['vs_5fmax_5fsr_5fraw_53',['VS_MAX_SR_RAW',['../structxVCU__struct.html#a7d4b2583de64857d296ad464f3de6bc0',1,'xVCU_struct']]],

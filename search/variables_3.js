@@ -28,7 +28,7 @@ var searchData=
   ['clust_25',['clust',['../structFIL.html#aa41312aba551b9a6d1c9d3c8c7d2734b',1,'FIL::clust'],['../structDIR.html#acfbb8ba2d6e73b6f999ceffd1857c190',1,'DIR::clust']]],
   ['cm_5fderating_5ffull_5ft_26',['Cm_derating_full_T',['../structpVCU__struct.html#a96279806286ee6ce6566f9cea7fb76b2',1,'pVCU_struct']]],
   ['cm_5fderating_5fzero_5ft_27',['Cm_derating_zero_T',['../structpVCU__struct.html#aade9a60610a2745df4f9a7647697f8db',1,'pVCU_struct']]],
-  ['cmd_28',['cmd',['../dashboard_2main_8c.html#a4971180e813d33303c758243debeb13e',1,'main.c']]],
+  ['cmd_28',['cmd',['../dashboard_2main_8c.html#ad30385594919e78ab5882386f9368562',1,'main.c']]],
   ['cnt_5fentry_29',['cnt_entry',['../structcpu__time__t.html#a6656d32542cd51ba88d04db485b3e156',1,'cpu_time_t']]],
   ['cnt_5fexit_30',['cnt_exit',['../structcpu__time__t.html#ad53f0ab6c111e6396b3b176e7a7a9774',1,'cpu_time_t']]],
   ['config_31',['config',['../structGPIOInitConfig__t.html#a51a21162933de93a8467002f6f090c78',1,'GPIOInitConfig_t::config'],['../structGPIOInitConfig__t.html#a9ca5cb4f1c2940cbfd48249c0abf49ef',1,'GPIOInitConfig_t::config'],['../daq_8c.html#a25ce4b69d296fc9a3324b494542c2420',1,'config:&#160;daq.c'],['../daq_8h.html#a25ce4b69d296fc9a3324b494542c2420',1,'config:&#160;daq.c']]],

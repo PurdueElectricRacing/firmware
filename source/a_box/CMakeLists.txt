@@ -8,13 +8,13 @@ set(TARGET_NAME ${COMPONENT_NAME}.elf)
 add_executable(${TARGET_NAME})
 
 # Create the CAN node library for this component
-create_can_node_lib(A_BOX "CMSIS_F407;FREERTOS_F407")
+create_can_node_lib(A_BOX "CMSIS_G474;FREERTOS_G474")
 
 # Propreties are set in order to make the common component
 set_target_properties(${TARGET_NAME} PROPERTIES
     COMPONENT_NAME ${COMPONENT_NAME}
     COMPONENT_DIR  ${CMAKE_CURRENT_LIST_DIR}
-    LINKER_SCRIPT  "STM32F407VGTx_FLASH"
-    COMMON_LIBS    "CMSIS_F407;PSCHED_F407;QUEUE;can_node_A_BOX;PHAL_F407;m;BOOTLOADER_COMMON_F407"
+    LINKER_SCRIPT  "STM32G474RETX_FLASH"
+    COMMON_LIBS    "can_node_A_BOX;CMSIS_G474;FREERTOS_G474;PHAL_G474;"
 )
 COMMON_FIRMWARE_COMPONENT(${TARGET_NAME})

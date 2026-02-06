@@ -159,82 +159,9 @@ static inline void CAN_SEND_{{ tx_msg.name }}(
 // Filter configuration
 {% for periph in peripherals %}
 {% if periph.startswith("FDCAN") %}
-// FDCAN filter setup for {{ periph }}
-static inline void {{ periph }}_set_filters() {
-    {% set fdcan_filt = mapping.fdcan_filters.get(periph) %}
-    {% set accept_all = mapping.accept_all.get(periph, False) %}
-    {% if accept_all %}
-    // Accept all messages - filters configured in PHAL_FDCAN_init() by default
-    (void)0;
-    {% elif fdcan_filt and (fdcan_filt.std_ids or fdcan_filt.ext_ids) %}
-    {% if fdcan_filt.std_ids %}
-    static uint32_t sid_list[] = {
-        {% for msg in fdcan_filt.std_ids %}
-        {{ msg.macro_name }}_MSG_ID{{ "," if not loop.last }}
-        {% endfor %}
-    };
-    {% endif %}
-    {% if fdcan_filt.ext_ids %}
-    static uint32_t xid_list[] = {
-        {% for msg in fdcan_filt.ext_ids %}
-        {{ msg.macro_name }}_MSG_ID{{ "," if not loop.last }}
-        {% endfor %}
-    };
-    {% endif %}
-    PHAL_FDCAN_setFilters({{ periph }},
-        {% if fdcan_filt.std_ids %}sid_list, {{ fdcan_filt.std_ids|length }}{% else %}NULL, 0{% endif %},
-        {% if fdcan_filt.ext_ids %}xid_list, {{ fdcan_filt.ext_ids|length }}{% else %}NULL, 0{% endif %});
-    {% else %}
-    // No filters configured
-    (void)0;
-    {% endif %}
-}
+{% include "fdcan_filter.c.jinja" %}
 {% else %}
-// bxCAN filter setup for {{ periph }}
-static inline void {{ periph }}_set_filters() {
-    {% set banks = mapping.filters.get(periph, []) %}
-    {% set accept_all = mapping.accept_all.get(periph, False) %}
-    {% if not banks and not accept_all %}
-    return;
-    {% elif accept_all %}
-    // Accept all messages
-    {% set bank_idx = 0 if periph == "CAN1" else 14 %}
-    {{ periph }}->FM1R &= ~(1 << {{ bank_idx }}); // Mask mode
-    {{ periph }}->FS1R |= (1 << {{ bank_idx }});  // 32-bit scale
-    {{ periph }}->FA1R |= (1 << {{ bank_idx }});
-    {{ periph }}->sFilterRegister[{{ bank_idx }}].FR1 = 0;
-    {{ periph }}->sFilterRegister[{{ bank_idx }}].FR2 = 0;
-    {% else %}
-    {{ periph }}->FM1R |= 0x07FFFFFF; // Set banks 0-27 to id mode
-    {{ periph }}->FS1R |= 0x07FFFFFF; // Set banks 0-27 to 32-bit scale
-
-    {% for fb in banks %}
-    // Bank {{ fb.bank_idx }}: {{ fb.msg1.name }}{% if fb.msg2 %}, {{ fb.msg2.name }}{% endif %}
-
-    {{ periph }}->FA1R |= (1 << {{ fb.bank_idx }});
-    {% set m1_macro = fb.msg1.macro_name ~ "_MSG_ID" %}
-    {% if fb.is_ext1 %}
-    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR1 = (({{ m1_macro }}) << 3) | 4;
-    {% else %}
-    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR1 = (({{ m1_macro }}) << 21);
-    {% endif %}
-    {% if fb.msg2 %}
-    {% set m2_macro = fb.msg2.macro_name ~ "_MSG_ID" %}
-    {% if fb.is_ext2 %}
-    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m2_macro }}) << 3) | 4;
-    {% else %}
-    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m2_macro }}) << 21);
-    {% endif %}
-    {% else %}
-    {% if fb.is_ext1 %}
-    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m1_macro }}) << 3) | 4;
-    {% else %}
-    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m1_macro }}) << 21);
-    {% endif %}
-    {% endif %}
-    {% endfor %}
-    {% endif %}
-}
+{% include "bxcan_filter.c.jinja" %}
 {% endif %}
 {% endfor %}
 

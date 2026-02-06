@@ -124,7 +124,6 @@ extern page_t curr_page;
 volatile dashboard_input_state_t input_state = {0}; // Clear all input states
 
 /* Function Prototypes */
-void preflight_sequence(void);
 void preflightAnimation(void);
 void heartBeatLED();
 void lcdTxUpdate();
@@ -137,12 +136,13 @@ extern void HardFault_Handler();
 
 // Communication queues
 q_handle_t q_tx_usart;
-bool g_is_preflight_complete = false;
 
 void preflight_task();
 void can_worker_task();
 
-defineThreadStack(preflight_task, 10, osPriorityHigh, 1024);
+// The preflight thread must not be interrupted, give highest priority
+defineThreadStack(preflight_task, 10, osPriorityRealtime, 1024);
+
 defineThreadStack(pedalsPeriodic, FILT_THROTTLE_BRAKE_PERIOD_MS, osPriorityHigh, 512);
 defineThreadStack(can_worker_task, 20, osPriorityNormal, 512);
 
@@ -156,11 +156,22 @@ defineThreadStack(sendTVParameters, DASHBOARD_VCU_PARAMETERS_PERIOD_MS, osPriori
 void preflight_task() {
     static uint8_t counter = 0;
 
-    // run animation until preflight complete for at least 1.5 seconds
-    if (g_is_preflight_complete && (counter >= 150)) {
+    // run animation until for at least 1.5 seconds
+    if (counter >= 150) {
         PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);
         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
         PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 0);
+
+        // spawn the other threads
+        createThread(pedalsPeriodic);
+        createThread(can_worker_task);
+
+        createThread(updateFaultDisplay)
+        createThread(heartBeatLED)
+        createThread(handleDashboardInputs)
+        createThread(sendVersion)
+        createThread(updateTelemetryPages)
+        createThread(sendTVParameters)
         osThreadExit(); // Self delete
         return;
     }
@@ -168,8 +179,6 @@ void preflight_task() {
     if (counter % 10 == 0) { // Run every 100ms
         preflightAnimation();
     }
-
-    preflight_sequence();
     
     counter++;
 }
@@ -185,15 +194,35 @@ void can_worker_task() {
 }
 
 int main(void) {
-    osKernelInitialize();
-
-    /* HAL Initilization */
+    // Hardware Initialization
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
     if (false == PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
         HardFault_Handler();
     }
+    if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
+        HardFault_Handler();
+    }
+    if (false == PHAL_initUSART(&lcd, APB2ClockRateHz)) {
+        HardFault_Handler();
+    }
+    if (false == PHAL_initADC(&adc_config, adc_channel_config, sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
+        HardFault_Handler();
+    }
+    if (false == PHAL_initDMA(&adc_dma_config)) {
+        HardFault_Handler();
+    }
+    PHAL_startTxfer(&adc_dma_config);
+    PHAL_startADC(&adc_config);
+
+    // Begin Software Init tasks
+    osKernelInitialize();
+
+    CAN_library_init();
+    initLCD();
+    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
+    enableInterrupts();
 
     // show signs of life
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
@@ -211,67 +240,6 @@ int main(void) {
     osKernelStart(); // GO!
 
     return 0;
-}
-
-/**
- * @brief Performs sequential initialization and setup of system peripherals and modules.
- *
- * @note Called repeatedly until preflight is registered as complete
- */
-void preflight_sequence(void) {
-    static uint8_t step_10ms = 0;
-
-    switch (step_10ms++) {
-        case 0:
-            if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
-                HardFault_Handler();
-            }
-            NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
-            break;
-        case 1:
-            if (false == PHAL_initUSART(&lcd, APB2ClockRateHz)) {
-                HardFault_Handler();
-            }
-            break;
-        case 2:
-            if (false == PHAL_initADC(&adc_config, adc_channel_config, sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
-                HardFault_Handler();
-            }
-            if (false == PHAL_initDMA(&adc_dma_config)) {
-                HardFault_Handler();
-            }
-            PHAL_startTxfer(&adc_dma_config);
-            PHAL_startADC(&adc_config);
-            break;
-        case 3:
-            /* Module Initialization */
-            CAN_library_init();
-            break;
-        case 4:
-            enableInterrupts();
-            break;
-        case 5:
-            initLCD();
-            break;
-        case 6: {
-            // create the other tasks here
-            createThread(pedalsPeriodic);
-            createThread(can_worker_task);
-
-            createThread(updateFaultDisplay)
-            createThread(heartBeatLED)
-            createThread(handleDashboardInputs)
-            createThread(sendVersion)
-            createThread(updateTelemetryPages)
-            createThread(sendTVParameters)
-            break;
-        }
-        default: {
-            g_is_preflight_complete = true;
-            step_10ms = 255; // prevent wrap around
-            break;
-        }
-    }
 }
 
 void preflightAnimation(void) {

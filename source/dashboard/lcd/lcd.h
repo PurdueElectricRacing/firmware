@@ -162,6 +162,8 @@ typedef struct {
 
 void initLCD(); // Initialize LCD data structures and configuration
 void updatePage(); // Change the current page of the LCD
+void advancePage(); // Advance to the next selectable page
+void backPage(); // Move to the previous selectable page
 void moveUp(); // Upward UI input detected (up button or in some cases encoder)
 void moveDown(); // Downward UI input detected (down button or in some cases encoder)
 void selectItem(); // Selection UI input detected

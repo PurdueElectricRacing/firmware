@@ -22,12 +22,12 @@ volatile uint16_t fault_buf[5] = { // Buffer of displayed faults
     0xFFFF,
     0xFFFF,
     0xFFFF,
-    0xFFFF};
+    0xFFFF
+};
 char* errorText; // Pointer to data to display for the Error, Warning, and Critical Fault codes
 extern pedal_values_t pedal_values; // Global from pedals module for throttle display
 extern q_handle_t q_fault_history; // Global queue from fault library for fault history
 extern volatile dashboard_input_state_t input_state; // Global dashboard input states
-extern brake_status_t brake_status; // Global brake status struct
 extern driver_pedal_profile_t driver_pedal_profiles[4];
 
 // Driver Page Functions
@@ -91,18 +91,18 @@ void set_faultIndicator(uint16_t fault, char* element);
 const page_handler_t page_handlers[] = {
     // Order must match page_t enum
     [PAGE_RACE]        = {racePageUpdate, raceUpCallback, raceDownCallback, raceSelect, raceTelemetryUpdate}, // No move handlers, telemetry is passive
-    [PAGE_COOLING]     = {coolingPageUpdate, coolingMoveUp, coolingMoveDown, coolingSelect, NULL},
-    [PAGE_TVSETTINGS]  = {tvPageUpdate, tvMoveUp, tvMoveDown, tvSelect, NULL},
+    [PAGE_COOLING]     = {coolingPageUpdate, coolingMoveUp, coolingMoveDown, coolingSelect, nullptr},
+    [PAGE_TVSETTINGS]  = {tvPageUpdate, tvMoveUp, tvMoveDown, tvSelect, nullptr},
     [PAGE_FAULTS]      = {faultsPageUpdate, faultsMoveUp, faultsMoveDown, faultsSelect, faultTelemetryUpdate},
-    [PAGE_SDCINFO]     = {NULL, NULL, NULL, NULL, sdcTelemetryUpdate}, // SDCINFO is passive
-    [PAGE_DRIVER]      = {driverPageUpdate, driverMoveUp, driverMoveDown, driverSelect, NULL},
+    [PAGE_SDCINFO]     = {nullptr, nullptr, nullptr, nullptr, sdcTelemetryUpdate}, // SDCINFO is passive
+    [PAGE_DRIVER]      = {driverPageUpdate, driverMoveUp, driverMoveDown, driverSelect, nullptr},
     [PAGE_PROFILES]    = {pedalProfilesPageUpdate, pedalProfilesMoveUp, pedalProfilesMoveDown, pedalProfilesSelect, NULL},
-    [PAGE_LOGGING]     = {loggingPageUpdate, NULL, NULL, loggingSelect, NULL},
-    [PAGE_CALIBRATION] = {NULL, NULL, NULL, NULL, calibrationTelemetryUpdate}, // Calibration is passive
-    [PAGE_PREFLIGHT]   = {NULL, NULL, NULL, NULL, NULL}, // Preflight is passive
-    [PAGE_WARNING]     = {NULL, NULL, NULL, errorPageSelect, NULL}, // Error pages share a select handler
-    [PAGE_ERROR]       = {NULL, NULL, NULL, errorPageSelect, NULL}, // Error pages share a select handler
-    [PAGE_FATAL]       = {NULL, NULL, NULL, errorPageSelect, NULL} // Error pages share a select handler
+    [PAGE_LOGGING]     = {loggingPageUpdate, nullptr, nullptr, loggingSelect, nullptr},
+    [PAGE_CALIBRATION] = {nullptr, nullptr, nullptr, nullptr, calibrationTelemetryUpdate}, // Calibration is passive
+    [PAGE_PREFLIGHT]   = {nullptr, nullptr, nullptr, nullptr, nullptr}, // Preflight is passive
+    [PAGE_WARNING]     = {nullptr, nullptr, nullptr, errorPageSelect, nullptr}, // Error pages share a select handler
+    [PAGE_ERROR]       = {nullptr, nullptr, nullptr, errorPageSelect, nullptr}, // Error pages share a select handler
+    [PAGE_FATAL]       = {nullptr, nullptr, nullptr, errorPageSelect, nullptr} // Error pages share a select handler
 };
 
 menu_element_t race_elements[] = {
@@ -111,7 +111,8 @@ menu_element_t race_elements[] = {
         .object_name   = RACE_TV_ON,
         .current_value = 0,
         .on_change     = sendTVParameters,
-    }};
+    }
+};
 
 menu_page_t race_page = {
     .elements            = race_elements,
@@ -374,19 +375,49 @@ void initLCD() {
 }
 
 /**
- * @brief Updates LCD display page based on encoder position
+ * @brief Advances to the next selectable page
+ */
+void advancePage() {
+    bool is_error_page = (curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL);
+    if (is_error_page) return;
+
+    if (curr_page == PAGE_CALIBRATION) {
+        curr_page = PAGE_RACE;
+    } else {
+        curr_page++;
+    }
+
+    updatePage();
+}
+
+/**
+ * @brief Moves to the previous selectable page
+ */
+void backPage() {
+    bool is_error_page = (curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL);
+    if (is_error_page) return;
+
+    if (curr_page == PAGE_RACE) {
+        curr_page = PAGE_CALIBRATION;
+    } else {
+        curr_page--;
+    }
+
+    updatePage();
+}
+
+/**
+ * @brief Updates LCD display page
  *
  * Key behaviors:
- * - Updates current page based on encoder for non-error pages
  * - Maintains display of error pages when active
  */
 void updatePage() {
-    // Only update the encoder if we are on a "selectable" page
+    // Only update if we are on a "selectable" page
     bool is_error_page = (curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL);
 
     // Only update prev_page for non-error pages
     if (!is_error_page) {
-        curr_page            = input_state.encoder_position;
         fault_time_displayed = 0;
     }
 
@@ -544,40 +575,9 @@ void calibrationTelemetryUpdate() {
     uint16_t brake1_thresh = 0;
     uint16_t brake2_thresh = 0;
 
-    // 2 updates left in the queue, updaate infrequent items at 1/3 the rate
-    switch (update_group) {
-        case 0:
-            // update brake stat
-            if (brake_status.brake_status) {
-                NXT_setText(CALIBRATION_BRAKE_STAT, "ON");
-                NXT_setFontColor(CALIBRATION_BRAKE_STAT, GREEN);
-            } else {
-                NXT_setText(CALIBRATION_BRAKE_STAT, "OFF");
-                NXT_setFontColor(CALIBRATION_BRAKE_STAT, WHITE);
-            }
-            update_group++;
-            break;
-        case 1:
-            // update brake fail
-            if (brake_status.brake_fail) {
-                NXT_setText(CALIBRATION_BRAKE_FAIL, "FAIL");
-                NXT_setFontColor(CALIBRATION_BRAKE_FAIL, RED);
-            } else {
-                NXT_setText(CALIBRATION_BRAKE_FAIL, "OK");
-                NXT_setFontColor(CALIBRATION_BRAKE_FAIL, GREEN);
-            }
-            update_group++;
-            break;
-        case 2:
-            // update bspd thresholds
-            NXT_setValue(CALIBRATION_BRAKE1_THRESHOLD, brake1_thresh);
-            NXT_setValue(CALIBRATION_BRAKE2_THRESHOLD, brake2_thresh);
-            update_group = 0;
-            break;
-        default:
-            update_group = 0;
-            break;
-    }
+    // update bspd thresholds
+    NXT_setValue(CALIBRATION_BRAKE1_THRESHOLD, brake1_thresh);
+    NXT_setValue(CALIBRATION_BRAKE2_THRESHOLD, brake2_thresh);
 }
 
 /**

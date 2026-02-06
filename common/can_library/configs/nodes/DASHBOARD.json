@@ -3,7 +3,7 @@
     "scheduler": "psched",
     "busses": {
         "VCAN": {
-            "peripheral": "CAN1",
+            "peripheral": "FDCAN2",
             "tx": [
                 {
                     "msg_name": "raw_throttle_brake",
@@ -168,38 +168,6 @@
                         }
                     ],
                     "msg_period": 4000,
-                    "msg_priority": 4
-                },
-                {
-                    "msg_name": "dashboard_voltage",
-                    "msg_desc": "Voltage rail measurements on dashboard",
-                    "signals": [
-                        {
-                            "sig_name": "volts_3v3",
-                            "type": "uint16_t",
-                            "scale": 0.01,
-                            "unit": "V"
-                        },
-                        {
-                            "sig_name": "volts_5v",
-                            "type": "uint16_t",
-                            "scale": 0.01,
-                            "unit": "V"
-                        },
-                        {
-                            "sig_name": "volts_12v",
-                            "type": "uint16_t",
-                            "scale": 0.01,
-                            "unit": "V"
-                        },
-                        {
-                            "sig_name": "volts_24v",
-                            "type": "uint16_t",
-                            "scale": 0.01,
-                            "unit": "V"
-                        }
-                    ],
-                    "msg_period": 5000,
                     "msg_priority": 4
                 },
                 {

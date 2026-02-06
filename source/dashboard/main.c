@@ -124,14 +124,12 @@ extern page_t curr_page;
 volatile dashboard_input_state_t input_state = {0}; // Clear all input states
 
 /* Function Prototypes */
-void preflightAnimation(void);
-void heartBeatLED();
-void lcdTxUpdate();
-void enableInterrupts();
-void encoderISR();
-void handleDashboardInputs();
-void sendBrakeStatus();
-void sendVersion();
+void preflight_animation(void);
+void heartbeat_led();
+void lcd_tx_cmd();
+void config_button_irqs();
+void service_button_inputs();
+void send_version();
 extern void HardFault_Handler();
 
 // Communication queues
@@ -140,58 +138,20 @@ q_handle_t q_tx_usart;
 void preflight_task();
 void can_worker_task();
 
-// The preflight thread must not be interrupted, give highest priority
+// The preflight thread must not be interrupted, give highest priority (will self exit when finished)
 defineThreadStack(preflight_task, 10, osPriorityRealtime, 1024);
 
+// System critical threads
 defineThreadStack(pedalsPeriodic, FILT_THROTTLE_BRAKE_PERIOD_MS, osPriorityHigh, 512);
 defineThreadStack(can_worker_task, 20, osPriorityNormal, 512);
 
+// Auxilary threads
 defineThreadStack(updateFaultDisplay, 500, osPriorityLow, 256);
-defineThreadStack(heartBeatLED, 500, osPriorityLow, 128);
-defineThreadStack(handleDashboardInputs, 50, osPriorityLow, 1024);
-defineThreadStack(sendVersion, DASH_VERSION_PERIOD_MS, osPriorityLow, 256);
+defineThreadStack(heartbeat_led, 500, osPriorityLow, 128);
+defineThreadStack(service_button_inputs, 50, osPriorityLow, 1024);
+defineThreadStack(send_version, DASH_VERSION_PERIOD_MS, osPriorityLow, 256);
 defineThreadStack(updateTelemetryPages, 200, osPriorityLow, 1024);
 defineThreadStack(sendTVParameters, DASHBOARD_VCU_PARAMETERS_PERIOD_MS, osPriorityLow, 256);
-
-void preflight_task() {
-    static uint8_t counter = 0;
-
-    // run animation until for at least 1.5 seconds
-    if (counter >= 150) {
-        PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);
-        PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
-        PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 0);
-
-        // spawn the other threads
-        createThread(pedalsPeriodic);
-        createThread(can_worker_task);
-
-        createThread(updateFaultDisplay)
-        createThread(heartBeatLED)
-        createThread(handleDashboardInputs)
-        createThread(sendVersion)
-        createThread(updateTelemetryPages)
-        createThread(sendTVParameters)
-        osThreadExit(); // Self delete
-        return;
-    }
-
-    if (counter % 10 == 0) { // Run every 100ms
-        preflightAnimation();
-    }
-    
-    counter++;
-}
-
-void can_worker_task() {
-    // Process all received CAN messages
-    CAN_rx_update();
-
-    // Drain all CAN transmit queues
-    CAN_tx_update();
-
-    lcdTxUpdate();
-}
 
 int main(void) {
     // Hardware Initialization
@@ -216,13 +176,13 @@ int main(void) {
     PHAL_startTxfer(&adc_dma_config);
     PHAL_startADC(&adc_config);
 
-    // Begin Software Init tasks
+    // Software Initialization
     osKernelInitialize();
 
     CAN_library_init();
     initLCD();
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
-    enableInterrupts();
+    config_button_irqs();
 
     // show signs of life
     PHAL_writeGPIO(BMS_LED_GPIO_Port, BMS_LED_Pin, 1);
@@ -242,7 +202,47 @@ int main(void) {
     return 0;
 }
 
-void preflightAnimation(void) {
+void preflight_task() {
+    static uint8_t counter = 0;
+
+    // run animation until for at least 1.5 seconds
+    if (counter >= 150) {
+        PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 0);
+        PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
+        PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 0);
+
+        // spawn the other threads
+        createThread(pedalsPeriodic);
+        createThread(can_worker_task);
+
+        createThread(updateFaultDisplay)
+        createThread(heartbeat_led)
+        createThread(service_button_inputs)
+        createThread(send_version)
+        createThread(updateTelemetryPages)
+        createThread(sendTVParameters)
+        osThreadExit(); // Self delete
+        return;
+    }
+
+    if (counter % 10 == 0) { // Run every 100ms
+        preflight_animation();
+    }
+    
+    counter++;
+}
+
+void can_worker_task() {
+    // Process all received CAN messages
+    CAN_rx_update();
+
+    // Drain all CAN transmit queues
+    CAN_tx_update();
+
+    lcd_tx_cmd();
+}
+
+void preflight_animation(void) {
     // Controls external LEDs since they are more visible when dash is in car
     static uint32_t external_index;
     static uint32_t sweep_index;
@@ -279,7 +279,7 @@ void preflightAnimation(void) {
     }
 }
 
-void sendVersion() {
+void send_version() {
     CAN_SEND_dash_version(GIT_HASH);
 }
 
@@ -291,7 +291,7 @@ void sendVersion() {
  * Controls heartbeat, connection, precharge, IMD and BMS status LEDs.
  * Handles periodic CAN statistics transmission.
  */
-void heartBeatLED() {
+void heartbeat_led() {
     static uint8_t imd_prev_latched;
     static uint8_t bms_prev_latched;
 
@@ -371,7 +371,7 @@ void EXTI15_10_IRQHandler() {
  *
  * Meant to be called periodically.
  */
-void handleDashboardInputs() {
+void service_button_inputs() {
     if (input_state.up_button) {
         input_state.up_button = 0;
         moveUp();
@@ -408,7 +408,7 @@ void handleDashboardInputs() {
     }
 }
 
-void enableInterrupts() {
+void config_button_irqs() {
     // Enable the SYSCFG clock for interrupts
     RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
 
@@ -441,7 +441,7 @@ void enableInterrupts() {
  * @note The queue holds a max of 10 commands. Design your LCD page updates with this in mind.
  */
 char cmd[NXT_STR_SIZE] = {'\0'}; // Buffer for Nextion LCD commands
-void lcdTxUpdate() {
+void lcd_tx_cmd() {
     if ((false == PHAL_usartTxBusy(&lcd)) && (SUCCESS_G == qReceive(&q_tx_usart, cmd))) {
         PHAL_usartTxDma(&lcd, (uint8_t *)cmd, strlen(cmd));
     }

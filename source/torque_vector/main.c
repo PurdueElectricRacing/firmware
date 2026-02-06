@@ -142,8 +142,8 @@ static uint16_t rxbuffer[(sizeof(rxmsg) + 1) / 2];
 static uint8_t txbuffer[2 + sizeof(txmsg)] = {0xAA, 0x55};
 
 /* Function Prototypes */
-void heartBeatLED(void);
-void preflightAnimation(void);
+void heartbeat_led(void);
+void preflight_animation(void);
 void preflightChecks(void);
 void reportIMU(void);
 void reportGPS(void);
@@ -174,12 +174,12 @@ int main(void) {
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
-    configureAnim(preflightAnimation, preflightChecks, 74, 1000);
+    configureAnim(preflight_animation, preflightChecks, 74, 1000);
 
     taskCreateBackground(CAN_tx_update);
     taskCreateBackground(CAN_rx_update);
 
-    taskCreate(heartBeatLED, 500);
+    taskCreate(heartbeat_led, 500);
     taskCreate(parseIMU, 20);
     taskCreate(VCU_MAIN, 20);
     taskCreate(reportIMU, IMU_ACCEL_PERIOD_MS);
@@ -312,7 +312,7 @@ void preflightChecks(void) {
     }
 }
 
-void preflightAnimation(void) {
+void preflight_animation(void) {
     static uint32_t time;
 
     PHAL_writeGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, 0);
@@ -335,7 +335,7 @@ void preflightAnimation(void) {
     }
 }
 
-void heartBeatLED(void) {
+void heartbeat_led(void) {
     PHAL_toggleGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin);
 
     if ((sched.os_ticks - can_data.main_hb.last_rx) >= CONN_LED_MS_THRESH)

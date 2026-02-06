@@ -12,9 +12,11 @@
 #include "common/phal/gpio.h"
 
 // Status LEDs
-#define HEARTBEAT_LED_PORT (GPIOB)
-#define HEARTBEAT_LED_PIN  (5)
-#define ERROR_LED_PORT     (GPIOB)
-#define ERROR_LED_PIN      (0)
+#define HEARTBEAT_LED_PORT  (GPIOB)
+#define HEARTBEAT_LED_PIN   (5)
+#define ERROR_LED_PORT      (GPIOB)
+#define ERROR_LED_PIN       (9)
+#define CONNECTION_LED_PORT (GPIOB)
+#define CONNECTION_LED_PIN  (4)
 
 #endif

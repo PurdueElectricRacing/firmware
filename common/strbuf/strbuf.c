@@ -38,7 +38,7 @@ size_t strbuf_printf(strbuf_t *sb, const char *format, ...) {
     size_t remaining_space = sb->max_len - sb->length;
 
     if (remaining_space == 0) {
-        return -1;
+        return 0;
     } 
 
     va_list args;
@@ -48,7 +48,7 @@ size_t strbuf_printf(strbuf_t *sb, const char *format, ...) {
     va_end(args);
 
     if ((size_t)len > remaining_space) {
-        return -1;
+        return 0;
     }
 
     va_start(args, format);

@@ -12,6 +12,7 @@
 #include "menu_system.h"
 #include "nextion.h"
 #include "pedals.h"
+#include "common/strbuf/strbuf.h"
 
 volatile page_t curr_page; // Current page displayed on the LCD
 volatile page_t prev_page; // Previous page displayed on the LCD

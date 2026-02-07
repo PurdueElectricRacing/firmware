@@ -3,7 +3,7 @@
     "scheduler": "psched",
     "busses": {
         "VCAN": {
-            "peripheral": "CAN1",
+            "peripheral": "FDCAN1",
             "tx": [
                 {
                     "msg_name": "precharge_hb",
@@ -485,7 +485,7 @@
             "accept_all_messages": false
         },
         "CCAN": {
-            "peripheral": "CAN2",
+            "peripheral": "FDCAN2",
             "tx": [
                 {
                     "msg_name": "can2_precharge_hb",

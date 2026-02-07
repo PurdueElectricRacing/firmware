@@ -1,7 +1,0 @@
-LcdDisplay:[[["Main", "OrionBMS", "orion_info", "pack_ccl", [85, 255, 0, 255]]]];
-LcdDisplay:[[["Main", "OrionBMS", "orion_info", "pack_dcl", [255, 0, 0, 255]]]];
-LcdDisplay:[[["Main", "OrionBMS", "orion_info", "pack_soc", [0, 0, 255, 255]]]];
-LcdDisplay:[[["Main", "OrionBMS", "orion_info", "dtc_status", [0, 0, 0, 255]]]];
-LcdDisplay:[[["Main", "OrionBMS", "orion_currents_volts", "pack_current", [0, 0, 0, 255]]]];
-LcdDisplay:[[["Main", "OrionBMS", "orion_currents_volts", "pack_voltage", [255, 170, 0, 255]]]];
-LcdDisplay:[[["Main", "Precharge", "max_cell_temp", "max_temp", [0, 170, 255, 255]]]];

@@ -2,10 +2,13 @@
  * @file main.c
  * @brief "Abox" node source code
  * 
- * @author Irving Wang (irvingw@purdue.edu)
+ * @author Irving Wang (irvingw@purdue.edu), Millan Kumar (kumar798@purdue.edu)
  */
 
-/* System Includes */
+#include "main.h"
+
+#include <stdint.h>
+
 #include "common/can_library/generated/A_BOX.h"
 #include "common/can_library/faults_common.h"
 #include "common/phal/can.h"
@@ -13,8 +16,20 @@
 #include "common/phal/rcc.h"
 #include "common/freertos/freertos.h"
 
-/* Module Includes */
-#include "main.h"
+#include "adbms.h"
+
+
+dma_init_t spi_rx_dma_config = SPI2_RXDMA_CONT_CONFIG(NULL, 2);
+dma_init_t spi_tx_dma_config = SPI2_TXDMA_CONT_CONFIG(NULL, 1);
+SPI_InitConfig_t bms_spi_config = {
+    .data_len  = 8,
+    .nss_sw = false, // BMS drive CS pin manually to ensure correct timing
+    .nss_gpio_port = SPI1_CS_PORT,
+    .nss_gpio_pin = SPI1_CS_PIN,
+    .rx_dma_cfg = &spi_rx_dma_config,
+    .tx_dma_cfg = &spi_tx_dma_config,
+    .periph = SPI2,
+};
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -28,7 +43,13 @@ GPIOInitConfig_t gpio_config[] = {
 
     // CCAN
     GPIO_INIT_FDCAN2RX_PB12,
-    GPIO_INIT_FDCAN2TX_PB13
+    GPIO_INIT_FDCAN2TX_PB13,
+
+    // SPI for BMS
+    GPIO_INIT_OUTPUT(SPI1_CS_PORT, SPI1_CS_PIN, GPIO_OUTPUT_HIGH_SPEED),
+    GPIO_INIT_AF(SPI1_SCK_PORT, SPI1_SCK_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_AF(SPI1_MISO_PORT, SPI1_MISO_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_AF(SPI1_MOSI_PORT, SPI1_MOSI_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
 };
 
 static constexpr uint32_t TargetCoreClockrateHz = 16000000;
@@ -47,10 +68,16 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
-extern void HardFault_Handler();
-void bms_thread();
+ADBMS_bms_t g_bms = { 0 };
+uint8_t g_bms_tx_buf[ADBMS_SPI_TX_BUFFER_SIZE] = { 0 };
 
-defineThreadStack(bms_thread, 100, osPriorityHigh, 2048);
+static constexpr float MIN_V_FOR_BALANCE = 3.0f;
+static constexpr float MIN_DELTA_FOR_BALANCE = 0.1f;
+
+extern void HardFault_Handler();
+void g_bms_periodic();
+
+defineThreadStack(g_bms_periodic, 100, osPriorityHigh, 2048);
 
 int main(void) {
     // Hardware Initilization
@@ -74,7 +101,7 @@ int main(void) {
     // Software Initalization
     osKernelInitialize();
 
-    createThread(bms_thread);
+    createThread(g_bms_periodic);
 
     // no way home
     osKernelStart();
@@ -82,9 +109,11 @@ int main(void) {
     return 0;
 }
 
-// @ millan fill ur stuff in here
-void bms_thread() {
+
+void g_bms_periodic() {
     PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
+    
+	adbms_periodic(&g_bms, MIN_V_FOR_BALANCE, MIN_DELTA_FOR_BALANCE);
 }
 
 // todo reboot on hardfault

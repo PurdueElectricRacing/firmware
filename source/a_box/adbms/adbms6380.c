@@ -12,7 +12,7 @@
 
 #include "common/phal/gpio.h"
 #include "common/phal/spi.h"
-#include "common/psched/psched.h"
+#include "common/freertos/freertos.h"
 
 #include "commands.h"
 #include "pec.h"
@@ -28,14 +28,11 @@ void adbms6380_set_cs_high(SPI_InitConfig_t* spi) {
 
 
 void adbms6380_wake(SPI_InitConfig_t* spi, size_t module_count) {
-	//! TODO: this is really janky + should not be a full blocking wait?
-
-	size_t sleep_pulses = (ADBMS6380_WAKE_DELAY_MS * 1000) / 100; // Number of 100us pulses needed
 	for (size_t i = 0; i < module_count; i++) {
 		adbms6380_set_cs_low(spi);
-		for (size_t j = 0; j < sleep_pulses; j++) waitMicros(100);
+		osDelay(ADBMS6380_WAKE_DELAY_MS);
 		adbms6380_set_cs_high(spi);
-		for (size_t j = 0; j < sleep_pulses; j++) waitMicros(100);
+		osDelay(ADBMS6380_WAKE_DELAY_MS);
 	}
 }
 

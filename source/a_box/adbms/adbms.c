@@ -42,10 +42,14 @@ bool adbms_write_rega(ADBMS_bms_t* bms) {
 		adbms6380_prepare_data_packet(&bms->tx_strbuf, bms->modules[i].rega);
 	}
 
+	adbms6380_set_cs_low(bms->spi);
 	if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
+		adbms6380_set_cs_high(bms->spi);
 		bms->err_spi = true;
 		return false;
 	}
+	adbms6380_set_cs_high(bms->spi);
+
 	return true;
 }
 
@@ -58,10 +62,13 @@ bool adbms_write_regb(ADBMS_bms_t* bms) {
 		adbms6380_prepare_data_packet(&bms->tx_strbuf, bms->modules[i].regb);
 	}
 
+	adbms6380_set_cs_low(bms->spi);
 	if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
+		adbms6380_set_cs_high(bms->spi);
 		bms->err_spi = true;
 		return false;
 	}
+	adbms6380_set_cs_high(bms->spi);
 	return true;
 }
 
@@ -134,24 +141,30 @@ void adbms_connect(ADBMS_bms_t* bms) {
 	uint8_t adcv_cmd[2];
 	adbms6380_adcv(adcv_cmd, ADBMS_RD, ADBMS_CONT, ADBMS_DCP, ADBMS_RSTF, ADBMS_OW);
 	adbms6380_prepare_command(&bms->tx_strbuf, adcv_cmd);
+	adbms6380_set_cs_low(bms->spi);
 	if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
+		adbms6380_set_cs_high(bms->spi);
 		bms->state = ADBMS_STATE_IDLE;
 		bms->err_spi = true;
 		bms->err_connect = true;
 		return;
 	}
+	adbms6380_set_cs_high(bms->spi);
 
 	// Start ADSV
 	strbuf_clear(&bms->tx_strbuf);
 	uint8_t adsv_cmd[2];
 	adbms6380_adsv(adsv_cmd, ADBMS_CONT, ADBMS_DCP, ADBMS_OW);
 	adbms6380_prepare_command(&bms->tx_strbuf, adsv_cmd);
+	adbms6380_set_cs_low(bms->spi);
 	if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
+		adbms6380_set_cs_high(bms->spi);
 		bms->state = ADBMS_STATE_IDLE;
 		bms->err_spi = true;
 		bms->err_connect = true;
 		return;
 	}
+	adbms6380_set_cs_high(bms->spi);
 
 	bms->err_connect = false;
 	bms->state = ADBMS_STATE_CONNECTED;

@@ -95,6 +95,12 @@ int main(void) {
         HardFault_Handler();
     }
 
+    if (!PHAL_SPI_init(&bms_spi_config)) {
+        HardFault_Handler();
+    }
+
+    adbms_init(&g_bms, &bms_spi_config, g_bms_tx_buf);
+
     NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
 

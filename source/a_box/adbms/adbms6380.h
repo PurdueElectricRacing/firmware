@@ -17,20 +17,20 @@
 /**
  * @brief Number of cells per ADBMS6380 device.
  */
-#define ADBMS6380_CELL_COUNT           (16)
+#define ADBMS6380_CELL_COUNT (16)
 /**
  * @brief Number of GPIO/aux channels per ADBMS6380 device.
  */
-#define ADBMS6380_GPIO_COUNT           (10)
+#define ADBMS6380_GPIO_COUNT (10)
 
 /** @brief Raw command size (bytes) for one module without PEC. */
-#define ADBMS6380_COMMAND_RAW_SIZE      (2)
+#define ADBMS6380_COMMAND_RAW_SIZE (2)
 /** @brief Command packet size (bytes) for one module including PEC. */
-#define ADBMS6380_COMMAND_PKT_SIZE      (ADBMS6380_COMMAND_RAW_SIZE + 2)
+#define ADBMS6380_COMMAND_PKT_SIZE (ADBMS6380_COMMAND_RAW_SIZE + 2)
 /** @brief Single data payload size (bytes) for one module without PEC. */
-#define ADBMS6380_SINGLE_DATA_RAW_SIZE  (6)
+#define ADBMS6380_SINGLE_DATA_RAW_SIZE (6)
 /** @brief Single data packet size (bytes) for one module including PEC. */
-#define ADBMS6380_SINGLE_DATA_PKT_SIZE  (ADBMS6380_SINGLE_DATA_RAW_SIZE + 2)
+#define ADBMS6380_SINGLE_DATA_PKT_SIZE (ADBMS6380_SINGLE_DATA_RAW_SIZE + 2)
 /** @brief RDCVALL raw payload size (bytes) for one module without PEC. */
 #define ADBMS6380_RDCVALL_DATA_RAW_SIZE (32)
 /** @brief RDCVALL packet size (bytes) for one module including PEC. */
@@ -43,19 +43,18 @@
  */
 #define ADBMS6380_WAKE_DELAY_MS (1)
 
-
 /**
  * @brief Drive the ADBMS CS line low.
  *
  * @param spi SPI configuration containing the CS GPIO.
  */
-void adbms6380_set_cs_low(SPI_InitConfig_t* spi);
+void adbms6380_set_cs_low(SPI_InitConfig_t *spi);
 /**
  * @brief Drive the ADBMS CS line high.
  *
  * @param spi SPI configuration containing the CS GPIO.
  */
-void adbms6380_set_cs_high(SPI_InitConfig_t* spi);
+void adbms6380_set_cs_high(SPI_InitConfig_t *spi);
 
 /**
  * @brief Wake a daisy-chained set of ADBMS devices.
@@ -65,7 +64,7 @@ void adbms6380_set_cs_high(SPI_InitConfig_t* spi);
  * @param spi SPI configuration containing the CS GPIO.
  * @param module_count Number of modules in the daisy chain.
  */
-void adbms6380_wake(SPI_InitConfig_t* spi, size_t module_count);
+void adbms6380_wake(SPI_InitConfig_t *spi, size_t module_count);
 
 /**
  * @brief Convert a voltage threshold (V) into 12-bit REG_B threshold encoding.
@@ -81,7 +80,7 @@ uint16_t adbms6380_get_threshold_voltage_cfg(float threshold_voltage);
  * @param idx Index of the 16-bit word to extract.
  * @return Signed 16-bit value.
  */
-int16_t adbms6380_extract_i16(uint8_t* data, int idx);
+int16_t adbms6380_extract_i16(uint8_t *data, int idx);
 /**
  * @brief Convert raw cell measurement to volts.
  *
@@ -107,7 +106,7 @@ float adbms6380_raw_to_gpio_v(int16_t raw);
  * @param rstf Reset filter.
  * @param ow Open-wire setting (2-bit).
  */
-void adbms6380_adcv(uint8_t* output_cmd, bool rd, bool cont, bool dcp, bool rstf, uint8_t ow);
+void adbms6380_adcv(uint8_t *output_cmd, bool rd, bool cont, bool dcp, bool rstf, uint8_t ow);
 /**
  * @brief Build ADSV (aux) command bytes.
  *
@@ -116,7 +115,7 @@ void adbms6380_adcv(uint8_t* output_cmd, bool rd, bool cont, bool dcp, bool rstf
  * @param dcp Discharge permitted during conversion (only affects PWM balancing, not DCC).
  * @param ow Open-wire setting (2-bit).
  */
-void adbms6380_adsv(uint8_t* output_cmd, bool cont, bool dcp, uint8_t ow);
+void adbms6380_adsv(uint8_t *output_cmd, bool cont, bool dcp, uint8_t ow);
 
 /**
  * @brief Append a command and its PEC to an output buffer.
@@ -124,14 +123,16 @@ void adbms6380_adsv(uint8_t* output_cmd, bool cont, bool dcp, uint8_t ow);
  * @param output_buffer Buffer to append into.
  * @param command 2-byte command payload.
  */
-void adbms6380_prepare_command(strbuf_t* output_buffer, const uint8_t command[ADBMS6380_COMMAND_RAW_SIZE]);
+void adbms6380_prepare_command(strbuf_t *output_buffer,
+                               const uint8_t command[ADBMS6380_COMMAND_RAW_SIZE]);
 /**
  * @brief Append a data payload and its PEC to an output buffer.
  *
  * @param output_buffer Buffer to append into.
  * @param data 6-byte data payload.
  */
-void adbms6380_prepare_data_packet(strbuf_t* output_buffer, const uint8_t data[ADBMS6380_SINGLE_DATA_RAW_SIZE]);
+void adbms6380_prepare_data_packet(strbuf_t *output_buffer,
+                                   const uint8_t data[ADBMS6380_SINGLE_DATA_RAW_SIZE]);
 
 /**
  * @brief Calculate the REG_A configuration register value.
@@ -142,7 +143,9 @@ void adbms6380_prepare_data_packet(strbuf_t* output_buffer, const uint8_t data[A
  * @param refon 1 = reference remains powered up until watchdog timeout.
  * @param cth C-ADC vs. S-ADC comparison voltage threshold.
  */
-void adbms6380_calculate_cfg_rega(uint8_t output_cfg_rega[ADBMS6380_SINGLE_DATA_RAW_SIZE], bool refon, uint8_t cth);
+void adbms6380_calculate_cfg_rega(uint8_t output_cfg_rega[ADBMS6380_SINGLE_DATA_RAW_SIZE],
+                                  bool refon,
+                                  uint8_t cth);
 /**
  * @brief Calculate the REG_B configuration register value.
  *
@@ -153,12 +156,10 @@ void adbms6380_calculate_cfg_rega(uint8_t output_cfg_rega[ADBMS6380_SINGLE_DATA_
  * @param undervoltage_threshold Undervoltage threshold in volts.
  * @param is_discharging Per-cell discharge enable flags.
  */
-void adbms6380_calculate_cfg_regb(
-	uint8_t output_cfg_regb[ADBMS6380_SINGLE_DATA_RAW_SIZE],
-	float overvoltage_threshold,
-	float undervoltage_threshold,
-	const bool is_discharging[ADBMS6380_CELL_COUNT]
-);
+void adbms6380_calculate_cfg_regb(uint8_t output_cfg_regb[ADBMS6380_SINGLE_DATA_RAW_SIZE],
+                                  float overvoltage_threshold,
+                                  float undervoltage_threshold,
+                                  const bool is_discharging[ADBMS6380_CELL_COUNT]);
 
 /**
  * @brief Read a fixed-length response from all modules after a command.
@@ -173,7 +174,11 @@ void adbms6380_calculate_cfg_regb(
  * @param rx_length Total number of bytes to read.
  * @return True on successful SPI transfers, false otherwise.
  */
-bool adbms6380_read(SPI_InitConfig_t* spi, size_t module_count, const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE], uint8_t* rx_buffer, size_t rx_length);
+bool adbms6380_read(SPI_InitConfig_t *spi,
+                    size_t module_count,
+                    const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
+                    uint8_t *rx_buffer,
+                    size_t rx_length);
 /**
  * @brief Read a single-data-packet response per module.
  *
@@ -186,7 +191,10 @@ bool adbms6380_read(SPI_InitConfig_t* spi, size_t module_count, const uint8_t cm
  * @param rx_buffer Output buffer for received bytes.
  * @return True on successful SPI transfers, false otherwise.
  */
-bool adbms6380_read_data(SPI_InitConfig_t* spi, size_t module_count, const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE], uint8_t* rx_buffer);
+bool adbms6380_read_data(SPI_InitConfig_t *spi,
+                         size_t module_count,
+                         const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
+                         uint8_t *rx_buffer);
 
 /**
  * @brief Read all cell voltages from each module.
@@ -201,13 +209,11 @@ bool adbms6380_read_data(SPI_InitConfig_t* spi, size_t module_count, const uint8
  * @param module_count Number of modules in the daisy chain.
  * @return True on success, false on SPI failure.
  */
-bool adbms6380_read_cell_voltages(
-	SPI_InitConfig_t* spi,
-	strbuf_t* cmd_buffer,
-	uint8_t* rx_buffer,
-	float** cell_voltages,
-	size_t module_count
-);
+bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
+                                  strbuf_t *cmd_buffer,
+                                  uint8_t *rx_buffer,
+                                  float **cell_voltages,
+                                  size_t module_count);
 /**
  * @brief Read all GPIO/aux voltages from each module.
  *
@@ -221,13 +227,11 @@ bool adbms6380_read_cell_voltages(
  * @param module_count Number of modules in the daisy chain.
  * @return True on success, false on SPI failure.
  */
-bool adbms6380_read_gpio_voltages(
-	SPI_InitConfig_t* spi,
-	strbuf_t* cmd_buffer,
-	uint8_t* rx_buffer,
-	float** gpio_voltages,
-	size_t module_count
-);
+bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
+                                  strbuf_t *cmd_buffer,
+                                  uint8_t *rx_buffer,
+                                  float **gpio_voltages,
+                                  size_t module_count);
 
 // Other adbms6380 related function declarations can go here
 

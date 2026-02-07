@@ -57,14 +57,11 @@ var searchData=
   ['vs_5fmax_5fsr_5fub_54',['VS_MAX_SR_ub',['../structpVCU__struct.html#a04bfff2fbf134e7ae3962b0bc38fdce3',1,'pVCU_struct']]],
   ['vs_5fpermit_5fbuffer_55',['VS_permit_buffer',['../structyVCU__struct.html#ae11f8d91bbadae125d38234498b10620',1,'yVCU_struct']]],
   ['vs_5fpermit_5fn_56',['VS_permit_N',['../structpVCU__struct.html#a160e8715af05356b67f380587ab1b29c',1,'pVCU_struct']]],
-  ['vsense_5f5v_5fadc_5fchnl_57',['VSENSE_5V_ADC_CHNL',['../a__box_2main_8h.html#a0252ce2d44eb8707afa103fdaf998f1f',1,'main.h']]],
-  ['vsense_5f5v_5fpin_58',['VSENSE_5V_Pin',['../a__box_2main_8h.html#afab07b19ea4875a7f68ddce6d886ed82',1,'main.h']]],
-  ['vsense_5f5v_5fport_59',['VSENSE_5V_Port',['../a__box_2main_8h.html#a829d4c997c1436dc575f2a80de0b4ef2',1,'main.h']]],
-  ['vt_5fdb_5fcf_60',['VT_DB_CF',['../structyVCU__struct.html#ad70a94f5712bc1caced3d0eee27d0441',1,'yVCU_struct']]],
-  ['vt_5fdb_5flb_61',['VT_DB_lb',['../structpVCU__struct.html#a7ea1ac19889b280ed6b8d38a3f6aa478',1,'pVCU_struct']]],
-  ['vt_5fdb_5fraw_62',['VT_DB_RAW',['../structxVCU__struct.html#a17dfb6339636f63655d3967a4a934657',1,'xVCU_struct']]],
-  ['vt_5fdb_5fub_63',['VT_DB_ub',['../structpVCU__struct.html#a20614e1664703f754600dcb51caf779f',1,'pVCU_struct']]],
-  ['vt_5fmode_64',['VT_mode',['../structyVCU__struct.html#a65ff23f50d22e3152dcf79a6568139b7',1,'yVCU_struct']]],
-  ['vt_5fpermit_5fbuffer_65',['VT_permit_buffer',['../structyVCU__struct.html#a067232e15755618d599e7a6fe229afbc',1,'yVCU_struct']]],
-  ['vt_5fpermit_5fn_66',['VT_permit_N',['../structpVCU__struct.html#a9c24902418f7f65798d6495645a1b565',1,'pVCU_struct']]]
+  ['vt_5fdb_5fcf_57',['VT_DB_CF',['../structyVCU__struct.html#ad70a94f5712bc1caced3d0eee27d0441',1,'yVCU_struct']]],
+  ['vt_5fdb_5flb_58',['VT_DB_lb',['../structpVCU__struct.html#a7ea1ac19889b280ed6b8d38a3f6aa478',1,'pVCU_struct']]],
+  ['vt_5fdb_5fraw_59',['VT_DB_RAW',['../structxVCU__struct.html#a17dfb6339636f63655d3967a4a934657',1,'xVCU_struct']]],
+  ['vt_5fdb_5fub_60',['VT_DB_ub',['../structpVCU__struct.html#a20614e1664703f754600dcb51caf779f',1,'pVCU_struct']]],
+  ['vt_5fmode_61',['VT_mode',['../structyVCU__struct.html#a65ff23f50d22e3152dcf79a6568139b7',1,'yVCU_struct']]],
+  ['vt_5fpermit_5fbuffer_62',['VT_permit_buffer',['../structyVCU__struct.html#a067232e15755618d599e7a6fe229afbc',1,'yVCU_struct']]],
+  ['vt_5fpermit_5fn_63',['VT_permit_N',['../structpVCU__struct.html#a9c24902418f7f65798d6495645a1b565',1,'pVCU_struct']]]
 ];

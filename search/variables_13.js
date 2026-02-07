@@ -17,7 +17,5 @@ var searchData=
   ['usart_5fusb_5frx_5fdma_5fconfig_14',['usart_usb_rx_dma_config',['../torque__vector_2main_8c.html#aee1a23cfc9cb7821cbd140e307ed0c35',1,'main.c']]],
   ['usart_5fusb_5ftx_5fdma_5fconfig_15',['usart_usb_tx_dma_config',['../torque__vector_2main_8c.html#a54d065cd27bad5077837d12810e87f94',1,'main.c']]],
   ['usb_16',['usb',['../torque__vector_2main_8c.html#a3f235b0fe34fce8a2a9fc2d8715e912c',1,'main.c']]],
-  ['use_5fpll_17',['use_pll',['../structClockRateConfig__t.html#acac53bfa913d0aee434ec90f5acdc394',1,'ClockRateConfig_t']]],
-  ['user_5fcharge_5fcurrent_5frequest_18',['user_charge_current_request',['../orion_8c.html#acc9c2cec806fa0236b7f1895c41c4c48',1,'user_charge_current_request:&#160;orion.c'],['../orion_8h.html#acc9c2cec806fa0236b7f1895c41c4c48',1,'user_charge_current_request:&#160;orion.c']]],
-  ['user_5fcharge_5fvoltage_5frequest_19',['user_charge_voltage_request',['../orion_8c.html#a336188e7564bd84e2186f88be3979685',1,'user_charge_voltage_request:&#160;orion.c'],['../orion_8h.html#a336188e7564bd84e2186f88be3979685',1,'user_charge_voltage_request:&#160;orion.c']]]
+  ['use_5fpll_17',['use_pll',['../structClockRateConfig__t.html#acac53bfa913d0aee434ec90f5acdc394',1,'ClockRateConfig_t']]]
 ];

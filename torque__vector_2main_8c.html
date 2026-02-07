@@ -583,12 +583,12 @@ Variables</h2></td></tr>
 <div class="line">    .use_pll                   = <span class="keyword">true</span>,</div>
 <div class="line">    .pll_src                   = <a class="code hl_enumvalue" href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078">PLL_SRC_HSE</a>,</div>
 <div class="line">    .vco_output_rate_target_hz = 192000000,</div>
-<div class="line">    .system_clock_target_hz    = <a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>,</div>
-<div class="line">    .ahb_clock_target_hz       = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 1),</div>
-<div class="line">    .apb1_clock_target_hz      = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
-<div class="line">    .apb2_clock_target_hz      = (<a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
+<div class="line">    .system_clock_target_hz    = <a class="code hl_define" href="bootloader_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>,</div>
+<div class="line">    .ahb_clock_target_hz       = (<a class="code hl_define" href="bootloader_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 1),</div>
+<div class="line">    .apb1_clock_target_hz      = (<a class="code hl_define" href="bootloader_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
+<div class="line">    .apb2_clock_target_hz      = (<a class="code hl_define" href="bootloader_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
 <div class="line">}</div>
-<div class="ttc" id="aa__box_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:71</div></div>
+<div class="ttc" id="abootloader_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="bootloader_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:30</div></div>
 <div class="ttc" id="aphal__F4__F7_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23"><div class="ttname"><a href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:75</div></div>
 <div class="ttc" id="aphal__L4_2rcc_2rcc_8h_html_adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078"><div class="ttname"><a href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078">PLL_SRC_HSE</a></div><div class="ttdeci">@ PLL_SRC_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:29</div></div>
 </div><!-- fragment -->
@@ -609,7 +609,7 @@ Variables</h2></td></tr>
 <div class="line">    {</div>
 <div class="line">        </div>
 <div class="line">        <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="main__module_2main_8h.html#ad606c68e7c4fc77a58df05a77a2ac2d0">ERR_LED_GPIO_Port</a>, <a class="code hl_define" href="main__module_2main_8h.html#ac38565041738156d70795f7d45a458ef">ERR_LED_Pin</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
-<div class="line">        <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="a__box_2main_8h.html#a75d1cb8230e6eaf53142a5bca49003ef">CONN_LED_GPIO_Port</a>, <a class="code hl_define" href="a__box_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60">CONN_LED_Pin</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
+<div class="line">        <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="dashboard_2main_8h.html#a75d1cb8230e6eaf53142a5bca49003ef">CONN_LED_GPIO_Port</a>, <a class="code hl_define" href="dashboard_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60">CONN_LED_Pin</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
 <div class="line">        <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="main__module_2main_8h.html#a5a1bec8475d2774ce7a82559f9644f09">HEARTBEAT_GPIO_Port</a>, <a class="code hl_define" href="main__module_2main_8h.html#ab1f60dbdca30f90ed4ab09fb63e83a50">HEARTBEAT_Pin</a>, <a class="code hl_enumvalue" href="phal__L4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
 <div class="line"> </div>
 <div class="line">        </div>
@@ -631,8 +631,8 @@ Variables</h2></td></tr>
 <div class="line">        </div>
 <div class="line">        <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#ae8301c20265b3a15f5b0d8b66261f015">GPIO_INIT_CANRX_PA11</a>,</div>
 <div class="line">        <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#ac2b3941642669f2fb3f49b9ec73ec979">GPIO_INIT_CANTX_PA12</a>}</div>
-<div class="ttc" id="aa__box_2main_8h_html_a0111b42f1cdfd22b52e5aa836d743a60"><div class="ttname"><a href="a__box_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60">CONN_LED_Pin</a></div><div class="ttdeci">#define CONN_LED_Pin</div><div class="ttdef"><b>Definition</b> main.h:36</div></div>
-<div class="ttc" id="aa__box_2main_8h_html_a75d1cb8230e6eaf53142a5bca49003ef"><div class="ttname"><a href="a__box_2main_8h.html#a75d1cb8230e6eaf53142a5bca49003ef">CONN_LED_GPIO_Port</a></div><div class="ttdeci">#define CONN_LED_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:35</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_a0111b42f1cdfd22b52e5aa836d743a60"><div class="ttname"><a href="dashboard_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60">CONN_LED_Pin</a></div><div class="ttdeci">#define CONN_LED_Pin</div><div class="ttdef"><b>Definition</b> main.h:46</div></div>
+<div class="ttc" id="adashboard_2main_8h_html_a75d1cb8230e6eaf53142a5bca49003ef"><div class="ttname"><a href="dashboard_2main_8h.html#a75d1cb8230e6eaf53142a5bca49003ef">CONN_LED_GPIO_Port</a></div><div class="ttdeci">#define CONN_LED_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:45</div></div>
 <div class="ttc" id="al4__testing_2main_8h_html_a3e93f9482a06a62b4a3a3b59c051e79c"><div class="ttname"><a href="l4__testing_2main_8h.html#a3e93f9482a06a62b4a3a3b59c051e79c">SPI_SCLK_Pin</a></div><div class="ttdeci">#define SPI_SCLK_Pin</div><div class="ttdef"><b>Definition</b> main.h:45</div></div>
 <div class="ttc" id="al4__testing_2main_8h_html_a4312169e5b462272dc4be10d4ffa4e40"><div class="ttname"><a href="l4__testing_2main_8h.html#a4312169e5b462272dc4be10d4ffa4e40">SPI_MOSI_Pin</a></div><div class="ttdeci">#define SPI_MOSI_Pin</div><div class="ttdef"><b>Definition</b> main.h:49</div></div>
 <div class="ttc" id="al4__testing_2main_8h_html_a96f125c65f6d8a90050ebb72cf459e95"><div class="ttname"><a href="l4__testing_2main_8h.html#a96f125c65f6d8a90050ebb72cf459e95">SPI_MISO_Pin</a></div><div class="ttdeci">#define SPI_MISO_Pin</div><div class="ttdef"><b>Definition</b> main.h:47</div></div>
@@ -861,7 +861,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
 <div class="line">    {</div>
-<div class="line">        .data_rate     = <a class="code hl_define" href="a__box_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 64,</div>
+<div class="line">        .data_rate     = <a class="code hl_define" href="bootloader_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 64,</div>
 <div class="line">        .data_len      = 8,</div>
 <div class="line">        .nss_sw        = <span class="keyword">true</span>,</div>
 <div class="line">        .nss_gpio_port = <a class="code hl_define" href="torque__vector_2main_8h.html#aacc6e26a0a2afa5bc42f86e3abe643b2">SPI_CS_ACEL_GPIO_Port</a>,</div>

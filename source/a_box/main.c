@@ -47,7 +47,8 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(SPI1_CS_PORT, SPI1_CS_PIN, GPIO_OUTPUT_ULTRA_SPEED),
     GPIO_INIT_SPI1SCK_PA5,
     GPIO_INIT_SPI1MISO_PA6,
-    GPIO_INIT_SPI1MOSI_PA7};
+    GPIO_INIT_SPI1MOSI_PA7,
+};
 
 static constexpr uint32_t TargetCoreClockrateHz = 16000000;
 ClockRateConfig_t clock_config                  = {

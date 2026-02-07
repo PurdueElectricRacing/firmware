@@ -88,7 +88,7 @@ extern const uint8_t RDPWMB[2];
 
 // Clear commands
 extern const uint8_t CLRCELL[2];
-extern const uint8_t CLRAUX [2];
+extern const uint8_t CLRAUX[2];
 extern const uint8_t CLRSPIN[2];
 extern const uint8_t CLRFLAG[2];
 extern const uint8_t CLRFC[2];

@@ -9,6 +9,7 @@
 #define MAIN_H_
 
 #include <stdint.h>
+
 #include "common/phal/gpio.h"
 
 // Status LEDs
@@ -27,10 +28,10 @@
 #define SPI1_MISO_PIN  (6)
 #define SPI1_MOSI_PIN  (7)
 
-#define SPI1_CS_PORT   (GPIOB)
-#define SPI1_CS_PIN    (0)
+#define SPI1_CS_PORT (GPIOB)
+#define SPI1_CS_PIN  (0)
 
-#define SPI2_CS_PORT   (GPIOB)
-#define SPI2_CS_PIN    (1)
+#define SPI2_CS_PORT (GPIOB)
+#define SPI2_CS_PIN  (1)
 
 #endif

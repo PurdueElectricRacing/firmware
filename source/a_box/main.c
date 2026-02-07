@@ -19,8 +19,8 @@
 #include "adbms.h"
 
 
-dma_init_t spi_rx_dma_config = SPI2_RXDMA_CONT_CONFIG(NULL, 2);
-dma_init_t spi_tx_dma_config = SPI2_TXDMA_CONT_CONFIG(NULL, 1);
+dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
+dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
 SPI_InitConfig_t bms_spi_config = {
     .data_len  = 8,
     .nss_sw = false, // BMS drive CS pin manually to ensure correct timing
@@ -28,7 +28,7 @@ SPI_InitConfig_t bms_spi_config = {
     .nss_gpio_pin = SPI1_CS_PIN,
     .rx_dma_cfg = &spi_rx_dma_config,
     .tx_dma_cfg = &spi_tx_dma_config,
-    .periph = SPI2,
+    .periph = SPI1,
 };
 
 /* PER HAL Initilization Structures */
@@ -46,10 +46,10 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_FDCAN2TX_PB13,
 
     // SPI for BMS
-    GPIO_INIT_OUTPUT(SPI1_CS_PORT, SPI1_CS_PIN, GPIO_OUTPUT_HIGH_SPEED),
-    GPIO_INIT_AF(SPI1_SCK_PORT, SPI1_SCK_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
-    GPIO_INIT_AF(SPI1_MISO_PORT, SPI1_MISO_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_AF(SPI1_MOSI_PORT, SPI1_MOSI_PIN, 5, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_OUTPUT(SPI1_CS_PORT, SPI1_CS_PIN, GPIO_OUTPUT_ULTRA_SPEED),
+    GPIO_INIT_SPI1SCK_PA5,
+    GPIO_INIT_SPI1MISO_PA6,
+    GPIO_INIT_SPI1MOSI_PA7
 };
 
 static constexpr uint32_t TargetCoreClockrateHz = 16000000;

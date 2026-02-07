@@ -94,6 +94,4 @@ void schedInit(uint32_t freq);
 void schedStart();
 void schedPause();
 
-void waitMicros(uint8_t time);
-
 #endif

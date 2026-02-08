@@ -88,6 +88,9 @@ int main(void) {
         HardFault_Handler();
     }
 
+    // Set CS high to start
+    adbms6380_set_cs_high(&bms_spi_config);
+
     if (false == PHAL_FDCAN_init(FDCAN1, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }

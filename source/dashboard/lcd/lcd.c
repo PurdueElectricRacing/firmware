@@ -489,7 +489,7 @@ void updatePage() {
         page_handlers[curr_page].update();
     }
 
-    lcdTxUpdate();
+    lcd_tx_cmd();
 }
 
 void moveUp() {

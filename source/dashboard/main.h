@@ -121,6 +121,6 @@ typedef struct {
 #define LCD_UART_RX_GPIO_Port (GPIOA)
 #define LCD_UART_RX_Pin       (10)
 
-void lcdTxUpdate();
+void lcd_tx_cmd();
 
 #endif

@@ -154,9 +154,9 @@ dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&adc_readings,
 /* -------------------------------------------------------
     Procedures
 -------------------------------------------------------- */
-void preflightAnimation(void);
+void preflight_animation(void);
 void preflightChecks(void);
-void heartBeatLED();
+void heartbeat_led();
 void send_fault(uint16_t, bool);
 extern void HardFault_Handler();
 void interpretLoadSensor(void);
@@ -179,11 +179,11 @@ int main(void) {
     schedInit(APB1ClockRateHz);
 
     /* Preflight */
-    configureAnim(preflightAnimation, preflightChecks, 60, 750);
+    configureAnim(preflight_animation, preflightChecks, 60, 750);
 
     /* Periodic Tasks */
     taskCreate(coolingPeriodic, 50);
-    taskCreate(heartBeatLED, 500);
+    taskCreate(heartbeat_led, 500);
     taskCreate(monitorSDCPeriodic, 20);
     taskCreate(carHeartbeat, 500);
     taskCreate(carPeriodic, 15);
@@ -282,7 +282,7 @@ void preflightChecks(void) {
     }
 }
 
-void preflightAnimation(void) {
+void preflight_animation(void) {
     static uint32_t time;
 
     PHAL_writeGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, 0);
@@ -305,7 +305,7 @@ void preflightAnimation(void) {
     }
 }
 
-void heartBeatLED(void) {
+void heartbeat_led(void) {
     static uint8_t trig;
     PHAL_toggleGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin);
     if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH) {

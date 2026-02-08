@@ -80,7 +80,7 @@ extern uint32_t SystemCoreClock;
 #define configCPU_CLOCK_HZ (SystemCoreClock)
 #define configTICK_RATE_HZ ((TickType_t) 1000)
 #define configMINIMAL_STACK_SIZE ((uint16_t) 128)
-#define configTOTAL_HEAP_SIZE ((size_t) (15 * 1024))
+#define configTOTAL_HEAP_SIZE ((size_t) (16 * 1024))
 #define configMAX_TASK_NAME_LEN (16)
 #define configUSE_TRACE_FACILITY 1
 #define configUSE_16_BIT_TICKS 0
@@ -92,7 +92,18 @@ extern uint32_t SystemCoreClock;
 #define configUSE_MALLOC_FAILED_HOOK 0
 #define configUSE_APPLICATION_TASK_TAG 0
 #define configUSE_COUNTING_SEMAPHORES 1
-#define configGENERATE_RUN_TIME_STATS 0
+
+/* Run time stats gathering definitions. */
+#define configGENERATE_RUN_TIME_STATS 1
+#ifdef CMSIS_device_header
+#include CMSIS_device_header
+#endif
+#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() do { \
+    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk; \
+    DWT->CYCCNT = 0; \
+    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk; \
+} while(0)
+#define portGET_RUN_TIME_COUNTER_VALUE() (DWT->CYCCNT)
 
 /* Co-routine definitions. */
 #define configUSE_CO_ROUTINES 0

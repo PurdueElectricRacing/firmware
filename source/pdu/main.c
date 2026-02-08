@@ -161,7 +161,7 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
 void HardFault_Handler();
-void preflightAnimation();
+void preflight_animation();
 void preflightChecks(void);
 void heatBeatLED();
 void send_iv_readings();
@@ -192,7 +192,7 @@ int main() {
 
     /* Task Creation */
     schedInit(APB1ClockRateHz);
-    configureAnim(preflightAnimation, preflightChecks, 20, 750);
+    configureAnim(preflight_animation, preflightChecks, 20, 750);
 
     /* Schedule Periodic tasks here */
     taskCreate(heatBeatLED, 500);
@@ -255,7 +255,7 @@ void preflightChecks(void) {
     }
 }
 
-void preflightAnimation(void) {
+void preflight_animation(void) {
     static uint32_t time;
     static int led_number;
     static bool led_decrement = false;

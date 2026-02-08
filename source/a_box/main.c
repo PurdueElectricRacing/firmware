@@ -29,6 +29,7 @@ SPI_InitConfig_t bms_spi_config = {
     .periph        = SPI1,
     .cpol          = 0,
     .cpha          = 0,
+    .data_rate     = 1000000, // 1 MHz SPI clock for ADBMS6380
 };
 
 /* PER HAL Initilization Structures */

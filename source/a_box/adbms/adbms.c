@@ -22,7 +22,14 @@ void adbms_init(ADBMS_bms_t *bms, SPI_InitConfig_t *spi, uint8_t *tx_buf) {
         for (size_t j = 0; j < ADBMS6380_CELL_COUNT; j++) {
             bms->modules[i].is_discharging[j] = false;
         }
+        bms->modules[i].err_rega_mismatch = false;
+        bms->modules[i].err_regb_mismatch = false;
     }
+
+    bms->err_spi           = false;
+    bms->err_connect       = false;
+    bms->err_rega_mismatch = false;
+    bms->err_regb_mismatch = false;
 
     bms->tx_strbuf = (strbuf_t) {
         .data    = tx_buf,

@@ -181,17 +181,24 @@ void adbms_calculate_balance_cells(ADBMS_bms_t *bms, float min_voltage, float mi
         }
         return;
     }
-    if (bms->min_voltage < min_voltage) {
-        return;
-    }
 
-    float balance_threshold = bms->min_voltage + min_delta;
-    for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
-        for (size_t j = 0; j < ADBMS6380_CELL_COUNT; j++) {
-            if (bms->modules[i].cell_voltages[j] > balance_threshold) {
-                bms->modules[i].is_discharging[j] = true;
-            } else {
+    if (bms->min_voltage < min_voltage) {
+        for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
+            for (size_t j = 0; j < ADBMS6380_CELL_COUNT; j++) {
                 bms->modules[i].is_discharging[j] = false;
+            }
+        }
+
+        return;
+    } else {
+        float balance_threshold = bms->min_voltage + min_delta;
+        for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
+            for (size_t j = 0; j < ADBMS6380_CELL_COUNT; j++) {
+                if (bms->modules[i].cell_voltages[j] > balance_threshold) {
+                    bms->modules[i].is_discharging[j] = true;
+                } else {
+                    bms->modules[i].is_discharging[j] = false;
+                }
             }
         }
     }

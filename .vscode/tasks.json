@@ -11,17 +11,17 @@
             }
         },
         {
-            "label": "build_bl",
+            "label": "build with fanalyzer",
             "type": "shell",
-            "command": "python3 per_build.py --bootloader",
+            "command": "python3 per_build.py --fanalyzer",
             "group": {
                 "kind": "build"
             }
         },
         {
-            "label": "build_fanalyzer",
+            "label": "build with bootloader",
             "type": "shell",
-            "command": "python3 per_build.py --fanalyzer",
+            "command": "python3 per_build.py --bootloader",
             "group": {
                 "kind": "build"
             }
@@ -35,13 +35,15 @@
             }
         },
         {
-            "label": "canlib_gen",
+            "label": "generate can library",
             "type": "shell",
             "command": "python3 ./common/can_library/canpiler/build.py",
-            "problemMatcher": []
+            "group": {
+                "kind": "build"
+            }
         },
         {
-            "label": "docs_gen",
+            "label": "run doxygen",
             "type": "shell",
             "command": "doxygen Doxyfile"
         }

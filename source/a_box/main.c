@@ -27,6 +27,8 @@ SPI_InitConfig_t bms_spi_config = {
     .rx_dma_cfg    = &spi_rx_dma_config,
     .tx_dma_cfg    = &spi_tx_dma_config,
     .periph        = SPI1,
+    .cpol          = 0,
+    .cpha          = 0,
 };
 
 /* PER HAL Initilization Structures */

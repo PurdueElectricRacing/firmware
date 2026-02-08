@@ -1,5 +1,6 @@
 ## strbuf
-The `strbuf` module provides a simple and efficient way to handle dynamic strings in C.
+The `strbuf` module provides a simple and efficient way to handle "dynamic" strings in C.
+Data is still allocated statically, but the module allows you to append data to a buffer while keeping track of the current length and ensuring that you do not exceed the allocated size.
 
 #### Usage Example:
 ```c
@@ -10,7 +11,7 @@ const uint8_t WRCFGA[CMD_LEN] = { 0x00, 0x01 };
 const char *globalstring = "hello";
 
 // Allocate the buffer with size of 32 bytes
-allocate_strbuf(test_buf, 32);
+ALLOCATE_STRBUF(test_buf, 32);
 
 int main() {
     char *localstring = "world";

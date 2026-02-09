@@ -120,28 +120,6 @@
                     "msg_priority": 5
                 },
                 {
-                    "msg_name": "shock_rear",
-                    "msg_desc": "Shockpot readings from left and right",
-                    "signals": [
-                        {
-                            "sig_name": "left_shock",
-                            "sig_desc": "Left Shockpot Travel",
-                            "type": "int16_t",
-                            "scale": 0.1,
-                            "unit": "mm"
-                        },
-                        {
-                            "sig_name": "right_shock",
-                            "sig_desc": "Right Shockpot Travel",
-                            "type": "int16_t",
-                            "scale": 0.1,
-                            "unit": "mm"
-                        }
-                    ],
-                    "msg_period": 10,
-                    "msg_priority": 5
-                },
-                {
                     "msg_name": "mcu_status",
                     "msg_desc": "performance metrics of MCU",
                     "signals": [

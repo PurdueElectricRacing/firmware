@@ -104,6 +104,7 @@ if(MODULES STREQUAL "")
         a_box
         dashboard
         daq
+        driveline
         main_module
         pdu
         torque_vector

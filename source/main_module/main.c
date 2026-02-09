@@ -190,7 +190,6 @@ int main(void) {
     taskCreate(interpretLoadSensor, 15);
     taskCreate(updateSDCFaults, 300);
     taskCreate(fault_library_periodic, 100);
-    taskCreate(send_shockpots, SHOCK_REAR_PERIOD_MS);
     taskCreate(update_lights, 500);
     taskCreate(parseMCDataPeriodic, 15);
 

@@ -105,7 +105,7 @@ $(function(){ initResizable(false); });
 <code>#include &quot;common/phal/gpio.h&quot;</code><br />
 <code>#include &quot;common/phal/rcc.h&quot;</code><br />
 <code>#include &quot;common/phal/usart.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
+<code>#include &quot;common/freertos/freertos.h&quot;</code><br />
 <code>#include &quot;common/can_library/generated/DASHBOARD.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="lcd_8h_source.html">lcd.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="dashboard_2main_8h_source.html">main.h</a>&quot;</code><br />
@@ -114,29 +114,44 @@ $(function(){ initResizable(false); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a60cfcf15038028a030b9adb3f61b0ad1" id="r_a60cfcf15038028a030b9adb3f61b0ad1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60cfcf15038028a030b9adb3f61b0ad1">preflightChecks</a> (void)</td></tr>
-<tr class="memdesc:a60cfcf15038028a030b9adb3f61b0ad1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs sequential initialization and setup of system peripherals and modules.  <br /></td></tr>
-<tr class="separator:a60cfcf15038028a030b9adb3f61b0ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f13e659440b6211dd711b5bae3dd575" id="r_a7f13e659440b6211dd711b5bae3dd575"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f13e659440b6211dd711b5bae3dd575">preflightAnimation</a> (void)</td></tr>
-<tr class="separator:a7f13e659440b6211dd711b5bae3dd575"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae27c40f4d29be22da86fe0720492648a" id="r_ae27c40f4d29be22da86fe0720492648a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae27c40f4d29be22da86fe0720492648a">heartBeatLED</a> ()</td></tr>
-<tr class="memdesc:ae27c40f4d29be22da86fe0720492648a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates system LED indicators and CAN stats.  <br /></td></tr>
-<tr class="separator:ae27c40f4d29be22da86fe0720492648a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add302dc431eea83803626acf46f76028" id="r_add302dc431eea83803626acf46f76028"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#add302dc431eea83803626acf46f76028">lcdTxUpdate</a> ()</td></tr>
-<tr class="separator:add302dc431eea83803626acf46f76028"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4b3f0121a2ac45668528454fbf14f64" id="r_ac4b3f0121a2ac45668528454fbf14f64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4b3f0121a2ac45668528454fbf14f64">enableInterrupts</a> ()</td></tr>
-<tr class="separator:ac4b3f0121a2ac45668528454fbf14f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2676edb74235f0d21ef201ba600636a" id="r_ae2676edb74235f0d21ef201ba600636a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae2676edb74235f0d21ef201ba600636a">encoderISR</a> ()</td></tr>
-<tr class="separator:ae2676edb74235f0d21ef201ba600636a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad89a8b4a66a668a93c165c8e04269b37" id="r_ad89a8b4a66a668a93c165c8e04269b37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad89a8b4a66a668a93c165c8e04269b37">handleDashboardInputs</a> ()</td></tr>
-<tr class="memdesc:ad89a8b4a66a668a93c165c8e04269b37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes dashboard button flags and triggers corresponding actions.  <br /></td></tr>
-<tr class="separator:ad89a8b4a66a668a93c165c8e04269b37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a655198e7e2640e278bd9fdb8b1f65aed" id="r_a655198e7e2640e278bd9fdb8b1f65aed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a655198e7e2640e278bd9fdb8b1f65aed">sendBrakeStatus</a> ()</td></tr>
-<tr class="separator:a655198e7e2640e278bd9fdb8b1f65aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01c156d6b9af288b0826edda8a88d407" id="r_a01c156d6b9af288b0826edda8a88d407"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a01c156d6b9af288b0826edda8a88d407">sendVersion</a> ()</td></tr>
-<tr class="separator:a01c156d6b9af288b0826edda8a88d407"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4eea638751f327d3f332d265e53aa7e5" id="r_a4eea638751f327d3f332d265e53aa7e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4eea638751f327d3f332d265e53aa7e5">preflight_animation</a> (void)</td></tr>
+<tr class="separator:a4eea638751f327d3f332d265e53aa7e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab53a145cb998d122ef1a8eaeb86b95d3" id="r_ab53a145cb998d122ef1a8eaeb86b95d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab53a145cb998d122ef1a8eaeb86b95d3">heartbeat_led</a> ()</td></tr>
+<tr class="memdesc:ab53a145cb998d122ef1a8eaeb86b95d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates system LED indicators and CAN stats.  <br /></td></tr>
+<tr class="separator:ab53a145cb998d122ef1a8eaeb86b95d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75dcfbf81c02f0425e5737c42f4e6616" id="r_a75dcfbf81c02f0425e5737c42f4e6616"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75dcfbf81c02f0425e5737c42f4e6616">lcd_tx_cmd</a> ()</td></tr>
+<tr class="separator:a75dcfbf81c02f0425e5737c42f4e6616"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9aee09af5e3fe925ed51c1c48ce580eb" id="r_a9aee09af5e3fe925ed51c1c48ce580eb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9aee09af5e3fe925ed51c1c48ce580eb">config_button_irqs</a> ()</td></tr>
+<tr class="separator:a9aee09af5e3fe925ed51c1c48ce580eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a783fffd08ae8a2bb6a2bc1c5c56b5933" id="r_a783fffd08ae8a2bb6a2bc1c5c56b5933"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a783fffd08ae8a2bb6a2bc1c5c56b5933">service_button_inputs</a> ()</td></tr>
+<tr class="memdesc:a783fffd08ae8a2bb6a2bc1c5c56b5933"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes dashboard button flags and triggers corresponding actions.  <br /></td></tr>
+<tr class="separator:a783fffd08ae8a2bb6a2bc1c5c56b5933"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc93ec4e65bbde41cb8ac5740eeee397" id="r_abc93ec4e65bbde41cb8ac5740eeee397"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc93ec4e65bbde41cb8ac5740eeee397">send_version</a> ()</td></tr>
+<tr class="separator:abc93ec4e65bbde41cb8ac5740eeee397"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2af56a8bf3197b2f06cac4c0b84ffc3e" id="r_a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2af56a8bf3197b2f06cac4c0b84ffc3e">HardFault_Handler</a> ()</td></tr>
 <tr class="separator:a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89b14fa3031866ffa50cc407ef7169e3" id="r_a89b14fa3031866ffa50cc407ef7169e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89b14fa3031866ffa50cc407ef7169e3">preflight_task</a> ()</td></tr>
+<tr class="separator:a89b14fa3031866ffa50cc407ef7169e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c7c563fdbde1b364eb1248c18ea05c2" id="r_a1c7c563fdbde1b364eb1248c18ea05c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1c7c563fdbde1b364eb1248c18ea05c2">can_worker_task</a> ()</td></tr>
+<tr class="separator:a1c7c563fdbde1b364eb1248c18ea05c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94967018f71969678fa0f78f8a92a555" id="r_a94967018f71969678fa0f78f8a92a555"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a94967018f71969678fa0f78f8a92a555">defineThreadStack</a> (<a class="el" href="#a89b14fa3031866ffa50cc407ef7169e3">preflight_task</a>, 10, osPriorityRealtime, 1024)</td></tr>
+<tr class="separator:a94967018f71969678fa0f78f8a92a555"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b0b8a88e06c269c78b7a721a3a1f25a" id="r_a1b0b8a88e06c269c78b7a721a3a1f25a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b0b8a88e06c269c78b7a721a3a1f25a">defineThreadStack</a> (<a class="el" href="pedals_8c.html#ad390f112c056607f9f37f0c1a2e5f3b6">pedalsPeriodic</a>, FILT_THROTTLE_BRAKE_PERIOD_MS, osPriorityHigh, 512)</td></tr>
+<tr class="separator:a1b0b8a88e06c269c78b7a721a3a1f25a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac112b138efb906032cdd594518dd46bf" id="r_ac112b138efb906032cdd594518dd46bf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac112b138efb906032cdd594518dd46bf">defineThreadStack</a> (<a class="el" href="#a1c7c563fdbde1b364eb1248c18ea05c2">can_worker_task</a>, 20, osPriorityNormal, 512)</td></tr>
+<tr class="separator:ac112b138efb906032cdd594518dd46bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac2820a065cd3a8d0164e24d1bba1cae" id="r_aac2820a065cd3a8d0164e24d1bba1cae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac2820a065cd3a8d0164e24d1bba1cae">defineThreadStack</a> (<a class="el" href="lcd_8c.html#a7b6beed0e6479ed4a5fd25aaabc45dff">updateFaultDisplay</a>, 500, osPriorityLow, 256)</td></tr>
+<tr class="separator:aac2820a065cd3a8d0164e24d1bba1cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af138fdf0247526cfe92bec25aa06f8a5" id="r_af138fdf0247526cfe92bec25aa06f8a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af138fdf0247526cfe92bec25aa06f8a5">defineThreadStack</a> (<a class="el" href="#ab53a145cb998d122ef1a8eaeb86b95d3">heartbeat_led</a>, 500, osPriorityLow, 128)</td></tr>
+<tr class="separator:af138fdf0247526cfe92bec25aa06f8a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ee3b179bbbb390fb5407422f46cb10c" id="r_a8ee3b179bbbb390fb5407422f46cb10c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8ee3b179bbbb390fb5407422f46cb10c">defineThreadStack</a> (<a class="el" href="#a783fffd08ae8a2bb6a2bc1c5c56b5933">service_button_inputs</a>, 50, osPriorityLow, 1024)</td></tr>
+<tr class="separator:a8ee3b179bbbb390fb5407422f46cb10c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38285017b658dc958771384fcc58e5e1" id="r_a38285017b658dc958771384fcc58e5e1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38285017b658dc958771384fcc58e5e1">defineThreadStack</a> (<a class="el" href="#abc93ec4e65bbde41cb8ac5740eeee397">send_version</a>, DASH_VERSION_PERIOD_MS, osPriorityLow, 256)</td></tr>
+<tr class="separator:a38285017b658dc958771384fcc58e5e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeee9c5b84f138dd280c7a46cc0124dcc" id="r_aeee9c5b84f138dd280c7a46cc0124dcc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeee9c5b84f138dd280c7a46cc0124dcc">defineThreadStack</a> (<a class="el" href="lcd_8c.html#a9ceeac8764aca15be67680bddfe70704">updateTelemetryPages</a>, 200, osPriorityLow, 1024)</td></tr>
+<tr class="separator:aeee9c5b84f138dd280c7a46cc0124dcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5edf575e70c73fbca8b1ad758ced42f" id="r_ab5edf575e70c73fbca8b1ad758ced42f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5edf575e70c73fbca8b1ad758ced42f">defineThreadStack</a> (<a class="el" href="lcd_8c.html#a249c0ceab96d27daebec9a6b8954f60a">sendTVParameters</a>, DASHBOARD_VCU_PARAMETERS_PERIOD_MS, osPriorityLow, 256)</td></tr>
+<tr class="separator:ab5edf575e70c73fbca8b1ad758ced42f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f0a091727452df71a1760d1133bf9b4" id="r_a9f0a091727452df71a1760d1133bf9b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f0a091727452df71a1760d1133bf9b4">EXTI9_5_IRQHandler</a> ()</td></tr>
@@ -190,14 +205,14 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
 <dd>
 Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'all'+'ia'+'rd@'+'gm'+'ail'+'.c'+'om'; return false;">cpmcg<span class="obfuscator">.nosp@m.</span>alli<span class="obfuscator">.nosp@m.</span>ard@g<span class="obfuscator">.nosp@m.</span>mail<span class="obfuscator">.nosp@m.</span>.com</a>) </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="ac4b3f0121a2ac45668528454fbf14f64" name="ac4b3f0121a2ac45668528454fbf14f64"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4b3f0121a2ac45668528454fbf14f64">&#9670;&#160;</a></span>enableInterrupts()</h2>
+<a id="a1c7c563fdbde1b364eb1248c18ea05c2" name="a1c7c563fdbde1b364eb1248c18ea05c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c7c563fdbde1b364eb1248c18ea05c2">&#9670;&#160;</a></span>can_worker_task()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void enableInterrupts </td>
+          <td class="memname">void can_worker_task </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -207,17 +222,296 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 
 </div>
 </div>
-<a id="ae2676edb74235f0d21ef201ba600636a" name="ae2676edb74235f0d21ef201ba600636a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2676edb74235f0d21ef201ba600636a">&#9670;&#160;</a></span>encoderISR()</h2>
+<a id="a9aee09af5e3fe925ed51c1c48ce580eb" name="a9aee09af5e3fe925ed51c1c48ce580eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9aee09af5e3fe925ed51c1c48ce580eb">&#9670;&#160;</a></span>config_button_irqs()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void encoderISR </td>
+          <td class="memname">void config_button_irqs </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac112b138efb906032cdd594518dd46bf" name="ac112b138efb906032cdd594518dd46bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac112b138efb906032cdd594518dd46bf">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[1/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">defineThreadStack </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a1c7c563fdbde1b364eb1248c18ea05c2">can_worker_task</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">20</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityNormal</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">512</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af138fdf0247526cfe92bec25aa06f8a5" name="af138fdf0247526cfe92bec25aa06f8a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af138fdf0247526cfe92bec25aa06f8a5">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[2/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">defineThreadStack </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ab53a145cb998d122ef1a8eaeb86b95d3">heartbeat_led</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">500</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityLow</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">128</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1b0b8a88e06c269c78b7a721a3a1f25a" name="a1b0b8a88e06c269c78b7a721a3a1f25a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b0b8a88e06c269c78b7a721a3a1f25a">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[3/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">defineThreadStack </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="pedals_8c.html#ad390f112c056607f9f37f0c1a2e5f3b6">pedalsPeriodic</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FILT_THROTTLE_BRAKE_PERIOD_MS</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityHigh</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">512</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a94967018f71969678fa0f78f8a92a555" name="a94967018f71969678fa0f78f8a92a555"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94967018f71969678fa0f78f8a92a555">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[4/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">defineThreadStack </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a89b14fa3031866ffa50cc407ef7169e3">preflight_task</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">10</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityRealtime</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">1024</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a38285017b658dc958771384fcc58e5e1" name="a38285017b658dc958771384fcc58e5e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38285017b658dc958771384fcc58e5e1">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[5/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">defineThreadStack </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#abc93ec4e65bbde41cb8ac5740eeee397">send_version</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DASH_VERSION_PERIOD_MS</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityLow</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">256</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab5edf575e70c73fbca8b1ad758ced42f" name="ab5edf575e70c73fbca8b1ad758ced42f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5edf575e70c73fbca8b1ad758ced42f">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[6/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">defineThreadStack </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lcd_8c.html#a249c0ceab96d27daebec9a6b8954f60a">sendTVParameters</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DASHBOARD_VCU_PARAMETERS_PERIOD_MS</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityLow</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">256</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8ee3b179bbbb390fb5407422f46cb10c" name="a8ee3b179bbbb390fb5407422f46cb10c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ee3b179bbbb390fb5407422f46cb10c">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[7/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">defineThreadStack </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a783fffd08ae8a2bb6a2bc1c5c56b5933">service_button_inputs</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">50</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityLow</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">1024</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aac2820a065cd3a8d0164e24d1bba1cae" name="aac2820a065cd3a8d0164e24d1bba1cae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac2820a065cd3a8d0164e24d1bba1cae">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[8/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">defineThreadStack </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lcd_8c.html#a7b6beed0e6479ed4a5fd25aaabc45dff">updateFaultDisplay</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">500</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityLow</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">256</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeee9c5b84f138dd280c7a46cc0124dcc" name="aeee9c5b84f138dd280c7a46cc0124dcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeee9c5b84f138dd280c7a46cc0124dcc">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[9/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">defineThreadStack </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lcd_8c.html#a9ceeac8764aca15be67680bddfe70704">updateTelemetryPages</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">200</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityLow</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">1024</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -258,26 +552,6 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 
 </div>
 </div>
-<a id="ad89a8b4a66a668a93c165c8e04269b37" name="ad89a8b4a66a668a93c165c8e04269b37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad89a8b4a66a668a93c165c8e04269b37">&#9670;&#160;</a></span>handleDashboardInputs()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void handleDashboardInputs </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Processes dashboard button flags and triggers corresponding actions. </p>
-<p>Meant to be called periodically. </p>
-
-</div>
-</div>
 <a id="a2af56a8bf3197b2f06cac4c0b84ffc3e" name="a2af56a8bf3197b2f06cac4c0b84ffc3e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2af56a8bf3197b2f06cac4c0b84ffc3e">&#9670;&#160;</a></span>HardFault_Handler()</h2>
 
@@ -303,14 +577,14 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 
 </div>
 </div>
-<a id="ae27c40f4d29be22da86fe0720492648a" name="ae27c40f4d29be22da86fe0720492648a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae27c40f4d29be22da86fe0720492648a">&#9670;&#160;</a></span>heartBeatLED()</h2>
+<a id="ab53a145cb998d122ef1a8eaeb86b95d3" name="ab53a145cb998d122ef1a8eaeb86b95d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab53a145cb998d122ef1a8eaeb86b95d3">&#9670;&#160;</a></span>heartbeat_led()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void heartBeatLED </td>
+          <td class="memname">void heartbeat_led </td>
           <td>(</td>
           <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -323,14 +597,14 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 
 </div>
 </div>
-<a id="add302dc431eea83803626acf46f76028" name="add302dc431eea83803626acf46f76028"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add302dc431eea83803626acf46f76028">&#9670;&#160;</a></span>lcdTxUpdate()</h2>
+<a id="a75dcfbf81c02f0425e5737c42f4e6616" name="a75dcfbf81c02f0425e5737c42f4e6616"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75dcfbf81c02f0425e5737c42f4e6616">&#9670;&#160;</a></span>lcd_tx_cmd()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void lcdTxUpdate </td>
+          <td class="memname">void lcd_tx_cmd </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -357,14 +631,14 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 
 </div>
 </div>
-<a id="a7f13e659440b6211dd711b5bae3dd575" name="a7f13e659440b6211dd711b5bae3dd575"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f13e659440b6211dd711b5bae3dd575">&#9670;&#160;</a></span>preflightAnimation()</h2>
+<a id="a4eea638751f327d3f332d265e53aa7e5" name="a4eea638751f327d3f332d265e53aa7e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4eea638751f327d3f332d265e53aa7e5">&#9670;&#160;</a></span>preflight_animation()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void preflightAnimation </td>
+          <td class="memname">void preflight_animation </td>
           <td>(</td>
           <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -374,34 +648,14 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 
 </div>
 </div>
-<a id="a60cfcf15038028a030b9adb3f61b0ad1" name="a60cfcf15038028a030b9adb3f61b0ad1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60cfcf15038028a030b9adb3f61b0ad1">&#9670;&#160;</a></span>preflightChecks()</h2>
+<a id="a89b14fa3031866ffa50cc407ef7169e3" name="a89b14fa3031866ffa50cc407ef7169e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89b14fa3031866ffa50cc407ef7169e3">&#9670;&#160;</a></span>preflight_task()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void preflightChecks </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Performs sequential initialization and setup of system peripherals and modules. </p>
-<dl class="section note"><dt>Note</dt><dd>Called repeatedly until preflight is registered as complete </dd></dl>
-
-</div>
-</div>
-<a id="a655198e7e2640e278bd9fdb8b1f65aed" name="a655198e7e2640e278bd9fdb8b1f65aed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a655198e7e2640e278bd9fdb8b1f65aed">&#9670;&#160;</a></span>sendBrakeStatus()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void sendBrakeStatus </td>
+          <td class="memname">void preflight_task </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -411,20 +665,40 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 
 </div>
 </div>
-<a id="a01c156d6b9af288b0826edda8a88d407" name="a01c156d6b9af288b0826edda8a88d407"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01c156d6b9af288b0826edda8a88d407">&#9670;&#160;</a></span>sendVersion()</h2>
+<a id="abc93ec4e65bbde41cb8ac5740eeee397" name="abc93ec4e65bbde41cb8ac5740eeee397"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc93ec4e65bbde41cb8ac5740eeee397">&#9670;&#160;</a></span>send_version()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void sendVersion </td>
+          <td class="memname">void send_version </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a783fffd08ae8a2bb6a2bc1c5c56b5933" name="a783fffd08ae8a2bb6a2bc1c5c56b5933"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a783fffd08ae8a2bb6a2bc1c5c56b5933">&#9670;&#160;</a></span>service_button_inputs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void service_button_inputs </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes dashboard button flags and triggers corresponding actions. </p>
+<p>Meant to be called periodically. </p>
 
 </div>
 </div>

@@ -12,11 +12,11 @@
 
 // Status LEDs
 #define HEARTBEAT_LED_PORT  (GPIOB)
-#define HEARTBEAT_LED_PIN   (5)
+#define HEARTBEAT_LED_PIN   (0)
 #define ERROR_LED_PORT      (GPIOB)
-#define ERROR_LED_PIN       (9)
+#define ERROR_LED_PIN       (2)
 #define CONNECTION_LED_PORT (GPIOB)
-#define CONNECTION_LED_PIN  (4)
+#define CONNECTION_LED_PIN  (1)
 
 // Shockpots
 #define SHOCKPOT_LEFT_GPIO_PORT  (GPIOA)

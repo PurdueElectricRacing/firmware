@@ -16,11 +16,12 @@ find_program(CMAKE_SIZE_UTIL    arm-none-eabi-size)
 set(COMMON_FLAGS "-mthumb -mcpu=${TARGET_CPU} --specs=nosys.specs -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=c23")
 set(C_CXX_FLAGS  "--specs=nano.specs -ffunction-sections -fdata-sections -ffreestanding")
 set(CXX_FLAGS    "-fno-exceptions -fno-rtti -fno-threadsafe-statics")
+set(LINKER_FLAGS "-Wl,--gc-sections -Wl,--no-warn-rwx-segments")
 
 set(CMAKE_C_FLAGS_INIT          "${COMMON_FLAGS} ${C_CXX_FLAGS}"              CACHE STRING "" FORCE)
 set(CMAKE_CXX_FLAGS_INIT        "${COMMON_FLAGS} ${C_CXX_FLAGS} ${CXX_FLAGS}" CACHE STRING "" FORCE)
 set(CMAKE_ASM_FLAGS_INIT        "${COMMON_FLAGS} -x assembler-with-cpp"       CACHE STRING "" FORCE)
-set(CMAKE_EXE_LINKER_FLAGS_INIT "-Wl,--gc-sections"                           CACHE STRING "" FORCE)
+set(CMAKE_EXE_LINKER_FLAGS_INIT "${LINKER_FLAGS}"                             CACHE STRING "" FORCE)
 
 set(CMAKE_C_FLAGS_DEBUG     "-Og -g -Werror" CACHE STRING "" FORCE)
 set(CMAKE_CXX_FLAGS_DEBUG   "-Og -g"         CACHE STRING "" FORCE)

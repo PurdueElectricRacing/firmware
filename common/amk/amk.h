@@ -92,15 +92,15 @@ typedef struct
     int16_t torque_set_ppt_nom; /* Torque Setpoint in 0.1% of nominal */
     int16_t torque_lim_pos_ppt_nom; /* Positive Torque Limit in 0.1% of nominal */
     int16_t torque_lim_neg_ppt_nom; /* Negative Torque Limit in 0.1% of nominal */
-    int16_t torque_act_ppt_nom; /* Actual Torque in 0.1% of nominal */
-    uint16_t overload_inv; /* Display overload inverter in 0.1% */
+    int16_t actual_torque_NM; /* Actual Torque in 0.1% of nominal */
+    uint16_t overload_inverter; /* Display overload inverter in 0.1% */
     uint16_t overload_motor; /* Display overload motor in 0.1% */
-    int16_t speed_act_RPM; /* Actual Speed in revolutions-per-minute */
-    int16_t temp_motor_deci_C; /* Motor Temperature in deci-Celcius */
-    int16_t temp_inv_deci_C; /* Inverter Temperature in deci-Celcius*/
-    int16_t temp_igbt_deci_C; /* IGBT Temperature in deci-Celcius*/
+    int16_t actual_speed_RPM; /* Actual Speed in revolutions-per-minute */
+    int16_t motor_temp_dC; /* Motor Temperature in deci-Celcius */
+    int16_t inverter_temp_dC; /* Inverter Temperature in deci-Celcius*/
+    int16_t igbt_temp_dC; /* IGBT Temperature in deci-Celcius*/
     uint16_t dc_bus_voltage; /* Inverter-Reported DC Bus Voltage */
-    uint16_t diagnostic_num; /* Inverter-Reported Diagnostic Code */
+    uint16_t diagnostic_number; /* Inverter-Reported Diagnostic Code */
     uint32_t error_info_1; /* Inverter-Reported Error Part 1 */
     uint32_t error_info_2; /* Inverter-Reported Error Part 2 */
     uint32_t error_info_3; /* Inverter-Reported Error Part 3 */

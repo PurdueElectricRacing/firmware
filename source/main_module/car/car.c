@@ -156,6 +156,11 @@ void carPeriodic() {
     // // simulate precharge
     // car.pchg.pchg_complete = 1;
 
+    switch(car.state) {
+
+
+    }
+
     if (car.state == CAR_STATE_FATAL) {
         // SDC critical error has occured, open sdc
         // Currently latches into this state
@@ -199,191 +204,11 @@ void carPeriodic() {
         // Check if requesting to exit ready2drive
         if (car.start_btn_debounced) {
             car.state = CAR_STATE_IDLE;
-        } else {
-            float t_req_pedal = 0;
-            float t_req_tv_l  = 0;
-            float t_req_tv_r  = 0;
-            float t_req_equal = 0;
-
-            float s_req_tv_l  = 0;
-            float s_req_tv_r  = 0;
-            float s_req_equal = 0;
-
-            any_tv_msg_stale = false;
-
-            requested_tv_mode = VCU_MODE_INVALID;
-
-            if (!can_data.filt_throttle_brake.stale)
-                t_req_pedal = (float)CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
-
-            if (!can_data.drive_modes.stale && !can_data.VCU_torques_speeds.stale) {
-                requested_tv_mode = can_data.VCU_torques_speeds.VCU_mode;
-                t_req_tv_l        = CLAMP(can_data.VCU_torques_speeds.TO_VT_left, 0, MAX_TV_TORQUE_REQUEST);
-                t_req_tv_r        = CLAMP(can_data.VCU_torques_speeds.TO_VT_right, 0, MAX_TV_TORQUE_REQUEST);
-                t_req_equal       = CLAMP(can_data.VCU_torques_speeds.TO_PT_equal, 0, MAX_TV_TORQUE_REQUEST);
-            } else {
-                requested_tv_mode = VCU_MODE_INVALID;
-                any_tv_msg_stale  = true;
-            }
-
-            if (car.torque_src == CAR_TORQUE_TV || car.torque_src == CAR_TORQUE_TV_TEST) {
-                setFault(ID_TV_STALE_FAULT, any_tv_msg_stale);
-            }
-
-            // Final check to see if we can run TV
-            // Debounce TV stale (if TV goes in/out of being stale)
-            if (checkFault(ID_TV_STALE_FAULT)) {
-                requested_tv_mode = VCU_MODE_INVALID;
-            }
-
-            // Torque Requests
-            t_req_pedal = (int16_t)(t_req_pedal * MAX_DRIVER_TORQUE_REQUEST / 4095.0f);
-            // Torque is provided from 0-2100 (i.e. Nm * 100). We command Percent torque (0-210)
-            t_req_tv_l  = (int16_t)(t_req_tv_l / TV_TORQUE_REQUEST_SCALE);
-            t_req_tv_r  = (int16_t)(t_req_tv_r / TV_TORQUE_REQUEST_SCALE);
-            t_req_equal = (int16_t)(t_req_equal / TV_TORQUE_REQUEST_SCALE);
-
-            torqueRequest_t temp_t_req;
-            switch (car.torque_src) {
-                case CAR_TORQUE_RAW:
-                    temp_t_req.torque_left  = t_req_pedal;
-                    temp_t_req.torque_right = t_req_pedal;
-                    break;
-                case CAR_TORQUE_TV:
-                    switch (requested_tv_mode) {
-                        case VCU_MODE_EQUAL_SPEED:
-                        case VCU_MODE_VARIABLE_SPEED:
-                            // As of now we should never enter these cases. Never command a speed request with the current settings.
-                            s_req_equal             = 0;
-                            temp_t_req.torque_left  = s_req_equal;
-                            temp_t_req.torque_right = s_req_equal;
-                            break;
-                        case VCU_MODE_EQUAL_TORQUE:
-                            temp_t_req.torque_left  = t_req_pedal;
-                            temp_t_req.torque_right = t_req_pedal;
-                            break;
-                        case VCU_MODE_EQUAL_TORQUE_WITH_SAFETY:
-                            temp_t_req.torque_left  = t_req_equal;
-                            temp_t_req.torque_right = t_req_equal;
-                            break;
-                        case VCU_MODE_VARIABLE_TORQUE:
-                            temp_t_req.torque_left  = t_req_tv_l;
-                            temp_t_req.torque_right = t_req_tv_r;
-                            break;
-                        case VCU_MODE_INVALID:
-                            temp_t_req.torque_left  = t_req_pedal;
-                            temp_t_req.torque_right = t_req_pedal;
-                    }
-                    // EV.4.2.3 - Torque algorithm
-                    // Any algorithm or electronic control unit that can adjust the
-                    // requested wheel torque may only lower the total driver
-                    // requested torque and must not increase it
-                    temp_t_req.torque_left  = CLAMP(temp_t_req.torque_left, 0, t_req_pedal);
-                    temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, 0, t_req_pedal);
-                    break;
-                case CAR_TORQUE_TV_TEST:
-                    switch (requested_tv_mode) {
-                        case VCU_MODE_EQUAL_SPEED:
-                        case VCU_MODE_VARIABLE_SPEED:
-                            // As of now we should never enter these cases. Never command a speed request with the current settings.
-                            s_req_equal             = 0;
-                            temp_t_req.torque_left  = s_req_equal;
-                            temp_t_req.torque_right = s_req_equal;
-                            break;
-                        case VCU_MODE_EQUAL_TORQUE:
-                            temp_t_req.torque_left  = t_req_pedal;
-                            temp_t_req.torque_right = t_req_pedal;
-                            break;
-                        case VCU_MODE_EQUAL_TORQUE_WITH_SAFETY:
-                            temp_t_req.torque_left  = t_req_equal;
-                            temp_t_req.torque_right = t_req_equal;
-                            break;
-                        case VCU_MODE_VARIABLE_TORQUE:
-                            temp_t_req.torque_left  = t_req_tv_l;
-                            temp_t_req.torque_right = t_req_tv_r;
-                            break;
-                        case VCU_MODE_INVALID:
-                            temp_t_req.torque_left  = t_req_pedal;
-                            temp_t_req.torque_right = t_req_pedal;
-                    }
-                    // EV.4.2.3 - Torque algorithm
-                    // Any algorithm or electronic control unit that can adjust the
-                    // requested wheel torque may only lower the total driver
-                    // requested torque and must not increase it
-                    temp_t_req.torque_left  = CLAMP(temp_t_req.torque_left, 0, t_req_pedal);
-                    temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, 0, t_req_pedal);
-                    SEND_SIMULATED_TV(temp_t_req.torque_left, temp_t_req.torque_right);
-                    temp_t_req.torque_left  = t_req_pedal;
-                    temp_t_req.torque_right = t_req_pedal;
-                    break;
-                case CAR_TORQUE_DAQ:
-                    break;
-                case CAR_TORQUE_NONE:
-                    break;
-                default:
-                    temp_t_req.torque_left  = 0;
-                    temp_t_req.torque_right = 0;
-                    break;
-            }
-
-            // Enforce range
-            temp_t_req.torque_left  = CLAMP(temp_t_req.torque_left, MIN_DRIVER_TORQUE_REQUEST, MAX_DRIVER_TORQUE_REQUEST);
-            temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, MIN_DRIVER_TORQUE_REQUEST, MAX_DRIVER_TORQUE_REQUEST);
-
-            // Disable Regenerative Braking
-            if (!car.regen_enabled) {
-                if (temp_t_req.torque_left < 0)
-                    temp_t_req.torque_left = 0.0f;
-                if (temp_t_req.torque_right < 0)
-                    temp_t_req.torque_right = 0.0f;
-            }
-
-            car.torque_r = temp_t_req;
         }
+
+        ready_to_drive_periodic();
     } else if (car.state == CAR_STATE_CONSTANT_TORQUE) {
-        static bool throttle_pressed;
-        static bool brake_pressed;
-        // Check if requesting to exit ready2drive
-        // if (car.start_btn_debounced)
-        // {
-        //     car.state = CAR_STATE_IDLE;
-        // }
-        // else
-        // {
-        float t_req_pedal = 0;
-
-        if (!can_data.filt_throttle_brake.stale)
-            t_req_pedal = (float)CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
-
-        torqueRequest_t temp_t_req;
-        // Register an INTENTIONAL press of throttle and hold this state untill commanded otherwise
-        if (throttle_pressed || (!throttle_pressed && t_req_pedal > 1024)) {
-            brake_pressed           = 0;
-            temp_t_req.torque_left  = (const_tq_val * 10.0f);
-            temp_t_req.torque_right = (const_tq_val * 10.0f);
-            throttle_pressed        = 1;
-        }
-        if ((can_data.filt_throttle_brake.brake > 50) || brake_pressed) {
-            throttle_pressed        = 0;
-            brake_pressed           = 1;
-            temp_t_req.torque_left  = 0.0f;
-            temp_t_req.torque_right = 0.0f;
-        }
-
-        // Enforce range
-        temp_t_req.torque_left  = CLAMP(temp_t_req.torque_left, MIN_DRIVER_TORQUE_REQUEST, MAX_DRIVER_TORQUE_REQUEST);
-        temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, MIN_DRIVER_TORQUE_REQUEST, MAX_DRIVER_TORQUE_REQUEST);
-
-        // Disable Regenerative Braking
-        if (!car.regen_enabled) {
-            if (temp_t_req.torque_left < 0)
-                temp_t_req.torque_left = 0.0f;
-            if (temp_t_req.torque_right < 0)
-                temp_t_req.torque_right = 0.0f;
-        }
-
-        car.torque_r = temp_t_req;
-        // }
+        constant_torque_periodic();
     }
 
     /* Update System Outputs */
@@ -396,6 +221,210 @@ void carPeriodic() {
     /* At this point torque request will be clamped from 0 to 1000 */
     amkSetTorque(&car.motor_l, car.torque_r.torque_left);
     amkSetTorque(&car.motor_r, car.torque_r.torque_right);
+}
+
+void ready_to_drive_periodic() {
+    float t_req_pedal = 0;
+    float t_req_tv_l  = 0;
+    float t_req_tv_r  = 0;
+    float t_req_equal = 0;
+
+    float s_req_tv_l  = 0;
+    float s_req_tv_r  = 0;
+    float s_req_equal = 0;
+
+    any_tv_msg_stale = false;
+
+    requested_tv_mode = VCU_MODE_INVALID;
+
+    if (!can_data.filt_throttle_brake.stale)
+        t_req_pedal = (float)CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
+
+    if (!can_data.drive_modes.stale && !can_data.VCU_torques_speeds.stale) {
+        requested_tv_mode = can_data.VCU_torques_speeds.VCU_mode;
+        t_req_tv_l        = CLAMP(can_data.VCU_torques_speeds.TO_VT_left, 0, MAX_TV_TORQUE_REQUEST);
+        t_req_tv_r        = CLAMP(can_data.VCU_torques_speeds.TO_VT_right, 0, MAX_TV_TORQUE_REQUEST);
+        t_req_equal       = CLAMP(can_data.VCU_torques_speeds.TO_PT_equal, 0, MAX_TV_TORQUE_REQUEST);
+    } else {
+        requested_tv_mode = VCU_MODE_INVALID;
+        any_tv_msg_stale  = true;
+    }
+
+    if (car.torque_src == CAR_TORQUE_TV || car.torque_src == CAR_TORQUE_TV_TEST) {
+        setFault(ID_TV_STALE_FAULT, any_tv_msg_stale);
+    }
+
+    // Final check to see if we can run TV
+    // Debounce TV stale (if TV goes in/out of being stale)
+    if (checkFault(ID_TV_STALE_FAULT)) {
+        requested_tv_mode = VCU_MODE_INVALID;
+    }
+
+    // Torque Requests
+    t_req_pedal = (int16_t)(t_req_pedal * MAX_DRIVER_TORQUE_REQUEST / 4095.0f);
+    // Torque is provided from 0-2100 (i.e. Nm * 100). We command Percent torque (0-210)
+    t_req_tv_l  = (int16_t)(t_req_tv_l / TV_TORQUE_REQUEST_SCALE);
+    t_req_tv_r  = (int16_t)(t_req_tv_r / TV_TORQUE_REQUEST_SCALE);
+    t_req_equal = (int16_t)(t_req_equal / TV_TORQUE_REQUEST_SCALE);
+
+    torqueRequest_t temp_t_req;
+    switch (car.torque_src) {
+        case CAR_TORQUE_RAW:
+            temp_t_req.torque_left  = t_req_pedal;
+            temp_t_req.torque_right = t_req_pedal;
+            break;
+        case CAR_TORQUE_TV:
+            switch (requested_tv_mode) {
+                case VCU_MODE_EQUAL_SPEED:
+                case VCU_MODE_VARIABLE_SPEED:
+                    // As of now we should never enter these cases. Never command a speed request with the current settings.
+                    s_req_equal             = 0;
+                    temp_t_req.torque_left  = s_req_equal;
+                    temp_t_req.torque_right = s_req_equal;
+                    break;
+                case VCU_MODE_EQUAL_TORQUE:
+                    temp_t_req.torque_left  = t_req_pedal;
+                    temp_t_req.torque_right = t_req_pedal;
+                    break;
+                case VCU_MODE_EQUAL_TORQUE_WITH_SAFETY:
+                    temp_t_req.torque_left  = t_req_equal;
+                    temp_t_req.torque_right = t_req_equal;
+                    break;
+                case VCU_MODE_VARIABLE_TORQUE:
+                    temp_t_req.torque_left  = t_req_tv_l;
+                    temp_t_req.torque_right = t_req_tv_r;
+                    break;
+                case VCU_MODE_INVALID:
+                    temp_t_req.torque_left  = t_req_pedal;
+                    temp_t_req.torque_right = t_req_pedal;
+            }
+            // EV.4.2.3 - Torque algorithm
+            // Any algorithm or electronic control unit that can adjust the
+            // requested wheel torque may only lower the total driver
+            // requested torque and must not increase it
+            temp_t_req.torque_left  = CLAMP(temp_t_req.torque_left, 0, t_req_pedal);
+            temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, 0, t_req_pedal);
+            break;
+        case CAR_TORQUE_TV_TEST:
+            switch (requested_tv_mode) {
+                case VCU_MODE_EQUAL_SPEED:
+                case VCU_MODE_VARIABLE_SPEED:
+                    // As of now we should never enter these cases. Never command a speed request with the current settings.
+                    s_req_equal             = 0;
+                    temp_t_req.torque_left  = s_req_equal;
+                    temp_t_req.torque_right = s_req_equal;
+                    break;
+                case VCU_MODE_EQUAL_TORQUE:
+                    temp_t_req.torque_left  = t_req_pedal;
+                    temp_t_req.torque_right = t_req_pedal;
+                    break;
+                case VCU_MODE_EQUAL_TORQUE_WITH_SAFETY:
+                    temp_t_req.torque_left  = t_req_equal;
+                    temp_t_req.torque_right = t_req_equal;
+                    break;
+                case VCU_MODE_VARIABLE_TORQUE:
+                    temp_t_req.torque_left  = t_req_tv_l;
+                    temp_t_req.torque_right = t_req_tv_r;
+                    break;
+                case VCU_MODE_INVALID:
+                    temp_t_req.torque_left  = t_req_pedal;
+                    temp_t_req.torque_right = t_req_pedal;
+            }
+            // EV.4.2.3 - Torque algorithm
+            // Any algorithm or electronic control unit that can adjust the
+            // requested wheel torque may only lower the total driver
+            // requested torque and must not increase it
+            temp_t_req.torque_left  = CLAMP(temp_t_req.torque_left, 0, t_req_pedal);
+            temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, 0, t_req_pedal);
+            SEND_SIMULATED_TV(temp_t_req.torque_left, temp_t_req.torque_right);
+            temp_t_req.torque_left  = t_req_pedal;
+            temp_t_req.torque_right = t_req_pedal;
+            break;
+        case CAR_TORQUE_DAQ:
+            break;
+        case CAR_TORQUE_NONE:
+            break;
+        default:
+            temp_t_req.torque_left  = 0;
+            temp_t_req.torque_right = 0;
+            break;
+    }
+
+    // Enforce range
+    temp_t_req.torque_left  = CLAMP(temp_t_req.torque_left, MIN_DRIVER_TORQUE_REQUEST, MAX_DRIVER_TORQUE_REQUEST);
+    temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, MIN_DRIVER_TORQUE_REQUEST, MAX_DRIVER_TORQUE_REQUEST);
+
+    // Disable Regenerative Braking
+    if (!car.regen_enabled) {
+        if (temp_t_req.torque_left < 0)
+            temp_t_req.torque_left = 0.0f;
+        if (temp_t_req.torque_right < 0)
+            temp_t_req.torque_right = 0.0f;
+    }
+
+    car.torque_r = temp_t_req;
+}
+
+void get_torque_request(torqueRequest_t *torque_req) {
+    if (car.state != CAR_STATE_READY2DRIVE && car.state != CAR_STATE_CONSTANT_TORQUE) {
+        torque_req->torque_left  = 0.0f;
+        torque_req->torque_right = 0.0f;
+        return;
+    }
+
+    
+    
+}
+
+void constant_torque_periodic() {
+    if (car.state != CAR_STATE_CONSTANT_TORQUE) {
+        return;
+    }
+
+    static bool throttle_pressed;
+    static bool brake_pressed;
+    // Check if requesting to exit ready2drive
+    // if (car.start_btn_debounced)
+    // {
+    //     car.state = CAR_STATE_IDLE;
+    // }
+    // else
+    // {
+    float t_req_pedal = 0;
+
+    if (!can_data.filt_throttle_brake.stale)
+        t_req_pedal = (float)CLAMP(can_data.filt_throttle_brake.throttle, 0, 4095);
+
+    torqueRequest_t temp_t_req;
+    // Register an INTENTIONAL press of throttle and hold this state untill commanded otherwise
+    if (throttle_pressed || (!throttle_pressed && t_req_pedal > 1024)) {
+        brake_pressed           = 0;
+        temp_t_req.torque_left  = (const_tq_val * 10.0f);
+        temp_t_req.torque_right = (const_tq_val * 10.0f);
+        throttle_pressed        = 1;
+    }
+    if ((can_data.filt_throttle_brake.brake > 50) || brake_pressed) {
+        throttle_pressed        = 0;
+        brake_pressed           = 1;
+        temp_t_req.torque_left  = 0.0f;
+        temp_t_req.torque_right = 0.0f;
+    }
+
+    // Enforce range
+    temp_t_req.torque_left  = CLAMP(temp_t_req.torque_left, MIN_DRIVER_TORQUE_REQUEST, MAX_DRIVER_TORQUE_REQUEST);
+    temp_t_req.torque_right = CLAMP(temp_t_req.torque_right, MIN_DRIVER_TORQUE_REQUEST, MAX_DRIVER_TORQUE_REQUEST);
+
+    // Disable Regenerative Braking
+    if (!car.regen_enabled) {
+        if (temp_t_req.torque_left < 0)
+            temp_t_req.torque_left = 0.0f;
+        if (temp_t_req.torque_right < 0)
+            temp_t_req.torque_right = 0.0f;
+    }
+
+    car.torque_r = temp_t_req;
+    // }
+
 }
 
 /**

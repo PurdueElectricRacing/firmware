@@ -16,8 +16,9 @@
                   "sig_name": "car_state",
                   "sig_desc": "Main car state",
                   "type": "uint8_t",
-                  "length": 8,
+                  "length": 7,
                   "choices": [
+                    "init",
                     "idle",
                     "precharging",
                     "energized",
@@ -25,8 +26,6 @@
                     "ready2drive",
                     "error",
                     "fatal",
-                    "reset",
-                    "recover",
                     "constant_torque"
                   ]
                 },

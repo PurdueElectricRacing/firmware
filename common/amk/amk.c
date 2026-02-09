@@ -51,7 +51,7 @@ void amkPeriodic(amk_motor_t* motor) {
     switch (motor->state) {
         case AMK_STATE_OFF:
             if (motor->status.AMK_bError) {
-                if (AMK_CAN_ERR_ID == motor->diagnostic_num || AMK_DC_BUS_ID == motor->diagnostic_num) {
+                if (AMK_CAN_ERR_ID == motor->diagnostic_number || AMK_DC_BUS_ID == motor->diagnostic_number) {
                     amkReset(motor);
                 } else {
                     setFault(motor->error_fault_id, true);
@@ -202,13 +202,13 @@ static void amkGetData(amk_motor_t* motor) {
         if (can_data.INVA_CRIT.stale || can_data.INVA_TEMPS.stale || can_data.INVA_INFO.stale || can_data.INVA_ERR_1.stale || can_data.INVA_ERR_2.stale) {
             setFault(motor->stale_fault_id, true);
         } else {
-            motor->speed_act_RPM              = can_data.INVA_CRIT.AMK_ActualSpeed;
-            motor->torque_act_ppt_nom         = can_data.INVA_CRIT.AMK_ActualTorque;
-            motor->overload_inv               = can_data.INVA_CRIT.AMK_DisplayOverloadInverter;
+            motor->actual_speed_RPM           = can_data.INVA_CRIT.AMK_ActualSpeed;
+            motor->actual_torque_NM           = can_data.INVA_CRIT.AMK_ActualTorque;
+            motor->overload_inverter          = can_data.INVA_CRIT.AMK_DisplayOverloadInverter;
             motor->overload_motor             = can_data.INVA_CRIT.AMK_DisplayOverloadMotor;
-            motor->temp_motor_deci_C          = can_data.INVA_TEMPS.AMK_MotorTemp;
-            motor->temp_inv_deci_C            = can_data.INVA_TEMPS.AMK_InverterTemp;
-            motor->temp_igbt_deci_C           = can_data.INVA_TEMPS.AMK_IGBTTemp;
+            motor->motor_temp_dC          = can_data.INVA_TEMPS.AMK_MotorTemp;
+            motor->inverter_temp_dC            = can_data.INVA_TEMPS.AMK_InverterTemp;
+            motor->igbt_temp_dC           = can_data.INVA_TEMPS.AMK_IGBTTemp;
             motor->status.AMK_bSystemReady    = can_data.INVA_INFO.AMK_Status_bSystemReady;
             motor->status.AMK_bError          = can_data.INVA_INFO.AMK_Status_bError;
             motor->status.AMK_bWarn           = can_data.INVA_INFO.AMK_Status_bWarn;
@@ -218,7 +218,7 @@ static void amkGetData(amk_motor_t* motor) {
             motor->status.AMK_bInverterOn     = can_data.INVA_INFO.AMK_Status_bInverterOn;
             motor->status.AMK_bDerating       = can_data.INVA_INFO.AMK_Status_bDerating;
             motor->dc_bus_voltage             = can_data.INVA_INFO.AMK_DCBusVoltage;
-            motor->diagnostic_num             = can_data.INVA_ERR_1.AMK_DiagnosticNumber;
+            motor->diagnostic_number             = can_data.INVA_ERR_1.AMK_DiagnosticNumber;
             motor->error_info_1               = can_data.INVA_ERR_1.AMK_ErrorInfo1;
             motor->error_info_2               = can_data.INVA_ERR_2.AMK_ErrorInfo2;
             motor->error_info_3               = can_data.INVA_ERR_2.AMK_ErrorInfo3;
@@ -227,13 +227,13 @@ static void amkGetData(amk_motor_t* motor) {
         if (can_data.INVB_CRIT.stale || can_data.INVB_TEMPS.stale || can_data.INVB_INFO.stale || can_data.INVB_ERR_1.stale || can_data.INVB_ERR_2.stale) {
             setFault(motor->stale_fault_id, true);
         } else {
-            motor->speed_act_RPM              = can_data.INVB_CRIT.AMK_ActualSpeed;
-            motor->torque_act_ppt_nom         = can_data.INVB_CRIT.AMK_ActualTorque;
-            motor->overload_inv               = can_data.INVB_CRIT.AMK_DisplayOverloadInverter;
+            motor->actual_speed_RPM           = can_data.INVB_CRIT.AMK_ActualSpeed;
+            motor->actual_torque_NM           = can_data.INVB_CRIT.AMK_ActualTorque;
+            motor->overload_inverter          = can_data.INVB_CRIT.AMK_DisplayOverloadInverter;
             motor->overload_motor             = can_data.INVB_CRIT.AMK_DisplayOverloadMotor;
-            motor->temp_motor_deci_C          = can_data.INVB_TEMPS.AMK_MotorTemp;
-            motor->temp_inv_deci_C            = can_data.INVB_TEMPS.AMK_InverterTemp;
-            motor->temp_igbt_deci_C           = can_data.INVB_TEMPS.AMK_IGBTTemp;
+            motor->motor_temp_dC          = can_data.INVB_TEMPS.AMK_MotorTemp;
+            motor->inverter_temp_dC            = can_data.INVB_TEMPS.AMK_InverterTemp;
+            motor->igbt_temp_dC           = can_data.INVB_TEMPS.AMK_IGBTTemp;
             motor->status.AMK_bSystemReady    = can_data.INVB_INFO.AMK_Status_bSystemReady;
             motor->status.AMK_bError          = can_data.INVB_INFO.AMK_Status_bError;
             motor->status.AMK_bWarn           = can_data.INVB_INFO.AMK_Status_bWarn;
@@ -243,7 +243,7 @@ static void amkGetData(amk_motor_t* motor) {
             motor->status.AMK_bInverterOn     = can_data.INVB_INFO.AMK_Status_bInverterOn;
             motor->status.AMK_bDerating       = can_data.INVB_INFO.AMK_Status_bDerating;
             motor->dc_bus_voltage             = can_data.INVB_INFO.AMK_DCBusVoltage;
-            motor->diagnostic_num             = can_data.INVB_ERR_1.AMK_DiagnosticNumber;
+            motor->diagnostic_number             = can_data.INVB_ERR_1.AMK_DiagnosticNumber;
             motor->error_info_1               = can_data.INVB_ERR_1.AMK_ErrorInfo1;
             motor->error_info_2               = can_data.INVB_ERR_2.AMK_ErrorInfo2;
             motor->error_info_3               = can_data.INVB_ERR_2.AMK_ErrorInfo3;

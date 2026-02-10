@@ -442,7 +442,7 @@ void config_button_irqs() {
  * @note The queue holds a max of 10 commands. Design your LCD page updates with this in mind.
  */
 
-void lcdTxUpdate() {
+void lcd_tx_cmd() {
     if ((false == PHAL_usartTxBusy(&lcd)) && (lcd_tx_buf.length > 0)) {
         PHAL_usartTxDma(&lcd, (uint8_t*)lcd_tx_buf.data, lcd_tx_buf.length);
         strbuf_clear(&lcd_tx_buf);

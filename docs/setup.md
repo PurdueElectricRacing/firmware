@@ -21,9 +21,10 @@ brew install --cask gcc-arm-embedded
 
 ## Windows Tools Setup
 1. You should use WSL, the toolchain for Windows is too old. Install [here](https://learn.microsoft.com/en-us/windows/wsl/install).
-2. Follow the Linux steps after this
-3. VSCode should have good integration with WSL, you can use the windows version of VSCode with WSL extension.
-4. You will have to setup USB on WSL (it is a bit weird). You can do this when you are done with onboarding, and you can build the repository. [Instructions](https://learn.microsoft.com/en-us/windows/wsl/connect-usb)
+2. If you are using Ubuntu version, use the newest version as Ubuntu is a bit weird with package versions as well. You may need to update it. 
+3. Follow the Linux steps after this
+4. VSCode should have good integration with WSL, you can use the windows version of VSCode with WSL extension.
+5. You will have to setup USB on WSL (it is a bit weird). You can do this when you are done with onboarding, and you can build the repository. [Instructions](https://learn.microsoft.com/en-us/windows/wsl/connect-usb)
 
 ## Linux Tools Setup
 1. You probably already know what you're doing, so here are the commands for `apt` (Ubuntu, Debian, Pop!, etc.):

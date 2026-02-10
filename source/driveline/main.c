@@ -1,7 +1,7 @@
 /**
  * @file main.c
  * @brief "Driveline" node source code
- * 
+ *
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
@@ -31,7 +31,7 @@ GPIOInitConfig_t gpio_config[] = {
 
 static constexpr uint32_t TargetCoreClockrateHz = 16000000;
 ClockRateConfig_t clock_config = {
-    .clock_source           = CLOCK_SOURCE_HSE,
+    .clock_source           = CLOCK_SOURCE_HSI, // todo change to HSE
     .use_pll                = false,
     .system_clock_target_hz = TargetCoreClockrateHz,
     .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
@@ -56,7 +56,7 @@ ADCChannelConfig_t adc_channel_config[] = {
 // note: this struct is the target of the DMA controller,
 // it's layout must match the order and size of the ADC channels in adc_channel_config
 // additonally, it must have no padding and members must be uint16_t to match the ADC resolution and data alignment
-typedef struct { 
+typedef struct {
     uint16_t shock_l;
     uint16_t shock_r;
 } raw_adc_values_t;
@@ -107,15 +107,15 @@ int main(void) {
     return 0;
 }
 
-// Both driveline nodes 
+// Both driveline nodes
 
 void shockpot_thread() {
     float shock_l_parsed = -1.0 * ((POT_MAX_DIST - ((raw_adc_values.shock_l / (POT_VOLT_MIN_L - POT_VOLT_MAX_L)) * POT_MAX_DIST)) - POT_DIST_DROOP_L);
     float shock_r_parsed = -1.0 * ((POT_MAX_DIST - ((raw_adc_values.shock_r / (POT_VOLT_MIN_R - POT_VOLT_MAX_R)) * POT_MAX_DIST)) - POT_DIST_DROOP_R);
-    
+
     int16_t shock_l_scaled = (int16_t)(shock_l_parsed * PACK_COEFF_FRONT_SHOCKPOTS_LEFT);
     int16_t shock_r_scaled = (int16_t)(shock_r_parsed * PACK_COEFF_FRONT_SHOCKPOTS_RIGHT);
-    
+
     #ifdef SEND_SHOCKPOTS
     SEND_SHOCKPOTS(shock_l_scaled, shock_r_scaled);
     #endif

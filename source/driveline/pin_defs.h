@@ -1,7 +1,7 @@
 /**
  * @file pin_defs.h
  * @brief "Driveline" node pin definitions and related constants
- * 
+ *
  * @author Irving Wang (irvingw@purdue.edu)
  */
 

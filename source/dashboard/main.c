@@ -174,11 +174,11 @@ void sendVersion();
 extern void HardFault_Handler();
 
 // Communication queues
-q_handle_t q_tx_usart;
+strbuf_t lcd_tx_buf;
 
 int main(void) {
     /* Data Struct init */
-    qConstruct(&q_tx_usart, NXT_STR_SIZE);
+    allocate_strbuf(lcd_tx_buf, NXT_STR_SIZE); 
 
     /* HAL Initilization */
     if (0 != PHAL_configureClockRates(&clock_config)) {
@@ -619,8 +619,9 @@ void enableInterrupts() {
 uint8_t cmd[NXT_STR_SIZE] = {'\0'}; // Buffer for Nextion LCD commands
 
 void lcdTxUpdate() {
-    if ((false == PHAL_usartTxBusy(&lcd)) && (SUCCESS_G == qReceive(&q_tx_usart, cmd))) {
-        PHAL_usartTxDma(&lcd, (uint16_t*)cmd, strlen(cmd));
+    if ((false == PHAL_usartTxBusy(&lcd)) && (lcd_tx_buf.length > 0)) {
+        PHAL_usartTxDma(&lcd, (uint16_t*)lcd_tx_buf.data, lcd_tx_buf.length);
+        strbuf_clear(&lcd_tx_buf);
     }
 }
 

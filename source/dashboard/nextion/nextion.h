@@ -16,10 +16,10 @@
 #ifndef __NEXTION_H__
 #define __NEXTION_H__
 
-#include <stdio.h>
+#include <stdint.h>
 #include <string.h>
-
-#include "common/queue/queue.h"
+#include <stdio.h>
+#include <strbuf.h>
 
 // Size Definitions
 #define NXT_STR_SIZE 50 // ! Important: Used for usart queue size, issues arise if less than len of longest fault msg

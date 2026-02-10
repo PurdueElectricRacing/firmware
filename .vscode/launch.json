@@ -1,13 +1,14 @@
 {
     "version": "0.2.0",
     "configurations": [
-        {   "name": "Main Module",
+        {
+            "name": "Main Module",
             "cwd": "${workspaceRoot}",
             "executable": "./output/main_module/main_module.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device": "STM32L432KC",
+            "device": "STM32F407VG",
             "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
@@ -20,11 +21,12 @@
             "preLaunchTask": "build",
             "runToEntryPoint": "main",
             "liveWatch": {
-                "enabled":true,
-                "samplesPerSecond":5
+                "enabled": true,
+                "samplesPerSecond": 5
             }
         },
-        {   "name": "PDU",
+        {
+            "name": "PDU",
             "cwd": "${workspaceRoot}",
             "executable": "./output/pdu/pdu.elf",
             "request": "launch",
@@ -43,11 +45,12 @@
             "preLaunchTask": "build",
             "runToEntryPoint": "main",
             "liveWatch": {
-                "enabled":true,
-                "samplesPerSecond":5
+                "enabled": true,
+                "samplesPerSecond": 5
             }
         },
-        {   "name": "Dashboard",
+        {
+            "name": "Dashboard",
             "cwd": "${workspaceRoot}",
             "executable": "./output/dashboard/dashboard.elf",
             "request": "launch",
@@ -66,11 +69,12 @@
             "preLaunchTask": "build",
             "runToEntryPoint": "main",
             "liveWatch": {
-                "enabled":true,
-                "samplesPerSecond":5
+                "enabled": true,
+                "samplesPerSecond": 5
             }
         },
-        {   "name": "Torque Vectoring",
+        {
+            "name": "Torque Vectoring",
             "cwd": "${workspaceRoot}",
             "executable": "./output/torque_vector/torque_vector.elf",
             "request": "launch",
@@ -89,11 +93,12 @@
             "preLaunchTask": "build",
             "runToEntryPoint": "main",
             "liveWatch": {
-                "enabled":true,
-                "samplesPerSecond":5
+                "enabled": true,
+                "samplesPerSecond": 5
             }
         },
-        {   "name": "A_Box",
+        {
+            "name": "A_Box",
             "cwd": "${workspaceRoot}",
             "executable": "./output/a_box/a_box.elf",
             "request": "launch",
@@ -108,11 +113,12 @@
             "preLaunchTask": "build",
             "runToEntryPoint": "main",
             "liveWatch": {
-                "enabled":true,
-                "samplesPerSecond":5
+                "enabled": true,
+                "samplesPerSecond": 5
             }
         },
-        {   "name": "Daq",
+        {
+            "name": "Daq",
             "cwd": "${workspaceRoot}",
             "executable": "./output/daq/daq.elf",
             "request": "launch",
@@ -132,57 +138,12 @@
             "preLaunchTask": "build",
             "runToEntryPoint": "main",
             "liveWatch": {
-                "enabled":true,
-                "samplesPerSecond":5
+                "enabled": true,
+                "samplesPerSecond": 5
             }
         },
-        {   "name": "daq_attach",
-            "cwd": "${workspaceRoot}",
-            "executable": "./output/daq/daq.elf",
-            "request": "attach",
-            "type": "cortex-debug",
-            "servertype": "openocd",
-            "device": "STM32F407VG",
-            "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
-            "configFiles": [
-                "interface/stlink.cfg",
-                "target/stm32f4x.cfg",
-                "${workspaceRoot}/common/openocd/openocd-gdb.cfg"
-            ],
-            "debuggerArgs": [
-                "-d",
-                "${workspaceFolder}/source/daq"
-            ],
-            "runToEntryPoint": "main",
-            "liveWatch": {
-                "enabled":true,
-                "samplesPerSecond":5
-            }
-        },
-        {   "name": "l4_testing",
-            "cwd": "${workspaceRoot}",
-            "executable": "./output/l4_testing/l4_testing.elf",
-            "request": "launch",
-            "type": "cortex-debug",
-            "servertype": "openocd",
-            "device": "STM32L432KC",
-            "svdFile": "${workspaceRoot}/common/svd/STM32L4x2.svd",
-            "configFiles": [
-                "interface/stlink.cfg",
-                "target/stm32l4x.cfg"
-            ],
-            "debuggerArgs": [
-                "-d",
-                "${workspaceFolder}/source/l4_testing"
-            ],
-            "preLaunchTask": "build",
-            "runToEntryPoint": "main",
-            "liveWatch": {
-                "enabled":true,
-                "samplesPerSecond":5
-            }
-        },
-        {   "name": "f4_testing",
+        {
+            "name": "f4_testing",
             "cwd": "${workspaceRoot}",
             "executable": "./output/f4_testing/f4_testing.elf",
             "request": "launch",
@@ -201,31 +162,8 @@
             "preLaunchTask": "build",
             "runToEntryPoint": "main",
             "liveWatch": {
-                "enabled":true,
-                "samplesPerSecond":5
-            }
-        },
-        {   "name": "f7_testing",
-            "cwd": "${workspaceRoot}",
-            "executable": "./output/f7_testing/f7_testing.elf",
-            "request": "launch",
-            "type": "cortex-debug",
-            "servertype": "openocd",
-            "device": "STM32F732RET6",
-            "svdFile": "${workspaceRoot}/common/svd/STM32F7x.svd",
-            "configFiles": [
-                "interface/stlink.cfg",
-                "target/stm32f7x.cfg"
-            ],
-            "debuggerArgs": [
-                "-d",
-                "${workspaceFolder}/source/f7_testing"
-            ],
-            "preLaunchTask": "build",
-            "runToEntryPoint": "main",
-            "liveWatch": {
-                "enabled":true,
-                "samplesPerSecond":5
+                "enabled": true,
+                "samplesPerSecond": 5
             }
         },
         {

@@ -74,6 +74,54 @@
             }
         },
         {
+            "name": "Front Driveline",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/front_driveline/front_driveline.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device": "STM32G474CET6",
+            "svdFile": "${workspaceRoot}/common/svd/STM32G474xx.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32g4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/driveline"
+            ],
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 5
+            }
+        },
+        {
+            "name": "Rear Driveline",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/rear_driveline/rear_driveline.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device": "STM32G474CET6",
+            "svdFile": "${workspaceRoot}/common/svd/STM32G474xx.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32g4x.cfg"
+            ],
+            "debuggerArgs": [
+                "-d",
+                "${workspaceFolder}/source/driveline"
+            ],
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 5
+            }
+        },
+        {
             "name": "Torque Vectoring",
             "cwd": "${workspaceRoot}",
             "executable": "./output/torque_vector/torque_vector.elf",

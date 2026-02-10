@@ -20,11 +20,33 @@ brew install --cask gcc-arm-embedded
 1. Download VSCode from the website: https://code.visualstudio.com/docs/setup/mac
 
 ## Windows Tools Setup
-1. You should use WSL, the toolchain for Windows is too old. Install [here](https://learn.microsoft.com/en-us/windows/wsl/install).
-2. If you are using Ubuntu version, use the newest version as Ubuntu is a bit weird with package versions as well. You may need to update it. 
-3. Follow the Linux steps after this
-4. VSCode should have good integration with WSL, you can use the windows version of VSCode with WSL extension.
-5. You will have to setup USB on WSL (it is a bit weird). You can do this when you are done with onboarding, and you can build the repository. [Instructions](https://learn.microsoft.com/en-us/windows/wsl/connect-usb)
+You should use WSL if possible, the choco toolchain for Windows is too old. Install [here](https://learn.microsoft.com/en-us/windows/wsl/install).
+
+1. If you are using Ubuntu version, use the newest version as Ubuntu is a bit weird with package versions as well. You may need to update it. 
+2. Follow the Linux steps after this
+3. VSCode should have good integration with WSL, you can use the windows version of VSCode with WSL extension.
+4. You will have to setup USB on WSL (it is a bit weird). You can do this when you are done with onboarding, and you can build the repository. [Instructions](https://learn.microsoft.com/en-us/windows/wsl/connect-usb)
+
+Native Windows is still possible:
+1. [Chocolatey](https://chocolatey.org/install#install-step2): Windows package manager Paste and run the installation command provided on the Chocolatey install page.
+	- Open the Start Menu, scroll to W, and locate Windows PowerShell. Right-click on PowerShell and select "Run as Administrator".
+	- After installation, confirm choco is installed by running:
+	`choco --version`
+2. In your administrator powershell, paste the following commands (right click to paste in powershell terminal).
+
+```bash
+choco install git cmake ninja python3 openocd 
+```
+- Enter (`A`) on the first prompt to select 'Yes to All'
+
+> [!NOTE]
+> Make sure to run these in PowerShell as Administrator!
+
+3. STLink drivers need to be manually installed from [here](https://www.st.com/en/development-tools/stsw-link009.html).
+
+4. gcc-arm-embedded needs to be manually installed from [here](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads) (Download and install arm-gnu-toolchain-15.2.rel1-mingw-w64-x86_64-arm-none-eabi.msi)
+
+5. Download VSCode from the website: https://code.visualstudio.com/download
 
 ## Linux Tools Setup
 1. You probably already know what you're doing, so here are the commands for `apt` (Ubuntu, Debian, Pop!, etc.):
@@ -56,7 +78,7 @@ Follow these steps to download the PER codebase and get started on development:
 ## Open a new terminal
 1. Open a new terminal. Just use your regular user account. 
 
-For Windows, open WSL.
+For Windows, open your terminal or WSL.
 
 You should land in your home directory:
 ```bash

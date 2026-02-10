@@ -1,6 +1,6 @@
 # PER Vehicle Firmware ⚡️
 
-[![CircleCI](https://circleci.com/gh/PurdueElectricRacing/firmware/tree/master.svg?style=svg)](https://circleci.com/gh/PurdueElectricRacing/firmware/tree/master)
+![Workflow Status](https://github.com/PurdueElectricRacing/firmware/actions/workflows/build.yml/badge.svg)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/PurdueElectricRacing/firmware?style=flat-square)
 
 A monorepo of all firmware projects, build tools, and scripts driving the PER vehicle.

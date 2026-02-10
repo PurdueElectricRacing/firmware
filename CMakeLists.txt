@@ -99,13 +99,11 @@ set(MODULES "" CACHE STRING "Semicolon-separated list of source modules to build
 
 if(MODULES STREQUAL "")
     set(MODULES
+        f4_testing
+        g4_testing
         a_box
-        bootloader
         dashboard
         daq
-        f4_testing
-        f7_testing
-        g4_testing
         main_module
         pdu
         torque_vector

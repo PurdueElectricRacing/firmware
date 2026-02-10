@@ -11,13 +11,13 @@ The PER firmware development environment relies on several tools -- such as `cma
 	- After installation, ensure brew is installed by running:
 	`brew --version`
 
-1. Run the following commands in your terminal to install the other tools (you can copy and paste them all at once).
+2. Run the following commands in your terminal to install the other tools (you can copy and paste them all at once).
 ```bash
 brew install git cmake ninja openocd stlink python3
 brew install --cask gcc-arm-embedded
 ```
 
-1. Download VSCode from the website: https://code.visualstudio.com/docs/setup/mac
+3. Download VSCode from the website: https://code.visualstudio.com/docs/setup/mac
 
 ## Windows Tools Setup
 You should use WSL if possible, the choco toolchain for Windows is too old. Install [here](https://learn.microsoft.com/en-us/windows/wsl/install).
@@ -54,7 +54,7 @@ choco install git cmake ninja python3 openocd
 sudo apt update && sudo apt upgrade
 sudo apt install git cmake python3 python3-pip ninja-build gcc-arm-none-eabi openocd stlink-tools
 ```
-1. Visual Studio Code requires some special attention, install from [here](https://code.visualstudio.com/docs/setup/linux).
+2. Visual Studio Code requires some special attention, install from [here](https://code.visualstudio.com/docs/setup/linux).
 
 
 # 2. VSCode Setup (All OS)
@@ -76,7 +76,7 @@ Follow these steps to download the PER codebase and get started on development:
 
 
 ## Open a new terminal
-1. Open a new terminal. Just use your regular user account. 
+Open a new terminal. Just use your regular user account. 
 
 For Windows, open your terminal or WSL.
 
@@ -101,7 +101,7 @@ pwd
 git clone https://github.com/PurdueElectricRacing/firmware.git
 ```
 
-1. Enter the firmware repository:
+2. Enter the firmware repository:
 ```bash
 cd firmware
 ```
@@ -133,11 +133,11 @@ pip3 install -r requirements.txt
 > ```
 
 
-1. Launch Visual Studio Code:
+2. Launch Visual Studio Code:
 ```bash
 code .
 ```
-1. Try running a build by doing `CTRL/CMD + Shift + B` in your VSCode window
+3. Try running a build by doing `CTRL/CMD + Shift + B` in your VSCode window
 
 ```
 Ctrl + Shift + B on Windows/Linux

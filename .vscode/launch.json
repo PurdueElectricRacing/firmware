@@ -53,11 +53,11 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device": "STM32F407VG",
-            "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
+            "device": "STM32G474RET6",
+            "svdFile": "${workspaceRoot}/common/svd/STM32G474xx.svd",
             "configFiles": [
                 "interface/stlink.cfg",
-                "target/stm32f4x.cfg"
+                "target/stm32g4x.cfg"
             ],
             "debuggerArgs": [
                 "-d",
@@ -93,7 +93,26 @@
                 "samplesPerSecond":5
             }
         },
-        {   "name": "daq",
+        {   "name": "A_Box",
+            "cwd": "${workspaceRoot}",
+            "executable": "./output/a_box/a_box.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device": "STM32G474CET6",
+            "svdFile": "${workspaceRoot}/common/svd/STM32G474xx.svd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32g4x.cfg"
+            ],
+            "preLaunchTask": "build",
+            "runToEntryPoint": "main",
+            "liveWatch": {
+                "enabled":true,
+                "samplesPerSecond":5
+            }
+        },
+        {   "name": "Daq",
             "cwd": "${workspaceRoot}",
             "executable": "./output/daq/daq.elf",
             "request": "launch",
@@ -231,29 +250,6 @@
             "liveWatch": {
                 "enabled": true,
                 "samplesPerSecond": 5
-            }
-        },
-        {   "name": "A_Box",
-            "cwd": "${workspaceRoot}",
-            "executable": "./output/a_box/a_box.elf",
-            "request": "launch",
-            "type": "cortex-debug",
-            "servertype": "openocd",
-            "device": "STM32F407VG",
-            "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
-            "configFiles": [
-                "interface/stlink.cfg",
-                "target/stm32f4x.cfg"
-            ],
-            "debuggerArgs": [
-                "-d",
-                "${workspaceFolder}/source/a_box"
-            ],
-            "preLaunchTask": "build",
-            "runToEntryPoint": "main",
-            "liveWatch": {
-                "enabled":true,
-                "samplesPerSecond":5
             }
         },
         {   "name": "BL App - Main Module",

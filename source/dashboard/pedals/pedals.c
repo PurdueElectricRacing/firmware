@@ -4,7 +4,6 @@
 
 #include "common/can_library/generated/DASHBOARD.h"
 #include "common/can_library/faults_common.h"
-#include "common/phal/gpio.h"
 #include "common_defs.h"
 #include "main.h"
 
@@ -78,7 +77,6 @@ void pedalsPeriodic(void) {
     // Check for wiring faults
     update_fault(FAULT_INDEX_DASHBOARD_APPS_WIRING_T1, t1_raw);
     update_fault(FAULT_INDEX_DASHBOARD_APPS_WIRING_T2, t2_raw);
-    update_fault(FAULT_INDEX_DASHBOARD_BSE, PHAL_readGPIO(BRK_FAIL_TAP_GPIO_Port, BRK_FAIL_TAP_Pin));
 
     // Hard clamp the raw values to the min and max values to account for physical limits
     uint16_t t1_clamped = CLAMP(t1_raw, pedal_calibration.t1_min, pedal_calibration.t1_max);
@@ -120,8 +118,8 @@ void pedalsPeriodic(void) {
 // static const uint32_t* PROFILE_FLASH_START = (uint32_t*)ADDR_FLASH_SECTOR_3;
 // static volatile uint32_t* profile_current_address;
 
-// TODO move to main
-int writePedalProfiles() { // TODO switch to EEPROM
+// TODO deprecate this feature
+int writePedalProfiles() {
     // profile_current_address = (volatile uint32_t*)PROFILE_FLASH_START;
 
     //  // !! This will cause a crash if watchdog is enabled !!

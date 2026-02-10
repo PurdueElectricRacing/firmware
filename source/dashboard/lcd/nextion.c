@@ -14,7 +14,6 @@
  */
 
 #include "nextion.h"
-#include "common/strbuf/strbuf.h"
 #include <stdarg.h>
 #include <stdint.h>
 

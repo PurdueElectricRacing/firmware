@@ -1,8 +1,5 @@
 #include "adbms.h"
 #include <assert.h>
-#include "common/phal_F4_F7/adc/adc.h"
-#include "common/phal_F4_F7/spi/spi.h"
-#include "external/STM32CubeG4/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h"
 #include "faults.h"
 #include <stdint.h>
 #include <string.h>

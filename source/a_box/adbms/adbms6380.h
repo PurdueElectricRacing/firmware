@@ -135,14 +135,12 @@ void adbms6380_prepare_data_packet(strbuf_t *output_buffer,
 /**
  * @brief Verify the PEC of received data.
  * 
- * @param data Pointer to received data bytes (excluding PEC).
- * @param data_len Length of the data in bytes (excluding PEC).
- * @param received_pec The PEC10 value received from the device as 2 bytes.
- * @return True if PEC matches calculated value, false otherwise.
+ * @param data Pointer to received bytes. PEC10 must follow the raw data bytes.
+ * @param data_len Length of the data in bytes (including PEC, so the raw data
+                   is actually data_len - ADBMS6380_PEC_SIZE).
+ * @return True if the received PEC matches calculated value, false otherwise.
  */
-bool adbms6380_check_data_pec(const uint8_t *data,
-                              size_t data_len,
-                              const uint8_t received_pec[ADBMS6380_PEC_SIZE]);
+bool adbms6380_check_data_pec(const uint8_t *rx_bytes, size_t rx_len);
 
 /**
  * @brief Calculate the REG_A configuration register value.

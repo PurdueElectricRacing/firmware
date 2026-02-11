@@ -93,11 +93,11 @@ void adbms6380_prepare_data_packet(strbuf_t *output_buffer,
     strbuf_append(output_buffer, pec_bytes, ADBMS6380_PEC_SIZE);
 }
 
-bool adbms6380_check_data_pec(const uint8_t *data,
-                              size_t data_len,
-                              const uint8_t received_pec[ADBMS6380_PEC_SIZE]) {
-    uint16_t calculated_pec   = adbms_pec_get_pec10(true, data_len, data);
-    uint16_t received_pec_val = ((uint16_t)received_pec[0] << 8) | (uint16_t)received_pec[1];
+bool adbms6380_check_data_pec(const uint8_t *rx_bytes, size_t rx_len) {
+    size_t raw_data_len     = rx_len - ADBMS6380_PEC_SIZE;
+    uint16_t calculated_pec = adbms_pec_get_pec10(true, raw_data_len, rx_bytes);
+    uint16_t received_pec_val =
+        ((uint16_t)rx_bytes[raw_data_len + 0] << 8) | (uint16_t)rx_bytes[raw_data_len + 1];
     return calculated_pec == received_pec_val;
 }
 

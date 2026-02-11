@@ -90,6 +90,5 @@
     },
     "fault_library_enabled": false,
     "generate_fault_messages": false,
-    "faults": [
-    ]
+    "faults": []
 }

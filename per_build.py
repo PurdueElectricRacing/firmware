@@ -35,7 +35,9 @@ BOARD_TARGETS = [
         "torque_vector",
         "dashboard",
         "pdu",
-        "daq"
+        "daq",
+        "front_driveline",
+        "rear_driveline"
     ]
 
 
@@ -106,7 +108,8 @@ def print_available_targets():
         "torque_vector",
         "dashboard",
         "pdu",
-        "daq"
+        "daq",
+        "driveline"
     ]
     modules_sorted = sorted(modules)
     print("Available targets to build:")

@@ -1,7 +1,7 @@
 /**
  * @file main.c
  * @brief "Dashboard" node source code
- * 
+ *
  * @author Irving Wang (irvingw@purdue.edu)
  * @author Luke Oxley (lcoxley@purdue.edu)
  * @author Chris Mcgalliard (cpmcgalliard@gmail.com)
@@ -213,12 +213,12 @@ void preflight_task() {
         createThread(pedalsPeriodic);
         createThread(can_worker_task);
 
-        createThread(updateFaultDisplay)
-        createThread(heartbeat_led)
-        createThread(service_button_inputs)
-        createThread(send_version)
-        createThread(updateTelemetryPages)
-        createThread(sendTVParameters)
+        createThread(updateFaultDisplay);
+        createThread(heartbeat_led);
+        createThread(service_button_inputs);
+        createThread(send_version);
+        createThread(updateTelemetryPages);
+        createThread(sendTVParameters);
         osThreadExit(); // Self delete
         return;
     }
@@ -226,7 +226,7 @@ void preflight_task() {
     if (counter % 10 == 0) { // Run every 100ms
         preflight_animation();
     }
-    
+
     counter++;
 }
 

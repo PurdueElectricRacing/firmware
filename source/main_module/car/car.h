@@ -30,19 +30,6 @@
 
 #define BRAKE_PRESSED_THRESHOLD (BRAKE_LIGHT_ON_THRESHOLD)
 
-// Shock Pot Calibration
-#define POT_TOTAL_RES 3000
-#define POT_MAX_RES   3300
-#define POT_MIN_RES   300
-
-#define POT_VOLT_MAX_L   11.0f
-#define POT_VOLT_MIN_L   4060.0f
-#define POT_VOLT_MAX_R   11.0f
-#define POT_VOLT_MIN_R   4092.0f
-#define POT_MAX_DIST     75
-#define POT_DIST_DROOP_L 56
-#define POT_DIST_DROOP_R 55
-
 // Throttle pedal constraints
 #define TECH_MAX_TORQUE_REQUEST            25.0f
 #define ACCEL_AUTO_SKID_MAX_TORQUE_REQUEST 210.0f

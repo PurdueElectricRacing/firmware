@@ -49,6 +49,8 @@ typedef enum {
 typedef struct {
     /** Latest cell voltage readings for this module (volts). */
     float cell_voltages[ADBMS6380_CELL_COUNT];
+    /** Latest raw cell voltage readings for this module. */
+    int16_t cell_voltages_raw[ADBMS6380_CELL_COUNT];
     /** Minimum cell voltage within this module (volts). */
     float min_voltage;
     /** Maximum cell voltage within this module (volts). */

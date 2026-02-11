@@ -286,10 +286,10 @@ void adbms_read_cells(ADBMS_bms_t *bms) {
 }
 
 void adbms_read_therms(ADBMS_bms_t *bms) {
-    float *gpio_voltage_ptrs[ADBMS_MODULE_COUNT] = {0};
+    float *gpio_voltage_ptrs[ADBMS_MODULE_COUNT]  = {0};
     bool *err_therms_pec_ptrs[ADBMS_MODULE_COUNT] = {0};
     for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
-        gpio_voltage_ptrs[i] = bms->modules[i].thermistors;
+        gpio_voltage_ptrs[i]   = bms->modules[i].thermistors;
         err_therms_pec_ptrs[i] = &bms->modules[i].err_therms_pec;
     }
 

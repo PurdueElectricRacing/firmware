@@ -15,16 +15,14 @@
 SPI_InitConfig_t bms_spi_config = {
     .data_len      = 8,
     .nss_sw        = false, // BMS drive CS pin manually to ensure correct timing
-    .nss_gpio_port = SPI1_CS_PORT,
-    .nss_gpio_pin  = SPI1_CS_PIN,
-    .rx_dma_cfg    = &spi_rx_dma_config,
-    .tx_dma_cfg    = &spi_tx_dma_config,
+    .nss_gpio_port = SPI2_CS_PORT,
+    .nss_gpio_pin  = SPI2_CS_PIN,
     .rx_dma_cfg    = nullptr,
     .tx_dma_cfg    = nullptr,
-    .periph        = SPI1,
+    .periph        = SPI2,
     .cpol          = 0,
     .cpha          = 0,
-    .data_rate     = 1000000, // 1 MHz SPI clock for ADBMS6380
+    // .data_rate     = 1000000, // 1 MHz SPI clock for ADBMS6380
 };
 
 /* PER HAL Initilization Structures */
@@ -42,7 +40,7 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_FDCAN2TX_PB13,
 
     // SPI for BMS
-    GPIO_INIT_OUTPUT(SPI1_CS_PORT, SPI1_CS_PIN, GPIO_OUTPUT_ULTRA_SPEED),
+    GPIO_INIT_OUTPUT(SPI2_CS_PORT, SPI2_CS_PIN, GPIO_OUTPUT_ULTRA_SPEED),
     GPIO_INIT_SPI1SCK_PA5,
     GPIO_INIT_SPI1MISO_PA6,
     GPIO_INIT_SPI1MOSI_PA7,

@@ -234,13 +234,18 @@ bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
  * @param cmd_buffer Scratch buffer for command + PEC.
  * @param rx_buffer RX buffer for raw bytes.
  * @param gpio_voltages Per-module arrays of GPIO voltages to populate.
- * @param module_count Number of modules in the daisy chain.
+ * @param err_gpios_pec Per-module pointers to store PEC error flags for GPIO
+                        reads. Sets the flag for the module if any of the 4
+                        command responses fail the PEC check.
+ * @param bms_err_gpios_pec Aggregated pointer to store PEC error flag.
  * @return True on success, false on SPI failure.
  */
 bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
                                   strbuf_t *cmd_buffer,
                                   uint8_t *rx_buffer,
                                   float **gpio_voltages,
+                                  bool **err_gpios_pec,
+                                  bool *bms_err_gpios_pec,
                                   size_t module_count);
 
 // Other adbms6380 related function declarations can go here

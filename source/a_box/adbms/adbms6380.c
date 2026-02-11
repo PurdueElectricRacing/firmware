@@ -208,6 +208,8 @@ bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
                                   strbuf_t *cmd_buffer,
                                   uint8_t *rx_buffer,
                                   float **gpio_voltages,
+                                  bool **module_err_gpios_pec,
+                                  bool *bms_err_gpios_pec,
                                   size_t module_count) {
     const uint8_t *cmd_list[4] = {RDAUXA, RDAUXB, RDAUXC, RDAUXD};
 

@@ -75,7 +75,7 @@ void adbms_periodic(adbms_t *bms) {
 void adbms_set_cs(adbms_t *bms, bool status) {
     GPIO_TypeDef *cs_port = bms->spi->nss_gpio_port;
     uint32_t cs_pin = bms->spi->nss_gpio_pin;
-    PHAL_writeGPIO(cs_port, cs_pin, status);
+    PHAL_writeGPIO(cs_port, cs_pin, !status);
 }
 
 bool adbms_send_command2(adbms_t *bms, const uint8_t cmd[2]) {

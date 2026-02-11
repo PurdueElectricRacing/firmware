@@ -31,7 +31,7 @@ var searchData=
   ['send_5fflowrates_28',['send_flowrates',['../pdu_2main_8c.html#ab7a4ebf8321efc467754ed8e2295b790',1,'main.c']]],
   ['send_5fiv_5freadings_29',['send_iv_readings',['../pdu_2main_8c.html#afef31b64be658f62747f5ae34f9bacdd',1,'main.c']]],
   ['send_5fserial_5fstruct_30',['send_serial_struct',['../namespacesend-and-rec.html#a01d3b2fda2022c7ef30bd6220da4027c',1,'send-and-rec.send_serial_struct()'],['../namespacesend-to-tv.html#ac998305484369f02392c8a8e8ab35608',1,'send-to-tv.send_serial_struct()']]],
-  ['send_5fshockpots_31',['send_shockpots',['../car_8c.html#aa6ba0d0ae9db5952778408ab7f015c79',1,'send_shockpots():&#160;car.c'],['../car_8h.html#aa6ba0d0ae9db5952778408ab7f015c79',1,'send_shockpots():&#160;car.c']]],
+  ['send_5fshockpots_31',['send_shockpots',['../car_8h.html#aa6ba0d0ae9db5952778408ab7f015c79',1,'car.h']]],
   ['send_5fversion_32',['send_version',['../dashboard_2main_8c.html#abc93ec4e65bbde41cb8ac5740eeee397',1,'main.c']]],
   ['sendcoolingparameters_33',['sendCoolingParameters',['../lcd_8c.html#a75562cebcb171ee3057a36ace3a6c9b7',1,'sendCoolingParameters():&#160;lcd.c'],['../lcd_8h.html#a75562cebcb171ee3057a36ace3a6c9b7',1,'sendCoolingParameters():&#160;lcd.c']]],
   ['sendloggingparameters_34',['sendLoggingParameters',['../lcd_8c.html#aef98dd463d4a38ba6d4753854045a61f',1,'sendLoggingParameters():&#160;lcd.c'],['../lcd_8h.html#aef98dd463d4a38ba6d4753854045a61f',1,'sendLoggingParameters():&#160;lcd.c']]],
@@ -46,7 +46,8 @@ var searchData=
   ['setred_43',['setRed',['../l4__testing_2main_8c.html#a6df3aecce67bfe87a415204641ec446e',1,'main.c']]],
   ['setsockopt_44',['setsockopt',['../group__WIZnet__socket__APIs.html#ga0111e4784e20d97dacd5aaf54cb48ef1',1,'setsockopt(uint8_t sn, sockopt_type sotype, void *arg):&#160;socket.c'],['../group__WIZnet__socket__APIs.html#ga0111e4784e20d97dacd5aaf54cb48ef1',1,'setsockopt(uint8_t sn, sockopt_type sotype, void *arg):&#160;socket.c']]],
   ['setswitch_45',['setSwitch',['../auto__switch_8c.html#a8509532d58f56e7044ab6f36a2f17eb5',1,'setSwitch(switches_t auto_switch_enum, bool state):&#160;auto_switch.c'],['../auto__switch_8h.html#a8509532d58f56e7044ab6f36a2f17eb5',1,'setSwitch(switches_t auto_switch_enum, bool state):&#160;auto_switch.c']]],
-  ['shutdown_46',['shutdown',['../daq_2main_8c.html#a1c9d5e29ad8899afe0c34571ddee18f9',1,'main.c']]],
-  ['socket_47',['socket',['../group__WIZnet__socket__APIs.html#ga8cc0a2074b3aae98a132c1ae3c51188f',1,'socket(uint8_t sn, uint8_t protocol, uint16_t port, uint8_t flag):&#160;socket.c'],['../group__WIZnet__socket__APIs.html#ga8cc0a2074b3aae98a132c1ae3c51188f',1,'socket(uint8_t sn, uint8_t protocol, uint16_t port, uint8_t flag):&#160;socket.c']]],
-  ['systick_5fhandler_48',['SysTick_Handler',['../bootloader_2main_8c.html#ab5e09814056d617c521549e542639b7e',1,'SysTick_Handler(void):&#160;main.c'],['../l4__testing_2main_8c.html#aafb8d3e0fd06464b1ee0ae1edbc3c7d6',1,'SysTick_Handler():&#160;main.c']]]
+  ['shockpot_5fthread_46',['shockpot_thread',['../driveline_2main_8c.html#a834433812aa752324e9d5ef254216c28',1,'main.c']]],
+  ['shutdown_47',['shutdown',['../daq_2main_8c.html#a1c9d5e29ad8899afe0c34571ddee18f9',1,'main.c']]],
+  ['socket_48',['socket',['../group__WIZnet__socket__APIs.html#ga8cc0a2074b3aae98a132c1ae3c51188f',1,'socket(uint8_t sn, uint8_t protocol, uint16_t port, uint8_t flag):&#160;socket.c'],['../group__WIZnet__socket__APIs.html#ga8cc0a2074b3aae98a132c1ae3c51188f',1,'socket(uint8_t sn, uint8_t protocol, uint16_t port, uint8_t flag):&#160;socket.c']]],
+  ['systick_5fhandler_49',['SysTick_Handler',['../bootloader_2main_8c.html#ab5e09814056d617c521549e542639b7e',1,'SysTick_Handler(void):&#160;main.c'],['../l4__testing_2main_8c.html#aafb8d3e0fd06464b1ee0ae1edbc3c7d6',1,'SysTick_Handler():&#160;main.c']]]
 ];

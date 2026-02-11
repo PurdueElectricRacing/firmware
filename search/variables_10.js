@@ -6,7 +6,7 @@ var searchData=
   ['race_5fpage_3',['race_page',['../lcd_8c.html#a6e74610b7350024977fa25d1dcc6ae4f',1,'lcd.c']]],
   ['rad_5fs_4',['rad_s',['../structWheelSpeed__t.html#a2c970d74b91d99680c458ff29321f6bd',1,'WheelSpeed_t']]],
   ['rank_5',['rank',['../structADCChannelConfig__t.html#a1c53664f2543e4be4300f2dfc8945ef5',1,'ADCChannelConfig_t']]],
-  ['raw_5fadc_5fvalues_6',['raw_adc_values',['../dashboard_2main_8c.html#a29bc293670e53a11d854f35bca555254',1,'raw_adc_values:&#160;main.c'],['../dashboard_2main_8h.html#a29bc293670e53a11d854f35bca555254',1,'raw_adc_values:&#160;main.c'],['../fdcan_8c.html#a29bc293670e53a11d854f35bca555254',1,'raw_adc_values:&#160;fdcan.c'],['../g4__testing_2main_8h.html#a29bc293670e53a11d854f35bca555254',1,'raw_adc_values:&#160;main.c']]],
+  ['raw_5fadc_5fvalues_6',['raw_adc_values',['../dashboard_2main_8c.html#a29bc293670e53a11d854f35bca555254',1,'raw_adc_values:&#160;main.c'],['../dashboard_2main_8h.html#a29bc293670e53a11d854f35bca555254',1,'raw_adc_values:&#160;main.c'],['../driveline_2main_8c.html#a29bc293670e53a11d854f35bca555254',1,'raw_adc_values:&#160;main.c'],['../fdcan_8c.html#a29bc293670e53a11d854f35bca555254',1,'raw_adc_values:&#160;fdcan.c'],['../g4__testing_2main_8h.html#a29bc293670e53a11d854f35bca555254',1,'raw_adc_values:&#160;main.c']]],
   ['raw_5fadc_5fvalues_5ft_7',['raw_adc_values_t',['../dashboard_2main_8h.html#af796e3555932af2c8dce8e497f1e4734',1,'raw_adc_values_t:&#160;main.h'],['../g4__testing_2main_8h.html#af796e3555932af2c8dce8e497f1e4734',1,'raw_adc_values_t:&#160;main.h']]],
   ['rca_8',['RCA',['../structSD__CardInfo.html#abfc547297bf8e2b1713dc3072300b7e0',1,'SD_CardInfo']]],
   ['rdblocklen_9',['RdBlockLen',['../structSD__CSD.html#a41b407283b597cd9b36ba8d0bd6e8f56',1,'SD_CSD']]],

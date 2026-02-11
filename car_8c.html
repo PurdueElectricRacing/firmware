@@ -114,8 +114,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a633e21d9684094efa19b292bc12975e8" id="r_a633e21d9684094efa19b292bc12975e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a633e21d9684094efa19b292bc12975e8">parseMCDataPeriodic</a> (void)</td></tr>
 <tr class="memdesc:a633e21d9684094efa19b292bc12975e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses motor controller and sensor info into can messages, updates motor controller connection status.  <br /></td></tr>
 <tr class="separator:a633e21d9684094efa19b292bc12975e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6ba0d0ae9db5952778408ab7f015c79" id="r_aa6ba0d0ae9db5952778408ab7f015c79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6ba0d0ae9db5952778408ab7f015c79">send_shockpots</a> ()</td></tr>
-<tr class="separator:aa6ba0d0ae9db5952778408ab7f015c79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6103f47c5a46863af1282344a4bfad98" id="r_a6103f47c5a46863af1282344a4bfad98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6103f47c5a46863af1282344a4bfad98">updateSDCFaults</a> ()</td></tr>
 <tr class="separator:a6103f47c5a46863af1282344a4bfad98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a734067d55fba1fd73f37eea2d3886a3e" id="r_a734067d55fba1fd73f37eea2d3886a3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a734067d55fba1fd73f37eea2d3886a3e">monitorSDCPeriodic</a> ()</td></tr>
@@ -167,11 +165,6 @@ Variables</h2></td></tr>
 <tr class="separator:adf31bd4dca7310ba032781bf74fee32c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a901bfd7d1561197d61df17d5ac5cb01f" id="r_a901bfd7d1561197d61df17d5ac5cb01f"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a901bfd7d1561197d61df17d5ac5cb01f">curr</a> = 0</td></tr>
 <tr class="separator:a901bfd7d1561197d61df17d5ac5cb01f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0de3693b4ccee5b81e0368484f4b48ef" id="r_a0de3693b4ccee5b81e0368484f4b48ef"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0de3693b4ccee5b81e0368484f4b48ef">shock_l_scaled</a></td></tr>
-<tr class="memdesc:a0de3693b4ccee5b81e0368484f4b48ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes and sends shock potentiometer readings.  <br /></td></tr>
-<tr class="separator:a0de3693b4ccee5b81e0368484f4b48ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e5829c14a3a551e80fea8b5f9c6e2f8" id="r_a7e5829c14a3a551e80fea8b5f9c6e2f8"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e5829c14a3a551e80fea8b5f9c6e2f8">shock_r_scaled</a></td></tr>
-<tr class="separator:a7e5829c14a3a551e80fea8b5f9c6e2f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="af581f64835b0e60aec6685c66729da64" name="af581f64835b0e60aec6685c66729da64"></a>
@@ -261,23 +254,6 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Parses motor controller and sensor info into can messages, updates motor controller connection status. </p>
-
-</div>
-</div>
-<a id="aa6ba0d0ae9db5952778408ab7f015c79" name="aa6ba0d0ae9db5952778408ab7f015c79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6ba0d0ae9db5952778408ab7f015c79">&#9670;&#160;</a></span>send_shockpots()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void send_shockpots </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -606,37 +582,6 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="car_8h.html#a7c210c435f032c86ef5bd91fe1171ddf">sdc_nodes_t</a> sdc_mux</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0de3693b4ccee5b81e0368484f4b48ef" name="a0de3693b4ccee5b81e0368484f4b48ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0de3693b4ccee5b81e0368484f4b48ef">&#9670;&#160;</a></span>shock_l_scaled</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int16_t shock_l_scaled</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Processes and sends shock potentiometer readings. </p>
-<p>Converts raw ADC values from left and right shock potentiometers into parsed displacement values and sends them through CAN bus. Values are scaled linearly and adjusted for droop. </p>
-
-</div>
-</div>
-<a id="a7e5829c14a3a551e80fea8b5f9c6e2f8" name="a7e5829c14a3a551e80fea8b5f9c6e2f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e5829c14a3a551e80fea8b5f9c6e2f8">&#9670;&#160;</a></span>shock_r_scaled</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int16_t shock_r_scaled</td>
         </tr>
       </table>
 </div><div class="memdoc">

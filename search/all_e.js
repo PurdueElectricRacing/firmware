@@ -67,7 +67,6 @@ var searchData=
   ['nxt_5fsettext_64',['NXT_setText',['../nextion_8c.html#ab2a89fd8e292338a6e570a41a698ad3a',1,'NXT_setText(char *obj_name, char *text):&#160;nextion.c'],['../nextion_8h.html#ab2a89fd8e292338a6e570a41a698ad3a',1,'NXT_setText(char *obj_name, char *text):&#160;nextion.c']]],
   ['nxt_5fsettextformatted_65',['NXT_setTextFormatted',['../nextion_8c.html#a8af8629d8160abf996231ff267e43564',1,'NXT_setTextFormatted(char *obj_name, const char *format,...):&#160;nextion.c'],['../nextion_8h.html#a8af8629d8160abf996231ff267e43564',1,'NXT_setTextFormatted(char *obj_name, const char *format,...):&#160;nextion.c']]],
   ['nxt_5fsetvalue_66',['NXT_setValue',['../nextion_8c.html#ac7e3e9fc4674d17281069e97b8a5384d',1,'NXT_setValue(char *obj_name, uint16_t val):&#160;nextion.c'],['../nextion_8h.html#ac7e3e9fc4674d17281069e97b8a5384d',1,'NXT_setValue(char *obj_name, uint16_t val):&#160;nextion.c']]],
-  ['nxt_5fstr_5fsize_67',['NXT_STR_SIZE',['../nextion_8h.html#a40aeaabf6bddcb70ae8fe7d6afee0516',1,'nextion.h']]],
-  ['nxt_5ftext_68',['NXT_TEXT',['../nextion_8h.html#a5f2209d0e2a141f1c3af1ebdd81aaa16',1,'nextion.h']]],
-  ['nxt_5fvalue_69',['NXT_VALUE',['../nextion_8h.html#a81860eb8c2792552a95c98cbf8c4e61f',1,'nextion.h']]]
+  ['nxt_5ftext_67',['NXT_TEXT',['../nextion_8h.html#a5f2209d0e2a141f1c3af1ebdd81aaa16',1,'nextion.h']]],
+  ['nxt_5fvalue_68',['NXT_VALUE',['../nextion_8h.html#a81860eb8c2792552a95c98cbf8c4e61f',1,'nextion.h']]]
 ];

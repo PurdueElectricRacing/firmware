@@ -27,7 +27,6 @@ var searchData=
   ['nxt_5fcmd_5fterm_24',['NXT_CMD_TERM',['../nextion_8h.html#a9103be471f1a868467c6abd00059970b',1,'nextion.h']]],
   ['nxt_5ffont_5fcolor_25',['NXT_FONT_COLOR',['../nextion_8h.html#a8efd290ff41b537206712236e2d04b8c',1,'nextion.h']]],
   ['nxt_5fpage_26',['NXT_PAGE',['../nextion_8h.html#a64693af0725d6715a5fbf24cf522ebde',1,'nextion.h']]],
-  ['nxt_5fstr_5fsize_27',['NXT_STR_SIZE',['../nextion_8h.html#a40aeaabf6bddcb70ae8fe7d6afee0516',1,'nextion.h']]],
-  ['nxt_5ftext_28',['NXT_TEXT',['../nextion_8h.html#a5f2209d0e2a141f1c3af1ebdd81aaa16',1,'nextion.h']]],
-  ['nxt_5fvalue_29',['NXT_VALUE',['../nextion_8h.html#a81860eb8c2792552a95c98cbf8c4e61f',1,'nextion.h']]]
+  ['nxt_5ftext_27',['NXT_TEXT',['../nextion_8h.html#a5f2209d0e2a141f1c3af1ebdd81aaa16',1,'nextion.h']]],
+  ['nxt_5fvalue_28',['NXT_VALUE',['../nextion_8h.html#a81860eb8c2792552a95c98cbf8c4e61f',1,'nextion.h']]]
 ];

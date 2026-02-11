@@ -120,6 +120,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ab53a145cb998d122ef1a8eaeb86b95d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates system LED indicators and CAN stats.  <br /></td></tr>
 <tr class="separator:ab53a145cb998d122ef1a8eaeb86b95d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75dcfbf81c02f0425e5737c42f4e6616" id="r_a75dcfbf81c02f0425e5737c42f4e6616"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75dcfbf81c02f0425e5737c42f4e6616">lcd_tx_cmd</a> ()</td></tr>
+<tr class="memdesc:a75dcfbf81c02f0425e5737c42f4e6616"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called periodically to send commands to the Nextion LCD display via USART.  <br /></td></tr>
 <tr class="separator:a75dcfbf81c02f0425e5737c42f4e6616"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9aee09af5e3fe925ed51c1c48ce580eb" id="r_a9aee09af5e3fe925ed51c1c48ce580eb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9aee09af5e3fe925ed51c1c48ce580eb">config_button_irqs</a> ()</td></tr>
 <tr class="separator:a9aee09af5e3fe925ed51c1c48ce580eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,6 +131,8 @@ Functions</h2></td></tr>
 <tr class="separator:abc93ec4e65bbde41cb8ac5740eeee397"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2af56a8bf3197b2f06cac4c0b84ffc3e" id="r_a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2af56a8bf3197b2f06cac4c0b84ffc3e">HardFault_Handler</a> ()</td></tr>
 <tr class="separator:a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c4ba1ba81dc12d68a3608bc4be9be1c" id="r_a9c4ba1ba81dc12d68a3608bc4be9be1c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c4ba1ba81dc12d68a3608bc4be9be1c">allocate_strbuf</a> (<a class="el" href="nextion_8c.html#a233b6c1602a0d956759fa15d734873cb">lcd_tx_buf</a>, 1024)</td></tr>
+<tr class="separator:a9c4ba1ba81dc12d68a3608bc4be9be1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89b14fa3031866ffa50cc407ef7169e3" id="r_a89b14fa3031866ffa50cc407ef7169e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89b14fa3031866ffa50cc407ef7169e3">preflight_task</a> ()</td></tr>
 <tr class="separator:a89b14fa3031866ffa50cc407ef7169e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c7c563fdbde1b364eb1248c18ea05c2" id="r_a1c7c563fdbde1b364eb1248c18ea05c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1c7c563fdbde1b364eb1248c18ea05c2">can_worker_task</a> ()</td></tr>
@@ -191,11 +194,6 @@ Variables</h2></td></tr>
 <tr class="separator:a876fc64f27ffd0e165e5e6552d995ad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78b28a5859c49a3ced4466bcdfca9368" id="r_a78b28a5859c49a3ced4466bcdfca9368"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structdashboard__input__state__t.html">dashboard_input_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78b28a5859c49a3ced4466bcdfca9368">input_state</a> = {0}</td></tr>
 <tr class="separator:a78b28a5859c49a3ced4466bcdfca9368"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03fc7024d283b5f244a599e24049711b" id="r_a03fc7024d283b5f244a599e24049711b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structq__handle__t.html">q_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a03fc7024d283b5f244a599e24049711b">q_tx_usart</a></td></tr>
-<tr class="separator:a03fc7024d283b5f244a599e24049711b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad30385594919e78ab5882386f9368562" id="r_ad30385594919e78ab5882386f9368562"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad30385594919e78ab5882386f9368562">cmd</a> [<a class="el" href="nextion_8h.html#a40aeaabf6bddcb70ae8fe7d6afee0516">NXT_STR_SIZE</a>] = {'\0'}</td></tr>
-<tr class="memdesc:ad30385594919e78ab5882386f9368562"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called periodically to send commands to the Nextion LCD display via USART.  <br /></td></tr>
-<tr class="separator:ad30385594919e78ab5882386f9368562"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>"Dashboard" node source code </p>
@@ -205,6 +203,27 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
 <dd>
 Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'all'+'ia'+'rd@'+'gm'+'ail'+'.c'+'om'; return false;">cpmcg<span class="obfuscator">.nosp@m.</span>alli<span class="obfuscator">.nosp@m.</span>ard@g<span class="obfuscator">.nosp@m.</span>mail<span class="obfuscator">.nosp@m.</span>.com</a>) </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a9c4ba1ba81dc12d68a3608bc4be9be1c" name="a9c4ba1ba81dc12d68a3608bc4be9be1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c4ba1ba81dc12d68a3608bc4be9be1c">&#9670;&#160;</a></span>allocate_strbuf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">allocate_strbuf </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="nextion_8c.html#a233b6c1602a0d956759fa15d734873cb">lcd_tx_buf</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">1024</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1c7c563fdbde1b364eb1248c18ea05c2" name="a1c7c563fdbde1b364eb1248c18ea05c2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1c7c563fdbde1b364eb1248c18ea05c2">&#9670;&#160;</a></span>can_worker_task()</h2>
 
@@ -612,6 +631,8 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
       </table>
 </div><div class="memdoc">
 
+<p>Called periodically to send commands to the Nextion LCD display via USART. </p>
+
 </div>
 </div>
 <a id="a840291bc02cba5474a4cb46a9b9566fe" name="a840291bc02cba5474a4cb46a9b9566fe"></a>
@@ -862,23 +883,6 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 </div><!-- fragment -->
 </div>
 </div>
-<a id="ad30385594919e78ab5882386f9368562" name="ad30385594919e78ab5882386f9368562"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad30385594919e78ab5882386f9368562">&#9670;&#160;</a></span>cmd</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">char cmd[<a class="el" href="nextion_8h.html#a40aeaabf6bddcb70ae8fe7d6afee0516">NXT_STR_SIZE</a>] = {'\0'}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Called periodically to send commands to the Nextion LCD display via USART. </p>
-<dl class="section note"><dt>Note</dt><dd>The queue holds a max of 10 commands. Design your LCD page updates with this in mind. </dd></dl>
-
-</div>
-</div>
 <a id="a876fc64f27ffd0e165e5e6552d995ad3" name="a876fc64f27ffd0e165e5e6552d995ad3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a876fc64f27ffd0e165e5e6552d995ad3">&#9670;&#160;</a></span>curr_page</h2>
 
@@ -984,20 +988,6 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 <span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
   </tr>
 </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a03fc7024d283b5f244a599e24049711b" name="a03fc7024d283b5f244a599e24049711b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03fc7024d283b5f244a599e24049711b">&#9670;&#160;</a></span>q_tx_usart</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structq__handle__t.html">q_handle_t</a> q_tx_usart</td>
-        </tr>
-      </table>
 </div><div class="memdoc">
 
 </div>

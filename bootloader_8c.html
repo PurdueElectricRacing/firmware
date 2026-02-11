@@ -124,11 +124,11 @@ Functions</h2></td></tr>
 <tr class="separator:af3fcdf5238df9f83b21b88808bd7e397"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2bc2632777121708f3edba5775a1e9b0" id="r_a2bc2632777121708f3edba5775a1e9b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2bc2632777121708f3edba5775a1e9b0">bitstream_data_CALLBACK</a> (CanParsedData_t *msg_data_a)</td></tr>
 <tr class="separator:a2bc2632777121708f3edba5775a1e9b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89a30b74da99b74748c4231a884c8841" id="r_a89a30b74da99b74748c4231a884c8841"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89a30b74da99b74748c4231a884c8841">BL_processCommand</a> (BLCmd_t <a class="el" href="dashboard_2main_8c.html#ad30385594919e78ab5882386f9368562">cmd</a>, uint32_t data)</td></tr>
+<tr class="memitem:a89a30b74da99b74748c4231a884c8841" id="r_a89a30b74da99b74748c4231a884c8841"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89a30b74da99b74748c4231a884c8841">BL_processCommand</a> (BLCmd_t cmd, uint32_t data)</td></tr>
 <tr class="separator:a89a30b74da99b74748c4231a884c8841"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbc774ce21075748c42ce66f329d1f51" id="r_abbc774ce21075748c42ce66f329d1f51"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abbc774ce21075748c42ce66f329d1f51">BL_flashStarted</a> (void)</td></tr>
 <tr class="separator:abbc774ce21075748c42ce66f329d1f51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1dc28eb998a696359ecfb52b86b5a52" id="r_ab1dc28eb998a696359ecfb52b86b5a52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1dc28eb998a696359ecfb52b86b5a52">BL_sendStatusMessage</a> (uint8_t <a class="el" href="dashboard_2main_8c.html#ad30385594919e78ab5882386f9368562">cmd</a>, uint32_t data)</td></tr>
+<tr class="memitem:ab1dc28eb998a696359ecfb52b86b5a52" id="r_ab1dc28eb998a696359ecfb52b86b5a52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1dc28eb998a696359ecfb52b86b5a52">BL_sendStatusMessage</a> (uint8_t cmd, uint32_t data)</td></tr>
 <tr class="separator:ab1dc28eb998a696359ecfb52b86b5a52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -258,9 +258,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">case</span> app_id: \</div>
-<div class="line">        resp_func(<a class="code hl_variable" href="dashboard_2main_8c.html#ad30385594919e78ab5882386f9368562">cmd</a>, data); \</div>
+<div class="line">        resp_func(cmd, data); \</div>
 <div class="line">        <span class="keywordflow">break</span>;</div>
-<div class="ttc" id="adashboard_2main_8c_html_ad30385594919e78ab5882386f9368562"><div class="ttname"><a href="dashboard_2main_8c.html#ad30385594919e78ab5882386f9368562">cmd</a></div><div class="ttdeci">char cmd[NXT_STR_SIZE]</div><div class="ttdoc">Called periodically to send commands to the Nextion LCD display via USART.</div><div class="ttdef"><b>Definition</b> main.c:443</div></div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -10,8 +10,8 @@
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 
-dma_init_t spi_rx_dma_config    = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
-dma_init_t spi_tx_dma_config    = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
+// dma_init_t spi_rx_dma_config    = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
+// dma_init_t spi_tx_dma_config    = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
 SPI_InitConfig_t bms_spi_config = {
     .data_len      = 8,
     .nss_sw        = false, // BMS drive CS pin manually to ensure correct timing
@@ -19,6 +19,8 @@ SPI_InitConfig_t bms_spi_config = {
     .nss_gpio_pin  = SPI1_CS_PIN,
     .rx_dma_cfg    = &spi_rx_dma_config,
     .tx_dma_cfg    = &spi_tx_dma_config,
+    .rx_dma_cfg    = nullptr,
+    .tx_dma_cfg    = nullptr,
     .periph        = SPI1,
     .cpol          = 0,
     .cpha          = 0,

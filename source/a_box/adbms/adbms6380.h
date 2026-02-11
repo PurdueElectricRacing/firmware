@@ -19,18 +19,20 @@
 // Number of GPIO/aux channels per ADBMS6380 device.
 #define ADBMS6380_GPIO_COUNT (10)
 
+// PEC size in bytes for ADBMS6380 commands and data packets. Is 2 bytes for both PEC10 (data) and PEC15 (commands).
+#define ADBMS6380_PEC_SIZE (2)
 // Raw command size (bytes) for one module without PEC.
 #define ADBMS6380_COMMAND_RAW_SIZE (2)
 // Command packet size (bytes) for one module including PEC.
-#define ADBMS6380_COMMAND_PKT_SIZE (ADBMS6380_COMMAND_RAW_SIZE + 2)
+#define ADBMS6380_COMMAND_PKT_SIZE (ADBMS6380_COMMAND_RAW_SIZE + ADBMS6380_PEC_SIZE)
 // Single data payload size (bytes) for one module without PEC.
 #define ADBMS6380_SINGLE_DATA_RAW_SIZE (6)
 // Single data packet size (bytes) for one module including PEC.
-#define ADBMS6380_SINGLE_DATA_PKT_SIZE (ADBMS6380_SINGLE_DATA_RAW_SIZE + 2)
+#define ADBMS6380_SINGLE_DATA_PKT_SIZE (ADBMS6380_SINGLE_DATA_RAW_SIZE + ADBMS6380_PEC_SIZE)
 // RDCVALL raw payload size (bytes) for one module without PEC.
 #define ADBMS6380_RDCVALL_DATA_RAW_SIZE (32)
 // RDCVALL packet size (bytes) for one module including PEC.
-#define ADBMS6380_RDCVALL_DATA_PKT_SIZE (ADBMS6380_RDCVALL_DATA_RAW_SIZE + 2)
+#define ADBMS6380_RDCVALL_DATA_PKT_SIZE (ADBMS6380_RDCVALL_DATA_RAW_SIZE + ADBMS6380_PEC_SIZE)
 
 /**
  * @brief Wake pulse duration per CS toggle in milliseconds.

@@ -213,6 +213,12 @@ bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
                                   size_t module_count) {
     const uint8_t *cmd_list[4] = {RDAUXA, RDAUXB, RDAUXC, RDAUXD};
 
+    // Start by clearing all PEC errors
+    *bms_err_gpios_pec = false;
+    for (size_t i = 0; i < module_count; i++) {
+        *module_err_gpios_pec[i] = false;
+    }
+
     for (size_t cmd_idx = 0; cmd_idx < 4; cmd_idx++) {
         strbuf_clear(cmd_buffer);
         adbms6380_prepare_command(cmd_buffer, cmd_list[cmd_idx]);
@@ -228,6 +234,11 @@ bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
         // Data comes back as: module 0, module 1, ..., module N-1
         for (size_t module_idx = 0; module_idx < module_count; module_idx++) {
             uint8_t *module_data = &rx_buffer[module_idx * ADBMS6380_SINGLE_DATA_PKT_SIZE];
+
+            if (!adbms6380_check_data_pec(module_data, ADBMS6380_SINGLE_DATA_PKT_SIZE)) {
+                *bms_err_gpios_pec = true;
+                *module_err_gpios_pec[module_idx] = true;
+            }
 
             for (size_t j = 0; j < gpios_read; j++) {
                 size_t gpio_idx                     = gpio_idx_base + j;

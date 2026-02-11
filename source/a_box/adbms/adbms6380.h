@@ -14,32 +14,28 @@
 #include "common/phal/spi.h"
 #include "common/strbuf/strbuf.h"
 
-/**
- * @brief Number of cells per ADBMS6380 device.
- */
+// Number of cells per ADBMS6380 device.
 #define ADBMS6380_CELL_COUNT (16)
-/**
- * @brief Number of GPIO/aux channels per ADBMS6380 device.
- */
+// Number of GPIO/aux channels per ADBMS6380 device.
 #define ADBMS6380_GPIO_COUNT (10)
 
-/** @brief Raw command size (bytes) for one module without PEC. */
+// Raw command size (bytes) for one module without PEC.
 #define ADBMS6380_COMMAND_RAW_SIZE (2)
-/** @brief Command packet size (bytes) for one module including PEC. */
+// Command packet size (bytes) for one module including PEC.
 #define ADBMS6380_COMMAND_PKT_SIZE (ADBMS6380_COMMAND_RAW_SIZE + 2)
-/** @brief Single data payload size (bytes) for one module without PEC. */
+// Single data payload size (bytes) for one module without PEC.
 #define ADBMS6380_SINGLE_DATA_RAW_SIZE (6)
-/** @brief Single data packet size (bytes) for one module including PEC. */
+// Single data packet size (bytes) for one module including PEC.
 #define ADBMS6380_SINGLE_DATA_PKT_SIZE (ADBMS6380_SINGLE_DATA_RAW_SIZE + 2)
-/** @brief RDCVALL raw payload size (bytes) for one module without PEC. */
+// RDCVALL raw payload size (bytes) for one module without PEC.
 #define ADBMS6380_RDCVALL_DATA_RAW_SIZE (32)
-/** @brief RDCVALL packet size (bytes) for one module including PEC. */
+// RDCVALL packet size (bytes) for one module including PEC.
 #define ADBMS6380_RDCVALL_DATA_PKT_SIZE (ADBMS6380_RDCVALL_DATA_RAW_SIZE + 2)
 
 /**
  * @brief Wake pulse duration per CS toggle in milliseconds.
  * 
- * Note: usage of this expects tick rate to be 1000 Hz (1 tick = 1 ms).
+ * Note: usage of this expects the FreeRTOS tick rate to be 1000 Hz (1 tick = 1 ms).
  */
 #define ADBMS6380_WAKE_DELAY_MS (1)
 

@@ -15,16 +15,16 @@
 #include "common/phal/spi.h"
 #include "common/strbuf/strbuf.h"
 
-// How often to run the adbms_periodic function, in milliseconds
+// How often to run the adbms_periodic function, in milliseconds.
 #define ADBMS_PERIODIC_INTERVAL_MS (250)
 
-// Number of ADBMS modules in the daisy chain
-#define ADBMS_MODULE_COUNT (8)
+// Number of ADBMS modules in the daisy chain.
+#define ADBMS_MODULE_COUNT (3)
 
-// Max SPI TX is a command + all the data packets for all the modules
+// Max SPI TX is a command + all the data packets for all the modules.
 #define ADBMS_SPI_TX_BUFFER_SIZE \
     (ADBMS6380_COMMAND_PKT_SIZE + (ADBMS_MODULE_COUNT * ADBMS6380_SINGLE_DATA_PKT_SIZE))
-// MAX SPI RX is bounded by reading all cell voltages from all modules
+// MAX SPI RX is bounded by reading all cell voltages from all modules.
 #define ADBMS_SPI_RX_BUFFER_SIZE (ADBMS6380_RDCVALL_DATA_PKT_SIZE * ADBMS_MODULE_COUNT)
 
 #define ADBMS_REFON        (true)  // REGA

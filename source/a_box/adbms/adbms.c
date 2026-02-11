@@ -121,8 +121,6 @@ bool adbms_read_and_check_regb(ADBMS_bms_t *bms) {
 }
 
 void adbms_connect(ADBMS_bms_t *bms) {
-    adbms6380_wake(bms->spi, ADBMS_MODULE_COUNT);
-
     if (!adbms_write_rega(bms)) {
         bms->state       = ADBMS_STATE_IDLE;
         bms->err_connect = true;
@@ -288,6 +286,7 @@ void adbms_read_therms(ADBMS_bms_t *bms) {
 }
 
 void adbms_periodic(ADBMS_bms_t *bms, float min_voltage_for_balance, float min_delta_for_balance) {
+    adbms6380_wake(bms->spi, ADBMS_MODULE_COUNT);
     switch (bms->state) {
         case ADBMS_STATE_IDLE: {
             adbms_connect(bms);

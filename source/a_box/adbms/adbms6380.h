@@ -44,19 +44,13 @@
 #define ADBMS6380_WAKE_DELAY_MS (1)
 
 /**
- * @brief Drive the ADBMS CS line to "logical low".
- *
- * The ADBMS6822WCCSZ ISOSPI Transceiver CS is inverted, so "low" means driving
- * the GPIO high. 
+ * @brief Drive the ADBMS CS line low.
  *
  * @param spi SPI configuration containing the CS GPIO.
  */
 void adbms6380_set_cs_low(SPI_InitConfig_t *spi);
 /**
- * @brief Drive the ADBMS CS line to "logical high".
- *
- * The ADBMS6822WCCSZ ISOSPI Transceiver CS is inverted, so "high" means
- * driving the GPIO low.
+ * @brief Drive the ADBMS CS line to high.
  *
  * @param spi SPI configuration containing the CS GPIO.
  */

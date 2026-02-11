@@ -127,11 +127,11 @@ bool adbms_receive_response2(adbms_t *bms) {
 }
 
 bool adbms_connect(adbms_t *bms) {
-    adbms_cfg_rega(bms);
-    osDelay(1);
-    adbms_cfg_regb(bms);
+    // adbms_cfg_rega(bms);
+    // osDelay(1);
+    // adbms_cfg_regb(bms);
 
-    osDelay(2);
+    // osDelay(2);
 
     // adbms_set_cs(bms, 0);
     // if (false == adbms_send_command2(bms, RDCFGA)) {
@@ -164,7 +164,7 @@ bool adbms_connect(adbms_t *bms) {
         adbms_set_cs(bms, 1);
         return false;
     }
-    size_t rx_len = RX_DATA_LEN * 2; // 2 BMS
+    size_t rx_len = RX_DATA_LEN; // 2 BMS
     // uint8_t rx_buffer[RX_DATA_LEN * 2] = {0};
     if (false == PHAL_SPI_transfer_noDMA(bms->spi, NULL, 0, rx_len, tmp_rx_buffer)) {
     	bms->last_fault_time[14] = xTaskGetTickCount();
@@ -180,11 +180,11 @@ bool adbms_connect(adbms_t *bms) {
         adbms_set_cs(bms, 1);
     	return false;
     };
-    if (0 != memcmp(tmp_rx_buffer + 8, bms->rega_cfg, 6)) {
-    	bms->last_fault_time[16] = xTaskGetTickCount();
-        adbms_set_cs(bms, 1);
-    	return false;
-    };
+    // if (0 != memcmp(tmp_rx_buffer + 8, bms->rega_cfg, 6)) {
+    // 	bms->last_fault_time[16] = xTaskGetTickCount();
+    //     adbms_set_cs(bms, 1);
+    // 	return false;
+    // };
 
     bms->last_connection_time_ms = xTaskGetTickCount();
     return true;
@@ -314,7 +314,7 @@ bool adbms_cfg_rega(adbms_t *bms) {
     rega_cfg[2] = 1; // change soak settings for 2nd write
     adbms_send_data(bms, rega_cfg); // dev 2
     rega_cfg[2] = 0; // change soak settings for 2nd write
-    adbms_send_data(bms, rega_cfg); // dev 1
+    // adbms_send_data(bms, rega_cfg); // dev 1
 
     adbms_wake(bms);
 
@@ -383,7 +383,7 @@ bool adbms_cfg_regb(adbms_t *bms) {
     clear_string(&txstring);
     adbms_send_command(bms, WRCFGB);
     adbms_send_data(bms, regb_cfg);
-    adbms_send_data(bms, regb_cfg);
+    // adbms_send_data(bms, regb_cfg);
 
     adbms_wake(bms);
 

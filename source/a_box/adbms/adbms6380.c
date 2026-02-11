@@ -8,6 +8,8 @@
 #include "adbms6380.h"
 
 #include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <string.h>
 
 #include "commands.h"
@@ -86,12 +88,17 @@ void adbms6380_prepare_command(strbuf_t *output_buffer,
 void adbms6380_prepare_data_packet(strbuf_t *output_buffer,
                                    const uint8_t data[ADBMS6380_SINGLE_DATA_RAW_SIZE]) {
     strbuf_append(output_buffer, data, ADBMS6380_SINGLE_DATA_RAW_SIZE);
-    uint16_t pec         = adbms_pec_get_pec10(false, ADBMS6380_SINGLE_DATA_RAW_SIZE, data);
-    uint8_t pec_bytes[2] = {(uint8_t)((pec >> 8) & 0xFF), (uint8_t)(pec & 0xFF)};
-    strbuf_append(output_buffer, pec_bytes, 2);
     uint16_t pec = adbms_pec_get_pec10(false, ADBMS6380_SINGLE_DATA_RAW_SIZE, data);
     uint8_t pec_bytes[ADBMS6380_PEC_SIZE] = {(uint8_t)((pec >> 8) & 0xFF), (uint8_t)(pec & 0xFF)};
     strbuf_append(output_buffer, pec_bytes, ADBMS6380_PEC_SIZE);
+}
+
+bool adbms6380_check_data_pec(const uint8_t *data,
+                              size_t data_len,
+                              const uint8_t received_pec[ADBMS6380_PEC_SIZE]) {
+    uint16_t calculated_pec   = adbms_pec_get_pec10(true, data_len, data);
+    uint16_t received_pec_val = ((uint16_t)received_pec[0] << 8) | (uint16_t)received_pec[1];
+    return calculated_pec == received_pec_val;
 }
 
 void adbms6380_calculate_cfg_rega(uint8_t output_cfg_rega[ADBMS6380_SINGLE_DATA_RAW_SIZE],

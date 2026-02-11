@@ -133,6 +133,18 @@ void adbms6380_prepare_data_packet(strbuf_t *output_buffer,
                                    const uint8_t data[ADBMS6380_SINGLE_DATA_RAW_SIZE]);
 
 /**
+ * @brief Verify the PEC of received data.
+ * 
+ * @param data Pointer to received data bytes (excluding PEC).
+ * @param data_len Length of the data in bytes (excluding PEC).
+ * @param received_pec The PEC10 value received from the device as 2 bytes.
+ * @return True if PEC matches calculated value, false otherwise.
+ */
+bool adbms6380_check_data_pec(const uint8_t *data,
+                              size_t data_len,
+                              const uint8_t received_pec[ADBMS6380_PEC_SIZE]);
+
+/**
  * @brief Calculate the REG_A configuration register value.
  *
  * Populates GPIO pull-downs, reference behavior, and comparator threshold.

@@ -206,6 +206,7 @@ bool adbms6380_read_data(SPI_InitConfig_t *spi,
  * @param cmd_buffer Scratch buffer for command + PEC.
  * @param rx_buffer RX buffer for raw bytes.
  * @param cell_voltages Per-module arrays of cell voltages to populate.
+ * @param cell_voltages_raw Per-module arrays of raw cell voltage codes to populate.
  * @param module_count Number of modules in the daisy chain.
  * @return True on success, false on SPI failure.
  */
@@ -213,6 +214,7 @@ bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
                                   strbuf_t *cmd_buffer,
                                   uint8_t *rx_buffer,
                                   float **cell_voltages,
+                                  int16_t **cell_voltages_raw,
                                   size_t module_count);
 /**
  * @brief Read all GPIO/aux voltages from each module.

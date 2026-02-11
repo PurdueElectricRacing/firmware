@@ -223,15 +223,18 @@ void adbms_balance_and_update_regb(ADBMS_bms_t *bms, float min_voltage, float mi
 }
 
 void adbms_read_cells(ADBMS_bms_t *bms) {
-    float *cell_voltage_ptrs[ADBMS_MODULE_COUNT] = {0};
+    float *cell_voltage_ptrs[ADBMS_MODULE_COUNT]        = {0};
+    int16_t *cell_voltages_raw_ptrs[ADBMS_MODULE_COUNT] = {0};
     for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
-        cell_voltage_ptrs[i] = bms->modules[i].cell_voltages;
+        cell_voltage_ptrs[i]      = bms->modules[i].cell_voltages;
+        cell_voltages_raw_ptrs[i] = bms->modules[i].cell_voltages_raw;
     }
 
     if (!adbms6380_read_cell_voltages(bms->spi,
                                       &bms->tx_strbuf,
                                       bms->rx_buf,
                                       cell_voltage_ptrs,
+                                      cell_voltages_raw_ptrs,
                                       ADBMS_MODULE_COUNT)) {
         bms->state   = ADBMS_STATE_IDLE;
         bms->err_spi = true;

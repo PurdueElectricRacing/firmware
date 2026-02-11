@@ -172,6 +172,7 @@ bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
                                   strbuf_t *cmd_buffer,
                                   uint8_t *rx_buffer,
                                   float **cell_voltages,
+                                  int16_t **cell_voltages_raw,
                                   size_t module_count) {
     strbuf_clear(cmd_buffer);
     adbms6380_prepare_command(cmd_buffer, RDCVALL);
@@ -183,9 +184,10 @@ bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
     for (size_t module_idx = 0; module_idx < module_count; module_idx++) {
         uint8_t *module_data = &rx_buffer[module_idx * ADBMS6380_RDCVALL_DATA_PKT_SIZE];
         for (size_t j = 0; j < ADBMS6380_CELL_COUNT; j++) {
-            int16_t raw                  = adbms6380_extract_i16(module_data, j);
-            float cell_v                 = adbms6380_raw_to_cell_v(raw);
-            cell_voltages[module_idx][j] = cell_v;
+            int16_t raw                      = adbms6380_extract_i16(module_data, j);
+            cell_voltages_raw[module_idx][j] = raw;
+            float cell_v                     = adbms6380_raw_to_cell_v(raw);
+            cell_voltages[module_idx][j]     = cell_v;
         }
     }
 

@@ -74,9 +74,14 @@ typedef struct {
     /** Cached REGB bytes written to the device. Used to compare against read-back data. */
     uint8_t regb[ADBMS6380_SINGLE_DATA_RAW_SIZE];
 
+    /** Set if the recieved PEC for a RDCFGA command does not match the calculated PEC. */
     bool err_rega_pec;
+    /** Set if the recieved PEC for a RDCFGB command does not match the calculated PEC. */
     bool err_regb_pec;
-
+    /** Set if the recieved PEC for a cell voltage read does not match the calculated PEC. */
+    bool err_cells_pec;
+    /** Set if the recieved PEC for a thermistor/GPIO voltage read does not match the calculated PEC. */
+    bool err_therms_pec;
     /** Set if a read-back REGA does not match cached REGA. */
     bool err_rega_mismatch;
     /** Set if a read-back REGB does not match cached REGB. */
@@ -116,8 +121,14 @@ typedef struct {
     bool err_spi;
     /** Set when connect/initialization sequence fails. Periodic call will automatically retry. */
     bool err_connect;
+    /** Aggregated PEC error flag for RDCFGA commands across modules. */
     bool err_rega_pec;
+    /** Aggregated PEC error flag for RDCFGB commands across modules. */
     bool err_regb_pec;
+    /** Aggregated PEC error flag for cell voltage reads across modules. */
+    bool err_cells_pec;
+    /** Aggregated PEC error flag for thermistor/GPIO voltage reads across modules. */
+    bool err_therms_pec;
     /** Aggregated REGA mismatch flag across modules. */
     bool err_rega_mismatch;
     /** Aggregated REGB mismatch flag across modules. */

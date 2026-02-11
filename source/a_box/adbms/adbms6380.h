@@ -38,10 +38,10 @@
 
 /**
  * @brief Wake pulse duration per CS toggle in milliseconds.
- *
- * Must be a multiple of 100 microseconds due to wait granularity.
+ * 
+ * Note: usage of this expects tick rate to be 1000 Hz (1 tick = 1 ms).
  */
-#define ADBMS6380_WAKE_DELAY_MS (4)
+#define ADBMS6380_WAKE_DELAY_MS (1)
 
 /**
  * @brief Drive the ADBMS CS line low.

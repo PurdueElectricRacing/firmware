@@ -5,16 +5,16 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "common/can_library/generated/DASHBOARD.h"
 #include "common/can_library/faults_common.h"
+#include "common/can_library/generated/DASHBOARD.h"
 #include "common_defs.h"
 #include "main.h"
 #include "menu_system.h"
 #include "nextion.h"
 #include "pedals.h"
 
-volatile page_t curr_page; // Current page displayed on the LCD
-volatile page_t prev_page; // Previous page displayed on the LCD
+volatile page_t curr_page;  // Current page displayed on the LCD
+volatile page_t prev_page;  // Previous page displayed on the LCD
 uint16_t cur_fault_buf_ndx; // Current index in the fault buffer
 volatile uint8_t fault_time_displayed; // Amount of units of time that the fault has been shown to the driver
 volatile uint16_t fault_buf[5] = { // Buffer of displayed faults
@@ -24,9 +24,9 @@ volatile uint16_t fault_buf[5] = { // Buffer of displayed faults
     0xFFFF,
     0xFFFF
 };
-char* errorText; // Pointer to data to display for the Error, Warning, and Critical Fault codes
+char *errorText; // Pointer to data to display for the Error, Warning, and Critical Fault codes
 extern pedal_values_t pedal_values; // Global from pedals module for throttle display
-extern q_handle_t q_fault_history; // Global queue from fault library for fault history
+extern q_handle_t q_fault_history;  // Global queue from fault library for fault history
 extern volatile dashboard_input_state_t input_state; // Global dashboard input states
 extern driver_pedal_profile_t driver_pedal_profiles[4];
 
@@ -67,7 +67,7 @@ void faultsClearButton_CALLBACK();
 // Race Page Functions
 void racePageUpdate();
 void raceSelect();
-void raceUpCallback(); // ! temp function to turn on pumps
+void raceUpCallback();   // ! temp function to turn on pumps
 void raceDownCallback(); // ! temp function to turn off pumps
 
 // Warning/Error/Fatal Page Functions
@@ -84,8 +84,8 @@ void faultTelemetryUpdate();
 void calibrationTelemetryUpdate();
 
 // Utility Functions
-void updateSDCStatus(uint8_t status, char* element);
-void set_faultIndicator(uint16_t fault, char* element);
+void updateSDCStatus(uint8_t status, char *element);
+void set_faultIndicator(uint16_t fault, char *element);
 
 // Page handlers array stored in flash
 const page_handler_t page_handlers[] = {
@@ -644,39 +644,34 @@ void faultTelemetryUpdate() {
  * Only executes if the current page is SDC info page.
  */
 void sdcTelemetryUpdate() {
-    static uint8_t update_group = 0U;
     if (curr_page != PAGE_SDCINFO) {
         return;
     }
 
     // cycle through the update groups
-    update_group ^= 1;
-    if (update_group) {
-        updateSDCStatus(can_data.precharge_hb.IMD, SDC_IMD_STAT_TXT); // IMD from ABOX
-        updateSDCStatus(can_data.precharge_hb.BMS, SDC_BMS_STAT_TXT);
-        updateSDCStatus(!is_latched(FAULT_INDEX_DASHBOARD_BSPD), SDC_BSPD_STAT_TXT);
-        updateSDCStatus(can_data.sdc_status.BOTS, SDC_BOTS_STAT_TXT);
-        updateSDCStatus(can_data.sdc_status.inertia, SDC_INER_STAT_TXT);
-        updateSDCStatus(can_data.sdc_status.c_estop, SDC_CSTP_STAT_TXT);
-        updateSDCStatus(can_data.sdc_status.main, SDC_MAIN_STAT_TXT);
-    } else {
-        updateSDCStatus(can_data.sdc_status.r_estop, SDC_RSTP_STAT_TXT);
-        updateSDCStatus(can_data.sdc_status.l_estop, SDC_LSTP_STAT_TXT);
-        updateSDCStatus(can_data.sdc_status.HVD, SDC_HVD_STAT_TXT);
-        updateSDCStatus(can_data.sdc_status.hub, SDC_RHUB_STAT_TXT);
-        updateSDCStatus(can_data.sdc_status.TSMS, SDC_TSMS_STAT_TXT);
-        updateSDCStatus(can_data.sdc_status.pchg_out, SDC_PCHG_STAT_TXT);
-        // todo set first trip from latest change in the sdc
-    }
+    updateSDCStatus(can_data.precharge_hb.IMD, SDC_IMD_STAT_TXT); // IMD from ABOX
+    updateSDCStatus(can_data.precharge_hb.BMS, SDC_BMS_STAT_TXT);
+    updateSDCStatus(!is_latched(FAULT_INDEX_DASHBOARD_BSPD), SDC_BSPD_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.BOTS, SDC_BOTS_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.inertia, SDC_INER_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.c_estop, SDC_CSTP_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.main, SDC_MAIN_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.r_estop, SDC_RSTP_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.l_estop, SDC_LSTP_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.HVD, SDC_HVD_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.hub, SDC_RHUB_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.TSMS, SDC_TSMS_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.pchg_out, SDC_PCHG_STAT_TXT);
+    // todo set first trip from latest change in the sdc
 }
 
 // ! Helper function definitions
 
 void errorPageSelect() {
-    fault_time_displayed = 0; // Reset fault timer first
-    curr_page            = prev_page; // Return to previous page
+    fault_time_displayed = 0;              // Reset fault timer first
+    curr_page            = prev_page;      // Return to previous page
     prev_page            = PAGE_PREFLIGHT; // so select item doesnt't break
-    updatePage(); // Important: Update the page before returning
+    updatePage();                          // Important: Update the page before returning
     return;
 }
 
@@ -766,8 +761,10 @@ void pedalProfilesSelect() {
 void pedalProfilesSaveButton_CALLBACK() {
     int driver_index = MS_listGetSelected(&driver_page);
     // Save profile values
-    driver_pedal_profiles[driver_index].brake_travel_threshold    = pedal_profile_elements[PROFILE_BRAKE_INDEX].current_value;
-    driver_pedal_profiles[driver_index].throttle_travel_threshold = pedal_profile_elements[PROFILE_THROTTLE_INDEX].current_value;
+    driver_pedal_profiles[driver_index].brake_travel_threshold =
+        pedal_profile_elements[PROFILE_BRAKE_INDEX].current_value;
+    driver_pedal_profiles[driver_index].throttle_travel_threshold =
+        pedal_profile_elements[PROFILE_THROTTLE_INDEX].current_value;
 
     if (PROFILE_WRITE_SUCCESS != writePedalProfiles()) {
         pedal_profile_page.saved = false;
@@ -821,7 +818,7 @@ void coolingSelect() {
  *
  * @param msg_data_a Pointer to the parsed CAN message data
  */
-void coolant_out_CALLBACK(can_data_t* can_data) {
+void coolant_out_CALLBACK(can_data_t *can_data) {
     if (curr_page != PAGE_COOLING) {
         cooling_elements[COOLING_B_FAN_INDEX].current_value   = can_data->coolant_out.dt_fan;
         cooling_elements[COOLING_B_PUMP_INDEX].current_value  = can_data->coolant_out.dt_pump;
@@ -1000,7 +997,8 @@ void raceTelemetryUpdate() {
         NXT_setText(SPEED, "S");
     } else {
         // uint16_t speed = can_data.rear_wheel_speeds.left_speed_mc * RPM_TO_MPH; // Convert to mph
-        uint16_t speed = (uint16_t)(can_data.gps_speed.gps_speed * MPS_TO_MPH + 0.5); // Round to nearest whole number
+        uint16_t speed = (uint16_t)(can_data.gps_speed.gps_speed * MPS_TO_MPH
+                                    + 0.5); // Round to nearest whole number
         NXT_setTextFormatted(SPEED, "%d", speed);
     }
 
@@ -1027,8 +1025,10 @@ void raceTelemetryUpdate() {
         NXT_setText(MOT_TEMP, "SB");
         NXT_setText(MC_TEMP, "SB");
     } else {
-        uint8_t motor_temp      = MAX(can_data.INVA_TEMPS.AMK_MotorTemp, can_data.INVB_TEMPS.AMK_MotorTemp) / 10;
-        uint8_t controller_temp = MAX(can_data.INVA_TEMPS.AMK_IGBTTemp, can_data.INVB_TEMPS.AMK_IGBTTemp) / 10;
+        uint8_t motor_temp =
+            MAX(can_data.INVA_TEMPS.AMK_MotorTemp, can_data.INVB_TEMPS.AMK_MotorTemp) / 10;
+        uint8_t controller_temp =
+            MAX(can_data.INVA_TEMPS.AMK_IGBTTemp, can_data.INVB_TEMPS.AMK_IGBTTemp) / 10;
 
         NXT_setTextFormatted(MOT_TEMP, "%dC", motor_temp);
         NXT_setTextFormatted(MC_TEMP, "%dC", controller_temp);
@@ -1041,7 +1041,9 @@ void raceTelemetryUpdate() {
     } else if (can_data.INVA_CRIT.stale) {
         NXT_setText(AMK_MOTOR_OVERLOAD, "SB");
     } else {
-        uint16_t motor_overload = MAX(can_data.INVA_CRIT.AMK_DisplayOverloadMotor, can_data.INVB_CRIT.AMK_DisplayOverloadMotor) * 10;
+        uint16_t motor_overload = MAX(can_data.INVA_CRIT.AMK_DisplayOverloadMotor,
+                                      can_data.INVB_CRIT.AMK_DisplayOverloadMotor)
+            * 10;
         // uint16_t motor_overload = 77;
 
         NXT_setTextFormatted(AMK_MOTOR_OVERLOAD, "%d%", motor_overload);
@@ -1153,7 +1155,7 @@ void loggingSelect() {
  * @param fault The fault code to check (0xFFFF indicates no fault)
  * @param element Pointer to the display element to be colored
  */
-void set_faultIndicator(uint16_t fault, char* element) {
+void set_faultIndicator(uint16_t fault, char *element) {
     if (fault == 0xFFFF) {
         NXT_setFontColor(element, WHITE);
         return;
@@ -1172,7 +1174,7 @@ void set_faultIndicator(uint16_t fault, char* element) {
  * @param status Boolean indicating if element should be marked as active (1) or inactive (0)
  * @param element Pointer to the LCD element to update
  */
-void updateSDCStatus(uint8_t status, char* element) {
+void updateSDCStatus(uint8_t status, char *element) {
     if (status) {
         NXT_setBackground(element, GREEN);
     } else {

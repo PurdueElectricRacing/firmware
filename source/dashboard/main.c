@@ -133,7 +133,7 @@ void send_version();
 extern void HardFault_Handler();
 
 // Communication queues
-strbuf_t lcd_tx_buf;
+allocate_strbuf(lcd_tx_buf, NXT_STR_SIZE); 
 
 void preflight_task();
 void can_worker_task();
@@ -155,8 +155,6 @@ defineThreadStack(sendTVParameters, DASHBOARD_VCU_PARAMETERS_PERIOD_MS, osPriori
 
 int main(void) {
     /* Data Struct init */
-    allocate_strbuf(lcd_tx_buf, NXT_STR_SIZE); 
-
     /* HAL Initilization */
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();

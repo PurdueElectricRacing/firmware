@@ -80,7 +80,8 @@ typedef struct {
     bool err_regb_pec;
     /** Set if the recieved PEC for a cell voltage read does not match the calculated PEC. */
     bool err_cells_pec;
-    /** Set if the recieved PEC for a thermistor/GPIO voltage read does not match the calculated PEC. */
+    /** Set if the recieved PEC for a thermistor/GPIO voltage read does not match the
+     * calculated PEC. Sets it if any of the 4 command responses fail the PEC check. */
     bool err_therms_pec;
     /** Set if a read-back REGA does not match cached REGA. */
     bool err_rega_mismatch;

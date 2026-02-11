@@ -61,7 +61,7 @@ void NXT_setBackground(char* obj_name, uint16_t val) {
  * @param val The font color value to set for the specified object.
  */
 void NXT_setFontColor(char* obj_name, uint16_t val) {
-    strbuf_printf(&lcd_tx_buf, "%s%s%d", obj_name, NXT_FONT_COLOR, 3);
+    strbuf_printf(&lcd_tx_buf, "%s%s%d", obj_name, NXT_FONT_COLOR, val);
     strbuf_append(&lcd_tx_buf, NXT_CMD_TERM, 3);
 }
 
@@ -94,11 +94,12 @@ void NXT_setText(char* obj_name, char* text) {
  * @param format Printf-style format string.
  * @param ... Variable arguments for format string.
  */
+// todo fix this function
 void NXT_setTextFormatted(char* obj_name, const char* format, ...) {
     strbuf_printf(&lcd_tx_buf, "%s%s\"", obj_name, NXT_TEXT);
     va_list args;
     va_start(args, format);
-    char formatted[NXT_STR_SIZE];
+    char formatted[50];
     vsnprintf(formatted, sizeof(formatted), format, args);
     va_end(args);
     strbuf_append(&lcd_tx_buf, formatted, strlen(formatted));

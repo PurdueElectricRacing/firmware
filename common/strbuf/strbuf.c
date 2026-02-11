@@ -34,6 +34,10 @@ size_t strbuf_append(strbuf_t *sb, const void *data, size_t length) {
     return length;
 }
 
+/**
+ * @brief Appends formatted data to the buffer using printf-style formatting.
+ * ! @warning This function is unsafe if the formatted string exceeds the remaining buffer space.
+ */
 size_t strbuf_printf(strbuf_t *sb, const char *format, ...) {
     size_t remaining_space = sb->max_len - sb->length;
 

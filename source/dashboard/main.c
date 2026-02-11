@@ -133,7 +133,7 @@ void send_version();
 extern void HardFault_Handler();
 
 // Communication queues
-allocate_strbuf(lcd_tx_buf, NXT_STR_SIZE);
+allocate_strbuf(lcd_tx_buf, 1024);
 
 void preflight_task();
 void can_worker_task();
@@ -435,10 +435,7 @@ void config_button_irqs() {
 
 /**
  * @brief Called periodically to send commands to the Nextion LCD display via USART
- *
- * @note The queue holds a max of 10 commands. Design your LCD page updates with this in mind.
  */
-char cmd[NXT_STR_SIZE] = {'\0'}; // Buffer for Nextion LCD commands
 void lcd_tx_cmd() {
     if ((false == PHAL_usartTxBusy(&lcd)) && (lcd_tx_buf.length > 0)) {
         PHAL_usartTxDma(&lcd, (uint8_t*)lcd_tx_buf.data, lcd_tx_buf.length);

@@ -41,7 +41,7 @@
  *
  * Must be a multiple of 100 microseconds due to wait granularity.
  */
-#define ADBMS6380_WAKE_DELAY_MS (1)
+#define ADBMS6380_WAKE_DELAY_MS (4)
 
 /**
  * @brief Drive the ADBMS CS line low.

@@ -16,13 +16,15 @@
 #ifndef __NEXTION_H__
 #define __NEXTION_H__
 
-#include <stdio.h>
+#include <stdint.h>
 #include <string.h>
+#include <stdio.h>
+#include <strbuf.h>
 
 #include "common/queue/queue.h"
 
 // Size Definitions
-#define NXT_STR_SIZE 50 // ! Important: Used for usart queue size, issues arise if less than len of longest fault msg
+#define NXT_STR_SIZE 1024 // ! Important: Used for usart queue size, issues arise if less than len of longest fault msg
 #define NXT_CMD_TERM "\xFF\xFF\xFF" // Serial insturcitons must be terminated with 3 bytes 0xFF
 #define ASCII_OFFSET 48
 

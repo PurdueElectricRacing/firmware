@@ -14,10 +14,10 @@
  */
 
 #include "nextion.h"
-
+#include <stdint.h>
 #include <stdarg.h>
 
-extern q_handle_t q_tx_usart;
+extern strbuf_t lcd_tx_buf;
 
 /**
  * @brief Sets a float value to a specified object parameter on the Nextion display.
@@ -28,9 +28,8 @@ extern q_handle_t q_tx_usart;
  * @param precision The number of decimal places to include in the formatted float value.
  */
 void NXT_setFloat(char* obj_name, char* param, float num, uint8_t precision) {
-    char result[NXT_STR_SIZE];
-    snprintf(result, sizeof(result), "%s%s\"%.*f\"%s", obj_name, param, precision, num, NXT_CMD_TERM);
-    qSendToBack(&q_tx_usart, (uint16_t*)result);
+    strbuf_printf(&lcd_tx_buf, "%s%s\"%.*f\"", obj_name, param, precision, num);
+    strbuf_append(&lcd_tx_buf, NXT_CMD_TERM, 3);
 }
 
 /**
@@ -40,9 +39,8 @@ void NXT_setFloat(char* obj_name, char* param, float num, uint8_t precision) {
  * @param val The value to set for the specified object.
  */
 void NXT_setValue(char* obj_name, uint16_t val) {
-    char result[NXT_STR_SIZE];
-    snprintf(result, sizeof(result), "%s%s%d%s", obj_name, NXT_VALUE, val, NXT_CMD_TERM);
-    qSendToBack(&q_tx_usart, (uint16_t*)result);
+    strbuf_printf(&lcd_tx_buf, "%s%s%d", obj_name, NXT_VALUE, val);
+    strbuf_append(&lcd_tx_buf, NXT_CMD_TERM, 3);
 }
 
 /**
@@ -52,9 +50,8 @@ void NXT_setValue(char* obj_name, uint16_t val) {
  * @param val The background color value to set for the specified object.
  */
 void NXT_setBackground(char* obj_name, uint16_t val) {
-    char result[NXT_STR_SIZE];
-    snprintf(result, sizeof(result), "%s%s%d%s", obj_name, NXT_BACKGROUND_COLOR, val, NXT_CMD_TERM);
-    qSendToBack(&q_tx_usart, (uint16_t*)result);
+    strbuf_printf(&lcd_tx_buf, "%s%s%d", obj_name, NXT_BACKGROUND_COLOR, val);
+    strbuf_append(&lcd_tx_buf, NXT_CMD_TERM, 3);
 }
 
 /**
@@ -64,9 +61,8 @@ void NXT_setBackground(char* obj_name, uint16_t val) {
  * @param val The font color value to set for the specified object.
  */
 void NXT_setFontColor(char* obj_name, uint16_t val) {
-    char result[NXT_STR_SIZE];
-    snprintf(result, sizeof(result), "%s%s%d%s", obj_name, NXT_FONT_COLOR, val, NXT_CMD_TERM);
-    qSendToBack(&q_tx_usart, (uint16_t*)result);
+    strbuf_printf(&lcd_tx_buf, "%s%s%d", obj_name, NXT_FONT_COLOR, 3);
+    strbuf_append(&lcd_tx_buf, NXT_CMD_TERM, 3);
 }
 
 /**
@@ -76,9 +72,8 @@ void NXT_setFontColor(char* obj_name, uint16_t val) {
  * @param val The border width value to set for the specified object.
  */
 void NXT_setBorderWidth(char* obj_name, uint16_t val) {
-    char result[NXT_STR_SIZE];
-    snprintf(result, sizeof(result), "%s%s%d%s", obj_name, NXT_BORDERW, val, NXT_CMD_TERM);
-    qSendToBack(&q_tx_usart, (uint16_t*)result);
+    strbuf_printf(&lcd_tx_buf, "%s%s%d", obj_name, NXT_BORDERW, val);
+    strbuf_append(&lcd_tx_buf, NXT_CMD_TERM, 3);
 }
 
 /**
@@ -88,9 +83,8 @@ void NXT_setBorderWidth(char* obj_name, uint16_t val) {
  * @param text The text to set for the specified obect.
  */
 void NXT_setText(char* obj_name, char* text) {
-    char result[NXT_STR_SIZE];
-    snprintf(result, sizeof(result), "%s%s\"%s\"%s", obj_name, NXT_TEXT, text, NXT_CMD_TERM);
-    qSendToBack(&q_tx_usart, (uint16_t*)result);
+    strbuf_printf(&lcd_tx_buf, "%s%s\"%s\"", obj_name, NXT_TEXT, text);
+    strbuf_append(&lcd_tx_buf, NXT_CMD_TERM, 3);
 }
 
 /**
@@ -101,13 +95,15 @@ void NXT_setText(char* obj_name, char* text) {
  * @param ... Variable arguments for format string.
  */
 void NXT_setTextFormatted(char* obj_name, const char* format, ...) {
-    char formatted[NXT_STR_SIZE];
+    strbuf_printf(&lcd_tx_buf, "%s%s\"", obj_name, NXT_TEXT);
     va_list args;
     va_start(args, format);
+    char formatted[NXT_STR_SIZE];
     vsnprintf(formatted, sizeof(formatted), format, args);
     va_end(args);
-
-    NXT_setText(obj_name, formatted);
+    strbuf_append(&lcd_tx_buf, formatted, strlen(formatted));
+    strbuf_append(&lcd_tx_buf, "\"", 1);
+    strbuf_append(&lcd_tx_buf, NXT_CMD_TERM, 3);
 }
 
 /**
@@ -116,9 +112,8 @@ void NXT_setTextFormatted(char* obj_name, const char* format, ...) {
  * @param page_name The name of the page to set on the Nextion display.
  */
 void NXT_setPage(char* page_name) {
-    char result[NXT_STR_SIZE];
-    snprintf(result, sizeof(result), "%s%s%s", NXT_PAGE, page_name, NXT_CMD_TERM);
-    qSendToBack(&q_tx_usart, (uint16_t*)result);
+    strbuf_printf(&lcd_tx_buf, "%s%s", NXT_PAGE, page_name);
+    strbuf_append(&lcd_tx_buf, NXT_CMD_TERM, 3);
 }
 
 /**
@@ -129,9 +124,8 @@ void NXT_setPage(char* page_name) {
 void NXT_setBrightness(uint8_t percentage) {
     if (percentage > 100)
         percentage = 100;
-    char result[NXT_STR_SIZE];
-    snprintf(result, sizeof(result), "%s%d%s", NXT_BRIGHTNESS, percentage, NXT_CMD_TERM);
-    qSendToBack(&q_tx_usart, (uint16_t*)result);
+    strbuf_printf(&lcd_tx_buf, "%s%d", NXT_BRIGHTNESS, percentage);
+    strbuf_append(&lcd_tx_buf, NXT_CMD_TERM, 3);
 }
 
 /**
@@ -140,7 +134,6 @@ void NXT_setBrightness(uint8_t percentage) {
  * @param baud The desired baud rate to set for the Nextion display.
  */
 void NXT_setBaud(uint32_t baud) {
-    char result[NXT_STR_SIZE];
-    snprintf(result, sizeof(result), "%s%d%s", NXT_BAUD, baud, NXT_CMD_TERM);
-    qSendToBack(&q_tx_usart, (uint16_t*)result);
+    strbuf_printf(&lcd_tx_buf, "%s%d", NXT_BAUD, baud);
+    strbuf_append(&lcd_tx_buf, NXT_CMD_TERM, 3);
 }

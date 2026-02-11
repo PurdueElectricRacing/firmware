@@ -8,6 +8,8 @@
 
 #include "strbuf.h"
 #include <string.h>
+#include <stdarg.h>
+#include <stdio.h>
 
 /**
  * @brief Clears the buffer by resetting length to 0.
@@ -30,4 +32,30 @@ size_t strbuf_append(strbuf_t *sb, const void *data, size_t length) {
     sb->length += length;
 
     return length;
+}
+
+size_t strbuf_printf(strbuf_t *sb, const char *format, ...) {
+    size_t remaining_space = sb->max_len - sb->length;
+
+    if (remaining_space == 0) {
+        return 0;
+    } 
+
+    va_list args;
+    va_start(args, format);
+
+    int len = vsnprintf(NULL, 0, format, args);
+    va_end(args);
+
+    if ((size_t)len > remaining_space) {
+        return 0;
+    }
+
+    va_start(args, format);
+    char *buf_end = (char *)(sb->data + sb->length);
+    vsnprintf(buf_end, remaining_space + 1, format, args);
+    va_end(args);
+
+    sb->length += (size_t)len;
+    return (size_t)len;
 }

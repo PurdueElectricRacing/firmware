@@ -548,8 +548,6 @@ void updateTelemetryPages() {
  * @note Only executes when current page is PAGE_CALIBRATION
  */
 void calibrationTelemetryUpdate() {
-    static uint8_t update_group = 0;
-
     if (curr_page != PAGE_CALIBRATION) {
         return;
     }
@@ -644,30 +642,26 @@ void faultTelemetryUpdate() {
  * Only executes if the current page is SDC info page.
  */
 void sdcTelemetryUpdate() {
-    static uint8_t update_group = 0U;
     if (curr_page != PAGE_SDCINFO) {
         return;
     }
 
     // cycle through the update groups
-    update_group ^= 1;
-    if (update_group) {
-        updateSDCStatus(can_data.precharge_hb.IMD, SDC_IMD_STAT_TXT); // IMD from ABOX
-        updateSDCStatus(can_data.precharge_hb.BMS, SDC_BMS_STAT_TXT);
-        updateSDCStatus(!is_latched(FAULT_INDEX_DASHBOARD_BSPD), SDC_BSPD_STAT_TXT);
-        updateSDCStatus(can_data.sdc_status.BOTS, SDC_BOTS_STAT_TXT);
-        updateSDCStatus(can_data.sdc_status.inertia, SDC_INER_STAT_TXT);
-        updateSDCStatus(can_data.sdc_status.c_estop, SDC_CSTP_STAT_TXT);
-        updateSDCStatus(can_data.sdc_status.main, SDC_MAIN_STAT_TXT);
-    } else {
-        updateSDCStatus(can_data.sdc_status.r_estop, SDC_RSTP_STAT_TXT);
-        updateSDCStatus(can_data.sdc_status.l_estop, SDC_LSTP_STAT_TXT);
-        updateSDCStatus(can_data.sdc_status.HVD, SDC_HVD_STAT_TXT);
-        updateSDCStatus(can_data.sdc_status.hub, SDC_RHUB_STAT_TXT);
-        updateSDCStatus(can_data.sdc_status.TSMS, SDC_TSMS_STAT_TXT);
-        updateSDCStatus(can_data.sdc_status.pchg_out, SDC_PCHG_STAT_TXT);
-        // todo set first trip from latest change in the sdc
-    }
+
+    updateSDCStatus(can_data.precharge_hb.IMD, SDC_IMD_STAT_TXT); // IMD from ABOX
+    updateSDCStatus(can_data.precharge_hb.BMS, SDC_BMS_STAT_TXT);
+    updateSDCStatus(!is_latched(FAULT_INDEX_DASHBOARD_BSPD), SDC_BSPD_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.BOTS, SDC_BOTS_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.inertia, SDC_INER_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.c_estop, SDC_CSTP_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.main, SDC_MAIN_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.r_estop, SDC_RSTP_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.l_estop, SDC_LSTP_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.HVD, SDC_HVD_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.hub, SDC_RHUB_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.TSMS, SDC_TSMS_STAT_TXT);
+    updateSDCStatus(can_data.sdc_status.pchg_out, SDC_PCHG_STAT_TXT);
+    // todo set first trip from latest change in the sdc
 }
 
 // ! Helper function definitions

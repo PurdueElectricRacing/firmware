@@ -20,6 +20,7 @@ typedef struct {
 
 void strbuf_clear(strbuf_t *sb);
 size_t strbuf_append(strbuf_t *sb, const void *data, size_t length);
+size_t strbuf_printf(strbuf_t *sb, const char *format, ...);
 
 #define allocate_strbuf(NAME, MAX_SIZE) \
     uint8_t NAME##_data[(MAX_SIZE)]; \

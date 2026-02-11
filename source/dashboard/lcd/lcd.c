@@ -548,8 +548,6 @@ void updateTelemetryPages() {
  * @note Only executes when current page is PAGE_CALIBRATION
  */
 void calibrationTelemetryUpdate() {
-    static uint8_t update_group = 0;
-
     if (curr_page != PAGE_CALIBRATION) {
         return;
     }

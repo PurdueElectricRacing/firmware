@@ -96,7 +96,7 @@ void adbms6380_calculate_cfg_rega(uint8_t output_cfg_rega[ADBMS6380_SINGLE_DATA_
                                   uint8_t cth) {
     memset(output_cfg_rega, 0, ADBMS6380_SINGLE_DATA_RAW_SIZE);
 
-    output_cfg_rega[0] = (refon << 7) | (cth & 0x07);
+    output_cfg_rega[0] = ((uint8_t)refon << 7) | (cth & 0x07);
     // all flags 0
     output_cfg_rega[1] = 0b00000000;
     // no soak

@@ -87,9 +87,16 @@ bool adbms_read_and_check_rega(ADBMS_bms_t *bms) {
         bms->err_spi = true;
         return false;
     }
+    bms->err_rega_pec      = false;
     bms->err_rega_mismatch = false;
     for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
         uint8_t *module_data = &bms->rx_buf[i * ADBMS6380_SINGLE_DATA_PKT_SIZE];
+        if (!adbms6380_check_data_pec(module_data, ADBMS6380_SINGLE_DATA_PKT_SIZE)) {
+            bms->err_rega_pec            = true;
+            bms->modules[i].err_rega_pec = true;
+        } else {
+            bms->modules[i].err_rega_pec = false;
+        }
         if (memcmp(&module_data[0], bms->modules[i].rega, ADBMS6380_SINGLE_DATA_RAW_SIZE) != 0) {
             bms->err_rega_mismatch            = true;
             bms->modules[i].err_rega_mismatch = true;
@@ -97,7 +104,7 @@ bool adbms_read_and_check_rega(ADBMS_bms_t *bms) {
             bms->modules[i].err_rega_mismatch = false;
         }
     }
-    return !bms->err_rega_mismatch;
+    return !bms->err_rega_mismatch && !bms->err_rega_pec;
 }
 
 bool adbms_read_and_check_regb(ADBMS_bms_t *bms) {
@@ -107,9 +114,16 @@ bool adbms_read_and_check_regb(ADBMS_bms_t *bms) {
         bms->err_spi = true;
         return false;
     }
+    bms->err_regb_pec      = false;
     bms->err_regb_mismatch = false;
     for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
         uint8_t *module_data = &bms->rx_buf[i * ADBMS6380_SINGLE_DATA_PKT_SIZE];
+        if (!adbms6380_check_data_pec(module_data, ADBMS6380_SINGLE_DATA_PKT_SIZE)) {
+            bms->err_regb_pec            = true;
+            bms->modules[i].err_regb_pec = true;
+        } else {
+            bms->modules[i].err_regb_pec = false;
+        }
         if (memcmp(&module_data[0], bms->modules[i].regb, ADBMS6380_SINGLE_DATA_RAW_SIZE) != 0) {
             bms->err_regb_mismatch            = true;
             bms->modules[i].err_regb_mismatch = true;
@@ -117,7 +131,7 @@ bool adbms_read_and_check_regb(ADBMS_bms_t *bms) {
             bms->modules[i].err_regb_mismatch = false;
         }
     }
-    return !bms->err_regb_mismatch;
+    return !bms->err_regb_mismatch && !bms->err_regb_pec;
 }
 
 void adbms_connect(ADBMS_bms_t *bms) {

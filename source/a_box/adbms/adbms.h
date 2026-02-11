@@ -74,6 +74,9 @@ typedef struct {
     /** Cached REGB bytes written to the device. Used to compare against read-back data. */
     uint8_t regb[ADBMS6380_SINGLE_DATA_RAW_SIZE];
 
+    bool err_rega_pec;
+    bool err_regb_pec;
+
     /** Set if a read-back REGA does not match cached REGA. */
     bool err_rega_mismatch;
     /** Set if a read-back REGB does not match cached REGB. */
@@ -111,8 +114,10 @@ typedef struct {
 
     /** Set on any SPI transfer/read failure. Should be a terminal error. */
     bool err_spi;
-    /** Set when connect/initialization sequence fails. Retry logic up to higher-level logic. */
+    /** Set when connect/initialization sequence fails. Periodic call will automatically retry. */
     bool err_connect;
+    bool err_rega_pec;
+    bool err_regb_pec;
     /** Aggregated REGA mismatch flag across modules. */
     bool err_rega_mismatch;
     /** Aggregated REGB mismatch flag across modules. */
@@ -152,20 +157,24 @@ bool adbms_write_regb(ADBMS_bms_t *bms);
  * @brief Read back REGA and compare with cached configuration.
  *
  * Sets per-module and aggregated mismatch flags when the read-back does
- * not match the cached REGA data.
+ * not match the cached REGA data. Additionally checks the PEC and sets
+ * per-module and aggregated PEC error flags.
  *
  * @param bms Pointer to driver state.
- * @return False on SPI failure and when there is a mismatch; true otherwise.
+ * @return False on SPI failure, when there is a mismatch, and/or when there
+ *         is a PEC error; true otherwise.
  */
 bool adbms_read_and_check_rega(ADBMS_bms_t *bms);
 /**
  * @brief Read back REGB and compare with cached configuration.
  *
  * Sets per-module and aggregated mismatch flags when the read-back does
- * not match the cached REGB data.
+ * not match the cached REGB data. Additionally checks the PEC and sets
+ * per-module and aggregated PEC error flags.
  *
  * @param bms Pointer to driver state.
- * @return False on SPI failure and when there is a mismatch; true otherwise.
+ * @return False on SPI failure, when there is a mismatch, and/or when there
+ *         is a PEC error; true otherwise.
  */
 bool adbms_read_and_check_regb(ADBMS_bms_t *bms);
 

@@ -30,6 +30,7 @@ daq_hub_t daq_hub;
 // Local protoptypes
 static void daq_heartbeat(void);
 static void can_send_periodic(void);
+static void can_inject_fake(void);
 
 defineThreadStack(daq_heartbeat, 500, osPriorityNormal, 512); // HB
 defineThreadStack(sd_update_periodic, 100, osPriorityNormal, 4096); // SD WRITE
@@ -86,6 +87,63 @@ static void daq_heartbeat(void) {
 static void can_send_periodic(void) {
     CAN_tx_update();
     CAN_rx_update();
+    can_inject_fake();
+}
+
+static void can_inject_fake(void) {
+    NVIC_DisableIRQ(CAN1_RX0_IRQn);
+
+    timestamped_frame_t *rx;
+    uint32_t cont;
+
+    if (bGetHeadForWrite(&b_rx_can, (void **)&rx, &cont) == 0)
+    {
+        rx->frame_type = DAQ_FRAME_CAN_RX;
+        rx->tick_ms    = getTick();
+        rx->bus_id     = BUS_ID_CAN2;
+
+        /* gps_time from DBC:
+         * BO_ 2147483677 gps_time: 8
+         */
+        rx->msg_id = 2147483677;   // extended ID
+        rx->dlc    = 8;
+
+        /* Hardcoded date/time: 2026-02-03 14:30:45.123 */
+        uint8_t  year        = 07;
+        uint8_t  month       = 9;
+        uint8_t  day         = 12;
+        uint8_t  hour        = 12;
+        uint8_t  minute      = 0;
+        uint8_t  second      = 67;
+        uint16_t millisecond = 456;
+
+        /* Little-endian packing per DBC */
+        rx->data[0] = year;
+        rx->data[1] = month;
+        rx->data[2] = day;
+        rx->data[3] = hour;
+        rx->data[4] = minute;
+        rx->data[5] = second;
+        rx->data[6] = (uint8_t)(millisecond & 0xFF);
+        rx->data[7] = (uint8_t)((millisecond >> 8) & 0xFF);
+
+        bCommitWrite(&b_rx_can, 1);
+
+        CanMsgTypeDef_t msg;
+        msg.Bus   = CAN1;
+        msg.IDE   = 1;                 // extended ID
+        msg.StdId = rx->msg_id;        // (matches existing usage)
+        msg.DLC   = rx->dlc;
+        memcpy(msg.Data, rx->data, 8);
+
+        qSendToBack(&q_rx_can, &msg);
+    }
+    else
+    {
+        daq_hub.bcan_rx_overflow++;
+    }
+
+    NVIC_EnableIRQ(CAN1_RX0_IRQn);
 }
 
 void uds_frame_send(uint64_t data) {

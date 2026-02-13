@@ -10,8 +10,6 @@
 
 #if defined(STM32F407xx)
 #define _FREERTOS_DIR external/STM32CubeF4/Middlewares/Third_Party/FreeRTOS/Source/
-#elif defined(STM32F732xx)
-#define _FREERTOS_DIR external/STM32CubeF7/Middlewares/Third_Party/FreeRTOS/Source/
 #elif defined(STM32G474xx)
 #define _FREERTOS_DIR external/STM32CubeG4/Middlewares/Third_Party/FreeRTOS/Source/
 #else
@@ -21,9 +19,6 @@
 #include _FREERTOS_PATH(include/FreeRTOS.h)
 #include _FREERTOS_PATH(CMSIS_RTOS_V2/cmsis_os2.h)
 
-#if !defined(STM32F732xx)
-    #include _FREERTOS_PATH(include/atomic.h)
-#endif
 #include _FREERTOS_PATH(include/list.h)
 #include _FREERTOS_PATH(include/queue.h)
 #include _FREERTOS_PATH(include/semphr.h)
@@ -115,13 +110,19 @@ void rtosWrapper(void *);
 // PRIORITY: one of osPriorityNormal, osPriorityHigh, etc
 // STACK: stack size
 #define __defineThread(TASK, PERIOD, PRIORITY, STACK) \
-    ThreadWrapper threadWrapperName(TASK) = {.taskFunction = &(TASK), \
-                                             .period       = (PERIOD), \
-                                             .attrs        = { \
-                                                        .priority   = (PRIORITY), \
-                                                        .stack_size = (STACK), \
-                                                        .name       = "\"" #TASK "\"", \
-                                             }};
+    static StaticTask_t taskWrapperCB_##TASK; \
+    static StackType_t taskWrapperStack_##TASK[(STACK) / sizeof(StackType_t)]; \
+    ThreadWrapper threadWrapperName(TASK) = { \
+        .taskFunction = &(TASK), \
+        .period       = (PERIOD), \
+        .attrs        = { \
+            .priority   = (PRIORITY), \
+            .stack_size = (STACK), \
+            .name       = "\"" #TASK "\"", \
+            .cb_mem     = &taskWrapperCB_##TASK, \
+            .cb_size    = sizeof(StaticTask_t), \
+            .stack_mem  = taskWrapperStack_##TASK, \
+        }};
 
 #define defineThread(T, D, P)         __defineThread(T, D, P, 1024) // TODO calculate stack size
 #define defineThreadStack(T, D, P, S) __defineThread(T, D, P, S)

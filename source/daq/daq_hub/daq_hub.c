@@ -31,7 +31,7 @@ daq_hub_t daq_hub;
 static void daq_heartbeat(void);
 static void can_send_periodic(void);
 
-defineThreadStack(daq_heartbeat, 500, osPriorityNormal, 128); // HB
+defineThreadStack(daq_heartbeat, 500, osPriorityNormal, 512); // HB
 defineThreadStack(sd_update_periodic, 100, osPriorityNormal, 4096); // SD WRITE
 defineThreadStack(eth_update_periodic, 50, osPriorityNormal, 4096); // SD WRITE
 defineThreadStack(can_send_periodic, 50, osPriorityNormal, 128); // CAN1 TX

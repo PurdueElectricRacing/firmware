@@ -15,7 +15,7 @@
 #include "common/phal/spi.h"
 #include "common/strbuf/strbuf.h"
 
-#define ADBMS_MODULE_COUNT (8)
+#define ADBMS_MODULE_COUNT (1)
 
 // Max SPI TX is a command + all the data packets for all the modules
 #define ADBMS_SPI_TX_BUFFER_SIZE \

@@ -41,7 +41,7 @@
  * 
  * Note: usage of this expects tick rate to be 1000 Hz (1 tick = 1 ms).
  */
-#define ADBMS6380_WAKE_DELAY_MS (1)
+#define ADBMS6380_WAKE_DELAY_MS (3)
 
 /**
  * @brief Drive the ADBMS CS line low.
@@ -94,7 +94,7 @@ float adbms6380_raw_to_cell_v(int16_t raw);
  * @param raw Raw ADC code from ADBMS.
  * @return GPIO voltage in volts.
  */
-float adbms6380_raw_to_gpio_v(int16_t raw);
+float adbms6380_raw_to_gpio_v(uint16_t raw);
 
 /**
  * @brief Build ADCV command bytes.
@@ -106,7 +106,12 @@ float adbms6380_raw_to_gpio_v(int16_t raw);
  * @param rstf Reset filter.
  * @param ow Open-wire setting (2-bit).
  */
-void adbms6380_adcv(uint8_t *output_cmd, bool rd, bool cont, bool dcp, bool rstf, uint8_t ow);
+void adbms6380_adcv(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE],
+                    bool rd,
+                    bool cont,
+                    bool dcp,
+                    bool rstf,
+                    uint8_t ow);
 /**
  * @brief Build ADSV (aux) command bytes.
  *
@@ -115,7 +120,15 @@ void adbms6380_adcv(uint8_t *output_cmd, bool rd, bool cont, bool dcp, bool rstf
  * @param dcp Discharge permitted during conversion (only affects PWM balancing, not DCC).
  * @param ow Open-wire setting (2-bit).
  */
-void adbms6380_adsv(uint8_t *output_cmd, bool cont, bool dcp, uint8_t ow);
+void adbms6380_adsv(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE],
+                    bool cont,
+                    bool dcp,
+                    uint8_t ow);
+
+void adbms6380_adax(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE],
+                    bool ow,
+                    bool pup,
+                    uint8_t ch);
 
 /**
  * @brief Append a command and its PEC to an output buffer.

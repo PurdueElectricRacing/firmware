@@ -12,6 +12,7 @@
 #include "adbms6380.h"
 #include "commands.h"
 #include "common/phal/spi.h"
+#include "common/freertos/freertos.h"
 
 void adbms_init(ADBMS_bms_t *bms, SPI_InitConfig_t *spi, uint8_t *tx_buf) {
     bms->spi   = spi;
@@ -172,6 +173,21 @@ void adbms_connect(ADBMS_bms_t *bms) {
     }
     adbms6380_set_cs_high(bms->spi);
 
+    // Start ADAX
+    strbuf_clear(&bms->tx_strbuf);
+    uint8_t adax_cmd[2];
+    adbms6380_adax(adax_cmd, 0, 0, 0);
+    adbms6380_prepare_command(&bms->tx_strbuf, adax_cmd);
+    adbms6380_set_cs_low(bms->spi);
+    if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
+        adbms6380_set_cs_high(bms->spi);
+        bms->state       = ADBMS_STATE_IDLE;
+        bms->err_spi     = true;
+        bms->err_connect = true;
+        return;
+    }
+    adbms6380_set_cs_high(bms->spi);
+
     bms->err_connect = false;
     bms->state       = ADBMS_STATE_CONNECTED;
 }
@@ -277,6 +293,21 @@ void adbms_read_therms(ADBMS_bms_t *bms) {
         gpio_voltage_ptrs[i] = bms->modules[i].thermistors;
     }
 
+    strbuf_clear(&bms->tx_strbuf);
+    uint8_t adax_cmd[2];
+    adbms6380_adax(adax_cmd, 0, 0, 0);
+    adbms6380_prepare_command(&bms->tx_strbuf, adax_cmd);
+    adbms6380_set_cs_low(bms->spi);
+    if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
+        adbms6380_set_cs_high(bms->spi);
+        bms->state       = ADBMS_STATE_IDLE;
+        bms->err_spi     = true;
+        bms->err_connect = true;
+        return;
+    }
+    adbms6380_set_cs_high(bms->spi);
+
+    // osDelay(3);
     if (!adbms6380_read_gpio_voltages(bms->spi,
                                       &bms->tx_strbuf,
                                       bms->rx_buf,

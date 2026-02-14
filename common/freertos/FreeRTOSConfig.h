@@ -53,8 +53,6 @@ extern uint32_t SystemCoreClock;
 
 #if defined(STM32F407xx)
     #define CMSIS_device_header "stm32f4xx.h"
-#elif defined(STM32F732xx)
-    #define CMSIS_device_header "stm32f7xx.h"
 #elif defined(STM32G474xx)
     #define CMSIS_device_header "stm32g4xx.h"
 #else
@@ -76,11 +74,11 @@ extern uint32_t SystemCoreClock;
 #define configUSE_IDLE_HOOK 1
 #define configUSE_TICK_HOOK 0
 #define configSUPPORT_STATIC_ALLOCATION 1
-#define configSUPPORT_DYNAMIC_ALLOCATION 1
+#define configSUPPORT_DYNAMIC_ALLOCATION 0
 #define configCPU_CLOCK_HZ (SystemCoreClock)
 #define configTICK_RATE_HZ ((TickType_t) 1000)
 #define configMINIMAL_STACK_SIZE ((uint16_t) 128)
-#define configTOTAL_HEAP_SIZE ((size_t) (16 * 1024))
+#define configTOTAL_HEAP_SIZE (0)
 #define configMAX_TASK_NAME_LEN (16)
 #define configUSE_TRACE_FACILITY 1
 #define configUSE_16_BIT_TICKS 0
@@ -158,9 +156,6 @@ used
 //define USE_FreeRTOS_HEAP_5
 
 */
-
-#define USE_FreeRTOS_HEAP_4 1
-#define configFRTOS_MEMORY_SCHEME 4
 
 /* Cortex-M specific definitions. */
 

@@ -12,37 +12,23 @@ This example demonstrates a LUT being created for the exponential function. It i
 #include "lerp_lut.h"
 
 static constexpr int LUT_SIZE = 12;
-const float keys[LUT_SIZE] = {
-    -5.0f,
-    -4.0f,
-    -3.0f,
-    -2.0f,
-    -1.5f,
-    -1.0f,
-    -0.5f,
-    0.0f,
-    0.5f,
-    1.0f,
-    1.5f,
-    2.0f,
+
+const lut_entry_t exp_data[LUT_SIZE] = {
+    {.key = -5.0f, .value = 0.007f},
+    {.key = -4.0f, .value = 0.018f},
+    {.key = -3.0f, .value = 0.05f},
+    {.key = -2.0f, .value = 0.135f},
+    {.key = -1.5f, .value = 0.223f},
+    {.key = -1.0f, .value = 0.368f},
+    {.key = -0.5f, .value = 0.607f},
+    {.key = 0.0f, .value = 1.0f},
+    {.key = 0.5f, .value = 1.649f},
+    {.key = 1.0f, .value = 2.718f},
+    {.key = 1.5f, .value = 4.482f},
+    {.key = 2.0f, .value = 7.389f},
 };
 
-const float values[LUT_SIZE] = {
-    0.007f,
-    0.018f,
-    0.05f,
-    0.135f,
-    0.223f,
-    0.368f,
-    0.607f,
-    1.0f,
-    1.649f,
-    2.718f,
-    4.482f,
-    7.389f,
-};
-
-LERP_LUT_INIT(exp_lut, keys, values, LUT_SIZE);
+LERP_LUT_INIT(exp_lut, exp_data, LUT_SIZE);
 
 int main() {
     float value = lut_lookup(&exp_lut, 0.75f);

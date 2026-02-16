@@ -1,13 +1,12 @@
 #include "lerp_lut.h"
 
 float lut_lookup(const lerp_lut_t* lut, float key) {
-    const float *keys = lut->keys;
-    const float *values = lut->values;
+    const lut_entry_t *entries = lut->entries;
     const int size = lut->size;
 
     // "out of bounds" keys get clamped to the nearest value
-    if (key <= keys[0]) { return values[0]; }
-    if (key >= keys[size - 1]) { return values[size - 1]; }
+    if (key <= entries[0].key) { return entries[0].value; }
+    if (key >= entries[size - 1].key) { return entries[size - 1].value; }
 
     // binary search for the correct interval
     int low = 1;
@@ -15,7 +14,7 @@ float lut_lookup(const lerp_lut_t* lut, float key) {
     while (low < high) {
         int mid = low + (high - low) / 2;
 
-        if (key < keys[mid]) {
+        if (key < entries[mid].key) {
             high = mid;
         } else {
             low = mid + 1;
@@ -26,6 +25,6 @@ float lut_lookup(const lerp_lut_t* lut, float key) {
     int i = low - 1;
 
     // lerp between values[i] and values[i + 1]
-    float t = (key - keys[i]) / (keys[i + 1] - keys[i]);
-    return values[i] + (values[i + 1] - values[i]) * t;
+    float t = (key - entries[i].key) / (entries[i + 1].key - entries[i].key);
+    return entries[i].value + (entries[i + 1].value - entries[i].value) * t;
 }

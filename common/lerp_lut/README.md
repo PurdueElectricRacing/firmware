@@ -11,7 +11,8 @@ This example demonstrates a LUT being created for the exponential function. It i
 ```c++
 #include "lerp_lut.h"
 
-static constexpr int LUT_SIZE = 12;
+
+static constexpr size_t LUT_SIZE = 12;
 
 const lut_entry_t exp_data[LUT_SIZE] = {
     {.key = -5.0f, .value = 0.007f},

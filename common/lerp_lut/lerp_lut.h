@@ -1,6 +1,8 @@
 #ifndef LERP_LUT_H
 #define LERP_LUT_H
 
+#include <stddef.h>
+
 typedef struct {
     float key;
     float value;
@@ -8,7 +10,7 @@ typedef struct {
 
 typedef struct {
     const lut_entry_t* entries;
-    int size;
+    size_t size;
 } lerp_lut_t;
 
 #define LERP_LUT_INIT(name, _entries, _size) \

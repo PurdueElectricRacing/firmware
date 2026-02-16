@@ -1,5 +1,15 @@
 #include "lerp_lut.h"
 
+/**
+ * @brief Lookup a value in a linear interpolation lookup table (LUT).
+ *
+ * This function performs a binary search to find the appropriate interval
+ * in the LUT and then linearly interpolates between the two nearest entries.
+ *
+ * @param lut Pointer to the LUT.
+ * @param key The key to look up.
+ * @return The interpolated value.
+ */
 float lut_lookup(const lerp_lut_t* lut, float key) {
     const lut_entry_t *entries = lut->entries;
     const int size = lut->size;

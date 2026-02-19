@@ -61,12 +61,6 @@ parser.add_option("-l", "--list",
     help="List boards targets available to build"
 )
 
-parser.add_option("--release",
-    dest="release",
-    action="store_true", default=False,
-    help="Build for release (optimized)"
-)
-
 parser.add_option("-b", "--bootloader",
     dest="bootloader",
     action="store_true", default=False,
@@ -110,7 +104,6 @@ if options.list:
     print_available_targets()
     sys.exit(0)
 
-BUILD_TYPE = "Release" if options.release else "Debug"
 VERBOSE = "--verbose" if options.verbose else ""
 
 # Prepare MODULES string for CMake
@@ -131,7 +124,6 @@ CMAKE_OPTIONS = [
     "-S", str(SOURCE_DIR),
     "-B", str(BUILD_DIR),
     "-G", "Ninja",
-    f"-DCMAKE_BUILD_TYPE={BUILD_TYPE}",
     f"-DBOOTLOADER_BUILD={'ON' if options.bootloader else 'OFF'}",
     f"-DMODULES={cmake_modules_str}"
 ]

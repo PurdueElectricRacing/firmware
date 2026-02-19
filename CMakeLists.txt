@@ -55,24 +55,6 @@ foreach(COMMON_MODULE IN LISTS COMMON_MODULES)
     add_subdirectory(${COMMON_MODULE})
 endforeach()
 
-# Properties that are set for each firmware component
-# Used to generate the .elf and other files for each project
-define_property(TARGET PROPERTY COMPONENT_NAME
-    BRIEF_DOCS "Friendly name of the firmware component with no file extensions"
-    FULL_DOCS "USed in file formatting and other message outputs")
-define_property(TARGET PROPERTY COMPONENT_DIR
-    BRIEF_DOCS "Source code directroy for the component"
-    FULL_DOCS "Relative directory from the root firmware directroy for the component source")
-define_property(TARGET PROPERTY LINKER_SCRIPT
-    BRIEF_DOCS "Linker script used for component."
-    FULL_DOCS "Linker script used from ./common/linker/ directory.")
-define_property(TARGET PROPERTY COMMON_LIBS
-    BRIEF_DOCS "List of common libraries to link against for the target"
-    FULL_DOCS "String list with each element seperated by a ;")
-define_property(TARGET PROPERTY OUTPUT_DIR
-    BRIEF_DOCS "Archive directory override"
-    FULL_DOCS "Change where the generated files are archvied to for the target")
-
 # Macro for defining the common build process across all firmware components
 include(cmake/common_component.cmake)
 

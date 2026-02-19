@@ -11,14 +11,6 @@
             }
         },
         {
-            "label": "clean",
-            "type": "shell",
-            "command": "python3 per_build.py --clean",
-            "group": {
-                "kind": "build"
-            }
-        },
-        {
             "label": "generate can library",
             "type": "shell",
             "command": "python3 ./common/can_library/canpiler/build.py",

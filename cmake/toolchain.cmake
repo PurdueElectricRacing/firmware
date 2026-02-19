@@ -1,19 +1,17 @@
 
 cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 
-set(TARGET_CPU "cortex-m4")
-
 set(CMAKE_SYSTEM_NAME Generic)
-set(CMAKE_SYSTEM_PROCESSOR ${TARGET_CPU})
 
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
 find_program(CMAKE_C_COMPILER   arm-none-eabi-gcc REQUIRED)
 find_program(CMAKE_ASM_COMPILER arm-none-eabi-gcc REQUIRED)
-find_program(CMAKE_SIZE_UTIL    arm-none-eabi-size)
+find_program(CMAKE_OBJCOPY      arm-none-eabi-objcopy REQUIRED)
+find_program(CMAKE_SIZE_UTIL    arm-none-eabi-size REQUIRED)
 
-set(COMMON_FLAGS "-mthumb -mcpu=${TARGET_CPU} --specs=nosys.specs -mfloat-abi=hard -mfpu=fpv4-sp-d16")
-set(C_FLAGS      "--specs=nano.specs -ffunction-sections -fdata-sections -ffreestanding -fanalyzer -Wno-analyzer-infinite-loop -std=c23")
+set(COMMON_FLAGS "-mthumb --specs=nosys.specs -std=c23 -fanalyzer -Wno-analyzer-infinite-loop")
+set(C_FLAGS      "--specs=nano.specs -ffunction-sections -fdata-sections -ffreestanding")
 set(LINKER_FLAGS "-Wl,--gc-sections -Wl,--no-warn-rwx-segments")
 
 set(CMAKE_C_FLAGS_INIT          "${COMMON_FLAGS} ${C_FLAGS}"                  CACHE STRING "" FORCE)

@@ -14,6 +14,7 @@ var searchData=
   ['out_5f3v3_11',['out_3v3',['../structvoltage__t.html#a3a9409130cff6a1e817501e4305b76ad',1,'voltage_t']]],
   ['out_5f5v_12',['out_5v',['../structvoltage__t.html#a18c9ce48d5effc7e11b2eca371925cf0',1,'voltage_t']]],
   ['overflows_13',['overflows',['../structb__handle__t.html#a75884992d2a6be9217148b25b4a90ea6',1,'b_handle_t']]],
-  ['overrun_14',['overrun',['../structADCInitConfig__t.html#a240616678fa789f5c025b3d50f116361',1,'ADCInitConfig_t::overrun'],['../structadv__feature__t.html#a97ac3d560ed3a7c8169a8fe216be0902',1,'adv_feature_t::overrun'],['../structusart__rx__errors__t.html#abf71439361d0c2575b46c7eb42f61f8b',1,'usart_rx_errors_t::overrun']]],
-  ['ovsample_15',['ovsample',['../structusart__init__t.html#a2820018bf22cf98f54b55244fe1ffc80',1,'usart_init_t']]]
+  ['overrun_14',['overrun',['../structusart__rx__errors__t.html#abf71439361d0c2575b46c7eb42f61f8b',1,'usart_rx_errors_t']]],
+  ['oversample_15',['oversample',['../structADCInitConfig__t.html#a3a78341826c13d4f2a4c8a7c4a089b67',1,'ADCInitConfig_t']]],
+  ['ovsample_16',['ovsample',['../structusart__init__t.html#a2820018bf22cf98f54b55244fe1ffc80',1,'usart_init_t']]]
 ];

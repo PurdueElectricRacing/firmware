@@ -112,14 +112,20 @@ Macros</h2></td></tr>
 <tr class="separator:a6de3814a4a35d15a68e16621ebbdb299"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d873dbd470e0447bf55b43907ac479e" id="r_a4d873dbd470e0447bf55b43907ac479e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d873dbd470e0447bf55b43907ac479e">APP_PDU</a>&#160;&#160;&#160;0x05</td></tr>
 <tr class="separator:a4d873dbd470e0447bf55b43907ac479e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4a98f7607837866eefa7ddb78e1edb4" id="r_aa4a98f7607837866eefa7ddb78e1edb4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa4a98f7607837866eefa7ddb78e1edb4">APP_L4_TESTING</a>&#160;&#160;&#160;0x06</td></tr>
-<tr class="separator:aa4a98f7607837866eefa7ddb78e1edb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8c66a96cb494bb06fe7635a508c35e3" id="r_aa8c66a96cb494bb06fe7635a508c35e3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8c66a96cb494bb06fe7635a508c35e3">APP_F4_TESTING</a>&#160;&#160;&#160;0x07</td></tr>
 <tr class="separator:aa8c66a96cb494bb06fe7635a508c35e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5be5e873b48a53f3dfd889318d61053" id="r_ad5be5e873b48a53f3dfd889318d61053"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad5be5e873b48a53f3dfd889318d61053">APP_F7_TESTING</a>&#160;&#160;&#160;0x08</td></tr>
 <tr class="separator:ad5be5e873b48a53f3dfd889318d61053"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4b9d12a8f672ad483d7da6dbecab69a" id="r_ac4b9d12a8f672ad483d7da6dbecab69a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4b9d12a8f672ad483d7da6dbecab69a">APP_DAQ</a>&#160;&#160;&#160;0x09</td></tr>
 <tr class="separator:ac4b9d12a8f672ad483d7da6dbecab69a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88c3a5596f3cf4e94681c48e3ab48421" id="r_a88c3a5596f3cf4e94681c48e3ab48421"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88c3a5596f3cf4e94681c48e3ab48421">CAN_RX_GPIO_CONFIG</a>&#160;&#160;&#160;GPIO_INIT_CANRX_PA11</td></tr>
+<tr class="separator:a88c3a5596f3cf4e94681c48e3ab48421"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4b211bb21f2cae4e797af6ad717e9d9" id="r_ab4b211bb21f2cae4e797af6ad717e9d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab4b211bb21f2cae4e797af6ad717e9d9">CAN_TX_GPIO_CONFIG</a>&#160;&#160;&#160;GPIO_INIT_CANTX_PA12</td></tr>
+<tr class="separator:ab4b211bb21f2cae4e797af6ad717e9d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee9e013abc17d5ea72b26428853f8847" id="r_aee9e013abc17d5ea72b26428853f8847"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee9e013abc17d5ea72b26428853f8847">STATUS_LED_GPIO_Port</a>&#160;&#160;&#160;GPIOB</td></tr>
+<tr class="separator:aee9e013abc17d5ea72b26428853f8847"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a590bdd88ac47c0492ed08b716f2c8728" id="r_a590bdd88ac47c0492ed08b716f2c8728"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a590bdd88ac47c0492ed08b716f2c8728">STATUS_LED_Pin</a>&#160;&#160;&#160;3</td></tr>
+<tr class="separator:a590bdd88ac47c0492ed08b716f2c8728"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Common definitions for setting up CAN communication within the bootloader. </p>
@@ -198,20 +204,6 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="aa4a98f7607837866eefa7ddb78e1edb4" name="aa4a98f7607837866eefa7ddb78e1edb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4a98f7607837866eefa7ddb78e1edb4">&#9670;&#160;</a></span>APP_L4_TESTING</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define APP_L4_TESTING&#160;&#160;&#160;0x06</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a30ee170a717026c82d7ee0fc7d709ade" name="a30ee170a717026c82d7ee0fc7d709ade"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a30ee170a717026c82d7ee0fc7d709ade">&#9670;&#160;</a></span>APP_MAIN_MODULE</h2>
 
@@ -249,6 +241,63 @@ Macros</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define APP_TORQUEVECTOR&#160;&#160;&#160;0x03</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a88c3a5596f3cf4e94681c48e3ab48421" name="a88c3a5596f3cf4e94681c48e3ab48421"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88c3a5596f3cf4e94681c48e3ab48421">&#9670;&#160;</a></span>CAN_RX_GPIO_CONFIG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CAN_RX_GPIO_CONFIG&#160;&#160;&#160;GPIO_INIT_CANRX_PA11</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Per-board deifintion of the CAN and LED status pins </p>
+
+</div>
+</div>
+<a id="ab4b211bb21f2cae4e797af6ad717e9d9" name="ab4b211bb21f2cae4e797af6ad717e9d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4b211bb21f2cae4e797af6ad717e9d9">&#9670;&#160;</a></span>CAN_TX_GPIO_CONFIG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CAN_TX_GPIO_CONFIG&#160;&#160;&#160;GPIO_INIT_CANTX_PA12</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aee9e013abc17d5ea72b26428853f8847" name="aee9e013abc17d5ea72b26428853f8847"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee9e013abc17d5ea72b26428853f8847">&#9670;&#160;</a></span>STATUS_LED_GPIO_Port</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STATUS_LED_GPIO_Port&#160;&#160;&#160;GPIOB</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a590bdd88ac47c0492ed08b716f2c8728" name="a590bdd88ac47c0492ed08b716f2c8728"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a590bdd88ac47c0492ed08b716f2c8728">&#9670;&#160;</a></span>STATUS_LED_Pin</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STATUS_LED_Pin&#160;&#160;&#160;3</td>
         </tr>
       </table>
 </div><div class="memdoc">

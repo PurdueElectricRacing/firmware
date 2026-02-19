@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['can_2ec_0',['can.c',['../phal__F4__F7_2can_2can_8c.html',1,'(Global Namespace)'],['../phal__L4_2can_2can_8c.html',1,'(Global Namespace)']]],
-  ['can_2eh_1',['can.h',['../phal__F4__F7_2can_2can_8h.html',1,'(Global Namespace)'],['../phal__L4_2can_2can_8h.html',1,'(Global Namespace)']]],
+  ['can_2ec_0',['can.c',['../can_8c.html',1,'']]],
+  ['can_2eh_1',['can.h',['../can_8h.html',1,'']]],
   ['can_5fparse_5fstarter_2ec_2',['can_parse_starter.c',['../bootloader_2can_2can__parse__starter_8c.html',1,'(Global Namespace)'],['../l4__testing_2can_2can__parse__starter_8c.html',1,'(Global Namespace)']]],
   ['can_5fparse_5fstarter_2eh_3',['can_parse_starter.h',['../bootloader_2can_2can__parse__starter_8h.html',1,'(Global Namespace)'],['../l4__testing_2can_2can__parse__starter_8h.html',1,'(Global Namespace)']]],
   ['can_5ftest_2epy_4',['can_test.py',['../can__test_8py.html',1,'']]],

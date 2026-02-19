@@ -179,14 +179,13 @@ Functions</h2></td></tr>
 <div class="line">        .periph_inc       = <span class="keyword">false</span>, \</div>
 <div class="line">        .mem_to_mem       = <span class="keyword">false</span>, \</div>
 <div class="line">        .priority         = (priority_), \</div>
-<div class="line">        .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a>         = 0b00, \</div>
+<div class="line">        .mem_size         = 0b00, \</div>
 <div class="line">        .periph_size      = 0b00, \</div>
 <div class="line">        .tx_isr_en        = <span class="keyword">false</span>, \</div>
 <div class="line">        .dma_chan_request = 0b0011, \</div>
 <div class="line">        .stream_idx       = 2, \</div>
 <div class="line">        .periph           = DMA2, \</div>
 <div class="line">        .stream           = DMA2_Stream2}</div>
-<div class="ttc" id="aeeprom__spi_8h_html_ab6cda81580b0760b92d051888cd9b2c9"><div class="ttname"><a href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a></div><div class="ttdeci">uint16_t mem_size[MAX_PAGES]</div><div class="ttdoc">Size of file in bytes (actual)</div><div class="ttdef"><b>Definition</b> eeprom_spi.h:4</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -219,7 +218,7 @@ Functions</h2></td></tr>
 <div class="line">        .periph_inc       = <span class="keyword">false</span>, \</div>
 <div class="line">        .mem_to_mem       = <span class="keyword">false</span>, \</div>
 <div class="line">        .priority         = (priority_), \</div>
-<div class="line">        .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a>         = 0b00, \</div>
+<div class="line">        .mem_size         = 0b00, \</div>
 <div class="line">        .periph_size      = 0b00, \</div>
 <div class="line">        .tx_isr_en        = <span class="keyword">true</span>, \</div>
 <div class="line">        .dma_chan_request = 0b0011, \</div>
@@ -258,7 +257,7 @@ Functions</h2></td></tr>
 <div class="line">        .periph_inc       = <span class="keyword">false</span>, \</div>
 <div class="line">        .mem_to_mem       = <span class="keyword">false</span>, \</div>
 <div class="line">        .priority         = (priority_), \</div>
-<div class="line">        .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a>         = 0b00, \</div>
+<div class="line">        .mem_size         = 0b00, \</div>
 <div class="line">        .periph_size      = 0b00, \</div>
 <div class="line">        .tx_isr_en        = <span class="keyword">false</span>, \</div>
 <div class="line">        .dma_chan_request = 0b0000, \</div>
@@ -297,7 +296,7 @@ Functions</h2></td></tr>
 <div class="line">        .periph_inc       = <span class="keyword">false</span>, \</div>
 <div class="line">        .mem_to_mem       = <span class="keyword">false</span>, \</div>
 <div class="line">        .priority         = (priority_), \</div>
-<div class="line">        .<a class="code hl_variable" href="eeprom__spi_8h.html#ab6cda81580b0760b92d051888cd9b2c9">mem_size</a>         = 0b00, \</div>
+<div class="line">        .mem_size         = 0b00, \</div>
 <div class="line">        .periph_size      = 0b00, \</div>
 <div class="line">        .tx_isr_en        = <span class="keyword">true</span>, \</div>
 <div class="line">        .dma_chan_request = 0b0000, \</div>
@@ -410,20 +409,10 @@ false </dd></dl>
   <table class="params">
     <tr><td class="paramname">spi</td><td>Spi handle </td></tr>
     <tr><td class="paramname">address</td><td>Address of data to read </td></tr>
-    <tr><td class="paramname">skipDummy</td><td>Return the 3rd byte read instead of the 2nd byte</td></tr>
+    <tr><td class="paramname">skipDummy</td><td>Return the 3rd byte read instead of the 2nd byte </td></tr>
   </table>
   </dd>
 </dl>
-<p>Blocking function to read a single byte from a SPI device. Useful for Initilization functions that just need to read a single byte in a blocking function.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">spi</td><td>Spi handle </td></tr>
-    <tr><td class="paramname">address</td><td>Address of data to read </td></tr>
-    <tr><td class="paramname">skipDummy</td><td>Return the 3rd byte read instead of the 2nd byte</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Blocking function to read a single byte from a SPI device. Useful for Initilization functions that just need to read a single byte in a blocking function. </p>
 
 </div>
 </div>

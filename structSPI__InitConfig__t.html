@@ -94,7 +94,7 @@ $(function(){ initResizable(false); });
 <p>Configuration entry for SPI initilization.  
  <a href="#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="phal__L4_2spi_2spi_8h_source.html">spi.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="phal__G4_2spi_2spi_8h_source.html">spi.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -104,6 +104,8 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a5020aa67597cd45fb1912e0f6a1fa89e" id="r_a5020aa67597cd45fb1912e0f6a1fa89e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5020aa67597cd45fb1912e0f6a1fa89e">data_len</a></td></tr>
 <tr class="memdesc:a5020aa67597cd45fb1912e0f6a1fa89e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bits per transaction.  <br /></td></tr>
 <tr class="separator:a5020aa67597cd45fb1912e0f6a1fa89e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9eedccb06edcc4fcf10f3eca321238d" id="r_af9eedccb06edcc4fcf10f3eca321238d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="phal__G4_2spi_2spi_8h.html#a60a7e3d74577b38aa79ea6983362f942">SPI_Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9eedccb06edcc4fcf10f3eca321238d">mode</a></td></tr>
+<tr class="separator:af9eedccb06edcc4fcf10f3eca321238d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7b65af149334e39252e9d91e1d324ba" id="r_ac7b65af149334e39252e9d91e1d324ba"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7b65af149334e39252e9d91e1d324ba">nss_sw</a></td></tr>
 <tr class="memdesc:ac7b65af149334e39252e9d91e1d324ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save Select controlled by Software.  <br /></td></tr>
 <tr class="separator:ac7b65af149334e39252e9d91e1d324ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -113,6 +115,10 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ad0862369c85d703198c28df1f085ad11" id="r_ad0862369c85d703198c28df1f085ad11"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad0862369c85d703198c28df1f085ad11">nss_gpio_pin</a></td></tr>
 <tr class="memdesc:ad0862369c85d703198c28df1f085ad11"><td class="mdescLeft">&#160;</td><td class="mdescRight">GPIO Pin of SPI CS Pin.  <br /></td></tr>
 <tr class="separator:ad0862369c85d703198c28df1f085ad11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60837a27921b841752bce51ab78a27a8" id="r_a60837a27921b841752bce51ab78a27a8"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60837a27921b841752bce51ab78a27a8">cpol</a></td></tr>
+<tr class="separator:a60837a27921b841752bce51ab78a27a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af60113b05737ecb5f5e33531c914ad51" id="r_af60113b05737ecb5f5e33531c914ad51"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af60113b05737ecb5f5e33531c914ad51">cpha</a></td></tr>
+<tr class="separator:af60113b05737ecb5f5e33531c914ad51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accb8a2f6b9a30e8e5bdbb4d553d76fb6" id="r_accb8a2f6b9a30e8e5bdbb4d553d76fb6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#accb8a2f6b9a30e8e5bdbb4d553d76fb6">rx_dma_cfg</a></td></tr>
 <tr class="memdesc:accb8a2f6b9a30e8e5bdbb4d553d76fb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA initilization for RX transfer.  <br /></td></tr>
 <tr class="separator:accb8a2f6b9a30e8e5bdbb4d553d76fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -125,15 +131,15 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ada152e2e047c6680d60ff8e66857b349" id="r_ada152e2e047c6680d60ff8e66857b349"><td class="memItemLeft" align="right" valign="top">volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada152e2e047c6680d60ff8e66857b349">_error</a></td></tr>
 <tr class="memdesc:ada152e2e047c6680d60ff8e66857b349"><td class="mdescLeft">&#160;</td><td class="mdescRight">SPI Peripheral current transaction error.  <br /></td></tr>
 <tr class="separator:ada152e2e047c6680d60ff8e66857b349"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d8e16b0433752f3d6d31b7ca211f874" id="r_a7d8e16b0433752f3d6d31b7ca211f874"><td class="memItemLeft" align="right" valign="top">SPI_TypeDef *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d8e16b0433752f3d6d31b7ca211f874">periph</a></td></tr>
-<tr class="memdesc:a7d8e16b0433752f3d6d31b7ca211f874"><td class="mdescLeft">&#160;</td><td class="mdescRight">SPI Peripheral.  <br /></td></tr>
-<tr class="separator:a7d8e16b0433752f3d6d31b7ca211f874"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a210d8b45ed4dcf9e7c7a46d1bd94717e" id="r_a210d8b45ed4dcf9e7c7a46d1bd94717e"><td class="memItemLeft" align="right" valign="top">volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a210d8b45ed4dcf9e7c7a46d1bd94717e">_direct_mode_error</a></td></tr>
 <tr class="memdesc:a210d8b45ed4dcf9e7c7a46d1bd94717e"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA error while attempting to operate in direct mode.  <br /></td></tr>
 <tr class="separator:a210d8b45ed4dcf9e7c7a46d1bd94717e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aadfb91be77d4793f5dd8331b1c7e892d" id="r_aadfb91be77d4793f5dd8331b1c7e892d"><td class="memItemLeft" align="right" valign="top">volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aadfb91be77d4793f5dd8331b1c7e892d">_fifo_overrun</a></td></tr>
 <tr class="memdesc:aadfb91be77d4793f5dd8331b1c7e892d"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA FIFO has been overrun - this should never occur, as it should never be enabled.  <br /></td></tr>
 <tr class="separator:aadfb91be77d4793f5dd8331b1c7e892d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d8e16b0433752f3d6d31b7ca211f874" id="r_a7d8e16b0433752f3d6d31b7ca211f874"><td class="memItemLeft" align="right" valign="top">SPI_TypeDef *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d8e16b0433752f3d6d31b7ca211f874">periph</a></td></tr>
+<tr class="memdesc:a7d8e16b0433752f3d6d31b7ca211f874"><td class="mdescLeft">&#160;</td><td class="mdescRight">SPI Peripheral.  <br /></td></tr>
+<tr class="separator:a7d8e16b0433752f3d6d31b7ca211f874"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Configuration entry for SPI initilization. </p>
@@ -202,6 +208,34 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="af60113b05737ecb5f5e33531c914ad51" name="af60113b05737ecb5f5e33531c914ad51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af60113b05737ecb5f5e33531c914ad51">&#9670;&#160;</a></span>cpha</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t SPI_InitConfig_t::cpha</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a60837a27921b841752bce51ab78a27a8" name="a60837a27921b841752bce51ab78a27a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60837a27921b841752bce51ab78a27a8">&#9670;&#160;</a></span>cpol</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t SPI_InitConfig_t::cpol</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a5020aa67597cd45fb1912e0f6a1fa89e" name="a5020aa67597cd45fb1912e0f6a1fa89e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5020aa67597cd45fb1912e0f6a1fa89e">&#9670;&#160;</a></span>data_len</h2>
 
@@ -231,6 +265,20 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Target baudrate in b/s (might be different depending on peripheral clock divison) </p>
+
+</div>
+</div>
+<a id="af9eedccb06edcc4fcf10f3eca321238d" name="af9eedccb06edcc4fcf10f3eca321238d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9eedccb06edcc4fcf10f3eca321238d">&#9670;&#160;</a></span>mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="phal__G4_2spi_2spi_8h.html#a60a7e3d74577b38aa79ea6983362f942">SPI_Mode</a> SPI_InitConfig_t::mode</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -331,7 +379,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
-<li>common/phal_L4/spi/<a class="el" href="phal__L4_2spi_2spi_8h_source.html">spi.h</a></li>
+<li>common/phal_G4/spi/<a class="el" href="phal__G4_2spi_2spi_8h_source.html">spi.h</a></li>
 <li>common/phal_F4_F7/spi/<a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html">spi.h</a></li>
 </ul>
 </div><!-- contents -->

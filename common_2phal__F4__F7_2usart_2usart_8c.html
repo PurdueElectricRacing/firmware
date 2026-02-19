@@ -143,7 +143,7 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aa60b7883befa64719dce13560b391074" id="r_aa60b7883befa64719dce13560b391074"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structusart__active__transfer__t.html">usart_active_transfer_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa60b7883befa64719dce13560b391074">active_uarts</a> [TOTAL_NUM_UART]</td></tr>
+<tr class="memitem:aa60b7883befa64719dce13560b391074" id="r_aa60b7883befa64719dce13560b391074"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structusart__active__transfer__t.html">usart_active_transfer_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa60b7883befa64719dce13560b391074">active_uarts</a> [<a class="el" href="phal__G4_2usart_2usart_8h.html#a2453dc4454b52f01649f125384e237d1">TOTAL_NUM_UART</a>]</td></tr>
 <tr class="separator:aa60b7883befa64719dce13560b391074"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -159,7 +159,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="#a7bd69e038fbf6f28b02d943c2748241f">usart_dma_mode_t</a></td>
+          <td class="memname">enum <a class="el" href="common_2phal__G4_2usart_2usart_8c.html#a7bd69e038fbf6f28b02d943c2748241f">usart_dma_mode_t</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -191,10 +191,18 @@ Variables</h2></td></tr>
 <p>Disables the Continous RX that was previously used. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">handle</td><td>The handle for the usart configuration </td></tr>
+    <tr><td class="paramname">handle</td><td>The handle for the usart configuration</td></tr>
   </table>
   </dd>
 </dl>
+<p>Disables the Continous RX that was previously used.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">handle</td><td>Pointer to the USART handle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the operation was successful, false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -227,7 +235,17 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true Successfully initialized USART peripheral </dd>
 <dd>
-false Failed to initialize USART peripheral </dd></dl>
+false Failed to initialize USART peripheral</dd></dl>
+<p>Initialize a USART Peripheral with desired settings.</p>
+<p>This function configures the USART peripheral, calculates and sets the baud rate, and enables the necessary clocks and DMA streams.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">handle</td><td>Pointer to a <a class="el" href="structusart__init__t.html">usart_init_t</a> struct containing the configuration. </td></tr>
+    <tr><td class="paramname">fck</td><td>The clock frequency of the peripheral in Hz. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if initialization is successful, false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -260,7 +278,16 @@ false Failed to initialize USART peripheral </dd></dl>
   <table class="params">
     <tr><td class="paramname">handle</td><td>The handle for the usart configuration </td></tr>
     <tr><td class="paramname">data</td><td>The address of the data to receive </td></tr>
-    <tr><td class="paramname">len</td><td>Number of u8s expected to receive. Will block if not received. </td></tr>
+    <tr><td class="paramname">len</td><td>Number of u8s expected to receive. Will block if not received.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>RX using no DMA (blocks until complete)</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">handle</td><td>Pointer to the USART handle. </td></tr>
+    <tr><td class="paramname">data</td><td>Pointer to the buffer to store received data. </td></tr>
+    <tr><td class="paramname">len</td><td>The length of the data to receive in bytes. </td></tr>
   </table>
   </dd>
 </dl>
@@ -291,7 +318,15 @@ false Failed to initialize USART peripheral </dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true USART peripheral is currently receiving a message </dd>
 <dd>
-false USART peripheal is not currently receiving a message </dd></dl>
+false USART peripheal is not currently receiving a message</dd></dl>
+<p>Returns whether USART peripheral is currently receiving data.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">handle</td><td>Pointer to the USART handle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the peripheral is busy, false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -366,7 +401,16 @@ false USART peripheal is not currently receiving a message </dd></dl>
   <table class="params">
     <tr><td class="paramname">handle</td><td>The handle for the usart configuration </td></tr>
     <tr><td class="paramname">data</td><td>The address of the data to send </td></tr>
-    <tr><td class="paramname">len</td><td>Number of u8s </td></tr>
+    <tr><td class="paramname">len</td><td>Number of u8s</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>TX using no DMA (blocks until complete)</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">handle</td><td>Pointer to the USART handle. </td></tr>
+    <tr><td class="paramname">data</td><td>Pointer to the data to transmit. </td></tr>
+    <tr><td class="paramname">len</td><td>The length of the data in bytes. </td></tr>
   </table>
   </dd>
 </dl>
@@ -397,7 +441,15 @@ false USART peripheal is not currently receiving a message </dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true USART peripheral is currently sending a message </dd>
 <dd>
-false USART peripheal is not currently sending a message </dd></dl>
+false USART peripheal is not currently sending a message</dd></dl>
+<p>Returns whether USART peripheral is currently transmitting data.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">handle</td><td>Pointer to the USART handle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the peripheral is busy, false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -471,7 +523,7 @@ false USART peripheal is not currently sending a message </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile <a class="el" href="structusart__active__transfer__t.html">usart_active_transfer_t</a> active_uarts[TOTAL_NUM_UART]</td>
+          <td class="memname">volatile <a class="el" href="structusart__active__transfer__t.html">usart_active_transfer_t</a> active_uarts[<a class="el" href="phal__G4_2usart_2usart_8h.html#a2453dc4454b52f01649f125384e237d1">TOTAL_NUM_UART</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">

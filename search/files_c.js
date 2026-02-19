@@ -1,12 +1,9 @@
 var searchData=
 [
-  ['pedals_2ec_0',['pedals.c',['../pedals_8c.html',1,'']]],
-  ['pedals_2eh_1',['pedals.h',['../pedals_8h.html',1,'']]],
-  ['phal_5ff4_5ff7_2eh_2',['phal_F4_F7.h',['../phal__F4__F7_8h.html',1,'']]],
-  ['pin_5fdefs_2eh_3',['pin_defs.h',['../pin__defs_8h.html',1,'']]],
-  ['psched_2ec_4',['psched.c',['../psched_8c.html',1,'']]],
-  ['psched_2eh_5',['psched.h',['../psched_8h.html',1,'']]],
-  ['pwm_2ec_6',['pwm.c',['../pwm_8c.html',1,'']]],
-  ['pwm_2eh_7',['pwm.h',['../pwm_8h.html',1,'']]],
-  ['pwm_5ftesting_2ec_8',['pwm_testing.c',['../pwm__testing_8c.html',1,'']]]
+  ['rcc_2ec_0',['rcc.c',['../phal__F4__F7_2rcc_2rcc_8c.html',1,'(Global Namespace)'],['../phal__G4_2rcc_2rcc_8c.html',1,'(Global Namespace)']]],
+  ['rcc_2eh_1',['rcc.h',['../phal__F4__F7_2rcc_2rcc_8h.html',1,'(Global Namespace)'],['../phal__G4_2rcc_2rcc_8h.html',1,'(Global Namespace)']]],
+  ['readme_2emd_2',['README.md',['../common_2psched_2README_8md.html',1,'(Global Namespace)'],['../source_2daq_2README_8md.html',1,'(Global Namespace)'],['../source_2daq_2w5500_2README_8md.html',1,'(Global Namespace)'],['../source_2dashboard_2README_8md.html',1,'(Global Namespace)'],['../source_2l4__testing_2README_8md.html',1,'(Global Namespace)']]],
+  ['receive_2dfrom_2dtv_2epy_3',['receive-from-tv.py',['../receive-from-tv_8py.html',1,'']]],
+  ['rtc_2ec_4',['rtc.c',['../rtc_8c.html',1,'']]],
+  ['rtc_2eh_5',['rtc.h',['../rtc_8h.html',1,'']]]
 ];

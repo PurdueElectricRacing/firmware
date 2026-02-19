@@ -101,7 +101,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a7e9d115c0ba7b71bc58eafed17751479" id="r_a7e9d115c0ba7b71bc58eafed17751479"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e9d115c0ba7b71bc58eafed17751479">PHAL_configureClockRates</a> (<a class="el" href="structClockRateConfig__t.html">ClockRateConfig_t</a> *<a class="el" href="daq_8c.html#a25ce4b69d296fc9a3324b494542c2420">config</a>)</td></tr>
 <tr class="memdesc:a7e9d115c0ba7b71bc58eafed17751479"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure all AHB/APB/System clocks from the provided configuration.  <br /></td></tr>
 <tr class="separator:a7e9d115c0ba7b71bc58eafed17751479"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8e3a1b142cf74b1b38984c805673cf5" id="r_ae8e3a1b142cf74b1b38984c805673cf5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8e3a1b142cf74b1b38984c805673cf5">PHAL_configurePLLVCO</a> (<a class="el" href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522">PLLSrc_t</a> pll_source, uint32_t vco_output_rate_target_hz)</td></tr>
+<tr class="memitem:ae8e3a1b142cf74b1b38984c805673cf5" id="r_ae8e3a1b142cf74b1b38984c805673cf5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8e3a1b142cf74b1b38984c805673cf5">PHAL_configurePLLVCO</a> (<a class="el" href="phal__G4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522">PLLSrc_t</a> pll_source, uint32_t vco_output_rate_target_hz)</td></tr>
 <tr class="memdesc:ae8e3a1b142cf74b1b38984c805673cf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure PLL VCO Clock rate The VCO clock is the input clock for the different PLL outputs. Each PLL output will divide the VCO clock to get its output.  <br /></td></tr>
 <tr class="separator:ae8e3a1b142cf74b1b38984c805673cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd0ea1bcc85ce9ff20dc37966d0286d0" id="r_abd0ea1bcc85ce9ff20dc37966d0286d0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd0ea1bcc85ce9ff20dc37966d0286d0">PHAL_configurePLLSystemClock</a> (uint32_t system_clock_target_hz)</td></tr>
@@ -125,7 +125,7 @@ Functions</h2></td></tr>
 <tr class="memitem:af4ee0c309b609633dd82c31c95a11d61" id="r_af4ee0c309b609633dd82c31c95a11d61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af4ee0c309b609633dd82c31c95a11d61">PHAL_trimHSI</a> (uint8_t trim_val)</td></tr>
 <tr class="memdesc:af4ee0c309b609633dd82c31c95a11d61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trim the HSI clock 0 &lt;= trim_val &lt;= 31 17 = increase speed by ~0.2% 15 = decrease speed by ~0.2%.  <br /></td></tr>
 <tr class="separator:af4ee0c309b609633dd82c31c95a11d61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3380d024468d5f414c910a81b965c58" id="r_aa3380d024468d5f414c910a81b965c58"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3380d024468d5f414c910a81b965c58">PHAL_enableMCO1</a> (GPIO_TypeDef *bank, uint8_t pin, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h.html#a378741c9da736e56ad4972e7bf27fd0a">MCO1Source_t</a> source, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h.html#a60ed31989981f6f69b4f5363337cfd8f">MCODivisor_t</a> division)</td></tr>
+<tr class="memitem:aa3380d024468d5f414c910a81b965c58" id="r_aa3380d024468d5f414c910a81b965c58"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3380d024468d5f414c910a81b965c58">PHAL_enableMCO1</a> (GPIO_TypeDef *bank, uint8_t pin, <a class="el" href="phal__G4_2rcc_2rcc_8h.html#a378741c9da736e56ad4972e7bf27fd0a">MCO1Source_t</a> source, <a class="el" href="phal__G4_2rcc_2rcc_8h.html#a60ed31989981f6f69b4f5363337cfd8f">MCODivisor_t</a> division)</td></tr>
 <tr class="memdesc:aa3380d024468d5f414c910a81b965c58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the Clock Out Pin 1 It is highly recommended to change this only after reset before enabling the external oscillators and the PLL.  <br /></td></tr>
 <tr class="separator:aa3380d024468d5f414c910a81b965c58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -347,7 +347,7 @@ false </dd></dl>
         <tr>
           <td class="memname">bool PHAL_configurePLLVCO </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="phal__L4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522">PLLSrc_t</a></td>          <td class="paramname"><span class="paramname"><em>pll_source</em></span>, </td>
+          <td class="paramtype"><a class="el" href="phal__G4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522">PLLSrc_t</a></td>          <td class="paramname"><span class="paramname"><em>pll_source</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -390,12 +390,12 @@ false </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="phal__F4__F7_2rcc_2rcc_8h.html#a378741c9da736e56ad4972e7bf27fd0a">MCO1Source_t</a></td>          <td class="paramname"><span class="paramname"><em>source</em></span>, </td>
+          <td class="paramtype"><a class="el" href="phal__G4_2rcc_2rcc_8h.html#a378741c9da736e56ad4972e7bf27fd0a">MCO1Source_t</a></td>          <td class="paramname"><span class="paramname"><em>source</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="phal__F4__F7_2rcc_2rcc_8h.html#a60ed31989981f6f69b4f5363337cfd8f">MCODivisor_t</a></td>          <td class="paramname"><span class="paramname"><em>division</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="phal__G4_2rcc_2rcc_8h.html#a60ed31989981f6f69b4f5363337cfd8f">MCODivisor_t</a></td>          <td class="paramname"><span class="paramname"><em>division</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

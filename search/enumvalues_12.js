@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['usart_5fdma_5frx_0',['USART_DMA_RX',['../common_2phal__F4__F7_2usart_2usart_8c.html#a7bd69e038fbf6f28b02d943c2748241fa4356783521c3dcfe6f39116287ea3271',1,'usart.c']]],
-  ['usart_5fdma_5ftx_1',['USART_DMA_TX',['../common_2phal__F4__F7_2usart_2usart_8c.html#a7bd69e038fbf6f28b02d943c2748241fa7e21f0ce8ee1e0f89a2c4ee6ba9deb27',1,'usart.c']]]
+  ['word_5f7_0',['WORD_7',['../phal__G4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a8e3354437b0d4ed1434322671fa958d5',1,'usart.h']]],
+  ['word_5f8_1',['WORD_8',['../phal__G4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027',1,'WORD_8:&#160;usart.h'],['../phal__F4__F7_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027',1,'WORD_8:&#160;usart.h']]],
+  ['word_5f9_2',['WORD_9',['../phal__G4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493aaf384e56f1bc9d30d7733088c7ad3274',1,'WORD_9:&#160;usart.h'],['../phal__F4__F7_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493aaf384e56f1bc9d30d7733088c7ad3274',1,'WORD_9:&#160;usart.h']]]
 ];

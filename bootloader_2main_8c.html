@@ -96,6 +96,9 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;common/bootloader/bootloader_common.h&quot;</code><br />
+<code>#include &quot;common/phal/can.h&quot;</code><br />
+<code>#include &quot;common/phal/gpio.h&quot;</code><br />
+<code>#include &quot;common/phal/rcc.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="bootloader_8h_source.html">bootloader.h</a>&quot;</code><br />
 <code>#include &quot;can_parse.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="node__defs_8h_source.html">node_defs.h</a>&quot;</code><br />
@@ -349,15 +352,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .clock_source           = <a class="code hl_enumvalue" href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a>,</div>
+<div class="line">    .clock_source           = <a class="code hl_enumvalue" href="phal__G4_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a>,</div>
 <div class="line">    .use_pll                = <span class="keyword">false</span>,</div>
 <div class="line">    .system_clock_target_hz = <a class="code hl_define" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>,</div>
 <div class="line">    .ahb_clock_target_hz    = (<a class="code hl_define" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 1),</div>
 <div class="line">    .apb1_clock_target_hz   = (<a class="code hl_define" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / (1)),</div>
 <div class="line">    .apb2_clock_target_hz   = (<a class="code hl_define" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / (1)),</div>
 <div class="line">}</div>
-<div class="ttc" id="abootloader_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:30</div></div>
-<div class="ttc" id="aphal__F4__F7_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23"><div class="ttname"><a href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:75</div></div>
+<div class="ttc" id="abootloader_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:22</div></div>
+<div class="ttc" id="aphal__G4_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23"><div class="ttname"><a href="phal__G4_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:65</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -373,9 +376,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    CAN_RX_GPIO_CONFIG,</div>
-<div class="line">    CAN_TX_GPIO_CONFIG,</div>
+<div class="line">    <a class="code hl_define" href="node__defs_8h.html#a88c3a5596f3cf4e94681c48e3ab48421">CAN_RX_GPIO_CONFIG</a>,</div>
+<div class="line">    <a class="code hl_define" href="node__defs_8h.html#ab4b211bb21f2cae4e797af6ad717e9d9">CAN_TX_GPIO_CONFIG</a>,</div>
 <div class="line">}</div>
+<div class="ttc" id="anode__defs_8h_html_a88c3a5596f3cf4e94681c48e3ab48421"><div class="ttname"><a href="node__defs_8h.html#a88c3a5596f3cf4e94681c48e3ab48421">CAN_RX_GPIO_CONFIG</a></div><div class="ttdeci">#define CAN_RX_GPIO_CONFIG</div><div class="ttdef"><b>Definition</b> node_defs.h:79</div></div>
+<div class="ttc" id="anode__defs_8h_html_ab4b211bb21f2cae4e797af6ad717e9d9"><div class="ttname"><a href="node__defs_8h.html#ab4b211bb21f2cae4e797af6ad717e9d9">CAN_TX_GPIO_CONFIG</a></div><div class="ttdeci">#define CAN_TX_GPIO_CONFIG</div><div class="ttdef"><b>Definition</b> node_defs.h:80</div></div>
 </div><!-- fragment -->
 </div>
 </div>

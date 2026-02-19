@@ -17,6 +17,6 @@ var searchData=
   ['daq_5ftest_2epy_14',['daq_test.py',['../daq__test_8py.html',1,'']]],
   ['diskio_2ec_15',['diskio.c',['../diskio_8c.html',1,'']]],
   ['diskio_2eh_16',['diskio.h',['../diskio_8h.html',1,'']]],
-  ['dma_2ec_17',['dma.c',['../phal__F4__F7_2dma_2dma_8c.html',1,'(Global Namespace)'],['../phal__L4_2dma_2dma_8c.html',1,'(Global Namespace)']]],
-  ['dma_2eh_18',['dma.h',['../phal__F4__F7_2dma_2dma_8h.html',1,'(Global Namespace)'],['../phal__L4_2dma_2dma_8h.html',1,'(Global Namespace)']]]
+  ['dma_2ec_17',['dma.c',['../phal__F4__F7_2dma_2dma_8c.html',1,'(Global Namespace)'],['../phal__G4_2dma_2dma_8c.html',1,'(Global Namespace)']]],
+  ['dma_2eh_18',['dma.h',['../phal__F4__F7_2dma_2dma_8h.html',1,'(Global Namespace)'],['../phal__G4_2dma_2dma_8h.html',1,'(Global Namespace)']]]
 ];

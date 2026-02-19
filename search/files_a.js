@@ -1,6 +1,13 @@
 var searchData=
 [
-  ['nextion_2ec_0',['nextion.c',['../nextion_8c.html',1,'']]],
-  ['nextion_2eh_1',['nextion.h',['../nextion_8h.html',1,'']]],
-  ['node_5fdefs_2eh_2',['node_defs.h',['../node__defs_8h.html',1,'']]]
+  ['pedals_2ec_0',['pedals.c',['../pedals_8c.html',1,'']]],
+  ['pedals_2eh_1',['pedals.h',['../pedals_8h.html',1,'']]],
+  ['phal_5ff4_5ff7_2eh_2',['phal_F4_F7.h',['../phal__F4__F7_8h.html',1,'']]],
+  ['phal_5fg4_2eh_3',['phal_G4.h',['../phal__G4_8h.html',1,'']]],
+  ['pin_5fdefs_2eh_4',['pin_defs.h',['../pin__defs_8h.html',1,'']]],
+  ['psched_2ec_5',['psched.c',['../psched_8c.html',1,'']]],
+  ['psched_2eh_6',['psched.h',['../psched_8h.html',1,'']]],
+  ['pwm_2ec_7',['pwm.c',['../pwm_8c.html',1,'']]],
+  ['pwm_2eh_8',['pwm.h',['../pwm_8h.html',1,'']]],
+  ['pwm_5ftesting_2ec_9',['pwm_testing.c',['../pwm__testing_8c.html',1,'']]]
 ];

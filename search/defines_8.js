@@ -10,11 +10,10 @@ var searchData=
   ['hp_5fcs_5fr2_7',['HP_CS_R2',['../auto__switch_8h.html#ad58d411cb91a45afa19bf03b4c3f8e0a',1,'auto_switch.h']]],
   ['hp_5fcs_5fr3_8',['HP_CS_R3',['../auto__switch_8h.html#ada6b0ca1566e85d74136c7d3e812afbb',1,'auto_switch.h']]],
   ['hp_5fcs_5fr_5fsense_9',['HP_CS_R_SENSE',['../auto__switch_8h.html#a7ccc9e35da6f5e15469cb952fbd07fa5',1,'auto_switch.h']]],
-  ['hse_5fclock_5frate_5fhz_10',['HSE_CLOCK_RATE_HZ',['../phal__L4_2rcc_2rcc_8h.html#a6f4ca605cce4be908b761c7a5bb90692',1,'HSE_CLOCK_RATE_HZ:&#160;rcc.h'],['../phal__F4__F7_2rcc_2rcc_8h.html#a6f4ca605cce4be908b761c7a5bb90692',1,'HSE_CLOCK_RATE_HZ:&#160;rcc.h']]],
-  ['hse_5fclock_5frate_5fhz_5finvalid_11',['HSE_CLOCK_RATE_HZ_INVALID',['../phal__L4_2rcc_2rcc_8h.html#a806f47f30aefdcc387743342ac78fe31',1,'HSE_CLOCK_RATE_HZ_INVALID:&#160;rcc.h'],['../phal__F4__F7_2rcc_2rcc_8h.html#a806f47f30aefdcc387743342ac78fe31',1,'HSE_CLOCK_RATE_HZ_INVALID:&#160;rcc.h']]],
-  ['hsi_5fclock_5frate_5fhz_12',['HSI_CLOCK_RATE_HZ',['../phal__L4_2rcc_2rcc_8h.html#a931e4bece2bc8e45e95492702b1a79db',1,'HSI_CLOCK_RATE_HZ:&#160;rcc.h'],['../phal__F4__F7_2rcc_2rcc_8h.html#a931e4bece2bc8e45e95492702b1a79db',1,'HSI_CLOCK_RATE_HZ:&#160;rcc.h']]],
+  ['hse_5fclock_5frate_5fhz_10',['HSE_CLOCK_RATE_HZ',['../phal__G4_2rcc_2rcc_8h.html#a6f4ca605cce4be908b761c7a5bb90692',1,'HSE_CLOCK_RATE_HZ:&#160;rcc.h'],['../phal__F4__F7_2rcc_2rcc_8h.html#a6f4ca605cce4be908b761c7a5bb90692',1,'HSE_CLOCK_RATE_HZ:&#160;rcc.h']]],
+  ['hse_5fclock_5frate_5fhz_5finvalid_11',['HSE_CLOCK_RATE_HZ_INVALID',['../phal__G4_2rcc_2rcc_8h.html#a806f47f30aefdcc387743342ac78fe31',1,'HSE_CLOCK_RATE_HZ_INVALID:&#160;rcc.h'],['../phal__F4__F7_2rcc_2rcc_8h.html#a806f47f30aefdcc387743342ac78fe31',1,'HSE_CLOCK_RATE_HZ_INVALID:&#160;rcc.h']]],
+  ['hsi_5fclock_5frate_5fhz_12',['HSI_CLOCK_RATE_HZ',['../phal__G4_2rcc_2rcc_8h.html#a931e4bece2bc8e45e95492702b1a79db',1,'HSI_CLOCK_RATE_HZ:&#160;rcc.h'],['../phal__F4__F7_2rcc_2rcc_8h.html#a931e4bece2bc8e45e95492702b1a79db',1,'HSI_CLOCK_RATE_HZ:&#160;rcc.h']]],
   ['hv_5flow_5fpass_5fsize_13',['HV_LOW_PASS_SIZE',['../car_8h.html#ad23131c8dfdb8eb1f7e3df45e3b4bf19',1,'car.h']]],
   ['hv_5fv_5fbat_5fcal_14',['HV_V_BAT_CAL',['../car_8h.html#a558410ca52658dd8f6cead3601fc50f3',1,'car.h']]],
-  ['hv_5fv_5fmc_5fcal_15',['HV_V_MC_CAL',['../car_8h.html#a3e8aea4400df51843f2611a24145e31b',1,'car.h']]],
-  ['hz_5fto_5fmhz_16',['HZ_TO_MHZ',['../phal__L4_2rcc_2rcc_8c.html#a17d626e2dfe6e90d6e5a1bd805dc8abe',1,'rcc.c']]]
+  ['hv_5fv_5fmc_5fcal_15',['HV_V_MC_CAL',['../car_8h.html#a3e8aea4400df51843f2611a24145e31b',1,'car.h']]]
 ];

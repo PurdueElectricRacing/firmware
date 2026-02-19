@@ -945,7 +945,7 @@ WARN_LOGFILE           =
 
 INPUT                  = source \
                          common/modules \
-                         common/phal_L4 \
+                         common/phal_G4 \
                          common/phal_F4_F7 \
                          common/queue \
                          common/psched
@@ -1052,7 +1052,7 @@ RECURSIVE              = YES
 # Note that relative paths are relative to the directory from which doxygen is
 # run.
 
-EXCLUDE                = "common/STM32CubeF4 common/STM32CubeF7 common/STM32CubeL4"
+EXCLUDE                = "external/"
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or
 # directories that are symbolic links (a Unix file system feature) are excluded

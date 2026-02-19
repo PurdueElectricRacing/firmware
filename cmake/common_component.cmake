@@ -17,11 +17,10 @@ MACRO(COMMON_FIRMWARE_COMPONENT TARGET_NAME)
 
     # Default values for target props.
     if (NOT _LINKER_SCRIPT)
-        message(STATUS "Missing Linker Script definition. Defaulting to STM32L432")
-        set(_LINKER_SCRIPT "STM32L432KCUx_FLASH")
+        message(FATAL_ERROR "Missing Linker Script definition for target ${TARGET_NAME}")
     endif()
     if (NOT _COMMON_LIBS)
-        set(_COMMON_LIBS "CMSIS_L432;PHAL_L432;PSCHED;QUEUE;FAULTS")
+        message(FATAL_ERROR "Missing Common Libraries definition for target ${TARGET_NAME}")
     endif()
 
     # Add Common libraries

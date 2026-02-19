@@ -13,7 +13,7 @@
 
 void PHAL_CRC32_Reset(void) {
     // CRC initializaion
-#if defined(STM32L496xx) || defined(STM32L432xx) || defined(STM32F732xx)
+#if defined(STM32F732xx)
     RCC->AHB1ENR |= RCC_AHB1ENR_CRCEN; // Clock the CRC peripheral
     CRC->INIT = 0xFFFFFFFF; // Reset initial value
     CRC->CR &= ~CRC_CR_POLYSIZE_Msk; // Set 32 bit (00)

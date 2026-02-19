@@ -1,7 +1,7 @@
 /**
  * @file gpio.h
  * @author Adam Busch (busch8@purdue.edu)
- * @brief GPIO Driver for STM32L432 Devices
+ * @brief GPIO Driver for STM32F4/F7 Devices
  * @version 0.1
  * @date 2021-09-20
  *

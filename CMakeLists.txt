@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
+cmake_minimum_required(VERSION 4.0 FATAL_ERROR)
 
 # Check for bootloader generation
 if (NOT BOOTLOADER_BUILD)
@@ -10,7 +10,7 @@ else()
 endif()
 
 # Setup arm-none-eabi as our compile toolcahin
-set(CMAKE_TOOLCHAIN_FILE cmake/toolchain.cmake)
+set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/toolchain.cmake)
 
 # Setup project
 project(PER_FIRMWARE VERSION 1.0 LANGUAGES C ASM)

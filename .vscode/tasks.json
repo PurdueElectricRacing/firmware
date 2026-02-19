@@ -4,7 +4,7 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "python3 per_build.py",
+            "command": "clear && python3 per_build.py",
             "group": {
                 "kind": "build",
                 "isDefault": true

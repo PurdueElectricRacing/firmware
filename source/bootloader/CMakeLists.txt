@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.13)
-
 # Setup Component name based on directory
 get_filename_component(COMPONENT_NAME ${CMAKE_CURRENT_LIST_DIR} NAME)
 STRING(TOLOWER ${COMPONENT_NAME} COMPONENT_NAME)

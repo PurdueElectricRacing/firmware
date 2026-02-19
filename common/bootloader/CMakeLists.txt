@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.13)
-
 MACRO(MAKE_BOOTLOADER_COMMON_LIBRARY lib_name lib_link)
     set(TARGET_NAME ${lib_name})
     add_library(${TARGET_NAME} INTERFACE)

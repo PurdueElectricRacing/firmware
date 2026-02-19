@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.13)
-
 macro(add_psched_library lib_name lib_link)
     add_library(${lib_name} INTERFACE)
     target_sources(${lib_name} INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/psched.c")

@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.13)
-
 include(../../common/can_library/can_library.cmake)
 create_can_node_lib(DASHBOARD "CMSIS_G474;FREERTOS_G474")
 

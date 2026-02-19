@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.13)
-
 add_firmware_component(
     NAME f7_testing
     LINKER_SCRIPT "STM32F732RETX_FLASH"

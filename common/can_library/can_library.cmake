@@ -3,8 +3,6 @@ if(_CAN_LIBRARY_INCLUDED)
 endif()
 set(_CAN_LIBRARY_INCLUDED TRUE)
 
-cmake_minimum_required(VERSION 3.13)
-
 # 1. Define the path to the generated directory
 set(CAN_LIB_DIR ${CMAKE_CURRENT_LIST_DIR})
 set(CAN_GEN_DIR ${CAN_LIB_DIR}/generated)

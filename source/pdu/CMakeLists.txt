@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.13)
-
 include(${CMAKE_CURRENT_LIST_DIR}/../../common/can_library/can_library.cmake)
 create_can_node_lib(PDU CMSIS_F407)
 

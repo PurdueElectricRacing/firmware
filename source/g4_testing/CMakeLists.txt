@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.13)
-
 add_firmware_component(
     NAME g4_testing
     LINKER_SCRIPT "STM32G474RETX_FLASH"

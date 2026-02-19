@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.13)
-
 include(${CMAKE_CURRENT_SOURCE_DIR}/../../common/can_library/can_library.cmake)
 create_can_node_lib(DAQ "CMSIS_F407;FREERTOS_F407")
 

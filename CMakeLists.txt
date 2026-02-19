@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 
 # Check for bootloader generation
 if (NOT BOOTLOADER_BUILD)

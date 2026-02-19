@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.13)
-
 add_firmware_component(
     NAME f4_testing
     LINKER_SCRIPT "STM32F407VGTx_FLASH"

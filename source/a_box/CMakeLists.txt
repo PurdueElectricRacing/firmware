@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.13)
-
 create_can_node_lib(A_BOX "CMSIS_G474;FREERTOS_G474")
 
 add_firmware_component(

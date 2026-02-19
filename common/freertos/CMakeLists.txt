@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.13)
-
 MACRO(MAKE_FREERTOS_WRAPPER LIB_NAME FREERTOS_CORE)
     set(TARGET_NAME ${LIB_NAME})
     add_library(${TARGET_NAME} STATIC)

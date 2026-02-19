@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.13)
-
 create_can_node_lib(TORQUE_VECTOR CMSIS_F732)
 
 add_firmware_component(

@@ -24,7 +24,6 @@
 #define APP_TORQUEVECTOR 0x03
 #define APP_A_BOX        0x04
 #define APP_PDU          0x05
-#define APP_L4_TESTING   0x06
 #define APP_F4_TESTING   0x07
 #define APP_F7_TESTING   0x08
 #define APP_DAQ          0x09

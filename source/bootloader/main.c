@@ -1,15 +1,7 @@
 #include "common/bootloader/bootloader_common.h"
-
-#if defined(STM32L496xx) || defined(STM32L432xx)
-#include "common/phal_L4/can/can.h"
-#include "common/phal_L4/gpio/gpio.h"
-#include "common/phal_L4/rcc/rcc.h"
-#endif
-#if defined(STM32F407xx) || defined(STM32F732xx)
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
-#endif
 
 /* Module Includes */
 #include "bootloader.h"

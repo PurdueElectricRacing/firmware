@@ -50,7 +50,6 @@ endfunction()
 
 set(COMMON_MODULES
     common/phal_F4_F7
-    common/phal_L4
     common/phal_G4
     common/psched
     common/freertos

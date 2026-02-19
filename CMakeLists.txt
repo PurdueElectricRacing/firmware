@@ -58,10 +58,8 @@ set(COMMON_MODULES
     common/queue
     common/common_defs
     common/log
-    # common/daq
     common/amk
     common/strbuf
-    common/modules/wheel_speeds
     common/syscalls
 )
 

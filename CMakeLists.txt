@@ -36,18 +36,6 @@ include(cmake/FindFreeRTOS.cmake)
 # Include new CAN Library
 include(common/can_library/can_library.cmake)
 
-# Function to apply analyzer flags to targets based on type
-function(apply_analyzer_to_directory DIR_PATH TARGET_TYPE_FILTER)
-    get_property(_targets DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${DIR_PATH}
-                PROPERTY BUILDSYSTEM_TARGETS)
-    foreach(TGT IN LISTS _targets)
-        get_target_property(TGT_TYPE ${TGT} TYPE)
-        if(TGT_TYPE MATCHES "${TARGET_TYPE_FILTER}")
-            target_compile_options(${TGT} PRIVATE -fanalyzer -Wno-analyzer-infinite-loop)
-        endif()
-    endforeach()
-endfunction()
-
 set(COMMON_MODULES
     common/phal_F4_F7
     common/phal_G4
@@ -65,9 +53,6 @@ set(COMMON_MODULES
 
 foreach(COMMON_MODULE IN LISTS COMMON_MODULES)
     add_subdirectory(${COMMON_MODULE})
-    if(USE_FANALYZER)
-        apply_analyzer_to_directory(${COMMON_MODULE} "STATIC_LIBRARY|SHARED_LIBRARY|MODULE_LIBRARY")
-    endif()
 endforeach()
 
 # Properties that are set for each firmware component
@@ -108,15 +93,8 @@ if(MODULES STREQUAL "")
     )
 endif()
 
-
 # Loop over and add source modules
 foreach(MODULE ${MODULES})
     message(STATUS "Adding module: ${MODULE}")
     add_subdirectory(source/${MODULE})
-    if(USE_FANALYZER)
-        apply_analyzer_to_directory(source/${MODULE} "EXECUTABLE")
-    endif()
 endforeach()
-
-# Deprecated Components
-# add_subdirectory(source/template)

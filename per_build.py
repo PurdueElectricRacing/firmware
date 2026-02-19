@@ -91,12 +91,6 @@ parser.add_option("-p", "--package",
     help="package build output into tarball with CRCs, suffixed by Git hash"
 )
 
-parser.add_option("-a", "--fanalyzer",
-    dest="fanalyzer",
-    action="store_true", default=False,
-    help="build with static analysis"
-)
-
 def print_available_targets():
     modules = [
         "main_module",
@@ -147,8 +141,7 @@ if options.target or not options.clean:
         "-G", "Ninja",
         f"-DCMAKE_BUILD_TYPE={BUILD_TYPE}",
         f"-DBOOTLOADER_BUILD={'ON' if options.bootloader else 'OFF'}",
-        f"-DMODULES={cmake_modules_str}",
-        f"-DUSE_FANALYZER={'ON' if options.fanalyzer else 'OFF'}"
+        f"-DMODULES={cmake_modules_str}"
     ]
 
     NINJA_OPTIONS = ["-C", str(BUILD_DIR)] + ninja_targets

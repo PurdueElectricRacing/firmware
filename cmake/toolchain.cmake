@@ -12,8 +12,8 @@ find_program(CMAKE_C_COMPILER   arm-none-eabi-gcc REQUIRED)
 find_program(CMAKE_ASM_COMPILER arm-none-eabi-gcc REQUIRED)
 find_program(CMAKE_SIZE_UTIL    arm-none-eabi-size)
 
-set(COMMON_FLAGS "-mthumb -mcpu=${TARGET_CPU} --specs=nosys.specs -mfloat-abi=hard -mfpu=fpv4-sp-d16 -std=c23")
-set(C_FLAGS      "--specs=nano.specs -ffunction-sections -fdata-sections -ffreestanding")
+set(COMMON_FLAGS "-mthumb -mcpu=${TARGET_CPU} --specs=nosys.specs -mfloat-abi=hard -mfpu=fpv4-sp-d16")
+set(C_FLAGS      "--specs=nano.specs -ffunction-sections -fdata-sections -ffreestanding -fanalyzer -Wno-analyzer-infinite-loop -std=c23")
 set(LINKER_FLAGS "-Wl,--gc-sections -Wl,--no-warn-rwx-segments")
 
 set(CMAKE_C_FLAGS_INIT          "${COMMON_FLAGS} ${C_FLAGS}"                  CACHE STRING "" FORCE)

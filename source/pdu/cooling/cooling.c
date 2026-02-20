@@ -20,8 +20,12 @@ static void calculate_cooling_periodic();
 void coolingInit() {
     cr.fan1_speed   = 0;
     cr.fan2_speed   = 0;
+    cr.fan3_speed   = 0;
+    cr.fan4_speed   = 0;
     cr.fan1_status  = false;
     cr.fan2_status  = false;
+    cr.fan3_status  = false;
+    cr.fan4_status  = false;
     cr.pump1_status = false;
     cr.pump2_status = false;
     cr.aux_status   = false;
@@ -33,6 +37,8 @@ void update_cooling_periodic() {
 
     setSwitch(SW_FAN_1, cr.fan1_status);
     setSwitch(SW_FAN_2, cr.fan2_status);
+    setSwitch(SW_FAN_3, cr.fan3_status);
+    setSwitch(SW_FAN_4, cr.fan4_status);
     setSwitch(SW_PUMP_1, cr.pump1_status);
     setSwitch(SW_PUMP_2, cr.pump2_status);
     setSwitch(SW_AUX, cr.aux_status);
@@ -42,6 +48,10 @@ void update_cooling_periodic() {
         setFan1Speed(cr.fan1_speed);
     if (cr.fan2_status)
         setFan2Speed(cr.fan2_speed);
+    if (cr.fan3_status)
+        setFan3Speed(cr.fan3_speed);
+    if (cr.fan4_status)
+        setFan4Speed(cr.fan4_speed);
 
     CAN_SEND_coolant_out(cr.fan1_speed, cr.fan2_speed, cr.pump2_status, cr.aux_status, cr.pump1_status);
 }
@@ -88,12 +98,19 @@ static void calculate_cooling_periodic() {
         cr.fan2_status = false;
         cr.fan2_speed  = 0;
     }
+
+    cr.fan3_status = cr.fan1_status;
+    cr.fan3_speed  = cr.fan1_speed;
+    cr.fan4_status = cr.fan2_status;
+    cr.fan4_speed  = cr.fan2_speed;
 }
 
 void cooling_driver_request_CALLBACK(can_data_t* p_can_data) {
     // Only receive fan speed values from dash now
     cr.fan1_speed = CLAMP(can_data.cooling_driver_request.batt_fan, 0, 100);
     cr.fan2_speed = CLAMP(can_data.cooling_driver_request.dt_fan, 0, 100);
+    cr.fan3_speed = cr.fan1_speed;
+    cr.fan4_speed = cr.fan2_speed;
     //cr.pump1_status = can_data.cooling_driver_request.dt_pump; // determine if pumps are on or off
     //cr.pump2_status = can_data.cooling_driver_request.batt_pump;
     //cr.aux_status = can_data.cooling_driver_request.batt_pump2;

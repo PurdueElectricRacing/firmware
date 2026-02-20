@@ -4,10 +4,12 @@
 #include "main.h"
 
 #define PWM_FREQUENCY_HZ (25000) // PWM frequency to be 25kHz
-#define FAN_PWM_TIM      (FAN_1_PWM_TIM) // Fan 1 and 2 use same timer defined in main.h
+#define FAN_PWM_TIM      (FAN_1_PWM_TIM) // Fan 1-4 use same timer defined in main.h
 
 bool fanControlInit();
 void setFan1Speed(uint8_t fan_speed);
 void setFan2Speed(uint8_t fan_speed);
+void setFan3Speed(uint8_t fan_speed);
+void setFan4Speed(uint8_t fan_speed);
 
 #endif // _FAN_CONTROL_H_

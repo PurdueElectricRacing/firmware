@@ -49,6 +49,8 @@ typedef enum {
     // Low power switches
     SW_FAN_1,
     SW_FAN_2,
+    SW_FAN_3,
+    SW_FAN_4,
     SW_DASH,
     SW_ABOX,
     SW_MAIN,

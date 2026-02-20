@@ -81,6 +81,18 @@
                             "type": "uint16_t",
                             "unit": "mA",
                             "length": 12
+                        },
+                        {
+                            "sig_name": "i_fan3",
+                            "type": "uint16_t",
+                            "unit": "mA",
+                            "length": 12
+                        },
+                        {
+                            "sig_name": "i_fan4",
+                            "type": "uint16_t",
+                            "unit": "mA",
+                            "length": 12
                         }
                     ],
                     "msg_period": 500,

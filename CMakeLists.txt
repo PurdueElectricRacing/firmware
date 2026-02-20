@@ -59,6 +59,7 @@ set(COMMON_MODULES
     common/log
     common/amk
     common/strbuf
+    common/lerp_lut
     common/syscalls
 )
 

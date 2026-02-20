@@ -230,7 +230,7 @@ bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
         size_t gpios_read    = (cmd_idx < 3) ? 3 : 1;
         size_t gpio_idx_base = cmd_idx * 3;
 
-        // Data comes back as: module 0, module 1, ..., module N-1
+        // Data comes back as: module 1, module 2, ..., module N
         for (size_t module_idx = 0; module_idx < module_count; module_idx++) {
             uint8_t *module_data = &rx_buffer[module_idx * ADBMS6380_SINGLE_DATA_PKT_SIZE];
 

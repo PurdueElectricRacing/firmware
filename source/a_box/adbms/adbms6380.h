@@ -112,10 +112,7 @@ void adbms6380_adsv(uint8_t *output_cmd, bool cont, bool dcp, uint8_t ow);
  * @param pup Pull-up enable for open-wire detection.
  * @param ch Channel selection (5-bit). 0 for all.
  */
-void adbms6380_adax(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE],
-                    bool ow,
-                    bool pup,
-                    uint8_t ch);
+void adbms6380_adax(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE], bool ow, bool pup, uint8_t ch);
 
 /**
  * @brief Append a command and its PEC to an output buffer.

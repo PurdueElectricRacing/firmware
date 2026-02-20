@@ -145,7 +145,12 @@ void adbms_connect(ADBMS_bms_t *bms) {
     // Start ADCV
     strbuf_clear(&bms->tx_strbuf);
     uint8_t adcv_cmd[2] = {0};
-    adbms6380_adcv(adcv_cmd, ADBMS_ADCV_RD, ADBMS_ADCV_CONT, ADBMS_ADCV_DCP, ADBMS_ADCV_RSTF, ADBMS_ADCV_OW);
+    adbms6380_adcv(adcv_cmd,
+                   ADBMS_ADCV_RD,
+                   ADBMS_ADCV_CONT,
+                   ADBMS_ADCV_DCP,
+                   ADBMS_ADCV_RSTF,
+                   ADBMS_ADCV_OW);
     adbms6380_prepare_command(&bms->tx_strbuf, adcv_cmd);
     adbms6380_set_cs_low(bms->spi);
     if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
@@ -270,7 +275,7 @@ void adbms_read_therms(ADBMS_bms_t *bms) {
     adbms6380_set_cs_low(bms->spi);
     if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
         adbms6380_set_cs_high(bms->spi);
-        bms->err_spi     = true;
+        bms->err_spi = true;
         return;
     }
     adbms6380_set_cs_high(bms->spi);

@@ -32,7 +32,7 @@
 #define ADBMS_REGB_OV_THRESHOLD (4.2f)  // Volts
 #define ADBMS_REGB_UV_THRESHOLD (3.0f)  // Volts
 #define ADBMS_ADCV_RD           (false)
-#define ADBMS_ADCV_CONT         (true)  // Continuous
+#define ADBMS_ADCV_CONT         (true) // Continuous
 #define ADBMS_ADCV_DCP          (false)
 #define ADBMS_ADCV_RSTF         (true)
 #define ADBMS_ADCV_OW           (0b00)

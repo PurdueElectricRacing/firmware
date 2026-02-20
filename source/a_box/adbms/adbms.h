@@ -21,6 +21,11 @@
 // Number of ADBMS modules in the daisy chain.
 #define ADBMS_MODULE_COUNT (8)
 
+// 10kOhm voltage divider on the thermistor input
+#define ADBMS_GPIO_R1 (10000.0f)
+// VREF2 = 3.0v and is the input to the thermistor voltage divider
+#define ADBMS_GPIO_VIN (3.0f)
+
 // Max SPI TX is a command + all the data packets for all the modules.
 #define ADBMS_SPI_TX_BUFFER_SIZE \
     (ADBMS6380_COMMAND_PKT_SIZE + (ADBMS_MODULE_COUNT * ADBMS6380_SINGLE_DATA_PKT_SIZE))
@@ -66,10 +71,10 @@ typedef struct {
     float avg_voltage;
     /** Sum of cell voltages within this module (volts). */
     float sum_voltage;
-    /** Latest thermistor readings mapped to GPIOs (degrees Celsius). */
+    /** Latest thermistor readings as volts. */
     float therms_voltages[ADBMS6380_GPIO_COUNT];
-    /** Latest thermistor resistances mapped to GPIOs (ohms). */
-    float therms_resistances[ADBMS6380_GPIO_COUNT];
+    /** Latest thermistor temperatures in Celsius */
+    float therms_temps[ADBMS6380_GPIO_COUNT];
     //! TODO: do we also want min/max/avg for thermistors?
     /** Per-cell discharge enable flags used for balancing. Set by BMS, not higher level logic. */
     bool is_discharging[ADBMS6380_CELL_COUNT];

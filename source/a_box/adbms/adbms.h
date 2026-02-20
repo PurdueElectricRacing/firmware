@@ -24,8 +24,8 @@
 // Max SPI TX is a command + all the data packets for all the modules.
 #define ADBMS_SPI_TX_BUFFER_SIZE \
     (ADBMS6380_COMMAND_PKT_SIZE + (ADBMS_MODULE_COUNT * ADBMS6380_SINGLE_DATA_PKT_SIZE))
-// MAX SPI RX is bounded by reading all cell voltages from all modules.
-#define ADBMS_SPI_RX_BUFFER_SIZE (ADBMS6380_RDCVALL_DATA_PKT_SIZE * ADBMS_MODULE_COUNT)
+// MAX SPI RX is all the data packets for all the modules.
+#define ADBMS_SPI_RX_BUFFER_SIZE (ADBMS6380_SINGLE_DATA_PKT_SIZE * ADBMS_MODULE_COUNT)
 
 #define ADBMS_REFON        (true)  // REGA
 #define ADBMS_CTH          (0b110) // REGA - 25.05 mV

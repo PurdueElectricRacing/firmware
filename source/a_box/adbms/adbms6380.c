@@ -168,30 +168,45 @@ bool adbms6380_read(SPI_InitConfig_t *spi,
     return true;
 }
 
-bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
-                                  strbuf_t *cmd_buffer,
-                                  uint8_t *rx_buffer,
-                                  float **cell_voltages,
-                                  int16_t **cell_voltages_raw,
-                                  size_t module_count) {
-    strbuf_clear(cmd_buffer);
-    adbms6380_prepare_command(cmd_buffer, RDCVALL);
-    size_t rx_length = module_count * ADBMS6380_RDCVALL_DATA_PKT_SIZE;
-    if (!adbms6380_read(spi, module_count, cmd_buffer->data, rx_buffer, rx_length)) {
-        return false;
-    }
-    // Data comes back as: module 0, module 1, ..., module N-1
-    for (size_t module_idx = 0; module_idx < module_count; module_idx++) {
-        uint8_t *module_data = &rx_buffer[module_idx * ADBMS6380_RDCVALL_DATA_PKT_SIZE];
-        for (size_t j = 0; j < ADBMS6380_CELL_COUNT; j++) {
-            int16_t raw                      = adbms6380_extract_i16(module_data, j);
-            cell_voltages_raw[module_idx][j] = raw;
-            float cell_v                     = adbms6380_raw_to_cell_v(raw);
-            cell_voltages[module_idx][j]     = cell_v;
-        }
-    }
+bool adbms6380_read_cell_voltages(
+    SPI_InitConfig_t *spi,
+    strbuf_t *cmd_buffer,
+    uint8_t *rx_buffer,
+    float **cell_voltages,
+    int16_t **cell_voltages_raw,
+    size_t module_count
+) {
 
-    return true;
+	const uint8_t *cmd_list[6] = {RDCVA, RDCVB, RDCVC, RDCVD, RDCVE, RDCVF};
+	
+	for (size_t cmd_idx = 0; cmd_idx < 6; cmd_idx++) {
+		strbuf_clear(cmd_buffer);
+		adbms6380_prepare_command(cmd_buffer, cmd_list[cmd_idx]);
+
+		if (!adbms6380_read_data(spi, module_count, cmd_buffer->data, rx_buffer)) {
+			return false;
+		}
+
+		// Data comes back as: module 1, module 2, ..., module N
+		size_t cells_read = (cmd_idx < 5) ? 3 : 1; // First 5 commands read 3 cells, last reads 1 cell = 16 total
+		size_t cell_in_module_idx_base = cmd_idx * 3;
+
+		for (size_t module_idx = 0; module_idx < module_count; module_idx++) {
+			uint8_t* module_data = &rx_buffer[module_idx * ADBMS6380_SINGLE_DATA_PKT_SIZE];
+			for (size_t j = 0; j < cells_read; j++) {
+				size_t cell_idx = cell_in_module_idx_base + j;
+				if (cell_idx >= ADBMS6380_CELL_COUNT) {
+					break; // safety check
+				}
+				int16_t raw = adbms6380_extract_i16(module_data, j);
+                cell_voltages_raw[module_idx][cell_idx] = raw;
+				float cell_v = adbms6380_raw_to_cell_v(raw);
+                cell_voltages[module_idx][cell_idx] = cell_v;
+			}
+		}
+	}
+
+	return true;
 }
 
 bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,

@@ -29,10 +29,6 @@
 #define ADBMS6380_SINGLE_DATA_RAW_SIZE (6)
 // Single data packet size (bytes) for one module including PEC.
 #define ADBMS6380_SINGLE_DATA_PKT_SIZE (ADBMS6380_SINGLE_DATA_RAW_SIZE + ADBMS6380_PEC_SIZE)
-// RDCVALL raw payload size (bytes) for one module without PEC.
-#define ADBMS6380_RDCVALL_DATA_RAW_SIZE (32)
-// RDCVALL packet size (bytes) for one module including PEC.
-#define ADBMS6380_RDCVALL_DATA_PKT_SIZE (ADBMS6380_RDCVALL_DATA_RAW_SIZE + ADBMS6380_PEC_SIZE)
 
 /**
  * @brief Wake pulse duration per CS toggle in milliseconds.

@@ -293,19 +293,19 @@ void adbms_read_therms(ADBMS_bms_t *bms) {
 
     for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
         for (size_t j = 0; j < ADBMS6380_GPIO_COUNT; j++) {
-            float v_out = bms->modules[i].therms_voltages[j];
-            float r2 = (v_out * ADBMS_GPIO_R1) / (ADBMS_GPIO_VIN - v_out);
+            float v_out                     = bms->modules[i].therms_voltages[j];
+            float r2                        = (v_out * ADBMS_GPIO_R1) / (ADBMS_GPIO_VIN - v_out);
             bms->modules[i].therms_temps[j] = thermistor_R_to_T(r2);
         }
     }
 
-    bms->max_therm_temp = bms->modules[0].therms_temps[0];
-    bms->min_therm_temp = bms->modules[0].therms_temps[0];
+    bms->max_therm_temp      = bms->modules[0].therms_temps[0];
+    bms->min_therm_temp      = bms->modules[0].therms_temps[0];
     float bms_sum_therm_temp = 0.0f;
     for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
         bms->modules[i].max_therm_temp = bms->modules[i].therms_temps[0];
         bms->modules[i].min_therm_temp = bms->modules[i].therms_temps[0];
-        float module_sum_therm_temp = 0.0f;
+        float module_sum_therm_temp    = 0.0f;
         for (size_t j = 0; j < ADBMS6380_GPIO_COUNT; j++) {
             float t = bms->modules[i].therms_temps[j];
             if (t > bms->modules[i].max_therm_temp) {

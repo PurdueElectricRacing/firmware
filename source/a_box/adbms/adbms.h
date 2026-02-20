@@ -71,7 +71,7 @@ typedef struct {
     float avg_voltage;
     /** Sum of cell voltages within this module (volts). */
     float sum_voltage;
-    
+
     /** Latest thermistor readings as volts. */
     float therms_voltages[ADBMS6380_GPIO_COUNT];
     /** Latest thermistor temperatures in Celsius */

@@ -133,7 +133,7 @@ void send_version();
 extern void HardFault_Handler();
 
 // Communication queues
-allocate_strbuf(lcd_tx_buf, 1024);
+ALLOCATE_STRBUF(lcd_tx_buf, 1024);
 
 void preflight_task();
 void can_worker_task();

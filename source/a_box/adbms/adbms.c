@@ -232,12 +232,12 @@ void adbms_read_cells(ADBMS_bms_t *bms) {
         return;
     }
 
-    bms->max_voltage = cell_voltage_ptrs[0][0];
-    bms->min_voltage = cell_voltage_ptrs[0][0];
+    bms->max_voltage = bms->modules[0].cell_voltages[0];
+    bms->min_voltage = bms->modules[0].cell_voltages[0];
     bms->sum_voltage = 0.0f;
     for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
-        bms->modules[i].max_voltage = cell_voltage_ptrs[i][0];
-        bms->modules[i].min_voltage = cell_voltage_ptrs[i][0];
+        bms->modules[i].max_voltage = bms->modules[i].cell_voltages[0];
+        bms->modules[i].min_voltage = bms->modules[i].cell_voltages[0];
         bms->modules[i].sum_voltage = 0.0f;
         for (size_t j = 0; j < ADBMS6380_CELL_COUNT; j++) {
             float cell_v = cell_voltage_ptrs[i][j];

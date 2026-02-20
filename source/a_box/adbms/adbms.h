@@ -214,7 +214,11 @@ void adbms_connect(ADBMS_bms_t *bms);
  */
 void adbms_read_cells(ADBMS_bms_t *bms);
 /**
- * @brief Read all GPIO/thermistor voltages.
+ * @brief Read all GPIO/thermistor values (voltage and calculate temperature)
+ * and update module/pack statistics.
+ *
+ * Updates per-module min/max/avg for thermistor temperatures and aggregated
+ * min/max/avg for the full pack.
  *
  * @param bms Pointer to driver state.
  */

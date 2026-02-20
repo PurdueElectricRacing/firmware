@@ -236,6 +236,7 @@ void adbms_read_cells(ADBMS_bms_t *bms) {
         return;
     }
 
+    // Calculate min/avg/max for each module and overall pack
     bms->max_voltage = bms->modules[0].cell_voltages[0];
     bms->min_voltage = bms->modules[0].cell_voltages[0];
     bms->sum_voltage = 0.0f;
@@ -295,6 +296,8 @@ void adbms_read_therms(ADBMS_bms_t *bms) {
         return;
     }
 
+    // Convert all GPIO voltages to temperatures
+    // GPIO voltage -> R2 in the thermistor divider -> temperature via thermistor curve
     for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
         for (size_t j = 0; j < ADBMS6380_GPIO_COUNT; j++) {
             float v_out = bms->modules[i].therms_voltages[j];
@@ -307,6 +310,7 @@ void adbms_read_therms(ADBMS_bms_t *bms) {
         }
     }
 
+    // Calculate min/avg/max thermistor temps for each module and overall
     bms->max_therm_temp      = bms->modules[0].therms_temps[0];
     bms->min_therm_temp      = bms->modules[0].therms_temps[0];
     float bms_sum_therm_temp = 0.0f;

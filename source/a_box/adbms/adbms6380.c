@@ -46,12 +46,8 @@ int16_t adbms6380_extract_i16(uint8_t *data, int idx) {
     return (int16_t)(data[idx * 2 + 0] & 0xff) | ((int16_t)(data[idx * 2 + 1] & 0xff) << 8);
 }
 
-float adbms6380_raw_to_cell_v(int16_t raw) {
+float adbms6380_raw_to_v(int16_t raw) {
     return (raw + 10000) * 0.000150f;
-}
-
-float adbms6380_raw_to_gpio_v(int16_t raw) {
-    return raw * 0.0001f;
 }
 
 void adbms6380_adcv(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE],
@@ -212,7 +208,7 @@ bool adbms6380_read_cell_voltages(
 				}
 				int16_t raw = adbms6380_extract_i16(module_data, j);
                 cell_voltages_raw[module_idx][cell_idx] = raw;
-				float cell_v = adbms6380_raw_to_cell_v(raw);
+				float cell_v = adbms6380_raw_to_v(raw);
                 cell_voltages[module_idx][cell_idx] = cell_v;
 			}
 		}
@@ -247,7 +243,7 @@ bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
             for (size_t j = 0; j < gpios_read; j++) {
                 size_t gpio_idx                     = gpio_idx_base + j;
                 int16_t raw                         = adbms6380_extract_i16(module_data, j);
-                float gpio_v                        = adbms6380_raw_to_gpio_v(raw);
+                float gpio_v                        = adbms6380_raw_to_v(raw);
                 gpio_voltages[module_idx][gpio_idx] = gpio_v;
             }
         }

@@ -76,19 +76,12 @@ uint16_t adbms6380_get_threshold_voltage_cfg(float threshold_voltage);
  */
 int16_t adbms6380_extract_i16(uint8_t *data, int idx);
 /**
- * @brief Convert raw cell measurement to volts.
+ * @brief Convert raw voltage measurement from the ADBMS6380 to volts.
  *
- * @param raw Raw ADC code from ADBMS.
- * @return Cell voltage in volts.
+ * @param raw Raw code from ADBMS.
+ * @return Corresponding voltage in volts.
  */
-float adbms6380_raw_to_cell_v(int16_t raw);
-/**
- * @brief Convert raw GPIO/aux measurement to volts.
- *
- * @param raw Raw ADC code from ADBMS.
- * @return GPIO voltage in volts.
- */
-float adbms6380_raw_to_gpio_v(int16_t raw);
+float adbms6380_raw_to_v(int16_t raw);
 
 /**
  * @brief Build ADCV command bytes.

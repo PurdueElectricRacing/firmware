@@ -97,17 +97,32 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define MAIN_H_</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;common/phal/gpio.h&quot;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// Status LEDs</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50">   15</a></span><span class="preprocessor">#define HEARTBEAT_LED_PORT  (GPIOB)</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3">   16</a></span><span class="preprocessor">#define HEARTBEAT_LED_PIN   (5)</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#a84357dafca10c0bedd27ddf562ec038f">   17</a></span><span class="preprocessor">#define ERROR_LED_PORT      (GPIOB)</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#a16617de3bb2ca54675ae2515d8515e12">   18</a></span><span class="preprocessor">#define ERROR_LED_PIN       (9)</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#aa5bf4e4a187f66b98a273bb051ec3877">   19</a></span><span class="preprocessor">#define CONNECTION_LED_PORT (GPIOB)</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#a8437cdc43b488d816a5e56f7b6457b86">   20</a></span><span class="preprocessor">#define CONNECTION_LED_PIN  (4)</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;common/phal/gpio.h&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">// Status LEDs</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50">   16</a></span><span class="preprocessor">#define HEARTBEAT_LED_PORT  (GPIOB)</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3">   17</a></span><span class="preprocessor">#define HEARTBEAT_LED_PIN   (5)</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#a84357dafca10c0bedd27ddf562ec038f">   18</a></span><span class="preprocessor">#define ERROR_LED_PORT      (GPIOB)</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#a16617de3bb2ca54675ae2515d8515e12">   19</a></span><span class="preprocessor">#define ERROR_LED_PIN       (9)</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#aa5bf4e4a187f66b98a273bb051ec3877">   20</a></span><span class="preprocessor">#define CONNECTION_LED_PORT (GPIOB)</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#a8437cdc43b488d816a5e56f7b6457b86">   21</a></span><span class="preprocessor">#define CONNECTION_LED_PIN  (4)</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">// SPI1 for BMS</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#a16c59789b6e89795dedda18d344950b3">   24</a></span><span class="preprocessor">#define SPI1_SCK_PORT  (GPIOA)</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#ab5b19097bd266c7ae535367e8ad26b9d">   25</a></span><span class="preprocessor">#define SPI1_MISO_PORT (GPIOA)</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#abd943e6739a8907e4114a1438de0101e">   26</a></span><span class="preprocessor">#define SPI1_MOSI_PORT (GPIOA)</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#aafbcfb01e19fc70a09a6b130e1e7154a">   27</a></span><span class="preprocessor">#define SPI1_SCK_PIN   (5)</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#ad78661760fc1a7e2851c49d3cead2519">   28</a></span><span class="preprocessor">#define SPI1_MISO_PIN  (6)</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#a0eef22ccdc4fd88572ba8543445522c6">   29</a></span><span class="preprocessor">#define SPI1_MOSI_PIN  (7)</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#a898214e0ac884181dd81f34d8821829f">   31</a></span><span class="preprocessor">#define SPI1_CS_PORT (GPIOB)</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#a28e3b9a83990e6c65c180a9c03d9747a">   32</a></span><span class="preprocessor">#define SPI1_CS_PIN  (0)</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#a5c4e93f996f0605f569c9cbb6f94d2e9">   34</a></span><span class="preprocessor">#define SPI2_CS_PORT (GPIOB)</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a__box_2main_8h.html#a90220cf36047806f0b786fd90a29233c">   35</a></span><span class="preprocessor">#define SPI2_CS_PIN  (1)</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

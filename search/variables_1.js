@@ -53,5 +53,7 @@ var searchData=
   ['av_5ffflag_5ftrue_50',['AV_FFLAG_True',['../structpVCU__struct.html#a6e4fe28f362bba9e9b01173dedfc90a7',1,'pVCU_struct']]],
   ['av_5flb_51',['AV_lb',['../structpVCU__struct.html#a88ac266419f75c2ba55de884da9fb9e5',1,'pVCU_struct']]],
   ['av_5fraw_52',['AV_RAW',['../structxVCU__struct.html#a114b61b8396c79f70db2e98386150599',1,'xVCU_struct']]],
-  ['av_5fub_53',['AV_ub',['../structpVCU__struct.html#a2e5c7f4c142c24c1f1c2ac71719ebcec',1,'pVCU_struct']]]
+  ['av_5fub_53',['AV_ub',['../structpVCU__struct.html#a2e5c7f4c142c24c1f1c2ac71719ebcec',1,'pVCU_struct']]],
+  ['avg_5ftherm_5ftemp_54',['avg_therm_temp',['../structADBMS__module__t.html#afbdb9dac3066568a8d7d8d60bcdc773d',1,'ADBMS_module_t::avg_therm_temp'],['../structADBMS__bms__t.html#a2a6b527ff7ab9f037ac2c10a869ae2a8',1,'ADBMS_bms_t::avg_therm_temp']]],
+  ['avg_5fvoltage_55',['avg_voltage',['../structADBMS__module__t.html#ab6bbd76579bc642843b3bac02dd855c9',1,'ADBMS_module_t::avg_voltage'],['../structADBMS__bms__t.html#a62fde96f318ef76c96872947bb29a453',1,'ADBMS_bms_t::avg_voltage']]]
 ];

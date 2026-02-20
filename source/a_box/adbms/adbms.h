@@ -77,8 +77,11 @@ typedef struct {
     /** Latest thermistor temperatures in Celsius */
     float therms_temps[ADBMS6380_GPIO_COUNT];
 
+    /** Minimum thermistor temperature within this module (Celsius). */
     float min_therm_temp;
+    /** Maximum thermistor temperature within this module (Celsius). */
     float max_therm_temp;
+    /** Average thermistor temperature within this module (Celsius). */
     float avg_therm_temp;
 
     /** Per-cell discharge enable flags used for balancing. Set by BMS, not higher level logic. */
@@ -114,8 +117,11 @@ typedef struct {
     /** Sum of cell voltages across all modules (volts). */
     float sum_voltage;
 
+    /** Minimum thermistor temperature across all modules (Celsius). */
     float min_therm_temp;
+    /** Maximum thermistor temperature across all modules (Celsius). */
     float max_therm_temp;
+    /** Average thermistor temperature across all modules (Celsius). */
     float avg_therm_temp;
 
     /** True if cell discharge balancing is permitted by higher-level logic. */

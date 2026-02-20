@@ -67,7 +67,9 @@ typedef struct {
     /** Sum of cell voltages within this module (volts). */
     float sum_voltage;
     /** Latest thermistor readings mapped to GPIOs (degrees Celsius). */
-    float thermistors[ADBMS6380_GPIO_COUNT];
+    float therms_voltages[ADBMS6380_GPIO_COUNT];
+    /** Latest thermistor resistances mapped to GPIOs (ohms). */
+    float therms_resistances[ADBMS6380_GPIO_COUNT];
     //! TODO: do we also want min/max/avg for thermistors?
     /** Per-cell discharge enable flags used for balancing. Set by BMS, not higher level logic. */
     bool is_discharging[ADBMS6380_CELL_COUNT];

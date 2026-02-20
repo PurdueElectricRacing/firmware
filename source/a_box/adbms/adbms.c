@@ -12,6 +12,7 @@
 #include "adbms6380.h"
 #include "commands.h"
 #include "common/phal/spi.h"
+#include "thermistor.h"
 
 void adbms_init(ADBMS_bms_t *bms, SPI_InitConfig_t *spi, uint8_t *tx_buf) {
     bms->spi   = spi;
@@ -264,7 +265,7 @@ void adbms_read_cells(ADBMS_bms_t *bms) {
 void adbms_read_therms(ADBMS_bms_t *bms) {
     float *gpio_voltage_ptrs[ADBMS_MODULE_COUNT] = {0};
     for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
-        gpio_voltage_ptrs[i] = bms->modules[i].thermistors;
+        gpio_voltage_ptrs[i] = bms->modules[i].therms_voltages;
     }
 
     // Start ADAX
@@ -288,6 +289,13 @@ void adbms_read_therms(ADBMS_bms_t *bms) {
         bms->state   = ADBMS_STATE_IDLE;
         bms->err_spi = true;
         return;
+    }
+
+    for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
+        for (size_t j = 0; j < ADBMS6380_GPIO_COUNT; j++) {
+            bms->modules[i].therms_resistances[j] =
+                thermistor_R_to_T(bms->modules[i].therms_voltages[j]);
+        }
     }
 }
 

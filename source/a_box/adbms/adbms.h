@@ -27,15 +27,18 @@
 // MAX SPI RX is all the data packets for all the modules.
 #define ADBMS_SPI_RX_BUFFER_SIZE (ADBMS6380_SINGLE_DATA_PKT_SIZE * ADBMS_MODULE_COUNT)
 
-#define ADBMS_REFON        (true)  // REGA
-#define ADBMS_CTH          (0b110) // REGA - 25.05 mV
-#define ADBMS_OV_THRESHOLD (4.2f)  // REGB - in volts
-#define ADBMS_UV_THRESHOLD (3.0f)  // REGB - in volts
-#define ADBMS_RD           (false) // ADCV
-#define ADBMS_CONT         (true)  // ADCV/ADSV
-#define ADBMS_DCP          (false) // ADCV/ADSV
-#define ADBMS_RSTF         (true)  // ADCV
-#define ADBMS_OW           (0b00)  // ADCV/ADSV
+#define ADBMS_REGA_REFON        (true)
+#define ADBMS_REGA_CTH          (0b110) // 25.05 mV
+#define ADBMS_REGB_OV_THRESHOLD (4.2f)  // Volts
+#define ADBMS_REGB_UV_THRESHOLD (3.0f)  // Volts
+#define ADBMS_ADCV_RD           (false)
+#define ADBMS_ADCV_CONT         (true)  // Continuous
+#define ADBMS_ADCV_DCP          (false)
+#define ADBMS_ADCV_RSTF         (true)
+#define ADBMS_ADCV_OW           (0b00)
+#define ADBMS_ADAX_OW           (false)
+#define ADBMS_ADAX_PUP          (false)
+#define ADBMS_ADAX_CH           (0b00000)
 
 /**
  * @brief ADBMS driver connection/operation state.

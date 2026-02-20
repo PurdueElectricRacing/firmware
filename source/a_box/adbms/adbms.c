@@ -43,7 +43,7 @@ bool adbms_write_rega(ADBMS_bms_t *bms) {
     adbms6380_prepare_command(&bms->tx_strbuf, WRCFGA);
     // i must be signed
     for (int i = ADBMS_MODULE_COUNT - 1; i >= 0; i--) {
-        adbms6380_calculate_cfg_rega(bms->modules[i].rega, ADBMS_REFON, ADBMS_CTH);
+        adbms6380_calculate_cfg_rega(bms->modules[i].rega, ADBMS_REGA_REFON, ADBMS_REGA_CTH);
         adbms6380_prepare_data_packet(&bms->tx_strbuf, bms->modules[i].rega);
     }
 
@@ -64,8 +64,8 @@ bool adbms_write_regb(ADBMS_bms_t *bms) {
     // i must be signed
     for (int i = ADBMS_MODULE_COUNT - 1; i >= 0; i--) {
         adbms6380_calculate_cfg_regb(bms->modules[i].regb,
-                                     ADBMS_OV_THRESHOLD,
-                                     ADBMS_UV_THRESHOLD,
+                                     ADBMS_REGB_OV_THRESHOLD,
+                                     ADBMS_REGB_UV_THRESHOLD,
                                      bms->modules[i].is_discharging);
         adbms6380_prepare_data_packet(&bms->tx_strbuf, bms->modules[i].regb);
     }
@@ -145,7 +145,7 @@ void adbms_connect(ADBMS_bms_t *bms) {
     // Start ADCV
     strbuf_clear(&bms->tx_strbuf);
     uint8_t adcv_cmd[2] = {0};
-    adbms6380_adcv(adcv_cmd, ADBMS_RD, ADBMS_CONT, ADBMS_DCP, ADBMS_RSTF, ADBMS_OW);
+    adbms6380_adcv(adcv_cmd, ADBMS_ADCV_RD, ADBMS_ADCV_CONT, ADBMS_ADCV_DCP, ADBMS_ADCV_RSTF, ADBMS_ADCV_OW);
     adbms6380_prepare_command(&bms->tx_strbuf, adcv_cmd);
     adbms6380_set_cs_low(bms->spi);
     if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
@@ -265,7 +265,7 @@ void adbms_read_therms(ADBMS_bms_t *bms) {
     // Start ADAX
     strbuf_clear(&bms->tx_strbuf);
     uint8_t adax_cmd[2] = {0};
-    adbms6380_adax(adax_cmd, 0, 0, 0);
+    adbms6380_adax(adax_cmd, ADBMS_ADAX_OW, ADBMS_ADAX_PUP, ADBMS_ADAX_CH);
     adbms6380_prepare_command(&bms->tx_strbuf, adax_cmd);
     adbms6380_set_cs_low(bms->spi);
     if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {

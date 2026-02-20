@@ -8,6 +8,7 @@
 #ifndef _BMS_H_
 #define _BMS_H_
 
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 

@@ -8,6 +8,7 @@
 #ifndef _ADBMS6380_H_
 #define _ADBMS6380_H_
 
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 

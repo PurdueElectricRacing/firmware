@@ -7,11 +7,15 @@
 
 #include "adbms.h"
 
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <string.h>
 
 #include "adbms6380.h"
 #include "commands.h"
 #include "common/phal/spi.h"
+#include "common/strbuf/strbuf.h"
 #include "thermistor.h"
 
 void adbms_init(ADBMS_bms_t *bms, SPI_InitConfig_t *spi, uint8_t *tx_buf) {

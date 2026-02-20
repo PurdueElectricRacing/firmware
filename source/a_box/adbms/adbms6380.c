@@ -8,6 +8,8 @@
 #include "adbms6380.h"
 
 #include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <string.h>
 
 #include "commands.h"

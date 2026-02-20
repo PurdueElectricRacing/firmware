@@ -198,8 +198,7 @@ bool adbms_read_and_check_regb(ADBMS_bms_t *bms);
 /**
  * @brief Perform the connect/bring-up sequence for all modules.
  *
- * Writes REGA/REGB, verifies read-back, and starts ADCV
- * and ADSV conversions.
+ * Writes REGA/REGB, verifies read-back, and starts ADCV conversions.
  *
  * @param bms Pointer to driver state.
  */

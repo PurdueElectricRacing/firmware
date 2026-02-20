@@ -1,3 +1,10 @@
+/**
+ * @file thermistor.h
+ * @brief Thermistor lookup table from datasheet.
+ *
+ * @author Irving Wang (irvingw@purdue.edu), Millan Kumar (kumar798@purdue.edu)
+ */
+
 #ifndef THERMISTOR_H
 #define THERMISTOR_H
 

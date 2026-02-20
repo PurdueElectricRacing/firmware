@@ -57,9 +57,9 @@ void adbms6380_adcv(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE],
                     bool rstf,
                     uint8_t ow) {
     // 10-0: 0, 1, RD, CONT, 1, 1, DCP, 0, RSTF, OW[1], OW[0]
-    output_cmd[0] = 0x02 + (uint8_t)rd;
+    output_cmd[0] = 0x02 | (uint8_t)rd;
     output_cmd[1] =
-        ((uint8_t)cont << 7) + ((uint8_t)dcp << 4) + ((uint8_t)rstf << 2) + (ow & 0x03) + 0x60;
+        ((uint8_t)cont << 7) | ((uint8_t)dcp << 4) | ((uint8_t)rstf << 2) | (ow & 0x03) + 0x60;
 }
 
 void adbms6380_adsv(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE],
@@ -68,7 +68,7 @@ void adbms6380_adsv(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE],
                     uint8_t ow) {
     // 10-0: 0, 0, 1, CONT, 1, 1, DCP, 1, 0, OW[1], OW[0]
     output_cmd[0] = 0x01;
-    output_cmd[1] = ((uint8_t)cont << 7) + ((uint8_t)dcp << 4) + (ow & 0x03) + 0x68;
+    output_cmd[1] = ((uint8_t)cont << 7) | ((uint8_t)dcp << 4) | (ow & 0x03) | 0x68;
 }
 
 void adbms6380_adax(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE], bool ow, bool pup, uint8_t ch) {

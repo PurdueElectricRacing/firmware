@@ -37,6 +37,8 @@ void updateCurrent() {
     // Low power switches
     auto_switches.current[SW_FAN_1] = calcCurrent_LP(adc_readings.fan_1_cs);
     auto_switches.current[SW_FAN_2] = calcCurrent_LP(adc_readings.fan_2_cs);
+    auto_switches.current[SW_FAN_3] = 0;
+    auto_switches.current[SW_FAN_4] = 0;
     auto_switches.current[SW_DASH]  = calcCurrent_LP(adc_readings.dash_cs);
     auto_switches.current[SW_ABOX]  = calcCurrent_LP(adc_readings.abox_cs);
     auto_switches.current[SW_MAIN]  = calcCurrent_LP(adc_readings.main_cs);
@@ -92,6 +94,10 @@ uint16_t calcVoltage(uint16_t voltage, int r1, int r2) {
 // Enable or disable switches by name
 void setSwitch(switches_t auto_switch_enum, bool state) {
     switch (auto_switch_enum) {
+        case CS_24V:
+        case CS_5V:
+        case CS_SWITCH_COUNT:
+            return;
         case SW_PUMP_1:
             PHAL_writeGPIO(PUMP_1_CTRL_GPIO_Port, PUMP_1_CTRL_Pin, state);
             LED_control(LED_PUMP_1, state);
@@ -114,6 +120,14 @@ void setSwitch(switches_t auto_switch_enum, bool state) {
             break;
         case SW_FAN_2:
             PHAL_writeGPIO(FAN_2_CTRL_GPIO_Port, FAN_2_CTRL_Pin, state);
+            LED_control(LED_FAN_2, state);
+            break;
+        case SW_FAN_3:
+            PHAL_writeGPIO(FAN_3_CTRL_GPIO_Port, FAN_3_CTRL_Pin, state);
+            LED_control(LED_FAN_1, state);
+            break;
+        case SW_FAN_4:
+            PHAL_writeGPIO(FAN_4_CTRL_GPIO_Port, FAN_4_CTRL_Pin, state);
             LED_control(LED_FAN_2, state);
             break;
         case SW_BLT:
@@ -165,6 +179,12 @@ bool getSwitchStatus(switches_t auto_switch_enum) {
             break;
         case SW_FAN_2:
             status = PHAL_readGPIO(FAN_2_CTRL_GPIO_Port, FAN_2_CTRL_Pin);
+            break;
+        case SW_FAN_3:
+            status = PHAL_readGPIO(FAN_3_CTRL_GPIO_Port, FAN_3_CTRL_Pin);
+            break;
+        case SW_FAN_4:
+            status = PHAL_readGPIO(FAN_4_CTRL_GPIO_Port, FAN_4_CTRL_Pin);
             break;
         case SW_BLT:
             status = PHAL_readGPIO(BLT_CTRL_GPIO_Port, BLT_CTRL_Pin);

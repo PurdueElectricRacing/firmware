@@ -31,18 +31,15 @@
 #define VCAN_TX_GPIO_Port (GPIOD)
 #define VCAN_TX_Pin       (1)
 
-// EEPROM
-#define SPI2_SCK_GPIO_Port  (GPIOB)
-#define SPI2_SCK_Pin        (13)
-#define SPI2_MISO_GPIO_Port (GPIOB)
-#define SPI2_MISO_Pin       (14)
-#define SPI2_MOSI_GPIO_Port (GPIOB)
-#define SPI2_MOSI_Pin       (15)
-
-#define EEPROM_nWP_GPIO_Port (GPIOB)
-#define EEPROM_nWP_Pin       (12)
-#define EEPROM_NSS_GPIO_Port (GPIOB)
-#define EEPROM_NSS_Pin       (11)
+// MUX Control
+#define MUX_CTRL_A_GPIO_Port (GPIOB)
+#define MUX_CTRL_A_Pin       (12)
+#define MUX_CTRL_B_GPIO_Port (GPIOE)
+#define MUX_CTRL_B_Pin       (10)
+#define MUX_CTRL_C_GPIO_Port (GPIOB)
+#define MUX_CTRL_C_Pin       (2)
+#define MUX_OUT_GPIO_Port    (GPIOB)
+#define MUX_OUT_Pin          (11)
 
 // LED CTRL
 #define SPI1_SCK_GPIO_Port  (GPIOB)
@@ -86,6 +83,18 @@
 #define FAN_2_PWM_Pin       (11)
 #define FAN_2_PWM_AF        (1)
 
+#define FAN_3_PWM_TIM       (TIM1)
+#define FAN_3_PWM_TIM_CH    (3)
+#define FAN_3_PWM_GPIO_Port (GPIOE)
+#define FAN_3_PWM_Pin       (13)
+#define FAN_3_PWM_AF        (1)
+
+#define FAN_4_PWM_TIM       (TIM1)
+#define FAN_4_PWM_TIM_CH    (4)
+#define FAN_4_PWM_GPIO_Port (GPIOA)
+#define FAN_4_PWM_Pin       (11)
+#define FAN_4_PWM_AF        (1)
+
 #define FAN_1_TACH_TIM       (TIM4)
 #define FAN_1_TACH_TIM_CH    (2)
 #define FAN_1_TACH_GPIO_Port (GPIOB)
@@ -97,6 +106,18 @@
 #define FAN_2_TACH_GPIO_Port (GPIOB)
 #define FAN_2_TACH_Pin       (8)
 #define FAN_2_TACH_AF        (3)
+
+#define FAN_3_TACH_TIM       (TIM4)
+#define FAN_3_TACH_TIM_CH    (4)
+#define FAN_3_TACH_GPIO_Port (GPIOB)
+#define FAN_3_TACH_Pin       (9)
+#define FAN_3_TACH_AF        (2)
+
+#define FAN_4_TACH_TIM       (TIM12)
+#define FAN_4_TACH_TIM_CH    (1)
+#define FAN_4_TACH_GPIO_Port (GPIOB)
+#define FAN_4_TACH_Pin       (14)
+#define FAN_4_TACH_AF        (9)
 
 // Pump Switches (High Power)
 #define PUMP_1_CTRL_GPIO_Port (GPIOB)
@@ -124,16 +145,22 @@
 #define SDC_IMON_ADC_CHNL  (0)
 
 // Fan Switches (Low Power)
-#define FAN_1_CTRL_GPIO_Port (GPIOD)
-#define FAN_1_CTRL_Pin       (9)
+#define FAN_3_CTRL_GPIO_Port (GPIOA)
+#define FAN_3_CTRL_Pin       (9)
+
+#define FAN_4_CTRL_GPIO_Port (GPIOA)
+#define FAN_4_CTRL_Pin       (12)
+
+#define FAN_1_CTRL_GPIO_Port (GPIOC)
+#define FAN_1_CTRL_Pin       (8)
 #define FAN_1_NFLT_GPIO_Port (GPIOD)
 #define FAN_1_NFLT_Pin       (8)
 #define FAN_1_CS_GPIO_Port   (GPIOA)
 #define FAN_1_CS_Pin         (2)
 #define FAN_1_CS_ADC_CHNL    (2)
 
-#define FAN_2_CTRL_GPIO_Port (GPIOD)
-#define FAN_2_CTRL_Pin       (11)
+#define FAN_2_CTRL_GPIO_Port (GPIOC)
+#define FAN_2_CTRL_Pin       (9)
 #define FAN_2_NFLT_GPIO_Port (GPIOD)
 #define FAN_2_NFLT_Pin       (10)
 #define FAN_2_CS_GPIO_Port   (GPIOA)
@@ -165,7 +192,7 @@
 
 // Bullet (Antennae) Switch (Low Power)
 #define BLT_CTRL_GPIO_Port (GPIOE)
-#define BLT_CTRL_Pin       (13)
+#define BLT_CTRL_Pin       (12)
 #define BLT_NFLT_GPIO_Port (GPIOE)
 #define BLT_NFLT_Pin       (14)
 
@@ -218,9 +245,9 @@
 #define LV_3V3_V_SENSE_Pin       (4)
 #define LV_3V3_V_SENSE_ADC_CHNL  (14)
 
-#define EXTERNAL_THERM_GPIO_Port (GPIOA)
-#define EXTERNAL_THERM_Pin       (7)
-#define EXTERNAL_THERM_ADC_CHNL  (7)
+#define DAQ_IMON_GPIO_Port (GPIOA)
+#define DAQ_IMON_Pin       (7)
+#define DAQ_IMON_ADC_CHNL  (7)
 #define INTERNAL_THERM_ADC_CHNL  (16)
 
 #define AMK_25V_V_SENSE_GPIO_PORT (GPIOB)
@@ -244,6 +271,7 @@ typedef struct
     uint16_t main_cs;
     uint16_t dash_cs;
     uint16_t abox_cs;
+    uint16_t daq_imon;
     uint16_t lv_24_v_sense;
     uint16_t lv_24_i_sense;
     uint16_t lv_5_v_sense;

@@ -297,7 +297,11 @@ void adbms_read_therms(ADBMS_bms_t *bms) {
 
     for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
         for (size_t j = 0; j < ADBMS6380_GPIO_COUNT; j++) {
-            float v_out                     = bms->modules[i].therms_voltages[j];
+            float v_out = bms->modules[i].therms_voltages[j];
+            // Avoid divide by 0:
+            if (v_out == ADBMS_GPIO_VIN) {
+                v_out = ADBMS_GPIO_VIN - 0.00001f;
+            }
             float r2                        = (v_out * ADBMS_GPIO_R1) / (ADBMS_GPIO_VIN - v_out);
             bms->modules[i].therms_temps[j] = thermistor_R_to_T(r2);
         }

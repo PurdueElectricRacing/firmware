@@ -21,10 +21,14 @@
 typedef struct {
     uint16_t fan1_speed; // value from 0-100
     uint16_t fan2_speed; // value from 0-100
+    uint16_t fan3_speed; // value from 0-100
+    uint16_t fan4_speed; // value from 0-100
     bool pump1_status;
     bool pump2_status;
     bool fan1_status;
     bool fan2_status;
+    bool fan3_status;
+    bool fan4_status;
     bool aux_status;
 } cooling_request_t;
 

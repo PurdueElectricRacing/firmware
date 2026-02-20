@@ -178,26 +178,6 @@
             "msg_priority": 3
         },
         {
-            "msg_name": "l4_testing_bl_cmd",
-            "msg_desc": "Bootloader command for l4 testing",
-            "signals": [
-                {
-                    "sig_name": "cmd",
-                    "sig_desc": "Bootloader Command type",
-                    "type": "uint8_t",
-                    "length": 8
-                },
-                {
-                    "sig_name": "data",
-                    "sig_desc": "Bootloader data",
-                    "type": "uint32_t",
-                    "length": 32
-                }
-            ],
-            "msg_period": 0,
-            "msg_priority": 3
-        },
-        {
             "msg_name": "f4_testing_bl_cmd",
             "msg_desc": "Bootloader command for f4 testing",
             "signals": [

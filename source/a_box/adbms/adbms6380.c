@@ -86,9 +86,6 @@ void adbms6380_prepare_command(strbuf_t *output_buffer,
 void adbms6380_prepare_data_packet(strbuf_t *output_buffer,
                                    const uint8_t data[ADBMS6380_SINGLE_DATA_RAW_SIZE]) {
     strbuf_append(output_buffer, data, ADBMS6380_SINGLE_DATA_RAW_SIZE);
-    uint16_t pec         = adbms_pec_get_pec10(false, ADBMS6380_SINGLE_DATA_RAW_SIZE, data);
-    uint8_t pec_bytes[2] = {(uint8_t)((pec >> 8) & 0xFF), (uint8_t)(pec & 0xFF)};
-    strbuf_append(output_buffer, pec_bytes, 2);
     uint16_t pec = adbms_pec_get_pec10(false, ADBMS6380_SINGLE_DATA_RAW_SIZE, data);
     uint8_t pec_bytes[ADBMS6380_PEC_SIZE] = {(uint8_t)((pec >> 8) & 0xFF), (uint8_t)(pec & 0xFF)};
     strbuf_append(output_buffer, pec_bytes, ADBMS6380_PEC_SIZE);

@@ -33,7 +33,7 @@ endfunction()
 
 # Helper to get CPU flags based on STM32 Family
 function(get_cpu_flags FAMILY_NAME OUT_FLAGS)
-    if(${FAMILY_NAME} MATCHES "STM32F4.*" OR ${FAMILY_NAME} MATCHES "STM32G4.*" OR ${FAMILY_NAME} MATCHES "STM32L4.*")
+    if(${FAMILY_NAME} MATCHES "STM32F4.*" OR ${FAMILY_NAME} MATCHES "STM32G4.*")
         set(${OUT_FLAGS} "-mcpu=cortex-m4" "-mfloat-abi=hard" "-mfpu=fpv4-sp-d16" PARENT_SCOPE)
     elseif(${FAMILY_NAME} MATCHES "STM32F7.*")
         set(${OUT_FLAGS} "-mcpu=cortex-m7" "-mfloat-abi=hard" "-mfpu=fpv5-d16" PARENT_SCOPE)

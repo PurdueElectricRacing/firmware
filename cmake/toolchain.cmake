@@ -23,7 +23,6 @@ set(C_FLAGS
     "-Og"
     "-g"
     "-Werror"
-    "-DNDEBUG"
 )
 set(LINKER_FLAGS 
     "-Wl,--gc-sections"

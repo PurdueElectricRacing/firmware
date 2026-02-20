@@ -19,7 +19,7 @@
 #define ADBMS_PERIODIC_INTERVAL_MS (250)
 
 // Number of ADBMS modules in the daisy chain.
-#define ADBMS_MODULE_COUNT (3)
+#define ADBMS_MODULE_COUNT (8)
 
 // Max SPI TX is a command + all the data packets for all the modules.
 #define ADBMS_SPI_TX_BUFFER_SIZE \

@@ -144,7 +144,7 @@ void adbms_connect(ADBMS_bms_t *bms) {
 
     // Start ADCV
     strbuf_clear(&bms->tx_strbuf);
-    uint8_t adcv_cmd[2];
+    uint8_t adcv_cmd[2] = {0};
     adbms6380_adcv(adcv_cmd, ADBMS_RD, ADBMS_CONT, ADBMS_DCP, ADBMS_RSTF, ADBMS_OW);
     adbms6380_prepare_command(&bms->tx_strbuf, adcv_cmd);
     adbms6380_set_cs_low(bms->spi);
@@ -261,6 +261,19 @@ void adbms_read_therms(ADBMS_bms_t *bms) {
     for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
         gpio_voltage_ptrs[i] = bms->modules[i].thermistors;
     }
+
+    // Start ADAX
+    strbuf_clear(&bms->tx_strbuf);
+    uint8_t adax_cmd[2] = {0};
+    adbms6380_adax(adax_cmd, 0, 0, 0);
+    adbms6380_prepare_command(&bms->tx_strbuf, adax_cmd);
+    adbms6380_set_cs_low(bms->spi);
+    if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
+        adbms6380_set_cs_high(bms->spi);
+        bms->err_spi     = true;
+        return;
+    }
+    adbms6380_set_cs_high(bms->spi);
 
     if (!adbms6380_read_gpio_voltages(bms->spi,
                                       &bms->tx_strbuf,

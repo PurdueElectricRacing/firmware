@@ -102,7 +102,7 @@ float adbms6380_raw_to_gpio_v(int16_t raw);
  */
 void adbms6380_adcv(uint8_t *output_cmd, bool rd, bool cont, bool dcp, bool rstf, uint8_t ow);
 /**
- * @brief Build ADSV (aux) command bytes.
+ * @brief Build ADSV command bytes.
  *
  * @param output_cmd Output buffer for 2-byte command.
  * @param cont Continuous conversion enable.
@@ -110,6 +110,19 @@ void adbms6380_adcv(uint8_t *output_cmd, bool rd, bool cont, bool dcp, bool rstf
  * @param ow Open-wire setting (2-bit).
  */
 void adbms6380_adsv(uint8_t *output_cmd, bool cont, bool dcp, uint8_t ow);
+
+/**
+ * @brief Build ADAX (aux) command bytes.
+ * 
+ * @param output_cmd Output buffer for 2-byte command.
+ * @param ow Open-wire detection enable.
+ * @param pup Pull-up enable for open-wire detection.
+ * @param ch Channel selection (5-bit). 0 for all.
+ */
+void adbms6380_adax(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE],
+                    bool ow,
+                    bool pup,
+                    uint8_t ch);
 
 /**
  * @brief Append a command and its PEC to an output buffer.

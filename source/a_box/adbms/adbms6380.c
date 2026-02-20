@@ -75,6 +75,18 @@ void adbms6380_adsv(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE],
     output_cmd[1] = ((uint8_t)cont << 7) + ((uint8_t)dcp << 4) + (ow & 0x03) + 0x68;
 }
 
+void adbms6380_adax(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE],
+                    bool ow,
+                    bool pup,
+                    uint8_t ch) {
+    // 10-0: 1 0 OW PUP CH[4] 0 1 CH[3] CH[2] CH[1] CH[0]
+    output_cmd[0] = 0b100 | (uint8_t)ow;
+    output_cmd[1] = (uint8_t)pup << 7
+                    | ((ch >> 4) & 1) << 6
+                    | 0b01 << 4
+                    | (ch & 0b01111);
+}
+
 void adbms6380_prepare_command(strbuf_t *output_buffer,
                                const uint8_t command[ADBMS6380_COMMAND_RAW_SIZE]) {
     strbuf_append(output_buffer, command, ADBMS6380_COMMAND_RAW_SIZE);

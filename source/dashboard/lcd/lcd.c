@@ -1071,18 +1071,18 @@ void raceTelemetryUpdate() {
                 NXT_setFontColor(CAR_STAT, GREEN);
                 NXT_setText(CAR_STAT, "R2D");
                 break;
-            case CARSTATE_ERROR:
-                NXT_setFontColor(CAR_STAT, YELLOW);
-                NXT_setText(CAR_STAT, "ERROR");
-                break;
+            // case CARSTATE_ERROR:
+            //     NXT_setFontColor(CAR_STAT, YELLOW);
+            //     NXT_setText(CAR_STAT, "ERROR");
+            //     break;
             case CARSTATE_FATAL:
                 NXT_setFontColor(CAR_STAT, RED);
                 NXT_setText(CAR_STAT, "FATAL");
                 break;
-            case CARSTATE_CONSTANT_TORQUE:
-                NXT_setFontColor(CAR_STAT, GREEN);
-                NXT_setText(CAR_STAT, "CONST TRQ");
-                break;
+            // case CARSTATE_CONSTANT_TORQUE:
+            //     NXT_setFontColor(CAR_STAT, GREEN);
+            //     NXT_setText(CAR_STAT, "CONST TRQ");
+            //     break;
             default:
                 NXT_setFontColor(CAR_STAT, WHITE);
                 NXT_setText(CAR_STAT, "UNKNOWN");

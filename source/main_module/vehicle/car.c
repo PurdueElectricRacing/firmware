@@ -1,4 +1,4 @@
-#include "common/amk/amk.h"
+// #include "common/amk/amk.h"
 #include "common/can_library/faults_common.h"
 #include "common/can_library/generated/MAIN_MODULE.h"
 #include "common/can_library/generated/can_types.h"
@@ -8,10 +8,10 @@ static constexpr uint32_t MIN_BUZZING_TIME_MS = 2500;
 typedef struct {
     CarState_t current_state;
     CarState_t next_state;
-    amk_motor_t amk_front_right;
-    amk_motor_t amk_front_left;
-    amk_motor_t amk_rear_left;
-    amk_motor_t amk_rear_right;
+    // amk_motor_t amk_front_right;
+    // amk_motor_t amk_front_left;
+    // amk_motor_t amk_rear_left;
+    // amk_motor_t amk_rear_right;
 
     uint32_t buzzer_start_time;
 

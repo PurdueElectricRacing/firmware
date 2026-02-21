@@ -1,6 +1,6 @@
 {
     "node_name": "INVERTER_B",
-    "bus_name": "VCAN",
+    "bus_name": "MCAN",
     "tx": [
         {
             "msg_name": "INVB_CRIT",

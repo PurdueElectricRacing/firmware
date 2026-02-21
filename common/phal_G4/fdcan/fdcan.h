@@ -104,7 +104,7 @@ extern void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg);
                  GPIO_OUTPUT_ULTRA_SPEED, \
                  GPIO_OUTPUT_PUSH_PULL, \
                  GPIO_INPUT_OPEN_DRAIN)
-#define GPIO_INIT_FDCAN3RX_PA15 \
+#define GPIO_INIT_FDCAN3TX_PA15 \
     GPIO_INIT_AF(GPIOA, \
                  15, \
                  AF_NUM_FDCAN13, \

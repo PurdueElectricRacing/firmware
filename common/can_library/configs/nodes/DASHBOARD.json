@@ -299,18 +299,6 @@
                 },
                 {
                     "msg_name": "gps_speed"
-                },
-                {
-                    "msg_name": "INVA_TEMPS"
-                },
-                {
-                    "msg_name": "INVB_TEMPS"
-                },
-                {
-                    "msg_name": "INVA_CRIT"
-                },
-                {
-                    "msg_name": "INVB_CRIT"
                 }
             ]
         }

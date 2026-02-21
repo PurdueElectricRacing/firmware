@@ -1,5 +1,5 @@
 /**
- * @file amk2.c
+ * @file amk.c
  * @brief Modernized AMK driver
  * 
  * @author Irving Wang (irvingw@purdue.edu)
@@ -7,7 +7,7 @@
  * @author Chris McGalliard (cpmcgalliard@gmail.com)
  */
 
-#include "amk2.h"
+#include "common/amk/amk.h"
 
 // Diagnostic IDs
 static constexpr uint32_t AMK_CAN_ERR_ID = 3587U;

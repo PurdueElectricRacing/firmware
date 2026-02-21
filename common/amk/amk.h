@@ -1,5 +1,5 @@
 /**
- * @file amk2.h
+ * @file amk.h
  * @brief Modernized AMK driver
  * 
  * @author Irving Wang (irvingw@purdue.edu)
@@ -7,8 +7,8 @@
  * @author Chris McGalliard (cpmcgalliard@gmail.com)
  */
 
-#ifndef AMK2_H
-#define AMK2_H
+#ifndef AMK_H
+#define AMK_H
 
 #include "common/can_library/generated/MCAN.h"
 #include <stdint.h>
@@ -57,4 +57,4 @@ void AMK_reset(AMK_t* amk);
 void AMK_set_torque(AMK_t* amk, int16_t torque_percent);
 void AMK_periodic(AMK_t* amk);
 
-#endif // AMK2_H
+#endif // AMK_H

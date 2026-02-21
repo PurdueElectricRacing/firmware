@@ -3,6 +3,7 @@
  * @brief "Main Module" node source code
  * 
  * @author Irving Wang (irvingw@purdue.edu)
+ * 
  */
 
 #include "main.h"
@@ -21,6 +22,7 @@ GPIOInitConfig_t gpio_config[] = {
     // Status LEDs
     GPIO_INIT_OUTPUT(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(ERROR_LED_PORT, ERROR_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(CONNECTION_LED_PORT, CONNECTION_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
 
     // VCAN
     GPIO_INIT_FDCAN2TX_PB13,
@@ -85,12 +87,18 @@ void amk_test_thread() {
     AMK_periodic(&test_amk);
 }
 
+void can_worker_task() {
+    CAN_tx_update();
+    CAN_rx_update();
+}
+
 defineThreadStack(ledblink, 500, osPriorityLow, 256);
+defineThreadStack(can_worker_task, 20, osPriorityNormal, 512);
 
 // defineThreadStack(amk_test_thread, 200, osPriorityNormal, 2048);
 
 int main(void) {
-    // Hardware Initilization
+    // Hardware Initialization
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
@@ -98,15 +106,16 @@ int main(void) {
         HardFault_Handler();
     }
 
-    if (false == PHAL_FDCAN_init(FDCAN1, false, VCAN_BAUD_RATE)) {
+    if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
-    if (false == PHAL_FDCAN_init(FDCAN2, false, MCAN_BAUD_RATE)) {
+    if (false == PHAL_FDCAN_init(FDCAN3, false, MCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
 
-    NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
+    NVIC_EnableIRQ(FDCAN3_IT0_IRQn);
+    CAN_library_init();
 
     // Bench Test Initialization
     is_precharge_complete = true;
@@ -124,10 +133,11 @@ int main(void) {
     // ! test 1, constant torque
     AMK_set_torque(&test_amk, 5); // Request 5% torque for bench test
 
-    // Software Initalization
+    // Software Initialization
     osKernelInitialize();
 
     createThread(ledblink);
+    createThread(can_worker_task);
     // ! test 2, state machine
     // createThread(amk_test_thread);
 
@@ -137,11 +147,15 @@ int main(void) {
     return 0;
 }
 
+void main_module_bl_cmd_CALLBACK(can_data_t* can_data) {
+    (void)can_data;
+}
+
 // todo reboot on hardfault
 void HardFault_Handler() {
     __disable_irq();
     SysTick->CTRL        = 0;
-    ERROR_LED_PORT->BSRR = ERROR_LED_PIN;
+    ERROR_LED_PORT->BSRR = (1 << ERROR_LED_PIN);
     while (1) {
         __asm__("NOP"); // Halt forever
     }

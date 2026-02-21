@@ -45,7 +45,7 @@ set(COMMON_MODULES
     common/queue
     common/common_defs
     common/log
-    common/amk
+    # common/amk
     common/strbuf
     common/lerp_lut
     common/syscalls

@@ -17,11 +17,18 @@
 #include "common/phal/rcc.h"
 #include "amk/amk2.h"
 
-/* PER HAL Initilization Structures */
+/* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
     // Status LEDs
     GPIO_INIT_OUTPUT(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(ERROR_LED_PORT, ERROR_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
+
+    // VCAN
+    GPIO_INIT_FDCAN2TX_PB13,
+    GPIO_INIT_FDCAN2RX_PB12,
+    // MCAN
+    GPIO_INIT_FDCAN3TX_PA15,
+    GPIO_INIT_FDCAN3RX_PA8
 };
 
 static constexpr uint32_t TargetCoreClockrateHz = 16000000;
@@ -45,6 +52,17 @@ bool is_precharge_complete = false;
 
 extern void HardFault_Handler(void);
 
+void ledblink() {
+    PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
+}
+
+void amk_test_thread() {
+    AMK_periodic(&test_amk);
+}
+
+defineThreadStack(ledblink, 500, osPriorityLow, 256);
+// defineThreadStack(amk_test_thread, 500, osPriorityNormal, 2048);
+
 int main(void) {
     // Hardware Initilization
     if (0 != PHAL_configureClockRates(&clock_config)) {
@@ -64,11 +82,13 @@ int main(void) {
     NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
 
-    AMK_init(&test_amk, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, &is_precharge_complete);
+    // AMK_init(&test_amk, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, &is_precharge_complete);
 
     // Software Initalization
     osKernelInitialize();
 
+    createThread(ledblink);
+    // createThread(amk_test_thread);
 
     // no way home
     osKernelStart();

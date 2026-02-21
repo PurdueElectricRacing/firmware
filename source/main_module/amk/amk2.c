@@ -1,52 +1,119 @@
-#include "common/can_library/generated/MAIN_MODULE.h"
+/**
+ * @file amk2.c
+ * @brief Modernized AMK driver
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
 
-typedef enum : uint8_t {
-    AMK_STATE_OFF     = 0,
-    AMK_STATE_INIT    = 1,
-    AMK_STATE_RUNNING = 2
-} AMK_motor_state_t;
+#include "amk2.h"
 
-typedef struct {
-    uint8_t AMK_bReserve1; /* Reserved */
-    bool AMK_bInverterOn;  /* Controller Enable */
-    bool AMK_bDcOn;        /* HV activiation */
-    bool AMK_bEnable;      /* Driver Enable */
-    bool AMK_bErrorReset;  /* Remove Error */
-    bool AMK_bReserve2;    /* Reserved */
-} AMK_Control_t;
+// Diagnostic IDs
+static constexpr uint32_t AMK_CAN_ERR_ID = 3587U;
+static constexpr uint32_t AMK_DC_BUS_ID  = 1049U;
 
-typedef struct {
-    void (*set_function)(void);
-    void (*log_function)(void);
-    // sus, but all them should be the same (will need a cast)
-    INVA_SET_data_t *data;
-    AMK_Control_t control;
-    AMK_motor_state_t state;
-    // todo precharge
-} AMK_t;
+// Default limits in ppt (parts per thousand)
+static constexpr int16_t AMK_DEFAULT_POS_LIMIT = 2140;
+static constexpr int16_t AMK_DEFAULT_NEG_LIMIT = -1;
 
-void AMK_init(AMK_t* amk, void (*set_function)(void), void (*log_function)(void), INVA_SET_data_t* data) {
+void AMK_init(
+    AMK_t *amk,
+    void (*set_func)(void),
+    void (*log_func)(void),
+    INVA_SET_data_t *set,
+    INVA_CRIT_data_t *crit,
+    INVA_INFO_data_t *info,
+    INVA_TEMPS_data_t *temps,
+    INVA_ERR_1_data_t *err1,
+    INVA_ERR_2_data_t *err2,
+    bool *is_precharge_complete
+) {
+    amk->next_state = AMK_STATE_OFF;
     amk->state = AMK_STATE_OFF;
-    amk->set_function = set_function;
-    amk->log_function = log_function;
-    amk->data = data;
-    amk->control = (AMK_Control_t){0};
+    amk->set_function = set_func;
+    amk->log_function = log_func;
+    amk->set = set;
+    amk->crit = crit;
+    amk->info = info;
+    amk->temps = temps;
+    amk->err1 = err1;
+    amk->err2 = err2;
+    amk->pchg_complete = is_precharge_complete;
 }
 
 void AMK_reset(AMK_t* amk) {
-    amk->control.AMK_bErrorReset = true;
-    amk->control.AMK_bInverterOn = false;
-
+    amk->set->AMK_Control_bErrorReset = true;
+    amk->set->AMK_Control_bInverterOn = false;
+    amk->set->AMK_TorqueSetpoint = 0;
 }
 
+void AMK_set_torque(AMK_t* amk, int16_t torque_percent) {
+    if (torque_percent > 100) torque_percent = 100;
+    if (torque_percent < 0) torque_percent = 0;
+
+    // Scale to ppt (parts per thousand)
+    amk->set->AMK_TorqueSetpoint = torque_percent * 10;
+}
+
+static void AMK_stop(AMK_t* amk) {
+    amk->set->AMK_Control_bDcOn = false;
+    amk->set->AMK_Control_bInverterOn = false;
+    amk->set->AMK_Control_bEnable = false;
+    amk->set->AMK_TorqueSetpoint = 0;
+    amk->set->AMK_PositiveTorqueLimit = 0;
+    amk->set->AMK_NegativeTorqueLimit = AMK_DEFAULT_NEG_LIMIT;
+}
+
+
 void AMK_periodic(AMK_t* amk) {
+    amk->state = amk->next_state;
+    amk->next_state = amk->state; // default: stay in current state
+
+    bool is_ready = *(amk->pchg_complete) && amk->info->AMK_Status_bSystemReady;
+    bool is_bError = amk->info->AMK_Status_bError;
+    bool is_simple_error = (amk->err1->AMK_DiagnosticNumber == AMK_CAN_ERR_ID || 
+                            amk->err1->AMK_DiagnosticNumber == AMK_DC_BUS_ID);
+
     switch(amk->state) {
         case AMK_STATE_OFF:
-        // transition logic ONLY, otherwise call the function
-        break;
+            if (is_bError && is_simple_error) {
+                AMK_reset(amk);
+            } else if (!is_bError && is_ready) {
+                amk->next_state = AMK_STATE_INIT;
+            }
+            break;
+
         case AMK_STATE_INIT:
-        break;
+            if (!is_ready) {
+                AMK_stop(amk);
+                amk->next_state = AMK_STATE_OFF;
+                break;
+            }
+
+            amk->set->AMK_TorqueSetpoint = 0;
+            amk->set->AMK_PositiveTorqueLimit = 0;
+            amk->set->AMK_NegativeTorqueLimit = 0;
+            amk->set->AMK_Control_bDcOn = true;
+            amk->set->AMK_Control_bInverterOn = true;
+            amk->set->AMK_Control_bEnable = true;
+            amk->next_state = AMK_STATE_RUNNING;
+            break;
+
         case AMK_STATE_RUNNING:
-        break;
+            if (!is_ready || is_bError) {
+                AMK_stop(amk);
+                amk->next_state = AMK_STATE_OFF;
+                break;
+            }
+
+            amk->set->AMK_PositiveTorqueLimit = AMK_DEFAULT_POS_LIMIT;
+            amk->set->AMK_NegativeTorqueLimit = AMK_DEFAULT_NEG_LIMIT;
+            break;
     }
+
+    // flush the internal state to the CAN library
+    if (amk->set_function) amk->set_function();
+    if (amk->log_function) amk->log_function();
+
+    // clear error reset
+    amk->set->AMK_Control_bErrorReset = false;
 }

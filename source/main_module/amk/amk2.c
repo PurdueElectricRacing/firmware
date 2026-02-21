@@ -18,13 +18,14 @@ typedef struct {
 typedef struct {
     void (*set_function)(void);
     void (*log_function)(void);
-    INVA_SET_data_t *data; // sus, but all them should be the same
+    // sus, but all them should be the same (will need a cast)
+    INVA_SET_data_t *data;
     AMK_Control_t control;
     AMK_motor_state_t state;
     // todo precharge
-} amk_t;
+} AMK_t;
 
-void AMK_init(amk_t* amk, void (*set_function)(void), void (*log_function)(void), INVA_SET_data_t* data) {
+void AMK_init(AMK_t* amk, void (*set_function)(void), void (*log_function)(void), INVA_SET_data_t* data) {
     amk->state = AMK_STATE_OFF;
     amk->set_function = set_function;
     amk->log_function = log_function;
@@ -32,13 +33,13 @@ void AMK_init(amk_t* amk, void (*set_function)(void), void (*log_function)(void)
     amk->control = (AMK_Control_t){0};
 }
 
-void AMK_reset(amk_t* amk) {
+void AMK_reset(AMK_t* amk) {
     amk->control.AMK_bErrorReset = true;
     amk->control.AMK_bInverterOn = false;
-    
+
 }
 
-void AMK_periodic(amk_t* amk) {
+void AMK_periodic(AMK_t* amk) {
     switch(amk->state) {
         case AMK_STATE_OFF:
         // transition logic ONLY, otherwise call the function

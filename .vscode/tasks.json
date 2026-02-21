@@ -4,34 +4,10 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "python3 per_build.py",
+            "command": "clear && python3 per_build.py",
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
-        },
-        {
-            "label": "build with fanalyzer",
-            "type": "shell",
-            "command": "python3 per_build.py --fanalyzer",
-            "group": {
-                "kind": "build"
-            }
-        },
-        {
-            "label": "build with bootloader",
-            "type": "shell",
-            "command": "python3 per_build.py --bootloader",
-            "group": {
-                "kind": "build"
-            }
-        },
-        {
-            "label": "clean",
-            "type": "shell",
-            "command": "python3 per_build.py --clean",
-            "group": {
-                "kind": "build"
             }
         },
         {

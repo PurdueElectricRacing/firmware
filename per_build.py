@@ -61,18 +61,6 @@ parser.add_option("-l", "--list",
     help="List boards targets available to build"
 )
 
-parser.add_option("-c", "--clean",
-    dest="clean",
-    action="store_true", default=False,
-    help="Remove build artifacts"
-)
-
-parser.add_option("--release",
-    dest="release",
-    action="store_true", default=False,
-    help="Build for release (optimized)"
-)
-
 parser.add_option("-b", "--bootloader",
     dest="bootloader",
     action="store_true", default=False,
@@ -89,12 +77,6 @@ parser.add_option("-p", "--package",
     dest="package",
     action="store_true", default=False,
     help="package build output into tarball with CRCs, suffixed by Git hash"
-)
-
-parser.add_option("-a", "--fanalyzer",
-    dest="fanalyzer",
-    action="store_true", default=False,
-    help="build with static analysis"
 )
 
 def print_available_targets():
@@ -122,7 +104,6 @@ if options.list:
     print_available_targets()
     sys.exit(0)
 
-BUILD_TYPE = "Release" if options.release else "Debug"
 VERBOSE = "--verbose" if options.verbose else ""
 
 # Prepare MODULES string for CMake
@@ -134,46 +115,42 @@ else:
     cmake_modules_str = ""
     ninja_targets = ["all"]
 
-# Always clean if we specify
-if options.clean or options.package:
-    subprocess.run(["cmake", "-E", "rm", "-rf", str(BUILD_DIR), str(OUT_DIR), str(CAN_GEN_DIR)])
-    print("Build, output, and generated CAN directories clean.")
+# Always clean for a fresh build environment
+subprocess.run(["cmake", "-E", "rm", "-rf", str(BUILD_DIR), str(OUT_DIR), str(CAN_GEN_DIR)])
+print("Build, output, and generated CAN directories clean.")
 
-# Build the target if specified or we did not clean
-if options.target or not options.clean:
-    CMAKE_OPTIONS = [
-        "-S", str(SOURCE_DIR),
-        "-B", str(BUILD_DIR),
-        "-G", "Ninja",
-        f"-DCMAKE_BUILD_TYPE={BUILD_TYPE}",
-        f"-DBOOTLOADER_BUILD={'ON' if options.bootloader else 'OFF'}",
-        f"-DMODULES={cmake_modules_str}",
-        f"-DUSE_FANALYZER={'ON' if options.fanalyzer else 'OFF'}"
-    ]
+# Configure and Build
+CMAKE_OPTIONS = [
+    "-S", str(SOURCE_DIR),
+    "-B", str(BUILD_DIR),
+    "-G", "Ninja",
+    f"-DBOOTLOADER_BUILD={'ON' if options.bootloader else 'OFF'}",
+    f"-DMODULES={cmake_modules_str}"
+]
 
-    NINJA_OPTIONS = ["-C", str(BUILD_DIR)] + ninja_targets
-    NINJA_COMMAND = ["ninja"] + NINJA_OPTIONS
+NINJA_OPTIONS = ["-C", str(BUILD_DIR)] + ninja_targets
+NINJA_COMMAND = ["ninja"] + NINJA_OPTIONS
 
-    try:
-        subprocess.run(["cmake"] + CMAKE_OPTIONS, check=True)
-    except subprocess.CalledProcessError as e:
-        log_error("Unable to configure CMake, see the CMake output above.")
-        sys.exit(1)
+try:
+    subprocess.run(["cmake"] + CMAKE_OPTIONS, check=True)
+except subprocess.CalledProcessError as e:
+    log_error("Unable to configure CMake, see the CMake output above.")
+    sys.exit(1)
 
-    log_success("Sucessfully generated build files.")
-    print(f"Running Build command {' '.join(NINJA_COMMAND)}")
+log_success("Sucessfully generated build files.")
+print(f"Running Build command {' '.join(NINJA_COMMAND)}")
 
-    try:
-        ninja_build = subprocess.run(NINJA_COMMAND)
-    except subprocess.CalledProcessError as e:
-        log_error("Unable to configure compile sources, see the Ninja output above.")
-        sys.exit(1)
+try:
+    ninja_build = subprocess.run(NINJA_COMMAND)
+except subprocess.CalledProcessError as e:
+    log_error("Unable to configure compile sources, see the Ninja output above.")
+    sys.exit(1)
 
-    if ninja_build.returncode != 0:
-        log_error("Unable to generate targets.")
-        sys.exit(1)
-    else:
-        log_success("Sucessfully built targets.")
+if ninja_build.returncode != 0:
+    log_error("Unable to generate targets.")
+    sys.exit(1)
+else:
+    log_success("Sucessfully built targets.")
 
 # package logic
 def get_git_hash_or_tag():

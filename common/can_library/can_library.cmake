@@ -1,4 +1,7 @@
-cmake_minimum_required(VERSION 3.13)
+if(_CAN_LIBRARY_INCLUDED)
+    return()
+endif()
+set(_CAN_LIBRARY_INCLUDED TRUE)
 
 # 1. Define the path to the generated directory
 set(CAN_LIB_DIR ${CMAKE_CURRENT_LIST_DIR})
@@ -15,16 +18,6 @@ execute_process(
 
 if (NOT CAN_GEN_RESULT EQUAL 0)
     message(FATAL_ERROR "CAN generation failed during configuration! Return code: ${CAN_GEN_RESULT}")
-endif()
-
-# 2. Define the command to run the generator
-if (NOT TARGET can_generation)
-    add_custom_target(can_generation ALL
-        COMMAND python3 ${CAN_LIB_DIR}/canpiler/build.py
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        COMMENT "Updating CAN Library..."
-        USES_TERMINAL
-    )
 endif()
 
 # 3. Create Node-Specific Libraries
@@ -50,7 +43,4 @@ macro(create_can_node_lib NODE_NAME ARCH_LIB)
 	
 	# Include the current directory so FreeRTOSConfig.h can be found if needed
 	target_include_directories(${LIB_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-
-	# Ensure generation happens before compilation
-	add_dependencies(${LIB_NAME} can_generation)
 endmacro()

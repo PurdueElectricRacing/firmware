@@ -1,123 +1,47 @@
 
-# Create an executiable with the following features:
-# The provided target must have the required properties outlined in the root CMakeLists.txt directory
-# The resulting binary will have the following:
-#   All .c files are added from the root and child directories of "_COMPONENT_DIR"
-#   All .h files in root and child directories of "_COMPONENT_DIR" are included without prefix
-#       - a file like "/source/dashboard/apps/apps.h" can be included like #include "apps.h"
-#   All CMAKE libraries specified in "COMMON_LIBS" are linked, defaults to L432 common libs
-#   Linked using the "LINKER_SCRIPT" file, defaults to L432
-MACRO(COMMON_FIRMWARE_COMPONENT TARGET_NAME)
+# Function to add a firmware component
+# Usage:
+# add_firmware_component(
+#     NAME <name>
+#     LINKER_SCRIPT <script_base_name>
+#     LIBS <list_of_libs>
+#     [IS_BOOTLOADER]
+# )
+function(add_firmware_component)
+    set(options IS_BOOTLOADER)
+    set(oneValueArgs NAME LINKER_SCRIPT OUTPUT_DIR)
+    set(multiValueArgs LIBS)
+    cmake_parse_arguments(ARG "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
-    # Setup Component name based on directory
-    get_target_property(_COMPONENT_NAME ${TARGET_NAME} COMPONENT_NAME)
-    get_target_property(_COMPONENT_DIR  ${TARGET_NAME} COMPONENT_DIR)
-    get_target_property(_LINKER_SCRIPT  ${TARGET_NAME} LINKER_SCRIPT)
-    get_target_property(_COMMON_LIBS    ${TARGET_NAME} COMMON_LIBS)
+    set(TARGET_NAME ${ARG_NAME}.elf)
+    add_executable(${TARGET_NAME})
 
-    # Default values for target props.
-    if (NOT _LINKER_SCRIPT)
-        message(FATAL_ERROR "Missing Linker Script definition for target ${TARGET_NAME}")
-    endif()
-    if (NOT _COMMON_LIBS)
-        message(FATAL_ERROR "Missing Common Libraries definition for target ${TARGET_NAME}")
-    endif()
+    # Link common libs
+    target_link_libraries(${TARGET_NAME} PRIVATE common_defs SYSCALLS ${ARG_LIBS})
 
-    # Add Common libraries
-    foreach (_LIB_NAME IN ITEMS ${_COMMON_LIBS})
-        target_link_libraries(${TARGET_NAME} ${_LIB_NAME})
+    # Sources: include all .c files in current directory and subdirectories
+    file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/*.c")
+    list(FILTER SOURCES EXCLUDE REGEX "test_.*|.*starter.*")
+    target_sources(${TARGET_NAME} PRIVATE ${SOURCES})
+
+    # Includes: current directory and all subdirectories
+    target_include_directories(${TARGET_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+    RECURSE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR} "*.h" INCLUDE_DIRS)
+    foreach(DIR ${INCLUDE_DIRS})
+        target_include_directories(${TARGET_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/${DIR})
     endforeach()
-    target_link_libraries(${TARGET_NAME} common_defs)
-    target_link_libraries(${TARGET_NAME} SYSCALLS)
 
-    # Force this component to wait for CAN generation before compiling any of its .c files
-    if (TARGET can_generation)
-        add_dependencies(${TARGET_NAME} can_generation)
-    endif()
-
-    target_link_options(${TARGET_NAME} PRIVATE
-        "-Wl,--whole-archive"
-        "$<TARGET_FILE:SYSCALLS>"
-        "-Wl,--no-whole-archive"
-    )
-
-    # Find all .c sources in project, recursive search starting at component root
-    file(GLOB_RECURSE glob_sources ${_COMPONENT_DIR}/*.c)
-    # Exclude if it is a test file
-    list(FILTER glob_sources EXCLUDE REGEX "test_.*")
-    # Exclude starter files (templates used for code generation)
-    list(FILTER glob_sources EXCLUDE REGEX ".*starter.*")
-    target_sources(${TARGET_NAME} PUBLIC ${glob_sources})
-
-    # Find directories for '#include'
-    SUBDIRLIST(${_COMPONENT_DIR} include_dirs)
-    target_include_directories(${TARGET_NAME} PUBLIC ${include_dirs} ${_COMPONENT_DIR})
-
-    # Linker options
-    if(BOOTLOADER_BUILD)
-        target_link_options(${TARGET_NAME} PUBLIC
-            -T${COMMON_SOURCE_DIR}/linker/${_LINKER_SCRIPT}_APP.ld
-        )
+    # Linker script logic
+    if(BOOTLOADER_BUILD AND NOT ARG_IS_BOOTLOADER)
+        set(LS_SUFFIX "_APP.ld")
+    elseif(ARG_IS_BOOTLOADER)
+        set(LS_SUFFIX "_BL.ld")
     else()
-        target_link_options(${TARGET_NAME} PUBLIC
-            -T${COMMON_SOURCE_DIR}/linker/${_LINKER_SCRIPT}.ld
-        )
+        set(LS_SUFFIX ".ld")
     endif()
+    
+    target_link_options(${TARGET_NAME} PRIVATE -T${COMMON_SOURCE_DIR}/linker/${ARG_LINKER_SCRIPT}${LS_SUFFIX})
 
-    # Run postbuild actions like including a bootloader in the final image
-    postbuild_target(${TARGET_NAME})
-ENDMACRO()
-
-# Same as above but defaults to xx_BL.ld for the linker script in bootloader builds
-MACRO(COMMON_BOOTLOADER_COMPONENT TARGET_NAME)
-
-    # Setup Component name based on directory
-    get_target_property(_COMPONENT_NAME ${TARGET_NAME} COMPONENT_NAME)
-    get_target_property(_COMPONENT_DIR  ${TARGET_NAME} COMPONENT_DIR)
-    get_target_property(_LINKER_SCRIPT  ${TARGET_NAME} LINKER_SCRIPT)
-    get_target_property(_COMMON_LIBS    ${TARGET_NAME} COMMON_LIBS)
-
-    # Default values for target props.
-    # if (NOT _LINKER_SCRIPT)
-    #     set(_LINKER_SCRIPT "STM32L432KCUx_FLASH")
-    # endif()
-    # if (NOT _COMMON_LIBS)
-    #     set(_COMMON_LIBS "CMSIS_L432;PHAL_L432;PSCHED;QUEUE;")
-    # endif()
-
-    # Add Common libraries
-    foreach (_LIB_NAME IN ITEMS ${_COMMON_LIBS})
-        target_link_libraries(${TARGET_NAME} ${_LIB_NAME})
-    endforeach()
-    target_link_libraries(${TARGET_NAME} common_defs)
-    target_link_libraries(${TARGET_NAME} SYSCALLS)
-
-    # Force this component to wait for CAN generation before compiling any of its .c files
-    if (TARGET can_generation)
-        add_dependencies(${TARGET_NAME} can_generation)
-    endif()
-
-    target_link_options(${TARGET_NAME} PRIVATE
-        "-Wl,--whole-archive"
-        "$<TARGET_FILE:SYSCALLS>"
-        "-Wl,--no-whole-archive"
-    )
-
-    # Find all .c sources in project, recursive search starting at component root
-    file(GLOB_RECURSE glob_sources ${_COMPONENT_DIR}/*.c)
-    # Exclude starter files (templates used for code generation)
-    list(FILTER glob_sources EXCLUDE REGEX ".*starter.*")
-    target_sources(${TARGET_NAME} PUBLIC ${glob_sources})
-
-    # Find directories for '#include'
-    SUBDIRLIST(${_COMPONENT_DIR} include_dirs)
-    target_include_directories(${TARGET_NAME} PUBLIC ${include_dirs} ${_COMPONENT_DIR})
-
-    # Linker options
-    target_link_options(${TARGET_NAME} PUBLIC
-        -T${COMMON_SOURCE_DIR}/linker/${_LINKER_SCRIPT}_BL.ld
-    )
-
-    # Run postbuild actions like including a bootloader in the final image
-    postbuild_target(${TARGET_NAME})
-ENDMACRO()
+    # Post-build actions
+    postbuild_target(${TARGET_NAME} ${ARG_NAME} "${ARG_OUTPUT_DIR}")
+endfunction()

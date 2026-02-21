@@ -89,7 +89,7 @@ void amk_test_thread() {
 
     if (test_amk.state == AMK_STATE_RUNNING) {
         // ! test 1, constant torque
-         AMK_set_torque(&test_amk, 0);
+         AMK_set_torque(&test_amk, 2);
     } else {
         // AMK_set_torque(&test_amk, 0);
     }
@@ -104,7 +104,7 @@ void can_worker_task() {
 defineThreadStack(ledblink, 500, osPriorityLow, 256);
 defineThreadStack(can_worker_task, 20, osPriorityNormal, 512);
 
-defineThreadStack(amk_test_thread, 20, osPriorityNormal, 2048);
+defineThreadStack(amk_test_thread, 15, osPriorityNormal, 2048);
 
 int main(void) {
     // Hardware Initialization

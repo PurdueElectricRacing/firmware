@@ -4,16 +4,13 @@
             "name": "CarState_t",
             "base_type": "uint8_t",
             "choices": [
+                "init",
                 "idle",
                 "precharging",
                 "energized",
                 "buzzing",
                 "ready2drive",
-                "error",
-                "fatal",
-                "reset",
-                "recover",
-                "constant_torque"
+                "fatal"
             ]
         },
         {

@@ -62,12 +62,15 @@ static_assert(PER == GREAT); // Long live daq loop
 
 #define SD_WRITE_PERIOD_MS    (100)
 #define SD_NEW_FILE_PERIOD_MS (1 * 60 * 1000) // 1 min
-#define SD_MAX_WRITE_COUNT    (500)
+#define SD_MAX_WRITE_COUNT    (100)
 #define SD_ERROR_RETRY_MS     (250)
 #define ETH_ERROR_RETRY_MS    (250)
+#define SD_BLOCKING_TIMEOUT_MS (5000)
 
 #define UDP_MAX_BUFFER_SIZE (8192)
 #define UDP_MAX_WRITE_COUNT (UDP_MAX_BUFFER_SIZE / (sizeof(timestamped_frame_t)))
+
+constexpr TickType_t SD_BLOCKING_TIMEOUT_TICKS = pdMS_TO_TICKS(SD_BLOCKING_TIMEOUT_MS); 
 
 typedef enum {
     RX_TAIL_CAN_RX = 0, //!< CAN rx message parsing
@@ -83,7 +86,7 @@ typedef enum {
     TCP_RX_TAIL_COUNT  = 2,
 } tcp_rx_tail_t;
 
-extern b_handle_t b_rx_can;
+extern SPMC_t queue;
 extern QueueHandle_t q_tcp_tx;
 extern QueueHandle_t q_can1_rx;
 extern timestamped_frame_t tcp_rx_buf[TCP_RX_ITEM_COUNT];

@@ -18,7 +18,6 @@
 static uint32_t CardType = SDIO_STD_CAPACITY_SD_CARD_V1_1;
 static uint32_t CSD_Tab[4], CID_Tab[4], RCA = 0;
 static uint8_t SDSTATUS_Tab[16];
-__IO uint32_t StopCondition = 0;
 __IO SD_Error TransferError = SD_OK;
 __IO uint32_t TransferEnd = 0, DMAEndOfTransfer = 0;
 SD_CardInfo SDCardInfo;
@@ -56,11 +55,11 @@ bool PHAL_SDIO_init(void) {
     SDCardInfo       = (SD_CardInfo) {0};
 
     RCC->APB2ENR |= RCC_APB2ENR_SDIOEN;
-    // NVIC_SetPriorityGrouping()
-    // NVIC_EncodePriority(1, 1, 0);
-    // NVIC_SetPriority(SDIO_IRQn, 1);
+
+    // SDIO IRQ priority must be lower than DMA IRQ (STM SD HAL said so)
+    NVIC_SetPriority(SDIO_IRQn, 7);
     NVIC_EnableIRQ(SDIO_IRQn);
-    // NVIC_SetPriority(DMA2_Stream6_IRQn, 1);
+    NVIC_SetPriority(DMA2_Stream6_IRQn, 6);
     NVIC_EnableIRQ(DMA2_Stream6_IRQn);
 
     if (SD_Init() == SD_OK) {
@@ -71,38 +70,6 @@ bool PHAL_SDIO_init(void) {
 }
 
 /**
- * @brief Initialize the SD Card for Data Transfer
- *
- * @return DSTATUS
- */
-// DSTATUS disk_initialize(void) {
-//     // GPIO Pins are to be initialized in main.c
-
-//     // SDIO
-//     RCC->APB2ENR |= RCC_APB2_ENR_SDIOEN;
-//     NVIC_EnableIRQ(SDIO_IRQn);
-
-//     // DMA
-//     // Enable DMA interrupt
-// 	NVIC_EnableIRQ(DMA2_Stream6_IRQn);
-
-// 	//Check disk initialized
-// 	if (SD_Init() == SD_OK) {
-// 		TM_FATFS_SD_SDIO_Stat &= ~STA_NOINIT;	/* Clear STA_NOINIT flag */
-// 	} else {
-// 		TM_FATFS_SD_SDIO_Stat |= STA_NOINIT;
-// 	}
-// 	//Check write protected
-// 	if (!TM_FATFS_SDIO_WriteEnabled()) {
-// 		TM_FATFS_SD_SDIO_Stat |= STA_PROTECT;
-// 	} else {
-// 		TM_FATFS_SD_SDIO_Stat &= ~STA_PROTECT;
-// 	}
-
-// 	return TM_FATFS_SD_SDIO_Stat;
-// }
-
-/**
  * @brief  Initializes the SD Card and put it into StandBy State (Ready for data
  *         transfer).
  * @param  None
@@ -110,8 +77,16 @@ bool PHAL_SDIO_init(void) {
  */
 SD_Error SD_Init(void) {
     __IO SD_Error errorstatus = SD_OK;
+    
+    SDIO->POWER |= SDIO_POWER_PWRCTRL; // Power on SDIO Peripheral
+    SDIO->CLKCR = (SDIO_INIT_CLK_DIV & SDIO_CLKCR_CLKDIV_Msk) | SDIO_CLKCR_CLKEN; // Enable clock
 
-    /* SDIO Peripheral Low Level Init */
+    // Wait ~1 ms (Required power up waiting time before starting SD initialization sequence)
+    // TODO: replace with vTaskDelay? Or some other form of delay
+    for (uint32_t i = 0; i < 128000; ++i)
+        ;
+
+    /* Determine SD card operating voltage */
     errorstatus = SD_PowerON();
 
     if (errorstatus != SD_OK) {
@@ -131,14 +106,8 @@ SD_Error SD_Init(void) {
 
     SD_LOG("SD_InitializeCards OK\r\n");
 
-    /*!< Configure the SDIO peripheral */
-    /*!< SDIO_CK = SDIOCLK / (SDIO_TRANSFER_CLK_DIV + 2) */
-    /*!< on STM32F4xx devices, SDIOCLK is fixed to 48MHz */
-
-    // SDIO->CLKCR &= ~(0x7FFF); // clear
-    // SDIO->CLKCR |= (SDIO_TRANSFER_CLK_DIV) & SDIO_CLKCR_CLKDIV_Msk;
+    // TODO: STM32 official SDIO/SDMMC HAL does not do this, maybe try without?
     SDIO->POWER |= SDIO_POWER_PWRCTRL; // Power on (clock the card)
-    // SDIO->CLKCR |= SDIO_CLKCR_CLKEN;   // Enable clock
     SDIO->CLKCR = (SDIO_TRANSFER_CLK_DIV & SDIO_CLKCR_CLKDIV) | SDIO_CLKCR_CLKEN;
 
     /*----------------- Read CSD/CID MSD registers ------------------*/
@@ -240,20 +209,6 @@ SD_Error SD_PowerON(void) {
     __IO SD_Error errorstatus = SD_OK;
     uint32_t response = 0, count = 0, validvoltage = 0;
     uint32_t SDType = SD_STD_CAPACITY;
-
-    // Configure clock to 400 kHz
-    // SDIO_CK = SDIOCLK / (CLKDIV + 2)
-    // Select even CLKDIV for 50% duty
-    // SDIO->CLKCR &= ~(0x7FFF); // clear
-    // SDIO->CLKCR |= (SDIO_INIT_CLK_DIV) & SDIO_CLKCR_CLKDIV_Msk;
-    SDIO->POWER |= SDIO_POWER_PWRCTRL; // Power on (clock the card)
-    // SDIO->CLKCR |= SDIO_CLKCR_CLKEN;   // Enable clock
-    SDIO->CLKCR = (SDIO_INIT_CLK_DIV & SDIO_CLKCR_CLKDIV_Msk) | SDIO_CLKCR_CLKEN;
-
-    // Wait ~1 ms
-    for (uint32_t i = 0; i < 128000; ++i)
-        ;
-
     PHAL_SD_Cmd_t cmd;
 
     /*!< CMD0: GO_IDLE_STATE ---------------------------------------------------*/
@@ -364,6 +319,7 @@ SD_Error SD_InitializeCards(void) {
     uint16_t rca         = 0x01;
     PHAL_SD_Cmd_t cmd;
 
+    // Check that SDIO peripheral is powered
     if ((SDIO->POWER & SDIO_POWER_PWRCTRL) == 0) {
         errorstatus = SD_REQUEST_NOT_APPLICABLE;
         return (errorstatus);
@@ -727,7 +683,6 @@ SD_Error SD_ReadMultiBlocks(uint8_t* readbuff, uint64_t ReadAddr, uint16_t Block
     SD_Error errorstatus = SD_OK;
     TransferError        = SD_OK;
     TransferEnd          = 0;
-    StopCondition        = 1;
     last_read_length     = NumberOfBlocks;
 
     SDIO->DCTRL = 0x0;
@@ -736,6 +691,8 @@ SD_Error SD_ReadMultiBlocks(uint8_t* readbuff, uint64_t ReadAddr, uint16_t Block
     //if (NumberOfBlocks == 1) SDIO->MASK |= SDIO_MASK_DBCKENDIE;
     SD_LowLevel_DMA_RxConfig((uint32_t*)readbuff, (NumberOfBlocks * BlockSize));
     // TODO: check that hardware flow control set in CLKCR...
+    // Hardware flow control for STM32F407xx boards said to cause glitches on SDIOCLK output clock :(
+    // Hopefully that is not important/maybe doesn't apply to this version of the board?
 
     if (CardType == SDIO_HIGH_CAPACITY_SD_CARD) {
         BlockSize = 512;
@@ -816,15 +773,8 @@ SD_Error SD_WaitReadOperation(void) {
     while (((SDIO->STA & SDIO_STA_RXACT)) && (timeout > 0)) {
         timeout--;
     }
-    //  }
 
-    if (StopCondition == 1) {
-        // if (last_read_length > 1)
-        // {
-        errorstatus = SD_StopTransfer();
-        // }
-        StopCondition = 0;
-    }
+    errorstatus = SD_StopTransfer(); // CMD12 Required for multiblock read/writes 
 
     if ((timeout == 0) && (errorstatus == SD_OK)) {
         errorstatus = SD_DATA_TIMEOUT;
@@ -861,9 +811,9 @@ SD_Error SD_WriteMultiBlocks(uint8_t* writebuff, uint64_t WriteAddr, uint16_t Bl
 
     TransferError = SD_OK;
     TransferEnd   = 0;
-    StopCondition = 1;
-    SDIO->DCTRL   = 0x0;
 
+    // Initialize data control register
+    SDIO->DCTRL   = 0x0;
     SDIO->MASK |= (SDIO_MASK_DCRCFAILIE | SDIO_MASK_DTIMEOUTIE | SDIO_MASK_DATAENDIE | SDIO_MASK_TXUNDERRIE | SDIO_MASK_STBITERRIE);
     SD_LowLevel_DMA_TxConfig((uint32_t*)writebuff, (NumberOfBlocks * BlockSize));
 
@@ -923,7 +873,7 @@ SD_Error SD_WriteMultiBlocks(uint8_t* writebuff, uint64_t WriteAddr, uint16_t Bl
     SDIO->DTIMER = SD_DATATIMEOUT; // timeout
     SDIO->DLEN &= ~SDIO_DLEN_DATALENGTH; // length
     SDIO->DLEN |= NumberOfBlocks * BlockSize;
-    SDIO->DCTRL &= ~(0xFFF); // start write
+    SDIO->DCTRL &= ~(0xFFF); // clear DCTRL register 
     SDIO->DCTRL |= SDIO_DATABLOCKSIZE | SDIO_DCTRL_DMAEN | SDIO_DCTRL_DTEN;
 
     return (errorstatus);
@@ -955,10 +905,7 @@ SD_Error SD_WaitWriteOperation(void) {
         timeout--;
     }
 
-    if (StopCondition == 1) {
-        errorstatus   = SD_StopTransfer();
-        StopCondition = 0;
-    }
+    errorstatus   = SD_StopTransfer();
 
     if ((timeout == 0) && (errorstatus == SD_OK)) {
         errorstatus = SD_DATA_TIMEOUT;
@@ -1525,12 +1472,6 @@ void SDIO_IRQHandler(void) {
         TransferEnd   = 1;
         SD_LOG("SDIO IRQ : TransferEnd = 1, OK\r\n");
     }
-    // else if (last_read_length == 1 && (SDIO->STA & SDIO_STA_DBCKEND))
-    // {
-    // 	TransferError = SD_OK;
-    // 	SDIO->ICR = SDIO_ICR_DBCKENDC;
-    // 	TransferEnd = 1;
-    // }
     else if (SDIO->STA & SDIO_STA_DCRCFAIL) {
         SDIO->ICR = SDIO_ICR_DCRCFAILC;
         if (SDIO->STA & SDIO_STA_DBCKEND) {
@@ -1562,9 +1503,20 @@ void SDIO_IRQHandler(void) {
 }
 
 void DMA2_Stream6_IRQHandler(void) {
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE; 
+    // Check what trigged interrupt
     if (DMA2->HISR & DMA_HISR_TCIF6) {
-        DMAEndOfTransfer = 0x01;
+        // Clear interrupt flags (transfer complete and error)
         DMA2->HIFCR      = DMA_HIFCR_CTCIF6 | DMA_HIFCR_CFEIF6;
+
+        // Old end of transfer flag
+        DMAEndOfTransfer = 0x01;
+
+        if(daq_hub.sd_task_handle != NULL) {
+            vTaskNotifyGiveFromISR(daq_hub.sd_task_handle, &xHigherPriorityTaskWoken);
+            daq_hub.sd_task_handle = NULL;
+            portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
+        }
     }
 }
 
@@ -1590,7 +1542,7 @@ void DMA2_Stream6_IRQHandler(void) {
 static dma_init_t sdio_tx_config = SDIO_TXDMA_CONFIG(NULL, 3);
 
 /**
- * @brief  Configures the DMA2 Channel4 for SDIO Tx request.
+ * @brief  Configures the DMA 2 Channel 6 for SDIO Tx request.
  * @param  BufferSRC: pointer to the source buffer
  * @param  BufferSize: buffer size
  * @retval None
@@ -1602,7 +1554,7 @@ void SD_LowLevel_DMA_TxConfig(uint32_t* BufferSRC, uint32_t BufferSize) {
     sdio_tx_config.stream->FCR &= ~(DMA_SxFCR_FTH_Msk);
     sdio_tx_config.stream->FCR |= DMA_SxFCR_DMDIS | DMA_SxFCR_FTH;
     // peripheral flow control, and burst transfer of 4 beats
-    sdio_tx_config.stream->CR |= DMA_SxCR_PFCTRL | DMA_SxCR_MBURST_0 | DMA_SxCR_PBURST_0;
+    sdio_tx_config.stream->CR |= DMA_SxCR_PFCTRL | DMA_SxCR_MBURST_0 | DMA_SxCR_PBURST_0 | DMA_SxCR_TCIE;
     PHAL_startTxfer(&sdio_tx_config);
 
     // TODO: if it doesn't work, look at why memory size is byte, peirph size is word, and fifo threshold half full, memory burst single

@@ -5,11 +5,9 @@
 #include "daq_hub.h"
 #include "main.h"
 
-static void parse_gps_time(const CanMsgTypeDef_t* msg, RTC_timestamp_t* gps_rtc_time);
+static void parse_gps_time(const timestamped_frame_t* msg, RTC_timestamp_t* gps_rtc_time);
 
-void rtc_config_cb(CanMsgTypeDef_t *msg) {
-   if (daq_hub.rtc_config_state == RTC_SYNC_COMPLETE) return;
-
+void rtc_config_cb(timestamped_frame_t *msg) {
    RTC_timestamp_t gps_rtc_time;
    parse_gps_time(msg, &gps_rtc_time);
    
@@ -21,13 +19,13 @@ void rtc_config_cb(CanMsgTypeDef_t *msg) {
    }
 }
 
-static void parse_gps_time(const CanMsgTypeDef_t* msg, RTC_timestamp_t* gps_rtc_time) {
-   uint8_t year  = msg->Data[0];
-   uint8_t month = msg->Data[1];
-   uint8_t day   = msg->Data[2];
-   uint8_t hour  = msg->Data[3];
-   uint8_t min   = msg->Data[4];
-   uint8_t sec   = msg->Data[5];
+static void parse_gps_time(const timestamped_frame_t* msg, RTC_timestamp_t* gps_rtc_time) {
+   uint8_t year  = msg->payload;
+   uint8_t month = msg->payload >> 8;
+   uint8_t day   = msg->payload >> 16;
+   uint8_t hour  = msg->payload >> 24;
+   uint8_t min   = msg->payload >> 32;
+   uint8_t sec   = msg->payload >> 40;
 
    gps_rtc_time->date.year_bcd = RTC_CONV_TO_BCD(year);
    gps_rtc_time->date.day_bcd = RTC_CONV_TO_BCD(day);

@@ -15,6 +15,7 @@
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
+#include "amk/amk2.h"
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -39,6 +40,9 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
+AMK_t test_amk;
+bool is_precharge_complete = false;
+
 extern void HardFault_Handler(void);
 
 int main(void) {
@@ -59,6 +63,8 @@ int main(void) {
 
     NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
+
+    AMK_init(&test_amk, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, &is_precharge_complete);
 
     // Software Initalization
     osKernelInitialize();

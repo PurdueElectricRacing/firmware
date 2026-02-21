@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 
-#include "amk/amk2.h"
+#include "common/amk/amk2.h"
 #include "common/can_library/generated/MAIN_MODULE.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"

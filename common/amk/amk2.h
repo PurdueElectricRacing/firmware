@@ -10,7 +10,6 @@
 #ifndef AMK2_H
 #define AMK2_H
 
-#include "common/can_library/generated/VCAN.h"
 #include "common/can_library/generated/MCAN.h"
 #include <stdint.h>
 

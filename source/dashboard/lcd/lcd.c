@@ -1010,37 +1010,6 @@ void raceTelemetryUpdate() {
         NXT_setTextFormatted(BATT_CURR, "%dA", current); // Note: Changed 'V' to 'A' for current
     }
 
-    // Update the motor temperature
-    if (can_data.INVA_TEMPS.stale && can_data.INVB_TEMPS.stale) {
-        NXT_setText(MOT_TEMP, "S");
-        NXT_setText(MC_TEMP, "S");
-    } else if (can_data.INVA_TEMPS.stale) {
-        NXT_setText(MOT_TEMP, "SA");
-        NXT_setText(MC_TEMP, "SA");
-    } else if (can_data.INVB_TEMPS.stale) {
-        NXT_setText(MOT_TEMP, "SB");
-        NXT_setText(MC_TEMP, "SB");
-    } else {
-        uint8_t motor_temp      = MAX(can_data.INVA_TEMPS.AMK_MotorTemp, can_data.INVB_TEMPS.AMK_MotorTemp) / 10;
-        uint8_t controller_temp = MAX(can_data.INVA_TEMPS.AMK_IGBTTemp, can_data.INVB_TEMPS.AMK_IGBTTemp) / 10;
-
-        NXT_setTextFormatted(MOT_TEMP, "%dC", motor_temp);
-        NXT_setTextFormatted(MC_TEMP, "%dC", controller_temp);
-    }
-
-    if (can_data.INVA_CRIT.stale && can_data.INVA_CRIT.stale) {
-        NXT_setText(AMK_MOTOR_OVERLOAD, "S");
-    } else if (can_data.INVA_CRIT.stale) {
-        NXT_setText(AMK_MOTOR_OVERLOAD, "SA");
-    } else if (can_data.INVA_CRIT.stale) {
-        NXT_setText(AMK_MOTOR_OVERLOAD, "SB");
-    } else {
-        uint16_t motor_overload = MAX(can_data.INVA_CRIT.AMK_DisplayOverloadMotor, can_data.INVB_CRIT.AMK_DisplayOverloadMotor) * 10;
-        // uint16_t motor_overload = 77;
-
-        NXT_setTextFormatted(AMK_MOTOR_OVERLOAD, "%d%", motor_overload);
-    }
-
     // Update the battery temperature
     if (can_data.max_cell_temp.stale) {
         NXT_setText(BATT_TEMP, "S");

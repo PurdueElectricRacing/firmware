@@ -86,6 +86,14 @@ void ledblink() {
 void amk_test_thread() {
     // todo more amk test stuff here
     AMK_periodic(&test_amk);
+
+    if (test_amk.state == AMK_STATE_RUNNING) {
+        // ! test 1, constant torque
+         AMK_set_torque(&test_amk, 0);
+    } else {
+        // AMK_set_torque(&test_amk, 0);
+    }
+    
 }
 
 void can_worker_task() {
@@ -96,7 +104,7 @@ void can_worker_task() {
 defineThreadStack(ledblink, 500, osPriorityLow, 256);
 defineThreadStack(can_worker_task, 20, osPriorityNormal, 512);
 
-// defineThreadStack(amk_test_thread, 200, osPriorityNormal, 2048);
+defineThreadStack(amk_test_thread, 20, osPriorityNormal, 2048);
 
 int main(void) {
     // Hardware Initialization
@@ -132,7 +140,7 @@ int main(void) {
              &is_precharge_complete);
 
     // ! test 1, constant torque
-    AMK_set_torque(&test_amk, 5); // Request 5% torque for bench test
+    // AMK_set_torque(&test_amk, 5); // Request 5% torque for bench test
 
     // Software Initialization
     osKernelInitialize();
@@ -140,7 +148,7 @@ int main(void) {
     createThread(ledblink);
     createThread(can_worker_task);
     // ! test 2, state machine
-    // createThread(amk_test_thread);
+    createThread(amk_test_thread);
 
     // no way home
     osKernelStart();

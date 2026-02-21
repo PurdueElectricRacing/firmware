@@ -25,7 +25,7 @@ void AMK_init(
     INVA_TEMPS_data_t *temps,
     INVA_ERR_1_data_t *err1,
     INVA_ERR_2_data_t *err2,
-    bool *is_precharge_complete
+    bool *precharge_ptr
 ) {
     amk->next_state = AMK_STATE_OFF;
     amk->state = AMK_STATE_OFF;
@@ -37,7 +37,7 @@ void AMK_init(
     amk->temps = temps;
     amk->err1 = err1;
     amk->err2 = err2;
-    amk->pchg_complete = is_precharge_complete;
+    amk->precharge_ptr = precharge_ptr;
 }
 
 void AMK_reset(AMK_t* amk) {
@@ -68,7 +68,7 @@ void AMK_periodic(AMK_t* amk) {
     amk->state = amk->next_state;
     amk->next_state = amk->state; // default: stay in current state
 
-    bool is_ready = *(amk->pchg_complete) && amk->info->AMK_Status_bSystemReady;
+    bool is_ready = *(amk->precharge_ptr) && amk->info->AMK_Status_bSystemReady;
     bool is_bError = amk->info->AMK_Status_bError;
     bool is_simple_error = (amk->err1->AMK_DiagnosticNumber == AMK_CAN_ERR_ID || 
                             amk->err1->AMK_DiagnosticNumber == AMK_DC_BUS_ID);

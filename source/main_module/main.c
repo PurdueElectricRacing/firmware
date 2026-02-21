@@ -9,13 +9,12 @@
 
 #include <stdint.h>
 
-#include "common/can_library/faults_common.h"
+#include "amk/amk2.h"
 #include "common/can_library/generated/MAIN_MODULE.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
-#include "amk/amk2.h"
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -28,8 +27,7 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_FDCAN2RX_PB12,
     // MCAN
     GPIO_INIT_FDCAN3TX_PA15,
-    GPIO_INIT_FDCAN3RX_PA8
-};
+    GPIO_INIT_FDCAN3RX_PA8};
 
 static constexpr uint32_t TargetCoreClockrateHz = 16000000;
 ClockRateConfig_t clock_config                  = {
@@ -48,7 +46,33 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
 AMK_t test_amk;
-bool is_precharge_complete = false;
+// ! bypass precharge for bench testing
+bool is_precharge_complete = true;
+
+/* Wrappers to map generic AMK calls to Inverter A CAN messages */
+void inva_set_flush(void) {
+    CAN_SEND_INVA_SET(test_amk.set->AMK_Control_bReserve,
+                      test_amk.set->AMK_Control_bInverterOn,
+                      test_amk.set->AMK_Control_bDcOn,
+                      test_amk.set->AMK_Control_bEnable,
+                      test_amk.set->AMK_Control_bErrorReset,
+                      test_amk.set->AMK_Control_bReserve2,
+                      test_amk.set->AMK_TorqueSetpoint,
+                      test_amk.set->AMK_PositiveTorqueLimit,
+                      test_amk.set->AMK_NegativeTorqueLimit);
+}
+
+void inva_log_flush(void) {
+    CAN_SEND_INVA_LOG_SET(test_amk.set->AMK_Control_bReserve,
+                          test_amk.set->AMK_Control_bInverterOn,
+                          test_amk.set->AMK_Control_bDcOn,
+                          test_amk.set->AMK_Control_bEnable,
+                          test_amk.set->AMK_Control_bErrorReset,
+                          test_amk.set->AMK_Control_bReserve2,
+                          test_amk.set->AMK_TorqueSetpoint,
+                          test_amk.set->AMK_PositiveTorqueLimit,
+                          test_amk.set->AMK_NegativeTorqueLimit);
+}
 
 extern void HardFault_Handler(void);
 
@@ -57,11 +81,13 @@ void ledblink() {
 }
 
 void amk_test_thread() {
+    // todo more amk test stuff here
     AMK_periodic(&test_amk);
 }
 
 defineThreadStack(ledblink, 500, osPriorityLow, 256);
-// defineThreadStack(amk_test_thread, 500, osPriorityNormal, 2048);
+
+// defineThreadStack(amk_test_thread, 200, osPriorityNormal, 2048);
 
 int main(void) {
     // Hardware Initilization
@@ -82,12 +108,27 @@ int main(void) {
     NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
 
-    // AMK_init(&test_amk, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, &is_precharge_complete);
+    // Bench Test Initialization
+    is_precharge_complete = true;
+    AMK_init(&test_amk,
+             inva_set_flush,
+             inva_log_flush,
+             &can_data.INVA_SET,
+             &can_data.INVA_CRIT,
+             &can_data.INVA_INFO,
+             &can_data.INVA_TEMPS,
+             &can_data.INVA_ERR_1,
+             &can_data.INVA_ERR_2,
+             &is_precharge_complete);
+
+    // ! test 1, constant torque
+    AMK_set_torque(&test_amk, 5); // Request 5% torque for bench test
 
     // Software Initalization
     osKernelInitialize();
 
     createThread(ledblink);
+    // ! test 2, state machine
     // createThread(amk_test_thread);
 
     // no way home

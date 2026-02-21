@@ -36,21 +36,19 @@ typedef struct {
     // Internal state
     AMK_motor_state_t state;
     AMK_motor_state_t next_state;
-    bool *pchg_complete; // owned pointer to precharge status from car module
+    bool *precharge_ptr; // owned pointer to precharge status from car module
 } AMK_t;
 
-void AMK_init(
-    AMK_t* amk, 
-    void (*set_func)(void),
-    void (*log_func)(void),
-    INVA_SET_data_t* set,
-    INVA_CRIT_data_t* crit,
-    INVA_INFO_data_t* info, 
-    INVA_TEMPS_data_t* temps,
-    INVA_ERR_1_data_t* err1, 
-    INVA_ERR_2_data_t* err2,
-    bool* pchg_complete
-);
+void AMK_init(AMK_t *amk,
+              void (*set_func)(void),
+              void (*log_func)(void),
+              INVA_SET_data_t *set,
+              INVA_CRIT_data_t *crit,
+              INVA_INFO_data_t *info,
+              INVA_TEMPS_data_t *temps,
+              INVA_ERR_1_data_t *err1,
+              INVA_ERR_2_data_t *err2,
+              bool *precharge_ptr);
 
 void AMK_reset(AMK_t* amk);
 void AMK_set_torque(AMK_t* amk, int16_t torque_percent);

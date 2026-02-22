@@ -96,6 +96,7 @@ bool adbms_read_and_check_rega(ADBMS_bms_t *bms) {
                                          bms->rx_buf);
     switch (rdcfga_result) {
         case ADBMS6380_READ_SUCCESS:
+            // continue to check for mismatch
             // TODO: unset PEC_REGA_FLAG
             break;
         case ADBMS6380_READ_PEC_FAILURE:
@@ -129,6 +130,7 @@ bool adbms_read_and_check_regb(ADBMS_bms_t *bms) {
                                          bms->rx_buf);
     switch (rdcfgb_result) {
         case ADBMS6380_READ_SUCCESS:
+            // continue to check for mismatch
             // TODO: unset PEC_REGB_FLAG
             break;
         case ADBMS6380_READ_PEC_FAILURE:

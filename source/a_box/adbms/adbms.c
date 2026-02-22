@@ -37,7 +37,7 @@ void adbms_init(adbms_bms_t *bms, SPI_InitConfig_t *spi, uint8_t *tx_buf) {
     bms->err_regb_mismatch = false;
     bms->err_rega_pec      = false;
     bms->err_regb_pec      = false;
-    
+
     for (size_t i = 0; i < ADBMS6380_RDCV_CMD_COUNT; i++) {
         bms->err_cell_voltage_pecs[i] = false;
     }

@@ -57,6 +57,7 @@ typedef enum {
     ADBMS_STATE_IDLE = 0,
     /** Driver is connected; periodic reads/balancing are active. */
     ADBMS_STATE_CONNECTED,
+} adbms_state_t;
 
 /**
  * @brief Per-ADBMS module measurements, config, and error flags.
@@ -106,7 +107,7 @@ typedef struct {
  */
 typedef struct {
     /** Current driver state. */
-    ADBMS_state_t state;
+    adbms_state_t state;
 
     /** Per-module state and measurements. */
     adbms_module_t modules[ADBMS_MODULE_COUNT];

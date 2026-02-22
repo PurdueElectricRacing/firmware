@@ -244,11 +244,12 @@ bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
                 pec_error_flags[cmd_idx] = false;
                 break;
             case ADBMS6380_READ_PEC_FAILURE:
-                pec_error_flags[cmd_idx] = true;
-                // skip to the next next command but marked that we did not update values
+                // skip to the next command but marked that we did not update values
                 // for this set of cells
+                pec_error_flags[cmd_idx] = true;
                 continue;
             case ADBMS6380_READ_SPI_FAILURE:
+                // terminal error on SPI failure
                 return false;
         }
 
@@ -300,11 +301,12 @@ bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
                 pec_error_flags[cmd_idx] = false;
                 break;
             case ADBMS6380_READ_PEC_FAILURE:
-                pec_error_flags[cmd_idx] = true;
-                // skip to the next next command but marked that we did not update values
+                // skip to the next command but marked that we did not update values
                 // for this set of GPIOs
+                pec_error_flags[cmd_idx] = true;
                 continue;
             case ADBMS6380_READ_SPI_FAILURE:
+                // terminal error on SPI failure
                 return false;
         }
 

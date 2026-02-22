@@ -249,7 +249,7 @@ adbms6380_read_data_with_retries(SPI_InitConfig_t *spi,
  *
  * Issues the RDCVALL command, converts raw values to volts, and fills
  * the provided per-module cell voltage arrays. If any of the commands fail with
- * a PEC error (even with the retries), the succesfully read cell voltages will
+ * a PEC error (even with the retries), the successfully read cell voltages will
  * still be updated but the corresponding PEC error flag will be set.
  *
  * @param spi SPI configuration used for the transfer.
@@ -277,7 +277,7 @@ bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
  *
  * Issues RDAUXA/B/C/D commands, converts raw values to volts, and fills
  * the provided per-module GPIO voltage arrays. If any of the commands fail with
- * a PEC error (even with the retries), the succesfully read GPIO voltages will
+ * a PEC error (even with the retries), the successfully read GPIO voltages will
  * still be updated but the corresponding PEC error flag will be set.
  *
  * @param spi SPI configuration used for the transfer.

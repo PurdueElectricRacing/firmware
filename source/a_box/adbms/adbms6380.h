@@ -231,7 +231,7 @@ adbms6380_read_result_t adbms6380_read_data(SPI_InitConfig_t *spi,
  */
 adbms6380_read_result_t
 adbms6380_read_data_with_retries(SPI_InitConfig_t *spi,
-                                 int max_retries,
+                                 size_t max_retries,
                                  size_t module_count,
                                  const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
                                  uint8_t *rx_buffer);

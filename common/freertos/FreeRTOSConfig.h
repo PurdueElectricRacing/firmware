@@ -76,6 +76,7 @@ extern uint32_t SystemCoreClock;
 #define configSUPPORT_STATIC_ALLOCATION 1
 #define configSUPPORT_DYNAMIC_ALLOCATION 0
 #define configCPU_CLOCK_HZ (SystemCoreClock)
+// ! IMPORTANT DO NOT CHANGE TICK RATE. MANY SYSTEMS DEPEND ON THIS BEING 1ms
 #define configTICK_RATE_HZ ((TickType_t) 1000)
 #define configMINIMAL_STACK_SIZE ((uint16_t) 128)
 #define configTOTAL_HEAP_SIZE (0)

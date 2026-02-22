@@ -310,18 +310,6 @@
                     "msg_name": "max_cell_temp"
                 },
                 {
-                    "msg_name": "INVA_CRIT"
-                },
-                {
-                    "msg_name": "INVB_CRIT"
-                },
-                {
-                    "msg_name": "INVA_TEMPS"
-                },
-                {
-                    "msg_name": "INVB_TEMPS"
-                },
-                {
                     "msg_name": "dashboard_vcu_parameters"
                 }
             ]

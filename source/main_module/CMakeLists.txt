@@ -1,8 +1,7 @@
-include(../../common/can_library/can_library.cmake)
-create_can_node_lib(MAIN_MODULE CMSIS_F407)
+create_can_node_lib(MAIN_MODULE "CMSIS_G474;FREERTOS_G474")
 
 add_firmware_component(
     NAME main_module
-    LINKER_SCRIPT "STM32F407VGTx_FLASH"
-    LIBS "CMSIS_F407;PSCHED_F407;QUEUE;PHAL_F407;AMK;BOOTLOADER_COMMON_F407;can_node_MAIN_MODULE"
+    LINKER_SCRIPT "STM32G474RETX_FLASH"
+    LIBS "can_node_MAIN_MODULE;CMSIS_G474;FREERTOS_G474;PHAL_G474;AMK"
 )

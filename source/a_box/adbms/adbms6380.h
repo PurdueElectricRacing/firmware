@@ -195,10 +195,10 @@ bool adbms6380_check_data_pec(const uint8_t *rx_bytes, size_t rx_len);
  * @return A result code indicating success, PEC failure, or SPI failure.
  */
 adbms6380_read_result_t adbms6380_read(SPI_InitConfig_t *spi,
-                    size_t module_count,
-                    const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
-                    uint8_t *rx_buffer,
-                    size_t rx_length_per_module);
+                                       size_t module_count,
+                                       const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
+                                       uint8_t *rx_buffer,
+                                       size_t rx_length_per_module);
 /**
  * @brief Read a single-data-packet response per module.
  *
@@ -212,9 +212,9 @@ adbms6380_read_result_t adbms6380_read(SPI_InitConfig_t *spi,
  * @return A result code indicating success, PEC failure, or SPI failure.
  */
 adbms6380_read_result_t adbms6380_read_data(SPI_InitConfig_t *spi,
-                         size_t module_count,
-                         const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
-                         uint8_t *rx_buffer);
+                                            size_t module_count,
+                                            const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
+                                            uint8_t *rx_buffer);
 
 /**
  * @brief Read all cell voltages from each module.

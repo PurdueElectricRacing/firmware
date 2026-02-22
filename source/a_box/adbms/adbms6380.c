@@ -152,10 +152,10 @@ bool adbms6380_check_data_pec(const uint8_t *rx_bytes, size_t rx_len) {
 }
 
 adbms6380_read_result_t adbms6380_read(SPI_InitConfig_t *spi,
-                    size_t module_count,
-                    const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
-                    uint8_t *rx_buffer,
-                    size_t rx_length_per_module) {
+                                       size_t module_count,
+                                       const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
+                                       uint8_t *rx_buffer,
+                                       size_t rx_length_per_module) {
     // Send command and get response
     adbms6380_set_cs_low(spi);
     // First send command. Command is passed to all modules in the daisy chain.
@@ -183,9 +183,9 @@ adbms6380_read_result_t adbms6380_read(SPI_InitConfig_t *spi,
 }
 
 adbms6380_read_result_t adbms6380_read_data(SPI_InitConfig_t *spi,
-                         size_t module_count,
-                         const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
-                         uint8_t *rx_buffer) {
+                                            size_t module_count,
+                                            const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
+                                            uint8_t *rx_buffer) {
     size_t rx_length_per_module = ADBMS6380_SINGLE_DATA_PKT_SIZE;
     return adbms6380_read(spi, module_count, cmd_buffer, rx_buffer, rx_length_per_module);
 }

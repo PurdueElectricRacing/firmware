@@ -50,7 +50,7 @@
  * @brief Result of a read operation from the ADBMS6380.
  * 
  * Used to indicate success, PEC failure, or SPI communication failure.
- * Sucess = 0.
+ * Success = 0.
  */
 typedef enum {
     ADBMS6380_READ_SUCCESS = 0,

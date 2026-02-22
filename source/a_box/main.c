@@ -69,7 +69,7 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
-ADBMS_bms_t g_bms                              = {0};
+adbms_bms_t g_bms                              = {0};
 uint8_t g_bms_tx_buf[ADBMS_SPI_TX_BUFFER_SIZE] = {0};
 
 static constexpr float MIN_V_FOR_BALANCE     = 3.0f;

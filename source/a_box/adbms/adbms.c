@@ -18,7 +18,7 @@
 #include "common/strbuf/strbuf.h"
 #include "thermistor.h"
 
-void adbms_init(ADBMS_bms_t *bms, SPI_InitConfig_t *spi, uint8_t *tx_buf) {
+void adbms_init(adbms_bms_t *bms, SPI_InitConfig_t *spi, uint8_t *tx_buf) {
     bms->spi   = spi;
     bms->state = ADBMS_STATE_IDLE;
 
@@ -43,7 +43,7 @@ void adbms_init(ADBMS_bms_t *bms, SPI_InitConfig_t *spi, uint8_t *tx_buf) {
     };
 }
 
-bool adbms_write_rega(ADBMS_bms_t *bms) {
+bool adbms_write_rega(adbms_bms_t *bms) {
     strbuf_clear(&bms->tx_strbuf);
     adbms6380_prepare_command(&bms->tx_strbuf, WRCFGA);
     // i must be signed
@@ -63,7 +63,7 @@ bool adbms_write_rega(ADBMS_bms_t *bms) {
     return true;
 }
 
-bool adbms_write_regb(ADBMS_bms_t *bms) {
+bool adbms_write_regb(adbms_bms_t *bms) {
     strbuf_clear(&bms->tx_strbuf);
     adbms6380_prepare_command(&bms->tx_strbuf, WRCFGB);
     // i must be signed
@@ -85,7 +85,7 @@ bool adbms_write_regb(ADBMS_bms_t *bms) {
     return true;
 }
 
-bool adbms_read_and_check_rega(ADBMS_bms_t *bms) {
+bool adbms_read_and_check_rega(adbms_bms_t *bms) {
     strbuf_clear(&bms->tx_strbuf);
     adbms6380_prepare_command(&bms->tx_strbuf, RDCFGA);
     adbms6380_read_result_t rdcfga_result =
@@ -119,7 +119,7 @@ bool adbms_read_and_check_rega(ADBMS_bms_t *bms) {
     return !bms->err_rega_mismatch;
 }
 
-bool adbms_read_and_check_regb(ADBMS_bms_t *bms) {
+bool adbms_read_and_check_regb(adbms_bms_t *bms) {
     strbuf_clear(&bms->tx_strbuf);
     adbms6380_prepare_command(&bms->tx_strbuf, RDCFGB);
     adbms6380_read_result_t rdcfgb_result =
@@ -153,7 +153,7 @@ bool adbms_read_and_check_regb(ADBMS_bms_t *bms) {
     return !bms->err_regb_mismatch;
 }
 
-void adbms_connect(ADBMS_bms_t *bms) {
+void adbms_connect(adbms_bms_t *bms) {
     if (!adbms_write_rega(bms)) {
         bms->state       = ADBMS_STATE_IDLE;
         bms->err_connect = true;
@@ -199,7 +199,7 @@ void adbms_connect(ADBMS_bms_t *bms) {
     bms->state       = ADBMS_STATE_CONNECTED;
 }
 
-void adbms_calculate_balance_cells(ADBMS_bms_t *bms, float min_voltage, float min_delta) {
+void adbms_calculate_balance_cells(adbms_bms_t *bms, float min_voltage, float min_delta) {
     if (!bms->is_discharge_enabled) {
         // Disable all discharging
         for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
@@ -232,7 +232,7 @@ void adbms_calculate_balance_cells(ADBMS_bms_t *bms, float min_voltage, float mi
     }
 }
 
-void adbms_balance_and_update_regb(ADBMS_bms_t *bms, float min_voltage, float min_delta) {
+void adbms_balance_and_update_regb(adbms_bms_t *bms, float min_voltage, float min_delta) {
     adbms_calculate_balance_cells(bms, min_voltage, min_delta);
 
     if (!adbms_write_regb(bms)) {
@@ -245,7 +245,7 @@ void adbms_balance_and_update_regb(ADBMS_bms_t *bms, float min_voltage, float mi
     }
 }
 
-void adbms_read_cells(ADBMS_bms_t *bms) {
+void adbms_read_cells(adbms_bms_t *bms) {
     float *cell_voltage_ptrs[ADBMS_MODULE_COUNT]        = {0};
     int16_t *cell_voltages_raw_ptrs[ADBMS_MODULE_COUNT] = {0};
     for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
@@ -297,7 +297,7 @@ void adbms_read_cells(ADBMS_bms_t *bms) {
     bms->avg_voltage = bms->sum_voltage / (ADBMS_MODULE_COUNT * ADBMS6380_CELL_COUNT);
 }
 
-void adbms_read_therms(ADBMS_bms_t *bms) {
+void adbms_read_therms(adbms_bms_t *bms) {
     float *gpio_voltage_ptrs[ADBMS_MODULE_COUNT] = {0};
     for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
         gpio_voltage_ptrs[i] = bms->modules[i].therms_voltages;
@@ -372,7 +372,7 @@ void adbms_read_therms(ADBMS_bms_t *bms) {
     bms->avg_therm_temp = bms_sum_therm_temp / (ADBMS_MODULE_COUNT * ADBMS6380_GPIO_COUNT);
 }
 
-void adbms_periodic(ADBMS_bms_t *bms, float min_voltage_for_balance, float min_delta_for_balance) {
+void adbms_periodic(adbms_bms_t *bms, float min_voltage_for_balance, float min_delta_for_balance) {
     adbms6380_wake(bms->spi, ADBMS_MODULE_COUNT);
     switch (bms->state) {
         case ADBMS_STATE_IDLE: {

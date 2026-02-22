@@ -182,6 +182,33 @@ adbms6380_read_result_t adbms6380_read(SPI_InitConfig_t *spi,
     return ADBMS6380_READ_SUCCESS;
 }
 
+adbms6380_read_result_t
+adbms6380_read_data_with_retries(SPI_InitConfig_t *spi,
+                                 int max_retries,
+                                 size_t module_count,
+                                 const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
+                                 uint8_t *rx_buffer) {
+    for (int attempt = 0; attempt <= max_retries; attempt++) {
+        adbms6380_read_result_t result = adbms6380_read(spi,
+                                                        module_count,
+                                                        cmd_buffer,
+                                                        rx_buffer,
+                                                        ADBMS6380_SINGLE_DATA_PKT_SIZE);
+        switch (result) {
+            case ADBMS6380_READ_SUCCESS:
+                return ADBMS6380_READ_SUCCESS;
+            case ADBMS6380_READ_PEC_FAILURE:
+                // Retry on PEC failure
+                continue;
+            case ADBMS6380_READ_SPI_FAILURE:
+                // Terminal error on SPI failure
+                return ADBMS6380_READ_SPI_FAILURE;
+        }
+    }
+    // If we reach here, all retries failed due to PEC errors
+    return ADBMS6380_READ_PEC_FAILURE;
+}
+
 adbms6380_read_result_t adbms6380_read_data(SPI_InitConfig_t *spi,
                                             size_t module_count,
                                             const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],

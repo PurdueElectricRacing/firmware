@@ -217,6 +217,26 @@ adbms6380_read_result_t adbms6380_read_data(SPI_InitConfig_t *spi,
                                             uint8_t *rx_buffer);
 
 /**
+ * @brief Read a single-data-packet response per module and retries on PEC failure.
+ *
+ * Convenience wrapper around adbms6380_read_data() that retries the read up to
+ * a fixed number of attempts if a PEC failure is detected.
+ *
+ * @param spi SPI configuration used for the transfer.
+ * @param max_retries Maximum number of read attempts if PEC failures occur.
+ * @param module_count Number of modules in the daisy chain.
+ * @param cmd_buffer Command buffer including PEC.
+ * @param rx_buffer Output buffer for received bytes.
+ * @return A result code indicating success, PEC failure, or SPI failure.
+ */
+adbms6380_read_result_t
+adbms6380_read_data_with_retries(SPI_InitConfig_t *spi,
+                                 int max_retries,
+                                 size_t module_count,
+                                 const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
+                                 uint8_t *rx_buffer);
+
+/**
  * @brief Read all cell voltages from each module.
  *
  * Issues the RDCVALL command, converts raw values to volts, and fills

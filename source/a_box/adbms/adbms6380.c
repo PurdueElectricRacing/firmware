@@ -279,6 +279,7 @@ bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
                                   strbuf_t *cmd_buffer,
                                   uint8_t *rx_buffer,
                                   float **gpio_voltages,
+                                  bool pec_error_flags[ADBMS6380_READ_GPIO_VOLTAGES_CMD_COUNT],
                                   size_t module_count,
                                   size_t max_retries_on_pec_failure) {
     const uint8_t *cmd_list[4] = {RDAUXA, RDAUXB, RDAUXC, RDAUXD};
@@ -296,11 +297,13 @@ bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
         switch (read_result) {
             case ADBMS6380_READ_SUCCESS:
                 // continue processing
-                // TODO: unset PEC_GPIO_VOLTAGE_FLAG for this command index
+                pec_error_flags[cmd_idx] = false;
                 break;
             case ADBMS6380_READ_PEC_FAILURE:
-                // TODO: set PEC failure flag
-                // TODO: skip to the next command
+                pec_error_flags[cmd_idx] = true;
+                // skip to the next next command but marked that we did not update values
+                // for this set of GPIOs
+                continue;
             case ADBMS6380_READ_SPI_FAILURE:
                 return false;
         }

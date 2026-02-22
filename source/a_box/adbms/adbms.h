@@ -149,8 +149,8 @@ typedef struct {
 
     bool err_rega_pec;
     bool err_regb_pec;
-    bool err_gpio_voltage_pec[ADBMS6380_READ_GPIO_VOLTAGES_CMD_COUNT];
     bool err_cell_voltage_pecs[ADBMS6380_READ_CELL_VOLTAGES_CMD_COUNT];
+    bool err_gpio_voltage_pecs[ADBMS6380_READ_GPIO_VOLTAGES_CMD_COUNT];
 } ADBMS_bms_t;
 
 /**

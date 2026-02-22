@@ -320,6 +320,7 @@ void adbms_read_therms(ADBMS_bms_t *bms) {
                                       &bms->tx_strbuf,
                                       bms->rx_buf,
                                       gpio_voltage_ptrs,
+                                      bms->err_gpio_voltage_pecs,
                                       ADBMS_MODULE_COUNT,
                                       ADBMS_PEC_FAIL_MAX_RETRIES)) {
         bms->state   = ADBMS_STATE_IDLE;

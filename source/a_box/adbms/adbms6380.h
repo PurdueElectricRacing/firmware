@@ -39,6 +39,18 @@
 #define ADBMS6380_WAKE_DELAY_MS (1)
 
 /**
+ * @brief Result of a read operation from the ADBMS6380.
+ * 
+ * Used to indicate success, PEC failure, or SPI communication failure.
+ * Sucess = 0.
+ */
+typedef enum {
+    ADBMS6380_READ_SUCCESS = 0,
+    ADBMS6380_READ_PEC_FAILURE,
+    ADBMS6380_READ_SPI_FAILURE,
+} adbms6380_read_result_t;
+
+/**
  * @brief Drive the ADBMS CS line low.
  *
  * @param spi SPI configuration containing the CS GPIO.
@@ -179,27 +191,27 @@ bool adbms6380_check_data_pec(const uint8_t *rx_bytes, size_t rx_len);
  * @param module_count Number of modules in the daisy chain.
  * @param cmd_buffer Command buffer including PEC.
  * @param rx_buffer Output buffer for received bytes.
- * @param rx_length Total number of bytes to read.
- * @return True on successful SPI transfers, false otherwise.
+ * @param rx_length_per_module Number of bytes expected from each module (including PEC).
+ * @return A result code indicating success, PEC failure, or SPI failure.
  */
-bool adbms6380_read(SPI_InitConfig_t *spi,
+adbms6380_read_result_t adbms6380_read(SPI_InitConfig_t *spi,
                     size_t module_count,
                     const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
                     uint8_t *rx_buffer,
-                    size_t rx_length);
+                    size_t rx_length_per_module);
 /**
  * @brief Read a single-data-packet response per module.
  *
  * Convenience wrapper around adbms6380_read() with
- * (module_count * ADBMS6380_SINGLE_DATA_PKT_SIZE) bytes.
+ * ADBMS6380_SINGLE_DATA_PKT_SIZE as the expected response length per module.
  *
  * @param spi SPI configuration used for the transfer.
  * @param module_count Number of modules in the daisy chain.
  * @param cmd_buffer Command buffer including PEC.
  * @param rx_buffer Output buffer for received bytes.
- * @return True on successful SPI transfers, false otherwise.
+ * @return A result code indicating success, PEC failure, or SPI failure.
  */
-bool adbms6380_read_data(SPI_InitConfig_t *spi,
+adbms6380_read_result_t adbms6380_read_data(SPI_InitConfig_t *spi,
                          size_t module_count,
                          const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
                          uint8_t *rx_buffer);

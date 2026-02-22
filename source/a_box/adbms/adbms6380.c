@@ -143,7 +143,6 @@ void adbms6380_calculate_cfg_regb(uint8_t output_cfg_regb[ADBMS6380_SINGLE_DATA_
     }
 }
 
-bool adbms6380_read_data(SPI_InitConfig_t *spi,
 bool adbms6380_check_data_pec(const uint8_t *rx_bytes, size_t rx_len) {
     size_t raw_data_len     = rx_len - ADBMS6380_PEC_SIZE;
     uint16_t calculated_pec = adbms_pec_get_pec10(true, raw_data_len, rx_bytes);
@@ -152,32 +151,43 @@ bool adbms6380_check_data_pec(const uint8_t *rx_bytes, size_t rx_len) {
     return calculated_pec == received_pec_val;
 }
 
+adbms6380_read_result_t adbms6380_read_data(SPI_InitConfig_t *spi,
                          size_t module_count,
                          const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
                          uint8_t *rx_buffer) {
-    size_t rx_length = module_count * ADBMS6380_SINGLE_DATA_PKT_SIZE;
-    return adbms6380_read(spi, module_count, cmd_buffer, rx_buffer, rx_length);
+    size_t rx_length_per_module = ADBMS6380_SINGLE_DATA_PKT_SIZE;
+    return adbms6380_read(spi, module_count, cmd_buffer, rx_buffer, rx_length_per_module);
 }
 
-bool adbms6380_read(SPI_InitConfig_t *spi,
+adbms6380_read_result_t adbms6380_read(SPI_InitConfig_t *spi,
                     size_t module_count,
                     const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
                     uint8_t *rx_buffer,
-                    size_t rx_length) {
+                    size_t rx_length_per_module) {
+    // Send command and get response
     adbms6380_set_cs_low(spi);
     // First send command. Command is passed to all modules in the daisy chain.
     if (!PHAL_SPI_transfer_noDMA(spi, cmd_buffer, ADBMS6380_COMMAND_PKT_SIZE, 0, NULL)) {
         adbms6380_set_cs_high(spi);
-        return false;
+        return ADBMS6380_READ_SPI_FAILURE;
     }
     // Then read data back. Data is in order of module 0 ... module N-1
-    if (!PHAL_SPI_transfer_noDMA(spi, NULL, 0, rx_length, rx_buffer)) {
+    size_t total_rx_length = module_count * rx_length_per_module;
+    if (!PHAL_SPI_transfer_noDMA(spi, NULL, 0, total_rx_length, rx_buffer)) {
         adbms6380_set_cs_high(spi);
-        return false;
+        return ADBMS6380_READ_SPI_FAILURE;
     }
     adbms6380_set_cs_high(spi);
 
-    return true;
+    // Check PEC for each module's data packet
+    for (size_t module_idx = 0; module_idx < module_count; module_idx++) {
+        uint8_t *module_data = &rx_buffer[module_idx * rx_length_per_module];
+        if (!adbms6380_check_data_pec(module_data, rx_length_per_module)) {
+            return ADBMS6380_READ_PEC_FAILURE;
+        }
+    }
+
+    return ADBMS6380_READ_SUCCESS;
 }
 
 bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,

@@ -222,13 +222,13 @@ bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
                                   uint8_t *rx_buffer,
                                   float **cell_voltages,
                                   int16_t **cell_voltages_raw,
-                                  bool pec_error_flags[ADBMS6380_READ_CELL_VOLTAGES_CMD_COUNT],
+                                  bool pec_error_flags[ADBMS6380_RDCV_CMD_COUNT],
                                   size_t module_count,
                                   size_t max_retries_on_pec_failure) {
-    const uint8_t *cmd_list[ADBMS6380_READ_CELL_VOLTAGES_CMD_COUNT] =
+    const uint8_t *cmd_list[ADBMS6380_RDCV_CMD_COUNT] =
         {RDCVA, RDCVB, RDCVC, RDCVD, RDCVE, RDCVF};
 
-    for (size_t cmd_idx = 0; cmd_idx < ADBMS6380_READ_CELL_VOLTAGES_CMD_COUNT; cmd_idx++) {
+    for (size_t cmd_idx = 0; cmd_idx < ADBMS6380_RDCV_CMD_COUNT; cmd_idx++) {
         strbuf_clear(cmd_buffer);
         adbms6380_prepare_command(cmd_buffer, cmd_list[cmd_idx]);
 
@@ -280,15 +280,15 @@ bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
                                   strbuf_t *cmd_buffer,
                                   uint8_t *rx_buffer,
                                   float **gpio_voltages,
-                                  bool pec_error_flags[ADBMS6380_READ_GPIO_VOLTAGES_CMD_COUNT],
+                                  bool pec_error_flags[ADBMS6380_RDAUX_CMD_COUNT],
                                   size_t module_count,
                                   size_t max_retries_on_pec_failure) {
-    const uint8_t *cmd_list[ADBMS6380_READ_GPIO_VOLTAGES_CMD_COUNT] = {RDAUXA,
+    const uint8_t *cmd_list[ADBMS6380_RDAUX_CMD_COUNT] = {RDAUXA,
                                                                        RDAUXB,
                                                                        RDAUXC,
                                                                        RDAUXD};
 
-    for (size_t cmd_idx = 0; cmd_idx < ADBMS6380_READ_GPIO_VOLTAGES_CMD_COUNT; cmd_idx++) {
+    for (size_t cmd_idx = 0; cmd_idx < ADBMS6380_RDAUX_CMD_COUNT; cmd_idx++) {
         strbuf_clear(cmd_buffer);
         adbms6380_prepare_command(cmd_buffer, cmd_list[cmd_idx]);
 

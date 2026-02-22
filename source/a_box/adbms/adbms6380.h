@@ -33,11 +33,11 @@
 
 // Number of commands to read all 16 cell voltages (5 for 3 cells each, 1 for the last cell)
 // {RDCVA, RDCVB, RDCVC, RDCVD, RDCVE, RDCVF}
-#define ADBMS6380_READ_CELL_VOLTAGES_CMD_COUNT (6)
+#define ADBMS6380_RDCV_CMD_COUNT (6)
 
 // Number of commands to read all 10 GPIO voltages (3 for 3 GPIOs each, 1 for the last GPIO)
 // {RDAUXA, RDAUXB, RDAUXC, RDAUXD}
-#define ADBMS6380_READ_GPIO_VOLTAGES_CMD_COUNT (4)
+#define ADBMS6380_RDAUX_CMD_COUNT (4)
 
 /**
  * @brief Wake pulse duration per CS toggle in milliseconds.
@@ -269,7 +269,7 @@ bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
                                   uint8_t *rx_buffer,
                                   float **cell_voltages,
                                   int16_t **cell_voltages_raw,
-                                  bool pec_error_flags[ADBMS6380_READ_CELL_VOLTAGES_CMD_COUNT],
+                                  bool pec_error_flags[ADBMS6380_RDCV_CMD_COUNT],
                                   size_t module_count,
                                   size_t max_retries_on_pec_failure);
 /**
@@ -295,7 +295,7 @@ bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
                                   strbuf_t *cmd_buffer,
                                   uint8_t *rx_buffer,
                                   float **gpio_voltages,
-                                  bool pec_error_flags[ADBMS6380_READ_GPIO_VOLTAGES_CMD_COUNT],
+                                  bool pec_error_flags[ADBMS6380_RDAUX_CMD_COUNT],
                                   size_t module_count,
                                   size_t max_retries_on_pec_failure);
 

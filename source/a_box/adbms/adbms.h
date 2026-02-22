@@ -152,9 +152,9 @@ typedef struct {
     /** Set when REGB read has a PEC failure. */
     bool err_regb_pec;
     /** Per-command PEC error flags for cell voltage reads. */
-    bool err_cell_voltage_pecs[ADBMS6380_READ_CELL_VOLTAGES_CMD_COUNT];
+    bool err_cell_voltage_pecs[ADBMS6380_RDCV_CMD_COUNT];
     /** Per-command PEC error flags for GPIO voltage reads. */
-    bool err_gpio_voltage_pecs[ADBMS6380_READ_GPIO_VOLTAGES_CMD_COUNT];
+    bool err_gpio_voltage_pecs[ADBMS6380_RDAUX_CMD_COUNT];
 } adbms_bms_t;
 
 /**

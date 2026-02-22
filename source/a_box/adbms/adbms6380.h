@@ -182,9 +182,10 @@ void adbms6380_calculate_cfg_regb(uint8_t output_cfg_regb[ADBMS6380_SINGLE_DATA_
 /**
  * @brief Verify the PEC of received data.
  * 
- * @param data Pointer to received bytes. PEC10 must follow the raw data bytes.
- * @param data_len Length of the data in bytes (including PEC, so the raw data
-                   is actually data_len - ADBMS6380_PEC_SIZE).
+ * @param rx_bytes Pointer to received bytes from a module. PEC10 must follow the raw
+                   data bytes.
+ * @param rx_len Length of the recieved data from a module in bytes (including PEC,
+ *               so the raw data is actually rx_len - ADBMS6380_PEC_SIZE).
  * @return True if the received PEC matches calculated value, false otherwise.
  */
 bool adbms6380_check_data_pec(const uint8_t *rx_bytes, size_t rx_len);

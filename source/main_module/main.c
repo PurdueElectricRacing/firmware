@@ -84,26 +84,21 @@ void ledblink() {
 }
 
 void amk_test_thread() {
+    CAN_rx_update();
     // todo more amk test stuff here
     AMK_periodic(&test_amk);
 
     if (test_amk.state == AMK_STATE_RUNNING) {
         // ! test 1, constant torque
-         AMK_set_torque(&test_amk, 2);
+         AMK_set_torque(&test_amk, 5);
     } else {
         // AMK_set_torque(&test_amk, 0);
     }
-    
-}
 
-void can_worker_task() {
     CAN_tx_update();
-    CAN_rx_update();
 }
 
 defineThreadStack(ledblink, 500, osPriorityLow, 256);
-defineThreadStack(can_worker_task, 20, osPriorityNormal, 512);
-
 defineThreadStack(amk_test_thread, 15, osPriorityNormal, 2048);
 
 int main(void) {
@@ -146,7 +141,6 @@ int main(void) {
     osKernelInitialize();
 
     createThread(ledblink);
-    createThread(can_worker_task);
     // ! test 2, state machine
     createThread(amk_test_thread);
 

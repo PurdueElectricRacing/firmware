@@ -144,6 +144,14 @@ void adbms6380_calculate_cfg_regb(uint8_t output_cfg_regb[ADBMS6380_SINGLE_DATA_
 }
 
 bool adbms6380_read_data(SPI_InitConfig_t *spi,
+bool adbms6380_check_data_pec(const uint8_t *rx_bytes, size_t rx_len) {
+    size_t raw_data_len     = rx_len - ADBMS6380_PEC_SIZE;
+    uint16_t calculated_pec = adbms_pec_get_pec10(true, raw_data_len, rx_bytes);
+    uint16_t received_pec_val =
+        ((uint16_t)rx_bytes[raw_data_len + 0] << 8) | (uint16_t)rx_bytes[raw_data_len + 1];
+    return calculated_pec == received_pec_val;
+}
+
                          size_t module_count,
                          const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
                          uint8_t *rx_buffer) {

@@ -160,6 +160,16 @@ void adbms6380_calculate_cfg_regb(uint8_t output_cfg_regb[ADBMS6380_SINGLE_DATA_
                                   const bool is_discharging[ADBMS6380_CELL_COUNT]);
 
 /**
+ * @brief Verify the PEC of received data.
+ * 
+ * @param data Pointer to received bytes. PEC10 must follow the raw data bytes.
+ * @param data_len Length of the data in bytes (including PEC, so the raw data
+                   is actually data_len - ADBMS6380_PEC_SIZE).
+ * @return True if the received PEC matches calculated value, false otherwise.
+ */
+bool adbms6380_check_data_pec(const uint8_t *rx_bytes, size_t rx_len);
+
+/**
  * @brief Read a fixed-length response from all modules after a command.
  *
  * Sends the command to the daisy chain, then reads @p rx_length bytes into

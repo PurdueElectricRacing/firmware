@@ -248,6 +248,8 @@ adbms6380_read_data_with_retries(SPI_InitConfig_t *spi,
  * @param cell_voltages Per-module arrays of cell voltages to populate.
  * @param cell_voltages_raw Per-module arrays of raw cell voltage codes to populate.
  * @param module_count Number of modules in the daisy chain.
+ * @param max_retries_on_pec_failure Number of attempts to retry a read if a PEC
+                                     failure is detected before giving up.
  * @return True on success, false on SPI failure.
  */
 bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
@@ -255,7 +257,8 @@ bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
                                   uint8_t *rx_buffer,
                                   float **cell_voltages,
                                   int16_t **cell_voltages_raw,
-                                  size_t module_count);
+                                  size_t module_count,
+                                  size_t max_retries_on_pec_failure);
 /**
  * @brief Read all GPIO/aux voltages from each module.
  *
@@ -267,13 +270,16 @@ bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
  * @param rx_buffer RX buffer for raw bytes.
  * @param gpio_voltages Per-module arrays of GPIO voltages to populate.
  * @param module_count Number of modules in the daisy chain.
+ * @param max_retries_on_pec_failure Number of attempts to retry a read if a PEC
+                                     failure is detected before giving up.
  * @return True on success, false on SPI failure.
  */
 bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
                                   strbuf_t *cmd_buffer,
                                   uint8_t *rx_buffer,
                                   float **gpio_voltages,
-                                  size_t module_count);
+                                  size_t module_count,
+                                  size_t max_retries_on_pec_failure);
 
 // Other adbms6380 related function declarations can go here
 

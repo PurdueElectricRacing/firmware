@@ -222,15 +222,29 @@ bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
                                   uint8_t *rx_buffer,
                                   float **cell_voltages,
                                   int16_t **cell_voltages_raw,
-                                  size_t module_count) {
+                                  size_t module_count,
+                                  size_t max_retries_on_pec_failure) {
     const uint8_t *cmd_list[6] = {RDCVA, RDCVB, RDCVC, RDCVD, RDCVE, RDCVF};
 
     for (size_t cmd_idx = 0; cmd_idx < 6; cmd_idx++) {
         strbuf_clear(cmd_buffer);
         adbms6380_prepare_command(cmd_buffer, cmd_list[cmd_idx]);
 
-        if (!adbms6380_read_data(spi, module_count, cmd_buffer->data, rx_buffer)) {
-            return false;
+        adbms6380_read_result_t read_result =
+            adbms6380_read_data_with_retries(spi,
+                                             max_retries_on_pec_failure,
+                                             module_count,
+                                             cmd_buffer->data,
+                                             rx_buffer);
+        switch (read_result) {
+            case ADBMS6380_READ_SUCCESS:
+                // continue processing
+                break;
+            case ADBMS6380_READ_PEC_FAILURE:
+                // TODO: set PEC failure flag
+                // TODO: skip to the next command
+            case ADBMS6380_READ_SPI_FAILURE:
+                return false;
         }
 
         // Data comes back as: module 1, module 2, ..., module N
@@ -260,15 +274,29 @@ bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
                                   strbuf_t *cmd_buffer,
                                   uint8_t *rx_buffer,
                                   float **gpio_voltages,
-                                  size_t module_count) {
+                                  size_t module_count,
+                                  size_t max_retries_on_pec_failure) {
     const uint8_t *cmd_list[4] = {RDAUXA, RDAUXB, RDAUXC, RDAUXD};
 
     for (size_t cmd_idx = 0; cmd_idx < 4; cmd_idx++) {
         strbuf_clear(cmd_buffer);
         adbms6380_prepare_command(cmd_buffer, cmd_list[cmd_idx]);
 
-        if (!adbms6380_read_data(spi, module_count, cmd_buffer->data, rx_buffer)) {
-            return false;
+        adbms6380_read_result_t read_result =
+            adbms6380_read_data_with_retries(spi,
+                                             max_retries_on_pec_failure,
+                                             module_count,
+                                             cmd_buffer->data,
+                                             rx_buffer);
+        switch (read_result) {
+            case ADBMS6380_READ_SUCCESS:
+                // continue processing
+                break;
+            case ADBMS6380_READ_PEC_FAILURE:
+                // TODO: set PEC failure flag
+                // TODO: skip to the next command
+            case ADBMS6380_READ_SPI_FAILURE:
+                return false;
         }
 
         // AUXA/B/C: 3 GPIOs each, AUXD: GPIO10

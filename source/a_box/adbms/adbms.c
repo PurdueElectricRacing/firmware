@@ -256,7 +256,8 @@ void adbms_read_cells(ADBMS_bms_t *bms) {
                                       bms->rx_buf,
                                       cell_voltage_ptrs,
                                       cell_voltages_raw_ptrs,
-                                      ADBMS_MODULE_COUNT)) {
+                                      ADBMS_MODULE_COUNT,
+                                      ADBMS_PEC_FAIL_MAX_RETRIES)) {
         bms->state   = ADBMS_STATE_IDLE;
         bms->err_spi = true;
         return;
@@ -316,7 +317,8 @@ void adbms_read_therms(ADBMS_bms_t *bms) {
                                       &bms->tx_strbuf,
                                       bms->rx_buf,
                                       gpio_voltage_ptrs,
-                                      ADBMS_MODULE_COUNT)) {
+                                      ADBMS_MODULE_COUNT,
+                                      ADBMS_PEC_FAIL_MAX_RETRIES)) {
         bms->state   = ADBMS_STATE_IDLE;
         bms->err_spi = true;
         return;

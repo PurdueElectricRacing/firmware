@@ -22,6 +22,9 @@
 // Number of ADBMS modules in the daisy chain.
 #define ADBMS_MODULE_COUNT (8)
 
+// Number of attempts to retry a read if a PEC failure is detected before continuing.
+#define ADBMS_PEC_FAIL_MAX_RETRIES (3)
+
 // 10kOhm voltage divider on the thermistor input
 #define ADBMS_GPIO_R1 (10000.0f)
 // VREF2 = 3.0v and is the input to the thermistor voltage divider
@@ -181,7 +184,7 @@ bool adbms_write_regb(ADBMS_bms_t *bms);
  * not match the cached REGA data.
  *
  * @param bms Pointer to driver state.
- * @return False on SPI failure and when there is a mismatch; true otherwise.
+ * @return False on SPI failure, PEC error, or when there is a mismatch; true otherwise.
  */
 bool adbms_read_and_check_rega(ADBMS_bms_t *bms);
 /**
@@ -191,7 +194,7 @@ bool adbms_read_and_check_rega(ADBMS_bms_t *bms);
  * not match the cached REGB data.
  *
  * @param bms Pointer to driver state.
- * @return False on SPI failure and when there is a mismatch; true otherwise.
+ * @return False on SPI failure, PEC error, or when there is a mismatch; true otherwise.
  */
 bool adbms_read_and_check_regb(ADBMS_bms_t *bms);
 

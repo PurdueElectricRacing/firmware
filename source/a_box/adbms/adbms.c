@@ -88,9 +88,22 @@ bool adbms_write_regb(ADBMS_bms_t *bms) {
 bool adbms_read_and_check_rega(ADBMS_bms_t *bms) {
     strbuf_clear(&bms->tx_strbuf);
     adbms6380_prepare_command(&bms->tx_strbuf, RDCFGA);
-    if (!adbms6380_read_data(bms->spi, ADBMS_MODULE_COUNT, bms->tx_strbuf.data, bms->rx_buf)) {
-        bms->err_spi = true;
-        return false;
+    adbms6380_read_result_t rdcfga_result =
+        adbms6380_read_data_with_retries(bms->spi,
+                                         ADBMS_PEC_FAIL_MAX_RETRIES,
+                                         ADBMS_MODULE_COUNT,
+                                         bms->tx_strbuf.data,
+                                         bms->rx_buf);
+    switch (rdcfga_result) {
+        case ADBMS6380_READ_SUCCESS:
+            // TODO: unset PEC_REGA_FLAG
+            break;
+        case ADBMS6380_READ_PEC_FAILURE:
+            // TODO: set PEC_REGA_FLAG
+            return false;
+        case ADBMS6380_READ_SPI_FAILURE:
+            bms->err_spi = true;
+            return false;
     }
     bms->err_rega_mismatch = false;
     for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
@@ -108,9 +121,22 @@ bool adbms_read_and_check_rega(ADBMS_bms_t *bms) {
 bool adbms_read_and_check_regb(ADBMS_bms_t *bms) {
     strbuf_clear(&bms->tx_strbuf);
     adbms6380_prepare_command(&bms->tx_strbuf, RDCFGB);
-    if (!adbms6380_read_data(bms->spi, ADBMS_MODULE_COUNT, bms->tx_strbuf.data, bms->rx_buf)) {
-        bms->err_spi = true;
-        return false;
+    adbms6380_read_result_t rdcfgb_result =
+        adbms6380_read_data_with_retries(bms->spi,
+                                         ADBMS_PEC_FAIL_MAX_RETRIES,
+                                         ADBMS_MODULE_COUNT,
+                                         bms->tx_strbuf.data,
+                                         bms->rx_buf);
+    switch (rdcfgb_result) {
+        case ADBMS6380_READ_SUCCESS:
+            // TODO: unset PEC_REGB_FLAG
+            break;
+        case ADBMS6380_READ_PEC_FAILURE:
+            // TODO: set PEC_REGB_FLAG
+            return false;
+        case ADBMS6380_READ_SPI_FAILURE:
+            bms->err_spi = true;
+            return false;
     }
     bms->err_regb_mismatch = false;
     for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {

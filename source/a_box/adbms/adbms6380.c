@@ -225,8 +225,7 @@ bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
                                   bool pec_error_flags[ADBMS6380_RDCV_CMD_COUNT],
                                   size_t module_count,
                                   size_t max_retries_on_pec_failure) {
-    const uint8_t *cmd_list[ADBMS6380_RDCV_CMD_COUNT] =
-        {RDCVA, RDCVB, RDCVC, RDCVD, RDCVE, RDCVF};
+    const uint8_t *cmd_list[ADBMS6380_RDCV_CMD_COUNT] = {RDCVA, RDCVB, RDCVC, RDCVD, RDCVE, RDCVF};
 
     for (size_t cmd_idx = 0; cmd_idx < ADBMS6380_RDCV_CMD_COUNT; cmd_idx++) {
         strbuf_clear(cmd_buffer);
@@ -283,10 +282,7 @@ bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
                                   bool pec_error_flags[ADBMS6380_RDAUX_CMD_COUNT],
                                   size_t module_count,
                                   size_t max_retries_on_pec_failure) {
-    const uint8_t *cmd_list[ADBMS6380_RDAUX_CMD_COUNT] = {RDAUXA,
-                                                                       RDAUXB,
-                                                                       RDAUXC,
-                                                                       RDAUXD};
+    const uint8_t *cmd_list[ADBMS6380_RDAUX_CMD_COUNT] = {RDAUXA, RDAUXB, RDAUXC, RDAUXD};
 
     for (size_t cmd_idx = 0; cmd_idx < ADBMS6380_RDAUX_CMD_COUNT; cmd_idx++) {
         strbuf_clear(cmd_buffer);

@@ -12,7 +12,7 @@ var searchData=
   ['imd_5fled_5fpin_9',['IMD_LED_Pin',['../dashboard_2main_8h.html#a6396bb7145c6245ace41c8d1d76f204e',1,'main.h']]],
   ['info_5fgray_10',['INFO_GRAY',['../nextion_8h.html#a89feeadaedd79cefd6d37d5e13f1fe1c',1,'nextion.h']]],
   ['init_5fnambuf_11',['INIT_NAMBUF',['../ff_8c.html#a9880dce2d33fe7708f982b5f80a31142',1,'ff.c']]],
-  ['internal_5ftherm_5fadc_5fchnl_12',['INTERNAL_THERM_ADC_CHNL',['../main__module_2main_8h.html#a1cbc6a9cd1dee627e19b856033260320',1,'INTERNAL_THERM_ADC_CHNL:&#160;main.h'],['../pdu_2main_8h.html#a1cbc6a9cd1dee627e19b856033260320',1,'INTERNAL_THERM_ADC_CHNL:&#160;main.h']]],
+  ['internal_5ftherm_5fadc_5fchnl_12',['INTERNAL_THERM_ADC_CHNL',['../pdu_2main_8h.html#a1cbc6a9cd1dee627e19b856033260320',1,'main.h']]],
   ['ipproto_5fggp_13',['IPPROTO_GGP',['../w5500_8h.html#aaa167811bca5c964e9b051a10d962b1d',1,'w5500.h']]],
   ['ipproto_5ficmp_14',['IPPROTO_ICMP',['../w5500_8h.html#a98edd0af28e1b5f97c806c9cae442339',1,'w5500.h']]],
   ['ipproto_5fidp_15',['IPPROTO_IDP',['../w5500_8h.html#abfda09909326d0d4c6fe906fae58a960',1,'w5500.h']]],

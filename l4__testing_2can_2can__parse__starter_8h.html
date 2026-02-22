@@ -118,7 +118,7 @@ Macros</h2></td></tr>
 <tr class="separator:acdb41dda624135bb66a1301941dfdfff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd9fb8a91e43567fceb781c705d6dd93" id="r_abd9fb8a91e43567fceb781c705d6dd93"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a>&#160;&#160;&#160;5 / 2</td></tr>
 <tr class="separator:abd9fb8a91e43567fceb781c705d6dd93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a969cc60c23232b8b979b9822e5acd4f8" id="r_a969cc60c23232b8b979b9822e5acd4f8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a969cc60c23232b8b979b9822e5acd4f8">CHECK_STALE</a>(stale,  <a class="el" href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a>,  last,  period)</td></tr>
+<tr class="memitem:a969cc60c23232b8b979b9822e5acd4f8" id="r_a969cc60c23232b8b979b9822e5acd4f8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a969cc60c23232b8b979b9822e5acd4f8">CHECK_STALE</a>(stale,  curr,  last,  period)</td></tr>
 <tr class="separator:a969cc60c23232b8b979b9822e5acd4f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -153,7 +153,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em><a class="el" href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a></em></span>, </td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>curr</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -167,10 +167,9 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (!stale &amp;&amp; (<a class="code hl_variable" href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a> - last) &gt; period * <a class="code hl_define" href="bootloader_2can_2can__parse__starter_8h.html#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a>) \</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (!stale &amp;&amp; (curr - last) &gt; period * <a class="code hl_define" href="bootloader_2can_2can__parse__starter_8h.html#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a>) \</div>
 <div class="line">    stale = 1</div>
 <div class="ttc" id="abootloader_2can_2can__parse__starter_8h_html_abd9fb8a91e43567fceb781c705d6dd93"><div class="ttname"><a href="bootloader_2can_2can__parse__starter_8h.html#abd9fb8a91e43567fceb781c705d6dd93">STALE_THRESH</a></div><div class="ttdeci">#define STALE_THRESH</div><div class="ttdef"><b>Definition</b> can_parse_starter.h:52</div></div>
-<div class="ttc" id="acar_8c_html_a901bfd7d1561197d61df17d5ac5cb01f"><div class="ttname"><a href="car_8c.html#a901bfd7d1561197d61df17d5ac5cb01f">curr</a></div><div class="ttdeci">uint8_t curr</div><div class="ttdef"><b>Definition</b> car.c:74</div></div>
 </div><!-- fragment -->
 </div>
 </div>

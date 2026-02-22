@@ -106,7 +106,7 @@ $(function(){ initResizable(false); });
 <code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="auto__switch_8h_source.html">auto_switch.h</a>&quot;</code><br />
 <code>#include &quot;common/can_library/generated/PDU.h&quot;</code><br />
-<code>#include &quot;cooling.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="cooling_8h_source.html">cooling.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="fan__control_8h_source.html">fan_control.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="flow__rate_8h_source.html">flow_rate.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="led_8h_source.html">led.h</a>&quot;</code><br />
@@ -365,11 +365,11 @@ Variables</h2></td></tr>
 <div class="line">    {.channel = <a class="code hl_define" href="pdu_2main_8h.html#ac6f487a150e7e658b1968bb7b27446b0">LV_5V_V_SENSE_ADC_CHNL</a>, .rank = 12, .sampling_time = <a class="code hl_enumvalue" href="phal__G4_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
 <div class="line">    {.channel = <a class="code hl_define" href="pdu_2main_8h.html#ad39b80fc13b180322575917acc684e19">LV_5V_I_SENSE_ADC_CHNL</a>, .rank = 13, .sampling_time = <a class="code hl_enumvalue" href="phal__G4_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
 <div class="line">    {.channel = <a class="code hl_define" href="pdu_2main_8h.html#a85adef97ea600b8438801efec6e9d8e1">LV_3V3_V_SENSE_ADC_CHNL</a>, .rank = 14, .sampling_time = <a class="code hl_enumvalue" href="phal__G4_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
-<div class="line">    {.channel = <a class="code hl_define" href="main__module_2main_8h.html#a1cbc6a9cd1dee627e19b856033260320">INTERNAL_THERM_ADC_CHNL</a>, .rank = 15, .sampling_time = <a class="code hl_enumvalue" href="phal__G4_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
+<div class="line">    {.channel = <a class="code hl_define" href="pdu_2main_8h.html#a1cbc6a9cd1dee627e19b856033260320">INTERNAL_THERM_ADC_CHNL</a>, .rank = 15, .sampling_time = <a class="code hl_enumvalue" href="phal__G4_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
 <div class="line">    {.channel = <a class="code hl_define" href="pdu_2main_8h.html#aefc06a1412e0a3a7c332e82325d15291">AMK_25V_V_SENSE_ADC_CHNL</a>, .rank = 16, .sampling_time = <a class="code hl_enumvalue" href="phal__G4_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a>},</div>
 <div class="line">}</div>
-<div class="ttc" id="amain__module_2main_8h_html_a1cbc6a9cd1dee627e19b856033260320"><div class="ttname"><a href="main__module_2main_8h.html#a1cbc6a9cd1dee627e19b856033260320">INTERNAL_THERM_ADC_CHNL</a></div><div class="ttdeci">#define INTERNAL_THERM_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:140</div></div>
 <div class="ttc" id="apdu_2main_8h_html_a08b4b395be733adc04cbdc9e8fbce97f"><div class="ttname"><a href="pdu_2main_8h.html#a08b4b395be733adc04cbdc9e8fbce97f">AUX_HP_IMON_ADC_CHNL</a></div><div class="ttdeci">#define AUX_HP_IMON_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:119</div></div>
+<div class="ttc" id="apdu_2main_8h_html_a1cbc6a9cd1dee627e19b856033260320"><div class="ttname"><a href="pdu_2main_8h.html#a1cbc6a9cd1dee627e19b856033260320">INTERNAL_THERM_ADC_CHNL</a></div><div class="ttdeci">#define INTERNAL_THERM_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:224</div></div>
 <div class="ttc" id="apdu_2main_8h_html_a323a00f7f0e19988612bd9d5e185f1ed"><div class="ttname"><a href="pdu_2main_8h.html#a323a00f7f0e19988612bd9d5e185f1ed">MAIN_CS_ADC_CHNL</a></div><div class="ttdeci">#define MAIN_CS_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:150</div></div>
 <div class="ttc" id="apdu_2main_8h_html_a5053116e39f1f2bb65f36df8fc2a0419"><div class="ttname"><a href="pdu_2main_8h.html#a5053116e39f1f2bb65f36df8fc2a0419">PUMP_2_IMON_ADC_CHNL</a></div><div class="ttdeci">#define PUMP_2_IMON_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:112</div></div>
 <div class="ttc" id="apdu_2main_8h_html_a79bbf37e54451ee85736c1da5bc7b301"><div class="ttname"><a href="pdu_2main_8h.html#a79bbf37e54451ee85736c1da5bc7b301">SDC_IMON_ADC_CHNL</a></div><div class="ttdeci">#define SDC_IMON_ADC_CHNL</div><div class="ttdef"><b>Definition</b> main.h:124</div></div>
@@ -424,10 +424,10 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= <a class="code hl_define" href="phal__G4_2adc_2adc_8h.html#a9bf789bb8843fa4ab14a8f71510b8868">ADC1_DMA_CONT_CONFIG</a>((uint32_t)&amp;<a class="code hl_variable" href="main__module_2main_8c.html#a27666df6fadbd9638916906797be5ebe">adc_readings</a>,</div>
-<div class="line">                                                 <span class="keyword">sizeof</span>(<a class="code hl_variable" href="main__module_2main_8c.html#a27666df6fadbd9638916906797be5ebe">adc_readings</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="main__module_2main_8c.html#a27666df6fadbd9638916906797be5ebe">adc_readings</a>.lv_24_v_sense),</div>
+<b>Initial value:</b><div class="fragment"><div class="line">= <a class="code hl_define" href="phal__G4_2adc_2adc_8h.html#a9bf789bb8843fa4ab14a8f71510b8868">ADC1_DMA_CONT_CONFIG</a>((uint32_t)&amp;<a class="code hl_variable" href="#a27666df6fadbd9638916906797be5ebe">adc_readings</a>,</div>
+<div class="line">                                                 <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a27666df6fadbd9638916906797be5ebe">adc_readings</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a27666df6fadbd9638916906797be5ebe">adc_readings</a>.lv_24_v_sense),</div>
 <div class="line">                                                 0b01)</div>
-<div class="ttc" id="amain__module_2main_8c_html_a27666df6fadbd9638916906797be5ebe"><div class="ttname"><a href="main__module_2main_8c.html#a27666df6fadbd9638916906797be5ebe">adc_readings</a></div><div class="ttdeci">volatile ADCReadings_t adc_readings</div><div class="ttdef"><b>Definition</b> main.c:141</div></div>
+<div class="ttc" id="apdu_2main_8c_html_a27666df6fadbd9638916906797be5ebe"><div class="ttname"><a href="#a27666df6fadbd9638916906797be5ebe">adc_readings</a></div><div class="ttdeci">volatile ADCReadings_t adc_readings</div><div class="ttdef"><b>Definition</b> main.c:123</div></div>
 <div class="ttc" id="aphal__G4_2adc_2adc_8h_html_a9bf789bb8843fa4ab14a8f71510b8868"><div class="ttname"><a href="phal__G4_2adc_2adc_8h.html#a9bf789bb8843fa4ab14a8f71510b8868">ADC1_DMA_CONT_CONFIG</a></div><div class="ttdeci">#define ADC1_DMA_CONT_CONFIG(mem_addr_, tx_size_, priority_)</div><div class="ttdef"><b>Definition</b> adc.h:128</div></div>
 </div><!-- fragment -->
 </div>

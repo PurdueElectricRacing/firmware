@@ -9,13 +9,11 @@ var searchData=
   ['headingvehicle_6',['headingVehicle',['../structNAV__PVT__t.html#a7f62d73366c11c0e24f2379073526954',1,'NAV_PVT_t']]],
   ['height_7',['height',['../structNAV__PVT__t.html#a9a8442e88106a9ba347cfa2af3546203',1,'NAV_PVT_t']]],
   ['heightmsl_8',['heightMSL',['../structNAV__PVT__t.html#a68bd5335616cea5646bb48afd58fc3a2',1,'NAV_PVT_t']]],
-  ['hist_5fcurr_5fidx_9',['hist_curr_idx',['../car_8c.html#a5e332a68aedb2f96591e0ae901e849e3',1,'car.c']]],
-  ['hist_5fcurrent_10',['hist_current',['../car_8c.html#a21278e2975218202de9d7a5c2a7b3f5f',1,'car.c']]],
-  ['horizontalaccuracy_11',['horizontalAccuracy',['../structNAV__PVT__t.html#a94bd2e29f2131891fa0dfaae2269dabc',1,'NAV_PVT_t']]],
-  ['hour_12',['hour',['../structNAV__PVT__t.html#a2bca5697d3ad496f6b243f6918263477',1,'NAV_PVT_t']]],
-  ['hours_5fbcd_13',['hours_bcd',['../structRTC__time__t.html#a8d02832380abd6524b9d4272495f6252',1,'RTC_time_t']]],
-  ['ht_14',['ht',['../structpVCU__struct.html#ad88b860274726778ea4447e8e0dcd8ac',1,'pVCU_struct']]],
-  ['huart1_15',['huart1',['../l4__testing_2main_8c.html#a06d36f7d8dfd573ebf393d8868199ffd',1,'main.c']]],
-  ['huart_5fgps_16',['huart_gps',['../torque__vector_2main_8c.html#a0d49045de5c409dc29074762dc55a583',1,'main.c']]],
-  ['hw_5fflow_5fctl_17',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]]
+  ['horizontalaccuracy_9',['horizontalAccuracy',['../structNAV__PVT__t.html#a94bd2e29f2131891fa0dfaae2269dabc',1,'NAV_PVT_t']]],
+  ['hour_10',['hour',['../structNAV__PVT__t.html#a2bca5697d3ad496f6b243f6918263477',1,'NAV_PVT_t']]],
+  ['hours_5fbcd_11',['hours_bcd',['../structRTC__time__t.html#a8d02832380abd6524b9d4272495f6252',1,'RTC_time_t']]],
+  ['ht_12',['ht',['../structpVCU__struct.html#ad88b860274726778ea4447e8e0dcd8ac',1,'pVCU_struct']]],
+  ['huart1_13',['huart1',['../l4__testing_2main_8c.html#a06d36f7d8dfd573ebf393d8868199ffd',1,'main.c']]],
+  ['huart_5fgps_14',['huart_gps',['../torque__vector_2main_8c.html#a0d49045de5c409dc29074762dc55a583',1,'main.c']]],
+  ['hw_5fflow_5fctl_15',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]]
 ];

@@ -170,7 +170,6 @@ var menudata={children:[
 {text:"i",url:"globals_vars_i.html#index_i"},
 {text:"l",url:"globals_vars_l.html#index_l"},
 {text:"m",url:"globals_vars_m.html#index_m"},
-{text:"n",url:"globals_vars_n.html#index_n"},
 {text:"p",url:"globals_vars_p.html#index_p"},
 {text:"q",url:"globals_vars_q.html#index_q"},
 {text:"r",url:"globals_vars_r.html#index_r"},

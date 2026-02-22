@@ -5,6 +5,5 @@ var searchData=
   ['pedal_5ffaults_5ft_2',['pedal_faults_t',['../structpedal__faults__t.html',1,'']]],
   ['pedal_5fvalues_5ft_3',['pedal_values_t',['../structpedal__values__t.html',1,'']]],
   ['phal_5fsd_5fcmd_5ft_4',['PHAL_SD_Cmd_t',['../structPHAL__SD__Cmd__t.html',1,'']]],
-  ['prechargestat_5ft_5',['prechargeStat_t',['../structprechargeStat__t.html',1,'']]],
-  ['pvcu_5fstruct_6',['pVCU_struct',['../structpVCU__struct.html',1,'']]]
+  ['pvcu_5fstruct_5',['pVCU_struct',['../structpVCU__struct.html',1,'']]]
 ];

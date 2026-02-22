@@ -11,8 +11,8 @@ var searchData=
   ['commands_2ec_8',['commands.c',['../commands_8c.html',1,'']]],
   ['commands_2eh_9',['commands.h',['../commands_8h.html',1,'']]],
   ['config_2eh_10',['config.h',['../config_8h.html',1,'']]],
-  ['cooling_2ec_11',['cooling.c',['../main__module_2cooling_2cooling_8c.html',1,'(Global Namespace)'],['../pdu_2cooling_2cooling_8c.html',1,'(Global Namespace)']]],
-  ['cooling_2eh_12',['cooling.h',['../main__module_2cooling_2cooling_8h.html',1,'(Global Namespace)'],['../pdu_2cooling_2cooling_8h.html',1,'(Global Namespace)']]],
+  ['cooling_2ec_11',['cooling.c',['../cooling_8c.html',1,'']]],
+  ['cooling_2eh_12',['cooling.h',['../cooling_8h.html',1,'']]],
   ['crc_2ec_13',['crc.c',['../crc_8c.html',1,'']]],
   ['crc_2eh_14',['crc.h',['../crc_8h.html',1,'']]]
 ];

@@ -258,6 +258,7 @@ void adbms_read_cells(ADBMS_bms_t *bms) {
                                       bms->rx_buf,
                                       cell_voltage_ptrs,
                                       cell_voltages_raw_ptrs,
+                                      bms->err_cell_voltage_pecs,
                                       ADBMS_MODULE_COUNT,
                                       ADBMS_PEC_FAIL_MAX_RETRIES)) {
         bms->state   = ADBMS_STATE_IDLE;

@@ -222,11 +222,13 @@ bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
                                   uint8_t *rx_buffer,
                                   float **cell_voltages,
                                   int16_t **cell_voltages_raw,
+                                  bool pec_error_flags[ADBMS6380_READ_CELL_VOLTAGES_CMD_COUNT],
                                   size_t module_count,
                                   size_t max_retries_on_pec_failure) {
-    const uint8_t *cmd_list[6] = {RDCVA, RDCVB, RDCVC, RDCVD, RDCVE, RDCVF};
+    const uint8_t *cmd_list[ADBMS6380_READ_CELL_VOLTAGES_CMD_COUNT] =
+        {RDCVA, RDCVB, RDCVC, RDCVD, RDCVE, RDCVF};
 
-    for (size_t cmd_idx = 0; cmd_idx < 6; cmd_idx++) {
+    for (size_t cmd_idx = 0; cmd_idx < ADBMS6380_READ_CELL_VOLTAGES_CMD_COUNT; cmd_idx++) {
         strbuf_clear(cmd_buffer);
         adbms6380_prepare_command(cmd_buffer, cmd_list[cmd_idx]);
 
@@ -239,11 +241,13 @@ bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
         switch (read_result) {
             case ADBMS6380_READ_SUCCESS:
                 // continue processing
-                // TODO: unset PEC_CELL_VOLTAGE_FLAG for this command index
+                pec_error_flags[cmd_idx] = false;
                 break;
             case ADBMS6380_READ_PEC_FAILURE:
-                // TODO: set PEC failure flag
-                // TODO: skip to the next command
+                pec_error_flags[cmd_idx] = true;
+                // skip to the next next command but marked that we did not update values
+                // for this set of cells
+                continue;
             case ADBMS6380_READ_SPI_FAILURE:
                 return false;
         }

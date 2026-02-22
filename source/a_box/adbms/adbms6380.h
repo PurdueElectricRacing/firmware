@@ -255,6 +255,8 @@ adbms6380_read_data_with_retries(SPI_InitConfig_t *spi,
  * @param rx_buffer RX buffer for raw bytes.
  * @param cell_voltages Per-module arrays of cell voltages to populate.
  * @param cell_voltages_raw Per-module arrays of raw cell voltage codes to populate.
+ * @param pec_error_flags Output array of flags indicating which command (if any)
+                          had PEC failures after retries are exhausted.
  * @param module_count Number of modules in the daisy chain.
  * @param max_retries_on_pec_failure Number of attempts to retry a read if a PEC
                                      failure is detected before giving up.
@@ -265,6 +267,7 @@ bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
                                   uint8_t *rx_buffer,
                                   float **cell_voltages,
                                   int16_t **cell_voltages_raw,
+                                  bool pec_error_flags[ADBMS6380_READ_CELL_VOLTAGES_CMD_COUNT],
                                   size_t module_count,
                                   size_t max_retries_on_pec_failure);
 /**

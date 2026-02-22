@@ -57,7 +57,6 @@ typedef enum {
     ADBMS_STATE_IDLE = 0,
     /** Driver is connected; periodic reads/balancing are active. */
     ADBMS_STATE_CONNECTED,
-} ADBMS_state_t;
 
 /**
  * @brief Per-ADBMS module measurements, config, and error flags.
@@ -100,7 +99,7 @@ typedef struct {
     bool err_rega_mismatch;
     /** Set if a read-back REGB does not match cached REGB. */
     bool err_regb_mismatch;
-} ADBMS_module_t;
+} adbms_module_t;
 
 /**
  * @brief Top-level ADBMS driver state, I/O buffers, and aggregated measurements.
@@ -110,7 +109,7 @@ typedef struct {
     ADBMS_state_t state;
 
     /** Per-module state and measurements. */
-    ADBMS_module_t modules[ADBMS_MODULE_COUNT];
+    adbms_module_t modules[ADBMS_MODULE_COUNT];
 
     /** Minimum cell voltage across all modules (volts). */
     float min_voltage;

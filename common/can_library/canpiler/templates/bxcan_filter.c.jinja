@@ -1,45 +1,49 @@
-// bxCAN filter setup for {{ periph }}
-static inline void {{ periph }}_set_filters() {
-    {% set banks = mapping.filters.get(periph, []) %}
-    {% set accept_all = mapping.accept_all.get(periph, False) %}
-    {% if not banks and not accept_all %}
-    return;
-    {% elif accept_all %}
-    // Accept all messages
-    {% set bank_idx = 0 if periph == "CAN1" else 14 %}
-    {{ periph }}->FM1R &= ~(1 << {{ bank_idx }}); // Mask mode
-    {{ periph }}->FS1R |= (1 << {{ bank_idx }});  // 32-bit scale
-    {{ periph }}->FA1R |= (1 << {{ bank_idx }});
-    {{ periph }}->sFilterRegister[{{ bank_idx }}].FR1 = 0;
-    {{ periph }}->sFilterRegister[{{ bank_idx }}].FR2 = 0;
+// bxCAN filter setup
+static inline void bxcan_set_filters() {
+    #ifdef CAN2
+    CAN1->FMR  &= ~CAN_FMR_CAN2SB;
+    CAN1->FMR  |= (14 << CAN_FMR_CAN2SB_Pos);
+    #endif
+    CAN1->FM1R |= 0x0FFFFFFF; // Set banks 0-27 to id mode
+    CAN1->FS1R |= 0x0FFFFFFF; // Set banks 0-27 to 32-bit scale
+
+    {% for p in peripherals if not p.startswith("FDCAN") %}
+    {% set banks = mapping.filters.get(p, []) %}
+    {% set accept_all = mapping.accept_all.get(p, False) %}
+    
+    {% if accept_all %}
+    // Accept all messages for {{ p }}
+    {% set bank_idx = 0 if p == "CAN1" else 14 %}
+    CAN1->FM1R &= ~(1 << {{ bank_idx }}); // Mask mode
+    CAN1->FS1R |= (1 << {{ bank_idx }});  // 32-bit scale
+    CAN1->FA1R |= (1 << {{ bank_idx }});
+    CAN1->sFilterRegister[{{ bank_idx }}].FR1 = 0;
+    CAN1->sFilterRegister[{{ bank_idx }}].FR2 = 0;
     {% else %}
-    {{ periph }}->FM1R |= 0x07FFFFFF; // Set banks 0-27 to id mode
-    {{ periph }}->FS1R |= 0x07FFFFFF; // Set banks 0-27 to 32-bit scale
-
     {% for fb in banks %}
-    // Bank {{ fb.bank_idx }}: {{ fb.msg1.name }}{% if fb.msg2 %}, {{ fb.msg2.name }}{% endif %}
-
-    {{ periph }}->FA1R |= (1 << {{ fb.bank_idx }});
+    // Bank {{ fb.bank_idx }}: {{ fb.msg1.name }}{% if fb.msg2 %}, {{ fb.msg2.name }}{% endif %} ({{ p }})
+    CAN1->FA1R |= (1 << {{ fb.bank_idx }});
     {% set m1_macro = fb.msg1.macro_name ~ "_MSG_ID" %}
     {% if fb.is_ext1 %}
-    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR1 = (({{ m1_macro }}) << 3) | 4;
+    CAN1->sFilterRegister[{{ fb.bank_idx }}].FR1 = (({{ m1_macro }}) << 3) | 4;
     {% else %}
-    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR1 = (({{ m1_macro }}) << 21);
+    CAN1->sFilterRegister[{{ fb.bank_idx }}].FR1 = (({{ m1_macro }}) << 21);
     {% endif %}
     {% if fb.msg2 %}
     {% set m2_macro = fb.msg2.macro_name ~ "_MSG_ID" %}
     {% if fb.is_ext2 %}
-    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m2_macro }}) << 3) | 4;
+    CAN1->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m2_macro }}) << 3) | 4;
     {% else %}
-    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m2_macro }}) << 21);
+    CAN1->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m2_macro }}) << 21);
     {% endif %}
     {% else %}
     {% if fb.is_ext1 %}
-    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m1_macro }}) << 3) | 4;
+    CAN1->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m1_macro }}) << 3) | 4;
     {% else %}
-    {{ periph }}->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m1_macro }}) << 21);
+    CAN1->sFilterRegister[{{ fb.bank_idx }}].FR2 = (({{ m1_macro }}) << 21);
     {% endif %}
     {% endif %}
     {% endfor %}
     {% endif %}
+    {% endfor %}
 }

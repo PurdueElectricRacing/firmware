@@ -157,14 +157,12 @@ static inline void CAN_SEND_{{ tx_msg.name }}(
 {% endfor %}
 
 // Filter configuration
-{% for periph in peripherals %}
-{% if periph.startswith("FDCAN") %}
+{% for periph in peripherals if periph.startswith("FDCAN") %}
 {% include "fdcan_filter.c.jinja" %}
-
-{% else %}
-{% include "bxcan_filter.c.jinja" %}
-
-{% endif %}
 {% endfor %}
+
+{% if "CAN1" in peripherals or "CAN2" in peripherals %}
+{% include "bxcan_filter.c.jinja" %}
+{% endif %}
 
 #endif // {{ node.name|upper }}_H

@@ -31,6 +31,14 @@
 // Single data packet size (bytes) for one module including PEC.
 #define ADBMS6380_SINGLE_DATA_PKT_SIZE (ADBMS6380_SINGLE_DATA_RAW_SIZE + ADBMS6380_PEC_SIZE)
 
+// Number of commands to read all 16 cell voltages (5 for 3 cells each, 1 for the last cell)
+// {RDCVA, RDCVB, RDCVC, RDCVD, RDCVE, RDCVF}
+#define ADBMS6380_READ_CELL_VOLTAGES_CMD_COUNT (6)
+
+// Number of commands to read all 10 GPIO voltages (3 for 3 GPIOs each, 1 for the last GPIO)
+// {RDAUXA, RDAUXB, RDAUXC, RDAUXD}
+#define ADBMS6380_READ_GPIO_VOLTAGES_CMD_COUNT (4)
+
 /**
  * @brief Wake pulse duration per CS toggle in milliseconds.
  * 

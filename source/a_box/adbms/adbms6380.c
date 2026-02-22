@@ -239,6 +239,7 @@ bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
         switch (read_result) {
             case ADBMS6380_READ_SUCCESS:
                 // continue processing
+                // TODO: unset PEC_CELL_VOLTAGE_FLAG for this command index
                 break;
             case ADBMS6380_READ_PEC_FAILURE:
                 // TODO: set PEC failure flag
@@ -291,6 +292,7 @@ bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
         switch (read_result) {
             case ADBMS6380_READ_SUCCESS:
                 // continue processing
+                // TODO: unset PEC_GPIO_VOLTAGE_FLAG for this command index
                 break;
             case ADBMS6380_READ_PEC_FAILURE:
                 // TODO: set PEC failure flag

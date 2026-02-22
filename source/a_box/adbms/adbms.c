@@ -97,10 +97,10 @@ bool adbms_read_and_check_rega(ADBMS_bms_t *bms) {
     switch (rdcfga_result) {
         case ADBMS6380_READ_SUCCESS:
             // continue to check for mismatch
-            // TODO: unset PEC_REGA_FLAG
+            bms->err_rega_pec = false;
             break;
         case ADBMS6380_READ_PEC_FAILURE:
-            // TODO: set PEC_REGA_FLAG
+            bms->err_rega_pec = true;
             return false;
         case ADBMS6380_READ_SPI_FAILURE:
             bms->err_spi = true;
@@ -131,10 +131,10 @@ bool adbms_read_and_check_regb(ADBMS_bms_t *bms) {
     switch (rdcfgb_result) {
         case ADBMS6380_READ_SUCCESS:
             // continue to check for mismatch
-            // TODO: unset PEC_REGB_FLAG
+            bms->err_regb_pec = false;
             break;
         case ADBMS6380_READ_PEC_FAILURE:
-            // TODO: set PEC_REGB_FLAG
+            bms->err_regb_pec = true;
             return false;
         case ADBMS6380_READ_SPI_FAILURE:
             bms->err_spi = true;

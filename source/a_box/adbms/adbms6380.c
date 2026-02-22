@@ -283,9 +283,12 @@ bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
                                   bool pec_error_flags[ADBMS6380_READ_GPIO_VOLTAGES_CMD_COUNT],
                                   size_t module_count,
                                   size_t max_retries_on_pec_failure) {
-    const uint8_t *cmd_list[4] = {RDAUXA, RDAUXB, RDAUXC, RDAUXD};
+    const uint8_t *cmd_list[ADBMS6380_READ_GPIO_VOLTAGES_CMD_COUNT] = {RDAUXA,
+                                                                       RDAUXB,
+                                                                       RDAUXC,
+                                                                       RDAUXD};
 
-    for (size_t cmd_idx = 0; cmd_idx < 4; cmd_idx++) {
+    for (size_t cmd_idx = 0; cmd_idx < ADBMS6380_READ_GPIO_VOLTAGES_CMD_COUNT; cmd_idx++) {
         strbuf_clear(cmd_buffer);
         adbms6380_prepare_command(cmd_buffer, cmd_list[cmd_idx]);
 

@@ -103,7 +103,7 @@ typedef struct {
 } adbms_module_t;
 
 /**
- * @brief Top-level ADBMS driver state, I/O buffers, and aggregated measurements.
+ * @brief Top-level ADBMS driver state, I/O buffers, measurements, and error flags.
  */
 typedef struct {
     /** Current driver state. */

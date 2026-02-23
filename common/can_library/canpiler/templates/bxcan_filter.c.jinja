@@ -1,6 +1,6 @@
 // bxCAN filter setup
 static inline void bxcan_set_filters() {
-    #ifdef CAN2
+    #ifdef USE_CAN2
     CAN1->FMR  &= ~CAN_FMR_CAN2SB;
     CAN1->FMR  |= (14 << CAN_FMR_CAN2SB_Pos);
     #endif

@@ -26,6 +26,25 @@ void g_bms_periodic() {
 ```
 This updates cell voltage, thermistor readings, and error flags (and all the aggregate statistics) in the `adbms_bms_t g_bms` struct.
 
+#### For example
+```c
+defineThreadStack(g_bms_periodic, 200, osPriorityHigh, 2048);
+
+int main() {
+	// ... GPIO and SPI initialization ...
+
+	adbms_init(&g_bms, &bms_spi_config, g_bms_tx_buf);
+
+	// Create periodic thread
+    createThread(g_bms_periodic);
+
+	// ... rest of main ...
+    osKernelStart();
+}
+```
+BMS task should have high priority to ensure timely updates of measurements and so that SPI communication is not delayed/interrupted.
+
+
 ### Accessing Measurements
 After each periodic call, values can be read from the `adbms_bms_t` struct:
 - `g_bms.modules[i].cell_voltages` — Per-module cell voltages (16 per module)

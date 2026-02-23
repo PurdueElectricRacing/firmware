@@ -66,3 +66,11 @@ The balancing algorithm is a simple threshold-based approach:
 - Error handling is robust, with flags for SPI, PEC, and register mismatches.
 - Make sure the `ADBMS_MODULE_COUNT` constant matches the actual number of modules in your daisy chain configuration!!
 
+## Authors
+
+- Primary: Millan Kumar
+- Supporting:
+	- Irving Wang
+	- Ronak Jain
+	- Shriya Balu
+	- Sebastian Arthur

@@ -66,8 +66,8 @@ The driver will handle the rest (setting the appropriate bits in the REGB regist
 #### Balancing algorithim
 
 The balancing algorithm is a simple threshold-based approach:
-- If the minimum cell voltage in the pack exceeds `MIN_V_FOR_BALANCE` (defined in ABOX main.c)
-- And the difference between a cell voltage and the minimum cell voltage is greater than `MIN_DELTA_FOR_BALANCE` (also defined in ABOX main.c)
+- If the minimum cell voltage in the pack exceeds `MIN_V_FOR_BALANCE` (defined in ABOX)
+- And the difference between a cell voltage and the minimum cell voltage is greater than `MIN_DELTA_FOR_BALANCE` (also defined in ABOX)
 - Then the discharge (balancing) for that cell will be enabled by setting the appropriate bit in the REGB register of the module that contains that cell.
 - Otherwise, discharge for that cell will be disabled.
 

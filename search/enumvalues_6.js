@@ -12,18 +12,5 @@ var searchData=
   ['gpio_5ftype_5faf_9',['GPIO_TYPE_AF',['../phal__G4_2gpio_2gpio_8h.html#a976b33799b2b8c4fe7d2a4415a88991ba2e971f8f1da5eb3ff891017f22c98927',1,'GPIO_TYPE_AF:&#160;gpio.h'],['../phal__F4__F7_2gpio_2gpio_8h.html#a976b33799b2b8c4fe7d2a4415a88991ba2e971f8f1da5eb3ff891017f22c98927',1,'GPIO_TYPE_AF:&#160;gpio.h']]],
   ['gpio_5ftype_5fanalog_10',['GPIO_TYPE_ANALOG',['../phal__G4_2gpio_2gpio_8h.html#a976b33799b2b8c4fe7d2a4415a88991baf0d3c2f5e6b6a52247a85482f03476bc',1,'GPIO_TYPE_ANALOG:&#160;gpio.h'],['../phal__F4__F7_2gpio_2gpio_8h.html#a976b33799b2b8c4fe7d2a4415a88991baf0d3c2f5e6b6a52247a85482f03476bc',1,'GPIO_TYPE_ANALOG:&#160;gpio.h']]],
   ['gpio_5ftype_5finput_11',['GPIO_TYPE_INPUT',['../phal__G4_2gpio_2gpio_8h.html#a976b33799b2b8c4fe7d2a4415a88991ba72133d3b8e4b2479ea80add2e9b8f00a',1,'GPIO_TYPE_INPUT:&#160;gpio.h'],['../phal__F4__F7_2gpio_2gpio_8h.html#a976b33799b2b8c4fe7d2a4415a88991ba72133d3b8e4b2479ea80add2e9b8f00a',1,'GPIO_TYPE_INPUT:&#160;gpio.h']]],
-  ['gpio_5ftype_5foutput_12',['GPIO_TYPE_OUTPUT',['../phal__G4_2gpio_2gpio_8h.html#a976b33799b2b8c4fe7d2a4415a88991ba9e41e0e3d9a09dbc9bcd8f73fb3c65b1',1,'GPIO_TYPE_OUTPUT:&#160;gpio.h'],['../phal__F4__F7_2gpio_2gpio_8h.html#a976b33799b2b8c4fe7d2a4415a88991ba9e41e0e3d9a09dbc9bcd8f73fb3c65b1',1,'GPIO_TYPE_OUTPUT:&#160;gpio.h']]],
-  ['gyro_5fdr_5f1000hz_5f116hz_13',['GYRO_DR_1000Hz_116Hz',['../bmi088_8h.html#ad62f4b9d7ba392af671d3aa7b4682b43a8ba2dcd34d45d74dadd236ec166c01b8',1,'bmi088.h']]],
-  ['gyro_5fdr_5f100hz_5f12hz_14',['GYRO_DR_100Hz_12Hz',['../bmi088_8h.html#ad62f4b9d7ba392af671d3aa7b4682b43a3e1ee6b9528f1685a5a961fa416efd28',1,'bmi088.h']]],
-  ['gyro_5fdr_5f100hz_5f32hz_15',['GYRO_DR_100Hz_32Hz',['../bmi088_8h.html#ad62f4b9d7ba392af671d3aa7b4682b43af3d5c595bebeb0407fed0c9ea8eb17e0',1,'bmi088.h']]],
-  ['gyro_5fdr_5f2000hz_5f230hz_16',['GYRO_DR_2000Hz_230Hz',['../bmi088_8h.html#ad62f4b9d7ba392af671d3aa7b4682b43a46af072116f064863f6678daa9a85479',1,'bmi088.h']]],
-  ['gyro_5fdr_5f2000hz_5f532hz_17',['GYRO_DR_2000Hz_532Hz',['../bmi088_8h.html#ad62f4b9d7ba392af671d3aa7b4682b43a006434844f50e1230e564d98acbe954a',1,'bmi088.h']]],
-  ['gyro_5fdr_5f200hz_5f23hz_18',['GYRO_DR_200Hz_23Hz',['../bmi088_8h.html#ad62f4b9d7ba392af671d3aa7b4682b43ac2dde6b3df4cbb928af8023d02b49300',1,'bmi088.h']]],
-  ['gyro_5fdr_5f200hz_5f64hz_19',['GYRO_DR_200Hz_64Hz',['../bmi088_8h.html#ad62f4b9d7ba392af671d3aa7b4682b43a2a6bf1b788fc2a3959cbf4010ce049cb',1,'bmi088.h']]],
-  ['gyro_5fdr_5f400hz_5f47hz_20',['GYRO_DR_400Hz_47Hz',['../bmi088_8h.html#ad62f4b9d7ba392af671d3aa7b4682b43aaf9266d9cbbaeb9a5e16c3184266af4a',1,'bmi088.h']]],
-  ['gyro_5frange_5f1000_21',['GYRO_RANGE_1000',['../bmi088_8h.html#a0c7cba54f7fc9d5af1eb933057708fe0a1d11a111604e089ea8745cea728e14b6',1,'bmi088.h']]],
-  ['gyro_5frange_5f125_22',['GYRO_RANGE_125',['../bmi088_8h.html#a0c7cba54f7fc9d5af1eb933057708fe0a306d98532a464fc24a027eb835453ebc',1,'bmi088.h']]],
-  ['gyro_5frange_5f2000_23',['GYRO_RANGE_2000',['../bmi088_8h.html#a0c7cba54f7fc9d5af1eb933057708fe0ab0c1e157df5cef39a6c1399531cc9e91',1,'bmi088.h']]],
-  ['gyro_5frange_5f250_24',['GYRO_RANGE_250',['../bmi088_8h.html#a0c7cba54f7fc9d5af1eb933057708fe0aa7495aaab9b9c19e6186ea1d491a03f5',1,'bmi088.h']]],
-  ['gyro_5frange_5f500_25',['GYRO_RANGE_500',['../bmi088_8h.html#a0c7cba54f7fc9d5af1eb933057708fe0a84a813cd02b4931f28e61b0043483cf3',1,'bmi088.h']]]
+  ['gpio_5ftype_5foutput_12',['GPIO_TYPE_OUTPUT',['../phal__G4_2gpio_2gpio_8h.html#a976b33799b2b8c4fe7d2a4415a88991ba9e41e0e3d9a09dbc9bcd8f73fb3c65b1',1,'GPIO_TYPE_OUTPUT:&#160;gpio.h'],['../phal__F4__F7_2gpio_2gpio_8h.html#a976b33799b2b8c4fe7d2a4415a88991ba9e41e0e3d9a09dbc9bcd8f73fb3c65b1',1,'GPIO_TYPE_OUTPUT:&#160;gpio.h']]]
 ];

@@ -11,12 +11,7 @@ var searchData=
   ['update_8',['update',['../structpage__handler__t.html#a0c7619a8c7df0a1afc3b8e1f59916640',1,'page_handler_t']]],
   ['update_5fpage_9',['update_page',['../structdashboard__input__state__t.html#a9a886da5f5d612b766a5190d1215bdd4',1,'dashboard_input_state_t']]],
   ['usart_5factive_5fnum_10',['usart_active_num',['../structusart__init__t.html#a0901e487a0737b2e9ba85cbccc2346a3',1,'usart_init_t']]],
-  ['usart_5fgps_5frx_5fdma_5fconfig_11',['usart_gps_rx_dma_config',['../torque__vector_2main_8c.html#a4fead6930e52d9b3ca8f2ad63fbc1e3a',1,'main.c']]],
-  ['usart_5fgps_5ftx_5fdma_5fconfig_12',['usart_gps_tx_dma_config',['../torque__vector_2main_8c.html#a02ac86e37bec1cf0c0978567134e26e8',1,'main.c']]],
-  ['usart_5frx_5fdma_5fconfig_13',['usart_rx_dma_config',['../daq_2main_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e',1,'usart_rx_dma_config:&#160;main.c'],['../dashboard_2main_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e',1,'usart_rx_dma_config:&#160;main.c'],['../l4__testing_2main_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e',1,'usart_rx_dma_config:&#160;main.c']]],
-  ['usart_5ftx_5fdma_5fconfig_14',['usart_tx_dma_config',['../daq_2main_8c.html#a1f94964a4032ad7e8b644485a417b00f',1,'usart_tx_dma_config:&#160;main.c'],['../dashboard_2main_8c.html#a1f94964a4032ad7e8b644485a417b00f',1,'usart_tx_dma_config:&#160;main.c'],['../l4__testing_2main_8c.html#a1f94964a4032ad7e8b644485a417b00f',1,'usart_tx_dma_config:&#160;main.c']]],
-  ['usart_5fusb_5frx_5fdma_5fconfig_15',['usart_usb_rx_dma_config',['../torque__vector_2main_8c.html#aee1a23cfc9cb7821cbd140e307ed0c35',1,'main.c']]],
-  ['usart_5fusb_5ftx_5fdma_5fconfig_16',['usart_usb_tx_dma_config',['../torque__vector_2main_8c.html#a54d065cd27bad5077837d12810e87f94',1,'main.c']]],
-  ['usb_17',['usb',['../torque__vector_2main_8c.html#a3f235b0fe34fce8a2a9fc2d8715e912c',1,'main.c']]],
-  ['use_5fpll_18',['use_pll',['../structClockRateConfig__t.html#acac53bfa913d0aee434ec90f5acdc394',1,'ClockRateConfig_t']]]
+  ['usart_5frx_5fdma_5fconfig_11',['usart_rx_dma_config',['../daq_2main_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e',1,'usart_rx_dma_config:&#160;main.c'],['../dashboard_2main_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e',1,'usart_rx_dma_config:&#160;main.c'],['../l4__testing_2main_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e',1,'usart_rx_dma_config:&#160;main.c']]],
+  ['usart_5ftx_5fdma_5fconfig_12',['usart_tx_dma_config',['../daq_2main_8c.html#a1f94964a4032ad7e8b644485a417b00f',1,'usart_tx_dma_config:&#160;main.c'],['../dashboard_2main_8c.html#a1f94964a4032ad7e8b644485a417b00f',1,'usart_tx_dma_config:&#160;main.c'],['../l4__testing_2main_8c.html#a1f94964a4032ad7e8b644485a417b00f',1,'usart_tx_dma_config:&#160;main.c']]],
+  ['use_5fpll_13',['use_pll',['../structClockRateConfig__t.html#acac53bfa913d0aee434ec90f5acdc394',1,'ClockRateConfig_t']]]
 ];

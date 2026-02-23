@@ -89,82 +89,41 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">main.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>"Torque Vector" node source code  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="torque__vector_2main_8h_source.html">main.h</a>&quot;</code><br />
-<code>#include &lt;math.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &lt;string.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="bmi088_8h_source.html">bmi088.h</a>&quot;</code><br />
 <code>#include &quot;common/can_library/generated/TORQUE_VECTOR.h&quot;</code><br />
-<code>#include &quot;common/bootloader/bootloader_common.h&quot;</code><br />
-<code>#include &quot;common/common_defs/common_defs.h&quot;</code><br />
-<code>#include &quot;common/can_library/faults_common.h&quot;</code><br />
+<code>#include &quot;common/freertos/freertos.h&quot;</code><br />
+<code>#include &quot;common/phal/can.h&quot;</code><br />
 <code>#include &quot;common/phal/gpio.h&quot;</code><br />
 <code>#include &quot;common/phal/rcc.h&quot;</code><br />
-<code>#include &quot;common/phal/spi.h&quot;</code><br />
-<code>#include &quot;common/phal/usart.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="gps_8h_source.html">gps.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="vcu_8h_source.html">vcu.h</a>&quot;</code><br />
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a041cbdf351ae1da6f864d0d249c93008" id="r_a041cbdf351ae1da6f864d0d249c93008"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>&#160;&#160;&#160;96000000</td></tr>
-<tr class="separator:a041cbdf351ae1da6f864d0d249c93008"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a042753032881fd89995367138b14b596" id="r_a042753032881fd89995367138b14b596"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a042753032881fd89995367138b14b596">heartbeat_led</a> (void)</td></tr>
-<tr class="separator:a042753032881fd89995367138b14b596"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4eea638751f327d3f332d265e53aa7e5" id="r_a4eea638751f327d3f332d265e53aa7e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4eea638751f327d3f332d265e53aa7e5">preflight_animation</a> (void)</td></tr>
-<tr class="separator:a4eea638751f327d3f332d265e53aa7e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60cfcf15038028a030b9adb3f61b0ad1" id="r_a60cfcf15038028a030b9adb3f61b0ad1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60cfcf15038028a030b9adb3f61b0ad1">preflightChecks</a> (void)</td></tr>
-<tr class="separator:a60cfcf15038028a030b9adb3f61b0ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafd7179a581e1bd7e3ba22ac327a6a26" id="r_aafd7179a581e1bd7e3ba22ac327a6a26"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aafd7179a581e1bd7e3ba22ac327a6a26">reportIMU</a> (void)</td></tr>
-<tr class="separator:aafd7179a581e1bd7e3ba22ac327a6a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96ec5726a1445bf494893358f5c969ec" id="r_a96ec5726a1445bf494893358f5c969ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96ec5726a1445bf494893358f5c969ec">reportGPS</a> (void)</td></tr>
-<tr class="separator:a96ec5726a1445bf494893358f5c969ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad27885cef92154991080436adc7de845" id="r_ad27885cef92154991080436adc7de845"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad27885cef92154991080436adc7de845">reportUTC</a> (void)</td></tr>
-<tr class="separator:ad27885cef92154991080436adc7de845"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2bffc10d5bd4106753b7c30e86903bea" id="r_a2bffc10d5bd4106753b7c30e86903bea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2bffc10d5bd4106753b7c30e86903bea">HardFault_Handler</a> (void)</td></tr>
 <tr class="separator:a2bffc10d5bd4106753b7c30e86903bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47356497cdad36a2cebea5588f2f67ac" id="r_a47356497cdad36a2cebea5588f2f67ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47356497cdad36a2cebea5588f2f67ac">parseIMU</a> (void)</td></tr>
-<tr class="separator:a47356497cdad36a2cebea5588f2f67ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbfcd19d30c0e37a1818c67b711d2aad" id="r_abbfcd19d30c0e37a1818c67b711d2aad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abbfcd19d30c0e37a1818c67b711d2aad">pollIMU</a> (void)</td></tr>
-<tr class="separator:abbfcd19d30c0e37a1818c67b711d2aad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a598f0a8a448de4670e8a6dad0a92abd4" id="r_a598f0a8a448de4670e8a6dad0a92abd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a598f0a8a448de4670e8a6dad0a92abd4">VCU_MAIN</a> (void)</td></tr>
-<tr class="separator:a598f0a8a448de4670e8a6dad0a92abd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82992dba7faf58abc61e350175a8856e" id="r_a82992dba7faf58abc61e350175a8856e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a82992dba7faf58abc61e350175a8856e">txUsart</a> (void)</td></tr>
-<tr class="separator:a82992dba7faf58abc61e350175a8856e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d45d2638da49ff751c95786863b9087" id="r_a4d45d2638da49ff751c95786863b9087"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d45d2638da49ff751c95786863b9087">ledblink</a> ()</td></tr>
+<tr class="separator:a4d45d2638da49ff751c95786863b9087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90bf0a9f946401661f11e4bdabf91066" id="r_a90bf0a9f946401661f11e4bdabf91066"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a90bf0a9f946401661f11e4bdabf91066">can_worker_thread</a> ()</td></tr>
+<tr class="separator:a90bf0a9f946401661f11e4bdabf91066"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b22a51b46b9a693cb16a6836bad8e81" id="r_a8b22a51b46b9a693cb16a6836bad8e81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b22a51b46b9a693cb16a6836bad8e81">defineThreadStack</a> (<a class="el" href="main__module_2main_8c.html#a4d45d2638da49ff751c95786863b9087">ledblink</a>, 500, osPriorityLow, 256)</td></tr>
+<tr class="separator:a8b22a51b46b9a693cb16a6836bad8e81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab967c72747bb335b5d44717a1e036b99" id="r_ab967c72747bb335b5d44717a1e036b99"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab967c72747bb335b5d44717a1e036b99">defineThreadStack</a> (<a class="el" href="#a90bf0a9f946401661f11e4bdabf91066">can_worker_thread</a>, 15, osPriorityNormal, 2048)</td></tr>
+<tr class="separator:ab967c72747bb335b5d44717a1e036b99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61341976b0cee71be1b6cf3bc17db4de" id="r_a61341976b0cee71be1b6cf3bc17db4de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61341976b0cee71be1b6cf3bc17db4de">usart_recieve_complete_callback</a> (<a class="el" href="structusart__init__t.html">usart_init_t</a> *handle)</td></tr>
-<tr class="memdesc:a61341976b0cee71be1b6cf3bc17db4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function called immediately after reception of a USART RX message Uses USART IDLE line interrupt.  <br /></td></tr>
-<tr class="separator:a61341976b0cee71be1b6cf3bc17db4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c13d7dad37f5c316106ea72675da7cf" id="r_a0c13d7dad37f5c316106ea72675da7cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c13d7dad37f5c316106ea72675da7cf">torquevector_bl_cmd_CALLBACK</a> (can_data_t *p_can_data)</td></tr>
-<tr class="separator:a0c13d7dad37f5c316106ea72675da7cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a60563c6df24a123ae18e090bca85f555" id="r_a60563c6df24a123ae18e090bca85f555"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60563c6df24a123ae18e090bca85f555">gpio_config</a> []</td></tr>
 <tr class="separator:a60563c6df24a123ae18e090bca85f555"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02ac86e37bec1cf0c0978567134e26e8" id="r_a02ac86e37bec1cf0c0978567134e26e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02ac86e37bec1cf0c0978567134e26e8">usart_gps_tx_dma_config</a> = <a class="el" href="phal__F4__F7_2usart_2usart_8h.html#ae3f737a2390de88ed8b648ca0a18814a">USART4_TXDMA_CONT_CONFIG</a>(NULL, 1)</td></tr>
-<tr class="separator:a02ac86e37bec1cf0c0978567134e26e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fead6930e52d9b3ca8f2ad63fbc1e3a" id="r_a4fead6930e52d9b3ca8f2ad63fbc1e3a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4fead6930e52d9b3ca8f2ad63fbc1e3a">usart_gps_rx_dma_config</a> = <a class="el" href="phal__F4__F7_2usart_2usart_8h.html#aa166abd04c0dedc6986d324a66989c51">USART4_RXDMA_CONT_CONFIG</a>(NULL, 2)</td></tr>
-<tr class="separator:a4fead6930e52d9b3ca8f2ad63fbc1e3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d49045de5c409dc29074762dc55a583" id="r_a0d49045de5c409dc29074762dc55a583"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structusart__init__t.html">usart_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d49045de5c409dc29074762dc55a583">huart_gps</a></td></tr>
-<tr class="separator:a0d49045de5c409dc29074762dc55a583"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54d065cd27bad5077837d12810e87f94" id="r_a54d065cd27bad5077837d12810e87f94"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54d065cd27bad5077837d12810e87f94">usart_usb_tx_dma_config</a> = <a class="el" href="phal__G4_2usart_2usart_8h.html#aeb7adac386675f0ac902a054c15efad5">USART1_TXDMA_CONT_CONFIG</a>(NULL, 1)</td></tr>
-<tr class="separator:a54d065cd27bad5077837d12810e87f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee1a23cfc9cb7821cbd140e307ed0c35" id="r_aee1a23cfc9cb7821cbd140e307ed0c35"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee1a23cfc9cb7821cbd140e307ed0c35">usart_usb_rx_dma_config</a> = <a class="el" href="phal__G4_2usart_2usart_8h.html#af0ed5ac170b4c464b30cf8471771c5c4">USART1_RXDMA_CONT_CONFIG</a>(NULL, 2)</td></tr>
-<tr class="separator:aee1a23cfc9cb7821cbd140e307ed0c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f235b0fe34fce8a2a9fc2d8715e912c" id="r_a3f235b0fe34fce8a2a9fc2d8715e912c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structusart__init__t.html">usart_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f235b0fe34fce8a2a9fc2d8715e912c">usb</a></td></tr>
-<tr class="separator:a3f235b0fe34fce8a2a9fc2d8715e912c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e372d6fcb26e99141502c56d908f788" id="r_a2e372d6fcb26e99141502c56d908f788"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structClockRateConfig__t.html">ClockRateConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e372d6fcb26e99141502c56d908f788">clock_config</a></td></tr>
 <tr class="separator:a2e372d6fcb26e99141502c56d908f788"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3f547c0ac514dd12e5bab27a6b60bec" id="r_ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3f547c0ac514dd12e5bab27a6b60bec">APB1ClockRateHz</a></td></tr>
@@ -175,49 +134,90 @@ Variables</h2></td></tr>
 <tr class="separator:a2c40deeaa6aeb002bafb0bc892484e0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac132aa42c20a1d3744db9df04f31c54" id="r_aac132aa42c20a1d3744db9df04f31c54"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac132aa42c20a1d3744db9df04f31c54">PLLClockRateHz</a></td></tr>
 <tr class="separator:aac132aa42c20a1d3744db9df04f31c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a048ceaccc44b006a77f0c988ae1877ce" id="r_a048ceaccc44b006a77f0c988ae1877ce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a> = <a class="el" href="phal__G4_2spi_2spi_8h.html#a138f02a7cbb378847fbf648524342247">SPI1_RXDMA_CONT_CONFIG</a>(NULL, 2)</td></tr>
-<tr class="separator:a048ceaccc44b006a77f0c988ae1877ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9d88a12a20b964301d43f839eee3f94" id="r_ac9d88a12a20b964301d43f839eee3f94"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a> = <a class="el" href="phal__G4_2spi_2spi_8h.html#acd5de28146a1c969e3a445f45dbc94af">SPI1_TXDMA_CONT_CONFIG</a>(NULL, 1)</td></tr>
-<tr class="separator:ac9d88a12a20b964301d43f839eee3f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada0a7177585eb88526a6239618b3bfdf" id="r_ada0a7177585eb88526a6239618b3bfdf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada0a7177585eb88526a6239618b3bfdf">spi_config</a></td></tr>
-<tr class="separator:ada0a7177585eb88526a6239618b3bfdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadbc6560c8c5ab906629ef424b3053b3" id="r_aadbc6560c8c5ab906629ef424b3053b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aadbc6560c8c5ab906629ef424b3053b3">bmi_handle</a></td></tr>
-<tr class="separator:aadbc6560c8c5ab906629ef424b3053b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6abf2f20db0202c505795cd1558b56e" id="r_ac6abf2f20db0202c505795cd1558b56e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structGPS__Handle__t.html">GPS_Handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6abf2f20db0202c505795cd1558b56e">gps_handle</a> = {0}</td></tr>
-<tr class="separator:ac6abf2f20db0202c505795cd1558b56e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a255f278fe01fd5bd049e3c2bfa6633a5" id="r_a255f278fe01fd5bd049e3c2bfa6633a5"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a255f278fe01fd5bd049e3c2bfa6633a5">scaled_accel_x</a></td></tr>
-<tr class="separator:a255f278fe01fd5bd049e3c2bfa6633a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6434aaa69ec74b0cfe23213ce8ef7b91" id="r_a6434aaa69ec74b0cfe23213ce8ef7b91"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6434aaa69ec74b0cfe23213ce8ef7b91">scaled_accel_y</a></td></tr>
-<tr class="separator:a6434aaa69ec74b0cfe23213ce8ef7b91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3621cbeeb82c34bd4e73b26169a840d" id="r_ac3621cbeeb82c34bd4e73b26169a840d"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac3621cbeeb82c34bd4e73b26169a840d">scaled_accel_z</a></td></tr>
-<tr class="separator:ac3621cbeeb82c34bd4e73b26169a840d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae971946821018fb294cf880510f95b34" id="r_ae971946821018fb294cf880510f95b34"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae971946821018fb294cf880510f95b34">scaled_gyro_x</a></td></tr>
-<tr class="separator:ae971946821018fb294cf880510f95b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fbb542edcd6c9309fcae3df9570ac29" id="r_a0fbb542edcd6c9309fcae3df9570ac29"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0fbb542edcd6c9309fcae3df9570ac29">scaled_gyro_y</a></td></tr>
-<tr class="separator:a0fbb542edcd6c9309fcae3df9570ac29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af10211f110645793d8b5f696e0a95094" id="r_af10211f110645793d8b5f696e0a95094"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af10211f110645793d8b5f696e0a95094">scaled_gyro_z</a></td></tr>
-<tr class="separator:af10211f110645793d8b5f696e0a95094"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5783c0dd121d039020e59cb45d75435" id="r_ad5783c0dd121d039020e59cb45d75435"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad5783c0dd121d039020e59cb45d75435">scaled_speed</a></td></tr>
-<tr class="separator:ad5783c0dd121d039020e59cb45d75435"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5cbfbf001a5c93db895b43f72ef509a" id="r_ac5cbfbf001a5c93db895b43f72ef509a"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5cbfbf001a5c93db895b43f72ef509a">scaled_heading</a></td></tr>
-<tr class="separator:ac5cbfbf001a5c93db895b43f72ef509a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a041cbdf351ae1da6f864d0d249c93008" name="a041cbdf351ae1da6f864d0d249c93008"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a041cbdf351ae1da6f864d0d249c93008">&#9670;&#160;</a></span>TargetCoreClockrateHz</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>"Torque Vector" node source code </p>
+<dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a90bf0a9f946401661f11e4bdabf91066" name="a90bf0a9f946401661f11e4bdabf91066"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90bf0a9f946401661f11e4bdabf91066">&#9670;&#160;</a></span>can_worker_thread()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define TargetCoreClockrateHz&#160;&#160;&#160;96000000</td>
+          <td class="memname">void can_worker_thread </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<h2 class="groupheader">Function Documentation</h2>
+<a id="ab967c72747bb335b5d44717a1e036b99" name="ab967c72747bb335b5d44717a1e036b99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab967c72747bb335b5d44717a1e036b99">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">defineThreadStack </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a90bf0a9f946401661f11e4bdabf91066">can_worker_thread</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">15</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityNormal</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">2048</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8b22a51b46b9a693cb16a6836bad8e81" name="a8b22a51b46b9a693cb16a6836bad8e81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b22a51b46b9a693cb16a6836bad8e81">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">defineThreadStack </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="main__module_2main_8c.html#a4d45d2638da49ff751c95786863b9087">ledblink</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">500</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityLow</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">256</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2bffc10d5bd4106753b7c30e86903bea" name="a2bffc10d5bd4106753b7c30e86903bea"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2bffc10d5bd4106753b7c30e86903bea">&#9670;&#160;</a></span>HardFault_Handler()</h2>
 
@@ -243,16 +243,16 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a042753032881fd89995367138b14b596" name="a042753032881fd89995367138b14b596"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a042753032881fd89995367138b14b596">&#9670;&#160;</a></span>heartbeat_led()</h2>
+<a id="a4d45d2638da49ff751c95786863b9087" name="a4d45d2638da49ff751c95786863b9087"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d45d2638da49ff751c95786863b9087">&#9670;&#160;</a></span>ledblink()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void heartbeat_led </td>
+          <td class="memname">void ledblink </td>
           <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -268,202 +268,6 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a47356497cdad36a2cebea5588f2f67ac" name="a47356497cdad36a2cebea5588f2f67ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47356497cdad36a2cebea5588f2f67ac">&#9670;&#160;</a></span>parseIMU()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void parseIMU </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="abbfcd19d30c0e37a1818c67b711d2aad" name="abbfcd19d30c0e37a1818c67b711d2aad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbfcd19d30c0e37a1818c67b711d2aad">&#9670;&#160;</a></span>pollIMU()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void pollIMU </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4eea638751f327d3f332d265e53aa7e5" name="a4eea638751f327d3f332d265e53aa7e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4eea638751f327d3f332d265e53aa7e5">&#9670;&#160;</a></span>preflight_animation()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void preflight_animation </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a60cfcf15038028a030b9adb3f61b0ad1" name="a60cfcf15038028a030b9adb3f61b0ad1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60cfcf15038028a030b9adb3f61b0ad1">&#9670;&#160;</a></span>preflightChecks()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void preflightChecks </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a96ec5726a1445bf494893358f5c969ec" name="a96ec5726a1445bf494893358f5c969ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96ec5726a1445bf494893358f5c969ec">&#9670;&#160;</a></span>reportGPS()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void reportGPS </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aafd7179a581e1bd7e3ba22ac327a6a26" name="aafd7179a581e1bd7e3ba22ac327a6a26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aafd7179a581e1bd7e3ba22ac327a6a26">&#9670;&#160;</a></span>reportIMU()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void reportIMU </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad27885cef92154991080436adc7de845" name="ad27885cef92154991080436adc7de845"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad27885cef92154991080436adc7de845">&#9670;&#160;</a></span>reportUTC()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void reportUTC </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0c13d7dad37f5c316106ea72675da7cf" name="a0c13d7dad37f5c316106ea72675da7cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c13d7dad37f5c316106ea72675da7cf">&#9670;&#160;</a></span>torquevector_bl_cmd_CALLBACK()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void torquevector_bl_cmd_CALLBACK </td>
-          <td>(</td>
-          <td class="paramtype">can_data_t *</td>          <td class="paramname"><span class="paramname"><em>p_can_data</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a82992dba7faf58abc61e350175a8856e" name="a82992dba7faf58abc61e350175a8856e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82992dba7faf58abc61e350175a8856e">&#9670;&#160;</a></span>txUsart()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void txUsart </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a61341976b0cee71be1b6cf3bc17db4de" name="a61341976b0cee71be1b6cf3bc17db4de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61341976b0cee71be1b6cf3bc17db4de">&#9670;&#160;</a></span>usart_recieve_complete_callback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void usart_recieve_complete_callback </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structusart__init__t.html">usart_init_t</a> *</td>          <td class="paramname"><span class="paramname"><em>handle</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Callback function called immediately after reception of a USART RX message Uses USART IDLE line interrupt. </p>
-<p>NOTE: this is executed during an interrupt handler call, so keep code in this function light</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">handle</td><td>Handle of USART peripheral that just recieved a message </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a598f0a8a448de4670e8a6dad0a92abd4" name="a598f0a8a448de4670e8a6dad0a92abd4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a598f0a8a448de4670e8a6dad0a92abd4">&#9670;&#160;</a></span>VCU_MAIN()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void VCU_MAIN </td>
           <td>(</td>
           <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -540,33 +344,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aadbc6560c8c5ab906629ef424b3053b3" name="aadbc6560c8c5ab906629ef424b3053b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadbc6560c8c5ab906629ef424b3053b3">&#9670;&#160;</a></span>bmi_handle</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> bmi_handle</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .spi           = &amp;<a class="code hl_variable" href="l4__testing_2main_8c.html#ada0a7177585eb88526a6239618b3bfdf">spi_config</a>,</div>
-<div class="line">    .accel_range   = <a class="code hl_enumvalue" href="bmi088_8h.html#a8beb0f95aac7d7748899d1ca3a65c5efa523e7c3b6d076b607f6323eb1bbb89c6">ACCEL_RANGE_3G</a>,</div>
-<div class="line">    .accel_bwp     = <a class="code hl_enumvalue" href="bmi088_8h.html#adb6b44e48ad09f0c047b86b225cca65ea8ad18d4389bd919ec7b64f36416e6115">ACCEL_OS_NORMAL</a>,</div>
-<div class="line">    .accel_odr     = <a class="code hl_enumvalue" href="bmi088_8h.html#a770c4d8814f85569a5107ee50b7a2e26a5c74547a184d58e9fbcd8d8d185ee084">ACCEL_ODR_50Hz</a>,</div>
-<div class="line">    .gyro_range    = <a class="code hl_enumvalue" href="bmi088_8h.html#a0c7cba54f7fc9d5af1eb933057708fe0aa7495aaab9b9c19e6186ea1d491a03f5">GYRO_RANGE_250</a>,</div>
-<div class="line">    .gyro_datarate = <a class="code hl_enumvalue" href="bmi088_8h.html#ad62f4b9d7ba392af671d3aa7b4682b43af3d5c595bebeb0407fed0c9ea8eb17e0">GYRO_DR_100Hz_32Hz</a>}</div>
-<div class="ttc" id="abmi088_8h_html_a0c7cba54f7fc9d5af1eb933057708fe0aa7495aaab9b9c19e6186ea1d491a03f5"><div class="ttname"><a href="bmi088_8h.html#a0c7cba54f7fc9d5af1eb933057708fe0aa7495aaab9b9c19e6186ea1d491a03f5">GYRO_RANGE_250</a></div><div class="ttdeci">@ GYRO_RANGE_250</div><div class="ttdef"><b>Definition</b> bmi088.h:71</div></div>
-<div class="ttc" id="abmi088_8h_html_a770c4d8814f85569a5107ee50b7a2e26a5c74547a184d58e9fbcd8d8d185ee084"><div class="ttname"><a href="bmi088_8h.html#a770c4d8814f85569a5107ee50b7a2e26a5c74547a184d58e9fbcd8d8d185ee084">ACCEL_ODR_50Hz</a></div><div class="ttdeci">@ ACCEL_ODR_50Hz</div><div class="ttdef"><b>Definition</b> bmi088.h:46</div></div>
-<div class="ttc" id="abmi088_8h_html_a8beb0f95aac7d7748899d1ca3a65c5efa523e7c3b6d076b607f6323eb1bbb89c6"><div class="ttname"><a href="bmi088_8h.html#a8beb0f95aac7d7748899d1ca3a65c5efa523e7c3b6d076b607f6323eb1bbb89c6">ACCEL_RANGE_3G</a></div><div class="ttdeci">@ ACCEL_RANGE_3G</div><div class="ttdef"><b>Definition</b> bmi088.h:61</div></div>
-<div class="ttc" id="abmi088_8h_html_ad62f4b9d7ba392af671d3aa7b4682b43af3d5c595bebeb0407fed0c9ea8eb17e0"><div class="ttname"><a href="bmi088_8h.html#ad62f4b9d7ba392af671d3aa7b4682b43af3d5c595bebeb0407fed0c9ea8eb17e0">GYRO_DR_100Hz_32Hz</a></div><div class="ttdeci">@ GYRO_DR_100Hz_32Hz</div><div class="ttdef"><b>Definition</b> bmi088.h:83</div></div>
-<div class="ttc" id="abmi088_8h_html_adb6b44e48ad09f0c047b86b225cca65ea8ad18d4389bd919ec7b64f36416e6115"><div class="ttname"><a href="bmi088_8h.html#adb6b44e48ad09f0c047b86b225cca65ea8ad18d4389bd919ec7b64f36416e6115">ACCEL_OS_NORMAL</a></div><div class="ttdeci">@ ACCEL_OS_NORMAL</div><div class="ttdef"><b>Definition</b> bmi088.h:55</div></div>
-<div class="ttc" id="al4__testing_2main_8c_html_ada0a7177585eb88526a6239618b3bfdf"><div class="ttname"><a href="l4__testing_2main_8c.html#ada0a7177585eb88526a6239618b3bfdf">spi_config</a></div><div class="ttdeci">SPI_InitConfig_t spi_config</div><div class="ttdef"><b>Definition</b> main.c:89</div></div>
-</div><!-- fragment -->
-</div>
-</div>
 <a id="a2e372d6fcb26e99141502c56d908f788" name="a2e372d6fcb26e99141502c56d908f788"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2e372d6fcb26e99141502c56d908f788">&#9670;&#160;</a></span>clock_config</h2>
 
@@ -579,18 +356,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .clock_source              = <a class="code hl_enumvalue" href="phal__G4_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a>,</div>
-<div class="line">    .use_pll                   = <span class="keyword">true</span>,</div>
-<div class="line">    .pll_src                   = <a class="code hl_enumvalue" href="phal__G4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078">PLL_SRC_HSE</a>,</div>
-<div class="line">    .vco_output_rate_target_hz = 192000000,</div>
-<div class="line">    .system_clock_target_hz    = <a class="code hl_define" href="bootloader_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>,</div>
-<div class="line">    .ahb_clock_target_hz       = (<a class="code hl_define" href="bootloader_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 1),</div>
-<div class="line">    .apb1_clock_target_hz      = (<a class="code hl_define" href="bootloader_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
-<div class="line">    .apb2_clock_target_hz      = (<a class="code hl_define" href="bootloader_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
+<div class="line">    .clock_source           = <a class="code hl_enumvalue" href="phal__G4_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a>,</div>
+<div class="line">    .use_pll                = <span class="keyword">false</span>,</div>
+<div class="line">    .system_clock_target_hz = <a class="code hl_define" href="bootloader_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>,</div>
+<div class="line">    .ahb_clock_target_hz    = (<a class="code hl_define" href="bootloader_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 1),</div>
+<div class="line">    .apb1_clock_target_hz   = (<a class="code hl_define" href="bootloader_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / (1)),</div>
+<div class="line">    .apb2_clock_target_hz   = (<a class="code hl_define" href="bootloader_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / (1)),</div>
 <div class="line">}</div>
 <div class="ttc" id="abootloader_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="bootloader_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:22</div></div>
 <div class="ttc" id="aphal__G4_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23"><div class="ttname"><a href="phal__G4_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:65</div></div>
-<div class="ttc" id="aphal__G4_2rcc_2rcc_8h_html_adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078"><div class="ttname"><a href="phal__G4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078">PLL_SRC_HSE</a></div><div class="ttdeci">@ PLL_SRC_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:43</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -605,110 +379,31 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">    {</div>
-<div class="line">        </div>
-<div class="line">        <a class="code hl_define" href="phal__G4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="pdu_2main_8h.html#ad606c68e7c4fc77a58df05a77a2ac2d0">ERR_LED_GPIO_Port</a>, <a class="code hl_define" href="pdu_2main_8h.html#ac38565041738156d70795f7d45a458ef">ERR_LED_Pin</a>, <a class="code hl_enumvalue" href="phal__G4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
-<div class="line">        <a class="code hl_define" href="phal__G4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="dashboard_2main_8h.html#a75d1cb8230e6eaf53142a5bca49003ef">CONN_LED_GPIO_Port</a>, <a class="code hl_define" href="dashboard_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60">CONN_LED_Pin</a>, <a class="code hl_enumvalue" href="phal__G4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
-<div class="line">        <a class="code hl_define" href="phal__G4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="pdu_2main_8h.html#a5a1bec8475d2774ce7a82559f9644f09">HEARTBEAT_GPIO_Port</a>, <a class="code hl_define" href="pdu_2main_8h.html#ab1f60dbdca30f90ed4ab09fb63e83a50">HEARTBEAT_Pin</a>, <a class="code hl_enumvalue" href="phal__G4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    </div>
+<div class="line">    <a class="code hl_define" href="phal__G4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="a__box_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50">HEARTBEAT_LED_PORT</a>, <a class="code hl_define" href="a__box_2main_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3">HEARTBEAT_LED_PIN</a>, <a class="code hl_enumvalue" href="phal__G4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
+<div class="line">    <a class="code hl_define" href="phal__G4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="a__box_2main_8h.html#a84357dafca10c0bedd27ddf562ec038f">ERROR_LED_PORT</a>, <a class="code hl_define" href="a__box_2main_8h.html#a16617de3bb2ca54675ae2515d8515e12">ERROR_LED_PIN</a>, <a class="code hl_enumvalue" href="phal__G4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
+<div class="line">    <a class="code hl_define" href="phal__G4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="a__box_2main_8h.html#aa5bf4e4a187f66b98a273bb051ec3877">CONNECTION_LED_PORT</a>, <a class="code hl_define" href="a__box_2main_8h.html#a8437cdc43b488d816a5e56f7b6457b86">CONNECTION_LED_PIN</a>, <a class="code hl_enumvalue" href="phal__G4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
 <div class="line"> </div>
-<div class="line">        </div>
-<div class="line">        <a class="code hl_define" href="phal__G4_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(<a class="code hl_define" href="l4__testing_2main_8h.html#aec842ba18536df50cc7c35d24fe9f89e">SPI_SCLK_GPIO_Port</a>, <a class="code hl_define" href="l4__testing_2main_8h.html#a3e93f9482a06a62b4a3a3b59c051e79c">SPI_SCLK_Pin</a>, 5, <a class="code hl_enumvalue" href="phal__G4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a>, <a class="code hl_enumvalue" href="phal__G4_2gpio_2gpio_8h.html#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="code hl_enumvalue" href="phal__G4_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3">GPIO_INPUT_PULL_DOWN</a>),</div>
-<div class="line">        <a class="code hl_define" href="phal__G4_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(<a class="code hl_define" href="l4__testing_2main_8h.html#af86c484e6065ee32b61f1b141cb0014e">SPI_MOSI_GPIO_Port</a>, <a class="code hl_define" href="l4__testing_2main_8h.html#a4312169e5b462272dc4be10d4ffa4e40">SPI_MOSI_Pin</a>, 5, <a class="code hl_enumvalue" href="phal__G4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a>, <a class="code hl_enumvalue" href="phal__G4_2gpio_2gpio_8h.html#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="code hl_enumvalue" href="phal__G4_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3">GPIO_INPUT_PULL_DOWN</a>),</div>
-<div class="line">        <a class="code hl_define" href="phal__G4_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(<a class="code hl_define" href="l4__testing_2main_8h.html#acefbb4f623273b9808c5dd75f0f0c7ee">SPI_MISO_GPIO_Port</a>, <a class="code hl_define" href="l4__testing_2main_8h.html#a96f125c65f6d8a90050ebb72cf459e95">SPI_MISO_Pin</a>, 5, <a class="code hl_enumvalue" href="phal__G4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a>, <a class="code hl_enumvalue" href="phal__G4_2gpio_2gpio_8h.html#a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b">GPIO_OUTPUT_OPEN_DRAIN</a>, <a class="code hl_enumvalue" href="phal__G4_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23a7dfaecf9a2876e9573415842538af8d8">GPIO_INPUT_OPEN_DRAIN</a>),</div>
-<div class="line">        <a class="code hl_define" href="phal__G4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="torque__vector_2main_8h.html#aacc6e26a0a2afa5bc42f86e3abe643b2">SPI_CS_ACEL_GPIO_Port</a>, <a class="code hl_define" href="torque__vector_2main_8h.html#a086a2a66044e2f21882f62f7251759f5">SPI_CS_ACEL_Pin</a>, <a class="code hl_enumvalue" href="phal__G4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a>),</div>
-<div class="line">        <a class="code hl_define" href="phal__G4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="torque__vector_2main_8h.html#a9de9e7d70d216f0eebd7c18e3dcc55e5">SPI_CS_GYRO_GPIO_Port</a>, <a class="code hl_define" href="torque__vector_2main_8h.html#a8b195084506d284f754d772f6d709d7c">SPI_CS_GYRO_Pin</a>, <a class="code hl_enumvalue" href="phal__G4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a>),</div>
+<div class="line">    </div>
+<div class="line">    <a class="code hl_define" href="fdcan_8h.html#a6a00ef93e163a984fb347b26134ddf4f">GPIO_INIT_FDCAN2TX_PB13</a>,</div>
+<div class="line">    <a class="code hl_define" href="fdcan_8h.html#a908de24a4dc6c6ab98a07e9005fee101">GPIO_INIT_FDCAN2RX_PB12</a>,</div>
 <div class="line"> </div>
-<div class="line">        </div>
-<div class="line">        GPIO_INIT_UART4RX_PA1,</div>
-<div class="line">        GPIO_INIT_UART4TX_PA0,</div>
-<div class="line">        <a class="code hl_define" href="phal__G4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(<a class="code hl_define" href="torque__vector_2main_8h.html#a50e5e8556e3a271cab83dfa16f14ee09">GPS_RESET_GPIO_Port</a>, <a class="code hl_define" href="torque__vector_2main_8h.html#a0307e93d615d22766fd41e1a3c3cc796">GPS_RESET_Pin</a>, <a class="code hl_enumvalue" href="phal__G4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>),</div>
-<div class="line"> </div>
-<div class="line">        </div>
-<div class="line">        </div>
-<div class="line">        </div>
-<div class="line"> </div>
-<div class="line">        </div>
-<div class="line">        GPIO_INIT_CANRX_PA11,</div>
-<div class="line">        GPIO_INIT_CANTX_PA12}</div>
-<div class="ttc" id="adashboard_2main_8h_html_a0111b42f1cdfd22b52e5aa836d743a60"><div class="ttname"><a href="dashboard_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60">CONN_LED_Pin</a></div><div class="ttdeci">#define CONN_LED_Pin</div><div class="ttdef"><b>Definition</b> main.h:46</div></div>
-<div class="ttc" id="adashboard_2main_8h_html_a75d1cb8230e6eaf53142a5bca49003ef"><div class="ttname"><a href="dashboard_2main_8h.html#a75d1cb8230e6eaf53142a5bca49003ef">CONN_LED_GPIO_Port</a></div><div class="ttdeci">#define CONN_LED_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:45</div></div>
-<div class="ttc" id="al4__testing_2main_8h_html_a3e93f9482a06a62b4a3a3b59c051e79c"><div class="ttname"><a href="l4__testing_2main_8h.html#a3e93f9482a06a62b4a3a3b59c051e79c">SPI_SCLK_Pin</a></div><div class="ttdeci">#define SPI_SCLK_Pin</div><div class="ttdef"><b>Definition</b> main.h:45</div></div>
-<div class="ttc" id="al4__testing_2main_8h_html_a4312169e5b462272dc4be10d4ffa4e40"><div class="ttname"><a href="l4__testing_2main_8h.html#a4312169e5b462272dc4be10d4ffa4e40">SPI_MOSI_Pin</a></div><div class="ttdeci">#define SPI_MOSI_Pin</div><div class="ttdef"><b>Definition</b> main.h:49</div></div>
-<div class="ttc" id="al4__testing_2main_8h_html_a96f125c65f6d8a90050ebb72cf459e95"><div class="ttname"><a href="l4__testing_2main_8h.html#a96f125c65f6d8a90050ebb72cf459e95">SPI_MISO_Pin</a></div><div class="ttdeci">#define SPI_MISO_Pin</div><div class="ttdef"><b>Definition</b> main.h:47</div></div>
-<div class="ttc" id="al4__testing_2main_8h_html_acefbb4f623273b9808c5dd75f0f0c7ee"><div class="ttname"><a href="l4__testing_2main_8h.html#acefbb4f623273b9808c5dd75f0f0c7ee">SPI_MISO_GPIO_Port</a></div><div class="ttdeci">#define SPI_MISO_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:46</div></div>
-<div class="ttc" id="al4__testing_2main_8h_html_aec842ba18536df50cc7c35d24fe9f89e"><div class="ttname"><a href="l4__testing_2main_8h.html#aec842ba18536df50cc7c35d24fe9f89e">SPI_SCLK_GPIO_Port</a></div><div class="ttdeci">#define SPI_SCLK_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:44</div></div>
-<div class="ttc" id="al4__testing_2main_8h_html_af86c484e6065ee32b61f1b141cb0014e"><div class="ttname"><a href="l4__testing_2main_8h.html#af86c484e6065ee32b61f1b141cb0014e">SPI_MOSI_GPIO_Port</a></div><div class="ttdeci">#define SPI_MOSI_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:48</div></div>
-<div class="ttc" id="apdu_2main_8h_html_a5a1bec8475d2774ce7a82559f9644f09"><div class="ttname"><a href="pdu_2main_8h.html#a5a1bec8475d2774ce7a82559f9644f09">HEARTBEAT_GPIO_Port</a></div><div class="ttdeci">#define HEARTBEAT_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:25</div></div>
-<div class="ttc" id="apdu_2main_8h_html_ab1f60dbdca30f90ed4ab09fb63e83a50"><div class="ttname"><a href="pdu_2main_8h.html#ab1f60dbdca30f90ed4ab09fb63e83a50">HEARTBEAT_Pin</a></div><div class="ttdeci">#define HEARTBEAT_Pin</div><div class="ttdef"><b>Definition</b> main.h:26</div></div>
-<div class="ttc" id="apdu_2main_8h_html_ac38565041738156d70795f7d45a458ef"><div class="ttname"><a href="pdu_2main_8h.html#ac38565041738156d70795f7d45a458ef">ERR_LED_Pin</a></div><div class="ttdeci">#define ERR_LED_Pin</div><div class="ttdef"><b>Definition</b> main.h:21</div></div>
-<div class="ttc" id="apdu_2main_8h_html_ad606c68e7c4fc77a58df05a77a2ac2d0"><div class="ttname"><a href="pdu_2main_8h.html#ad606c68e7c4fc77a58df05a77a2ac2d0">ERR_LED_GPIO_Port</a></div><div class="ttdeci">#define ERR_LED_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:20</div></div>
-<div class="ttc" id="aphal__G4_2gpio_2gpio_8h_html_a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b"><div class="ttname"><a href="phal__G4_2gpio_2gpio_8h.html#a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b">GPIO_OUTPUT_OPEN_DRAIN</a></div><div class="ttdeci">@ GPIO_OUTPUT_OPEN_DRAIN</div><div class="ttdef"><b>Definition</b> gpio.h:43</div></div>
-<div class="ttc" id="aphal__G4_2gpio_2gpio_8h_html_a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9"><div class="ttname"><a href="phal__G4_2gpio_2gpio_8h.html#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a></div><div class="ttdeci">@ GPIO_OUTPUT_PUSH_PULL</div><div class="ttdef"><b>Definition</b> gpio.h:42</div></div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">    </div>
+<div class="line">}</div>
+<div class="ttc" id="aa__box_2main_8h_html_a16617de3bb2ca54675ae2515d8515e12"><div class="ttname"><a href="a__box_2main_8h.html#a16617de3bb2ca54675ae2515d8515e12">ERROR_LED_PIN</a></div><div class="ttdeci">#define ERROR_LED_PIN</div><div class="ttdef"><b>Definition</b> main.h:19</div></div>
+<div class="ttc" id="aa__box_2main_8h_html_a5e9e4203b861d671cdcd3bf5f08655a3"><div class="ttname"><a href="a__box_2main_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3">HEARTBEAT_LED_PIN</a></div><div class="ttdeci">#define HEARTBEAT_LED_PIN</div><div class="ttdef"><b>Definition</b> main.h:17</div></div>
+<div class="ttc" id="aa__box_2main_8h_html_a84357dafca10c0bedd27ddf562ec038f"><div class="ttname"><a href="a__box_2main_8h.html#a84357dafca10c0bedd27ddf562ec038f">ERROR_LED_PORT</a></div><div class="ttdeci">#define ERROR_LED_PORT</div><div class="ttdef"><b>Definition</b> main.h:18</div></div>
+<div class="ttc" id="aa__box_2main_8h_html_a8437cdc43b488d816a5e56f7b6457b86"><div class="ttname"><a href="a__box_2main_8h.html#a8437cdc43b488d816a5e56f7b6457b86">CONNECTION_LED_PIN</a></div><div class="ttdeci">#define CONNECTION_LED_PIN</div><div class="ttdef"><b>Definition</b> main.h:21</div></div>
+<div class="ttc" id="aa__box_2main_8h_html_a8a762e1254b034eba6b4993ae11cee50"><div class="ttname"><a href="a__box_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50">HEARTBEAT_LED_PORT</a></div><div class="ttdeci">#define HEARTBEAT_LED_PORT</div><div class="ttdef"><b>Definition</b> main.h:16</div></div>
+<div class="ttc" id="aa__box_2main_8h_html_aa5bf4e4a187f66b98a273bb051ec3877"><div class="ttname"><a href="a__box_2main_8h.html#aa5bf4e4a187f66b98a273bb051ec3877">CONNECTION_LED_PORT</a></div><div class="ttdeci">#define CONNECTION_LED_PORT</div><div class="ttdef"><b>Definition</b> main.h:20</div></div>
+<div class="ttc" id="afdcan_8h_html_a6a00ef93e163a984fb347b26134ddf4f"><div class="ttname"><a href="fdcan_8h.html#a6a00ef93e163a984fb347b26134ddf4f">GPIO_INIT_FDCAN2TX_PB13</a></div><div class="ttdeci">#define GPIO_INIT_FDCAN2TX_PB13</div><div class="ttdef"><b>Definition</b> fdcan.h:70</div></div>
+<div class="ttc" id="afdcan_8h_html_a908de24a4dc6c6ab98a07e9005fee101"><div class="ttname"><a href="fdcan_8h.html#a908de24a4dc6c6ab98a07e9005fee101">GPIO_INIT_FDCAN2RX_PB12</a></div><div class="ttdeci">#define GPIO_INIT_FDCAN2RX_PB12</div><div class="ttdef"><b>Definition</b> fdcan.h:63</div></div>
 <div class="ttc" id="aphal__G4_2gpio_2gpio_8h_html_a3e9b27b94f7c10702f9a82a6b87d31a5"><div class="ttname"><a href="phal__G4_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a></div><div class="ttdeci">#define GPIO_INIT_OUTPUT(gpio_bank, pin_num, ospeed_sel)</div><div class="ttdoc">Create GPIO Init struct to intilize a GPIO pin for output.</div><div class="ttdef"><b>Definition</b> gpio.h:97</div></div>
-<div class="ttc" id="aphal__G4_2gpio_2gpio_8h_html_ae395785147afb18096f8082644e49641"><div class="ttname"><a href="phal__G4_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a></div><div class="ttdeci">#define GPIO_INIT_AF(gpio_bank, pin_num, alt_func_num, ospeed_sel, otype_sel, input_pull_sel)</div><div class="ttdoc">Create GPIO Init struct to intilize a GPIO pin for alternate function.</div><div class="ttdef"><b>Definition</b> gpio.h:131</div></div>
-<div class="ttc" id="aphal__G4_2gpio_2gpio_8h_html_ae55c4a0103f207b80bce6ee4413b8a23a7dfaecf9a2876e9573415842538af8d8"><div class="ttname"><a href="phal__G4_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23a7dfaecf9a2876e9573415842538af8d8">GPIO_INPUT_OPEN_DRAIN</a></div><div class="ttdeci">@ GPIO_INPUT_OPEN_DRAIN</div><div class="ttdef"><b>Definition</b> gpio.h:50</div></div>
-<div class="ttc" id="aphal__G4_2gpio_2gpio_8h_html_ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3"><div class="ttname"><a href="phal__G4_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3">GPIO_INPUT_PULL_DOWN</a></div><div class="ttdeci">@ GPIO_INPUT_PULL_DOWN</div><div class="ttdef"><b>Definition</b> gpio.h:52</div></div>
-<div class="ttc" id="aphal__G4_2gpio_2gpio_8h_html_af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a"><div class="ttname"><a href="phal__G4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a></div><div class="ttdeci">@ GPIO_OUTPUT_HIGH_SPEED</div><div class="ttdef"><b>Definition</b> gpio.h:34</div></div>
 <div class="ttc" id="aphal__G4_2gpio_2gpio_8h_html_af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0"><div class="ttname"><a href="phal__G4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a></div><div class="ttdeci">@ GPIO_OUTPUT_LOW_SPEED</div><div class="ttdef"><b>Definition</b> gpio.h:32</div></div>
-<div class="ttc" id="atorque__vector_2main_8h_html_a0307e93d615d22766fd41e1a3c3cc796"><div class="ttname"><a href="torque__vector_2main_8h.html#a0307e93d615d22766fd41e1a3c3cc796">GPS_RESET_Pin</a></div><div class="ttdeci">#define GPS_RESET_Pin</div><div class="ttdef"><b>Definition</b> main.h:52</div></div>
-<div class="ttc" id="atorque__vector_2main_8h_html_a086a2a66044e2f21882f62f7251759f5"><div class="ttname"><a href="torque__vector_2main_8h.html#a086a2a66044e2f21882f62f7251759f5">SPI_CS_ACEL_Pin</a></div><div class="ttdeci">#define SPI_CS_ACEL_Pin</div><div class="ttdef"><b>Definition</b> main.h:40</div></div>
-<div class="ttc" id="atorque__vector_2main_8h_html_a50e5e8556e3a271cab83dfa16f14ee09"><div class="ttname"><a href="torque__vector_2main_8h.html#a50e5e8556e3a271cab83dfa16f14ee09">GPS_RESET_GPIO_Port</a></div><div class="ttdeci">#define GPS_RESET_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:51</div></div>
-<div class="ttc" id="atorque__vector_2main_8h_html_a8b195084506d284f754d772f6d709d7c"><div class="ttname"><a href="torque__vector_2main_8h.html#a8b195084506d284f754d772f6d709d7c">SPI_CS_GYRO_Pin</a></div><div class="ttdeci">#define SPI_CS_GYRO_Pin</div><div class="ttdef"><b>Definition</b> main.h:42</div></div>
-<div class="ttc" id="atorque__vector_2main_8h_html_a9de9e7d70d216f0eebd7c18e3dcc55e5"><div class="ttname"><a href="torque__vector_2main_8h.html#a9de9e7d70d216f0eebd7c18e3dcc55e5">SPI_CS_GYRO_GPIO_Port</a></div><div class="ttdeci">#define SPI_CS_GYRO_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:41</div></div>
-<div class="ttc" id="atorque__vector_2main_8h_html_aacc6e26a0a2afa5bc42f86e3abe643b2"><div class="ttname"><a href="torque__vector_2main_8h.html#aacc6e26a0a2afa5bc42f86e3abe643b2">SPI_CS_ACEL_GPIO_Port</a></div><div class="ttdeci">#define SPI_CS_ACEL_GPIO_Port</div><div class="ttdef"><b>Definition</b> main.h:39</div></div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="ac6abf2f20db0202c505795cd1558b56e" name="ac6abf2f20db0202c505795cd1558b56e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6abf2f20db0202c505795cd1558b56e">&#9670;&#160;</a></span>gps_handle</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structGPS__Handle__t.html">GPS_Handle_t</a> gps_handle = {0}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0d49045de5c409dc29074762dc55a583" name="a0d49045de5c409dc29074762dc55a583"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d49045de5c409dc29074762dc55a583">&#9670;&#160;</a></span>huart_gps</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structusart__init__t.html">usart_init_t</a> huart_gps</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">    {</div>
-<div class="line">        .baud_rate        = 115200,</div>
-<div class="line">        .word_length      = <a class="code hl_enumvalue" href="phal__G4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a>,</div>
-<div class="line">        .hw_flow_ctl      = <a class="code hl_enumvalue" href="phal__G4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a>,</div>
-<div class="line">        .stop_bits        = <a class="code hl_enumvalue" href="phal__G4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a>,</div>
-<div class="line">        .parity           = <a class="code hl_enumvalue" href="phal__G4_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398">PT_NONE</a>,</div>
-<div class="line">        .obsample         = <a class="code hl_enumvalue" href="phal__G4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a>,</div>
-<div class="line">        .ovsample         = <a class="code hl_enumvalue" href="phal__G4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a>,</div>
-<div class="line">        .periph           = UART4,</div>
-<div class="line">        .wake_addr        = <span class="keyword">false</span>,</div>
-<div class="line">        .usart_active_num = USART4_ACTIVE_IDX,</div>
-<div class="line">        .tx_errors        = 0,</div>
-<div class="line">        .rx_errors        = 0,</div>
-<div class="line">        .tx_dma_cfg       = &amp;<a class="code hl_variable" href="#a02ac86e37bec1cf0c0978567134e26e8">usart_gps_tx_dma_config</a>,</div>
-<div class="line">        .rx_dma_cfg       = &amp;<a class="code hl_variable" href="#a4fead6930e52d9b3ca8f2ad63fbc1e3a">usart_gps_rx_dma_config</a>}</div>
-<div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027"><div class="ttname"><a href="phal__G4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a></div><div class="ttdeci">@ WORD_8</div><div class="ttdoc">8-Bit word length</div><div class="ttdef"><b>Definition</b> usart.h:33</div></div>
-<div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6"><div class="ttname"><a href="phal__G4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a></div><div class="ttdeci">@ HW_DISABLE</div><div class="ttdoc">Hardware flow control disable.</div><div class="ttdef"><b>Definition</b> usart.h:45</div></div>
-<div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b"><div class="ttname"><a href="phal__G4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a></div><div class="ttdeci">@ OB_DISABLE</div><div class="ttdoc">Disable one bit sampling.</div><div class="ttdef"><b>Definition</b> usart.h:57</div></div>
-<div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398"><div class="ttname"><a href="phal__G4_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398">PT_NONE</a></div><div class="ttdeci">@ PT_NONE</div><div class="ttdoc">Disable Parity bits.</div><div class="ttdef"><b>Definition</b> usart.h:28</div></div>
-<div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da"><div class="ttname"><a href="phal__G4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a></div><div class="ttdeci">@ SB_ONE</div><div class="ttdoc">One Stop bit.</div><div class="ttdef"><b>Definition</b> usart.h:38</div></div>
-<div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6"><div class="ttname"><a href="phal__G4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a></div><div class="ttdeci">@ OV_16</div><div class="ttdoc">Oversample by 16.</div><div class="ttdef"><b>Definition</b> usart.h:52</div></div>
-<div class="ttc" id="atorque__vector_2main_8c_html_a02ac86e37bec1cf0c0978567134e26e8"><div class="ttname"><a href="#a02ac86e37bec1cf0c0978567134e26e8">usart_gps_tx_dma_config</a></div><div class="ttdeci">dma_init_t usart_gps_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:48</div></div>
-<div class="ttc" id="atorque__vector_2main_8c_html_a4fead6930e52d9b3ca8f2ad63fbc1e3a"><div class="ttname"><a href="#a4fead6930e52d9b3ca8f2ad63fbc1e3a">usart_gps_rx_dma_config</a></div><div class="ttdeci">dma_init_t usart_gps_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:49</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -732,258 +427,6 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a255f278fe01fd5bd049e3c2bfa6633a5" name="a255f278fe01fd5bd049e3c2bfa6633a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a255f278fe01fd5bd049e3c2bfa6633a5">&#9670;&#160;</a></span>scaled_accel_x</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int16_t scaled_accel_x</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a6434aaa69ec74b0cfe23213ce8ef7b91" name="a6434aaa69ec74b0cfe23213ce8ef7b91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6434aaa69ec74b0cfe23213ce8ef7b91">&#9670;&#160;</a></span>scaled_accel_y</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int16_t scaled_accel_y</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac3621cbeeb82c34bd4e73b26169a840d" name="ac3621cbeeb82c34bd4e73b26169a840d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3621cbeeb82c34bd4e73b26169a840d">&#9670;&#160;</a></span>scaled_accel_z</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int16_t scaled_accel_z</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae971946821018fb294cf880510f95b34" name="ae971946821018fb294cf880510f95b34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae971946821018fb294cf880510f95b34">&#9670;&#160;</a></span>scaled_gyro_x</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int16_t scaled_gyro_x</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0fbb542edcd6c9309fcae3df9570ac29" name="a0fbb542edcd6c9309fcae3df9570ac29"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fbb542edcd6c9309fcae3df9570ac29">&#9670;&#160;</a></span>scaled_gyro_y</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int16_t scaled_gyro_y</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af10211f110645793d8b5f696e0a95094" name="af10211f110645793d8b5f696e0a95094"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af10211f110645793d8b5f696e0a95094">&#9670;&#160;</a></span>scaled_gyro_z</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int16_t scaled_gyro_z</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac5cbfbf001a5c93db895b43f72ef509a" name="ac5cbfbf001a5c93db895b43f72ef509a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5cbfbf001a5c93db895b43f72ef509a">&#9670;&#160;</a></span>scaled_heading</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int16_t scaled_heading</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad5783c0dd121d039020e59cb45d75435" name="ad5783c0dd121d039020e59cb45d75435"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5783c0dd121d039020e59cb45d75435">&#9670;&#160;</a></span>scaled_speed</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int16_t scaled_speed</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ada0a7177585eb88526a6239618b3bfdf" name="ada0a7177585eb88526a6239618b3bfdf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada0a7177585eb88526a6239618b3bfdf">&#9670;&#160;</a></span>spi_config</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> spi_config</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">    {</div>
-<div class="line">        .data_rate     = <a class="code hl_define" href="bootloader_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 64,</div>
-<div class="line">        .data_len      = 8,</div>
-<div class="line">        .nss_sw        = <span class="keyword">true</span>,</div>
-<div class="line">        .nss_gpio_port = <a class="code hl_define" href="torque__vector_2main_8h.html#aacc6e26a0a2afa5bc42f86e3abe643b2">SPI_CS_ACEL_GPIO_Port</a>,</div>
-<div class="line">        .nss_gpio_pin  = <a class="code hl_define" href="torque__vector_2main_8h.html#a086a2a66044e2f21882f62f7251759f5">SPI_CS_ACEL_Pin</a>,</div>
-<div class="line">        .rx_dma_cfg    = &amp;<a class="code hl_variable" href="daq_2main_8c.html#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a>,</div>
-<div class="line">        .tx_dma_cfg    = &amp;<a class="code hl_variable" href="daq_2main_8c.html#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a>,</div>
-<div class="line">        .periph        = SPI1}</div>
-<div class="ttc" id="adaq_2main_8c_html_a048ceaccc44b006a77f0c988ae1877ce"><div class="ttname"><a href="daq_2main_8c.html#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a></div><div class="ttdeci">dma_init_t spi_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:75</div></div>
-<div class="ttc" id="adaq_2main_8c_html_ac9d88a12a20b964301d43f839eee3f94"><div class="ttname"><a href="daq_2main_8c.html#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a></div><div class="ttdeci">dma_init_t spi_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:76</div></div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a048ceaccc44b006a77f0c988ae1877ce" name="a048ceaccc44b006a77f0c988ae1877ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a048ceaccc44b006a77f0c988ae1877ce">&#9670;&#160;</a></span>spi_rx_dma_config</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> spi_rx_dma_config = <a class="el" href="phal__G4_2spi_2spi_8h.html#a138f02a7cbb378847fbf648524342247">SPI1_RXDMA_CONT_CONFIG</a>(NULL, 2)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac9d88a12a20b964301d43f839eee3f94" name="ac9d88a12a20b964301d43f839eee3f94"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9d88a12a20b964301d43f839eee3f94">&#9670;&#160;</a></span>spi_tx_dma_config</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> spi_tx_dma_config = <a class="el" href="phal__G4_2spi_2spi_8h.html#acd5de28146a1c969e3a445f45dbc94af">SPI1_TXDMA_CONT_CONFIG</a>(NULL, 1)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4fead6930e52d9b3ca8f2ad63fbc1e3a" name="a4fead6930e52d9b3ca8f2ad63fbc1e3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4fead6930e52d9b3ca8f2ad63fbc1e3a">&#9670;&#160;</a></span>usart_gps_rx_dma_config</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> usart_gps_rx_dma_config = <a class="el" href="phal__F4__F7_2usart_2usart_8h.html#aa166abd04c0dedc6986d324a66989c51">USART4_RXDMA_CONT_CONFIG</a>(NULL, 2)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a02ac86e37bec1cf0c0978567134e26e8" name="a02ac86e37bec1cf0c0978567134e26e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02ac86e37bec1cf0c0978567134e26e8">&#9670;&#160;</a></span>usart_gps_tx_dma_config</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> usart_gps_tx_dma_config = <a class="el" href="phal__F4__F7_2usart_2usart_8h.html#ae3f737a2390de88ed8b648ca0a18814a">USART4_TXDMA_CONT_CONFIG</a>(NULL, 1)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aee1a23cfc9cb7821cbd140e307ed0c35" name="aee1a23cfc9cb7821cbd140e307ed0c35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee1a23cfc9cb7821cbd140e307ed0c35">&#9670;&#160;</a></span>usart_usb_rx_dma_config</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> usart_usb_rx_dma_config = <a class="el" href="phal__G4_2usart_2usart_8h.html#af0ed5ac170b4c464b30cf8471771c5c4">USART1_RXDMA_CONT_CONFIG</a>(NULL, 2)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a54d065cd27bad5077837d12810e87f94" name="a54d065cd27bad5077837d12810e87f94"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54d065cd27bad5077837d12810e87f94">&#9670;&#160;</a></span>usart_usb_tx_dma_config</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> usart_usb_tx_dma_config = <a class="el" href="phal__G4_2usart_2usart_8h.html#aeb7adac386675f0ac902a054c15efad5">USART1_TXDMA_CONT_CONFIG</a>(NULL, 1)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3f235b0fe34fce8a2a9fc2d8715e912c" name="a3f235b0fe34fce8a2a9fc2d8715e912c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f235b0fe34fce8a2a9fc2d8715e912c">&#9670;&#160;</a></span>usb</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structusart__init__t.html">usart_init_t</a> usb</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">                      .baud_rate        = 115200,</div>
-<div class="line">                      .word_length      = <a class="code hl_enumvalue" href="phal__G4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a>,</div>
-<div class="line">                      .stop_bits        = <a class="code hl_enumvalue" href="phal__G4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a>,</div>
-<div class="line">                      .parity           = <a class="code hl_enumvalue" href="phal__G4_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398">PT_NONE</a>,</div>
-<div class="line">                      .hw_flow_ctl      = <a class="code hl_enumvalue" href="phal__G4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a>,</div>
-<div class="line">                      .ovsample         = <a class="code hl_enumvalue" href="phal__G4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a>,</div>
-<div class="line">                      .obsample         = <a class="code hl_enumvalue" href="phal__G4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a>,</div>
-<div class="line">                      .periph           = USART1,</div>
-<div class="line">                      .wake_addr        = <span class="keyword">false</span>,</div>
-<div class="line">                      .usart_active_num = <a class="code hl_define" href="phal__G4_2usart_2usart_8h.html#a5e5a0ec370741e7f284f0557ee477c82">USART1_ACTIVE_IDX</a>,</div>
-<div class="line">                      .tx_dma_cfg       = &amp;<a class="code hl_variable" href="#a54d065cd27bad5077837d12810e87f94">usart_usb_tx_dma_config</a>,</div>
-<div class="line">                      .rx_dma_cfg       = &amp;<a class="code hl_variable" href="#aee1a23cfc9cb7821cbd140e307ed0c35">usart_usb_rx_dma_config</a>}</div>
-<div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a5e5a0ec370741e7f284f0557ee477c82"><div class="ttname"><a href="phal__G4_2usart_2usart_8h.html#a5e5a0ec370741e7f284f0557ee477c82">USART1_ACTIVE_IDX</a></div><div class="ttdeci">#define USART1_ACTIVE_IDX</div><div class="ttdef"><b>Definition</b> usart.h:8</div></div>
-<div class="ttc" id="atorque__vector_2main_8c_html_a54d065cd27bad5077837d12810e87f94"><div class="ttname"><a href="#a54d065cd27bad5077837d12810e87f94">usart_usb_tx_dma_config</a></div><div class="ttdeci">dma_init_t usart_usb_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:68</div></div>
-<div class="ttc" id="atorque__vector_2main_8c_html_aee1a23cfc9cb7821cbd140e307ed0c35"><div class="ttname"><a href="#aee1a23cfc9cb7821cbd140e307ed0c35">usart_usb_rx_dma_config</a></div><div class="ttdeci">dma_init_t usart_usb_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:69</div></div>
-</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

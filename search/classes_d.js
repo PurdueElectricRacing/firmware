@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['raw_5fadc_5fvalues_5ft_0',['raw_adc_values_t',['../structraw__adc__values__t.html',1,'']]],
-  ['rtc_5fdate_5ft_1',['RTC_date_t',['../structRTC__date__t.html',1,'']]],
-  ['rtc_5ftime_5ft_2',['RTC_time_t',['../structRTC__time__t.html',1,'']]],
-  ['rtc_5ftimestamp_5ft_3',['RTC_timestamp_t',['../structRTC__timestamp__t.html',1,'']]]
+  ['usart_5factive_5ftransfer_5ft_0',['usart_active_transfer_t',['../structusart__active__transfer__t.html',1,'']]],
+  ['usart_5finit_5ft_1',['usart_init_t',['../structusart__init__t.html',1,'']]],
+  ['usart_5frx_5ferrors_5ft_2',['usart_rx_errors_t',['../structusart__rx__errors__t.html',1,'']]],
+  ['usart_5ftx_5ferrors_5ft_3',['usart_tx_errors_t',['../structusart__tx__errors__t.html',1,'']]]
 ];

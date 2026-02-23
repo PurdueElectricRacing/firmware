@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['menu_5felement_5ft_0',['menu_element_t',['../structmenu__element__t.html',1,'']]],
-  ['menu_5fpage_5ft_1',['menu_page_t',['../structmenu__page__t.html',1,'']]],
-  ['mkfs_5fparm_2',['MKFS_PARM',['../structMKFS__PARM.html',1,'']]]
+  ['page_5fhandler_5ft_0',['page_handler_t',['../structpage__handler__t.html',1,'']]],
+  ['pedal_5fcalibration_5ft_1',['pedal_calibration_t',['../structpedal__calibration__t.html',1,'']]],
+  ['pedal_5ffaults_5ft_2',['pedal_faults_t',['../structpedal__faults__t.html',1,'']]],
+  ['pedal_5fvalues_5ft_3',['pedal_values_t',['../structpedal__values__t.html',1,'']]],
+  ['phal_5fsd_5fcmd_5ft_4',['PHAL_SD_Cmd_t',['../structPHAL__SD__Cmd__t.html',1,'']]]
 ];

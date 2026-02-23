@@ -85,6 +85,7 @@ The balancing algorithm is a simple threshold-based approach:
 - All communication is performed via SPI, with manual CS control for timing.
 - Error handling is robust, with flags for SPI, PEC, and register mismatches.
 - Make sure the `ADBMS_MODULE_COUNT` constant matches the actual number of modules in your daisy chain configuration!!
+- There is a hidden reliance on a global variable defined in `../thermistor/thermistor.c` (and `extern`ed in the header): `thermistor_lut`
 
 ## Authors
 

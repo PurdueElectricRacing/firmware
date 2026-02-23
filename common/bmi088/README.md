@@ -1,0 +1,1 @@
+This component was used for several years, but it is now deprecated.

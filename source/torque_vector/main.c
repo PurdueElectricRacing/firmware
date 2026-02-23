@@ -26,6 +26,11 @@ GPIOInitConfig_t gpio_config[] = {
     // VCAN
     GPIO_INIT_FDCAN2TX_PB13,
     GPIO_INIT_FDCAN2RX_PB12,
+
+    // GCAN
+    // ! these pin are erroneously swapped on the schematic
+    GPIO_INIT_FDCAN1TX_PA12,
+    GPIO_INIT_FDCAN1RX_PA11,
 };
 
 static constexpr uint32_t TargetCoreClockrateHz = 16000000;

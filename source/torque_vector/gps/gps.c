@@ -1,7 +1,11 @@
-#include "gps.h"
+/**
+ * @file gps.c
+ * @brief GPS driver for UBLOX NEO-M9N GPS module.
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
 
-#include <stdbool.h>
-#include <stdint.h>
+#include "gps.h"
 
 bool GPS_Decode(GPS_Handle_t *gps) {
     if (!gps) { // Null pointer check

@@ -1,16 +1,16 @@
+#ifndef GPS_H
+#define GPS_H
+
+// todo modernize with C23
+
 /**
  * @file gps.h
- * @author Irving Wang (wang5952@purdue.edu)
- * @brief
- * @version 0.1
- * @date 2025-06-14
+ * @brief GPS driver for UBLOX NEO-M9N GPS module.
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#include <stdbool.h>
 #include <stdint.h>
-
-#ifndef _GPS_H
-#define _GPS_H
 
 /*
     Instructions on configuring GPS:
@@ -162,4 +162,4 @@ static inline bool is_valid_header(uint8_t sync0, uint8_t sync1, uint8_t class_i
  */
 bool GPS_Decode(GPS_Handle_t *gps);
 
-#endif //_GPS_H
+#endif // GPS_H

@@ -1,3 +1,10 @@
+/**
+ * @file lerp_lut.c
+ * @brief Linear interpolation lookup table (LUT).
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include "lerp_lut.h"
 
 /**

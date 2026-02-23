@@ -1,6 +1,13 @@
 #ifndef LERP_LUT_H
 #define LERP_LUT_H
 
+/**
+ * @file lerp_lut.h
+ * @brief Linear interpolation lookup table (LUT).
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include <stddef.h>
 
 typedef struct {

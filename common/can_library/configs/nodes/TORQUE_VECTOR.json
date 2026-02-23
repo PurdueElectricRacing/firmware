@@ -165,83 +165,6 @@
                     "msg_priority": 5
                 },
                 {
-                    "msg_name": "VCU_torques_speeds",
-                    "msg_desc": "All torque setpoints and speed setpoints",
-                    "signals": [
-                        {
-                            "sig_name": "TO_VT_left",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.01
-                        },
-                        {
-                            "sig_name": "TO_VT_right",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.01
-                        },
-                        {
-                            "sig_name": "TO_PT_equal",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.01
-                        },
-                        {
-                            "sig_name": "VCU_mode",
-                            "type": "int8_t",
-                            "scale": 1,
-                            "choices": [
-                                "equal_speed",
-                                "equal_torque",
-                                "equal_torque_with_safety",
-                                "variable_speed",
-                                "variable_torque",
-                                "invalid"
-                            ]
-                        }
-                    ],
-                    "msg_period": 20,
-                    "msg_priority": 3
-                },
-                {
-                    "msg_name": "vcu_soc_estimate",
-                    "msg_desc": "Estimated Voc and SOC for HV battery",
-                    "signals": [
-                        {
-                            "sig_name": "SOC_estimate",
-                            "type": "int16_t",
-                            "unit": "none",
-                            "scale": 0.01
-                        },
-                        {
-                            "sig_name": "Voc_estimate",
-                            "type": "int16_t",
-                            "unit": "V",
-                            "scale": 0.1
-                        }
-                    ],
-                    "msg_period": 20,
-                    "msg_priority": 5
-                },
-                {
-                    "msg_name": "drive_modes",
-                    "msg_desc": "Drive Modes",
-                    "signals": [
-                        {
-                            "sig_name": "VT_mode",
-                            "type": "VCU_mode_t"
-                        },
-                        {
-                            "sig_name": "WS_VS_equal",
-                            "type": "int16_t",
-                            "unit": "rad/s",
-                            "scale": 1
-                        }
-                    ],
-                    "msg_period": 20,
-                    "msg_priority": 3
-                },
-                {
                     "msg_name": "tv_can_stats",
                     "msg_desc": "CAN diagnostics",
                     "signals": [
@@ -283,86 +206,12 @@
                     "msg_period": 5000
                 }
             ],
-            "rx": [
-                {
-                    "msg_name": "torquevector_bl_cmd",
-                    "callback": true
-                },
-                {
-                    "msg_name": "filt_throttle_brake"
-                },
-                {
-                    "msg_name": "LWS_Standard"
-                },
-                {
-                    "msg_name": "orion_currents_volts"
-                },
-                {
-                    "msg_name": "main_hb"
-                },
-                {
-                    "msg_name": "rear_wheel_speeds"
-                },
-                {
-                    "msg_name": "rear_motor_temps"
-                },
-                {
-                    "msg_name": "max_cell_temp"
-                },
-                {
-                    "msg_name": "dashboard_vcu_parameters"
-                }
-            ]
+            "rx": []
         }
     },
     "fault_library_enabled": true,
     "generate_fault_messages": false,
     "faults": [
-        {
-            "fault_name": "ES_Enabled",
-            "max": 1,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 10,
-            "time_to_unlatch": 10,
-            "lcd_message": "Equal Speed"
-        },
-        {
-            "fault_name": "ET_Enabled",
-            "max": 1,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 10,
-            "time_to_unlatch": 10,
-            "lcd_message": "Equal Torque"
-        },
-        {
-            "fault_name": "PT_Enabled",
-            "max": 1,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 10,
-            "time_to_unlatch": 10,
-            "lcd_message": "Equal Torque with Safety"
-        },
-        {
-            "fault_name": "VS_Enabled",
-            "max": 1,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 10,
-            "time_to_unlatch": 10,
-            "lcd_message": "Variable Speed"
-        },
-        {
-            "fault_name": "VT_Enabled",
-            "max": 1,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 10,
-            "time_to_unlatch": 10,
-            "lcd_message": "Variable Torque"
-        },
         {
             "fault_name": "No_GPS_Fix",
             "max": 1,

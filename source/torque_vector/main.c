@@ -87,10 +87,6 @@ int main(void) {
     return 0;
 }
 
-void torquevector_bl_cmd_CALLBACK(can_data_t* can_data) {
-    (void)can_data;
-}
-
 // todo reboot on hardfault
 void HardFault_Handler() {
     __disable_irq();

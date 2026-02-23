@@ -1,5 +1,5 @@
 /**
- * @file bmi.c
+ * @file bmi088.c
  * @brief BMI088 IMU driver
  *
  * @author Adam Busch (busch8@purdue.edu)

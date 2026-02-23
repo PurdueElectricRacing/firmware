@@ -22,7 +22,7 @@
 #define BMI088_GYRO_CHIP_ID_ADDR    (0x00U) /* Gyro Chip ID address */
 #define BMI088_GYRO_RATE_X_LSB_ADDR (0x02U) /* Gyro X rate LSB address */
 #define BMI088_GYRO_RATE_Y_LSB_ADDR (0x04U) /* Gyro Y rate LSB address */
-#define BMI088_GYRO_RATE_Z_LSB_ADDR (0x04U) /* Gyro Z rate LSB address */
+#define BMI088_GYRO_RATE_Z_LSB_ADDR (0x06U) /* Gyro Z rate LSB address */
 #define BMI088_GYRO_RANGE_ADDR      (0x0FU) /* Gyro data range address */
 #define BMI088_GYRO_BANDWIDTH_ADDR  (0x10U) /* Gyro data bandwidth address */
 #define BMI088_GYRO_SELFTEST_ADDR   (0x3CU) /* Gyro self test address */

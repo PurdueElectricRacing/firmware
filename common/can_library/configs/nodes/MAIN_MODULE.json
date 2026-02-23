@@ -631,12 +631,6 @@
                     "msg_name": "orion_currents_volts"
                 },
                 {
-                    "msg_name": "VCU_torques_speeds"
-                },
-                {
-                    "msg_name": "drive_modes"
-                },
-                {
                     "msg_name": "orion_info"
                 }
             ]

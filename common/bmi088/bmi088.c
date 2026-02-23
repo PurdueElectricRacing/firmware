@@ -1,13 +1,9 @@
 /**
- * @file bmi.c
+ * @file bmi088.c
+ * @brief BMI088 IMU driver
+ *
  * @author Adam Busch (busch8@purdue.edu)
- * @author Irving Wang (wang5952@purdue.edu)
- * @brief
- * @version 0.1
- * @date 2022-02-01
- *
- * @copyright Copyright (c) 2022
- *
+ * @author Irving Wang (irvingw@purdue.edu)
  */
 
 #include "bmi088.h"

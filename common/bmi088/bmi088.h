@@ -1,16 +1,13 @@
 /**
- * @file bmi.h
- * @author Irving Wang (wang5952@purdue.edu)
- * @brief
- * @version 0.1
- * @date 2022-01-29
+ * @file bmi088.h
+ * @brief BMI088 IMU driver
  *
- * @copyright Copyright (c) 2022
- *
+ * @author Adam Busch (busch8@purdue.edu)
+ * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#ifndef _BMI_H_
-#define _BMI_H_
+#ifndef BMI088_H
+#define BMI088_H
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -25,7 +22,7 @@
 #define BMI088_GYRO_CHIP_ID_ADDR    (0x00U) /* Gyro Chip ID address */
 #define BMI088_GYRO_RATE_X_LSB_ADDR (0x02U) /* Gyro X rate LSB address */
 #define BMI088_GYRO_RATE_Y_LSB_ADDR (0x04U) /* Gyro Y rate LSB address */
-#define BMI088_GYRO_RATE_Z_LSB_ADDR (0x04U) /* Gyro Z rate LSB address */
+#define BMI088_GYRO_RATE_Z_LSB_ADDR (0x06U) /* Gyro Z rate LSB address */
 #define BMI088_GYRO_RANGE_ADDR      (0x0FU) /* Gyro data range address */
 #define BMI088_GYRO_BANDWIDTH_ADDR  (0x10U) /* Gyro data bandwidth address */
 #define BMI088_GYRO_SELFTEST_ADDR   (0x3CU) /* Gyro self test address */
@@ -184,4 +181,4 @@ bool BMI088_readAccel(BMI088_Handle_t *bmi);
 
 uint8_t BMI088_checkGyroHealth(BMI088_Handle_t *bmi);
 
-#endif
+#endif // BMI088_H

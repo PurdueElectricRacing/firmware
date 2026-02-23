@@ -20,7 +20,6 @@ static constexpr int16_t AMK_DEFAULT_NEG_LIMIT = -1;
 void AMK_init(
     AMK_t *amk,
     void (*set_function)(void),
-    void (*log_function)(void),
     INVA_SET_data_t *set,
     INVA_CRIT_data_t *crit,
     INVA_INFO_data_t *info,
@@ -32,7 +31,6 @@ void AMK_init(
     amk->next_state    = AMK_STATE_OFF;
     amk->state         = AMK_STATE_OFF;
     amk->set_function  = set_function;
-    amk->log_function  = log_function;
     amk->set           = set;
     amk->crit          = crit;
     amk->info          = info;
@@ -124,7 +122,6 @@ void AMK_periodic(AMK_t *amk) {
 
     // flush the internal state to the CAN library
     amk->set_function();
-    amk->log_function();
 
     // clear error reset
     amk->set->AMK_Control_bErrorReset = false;

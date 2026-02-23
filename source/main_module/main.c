@@ -65,18 +65,6 @@ void inva_set_flush(void) {
                       test_amk.set->AMK_NegativeTorqueLimit);
 }
 
-void inva_log_flush(void) {
-    CAN_SEND_INVA_LOG_SET(test_amk.set->AMK_Control_bReserve,
-                          test_amk.set->AMK_Control_bInverterOn,
-                          test_amk.set->AMK_Control_bDcOn,
-                          test_amk.set->AMK_Control_bEnable,
-                          test_amk.set->AMK_Control_bErrorReset,
-                          test_amk.set->AMK_Control_bReserve2,
-                          test_amk.set->AMK_TorqueSetpoint,
-                          test_amk.set->AMK_PositiveTorqueLimit,
-                          test_amk.set->AMK_NegativeTorqueLimit);
-}
-
 extern void HardFault_Handler(void);
 
 void ledblink() {
@@ -125,7 +113,6 @@ int main(void) {
     is_precharge_complete = true;
     AMK_init(&test_amk,
              inva_set_flush,
-             inva_log_flush,
              &can_data.INVA_SET,
              &can_data.INVA_CRIT,
              &can_data.INVA_INFO,

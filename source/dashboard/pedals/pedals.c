@@ -107,9 +107,6 @@ void pedalsPeriodic(void) {
     pedal_values.throttle = t1_final;
     pedal_values.brake    = b1_final;
 
-    // Log the raw pedal values
-    CAN_SEND_raw_throttle_brake(t1_raw, t2_raw, b1_raw, b2_raw, 0);
-
     // Send the normalized pedal values to Main and TV
     CAN_SEND_filt_throttle_brake(t1_final, b1_final);
 }

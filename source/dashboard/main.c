@@ -151,7 +151,6 @@ defineThreadStack(heartbeat_led, 500, osPriorityLow, 128);
 defineThreadStack(service_button_inputs, 50, osPriorityLow, 1024);
 defineThreadStack(send_version, DASH_VERSION_PERIOD_MS, osPriorityLow, 256);
 defineThreadStack(updateTelemetryPages, 200, osPriorityLow, 1024);
-defineThreadStack(sendTVParameters, DASHBOARD_VCU_PARAMETERS_PERIOD_MS, osPriorityLow, 256);
 
 int main(void) {
     // Hardware Initialization
@@ -218,7 +217,6 @@ void preflight_task() {
         createThread(service_button_inputs);
         createThread(send_version);
         createThread(updateTelemetryPages);
-        createThread(sendTVParameters);
         osThreadExit(); // Self delete
         return;
     }

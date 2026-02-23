@@ -6,123 +6,6 @@
             "peripheral": "FDCAN2",
             "tx": [
                 {
-                    "msg_name": "raw_throttle_brake",
-                    "msg_desc": "Throttle and brake values",
-                    "signals": [
-                        {
-                            "sig_name": "throttle",
-                            "sig_desc": "Raw sensor reading from left throttle sensor",
-                            "type": "uint16_t",
-                            "length": 12,
-                            "unit": "%"
-                        },
-                        {
-                            "sig_name": "throttle_right",
-                            "sig_desc": "Raw sensor reading from right throttle sensor",
-                            "type": "uint16_t",
-                            "length": 12,
-                            "unit": "%"
-                        },
-                        {
-                            "sig_name": "brake",
-                            "sig_desc": "Raw sensor reading from left (front) brake sensor",
-                            "type": "uint16_t",
-                            "length": 12,
-                            "unit": "%"
-                        },
-                        {
-                            "sig_name": "brake_right",
-                            "sig_desc": "Raw sensor reading from right (rear) brake sensor",
-                            "type": "uint16_t",
-                            "length": 12,
-                            "unit": "%"
-                        },
-                        {
-                            "sig_name": "brake_pot",
-                            "sig_desc": "Reading for potentiometer on brake pedal [OLD, no longer used]",
-                            "type": "uint16_t",
-                            "length": 12,
-                            "unit": "%"
-                        }
-                    ],
-                    "msg_period": 15,
-                    "msg_priority": 5
-                },
-                {
-                    "msg_name": "shock_front",
-                    "msg_desc": "Shockpot readings from front left and front right",
-                    "signals": [
-                        {
-                            "sig_name": "left_shock",
-                            "sig_desc": "Travel distance of front left shockpot",
-                            "type": "int16_t",
-                            "scale": 0.1,
-                            "unit": "mm"
-                        },
-                        {
-                            "sig_name": "right_shock",
-                            "sig_desc": "Travel distance of front right shockpot",
-                            "type": "int16_t",
-                            "scale": 0.1,
-                            "unit": "mm"
-                        }
-                    ],
-                    "msg_period": 15,
-                    "msg_priority": 5
-                },
-                {
-                    "msg_name": "load_sensor_readings_dash",
-                    "msg_desc": "Load Sensor normal force readings from front left and right",
-                    "signals": [
-                        {
-                            "sig_name": "left_load_sensor",
-                            "type": "float",
-                            "unit": "N"
-                        },
-                        {
-                            "sig_name": "right_load_sensor",
-                            "type": "float",
-                            "unit": "N"
-                        }
-                    ],
-                    "msg_period": 15,
-                    "msg_priority": 5
-                },
-                {
-                    "msg_name": "cooling_driver_request",
-                    "msg_desc": "Cooling Pump/Fan requests from Dash LCD",
-                    "signals": [
-                        {
-                            "sig_name": "dt_pump",
-                            "type": "uint8_t"
-                        },
-                        {
-                            "sig_name": "dt_fan",
-                            "type": "uint8_t",
-                            "unit": "%",
-                            "min": 0,
-                            "max": 100
-                        },
-                        {
-                            "sig_name": "batt_pump",
-                            "type": "uint8_t"
-                        },
-                        {
-                            "sig_name": "batt_pump2",
-                            "type": "uint8_t"
-                        },
-                        {
-                            "sig_name": "batt_fan",
-                            "type": "uint8_t",
-                            "unit": "%",
-                            "min": 0,
-                            "max": 100
-                        }
-                    ],
-                    "msg_period": 0,
-                    "msg_priority": 3
-                },
-                {
                     "msg_name": "filt_throttle_brake",
                     "msg_desc": "Filtered throttle and brake values",
                     "signals": [
@@ -159,6 +42,40 @@
                     "msg_priority": 1
                 },
                 {
+                    "msg_name": "cooling_driver_request",
+                    "msg_desc": "Cooling Pump/Fan requests from Dash LCD",
+                    "signals": [
+                        {
+                            "sig_name": "dt_pump",
+                            "type": "uint8_t"
+                        },
+                        {
+                            "sig_name": "dt_fan",
+                            "type": "uint8_t",
+                            "unit": "%",
+                            "min": 0,
+                            "max": 100
+                        },
+                        {
+                            "sig_name": "batt_pump",
+                            "type": "uint8_t"
+                        },
+                        {
+                            "sig_name": "batt_pump2",
+                            "type": "uint8_t"
+                        },
+                        {
+                            "sig_name": "batt_fan",
+                            "type": "uint8_t",
+                            "unit": "%",
+                            "min": 0,
+                            "max": 100
+                        }
+                    ],
+                    "msg_period": 0,
+                    "msg_priority": 3
+                },
+                {
                     "msg_name": "dashboard_mcu_temp",
                     "msg_desc": "periodic dashboard MCU temp",
                     "signals": [
@@ -169,38 +86,6 @@
                     ],
                     "msg_period": 4000,
                     "msg_priority": 4
-                },
-                {
-                    "msg_name": "dashboard_vcu_parameters",
-                    "msg_desc": "periodic dashboard vcu parameters",
-                    "signals": [
-                        {
-                            "sig_name": "vcu_fmode",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "vcu_cmode",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "vt_db_val",
-                            "type": "uint8_t"
-                        },
-                        {
-                            "sig_name": "tv_pp_val",
-                            "type": "uint16_t"
-                        },
-                        {
-                            "sig_name": "tc_tr_val",
-                            "type": "uint8_t"
-                        },
-                        {
-                            "sig_name": "vs_max_sr_val",
-                            "type": "uint8_t"
-                        }
-                    ],
-                    "msg_period": 500,
-                    "msg_priority": 3
                 },
                 {
                     "msg_name": "dashboard_start_logging",
@@ -255,6 +140,30 @@
                     ],
                     "msg_priority": 5,
                     "msg_period": 5000
+                },
+                {
+                    "msg_name": "LWS_Config",
+                    "msg_desc": "Steering sensor configuration",
+                    "signals": [
+                        {
+                            "sig_name": "CCW",
+                            "type": "uint8_t",
+                            "length": 3
+                        },
+                        {
+                            "sig_name": "Reserved_1",
+                            "type": "uint8_t",
+                            "length": 5
+                        },
+                        {
+                            "sig_name": "Reserved_2",
+                            "type": "uint8_t",
+                            "length": 8
+                        }
+                    ],
+                    "msg_period": 0,
+                    "msg_id_override": "0x7C0",
+                    "msg_priority": 3
                 }
             ],
             "rx": [
@@ -281,9 +190,6 @@
                 },
                 {
                     "msg_name": "rear_wheel_speeds"
-                },
-                {
-                    "msg_name": "coolant_temps"
                 },
                 {
                     "msg_name": "coolant_out"

@@ -43,7 +43,6 @@ typedef struct {
 void AMK_init(
     AMK_t *amk,
     void (*set_func)(void),
-    void (*log_func)(void),
     INVA_SET_data_t *set,
     INVA_CRIT_data_t *crit,
     INVA_INFO_data_t *info,

@@ -582,13 +582,13 @@ void calibrationTelemetryUpdate() {
  * @brief Sends TV parameters to TV using current values from tv_elements array
  */
 void sendTVParameters() {
-    CAN_SEND_dashboard_vcu_parameters(
-        tv_elements[TV_VCU_PERMIT_INDEX].current_value,
-        tv_elements[TV_VCU_CONTROL_INDEX].current_value,
-        tv_elements[TV_DEADBAND_INDEX].current_value,
-        (uint16_t)tv_elements[TV_P_GAIN_INDEX].current_value,
-        tv_elements[TV_TORQUE_DROP_INDEX].current_value,
-        tv_elements[TV_MAX_SLIP_INDEX].current_value);
+    // CAN_SEND_dashboard_vcu_parameters(
+    //     tv_elements[TV_VCU_PERMIT_INDEX].current_value,
+    //     tv_elements[TV_VCU_CONTROL_INDEX].current_value,
+    //     tv_elements[TV_DEADBAND_INDEX].current_value,
+    //     (uint16_t)tv_elements[TV_P_GAIN_INDEX].current_value,
+    //     tv_elements[TV_TORQUE_DROP_INDEX].current_value,
+    //     tv_elements[TV_MAX_SLIP_INDEX].current_value);
 }
 
 /**

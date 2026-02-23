@@ -81,6 +81,7 @@ The balancing algorithm is a simple threshold-based approach:
 ## Notes
 
 - The driver is designed for FreeRTOS-based systems with a 1000Hz tick rate (1ms tick period).
+  - It's primary reliance on FreeRTOS comes from the use of `osDelay(ADBMS6380_WAKE_DELAY_MS)` in the wake-up sequence.
 - All communication is performed via SPI, with manual CS control for timing.
 - Error handling is robust, with flags for SPI, PEC, and register mismatches.
 - Make sure the `ADBMS_MODULE_COUNT` constant matches the actual number of modules in your daisy chain configuration!!

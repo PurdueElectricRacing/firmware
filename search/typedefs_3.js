@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['dstatus_0',['DSTATUS',['../diskio_8h.html#adba6790898ce4029c20a34b898ce73c1',1,'diskio.h']]],
-  ['dword_1',['DWORD',['../ff_8h.html#ad342ac907eb044443153a22f964bf0af',1,'ff.h']]]
+  ['fsize_5ft_0',['FSIZE_t',['../ff_8h.html#a3fc0992ad7436250b6b1a0592214b7f2',1,'ff.h']]],
+  ['func_5fptr_5ft_1',['func_ptr_t',['../psched_8h.html#a770f699d7bfc60dfdd92e3c296fc55cd',1,'psched.h']]]
 ];

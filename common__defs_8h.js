@@ -1,0 +1,28 @@
+var common__defs_8h =
+[
+    [ "ABS", "common__defs_8h.html#a996f7be338ccb40d1a2a5abc1ad61759", null ],
+    [ "CLAMP", "common__defs_8h.html#a33bd933f5d4895b3b6d18c2d5fed91a0", null ],
+    [ "DEG_TO_RAD", "common__defs_8h.html#a212460e743fecb084d717bb2180c5a56", null ],
+    [ "G_TO_M_S", "common__defs_8h.html#a41a1cf8805cf2b37a8d4f1cdb218c8db", null ],
+    [ "HSI_TRIM_A_BOX", "common__defs_8h.html#a9c9f9a9679cc551c6aa1a3965b6ac7a0", null ],
+    [ "HSI_TRIM_DAQ", "common__defs_8h.html#ab2636c286eeca1b801328094a5894a39", null ],
+    [ "HSI_TRIM_DASHBOARD", "common__defs_8h.html#a4f999fe2b2e535f0575f8e189125246a", null ],
+    [ "HSI_TRIM_MAIN_MODULE", "common__defs_8h.html#a452db665b8a3d36ae14778251dfba5d0", null ],
+    [ "HSI_TRIM_PDU", "common__defs_8h.html#a2da974e263720581c368f5bd95f791e6", null ],
+    [ "HSI_TRIM_TORQUE_VECTOR", "common__defs_8h.html#a4b7d6f815a5be3b74fff0e458ea2ca9f", null ],
+    [ "MAX", "common__defs_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95", null ],
+    [ "MIN", "common__defs_8h.html#a74e75242132eaabbc1c512488a135926", null ],
+    [ "PI", "common__defs_8h.html#a598a3330b3c21701223ee0ca14316eca", null ],
+    [ "abs_f", "common__defs_8h.html#a5bac71bc07cae41285cab5ef33071c96", null ],
+    [ "abs_i", "common__defs_8h.html#a03e3fa423dd4f279ebfa70df9434201c", null ],
+    [ "clamp_f", "common__defs_8h.html#a1448847ce5365862e963b813c4f01626", null ],
+    [ "clamp_i", "common__defs_8h.html#af86547d3091e2dbf173fd87596fec5db", null ],
+    [ "LOG2_DOWN", "common__defs_8h.html#a8e9e5ef753602ac9e7822dee0923dd38", null ],
+    [ "LOG2_UP", "common__defs_8h.html#a6883df101dba9c0f4ef8d149306f4ed4", null ],
+    [ "max_f", "common__defs_8h.html#a20d4f953185305104015bd1676925365", null ],
+    [ "max_i", "common__defs_8h.html#a873d682ff9bad090eb657f9a2d4a83b7", null ],
+    [ "min_f", "common__defs_8h.html#af58386d95cccc93d8a768fef7de17db8", null ],
+    [ "min_i", "common__defs_8h.html#a09cb0020465febd97326d0bbfa1d67a8", null ],
+    [ "ROUNDDOWN", "common__defs_8h.html#a7790c59a206addb5b0bcc7a34667a1da", null ],
+    [ "ROUNDUP", "common__defs_8h.html#ad9b3fa34cf7fd298a0333cd51094762c", null ]
+];

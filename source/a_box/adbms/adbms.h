@@ -16,9 +16,6 @@
 #include "common/phal/spi.h"
 #include "common/strbuf/strbuf.h"
 
-// How often to run the adbms_periodic function, in milliseconds.
-#define ADBMS_PERIODIC_INTERVAL_MS (250)
-
 // Number of ADBMS modules in the daisy chain.
 #define ADBMS_MODULE_COUNT (8)
 

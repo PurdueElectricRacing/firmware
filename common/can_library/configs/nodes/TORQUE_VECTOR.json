@@ -1,9 +1,9 @@
 {
     "node_name": "TORQUE_VECTOR",
-    "scheduler": "psched",
+    "scheduler": "freertos",
     "busses": {
         "VCAN": {
-            "peripheral": "CAN1",
+            "peripheral": "FDCAN2",
             "tx": [
                 {
                     "msg_name": "gps_velocity",

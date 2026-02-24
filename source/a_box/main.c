@@ -2,7 +2,7 @@
  * @file main.c
  * @brief "Abox" node source code
  * 
- * @author Irving Wang (irvingw@purdue.edu), Millan Kumar (kumar798@purdue.edu)
+ * @author Sebastian Arthur (arthur31@purdue.edu), Irving Wang (irvingw@purdue.edu), Millan Kumar (kumar798@purdue.edu)
  */
 
 #include "main.h"
@@ -51,6 +51,12 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_SPI1SCK_PA5,
     GPIO_INIT_SPI1MISO_PA6,
     GPIO_INIT_SPI1MOSI_PA7,
+
+    // Status Inputs + Analog Reads
+    GPIO_INIT_INPUT(NOT_PRECHARGE_COMPLETE_PORT, NOT_PRECHARGE_COMPLETE_PIN, GPIO_INPUT_OPEN_DRAIN);
+    GPIO_INIT_INPUT(IMD_STATUS_PORT, IMD_STATUS_PORT, GPIO_INPUT_PULL_DOWN);
+    GPIO_INIT_INPUT(CHARGER_CONNECT_PORT, CHARGER_CONNECT_PIN, GPIO_INPUT_PULL_DOWN);
+
 };
 
 static constexpr uint32_t TargetCoreClockrateHz = 16000000;
@@ -72,7 +78,7 @@ extern uint32_t PLLClockRateHz;
 adbms_bms_t g_bms                              = {0};
 uint8_t g_bms_tx_buf[ADBMS_SPI_TX_BUFFER_SIZE] = {0};
 
-static constexpr float MIN_V_FOR_BALANCE     = 3.0f;
+static constexpr float MIN_V_FOR_BALANCE     = 3.4f;
 static constexpr float MIN_DELTA_FOR_BALANCE = 0.1f;
 
 extern void HardFault_Handler(void);
@@ -121,8 +127,8 @@ int main(void) {
 
 void g_bms_periodic() {
     PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
-
     adbms_periodic(&g_bms, MIN_V_FOR_BALANCE, MIN_DELTA_FOR_BALANCE);
+
 }
 
 // todo reboot on hardfault

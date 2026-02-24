@@ -2,7 +2,7 @@
  * @file main.h
  * @brief "Abox" node source code
  * 
- * @author Irving Wang (irvingw@purdue.edu), Millan Kumar (kumar798@purdue.edu)
+ * @author Sebastian Arthur (arthur31@purdue.edu), Irving Wang (irvingw@purdue.edu), Millan Kumar (kumar798@purdue.edu)
  */
 
 #ifndef MAIN_H_
@@ -33,5 +33,29 @@
 
 #define SPI2_CS_PORT (GPIOB)
 #define SPI2_CS_PIN  (1)
+
+//  Status Inputs + Diagnostic Values
+#define CHARGER_CONNECT_PORT (GPIOB)
+#define CHARGER_CONNECT_PIN (2)
+
+#define IMD_STATUS_PORT (GPIOA)
+#define IMD_STATUS_PIN (9)
+
+#define NOT_PRECHARGE_COMPLETE_PORT (GPIOB)
+#define NOT_PRECHARGE_COMPLETE_PIN (11)
+
+#define ISENSE_MCU_PORT (GPIOA)
+#define ISENSE_MCU_PIN (0)
+
+#define VBATT_MCU_PORT (GPIOA)
+#define VBATT_MCU_PIN (1)
+
+// OUTPUT PINS
+
+#define BMS_STATUS_PORT (GPIOA)
+#define BMS_STATUS_PIN (10)
+
+#define FAN1_PWM_PORT (GPIOB)
+#define FAN1_PWM_PIN (10)
 
 #endif

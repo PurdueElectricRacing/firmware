@@ -336,7 +336,8 @@ void send_iv_readings() {
     // Send CAN messages containing voltage and current data
     CAN_SEND_v_rails(auto_switches.voltage.in_24v, auto_switches.voltage.out_5v, auto_switches.voltage.out_3v3, auto_switches.voltage.amk_24v);
     CAN_SEND_rail_currents(auto_switches.current[CS_24V], auto_switches.current[CS_5V]);
-    CAN_SEND_pump_and_fan_current(auto_switches.current[SW_PUMP_1], auto_switches.current[SW_PUMP_2], auto_switches.current[SW_FAN_1], auto_switches.current[SW_FAN_2], auto_switches.current[SW_FAN_3], auto_switches.current[SW_FAN_4]);
+    CAN_SEND_pump_and_fan_current(auto_switches.current[SW_PUMP_1], auto_switches.current[SW_PUMP_2], auto_switches.current[SW_FAN_1], auto_switches.current[SW_FAN_2]);
+    CAN_SEND_fan_current2(auto_switches.current[SW_FAN_3], auto_switches.current[SW_FAN_4]);
     CAN_SEND_other_currents(auto_switches.current[SW_SDC], auto_switches.current[SW_AUX], auto_switches.current[SW_DASH], auto_switches.current[SW_ABOX], auto_switches.current[SW_MAIN]);
 
     // DS8626 Rev 10 pg 139

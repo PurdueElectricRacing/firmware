@@ -81,7 +81,15 @@
                             "type": "uint16_t",
                             "unit": "mA",
                             "length": 12
-                        },
+                        }
+                    ],
+                    "msg_period": 500,
+                    "msg_priority": 4
+                },
+                {
+                    "msg_name": "fan_current2",
+                    "msg_desc": "more fan currents",
+                    "signals": [
                         {
                             "sig_name": "i_fan3",
                             "type": "uint16_t",

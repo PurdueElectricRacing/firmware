@@ -163,26 +163,16 @@ bool CAN_library_init() {
     can_stats = (can_stats_t) {0};
     CAN_data_init();
 
-#ifdef USE_CAN1
+#if defined(USE_CAN1) || defined(USE_CAN2)
+    // Ensure CAN1 clock is enabled (CAN1 owns all bxCAN filters)
+    RCC->APB1ENR |= RCC_APB1ENR_CAN1EN;
     if (!CAN_prepare_filter_config(CAN1)) {
         return false;
     }
 
-    CAN1_set_filters(); // from NODE.h
+    bxcan_set_filters(); // from NODE.h
 
     if (!CAN_exit_filter_config(CAN1)) {
-        return false;
-    }
-#endif
-
-#ifdef USE_CAN2
-    if (!CAN_prepare_filter_config(CAN2)) {
-        return false;
-    }
-
-    CAN2_set_filters(); // from NODE.h
-
-    if (!CAN_exit_filter_config(CAN2)) {
         return false;
     }
 #endif

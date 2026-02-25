@@ -25,7 +25,7 @@ typedef struct {
 static_assert(sizeof(timestamped_frame_t) == 16,
     "timestamped_frame_t must be 16 bytes for optimal packing");
 
-// todo determine appropriate values
+// todo determine appropriate values based on testing
 static constexpr size_t SPMC_NUM_FRAMES = 256;
 static constexpr size_t MIN_WRITE_FRAMES = 32;
 static_assert((SPMC_NUM_FRAMES % MIN_WRITE_FRAMES) == 0,

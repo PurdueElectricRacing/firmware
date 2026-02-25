@@ -87,7 +87,6 @@ void eth_update_periodic(void) {
                 PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
                 /* Eth link UP routines */
                 eth_udp_send_periodic();
-                // eth_tcp_update();
             } else {
                 daq_hub.eth_state = ETH_LINK_DOWN;
                 PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);

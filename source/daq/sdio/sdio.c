@@ -1504,7 +1504,7 @@ void SDIO_IRQHandler(void) {
 
 void DMA2_Stream6_IRQHandler(void) {
     BaseType_t xHigherPriorityTaskWoken = pdFALSE; 
-    // Check what trigged interrupt
+    // Check what triggered interrupt
     if (DMA2->HISR & DMA_HISR_TCIF6) {
         // Clear interrupt flags (transfer complete and error)
         DMA2->HIFCR      = DMA_HIFCR_CTCIF6 | DMA_HIFCR_CFEIF6;

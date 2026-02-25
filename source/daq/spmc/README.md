@@ -5,8 +5,8 @@ Specialized data structure designed specifically for DAQ.
 Guiding design requirements:
 - Single producer (CAN_IRQs w same priority)
 - Multiple Consumer (SD, ETH)
-- the SD head must never miss a message (or else mark overflow)
-- the ETH head does "best effort streaming"
+- the SD tail must never miss a message (or else mark overflow)
+- the ETH tail does "best effort streaming"
 - high throughput, lock free
 
 Assumptions:

@@ -14,7 +14,7 @@
 #include <string.h>
 #include "common/freertos/freertos.h"
 
-// ! assumes the messages are SID for optimal packing
+// ! assumes the messages are SID
 typedef struct {
     uint32_t ticks_ms; // ms timestamp of reception
     uint16_t msg_id;   // message id 
@@ -23,7 +23,7 @@ typedef struct {
     uint64_t payload;  // message data
 } timestamped_frame_t;
 static_assert(sizeof(timestamped_frame_t) == 16,
-    "timestamped_frame_t must be 16 bytes for optimal packing");
+    "timestamped_frame_t must be 16 bytes for optimal caching and DMA patterns");
 
 // todo determine appropriate values based on testing
 static constexpr size_t SPMC_NUM_FRAMES = 256;

@@ -20,12 +20,12 @@ void rtc_config_cb(timestamped_frame_t *msg) {
 }
 
 static void parse_gps_time(const timestamped_frame_t* msg, RTC_timestamp_t* gps_rtc_time) {
-   uint8_t year  = msg->payload;
-   uint8_t month = msg->payload >> 8;
-   uint8_t day   = msg->payload >> 16;
-   uint8_t hour  = msg->payload >> 24;
-   uint8_t min   = msg->payload >> 32;
-   uint8_t sec   = msg->payload >> 40;
+   uint8_t year  = msg->payload & 0xFF;
+   uint8_t month = (msg->payload >> 8) & 0xFF;
+   uint8_t day   = (msg->payload >> 16) & 0xFF;
+   uint8_t hour  = (msg->payload >> 24) & 0xFF;
+   uint8_t min   = (msg->payload >> 32) & 0xFF;
+   uint8_t sec   = (msg->payload >> 40) & 0xFF;
 
    gps_rtc_time->date.year_bcd = RTC_CONV_TO_BCD(year);
    gps_rtc_time->date.day_bcd = RTC_CONV_TO_BCD(day);

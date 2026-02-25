@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['github_20site_0',['How to add an ioLibrary in project through github site.',['../dir_1fffba04149f20eb341981ee60c48f9f.html#autotoc_md5',1,'']]]
+  ['per_20firmware_20setup_20instructions_0',['PER Firmware Setup Instructions',['../md_docs_2setup.html',1,'']]],
+  ['per_20vehicle_20firmware_20⚡️_1',['PER Vehicle Firmware ⚡️',['../index.html',1,'']]]
 ];

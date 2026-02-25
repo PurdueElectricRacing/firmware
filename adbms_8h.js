@@ -1,0 +1,38 @@
+var adbms_8h =
+[
+    [ "ADBMS_module_t", "structADBMS__module__t.html", "structADBMS__module__t" ],
+    [ "ADBMS_bms_t", "structADBMS__bms__t.html", "structADBMS__bms__t" ],
+    [ "ADBMS_ADAX_CH", "adbms_8h.html#abf666bcbd23b8e0ab80e6ccf1ebe623d", null ],
+    [ "ADBMS_ADAX_OW", "adbms_8h.html#a8327b7414168231cae3034a9ec4e0ccf", null ],
+    [ "ADBMS_ADAX_PUP", "adbms_8h.html#a4671eb0fa4f33e444acf374db0c7269d", null ],
+    [ "ADBMS_ADCV_CONT", "adbms_8h.html#a1e6130184659022d9051ccc92c0c7430", null ],
+    [ "ADBMS_ADCV_DCP", "adbms_8h.html#ac98daaf803a9c3df6dcaedfe47b74619", null ],
+    [ "ADBMS_ADCV_OW", "adbms_8h.html#a49cbe18d88f03bc1af5f5b2c30af69f3", null ],
+    [ "ADBMS_ADCV_RD", "adbms_8h.html#a69c4ca674ee8840412245aaf135725a4", null ],
+    [ "ADBMS_ADCV_RSTF", "adbms_8h.html#a191fa6f29733258513eeb7a8e80615b2", null ],
+    [ "ADBMS_GPIO_R1", "adbms_8h.html#aa51ed2031792e682b6016650334e82bd", null ],
+    [ "ADBMS_GPIO_VIN", "adbms_8h.html#af967efbf7aee79e9d0bc50e161e46e9b", null ],
+    [ "ADBMS_MODULE_COUNT", "adbms_8h.html#a67c1855256feb303fd35313c53ba7e81", null ],
+    [ "ADBMS_PERIODIC_INTERVAL_MS", "adbms_8h.html#a7db1631c27746c1980b5e2d302c97a1d", null ],
+    [ "ADBMS_REGA_CTH", "adbms_8h.html#a34dcf663621a72271e34f0ee54015b82", null ],
+    [ "ADBMS_REGA_REFON", "adbms_8h.html#a83a76fcde88cb0b7cdfa2254e7a1216d", null ],
+    [ "ADBMS_REGB_OV_THRESHOLD", "adbms_8h.html#a2131560bb01c885e0552b7a5c35b1c68", null ],
+    [ "ADBMS_REGB_UV_THRESHOLD", "adbms_8h.html#a77178d43fcf954ea51ac7797f69268b9", null ],
+    [ "ADBMS_SPI_RX_BUFFER_SIZE", "adbms_8h.html#a9b94af409277ca6db2a563a956c0a51e", null ],
+    [ "ADBMS_SPI_TX_BUFFER_SIZE", "adbms_8h.html#aaffed04e34de14d78f2aa2d39f410520", null ],
+    [ "ADBMS_state_t", "adbms_8h.html#a44ae39366751c96d5cb374ff0fb8411a", [
+      [ "ADBMS_STATE_IDLE", "adbms_8h.html#a44ae39366751c96d5cb374ff0fb8411aa04c2661858c493dfa11e0984b43eff0a", null ],
+      [ "ADBMS_STATE_CONNECTED", "adbms_8h.html#a44ae39366751c96d5cb374ff0fb8411aaa49388d8d0066aa557c09946aac053e7", null ]
+    ] ],
+    [ "adbms_balance_and_update_regb", "adbms_8h.html#a5fff8f6d72368477ffb049fa0a2d4e9e", null ],
+    [ "adbms_calculate_balance_cells", "adbms_8h.html#a5be37f270a1c8d7590cc0af1b8fe7638", null ],
+    [ "adbms_connect", "adbms_8h.html#a278348b53c7d0cbf2be93b6d7da2df5c", null ],
+    [ "adbms_init", "adbms_8h.html#ad62809a8236f7d6e1f96e0e37bac639f", null ],
+    [ "adbms_periodic", "adbms_8h.html#aa9f13a6991a321db50eaf3d633a3bb31", null ],
+    [ "adbms_read_and_check_rega", "adbms_8h.html#ae82128c5fd91834fed232ae056b6a709", null ],
+    [ "adbms_read_and_check_regb", "adbms_8h.html#aef51594258f6aa62e1b0eb7ae300d31a", null ],
+    [ "adbms_read_cells", "adbms_8h.html#a64eadef4e97bed94ccf31cb321e9d266", null ],
+    [ "adbms_read_therms", "adbms_8h.html#ab98874e559d99731fe71bec8576e53c0", null ],
+    [ "adbms_write_rega", "adbms_8h.html#a3a538f6759e14f1243a46f610ea6d59d", null ],
+    [ "adbms_write_regb", "adbms_8h.html#a3189c003eb8192ebc3db0b411cb9418b", null ]
+];

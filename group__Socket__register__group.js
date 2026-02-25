@@ -1,0 +1,25 @@
+var group__Socket__register__group =
+[
+    [ "Sn_CR", "group__Socket__register__group.html#gadb581db7f2124487bedbb7c61453540a", null ],
+    [ "Sn_DHAR", "group__Socket__register__group.html#ga9365097160096e747cdd94a633051286", null ],
+    [ "Sn_DIPR", "group__Socket__register__group.html#ga07db81e43763069a0a59acc54d4d347b", null ],
+    [ "Sn_DPORT", "group__Socket__register__group.html#ga912f0add3b86fe80c0f35d88dcaad972", null ],
+    [ "Sn_FRAG", "group__Socket__register__group.html#ga750ec1fbef9a19e403999e53b67d1dab", null ],
+    [ "Sn_IMR", "group__Socket__register__group.html#ga98959aecefdcdc8f241104d3fd35940e", null ],
+    [ "Sn_IR", "group__Socket__register__group.html#ga49cb8b15ab6bbf2c41223aa9f9188af1", null ],
+    [ "Sn_KPALVTR", "group__Socket__register__group.html#ga3a5d07b1fcf6e9f9441c69146e479114", null ],
+    [ "Sn_MR", "group__Socket__register__group.html#ga9d485719088a4f1a18e29a0f9be921a4", null ],
+    [ "Sn_MSSR", "group__Socket__register__group.html#gaafca4e6d08b7ba632bcf56348ad0c2a9", null ],
+    [ "Sn_PORT", "group__Socket__register__group.html#gad2a011202c09a7f21d0e59b0fb3e796d", null ],
+    [ "Sn_RX_RD", "group__Socket__register__group.html#gad0bffc9ad3fc9039e1258696a2556df7", null ],
+    [ "Sn_RX_RSR", "group__Socket__register__group.html#ga829fa770582f59f596c6bc88c591aaff", null ],
+    [ "Sn_RX_WR", "group__Socket__register__group.html#gaf901a72769de81cca29ccd219cf0bf3f", null ],
+    [ "Sn_RXBUF_SIZE", "group__Socket__register__group.html#gae4131b33d899ce3cd35061e7c68b7187", null ],
+    [ "Sn_SR", "group__Socket__register__group.html#ga958511984021889fe9d54d7a704d4957", null ],
+    [ "Sn_TOS", "group__Socket__register__group.html#ga9e1ff4191d71d893ef657e9bc1b32072", null ],
+    [ "Sn_TTL", "group__Socket__register__group.html#gae03714ed66656a8fa5fcb23280aefcbc", null ],
+    [ "Sn_TX_FSR", "group__Socket__register__group.html#ga64d1348f67a8ede134bd181527d23acb", null ],
+    [ "Sn_TX_RD", "group__Socket__register__group.html#gaa080f81d611b21749de7e463b6b3060b", null ],
+    [ "Sn_TX_WR", "group__Socket__register__group.html#gae0de0822d78274f53cbed5aea9718371", null ],
+    [ "Sn_TXBUF_SIZE", "group__Socket__register__group.html#ga6172c53b2254f7e4f2720589f0c2e982", null ]
+];

@@ -1,7 +1,7 @@
 /* System Includes */
 #include "common/bootloader/bootloader_common.h"
-#include "common/common_defs/common_defs.h"
 #include "common/can_library/faults_common.h"
+#include "common/common_defs/common_defs.h"
 #include "common/phal/adc.h"
 #include "common/phal/can.h"
 #include "common/phal/dma.h"
@@ -30,43 +30,95 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(MUX_CTRL_A_GPIO_Port, MUX_CTRL_A_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(MUX_CTRL_B_GPIO_Port, MUX_CTRL_B_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(MUX_CTRL_C_GPIO_Port, MUX_CTRL_C_Pin, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_INPUT(MUX_OUT_GPIO_Port, MUX_OUT_Pin, GPIO_INPUT_PULL_DOWN),
     // LED CTRL
     GPIO_INIT_SPI1_SCK_PB3,
     GPIO_INIT_SPI1_MOSI_PB5,
     GPIO_INIT_OUTPUT(LED_CTRL_LAT_GPIO_Port, LED_CTRL_LAT_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, GPIO_OUTPUT_LOW_SPEED),
     // Flow Rate
-    GPIO_INIT_AF(FLOW_RATE_1_GPIO_Port, FLOW_RATE_1_Pin, FLOW_RATE_1_AF, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_DOWN),
-    GPIO_INIT_AF(FLOW_RATE_2_GPIO_Port, FLOW_RATE_2_Pin, FLOW_RATE_2_AF, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_AF(FLOW_RATE_1_GPIO_Port,
+                 FLOW_RATE_1_Pin,
+                 FLOW_RATE_1_AF,
+                 GPIO_OUTPUT_HIGH_SPEED,
+                 GPIO_OUTPUT_OPEN_DRAIN,
+                 GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_AF(FLOW_RATE_2_GPIO_Port,
+                 FLOW_RATE_2_Pin,
+                 FLOW_RATE_2_AF,
+                 GPIO_OUTPUT_HIGH_SPEED,
+                 GPIO_OUTPUT_OPEN_DRAIN,
+                 GPIO_INPUT_PULL_DOWN),
     // Fan Control
-    GPIO_INIT_AF(FAN_1_PWM_GPIO_Port, FAN_1_PWM_Pin, FAN_1_PWM_AF, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_AF(FAN_2_PWM_GPIO_Port, FAN_2_PWM_Pin, FAN_2_PWM_AF, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_AF(FAN_3_PWM_GPIO_Port, FAN_3_PWM_Pin, FAN_3_PWM_AF, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_AF(FAN_4_PWM_GPIO_Port, FAN_4_PWM_Pin, FAN_4_PWM_AF, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_AF(FAN_1_TACH_GPIO_Port, FAN_1_TACH_Pin, FAN_1_TACH_AF, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_DOWN),
-    GPIO_INIT_AF(FAN_2_TACH_GPIO_Port, FAN_2_TACH_Pin, FAN_2_TACH_AF, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_DOWN),
-    GPIO_INIT_AF(FAN_3_TACH_GPIO_Port, FAN_3_TACH_Pin, FAN_3_TACH_AF, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_AF(FAN_4_TACH_GPIO_Port, FAN_4_TACH_Pin, FAN_4_TACH_AF, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_OPEN_DRAIN, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_AF(FAN_1_PWM_GPIO_Port,
+                 FAN_1_PWM_Pin,
+                 FAN_1_PWM_AF,
+                 GPIO_OUTPUT_HIGH_SPEED,
+                 GPIO_OUTPUT_PUSH_PULL,
+                 GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_AF(FAN_2_PWM_GPIO_Port,
+                 FAN_2_PWM_Pin,
+                 FAN_2_PWM_AF,
+                 GPIO_OUTPUT_HIGH_SPEED,
+                 GPIO_OUTPUT_PUSH_PULL,
+                 GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_AF(FAN_3_PWM_GPIO_Port,
+                 FAN_3_PWM_Pin,
+                 FAN_3_PWM_AF,
+                 GPIO_OUTPUT_HIGH_SPEED,
+                 GPIO_OUTPUT_PUSH_PULL,
+                 GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_AF(FAN_4_PWM_GPIO_Port,
+                 FAN_4_PWM_Pin,
+                 FAN_4_PWM_AF,
+                 GPIO_OUTPUT_HIGH_SPEED,
+                 GPIO_OUTPUT_PUSH_PULL,
+                 GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_AF(FAN_1_TACH_GPIO_Port,
+                 FAN_1_TACH_Pin,
+                 FAN_1_TACH_AF,
+                 GPIO_OUTPUT_HIGH_SPEED,
+                 GPIO_OUTPUT_OPEN_DRAIN,
+                 GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_AF(FAN_2_TACH_GPIO_Port,
+                 FAN_2_TACH_Pin,
+                 FAN_2_TACH_AF,
+                 GPIO_OUTPUT_HIGH_SPEED,
+                 GPIO_OUTPUT_OPEN_DRAIN,
+                 GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_AF(FAN_3_TACH_GPIO_Port,
+                 FAN_3_TACH_Pin,
+                 FAN_3_TACH_AF,
+                 GPIO_OUTPUT_HIGH_SPEED,
+                 GPIO_OUTPUT_OPEN_DRAIN,
+                 GPIO_INPUT_PULL_UP),
+    GPIO_INIT_AF(FAN_4_TACH_GPIO_Port,
+                 FAN_4_TACH_Pin,
+                 FAN_4_TACH_AF,
+                 GPIO_OUTPUT_HIGH_SPEED,
+                 GPIO_OUTPUT_OPEN_DRAIN,
+                 GPIO_INPUT_PULL_UP),
     // Pump Switches
     GPIO_INIT_OUTPUT(PUMP_1_CTRL_GPIO_Port, PUMP_1_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_ANALOG(PUMP_1_IMON_GPIO_Port, PUMP_1_IMON_Pin),
     GPIO_INIT_OUTPUT(PUMP_2_CTRL_GPIO_Port, PUMP_2_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_ANALOG(PUMP_2_IMON_GPIO_Port, PUMP_2_IMON_Pin),
-    // Auxiliary Switch
-    GPIO_INIT_OUTPUT(AUX_HP_CTRL_GPIO_Port, AUX_HP_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_ANALOG(AUX_HP_IMON_GPIO_Port, AUX_HP_IMON_Pin),
+    // Heat Exchanger Fan
+    GPIO_INIT_OUTPUT(HXFAN_CTRL_GPIO_Port, HXFAN_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_ANALOG(HXFAN_IMON_GPIO_Port, HXFAN_IMON_Pin),
     // SDC Switch
     GPIO_INIT_ANALOG(SDC_IMON_GPIO_Port, SDC_IMON_Pin),
     // Fan Switches
     GPIO_INIT_OUTPUT(FAN_3_CTRL_GPIO_Port, FAN_3_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(FAN_4_CTRL_GPIO_Port, FAN_4_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(FAN_1_CTRL_GPIO_Port, FAN_1_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_INPUT(FAN_1_NFLT_GPIO_Port, FAN_1_NFLT_Pin, GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_ANALOG(FAN_1_CS_GPIO_Port, FAN_1_CS_Pin),
     GPIO_INIT_OUTPUT(FAN_2_CTRL_GPIO_Port, FAN_2_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_INPUT(FAN_2_NFLT_GPIO_Port, FAN_2_NFLT_Pin, GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_ANALOG(FAN_2_CS_GPIO_Port, FAN_2_CS_Pin),
+    // Driveline Controls
+    GPIO_INIT_OUTPUT(DLFR_CTRL_GPIO_Port, DLFR_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_INPUT(DLFR_NFLT_GPIO_Port, DLFR_NFLT_Pin, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_ANALOG(DLFR_CS_GPIO_Port, DLFR_CS_Pin),
+    GPIO_INIT_OUTPUT(DLBK_CTRL_GPIO_Port, DLBK_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_INPUT(DLBK_NFLT_GPIO_Port, DLBK_NFLT_Pin, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_ANALOG(DLBK_CS_GPIO_Port, DLBK_CS_Pin),
     // Main Module
     // Disable software control GPIO_INIT_OUTPUT(MAIN_CTRL_GPIO_Port, MAIN_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_INPUT(MAIN_NFLT_GPIO_Port, MAIN_NFLT_Pin, GPIO_INPUT_OPEN_DRAIN),
@@ -84,8 +136,8 @@ GPIOInitConfig_t gpio_config[] = {
     // Disable software control GPIO_INIT_OUTPUT(CRIT_5V_CTRL_GPIO_Port, CRIT_5V_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_INPUT(CRIT_5V_NFLT_GPIO_Port, CRIT_5V_NFLT_Pin, GPIO_INPUT_OPEN_DRAIN),
     // 5V Non-Critical Switch
-    GPIO_INIT_OUTPUT(NCRIT_5V_CTRL_GPIO_Port, NCRIT_5V_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_INPUT(NCRIT_5V_NFLT_GPIO_Port, NCRIT_5V_NFLT_Pin, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_OUTPUT(TV_CTRL_GPIO_Port, TV_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_INPUT(TV_NFLT_GPIO_Port, TV_NFLT_Pin, GPIO_INPUT_OPEN_DRAIN),
     // DAQ
     GPIO_INIT_INPUT(DAQ_NFLT_GPIO_Port, DAQ_NFLT_Pin, GPIO_INPUT_OPEN_DRAIN),
     // 5V Fan
@@ -96,57 +148,58 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_USART3TX_PC10,
     GPIO_INIT_USART3RX_PC11,
     // LV Status
-    GPIO_INIT_ANALOG(LV_24V_V_SENSE_GPIO_Port, LV_24V_V_SENSE_Pin),
-    GPIO_INIT_ANALOG(LV_24V_I_SENSE_GPIO_Port, LV_24V_I_SENSE_Pin),
-    GPIO_INIT_ANALOG(LV_5V_V_SENSE_GPIO_Port, LV_5V_V_SENSE_Pin),
-    GPIO_INIT_ANALOG(LV_5V_I_SENSE_GPIO_Port, LV_5V_I_SENSE_Pin),
-    GPIO_INIT_ANALOG(LV_3V3_V_SENSE_GPIO_Port, LV_3V3_V_SENSE_Pin),
+    GPIO_INIT_ANALOG(V24_VS_GPIO_Port, V24_VS_Pin),
+    GPIO_INIT_ANALOG(V24_CS_GPIO_Port, V24_CS_Pin),
+    GPIO_INIT_ANALOG(V5_VS_GPIO_Port, V5_VS_Pin),
+    GPIO_INIT_ANALOG(V5_CS_GPIO_Port, V5_CS_Pin),
+    GPIO_INIT_ANALOG(V3V3_VS_GPIO_Port, V3V3_VS_Pin),
+    GPIO_INIT_ANALOG(MUX_OUT_GPIO_Port, MUX_OUT_Pin),
     GPIO_INIT_ANALOG(DAQ_IMON_GPIO_Port, DAQ_IMON_Pin),
 };
 
 /* ADC Configuration */
 ADCInitConfig_t adc_config = {
-    .clock_prescaler = ADC_CLK_PRESC_6, // Desire ADC clock to be 30MHz (upper bound), clocked from APB2 (160/6=27MHz)
-    .resolution      = ADC_RES_12_BIT,
-    .data_align      = ADC_DATA_ALIGN_RIGHT,
-    .cont_conv_mode  = true,
-    .adc_number      = 1,
-    .dma_mode        = ADC_DMA_CIRCULAR};
+    .clock_prescaler =
+        ADC_CLK_PRESC_6, // Desire ADC clock to be 30MHz (upper bound), clocked from APB2 (160/6=27MHz)
+    .resolution     = ADC_RES_12_BIT,
+    .data_align     = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode = true,
+    .adc_number     = 1,
+    .dma_mode       = ADC_DMA_CIRCULAR};
 
 /* SPI Configuration */
 dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
 dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
 
-SPI_InitConfig_t spi_config = {
-    .data_len   = 8,
-    .nss_sw     = false,
-    .rx_dma_cfg = &spi_rx_dma_config,
-    .tx_dma_cfg = &spi_tx_dma_config,
-    .periph     = SPI1};
+SPI_InitConfig_t spi_config = {.data_len   = 8,
+                               .nss_sw     = false,
+                               .rx_dma_cfg = &spi_rx_dma_config,
+                               .tx_dma_cfg = &spi_tx_dma_config,
+                               .periph     = SPI1};
 
 /* With 17 items, 16 prescaler, and 640 sample time, each channel gets read every 1.4ms */
 volatile ADCReadings_t adc_readings;
 ADCChannelConfig_t adc_channel_config[] = {
     {.channel = PUMP_1_IMON_ADC_CHNL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = PUMP_2_IMON_ADC_CHNL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = AUX_HP_IMON_ADC_CHNL, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = HXFAN_IMON_ADC_CHNL, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = SDC_IMON_ADC_CHNL, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = FAN_1_CS_ADC_CHNL, .rank = 5, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = FAN_2_CS_ADC_CHNL, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = DLFR_CS_ADC_CHNL, .rank = 5, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = DLBK_CS_ADC_CHNL, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = MAIN_CS_ADC_CHNL, .rank = 7, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = DASH_CS_ADC_CHNL, .rank = 8, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = ABOX_CS_ADC_CHNL, .rank = 9, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = DAQ_IMON_ADC_CHNL, .rank = 10, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = LV_24V_V_SENSE_ADC_CHNL, .rank = 11, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = LV_24V_I_SENSE_ADC_CHNL, .rank = 12, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = LV_5V_V_SENSE_ADC_CHNL, .rank = 13, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = LV_5V_I_SENSE_ADC_CHNL, .rank = 14, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = LV_3V3_V_SENSE_ADC_CHNL, .rank = 15, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = V24_VS_ADC_CHNL, .rank = 11, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = V24_CS_ADC_CHNL, .rank = 12, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = V5_VS_ADC_CHNL, .rank = 13, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = V5_CS_ADC_CHNL, .rank = 14, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = V3V3_VS_ADC_CHNL, .rank = 15, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = INTERNAL_THERM_ADC_CHNL, .rank = 16, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = AMK_25V_V_SENSE_ADC_CHNL, .rank = 17, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = MUX_OUT_ADC_CHNL, .rank = 17, .sampling_time = ADC_CHN_SMP_CYCLES_480},
 };
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&adc_readings,
-                                                 sizeof(adc_readings) / sizeof(adc_readings.lv_24_v_sense),
+                                                 sizeof(adc_readings) / sizeof(adc_readings.v24_vs),
                                                  0b01);
 
 #define TargetCoreClockrateHz 16000000
@@ -186,7 +239,10 @@ int main() {
         HardFault_Handler();
     }
 
-    if (!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
+    if (!PHAL_initADC(ADC1,
+                      &adc_config,
+                      adc_channel_config,
+                      sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
         HardFault_Handler();
     }
     if (!PHAL_initDMA(&adc_dma_config)) {
@@ -248,7 +304,7 @@ void preflightChecks(void) {
                 // Initialize default 'ON' rails
                 setSwitch(SW_SDC, 1);
                 setSwitch(SW_DAQ, 1);
-                setSwitch(SW_NCRIT_5V, 1);
+                setSwitch(SW_TV, 1);
                 setSwitch(SW_MAIN, 1);
                 setSwitch(SW_ABOX, 1);
                 setSwitch(SW_DASH, 1);
@@ -313,9 +369,9 @@ void heatBeatLED() {
     static uint8_t trig;
     if (trig)
         CAN_SEND_pdu_can_stats(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
-                           can_stats.can_peripheral_stats[CAN1_IDX].tx_fail,
-                           can_stats.rx_of,
-                           can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
+                               can_stats.can_peripheral_stats[CAN1_IDX].tx_fail,
+                               can_stats.rx_of,
+                               can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
     trig = !trig;
 }
 
@@ -323,7 +379,7 @@ void CAN1_RX0_IRQHandler() {
     CAN_rx_update();
 }
 
-void pdu_bl_cmd_CALLBACK(can_data_t* can_data) {
+void pdu_bl_cmd_CALLBACK(can_data_t *can_data) {
     if (can_data->pdu_bl_cmd.cmd == BLCMD_RST)
         Bootloader_ResetForFirmwareDownload();
 }
@@ -334,11 +390,21 @@ void send_iv_readings() {
     update_fault(FAULT_INDEX_PDU_LV_GETTING_LOW, auto_switches.voltage.in_24v);
     update_fault(FAULT_INDEX_PDU_LV_CRITICAL_LOW, auto_switches.voltage.in_24v);
     // Send CAN messages containing voltage and current data
-    CAN_SEND_v_rails(auto_switches.voltage.in_24v, auto_switches.voltage.out_5v, auto_switches.voltage.out_3v3, auto_switches.voltage.amk_24v);
+    CAN_SEND_v_rails(auto_switches.voltage.in_24v,
+                     auto_switches.voltage.out_5v,
+                     auto_switches.voltage.out_3v3,
+                     auto_switches.voltage.amk_24v);
     CAN_SEND_rail_currents(auto_switches.current[CS_24V], auto_switches.current[CS_5V]);
-    CAN_SEND_pump_and_fan_current(auto_switches.current[SW_PUMP_1], auto_switches.current[SW_PUMP_2], auto_switches.current[SW_FAN_1], auto_switches.current[SW_FAN_2]);
+    CAN_SEND_pump_and_fan_current(auto_switches.current[SW_PUMP_1],
+                                  auto_switches.current[SW_PUMP_2],
+                                  auto_switches.current[SW_FAN_1],
+                                  auto_switches.current[SW_FAN_2]);
     CAN_SEND_fan_current2(auto_switches.current[SW_FAN_3], auto_switches.current[SW_FAN_4]);
-    CAN_SEND_other_currents(auto_switches.current[SW_SDC], auto_switches.current[SW_AUX], auto_switches.current[SW_DASH], auto_switches.current[SW_ABOX], auto_switches.current[SW_MAIN]);
+    CAN_SEND_other_currents(auto_switches.current[SW_SDC],
+                            auto_switches.current[SW_HXFAN],
+                            auto_switches.current[SW_DASH],
+                            auto_switches.current[SW_ABOX],
+                            auto_switches.current[SW_MAIN]);
 
     // DS8626 Rev 10 pg 139
     // Reference voltage is 3.3

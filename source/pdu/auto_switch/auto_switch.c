@@ -10,13 +10,15 @@
  */
 #include "auto_switch.h"
 
-#include "common/can_library/generated/PDU.h"
 #include "common/can_library/faults_common.h"
+#include "common/can_library/generated/PDU.h"
 #include "common/phal/gpio.h"
 #include "led.h"
 
 // Initialize struct
 auto_switches_t auto_switches;
+static uint16_t mux_readings[6];
+static uint8_t mux_index;
 
 // Static function declarations
 static void updateCurrent();
@@ -25,6 +27,8 @@ static uint16_t calcCurrent_HP(uint16_t);
 static uint16_t calcCurrent_LP(uint16_t);
 static void calcCurrent_Total();
 static uint16_t calcVoltage(uint16_t, int, int);
+static void setMuxChannel(uint8_t channel);
+static void updateMux();
 
 // Called periodically, Calculates current through each switch in mA
 void updateCurrent() {
@@ -32,13 +36,13 @@ void updateCurrent() {
     auto_switches.current[SW_PUMP_1] = calcCurrent_HP(adc_readings.pump_1_imon);
     auto_switches.current[SW_PUMP_2] = calcCurrent_HP(adc_readings.pump_2_imon);
     auto_switches.current[SW_SDC]    = calcCurrent_HP(adc_readings.sdc_imon);
-    auto_switches.current[SW_AUX]    = calcCurrent_HP(adc_readings.aux_hp_imon);
+    auto_switches.current[SW_HXFAN]  = calcCurrent_HP(adc_readings.hxfan_imon);
 
     // Low power switches
-    auto_switches.current[SW_FAN_1] = calcCurrent_LP(adc_readings.fan_1_cs);
-    auto_switches.current[SW_FAN_2] = calcCurrent_LP(adc_readings.fan_2_cs);
-    auto_switches.current[SW_FAN_3] = 0;
-    auto_switches.current[SW_FAN_4] = 0;
+    auto_switches.current[SW_FAN_1] = calcCurrent_LP(mux_readings[0]);
+    auto_switches.current[SW_FAN_2] = calcCurrent_LP(mux_readings[1]);
+    auto_switches.current[SW_FAN_3] = calcCurrent_LP(mux_readings[2]);
+    auto_switches.current[SW_FAN_4] = calcCurrent_LP(mux_readings[3]);
     auto_switches.current[SW_DASH]  = calcCurrent_LP(adc_readings.dash_cs);
     auto_switches.current[SW_ABOX]  = calcCurrent_LP(adc_readings.abox_cs);
     auto_switches.current[SW_MAIN]  = calcCurrent_LP(adc_readings.main_cs);
@@ -49,10 +53,31 @@ void updateCurrent() {
 
 // Called periodically, Updates voltage for each rail in mV
 void updateVoltage() {
-    auto_switches.voltage.in_24v  = calcVoltage(adc_readings.lv_24_v_sense, LV_24V_R1, LV_24V_R2);
-    auto_switches.voltage.out_5v  = calcVoltage(adc_readings.lv_5_v_sense, LV_5V_R1, LV_5V_R2);
-    auto_switches.voltage.out_3v3 = calcVoltage(adc_readings.lv_3v3_v_sense, LV_3V3_R1, LV_3V3_R2);
-    auto_switches.voltage.amk_24v = calcVoltage(adc_readings.amk_24v_v_sense, AMK_24V_R1, AMK_24V_R2);
+    auto_switches.voltage.in_24v  = calcVoltage(adc_readings.v24_vs, LV_24V_R1, LV_24V_R2);
+    auto_switches.voltage.out_5v  = calcVoltage(adc_readings.v5_vs, LV_5V_R1, LV_5V_R2);
+    auto_switches.voltage.out_3v3 = calcVoltage(adc_readings.v3v3_vs, LV_3V3_R1, LV_3V3_R2);
+    auto_switches.voltage.amk_24v =
+        calcVoltage(MAX(mux_readings[4], mux_readings[5]), AMK_24V_R1, AMK_24V_R2);
+}
+
+static void updateMux() {
+    mux_readings[mux_index] = adc_readings.mux_out;
+    mux_index               = (uint8_t)((mux_index + 1U) % 6U);
+    setMuxChannel(mux_index);
+}
+
+uint16_t getMuxReading(uint8_t channel) {
+    if (channel >= 6U) {
+        return 0;
+    }
+
+    return mux_readings[channel];
+}
+
+static void setMuxChannel(uint8_t channel) {
+    PHAL_writeGPIO(MUX_CTRL_A_GPIO_Port, MUX_CTRL_A_Pin, (channel & 0x01U) != 0U);
+    PHAL_writeGPIO(MUX_CTRL_B_GPIO_Port, MUX_CTRL_B_Pin, (channel & 0x02U) != 0U);
+    PHAL_writeGPIO(MUX_CTRL_C_GPIO_Port, MUX_CTRL_C_Pin, (channel & 0x04U) != 0U);
 }
 
 // Current helper functions
@@ -71,13 +96,13 @@ uint16_t calcCurrent_LP(uint16_t current) {
 // CS signals for upstream 24V and 5V (total current through each)
 void calcCurrent_Total() {
     // 24V current
-    uint16_t current              = adc_readings.lv_24_i_sense;
+    uint16_t current              = adc_readings.v24_cs;
     current                       = current * ADC_REF_mV / ADC_MAX; // Convert to mV
     current                       = current / HP_CS_R_SENSE / CS_GAIN;
     auto_switches.current[CS_24V] = current;
 
     // 5V current
-    current                      = adc_readings.lv_5_i_sense;
+    current                      = adc_readings.v5_cs;
     current                      = current * ADC_REF_mV / ADC_MAX; // Convert to mA
     auto_switches.current[CS_5V] = current;
 }
@@ -110,8 +135,8 @@ void setSwitch(switches_t auto_switch_enum, bool state) {
             // NoToggle switch (always on)
             LED_control(LED_SDC, state);
             break;
-        case SW_AUX:
-            PHAL_writeGPIO(AUX_HP_CTRL_GPIO_Port, AUX_HP_CTRL_Pin, state);
+        case SW_HXFAN:
+            PHAL_writeGPIO(HXFAN_CTRL_GPIO_Port, HXFAN_CTRL_Pin, state);
             LED_control(LED_AUX_1, state);
             break;
         case SW_FAN_1:
@@ -146,8 +171,8 @@ void setSwitch(switches_t auto_switch_enum, bool state) {
         case SW_DASH:
             LED_control(LED_DASH, state);
             break;
-        case SW_NCRIT_5V:
-            PHAL_writeGPIO(NCRIT_5V_CTRL_GPIO_Port, NCRIT_5V_CTRL_Pin, state);
+        case SW_TV:
+            PHAL_writeGPIO(TV_CTRL_GPIO_Port, TV_CTRL_Pin, state);
             LED_control(LED_5V_NCRIT, state);
             break;
         case SW_DAQ:
@@ -171,8 +196,8 @@ bool getSwitchStatus(switches_t auto_switch_enum) {
         case SW_PUMP_2:
             status = PHAL_readGPIO(PUMP_2_CTRL_GPIO_Port, PUMP_2_CTRL_Pin);
             break;
-        case SW_AUX:
-            status = PHAL_readGPIO(AUX_HP_CTRL_GPIO_Port, AUX_HP_CTRL_Pin);
+        case SW_HXFAN:
+            status = PHAL_readGPIO(HXFAN_CTRL_GPIO_Port, HXFAN_CTRL_Pin);
             break;
         case SW_FAN_1:
             status = PHAL_readGPIO(FAN_1_CTRL_GPIO_Port, FAN_1_CTRL_Pin);
@@ -192,8 +217,8 @@ bool getSwitchStatus(switches_t auto_switch_enum) {
         case SW_CRIT_5V:
             status = PHAL_readGPIO(CRIT_5V_CTRL_GPIO_Port, CRIT_5V_CTRL_Pin);
             break;
-        case SW_NCRIT_5V:
-            status = PHAL_readGPIO(NCRIT_5V_CTRL_GPIO_Port, NCRIT_5V_CTRL_Pin);
+        case SW_TV:
+            status = PHAL_readGPIO(TV_CTRL_GPIO_Port, TV_CTRL_Pin);
             break;
         case SW_FAN_5V:
             status = PHAL_readGPIO(FAN_5V_CTRL_GPIO_Port, FAN_5V_CTRL_Pin);
@@ -206,6 +231,7 @@ bool getSwitchStatus(switches_t auto_switch_enum) {
 }
 
 void autoSwitchPeriodic() {
+    updateMux();
     updateCurrent();
     updateVoltage();
 }
@@ -217,9 +243,9 @@ void checkSwitchFaults() {
     uint8_t main   = PHAL_readGPIO(MAIN_NFLT_GPIO_Port, MAIN_NFLT_Pin);
     uint8_t daq    = PHAL_readGPIO(DAQ_NFLT_GPIO_Port, DAQ_NFLT_Pin);
     uint8_t vcrit  = PHAL_readGPIO(CRIT_5V_NFLT_GPIO_Port, CRIT_5V_NFLT_Pin);
-    uint8_t vnc    = PHAL_readGPIO(NCRIT_5V_NFLT_GPIO_Port, NCRIT_5V_NFLT_Pin);
-    uint8_t fan1   = PHAL_readGPIO(FAN_1_NFLT_GPIO_Port, FAN_1_NFLT_Pin);
-    uint8_t fan2   = PHAL_readGPIO(FAN_2_NFLT_GPIO_Port, FAN_2_NFLT_Pin);
+    uint8_t vnc    = PHAL_readGPIO(TV_NFLT_GPIO_Port, TV_NFLT_Pin);
+    uint8_t fan1   = PHAL_readGPIO(DLFR_NFLT_GPIO_Port, DLFR_NFLT_Pin);
+    uint8_t fan2   = PHAL_readGPIO(DLBK_NFLT_GPIO_Port, DLBK_NFLT_Pin);
     uint8_t bullet = PHAL_readGPIO(BLT_NFLT_GPIO_Port, BLT_NFLT_Pin);
 
     static uint8_t dash_old   = 1;

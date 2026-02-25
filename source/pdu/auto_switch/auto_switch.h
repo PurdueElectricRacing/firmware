@@ -44,7 +44,7 @@ typedef enum {
     SW_PUMP_1,
     SW_PUMP_2,
     SW_SDC,
-    SW_AUX,
+    SW_HXFAN,
 
     // Low power switches
     SW_FAN_1,
@@ -67,7 +67,7 @@ typedef enum {
     SW_BLT,
     // 5V switches (no CS)
     SW_CRIT_5V,
-    SW_NCRIT_5V,
+    SW_TV,
     SW_DAQ,
     SW_FAN_5V
 } switches_t;
@@ -123,5 +123,7 @@ void autoSwitchPeriodic();
  *
  */
 void checkSwitchFaults();
+
+uint16_t getMuxReading(uint8_t channel);
 
 #endif

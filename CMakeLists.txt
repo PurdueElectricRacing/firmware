@@ -49,6 +49,7 @@ set(COMMON_MODULES
     common/strbuf
     common/lerp_lut
     common/syscalls
+    common/bangbang
 )
 
 foreach(COMMON_MODULE IN LISTS COMMON_MODULES)

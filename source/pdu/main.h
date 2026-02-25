@@ -39,7 +39,7 @@
 #define MUX_CTRL_C_GPIO_Port (GPIOB)
 #define MUX_CTRL_C_Pin       (2)
 #define MUX_OUT_GPIO_Port    (GPIOB)
-#define MUX_OUT_Pin          (11)
+#define MUX_OUT_Pin          (1)
 
 // LED CTRL
 #define SPI1_SCK_GPIO_Port  (GPIOB)
@@ -132,12 +132,12 @@
 #define PUMP_2_IMON_Pin       (5)
 #define PUMP_2_IMON_ADC_CHNL  (5)
 
-// Auxiliary Switch (High Power)
-#define AUX_HP_CTRL_GPIO_Port (GPIOD)
-#define AUX_HP_CTRL_Pin       (12)
-#define AUX_HP_IMON_GPIO_Port (GPIOC)
-#define AUX_HP_IMON_Pin       (3)
-#define AUX_HP_IMON_ADC_CHNL  (13)
+// Heat Exchanger Fan (High Power)
+#define HXFAN_CTRL_GPIO_Port (GPIOD)
+#define HXFAN_CTRL_Pin       (12)
+#define HXFAN_IMON_GPIO_Port (GPIOC)
+#define HXFAN_IMON_Pin       (3)
+#define HXFAN_IMON_ADC_CHNL  (13)
 
 // Shutdown Circuit (SDC) Switch (High Power)
 #define SDC_IMON_GPIO_Port (GPIOA)
@@ -153,25 +153,33 @@
 
 #define FAN_1_CTRL_GPIO_Port (GPIOC)
 #define FAN_1_CTRL_Pin       (8)
-#define FAN_1_NFLT_GPIO_Port (GPIOD)
-#define FAN_1_NFLT_Pin       (8)
-#define FAN_1_CS_GPIO_Port   (GPIOA)
-#define FAN_1_CS_Pin         (2)
-#define FAN_1_CS_ADC_CHNL    (2)
 
 #define FAN_2_CTRL_GPIO_Port (GPIOC)
 #define FAN_2_CTRL_Pin       (9)
-#define FAN_2_NFLT_GPIO_Port (GPIOD)
-#define FAN_2_NFLT_Pin       (10)
-#define FAN_2_CS_GPIO_Port   (GPIOA)
-#define FAN_2_CS_Pin         (3)
-#define FAN_2_CS_ADC_CHNL    (3)
+
+// Driveline Current Sense
+#define DLFR_CS_GPIO_Port (GPIOA)
+#define DLFR_CS_Pin       (2)
+#define DLFR_CS_ADC_CHNL  (2)
+#define DLBK_CS_GPIO_Port (GPIOA)
+#define DLBK_CS_Pin       (3)
+#define DLBK_CS_ADC_CHNL  (3)
+
+// Driveline Controls
+#define DLFR_CTRL_GPIO_Port (GPIOD)
+#define DLFR_CTRL_Pin       (9)
+#define DLFR_NFLT_GPIO_Port (GPIOD)
+#define DLFR_NFLT_Pin       (8)
+#define DLBK_CTRL_GPIO_Port (GPIOD)
+#define DLBK_CTRL_Pin       (11)
+#define DLBK_NFLT_GPIO_Port (GPIOD)
+#define DLBK_NFLT_Pin       (10)
 
 // Main Module Switch (Low Power)
 #define MAIN_CTRL_GPIO_Port (GPIOD)
 #define MAIN_CTRL_Pin       (15)
 #define MAIN_NFLT_GPIO_Port (GPIOD)
-#define MAIN_NFLT_Pin       (14)
+#define MAIN_NFLT_Pin       (13)
 #define MAIN_CS_GPIO_Port   (GPIOC)
 #define MAIN_CS_Pin         (2)
 #define MAIN_CS_ADC_CHNL    (12)
@@ -198,19 +206,19 @@
 
 // 5V Critical Switch (5V)
 #define CRIT_5V_CTRL_GPIO_Port (GPIOE)
-#define CRIT_5V_CTRL_Pin       (2)
+#define CRIT_5V_CTRL_Pin       (1)
 #define CRIT_5V_NFLT_GPIO_Port (GPIOE)
-#define CRIT_5V_NFLT_Pin       (1)
+#define CRIT_5V_NFLT_Pin       (0)
 
-// 5V Non-Critical Switch (5V)
-#define NCRIT_5V_CTRL_GPIO_Port (GPIOE)
-#define NCRIT_5V_CTRL_Pin       (6)
-#define NCRIT_5V_NFLT_GPIO_Port (GPIOE)
-#define NCRIT_5V_NFLT_Pin       (5)
+// TV Switch (5V)
+#define TV_CTRL_GPIO_Port (GPIOE)
+#define TV_CTRL_Pin       (5)
+#define TV_NFLT_GPIO_Port (GPIOE)
+#define TV_NFLT_Pin       (4)
 
 // DAQ Switch (5V)
 #define DAQ_NFLT_GPIO_Port (GPIOE)
-#define DAQ_NFLT_Pin       (3)
+#define DAQ_NFLT_Pin       (2)
 
 // 5V Fan Switch (5V)
 #define FAN_5V_CTRL_GPIO_Port (GPIOE)
@@ -226,62 +234,59 @@
 #define LV_BMS_RX_GPIO_Port   (GPIOC)
 #define LV_BMS_RX_Pin         (11)
 
-// LV Status
-#define LV_24V_V_SENSE_GPIO_Port (GPIOB)
-#define LV_24V_V_SENSE_Pin       (0)
-#define LV_24V_V_SENSE_ADC_CHNL  (8)
-#define LV_24V_I_SENSE_GPIO_Port (GPIOA)
-#define LV_24V_I_SENSE_Pin       (4)
-#define LV_24V_I_SENSE_ADC_CHNL  (4)
+// Voltage/Current Sense
+#define V24_VS_GPIO_Port (GPIOB)
+#define V24_VS_Pin       (0)
+#define V24_VS_ADC_CHNL  (8)
 
-#define LV_5V_V_SENSE_GPIO_Port (GPIOC)
-#define LV_5V_V_SENSE_Pin       (5)
-#define LV_5V_V_SENSE_ADC_CHNL  (15)
-#define LV_5V_I_SENSE_GPIO_Port (GPIOA)
-#define LV_5V_I_SENSE_Pin       (1)
-#define LV_5V_I_SENSE_ADC_CHNL  (1)
+#define MUX_OUT_ADC_CHNL (9)
 
-#define LV_3V3_V_SENSE_GPIO_Port (GPIOC)
-#define LV_3V3_V_SENSE_Pin       (4)
-#define LV_3V3_V_SENSE_ADC_CHNL  (14)
+#define V24_CS_GPIO_Port (GPIOA)
+#define V24_CS_Pin       (4)
+#define V24_CS_ADC_CHNL  (4)
+#define V5_CS_GPIO_Port  (GPIOA)
+#define V5_CS_Pin        (1)
+#define V5_CS_ADC_CHNL   (1)
 
-#define DAQ_IMON_GPIO_Port (GPIOA)
-#define DAQ_IMON_Pin       (7)
-#define DAQ_IMON_ADC_CHNL  (7)
-#define INTERNAL_THERM_ADC_CHNL  (16)
+#define V5_VS_GPIO_Port   (GPIOC)
+#define V5_VS_Pin         (5)
+#define V5_VS_ADC_CHNL    (15)
+#define V3V3_VS_GPIO_Port (GPIOC)
+#define V3V3_VS_Pin       (4)
+#define V3V3_VS_ADC_CHNL  (14)
 
-#define AMK_25V_V_SENSE_GPIO_PORT (GPIOB)
-#define AMK_25V_V_SENSE_PIN       (1)
-#define AMK_25V_V_SENSE_ADC_CHNL  (9)
+#define DAQ_IMON_GPIO_Port      (GPIOA)
+#define DAQ_IMON_Pin            (7)
+#define DAQ_IMON_ADC_CHNL       (7)
+#define INTERNAL_THERM_ADC_CHNL (16)
 
 // ADC Configuration
 #define ADC_REF_mV (3300UL) // mV
 
-typedef struct
-{
+typedef struct {
     // Do not modify this struct unless
     // you modify the ADC DMA config
     // in main.c to match
     uint16_t pump_1_imon;
     uint16_t pump_2_imon;
-    uint16_t aux_hp_imon;
+    uint16_t hxfan_imon;
     uint16_t sdc_imon;
-    uint16_t fan_1_cs;
-    uint16_t fan_2_cs;
+    uint16_t dlfr_cs;
+    uint16_t dlbk_cs;
     uint16_t main_cs;
     uint16_t dash_cs;
     uint16_t abox_cs;
     uint16_t daq_imon;
-    uint16_t lv_24_v_sense;
-    uint16_t lv_24_i_sense;
-    uint16_t lv_5_v_sense;
-    uint16_t lv_5_i_sense;
-    uint16_t lv_3v3_v_sense;
+    uint16_t v24_vs;
+    uint16_t v24_cs;
+    uint16_t v5_vs;
+    uint16_t v5_cs;
+    uint16_t v3v3_vs;
     uint16_t internal_therm;
-    uint16_t amk_24v_v_sense;
+    uint16_t mux_out;
 } __attribute__((packed)) ADCReadings_t;
 
 volatile extern ADCReadings_t adc_readings;
 
-void canTxSendToBack(CanMsgTypeDef_t* msg);
+void canTxSendToBack(CanMsgTypeDef_t *msg);
 #endif

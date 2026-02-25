@@ -18,6 +18,22 @@
 #define MOTOR_COOLING_MAX_TEMP    100
 #define BATT_COOLING_ENABLE_TEMP  30
 
+#define BATT_PUMP_ON_TEMP_C  BATT_COOLING_ENABLE_TEMP
+#define BATT_PUMP_OFF_TEMP_C (BATT_COOLING_ENABLE_TEMP - 2)
+#define BATT_FAN_ON_TEMP_C   BATT_COOLING_ENABLE_TEMP
+#define BATT_FAN_OFF_TEMP_C  (BATT_COOLING_ENABLE_TEMP - 2)
+
+#define MOTOR_PUMP_ON_TEMP_C  MOTOR_COOLING_ENABLE_TEMP
+#define MOTOR_PUMP_OFF_TEMP_C (MOTOR_COOLING_ENABLE_TEMP - 5)
+
+#define MOTOR_FAN_ON_TEMP_C  MOTOR_COOLING_MAX_TEMP
+#define MOTOR_FAN_OFF_TEMP_C (MOTOR_COOLING_MAX_TEMP - 5)
+
+#define MOTOR_FAN_STOP_ON_TEMP_C  MOTOR_COOLING_ENABLE_TEMP
+#define MOTOR_FAN_STOP_OFF_TEMP_C (MOTOR_COOLING_ENABLE_TEMP - 5)
+
+#define BANGBANG_MIN_SWITCH_MS 1000
+
 typedef struct {
     uint16_t fan1_speed; // value from 0-100
     uint16_t fan2_speed; // value from 0-100
@@ -29,7 +45,7 @@ typedef struct {
     bool fan2_status;
     bool fan3_status;
     bool fan4_status;
-    bool aux_status;
+    bool hxfan_status;
 } cooling_request_t;
 
 /**
@@ -54,5 +70,5 @@ void update_cooling_periodic();
  * @param *msg_data_a CAN msg data
  * @return
  */
-void cooling_driver_request_CALLBACK(can_data_t* p_can_data);
+void cooling_driver_request_CALLBACK(can_data_t *p_can_data);
 #endif

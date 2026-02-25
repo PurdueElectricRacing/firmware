@@ -42,7 +42,6 @@
                 "-d",
                 "${workspaceFolder}/source/f4_testing"
             ],
-            "preLaunchTask": "build",
             "runToEntryPoint": "main",
             "liveWatch": {
                 "enabled": true,

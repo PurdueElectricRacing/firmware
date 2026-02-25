@@ -157,8 +157,8 @@ typedef struct {
 /**
  * @brief Initialize the ADBMS driver instance and TX buffer.
  *
- * Sets the driver state to idle, clears discharge flags, and sets the
- * provided SPI config and TX buffer into the internal strbuf.
+ * Sets the driver state to idle, clears discharge flags (and discharged enabled),
+ * and sets the provided SPI config and TX buffer into the internal strbuf.
  *
  * @param bms Pointer to driver state to initialize.
  * @param spi SPI configuration used for ADBMS transactions.

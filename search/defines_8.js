@@ -10,14 +10,7 @@ var searchData=
   ['hp_5fcs_5fr2_7',['HP_CS_R2',['../auto__switch_8h.html#ad58d411cb91a45afa19bf03b4c3f8e0a',1,'auto_switch.h']]],
   ['hp_5fcs_5fr3_8',['HP_CS_R3',['../auto__switch_8h.html#ada6b0ca1566e85d74136c7d3e812afbb',1,'auto_switch.h']]],
   ['hp_5fcs_5fr_5fsense_9',['HP_CS_R_SENSE',['../auto__switch_8h.html#a7ccc9e35da6f5e15469cb952fbd07fa5',1,'auto_switch.h']]],
-  ['hse_5fclock_5frate_5fhz_10',['HSE_CLOCK_RATE_HZ',['../phal__F4__F7_2rcc_2rcc_8h.html#a6f4ca605cce4be908b761c7a5bb90692',1,'HSE_CLOCK_RATE_HZ:&#160;rcc.h'],['../phal__G4_2rcc_2rcc_8h.html#a6f4ca605cce4be908b761c7a5bb90692',1,'HSE_CLOCK_RATE_HZ:&#160;rcc.h'],['../phal__L4_2rcc_2rcc_8h.html#a6f4ca605cce4be908b761c7a5bb90692',1,'HSE_CLOCK_RATE_HZ:&#160;rcc.h']]],
-  ['hse_5fclock_5frate_5fhz_5finvalid_11',['HSE_CLOCK_RATE_HZ_INVALID',['../phal__F4__F7_2rcc_2rcc_8h.html#a806f47f30aefdcc387743342ac78fe31',1,'HSE_CLOCK_RATE_HZ_INVALID:&#160;rcc.h'],['../phal__G4_2rcc_2rcc_8h.html#a806f47f30aefdcc387743342ac78fe31',1,'HSE_CLOCK_RATE_HZ_INVALID:&#160;rcc.h'],['../phal__L4_2rcc_2rcc_8h.html#a806f47f30aefdcc387743342ac78fe31',1,'HSE_CLOCK_RATE_HZ_INVALID:&#160;rcc.h']]],
-  ['hsi_5fclock_5frate_5fhz_12',['HSI_CLOCK_RATE_HZ',['../phal__F4__F7_2rcc_2rcc_8h.html#a931e4bece2bc8e45e95492702b1a79db',1,'HSI_CLOCK_RATE_HZ:&#160;rcc.h'],['../phal__G4_2rcc_2rcc_8h.html#a931e4bece2bc8e45e95492702b1a79db',1,'HSI_CLOCK_RATE_HZ:&#160;rcc.h'],['../phal__L4_2rcc_2rcc_8h.html#a931e4bece2bc8e45e95492702b1a79db',1,'HSI_CLOCK_RATE_HZ:&#160;rcc.h']]],
-  ['hsi_5ftrim_5fa_5fbox_13',['HSI_TRIM_A_BOX',['../common__defs_8h.html#a9c9f9a9679cc551c6aa1a3965b6ac7a0',1,'common_defs.h']]],
-  ['hsi_5ftrim_5fdaq_14',['HSI_TRIM_DAQ',['../common__defs_8h.html#ab2636c286eeca1b801328094a5894a39',1,'common_defs.h']]],
-  ['hsi_5ftrim_5fdashboard_15',['HSI_TRIM_DASHBOARD',['../common__defs_8h.html#a4f999fe2b2e535f0575f8e189125246a',1,'common_defs.h']]],
-  ['hsi_5ftrim_5fmain_5fmodule_16',['HSI_TRIM_MAIN_MODULE',['../common__defs_8h.html#a452db665b8a3d36ae14778251dfba5d0',1,'common_defs.h']]],
-  ['hsi_5ftrim_5fpdu_17',['HSI_TRIM_PDU',['../common__defs_8h.html#a2da974e263720581c368f5bd95f791e6',1,'common_defs.h']]],
-  ['hsi_5ftrim_5ftorque_5fvector_18',['HSI_TRIM_TORQUE_VECTOR',['../common__defs_8h.html#a4b7d6f815a5be3b74fff0e458ea2ca9f',1,'common_defs.h']]],
-  ['hz_5fto_5fmhz_19',['HZ_TO_MHZ',['../phal__L4_2rcc_2rcc_8c.html#a17d626e2dfe6e90d6e5a1bd805dc8abe',1,'rcc.c']]]
+  ['hse_5fclock_5frate_5fhz_10',['HSE_CLOCK_RATE_HZ',['../phal__G4_2rcc_2rcc_8h.html#a6f4ca605cce4be908b761c7a5bb90692',1,'HSE_CLOCK_RATE_HZ:&#160;rcc.h'],['../phal__F4__F7_2rcc_2rcc_8h.html#a6f4ca605cce4be908b761c7a5bb90692',1,'HSE_CLOCK_RATE_HZ:&#160;rcc.h']]],
+  ['hse_5fclock_5frate_5fhz_5finvalid_11',['HSE_CLOCK_RATE_HZ_INVALID',['../phal__G4_2rcc_2rcc_8h.html#a806f47f30aefdcc387743342ac78fe31',1,'HSE_CLOCK_RATE_HZ_INVALID:&#160;rcc.h'],['../phal__F4__F7_2rcc_2rcc_8h.html#a806f47f30aefdcc387743342ac78fe31',1,'HSE_CLOCK_RATE_HZ_INVALID:&#160;rcc.h']]],
+  ['hsi_5fclock_5frate_5fhz_12',['HSI_CLOCK_RATE_HZ',['../phal__G4_2rcc_2rcc_8h.html#a931e4bece2bc8e45e95492702b1a79db',1,'HSI_CLOCK_RATE_HZ:&#160;rcc.h'],['../phal__F4__F7_2rcc_2rcc_8h.html#a931e4bece2bc8e45e95492702b1a79db',1,'HSI_CLOCK_RATE_HZ:&#160;rcc.h']]]
 ];

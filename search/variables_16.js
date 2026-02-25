@@ -1,26 +1,4 @@
 var searchData=
 [
-  ['wake_5faddr_0',['wake_addr',['../structusart__init__t.html#a72b5f7df2bcce44b8d47c08e616df66f',1,'usart_init_t']]],
-  ['wc_5fgpio_5fpin_1',['wc_gpio_pin',['../structeeprom.html#a99539ba427114235059a3007b2429db4',1,'eeprom']]],
-  ['wc_5fgpio_5fport_2',['wc_gpio_port',['../structeeprom.html#a53e4e0c9172cbc5f7826c289337de020',1,'eeprom']]],
-  ['weekday_3',['weekday',['../structRTC__date__t.html#a992e635ababc6ba6c5d921eb5653ca10',1,'RTC_date_t']]],
-  ['wflag_4',['wflag',['../structFATFS.html#a647e43c9ccae94b7274793d1909897de',1,'FATFS']]],
-  ['wheel_5fspeeds_5',['wheel_speeds',['../l4__testing_2main_8c.html#a0469791220721e9a5b9620b746ebf953',1,'main.c']]],
-  ['win_6',['win',['../structFATFS.html#ada9ba291a72602f72061a7ecfba6da43',1,'FATFS']]],
-  ['winsect_7',['winsect',['../structFATFS.html#aaf7eccaccdc9c4243230672d6b2f6566',1,'FATFS']]],
-  ['wizchip_8',['WIZCHIP',['../wizchip__conf_8c.html#ad0efd19f6465f2071d41dbf2a9090133',1,'WIZCHIP:&#160;wizchip_conf.c'],['../wizchip__conf_8h.html#ad0efd19f6465f2071d41dbf2a9090133',1,'WIZCHIP:&#160;wizchip_conf.c']]],
-  ['word_5flength_9',['word_length',['../structusart__init__t.html#a05cc99e8162f284a52d93388d800c782',1,'usart_init_t']]],
-  ['wrblockmisalign_10',['WrBlockMisalign',['../structSD__CSD.html#a54d08d114ba504e72f0001fa922ec919',1,'SD_CSD']]],
-  ['wrcfga_11',['WRCFGA',['../commands_8c.html#a2ed840d59cef20eae18f908d2379964d',1,'WRCFGA:&#160;commands.c'],['../commands_8h.html#a2ed840d59cef20eae18f908d2379964d',1,'WRCFGA:&#160;commands.c']]],
-  ['wrcfgb_12',['WRCFGB',['../commands_8c.html#a26d470e28a1ae39f1a0484e788b2b60e',1,'WRCFGB:&#160;commands.c'],['../commands_8h.html#a26d470e28a1ae39f1a0484e788b2b60e',1,'WRCFGB:&#160;commands.c']]],
-  ['wrcomm_13',['WRCOMM',['../commands_8c.html#a477da7837fbe8ebe69470f19754c4e79',1,'WRCOMM:&#160;commands.c'],['../commands_8h.html#a477da7837fbe8ebe69470f19754c4e79',1,'WRCOMM:&#160;commands.c']]],
-  ['write_5ffunc_5fa_14',['write_func_a',['../structdaq__variable__t.html#ac647e40a91cd469e9ca94f376ab91f3d',1,'daq_variable_t']]],
-  ['write_5fpending_15',['write_pending',['../structeeprom.html#af741d6e457776c48e7988aa8cbf120c9',1,'eeprom']]],
-  ['write_5fvar_5fa_16',['write_var_a',['../structdaq__variable__t.html#a77e6e6f98782241c59c24f9569096d14',1,'daq_variable_t']]],
-  ['writeblockpapartial_17',['WriteBlockPaPartial',['../structSD__CSD.html#a27824f576bf5d6a01dd7602aae8dad96',1,'SD_CSD']]],
-  ['wrprotectgrenable_18',['WrProtectGrEnable',['../structSD__CSD.html#a7cf93c94ebd2f9092b62e791f1565d30',1,'SD_CSD']]],
-  ['wrprotectgrsize_19',['WrProtectGrSize',['../structSD__CSD.html#a03486966abee0e50401e2a56d33bf1bb',1,'SD_CSD']]],
-  ['wrpwma_20',['WRPWMA',['../commands_8c.html#a6aae54bfcb762c2fbb1c8fd742edea51',1,'WRPWMA:&#160;commands.c'],['../commands_8h.html#a6aae54bfcb762c2fbb1c8fd742edea51',1,'WRPWMA:&#160;commands.c']]],
-  ['wrpwmb_21',['WRPWMB',['../commands_8c.html#ad1fe66d772ef1fc817d3c3a67671275e',1,'WRPWMB:&#160;commands.c'],['../commands_8h.html#ad1fe66d772ef1fc817d3c3a67671275e',1,'WRPWMB:&#160;commands.c']]],
-  ['wrspeedfact_22',['WrSpeedFact',['../structSD__CSD.html#a471bde59e37efab5eb960510d4d94aca',1,'SD_CSD']]]
+  ['year_5fbcd_0',['year_bcd',['../structRTC__date__t.html#aa4e963fd0afe128ba6b328d3d2330d17',1,'RTC_date_t']]]
 ];

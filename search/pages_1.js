@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['deploy_5fn_5fdebug_0',['deploy_n_debug',['../md_docs_2deploy__n__debug.html',1,'']]]
+  ['board_0',['Data Acquisition Board',['../dir_58db63217748590974291dcef374365a.html#autotoc_md0',1,'']]]
 ];

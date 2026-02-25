@@ -1,10 +1,18 @@
 var searchData=
 [
-  ['va_5fshift_0',['VA_SHIFT',['../vsprintf_8c.html#a6817dbb84937abfcbb00e4cdbbdf5045',1,'vsprintf.c']]],
-  ['va_5fstart_1',['VA_START',['../vsprintf_8c.html#aaee74701da33b5bb442a8f897a2b5a70',1,'vsprintf.c']]],
-  ['vcan_5frx_5fgpio_5fport_2',['VCAN_RX_GPIO_Port',['../dashboard_2main_8h.html#ae149f315898d37fba8fd24600c9e0daa',1,'VCAN_RX_GPIO_Port:&#160;main.h'],['../pdu_2main_8h.html#ae149f315898d37fba8fd24600c9e0daa',1,'VCAN_RX_GPIO_Port:&#160;main.h']]],
-  ['vcan_5frx_5fpin_3',['VCAN_RX_Pin',['../dashboard_2main_8h.html#a371e4be64076c344b0e77350dafa88ed',1,'VCAN_RX_Pin:&#160;main.h'],['../pdu_2main_8h.html#a371e4be64076c344b0e77350dafa88ed',1,'VCAN_RX_Pin:&#160;main.h']]],
-  ['vcan_5ftx_5fgpio_5fport_4',['VCAN_TX_GPIO_Port',['../dashboard_2main_8h.html#a88d0a4a184af99f7f80dd7c82c5807f6',1,'VCAN_TX_GPIO_Port:&#160;main.h'],['../pdu_2main_8h.html#a88d0a4a184af99f7f80dd7c82c5807f6',1,'VCAN_TX_GPIO_Port:&#160;main.h']]],
-  ['vcan_5ftx_5fpin_5',['VCAN_TX_Pin',['../dashboard_2main_8h.html#acc226824c7a77b7de193ce0385d7fd03',1,'VCAN_TX_Pin:&#160;main.h'],['../pdu_2main_8h.html#acc226824c7a77b7de193ce0385d7fd03',1,'VCAN_TX_Pin:&#160;main.h']]],
-  ['vportsvchandler_6',['vPortSVCHandler',['../FreeRTOSConfig_8h.html#ad43047b3ea0a146673e30637488bf754',1,'FreeRTOSConfig.h']]]
+  ['w5100_0',['W5100',['../wizchip__conf_8h.html#aced62b5ad0da484e43bc7b5eeac377e8',1,'wizchip_conf.h']]],
+  ['w5100s_1',['W5100S',['../wizchip__conf_8h.html#a1daa34078c08624e85bc6db67a56bd70',1,'wizchip_conf.h']]],
+  ['w5200_2',['W5200',['../wizchip__conf_8h.html#a87c29ecd67ca522541567408808be12f',1,'wizchip_conf.h']]],
+  ['w5300_3',['W5300',['../wizchip__conf_8h.html#a8b4cd677a2cbaf598edf17c6169494d5',1,'wizchip_conf.h']]],
+  ['w5500_4',['W5500',['../wizchip__conf_8h.html#a9ef926aed787eb1a97050469e9d53e4b',1,'wizchip_conf.h']]],
+  ['warn_5fstring_5',['WARN_STRING',['../lcd_8h.html#a68be2e50ca8954fe2c024b7604d23623',1,'lcd.h']]],
+  ['wheel_5fradius_6',['WHEEL_RADIUS',['../lcd_8h.html#aaa6f04f6f0d7cf1008a53279acf49f07',1,'lcd.h']]],
+  ['white_7',['WHITE',['../nextion_8h.html#a87b537f5fa5c109d3c05c13d6b18f382',1,'nextion.h']]],
+  ['wizchip_5fcreg_5fblock_8',['WIZCHIP_CREG_BLOCK',['../w5500_8h.html#a587e5f530ec3c23e54e0736ea7342f90',1,'w5500.h']]],
+  ['wizchip_5fcritical_5fenter_9',['WIZCHIP_CRITICAL_ENTER',['../w5500_8h.html#ac59d6ec9327da0fd3ea8fa3fd21b9701',1,'w5500.h']]],
+  ['wizchip_5fcritical_5fexit_10',['WIZCHIP_CRITICAL_EXIT',['../w5500_8h.html#a0bfaa1b1d5c9582dddf46b6265b96ab7',1,'w5500.h']]],
+  ['wizchip_5foffset_5finc_11',['WIZCHIP_OFFSET_INC',['../w5500_8h.html#a19f3b761780d0e9fe375801e99c0d4e8',1,'w5500.h']]],
+  ['wizchip_5frxbuf_5fblock_12',['WIZCHIP_RXBUF_BLOCK',['../w5500_8h.html#a043c3f6b1ab6f9a00572bee520c8a502',1,'w5500.h']]],
+  ['wizchip_5fsreg_5fblock_13',['WIZCHIP_SREG_BLOCK',['../w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054',1,'w5500.h']]],
+  ['wizchip_5ftxbuf_5fblock_14',['WIZCHIP_TXBUF_BLOCK',['../w5500_8h.html#ae3f7cc188dc5a4aba9604a6d6479de98',1,'w5500.h']]]
 ];

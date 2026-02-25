@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['usart_5fdma_5fmode_5ft_0',['usart_dma_mode_t',['../common_2phal__F4__F7_2usart_2usart_8c.html#a7bd69e038fbf6f28b02d943c2748241f',1,'usart_dma_mode_t:&#160;usart.c'],['../common_2phal__G4_2usart_2usart_8c.html#a7bd69e038fbf6f28b02d943c2748241f',1,'usart_dma_mode_t:&#160;usart.c']]],
-  ['usart_5fmode_5ft_1',['usart_mode_t',['../phal__L4_2usart_2usart_8h.html#a1209980dae4cfa2b7933ccb7c53746dc',1,'usart.h']]]
+  ['word_5flength_5ft_0',['word_length_t',['../phal__G4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493',1,'word_length_t:&#160;usart.h'],['../phal__F4__F7_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493',1,'word_length_t:&#160;usart.h']]]
 ];

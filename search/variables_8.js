@@ -1,22 +1,10 @@
 var searchData=
 [
-  ['handle_0',['handle',['../structThreadWrapper.html#a500036a6a3e8d392dfdbd89e0f342d99',1,'ThreadWrapper']]],
-  ['has_5fmissed_1',['has_missed',['../structcpu__time__t.html#aba0acac885a09f621d6cf0f64f82f143',1,'cpu_time_t']]],
-  ['has_5fread_5ffunc_2',['has_read_func',['../structdaq__variable__t.html#aa29abea1c3ff357ad71c7409b8a187c9',1,'daq_variable_t']]],
-  ['has_5fwrite_5ffunc_3',['has_write_func',['../structdaq__variable__t.html#af0dcf65c74b6fcd4839c11aa9590f739',1,'daq_variable_t']]],
-  ['hasgnssfix_4',['hasGNSSFix',['../structGPS__Handle__t.html#ae5a5329707961dfd09eba0ada30b788f',1,'GPS_Handle_t']]],
-  ['head_5',['head',['../structq__handle__t.html#a374adccb8b9053dee056b93a3f805ef0',1,'q_handle_t']]],
-  ['header_6',['HEADER',['../classutils_1_1bcolors.html#ae1b46bb5726457898bd2c00acbc617d7',1,'utils::bcolors']]],
-  ['header1_7',['HEADER1',['../namespacereceive-from-tv.html#ae29c1f565929de6e8052200662246df2',1,'receive-from-tv.HEADER1'],['../namespacesend-and-rec.html#aeba7a536a1f5f006d25db15a8a7380d5',1,'send-and-rec.HEADER1']]],
-  ['header2_8',['HEADER2',['../namespacereceive-from-tv.html#a2e294b3fa6aadcd8d3c8b5ebab525332',1,'receive-from-tv.HEADER2'],['../namespacesend-and-rec.html#a676aa4b3046983f8f867e40dddb56ec1',1,'send-and-rec.HEADER2']]],
-  ['headingmotion_9',['headingMotion',['../structNAV__PVT__t.html#a4641a17663dcc26f819966502308b576',1,'NAV_PVT_t']]],
-  ['headingvehicle_10',['headingVehicle',['../structNAV__PVT__t.html#a7f62d73366c11c0e24f2379073526954',1,'NAV_PVT_t']]],
-  ['height_11',['height',['../structNAV__PVT__t.html#a9a8442e88106a9ba347cfa2af3546203',1,'NAV_PVT_t']]],
-  ['heightmsl_12',['heightMSL',['../structNAV__PVT__t.html#a68bd5335616cea5646bb48afd58fc3a2',1,'NAV_PVT_t']]],
-  ['hex_5floc_13',['hex_loc',['../classbootloader__download_1_1Bootloader.html#ad43f540958f4c2860df1ee01b82d0e36',1,'bootloader_download::Bootloader']]],
-  ['horizontalaccuracy_14',['horizontalAccuracy',['../structNAV__PVT__t.html#a94bd2e29f2131891fa0dfaae2269dabc',1,'NAV_PVT_t']]],
-  ['hour_15',['hour',['../structNAV__PVT__t.html#a2bca5697d3ad496f6b243f6918263477',1,'NAV_PVT_t']]],
-  ['hours_5fbcd_16',['hours_bcd',['../structRTC__time__t.html#a8d02832380abd6524b9d4272495f6252',1,'RTC_time_t']]],
-  ['huart1_17',['huart1',['../l4__testing_2main_8c.html#a06d36f7d8dfd573ebf393d8868199ffd',1,'main.c']]],
-  ['hw_5fflow_5fctl_18',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]]
+  ['has_5fmissed_0',['has_missed',['../structcpu__time__t.html#aba0acac885a09f621d6cf0f64f82f143',1,'cpu_time_t']]],
+  ['head_1',['head',['../structq__handle__t.html#a374adccb8b9053dee056b93a3f805ef0',1,'q_handle_t']]],
+  ['header1_2',['HEADER1',['../namespacereceive-from-tv.html#ae29c1f565929de6e8052200662246df2',1,'receive-from-tv.HEADER1'],['../namespacesend-and-rec.html#aeba7a536a1f5f006d25db15a8a7380d5',1,'send-and-rec.HEADER1']]],
+  ['header2_3',['HEADER2',['../namespacereceive-from-tv.html#a2e294b3fa6aadcd8d3c8b5ebab525332',1,'receive-from-tv.HEADER2'],['../namespacesend-and-rec.html#a676aa4b3046983f8f867e40dddb56ec1',1,'send-and-rec.HEADER2']]],
+  ['hours_5fbcd_4',['hours_bcd',['../structRTC__time__t.html#a8d02832380abd6524b9d4272495f6252',1,'RTC_time_t']]],
+  ['huart1_5',['huart1',['../l4__testing_2main_8c.html#a06d36f7d8dfd573ebf393d8868199ffd',1,'main.c']]],
+  ['hw_5fflow_5fctl_6',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]]
 ];

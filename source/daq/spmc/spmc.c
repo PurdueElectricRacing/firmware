@@ -1,23 +1,14 @@
+/**
+ * @file spmc.c
+ * @brief Custom SPMC designed for high throughput handling of CAN message streams.
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Shriya Balu (balu@purdue.edu)
+ */
+
 #include "spmc.h"
-// design requirements
-// Single producer (CAN_IRQs w same priority)
-// Multiple Consumer (SD, ETH)
-// the SD head must never miss a message (or else mark overflow)
-// the ETH head does "best effort streaming"
-// high throughput, lock free
 
-/*
-Assumptions
-1. There is effectively a single producer
-2. The master tail is managed by a higher priority task than the follower
-3. the master tail will enter blocked state between getting the batch and committing the tail
-4. we do not care if the follower "drops" data
-*/
-
-/* DMA can only access contiguous items,
-    size the writes to be a multiple of num_frames to prevent wrap around issues 
-    maybe commit the last write right when power is lost?? idk
-*/
+// todo maybe commit the last write right when power is lost?? idk
 
 void SPMC_init(
     SPMC_t *spmc,

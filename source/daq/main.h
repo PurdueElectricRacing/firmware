@@ -1,7 +1,6 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-#include "buffer.h"
 #include "common/freertos/freertos.h"
 #include "common/log/log.h"
 #include "daq_hub.h"

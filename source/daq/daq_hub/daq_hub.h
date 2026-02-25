@@ -24,7 +24,7 @@
 #include "daq_rtc_config.h"
 #include "ff.h"
 #include "sdio.h"
-#include "common/spmc/spmc.h"
+#include "spmc.h"
 
 typedef uint32_t canid_t;
 typedef uint8_t busid_t;

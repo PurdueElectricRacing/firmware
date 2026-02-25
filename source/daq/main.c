@@ -1,6 +1,5 @@
 #include "main.h"
-#include "buffer.h"
-#include "common/spmc/spmc.h"
+#include "spmc.h"
 #include "common/can_library/generated/DAQ.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"

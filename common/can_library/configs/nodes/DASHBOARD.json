@@ -31,10 +31,10 @@
                 },
                 {
                     "msg_name": "start_button",
-                    "msg_desc": "Car start button pressed",
+                    "msg_desc": "Car start button",
                     "signals": [
                         {
-                            "sig_name": "start",
+                            "sig_name": "is_pressed",
                             "type": "bool"
                         }
                     ],
@@ -193,9 +193,6 @@
                 },
                 {
                     "msg_name": "coolant_out"
-                },
-                {
-                    "msg_name": "gearbox"
                 },
                 {
                     "msg_name": "sdc_status"

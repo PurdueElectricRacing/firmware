@@ -116,7 +116,7 @@ void can_worker_task() {
 }
 
 defineThreadStack(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);
-defineThreadStack(can_worker_task, 15, osPriorityNormal, 2048);
+defineThreadStack(can_worker_task, 10, osPriorityNormal, 2048);
 
 int main(void) {
     // Hardware Initialization

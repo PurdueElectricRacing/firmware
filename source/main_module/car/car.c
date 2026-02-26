@@ -2,6 +2,8 @@
 #include "common/can_library/generated/MAIN_MODULE.h"
 #include "common/can_library/generated/can_types.h"
 #include "common/amk/amk.h"
+#include "common/phal/gpio.h"
+#include "main.h"
 
 static constexpr uint32_t MIN_BUZZING_TIME_MS = 2500;
 
@@ -49,7 +51,7 @@ static inline bool is_TSMS_high() {
 }
 
 static inline bool is_precharge_complete() {
-    return true;
+    return PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
 }
 
 static inline bool is_start_button_pressed() {
@@ -57,11 +59,7 @@ static inline bool is_start_button_pressed() {
         return false;
     }
 
-    bool current_state = can_data.start_button.start;
-    bool edge = current_state && !g_car.last_start_button_state;
-
-    g_car.last_start_button_state = current_state;
-    return edge;
+    return can_data.start_button.is_pressed;
 }
 
 static inline bool is_buzzing_time_elapsed() {
@@ -171,4 +169,6 @@ void fsm_periodic() {
             break;
         }
     }
+
+    // flush logic
 }

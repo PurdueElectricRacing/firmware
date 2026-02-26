@@ -10,7 +10,7 @@ queue_status_t queue_push(queue_t *q, void *tx) {
 
     memcpy(q->data + q->tail, tx, q->item_size);
     q->tail = next_tail;
-    return QUEUE_OK;
+    return QUEUE_SUCCESS;
 }
 
 queue_status_t queue_pop(queue_t *q, void *rx) {
@@ -20,5 +20,5 @@ queue_status_t queue_pop(queue_t *q, void *rx) {
 
     memcpy(rx, q->data + q->head, q->item_size);
     q->head = (q->head + q->item_size) % q->max_size;
-    return QUEUE_OK;
+    return QUEUE_SUCCESS;
 }

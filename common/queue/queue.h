@@ -13,9 +13,9 @@ typedef struct {
 } queue_t;
 
 typedef enum {
-    QUEUE_OK = 0,
-    QUEUE_FULL,
-    QUEUE_EMPTY
+    QUEUE_SUCCESS = 0,
+    QUEUE_FULL    = 1,
+    QUEUE_EMPTY   = 2
 } queue_status_t;
 
 #define QUEUE_INIT(name, item_size_, num_items_) \

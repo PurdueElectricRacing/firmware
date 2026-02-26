@@ -183,6 +183,15 @@ Additionally, the compiler standard for `firmware` is set to C23, enabling sever
     	*ptr = 10
     }
     ```
+
+14. Use apostrophes to format large numbers (C23)
+    ```c
+    // bad
+    static constexpr uint32_t TargetCoreClockrateHz = 16000000;
+
+    // good
+    static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
+    ```
     
-14. Run da formatter before merging your PR
+15. Run da formatter before merging your PR
     1. Use the command `clang-format -i file.c`

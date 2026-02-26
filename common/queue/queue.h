@@ -1,5 +1,13 @@
-#ifndef QUEUE_H
-#define QUEUE_H
+// keep this guard to avoid conflict with FREERTOS queue
+#ifndef _QUEUE_H_
+#define _QUEUE_H_
+
+/**
+ * @file queue.h
+ * @brief Simple static queue implementation.
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
 
 #include <stdint.h>
 #include <stddef.h>
@@ -31,4 +39,4 @@ typedef enum {
 queue_status_t queue_push(queue_t *q, void *tx);
 queue_status_t queue_pop(queue_t *q, void *rx);
 
-#endif // QUEUE_H
+#endif // _QUEUE_H_

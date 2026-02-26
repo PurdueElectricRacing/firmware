@@ -1,3 +1,10 @@
+/**
+ * @file queue.c
+ * @brief Simple static queue implementation.
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include "queue.h"
 #include <string.h>
 

@@ -17,7 +17,7 @@ can_stats_t can_stats;
 volatile uint32_t last_can_rx_time_ms;
 
 #ifndef CAN_QUEUE_SIZE
-#define CAN_QUEUE_SIZE 48
+#define CAN_QUEUE_SIZE 24
 #endif
 
 #if defined(STM32F407xx) || defined(STM32F732xx)

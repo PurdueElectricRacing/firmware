@@ -76,12 +76,7 @@
                     "msg_period": 5000
                 }
             ],
-            "rx": [
-                {
-                    "msg_name": "daq_bl_cmd",
-                    "callback": true
-                }
-            ]
+            "rx": []
         },
         "MCAN": {
             "peripheral": "CAN1",

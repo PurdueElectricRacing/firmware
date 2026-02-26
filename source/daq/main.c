@@ -384,8 +384,3 @@ void HardFault_Handler() {
         __asm__("nop");
     }
 }
-
-void daq_bl_cmd_CALLBACK(can_data_t* p_can_data)
-{
-    // Handle bootloader commands
-}

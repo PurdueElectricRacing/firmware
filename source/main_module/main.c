@@ -7,8 +7,7 @@
  */
 
 #include "main.h"
-
-#include <stdint.h>
+#include "common/common_defs/common_defs.h"
 
 #include "common/can_library/generated/MAIN_MODULE.h"
 #include "common/freertos/freertos.h"
@@ -57,7 +56,7 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_FDCAN3RX_PA8
 };
 
-static constexpr uint32_t TargetCoreClockrateHz = 16000000;
+static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
 ClockRateConfig_t clock_config = {
     .clock_source           = CLOCK_SOURCE_HSE,
     .use_pll                = false,
@@ -75,17 +74,49 @@ extern uint32_t PLLClockRateHz;
 
 extern void HardFault_Handler(void);
 
-void ledblink() {
+void heartbeat_task() {
+    // preflight animation for the first 1.5 seconds after boot
+    if (OS_TICKS <= PREFLIGHT_DURATION_MS) {
+        static uint32_t sweep_index = 0;
+
+        // Creates a sweeping pattern
+        switch (sweep_index++ % 3) {
+            case 0:
+                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 1);
+                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
+                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
+                break;
+            case 1:
+                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 0);
+                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
+                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
+                break;
+            case 2:
+                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 0);
+                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
+                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
+                break;
+        }
+
+        return;
+    }
+
     PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
+
+    if (OS_TICKS - last_can_rx_time_ms >= CONN_LED_TIMEOUT_MS) {
+        PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
+    } else {
+        PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
+    }
 }
 
-void can_worker() {
+void can_worker_task() {
     CAN_rx_update();
     CAN_tx_update();
 }
 
-defineThreadStack(ledblink, 500, osPriorityLow, 256);
-defineThreadStack(can_worker, 15, osPriorityNormal, 2048);
+defineThreadStack(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);
+defineThreadStack(can_worker_task, 15, osPriorityNormal, 2048);
 
 int main(void) {
     // Hardware Initialization
@@ -109,8 +140,8 @@ int main(void) {
     // Software Initialization
     osKernelInitialize();
 
-    createThread(ledblink);
-    createThread(can_worker);
+    createThread(heartbeat_task);
+    createThread(can_worker_task);
 
     // no way home
     osKernelStart();

@@ -28,4 +28,7 @@ typedef enum {
         .max_size = sizeof(name##_data) \
     }
 
+queue_status_t queue_push(queue_t *q, void *tx);
+queue_status_t queue_pop(queue_t *q, void *rx);
+
 #endif // QUEUE_H

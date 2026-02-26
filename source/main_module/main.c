@@ -10,12 +10,12 @@
 
 #include <stdint.h>
 
-#include "common/amk/amk.h"
 #include "common/can_library/generated/MAIN_MODULE.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
+#include "common/amk/amk.h"
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -73,46 +73,19 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
-AMK_t test_amk;
-// ! bypass precharge for bench testing
-bool is_precharge_complete = true;
-
-/* Wrappers to map generic AMK calls to Inverter A CAN messages */
-void inva_set_flush(void) {
-    CAN_SEND_INVA_SET(test_amk.set->AMK_Control_bReserve,
-                      test_amk.set->AMK_Control_bInverterOn,
-                      test_amk.set->AMK_Control_bDcOn,
-                      test_amk.set->AMK_Control_bEnable,
-                      test_amk.set->AMK_Control_bErrorReset,
-                      test_amk.set->AMK_Control_bReserve2,
-                      test_amk.set->AMK_TorqueSetpoint,
-                      test_amk.set->AMK_PositiveTorqueLimit,
-                      test_amk.set->AMK_NegativeTorqueLimit);
-}
-
 extern void HardFault_Handler(void);
 
 void ledblink() {
     PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
 }
 
-void amk_test_thread() {
+void can_worker() {
     CAN_rx_update();
-    // todo more amk test stuff here
-    AMK_periodic(&test_amk);
-
-    if (test_amk.state == AMK_STATE_RUNNING) {
-        // ! test 1, constant torque
-         AMK_set_torque(&test_amk, 5);
-    } else {
-        // AMK_set_torque(&test_amk, 0);
-    }
-
     CAN_tx_update();
 }
 
 defineThreadStack(ledblink, 500, osPriorityLow, 256);
-defineThreadStack(amk_test_thread, 15, osPriorityNormal, 2048);
+defineThreadStack(can_worker, 15, osPriorityNormal, 2048);
 
 int main(void) {
     // Hardware Initialization
@@ -122,7 +95,6 @@ int main(void) {
     if (false == PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
         HardFault_Handler();
     }
-
     if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
@@ -134,27 +106,11 @@ int main(void) {
     NVIC_EnableIRQ(FDCAN3_IT0_IRQn);
     CAN_library_init();
 
-    // Bench Test Initialization
-    is_precharge_complete = true;
-    AMK_init(&test_amk,
-             inva_set_flush,
-             &can_data.INVA_SET,
-             &can_data.INVA_CRIT,
-             &can_data.INVA_INFO,
-             &can_data.INVA_TEMPS,
-             &can_data.INVA_ERR_1,
-             &can_data.INVA_ERR_2,
-             &is_precharge_complete);
-
-    // ! test 1, constant torque
-    // AMK_set_torque(&test_amk, 5); // Request 5% torque for bench test
-
     // Software Initialization
     osKernelInitialize();
 
     createThread(ledblink);
-    // ! test 2, state machine
-    createThread(amk_test_thread);
+    createThread(can_worker);
 
     // no way home
     osKernelStart();

@@ -249,18 +249,6 @@
                 {
                     "msg_name": "start_button",
                     "callback": false
-                },
-                {
-                    "msg_name": "max_cell_temp"
-                },
-                {
-                    "msg_name": "LWS_Standard"
-                },
-                {
-                    "msg_name": "orion_currents_volts"
-                },
-                {
-                    "msg_name": "orion_info"
                 }
             ]
         },

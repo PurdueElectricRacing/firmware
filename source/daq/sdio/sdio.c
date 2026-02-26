@@ -768,8 +768,6 @@ SD_Error SD_WaitReadOperation(void) {
 
     timeout = SD_DATATIMEOUT;
 
-    //  if (last_read_length > 1)
-    //  {
     while (((SDIO->STA & SDIO_STA_RXACT)) && (timeout > 0)) {
         timeout--;
     }

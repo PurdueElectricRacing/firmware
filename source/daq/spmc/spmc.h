@@ -17,11 +17,10 @@
 // ! assumes the messages are SID
 typedef struct {
     uint32_t ticks_ms; // ms timestamp of reception
-    uint16_t msg_id;   // message id 
-    uint8_t bus_id;    // bus the message was rx'd on
-    uint8_t dlc;       // data length code
+    uint32_t identity;   // [1 bit bus ID] [1 bit isExtID] [1 bit reserved] [29 bits CAN ID]
     uint64_t payload;  // message data
 } timestamped_frame_t;
+
 static_assert(sizeof(timestamped_frame_t) == 16,
     "timestamped_frame_t must be 16 bytes for optimal caching and DMA patterns");
 

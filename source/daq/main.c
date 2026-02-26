@@ -146,15 +146,9 @@ int main() {
     log_yellow("PER PER PER\n");
 
     PHAL_initCAN(CAN1, false, MCAN_BAUD_RATE);
-    // CAN1->IER |= CAN_IER_ERRIE | CAN_IER_LECIE |
-    //              CAN_IER_BOFIE | CAN_IER_EPVIE |
-    //              CAN_IER_EWGIE;
 
     if (!PHAL_initCAN(CAN2, false, VCAN_BAUD_RATE))
         HardFault_Handler();
-
-    // if (!CAN_library_init())
-        // HardFault_Handler();
 
     daq_spi_register_callbacks(); // Link SPI for ethernet driver
     daq_hub_init();
@@ -205,23 +199,26 @@ static void can_rx_irq_handler(CAN_TypeDef* can_h) {
     {
         timestamped_frame_t* rx = &buf;
         rx->ticks_ms    = getTick();
-        rx->bus_id = (can_h == CAN1) ? BUS_ID_CAN1 : BUS_ID_CAN2;
+        rx->identity = (uint32_t) ((can_h == CAN1) ? BUS_ID_CAN1 : BUS_ID_CAN2) << 31;
 
         // Get either StdId or ExtId
         if (CAN_RI0R_IDE & can_h->sFIFOMailBox[0].RIR) {
-            rx->msg_id = CAN_EFF_FLAG | (((CAN_RI0R_EXID | CAN_RI0R_STID) & can_h->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos);
+            // Extended ID
+            rx->identity |= (uint32_t) 1 << 30;
+            rx->identity |= CAN_EFF_FLAG | (((CAN_RI0R_EXID | CAN_RI0R_STID) & can_h->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos); // idk how right ts is
         } else {
-            rx->msg_id = (CAN_RI0R_STID & can_h->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
+            // Standard ID
+            rx->identity |= (CAN_RI0R_STID & can_h->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
         }
 
-        rx->dlc = (CAN_RDT0R_DLC & can_h->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
-        // TODO verify that this works without mask (it shouldn't matter??)
         rx->payload = (uint64_t) (can_h->sFIFOMailBox[0].RDLR); 
-        rx->payload = (uint64_t) (can_h->sFIFOMailBox[0].RDHR) << 32;
+        rx->payload |= (uint64_t) (can_h->sFIFOMailBox[0].RDHR) << 32;
 
         SPMC_enqueue_ISR(&queue,rx);
 
-        if ((daq_hub.rtc_config_state != RTC_SYNC_COMPLETE) && (rx->msg_id & GPS_TIME_MSG_ID)) rtc_config_cb(rx);
+        // i promise ill move this
+        #define STD_ID_MASK ((1U < 11) - 1)
+        if ((daq_hub.rtc_config_state != RTC_SYNC_COMPLETE) && ((rx->identity & STD_ID_MASK) == GPS_TIME_MSG_ID)) rtc_config_cb(rx);
     } 
 
     can_h->RF0R |= (CAN_RF0R_RFOM0);

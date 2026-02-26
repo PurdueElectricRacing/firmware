@@ -188,6 +188,7 @@ static DRESULT _sdio_disk_write(
         return RES_NOTRDY;
     }
 
+    // Shouldn't ever have to use scratch buffer because with new struct size buffer should always be at least 4 byte aligned?
     if ((DWORD)buff & 3) {
         DRESULT res = RES_OK;
         DWORD scratch[BLOCK_SIZE / 4];

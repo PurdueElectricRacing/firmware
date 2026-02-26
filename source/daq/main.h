@@ -65,8 +65,6 @@ static_assert(PER == GREAT); // Long live daq loop
 constexpr TickType_t SD_BLOCKING_TIMEOUT_TICKS = pdMS_TO_TICKS(SD_BLOCKING_TIMEOUT_MS); 
 
 extern SPMC_t queue;
-extern QueueHandle_t q_tcp_tx;
-extern QueueHandle_t q_can1_rx;
 extern SemaphoreHandle_t spi1_lock;
 
 void HardFault_Handler();

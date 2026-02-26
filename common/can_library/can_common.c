@@ -4,6 +4,7 @@
  * 
  * @author Irving Wang (irvingw@purdue.edu)
  * @author Luke Oxley (lcoxley@purdue.edu)
+ * @author Ronak Jain (jain717@purdue.edu)
  */
 
 #include "common/can_library/can_common.h"

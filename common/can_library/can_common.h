@@ -7,6 +7,7 @@
  * 
  * @author Irving Wang (irvingw@purdue.edu)
  * @author Luke Oxley (lcoxley@purdue.edu)
+ * @author Ronak Jain (jain717@purdue.edu)
  */
 
 #include <stdint.h>

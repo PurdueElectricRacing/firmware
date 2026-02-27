@@ -14,8 +14,8 @@
 
 typedef struct {
     uint8_t *data;
-    size_t head;
-    size_t tail;
+    volatile size_t head;
+    volatile size_t tail;
     size_t item_size;
     size_t max_size;
 } queue_t;

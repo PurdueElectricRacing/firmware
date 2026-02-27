@@ -12,13 +12,14 @@
 #include "common/can_library/generated/can_router.h"
 #include "common/queue/queue.h"
 
-#define CAN_QUEUE_SIZE 24
+#define CAN_RX_QUEUE_SIZE 36
+#define CAN_TX_QUEUE_SIZE 18
 
 // common data structures
 can_data_t can_data;
 can_stats_t can_stats;
 volatile uint32_t last_can_rx_time_ms;
-QUEUE_INIT(q_rx_can, sizeof(CanMsgTypeDef_t), CAN_QUEUE_SIZE);
+QUEUE_INIT(q_rx_can, sizeof(CanMsgTypeDef_t), CAN_RX_QUEUE_SIZE);
 
 #if defined(STM32F407xx) || defined(STM32F732xx)
 
@@ -28,15 +29,15 @@ uint32_t can_mbx_last_send_time[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
 
 // Statically allocate TX queues for CAN1 and CAN2
 #ifdef USE_CAN1
-QUEUE_INIT(q_tx_can1_m0, sizeof(CanMsgTypeDef_t), CAN_QUEUE_SIZE);
-QUEUE_INIT(q_tx_can1_m1, sizeof(CanMsgTypeDef_t), CAN_QUEUE_SIZE);
-QUEUE_INIT(q_tx_can1_m2, sizeof(CanMsgTypeDef_t), CAN_QUEUE_SIZE);
+QUEUE_INIT(q_tx_can1_m0, sizeof(CanMsgTypeDef_t), CAN_TX_QUEUE_SIZE);
+QUEUE_INIT(q_tx_can1_m1, sizeof(CanMsgTypeDef_t), CAN_TX_QUEUE_SIZE);
+QUEUE_INIT(q_tx_can1_m2, sizeof(CanMsgTypeDef_t), CAN_TX_QUEUE_SIZE);
 #endif
 
 #ifdef USE_CAN2
-QUEUE_INIT(q_tx_can2_m0, sizeof(CanMsgTypeDef_t), CAN_QUEUE_SIZE);
-QUEUE_INIT(q_tx_can2_m1, sizeof(CanMsgTypeDef_t), CAN_QUEUE_SIZE);
-QUEUE_INIT(q_tx_can2_m2, sizeof(CanMsgTypeDef_t), CAN_QUEUE_SIZE);
+QUEUE_INIT(q_tx_can2_m0, sizeof(CanMsgTypeDef_t), CAN_TX_QUEUE_SIZE);
+QUEUE_INIT(q_tx_can2_m1, sizeof(CanMsgTypeDef_t), CAN_TX_QUEUE_SIZE);
+QUEUE_INIT(q_tx_can2_m2, sizeof(CanMsgTypeDef_t), CAN_TX_QUEUE_SIZE);
 #endif
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
@@ -228,15 +229,15 @@ queue_t q_tx_can[NUM_CAN_PERIPHERALS];
 
 // Statically allocate TX queues for FDCAN1, FDCAN2, and FDCAN3
 #ifdef USE_FDCAN1
-QUEUE_INIT(q_tx_can1, sizeof(CanMsgTypeDef_t), CAN_QUEUE_SIZE);
+QUEUE_INIT(q_tx_can1, sizeof(CanMsgTypeDef_t), CAN_TX_QUEUE_SIZE);
 #endif
 
 #ifdef USE_FDCAN2
-QUEUE_INIT(q_tx_can2, sizeof(CanMsgTypeDef_t), CAN_QUEUE_SIZE);
+QUEUE_INIT(q_tx_can2, sizeof(CanMsgTypeDef_t), CAN_TX_QUEUE_SIZE);
 #endif
 
 #ifdef USE_FDCAN3
-QUEUE_INIT(q_tx_can3, sizeof(CanMsgTypeDef_t), CAN_QUEUE_SIZE);
+QUEUE_INIT(q_tx_can3, sizeof(CanMsgTypeDef_t), CAN_TX_QUEUE_SIZE);
 #endif
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {

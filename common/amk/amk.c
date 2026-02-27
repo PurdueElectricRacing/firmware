@@ -87,8 +87,8 @@ void AMK_periodic(AMK_t *amk) {
     bool is_simple_error = (amk->err1->AMK_DiagnosticNumber == AMK_CAN_ERR_ID
                             || amk->err1->AMK_DiagnosticNumber == AMK_DC_BUS_ID);
 
-    bool is_DC_acknowledged       = amk->info->AMK_Status_bQuitDcOn;
-    bool is_inverter_acknowledged = amk->info->AMK_Status_bInverterOn;
+    bool is_DcOn_acknowledged       = amk->info->AMK_Status_bQuitDcOn;
+    bool is_InverterOn_acknowledged = amk->info->AMK_Status_bInverterOn;
 
     switch (amk->state) {
         case AMK_STATE_OFF:
@@ -96,7 +96,10 @@ void AMK_periodic(AMK_t *amk) {
 
             if (is_error && is_simple_error) {
                 amk->next_state = AMK_STATE_RECOVERING;
-            } else if (!is_error && is_system_ready) {
+                break;
+            }
+            
+            if (!is_error && is_system_ready) {
                 amk->next_state = AMK_STATE_STARTING;
             }
             break;
@@ -115,7 +118,7 @@ void AMK_periodic(AMK_t *amk) {
             }
 
             // only transition to running once inverter is ready
-            if (is_DC_acknowledged && is_inverter_acknowledged) {
+            if (is_DcOn_acknowledged && is_InverterOn_acknowledged) {
                 amk->next_state = AMK_STATE_RUNNING;
             }
             break;

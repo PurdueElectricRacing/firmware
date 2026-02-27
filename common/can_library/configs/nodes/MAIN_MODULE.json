@@ -332,8 +332,8 @@
                         }
                     ],
                     "msg_period": 15,
-                    "msg_id_override": "0x188",
-                    "msg_priority": 3
+                    "msg_id_override": "0x111",
+                    "msg_priority": 1
                 },
                 {
                     "msg_name": "INVB_SET",
@@ -394,8 +394,8 @@
                         }
                     ],
                     "msg_period": 15,
-                    "msg_id_override": "0x189",
-                    "msg_priority": 3
+                    "msg_id_override": "0x112",
+                    "msg_priority": 1
                 }
             ],
             "rx": [

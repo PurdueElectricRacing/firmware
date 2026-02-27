@@ -21,46 +21,18 @@
                 },
                 {
                     "sig_name": "AMK_DisplayOverloadInverter",
-                    "type": "uint16_t"
+                    "type": "uint16_t",
+                    "scale": 0.1
                 },
                 {
                     "sig_name": "AMK_DisplayOverloadMotor",
-                    "type": "uint16_t"
+                    "type": "uint16_t",
+                    "scale": 0.1
                 }
             ],
             "msg_period": 15,
-            "msg_id_override": "0x283",
-            "msg_priority": 3
-        },
-        {
-            "msg_name": "INVB_TEMPS",
-            "msg_desc": "Contains temperatures",
-            "signals": [
-                {
-                    "sig_name": "AMK_MotorTemp",
-                    "sig_desc": "Motor temperature",
-                    "type": "int16_t",
-                    "unit": "C",
-                    "scale": 0.1
-                },
-                {
-                    "sig_name": "AMK_InverterTemp",
-                    "sig_desc": "Inverter cold plate temperature",
-                    "type": "int16_t",
-                    "unit": "C",
-                    "scale": 0.1
-                },
-                {
-                    "sig_name": "AMK_IGBTTemp",
-                    "sig_desc": "IGBT temperature",
-                    "type": "int16_t",
-                    "unit": "C",
-                    "scale": 0.1
-                }
-            ],
-            "msg_period": 500,
-            "msg_id_override": "0x285",
-            "msg_priority": 3
+            "msg_id_override": "0x122",
+            "msg_priority": 1
         },
         {
             "msg_name": "INVB_INFO",
@@ -120,8 +92,8 @@
                 }
             ],
             "msg_period": 500,
-            "msg_id_override": "0x287",
-            "msg_priority": 3
+            "msg_id_override": "0x232",
+            "msg_priority": 2
         },
         {
             "msg_name": "INVB_ERR_1",
@@ -139,8 +111,8 @@
                 }
             ],
             "msg_period": 2000,
-            "msg_id_override": "0x289",
-            "msg_priority": 3
+            "msg_id_override": "0x442",
+            "msg_priority": 4
         },
         {
             "msg_name": "INVB_ERR_2",
@@ -158,8 +130,38 @@
                 }
             ],
             "msg_period": 2000,
-            "msg_id_override": "0x291",
-            "msg_priority": 3
+            "msg_id_override": "0x452",
+            "msg_priority": 4
+        },
+        {
+            "msg_name": "INVB_TEMPS",
+            "msg_desc": "Contains temperatures",
+            "signals": [
+                {
+                    "sig_name": "AMK_MotorTemp",
+                    "sig_desc": "Motor temperature",
+                    "type": "int16_t",
+                    "unit": "C",
+                    "scale": 0.1
+                },
+                {
+                    "sig_name": "AMK_InverterTemp",
+                    "sig_desc": "Inverter cold plate temperature",
+                    "type": "int16_t",
+                    "unit": "C",
+                    "scale": 0.1
+                },
+                {
+                    "sig_name": "AMK_IGBTTemp",
+                    "sig_desc": "IGBT temperature",
+                    "type": "int16_t",
+                    "unit": "C",
+                    "scale": 0.1
+                }
+            ],
+            "msg_period": 500,
+            "msg_id_override": "0x462",
+            "msg_priority": 4
         },
         {
             "msg_name": "INVB_PHASE_I",
@@ -172,8 +174,8 @@
                 }
             ],
             "msg_period": 250,
-            "msg_id_override": "0x293",
-            "msg_priority": 3
+            "msg_id_override": "0x572",
+            "msg_priority": 5
         }
     ],
     "rx": [

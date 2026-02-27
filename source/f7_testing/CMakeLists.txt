@@ -1,5 +1,0 @@
-add_firmware_component(
-    NAME f7_testing
-    LINKER_SCRIPT "STM32F732RETX_FLASH"
-    LIBS "CMSIS_F732;PSCHED_F732;PHAL_F732"
-)

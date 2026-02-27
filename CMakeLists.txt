@@ -28,7 +28,6 @@ include(cmake/FindSTM32HAL.cmake)
 
 # See cmake/FindCMSIS.cmake and cmake/FindSTM32HAL.cmake for constructing additional libraries
 make_cmsis_library(CMSIS_F407 STM32F4xx STM32F407xx ${CMAKE_SOURCE_DIR}/external/STM32CubeF4/Drivers/CMSIS)
-make_cmsis_library(CMSIS_F732 STM32F7xx STM32F732xx ${CMAKE_SOURCE_DIR}/external/STM32CubeF7/Drivers/CMSIS)
 make_cmsis_library(CMSIS_G474 STM32G4xx STM32G474xx ${CMAKE_SOURCE_DIR}/external/STM32CubeG4/Drivers/CMSIS)
 
 include(cmake/FindFreeRTOS.cmake)

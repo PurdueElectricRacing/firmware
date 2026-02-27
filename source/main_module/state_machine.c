@@ -1,17 +1,14 @@
-#include "car.h"
+#include "main.h"
+#include "pindefs.h"
 
 #include "common/can_library/faults_common.h"
 #include "common/can_library/generated/MAIN_MODULE.h"
 #include "common/can_library/generated/can_types.h"
 #include "common/phal/gpio.h"
-#include "main.h"
 
 static constexpr uint32_t MIN_BUZZING_TIME_MS = 2000;
 static constexpr uint16_t BRAKE_LIGHT_ON_THRESHOLD = 200; // ~5% of 4095
 static constexpr uint16_t BRAKE_LIGHT_OFF_THRESHOLD = 100; // ~2.5% of 4095
-
-car_t g_car;
-torque_request_t g_torque_request;
 
 void error_periodic() {
     // todo

@@ -7,16 +7,22 @@
  */
 
 #include "main.h"
-#include "common/common_defs/common_defs.h"
+#include "pindefs.h"
+#include "init.h"
 
+#include "common/common_defs/common_defs.h"
 #include "common/can_library/generated/MAIN_MODULE.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "common/amk/amk.h"
-#include "car.h"
-#include "init.h"
+
+
+// Global data structures
+car_t g_car;
+torque_request_t g_torque_request;
+SDC_state_t g_SDC_state;
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {

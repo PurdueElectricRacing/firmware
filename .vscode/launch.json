@@ -128,11 +128,11 @@
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
-            "device": "STM32F732RE",
-            "svdFile": "${workspaceRoot}/common/svd/STM32F7x.svd",
+            "device": "STM32G474CET6",
+            "svdFile": "${workspaceRoot}/common/svd/STM32G474xx.svd",
             "configFiles": [
                 "interface/stlink.cfg",
-                "target/stm32f7x.cfg"
+                "target/stm32g4x.cfg"
             ],
             "debuggerArgs": [
                 "-d",

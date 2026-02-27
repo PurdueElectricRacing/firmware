@@ -40,11 +40,13 @@ typedef struct {
 } torque_request_t;
 extern torque_request_t g_torque_request;
 
-constexpr uint8_t NUM_SDC_NODES = 16;
+constexpr int NUM_SDC_NODES = 17;
+constexpr int PRECHARGE_SDC_INDEX = NUM_SDC_NODES - 1;
 typedef bool SDC_states_t[NUM_SDC_NODES];
 extern SDC_states_t g_SDC_states;
 
 void fsm_periodic();
 void car_init();
+void update_SDC();
 
 #endif // MAIN_H

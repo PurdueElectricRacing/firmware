@@ -90,7 +90,7 @@ void init_amks() {
         g_car.front_left.temps,
         g_car.front_left.err1,
         g_car.front_left.err2,
-        &g_car.is_precharge_complete
+        &g_SDC_states[PRECHARGE_SDC_INDEX]
     );
 
     AMK_init(
@@ -102,7 +102,7 @@ void init_amks() {
         g_car.front_right.temps,
         g_car.front_right.err1,
         g_car.front_right.err2,
-        &g_car.is_precharge_complete
+        &g_SDC_states[PRECHARGE_SDC_INDEX]
     );
 
     AMK_init(
@@ -114,7 +114,7 @@ void init_amks() {
         g_car.rear_left.temps,
         g_car.rear_left.err1,
         g_car.rear_left.err2,
-        &g_car.is_precharge_complete
+        &g_SDC_states[PRECHARGE_SDC_INDEX]
     );
 
     AMK_init(
@@ -126,7 +126,7 @@ void init_amks() {
         g_car.rear_right.temps,
         g_car.rear_right.err1,
         g_car.rear_right.err2,
-        &g_car.is_precharge_complete
+        &g_SDC_states[PRECHARGE_SDC_INDEX]
     );
 }
 

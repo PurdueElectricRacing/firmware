@@ -21,7 +21,6 @@
 // Global data structures
 car_t g_car;
 torque_request_t g_torque_request;
-SDC_states_t g_SDC_states;
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -122,36 +121,6 @@ void can_worker_task() {
     CAN_tx_update();
 }
 
-void update_SDC_task() {
-    // check SDC state by cycling through the mux and checking the input
-    static uint8_t sdc_poll_index = 0;
-
-    // Set mux control and delay to allow mux signals to stabilize
-    PHAL_writeGPIO(SDC_MUX_S0_PORT, SDC_MUX_S0_PIN, (sdc_poll_index >> 0) & 0x1);
-    PHAL_writeGPIO(SDC_MUX_S1_PORT, SDC_MUX_S1_PIN, (sdc_poll_index >> 1) & 0x1);
-    PHAL_writeGPIO(SDC_MUX_S2_PORT, SDC_MUX_S2_PIN, (sdc_poll_index >> 2) & 0x1);
-    PHAL_writeGPIO(SDC_MUX_S3_PORT, SDC_MUX_S3_PIN, (sdc_poll_index >> 3) & 0x1);
-    osDelay(1);
-    
-    // Read the signal and update the fault state
-    bool node_status = PHAL_readGPIO(SDC_MUX_PORT, SDC_MUX_PIN);
-    g_SDC_states[sdc_poll_index] = node_status;
-
-    // ! kinda sus
-    static_assert(
-        FAULT_INDEX_MAIN_MODULE_SDC1_OPEN + NUM_SDC_NODES == FAULT_INDEX_MAIN_MODULE_SDC17_OPEN,
-        "SDC fault indices must be contiguous and match the number of SDC nodes"
-    );
-    fault_index_t SDC_fault_index = (FAULT_INDEX_MAIN_MODULE_SDC1_OPEN + sdc_poll_index);
-    update_fault(SDC_fault_index, node_status);
-
-    // update the poll index for the next cycle (0-15)
-    sdc_poll_index = (sdc_poll_index + 1) & 0xF;
-
-    // this one has a dedicated pin so we can read it every cycle without muxing
-    g_car.is_precharge_complete = PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
-}
-
 void AMK_task() {
     AMK_periodic(&g_car.front_right);
     AMK_periodic(&g_car.front_left);
@@ -160,7 +129,7 @@ void AMK_task() {
 }
 
 defineThreadStack(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);
-defineThreadStack(update_SDC_task, 0, osPriorityIdle, 256); // the delay is within the thread
+defineThreadStack(update_SDC, 5, osPriorityIdle, 256); // the delay is within the thread
 defineThreadStack(can_worker_task, 10, osPriorityHigh, 1024);
 defineThreadStack(fsm_periodic, 15, osPriorityNormal, 2048);
 defineThreadStack(AMK_task, 15, osPriorityNormal, 1024);
@@ -192,7 +161,7 @@ int main(void) {
 
     createThread(heartbeat_task);
     createThread(can_worker_task);
-    createThread(update_SDC_task);
+    createThread(update_SDC);
     createThread(fsm_periodic);
     createThread(AMK_task);
     createThread(fault_library_periodic);

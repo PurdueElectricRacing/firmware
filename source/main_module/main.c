@@ -8,7 +8,6 @@
 
 #include "main.h"
 #include "pindefs.h"
-#include "init.h"
 
 #include "common/common_defs/common_defs.h"
 #include "common/can_library/generated/MAIN_MODULE.h"

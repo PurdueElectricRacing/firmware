@@ -1,6 +1,13 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+/**
+ * @file main.h
+ * @brief "Main Module" node source code
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include "common/amk/amk.h"
 
 typedef struct {
@@ -38,5 +45,6 @@ extern torque_request_t g_torque_request;
 extern SDC_state_t g_SDC_state;
 
 void fsm_periodic();
+void car_init();
 
 #endif // MAIN_H

@@ -15,11 +15,24 @@
 #define CAN_RX_QUEUE_SIZE 36
 #define CAN_TX_QUEUE_SIZE 18
 
-// common data structures
+// arch independent data structures
 can_data_t can_data;
 can_stats_t can_stats;
 volatile uint32_t last_can_rx_time_ms;
 QUEUE_INIT(q_rx_can, sizeof(CanMsgTypeDef_t), CAN_RX_QUEUE_SIZE);
+
+// arch independent functions
+void CAN_rx_update() {
+    CanMsgTypeDef_t rx_msg;
+    while (queue_pop(&q_rx_can, &rx_msg) == QUEUE_SUCCESS) {
+        last_can_rx_time_ms = OS_TICKS;
+        uint8_t periph_idx  = GET_PERIPH_IDX(rx_msg.Bus);
+        CAN_rx_dispatcher(rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId,
+                          rx_msg.Data,
+                          rx_msg.DLC,
+                          periph_idx);
+    }
+}
 
 #if defined(STM32F407xx) || defined(STM32F732xx)
 
@@ -106,18 +119,6 @@ void CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo) {
         if (queue_push(&q_rx_can, &rx_msg) != QUEUE_SUCCESS) {
             can_stats.rx_of++;
         }
-    }
-}
-
-void CAN_rx_update() {
-    CanMsgTypeDef_t rx_msg;
-    while (queue_pop(&q_rx_can, &rx_msg) == QUEUE_SUCCESS) {
-        last_can_rx_time_ms = OS_TICKS;
-        uint8_t periph_idx  = GET_PERIPH_IDX(rx_msg.Bus);
-        CAN_rx_dispatcher(rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId,
-                          rx_msg.Data,
-                          rx_msg.DLC,
-                          periph_idx);
     }
 }
 
@@ -268,18 +269,6 @@ void CAN_tx_update() {
         PHAL_FDCAN_send(&tx_msg);
     }
 #endif
-}
-
-void CAN_rx_update() {
-    CanMsgTypeDef_t rx_msg;
-    while (queue_pop(&q_rx_can, &rx_msg) == QUEUE_SUCCESS) {
-        last_can_rx_time_ms = OS_TICKS;
-        uint8_t periph_idx  = GET_PERIPH_IDX(rx_msg.Bus);
-        CAN_rx_dispatcher(rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId,
-                          rx_msg.Data,
-                          rx_msg.DLC,
-                          periph_idx);
-    }
 }
 
 // FDCAN RX callback - enqueues received messages to the RX queue

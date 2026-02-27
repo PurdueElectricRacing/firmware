@@ -143,33 +143,81 @@ void adbms6380_calculate_cfg_regb(uint8_t output_cfg_regb[ADBMS6380_SINGLE_DATA_
     }
 }
 
-bool adbms6380_read_data(SPI_InitConfig_t *spi,
-                         size_t module_count,
-                         const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
-                         uint8_t *rx_buffer) {
-    size_t rx_length = module_count * ADBMS6380_SINGLE_DATA_PKT_SIZE;
-    return adbms6380_read(spi, module_count, cmd_buffer, rx_buffer, rx_length);
+bool adbms6380_check_data_pec(const uint8_t *rx_bytes, size_t rx_len) {
+    size_t raw_data_len     = rx_len - ADBMS6380_PEC_SIZE;
+    uint16_t calculated_pec = adbms_pec_get_pec10(true, raw_data_len, rx_bytes);
+
+    uint8_t pec_msb_packed = rx_bytes[raw_data_len];
+    uint8_t pec_lsb        = rx_bytes[raw_data_len + 1];
+    uint16_t received_pec  = ((uint16_t)(pec_msb_packed & 0x03) << 8) | (uint16_t)pec_lsb;
+
+    return calculated_pec == received_pec;
 }
 
-bool adbms6380_read(SPI_InitConfig_t *spi,
-                    size_t module_count,
-                    const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
-                    uint8_t *rx_buffer,
-                    size_t rx_length) {
+adbms6380_read_result_t adbms6380_read(SPI_InitConfig_t *spi,
+                                       size_t module_count,
+                                       const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
+                                       uint8_t *rx_buffer,
+                                       size_t rx_length_per_module) {
+    // Send command and get response
     adbms6380_set_cs_low(spi);
     // First send command. Command is passed to all modules in the daisy chain.
     if (!PHAL_SPI_transfer_noDMA(spi, cmd_buffer, ADBMS6380_COMMAND_PKT_SIZE, 0, NULL)) {
         adbms6380_set_cs_high(spi);
-        return false;
+        return ADBMS6380_READ_SPI_FAILURE;
     }
     // Then read data back. Data is in order of module 0 ... module N-1
-    if (!PHAL_SPI_transfer_noDMA(spi, NULL, 0, rx_length, rx_buffer)) {
+    size_t total_rx_length = module_count * rx_length_per_module;
+    if (!PHAL_SPI_transfer_noDMA(spi, NULL, 0, total_rx_length, rx_buffer)) {
         adbms6380_set_cs_high(spi);
-        return false;
+        return ADBMS6380_READ_SPI_FAILURE;
     }
     adbms6380_set_cs_high(spi);
 
-    return true;
+    // Check PEC for each module's data packet
+    for (size_t module_idx = 0; module_idx < module_count; module_idx++) {
+        uint8_t *module_data = &rx_buffer[module_idx * rx_length_per_module];
+        if (!adbms6380_check_data_pec(module_data, rx_length_per_module)) {
+            return ADBMS6380_READ_PEC_FAILURE;
+        }
+    }
+
+    return ADBMS6380_READ_SUCCESS;
+}
+
+adbms6380_read_result_t
+adbms6380_read_data_with_retries(SPI_InitConfig_t *spi,
+                                 size_t max_retries,
+                                 size_t module_count,
+                                 const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
+                                 uint8_t *rx_buffer) {
+    for (size_t attempt = 0; attempt < max_retries; attempt++) {
+        adbms6380_read_result_t result = adbms6380_read(spi,
+                                                        module_count,
+                                                        cmd_buffer,
+                                                        rx_buffer,
+                                                        ADBMS6380_SINGLE_DATA_PKT_SIZE);
+        switch (result) {
+            case ADBMS6380_READ_SUCCESS:
+                return ADBMS6380_READ_SUCCESS;
+            case ADBMS6380_READ_PEC_FAILURE:
+                // Retry on PEC failure
+                continue;
+            case ADBMS6380_READ_SPI_FAILURE:
+                // Terminal error on SPI failure
+                return ADBMS6380_READ_SPI_FAILURE;
+        }
+    }
+    // If we reach here, all retries failed due to PEC errors
+    return ADBMS6380_READ_PEC_FAILURE;
+}
+
+adbms6380_read_result_t adbms6380_read_data(SPI_InitConfig_t *spi,
+                                            size_t module_count,
+                                            const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
+                                            uint8_t *rx_buffer) {
+    size_t rx_length_per_module = ADBMS6380_SINGLE_DATA_PKT_SIZE;
+    return adbms6380_read(spi, module_count, cmd_buffer, rx_buffer, rx_length_per_module);
 }
 
 bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
@@ -177,15 +225,34 @@ bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi,
                                   uint8_t *rx_buffer,
                                   float **cell_voltages,
                                   int16_t **cell_voltages_raw,
-                                  size_t module_count) {
-    const uint8_t *cmd_list[6] = {RDCVA, RDCVB, RDCVC, RDCVD, RDCVE, RDCVF};
+                                  bool pec_error_flags[ADBMS6380_RDCV_CMD_COUNT],
+                                  size_t module_count,
+                                  size_t max_retries_on_pec_failure) {
+    const uint8_t *cmd_list[ADBMS6380_RDCV_CMD_COUNT] = {RDCVA, RDCVB, RDCVC, RDCVD, RDCVE, RDCVF};
 
-    for (size_t cmd_idx = 0; cmd_idx < 6; cmd_idx++) {
+    for (size_t cmd_idx = 0; cmd_idx < ADBMS6380_RDCV_CMD_COUNT; cmd_idx++) {
         strbuf_clear(cmd_buffer);
         adbms6380_prepare_command(cmd_buffer, cmd_list[cmd_idx]);
 
-        if (!adbms6380_read_data(spi, module_count, cmd_buffer->data, rx_buffer)) {
-            return false;
+        adbms6380_read_result_t read_result =
+            adbms6380_read_data_with_retries(spi,
+                                             max_retries_on_pec_failure,
+                                             module_count,
+                                             cmd_buffer->data,
+                                             rx_buffer);
+        switch (read_result) {
+            case ADBMS6380_READ_SUCCESS:
+                // continue processing
+                pec_error_flags[cmd_idx] = false;
+                break;
+            case ADBMS6380_READ_PEC_FAILURE:
+                // skip to the next command but marked that we did not update values
+                // for this set of cells
+                pec_error_flags[cmd_idx] = true;
+                continue;
+            case ADBMS6380_READ_SPI_FAILURE:
+                // terminal error on SPI failure
+                return false;
         }
 
         // Data comes back as: module 1, module 2, ..., module N
@@ -215,15 +282,34 @@ bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
                                   strbuf_t *cmd_buffer,
                                   uint8_t *rx_buffer,
                                   float **gpio_voltages,
-                                  size_t module_count) {
-    const uint8_t *cmd_list[4] = {RDAUXA, RDAUXB, RDAUXC, RDAUXD};
+                                  bool pec_error_flags[ADBMS6380_RDAUX_CMD_COUNT],
+                                  size_t module_count,
+                                  size_t max_retries_on_pec_failure) {
+    const uint8_t *cmd_list[ADBMS6380_RDAUX_CMD_COUNT] = {RDAUXA, RDAUXB, RDAUXC, RDAUXD};
 
-    for (size_t cmd_idx = 0; cmd_idx < 4; cmd_idx++) {
+    for (size_t cmd_idx = 0; cmd_idx < ADBMS6380_RDAUX_CMD_COUNT; cmd_idx++) {
         strbuf_clear(cmd_buffer);
         adbms6380_prepare_command(cmd_buffer, cmd_list[cmd_idx]);
 
-        if (!adbms6380_read_data(spi, module_count, cmd_buffer->data, rx_buffer)) {
-            return false;
+        adbms6380_read_result_t read_result =
+            adbms6380_read_data_with_retries(spi,
+                                             max_retries_on_pec_failure,
+                                             module_count,
+                                             cmd_buffer->data,
+                                             rx_buffer);
+        switch (read_result) {
+            case ADBMS6380_READ_SUCCESS:
+                // continue processing
+                pec_error_flags[cmd_idx] = false;
+                break;
+            case ADBMS6380_READ_PEC_FAILURE:
+                // skip to the next command but marked that we did not update values
+                // for this set of GPIOs
+                pec_error_flags[cmd_idx] = true;
+                continue;
+            case ADBMS6380_READ_SPI_FAILURE:
+                // terminal error on SPI failure
+                return false;
         }
 
         // AUXA/B/C: 3 GPIOs each, AUXD: GPIO10

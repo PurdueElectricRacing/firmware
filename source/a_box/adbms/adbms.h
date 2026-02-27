@@ -16,11 +16,11 @@
 #include "common/phal/spi.h"
 #include "common/strbuf/strbuf.h"
 
-// How often to run the adbms_periodic function, in milliseconds.
-#define ADBMS_PERIODIC_INTERVAL_MS (250)
-
 // Number of ADBMS modules in the daisy chain.
 #define ADBMS_MODULE_COUNT (8)
+
+// Number of attempts to retry a read if a PEC failure is detected before continuing.
+#define ADBMS_PEC_FAIL_MAX_RETRIES (3)
 
 // 10kOhm voltage divider on the thermistor input
 #define ADBMS_GPIO_R1 (10000.0f)
@@ -54,7 +54,7 @@ typedef enum {
     ADBMS_STATE_IDLE = 0,
     /** Driver is connected; periodic reads/balancing are active. */
     ADBMS_STATE_CONNECTED,
-} ADBMS_state_t;
+} adbms_state_t;
 
 /**
  * @brief Per-ADBMS module measurements, config, and error flags.
@@ -97,17 +97,17 @@ typedef struct {
     bool err_rega_mismatch;
     /** Set if a read-back REGB does not match cached REGB. */
     bool err_regb_mismatch;
-} ADBMS_module_t;
+} adbms_module_t;
 
 /**
- * @brief Top-level ADBMS driver state, I/O buffers, and aggregated measurements.
+ * @brief Top-level ADBMS driver state, I/O buffers, measurements, and error flags.
  */
 typedef struct {
     /** Current driver state. */
-    ADBMS_state_t state;
+    adbms_state_t state;
 
     /** Per-module state and measurements. */
-    ADBMS_module_t modules[ADBMS_MODULE_COUNT];
+    adbms_module_t modules[ADBMS_MODULE_COUNT];
 
     /** Minimum cell voltage across all modules (volts). */
     float min_voltage;
@@ -143,19 +143,28 @@ typedef struct {
     bool err_rega_mismatch;
     /** Aggregated REGB mismatch flag across modules. */
     bool err_regb_mismatch;
-} ADBMS_bms_t;
+
+    /** Set when REGA read has a PEC failure. */
+    bool err_rega_pec;
+    /** Set when REGB read has a PEC failure. */
+    bool err_regb_pec;
+    /** Per-command PEC error flags for cell voltage reads. */
+    bool err_cell_voltage_pecs[ADBMS6380_RDCV_CMD_COUNT];
+    /** Per-command PEC error flags for GPIO voltage reads. */
+    bool err_gpio_voltage_pecs[ADBMS6380_RDAUX_CMD_COUNT];
+} adbms_bms_t;
 
 /**
  * @brief Initialize the ADBMS driver instance and TX buffer.
  *
- * Sets the driver state to idle, clears discharge flags, and sets the
- * provided SPI config and TX buffer into the internal strbuf.
+ * Sets the driver state to idle, clears discharge flags (and discharged enabled),
+ * and sets the provided SPI config and TX buffer into the internal strbuf.
  *
  * @param bms Pointer to driver state to initialize.
  * @param spi SPI configuration used for ADBMS transactions.
  * @param tx_buf Backing buffer for TX command/data packets.
  */
-void adbms_init(ADBMS_bms_t *bms, SPI_InitConfig_t *spi, uint8_t *tx_buf);
+void adbms_init(adbms_bms_t *bms, SPI_InitConfig_t *spi, uint8_t *tx_buf);
 
 /**
  * @brief Calculate and write REGA configuration to all modules.
@@ -163,7 +172,7 @@ void adbms_init(ADBMS_bms_t *bms, SPI_InitConfig_t *spi, uint8_t *tx_buf);
  * @param bms Pointer to driver state.
  * @return True on successful SPI transfer, false on failure.
  */
-bool adbms_write_rega(ADBMS_bms_t *bms);
+bool adbms_write_rega(adbms_bms_t *bms);
 /**
  * @brief Calculate and write REGB configuration to all modules.
  *
@@ -173,7 +182,7 @@ bool adbms_write_rega(ADBMS_bms_t *bms);
  * @param bms Pointer to driver state.
  * @return True on successful SPI transfer, false on failure.
  */
-bool adbms_write_regb(ADBMS_bms_t *bms);
+bool adbms_write_regb(adbms_bms_t *bms);
 /**
  * @brief Read back REGA and compare with cached configuration.
  *
@@ -181,9 +190,9 @@ bool adbms_write_regb(ADBMS_bms_t *bms);
  * not match the cached REGA data.
  *
  * @param bms Pointer to driver state.
- * @return False on SPI failure and when there is a mismatch; true otherwise.
+ * @return False on SPI failure, PEC error, or when there is a mismatch; true otherwise.
  */
-bool adbms_read_and_check_rega(ADBMS_bms_t *bms);
+bool adbms_read_and_check_rega(adbms_bms_t *bms);
 /**
  * @brief Read back REGB and compare with cached configuration.
  *
@@ -191,9 +200,9 @@ bool adbms_read_and_check_rega(ADBMS_bms_t *bms);
  * not match the cached REGB data.
  *
  * @param bms Pointer to driver state.
- * @return False on SPI failure and when there is a mismatch; true otherwise.
+ * @return False on SPI failure, PEC error, or when there is a mismatch; true otherwise.
  */
-bool adbms_read_and_check_regb(ADBMS_bms_t *bms);
+bool adbms_read_and_check_regb(adbms_bms_t *bms);
 
 /**
  * @brief Perform the connect/bring-up sequence for all modules.
@@ -202,7 +211,7 @@ bool adbms_read_and_check_regb(ADBMS_bms_t *bms);
  *
  * @param bms Pointer to driver state.
  */
-void adbms_connect(ADBMS_bms_t *bms);
+void adbms_connect(adbms_bms_t *bms);
 
 /**
  * @brief Read all cell voltages and update module/pack statistics.
@@ -212,7 +221,7 @@ void adbms_connect(ADBMS_bms_t *bms);
  *
  * @param bms Pointer to driver state.
  */
-void adbms_read_cells(ADBMS_bms_t *bms);
+void adbms_read_cells(adbms_bms_t *bms);
 /**
  * @brief Read all GPIO/thermistor values (voltage and calculate temperature)
  * and update module/pack statistics.
@@ -222,7 +231,7 @@ void adbms_read_cells(ADBMS_bms_t *bms);
  *
  * @param bms Pointer to driver state.
  */
-void adbms_read_therms(ADBMS_bms_t *bms);
+void adbms_read_therms(adbms_bms_t *bms);
 
 /**
  * @brief Compute per-cell discharge flags based on pack voltage spread.
@@ -235,7 +244,7 @@ void adbms_read_therms(ADBMS_bms_t *bms);
  * @param min_voltage Minimum pack voltage required to allow balancing.
  * @param min_delta Voltage delta above minimum to start discharging.
  */
-void adbms_calculate_balance_cells(ADBMS_bms_t *bms, float min_voltage, float min_delta);
+void adbms_calculate_balance_cells(adbms_bms_t *bms, float min_voltage, float min_delta);
 /**
  * @brief Compute discharge flags and write REGB to apply balancing.
  *
@@ -245,7 +254,7 @@ void adbms_calculate_balance_cells(ADBMS_bms_t *bms, float min_voltage, float mi
  * @param min_voltage Minimum pack voltage required to allow balancing.
  * @param min_delta Voltage delta above minimum to start discharging.
  */
-void adbms_balance_and_update_regb(ADBMS_bms_t *bms, float min_voltage, float min_delta);
+void adbms_balance_and_update_regb(adbms_bms_t *bms, float min_voltage, float min_delta);
 
 /**
  * @brief Periodic service routine for connection, measurements, and balancing.
@@ -257,6 +266,6 @@ void adbms_balance_and_update_regb(ADBMS_bms_t *bms, float min_voltage, float mi
  * @param min_voltage_for_balance Minimum pack voltage required to allow balancing.
  * @param min_delta_for_balance Voltage delta above minimum to start discharging.
  */
-void adbms_periodic(ADBMS_bms_t *bms, float min_voltage_for_balance, float min_delta_for_balance);
+void adbms_periodic(adbms_bms_t *bms, float min_voltage_for_balance, float min_delta_for_balance);
 
 #endif // _BMS_H_

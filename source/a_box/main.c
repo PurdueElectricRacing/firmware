@@ -69,7 +69,7 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
-ADBMS_bms_t g_bms                              = {0};
+adbms_bms_t g_bms                              = {0};
 uint8_t g_bms_tx_buf[ADBMS_SPI_TX_BUFFER_SIZE] = {0};
 
 static constexpr float MIN_V_FOR_BALANCE     = 3.0f;
@@ -78,7 +78,7 @@ static constexpr float MIN_DELTA_FOR_BALANCE = 0.1f;
 extern void HardFault_Handler(void);
 void g_bms_periodic(void);
 
-defineThreadStack(g_bms_periodic, ADBMS_PERIODIC_INTERVAL_MS, osPriorityHigh, 2048);
+defineThreadStack(g_bms_periodic, 200, osPriorityHigh, 2048);
 
 int main(void) {
     // Hardware Initilization

@@ -21,7 +21,7 @@
 // Global data structures
 car_t g_car;
 torque_request_t g_torque_request;
-SDC_state_t g_SDC_state;
+SDC_states_t g_SDC_states;
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -122,23 +122,27 @@ void can_worker_task() {
     CAN_tx_update();
 }
 
-void poll_input_pins() {
+void update_SDC_task() {
     // check SDC state by cycling through the mux and checking the input
     static uint8_t sdc_poll_index = 0;
+
+    // Set mux control and delay to allow mux signals to stabilize
     PHAL_writeGPIO(SDC_MUX_S0_PORT, SDC_MUX_S0_PIN, (sdc_poll_index >> 0) & 0x1);
     PHAL_writeGPIO(SDC_MUX_S1_PORT, SDC_MUX_S1_PIN, (sdc_poll_index >> 1) & 0x1);
     PHAL_writeGPIO(SDC_MUX_S2_PORT, SDC_MUX_S2_PIN, (sdc_poll_index >> 2) & 0x1);
     PHAL_writeGPIO(SDC_MUX_S3_PORT, SDC_MUX_S3_PIN, (sdc_poll_index >> 3) & 0x1);
+    osDelay(1);
     
-    osDelay(1); // delay to allow mux signals to stabilize
-    
+    // Read the signal and update the fault state
     bool node_status = PHAL_readGPIO(SDC_MUX_PORT, SDC_MUX_PIN);
-    g_SDC_state &= ~(1 << sdc_poll_index); // clear the bit for the current node
-    g_SDC_state |= (node_status << sdc_poll_index);
+    g_SDC_states[sdc_poll_index] = node_status;
+    fault_index_t SDC_fault_index = (FAULT_INDEX_MAIN_MODULE_SDC1_OPEN + sdc_poll_index); // ! kinda sus
+    update_fault(SDC_fault_index, node_status);
 
     // update the poll index for the next cycle (0-15)
     sdc_poll_index = (sdc_poll_index + 1) & 0xF;
 
+    // this one has a dedicated pin so we can read it every cycle without muxing
     g_car.is_precharge_complete = PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
 }
 
@@ -150,7 +154,7 @@ void AMK_task() {
 }
 
 defineThreadStack(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);
-defineThreadStack(poll_input_pins, 0, osPriorityIdle, 256); // the delay is within the thread
+defineThreadStack(update_SDC_task, 0, osPriorityIdle, 256); // the delay is within the thread
 defineThreadStack(can_worker_task, 10, osPriorityHigh, 1024);
 defineThreadStack(fsm_periodic, 15, osPriorityNormal, 2048);
 defineThreadStack(AMK_task, 15, osPriorityNormal, 1024);
@@ -182,7 +186,7 @@ int main(void) {
 
     createThread(heartbeat_task);
     createThread(can_worker_task);
-    createThread(poll_input_pins);
+    createThread(update_SDC_task);
     createThread(fsm_periodic);
     createThread(AMK_task);
     createThread(fault_library_periodic);

@@ -40,10 +40,9 @@ typedef struct {
 } torque_request_t;
 extern torque_request_t g_torque_request;
 
-// note: SDC has exactly 16 nodes, a bitfield supports ~1 instruction status checking
-// if more are needed, then rework to use an array of bools
-typedef uint16_t SDC_state_t;
-extern SDC_state_t g_SDC_state;
+constexpr uint8_t NUM_SDC_NODES = 16;
+typedef bool SDC_states_t[NUM_SDC_NODES];
+extern SDC_states_t g_SDC_states;
 
 void fsm_periodic();
 void car_init();

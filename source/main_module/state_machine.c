@@ -1,3 +1,10 @@
+/**
+ * @file state_machine.c
+ * @brief "Main Module" master state machine implementation
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include "main.h"
 #include "pindefs.h"
 

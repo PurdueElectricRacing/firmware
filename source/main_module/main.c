@@ -3,7 +3,6 @@
  * @brief "Main Module" node source code
  * 
  * @author Irving Wang (irvingw@purdue.edu)
- * 
  */
 
 #include "main.h"
@@ -123,8 +122,6 @@ void can_worker_task() {
 }
 
 void poll_input_pins() {
-    g_car.is_SDC_closed = true;
-
     // check SDC state by cycling through the mux and checking the input
     static uint8_t sdc_poll_index = 0;
     PHAL_writeGPIO(SDC_MUX_S0_PORT, SDC_MUX_S0_PIN, (sdc_poll_index >> 0) & 0x1);
@@ -133,12 +130,13 @@ void poll_input_pins() {
     PHAL_writeGPIO(SDC_MUX_S3_PORT, SDC_MUX_S3_PIN, (sdc_poll_index >> 3) & 0x1);
     
     osDelay(1); // delay to allow mux signals to stabilize
-
-    sdc_poll_index = (sdc_poll_index + 1) & 0xF; // cycle through 0-15
     
-    if (!PHAL_readGPIO(SDC_MUX_PORT, SDC_MUX_PIN)) {
-        g_car.is_SDC_closed = false;
-    }
+    bool node_status = PHAL_readGPIO(SDC_MUX_PORT, SDC_MUX_PIN);
+    g_SDC_state &= ~(1 << sdc_poll_index); // clear the bit for the current node
+    g_SDC_state |= (node_status << sdc_poll_index);
+
+    // update the poll index for the next cycle (0-15)
+    sdc_poll_index = (sdc_poll_index + 1) & 0xF;
 
     g_car.is_precharge_complete = PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
 }

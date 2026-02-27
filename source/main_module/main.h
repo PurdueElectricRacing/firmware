@@ -30,6 +30,7 @@ typedef struct {
     bool is_SDC_closed;
     bool is_precharge_complete;
 } car_t;
+extern car_t g_car;
 
 typedef struct {
     int16_t front_right;
@@ -37,11 +38,11 @@ typedef struct {
     int16_t rear_left;
     int16_t rear_right;
 } torque_request_t;
-
-typedef uint16_t SDC_state_t;
-
-extern car_t g_car;
 extern torque_request_t g_torque_request;
+
+// note: SDC has exactly 16 nodes, a bitfield supports ~1 instruction status checking
+// if more are needed, then rework to use an array of bools
+typedef uint16_t SDC_state_t;
 extern SDC_state_t g_SDC_state;
 
 void fsm_periodic();

@@ -42,8 +42,8 @@ extern torque_request_t g_torque_request;
 
 constexpr int NUM_SDC_NODES = 17;
 constexpr int PRECHARGE_SDC_INDEX = NUM_SDC_NODES - 1;
-typedef bool SDC_states_t[NUM_SDC_NODES];
-extern SDC_states_t g_SDC_states;
+typedef bool SDC_open_nodes_t[NUM_SDC_NODES];
+extern SDC_open_nodes_t g_SDC_open_nodes;
 
 void fsm_periodic();
 void car_init();

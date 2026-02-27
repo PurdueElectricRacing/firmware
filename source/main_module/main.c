@@ -21,6 +21,7 @@
 // Global data structures
 car_t g_car;
 torque_request_t g_torque_request;
+SDC_open_nodes_t g_SDC_open_nodes;
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {

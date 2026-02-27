@@ -39,6 +39,7 @@ void ready2drive_periodic() {
     // todo torque vectoring
     // todo alternative throttle mapping (like S curve)
 
+    // assumes filt_throttle_brake.throttle is in the range [0, 4095]
     float throttle = can_data.filt_throttle_brake.throttle / 4095.0f;
     int16_t torque_req_percent = (int16_t)(throttle * 100);
     

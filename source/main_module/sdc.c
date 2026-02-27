@@ -5,9 +5,7 @@
 #include "common/can_library/faults_common.h"
 #include "common/freertos/freertos.h"
 
-SDC_states_t g_SDC_states;
-
-static const fault_index_t SDC_FAULT_LUT[NUM_SDC_NODES] = {
+static const fault_index_t SDC_FAULT_LUT[NUM_SDC_NODES - 1] = {
     FAULT_INDEX_MAIN_MODULE_SDC1_OPEN,
     FAULT_INDEX_MAIN_MODULE_SDC2_OPEN,
     FAULT_INDEX_MAIN_MODULE_SDC3_OPEN,
@@ -23,14 +21,16 @@ static const fault_index_t SDC_FAULT_LUT[NUM_SDC_NODES] = {
     FAULT_INDEX_MAIN_MODULE_SDC13_OPEN,
     FAULT_INDEX_MAIN_MODULE_SDC14_OPEN,
     FAULT_INDEX_MAIN_MODULE_SDC15_OPEN,
-    FAULT_INDEX_MAIN_MODULE_SDC16_OPEN,
-    FAULT_INDEX_MAIN_MODULE_SDC17_OPEN
+    FAULT_INDEX_MAIN_MODULE_SDC16_OPEN
+    // SDC17 is handled seperately
 };
 
 void update_SDC() {
-    // SDC17 (precharge) is checked sperately
-    bool is_precharge_open = PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
-    g_SDC_states[PRECHARGE_SDC_INDEX] = is_precharge_open;
+    // ! reading the input pin as 1 = closed, 0 = open
+
+    // SDC17 (precharge) is checked on it's own pin
+    bool is_precharge_open = !PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
+    g_SDC_open_nodes[PRECHARGE_SDC_INDEX] = is_precharge_open;
     update_fault(FAULT_INDEX_MAIN_MODULE_SDC17_OPEN, is_precharge_open);
 
     // check SDC state by cycling through the mux and checking the input
@@ -44,11 +44,10 @@ void update_SDC() {
     osDelay(1);
     
     // Read the signal and update the relevant fault state
-    // todo is 1 open or closed?
-    bool is_node_open = PHAL_readGPIO(SDC_MUX_PORT, SDC_MUX_PIN);
-    g_SDC_states[sdc_poll_index] = is_node_open;
+    bool is_node_open = !PHAL_readGPIO(SDC_MUX_PORT, SDC_MUX_PIN);
+    g_SDC_open_nodes[sdc_poll_index] = is_node_open;
     update_fault(SDC_FAULT_LUT[sdc_poll_index], is_node_open);
 
-    // update the poll index for the next cycle (0-15)
+    // update the poll index for the next cycle (mux 0-15 = sdc 1-16)
     sdc_poll_index = (sdc_poll_index + 1) & 0xF;
 }

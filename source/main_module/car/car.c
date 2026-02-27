@@ -12,6 +12,11 @@ static constexpr uint16_t BRAKE_LIGHT_OFF_THRESHOLD = 100; // ~2.5% of 4095
 
 car_t g_car;
 
+// todo make the CANpiler force these to be the exact same at compile time
+static_assert(sizeof(can_data.INVA_SET) == sizeof(can_data.INVB_SET));
+static_assert(sizeof(can_data.INVA_SET) == sizeof(can_data.INVC_SET));
+static_assert(sizeof(can_data.INVA_SET) == sizeof(can_data.INVD_SET));
+
 void init_periodic();
 void idle_periodic();
 void precharge_periodic();
@@ -34,7 +39,7 @@ void flush_inva() {
     );
 }
 
-void flush_inb() {
+void flush_invb() {
     CAN_SEND_INVB_SET(
         g_car.front_right.set->AMK_Control_bReserve,
         g_car.front_right.set->AMK_Control_bInverterOn,
@@ -45,6 +50,34 @@ void flush_inb() {
         g_car.front_right.set->AMK_TorqueSetpoint,
         g_car.front_right.set->AMK_PositiveTorqueLimit,
         g_car.front_right.set->AMK_NegativeTorqueLimit
+    );
+}
+
+void flush_invc() {
+    CAN_SEND_INVC_SET(
+        g_car.rear_left.set->AMK_Control_bReserve,
+        g_car.rear_left.set->AMK_Control_bInverterOn,
+        g_car.rear_left.set->AMK_Control_bDcOn,
+        g_car.rear_left.set->AMK_Control_bEnable,
+        g_car.rear_left.set->AMK_Control_bErrorReset,
+        g_car.rear_left.set->AMK_Control_bReserve2,
+        g_car.rear_left.set->AMK_TorqueSetpoint,
+        g_car.rear_left.set->AMK_PositiveTorqueLimit,
+        g_car.rear_left.set->AMK_NegativeTorqueLimit
+    );
+}
+
+void flush_invd() {
+    CAN_SEND_INVD_SET(
+        g_car.rear_right.set->AMK_Control_bReserve,
+        g_car.rear_right.set->AMK_Control_bInverterOn,
+        g_car.rear_right.set->AMK_Control_bDcOn,
+        g_car.rear_right.set->AMK_Control_bEnable,
+        g_car.rear_right.set->AMK_Control_bErrorReset,
+        g_car.rear_right.set->AMK_Control_bReserve2,
+        g_car.rear_right.set->AMK_TorqueSetpoint,
+        g_car.rear_right.set->AMK_PositiveTorqueLimit,
+        g_car.rear_right.set->AMK_NegativeTorqueLimit
     );
 }
 
@@ -63,13 +96,37 @@ void init_periodic() {
 
     AMK_init(
         &g_car.front_right,
-        flush_inb,
+        flush_invb,
         g_car.front_right.set,
         g_car.front_right.crit,
         g_car.front_right.info,
         g_car.front_right.temps,
         g_car.front_right.err1,
         g_car.front_right.err2,
+        &g_car.is_precharge_complete
+    );
+
+    AMK_init(
+        &g_car.rear_left,
+        flush_invc,
+        g_car.rear_left.set,
+        g_car.rear_left.crit,
+        g_car.rear_left.info,
+        g_car.rear_left.temps,
+        g_car.rear_left.err1,
+        g_car.rear_left.err2,
+        &g_car.is_precharge_complete
+    );
+
+    AMK_init(
+        &g_car.rear_right,
+        flush_invd,
+        g_car.rear_right.set,
+        g_car.rear_right.crit,
+        g_car.rear_right.info,
+        g_car.rear_right.temps,
+        g_car.rear_right.err1,
+        g_car.rear_right.err2,
         &g_car.is_precharge_complete
     );
 }

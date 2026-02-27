@@ -396,20 +396,141 @@
                     "msg_period": 15,
                     "msg_id_override": "0x112",
                     "msg_priority": 1
+                },
+                {
+                    "msg_name": "INVC_SET",
+                    "msg_desc": "Contains control word and setpoints",
+                    "signals": [
+                        {
+                            "sig_name": "AMK_Control_bReserve",
+                            "sig_desc": "Control word: RESERVED",
+                            "type": "uint8_t",
+                            "length": 8
+                        },
+                        {
+                            "sig_name": "AMK_Control_bInverterOn",
+                            "sig_desc": "Control word: controller enable",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "AMK_Control_bDcOn",
+                            "sig_desc": "Control word: HV activation",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "AMK_Control_bEnable",
+                            "sig_desc": "Control word: driver enable",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "AMK_Control_bErrorReset",
+                            "sig_desc": "Control word: remove error",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "AMK_Control_bReserve2",
+                            "sig_desc": "Control word: RESERVED",
+                            "type": "uint8_t",
+                            "length": 4
+                        },
+                        {
+                            "sig_name": "AMK_TorqueSetpoint",
+                            "sig_desc": "Torque setpoint",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "AMK_PositiveTorqueLimit",
+                            "sig_desc": "Positive Torque Limit",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "AMK_NegativeTorqueLimit",
+                            "sig_desc": "Negative Torque Limit",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.1
+                        }
+                    ],
+                    "msg_period": 15,
+                    "msg_id_override": "0x113",
+                    "msg_priority": 1
+                },
+                {
+                    "msg_name": "INVD_SET",
+                    "msg_desc": "Contains control word and setpoints",
+                    "signals": [
+                        {
+                            "sig_name": "AMK_Control_bReserve",
+                            "sig_desc": "Control word: RESERVED",
+                            "type": "uint8_t",
+                            "length": 8
+                        },
+                        {
+                            "sig_name": "AMK_Control_bInverterOn",
+                            "sig_desc": "Control word: controller enable",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "AMK_Control_bDcOn",
+                            "sig_desc": "Control word: HV activation",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "AMK_Control_bEnable",
+                            "sig_desc": "Control word: driver enable",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "AMK_Control_bErrorReset",
+                            "sig_desc": "Control word: remove error",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "AMK_Control_bReserve2",
+                            "sig_desc": "Control word: RESERVED",
+                            "type": "uint8_t",
+                            "length": 4
+                        },
+                        {
+                            "sig_name": "AMK_TorqueSetpoint",
+                            "sig_desc": "Torque setpoint",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "AMK_PositiveTorqueLimit",
+                            "sig_desc": "Positive Torque Limit",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "AMK_NegativeTorqueLimit",
+                            "sig_desc": "Negative Torque Limit",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.1
+                        }
+                    ],
+                    "msg_period": 15,
+                    "msg_id_override": "0x114",
+                    "msg_priority": 1
                 }
             ],
             "rx": [
+                {
+                    "msg_name": "INVA_SET"
+                },
                 {
                     "msg_name": "INVA_CRIT"
                 },
                 {
                     "msg_name": "INVA_INFO"
-                },
-                {
-                    "msg_name": "INVA_TEMPS"
-                },
-                {
-                    "msg_name": "INVA_SET"
                 },
                 {
                     "msg_name": "INVA_ERR_1"
@@ -418,22 +539,61 @@
                     "msg_name": "INVA_ERR_2"
                 },
                 {
+                    "msg_name": "INVA_TEMPS"
+                },
+                {
+                    "msg_name": "INVB_SET"
+                },
+                {
                     "msg_name": "INVB_CRIT"
                 },
                 {
                     "msg_name": "INVB_INFO"
                 },
                 {
-                    "msg_name": "INVB_TEMPS"
-                },
-                {
-                    "msg_name": "INVB_SET"
-                },
-                {
                     "msg_name": "INVB_ERR_1"
                 },
                 {
                     "msg_name": "INVB_ERR_2"
+                },
+                {
+                    "msg_name": "INVB_TEMPS"
+                },
+                {
+                    "msg_name": "INVC_SET"
+                },
+                {
+                    "msg_name": "INVC_CRIT"
+                },
+                {
+                    "msg_name": "INVC_INFO"
+                },
+                {
+                    "msg_name": "INVC_ERR_1"
+                },
+                {
+                    "msg_name": "INVC_ERR_2"
+                },
+                {
+                    "msg_name": "INVC_TEMPS"
+                },
+                {
+                    "msg_name": "INVD_SET"
+                },
+                {
+                    "msg_name": "INVD_CRIT"
+                },
+                {
+                    "msg_name": "INVD_INFO"
+                },
+                {
+                    "msg_name": "INVD_ERR_1"
+                },
+                {
+                    "msg_name": "INVD_ERR_2"
+                },
+                {
+                    "msg_name": "INVD_TEMPS"
                 }
             ]
         }

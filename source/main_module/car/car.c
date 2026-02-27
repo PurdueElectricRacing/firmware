@@ -18,12 +18,14 @@ static_assert(sizeof(can_data.INVA_SET) == sizeof(can_data.INVB_SET));
 static_assert(sizeof(can_data.INVA_SET) == sizeof(can_data.INVC_SET));
 static_assert(sizeof(can_data.INVA_SET) == sizeof(can_data.INVD_SET));
 
-void idle_periodic();
-void precharge_periodic();
-void energized_periodic();
-void buzzing_periodic();
-void ready2drive_periodic();
-void error_periodic();
+
+void error_periodic() {
+    // todo
+}
+
+void energized_periodic() {
+    // todo
+}
 
 void ready2drive_periodic() {
     if (can_data.filt_throttle_brake.stale) {
@@ -118,7 +120,7 @@ void fsm_periodic() {
 
     switch (g_car.current_state) {
         case CARSTATE_INIT: {
-            // do nothing periodically
+            // do nothing for now
 
             if (is_init_complete()) {
                 g_car.next_state = CARSTATE_IDLE;
@@ -126,7 +128,7 @@ void fsm_periodic() {
             break;
         }
         case CARSTATE_IDLE: {
-            idle_periodic();
+            // do nothing for now
 
             if (is_TSMS_high()) {
                 g_car.next_state = CARSTATE_PRECHARGING;
@@ -134,7 +136,7 @@ void fsm_periodic() {
             break;
         }
         case CARSTATE_PRECHARGING: {
-            precharge_periodic();
+            // do nothing for now
 
             if (is_precharge_complete()) {
                 g_car.next_state = CARSTATE_ENERGIZED;
@@ -180,11 +182,6 @@ void fsm_periodic() {
             break;
         }
     }
-
-    AMK_periodic(&g_car.front_right);
-    AMK_periodic(&g_car.front_left);
-    AMK_periodic(&g_car.rear_left);
-    AMK_periodic(&g_car.rear_right);
 
     AMK_set_torque(&g_car.front_right, g_torque_request.front_right);
     AMK_set_torque(&g_car.front_left,  g_torque_request.front_left);

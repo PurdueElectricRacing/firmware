@@ -127,17 +127,23 @@ void poll_SDC_task() {
     PHAL_writeGPIO(SDC_MUX_S3_PORT, SDC_MUX_S3_PIN, (sdc_poll_index >> 4) & 0x1);
     sdc_poll_index = (sdc_poll_index + 1) % 0xF;
 
-    osDelay(1);
-
     if (!PHAL_readGPIO(SDC_MUX_PORT, SDC_MUX_PIN)) {
         g_car.is_SDC_closed = false;
     }
 }
 
+void AMK_task() {
+    AMK_periodic(&g_car.front_right);
+    AMK_periodic(&g_car.front_left);
+    AMK_periodic(&g_car.rear_left);
+    AMK_periodic(&g_car.rear_right);
+}
 
 defineThreadStack(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);
-defineThreadStack(can_worker_task, 10, osPriorityNormal, 2048);
-defineThreadStack(poll_SDC_task, 100, osPriorityLow, 256);
+defineThreadStack(poll_SDC_task, 1, osPriorityLow, 256);
+defineThreadStack(can_worker_task, 10, osPriorityHigh, 1024);
+defineThreadStack(fsm_periodic, 15, osPriorityNormal, 2048);
+defineThreadStack(AMK_task, 15, osPriorityNormal, 1024);
 
 int main(void) {
     // Hardware Initialization
@@ -166,6 +172,8 @@ int main(void) {
     createThread(heartbeat_task);
     createThread(can_worker_task);
     createThread(poll_SDC_task);
+    createThread(fsm_periodic);
+    createThread(AMK_task);
 
     // no way home
     osKernelStart();

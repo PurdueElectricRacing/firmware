@@ -34,4 +34,6 @@ typedef struct {
 extern car_t g_car;
 extern torque_request_t g_torque_request;
 
+void fsm_periodic();
+
 #endif // CAR_H

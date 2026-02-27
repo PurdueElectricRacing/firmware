@@ -13,12 +13,6 @@ static constexpr uint16_t BRAKE_LIGHT_OFF_THRESHOLD = 100; // ~2.5% of 4095
 car_t g_car;
 torque_request_t g_torque_request;
 
-// todo make the CANpiler force these to be the exact same at compile time
-static_assert(sizeof(can_data.INVA_SET) == sizeof(can_data.INVB_SET));
-static_assert(sizeof(can_data.INVA_SET) == sizeof(can_data.INVC_SET));
-static_assert(sizeof(can_data.INVA_SET) == sizeof(can_data.INVD_SET));
-
-
 void error_periodic() {
     // todo
 }
@@ -42,11 +36,12 @@ void ready2drive_periodic() {
     // todo alternative throttle mapping (like S curve)
 
     float throttle = can_data.filt_throttle_brake.throttle / 4095.0f;
+    int16_t torque_req_percent = (int16_t)(throttle * 100);
     
-    g_torque_request.front_right = (int16_t)(throttle * 1000);
-    g_torque_request.front_left  = (int16_t)(throttle * 1000);
-    g_torque_request.rear_left   = (int16_t)(throttle * 1000);
-    g_torque_request.rear_right  = (int16_t)(throttle * 1000);
+    g_torque_request.front_right = torque_req_percent;
+    g_torque_request.front_left  = torque_req_percent;
+    g_torque_request.rear_left   = torque_req_percent;
+    g_torque_request.rear_right  = torque_req_percent;
 }
 
 static inline bool is_SDC_closed() {

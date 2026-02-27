@@ -149,7 +149,7 @@ bool adbms6380_check_data_pec(const uint8_t *rx_bytes, size_t rx_len) {
 
     uint8_t pec_msb_packed = rx_bytes[raw_data_len];
     uint8_t pec_lsb        = rx_bytes[raw_data_len + 1];
-    uint16_t received_pec = ((uint16_t)(pec_msb_packed & 0x03) << 8) | (uint16_t)pec_lsb;
+    uint16_t received_pec  = ((uint16_t)(pec_msb_packed & 0x03) << 8) | (uint16_t)pec_lsb;
 
     return calculated_pec == received_pec;
 }

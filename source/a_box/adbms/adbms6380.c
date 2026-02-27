@@ -146,9 +146,12 @@ void adbms6380_calculate_cfg_regb(uint8_t output_cfg_regb[ADBMS6380_SINGLE_DATA_
 bool adbms6380_check_data_pec(const uint8_t *rx_bytes, size_t rx_len) {
     size_t raw_data_len     = rx_len - ADBMS6380_PEC_SIZE;
     uint16_t calculated_pec = adbms_pec_get_pec10(true, raw_data_len, rx_bytes);
-    uint16_t received_pec_val =
-        ((uint16_t)rx_bytes[raw_data_len + 0] << 8) | (uint16_t)rx_bytes[raw_data_len + 1];
-    return calculated_pec == received_pec_val;
+
+    uint8_t pec_msb_packed = rx_bytes[raw_data_len];
+    uint8_t pec_lsb        = rx_bytes[raw_data_len + 1];
+    uint16_t received_pec = ((uint16_t)(pec_msb_packed & 0x03) << 8) | (uint16_t)pec_lsb;
+
+    return calculated_pec == received_pec;
 }
 
 adbms6380_read_result_t adbms6380_read(SPI_InitConfig_t *spi,

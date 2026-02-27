@@ -19,10 +19,19 @@ typedef struct {
     bool tsal_red_enable;
     bool buzzer_enable;
 
+    // input states
     bool is_SDC_closed;
     bool is_precharge_complete;
 } car_t;
 
+typedef struct {
+    int16_t front_right;
+    int16_t front_left;
+    int16_t rear_left;
+    int16_t rear_right;
+} torque_request_t;
+
 extern car_t g_car;
+extern torque_request_t g_torque_request;
 
 #endif // CAR_H

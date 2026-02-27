@@ -16,6 +16,7 @@
 #include "common/phal/rcc.h"
 #include "common/amk/amk.h"
 #include "car.h"
+#include "init.h"
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -156,6 +157,8 @@ int main(void) {
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
     NVIC_EnableIRQ(FDCAN3_IT0_IRQn);
     CAN_library_init();
+
+    car_init();
 
     // Software Initialization
     osKernelInitialize();

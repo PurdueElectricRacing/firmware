@@ -11,13 +11,13 @@ static constexpr uint16_t BRAKE_LIGHT_ON_THRESHOLD = 200; // ~5% of 4095
 static constexpr uint16_t BRAKE_LIGHT_OFF_THRESHOLD = 100; // ~2.5% of 4095
 
 car_t g_car;
+torque_request_t g_torque_request;
 
 // todo make the CANpiler force these to be the exact same at compile time
 static_assert(sizeof(can_data.INVA_SET) == sizeof(can_data.INVB_SET));
 static_assert(sizeof(can_data.INVA_SET) == sizeof(can_data.INVC_SET));
 static_assert(sizeof(can_data.INVA_SET) == sizeof(can_data.INVD_SET));
 
-void init_periodic();
 void idle_periodic();
 void precharge_periodic();
 void energized_periodic();
@@ -25,110 +25,26 @@ void buzzing_periodic();
 void ready2drive_periodic();
 void error_periodic();
 
-void flush_inva() {
-    CAN_SEND_INVA_SET(
-        g_car.front_left.set->AMK_Control_bReserve,
-        g_car.front_left.set->AMK_Control_bInverterOn,
-        g_car.front_left.set->AMK_Control_bDcOn,
-        g_car.front_left.set->AMK_Control_bEnable,
-        g_car.front_left.set->AMK_Control_bErrorReset,
-        g_car.front_left.set->AMK_Control_bReserve2,
-        g_car.front_left.set->AMK_TorqueSetpoint,
-        g_car.front_left.set->AMK_PositiveTorqueLimit,
-        g_car.front_left.set->AMK_NegativeTorqueLimit
-    );
-}
+void ready2drive_periodic() {
+    if (can_data.filt_throttle_brake.stale) {
+        g_torque_request.front_right = 0;
+        g_torque_request.front_left  = 0;
+        g_torque_request.rear_left   = 0;
+        g_torque_request.rear_right  = 0;
+        return;
+    }
 
-void flush_invb() {
-    CAN_SEND_INVB_SET(
-        g_car.front_right.set->AMK_Control_bReserve,
-        g_car.front_right.set->AMK_Control_bInverterOn,
-        g_car.front_right.set->AMK_Control_bDcOn,
-        g_car.front_right.set->AMK_Control_bEnable,
-        g_car.front_right.set->AMK_Control_bErrorReset,
-        g_car.front_right.set->AMK_Control_bReserve2,
-        g_car.front_right.set->AMK_TorqueSetpoint,
-        g_car.front_right.set->AMK_PositiveTorqueLimit,
-        g_car.front_right.set->AMK_NegativeTorqueLimit
-    );
-}
+    // todo regen
+    // todo smarter request scheme
+    // todo torque vectoring
+    // todo alternative throttle mapping (like S curve)
 
-void flush_invc() {
-    CAN_SEND_INVC_SET(
-        g_car.rear_left.set->AMK_Control_bReserve,
-        g_car.rear_left.set->AMK_Control_bInverterOn,
-        g_car.rear_left.set->AMK_Control_bDcOn,
-        g_car.rear_left.set->AMK_Control_bEnable,
-        g_car.rear_left.set->AMK_Control_bErrorReset,
-        g_car.rear_left.set->AMK_Control_bReserve2,
-        g_car.rear_left.set->AMK_TorqueSetpoint,
-        g_car.rear_left.set->AMK_PositiveTorqueLimit,
-        g_car.rear_left.set->AMK_NegativeTorqueLimit
-    );
-}
-
-void flush_invd() {
-    CAN_SEND_INVD_SET(
-        g_car.rear_right.set->AMK_Control_bReserve,
-        g_car.rear_right.set->AMK_Control_bInverterOn,
-        g_car.rear_right.set->AMK_Control_bDcOn,
-        g_car.rear_right.set->AMK_Control_bEnable,
-        g_car.rear_right.set->AMK_Control_bErrorReset,
-        g_car.rear_right.set->AMK_Control_bReserve2,
-        g_car.rear_right.set->AMK_TorqueSetpoint,
-        g_car.rear_right.set->AMK_PositiveTorqueLimit,
-        g_car.rear_right.set->AMK_NegativeTorqueLimit
-    );
-}
-
-void init_periodic() {
-    AMK_init(
-        &g_car.front_left,
-        flush_inva,
-        g_car.front_left.set,
-        g_car.front_left.crit,
-        g_car.front_left.info,
-        g_car.front_left.temps,
-        g_car.front_left.err1,
-        g_car.front_left.err2,
-        &g_car.is_precharge_complete
-    );
-
-    AMK_init(
-        &g_car.front_right,
-        flush_invb,
-        g_car.front_right.set,
-        g_car.front_right.crit,
-        g_car.front_right.info,
-        g_car.front_right.temps,
-        g_car.front_right.err1,
-        g_car.front_right.err2,
-        &g_car.is_precharge_complete
-    );
-
-    AMK_init(
-        &g_car.rear_left,
-        flush_invc,
-        g_car.rear_left.set,
-        g_car.rear_left.crit,
-        g_car.rear_left.info,
-        g_car.rear_left.temps,
-        g_car.rear_left.err1,
-        g_car.rear_left.err2,
-        &g_car.is_precharge_complete
-    );
-
-    AMK_init(
-        &g_car.rear_right,
-        flush_invd,
-        g_car.rear_right.set,
-        g_car.rear_right.crit,
-        g_car.rear_right.info,
-        g_car.rear_right.temps,
-        g_car.rear_right.err1,
-        g_car.rear_right.err2,
-        &g_car.is_precharge_complete
-    );
+    float throttle = can_data.filt_throttle_brake.throttle / 4095.0f;
+    
+    g_torque_request.front_right = (int16_t)(throttle * 1000);
+    g_torque_request.front_left  = (int16_t)(throttle * 1000);
+    g_torque_request.rear_left   = (int16_t)(throttle * 1000);
+    g_torque_request.rear_right  = (int16_t)(throttle * 1000);
 }
 
 static inline bool is_SDC_closed() {
@@ -145,6 +61,13 @@ static inline bool is_TSMS_high() {
 
 static inline bool is_precharge_complete() {
     return PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
+}
+
+static inline bool is_AMKS_running() {
+    return g_car.front_right.state == AMK_STATE_RUNNING
+        && g_car.front_left.state  == AMK_STATE_RUNNING
+        && g_car.rear_left.state   == AMK_STATE_RUNNING
+        && g_car.rear_right.state  == AMK_STATE_RUNNING;
 }
 
 static inline bool is_start_button_pressed() {
@@ -181,12 +104,6 @@ void set_brake_light() {
     }
 }
 
-void car_init() {
-    // enter INIT at n_reset
-    g_car.current_state = CARSTATE_INIT;
-    g_car.next_state    = CARSTATE_INIT;
-}
-
 void fsm_periodic() {
     g_car.current_state = g_car.next_state;
     g_car.next_state    = g_car.current_state; // explicit self loop
@@ -201,7 +118,7 @@ void fsm_periodic() {
 
     switch (g_car.current_state) {
         case CARSTATE_INIT: {
-            init_periodic();
+            // do nothing periodically
 
             if (is_init_complete()) {
                 g_car.next_state = CARSTATE_IDLE;
@@ -227,7 +144,7 @@ void fsm_periodic() {
         case CARSTATE_ENERGIZED: {
             energized_periodic();
 
-            if (is_start_button_pressed()) {
+            if (is_start_button_pressed() && is_AMKS_running()) {
                 g_car.buzzer_start_time = OS_TICKS;
                 g_car.next_state = CARSTATE_BUZZING;
             }
@@ -268,6 +185,11 @@ void fsm_periodic() {
     AMK_periodic(&g_car.front_left);
     AMK_periodic(&g_car.rear_left);
     AMK_periodic(&g_car.rear_right);
+
+    AMK_set_torque(&g_car.front_right, g_torque_request.front_right);
+    AMK_set_torque(&g_car.front_left,  g_torque_request.front_left);
+    AMK_set_torque(&g_car.rear_left,   g_torque_request.rear_left);
+    AMK_set_torque(&g_car.rear_right,  g_torque_request.rear_right);
 
     // flush the internal state
     PHAL_writeGPIO(BRAKE_LIGHT_PORT, BRAKE_LIGHT_PIN, g_car.brake_light);

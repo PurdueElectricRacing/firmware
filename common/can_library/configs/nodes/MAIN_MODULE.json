@@ -606,7 +606,7 @@
             "max": 1,
             "min": 0,
             "priority": "fatal",
-            "time_to_latch": 100,
+            "time_to_latch": 32,
             "time_to_unlatch": 100,
             "lcd_message": "SDC1 is Open"
         },
@@ -615,7 +615,7 @@
             "max": 1,
             "min": 0,
             "priority": "fatal",
-            "time_to_latch": 100,
+            "time_to_latch": 32,
             "time_to_unlatch": 100,
             "lcd_message": "SDC2 is Open"
         },
@@ -624,7 +624,7 @@
             "max": 1,
             "min": 0,
             "priority": "fatal",
-            "time_to_latch": 100,
+            "time_to_latch": 32,
             "time_to_unlatch": 100,
             "lcd_message": "SDC3 is Open"
         },
@@ -633,7 +633,7 @@
             "max": 1,
             "min": 0,
             "priority": "fatal",
-            "time_to_latch": 100,
+            "time_to_latch": 32,
             "time_to_unlatch": 100,
             "lcd_message": "SDC4 is Open"
         },
@@ -642,7 +642,7 @@
             "max": 1,
             "min": 0,
             "priority": "fatal",
-            "time_to_latch": 100,
+            "time_to_latch": 32,
             "time_to_unlatch": 100,
             "lcd_message": "SDC5 is Open"
         },
@@ -651,7 +651,7 @@
             "max": 1,
             "min": 0,
             "priority": "fatal",
-            "time_to_latch": 100,
+            "time_to_latch": 32,
             "time_to_unlatch": 100,
             "lcd_message": "SDC6 is Open"
         },
@@ -660,7 +660,7 @@
             "max": 1,
             "min": 0,
             "priority": "fatal",
-            "time_to_latch": 100,
+            "time_to_latch": 32,
             "time_to_unlatch": 100,
             "lcd_message": "SDC7 is Open"
         },
@@ -669,7 +669,7 @@
             "max": 1,
             "min": 0,
             "priority": "fatal",
-            "time_to_latch": 100,
+            "time_to_latch": 32,
             "time_to_unlatch": 100,
             "lcd_message": "SDC8 is Open"
         },
@@ -678,7 +678,7 @@
             "max": 1,
             "min": 0,
             "priority": "fatal",
-            "time_to_latch": 100,
+            "time_to_latch": 32,
             "time_to_unlatch": 100,
             "lcd_message": "SDC9 is Open"
         },
@@ -687,7 +687,7 @@
             "max": 1,
             "min": 0,
             "priority": "fatal",
-            "time_to_latch": 100,
+            "time_to_latch": 32,
             "time_to_unlatch": 100,
             "lcd_message": "SDC10 is Open"
         },
@@ -696,7 +696,7 @@
             "max": 1,
             "min": 0,
             "priority": "fatal",
-            "time_to_latch": 100,
+            "time_to_latch": 32,
             "time_to_unlatch": 100,
             "lcd_message": "SDC11 is Open"
         },
@@ -705,7 +705,7 @@
             "max": 1,
             "min": 0,
             "priority": "fatal",
-            "time_to_latch": 100,
+            "time_to_latch": 32,
             "time_to_unlatch": 100,
             "lcd_message": "SDC12 is Open"
         },
@@ -714,7 +714,7 @@
             "max": 1,
             "min": 0,
             "priority": "fatal",
-            "time_to_latch": 100,
+            "time_to_latch": 32,
             "time_to_unlatch": 100,
             "lcd_message": "SDC13 is Open"
         },
@@ -723,7 +723,7 @@
             "max": 1,
             "min": 0,
             "priority": "fatal",
-            "time_to_latch": 100,
+            "time_to_latch": 32,
             "time_to_unlatch": 100,
             "lcd_message": "SDC14 is Open"
         },
@@ -732,7 +732,7 @@
             "max": 1,
             "min": 0,
             "priority": "fatal",
-            "time_to_latch": 100,
+            "time_to_latch": 32,
             "time_to_unlatch": 100,
             "lcd_message": "SDC15 is Open"
         },
@@ -741,7 +741,7 @@
             "max": 1,
             "min": 0,
             "priority": "fatal",
-            "time_to_latch": 100,
+            "time_to_latch": 32,
             "time_to_unlatch": 100,
             "lcd_message": "SDC16 is Open"
         },
@@ -750,7 +750,7 @@
             "max": 1,
             "min": 0,
             "priority": "fatal",
-            "time_to_latch": 100,
+            "time_to_latch": 32,
             "time_to_unlatch": 100,
             "lcd_message": "SDC17 is Open"
         }

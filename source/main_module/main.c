@@ -136,7 +136,13 @@ void update_SDC_task() {
     // Read the signal and update the fault state
     bool node_status = PHAL_readGPIO(SDC_MUX_PORT, SDC_MUX_PIN);
     g_SDC_states[sdc_poll_index] = node_status;
-    fault_index_t SDC_fault_index = (FAULT_INDEX_MAIN_MODULE_SDC1_OPEN + sdc_poll_index); // ! kinda sus
+
+    // ! kinda sus
+    static_assert(
+        FAULT_INDEX_MAIN_MODULE_SDC1_OPEN + NUM_SDC_NODES == FAULT_INDEX_MAIN_MODULE_SDC17_OPEN,
+        "SDC fault indices must be contiguous and match the number of SDC nodes"
+    );
+    fault_index_t SDC_fault_index = (FAULT_INDEX_MAIN_MODULE_SDC1_OPEN + sdc_poll_index);
     update_fault(SDC_fault_index, node_status);
 
     // update the poll index for the next cycle (0-15)

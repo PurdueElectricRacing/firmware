@@ -8,7 +8,6 @@ var daq_2main_8c =
     [ "can_parse_error_status", "daq_2main_8c.html#a057a247fae9ca4e717ebfa48c8943259", null ],
     [ "can_rx_irq_handler", "daq_2main_8c.html#a669af579d00fc51b75ef98c883348dac", null ],
     [ "configure_interrupts", "daq_2main_8c.html#aabdbaa50d97bdb9d077e752af668866d", null ],
-    [ "daq_bl_cmd_CALLBACK", "daq_2main_8c.html#ae81a38fcf28e8f2439cea02df3c1f167", null ],
     [ "debug_printf", "daq_2main_8c.html#a46a8c2e1aeca94194f64ccb086e285ff", null ],
     [ "defineStaticQueue", "daq_2main_8c.html#ad5bfbc135ded113048a7d6f511d0843a", null ],
     [ "defineStaticQueue", "daq_2main_8c.html#ad8e15f163e0633d514add68a1d941a33", null ],

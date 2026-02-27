@@ -5,7 +5,6 @@ var pdu_2main_8c =
     [ "HardFault_Handler", "pdu_2main_8c.html#a2af56a8bf3197b2f06cac4c0b84ffc3e", null ],
     [ "heatBeatLED", "pdu_2main_8c.html#a1d8a0a3c7d5704459f39b57f14412b1a", null ],
     [ "main", "pdu_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4", null ],
-    [ "pdu_bl_cmd_CALLBACK", "pdu_2main_8c.html#a7f6607ba88f6aeb21aea3e3977f559a9", null ],
     [ "preflight_animation", "pdu_2main_8c.html#ae702405e1f05f0122f85f7d8deb40c87", null ],
     [ "preflightChecks", "pdu_2main_8c.html#a60cfcf15038028a030b9adb3f61b0ad1", null ],
     [ "send_flowrates", "pdu_2main_8c.html#ab7a4ebf8321efc467754ed8e2295b790", null ],

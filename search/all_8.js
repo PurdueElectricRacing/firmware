@@ -267,7 +267,7 @@ var searchData=
   ['buffer_2eh_264',['buffer.h',['../buffer_8h.html',1,'']]],
   ['buffer_5findex_265',['buffer_index',['../bootloader_8c.html#a05d3201c3d91255f8190d1e4901ab7de',1,'bootloader.c']]],
   ['buffer_5fsize_266',['BUFFER_SIZE',['../bootloader_8c.html#a6b20d41d6252e9871430c242cb1a56e7',1,'BUFFER_SIZE:&#160;bootloader.c'],['../namespacereceive-from-tv.html#a362d1e9367eeb8088b655ebbdf8f97cc',1,'receive-from-tv.BUFFER_SIZE'],['../namespacesend-and-rec.html#ade075385ab144c46f2536461f09bfc66',1,'send-and-rec.BUFFER_SIZE']]],
-  ['build_267',['Setup &amp; Build',['../md_docs_2setup.html#autotoc_md69',1,'']]],
+  ['build_267',['Setup &amp; Build',['../md_docs_2setup.html#autotoc_md71',1,'']]],
   ['build_268',['build',['../namespacebuild.html',1,'build'],['../namespacebuild.html#a040e3e8b77aa8911e86cfee035b5becc',1,'build.build()']]],
   ['build_2epy_269',['build.py',['../build_8py.html',1,'']]],
   ['building_20firmware_270',['Building Firmware',['../index.html#autotoc_md3',1,'']]],

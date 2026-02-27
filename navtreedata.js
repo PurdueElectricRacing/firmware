@@ -29,19 +29,19 @@ var NAVTREE =
     [ "code_style", "md_docs_2code__style.html", null ],
     [ "deploy_n_debug", "md_docs_2deploy__n__debug.html", null ],
     [ "PER Firmware Setup Instructions", "md_docs_2setup.html", [
-      [ "Tools", "md_docs_2setup.html#autotoc_md59", [
-        [ "MacOS Tools Setup", "md_docs_2setup.html#autotoc_md60", null ],
-        [ "Windows Tools Setup", "md_docs_2setup.html#autotoc_md61", null ],
-        [ "Linux Tools Setup", "md_docs_2setup.html#autotoc_md62", null ]
+      [ "Tools", "md_docs_2setup.html#autotoc_md61", [
+        [ "MacOS Tools Setup", "md_docs_2setup.html#autotoc_md62", null ],
+        [ "Windows Tools Setup", "md_docs_2setup.html#autotoc_md63", null ],
+        [ "Linux Tools Setup", "md_docs_2setup.html#autotoc_md64", null ]
       ] ],
-      [ "VSCode Setup (All OS)", "md_docs_2setup.html#autotoc_md63", [
-        [ "Install Extensions", "md_docs_2setup.html#autotoc_md64", null ],
-        [ "Turn on Autosave", "md_docs_2setup.html#autotoc_md65", null ]
+      [ "VSCode Setup (All OS)", "md_docs_2setup.html#autotoc_md65", [
+        [ "Install Extensions", "md_docs_2setup.html#autotoc_md66", null ],
+        [ "Turn on Autosave", "md_docs_2setup.html#autotoc_md67", null ]
       ] ],
-      [ "Repository Setup (All OS)", "md_docs_2setup.html#autotoc_md66", [
-        [ "Open a new terminal", "md_docs_2setup.html#autotoc_md67", null ],
-        [ "Clone PER repo", "md_docs_2setup.html#autotoc_md68", null ],
-        [ "Setup & Build", "md_docs_2setup.html#autotoc_md69", null ]
+      [ "Repository Setup (All OS)", "md_docs_2setup.html#autotoc_md68", [
+        [ "Open a new terminal", "md_docs_2setup.html#autotoc_md69", null ],
+        [ "Clone PER repo", "md_docs_2setup.html#autotoc_md70", null ],
+        [ "Setup & Build", "md_docs_2setup.html#autotoc_md71", null ]
       ] ]
     ] ],
     [ "Todo List", "todo.html", null ],
@@ -83,31 +83,31 @@ var NAVTREEINDEX =
 [
 "FreeRTOSConfig_8h.html",
 "auto__switch_8h.html#afd674820118f9c76a33b0b8a9b0ff908a6c55ef8ac8960f6d77f31f5ae3a5dbc9",
-"buffer_8h.html#a8710173219508fabb7692e8dee933f36",
+"can__common_8h.html#a0b068b1221129441b89967ee2ddb9f44",
 "classcan__process_1_1CANRxThread.html#afc1708df7e872306d3066a2b57aa4e20",
-"commands_8c.html#a2e215be7eeeae273275761f22727ce74",
-"common_2phal__L4_2spi_2spi_8c.html#a4055152a9bfe1072e00247cc351276ba",
+"commands_8c.html#a26d470e28a1ae39f1a0484e788b2b60e",
+"common_2phal__L4_2spi_2spi_8c.html#a35fd94eb02f487e09065ddc0ecb92e53",
 "daq__base_8h.html#abb72c3a242079b6fa2368c599e844a6a",
 "dashboard_2main_8h.html#a4b89e89e5dfb9c7282c193a4055cc785",
-"eeprom__spi_8c.html#af1f0b098699ae6edb206041627c34287",
-"ff_8c.html#a55c8dde2fcff23002e196ae2c3eeaa08",
-"ff_8h.html#aad8222bc0121fd45327d7e55c1e0aaaf",
-"globals_eval_u.html",
-"group__DATA__TYPE.html#ggaca023f09ee4830a55aa38846e1bb3b44a2360c312f5437370e65000ad85205a05",
-"l4__testing_2main_8h.html#a1b7f79c0b489bbb678c75ed6735a6df7",
-"lcd_8h.html#acfd30e79279478e4cdec0f61c217f3c6",
-"namespacemapper.html#aef015c7b1efcbfc6b7d219df487109d3",
-"pdu_2main_8h.html#a84215b3b59539093ce22d50a0fbe9ffc",
-"phal__F4__F7_2flash_2flash_8h.html#a06241b0941cf9d9499981b423626a62d",
-"phal__G4_2adc_2adc_8h.html#aa3a86f84ddbe79b12a16c9f0765e4871a358c6f5e7243a7ed09640253d83d2131",
-"phal__L4_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94ea720958ecb87f74024a1631b1abbce8ad",
-"phal__L4_2usart_2usart_8h.html#aae6e85f41245b034bd49d950d0775c55",
-"sdio_8h.html#a63b1da6dd1a51131f3b53f1fbfb41ae3",
-"strbuf_8c.html",
-"structQUADSPI__Config__t.html#a137538eaf890acfdf36bb9409da90d0b",
-"structdriver__pedal__profile__t.html#a4c306e534351b23e43777ffe12364be2",
-"test__buffer_8c.html#ace0165f1b9d5db787f29dbee3342f46d",
-"w5500_8h.html#ab15c83d6d0b4bd06c697c14c6f716977"
+"eeprom__spi_8h.html",
+"ff_8c.html#a5a0742bfc1d94f0c3baa5ede485048c4",
+"ff_8h.html#ab39e82a110695de45f416f3149358012",
+"globals_func.html",
+"group__DATA__TYPE.html#ggaca023f09ee4830a55aa38846e1bb3b44a49966d90dff60c38ab6e76654f9ac59f",
+"l4__testing_2main_8h.html#a96f125c65f6d8a90050ebb72cf459e95",
+"led_8c.html#ada0a7177585eb88526a6239618b3bfdf",
+"namespacereceive-from-tv.html#a9ecc4abbbbcc65c1f42a7d3490969b04",
+"pdu_2main_8h.html#aab585f6b35fafab4e954d9933f8afe6d",
+"phal__F4__F7_2gpio_2gpio_8h.html#a8ad755fa19c86966f386fd96ac5c1283",
+"phal__G4_2dma_2dma_8h.html#a7d51f905e3808e52af18720b63e12ac5",
+"phal__L4_2adc_2adc_8h.html#a9bf789bb8843fa4ab14a8f71510b8868",
+"pin__defs_8h.html#ac2c531860587fb00c4c9e0925531155a",
+"sdio_8h.html#a8a0361bd4864fe9368ba54bc9b2bda24",
+"structADBMS__bms__t.html#a791944f571fe79dbdc0f2c2f64c1e0b7",
+"structSD__CID.html#a3107b0641f90250b2d300fb6b8ae583d",
+"structeth__config__t.html#ac45bb89c0c9c201673edcdb938e062fc",
+"tim_8c.html#a69ed77607e30e5935ea2d6994e94be10",
+"w5500_8h.html#af2716528cbcb6eaebd57e952d64ef978"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

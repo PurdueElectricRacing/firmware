@@ -91,7 +91,7 @@ var searchData=
   ['check_5fsockinit_88',['CHECK_SOCKINIT',['../socket_8c.html#a89d4949e11620ee89de6ea32497bc0a5',1,'socket.c']]],
   ['check_5fsockmode_89',['CHECK_SOCKMODE',['../socket_8c.html#aef140525633e96efc06dc2b03f71f5fa',1,'socket.c']]],
   ['check_5fsocknum_90',['CHECK_SOCKNUM',['../socket_8c.html#afe447840d18ed02ec5ca66e3e197b749',1,'socket.c']]],
-  ['check_5fstale_91',['CHECK_STALE',['../bootloader_2can_2can__parse__starter_8h.html#a969cc60c23232b8b979b9822e5acd4f8',1,'CHECK_STALE:&#160;can_parse_starter.h'],['../l4__testing_2can_2can__parse__starter_8h.html#a969cc60c23232b8b979b9822e5acd4f8',1,'CHECK_STALE:&#160;can_parse_starter.h']]],
+  ['check_5fstale_91',['CHECK_STALE',['../can__parse__starter_8h.html#a969cc60c23232b8b979b9822e5acd4f8',1,'can_parse_starter.h']]],
   ['chip_5fsize_92',['CHIP_SIZE',['../eeprom__spi_8h.html#aa1696d5b89188435080ba5b8cb546e9d',1,'eeprom_spi.h']]],
   ['clamp_93',['CLAMP',['../common__defs_8h.html#a33bd933f5d4895b3b6d18c2d5fed91a0',1,'common_defs.h']]],
   ['clear_5fbutton_94',['CLEAR_BUTTON',['../lcd_8h.html#a428bc9ca364770adf0faae38d7cfbc7b',1,'lcd.h']]],

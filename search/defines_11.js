@@ -304,7 +304,7 @@ var searchData=
   ['sta_5fnodisk_301',['STA_NODISK',['../diskio_8h.html#aec625080763d6cf487e550a6c9a2dd19',1,'diskio.h']]],
   ['sta_5fnoinit_302',['STA_NOINIT',['../diskio_8h.html#abd6503c70d862b979a3f7080a59e9acd',1,'diskio.h']]],
   ['sta_5fprotect_303',['STA_PROTECT',['../diskio_8h.html#a9ec6dc5f6620a33fabe388d3a111ca8c',1,'diskio.h']]],
-  ['stale_5fthresh_304',['STALE_THRESH',['../bootloader_2can_2can__parse__starter_8h.html#abd9fb8a91e43567fceb781c705d6dd93',1,'STALE_THRESH:&#160;can_parse_starter.h'],['../l4__testing_2can_2can__parse__starter_8h.html#abd9fb8a91e43567fceb781c705d6dd93',1,'STALE_THRESH:&#160;can_parse_starter.h']]],
+  ['stale_5fthresh_304',['STALE_THRESH',['../can__parse__starter_8h.html#abd9fb8a91e43567fceb781c705d6dd93',1,'can_parse_starter.h']]],
   ['start_5fbtn_5fgpio_5fport_305',['START_BTN_GPIO_Port',['../dashboard_2main_8h.html#a7a53e0c964126c6f644328b1e14cf8b2',1,'main.h']]],
   ['start_5fbtn_5fpin_306',['START_BTN_Pin',['../dashboard_2main_8h.html#af610b0dfa7a975bdf2d15acc20e80ee3',1,'main.h']]],
   ['status_5fled_5fgpio_5fport_307',['STATUS_LED_GPIO_Port',['../node__defs_8h.html#aee9e013abc17d5ea72b26428853f8847',1,'node_defs.h']]],

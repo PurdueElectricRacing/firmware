@@ -2,7 +2,6 @@ var dir_bdd9a5d540de89e9fe90efdfc6973a4f =
 [
     [ "amk", "dir_4806829e1f7f35fab185c60a177bdae6.html", "dir_4806829e1f7f35fab185c60a177bdae6" ],
     [ "bangbang", "dir_3ff6104c05cc3b58fb49010561da754f.html", "dir_3ff6104c05cc3b58fb49010561da754f" ],
-    [ "bitstream", "dir_cd007fefd2b05c3b57463aa1975a7b1e.html", "dir_cd007fefd2b05c3b57463aa1975a7b1e" ],
     [ "bmi088", "dir_3b210a51bdfb7207c4ccc3bce16efa01.html", "dir_3b210a51bdfb7207c4ccc3bce16efa01" ],
     [ "bootloader", "dir_461042314d7f9c089573ca7ae66fbda9.html", "dir_461042314d7f9c089573ca7ae66fbda9" ],
     [ "can_library", "dir_a907d3d415de718f95ff5cf8a85ff47a.html", "dir_a907d3d415de718f95ff5cf8a85ff47a" ],

@@ -8,7 +8,6 @@ var main__module_2main_8c =
     [ "inva_set_flush", "main__module_2main_8c.html#a46c142cd48648670d981a03de7362cf3", null ],
     [ "ledblink", "main__module_2main_8c.html#a4d45d2638da49ff751c95786863b9087", null ],
     [ "main", "main__module_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe", null ],
-    [ "main_module_bl_cmd_CALLBACK", "main__module_2main_8c.html#a342c6ddfcc5b9e8cf38045ab37ef7d8d", null ],
     [ "AHBClockRateHz", "main__module_2main_8c.html#a2c40deeaa6aeb002bafb0bc892484e0c", null ],
     [ "APB1ClockRateHz", "main__module_2main_8c.html#ae3f547c0ac514dd12e5bab27a6b60bec", null ],
     [ "APB2ClockRateHz", "main__module_2main_8c.html#afdc1120bbc54485ac4c735d8f9756743", null ],

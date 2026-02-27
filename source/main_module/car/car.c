@@ -1,32 +1,14 @@
+#include "car.h"
+
 #include "common/can_library/faults_common.h"
 #include "common/can_library/generated/MAIN_MODULE.h"
 #include "common/can_library/generated/can_types.h"
-#include "common/amk/amk.h"
 #include "common/phal/gpio.h"
 #include "main.h"
 
-static constexpr uint32_t MIN_BUZZING_TIME_MS = 2500;
-
-/* BRAKE LIGHT CONFIG */
-#define BRAKE_LIGHT_ON_THRESHOLD  (170)
-#define BRAKE_LIGHT_OFF_THRESHOLD (70)
-
-typedef struct {
-    CarState_t current_state;
-    CarState_t next_state;
-    AMK_t front_right;
-    AMK_t front_left;
-    AMK_t rear_left;
-    AMK_t rear_right;
-
-    uint32_t buzzer_start_time;
-
-    bool is_regen_enabled;
-    bool last_start_button_state;
-    bool brake_light;
-    bool is_sdc_closed;
-    bool buzzer;
-} car_t;
+static constexpr uint32_t MIN_BUZZING_TIME_MS = 2000;
+static constexpr uint16_t BRAKE_LIGHT_ON_THRESHOLD = 200; // ~5% of 4095
+static constexpr uint16_t BRAKE_LIGHT_OFF_THRESHOLD = 100; // ~2.5% of 4095
 
 car_t g_car;
 
@@ -38,8 +20,62 @@ void buzzing_periodic();
 void ready2drive_periodic();
 void error_periodic();
 
-static inline bool is_SDC_open() {
-    return true;
+void flush_inva() {
+    CAN_SEND_INVA_SET(
+        g_car.front_left.set->AMK_Control_bReserve,
+        g_car.front_left.set->AMK_Control_bInverterOn,
+        g_car.front_left.set->AMK_Control_bDcOn,
+        g_car.front_left.set->AMK_Control_bEnable,
+        g_car.front_left.set->AMK_Control_bErrorReset,
+        g_car.front_left.set->AMK_Control_bReserve2,
+        g_car.front_left.set->AMK_TorqueSetpoint,
+        g_car.front_left.set->AMK_PositiveTorqueLimit,
+        g_car.front_left.set->AMK_NegativeTorqueLimit
+    );
+}
+
+void flush_inb() {
+    CAN_SEND_INVB_SET(
+        g_car.front_right.set->AMK_Control_bReserve,
+        g_car.front_right.set->AMK_Control_bInverterOn,
+        g_car.front_right.set->AMK_Control_bDcOn,
+        g_car.front_right.set->AMK_Control_bEnable,
+        g_car.front_right.set->AMK_Control_bErrorReset,
+        g_car.front_right.set->AMK_Control_bReserve2,
+        g_car.front_right.set->AMK_TorqueSetpoint,
+        g_car.front_right.set->AMK_PositiveTorqueLimit,
+        g_car.front_right.set->AMK_NegativeTorqueLimit
+    );
+}
+
+void init_periodic() {
+    AMK_init(
+        &g_car.front_left,
+        flush_inva,
+        g_car.front_left.set,
+        g_car.front_left.crit,
+        g_car.front_left.info,
+        g_car.front_left.temps,
+        g_car.front_left.err1,
+        g_car.front_left.err2,
+        &g_car.is_precharge_complete
+    );
+
+    AMK_init(
+        &g_car.front_right,
+        flush_inb,
+        g_car.front_right.set,
+        g_car.front_right.crit,
+        g_car.front_right.info,
+        g_car.front_right.temps,
+        g_car.front_right.err1,
+        g_car.front_right.err2,
+        &g_car.is_precharge_complete
+    );
+}
+
+static inline bool is_SDC_closed() {
+    return g_car.is_SDC_closed;
 }
 
 static inline bool is_init_complete() {
@@ -67,7 +103,7 @@ static inline bool is_buzzing_time_elapsed() {
 }
 
 void buzzing_periodic() {
-    
+    g_car.buzzer_enable = true; // todo make a pattern
 }
 
 /**
@@ -99,7 +135,7 @@ void fsm_periodic() {
     g_car.next_state    = g_car.current_state; // explicit self loop
 
     // check SDC before doing anything else
-    if (is_SDC_open()) {
+    if (!is_SDC_closed()) {
         g_car.next_state = CARSTATE_FATAL;
         return;
     }
@@ -144,6 +180,7 @@ void fsm_periodic() {
             buzzing_periodic();
 
             if (is_buzzing_time_elapsed()) {
+                g_car.buzzer_enable = false; // explicitly turn off the buzzer before transitioning
                 g_car.next_state = CARSTATE_READY2DRIVE;
             }
             break;
@@ -159,7 +196,7 @@ void fsm_periodic() {
         case CARSTATE_FATAL: {
             error_periodic();
 
-            if (!is_SDC_open()) {
+            if (is_SDC_closed()) {
                 g_car.next_state = CARSTATE_IDLE;
             }
             break;
@@ -170,5 +207,14 @@ void fsm_periodic() {
         }
     }
 
-    // flush logic
+    AMK_periodic(&g_car.front_right);
+    AMK_periodic(&g_car.front_left);
+    AMK_periodic(&g_car.rear_left);
+    AMK_periodic(&g_car.rear_right);
+
+    // flush the internal state
+    PHAL_writeGPIO(BRAKE_LIGHT_PORT, BRAKE_LIGHT_PIN, g_car.brake_light);
+    PHAL_writeGPIO(TSAL_GREEN_CTRL_PORT, TSAL_GREEN_CTRL_PIN, g_car.tsal_green_enable);
+    PHAL_writeGPIO(TSAL_RED_CTRL_PORT, TSAL_RED_CTRL_PIN, g_car.tsal_red_enable);
+    PHAL_writeGPIO(BUZZER_PORT, BUZZER_PIN, g_car.buzzer_enable);
 }

@@ -1,0 +1,28 @@
+#ifndef CAR_H
+#define CAR_H
+
+#include "common/amk/amk.h"
+
+typedef struct {
+    CarState_t current_state;
+    CarState_t next_state;
+    AMK_t front_right; // INVA
+    AMK_t front_left;  // INVB
+    AMK_t rear_left;   // INVC
+    AMK_t rear_right;  // INVD
+
+    // internal state variables
+    uint32_t buzzer_start_time;
+    bool last_start_button_state;
+    bool brake_light;
+    bool tsal_green_enable;
+    bool tsal_red_enable;
+    bool buzzer_enable;
+
+    bool is_SDC_closed;
+    bool is_precharge_complete;
+} car_t;
+
+extern car_t g_car;
+
+#endif // CAR_H

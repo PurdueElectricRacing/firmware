@@ -15,6 +15,7 @@
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "common/amk/amk.h"
+#include "car.h"
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -115,8 +116,27 @@ void can_worker_task() {
     CAN_tx_update();
 }
 
+void poll_SDC_task() {
+    g_car.is_SDC_closed = true;
+
+    static uint8_t sdc_poll_index = 0;
+    PHAL_writeGPIO(SDC_MUX_S0_PORT, SDC_MUX_S0_PIN, (sdc_poll_index >> 1) & 0x1);
+    PHAL_writeGPIO(SDC_MUX_S1_PORT, SDC_MUX_S1_PIN, (sdc_poll_index >> 2) & 0x1);
+    PHAL_writeGPIO(SDC_MUX_S2_PORT, SDC_MUX_S2_PIN, (sdc_poll_index >> 3) & 0x1);
+    PHAL_writeGPIO(SDC_MUX_S3_PORT, SDC_MUX_S3_PIN, (sdc_poll_index >> 4) & 0x1);
+    sdc_poll_index = (sdc_poll_index + 1) % 0xF;
+
+    osDelay(1);
+
+    if (!PHAL_readGPIO(SDC_MUX_PORT, SDC_MUX_PIN)) {
+        g_car.is_SDC_closed = false;
+    }
+}
+
+
 defineThreadStack(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);
 defineThreadStack(can_worker_task, 10, osPriorityNormal, 2048);
+defineThreadStack(poll_SDC_task, 100, osPriorityLow, 256);
 
 int main(void) {
     // Hardware Initialization
@@ -142,6 +162,7 @@ int main(void) {
 
     createThread(heartbeat_task);
     createThread(can_worker_task);
+    createThread(poll_SDC_task);
 
     // no way home
     osKernelStart();

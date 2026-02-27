@@ -77,6 +77,7 @@ def get_layout_hash(message):
     """
     layout_str = ""
     # Add signal properties that affect layout into a single string
+    # ! does not account for message ID or period, as they do not affect the layout
     for sig in message.signals:
         layout_str += f"{sig.name}:{sig.c_type}:{sig.bit_shift}:{sig.length};"
 

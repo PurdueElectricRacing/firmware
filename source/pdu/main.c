@@ -317,11 +317,6 @@ void CAN1_RX0_IRQHandler() {
     CAN_rx_update();
 }
 
-void pdu_bl_cmd_CALLBACK(can_data_t* can_data) {
-    if (can_data->pdu_bl_cmd.cmd == BLCMD_RST)
-        Bootloader_ResetForFirmwareDownload();
-}
-
 void send_iv_readings() {
     // Set LV Batt faults
     // set_fault(FAULT_INDEX_PDU_LV_BATT_FIFTY, auto_switches.voltage.in_24v);

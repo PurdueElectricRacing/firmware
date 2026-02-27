@@ -239,10 +239,6 @@
             ],
             "rx": [
                 {
-                    "msg_name": "pdu_bl_cmd",
-                    "callback": true
-                },
-                {
                     "msg_name": "cooling_driver_request",
                     "callback": true
                 },

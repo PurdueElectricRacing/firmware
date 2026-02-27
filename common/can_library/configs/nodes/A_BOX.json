@@ -476,10 +476,6 @@
                 },
                 {
                     "msg_name": "orion_errors"
-                },
-                {
-                    "msg_name": "a_box_bl_cmd",
-                    "callback": true
                 }
             ],
             "accept_all_messages": false

@@ -41,7 +41,6 @@ set(COMMON_MODULES
     common/phal_G4
     common/psched
     common/freertos
-    common/bootloader
     common/queue
     common/common_defs
     common/log

@@ -38,5 +38,6 @@ typedef enum {
 
 queue_status_t queue_push(queue_t *q, void *tx);
 queue_status_t queue_pop(queue_t *q, void *rx);
+// todo queue_peek, if needed
 
 #endif // _QUEUE_H_

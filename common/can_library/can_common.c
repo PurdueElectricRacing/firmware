@@ -12,20 +12,18 @@
 #include "common/can_library/generated/can_router.h"
 #include "common/queue/queue.h"
 
+#define CAN_QUEUE_SIZE 24
+
 // common data structures
 can_data_t can_data;
 can_stats_t can_stats;
 volatile uint32_t last_can_rx_time_ms;
-
-#ifndef CAN_QUEUE_SIZE
-#define CAN_QUEUE_SIZE 24
-#endif
+QUEUE_INIT(q_rx_can, sizeof(CanMsgTypeDef_t), CAN_QUEUE_SIZE);
 
 #if defined(STM32F407xx) || defined(STM32F732xx)
 
 // todo mailbox based implementation here
 queue_t q_tx_can[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
-QUEUE_INIT(q_rx_can, sizeof(CanMsgTypeDef_t), CAN_QUEUE_SIZE);
 uint32_t can_mbx_last_send_time[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
 
 // Statically allocate TX queues for CAN1 and CAN2
@@ -227,7 +225,6 @@ bool CAN_library_init() {
 #endif
 
 queue_t q_tx_can[NUM_CAN_PERIPHERALS];
-QUEUE_INIT(q_rx_can, sizeof(CanMsgTypeDef_t), CAN_QUEUE_SIZE);
 
 // Statically allocate TX queues for FDCAN1, FDCAN2, and FDCAN3
 #ifdef USE_FDCAN1

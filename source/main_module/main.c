@@ -10,6 +10,7 @@
 
 #include "common/common_defs/common_defs.h"
 #include "common/can_library/generated/MAIN_MODULE.h"
+#include "common/can_library/faults_common.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
@@ -153,6 +154,7 @@ defineThreadStack(poll_input_pins, 0, osPriorityIdle, 256); // the delay is with
 defineThreadStack(can_worker_task, 10, osPriorityHigh, 1024);
 defineThreadStack(fsm_periodic, 15, osPriorityNormal, 2048);
 defineThreadStack(AMK_task, 15, osPriorityNormal, 1024);
+defineThreadStack(fault_library_periodic, 100, osPriorityLow, 1024);
 
 int main(void) {
     // Hardware Initialization
@@ -183,6 +185,7 @@ int main(void) {
     createThread(poll_input_pins);
     createThread(fsm_periodic);
     createThread(AMK_task);
+    createThread(fault_library_periodic);
 
     // no way home
     osKernelStart();

@@ -602,283 +602,158 @@
     "generate_fault_messages": false,
     "faults": [
         {
-            "fault_name": "tv_stale",
+            "fault_name": "SDC1_Open",
             "max": 1,
             "min": 0,
-            "priority": "warning",
-            "time_to_latch": 50,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Torque From Pedals"
-        },
-        {
-            "fault_name": "rtd_exit",
-            "max": 1,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 100,
-            "time_to_unlatch": 1000,
-            "lcd_message": "HV not detected, idling"
-        },
-        {
-            "fault_name": "left_mc_conn",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 3000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "LEFT MC CONN FAIL"
-        },
-        {
-            "fault_name": "right_mc_conn",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 3000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "RIGHT MC CONN FAIL"
-        },
-        {
-            "fault_name": "mcu_temp_high",
-            "max": 50,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 2000,
-            "lcd_message": "HIGH PDU MCU TEMP"
-        },
-        {
-            "fault_name": "dt_l_temp_ot",
-            "max": 90,
-            "min": -100,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Left Gearbox Overheating"
-        },
-        {
-            "fault_name": "dt_r_temp_ot",
-            "max": 90,
-            "min": -100,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Right Gearbox Overheating"
-        },
-        {
-            "fault_name": "dt_l_temp_high",
-            "max": 80,
-            "min": -100,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Left Gearbox High (>80C)"
-        },
-        {
-            "fault_name": "dt_r_temp_high",
-            "max": 80,
-            "min": -100,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Right Gearbox High (>80C)"
-        },
-        {
-            "fault_name": "bat_cool_loop_high",
-            "max": 50,
-            "min": -100,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Batt Coolant Loop Temp High"
-        },
-        {
-            "fault_name": "dt_cool_loop_high",
-            "max": 90,
-            "min": -100,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "DT Coolant Loop Temp High"
-        },
-        {
-            "fault_name": "dt_r_therm_disc",
-            "max": 200,
-            "min": -30,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Right DT Therm Disconnect"
-        },
-        {
-            "fault_name": "dt_l_therm_disc",
-            "max": 200,
-            "min": -30,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Left DT Therm Disconnect"
-        },
-        {
-            "fault_name": "batt_cl_disc",
-            "max": 200,
-            "min": -30,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Batt CL Therm Disc"
-        },
-        {
-            "fault_name": "dt_cl_disc",
-            "max": 200,
-            "min": -30,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "DT CL Therm Disc"
-        },
-        {
-            "fault_name": "BSPD_latched",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 1500,
-            "time_to_unlatch": 10000,
-            "lcd_message": "BSPD Latched. Restart Car"
-        },
-        {
-            "fault_name": "bots_fail",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 1500,
-            "time_to_unlatch": 1000,
-            "lcd_message": "BOTS Activated"
-        },
-        {
-            "fault_name": "inertia_fail",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 1500,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Inertia Switch activated"
-        },
-        {
-            "fault_name": "cockpit_estop",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 1500,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Cockpit E-Stop Pressed"
-        },
-        {
-            "fault_name": "right_estop",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 1500,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Right E-Stop Pressed"
-        },
-        {
-            "fault_name": "left_estop",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 1500,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Left E-Stop Pressed"
-        },
-        {
-            "fault_name": "hvd_disc",
-            "max": 1,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 1500,
-            "time_to_unlatch": 1000,
-            "lcd_message": "HVD Disconnected"
-        },
-        {
-            "fault_name": "hub_disc",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 1500,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Hub Interlock Disconencted"
-        },
-        {
-            "fault_name": "tsms_disc",
-            "max": 1,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 1500,
-            "time_to_unlatch": 1000,
-            "lcd_message": "TSMS Off"
-        },
-        {
-            "fault_name": "precharge_time_fault",
-            "max": 9500,
-            "min": -10,
             "priority": "fatal",
-            "time_to_latch": 400,
-            "time_to_unlatch": 10000,
-            "lcd_message": "PRCHG time exceeded"
+            "time_to_latch": 100,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC1 is Open"
         },
         {
-            "fault_name": "motor_r_heat",
-            "max": 80,
-            "min": -80,
-            "priority": "error",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Right Motor Hot (>80C)"
-        },
-        {
-            "fault_name": "motor_l_heat",
-            "max": 80,
-            "min": -80,
-            "priority": "error",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Left Motor Hot (>80C)"
-        },
-        {
-            "fault_name": "motor_r_ot",
-            "max": 80,
-            "min": -80,
-            "priority": "error",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Right Motor Overtemp (>90C)"
-        },
-        {
-            "fault_name": "motor_l_ot",
-            "max": 80,
-            "min": -80,
-            "priority": "error",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Left Motor Overtemp (>90C)"
-        },
-        {
-            "fault_name": "left_mc_error",
+            "fault_name": "SDC2_Open",
             "max": 1,
             "min": 0,
-            "priority": "error",
-            "time_to_latch": 0,
-            "time_to_unlatch": 1000,
-            "lcd_message": "LEFT MC INTERNAL ERR"
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC2 is Open"
         },
         {
-            "fault_name": "right_mc_error",
+            "fault_name": "SDC3_Open",
             "max": 1,
             "min": 0,
-            "priority": "error",
-            "time_to_latch": 0,
-            "time_to_unlatch": 1000,
-            "lcd_message": "RIGHT MC INTERNAL ERR"
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC3 is Open"
+        },
+        {
+            "fault_name": "SDC4_Open",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC4 is Open"
+        },
+        {
+            "fault_name": "SDC5_Open",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC5 is Open"
+        },
+        {
+            "fault_name": "SDC6_Open",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC6 is Open"
+        },
+        {
+            "fault_name": "SDC7_Open",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC7 is Open"
+        },
+        {
+            "fault_name": "SDC8_Open",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC8 is Open"
+        },
+        {
+            "fault_name": "SDC9_Open",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC9 is Open"
+        },
+        {
+            "fault_name": "SDC10_Open",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC10 is Open"
+        },
+        {
+            "fault_name": "SDC11_Open",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC11 is Open"
+        },
+        {
+            "fault_name": "SDC12_Open",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC12 is Open"
+        },
+        {
+            "fault_name": "SDC13_Open",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC13 is Open"
+        },
+        {
+            "fault_name": "SDC14_Open",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC14 is Open"
+        },
+        {
+            "fault_name": "SDC15_Open",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC15 is Open"
+        },
+        {
+            "fault_name": "SDC16_Open",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC16 is Open"
+        },
+        {
+            "fault_name": "SDC17_Open",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 100,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC17 is Open"
         }
+
     ]
 }

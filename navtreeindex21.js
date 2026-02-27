@@ -1,5 +1,15 @@
 var NAVTREEINDEX21 =
 {
+"sdio_8h.html#a79815d1d798b28a2d3750ad25466ff1b":[8,0,2,2,3,1,112],
+"sdio_8h.html#a7a35e2c3f9d6237bf7a3577225d077d8":[8,0,2,2,3,1,70],
+"sdio_8h.html#a7b441f99db323528145ce61011b5b204":[8,0,2,2,3,1,132],
+"sdio_8h.html#a7de24baeb4c6a7c9e5668630b8797888":[8,0,2,2,3,1,147],
+"sdio_8h.html#a7f4041b0d212f2d5d3f725b0beb97f0e":[8,0,2,2,3,1,46],
+"sdio_8h.html#a8166660dfea1f2a865e30a8f86269b7f":[8,0,2,2,3,1,81],
+"sdio_8h.html#a849eb0b385337453139a7567898dacb7":[8,0,2,2,3,1,146],
+"sdio_8h.html#a857bc50f4f97f7f5f525da94db9b2774":[8,0,2,2,3,1,120],
+"sdio_8h.html#a88fb9fd3b2c9fea10b79da9a569d4471":[8,0,2,2,3,1,31],
+"sdio_8h.html#a89e890726a09716bb1a5c6ef6d0d3d90":[8,0,2,2,3,1,68],
 "sdio_8h.html#a8a0361bd4864fe9368ba54bc9b2bda24":[8,0,2,2,3,1,38],
 "sdio_8h.html#a95cd045964036c67c40103ab6aa504b7":[8,0,2,2,3,1,78],
 "sdio_8h.html#a96eec3ea095e393f51ab2686d928908c":[8,0,2,2,3,1,77],
@@ -237,17 +247,7 @@ var NAVTREEINDEX21 =
 "strbuf_8h.html#a52ce36e86451c208f1846411e1f67dcf":[8,0,0,17,1,4],
 "strbuf_8h.html#a64d216f0276598d2d7f68c8a0c453fb7":[8,0,0,17,1,3],
 "strbuf_8h_source.html":[8,0,0,17,1],
-"structADBMS__bms__t.html":[7,0,8],
-"structADBMS__bms__t.html#a1cf9a3d3a125957a857d7f0dc54d25b3":[7,0,8,7],
-"structADBMS__bms__t.html#a1ff343ee484ca79e8a804cb579ff5fdf":[7,0,8,12],
-"structADBMS__bms__t.html#a229d9171950f7538bdd8ff93b10b8efb":[7,0,8,14],
-"structADBMS__bms__t.html#a25c3e9f990ba80468fc8fcf2332a6be9":[7,0,8,8],
-"structADBMS__bms__t.html#a29140493e245e44bcef9b986a5de9c3a":[7,0,8,5],
-"structADBMS__bms__t.html#a2a6b527ff7ab9f037ac2c10a869ae2a8":[7,0,8,0],
-"structADBMS__bms__t.html#a2b057f7091ebb52faa56a6823635826b":[7,0,8,3],
-"structADBMS__bms__t.html#a3e25342f369adf565ba06ed7e911882b":[7,0,8,11],
-"structADBMS__bms__t.html#a62fde96f318ef76c96872947bb29a453":[7,0,8,1],
-"structADBMS__bms__t.html#a6bfb204f7c08e34a11e68f54f8ee6497":[7,0,8,13],
-"structADBMS__bms__t.html#a71893f09e343e95b0584bcbffaba43eb":[7,0,8,2],
-"structADBMS__bms__t.html#a7334a5d2af0e1f15c710b1e7c4fac7b2":[7,0,8,6]
+"structADCChannelConfig__t.html":[7,0,10],
+"structADCChannelConfig__t.html#a1c53664f2543e4be4300f2dfc8945ef5":[7,0,10,2],
+"structADCChannelConfig__t.html#a550316324e917e04f4924dd6864012cd":[7,0,10,0]
 };

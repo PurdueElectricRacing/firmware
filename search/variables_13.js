@@ -28,8 +28,8 @@ var searchData=
   ['test_5fvar_5fcommand_5fmsg_25',['test_var_command_msg',['../namespacedaq__test.html#afa1cef97892f1047d9d00d86fa3b5c6f',1,'daq_test']]],
   ['test_5fvar_5fresponse_5fmsg_26',['test_var_response_msg',['../namespacedaq__test.html#a2c18b64ce686cd0addc3b235cf6db22b',1,'daq_test']]],
   ['thermistor_5flut_27',['thermistor_lut',['../thermistor_8h.html#a8302cb9eebdd6ddbaca93f268a5cd7f8',1,'thermistor.h']]],
-  ['therms_5ftemps_28',['therms_temps',['../structADBMS__module__t.html#a825ea3add6e574005c266e45defd14a6',1,'ADBMS_module_t']]],
-  ['therms_5fvoltages_29',['therms_voltages',['../structADBMS__module__t.html#a6c0ab0171c8fe163757631268f0f75bc',1,'ADBMS_module_t']]],
+  ['therms_5ftemps_28',['therms_temps',['../structadbms__module__t.html#a98862245604c612cae9d61d222cdd90b',1,'adbms_module_t']]],
+  ['therms_5fvoltages_29',['therms_voltages',['../structadbms__module__t.html#a98411e98ca1b79538909da56c33b6c69',1,'adbms_module_t']]],
   ['throttle_30',['throttle',['../structpedal__values__t.html#a53b66256b9d232391c3779aa9f4908ad',1,'pedal_values_t']]],
   ['throttle_5ftravel_5fthreshold_31',['throttle_travel_threshold',['../structdriver__pedal__profile__t.html#a96f454186ae44addadccb4b8b18a0c37',1,'driver_pedal_profile_t']]],
   ['thtl_5flimit_32',['thtl_limit',['../pedals_8c.html#a6306ee43db388ef3c268f39771601132',1,'thtl_limit:&#160;pedals.c'],['../pedals_8h.html#a6306ee43db388ef3c268f39771601132',1,'thtl_limit:&#160;pedals.c']]],
@@ -61,6 +61,6 @@ var searchData=
   ['tx_5fq_58',['tx_q',['../classcan__process_1_1CANTxThread.html#a46fe8921abfbe07fa815ad2879557bcc',1,'can_process::CANTxThread']]],
   ['tx_5frx_5fswp_59',['tx_rx_swp',['../structadv__feature__t.html#abe81c2b86150c6d7cef84e31186a4c59',1,'adv_feature_t']]],
   ['tx_5fsize_60',['tx_size',['../structdma__init__t.html#a81eb8f7dce1c3c47734559a5b56b61e2',1,'dma_init_t']]],
-  ['tx_5fstrbuf_61',['tx_strbuf',['../structADBMS__bms__t.html#a791944f571fe79dbdc0f2c2f64c1e0b7',1,'ADBMS_bms_t']]],
+  ['tx_5fstrbuf_61',['tx_strbuf',['../structadbms__bms__t.html#a9f5eb054ed27b5b9c6dc84903d6d23c7',1,'adbms_bms_t']]],
   ['type_62',['type',['../structmenu__element__t.html#a48c019b36c431966683a03305236aa67',1,'menu_element_t::type'],['../structGPIOInitConfig__t.html#a1754a3977a0df8a75a29b4960910cdb2',1,'GPIOInitConfig_t::type']]]
 ];

@@ -34,8 +34,8 @@ var annotated_dup =
       [ "bcolors", "classutils_1_1bcolors.html", "classutils_1_1bcolors" ]
     ] ],
     [ "_WIZCHIP", "struct__WIZCHIP.html", "struct__WIZCHIP" ],
-    [ "ADBMS_bms_t", "structADBMS__bms__t.html", "structADBMS__bms__t" ],
-    [ "ADBMS_module_t", "structADBMS__module__t.html", "structADBMS__module__t" ],
+    [ "adbms_bms_t", "structadbms__bms__t.html", "structadbms__bms__t" ],
+    [ "adbms_module_t", "structadbms__module__t.html", "structadbms__module__t" ],
     [ "ADCChannelConfig_t", "structADCChannelConfig__t.html", "structADCChannelConfig__t" ],
     [ "ADCInitConfig_t", "structADCInitConfig__t.html", "structADCInitConfig__t" ],
     [ "ADCReadings_t", "structADCReadings__t.html", "structADCReadings__t" ],

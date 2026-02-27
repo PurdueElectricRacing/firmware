@@ -65,6 +65,6 @@ var searchData=
   ['auto_5fswitches_62',['auto_switches',['../auto__switch_8c.html#a19dbab87e0ceca06b137d8feb5b2dc90',1,'auto_switches:&#160;auto_switch.c'],['../auto__switch_8h.html#a19dbab87e0ceca06b137d8feb5b2dc90',1,'auto_switches:&#160;auto_switch.c']]],
   ['aux_5fhp_5fimon_63',['aux_hp_imon',['../structADCReadings__t.html#a8e216ff54e4b832d0eeb76518dc62cf7',1,'ADCReadings_t']]],
   ['aux_5fstatus_64',['aux_status',['../structcooling__request__t.html#a0aa1403ca0df35b4aaa96c95355a45ba',1,'cooling_request_t']]],
-  ['avg_5ftherm_5ftemp_65',['avg_therm_temp',['../structADBMS__module__t.html#afbdb9dac3066568a8d7d8d60bcdc773d',1,'ADBMS_module_t::avg_therm_temp'],['../structADBMS__bms__t.html#a2a6b527ff7ab9f037ac2c10a869ae2a8',1,'ADBMS_bms_t::avg_therm_temp']]],
-  ['avg_5fvoltage_66',['avg_voltage',['../structADBMS__module__t.html#ab6bbd76579bc642843b3bac02dd855c9',1,'ADBMS_module_t::avg_voltage'],['../structADBMS__bms__t.html#a62fde96f318ef76c96872947bb29a453',1,'ADBMS_bms_t::avg_voltage']]]
+  ['avg_5ftherm_5ftemp_65',['avg_therm_temp',['../structadbms__module__t.html#aa1859edaed2e8d1ff8e26593cff3a1e6',1,'adbms_module_t::avg_therm_temp'],['../structadbms__bms__t.html#ac842f4644460db3d691381284d55f0df',1,'adbms_bms_t::avg_therm_temp']]],
+  ['avg_5fvoltage_66',['avg_voltage',['../structadbms__module__t.html#a4bcc94bcf802dab89bc142b54ee71302',1,'adbms_module_t::avg_voltage'],['../structadbms__bms__t.html#a6211801abd739018cc177e36c5040147',1,'adbms_bms_t::avg_voltage']]]
 ];

@@ -1,5 +1,15 @@
 var NAVTREEINDEX7 =
 {
+"dashboard_2main_8h.html#a2b9469e9598d74b12d332a4c3de59d83":[8,0,2,3,3,41],
+"dashboard_2main_8h.html#a2c053e5a44d7b3287644c223845c0973":[8,0,2,3,3,50],
+"dashboard_2main_8h.html#a2f69b340b9132ecc94cb150c9bb29dc3":[8,0,2,3,3,60],
+"dashboard_2main_8h.html#a371e4be64076c344b0e77350dafa88ed":[8,0,2,3,3,63],
+"dashboard_2main_8h.html#a3995925f8004dd27335e658ebc2b0028":[8,0,2,3,3,47],
+"dashboard_2main_8h.html#a3b430a269b0f079401c8dd16de84f680":[8,0,2,3,3,48],
+"dashboard_2main_8h.html#a4233bb0cb87f5097e74a37522171ad73":[8,0,2,3,3,57],
+"dashboard_2main_8h.html#a440d6682253953b3fe76644e2177ad6b":[8,0,2,3,3,2],
+"dashboard_2main_8h.html#a45ecf27cb237c2fdfc5bf51981081ff0":[8,0,2,3,3,18],
+"dashboard_2main_8h.html#a4a98e74522cc36b456c3d0a6c9c67af2":[8,0,2,3,3,61],
 "dashboard_2main_8h.html#a4b89e89e5dfb9c7282c193a4055cc785":[8,0,2,3,3,45],
 "dashboard_2main_8h.html#a4ff47ec9fba050306bbffa818a6337ce":[8,0,2,3,3,10],
 "dashboard_2main_8h.html#a55908561fe9e0cc8eaa88886b4151250":[8,0,2,3,3,16],
@@ -239,15 +249,5 @@ var NAVTREEINDEX7 =
 "eeprom__spi_8c.html#a8efb9a3607aa1a84c740e047a92072fc":[8,0,0,14,4,0,27],
 "eeprom__spi_8c.html#a913d1d7b08ea8ec77414f8739eb6ff10":[8,0,0,14,4,0,30],
 "eeprom__spi_8c.html#a9680990d68ca0841074eb2addb32c117":[8,0,0,14,4,0,9],
-"eeprom__spi_8c.html#a9903c912e922baefe891aa7af42606b6":[8,0,0,14,4,0,4],
-"eeprom__spi_8c.html#aa639fbdf7be238a64da85c18f16c5528":[8,0,0,14,4,0,25],
-"eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5":[8,0,0,14,4,0,26],
-"eeprom__spi_8c.html#abc1ce764945e9fea6f64bf0d43579c47":[8,0,0,14,4,0,21],
-"eeprom__spi_8c.html#ac0724b19fa34940bffe5e6e99cc4c195":[8,0,0,14,4,0,13],
-"eeprom__spi_8c.html#ad5c13c2ec52102c8a39368c34db1f3b1":[8,0,0,14,4,0,18],
-"eeprom__spi_8c.html#adeb7071c816d4bc6f26e70a68417d1fd":[8,0,0,14,4,0,2],
-"eeprom__spi_8c.html#aeedc6f80f47efb34c48ce55e11d65372":[8,0,0,14,4,0,7],
-"eeprom__spi_8c.html#af1f0b098699ae6edb206041627c34287":[8,0,0,14,4,0,11],
-"eeprom__spi_8c.html#af9ef203fdaa7709c2c138a1af6e475b5":[8,0,0,14,4,0,12],
-"eeprom__spi_8c_source.html":[8,0,0,14,4,0]
+"eeprom__spi_8c.html#a9903c912e922baefe891aa7af42606b6":[8,0,0,14,4,0,4]
 };

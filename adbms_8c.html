@@ -119,39 +119,39 @@ $(function(){initNavTree('adbms_8c.html',''); initResizable(true); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad62809a8236f7d6e1f96e0e37bac639f" id="r_ad62809a8236f7d6e1f96e0e37bac639f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad62809a8236f7d6e1f96e0e37bac639f">adbms_init</a> (<a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *bms, <a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, uint8_t *tx_buf)</td></tr>
-<tr class="memdesc:ad62809a8236f7d6e1f96e0e37bac639f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the ADBMS driver instance and TX buffer.  <br /></td></tr>
-<tr class="separator:ad62809a8236f7d6e1f96e0e37bac639f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a538f6759e14f1243a46f610ea6d59d" id="r_a3a538f6759e14f1243a46f610ea6d59d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a538f6759e14f1243a46f610ea6d59d">adbms_write_rega</a> (<a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *bms)</td></tr>
-<tr class="memdesc:a3a538f6759e14f1243a46f610ea6d59d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate and write REGA configuration to all modules.  <br /></td></tr>
-<tr class="separator:a3a538f6759e14f1243a46f610ea6d59d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3189c003eb8192ebc3db0b411cb9418b" id="r_a3189c003eb8192ebc3db0b411cb9418b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3189c003eb8192ebc3db0b411cb9418b">adbms_write_regb</a> (<a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *bms)</td></tr>
-<tr class="memdesc:a3189c003eb8192ebc3db0b411cb9418b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate and write REGB configuration to all modules.  <br /></td></tr>
-<tr class="separator:a3189c003eb8192ebc3db0b411cb9418b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae82128c5fd91834fed232ae056b6a709" id="r_ae82128c5fd91834fed232ae056b6a709"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae82128c5fd91834fed232ae056b6a709">adbms_read_and_check_rega</a> (<a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *bms)</td></tr>
-<tr class="memdesc:ae82128c5fd91834fed232ae056b6a709"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read back REGA and compare with cached configuration.  <br /></td></tr>
-<tr class="separator:ae82128c5fd91834fed232ae056b6a709"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef51594258f6aa62e1b0eb7ae300d31a" id="r_aef51594258f6aa62e1b0eb7ae300d31a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef51594258f6aa62e1b0eb7ae300d31a">adbms_read_and_check_regb</a> (<a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *bms)</td></tr>
-<tr class="memdesc:aef51594258f6aa62e1b0eb7ae300d31a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read back REGB and compare with cached configuration.  <br /></td></tr>
-<tr class="separator:aef51594258f6aa62e1b0eb7ae300d31a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a278348b53c7d0cbf2be93b6d7da2df5c" id="r_a278348b53c7d0cbf2be93b6d7da2df5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a278348b53c7d0cbf2be93b6d7da2df5c">adbms_connect</a> (<a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *bms)</td></tr>
-<tr class="memdesc:a278348b53c7d0cbf2be93b6d7da2df5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform the connect/bring-up sequence for all modules.  <br /></td></tr>
-<tr class="separator:a278348b53c7d0cbf2be93b6d7da2df5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5be37f270a1c8d7590cc0af1b8fe7638" id="r_a5be37f270a1c8d7590cc0af1b8fe7638"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5be37f270a1c8d7590cc0af1b8fe7638">adbms_calculate_balance_cells</a> (<a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *bms, float min_voltage, float min_delta)</td></tr>
-<tr class="memdesc:a5be37f270a1c8d7590cc0af1b8fe7638"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute per-cell discharge flags based on pack voltage spread.  <br /></td></tr>
-<tr class="separator:a5be37f270a1c8d7590cc0af1b8fe7638"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5fff8f6d72368477ffb049fa0a2d4e9e" id="r_a5fff8f6d72368477ffb049fa0a2d4e9e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5fff8f6d72368477ffb049fa0a2d4e9e">adbms_balance_and_update_regb</a> (<a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *bms, float min_voltage, float min_delta)</td></tr>
-<tr class="memdesc:a5fff8f6d72368477ffb049fa0a2d4e9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute discharge flags and write REGB to apply balancing.  <br /></td></tr>
-<tr class="separator:a5fff8f6d72368477ffb049fa0a2d4e9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64eadef4e97bed94ccf31cb321e9d266" id="r_a64eadef4e97bed94ccf31cb321e9d266"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64eadef4e97bed94ccf31cb321e9d266">adbms_read_cells</a> (<a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *bms)</td></tr>
-<tr class="memdesc:a64eadef4e97bed94ccf31cb321e9d266"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read all cell voltages and update module/pack statistics.  <br /></td></tr>
-<tr class="separator:a64eadef4e97bed94ccf31cb321e9d266"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab98874e559d99731fe71bec8576e53c0" id="r_ab98874e559d99731fe71bec8576e53c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab98874e559d99731fe71bec8576e53c0">adbms_read_therms</a> (<a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *bms)</td></tr>
-<tr class="memdesc:ab98874e559d99731fe71bec8576e53c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read all GPIO/thermistor values (voltage and calculate temperature) and update module/pack statistics.  <br /></td></tr>
-<tr class="separator:ab98874e559d99731fe71bec8576e53c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9f13a6991a321db50eaf3d633a3bb31" id="r_aa9f13a6991a321db50eaf3d633a3bb31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9f13a6991a321db50eaf3d633a3bb31">adbms_periodic</a> (<a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *bms, float min_voltage_for_balance, float min_delta_for_balance)</td></tr>
-<tr class="memdesc:aa9f13a6991a321db50eaf3d633a3bb31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Periodic service routine for connection, measurements, and balancing.  <br /></td></tr>
-<tr class="separator:aa9f13a6991a321db50eaf3d633a3bb31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cc683403abbabe7a848dd389b42489a" id="r_a5cc683403abbabe7a848dd389b42489a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5cc683403abbabe7a848dd389b42489a">adbms_init</a> (<a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *bms, <a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, uint8_t *tx_buf)</td></tr>
+<tr class="memdesc:a5cc683403abbabe7a848dd389b42489a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the ADBMS driver instance and TX buffer.  <br /></td></tr>
+<tr class="separator:a5cc683403abbabe7a848dd389b42489a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ceab739f8b66723399246ee5b0e7e8d" id="r_a6ceab739f8b66723399246ee5b0e7e8d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ceab739f8b66723399246ee5b0e7e8d">adbms_write_rega</a> (<a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *bms)</td></tr>
+<tr class="memdesc:a6ceab739f8b66723399246ee5b0e7e8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate and write REGA configuration to all modules.  <br /></td></tr>
+<tr class="separator:a6ceab739f8b66723399246ee5b0e7e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a1de4cc72e92ed7719f251886fad5e4" id="r_a3a1de4cc72e92ed7719f251886fad5e4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a1de4cc72e92ed7719f251886fad5e4">adbms_write_regb</a> (<a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *bms)</td></tr>
+<tr class="memdesc:a3a1de4cc72e92ed7719f251886fad5e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate and write REGB configuration to all modules.  <br /></td></tr>
+<tr class="separator:a3a1de4cc72e92ed7719f251886fad5e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68601bac2f608a0cb78fa1f018c22b1d" id="r_a68601bac2f608a0cb78fa1f018c22b1d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68601bac2f608a0cb78fa1f018c22b1d">adbms_read_and_check_rega</a> (<a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *bms)</td></tr>
+<tr class="memdesc:a68601bac2f608a0cb78fa1f018c22b1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read back REGA and compare with cached configuration.  <br /></td></tr>
+<tr class="separator:a68601bac2f608a0cb78fa1f018c22b1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac10a3c0ceb09b1955434d8fc35cf8400" id="r_ac10a3c0ceb09b1955434d8fc35cf8400"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac10a3c0ceb09b1955434d8fc35cf8400">adbms_read_and_check_regb</a> (<a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *bms)</td></tr>
+<tr class="memdesc:ac10a3c0ceb09b1955434d8fc35cf8400"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read back REGB and compare with cached configuration.  <br /></td></tr>
+<tr class="separator:ac10a3c0ceb09b1955434d8fc35cf8400"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27e3061d92f6ec452342978af2616bd8" id="r_a27e3061d92f6ec452342978af2616bd8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27e3061d92f6ec452342978af2616bd8">adbms_connect</a> (<a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *bms)</td></tr>
+<tr class="memdesc:a27e3061d92f6ec452342978af2616bd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform the connect/bring-up sequence for all modules.  <br /></td></tr>
+<tr class="separator:a27e3061d92f6ec452342978af2616bd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2824a26859b556b5b6935bf933f931c2" id="r_a2824a26859b556b5b6935bf933f931c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2824a26859b556b5b6935bf933f931c2">adbms_calculate_balance_cells</a> (<a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *bms, float min_voltage, float min_delta)</td></tr>
+<tr class="memdesc:a2824a26859b556b5b6935bf933f931c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute per-cell discharge flags based on pack voltage spread.  <br /></td></tr>
+<tr class="separator:a2824a26859b556b5b6935bf933f931c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab002d432c17c600b7ab08560de287272" id="r_ab002d432c17c600b7ab08560de287272"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab002d432c17c600b7ab08560de287272">adbms_balance_and_update_regb</a> (<a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *bms, float min_voltage, float min_delta)</td></tr>
+<tr class="memdesc:ab002d432c17c600b7ab08560de287272"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute discharge flags and write REGB to apply balancing.  <br /></td></tr>
+<tr class="separator:ab002d432c17c600b7ab08560de287272"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94fb74abf77c3ba46fb8e3babb734939" id="r_a94fb74abf77c3ba46fb8e3babb734939"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a94fb74abf77c3ba46fb8e3babb734939">adbms_read_cells</a> (<a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *bms)</td></tr>
+<tr class="memdesc:a94fb74abf77c3ba46fb8e3babb734939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read all cell voltages and update module/pack statistics.  <br /></td></tr>
+<tr class="separator:a94fb74abf77c3ba46fb8e3babb734939"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26b82e2eae1b0d9c34d5666901f29bce" id="r_a26b82e2eae1b0d9c34d5666901f29bce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26b82e2eae1b0d9c34d5666901f29bce">adbms_read_therms</a> (<a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *bms)</td></tr>
+<tr class="memdesc:a26b82e2eae1b0d9c34d5666901f29bce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read all GPIO/thermistor values (voltage and calculate temperature) and update module/pack statistics.  <br /></td></tr>
+<tr class="separator:a26b82e2eae1b0d9c34d5666901f29bce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a1de1018dba58040d4cab70ead2ca28" id="r_a0a1de1018dba58040d4cab70ead2ca28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a1de1018dba58040d4cab70ead2ca28">adbms_periodic</a> (<a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *bms, float min_voltage_for_balance, float min_delta_for_balance)</td></tr>
+<tr class="memdesc:a0a1de1018dba58040d4cab70ead2ca28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Periodic service routine for connection, measurements, and balancing.  <br /></td></tr>
+<tr class="separator:a0a1de1018dba58040d4cab70ead2ca28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Primary logic and interface for ADBMS battery management system driver. </p>
@@ -159,8 +159,8 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a5fff8f6d72368477ffb049fa0a2d4e9e" name="a5fff8f6d72368477ffb049fa0a2d4e9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5fff8f6d72368477ffb049fa0a2d4e9e">&#9670;&#160;</a></span>adbms_balance_and_update_regb()</h2>
+<a id="ab002d432c17c600b7ab08560de287272" name="ab002d432c17c600b7ab08560de287272"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab002d432c17c600b7ab08560de287272">&#9670;&#160;</a></span>adbms_balance_and_update_regb()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -168,7 +168,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void adbms_balance_and_update_regb </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span>, </td>
+          <td class="paramtype"><a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -184,7 +184,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Compute discharge flags and write REGB to apply balancing. </p>
-<p>Calls <a class="el" href="adbms_8h.html#a5be37f270a1c8d7590cc0af1b8fe7638" title="Compute per-cell discharge flags based on pack voltage spread.">adbms_calculate_balance_cells()</a>, writes REGB, and verifies it.</p>
+<p>Calls <a class="el" href="adbms_8h.html#a2824a26859b556b5b6935bf933f931c2" title="Compute per-cell discharge flags based on pack voltage spread.">adbms_calculate_balance_cells()</a>, writes REGB, and verifies it.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bms</td><td>Pointer to driver state. </td></tr>
@@ -194,16 +194,16 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00207">207</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00244">244</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
 
-<p class="reference">References <a class="el" href="adbms_8c_source.html#l00174">adbms_calculate_balance_cells()</a>, <a class="el" href="adbms_8c_source.html#l00108">adbms_read_and_check_regb()</a>, <a class="el" href="adbms_8h_source.html#l00054">ADBMS_STATE_IDLE</a>, <a class="el" href="adbms_8c_source.html#l00066">adbms_write_regb()</a>, and <a class="el" href="adbms_8h_source.html#l00107">ADBMS_bms_t::state</a>.</p>
+<p class="reference">References <a class="el" href="adbms_8c_source.html#l00211">adbms_calculate_balance_cells()</a>, <a class="el" href="adbms_8c_source.html#l00131">adbms_read_and_check_regb()</a>, <a class="el" href="adbms_8h_source.html#l00054">ADBMS_STATE_IDLE</a>, <a class="el" href="adbms_8c_source.html#l00075">adbms_write_regb()</a>, and <a class="el" href="adbms_8h_source.html#l00107">adbms_bms_t::state</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00343">adbms_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00384">adbms_periodic()</a>.</p>
 
 </div>
 </div>
-<a id="a5be37f270a1c8d7590cc0af1b8fe7638" name="a5be37f270a1c8d7590cc0af1b8fe7638"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5be37f270a1c8d7590cc0af1b8fe7638">&#9670;&#160;</a></span>adbms_calculate_balance_cells()</h2>
+<a id="a2824a26859b556b5b6935bf933f931c2" name="a2824a26859b556b5b6935bf933f931c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2824a26859b556b5b6935bf933f931c2">&#9670;&#160;</a></span>adbms_calculate_balance_cells()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,7 +211,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void adbms_calculate_balance_cells </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span>, </td>
+          <td class="paramtype"><a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -237,16 +237,16 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00174">174</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00211">211</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
 
-<p class="reference">References <a class="el" href="adbms6380_8h_source.html#l00019">ADBMS6380_CELL_COUNT</a>, <a class="el" href="adbms_8h_source.html#l00023">ADBMS_MODULE_COUNT</a>, <a class="el" href="adbms_8h_source.html#l00064">ADBMS_module_t::cell_voltages</a>, <a class="el" href="adbms_8h_source.html#l00129">ADBMS_bms_t::is_discharge_enabled</a>, <a class="el" href="adbms_8h_source.html#l00089">ADBMS_module_t::is_discharging</a>, <a class="el" href="adbms_8h_source.html#l00113">ADBMS_bms_t::min_voltage</a>, and <a class="el" href="adbms_8h_source.html#l00110">ADBMS_bms_t::modules</a>.</p>
+<p class="reference">References <a class="el" href="adbms6380_8h_source.html#l00019">ADBMS6380_CELL_COUNT</a>, <a class="el" href="adbms_8h_source.html#l00020">ADBMS_MODULE_COUNT</a>, <a class="el" href="adbms_8h_source.html#l00064">adbms_module_t::cell_voltages</a>, <a class="el" href="adbms_8h_source.html#l00129">adbms_bms_t::is_discharge_enabled</a>, <a class="el" href="adbms_8h_source.html#l00089">adbms_module_t::is_discharging</a>, <a class="el" href="adbms_8h_source.html#l00113">adbms_bms_t::min_voltage</a>, and <a class="el" href="adbms_8h_source.html#l00110">adbms_bms_t::modules</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00207">adbms_balance_and_update_regb()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00244">adbms_balance_and_update_regb()</a>.</p>
 
 </div>
 </div>
-<a id="a278348b53c7d0cbf2be93b6d7da2df5c" name="a278348b53c7d0cbf2be93b6d7da2df5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a278348b53c7d0cbf2be93b6d7da2df5c">&#9670;&#160;</a></span>adbms_connect()</h2>
+<a id="a27e3061d92f6ec452342978af2616bd8" name="a27e3061d92f6ec452342978af2616bd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27e3061d92f6ec452342978af2616bd8">&#9670;&#160;</a></span>adbms_connect()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -254,7 +254,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void adbms_connect </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -269,16 +269,16 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00128">128</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00165">165</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
 
-<p class="reference">References <a class="el" href="adbms6380_8c_source.html#l00055">adbms6380_adcv()</a>, <a class="el" href="adbms6380_8c_source.html#l00082">adbms6380_prepare_command()</a>, <a class="el" href="adbms6380_8c_source.html#l00025">adbms6380_set_cs_high()</a>, <a class="el" href="adbms6380_8c_source.html#l00021">adbms6380_set_cs_low()</a>, <a class="el" href="adbms_8h_source.html#l00041">ADBMS_ADCV_CONT</a>, <a class="el" href="adbms_8h_source.html#l00042">ADBMS_ADCV_DCP</a>, <a class="el" href="adbms_8h_source.html#l00044">ADBMS_ADCV_OW</a>, <a class="el" href="adbms_8h_source.html#l00040">ADBMS_ADCV_RD</a>, <a class="el" href="adbms_8h_source.html#l00043">ADBMS_ADCV_RSTF</a>, <a class="el" href="adbms_8c_source.html#l00088">adbms_read_and_check_rega()</a>, <a class="el" href="adbms_8c_source.html#l00108">adbms_read_and_check_regb()</a>, <a class="el" href="adbms_8h_source.html#l00056">ADBMS_STATE_CONNECTED</a>, <a class="el" href="adbms_8h_source.html#l00054">ADBMS_STATE_IDLE</a>, <a class="el" href="adbms_8c_source.html#l00046">adbms_write_rega()</a>, <a class="el" href="adbms_8c_source.html#l00066">adbms_write_regb()</a>, <a class="el" href="strbuf_8h_source.html#l00016">strbuf_t::data</a>, <a class="el" href="adbms_8h_source.html#l00141">ADBMS_bms_t::err_connect</a>, <a class="el" href="adbms_8h_source.html#l00139">ADBMS_bms_t::err_spi</a>, <a class="el" href="strbuf_8h_source.html#l00017">strbuf_t::length</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00087">PHAL_SPI_transfer_noDMA()</a>, <a class="el" href="adbms_8h_source.html#l00132">ADBMS_bms_t::spi</a>, <a class="el" href="adbms_8h_source.html#l00107">ADBMS_bms_t::state</a>, <a class="el" href="strbuf_8c_source.html#l00017">strbuf_clear()</a>, and <a class="el" href="adbms_8h_source.html#l00134">ADBMS_bms_t::tx_strbuf</a>.</p>
+<p class="reference">References <a class="el" href="adbms6380_8c_source.html#l00055">adbms6380_adcv()</a>, <a class="el" href="adbms6380_8c_source.html#l00082">adbms6380_prepare_command()</a>, <a class="el" href="adbms6380_8c_source.html#l00025">adbms6380_set_cs_high()</a>, <a class="el" href="adbms6380_8c_source.html#l00021">adbms6380_set_cs_low()</a>, <a class="el" href="adbms_8h_source.html#l00041">ADBMS_ADCV_CONT</a>, <a class="el" href="adbms_8h_source.html#l00042">ADBMS_ADCV_DCP</a>, <a class="el" href="adbms_8h_source.html#l00044">ADBMS_ADCV_OW</a>, <a class="el" href="adbms_8h_source.html#l00040">ADBMS_ADCV_RD</a>, <a class="el" href="adbms_8h_source.html#l00043">ADBMS_ADCV_RSTF</a>, <a class="el" href="adbms_8c_source.html#l00097">adbms_read_and_check_rega()</a>, <a class="el" href="adbms_8c_source.html#l00131">adbms_read_and_check_regb()</a>, <a class="el" href="adbms_8h_source.html#l00056">ADBMS_STATE_CONNECTED</a>, <a class="el" href="adbms_8h_source.html#l00054">ADBMS_STATE_IDLE</a>, <a class="el" href="adbms_8c_source.html#l00055">adbms_write_rega()</a>, <a class="el" href="adbms_8c_source.html#l00075">adbms_write_regb()</a>, <a class="el" href="strbuf_8h_source.html#l00016">strbuf_t::data</a>, <a class="el" href="adbms_8h_source.html#l00141">adbms_bms_t::err_connect</a>, <a class="el" href="adbms_8h_source.html#l00139">adbms_bms_t::err_spi</a>, <a class="el" href="strbuf_8h_source.html#l00017">strbuf_t::length</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00087">PHAL_SPI_transfer_noDMA()</a>, <a class="el" href="adbms_8h_source.html#l00132">adbms_bms_t::spi</a>, <a class="el" href="adbms_8h_source.html#l00107">adbms_bms_t::state</a>, <a class="el" href="strbuf_8c_source.html#l00017">strbuf_clear()</a>, and <a class="el" href="adbms_8h_source.html#l00134">adbms_bms_t::tx_strbuf</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00343">adbms_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00384">adbms_periodic()</a>.</p>
 
 </div>
 </div>
-<a id="ad62809a8236f7d6e1f96e0e37bac639f" name="ad62809a8236f7d6e1f96e0e37bac639f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad62809a8236f7d6e1f96e0e37bac639f">&#9670;&#160;</a></span>adbms_init()</h2>
+<a id="a5cc683403abbabe7a848dd389b42489a" name="a5cc683403abbabe7a848dd389b42489a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cc683403abbabe7a848dd389b42489a">&#9670;&#160;</a></span>adbms_init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -286,7 +286,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void adbms_init </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span>, </td>
+          <td class="paramtype"><a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -302,7 +302,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialize the ADBMS driver instance and TX buffer. </p>
-<p>Sets the driver state to idle, clears discharge flags, and sets the provided SPI config and TX buffer into the internal strbuf.</p>
+<p>Sets the driver state to idle, clears discharge flags (and discharged enabled), and sets the provided SPI config and TX buffer into the internal strbuf.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bms</td><td>Pointer to driver state to initialize. </td></tr>
@@ -314,14 +314,14 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00021">21</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
 
-<p class="reference">References <a class="el" href="adbms6380_8h_source.html#l00019">ADBMS6380_CELL_COUNT</a>, <a class="el" href="adbms_8h_source.html#l00023">ADBMS_MODULE_COUNT</a>, <a class="el" href="adbms_8h_source.html#l00031">ADBMS_SPI_TX_BUFFER_SIZE</a>, <a class="el" href="adbms_8h_source.html#l00054">ADBMS_STATE_IDLE</a>, <a class="el" href="adbms_8h_source.html#l00141">ADBMS_bms_t::err_connect</a>, <a class="el" href="adbms_8h_source.html#l00143">ADBMS_bms_t::err_rega_mismatch</a>, <a class="el" href="adbms_8h_source.html#l00097">ADBMS_module_t::err_rega_mismatch</a>, <a class="el" href="adbms_8h_source.html#l00145">ADBMS_bms_t::err_regb_mismatch</a>, <a class="el" href="adbms_8h_source.html#l00099">ADBMS_module_t::err_regb_mismatch</a>, <a class="el" href="adbms_8h_source.html#l00139">ADBMS_bms_t::err_spi</a>, <a class="el" href="adbms_8h_source.html#l00129">ADBMS_bms_t::is_discharge_enabled</a>, <a class="el" href="adbms_8h_source.html#l00089">ADBMS_module_t::is_discharging</a>, <a class="el" href="adbms_8h_source.html#l00110">ADBMS_bms_t::modules</a>, <a class="el" href="adbms_8h_source.html#l00132">ADBMS_bms_t::spi</a>, <a class="el" href="adbms_8h_source.html#l00107">ADBMS_bms_t::state</a>, and <a class="el" href="adbms_8h_source.html#l00134">ADBMS_bms_t::tx_strbuf</a>.</p>
+<p class="reference">References <a class="el" href="adbms6380_8h_source.html#l00019">ADBMS6380_CELL_COUNT</a>, <a class="el" href="adbms6380_8h_source.html#l00040">ADBMS6380_RDAUX_CMD_COUNT</a>, <a class="el" href="adbms6380_8h_source.html#l00036">ADBMS6380_RDCV_CMD_COUNT</a>, <a class="el" href="adbms_8h_source.html#l00020">ADBMS_MODULE_COUNT</a>, <a class="el" href="adbms_8h_source.html#l00031">ADBMS_SPI_TX_BUFFER_SIZE</a>, <a class="el" href="adbms_8h_source.html#l00054">ADBMS_STATE_IDLE</a>, <a class="el" href="adbms_8h_source.html#l00152">adbms_bms_t::err_cell_voltage_pecs</a>, <a class="el" href="adbms_8h_source.html#l00141">adbms_bms_t::err_connect</a>, <a class="el" href="adbms_8h_source.html#l00154">adbms_bms_t::err_gpio_voltage_pecs</a>, <a class="el" href="adbms_8h_source.html#l00143">adbms_bms_t::err_rega_mismatch</a>, <a class="el" href="adbms_8h_source.html#l00097">adbms_module_t::err_rega_mismatch</a>, <a class="el" href="adbms_8h_source.html#l00148">adbms_bms_t::err_rega_pec</a>, <a class="el" href="adbms_8h_source.html#l00145">adbms_bms_t::err_regb_mismatch</a>, <a class="el" href="adbms_8h_source.html#l00099">adbms_module_t::err_regb_mismatch</a>, <a class="el" href="adbms_8h_source.html#l00150">adbms_bms_t::err_regb_pec</a>, <a class="el" href="adbms_8h_source.html#l00139">adbms_bms_t::err_spi</a>, <a class="el" href="adbms_8h_source.html#l00129">adbms_bms_t::is_discharge_enabled</a>, <a class="el" href="adbms_8h_source.html#l00089">adbms_module_t::is_discharging</a>, <a class="el" href="adbms_8h_source.html#l00110">adbms_bms_t::modules</a>, <a class="el" href="adbms_8h_source.html#l00132">adbms_bms_t::spi</a>, <a class="el" href="adbms_8h_source.html#l00107">adbms_bms_t::state</a>, and <a class="el" href="adbms_8h_source.html#l00134">adbms_bms_t::tx_strbuf</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="a__box_2main_8c_source.html#l00083">main()</a>.</p>
 
 </div>
 </div>
-<a id="aa9f13a6991a321db50eaf3d633a3bb31" name="aa9f13a6991a321db50eaf3d633a3bb31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9f13a6991a321db50eaf3d633a3bb31">&#9670;&#160;</a></span>adbms_periodic()</h2>
+<a id="a0a1de1018dba58040d4cab70ead2ca28" name="a0a1de1018dba58040d4cab70ead2ca28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a1de1018dba58040d4cab70ead2ca28">&#9670;&#160;</a></span>adbms_periodic()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -329,7 +329,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void adbms_periodic </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span>, </td>
+          <td class="paramtype"><a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -355,16 +355,16 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00343">343</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00384">384</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
 
-<p class="reference">References <a class="el" href="adbms6380_8c_source.html#l00029">adbms6380_wake()</a>, <a class="el" href="adbms_8c_source.html#l00207">adbms_balance_and_update_regb()</a>, <a class="el" href="adbms_8c_source.html#l00128">adbms_connect()</a>, <a class="el" href="adbms_8h_source.html#l00023">ADBMS_MODULE_COUNT</a>, <a class="el" href="adbms_8c_source.html#l00220">adbms_read_cells()</a>, <a class="el" href="adbms_8c_source.html#l00270">adbms_read_therms()</a>, <a class="el" href="adbms_8h_source.html#l00056">ADBMS_STATE_CONNECTED</a>, <a class="el" href="adbms_8h_source.html#l00054">ADBMS_STATE_IDLE</a>, <a class="el" href="adbms_8h_source.html#l00132">ADBMS_bms_t::spi</a>, and <a class="el" href="adbms_8h_source.html#l00107">ADBMS_bms_t::state</a>.</p>
+<p class="reference">References <a class="el" href="adbms6380_8c_source.html#l00029">adbms6380_wake()</a>, <a class="el" href="adbms_8c_source.html#l00244">adbms_balance_and_update_regb()</a>, <a class="el" href="adbms_8c_source.html#l00165">adbms_connect()</a>, <a class="el" href="adbms_8h_source.html#l00020">ADBMS_MODULE_COUNT</a>, <a class="el" href="adbms_8c_source.html#l00257">adbms_read_cells()</a>, <a class="el" href="adbms_8c_source.html#l00309">adbms_read_therms()</a>, <a class="el" href="adbms_8h_source.html#l00056">ADBMS_STATE_CONNECTED</a>, <a class="el" href="adbms_8h_source.html#l00054">ADBMS_STATE_IDLE</a>, <a class="el" href="adbms_8h_source.html#l00132">adbms_bms_t::spi</a>, and <a class="el" href="adbms_8h_source.html#l00107">adbms_bms_t::state</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="a__box_2main_8c_source.html#l00122">g_bms_periodic()</a>.</p>
 
 </div>
 </div>
-<a id="ae82128c5fd91834fed232ae056b6a709" name="ae82128c5fd91834fed232ae056b6a709"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae82128c5fd91834fed232ae056b6a709">&#9670;&#160;</a></span>adbms_read_and_check_rega()</h2>
+<a id="a68601bac2f608a0cb78fa1f018c22b1d" name="a68601bac2f608a0cb78fa1f018c22b1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68601bac2f608a0cb78fa1f018c22b1d">&#9670;&#160;</a></span>adbms_read_and_check_rega()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -372,7 +372,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool adbms_read_and_check_rega </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -386,18 +386,18 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>False on SPI failure and when there is a mismatch; true otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>False on SPI failure, PEC error, or when there is a mismatch; true otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00088">88</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00097">97</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
 
-<p class="reference">References <a class="el" href="adbms6380_8c_source.html#l00082">adbms6380_prepare_command()</a>, <a class="el" href="adbms6380_8c_source.html#l00146">adbms6380_read_data()</a>, <a class="el" href="adbms6380_8h_source.html#l00032">ADBMS6380_SINGLE_DATA_PKT_SIZE</a>, <a class="el" href="adbms6380_8h_source.html#l00030">ADBMS6380_SINGLE_DATA_RAW_SIZE</a>, <a class="el" href="adbms_8h_source.html#l00023">ADBMS_MODULE_COUNT</a>, <a class="el" href="strbuf_8h_source.html#l00016">strbuf_t::data</a>, <a class="el" href="adbms_8h_source.html#l00143">ADBMS_bms_t::err_rega_mismatch</a>, <a class="el" href="adbms_8h_source.html#l00097">ADBMS_module_t::err_rega_mismatch</a>, <a class="el" href="adbms_8h_source.html#l00139">ADBMS_bms_t::err_spi</a>, <a class="el" href="adbms_8h_source.html#l00110">ADBMS_bms_t::modules</a>, <a class="el" href="commands_8c_source.html#l00015">RDCFGA</a>, <a class="el" href="adbms_8h_source.html#l00092">ADBMS_module_t::rega</a>, <a class="el" href="adbms_8h_source.html#l00136">ADBMS_bms_t::rx_buf</a>, <a class="el" href="adbms_8h_source.html#l00132">ADBMS_bms_t::spi</a>, <a class="el" href="strbuf_8c_source.html#l00017">strbuf_clear()</a>, and <a class="el" href="adbms_8h_source.html#l00134">ADBMS_bms_t::tx_strbuf</a>.</p>
+<p class="reference">References <a class="el" href="adbms6380_8c_source.html#l00082">adbms6380_prepare_command()</a>, <a class="el" href="adbms6380_8c_source.html#l00189">adbms6380_read_data_with_retries()</a>, <a class="el" href="adbms6380_8h_source.html#l00057">ADBMS6380_READ_PEC_FAILURE</a>, <a class="el" href="adbms6380_8h_source.html#l00058">ADBMS6380_READ_SPI_FAILURE</a>, <a class="el" href="adbms6380_8h_source.html#l00056">ADBMS6380_READ_SUCCESS</a>, <a class="el" href="adbms6380_8h_source.html#l00032">ADBMS6380_SINGLE_DATA_PKT_SIZE</a>, <a class="el" href="adbms6380_8h_source.html#l00030">ADBMS6380_SINGLE_DATA_RAW_SIZE</a>, <a class="el" href="adbms_8h_source.html#l00020">ADBMS_MODULE_COUNT</a>, <a class="el" href="adbms_8h_source.html#l00023">ADBMS_PEC_FAIL_MAX_RETRIES</a>, <a class="el" href="strbuf_8h_source.html#l00016">strbuf_t::data</a>, <a class="el" href="adbms_8h_source.html#l00143">adbms_bms_t::err_rega_mismatch</a>, <a class="el" href="adbms_8h_source.html#l00097">adbms_module_t::err_rega_mismatch</a>, <a class="el" href="adbms_8h_source.html#l00148">adbms_bms_t::err_rega_pec</a>, <a class="el" href="adbms_8h_source.html#l00139">adbms_bms_t::err_spi</a>, <a class="el" href="adbms_8h_source.html#l00110">adbms_bms_t::modules</a>, <a class="el" href="commands_8c_source.html#l00015">RDCFGA</a>, <a class="el" href="adbms_8h_source.html#l00092">adbms_module_t::rega</a>, <a class="el" href="adbms_8h_source.html#l00136">adbms_bms_t::rx_buf</a>, <a class="el" href="adbms_8h_source.html#l00132">adbms_bms_t::spi</a>, <a class="el" href="strbuf_8c_source.html#l00017">strbuf_clear()</a>, and <a class="el" href="adbms_8h_source.html#l00134">adbms_bms_t::tx_strbuf</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00128">adbms_connect()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00165">adbms_connect()</a>.</p>
 
 </div>
 </div>
-<a id="aef51594258f6aa62e1b0eb7ae300d31a" name="aef51594258f6aa62e1b0eb7ae300d31a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef51594258f6aa62e1b0eb7ae300d31a">&#9670;&#160;</a></span>adbms_read_and_check_regb()</h2>
+<a id="ac10a3c0ceb09b1955434d8fc35cf8400" name="ac10a3c0ceb09b1955434d8fc35cf8400"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac10a3c0ceb09b1955434d8fc35cf8400">&#9670;&#160;</a></span>adbms_read_and_check_regb()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -405,7 +405,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool adbms_read_and_check_regb </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -419,18 +419,18 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>False on SPI failure and when there is a mismatch; true otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>False on SPI failure, PEC error, or when there is a mismatch; true otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00108">108</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00131">131</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
 
-<p class="reference">References <a class="el" href="adbms6380_8c_source.html#l00082">adbms6380_prepare_command()</a>, <a class="el" href="adbms6380_8c_source.html#l00146">adbms6380_read_data()</a>, <a class="el" href="adbms6380_8h_source.html#l00032">ADBMS6380_SINGLE_DATA_PKT_SIZE</a>, <a class="el" href="adbms6380_8h_source.html#l00030">ADBMS6380_SINGLE_DATA_RAW_SIZE</a>, <a class="el" href="adbms_8h_source.html#l00023">ADBMS_MODULE_COUNT</a>, <a class="el" href="strbuf_8h_source.html#l00016">strbuf_t::data</a>, <a class="el" href="adbms_8h_source.html#l00145">ADBMS_bms_t::err_regb_mismatch</a>, <a class="el" href="adbms_8h_source.html#l00099">ADBMS_module_t::err_regb_mismatch</a>, <a class="el" href="adbms_8h_source.html#l00139">ADBMS_bms_t::err_spi</a>, <a class="el" href="adbms_8h_source.html#l00110">ADBMS_bms_t::modules</a>, <a class="el" href="commands_8c_source.html#l00016">RDCFGB</a>, <a class="el" href="adbms_8h_source.html#l00094">ADBMS_module_t::regb</a>, <a class="el" href="adbms_8h_source.html#l00136">ADBMS_bms_t::rx_buf</a>, <a class="el" href="adbms_8h_source.html#l00132">ADBMS_bms_t::spi</a>, <a class="el" href="strbuf_8c_source.html#l00017">strbuf_clear()</a>, and <a class="el" href="adbms_8h_source.html#l00134">ADBMS_bms_t::tx_strbuf</a>.</p>
+<p class="reference">References <a class="el" href="adbms6380_8c_source.html#l00082">adbms6380_prepare_command()</a>, <a class="el" href="adbms6380_8c_source.html#l00189">adbms6380_read_data_with_retries()</a>, <a class="el" href="adbms6380_8h_source.html#l00057">ADBMS6380_READ_PEC_FAILURE</a>, <a class="el" href="adbms6380_8h_source.html#l00058">ADBMS6380_READ_SPI_FAILURE</a>, <a class="el" href="adbms6380_8h_source.html#l00056">ADBMS6380_READ_SUCCESS</a>, <a class="el" href="adbms6380_8h_source.html#l00032">ADBMS6380_SINGLE_DATA_PKT_SIZE</a>, <a class="el" href="adbms6380_8h_source.html#l00030">ADBMS6380_SINGLE_DATA_RAW_SIZE</a>, <a class="el" href="adbms_8h_source.html#l00020">ADBMS_MODULE_COUNT</a>, <a class="el" href="adbms_8h_source.html#l00023">ADBMS_PEC_FAIL_MAX_RETRIES</a>, <a class="el" href="strbuf_8h_source.html#l00016">strbuf_t::data</a>, <a class="el" href="adbms_8h_source.html#l00145">adbms_bms_t::err_regb_mismatch</a>, <a class="el" href="adbms_8h_source.html#l00099">adbms_module_t::err_regb_mismatch</a>, <a class="el" href="adbms_8h_source.html#l00150">adbms_bms_t::err_regb_pec</a>, <a class="el" href="adbms_8h_source.html#l00139">adbms_bms_t::err_spi</a>, <a class="el" href="adbms_8h_source.html#l00110">adbms_bms_t::modules</a>, <a class="el" href="commands_8c_source.html#l00016">RDCFGB</a>, <a class="el" href="adbms_8h_source.html#l00094">adbms_module_t::regb</a>, <a class="el" href="adbms_8h_source.html#l00136">adbms_bms_t::rx_buf</a>, <a class="el" href="adbms_8h_source.html#l00132">adbms_bms_t::spi</a>, <a class="el" href="strbuf_8c_source.html#l00017">strbuf_clear()</a>, and <a class="el" href="adbms_8h_source.html#l00134">adbms_bms_t::tx_strbuf</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00207">adbms_balance_and_update_regb()</a>, and <a class="el" href="adbms_8c_source.html#l00128">adbms_connect()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00244">adbms_balance_and_update_regb()</a>, and <a class="el" href="adbms_8c_source.html#l00165">adbms_connect()</a>.</p>
 
 </div>
 </div>
-<a id="a64eadef4e97bed94ccf31cb321e9d266" name="a64eadef4e97bed94ccf31cb321e9d266"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64eadef4e97bed94ccf31cb321e9d266">&#9670;&#160;</a></span>adbms_read_cells()</h2>
+<a id="a94fb74abf77c3ba46fb8e3babb734939" name="a94fb74abf77c3ba46fb8e3babb734939"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94fb74abf77c3ba46fb8e3babb734939">&#9670;&#160;</a></span>adbms_read_cells()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -438,7 +438,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void adbms_read_cells </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -453,16 +453,16 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00220">220</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00257">257</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
 
-<p class="reference">References <a class="el" href="adbms6380_8h_source.html#l00019">ADBMS6380_CELL_COUNT</a>, <a class="el" href="adbms6380_8c_source.html#l00175">adbms6380_read_cell_voltages()</a>, <a class="el" href="adbms_8h_source.html#l00023">ADBMS_MODULE_COUNT</a>, <a class="el" href="adbms_8h_source.html#l00054">ADBMS_STATE_IDLE</a>, <a class="el" href="adbms_8h_source.html#l00117">ADBMS_bms_t::avg_voltage</a>, <a class="el" href="adbms_8h_source.html#l00072">ADBMS_module_t::avg_voltage</a>, <a class="el" href="adbms_8h_source.html#l00064">ADBMS_module_t::cell_voltages</a>, <a class="el" href="adbms_8h_source.html#l00066">ADBMS_module_t::cell_voltages_raw</a>, <a class="el" href="adbms_8h_source.html#l00139">ADBMS_bms_t::err_spi</a>, <a class="el" href="adbms_8h_source.html#l00115">ADBMS_bms_t::max_voltage</a>, <a class="el" href="adbms_8h_source.html#l00070">ADBMS_module_t::max_voltage</a>, <a class="el" href="adbms_8h_source.html#l00113">ADBMS_bms_t::min_voltage</a>, <a class="el" href="adbms_8h_source.html#l00068">ADBMS_module_t::min_voltage</a>, <a class="el" href="adbms_8h_source.html#l00110">ADBMS_bms_t::modules</a>, <a class="el" href="adbms_8h_source.html#l00136">ADBMS_bms_t::rx_buf</a>, <a class="el" href="adbms_8h_source.html#l00132">ADBMS_bms_t::spi</a>, <a class="el" href="adbms_8h_source.html#l00107">ADBMS_bms_t::state</a>, <a class="el" href="adbms_8h_source.html#l00119">ADBMS_bms_t::sum_voltage</a>, <a class="el" href="adbms_8h_source.html#l00074">ADBMS_module_t::sum_voltage</a>, and <a class="el" href="adbms_8h_source.html#l00134">ADBMS_bms_t::tx_strbuf</a>.</p>
+<p class="reference">References <a class="el" href="adbms6380_8h_source.html#l00019">ADBMS6380_CELL_COUNT</a>, <a class="el" href="adbms6380_8c_source.html#l00223">adbms6380_read_cell_voltages()</a>, <a class="el" href="adbms_8h_source.html#l00020">ADBMS_MODULE_COUNT</a>, <a class="el" href="adbms_8h_source.html#l00023">ADBMS_PEC_FAIL_MAX_RETRIES</a>, <a class="el" href="adbms_8h_source.html#l00054">ADBMS_STATE_IDLE</a>, <a class="el" href="adbms_8h_source.html#l00117">adbms_bms_t::avg_voltage</a>, <a class="el" href="adbms_8h_source.html#l00072">adbms_module_t::avg_voltage</a>, <a class="el" href="adbms_8h_source.html#l00064">adbms_module_t::cell_voltages</a>, <a class="el" href="adbms_8h_source.html#l00066">adbms_module_t::cell_voltages_raw</a>, <a class="el" href="adbms_8h_source.html#l00152">adbms_bms_t::err_cell_voltage_pecs</a>, <a class="el" href="adbms_8h_source.html#l00139">adbms_bms_t::err_spi</a>, <a class="el" href="adbms_8h_source.html#l00115">adbms_bms_t::max_voltage</a>, <a class="el" href="adbms_8h_source.html#l00070">adbms_module_t::max_voltage</a>, <a class="el" href="adbms_8h_source.html#l00113">adbms_bms_t::min_voltage</a>, <a class="el" href="adbms_8h_source.html#l00068">adbms_module_t::min_voltage</a>, <a class="el" href="adbms_8h_source.html#l00110">adbms_bms_t::modules</a>, <a class="el" href="adbms_8h_source.html#l00136">adbms_bms_t::rx_buf</a>, <a class="el" href="adbms_8h_source.html#l00132">adbms_bms_t::spi</a>, <a class="el" href="adbms_8h_source.html#l00107">adbms_bms_t::state</a>, <a class="el" href="adbms_8h_source.html#l00119">adbms_bms_t::sum_voltage</a>, <a class="el" href="adbms_8h_source.html#l00074">adbms_module_t::sum_voltage</a>, and <a class="el" href="adbms_8h_source.html#l00134">adbms_bms_t::tx_strbuf</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00343">adbms_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00384">adbms_periodic()</a>.</p>
 
 </div>
 </div>
-<a id="ab98874e559d99731fe71bec8576e53c0" name="ab98874e559d99731fe71bec8576e53c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab98874e559d99731fe71bec8576e53c0">&#9670;&#160;</a></span>adbms_read_therms()</h2>
+<a id="a26b82e2eae1b0d9c34d5666901f29bce" name="a26b82e2eae1b0d9c34d5666901f29bce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26b82e2eae1b0d9c34d5666901f29bce">&#9670;&#160;</a></span>adbms_read_therms()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -470,7 +470,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void adbms_read_therms </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -485,16 +485,16 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00270">270</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00309">309</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
 
-<p class="reference">References <a class="el" href="adbms6380_8c_source.html#l00076">adbms6380_adax()</a>, <a class="el" href="adbms6380_8h_source.html#l00021">ADBMS6380_GPIO_COUNT</a>, <a class="el" href="adbms6380_8c_source.html#l00082">adbms6380_prepare_command()</a>, <a class="el" href="adbms6380_8c_source.html#l00214">adbms6380_read_gpio_voltages()</a>, <a class="el" href="adbms6380_8c_source.html#l00025">adbms6380_set_cs_high()</a>, <a class="el" href="adbms6380_8c_source.html#l00021">adbms6380_set_cs_low()</a>, <a class="el" href="adbms_8h_source.html#l00047">ADBMS_ADAX_CH</a>, <a class="el" href="adbms_8h_source.html#l00045">ADBMS_ADAX_OW</a>, <a class="el" href="adbms_8h_source.html#l00046">ADBMS_ADAX_PUP</a>, <a class="el" href="adbms_8h_source.html#l00026">ADBMS_GPIO_R1</a>, <a class="el" href="adbms_8h_source.html#l00028">ADBMS_GPIO_VIN</a>, <a class="el" href="adbms_8h_source.html#l00023">ADBMS_MODULE_COUNT</a>, <a class="el" href="adbms_8h_source.html#l00054">ADBMS_STATE_IDLE</a>, <a class="el" href="adbms_8h_source.html#l00126">ADBMS_bms_t::avg_therm_temp</a>, <a class="el" href="adbms_8h_source.html#l00086">ADBMS_module_t::avg_therm_temp</a>, <a class="el" href="strbuf_8h_source.html#l00016">strbuf_t::data</a>, <a class="el" href="adbms_8h_source.html#l00139">ADBMS_bms_t::err_spi</a>, <a class="el" href="strbuf_8h_source.html#l00017">strbuf_t::length</a>, <a class="el" href="adbms_8h_source.html#l00124">ADBMS_bms_t::max_therm_temp</a>, <a class="el" href="adbms_8h_source.html#l00084">ADBMS_module_t::max_therm_temp</a>, <a class="el" href="adbms_8h_source.html#l00122">ADBMS_bms_t::min_therm_temp</a>, <a class="el" href="adbms_8h_source.html#l00082">ADBMS_module_t::min_therm_temp</a>, <a class="el" href="adbms_8h_source.html#l00110">ADBMS_bms_t::modules</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00087">PHAL_SPI_transfer_noDMA()</a>, <a class="el" href="adbms_8h_source.html#l00136">ADBMS_bms_t::rx_buf</a>, <a class="el" href="adbms_8h_source.html#l00132">ADBMS_bms_t::spi</a>, <a class="el" href="adbms_8h_source.html#l00107">ADBMS_bms_t::state</a>, <a class="el" href="strbuf_8c_source.html#l00017">strbuf_clear()</a>, <a class="el" href="thermistor_8h_source.html#l00017">thermistor_R_to_T()</a>, <a class="el" href="adbms_8h_source.html#l00079">ADBMS_module_t::therms_temps</a>, <a class="el" href="adbms_8h_source.html#l00077">ADBMS_module_t::therms_voltages</a>, and <a class="el" href="adbms_8h_source.html#l00134">ADBMS_bms_t::tx_strbuf</a>.</p>
+<p class="reference">References <a class="el" href="adbms6380_8c_source.html#l00076">adbms6380_adax()</a>, <a class="el" href="adbms6380_8h_source.html#l00021">ADBMS6380_GPIO_COUNT</a>, <a class="el" href="adbms6380_8c_source.html#l00082">adbms6380_prepare_command()</a>, <a class="el" href="adbms6380_8c_source.html#l00281">adbms6380_read_gpio_voltages()</a>, <a class="el" href="adbms6380_8c_source.html#l00025">adbms6380_set_cs_high()</a>, <a class="el" href="adbms6380_8c_source.html#l00021">adbms6380_set_cs_low()</a>, <a class="el" href="adbms_8h_source.html#l00047">ADBMS_ADAX_CH</a>, <a class="el" href="adbms_8h_source.html#l00045">ADBMS_ADAX_OW</a>, <a class="el" href="adbms_8h_source.html#l00046">ADBMS_ADAX_PUP</a>, <a class="el" href="adbms_8h_source.html#l00026">ADBMS_GPIO_R1</a>, <a class="el" href="adbms_8h_source.html#l00028">ADBMS_GPIO_VIN</a>, <a class="el" href="adbms_8h_source.html#l00020">ADBMS_MODULE_COUNT</a>, <a class="el" href="adbms_8h_source.html#l00023">ADBMS_PEC_FAIL_MAX_RETRIES</a>, <a class="el" href="adbms_8h_source.html#l00054">ADBMS_STATE_IDLE</a>, <a class="el" href="adbms_8h_source.html#l00126">adbms_bms_t::avg_therm_temp</a>, <a class="el" href="adbms_8h_source.html#l00086">adbms_module_t::avg_therm_temp</a>, <a class="el" href="strbuf_8h_source.html#l00016">strbuf_t::data</a>, <a class="el" href="adbms_8h_source.html#l00154">adbms_bms_t::err_gpio_voltage_pecs</a>, <a class="el" href="adbms_8h_source.html#l00139">adbms_bms_t::err_spi</a>, <a class="el" href="strbuf_8h_source.html#l00017">strbuf_t::length</a>, <a class="el" href="adbms_8h_source.html#l00124">adbms_bms_t::max_therm_temp</a>, <a class="el" href="adbms_8h_source.html#l00084">adbms_module_t::max_therm_temp</a>, <a class="el" href="adbms_8h_source.html#l00122">adbms_bms_t::min_therm_temp</a>, <a class="el" href="adbms_8h_source.html#l00082">adbms_module_t::min_therm_temp</a>, <a class="el" href="adbms_8h_source.html#l00110">adbms_bms_t::modules</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00087">PHAL_SPI_transfer_noDMA()</a>, <a class="el" href="adbms_8h_source.html#l00136">adbms_bms_t::rx_buf</a>, <a class="el" href="adbms_8h_source.html#l00132">adbms_bms_t::spi</a>, <a class="el" href="adbms_8h_source.html#l00107">adbms_bms_t::state</a>, <a class="el" href="strbuf_8c_source.html#l00017">strbuf_clear()</a>, <a class="el" href="thermistor_8h_source.html#l00017">thermistor_R_to_T()</a>, <a class="el" href="adbms_8h_source.html#l00079">adbms_module_t::therms_temps</a>, <a class="el" href="adbms_8h_source.html#l00077">adbms_module_t::therms_voltages</a>, and <a class="el" href="adbms_8h_source.html#l00134">adbms_bms_t::tx_strbuf</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00343">adbms_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00384">adbms_periodic()</a>.</p>
 
 </div>
 </div>
-<a id="a3a538f6759e14f1243a46f610ea6d59d" name="a3a538f6759e14f1243a46f610ea6d59d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a538f6759e14f1243a46f610ea6d59d">&#9670;&#160;</a></span>adbms_write_rega()</h2>
+<a id="a6ceab739f8b66723399246ee5b0e7e8d" name="a6ceab739f8b66723399246ee5b0e7e8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ceab739f8b66723399246ee5b0e7e8d">&#9670;&#160;</a></span>adbms_write_rega()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -502,7 +502,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool adbms_write_rega </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -517,16 +517,16 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True on successful SPI transfer, false on failure. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00046">46</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00055">55</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
 
-<p class="reference">References <a class="el" href="adbms6380_8c_source.html#l00098">adbms6380_calculate_cfg_rega()</a>, <a class="el" href="adbms6380_8c_source.html#l00082">adbms6380_prepare_command()</a>, <a class="el" href="adbms6380_8c_source.html#l00090">adbms6380_prepare_data_packet()</a>, <a class="el" href="adbms6380_8c_source.html#l00025">adbms6380_set_cs_high()</a>, <a class="el" href="adbms6380_8c_source.html#l00021">adbms6380_set_cs_low()</a>, <a class="el" href="adbms_8h_source.html#l00023">ADBMS_MODULE_COUNT</a>, <a class="el" href="adbms_8h_source.html#l00037">ADBMS_REGA_CTH</a>, <a class="el" href="adbms_8h_source.html#l00036">ADBMS_REGA_REFON</a>, <a class="el" href="strbuf_8h_source.html#l00016">strbuf_t::data</a>, <a class="el" href="adbms_8h_source.html#l00139">ADBMS_bms_t::err_spi</a>, <a class="el" href="strbuf_8h_source.html#l00017">strbuf_t::length</a>, <a class="el" href="adbms_8h_source.html#l00110">ADBMS_bms_t::modules</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00087">PHAL_SPI_transfer_noDMA()</a>, <a class="el" href="adbms_8h_source.html#l00092">ADBMS_module_t::rega</a>, <a class="el" href="adbms_8h_source.html#l00132">ADBMS_bms_t::spi</a>, <a class="el" href="strbuf_8c_source.html#l00017">strbuf_clear()</a>, <a class="el" href="adbms_8h_source.html#l00134">ADBMS_bms_t::tx_strbuf</a>, and <a class="el" href="commands_8c_source.html#l00013">WRCFGA</a>.</p>
+<p class="reference">References <a class="el" href="adbms6380_8c_source.html#l00098">adbms6380_calculate_cfg_rega()</a>, <a class="el" href="adbms6380_8c_source.html#l00082">adbms6380_prepare_command()</a>, <a class="el" href="adbms6380_8c_source.html#l00090">adbms6380_prepare_data_packet()</a>, <a class="el" href="adbms6380_8c_source.html#l00025">adbms6380_set_cs_high()</a>, <a class="el" href="adbms6380_8c_source.html#l00021">adbms6380_set_cs_low()</a>, <a class="el" href="adbms_8h_source.html#l00020">ADBMS_MODULE_COUNT</a>, <a class="el" href="adbms_8h_source.html#l00037">ADBMS_REGA_CTH</a>, <a class="el" href="adbms_8h_source.html#l00036">ADBMS_REGA_REFON</a>, <a class="el" href="strbuf_8h_source.html#l00016">strbuf_t::data</a>, <a class="el" href="adbms_8h_source.html#l00139">adbms_bms_t::err_spi</a>, <a class="el" href="strbuf_8h_source.html#l00017">strbuf_t::length</a>, <a class="el" href="adbms_8h_source.html#l00110">adbms_bms_t::modules</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00087">PHAL_SPI_transfer_noDMA()</a>, <a class="el" href="adbms_8h_source.html#l00092">adbms_module_t::rega</a>, <a class="el" href="adbms_8h_source.html#l00132">adbms_bms_t::spi</a>, <a class="el" href="strbuf_8c_source.html#l00017">strbuf_clear()</a>, <a class="el" href="adbms_8h_source.html#l00134">adbms_bms_t::tx_strbuf</a>, and <a class="el" href="commands_8c_source.html#l00013">WRCFGA</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00128">adbms_connect()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00165">adbms_connect()</a>.</p>
 
 </div>
 </div>
-<a id="a3189c003eb8192ebc3db0b411cb9418b" name="a3189c003eb8192ebc3db0b411cb9418b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3189c003eb8192ebc3db0b411cb9418b">&#9670;&#160;</a></span>adbms_write_regb()</h2>
+<a id="a3a1de4cc72e92ed7719f251886fad5e4" name="a3a1de4cc72e92ed7719f251886fad5e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a1de4cc72e92ed7719f251886fad5e4">&#9670;&#160;</a></span>adbms_write_regb()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -534,7 +534,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool adbms_write_regb </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bms</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -550,11 +550,11 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True on successful SPI transfer, false on failure. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00066">66</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="adbms_8c_source.html#l00075">75</a> of file <a class="el" href="adbms_8c_source.html">adbms.c</a>.</p>
 
-<p class="reference">References <a class="el" href="adbms6380_8c_source.html#l00117">adbms6380_calculate_cfg_regb()</a>, <a class="el" href="adbms6380_8c_source.html#l00082">adbms6380_prepare_command()</a>, <a class="el" href="adbms6380_8c_source.html#l00090">adbms6380_prepare_data_packet()</a>, <a class="el" href="adbms6380_8c_source.html#l00025">adbms6380_set_cs_high()</a>, <a class="el" href="adbms6380_8c_source.html#l00021">adbms6380_set_cs_low()</a>, <a class="el" href="adbms_8h_source.html#l00023">ADBMS_MODULE_COUNT</a>, <a class="el" href="adbms_8h_source.html#l00038">ADBMS_REGB_OV_THRESHOLD</a>, <a class="el" href="adbms_8h_source.html#l00039">ADBMS_REGB_UV_THRESHOLD</a>, <a class="el" href="strbuf_8h_source.html#l00016">strbuf_t::data</a>, <a class="el" href="adbms_8h_source.html#l00139">ADBMS_bms_t::err_spi</a>, <a class="el" href="adbms_8h_source.html#l00089">ADBMS_module_t::is_discharging</a>, <a class="el" href="strbuf_8h_source.html#l00017">strbuf_t::length</a>, <a class="el" href="adbms_8h_source.html#l00110">ADBMS_bms_t::modules</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00087">PHAL_SPI_transfer_noDMA()</a>, <a class="el" href="adbms_8h_source.html#l00094">ADBMS_module_t::regb</a>, <a class="el" href="adbms_8h_source.html#l00132">ADBMS_bms_t::spi</a>, <a class="el" href="strbuf_8c_source.html#l00017">strbuf_clear()</a>, <a class="el" href="adbms_8h_source.html#l00134">ADBMS_bms_t::tx_strbuf</a>, and <a class="el" href="commands_8c_source.html#l00014">WRCFGB</a>.</p>
+<p class="reference">References <a class="el" href="adbms6380_8c_source.html#l00117">adbms6380_calculate_cfg_regb()</a>, <a class="el" href="adbms6380_8c_source.html#l00082">adbms6380_prepare_command()</a>, <a class="el" href="adbms6380_8c_source.html#l00090">adbms6380_prepare_data_packet()</a>, <a class="el" href="adbms6380_8c_source.html#l00025">adbms6380_set_cs_high()</a>, <a class="el" href="adbms6380_8c_source.html#l00021">adbms6380_set_cs_low()</a>, <a class="el" href="adbms_8h_source.html#l00020">ADBMS_MODULE_COUNT</a>, <a class="el" href="adbms_8h_source.html#l00038">ADBMS_REGB_OV_THRESHOLD</a>, <a class="el" href="adbms_8h_source.html#l00039">ADBMS_REGB_UV_THRESHOLD</a>, <a class="el" href="strbuf_8h_source.html#l00016">strbuf_t::data</a>, <a class="el" href="adbms_8h_source.html#l00139">adbms_bms_t::err_spi</a>, <a class="el" href="adbms_8h_source.html#l00089">adbms_module_t::is_discharging</a>, <a class="el" href="strbuf_8h_source.html#l00017">strbuf_t::length</a>, <a class="el" href="adbms_8h_source.html#l00110">adbms_bms_t::modules</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00087">PHAL_SPI_transfer_noDMA()</a>, <a class="el" href="adbms_8h_source.html#l00094">adbms_module_t::regb</a>, <a class="el" href="adbms_8h_source.html#l00132">adbms_bms_t::spi</a>, <a class="el" href="strbuf_8c_source.html#l00017">strbuf_clear()</a>, <a class="el" href="adbms_8h_source.html#l00134">adbms_bms_t::tx_strbuf</a>, and <a class="el" href="commands_8c_source.html#l00014">WRCFGB</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00207">adbms_balance_and_update_regb()</a>, and <a class="el" href="adbms_8c_source.html#l00128">adbms_connect()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00244">adbms_balance_and_update_regb()</a>, and <a class="el" href="adbms_8c_source.html#l00165">adbms_connect()</a>.</p>
 
 </div>
 </div>

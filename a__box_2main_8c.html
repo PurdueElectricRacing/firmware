@@ -123,8 +123,8 @@ Functions</h2></td></tr>
 <tr class="separator:a2bffc10d5bd4106753b7c30e86903bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13697f2dcf99b104d3f717d35e13d28a" id="r_a13697f2dcf99b104d3f717d35e13d28a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13697f2dcf99b104d3f717d35e13d28a">g_bms_periodic</a> (void)</td></tr>
 <tr class="separator:a13697f2dcf99b104d3f717d35e13d28a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cb247bded20dc41e171228456f75fe5" id="r_a2cb247bded20dc41e171228456f75fe5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2cb247bded20dc41e171228456f75fe5">defineThreadStack</a> (<a class="el" href="#a13697f2dcf99b104d3f717d35e13d28a">g_bms_periodic</a>, <a class="el" href="adbms_8h.html#a7db1631c27746c1980b5e2d302c97a1d">ADBMS_PERIODIC_INTERVAL_MS</a>, osPriorityHigh, 2048)</td></tr>
-<tr class="separator:a2cb247bded20dc41e171228456f75fe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34024bcc7b8a1a60133fbf9a2ce6d07f" id="r_a34024bcc7b8a1a60133fbf9a2ce6d07f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34024bcc7b8a1a60133fbf9a2ce6d07f">defineThreadStack</a> (<a class="el" href="#a13697f2dcf99b104d3f717d35e13d28a">g_bms_periodic</a>, 200, osPriorityHigh, 2048)</td></tr>
+<tr class="separator:a34024bcc7b8a1a60133fbf9a2ce6d07f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -146,8 +146,8 @@ Variables</h2></td></tr>
 <tr class="separator:a2c40deeaa6aeb002bafb0bc892484e0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac132aa42c20a1d3744db9df04f31c54" id="r_aac132aa42c20a1d3744db9df04f31c54"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac132aa42c20a1d3744db9df04f31c54">PLLClockRateHz</a></td></tr>
 <tr class="separator:aac132aa42c20a1d3744db9df04f31c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa320034e5817fe0333f0e2d9b602927" id="r_afa320034e5817fe0333f0e2d9b602927"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa320034e5817fe0333f0e2d9b602927">g_bms</a> = {0}</td></tr>
-<tr class="separator:afa320034e5817fe0333f0e2d9b602927"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54910fb29db8c9eac2409cc73cc828c5" id="r_a54910fb29db8c9eac2409cc73cc828c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structadbms__bms__t.html">adbms_bms_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54910fb29db8c9eac2409cc73cc828c5">g_bms</a> = {0}</td></tr>
+<tr class="separator:a54910fb29db8c9eac2409cc73cc828c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99b892b6086d375bba69c6a4985b3262" id="r_a99b892b6086d375bba69c6a4985b3262"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99b892b6086d375bba69c6a4985b3262">g_bms_tx_buf</a> [<a class="el" href="adbms_8h.html#aaffed04e34de14d78f2aa2d39f410520">ADBMS_SPI_TX_BUFFER_SIZE</a>] = {0}</td></tr>
 <tr class="separator:a99b892b6086d375bba69c6a4985b3262"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3fb4752f26486b9d8283433f0d7a39e" id="r_aa3fb4752f26486b9d8283433f0d7a39e"><td class="memItemLeft" align="right" valign="top">static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3fb4752f26486b9d8283433f0d7a39e">MIN_V_FOR_BALANCE</a> = 3.0f</td></tr>
@@ -161,8 +161,8 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a2cb247bded20dc41e171228456f75fe5" name="a2cb247bded20dc41e171228456f75fe5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2cb247bded20dc41e171228456f75fe5">&#9670;&#160;</a></span>defineThreadStack()</h2>
+<a id="a34024bcc7b8a1a60133fbf9a2ce6d07f" name="a34024bcc7b8a1a60133fbf9a2ce6d07f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34024bcc7b8a1a60133fbf9a2ce6d07f">&#9670;&#160;</a></span>defineThreadStack()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -175,7 +175,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="adbms_8h.html#a7db1631c27746c1980b5e2d302c97a1d">ADBMS_PERIODIC_INTERVAL_MS</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype">200</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -209,7 +209,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00122">122</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">References <a class="el" href="adbms_8c_source.html#l00343">adbms_periodic()</a>, <a class="el" href="a__box_2main_8c_source.html#l00072">g_bms</a>, <a class="el" href="a__box_2main_8h_source.html#l00017">HEARTBEAT_LED_PIN</a>, <a class="el" href="a__box_2main_8h_source.html#l00016">HEARTBEAT_LED_PORT</a>, <a class="el" href="a__box_2main_8c_source.html#l00076">MIN_DELTA_FOR_BALANCE</a>, <a class="el" href="a__box_2main_8c_source.html#l00075">MIN_V_FOR_BALANCE</a>, and <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00286">PHAL_toggleGPIO()</a>.</p>
+<p class="reference">References <a class="el" href="adbms_8c_source.html#l00384">adbms_periodic()</a>, <a class="el" href="a__box_2main_8c_source.html#l00072">g_bms</a>, <a class="el" href="a__box_2main_8h_source.html#l00017">HEARTBEAT_LED_PIN</a>, <a class="el" href="a__box_2main_8h_source.html#l00016">HEARTBEAT_LED_PORT</a>, <a class="el" href="a__box_2main_8c_source.html#l00076">MIN_DELTA_FOR_BALANCE</a>, <a class="el" href="a__box_2main_8c_source.html#l00075">MIN_V_FOR_BALANCE</a>, and <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00286">PHAL_toggleGPIO()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="a__box_2main_8c_source.html#l00083">main()</a>.</p>
 
@@ -404,14 +404,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="afa320034e5817fe0333f0e2d9b602927" name="afa320034e5817fe0333f0e2d9b602927"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa320034e5817fe0333f0e2d9b602927">&#9670;&#160;</a></span>g_bms</h2>
+<a id="a54910fb29db8c9eac2409cc73cc828c5" name="a54910fb29db8c9eac2409cc73cc828c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54910fb29db8c9eac2409cc73cc828c5">&#9670;&#160;</a></span>g_bms</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structADBMS__bms__t.html">ADBMS_bms_t</a> g_bms = {0}</td>
+          <td class="memname"><a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> g_bms = {0}</td>
         </tr>
       </table>
 </div><div class="memdoc">

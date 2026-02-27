@@ -1,5 +1,15 @@
 var NAVTREEINDEX4 =
 {
+"codegen_8py.html#aa6aa65b39bbfb073cdd730cc1f9e2f9c":[8,0,0,4,0,1,5],
+"codegen_8py.html#aaf47cca1200566d421b607fccba76810":[8,0,0,4,0,1,3],
+"codegen_8py_source.html":[8,0,0,4,0,1],
+"commands_8c.html":[8,0,2,0,0,4],
+"commands_8c.html#a02512a6509a4fdab64dda70725cfd537":[8,0,2,0,0,4,25],
+"commands_8c.html#a1562c2ce8eba9d26439f88bfe0fc425d":[8,0,2,0,0,4,28],
+"commands_8c.html#a1c66ceedbccbbbd09a32a45b303c542b":[8,0,2,0,0,4,18],
+"commands_8c.html#a1f9b2500b4b2baad6098f9d25255fa17":[8,0,2,0,0,4,62],
+"commands_8c.html#a218861a7b781064acd6890707e241c35":[8,0,2,0,0,4,21],
+"commands_8c.html#a24a290ea7ab304054aaf566a3ac74c11":[8,0,2,0,0,4,51],
 "commands_8c.html#a26d470e28a1ae39f1a0484e788b2b60e":[8,0,2,0,0,4,72],
 "commands_8c.html#a2e215be7eeeae273275761f22727ce74":[8,0,2,0,0,4,46],
 "commands_8c.html#a2ed840d59cef20eae18f908d2379964d":[8,0,2,0,0,4,71],
@@ -239,15 +249,5 @@ var NAVTREEINDEX4 =
 "common_2phal__G4_2usart_2usart_8c.html#a7bd69e038fbf6f28b02d943c2748241fa7e21f0ce8ee1e0f89a2c4ee6ba9deb27":[8,0,0,13,6,0,1,0],
 "common_2phal__G4_2usart_2usart_8c.html#a97a5c06c33b4014a512b54d72196ccdb":[8,0,0,13,6,0,10],
 "common_2phal__G4_2usart_2usart_8c.html#a99cd2a703a69e6506a975cc574e4966a":[8,0,0,13,6,0,11],
-"common_2phal__G4_2usart_2usart_8c.html#a9b75ef44037d7ed50a1078c024ae853a":[8,0,0,13,6,0,5],
-"common_2phal__G4_2usart_2usart_8c.html#aadb8937353693c94b0d8e32fc6f18fc2":[8,0,0,13,6,0,4],
-"common_2phal__G4_2usart_2usart_8c.html#aadbfdc5c96e7464ed3c1ef65de080fcd":[8,0,0,13,6,0,9],
-"common_2phal__G4_2usart_2usart_8c.html#abd16b3391557c4a3a8020d675e2c452f":[8,0,0,13,6,0,6],
-"common_2phal__G4_2usart_2usart_8c.html#accfcc099ca86755feae42c7acca653a0":[8,0,0,13,6,0,19],
-"common_2phal__G4_2usart_2usart_8c.html#ad6426d36e0b02912ed0ca65f3bf92719":[8,0,0,13,6,0,12],
-"common_2phal__G4_2usart_2usart_8c.html#ae57a79f62c50fe096d2720c28081e8aa":[8,0,0,13,6,0,8],
-"common_2phal__G4_2usart_2usart_8c_source.html":[8,0,0,13,6,0],
-"common_2phal__L4_2spi_2spi_8c.html":[8,0,0,14,11,0],
-"common_2phal__L4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269":[8,0,0,14,11,0,5],
-"common_2phal__L4_2spi_2spi_8c.html#a214be7044d1c8a6193ccf7f3e883fab2":[8,0,0,14,11,0,9]
+"common_2phal__G4_2usart_2usart_8c.html#a9b75ef44037d7ed50a1078c024ae853a":[8,0,0,13,6,0,5]
 };

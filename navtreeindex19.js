@@ -1,5 +1,15 @@
 var NAVTREEINDEX19 =
 {
+"phal__L4_2adc_2adc_8h.html#a5bcab41e07d982e8ebcf218dcd09ae3da3a65d72620850bee8d573e62a5fec5c8":[8,0,0,14,0,1,7,2],
+"phal__L4_2adc_2adc_8h.html#a5bcab41e07d982e8ebcf218dcd09ae3da5f788d62c53192a198e0c8e1836de8ef":[8,0,0,14,0,1,7,7],
+"phal__L4_2adc_2adc_8h.html#a5bcab41e07d982e8ebcf218dcd09ae3da88f9ba8ca2e4f70719e6c95b43057477":[8,0,0,14,0,1,7,9],
+"phal__L4_2adc_2adc_8h.html#a5bcab41e07d982e8ebcf218dcd09ae3da9ad3ed53d7f80352f1c0c1adf27778c0":[8,0,0,14,0,1,7,8],
+"phal__L4_2adc_2adc_8h.html#a5bcab41e07d982e8ebcf218dcd09ae3dacf97362bbfe656f8aaf5ae89906c64cb":[8,0,0,14,0,1,7,5],
+"phal__L4_2adc_2adc_8h.html#a5bcab41e07d982e8ebcf218dcd09ae3dad0120003152073190831a8ec615e4f6a":[8,0,0,14,0,1,7,0],
+"phal__L4_2adc_2adc_8h.html#a5bcab41e07d982e8ebcf218dcd09ae3dad2891c654a4a12aea557e5fabb7f0bc8":[8,0,0,14,0,1,7,11],
+"phal__L4_2adc_2adc_8h.html#a5bcab41e07d982e8ebcf218dcd09ae3daf20743fbc375a805e9062a45f600e647":[8,0,0,14,0,1,7,4],
+"phal__L4_2adc_2adc_8h.html#a5bcab41e07d982e8ebcf218dcd09ae3daffc4aa5cd71b32873bd639d91d8a5a4e":[8,0,0,14,0,1,7,10],
+"phal__L4_2adc_2adc_8h.html#a5c09ae4020b80288e37ae1d339045e9f":[8,0,0,14,0,1,5],
 "phal__L4_2adc_2adc_8h.html#a9bf789bb8843fa4ab14a8f71510b8868":[8,0,0,14,0,1,2],
 "phal__L4_2adc_2adc_8h.html#ab3db42e7d07d6b3ed2bbffd5d36627b5":[8,0,0,14,0,1,14],
 "phal__L4_2adc_2adc_8h.html#ad14e097af25049dee4c0f2d67ae8f8a0":[8,0,0,14,0,1,3],
@@ -239,15 +249,5 @@ var NAVTREEINDEX19 =
 "phal__L4_2usart_2usart_8h_source.html":[8,0,0,14,13,1],
 "phal__mcu_8h.html":[8,0,0,11,6],
 "phal__mcu_8h_source.html":[8,0,0,11,6],
-"pin__defs_8h.html":[8,0,2,4,2],
-"pin__defs_8h.html#a16617de3bb2ca54675ae2515d8515e12":[8,0,2,4,2,2],
-"pin__defs_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3":[8,0,2,4,2,4],
-"pin__defs_8h.html#a679c018529d29f732fac994ac24abc6a":[8,0,2,4,2,8],
-"pin__defs_8h.html#a84106b66256d8a1513944b0711185fc8":[8,0,2,4,2,9],
-"pin__defs_8h.html#a84357dafca10c0bedd27ddf562ec038f":[8,0,2,4,2,3],
-"pin__defs_8h.html#a8437cdc43b488d816a5e56f7b6457b86":[8,0,2,4,2,0],
-"pin__defs_8h.html#a8a762e1254b034eba6b4993ae11cee50":[8,0,2,4,2,5],
-"pin__defs_8h.html#aa277719996795ecb8dee70daca77d760":[8,0,2,4,2,7],
-"pin__defs_8h.html#aa5bf4e4a187f66b98a273bb051ec3877":[8,0,2,4,2,1],
-"pin__defs_8h.html#abbe24052ba674055e0c586e8062221d0":[8,0,2,4,2,6]
+"pin__defs_8h.html":[8,0,2,4,2]
 };

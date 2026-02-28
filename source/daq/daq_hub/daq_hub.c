@@ -26,10 +26,12 @@
 #include "common/can_library/generated/DAQ.h"
 
 daq_hub_t daq_hub;
+timestamped_frame_t buf2;
 
 // Local protoptypes
 static void daq_heartbeat(void);
 static void can_send_periodic(void);
+static void can_inject_fake(void);
 
 defineThreadStack(daq_heartbeat, 500, osPriorityNormal, 512); // HB
 defineThreadStack(sd_update_periodic, 100, osPriorityNormal, 4096); // SD WRITE
@@ -87,36 +89,17 @@ static void daq_heartbeat(void) {
 static void can_send_periodic(void) {
     CAN_tx_update();
     CAN_rx_update();
+    can_inject_fake();
 }
 
-void uds_frame_send(uint64_t data) {
-#if 0
-    timestamped_frame_t frame = {.frame_type = DAQ_FRAME_UDP_TX, .tick_ms = getTick(), .msg_id = ID_UDS_RESPONSE_DAQ, .bus_id = BUS_ID_CAN1, .dlc = 8 };
-    frame.msg_id |= CAN_EFF_FLAG;
-    memcpy(frame.data, (uint8_t *)&data, sizeof(uint64_t));
-
-    SEND_UDS_RESPONSE_DAQ(data);
-    eth_tcp_send_frame(&frame);
-    //eth_udp_send_frame(&frame); // dont send for now
-#endif
+static void can_inject_fake() {
+    timestamped_frame_t *rx = &buf2;
+    rx->ticks_ms = getTick();
+    rx->identity = (uint32_t) (BUS_ID_CAN1) << 31; // bus 1 (VCAN??)
+    rx->identity |= (uint32_t) 1 << 30; // assuming extended id
+    rx->payload = 676767; 
+    SPMC_enqueue_ISR(&queue, rx);
 }
-
-/**
- * Pull UDS CAN frames out of UDS queue added during CAN1/CAN2 ISR
- * and process them in non-interrupt context
- */
-void uds_receive_periodic(void) {
-#if 0
-    timestamped_frame_t rx_msg;
-    while (xQueueReceive(q_can1_rx, &rx_msg, portMAX_DELAY) == pdPASS)
-    {
-        CanParsedData_t *msg_data_a = (CanParsedData_t *) &rx_msg.data;
-        uds_command_daq_CALLBACK(msg_data_a->uds_command_daq.payload);
-    }
-#endif
-}
-
-// bank->BSRR |= 1 << ((!value << 4) | pin);
 #define GPIO_CLEAR_BIT(PIN) ((1 << ((1 << 4) | (PIN))))
 
 void daq_shutdown_hook(void) {

@@ -128,6 +128,8 @@ $(function(){initNavTree('globals_s.html',''); initResizable(true); });
 <li>SD_ALLZERO&#160;:&#160;<a class="el" href="sdio_8h.html#aa989d106109048a2fb453928325d1f7d">sdio.h</a></li>
 <li>SD_BAD_ERASE_PARAM&#160;:&#160;<a class="el" href="sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8cac52c7addfcb59055f5701898c3484d06">sdio.h</a></li>
 <li>SD_BLOCK_LEN_ERR&#160;:&#160;<a class="el" href="sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8cadd08e6cdc391423ee7c1ba246faf42c3">sdio.h</a></li>
+<li>SD_BLOCKING_TIMEOUT_MS&#160;:&#160;<a class="el" href="daq_2main_8h.html#a6be6be33aaa2ebd7c49e25edb722244c">main.h</a></li>
+<li>SD_BLOCKING_TIMEOUT_TICKS&#160;:&#160;<a class="el" href="daq_2main_8h.html#a005f8af8cd6c38ffbc9ef2e854acacd6">main.h</a></li>
 <li>SD_CARD_DISCONNECTED&#160;:&#160;<a class="el" href="sdio_8h.html#acdc2533a9bff7dc10def0945f5915398ac5dd213f085b94ecd3735f15d6a257ec">sdio.h</a></li>
 <li>SD_CARD_ECC_DISABLED&#160;:&#160;<a class="el" href="sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8ca4db59f403f83442543a1f1bef242efbd">sdio.h</a></li>
 <li>SD_CARD_ECC_FAILED&#160;:&#160;<a class="el" href="sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8ca283091b73f40d5c229c2c3f3d0f4cb74">sdio.h</a></li>
@@ -617,6 +619,13 @@ $(function(){initNavTree('globals_s.html',''); initResizable(true); });
 <li>spi_tx_dma_config&#160;:&#160;<a class="el" href="daq_2main_8c.html#ac9d88a12a20b964301d43f839eee3f94">main.c</a></li>
 <li>spi_wb()&#160;:&#160;<a class="el" href="daq__spi_8c.html#ad0d4468782a468debc8139fe25107c43">daq_spi.c</a></li>
 <li>spi_wb_burst()&#160;:&#160;<a class="el" href="daq__spi_8c.html#a5821dc24f7a22e40a3630f554f4c33a7">daq_spi.c</a></li>
+<li>SPMC_enqueue_ISR()&#160;:&#160;<a class="el" href="spmc_8c.html#a78d42d62247be45a7431d1e16a830503">spmc.c</a>, <a class="el" href="spmc_8h.html#a78d42d62247be45a7431d1e16a830503">spmc.h</a></li>
+<li>SPMC_follower_pop()&#160;:&#160;<a class="el" href="spmc_8c.html#a09a4cd96df74d3856d6bb846897148d7">spmc.c</a>, <a class="el" href="spmc_8h.html#a09a4cd96df74d3856d6bb846897148d7">spmc.h</a></li>
+<li>SPMC_init()&#160;:&#160;<a class="el" href="spmc_8c.html#a4211767c41c2876211192eed5ac7267c">spmc.c</a>, <a class="el" href="spmc_8h.html#a4211767c41c2876211192eed5ac7267c">spmc.h</a></li>
+<li>SPMC_master_commit()&#160;:&#160;<a class="el" href="spmc_8c.html#aaab754383a0661451200ee37fb12071f">spmc.c</a>, <a class="el" href="spmc_8h.html#aaab754383a0661451200ee37fb12071f">spmc.h</a></li>
+<li>SPMC_master_get_total()&#160;:&#160;<a class="el" href="spmc_8c.html#aa0f74d5b964fcb30dd374d6b64b4b040">spmc.c</a>, <a class="el" href="spmc_8h.html#aa0f74d5b964fcb30dd374d6b64b4b040">spmc.h</a></li>
+<li>SPMC_master_peek_batch()&#160;:&#160;<a class="el" href="spmc_8c.html#a1e76a7f278a818086b573f4194e02ae7">spmc.c</a>, <a class="el" href="spmc_8h.html#a1e76a7f278a818086b573f4194e02ae7">spmc.h</a></li>
+<li>SPMC_NUM_FRAMES&#160;:&#160;<a class="el" href="spmc_8h.html#a661f2f848c5140ea05f8aa095840eaed">spmc.h</a></li>
 <li>sprintf()&#160;:&#160;<a class="el" href="log_8c.html#a7f249b146ff5c6b1fa44247f1435e29c">log.c</a>, <a class="el" href="log_8h.html#a7f249b146ff5c6b1fa44247f1435e29c">log.h</a></li>
 <li>SRAMCAN_FLE_NBR&#160;:&#160;<a class="el" href="fdcan__priv_8h.html#a34d876b66624c5c23499a48dc413e29c">fdcan_priv.h</a></li>
 <li>SRAMCAN_FLE_SIZE&#160;:&#160;<a class="el" href="fdcan__priv_8h.html#a69cecf84f33479f4005700063952e82e">fdcan_priv.h</a></li>
@@ -657,10 +666,10 @@ $(function(){initNavTree('globals_s.html',''); initResizable(true); });
 <li>STATUS_LED_GPIO_Port&#160;:&#160;<a class="el" href="node__defs_8h.html#aee9e013abc17d5ea72b26428853f8847">node_defs.h</a></li>
 <li>STATUS_LED_Pin&#160;:&#160;<a class="el" href="node__defs_8h.html#a590bdd88ac47c0492ed08b716f2c8728">node_defs.h</a></li>
 <li>STCOMM&#160;:&#160;<a class="el" href="commands_8c.html#a6950478751121f10e29e5ba6d5f53019">commands.c</a>, <a class="el" href="commands_8h.html#a6950478751121f10e29e5ba6d5f53019">commands.h</a></li>
+<li>STD_ID_MASK&#160;:&#160;<a class="el" href="daq_2main_8h.html#a9a7a20771e18d9f6c6f93ac4c48facde">main.h</a></li>
 <li>STEAM&#160;:&#160;<a class="el" href="menu__system_8c.html#a2e6f25a07fed4aa119add4f8dbde4f2e">menu_system.c</a></li>
 <li>STEEL&#160;:&#160;<a class="el" href="menu__system_8c.html#a0c651c9e541c06ca19577be9e0e34e93">menu_system.c</a></li>
 <li>stop_bits_t&#160;:&#160;<a class="el" href="phal__F4__F7_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553">usart.h</a></li>
-<li>StopCondition&#160;:&#160;<a class="el" href="sdio_8c.html#a0df0fa8dad7eb524a8a5d1ec0d357089">sdio.c</a></li>
 <li>strbuf_append()&#160;:&#160;<a class="el" href="strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5">strbuf.c</a>, <a class="el" href="strbuf_8h.html#a15380dc153a462b38a9b54f274c9c3b5">strbuf.h</a></li>
 <li>strbuf_clear()&#160;:&#160;<a class="el" href="strbuf_8c.html#a64d216f0276598d2d7f68c8a0c453fb7">strbuf.c</a>, <a class="el" href="strbuf_8h.html#a64d216f0276598d2d7f68c8a0c453fb7">strbuf.h</a></li>
 <li>strbuf_printf()&#160;:&#160;<a class="el" href="strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf">strbuf.c</a>, <a class="el" href="strbuf_8h.html#a52ce36e86451c208f1846411e1f67dcf">strbuf.h</a></li>

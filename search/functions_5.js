@@ -10,15 +10,10 @@ var searchData=
   ['errorpageselect_7',['errorPageSelect',['../lcd_8c.html#a4977670d65c7b5eb50dfd9402463d015',1,'lcd.c']]],
   ['eth_5fget_5flink_5fup_8',['eth_get_link_up',['../daq__eth_8c.html#a94976248e995a4ece2401f88a68ea1d4',1,'daq_eth.c']]],
   ['eth_5finit_9',['eth_init',['../daq__eth_8c.html#a1a55d116f8b86ec298f1728029da10d4',1,'daq_eth.c']]],
-  ['eth_5finit_5ftcp_10',['eth_init_tcp',['../daq__eth_8c.html#a4a8d29d30cfdb395ebb4757b0d13dfd1',1,'daq_eth.c']]],
-  ['eth_5freset_5ferror_11',['eth_reset_error',['../daq__eth_8c.html#a286b0b1a41367e2824bcf6449fbae789',1,'daq_eth.c']]],
-  ['eth_5ftcp_5freceive_5fperiodic_12',['eth_tcp_receive_periodic',['../daq__eth_8c.html#a39e75022b9595a6ec19f61dd3615bcb5',1,'daq_eth.c']]],
-  ['eth_5ftcp_5frelay_5fcan_5fframe_13',['eth_tcp_relay_can_frame',['../daq__eth_8c.html#a55b10c4f4a36015c3431ab1b50ec8f47',1,'daq_eth.c']]],
-  ['eth_5ftcp_5fsend_5fperiodic_14',['eth_tcp_send_periodic',['../daq__eth_8c.html#a2025db5e073fe9e6465245ccf427cce0',1,'daq_eth.c']]],
-  ['eth_5ftcp_5fupdate_15',['eth_tcp_update',['../daq__eth_8c.html#a30df422e0837ae71e39a6f40ab72a501',1,'daq_eth.c']]],
-  ['eth_5fudp_5finit_16',['eth_udp_init',['../daq__eth_8c.html#a9d53050bed0e141ed27daf3c1cf33cba',1,'daq_eth.c']]],
-  ['eth_5fudp_5fsend_5fperiodic_17',['eth_udp_send_periodic',['../daq__eth_8c.html#a855eb1e8b27221da5e80d0fc7dd5fe4c',1,'daq_eth.c']]],
-  ['eth_5fupdate_5fperiodic_18',['eth_update_periodic',['../daq__eth_8c.html#af92254f174f970df107d7b79251da089',1,'eth_update_periodic(void):&#160;daq_eth.c'],['../daq__eth_8h.html#af92254f174f970df107d7b79251da089',1,'eth_update_periodic(void):&#160;daq_eth.c']]],
-  ['exti15_5f10_5firqhandler_19',['EXTI15_10_IRQHandler',['../daq_2main_8c.html#a2089b233bd8d6f7dbf78e075033696e3',1,'EXTI15_10_IRQHandler():&#160;main.c'],['../dashboard_2main_8c.html#a2089b233bd8d6f7dbf78e075033696e3',1,'EXTI15_10_IRQHandler():&#160;main.c']]],
-  ['exti9_5f5_5firqhandler_20',['EXTI9_5_IRQHandler',['../dashboard_2main_8c.html#a9f0a091727452df71a1760d1133bf9b4',1,'main.c']]]
+  ['eth_5freset_5ferror_10',['eth_reset_error',['../daq__eth_8c.html#a286b0b1a41367e2824bcf6449fbae789',1,'daq_eth.c']]],
+  ['eth_5fudp_5finit_11',['eth_udp_init',['../daq__eth_8c.html#a9d53050bed0e141ed27daf3c1cf33cba',1,'daq_eth.c']]],
+  ['eth_5fudp_5fsend_5fperiodic_12',['eth_udp_send_periodic',['../daq__eth_8c.html#a855eb1e8b27221da5e80d0fc7dd5fe4c',1,'daq_eth.c']]],
+  ['eth_5fupdate_5fperiodic_13',['eth_update_periodic',['../daq__eth_8c.html#af92254f174f970df107d7b79251da089',1,'eth_update_periodic(void):&#160;daq_eth.c'],['../daq__eth_8h.html#af92254f174f970df107d7b79251da089',1,'eth_update_periodic(void):&#160;daq_eth.c']]],
+  ['exti15_5f10_5firqhandler_14',['EXTI15_10_IRQHandler',['../daq_2main_8c.html#a2089b233bd8d6f7dbf78e075033696e3',1,'EXTI15_10_IRQHandler():&#160;main.c'],['../dashboard_2main_8c.html#a2089b233bd8d6f7dbf78e075033696e3',1,'EXTI15_10_IRQHandler():&#160;main.c']]],
+  ['exti9_5f5_5firqhandler_15',['EXTI9_5_IRQHandler',['../dashboard_2main_8c.html#a9f0a091727452df71a1760d1133bf9b4',1,'main.c']]]
 ];

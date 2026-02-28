@@ -5,7 +5,7 @@ var searchData=
   ['has_5fread_5ffunc_2',['has_read_func',['../structdaq__variable__t.html#aa29abea1c3ff357ad71c7409b8a187c9',1,'daq_variable_t']]],
   ['has_5fwrite_5ffunc_3',['has_write_func',['../structdaq__variable__t.html#af0dcf65c74b6fcd4839c11aa9590f739',1,'daq_variable_t']]],
   ['hasgnssfix_4',['hasGNSSFix',['../structGPS__Handle__t.html#ae5a5329707961dfd09eba0ada30b788f',1,'GPS_Handle_t']]],
-  ['head_5',['head',['../structq__handle__t.html#a374adccb8b9053dee056b93a3f805ef0',1,'q_handle_t']]],
+  ['head_5',['head',['../structSPMC__t.html#a819c0967e831284aa97a85f53587e065',1,'SPMC_t::head'],['../structq__handle__t.html#a374adccb8b9053dee056b93a3f805ef0',1,'q_handle_t::head']]],
   ['header_6',['HEADER',['../classutils_1_1bcolors.html#ae1b46bb5726457898bd2c00acbc617d7',1,'utils::bcolors']]],
   ['header1_7',['HEADER1',['../namespacereceive-from-tv.html#ae29c1f565929de6e8052200662246df2',1,'receive-from-tv.HEADER1'],['../namespacesend-and-rec.html#aeba7a536a1f5f006d25db15a8a7380d5',1,'send-and-rec.HEADER1']]],
   ['header2_8',['HEADER2',['../namespacereceive-from-tv.html#a2e294b3fa6aadcd8d3c8b5ebab525332',1,'receive-from-tv.HEADER2'],['../namespacesend-and-rec.html#a676aa4b3046983f8f867e40dddb56ec1',1,'send-and-rec.HEADER2']]],

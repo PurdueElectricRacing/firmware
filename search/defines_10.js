@@ -12,8 +12,5 @@ var searchData=
   ['rtc_5fasync_5fprescal_9',['RTC_ASYNC_PRESCAL',['../phal__F4__F7_2rtc_2rtc_8h.html#a23265a91627f354343a8bf32bdcab608',1,'rtc.h']]],
   ['rtc_5fconv_5fto_5fbcd_10',['RTC_CONV_TO_BCD',['../phal__F4__F7_2rtc_2rtc_8h.html#a3056be58546c4e25fed72a5eb743f94a',1,'rtc.h']]],
   ['rtc_5fsync_5fprescal_11',['RTC_SYNC_PRESCAL',['../phal__F4__F7_2rtc_2rtc_8h.html#a74e42a61f38d2bc8242923e3ce6a68f8',1,'rtc.h']]],
-  ['rush_12',['RUSH',['../menu__system_8c.html#a2e6154fd7a55f45e8eb5988f50eb6a39',1,'menu_system.c']]],
-  ['rx_5fbuff_5fitem_5fcount_13',['RX_BUFF_ITEM_COUNT',['../daq_2main_8h.html#aaa463b6160ae1692d5b6d605503bc5dd',1,'main.h']]],
-  ['rx_5fct_14',['RX_CT',['../test__buffer_8c.html#a2b23e78297b4ebd1ff007837cd8bf644',1,'test_buffer.c']]],
-  ['rx_5ftail_5fct_15',['RX_TAIL_CT',['../test__buffer_8c.html#ace0165f1b9d5db787f29dbee3342f46d',1,'test_buffer.c']]]
+  ['rush_12',['RUSH',['../menu__system_8c.html#a2e6154fd7a55f45e8eb5988f50eb6a39',1,'menu_system.c']]]
 ];

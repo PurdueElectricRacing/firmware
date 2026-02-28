@@ -398,7 +398,7 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 </div>
 <div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span> </div>
 <div class="foldopen" id="foldopen00328" data-start="{" data-end="}">
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno"><a class="line" href="group__WIZnet__socket__APIs.html#gacd77c3cc60e87d09a5714932506d7c4b">  328</a></span>int32_t <a class="code hl_function" href="group__WIZnet__socket__APIs.html#gacd77c3cc60e87d09a5714932506d7c4b">send</a>(uint8_t sn, uint8_t* buf, uint16_t len) {</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno"><a class="line" href="group__WIZnet__socket__APIs.html#gacd77c3cc60e87d09a5714932506d7c4b">  328</a></span>int32_t <a class="code hl_function" href="group__WIZnet__socket__APIs.html#gacd77c3cc60e87d09a5714932506d7c4b">send</a>(uint8_t sn, uint8_t* <a class="code hl_variable" href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a>, uint16_t len) {</div>
 <div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>    uint8_t tmp       = 0;</div>
 <div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    uint16_t freesize = 0;</div>
 <div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span> </div>
@@ -444,7 +444,7 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>        <span class="keywordflow">if</span> (len &lt;= freesize)</div>
 <div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    }</div>
-<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>    <a class="code hl_function" href="group__Basic__IO__function.html#gab3dd6071b87bea9afcedcb57e248a7d0">wiz_send_data</a>(sn, buf, len);</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>    <a class="code hl_function" href="group__Basic__IO__function.html#gab3dd6071b87bea9afcedcb57e248a7d0">wiz_send_data</a>(sn, <a class="code hl_variable" href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a>, len);</div>
 <div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span><span class="preprocessor">#if _WIZCHIP_ == 5200</span></div>
 <div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    sock_next_rd[sn] = <a class="code hl_define" href="group__Socket__register__access__function.html#gad9b14d8a589de8d73bac8d4c430cdf49">getSn_TX_RD</a>(sn) + len;</div>
 <div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span><span class="preprocessor">#endif</span></div>
@@ -465,7 +465,7 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 </div>
 <div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span> </div>
 <div class="foldopen" id="foldopen00393" data-start="{" data-end="}">
-<div class="line"><a id="l00393" name="l00393"></a><span class="lineno"><a class="line" href="group__WIZnet__socket__APIs.html#ga4cfb66f7440a1dd9ac0ee0b933a38c59">  393</a></span>int32_t <a class="code hl_function" href="group__WIZnet__socket__APIs.html#ga4cfb66f7440a1dd9ac0ee0b933a38c59">recv</a>(uint8_t sn, uint8_t* buf, uint16_t len) {</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno"><a class="line" href="group__WIZnet__socket__APIs.html#ga4cfb66f7440a1dd9ac0ee0b933a38c59">  393</a></span>int32_t <a class="code hl_function" href="group__WIZnet__socket__APIs.html#ga4cfb66f7440a1dd9ac0ee0b933a38c59">recv</a>(uint8_t sn, uint8_t* <a class="code hl_variable" href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a>, uint16_t len) {</div>
 <div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>    uint8_t tmp       = 0;</div>
 <div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>    uint16_t recvsize = 0;</div>
 <div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span><span class="comment">//A20150601 : For integarating with W5300</span></div>
@@ -531,14 +531,14 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span>        len = <a class="code hl_variable" href="socket_8c.html#ad2e8519d09c2dbb4a6b901618b1ba516">sock_remained_size</a>[sn];</div>
 <div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span>    recvsize = len;</div>
 <div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="socket_8c.html#ac623dabe9d9bd62a42ca60628ab1551e">sock_pack_info</a>[sn] &amp; <a class="code hl_define" href="socket_8h.html#aa6b2c5b7486575f6fa7d173faa9ce1a1">PACK_FIFOBYTE</a>) {</div>
-<div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span>        *buf = sock_remained_byte[sn];</div>
-<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span>        buf++;</div>
+<div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span>        *<a class="code hl_variable" href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a> = sock_remained_byte[sn];</div>
+<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span>        <a class="code hl_variable" href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a>++;</div>
 <div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span>        <a class="code hl_variable" href="socket_8c.html#ac623dabe9d9bd62a42ca60628ab1551e">sock_pack_info</a>[sn] &amp;= ~(<a class="code hl_define" href="socket_8h.html#aa6b2c5b7486575f6fa7d173faa9ce1a1">PACK_FIFOBYTE</a>);</div>
 <div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span>        recvsize -= 1;</div>
 <div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>        <a class="code hl_variable" href="socket_8c.html#ad2e8519d09c2dbb4a6b901618b1ba516">sock_remained_size</a>[sn] -= 1;</div>
 <div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span>    }</div>
 <div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span>    <span class="keywordflow">if</span> (recvsize != 0) {</div>
-<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span>        <a class="code hl_function" href="group__Basic__IO__function.html#ga98cbcd6c7ba3abf9ab28caa8261886b1">wiz_recv_data</a>(sn, buf, recvsize);</div>
+<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span>        <a class="code hl_function" href="group__Basic__IO__function.html#ga98cbcd6c7ba3abf9ab28caa8261886b1">wiz_recv_data</a>(sn, <a class="code hl_variable" href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a>, recvsize);</div>
 <div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span>        <a class="code hl_define" href="group__Socket__register__access__function.html#ga540fe9afb87bd91eb5fbe1147429878c">setSn_CR</a>(sn, <a class="code hl_define" href="w5500_8h.html#a282df6e5d976e94953d4f9f32f182827">Sn_CR_RECV</a>);</div>
 <div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span>        <span class="keywordflow">while</span> (<a class="code hl_define" href="group__Socket__register__access__function.html#ga47c6218a28424d2fb3a3c04f58d0bcfb">getSn_CR</a>(sn))</div>
 <div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>            ;</div>
@@ -556,7 +556,7 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00481" name="l00481"></a><span class="lineno">  481</span><span class="preprocessor">#else</span></div>
 <div class="line"><a id="l00482" name="l00482"></a><span class="lineno">  482</span>    <span class="keywordflow">if</span> (recvsize &lt; len)</div>
 <div class="line"><a id="l00483" name="l00483"></a><span class="lineno">  483</span>        len = recvsize;</div>
-<div class="line"><a id="l00484" name="l00484"></a><span class="lineno">  484</span>    <a class="code hl_function" href="group__Basic__IO__function.html#ga98cbcd6c7ba3abf9ab28caa8261886b1">wiz_recv_data</a>(sn, buf, len);</div>
+<div class="line"><a id="l00484" name="l00484"></a><span class="lineno">  484</span>    <a class="code hl_function" href="group__Basic__IO__function.html#ga98cbcd6c7ba3abf9ab28caa8261886b1">wiz_recv_data</a>(sn, <a class="code hl_variable" href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a>, len);</div>
 <div class="line"><a id="l00485" name="l00485"></a><span class="lineno">  485</span>    <a class="code hl_define" href="group__Socket__register__access__function.html#ga540fe9afb87bd91eb5fbe1147429878c">setSn_CR</a>(sn, <a class="code hl_define" href="w5500_8h.html#a282df6e5d976e94953d4f9f32f182827">Sn_CR_RECV</a>);</div>
 <div class="line"><a id="l00486" name="l00486"></a><span class="lineno">  486</span>    <span class="keywordflow">while</span> (<a class="code hl_define" href="group__Socket__register__access__function.html#ga47c6218a28424d2fb3a3c04f58d0bcfb">getSn_CR</a>(sn))</div>
 <div class="line"><a id="l00487" name="l00487"></a><span class="lineno">  487</span>        ;</div>
@@ -569,7 +569,7 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 </div>
 <div class="line"><a id="l00494" name="l00494"></a><span class="lineno">  494</span> </div>
 <div class="foldopen" id="foldopen00495" data-start="{" data-end="}">
-<div class="line"><a id="l00495" name="l00495"></a><span class="lineno"><a class="line" href="group__WIZnet__socket__APIs.html#ga30fc77ba1005733b501994818bde12f8">  495</a></span>int32_t <a class="code hl_function" href="group__WIZnet__socket__APIs.html#ga30fc77ba1005733b501994818bde12f8">sendto</a>(uint8_t sn, uint8_t* buf, uint16_t len, uint8_t* <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>, uint16_t port) {</div>
+<div class="line"><a id="l00495" name="l00495"></a><span class="lineno"><a class="line" href="group__WIZnet__socket__APIs.html#ga30fc77ba1005733b501994818bde12f8">  495</a></span>int32_t <a class="code hl_function" href="group__WIZnet__socket__APIs.html#ga30fc77ba1005733b501994818bde12f8">sendto</a>(uint8_t sn, uint8_t* <a class="code hl_variable" href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a>, uint16_t len, uint8_t* <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>, uint16_t port) {</div>
 <div class="line"><a id="l00496" name="l00496"></a><span class="lineno">  496</span>    uint8_t tmp       = 0;</div>
 <div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span>    uint16_t freesize = 0;</div>
 <div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span>    uint32_t taddr;</div>
@@ -624,7 +624,7 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>        <span class="keywordflow">if</span> (len &lt;= freesize)</div>
 <div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>    };</div>
-<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>    <a class="code hl_function" href="group__Basic__IO__function.html#gab3dd6071b87bea9afcedcb57e248a7d0">wiz_send_data</a>(sn, buf, len);</div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>    <a class="code hl_function" href="group__Basic__IO__function.html#gab3dd6071b87bea9afcedcb57e248a7d0">wiz_send_data</a>(sn, <a class="code hl_variable" href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a>, len);</div>
 <div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span> </div>
 <div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span><span class="preprocessor">#if _WIZCHIP_ &lt; 5500 </span><span class="comment">//M20150401 : for WIZCHIP Errata #4, #5 (ARP errata)</span></div>
 <div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>    <a class="code hl_define" href="group__Common__register__access__function.html#ga9bdc4114a9acac5cfe9136b66e2a1d12">getSIPR</a>((uint8_t*)&amp;taddr);</div>
@@ -675,7 +675,7 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 </div>
 <div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span> </div>
 <div class="foldopen" id="foldopen00600" data-start="{" data-end="}">
-<div class="line"><a id="l00600" name="l00600"></a><span class="lineno"><a class="line" href="group__WIZnet__socket__APIs.html#gae580bd099f9bcbeca63a3145c0015e62">  600</a></span>int32_t <a class="code hl_function" href="group__WIZnet__socket__APIs.html#gae580bd099f9bcbeca63a3145c0015e62">recvfrom</a>(uint8_t sn, uint8_t* buf, uint16_t len, uint8_t* <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>, uint16_t* port) {</div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno"><a class="line" href="group__WIZnet__socket__APIs.html#gae580bd099f9bcbeca63a3145c0015e62">  600</a></span>int32_t <a class="code hl_function" href="group__WIZnet__socket__APIs.html#gae580bd099f9bcbeca63a3145c0015e62">recvfrom</a>(uint8_t sn, uint8_t* <a class="code hl_variable" href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a>, uint16_t len, uint8_t* <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>, uint16_t* port) {</div>
 <div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span><span class="comment">//M20150601 : For W5300</span></div>
 <div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span><span class="preprocessor">#if _WIZCHIP_ == 5300</span></div>
 <div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>    uint16_t mr;</div>
@@ -762,7 +762,7 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span>            len = pack_len;</div>
 <div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span><span class="preprocessor">#if _WIZCHIP_ == 5300</span></div>
 <div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="socket_8c.html#ac623dabe9d9bd62a42ca60628ab1551e">sock_pack_info</a>[sn] &amp; <a class="code hl_define" href="socket_8h.html#aa6b2c5b7486575f6fa7d173faa9ce1a1">PACK_FIFOBYTE</a>) {</div>
-<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>                *buf++ = sock_remained_byte[sn];</div>
+<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>                *<a class="code hl_variable" href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a>++ = sock_remained_byte[sn];</div>
 <div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>                pack_len -= 1;</div>
 <div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>                <a class="code hl_variable" href="socket_8c.html#ad2e8519d09c2dbb4a6b901618b1ba516">sock_remained_size</a>[sn] -= 1;</div>
 <div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>                <a class="code hl_variable" href="socket_8c.html#ac623dabe9d9bd62a42ca60628ab1551e">sock_pack_info</a>[sn] &amp;= ~PACK_FIFOBYTE;</div>
@@ -771,7 +771,7 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>            <span class="comment">//</span></div>
 <div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>            <span class="comment">// Need to packet length check (default 1472)</span></div>
 <div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>            <span class="comment">//</span></div>
-<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>            <a class="code hl_function" href="group__Basic__IO__function.html#ga98cbcd6c7ba3abf9ab28caa8261886b1">wiz_recv_data</a>(sn, buf, pack_len); <span class="comment">// data copy.</span></div>
+<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>            <a class="code hl_function" href="group__Basic__IO__function.html#ga98cbcd6c7ba3abf9ab28caa8261886b1">wiz_recv_data</a>(sn, <a class="code hl_variable" href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a>, pack_len); <span class="comment">// data copy.</span></div>
 <div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>        <span class="keywordflow">case</span> <a class="code hl_define" href="w5500_8h.html#a8426a69a5d58f909bb1c7ce12afad0a5">Sn_MR_MACRAW</a>:</div>
 <div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="socket_8c.html#ad2e8519d09c2dbb4a6b901618b1ba516">sock_remained_size</a>[sn] == 0) {</div>
@@ -798,7 +798,7 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span>                pack_len = len;</div>
 <div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>            <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>                pack_len = <a class="code hl_variable" href="socket_8c.html#ad2e8519d09c2dbb4a6b901618b1ba516">sock_remained_size</a>[sn];</div>
-<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>            <a class="code hl_function" href="group__Basic__IO__function.html#ga98cbcd6c7ba3abf9ab28caa8261886b1">wiz_recv_data</a>(sn, buf, pack_len);</div>
+<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>            <a class="code hl_function" href="group__Basic__IO__function.html#ga98cbcd6c7ba3abf9ab28caa8261886b1">wiz_recv_data</a>(sn, <a class="code hl_variable" href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a>, pack_len);</div>
 <div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>            <span class="comment">//#if ( _WIZCHIP_ &lt; 5200 )</span></div>
 <div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>        <span class="keywordflow">case</span> <a class="code hl_define" href="w5500_8h.html#ae2eb5ec5fdac56d474184b34db00d92a">Sn_MR_IPRAW</a>:</div>
@@ -824,7 +824,7 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>                pack_len = len;</div>
 <div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>            <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>                pack_len = <a class="code hl_variable" href="socket_8c.html#ad2e8519d09c2dbb4a6b901618b1ba516">sock_remained_size</a>[sn];</div>
-<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>            <a class="code hl_function" href="group__Basic__IO__function.html#ga98cbcd6c7ba3abf9ab28caa8261886b1">wiz_recv_data</a>(sn, buf, pack_len); <span class="comment">// data copy.</span></div>
+<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>            <a class="code hl_function" href="group__Basic__IO__function.html#ga98cbcd6c7ba3abf9ab28caa8261886b1">wiz_recv_data</a>(sn, <a class="code hl_variable" href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a>, pack_len); <span class="comment">// data copy.</span></div>
 <div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>            <span class="comment">//#endif</span></div>
 <div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>        <span class="keywordflow">default</span>:</div>
@@ -1017,6 +1017,7 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00933" name="l00933"></a><span class="lineno">  933</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="socket_8h.html#a43761c46fde2eb998247950b5a735cbf">SOCK_OK</a>;</div>
 <div class="line"><a id="l00934" name="l00934"></a><span class="lineno">  934</span>}</div>
 </div>
+<div class="ttc" id="adaq_2main_8c_html_a3a94a8ce8fa02bdc21dbba90dbcbb45d"><div class="ttname"><a href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a></div><div class="ttdeci">timestamped_frame_t buf</div><div class="ttdef"><b>Definition</b> <a href="daq_2main_8c_source.html#l00119">main.c:119</a></div></div>
 <div class="ttc" id="aeeprom__spi_8c_html_ab439e3a90339e2e8ca8f82d4557a34e5"><div class="ttname"><a href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a></div><div class="ttdeci">static uint32_t addr</div><div class="ttdef"><b>Definition</b> <a href="eeprom__spi_8c_source.html#l00229">eeprom_spi.c:229</a></div></div>
 <div class="ttc" id="agroup__Basic__IO__function_html_ga98cbcd6c7ba3abf9ab28caa8261886b1"><div class="ttname"><a href="group__Basic__IO__function.html#ga98cbcd6c7ba3abf9ab28caa8261886b1">wiz_recv_data</a></div><div class="ttdeci">void wiz_recv_data(uint8_t sn, uint8_t *wizdata, uint16_t len)</div><div class="ttdoc">It copies data to your buffer from internal RX memory.</div><div class="ttdef"><b>Definition</b> <a href="w5500_8c_source.html#l00231">w5500.c:231</a></div></div>
 <div class="ttc" id="agroup__Basic__IO__function_html_gaaaae8c46f0d8745e3f474c7b14feaad6"><div class="ttname"><a href="group__Basic__IO__function.html#gaaaae8c46f0d8745e3f474c7b14feaad6">wiz_recv_ignore</a></div><div class="ttdeci">void wiz_recv_ignore(uint8_t sn, uint16_t len)</div><div class="ttdoc">It discard the received data in RX memory.</div><div class="ttdef"><b>Definition</b> <a href="w5500_8c_source.html#l00248">w5500.c:248</a></div></div>

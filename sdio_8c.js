@@ -43,7 +43,6 @@ var sdio_8c =
     [ "sdio_rx_config", "sdio_8c.html#a19ff1726533d01d3340cbbe93a034867", null ],
     [ "sdio_tx_config", "sdio_8c.html#a277ac25c6a1f8b507fc73417dc397234", null ],
     [ "SDSTATUS_Tab", "sdio_8c.html#a9889bc1be9c128f5bba64fca4bfd73bf", null ],
-    [ "StopCondition", "sdio_8c.html#a0df0fa8dad7eb524a8a5d1ec0d357089", null ],
     [ "TransferEnd", "sdio_8c.html#a674dd7110bb05a30aea8530db5e6b74d", null ],
     [ "TransferError", "sdio_8c.html#a0c5a80166fc0941496f4259c276156e9", null ]
 ];

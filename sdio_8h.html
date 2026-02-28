@@ -374,7 +374,7 @@ Macros</h2></td></tr>
 <tr class="separator:a79815d1d798b28a2d3750ad25466ff1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d864f5c4e1af298146afc1d680081e9" id="r_a4d864f5c4e1af298146afc1d680081e9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d864f5c4e1af298146afc1d680081e9">SDIO_BusWide_8b</a>&#160;&#160;&#160;(8)</td></tr>
 <tr class="separator:a4d864f5c4e1af298146afc1d680081e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c7fba5ee6eb3d82a5cb410c04994296" id="r_a9c7fba5ee6eb3d82a5cb410c04994296"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c7fba5ee6eb3d82a5cb410c04994296">FATFS_SDIO_4BIT</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:a9c7fba5ee6eb3d82a5cb410c04994296" id="r_a9c7fba5ee6eb3d82a5cb410c04994296"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c7fba5ee6eb3d82a5cb410c04994296">FATFS_SDIO_4BIT</a>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:a9c7fba5ee6eb3d82a5cb410c04994296"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe1c9bdbdccf901be62203bf5547147e" id="r_afe1c9bdbdccf901be62203bf5547147e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe1c9bdbdccf901be62203bf5547147e">SDIO_SEND_IF_COND</a>&#160;&#160;&#160;((uint32_t)0x00000008)</td></tr>
 <tr class="memdesc:afe1c9bdbdccf901be62203bf5547147e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Following commands are SD Card Specific commands. SDIO_APP_CMD should be sent before sending these commands.  <br /></td></tr>
@@ -452,7 +452,6 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#acff91fa68daa1d1ee967b5b3fb3dbd8cae7d9e30a15fd1bc4b2cd8f10208e76a6">SD_OK</a> = 0
 <br />
  }</td></tr>
-<tr class="memdesc:acff91fa68daa1d1ee967b5b3fb3dbd8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration entry for SDIO initilization.  <a href="#acff91fa68daa1d1ee967b5b3fb3dbd8c">More...</a><br /></td></tr>
 <tr class="separator:acff91fa68daa1d1ee967b5b3fb3dbd8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace0484a459648257c3eae8ea60f64fbf" id="r_ace0484a459648257c3eae8ea60f64fbf"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace0484a459648257c3eae8ea60f64fbf">SDTransferState</a> { <a class="el" href="#ace0484a459648257c3eae8ea60f64fbfa52c1686845d340ee5d8c0bc0325f9af3">SD_TRANSFER_OK</a> = 0
 , <a class="el" href="#ace0484a459648257c3eae8ea60f64fbfaef1a870ef1c17e160d57d732328b042e">SD_TRANSFER_BUSY</a> = 1
@@ -483,7 +482,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a7b441f99db323528145ce61011b5b204"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize SDIO peripheral with the configuired structure.  <br /></td></tr>
 <tr class="separator:a7b441f99db323528145ce61011b5b204"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5b450ca3307efda90446fe2a8cca8f4" id="r_ab5b450ca3307efda90446fe2a8cca8f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5b450ca3307efda90446fe2a8cca8f4">SD_LowLevel_DMA_TxConfig</a> (uint32_t *BufferSRC, uint32_t BufferSize)</td></tr>
-<tr class="memdesc:ab5b450ca3307efda90446fe2a8cca8f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the DMA2 Channel4 for SDIO Tx request.  <br /></td></tr>
+<tr class="memdesc:ab5b450ca3307efda90446fe2a8cca8f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the DMA 2 Channel 6 for SDIO Tx request.  <br /></td></tr>
 <tr class="separator:ab5b450ca3307efda90446fe2a8cca8f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6c4df3070c195bbc2067e19a702f495" id="r_ad6c4df3070c195bbc2067e19a702f495"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6c4df3070c195bbc2067e19a702f495">SD_LowLevel_DMA_RxConfig</a> (uint32_t *BufferDST, uint32_t BufferSize)</td></tr>
 <tr class="memdesc:ad6c4df3070c195bbc2067e19a702f495"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the DMA2 Channel4 for SDIO Rx request.  <br /></td></tr>
@@ -494,7 +493,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a4b480281586b4fd1ccf150129fe21120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a command.  <br /></td></tr>
 <tr class="separator:a4b480281586b4fd1ccf150129fe21120"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c927d4d98ffb6f3cc2442b09c19926c" id="r_a3c927d4d98ffb6f3cc2442b09c19926c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#acff91fa68daa1d1ee967b5b3fb3dbd8c">SD_Error</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3c927d4d98ffb6f3cc2442b09c19926c">SD_Init</a> (void)</td></tr>
-<tr class="memdesc:a3c927d4d98ffb6f3cc2442b09c19926c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the SD Card for Data Transfer.  <br /></td></tr>
+<tr class="memdesc:a3c927d4d98ffb6f3cc2442b09c19926c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the SD Card and put it into StandBy State (Ready for data transfer).  <br /></td></tr>
 <tr class="separator:a3c927d4d98ffb6f3cc2442b09c19926c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3f228aaee7b2b18acc056b2f27ca3f7" id="r_af3f228aaee7b2b18acc056b2f27ca3f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ace0484a459648257c3eae8ea60f64fbf">SDTransferState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3f228aaee7b2b18acc056b2f27ca3f7">SD_GetStatus</a> (void)</td></tr>
 <tr class="memdesc:af3f228aaee7b2b18acc056b2f27ca3f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the cuurent sd card data transfer status.  <br /></td></tr>
@@ -547,12 +546,12 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define FATFS_SDIO_4BIT&#160;&#160;&#160;0</td>
+          <td class="memname">#define FATFS_SDIO_4BIT&#160;&#160;&#160;1</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00368">368</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00356">356</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -568,9 +567,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00342">342</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00330">330</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01430">FindSCR()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01375">FindSCR()</a>.</p>
 
 </div>
 </div>
@@ -586,9 +585,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00344">344</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00332">332</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01430">FindSCR()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01375">FindSCR()</a>.</p>
 
 </div>
 </div>
@@ -604,9 +603,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00345">345</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00333">333</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01430">FindSCR()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01375">FindSCR()</a>.</p>
 
 </div>
 </div>
@@ -622,9 +621,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00343">343</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00331">331</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01430">FindSCR()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01375">FindSCR()</a>.</p>
 
 </div>
 </div>
@@ -640,9 +639,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00335">335</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00323">323</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>, <a class="el" href="sdio_8c_source.html#l01280">CmdResp6Error()</a>, and <a class="el" href="sdio_8c_source.html#l01339">SDEnWideBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>, <a class="el" href="sdio_8c_source.html#l01225">CmdResp6Error()</a>, and <a class="el" href="sdio_8c_source.html#l01284">SDEnWideBus()</a>.</p>
 
 </div>
 </div>
@@ -658,9 +657,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00339">339</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00327">327</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01339">SDEnWideBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01284">SDEnWideBus()</a>.</p>
 
 </div>
 </div>
@@ -676,7 +675,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00356">356</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00344">344</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -694,7 +693,7 @@ Functions</h2></td></tr>
 
 <p>Command Class Supported. </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00354">354</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00342">342</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -710,7 +709,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00355">355</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00343">343</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -726,9 +725,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00217">217</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00205">205</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00239">SD_PowerON()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00208">SD_PowerON()</a>.</p>
 
 </div>
 </div>
@@ -744,7 +743,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00217">217</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00205">205</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -760,9 +759,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00224">224</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00212">212</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00362">SD_InitializeCards()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00317">SD_InitializeCards()</a>.</p>
 
 </div>
 </div>
@@ -778,9 +777,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00265">265</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00253">253</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01430">FindSCR()</a>, <a class="el" href="sdio_8c_source.html#l00239">SD_PowerON()</a>, <a class="el" href="sdio_8c_source.html#l00858">SD_WriteMultiBlocks()</a>, and <a class="el" href="sdio_8c_source.html#l01339">SDEnWideBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01375">FindSCR()</a>, <a class="el" href="sdio_8c_source.html#l00208">SD_PowerON()</a>, <a class="el" href="sdio_8c_source.html#l00806">SD_WriteMultiBlocks()</a>, and <a class="el" href="sdio_8c_source.html#l01284">SDEnWideBus()</a>.</p>
 
 </div>
 </div>
@@ -799,9 +798,9 @@ Functions</h2></td></tr>
 <p>Following commands are SD Card Specific commands. SDIO_APP_CMD should be sent before sending these commands. </p>
 <p>For SD Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00273">273</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00261">261</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01339">SDEnWideBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01284">SDEnWideBus()</a>.</p>
 
 </div>
 </div>
@@ -817,7 +816,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00249">249</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00237">237</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -833,7 +832,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00261">261</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00249">249</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -850,7 +849,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>To set the address of the last write block of the continuous range to be erased. (For MMC card only spec 3.31) </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00258">258</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00246">246</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -867,7 +866,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>To set the address of the first write block to be erased. (For MMC card only spec 3.31) </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00255">255</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00243">243</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -884,7 +883,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>SD Card doesn't support it </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00262">262</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00250">250</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -900,7 +899,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00266">266</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00254">254</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -918,9 +917,9 @@ Functions</h2></td></tr>
 
 <p>SDIO Commands Index. </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00222">222</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00210">210</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00239">SD_PowerON()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00208">SD_PowerON()</a>.</p>
 
 </div>
 </div>
@@ -936,7 +935,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00237">237</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00225">225</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -953,7 +952,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>SD Card doesn't support it </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00263">263</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00251">251</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -969,7 +968,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00236">236</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00224">224</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -985,7 +984,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00241">241</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00229">229</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1001,7 +1000,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00230">230</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00218">218</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1017,7 +1016,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00228">228</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00216">216</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1033,7 +1032,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00264">264</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00252">252</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1049,7 +1048,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00267">267</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00255">255</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1066,7 +1065,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>reserved for manufacturers </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00246">246</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00234">234</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1082,7 +1081,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00247">247</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00235">235</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1099,7 +1098,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>SD Card doesn't support it </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00233">233</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00221">221</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1115,9 +1114,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00240">240</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00228">228</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00726">SD_ReadMultiBlocks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00682">SD_ReadMultiBlocks()</a>.</p>
 
 </div>
 </div>
@@ -1133,7 +1132,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00239">239</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00227">227</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1150,7 +1149,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>For SD Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00295">295</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00283">283</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1167,7 +1166,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>For SD Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00291">291</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00279">279</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1184,7 +1183,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>For SD Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00289">289</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00277">277</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1201,7 +1200,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>For SD Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00287">287</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00275">275</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1220,7 +1219,7 @@ Functions</h2></td></tr>
 <p>Following commands are SD Card Specific security commands. SDIO_APP_CMD should be sent before sending these commands. </p>
 <p>For SD Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00286">286</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00274">274</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1237,9 +1236,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>For SD Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00276">276</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00264">264</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00239">SD_PowerON()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00208">SD_PowerON()</a>.</p>
 
 </div>
 </div>
@@ -1256,7 +1255,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>For SD Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00294">294</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00282">282</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1273,7 +1272,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>For SD Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00292">292</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00280">280</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1290,7 +1289,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>For SD Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00296">296</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00284">284</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1307,7 +1306,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>For SD Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00293">293</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00281">281</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1324,7 +1323,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>For SD Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00275">275</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00263">263</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1341,9 +1340,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>For SD Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00278">278</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00266">266</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01430">FindSCR()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01375">FindSCR()</a>.</p>
 
 </div>
 </div>
@@ -1360,7 +1359,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>For SD Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00290">290</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00278">278</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1377,7 +1376,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>For SD Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00288">288</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00276">276</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1394,7 +1393,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>For SD Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00277">277</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00265">265</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1411,7 +1410,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>For SD Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00274">274</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00262">262</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1428,7 +1427,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>To set the address of the last write block of the continuous range to be erased. (For SD card only) </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00253">253</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00241">241</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1445,7 +1444,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>To set the address of the first write block to be erased. (For SD card only) </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00251">251</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00239">239</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1462,7 +1461,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>For SD I/O Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00279">279</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00267">267</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1479,7 +1478,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>For SD I/O Card only </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00280">280</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00268">268</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1495,7 +1494,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00227">227</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00215">215</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1511,9 +1510,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00229">229</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00217">217</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00686">SD_SelectDeselect()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00642">SD_SelectDeselect()</a>.</p>
 
 </div>
 </div>
@@ -1529,7 +1528,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00232">232</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00220">220</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1545,9 +1544,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00231">231</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00219">219</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00362">SD_InitializeCards()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00317">SD_InitializeCards()</a>.</p>
 
 </div>
 </div>
@@ -1563,7 +1562,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00223">223</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00211">211</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1579,9 +1578,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00235">235</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00223">223</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01009">SD_SendStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00954">SD_SendStatus()</a>.</p>
 
 </div>
 </div>
@@ -1597,7 +1596,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00250">250</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00238">238</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1614,9 +1613,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>SD Card doesn't support it </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00243">243</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00231">231</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00858">SD_WriteMultiBlocks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00806">SD_WriteMultiBlocks()</a>.</p>
 
 </div>
 </div>
@@ -1632,9 +1631,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00238">238</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00226">226</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01430">FindSCR()</a>, <a class="el" href="sdio_8c_source.html#l00726">SD_ReadMultiBlocks()</a>, and <a class="el" href="sdio_8c_source.html#l00858">SD_WriteMultiBlocks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01375">FindSCR()</a>, <a class="el" href="sdio_8c_source.html#l00682">SD_ReadMultiBlocks()</a>, and <a class="el" href="sdio_8c_source.html#l00806">SD_WriteMultiBlocks()</a>.</p>
 
 </div>
 </div>
@@ -1650,7 +1649,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00226">226</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00214">214</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1667,9 +1666,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>SDIO_SEND_REL_ADDR for SD Card </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00225">225</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00213">213</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00362">SD_InitializeCards()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00317">SD_InitializeCards()</a>.</p>
 
 </div>
 </div>
@@ -1685,7 +1684,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00248">248</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00236">236</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1701,9 +1700,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00234">234</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00222">222</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00982">SD_StopTransfer()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00927">SD_StopTransfer()</a>.</p>
 
 </div>
 </div>
@@ -1720,7 +1719,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>SD Card doesn't support it </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00242">242</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00230">230</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1736,9 +1735,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00245">245</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00233">233</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00858">SD_WriteMultiBlocks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00806">SD_WriteMultiBlocks()</a>.</p>
 
 </div>
 </div>
@@ -1754,7 +1753,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00244">244</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00232">232</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1770,9 +1769,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00341">341</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00329">329</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01430">FindSCR()</a>, <a class="el" href="sdio_8c_source.html#l00726">SD_ReadMultiBlocks()</a>, <a class="el" href="sdio_8c_source.html#l00800">SD_WaitReadOperation()</a>, <a class="el" href="sdio_8c_source.html#l00940">SD_WaitWriteOperation()</a>, and <a class="el" href="sdio_8c_source.html#l00858">SD_WriteMultiBlocks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01375">FindSCR()</a>, <a class="el" href="sdio_8c_source.html#l00682">SD_ReadMultiBlocks()</a>, <a class="el" href="sdio_8c_source.html#l00757">SD_WaitReadOperation()</a>, <a class="el" href="sdio_8c_source.html#l00888">SD_WaitWriteOperation()</a>, and <a class="el" href="sdio_8c_source.html#l00806">SD_WriteMultiBlocks()</a>.</p>
 
 </div>
 </div>
@@ -1788,7 +1787,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00392">392</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00381">381</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1804,7 +1803,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00348">348</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00336">336</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1820,7 +1819,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00349">349</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00337">337</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1836,9 +1835,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00330">330</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00318">318</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00239">SD_PowerON()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00208">SD_PowerON()</a>.</p>
 
 </div>
 </div>
@@ -1854,7 +1853,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00346">346</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00334">334</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -1870,9 +1869,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00334">334</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00322">322</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00239">SD_PowerON()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00208">SD_PowerON()</a>.</p>
 
 </div>
 </div>
@@ -1888,9 +1887,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00362">362</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00350">350</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00221">SD_Detect()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00190">SD_Detect()</a>.</p>
 
 </div>
 </div>
@@ -1906,9 +1905,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00302">302</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00290">290</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -1926,9 +1925,9 @@ Functions</h2></td></tr>
 
 <p>Mask for errors Card Status R1 (OCR Register) </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00301">301</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00289">289</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -1944,9 +1943,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00319">319</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00307">307</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -1962,9 +1961,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00305">305</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00293">293</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -1980,9 +1979,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00303">303</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00291">291</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -1998,9 +1997,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00317">317</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00305">305</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -2016,9 +2015,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00310">310</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00298">298</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -2034,9 +2033,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00311">311</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00299">299</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -2052,9 +2051,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00315">315</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00303">303</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -2070,9 +2069,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00308">308</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00296">296</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -2088,9 +2087,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00318">318</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00306">306</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -2106,9 +2105,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00304">304</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00292">292</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -2124,9 +2123,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00320">320</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00308">308</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -2142,9 +2141,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00312">312</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00300">300</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -2160,9 +2159,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00309">309</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00297">297</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -2178,9 +2177,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00307">307</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00295">295</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -2196,9 +2195,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00313">313</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00301">301</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -2214,9 +2213,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00314">314</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00302">302</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -2232,9 +2231,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00316">316</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00304">304</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -2250,9 +2249,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00306">306</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00294">294</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>.</p>
 
 </div>
 </div>
@@ -2270,9 +2269,9 @@ Functions</h2></td></tr>
 
 <p>SD detection on its memory slot. </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00361">361</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00349">349</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="diskio_8c_source.html#l00180">_sdio_disk_write()</a>, <a class="el" href="diskio_8c_source.html#l00068">disk_status()</a>, <a class="el" href="sdio_8c_source.html#l00221">SD_Detect()</a>, <a class="el" href="sdio_8c_source.html#l00202">SD_GetState()</a>, and <a class="el" href="daq__sd_8c_source.html#l00134">sd_update_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="diskio_8c_source.html#l00179">_sdio_disk_write()</a>, <a class="el" href="diskio_8c_source.html#l00068">disk_status()</a>, <a class="el" href="sdio_8c_source.html#l00190">SD_Detect()</a>, <a class="el" href="sdio_8c_source.html#l00171">SD_GetState()</a>, and <a class="el" href="daq__sd_8c_source.html#l00135">sd_update_periodic()</a>.</p>
 
 </div>
 </div>
@@ -2288,9 +2287,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00327">327</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00315">315</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01280">CmdResp6Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01225">CmdResp6Error()</a>.</p>
 
 </div>
 </div>
@@ -2308,9 +2307,9 @@ Functions</h2></td></tr>
 
 <p>Masks for R6 Response. </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00325">325</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00313">313</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01280">CmdResp6Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01225">CmdResp6Error()</a>.</p>
 
 </div>
 </div>
@@ -2326,9 +2325,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00326">326</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00314">314</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01280">CmdResp6Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01225">CmdResp6Error()</a>.</p>
 
 </div>
 </div>
@@ -2344,9 +2343,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00338">338</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00326">326</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01339">SDEnWideBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01284">SDEnWideBus()</a>.</p>
 
 </div>
 </div>
@@ -2362,9 +2361,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00331">331</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00319">319</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00239">SD_PowerON()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00208">SD_PowerON()</a>.</p>
 
 </div>
 </div>
@@ -2380,9 +2379,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00329">329</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00317">317</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00239">SD_PowerON()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00208">SD_PowerON()</a>.</p>
 
 </div>
 </div>
@@ -2398,9 +2397,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00337">337</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00325">325</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01339">SDEnWideBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01284">SDEnWideBus()</a>.</p>
 
 </div>
 </div>
@@ -2416,9 +2415,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00364">364</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00352">352</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00111">SD_Init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00078">SD_Init()</a>.</p>
 
 </div>
 </div>
@@ -2434,9 +2433,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00365">365</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00353">353</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00643">SD_EnableWideBusOperation()</a>, and <a class="el" href="sdio_8c_source.html#l00111">SD_Init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00599">SD_EnableWideBusOperation()</a>, and <a class="el" href="sdio_8c_source.html#l00078">SD_Init()</a>.</p>
 
 </div>
 </div>
@@ -2452,9 +2451,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00366">366</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00354">354</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00643">SD_EnableWideBusOperation()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00599">SD_EnableWideBusOperation()</a>.</p>
 
 </div>
 </div>
@@ -2470,9 +2469,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00215">215</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00203">203</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01043">CmdError()</a>, and <a class="el" href="sdio_8c_source.html#l01068">CmdResp7Error()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00988">CmdError()</a>, and <a class="el" href="sdio_8c_source.html#l01013">CmdResp7Error()</a>.</p>
 
 </div>
 </div>
@@ -2488,9 +2487,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00377">377</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00365">365</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00726">SD_ReadMultiBlocks()</a>, and <a class="el" href="sdio_8c_source.html#l00858">SD_WriteMultiBlocks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00682">SD_ReadMultiBlocks()</a>, and <a class="el" href="sdio_8c_source.html#l00806">SD_WriteMultiBlocks()</a>.</p>
 
 </div>
 </div>
@@ -2506,7 +2505,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00213">213</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00201">201</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -2522,9 +2521,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00208">208</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00196">196</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00643">SD_EnableWideBusOperation()</a>, <a class="el" href="sdio_8c_source.html#l00437">SD_GetCardInfo()</a>, <a class="el" href="sdio_8c_source.html#l00362">SD_InitializeCards()</a>, <a class="el" href="sdio_8c_source.html#l00239">SD_PowerON()</a>, <a class="el" href="sdio_8c_source.html#l00726">SD_ReadMultiBlocks()</a>, and <a class="el" href="sdio_8c_source.html#l00858">SD_WriteMultiBlocks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00599">SD_EnableWideBusOperation()</a>, <a class="el" href="sdio_8c_source.html#l00393">SD_GetCardInfo()</a>, <a class="el" href="sdio_8c_source.html#l00317">SD_InitializeCards()</a>, <a class="el" href="sdio_8c_source.html#l00208">SD_PowerON()</a>, <a class="el" href="sdio_8c_source.html#l00682">SD_ReadMultiBlocks()</a>, and <a class="el" href="sdio_8c_source.html#l00806">SD_WriteMultiBlocks()</a>.</p>
 
 </div>
 </div>
@@ -2540,7 +2539,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00211">211</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00199">199</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -2558,9 +2557,9 @@ Functions</h2></td></tr>
 
 <p>SDIO Intialization Frequency (400KHz max) </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00382">382</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00370">370</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00239">SD_PowerON()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00078">SD_Init()</a>.</p>
 
 </div>
 </div>
@@ -2576,9 +2575,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00209">209</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00197">197</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00643">SD_EnableWideBusOperation()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00599">SD_EnableWideBusOperation()</a>.</p>
 
 </div>
 </div>
@@ -2594,9 +2593,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00210">210</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00198">198</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00362">SD_InitializeCards()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00317">SD_InitializeCards()</a>.</p>
 
 </div>
 </div>
@@ -2612,9 +2611,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00212">212</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00200">200</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00362">SD_InitializeCards()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00317">SD_InitializeCards()</a>.</p>
 
 </div>
 </div>
@@ -2632,9 +2631,9 @@ Functions</h2></td></tr>
 
 <p>Following commands are SD Card Specific commands. SDIO_APP_CMD should be sent before sending these commands. </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00374">374</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00362">362</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00239">SD_PowerON()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00208">SD_PowerON()</a>.</p>
 
 </div>
 </div>
@@ -2650,9 +2649,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00216">216</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00204">204</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01043">CmdError()</a>, <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>, <a class="el" href="sdio_8c_source.html#l01247">CmdResp2Error()</a>, <a class="el" href="sdio_8c_source.html#l01222">CmdResp3Error()</a>, <a class="el" href="sdio_8c_source.html#l01280">CmdResp6Error()</a>, <a class="el" href="sdio_8c_source.html#l01430">FindSCR()</a>, <a class="el" href="sdio_8c_source.html#l00800">SD_WaitReadOperation()</a>, and <a class="el" href="sdio_8c_source.html#l00940">SD_WaitWriteOperation()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00988">CmdError()</a>, <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>, <a class="el" href="sdio_8c_source.html#l01192">CmdResp2Error()</a>, <a class="el" href="sdio_8c_source.html#l01167">CmdResp3Error()</a>, <a class="el" href="sdio_8c_source.html#l01225">CmdResp6Error()</a>, <a class="el" href="sdio_8c_source.html#l01375">FindSCR()</a>, <a class="el" href="sdio_8c_source.html#l00757">SD_WaitReadOperation()</a>, and <a class="el" href="sdio_8c_source.html#l00888">SD_WaitWriteOperation()</a>.</p>
 
 </div>
 </div>
@@ -2670,9 +2669,9 @@ Functions</h2></td></tr>
 
 <p>Supported SD Memory Cards. </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00206">206</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00194">194</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00044">PHAL_SDIO_init()</a>, <a class="el" href="sdio_8c_source.html#l00643">SD_EnableWideBusOperation()</a>, <a class="el" href="sdio_8c_source.html#l00437">SD_GetCardInfo()</a>, and <a class="el" href="sdio_8c_source.html#l00362">SD_InitializeCards()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00043">PHAL_SDIO_init()</a>, <a class="el" href="sdio_8c_source.html#l00599">SD_EnableWideBusOperation()</a>, <a class="el" href="sdio_8c_source.html#l00393">SD_GetCardInfo()</a>, and <a class="el" href="sdio_8c_source.html#l00317">SD_InitializeCards()</a>.</p>
 
 </div>
 </div>
@@ -2688,9 +2687,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00207">207</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00195">195</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00643">SD_EnableWideBusOperation()</a>, <a class="el" href="sdio_8c_source.html#l00437">SD_GetCardInfo()</a>, <a class="el" href="sdio_8c_source.html#l00362">SD_InitializeCards()</a>, and <a class="el" href="sdio_8c_source.html#l00239">SD_PowerON()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00599">SD_EnableWideBusOperation()</a>, <a class="el" href="sdio_8c_source.html#l00393">SD_GetCardInfo()</a>, <a class="el" href="sdio_8c_source.html#l00317">SD_InitializeCards()</a>, and <a class="el" href="sdio_8c_source.html#l00208">SD_PowerON()</a>.</p>
 
 </div>
 </div>
@@ -2708,9 +2707,9 @@ Functions</h2></td></tr>
 
 <p>SDIO Data Transfer Frequency (25MHz max) </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00388">388</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00377">377</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00643">SD_EnableWideBusOperation()</a>, and <a class="el" href="sdio_8c_source.html#l00111">SD_Init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00599">SD_EnableWideBusOperation()</a>, and <a class="el" href="sdio_8c_source.html#l00078">SD_Init()</a>.</p>
 
 </div>
 </div>
@@ -2750,8 +2749,6 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Configuration entry for SDIO initilization. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="acff91fa68daa1d1ee967b5b3fb3dbd8ca6dfaca7c6ace1889e0294f4ec3ec535c" name="acff91fa68daa1d1ee967b5b3fb3dbd8ca6dfaca7c6ace1889e0294f4ec3ec535c"></a>SD_CMD_CRC_FAIL&#160;</td><td class="fielddoc"><p>SDIO specific error defines. </p>
 <p>Command response received (but CRC check failed) </p>
@@ -2825,7 +2822,7 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="acff91fa68daa1d1ee967b5b3fb3dbd8cae7d9e30a15fd1bc4b2cd8f10208e76a6" name="acff91fa68daa1d1ee967b5b3fb3dbd8cae7d9e30a15fd1bc4b2cd8f10208e76a6"></a>SD_OK&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00046">46</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00034">34</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -2854,7 +2851,7 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="acdc2533a9bff7dc10def0945f5915398aed9c89d9fc0101e995ae957f132af14c" name="acdc2533a9bff7dc10def0945f5915398aed9c89d9fc0101e995ae957f132af14c"></a>SD_CARD_ERROR&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00169">169</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00157">157</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -2877,7 +2874,7 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="ace0484a459648257c3eae8ea60f64fbfa1c06f1ea5cd5d5f2ecb715654384b047" name="ace0484a459648257c3eae8ea60f64fbfa1c06f1ea5cd5d5f2ecb715654384b047"></a>SD_TRANSFER_ERROR&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00101">101</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8h_source.html#l00089">89</a> of file <a class="el" href="sdio_8h_source.html">sdio.h</a>.</p>
 
 </div>
 </div>
@@ -2918,9 +2915,9 @@ false</dd></dl>
 <dd>
 false Fail </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00044">44</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00043">43</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="sdio_8c_source.html#l00018">CardType</a>, <a class="el" href="sdio_8c_source.html#l00019">CID_Tab</a>, <a class="el" href="sdio_8c_source.html#l00019">CSD_Tab</a>, <a class="el" href="sdio_8c_source.html#l00023">DMAEndOfTransfer</a>, <a class="el" href="sdio_8c_source.html#l00019">RCA</a>, <a class="el" href="sdio_8c_source.html#l00111">SD_Init()</a>, <a class="el" href="sdio_8h_source.html#l00095">SD_OK</a>, <a class="el" href="sdio_8c_source.html#l00024">SDCardInfo</a>, <a class="el" href="sdio_8h_source.html#l00206">SDIO_STD_CAPACITY_SD_CARD_V1_1</a>, <a class="el" href="sdio_8c_source.html#l00020">SDSTATUS_Tab</a>, <a class="el" href="sdio_8c_source.html#l00023">TransferEnd</a>, and <a class="el" href="sdio_8c_source.html#l00022">TransferError</a>.</p>
+<p class="reference">References <a class="el" href="sdio_8c_source.html#l00018">CardType</a>, <a class="el" href="sdio_8c_source.html#l00019">CID_Tab</a>, <a class="el" href="sdio_8c_source.html#l00019">CSD_Tab</a>, <a class="el" href="sdio_8c_source.html#l00022">DMAEndOfTransfer</a>, <a class="el" href="sdio_8c_source.html#l00019">RCA</a>, <a class="el" href="sdio_8c_source.html#l00078">SD_Init()</a>, <a class="el" href="sdio_8h_source.html#l00083">SD_OK</a>, <a class="el" href="sdio_8c_source.html#l00023">SDCardInfo</a>, <a class="el" href="sdio_8h_source.html#l00194">SDIO_STD_CAPACITY_SD_CARD_V1_1</a>, <a class="el" href="sdio_8c_source.html#l00020">SDSTATUS_Tab</a>, <a class="el" href="sdio_8c_source.html#l00022">TransferEnd</a>, and <a class="el" href="sdio_8c_source.html#l00021">TransferError</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="diskio_8c_source.html#l00047">disk_initialize()</a>.</p>
 
@@ -2949,11 +2946,11 @@ false Fail </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00706">706</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00662">662</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
 <p class="reference">References <a class="el" href="sdio_8h_source.html#l00032">PHAL_SD_Cmd_t::arg</a>, <a class="el" href="sdio_8h_source.html#l00030">PHAL_SD_Cmd_t::idx</a>, and <a class="el" href="sdio_8h_source.html#l00031">PHAL_SD_Cmd_t::res</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01430">FindSCR()</a>, <a class="el" href="sdio_8c_source.html#l00362">SD_InitializeCards()</a>, <a class="el" href="sdio_8c_source.html#l00239">SD_PowerON()</a>, <a class="el" href="sdio_8c_source.html#l00726">SD_ReadMultiBlocks()</a>, <a class="el" href="sdio_8c_source.html#l00686">SD_SelectDeselect()</a>, <a class="el" href="sdio_8c_source.html#l01009">SD_SendStatus()</a>, <a class="el" href="sdio_8c_source.html#l00982">SD_StopTransfer()</a>, <a class="el" href="sdio_8c_source.html#l00858">SD_WriteMultiBlocks()</a>, and <a class="el" href="sdio_8c_source.html#l01339">SDEnWideBus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l01375">FindSCR()</a>, <a class="el" href="sdio_8c_source.html#l00317">SD_InitializeCards()</a>, <a class="el" href="sdio_8c_source.html#l00208">SD_PowerON()</a>, <a class="el" href="sdio_8c_source.html#l00682">SD_ReadMultiBlocks()</a>, <a class="el" href="sdio_8c_source.html#l00642">SD_SelectDeselect()</a>, <a class="el" href="sdio_8c_source.html#l00954">SD_SendStatus()</a>, <a class="el" href="sdio_8c_source.html#l00927">SD_StopTransfer()</a>, <a class="el" href="sdio_8c_source.html#l00806">SD_WriteMultiBlocks()</a>, and <a class="el" href="sdio_8c_source.html#l01284">SDEnWideBus()</a>.</p>
 
 </div>
 </div>
@@ -2975,9 +2972,9 @@ false Fail </dd></dl>
 <p>&lt; Set Power State to OFF</p>
 <p>&lt; DeInitializes the SDIO peripheral</p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l01655">1655</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l01606">1606</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq__sd_8c_source.html#l00114">sd_shutdown()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="daq__sd_8c_source.html#l00116">sd_shutdown()</a>.</p>
 
 </div>
 </div>
@@ -3010,11 +3007,11 @@ false Fail </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00221">221</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00190">190</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00271">PHAL_readGPIO()</a>, <a class="el" href="daq_2main_8h_source.html#l00026">SD_CD_PIN</a>, <a class="el" href="daq_2main_8h_source.html#l00025">SD_CD_PORT</a>, <a class="el" href="sdio_8h_source.html#l00362">SD_NOT_PRESENT</a>, and <a class="el" href="sdio_8h_source.html#l00361">SD_PRESENT</a>.</p>
+<p class="reference">References <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00271">PHAL_readGPIO()</a>, <a class="el" href="daq_2main_8h_source.html#l00025">SD_CD_PIN</a>, <a class="el" href="daq_2main_8h_source.html#l00024">SD_CD_PORT</a>, <a class="el" href="sdio_8h_source.html#l00350">SD_NOT_PRESENT</a>, and <a class="el" href="sdio_8h_source.html#l00349">SD_PRESENT</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="diskio_8c_source.html#l00180">_sdio_disk_write()</a>, <a class="el" href="diskio_8c_source.html#l00068">disk_status()</a>, <a class="el" href="sdio_8c_source.html#l00202">SD_GetState()</a>, and <a class="el" href="daq__sd_8c_source.html#l00134">sd_update_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="diskio_8c_source.html#l00179">_sdio_disk_write()</a>, <a class="el" href="diskio_8c_source.html#l00068">disk_status()</a>, <a class="el" href="sdio_8c_source.html#l00171">SD_GetState()</a>, and <a class="el" href="daq__sd_8c_source.html#l00135">sd_update_periodic()</a>.</p>
 
 </div>
 </div>
@@ -3055,11 +3052,11 @@ false Fail </dd></dl>
 <p>&lt; Configure the SDIO peripheral</p>
 <p>&lt; Configure the SDIO peripheral</p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00643">643</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00599">599</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="sdio_8c_source.html#l00018">CardType</a>, <a class="el" href="sdio_8h_source.html#l00095">SD_OK</a>, <a class="el" href="sdio_8h_source.html#l00092">SD_UNSUPPORTED_FEATURE</a>, <a class="el" href="sdio_8c_source.html#l01339">SDEnWideBus()</a>, <a class="el" href="sdio_8h_source.html#l00365">SDIO_BusWide_4b</a>, <a class="el" href="sdio_8h_source.html#l00366">SDIO_BusWide_8b</a>, <a class="el" href="sdio_8h_source.html#l00208">SDIO_HIGH_CAPACITY_SD_CARD</a>, <a class="el" href="sdio_8h_source.html#l00209">SDIO_MULTIMEDIA_CARD</a>, <a class="el" href="sdio_8h_source.html#l00206">SDIO_STD_CAPACITY_SD_CARD_V1_1</a>, <a class="el" href="sdio_8h_source.html#l00207">SDIO_STD_CAPACITY_SD_CARD_V2_0</a>, and <a class="el" href="sdio_8h_source.html#l00388">SDIO_TRANSFER_CLK_DIV</a>.</p>
+<p class="reference">References <a class="el" href="sdio_8c_source.html#l00018">CardType</a>, <a class="el" href="sdio_8h_source.html#l00083">SD_OK</a>, <a class="el" href="sdio_8h_source.html#l00080">SD_UNSUPPORTED_FEATURE</a>, <a class="el" href="sdio_8c_source.html#l01284">SDEnWideBus()</a>, <a class="el" href="sdio_8h_source.html#l00353">SDIO_BusWide_4b</a>, <a class="el" href="sdio_8h_source.html#l00354">SDIO_BusWide_8b</a>, <a class="el" href="sdio_8h_source.html#l00196">SDIO_HIGH_CAPACITY_SD_CARD</a>, <a class="el" href="sdio_8h_source.html#l00197">SDIO_MULTIMEDIA_CARD</a>, <a class="el" href="sdio_8h_source.html#l00194">SDIO_STD_CAPACITY_SD_CARD_V1_1</a>, <a class="el" href="sdio_8h_source.html#l00195">SDIO_STD_CAPACITY_SD_CARD_V2_0</a>, and <a class="el" href="sdio_8h_source.html#l00377">SDIO_TRANSFER_CLK_DIV</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00111">SD_Init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00078">SD_Init()</a>.</p>
 
 </div>
 </div>
@@ -3129,11 +3126,11 @@ false Fail </dd></dl>
 <p>&lt; Byte 14</p>
 <p>&lt; Byte 15</p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00437">437</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00393">393</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="sdio_8h_source.html#l00188">SD_CardInfo::CardBlockSize</a>, <a class="el" href="sdio_8h_source.html#l00187">SD_CardInfo::CardCapacity</a>, <a class="el" href="sdio_8h_source.html#l00117">SD_CSD::CardComdClasses</a>, <a class="el" href="sdio_8c_source.html#l00018">CardType</a>, <a class="el" href="sdio_8h_source.html#l00190">SD_CardInfo::CardType</a>, <a class="el" href="sdio_8h_source.html#l00162">SD_CID::CID_CRC</a>, <a class="el" href="sdio_8c_source.html#l00019">CID_Tab</a>, <a class="el" href="sdio_8h_source.html#l00139">SD_CSD::ContentProtectAppli</a>, <a class="el" href="sdio_8h_source.html#l00141">SD_CSD::CopyFlag</a>, <a class="el" href="sdio_8h_source.html#l00146">SD_CSD::CSD_CRC</a>, <a class="el" href="sdio_8c_source.html#l00019">CSD_Tab</a>, <a class="el" href="sdio_8h_source.html#l00111">SD_CSD::CSDStruct</a>, <a class="el" href="sdio_8h_source.html#l00124">SD_CSD::DeviceSize</a>, <a class="el" href="sdio_8h_source.html#l00129">SD_CSD::DeviceSizeMul</a>, <a class="el" href="sdio_8h_source.html#l00122">SD_CSD::DSRImpl</a>, <a class="el" href="sdio_8h_source.html#l00145">SD_CSD::ECC</a>, <a class="el" href="sdio_8h_source.html#l00131">SD_CSD::EraseGrMul</a>, <a class="el" href="sdio_8h_source.html#l00130">SD_CSD::EraseGrSize</a>, <a class="el" href="sdio_8h_source.html#l00144">SD_CSD::FileFormat</a>, <a class="el" href="sdio_8h_source.html#l00140">SD_CSD::FileFormatGrouop</a>, <a class="el" href="sdio_8h_source.html#l00134">SD_CSD::ManDeflECC</a>, <a class="el" href="sdio_8h_source.html#l00161">SD_CID::ManufactDate</a>, <a class="el" href="sdio_8h_source.html#l00154">SD_CID::ManufacturerID</a>, <a class="el" href="sdio_8h_source.html#l00116">SD_CSD::MaxBusClkFrec</a>, <a class="el" href="sdio_8h_source.html#l00126">SD_CSD::MaxRdCurrentVDDMax</a>, <a class="el" href="sdio_8h_source.html#l00125">SD_CSD::MaxRdCurrentVDDMin</a>, <a class="el" href="sdio_8h_source.html#l00136">SD_CSD::MaxWrBlockLen</a>, <a class="el" href="sdio_8h_source.html#l00128">SD_CSD::MaxWrCurrentVDDMax</a>, <a class="el" href="sdio_8h_source.html#l00127">SD_CSD::MaxWrCurrentVDDMin</a>, <a class="el" href="sdio_8h_source.html#l00115">SD_CSD::NSAC</a>, <a class="el" href="sdio_8h_source.html#l00155">SD_CID::OEM_AppliID</a>, <a class="el" href="sdio_8h_source.html#l00119">SD_CSD::PartBlockRead</a>, <a class="el" href="sdio_8h_source.html#l00142">SD_CSD::PermWrProtect</a>, <a class="el" href="sdio_8h_source.html#l00156">SD_CID::ProdName1</a>, <a class="el" href="sdio_8h_source.html#l00157">SD_CID::ProdName2</a>, <a class="el" href="sdio_8h_source.html#l00158">SD_CID::ProdRev</a>, <a class="el" href="sdio_8h_source.html#l00159">SD_CID::ProdSN</a>, <a class="el" href="sdio_8c_source.html#l00019">RCA</a>, <a class="el" href="sdio_8h_source.html#l00189">SD_CardInfo::RCA</a>, <a class="el" href="sdio_8h_source.html#l00118">SD_CSD::RdBlockLen</a>, <a class="el" href="sdio_8h_source.html#l00121">SD_CSD::RdBlockMisalign</a>, <a class="el" href="sdio_8h_source.html#l00160">SD_CID::Reserved1</a>, <a class="el" href="sdio_8h_source.html#l00113">SD_CSD::Reserved1</a>, <a class="el" href="sdio_8h_source.html#l00163">SD_CID::Reserved2</a>, <a class="el" href="sdio_8h_source.html#l00123">SD_CSD::Reserved2</a>, <a class="el" href="sdio_8h_source.html#l00138">SD_CSD::Reserved3</a>, <a class="el" href="sdio_8h_source.html#l00147">SD_CSD::Reserved4</a>, <a class="el" href="sdio_8h_source.html#l00186">SD_CardInfo::SD_cid</a>, <a class="el" href="sdio_8h_source.html#l00185">SD_CardInfo::SD_csd</a>, <a class="el" href="sdio_8h_source.html#l00095">SD_OK</a>, <a class="el" href="sdio_8h_source.html#l00208">SDIO_HIGH_CAPACITY_SD_CARD</a>, <a class="el" href="sdio_8h_source.html#l00206">SDIO_STD_CAPACITY_SD_CARD_V1_1</a>, <a class="el" href="sdio_8h_source.html#l00207">SDIO_STD_CAPACITY_SD_CARD_V2_0</a>, <a class="el" href="sdio_8h_source.html#l00112">SD_CSD::SysSpecVersion</a>, <a class="el" href="sdio_8h_source.html#l00114">SD_CSD::TAAC</a>, <a class="el" href="sdio_8h_source.html#l00143">SD_CSD::TempWrProtect</a>, <a class="el" href="sdio_8h_source.html#l00120">SD_CSD::WrBlockMisalign</a>, <a class="el" href="sdio_8h_source.html#l00137">SD_CSD::WriteBlockPaPartial</a>, <a class="el" href="sdio_8h_source.html#l00133">SD_CSD::WrProtectGrEnable</a>, <a class="el" href="sdio_8h_source.html#l00132">SD_CSD::WrProtectGrSize</a>, and <a class="el" href="sdio_8h_source.html#l00135">SD_CSD::WrSpeedFact</a>.</p>
+<p class="reference">References <a class="el" href="sdio_8h_source.html#l00176">SD_CardInfo::CardBlockSize</a>, <a class="el" href="sdio_8h_source.html#l00175">SD_CardInfo::CardCapacity</a>, <a class="el" href="sdio_8h_source.html#l00105">SD_CSD::CardComdClasses</a>, <a class="el" href="sdio_8c_source.html#l00018">CardType</a>, <a class="el" href="sdio_8h_source.html#l00178">SD_CardInfo::CardType</a>, <a class="el" href="sdio_8h_source.html#l00150">SD_CID::CID_CRC</a>, <a class="el" href="sdio_8c_source.html#l00019">CID_Tab</a>, <a class="el" href="sdio_8h_source.html#l00127">SD_CSD::ContentProtectAppli</a>, <a class="el" href="sdio_8h_source.html#l00129">SD_CSD::CopyFlag</a>, <a class="el" href="sdio_8h_source.html#l00134">SD_CSD::CSD_CRC</a>, <a class="el" href="sdio_8c_source.html#l00019">CSD_Tab</a>, <a class="el" href="sdio_8h_source.html#l00099">SD_CSD::CSDStruct</a>, <a class="el" href="sdio_8h_source.html#l00112">SD_CSD::DeviceSize</a>, <a class="el" href="sdio_8h_source.html#l00117">SD_CSD::DeviceSizeMul</a>, <a class="el" href="sdio_8h_source.html#l00110">SD_CSD::DSRImpl</a>, <a class="el" href="sdio_8h_source.html#l00133">SD_CSD::ECC</a>, <a class="el" href="sdio_8h_source.html#l00119">SD_CSD::EraseGrMul</a>, <a class="el" href="sdio_8h_source.html#l00118">SD_CSD::EraseGrSize</a>, <a class="el" href="sdio_8h_source.html#l00132">SD_CSD::FileFormat</a>, <a class="el" href="sdio_8h_source.html#l00128">SD_CSD::FileFormatGrouop</a>, <a class="el" href="sdio_8h_source.html#l00122">SD_CSD::ManDeflECC</a>, <a class="el" href="sdio_8h_source.html#l00149">SD_CID::ManufactDate</a>, <a class="el" href="sdio_8h_source.html#l00142">SD_CID::ManufacturerID</a>, <a class="el" href="sdio_8h_source.html#l00104">SD_CSD::MaxBusClkFrec</a>, <a class="el" href="sdio_8h_source.html#l00114">SD_CSD::MaxRdCurrentVDDMax</a>, <a class="el" href="sdio_8h_source.html#l00113">SD_CSD::MaxRdCurrentVDDMin</a>, <a class="el" href="sdio_8h_source.html#l00124">SD_CSD::MaxWrBlockLen</a>, <a class="el" href="sdio_8h_source.html#l00116">SD_CSD::MaxWrCurrentVDDMax</a>, <a class="el" href="sdio_8h_source.html#l00115">SD_CSD::MaxWrCurrentVDDMin</a>, <a class="el" href="sdio_8h_source.html#l00103">SD_CSD::NSAC</a>, <a class="el" href="sdio_8h_source.html#l00143">SD_CID::OEM_AppliID</a>, <a class="el" href="sdio_8h_source.html#l00107">SD_CSD::PartBlockRead</a>, <a class="el" href="sdio_8h_source.html#l00130">SD_CSD::PermWrProtect</a>, <a class="el" href="sdio_8h_source.html#l00144">SD_CID::ProdName1</a>, <a class="el" href="sdio_8h_source.html#l00145">SD_CID::ProdName2</a>, <a class="el" href="sdio_8h_source.html#l00146">SD_CID::ProdRev</a>, <a class="el" href="sdio_8h_source.html#l00147">SD_CID::ProdSN</a>, <a class="el" href="sdio_8c_source.html#l00019">RCA</a>, <a class="el" href="sdio_8h_source.html#l00177">SD_CardInfo::RCA</a>, <a class="el" href="sdio_8h_source.html#l00106">SD_CSD::RdBlockLen</a>, <a class="el" href="sdio_8h_source.html#l00109">SD_CSD::RdBlockMisalign</a>, <a class="el" href="sdio_8h_source.html#l00148">SD_CID::Reserved1</a>, <a class="el" href="sdio_8h_source.html#l00101">SD_CSD::Reserved1</a>, <a class="el" href="sdio_8h_source.html#l00151">SD_CID::Reserved2</a>, <a class="el" href="sdio_8h_source.html#l00111">SD_CSD::Reserved2</a>, <a class="el" href="sdio_8h_source.html#l00126">SD_CSD::Reserved3</a>, <a class="el" href="sdio_8h_source.html#l00135">SD_CSD::Reserved4</a>, <a class="el" href="sdio_8h_source.html#l00174">SD_CardInfo::SD_cid</a>, <a class="el" href="sdio_8h_source.html#l00173">SD_CardInfo::SD_csd</a>, <a class="el" href="sdio_8h_source.html#l00083">SD_OK</a>, <a class="el" href="sdio_8h_source.html#l00196">SDIO_HIGH_CAPACITY_SD_CARD</a>, <a class="el" href="sdio_8h_source.html#l00194">SDIO_STD_CAPACITY_SD_CARD_V1_1</a>, <a class="el" href="sdio_8h_source.html#l00195">SDIO_STD_CAPACITY_SD_CARD_V2_0</a>, <a class="el" href="sdio_8h_source.html#l00100">SD_CSD::SysSpecVersion</a>, <a class="el" href="sdio_8h_source.html#l00102">SD_CSD::TAAC</a>, <a class="el" href="sdio_8h_source.html#l00131">SD_CSD::TempWrProtect</a>, <a class="el" href="sdio_8h_source.html#l00108">SD_CSD::WrBlockMisalign</a>, <a class="el" href="sdio_8h_source.html#l00125">SD_CSD::WriteBlockPaPartial</a>, <a class="el" href="sdio_8h_source.html#l00121">SD_CSD::WrProtectGrEnable</a>, <a class="el" href="sdio_8h_source.html#l00120">SD_CSD::WrProtectGrSize</a>, and <a class="el" href="sdio_8h_source.html#l00123">SD_CSD::WrSpeedFact</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00111">SD_Init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00078">SD_Init()</a>.</p>
 
 </div>
 </div>
@@ -3166,11 +3163,11 @@ false Fail </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00202">202</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00171">171</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="sdio_8h_source.html#l00178">SD_CARD_ERROR</a>, <a class="el" href="sdio_8c_source.html#l00221">SD_Detect()</a>, <a class="el" href="sdio_8h_source.html#l00095">SD_OK</a>, <a class="el" href="sdio_8h_source.html#l00361">SD_PRESENT</a>, and <a class="el" href="sdio_8c_source.html#l01009">SD_SendStatus()</a>.</p>
+<p class="reference">References <a class="el" href="sdio_8h_source.html#l00166">SD_CARD_ERROR</a>, <a class="el" href="sdio_8c_source.html#l00190">SD_Detect()</a>, <a class="el" href="sdio_8h_source.html#l00083">SD_OK</a>, <a class="el" href="sdio_8h_source.html#l00349">SD_PRESENT</a>, and <a class="el" href="sdio_8c_source.html#l00954">SD_SendStatus()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00183">SD_GetStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00152">SD_GetStatus()</a>.</p>
 
 </div>
 </div>
@@ -3207,11 +3204,11 @@ false Fail </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00183">183</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00152">152</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="sdio_8h_source.html#l00178">SD_CARD_ERROR</a>, <a class="el" href="sdio_8h_source.html#l00173">SD_CARD_TRANSFER</a>, <a class="el" href="sdio_8c_source.html#l00202">SD_GetState()</a>, <a class="el" href="sdio_8h_source.html#l00103">SD_TRANSFER_BUSY</a>, <a class="el" href="sdio_8h_source.html#l00104">SD_TRANSFER_ERROR</a>, and <a class="el" href="sdio_8h_source.html#l00102">SD_TRANSFER_OK</a>.</p>
+<p class="reference">References <a class="el" href="sdio_8h_source.html#l00166">SD_CARD_ERROR</a>, <a class="el" href="sdio_8h_source.html#l00161">SD_CARD_TRANSFER</a>, <a class="el" href="sdio_8c_source.html#l00171">SD_GetState()</a>, <a class="el" href="sdio_8h_source.html#l00091">SD_TRANSFER_BUSY</a>, <a class="el" href="sdio_8h_source.html#l00092">SD_TRANSFER_ERROR</a>, and <a class="el" href="sdio_8h_source.html#l00090">SD_TRANSFER_OK</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="diskio_8c_source.html#l00104">_sdio_disk_read()</a>, and <a class="el" href="diskio_8c_source.html#l00180">_sdio_disk_write()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="diskio_8c_source.html#l00104">_sdio_disk_read()</a>, and <a class="el" href="diskio_8c_source.html#l00179">_sdio_disk_write()</a>.</p>
 
 </div>
 </div>
@@ -3230,9 +3227,8 @@ false Fail </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Initialize the SD Card for Data Transfer. </p>
-<dl class="section return"><dt>Returns</dt><dd>DSTATUS</dd></dl>
-<p>Initializes the SD Card and put it into StandBy State (Ready for data transfer). </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Initializes the SD Card and put it into StandBy State (Ready for data transfer). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">None</td><td></td></tr>
   </table>
@@ -3245,15 +3241,12 @@ false Fail </dd></dl>
   </dd>
 </dl>
 <p>&lt; CMD Response TimeOut (wait for CMDSENT flag)</p>
-<p>&lt; Configure the SDIO peripheral</p>
-<p>&lt; SDIO_CK = SDIOCLK / (SDIO_TRANSFER_CLK_DIV + 2)</p>
-<p>&lt; on STM32F4xx devices, SDIOCLK is fixed to 48MHz</p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00111">111</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00078">78</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="sdio_8h_source.html#l00189">SD_CardInfo::RCA</a>, <a class="el" href="sdio_8c_source.html#l00643">SD_EnableWideBusOperation()</a>, <a class="el" href="sdio_8c_source.html#l00437">SD_GetCardInfo()</a>, <a class="el" href="sdio_8c_source.html#l00362">SD_InitializeCards()</a>, <a class="el" href="sdio_8c_source.html#l00016">SD_LOG</a>, <a class="el" href="sdio_8h_source.html#l00095">SD_OK</a>, <a class="el" href="sdio_8c_source.html#l00239">SD_PowerON()</a>, <a class="el" href="sdio_8c_source.html#l00686">SD_SelectDeselect()</a>, <a class="el" href="sdio_8c_source.html#l00024">SDCardInfo</a>, <a class="el" href="sdio_8h_source.html#l00364">SDIO_BusWide_1b</a>, <a class="el" href="sdio_8h_source.html#l00365">SDIO_BusWide_4b</a>, and <a class="el" href="sdio_8h_source.html#l00388">SDIO_TRANSFER_CLK_DIV</a>.</p>
+<p class="reference">References <a class="el" href="sdio_8h_source.html#l00177">SD_CardInfo::RCA</a>, <a class="el" href="sdio_8c_source.html#l00599">SD_EnableWideBusOperation()</a>, <a class="el" href="sdio_8c_source.html#l00393">SD_GetCardInfo()</a>, <a class="el" href="sdio_8c_source.html#l00317">SD_InitializeCards()</a>, <a class="el" href="sdio_8c_source.html#l00016">SD_LOG</a>, <a class="el" href="sdio_8h_source.html#l00083">SD_OK</a>, <a class="el" href="sdio_8c_source.html#l00208">SD_PowerON()</a>, <a class="el" href="sdio_8c_source.html#l00642">SD_SelectDeselect()</a>, <a class="el" href="sdio_8c_source.html#l00023">SDCardInfo</a>, <a class="el" href="sdio_8h_source.html#l00352">SDIO_BusWide_1b</a>, <a class="el" href="sdio_8h_source.html#l00353">SDIO_BusWide_4b</a>, <a class="el" href="sdio_8h_source.html#l00370">SDIO_INIT_CLK_DIV</a>, and <a class="el" href="sdio_8h_source.html#l00377">SDIO_TRANSFER_CLK_DIV</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00044">PHAL_SDIO_init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00043">PHAL_SDIO_init()</a>.</p>
 
 </div>
 </div>
@@ -3292,11 +3285,11 @@ false Fail </dd></dl>
 <p>&lt; SDIO_SEND_REL_ADDR for SD Card</p>
 <p>&lt; Send CMD9 SEND_CSD with argument as card's RCA</p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00362">362</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00317">317</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="sdio_8h_source.html#l00032">PHAL_SD_Cmd_t::arg</a>, <a class="el" href="sdio_8c_source.html#l00018">CardType</a>, <a class="el" href="sdio_8c_source.html#l00019">CID_Tab</a>, <a class="el" href="sdio_8c_source.html#l01247">CmdResp2Error()</a>, <a class="el" href="sdio_8c_source.html#l01280">CmdResp6Error()</a>, <a class="el" href="sdio_8h_source.html#l00030">PHAL_SD_Cmd_t::idx</a>, <a class="el" href="sdio_8c_source.html#l00706">PHAL_SDIO_SendCommand()</a>, <a class="el" href="sdio_8c_source.html#l00019">RCA</a>, <a class="el" href="sdio_8h_source.html#l00031">PHAL_SD_Cmd_t::res</a>, <a class="el" href="sdio_8h_source.html#l00224">SD_CMD_ALL_SEND_CID</a>, <a class="el" href="sdio_8h_source.html#l00231">SD_CMD_SEND_CSD</a>, <a class="el" href="sdio_8h_source.html#l00225">SD_CMD_SET_REL_ADDR</a>, <a class="el" href="sdio_8h_source.html#l00095">SD_OK</a>, <a class="el" href="sdio_8h_source.html#l00090">SD_REQUEST_NOT_APPLICABLE</a>, <a class="el" href="sdio_8h_source.html#l00026">SD_RESP_LONG</a>, <a class="el" href="sdio_8h_source.html#l00025">SD_RESP_SHORT</a>, <a class="el" href="sdio_8h_source.html#l00208">SDIO_HIGH_CAPACITY_SD_CARD</a>, <a class="el" href="sdio_8h_source.html#l00210">SDIO_SECURE_DIGITAL_IO_CARD</a>, <a class="el" href="sdio_8h_source.html#l00212">SDIO_SECURE_DIGITAL_IO_COMBO_CARD</a>, <a class="el" href="sdio_8h_source.html#l00206">SDIO_STD_CAPACITY_SD_CARD_V1_1</a>, and <a class="el" href="sdio_8h_source.html#l00207">SDIO_STD_CAPACITY_SD_CARD_V2_0</a>.</p>
+<p class="reference">References <a class="el" href="sdio_8h_source.html#l00032">PHAL_SD_Cmd_t::arg</a>, <a class="el" href="sdio_8c_source.html#l00018">CardType</a>, <a class="el" href="sdio_8c_source.html#l00019">CID_Tab</a>, <a class="el" href="sdio_8c_source.html#l01192">CmdResp2Error()</a>, <a class="el" href="sdio_8c_source.html#l01225">CmdResp6Error()</a>, <a class="el" href="sdio_8h_source.html#l00030">PHAL_SD_Cmd_t::idx</a>, <a class="el" href="sdio_8c_source.html#l00662">PHAL_SDIO_SendCommand()</a>, <a class="el" href="sdio_8c_source.html#l00019">RCA</a>, <a class="el" href="sdio_8h_source.html#l00031">PHAL_SD_Cmd_t::res</a>, <a class="el" href="sdio_8h_source.html#l00212">SD_CMD_ALL_SEND_CID</a>, <a class="el" href="sdio_8h_source.html#l00219">SD_CMD_SEND_CSD</a>, <a class="el" href="sdio_8h_source.html#l00213">SD_CMD_SET_REL_ADDR</a>, <a class="el" href="sdio_8h_source.html#l00083">SD_OK</a>, <a class="el" href="sdio_8h_source.html#l00078">SD_REQUEST_NOT_APPLICABLE</a>, <a class="el" href="sdio_8h_source.html#l00026">SD_RESP_LONG</a>, <a class="el" href="sdio_8h_source.html#l00025">SD_RESP_SHORT</a>, <a class="el" href="sdio_8h_source.html#l00196">SDIO_HIGH_CAPACITY_SD_CARD</a>, <a class="el" href="sdio_8h_source.html#l00198">SDIO_SECURE_DIGITAL_IO_CARD</a>, <a class="el" href="sdio_8h_source.html#l00200">SDIO_SECURE_DIGITAL_IO_COMBO_CARD</a>, <a class="el" href="sdio_8h_source.html#l00194">SDIO_STD_CAPACITY_SD_CARD_V1_1</a>, and <a class="el" href="sdio_8h_source.html#l00195">SDIO_STD_CAPACITY_SD_CARD_V2_0</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00111">SD_Init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00078">SD_Init()</a>.</p>
 
 </div>
 </div>
@@ -3334,11 +3327,11 @@ false Fail </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l01639">1639</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l01590">1590</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="phal__F4__F7_2dma_2dma_8h_source.html#l00019">dma_init_t::mem_addr</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00014">PHAL_initDMA()</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00094">PHAL_startTxfer()</a>, <a class="el" href="sdio_8c_source.html#l01631">sdio_rx_config</a>, and <a class="el" href="phal__F4__F7_2dma_2dma_8h_source.html#l00036">dma_init_t::stream</a>.</p>
+<p class="reference">References <a class="el" href="phal__F4__F7_2dma_2dma_8h_source.html#l00019">dma_init_t::mem_addr</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00014">PHAL_initDMA()</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00094">PHAL_startTxfer()</a>, <a class="el" href="sdio_8c_source.html#l01582">sdio_rx_config</a>, and <a class="el" href="phal__F4__F7_2dma_2dma_8h_source.html#l00036">dma_init_t::stream</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00726">SD_ReadMultiBlocks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00682">SD_ReadMultiBlocks()</a>.</p>
 
 </div>
 </div>
@@ -3361,7 +3354,7 @@ false Fail </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Configures the DMA2 Channel4 for SDIO Tx request. </p>
+<p>Configures the DMA 2 Channel 6 for SDIO Tx request. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">BufferSRC</td><td>pointer to the source buffer </td></tr>
@@ -3376,11 +3369,11 @@ false Fail </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l01598">1598</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l01549">1549</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="phal__F4__F7_2dma_2dma_8h_source.html#l00019">dma_init_t::mem_addr</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00014">PHAL_initDMA()</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00094">PHAL_startTxfer()</a>, <a class="el" href="sdio_8c_source.html#l01590">sdio_tx_config</a>, and <a class="el" href="phal__F4__F7_2dma_2dma_8h_source.html#l00036">dma_init_t::stream</a>.</p>
+<p class="reference">References <a class="el" href="phal__F4__F7_2dma_2dma_8h_source.html#l00019">dma_init_t::mem_addr</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00014">PHAL_initDMA()</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00094">PHAL_startTxfer()</a>, <a class="el" href="sdio_8c_source.html#l01541">sdio_tx_config</a>, and <a class="el" href="phal__F4__F7_2dma_2dma_8h_source.html#l00036">dma_init_t::stream</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00858">SD_WriteMultiBlocks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00806">SD_WriteMultiBlocks()</a>.</p>
 
 </div>
 </div>
@@ -3431,11 +3424,11 @@ false Fail </dd></dl>
 <p>&lt; SEND CMD55 APP_CMD with RCA as 0</p>
 <p>&lt; For SD Card only</p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00239">239</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00208">208</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="sdio_8h_source.html#l00032">PHAL_SD_Cmd_t::arg</a>, <a class="el" href="sdio_8c_source.html#l00018">CardType</a>, <a class="el" href="sdio_8c_source.html#l01043">CmdError()</a>, <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>, <a class="el" href="sdio_8c_source.html#l01222">CmdResp3Error()</a>, <a class="el" href="sdio_8c_source.html#l01068">CmdResp7Error()</a>, <a class="el" href="sdio_8h_source.html#l00030">PHAL_SD_Cmd_t::idx</a>, <a class="el" href="sdio_8c_source.html#l00706">PHAL_SDIO_SendCommand()</a>, <a class="el" href="sdio_8h_source.html#l00031">PHAL_SD_Cmd_t::res</a>, <a class="el" href="sdio_8h_source.html#l00217">SD_CHECK_PATTERN</a>, <a class="el" href="sdio_8h_source.html#l00265">SD_CMD_APP_CMD</a>, <a class="el" href="sdio_8h_source.html#l00222">SD_CMD_GO_IDLE_STATE</a>, <a class="el" href="sdio_8h_source.html#l00276">SD_CMD_SD_APP_OP_COND</a>, <a class="el" href="sdio_8h_source.html#l00330">SD_HIGH_CAPACITY</a>, <a class="el" href="sdio_8h_source.html#l00076">SD_INVALID_VOLTRANGE</a>, <a class="el" href="sdio_8h_source.html#l00334">SD_MAX_VOLT_TRIAL</a>, <a class="el" href="sdio_8h_source.html#l00095">SD_OK</a>, <a class="el" href="sdio_8h_source.html#l00024">SD_RESP_NONE</a>, <a class="el" href="sdio_8h_source.html#l00025">SD_RESP_SHORT</a>, <a class="el" href="sdio_8h_source.html#l00331">SD_STD_CAPACITY</a>, <a class="el" href="sdio_8h_source.html#l00329">SD_VOLTAGE_WINDOW_SD</a>, <a class="el" href="sdio_8h_source.html#l00208">SDIO_HIGH_CAPACITY_SD_CARD</a>, <a class="el" href="sdio_8h_source.html#l00382">SDIO_INIT_CLK_DIV</a>, <a class="el" href="sdio_8h_source.html#l00374">SDIO_SEND_IF_COND</a>, and <a class="el" href="sdio_8h_source.html#l00207">SDIO_STD_CAPACITY_SD_CARD_V2_0</a>.</p>
+<p class="reference">References <a class="el" href="sdio_8h_source.html#l00032">PHAL_SD_Cmd_t::arg</a>, <a class="el" href="sdio_8c_source.html#l00018">CardType</a>, <a class="el" href="sdio_8c_source.html#l00988">CmdError()</a>, <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>, <a class="el" href="sdio_8c_source.html#l01167">CmdResp3Error()</a>, <a class="el" href="sdio_8c_source.html#l01013">CmdResp7Error()</a>, <a class="el" href="sdio_8h_source.html#l00030">PHAL_SD_Cmd_t::idx</a>, <a class="el" href="sdio_8c_source.html#l00662">PHAL_SDIO_SendCommand()</a>, <a class="el" href="sdio_8h_source.html#l00031">PHAL_SD_Cmd_t::res</a>, <a class="el" href="sdio_8h_source.html#l00205">SD_CHECK_PATTERN</a>, <a class="el" href="sdio_8h_source.html#l00253">SD_CMD_APP_CMD</a>, <a class="el" href="sdio_8h_source.html#l00210">SD_CMD_GO_IDLE_STATE</a>, <a class="el" href="sdio_8h_source.html#l00264">SD_CMD_SD_APP_OP_COND</a>, <a class="el" href="sdio_8h_source.html#l00318">SD_HIGH_CAPACITY</a>, <a class="el" href="sdio_8h_source.html#l00064">SD_INVALID_VOLTRANGE</a>, <a class="el" href="sdio_8h_source.html#l00322">SD_MAX_VOLT_TRIAL</a>, <a class="el" href="sdio_8h_source.html#l00083">SD_OK</a>, <a class="el" href="sdio_8h_source.html#l00024">SD_RESP_NONE</a>, <a class="el" href="sdio_8h_source.html#l00025">SD_RESP_SHORT</a>, <a class="el" href="sdio_8h_source.html#l00319">SD_STD_CAPACITY</a>, <a class="el" href="sdio_8h_source.html#l00317">SD_VOLTAGE_WINDOW_SD</a>, <a class="el" href="sdio_8h_source.html#l00196">SDIO_HIGH_CAPACITY_SD_CARD</a>, <a class="el" href="sdio_8h_source.html#l00362">SDIO_SEND_IF_COND</a>, and <a class="el" href="sdio_8h_source.html#l00195">SDIO_STD_CAPACITY_SD_CARD_V2_0</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00111">SD_Init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00078">SD_Init()</a>.</p>
 
 </div>
 </div>
@@ -3492,9 +3485,9 @@ false Fail </dd></dl>
 <p>&lt; Send CMD18 READ_MULT_BLOCK with argument data address</p>
 <p>&lt; Send CMD17 READ_SINGLE_BLOCK with argument data address</p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00726">726</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00682">682</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="sdio_8h_source.html#l00032">PHAL_SD_Cmd_t::arg</a>, <a class="el" href="sdio_8c_source.html#l00018">CardType</a>, <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>, <a class="el" href="sdio_8h_source.html#l00030">PHAL_SD_Cmd_t::idx</a>, <a class="el" href="sdio_8c_source.html#l00025">last_read_length</a>, <a class="el" href="sdio_8c_source.html#l00706">PHAL_SDIO_SendCommand()</a>, <a class="el" href="sdio_8h_source.html#l00031">PHAL_SD_Cmd_t::res</a>, <a class="el" href="sdio_8h_source.html#l00240">SD_CMD_READ_MULT_BLOCK</a>, <a class="el" href="sdio_8h_source.html#l00238">SD_CMD_SET_BLOCKLEN</a>, <a class="el" href="sdio_8h_source.html#l00341">SD_DATATIMEOUT</a>, <a class="el" href="sdio_8c_source.html#l01639">SD_LowLevel_DMA_RxConfig()</a>, <a class="el" href="sdio_8h_source.html#l00095">SD_OK</a>, <a class="el" href="sdio_8h_source.html#l00025">SD_RESP_SHORT</a>, <a class="el" href="sdio_8h_source.html#l00377">SDIO_DATABLOCKSIZE</a>, <a class="el" href="sdio_8h_source.html#l00208">SDIO_HIGH_CAPACITY_SD_CARD</a>, <a class="el" href="sdio_8c_source.html#l00021">StopCondition</a>, <a class="el" href="sdio_8c_source.html#l00023">TransferEnd</a>, and <a class="el" href="sdio_8c_source.html#l00022">TransferError</a>.</p>
+<p class="reference">References <a class="el" href="sdio_8h_source.html#l00032">PHAL_SD_Cmd_t::arg</a>, <a class="el" href="sdio_8c_source.html#l00018">CardType</a>, <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>, <a class="el" href="sdio_8h_source.html#l00030">PHAL_SD_Cmd_t::idx</a>, <a class="el" href="sdio_8c_source.html#l00024">last_read_length</a>, <a class="el" href="sdio_8c_source.html#l00662">PHAL_SDIO_SendCommand()</a>, <a class="el" href="sdio_8h_source.html#l00031">PHAL_SD_Cmd_t::res</a>, <a class="el" href="sdio_8h_source.html#l00228">SD_CMD_READ_MULT_BLOCK</a>, <a class="el" href="sdio_8h_source.html#l00226">SD_CMD_SET_BLOCKLEN</a>, <a class="el" href="sdio_8h_source.html#l00329">SD_DATATIMEOUT</a>, <a class="el" href="sdio_8c_source.html#l01590">SD_LowLevel_DMA_RxConfig()</a>, <a class="el" href="sdio_8h_source.html#l00083">SD_OK</a>, <a class="el" href="sdio_8h_source.html#l00025">SD_RESP_SHORT</a>, <a class="el" href="sdio_8h_source.html#l00365">SDIO_DATABLOCKSIZE</a>, <a class="el" href="sdio_8h_source.html#l00196">SDIO_HIGH_CAPACITY_SD_CARD</a>, <a class="el" href="sdio_8c_source.html#l00022">TransferEnd</a>, and <a class="el" href="sdio_8c_source.html#l00021">TransferError</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="diskio_8c_source.html#l00104">_sdio_disk_read()</a>.</p>
 
@@ -3530,11 +3523,11 @@ false Fail </dd></dl>
 </dl>
 <p>&lt; Send CMD7 SDIO_SEL_DESEL_CARD</p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00686">686</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00642">642</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="eeprom__spi_8c_source.html#l00229">addr</a>, <a class="el" href="sdio_8h_source.html#l00032">PHAL_SD_Cmd_t::arg</a>, <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>, <a class="el" href="sdio_8h_source.html#l00030">PHAL_SD_Cmd_t::idx</a>, <a class="el" href="sdio_8c_source.html#l00706">PHAL_SDIO_SendCommand()</a>, <a class="el" href="sdio_8h_source.html#l00031">PHAL_SD_Cmd_t::res</a>, <a class="el" href="sdio_8h_source.html#l00229">SD_CMD_SEL_DESEL_CARD</a>, <a class="el" href="sdio_8h_source.html#l00095">SD_OK</a>, and <a class="el" href="sdio_8h_source.html#l00025">SD_RESP_SHORT</a>.</p>
+<p class="reference">References <a class="el" href="eeprom__spi_8c_source.html#l00229">addr</a>, <a class="el" href="sdio_8h_source.html#l00032">PHAL_SD_Cmd_t::arg</a>, <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>, <a class="el" href="sdio_8h_source.html#l00030">PHAL_SD_Cmd_t::idx</a>, <a class="el" href="sdio_8c_source.html#l00662">PHAL_SDIO_SendCommand()</a>, <a class="el" href="sdio_8h_source.html#l00031">PHAL_SD_Cmd_t::res</a>, <a class="el" href="sdio_8h_source.html#l00217">SD_CMD_SEL_DESEL_CARD</a>, <a class="el" href="sdio_8h_source.html#l00083">SD_OK</a>, and <a class="el" href="sdio_8h_source.html#l00025">SD_RESP_SHORT</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00111">SD_Init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00078">SD_Init()</a>.</p>
 
 </div>
 </div>
@@ -3567,11 +3560,11 @@ false Fail </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l01009">1009</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00954">954</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="sdio_8h_source.html#l00032">PHAL_SD_Cmd_t::arg</a>, <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>, <a class="el" href="sdio_8h_source.html#l00030">PHAL_SD_Cmd_t::idx</a>, <a class="el" href="sdio_8c_source.html#l00706">PHAL_SDIO_SendCommand()</a>, <a class="el" href="sdio_8c_source.html#l00019">RCA</a>, <a class="el" href="sdio_8h_source.html#l00031">PHAL_SD_Cmd_t::res</a>, <a class="el" href="sdio_8h_source.html#l00235">SD_CMD_SEND_STATUS</a>, <a class="el" href="sdio_8h_source.html#l00091">SD_INVALID_PARAMETER</a>, <a class="el" href="sdio_8h_source.html#l00095">SD_OK</a>, and <a class="el" href="sdio_8h_source.html#l00025">SD_RESP_SHORT</a>.</p>
+<p class="reference">References <a class="el" href="sdio_8h_source.html#l00032">PHAL_SD_Cmd_t::arg</a>, <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>, <a class="el" href="sdio_8h_source.html#l00030">PHAL_SD_Cmd_t::idx</a>, <a class="el" href="sdio_8c_source.html#l00662">PHAL_SDIO_SendCommand()</a>, <a class="el" href="sdio_8c_source.html#l00019">RCA</a>, <a class="el" href="sdio_8h_source.html#l00031">PHAL_SD_Cmd_t::res</a>, <a class="el" href="sdio_8h_source.html#l00223">SD_CMD_SEND_STATUS</a>, <a class="el" href="sdio_8h_source.html#l00079">SD_INVALID_PARAMETER</a>, <a class="el" href="sdio_8h_source.html#l00083">SD_OK</a>, and <a class="el" href="sdio_8h_source.html#l00025">SD_RESP_SHORT</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00202">SD_GetState()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00171">SD_GetState()</a>.</p>
 
 </div>
 </div>
@@ -3606,11 +3599,11 @@ false Fail </dd></dl>
 <p>&lt; Send CMD12 STOP_TRANSMISSION <br  />
 </p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00982">982</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00927">927</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="sdio_8h_source.html#l00032">PHAL_SD_Cmd_t::arg</a>, <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>, <a class="el" href="sdio_8h_source.html#l00030">PHAL_SD_Cmd_t::idx</a>, <a class="el" href="sdio_8c_source.html#l00706">PHAL_SDIO_SendCommand()</a>, <a class="el" href="sdio_8h_source.html#l00031">PHAL_SD_Cmd_t::res</a>, <a class="el" href="sdio_8h_source.html#l00052">SD_CMD_RSP_TIMEOUT</a>, <a class="el" href="sdio_8h_source.html#l00234">SD_CMD_STOP_TRANSMISSION</a>, <a class="el" href="sdio_8h_source.html#l00095">SD_OK</a>, and <a class="el" href="sdio_8h_source.html#l00025">SD_RESP_SHORT</a>.</p>
+<p class="reference">References <a class="el" href="sdio_8h_source.html#l00032">PHAL_SD_Cmd_t::arg</a>, <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>, <a class="el" href="sdio_8h_source.html#l00030">PHAL_SD_Cmd_t::idx</a>, <a class="el" href="sdio_8c_source.html#l00662">PHAL_SDIO_SendCommand()</a>, <a class="el" href="sdio_8h_source.html#l00031">PHAL_SD_Cmd_t::res</a>, <a class="el" href="sdio_8h_source.html#l00040">SD_CMD_RSP_TIMEOUT</a>, <a class="el" href="sdio_8h_source.html#l00222">SD_CMD_STOP_TRANSMISSION</a>, <a class="el" href="sdio_8h_source.html#l00083">SD_OK</a>, and <a class="el" href="sdio_8h_source.html#l00025">SD_RESP_SHORT</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sdio_8c_source.html#l00800">SD_WaitReadOperation()</a>, and <a class="el" href="sdio_8c_source.html#l00940">SD_WaitWriteOperation()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="diskio_8c_source.html#l00179">_sdio_disk_write()</a>, <a class="el" href="sdio_8c_source.html#l00757">SD_WaitReadOperation()</a>, and <a class="el" href="sdio_8c_source.html#l00888">SD_WaitWriteOperation()</a>.</p>
 
 </div>
 </div>
@@ -3643,9 +3636,9 @@ false Fail </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00800">800</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00757">757</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="sdio_8c_source.html#l00023">DMAEndOfTransfer</a>, <a class="el" href="sdio_8h_source.html#l00053">SD_DATA_TIMEOUT</a>, <a class="el" href="sdio_8h_source.html#l00341">SD_DATATIMEOUT</a>, <a class="el" href="sdio_8h_source.html#l00095">SD_OK</a>, <a class="el" href="sdio_8c_source.html#l00982">SD_StopTransfer()</a>, <a class="el" href="sdio_8h_source.html#l00216">SDIO_STATIC_FLAGS</a>, <a class="el" href="sdio_8c_source.html#l00021">StopCondition</a>, <a class="el" href="sdio_8c_source.html#l00023">TransferEnd</a>, and <a class="el" href="sdio_8c_source.html#l00022">TransferError</a>.</p>
+<p class="reference">References <a class="el" href="sdio_8c_source.html#l00022">DMAEndOfTransfer</a>, <a class="el" href="sdio_8h_source.html#l00041">SD_DATA_TIMEOUT</a>, <a class="el" href="sdio_8h_source.html#l00329">SD_DATATIMEOUT</a>, <a class="el" href="sdio_8h_source.html#l00083">SD_OK</a>, <a class="el" href="sdio_8c_source.html#l00927">SD_StopTransfer()</a>, <a class="el" href="sdio_8h_source.html#l00204">SDIO_STATIC_FLAGS</a>, <a class="el" href="sdio_8c_source.html#l00022">TransferEnd</a>, and <a class="el" href="sdio_8c_source.html#l00021">TransferError</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="diskio_8c_source.html#l00104">_sdio_disk_read()</a>.</p>
 
@@ -3680,11 +3673,9 @@ false Fail </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00940">940</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00888">888</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="sdio_8c_source.html#l00023">DMAEndOfTransfer</a>, <a class="el" href="sdio_8h_source.html#l00053">SD_DATA_TIMEOUT</a>, <a class="el" href="sdio_8h_source.html#l00341">SD_DATATIMEOUT</a>, <a class="el" href="sdio_8h_source.html#l00095">SD_OK</a>, <a class="el" href="sdio_8c_source.html#l00982">SD_StopTransfer()</a>, <a class="el" href="sdio_8h_source.html#l00216">SDIO_STATIC_FLAGS</a>, <a class="el" href="sdio_8c_source.html#l00021">StopCondition</a>, <a class="el" href="sdio_8c_source.html#l00023">TransferEnd</a>, and <a class="el" href="sdio_8c_source.html#l00022">TransferError</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="diskio_8c_source.html#l00180">_sdio_disk_write()</a>.</p>
+<p class="reference">References <a class="el" href="sdio_8c_source.html#l00022">DMAEndOfTransfer</a>, <a class="el" href="sdio_8h_source.html#l00041">SD_DATA_TIMEOUT</a>, <a class="el" href="sdio_8h_source.html#l00329">SD_DATATIMEOUT</a>, <a class="el" href="sdio_8h_source.html#l00083">SD_OK</a>, <a class="el" href="sdio_8c_source.html#l00927">SD_StopTransfer()</a>, <a class="el" href="sdio_8h_source.html#l00204">SDIO_STATIC_FLAGS</a>, <a class="el" href="sdio_8c_source.html#l00022">TransferEnd</a>, and <a class="el" href="sdio_8c_source.html#l00021">TransferError</a>.</p>
 
 </div>
 </div>
@@ -3741,11 +3732,11 @@ false Fail </dd></dl>
 <p>&lt; SD Card doesn't support it</p>
 <p>&lt; SD Card doesn't support it</p>
 
-<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00858">858</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdio_8c_source.html#l00806">806</a> of file <a class="el" href="sdio_8c_source.html">sdio.c</a>.</p>
 
-<p class="reference">References <a class="el" href="sdio_8h_source.html#l00032">PHAL_SD_Cmd_t::arg</a>, <a class="el" href="sdio_8c_source.html#l00018">CardType</a>, <a class="el" href="sdio_8c_source.html#l01101">CmdResp1Error()</a>, <a class="el" href="sdio_8h_source.html#l00030">PHAL_SD_Cmd_t::idx</a>, <a class="el" href="sdio_8c_source.html#l00706">PHAL_SDIO_SendCommand()</a>, <a class="el" href="sdio_8c_source.html#l00019">RCA</a>, <a class="el" href="sdio_8h_source.html#l00031">PHAL_SD_Cmd_t::res</a>, <a class="el" href="sdio_8h_source.html#l00265">SD_CMD_APP_CMD</a>, <a class="el" href="sdio_8h_source.html#l00243">SD_CMD_SET_BLOCK_COUNT</a>, <a class="el" href="sdio_8h_source.html#l00238">SD_CMD_SET_BLOCKLEN</a>, <a class="el" href="sdio_8h_source.html#l00245">SD_CMD_WRITE_MULT_BLOCK</a>, <a class="el" href="sdio_8h_source.html#l00341">SD_DATATIMEOUT</a>, <a class="el" href="sdio_8c_source.html#l01598">SD_LowLevel_DMA_TxConfig()</a>, <a class="el" href="sdio_8h_source.html#l00095">SD_OK</a>, <a class="el" href="sdio_8h_source.html#l00025">SD_RESP_SHORT</a>, <a class="el" href="sdio_8h_source.html#l00377">SDIO_DATABLOCKSIZE</a>, <a class="el" href="sdio_8h_source.html#l00208">SDIO_HIGH_CAPACITY_SD_CARD</a>, <a class="el" href="sdio_8c_source.html#l00021">StopCondition</a>, <a class="el" href="sdio_8c_source.html#l00023">TransferEnd</a>, and <a class="el" href="sdio_8c_source.html#l00022">TransferError</a>.</p>
+<p class="reference">References <a class="el" href="sdio_8h_source.html#l00032">PHAL_SD_Cmd_t::arg</a>, <a class="el" href="sdio_8c_source.html#l00018">CardType</a>, <a class="el" href="sdio_8c_source.html#l01046">CmdResp1Error()</a>, <a class="el" href="sdio_8h_source.html#l00030">PHAL_SD_Cmd_t::idx</a>, <a class="el" href="sdio_8c_source.html#l00662">PHAL_SDIO_SendCommand()</a>, <a class="el" href="sdio_8c_source.html#l00019">RCA</a>, <a class="el" href="sdio_8h_source.html#l00031">PHAL_SD_Cmd_t::res</a>, <a class="el" href="sdio_8h_source.html#l00253">SD_CMD_APP_CMD</a>, <a class="el" href="sdio_8h_source.html#l00231">SD_CMD_SET_BLOCK_COUNT</a>, <a class="el" href="sdio_8h_source.html#l00226">SD_CMD_SET_BLOCKLEN</a>, <a class="el" href="sdio_8h_source.html#l00233">SD_CMD_WRITE_MULT_BLOCK</a>, <a class="el" href="sdio_8h_source.html#l00329">SD_DATATIMEOUT</a>, <a class="el" href="sdio_8c_source.html#l01549">SD_LowLevel_DMA_TxConfig()</a>, <a class="el" href="sdio_8h_source.html#l00083">SD_OK</a>, <a class="el" href="sdio_8h_source.html#l00025">SD_RESP_SHORT</a>, <a class="el" href="sdio_8h_source.html#l00365">SDIO_DATABLOCKSIZE</a>, <a class="el" href="sdio_8h_source.html#l00196">SDIO_HIGH_CAPACITY_SD_CARD</a>, <a class="el" href="sdio_8c_source.html#l00022">TransferEnd</a>, and <a class="el" href="sdio_8c_source.html#l00021">TransferError</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="diskio_8c_source.html#l00180">_sdio_disk_write()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="diskio_8c_source.html#l00179">_sdio_disk_write()</a>.</p>
 
 </div>
 </div>

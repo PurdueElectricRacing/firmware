@@ -102,154 +102,71 @@ $(function(){initNavTree('structtimestamped__frame__t.html',''); initResizable(t
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="daq__hub_8h_source.html">source/daq/daq_hub/daq_hub.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="spmc_8h_source.html">source/daq/spmc/spmc.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:af8d3b2051fb6ec58725cea623cf641a8" id="r_af8d3b2051fb6ec58725cea623cf641a8"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8d3b2051fb6ec58725cea623cf641a8">tick_ms</a></td></tr>
-<tr class="memdesc:af8d3b2051fb6ec58725cea623cf641a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">ms timestamp of reception  <br /></td></tr>
-<tr class="separator:af8d3b2051fb6ec58725cea623cf641a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a0ca416567b6c654fe9b6f3ef168b73" id="r_a6a0ca416567b6c654fe9b6f3ef168b73"><td class="memItemLeft" align="right" valign="top"><a class="el" href="test__buffer_8c.html#af1c86d266c4de5b8fb79e12ff38def1f">canid_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a0ca416567b6c654fe9b6f3ef168b73">msg_id</a></td></tr>
-<tr class="memdesc:a6a0ca416567b6c654fe9b6f3ef168b73"><td class="mdescLeft">&#160;</td><td class="mdescRight">message id  <br /></td></tr>
-<tr class="separator:a6a0ca416567b6c654fe9b6f3ef168b73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5af8767325f2fda9cfa049ecc96150cb" id="r_a5af8767325f2fda9cfa049ecc96150cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="test__buffer_8c.html#a28ae7e392d9570d33681ec8094a827c2">busid_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5af8767325f2fda9cfa049ecc96150cb">bus_id</a></td></tr>
-<tr class="memdesc:a5af8767325f2fda9cfa049ecc96150cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">bus the message was rx'd on  <br /></td></tr>
-<tr class="separator:a5af8767325f2fda9cfa049ecc96150cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acfa7bb04419f8380d010b95b1ff65662" id="r_acfa7bb04419f8380d010b95b1ff65662"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acfa7bb04419f8380d010b95b1ff65662">dlc</a></td></tr>
-<tr class="memdesc:acfa7bb04419f8380d010b95b1ff65662"><td class="mdescLeft">&#160;</td><td class="mdescRight">data length code  <br /></td></tr>
-<tr class="separator:acfa7bb04419f8380d010b95b1ff65662"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83a23eaaaa230c7bb4e5ec7f211495a6" id="r_a83a23eaaaa230c7bb4e5ec7f211495a6"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83a23eaaaa230c7bb4e5ec7f211495a6">data</a> [8]</td></tr>
-<tr class="memdesc:a83a23eaaaa230c7bb4e5ec7f211495a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">message data  <br /></td></tr>
-<tr class="separator:a83a23eaaaa230c7bb4e5ec7f211495a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f5fd50d45d2094bdc2b298a25e28dd0" id="r_a5f5fd50d45d2094bdc2b298a25e28dd0"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f5fd50d45d2094bdc2b298a25e28dd0">frame_type</a></td></tr>
-<tr class="memdesc:a5f5fd50d45d2094bdc2b298a25e28dd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">daq_frame_type_t  <br /></td></tr>
-<tr class="separator:a5f5fd50d45d2094bdc2b298a25e28dd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25dcb68918bb5005bc62f3c143220bb9" id="r_a25dcb68918bb5005bc62f3c143220bb9"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25dcb68918bb5005bc62f3c143220bb9">ticks_ms</a></td></tr>
+<tr class="separator:a25dcb68918bb5005bc62f3c143220bb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d4fc07ddbad8c2d4869412dfd120be8" id="r_a0d4fc07ddbad8c2d4869412dfd120be8"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d4fc07ddbad8c2d4869412dfd120be8">identity</a></td></tr>
+<tr class="separator:a0d4fc07ddbad8c2d4869412dfd120be8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58806c857111f4f175952cc5da3f4bc4" id="r_a58806c857111f4f175952cc5da3f4bc4"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a58806c857111f4f175952cc5da3f4bc4">payload</a></td></tr>
+<tr class="separator:a58806c857111f4f175952cc5da3f4bc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="test__buffer_8c_source.html#l00009">9</a> of file <a class="el" href="test__buffer_8c_source.html">test_buffer.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="spmc_8h_source.html#l00018">18</a> of file <a class="el" href="spmc_8h_source.html">spmc.h</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a id="a5af8767325f2fda9cfa049ecc96150cb" name="a5af8767325f2fda9cfa049ecc96150cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5af8767325f2fda9cfa049ecc96150cb">&#9670;&#160;</a></span>bus_id</h2>
+<a id="a0d4fc07ddbad8c2d4869412dfd120be8" name="a0d4fc07ddbad8c2d4869412dfd120be8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d4fc07ddbad8c2d4869412dfd120be8">&#9670;&#160;</a></span>identity</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="test__buffer_8c.html#a28ae7e392d9570d33681ec8094a827c2">busid_t</a> timestamped_frame_t::bus_id</td>
+          <td class="memname">uint32_t timestamped_frame_t::identity</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>bus the message was rx'd on </p>
-
-<p class="definition">Definition at line <a class="el" href="test__buffer_8c_source.html#l00012">12</a> of file <a class="el" href="test__buffer_8c_source.html">test_buffer.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00294">can_parse_error_status()</a>, and <a class="el" href="daq__eth_8c_source.html#l00290">conv_tcp_frame_to_can_msg()</a>.</p>
+<p class="definition">Definition at line <a class="el" href="spmc_8h_source.html#l00020">20</a> of file <a class="el" href="spmc_8h_source.html">spmc.h</a>.</p>
 
 </div>
 </div>
-<a id="a83a23eaaaa230c7bb4e5ec7f211495a6" name="a83a23eaaaa230c7bb4e5ec7f211495a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83a23eaaaa230c7bb4e5ec7f211495a6">&#9670;&#160;</a></span>data</h2>
+<a id="a58806c857111f4f175952cc5da3f4bc4" name="a58806c857111f4f175952cc5da3f4bc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58806c857111f4f175952cc5da3f4bc4">&#9670;&#160;</a></span>payload</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t timestamped_frame_t::data</td>
+          <td class="memname">uint64_t timestamped_frame_t::payload</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>message data </p>
-
-<p class="definition">Definition at line <a class="el" href="test__buffer_8c_source.html#l00014">14</a> of file <a class="el" href="test__buffer_8c_source.html">test_buffer.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00294">can_parse_error_status()</a>, <a class="el" href="daq__eth_8c_source.html#l00290">conv_tcp_frame_to_can_msg()</a>, <a class="el" href="daq__hub_8c_source.html#l00091">uds_frame_send()</a>, and <a class="el" href="daq__hub_8c_source.html#l00107">uds_receive_periodic()</a>.</p>
+<p class="definition">Definition at line <a class="el" href="spmc_8h_source.html#l00021">21</a> of file <a class="el" href="spmc_8h_source.html">spmc.h</a>.</p>
 
 </div>
 </div>
-<a id="acfa7bb04419f8380d010b95b1ff65662" name="acfa7bb04419f8380d010b95b1ff65662"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acfa7bb04419f8380d010b95b1ff65662">&#9670;&#160;</a></span>dlc</h2>
+<a id="a25dcb68918bb5005bc62f3c143220bb9" name="a25dcb68918bb5005bc62f3c143220bb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25dcb68918bb5005bc62f3c143220bb9">&#9670;&#160;</a></span>ticks_ms</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t timestamped_frame_t::dlc</td>
+          <td class="memname">uint32_t timestamped_frame_t::ticks_ms</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>data length code </p>
-
-<p class="definition">Definition at line <a class="el" href="test__buffer_8c_source.html#l00013">13</a> of file <a class="el" href="test__buffer_8c_source.html">test_buffer.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00294">can_parse_error_status()</a>, <a class="el" href="daq__eth_8c_source.html#l00290">conv_tcp_frame_to_can_msg()</a>, and <a class="el" href="parser_8py_source.html#l00072">parser.Message::resolve_layout()</a>.</p>
+<p class="definition">Definition at line <a class="el" href="spmc_8h_source.html#l00019">19</a> of file <a class="el" href="spmc_8h_source.html">spmc.h</a>.</p>
 
 </div>
 </div>
-<a id="a5f5fd50d45d2094bdc2b298a25e28dd0" name="a5f5fd50d45d2094bdc2b298a25e28dd0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f5fd50d45d2094bdc2b298a25e28dd0">&#9670;&#160;</a></span>frame_type</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t timestamped_frame_t::frame_type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>daq_frame_type_t </p>
-
-<p class="definition">Definition at line <a class="el" href="daq__hub_8h_source.html#l00032">32</a> of file <a class="el" href="daq__hub_8h_source.html">daq_hub.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="daq__eth_8c_source.html#l00363">_eth_tcp_send_frame_raw()</a>, and <a class="el" href="daq__eth_8c_source.html#l00322">eth_tcp_receive_periodic()</a>.</p>
-
-</div>
-</div>
-<a id="a6a0ca416567b6c654fe9b6f3ef168b73" name="a6a0ca416567b6c654fe9b6f3ef168b73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a0ca416567b6c654fe9b6f3ef168b73">&#9670;&#160;</a></span>msg_id</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="test__buffer_8c.html#af1c86d266c4de5b8fb79e12ff38def1f">canid_t</a> timestamped_frame_t::msg_id</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>message id </p>
-
-<p class="definition">Definition at line <a class="el" href="test__buffer_8c_source.html#l00011">11</a> of file <a class="el" href="test__buffer_8c_source.html">test_buffer.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00294">can_parse_error_status()</a>, <a class="el" href="daq__eth_8c_source.html#l00290">conv_tcp_frame_to_can_msg()</a>, and <a class="el" href="daq__hub_8c_source.html#l00091">uds_frame_send()</a>.</p>
-
-</div>
-</div>
-<a id="af8d3b2051fb6ec58725cea623cf641a8" name="af8d3b2051fb6ec58725cea623cf641a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8d3b2051fb6ec58725cea623cf641a8">&#9670;&#160;</a></span>tick_ms</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t timestamped_frame_t::tick_ms</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>ms timestamp of reception </p>
-
-<p class="definition">Definition at line <a class="el" href="test__buffer_8c_source.html#l00010">10</a> of file <a class="el" href="test__buffer_8c_source.html">test_buffer.c</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>source/daq/buffer/<a class="el" href="test__buffer_8c_source.html">test_buffer.c</a></li>
-<li>source/daq/daq_hub/<a class="el" href="daq__hub_8h_source.html">daq_hub.h</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>source/daq/spmc/<a class="el" href="spmc_8h_source.html">spmc.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

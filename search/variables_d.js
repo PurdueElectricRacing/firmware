@@ -19,8 +19,7 @@ var searchData=
   ['nss_5fgpio_5fport_16',['nss_gpio_port',['../structSPI__InitConfig__t.html#ae82235e4faf01aa37ffcb212f626abc2',1,'SPI_InitConfig_t']]],
   ['nss_5fsw_17',['nss_sw',['../structSPI__InitConfig__t.html#ac7b65af149334e39252e9d91e1d324ba',1,'SPI_InitConfig_t']]],
   ['num_5felements_18',['num_elements',['../structmenu__page__t.html#af8408d9007e4a01b547ae1f2ddaac0b7',1,'menu_page_t']]],
-  ['num_5ftails_19',['num_tails',['../structb__handle__t.html#afd2dd431be6e7d9442b56874f1cacf44',1,'b_handle_t']]],
-  ['num_5fvalues_20',['NUM_VALUES',['../namespacesend-and-rec.html#a5c8ba60f2efedb7a018ac3a2ef3b7175',1,'send-and-rec.NUM_VALUES'],['../namespacesend-to-tv.html#a9bed05538a7a6699947e93bd61f00f79',1,'send-to-tv.NUM_VALUES']]],
-  ['num_5fvars_21',['num_vars',['../daq__base_8c.html#a1663a3aa3944e97ce9971b0c9010ba21',1,'daq_base.c']]],
-  ['numsatellites_22',['numSatellites',['../structNAV__PVT__t.html#a8547f3b74d7d1451a83a617c47c1e8fd',1,'NAV_PVT_t']]]
+  ['num_5fvalues_19',['NUM_VALUES',['../namespacesend-and-rec.html#a5c8ba60f2efedb7a018ac3a2ef3b7175',1,'send-and-rec.NUM_VALUES'],['../namespacesend-to-tv.html#a9bed05538a7a6699947e93bd61f00f79',1,'send-to-tv.NUM_VALUES']]],
+  ['num_5fvars_20',['num_vars',['../daq__base_8c.html#a1663a3aa3944e97ce9971b0c9010ba21',1,'daq_base.c']]],
+  ['numsatellites_21',['numSatellites',['../structNAV__PVT__t.html#a8547f3b74d7d1451a83a617c47c1e8fd',1,'NAV_PVT_t']]]
 ];

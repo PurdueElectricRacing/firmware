@@ -2,7 +2,6 @@ var daq_2main_8h =
 [
     [ "CONNECTION_LED_PIN", "daq_2main_8h.html#a8437cdc43b488d816a5e56f7b6457b86", null ],
     [ "CONNECTION_LED_PORT", "daq_2main_8h.html#aa5bf4e4a187f66b98a273bb051ec3877", null ],
-    [ "DAQ_CAN1_RX_COUNT", "daq_2main_8h.html#a51dbb9f64ad08bc21167bc30e3b52daf", null ],
     [ "ERROR_LED_PIN", "daq_2main_8h.html#a16617de3bb2ca54675ae2515d8515e12", null ],
     [ "ERROR_LED_PORT", "daq_2main_8h.html#a84357dafca10c0bedd27ddf562ec038f", null ],
     [ "ETH_CS_PIN", "daq_2main_8h.html#a8c72b0130a3a8067c2e9ce362cd305b9", null ],
@@ -28,9 +27,9 @@ var daq_2main_8h =
     [ "PER", "daq_2main_8h.html#a7f20f8e20c98e1258a339ab8d52810c7", null ],
     [ "PWR_LOSS_PIN", "daq_2main_8h.html#ad89a8013f44c1cf0236952774b464675", null ],
     [ "PWR_LOSS_PORT", "daq_2main_8h.html#a082fcbe31a8af390ca037a5d70eac72b", null ],
-    [ "RX_BUFF_ITEM_COUNT", "daq_2main_8h.html#aaa463b6160ae1692d5b6d605503bc5dd", null ],
     [ "SD_ACTIVITY_LED_PIN", "daq_2main_8h.html#afb17ee7288cff3ea95ff86218c1a57b7", null ],
     [ "SD_ACTIVITY_LED_PORT", "daq_2main_8h.html#aca0d491a02350e2c0cf545b6d3a45a59", null ],
+    [ "SD_BLOCKING_TIMEOUT_MS", "daq_2main_8h.html#a6be6be33aaa2ebd7c49e25edb722244c", null ],
     [ "SD_CD_PIN", "daq_2main_8h.html#af0ed48f868b920a237583e95fd4c41cb", null ],
     [ "SD_CD_PORT", "daq_2main_8h.html#ac6545ba2f245dce3cf99f8b574ecbacb", null ],
     [ "SD_DETECT_LED_PIN", "daq_2main_8h.html#aade007bb874c340d1d8fee1d21f4f5c9", null ],
@@ -41,26 +40,11 @@ var daq_2main_8h =
     [ "SD_MAX_WRITE_COUNT", "daq_2main_8h.html#aee4dca4dcef2094fd688656ecbf13fdc", null ],
     [ "SD_NEW_FILE_PERIOD_MS", "daq_2main_8h.html#af6dc40fd34d499205f6179238456052e", null ],
     [ "SD_WRITE_PERIOD_MS", "daq_2main_8h.html#a7d0c50b5f919a1baab56392059672a02", null ],
-    [ "TCP_RX_ITEM_COUNT", "daq_2main_8h.html#a2ac9e7e429025fa6b04d00e9995bc7f7", null ],
-    [ "TCP_TX_ITEM_COUNT", "daq_2main_8h.html#a5c9897ed087e67fa7ea398a53d533e65", null ],
+    [ "STD_ID_MASK", "daq_2main_8h.html#a9a7a20771e18d9f6c6f93ac4c48facde", null ],
     [ "UDP_MAX_BUFFER_SIZE", "daq_2main_8h.html#a7ffe972e4f939b13d105937b6340f54b", null ],
     [ "UDP_MAX_WRITE_COUNT", "daq_2main_8h.html#a10c12a1be8601bcd8b9c12a4d44abe80", null ],
-    [ "rx_tail_t", "daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5e", [
-      [ "RX_TAIL_CAN_RX", "daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eaba2a3716a137c29f391335d5cd9c6b7a", null ],
-      [ "RX_TAIL_SD", "daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eac5730401cd73ab69d719b44b60b9eaea", null ],
-      [ "RX_TAIL_UDP", "daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eade4eeb1f809c50af8d1a8439c1166836", null ],
-      [ "RX_TAIL_USB", "daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5ea8a330fe6cb6b734425eeb74efe79e16f", null ],
-      [ "RX_TAIL_COUNT", "daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eaf5995c00a7328cdd412146eb17f0b29a", null ]
-    ] ],
-    [ "tcp_rx_tail_t", "daq_2main_8h.html#a40a35add8d823c3e93b3cefa5050ce62", [
-      [ "TCP_RX_TAIL_CAN_TX", "daq_2main_8h.html#a40a35add8d823c3e93b3cefa5050ce62aba72e281baeffc9bc141b975fc4ebbd8", null ],
-      [ "TCP_RX_TAIL_SD", "daq_2main_8h.html#a40a35add8d823c3e93b3cefa5050ce62aa7878060e1d860edfd0df86f9f0f211e", null ],
-      [ "TCP_RX_TAIL_COUNT", "daq_2main_8h.html#a40a35add8d823c3e93b3cefa5050ce62a64c149a9c1240bd8be19c9f72ae5dad4", null ]
-    ] ],
     [ "HardFault_Handler", "daq_2main_8h.html#a2af56a8bf3197b2f06cac4c0b84ffc3e", null ],
-    [ "b_rx_can", "daq_2main_8h.html#a502f4be692f890d9db99deec8d6d3038", null ],
-    [ "q_can1_rx", "daq_2main_8h.html#a4f83f786b49764e863b87ecf9ff20bca", null ],
-    [ "q_tcp_tx", "daq_2main_8h.html#a8bdc2ff6e3b5e327edd31a8bbe80a2b6", null ],
-    [ "spi1_lock", "daq_2main_8h.html#ae22098d7a44a0de1e81110ffc31e5377", null ],
-    [ "tcp_rx_buf", "daq_2main_8h.html#ad47bb6714d5b71861506e8f087c347b8", null ]
+    [ "queue", "daq_2main_8h.html#a93698a4098598ac66311c6c5bdd5c10c", null ],
+    [ "SD_BLOCKING_TIMEOUT_TICKS", "daq_2main_8h.html#a005f8af8cd6c38ffbc9ef2e854acacd6", null ],
+    [ "spi1_lock", "daq_2main_8h.html#ae22098d7a44a0de1e81110ffc31e5377", null ]
 ];

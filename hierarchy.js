@@ -12,8 +12,6 @@ var hierarchy =
     [ "adv_feature_t", "structadv__feature__t.html", null ],
     [ "AMK_t", "structAMK__t.html", null ],
     [ "auto_switches_t", "structauto__switches__t.html", null ],
-    [ "b_handle_t", "structb__handle__t.html", null ],
-    [ "b_tail_t", "structb__tail__t.html", null ],
     [ "bangbang_t", "structbangbang__t.html", null ],
     [ "utils.bcolors", "classutils_1_1bcolors.html", null ],
     [ "BMI088_Handle_t", "structBMI088__Handle__t.html", null ],
@@ -82,6 +80,7 @@ var hierarchy =
     [ "SD_CSD", "structSD__CSD.html", null ],
     [ "parser.Signal", "classparser_1_1Signal.html", null ],
     [ "SPI_InitConfig_t", "structSPI__InitConfig__t.html", null ],
+    [ "SPMC_t", "structSPMC__t.html", null ],
     [ "strbuf_t", "structstrbuf__t.html", null ],
     [ "parser.SystemContext", "classparser_1_1SystemContext.html", null ],
     [ "threading.Thread", null, [

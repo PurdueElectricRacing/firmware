@@ -22,5 +22,6 @@ var structdaq__hub__t =
     [ "sd_last_error_time", "structdaq__hub__t.html#acdc8323216cb1b82a44752c44b318f39", null ],
     [ "sd_rx_overflow", "structdaq__hub__t.html#a1590704a02ec6919a901acaef84ed230", null ],
     [ "sd_state", "structdaq__hub__t.html#a15a8af775ef64b388f4c64cc143d2f8a", null ],
+    [ "sd_task_handle", "structdaq__hub__t.html#ae030a43525aee6123487e844643276f9", null ],
     [ "tcp_tx_overflow", "structdaq__hub__t.html#a0bdbb736578130766da0682866da2d41", null ]
 ];

@@ -98,6 +98,7 @@ $(function(){initNavTree('daq__hub_8h.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">daq_hub.h File Reference</div></div>
@@ -115,15 +116,21 @@ $(function(){initNavTree('daq__hub_8h.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="daq__rtc__config_8h_source.html">daq_rtc_config.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ff_8h_source.html">ff.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="sdio_8h_source.html">sdio.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="spmc_8h_source.html">spmc.h</a>&quot;</code><br />
 </div>
 <p><a href="daq__hub_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdaq__hub__t.html">daq_hub_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:af1c86d266c4de5b8fb79e12ff38def1f" id="r_af1c86d266c4de5b8fb79e12ff38def1f"><td class="memItemLeft" align="right" valign="top">typedef uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af1c86d266c4de5b8fb79e12ff38def1f">canid_t</a></td></tr>
+<tr class="separator:af1c86d266c4de5b8fb79e12ff38def1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28ae7e392d9570d33681ec8094a827c2" id="r_a28ae7e392d9570d33681ec8094a827c2"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a28ae7e392d9570d33681ec8094a827c2">busid_t</a></td></tr>
+<tr class="separator:a28ae7e392d9570d33681ec8094a827c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -154,7 +161,40 @@ Variables</h2></td></tr>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="daq__hub_8h_source.html">daq_hub.h</a>.</p>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="a28ae7e392d9570d33681ec8094a827c2" name="a28ae7e392d9570d33681ec8094a827c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28ae7e392d9570d33681ec8094a827c2">&#9670;&#160;</a></span>busid_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint8_t <a class="el" href="#a28ae7e392d9570d33681ec8094a827c2">busid_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daq__hub_8h_source.html#l00030">30</a> of file <a class="el" href="daq__hub_8h_source.html">daq_hub.h</a>.</p>
+
+</div>
+</div>
+<a id="af1c86d266c4de5b8fb79e12ff38def1f" name="af1c86d266c4de5b8fb79e12ff38def1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1c86d266c4de5b8fb79e12ff38def1f">&#9670;&#160;</a></span>canid_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint32_t <a class="el" href="#af1c86d266c4de5b8fb79e12ff38def1f">canid_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daq__hub_8h_source.html#l00029">29</a> of file <a class="el" href="daq__hub_8h_source.html">daq_hub.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
 <a id="a5d5e1e79bc7ab3a69223c50ded0e96d6" name="a5d5e1e79bc7ab3a69223c50ded0e96d6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5d5e1e79bc7ab3a69223c50ded0e96d6">&#9670;&#160;</a></span>daq_create_threads()</h2>
 
@@ -170,11 +210,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="daq__hub_8c_source.html#l00070">70</a> of file <a class="el" href="daq__hub_8c_source.html">daq_hub.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq__hub_8c_source.html#l00069">69</a> of file <a class="el" href="daq__hub_8c_source.html">daq_hub.c</a>.</p>
 
-<p class="reference">References <a class="el" href="daq__hub_8c_source.html#l00086">can_send_periodic()</a>, <a class="el" href="freertos_8h_source.html#l00111">createThread</a>, <a class="el" href="daq__hub_8c_source.html#l00078">daq_heartbeat()</a>, and <a class="el" href="daq__sd_8c_source.html#l00134">sd_update_periodic()</a>.</p>
+<p class="reference">References <a class="el" href="daq__hub_8c_source.html#l00085">can_send_periodic()</a>, <a class="el" href="freertos_8h_source.html#l00111">createThread</a>, <a class="el" href="daq__hub_8c_source.html#l00077">daq_heartbeat()</a>, <a class="el" href="daq__eth_8c_source.html#l00057">eth_update_periodic()</a>, and <a class="el" href="daq__sd_8c_source.html#l00135">sd_update_periodic()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00137">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00126">main()</a>.</p>
 
 </div>
 </div>
@@ -193,11 +233,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="daq__hub_8c_source.html#l00041">41</a> of file <a class="el" href="daq__hub_8c_source.html">daq_hub.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq__hub_8c_source.html#l00039">39</a> of file <a class="el" href="daq__hub_8c_source.html">daq_hub.c</a>.</p>
 
-<p class="reference">References <a class="el" href="daq__hub_8h_source.html#l00066">daq_hub_t::bcan_rx_overflow</a>, <a class="el" href="daq__hub_8h_source.html#l00067">daq_hub_t::can1_rx_overflow</a>, <a class="el" href="daq__hub_8c_source.html#l00028">daq_hub</a>, <a class="el" href="daq__hub_8h_source.html#l00046">daq_hub_t::eth_error_ct</a>, <a class="el" href="daq__eth_8h_source.html#l00035">ETH_ERROR_NONE</a>, <a class="el" href="daq__hub_8h_source.html#l00047">daq_hub_t::eth_last_err</a>, <a class="el" href="daq__hub_8h_source.html#l00048">daq_hub_t::eth_last_err_res</a>, <a class="el" href="daq__hub_8h_source.html#l00049">daq_hub_t::eth_last_error_time</a>, <a class="el" href="daq__eth_8h_source.html#l00016">ETH_LINK_IDLE</a>, <a class="el" href="daq__hub_8h_source.html#l00043">daq_hub_t::eth_state</a>, <a class="el" href="daq__eth_8h_source.html#l00028">ETH_TCP_IDLE</a>, <a class="el" href="daq__hub_8h_source.html#l00045">daq_hub_t::eth_tcp_state</a>, <a class="el" href="daq__hub_8h_source.html#l00062">daq_hub_t::last_file_ms</a>, <a class="el" href="daq__hub_8h_source.html#l00061">daq_hub_t::last_write_ms</a>, <a class="el" href="daq__hub_8h_source.html#l00063">daq_hub_t::log_enable_sw</a>, <a class="el" href="daq__hub_8h_source.html#l00064">daq_hub_t::log_enable_tcp</a>, <a class="el" href="daq__hub_8h_source.html#l00044">daq_hub_t::rtc_config_state</a>, <a class="el" href="daq__eth_8h_source.html#l00023">RTC_SYNC_PENDING</a>, <a class="el" href="daq__hub_8h_source.html#l00054">daq_hub_t::sd_error_ct</a>, <a class="el" href="daq__sd_8h_source.html#l00013">SD_ERROR_NONE</a>, <a class="el" href="daq__hub_8h_source.html#l00055">daq_hub_t::sd_last_err</a>, <a class="el" href="daq__hub_8h_source.html#l00056">daq_hub_t::sd_last_err_res</a>, <a class="el" href="daq__hub_8h_source.html#l00057">daq_hub_t::sd_last_error_time</a>, <a class="el" href="daq__hub_8h_source.html#l00068">daq_hub_t::sd_rx_overflow</a>, <a class="el" href="daq__hub_8h_source.html#l00052">daq_hub_t::sd_state</a>, <a class="el" href="daq__sd_8h_source.html#l00007">SD_STATE_IDLE</a>, and <a class="el" href="daq__hub_8h_source.html#l00069">daq_hub_t::tcp_tx_overflow</a>.</p>
+<p class="reference">References <a class="el" href="daq__hub_8h_source.html#l00058">daq_hub_t::bcan_rx_overflow</a>, <a class="el" href="daq__hub_8h_source.html#l00059">daq_hub_t::can1_rx_overflow</a>, <a class="el" href="daq__hub_8c_source.html#l00028">daq_hub</a>, <a class="el" href="daq__hub_8h_source.html#l00037">daq_hub_t::eth_error_ct</a>, <a class="el" href="daq__eth_8h_source.html#l00035">ETH_ERROR_NONE</a>, <a class="el" href="daq__hub_8h_source.html#l00038">daq_hub_t::eth_last_err</a>, <a class="el" href="daq__hub_8h_source.html#l00039">daq_hub_t::eth_last_err_res</a>, <a class="el" href="daq__hub_8h_source.html#l00040">daq_hub_t::eth_last_error_time</a>, <a class="el" href="daq__eth_8h_source.html#l00016">ETH_LINK_IDLE</a>, <a class="el" href="daq__hub_8h_source.html#l00034">daq_hub_t::eth_state</a>, <a class="el" href="daq__eth_8h_source.html#l00028">ETH_TCP_IDLE</a>, <a class="el" href="daq__hub_8h_source.html#l00036">daq_hub_t::eth_tcp_state</a>, <a class="el" href="daq__hub_8h_source.html#l00054">daq_hub_t::last_file_ms</a>, <a class="el" href="daq__hub_8h_source.html#l00053">daq_hub_t::last_write_ms</a>, <a class="el" href="daq__hub_8h_source.html#l00055">daq_hub_t::log_enable_sw</a>, <a class="el" href="daq__hub_8h_source.html#l00056">daq_hub_t::log_enable_tcp</a>, <a class="el" href="daq__hub_8h_source.html#l00035">daq_hub_t::rtc_config_state</a>, <a class="el" href="daq__eth_8h_source.html#l00023">RTC_SYNC_PENDING</a>, <a class="el" href="daq__hub_8h_source.html#l00045">daq_hub_t::sd_error_ct</a>, <a class="el" href="daq__sd_8h_source.html#l00013">SD_ERROR_NONE</a>, <a class="el" href="daq__hub_8h_source.html#l00046">daq_hub_t::sd_last_err</a>, <a class="el" href="daq__hub_8h_source.html#l00047">daq_hub_t::sd_last_err_res</a>, <a class="el" href="daq__hub_8h_source.html#l00048">daq_hub_t::sd_last_error_time</a>, <a class="el" href="daq__hub_8h_source.html#l00060">daq_hub_t::sd_rx_overflow</a>, <a class="el" href="daq__hub_8h_source.html#l00043">daq_hub_t::sd_state</a>, <a class="el" href="daq__sd_8h_source.html#l00007">SD_STATE_IDLE</a>, <a class="el" href="daq__hub_8h_source.html#l00049">daq_hub_t::sd_task_handle</a>, and <a class="el" href="daq__hub_8h_source.html#l00061">daq_hub_t::tcp_tx_overflow</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00137">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00126">main()</a>.</p>
 
 </div>
 </div>
@@ -216,11 +256,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="daq__hub_8c_source.html#l00121">121</a> of file <a class="el" href="daq__hub_8c_source.html">daq_hub.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq__hub_8c_source.html#l00092">92</a> of file <a class="el" href="daq__hub_8c_source.html">daq_hub.c</a>.</p>
 
-<p class="reference">References <a class="el" href="a__box_2main_8h_source.html#l00021">CONNECTION_LED_PIN</a>, <a class="el" href="a__box_2main_8h_source.html#l00019">ERROR_LED_PIN</a>, <a class="el" href="daq_2main_8h_source.html#l00038">ETH_RST_PIN</a>, <a class="el" href="daq_2main_8h_source.html#l00037">ETH_RST_PORT</a>, <a class="el" href="daq__hub_8c_source.html#l00119">GPIO_CLEAR_BIT</a>, <a class="el" href="a__box_2main_8h_source.html#l00017">HEARTBEAT_LED_PIN</a>, <a class="el" href="phal__F4__F7_2can_2can_8c_source.html#l00124">PHAL_deinitCAN()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, <a class="el" href="daq_2main_8h_source.html#l00020">SD_ACTIVITY_LED_PIN</a>, <a class="el" href="daq_2main_8h_source.html#l00024">SD_DETECT_LED_PIN</a>, <a class="el" href="daq_2main_8h_source.html#l00023">SD_DETECT_LED_PORT</a>, <a class="el" href="daq_2main_8h_source.html#l00022">SD_ERROR_LED_PIN</a>, and <a class="el" href="daq__sd_8c_source.html#l00114">sd_shutdown()</a>.</p>
+<p class="reference">References <a class="el" href="a__box_2main_8h_source.html#l00021">CONNECTION_LED_PIN</a>, <a class="el" href="a__box_2main_8h_source.html#l00019">ERROR_LED_PIN</a>, <a class="el" href="daq_2main_8h_source.html#l00037">ETH_RST_PIN</a>, <a class="el" href="daq_2main_8h_source.html#l00036">ETH_RST_PORT</a>, <a class="el" href="daq__hub_8c_source.html#l00090">GPIO_CLEAR_BIT</a>, <a class="el" href="a__box_2main_8h_source.html#l00017">HEARTBEAT_LED_PIN</a>, <a class="el" href="phal__F4__F7_2can_2can_8c_source.html#l00124">PHAL_deinitCAN()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, <a class="el" href="daq_2main_8h_source.html#l00019">SD_ACTIVITY_LED_PIN</a>, <a class="el" href="daq_2main_8h_source.html#l00023">SD_DETECT_LED_PIN</a>, <a class="el" href="daq_2main_8h_source.html#l00022">SD_DETECT_LED_PORT</a>, <a class="el" href="daq_2main_8h_source.html#l00021">SD_ERROR_LED_PIN</a>, and <a class="el" href="daq__sd_8c_source.html#l00116">sd_shutdown()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00362">shutdown()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00329">shutdown()</a>.</p>
 
 </div>
 </div>
@@ -238,11 +278,6 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Pull UDS CAN frames out of UDS queue added during CAN1/CAN2 ISR and process them in non-interrupt context </p>
-
-<p class="definition">Definition at line <a class="el" href="daq__hub_8c_source.html#l00107">107</a> of file <a class="el" href="daq__hub_8c_source.html">daq_hub.c</a>.</p>
-
-<p class="reference">References <a class="el" href="test__buffer_8c_source.html#l00014">timestamped_frame_t::data</a>, and <a class="el" href="daq_2main_8h.html#a4f83f786b49764e863b87ecf9ff20bca">q_can1_rx</a>.</p>
 
 </div>
 </div>

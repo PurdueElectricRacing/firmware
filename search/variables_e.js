@@ -17,7 +17,7 @@ var searchData=
   ['otype_14',['otype',['../structGPIOInitConfig__t.html#a5cccb3d6f1fc7d1ade98fcec56390452',1,'GPIOInitConfig_t']]],
   ['out_5f3v3_15',['out_3v3',['../structvoltage__t.html#a3a9409130cff6a1e817501e4305b76ad',1,'voltage_t']]],
   ['out_5f5v_16',['out_5v',['../structvoltage__t.html#a18c9ce48d5effc7e11b2eca371925cf0',1,'voltage_t']]],
-  ['overflows_17',['overflows',['../structb__handle__t.html#a75884992d2a6be9217148b25b4a90ea6',1,'b_handle_t']]],
+  ['overflows_17',['overflows',['../structSPMC__t.html#af7891f89a1e13069e5bd6ae1284f9b3c',1,'SPMC_t']]],
   ['overrides_5fby_5fprio_18',['overrides_by_prio',['../classlinker_1_1BusLinker.html#a23e3b19f205574d834a149b4e05c9091',1,'linker::BusLinker']]],
   ['overrun_19',['overrun',['../structusart__rx__errors__t.html#abf71439361d0c2575b46c7eb42f61f8b',1,'usart_rx_errors_t::overrun'],['../structADCInitConfig__t.html#a240616678fa789f5c025b3d50f116361',1,'ADCInitConfig_t::overrun'],['../structadv__feature__t.html#a97ac3d560ed3a7c8169a8fe216be0902',1,'adv_feature_t::overrun']]],
   ['oversample_20',['oversample',['../structADCInitConfig__t.html#a3a78341826c13d4f2a4c8a7c4a089b67',1,'ADCInitConfig_t']]],

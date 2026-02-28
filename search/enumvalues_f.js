@@ -43,10 +43,5 @@ var searchData=
   ['rtc_5fweekday_5ftuesday_40',['RTC_WEEKDAY_TUESDAY',['../phal__F4__F7_2rtc_2rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cbafe80f95805621ca9dde6cb21dc571c2f',1,'rtc.h']]],
   ['rtc_5fweekday_5funknown_41',['RTC_WEEKDAY_UNKNOWN',['../phal__F4__F7_2rtc_2rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cba0b6fadc1d42cbc5f45a4b6dc21f9770d',1,'rtc.h']]],
   ['rtc_5fweekday_5fwednesday_42',['RTC_WEEKDAY_WEDNESDAY',['../phal__F4__F7_2rtc_2rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cbacd3b8087b488dd92ade90e5a65447564',1,'rtc.h']]],
-  ['rts_43',['RTS',['../phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2ae58caa68ff8b6e4838007985c7e3ae66',1,'RTS:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2ae58caa68ff8b6e4838007985c7e3ae66',1,'RTS:&#160;usart.h'],['../phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2ae58caa68ff8b6e4838007985c7e3ae66',1,'RTS:&#160;usart.h']]],
-  ['rx_5ftail_5fcan_5frx_44',['RX_TAIL_CAN_RX',['../daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eaba2a3716a137c29f391335d5cd9c6b7a',1,'main.h']]],
-  ['rx_5ftail_5fcount_45',['RX_TAIL_COUNT',['../daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eaf5995c00a7328cdd412146eb17f0b29a',1,'main.h']]],
-  ['rx_5ftail_5fsd_46',['RX_TAIL_SD',['../daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eac5730401cd73ab69d719b44b60b9eaea',1,'main.h']]],
-  ['rx_5ftail_5fudp_47',['RX_TAIL_UDP',['../daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5eade4eeb1f809c50af8d1a8439c1166836',1,'main.h']]],
-  ['rx_5ftail_5fusb_48',['RX_TAIL_USB',['../daq_2main_8h.html#af1474df41a710f0f2a484830c6cc4a5ea8a330fe6cb6b734425eeb74efe79e16f',1,'main.h']]]
+  ['rts_43',['RTS',['../phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2ae58caa68ff8b6e4838007985c7e3ae66',1,'RTS:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2ae58caa68ff8b6e4838007985c7e3ae66',1,'RTS:&#160;usart.h'],['../phal__L4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2ae58caa68ff8b6e4838007985c7e3ae66',1,'RTS:&#160;usart.h']]]
 ];

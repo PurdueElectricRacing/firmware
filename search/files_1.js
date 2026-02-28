@@ -11,7 +11,5 @@ var searchData=
   ['bootloader_5fcommands_2epy_8',['bootloader_commands.py',['../bootloader__commands_8py.html',1,'']]],
   ['bootloader_5fcommon_2eh_9',['bootloader_common.h',['../bootloader__common_8h.html',1,'']]],
   ['bootloader_5fdownload_2epy_10',['bootloader_download.py',['../bootloader__download_8py.html',1,'']]],
-  ['buffer_2ec_11',['buffer.c',['../buffer_8c.html',1,'']]],
-  ['buffer_2eh_12',['buffer.h',['../buffer_8h.html',1,'']]],
-  ['build_2epy_13',['build.py',['../build_8py.html',1,'']]]
+  ['build_2epy_11',['build.py',['../build_8py.html',1,'']]]
 ];

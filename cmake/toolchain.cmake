@@ -20,7 +20,6 @@ set(C_FLAGS
     "-ffreestanding"
     "-fanalyzer"
     "-Wno-analyzer-infinite-loop"
-    "-Og"
     "-g"
     "-Werror"
 )

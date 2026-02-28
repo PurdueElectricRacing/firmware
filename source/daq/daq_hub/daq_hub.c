@@ -71,7 +71,7 @@ void daq_hub_init(void) {
 void daq_create_threads(void) {
     createThread(daq_heartbeat); // HB
     createThread(sd_update_periodic); // SD WRITE
-    // createThread(eth_update_periodic); // SD WRITE
+    createThread(eth_update_periodic); // BULLET COMMS 
     createThread(can_send_periodic); // CAN1 TX
 
 }

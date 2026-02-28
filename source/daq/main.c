@@ -199,6 +199,9 @@ static void can_rx_irq_handler(CAN_TypeDef* can_h) {
     {
         timestamped_frame_t* rx = &buf;
         rx->ticks_ms    = getTick();
+        if (can_h == CAN1) {
+        rx->identity = (uint32_t) (1 << 31);
+        }
         rx->identity = (uint32_t) ((can_h == CAN1) ? BUS_ID_CAN1 : BUS_ID_CAN2) << 31;
 
         // Get either StdId or ExtId
@@ -208,6 +211,7 @@ static void can_rx_irq_handler(CAN_TypeDef* can_h) {
             rx->identity |= CAN_EFF_FLAG | (((CAN_RI0R_EXID | CAN_RI0R_STID) & can_h->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos); // idk how right ts is
         } else {
             // Standard ID
+            rx->identity &= (uint32_t) ~(1 << 30);
             rx->identity |= (CAN_RI0R_STID & can_h->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
         }
 

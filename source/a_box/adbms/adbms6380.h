@@ -114,7 +114,12 @@ float adbms6380_raw_to_v(int16_t raw);
  * @param rstf Reset filter.
  * @param ow Open-wire setting (2-bit).
  */
-void adbms6380_adcv(uint8_t *output_cmd, bool rd, bool cont, bool dcp, bool rstf, uint8_t ow);
+void adbms6380_adcv(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE],
+                    bool rd,
+                    bool cont,
+                    bool dcp,
+                    bool rstf,
+                    uint8_t ow);
 /**
  * @brief Build ADSV command bytes.
  *
@@ -123,7 +128,10 @@ void adbms6380_adcv(uint8_t *output_cmd, bool rd, bool cont, bool dcp, bool rstf
  * @param dcp Discharge permitted during conversion (only affects PWM balancing, not DCC).
  * @param ow Open-wire setting (2-bit).
  */
-void adbms6380_adsv(uint8_t *output_cmd, bool cont, bool dcp, uint8_t ow);
+void adbms6380_adsv(uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE],
+                    bool cont,
+                    bool dcp,
+                    uint8_t ow);
 
 /**
  * @brief Build ADAX (aux) command bytes.

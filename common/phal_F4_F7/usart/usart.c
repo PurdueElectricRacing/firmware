@@ -398,7 +398,6 @@ bool PHAL_usartRxBusy(usart_init_t* handle) {
 static void handleUsartIRQ(USART_TypeDef* handle, uint8_t idx) {
 #ifdef STM32F407xx
     uint32_t sr = handle->SR;
-    static uint32_t trash;
     // USART RX Not Empty interrupt flag
     if (sr & USART_SR_RXNE) {
         // Rx transaction is beginning, so set rx to busy and enable DMA to recieve this message
@@ -458,8 +457,8 @@ static void handleUsartIRQ(USART_TypeDef* handle, uint8_t idx) {
         }
         active_uarts[idx]._rx_busy = 0;
         // Clear error + idle flags (Per RM 0090 Register map, a read to the SR followed by a read to the DR)
-        trash = active_uarts[idx].active_handle->periph->SR;
-        trash = active_uarts[idx].active_handle->periph->DR;
+        (void)active_uarts[idx].active_handle->periph->SR;
+        (void)active_uarts[idx].active_handle->periph->DR;
         usart_recieve_complete_callback(active_uarts[idx].active_handle);
     }
 //NOTE: According to RM0090, it is not safe to clear the TC bit unless Multibuffer mode is enabled.
@@ -467,7 +466,6 @@ static void handleUsartIRQ(USART_TypeDef* handle, uint8_t idx) {
 
 #ifdef STM32F732xx
     uint32_t sr = handle->ISR;
-    static uint32_t trash;
     // USART RX Not Empty interrupt flag
     if (sr & USART_ISR_RXNE) {
         // Rx transaction is beginning, so set rx to busy and enable DMA to recieve this message
@@ -476,7 +474,7 @@ static void handleUsartIRQ(USART_TypeDef* handle, uint8_t idx) {
         PHAL_reEnable(active_uarts[idx].active_handle->rx_dma_cfg);
         // QUESTION:
         // active_uarts[idx].active_handle->periph->ICR |= USART_ICR_RXNECF; // Clear RXNE interrupt flag
-        // trash = active_uarts[idx].active_handle->periph->; // Clear RXNE interrupt flag
+        // (void)active_uarts[idx].active_handle->periph->; // Clear RXNE interrupt flag
         // We only need to enable DMA immediately after the reception of the first bit
         // We also do not want this interrupt activating for every single bit recieved on the rx buffer
         active_uarts[idx].active_handle->periph->CR1 &= ~USART_CR1_RXNEIE;
@@ -533,8 +531,8 @@ static void handleUsartIRQ(USART_TypeDef* handle, uint8_t idx) {
         }
         active_uarts[idx]._rx_busy = 0;
         // Clear idle flag
-        // trash = active_uarts[idx].active_handle->periph->ISR;
-        // trash = active_uarts[idx].active_handle->periph->DR;
+        // (void)active_uarts[idx].active_handle->periph->ISR;
+        // (void)active_uarts[idx].active_handle->periph->DR;
         active_uarts[idx].active_handle->periph->ICR |= USART_ICR_IDLECF;
         usart_recieve_complete_callback(active_uarts[idx].active_handle);
     }
@@ -645,7 +643,6 @@ static void handleDMAxComplete(uint8_t idx, uint32_t irq, uint8_t dma_type) {
             return;
     }
 
-    bool clear_act_transfer = false;
     // Transfer Error interrupt
     if (*sr_reg & teif_flag) {
         // Communicate these errors to the user, so we can clear this bit for future transactions

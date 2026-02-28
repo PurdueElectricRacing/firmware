@@ -21,6 +21,7 @@ set(C_FLAGS
     "-fanalyzer"
     "-Wno-analyzer-infinite-loop"
     "-g"
+    "-Wall"
     "-Werror"
 )
 set(LINKER_FLAGS 

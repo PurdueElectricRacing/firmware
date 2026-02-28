@@ -130,7 +130,7 @@ void AMK_task() {
 }
 
 defineThreadStack(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);
-defineThreadStack(update_SDC, 5, osPriorityIdle, 512); // the delay is within the thread
+defineThreadStack(update_SDC, 5, osPriorityLow, 512);
 defineThreadStack(background_can_update, 10, osPriorityHigh, 1024);
 defineThreadStack(fsm_periodic, 20, osPriorityNormal, 2048);
 defineThreadStack(AMK_task, 15, osPriorityNormal, 1024);

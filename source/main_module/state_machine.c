@@ -97,7 +97,7 @@ void fsm_periodic() {
 
     // check SDC before doing anything else
     if (is_fatal_latched()) {
-        g_car.next_state = CARSTATE_FATAL;
+        g_car.current_state = CARSTATE_FATAL;
     }
 
     // update precharge status

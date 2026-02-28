@@ -20,8 +20,9 @@ set(C_FLAGS
     "-ffreestanding"
     "-fanalyzer"
     "-Wno-analyzer-infinite-loop"
-    "-Og"
+    "-O0"
     "-g"
+    "-Wall"
     "-Werror"
 )
 set(LINKER_FLAGS 

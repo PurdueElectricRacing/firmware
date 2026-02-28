@@ -14,6 +14,7 @@
 #define _PHAL_GPIO_H_
 
 #include <stdbool.h>
+#include <stdint.h>
 
 #include "stm32l4xx.h"
 

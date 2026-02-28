@@ -5,6 +5,8 @@
 #include "daq_hub.h"
 #include "main.h"
 
+static void parse_gps_time(const CanMsgTypeDef_t* msg, RTC_timestamp_t* gps_rtc_time);
+
 void rtc_config_cb(CanMsgTypeDef_t *msg) {
    if (daq_hub.rtc_config_state == RTC_SYNC_COMPLETE) return;
 

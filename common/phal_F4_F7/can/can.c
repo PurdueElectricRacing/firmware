@@ -136,9 +136,6 @@ bool PHAL_deinitCAN(CAN_TypeDef* bus) {
 }
 
 bool PHAL_txCANMessage(CanMsgTypeDef_t* msg, uint8_t txMbox) {
-    uint32_t timeout = 0;
-    uint32_t txOkay  = 0;
-
     if (txMbox > 2)
         return false; // invalid box
 

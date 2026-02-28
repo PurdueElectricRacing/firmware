@@ -21,7 +21,7 @@ int main(void)
     NVIC_SetPriority(CAN1_RX0_IRQn, 6); // set priority >= 6, see configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY in FreeRTOSConfig.h
 
     createThread(heartbeat_LED); // s/taskCreate/createThread/
-    tcp_tx_queue = createStaticQueue(tcp_tx_queue, timestamped_frame_t, TCP_TX_ITEM_COUNT);
+    createStaticQueue(tcp_tx_queue, timestamped_frame_t, TCP_TX_ITEM_COUNT);
     myHandle = createStaticSemaphore();
 
     osKernelStart(); // s/schedStart/osKernelStart

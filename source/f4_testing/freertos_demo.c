@@ -103,8 +103,8 @@ int main() {
     createThread(usartSend);
 
     // Create objects
-    myQueue     = createStaticQueue(myQueue, uint32_t, 0x45);
-    mySemaphore = createStaticSemaphore(mySemaphore);
+    createStaticQueue(myQueue, uint32_t, 0x45);
+    createStaticSemaphore(mySemaphore);
 
     osKernelStart(); // Go!
 

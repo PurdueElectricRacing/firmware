@@ -64,7 +64,7 @@
 
 uint8_t WIZCHIP_READ(uint32_t AddrSel) {
     uint8_t ret;
-    uint8_t spi_data[3];
+    // uint8_t spi_data[3];
 
     WIZCHIP_CRITICAL_ENTER();
     WIZCHIP.CS._select();
@@ -93,7 +93,7 @@ uint8_t WIZCHIP_READ(uint32_t AddrSel) {
 }
 
 void WIZCHIP_WRITE(uint32_t AddrSel, uint8_t wb) {
-    uint8_t spi_data[4];
+    // uint8_t spi_data[4];
 
     WIZCHIP_CRITICAL_ENTER();
     WIZCHIP.CS._select();
@@ -123,8 +123,8 @@ void WIZCHIP_WRITE(uint32_t AddrSel, uint8_t wb) {
 }
 
 void WIZCHIP_READ_BUF(uint32_t AddrSel, uint8_t* pBuf, uint16_t len) {
-    uint8_t spi_data[3];
-    uint16_t i;
+    // uint8_t spi_data[3];
+    // uint16_t i;
 
     WIZCHIP_CRITICAL_ENTER();
     WIZCHIP.CS._select();
@@ -153,8 +153,8 @@ void WIZCHIP_READ_BUF(uint32_t AddrSel, uint8_t* pBuf, uint16_t len) {
 }
 
 void WIZCHIP_WRITE_BUF(uint32_t AddrSel, uint8_t* pBuf, uint16_t len) {
-    uint8_t spi_data[3];
-    uint16_t i;
+    // uint8_t spi_data[3];
+    // uint16_t i;
 
     WIZCHIP_CRITICAL_ENTER();
     WIZCHIP.CS._select();

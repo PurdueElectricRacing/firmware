@@ -26,20 +26,6 @@ static_assert(INVA_PHASE_I_LAYOUT_HASH == INVD_PHASE_I_LAYOUT_HASH, "AMK INVA/D 
 
 void flush_inva() {
     CAN_SEND_INVA_SET(
-        g_car.front_left.set->AMK_Control_bReserve,
-        g_car.front_left.set->AMK_Control_bInverterOn,
-        g_car.front_left.set->AMK_Control_bDcOn,
-        g_car.front_left.set->AMK_Control_bEnable,
-        g_car.front_left.set->AMK_Control_bErrorReset,
-        g_car.front_left.set->AMK_Control_bReserve2,
-        g_car.front_left.set->AMK_TorqueSetpoint,
-        g_car.front_left.set->AMK_PositiveTorqueLimit,
-        g_car.front_left.set->AMK_NegativeTorqueLimit
-    );
-}
-
-void flush_invb() {
-    CAN_SEND_INVB_SET(
         g_car.front_right.set->AMK_Control_bReserve,
         g_car.front_right.set->AMK_Control_bInverterOn,
         g_car.front_right.set->AMK_Control_bDcOn,
@@ -49,6 +35,20 @@ void flush_invb() {
         g_car.front_right.set->AMK_TorqueSetpoint,
         g_car.front_right.set->AMK_PositiveTorqueLimit,
         g_car.front_right.set->AMK_NegativeTorqueLimit
+    );
+}
+
+void flush_invb() {
+    CAN_SEND_INVB_SET(
+        g_car.front_left.set->AMK_Control_bReserve,
+        g_car.front_left.set->AMK_Control_bInverterOn,
+        g_car.front_left.set->AMK_Control_bDcOn,
+        g_car.front_left.set->AMK_Control_bEnable,
+        g_car.front_left.set->AMK_Control_bErrorReset,
+        g_car.front_left.set->AMK_Control_bReserve2,
+        g_car.front_left.set->AMK_TorqueSetpoint,
+        g_car.front_left.set->AMK_PositiveTorqueLimit,
+        g_car.front_left.set->AMK_NegativeTorqueLimit
     );
 }
 
@@ -81,51 +81,55 @@ void flush_invd() {
 }
 
 void init_amks() {
-    AMK_init(
-        &g_car.front_left,
-        flush_inva,
-        g_car.front_left.set,
-        g_car.front_left.crit,
-        g_car.front_left.info,
-        g_car.front_left.temps,
-        g_car.front_left.err1,
-        g_car.front_left.err2,
-        &g_car.is_precharge_complete
-    );
-
+    // Inverter A
     AMK_init(
         &g_car.front_right,
-        flush_invb,
-        g_car.front_right.set,
-        g_car.front_right.crit,
-        g_car.front_right.info,
-        g_car.front_right.temps,
-        g_car.front_right.err1,
-        g_car.front_right.err2,
+        flush_inva,
+        &can_data.INVA_SET,
+        &can_data.INVA_CRIT,
+        &can_data.INVA_INFO,
+        &can_data.INVA_TEMPS,
+        &can_data.INVA_ERR_1,
+        &can_data.INVA_ERR_2,
         &g_car.is_precharge_complete
     );
 
+    // Inverter B
+     AMK_init(
+        &g_car.front_left,
+        flush_invb,
+        &can_data.INVB_SET,
+        &can_data.INVB_CRIT,
+        &can_data.INVB_INFO,
+        &can_data.INVB_TEMPS,
+        &can_data.INVB_ERR_1,
+        &can_data.INVB_ERR_2,
+        &g_car.is_precharge_complete
+    );
+
+    // Inverter C
     AMK_init(
         &g_car.rear_left,
         flush_invc,
-        g_car.rear_left.set,
-        g_car.rear_left.crit,
-        g_car.rear_left.info,
-        g_car.rear_left.temps,
-        g_car.rear_left.err1,
-        g_car.rear_left.err2,
+        &can_data.INVC_SET,
+        &can_data.INVC_CRIT,
+        &can_data.INVC_INFO,
+        &can_data.INVC_TEMPS,
+        &can_data.INVC_ERR_1,
+        &can_data.INVC_ERR_2,
         &g_car.is_precharge_complete
     );
 
+    // Inverter D
     AMK_init(
         &g_car.rear_right,
         flush_invd,
-        g_car.rear_right.set,
-        g_car.rear_right.crit,
-        g_car.rear_right.info,
-        g_car.rear_right.temps,
-        g_car.rear_right.err1,
-        g_car.rear_right.err2,
+        &can_data.INVD_SET,
+        &can_data.INVD_CRIT,
+        &can_data.INVD_INFO,
+        &can_data.INVD_TEMPS,
+        &can_data.INVD_ERR_1,
+        &can_data.INVD_ERR_2,
         &g_car.is_precharge_complete
     );
 }

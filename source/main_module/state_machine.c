@@ -107,8 +107,6 @@ void fsm_periodic() {
     // amks need a bool to point to for precharge status
     g_car.is_precharge_complete = !is_latched(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE);
 
-    set_brake_light();
-
     switch (g_car.current_state) {
         case CARSTATE_INIT: {
             // do nothing for now
@@ -184,4 +182,6 @@ void fsm_periodic() {
     PHAL_writeGPIO(TSAL_GREEN_CTRL_PORT, TSAL_GREEN_CTRL_PIN, g_car.tsal_green_enable);
     PHAL_writeGPIO(TSAL_RED_CTRL_PORT, TSAL_RED_CTRL_PIN, g_car.tsal_red_enable);
     PHAL_writeGPIO(BUZZER_PORT, BUZZER_PIN, g_car.buzzer_enable);
+
+    set_brake_light();
 }

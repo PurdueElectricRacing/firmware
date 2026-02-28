@@ -665,15 +665,6 @@
             "lcd_message": "SDC7 (COCKPIT_ESTOP) is open"
         },
         {
-            "fault_name": "SDC8_Open",
-            "max": 1,
-            "min": 0,
-            "priority": "fatal",
-            "time_to_latch": 32,
-            "time_to_unlatch": 100,
-            "lcd_message": "SDC8 is open"
-        },
-        {
             "fault_name": "SDC9_Open",
             "max": 1,
             "min": 0,
@@ -719,22 +710,13 @@
             "lcd_message": "SDC13 (E_METER) is open"
         },
         {
-            "fault_name": "SDC14_Open",
-            "max": 1,
-            "min": 0,
-            "priority": "fatal",
-            "time_to_latch": 32,
-            "time_to_unlatch": 100,
-            "lcd_message": "SDC14 (REAR_INTERLOCK)is open"
-        },
-        {
             "fault_name": "SDC15_Open",
             "max": 1,
             "min": 0,
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC15 is open"
+            "lcd_message": "SDC15 (REAR_INTERLOCK) is open"
         },
         {
             "fault_name": "SDC16_Open",

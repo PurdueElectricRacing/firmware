@@ -144,6 +144,13 @@ void setSwitch(switches_t auto_switch_enum, bool state) {
             PHAL_writeGPIO(FAN_5V_CTRL_GPIO_Port, FAN_5V_CTRL_Pin, state);
             LED_control(LED_5V_FAN, state);
             break;
+        case CS_24V:
+        case CS_5V:
+            // Not actually switches - do nothing
+            break;
+        case CS_SWITCH_COUNT:
+            // Not a real switch! - do nothing
+            break;
     }
 }
 

@@ -35,11 +35,6 @@ static const sdc_node_t SDC_NODE_LUT[NUM_SDC_NODES] = {
 };
 
 void update_SDC() {
-    // Precharge is checked on it's own pin
-    // todo: check polarity of this signal
-    bool is_precharge_incomplete = !PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
-    update_fault(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE, is_precharge_incomplete);
-
     // check SDC state by cycling through the mux and checking the input
     // ! reading the input pin as 1 = closed, 0 = open
     static uint8_t sdc_poll_id = 0;

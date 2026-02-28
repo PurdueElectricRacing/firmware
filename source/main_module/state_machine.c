@@ -13,7 +13,8 @@
 #include "common/can_library/generated/can_types.h"
 #include "common/phal/gpio.h"
 
-static constexpr uint32_t MIN_BUZZING_TIME_MS = 2000;
+// FSAE 2026 EV.9.7.2: The Ready to Drive Sound must be sounded continuously for minimum 1 second and maximum 3 seconds
+static constexpr uint32_t MIN_BUZZING_TIME_MS = 2500;
 static constexpr uint16_t BRAKE_LIGHT_ON_THRESHOLD = 200; // ~5% of 4095
 static constexpr uint16_t BRAKE_LIGHT_OFF_THRESHOLD = 100; // ~2.5% of 4095
 
@@ -62,7 +63,7 @@ static inline bool is_TSMS_high() {
 }
 
 static inline bool is_precharge_complete() {
-    return PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
+    return !is_latched(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE);
 }
 
 static inline bool is_AMKS_running() {
@@ -82,10 +83,6 @@ static inline bool is_start_button_pressed() {
 
 static inline bool is_buzzing_time_elapsed() {
     return (OS_TICKS - g_car.buzzer_start_time >= MIN_BUZZING_TIME_MS);
-}
-
-void buzzing_periodic() {
-    g_car.buzzer_enable = true; // todo make a pattern
 }
 
 /**
@@ -153,7 +150,7 @@ void fsm_periodic() {
             break;
         }
         case CARSTATE_BUZZING: {
-            buzzing_periodic();
+            g_car.buzzer_enable = true;
 
             if (is_buzzing_time_elapsed()) {
                 g_car.buzzer_enable = false; // explicitly turn off the buzzer before transitioning

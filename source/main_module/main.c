@@ -129,8 +129,15 @@ void AMK_task() {
     AMK_periodic(&g_car.rear_right);
 }
 
+void update_precharge() {
+    // todo: check polarity of this signal
+    bool is_precharge_incomplete = !PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
+    update_fault(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE, is_precharge_incomplete);
+}
+
 defineThreadStack(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);
 defineThreadStack(update_SDC, 5, osPriorityIdle, 256); // the delay is within the thread
+defineThreadStack(update_precharge, 50, osPriorityIdle, 256);
 defineThreadStack(can_worker_task, 10, osPriorityHigh, 1024);
 defineThreadStack(fsm_periodic, 15, osPriorityNormal, 2048);
 defineThreadStack(AMK_task, 15, osPriorityNormal, 1024);
@@ -166,6 +173,7 @@ int main(void) {
     createThread(fsm_periodic);
     createThread(AMK_task);
     createThread(fault_library_periodic);
+    createThread(update_precharge);
 
     // no way home
     osKernelStart();

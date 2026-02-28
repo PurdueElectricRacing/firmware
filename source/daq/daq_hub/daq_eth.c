@@ -98,6 +98,9 @@ void eth_update_periodic(void) {
                 bDeactivateTail(&b_rx_can, RX_TAIL_UDP);
             }
             break;
+        case ETH_LINK_FAIL:
+            // Stay in fail state until eth_reset_error() moves us out
+            break;
     }
 
     eth_reset_error();
@@ -276,6 +279,9 @@ static void eth_tcp_update(void) {
                 eth_tcp_receive_periodic(); // RX
                 eth_tcp_send_periodic(); // TX
             }
+            break;
+        case ETH_TCP_FAIL:
+            // Stay in fail state error recovery
             break;
     }
 }

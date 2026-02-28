@@ -26,7 +26,6 @@
 #include "common/can_library/generated/DAQ.h"
 
 daq_hub_t daq_hub;
-timestamped_frame_t buf2;
 
 // Local protoptypes
 static void daq_heartbeat(void);

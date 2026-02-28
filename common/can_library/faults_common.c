@@ -36,7 +36,7 @@ void update_fault(fault_index_t fault_index, uint16_t value) {
 
     fault_t *fault        = &faults[fault_index];
     uint32_t now          = OS_TICKS;
-    // max is inclusive, min is exclusive, so the healthy range is (min, max]
+    // min is inclusive, max is exclusive, so the healthy range is [min, max)
     bool is_out_of_bounds = (value >= fault->max_value) || (value < fault->min_value);
 
     // Implementation of the FSM diagram in common/can_library/README

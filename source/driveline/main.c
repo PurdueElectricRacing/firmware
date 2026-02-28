@@ -41,7 +41,7 @@ GPIOInitConfig_t gpio_config[] = {
 
 static constexpr uint32_t TargetCoreClockrateHz = 16000000;
 ClockRateConfig_t clock_config = {
-    .clock_source           = CLOCK_SOURCE_HSI, // todo change to HSE
+    .clock_source           = CLOCK_SOURCE_HSI,
     .use_pll                = false,
     .system_clock_target_hz = TargetCoreClockrateHz,
     .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
@@ -125,6 +125,8 @@ int main(void) {
     osKernelInitialize();
 
     createThread(shockpot_thread);
+    createThread(loadcell_thread);
+    createThread(braketemp_thread);
 
     // no way home
     osKernelStart();

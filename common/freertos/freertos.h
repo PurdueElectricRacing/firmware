@@ -46,7 +46,7 @@ void rtosWrapper(void *arg);
  */
 #define DEFINE_TASK(NAME, PERIOD_MS, PRIORITY, STACK_SIZE)                     \
     static StaticTask_t task_cb_##NAME;                                        \
-    static uint32_t     task_stack_##NAME[(STACK_SIZE) / 4];                   \
+    static StackType_t  task_stack_##NAME[(STACK_SIZE) / sizeof(StackType_t)]; \
     ThreadWrapper_t     NAME##_wrapper = {                                     \
         .taskFunction = (void (*)(void))NAME,                                  \
         .period_ms    = (PERIOD_MS),                                           \
@@ -55,7 +55,7 @@ void rtosWrapper(void *arg);
             .attr_bits  = osThreadDetached,                                    \
             .cb_mem     = &task_cb_##NAME,                                     \
             .cb_size    = sizeof(StaticTask_t),                                \
-            .stack_mem  = &task_stack_##NAME,                                  \
+            .stack_mem  = task_stack_##NAME,                                   \
             .stack_size = sizeof(task_stack_##NAME),                           \
             .priority   = (osPriority_t)(PRIORITY),                            \
         }                                                                      \
@@ -73,7 +73,7 @@ void rtosWrapper(void *arg);
  * DEFINE_STATIC_QUEUE: Scaffolds the static memory for a FreeRTOS queue.
  */
 #define DEFINE_STATIC_QUEUE(NAME, ITEM, COUNT)                                 \
-    extern QueueHandle_t NAME;                                                 \
+    QueueHandle_t NAME;                                                        \
     static StaticQueue_t xStaticQueue_##NAME;                                  \
     static uint8_t       ucQueueStorageArea_##NAME[sizeof(ITEM) * (COUNT)];    \
     QueueHandle_t        NAME
@@ -89,7 +89,7 @@ void rtosWrapper(void *arg);
  * DEFINE_STATIC_SEMAPHORE: Scaffolds the static memory for a mutex.
  */
 #define DEFINE_STATIC_SEMAPHORE(NAME)                                          \
-    extern SemaphoreHandle_t NAME;                                             \
+    SemaphoreHandle_t NAME;                                                    \
     static StaticSemaphore_t xStaticSemaphore_##NAME;                          \
     SemaphoreHandle_t        NAME
 

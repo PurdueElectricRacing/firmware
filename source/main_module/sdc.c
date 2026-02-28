@@ -12,6 +12,7 @@ typedef struct {
 
 // mux address to indicate the node is inacessible
 static constexpr uint8_t SDC_UNREADABLE = 0xFF; 
+static constexpr int NUM_SDC_NODES = 17;
 
 // id by the SDC node number (1-17)
 static const sdc_node_t SDC_NODE_LUT[NUM_SDC_NODES] = {
@@ -55,7 +56,6 @@ void update_SDC() {
     }
     
     // Read the signal and update the relevant fault state
-    g_SDC_open_nodes[sdc_poll_index] = is_node_open;
     update_fault(current_node->fault_id, is_node_open);
 
     // update the poll id for the next cycle (0-16 = sdc 1-17)

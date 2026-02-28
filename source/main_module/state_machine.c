@@ -18,14 +18,6 @@ static constexpr uint32_t MIN_BUZZING_TIME_MS = 2500;
 static constexpr uint16_t BRAKE_LIGHT_ON_THRESHOLD = 200; // ~5% of 4095
 static constexpr uint16_t BRAKE_LIGHT_OFF_THRESHOLD = 100; // ~2.5% of 4095
 
-void error_periodic() {
-    // todo
-}
-
-void energized_periodic() {
-    // todo
-}
-
 void ready2drive_periodic() {
     if (can_data.filt_throttle_brake.stale) {
         g_torque_request.front_right = 0;
@@ -48,10 +40,6 @@ void ready2drive_periodic() {
     g_torque_request.front_left  = torque_req_percent;
     g_torque_request.rear_left   = torque_req_percent;
     g_torque_request.rear_right  = torque_req_percent;
-}
-
-static inline bool is_SDC_closed() {
-    return g_car.is_SDC_closed;
 }
 
 static inline bool is_init_complete() {
@@ -140,7 +128,7 @@ void fsm_periodic() {
             break;
         }
         case CARSTATE_ENERGIZED: {
-            energized_periodic();
+            // do nothing for now
 
             if (is_start_button_pressed() && is_AMKS_running()) {
                 g_car.buzzer_start_time = OS_TICKS;
@@ -166,9 +154,9 @@ void fsm_periodic() {
             break;
         }
         case CARSTATE_FATAL: {
-            error_periodic();
+            // nothing for now
 
-            if (is_SDC_closed()) {
+            if (!is_fatal_latched()) {
                 g_car.next_state = CARSTATE_IDLE;
             }
             break;

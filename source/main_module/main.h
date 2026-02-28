@@ -26,8 +26,8 @@ typedef struct {
     bool tsal_red_enable;
     bool buzzer_enable;
 
-    // input states
-    bool is_SDC_closed;
+    // AMKs are pointed to this bool for now,
+    // later use is_latched(PRECHARGED_INCOMPLETE) instead
     bool is_precharge_complete;
 } car_t;
 extern car_t g_car;
@@ -39,11 +39,6 @@ typedef struct {
     int16_t rear_right;
 } torque_request_t;
 extern torque_request_t g_torque_request;
-
-constexpr int NUM_SDC_NODES = 17;
-constexpr int PRECHARGE_SDC_INDEX = NUM_SDC_NODES - 1;
-typedef bool SDC_open_nodes_t[NUM_SDC_NODES];
-extern SDC_open_nodes_t g_SDC_open_nodes;
 
 void fsm_periodic();
 void car_init();

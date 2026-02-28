@@ -21,7 +21,6 @@
 // Global data structures
 car_t g_car;
 torque_request_t g_torque_request;
-SDC_open_nodes_t g_SDC_open_nodes;
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -131,15 +130,15 @@ void AMK_task() {
 
 void update_precharge() {
     // todo: check polarity of this signal
-    bool is_precharge_incomplete = !PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
-    update_fault(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE, is_precharge_incomplete);
+    g_car.is_precharge_complete = PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
+    update_fault(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE, !g_car.is_precharge_complete);
 }
 
 defineThreadStack(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);
 defineThreadStack(update_SDC, 5, osPriorityIdle, 256); // the delay is within the thread
 defineThreadStack(update_precharge, 50, osPriorityIdle, 256);
 defineThreadStack(can_worker_task, 10, osPriorityHigh, 1024);
-defineThreadStack(fsm_periodic, 15, osPriorityNormal, 2048);
+defineThreadStack(fsm_periodic, 20, osPriorityNormal, 2048);
 defineThreadStack(AMK_task, 15, osPriorityNormal, 1024);
 defineThreadStack(fault_library_periodic, 100, osPriorityLow, 1024);
 

@@ -13,11 +13,6 @@
                             "sig_name": "car_state",
                             "sig_desc": "Main car state",
                             "type": "CarState_t"
-                        },
-                        {
-                            "sig_name": "precharge_state",
-                            "sig_desc": "Status of Precharge (complete vs not)",
-                            "type": "bool"
                         }
                     ],
                     "msg_period": 500,

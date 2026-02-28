@@ -214,8 +214,6 @@ void waitMicros(uint8_t time) {
 // @brief: Checks if we're clear of preflight,
 //         and if we're able to swap to primary task pool
 static void checkPreflightEnd() {
-    int32_t new_time;
-
     if (!sched.anim_min_time) {
         sched.anim_complete = 1;
     } else {

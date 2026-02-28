@@ -103,7 +103,7 @@ $(function(){initNavTree('phal__G4_2dma_2dma_8c_source.html',''); initResizable(
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="phal__G4_2dma_2dma_8h.html">common/phal_G4/dma/dma.h</a>&quot;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="phal__G4_2dma_2dma_8c.html#a45e3c1b5369e195897b487dafa01ba61">   14</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="phal__F4__F7_2dma_2dma_8c.html#a5eef9fdb02d8b29dc11d7e69328e7504">PHAL_initDMA</a>(<a class="code hl_struct" href="structdma__init__t.html">dma_init_t</a>* dma) {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="phal__G4_2dma_2dma_8c.html#a45e3c1b5369e195897b487dafa01ba61">   14</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="phal__F4__F7_2dma_2dma_8c.html#a5eef9fdb02d8b29dc11d7e69328e7504">PHAL_initDMA</a>(<a class="code hl_struct" href="structdma__init__t.html">dma_init_t</a> *dma) {</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="comment">// Check we aren&#39;t going to break the peripheral</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordflow">if</span> (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#ae89a25d8eb9c645cc3bdfad69ddfee8d">mem_to_mem</a> &amp;&amp; dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#acea8f26e966c16fff425fb473175767b">circular</a>) {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
@@ -117,90 +117,92 @@ $(function(){initNavTree('phal__G4_2dma_2dma_8c_source.html',''); initResizable(
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="comment">// Enable clock in RCC</span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">if</span> (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a190bea09bd8d062bb2f4a97056cfe9c3">periph</a> == DMA1) {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a> = (DMA_Channel_TypeDef *)((uint32_t)DMA1_Channel1 + 0x14U * (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a0f64b50f16122f304cf984f2e6e72675">channel_idx</a> - 1U));</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        RCC-&gt;AHB1ENR |= RCC_AHB1ENR_DMA1EN | RCC_AHB1ENR_DMAMUX1EN;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a190bea09bd8d062bb2f4a97056cfe9c3">periph</a> == DMA2) {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a> = (DMA_Channel_TypeDef *)((uint32_t)DMA2_Channel1 + 0x14U * (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a0f64b50f16122f304cf984f2e6e72675">channel_idx</a> - 1U));</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        RCC-&gt;AHB1ENR |= RCC_AHB1ENR_DMA2EN | RCC_AHB1ENR_DMAMUX1EN;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="comment">// Ensure the stream is disabled, must be in order to configure the DMA control registers</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CCR &amp;= ~(DMA_CCR_EN);</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">while</span> (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CCR &amp; DMA_CCR_EN)</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        ;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="comment">// Clear any stream dedicated status flags that may have been set previously</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a190bea09bd8d062bb2f4a97056cfe9c3">periph</a>-&gt;IFCR = (DMA_ISR_GIF1 | DMA_ISR_TCIF1 | DMA_ISR_HTIF1 | DMA_ISR_TEIF1)</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        &lt;&lt; (4 * (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a0f64b50f16122f304cf984f2e6e72675">channel_idx</a> - 1));</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="comment">// Set peripheral address (src)</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CPAR = dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a99642ce315c51506c1ce744dd3423d3e">periph_addr</a>;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="comment">// Set memory address (dst)</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CMAR  = dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a66f5ecd22d3bf0c2a33c5b6c1dbdf32f">mem_addr</a>;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CNDTR = dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a81eb8f7dce1c3c47734559a5b56b61e2">tx_size</a>;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="comment">// Reset preconfigured CR values</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CCR = 0;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="comment">// Set channel, priority, memory data size</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CCR |= (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#af3022bd13e95bf356e01b8420aefb5df">mem_size</a> &lt;&lt; DMA_CCR_MSIZE_Pos) &amp; DMA_CCR_MSIZE_Msk</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        | (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a8cf11454abd34dc0606920f7d8f891d3">periph_size</a> &lt;&lt; DMA_CCR_PSIZE_Pos) &amp; DMA_CCR_PSIZE_Msk</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        | (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#ad49eda1dd86f28dcd3e8a086e2c80eb4">priority</a> &lt;&lt; DMA_CCR_PL_Pos) &amp; DMA_CCR_PL_Msk</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        | (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a04a45cddca6ff1eb87116b3dcc0eeba5">mem_inc</a> &lt;&lt; DMA_CCR_MINC_Pos) &amp; DMA_CCR_MINC_Msk</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        | (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a1a76ea0998de3b495c6d0d7aaa60f22d">periph_inc</a> &lt;&lt; DMA_CCR_PINC_Pos) &amp; DMA_CCR_PINC_Msk</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        | (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#acea8f26e966c16fff425fb473175767b">circular</a> &lt;&lt; DMA_CCR_CIRC_Pos) &amp; DMA_CCR_CIRC_Msk</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        | (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a377884e67ed4aa00aea9c7e925f3b6b3">dir</a> &lt;&lt; DMA_CCR_DIR_Pos) &amp; DMA_CCR_DIR_Msk</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        | (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#aee8a7152d6ecb69597564f6d225ecd8d">tx_isr_en</a> &lt;&lt; DMA_CCR_TEIE_Pos) &amp; DMA_CCR_TEIE_Msk</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        | (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#aee8a7152d6ecb69597564f6d225ecd8d">tx_isr_en</a> &lt;&lt; DMA_CCR_TCIE_Pos) &amp; DMA_CCR_TCIE_Msk</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        | (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#ae89a25d8eb9c645cc3bdfad69ddfee8d">mem_to_mem</a> &lt;&lt; DMA_CCR_MEM2MEM_Pos) &amp; DMA_CCR_MEM2MEM_Msk;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="comment">/* DMA Mux */</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="comment">// For category 3 and category 4 devices:</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="comment">// DMAMUX channels 0 to 7 are connected to DMA1 channels 1 to 8</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="comment">// DMAMUX channels 8 to 15 are connected to DMA2 channels 1 to 8</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="comment">// DMAMUX Channel (usually equal to DMA channel number - 1)</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    DMAMUX_Channel_TypeDef* mux;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    mux      = (DMAMUX1_Channel0 + dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a0f64b50f16122f304cf984f2e6e72675">channel_idx</a> - 1);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    mux-&gt;CCR = (mux-&gt;CCR &amp; ~0x7F) | dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a89d56b6aa15a185bb69dec4c78a2c279">mux_request</a>;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a> =</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            (DMA_Channel_TypeDef *)((uint32_t)DMA1_Channel1 + 0x14U * (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a0f64b50f16122f304cf984f2e6e72675">channel_idx</a> - 1U));</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        RCC-&gt;AHB1ENR |= RCC_AHB1ENR_DMA1EN | RCC_AHB1ENR_DMAMUX1EN;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a190bea09bd8d062bb2f4a97056cfe9c3">periph</a> == DMA2) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a> =</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            (DMA_Channel_TypeDef *)((uint32_t)DMA2_Channel1 + 0x14U * (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a0f64b50f16122f304cf984f2e6e72675">channel_idx</a> - 1U));</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        RCC-&gt;AHB1ENR |= RCC_AHB1ENR_DMA2EN | RCC_AHB1ENR_DMAMUX1EN;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="comment">// Ensure the stream is disabled, must be in order to configure the DMA control registers</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CCR &amp;= ~(DMA_CCR_EN);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">while</span> (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CCR &amp; DMA_CCR_EN)</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        ;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="comment">// Clear any stream dedicated status flags that may have been set previously</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a190bea09bd8d062bb2f4a97056cfe9c3">periph</a>-&gt;IFCR = (DMA_ISR_GIF1 | DMA_ISR_TCIF1 | DMA_ISR_HTIF1 | DMA_ISR_TEIF1)</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        &lt;&lt; (4 * (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a0f64b50f16122f304cf984f2e6e72675">channel_idx</a> - 1));</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="comment">// Set peripheral address (src)</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CPAR = dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a99642ce315c51506c1ce744dd3423d3e">periph_addr</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="comment">// Set memory address (dst)</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CMAR  = dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a66f5ecd22d3bf0c2a33c5b6c1dbdf32f">mem_addr</a>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CNDTR = dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a81eb8f7dce1c3c47734559a5b56b61e2">tx_size</a>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="comment">// Reset preconfigured CR values</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CCR = 0;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="comment">// Set channel, priority, memory data size</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CCR |= ((dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#af3022bd13e95bf356e01b8420aefb5df">mem_size</a> &lt;&lt; DMA_CCR_MSIZE_Pos) &amp; DMA_CCR_MSIZE_Msk)</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        | ((dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a8cf11454abd34dc0606920f7d8f891d3">periph_size</a> &lt;&lt; DMA_CCR_PSIZE_Pos) &amp; DMA_CCR_PSIZE_Msk)</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        | ((dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#ad49eda1dd86f28dcd3e8a086e2c80eb4">priority</a> &lt;&lt; DMA_CCR_PL_Pos) &amp; DMA_CCR_PL_Msk)</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        | ((dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a04a45cddca6ff1eb87116b3dcc0eeba5">mem_inc</a> &lt;&lt; DMA_CCR_MINC_Pos) &amp; DMA_CCR_MINC_Msk)</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        | ((dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a1a76ea0998de3b495c6d0d7aaa60f22d">periph_inc</a> &lt;&lt; DMA_CCR_PINC_Pos) &amp; DMA_CCR_PINC_Msk)</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        | ((dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#acea8f26e966c16fff425fb473175767b">circular</a> &lt;&lt; DMA_CCR_CIRC_Pos) &amp; DMA_CCR_CIRC_Msk)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        | ((dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a377884e67ed4aa00aea9c7e925f3b6b3">dir</a> &lt;&lt; DMA_CCR_DIR_Pos) &amp; DMA_CCR_DIR_Msk)</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        | ((dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#aee8a7152d6ecb69597564f6d225ecd8d">tx_isr_en</a> &lt;&lt; DMA_CCR_TEIE_Pos) &amp; DMA_CCR_TEIE_Msk)</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        | ((dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#aee8a7152d6ecb69597564f6d225ecd8d">tx_isr_en</a> &lt;&lt; DMA_CCR_TCIE_Pos) &amp; DMA_CCR_TCIE_Msk)</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        | ((dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#ae89a25d8eb9c645cc3bdfad69ddfee8d">mem_to_mem</a> &lt;&lt; DMA_CCR_MEM2MEM_Pos) &amp; DMA_CCR_MEM2MEM_Msk);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="comment">/* DMA Mux */</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="comment">// For category 3 and category 4 devices:</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="comment">// DMAMUX channels 0 to 7 are connected to DMA1 channels 1 to 8</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="comment">// DMAMUX channels 8 to 15 are connected to DMA2 channels 1 to 8</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="comment">// DMAMUX Channel (usually equal to DMA channel number - 1)</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    DMAMUX_Channel_TypeDef *mux;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    mux      = (DMAMUX1_Channel0 + dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a0f64b50f16122f304cf984f2e6e72675">channel_idx</a> - 1);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    mux-&gt;CCR = (mux-&gt;CCR &amp; ~0x7F) | dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a89d56b6aa15a185bb69dec4c78a2c279">mux_request</a>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}</div>
 </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="foldopen" id="foldopen00078" data-start="{" data-end="}">
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="phal__G4_2dma_2dma_8c.html#a7248d41f7991c91ea6ef5985d372e654">   78</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="phal__F4__F7_2dma_2dma_8c.html#ab15d4afcf0988a8065caced65d1883fe">PHAL_startTxfer</a>(<a class="code hl_struct" href="structdma__init__t.html">dma_init_t</a>* dma) {</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="comment">// Stream enable starts txfer</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CCR |= DMA_CCR_EN;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="phal__G4_2dma_2dma_8c.html#a7248d41f7991c91ea6ef5985d372e654">   80</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="phal__F4__F7_2dma_2dma_8c.html#ab15d4afcf0988a8065caced65d1883fe">PHAL_startTxfer</a>(<a class="code hl_struct" href="structdma__init__t.html">dma_init_t</a> *dma) {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="comment">// Stream enable starts txfer</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CCR |= DMA_CCR_EN;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
 </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="foldopen" id="foldopen00083" data-start="{" data-end="}">
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="phal__G4_2dma_2dma_8c.html#aa4e08ce2498309dc88dff49ca261e9c5">   83</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="phal__F4__F7_2dma_2dma_8c.html#a31d09afa5679cb34c0c776051450e62a">PHAL_stopTxfer</a>(<a class="code hl_struct" href="structdma__init__t.html">dma_init_t</a>* dma) {</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="comment">// Stream disable stops txfer</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CCR &amp;= ~DMA_CCR_EN;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="}">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="phal__G4_2dma_2dma_8c.html#aa4e08ce2498309dc88dff49ca261e9c5">   85</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="phal__F4__F7_2dma_2dma_8c.html#a31d09afa5679cb34c0c776051450e62a">PHAL_stopTxfer</a>(<a class="code hl_struct" href="structdma__init__t.html">dma_init_t</a> *dma) {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="comment">// Stream disable stops txfer</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CCR &amp;= ~DMA_CCR_EN;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
 </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="foldopen" id="foldopen00088" data-start="{" data-end="}">
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="phal__G4_2dma_2dma_8c.html#a1cec08a9129fa2dc3a8f31cfa45814d0">   88</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="phal__F4__F7_2dma_2dma_8c.html#af36fe9d375254e9bb0c09c760a761dc5">PHAL_reEnable</a>(<a class="code hl_struct" href="structdma__init__t.html">dma_init_t</a>* dma) {</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="comment">// Clear any stream dedicated status flags that may have been set previously</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a190bea09bd8d062bb2f4a97056cfe9c3">periph</a>-&gt;IFCR = (DMA_ISR_GIF1 | DMA_ISR_TCIF1 | DMA_ISR_HTIF1 | DMA_ISR_TEIF1)</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        &lt;&lt; (4 * (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a0f64b50f16122f304cf984f2e6e72675">channel_idx</a> - 1));</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CCR |= DMA_CCR_EN;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>}</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="foldopen" id="foldopen00090" data-start="{" data-end="}">
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="phal__G4_2dma_2dma_8c.html#a1cec08a9129fa2dc3a8f31cfa45814d0">   90</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="phal__F4__F7_2dma_2dma_8c.html#af36fe9d375254e9bb0c09c760a761dc5">PHAL_reEnable</a>(<a class="code hl_struct" href="structdma__init__t.html">dma_init_t</a> *dma) {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="comment">// Clear any stream dedicated status flags that may have been set previously</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a190bea09bd8d062bb2f4a97056cfe9c3">periph</a>-&gt;IFCR = (DMA_ISR_GIF1 | DMA_ISR_TCIF1 | DMA_ISR_HTIF1 | DMA_ISR_TEIF1)</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        &lt;&lt; (4 * (dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#a0f64b50f16122f304cf984f2e6e72675">channel_idx</a> - 1));</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CCR |= DMA_CCR_EN;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
 </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="foldopen" id="foldopen00095" data-start="{" data-end="}">
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="phal__G4_2dma_2dma_8c.html#a7d51f905e3808e52af18720b63e12ac5">   95</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="phal__F4__F7_2dma_2dma_8c.html#a2a989d2d9b7c591de33e96581ac3bb11">PHAL_DMA_setMemAddress</a>(<a class="code hl_struct" href="structdma__init__t.html">dma_init_t</a>* dma, <span class="keyword">const</span> uint32_t address) {</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CMAR = address;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>}</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="foldopen" id="foldopen00097" data-start="{" data-end="}">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="phal__G4_2dma_2dma_8c.html#a7d51f905e3808e52af18720b63e12ac5">   97</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="phal__F4__F7_2dma_2dma_8c.html#a2a989d2d9b7c591de33e96581ac3bb11">PHAL_DMA_setMemAddress</a>(<a class="code hl_struct" href="structdma__init__t.html">dma_init_t</a> *dma, <span class="keyword">const</span> uint32_t address) {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CMAR = address;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>}</div>
 </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="foldopen" id="foldopen00099" data-start="{" data-end="}">
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="phal__G4_2dma_2dma_8c.html#a7d9ac66b06c447e5591606f5b8bec1bc">   99</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="phal__F4__F7_2dma_2dma_8c.html#a14faecce0cd8bd38b14c987e17ce1033">PHAL_DMA_setTxferLength</a>(<a class="code hl_struct" href="structdma__init__t.html">dma_init_t</a>* dma, <span class="keyword">const</span> uint32_t length) {</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CNDTR = length; <span class="comment">// Set number of data to transfer</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>}</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="foldopen" id="foldopen00101" data-start="{" data-end="}">
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="phal__G4_2dma_2dma_8c.html#a7d9ac66b06c447e5591606f5b8bec1bc">  101</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="phal__F4__F7_2dma_2dma_8c.html#a14faecce0cd8bd38b14c987e17ce1033">PHAL_DMA_setTxferLength</a>(<a class="code hl_struct" href="structdma__init__t.html">dma_init_t</a> *dma, <span class="keyword">const</span> uint32_t length) {</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    dma-&gt;<a class="code hl_variable" href="structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8">channel</a>-&gt;CNDTR = length; <span class="comment">// Set number of data to transfer</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>}</div>
 </div>
 <div class="ttc" id="aphal__F4__F7_2dma_2dma_8c_html_a14faecce0cd8bd38b14c987e17ce1033"><div class="ttname"><a href="phal__F4__F7_2dma_2dma_8c.html#a14faecce0cd8bd38b14c987e17ce1033">PHAL_DMA_setTxferLength</a></div><div class="ttdeci">void PHAL_DMA_setTxferLength(dma_init_t *init, const uint32_t length)</div><div class="ttdoc">Set transfer length for DMA transaction.</div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2dma_2dma_8c_source.html#l00140">dma.c:140</a></div></div>
 <div class="ttc" id="aphal__F4__F7_2dma_2dma_8c_html_a2a989d2d9b7c591de33e96581ac3bb11"><div class="ttname"><a href="phal__F4__F7_2dma_2dma_8c.html#a2a989d2d9b7c591de33e96581ac3bb11">PHAL_DMA_setMemAddress</a></div><div class="ttdeci">void PHAL_DMA_setMemAddress(dma_init_t *init, const uint32_t address)</div><div class="ttdoc">Set memory address for DMA transfer. In Mem to Mem this acts as the source address.</div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2dma_2dma_8c_source.html#l00136">dma.c:136</a></div></div>

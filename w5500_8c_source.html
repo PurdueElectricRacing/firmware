@@ -116,7 +116,7 @@ $(function(){initNavTree('w5500_8c_source.html',''); initResizable(true); });
 <div class="foldopen" id="foldopen00065" data-start="{" data-end="}">
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="group__Basic__IO__function.html#ga674a6dc857166809ddc71ea8d40d56b8">   65</a></span>uint8_t <a class="code hl_function" href="group__Basic__IO__function.html#ga674a6dc857166809ddc71ea8d40d56b8">WIZCHIP_READ</a>(uint32_t AddrSel) {</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    uint8_t ret;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    uint8_t spi_data[3];</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="comment">// uint8_t spi_data[3];</span></div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_define" href="w5500_8h.html#ac59d6ec9327da0fd3ea8fa3fd21b9701">WIZCHIP_CRITICAL_ENTER</a>();</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_variable" href="wizchip__conf_8c.html#ad0efd19f6465f2071d41dbf2a9090133">WIZCHIP</a>.<a class="code hl_variable" href="struct__WIZCHIP.html#ad758dbdfd0ef4b1e915097d4dbfff37f">CS</a>._select();</div>
@@ -147,7 +147,7 @@ $(function(){initNavTree('w5500_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
 <div class="foldopen" id="foldopen00095" data-start="{" data-end="}">
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="group__Basic__IO__function.html#gabab850c3fe94043edcd8f13002f8ff6b">   95</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__Basic__IO__function.html#gabab850c3fe94043edcd8f13002f8ff6b">WIZCHIP_WRITE</a>(uint32_t AddrSel, uint8_t wb) {</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    uint8_t spi_data[4];</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="comment">// uint8_t spi_data[4];</span></div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <a class="code hl_define" href="w5500_8h.html#ac59d6ec9327da0fd3ea8fa3fd21b9701">WIZCHIP_CRITICAL_ENTER</a>();</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <a class="code hl_variable" href="wizchip__conf_8c.html#ad0efd19f6465f2071d41dbf2a9090133">WIZCHIP</a>.<a class="code hl_variable" href="struct__WIZCHIP.html#ad758dbdfd0ef4b1e915097d4dbfff37f">CS</a>._select();</div>
@@ -179,8 +179,8 @@ $(function(){initNavTree('w5500_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
 <div class="foldopen" id="foldopen00125" data-start="{" data-end="}">
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="group__Basic__IO__function.html#ga07f86e715351564afb11298ed7a79381">  125</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__Basic__IO__function.html#ga07f86e715351564afb11298ed7a79381">WIZCHIP_READ_BUF</a>(uint32_t AddrSel, uint8_t* pBuf, uint16_t len) {</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    uint8_t spi_data[3];</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    uint16_t i;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="comment">// uint8_t spi_data[3];</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="comment">// uint16_t i;</span></div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <a class="code hl_define" href="w5500_8h.html#ac59d6ec9327da0fd3ea8fa3fd21b9701">WIZCHIP_CRITICAL_ENTER</a>();</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <a class="code hl_variable" href="wizchip__conf_8c.html#ad0efd19f6465f2071d41dbf2a9090133">WIZCHIP</a>.<a class="code hl_variable" href="struct__WIZCHIP.html#ad758dbdfd0ef4b1e915097d4dbfff37f">CS</a>._select();</div>
@@ -211,8 +211,8 @@ $(function(){initNavTree('w5500_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
 <div class="foldopen" id="foldopen00155" data-start="{" data-end="}">
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="group__Basic__IO__function.html#gace1d7f17bb930589033e06e067888b2f">  155</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__Basic__IO__function.html#gace1d7f17bb930589033e06e067888b2f">WIZCHIP_WRITE_BUF</a>(uint32_t AddrSel, uint8_t* pBuf, uint16_t len) {</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    uint8_t spi_data[3];</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    uint16_t i;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="comment">// uint8_t spi_data[3];</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="comment">// uint16_t i;</span></div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <a class="code hl_define" href="w5500_8h.html#ac59d6ec9327da0fd3ea8fa3fd21b9701">WIZCHIP_CRITICAL_ENTER</a>();</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <a class="code hl_variable" href="wizchip__conf_8c.html#ad0efd19f6465f2071d41dbf2a9090133">WIZCHIP</a>.<a class="code hl_variable" href="struct__WIZCHIP.html#ad758dbdfd0ef4b1e915097d4dbfff37f">CS</a>._select();</div>

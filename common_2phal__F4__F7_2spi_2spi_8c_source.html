@@ -213,8 +213,8 @@ $(function(){initNavTree('common_2phal__F4__F7_2spi_2spi_8c_source.html',''); in
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordflow">while</span> (!(spi-&gt;<a class="code hl_variable" href="structSPI__InitConfig__t.html#a7d8e16b0433752f3d6d31b7ca211f874">periph</a>-&gt;SR &amp; SPI_SR_TXE) || (spi-&gt;<a class="code hl_variable" href="structSPI__InitConfig__t.html#a7d8e16b0433752f3d6d31b7ca211f874">periph</a>-&gt;SR &amp; SPI_SR_BSY))</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        ;</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="comment">// Clear overrun</span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    uint8_t trash = spi-&gt;<a class="code hl_variable" href="structSPI__InitConfig__t.html#a7d8e16b0433752f3d6d31b7ca211f874">periph</a>-&gt;DR;</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    trash         = spi-&gt;<a class="code hl_variable" href="structSPI__InitConfig__t.html#a7d8e16b0433752f3d6d31b7ca211f874">periph</a>-&gt;SR;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    (void)spi-&gt;<a class="code hl_variable" href="structSPI__InitConfig__t.html#a7d8e16b0433752f3d6d31b7ca211f874">periph</a>-&gt;DR;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    (void)spi-&gt;<a class="code hl_variable" href="structSPI__InitConfig__t.html#a7d8e16b0433752f3d6d31b7ca211f874">periph</a>-&gt;SR;</div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="comment">// RX</span></div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">for</span> (uint32_t i = 0; i &lt; rxlen; i++) {</div>

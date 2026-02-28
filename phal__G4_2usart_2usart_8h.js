@@ -54,8 +54,6 @@ var phal__G4_2usart_2usart_8h =
       [ "WORD_8", "phal__G4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027", null ],
       [ "WORD_9", "phal__G4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493aaf384e56f1bc9d30d7733088c7ad3274", null ]
     ] ],
-    [ "handleDMAxComplete", "phal__G4_2usart_2usart_8h.html#a97a5c06c33b4014a512b54d72196ccdb", null ],
-    [ "handleUsartIRQ", "phal__G4_2usart_2usart_8h.html#a99cd2a703a69e6506a975cc574e4966a", null ],
     [ "PHAL_disableContinousRxDMA", "phal__G4_2usart_2usart_8h.html#a2995d18679a10821577043876ac50825", null ],
     [ "PHAL_initUSART", "phal__G4_2usart_2usart_8h.html#a1e13f03e291a90dcd93ffccf1b8edf65", null ],
     [ "PHAL_usartRxBl", "phal__G4_2usart_2usart_8h.html#a55c4f79487a9ee75886ae1a2ccdeef27", null ],

@@ -11,11 +11,9 @@ var daq__eth_8c =
     [ "eth_reset_error", "daq__eth_8c.html#a286b0b1a41367e2824bcf6449fbae789", null ],
     [ "eth_tcp_receive_periodic", "daq__eth_8c.html#a39e75022b9595a6ec19f61dd3615bcb5", null ],
     [ "eth_tcp_relay_can_frame", "daq__eth_8c.html#a55b10c4f4a36015c3431ab1b50ec8f47", null ],
-    [ "eth_tcp_send_frame", "daq__eth_8c.html#ab64e9d9d7d33e48b7202127bf972ca17", null ],
     [ "eth_tcp_send_periodic", "daq__eth_8c.html#a2025db5e073fe9e6465245ccf427cce0", null ],
     [ "eth_tcp_update", "daq__eth_8c.html#a30df422e0837ae71e39a6f40ab72a501", null ],
     [ "eth_udp_init", "daq__eth_8c.html#a9d53050bed0e141ed27daf3c1cf33cba", null ],
-    [ "eth_udp_send_frame", "daq__eth_8c.html#af4180e2ae2ede033572213d4afe11bd3", null ],
     [ "eth_udp_send_periodic", "daq__eth_8c.html#a855eb1e8b27221da5e80d0fc7dd5fe4c", null ],
     [ "eth_update_periodic", "daq__eth_8c.html#af92254f174f970df107d7b79251da089", null ],
     [ "eth_config", "daq__eth_8c.html#a2be0614ec10219e58ce4941566cf59bc", null ]

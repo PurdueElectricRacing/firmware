@@ -225,10 +225,6 @@ Functions</h2></td></tr>
 <tr class="memitem:aef8ccb0b3894da42dce90d590b523a4a" id="r_aef8ccb0b3894da42dce90d590b523a4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef8ccb0b3894da42dce90d590b523a4a">usart_receive_complete_callback</a> (<a class="el" href="structusart__init__t.html">usart_init_t</a> *handle)</td></tr>
 <tr class="memdesc:aef8ccb0b3894da42dce90d590b523a4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function called immediately after reception of a USART RX message Uses USART IDLE line interrupt.  <br /></td></tr>
 <tr class="separator:aef8ccb0b3894da42dce90d590b523a4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99cd2a703a69e6506a975cc574e4966a" id="r_a99cd2a703a69e6506a975cc574e4966a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99cd2a703a69e6506a975cc574e4966a">handleUsartIRQ</a> (USART_TypeDef *periph, uint8_t idx)</td></tr>
-<tr class="separator:a99cd2a703a69e6506a975cc574e4966a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97a5c06c33b4014a512b54d72196ccdb" id="r_a97a5c06c33b4014a512b54d72196ccdb"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a97a5c06c33b4014a512b54d72196ccdb">handleDMAxComplete</a> (DMA_TypeDef *dma_periph, uint8_t channel, uint8_t dma_type, uint8_t idx)</td></tr>
-<tr class="separator:a97a5c06c33b4014a512b54d72196ccdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a6c0aff6a1f73d774eebfae0d677c9af7" name="a6c0aff6a1f73d774eebfae0d677c9af7"></a>
@@ -289,7 +285,7 @@ Functions</h2></td></tr>
 <div class="ttc" id="aphal__G4_2dma_2dma_8h_html_a7e262197ebfc6e659503de92a2487245ae615956110f9b4ffc54006144265a599"><div class="ttname"><a href="phal__G4_2dma_2dma_8h.html#a7e262197ebfc6e659503de92a2487245ae615956110f9b4ffc54006144265a599">DMA_SIZE_8BIT</a></div><div class="ttdeci">@ DMA_SIZE_8BIT</div><div class="ttdef"><b>Definition</b> <a href="phal__G4_2dma_2dma_8h_source.html#l00018">dma.h:18</a></div></div>
 <div class="ttc" id="aphal__L4_2usart_2usart_8h_html_acaaee747d423cb49896842b4c05637f0a6537a62f6f155792bb9a320ee2ec4d68"><div class="ttname"><a href="phal__L4_2usart_2usart_8h.html#acaaee747d423cb49896842b4c05637f0a6537a62f6f155792bb9a320ee2ec4d68">DMA</a></div><div class="ttdeci">@ DMA</div><div class="ttdef"><b>Definition</b> <a href="phal__L4_2usart_2usart_8h_source.html#l00081">usart.h:80</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00193">193</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00188">188</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
 
 </div>
 </div>
@@ -349,7 +345,7 @@ Functions</h2></td></tr>
 <div class="line">        .periph      = <a class="code hl_enumvalue" href="phal__L4_2usart_2usart_8h.html#acaaee747d423cb49896842b4c05637f0a6537a62f6f155792bb9a320ee2ec4d68">DMA</a>##dma_num, \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00212">212</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00207">207</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
 
 </div>
 </div>
@@ -367,7 +363,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00012">12</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00470">DMA2_Channel6_IRQHandler()</a>, <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00466">DMA2_Channel7_IRQHandler()</a>, and <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00487">LPUART1_IRQHandler()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00469">DMA2_Channel6_IRQHandler()</a>, <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00465">DMA2_Channel7_IRQHandler()</a>, and <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00486">LPUART1_IRQHandler()</a>.</p>
 
 </div>
 </div>
@@ -390,9 +386,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="#a6c0aff6a1f73d774eebfae0d677c9af7">_DEF_USART_RXDMA_CONFIG</a>(a, p, LPUART1, 2, 6, DMA_REQUEST_LPUART1_RX)</div>
-<div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a6c0aff6a1f73d774eebfae0d677c9af7"><div class="ttname"><a href="#a6c0aff6a1f73d774eebfae0d677c9af7">_DEF_USART_RXDMA_CONFIG</a></div><div class="ttdeci">#define _DEF_USART_RXDMA_CONFIG(rx_addr_, priority_, USARTx, dma_num, channel_num, req_id)</div><div class="ttdef"><b>Definition</b> <a href="phal__G4_2usart_2usart_8h_source.html#l00193">usart.h:193</a></div></div>
+<div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a6c0aff6a1f73d774eebfae0d677c9af7"><div class="ttname"><a href="#a6c0aff6a1f73d774eebfae0d677c9af7">_DEF_USART_RXDMA_CONFIG</a></div><div class="ttdeci">#define _DEF_USART_RXDMA_CONFIG(rx_addr_, priority_, USARTx, dma_num, channel_num, req_id)</div><div class="ttdef"><b>Definition</b> <a href="phal__G4_2usart_2usart_8h_source.html#l00188">usart.h:188</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00251">251</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00246">246</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
 
 </div>
 </div>
@@ -415,9 +411,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="#a738321cedef4181d768a14c2f785965f">_DEF_USART_TXDMA_CONFIG</a>(a, p, LPUART1, 2, 7, DMA_REQUEST_LPUART1_TX)</div>
-<div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a738321cedef4181d768a14c2f785965f"><div class="ttname"><a href="#a738321cedef4181d768a14c2f785965f">_DEF_USART_TXDMA_CONFIG</a></div><div class="ttdeci">#define _DEF_USART_TXDMA_CONFIG(tx_addr_, priority_, USARTx, dma_num, channel_num, req_id)</div><div class="ttdef"><b>Definition</b> <a href="phal__G4_2usart_2usart_8h_source.html#l00212">usart.h:212</a></div></div>
+<div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a738321cedef4181d768a14c2f785965f"><div class="ttname"><a href="#a738321cedef4181d768a14c2f785965f">_DEF_USART_TXDMA_CONFIG</a></div><div class="ttdeci">#define _DEF_USART_TXDMA_CONFIG(tx_addr_, priority_, USARTx, dma_num, channel_num, req_id)</div><div class="ttdef"><b>Definition</b> <a href="phal__G4_2usart_2usart_8h_source.html#l00207">usart.h:207</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00253">253</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00248">248</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
 
 </div>
 </div>
@@ -473,7 +469,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="#a6c0aff6a1f73d774eebfae0d677c9af7">_DEF_USART_RXDMA_CONFIG</a>(a, p, UART4, 2, 5, DMA_REQUEST_UART4_RX)</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00246">246</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00241">241</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
 
 </div>
 </div>
@@ -497,7 +493,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="#a738321cedef4181d768a14c2f785965f">_DEF_USART_TXDMA_CONFIG</a>(a, p, UART4, 2, 3, DMA_REQUEST_UART4_TX)</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00248">248</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00243">243</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
 
 </div>
 </div>
@@ -515,7 +511,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00008">8</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00446">DMA1_Channel5_IRQHandler()</a>, <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00442">DMA1_Channel7_IRQHandler()</a>, and <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00475">USART1_IRQHandler()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00445">DMA1_Channel5_IRQHandler()</a>, <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00441">DMA1_Channel7_IRQHandler()</a>, and <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00474">USART1_IRQHandler()</a>.</p>
 
 </div>
 </div>
@@ -540,7 +536,7 @@ Functions</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="#a6c0aff6a1f73d774eebfae0d677c9af7">_DEF_USART_RXDMA_CONFIG</a>(a, p, USART1, 1, 5, <a class="code hl_define" href="phal__G4_2dma_2dma_8h.html#af7741f1f65db03cde614ef623d86b054">DMA_REQUEST_USART1_RX</a>)</div>
 <div class="ttc" id="aphal__G4_2dma_2dma_8h_html_af7741f1f65db03cde614ef623d86b054"><div class="ttname"><a href="phal__G4_2dma_2dma_8h.html#af7741f1f65db03cde614ef623d86b054">DMA_REQUEST_USART1_RX</a></div><div class="ttdeci">#define DMA_REQUEST_USART1_RX</div><div class="ttdef"><b>Definition</b> <a href="phal__G4_2dma_2dma_8h_source.html#l00033">dma.h:33</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00231">231</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00226">226</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
 
 </div>
 </div>
@@ -565,7 +561,7 @@ Functions</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="#a738321cedef4181d768a14c2f785965f">_DEF_USART_TXDMA_CONFIG</a>(a, p, USART1, 1, 7, <a class="code hl_define" href="phal__G4_2dma_2dma_8h.html#a89aead5f618253b1bc265116797b2150">DMA_REQUEST_USART1_TX</a>)</div>
 <div class="ttc" id="aphal__G4_2dma_2dma_8h_html_a89aead5f618253b1bc265116797b2150"><div class="ttname"><a href="phal__G4_2dma_2dma_8h.html#a89aead5f618253b1bc265116797b2150">DMA_REQUEST_USART1_TX</a></div><div class="ttdeci">#define DMA_REQUEST_USART1_TX</div><div class="ttdef"><b>Definition</b> <a href="phal__G4_2dma_2dma_8h_source.html#l00034">dma.h:34</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00233">233</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00228">228</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
 
 </div>
 </div>
@@ -583,7 +579,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00009">9</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00454">DMA1_Channel3_IRQHandler()</a>, <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00450">DMA1_Channel4_IRQHandler()</a>, and <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00479">USART2_IRQHandler()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00453">DMA1_Channel3_IRQHandler()</a>, <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00449">DMA1_Channel4_IRQHandler()</a>, and <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00478">USART2_IRQHandler()</a>.</p>
 
 </div>
 </div>
@@ -608,7 +604,7 @@ Functions</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="#a6c0aff6a1f73d774eebfae0d677c9af7">_DEF_USART_RXDMA_CONFIG</a>(a, p, USART2, 1, 3, <a class="code hl_define" href="phal__G4_2dma_2dma_8h.html#aa5cdcaacbe97a60ff0c59610de3737e4">DMA_REQUEST_USART2_RX</a>)</div>
 <div class="ttc" id="aphal__G4_2dma_2dma_8h_html_aa5cdcaacbe97a60ff0c59610de3737e4"><div class="ttname"><a href="phal__G4_2dma_2dma_8h.html#aa5cdcaacbe97a60ff0c59610de3737e4">DMA_REQUEST_USART2_RX</a></div><div class="ttdeci">#define DMA_REQUEST_USART2_RX</div><div class="ttdef"><b>Definition</b> <a href="phal__G4_2dma_2dma_8h_source.html#l00035">dma.h:35</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00236">236</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00231">231</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
 
 </div>
 </div>
@@ -633,7 +629,7 @@ Functions</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="#a738321cedef4181d768a14c2f785965f">_DEF_USART_TXDMA_CONFIG</a>(a, p, USART2, 1, 4, <a class="code hl_define" href="phal__G4_2dma_2dma_8h.html#afbbae78e38bfc3ee7c8e29db0b60fa5a">DMA_REQUEST_USART2_TX</a>)</div>
 <div class="ttc" id="aphal__G4_2dma_2dma_8h_html_afbbae78e38bfc3ee7c8e29db0b60fa5a"><div class="ttname"><a href="phal__G4_2dma_2dma_8h.html#afbbae78e38bfc3ee7c8e29db0b60fa5a">DMA_REQUEST_USART2_TX</a></div><div class="ttdeci">#define DMA_REQUEST_USART2_TX</div><div class="ttdef"><b>Definition</b> <a href="phal__G4_2dma_2dma_8h_source.html#l00036">dma.h:36</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00238">238</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00233">233</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
 
 </div>
 </div>
@@ -651,7 +647,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00010">10</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00462">DMA1_Channel1_IRQHandler()</a>, <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00458">DMA1_Channel2_IRQHandler()</a>, and <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00483">USART3_IRQHandler()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00461">DMA1_Channel1_IRQHandler()</a>, <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00457">DMA1_Channel2_IRQHandler()</a>, and <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00482">USART3_IRQHandler()</a>.</p>
 
 </div>
 </div>
@@ -676,7 +672,7 @@ Functions</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="#a6c0aff6a1f73d774eebfae0d677c9af7">_DEF_USART_RXDMA_CONFIG</a>(a, p, USART3, 1, 1, <a class="code hl_define" href="phal__G4_2dma_2dma_8h.html#a1d5a8ff3b85225a6f5dc26d331e4c777">DMA_REQUEST_USART3_RX</a>)</div>
 <div class="ttc" id="aphal__G4_2dma_2dma_8h_html_a1d5a8ff3b85225a6f5dc26d331e4c777"><div class="ttname"><a href="phal__G4_2dma_2dma_8h.html#a1d5a8ff3b85225a6f5dc26d331e4c777">DMA_REQUEST_USART3_RX</a></div><div class="ttdeci">#define DMA_REQUEST_USART3_RX</div><div class="ttdef"><b>Definition</b> <a href="phal__G4_2dma_2dma_8h_source.html#l00037">dma.h:37</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00241">241</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00236">236</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
 
 </div>
 </div>
@@ -701,7 +697,7 @@ Functions</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="#a738321cedef4181d768a14c2f785965f">_DEF_USART_TXDMA_CONFIG</a>(a, p, USART3, 1, 2, <a class="code hl_define" href="phal__G4_2dma_2dma_8h.html#a2ec8dd5689b2be68939029ca8dca74db">DMA_REQUEST_USART3_TX</a>)</div>
 <div class="ttc" id="aphal__G4_2dma_2dma_8h_html_a2ec8dd5689b2be68939029ca8dca74db"><div class="ttname"><a href="phal__G4_2dma_2dma_8h.html#a2ec8dd5689b2be68939029ca8dca74db">DMA_REQUEST_USART3_TX</a></div><div class="ttdeci">#define DMA_REQUEST_USART3_TX</div><div class="ttdef"><b>Definition</b> <a href="phal__G4_2dma_2dma_8h_source.html#l00038">dma.h:38</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00243">243</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="phal__G4_2usart_2usart_8h_source.html#l00238">238</a> of file <a class="el" href="phal__G4_2usart_2usart_8h_source.html">usart.h</a>.</p>
 
 </div>
 </div>
@@ -898,74 +894,6 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a97a5c06c33b4014a512b54d72196ccdb" name="a97a5c06c33b4014a512b54d72196ccdb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97a5c06c33b4014a512b54d72196ccdb">&#9670;&#160;</a></span>handleDMAxComplete()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void handleDMAxComplete </td>
-          <td>(</td>
-          <td class="paramtype">DMA_TypeDef *</td>          <td class="paramname"><span class="paramname"><em>dma_periph</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>channel</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>dma_type</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>idx</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a99cd2a703a69e6506a975cc574e4966a" name="a99cd2a703a69e6506a975cc574e4966a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99cd2a703a69e6506a975cc574e4966a">&#9670;&#160;</a></span>handleUsartIRQ()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void handleUsartIRQ </td>
-          <td>(</td>
-          <td class="paramtype">USART_TypeDef *</td>          <td class="paramname"><span class="paramname"><em>periph</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>idx</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a2995d18679a10821577043876ac50825" name="a2995d18679a10821577043876ac50825"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2995d18679a10821577043876ac50825">&#9670;&#160;</a></span>PHAL_disableContinousRxDMA()</h2>
 
@@ -1135,7 +1063,7 @@ false USART peripheal is not currently receiving a message</dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the peripheral is busy, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="common_2phal__F4__F7_2usart_2usart_8c_source.html#l00394">394</a> of file <a class="el" href="common_2phal__F4__F7_2usart_2usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_2phal__F4__F7_2usart_2usart_8c_source.html#l00396">396</a> of file <a class="el" href="common_2phal__F4__F7_2usart_2usart_8c_source.html">usart.c</a>.</p>
 
 <p class="reference">References <a class="el" href="common_2phal__F4__F7_2usart_2usart_8c_source.html#l00028">usart_active_transfer_t::_rx_busy</a>, <a class="el" href="common_2phal__F4__F7_2usart_2usart_8c_source.html#l00032">active_uarts</a>, and <a class="el" href="phal__F4__F7_2usart_2usart_8h_source.html#l00126">usart_init_t::usart_active_num</a>.</p>
 
@@ -1371,7 +1299,7 @@ false USART peripheal is not currently sending a message</dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00437">437</a> of file <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html">usart.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00436">436</a> of file <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html">usart.c</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="common_2phal__G4_2usart_2usart_8c_source.html#l00326">handleUsartIRQ()</a>.</p>
 

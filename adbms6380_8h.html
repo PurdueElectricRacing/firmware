@@ -167,12 +167,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a2e9f567aae9798e09e92280c8919a184" id="r_a2e9f567aae9798e09e92280c8919a184"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e9f567aae9798e09e92280c8919a184">adbms6380_raw_to_v</a> (int16_t raw)</td></tr>
 <tr class="memdesc:a2e9f567aae9798e09e92280c8919a184"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert raw voltage measurement from the ADBMS6380 to volts.  <br /></td></tr>
 <tr class="separator:a2e9f567aae9798e09e92280c8919a184"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68294afc45f8feebfc0ab59731020386" id="r_a68294afc45f8feebfc0ab59731020386"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68294afc45f8feebfc0ab59731020386">adbms6380_adcv</a> (uint8_t *output_cmd, bool rd, bool cont, bool dcp, bool rstf, uint8_t ow)</td></tr>
-<tr class="memdesc:a68294afc45f8feebfc0ab59731020386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build ADCV command bytes.  <br /></td></tr>
-<tr class="separator:a68294afc45f8feebfc0ab59731020386"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9129a8aa646326915e609fa3fef3502" id="r_ac9129a8aa646326915e609fa3fef3502"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9129a8aa646326915e609fa3fef3502">adbms6380_adsv</a> (uint8_t *output_cmd, bool cont, bool dcp, uint8_t ow)</td></tr>
-<tr class="memdesc:ac9129a8aa646326915e609fa3fef3502"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build ADSV command bytes.  <br /></td></tr>
-<tr class="separator:ac9129a8aa646326915e609fa3fef3502"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad82dae6e61b86fae558baf2f24f1bc9c" id="r_ad82dae6e61b86fae558baf2f24f1bc9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad82dae6e61b86fae558baf2f24f1bc9c">adbms6380_adcv</a> (uint8_t output_cmd[(2)], bool rd, bool cont, bool dcp, bool rstf, uint8_t ow)</td></tr>
+<tr class="memdesc:ad82dae6e61b86fae558baf2f24f1bc9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build ADCV command bytes.  <br /></td></tr>
+<tr class="separator:ad82dae6e61b86fae558baf2f24f1bc9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4c8652f788fcc6fdafe167ea84ddfa0" id="r_ab4c8652f788fcc6fdafe167ea84ddfa0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab4c8652f788fcc6fdafe167ea84ddfa0">adbms6380_adsv</a> (uint8_t output_cmd[(2)], bool cont, bool dcp, uint8_t ow)</td></tr>
+<tr class="memdesc:ab4c8652f788fcc6fdafe167ea84ddfa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build ADSV command bytes.  <br /></td></tr>
+<tr class="separator:ab4c8652f788fcc6fdafe167ea84ddfa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac69d8d846f45a7f90c5514b12ce8cfe5" id="r_ac69d8d846f45a7f90c5514b12ce8cfe5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac69d8d846f45a7f90c5514b12ce8cfe5">adbms6380_adax</a> (uint8_t output_cmd[(2)], bool ow, bool pup, uint8_t ch)</td></tr>
 <tr class="memdesc:ac69d8d846f45a7f90c5514b12ce8cfe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build ADAX (aux) command bytes.  <br /></td></tr>
 <tr class="separator:ac69d8d846f45a7f90c5514b12ce8cfe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -468,8 +468,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a68294afc45f8feebfc0ab59731020386" name="a68294afc45f8feebfc0ab59731020386"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a68294afc45f8feebfc0ab59731020386">&#9670;&#160;</a></span>adbms6380_adcv()</h2>
+<a id="ad82dae6e61b86fae558baf2f24f1bc9c" name="ad82dae6e61b86fae558baf2f24f1bc9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad82dae6e61b86fae558baf2f24f1bc9c">&#9670;&#160;</a></span>adbms6380_adcv()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -477,7 +477,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void adbms6380_adcv </td>
           <td>(</td>
-          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>output_cmd</em></span>, </td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>output_cmd</em></span>[(2)], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -520,10 +520,14 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="adbms6380_8c_source.html#l00055">55</a> of file <a class="el" href="adbms6380_8c_source.html">adbms6380.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="adbms_8c_source.html#l00165">adbms_connect()</a>.</p>
+
 </div>
 </div>
-<a id="ac9129a8aa646326915e609fa3fef3502" name="ac9129a8aa646326915e609fa3fef3502"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9129a8aa646326915e609fa3fef3502">&#9670;&#160;</a></span>adbms6380_adsv()</h2>
+<a id="ab4c8652f788fcc6fdafe167ea84ddfa0" name="ab4c8652f788fcc6fdafe167ea84ddfa0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4c8652f788fcc6fdafe167ea84ddfa0">&#9670;&#160;</a></span>adbms6380_adsv()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -531,7 +535,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void adbms6380_adsv </td>
           <td>(</td>
-          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>output_cmd</em></span>, </td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>output_cmd</em></span>[(2)], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -561,6 +565,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="adbms6380_8c_source.html#l00067">67</a> of file <a class="el" href="adbms6380_8c_source.html">adbms6380.c</a>.</p>
 
 </div>
 </div>

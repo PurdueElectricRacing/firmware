@@ -1,14 +1,5 @@
 var NAVTREEINDEX23 =
 {
-"structSD__CSD.html#aab56e6f7b3656603520250d072ca806c":[7,0,69,29],
-"structSD__CSD.html#ab410317204ee5c8db2ed26f0469dc914":[7,0,69,30],
-"structSD__CSD.html#ab45286b32799a18227c418b681aa4cad":[7,0,69,12],
-"structSD__CSD.html#ab96f260933654d16a42b4682dbe9b823":[7,0,69,10],
-"structSD__CSD.html#ac349ed1725e44755b3cedd7149d119c6":[7,0,69,6],
-"structSD__CSD.html#acb618dfdfb93386386593bb87772d833":[7,0,69,26],
-"structSD__CSD.html#ad35d750a705f8434cffe3926223cd141":[7,0,69,15],
-"structSD__CSD.html#adf90bf21bddbc4c95a83f150045d2f33":[7,0,69,0],
-"structSD__CSD.html#ae5d1c421553c1aef8c8814a27d64703a":[7,0,69,1],
 "structSD__CSD.html#aecf2de9d5c963a45409b5d56eadb40cb":[7,0,69,2],
 "structSD__CSD.html#aefe327b7f473bdc99a40e7b66477147a":[7,0,69,19],
 "structSD__CardInfo.html":[7,0,67],
@@ -249,5 +240,14 @@ var NAVTREEINDEX23 =
 "structeeprom.html#aef95f13503dd79df3b1a6ace45b4a906":[7,0,36,6],
 "structeeprom.html#af3a72cfc9ec7efbf4c56e19fb28904cb":[7,0,36,5],
 "structeeprom.html#af741d6e457776c48e7988aa8cbf120c9":[7,0,36,13],
-"structeth__config__t.html":[7,0,37]
+"structeth__config__t.html":[7,0,37],
+"structeth__config__t.html#a11d5757c4b61e81c3a4dcf1c74534b65":[7,0,37,4],
+"structeth__config__t.html#a1e11ec2e3335f871b6737be6153f102d":[7,0,37,2],
+"structeth__config__t.html#a55ec196a6be05cf6641f06ac61687b6c":[7,0,37,1],
+"structeth__config__t.html#ac45bb89c0c9c201673edcdb938e062fc":[7,0,37,0],
+"structeth__config__t.html#af6be5b5785eaf1f5cb39edb3de792fc2":[7,0,37,3],
+"structeth__config__t.html#af7b44cbf97b89ed6a4525a7926292036":[7,0,37,5],
+"structfault__t.html":[7,0,39],
+"structfault__t.html#a108eebfd8611c3e8620694e006f35cfe":[7,0,39,4],
+"structfault__t.html#a1c6eade5dee11a7214eb4d8254613ca4":[7,0,39,6]
 };

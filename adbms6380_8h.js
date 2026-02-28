@@ -16,8 +16,8 @@ var adbms6380_8h =
       [ "ADBMS6380_READ_SPI_FAILURE", "adbms6380_8h.html#a514ee53f3f0310557805cd8276287976aa3a9fc75d02c6604da840a8b6f4ece65", null ]
     ] ],
     [ "adbms6380_adax", "adbms6380_8h.html#ac69d8d846f45a7f90c5514b12ce8cfe5", null ],
-    [ "adbms6380_adcv", "adbms6380_8h.html#a68294afc45f8feebfc0ab59731020386", null ],
-    [ "adbms6380_adsv", "adbms6380_8h.html#ac9129a8aa646326915e609fa3fef3502", null ],
+    [ "adbms6380_adcv", "adbms6380_8h.html#ad82dae6e61b86fae558baf2f24f1bc9c", null ],
+    [ "adbms6380_adsv", "adbms6380_8h.html#ab4c8652f788fcc6fdafe167ea84ddfa0", null ],
     [ "adbms6380_calculate_cfg_rega", "adbms6380_8h.html#a2aac24bf20dd17b4e395c21915b58f4e", null ],
     [ "adbms6380_calculate_cfg_regb", "adbms6380_8h.html#a84a2416ebc169fa056e052866634a496", null ],
     [ "adbms6380_check_data_pec", "adbms6380_8h.html#ad065e19e0b9ff761f14abe8bf654750d", null ],

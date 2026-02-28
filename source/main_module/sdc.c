@@ -22,13 +22,13 @@ static const sdc_node_t SDC_NODE_LUT[NUM_SDC_NODES] = {
     {FAULT_INDEX_MAIN_MODULE_SDC5_OPEN,  7},
     {FAULT_INDEX_MAIN_MODULE_SDC6_OPEN,  6},
     {FAULT_INDEX_MAIN_MODULE_SDC7_OPEN,  5},
-    {NULL,  SDC_UNREADABLE}, // SDC8 status cant be checked
+    {0,  SDC_UNREADABLE}, // SDC8 status cant be checked
     {FAULT_INDEX_MAIN_MODULE_SDC9_OPEN,  4},
     {FAULT_INDEX_MAIN_MODULE_SDC10_OPEN, 12},
     {FAULT_INDEX_MAIN_MODULE_SDC11_OPEN, 3},
     {FAULT_INDEX_MAIN_MODULE_SDC12_OPEN, 2},
     {FAULT_INDEX_MAIN_MODULE_SDC13_OPEN, 13},
-    {NULL, SDC_UNREADABLE}, // SDC14 status cant be checked
+    {0, SDC_UNREADABLE}, // SDC14 status cant be checked
     {FAULT_INDEX_MAIN_MODULE_SDC15_OPEN, 1}, // ! schematic inconsitency, SDC15 is marked as SDC14
     {FAULT_INDEX_MAIN_MODULE_SDC16_OPEN, 14},
     {FAULT_INDEX_MAIN_MODULE_SDC17_OPEN, 0} // precharge, checked separately
@@ -52,10 +52,10 @@ void update_SDC() {
     
     if (mux_addr != SDC_UNREADABLE) {
         // Set mux control
-        PHAL_writeGPIO(SDC_MUX_S0_PORT, SDC_MUX_S0_PIN, (mux_addr >> 0) & 0x1);
-        PHAL_writeGPIO(SDC_MUX_S1_PORT, SDC_MUX_S1_PIN, (mux_addr >> 1) & 0x1);
-        PHAL_writeGPIO(SDC_MUX_S2_PORT, SDC_MUX_S2_PIN, (mux_addr >> 2) & 0x1);
-        PHAL_writeGPIO(SDC_MUX_S3_PORT, SDC_MUX_S3_PIN, (mux_addr >> 3) & 0x1);
+        PHAL_writeGPIO(SDC_MUX_S0_PORT, SDC_MUX_S0_PIN, mux_addr & 0b0001);
+        PHAL_writeGPIO(SDC_MUX_S1_PORT, SDC_MUX_S1_PIN, mux_addr & 0b0010);
+        PHAL_writeGPIO(SDC_MUX_S2_PORT, SDC_MUX_S2_PIN, mux_addr & 0b0100);
+        PHAL_writeGPIO(SDC_MUX_S3_PORT, SDC_MUX_S3_PIN, mux_addr & 0b1000);
         
         // delay to allow mux signals to stabilize
         osDelay(1);

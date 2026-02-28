@@ -126,7 +126,6 @@ void AMK_task() {
     AMK_periodic(&g_car.front_left);
     AMK_periodic(&g_car.rear_left);
     AMK_periodic(&g_car.rear_right);
-    CAN_tx_update();
 }
 
 defineThreadStack(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);

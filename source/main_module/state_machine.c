@@ -94,7 +94,6 @@ void set_brake_light() {
 void fsm_periodic() {
     g_car.current_state = g_car.next_state;
     g_car.next_state    = g_car.current_state; // explicit self loop
-    CAN_rx_update();
 
     // check SDC before doing anything else
     if (is_fatal_latched()) {

@@ -10,7 +10,7 @@ typedef struct {
     uint8_t mux_addr;
 } sdc_node_t;
 
-// mux address to indicate the node is inacessible
+// mux address to indicate the node is inaccessible
 static constexpr uint8_t SDC_UNREADABLE = 0xFF; 
 static constexpr int NUM_SDC_NODES = 17;
 

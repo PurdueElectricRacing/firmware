@@ -119,7 +119,7 @@ bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t* spi, const uint8_t* out_data, uin
         ;
     // Clear overrun
     (void)spi->periph->DR;
-    (void)spi->periph->DR;
+    (void)spi->periph->SR;
 
     // RX
     for (uint32_t i = 0; i < rxlen; i++) {

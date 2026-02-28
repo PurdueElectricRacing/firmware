@@ -389,6 +389,8 @@ bool PHAL_disableContinousRxDMA(usart_init_t* handle) {
 #endif
     // RX will no longer be busy
     active_uarts[handle->usart_active_num]._rx_busy = 0;
+
+    return true;
 }
 
 bool PHAL_usartRxBusy(usart_init_t* handle) {

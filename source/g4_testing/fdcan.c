@@ -109,7 +109,7 @@ int main() {
     createThread(can_tx_100hz);
     createThread(can_rx_1khz);
 
-    q_can_rx = createStaticQueue(q_can_rx, CanMsgTypeDef_t, 256);
+    createStaticQueue(q_can_rx, CanMsgTypeDef_t, 256);
 
     // NVIC
     NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);

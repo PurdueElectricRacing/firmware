@@ -171,9 +171,9 @@ int main() {
     daq_hub_init();
     configure_interrupts();
 
-    spi1_lock = createStaticSemaphore(spi1_lock);
-    q_tcp_tx  = createStaticQueue(q_tcp_tx, timestamped_frame_t, TCP_TX_ITEM_COUNT);
-    q_can1_rx = createStaticQueue(q_can1_rx, timestamped_frame_t, DAQ_CAN1_RX_COUNT);
+    createStaticSemaphore(spi1_lock);
+    createStaticQueue(q_tcp_tx, timestamped_frame_t, TCP_TX_ITEM_COUNT);
+    createStaticQueue(q_can1_rx, timestamped_frame_t, DAQ_CAN1_RX_COUNT);
     daq_create_threads();
 
     osKernelStart();

@@ -36,7 +36,8 @@ void update_fault(fault_index_t fault_index, uint16_t value) {
 
     fault_t *fault        = &faults[fault_index];
     uint32_t now          = OS_TICKS;
-    bool is_out_of_bounds = (value > fault->max_value) || (value < fault->min_value);
+    // max is inclusive, min is exclusive, so the healthy range is (min, max]
+    bool is_out_of_bounds = (value >= fault->max_value) || (value < fault->min_value);
 
     // Implementation of the FSM diagram in common/can_library/README
     // I know this FSM is not "mathematically pure", but it must be implemented in this way
@@ -57,7 +58,7 @@ void update_fault(fault_index_t fault_index, uint16_t value) {
 
             uint32_t elapsed = now - fault->start_time_ms;
             // do not update the start_time
-            if (elapsed > fault->latch_time_ms) {
+            if (elapsed >= fault->latch_time_ms) {
                 fault->state = FAULT_STATE_LATCHED;
                 tx_fault_event(fault_index, value);
             }
@@ -79,7 +80,7 @@ void update_fault(fault_index_t fault_index, uint16_t value) {
 
             uint32_t elapsed = now - fault->start_time_ms;
             // do not update the start_time
-            if (elapsed > fault->unlatch_time_ms) {
+            if (elapsed >= fault->unlatch_time_ms) {
                 fault->state = FAULT_STATE_OK;
             }
             break;

@@ -602,7 +602,7 @@
     "generate_fault_messages": false,
     "faults": [
         {
-            "fault_name": "SDC1_Open",
+            "fault_name": "SDC1_IMD",
             "max": 1,
             "min": 0,
             "priority": "fatal",
@@ -611,7 +611,7 @@
             "lcd_message": "SDC1 (IMD) is open"
         },
         {
-            "fault_name": "SDC2_Open",
+            "fault_name": "SDC2_BMS",
             "max": 1,
             "min": 0,
             "priority": "fatal",
@@ -620,7 +620,7 @@
             "lcd_message": "SDC2 (BMS) is open"
         },
         {
-            "fault_name": "SDC3_Open",
+            "fault_name": "SDC3_BSPD",
             "max": 1,
             "min": 0,
             "priority": "fatal",
@@ -629,16 +629,16 @@
             "lcd_message": "SDC3 (BSPD) is open"
         },
         {
-            "fault_name": "SDC4_Open",
+            "fault_name": "SDC4_MAIN_OK",
             "max": 1,
             "min": 0,
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC4 (MCU_GOOD) is open"
+            "lcd_message": "SDC4 (MAIN_OK) is open"
         },
         {
-            "fault_name": "SDC5_Open",
+            "fault_name": "SDC5_BOTS",
             "max": 1,
             "min": 0,
             "priority": "fatal",
@@ -647,7 +647,7 @@
             "lcd_message": "SDC5 (BOTS) is open"
         },
         {
-            "fault_name": "SDC6_Open",
+            "fault_name": "SDC6_INERTIA",
             "max": 1,
             "min": 0,
             "priority": "fatal",
@@ -656,7 +656,7 @@
             "lcd_message": "SDC6 (INERTIA) is open"
         },
         {
-            "fault_name": "SDC7_Open",
+            "fault_name": "SDC7_COCKPIT_ESTOP",
             "max": 1,
             "min": 0,
             "priority": "fatal",
@@ -665,7 +665,7 @@
             "lcd_message": "SDC7 (COCKPIT_ESTOP) is open"
         },
         {
-            "fault_name": "SDC9_Open",
+            "fault_name": "SDC9_FRONT_INTERLOCK",
             "max": 1,
             "min": 0,
             "priority": "fatal",
@@ -674,7 +674,7 @@
             "lcd_message": "SDC9 (FRONT_INTERLOCK) is open"
         },
         {
-            "fault_name": "SDC10_Open",
+            "fault_name": "SDC10_RIGHT_ESTOP",
             "max": 1,
             "min": 0,
             "priority": "fatal",
@@ -683,7 +683,7 @@
             "lcd_message": "SDC10 (RIGHT_ESTOP) is open"
         },
         {
-            "fault_name": "SDC11_Open",
+            "fault_name": "SDC11_LEFT_ESTOP",
             "max": 1,
             "min": 0,
             "priority": "fatal",
@@ -692,7 +692,7 @@
             "lcd_message": "SDC11 (LEFT_ESTOP) is open"
         },
         {
-            "fault_name": "SDC12_Open",
+            "fault_name": "SDC12_MSD",
             "max": 1,
             "min": 0,
             "priority": "fatal",
@@ -701,7 +701,7 @@
             "lcd_message": "SDC12 (MSD) is open"
         },
         {
-            "fault_name": "SDC13_Open",
+            "fault_name": "SDC13_E_METER",
             "max": 1,
             "min": 0,
             "priority": "fatal",
@@ -710,7 +710,7 @@
             "lcd_message": "SDC13 (E_METER) is open"
         },
         {
-            "fault_name": "SDC15_Open",
+            "fault_name": "SDC15_REAR_INTERLOCK",
             "max": 1,
             "min": 0,
             "priority": "fatal",
@@ -719,7 +719,7 @@
             "lcd_message": "SDC15 (REAR_INTERLOCK) is open"
         },
         {
-            "fault_name": "SDC16_Open",
+            "fault_name": "SDC16_TSMS",
             "max": 1,
             "min": 0,
             "priority": "fatal",
@@ -728,13 +728,22 @@
             "lcd_message": "SDC16 (TSMS) is open"
         },
         {
-            "fault_name": "SDC17_Open",
+            "fault_name": "SDC17_AIR_M",
             "max": 1,
             "min": 0,
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC17 (PRECHARGE) is open"
+            "lcd_message": "SDC17 (AIR_M) is open"
+        },
+        {
+            "fault_name": "PRECHARGE_INCOMPLETE",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 32,
+            "time_to_unlatch": 100,
+            "lcd_message": "Precharge is not complete"
         }
 
     ]

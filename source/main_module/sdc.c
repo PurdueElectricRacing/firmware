@@ -15,36 +15,33 @@ static constexpr uint8_t SDC_UNREADABLE = 0xFF;
 
 // index by the SDC node number (1-17)
 static const sdc_node_t SDC_NODE_LUT[NUM_SDC_NODES] = {
-    {FAULT_INDEX_MAIN_MODULE_SDC1_OPEN,  11},
-    {FAULT_INDEX_MAIN_MODULE_SDC2_OPEN,  10},
-    {FAULT_INDEX_MAIN_MODULE_SDC3_OPEN,  9},
-    {FAULT_INDEX_MAIN_MODULE_SDC4_OPEN,  8},
-    {FAULT_INDEX_MAIN_MODULE_SDC5_OPEN,  7},
-    {FAULT_INDEX_MAIN_MODULE_SDC6_OPEN,  6},
-    {FAULT_INDEX_MAIN_MODULE_SDC7_OPEN,  5},
+    {FAULT_INDEX_MAIN_MODULE_SDC1_IMD,  11},
+    {FAULT_INDEX_MAIN_MODULE_SDC2_BMS,  10},
+    {FAULT_INDEX_MAIN_MODULE_SDC3_BSPD,  9},
+    {FAULT_INDEX_MAIN_MODULE_SDC4_MAIN_OK,  8},
+    {FAULT_INDEX_MAIN_MODULE_SDC5_BOTS,  7},
+    {FAULT_INDEX_MAIN_MODULE_SDC6_INERTIA,  6},
+    {FAULT_INDEX_MAIN_MODULE_SDC7_COCKPIT_ESTOP,  5},
     {0,  SDC_UNREADABLE}, // SDC8 status cant be checked
-    {FAULT_INDEX_MAIN_MODULE_SDC9_OPEN,  4},
-    {FAULT_INDEX_MAIN_MODULE_SDC10_OPEN, 12},
-    {FAULT_INDEX_MAIN_MODULE_SDC11_OPEN, 3},
-    {FAULT_INDEX_MAIN_MODULE_SDC12_OPEN, 2},
-    {FAULT_INDEX_MAIN_MODULE_SDC13_OPEN, 13},
+    {FAULT_INDEX_MAIN_MODULE_SDC9_FRONT_INTERLOCK,  4},
+    {FAULT_INDEX_MAIN_MODULE_SDC10_RIGHT_ESTOP, 12},
+    {FAULT_INDEX_MAIN_MODULE_SDC11_LEFT_ESTOP, 3},
+    {FAULT_INDEX_MAIN_MODULE_SDC12_MSD, 2},
+    {FAULT_INDEX_MAIN_MODULE_SDC13_E_METER, 13},
     {0, SDC_UNREADABLE}, // SDC14 status cant be checked
-    {FAULT_INDEX_MAIN_MODULE_SDC15_OPEN, 1}, // ! schematic inconsitency, SDC15 is marked as SDC14
-    {FAULT_INDEX_MAIN_MODULE_SDC16_OPEN, 14},
-    {FAULT_INDEX_MAIN_MODULE_SDC17_OPEN, 0} // precharge, checked separately
+    {FAULT_INDEX_MAIN_MODULE_SDC15_REAR_INTERLOCK, 1}, // ! schematic inconsitency, SDC15 is marked as SDC14
+    {FAULT_INDEX_MAIN_MODULE_SDC16_TSMS, 14},
+    {FAULT_INDEX_MAIN_MODULE_SDC17_AIR_M, 0}
 };
 
-// todo: is SDC17 the same as precharge?
-
 void update_SDC() {
-    // ! reading the input pin as 1 = closed, 0 = open
-
-    // SDC17 (precharge) is checked on it's own pin
-    bool is_precharge_open = !PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
-    g_SDC_open_nodes[PRECHARGE_SDC_INDEX] = is_precharge_open;
-    update_fault(FAULT_INDEX_MAIN_MODULE_SDC17_OPEN, is_precharge_open);
+    // Precharge is checked on it's own pin
+    // todo: check polarity of this signal
+    bool is_precharge_incomplete = !PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
+    update_fault(FAULT_INDEX_MAIN_MODULE_PRECHARGE_INCOMPLETE, is_precharge_incomplete);
 
     // check SDC state by cycling through the mux and checking the input
+    // ! reading the input pin as 1 = closed, 0 = open
     static uint8_t sdc_poll_index = 0;
     const sdc_node_t *current_node = &SDC_NODE_LUT[sdc_poll_index];
     uint8_t mux_addr = current_node->mux_addr;
@@ -67,6 +64,6 @@ void update_SDC() {
     g_SDC_open_nodes[sdc_poll_index] = is_node_open;
     update_fault(current_node->fault_index, is_node_open);
 
-    // update the poll index for the next cycle (mux 0-15 = sdc 1-16)
-    sdc_poll_index = (sdc_poll_index + 1) & 0xF;
+    // update the poll index for the next cycle (0-16 = sdc 1-17)
+    sdc_poll_index = (sdc_poll_index + 1) & 16;
 }

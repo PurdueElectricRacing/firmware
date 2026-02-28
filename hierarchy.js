@@ -89,7 +89,7 @@ var hierarchy =
       [ "can_process.CANRxThread", "classcan__process_1_1CANRxThread.html", null ],
       [ "can_process.CANTxThread", "classcan__process_1_1CANTxThread.html", null ]
     ] ],
-    [ "ThreadWrapper", "structThreadWrapper.html", null ],
+    [ "ThreadWrapper_t", "structThreadWrapper__t.html", null ],
     [ "timestamped_frame_t", "structtimestamped__frame__t.html", null ],
     [ "usart_active_transfer_t", "structusart__active__transfer__t.html", null ],
     [ "usart_init_t", "structusart__init__t.html", null ],

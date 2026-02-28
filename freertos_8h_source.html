@@ -130,83 +130,89 @@ $(function(){initNavTree('freertos_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="foldopen" id="foldopen00031" data-start="{" data-end="};">
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="structThreadWrapper.html">   31</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structThreadWrapper.html#a042d5bcfd65b8d44374ddd1ea371611e">   32</a></span>    void (*taskFunction)();</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structThreadWrapper.html#adc4197a04f2957c691dce3a401c4d032">   33</a></span>    uint32_t <a class="code hl_variable" href="structThreadWrapper.html#adc4197a04f2957c691dce3a401c4d032">period</a>;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structThreadWrapper.html#acb96eb2efe46b59b8abc7714f0a05c35">   34</a></span>    osThreadAttr_t <a class="code hl_variable" href="structThreadWrapper.html#acb96eb2efe46b59b8abc7714f0a05c35">attrs</a>;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structThreadWrapper.html#a500036a6a3e8d392dfdbd89e0f342d99">   35</a></span>    osThreadId_t <a class="code hl_variable" href="structThreadWrapper.html#a500036a6a3e8d392dfdbd89e0f342d99">handle</a>;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>} <a class="code hl_struct" href="structThreadWrapper.html">ThreadWrapper</a>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="structThreadWrapper__t.html">   31</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structThreadWrapper__t.html#a2e9a8e905f534ed94d742ada71ac89e7">   32</a></span>    void (*taskFunction)(void);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structThreadWrapper__t.html#a20635994f0077c28c20ed587d9f9fc4f">   33</a></span>    uint32_t       <a class="code hl_variable" href="structThreadWrapper__t.html#a20635994f0077c28c20ed587d9f9fc4f">period_ms</a>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structThreadWrapper__t.html#a0971c8989570b54dbeb59d8d5740bbaf">   34</a></span>    osThreadAttr_t <a class="code hl_variable" href="structThreadWrapper__t.html#a0971c8989570b54dbeb59d8d5740bbaf">attrs</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structThreadWrapper__t.html#a817a76a0085c21a6827a797f44bda13a">   35</a></span>    osThreadId_t   <a class="code hl_variable" href="structThreadWrapper__t.html#a817a76a0085c21a6827a797f44bda13a">handle</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>} <a class="code hl_struct" href="structThreadWrapper__t.html">ThreadWrapper_t</a>;</div>
 </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keywordtype">void</span> <a class="code hl_function" href="freertos_8h.html#a73ea5a563745b2dbbe79f00fa3d80357">rtosWrapper</a>(<span class="keywordtype">void</span> *);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keywordtype">void</span> <a class="code hl_function" href="freertos_8h.html#a9c778d52c93dd2b838088f502c737e74">rtosWrapper</a>(<span class="keywordtype">void</span> *arg);</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">// Cursed macro</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="freertos_8h.html#a43dc14b622c289a051fa154fce5532cb">   41</a></span><span class="preprocessor">#define threadWrapperName(NAME) (threadWrapper_##NAME)</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">// TASK: task function name</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">// PERIOD: period of task in ticks (should be ms)</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">// PRIORITY: one of osPriorityNormal, osPriorityHigh, etc</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">// STACK: stack size</span></div>
-<div class="foldopen" id="foldopen00046" data-start="" data-end="">
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="freertos_8h.html#a1cda88e7623920fee1ce301b3ac431c5">   46</a></span><span class="preprocessor">#define __defineThread(TASK, PERIOD, PRIORITY, STACK) \</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">    static StaticTask_t taskWrapperCB_##TASK; \</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">    static StackType_t taskWrapperStack_##TASK[(STACK) / sizeof(StackType_t)]; \</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">    ThreadWrapper threadWrapperName(TASK) = { \</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">        .taskFunction = &amp;(TASK), \</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">        .period       = (PERIOD), \</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">        .attrs        = { \</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">            .priority   = (PRIORITY), \</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">            .stack_size = (STACK), \</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">            .name       = &quot;\&quot;&quot; #TASK &quot;\&quot;&quot;, \</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">            .cb_mem     = &amp;taskWrapperCB_##TASK, \</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">            .cb_size    = sizeof(StaticTask_t), \</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">            .stack_mem  = taskWrapperStack_##TASK, \</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">        }};</span></div>
+<div class="foldopen" id="foldopen00047" data-start="" data-end="">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="freertos_8h.html#aa06a84e1769e192e02a8bb7482aceeb5">   47</a></span><span class="preprocessor">#define DEFINE_TASK(NAME, PERIOD_MS, PRIORITY, STACK_SIZE)                     \</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">    static StaticTask_t task_cb_##NAME;                                        \</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">    static StackType_t  task_stack_##NAME[(STACK_SIZE) / sizeof(StackType_t)]; \</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">    ThreadWrapper_t     NAME##_wrapper = {                                     \</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">        .taskFunction = (void (*)(void))NAME,                                  \</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">        .period_ms    = (PERIOD_MS),                                           \</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">        .attrs = {                                                             \</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">            .name       = #NAME,                                               \</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">            .attr_bits  = osThreadDetached,                                    \</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">            .cb_mem     = &amp;task_cb_##NAME,                                     \</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">            .cb_size    = sizeof(StaticTask_t),                                \</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">            .stack_mem  = task_stack_##NAME,                                   \</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">            .stack_size = sizeof(task_stack_##NAME),                           \</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">            .priority   = (osPriority_t)(PRIORITY),                            \</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">        }                                                                      \</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">    }</span></div>
 </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="freertos_8h.html#a577c2e262415bd294279ee45e9287d14">   61</a></span><span class="preprocessor">#define defineThread(T, D, P)         __defineThread(T, D, P, 1024) </span><span class="comment">// TODO calculate stack size</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="freertos_8h.html#ae8211032573848acd5d3da2574cc3d5d">   62</a></span><span class="preprocessor">#define defineThreadStack(T, D, P, S) __defineThread(T, D, P, S)</span></div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="foldopen" id="foldopen00064" data-start="" data-end="">
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="freertos_8h.html#a71349e7ceee038644ce383c98e2fb175">   64</a></span><span class="preprocessor">#define __createThread(NAME) \</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">    threadWrapperName(NAME).handle = \</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">        osThreadNew(rtosWrapper, &amp;(threadWrapperName(NAME)), &amp;(threadWrapperName(NAME)).attrs);</span></div>
+<div class="foldopen" id="foldopen00067" data-start="" data-end="">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="freertos_8h.html#abe574562452fd3a573084481cb7a9cf3">   67</a></span><span class="preprocessor">#define START_TASK(NAME)                                                       \</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">    (NAME##_wrapper.handle = osThreadNew(rtosWrapper, &amp;NAME##_wrapper, &amp;NAME##_wrapper.attrs))</span></div>
 </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="freertos_8h.html#af5353b7aa9443b8e18db35e0757e6200">   67</a></span><span class="preprocessor">#define createThread(NAME) __createThread(NAME)</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="freertos_8h.html#a3de6343dd1d29b508dd7d52f93416750">   69</a></span><span class="preprocessor">#define getTaskHandle(NAME) threadWrapperName(NAME).handle</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">// queues</span></div>
-<div class="foldopen" id="foldopen00072" data-start="" data-end="">
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="freertos_8h.html#a8844ba201339dc90132f494e3a744a41">   72</a></span><span class="preprocessor">#define defineStaticQueue(NAME, ITEM, COUNT) \</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">    QueueHandle_t NAME; \</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">    static StaticQueue_t xStaticQueue_##NAME; \</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">    uint8_t ucQueueStorageArea_##NAME[sizeof(ITEM) * (COUNT)];</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="freertos_8h.html#a3de6343dd1d29b508dd7d52f93416750">   70</a></span><span class="preprocessor">#define getTaskHandle(NAME) (NAME##_wrapper.handle)</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="foldopen" id="foldopen00075" data-start="" data-end="">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="freertos_8h.html#a275b06486046931765e2fa6563be1ab4">   75</a></span><span class="preprocessor">#define DEFINE_STATIC_QUEUE(NAME, ITEM, COUNT)                                 \</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="preprocessor">    QueueHandle_t NAME;                                                        \</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">    static StaticQueue_t xStaticQueue_##NAME;                                  \</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">    static uint8_t       ucQueueStorageArea_##NAME[sizeof(ITEM) * (COUNT)];    \</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="preprocessor">    QueueHandle_t        NAME</span></div>
 </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="foldopen" id="foldopen00077" data-start="" data-end="">
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="freertos_8h.html#acc54db7ec3678c2a82a6d119c6188df6">   77</a></span><span class="preprocessor">#define createStaticQueue(NAME, ITEM, COUNT) \</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">    xQueueCreateStatic((COUNT), sizeof(ITEM), ucQueueStorageArea_##NAME, &amp;xStaticQueue_##NAME);</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="foldopen" id="foldopen00084" data-start="" data-end="">
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="freertos_8h.html#a7afd9dc1fff11d8c2abc8efc52b1135d">   84</a></span><span class="preprocessor">#define CREATE_STATIC_QUEUE(NAME, ITEM, COUNT)                                 \</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">    (NAME = xQueueCreateStatic((COUNT), sizeof(ITEM),                          \</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">                               ucQueueStorageArea_##NAME, &amp;xStaticQueue_##NAME))</span></div>
 </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">// semaphores</span></div>
-<div class="foldopen" id="foldopen00081" data-start="" data-end="">
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="freertos_8h.html#a34cfa5898753771563c490bf1e8d47f7">   81</a></span><span class="preprocessor">#define defineStaticSemaphore(NAME) \</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">    SemaphoreHandle_t NAME; \</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">    static StaticSemaphore_t xStaticSemaphore_##NAME;</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="foldopen" id="foldopen00091" data-start="" data-end="">
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="freertos_8h.html#a4c13ea2e898f11c0b5f03c88235f8f58">   91</a></span><span class="preprocessor">#define DEFINE_STATIC_SEMAPHORE(NAME)                                          \</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="preprocessor">    SemaphoreHandle_t NAME;                                                    \</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="preprocessor">    static StaticSemaphore_t xStaticSemaphore_##NAME;                          \</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">    SemaphoreHandle_t        NAME</span></div>
 </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="freertos_8h.html#a1a88aa9e08d035973eaf000fd0e1fd8f">   84</a></span><span class="preprocessor">#define createStaticSemaphore(NAME) xSemaphoreCreateMutexStatic(&amp;(xStaticSemaphore_##NAME));</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="freertos_8h.html#af9bb5b95ae9be61db75d49fa9bd22881">   86</a></span><span class="preprocessor">#define getTick()   xTaskGetTickCount()</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="freertos_8h.html#a82bbcea33e221a7e2eaa964b87c7920c">   87</a></span><span class="preprocessor">#define getTickms() pdMS_TO_TICKS(getTick())</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="freertos_8h.html#a3d5d0a016332574ab3a9906ff20d959a">   89</a></span><span class="preprocessor">#define mDelay(ms) (osDelay(pdMS_TO_TICKS((ms))))</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="preprocessor">#endif </span><span class="comment">// __COMMON_FREERTOS_H__</span></div>
-<div class="ttc" id="afreertos_8h_html_a73ea5a563745b2dbbe79f00fa3d80357"><div class="ttname"><a href="freertos_8h.html#a73ea5a563745b2dbbe79f00fa3d80357">rtosWrapper</a></div><div class="ttdeci">void rtosWrapper(void *)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8c_source.html#l00004">freertos.c:4</a></div></div>
-<div class="ttc" id="astructThreadWrapper_html"><div class="ttname"><a href="structThreadWrapper.html">ThreadWrapper</a></div><div class="ttdef"><b>Definition</b> <a href="#l00031">freertos.h:31</a></div></div>
-<div class="ttc" id="astructThreadWrapper_html_a500036a6a3e8d392dfdbd89e0f342d99"><div class="ttname"><a href="structThreadWrapper.html#a500036a6a3e8d392dfdbd89e0f342d99">ThreadWrapper::handle</a></div><div class="ttdeci">osThreadId_t handle</div><div class="ttdef"><b>Definition</b> <a href="#l00035">freertos.h:35</a></div></div>
-<div class="ttc" id="astructThreadWrapper_html_acb96eb2efe46b59b8abc7714f0a05c35"><div class="ttname"><a href="structThreadWrapper.html#acb96eb2efe46b59b8abc7714f0a05c35">ThreadWrapper::attrs</a></div><div class="ttdeci">osThreadAttr_t attrs</div><div class="ttdef"><b>Definition</b> <a href="#l00034">freertos.h:34</a></div></div>
-<div class="ttc" id="astructThreadWrapper_html_adc4197a04f2957c691dce3a401c4d032"><div class="ttname"><a href="structThreadWrapper.html#adc4197a04f2957c691dce3a401c4d032">ThreadWrapper::period</a></div><div class="ttdeci">uint32_t period</div><div class="ttdef"><b>Definition</b> <a href="#l00033">freertos.h:33</a></div></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="foldopen" id="foldopen00099" data-start="" data-end="">
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="freertos_8h.html#a501f4bca56d5d64332f3bb04355362ba">   99</a></span><span class="preprocessor">#define CREATE_STATIC_SEMAPHORE(NAME)                                          \</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">    (NAME = xSemaphoreCreateMutexStatic(&amp;(xStaticSemaphore_##NAME)))</span></div>
+</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="freertos_8h.html#af9bb5b95ae9be61db75d49fa9bd22881">  103</a></span><span class="preprocessor">#define getTick()   xTaskGetTickCount()</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="freertos_8h.html#a82bbcea33e221a7e2eaa964b87c7920c">  104</a></span><span class="preprocessor">#define getTickms() pdMS_TO_TICKS(getTick())</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="freertos_8h.html#a3d5d0a016332574ab3a9906ff20d959a">  106</a></span><span class="preprocessor">#define mDelay(ms) (osDelay(pdMS_TO_TICKS((ms))))</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment">// ! Legacy support for old macro names for now</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="freertos_8h.html#a577c2e262415bd294279ee45e9287d14">  109</a></span><span class="preprocessor">#define defineThread(T, D, P)         DEFINE_TASK(T, D, P, 1024)</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="freertos_8h.html#ae8211032573848acd5d3da2574cc3d5d">  110</a></span><span class="preprocessor">#define defineThreadStack(T, D, P, S) DEFINE_TASK(T, D, P, S)</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="freertos_8h.html#af5353b7aa9443b8e18db35e0757e6200">  111</a></span><span class="preprocessor">#define createThread(NAME)            START_TASK(NAME)</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="freertos_8h.html#a27687f18a1e320b0511ccf50b887f360">  112</a></span><span class="preprocessor">#define defineStaticQueue(N, I, C)    DEFINE_STATIC_QUEUE(N, I, C)</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="freertos_8h.html#a2942ff28968e0f3578eac8bea6b72f2d">  113</a></span><span class="preprocessor">#define createStaticQueue(N, I, C)    CREATE_STATIC_QUEUE(N, I, C)</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="freertos_8h.html#aae2d4e6a423dd1f82c02e89e86faccf9">  114</a></span><span class="preprocessor">#define defineStaticSemaphore(N)      DEFINE_STATIC_SEMAPHORE(N)</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="freertos_8h.html#a264697a20c38ea13fc86592f8df086a4">  115</a></span><span class="preprocessor">#define createStaticSemaphore(N)      CREATE_STATIC_SEMAPHORE(N)</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="preprocessor">#endif </span><span class="comment">// __COMMON_FREERTOS_H__</span></div>
+<div class="ttc" id="afreertos_8h_html_a9c778d52c93dd2b838088f502c737e74"><div class="ttname"><a href="freertos_8h.html#a9c778d52c93dd2b838088f502c737e74">rtosWrapper</a></div><div class="ttdeci">void rtosWrapper(void *arg)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8c_source.html#l00004">freertos.c:4</a></div></div>
+<div class="ttc" id="astructThreadWrapper__t_html"><div class="ttname"><a href="structThreadWrapper__t.html">ThreadWrapper_t</a></div><div class="ttdef"><b>Definition</b> <a href="#l00031">freertos.h:31</a></div></div>
+<div class="ttc" id="astructThreadWrapper__t_html_a0971c8989570b54dbeb59d8d5740bbaf"><div class="ttname"><a href="structThreadWrapper__t.html#a0971c8989570b54dbeb59d8d5740bbaf">ThreadWrapper_t::attrs</a></div><div class="ttdeci">osThreadAttr_t attrs</div><div class="ttdef"><b>Definition</b> <a href="#l00034">freertos.h:34</a></div></div>
+<div class="ttc" id="astructThreadWrapper__t_html_a20635994f0077c28c20ed587d9f9fc4f"><div class="ttname"><a href="structThreadWrapper__t.html#a20635994f0077c28c20ed587d9f9fc4f">ThreadWrapper_t::period_ms</a></div><div class="ttdeci">uint32_t period_ms</div><div class="ttdef"><b>Definition</b> <a href="#l00033">freertos.h:33</a></div></div>
+<div class="ttc" id="astructThreadWrapper__t_html_a817a76a0085c21a6827a797f44bda13a"><div class="ttname"><a href="structThreadWrapper__t.html#a817a76a0085c21a6827a797f44bda13a">ThreadWrapper_t::handle</a></div><div class="ttdeci">osThreadId_t handle</div><div class="ttdef"><b>Definition</b> <a href="#l00035">freertos.h:35</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

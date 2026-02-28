@@ -103,24 +103,22 @@ $(function(){initNavTree('freertos_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="freertos_8h.html">freertos.h</a>&quot;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="foldopen" id="foldopen00004" data-start="{" data-end="}">
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="freertos_8c.html#acf502ed258e3274614ce5354444af807">    4</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="freertos_8c.html#acf502ed258e3274614ce5354444af807">rtosWrapper</a>(<span class="keywordtype">void</span> *thread)</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <a class="code hl_struct" href="structThreadWrapper.html">ThreadWrapper</a> *wrapper = (<a class="code hl_struct" href="structThreadWrapper.html">ThreadWrapper</a> *) thread;</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keywordflow">while</span>(1)</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        wrapper-&gt;<a class="code hl_variable" href="structThreadWrapper.html#a042d5bcfd65b8d44374ddd1ea371611e">taskFunction</a>();</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        osDelay(wrapper-&gt;<a class="code hl_variable" href="structThreadWrapper.html#adc4197a04f2957c691dce3a401c4d032">period</a>);</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    }</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    osThreadTerminate(NULL);</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="freertos_8c.html#acf502ed258e3274614ce5354444af807">    4</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="freertos_8c.html#acf502ed258e3274614ce5354444af807">rtosWrapper</a>(<span class="keywordtype">void</span> *thread) {</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>    <a class="code hl_struct" href="structThreadWrapper__t.html">ThreadWrapper_t</a> *wrapper = (<a class="code hl_struct" href="structThreadWrapper__t.html">ThreadWrapper_t</a> *)thread;</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>        wrapper-&gt;<a class="code hl_variable" href="structThreadWrapper__t.html#a2e9a8e905f534ed94d742ada71ac89e7">taskFunction</a>();</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>        osDelay(wrapper-&gt;<a class="code hl_variable" href="structThreadWrapper__t.html#a20635994f0077c28c20ed587d9f9fc4f">period_ms</a>);</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    }</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    osThreadTerminate(NULL);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>}</div>
 </div>
 <div class="ttc" id="afreertos_8c_html_acf502ed258e3274614ce5354444af807"><div class="ttname"><a href="freertos_8c.html#acf502ed258e3274614ce5354444af807">rtosWrapper</a></div><div class="ttdeci">void rtosWrapper(void *thread)</div><div class="ttdef"><b>Definition</b> <a href="#l00004">freertos.c:4</a></div></div>
 <div class="ttc" id="afreertos_8h_html"><div class="ttname"><a href="freertos_8h.html">freertos.h</a></div></div>
-<div class="ttc" id="astructThreadWrapper_html"><div class="ttname"><a href="structThreadWrapper.html">ThreadWrapper</a></div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00031">freertos.h:31</a></div></div>
-<div class="ttc" id="astructThreadWrapper_html_a042d5bcfd65b8d44374ddd1ea371611e"><div class="ttname"><a href="structThreadWrapper.html#a042d5bcfd65b8d44374ddd1ea371611e">ThreadWrapper::taskFunction</a></div><div class="ttdeci">void(* taskFunction)()</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00032">freertos.h:32</a></div></div>
-<div class="ttc" id="astructThreadWrapper_html_adc4197a04f2957c691dce3a401c4d032"><div class="ttname"><a href="structThreadWrapper.html#adc4197a04f2957c691dce3a401c4d032">ThreadWrapper::period</a></div><div class="ttdeci">uint32_t period</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00033">freertos.h:33</a></div></div>
+<div class="ttc" id="astructThreadWrapper__t_html"><div class="ttname"><a href="structThreadWrapper__t.html">ThreadWrapper_t</a></div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00031">freertos.h:31</a></div></div>
+<div class="ttc" id="astructThreadWrapper__t_html_a20635994f0077c28c20ed587d9f9fc4f"><div class="ttname"><a href="structThreadWrapper__t.html#a20635994f0077c28c20ed587d9f9fc4f">ThreadWrapper_t::period_ms</a></div><div class="ttdeci">uint32_t period_ms</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00033">freertos.h:33</a></div></div>
+<div class="ttc" id="astructThreadWrapper__t_html_a2e9a8e905f534ed94d742ada71ac89e7"><div class="ttname"><a href="structThreadWrapper__t.html#a2e9a8e905f534ed94d742ada71ac89e7">ThreadWrapper_t::taskFunction</a></div><div class="ttdeci">void(* taskFunction)(void)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00032">freertos.h:32</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

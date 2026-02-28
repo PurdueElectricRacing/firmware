@@ -59,7 +59,7 @@ var searchData=
   ['apps_5fimplaus_5fstart_5ftime_56',['apps_implaus_start_time',['../structpedal__faults__t.html#a9de98e8f28faf400152a6bf20abcdb9d',1,'pedal_faults_t']]],
   ['arg_57',['arg',['../structPHAL__SD__Cmd__t.html#ad9628bf702ae01d6b16fa4179417bf56',1,'PHAL_SD_Cmd_t']]],
   ['attr_58',['attr',['../structFFOBJID.html#ae9b1e6f98dbad367cc00f92b87f8d279',1,'FFOBJID']]],
-  ['attrs_59',['attrs',['../structThreadWrapper.html#acb96eb2efe46b59b8abc7714f0a05c35',1,'ThreadWrapper']]],
+  ['attrs_59',['attrs',['../structThreadWrapper__t.html#a0971c8989570b54dbeb59d8d5740bbaf',1,'ThreadWrapper_t']]],
   ['au_5fsize_60',['au_size',['../structMKFS__PARM.html#adb29b0af8e486fc53d8b629c3e49d567',1,'MKFS_PARM']]],
   ['auto_5fbaud_61',['auto_baud',['../structadv__feature__t.html#ae5b26318134e9b6d3a317a25c781a858',1,'adv_feature_t']]],
   ['auto_5fswitches_62',['auto_switches',['../auto__switch_8c.html#a19dbab87e0ceca06b137d8feb5b2dc90',1,'auto_switches:&#160;auto_switch.c'],['../auto__switch_8h.html#a19dbab87e0ceca06b137d8feb5b2dc90',1,'auto_switches:&#160;auto_switch.c']]],

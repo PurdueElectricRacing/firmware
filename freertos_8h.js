@@ -1,15 +1,18 @@
 var freertos_8h =
 [
-    [ "ThreadWrapper", "structThreadWrapper.html", "structThreadWrapper" ],
-    [ "__createThread", "freertos_8h.html#a71349e7ceee038644ce383c98e2fb175", null ],
-    [ "__defineThread", "freertos_8h.html#a1cda88e7623920fee1ce301b3ac431c5", null ],
+    [ "ThreadWrapper_t", "structThreadWrapper__t.html", "structThreadWrapper__t" ],
     [ "__FREERTOS_PATH", "freertos_8h.html#aec94cba01a34fa12e733d4774709cce6", null ],
     [ "_FREERTOS_PATH", "freertos_8h.html#abaded9350cb8265deb1b6a7db964b470", null ],
-    [ "createStaticQueue", "freertos_8h.html#acc54db7ec3678c2a82a6d119c6188df6", null ],
-    [ "createStaticSemaphore", "freertos_8h.html#a1a88aa9e08d035973eaf000fd0e1fd8f", null ],
+    [ "CREATE_STATIC_QUEUE", "freertos_8h.html#a7afd9dc1fff11d8c2abc8efc52b1135d", null ],
+    [ "CREATE_STATIC_SEMAPHORE", "freertos_8h.html#a501f4bca56d5d64332f3bb04355362ba", null ],
+    [ "createStaticQueue", "freertos_8h.html#a2942ff28968e0f3578eac8bea6b72f2d", null ],
+    [ "createStaticSemaphore", "freertos_8h.html#a264697a20c38ea13fc86592f8df086a4", null ],
     [ "createThread", "freertos_8h.html#af5353b7aa9443b8e18db35e0757e6200", null ],
-    [ "defineStaticQueue", "freertos_8h.html#a8844ba201339dc90132f494e3a744a41", null ],
-    [ "defineStaticSemaphore", "freertos_8h.html#a34cfa5898753771563c490bf1e8d47f7", null ],
+    [ "DEFINE_STATIC_QUEUE", "freertos_8h.html#a275b06486046931765e2fa6563be1ab4", null ],
+    [ "DEFINE_STATIC_SEMAPHORE", "freertos_8h.html#a4c13ea2e898f11c0b5f03c88235f8f58", null ],
+    [ "DEFINE_TASK", "freertos_8h.html#aa06a84e1769e192e02a8bb7482aceeb5", null ],
+    [ "defineStaticQueue", "freertos_8h.html#a27687f18a1e320b0511ccf50b887f360", null ],
+    [ "defineStaticSemaphore", "freertos_8h.html#aae2d4e6a423dd1f82c02e89e86faccf9", null ],
     [ "defineThread", "freertos_8h.html#a577c2e262415bd294279ee45e9287d14", null ],
     [ "defineThreadStack", "freertos_8h.html#ae8211032573848acd5d3da2574cc3d5d", null ],
     [ "getTaskHandle", "freertos_8h.html#a3de6343dd1d29b508dd7d52f93416750", null ],
@@ -19,6 +22,6 @@ var freertos_8h =
     [ "myIDENT", "freertos_8h.html#abca5333b90b00f973c6491246378f0ef", null ],
     [ "mySTR", "freertos_8h.html#aa0106d66c910122f42a397e25121651f", null ],
     [ "myXSTR", "freertos_8h.html#ae76e8808b78573773246b2ce3f1849d5", null ],
-    [ "threadWrapperName", "freertos_8h.html#a43dc14b622c289a051fa154fce5532cb", null ],
-    [ "rtosWrapper", "freertos_8h.html#a73ea5a563745b2dbbe79f00fa3d80357", null ]
+    [ "START_TASK", "freertos_8h.html#abe574562452fd3a573084481cb7a9cf3", null ],
+    [ "rtosWrapper", "freertos_8h.html#a9c778d52c93dd2b838088f502c737e74", null ]
 ];

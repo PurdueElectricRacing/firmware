@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['handle_0',['handle',['../structThreadWrapper.html#a500036a6a3e8d392dfdbd89e0f342d99',1,'ThreadWrapper']]],
+  ['handle_0',['handle',['../structThreadWrapper__t.html#a817a76a0085c21a6827a797f44bda13a',1,'ThreadWrapper_t']]],
   ['handledmaxcomplete_1',['handleDMAxComplete',['../common_2phal__F4__F7_2usart_2usart_8c.html#a668005fd868c0e9c0c9318ca6685ad87',1,'handleDMAxComplete(uint8_t idx, uint32_t irq, uint8_t dma_type):&#160;usart.c'],['../common_2phal__G4_2usart_2usart_8c.html#a97a5c06c33b4014a512b54d72196ccdb',1,'handleDMAxComplete(DMA_TypeDef *dma_periph, uint8_t channel, uint8_t dma_type, uint8_t idx):&#160;usart.c'],['../phal__G4_2usart_2usart_8h.html#a97a5c06c33b4014a512b54d72196ccdb',1,'handleDMAxComplete(DMA_TypeDef *dma_periph, uint8_t channel, uint8_t dma_type, uint8_t idx):&#160;usart.h']]],
   ['handlenewblmsg_2',['handleNewBlMsg',['../classbootloader__download_1_1Bootloader.html#aee89a3060c894d4dffa362aca9a0046a',1,'bootloader_download::Bootloader']]],
   ['handletxcomplete_3',['handleTxComplete',['../common_2phal__F4__F7_2spi_2spi_8c.html#aed6ed13aeec426dcf483c8936300358d',1,'handleTxComplete():&#160;spi.c'],['../common_2phal__G4_2spi_2spi_8c.html#a65f9e26b43c08713fe917d0dd61bb506',1,'handleTxComplete(DMA_TypeDef *dma_periph, uint8_t channel):&#160;spi.c']]],

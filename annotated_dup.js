@@ -98,7 +98,7 @@ var annotated_dup =
     [ "SD_CSD", "structSD__CSD.html", "structSD__CSD" ],
     [ "SPI_InitConfig_t", "structSPI__InitConfig__t.html", "structSPI__InitConfig__t" ],
     [ "strbuf_t", "structstrbuf__t.html", "structstrbuf__t" ],
-    [ "ThreadWrapper", "structThreadWrapper.html", "structThreadWrapper" ],
+    [ "ThreadWrapper_t", "structThreadWrapper__t.html", "structThreadWrapper__t" ],
     [ "timestamped_frame_t", "structtimestamped__frame__t.html", "structtimestamped__frame__t" ],
     [ "usart_active_transfer_t", "structusart__active__transfer__t.html", "structusart__active__transfer__t" ],
     [ "usart_init_t", "structusart__init__t.html", "structusart__init__t" ],

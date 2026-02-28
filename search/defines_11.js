@@ -307,11 +307,12 @@ var searchData=
   ['stale_5fthresh_304',['STALE_THRESH',['../can__parse__starter_8h.html#abd9fb8a91e43567fceb781c705d6dd93',1,'can_parse_starter.h']]],
   ['start_5fbtn_5fgpio_5fport_305',['START_BTN_GPIO_Port',['../dashboard_2main_8h.html#a7a53e0c964126c6f644328b1e14cf8b2',1,'main.h']]],
   ['start_5fbtn_5fpin_306',['START_BTN_Pin',['../dashboard_2main_8h.html#af610b0dfa7a975bdf2d15acc20e80ee3',1,'main.h']]],
-  ['status_5fled_5fgpio_5fport_307',['STATUS_LED_GPIO_Port',['../node__defs_8h.html#aee9e013abc17d5ea72b26428853f8847',1,'node_defs.h']]],
-  ['status_5fled_5fpin_308',['STATUS_LED_Pin',['../node__defs_8h.html#a590bdd88ac47c0492ed08b716f2c8728',1,'node_defs.h']]],
-  ['steam_309',['STEAM',['../menu__system_8c.html#a2e6f25a07fed4aa119add4f8dbde4f2e',1,'menu_system.c']]],
-  ['steel_310',['STEEL',['../menu__system_8c.html#a0c651c9e541c06ca19577be9e0e34e93',1,'menu_system.c']]],
-  ['sz_5fgpte_311',['SZ_GPTE',['../ff_8c.html#aaaa69650a3bce4a6f68f88e2e3a07f43',1,'ff.c']]],
-  ['sz_5fpte_312',['SZ_PTE',['../ff_8c.html#af133060c47366e7e557d4085d931183f',1,'ff.c']]],
-  ['szdire_313',['SZDIRE',['../ff_8c.html#a90943705ce4b32e47562c9f56860c7af',1,'ff.c']]]
+  ['start_5ftask_307',['START_TASK',['../freertos_8h.html#abe574562452fd3a573084481cb7a9cf3',1,'freertos.h']]],
+  ['status_5fled_5fgpio_5fport_308',['STATUS_LED_GPIO_Port',['../node__defs_8h.html#aee9e013abc17d5ea72b26428853f8847',1,'node_defs.h']]],
+  ['status_5fled_5fpin_309',['STATUS_LED_Pin',['../node__defs_8h.html#a590bdd88ac47c0492ed08b716f2c8728',1,'node_defs.h']]],
+  ['steam_310',['STEAM',['../menu__system_8c.html#a2e6f25a07fed4aa119add4f8dbde4f2e',1,'menu_system.c']]],
+  ['steel_311',['STEEL',['../menu__system_8c.html#a0c651c9e541c06ca19577be9e0e34e93',1,'menu_system.c']]],
+  ['sz_5fgpte_312',['SZ_GPTE',['../ff_8c.html#aaaa69650a3bce4a6f68f88e2e3a07f43',1,'ff.c']]],
+  ['sz_5fpte_313',['SZ_PTE',['../ff_8c.html#af133060c47366e7e557d4085d931183f',1,'ff.c']]],
+  ['szdire_314',['SZDIRE',['../ff_8c.html#a90943705ce4b32e47562c9f56860c7af',1,'ff.c']]]
 ];

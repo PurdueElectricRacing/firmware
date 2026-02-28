@@ -116,7 +116,7 @@ $(function(){initNavTree('freertos_8h.html',''); initResizable(true); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structThreadWrapper.html">ThreadWrapper</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structThreadWrapper__t.html">ThreadWrapper_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
@@ -131,112 +131,47 @@ Macros</h2></td></tr>
 <tr class="separator:aec94cba01a34fa12e733d4774709cce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abaded9350cb8265deb1b6a7db964b470" id="r_abaded9350cb8265deb1b6a7db964b470"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abaded9350cb8265deb1b6a7db964b470">_FREERTOS_PATH</a>(y)</td></tr>
 <tr class="separator:abaded9350cb8265deb1b6a7db964b470"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43dc14b622c289a051fa154fce5532cb" id="r_a43dc14b622c289a051fa154fce5532cb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a43dc14b622c289a051fa154fce5532cb">threadWrapperName</a>(NAME)</td></tr>
-<tr class="separator:a43dc14b622c289a051fa154fce5532cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cda88e7623920fee1ce301b3ac431c5" id="r_a1cda88e7623920fee1ce301b3ac431c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1cda88e7623920fee1ce301b3ac431c5">__defineThread</a>(<a class="el" href="psched_8h.html#aaf105ae5beaca1dee30ae54530691fceadcd8fc0dfcbc905dcb6267c36b20bfd7">TASK</a>,  PERIOD,  PRIORITY,  STACK)</td></tr>
-<tr class="separator:a1cda88e7623920fee1ce301b3ac431c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a577c2e262415bd294279ee45e9287d14" id="r_a577c2e262415bd294279ee45e9287d14"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a577c2e262415bd294279ee45e9287d14">defineThread</a>(T,  D,  P)</td></tr>
-<tr class="separator:a577c2e262415bd294279ee45e9287d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8211032573848acd5d3da2574cc3d5d" id="r_ae8211032573848acd5d3da2574cc3d5d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8211032573848acd5d3da2574cc3d5d">defineThreadStack</a>(T,  D,  P,  S)</td></tr>
-<tr class="separator:ae8211032573848acd5d3da2574cc3d5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71349e7ceee038644ce383c98e2fb175" id="r_a71349e7ceee038644ce383c98e2fb175"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71349e7ceee038644ce383c98e2fb175">__createThread</a>(NAME)</td></tr>
-<tr class="separator:a71349e7ceee038644ce383c98e2fb175"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5353b7aa9443b8e18db35e0757e6200" id="r_af5353b7aa9443b8e18db35e0757e6200"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5353b7aa9443b8e18db35e0757e6200">createThread</a>(NAME)</td></tr>
-<tr class="separator:af5353b7aa9443b8e18db35e0757e6200"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa06a84e1769e192e02a8bb7482aceeb5" id="r_aa06a84e1769e192e02a8bb7482aceeb5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa06a84e1769e192e02a8bb7482aceeb5">DEFINE_TASK</a>(NAME,  PERIOD_MS,  PRIORITY,  STACK_SIZE)</td></tr>
+<tr class="separator:aa06a84e1769e192e02a8bb7482aceeb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe574562452fd3a573084481cb7a9cf3" id="r_abe574562452fd3a573084481cb7a9cf3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe574562452fd3a573084481cb7a9cf3">START_TASK</a>(NAME)</td></tr>
+<tr class="separator:abe574562452fd3a573084481cb7a9cf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3de6343dd1d29b508dd7d52f93416750" id="r_a3de6343dd1d29b508dd7d52f93416750"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3de6343dd1d29b508dd7d52f93416750">getTaskHandle</a>(NAME)</td></tr>
 <tr class="separator:a3de6343dd1d29b508dd7d52f93416750"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8844ba201339dc90132f494e3a744a41" id="r_a8844ba201339dc90132f494e3a744a41"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8844ba201339dc90132f494e3a744a41">defineStaticQueue</a>(NAME,  ITEM,  COUNT)</td></tr>
-<tr class="separator:a8844ba201339dc90132f494e3a744a41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc54db7ec3678c2a82a6d119c6188df6" id="r_acc54db7ec3678c2a82a6d119c6188df6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc54db7ec3678c2a82a6d119c6188df6">createStaticQueue</a>(NAME,  ITEM,  COUNT)</td></tr>
-<tr class="separator:acc54db7ec3678c2a82a6d119c6188df6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34cfa5898753771563c490bf1e8d47f7" id="r_a34cfa5898753771563c490bf1e8d47f7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34cfa5898753771563c490bf1e8d47f7">defineStaticSemaphore</a>(NAME)</td></tr>
-<tr class="separator:a34cfa5898753771563c490bf1e8d47f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a88aa9e08d035973eaf000fd0e1fd8f" id="r_a1a88aa9e08d035973eaf000fd0e1fd8f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a88aa9e08d035973eaf000fd0e1fd8f">createStaticSemaphore</a>(NAME)</td></tr>
-<tr class="separator:a1a88aa9e08d035973eaf000fd0e1fd8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a275b06486046931765e2fa6563be1ab4" id="r_a275b06486046931765e2fa6563be1ab4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a275b06486046931765e2fa6563be1ab4">DEFINE_STATIC_QUEUE</a>(NAME,  ITEM,  COUNT)</td></tr>
+<tr class="separator:a275b06486046931765e2fa6563be1ab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7afd9dc1fff11d8c2abc8efc52b1135d" id="r_a7afd9dc1fff11d8c2abc8efc52b1135d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7afd9dc1fff11d8c2abc8efc52b1135d">CREATE_STATIC_QUEUE</a>(NAME,  ITEM,  COUNT)</td></tr>
+<tr class="separator:a7afd9dc1fff11d8c2abc8efc52b1135d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c13ea2e898f11c0b5f03c88235f8f58" id="r_a4c13ea2e898f11c0b5f03c88235f8f58"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c13ea2e898f11c0b5f03c88235f8f58">DEFINE_STATIC_SEMAPHORE</a>(NAME)</td></tr>
+<tr class="separator:a4c13ea2e898f11c0b5f03c88235f8f58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a501f4bca56d5d64332f3bb04355362ba" id="r_a501f4bca56d5d64332f3bb04355362ba"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a501f4bca56d5d64332f3bb04355362ba">CREATE_STATIC_SEMAPHORE</a>(NAME)</td></tr>
+<tr class="separator:a501f4bca56d5d64332f3bb04355362ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9bb5b95ae9be61db75d49fa9bd22881" id="r_af9bb5b95ae9be61db75d49fa9bd22881"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9bb5b95ae9be61db75d49fa9bd22881">getTick</a>()</td></tr>
 <tr class="separator:af9bb5b95ae9be61db75d49fa9bd22881"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82bbcea33e221a7e2eaa964b87c7920c" id="r_a82bbcea33e221a7e2eaa964b87c7920c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a82bbcea33e221a7e2eaa964b87c7920c">getTickms</a>()</td></tr>
 <tr class="separator:a82bbcea33e221a7e2eaa964b87c7920c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d5d0a016332574ab3a9906ff20d959a" id="r_a3d5d0a016332574ab3a9906ff20d959a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d5d0a016332574ab3a9906ff20d959a">mDelay</a>(ms)</td></tr>
 <tr class="separator:a3d5d0a016332574ab3a9906ff20d959a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a577c2e262415bd294279ee45e9287d14" id="r_a577c2e262415bd294279ee45e9287d14"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a577c2e262415bd294279ee45e9287d14">defineThread</a>(T,  D,  P)</td></tr>
+<tr class="separator:a577c2e262415bd294279ee45e9287d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8211032573848acd5d3da2574cc3d5d" id="r_ae8211032573848acd5d3da2574cc3d5d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8211032573848acd5d3da2574cc3d5d">defineThreadStack</a>(T,  D,  P,  S)</td></tr>
+<tr class="separator:ae8211032573848acd5d3da2574cc3d5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5353b7aa9443b8e18db35e0757e6200" id="r_af5353b7aa9443b8e18db35e0757e6200"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5353b7aa9443b8e18db35e0757e6200">createThread</a>(NAME)</td></tr>
+<tr class="separator:af5353b7aa9443b8e18db35e0757e6200"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27687f18a1e320b0511ccf50b887f360" id="r_a27687f18a1e320b0511ccf50b887f360"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27687f18a1e320b0511ccf50b887f360">defineStaticQueue</a>(N,  I,  C)</td></tr>
+<tr class="separator:a27687f18a1e320b0511ccf50b887f360"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2942ff28968e0f3578eac8bea6b72f2d" id="r_a2942ff28968e0f3578eac8bea6b72f2d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2942ff28968e0f3578eac8bea6b72f2d">createStaticQueue</a>(N,  I,  C)</td></tr>
+<tr class="separator:a2942ff28968e0f3578eac8bea6b72f2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae2d4e6a423dd1f82c02e89e86faccf9" id="r_aae2d4e6a423dd1f82c02e89e86faccf9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aae2d4e6a423dd1f82c02e89e86faccf9">defineStaticSemaphore</a>(N)</td></tr>
+<tr class="separator:aae2d4e6a423dd1f82c02e89e86faccf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a264697a20c38ea13fc86592f8df086a4" id="r_a264697a20c38ea13fc86592f8df086a4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a264697a20c38ea13fc86592f8df086a4">createStaticSemaphore</a>(N)</td></tr>
+<tr class="separator:a264697a20c38ea13fc86592f8df086a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a73ea5a563745b2dbbe79f00fa3d80357" id="r_a73ea5a563745b2dbbe79f00fa3d80357"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73ea5a563745b2dbbe79f00fa3d80357">rtosWrapper</a> (void *)</td></tr>
-<tr class="separator:a73ea5a563745b2dbbe79f00fa3d80357"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c778d52c93dd2b838088f502c737e74" id="r_a9c778d52c93dd2b838088f502c737e74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c778d52c93dd2b838088f502c737e74">rtosWrapper</a> (void *arg)</td></tr>
+<tr class="separator:a9c778d52c93dd2b838088f502c737e74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a71349e7ceee038644ce383c98e2fb175" name="a71349e7ceee038644ce383c98e2fb175"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71349e7ceee038644ce383c98e2fb175">&#9670;&#160;</a></span>__createThread</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __createThread</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>NAME</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="#a43dc14b622c289a051fa154fce5532cb">threadWrapperName</a>(NAME).handle = \</div>
-<div class="line">        osThreadNew(<a class="code hl_function" href="#a73ea5a563745b2dbbe79f00fa3d80357">rtosWrapper</a>, &amp;(<a class="code hl_define" href="#a43dc14b622c289a051fa154fce5532cb">threadWrapperName</a>(NAME)), &amp;(<a class="code hl_define" href="#a43dc14b622c289a051fa154fce5532cb">threadWrapperName</a>(NAME)).attrs);</div>
-<div class="ttc" id="afreertos_8h_html_a43dc14b622c289a051fa154fce5532cb"><div class="ttname"><a href="#a43dc14b622c289a051fa154fce5532cb">threadWrapperName</a></div><div class="ttdeci">#define threadWrapperName(NAME)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00041">freertos.h:41</a></div></div>
-<div class="ttc" id="afreertos_8h_html_a73ea5a563745b2dbbe79f00fa3d80357"><div class="ttname"><a href="#a73ea5a563745b2dbbe79f00fa3d80357">rtosWrapper</a></div><div class="ttdeci">void rtosWrapper(void *)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8c_source.html#l00004">freertos.c:4</a></div></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00064">64</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
-</div>
-</div>
-<a id="a1cda88e7623920fee1ce301b3ac431c5" name="a1cda88e7623920fee1ce301b3ac431c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1cda88e7623920fee1ce301b3ac431c5">&#9670;&#160;</a></span>__defineThread</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __defineThread</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em><a class="el" href="psched_8h.html#aaf105ae5beaca1dee30ae54530691fceadcd8fc0dfcbc905dcb6267c36b20bfd7">TASK</a></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>PERIOD</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>PRIORITY</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>STACK</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <span class="keyword">static</span> StaticTask_t taskWrapperCB_##<a class="code hl_enumvalue" href="psched_8h.html#aaf105ae5beaca1dee30ae54530691fceadcd8fc0dfcbc905dcb6267c36b20bfd7">TASK</a>; \</div>
-<div class="line">    <span class="keyword">static</span> StackType_t taskWrapperStack_##<a class="code hl_enumvalue" href="psched_8h.html#aaf105ae5beaca1dee30ae54530691fceadcd8fc0dfcbc905dcb6267c36b20bfd7">TASK</a>[(STACK) / <span class="keyword">sizeof</span>(StackType_t)]; \</div>
-<div class="line">    <a class="code hl_struct" href="structThreadWrapper.html">ThreadWrapper</a> <a class="code hl_define" href="#a43dc14b622c289a051fa154fce5532cb">threadWrapperName</a>(<a class="code hl_enumvalue" href="psched_8h.html#aaf105ae5beaca1dee30ae54530691fceadcd8fc0dfcbc905dcb6267c36b20bfd7">TASK</a>) = { \</div>
-<div class="line">        .taskFunction = &amp;(<a class="code hl_enumvalue" href="psched_8h.html#aaf105ae5beaca1dee30ae54530691fceadcd8fc0dfcbc905dcb6267c36b20bfd7">TASK</a>), \</div>
-<div class="line">        .period       = (PERIOD), \</div>
-<div class="line">        .attrs        = { \</div>
-<div class="line">            .priority   = (PRIORITY), \</div>
-<div class="line">            .stack_size = (STACK), \</div>
-<div class="line">            .name       = <span class="stringliteral">&quot;\&quot;&quot;</span> #<a class="code hl_enumvalue" href="psched_8h.html#aaf105ae5beaca1dee30ae54530691fceadcd8fc0dfcbc905dcb6267c36b20bfd7">TASK</a> <span class="stringliteral">&quot;\&quot;&quot;</span>, \</div>
-<div class="line">            .cb_mem     = &amp;taskWrapperCB_##<a class="code hl_enumvalue" href="psched_8h.html#aaf105ae5beaca1dee30ae54530691fceadcd8fc0dfcbc905dcb6267c36b20bfd7">TASK</a>, \</div>
-<div class="line">            .cb_size    = <span class="keyword">sizeof</span>(StaticTask_t), \</div>
-<div class="line">            .stack_mem  = taskWrapperStack_##<a class="code hl_enumvalue" href="psched_8h.html#aaf105ae5beaca1dee30ae54530691fceadcd8fc0dfcbc905dcb6267c36b20bfd7">TASK</a>, \</div>
-<div class="line">        }};</div>
-<div class="ttc" id="apsched_8h_html_aaf105ae5beaca1dee30ae54530691fceadcd8fc0dfcbc905dcb6267c36b20bfd7"><div class="ttname"><a href="psched_8h.html#aaf105ae5beaca1dee30ae54530691fceadcd8fc0dfcbc905dcb6267c36b20bfd7">TASK</a></div><div class="ttdeci">@ TASK</div><div class="ttdef"><b>Definition</b> <a href="psched_8h_source.html#l00038">psched.h:38</a></div></div>
-<div class="ttc" id="astructThreadWrapper_html"><div class="ttname"><a href="structThreadWrapper.html">ThreadWrapper</a></div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00031">freertos.h:31</a></div></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00046">46</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
-</div>
-</div>
 <a id="aec94cba01a34fa12e733d4774709cce6" name="aec94cba01a34fa12e733d4774709cce6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aec94cba01a34fa12e733d4774709cce6">&#9670;&#160;</a></span>__FREERTOS_PATH</h2>
 
@@ -284,14 +219,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="acc54db7ec3678c2a82a6d119c6188df6" name="acc54db7ec3678c2a82a6d119c6188df6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acc54db7ec3678c2a82a6d119c6188df6">&#9670;&#160;</a></span>createStaticQueue</h2>
+<a id="a7afd9dc1fff11d8c2abc8efc52b1135d" name="a7afd9dc1fff11d8c2abc8efc52b1135d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7afd9dc1fff11d8c2abc8efc52b1135d">&#9670;&#160;</a></span>CREATE_STATIC_QUEUE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define createStaticQueue</td>
+          <td class="memname">#define CREATE_STATIC_QUEUE</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>NAME</em></span>, </td>
         </tr>
@@ -307,16 +242,69 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    xQueueCreateStatic((COUNT), <span class="keyword">sizeof</span>(ITEM), ucQueueStorageArea_##NAME, &amp;xStaticQueue_##NAME);</div>
+<b>Value:</b><div class="fragment"><div class="line">    (NAME = xQueueCreateStatic((COUNT), <span class="keyword">sizeof</span>(ITEM),                          \</div>
+<div class="line">                               ucQueueStorageArea_##NAME, &amp;xStaticQueue_##NAME))</div>
+</div><!-- fragment --><p>CREATE_STATIC_QUEUE: Initializes the defined static queue. </p>
+
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00084">84</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+
+</div>
+</div>
+<a id="a501f4bca56d5d64332f3bb04355362ba" name="a501f4bca56d5d64332f3bb04355362ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a501f4bca56d5d64332f3bb04355362ba">&#9670;&#160;</a></span>CREATE_STATIC_SEMAPHORE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CREATE_STATIC_SEMAPHORE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>NAME</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    (NAME = xSemaphoreCreateMutexStatic(&amp;(xStaticSemaphore_##NAME)))</div>
+</div><!-- fragment --><p>CREATE_STATIC_SEMAPHORE: Initializes the defined static semaphore. </p>
+
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00099">99</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+
+</div>
+</div>
+<a id="a2942ff28968e0f3578eac8bea6b72f2d" name="a2942ff28968e0f3578eac8bea6b72f2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2942ff28968e0f3578eac8bea6b72f2d">&#9670;&#160;</a></span>createStaticQueue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define createStaticQueue</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>N</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>I</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>C</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a7afd9dc1fff11d8c2abc8efc52b1135d">CREATE_STATIC_QUEUE</a>(N, I, C)</div>
+<div class="ttc" id="afreertos_8h_html_a7afd9dc1fff11d8c2abc8efc52b1135d"><div class="ttname"><a href="#a7afd9dc1fff11d8c2abc8efc52b1135d">CREATE_STATIC_QUEUE</a></div><div class="ttdeci">#define CREATE_STATIC_QUEUE(NAME, ITEM, COUNT)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00084">freertos.h:84</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00077">77</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00113">113</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00137">main()</a>.</p>
 
 </div>
 </div>
-<a id="a1a88aa9e08d035973eaf000fd0e1fd8f" name="a1a88aa9e08d035973eaf000fd0e1fd8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a88aa9e08d035973eaf000fd0e1fd8f">&#9670;&#160;</a></span>createStaticSemaphore</h2>
+<a id="a264697a20c38ea13fc86592f8df086a4" name="a264697a20c38ea13fc86592f8df086a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a264697a20c38ea13fc86592f8df086a4">&#9670;&#160;</a></span>createStaticSemaphore</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -324,14 +312,15 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">#define createStaticSemaphore</td>
           <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>NAME</em></span></td><td>)</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>N</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">xSemaphoreCreateMutexStatic(&amp;(xStaticSemaphore_##NAME));</div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a501f4bca56d5d64332f3bb04355362ba">CREATE_STATIC_SEMAPHORE</a>(N)</div>
+<div class="ttc" id="afreertos_8h_html_a501f4bca56d5d64332f3bb04355362ba"><div class="ttname"><a href="#a501f4bca56d5d64332f3bb04355362ba">CREATE_STATIC_SEMAPHORE</a></div><div class="ttdeci">#define CREATE_STATIC_SEMAPHORE(NAME)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00099">freertos.h:99</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00084">84</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00115">115</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00137">main()</a>.</p>
 
@@ -351,23 +340,23 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a71349e7ceee038644ce383c98e2fb175">__createThread</a>(NAME)</div>
-<div class="ttc" id="afreertos_8h_html_a71349e7ceee038644ce383c98e2fb175"><div class="ttname"><a href="#a71349e7ceee038644ce383c98e2fb175">__createThread</a></div><div class="ttdeci">#define __createThread(NAME)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00064">freertos.h:64</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#abe574562452fd3a573084481cb7a9cf3">START_TASK</a>(NAME)</div>
+<div class="ttc" id="afreertos_8h_html_abe574562452fd3a573084481cb7a9cf3"><div class="ttname"><a href="#abe574562452fd3a573084481cb7a9cf3">START_TASK</a></div><div class="ttdeci">#define START_TASK(NAME)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00067">freertos.h:67</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00067">67</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00111">111</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="daq__hub_8c_source.html#l00070">daq_create_threads()</a>, <a class="el" href="source_2g4__testing_2fdcan_8c_source.html#l00075">main()</a>, <a class="el" href="a__box_2main_8c_source.html#l00083">main()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00203">preflight_task()</a>.</p>
 
 </div>
 </div>
-<a id="a8844ba201339dc90132f494e3a744a41" name="a8844ba201339dc90132f494e3a744a41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8844ba201339dc90132f494e3a744a41">&#9670;&#160;</a></span>defineStaticQueue</h2>
+<a id="a275b06486046931765e2fa6563be1ab4" name="a275b06486046931765e2fa6563be1ab4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a275b06486046931765e2fa6563be1ab4">&#9670;&#160;</a></span>DEFINE_STATIC_QUEUE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define defineStaticQueue</td>
+          <td class="memname">#define DEFINE_STATIC_QUEUE</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>NAME</em></span>, </td>
         </tr>
@@ -383,16 +372,129 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    QueueHandle_t NAME; \</div>
-<div class="line">    <span class="keyword">static</span> StaticQueue_t xStaticQueue_##NAME; \</div>
-<div class="line">    uint8_t ucQueueStorageArea_##NAME[<span class="keyword">sizeof</span>(ITEM) * (COUNT)];</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00072">72</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<b>Value:</b><div class="fragment"><div class="line">    QueueHandle_t NAME;                                                        \</div>
+<div class="line">    <span class="keyword">static</span> StaticQueue_t xStaticQueue_##NAME;                                  \</div>
+<div class="line">    <span class="keyword">static</span> uint8_t       ucQueueStorageArea_##NAME[<span class="keyword">sizeof</span>(ITEM) * (COUNT)];    \</div>
+<div class="line">    QueueHandle_t        NAME</div>
+</div><!-- fragment --><p>DEFINE_STATIC_QUEUE: Scaffolds the static memory for a FreeRTOS queue. </p>
+
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00075">75</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
-<a id="a34cfa5898753771563c490bf1e8d47f7" name="a34cfa5898753771563c490bf1e8d47f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34cfa5898753771563c490bf1e8d47f7">&#9670;&#160;</a></span>defineStaticSemaphore</h2>
+<a id="a4c13ea2e898f11c0b5f03c88235f8f58" name="a4c13ea2e898f11c0b5f03c88235f8f58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c13ea2e898f11c0b5f03c88235f8f58">&#9670;&#160;</a></span>DEFINE_STATIC_SEMAPHORE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DEFINE_STATIC_SEMAPHORE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>NAME</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    SemaphoreHandle_t NAME;                                                    \</div>
+<div class="line">    <span class="keyword">static</span> StaticSemaphore_t xStaticSemaphore_##NAME;                          \</div>
+<div class="line">    SemaphoreHandle_t        NAME</div>
+</div><!-- fragment --><p>DEFINE_STATIC_SEMAPHORE: Scaffolds the static memory for a mutex. </p>
+
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00091">91</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+
+</div>
+</div>
+<a id="aa06a84e1769e192e02a8bb7482aceeb5" name="aa06a84e1769e192e02a8bb7482aceeb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa06a84e1769e192e02a8bb7482aceeb5">&#9670;&#160;</a></span>DEFINE_TASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DEFINE_TASK</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>NAME</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>PERIOD_MS</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>PRIORITY</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>STACK_SIZE</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keyword">static</span> StaticTask_t task_cb_##NAME;                                        \</div>
+<div class="line">    <span class="keyword">static</span> StackType_t  task_stack_##NAME[(STACK_SIZE) / <span class="keyword">sizeof</span>(StackType_t)]; \</div>
+<div class="line">    <a class="code hl_struct" href="structThreadWrapper__t.html">ThreadWrapper_t</a>     NAME##_wrapper = {                                     \</div>
+<div class="line">        .taskFunction = (void (*)(void))NAME,                                  \</div>
+<div class="line">        .period_ms    = (PERIOD_MS),                                           \</div>
+<div class="line">        .attrs = {                                                             \</div>
+<div class="line">            .name       = #NAME,                                               \</div>
+<div class="line">            .attr_bits  = osThreadDetached,                                    \</div>
+<div class="line">            .cb_mem     = &amp;task_cb_##NAME,                                     \</div>
+<div class="line">            .cb_size    = <span class="keyword">sizeof</span>(StaticTask_t),                                \</div>
+<div class="line">            .stack_mem  = task_stack_##NAME,                                   \</div>
+<div class="line">            .stack_size = <span class="keyword">sizeof</span>(task_stack_##NAME),                           \</div>
+<div class="line">            .priority   = (osPriority_t)(PRIORITY),                            \</div>
+<div class="line">        }                                                                      \</div>
+<div class="line">    }</div>
+<div class="ttc" id="astructThreadWrapper__t_html"><div class="ttname"><a href="structThreadWrapper__t.html">ThreadWrapper_t</a></div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00031">freertos.h:31</a></div></div>
+</div><!-- fragment --><p>DEFINE_TASK: Scaffolds the static memory for a FreeRTOS task. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">NAME</td><td>The function name of the task. </td></tr>
+    <tr><td class="paramname">PERIOD_MS</td><td>Task period in milliseconds. </td></tr>
+    <tr><td class="paramname">PRIORITY</td><td>CMSIS-RTOS2 priority (e.g., osPriorityNormal). </td></tr>
+    <tr><td class="paramname">STACK_SIZE</td><td>Stack size in bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00047">47</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+
+</div>
+</div>
+<a id="a27687f18a1e320b0511ccf50b887f360" name="a27687f18a1e320b0511ccf50b887f360"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27687f18a1e320b0511ccf50b887f360">&#9670;&#160;</a></span>defineStaticQueue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define defineStaticQueue</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>N</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>I</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>C</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a275b06486046931765e2fa6563be1ab4">DEFINE_STATIC_QUEUE</a>(N, I, C)</div>
+<div class="ttc" id="afreertos_8h_html_a275b06486046931765e2fa6563be1ab4"><div class="ttname"><a href="#a275b06486046931765e2fa6563be1ab4">DEFINE_STATIC_QUEUE</a></div><div class="ttdeci">#define DEFINE_STATIC_QUEUE(NAME, ITEM, COUNT)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00075">freertos.h:75</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00112">112</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+
+</div>
+</div>
+<a id="aae2d4e6a423dd1f82c02e89e86faccf9" name="aae2d4e6a423dd1f82c02e89e86faccf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae2d4e6a423dd1f82c02e89e86faccf9">&#9670;&#160;</a></span>defineStaticSemaphore</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -400,15 +502,15 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">#define defineStaticSemaphore</td>
           <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>NAME</em></span></td><td>)</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>N</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    SemaphoreHandle_t NAME; \</div>
-<div class="line">    <span class="keyword">static</span> StaticSemaphore_t xStaticSemaphore_##NAME;</div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a4c13ea2e898f11c0b5f03c88235f8f58">DEFINE_STATIC_SEMAPHORE</a>(N)</div>
+<div class="ttc" id="afreertos_8h_html_a4c13ea2e898f11c0b5f03c88235f8f58"><div class="ttname"><a href="#a4c13ea2e898f11c0b5f03c88235f8f58">DEFINE_STATIC_SEMAPHORE</a></div><div class="ttdeci">#define DEFINE_STATIC_SEMAPHORE(NAME)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00091">freertos.h:91</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00081">81</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00114">114</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -435,10 +537,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a1cda88e7623920fee1ce301b3ac431c5">__defineThread</a>(T, D, P, 1024)</div>
-<div class="ttc" id="afreertos_8h_html_a1cda88e7623920fee1ce301b3ac431c5"><div class="ttname"><a href="#a1cda88e7623920fee1ce301b3ac431c5">__defineThread</a></div><div class="ttdeci">#define __defineThread(TASK, PERIOD, PRIORITY, STACK)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00046">freertos.h:46</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#aa06a84e1769e192e02a8bb7482aceeb5">DEFINE_TASK</a>(T, D, P, 1024)</div>
+<div class="ttc" id="afreertos_8h_html_aa06a84e1769e192e02a8bb7482aceeb5"><div class="ttname"><a href="#aa06a84e1769e192e02a8bb7482aceeb5">DEFINE_TASK</a></div><div class="ttdeci">#define DEFINE_TASK(NAME, PERIOD_MS, PRIORITY, STACK_SIZE)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00047">freertos.h:47</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00061">61</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00109">109</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -470,9 +572,9 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a1cda88e7623920fee1ce301b3ac431c5">__defineThread</a>(T, D, P, S)</div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#aa06a84e1769e192e02a8bb7482aceeb5">DEFINE_TASK</a>(T, D, P, S)</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00062">62</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00110">110</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -490,9 +592,9 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a43dc14b622c289a051fa154fce5532cb">threadWrapperName</a>(NAME).handle</div>
+<b>Value:</b><div class="fragment"><div class="line">(NAME##_wrapper.handle)</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00069">69</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00070">70</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -512,7 +614,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">xTaskGetTickCount()</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00086">86</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00103">103</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="daq__eth_8c_source.html#l00106">_eth_handle_error()</a>, <a class="el" href="daq__sd_8c_source.html#l00078">_sd_write_periodic()</a>, <a class="el" href="daq_2main_8c_source.html#l00275">CAN1_SCE_IRQHandler()</a>, <a class="el" href="daq_2main_8c_source.html#l00203">can_rx_irq_handler()</a>, <a class="el" href="daq__eth_8c_source.html#l00115">eth_reset_error()</a>, <a class="el" href="daq__sd_8c_source.html#l00045">sd_create_new_file()</a>, <a class="el" href="daq__sd_8c_source.html#l00021">sd_handle_error()</a>, <a class="el" href="daq__sd_8c_source.html#l00030">sd_reset_error()</a>, <a class="el" href="daq__sd_8c_source.html#l00134">sd_update_periodic()</a>, <a class="el" href="daq_2main_8c_source.html#l00362">shutdown()</a>, and <a class="el" href="daq__hub_8c_source.html#l00091">uds_frame_send()</a>.</p>
 
@@ -533,9 +635,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">pdMS_TO_TICKS(<a class="code hl_define" href="#af9bb5b95ae9be61db75d49fa9bd22881">getTick</a>())</div>
-<div class="ttc" id="afreertos_8h_html_af9bb5b95ae9be61db75d49fa9bd22881"><div class="ttname"><a href="#af9bb5b95ae9be61db75d49fa9bd22881">getTick</a></div><div class="ttdeci">#define getTick()</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00086">freertos.h:86</a></div></div>
+<div class="ttc" id="afreertos_8h_html_af9bb5b95ae9be61db75d49fa9bd22881"><div class="ttname"><a href="#af9bb5b95ae9be61db75d49fa9bd22881">getTick</a></div><div class="ttdeci">#define getTick()</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00103">freertos.h:103</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00087">87</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00104">104</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -555,7 +657,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">(osDelay(pdMS_TO_TICKS((ms))))</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00089">89</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00106">106</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="daq__eth_8c_source.html#l00060">eth_update_periodic()</a>.</p>
 
@@ -622,29 +724,31 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a43dc14b622c289a051fa154fce5532cb" name="a43dc14b622c289a051fa154fce5532cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43dc14b622c289a051fa154fce5532cb">&#9670;&#160;</a></span>threadWrapperName</h2>
+<a id="abe574562452fd3a573084481cb7a9cf3" name="abe574562452fd3a573084481cb7a9cf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe574562452fd3a573084481cb7a9cf3">&#9670;&#160;</a></span>START_TASK</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define threadWrapperName</td>
+          <td class="memname">#define START_TASK</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>NAME</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(threadWrapper_##NAME)</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00041">41</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<b>Value:</b><div class="fragment"><div class="line">    (NAME##_wrapper.handle = osThreadNew(<a class="code hl_function" href="#a9c778d52c93dd2b838088f502c737e74">rtosWrapper</a>, &amp;NAME##_wrapper, &amp;NAME##_wrapper.attrs))</div>
+<div class="ttc" id="afreertos_8h_html_a9c778d52c93dd2b838088f502c737e74"><div class="ttname"><a href="#a9c778d52c93dd2b838088f502c737e74">rtosWrapper</a></div><div class="ttdeci">void rtosWrapper(void *arg)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8c_source.html#l00004">freertos.c:4</a></div></div>
+</div><!-- fragment --><p>START_TASK: Initializes and starts the defined task. </p>
+
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00067">67</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a73ea5a563745b2dbbe79f00fa3d80357" name="a73ea5a563745b2dbbe79f00fa3d80357"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73ea5a563745b2dbbe79f00fa3d80357">&#9670;&#160;</a></span>rtosWrapper()</h2>
+<a id="a9c778d52c93dd2b838088f502c737e74" name="a9c778d52c93dd2b838088f502c737e74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c778d52c93dd2b838088f502c737e74">&#9670;&#160;</a></span>rtosWrapper()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -652,7 +756,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void rtosWrapper </td>
           <td>(</td>
-          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>thread</em></span></td><td>)</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>arg</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -660,7 +764,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="freertos_8c_source.html#l00004">4</a> of file <a class="el" href="freertos_8c_source.html">freertos.c</a>.</p>
 
-<p class="reference">References <a class="el" href="freertos_8h_source.html#l00033">ThreadWrapper::period</a>, and <a class="el" href="freertos_8h_source.html#l00032">ThreadWrapper::taskFunction</a>.</p>
+<p class="reference">References <a class="el" href="freertos_8h_source.html#l00033">ThreadWrapper_t::period_ms</a>, and <a class="el" href="freertos_8h_source.html#l00032">ThreadWrapper_t::taskFunction</a>.</p>
 
 </div>
 </div>

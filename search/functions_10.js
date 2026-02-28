@@ -33,6 +33,6 @@ var searchData=
   ['rounddown_30',['ROUNDDOWN',['../common__defs_8h.html#a7790c59a206addb5b0bcc7a34667a1da',1,'common_defs.h']]],
   ['roundup_31',['ROUNDUP',['../common__defs_8h.html#ad9b3fa34cf7fd298a0333cd51094762c',1,'common_defs.h']]],
   ['rtc_5fconfig_5fcb_32',['rtc_config_cb',['../daq__rtc__config_8c.html#a14121263e2cb222ad9b32397c7bf2efb',1,'rtc_config_cb(CanMsgTypeDef_t *msg):&#160;daq_rtc_config.c'],['../daq__rtc__config_8h.html#aa1f1fdd90a10cba07a883c0944b138f3',1,'rtc_config_cb(CanMsgTypeDef_t *):&#160;daq_rtc_config.c']]],
-  ['rtoswrapper_33',['rtosWrapper',['../freertos_8c.html#acf502ed258e3274614ce5354444af807',1,'rtosWrapper(void *thread):&#160;freertos.c'],['../freertos_8h.html#a73ea5a563745b2dbbe79f00fa3d80357',1,'rtosWrapper(void *):&#160;freertos.c']]],
+  ['rtoswrapper_33',['rtosWrapper',['../freertos_8c.html#acf502ed258e3274614ce5354444af807',1,'rtosWrapper(void *thread):&#160;freertos.c'],['../freertos_8h.html#a9c778d52c93dd2b838088f502c737e74',1,'rtosWrapper(void *arg):&#160;freertos.c']]],
   ['run_34',['run',['../classbootloader__download_1_1CANRxThread.html#a79b1f5dc43f380b6cd915bebd23cbae8',1,'bootloader_download.CANRxThread.run()'],['../classcan__process_1_1CANRxThread.html#a89f48876210525816fa0293b9fdb08e1',1,'can_process.CANRxThread.run()'],['../classcan__process_1_1CANTxThread.html#a82d54db454adcb9d42019d5ce8c10d24',1,'can_process.CANTxThread.run()']]]
 ];

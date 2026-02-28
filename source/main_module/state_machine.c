@@ -95,6 +95,12 @@ void fsm_periodic() {
     g_car.current_state = g_car.next_state;
     g_car.next_state    = g_car.current_state; // explicit self loop
 
+    // zero torque request by default
+    g_torque_request.front_right = 0;
+    g_torque_request.front_left  = 0;
+    g_torque_request.rear_left   = 0;
+    g_torque_request.rear_right  = 0;
+
     // check SDC before doing anything else
     if (is_fatal_latched()) {
         g_car.current_state = CARSTATE_FATAL;

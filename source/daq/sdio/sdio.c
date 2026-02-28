@@ -1513,7 +1513,7 @@ void DMA2_Stream6_IRQHandler(void) {
         if(daq_hub.sd_task_handle != NULL) {
             vTaskNotifyGiveFromISR(daq_hub.sd_task_handle, &xHigherPriorityTaskWoken);
             daq_hub.sd_task_handle = NULL;
-            portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
+            //portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
         }
     }
 }

@@ -39,7 +39,6 @@ void update_SDC() {
     static uint8_t sdc_poll_index = 0;
     const sdc_node_t *current_node = &SDC_NODE_LUT[sdc_poll_index];
     uint8_t mux_addr = current_node->mux_addr;
-    bool is_node_open = false; // default to closed if unreadable
     
     if (mux_addr != SDC_UNREADABLE) {
         // Set mux control
@@ -52,11 +51,11 @@ void update_SDC() {
         osDelay(1);
 
         // ! reading the input pin as 1 = closed, 0 = open
-        is_node_open = !PHAL_readGPIO(SDC_MUX_PORT, SDC_MUX_PIN);
+        bool is_node_open = !PHAL_readGPIO(SDC_MUX_PORT, SDC_MUX_PIN);
+
+        // Read the signal and update the relevant fault state
+        update_fault(current_node->fault_id, is_node_open);
     }
-    
-    // Read the signal and update the relevant fault state
-    update_fault(current_node->fault_id, is_node_open);
 
     // update the poll id for the next cycle (0-16 = sdc 1-17)
     sdc_poll_index++;

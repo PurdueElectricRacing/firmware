@@ -325,7 +325,6 @@ bool PHAL_usartRxBusy(usart_init_t* handle) {
  */
 static void handleUsartIRQ(USART_TypeDef* periph, uint8_t idx) {
     uint32_t isr = periph->ISR;
-    static uint32_t trash;
 
     // USART RX Not Empty interrupt flag
     if (isr & USART_ISR_RXNE_RXFNE) {

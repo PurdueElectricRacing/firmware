@@ -33,7 +33,7 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(TSAL_RED_CTRL_PORT, TSAL_RED_CTRL_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(TSAL_GREEN_CTRL_PORT, TSAL_GREEN_CTRL_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(TSAL_RTM_ENABLE_PORT, TSAL_RTM_ENABLE_PIN, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_INPUT(TSAL_FAULT_PORT, TSAL_FAULT_PIN, GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_INPUT(TSAL_FAULT_PORT, TSAL_FAULT_PIN, GPIO_INPUT_OPEN_DRAIN),
 
     // Brake and Buzzer
     GPIO_INIT_OUTPUT(BRAKE_LIGHT_PORT, BRAKE_LIGHT_PIN, GPIO_OUTPUT_LOW_SPEED),
@@ -48,10 +48,10 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(SDC_MUX_S0_PORT, SDC_MUX_S0_PIN, GPIO_OUTPUT_LOW_SPEED),
 
     // Input status pins
-    GPIO_INIT_INPUT(BMS_STATUS_PORT, BMS_STATUS_PIN, GPIO_INPUT_PULL_DOWN),
-    GPIO_INIT_INPUT(VBATT_ECU_PORT, VBATT_ECU_PIN, GPIO_INPUT_PULL_DOWN),
-    GPIO_INIT_INPUT(VMC_ECU_PORT, VMC_ECU_PIN, GPIO_INPUT_PULL_DOWN),
-    GPIO_INIT_INPUT(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN, GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_INPUT(BMS_STATUS_PORT, BMS_STATUS_PIN, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_INPUT(VBATT_ECU_PORT, VBATT_ECU_PIN, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_INPUT(VMC_ECU_PORT, VMC_ECU_PIN, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_INPUT(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN, GPIO_INPUT_OPEN_DRAIN),
 
     // VCAN
     GPIO_INIT_FDCAN2TX_PB13,
@@ -116,7 +116,7 @@ void heartbeat_task() {
     }
 }
 
-void can_worker_task() {
+void background_can_update() {
     CAN_rx_update();
     CAN_tx_update();
 }
@@ -126,18 +126,18 @@ void AMK_task() {
     AMK_periodic(&g_car.front_left);
     AMK_periodic(&g_car.rear_left);
     AMK_periodic(&g_car.rear_right);
+    CAN_tx_update();
 }
 
 void update_precharge() {
     // todo: check polarity of this signal
-    g_car.is_precharge_complete = PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
-    update_fault(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE, !g_car.is_precharge_complete);
+    update_fault(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE, PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN));
 }
 
 defineThreadStack(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);
 defineThreadStack(update_SDC, 5, osPriorityIdle, 256); // the delay is within the thread
 defineThreadStack(update_precharge, 50, osPriorityIdle, 256);
-defineThreadStack(can_worker_task, 10, osPriorityHigh, 1024);
+defineThreadStack(background_can_update, 10, osPriorityHigh, 1024);
 defineThreadStack(fsm_periodic, 20, osPriorityNormal, 2048);
 defineThreadStack(AMK_task, 15, osPriorityNormal, 1024);
 defineThreadStack(fault_library_periodic, 100, osPriorityLow, 1024);
@@ -167,7 +167,7 @@ int main(void) {
     osKernelInitialize();
 
     createThread(heartbeat_task);
-    createThread(can_worker_task);
+    createThread(background_can_update);
     createThread(update_SDC);
     createThread(fsm_periodic);
     createThread(AMK_task);

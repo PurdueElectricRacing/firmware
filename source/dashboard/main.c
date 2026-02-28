@@ -299,7 +299,7 @@ void heartbeat_led() {
         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     }
 
-    if (!can_data.main_hb.stale && can_data.main_hb.precharge_state) {
+    if (is_latched(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE)) {
         PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
     } else {
         PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);

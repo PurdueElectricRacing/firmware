@@ -46,15 +46,15 @@ static inline bool is_init_complete() {
     return true;
 }
 
-static inline bool is_TSMS_high() {
-    return true;
+static inline bool is_TSMS_closed() {
+    return !is_latched(FAULT_ID_MAIN_MODULE_SDC16_TSMS);
 }
 
 static inline bool is_precharge_complete() {
     return !is_latched(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE);
 }
 
-static inline bool is_AMKS_running() {
+static inline bool is_all_AMKS_running() {
     return g_car.front_right.state == AMK_STATE_RUNNING
         && g_car.front_left.state  == AMK_STATE_RUNNING
         && g_car.rear_left.state   == AMK_STATE_RUNNING
@@ -94,11 +94,15 @@ void set_brake_light() {
 void fsm_periodic() {
     g_car.current_state = g_car.next_state;
     g_car.next_state    = g_car.current_state; // explicit self loop
+    CAN_rx_update();
 
     // check SDC before doing anything else
     if (is_fatal_latched()) {
         g_car.next_state = CARSTATE_FATAL;
     }
+
+    // amks need a bool to point to for precharge status
+    g_car.is_precharge_complete = !is_latched(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE);
 
     set_brake_light();
 
@@ -114,7 +118,7 @@ void fsm_periodic() {
         case CARSTATE_IDLE: {
             // do nothing for now
 
-            if (is_TSMS_high()) {
+            if (is_TSMS_closed()) {
                 g_car.next_state = CARSTATE_PRECHARGING;
             }
             break;
@@ -130,7 +134,7 @@ void fsm_periodic() {
         case CARSTATE_ENERGIZED: {
             // do nothing for now
 
-            if (is_start_button_pressed() && is_AMKS_running()) {
+            if (is_start_button_pressed() && is_all_AMKS_running()) {
                 g_car.buzzer_start_time = OS_TICKS;
                 g_car.next_state = CARSTATE_BUZZING;
             }

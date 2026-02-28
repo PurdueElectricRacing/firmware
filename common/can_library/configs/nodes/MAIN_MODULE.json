@@ -608,7 +608,7 @@
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC1 is Open"
+            "lcd_message": "SDC1 (IMD) is open"
         },
         {
             "fault_name": "SDC2_Open",
@@ -617,7 +617,7 @@
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC2 is Open"
+            "lcd_message": "SDC2 (BMS) is open"
         },
         {
             "fault_name": "SDC3_Open",
@@ -626,7 +626,7 @@
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC3 is Open"
+            "lcd_message": "SDC3 (BSPD) is open"
         },
         {
             "fault_name": "SDC4_Open",
@@ -635,7 +635,7 @@
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC4 is Open"
+            "lcd_message": "SDC4 (MCU_GOOD) is open"
         },
         {
             "fault_name": "SDC5_Open",
@@ -644,7 +644,7 @@
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC5 is Open"
+            "lcd_message": "SDC5 (BOTS) is open"
         },
         {
             "fault_name": "SDC6_Open",
@@ -653,7 +653,7 @@
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC6 is Open"
+            "lcd_message": "SDC6 (INERTIA) is open"
         },
         {
             "fault_name": "SDC7_Open",
@@ -662,7 +662,7 @@
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC7 is Open"
+            "lcd_message": "SDC7 (COCKPIT_ESTOP) is open"
         },
         {
             "fault_name": "SDC8_Open",
@@ -671,7 +671,7 @@
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC8 is Open"
+            "lcd_message": "SDC8 is open"
         },
         {
             "fault_name": "SDC9_Open",
@@ -680,7 +680,7 @@
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC9 is Open"
+            "lcd_message": "SDC9 (FRONT_INTERLOCK) is open"
         },
         {
             "fault_name": "SDC10_Open",
@@ -689,7 +689,7 @@
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC10 is Open"
+            "lcd_message": "SDC10 (RIGHT_ESTOP) is open"
         },
         {
             "fault_name": "SDC11_Open",
@@ -698,7 +698,7 @@
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC11 is Open"
+            "lcd_message": "SDC11 (LEFT_ESTOP) is open"
         },
         {
             "fault_name": "SDC12_Open",
@@ -707,7 +707,7 @@
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC12 is Open"
+            "lcd_message": "SDC12 (MSD) is open"
         },
         {
             "fault_name": "SDC13_Open",
@@ -716,7 +716,7 @@
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC13 is Open"
+            "lcd_message": "SDC13 (E_METER) is open"
         },
         {
             "fault_name": "SDC14_Open",
@@ -725,7 +725,7 @@
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC14 is Open"
+            "lcd_message": "SDC14 (REAR_INTERLOCK)is open"
         },
         {
             "fault_name": "SDC15_Open",
@@ -734,7 +734,7 @@
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC15 is Open"
+            "lcd_message": "SDC15 is open"
         },
         {
             "fault_name": "SDC16_Open",
@@ -743,7 +743,7 @@
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC16 is Open"
+            "lcd_message": "SDC16 (TSMS) is open"
         },
         {
             "fault_name": "SDC17_Open",
@@ -752,7 +752,7 @@
             "priority": "fatal",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
-            "lcd_message": "SDC17 is Open"
+            "lcd_message": "SDC17 (PRECHARGE) is open"
         }
 
     ]

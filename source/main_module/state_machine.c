@@ -100,6 +100,8 @@ void fsm_periodic() {
         g_car.current_state = CARSTATE_FATAL;
     }
 
+    set_brake_light();
+
     // update precharge status
     bool precharge_pin = !PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
     update_fault(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE, precharge_pin);
@@ -181,6 +183,4 @@ void fsm_periodic() {
     PHAL_writeGPIO(TSAL_GREEN_CTRL_PORT, TSAL_GREEN_CTRL_PIN, g_car.tsal_green_enable);
     PHAL_writeGPIO(TSAL_RED_CTRL_PORT, TSAL_RED_CTRL_PIN, g_car.tsal_red_enable);
     PHAL_writeGPIO(BUZZER_PORT, BUZZER_PIN, g_car.buzzer_enable);
-
-    set_brake_light();
 }

@@ -31,7 +31,12 @@ static constexpr float POT_VOLT_MIN_R = 4092.0f;
 #define POT_DIST_DROOP_L 56
 #define POT_DIST_DROOP_R 55
 
+#define SEND_LOAD CAN_SEND_front_load
+#define SEND_BRAKE_TEMPS CAN_SEND_front_brake_temps
+
+
 // others here
+
 #endif
 
 #ifdef IS_REAR_DRIVELINE
@@ -47,6 +52,8 @@ static constexpr float POT_VOLT_MIN_R = 4092.0f;
 #define POT_MAX_DIST     75
 #define POT_DIST_DROOP_L 56
 #define POT_DIST_DROOP_R 55
+#define SEND_LOAD CAN_SEND_rear_load
+#define SEND_BRAKE_TEMPS CAN_SEND_rear_brake_temps
 
 // others here
 #endif

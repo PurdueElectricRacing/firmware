@@ -26,7 +26,17 @@ GPIOInitConfig_t gpio_config[] = {
 
     // VCAN
     GPIO_INIT_FDCAN2RX_PB12,
-    GPIO_INIT_FDCAN2TX_PB13
+    GPIO_INIT_FDCAN2TX_PB13,
+
+     // Shock Pots
+    GPIO_INIT_ANALOG(SHOCKPOT_LEFT_GPIO_PORT , SHOCKPOT_LEFT_GPIO_PIN),
+    GPIO_INIT_ANALOG(SHOCKPOT_RIGHT_GPIO_PORT, SHOCKPOT_RIGHT_GPIO_PIN),
+
+    //Load Cells
+    GPIO_INIT_ANALOG(LOAD_FL_GPIO_Port, LOAD_FL_Pin),
+    GPIO_INIT_ANALOG(LOAD_FR_GPIO_Port, LOAD_FR_Pin)
+
+
 };
 
 static constexpr uint32_t TargetCoreClockrateHz = 16000000;
@@ -51,6 +61,12 @@ ADCInitConfig_t adc_config = {
 ADCChannelConfig_t adc_channel_config[] = {
     {.channel = SHOCKPOT_LEFT_ADC_CHNL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = SHOCKPOT_RIGHT_ADC_CHNL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LOAD_FL_ADC_CH, .rank = 7, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LOAD_FR_ADC_CH, .rank = 8, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+     {.channel = LOAD_RL_ADC_CH, .rank = 7, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = LOAD_RR_ADC_CH, .rank = 8, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = BRAKE_TEMP_L_ADC_CH, .rank = 9, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = BRAKE_TEMP_R_ADC_CH, .rank = 10, .sampling_time = ADC_CHN_SMP_CYCLES_480},
 };
 
 // note: this struct is the target of the DMA controller,
@@ -59,6 +75,10 @@ ADCChannelConfig_t adc_channel_config[] = {
 typedef struct {
     uint16_t shock_l;
     uint16_t shock_r;
+    uint16_t load_left;
+    uint16_t load_right;
+    uint16_t brake_temp_left;
+    uint16_t brake_temp_right;
 } raw_adc_values_t;
 volatile raw_adc_values_t raw_adc_values;
 dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc_values, sizeof(raw_adc_values) / sizeof(uint16_t), 0b01);
@@ -71,8 +91,13 @@ extern uint32_t PLLClockRateHz;
 
 extern void HardFault_Handler();
 void shockpot_thread();
+void loadcell_thread();
+void braketemp_thread();
+
 
 defineThreadStack(shockpot_thread, 100, osPriorityNormal, 512);
+defineThreadStack(loadcell_thread, 100, osPriorityNormal, 512);
+defineThreadStack(braketemp_thread, 100, osPriorityNormal, 512);
 
 int main(void) {
     // Hardware Initilization
@@ -119,6 +144,36 @@ void shockpot_thread() {
     #ifdef SEND_SHOCKPOTS
     SEND_SHOCKPOTS(shock_l_scaled, shock_r_scaled);
     #endif
+}
+
+float load_l_kg;
+float load_r_kg;
+// convert voltage to kg - yash
+void loadcell_thread() {
+    //Loading Data from struct
+    uint16_t load_l = raw_adc_values.load_left;
+    uint16_t load_r = raw_adc_values.load_right;
+
+    //Calculation is (ADC_reading)/5V * calibrated weight
+    load_l_kg = (load_l / LOAD_VOLT_MAX) * LOAD_CELL_CALIBRATION; 
+    load_r_kg = (load_r / LOAD_VOLT_MAX) * LOAD_CELL_CALIBRATION; 
+
+    SEND_LOAD(load_l_kg,load_r_kg);
+}
+
+// convert voltage to celsius?
+int16_t brake_temp_l;
+int16_t brake_temp_r;
+
+void braketemp_thread() {
+
+    //get raw voltage from brake temp sensors
+    double brake_temp_v_l = raw_adc_values.brake_temp_left;
+    double brake_temp_v_r = raw_adc_values.brake_temp_right;
+    brake_temp_l = (int16_t) (brake_temp_v_l - 0.5)/0.005;
+    brake_temp_r = (int16_t) (brake_temp_v_r - 0.5)/0.005;
+    SEND_BRAKE_TEMPS(brake_temp_l, brake_temp_r);
+
 }
 
 // todo reboot on hardfault

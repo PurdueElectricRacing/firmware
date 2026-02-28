@@ -59,8 +59,8 @@
                             "sig_desc": "int representation of git short hash"
                         }
                     ],
-                    "msg_priority": 5,
-                    "msg_period": 5000
+                    "msg_period": 10,
+                    "msg_priority": 5
                 },
                 {
                     "msg_name": "rear_driveline_version",
@@ -72,9 +72,105 @@
                             "sig_desc": "int representation of git short hash"
                         }
                     ],
-                    "msg_priority": 5,
+                    "msg_period": 5000,
+                    "msg_priority": 5
+                },
+                {
+                    "msg_name": "front_load",
+                    "msg_desc": "Load Sensor readings from left and right",
+                    "signals": [
+                      {
+                        "sig_name": "left_load_sensor",
+                        "sig_desc": "Left Normal Force",
+                        "type": "float",
+                        "unit": "N",
+                        "scale": 0.1
+
+                      },
+                      {
+                        "sig_name": "right_load_sensor",
+                        "sig_desc": "Right Normal Force",
+                        "type": "float",
+                        "unit": "N",
+                        "scale": 0.1
+
+                      }
+                    ],
+                   "msg_priority": 5,
+                    "msg_period": 10
+                  },
+                  {
+                    "msg_name": "rear_load",
+                    "msg_desc": "Load Sensor readings from left and right",
+                    "signals": [
+                      {
+                        "sig_name": "left_load_sensor",
+                        "sig_desc": "Left Normal Force",
+                        "type": "float",
+                        "unit": "N",
+                        "scale": 0.1
+
+                      },
+                      {
+                        "sig_name": "right_load_sensor",
+                        "sig_desc": "Right Normal Force",
+                        "type": "float",
+                        "unit": "N",
+                        "scale": 0.1
+
+                      }
+                    ],
+                    "msg_period": 15,
+                    "msg_priority": 5
+                  },
+                  {
+                    "msg_name": "front_brake_temps",
+                    "msg_desc":"IR temps from front",
+                    "signals":[
+                      {
+                          "sig_name":"left_brake",
+                          "sig_desc":"IR temp from front left",
+                          "type":"int16_t",
+                          "unit":"degC",
+                          "scale": 0.1
+
+                      },
+                      {
+                        "sig_name":"right_brake",
+                        "sig_desc":"IR temp from front right",
+                        "type":"int16_t",
+                        "unit":"degC",
+                        "scale": 0.1
+
+                    }
+                    ],
+                    "msg_priority": 4,
                     "msg_period": 5000
-                }
+                  },
+                  {
+                    "msg_name": "rear_brake_temps",
+                    "msg_desc":"IR temps from rear",
+                    "signals":[
+                      {
+                          "sig_name":"left_brake",
+                          "sig_desc":"IR temp from rear left",
+                          "type":"int16_t",
+                          "unit":"degC",
+                          "scale": 0.1
+
+                      },
+                      {
+                        "sig_name":"right_brake",
+                        "sig_desc":"IR temp from rear right",
+                        "type":"int16_t",
+                        "unit":"degC",
+                        "scale": 0.1
+
+                    }
+                    ],
+                   "msg_priority": 4,
+                    "msg_period": 5000
+                  }
             ],
             "rx": []
         }

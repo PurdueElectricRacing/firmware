@@ -85,15 +85,17 @@ static void _sd_write_periodic(bool bypass) {
         return;
 
     // Use the total item count, not contiguous for the threshold
-    if (!(bypass || bGetItemCount(&b_rx_can, RX_TAIL_SD) >= SD_MAX_WRITE_COUNT)) {
+    consecutive_items = SPMC_master_get_total(&queue, &buf);
+    if (!(bypass || consecutive_items >= SD_MAX_WRITE_COUNT)) {
         return;
     }
 
-    if (bGetTailForRead(&b_rx_can, RX_TAIL_SD, (void**)&buf, &consecutive_items) != 0) {
+    if (SPMC_master_peek_batch(&queue, &buf) == 0) {
         daq_hub.sd_rx_overflow++;
         return;
     }
 
+    consecutive_items = SPMC_master_peek_batch(&queue, &buf);
     if (consecutive_items > SD_MAX_WRITE_COUNT) {
         consecutive_items = SD_MAX_WRITE_COUNT; // enforce the limit
     }
@@ -105,7 +107,7 @@ static void _sd_write_periodic(bool bypass) {
         sd_handle_error(SD_ERROR_WRITE, result);
     } else {
         daq_hub.last_write_ms = getTick();
-        bCommitRead(&b_rx_can, RX_TAIL_SD, bytes_written / sizeof(*buf));
+        SPMC_master_commit(&queue, bytes_written/sizeof(*buf));
         sd_file_sync(); // fsync takes only 4 ticks and ensures sure cache is flushed on close
     }
     PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
@@ -119,7 +121,6 @@ void sd_shutdown(void) {
             f_close(&daq_hub.log_fp); // Close file
         case SD_STATE_MOUNTED:
             f_mount(0, "", 1); // Unmount drive
-            bDeactivateTail(&b_rx_can, RX_TAIL_SD);
         case SD_STATE_IDLE:
             SD_DeInit(); // Shutdown SDIO peripheral
         default:
@@ -157,7 +158,6 @@ void sd_update_periodic(void) {
                 break;
             }
 
-            bActivateTail(&b_rx_can, RX_TAIL_SD);
             daq_hub.sd_state = SD_STATE_MOUNTED;
             PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
             debug_printf("SD UP!\n");

@@ -1,7 +1,6 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-#include "buffer.h"
 #include "common/freertos/freertos.h"
 #include "common/log/log.h"
 #include "daq_hub.h"
@@ -53,40 +52,21 @@
 #define GREAT PER
 static_assert(PER == GREAT); // Long live daq loop
 
-// Buffer size configurations
-// TODO estimate bus load and calculate values
-#define RX_BUFF_ITEM_COUNT 2048 // CAN Receive Buffer Configuration
-#define DAQ_CAN1_RX_COUNT  2048 // Large buffer needed for BL
-#define TCP_RX_ITEM_COUNT  100 // Large buffer needed for BL
-#define TCP_TX_ITEM_COUNT  32 //
-
 #define SD_WRITE_PERIOD_MS    (100)
 #define SD_NEW_FILE_PERIOD_MS (1 * 60 * 1000) // 1 min
-#define SD_MAX_WRITE_COUNT    (500)
+#define SD_MAX_WRITE_COUNT    (100)
 #define SD_ERROR_RETRY_MS     (250)
 #define ETH_ERROR_RETRY_MS    (250)
+#define SD_BLOCKING_TIMEOUT_MS (5000)
 
 #define UDP_MAX_BUFFER_SIZE (8192)
 #define UDP_MAX_WRITE_COUNT (UDP_MAX_BUFFER_SIZE / (sizeof(timestamped_frame_t)))
 
-typedef enum {
-    RX_TAIL_CAN_RX = 0, //!< CAN rx message parsing
-    RX_TAIL_SD     = 1, //!< SD Card
-    RX_TAIL_UDP    = 2, //!< UDP Broadcast
-    RX_TAIL_USB    = 3, //!< USB Send
-    RX_TAIL_COUNT  = 4,
-} rx_tail_t;
+#define STD_ID_MASK ((1U << 11) - 1)
 
-typedef enum {
-    TCP_RX_TAIL_CAN_TX = 0,
-    TCP_RX_TAIL_SD     = 1,
-    TCP_RX_TAIL_COUNT  = 2,
-} tcp_rx_tail_t;
+constexpr TickType_t SD_BLOCKING_TIMEOUT_TICKS = pdMS_TO_TICKS(SD_BLOCKING_TIMEOUT_MS); 
 
-extern b_handle_t b_rx_can;
-extern QueueHandle_t q_tcp_tx;
-extern QueueHandle_t q_can1_rx;
-extern timestamped_frame_t tcp_rx_buf[TCP_RX_ITEM_COUNT];
+extern SPMC_t queue;
 extern SemaphoreHandle_t spi1_lock;
 
 void HardFault_Handler();

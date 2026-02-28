@@ -24,19 +24,10 @@
 #include "daq_rtc_config.h"
 #include "ff.h"
 #include "sdio.h"
+#include "spmc.h"
 
 typedef uint32_t canid_t;
 typedef uint8_t busid_t;
-
-typedef struct __attribute__((packed)) {
-    uint8_t frame_type; //!< daq_frame_type_t
-    uint32_t tick_ms; //!< ms timestamp of reception
-    canid_t msg_id; //!< message id
-    busid_t bus_id; //!< bus the message was rx'd on
-    uint8_t dlc; //!< data length code
-    uint8_t data[8]; //!< message data
-} timestamped_frame_t;
-
 typedef struct
 {
     // Ethernet
@@ -55,6 +46,7 @@ typedef struct
     sd_error_t sd_last_err;
     FRESULT sd_last_err_res;
     uint32_t sd_last_error_time;
+    xTaskHandle sd_task_handle;
 
     FIL log_fp;
     uint32_t log_start_ms;

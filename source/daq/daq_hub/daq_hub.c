@@ -31,12 +31,10 @@ daq_hub_t daq_hub;
 static void daq_heartbeat(void);
 static void can_send_periodic(void);
 
-defineThreadStack(daq_heartbeat, 500, osPriorityNormal, 128); // HB
+defineThreadStack(daq_heartbeat, 500, osPriorityNormal, 512); // HB
 defineThreadStack(sd_update_periodic, 100, osPriorityNormal, 4096); // SD WRITE
 defineThreadStack(eth_update_periodic, 50, osPriorityNormal, 4096); // SD WRITE
 defineThreadStack(can_send_periodic, 50, osPriorityNormal, 128); // CAN1 TX
-
-//defineThreadStack(uds_receive_periodic, 50, osPriorityHigh, 2048); // DAQ CAN RX
 
 void daq_hub_init(void) {
     // Ethernet
@@ -53,6 +51,7 @@ void daq_hub_init(void) {
     daq_hub.sd_last_error_time = 0;
     daq_hub.sd_last_err        = SD_ERROR_NONE;
     daq_hub.sd_last_err_res    = 0;
+    daq_hub.sd_task_handle     = NULL;
 
     daq_hub.rtc_config_state = RTC_SYNC_PENDING;
     
@@ -70,7 +69,7 @@ void daq_hub_init(void) {
 void daq_create_threads(void) {
     createThread(daq_heartbeat); // HB
     createThread(sd_update_periodic); // SD WRITE
-    // createThread(eth_update_periodic); // SD WRITE
+    createThread(eth_update_periodic); // BULLET COMMS 
     createThread(can_send_periodic); // CAN1 TX
 
 }
@@ -88,34 +87,6 @@ static void can_send_periodic(void) {
     CAN_rx_update();
 }
 
-void uds_frame_send(uint64_t data) {
-#if 0
-    timestamped_frame_t frame = {.frame_type = DAQ_FRAME_UDP_TX, .tick_ms = getTick(), .msg_id = ID_UDS_RESPONSE_DAQ, .bus_id = BUS_ID_CAN1, .dlc = 8 };
-    frame.msg_id |= CAN_EFF_FLAG;
-    memcpy(frame.data, (uint8_t *)&data, sizeof(uint64_t));
-
-    SEND_UDS_RESPONSE_DAQ(data);
-    eth_tcp_send_frame(&frame);
-    //eth_udp_send_frame(&frame); // dont send for now
-#endif
-}
-
-/**
- * Pull UDS CAN frames out of UDS queue added during CAN1/CAN2 ISR
- * and process them in non-interrupt context
- */
-void uds_receive_periodic(void) {
-#if 0
-    timestamped_frame_t rx_msg;
-    while (xQueueReceive(q_can1_rx, &rx_msg, portMAX_DELAY) == pdPASS)
-    {
-        CanParsedData_t *msg_data_a = (CanParsedData_t *) &rx_msg.data;
-        uds_command_daq_CALLBACK(msg_data_a->uds_command_daq.payload);
-    }
-#endif
-}
-
-// bank->BSRR |= 1 << ((!value << 4) | pin);
 #define GPIO_CLEAR_BIT(PIN) ((1 << ((1 << 4) | (PIN))))
 
 void daq_shutdown_hook(void) {

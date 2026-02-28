@@ -155,8 +155,6 @@ int main() {
     configure_interrupts();
 
     createStaticSemaphore(spi1_lock);
-    createStaticQueue(q_tcp_tx, timestamped_frame_t, TCP_TX_ITEM_COUNT);
-    createStaticQueue(q_can1_rx, timestamped_frame_t, DAQ_CAN1_RX_COUNT);
     daq_create_threads();
 
     osKernelStart();
@@ -221,7 +219,7 @@ static void can_rx_irq_handler(CAN_TypeDef* can_h) {
         SPMC_enqueue_ISR(&queue,rx);
 
         // i promise ill move this
-        #define STD_ID_MASK ((1U < 11) - 1)
+        #define STD_ID_MASK ((1U << 11) - 1)
         if ((daq_hub.rtc_config_state != RTC_SYNC_COMPLETE) && ((rx->identity & STD_ID_MASK) == GPS_TIME_MSG_ID)) rtc_config_cb(rx);
     } 
 

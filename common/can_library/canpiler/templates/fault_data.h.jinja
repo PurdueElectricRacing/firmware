@@ -17,8 +17,8 @@
 #ifdef CAN_NODE_{{ node.name|upper }}
 #define FAULT_LIB_ENABLED
 {% if node.faults %}
-#define MY_FAULT_START (FAULT_INDEX_{{ node.name|upper }}_{{ node.faults[0].name|upper }})
-#define MY_FAULT_END (FAULT_INDEX_{{ node.name|upper }}_{{ node.faults[-1].name|upper }})
+#define MY_FAULT_START (FAULT_ID_{{ node.name|upper }}_{{ node.faults[0].name|upper }})
+#define MY_FAULT_END (FAULT_ID_{{ node.name|upper }}_{{ node.faults[-1].name|upper }})
 {% endif %}
 {% if node.generate_fault_strings %}
 #define HAS_FAULT_STRINGS
@@ -40,6 +40,6 @@ extern const char* const fault_strings[TOTAL_NUM_FAULTS];
 
 // Transmission Helpers
 void tx_fault_sync(void);
-void tx_fault_event(fault_index_t idx, uint16_t value);
+void tx_fault_event(fault_id_t idx, uint16_t value);
 
 #endif // FAULT_DATA_H

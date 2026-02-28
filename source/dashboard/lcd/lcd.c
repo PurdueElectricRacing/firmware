@@ -650,7 +650,7 @@ void sdcTelemetryUpdate() {
 
     updateSDCStatus(can_data.precharge_hb.IMD, SDC_IMD_STAT_TXT); // IMD from ABOX
     updateSDCStatus(can_data.precharge_hb.BMS, SDC_BMS_STAT_TXT);
-    updateSDCStatus(!is_latched(FAULT_INDEX_DASHBOARD_BSPD), SDC_BSPD_STAT_TXT);
+    updateSDCStatus(!is_latched(FAULT_ID_DASHBOARD_BSPD), SDC_BSPD_STAT_TXT);
     updateSDCStatus(can_data.sdc_status.BOTS, SDC_BOTS_STAT_TXT);
     updateSDCStatus(can_data.sdc_status.inertia, SDC_INER_STAT_TXT);
     updateSDCStatus(can_data.sdc_status.c_estop, SDC_CSTP_STAT_TXT);

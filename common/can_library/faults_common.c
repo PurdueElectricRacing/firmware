@@ -21,20 +21,20 @@ static_assert(MY_FAULT_END < TOTAL_NUM_FAULTS);
 #error "Fault library misconfigured"
 #endif
 
-bool is_latched(fault_index_t fault_index) {
-    if (fault_index >= TOTAL_NUM_FAULTS) {
+bool is_latched(fault_id_t fault_id) {
+    if (fault_id >= TOTAL_NUM_FAULTS) {
         return false;
     }
 
-    return faults[fault_index].state == FAULT_STATE_LATCHED;
+    return faults[fault_id].state == FAULT_STATE_LATCHED;
 }
 
-void update_fault(fault_index_t fault_index, uint16_t value) {
-    if ((fault_index < MY_FAULT_START) || (fault_index > MY_FAULT_END)) {
+void update_fault(fault_id_t fault_id, uint16_t value) {
+    if ((fault_id < MY_FAULT_START) || (fault_id > MY_FAULT_END)) {
         return;
     }
 
-    fault_t *fault        = &faults[fault_index];
+    fault_t *fault        = &faults[fault_id];
     uint32_t now          = OS_TICKS;
     // min is inclusive, max is exclusive, so the healthy range is [min, max)
     bool is_out_of_bounds = (value >= fault->max_value) || (value < fault->min_value);
@@ -60,7 +60,7 @@ void update_fault(fault_index_t fault_index, uint16_t value) {
             // do not update the start_time
             if (elapsed >= fault->latch_time_ms) {
                 fault->state = FAULT_STATE_LATCHED;
-                tx_fault_event(fault_index, value);
+                tx_fault_event(fault_id, value);
             }
             break;
         }
@@ -122,7 +122,7 @@ bool is_any_latched() {
 }
 
 #ifdef HAS_FAULT_STRINGS
-const char *get_fault_string(fault_index_t idx) {
+const char *get_fault_string(fault_id_t idx) {
     if (idx >= TOTAL_NUM_FAULTS)
         return nullptr;
     return fault_strings[idx];

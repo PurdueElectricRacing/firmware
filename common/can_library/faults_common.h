@@ -37,8 +37,8 @@ typedef struct {
 } fault_t;
 
 // API
-void update_fault(fault_index_t idx, uint16_t value);
-bool is_latched(fault_index_t idx);
+void update_fault(fault_id_t idx, uint16_t value);
+bool is_latched(fault_id_t idx);
 void fault_library_periodic();
 
 bool is_warning_latched();
@@ -49,7 +49,7 @@ bool is_other_mcus_latched();
 bool is_any_latched();
 
 #ifdef HAS_FAULT_STRINGS
-const char* get_fault_string(fault_index_t idx);
+const char* get_fault_string(fault_id_t idx);
 #endif
 
 #endif // FAULTS_COMMON_H

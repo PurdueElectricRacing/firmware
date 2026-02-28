@@ -65,7 +65,7 @@ if(MODULES STREQUAL "")
         g4_testing
         a_box
         dashboard
-        daq
+        # daq
         driveline
         main_module
         pdu

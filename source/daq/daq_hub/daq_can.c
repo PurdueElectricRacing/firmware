@@ -9,7 +9,7 @@
 
 // TODO move to freertos queues
 can_stats_t can_stats_daq;
-static uint32_t mbx_last_send_time[CAN_BUS_COUNT][CAN_TX_MAILBOX_CNT];
+// static uint32_t mbx_last_send_time[CAN_BUS_COUNT][CAN_TX_MAILBOX_CNT];
 
 #define CAN_TX_BLOCK_TIMEOUT (30 * 16000) // clock rate 16MHz, 15ms * 16000 cyc / ms
 

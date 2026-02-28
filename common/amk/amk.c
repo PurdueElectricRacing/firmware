@@ -88,7 +88,7 @@ void AMK_periodic(AMK_t *amk) {
                             || amk->err1->AMK_DiagnosticNumber == AMK_DC_BUS_ID);
 
     bool is_DcOn_acknowledged       = amk->info->AMK_Status_bQuitDcOn;
-    bool is_InverterOn_acknowledged = amk->info->AMK_Status_bInverterOn;
+    bool is_InverterOn_acknowledged = amk->info->AMK_Status_bQuitInverterOn;
 
     switch (amk->state) {
         case AMK_STATE_OFF:

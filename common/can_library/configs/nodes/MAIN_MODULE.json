@@ -740,7 +740,7 @@
             "fault_name": "PRECHARGE_INCOMPLETE",
             "max": 1,
             "min": 0,
-            "priority": "fatal",
+            "priority": "error",
             "time_to_latch": 32,
             "time_to_unlatch": 100,
             "lcd_message": "Precharge is not complete"

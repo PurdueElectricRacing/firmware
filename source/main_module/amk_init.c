@@ -85,12 +85,12 @@ void init_amks() {
     AMK_init(
         &g_car.front_right,
         flush_inva,
-        &can_data.INVA_SET,
-        &can_data.INVA_CRIT,
-        &can_data.INVA_INFO,
-        &can_data.INVA_TEMPS,
-        &can_data.INVA_ERR_1,
-        &can_data.INVA_ERR_2,
+        (INVA_SET_data_t *) &can_data.INVA_SET,
+        (INVA_CRIT_data_t *) &can_data.INVA_CRIT,
+        (INVA_INFO_data_t *) &can_data.INVA_INFO,
+        (INVA_TEMPS_data_t *) &can_data.INVA_TEMPS,
+        (INVA_ERR_1_data_t *) &can_data.INVA_ERR_1,
+        (INVA_ERR_2_data_t *) &can_data.INVA_ERR_2,
         &g_car.is_precharge_complete
     );
 
@@ -98,12 +98,12 @@ void init_amks() {
      AMK_init(
         &g_car.front_left,
         flush_invb,
-        &can_data.INVB_SET,
-        &can_data.INVB_CRIT,
-        &can_data.INVB_INFO,
-        &can_data.INVB_TEMPS,
-        &can_data.INVB_ERR_1,
-        &can_data.INVB_ERR_2,
+        (INVA_SET_data_t *) &can_data.INVB_SET,
+        (INVA_CRIT_data_t *) &can_data.INVB_CRIT,
+        (INVA_INFO_data_t *) &can_data.INVB_INFO,
+        (INVA_TEMPS_data_t *) &can_data.INVB_TEMPS,
+        (INVA_ERR_1_data_t *) &can_data.INVB_ERR_1,
+        (INVA_ERR_2_data_t *) &can_data.INVB_ERR_2,
         &g_car.is_precharge_complete
     );
 
@@ -111,12 +111,12 @@ void init_amks() {
     AMK_init(
         &g_car.rear_left,
         flush_invc,
-        &can_data.INVC_SET,
-        &can_data.INVC_CRIT,
-        &can_data.INVC_INFO,
-        &can_data.INVC_TEMPS,
-        &can_data.INVC_ERR_1,
-        &can_data.INVC_ERR_2,
+        (INVA_SET_data_t *) &can_data.INVC_SET,
+        (INVA_CRIT_data_t *) &can_data.INVC_CRIT,
+        (INVA_INFO_data_t *) &can_data.INVC_INFO,
+        (INVA_TEMPS_data_t *) &can_data.INVC_TEMPS,
+        (INVA_ERR_1_data_t *) &can_data.INVC_ERR_1,
+        (INVA_ERR_2_data_t *) &can_data.INVC_ERR_2,
         &g_car.is_precharge_complete
     );
 
@@ -124,12 +124,12 @@ void init_amks() {
     AMK_init(
         &g_car.rear_right,
         flush_invd,
-        &can_data.INVD_SET,
-        &can_data.INVD_CRIT,
-        &can_data.INVD_INFO,
-        &can_data.INVD_TEMPS,
-        &can_data.INVD_ERR_1,
-        &can_data.INVD_ERR_2,
+        (INVA_SET_data_t *) &can_data.INVD_SET,
+        (INVA_CRIT_data_t *) &can_data.INVD_CRIT,
+        (INVA_INFO_data_t *) &can_data.INVD_INFO,
+        (INVA_TEMPS_data_t *) &can_data.INVD_TEMPS,
+        (INVA_ERR_1_data_t *) &can_data.INVD_ERR_1,
+        (INVA_ERR_2_data_t *) &can_data.INVD_ERR_2,
         &g_car.is_precharge_complete
     );
 }

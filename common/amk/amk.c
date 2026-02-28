@@ -20,23 +20,23 @@ static constexpr int16_t AMK_DEFAULT_NEG_LIMIT = -1;
 void AMK_init(
     AMK_t *amk,
     void (*set_function)(void),
-    void *set,
-    void *crit,
-    void *info,
-    void *temps,
-    void *err1,
-    void *err2,
+    INVA_SET_data_t *set,
+    INVA_CRIT_data_t *crit,
+    INVA_INFO_data_t *info,
+    INVA_TEMPS_data_t *temps,
+    INVA_ERR_1_data_t *err1,
+    INVA_ERR_2_data_t *err2,
     bool *precharge_ptr
 ) {
     amk->next_state    = AMK_STATE_OFF;
     amk->state         = AMK_STATE_OFF;
     amk->set_function  = set_function;
-    amk->set           = (INVA_SET_data_t *)set;
-    amk->crit          = (INVA_CRIT_data_t *)crit;
-    amk->info          = (INVA_INFO_data_t *)info;
-    amk->temps         = (INVA_TEMPS_data_t *)temps;
-    amk->err1          = (INVA_ERR_1_data_t *)err1;
-    amk->err2          = (INVA_ERR_2_data_t *)err2;
+    amk->set           = set;
+    amk->crit          = crit;
+    amk->info          = info;
+    amk->temps         = temps;
+    amk->err1          = err1;
+    amk->err2          = err2;
     amk->precharge_ptr = precharge_ptr;
 
     // explicitly set all control flags to safe defaults

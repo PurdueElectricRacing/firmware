@@ -45,12 +45,12 @@ typedef struct {
 void AMK_init(
     AMK_t *amk,
     void (*set_func)(void),
-    void *set,
-    void *crit,
-    void *info,
-    void *temps,
-    void *err1,
-    void *err2,
+    INVA_SET_data_t *set,
+    INVA_CRIT_data_t *crit,
+    INVA_INFO_data_t *info,
+    INVA_TEMPS_data_t *temps,
+    INVA_ERR_1_data_t *err1,
+    INVA_ERR_2_data_t *err2,
     bool *precharge_ptr
 );
 

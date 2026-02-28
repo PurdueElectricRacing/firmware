@@ -23,9 +23,8 @@ typedef enum : uint8_t {
 
 typedef struct {
     // Flush functions
-    // ! must be a wrapper around CAN library
+    // ! must not be an inline function
     void (*set_function)(void);
-    void (*log_function)(void);
 
     // Direct pointers to CAN library data structures
     // ! cast all motor objects to INVA

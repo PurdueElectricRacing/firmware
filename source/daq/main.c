@@ -218,8 +218,6 @@ static void can_rx_irq_handler(CAN_TypeDef* can_h) {
 
         SPMC_enqueue_ISR(&queue,rx);
 
-        // i promise ill move this
-        #define STD_ID_MASK ((1U << 11) - 1)
         if ((daq_hub.rtc_config_state != RTC_SYNC_COMPLETE) && ((rx->identity & STD_ID_MASK) == GPS_TIME_MSG_ID)) rtc_config_cb(rx);
     } 
 

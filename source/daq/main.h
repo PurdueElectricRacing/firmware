@@ -62,6 +62,8 @@ static_assert(PER == GREAT); // Long live daq loop
 #define UDP_MAX_BUFFER_SIZE (8192)
 #define UDP_MAX_WRITE_COUNT (UDP_MAX_BUFFER_SIZE / (sizeof(timestamped_frame_t)))
 
+#define STD_ID_MASK ((1U << 11) - 1)
+
 constexpr TickType_t SD_BLOCKING_TIMEOUT_TICKS = pdMS_TO_TICKS(SD_BLOCKING_TIMEOUT_MS); 
 
 extern SPMC_t queue;

@@ -1514,6 +1514,7 @@ void DMA2_Stream6_IRQHandler(void) {
             vTaskNotifyGiveFromISR(daq_hub.sd_task_handle, &xHigherPriorityTaskWoken);
             daq_hub.sd_task_handle = NULL;
             //portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
+            // i probably should figure out why this is bad for wait read idk
         }
     }
 }

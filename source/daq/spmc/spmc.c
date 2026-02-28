@@ -45,8 +45,6 @@ int SPMC_enqueue_ISR(
     // commit next head only after the write is completed
     spmc->head = next_head;
 
-    // size_t num_frames = (spmc->head + SPMC_NUM_FRAMES - spmc->master_tail) % SPMC_NUM_FRAMES;
-    // ^^ num frames is checked when a tail tries to get a message i think idk im sleepy and cant think??
     return 0;
 }
 

@@ -31,14 +31,11 @@ timestamped_frame_t buf2;
 // Local protoptypes
 static void daq_heartbeat(void);
 static void can_send_periodic(void);
-// static void can_inject_fake(void);
 
 defineThreadStack(daq_heartbeat, 500, osPriorityNormal, 512); // HB
 defineThreadStack(sd_update_periodic, 100, osPriorityNormal, 4096); // SD WRITE
 defineThreadStack(eth_update_periodic, 50, osPriorityNormal, 4096); // SD WRITE
 defineThreadStack(can_send_periodic, 50, osPriorityNormal, 128); // CAN1 TX
-
-//defineThreadStack(uds_receive_periodic, 50, osPriorityHigh, 2048); // DAQ CAN RX
 
 void daq_hub_init(void) {
     // Ethernet
@@ -89,17 +86,8 @@ static void daq_heartbeat(void) {
 static void can_send_periodic(void) {
     CAN_tx_update();
     CAN_rx_update();
-    //can_inject_fake();
 }
 
-// static void can_inject_fake() {
-//     timestamped_frame_t *rx = &buf2;
-//     rx->ticks_ms = getTick();
-//     rx->identity = (uint32_t) (BUS_ID_CAN1) << 31; // bus 1 (VCAN??)
-//     rx->identity |= (uint32_t) 1 << 30; // assuming extended id
-//     rx->payload = 676767; 
-//     SPMC_enqueue_ISR(&queue, rx);
-// }
 #define GPIO_CLEAR_BIT(PIN) ((1 << ((1 << 4) | (PIN))))
 
 void daq_shutdown_hook(void) {

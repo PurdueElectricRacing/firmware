@@ -215,6 +215,7 @@ static void eth_udp_send_periodic(void) {
     }
 }
 
+#if 0
 static void eth_udp_send_frame(timestamped_frame_t* frame) {
     timestamped_frame_t* rx; // TODO check if this is safe (two producers)
     uint32_t cont;
@@ -224,6 +225,7 @@ static void eth_udp_send_frame(timestamped_frame_t* frame) {
         bCommitWrite(&b_rx_can, 1); // Add it to regular CAN RX queue that DAQ broadcasts
     }
 }
+#endif
 
 /* TCP */
 static int8_t eth_init_tcp(void) {
@@ -347,6 +349,7 @@ static void eth_tcp_receive_periodic(void) {
     }
 }
 
+#if 0
 static void eth_tcp_send_frame(timestamped_frame_t* frame) {
     if (daq_hub.eth_tcp_state == ETH_TCP_ESTABLISHED) // only send UDS response back if TCP established
     {
@@ -355,6 +358,7 @@ static void eth_tcp_send_frame(timestamped_frame_t* frame) {
         }
     }
 }
+#endif
 
 /* TODO buffer for TCP TX */
 static void _eth_tcp_send_frame_raw(timestamped_frame_t* frame) {

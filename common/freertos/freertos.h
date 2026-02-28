@@ -29,63 +29,89 @@
 #include <stdint.h>
 
 typedef struct {
-    void (*taskFunction)();
-    uint32_t period;
+    void (*taskFunction)(void);
+    uint32_t       period_ms;
     osThreadAttr_t attrs;
-    osThreadId_t handle;
-} ThreadWrapper;
+    osThreadId_t   handle;
+} ThreadWrapper_t;
 
-void rtosWrapper(void *);
+void rtosWrapper(void *arg);
 
-// Cursed macro
-#define threadWrapperName(NAME) (threadWrapper_##NAME)
-// TASK: task function name
-// PERIOD: period of task in ticks (should be ms)
-// PRIORITY: one of osPriorityNormal, osPriorityHigh, etc
-// STACK: stack size
-#define __defineThread(TASK, PERIOD, PRIORITY, STACK) \
-    static StaticTask_t taskWrapperCB_##TASK; \
-    static StackType_t taskWrapperStack_##TASK[(STACK) / sizeof(StackType_t)]; \
-    ThreadWrapper threadWrapperName(TASK) = { \
-        .taskFunction = &(TASK), \
-        .period       = (PERIOD), \
-        .attrs        = { \
-            .priority   = (PRIORITY), \
-            .stack_size = (STACK), \
-            .name       = "\"" #TASK "\"", \
-            .cb_mem     = &taskWrapperCB_##TASK, \
-            .cb_size    = sizeof(StaticTask_t), \
-            .stack_mem  = taskWrapperStack_##TASK, \
-        }};
+/**
+ * DEFINE_TASK: Scaffolds the static memory for a FreeRTOS task.
+ * @param NAME: The function name of the task.
+ * @param PERIOD_MS: Task period in milliseconds.
+ * @param PRIORITY: CMSIS-RTOS2 priority (e.g., osPriorityNormal).
+ * @param STACK_SIZE: Stack size in bytes.
+ */
+#define DEFINE_TASK(NAME, PERIOD_MS, PRIORITY, STACK_SIZE)                     \
+    static StaticTask_t task_cb_##NAME;                                        \
+    static uint32_t     task_stack_##NAME[(STACK_SIZE) / 4];                   \
+    ThreadWrapper_t     NAME##_wrapper = {                                     \
+        .taskFunction = (void (*)(void))NAME,                                  \
+        .period_ms    = (PERIOD_MS),                                           \
+        .attrs = {                                                             \
+            .name       = #NAME,                                               \
+            .attr_bits  = osThreadDetached,                                    \
+            .cb_mem     = &task_cb_##NAME,                                     \
+            .cb_size    = sizeof(StaticTask_t),                                \
+            .stack_mem  = &task_stack_##NAME,                                  \
+            .stack_size = sizeof(task_stack_##NAME),                           \
+            .priority   = (osPriority_t)(PRIORITY),                            \
+        }                                                                      \
+    }
 
-#define defineThread(T, D, P)         __defineThread(T, D, P, 1024) // TODO calculate stack size
-#define defineThreadStack(T, D, P, S) __defineThread(T, D, P, S)
+/**
+ * START_TASK: Initializes and starts the defined task.
+ */
+#define START_TASK(NAME)                                                       \
+    (NAME##_wrapper.handle = osThreadNew(rtosWrapper, &NAME##_wrapper, &NAME##_wrapper.attrs))
 
-#define __createThread(NAME) \
-    threadWrapperName(NAME).handle = \
-        osThreadNew(rtosWrapper, &(threadWrapperName(NAME)), &(threadWrapperName(NAME)).attrs);
-#define createThread(NAME) __createThread(NAME)
+#define getTaskHandle(NAME) (NAME##_wrapper.handle)
 
-#define getTaskHandle(NAME) threadWrapperName(NAME).handle
+/**
+ * DEFINE_STATIC_QUEUE: Scaffolds the static memory for a FreeRTOS queue.
+ */
+#define DEFINE_STATIC_QUEUE(NAME, ITEM, COUNT)                                 \
+    extern QueueHandle_t NAME;                                                 \
+    static StaticQueue_t xStaticQueue_##NAME;                                  \
+    static uint8_t       ucQueueStorageArea_##NAME[sizeof(ITEM) * (COUNT)];    \
+    QueueHandle_t        NAME
 
-// queues
-#define defineStaticQueue(NAME, ITEM, COUNT) \
-    QueueHandle_t NAME; \
-    static StaticQueue_t xStaticQueue_##NAME; \
-    uint8_t ucQueueStorageArea_##NAME[sizeof(ITEM) * (COUNT)];
+/**
+ * CREATE_STATIC_QUEUE: Initializes the defined static queue.
+ */
+#define CREATE_STATIC_QUEUE(NAME, ITEM, COUNT)                                 \
+    (NAME = xQueueCreateStatic((COUNT), sizeof(ITEM),                          \
+                               ucQueueStorageArea_##NAME, &xStaticQueue_##NAME))
 
-#define createStaticQueue(NAME, ITEM, COUNT) \
-    xQueueCreateStatic((COUNT), sizeof(ITEM), ucQueueStorageArea_##NAME, &xStaticQueue_##NAME);
+/**
+ * DEFINE_STATIC_SEMAPHORE: Scaffolds the static memory for a mutex.
+ */
+#define DEFINE_STATIC_SEMAPHORE(NAME)                                          \
+    extern SemaphoreHandle_t NAME;                                             \
+    static StaticSemaphore_t xStaticSemaphore_##NAME;                          \
+    SemaphoreHandle_t        NAME
 
-// semaphores
-#define defineStaticSemaphore(NAME) \
-    SemaphoreHandle_t NAME; \
-    static StaticSemaphore_t xStaticSemaphore_##NAME;
-#define createStaticSemaphore(NAME) xSemaphoreCreateMutexStatic(&(xStaticSemaphore_##NAME));
+/**
+ * CREATE_STATIC_SEMAPHORE: Initializes the defined static semaphore.
+ */
+#define CREATE_STATIC_SEMAPHORE(NAME)                                          \
+    (NAME = xSemaphoreCreateMutexStatic(&(xStaticSemaphore_##NAME)))
+
 
 #define getTick()   xTaskGetTickCount()
 #define getTickms() pdMS_TO_TICKS(getTick())
 
 #define mDelay(ms) (osDelay(pdMS_TO_TICKS((ms))))
+
+// ! Legacy support for old macro names for now
+#define defineThread(T, D, P)         DEFINE_TASK(T, D, P, 1024)
+#define defineThreadStack(T, D, P, S) DEFINE_TASK(T, D, P, S)
+#define createThread(NAME)            START_TASK(NAME)
+#define defineStaticQueue(N, I, C)    DEFINE_STATIC_QUEUE(N, I, C)
+#define createStaticQueue(N, I, C)    CREATE_STATIC_QUEUE(N, I, C)
+#define defineStaticSemaphore(N)      DEFINE_STATIC_SEMAPHORE(N)
+#define createStaticSemaphore(N)      CREATE_STATIC_SEMAPHORE(N)
 
 #endif // __COMMON_FREERTOS_H__

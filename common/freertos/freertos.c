@@ -1,14 +1,12 @@
 
 #include "freertos.h"
 
-void rtosWrapper(void *thread)
-{
-    ThreadWrapper *wrapper = (ThreadWrapper *) thread;
+void rtosWrapper(void *thread) {
+    ThreadWrapper_t *wrapper = (ThreadWrapper_t *)thread;
 
-    while(1)
-    {
+    while (true) {
         wrapper->taskFunction();
-        osDelay(wrapper->period);
+        osDelay(wrapper->period_ms);
     }
 
     osThreadTerminate(NULL);

@@ -35,30 +35,30 @@ static const sdc_node_t SDC_NODE_LUT[NUM_SDC_NODES] = {
 };
 
 void update_SDC() {
-    // check SDC state by cycling through the mux and checking the input
-    // ! reading the input pin as 1 = closed, 0 = open
-    static uint8_t sdc_poll_id = 0;
-    const sdc_node_t *current_node = &SDC_NODE_LUT[sdc_poll_id];
+    static uint8_t sdc_poll_index = 0;
+    const sdc_node_t *current_node = &SDC_NODE_LUT[sdc_poll_index];
     uint8_t mux_addr = current_node->mux_addr;
-    bool is_node_open = false; // default to closed if the mux address is invalidsdc_node_t
+    bool is_node_open = false; // default to closed if unreadable
     
     if (mux_addr != SDC_UNREADABLE) {
         // Set mux control
-        PHAL_writeGPIO(SDC_MUX_S0_PORT, SDC_MUX_S0_PIN, mux_addr & 0b0001);
-        PHAL_writeGPIO(SDC_MUX_S1_PORT, SDC_MUX_S1_PIN, mux_addr & 0b0010);
-        PHAL_writeGPIO(SDC_MUX_S2_PORT, SDC_MUX_S2_PIN, mux_addr & 0b0100);
-        PHAL_writeGPIO(SDC_MUX_S3_PORT, SDC_MUX_S3_PIN, mux_addr & 0b1000);
+        PHAL_writeGPIO(SDC_MUX_S0_PORT, SDC_MUX_S0_PIN, (mux_addr >> 0) & 0x1);
+        PHAL_writeGPIO(SDC_MUX_S1_PORT, SDC_MUX_S1_PIN, (mux_addr >> 1) & 0x1);
+        PHAL_writeGPIO(SDC_MUX_S2_PORT, SDC_MUX_S2_PIN, (mux_addr >> 2) & 0x1);
+        PHAL_writeGPIO(SDC_MUX_S3_PORT, SDC_MUX_S3_PIN, (mux_addr >> 3) & 0x1);
         
         // delay to allow mux signals to stabilize
         osDelay(1);
 
+        // ! reading the input pin as 1 = closed, 0 = open
         is_node_open = !PHAL_readGPIO(SDC_MUX_PORT, SDC_MUX_PIN);
     }
     
     // Read the signal and update the relevant fault state
-    g_SDC_open_nodes[sdc_poll_id] = is_node_open;
+    g_SDC_open_nodes[sdc_poll_index] = is_node_open;
     update_fault(current_node->fault_id, is_node_open);
 
     // update the poll id for the next cycle (0-16 = sdc 1-17)
-    sdc_poll_id = (sdc_poll_id + 1) & 16;
+    sdc_poll_index++;
+    if (sdc_poll_index >= NUM_SDC_NODES) sdc_poll_index = 0;
 }

@@ -196,7 +196,6 @@ static int8_t eth_udp_init(void) {
 static void eth_udp_send_periodic(void) {
     int32_t ret;
     timestamped_frame_t* buf;
-    timestamped_frame_t* frame;
     uint32_t consecutive_items;
 
     if (daq_hub.eth_state == ETH_LINK_UP) {

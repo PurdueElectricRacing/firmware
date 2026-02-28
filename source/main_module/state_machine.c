@@ -101,6 +101,9 @@ void fsm_periodic() {
         g_car.next_state = CARSTATE_FATAL;
     }
 
+    // update precharge status
+    bool precharge_pin = !PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
+    update_fault(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE, precharge_pin);
     // amks need a bool to point to for precharge status
     g_car.is_precharge_complete = !is_latched(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE);
 

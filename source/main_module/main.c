@@ -110,11 +110,8 @@ void heartbeat_task() {
 
     PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
 
-    if (OS_TICKS - last_can_rx_time_ms >= CONN_LED_TIMEOUT_MS) {
-        PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
-    } else {
-        PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
-    }
+    bool can_stale = (OS_TICKS - last_can_rx_time_ms >= CONN_LED_TIMEOUT_MS);
+    PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, can_stale);
 }
 
 void background_can_update() {
@@ -178,7 +175,7 @@ int main(void) {
 // todo reboot on hardfault
 void HardFault_Handler() {
     __disable_irq();
-    SysTick->CTRL        = 0;
+    SysTick->CTRL = 0;
     ERROR_LED_PORT->BSRR = (1 << ERROR_LED_PIN);
     while (1) {
         __asm__("NOP"); // Halt forever

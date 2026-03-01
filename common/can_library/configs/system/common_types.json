@@ -14,7 +14,7 @@
             ]
         },
         {
-            "name": "fault_index_t",
+            "name": "fault_id_t",
             "base_type": "uint16_t",
             "choices": ["reserved_type"]
         }

@@ -21,7 +21,7 @@ def generate_headers(context: SystemContext):
     # Generate header for each bus
     for bus_name, view in context.busses.items():
         config = context.bus_configs.get(bus_name, {})
-        generate_bus_header(env, bus_name, config, view.messages, context.custom_types)
+        generate_bus_header(env, bus_name, config, view.messages)
 
     # Generate header for each node
     generate_node_headers(env, context)
@@ -79,7 +79,7 @@ def generate_node_header(env, node: Node, context: SystemContext):
                     node_busses=node_busses)
     print_as_ok(f"Generated {filename.name}")
 
-def generate_bus_header(env, bus_name: str, config: Dict, messages: List[Message], custom_types: Dict):
+def generate_bus_header(env, bus_name: str, config: Dict, messages: List[Message]):
     render_template(env, 'bus_header.h.jinja',
                     GENERATED_DIR / f"{bus_name}.h",
                     bus_name=bus_name,

@@ -17,7 +17,7 @@ static constexpr uint32_t {{ bus_name|upper }}_BAUD_RATE = {{ config.baud_rate }
 static constexpr uint32_t {{ msg.macro_name }}_MSG_ID = {{ msg.final_id|to_c_hex }};
 static constexpr uint8_t  {{ msg.macro_name }}_DLC = {{ msg.dlc }};
 static constexpr uint32_t {{ msg.macro_name }}_PERIOD_MS = {{ msg.period }};
-
+static constexpr uint64_t {{ msg.macro_name }}_LAYOUT_HASH = {{ msg.layout_hash }};
 typedef struct {
     uint32_t last_rx;
     // Begin signal defs
@@ -29,4 +29,5 @@ typedef struct {
 } {{ msg.name }}_data_t;
 
 {% endfor %}
+
 #endif // {{ bus_name|upper }}_H

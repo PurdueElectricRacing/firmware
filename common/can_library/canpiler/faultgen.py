@@ -104,7 +104,7 @@ def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], b
             priority=0,
             is_extended=is_extended,
             signals=[
-                Signal(name="idx", datatype="fault_index_t", desc="Global Fault Index"),
+                Signal(name="idx", datatype="fault_id_t", desc="Global Fault Index"),
                 Signal(name="val", datatype="uint16_t", desc="Trigger Value"),
                 Signal(name="state", datatype="bool", desc="Latch State (0=unlatched, 1=latched)")
             ]
@@ -148,25 +148,25 @@ def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], b
     print_as_success(f"Injected {len(all_fault_event_msgs)} events and {len(all_fault_sync_msgs)} sync messages on {fault_bus_name}")
 
 def inject_fault_types(custom_types: Dict, fault_modules: List[FaultModule]):
-    """Inject fault_index_t enum into the common types list."""
+    """Inject fault_id_t enum into the common types list."""
     choices = []
     global_idx = 0
     for module in fault_modules:
         for fault in module.faults:
-            # The prefix will be FAULT_INDEX_
+            # The prefix will be FAULT_ID_
             choices.append(f"{module.node_name}_{fault.name}")
             fault.absolute_index = global_idx
             global_idx += 1
             
     # Preserve base_type if it exists in the original definition from common_types.json
-    base_type = custom_types.get("fault_index_t", {}).get("base_type", "uint16_t")
+    base_type = custom_types.get("fault_id_t", {}).get("base_type", "uint16_t")
 
-    custom_types["fault_index_t"] = {
-        "name": "fault_index_t",
+    custom_types["fault_id_t"] = {
+        "name": "fault_id_t",
         "choices": choices,
         "base_type": base_type
     }
-    print_as_ok(f"Injected fault_index_t with {global_idx} total faults")
+    print_as_ok(f"Injected fault_id_t with {global_idx} total faults")
 
 def augment_system_with_faults(nodes: List[Node], bus_configs: Dict, custom_types: Dict):
     """

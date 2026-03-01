@@ -582,13 +582,13 @@ void calibrationTelemetryUpdate() {
  * @brief Sends TV parameters to TV using current values from tv_elements array
  */
 void sendTVParameters() {
-    CAN_SEND_dashboard_vcu_parameters(
-        tv_elements[TV_VCU_PERMIT_INDEX].current_value,
-        tv_elements[TV_VCU_CONTROL_INDEX].current_value,
-        tv_elements[TV_DEADBAND_INDEX].current_value,
-        (uint16_t)tv_elements[TV_P_GAIN_INDEX].current_value,
-        tv_elements[TV_TORQUE_DROP_INDEX].current_value,
-        tv_elements[TV_MAX_SLIP_INDEX].current_value);
+    // CAN_SEND_dashboard_vcu_parameters(
+    //     tv_elements[TV_VCU_PERMIT_INDEX].current_value,
+    //     tv_elements[TV_VCU_CONTROL_INDEX].current_value,
+    //     tv_elements[TV_DEADBAND_INDEX].current_value,
+    //     (uint16_t)tv_elements[TV_P_GAIN_INDEX].current_value,
+    //     tv_elements[TV_TORQUE_DROP_INDEX].current_value,
+    //     tv_elements[TV_MAX_SLIP_INDEX].current_value);
 }
 
 /**
@@ -650,7 +650,7 @@ void sdcTelemetryUpdate() {
 
     updateSDCStatus(can_data.precharge_hb.IMD, SDC_IMD_STAT_TXT); // IMD from ABOX
     updateSDCStatus(can_data.precharge_hb.BMS, SDC_BMS_STAT_TXT);
-    updateSDCStatus(!is_latched(FAULT_INDEX_DASHBOARD_BSPD), SDC_BSPD_STAT_TXT);
+    updateSDCStatus(!is_latched(FAULT_ID_DASHBOARD_BSPD), SDC_BSPD_STAT_TXT);
     updateSDCStatus(can_data.sdc_status.BOTS, SDC_BOTS_STAT_TXT);
     updateSDCStatus(can_data.sdc_status.inertia, SDC_INER_STAT_TXT);
     updateSDCStatus(can_data.sdc_status.c_estop, SDC_CSTP_STAT_TXT);

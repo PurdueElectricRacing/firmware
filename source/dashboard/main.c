@@ -151,7 +151,7 @@ defineThreadStack(heartbeat_led, 500, osPriorityLow, 128);
 defineThreadStack(service_button_inputs, 50, osPriorityLow, 1024);
 defineThreadStack(send_version, DASH_VERSION_PERIOD_MS, osPriorityLow, 256);
 defineThreadStack(updateTelemetryPages, 200, osPriorityLow, 1024);
-defineThreadStack(sendTVParameters, DASHBOARD_VCU_PARAMETERS_PERIOD_MS, osPriorityLow, 256);
+defineThreadStack(fault_library_periodic, 100, osPriorityLow, 1024);
 
 int main(void) {
     // Hardware Initialization
@@ -218,7 +218,7 @@ void preflight_task() {
         createThread(service_button_inputs);
         createThread(send_version);
         createThread(updateTelemetryPages);
-        createThread(sendTVParameters);
+        createThread(fault_library_periodic);
         osThreadExit(); // Self delete
         return;
     }
@@ -301,7 +301,7 @@ void heartbeat_led() {
         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     }
 
-    if (!can_data.main_hb.stale && can_data.main_hb.precharge_state) {
+    if (is_latched(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE)) {
         PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 0);
     } else {
         PHAL_writeGPIO(PRCHG_LED_GPIO_Port, PRCHG_LED_Pin, 1);

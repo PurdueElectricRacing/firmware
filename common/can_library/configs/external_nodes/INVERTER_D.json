@@ -1,9 +1,9 @@
 {
-    "node_name": "INVERTER_B",
+    "node_name": "INVERTER_D",
     "bus_name": "MCAN",
     "tx": [
         {
-            "msg_name": "INVB_CRIT",
+            "msg_name": "INVD_CRIT",
             "msg_desc": "Contains the status word and actual values",
             "signals": [
                 {
@@ -31,11 +31,11 @@
                 }
             ],
             "msg_period": 15,
-            "msg_id_override": "0x122",
+            "msg_id_override": "0x124",
             "msg_priority": 1
         },
         {
-            "msg_name": "INVB_INFO",
+            "msg_name": "INVD_INFO",
             "msg_desc": "Contains the status word and actual values",
             "signals": [
                 {
@@ -92,11 +92,11 @@
                 }
             ],
             "msg_period": 500,
-            "msg_id_override": "0x232",
+            "msg_id_override": "0x234",
             "msg_priority": 2
         },
         {
-            "msg_name": "INVB_ERR_1",
+            "msg_name": "INVD_ERR_1",
             "msg_desc": "All error information",
             "signals": [
                 {
@@ -111,11 +111,11 @@
                 }
             ],
             "msg_period": 2000,
-            "msg_id_override": "0x442",
+            "msg_id_override": "0x444",
             "msg_priority": 4
         },
         {
-            "msg_name": "INVB_ERR_2",
+            "msg_name": "INVD_ERR_2",
             "msg_desc": "All error information",
             "signals": [
                 {
@@ -130,11 +130,11 @@
                 }
             ],
             "msg_period": 2000,
-            "msg_id_override": "0x452",
+            "msg_id_override": "0x454",
             "msg_priority": 4
         },
         {
-            "msg_name": "INVB_TEMPS",
+            "msg_name": "INVD_TEMPS",
             "msg_desc": "Contains temperatures",
             "signals": [
                 {
@@ -160,27 +160,27 @@
                 }
             ],
             "msg_period": 500,
-            "msg_id_override": "0x462",
+            "msg_id_override": "0x464",
             "msg_priority": 4
         },
         {
-            "msg_name": "INVB_PHASE_I",
+            "msg_name": "INVD_PHASE_I",
             "msg_desc": "All error information",
             "signals": [
                 {
                     "sig_name": "AMK_PhaseUCurrent",
-                    "sig_desc": "INVB Phase U Current",
+                    "sig_desc": "INVD Phase U Current",
                     "type": "int32_t"
                 }
             ],
             "msg_period": 250,
-            "msg_id_override": "0x572",
+            "msg_id_override": "0x574",
             "msg_priority": 5
         }
     ],
     "rx": [
         {
-            "msg_name": "INVB_SET"
+            "msg_name": "INVD_SET"
         }
     ]
 }

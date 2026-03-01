@@ -7,7 +7,12 @@ Author: Irving Wang (irvingw@purdue.edu)
 from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Set
 from pathlib import Path
-from utils import load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, COMMON_TYPES_CONFIG_PATH, BUS_CONFIG_PATH, CTYPE_SIZES, print_as_error, print_as_ok, print_as_success, to_macro_name, get_git_hash
+from utils import (
+    load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, 
+    COMMON_TYPES_CONFIG_PATH, BUS_CONFIG_PATH, CTYPE_SIZES, 
+    print_as_error, print_as_ok, print_as_success, to_macro_name, 
+    get_git_hash, get_layout_hash
+)
 
 @dataclass
 class Signal:
@@ -64,6 +69,7 @@ class Message:
     is_extended: bool = False
     final_id: int = 0
     dlc: int = 0
+    layout_hash: str = ""
 
     @property
     def macro_name(self) -> str:
@@ -91,6 +97,7 @@ class Message:
             current_offset += length
         
         self.dlc = (current_offset + 7) // 8
+        self.layout_hash = get_layout_hash(self)
 
     def validate_semantics(self, custom_types: Dict) -> None:
         """

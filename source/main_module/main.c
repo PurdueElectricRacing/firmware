@@ -3,19 +3,24 @@
  * @brief "Main Module" node source code
  * 
  * @author Irving Wang (irvingw@purdue.edu)
- * 
  */
 
 #include "main.h"
+#include "pindefs.h"
 
-#include <stdint.h>
-
-#include "common/amk/amk.h"
+#include "common/common_defs/common_defs.h"
 #include "common/can_library/generated/MAIN_MODULE.h"
+#include "common/can_library/faults_common.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
+#include "common/amk/amk.h"
+
+
+// Global data structures
+car_t g_car;
+torque_request_t g_torque_request;
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -24,15 +29,40 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(ERROR_LED_PORT, ERROR_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(CONNECTION_LED_PORT, CONNECTION_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
 
+    // TSAL
+    GPIO_INIT_OUTPUT(TSAL_RED_CTRL_PORT, TSAL_RED_CTRL_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(TSAL_GREEN_CTRL_PORT, TSAL_GREEN_CTRL_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(TSAL_RTM_ENABLE_PORT, TSAL_RTM_ENABLE_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_INPUT(TSAL_FAULT_PORT, TSAL_FAULT_PIN, GPIO_INPUT_OPEN_DRAIN),
+
+    // Brake and Buzzer
+    GPIO_INIT_OUTPUT(BRAKE_LIGHT_PORT, BRAKE_LIGHT_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(BUZZER_PORT, BUZZER_PIN, GPIO_OUTPUT_LOW_SPEED),
+
+    // SDC
+    GPIO_INIT_OUTPUT(ECU_SDC_CTRL_PORT, ECU_SDC_CTRL_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_INPUT(SDC_MUX_PORT, SDC_MUX_PIN, GPIO_INPUT_PULL_DOWN), // pull down (SDC open) for floating case
+    GPIO_INIT_OUTPUT(SDC_MUX_S3_PORT, SDC_MUX_S3_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(SDC_MUX_S2_PORT, SDC_MUX_S2_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(SDC_MUX_S1_PORT, SDC_MUX_S1_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(SDC_MUX_S0_PORT, SDC_MUX_S0_PIN, GPIO_OUTPUT_LOW_SPEED),
+
+    // Input status pins
+    GPIO_INIT_INPUT(BMS_STATUS_PORT, BMS_STATUS_PIN, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_INPUT(VBATT_ECU_PORT, VBATT_ECU_PIN, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_INPUT(VMC_ECU_PORT, VMC_ECU_PIN, GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_INPUT(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN, GPIO_INPUT_PULL_DOWN),
+
     // VCAN
     GPIO_INIT_FDCAN2TX_PB13,
     GPIO_INIT_FDCAN2RX_PB12,
+
     // MCAN
     GPIO_INIT_FDCAN3TX_PA15,
     GPIO_INIT_FDCAN3RX_PA8
 };
 
-static constexpr uint32_t TargetCoreClockrateHz = 16000000;
+static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
 ClockRateConfig_t clock_config = {
     .clock_source           = CLOCK_SOURCE_HSE,
     .use_pll                = false,
@@ -48,58 +78,62 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
-AMK_t test_amk;
-// ! bypass precharge for bench testing
-bool is_precharge_complete = true;
-
-/* Wrappers to map generic AMK calls to Inverter A CAN messages */
-void inva_set_flush(void) {
-    CAN_SEND_INVA_SET(test_amk.set->AMK_Control_bReserve,
-                      test_amk.set->AMK_Control_bInverterOn,
-                      test_amk.set->AMK_Control_bDcOn,
-                      test_amk.set->AMK_Control_bEnable,
-                      test_amk.set->AMK_Control_bErrorReset,
-                      test_amk.set->AMK_Control_bReserve2,
-                      test_amk.set->AMK_TorqueSetpoint,
-                      test_amk.set->AMK_PositiveTorqueLimit,
-                      test_amk.set->AMK_NegativeTorqueLimit);
-}
-
-void inva_log_flush(void) {
-    CAN_SEND_INVA_LOG_SET(test_amk.set->AMK_Control_bReserve,
-                          test_amk.set->AMK_Control_bInverterOn,
-                          test_amk.set->AMK_Control_bDcOn,
-                          test_amk.set->AMK_Control_bEnable,
-                          test_amk.set->AMK_Control_bErrorReset,
-                          test_amk.set->AMK_Control_bReserve2,
-                          test_amk.set->AMK_TorqueSetpoint,
-                          test_amk.set->AMK_PositiveTorqueLimit,
-                          test_amk.set->AMK_NegativeTorqueLimit);
-}
-
 extern void HardFault_Handler(void);
 
-void ledblink() {
-    PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
-}
+void heartbeat_task() {
+    // preflight animation for the first 1.5 seconds after boot
+    if (OS_TICKS <= PREFLIGHT_DURATION_MS) {
+        static uint32_t sweep_index = 0;
 
-void amk_test_thread() {
-    CAN_rx_update();
-    // todo more amk test stuff here
-    AMK_periodic(&test_amk);
+        // Creates a sweeping pattern
+        switch (sweep_index++ % 3) {
+            case 0:
+                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 1);
+                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
+                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
+                break;
+            case 1:
+                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 0);
+                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
+                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
+                break;
+            case 2:
+                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 0);
+                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
+                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
+                break;
+        }
 
-    if (test_amk.state == AMK_STATE_RUNNING) {
-        // ! test 1, constant torque
-         AMK_set_torque(&test_amk, 5);
-    } else {
-        // AMK_set_torque(&test_amk, 0);
+        return;
     }
 
+    PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
+
+    if (OS_TICKS - last_can_rx_time_ms >= CONN_LED_TIMEOUT_MS) {
+        PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
+    } else {
+        PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
+    }
+}
+
+void background_can_update() {
+    CAN_rx_update();
     CAN_tx_update();
 }
 
-defineThreadStack(ledblink, 500, osPriorityLow, 256);
-defineThreadStack(amk_test_thread, 15, osPriorityNormal, 2048);
+void AMK_task() {
+    AMK_periodic(&g_car.front_right);
+    AMK_periodic(&g_car.front_left);
+    AMK_periodic(&g_car.rear_left);
+    AMK_periodic(&g_car.rear_right);
+}
+
+defineThreadStack(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);
+defineThreadStack(update_SDC, 5, osPriorityLow, 512);
+defineThreadStack(background_can_update, 10, osPriorityHigh, 1024);
+defineThreadStack(fsm_periodic, 20, osPriorityNormal, 2048);
+defineThreadStack(AMK_task, 15, osPriorityNormal, 1024);
+defineThreadStack(fault_library_periodic, 100, osPriorityLow, 1024);
 
 int main(void) {
     // Hardware Initialization
@@ -109,7 +143,6 @@ int main(void) {
     if (false == PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
         HardFault_Handler();
     }
-
     if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
@@ -121,28 +154,17 @@ int main(void) {
     NVIC_EnableIRQ(FDCAN3_IT0_IRQn);
     CAN_library_init();
 
-    // Bench Test Initialization
-    is_precharge_complete = true;
-    AMK_init(&test_amk,
-             inva_set_flush,
-             inva_log_flush,
-             &can_data.INVA_SET,
-             &can_data.INVA_CRIT,
-             &can_data.INVA_INFO,
-             &can_data.INVA_TEMPS,
-             &can_data.INVA_ERR_1,
-             &can_data.INVA_ERR_2,
-             &is_precharge_complete);
-
-    // ! test 1, constant torque
-    // AMK_set_torque(&test_amk, 5); // Request 5% torque for bench test
+    car_init();
 
     // Software Initialization
     osKernelInitialize();
 
-    createThread(ledblink);
-    // ! test 2, state machine
-    createThread(amk_test_thread);
+    createThread(heartbeat_task);
+    createThread(background_can_update);
+    createThread(update_SDC);
+    createThread(fsm_periodic);
+    createThread(AMK_task);
+    createThread(fault_library_periodic);
 
     // no way home
     osKernelStart();

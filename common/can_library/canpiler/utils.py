@@ -5,6 +5,7 @@ Author: Irving Wang (irvingw@purdue.edu)
 """
 
 import json
+import hashlib
 import subprocess
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -69,6 +70,21 @@ def get_git_hash():
         return result.stdout.strip()
     except (subprocess.CalledProcessError, FileNotFoundError):
         return "unknown"
+
+def get_layout_hash(message):
+    """
+    Calculates a fingerprint hash for a message layout
+    """
+    layout_str = ""
+    # Add signal properties that affect layout into a single string
+    # ! does not account for message ID or period, as they do not affect the layout
+    for sig in message.signals:
+        layout_str += f"{sig.name}:{sig.c_type}:{sig.bit_shift}:{sig.length};"
+
+    payload = layout_str.encode('utf-8')
+    full_hash = hashlib.sha256(payload).hexdigest().upper()
+    return f"0x{full_hash[:16]}" # take the first 16 chars (to fit in 64 bits)
+
 
 def get_jinja_env():
     template_dir = Path(__file__).parent / 'templates'

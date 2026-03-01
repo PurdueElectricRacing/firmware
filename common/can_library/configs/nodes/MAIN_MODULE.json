@@ -13,141 +13,10 @@
                             "sig_name": "car_state",
                             "sig_desc": "Main car state",
                             "type": "CarState_t"
-                        },
-                        {
-                            "sig_name": "precharge_state",
-                            "sig_desc": "Status of Precharge (complete vs not)",
-                            "type": "bool"
                         }
                     ],
                     "msg_period": 500,
                     "msg_priority": 2
-                },
-                {
-                    "msg_name": "coolant_temps",
-                    "msg_desc": "Water temp of cooling loops",
-                    "signals": [
-                        {
-                            "sig_name": "battery_in_temp",
-                            "sig_desc": "In flow temperature of battery coolant loop",
-                            "type": "int8_t",
-                            "unit": "C"
-                        },
-                        {
-                            "sig_name": "battery_out_temp",
-                            "sig_desc": "Out flow temperature of battery coolant loop",
-                            "type": "int8_t",
-                            "unit": "C"
-                        },
-                        {
-                            "sig_name": "drivetrain_in_temp",
-                            "sig_desc": "In flow temperature of drivetrain coolant loop",
-                            "type": "int8_t",
-                            "unit": "C"
-                        },
-                        {
-                            "sig_name": "drivetrain_out_temp",
-                            "sig_desc": "Out flow temperature of drivetrain coolant loop",
-                            "type": "int8_t",
-                            "unit": "C"
-                        }
-                    ],
-                    "msg_period": 3000,
-                    "msg_priority": 4
-                },
-                {
-                    "msg_name": "gearbox",
-                    "msg_desc": "Gearbox temps",
-                    "signals": [
-                        {
-                            "sig_name": "l_temp",
-                            "sig_desc": "Temperature of left gearbox",
-                            "type": "int8_t",
-                            "unit": "C"
-                        },
-                        {
-                            "sig_name": "r_temp",
-                            "sig_desc": "Temperature of right gearbox",
-                            "type": "int8_t",
-                            "unit": "C"
-                        }
-                    ],
-                    "msg_period": 3000,
-                    "msg_priority": 4
-                },
-                {
-                    "msg_name": "LWS_Config",
-                    "msg_desc": "Steering sensor configuration",
-                    "signals": [
-                        {
-                            "sig_name": "CCW",
-                            "type": "uint8_t",
-                            "length": 3
-                        },
-                        {
-                            "sig_name": "Reserved_1",
-                            "type": "uint8_t",
-                            "length": 5
-                        },
-                        {
-                            "sig_name": "Reserved_2",
-                            "type": "uint8_t",
-                            "length": 8
-                        }
-                    ],
-                    "msg_period": 0,
-                    "msg_id_override": "0x7C0",
-                    "msg_priority": 3
-                },
-                {
-                    "msg_name": "load_sensor_readings",
-                    "msg_desc": "Load Sensor readings from left and right",
-                    "signals": [
-                        {
-                            "sig_name": "left_load_sensor",
-                            "sig_desc": "Left Normal Force",
-                            "type": "float",
-                            "unit": "N"
-                        },
-                        {
-                            "sig_name": "right_load_sensor",
-                            "sig_desc": "Right Normal Force",
-                            "type": "float",
-                            "unit": "N"
-                        }
-                    ],
-                    "msg_period": 10,
-                    "msg_priority": 5
-                },
-                {
-                    "msg_name": "mcu_status",
-                    "msg_desc": "performance metrics of MCU",
-                    "signals": [
-                        {
-                            "sig_name": "sched_skips",
-                            "type": "uint8_t",
-                            "sig_desc": "Number of loop misses (execution time was skipped)"
-                        },
-                        {
-                            "sig_name": "foreground_use",
-                            "type": "uint8_t",
-                            "unit": "%",
-                            "sig_desc": "Percent of the 1ms loop time used by foreground tasks"
-                        },
-                        {
-                            "sig_name": "background_use",
-                            "type": "uint8_t",
-                            "unit": "%",
-                            "sig_desc": "Percent of the 1ms loop time used by background tasks"
-                        },
-                        {
-                            "sig_name": "sched_error",
-                            "type": "uint8_t",
-                            "sig_desc": "PSCHED Error Flags (bit #)\n 0 - N/A\n1 - no free task\n2 - FG Miss\n3 - BG Miss\n4 - Individual FG Miss"
-                        }
-                    ],
-                    "msg_period": 1000,
-                    "msg_priority": 4
                 },
                 {
                     "msg_name": "main_module_can_stats",
@@ -190,224 +59,6 @@
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 4
-                },
-                {
-                    "msg_name": "num_mc_skips",
-                    "msg_desc": "Messages ignored by MC",
-                    "signals": [
-                        {
-                            "sig_name": "noise_r",
-                            "type": "uint16_t",
-                            "sig_desc": "Num of skipped MC UART msgs"
-                        },
-                        {
-                            "sig_name": "noise_l",
-                            "type": "uint16_t",
-                            "sig_desc": "Num of skipped MC UART msgs"
-                        }
-                    ],
-                    "msg_period": 1000,
-                    "msg_priority": 4
-                },
-                {
-                    "msg_name": "INVA_LOG_SET",
-                    "msg_desc": "Contains control word and setpoints",
-                    "signals": [
-                        {
-                            "sig_name": "AMK_Control_bReserve",
-                            "sig_desc": "Control word: RESERVED",
-                            "type": "uint8_t",
-                            "length": 8
-                        },
-                        {
-                            "sig_name": "AMK_Control_bInverterOn",
-                            "sig_desc": "Control word: controller enable",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "AMK_Control_bDcOn",
-                            "sig_desc": "Control word: HV activation",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "AMK_Control_bEnable",
-                            "sig_desc": "Control word: driver enable",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "AMK_Control_bErrorReset",
-                            "sig_desc": "Control word: remove error",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "AMK_Control_bReserve2",
-                            "sig_desc": "Control word: RESERVED",
-                            "type": "uint8_t",
-                            "length": 4
-                        },
-                        {
-                            "sig_name": "AMK_TorqueSetpoint",
-                            "sig_desc": "Torque setpoint",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
-                        },
-                        {
-                            "sig_name": "AMK_PositiveTorqueLimit",
-                            "sig_desc": "Positive Torque Limit",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
-                        },
-                        {
-                            "sig_name": "AMK_NegativeTorqueLimit",
-                            "sig_desc": "Negative Torque Limit",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
-                        }
-                    ],
-                    "msg_period": 15,
-                    "msg_priority": 4
-                },
-                {
-                    "msg_name": "INVB_LOG_SET",
-                    "msg_desc": "Contains control word and setpoints",
-                    "signals": [
-                        {
-                            "sig_name": "AMK_Control_bReserve",
-                            "sig_desc": "Control word: RESERVED",
-                            "type": "uint8_t",
-                            "length": 8
-                        },
-                        {
-                            "sig_name": "AMK_Control_bInverterOn",
-                            "sig_desc": "Control word: controller enable",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "AMK_Control_bDcOn",
-                            "sig_desc": "Control word: HV activation",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "AMK_Control_bEnable",
-                            "sig_desc": "Control word: driver enable",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "AMK_Control_bErrorReset",
-                            "sig_desc": "Control word: remove error",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "AMK_Control_bReserve2",
-                            "sig_desc": "Control word: RESERVED",
-                            "type": "uint8_t",
-                            "length": 4
-                        },
-                        {
-                            "sig_name": "AMK_TorqueSetpoint",
-                            "sig_desc": "Torque setpoint",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
-                        },
-                        {
-                            "sig_name": "AMK_PositiveTorqueLimit",
-                            "sig_desc": "Positive Torque Limit",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
-                        },
-                        {
-                            "sig_name": "AMK_NegativeTorqueLimit",
-                            "sig_desc": "Negative Torque Limit",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
-                        }
-                    ],
-                    "msg_period": 15,
-                    "msg_priority": 4
-                },
-                {
-                    "msg_name": "rear_mc_status",
-                    "msg_desc": "rear drivline heart beat",
-                    "signals": [
-                        {
-                            "sig_name": "rear_left_motor",
-                            "type": "uint8_t",
-                            "choices": [
-                                "disconnected",
-                                "connected",
-                                "config",
-                                "error"
-                            ],
-                            "sig_desc": "Connection State of Rear Left Motor"
-                        },
-                        {
-                            "sig_name": "rear_left_motor_link",
-                            "type": "uint8_t",
-                            "choices": [
-                                "disconnected",
-                                "attempting",
-                                "verifying",
-                                "delay",
-                                "connected",
-                                "fail"
-                            ],
-                            "sig_desc": "State of Connection attempt to MC"
-                        },
-                        {
-                            "sig_name": "rear_left_last_link_error",
-                            "type": "uint8_t",
-                            "choices": [
-                                "none",
-                                "not_serial",
-                                "cmd_timeout",
-                                "gen_timeout"
-                            ],
-                            "sig_desc": "Error reason for failed MC communication link attempt"
-                        },
-                        {
-                            "sig_name": "rear_right_motor",
-                            "type": "uint8_t",
-                            "choices": [
-                                "disconnected",
-                                "connected",
-                                "config",
-                                "error"
-                            ],
-                            "sig_desc": "Connection State of Rear Right Motor"
-                        },
-                        {
-                            "sig_name": "rear_right_motor_link",
-                            "type": "uint8_t",
-                            "choices": [
-                                "disconnected",
-                                "attempting",
-                                "verifying",
-                                "delay",
-                                "connected",
-                                "fail"
-                            ],
-                            "sig_desc": "State of Connection attempt to MC"
-                        },
-                        {
-                            "sig_name": "rear_right_last_link_error",
-                            "type": "uint8_t",
-                            "choices": [
-                                "none",
-                                "not_serial",
-                                "cmd_timeout",
-                                "gen_timeout"
-                            ],
-                            "sig_desc": "Error reason for failed MC communication link attempt"
-                        }
-                    ],
-                    "msg_period": 500,
                     "msg_priority": 4
                 },
                 {
@@ -573,26 +224,6 @@
                     "msg_priority": 5
                 },
                 {
-                    "msg_name": "simulated_tv",
-                    "msg_desc": "Rear Wheel speeds from motor controllers",
-                    "signals": [
-                        {
-                            "sig_name": "left_tv",
-                            "type": "uint16_t",
-                            "unit": "rad/s",
-                            "scale": 1
-                        },
-                        {
-                            "sig_name": "right_tv",
-                            "type": "uint16_t",
-                            "unit": "rad/s",
-                            "scale": 1
-                        }
-                    ],
-                    "msg_period": 15,
-                    "msg_priority": 3
-                },
-                {
                     "msg_name": "main_version",
                     "msg_desc": "Main version",
                     "signals": [
@@ -608,26 +239,11 @@
             ],
             "rx": [
                 {
-                    "msg_name": "raw_throttle_brake"
-                },
-                {
                     "msg_name": "filt_throttle_brake"
                 },
                 {
                     "msg_name": "start_button",
                     "callback": false
-                },
-                {
-                    "msg_name": "max_cell_temp"
-                },
-                {
-                    "msg_name": "LWS_Standard"
-                },
-                {
-                    "msg_name": "orion_currents_volts"
-                },
-                {
-                    "msg_name": "orion_info"
                 }
             ]
         },
@@ -711,8 +327,8 @@
                         }
                     ],
                     "msg_period": 15,
-                    "msg_id_override": "0x188",
-                    "msg_priority": 3
+                    "msg_id_override": "0x111",
+                    "msg_priority": 1
                 },
                 {
                     "msg_name": "INVB_SET",
@@ -773,22 +389,143 @@
                         }
                     ],
                     "msg_period": 15,
-                    "msg_id_override": "0x189",
-                    "msg_priority": 3
+                    "msg_id_override": "0x112",
+                    "msg_priority": 1
+                },
+                {
+                    "msg_name": "INVC_SET",
+                    "msg_desc": "Contains control word and setpoints",
+                    "signals": [
+                        {
+                            "sig_name": "AMK_Control_bReserve",
+                            "sig_desc": "Control word: RESERVED",
+                            "type": "uint8_t",
+                            "length": 8
+                        },
+                        {
+                            "sig_name": "AMK_Control_bInverterOn",
+                            "sig_desc": "Control word: controller enable",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "AMK_Control_bDcOn",
+                            "sig_desc": "Control word: HV activation",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "AMK_Control_bEnable",
+                            "sig_desc": "Control word: driver enable",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "AMK_Control_bErrorReset",
+                            "sig_desc": "Control word: remove error",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "AMK_Control_bReserve2",
+                            "sig_desc": "Control word: RESERVED",
+                            "type": "uint8_t",
+                            "length": 4
+                        },
+                        {
+                            "sig_name": "AMK_TorqueSetpoint",
+                            "sig_desc": "Torque setpoint",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "AMK_PositiveTorqueLimit",
+                            "sig_desc": "Positive Torque Limit",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "AMK_NegativeTorqueLimit",
+                            "sig_desc": "Negative Torque Limit",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.1
+                        }
+                    ],
+                    "msg_period": 15,
+                    "msg_id_override": "0x113",
+                    "msg_priority": 1
+                },
+                {
+                    "msg_name": "INVD_SET",
+                    "msg_desc": "Contains control word and setpoints",
+                    "signals": [
+                        {
+                            "sig_name": "AMK_Control_bReserve",
+                            "sig_desc": "Control word: RESERVED",
+                            "type": "uint8_t",
+                            "length": 8
+                        },
+                        {
+                            "sig_name": "AMK_Control_bInverterOn",
+                            "sig_desc": "Control word: controller enable",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "AMK_Control_bDcOn",
+                            "sig_desc": "Control word: HV activation",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "AMK_Control_bEnable",
+                            "sig_desc": "Control word: driver enable",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "AMK_Control_bErrorReset",
+                            "sig_desc": "Control word: remove error",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "AMK_Control_bReserve2",
+                            "sig_desc": "Control word: RESERVED",
+                            "type": "uint8_t",
+                            "length": 4
+                        },
+                        {
+                            "sig_name": "AMK_TorqueSetpoint",
+                            "sig_desc": "Torque setpoint",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "AMK_PositiveTorqueLimit",
+                            "sig_desc": "Positive Torque Limit",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "AMK_NegativeTorqueLimit",
+                            "sig_desc": "Negative Torque Limit",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.1
+                        }
+                    ],
+                    "msg_period": 15,
+                    "msg_id_override": "0x114",
+                    "msg_priority": 1
                 }
             ],
             "rx": [
+                {
+                    "msg_name": "INVA_SET"
+                },
                 {
                     "msg_name": "INVA_CRIT"
                 },
                 {
                     "msg_name": "INVA_INFO"
-                },
-                {
-                    "msg_name": "INVA_TEMPS"
-                },
-                {
-                    "msg_name": "INVA_SET"
                 },
                 {
                     "msg_name": "INVA_ERR_1"
@@ -797,22 +534,61 @@
                     "msg_name": "INVA_ERR_2"
                 },
                 {
+                    "msg_name": "INVA_TEMPS"
+                },
+                {
+                    "msg_name": "INVB_SET"
+                },
+                {
                     "msg_name": "INVB_CRIT"
                 },
                 {
                     "msg_name": "INVB_INFO"
                 },
                 {
-                    "msg_name": "INVB_TEMPS"
-                },
-                {
-                    "msg_name": "INVB_SET"
-                },
-                {
                     "msg_name": "INVB_ERR_1"
                 },
                 {
                     "msg_name": "INVB_ERR_2"
+                },
+                {
+                    "msg_name": "INVB_TEMPS"
+                },
+                {
+                    "msg_name": "INVC_SET"
+                },
+                {
+                    "msg_name": "INVC_CRIT"
+                },
+                {
+                    "msg_name": "INVC_INFO"
+                },
+                {
+                    "msg_name": "INVC_ERR_1"
+                },
+                {
+                    "msg_name": "INVC_ERR_2"
+                },
+                {
+                    "msg_name": "INVC_TEMPS"
+                },
+                {
+                    "msg_name": "INVD_SET"
+                },
+                {
+                    "msg_name": "INVD_CRIT"
+                },
+                {
+                    "msg_name": "INVD_INFO"
+                },
+                {
+                    "msg_name": "INVD_ERR_1"
+                },
+                {
+                    "msg_name": "INVD_ERR_2"
+                },
+                {
+                    "msg_name": "INVD_TEMPS"
                 }
             ]
         }
@@ -821,283 +597,149 @@
     "generate_fault_messages": false,
     "faults": [
         {
-            "fault_name": "tv_stale",
+            "fault_name": "SDC1_IMD",
             "max": 1,
             "min": 0,
-            "priority": "warning",
-            "time_to_latch": 50,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Torque From Pedals"
-        },
-        {
-            "fault_name": "rtd_exit",
-            "max": 1,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 100,
-            "time_to_unlatch": 1000,
-            "lcd_message": "HV not detected, idling"
-        },
-        {
-            "fault_name": "left_mc_conn",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 3000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "LEFT MC CONN FAIL"
-        },
-        {
-            "fault_name": "right_mc_conn",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 3000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "RIGHT MC CONN FAIL"
-        },
-        {
-            "fault_name": "mcu_temp_high",
-            "max": 50,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 2000,
-            "lcd_message": "HIGH PDU MCU TEMP"
-        },
-        {
-            "fault_name": "dt_l_temp_ot",
-            "max": 90,
-            "min": -100,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Left Gearbox Overheating"
-        },
-        {
-            "fault_name": "dt_r_temp_ot",
-            "max": 90,
-            "min": -100,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Right Gearbox Overheating"
-        },
-        {
-            "fault_name": "dt_l_temp_high",
-            "max": 80,
-            "min": -100,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Left Gearbox High (>80C)"
-        },
-        {
-            "fault_name": "dt_r_temp_high",
-            "max": 80,
-            "min": -100,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Right Gearbox High (>80C)"
-        },
-        {
-            "fault_name": "bat_cool_loop_high",
-            "max": 50,
-            "min": -100,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Batt Coolant Loop Temp High"
-        },
-        {
-            "fault_name": "dt_cool_loop_high",
-            "max": 90,
-            "min": -100,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "DT Coolant Loop Temp High"
-        },
-        {
-            "fault_name": "dt_r_therm_disc",
-            "max": 200,
-            "min": -30,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Right DT Therm Disconnect"
-        },
-        {
-            "fault_name": "dt_l_therm_disc",
-            "max": 200,
-            "min": -30,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Left DT Therm Disconnect"
-        },
-        {
-            "fault_name": "batt_cl_disc",
-            "max": 200,
-            "min": -30,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Batt CL Therm Disc"
-        },
-        {
-            "fault_name": "dt_cl_disc",
-            "max": 200,
-            "min": -30,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "DT CL Therm Disc"
-        },
-        {
-            "fault_name": "BSPD_latched",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 1500,
-            "time_to_unlatch": 10000,
-            "lcd_message": "BSPD Latched. Restart Car"
-        },
-        {
-            "fault_name": "bots_fail",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 1500,
-            "time_to_unlatch": 1000,
-            "lcd_message": "BOTS Activated"
-        },
-        {
-            "fault_name": "inertia_fail",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 1500,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Inertia Switch activated"
-        },
-        {
-            "fault_name": "cockpit_estop",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 1500,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Cockpit E-Stop Pressed"
-        },
-        {
-            "fault_name": "right_estop",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 1500,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Right E-Stop Pressed"
-        },
-        {
-            "fault_name": "left_estop",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 1500,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Left E-Stop Pressed"
-        },
-        {
-            "fault_name": "hvd_disc",
-            "max": 1,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 1500,
-            "time_to_unlatch": 1000,
-            "lcd_message": "HVD Disconnected"
-        },
-        {
-            "fault_name": "hub_disc",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 1500,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Hub Interlock Disconencted"
-        },
-        {
-            "fault_name": "tsms_disc",
-            "max": 1,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 1500,
-            "time_to_unlatch": 1000,
-            "lcd_message": "TSMS Off"
-        },
-        {
-            "fault_name": "precharge_time_fault",
-            "max": 9500,
-            "min": -10,
             "priority": "fatal",
-            "time_to_latch": 400,
-            "time_to_unlatch": 10000,
-            "lcd_message": "PRCHG time exceeded"
+            "time_to_latch": 32,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC1 (IMD) is open"
         },
         {
-            "fault_name": "motor_r_heat",
-            "max": 80,
-            "min": -80,
-            "priority": "error",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Right Motor Hot (>80C)"
+            "fault_name": "SDC2_BMS",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 32,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC2 (BMS) is open"
         },
         {
-            "fault_name": "motor_l_heat",
-            "max": 80,
-            "min": -80,
-            "priority": "error",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Left Motor Hot (>80C)"
+            "fault_name": "SDC3_BSPD",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 32,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC3 (BSPD) is open"
         },
         {
-            "fault_name": "motor_r_ot",
-            "max": 80,
-            "min": -80,
-            "priority": "error",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Right Motor Overtemp (>90C)"
+            "fault_name": "SDC4_MAIN_OK",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 32,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC4 (MAIN_OK) is open"
         },
         {
-            "fault_name": "motor_l_ot",
-            "max": 80,
-            "min": -80,
-            "priority": "error",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Left Motor Overtemp (>90C)"
+            "fault_name": "SDC5_BOTS",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 32,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC5 (BOTS) is open"
         },
         {
-            "fault_name": "left_mc_error",
+            "fault_name": "SDC6_INERTIA",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 32,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC6 (INERTIA) is open"
+        },
+        {
+            "fault_name": "SDC7_COCKPIT_ESTOP",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 32,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC7 (COCKPIT_ESTOP) is open"
+        },
+        {
+            "fault_name": "SDC9_FRONT_INTERLOCK",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 32,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC9 (FRONT_INTERLOCK) is open"
+        },
+        {
+            "fault_name": "SDC10_RIGHT_ESTOP",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 32,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC10 (RIGHT_ESTOP) is open"
+        },
+        {
+            "fault_name": "SDC11_LEFT_ESTOP",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 32,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC11 (LEFT_ESTOP) is open"
+        },
+        {
+            "fault_name": "SDC12_MSD",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 32,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC12 (MSD) is open"
+        },
+        {
+            "fault_name": "SDC13_E_METER",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 32,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC13 (E_METER) is open"
+        },
+        {
+            "fault_name": "SDC15_REAR_INTERLOCK",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 32,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC15 (REAR_INTERLOCK) is open"
+        },
+        {
+            "fault_name": "SDC16_TSMS",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 32,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC16 (TSMS) is open"
+        },
+        {
+            "fault_name": "SDC17_AIR_M",
+            "max": 1,
+            "min": 0,
+            "priority": "fatal",
+            "time_to_latch": 32,
+            "time_to_unlatch": 100,
+            "lcd_message": "SDC17 (AIR_M) is open"
+        },
+        {
+            "fault_name": "PRECHARGE_INCOMPLETE",
             "max": 1,
             "min": 0,
             "priority": "error",
-            "time_to_latch": 0,
-            "time_to_unlatch": 1000,
-            "lcd_message": "LEFT MC INTERNAL ERR"
-        },
-        {
-            "fault_name": "right_mc_error",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 0,
-            "time_to_unlatch": 1000,
-            "lcd_message": "RIGHT MC INTERNAL ERR"
+            "time_to_latch": 40,
+            "time_to_unlatch": 100,
+            "lcd_message": "Precharge is not complete"
         }
+
     ]
 }

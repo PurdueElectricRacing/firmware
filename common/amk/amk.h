@@ -14,16 +14,17 @@
 #include <stdint.h>
 
 typedef enum : uint8_t {
-    AMK_STATE_OFF     = 0,
-    AMK_STATE_INIT    = 1,
-    AMK_STATE_RUNNING = 2
+    AMK_STATE_OFF        = 0,
+    AMK_STATE_STARTING   = 1,
+    AMK_STATE_RUNNING    = 2,
+    AMK_STATE_RECOVERING = 3,
+    AMK_STATE_FATAL      = 4
 } AMK_motor_state_t;
 
 typedef struct {
     // Flush functions
-    // ! must be a wrapper around CAN library
+    // ! must not be an inline function
     void (*set_function)(void);
-    void (*log_function)(void);
 
     // Direct pointers to CAN library data structures
     // ! cast all motor objects to INVA
@@ -43,7 +44,6 @@ typedef struct {
 void AMK_init(
     AMK_t *amk,
     void (*set_func)(void),
-    void (*log_func)(void),
     INVA_SET_data_t *set,
     INVA_CRIT_data_t *crit,
     INVA_INFO_data_t *info,

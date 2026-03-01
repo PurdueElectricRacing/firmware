@@ -319,9 +319,9 @@ void CAN1_RX0_IRQHandler() {
 
 void send_iv_readings() {
     // Set LV Batt faults
-    // set_fault(FAULT_INDEX_PDU_LV_BATT_FIFTY, auto_switches.voltage.in_24v);
-    update_fault(FAULT_INDEX_PDU_LV_GETTING_LOW, auto_switches.voltage.in_24v);
-    update_fault(FAULT_INDEX_PDU_LV_CRITICAL_LOW, auto_switches.voltage.in_24v);
+    // set_fault(FAULT_ID_PDU_LV_BATT_FIFTY, auto_switches.voltage.in_24v);
+    update_fault(FAULT_ID_PDU_LV_GETTING_LOW, auto_switches.voltage.in_24v);
+    update_fault(FAULT_ID_PDU_LV_CRITICAL_LOW, auto_switches.voltage.in_24v);
     // Send CAN messages containing voltage and current data
     CAN_SEND_v_rails(auto_switches.voltage.in_24v, auto_switches.voltage.out_5v, auto_switches.voltage.out_3v3, auto_switches.voltage.amk_24v);
     CAN_SEND_rail_currents(auto_switches.current[CS_24V], auto_switches.current[CS_5V]);

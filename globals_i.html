@@ -147,6 +147,7 @@ $(function(){initNavTree('globals_i.html',''); initResizable(true); });
 <li>INCLUDE_xTimerPendFunctionCall&#160;:&#160;<a class="el" href="FreeRTOSConfig_8h.html#a4b4336acd61a8e513ca2376be84326b5">FreeRTOSConfig.h</a></li>
 <li>INFO_GRAY&#160;:&#160;<a class="el" href="nextion_8h.html#a89feeadaedd79cefd6d37d5e13f1fe1c">nextion.h</a></li>
 <li>init_ADC()&#160;:&#160;<a class="el" href="l4__testing_2main_8c.html#a342ab07b607f3dc4efa0655ca1acd164">main.c</a></li>
+<li>init_amks()&#160;:&#160;<a class="el" href="amk__init_8c.html#a92749150bd2c7147e0cb50e7e3daef0c">amk_init.c</a></li>
 <li>INIT_BANG_BANG&#160;:&#160;<a class="el" href="bangbang_8h.html#a81ba131ca6c8a5ccf84249492abaf0db">bangbang.h</a></li>
 <li>INIT_KEY&#160;:&#160;<a class="el" href="eeprom__spi_8h.html#a36635d43f5bb84e7af5d9ffecd3a8489">eeprom_spi.h</a></li>
 <li>INIT_NAMBUF&#160;:&#160;<a class="el" href="ff_8c.html#a9880dce2d33fe7708f982b5f80a31142">ff.c</a></li>
@@ -161,8 +162,6 @@ $(function(){initNavTree('globals_i.html',''); initResizable(true); });
 <li>INTLEVEL&#160;:&#160;<a class="el" href="group__Common__register__group.html#ga44cf25d713df4e47aa2e2129a80d2d81">w5500.h</a></li>
 <li>INTMAX_T&#160;:&#160;<a class="el" href="vsprintf_8c.html#a6733113598369466fdfa078fdb95ddeb">vsprintf.c</a></li>
 <li>intr_kind&#160;:&#160;<a class="el" href="group__DATA__TYPE.html#gac6b85cbd7d245ccf3cbfa734760d6ed3">wizchip_conf.h</a></li>
-<li>inva_log_flush()&#160;:&#160;<a class="el" href="main__module_2main_8c.html#a84fbaa926a1fdf9185dbc6fbc58e6d96">main.c</a></li>
-<li>inva_set_flush()&#160;:&#160;<a class="el" href="main__module_2main_8c.html#a46c142cd48648670d981a03de7362cf3">main.c</a></li>
 <li>iodata_t&#160;:&#160;<a class="el" href="wizchip__conf_8h.html#a873b0fe21f7e83d9e91736fa8b9d1f19">wizchip_conf.h</a></li>
 <li>IPPROTO_GGP&#160;:&#160;<a class="el" href="w5500_8h.html#aaa167811bca5c964e9b051a10d962b1d">w5500.h</a></li>
 <li>IPPROTO_ICMP&#160;:&#160;<a class="el" href="w5500_8h.html#a98edd0af28e1b5f97c806c9cae442339">w5500.h</a></li>
@@ -179,13 +178,18 @@ $(function(){initNavTree('globals_i.html',''); initResizable(true); });
 <li>IR_MP&#160;:&#160;<a class="el" href="w5500_8h.html#a28fefd06bf97ce0f2928c71a1e96d317">w5500.h</a></li>
 <li>IR_PPPoE&#160;:&#160;<a class="el" href="w5500_8h.html#a67b7b183626e64205544d75ec9b5cb3b">w5500.h</a></li>
 <li>IR_UNREACH&#160;:&#160;<a class="el" href="w5500_8h.html#af65d5b6dab9b2b134a96f311990ce6a4">w5500.h</a></li>
+<li>is_all_AMKS_running()&#160;:&#160;<a class="el" href="state__machine_8c.html#a313205b758d02ca97059713e3f3f9064">state_machine.c</a></li>
 <li>is_any_latched()&#160;:&#160;<a class="el" href="faults__common_8h.html#a7c41c8fcf2527aa98c7b99e43b67d357">faults_common.h</a></li>
+<li>is_buzzing_time_elapsed()&#160;:&#160;<a class="el" href="state__machine_8c.html#ac21ffbc05e480a2884c934be58d38eb2">state_machine.c</a></li>
 <li>is_curr_mcu_latched()&#160;:&#160;<a class="el" href="faults__common_8h.html#afd3df4a64e1643d0a79942b5228af63a">faults_common.h</a></li>
 <li>is_error_latched()&#160;:&#160;<a class="el" href="faults__common_8h.html#a66f9b8058fa200632c824de0b671b491">faults_common.h</a></li>
 <li>is_fatal_latched()&#160;:&#160;<a class="el" href="faults__common_8h.html#a1dbab920f7f9b5d889670b63ac61e357">faults_common.h</a></li>
-<li>is_latched()&#160;:&#160;<a class="el" href="faults__common_8h.html#ad0de5dfc5919da9f0914d873ec05b585">faults_common.h</a></li>
+<li>is_init_complete()&#160;:&#160;<a class="el" href="state__machine_8c.html#a41478ce6c3a2274b608de4302d8c0c4c">state_machine.c</a></li>
+<li>is_latched()&#160;:&#160;<a class="el" href="faults__common_8h.html#a686858e89e455a414a1e7c87c5e35be5">faults_common.h</a></li>
 <li>is_other_mcus_latched()&#160;:&#160;<a class="el" href="faults__common_8h.html#a6a4afce3ed471db381c8bc61dc35fff0">faults_common.h</a></li>
-<li>is_precharge_complete&#160;:&#160;<a class="el" href="main__module_2main_8c.html#a41365834c7bd6d6f18454f671b672a2b">main.c</a></li>
+<li>is_precharge_complete()&#160;:&#160;<a class="el" href="state__machine_8c.html#ad343b9812c0828bc72ddff4168cc9c51">state_machine.c</a></li>
+<li>is_start_button_pressed()&#160;:&#160;<a class="el" href="state__machine_8c.html#ab7318162392bf2c166e5f992b9053da2">state_machine.c</a></li>
+<li>is_TSMS_closed()&#160;:&#160;<a class="el" href="state__machine_8c.html#a94b2d538481fba4727f0670a6cf9ca3b">state_machine.c</a></li>
 <li>is_valid_header()&#160;:&#160;<a class="el" href="gps_8h.html#a4388761471fe2c06f0146d84fbd6ee18">gps.h</a></li>
 <li>is_warning_latched()&#160;:&#160;<a class="el" href="faults__common_8h.html#a731895d731bdcc9ea2038351278ffef7">faults_common.h</a></li>
 <li>ISDIGIT&#160;:&#160;<a class="el" href="vsprintf_8c.html#a6f0b34de3862ea17be2c877b95cc4fc0">vsprintf.c</a></li>

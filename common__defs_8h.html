@@ -98,7 +98,8 @@ $(function(){initNavTree('common__defs_8h.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">common_defs.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -164,6 +165,15 @@ Functions</h2></td></tr>
 <tr class="separator:a7790c59a206addb5b0bcc7a34667a1da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9b3fa34cf7fd298a0333cd51094762c" id="r_ad9b3fa34cf7fd298a0333cd51094762c"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad9b3fa34cf7fd298a0333cd51094762c">ROUNDUP</a> (uint32_t a, uint32_t n)</td></tr>
 <tr class="separator:ad9b3fa34cf7fd298a0333cd51094762c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a7734c719f4ed69952e7c2f622eacda52" id="r_a7734c719f4ed69952e7c2f622eacda52"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7734c719f4ed69952e7c2f622eacda52">CONN_LED_TIMEOUT_MS</a> = 1000</td></tr>
+<tr class="separator:a7734c719f4ed69952e7c2f622eacda52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade36a494f670d4c31af261ae9ebb1f29" id="r_ade36a494f670d4c31af261ae9ebb1f29"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade36a494f670d4c31af261ae9ebb1f29">PREFLIGHT_DURATION_MS</a> = 1500</td></tr>
+<tr class="separator:ade36a494f670d4c31af261ae9ebb1f29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba882a54e761d19d12cc40b3a2a91d8b" id="r_aba882a54e761d19d12cc40b3a2a91d8b"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba882a54e761d19d12cc40b3a2a91d8b">HEARTBEAT_PERIOD_MS</a> = 100</td></tr>
+<tr class="separator:aba882a54e761d19d12cc40b3a2a91d8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Common defs for the entire firmware repository. Dont let this get too out of control please. </p>
@@ -813,6 +823,83 @@ Functions</h2></td></tr>
 <p class="reference">References <a class="el" href="common__defs_8h_source.html#l00056">ROUNDDOWN()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="eeprom__spi_8c_source.html#l00153">mapMem()</a>, and <a class="el" href="common_2phal__F4__F7_2usart_2usart_8c_source.html#l00034">PHAL_initUSART()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a7734c719f4ed69952e7c2f622eacda52" name="a7734c719f4ed69952e7c2f622eacda52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7734c719f4ed69952e7c2f622eacda52">&#9670;&#160;</a></span>CONN_LED_TIMEOUT_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t CONN_LED_TIMEOUT_MS = 1000</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00080">80</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main__module_2main_8c_source.html#l00083">heartbeat_task()</a>.</p>
+
+</div>
+</div>
+<a id="aba882a54e761d19d12cc40b3a2a91d8b" name="aba882a54e761d19d12cc40b3a2a91d8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba882a54e761d19d12cc40b3a2a91d8b">&#9670;&#160;</a></span>HEARTBEAT_PERIOD_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t HEARTBEAT_PERIOD_MS = 100</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00082">82</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
+
+</div>
+</div>
+<a id="ade36a494f670d4c31af261ae9ebb1f29" name="ade36a494f670d4c31af261ae9ebb1f29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade36a494f670d4c31af261ae9ebb1f29">&#9670;&#160;</a></span>PREFLIGHT_DURATION_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t PREFLIGHT_DURATION_MS = 1500</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00081">81</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main__module_2main_8c_source.html#l00083">heartbeat_task()</a>.</p>
 
 </div>
 </div>

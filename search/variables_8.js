@@ -11,12 +11,13 @@ var searchData=
   ['header2_8',['HEADER2',['../namespacereceive-from-tv.html#a2e294b3fa6aadcd8d3c8b5ebab525332',1,'receive-from-tv.HEADER2'],['../namespacesend-and-rec.html#a676aa4b3046983f8f867e40dddb56ec1',1,'send-and-rec.HEADER2']]],
   ['headingmotion_9',['headingMotion',['../structNAV__PVT__t.html#a4641a17663dcc26f819966502308b576',1,'NAV_PVT_t']]],
   ['headingvehicle_10',['headingVehicle',['../structNAV__PVT__t.html#a7f62d73366c11c0e24f2379073526954',1,'NAV_PVT_t']]],
-  ['height_11',['height',['../structNAV__PVT__t.html#a9a8442e88106a9ba347cfa2af3546203',1,'NAV_PVT_t']]],
-  ['heightmsl_12',['heightMSL',['../structNAV__PVT__t.html#a68bd5335616cea5646bb48afd58fc3a2',1,'NAV_PVT_t']]],
-  ['hex_5floc_13',['hex_loc',['../classbootloader__download_1_1Bootloader.html#ad43f540958f4c2860df1ee01b82d0e36',1,'bootloader_download::Bootloader']]],
-  ['horizontalaccuracy_14',['horizontalAccuracy',['../structNAV__PVT__t.html#a94bd2e29f2131891fa0dfaae2269dabc',1,'NAV_PVT_t']]],
-  ['hour_15',['hour',['../structNAV__PVT__t.html#a2bca5697d3ad496f6b243f6918263477',1,'NAV_PVT_t']]],
-  ['hours_5fbcd_16',['hours_bcd',['../structRTC__time__t.html#a8d02832380abd6524b9d4272495f6252',1,'RTC_time_t']]],
-  ['huart1_17',['huart1',['../l4__testing_2main_8c.html#a06d36f7d8dfd573ebf393d8868199ffd',1,'main.c']]],
-  ['hw_5fflow_5fctl_18',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]]
+  ['heartbeat_5fperiod_5fms_11',['HEARTBEAT_PERIOD_MS',['../common__defs_8h.html#aba882a54e761d19d12cc40b3a2a91d8b',1,'common_defs.h']]],
+  ['height_12',['height',['../structNAV__PVT__t.html#a9a8442e88106a9ba347cfa2af3546203',1,'NAV_PVT_t']]],
+  ['heightmsl_13',['heightMSL',['../structNAV__PVT__t.html#a68bd5335616cea5646bb48afd58fc3a2',1,'NAV_PVT_t']]],
+  ['hex_5floc_14',['hex_loc',['../classbootloader__download_1_1Bootloader.html#ad43f540958f4c2860df1ee01b82d0e36',1,'bootloader_download::Bootloader']]],
+  ['horizontalaccuracy_15',['horizontalAccuracy',['../structNAV__PVT__t.html#a94bd2e29f2131891fa0dfaae2269dabc',1,'NAV_PVT_t']]],
+  ['hour_16',['hour',['../structNAV__PVT__t.html#a2bca5697d3ad496f6b243f6918263477',1,'NAV_PVT_t']]],
+  ['hours_5fbcd_17',['hours_bcd',['../structRTC__time__t.html#a8d02832380abd6524b9d4272495f6252',1,'RTC_time_t']]],
+  ['huart1_18',['huart1',['../l4__testing_2main_8c.html#a06d36f7d8dfd573ebf393d8868199ffd',1,'main.c']]],
+  ['hw_5fflow_5fctl_19',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]]
 ];

@@ -97,132 +97,167 @@ $(function(){initNavTree('main__module_2main_8h.html',''); initResizable(true); 
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a>  </div>
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">main.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>"Main Module" node source code  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="phal_2gpio_8h_source.html">common/phal/gpio.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="amk_8h_source.html">common/amk/amk.h</a>&quot;</code><br />
 </div>
 <p><a href="main__module_2main_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a8a762e1254b034eba6b4993ae11cee50" id="r_a8a762e1254b034eba6b4993ae11cee50"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8a762e1254b034eba6b4993ae11cee50">HEARTBEAT_LED_PORT</a>&#160;&#160;&#160;(GPIOA)</td></tr>
-<tr class="separator:a8a762e1254b034eba6b4993ae11cee50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e9e4203b861d671cdcd3bf5f08655a3" id="r_a5e9e4203b861d671cdcd3bf5f08655a3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e9e4203b861d671cdcd3bf5f08655a3">HEARTBEAT_LED_PIN</a>&#160;&#160;&#160;(0)</td></tr>
-<tr class="separator:a5e9e4203b861d671cdcd3bf5f08655a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84357dafca10c0bedd27ddf562ec038f" id="r_a84357dafca10c0bedd27ddf562ec038f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a84357dafca10c0bedd27ddf562ec038f">ERROR_LED_PORT</a>&#160;&#160;&#160;(GPIOA)</td></tr>
-<tr class="separator:a84357dafca10c0bedd27ddf562ec038f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16617de3bb2ca54675ae2515d8515e12" id="r_a16617de3bb2ca54675ae2515d8515e12"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16617de3bb2ca54675ae2515d8515e12">ERROR_LED_PIN</a>&#160;&#160;&#160;(5)</td></tr>
-<tr class="separator:a16617de3bb2ca54675ae2515d8515e12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5bf4e4a187f66b98a273bb051ec3877" id="r_aa5bf4e4a187f66b98a273bb051ec3877"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa5bf4e4a187f66b98a273bb051ec3877">CONNECTION_LED_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
-<tr class="separator:aa5bf4e4a187f66b98a273bb051ec3877"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8437cdc43b488d816a5e56f7b6457b86" id="r_a8437cdc43b488d816a5e56f7b6457b86"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8437cdc43b488d816a5e56f7b6457b86">CONNECTION_LED_PIN</a>&#160;&#160;&#160;(2)</td></tr>
-<tr class="separator:a8437cdc43b488d816a5e56f7b6457b86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcar__t.html">car_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtorque__request__t.html">torque_request_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:afada7c6c7e810e225bf4aa0614a92791" id="r_afada7c6c7e810e225bf4aa0614a92791"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afada7c6c7e810e225bf4aa0614a92791">fsm_periodic</a> ()</td></tr>
+<tr class="separator:afada7c6c7e810e225bf4aa0614a92791"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd3e7cea5b364b4698f2ac5d8332bd34" id="r_acd3e7cea5b364b4698f2ac5d8332bd34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd3e7cea5b364b4698f2ac5d8332bd34">car_init</a> ()</td></tr>
+<tr class="separator:acd3e7cea5b364b4698f2ac5d8332bd34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae15fd3183fc7ce084b538afa9d21057b" id="r_ae15fd3183fc7ce084b538afa9d21057b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae15fd3183fc7ce084b538afa9d21057b">update_SDC</a> ()</td></tr>
+<tr class="separator:ae15fd3183fc7ce084b538afa9d21057b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a0c603b6be14ee38a80f5b39fef2668da" id="r_a0c603b6be14ee38a80f5b39fef2668da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcar__t.html">car_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c603b6be14ee38a80f5b39fef2668da">g_car</a></td></tr>
+<tr class="separator:a0c603b6be14ee38a80f5b39fef2668da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a766b4068a82ed7a189256a31ec0086e2" id="r_a766b4068a82ed7a189256a31ec0086e2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structtorque__request__t.html">torque_request_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a766b4068a82ed7a189256a31ec0086e2">g_torque_request</a></td></tr>
+<tr class="separator:a766b4068a82ed7a189256a31ec0086e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>"Main Module" node source code </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="main__module_2main_8h_source.html">main.h</a>.</p>
-</div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a8437cdc43b488d816a5e56f7b6457b86" name="a8437cdc43b488d816a5e56f7b6457b86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8437cdc43b488d816a5e56f7b6457b86">&#9670;&#160;</a></span>CONNECTION_LED_PIN</h2>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="acd3e7cea5b364b4698f2ac5d8332bd34" name="acd3e7cea5b364b4698f2ac5d8332bd34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd3e7cea5b364b4698f2ac5d8332bd34">&#9670;&#160;</a></span>car_init()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CONNECTION_LED_PIN&#160;&#160;&#160;(2)</td>
+          <td class="memname">void car_init </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main__module_2main_8h_source.html#l00021">21</a> of file <a class="el" href="main__module_2main_8h_source.html">main.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="amk__init_8c_source.html#l00137">137</a> of file <a class="el" href="amk__init_8c_source.html">amk_init.c</a>.</p>
+
+<p class="reference">References <a class="el" href="main__module_2main_8h_source.html#l00014">car_t::current_state</a>, <a class="el" href="main__module_2main_8c_source.html#l00022">g_car</a>, <a class="el" href="amk__init_8c_source.html#l00083">init_amks()</a>, and <a class="el" href="main__module_2main_8h_source.html#l00015">car_t::next_state</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main__module_2main_8c_source.html#l00138">main()</a>.</p>
 
 </div>
 </div>
-<a id="aa5bf4e4a187f66b98a273bb051ec3877" name="aa5bf4e4a187f66b98a273bb051ec3877"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5bf4e4a187f66b98a273bb051ec3877">&#9670;&#160;</a></span>CONNECTION_LED_PORT</h2>
+<a id="afada7c6c7e810e225bf4aa0614a92791" name="afada7c6c7e810e225bf4aa0614a92791"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afada7c6c7e810e225bf4aa0614a92791">&#9670;&#160;</a></span>fsm_periodic()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CONNECTION_LED_PORT&#160;&#160;&#160;(GPIOB)</td>
+          <td class="memname">void fsm_periodic </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main__module_2main_8h_source.html#l00020">20</a> of file <a class="el" href="main__module_2main_8h_source.html">main.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="state__machine_8c_source.html#l00094">94</a> of file <a class="el" href="state__machine_8c_source.html">state_machine.c</a>.</p>
+
+<p class="reference">References <a class="el" href="amk_8c_source.html#l00058">AMK_set_torque()</a>, <a class="el" href="main__module_2main_8h_source.html#l00024">car_t::brake_light</a>, <a class="el" href="pindefs_8h_source.html#l00035">BRAKE_LIGHT_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00034">BRAKE_LIGHT_PORT</a>, <a class="el" href="main__module_2main_8h_source.html#l00027">car_t::buzzer_enable</a>, <a class="el" href="pindefs_8h_source.html#l00037">BUZZER_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00036">BUZZER_PORT</a>, <a class="el" href="main__module_2main_8h_source.html#l00022">car_t::buzzer_start_time</a>, <a class="el" href="main__module_2main_8h_source.html#l00014">car_t::current_state</a>, <a class="el" href="main__module_2main_8h_source.html#l00017">car_t::front_left</a>, <a class="el" href="main__module_2main_8h_source.html#l00037">torque_request_t::front_left</a>, <a class="el" href="main__module_2main_8h_source.html#l00016">car_t::front_right</a>, <a class="el" href="main__module_2main_8h_source.html#l00036">torque_request_t::front_right</a>, <a class="el" href="main__module_2main_8c_source.html#l00022">g_car</a>, <a class="el" href="main__module_2main_8c_source.html#l00023">g_torque_request</a>, <a class="el" href="state__machine_8c_source.html#l00057">is_all_AMKS_running()</a>, <a class="el" href="state__machine_8c_source.html#l00072">is_buzzing_time_elapsed()</a>, <a class="el" href="faults__common_8h.html#a1dbab920f7f9b5d889670b63ac61e357">is_fatal_latched()</a>, <a class="el" href="state__machine_8c_source.html#l00045">is_init_complete()</a>, <a class="el" href="faults__common_8h.html#a686858e89e455a414a1e7c87c5e35be5">is_latched()</a>, <a class="el" href="main__module_2main_8h_source.html#l00031">car_t::is_precharge_complete</a>, <a class="el" href="state__machine_8c_source.html#l00053">is_precharge_complete()</a>, <a class="el" href="state__machine_8c_source.html#l00064">is_start_button_pressed()</a>, <a class="el" href="state__machine_8c_source.html#l00049">is_TSMS_closed()</a>, <a class="el" href="main__module_2main_8h_source.html#l00015">car_t::next_state</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00271">PHAL_readGPIO()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, <a class="el" href="pindefs_8h_source.html#l00061">PRECHARGE_COMPLETE_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00060">PRECHARGE_COMPLETE_PORT</a>, <a class="el" href="state__machine_8c_source.html#l00021">ready2drive_periodic()</a>, <a class="el" href="main__module_2main_8h_source.html#l00018">car_t::rear_left</a>, <a class="el" href="main__module_2main_8h_source.html#l00038">torque_request_t::rear_left</a>, <a class="el" href="main__module_2main_8h_source.html#l00019">car_t::rear_right</a>, <a class="el" href="main__module_2main_8h_source.html#l00039">torque_request_t::rear_right</a>, <a class="el" href="state__machine_8c_source.html#l00082">set_brake_light()</a>, <a class="el" href="pindefs_8h_source.html#l00027">TSAL_GREEN_CTRL_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00026">TSAL_GREEN_CTRL_PORT</a>, <a class="el" href="main__module_2main_8h_source.html#l00025">car_t::tsal_green_enable</a>, <a class="el" href="pindefs_8h_source.html#l00025">TSAL_RED_CTRL_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00024">TSAL_RED_CTRL_PORT</a>, <a class="el" href="main__module_2main_8h_source.html#l00026">car_t::tsal_red_enable</a>, and <a class="el" href="faults__common_8h.html#a30c665a5b3c4674a4854fcd2210406a0">update_fault()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main__module_2main_8c_source.html#l00138">main()</a>.</p>
 
 </div>
 </div>
-<a id="a16617de3bb2ca54675ae2515d8515e12" name="a16617de3bb2ca54675ae2515d8515e12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16617de3bb2ca54675ae2515d8515e12">&#9670;&#160;</a></span>ERROR_LED_PIN</h2>
+<a id="ae15fd3183fc7ce084b538afa9d21057b" name="ae15fd3183fc7ce084b538afa9d21057b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae15fd3183fc7ce084b538afa9d21057b">&#9670;&#160;</a></span>update_SDC()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define ERROR_LED_PIN&#160;&#160;&#160;(5)</td>
+          <td class="memname">void update_SDC </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main__module_2main_8h_source.html#l00019">19</a> of file <a class="el" href="main__module_2main_8h_source.html">main.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sdc_8c_source.html#l00038">38</a> of file <a class="el" href="sdc_8c_source.html">sdc.c</a>.</p>
+
+<p class="reference">References <a class="el" href="sdc_8c_source.html#l00009">sdc_node_t::fault_id</a>, <a class="el" href="sdc_8c_source.html#l00010">sdc_node_t::mux_addr</a>, <a class="el" href="sdc_8c_source.html#l00015">NUM_SDC_NODES</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00271">PHAL_readGPIO()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, <a class="el" href="pindefs_8h_source.html#l00043">SDC_MUX_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00042">SDC_MUX_PORT</a>, <a class="el" href="pindefs_8h_source.html#l00051">SDC_MUX_S0_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00050">SDC_MUX_S0_PORT</a>, <a class="el" href="pindefs_8h_source.html#l00049">SDC_MUX_S1_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00048">SDC_MUX_S1_PORT</a>, <a class="el" href="pindefs_8h_source.html#l00047">SDC_MUX_S2_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00046">SDC_MUX_S2_PORT</a>, <a class="el" href="pindefs_8h_source.html#l00045">SDC_MUX_S3_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00044">SDC_MUX_S3_PORT</a>, <a class="el" href="sdc_8c_source.html#l00018">SDC_NODE_LUT</a>, <a class="el" href="sdc_8c_source.html#l00014">SDC_UNREADABLE</a>, and <a class="el" href="faults__common_8h.html#a30c665a5b3c4674a4854fcd2210406a0">update_fault()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main__module_2main_8c_source.html#l00138">main()</a>.</p>
 
 </div>
 </div>
-<a id="a84357dafca10c0bedd27ddf562ec038f" name="a84357dafca10c0bedd27ddf562ec038f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84357dafca10c0bedd27ddf562ec038f">&#9670;&#160;</a></span>ERROR_LED_PORT</h2>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a0c603b6be14ee38a80f5b39fef2668da" name="a0c603b6be14ee38a80f5b39fef2668da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c603b6be14ee38a80f5b39fef2668da">&#9670;&#160;</a></span>g_car</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">#define ERROR_LED_PORT&#160;&#160;&#160;(GPIOA)</td>
+          <td class="memname"><a class="el" href="structcar__t.html">car_t</a> g_car</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main__module_2main_8h_source.html#l00018">18</a> of file <a class="el" href="main__module_2main_8h_source.html">main.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main__module_2main_8c_source.html#l00022">22</a> of file <a class="el" href="main__module_2main_8c_source.html">main.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main__module_2main_8c_source.html#l00124">AMK_task()</a>, <a class="el" href="amk__init_8c_source.html#l00137">car_init()</a>, <a class="el" href="amk__init_8c_source.html#l00027">flush_inva()</a>, <a class="el" href="amk__init_8c_source.html#l00041">flush_invb()</a>, <a class="el" href="amk__init_8c_source.html#l00055">flush_invc()</a>, <a class="el" href="amk__init_8c_source.html#l00069">flush_invd()</a>, <a class="el" href="state__machine_8c_source.html#l00094">fsm_periodic()</a>, <a class="el" href="amk__init_8c_source.html#l00083">init_amks()</a>, <a class="el" href="state__machine_8c_source.html#l00057">is_all_AMKS_running()</a>, <a class="el" href="state__machine_8c_source.html#l00072">is_buzzing_time_elapsed()</a>, and <a class="el" href="state__machine_8c_source.html#l00082">set_brake_light()</a>.</p>
 
 </div>
 </div>
-<a id="a5e9e4203b861d671cdcd3bf5f08655a3" name="a5e9e4203b861d671cdcd3bf5f08655a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e9e4203b861d671cdcd3bf5f08655a3">&#9670;&#160;</a></span>HEARTBEAT_LED_PIN</h2>
+<a id="a766b4068a82ed7a189256a31ec0086e2" name="a766b4068a82ed7a189256a31ec0086e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a766b4068a82ed7a189256a31ec0086e2">&#9670;&#160;</a></span>g_torque_request</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">#define HEARTBEAT_LED_PIN&#160;&#160;&#160;(0)</td>
+          <td class="memname"><a class="el" href="structtorque__request__t.html">torque_request_t</a> g_torque_request</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main__module_2main_8h_source.html#l00017">17</a> of file <a class="el" href="main__module_2main_8h_source.html">main.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main__module_2main_8c_source.html#l00023">23</a> of file <a class="el" href="main__module_2main_8c_source.html">main.c</a>.</p>
 
-</div>
-</div>
-<a id="a8a762e1254b034eba6b4993ae11cee50" name="a8a762e1254b034eba6b4993ae11cee50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a762e1254b034eba6b4993ae11cee50">&#9670;&#160;</a></span>HEARTBEAT_LED_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define HEARTBEAT_LED_PORT&#160;&#160;&#160;(GPIOA)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="main__module_2main_8h_source.html#l00016">16</a> of file <a class="el" href="main__module_2main_8h_source.html">main.h</a>.</p>
+<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00094">fsm_periodic()</a>, and <a class="el" href="state__machine_8c_source.html#l00021">ready2drive_periodic()</a>.</p>
 
 </div>
 </div>

@@ -1,6 +1,6 @@
 var amk_8c =
 [
-    [ "AMK_init", "amk_8c.html#a3cc5c1b315b334fa099805237859f83b", null ],
+    [ "AMK_init", "amk_8c.html#ace399960d8699525e3e7186c395f214c", null ],
     [ "AMK_periodic", "amk_8c.html#a6843102040b2a233465b0ecd3118dbd4", null ],
     [ "AMK_reset", "amk_8c.html#ae93684e0e9805a9672a4816708fa1bf3", null ],
     [ "AMK_set_torque", "amk_8c.html#a356e87a341a5ab48cba5c0aa6ad3bdbe", null ],

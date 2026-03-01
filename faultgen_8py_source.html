@@ -210,7 +210,7 @@ $(function(){initNavTree('faultgen_8py_source.html',''); initResizable(true); })
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            priority=0,</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            is_extended=is_extended,</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            signals=[</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                <a class="code hl_class" href="classparser_1_1Signal.html">Signal</a>(name=<span class="stringliteral">&quot;idx&quot;</span>, datatype=<span class="stringliteral">&quot;fault_index_t&quot;</span>, desc=<span class="stringliteral">&quot;Global Fault Index&quot;</span>),</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                <a class="code hl_class" href="classparser_1_1Signal.html">Signal</a>(name=<span class="stringliteral">&quot;idx&quot;</span>, datatype=<span class="stringliteral">&quot;fault_id_t&quot;</span>, desc=<span class="stringliteral">&quot;Global Fault Index&quot;</span>),</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                <a class="code hl_class" href="classparser_1_1Signal.html">Signal</a>(name=<span class="stringliteral">&quot;val&quot;</span>, datatype=<span class="stringliteral">&quot;uint16_t&quot;</span>, desc=<span class="stringliteral">&quot;Trigger Value&quot;</span>),</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                <a class="code hl_class" href="classparser_1_1Signal.html">Signal</a>(name=<span class="stringliteral">&quot;state&quot;</span>, datatype=<span class="stringliteral">&quot;bool&quot;</span>, desc=<span class="stringliteral">&quot;Latch State (0=unlatched, 1=latched)&quot;</span>)</div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            ]</div>
@@ -256,25 +256,25 @@ $(function(){initNavTree('faultgen_8py_source.html',''); initResizable(true); })
 </div>
 <div class="foldopen" id="foldopen00150" data-start="" data-end="">
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="namespacefaultgen.html#a11190d4ffc206ee3ce93696a63e5dcc0">  150</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacefaultgen.html#a11190d4ffc206ee3ce93696a63e5dcc0">inject_fault_types</a>(custom_types: Dict, fault_modules: List[FaultModule]):</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="stringliteral">&quot;&quot;&quot;Inject fault_index_t enum into the common types list.&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="stringliteral">&quot;&quot;&quot;Inject fault_id_t enum into the common types list.&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    choices = []</div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    global_idx = 0</div>
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keywordflow">for</span> module <span class="keywordflow">in</span> fault_modules:</div>
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <span class="keywordflow">for</span> fault <span class="keywordflow">in</span> module.faults:</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            <span class="comment"># The prefix will be FAULT_INDEX_</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            <span class="comment"># The prefix will be FAULT_ID_</span></div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            choices.append(f<span class="stringliteral">&quot;{module.node_name}_{fault.name}&quot;</span>)</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            fault.absolute_index = global_idx</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            global_idx += 1</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            </div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="comment"># Preserve base_type if it exists in the original definition from common_types.json</span></div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    base_type = custom_types.get(<span class="stringliteral">&quot;fault_index_t&quot;</span>, {}).get(<span class="stringliteral">&quot;base_type&quot;</span>, <span class="stringliteral">&quot;uint16_t&quot;</span>)</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    base_type = custom_types.get(<span class="stringliteral">&quot;fault_id_t&quot;</span>, {}).get(<span class="stringliteral">&quot;base_type&quot;</span>, <span class="stringliteral">&quot;uint16_t&quot;</span>)</div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    custom_types[<span class="stringliteral">&quot;fault_index_t&quot;</span>] = {</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <span class="stringliteral">&quot;name&quot;</span>: <span class="stringliteral">&quot;fault_index_t&quot;</span>,</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    custom_types[<span class="stringliteral">&quot;fault_id_t&quot;</span>] = {</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <span class="stringliteral">&quot;name&quot;</span>: <span class="stringliteral">&quot;fault_id_t&quot;</span>,</div>
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="stringliteral">&quot;choices&quot;</span>: choices,</div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="stringliteral">&quot;base_type&quot;</span>: base_type</div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    }</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    print_as_ok(f<span class="stringliteral">&quot;Injected fault_index_t with {global_idx} total faults&quot;</span>)</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    print_as_ok(f<span class="stringliteral">&quot;Injected fault_id_t with {global_idx} total faults&quot;</span>)</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
 </div>
 <div class="foldopen" id="foldopen00171" data-start="" data-end="">
@@ -321,10 +321,10 @@ $(function(){initNavTree('faultgen_8py_source.html',''); initResizable(true); })
 <div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    print_as_success(<span class="stringliteral">&quot;Fault library implementation files generated&quot;</span>)</div>
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
 </div>
-<div class="ttc" id="aclassparser_1_1FaultModule_html"><div class="ttname"><a href="classparser_1_1FaultModule.html">parser.FaultModule</a></div><div class="ttdef"><b>Definition</b> <a href="parser_8py_source.html#l00193">parser.py:193</a></div></div>
-<div class="ttc" id="aclassparser_1_1Message_html"><div class="ttname"><a href="classparser_1_1Message.html">parser.Message</a></div><div class="ttdef"><b>Definition</b> <a href="parser_8py_source.html#l00057">parser.py:57</a></div></div>
-<div class="ttc" id="aclassparser_1_1RxMessage_html"><div class="ttname"><a href="classparser_1_1RxMessage.html">parser.RxMessage</a></div><div class="ttdef"><b>Definition</b> <a href="parser_8py_source.html#l00136">parser.py:136</a></div></div>
-<div class="ttc" id="aclassparser_1_1Signal_html"><div class="ttname"><a href="classparser_1_1Signal.html">parser.Signal</a></div><div class="ttdef"><b>Definition</b> <a href="parser_8py_source.html#l00013">parser.py:13</a></div></div>
+<div class="ttc" id="aclassparser_1_1FaultModule_html"><div class="ttname"><a href="classparser_1_1FaultModule.html">parser.FaultModule</a></div><div class="ttdef"><b>Definition</b> <a href="parser_8py_source.html#l00200">parser.py:200</a></div></div>
+<div class="ttc" id="aclassparser_1_1Message_html"><div class="ttname"><a href="classparser_1_1Message.html">parser.Message</a></div><div class="ttdef"><b>Definition</b> <a href="parser_8py_source.html#l00062">parser.py:62</a></div></div>
+<div class="ttc" id="aclassparser_1_1RxMessage_html"><div class="ttname"><a href="classparser_1_1RxMessage.html">parser.RxMessage</a></div><div class="ttdef"><b>Definition</b> <a href="parser_8py_source.html#l00143">parser.py:143</a></div></div>
+<div class="ttc" id="aclassparser_1_1Signal_html"><div class="ttname"><a href="classparser_1_1Signal.html">parser.Signal</a></div><div class="ttdef"><b>Definition</b> <a href="parser_8py_source.html#l00018">parser.py:18</a></div></div>
 <div class="ttc" id="anamespacefaultgen_html_a0b8f1265d8faeba6a2d68e2e1509389d"><div class="ttname"><a href="namespacefaultgen.html#a0b8f1265d8faeba6a2d68e2e1509389d">faultgen.generate_fault_data</a></div><div class="ttdeci">generate_fault_data(SystemContext context)</div><div class="ttdef"><b>Definition</b> <a href="#l00189">faultgen.py:189</a></div></div>
 <div class="ttc" id="anamespacefaultgen_html_a0e8b5f173761fe44d09f0e8662d1a652"><div class="ttname"><a href="namespacefaultgen.html#a0e8b5f173761fe44d09f0e8662d1a652">faultgen.validate_fault_injection</a></div><div class="ttdeci">str validate_fault_injection(List[Node] nodes, List[FaultModule] fault_modules, Dict bus_configs)</div><div class="ttdef"><b>Definition</b> <a href="#l00035">faultgen.py:35</a></div></div>
 <div class="ttc" id="anamespacefaultgen_html_a11190d4ffc206ee3ce93696a63e5dcc0"><div class="ttname"><a href="namespacefaultgen.html#a11190d4ffc206ee3ce93696a63e5dcc0">faultgen.inject_fault_types</a></div><div class="ttdeci">inject_fault_types(Dict custom_types, List[FaultModule] fault_modules)</div><div class="ttdef"><b>Definition</b> <a href="#l00150">faultgen.py:150</a></div></div>

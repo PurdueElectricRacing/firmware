@@ -106,130 +106,149 @@ $(function(){initNavTree('utils_8py_source.html',''); initResizable(true); });
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">import</span> json</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">import</span> subprocess</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">from</span> jinja2 <span class="keyword">import</span> Environment, FileSystemLoader, select_autoescape</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="namespaceutils.html#a4f35b07617a1e95fc5141f807889221f">   12</a></span>BASE_DIR = Path(__file__).parent.parent</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="namespaceutils.html#ad7bbb0dc8a7cb57dac35a35820ca48b2">   13</a></span>SCHEMA_DIR = BASE_DIR / <span class="stringliteral">&#39;schema&#39;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="namespaceutils.html#a0978fa33a1b01da796b16e2ac1a1d0d5">   14</a></span>CONFIG_DIR = BASE_DIR / <span class="stringliteral">&#39;configs&#39;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="namespaceutils.html#adc64efe6c07bab2434359f0e9c23cdf8">   15</a></span>NODE_CONFIG_DIR = CONFIG_DIR / <span class="stringliteral">&#39;nodes&#39;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="namespaceutils.html#a2a954ebd949f995dc4b81e28220bfe3d">   16</a></span>EXTERNAL_NODE_CONFIG_DIR = CONFIG_DIR / <span class="stringliteral">&#39;external_nodes&#39;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="namespaceutils.html#ac362a6b5ef2c9f6c3a36ed75b9e19470">   17</a></span>GENERATED_DIR = BASE_DIR / <span class="stringliteral">&#39;generated&#39;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="namespaceutils.html#a8537b14e7cd57a6df7e1810beec85fee">   18</a></span>DBC_DIR = BASE_DIR / <span class="stringliteral">&#39;dbc&#39;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="namespaceutils.html#a6c2d78d6a7e143591ab994352e1bd43d">   19</a></span>BUS_CONFIG_PATH = CONFIG_DIR / <span class="stringliteral">&#39;system&#39;</span> / <span class="stringliteral">&#39;bus_configs.json&#39;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="namespaceutils.html#a4cb58ea9f8c39930361007b88dc23128">   20</a></span>COMMON_TYPES_CONFIG_PATH = CONFIG_DIR / <span class="stringliteral">&#39;system&#39;</span> / <span class="stringliteral">&#39;common_types.json&#39;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="namespaceutils.html#a8aa4cccf32230d860b4ad0b214922e9a">   22</a></span>CTYPE_SIZES = {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="stringliteral">&quot;uint8_t&quot;</span>: 8, <span class="stringliteral">&quot;int8_t&quot;</span>: 8,</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="stringliteral">&quot;uint16_t&quot;</span>: 16, <span class="stringliteral">&quot;int16_t&quot;</span>: 16,</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="stringliteral">&quot;uint32_t&quot;</span>: 32, <span class="stringliteral">&quot;int32_t&quot;</span>: 32,</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="stringliteral">&quot;uint64_t&quot;</span>: 64, <span class="stringliteral">&quot;int64_t&quot;</span>: 64,</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="stringliteral">&quot;float&quot;</span>: 32, <span class="stringliteral">&quot;double&quot;</span>: 64,</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="stringliteral">&quot;bool&quot;</span>: 1</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="foldopen" id="foldopen00031" data-start="" data-end="">
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html">   31</a></span><span class="keyword">class </span><a class="code hl_class" href="classutils_1_1bcolors.html">bcolors</a>:</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html#ae1b46bb5726457898bd2c00acbc617d7">   32</a></span>    HEADER = <span class="stringliteral">&#39;\033[95m&#39;</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html#a74bd2313d3399cbf36e8b4a64a555d5a">   33</a></span>    BLUE = <span class="stringliteral">&#39;\033[94m&#39;</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html#aba4a255fea08c1dee4d1a8c228ba2425">   34</a></span>    CYAN = <span class="stringliteral">&#39;\033[96m&#39;</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html#aa6a8c026d01cc05d51531af6ec9a37cb">   35</a></span>    GREEN = <span class="stringliteral">&#39;\033[92m&#39;</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html#ac694c6b38347e344122c497ea16d8132">   36</a></span>    ORANGE = <span class="stringliteral">&#39;\033[93m&#39;</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html#ab57123de3e4e04437ce063fd94c654ba">   37</a></span>    RED = <span class="stringliteral">&#39;\033[91m&#39;</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html#a3d98c698113ee9cdeb89950d06a995dc">   38</a></span>    ENDC = <span class="stringliteral">&#39;\033[0m&#39;</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html#a4f0949b51d0b70cb5360b68084f03d6f">   39</a></span>    BOLD = <span class="stringliteral">&#39;\033[1m&#39;</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html#a7ab5bd781bae3c1a5bb4711272959627">   40</a></span>    UNDERLINE = <span class="stringliteral">&#39;\033[4m&#39;</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">import</span> hashlib</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">import</span> subprocess</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">from</span> jinja2 <span class="keyword">import</span> Environment, FileSystemLoader, select_autoescape</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="namespaceutils.html#a4f35b07617a1e95fc5141f807889221f">   13</a></span>BASE_DIR = Path(__file__).parent.parent</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="namespaceutils.html#ad7bbb0dc8a7cb57dac35a35820ca48b2">   14</a></span>SCHEMA_DIR = BASE_DIR / <span class="stringliteral">&#39;schema&#39;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="namespaceutils.html#a0978fa33a1b01da796b16e2ac1a1d0d5">   15</a></span>CONFIG_DIR = BASE_DIR / <span class="stringliteral">&#39;configs&#39;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="namespaceutils.html#adc64efe6c07bab2434359f0e9c23cdf8">   16</a></span>NODE_CONFIG_DIR = CONFIG_DIR / <span class="stringliteral">&#39;nodes&#39;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="namespaceutils.html#a2a954ebd949f995dc4b81e28220bfe3d">   17</a></span>EXTERNAL_NODE_CONFIG_DIR = CONFIG_DIR / <span class="stringliteral">&#39;external_nodes&#39;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="namespaceutils.html#ac362a6b5ef2c9f6c3a36ed75b9e19470">   18</a></span>GENERATED_DIR = BASE_DIR / <span class="stringliteral">&#39;generated&#39;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="namespaceutils.html#a8537b14e7cd57a6df7e1810beec85fee">   19</a></span>DBC_DIR = BASE_DIR / <span class="stringliteral">&#39;dbc&#39;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="namespaceutils.html#a6c2d78d6a7e143591ab994352e1bd43d">   20</a></span>BUS_CONFIG_PATH = CONFIG_DIR / <span class="stringliteral">&#39;system&#39;</span> / <span class="stringliteral">&#39;bus_configs.json&#39;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="namespaceutils.html#a4cb58ea9f8c39930361007b88dc23128">   21</a></span>COMMON_TYPES_CONFIG_PATH = CONFIG_DIR / <span class="stringliteral">&#39;system&#39;</span> / <span class="stringliteral">&#39;common_types.json&#39;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="namespaceutils.html#a8aa4cccf32230d860b4ad0b214922e9a">   23</a></span>CTYPE_SIZES = {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="stringliteral">&quot;uint8_t&quot;</span>: 8, <span class="stringliteral">&quot;int8_t&quot;</span>: 8,</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="stringliteral">&quot;uint16_t&quot;</span>: 16, <span class="stringliteral">&quot;int16_t&quot;</span>: 16,</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="stringliteral">&quot;uint32_t&quot;</span>: 32, <span class="stringliteral">&quot;int32_t&quot;</span>: 32,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="stringliteral">&quot;uint64_t&quot;</span>: 64, <span class="stringliteral">&quot;int64_t&quot;</span>: 64,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="stringliteral">&quot;float&quot;</span>: 32, <span class="stringliteral">&quot;double&quot;</span>: 64,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="stringliteral">&quot;bool&quot;</span>: 1</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="foldopen" id="foldopen00032" data-start="" data-end="">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html">   32</a></span><span class="keyword">class </span><a class="code hl_class" href="classutils_1_1bcolors.html">bcolors</a>:</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html#ae1b46bb5726457898bd2c00acbc617d7">   33</a></span>    HEADER = <span class="stringliteral">&#39;\033[95m&#39;</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html#a74bd2313d3399cbf36e8b4a64a555d5a">   34</a></span>    BLUE = <span class="stringliteral">&#39;\033[94m&#39;</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html#aba4a255fea08c1dee4d1a8c228ba2425">   35</a></span>    CYAN = <span class="stringliteral">&#39;\033[96m&#39;</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html#aa6a8c026d01cc05d51531af6ec9a37cb">   36</a></span>    GREEN = <span class="stringliteral">&#39;\033[92m&#39;</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html#ac694c6b38347e344122c497ea16d8132">   37</a></span>    ORANGE = <span class="stringliteral">&#39;\033[93m&#39;</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html#ab57123de3e4e04437ce063fd94c654ba">   38</a></span>    RED = <span class="stringliteral">&#39;\033[91m&#39;</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html#a3d98c698113ee9cdeb89950d06a995dc">   39</a></span>    ENDC = <span class="stringliteral">&#39;\033[0m&#39;</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html#a4f0949b51d0b70cb5360b68084f03d6f">   40</a></span>    BOLD = <span class="stringliteral">&#39;\033[1m&#39;</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="classutils_1_1bcolors.html#a7ab5bd781bae3c1a5bb4711272959627">   41</a></span>    UNDERLINE = <span class="stringliteral">&#39;\033[4m&#39;</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 </div>
-<div class="foldopen" id="foldopen00042" data-start="" data-end="">
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="namespaceutils.html#ad591a8e5f64cc509e407bf7097b17148">   42</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#ad591a8e5f64cc509e407bf7097b17148">print_as_error</a>(message):</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    print(f<span class="stringliteral">&quot;{bcolors.RED}[ERROR] {message}{bcolors.ENDC}&quot;</span>)</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="foldopen" id="foldopen00043" data-start="" data-end="">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="namespaceutils.html#ad591a8e5f64cc509e407bf7097b17148">   43</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#ad591a8e5f64cc509e407bf7097b17148">print_as_error</a>(message):</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    print(f<span class="stringliteral">&quot;{bcolors.RED}[ERROR] {message}{bcolors.ENDC}&quot;</span>)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 </div>
-<div class="foldopen" id="foldopen00045" data-start="" data-end="">
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="namespaceutils.html#a108b2584ebc0ab1afbafdf87e07d4a2d">   45</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#a108b2584ebc0ab1afbafdf87e07d4a2d">print_as_warning</a>(message):</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    print(f<span class="stringliteral">&quot;{bcolors.ORANGE}[WARNING] {message}{bcolors.ENDC}&quot;</span>)</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="foldopen" id="foldopen00046" data-start="" data-end="">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="namespaceutils.html#a108b2584ebc0ab1afbafdf87e07d4a2d">   46</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#a108b2584ebc0ab1afbafdf87e07d4a2d">print_as_warning</a>(message):</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    print(f<span class="stringliteral">&quot;{bcolors.ORANGE}[WARNING] {message}{bcolors.ENDC}&quot;</span>)</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
 </div>
-<div class="foldopen" id="foldopen00048" data-start="" data-end="">
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="namespaceutils.html#aa464792903a6e58a565329818163930a">   48</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#aa464792903a6e58a565329818163930a">print_as_ok</a>(message):</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    print(f<span class="stringliteral">&quot;[OK] {message}&quot;</span>)</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="foldopen" id="foldopen00049" data-start="" data-end="">
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="namespaceutils.html#aa464792903a6e58a565329818163930a">   49</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#aa464792903a6e58a565329818163930a">print_as_ok</a>(message):</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    print(f<span class="stringliteral">&quot;[OK] {message}&quot;</span>)</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
 </div>
-<div class="foldopen" id="foldopen00051" data-start="" data-end="">
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="namespaceutils.html#a16b94f0d7e84a12470ef1807860b9a2a">   51</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#a16b94f0d7e84a12470ef1807860b9a2a">print_as_success</a>(message):</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    print(f<span class="stringliteral">&quot;{bcolors.GREEN}[SUCCESS] {message}{bcolors.ENDC}&quot;</span>)</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="foldopen" id="foldopen00052" data-start="" data-end="">
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="namespaceutils.html#a16b94f0d7e84a12470ef1807860b9a2a">   52</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#a16b94f0d7e84a12470ef1807860b9a2a">print_as_success</a>(message):</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    print(f<span class="stringliteral">&quot;{bcolors.GREEN}[SUCCESS] {message}{bcolors.ENDC}&quot;</span>)</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
 </div>
-<div class="foldopen" id="foldopen00054" data-start="" data-end="">
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="namespaceutils.html#a9bdd3064ac11001c40863580f4a2c86f">   54</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#a9bdd3064ac11001c40863580f4a2c86f">load_json</a>(filepath):</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="stringliteral">&quot;&quot;&quot;Load JSON file&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">with</span> open(filepath) <span class="keyword">as</span> f:</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">return</span> json.load(f)</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="foldopen" id="foldopen00055" data-start="" data-end="">
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="namespaceutils.html#a9bdd3064ac11001c40863580f4a2c86f">   55</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#a9bdd3064ac11001c40863580f4a2c86f">load_json</a>(filepath):</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="stringliteral">&quot;&quot;&quot;Load JSON file&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">with</span> open(filepath) <span class="keyword">as</span> f:</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordflow">return</span> json.load(f)</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 </div>
-<div class="foldopen" id="foldopen00059" data-start="" data-end="">
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="namespaceutils.html#ab9cea1bbee0e11aeae770ebc49c3fccb">   59</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#ab9cea1bbee0e11aeae770ebc49c3fccb">to_macro_name</a>(name: str) -&gt; str:</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">return</span> name.upper()</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="foldopen" id="foldopen00060" data-start="" data-end="">
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="namespaceutils.html#ab9cea1bbee0e11aeae770ebc49c3fccb">   60</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#ab9cea1bbee0e11aeae770ebc49c3fccb">to_macro_name</a>(name: str) -&gt; str:</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">return</span> name.upper()</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
 </div>
-<div class="foldopen" id="foldopen00062" data-start="" data-end="">
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="namespaceutils.html#a5ea003cf13d4e3bb99f6df674fb22a21">   62</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#a5ea003cf13d4e3bb99f6df674fb22a21">get_git_hash</a>():</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="stringliteral">    Returns the short git hash of the current commit</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordflow">try</span>:</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        result = subprocess.run([<span class="stringliteral">&#39;git&#39;</span>, <span class="stringliteral">&#39;rev-parse&#39;</span>, <span class="stringliteral">&#39;--short=7&#39;</span>, <span class="stringliteral">&#39;HEAD&#39;</span>], </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                                capture_output=<span class="keyword">True</span>, text=<span class="keyword">True</span>, check=<span class="keyword">True</span>)</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">return</span> result.stdout.strip()</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">except</span> (subprocess.CalledProcessError, FileNotFoundError):</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;unknown&quot;</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="foldopen" id="foldopen00063" data-start="" data-end="">
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="namespaceutils.html#a5ea003cf13d4e3bb99f6df674fb22a21">   63</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#a5ea003cf13d4e3bb99f6df674fb22a21">get_git_hash</a>():</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="stringliteral">    Returns the short git hash of the current commit</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">try</span>:</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        result = subprocess.run([<span class="stringliteral">&#39;git&#39;</span>, <span class="stringliteral">&#39;rev-parse&#39;</span>, <span class="stringliteral">&#39;--short=7&#39;</span>, <span class="stringliteral">&#39;HEAD&#39;</span>], </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                                capture_output=<span class="keyword">True</span>, text=<span class="keyword">True</span>, check=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">return</span> result.stdout.strip()</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">except</span> (subprocess.CalledProcessError, FileNotFoundError):</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;unknown&quot;</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
 </div>
-<div class="foldopen" id="foldopen00073" data-start="" data-end="">
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="namespaceutils.html#ac4a494f2d54789270d2b8853fc51ddee">   73</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#ac4a494f2d54789270d2b8853fc51ddee">get_jinja_env</a>():</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    template_dir = Path(__file__).parent / <span class="stringliteral">&#39;templates&#39;</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    env = Environment(</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        loader=FileSystemLoader(str(template_dir)),</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        autoescape=select_autoescape(),</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        trim_blocks=<span class="keyword">True</span>,</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        lstrip_blocks=<span class="keyword">True</span>,</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        keep_trailing_newline=<span class="keyword">True</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    )</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="comment"># Custom Filters</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    env.filters[<span class="stringliteral">&#39;to_c_hex&#39;</span>] = <span class="keyword">lambda</span> v: f<span class="stringliteral">&quot;0x{v:X}&quot;</span> <span class="keywordflow">if</span> v <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">else</span> <span class="stringliteral">&quot;0&quot;</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keyword">def </span>format_float(val: float) -&gt; str:</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="stringliteral">&quot;&quot;&quot;Format float to .6g and ensure it looks like a float literal in C&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        s = f<span class="stringliteral">&quot;{val:.6g}&quot;</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordflow">if</span> <span class="stringliteral">&#39;.&#39;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> s <span class="keywordflow">and</span> <span class="stringliteral">&#39;e&#39;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> s:</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            s = f<span class="stringliteral">&quot;{val:.1f}&quot;</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">return</span> s + <span class="stringliteral">&quot;f&quot;</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    env.filters[<span class="stringliteral">&#39;format_float&#39;</span>] = format_float</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordflow">return</span> env</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="foldopen" id="foldopen00074" data-start="" data-end="">
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="namespaceutils.html#a673d645eea2981b1aed0db6a0228f625">   74</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#a673d645eea2981b1aed0db6a0228f625">get_layout_hash</a>(message):</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="stringliteral">    Calculates a fingerprint hash for a message layout</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    layout_str = <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="comment"># Add signal properties that affect layout into a single string</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="comment"># ! does not account for message ID or period, as they do not affect the layout</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">for</span> sig <span class="keywordflow">in</span> message.signals:</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        layout_str += f<span class="stringliteral">&quot;{sig.name}:{sig.c_type}:{sig.bit_shift}:{sig.length};&quot;</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    payload = layout_str.encode(<span class="stringliteral">&#39;utf-8&#39;</span>)</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    full_hash = hashlib.sha256(payload).hexdigest().upper()</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordflow">return</span> f<span class="stringliteral">&quot;0x{full_hash[:16]}&quot;</span> <span class="comment"># take the first 16 chars (to fit in 64 bits)</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
 </div>
-<div class="foldopen" id="foldopen00097" data-start="" data-end="">
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="namespaceutils.html#af4091f06871b22ed4b76fb76a8df18bd">   97</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#af4091f06871b22ed4b76fb76a8df18bd">render_template</a>(env, template_name, output_path, **context):</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    template = env.get_template(template_name)</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    content = template.render(**context)</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keyword">with</span> open(output_path, <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> f:</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        f.write(content)</div>
+<div class="foldopen" id="foldopen00089" data-start="" data-end="">
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="namespaceutils.html#ac4a494f2d54789270d2b8853fc51ddee">   89</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#ac4a494f2d54789270d2b8853fc51ddee">get_jinja_env</a>():</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    template_dir = Path(__file__).parent / <span class="stringliteral">&#39;templates&#39;</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    env = Environment(</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        loader=FileSystemLoader(str(template_dir)),</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        autoescape=select_autoescape(),</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        trim_blocks=<span class="keyword">True</span>,</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        lstrip_blocks=<span class="keyword">True</span>,</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        keep_trailing_newline=<span class="keyword">True</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    )</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="comment"># Custom Filters</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    env.filters[<span class="stringliteral">&#39;to_c_hex&#39;</span>] = <span class="keyword">lambda</span> v: f<span class="stringliteral">&quot;0x{v:X}&quot;</span> <span class="keywordflow">if</span> v <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">else</span> <span class="stringliteral">&quot;0&quot;</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keyword">def </span>format_float(val: float) -&gt; str:</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="stringliteral">&quot;&quot;&quot;Format float to .6g and ensure it looks like a float literal in C&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        s = f<span class="stringliteral">&quot;{val:.6g}&quot;</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">if</span> <span class="stringliteral">&#39;.&#39;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> s <span class="keywordflow">and</span> <span class="stringliteral">&#39;e&#39;</span> <span class="keywordflow">not</span> <span class="keywordflow">in</span> s:</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            s = f<span class="stringliteral">&quot;{val:.1f}&quot;</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">return</span> s + <span class="stringliteral">&quot;f&quot;</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    env.filters[<span class="stringliteral">&#39;format_float&#39;</span>] = format_float</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordflow">return</span> env</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
 </div>
-<div class="ttc" id="aclassutils_1_1bcolors_html"><div class="ttname"><a href="classutils_1_1bcolors.html">utils.bcolors</a></div><div class="ttdef"><b>Definition</b> <a href="#l00031">utils.py:31</a></div></div>
-<div class="ttc" id="anamespaceutils_html_a108b2584ebc0ab1afbafdf87e07d4a2d"><div class="ttname"><a href="namespaceutils.html#a108b2584ebc0ab1afbafdf87e07d4a2d">utils.print_as_warning</a></div><div class="ttdeci">print_as_warning(message)</div><div class="ttdef"><b>Definition</b> <a href="#l00045">utils.py:45</a></div></div>
-<div class="ttc" id="anamespaceutils_html_a16b94f0d7e84a12470ef1807860b9a2a"><div class="ttname"><a href="namespaceutils.html#a16b94f0d7e84a12470ef1807860b9a2a">utils.print_as_success</a></div><div class="ttdeci">print_as_success(message)</div><div class="ttdef"><b>Definition</b> <a href="#l00051">utils.py:51</a></div></div>
-<div class="ttc" id="anamespaceutils_html_a5ea003cf13d4e3bb99f6df674fb22a21"><div class="ttname"><a href="namespaceutils.html#a5ea003cf13d4e3bb99f6df674fb22a21">utils.get_git_hash</a></div><div class="ttdeci">get_git_hash()</div><div class="ttdef"><b>Definition</b> <a href="#l00062">utils.py:62</a></div></div>
-<div class="ttc" id="anamespaceutils_html_a9bdd3064ac11001c40863580f4a2c86f"><div class="ttname"><a href="namespaceutils.html#a9bdd3064ac11001c40863580f4a2c86f">utils.load_json</a></div><div class="ttdeci">load_json(filepath)</div><div class="ttdef"><b>Definition</b> <a href="#l00054">utils.py:54</a></div></div>
-<div class="ttc" id="anamespaceutils_html_aa464792903a6e58a565329818163930a"><div class="ttname"><a href="namespaceutils.html#aa464792903a6e58a565329818163930a">utils.print_as_ok</a></div><div class="ttdeci">print_as_ok(message)</div><div class="ttdef"><b>Definition</b> <a href="#l00048">utils.py:48</a></div></div>
-<div class="ttc" id="anamespaceutils_html_ab9cea1bbee0e11aeae770ebc49c3fccb"><div class="ttname"><a href="namespaceutils.html#ab9cea1bbee0e11aeae770ebc49c3fccb">utils.to_macro_name</a></div><div class="ttdeci">str to_macro_name(str name)</div><div class="ttdef"><b>Definition</b> <a href="#l00059">utils.py:59</a></div></div>
-<div class="ttc" id="anamespaceutils_html_ac4a494f2d54789270d2b8853fc51ddee"><div class="ttname"><a href="namespaceutils.html#ac4a494f2d54789270d2b8853fc51ddee">utils.get_jinja_env</a></div><div class="ttdeci">get_jinja_env()</div><div class="ttdef"><b>Definition</b> <a href="#l00073">utils.py:73</a></div></div>
-<div class="ttc" id="anamespaceutils_html_ad591a8e5f64cc509e407bf7097b17148"><div class="ttname"><a href="namespaceutils.html#ad591a8e5f64cc509e407bf7097b17148">utils.print_as_error</a></div><div class="ttdeci">print_as_error(message)</div><div class="ttdef"><b>Definition</b> <a href="#l00042">utils.py:42</a></div></div>
-<div class="ttc" id="anamespaceutils_html_af4091f06871b22ed4b76fb76a8df18bd"><div class="ttname"><a href="namespaceutils.html#af4091f06871b22ed4b76fb76a8df18bd">utils.render_template</a></div><div class="ttdeci">render_template(env, template_name, output_path, **context)</div><div class="ttdef"><b>Definition</b> <a href="#l00097">utils.py:97</a></div></div>
+<div class="foldopen" id="foldopen00113" data-start="" data-end="">
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="namespaceutils.html#af4091f06871b22ed4b76fb76a8df18bd">  113</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceutils.html#af4091f06871b22ed4b76fb76a8df18bd">render_template</a>(env, template_name, output_path, **context):</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    template = env.get_template(template_name)</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    content = template.render(**context)</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keyword">with</span> open(output_path, <span class="stringliteral">&#39;w&#39;</span>) <span class="keyword">as</span> f:</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        f.write(content)</div>
+</div>
+<div class="ttc" id="aclassutils_1_1bcolors_html"><div class="ttname"><a href="classutils_1_1bcolors.html">utils.bcolors</a></div><div class="ttdef"><b>Definition</b> <a href="#l00032">utils.py:32</a></div></div>
+<div class="ttc" id="anamespaceutils_html_a108b2584ebc0ab1afbafdf87e07d4a2d"><div class="ttname"><a href="namespaceutils.html#a108b2584ebc0ab1afbafdf87e07d4a2d">utils.print_as_warning</a></div><div class="ttdeci">print_as_warning(message)</div><div class="ttdef"><b>Definition</b> <a href="#l00046">utils.py:46</a></div></div>
+<div class="ttc" id="anamespaceutils_html_a16b94f0d7e84a12470ef1807860b9a2a"><div class="ttname"><a href="namespaceutils.html#a16b94f0d7e84a12470ef1807860b9a2a">utils.print_as_success</a></div><div class="ttdeci">print_as_success(message)</div><div class="ttdef"><b>Definition</b> <a href="#l00052">utils.py:52</a></div></div>
+<div class="ttc" id="anamespaceutils_html_a5ea003cf13d4e3bb99f6df674fb22a21"><div class="ttname"><a href="namespaceutils.html#a5ea003cf13d4e3bb99f6df674fb22a21">utils.get_git_hash</a></div><div class="ttdeci">get_git_hash()</div><div class="ttdef"><b>Definition</b> <a href="#l00063">utils.py:63</a></div></div>
+<div class="ttc" id="anamespaceutils_html_a673d645eea2981b1aed0db6a0228f625"><div class="ttname"><a href="namespaceutils.html#a673d645eea2981b1aed0db6a0228f625">utils.get_layout_hash</a></div><div class="ttdeci">get_layout_hash(message)</div><div class="ttdef"><b>Definition</b> <a href="#l00074">utils.py:74</a></div></div>
+<div class="ttc" id="anamespaceutils_html_a9bdd3064ac11001c40863580f4a2c86f"><div class="ttname"><a href="namespaceutils.html#a9bdd3064ac11001c40863580f4a2c86f">utils.load_json</a></div><div class="ttdeci">load_json(filepath)</div><div class="ttdef"><b>Definition</b> <a href="#l00055">utils.py:55</a></div></div>
+<div class="ttc" id="anamespaceutils_html_aa464792903a6e58a565329818163930a"><div class="ttname"><a href="namespaceutils.html#aa464792903a6e58a565329818163930a">utils.print_as_ok</a></div><div class="ttdeci">print_as_ok(message)</div><div class="ttdef"><b>Definition</b> <a href="#l00049">utils.py:49</a></div></div>
+<div class="ttc" id="anamespaceutils_html_ab9cea1bbee0e11aeae770ebc49c3fccb"><div class="ttname"><a href="namespaceutils.html#ab9cea1bbee0e11aeae770ebc49c3fccb">utils.to_macro_name</a></div><div class="ttdeci">str to_macro_name(str name)</div><div class="ttdef"><b>Definition</b> <a href="#l00060">utils.py:60</a></div></div>
+<div class="ttc" id="anamespaceutils_html_ac4a494f2d54789270d2b8853fc51ddee"><div class="ttname"><a href="namespaceutils.html#ac4a494f2d54789270d2b8853fc51ddee">utils.get_jinja_env</a></div><div class="ttdeci">get_jinja_env()</div><div class="ttdef"><b>Definition</b> <a href="#l00089">utils.py:89</a></div></div>
+<div class="ttc" id="anamespaceutils_html_ad591a8e5f64cc509e407bf7097b17148"><div class="ttname"><a href="namespaceutils.html#ad591a8e5f64cc509e407bf7097b17148">utils.print_as_error</a></div><div class="ttdeci">print_as_error(message)</div><div class="ttdef"><b>Definition</b> <a href="#l00043">utils.py:43</a></div></div>
+<div class="ttc" id="anamespaceutils_html_af4091f06871b22ed4b76fb76a8df18bd"><div class="ttname"><a href="namespaceutils.html#af4091f06871b22ed4b76fb76a8df18bd">utils.render_template</a></div><div class="ttdeci">render_template(env, template_name, output_path, **context)</div><div class="ttdef"><b>Definition</b> <a href="#l00113">utils.py:113</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

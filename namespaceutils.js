@@ -3,6 +3,7 @@ var namespaceutils =
     [ "bcolors", "classutils_1_1bcolors.html", "classutils_1_1bcolors" ],
     [ "get_git_hash", "namespaceutils.html#a5ea003cf13d4e3bb99f6df674fb22a21", null ],
     [ "get_jinja_env", "namespaceutils.html#ac4a494f2d54789270d2b8853fc51ddee", null ],
+    [ "get_layout_hash", "namespaceutils.html#a673d645eea2981b1aed0db6a0228f625", null ],
     [ "load_json", "namespaceutils.html#a9bdd3064ac11001c40863580f4a2c86f", null ],
     [ "print_as_error", "namespaceutils.html#ad591a8e5f64cc509e407bf7097b17148", null ],
     [ "print_as_ok", "namespaceutils.html#aa464792903a6e58a565329818163930a", null ],

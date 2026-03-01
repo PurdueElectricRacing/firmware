@@ -1,9 +1,10 @@
 var main__module_2main_8h =
 [
-    [ "CONNECTION_LED_PIN", "main__module_2main_8h.html#a8437cdc43b488d816a5e56f7b6457b86", null ],
-    [ "CONNECTION_LED_PORT", "main__module_2main_8h.html#aa5bf4e4a187f66b98a273bb051ec3877", null ],
-    [ "ERROR_LED_PIN", "main__module_2main_8h.html#a16617de3bb2ca54675ae2515d8515e12", null ],
-    [ "ERROR_LED_PORT", "main__module_2main_8h.html#a84357dafca10c0bedd27ddf562ec038f", null ],
-    [ "HEARTBEAT_LED_PIN", "main__module_2main_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3", null ],
-    [ "HEARTBEAT_LED_PORT", "main__module_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50", null ]
+    [ "car_t", "structcar__t.html", "structcar__t" ],
+    [ "torque_request_t", "structtorque__request__t.html", "structtorque__request__t" ],
+    [ "car_init", "main__module_2main_8h.html#acd3e7cea5b364b4698f2ac5d8332bd34", null ],
+    [ "fsm_periodic", "main__module_2main_8h.html#afada7c6c7e810e225bf4aa0614a92791", null ],
+    [ "update_SDC", "main__module_2main_8h.html#ae15fd3183fc7ce084b538afa9d21057b", null ],
+    [ "g_car", "main__module_2main_8h.html#a0c603b6be14ee38a80f5b39fef2668da", null ],
+    [ "g_torque_request", "main__module_2main_8h.html#a766b4068a82ed7a189256a31ec0086e2", null ]
 ];

@@ -99,11 +99,11 @@ $(function(){initNavTree('md_docs_2setup.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">PER Firmware Setup Instructions</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md72"></a></p>
-<h1><a class="anchor" id="autotoc_md73"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md74"></a></p>
+<h1><a class="anchor" id="autotoc_md75"></a>
 1. Tools</h1>
 <p>The PER firmware development environment relies on several tools &ndash; such as <code>cmake</code>, <code>ninja</code>, and <code>stlink</code> &ndash; to build, debug, flash, and deploy code to the vehicle. To streamline setup, we (highly) recommend using a package manager compatible with your operating system. Package managers help manage dependencies and ensure tools are correctly installed and updated. Below are supported package manager setups for each OS (macOS, Windows, Linux):</p>
-<h2><a class="anchor" id="autotoc_md74"></a>
+<h2><a class="anchor" id="autotoc_md76"></a>
 MacOS Tools Setup</h2>
 <ol type="1">
 <li><a href="https://brew.sh/">Homebrew</a>: macOS package manager. Open a terminal (e.g., iTerm) and paste and run the installation command provided on the homebrew install page.<ul>
@@ -116,7 +116,7 @@ MacOS Tools Setup</h2>
 </div><!-- fragment --></li>
 <li>Download VSCode from the website: <a href="https://code.visualstudio.com/docs/setup/mac">https://code.visualstudio.com/docs/setup/mac</a></li>
 </ol>
-<h2><a class="anchor" id="autotoc_md75"></a>
+<h2><a class="anchor" id="autotoc_md77"></a>
 Windows Tools Setup</h2>
 <p>You should use WSL if possible, the choco toolchain for Windows is too old. Install <a href="https://learn.microsoft.com/en-us/windows/wsl/install">here</a>.</p>
 <ol type="1">
@@ -143,7 +143,7 @@ Windows Tools Setup</h2>
 <li>gcc-arm-embedded needs to be manually installed from <a href="https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads">here</a> (Download and install arm-gnu-toolchain-15.2.rel1-mingw-w64-x86_64-arm-none-eabi.msi)</li>
 <li>Download VSCode from the website: <a href="https://code.visualstudio.com/download">https://code.visualstudio.com/download</a></li>
 </ol>
-<h2><a class="anchor" id="autotoc_md76"></a>
+<h2><a class="anchor" id="autotoc_md78"></a>
 Linux Tools Setup</h2>
 <ol type="1">
 <li>You probably already know what you're doing, so here are the commands for <code>apt</code> (Ubuntu, Debian, Pop!, etc.): <div class="fragment"><div class="line">sudo apt update &amp;&amp; sudo apt upgrade</div>
@@ -151,26 +151,26 @@ Linux Tools Setup</h2>
 </div><!-- fragment --></li>
 <li>Visual Studio Code requires some special attention, install from <a href="https://code.visualstudio.com/docs/setup/linux">here</a>.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md77"></a>
+<h1><a class="anchor" id="autotoc_md79"></a>
 2. VSCode Setup (All OS)</h1>
 <p>VS Code is the recommended editor for firmware development.</p>
-<h2><a class="anchor" id="autotoc_md78"></a>
+<h2><a class="anchor" id="autotoc_md80"></a>
 Install Extensions</h2>
 <p>Open the Extensions view (Ctrl+Shift+X or Cmd+Shift+X) and install the <a href="https://marketplace.visualstudio.com/items?itemName=irvingywang.per-pack">PER extension pack</a> by searching the extension marketplace for "PER-Pack". </p><dl class="section warning"><dt>Warning</dt><dd>PER-Pack is required! Dont skip this step.</dd></dl>
-<h2><a class="anchor" id="autotoc_md79"></a>
+<h2><a class="anchor" id="autotoc_md81"></a>
 Turn on Autosave</h2>
 <p>Go to <code>File -&gt; Autosave</code> and click check to turn on autosave.</p>
-<h1><a class="anchor" id="autotoc_md80"></a>
+<h1><a class="anchor" id="autotoc_md82"></a>
 3. Repository Setup (All OS)</h1>
 <p>Follow these steps to download the PER codebase and get started on development:</p>
-<h2><a class="anchor" id="autotoc_md81"></a>
+<h2><a class="anchor" id="autotoc_md83"></a>
 Open a new terminal</h2>
 <p>Open a new terminal. Just use your regular user account.</p>
 <p>For Windows, open your terminal or WSL.</p>
 <p>You should land in your home directory: </p><div class="fragment"><div class="line">/home/{USER}</div>
 </div><!-- fragment --><p>For MacOS: </p><div class="fragment"><div class="line">/Users/{username}</div>
 </div><!-- fragment --><p>You can confirm with: </p><div class="fragment"><div class="line">pwd</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md82"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md84"></a>
 Clone PER repo</h2>
 <ol type="1">
 <li>Once you're in your home directory, clone the PER firmware repository with the following command: <div class="fragment"><div class="line">git clone https://github.com/PurdueElectricRacing/firmware.git</div>
@@ -178,7 +178,7 @@ Clone PER repo</h2>
 <li>Enter the firmware repository: <div class="fragment"><div class="line">cd firmware</div>
 </div><!-- fragment --></li>
 </ol>
-<h2><a class="anchor" id="autotoc_md83"></a>
+<h2><a class="anchor" id="autotoc_md85"></a>
 Setup &amp; Build</h2>
 <ol type="1">
 <li>Install the required Python packages.</li>

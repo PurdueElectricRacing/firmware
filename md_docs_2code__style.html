@@ -100,7 +100,7 @@ $(function(){initNavTree('md_docs_2code__style.html',''); initResizable(true); }
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>)</p>
-<h2><a class="anchor" id="autotoc_md67"></a>
+<h2><a class="anchor" id="autotoc_md69"></a>
 About</h2>
 <p>This document defines the general coding style and rules for PER-owned projects. Most of these rules are C-specific but the essence of the rules can still be applied to other languages.</p>
 <p>The goal is to maintain a consistent and easily maintainable codebase. Following these rules reduces opportunities for hidden bugs and makes the code more readable and reviewable for others.</p>
@@ -109,7 +109,7 @@ About</h2>
 <li><code>constexpr</code> for compile-time constants</li>
 <li><code>static_assert</code> for compile-time assertions</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md68"></a>
+<h2><a class="anchor" id="autotoc_md70"></a>
 Rules and Suggestions</h2>
 <ol type="1">
 <li><p class="startli">Avoid nesting where possible</p><ol type="a">
@@ -238,6 +238,9 @@ Rules and Suggestions</h2>
 <li><p class="startli">Check null pointers before dereferencing</p>
 <p class="startli">```c // bad void pass_by_reference(uint16_t *ptr) { *ptr = 10 }</p>
 <p class="startli">// good void pass_by_reference(uint16_t *ptr) { if (ptr == nullptr) { return; // or return error code } *ptr = 10 } ```</p>
+</li>
+<li><p class="startli">Use apostrophes to format large numbers (C23) ```c // bad static constexpr uint32_t TargetCoreClockrateHz = 16000000;</p>
+<p class="startli">// good static constexpr uint32_t TargetCoreClockrateHz = 16'000'000; ```</p>
 </li>
 <li>Run da formatter before merging your PR<ol type="a">
 <li>Use the command <code>clang-format -i file.c</code> </li>

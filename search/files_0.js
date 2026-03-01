@@ -8,6 +8,7 @@ var searchData=
   ['adc_2eh_5',['adc.h',['../phal_2adc_8h.html',1,'(Global Namespace)'],['../phal__F4__F7_2adc_2adc_8h.html',1,'(Global Namespace)'],['../phal__G4_2adc_2adc_8h.html',1,'(Global Namespace)'],['../phal__L4_2adc_2adc_8h.html',1,'(Global Namespace)']]],
   ['amk_2ec_6',['amk.c',['../amk_8c.html',1,'']]],
   ['amk_2eh_7',['amk.h',['../amk_8h.html',1,'']]],
-  ['auto_5fswitch_2ec_8',['auto_switch.c',['../auto__switch_8c.html',1,'']]],
-  ['auto_5fswitch_2eh_9',['auto_switch.h',['../auto__switch_8h.html',1,'']]]
+  ['amk_5finit_2ec_8',['amk_init.c',['../amk__init_8c.html',1,'']]],
+  ['auto_5fswitch_2ec_9',['auto_switch.c',['../auto__switch_8c.html',1,'']]],
+  ['auto_5fswitch_2eh_10',['auto_switch.h',['../auto__switch_8h.html',1,'']]]
 ];

@@ -18,7 +18,7 @@ var namespaces_dup =
       [ "rx", "namespacecan__test.html#acd5b4137e983d16a57987e9e006af168", null ]
     ] ],
     [ "codegen", "namespacecodegen.html", [
-      [ "generate_bus_header", "namespacecodegen.html#a31def774ae775d16194ae64962e0c552", null ],
+      [ "generate_bus_header", "namespacecodegen.html#aa73182b45936bd454fcae67726fd0394", null ],
       [ "generate_headers", "namespacecodegen.html#a5ad6541e51e59b0fdbff8c046119afb7", null ],
       [ "generate_node_header", "namespacecodegen.html#a0a021ac1f864faea339e63d7d3111fe7", null ],
       [ "generate_node_headers", "namespacecodegen.html#aaf47cca1200566d421b607fccba76810", null ],

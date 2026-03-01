@@ -4,7 +4,6 @@ var structAMK__t =
     [ "err1", "structAMK__t.html#abd3462434e4aaaa3b9ed4dc5fa5b17f1", null ],
     [ "err2", "structAMK__t.html#af2c9ac5d52b7c14887e6d0fdc6271a16", null ],
     [ "info", "structAMK__t.html#a5944f8ef353c9bd259e421ee5f83d6fe", null ],
-    [ "log_function", "structAMK__t.html#a712888d11eeba68449cccca51e87504f", null ],
     [ "next_state", "structAMK__t.html#a9e703545478b58b07d5a1eefef5e0c28", null ],
     [ "precharge_ptr", "structAMK__t.html#ab221ed00b500080fb442175757f6a11c", null ],
     [ "set", "structAMK__t.html#aa1eb241a364553d4a5162baf9d2eb218", null ],

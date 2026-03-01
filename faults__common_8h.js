@@ -18,8 +18,8 @@ var faults__common_8h =
     [ "is_curr_mcu_latched", "faults__common_8h.html#afd3df4a64e1643d0a79942b5228af63a", null ],
     [ "is_error_latched", "faults__common_8h.html#a66f9b8058fa200632c824de0b671b491", null ],
     [ "is_fatal_latched", "faults__common_8h.html#a1dbab920f7f9b5d889670b63ac61e357", null ],
-    [ "is_latched", "faults__common_8h.html#ad0de5dfc5919da9f0914d873ec05b585", null ],
+    [ "is_latched", "faults__common_8h.html#a686858e89e455a414a1e7c87c5e35be5", null ],
     [ "is_other_mcus_latched", "faults__common_8h.html#a6a4afce3ed471db381c8bc61dc35fff0", null ],
     [ "is_warning_latched", "faults__common_8h.html#a731895d731bdcc9ea2038351278ffef7", null ],
-    [ "update_fault", "faults__common_8h.html#a8257165e114654f610127d3b62c5c35c", null ]
+    [ "update_fault", "faults__common_8h.html#a30c665a5b3c4674a4854fcd2210406a0", null ]
 ];

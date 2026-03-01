@@ -8,7 +8,7 @@ var searchData=
   ['led_5fcontrol_5',['LED_control',['../led_8c.html#a25f4f6c595a65e2015d9d76af5fab4ac',1,'LED_control(int led, enum LED_state state):&#160;led.c'],['../led_8h.html#a25f4f6c595a65e2015d9d76af5fab4ac',1,'LED_control(int led, enum LED_state state):&#160;led.c']]],
   ['led_5fperiodic_6',['LED_periodic',['../led_8c.html#a1d38b8e14425dcbf14215634bcfa5290',1,'LED_periodic():&#160;led.c'],['../led_8h.html#a1d38b8e14425dcbf14215634bcfa5290',1,'LED_periodic():&#160;led.c']]],
   ['ledblink_7',['ledBlink',['../l4__testing_2main_8c.html#a759ba90fd772c6315a455c0465a0939d',1,'main.c']]],
-  ['ledblink_8',['ledblink',['../main__module_2main_8c.html#a4d45d2638da49ff751c95786863b9087',1,'ledblink():&#160;main.c'],['../torque__vector_2main_8c.html#a4d45d2638da49ff751c95786863b9087',1,'ledblink():&#160;main.c']]],
+  ['ledblink_8',['ledblink',['../torque__vector_2main_8c.html#a4d45d2638da49ff751c95786863b9087',1,'main.c']]],
   ['lerp_5flut_5finit_9',['LERP_LUT_INIT',['../thermistor_8c.html#abd11d79cd9bde6efa76cf4088096ecba',1,'thermistor.c']]],
   ['link_10',['link',['../classlinker_1_1BusLinker.html#af9380f9290a883f29ba09b0bb64a519f',1,'linker::BusLinker']]],
   ['link_5fall_11',['link_all',['../namespacelinker.html#aed4b2af437cd3fe7ac809072fc8999d7',1,'linker']]],

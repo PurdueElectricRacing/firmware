@@ -112,7 +112,7 @@ $(function(){initNavTree('led__blink_8c_source.html',''); initResizable(true); }
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="psched_8h.html">common/psched/psched.h</a>&quot;</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keywordtype">void</span> <a class="code hl_function" href="a__box_2main_8c.html#a2bffc10d5bd4106753b7c30e86903bea">HardFault_Handler</a>();</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keywordtype">void</span> <a class="code hl_function" href="main__module_2main_8c.html#a4d45d2638da49ff751c95786863b9087">ledblink</a>();</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keywordtype">void</span> <a class="code hl_function" href="torque__vector_2main_8c.html#a4d45d2638da49ff751c95786863b9087">ledblink</a>();</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><a class="code hl_struct" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a> <a class="code hl_variable" href="a__box_2main_8c.html#a60563c6df24a123ae18e090bca85f555">gpio_config</a>[] = {</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_define" href="phal__F4__F7_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(GPIOD, 12, <a class="code hl_enumvalue" href="phal__F4__F7_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a>), <span class="comment">// F407VGT disco LEDs</span></div>
@@ -174,13 +174,13 @@ $(function(){initNavTree('led__blink_8c_source.html',''); initResizable(true); }
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <a class="code hl_define" href="log_8h.html#ad519ddd1bb8dd3ce71a09cb14e2b1d35">log_yellow</a>(<span class="stringliteral">&quot;PER PER PER\n&quot;</span>);</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <a class="code hl_function" href="psched_8c.html#ac6ca5da144d7fc43f597d882f260e14c">schedInit</a>(<a class="code hl_variable" href="a__box_2main_8c.html#ae3f547c0ac514dd12e5bab27a6b60bec">APB1ClockRateHz</a>);</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <a class="code hl_function" href="psched_8c.html#a8573802f3283bce5a41c40b696b1ccf4">taskCreate</a>(<a class="code hl_function" href="main__module_2main_8c.html#a4d45d2638da49ff751c95786863b9087">ledblink</a>, 500);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <a class="code hl_function" href="psched_8c.html#a8573802f3283bce5a41c40b696b1ccf4">taskCreate</a>(<a class="code hl_function" href="torque__vector_2main_8c.html#a4d45d2638da49ff751c95786863b9087">ledblink</a>, 500);</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <a class="code hl_function" href="psched_8c.html#a29bb369f2942ae7cbb1e573209751e60">schedStart</a>();</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>}</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="keywordtype">void</span> <a class="code hl_function" href="main__module_2main_8c.html#a4d45d2638da49ff751c95786863b9087">ledblink</a>() {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="keywordtype">void</span> <a class="code hl_function" href="torque__vector_2main_8c.html#a4d45d2638da49ff751c95786863b9087">ledblink</a>() {</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <a class="code hl_function" href="phal__F4__F7_2gpio_2gpio_8h.html#ae07cde77ad92538f5b12aa3359762399">PHAL_toggleGPIO</a>(GPIOD, 13);</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
@@ -207,7 +207,6 @@ $(function(){initNavTree('led__blink_8c_source.html',''); initResizable(true); }
 <div class="ttc" id="alog_8h_html"><div class="ttname"><a href="log_8h.html">log.h</a></div></div>
 <div class="ttc" id="alog_8h_html_a76cbeec0ebcb28996a0377004e5fc95c"><div class="ttname"><a href="log_8h.html#a76cbeec0ebcb28996a0377004e5fc95c">DEBUG_PRINTF_USART_DEFINE</a></div><div class="ttdeci">#define DEBUG_PRINTF_USART_DEFINE(HANDLEPTR)</div><div class="ttdef"><b>Definition</b> <a href="log_8h_source.html#l00024">log.h:24</a></div></div>
 <div class="ttc" id="alog_8h_html_ad519ddd1bb8dd3ce71a09cb14e2b1d35"><div class="ttname"><a href="log_8h.html#ad519ddd1bb8dd3ce71a09cb14e2b1d35">log_yellow</a></div><div class="ttdeci">#define log_yellow(...)</div><div class="ttdef"><b>Definition</b> <a href="log_8h_source.html#l00071">log.h:71</a></div></div>
-<div class="ttc" id="amain__module_2main_8c_html_a4d45d2638da49ff751c95786863b9087"><div class="ttname"><a href="main__module_2main_8c.html#a4d45d2638da49ff751c95786863b9087">ledblink</a></div><div class="ttdeci">void ledblink()</div><div class="ttdef"><b>Definition</b> <a href="main__module_2main_8c_source.html#l00082">main.c:82</a></div></div>
 <div class="ttc" id="aphal_2gpio_8h_html"><div class="ttname"><a href="phal_2gpio_8h.html">gpio.h</a></div></div>
 <div class="ttc" id="aphal_2rcc_8h_html"><div class="ttname"><a href="phal_2rcc_8h.html">rcc.h</a></div></div>
 <div class="ttc" id="aphal_2usart_8h_html"><div class="ttname"><a href="phal_2usart_8h.html">usart.h</a></div></div>
@@ -236,6 +235,7 @@ $(function(){initNavTree('led__blink_8c_source.html',''); initResizable(true); }
 <div class="ttc" id="astructGPIOInitConfig__t_html"><div class="ttname"><a href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a></div><div class="ttdoc">Configuration entry for GPIO initilization.</div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00092">gpio.h:93</a></div></div>
 <div class="ttc" id="astructdma__init__t_html"><div class="ttname"><a href="structdma__init__t.html">dma_init_t</a></div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2dma_2dma_8h_source.html#l00017">dma.h:17</a></div></div>
 <div class="ttc" id="astructusart__init__t_html"><div class="ttname"><a href="structusart__init__t.html">usart_init_t</a></div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2usart_2usart_8h_source.html#l00114">usart.h:115</a></div></div>
+<div class="ttc" id="atorque__vector_2main_8c_html_a4d45d2638da49ff751c95786863b9087"><div class="ttname"><a href="torque__vector_2main_8c.html#a4d45d2638da49ff751c95786863b9087">ledblink</a></div><div class="ttdeci">void ledblink()</div><div class="ttdef"><b>Definition</b> <a href="torque__vector_2main_8c_source.html#l00055">main.c:55</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

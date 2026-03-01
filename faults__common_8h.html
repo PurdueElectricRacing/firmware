@@ -133,10 +133,10 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8257165e114654f610127d3b62c5c35c" id="r_a8257165e114654f610127d3b62c5c35c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8257165e114654f610127d3b62c5c35c">update_fault</a> (fault_index_t idx, uint16_t value)</td></tr>
-<tr class="separator:a8257165e114654f610127d3b62c5c35c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0de5dfc5919da9f0914d873ec05b585" id="r_ad0de5dfc5919da9f0914d873ec05b585"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad0de5dfc5919da9f0914d873ec05b585">is_latched</a> (fault_index_t idx)</td></tr>
-<tr class="separator:ad0de5dfc5919da9f0914d873ec05b585"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30c665a5b3c4674a4854fcd2210406a0" id="r_a30c665a5b3c4674a4854fcd2210406a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a30c665a5b3c4674a4854fcd2210406a0">update_fault</a> (fault_id_t idx, uint16_t value)</td></tr>
+<tr class="separator:a30c665a5b3c4674a4854fcd2210406a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a686858e89e455a414a1e7c87c5e35be5" id="r_a686858e89e455a414a1e7c87c5e35be5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a686858e89e455a414a1e7c87c5e35be5">is_latched</a> (fault_id_t idx)</td></tr>
+<tr class="separator:a686858e89e455a414a1e7c87c5e35be5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1f330045faf14dff0057e5b9e39a713" id="r_af1f330045faf14dff0057e5b9e39a713"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic</a> ()</td></tr>
 <tr class="separator:af1f330045faf14dff0057e5b9e39a713"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a731895d731bdcc9ea2038351278ffef7" id="r_a731895d731bdcc9ea2038351278ffef7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a731895d731bdcc9ea2038351278ffef7">is_warning_latched</a> ()</td></tr>
@@ -218,7 +218,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00173">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00173">main()</a>, <a class="el" href="main__module_2main_8c_source.html#l00138">main()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00203">preflight_task()</a>.</p>
 
 </div>
 </div>
@@ -288,10 +288,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00094">fsm_periodic()</a>.</p>
+
 </div>
 </div>
-<a id="ad0de5dfc5919da9f0914d873ec05b585" name="ad0de5dfc5919da9f0914d873ec05b585"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0de5dfc5919da9f0914d873ec05b585">&#9670;&#160;</a></span>is_latched()</h2>
+<a id="a686858e89e455a414a1e7c87c5e35be5" name="a686858e89e455a414a1e7c87c5e35be5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a686858e89e455a414a1e7c87c5e35be5">&#9670;&#160;</a></span>is_latched()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -299,13 +301,13 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool is_latched </td>
           <td>(</td>
-          <td class="paramtype">fault_index_t</td>          <td class="paramname"><span class="paramname"><em>idx</em></span></td><td>)</td>
+          <td class="paramtype">fault_id_t</td>          <td class="paramname"><span class="paramname"><em>idx</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00935">clearFault()</a>, <a class="el" href="pedals_8c_source.html#l00070">pedalsPeriodic()</a>, <a class="el" href="lcd_8c_source.html#l00644">sdcTelemetryUpdate()</a>, and <a class="el" href="lcd_8c_source.html#l01119">set_faultIndicator()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00935">clearFault()</a>, <a class="el" href="state__machine_8c_source.html#l00094">fsm_periodic()</a>, <a class="el" href="dashboard_2main_8c_source.html#l00292">heartbeat_led()</a>, <a class="el" href="state__machine_8c_source.html#l00053">is_precharge_complete()</a>, <a class="el" href="state__machine_8c_source.html#l00049">is_TSMS_closed()</a>, <a class="el" href="pedals_8c_source.html#l00070">pedalsPeriodic()</a>, <a class="el" href="lcd_8c_source.html#l00644">sdcTelemetryUpdate()</a>, and <a class="el" href="lcd_8c_source.html#l01119">set_faultIndicator()</a>.</p>
 
 </div>
 </div>
@@ -343,8 +345,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8257165e114654f610127d3b62c5c35c" name="a8257165e114654f610127d3b62c5c35c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8257165e114654f610127d3b62c5c35c">&#9670;&#160;</a></span>update_fault()</h2>
+<a id="a30c665a5b3c4674a4854fcd2210406a0" name="a30c665a5b3c4674a4854fcd2210406a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30c665a5b3c4674a4854fcd2210406a0">&#9670;&#160;</a></span>update_fault()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -352,7 +354,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void update_fault </td>
           <td>(</td>
-          <td class="paramtype">fault_index_t</td>          <td class="paramname"><span class="paramname"><em>idx</em></span>, </td>
+          <td class="paramtype">fault_id_t</td>          <td class="paramname"><span class="paramname"><em>idx</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -362,7 +364,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="auto__switch_8c_source.html#l00200">checkSwitchFaults()</a>, <a class="el" href="pedals_8c_source.html#l00070">pedalsPeriodic()</a>, and <a class="el" href="pdu_2main_8c_source.html#l00320">send_iv_readings()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="auto__switch_8c_source.html#l00200">checkSwitchFaults()</a>, <a class="el" href="state__machine_8c_source.html#l00094">fsm_periodic()</a>, <a class="el" href="pedals_8c_source.html#l00070">pedalsPeriodic()</a>, <a class="el" href="pdu_2main_8c_source.html#l00320">send_iv_readings()</a>, and <a class="el" href="sdc_8c_source.html#l00038">update_SDC()</a>.</p>
 
 </div>
 </div>

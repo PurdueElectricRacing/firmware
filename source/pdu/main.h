@@ -179,7 +179,7 @@
 #define MAIN_CTRL_GPIO_Port (GPIOD)
 #define MAIN_CTRL_Pin       (15)
 #define MAIN_NFLT_GPIO_Port (GPIOD)
-#define MAIN_NFLT_Pin       (13)
+#define MAIN_NFLT_Pin       (14)
 #define MAIN_CS_GPIO_Port   (GPIOC)
 #define MAIN_CS_Pin         (2)
 #define MAIN_CS_ADC_CHNL    (12)

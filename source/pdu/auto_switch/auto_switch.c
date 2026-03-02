@@ -14,6 +14,7 @@
 #include "common/can_library/generated/PDU.h"
 #include "common/phal/gpio.h"
 #include "led.h"
+#include "main.h"
 
 // Initialize struct
 auto_switches_t auto_switches;
@@ -32,20 +33,26 @@ static void updateMux();
 
 // Called periodically, Calculates current through each switch in mA
 void updateCurrent() {
-    // High power switches
+    // High power switches (direct ADC)
     auto_switches.current[SW_PUMP_1] = calcCurrent_HP(adc_readings.pump_1_imon);
     auto_switches.current[SW_PUMP_2] = calcCurrent_HP(adc_readings.pump_2_imon);
     auto_switches.current[SW_SDC]    = calcCurrent_HP(adc_readings.sdc_imon);
     auto_switches.current[SW_HXFAN]  = calcCurrent_HP(adc_readings.hxfan_imon);
 
+    // High power switches (mux-sensed)
+    auto_switches.current[SW_FAN_1] = calcCurrent_HP(mux_readings[0]);
+    auto_switches.current[SW_FAN_2] = calcCurrent_HP(mux_readings[1]);
+    auto_switches.current[SW_FAN_3] = calcCurrent_HP(mux_readings[2]);
+    auto_switches.current[SW_FAN_4] = calcCurrent_HP(mux_readings[3]);
+    auto_switches.current[SW_AMK1]  = calcCurrent_HP(mux_readings[4]);
+    auto_switches.current[SW_AMK2]  = calcCurrent_HP(mux_readings[5]);
+
     // Low power switches
-    auto_switches.current[SW_FAN_1] = calcCurrent_LP(mux_readings[0]);
-    auto_switches.current[SW_FAN_2] = calcCurrent_LP(mux_readings[1]);
-    auto_switches.current[SW_FAN_3] = calcCurrent_LP(mux_readings[2]);
-    auto_switches.current[SW_FAN_4] = calcCurrent_LP(mux_readings[3]);
-    auto_switches.current[SW_DASH]  = calcCurrent_LP(adc_readings.dash_cs);
-    auto_switches.current[SW_ABOX]  = calcCurrent_LP(adc_readings.abox_cs);
-    auto_switches.current[SW_MAIN]  = calcCurrent_LP(adc_readings.main_cs);
+    auto_switches.current[SW_DASH] = calcCurrent_LP(adc_readings.dash_cs);
+    auto_switches.current[SW_ABOX] = calcCurrent_LP(adc_readings.abox_cs);
+    auto_switches.current[SW_MAIN] = calcCurrent_LP(adc_readings.main_cs);
+    auto_switches.current[SW_DLFR] = calcCurrent_LP(adc_readings.dlfr_cs);
+    auto_switches.current[SW_DLBK] = calcCurrent_LP(adc_readings.dlbk_cs);
 
     // Upstream CS
     calcCurrent_Total();
@@ -56,8 +63,6 @@ void updateVoltage() {
     auto_switches.voltage.in_24v  = calcVoltage(adc_readings.v24_vs, LV_24V_R1, LV_24V_R2);
     auto_switches.voltage.out_5v  = calcVoltage(adc_readings.v5_vs, LV_5V_R1, LV_5V_R2);
     auto_switches.voltage.out_3v3 = calcVoltage(adc_readings.v3v3_vs, LV_3V3_R1, LV_3V3_R2);
-    auto_switches.voltage.amk_24v =
-        calcVoltage(MAX(mux_readings[4], mux_readings[5]), AMK_24V_R1, AMK_24V_R2);
 }
 
 static void updateMux() {
@@ -135,35 +140,44 @@ void setSwitch(switches_t auto_switch_enum, bool state) {
             // NoToggle switch (always on)
             LED_control(LED_SDC, state);
             break;
+        case SW_AMK1:
+        case SW_AMK2:
+            // NoToggle switches (always on, no LED on driver)
+            break;
         case SW_HXFAN:
             PHAL_writeGPIO(HXFAN_CTRL_GPIO_Port, HXFAN_CTRL_Pin, state);
-            LED_control(LED_AUX_1, state);
+            LED_control(LED_HXFAN, state);
             break;
         case SW_FAN_1:
             PHAL_writeGPIO(FAN_1_CTRL_GPIO_Port, FAN_1_CTRL_Pin, state);
-            LED_control(LED_FAN_1, state);
             break;
         case SW_FAN_2:
             PHAL_writeGPIO(FAN_2_CTRL_GPIO_Port, FAN_2_CTRL_Pin, state);
-            LED_control(LED_FAN_2, state);
             break;
         case SW_FAN_3:
             PHAL_writeGPIO(FAN_3_CTRL_GPIO_Port, FAN_3_CTRL_Pin, state);
-            LED_control(LED_FAN_1, state);
             break;
         case SW_FAN_4:
             PHAL_writeGPIO(FAN_4_CTRL_GPIO_Port, FAN_4_CTRL_Pin, state);
-            LED_control(LED_FAN_2, state);
             break;
         case SW_BLT:
             PHAL_writeGPIO(BLT_CTRL_GPIO_Port, BLT_CTRL_Pin, state);
             LED_control(LED_BLT, state);
             break;
         case SW_CRIT_5V:
+            PHAL_writeGPIO(CRIT_5V_CTRL_GPIO_Port, CRIT_5V_CTRL_Pin, state);
             LED_control(LED_5V_CRIT, state);
             break;
         case SW_MAIN:
             LED_control(LED_MAIN, state);
+            break;
+        case SW_DLFR:
+            PHAL_writeGPIO(DLFR_CTRL_GPIO_Port, DLFR_CTRL_Pin, state);
+            LED_control(LED_DLFR, state);
+            break;
+        case SW_DLBK:
+            PHAL_writeGPIO(DLBK_CTRL_GPIO_Port, DLBK_CTRL_Pin, state);
+            LED_control(LED_DLBK, state);
             break;
         case SW_ABOX:
             LED_control(LED_ABOX, state);
@@ -173,7 +187,7 @@ void setSwitch(switches_t auto_switch_enum, bool state) {
             break;
         case SW_TV:
             PHAL_writeGPIO(TV_CTRL_GPIO_Port, TV_CTRL_Pin, state);
-            LED_control(LED_5V_NCRIT, state);
+            LED_control(LED_TV, state);
             break;
         case SW_DAQ:
             // NoToggle switch (always on)
@@ -230,6 +244,12 @@ bool getSwitchStatus(switches_t auto_switch_enum) {
         case SW_FAN_5V:
             status = PHAL_readGPIO(FAN_5V_CTRL_GPIO_Port, FAN_5V_CTRL_Pin);
             break;
+        case SW_DLFR:
+            status = PHAL_readGPIO(DLFR_CTRL_GPIO_Port, DLFR_CTRL_Pin);
+            break;
+        case SW_DLBK:
+            status = PHAL_readGPIO(DLBK_CTRL_GPIO_Port, DLBK_CTRL_Pin);
+            break;
         default:
             status = 1; // Non-controllable switches are always on
     }
@@ -251,9 +271,10 @@ void checkSwitchFaults() {
     uint8_t daq    = PHAL_readGPIO(DAQ_NFLT_GPIO_Port, DAQ_NFLT_Pin);
     uint8_t vcrit  = PHAL_readGPIO(CRIT_5V_NFLT_GPIO_Port, CRIT_5V_NFLT_Pin);
     uint8_t vnc    = PHAL_readGPIO(TV_NFLT_GPIO_Port, TV_NFLT_Pin);
-    uint8_t fan1   = PHAL_readGPIO(DLFR_NFLT_GPIO_Port, DLFR_NFLT_Pin);
-    uint8_t fan2   = PHAL_readGPIO(DLBK_NFLT_GPIO_Port, DLBK_NFLT_Pin);
+    uint8_t dlfr   = PHAL_readGPIO(DLFR_NFLT_GPIO_Port, DLFR_NFLT_Pin);
+    uint8_t dlbk   = PHAL_readGPIO(DLBK_NFLT_GPIO_Port, DLBK_NFLT_Pin);
     uint8_t bullet = PHAL_readGPIO(BLT_NFLT_GPIO_Port, BLT_NFLT_Pin);
+    uint8_t fan5v  = PHAL_readGPIO(FAN_5V_NFLT_GPIO_Port, FAN_5V_NFLT_Pin);
 
     static uint8_t dash_old   = 1;
     static uint8_t abox_old   = 1;
@@ -261,9 +282,10 @@ void checkSwitchFaults() {
     static uint8_t daq_old    = 1;
     static uint8_t vcrit_old  = 1;
     static uint8_t vnc_old    = 1;
-    static uint8_t fan1_old   = 1;
-    static uint8_t fan2_old   = 1;
+    static uint8_t dlfr_old   = 1;
+    static uint8_t dlbk_old   = 1;
     static uint8_t bullet_old = 1;
+    static uint8_t fan5v_old  = 1;
 
     // Set Blink error for faulted switch
     if (!dash && dash_old) {
@@ -282,16 +304,19 @@ void checkSwitchFaults() {
         LED_control(LED_5V_CRIT, LED_BLINK);
     }
     if (!vnc && vnc_old) {
-        LED_control(LED_5V_NCRIT, LED_BLINK);
+        LED_control(LED_TV, LED_BLINK);
     }
-    if (!fan1 && fan1_old) {
-        LED_control(LED_FAN_1, LED_BLINK);
+    if (!dlfr && dlfr_old) {
+        LED_control(LED_DLFR, LED_BLINK);
     }
-    if (!fan2 && fan2_old) {
-        LED_control(LED_FAN_2, LED_BLINK);
+    if (!dlbk && dlbk_old) {
+        LED_control(LED_DLBK, LED_BLINK);
     }
     if (!bullet && bullet_old) {
         LED_control(LED_BLT, LED_BLINK);
+    }
+    if (!fan5v && fan5v_old) {
+        LED_control(LED_5V_FAN, LED_BLINK);
     }
 
     dash_old   = dash;
@@ -300,39 +325,41 @@ void checkSwitchFaults() {
     daq_old    = daq;
     vcrit_old  = vcrit;
     vnc_old    = vnc;
-    fan1_old   = fan1;
-    fan2_old   = fan2;
+    dlfr_old   = dlfr;
+    dlbk_old   = dlbk;
     bullet_old = bullet;
+    fan5v_old  = fan5v;
 
     static uint8_t fault_num;
     // Set fault for dash/daq - this is too much for our 1ms window, so send each fault seperately
     switch (fault_num) {
         case 0:
-            update_fault(FAULT_ID_PDU_DASH_RAIL, !dash);
+            update_fault(FAULT_INDEX_PDU_DASH_RAIL, !dash);
             break;
         case 1:
-            update_fault(FAULT_ID_PDU_ABOX_RAIL, !abox);
+            update_fault(FAULT_INDEX_PDU_ABOX_RAIL, !abox);
             break;
         case 2:
-            update_fault(FAULT_ID_PDU_MAIN_RAIL, !main);
+            update_fault(FAULT_INDEX_PDU_MAIN_RAIL, !main);
             break;
         case 3:
-            update_fault(FAULT_ID_PDU_DAQ_RAIL, !daq);
+            update_fault(FAULT_INDEX_PDU_DAQ_RAIL, !daq);
             break;
         case 4:
-            update_fault(FAULT_ID_PDU_V_CRIT, !vcrit);
+            update_fault(FAULT_INDEX_PDU_V_CRIT, !vcrit);
             break;
         case 5:
-            update_fault(FAULT_ID_PDU_V_NONCRIT, !vnc);
+            update_fault(FAULT_INDEX_PDU_V_NONCRIT, !vnc);
             break;
         case 6:
-            update_fault(FAULT_ID_PDU_FAN1, !fan1);
+
+            update_fault(FAULT_INDEX_PDU_FAN1, !dlfr);
             break;
         case 7:
-            update_fault(FAULT_ID_PDU_FAN2, !fan2);
+            update_fault(FAULT_INDEX_PDU_FAN2, !dlbk);
             break;
         case 8:
-            update_fault(FAULT_ID_PDU_BULLET_RAIL, !bullet);
+            update_fault(FAULT_INDEX_PDU_BULLET_RAIL, !bullet);
             fault_num = 0;
             break;
     }

@@ -84,7 +84,7 @@ bool LED_control(int led, enum LED_state state) {
 }
 
 void LED_periodic() {
-    for (int i = 0; i < 14; i++) {
+    for (int i = 0; i < MAX_NUM_LED; i++) {
         if (LED_toggle & (1 << i)) {
             LED_control(i, LED_BLINK);
         }

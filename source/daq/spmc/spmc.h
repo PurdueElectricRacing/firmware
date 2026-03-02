@@ -19,14 +19,20 @@ typedef struct {
     uint64_t payload;  // message data
 } timestamped_frame_t;
 
-static_assert(sizeof(timestamped_frame_t) == 16,
-    "timestamped_frame_t must be 16 bytes for optimal caching and DMA patterns");
+static_assert(
+    sizeof(timestamped_frame_t) == 16,
+    "timestamped_frame_t must be 16 bytes for optimal access patterns"
+);
 
 // todo determine appropriate values based on testing
-static constexpr size_t SPMC_NUM_FRAMES = 256;
+// +1 to distinguish full vs empty
+static constexpr size_t SPMC_NUM_FRAMES = 256 + 1;
 static constexpr size_t MIN_WRITE_FRAMES = 32;
-static_assert((SPMC_NUM_FRAMES % MIN_WRITE_FRAMES) == 0,
-    "SPMC_NUM_FRAMES must be a multiple of MIN_WRITE_FRAMES to prevent DMA wraparound issues");
+static_assert(
+    (SPMC_NUM_FRAMES -1 ) % MIN_WRITE_FRAMES == 0,
+    "the usable capcity must be a multiple of MIN_WRITE_FRAMES"
+    "to prevent DMA wraparound issues"
+);
 
 typedef struct {
     timestamped_frame_t data[SPMC_NUM_FRAMES];

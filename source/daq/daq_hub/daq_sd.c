@@ -75,27 +75,29 @@ static inline void sd_file_sync(void) {
     }
 }
 
+// todo reevaluate the logic here
 static void _sd_write_periodic(bool bypass) {
     timestamped_frame_t* buf;
-    uint32_t consecutive_items;
+    
     UINT bytes_written;
     FRESULT result;
 
     if (daq_hub.sd_state != SD_STATE_ACTIVE)
         return;
 
-    // Use the total item count, not contiguous for the threshold
-    consecutive_items = SPMC_master_get_unread_count(&spmc, &buf);
-    if (!(bypass || consecutive_items >= SD_MAX_WRITE_COUNT)) {
+    // Use the unread item count, not contiguous for the threshold
+    uint32_t unread_items = SPMC_master_get_unread_count(&spmc, &buf);
+    if (!(bypass || unread_items >= SD_MAX_WRITE_COUNT)) {
         return;
     }
 
-    if (SPMC_master_peek_batch(&spmc, &buf) == 0) {
+    // todo modify get_unread count to return contiguous count ?
+    uint32_t consecutive_items = SPMC_master_peek_batch(&spmc, &buf);
+    if (consecutive_items == 0) {
         daq_hub.sd_rx_overflow++;
         return;
     }
 
-    consecutive_items = SPMC_master_peek_batch(&spmc, &buf);
     if (consecutive_items > SD_MAX_WRITE_COUNT) {
         consecutive_items = SD_MAX_WRITE_COUNT; // enforce the limit
     }

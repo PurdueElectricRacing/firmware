@@ -86,13 +86,13 @@ static void _sd_write_periodic(bool bypass) {
         return;
 
     // Use the unread item count, not contiguous for the threshold
-    uint32_t unread_items = SPMC_master_get_unread_count(&spmc, &buf);
+    size_t unread_items = SPMC_master_get_unread_count(&spmc, &buf);
     if (!(bypass || unread_items >= SD_MAX_WRITE_COUNT)) {
         return;
     }
 
     // todo modify get_unread count to return contiguous count ?
-    uint32_t consecutive_items = SPMC_master_peek_batch(&spmc, &buf);
+    size_t consecutive_items = SPMC_master_peek_batch(&spmc, &buf);
     if (consecutive_items == 0) {
         daq_hub.sd_rx_overflow++;
         return;

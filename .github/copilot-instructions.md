@@ -5,7 +5,7 @@ The codebase represents a real-time distributed system for an FSAE electric vehi
 
 ## Build System Context
 - The code is built using CMake, with separate targets for each node and shared libraries.
-- The compiler toolchain is `arm-none-eabi-gcc` targetting ARM Cortex-M microcontrollers (STM32).
+- The compiler toolchain is `arm-none-eabi-gcc` targeting ARM Cortex-M microcontrollers (STM32).
 - Code generation related to CAN bus communication is in `common/can_library/`.
 - The standard is set to C23, so keywords like `constexpr`, `static_assert`, `bool` are available.
 

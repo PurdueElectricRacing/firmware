@@ -193,7 +193,7 @@ static void eth_udp_send_periodic(void) {
     uint32_t consecutive_items;
 
     if (daq_hub.eth_state == ETH_LINK_UP) {
-        if (SPMC_follower_pop(&queue, &buf, &consecutive_items) == 0) {
+        if (SPMC_follower_pop(&spmc, &buf, &consecutive_items) == 0) {
             if (consecutive_items > UDP_MAX_WRITE_COUNT)
             
                 consecutive_items = UDP_MAX_WRITE_COUNT; // limit

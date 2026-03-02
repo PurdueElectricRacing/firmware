@@ -10,20 +10,31 @@
 
 // todo maybe commit the last write right when power is lost?? idk
 
-void SPMC_init(
-    SPMC_t *spmc,
-    TaskHandle_t master_task,
-    TaskHandle_t follower_task
-) {
+static constexpr uint32_t CAN_RX_IRQ_PRIO = 6;  // highest RTOS priority
+static constexpr uint32_t CAN_SCE_IRQ_PRIO = 10;
+static_assert(
+    CAN_RX_IRQ_PRIO < CAN_SCE_IRQ_PRIO,
+    "RX IRQs should have higher priority than SCE IRQs"
+);
+
+void SPMC_init(SPMC_t *spmc) {
     memset(spmc, 0, sizeof(SPMC_t));
-    spmc->master_task = master_task;
-    spmc->follower_task = follower_task;
     spmc->head = 0;
     spmc->master_tail = 0;
     spmc->follower_tail = 0;
+
+    NVIC_SetPriority(CAN1_RX0_IRQn, CAN_RX_IRQ_PRIO);
+    NVIC_SetPriority(CAN2_RX0_IRQn, CAN_RX_IRQ_PRIO);
+    NVIC_SetPriority(CAN1_SCE_IRQn, CAN_SCE_IRQ_PRIO);
+    NVIC_SetPriority(CAN2_SCE_IRQn, CAN_SCE_IRQ_PRIO);
+
+    NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    NVIC_EnableIRQ(CAN1_SCE_IRQn);
+    NVIC_EnableIRQ(CAN2_RX0_IRQn);
+    NVIC_EnableIRQ(CAN2_SCE_IRQn);
 }
 
-// ! note: the two producer ISRs must have the same priority to prevent interruption in the middle of a write
+// ! note: the two producer ISRs must have the same priority to prevent preemption in the middle of a write
 int SPMC_enqueue_ISR(
     SPMC_t *spmc,
     timestamped_frame_t *incoming_frame
@@ -34,6 +45,7 @@ int SPMC_enqueue_ISR(
         next_head = 0;
     }
 
+    // ! the frame is dropped if the buffer is full
     if (next_head == spmc->master_tail) {
         spmc->overflows++;
         return -1;
@@ -41,8 +53,6 @@ int SPMC_enqueue_ISR(
 
     // write the frame into the buffer
     spmc->data[spmc->head] = *incoming_frame;
-
-    // commit next head only after the write is completed
     spmc->head = next_head;
 
     return 0;
@@ -98,11 +108,14 @@ size_t SPMC_master_get_total(
     overflowing the CAN peripheral and missing data
 */ 
 void SPMC_master_commit(SPMC_t *spmc, size_t num_consumed) {
-    // defer producer IRQs to prevent a .. race condition?
-    taskENTER_CRITICAL();
+    // todo: instead of heavy-handidly disabling all interrupts, we should only mask the two CAN RX ISRs
+    uint32_t primask = __get_PRIMASK();
+    __disable_irq(); // ! mask producer IRQs to prevent a race condition
     const size_t next_tail = (spmc->master_tail + num_consumed) % SPMC_NUM_FRAMES;
     spmc->master_tail = next_tail;
-    taskEXIT_CRITICAL();
+    if (!primask) {
+        __enable_irq();
+    }
 }
 
 /*
@@ -110,7 +123,7 @@ void SPMC_master_commit(SPMC_t *spmc, size_t num_consumed) {
 */ 
 int SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out ,uint32_t *consecutive_items) {
     const size_t head = spmc->head;
-    if (spmc->follower_tail == spmc->head) {
+    if (spmc->follower_tail == head) {
         return -1;
     }
 
@@ -124,8 +137,10 @@ int SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out ,uint32_t *consecu
 
     if (head > spmc->follower_tail) {
         *consecutive_items = head - spmc->follower_tail;
+    } else if (head < spmc->follower_tail) {
+        *consecutive_items = SPMC_NUM_FRAMES - spmc->follower_tail;
     } else {
-        *consecutive_items =  SPMC_NUM_FRAMES - spmc->follower_tail;
+        *consecutive_items = 0;
     }
     return 0;
 }

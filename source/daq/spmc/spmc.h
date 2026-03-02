@@ -34,15 +34,13 @@ typedef struct {
     timestamped_frame_t data[SPMC_NUM_FRAMES];
     volatile size_t head;
     volatile size_t master_tail; // SD tail
-    TaskHandle_t master_task;
     volatile size_t follower_tail; // best-effort ETH tail
-    TaskHandle_t follower_task;
 
     // metadata
-    uint32_t overflows;
+    volatile uint32_t overflows;
 } SPMC_t;
 
-void SPMC_init(SPMC_t *spmc, TaskHandle_t master_task, TaskHandle_t follower_task);
+void SPMC_init(SPMC_t *spmc);
 int SPMC_enqueue_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame);
 size_t SPMC_master_peek_batch(SPMC_t *spmc, timestamped_frame_t **first_item);
 size_t SPMC_master_get_total(SPMC_t *spmc, timestamped_frame_t **first_item);

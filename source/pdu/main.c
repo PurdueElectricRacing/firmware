@@ -133,7 +133,7 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(BLT_CTRL_GPIO_Port, BLT_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_INPUT(BLT_NFLT_GPIO_Port, BLT_NFLT_Pin, GPIO_INPUT_OPEN_DRAIN),
     // 5V Critical Switch
-    // Disable software control GPIO_INIT_OUTPUT(CRIT_5V_CTRL_GPIO_Port, CRIT_5V_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(CRIT_5V_CTRL_GPIO_Port, CRIT_5V_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_INPUT(CRIT_5V_NFLT_GPIO_Port, CRIT_5V_NFLT_Pin, GPIO_INPUT_OPEN_DRAIN),
     // 5V Non-Critical Switch
     GPIO_INIT_OUTPUT(TV_CTRL_GPIO_Port, TV_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
@@ -388,7 +388,7 @@ void send_iv_readings() {
     CAN_SEND_v_rails(auto_switches.voltage.in_24v,
                      auto_switches.voltage.out_5v,
                      auto_switches.voltage.out_3v3,
-                     auto_switches.voltage.amk_24v);
+                     0); // amk_24v removed: mux ch4/5 are current sense, not voltage
     CAN_SEND_rail_currents(auto_switches.current[CS_24V], auto_switches.current[CS_5V]);
     CAN_SEND_pump_and_fan_current(auto_switches.current[SW_PUMP_1],
                                   auto_switches.current[SW_PUMP_2],

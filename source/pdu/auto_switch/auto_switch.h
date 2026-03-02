@@ -45,22 +45,27 @@ typedef enum {
     SW_PUMP_2,
     SW_SDC,
     SW_HXFAN,
-
-    // Low power switches
+    // High power switches (mux-sensed)
     SW_FAN_1,
     SW_FAN_2,
     SW_FAN_3,
     SW_FAN_4,
+    SW_AMK1,
+    SW_AMK2,
+
+    // Low power switches
     SW_DASH,
     SW_ABOX,
     SW_MAIN,
+    SW_DLFR,
+    SW_DLBK,
 
     // Not actually switches
     CS_24V,
     CS_5V,
 
     // Number of switches with CS signals (used for array bounds)
-    // If switch has a current senese circuit, PLACE IT ABOVE THIS COMMENT
+    // If switch has a current sense circuit, PLACE IT ABOVE THIS COMMENT
     CS_SWITCH_COUNT,
 
     // Low power switches (no CS)
@@ -77,7 +82,6 @@ typedef struct {
     uint16_t in_24v;
     uint16_t out_5v;
     uint16_t out_3v3;
-    uint16_t amk_24v;
 } voltage_t; // Voltage in mV
 
 typedef struct {

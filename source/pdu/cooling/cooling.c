@@ -59,19 +59,19 @@ INIT_BANG_BANG(motor_fan_controller,
                BANGBANG_MIN_SWITCH_MS)
 
 void coolingInit() {
-    cr.fan1_speed       = 0;
-    cr.fan2_speed       = 0;
-    cr.fan3_speed       = 0;
-    cr.fan4_speed       = 0;
-    cr.fan1_status      = false;
-    cr.fan2_status      = false;
-    cr.fan3_status      = false;
-    cr.fan4_status      = false;
+    cr.fan1_speed       = 10;
+    cr.fan2_speed       = 10;
+    cr.fan3_speed       = 10;
+    cr.fan4_speed       = 10;
+    cr.fan1_status      = true;
+    cr.fan2_status      = true;
+    cr.fan3_status      = true;
+    cr.fan4_status      = true;
     cr.pump1_status     = false;
     cr.pump2_status     = false;
     cr.hxfan_status     = false;
-    batt_fan_autospeed  = true;
-    motor_fan_autospeed = true;
+    batt_fan_autospeed  = false;
+    motor_fan_autospeed = false;
 }
 
 void update_cooling_periodic() {

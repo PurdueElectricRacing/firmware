@@ -12,9 +12,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <string.h>
-#include "common/freertos/freertos.h"
 
-// ! assumes the messages are SID
 typedef struct {
     uint32_t ticks_ms; // ms timestamp of reception
     uint32_t identity;   // [1 bit bus ID] [1 bit isExtID] [1 bit reserved] [29 bits CAN ID]
@@ -41,10 +39,10 @@ typedef struct {
 } SPMC_t;
 
 void SPMC_init(SPMC_t *spmc);
-int SPMC_enqueue_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame);
+int SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame);
 size_t SPMC_master_peek_batch(SPMC_t *spmc, timestamped_frame_t **first_item);
-size_t SPMC_master_get_total(SPMC_t *spmc, timestamped_frame_t **first_item);
-void SPMC_master_commit(SPMC_t *spmc, size_t num_consumed);
+size_t SPMC_master_get_unread_count(SPMC_t *spmc, timestamped_frame_t **first_item);
+void SPMC_master_commit_tail(SPMC_t *spmc, size_t num_consumed);
 int SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out, uint32_t *consecutive_items);
 
 #endif // SPMC_H

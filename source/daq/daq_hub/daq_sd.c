@@ -85,7 +85,7 @@ static void _sd_write_periodic(bool bypass) {
         return;
 
     // Use the total item count, not contiguous for the threshold
-    consecutive_items = SPMC_master_get_total(&spmc, &buf);
+    consecutive_items = SPMC_master_get_unread_count(&spmc, &buf);
     if (!(bypass || consecutive_items >= SD_MAX_WRITE_COUNT)) {
         return;
     }
@@ -107,7 +107,7 @@ static void _sd_write_periodic(bool bypass) {
         sd_handle_error(SD_ERROR_WRITE, result);
     } else {
         daq_hub.last_write_ms = getTick();
-        SPMC_master_commit(&spmc, bytes_written/sizeof(*buf));
+        SPMC_master_commit_tail(&spmc, bytes_written/sizeof(*buf));
         sd_file_sync(); // fsync takes only 4 ticks and ensures sure cache is flushed on close
     }
     PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);

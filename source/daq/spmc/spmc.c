@@ -7,8 +7,9 @@
  */
 
 #include "spmc.h"
+#include "stm32f407xx.h"
 
-// todo maybe commit the last write right when power is lost?? idk
+// todo maybe commit the last write right when power is lost?
 
 static constexpr uint32_t CAN_RX_IRQ_PRIO = 6;  // highest RTOS priority
 static constexpr uint32_t CAN_SCE_IRQ_PRIO = 10;
@@ -17,6 +18,11 @@ static_assert(
     "RX IRQs should have higher priority than SCE IRQs"
 );
 
+/**
+ * @brief Initializes the SPMC instance and configures CAN RX interrupts.
+ *
+ * @param spmc Pointer to the SPMC instance to initialize.
+ */
 void SPMC_init(SPMC_t *spmc) {
     memset(spmc, 0, sizeof(SPMC_t));
     spmc->head = 0;
@@ -34,11 +40,15 @@ void SPMC_init(SPMC_t *spmc) {
     NVIC_EnableIRQ(CAN2_SCE_IRQn);
 }
 
-// ! note: the two producer ISRs must have the same priority to prevent preemption in the middle of a write
-int SPMC_enqueue_ISR(
-    SPMC_t *spmc,
-    timestamped_frame_t *incoming_frame
-) {
+
+/**
+ * @brief Enqueues a received CAN message into the SPMC buffer from an ISR context.
+ * ! the two producer ISRs must have the same priority to prevent preemption in the middle of a write
+ * 
+ * @param spmc Pointer to the SPMC instance.
+ * @param incoming_frame Pointer to the timestamped_frame_t containing the received CAN message.
+ */
+int SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame) {
     // calc next head and account for wraparound
     size_t next_head = spmc->head + 1;
     if (next_head == SPMC_NUM_FRAMES) {
@@ -58,12 +68,15 @@ int SPMC_enqueue_ISR(
     return 0;
 }
 
-// get a contiguous batch for DMA transfer without actually committing the master tail yet
-// returns the number of contiguous items?
-size_t SPMC_master_peek_batch(
-    SPMC_t *spmc,
-    timestamped_frame_t **first_item
-) {
+/**
+ * @brief Peeks at the next batch of frames available for processing by the master (SD logging) without committing the tail.
+ * Intended to be used with a DMA operation.
+ * 
+ * @param spmc Pointer to the SPMC instance.
+ * @param first_item Output pointer that will point to the first item in the batch if available, or NULL if no items are available.
+ * @return The number of contiguous items available in the batch.
+ */
+size_t SPMC_master_peek_batch(SPMC_t *spmc, timestamped_frame_t **first_item) {
     const size_t head = spmc->head;
     const size_t tail = spmc->master_tail;
 
@@ -81,11 +94,14 @@ size_t SPMC_master_peek_batch(
     }
 }
 
-
-size_t SPMC_master_get_total(
-    SPMC_t *spmc,
-    timestamped_frame_t **first_item
-) {
+/**
+ * @brief Gets the number of unread frames available for processing by the master
+ * 
+ * @param spmc Pointer to the SPMC instance.
+ * @param first_item Output pointer that will point to the first item in the batch if available, or NULL if no items are available.
+ * @return The total number of frames available for processing.
+ */
+size_t SPMC_master_get_unread_count(SPMC_t *spmc, timestamped_frame_t **first_item) {
     const size_t head = spmc->head;
     const size_t tail = spmc->master_tail;
 
@@ -103,11 +119,13 @@ size_t SPMC_master_get_total(
     }
 }
 
-/*
-    this function must be kept extremely short to prevent
-    overflowing the CAN peripheral and missing data
-*/ 
-void SPMC_master_commit(SPMC_t *spmc, size_t num_consumed) {
+/**
+ * @brief Commits the specified number of consumed frames by advancing the master tail pointer.
+ * 
+ * @param spmc Pointer to the SPMC instance.
+ * @param num_consumed The number of frames to commit.
+ */
+void SPMC_master_commit_tail(SPMC_t *spmc, size_t num_consumed) {
     // todo: instead of heavy-handidly disabling all interrupts, we should only mask the two CAN RX ISRs
     uint32_t primask = __get_PRIMASK();
     __disable_irq(); // ! mask producer IRQs to prevent a race condition
@@ -118,10 +136,15 @@ void SPMC_master_commit(SPMC_t *spmc, size_t num_consumed) {
     }
 }
 
-/*
-    get a single frame we dont care how fast it is or how out of date the data is
-*/ 
-int SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out ,uint32_t *consecutive_items) {
+/**
+ * @brief Pops a single frame for the follower (Ethernet transmission) and advances the follower tail pointer.
+ * todo: this function is incomplete
+ * @param spmc Pointer to the SPMC instance.
+ * @param out Output pointer to the popped frame.
+ * @param consecutive_items Output pointer to the number of consecutive frames available.
+ * @return 0 on success, -1 if no frames are available.
+ */
+int SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out, uint32_t *consecutive_items) {
     const size_t head = spmc->head;
     if (spmc->follower_tail == head) {
         return -1;

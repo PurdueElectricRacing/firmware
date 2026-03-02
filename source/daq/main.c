@@ -161,7 +161,6 @@ int main() {
     return 0;
 }
 
-// CAN1 and CAN2 RX0 IRQs must be set to the same priority to hold the SPMC single producer assumption
 static void configure_interrupts(void) {
     // Configure exti interupt for power loss pin (PE15)
     // Enable the SYSCFG clock for interrupts

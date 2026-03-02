@@ -30,7 +30,7 @@ static constexpr size_t SPMC_NUM_FRAMES = 256 + 1;
 static constexpr size_t MIN_WRITE_FRAMES = 32;
 static_assert(
     (SPMC_NUM_FRAMES -1 ) % MIN_WRITE_FRAMES == 0,
-    "the usable capcity must be a multiple of MIN_WRITE_FRAMES"
+    "the usable capacity must be a multiple of MIN_WRITE_FRAMES "
     "to prevent DMA wraparound issues"
 );
 

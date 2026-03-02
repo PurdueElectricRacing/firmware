@@ -29,6 +29,7 @@ void SPMC_init(SPMC_t *spmc) {
     spmc->master_tail = 0;
     spmc->follower_tail = 0;
 
+    // CAN1 and CAN2 RX0 IRQs must be set to the same priority to hold the SPMC single producer assumption
     NVIC_SetPriority(CAN1_RX0_IRQn, CAN_RX_IRQ_PRIO);
     NVIC_SetPriority(CAN2_RX0_IRQn, CAN_RX_IRQ_PRIO);
     NVIC_SetPriority(CAN1_SCE_IRQn, CAN_SCE_IRQ_PRIO);

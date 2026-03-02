@@ -63,7 +63,10 @@ int SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame) {
 
     // write the frame into the buffer
     spmc->data[spmc->head] = *incoming_frame;
+    __DMB(); // do not switch the order of the data write and head update
     spmc->head = next_head;
+
+    __DSB(); // halt the cpu until write is finished
 
     return 0;
 }
@@ -74,49 +77,34 @@ int SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame) {
  * 
  * @param spmc Pointer to the SPMC instance.
  * @param first_item Output pointer that will point to the first item in the batch if available, or NULL if no items are available.
+ * @param total_unread Output pointer that will be set to the total number of unread frames available in the buffer.
+ *
  * @return The number of contiguous items available in the batch.
  */
-size_t SPMC_master_peek_batch(SPMC_t *spmc, timestamped_frame_t **first_item) {
+size_t SPMC_master_peek_all(SPMC_t *spmc, timestamped_frame_t **first_item, size_t *total_unread) {
     const size_t head = spmc->head;
+    __DMB(); // ensure data visibility of head before reading tail
     const size_t tail = spmc->master_tail;
 
+    // empty case
     if (head == tail) {
-        *first_item = NULL;
+        *first_item = nullptr;
+        *total_unread = 0;
         return 0;
     }
 
+    __DMB(); // dont read the buffer before tail/head are ready
     *first_item = &spmc->data[tail];
     
+    // contiguous case
     if (head > tail) {
-        return head - tail;
-    } else {
-        return SPMC_NUM_FRAMES - tail;
-    }
-}
-
-/**
- * @brief Gets the number of unread frames available for processing by the master
- * 
- * @param spmc Pointer to the SPMC instance.
- * @param first_item Output pointer that will point to the first item in the batch if available, or NULL if no items are available.
- * @return The total number of frames available for processing.
- */
-size_t SPMC_master_get_unread_count(SPMC_t *spmc, timestamped_frame_t **first_item) {
-    const size_t head = spmc->head;
-    const size_t tail = spmc->master_tail;
-
-    if (head == tail) {
-        *first_item = NULL;
-        return 0;
+        *total_unread = head - tail;
+        return *total_unread;
     }
 
-    *first_item = &spmc->data[tail];
-    
-    if (head > tail) {
-        return head - tail;
-    } else {
-        return SPMC_NUM_FRAMES - (tail - head);
-    }
+    // wraparound case
+    *total_unread = (SPMC_NUM_FRAMES - tail) + head;
+    return (SPMC_NUM_FRAMES - tail);
 }
 
 /**
@@ -126,14 +114,15 @@ size_t SPMC_master_get_unread_count(SPMC_t *spmc, timestamped_frame_t **first_it
  * @param num_consumed The number of frames to commit.
  */
 void SPMC_master_commit_tail(SPMC_t *spmc, size_t num_consumed) {
-    // todo: instead of heavy-handidly disabling all interrupts, we should only mask the two CAN RX ISRs
-    uint32_t primask = __get_PRIMASK();
-    __disable_irq(); // ! mask producer IRQs to prevent a race condition
+    // mask the CAN RX IRQs
+    uint32_t basepri = __get_BASEPRI();
+    __set_BASEPRI(CAN_RX_IRQ_PRIO << (8 - __NVIC_PRIO_BITS));
+
     const size_t next_tail = (spmc->master_tail + num_consumed) % SPMC_NUM_FRAMES;
     spmc->master_tail = next_tail;
-    if (!primask) {
-        __enable_irq();
-    }
+    __DSB();
+
+    __set_BASEPRI(basepri);
 }
 
 /**
@@ -146,6 +135,7 @@ void SPMC_master_commit_tail(SPMC_t *spmc, size_t num_consumed) {
  */
 int SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out, uint32_t *consecutive_items) {
     const size_t head = spmc->head;
+    __DMB(); // ensure data visibility of head before reading tail
     if (spmc->follower_tail == head) {
         return -1;
     }

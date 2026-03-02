@@ -77,22 +77,20 @@ static inline void sd_file_sync(void) {
 
 // todo reevaluate the logic here
 static void _sd_write_periodic(bool bypass) {
-    timestamped_frame_t* buf;
-    
-    UINT bytes_written;
-    FRESULT result;
-
-    if (daq_hub.sd_state != SD_STATE_ACTIVE)
-        return;
-
-    // Use the unread item count, not contiguous for the threshold
-    size_t unread_items = SPMC_master_get_unread_count(&spmc, &buf);
-    if (!(bypass || unread_items >= SD_MAX_WRITE_COUNT)) {
+    if (daq_hub.sd_state != SD_STATE_ACTIVE) {
         return;
     }
 
-    // todo modify get_unread count to return contiguous count ?
-    size_t consecutive_items = SPMC_master_peek_batch(&spmc, &buf);
+    // Use the unread item count, not contiguous for the threshold
+    timestamped_frame_t* buf; // written to by peek_all()
+    size_t unread_items; // written to by peek_all()
+    size_t consecutive_items = SPMC_master_peek_all(&spmc, &buf, &unread_items);
+    
+    bool is_threshold_met = unread_items >= SD_MAX_WRITE_COUNT;
+    if (!is_threshold_met && !bypass) {
+        return;
+    }
+    
     if (consecutive_items == 0) {
         daq_hub.sd_rx_overflow++;
         return;
@@ -104,7 +102,8 @@ static void _sd_write_periodic(bool bypass) {
         
     // Write time :D
     PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 1);
-    result = f_write(&daq_hub.log_fp, buf, consecutive_items * sizeof(*buf), &bytes_written);
+    UINT bytes_written; // written to by f_write()
+    FRESULT result = f_write(&daq_hub.log_fp, buf, consecutive_items * sizeof(*buf), &bytes_written);
     if (result != FR_OK) {
         sd_handle_error(SD_ERROR_WRITE, result);
     } else {

@@ -33,15 +33,12 @@ typedef struct {
     volatile size_t head;
     volatile size_t master_tail; // SD tail
     volatile size_t follower_tail; // best-effort ETH tail
-
-    // metadata
     volatile uint32_t overflows;
 } SPMC_t;
 
 void SPMC_init(SPMC_t *spmc);
 int SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame);
-size_t SPMC_master_peek_batch(SPMC_t *spmc, timestamped_frame_t **first_item);
-size_t SPMC_master_get_unread_count(SPMC_t *spmc, timestamped_frame_t **first_item);
+size_t SPMC_master_peek_all(SPMC_t *spmc, timestamped_frame_t **first_item, size_t *total_unread);
 void SPMC_master_commit_tail(SPMC_t *spmc, size_t num_consumed);
 int SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out, uint32_t *consecutive_items);
 

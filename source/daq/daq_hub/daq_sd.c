@@ -121,10 +121,13 @@ void sd_shutdown(void) {
             // _sd_write_periodic(true); // Finish write (bypass count limit)
             sd_file_sync(); // Flush cache
             f_close(&daq_hub.log_fp); // Close file
+            // ! intentional fall through
         case SD_STATE_MOUNTED:
             f_mount(0, "", 1); // Unmount drive
+            // ! intentional fall through
         case SD_STATE_IDLE:
             SD_DeInit(); // Shutdown SDIO peripheral
+            // ! intentional fall through
         default:
             daq_hub.sd_state = SD_STATE_IDLE;
             PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);

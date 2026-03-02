@@ -15,7 +15,7 @@
 
 typedef struct {
     uint32_t ticks_ms; // ms timestamp of reception
-    uint32_t identity;   // [1 bit bus ID] [1 bit isExtID] [1 bit reserved] [29 bits CAN ID]
+    uint32_t identity; // [1 bit bus ID] [1 bit isExtID] [1 bit reserved] [29 bits CAN ID]
     uint64_t payload;  // message data
 } timestamped_frame_t;
 
@@ -25,11 +25,10 @@ static_assert(
 );
 
 // todo determine appropriate values based on testing
-// +1 to distinguish full vs empty
-static constexpr size_t SPMC_NUM_FRAMES = 256 + 1;
+static constexpr size_t SPMC_NUM_FRAMES = 512;
 static constexpr size_t MIN_WRITE_FRAMES = 32;
 static_assert(
-    (SPMC_NUM_FRAMES -1 ) % MIN_WRITE_FRAMES == 0,
+    SPMC_NUM_FRAMES % MIN_WRITE_FRAMES == 0,
     "the usable capacity must be a multiple of MIN_WRITE_FRAMES "
     "to prevent DMA wraparound issues"
 );

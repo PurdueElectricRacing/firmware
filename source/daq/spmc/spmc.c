@@ -32,13 +32,8 @@ void SPMC_init(SPMC_t *spmc) {
     // CAN1 and CAN2 RX0 IRQs must be set to the same priority to hold the SPMC single producer assumption
     NVIC_SetPriority(CAN1_RX0_IRQn, CAN_RX_IRQ_PRIO);
     NVIC_SetPriority(CAN2_RX0_IRQn, CAN_RX_IRQ_PRIO);
-    NVIC_SetPriority(CAN1_SCE_IRQn, CAN_SCE_IRQ_PRIO);
-    NVIC_SetPriority(CAN2_SCE_IRQn, CAN_SCE_IRQ_PRIO);
-
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
-    NVIC_EnableIRQ(CAN1_SCE_IRQn);
     NVIC_EnableIRQ(CAN2_RX0_IRQn);
-    NVIC_EnableIRQ(CAN2_SCE_IRQn);
 }
 
 
@@ -87,18 +82,11 @@ size_t SPMC_master_peek_all(SPMC_t *spmc, timestamped_frame_t **first_item, size
     __DMB(); // ensure data visibility of head before reading tail
     const size_t tail = spmc->master_tail;
 
-    // empty case
-    if (head == tail) {
-        *first_item = nullptr;
-        *total_unread = 0;
-        return 0;
-    }
-
     __DMB(); // dont read the buffer before tail/head are ready
     *first_item = &spmc->data[tail];
     
     // contiguous case
-    if (head > tail) {
+    if (head >= tail) {
         *total_unread = head - tail;
         return *total_unread;
     }
@@ -129,15 +117,19 @@ void SPMC_master_commit_tail(SPMC_t *spmc, size_t num_consumed) {
 /**
  * @brief Pops a single frame for the follower (Ethernet transmission) and advances the follower tail pointer.
  * todo: this function is incomplete
+ * todo: optimize for DMA batch transfers, similar to the master's function
+ *
  * @param spmc Pointer to the SPMC instance.
  * @param out Output pointer to the popped frame.
  * @param consecutive_items Output pointer to the number of consecutive frames available.
+ *
  * @return 0 on success, -1 if no frames are available.
  */
 int SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out, uint32_t *consecutive_items) {
     const size_t head = spmc->head;
     __DMB(); // ensure data visibility of head before reading tail
     if (spmc->follower_tail == head) {
+        *consecutive_items = 0;
         return -1;
     }
 
@@ -145,16 +137,13 @@ int SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out, uint32_t *consecu
 
     // todo "catchup" the tail if it's too far behind?
 
-    size_t next = spmc->follower_tail + 1;
-    if (next == SPMC_NUM_FRAMES) next = 0;
+    size_t next = (spmc->follower_tail + 1) % SPMC_NUM_FRAMES;
     spmc->follower_tail = next;
 
-    if (head > spmc->follower_tail) {
+    if (head >= spmc->follower_tail) {
         *consecutive_items = head - spmc->follower_tail;
-    } else if (head < spmc->follower_tail) {
-        *consecutive_items = SPMC_NUM_FRAMES - spmc->follower_tail;
     } else {
-        *consecutive_items = 0;
+        *consecutive_items = (SPMC_NUM_FRAMES - spmc->follower_tail) + head;
     }
     return 0;
 }

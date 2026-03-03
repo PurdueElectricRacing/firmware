@@ -24,6 +24,9 @@ typedef struct {
 
 // FreeRTOS
 #define CAN_TX_BACKPRESSURE_MS (2) // Wait up to 2ms if FDCAN TX FIFO is full before dropping message
+#define CAN_TX_QUEUE_LENGTH (64)     // Length of software queue for each CAN peripheral
+#define CAN_RX_QUEUE_LENGTH (64)     // Length of software queue for received messages
+
 #define CAN_TX_MAILBOX_CNT   (3)
 #define CAN_TX_TIMEOUT_MS    (15)
 #define CAN_TX_BLOCK_TIMEOUT (30 * 16000)

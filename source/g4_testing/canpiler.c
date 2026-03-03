@@ -11,6 +11,7 @@
 #include "common/phal/rcc.h"
 #include "common/freertos/freertos.h"
 #include "main.h"
+#include "common/can_library/faults_common.h"
 
 GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_FDCAN2RX_PB12,
@@ -35,16 +36,13 @@ extern uint32_t PLLClockRateHz;
 
 void HardFault_Handler();
 
-void can_tx_100hz(void) {
-    CAN_SEND_dash_version(123);
-}
 
 void can_worker() {
     CAN_rx_update();
     CAN_tx_update();
 }
 
-DEFINE_TASK(can_tx_100hz, 10, osPriorityNormal, 1024);
+DEFINE_TASK(fault_library_periodic, 10, osPriorityNormal, 1024);
 DEFINE_TASK(can_worker, 10, osPriorityHigh, 1024);
 
 int main() {
@@ -68,7 +66,7 @@ int main() {
 
     osKernelInitialize();
 
-    START_TASK(can_tx_100hz);
+    START_TASK(fault_library_periodic);
     START_TASK(can_worker);
     osKernelStart();
 

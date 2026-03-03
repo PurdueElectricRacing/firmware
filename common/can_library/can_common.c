@@ -16,8 +16,7 @@
 can_data_t can_data;
 can_stats_t can_stats;
 volatile uint32_t last_can_rx_time_ms;
-defineStaticQueue(q_rx_can, CanMsgTypeDef_t, 256);
-
+DEFINE_STATIC_QUEUE(q_rx_can, CanMsgTypeDef_t, 64);
 
 #if defined(STM32F407xx) || defined(STM32F732xx)
 
@@ -204,14 +203,25 @@ bool CAN_library_init() {
 #endif
 #endif
 
-q_handle_t q_tx_can[NUM_CAN_PERIPHERALS];
-// q_handle_t q_rx_can;
+#ifdef USE_FDCAN1
+DEFINE_STATIC_QUEUE(q_tx_can1, CanMsgTypeDef_t, 64);
+#endif
+
+#ifdef USE_FDCAN2
+DEFINE_STATIC_QUEUE(q_tx_can2, CanMsgTypeDef_t, 64);
+#endif
+
+#ifdef USE_FDCAN3
+DEFINE_STATIC_QUEUE(q_tx_can3, CanMsgTypeDef_t, 64);
+#endif
+
+QueueHandle_t q_tx_can[NUM_CAN_PERIPHERALS];
 QueueHandle_t q_rx_can;
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
     uint8_t periph_idx = GET_PERIPH_IDX(msg->Bus);
 
-    if (qSendToBack(&q_tx_can[periph_idx], msg) != SUCCESS_G) {
+    if (xQueueSendToBack(q_tx_can[periph_idx], msg, 0) != pdPASS) {
         can_stats.can_peripheral_stats[periph_idx].tx_of++;
     }
 }
@@ -220,19 +230,19 @@ void CAN_tx_update() {
     CanMsgTypeDef_t tx_msg;
 
 #ifdef USE_FDCAN1
-    while (PHAL_FDCAN_txFifoFree(FDCAN1) && qReceive(&q_tx_can[CAN1_IDX], &tx_msg) == SUCCESS_G) {
+    while (PHAL_FDCAN_txFifoFree(FDCAN1) && xQueueReceive(q_tx_can[CAN1_IDX], &tx_msg, 0) == pdPASS) {
         PHAL_FDCAN_send(&tx_msg);
     }
 #endif
 
 #ifdef USE_FDCAN2
-    while (PHAL_FDCAN_txFifoFree(FDCAN2) && qReceive(&q_tx_can[CAN2_IDX], &tx_msg) == SUCCESS_G) {
+    while (PHAL_FDCAN_txFifoFree(FDCAN2) && xQueueReceive(q_tx_can[CAN2_IDX], &tx_msg, 0) == pdPASS) {
         PHAL_FDCAN_send(&tx_msg);
     }
 #endif
 
 #ifdef USE_FDCAN3
-    while (PHAL_FDCAN_txFifoFree(FDCAN3) && qReceive(&q_tx_can[CAN3_IDX], &tx_msg) == SUCCESS_G) {
+    while (PHAL_FDCAN_txFifoFree(FDCAN3) && xQueueReceive(q_tx_can[CAN3_IDX], &tx_msg, 0) == pdPASS) {
         PHAL_FDCAN_send(&tx_msg);
     }
 #endif
@@ -243,10 +253,12 @@ void CAN_rx_update() {
     while (xQueueReceive(q_rx_can, &rx_msg, portMAX_DELAY) == pdPASS) {
         last_can_rx_time_ms = OS_TICKS;
         uint8_t periph_idx  = GET_PERIPH_IDX(rx_msg.Bus);
-        CAN_rx_dispatcher(rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId,
-                          rx_msg.Data,
-                          rx_msg.DLC,
-                          periph_idx);
+        CAN_rx_dispatcher(
+            rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId,
+            rx_msg.Data,
+            rx_msg.DLC,
+            periph_idx
+        );
     }
 }
 
@@ -264,12 +276,23 @@ void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
 
 bool CAN_library_init() {
     // Initialize TX queues (one per peripheral)
-    for (uint8_t i = 0; i < NUM_CAN_PERIPHERALS; i++) {
-        qConstruct(&q_tx_can[i], sizeof(CanMsgTypeDef_t));
-    }
+#ifdef USE_FDCAN1
+    CREATE_STATIC_QUEUE(q_tx_can1, CanMsgTypeDef_t, 64);
+    q_tx_can[CAN1_IDX] = q_tx_can1;
+#endif
+
+#ifdef USE_FDCAN2
+    CREATE_STATIC_QUEUE(q_tx_can2, CanMsgTypeDef_t, 64);
+    q_tx_can[CAN2_IDX] = q_tx_can2;
+#endif
+
+#ifdef USE_FDCAN3
+    CREATE_STATIC_QUEUE(q_tx_can3, CanMsgTypeDef_t, 64);
+    q_tx_can[CAN3_IDX] = q_tx_can3;
+#endif
 
     // Initialize RX queue
-    createStaticQueue(q_rx_can, CanMsgTypeDef_t, 256);
+    CREATE_STATIC_QUEUE(q_rx_can, CanMsgTypeDef_t, 64);
 
     // Clear stats
     can_stats = (can_stats_t) {0};

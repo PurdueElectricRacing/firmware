@@ -35,11 +35,17 @@ extern uint32_t PLLClockRateHz;
 
 void HardFault_Handler();
 
-static void can_tx_100hz(void) {
+void can_tx_100hz(void) {
     CAN_SEND_dash_version(123);
 }
 
+void can_worker() {
+    CAN_rx_update();
+    CAN_tx_update();
+}
+
 DEFINE_TASK(can_tx_100hz, 10, osPriorityNormal, 1024);
+DEFINE_TASK(can_worker, 10, osPriorityHigh, 1024);
 
 int main() {
     if (PHAL_configureClockRates(&clock_config)) {
@@ -63,6 +69,7 @@ int main() {
     osKernelInitialize();
 
     START_TASK(can_tx_100hz);
+    START_TASK(can_worker);
     osKernelStart();
 
     return 0;

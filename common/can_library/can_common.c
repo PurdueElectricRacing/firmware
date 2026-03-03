@@ -250,7 +250,8 @@ void CAN_tx_update() {
 
 void CAN_rx_update() {
     CanMsgTypeDef_t rx_msg;
-    while (xQueueReceive(q_rx_can, &rx_msg, pdMS_TO_TICKS(10)) == pdPASS) {
+    // Timeout: 0, poll only, don't block
+    while (xQueueReceive(q_rx_can, &rx_msg, 0) == pdPASS) {
         last_can_rx_time_ms = OS_TICKS;
         uint8_t periph_idx  = GET_PERIPH_IDX(rx_msg.Bus);
         CAN_rx_dispatcher(

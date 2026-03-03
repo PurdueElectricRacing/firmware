@@ -11,6 +11,8 @@
 
 #include <stdint.h>
 
+#include "common/freertos/freertos.h"
+
 #include "common/phal/can.h"
 #include "common/queue/queue.h"
 
@@ -143,7 +145,7 @@ extern q_handle_t q_tx_can[];
 // bxCAN uses 3 mailboxes per peripheral
 extern q_handle_t q_tx_can[][CAN_TX_MAILBOX_CNT];
 #endif
-extern q_handle_t q_rx_can;
+extern QueueHandle_t q_rx_can;
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg);
 

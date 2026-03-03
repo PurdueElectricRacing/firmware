@@ -10,17 +10,21 @@
 
 #include "common/can_library/generated/can_router.h"
 #include "common/queue/queue.h"
+#include "common/freertos/freertos.h"
 
 // common data structures
 can_data_t can_data;
 can_stats_t can_stats;
 volatile uint32_t last_can_rx_time_ms;
+defineStaticQueue(q_rx_can, CanMsgTypeDef_t, 256);
+
 
 #if defined(STM32F407xx) || defined(STM32F732xx)
 
 // todo mailbox based implementation here
 q_handle_t q_tx_can[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
-q_handle_t q_rx_can;
+// q_handle_t q_rx_can;
+//QueueHandle_t q_rx_can;
 uint32_t can_mbx_last_send_time[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
@@ -86,15 +90,17 @@ void CAN_tx_update() {
 void CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo) {
     CanMsgTypeDef_t rx_msg;
     while (PHAL_rxCANMessage(bus, fifo, &rx_msg)) {
-        if (qSendToBack(&q_rx_can, &rx_msg) != SUCCESS_G) {
+        BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+        if (xQueueSendFromISR(q_rx_can, &rx_msg, &xHigherPriorityTaskWoken) != pdPASS) {
             can_stats.rx_of++;
         }
+        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
     }
 }
 
 void CAN_rx_update() {
     CanMsgTypeDef_t rx_msg;
-    while (qReceive(&q_rx_can, &rx_msg) == SUCCESS_G) {
+    while (xQueueReceive(q_rx_can, &rx_msg, portMAX_DELAY) == pdPASS) {
         last_can_rx_time_ms = OS_TICKS;
         uint8_t periph_idx  = GET_PERIPH_IDX(rx_msg.Bus);
         CAN_rx_dispatcher(rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId,
@@ -159,7 +165,8 @@ bool CAN_library_init() {
             can_mbx_last_send_time[can_periph][mbx] = 0;
         }
     }
-    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+    //qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+    createStaticQueue(q_rx_can, CanMsgTypeDef_t, 256);
     can_stats = (can_stats_t) {0};
     CAN_data_init();
 
@@ -198,7 +205,8 @@ bool CAN_library_init() {
 #endif
 
 q_handle_t q_tx_can[NUM_CAN_PERIPHERALS];
-q_handle_t q_rx_can;
+// q_handle_t q_rx_can;
+QueueHandle_t q_rx_can;
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
     uint8_t periph_idx = GET_PERIPH_IDX(msg->Bus);
@@ -232,7 +240,7 @@ void CAN_tx_update() {
 
 void CAN_rx_update() {
     CanMsgTypeDef_t rx_msg;
-    while (qReceive(&q_rx_can, &rx_msg) == SUCCESS_G) {
+    while (xQueueReceive(q_rx_can, &rx_msg, portMAX_DELAY) == pdPASS) {
         last_can_rx_time_ms = OS_TICKS;
         uint8_t periph_idx  = GET_PERIPH_IDX(rx_msg.Bus);
         CAN_rx_dispatcher(rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId,
@@ -245,9 +253,13 @@ void CAN_rx_update() {
 // FDCAN RX callback - enqueues received messages to the RX queue
 // This overrides the weak definition in fdcan.c
 void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
-    if (qSendToBack(&q_rx_can, msg) != SUCCESS_G) {
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+
+    if (xQueueSendFromISR(q_rx_can, msg, &xHigherPriorityTaskWoken) != pdPASS) {
         can_stats.rx_of++;
     }
+
+    portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
 bool CAN_library_init() {
@@ -257,7 +269,7 @@ bool CAN_library_init() {
     }
 
     // Initialize RX queue
-    qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
+    createStaticQueue(q_rx_can, CanMsgTypeDef_t, 256);
 
     // Clear stats
     can_stats = (can_stats_t) {0};

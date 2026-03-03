@@ -46,15 +46,17 @@ void {{ module.node_name|lower }}_fault_sync_CALLBACK(can_data_t* can_data) {
 {% endfor %}
 }
 
-void {{ module.node_name|lower }}_fault_event_CALLBACK(can_data_t* can_data) {
+{# ! disabled: system not ready yet #}
+{# void {{ module.node_name|lower }}_fault_event_CALLBACK(can_data_t* can_data) {
     uint16_t idx = can_data->{{ module.node_name|lower }}_fault_event.idx;
     if (idx < TOTAL_NUM_FAULTS) {
         faults[idx].state = (can_data->{{ module.node_name|lower }}_fault_event.state != 0) ? FAULT_STATE_LATCHED : FAULT_STATE_OK;
     }
-}
+} #}
 #else
 void {{ module.node_name|lower }}_fault_sync_CALLBACK(can_data_t* can_data) { (void)can_data; }
-void {{ module.node_name|lower }}_fault_event_CALLBACK(can_data_t* can_data) { (void)can_data; }
+{# ! disabled: system not ready yet #}
+{# void {{ module.node_name|lower }}_fault_event_CALLBACK(can_data_t* can_data) { (void)can_data; } #}
 #endif
 #endif
 
@@ -74,7 +76,8 @@ void tx_fault_sync(void) {
 #endif
 }
 
-void tx_fault_event(fault_id_t idx, uint16_t value) {
+{# ! disabled: system not ready yet #}
+{# void tx_fault_event(fault_id_t idx, uint16_t value) {
 #ifdef FAULT_LIB_ENABLED
 {% for module in fault_modules %}
 #ifdef CAN_NODE_{{ module.node_name|upper }}
@@ -86,4 +89,4 @@ void tx_fault_event(fault_id_t idx, uint16_t value) {
 #else
     (void)idx; (void)value;
 #endif
-}
+} #}

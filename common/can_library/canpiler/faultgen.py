@@ -95,7 +95,9 @@ def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], b
             
         node = node_map[m_name_upper]
         bus = node.busses[fault_bus_name]
-        
+
+        # ! disabled: system not ready yet
+        """
         # Fault Event (Priority 0) - Fired on state change
         event_name = f"{node.name.lower()}_fault_event"
         event_msg = Message(
@@ -112,6 +114,7 @@ def inject_fault_messages(nodes: List[Node], fault_modules: List[FaultModule], b
         event_msg.resolve_layout(custom_types)
         bus.tx_messages.append(event_msg)
         all_fault_event_msgs.append(event_name)
+        """
         
         # Fault Sync (Priority 1) - Periodic bitfield
         sync_name = f"{node.name.lower()}_fault_sync"

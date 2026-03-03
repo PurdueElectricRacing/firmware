@@ -123,11 +123,13 @@ PHAL_FDCAN_setStandardFilter(FDCAN_GlobalTypeDef *fdcan, uint32_t num_sid, uint3
     fdcan->RXGFC |= ((num_sid & 0xFFu) << FDCAN_RXGFC_LSS_Pos);
 }
 
-void PHAL_FDCAN_setFilters(FDCAN_GlobalTypeDef *fdcan,
-                           uint32_t *sid_list,
-                           uint32_t num_sid,
-                           uint32_t *xid_list,
-                           uint32_t num_xid) {
+void PHAL_FDCAN_setFilters(
+    FDCAN_GlobalTypeDef *fdcan,
+    uint32_t *sid_list,
+    uint32_t num_sid,
+    uint32_t *xid_list,
+    uint32_t num_xid
+) {
     fdcan->CCCR |= FDCAN_CCCR_INIT;
     while ((fdcan->CCCR & FDCAN_CCCR_INIT) == 0) {}
     fdcan->CCCR |= FDCAN_CCCR_CCE;

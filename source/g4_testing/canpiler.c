@@ -43,7 +43,7 @@ void can_worker() {
 }
 
 DEFINE_TASK(fault_library_periodic, 10, osPriorityNormal, 1024);
-DEFINE_TASK(can_worker, 10, osPriorityHigh, 1024);
+DEFINE_TASK(can_worker, 0, osPriorityLow, 1024);
 
 int main() {
     if (PHAL_configureClockRates(&clock_config)) {

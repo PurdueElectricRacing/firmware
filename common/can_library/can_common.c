@@ -216,7 +216,7 @@ DEFINE_STATIC_QUEUE(q_tx_can3, CanMsgTypeDef_t, 64);
 #endif
 
 QueueHandle_t q_tx_can[NUM_CAN_PERIPHERALS];
-QueueHandle_t q_rx_can;
+// QueueHandle_t q_rx_can;
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
     uint8_t periph_idx = GET_PERIPH_IDX(msg->Bus);
@@ -250,7 +250,7 @@ void CAN_tx_update() {
 
 void CAN_rx_update() {
     CanMsgTypeDef_t rx_msg;
-    while (xQueueReceive(q_rx_can, &rx_msg, portMAX_DELAY) == pdPASS) {
+    while (xQueueReceive(q_rx_can, &rx_msg, pdMS_TO_TICKS(10)) == pdPASS) {
         last_can_rx_time_ms = OS_TICKS;
         uint8_t periph_idx  = GET_PERIPH_IDX(rx_msg.Bus);
         CAN_rx_dispatcher(

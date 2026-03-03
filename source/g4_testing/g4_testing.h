@@ -9,6 +9,6 @@
 #define TEST_CANPILER 4
 
 // Change this define to set the test compiled
-#define G4_TESTING_CHOSEN TEST_FDCAN
+#define G4_TESTING_CHOSEN TEST_CANPILER
 
 #endif // __G4_TESTING__

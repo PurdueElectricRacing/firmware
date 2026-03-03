@@ -1,6 +1,6 @@
 {
     "node_name": "PDU",
-    "scheduler": "psched",
+    "scheduler": "freertos",
     "busses": {
         "VCAN": {
             "peripheral": "CAN1",

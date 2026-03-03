@@ -197,13 +197,6 @@ void setSwitch(switches_t auto_switch_enum, bool state) {
             PHAL_writeGPIO(FAN_5V_CTRL_GPIO_Port, FAN_5V_CTRL_Pin, state);
             LED_control(LED_5V_FAN, state);
             break;
-        case CS_24V:
-        case CS_5V:
-            // Not actually switches - do nothing
-            break;
-        case CS_SWITCH_COUNT:
-            // Not a real switch! - do nothing
-            break;
     }
 }
 
@@ -334,32 +327,32 @@ void checkSwitchFaults() {
     // Set fault for dash/daq - this is too much for our 1ms window, so send each fault seperately
     switch (fault_num) {
         case 0:
-            update_fault(FAULT_INDEX_PDU_DASH_RAIL, !dash);
+            update_fault(FAULT_ID_PDU_DASH_RAIL, !dash);
             break;
         case 1:
-            update_fault(FAULT_INDEX_PDU_ABOX_RAIL, !abox);
+            update_fault(FAULT_ID_PDU_ABOX_RAIL, !abox);
             break;
         case 2:
-            update_fault(FAULT_INDEX_PDU_MAIN_RAIL, !main);
+            update_fault(FAULT_ID_PDU_MAIN_RAIL, !main);
             break;
         case 3:
-            update_fault(FAULT_INDEX_PDU_DAQ_RAIL, !daq);
+            update_fault(FAULT_ID_PDU_DAQ_RAIL, !daq);
             break;
         case 4:
-            update_fault(FAULT_INDEX_PDU_V_CRIT, !vcrit);
+            update_fault(FAULT_ID_PDU_V_CRIT, !vcrit);
             break;
         case 5:
-            update_fault(FAULT_INDEX_PDU_V_NONCRIT, !vnc);
+            update_fault(FAULT_ID_PDU_V_NONCRIT, !vnc);
             break;
         case 6:
 
-            update_fault(FAULT_INDEX_PDU_FAN1, !dlfr);
+            update_fault(FAULT_ID_PDU_FAN1, !dlfr);
             break;
         case 7:
-            update_fault(FAULT_INDEX_PDU_FAN2, !dlbk);
+            update_fault(FAULT_ID_PDU_FAN2, !dlbk);
             break;
         case 8:
-            update_fault(FAULT_INDEX_PDU_BULLET_RAIL, !bullet);
+            update_fault(FAULT_ID_PDU_BULLET_RAIL, !bullet);
             fault_num = 0;
             break;
     }

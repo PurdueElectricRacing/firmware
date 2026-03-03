@@ -1,13 +1,12 @@
 /* System Includes */
-#include "common/bootloader/bootloader_common.h"
 #include "common/can_library/faults_common.h"
 #include "common/common_defs/common_defs.h"
+#include "common/freertos/freertos.h"
 #include "common/phal/adc.h"
 #include "common/phal/can.h"
 #include "common/phal/dma.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
-#include "common/psched/psched.h"
 
 /* Module Includes */
 #include "auto_switch.h"
@@ -220,148 +219,57 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
 void HardFault_Handler();
-void preflight_animation();
-void preflightChecks(void);
-void heatBeatLED();
+
+/* Task functions */
+void heartbeat_task();
+void background_can_update();
 void send_iv_readings();
 void send_flowrates();
 
-// To correctly execute preflight algorithm
-uint8_t led_anim_complete;
+#define PREFLIGHT_DURATION_MS (750)
 
-int main() {
-    /* Data Struct init */
-    PHAL_trimHSI(HSI_TRIM_PDU);
-    if (0 != PHAL_configureClockRates(&clock_config)) {
-        HardFault_Handler();
-    }
-    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
-        HardFault_Handler();
-    }
+void heartbeat_task() {
+    // Preflight animation for the first PREFLIGHT_DURATION_MS after boot
+    if (OS_TICKS <= PREFLIGHT_DURATION_MS) {
+        static uint32_t time;
+        static int led_number;
+        static bool led_decrement = false;
 
-    if (!PHAL_initADC(ADC1,
-                      &adc_config,
-                      adc_channel_config,
-                      sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
-        HardFault_Handler();
-    }
-    if (!PHAL_initDMA(&adc_dma_config)) {
-        HardFault_Handler();
-    }
-    PHAL_startTxfer(&adc_dma_config);
-    PHAL_startADC(ADC1);
-    led_anim_complete = 0;
+        // Three-LED sweep
+        PHAL_writeGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, 0);
+        PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 0);
+        PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
 
-    /* Task Creation */
-    schedInit(APB1ClockRateHz);
-    configureAnim(preflight_animation, preflightChecks, 20, 750);
-
-    /* Schedule Periodic tasks here */
-    taskCreate(heatBeatLED, 500);
-    taskCreate(fault_library_periodic, 100);
-    taskCreate(LED_periodic, 500);
-    taskCreateBackground(CAN_tx_update);
-    taskCreateBackground(CAN_rx_update);
-    taskCreate(autoSwitchPeriodic, 15);
-    taskCreate(update_cooling_periodic, 100);
-    taskCreate(send_iv_readings, 500);
-    taskCreate(checkSwitchFaults, 100);
-    taskCreate(send_flowrates, 200);
-    schedStart();
-    return 0;
-}
-
-void preflightChecks(void) {
-    static uint8_t state;
-
-    switch (state++) {
-        case 0:
-            if (!PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
-                HardFault_Handler();
-            }
-            NVIC_EnableIRQ(CAN1_RX0_IRQn);
-            break;
-        case 1:
-            CAN_library_init();
-            break;
-        case 2:
-            if (!PHAL_SPI_init(&spi_config)) {
-                HardFault_Handler();
-            }
-            PHAL_writeGPIO(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, 1);
-            break;
-        case 3:
-            fanControlInit();
-            break;
-        case 4:
-            coolingInit();
-            flowRateInit();
-            break;
-        case 5:
-            break;
-        default:
-            if (led_anim_complete) {
-                // Initialize default 'ON' rails
-                setSwitch(SW_SDC, 1);
-                setSwitch(SW_DAQ, 1);
-                setSwitch(SW_TV, 1);
-                setSwitch(SW_MAIN, 1);
-                setSwitch(SW_ABOX, 1);
-                setSwitch(SW_DASH, 1);
-                setSwitch(SW_CRIT_5V, 1);
-                setSwitch(SW_BLT, 1);
-                registerPreflightComplete(1);
-            }
-            state = 255; // prevent wrap around
-            break;
-    }
-}
-
-void preflight_animation(void) {
-    static uint32_t time;
-    static int led_number;
-    static bool led_decrement = false;
-
-    PHAL_writeGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, 0);
-    PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 0);
-    PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
-
-    switch (time++ % 24) {
-        case 0:
-        case 5:
-            PHAL_writeGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, 1);
-            break;
-        case 1:
-        case 4:
-            PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
-            break;
-        case 2:
-        case 3:
-            PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
-            break;
-    }
-
-    if (led_number < MAX_NUM_LED && !led_decrement) {
-        led_number++;
-        LED_control(led_number, LED_ON);
-    } else if (led_number >= MAX_NUM_LED && !led_decrement) {
-        led_decrement = true;
-    } else {
-        led_number--;
-        LED_control(led_number, LED_OFF);
-        if (led_number == 0) {
-            led_anim_complete = 1;
+        switch (time++ % 24) {
+            case 0:
+            case 5:
+                PHAL_writeGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, 1);
+                break;
+            case 1:
+            case 4:
+                PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
+                break;
+            case 2:
+            case 3:
+                PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
+                break;
         }
+
+        if (led_number < MAX_NUM_LED && !led_decrement) {
+            led_number++;
+            LED_control(led_number, LED_ON);
+        } else if (led_number >= MAX_NUM_LED && !led_decrement) {
+            led_decrement = true;
+        } else {
+            led_number--;
+            LED_control(led_number, LED_OFF);
+        }
+
+        return;
     }
-}
 
-void send_flowrates() {
-    CAN_SEND_flowrates(getFlowRate1(), getFlowRate2());
-}
-
-void heatBeatLED() {
     PHAL_toggleGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin);
-    if ((sched.os_ticks - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
+    if ((OS_TICKS - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
     else
         PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
@@ -375,8 +283,13 @@ void heatBeatLED() {
     trig = !trig;
 }
 
-void CAN1_RX0_IRQHandler() {
+void background_can_update() {
     CAN_rx_update();
+    CAN_tx_update();
+}
+
+void send_flowrates() {
+    CAN_SEND_flowrates(getFlowRate1(), getFlowRate2());
 }
 
 void send_iv_readings() {
@@ -411,9 +324,90 @@ void send_iv_readings() {
     CAN_SEND_pdu_temps((uint16_t)temp);
 }
 
+DEFINE_TASK(heartbeat_task, 500, osPriorityLow, 256);
+DEFINE_TASK(background_can_update, 10, osPriorityHigh, 1024);
+DEFINE_TASK(autoSwitchPeriodic, 15, osPriorityNormal, 512);
+DEFINE_TASK(update_cooling_periodic, 100, osPriorityNormal, 1024);
+DEFINE_TASK(LED_periodic, 500, osPriorityLow, 512);
+DEFINE_TASK(send_iv_readings, 500, osPriorityLow, 512);
+DEFINE_TASK(checkSwitchFaults, 100, osPriorityLow, 512);
+DEFINE_TASK(send_flowrates, 200, osPriorityLow, 256);
+DEFINE_TASK(fault_library_periodic, 100, osPriorityLow, 1024);
+
+int main() {
+    // Hardware Initialization
+    PHAL_trimHSI(HSI_TRIM_PDU);
+    if (0 != PHAL_configureClockRates(&clock_config)) {
+        HardFault_Handler();
+    }
+    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
+        HardFault_Handler();
+    }
+
+    if (!PHAL_initADC(ADC1,
+                      &adc_config,
+                      adc_channel_config,
+                      sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
+        HardFault_Handler();
+    }
+    if (!PHAL_initDMA(&adc_dma_config)) {
+        HardFault_Handler();
+    }
+    PHAL_startTxfer(&adc_dma_config);
+    PHAL_startADC(ADC1);
+
+    if (!PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
+        HardFault_Handler();
+    }
+    NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    CAN_library_init();
+
+    if (!PHAL_SPI_init(&spi_config)) {
+        HardFault_Handler();
+    }
+    PHAL_writeGPIO(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, 1);
+
+    fanControlInit();
+    coolingInit();
+    flowRateInit();
+
+    // Initialize default 'ON' rails
+    setSwitch(SW_SDC, 1);
+    setSwitch(SW_DAQ, 1);
+    setSwitch(SW_TV, 1);
+    setSwitch(SW_MAIN, 1);
+    setSwitch(SW_ABOX, 1);
+    setSwitch(SW_DASH, 1);
+    setSwitch(SW_CRIT_5V, 1);
+    setSwitch(SW_BLT, 1);
+
+    osKernelInitialize();
+
+    START_TASK(heartbeat_task);
+    START_TASK(background_can_update);
+    START_TASK(autoSwitchPeriodic);
+    START_TASK(update_cooling_periodic);
+    START_TASK(LED_periodic);
+    START_TASK(send_iv_readings);
+    START_TASK(checkSwitchFaults);
+    START_TASK(send_flowrates);
+    START_TASK(fault_library_periodic);
+
+    // no way home
+    osKernelStart();
+
+    return 0;
+}
+
+void CAN1_RX0_IRQHandler() {
+    CAN_rx_update();
+}
+
 void HardFault_Handler() {
+    __disable_irq();
+    SysTick->CTRL = 0;
     PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
     while (1) {
-        __asm__("nop");
+        __asm__("NOP");
     }
 }

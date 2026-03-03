@@ -115,7 +115,7 @@ static void calculate_cooling_periodic() {
     // GPS not stale implies GPS fix
     bool not_moving = !can_data.gps_speed.stale && can_data.gps_speed.gps_speed <= GPS_SPEED_MOVING;
 
-    uint32_t now_ms = sched.os_ticks;
+    uint32_t now_ms = OS_TICKS;
 
     // PUMP1: Battery pumps
     // Enable if above 30C

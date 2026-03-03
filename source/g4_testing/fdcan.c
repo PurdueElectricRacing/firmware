@@ -62,13 +62,13 @@ extern uint32_t PLLClockRateHz;
 
 void HardFault_Handler();
 
-static void can_tx_100hz(void);
+static void can_tx_10hz(void);
 static void can_rx_1khz(void);
 // static void ledblink3(void);
 // static void ledblink4(void);
 
-defineThreadStack(can_tx_100hz, 10, osPriorityHigh, 256);
-defineThreadStack(can_rx_1khz, 1, osPriorityHigh, 256);
+defineThreadStack(can_tx_10hz, 100, osPriorityHigh, 256);
+defineThreadStack(can_rx_1khz, 0, osPriorityHigh, 256);
 
 defineStaticQueue(q_can_rx, CanMsgTypeDef_t, 256);
 
@@ -97,25 +97,25 @@ int main() {
     if (!PHAL_FDCAN_init(FDCAN2, false, 500000U)) {
         HardFault_Handler();
     }
-    if (!PHAL_FDCAN_init(FDCAN3, false, 500000U)) {
-        HardFault_Handler();
-    }
-    uint32_t sids[8] = {0x300, 0x301};
-    uint32_t xids[8] = {0x1ABCDE1, 0x1ABCDE2, 0x1ABCDE3};
-    PHAL_FDCAN_setFilters(FDCAN2, sids, 2, xids, 3);
-    PHAL_FDCAN_setFilters(FDCAN3, sids, 2, xids, 3);
+    // if (!PHAL_FDCAN_init(FDCAN3, false, 500000U)) {
+    //     HardFault_Handler();
+    // }
+    uint32_t sids[8] = {0x300, 0x301, 0x309};
+    uint32_t xids[8] = {0x8, 0x1ABCDE2, 0x1ABCDE3};
+    PHAL_FDCAN_setFilters(FDCAN2, sids, 3, xids, 3);
+    //PHAL_FDCAN_setFilters(FDCAN3, sids, 2, xids, 3);
 
     // Create threads
-    createThread(can_tx_100hz);
+    createThread(can_tx_10hz);
     createThread(can_rx_1khz);
 
     createStaticQueue(q_can_rx, CanMsgTypeDef_t, 256);
 
     // NVIC
     NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
-    NVIC_SetPriority(FDCAN3_IT0_IRQn, 7);
+    //NVIC_SetPriority(FDCAN3_IT0_IRQn, 7);
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
-    NVIC_EnableIRQ(FDCAN3_IT0_IRQn);
+    //NVIC_EnableIRQ(FDCAN3_IT0_IRQn);
 
     osKernelStart(); // Go!
 
@@ -134,7 +134,7 @@ static void PHAL_FDCAN_testExtended(void) {
     CanMsgTypeDef_t msg;
     msg.Bus            = FDCAN2;
     msg.IDE            = 1;
-    msg.ExtId          = 0x1ABCDE0 + 1;
+    msg.ExtId          = 0x9;
     uint8_t payload[8] = {'E', 'X', 'T', 'I', 'D', '_', 'T', 'X'};
     msg.DLC            = sizeof(payload);
     memcpy(msg.Data, payload, sizeof(payload));
@@ -152,7 +152,7 @@ static void PHAL_FDCAN_testExtended(void) {
 //     PHAL_FDCAN_send(&msg);
 // }
 
-static void can_tx_100hz(void) {
+static void can_tx_10hz(void) {
     // PHAL_FDCAN_testStandard();
     PHAL_FDCAN_testExtended();
 }
@@ -161,7 +161,7 @@ volatile CanMsgTypeDef_t rx_frame_0;
 
 static void can_rx_1khz(void) {
     CanMsgTypeDef_t rx_frame;
-    while (xQueueReceive(q_can_rx, &rx_frame, (TickType_t)0) == pdTRUE) {
+    while (xQueueReceive(q_can_rx, &rx_frame, portMAX_DELAY) == pdTRUE) {
         rx_frame_0 = rx_frame;
         ;
     }

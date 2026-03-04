@@ -95,6 +95,7 @@ ADC1_DMA_CONT_CONFIG(
 dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
 
+static constexpr uint32_t LCD_BAUD_RATE = 115'200;
 usart_init_t lcd = {
     .baud_rate        = LCD_BAUD_RATE,
     .word_length      = WORD_8,
@@ -110,7 +111,7 @@ usart_init_t lcd = {
     .rx_dma_cfg       = &usart_rx_dma_config,
 };
 
-static constexpr uint32_t TargetCoreClockrateHz = 16000000;
+static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
 ClockRateConfig_t clock_config = {
     .clock_source           = CLOCK_SOURCE_HSI,
     .use_pll                = false,
@@ -143,11 +144,11 @@ extern void HardFault_Handler();
 ALLOCATE_STRBUF(lcd_tx_buf, 1024);
 
 void preflight_task();
-void background_can_update();
+void can_worker_task();
 
 // System critical threads
 defineThreadStack(pedalsPeriodic, FILT_THROTTLE_BRAKE_PERIOD_MS, osPriorityHigh, 512);
-defineThreadStack(can_worker_task, 5, osPriorityHigh, 512);
+defineThreadStack(can_worker_task, 5, osPriorityHigh, 1024);
 
 // Auxilary threads
 defineThreadStack(heartbeat_task, 500, osPriorityLow, 128);
@@ -185,15 +186,18 @@ int main(void) {
     // Software Initialization
     osKernelInitialize();
 
-    // Start preflight task
-    createThread(preflight_task);
+    START_TASK(pedalsPeriodic);
+    START_TASK(can_worker_task);
+    START_TASK(heartbeat_task);
+    START_TASK(service_button_inputs);
+    START_TASK(fault_library_periodic);
 
     osKernelStart(); // GO!
 
     return 0;
 }
 
-void background_can_update() {
+void can_worker_task() {
     CAN_rx_update();
     CAN_tx_update();
 }

@@ -14,7 +14,7 @@
 
 volatile page_t curr_page; // Current page displayed on the LCD
 volatile page_t prev_page; // Previous page displayed on the LCD
-char* errorText; // Pointer to data to display for the Error, Warning, and Critical Fault codes
+char *errorText = nullptr; // Pointer to data to display for the Error, Warning, and Critical Fault codes
 extern pedal_values_t pedal_values; // Global from pedals module for throttle display
 extern q_handle_t q_fault_history; // Global queue from fault library for fault history
 extern volatile dashboard_input_state_t input_state; // Global dashboard input states
@@ -110,12 +110,11 @@ menu_page_t faults_page = {
 // Initialize the LCD screen
 // Preflight will be shown on power on, then reset to RACE
 void LCD_init(uint32_t baud_rate) {
-    curr_page = PAGE_RACE;
-    errorText = 0;
     NXT_setBaud(baud_rate);
     NXT_setBrightness(100);
 
     // Set page (leave preflight)
+    curr_page = PAGE_RACE;
     updatePage();
 }
 

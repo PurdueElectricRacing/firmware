@@ -149,9 +149,9 @@ DEFINE_TASK(pedalsPeriodic, FILT_THROTTLE_BRAKE_PERIOD_MS, osPriorityHigh, 512);
 DEFINE_TASK(can_worker_task, 5, osPriorityNormal, 1024);
 
 // Auxilary threads
-DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 128);
+DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 265);
 DEFINE_TASK(service_button_inputs, 50, osPriorityLow, 1024);
-DEFINE_TASK(fault_library_periodic, 100, osPriorityLow, 1024);
+DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, 1024);
 // todo LCD related functionality
 
 int main(void) {
@@ -179,12 +179,14 @@ int main(void) {
     }
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
     NVIC_SetPriority(FDCAN2_IT0_IRQn, 5);
+    CAN_library_init();
+
     config_button_irqs();
 
     // Software Initialization
     osKernelInitialize();
 
-    START_TASK(pedalsPeriodic);
+    // START_TASK(pedalsPeriodic);
     START_TASK(can_worker_task);
     START_TASK(heartbeat_task);
     START_TASK(service_button_inputs);

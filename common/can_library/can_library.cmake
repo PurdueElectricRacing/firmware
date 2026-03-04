@@ -38,8 +38,8 @@ macro(create_can_node_lib NODE_NAME ARCH_LIB)
 	# Set the node-specific define so can_router.h knows which header to include
 	target_compile_definitions(${LIB_NAME} PUBLIC "CAN_NODE_${NODE_NAME}")
 	
-	# Link to architecture-specific CMSIS and QUEUE
-	target_link_libraries(${LIB_NAME} PUBLIC ${ARCH_LIB} QUEUE)
+	# Link to architecture-specific CMSIS
+	target_link_libraries(${LIB_NAME} PUBLIC ${ARCH_LIB})
 	
 	# Include the current directory so FreeRTOSConfig.h can be found if needed
 	target_include_directories(${LIB_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

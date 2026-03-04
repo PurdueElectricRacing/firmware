@@ -14,10 +14,6 @@
 
 //STM32F407
 
-// LCD Constants
-#define LCD_NUM_PAGES (9) // Number encoder selectable pages
-#define LCD_BAUD_RATE (115200)
-
 typedef struct __attribute__((packed)) {
     // Do not modify this struct unless
     // you modify the ADC DMA config
@@ -42,25 +38,24 @@ typedef struct {
 } dashboard_input_state_t;
 
 // On-board Status LEDs
-#define CONN_LED_GPIO_Port  (GPIOB)
-#define CONN_LED_Pin        (7)
-#define CONN_LED_MS_THRESH  (500)
-#define HEART_LED_GPIO_Port (GPIOB)
-#define HEART_LED_Pin       (9)
-#define ERROR_LED_GPIO_Port (GPIOD)
-#define ERROR_LED_Pin       (2)
+#define CONNECTION_LED_PORT (GPIOB)
+#define CONNECTION_LED_PIN  (7)
+#define HEARTBEAT_LED_PORT  (GPIOB)
+#define HEARTBEAT_LED_PIN   (9)
+#define ERROR_LED_PORT      (GPIOD)
+#define ERROR_LED_PIN       (2)
 
-// External LED
-#define IMD_LED_GPIO_Port       (GPIOA)
-#define IMD_LED_Pin             (7)
-#define BMS_LED_GPIO_Port       (GPIOA)
-#define BMS_LED_Pin             (6)
-#define PRCHG_LED_GPIO_Port     (GPIOC)
-#define PRCHG_LED_Pin           (4)
+// External LEDs
+#define IMD_LED_PORT            (GPIOA)
+#define IMD_LED_PIN             (7)
+#define BMS_LED_PORT            (GPIOA)
+#define BMS_LED_PIN             (6)
+#define PRCHG_LED_PORT          (GPIOC)
+#define PRCHG_LED_PIN           (4)
 #define MOTOR_OVERTEMP_LED_PORT (GPIOC)
 #define MOTOR_OVERTEMP_LED_PIN  (5)
-#define TIRE_OVERTEMP_LED_PORT (GPIOB)
-#define TIRE_OVERTEMP_LED_PIN  (10)
+#define TIRE_OVERTEMP_LED_PORT  (GPIOB)
+#define TIRE_OVERTEMP_LED_PIN   (10)
 
 // Status Inputs
 #define START_BTN_GPIO_Port (GPIOB)
@@ -120,7 +115,5 @@ typedef struct {
 #define LCD_UART_TX_Pin       (9)
 #define LCD_UART_RX_GPIO_Port (GPIOA)
 #define LCD_UART_RX_Pin       (10)
-
-void lcd_tx_cmd();
 
 #endif

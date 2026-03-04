@@ -72,7 +72,7 @@ extern uint32_t PLLClockRateHz;
 extern void HardFault_Handler();
 void shockpot_thread();
 
-defineThreadStack(shockpot_thread, 100, osPriorityNormal, 512);
+DEFINE_TASK(shockpot_thread, 100, osPriorityNormal, 512);
 
 int main(void) {
     // Hardware Initilization
@@ -99,7 +99,7 @@ int main(void) {
     // Software Initalization
     osKernelInitialize();
 
-    createThread(shockpot_thread);
+    START_TASK(shockpot_thread);
 
     // no way home
     osKernelStart();

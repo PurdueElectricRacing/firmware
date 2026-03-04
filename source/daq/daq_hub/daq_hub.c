@@ -31,10 +31,10 @@ daq_hub_t daq_hub;
 static void daq_heartbeat(void);
 static void can_send_periodic(void);
 
-defineThreadStack(daq_heartbeat, 500, osPriorityNormal, 512); // HB
-defineThreadStack(sd_update_periodic, 100, osPriorityNormal, 4096); // SD WRITE
-defineThreadStack(eth_update_periodic, 50, osPriorityNormal, 4096); // SD WRITE
-defineThreadStack(can_send_periodic, 50, osPriorityNormal, 128); // CAN1 TX
+DEFINE_TASK(daq_heartbeat, 500, osPriorityNormal, 512); // HB
+DEFINE_TASK(sd_update_periodic, 100, osPriorityNormal, 4096); // SD WRITE
+DEFINE_TASK(eth_update_periodic, 50, osPriorityNormal, 4096); // SD WRITE
+DEFINE_TASK(can_send_periodic, 50, osPriorityNormal, 128); // CAN1 TX
 
 void daq_hub_init(void) {
     // Ethernet
@@ -67,11 +67,10 @@ void daq_hub_init(void) {
 }
 
 void daq_create_threads(void) {
-    createThread(daq_heartbeat); // HB
-    createThread(sd_update_periodic); // SD WRITE
-    createThread(eth_update_periodic); // BULLET COMMS 
-    createThread(can_send_periodic); // CAN1 TX
-
+    START_TASK(daq_heartbeat);       // HB
+    START_TASK(sd_update_periodic);  // SD WRITE
+    START_TASK(eth_update_periodic); // BULLET COMMS
+    START_TASK(can_send_periodic);   // CAN1 TX
 }
 
 static void daq_heartbeat(void) {

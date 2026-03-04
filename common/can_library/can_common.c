@@ -9,8 +9,6 @@
 #include "common/can_library/can_common.h"
 
 #include "common/can_library/generated/can_router.h"
-#include "common/queue/queue.h"
-#include "common/freertos/freertos.h"
 
 // common data structures
 can_data_t can_data;
@@ -165,7 +163,7 @@ bool CAN_library_init() {
         }
     }
     //qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
-    createStaticQueue(q_rx_can, CanMsgTypeDef_t, 256);
+    CREATE_STATIC_QUEUE(q_rx_can, CanMsgTypeDef_t, 256);
     can_stats = (can_stats_t) {0};
     CAN_data_init();
 

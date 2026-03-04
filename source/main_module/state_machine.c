@@ -47,11 +47,11 @@ static inline bool is_init_complete() {
 }
 
 static inline bool is_TSMS_closed() {
-    return !is_latched(FAULT_ID_MAIN_MODULE_SDC16_TSMS);
+    return !is_latched(FAULT_ID_SDC16_TSMS);
 }
 
 static inline bool is_precharge_complete() {
-    return !is_latched(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE);
+    return !is_latched(FAULT_ID_PRECHARGE_INCOMPLETE);
 }
 
 static inline bool is_all_AMKS_running() {
@@ -111,9 +111,9 @@ void fsm_periodic() {
 
     // update precharge status
     bool precharge_pin = !PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
-    update_fault(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE, precharge_pin);
+    update_fault(FAULT_ID_PRECHARGE_INCOMPLETE, precharge_pin);
     // amks need a bool to point to for precharge status
-    g_car.is_precharge_complete = !is_latched(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE);
+    g_car.is_precharge_complete = !is_latched(FAULT_ID_PRECHARGE_INCOMPLETE);
 
     switch (g_car.current_state) {
         case CARSTATE_INIT: {

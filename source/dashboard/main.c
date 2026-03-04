@@ -143,7 +143,7 @@ defineThreadStack(preflight_task, 10, osPriorityRealtime, 1024);
 
 // System critical threads
 defineThreadStack(pedalsPeriodic, FILT_THROTTLE_BRAKE_PERIOD_MS, osPriorityHigh, 512);
-defineThreadStack(can_worker_task, 10, osPriorityHigh, 512);
+defineThreadStack(can_worker_task, 5, osPriorityHigh, 512);
 
 // Auxilary threads
 defineThreadStack(updateFaultDisplay, 500, osPriorityLow, 256);

@@ -10,13 +10,13 @@
 /* System Includes */
 #include "common/can_library/faults_common.h"
 #include "common/common_defs/common_defs.h"
+#include "common/freertos/freertos.h"
 #include "common/phal/adc.h"
 #include "common/phal/can.h"
 #include "common/phal/dma.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "common/phal/usart.h"
-#include "common/freertos/freertos.h"
 
 /* Module Includes */
 #include "common/can_library/generated/DASHBOARD.h"
@@ -82,7 +82,11 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel = BRAKE2_PRESSURE_ADC_CHANNEL, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480}
 };
 
-dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc_values, sizeof(raw_adc_values) / sizeof(raw_adc_values.t1), 0b01);
+dma_init_t adc_dma_config = 
+ADC1_DMA_CONT_CONFIG(
+    (uint32_t)&raw_adc_values,
+    sizeof(raw_adc_values) / sizeof(raw_adc_values.t1), 0b01
+);
 
 // USART Configuration for LCD
 dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
@@ -143,7 +147,7 @@ defineThreadStack(preflight_task, 10, osPriorityRealtime, 1024);
 
 // System critical threads
 defineThreadStack(pedalsPeriodic, FILT_THROTTLE_BRAKE_PERIOD_MS, osPriorityHigh, 512);
-defineThreadStack(can_worker_task, 20, osPriorityNormal, 512);
+defineThreadStack(can_worker_task, 5, osPriorityHigh, 512);
 
 // Auxilary threads
 defineThreadStack(updateFaultDisplay, 500, osPriorityLow, 256);
@@ -181,6 +185,7 @@ int main(void) {
 
     CAN_library_init();
     initLCD();
+    NVIC_SetPriority(FDCAN2_IT0_IRQn, 5);
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
     config_button_irqs();
 
@@ -191,7 +196,7 @@ int main(void) {
     PHAL_writeGPIO(HEART_LED_GPIO_Port, HEART_LED_Pin, 1);
     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 1);
     PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
-    
+
     // Start preflight task
     createThread(preflight_task);
 
@@ -219,6 +224,7 @@ void preflight_task() {
         createThread(send_version);
         createThread(updateTelemetryPages);
         createThread(fault_library_periodic);
+
         osThreadExit(); // Self delete
         return;
     }
@@ -419,15 +425,15 @@ void config_button_irqs() {
     SYSCFG->EXTICR[3] |= (SYSCFG_EXTICR4_EXTI14_PB | SYSCFG_EXTICR4_EXTI15_PB);
 
     // Unmask interrupts (EXTI lines 6,7,8,9,14,15)
-    EXTI->IMR1 |= (EXTI_IMR1_IM6 | EXTI_IMR1_IM7 | EXTI_IMR1_IM8 |
-                   EXTI_IMR1_IM9 | EXTI_IMR1_IM14 | EXTI_IMR1_IM15);
+    EXTI->IMR1 |= (EXTI_IMR1_IM6 | EXTI_IMR1_IM7 | EXTI_IMR1_IM8 | EXTI_IMR1_IM9 | EXTI_IMR1_IM14
+                   | EXTI_IMR1_IM15);
 
     // Falling edge trigger only (pull-up buttons)
-    EXTI->RTSR1 &= ~(EXTI_RTSR1_RT6 | EXTI_RTSR1_RT7 | EXTI_RTSR1_RT8 |
-                     EXTI_RTSR1_RT9 | EXTI_RTSR1_RT14 | EXTI_RTSR1_RT15);
+    EXTI->RTSR1 &= ~(EXTI_RTSR1_RT6 | EXTI_RTSR1_RT7 | EXTI_RTSR1_RT8 | EXTI_RTSR1_RT9
+                     | EXTI_RTSR1_RT14 | EXTI_RTSR1_RT15);
 
-    EXTI->FTSR1 |= (EXTI_FTSR1_FT6 | EXTI_FTSR1_FT7 | EXTI_FTSR1_FT8 |
-                    EXTI_FTSR1_FT9 | EXTI_FTSR1_FT14 | EXTI_FTSR1_FT15);
+    EXTI->FTSR1 |= (EXTI_FTSR1_FT6 | EXTI_FTSR1_FT7 | EXTI_FTSR1_FT8 | EXTI_FTSR1_FT9
+                    | EXTI_FTSR1_FT14 | EXTI_FTSR1_FT15);
 
     NVIC_EnableIRQ(EXTI9_5_IRQn);
     NVIC_EnableIRQ(EXTI15_10_IRQn);
@@ -438,7 +444,7 @@ void config_button_irqs() {
  */
 void lcd_tx_cmd() {
     if ((false == PHAL_usartTxBusy(&lcd)) && (lcd_tx_buf.length > 0)) {
-        PHAL_usartTxDma(&lcd, (uint8_t*)lcd_tx_buf.data, lcd_tx_buf.length);
+        PHAL_usartTxDma(&lcd, (uint8_t *)lcd_tx_buf.data, lcd_tx_buf.length);
         strbuf_clear(&lcd_tx_buf);
     }
 }
@@ -446,7 +452,7 @@ void lcd_tx_cmd() {
 // todo reboot on hardfault
 void HardFault_Handler() {
     __disable_irq();
-    SysTick->CTRL = 0;
+    SysTick->CTRL             = 0;
     ERROR_LED_GPIO_Port->BSRR = ERROR_LED_Pin;
     while (1) {
         __asm__("NOP"); // Halt forever

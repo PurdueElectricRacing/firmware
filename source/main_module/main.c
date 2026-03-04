@@ -6,17 +6,16 @@
  */
 
 #include "main.h"
-#include "pindefs.h"
 
-#include "common/common_defs/common_defs.h"
-#include "common/can_library/generated/MAIN_MODULE.h"
+#include "common/amk/amk.h"
 #include "common/can_library/faults_common.h"
+#include "common/can_library/generated/MAIN_MODULE.h"
+#include "common/common_defs/common_defs.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
-#include "common/amk/amk.h"
-
+#include "pindefs.h"
 
 // Global data structures
 car_t g_car;
@@ -41,7 +40,9 @@ GPIOInitConfig_t gpio_config[] = {
 
     // SDC
     GPIO_INIT_OUTPUT(ECU_SDC_CTRL_PORT, ECU_SDC_CTRL_PIN, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_INPUT(SDC_MUX_PORT, SDC_MUX_PIN, GPIO_INPUT_PULL_DOWN), // pull down (SDC open) for floating case
+    GPIO_INIT_INPUT(SDC_MUX_PORT,
+                    SDC_MUX_PIN,
+                    GPIO_INPUT_PULL_DOWN), // pull down (SDC open) for floating case
     GPIO_INIT_OUTPUT(SDC_MUX_S3_PORT, SDC_MUX_S3_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(SDC_MUX_S2_PORT, SDC_MUX_S2_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(SDC_MUX_S1_PORT, SDC_MUX_S1_PIN, GPIO_OUTPUT_LOW_SPEED),
@@ -130,7 +131,7 @@ void AMK_task() {
 
 defineThreadStack(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);
 defineThreadStack(update_SDC, 5, osPriorityLow, 512);
-defineThreadStack(background_can_update, 10, osPriorityHigh, 1024);
+defineThreadStack(background_can_update, 5, osPriorityHigh, 2048);
 defineThreadStack(fsm_periodic, 20, osPriorityNormal, 2048);
 defineThreadStack(AMK_task, 15, osPriorityNormal, 1024);
 defineThreadStack(fault_library_periodic, 100, osPriorityLow, 1024);
@@ -149,6 +150,8 @@ int main(void) {
     if (false == PHAL_FDCAN_init(FDCAN3, false, MCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
+    NVIC_SetPriority(FDCAN2_IT0_IRQn, 5);
+    NVIC_SetPriority(FDCAN3_IT0_IRQn, 5);
 
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
     NVIC_EnableIRQ(FDCAN3_IT0_IRQn);

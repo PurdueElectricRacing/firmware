@@ -11,6 +11,8 @@
 
 #include <stdint.h>
 
+#include "common/freertos/freertos.h"
+
 #include "common/phal/can.h"
 #include "common/queue/queue.h"
 
@@ -19,6 +21,11 @@ typedef struct {
     uint32_t tx_fail;    // timed out
     uint32_t rx_overrun; // fifo overrun
 } can_peripheral_stats_t;
+
+// FreeRTOS
+#define CAN_TX_BACKPRESSURE_MS (2) // Wait up to 2ms if FDCAN TX FIFO is full before dropping message
+#define CAN_TX_QUEUE_LENGTH (64)     // Length of software queue for each CAN peripheral
+#define CAN_RX_QUEUE_LENGTH (64)     // Length of software queue for received messages
 
 #define CAN_TX_MAILBOX_CNT   (3)
 #define CAN_TX_TIMEOUT_MS    (15)
@@ -138,12 +145,12 @@ extern volatile uint32_t last_can_rx_time_ms;
 
 #if defined(STM32G474xx)
 // G4/FDCAN uses a single TX queue per peripheral (no mailboxes)
-extern q_handle_t q_tx_can[];
+extern QueueHandle_t q_tx_can[];
 #else
 // bxCAN uses 3 mailboxes per peripheral
 extern q_handle_t q_tx_can[][CAN_TX_MAILBOX_CNT];
 #endif
-extern q_handle_t q_rx_can;
+extern QueueHandle_t q_rx_can;
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg);
 

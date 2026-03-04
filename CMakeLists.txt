@@ -68,7 +68,7 @@ if(MODULES STREQUAL "")
         daq
         driveline
         main_module
-        pdu
+        # pdu
         torque_vector
     )
 endif()

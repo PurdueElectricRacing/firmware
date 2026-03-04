@@ -58,7 +58,8 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_INPUT(B_DOWN_GPIO_Port, B_DOWN_Pin, GPIO_INPUT_PULL_UP),
     GPIO_INIT_INPUT(B_UP_GPIO_Port, B_UP_Pin, GPIO_INPUT_PULL_UP),
     GPIO_INIT_INPUT(B_LEFT_GPIO_Port, B_LEFT_Pin, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_INPUT(B_RIGHT_GPIO_Port, B_RIGHT_Pin, GPIO_INPUT_PULL_UP)};
+    GPIO_INIT_INPUT(B_RIGHT_GPIO_Port, B_RIGHT_Pin, GPIO_INPUT_PULL_UP)
+};
 
 volatile raw_adc_values_t raw_adc_values;
 
@@ -78,11 +79,14 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel = BRK_1_ADC_CHNL, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = BRK_2_ADC_CHNL, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = BRAKE1_PRESSURE_ADC_CHANNEL, .rank = 5, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = BRAKE2_PRESSURE_ADC_CHANNEL, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480}};
+    {.channel = BRAKE2_PRESSURE_ADC_CHANNEL, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480}
+};
 
-dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc_values,
-                                                 sizeof(raw_adc_values) / sizeof(raw_adc_values.t1),
-                                                 0b01);
+dma_init_t adc_dma_config = 
+ADC1_DMA_CONT_CONFIG(
+    (uint32_t)&raw_adc_values,
+    sizeof(raw_adc_values) / sizeof(raw_adc_values.t1), 0b01
+);
 
 // USART Configuration for LCD
 dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
@@ -104,13 +108,13 @@ usart_init_t lcd = {
 };
 
 static constexpr uint32_t TargetCoreClockrateHz = 16000000;
-ClockRateConfig_t clock_config                  = {
-                     .clock_source           = CLOCK_SOURCE_HSI,
-                     .use_pll                = false,
-                     .system_clock_target_hz = TargetCoreClockrateHz,
-                     .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
-                     .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),
-                     .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
+ClockRateConfig_t clock_config = {
+    .clock_source           = CLOCK_SOURCE_HSI,
+    .use_pll                = false,
+    .system_clock_target_hz = TargetCoreClockrateHz,
+    .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
 };
 
 /* Locals for Clock Rates */

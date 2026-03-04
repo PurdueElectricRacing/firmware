@@ -60,16 +60,17 @@ GPIOInitConfig_t gpio_config[] = {
 
     // MCAN
     GPIO_INIT_FDCAN3TX_PA15,
-    GPIO_INIT_FDCAN3RX_PA8};
+    GPIO_INIT_FDCAN3RX_PA8
+};
 
 static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
-ClockRateConfig_t clock_config                  = {
-                     .clock_source           = CLOCK_SOURCE_HSE,
-                     .use_pll                = false,
-                     .system_clock_target_hz = TargetCoreClockrateHz,
-                     .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
-                     .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),
-                     .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
+ClockRateConfig_t clock_config = {
+    .clock_source           = CLOCK_SOURCE_HSE,
+    .use_pll                = false,
+    .system_clock_target_hz = TargetCoreClockrateHz,
+    .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
 };
 
 /* Locals for Clock Rates */

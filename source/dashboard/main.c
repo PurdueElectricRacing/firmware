@@ -243,7 +243,7 @@ void heartbeat_task() {
     bool can_stale = (OS_TICKS - last_can_rx_time_ms >= CONN_LED_TIMEOUT_MS);
     PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, can_stale);
 
-    bool precharge_incomplete = is_latched(FAULT_ID_MAIN_MODULE_PRECHARGE_INCOMPLETE);
+    bool precharge_incomplete = is_latched(FAULT_ID_PRECHARGE_INCOMPLETE);
     PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, !precharge_incomplete);
 
     // todo IMD and BMS

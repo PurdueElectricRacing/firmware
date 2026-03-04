@@ -18,7 +18,6 @@ char* errorText; // Pointer to data to display for the Error, Warning, and Criti
 extern pedal_values_t pedal_values; // Global from pedals module for throttle display
 extern q_handle_t q_fault_history; // Global queue from fault library for fault history
 extern volatile dashboard_input_state_t input_state; // Global dashboard input states
-extern driver_pedal_profile_t driver_pedal_profiles[4];
 
 // Faults Page Functions
 void faultsPageUpdate();
@@ -115,8 +114,6 @@ void LCD_init(uint32_t baud_rate) {
     errorText = 0;
     NXT_setBaud(baud_rate);
     NXT_setBrightness(100);
-
-    readPedalProfiles();
 
     // Set page (leave preflight)
     updatePage();

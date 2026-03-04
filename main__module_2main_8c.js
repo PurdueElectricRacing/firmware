@@ -3,7 +3,7 @@ var main__module_2main_8c =
     [ "AMK_task", "main__module_2main_8c.html#a24f903597dd423be4f1cb8186512f0fa", null ],
     [ "background_can_update", "main__module_2main_8c.html#a6889303ebc2ac02a08baeb15f363368a", null ],
     [ "defineThreadStack", "main__module_2main_8c.html#a8727f4d92fb69d8346b638b450abf8a0", null ],
-    [ "defineThreadStack", "main__module_2main_8c.html#ace0552a0258701f7e5d2afaff901b6de", null ],
+    [ "defineThreadStack", "main__module_2main_8c.html#a2abc2767a860e5c756303f20789454b0", null ],
     [ "defineThreadStack", "main__module_2main_8c.html#a1a574334649438b4676fd47fb8f14a18", null ],
     [ "defineThreadStack", "main__module_2main_8c.html#a214ac3721f280b7ca3735a7e20dd5372", null ],
     [ "defineThreadStack", "main__module_2main_8c.html#aafb2943fdc12c0a61471d45c2bf87797", null ],

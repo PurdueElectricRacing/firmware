@@ -108,6 +108,7 @@ $(function(){initNavTree('can__common_8h.html',''); initResizable(true); });
 <p>Common functions and data structures used in every node in the CAN library.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal_2can_8h_source.html">common/phal/can.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="queue_8h_source.html">common/queue/queue.h</a>&quot;</code><br />
 <code>#include &quot;common/can_library/generated/can_router.h&quot;</code><br />
@@ -123,6 +124,12 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:ae6b03392d6c59a518349d99a8519ebb0" id="r_ae6b03392d6c59a518349d99a8519ebb0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6b03392d6c59a518349d99a8519ebb0">CAN_TX_BACKPRESSURE_MS</a>&#160;&#160;&#160;(2)</td></tr>
+<tr class="separator:ae6b03392d6c59a518349d99a8519ebb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1248665f89d7c3c1ff3fc0c66dfc5ee8" id="r_a1248665f89d7c3c1ff3fc0c66dfc5ee8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1248665f89d7c3c1ff3fc0c66dfc5ee8">CAN_TX_QUEUE_LENGTH</a>&#160;&#160;&#160;(64)</td></tr>
+<tr class="separator:a1248665f89d7c3c1ff3fc0c66dfc5ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b0586f06e0aa453bb34475f8ac577d1" id="r_a3b0586f06e0aa453bb34475f8ac577d1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b0586f06e0aa453bb34475f8ac577d1">CAN_RX_QUEUE_LENGTH</a>&#160;&#160;&#160;(64)</td></tr>
+<tr class="separator:a3b0586f06e0aa453bb34475f8ac577d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15ff5b005bbef3c1b021fb605f9d8e6c" id="r_a15ff5b005bbef3c1b021fb605f9d8e6c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15ff5b005bbef3c1b021fb605f9d8e6c">CAN_TX_MAILBOX_CNT</a>&#160;&#160;&#160;(3)</td></tr>
 <tr class="separator:a15ff5b005bbef3c1b021fb605f9d8e6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe4ea8b0c378d1c95afe5fb570d1aed1" id="r_abe4ea8b0c378d1c95afe5fb570d1aed1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe4ea8b0c378d1c95afe5fb570d1aed1">CAN_TX_TIMEOUT_MS</a>&#160;&#160;&#160;(15)</td></tr>
@@ -289,8 +296,8 @@ Variables</h2></td></tr>
 <tr class="separator:a6d7ff913bb95222bc96d632a6e8d8ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0a5cb4305ff2b4b0345ae407ca539ef" id="r_af0a5cb4305ff2b4b0345ae407ca539ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structq__handle__t.html">q_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0a5cb4305ff2b4b0345ae407ca539ef">q_tx_can</a> [][(3)]</td></tr>
 <tr class="separator:af0a5cb4305ff2b4b0345ae407ca539ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f61f7099706a5b18a5161318a097bd9" id="r_a6f61f7099706a5b18a5161318a097bd9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structq__handle__t.html">q_handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f61f7099706a5b18a5161318a097bd9">q_rx_can</a></td></tr>
-<tr class="separator:a6f61f7099706a5b18a5161318a097bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36735da67d74109f9687d8ae6186b5bf" id="r_a36735da67d74109f9687d8ae6186b5bf"><td class="memItemLeft" align="right" valign="top">QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a36735da67d74109f9687d8ae6186b5bf">q_rx_can</a></td></tr>
+<tr class="separator:a36735da67d74109f9687d8ae6186b5bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Common functions and data structures used in every node in the CAN library. </p>
@@ -312,7 +319,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00108">108</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00115">115</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="daq__can_8c_source.html#l00026">canTxSendToBack()</a>, <a class="el" href="daq__hub_8c_source.html#l00077">daq_heartbeat()</a>, and <a class="el" href="pdu_2main_8c_source.html#l00300">heatBeatLED()</a>.</p>
 
@@ -330,7 +337,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00111">111</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00118">118</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -346,7 +353,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00114">114</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00121">121</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -362,7 +369,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00032">32</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00039">39</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00185">can_rx_irq_handler()</a>.</p>
 
@@ -380,7 +387,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00038">38</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00045">45</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -396,7 +403,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00047">47</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00054">54</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -412,7 +419,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00049">49</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00056">56</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -428,7 +435,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00048">48</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00055">55</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -444,7 +451,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00044">44</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00051">51</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -460,7 +467,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00054">54</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00061">61</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -476,7 +483,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00058">58</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00065">65</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -492,7 +499,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00056">56</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00063">63</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -508,7 +515,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00055">55</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00062">62</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -524,7 +531,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00059">59</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00066">66</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -540,7 +547,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00057">57</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00064">64</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -556,7 +563,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00053">53</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00060">60</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -572,7 +579,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00104">104</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00111">111</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -588,7 +595,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00034">34</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00041">41</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -604,7 +611,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00043">43</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00050">50</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -620,7 +627,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00105">105</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00112">112</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -636,7 +643,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00039">39</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00046">46</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -652,7 +659,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00045">45</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00052">52</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -668,7 +675,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00069">69</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00076">76</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -684,7 +691,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00063">63</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00070">70</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -700,7 +707,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00066">66</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00073">73</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -716,7 +723,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00067">67</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00074">74</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -732,7 +739,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00064">64</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00071">71</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -748,7 +755,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00087">87</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00094">94</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -764,7 +771,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00088">88</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00095">95</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -780,7 +787,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00086">86</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00093">93</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -796,7 +803,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00085">85</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00092">92</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -812,7 +819,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00084">84</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00091">91</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -828,7 +835,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00083">83</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00090">90</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -844,7 +851,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00089">89</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00096">96</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -860,7 +867,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00079">79</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00086">86</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -876,7 +883,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00078">78</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00085">85</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -892,7 +899,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00077">77</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00084">84</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -908,7 +915,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00076">76</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00083">83</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -924,7 +931,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00075">75</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00082">82</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -940,7 +947,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00090">90</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00097">97</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -956,7 +963,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00082">82</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00089">89</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -972,7 +979,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00081">81</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00088">88</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -988,7 +995,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00080">80</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00087">87</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1004,7 +1011,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00074">74</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00081">81</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1020,7 +1027,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00073">73</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00080">80</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1036,7 +1043,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00068">68</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00075">75</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1052,7 +1059,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00065">65</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00072">72</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1068,7 +1075,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00070">70</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00077">77</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1084,7 +1091,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00062">62</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00069">69</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1100,7 +1107,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00050">50</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00057">57</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1116,7 +1123,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00046">46</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00053">53</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1132,7 +1139,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00094">94</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00101">101</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1148,7 +1155,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00095">95</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00102">102</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1164,7 +1171,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00097">97</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00104">104</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1180,7 +1187,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00096">96</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00103">103</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1196,7 +1203,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00098">98</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00105">105</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1212,7 +1219,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00099">99</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00106">106</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1228,7 +1235,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00102">102</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00109">109</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1244,7 +1251,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00101">101</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00108">108</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1260,7 +1267,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00100">100</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00107">107</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1276,7 +1283,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00093">93</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00100">100</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1292,7 +1299,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00042">42</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00049">49</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1308,7 +1315,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00027">27</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00034">34</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1324,7 +1331,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00029">29</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00036">36</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1340,7 +1347,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00028">28</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00035">35</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1356,7 +1363,23 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00033">33</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00040">40</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+
+</div>
+</div>
+<a id="a3b0586f06e0aa453bb34475f8ac577d1" name="a3b0586f06e0aa453bb34475f8ac577d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b0586f06e0aa453bb34475f8ac577d1">&#9670;&#160;</a></span>CAN_RX_QUEUE_LENGTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CAN_RX_QUEUE_LENGTH&#160;&#160;&#160;(64)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00028">28</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1372,7 +1395,23 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00037">37</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00044">44</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+
+</div>
+</div>
+<a id="ae6b03392d6c59a518349d99a8519ebb0" name="ae6b03392d6c59a518349d99a8519ebb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6b03392d6c59a518349d99a8519ebb0">&#9670;&#160;</a></span>CAN_TX_BACKPRESSURE_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CAN_TX_BACKPRESSURE_MS&#160;&#160;&#160;(2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00026">26</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1388,7 +1427,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00025">25</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00032">32</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1404,7 +1443,23 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00023">23</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00030">30</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+
+</div>
+</div>
+<a id="a1248665f89d7c3c1ff3fc0c66dfc5ee8" name="a1248665f89d7c3c1ff3fc0c66dfc5ee8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1248665f89d7c3c1ff3fc0c66dfc5ee8">&#9670;&#160;</a></span>CAN_TX_QUEUE_LENGTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CAN_TX_QUEUE_LENGTH&#160;&#160;&#160;(64)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00027">27</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1420,7 +1475,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00024">24</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00031">31</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1439,10 +1494,10 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((bus == CAN1) ? <a class="code hl_define" href="#a657e66ed8d35d52e0b1effb289ba15df">CAN1_IDX</a> : <a class="code hl_define" href="#a0380c9dab59c77ceee5815af7e00e4fb">CAN2_IDX</a>)</div>
-<div class="ttc" id="acan__common_8h_html_a0380c9dab59c77ceee5815af7e00e4fb"><div class="ttname"><a href="#a0380c9dab59c77ceee5815af7e00e4fb">CAN2_IDX</a></div><div class="ttdeci">#define CAN2_IDX</div><div class="ttdef"><b>Definition</b> <a href="can__common_8h_source.html#l00111">can_common.h:111</a></div></div>
-<div class="ttc" id="acan__common_8h_html_a657e66ed8d35d52e0b1effb289ba15df"><div class="ttname"><a href="#a657e66ed8d35d52e0b1effb289ba15df">CAN1_IDX</a></div><div class="ttdeci">#define CAN1_IDX</div><div class="ttdef"><b>Definition</b> <a href="can__common_8h_source.html#l00108">can_common.h:108</a></div></div>
+<div class="ttc" id="acan__common_8h_html_a0380c9dab59c77ceee5815af7e00e4fb"><div class="ttname"><a href="#a0380c9dab59c77ceee5815af7e00e4fb">CAN2_IDX</a></div><div class="ttdeci">#define CAN2_IDX</div><div class="ttdef"><b>Definition</b> <a href="can__common_8h_source.html#l00118">can_common.h:118</a></div></div>
+<div class="ttc" id="acan__common_8h_html_a657e66ed8d35d52e0b1effb289ba15df"><div class="ttname"><a href="#a657e66ed8d35d52e0b1effb289ba15df">CAN1_IDX</a></div><div class="ttdeci">#define CAN1_IDX</div><div class="ttdef"><b>Definition</b> <a href="can__common_8h_source.html#l00115">can_common.h:115</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00122">122</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00129">129</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1458,7 +1513,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00128">128</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00135">135</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 
 </div>
 </div>
@@ -1516,7 +1571,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00156">main()</a>, and <a class="el" href="pdu_2main_8c_source.html#l00212">preflightChecks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="canpiler_8c_source.html#l00048">main()</a>, <a class="el" href="dashboard_2main_8c_source.html#l00160">main()</a>, and <a class="el" href="pdu_2main_8c_source.html#l00212">preflightChecks()</a>.</p>
 
 </div>
 </div>
@@ -1535,7 +1590,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="reference">Referenced by <a class="el" href="main__module_2main_8c_source.html#l00119">background_can_update()</a>, <a class="el" href="pdu_2main_8c_source.html#l00316">CAN1_RX0_IRQHandler()</a>, <a class="el" href="daq__hub_8c_source.html#l00085">can_send_periodic()</a>, <a class="el" href="dashboard_2main_8c_source.html#l00233">can_worker_task()</a>, <a class="el" href="torque__vector_2main_8c_source.html#l00059">can_worker_thread()</a>, and <a class="el" href="pdu_2main_8c_source.html#l00173">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="main__module_2main_8c_source.html#l00120">background_can_update()</a>, <a class="el" href="pdu_2main_8c_source.html#l00316">CAN1_RX0_IRQHandler()</a>, <a class="el" href="daq__hub_8c_source.html#l00085">can_send_periodic()</a>, <a class="el" href="canpiler_8c_source.html#l00040">can_worker()</a>, <a class="el" href="dashboard_2main_8c_source.html#l00239">can_worker_task()</a>, <a class="el" href="torque__vector_2main_8c_source.html#l00059">can_worker_thread()</a>, and <a class="el" href="pdu_2main_8c_source.html#l00173">main()</a>.</p>
 
 </div>
 </div>
@@ -1577,7 +1632,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8c_source.html#l00016">16</a> of file <a class="el" href="can__common_8c_source.html">can_common.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8c_source.html#l00017">17</a> of file <a class="el" href="can__common_8c_source.html">can_common.c</a>.</p>
 
 </div>
 </div>
@@ -1601,14 +1656,14 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8c_source.html#l00017">17</a> of file <a class="el" href="can__common_8c_source.html">can_common.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8c_source.html#l00018">18</a> of file <a class="el" href="can__common_8c_source.html">can_common.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00292">heartbeat_led()</a>, <a class="el" href="main__module_2main_8c_source.html#l00083">heartbeat_task()</a>, and <a class="el" href="pdu_2main_8c_source.html#l00300">heatBeatLED()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00298">heartbeat_led()</a>, <a class="el" href="main__module_2main_8c_source.html#l00084">heartbeat_task()</a>, and <a class="el" href="pdu_2main_8c_source.html#l00300">heatBeatLED()</a>.</p>
 
 </div>
 </div>
-<a id="a6f61f7099706a5b18a5161318a097bd9" name="a6f61f7099706a5b18a5161318a097bd9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f61f7099706a5b18a5161318a097bd9">&#9670;&#160;</a></span>q_rx_can</h2>
+<a id="a36735da67d74109f9687d8ae6186b5bf" name="a36735da67d74109f9687d8ae6186b5bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36735da67d74109f9687d8ae6186b5bf">&#9670;&#160;</a></span>q_rx_can</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1617,7 +1672,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structq__handle__t.html">q_handle_t</a> q_rx_can</td>
+          <td class="memname">QueueHandle_t q_rx_can</td>
         </tr>
       </table>
   </td>

@@ -97,6 +97,7 @@ $(function(){initNavTree('can__common_8c.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
+<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">can_common.c File Reference</div></div>
 </div><!--header-->
@@ -107,9 +108,15 @@ $(function(){initNavTree('can__common_8c.html',''); initResizable(true); });
 <div class="textblock"><code>#include &quot;<a class="el" href="can__common_8h_source.html">common/can_library/can_common.h</a>&quot;</code><br />
 <code>#include &quot;common/can_library/generated/can_router.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="queue_8h_source.html">common/queue/queue.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
 </div>
 <p><a href="can__common_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a6f84360b1615c05db0bf33db65b8526b" id="r_a6f84360b1615c05db0bf33db65b8526b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f84360b1615c05db0bf33db65b8526b">DEFINE_STATIC_QUEUE</a> (<a class="el" href="bootloader_2main_8c.html#a6f61f7099706a5b18a5161318a097bd9">q_rx_can</a>, <a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, <a class="el" href="can__common_8h.html#a3b0586f06e0aa453bb34475f8ac577d1">CAN_RX_QUEUE_LENGTH</a>)</td></tr>
+<tr class="separator:a6f84360b1615c05db0bf33db65b8526b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a8eaf23ac1da3fc4a879c3b1b11733ea2" id="r_a8eaf23ac1da3fc4a879c3b1b11733ea2"><td class="memItemLeft" align="right" valign="top">can_data_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8eaf23ac1da3fc4a879c3b1b11733ea2">can_data</a></td></tr>
@@ -126,7 +133,34 @@ Variables</h2></td></tr>
 Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu'+'rdu'+'e.'+'edu'; return false;">lcoxl<span class="obfuscator">.nosp@m.</span>ey@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="can__common_8c_source.html">can_common.c</a>.</p>
-</div><h2 class="groupheader">Variable Documentation</h2>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a6f84360b1615c05db0bf33db65b8526b" name="a6f84360b1615c05db0bf33db65b8526b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f84360b1615c05db0bf33db65b8526b">&#9670;&#160;</a></span>DEFINE_STATIC_QUEUE()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_STATIC_QUEUE </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="bootloader_2main_8c.html#a6f61f7099706a5b18a5161318a097bd9">q_rx_can</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="can__common_8h.html#a3b0586f06e0aa453bb34475f8ac577d1">CAN_RX_QUEUE_LENGTH</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
 <a id="a8eaf23ac1da3fc4a879c3b1b11733ea2" name="a8eaf23ac1da3fc4a879c3b1b11733ea2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8eaf23ac1da3fc4a879c3b1b11733ea2">&#9670;&#160;</a></span>can_data</h2>
 
@@ -139,7 +173,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8c_source.html#l00015">15</a> of file <a class="el" href="can__common_8c_source.html">can_common.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8c_source.html#l00016">16</a> of file <a class="el" href="can__common_8c_source.html">can_common.c</a>.</p>
 
 </div>
 </div>
@@ -155,7 +189,7 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8c_source.html#l00016">16</a> of file <a class="el" href="can__common_8c_source.html">can_common.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8c_source.html#l00017">17</a> of file <a class="el" href="can__common_8c_source.html">can_common.c</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="daq__hub_8c_source.html#l00077">daq_heartbeat()</a>, <a class="el" href="pdu_2main_8c_source.html#l00300">heatBeatLED()</a>, and <a class="el" href="daq__can_8c_source.html#l00016">initCANParseBase()</a>.</p>
 
@@ -173,9 +207,9 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can__common_8c_source.html#l00017">17</a> of file <a class="el" href="can__common_8c_source.html">can_common.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can__common_8c_source.html#l00018">18</a> of file <a class="el" href="can__common_8c_source.html">can_common.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00292">heartbeat_led()</a>, <a class="el" href="main__module_2main_8c_source.html#l00083">heartbeat_task()</a>, and <a class="el" href="pdu_2main_8c_source.html#l00300">heatBeatLED()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00298">heartbeat_led()</a>, <a class="el" href="main__module_2main_8c_source.html#l00084">heartbeat_task()</a>, and <a class="el" href="pdu_2main_8c_source.html#l00300">heatBeatLED()</a>.</p>
 
 </div>
 </div>

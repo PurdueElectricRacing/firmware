@@ -96,12 +96,354 @@ $(function(){initNavTree('canpiler_8c.html',''); initResizable(true); });
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">canpiler.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="g4__testing_8h_source.html">g4_testing.h</a>&quot;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &quot;common/can_library/generated/DASHBOARD.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2adc_8h_source.html">common/phal/adc.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2can_8h_source.html">common/phal/can.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2dma_8h_source.html">common/phal/dma.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2gpio_8h_source.html">common/phal/gpio.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2rcc_8h_source.html">common/phal/rcc.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="g4__testing_2main_8h_source.html">main.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="faults__common_8h_source.html">common/can_library/faults_common.h</a>&quot;</code><br />
 </div>
 <p><a href="canpiler_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a041cbdf351ae1da6f864d0d249c93008" id="r_a041cbdf351ae1da6f864d0d249c93008"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>&#160;&#160;&#160;16000000</td></tr>
+<tr class="separator:a041cbdf351ae1da6f864d0d249c93008"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a2af56a8bf3197b2f06cac4c0b84ffc3e" id="r_a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2af56a8bf3197b2f06cac4c0b84ffc3e">HardFault_Handler</a> ()</td></tr>
+<tr class="separator:a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4db3e7b978a53bc85c1bd8306f8ad7fd" id="r_a4db3e7b978a53bc85c1bd8306f8ad7fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4db3e7b978a53bc85c1bd8306f8ad7fd">can_worker</a> ()</td></tr>
+<tr class="separator:a4db3e7b978a53bc85c1bd8306f8ad7fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a558ba752f987da7ed7a1f16a60461b7a" id="r_a558ba752f987da7ed7a1f16a60461b7a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a558ba752f987da7ed7a1f16a60461b7a">DEFINE_TASK</a> (<a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic</a>, 10, osPriorityNormal, 1024)</td></tr>
+<tr class="separator:a558ba752f987da7ed7a1f16a60461b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13a885854f3d96bca11138312d5d3b94" id="r_a13a885854f3d96bca11138312d5d3b94"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13a885854f3d96bca11138312d5d3b94">DEFINE_TASK</a> (<a class="el" href="#a4db3e7b978a53bc85c1bd8306f8ad7fd">can_worker</a>, 0, osPriorityLow, 1024)</td></tr>
+<tr class="separator:a13a885854f3d96bca11138312d5d3b94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
+<tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a60563c6df24a123ae18e090bca85f555" id="r_a60563c6df24a123ae18e090bca85f555"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60563c6df24a123ae18e090bca85f555">gpio_config</a> []</td></tr>
+<tr class="separator:a60563c6df24a123ae18e090bca85f555"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e372d6fcb26e99141502c56d908f788" id="r_a2e372d6fcb26e99141502c56d908f788"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structClockRateConfig__t.html">ClockRateConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e372d6fcb26e99141502c56d908f788">clock_config</a></td></tr>
+<tr class="separator:a2e372d6fcb26e99141502c56d908f788"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3f547c0ac514dd12e5bab27a6b60bec" id="r_ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3f547c0ac514dd12e5bab27a6b60bec">APB1ClockRateHz</a></td></tr>
+<tr class="separator:ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdc1120bbc54485ac4c735d8f9756743" id="r_afdc1120bbc54485ac4c735d8f9756743"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdc1120bbc54485ac4c735d8f9756743">APB2ClockRateHz</a></td></tr>
+<tr class="separator:afdc1120bbc54485ac4c735d8f9756743"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c40deeaa6aeb002bafb0bc892484e0c" id="r_a2c40deeaa6aeb002bafb0bc892484e0c"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c40deeaa6aeb002bafb0bc892484e0c">AHBClockRateHz</a></td></tr>
+<tr class="separator:a2c40deeaa6aeb002bafb0bc892484e0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac132aa42c20a1d3744db9df04f31c54" id="r_aac132aa42c20a1d3744db9df04f31c54"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac132aa42c20a1d3744db9df04f31c54">PLLClockRateHz</a></td></tr>
+<tr class="separator:aac132aa42c20a1d3744db9df04f31c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a041cbdf351ae1da6f864d0d249c93008" name="a041cbdf351ae1da6f864d0d249c93008"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a041cbdf351ae1da6f864d0d249c93008">&#9670;&#160;</a></span>TargetCoreClockrateHz</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TargetCoreClockrateHz&#160;&#160;&#160;16000000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="canpiler_8c_source.html#l00021">21</a> of file <a class="el" href="canpiler_8c_source.html">canpiler.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a4db3e7b978a53bc85c1bd8306f8ad7fd" name="a4db3e7b978a53bc85c1bd8306f8ad7fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4db3e7b978a53bc85c1bd8306f8ad7fd">&#9670;&#160;</a></span>can_worker()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void can_worker </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="canpiler_8c_source.html#l00040">40</a> of file <a class="el" href="canpiler_8c_source.html">canpiler.c</a>.</p>
+
+<p class="reference">References <a class="el" href="can__common_8h.html#abfcff4ec444a1fa4366dd38c73519a51">CAN_rx_update()</a>, and <a class="el" href="daq__can_8h.html#a0a32f054a0f3baae0270d9845d2897e6">CAN_tx_update()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="canpiler_8c_source.html#l00048">main()</a>.</p>
+
+</div>
+</div>
+<a id="a13a885854f3d96bca11138312d5d3b94" name="a13a885854f3d96bca11138312d5d3b94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13a885854f3d96bca11138312d5d3b94">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a4db3e7b978a53bc85c1bd8306f8ad7fd">can_worker</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">0</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityLow</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">1024</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a558ba752f987da7ed7a1f16a60461b7a" name="a558ba752f987da7ed7a1f16a60461b7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a558ba752f987da7ed7a1f16a60461b7a">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">10</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityNormal</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">1024</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2af56a8bf3197b2f06cac4c0b84ffc3e" name="a2af56a8bf3197b2f06cac4c0b84ffc3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2af56a8bf3197b2f06cac4c0b84ffc3e">&#9670;&#160;</a></span>HardFault_Handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HardFault_Handler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="canpiler_8c_source.html#l00076">76</a> of file <a class="el" href="canpiler_8c_source.html">canpiler.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="canpiler_8c_source.html#l00048">main()</a>.</p>
+
+</div>
+</div>
+<a id="ae66f6b31b5ad750f1fe042a706a4e3d4" name="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">&#9670;&#160;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="canpiler_8c_source.html#l00048">48</a> of file <a class="el" href="canpiler_8c_source.html">canpiler.c</a>.</p>
+
+<p class="reference">References <a class="el" href="can__common_8h.html#aa6a2e11ac7e69f5da51d64b903198d21">CAN_library_init()</a>, <a class="el" href="canpiler_8c_source.html#l00040">can_worker()</a>, <a class="el" href="canpiler_8c_source.html#l00022">clock_config</a>, <a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic()</a>, <a class="el" href="canpiler_8c_source.html#l00016">gpio_config</a>, <a class="el" href="canpiler_8c_source.html#l00076">HardFault_Handler()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>, <a class="el" href="common_2phal__G4_2fdcan_2fdcan_8c_source.html#l00146">PHAL_FDCAN_init()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8c_source.html#l00003">PHAL_initGPIO()</a>, and <a class="el" href="freertos_8h_source.html#l00067">START_TASK</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a2c40deeaa6aeb002bafb0bc892484e0c" name="a2c40deeaa6aeb002bafb0bc892484e0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c40deeaa6aeb002bafb0bc892484e0c">&#9670;&#160;</a></span>AHBClockRateHz</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t AHBClockRateHz</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00017">17</a> of file <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html">rcc.c</a>.</p>
+
+</div>
+</div>
+<a id="ae3f547c0ac514dd12e5bab27a6b60bec" name="ae3f547c0ac514dd12e5bab27a6b60bec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3f547c0ac514dd12e5bab27a6b60bec">&#9670;&#160;</a></span>APB1ClockRateHz</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t APB1ClockRateHz</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00015">15</a> of file <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html">rcc.c</a>.</p>
+
+</div>
+</div>
+<a id="afdc1120bbc54485ac4c735d8f9756743" name="afdc1120bbc54485ac4c735d8f9756743"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdc1120bbc54485ac4c735d8f9756743">&#9670;&#160;</a></span>APB2ClockRateHz</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t APB2ClockRateHz</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00016">16</a> of file <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html">rcc.c</a>.</p>
+
+</div>
+</div>
+<a id="a2e372d6fcb26e99141502c56d908f788" name="a2e372d6fcb26e99141502c56d908f788"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e372d6fcb26e99141502c56d908f788">&#9670;&#160;</a></span>clock_config</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structClockRateConfig__t.html">ClockRateConfig_t</a> clock_config</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .clock_source              = <a class="code hl_enumvalue" href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a">CLOCK_SOURCE_HSI</a>,</div>
+<div class="line">    .use_pll                   = <span class="keyword">false</span>,</div>
+<div class="line">    .vco_output_rate_target_hz = 16000000,</div>
+<div class="line">    .system_clock_target_hz    = 16000000 ,</div>
+<div class="line">    .ahb_clock_target_hz       = ( 16000000 / 1),</div>
+<div class="line">    .apb1_clock_target_hz      = ( 16000000 / (1)),</div>
+<div class="line">    .apb2_clock_target_hz      = ( 16000000 / (1)),</div>
+<div class="line">}</div>
+<div class="ttc" id="aphal__F4__F7_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a"><div class="ttname"><a href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a">CLOCK_SOURCE_HSI</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSI</div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00074">rcc.h:74</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="canpiler_8c_source.html#l00022">22</a> of file <a class="el" href="canpiler_8c_source.html">canpiler.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="canpiler_8c_source.html#l00048">main()</a>.</p>
+
+</div>
+</div>
+<a id="a60563c6df24a123ae18e090bca85f555" name="a60563c6df24a123ae18e090bca85f555"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60563c6df24a123ae18e090bca85f555">&#9670;&#160;</a></span>gpio_config</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a> gpio_config[]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    <a class="code hl_define" href="fdcan_8h.html#a908de24a4dc6c6ab98a07e9005fee101">GPIO_INIT_FDCAN2RX_PB12</a>,</div>
+<div class="line">    <a class="code hl_define" href="fdcan_8h.html#a6a00ef93e163a984fb347b26134ddf4f">GPIO_INIT_FDCAN2TX_PB13</a></div>
+<div class="line">}</div>
+<div class="ttc" id="afdcan_8h_html_a6a00ef93e163a984fb347b26134ddf4f"><div class="ttname"><a href="fdcan_8h.html#a6a00ef93e163a984fb347b26134ddf4f">GPIO_INIT_FDCAN2TX_PB13</a></div><div class="ttdeci">#define GPIO_INIT_FDCAN2TX_PB13</div><div class="ttdef"><b>Definition</b> <a href="fdcan_8h_source.html#l00070">fdcan.h:70</a></div></div>
+<div class="ttc" id="afdcan_8h_html_a908de24a4dc6c6ab98a07e9005fee101"><div class="ttname"><a href="fdcan_8h.html#a908de24a4dc6c6ab98a07e9005fee101">GPIO_INIT_FDCAN2RX_PB12</a></div><div class="ttdeci">#define GPIO_INIT_FDCAN2RX_PB12</div><div class="ttdef"><b>Definition</b> <a href="fdcan_8h_source.html#l00063">fdcan.h:63</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="canpiler_8c_source.html#l00016">16</a> of file <a class="el" href="canpiler_8c_source.html">canpiler.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="canpiler_8c_source.html#l00048">main()</a>.</p>
+
+</div>
+</div>
+<a id="aac132aa42c20a1d3744db9df04f31c54" name="aac132aa42c20a1d3744db9df04f31c54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac132aa42c20a1d3744db9df04f31c54">&#9670;&#160;</a></span>PLLClockRateHz</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t PLLClockRateHz</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00018">18</a> of file <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html">rcc.c</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

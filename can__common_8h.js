@@ -68,9 +68,12 @@ var can__common_8h =
     [ "CAN_MAILBOX_LOW_PRIO", "can__common_8h.html#a8a9c6aed31ef3d6417060d7ba3734142", null ],
     [ "CAN_MAILBOX_MED_PRIO", "can__common_8h.html#a20806e55c9070814e10e2ee9e808e422", null ],
     [ "CAN_RTR_FLAG", "can__common_8h.html#af324d65226057755175038a15d9bbd75", null ],
+    [ "CAN_RX_QUEUE_LENGTH", "can__common_8h.html#a3b0586f06e0aa453bb34475f8ac577d1", null ],
     [ "CAN_SFF_MASK", "can__common_8h.html#afe4fc3f9cab58aeeb463861289e8ce93", null ],
+    [ "CAN_TX_BACKPRESSURE_MS", "can__common_8h.html#ae6b03392d6c59a518349d99a8519ebb0", null ],
     [ "CAN_TX_BLOCK_TIMEOUT", "can__common_8h.html#a6425fe407d29245e0fe0a98a9fd23f75", null ],
     [ "CAN_TX_MAILBOX_CNT", "can__common_8h.html#a15ff5b005bbef3c1b021fb605f9d8e6c", null ],
+    [ "CAN_TX_QUEUE_LENGTH", "can__common_8h.html#a1248665f89d7c3c1ff3fc0c66dfc5ee8", null ],
     [ "CAN_TX_TIMEOUT_MS", "can__common_8h.html#abe4ea8b0c378d1c95afe5fb570d1aed1", null ],
     [ "GET_PERIPH_IDX", "can__common_8h.html#a519312c20b836099ff912a407a257216", null ],
     [ "NUM_CAN_PERIPHERALS_MAX", "can__common_8h.html#a2183332a909aa096e75fabfb69a91856", null ],
@@ -81,6 +84,6 @@ var can__common_8h =
     [ "CAN_tx_update", "can__common_8h.html#a49fce4d849c0fd9d2daee17cf822b26a", null ],
     [ "can_stats", "can__common_8h.html#a7b5ef4ad1f6bec8cb96f4aafbe58fe73", null ],
     [ "last_can_rx_time_ms", "can__common_8h.html#a6d7ff913bb95222bc96d632a6e8d8ea4", null ],
-    [ "q_rx_can", "can__common_8h.html#a6f61f7099706a5b18a5161318a097bd9", null ],
+    [ "q_rx_can", "can__common_8h.html#a36735da67d74109f9687d8ae6186b5bf", null ],
     [ "q_tx_can", "can__common_8h.html#af0a5cb4305ff2b4b0345ae407ca539ef", null ]
 ];

@@ -3,7 +3,7 @@ var dashboard_2main_8c =
     [ "ALLOCATE_STRBUF", "dashboard_2main_8c.html#aeb1649fc677829700918d87f29386ced", null ],
     [ "can_worker_task", "dashboard_2main_8c.html#a1c7c563fdbde1b364eb1248c18ea05c2", null ],
     [ "config_button_irqs", "dashboard_2main_8c.html#a9aee09af5e3fe925ed51c1c48ce580eb", null ],
-    [ "defineThreadStack", "dashboard_2main_8c.html#ac112b138efb906032cdd594518dd46bf", null ],
+    [ "defineThreadStack", "dashboard_2main_8c.html#ae6bd637433bd22c2ec69d4694a032b41", null ],
     [ "defineThreadStack", "dashboard_2main_8c.html#a1a574334649438b4676fd47fb8f14a18", null ],
     [ "defineThreadStack", "dashboard_2main_8c.html#af138fdf0247526cfe92bec25aa06f8a5", null ],
     [ "defineThreadStack", "dashboard_2main_8c.html#a1b0b8a88e06c269c78b7a721a3a1f25a", null ],

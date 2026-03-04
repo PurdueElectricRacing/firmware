@@ -126,12 +126,12 @@ void AMK_task() {
     AMK_periodic(&g_car.rear_right);
 }
 
-defineThreadStack(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);
-defineThreadStack(update_SDC, 5, osPriorityLow, 512);
-defineThreadStack(background_can_update, 5, osPriorityHigh, 2048);
-defineThreadStack(fsm_periodic, 20, osPriorityNormal, 2048);
-defineThreadStack(AMK_task, 15, osPriorityNormal, 1024);
-defineThreadStack(fault_library_periodic, 100, osPriorityLow, 1024);
+DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);
+DEFINE_TASK(update_SDC, 5, osPriorityLow, 512);
+DEFINE_TASK(background_can_update, 5, osPriorityHigh, 2048);
+DEFINE_TASK(fsm_periodic, 20, osPriorityNormal, 2048);
+DEFINE_TASK(AMK_task, 15, osPriorityNormal, 1024);
+DEFINE_TASK(fault_library_periodic, 100, osPriorityLow, 1024);
 
 int main(void) {
     // Hardware Initialization
@@ -159,12 +159,12 @@ int main(void) {
     // Software Initialization
     osKernelInitialize();
 
-    createThread(heartbeat_task);
-    createThread(background_can_update);
-    createThread(update_SDC);
-    createThread(fsm_periodic);
-    createThread(AMK_task);
-    createThread(fault_library_periodic);
+    START_TASK(heartbeat_task);
+    START_TASK(background_can_update);
+    START_TASK(update_SDC);
+    START_TASK(fsm_periodic);
+    START_TASK(AMK_task);
+    START_TASK(fault_library_periodic);
 
     // no way home
     osKernelStart();

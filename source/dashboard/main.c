@@ -145,13 +145,13 @@ void preflight_task();
 void can_worker_task();
 
 // System critical threads
-defineThreadStack(pedalsPeriodic, FILT_THROTTLE_BRAKE_PERIOD_MS, osPriorityHigh, 512);
-defineThreadStack(can_worker_task, 5, osPriorityNormal, 1024);
+DEFINE_TASK(pedalsPeriodic, FILT_THROTTLE_BRAKE_PERIOD_MS, osPriorityHigh, 512);
+DEFINE_TASK(can_worker_task, 5, osPriorityNormal, 1024);
 
 // Auxilary threads
-defineThreadStack(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 128);
-defineThreadStack(service_button_inputs, 50, osPriorityLow, 1024);
-defineThreadStack(fault_library_periodic, 100, osPriorityLow, 1024);
+DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 128);
+DEFINE_TASK(service_button_inputs, 50, osPriorityLow, 1024);
+DEFINE_TASK(fault_library_periodic, 100, osPriorityLow, 1024);
 // todo LCD related functionality
 
 int main(void) {

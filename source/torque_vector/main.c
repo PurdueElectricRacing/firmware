@@ -61,8 +61,8 @@ void can_worker_thread() {
     CAN_tx_update();
 }
 
-defineThreadStack(ledblink, 500, osPriorityLow, 256);
-defineThreadStack(can_worker_thread, 15, osPriorityNormal, 2048);
+DEFINE_TASK(ledblink, 500, osPriorityLow, 256);
+DEFINE_TASK(can_worker_thread, 15, osPriorityNormal, 2048);
 
 int main(void) {
     // Hardware Initialization
@@ -83,8 +83,8 @@ int main(void) {
     // Software Initialization
     osKernelInitialize();
 
-    createThread(ledblink);
-    createThread(can_worker_thread);
+    START_TASK(ledblink);
+    START_TASK(can_worker_thread);
 
     // no way home
     osKernelStart();

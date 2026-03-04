@@ -103,13 +103,4 @@ void rtosWrapper(void *arg);
 
 #define mDelay(ms) (osDelay(pdMS_TO_TICKS((ms))))
 
-// ! Legacy support for old macro names for now
-#define defineThread(T, D, P)         DEFINE_TASK(T, D, P, 1024)
-#define defineThreadStack(T, D, P, S) DEFINE_TASK(T, D, P, S)
-#define createThread(NAME)            START_TASK(NAME)
-#define defineStaticQueue(N, I, C)    DEFINE_STATIC_QUEUE(N, I, C)
-#define createStaticQueue(N, I, C)    CREATE_STATIC_QUEUE(N, I, C)
-#define defineStaticSemaphore(N)      DEFINE_STATIC_SEMAPHORE(N)
-#define createStaticSemaphore(N)      CREATE_STATIC_SEMAPHORE(N)
-
 #endif // __COMMON_FREERTOS_H__

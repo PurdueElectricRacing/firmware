@@ -78,7 +78,7 @@ static constexpr float MIN_DELTA_FOR_BALANCE = 0.1f;
 extern void HardFault_Handler(void);
 void g_bms_periodic(void);
 
-defineThreadStack(g_bms_periodic, 200, osPriorityHigh, 2048);
+DEFINE_TASK(g_bms_periodic, 200, osPriorityHigh, 2048);
 
 int main(void) {
     // Hardware Initilization
@@ -111,7 +111,7 @@ int main(void) {
     // Software Initalization
     osKernelInitialize();
 
-    createThread(g_bms_periodic);
+    START_TASK(g_bms_periodic);
 
     // no way home
     osKernelStart();

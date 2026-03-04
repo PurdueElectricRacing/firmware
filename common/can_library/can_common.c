@@ -165,7 +165,7 @@ bool CAN_library_init() {
         }
     }
     //qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
-    createStaticQueue(q_rx_can, CanMsgTypeDef_t, 256);
+    CREATE_STATIC_QUEUE(q_rx_can, CanMsgTypeDef_t, 256);
     can_stats = (can_stats_t) {0};
     CAN_data_init();
 

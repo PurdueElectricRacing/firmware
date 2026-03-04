@@ -75,9 +75,7 @@ void rtosWrapper(void *arg);
 #define DEFINE_STATIC_QUEUE(NAME, ITEM, COUNT)                                 \
     QueueHandle_t NAME;                                                        \
     static StaticQueue_t xStaticQueue_##NAME;                                  \
-    static uint8_t       ucQueueStorageArea_##NAME[sizeof(ITEM) * (COUNT)];    \
-    QueueHandle_t        NAME
-
+    static uint8_t       ucQueueStorageArea_##NAME[sizeof(ITEM) * (COUNT)];
 /**
  * CREATE_STATIC_QUEUE: Initializes the defined static queue.
  */

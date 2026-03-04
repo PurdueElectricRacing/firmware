@@ -22,7 +22,6 @@
 #include "common/can_library/generated/DASHBOARD.h"
 #include "lcd.h"
 #include "main.h"
-#include "nextion.h"
 #include "pedals.h"
 
 GPIOInitConfig_t gpio_config[] = {
@@ -94,7 +93,6 @@ ADC1_DMA_CONT_CONFIG(
 // USART Configuration for LCD
 dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
-
 static constexpr uint32_t LCD_BAUD_RATE = 115'200;
 usart_init_t lcd = {
     .baud_rate        = LCD_BAUD_RATE,
@@ -151,7 +149,7 @@ defineThreadStack(pedalsPeriodic, FILT_THROTTLE_BRAKE_PERIOD_MS, osPriorityHigh,
 defineThreadStack(can_worker_task, 5, osPriorityHigh, 1024);
 
 // Auxilary threads
-defineThreadStack(heartbeat_task, 500, osPriorityLow, 128);
+defineThreadStack(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 128);
 defineThreadStack(service_button_inputs, 50, osPriorityLow, 1024);
 defineThreadStack(fault_library_periodic, 100, osPriorityLow, 1024);
 // todo LCD related functionality
@@ -346,15 +344,12 @@ void config_button_irqs() {
     SYSCFG->EXTICR[3] |= (SYSCFG_EXTICR4_EXTI14_PB | SYSCFG_EXTICR4_EXTI15_PB);
 
     // Unmask interrupts (EXTI lines 6,7,8,9,14,15)
-    EXTI->IMR1 |= (EXTI_IMR1_IM6 | EXTI_IMR1_IM7 | EXTI_IMR1_IM8 | EXTI_IMR1_IM9 | EXTI_IMR1_IM14
-                   | EXTI_IMR1_IM15);
+    EXTI->IMR1 |= (EXTI_IMR1_IM6 | EXTI_IMR1_IM7 | EXTI_IMR1_IM8 | EXTI_IMR1_IM9 | EXTI_IMR1_IM14 | EXTI_IMR1_IM15);
 
     // Falling edge trigger only (pull-up buttons)
-    EXTI->RTSR1 &= ~(EXTI_RTSR1_RT6 | EXTI_RTSR1_RT7 | EXTI_RTSR1_RT8 | EXTI_RTSR1_RT9
-                     | EXTI_RTSR1_RT14 | EXTI_RTSR1_RT15);
+    EXTI->RTSR1 &= ~(EXTI_RTSR1_RT6 | EXTI_RTSR1_RT7 | EXTI_RTSR1_RT8 | EXTI_RTSR1_RT9 | EXTI_RTSR1_RT14 | EXTI_RTSR1_RT15);
 
-    EXTI->FTSR1 |= (EXTI_FTSR1_FT6 | EXTI_FTSR1_FT7 | EXTI_FTSR1_FT8 | EXTI_FTSR1_FT9
-                    | EXTI_FTSR1_FT14 | EXTI_FTSR1_FT15);
+    EXTI->FTSR1 |= (EXTI_FTSR1_FT6 | EXTI_FTSR1_FT7 | EXTI_FTSR1_FT8 | EXTI_FTSR1_FT9 | EXTI_FTSR1_FT14 | EXTI_FTSR1_FT15);
 
     NVIC_EnableIRQ(EXTI9_5_IRQn);
     NVIC_EnableIRQ(EXTI15_10_IRQn);

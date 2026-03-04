@@ -196,15 +196,8 @@ int main(void) {
     PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 1);
     PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
 
-    createThread(pedalsPeriodic);
-    createThread(can_worker_task);
-
-    createThread(updateFaultDisplay);
-    createThread(heartbeat_led);
-    createThread(service_button_inputs);
-    createThread(send_version);
-    createThread(updateTelemetryPages);
-    createThread(fault_library_periodic);
+    // Start preflight task
+    createThread(preflight_task);
 
     osKernelStart(); // GO!
 
@@ -221,7 +214,6 @@ void preflight_task() {
         PHAL_writeGPIO(ERROR_LED_GPIO_Port, ERROR_LED_Pin, 0);
 
         // spawn the other threads
-
         createThread(pedalsPeriodic);
         createThread(can_worker_task);
 
@@ -231,6 +223,7 @@ void preflight_task() {
         createThread(send_version);
         createThread(updateTelemetryPages);
         createThread(fault_library_periodic);
+
         osThreadExit(); // Self delete
         return;
     }

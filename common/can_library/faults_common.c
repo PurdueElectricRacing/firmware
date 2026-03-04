@@ -60,7 +60,6 @@ void update_fault(fault_id_t fault_id, uint16_t value) {
             // do not update the start_time
             if (elapsed >= fault->latch_time_ms) {
                 fault->state = FAULT_STATE_LATCHED;
-                tx_fault_event(fault_id, value);
             }
             break;
         }

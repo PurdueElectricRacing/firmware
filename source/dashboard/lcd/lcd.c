@@ -87,6 +87,9 @@ void calibrationTelemetryUpdate();
 void updateSDCStatus(uint8_t status, char* element);
 void set_faultIndicator(uint16_t fault, char* element);
 
+// LCD Constants
+#define LCD_BAUD_RATE (115200)
+
 // Page handlers array stored in flash
 const page_handler_t page_handlers[] = {
     // Order must match page_t enum
@@ -488,13 +491,11 @@ void updatePage() {
     if (page_handlers[curr_page].update != NULL) {
         page_handlers[curr_page].update();
     }
-
-    lcd_tx_cmd();
 }
 
 void moveUp() {
     // Bounds Check
-    if (curr_page > PAGE_COUNT && curr_page < 0) {
+    if (curr_page > NUM_PAGES && curr_page < 0) {
         return;
     }
 
@@ -516,7 +517,7 @@ void moveDown() {
 
 void selectItem() {
     // Bounds Check
-    if (curr_page > PAGE_COUNT && curr_page < 0) {
+    if (curr_page > NUM_PAGES && curr_page < 0) {
         return;
     }
 
@@ -530,7 +531,7 @@ void selectItem() {
  */
 void updateTelemetryPages() {
     // Bounds Check
-    if (curr_page > PAGE_COUNT && curr_page < 0) {
+    if (curr_page > NUM_PAGES && curr_page < 0) {
         return;
     }
 

@@ -14,10 +14,6 @@
 
 //STM32F407
 
-// LCD Constants
-#define LCD_NUM_PAGES (9) // Number encoder selectable pages
-#define LCD_BAUD_RATE (115200)
-
 typedef struct __attribute__((packed)) {
     // Do not modify this struct unless
     // you modify the ADC DMA config
@@ -119,7 +115,5 @@ typedef struct {
 #define LCD_UART_TX_Pin       (9)
 #define LCD_UART_RX_GPIO_Port (GPIOA)
 #define LCD_UART_RX_Pin       (10)
-
-void lcd_tx_cmd();
 
 #endif

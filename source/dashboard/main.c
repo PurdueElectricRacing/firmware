@@ -35,9 +35,12 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT_OPEN_DRAIN(BMS_LED_PORT, BMS_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_INPUT(START_BTN_GPIO_Port, START_BTN_Pin, GPIO_INPUT_PULL_UP),
 
-    // CAN
+    // VCAN
     GPIO_INIT_FDCAN2RX_PB5,
     GPIO_INIT_FDCAN2TX_PB6,
+    // SCAN
+    GPIO_INIT_FDCAN3RX_PA8,
+    GPIO_INIT_FDCAN3TX_PB4,
 
     // Throttle
     GPIO_INIT_ANALOG(THTL_1_GPIO_Port, THTL_1_Pin),
@@ -130,7 +133,7 @@ volatile dashboard_input_state_t input_state = {0}; // Clear all input states
 /* Function Prototypes */
 void preflight_animation(void);
 void heartbeat_task();
-void lcd_tx_cmd();
+void LCD_tx_update();
 void config_button_irqs();
 void service_button_inputs();
 void send_version();
@@ -150,6 +153,7 @@ defineThreadStack(can_worker_task, 5, osPriorityHigh, 512);
 defineThreadStack(heartbeat_task, 500, osPriorityLow, 128);
 defineThreadStack(service_button_inputs, 50, osPriorityLow, 1024);
 defineThreadStack(fault_library_periodic, 100, osPriorityLow, 1024);
+// todo LCD related functionality
 
 int main(void) {
     // Hardware Initialization
@@ -355,7 +359,7 @@ void config_button_irqs() {
 /**
  * @brief Called periodically to send commands to the Nextion LCD display via USART
  */
-void lcd_tx_cmd() {
+void LCD_tx_update() {
     if ((false == PHAL_usartTxBusy(&lcd)) && (lcd_tx_buf.length > 0)) {
         PHAL_usartTxDma(&lcd, (uint8_t *)lcd_tx_buf.data, lcd_tx_buf.length);
         strbuf_clear(&lcd_tx_buf);

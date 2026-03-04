@@ -16,7 +16,7 @@
 can_data_t can_data;
 can_stats_t can_stats;
 volatile uint32_t last_can_rx_time_ms;
-DEFINE_STATIC_QUEUE(q_rx_can, CanMsgTypeDef_t, 64);
+DEFINE_STATIC_QUEUE(q_rx_can, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
 
 #if defined(STM32F407xx) || defined(STM32F732xx)
 
@@ -203,25 +203,28 @@ bool CAN_library_init() {
 #endif
 #endif
 
+
 #ifdef USE_FDCAN1
-DEFINE_STATIC_QUEUE(q_tx_can1, CanMsgTypeDef_t, 64);
+DEFINE_STATIC_QUEUE(q_tx_can1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 
 #ifdef USE_FDCAN2
-DEFINE_STATIC_QUEUE(q_tx_can2, CanMsgTypeDef_t, 64);
+DEFINE_STATIC_QUEUE(q_tx_can2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 
 #ifdef USE_FDCAN3
-DEFINE_STATIC_QUEUE(q_tx_can3, CanMsgTypeDef_t, 64);
+DEFINE_STATIC_QUEUE(q_tx_can3, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 
 QueueHandle_t q_tx_can[NUM_CAN_PERIPHERALS];
-QueueHandle_t q_rx_can;
+// QueueHandle_t q_rx_can;
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
     uint8_t periph_idx = GET_PERIPH_IDX(msg->Bus);
 
-    if (xQueueSendToBack(q_tx_can[periph_idx], msg, 0) != pdPASS) {
+    // Wait up to CAN_TX_BACKPRESSURE_MS if FDCAN TX FIFO is full before dropping message
+    // TODO: is this the desired behavior? Or should we just drop immediately?
+    if (xQueueSendToBack(q_tx_can[periph_idx], msg, pdMS_TO_TICKS(CAN_TX_BACKPRESSURE_MS)) != pdPASS) {
         can_stats.can_peripheral_stats[periph_idx].tx_of++;
     }
 }
@@ -250,7 +253,8 @@ void CAN_tx_update() {
 
 void CAN_rx_update() {
     CanMsgTypeDef_t rx_msg;
-    while (xQueueReceive(q_rx_can, &rx_msg, portMAX_DELAY) == pdPASS) {
+    // Timeout: 0, poll only, don't block
+    while (xQueueReceive(q_rx_can, &rx_msg, 0) == pdPASS) {
         last_can_rx_time_ms = OS_TICKS;
         uint8_t periph_idx  = GET_PERIPH_IDX(rx_msg.Bus);
         CAN_rx_dispatcher(
@@ -277,22 +281,22 @@ void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
 bool CAN_library_init() {
     // Initialize TX queues (one per peripheral)
 #ifdef USE_FDCAN1
-    CREATE_STATIC_QUEUE(q_tx_can1, CanMsgTypeDef_t, 64);
+    CREATE_STATIC_QUEUE(q_tx_can1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
     q_tx_can[CAN1_IDX] = q_tx_can1;
 #endif
 
 #ifdef USE_FDCAN2
-    CREATE_STATIC_QUEUE(q_tx_can2, CanMsgTypeDef_t, 64);
+    CREATE_STATIC_QUEUE(q_tx_can2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
     q_tx_can[CAN2_IDX] = q_tx_can2;
 #endif
 
 #ifdef USE_FDCAN3
-    CREATE_STATIC_QUEUE(q_tx_can3, CanMsgTypeDef_t, 64);
+    CREATE_STATIC_QUEUE(q_tx_can3, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
     q_tx_can[CAN3_IDX] = q_tx_can3;
 #endif
 
     // Initialize RX queue
-    CREATE_STATIC_QUEUE(q_rx_can, CanMsgTypeDef_t, 64);
+    CREATE_STATIC_QUEUE(q_rx_can, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
 
     // Clear stats
     can_stats = (can_stats_t) {0};

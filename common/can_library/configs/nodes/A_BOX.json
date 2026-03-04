@@ -24,74 +24,6 @@
                     "msg_priority": 2
                 },
                 {
-                    "msg_name": "num_therm_bad",
-                    "msg_desc": "Number of wonky thermistors on pack",
-                    "signals": [
-                        {
-                            "sig_name": "A_left",
-                            "sig_desc": "Number of thermistors > 1.5v",
-                            "type": "uint8_t",
-                            "length": 4
-                        },
-                        {
-                            "sig_name": "A_right",
-                            "sig_desc": "Number of thermistors > 1.5v",
-                            "type": "uint8_t",
-                            "length": 4
-                        },
-                        {
-                            "sig_name": "B_left",
-                            "sig_desc": "Number of thermistors > 1.5v",
-                            "type": "uint8_t",
-                            "length": 4
-                        },
-                        {
-                            "sig_name": "B_right",
-                            "sig_desc": "Number of thermistors > 1.5v",
-                            "type": "uint8_t",
-                            "length": 4
-                        },
-                        {
-                            "sig_name": "C_left",
-                            "sig_desc": "Number of thermistors > 1.5v",
-                            "type": "uint8_t",
-                            "length": 4
-                        },
-                        {
-                            "sig_name": "C_right",
-                            "sig_desc": "Number of thermistors > 1.5v",
-                            "type": "uint8_t",
-                            "length": 4
-                        },
-                        {
-                            "sig_name": "D_left",
-                            "sig_desc": "Number of thermistors > 1.5v",
-                            "type": "uint8_t",
-                            "length": 4
-                        },
-                        {
-                            "sig_name": "D_right",
-                            "sig_desc": "Number of thermistors > 1.5v",
-                            "type": "uint8_t",
-                            "length": 4
-                        },
-                        {
-                            "sig_name": "E_left",
-                            "sig_desc": "Number of thermistors > 1.5v",
-                            "type": "uint8_t",
-                            "length": 4
-                        },
-                        {
-                            "sig_name": "E_right",
-                            "sig_desc": "Number of thermistors > 1.5v",
-                            "type": "uint8_t",
-                            "length": 4
-                        }
-                    ],
-                    "msg_period": 500,
-                    "msg_priority": 4
-                },
-                {
                     "msg_name": "pack_charge_status",
                     "msg_desc": "Statistics about current charge cycle",
                     "signals": [
@@ -101,11 +33,6 @@
                             "unit": "W",
                             "type": "uint16_t",
                             "length": 16
-                        },
-                        {
-                            "sig_name": "charge_enable",
-                            "sig_desc": "Charge mode enabled",
-                            "type": "bool"
                         },
                         {
                             "sig_name": "voltage",
@@ -122,6 +49,11 @@
                             "scale": 0.1,
                             "type": "uint16_t",
                             "length": 16
+                        },
+                        {
+                            "sig_name": "is_charge_enable",
+                            "sig_desc": "Charge mode enabled",
+                            "type": "bool"
                         }
                     ],
                     "msg_period": 50,
@@ -467,17 +399,7 @@
                     "msg_period": 5000
                 }
             ],
-            "rx": [
-                {
-                    "msg_name": "orion_info"
-                },
-                {
-                    "msg_name": "orion_currents_volts"
-                },
-                {
-                    "msg_name": "orion_errors"
-                }
-            ],
+            "rx": [],
             "accept_all_messages": false
         },
         "CCAN": {
@@ -965,15 +887,6 @@
             "rx": [
                 {
                     "msg_name": "elcon_charger_status"
-                },
-                {
-                    "msg_name": "orion_info_charger"
-                },
-                {
-                    "msg_name": "orion_currents_volts_charger"
-                },
-                {
-                    "msg_name": "orion_errors_charger"
                 }
             ],
             "accept_all_messages": false
@@ -982,222 +895,6 @@
     "fault_library_enabled": true,
     "generate_fault_messages": false,
     "faults": [
-        {
-            "fault_name": "discharge_limit_enforce",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Orion Discharge Limit"
-        },
-        {
-            "fault_name": "charger_safety_relay",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Orion Charger Safety Error"
-        },
-        {
-            "fault_name": "internal_hardware",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Orion Internal Fault"
-        },
-        {
-            "fault_name": "heatsink_thermistor",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Orion Overheating"
-        },
-        {
-            "fault_name": "software",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Orion Software Error"
-        },
-        {
-            "fault_name": "max_cellv_high",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Max Cell Volts too High"
-        },
-        {
-            "fault_name": "min_cellv_low",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Min Cell Volts too Low"
-        },
-        {
-            "fault_name": "pack_overheat_orion",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Orion Pack Overheat Fault"
-        },
-        {
-            "fault_name": "internal_comms",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Orion Internal Comms Error"
-        },
-        {
-            "fault_name": "cell_balancing_foff",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Cell Balancing Offline"
-        },
-        {
-            "fault_name": "weak_cell",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Weak Cell Fault"
-        },
-        {
-            "fault_name": "low_cellv",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Low Cell Voltage Fault"
-        },
-        {
-            "fault_name": "open_wire",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Orion Open Wire Fault"
-        },
-        {
-            "fault_name": "current_sensor",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Orion Current Sensor Fault"
-        },
-        {
-            "fault_name": "max_cellv_o5v",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Max CellV > 5"
-        },
-        {
-            "fault_name": "cell_asic",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Orion Cell ASIC"
-        },
-        {
-            "fault_name": "weak_pack",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Orion Weak Pack Fault"
-        },
-        {
-            "fault_name": "fan_monitor",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Orion Fan Monitor Fault"
-        },
-        {
-            "fault_name": "thermistor",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Orion Thermistor Fault"
-        },
-        {
-            "fault_name": "external_comms",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Orion External Communication Fault"
-        },
-        {
-            "fault_name": "redundant_psu",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Orion Redundant PSU Found"
-        },
-        {
-            "fault_name": "hv_isolation",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Orion HV Isolation Fault"
-        },
-        {
-            "fault_name": "input_psu",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Orion Input PSU Fault"
-        },
-        {
-            "fault_name": "charge_limit_enforce",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 5,
-            "time_to_unlatch": 5,
-            "lcd_message": "Orion Charge Limit"
-        },
         {
             "fault_name": "pack_temp",
             "max": 500,

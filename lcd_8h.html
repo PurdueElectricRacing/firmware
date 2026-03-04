@@ -318,28 +318,16 @@ Macros</h2></td></tr>
 <tr class="separator:a88584fc19db2afda4ca4295f1f71ffe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ea2d2020c7afe5ee7f363911dbbdba1" id="r_a6ea2d2020c7afe5ee7f363911dbbdba1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ea2d2020c7afe5ee7f363911dbbdba1">CALIBRATION_BRAKE2_THRESHOLD</a>&#160;&#160;&#160;&quot;B2T&quot;</td></tr>
 <tr class="separator:a6ea2d2020c7afe5ee7f363911dbbdba1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a782f22e23dde7fc39ed8d5e1f4c9b141" id="r_a782f22e23dde7fc39ed8d5e1f4c9b141"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a782f22e23dde7fc39ed8d5e1f4c9b141">PAGE_COUNT</a>&#160;&#160;&#160;(12)</td></tr>
-<tr class="separator:a782f22e23dde7fc39ed8d5e1f4c9b141"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:a7153150b299cf930f17d200a89628d88" id="r_a7153150b299cf930f17d200a89628d88"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7153150b299cf930f17d200a89628d88">page_t</a> { <br />
 &#160;&#160;<a class="el" href="#a7153150b299cf930f17d200a89628d88aadedc69ad2923a9f24a5cf427e6fb34f">PAGE_RACE</a> = 0
-, <a class="el" href="#a7153150b299cf930f17d200a89628d88af806d86e4cc93e43e0769d6cd8c66268">PAGE_COOLING</a> = 1
-, <a class="el" href="#a7153150b299cf930f17d200a89628d88aaefb4d63f32067fd48f029490146f5b3">PAGE_TVSETTINGS</a> = 2
-, <a class="el" href="#a7153150b299cf930f17d200a89628d88a874f8efdf9407c549017fa82242bbb94">PAGE_FAULTS</a> = 3
+, <a class="el" href="#a7153150b299cf930f17d200a89628d88a874f8efdf9407c549017fa82242bbb94">PAGE_FAULTS</a> = 1
+, <a class="el" href="#a7153150b299cf930f17d200a89628d88acb636fd55baa3a5e3636cd128a1417d7">PAGE_SDC_INFO</a> = 2
+, <a class="el" href="#a7153150b299cf930f17d200a89628d88ad440c6fd0af7c16acce46826f9b46e16">PAGE_CALIBRATION</a> = 3
 , <br />
-&#160;&#160;<a class="el" href="#a7153150b299cf930f17d200a89628d88ab5a45289ebcbec613e96f667db27e2f8">PAGE_SDCINFO</a> = 4
-, <a class="el" href="#a7153150b299cf930f17d200a89628d88a6496019570489c1dcbd7f678c4091e4f">PAGE_DRIVER</a> = 5
-, <a class="el" href="#a7153150b299cf930f17d200a89628d88a55aeb6dc7494f25a0a926179880617d6">PAGE_PROFILES</a> = 6
-, <a class="el" href="#a7153150b299cf930f17d200a89628d88a0c33723c3d6a9aa26dc7d62f3da2b5ad">PAGE_LOGGING</a> = 7
-, <br />
-&#160;&#160;<a class="el" href="#a7153150b299cf930f17d200a89628d88ad440c6fd0af7c16acce46826f9b46e16">PAGE_CALIBRATION</a> = 8
-, <a class="el" href="#a7153150b299cf930f17d200a89628d88aafba3cb7389f6d91e4c0b22fb7dd14a9">PAGE_PREFLIGHT</a> = 9
-, <a class="el" href="#a7153150b299cf930f17d200a89628d88ae1dade627e48516d694f0278eeca2b04">PAGE_WARNING</a> = 10
-, <a class="el" href="#a7153150b299cf930f17d200a89628d88ac272aeb63a4bd5bea683b5860a877d21">PAGE_ERROR</a> = 11
-, <br />
-&#160;&#160;<a class="el" href="#a7153150b299cf930f17d200a89628d88a1d986eefcc93077cb32e1273636b444f">PAGE_FATAL</a> = 12
+&#160;&#160;<a class="el" href="#a7153150b299cf930f17d200a89628d88acd382a61c55aa2f67b15244ad7cd9618">NUM_PAGES</a> = 4
 <br />
  }</td></tr>
 <tr class="separator:a7153150b299cf930f17d200a89628d88"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -370,13 +358,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a9ceeac8764aca15be67680bddfe70704"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates current telemetry page by calling its handler if available.  <br /></td></tr>
 <tr class="separator:a9ceeac8764aca15be67680bddfe70704"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a249c0ceab96d27daebec9a6b8954f60a" id="r_a249c0ceab96d27daebec9a6b8954f60a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a249c0ceab96d27daebec9a6b8954f60a">sendTVParameters</a> ()</td></tr>
-<tr class="memdesc:a249c0ceab96d27daebec9a6b8954f60a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends TV parameters to TV using current values from tv_elements array.  <br /></td></tr>
 <tr class="separator:a249c0ceab96d27daebec9a6b8954f60a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75562cebcb171ee3057a36ace3a6c9b7" id="r_a75562cebcb171ee3057a36ace3a6c9b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75562cebcb171ee3057a36ace3a6c9b7">sendCoolingParameters</a> ()</td></tr>
-<tr class="memdesc:a75562cebcb171ee3057a36ace3a6c9b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends Cooling parameters to PDU using current values from cooling_elements array.  <br /></td></tr>
 <tr class="separator:a75562cebcb171ee3057a36ace3a6c9b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef98dd463d4a38ba6d4753854045a61f" id="r_aef98dd463d4a38ba6d4753854045a61f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef98dd463d4a38ba6d4753854045a61f">sendLoggingParameters</a> ()</td></tr>
-<tr class="memdesc:aef98dd463d4a38ba6d4753854045a61f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends Logging parameters to DAQ using current values from logging_elements array.  <br /></td></tr>
 <tr class="separator:aef98dd463d4a38ba6d4753854045a61f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
@@ -410,7 +395,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00011">11</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00415">updatePage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00144">updatePage()</a>.</p>
 
 </div>
 </div>
@@ -427,8 +412,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00097">97</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00799">coolingMoveDown()</a>, <a class="el" href="lcd_8c_source.html#l00789">coolingMoveUp()</a>, and <a class="el" href="lcd_8c_source.html#l00777">coolingPageUpdate()</a>.</p>
 
 </div>
 </div>
@@ -494,7 +477,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00107">107</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00984">raceTelemetryUpdate()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00334">raceTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -512,7 +495,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00105">105</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00984">raceTelemetryUpdate()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00334">raceTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -530,7 +513,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00106">106</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00984">raceTelemetryUpdate()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00334">raceTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -548,7 +531,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00104">104</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00984">raceTelemetryUpdate()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00334">raceTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -566,8 +549,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00130">130</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00550">calibrationTelemetryUpdate()</a>.</p>
-
 </div>
 </div>
 <a id="ab671b1227c5f76cf758de34bcab7b1da" name="ab671b1227c5f76cf758de34bcab7b1da"></a>
@@ -583,8 +564,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00120">120</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00550">calibrationTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -602,8 +581,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00131">131</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00550">calibrationTelemetryUpdate()</a>.</p>
-
 </div>
 </div>
 <a id="a5fb59346f2c3c4f4f9d535635dd14d59" name="a5fb59346f2c3c4f4f9d535635dd14d59"></a>
@@ -619,8 +596,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00121">121</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00550">calibrationTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -653,8 +628,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00124">124</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00550">calibrationTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -704,8 +677,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00122">122</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00550">calibrationTelemetryUpdate()</a>.</p>
-
 </div>
 </div>
 <a id="a0442358cfff56a8076c702c621894a95" name="a0442358cfff56a8076c702c621894a95"></a>
@@ -721,8 +692,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00123">123</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00550">calibrationTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -756,8 +725,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00125">125</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00550">calibrationTelemetryUpdate()</a>.</p>
-
 </div>
 </div>
 <a id="a563f32c847a1954ef2686a140816d899" name="a563f32c847a1954ef2686a140816d899"></a>
@@ -774,7 +741,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00110">110</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00984">raceTelemetryUpdate()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00334">raceTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -808,8 +775,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00100">100</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00777">coolingPageUpdate()</a>.</p>
-
 </div>
 </div>
 <a id="aa733efd44eb7518cff334373d9d8ece6" name="aa733efd44eb7518cff334373d9d8ece6"></a>
@@ -825,8 +790,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00010">10</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00415">updatePage()</a>.</p>
 
 </div>
 </div>
@@ -860,8 +823,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00032">32</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00693">pedalProfilesPageUpdate()</a>.</p>
-
 </div>
 </div>
 <a id="abab49fb542b3dba0aa710f7a4bf19ba6" name="abab49fb542b3dba0aa710f7a4bf19ba6"></a>
@@ -893,8 +854,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00033">33</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00693">pedalProfilesPageUpdate()</a>.</p>
 
 </div>
 </div>
@@ -928,8 +887,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00034">34</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00693">pedalProfilesPageUpdate()</a>.</p>
-
 </div>
 </div>
 <a id="a2e1644d7165bed2f7eb67982d80b7aa8" name="a2e1644d7165bed2f7eb67982d80b7aa8"></a>
@@ -962,8 +919,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00035">35</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00693">pedalProfilesPageUpdate()</a>.</p>
-
 </div>
 </div>
 <a id="a6666e8194491873e49adc3bdd0ffccf1" name="a6666e8194491873e49adc3bdd0ffccf1"></a>
@@ -979,8 +934,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00018">18</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00415">updatePage()</a>.</p>
 
 </div>
 </div>
@@ -998,8 +951,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00017">17</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00415">updatePage()</a>.</p>
-
 </div>
 </div>
 <a id="a295cff8414ee6274606c902ee24b78c9" name="a295cff8414ee6274606c902ee24b78c9"></a>
@@ -1015,8 +966,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00094">94</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00799">coolingMoveDown()</a>, <a class="el" href="lcd_8c_source.html#l00789">coolingMoveUp()</a>, and <a class="el" href="lcd_8c_source.html#l00777">coolingPageUpdate()</a>.</p>
 
 </div>
 </div>
@@ -1066,8 +1015,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00012">12</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00415">updatePage()</a>.</p>
-
 </div>
 </div>
 <a id="a20c055a7466cf2ea8796141354aa8c75" name="a20c055a7466cf2ea8796141354aa8c75"></a>
@@ -1084,8 +1031,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00046">46</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00415">updatePage()</a>.</p>
-
 </div>
 </div>
 <a id="aea61e1f56bfc82ca9208e412f636c5b4" name="aea61e1f56bfc82ca9208e412f636c5b4"></a>
@@ -1101,8 +1046,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00014">14</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00415">updatePage()</a>.</p>
 
 </div>
 </div>
@@ -1136,8 +1079,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00070">70</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00627">faultTelemetryUpdate()</a>, and <a class="el" href="lcd_8c_source.html#l00880">updateFaultMessages()</a>.</p>
-
 </div>
 </div>
 <a id="a45296d82c741d2959e4da56a7fbb50a4" name="a45296d82c741d2959e4da56a7fbb50a4"></a>
@@ -1169,8 +1110,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00071">71</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00627">faultTelemetryUpdate()</a>, and <a class="el" href="lcd_8c_source.html#l00880">updateFaultMessages()</a>.</p>
 
 </div>
 </div>
@@ -1204,8 +1143,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00072">72</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00627">faultTelemetryUpdate()</a>, and <a class="el" href="lcd_8c_source.html#l00880">updateFaultMessages()</a>.</p>
-
 </div>
 </div>
 <a id="ae57ed049b31261339a7e85b4cf7a9f8a" name="ae57ed049b31261339a7e85b4cf7a9f8a"></a>
@@ -1237,8 +1174,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00073">73</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00627">faultTelemetryUpdate()</a>, and <a class="el" href="lcd_8c_source.html#l00880">updateFaultMessages()</a>.</p>
 
 </div>
 </div>
@@ -1272,8 +1207,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00074">74</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00627">faultTelemetryUpdate()</a>, and <a class="el" href="lcd_8c_source.html#l00880">updateFaultMessages()</a>.</p>
-
 </div>
 </div>
 <a id="af7e4b8e3473e9d70a9f25ce9ca6a0191" name="af7e4b8e3473e9d70a9f25ce9ca6a0191"></a>
@@ -1289,8 +1222,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00076">76</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00880">updateFaultMessages()</a>.</p>
 
 </div>
 </div>
@@ -1308,7 +1239,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00015">15</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00415">updatePage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00144">updatePage()</a>.</p>
 
 </div>
 </div>
@@ -1342,8 +1273,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00117">117</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l01089">loggingPageUpdate()</a>, and <a class="el" href="lcd_8c_source.html#l01101">loggingSelect()</a>.</p>
-
 </div>
 </div>
 <a id="a126ad3326846fdf36353a4309d3ce6ee" name="a126ad3326846fdf36353a4309d3ce6ee"></a>
@@ -1359,8 +1288,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00020">20</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00415">updatePage()</a>.</p>
 
 </div>
 </div>
@@ -1410,25 +1337,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00023">23</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00984">raceTelemetryUpdate()</a>.</p>
-
-</div>
-</div>
-<a id="a782f22e23dde7fc39ed8d5e1f4c9b141" name="a782f22e23dde7fc39ed8d5e1f4c9b141"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a782f22e23dde7fc39ed8d5e1f4c9b141">&#9670;&#160;</a></span>PAGE_COUNT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PAGE_COUNT&#160;&#160;&#160;(12)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00133">133</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00506">moveDown()</a>, <a class="el" href="lcd_8c_source.html#l00495">moveUp()</a>, <a class="el" href="lcd_8c_source.html#l00517">selectItem()</a>, <a class="el" href="lcd_8c_source.html#l00415">updatePage()</a>, and <a class="el" href="lcd_8c_source.html#l00531">updateTelemetryPages()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00334">raceTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -1445,8 +1354,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00008">8</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00415">updatePage()</a>.</p>
 
 </div>
 </div>
@@ -1480,8 +1387,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00038">38</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00693">pedalProfilesPageUpdate()</a>.</p>
-
 </div>
 </div>
 <a id="a7fd5e8a2405c27375f31b69fcda07976" name="a7fd5e8a2405c27375f31b69fcda07976"></a>
@@ -1513,8 +1418,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00042">42</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00734">pedalProfilesMoveDown()</a>, <a class="el" href="lcd_8c_source.html#l00724">pedalProfilesMoveUp()</a>, <a class="el" href="lcd_8c_source.html#l00760">pedalProfilesSaveButton_CALLBACK()</a>, and <a class="el" href="lcd_8c_source.html#l00744">pedalProfilesSelect()</a>.</p>
 
 </div>
 </div>
@@ -1548,7 +1451,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00009">9</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00415">updatePage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00144">updatePage()</a>.</p>
 
 </div>
 </div>
@@ -1598,8 +1501,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00050">50</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00644">sdcTelemetryUpdate()</a>.</p>
-
 </div>
 </div>
 <a id="aa54c736585df4ec6570925e6883fb043" name="aa54c736585df4ec6570925e6883fb043"></a>
@@ -1615,8 +1516,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00052">52</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00644">sdcTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -1634,8 +1533,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00051">51</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00644">sdcTelemetryUpdate()</a>.</p>
-
 </div>
 </div>
 <a id="aac742635d0ba7f9fd8d2b8f9691cea9c" name="aac742635d0ba7f9fd8d2b8f9691cea9c"></a>
@@ -1651,8 +1548,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00054">54</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00644">sdcTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -1686,8 +1581,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00058">58</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00644">sdcTelemetryUpdate()</a>.</p>
-
 </div>
 </div>
 <a id="a9b56c47618cce46970e5e346f29fffe9" name="a9b56c47618cce46970e5e346f29fffe9"></a>
@@ -1703,8 +1596,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00049">49</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00644">sdcTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -1722,8 +1613,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00053">53</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00644">sdcTelemetryUpdate()</a>.</p>
-
 </div>
 </div>
 <a id="a6bca073f4e800b960101ca22595257d4" name="a6bca073f4e800b960101ca22595257d4"></a>
@@ -1739,8 +1628,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00057">57</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00644">sdcTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -1758,8 +1645,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00055">55</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00644">sdcTelemetryUpdate()</a>.</p>
-
 </div>
 </div>
 <a id="a4be1ad4202f2bbfdc8d9fd745bbff530" name="a4be1ad4202f2bbfdc8d9fd745bbff530"></a>
@@ -1775,8 +1660,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00061">61</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00644">sdcTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -1794,8 +1677,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00059">59</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00644">sdcTelemetryUpdate()</a>.</p>
-
 </div>
 </div>
 <a id="ade65ed18098cc3ecc65bbc073bce9627" name="ade65ed18098cc3ecc65bbc073bce9627"></a>
@@ -1811,8 +1692,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00056">56</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00644">sdcTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -1830,8 +1709,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00060">60</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00644">sdcTelemetryUpdate()</a>.</p>
-
 </div>
 </div>
 <a id="a18ee334c9179983466eb3a0879cf7798" name="a18ee334c9179983466eb3a0879cf7798"></a>
@@ -1848,7 +1725,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00019">19</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00415">updatePage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00144">updatePage()</a>.</p>
 
 </div>
 </div>
@@ -1866,7 +1743,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00111">111</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00984">raceTelemetryUpdate()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00334">raceTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -1884,7 +1761,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00103">103</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00984">raceTelemetryUpdate()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00334">raceTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -1933,8 +1810,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00080">80</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00827">tvSetEnumNames()</a>.</p>
 
 </div>
 </div>
@@ -2032,8 +1907,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00079">79</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00827">tvSetEnumNames()</a>.</p>
-
 </div>
 </div>
 <a id="ad90890ca4c9381105577a035a3b1d480" name="ad90890ca4c9381105577a035a3b1d480"></a>
@@ -2098,8 +1971,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00016">16</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00415">updatePage()</a>.</p>
-
 </div>
 </div>
 <a id="a68be2e50ca8954fe2c024b7604d23623" name="a68be2e50ca8954fe2c024b7604d23623"></a>
@@ -2115,8 +1986,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00013">13</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00415">updatePage()</a>.</p>
 
 </div>
 </div>
@@ -2150,21 +2019,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7153150b299cf930f17d200a89628d88aadedc69ad2923a9f24a5cf427e6fb34f" name="a7153150b299cf930f17d200a89628d88aadedc69ad2923a9f24a5cf427e6fb34f"></a>PAGE_RACE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7153150b299cf930f17d200a89628d88af806d86e4cc93e43e0769d6cd8c66268" name="a7153150b299cf930f17d200a89628d88af806d86e4cc93e43e0769d6cd8c66268"></a>PAGE_COOLING&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7153150b299cf930f17d200a89628d88aaefb4d63f32067fd48f029490146f5b3" name="a7153150b299cf930f17d200a89628d88aaefb4d63f32067fd48f029490146f5b3"></a>PAGE_TVSETTINGS&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a7153150b299cf930f17d200a89628d88a874f8efdf9407c549017fa82242bbb94" name="a7153150b299cf930f17d200a89628d88a874f8efdf9407c549017fa82242bbb94"></a>PAGE_FAULTS&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7153150b299cf930f17d200a89628d88ab5a45289ebcbec613e96f667db27e2f8" name="a7153150b299cf930f17d200a89628d88ab5a45289ebcbec613e96f667db27e2f8"></a>PAGE_SDCINFO&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7153150b299cf930f17d200a89628d88a6496019570489c1dcbd7f678c4091e4f" name="a7153150b299cf930f17d200a89628d88a6496019570489c1dcbd7f678c4091e4f"></a>PAGE_DRIVER&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7153150b299cf930f17d200a89628d88a55aeb6dc7494f25a0a926179880617d6" name="a7153150b299cf930f17d200a89628d88a55aeb6dc7494f25a0a926179880617d6"></a>PAGE_PROFILES&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7153150b299cf930f17d200a89628d88a0c33723c3d6a9aa26dc7d62f3da2b5ad" name="a7153150b299cf930f17d200a89628d88a0c33723c3d6a9aa26dc7d62f3da2b5ad"></a>PAGE_LOGGING&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7153150b299cf930f17d200a89628d88acb636fd55baa3a5e3636cd128a1417d7" name="a7153150b299cf930f17d200a89628d88acb636fd55baa3a5e3636cd128a1417d7"></a>PAGE_SDC_INFO&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a7153150b299cf930f17d200a89628d88ad440c6fd0af7c16acce46826f9b46e16" name="a7153150b299cf930f17d200a89628d88ad440c6fd0af7c16acce46826f9b46e16"></a>PAGE_CALIBRATION&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7153150b299cf930f17d200a89628d88aafba3cb7389f6d91e4c0b22fb7dd14a9" name="a7153150b299cf930f17d200a89628d88aafba3cb7389f6d91e4c0b22fb7dd14a9"></a>PAGE_PREFLIGHT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7153150b299cf930f17d200a89628d88ae1dade627e48516d694f0278eeca2b04" name="a7153150b299cf930f17d200a89628d88ae1dade627e48516d694f0278eeca2b04"></a>PAGE_WARNING&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7153150b299cf930f17d200a89628d88ac272aeb63a4bd5bea683b5860a877d21" name="a7153150b299cf930f17d200a89628d88ac272aeb63a4bd5bea683b5860a877d21"></a>PAGE_ERROR&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7153150b299cf930f17d200a89628d88a1d986eefcc93077cb32e1273636b444f" name="a7153150b299cf930f17d200a89628d88a1d986eefcc93077cb32e1273636b444f"></a>PAGE_FATAL&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7153150b299cf930f17d200a89628d88acd382a61c55aa2f67b15244ad7cd9618" name="a7153150b299cf930f17d200a89628d88acd382a61c55aa2f67b15244ad7cd9618"></a>NUM_PAGES&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00135">135</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00133">133</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
 </div>
 </div>
@@ -2186,11 +2047,11 @@ Functions</h2></td></tr>
 
 <p>Advances to the next selectable page. </p>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00380">380</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00124">124</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00016">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00146">PAGE_CALIBRATION</a>, <a class="el" href="lcd_8h_source.html#l00151">PAGE_ERROR</a>, <a class="el" href="lcd_8h_source.html#l00152">PAGE_FATAL</a>, <a class="el" href="lcd_8h_source.html#l00138">PAGE_RACE</a>, <a class="el" href="lcd_8h_source.html#l00150">PAGE_WARNING</a>, and <a class="el" href="lcd_8c_source.html#l00415">updatePage()</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00144">updatePage()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00378">service_button_inputs()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00298">service_button_inputs()</a>.</p>
 
 </div>
 </div>
@@ -2211,11 +2072,11 @@ Functions</h2></td></tr>
 
 <p>Moves to the previous selectable page. </p>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00396">396</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00132">132</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00016">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00146">PAGE_CALIBRATION</a>, <a class="el" href="lcd_8h_source.html#l00151">PAGE_ERROR</a>, <a class="el" href="lcd_8h_source.html#l00152">PAGE_FATAL</a>, <a class="el" href="lcd_8h_source.html#l00138">PAGE_RACE</a>, <a class="el" href="lcd_8h_source.html#l00150">PAGE_WARNING</a>, and <a class="el" href="lcd_8c_source.html#l00415">updatePage()</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00144">updatePage()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00378">service_button_inputs()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00298">service_button_inputs()</a>.</p>
 
 </div>
 </div>
@@ -2234,12 +2095,6 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00363">363</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
-
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00016">curr_page</a>, <a class="el" href="lcd_8c_source.html#l00027">errorText</a>, <a class="el" href="dashboard_2main_8h_source.html#l00019">LCD_BAUD_RATE</a>, <a class="el" href="nextion_8c_source.html#l00137">NXT_setBaud()</a>, <a class="el" href="nextion_8c_source.html#l00125">NXT_setBrightness()</a>, <a class="el" href="lcd_8h_source.html#l00149">PAGE_PREFLIGHT</a>, <a class="el" href="lcd_8h_source.html#l00138">PAGE_RACE</a>, <a class="el" href="lcd_8c_source.html#l00336">pedal_profile_page</a>, <a class="el" href="lcd_8c_source.html#l00017">prev_page</a>, <a class="el" href="pedals_8c_source.html#l00138">readPedalProfiles()</a>, <a class="el" href="menu__system_8h_source.html#l00052">menu_page_t::saved</a>, and <a class="el" href="lcd_8c_source.html#l00415">updatePage()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00160">main()</a>.</p>
-
 </div>
 </div>
 <a id="a486267210dfc8118e23e6b1bc6090286" name="a486267210dfc8118e23e6b1bc6090286"></a>
@@ -2257,11 +2112,11 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00506">506</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00193">193</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00016">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00158">page_handler_t::move_down</a>, <a class="el" href="lcd_8h_source.html#l00133">PAGE_COUNT</a>, and <a class="el" href="lcd_8c_source.html#l00091">page_handlers</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00015">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00145">page_handler_t::move_down</a>, <a class="el" href="lcd_8h_source.html#l00139">NUM_PAGES</a>, and <a class="el" href="lcd_8c_source.html#l00047">page_handlers</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00378">service_button_inputs()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00298">service_button_inputs()</a>.</p>
 
 </div>
 </div>
@@ -2280,11 +2135,11 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00495">495</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00182">182</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00016">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00157">page_handler_t::move_up</a>, <a class="el" href="lcd_8h_source.html#l00133">PAGE_COUNT</a>, and <a class="el" href="lcd_8c_source.html#l00091">page_handlers</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00015">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00144">page_handler_t::move_up</a>, <a class="el" href="lcd_8h_source.html#l00139">NUM_PAGES</a>, and <a class="el" href="lcd_8c_source.html#l00047">page_handlers</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00378">service_button_inputs()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00298">service_button_inputs()</a>.</p>
 
 </div>
 </div>
@@ -2303,11 +2158,11 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00517">517</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00204">204</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00016">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00133">PAGE_COUNT</a>, <a class="el" href="lcd_8c_source.html#l00091">page_handlers</a>, and <a class="el" href="lcd_8h_source.html#l00159">page_handler_t::select</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00015">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00139">NUM_PAGES</a>, <a class="el" href="lcd_8c_source.html#l00047">page_handlers</a>, and <a class="el" href="lcd_8h_source.html#l00146">page_handler_t::select</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00378">service_button_inputs()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00298">service_button_inputs()</a>.</p>
 
 </div>
 </div>
@@ -2326,14 +2181,6 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sends Cooling parameters to PDU using current values from cooling_elements array. </p>
-
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00597">597</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
-
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00127">COOLING_B_FAN_INDEX</a>, <a class="el" href="lcd_8c_source.html#l00128">COOLING_B_PUMP_INDEX</a>, <a class="el" href="lcd_8c_source.html#l00125">COOLING_DT_FAN_INDEX</a>, <a class="el" href="lcd_8c_source.html#l00126">COOLING_DT_PUMP_INDEX</a>, and <a class="el" href="lcd_8c_source.html#l00131">cooling_elements</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l01073">raceDownCallback()</a>, and <a class="el" href="lcd_8c_source.html#l01063">raceUpCallback()</a>.</p>
-
 </div>
 </div>
 <a id="aef98dd463d4a38ba6d4753854045a61f" name="aef98dd463d4a38ba6d4753854045a61f"></a>
@@ -2351,12 +2198,6 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sends Logging parameters to DAQ using current values from logging_elements array. </p>
-
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00609">609</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
-
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00348">logging_elements</a>, and <a class="el" href="lcd_8c_source.html#l00345">LOGGING_OP_INDEX</a>.</p>
-
 </div>
 </div>
 <a id="a249c0ceab96d27daebec9a6b8954f60a" name="a249c0ceab96d27daebec9a6b8954f60a"></a>
@@ -2373,10 +2214,6 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Sends TV parameters to TV using current values from tv_elements array. </p>
-
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00584">584</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
 </div>
 </div>
@@ -2398,9 +2235,7 @@ Functions</h2></td></tr>
 <p>Updates fault messages on LCD screen based on priority and timing. </p>
 <p>Manages fault display rotation, processes new faults from queue, and updates screen according to fault priorities and display timing requirements. </p>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00619">619</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00208">preflight_task()</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00251">251</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
 </div>
 </div>
@@ -2424,11 +2259,11 @@ Functions</h2></td></tr>
 <li>Maintains display of error pages when active </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00415">415</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00144">144</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="lcd_8h_source.html#l00011">APPS_STRING</a>, <a class="el" href="lcd_8h_source.html#l00010">COOLING_STRING</a>, <a class="el" href="lcd_8c_source.html#l00016">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00018">DRIVER_CONFIG_STRING</a>, <a class="el" href="lcd_8h_source.html#l00017">DRIVER_STRING</a>, <a class="el" href="lcd_8h_source.html#l00012">ERR_STRING</a>, <a class="el" href="lcd_8h_source.html#l00046">ERR_TXT</a>, <a class="el" href="lcd_8c_source.html#l00027">errorText</a>, <a class="el" href="lcd_8h_source.html#l00014">FATAL_STRING</a>, <a class="el" href="lcd_8h_source.html#l00015">FAULT_STRING</a>, <a class="el" href="lcd_8c_source.html#l00019">fault_time_displayed</a>, <a class="el" href="dashboard_2main_8c_source.html#l00445">lcd_tx_cmd()</a>, <a class="el" href="lcd_8h_source.html#l00020">LOGGING_STRING</a>, <a class="el" href="nextion_8c_source.html#l00115">NXT_setPage()</a>, <a class="el" href="nextion_8c_source.html#l00085">NXT_setText()</a>, <a class="el" href="lcd_8h_source.html#l00146">PAGE_CALIBRATION</a>, <a class="el" href="lcd_8h_source.html#l00139">PAGE_COOLING</a>, <a class="el" href="lcd_8h_source.html#l00133">PAGE_COUNT</a>, <a class="el" href="lcd_8h_source.html#l00143">PAGE_DRIVER</a>, <a class="el" href="lcd_8h_source.html#l00151">PAGE_ERROR</a>, <a class="el" href="lcd_8h_source.html#l00152">PAGE_FATAL</a>, <a class="el" href="lcd_8h_source.html#l00141">PAGE_FAULTS</a>, <a class="el" href="lcd_8c_source.html#l00091">page_handlers</a>, <a class="el" href="lcd_8h_source.html#l00145">PAGE_LOGGING</a>, <a class="el" href="lcd_8h_source.html#l00149">PAGE_PREFLIGHT</a>, <a class="el" href="lcd_8h_source.html#l00144">PAGE_PROFILES</a>, <a class="el" href="lcd_8h_source.html#l00138">PAGE_RACE</a>, <a class="el" href="lcd_8h_source.html#l00142">PAGE_SDCINFO</a>, <a class="el" href="lcd_8h_source.html#l00140">PAGE_TVSETTINGS</a>, <a class="el" href="lcd_8h_source.html#l00150">PAGE_WARNING</a>, <a class="el" href="lcd_8h_source.html#l00008">PREFLIGHT_STRING</a>, <a class="el" href="lcd_8c_source.html#l00017">prev_page</a>, <a class="el" href="lcd_8h_source.html#l00009">RACE_STRING</a>, <a class="el" href="lcd_8h_source.html#l00019">SDCINFO_STRING</a>, <a class="el" href="lcd_8h_source.html#l00016">TVSETTINGS_STRING</a>, <a class="el" href="lcd_8h_source.html#l00156">page_handler_t::update</a>, and <a class="el" href="lcd_8h_source.html#l00013">WARN_STRING</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8h_source.html#l00011">APPS_STRING</a>, <a class="el" href="lcd_8c_source.html#l00015">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00015">FAULT_STRING</a>, <a class="el" href="lcd_8h_source.html#l00139">NUM_PAGES</a>, <a class="el" href="nextion_8c_source.html#l00115">NXT_setPage()</a>, <a class="el" href="lcd_8h_source.html#l00138">PAGE_CALIBRATION</a>, <a class="el" href="lcd_8h_source.html#l00136">PAGE_FAULTS</a>, <a class="el" href="lcd_8c_source.html#l00047">page_handlers</a>, <a class="el" href="lcd_8h_source.html#l00135">PAGE_RACE</a>, <a class="el" href="lcd_8h_source.html#l00137">PAGE_SDC_INFO</a>, <a class="el" href="lcd_8c_source.html#l00016">prev_page</a>, <a class="el" href="lcd_8h_source.html#l00009">RACE_STRING</a>, <a class="el" href="lcd_8h_source.html#l00019">SDCINFO_STRING</a>, and <a class="el" href="lcd_8h_source.html#l00143">page_handler_t::update</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00380">advancePage()</a>, <a class="el" href="lcd_8c_source.html#l00396">backPage()</a>, <a class="el" href="lcd_8c_source.html#l00669">errorPageSelect()</a>, <a class="el" href="lcd_8c_source.html#l00363">initLCD()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00378">service_button_inputs()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00124">advancePage()</a>, <a class="el" href="lcd_8c_source.html#l00132">backPage()</a>, <a class="el" href="lcd_8c_source.html#l00112">LCD_init()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00298">service_button_inputs()</a>.</p>
 
 </div>
 </div>
@@ -2449,11 +2284,9 @@ Functions</h2></td></tr>
 
 <p>Updates current telemetry page by calling its handler if available. </p>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00531">531</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00218">218</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00016">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00133">PAGE_COUNT</a>, <a class="el" href="lcd_8c_source.html#l00091">page_handlers</a>, and <a class="el" href="lcd_8h_source.html#l00160">page_handler_t::telemetry</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00208">preflight_task()</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00015">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00139">NUM_PAGES</a>, <a class="el" href="lcd_8c_source.html#l00047">page_handlers</a>, and <a class="el" href="lcd_8h_source.html#l00147">page_handler_t::telemetry</a>.</p>
 
 </div>
 </div>

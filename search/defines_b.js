@@ -28,7 +28,7 @@ var searchData=
   ['max_5fnum_5fsid_5ffilter_25',['MAX_NUM_SID_FILTER',['../fdcan_8h.html#a3ca7e5783844cd3ae93e4b6595915888',1,'fdcan.h']]],
   ['max_5fnum_5fxid_5ffilter_26',['MAX_NUM_XID_FILTER',['../fdcan_8h.html#af13ca5d141e24966ae0906d5176202d2',1,'fdcan.h']]],
   ['max_5fpages_27',['MAX_PAGES',['../eeprom__spi_8h.html#a85f89e842475a0305bb474a98d61bdfe',1,'eeprom_spi.h']]],
-  ['max_5fpedal_5fmeas_28',['MAX_PEDAL_MEAS',['../pedals_8h.html#af991168f3f52d43942c079612918d9a2',1,'pedals.h']]],
+  ['max_5fpedal_5fmeas_28',['MAX_PEDAL_MEAS',['../pedals_8c.html#af991168f3f52d43942c079612918d9a2',1,'pedals.c']]],
   ['max_5ftasks_29',['MAX_TASKS',['../psched_8h.html#aac747bed84189f8cfa509b94d488e622',1,'psched.h']]],
   ['maxdirb_30',['MAXDIRB',['../ff_8c.html#a01c7bbfbe635cd0d0ab3e59a3f44dc64',1,'ff.c']]],
   ['mbr_5ftable_31',['MBR_Table',['../ff_8c.html#ac3f187bf0ba891551f594af6b61f3188',1,'ff.c']]],

@@ -1,20 +1,18 @@
 var pedals_8c =
 [
-    [ "normalize", "pedals_8c.html#aee3fb169d1ba3ac944a3f7377e210ec5", null ],
+    [ "MAX_PEDAL_MEAS", "pedals_8c.html#af991168f3f52d43942c079612918d9a2", null ],
+    [ "clamp", "pedals_8c.html#a456783f71435e236b868d080bc35c470", null ],
+    [ "normalize", "pedals_8c.html#a1302d463027af8c022506f6c9969613a", null ],
     [ "pedalsPeriodic", "pedals_8c.html#ad390f112c056607f9f37f0c1a2e5f3b6", null ],
-    [ "readPedalProfiles", "pedals_8c.html#a63f6f744fab6dd6d1990a2b6d9e7d605", null ],
-    [ "writePedalProfiles", "pedals_8c.html#a1eea9a39be719b2571393e14a3f6afe2", null ],
-    [ "b1_final", "pedals_8c.html#a09095700c0be66f96dd1856bad665d16", null ],
-    [ "b1_raw", "pedals_8c.html#a77467d2e811cf0213ebf2d3fb5257166", null ],
-    [ "b2_final", "pedals_8c.html#a241fb5ec9442a09493898b3fcb0d33cc", null ],
-    [ "b2_raw", "pedals_8c.html#ad683f81df42f3909cce5bfc4d05aad6f", null ],
-    [ "driver_pedal_profiles", "pedals_8c.html#a093431542ad374f17697265503211ec3", null ],
-    [ "pedal_calibration", "pedals_8c.html#a9c659da464966db7d2d9dea4f4c87edc", null ],
-    [ "pedal_faults", "pedals_8c.html#a889452ccedc892a1fd3d3348f65dbf07", null ],
+    [ "APPS_BRAKE_THRESHOLD", "pedals_8c.html#a59a5cb965667136dc98b8366978ea6eb", null ],
+    [ "APPS_THROTTLE_THRESHOLD", "pedals_8c.html#ab5e207fbb792838d2eda926b595ce89e", null ],
+    [ "BRAKE1_MAX", "pedals_8c.html#a8182fb64b059c1a510e2d938eb081a69", null ],
+    [ "BRAKE1_MIN", "pedals_8c.html#a98a3a4ce675601bacd4affa0de232839", null ],
+    [ "BRAKE2_MAX", "pedals_8c.html#a877b5fb487a73356fdc54b33995d0d8e", null ],
+    [ "BRAKE2_MIN", "pedals_8c.html#a2f74cc661b11f809e8ca9b34b68b7015", null ],
     [ "pedal_values", "pedals_8c.html#a04f66772314df6ee10ca7ccf555278cd", null ],
-    [ "t1_final", "pedals_8c.html#a43283820def84aa94c4a9cc33a896887", null ],
-    [ "t1_raw", "pedals_8c.html#abe0bce7da8625f8ab2b9e5330afefa27", null ],
-    [ "t2_final", "pedals_8c.html#a145580c4589853f3ac6cf581c9d37ccd", null ],
-    [ "t2_raw", "pedals_8c.html#a7e131f3d71c9ac74776bb1afba8ef449", null ],
-    [ "thtl_limit", "pedals_8c.html#a6306ee43db388ef3c268f39771601132", null ]
+    [ "THROTTLE1_MAX", "pedals_8c.html#a50b38032ee0ab56ca505bd670b45f2c9", null ],
+    [ "THROTTLE1_MIN", "pedals_8c.html#a7ecaa09d241f96c6b3442c7b0f6e9fde", null ],
+    [ "THROTTLE2_MAX", "pedals_8c.html#ada52037ac8ecf8e91741ae67861ef03e", null ],
+    [ "THROTTLE2_MIN", "pedals_8c.html#a93bc9856409b5361ca77db1b1f3a9a3a", null ]
 ];

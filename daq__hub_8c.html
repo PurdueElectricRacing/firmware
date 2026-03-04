@@ -129,14 +129,14 @@ Functions</h2></td></tr>
 <tr class="separator:a82ad69500645e8706da4ed502bf5ea44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e7ebd80a09f041e79a0ee91fbc8d5d0" id="r_a0e7ebd80a09f041e79a0ee91fbc8d5d0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e7ebd80a09f041e79a0ee91fbc8d5d0">can_send_periodic</a> (void)</td></tr>
 <tr class="separator:a0e7ebd80a09f041e79a0ee91fbc8d5d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8eca5d102e94e26e08d7b50f39c7e07c" id="r_a8eca5d102e94e26e08d7b50f39c7e07c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8eca5d102e94e26e08d7b50f39c7e07c">defineThreadStack</a> (<a class="el" href="#a82ad69500645e8706da4ed502bf5ea44">daq_heartbeat</a>, 500, osPriorityNormal, 512)</td></tr>
-<tr class="separator:a8eca5d102e94e26e08d7b50f39c7e07c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2494977f7e4435f9150635f0ac78f202" id="r_a2494977f7e4435f9150635f0ac78f202"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2494977f7e4435f9150635f0ac78f202">defineThreadStack</a> (<a class="el" href="daq__sd_8c.html#af86d040bc80cdb19b1b7cb0a9785d0b0">sd_update_periodic</a>, 100, osPriorityNormal, 4096)</td></tr>
-<tr class="separator:a2494977f7e4435f9150635f0ac78f202"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3df652534692c8cf7ad8328428627f2d" id="r_a3df652534692c8cf7ad8328428627f2d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3df652534692c8cf7ad8328428627f2d">defineThreadStack</a> (<a class="el" href="daq__eth_8c.html#af92254f174f970df107d7b79251da089">eth_update_periodic</a>, 50, osPriorityNormal, 4096)</td></tr>
-<tr class="separator:a3df652534692c8cf7ad8328428627f2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a04d7c86c8ccac1f5cc85bffd502edb" id="r_a1a04d7c86c8ccac1f5cc85bffd502edb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a04d7c86c8ccac1f5cc85bffd502edb">defineThreadStack</a> (<a class="el" href="#a0e7ebd80a09f041e79a0ee91fbc8d5d0">can_send_periodic</a>, 50, osPriorityNormal, 128)</td></tr>
-<tr class="separator:a1a04d7c86c8ccac1f5cc85bffd502edb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37c0075aabbda63528d4b9ee24752a9f" id="r_a37c0075aabbda63528d4b9ee24752a9f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37c0075aabbda63528d4b9ee24752a9f">DEFINE_TASK</a> (<a class="el" href="#a82ad69500645e8706da4ed502bf5ea44">daq_heartbeat</a>, 500, osPriorityNormal, 512)</td></tr>
+<tr class="separator:a37c0075aabbda63528d4b9ee24752a9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0a83f2bbe619516ee1148f4fe3ef690" id="r_aa0a83f2bbe619516ee1148f4fe3ef690"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa0a83f2bbe619516ee1148f4fe3ef690">DEFINE_TASK</a> (<a class="el" href="daq__sd_8c.html#af86d040bc80cdb19b1b7cb0a9785d0b0">sd_update_periodic</a>, 100, osPriorityNormal, 4096)</td></tr>
+<tr class="separator:aa0a83f2bbe619516ee1148f4fe3ef690"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b22a833aa62fe6448db16cc3fa6df4e" id="r_a5b22a833aa62fe6448db16cc3fa6df4e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b22a833aa62fe6448db16cc3fa6df4e">DEFINE_TASK</a> (<a class="el" href="daq__eth_8c.html#af92254f174f970df107d7b79251da089">eth_update_periodic</a>, 50, osPriorityNormal, 4096)</td></tr>
+<tr class="separator:a5b22a833aa62fe6448db16cc3fa6df4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6212c49264fb709eea7bd9f5953cc212" id="r_a6212c49264fb709eea7bd9f5953cc212"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6212c49264fb709eea7bd9f5953cc212">DEFINE_TASK</a> (<a class="el" href="#a0e7ebd80a09f041e79a0ee91fbc8d5d0">can_send_periodic</a>, 50, osPriorityNormal, 128)</td></tr>
+<tr class="separator:a6212c49264fb709eea7bd9f5953cc212"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9606e4421a2035fc667480082030e76e" id="r_a9606e4421a2035fc667480082030e76e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9606e4421a2035fc667480082030e76e">daq_hub_init</a> (void)</td></tr>
 <tr class="separator:a9606e4421a2035fc667480082030e76e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d5e1e79bc7ab3a69223c50ded0e96d6" id="r_a5d5e1e79bc7ab3a69223c50ded0e96d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d5e1e79bc7ab3a69223c50ded0e96d6">daq_create_threads</a> (void)</td></tr>
@@ -179,9 +179,9 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((1 &lt;&lt; ((1 &lt;&lt; 4) | (PIN))))</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="daq__hub_8c_source.html#l00090">90</a> of file <a class="el" href="daq__hub_8c_source.html">daq_hub.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq__hub_8c_source.html#l00089">89</a> of file <a class="el" href="daq__hub_8c_source.html">daq_hub.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq__hub_8c_source.html#l00092">daq_shutdown_hook()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="daq__hub_8c_source.html#l00091">daq_shutdown_hook()</a>.</p>
 
 </div>
 </div>
@@ -209,7 +209,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="daq__hub_8c_source.html#l00085">85</a> of file <a class="el" href="daq__hub_8c_source.html">daq_hub.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq__hub_8c_source.html#l00084">84</a> of file <a class="el" href="daq__hub_8c_source.html">daq_hub.c</a>.</p>
 
 <p class="reference">References <a class="el" href="can__common_8h.html#abfcff4ec444a1fa4366dd38c73519a51">CAN_rx_update()</a>, and <a class="el" href="daq__can_8h.html#a0a32f054a0f3baae0270d9845d2897e6">CAN_tx_update()</a>.</p>
 
@@ -234,7 +234,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="daq__hub_8c_source.html#l00069">69</a> of file <a class="el" href="daq__hub_8c_source.html">daq_hub.c</a>.</p>
 
-<p class="reference">References <a class="el" href="daq__hub_8c_source.html#l00085">can_send_periodic()</a>, <a class="el" href="freertos_8h_source.html#l00109">createThread</a>, <a class="el" href="daq__hub_8c_source.html#l00077">daq_heartbeat()</a>, <a class="el" href="daq__eth_8c_source.html#l00057">eth_update_periodic()</a>, and <a class="el" href="daq__sd_8c_source.html#l00135">sd_update_periodic()</a>.</p>
+<p class="reference">References <a class="el" href="daq__hub_8c_source.html#l00084">can_send_periodic()</a>, <a class="el" href="daq__hub_8c_source.html#l00076">daq_heartbeat()</a>, <a class="el" href="daq__eth_8c_source.html#l00057">eth_update_periodic()</a>, <a class="el" href="daq__sd_8c_source.html#l00135">sd_update_periodic()</a>, and <a class="el" href="freertos_8h_source.html#l00067">START_TASK</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00126">main()</a>.</p>
 
@@ -263,9 +263,9 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="daq__hub_8c_source.html#l00077">77</a> of file <a class="el" href="daq__hub_8c_source.html">daq_hub.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq__hub_8c_source.html#l00076">76</a> of file <a class="el" href="daq__hub_8c_source.html">daq_hub.c</a>.</p>
 
-<p class="reference">References <a class="el" href="daq__hub_8h_source.html#l00058">daq_hub_t::bcan_rx_overflow</a>, <a class="el" href="can__common_8h_source.html#l00115">CAN1_IDX</a>, <a class="el" href="daq__hub_8h_source.html#l00059">daq_hub_t::can1_rx_overflow</a>, <a class="el" href="can__common_8h_source.html#l00140">can_stats_t::can_peripheral_stats</a>, <a class="el" href="can__common_8c_source.html#l00017">can_stats</a>, <a class="el" href="daq__hub_8c_source.html#l00028">daq_hub</a>, <a class="el" href="a__box_2main_8h_source.html#l00017">HEARTBEAT_LED_PIN</a>, <a class="el" href="a__box_2main_8h_source.html#l00016">HEARTBEAT_LED_PORT</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00286">PHAL_toggleGPIO()</a>, <a class="el" href="can__common_8h_source.html#l00139">can_stats_t::rx_of</a>, <a class="el" href="can__common_8h_source.html#l00022">can_peripheral_stats_t::rx_overrun</a>, <a class="el" href="daq__hub_8h_source.html#l00060">daq_hub_t::sd_rx_overflow</a>, <a class="el" href="daq__hub_8h_source.html#l00061">daq_hub_t::tcp_tx_overflow</a>, <a class="el" href="can__common_8h_source.html#l00021">can_peripheral_stats_t::tx_fail</a>, and <a class="el" href="can__common_8h_source.html#l00020">can_peripheral_stats_t::tx_of</a>.</p>
+<p class="reference">References <a class="el" href="daq__hub_8h_source.html#l00058">daq_hub_t::bcan_rx_overflow</a>, <a class="el" href="can__common_8h_source.html#l00115">CAN1_IDX</a>, <a class="el" href="daq__hub_8h_source.html#l00059">daq_hub_t::can1_rx_overflow</a>, <a class="el" href="can__common_8h_source.html#l00140">can_stats_t::can_peripheral_stats</a>, <a class="el" href="can__common_8c_source.html#l00015">can_stats</a>, <a class="el" href="daq__hub_8c_source.html#l00028">daq_hub</a>, <a class="el" href="a__box_2main_8h_source.html#l00017">HEARTBEAT_LED_PIN</a>, <a class="el" href="a__box_2main_8h_source.html#l00016">HEARTBEAT_LED_PORT</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00286">PHAL_toggleGPIO()</a>, <a class="el" href="can__common_8h_source.html#l00139">can_stats_t::rx_of</a>, <a class="el" href="can__common_8h_source.html#l00022">can_peripheral_stats_t::rx_overrun</a>, <a class="el" href="daq__hub_8h_source.html#l00060">daq_hub_t::sd_rx_overflow</a>, <a class="el" href="daq__hub_8h_source.html#l00061">daq_hub_t::tcp_tx_overflow</a>, <a class="el" href="can__common_8h_source.html#l00021">can_peripheral_stats_t::tx_fail</a>, and <a class="el" href="can__common_8h_source.html#l00020">can_peripheral_stats_t::tx_of</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="daq__hub_8c_source.html#l00069">daq_create_threads()</a>.</p>
 
@@ -309,22 +309,22 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="daq__hub_8c_source.html#l00092">92</a> of file <a class="el" href="daq__hub_8c_source.html">daq_hub.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq__hub_8c_source.html#l00091">91</a> of file <a class="el" href="daq__hub_8c_source.html">daq_hub.c</a>.</p>
 
-<p class="reference">References <a class="el" href="a__box_2main_8h_source.html#l00021">CONNECTION_LED_PIN</a>, <a class="el" href="a__box_2main_8h_source.html#l00019">ERROR_LED_PIN</a>, <a class="el" href="daq_2main_8h_source.html#l00037">ETH_RST_PIN</a>, <a class="el" href="daq_2main_8h_source.html#l00036">ETH_RST_PORT</a>, <a class="el" href="daq__hub_8c_source.html#l00090">GPIO_CLEAR_BIT</a>, <a class="el" href="a__box_2main_8h_source.html#l00017">HEARTBEAT_LED_PIN</a>, <a class="el" href="phal__F4__F7_2can_2can_8c_source.html#l00124">PHAL_deinitCAN()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, <a class="el" href="daq_2main_8h_source.html#l00019">SD_ACTIVITY_LED_PIN</a>, <a class="el" href="daq_2main_8h_source.html#l00023">SD_DETECT_LED_PIN</a>, <a class="el" href="daq_2main_8h_source.html#l00022">SD_DETECT_LED_PORT</a>, <a class="el" href="daq_2main_8h_source.html#l00021">SD_ERROR_LED_PIN</a>, and <a class="el" href="daq__sd_8c_source.html#l00116">sd_shutdown()</a>.</p>
+<p class="reference">References <a class="el" href="a__box_2main_8h_source.html#l00021">CONNECTION_LED_PIN</a>, <a class="el" href="a__box_2main_8h_source.html#l00019">ERROR_LED_PIN</a>, <a class="el" href="daq_2main_8h_source.html#l00037">ETH_RST_PIN</a>, <a class="el" href="daq_2main_8h_source.html#l00036">ETH_RST_PORT</a>, <a class="el" href="daq__hub_8c_source.html#l00089">GPIO_CLEAR_BIT</a>, <a class="el" href="a__box_2main_8h_source.html#l00017">HEARTBEAT_LED_PIN</a>, <a class="el" href="phal__F4__F7_2can_2can_8c_source.html#l00124">PHAL_deinitCAN()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, <a class="el" href="daq_2main_8h_source.html#l00019">SD_ACTIVITY_LED_PIN</a>, <a class="el" href="daq_2main_8h_source.html#l00023">SD_DETECT_LED_PIN</a>, <a class="el" href="daq_2main_8h_source.html#l00022">SD_DETECT_LED_PORT</a>, <a class="el" href="daq_2main_8h_source.html#l00021">SD_ERROR_LED_PIN</a>, and <a class="el" href="daq__sd_8c_source.html#l00116">sd_shutdown()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00329">shutdown()</a>.</p>
 
 </div>
 </div>
-<a id="a1a04d7c86c8ccac1f5cc85bffd502edb" name="a1a04d7c86c8ccac1f5cc85bffd502edb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a04d7c86c8ccac1f5cc85bffd502edb">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[1/4]</span></h2>
+<a id="a6212c49264fb709eea7bd9f5953cc212" name="a6212c49264fb709eea7bd9f5953cc212"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6212c49264fb709eea7bd9f5953cc212">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">defineThreadStack </td>
+          <td class="memname">DEFINE_TASK </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="#a0e7ebd80a09f041e79a0ee91fbc8d5d0">can_send_periodic</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
@@ -348,14 +348,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a8eca5d102e94e26e08d7b50f39c7e07c" name="a8eca5d102e94e26e08d7b50f39c7e07c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8eca5d102e94e26e08d7b50f39c7e07c">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[2/4]</span></h2>
+<a id="a37c0075aabbda63528d4b9ee24752a9f" name="a37c0075aabbda63528d4b9ee24752a9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37c0075aabbda63528d4b9ee24752a9f">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">defineThreadStack </td>
+          <td class="memname">DEFINE_TASK </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="#a82ad69500645e8706da4ed502bf5ea44">daq_heartbeat</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
@@ -379,14 +379,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a3df652534692c8cf7ad8328428627f2d" name="a3df652534692c8cf7ad8328428627f2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3df652534692c8cf7ad8328428627f2d">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[3/4]</span></h2>
+<a id="a5b22a833aa62fe6448db16cc3fa6df4e" name="a5b22a833aa62fe6448db16cc3fa6df4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b22a833aa62fe6448db16cc3fa6df4e">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">defineThreadStack </td>
+          <td class="memname">DEFINE_TASK </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="daq__eth_8c.html#af92254f174f970df107d7b79251da089">eth_update_periodic</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
@@ -410,14 +410,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a2494977f7e4435f9150635f0ac78f202" name="a2494977f7e4435f9150635f0ac78f202"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2494977f7e4435f9150635f0ac78f202">&#9670;&#160;</a></span>defineThreadStack() <span class="overload">[4/4]</span></h2>
+<a id="aa0a83f2bbe619516ee1148f4fe3ef690" name="aa0a83f2bbe619516ee1148f4fe3ef690"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0a83f2bbe619516ee1148f4fe3ef690">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">defineThreadStack </td>
+          <td class="memname">DEFINE_TASK </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="daq__sd_8c.html#af86d040bc80cdb19b1b7cb0a9785d0b0">sd_update_periodic</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
@@ -456,7 +456,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="daq__hub_8c_source.html#l00028">28</a> of file <a class="el" href="daq__hub_8c_source.html">daq_hub.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq__eth_8c_source.html#l00103">_eth_handle_error()</a>, <a class="el" href="daq__sd_8c_source.html#l00078">_sd_write_periodic()</a>, <a class="el" href="diskio_8c_source.html#l00179">_sdio_disk_write()</a>, <a class="el" href="daq_2main_8c_source.html#l00185">can_rx_irq_handler()</a>, <a class="el" href="daq__hub_8c_source.html#l00077">daq_heartbeat()</a>, <a class="el" href="daq__hub_8c_source.html#l00039">daq_hub_init()</a>, <a class="el" href="daq__sd_8c_source.html#l00017">daq_request_sd_mount()</a>, <a class="el" href="sdio_8c_source.html#l01503">DMA2_Stream6_IRQHandler()</a>, <a class="el" href="daq__eth_8c_source.html#l00112">eth_reset_error()</a>, <a class="el" href="daq__eth_8c_source.html#l00190">eth_udp_send_periodic()</a>, <a class="el" href="daq__eth_8c_source.html#l00057">eth_update_periodic()</a>, <a class="el" href="daq__rtc__config_8c_source.html#l00010">rtc_config_cb()</a>, <a class="el" href="daq__sd_8c_source.html#l00045">sd_create_new_file()</a>, <a class="el" href="daq__sd_8c_source.html#l00071">sd_file_sync()</a>, <a class="el" href="daq__sd_8c_source.html#l00021">sd_handle_error()</a>, <a class="el" href="daq__sd_8c_source.html#l00030">sd_reset_error()</a>, <a class="el" href="daq__sd_8c_source.html#l00116">sd_shutdown()</a>, and <a class="el" href="daq__sd_8c_source.html#l00135">sd_update_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="daq__eth_8c_source.html#l00103">_eth_handle_error()</a>, <a class="el" href="daq__sd_8c_source.html#l00078">_sd_write_periodic()</a>, <a class="el" href="diskio_8c_source.html#l00179">_sdio_disk_write()</a>, <a class="el" href="daq_2main_8c_source.html#l00185">can_rx_irq_handler()</a>, <a class="el" href="daq__hub_8c_source.html#l00076">daq_heartbeat()</a>, <a class="el" href="daq__hub_8c_source.html#l00039">daq_hub_init()</a>, <a class="el" href="daq__sd_8c_source.html#l00017">daq_request_sd_mount()</a>, <a class="el" href="sdio_8c_source.html#l01503">DMA2_Stream6_IRQHandler()</a>, <a class="el" href="daq__eth_8c_source.html#l00112">eth_reset_error()</a>, <a class="el" href="daq__eth_8c_source.html#l00190">eth_udp_send_periodic()</a>, <a class="el" href="daq__eth_8c_source.html#l00057">eth_update_periodic()</a>, <a class="el" href="daq__rtc__config_8c_source.html#l00010">rtc_config_cb()</a>, <a class="el" href="daq__sd_8c_source.html#l00045">sd_create_new_file()</a>, <a class="el" href="daq__sd_8c_source.html#l00071">sd_file_sync()</a>, <a class="el" href="daq__sd_8c_source.html#l00021">sd_handle_error()</a>, <a class="el" href="daq__sd_8c_source.html#l00030">sd_reset_error()</a>, <a class="el" href="daq__sd_8c_source.html#l00116">sd_shutdown()</a>, and <a class="el" href="daq__sd_8c_source.html#l00135">sd_update_periodic()</a>.</p>
 
 </div>
 </div>

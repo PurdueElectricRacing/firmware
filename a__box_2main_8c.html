@@ -123,8 +123,8 @@ Functions</h2></td></tr>
 <tr class="separator:a2bffc10d5bd4106753b7c30e86903bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13697f2dcf99b104d3f717d35e13d28a" id="r_a13697f2dcf99b104d3f717d35e13d28a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13697f2dcf99b104d3f717d35e13d28a">g_bms_periodic</a> (void)</td></tr>
 <tr class="separator:a13697f2dcf99b104d3f717d35e13d28a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34024bcc7b8a1a60133fbf9a2ce6d07f" id="r_a34024bcc7b8a1a60133fbf9a2ce6d07f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34024bcc7b8a1a60133fbf9a2ce6d07f">defineThreadStack</a> (<a class="el" href="#a13697f2dcf99b104d3f717d35e13d28a">g_bms_periodic</a>, 200, osPriorityHigh, 2048)</td></tr>
-<tr class="separator:a34024bcc7b8a1a60133fbf9a2ce6d07f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18dfc13d160a3dbbcb64d8ff07671eeb" id="r_a18dfc13d160a3dbbcb64d8ff07671eeb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a18dfc13d160a3dbbcb64d8ff07671eeb">DEFINE_TASK</a> (<a class="el" href="#a13697f2dcf99b104d3f717d35e13d28a">g_bms_periodic</a>, 200, osPriorityHigh, 2048)</td></tr>
+<tr class="separator:a18dfc13d160a3dbbcb64d8ff07671eeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -161,14 +161,14 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a34024bcc7b8a1a60133fbf9a2ce6d07f" name="a34024bcc7b8a1a60133fbf9a2ce6d07f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34024bcc7b8a1a60133fbf9a2ce6d07f">&#9670;&#160;</a></span>defineThreadStack()</h2>
+<a id="a18dfc13d160a3dbbcb64d8ff07671eeb" name="a18dfc13d160a3dbbcb64d8ff07671eeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18dfc13d160a3dbbcb64d8ff07671eeb">&#9670;&#160;</a></span>DEFINE_TASK()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">defineThreadStack </td>
+          <td class="memname">DEFINE_TASK </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="#a13697f2dcf99b104d3f717d35e13d28a">g_bms_periodic</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
@@ -263,7 +263,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00083">83</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">References <a class="el" href="adbms6380_8c_source.html#l00025">adbms6380_set_cs_high()</a>, <a class="el" href="adbms_8c_source.html#l00021">adbms_init()</a>, <a class="el" href="a__box_2main_8c_source.html#l00022">bms_spi_config</a>, <a class="el" href="a__box_2main_8c_source.html#l00057">clock_config</a>, <a class="el" href="freertos_8h_source.html#l00109">createThread</a>, <a class="el" href="a__box_2main_8c_source.html#l00072">g_bms</a>, <a class="el" href="a__box_2main_8c_source.html#l00122">g_bms_periodic()</a>, <a class="el" href="a__box_2main_8c_source.html#l00073">g_bms_tx_buf</a>, <a class="el" href="a__box_2main_8c_source.html#l00036">gpio_config</a>, <a class="el" href="a__box_2main_8c_source.html#l00129">HardFault_Handler()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>, <a class="el" href="common_2phal__G4_2fdcan_2fdcan_8c_source.html#l00146">PHAL_FDCAN_init()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8c_source.html#l00003">PHAL_initGPIO()</a>, and <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00022">PHAL_SPI_init()</a>.</p>
+<p class="reference">References <a class="el" href="adbms6380_8c_source.html#l00025">adbms6380_set_cs_high()</a>, <a class="el" href="adbms_8c_source.html#l00021">adbms_init()</a>, <a class="el" href="a__box_2main_8c_source.html#l00022">bms_spi_config</a>, <a class="el" href="a__box_2main_8c_source.html#l00057">clock_config</a>, <a class="el" href="a__box_2main_8c_source.html#l00072">g_bms</a>, <a class="el" href="a__box_2main_8c_source.html#l00122">g_bms_periodic()</a>, <a class="el" href="a__box_2main_8c_source.html#l00073">g_bms_tx_buf</a>, <a class="el" href="a__box_2main_8c_source.html#l00036">gpio_config</a>, <a class="el" href="a__box_2main_8c_source.html#l00129">HardFault_Handler()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>, <a class="el" href="common_2phal__G4_2fdcan_2fdcan_8c_source.html#l00146">PHAL_FDCAN_init()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8c_source.html#l00003">PHAL_initGPIO()</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00022">PHAL_SPI_init()</a>, and <a class="el" href="freertos_8h_source.html#l00067">START_TASK</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="auto__switch_8c_source.html#l00200">checkSwitchFaults()</a>.</p>
 
@@ -342,7 +342,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00016">16</a> of file <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html">rcc.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00126">main()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00160">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00126">main()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00157">main()</a>.</p>
 
 </div>
 </div>

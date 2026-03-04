@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['normalize_0',['normalize',['../pedals_8c.html#aee3fb169d1ba3ac944a3f7377e210ec5',1,'pedals.c']]],
+  ['normalize_0',['normalize',['../pedals_8c.html#a1302d463027af8c022506f6c9969613a',1,'pedals.c']]],
   ['nxt_5fsetbackground_1',['NXT_setBackground',['../nextion_8c.html#a19c3df8972af2eaea366cb65fad34d43',1,'NXT_setBackground(char *obj_name, uint16_t val):&#160;nextion.c'],['../nextion_8h.html#a19c3df8972af2eaea366cb65fad34d43',1,'NXT_setBackground(char *obj_name, uint16_t val):&#160;nextion.c']]],
   ['nxt_5fsetbaud_2',['NXT_setBaud',['../nextion_8c.html#ae7d537c10e1e85e6537850a02a315fd7',1,'NXT_setBaud(uint32_t baud):&#160;nextion.c'],['../nextion_8h.html#ae7d537c10e1e85e6537850a02a315fd7',1,'NXT_setBaud(uint32_t baud):&#160;nextion.c']]],
   ['nxt_5fsetborderwidth_3',['NXT_setBorderWidth',['../nextion_8c.html#ae995d182561a5fa3087569539bb551d2',1,'NXT_setBorderWidth(char *obj_name, uint16_t val):&#160;nextion.c'],['../nextion_8h.html#ae995d182561a5fa3087569539bb551d2',1,'NXT_setBorderWidth(char *obj_name, uint16_t val):&#160;nextion.c']]],

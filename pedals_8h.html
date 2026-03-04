@@ -98,222 +98,31 @@ $(function(){initNavTree('pedals_8h.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
-<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">pedals.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>Read, check, and send pedal measurements.  
-<a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="common__defs_8h_source.html">common/common_defs/common_defs.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="faults__common_8h_source.html">common/can_library/faults_common.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="psched_8h_source.html">common/psched/psched.h</a>&quot;</code><br />
-<code>#include &lt;stdint.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 </div>
 <p><a href="pedals_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpedal__faults__t.html">pedal_faults_t</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpedal__calibration__t.html">pedal_calibration_t</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpedal__values__t.html">pedal_values_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdriver__pedal__profile__t.html">driver_pedal_profile_t</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:af991168f3f52d43942c079612918d9a2" id="r_af991168f3f52d43942c079612918d9a2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af991168f3f52d43942c079612918d9a2">MAX_PEDAL_MEAS</a>&#160;&#160;&#160;(4095)</td></tr>
-<tr class="separator:af991168f3f52d43942c079612918d9a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac24c1832ac749516869c7a736c4e67e8" id="r_ac24c1832ac749516869c7a736c4e67e8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac24c1832ac749516869c7a736c4e67e8">APPS_BRAKE_THRESHOLD</a>&#160;&#160;&#160;(307)</td></tr>
-<tr class="separator:ac24c1832ac749516869c7a736c4e67e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab15374f40e9b29329c1bf9136f9bdf8f" id="r_ab15374f40e9b29329c1bf9136f9bdf8f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab15374f40e9b29329c1bf9136f9bdf8f">APPS_THROTTLE_FAULT_THRESHOLD</a>&#160;&#160;&#160;(614)</td></tr>
-<tr class="separator:ab15374f40e9b29329c1bf9136f9bdf8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a4ecf733429482aea0367148f006193" id="r_a6a4ecf733429482aea0367148f006193"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a4ecf733429482aea0367148f006193">APPS_THROTTLE_CLEARFAULT_THRESHOLD</a>&#160;&#160;&#160;(205)</td></tr>
-<tr class="separator:a6a4ecf733429482aea0367148f006193"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a9f61db27486aeaf10acc7da3362c91" id="r_a6a9f61db27486aeaf10acc7da3362c91"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a9f61db27486aeaf10acc7da3362c91">PROFILES_START_SECTOR</a>&#160;&#160;&#160;(3)</td></tr>
-<tr class="separator:a6a9f61db27486aeaf10acc7da3362c91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0931aa15c0fb3e1bf5c48fe47fe09511" id="r_a0931aa15c0fb3e1bf5c48fe47fe09511"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0931aa15c0fb3e1bf5c48fe47fe09511">NUM_PROFILES</a>&#160;&#160;&#160;(4)</td></tr>
-<tr class="separator:a0931aa15c0fb3e1bf5c48fe47fe09511"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa199cfbfd5005f975a7eb6911a2a6d15" id="r_aa199cfbfd5005f975a7eb6911a2a6d15"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa199cfbfd5005f975a7eb6911a2a6d15">PROFILE_WRITE_SUCCESS</a>&#160;&#160;&#160;(0)</td></tr>
-<tr class="separator:aa199cfbfd5005f975a7eb6911a2a6d15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8abcedf52ad1a39750a91b5ad4e1c8ff" id="r_a8abcedf52ad1a39750a91b5ad4e1c8ff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8abcedf52ad1a39750a91b5ad4e1c8ff">PROFILE_WRITE_FAIL</a>&#160;&#160;&#160;(-1)</td></tr>
-<tr class="separator:a8abcedf52ad1a39750a91b5ad4e1c8ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad390f112c056607f9f37f0c1a2e5f3b6" id="r_ad390f112c056607f9f37f0c1a2e5f3b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad390f112c056607f9f37f0c1a2e5f3b6">pedalsPeriodic</a> (void)</td></tr>
 <tr class="memdesc:ad390f112c056607f9f37f0c1a2e5f3b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes pedal sensor readings and sets faults as necessary.  <br /></td></tr>
 <tr class="separator:ad390f112c056607f9f37f0c1a2e5f3b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4e777fe95feb16ed038b7d1e801b214" id="r_ad4e777fe95feb16ed038b7d1e801b214"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4e777fe95feb16ed038b7d1e801b214">writePedalProfiles</a> (void)</td></tr>
-<tr class="separator:ad4e777fe95feb16ed038b7d1e801b214"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76246fc9b6f51937bd43cb4a60a8a5b2" id="r_a76246fc9b6f51937bd43cb4a60a8a5b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a76246fc9b6f51937bd43cb4a60a8a5b2">readPedalProfiles</a> (void)</td></tr>
-<tr class="separator:a76246fc9b6f51937bd43cb4a60a8a5b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a889452ccedc892a1fd3d3348f65dbf07" id="r_a889452ccedc892a1fd3d3348f65dbf07"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpedal__faults__t.html">pedal_faults_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a889452ccedc892a1fd3d3348f65dbf07">pedal_faults</a></td></tr>
-<tr class="separator:a889452ccedc892a1fd3d3348f65dbf07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c659da464966db7d2d9dea4f4c87edc" id="r_a9c659da464966db7d2d9dea4f4c87edc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpedal__calibration__t.html">pedal_calibration_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c659da464966db7d2d9dea4f4c87edc">pedal_calibration</a></td></tr>
-<tr class="separator:a9c659da464966db7d2d9dea4f4c87edc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04f66772314df6ee10ca7ccf555278cd" id="r_a04f66772314df6ee10ca7ccf555278cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpedal__values__t.html">pedal_values_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04f66772314df6ee10ca7ccf555278cd">pedal_values</a></td></tr>
 <tr class="separator:a04f66772314df6ee10ca7ccf555278cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6306ee43db388ef3c268f39771601132" id="r_a6306ee43db388ef3c268f39771601132"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6306ee43db388ef3c268f39771601132">thtl_limit</a></td></tr>
-<tr class="separator:a6306ee43db388ef3c268f39771601132"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a093431542ad374f17697265503211ec3" id="r_a093431542ad374f17697265503211ec3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdriver__pedal__profile__t.html">driver_pedal_profile_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a093431542ad374f17697265503211ec3">driver_pedal_profiles</a> [4]</td></tr>
-<tr class="separator:a093431542ad374f17697265503211ec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Read, check, and send pedal measurements. </p>
-<dl class="section author"><dt>Author</dt><dd>Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu'+'rdu'+'e.'+'edu'; return false;">lcoxl<span class="obfuscator">.nosp@m.</span>ey@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2022-03-09</dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2022 </dd></dl>
-
-<p class="definition">Definition in file <a class="el" href="pedals_8h_source.html">pedals.h</a>.</p>
-</div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="ac24c1832ac749516869c7a736c4e67e8" name="ac24c1832ac749516869c7a736c4e67e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac24c1832ac749516869c7a736c4e67e8">&#9670;&#160;</a></span>APPS_BRAKE_THRESHOLD</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define APPS_BRAKE_THRESHOLD&#160;&#160;&#160;(307)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8h_source.html#l00025">25</a> of file <a class="el" href="pedals_8h_source.html">pedals.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pedals_8c_source.html#l00070">pedalsPeriodic()</a>.</p>
-
-</div>
-</div>
-<a id="a6a4ecf733429482aea0367148f006193" name="a6a4ecf733429482aea0367148f006193"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a4ecf733429482aea0367148f006193">&#9670;&#160;</a></span>APPS_THROTTLE_CLEARFAULT_THRESHOLD</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define APPS_THROTTLE_CLEARFAULT_THRESHOLD&#160;&#160;&#160;(205)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8h_source.html#l00027">27</a> of file <a class="el" href="pedals_8h_source.html">pedals.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pedals_8c_source.html#l00070">pedalsPeriodic()</a>.</p>
-
-</div>
-</div>
-<a id="ab15374f40e9b29329c1bf9136f9bdf8f" name="ab15374f40e9b29329c1bf9136f9bdf8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab15374f40e9b29329c1bf9136f9bdf8f">&#9670;&#160;</a></span>APPS_THROTTLE_FAULT_THRESHOLD</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define APPS_THROTTLE_FAULT_THRESHOLD&#160;&#160;&#160;(614)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8h_source.html#l00026">26</a> of file <a class="el" href="pedals_8h_source.html">pedals.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pedals_8c_source.html#l00070">pedalsPeriodic()</a>.</p>
-
-</div>
-</div>
-<a id="af991168f3f52d43942c079612918d9a2" name="af991168f3f52d43942c079612918d9a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af991168f3f52d43942c079612918d9a2">&#9670;&#160;</a></span>MAX_PEDAL_MEAS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MAX_PEDAL_MEAS&#160;&#160;&#160;(4095)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8h_source.html#l00023">23</a> of file <a class="el" href="pedals_8h_source.html">pedals.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pedals_8c_source.html#l00060">normalize()</a>.</p>
-
-</div>
-</div>
-<a id="a0931aa15c0fb3e1bf5c48fe47fe09511" name="a0931aa15c0fb3e1bf5c48fe47fe09511"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0931aa15c0fb3e1bf5c48fe47fe09511">&#9670;&#160;</a></span>NUM_PROFILES</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define NUM_PROFILES&#160;&#160;&#160;(4)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8h_source.html#l00030">30</a> of file <a class="el" href="pedals_8h_source.html">pedals.h</a>.</p>
-
-</div>
-</div>
-<a id="a8abcedf52ad1a39750a91b5ad4e1c8ff" name="a8abcedf52ad1a39750a91b5ad4e1c8ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8abcedf52ad1a39750a91b5ad4e1c8ff">&#9670;&#160;</a></span>PROFILE_WRITE_FAIL</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PROFILE_WRITE_FAIL&#160;&#160;&#160;(-1)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8h_source.html#l00032">32</a> of file <a class="el" href="pedals_8h_source.html">pedals.h</a>.</p>
-
-</div>
-</div>
-<a id="aa199cfbfd5005f975a7eb6911a2a6d15" name="aa199cfbfd5005f975a7eb6911a2a6d15"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa199cfbfd5005f975a7eb6911a2a6d15">&#9670;&#160;</a></span>PROFILE_WRITE_SUCCESS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PROFILE_WRITE_SUCCESS&#160;&#160;&#160;(0)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8h_source.html#l00031">31</a> of file <a class="el" href="pedals_8h_source.html">pedals.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00760">pedalProfilesSaveButton_CALLBACK()</a>, and <a class="el" href="pedals_8c_source.html#l00119">writePedalProfiles()</a>.</p>
-
-</div>
-</div>
-<a id="a6a9f61db27486aeaf10acc7da3362c91" name="a6a9f61db27486aeaf10acc7da3362c91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a9f61db27486aeaf10acc7da3362c91">&#9670;&#160;</a></span>PROFILES_START_SECTOR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PROFILES_START_SECTOR&#160;&#160;&#160;(3)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8h_source.html#l00029">29</a> of file <a class="el" href="pedals_8h_source.html">pedals.h</a>.</p>
-
-</div>
-</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ad390f112c056607f9f37f0c1a2e5f3b6" name="ad390f112c056607f9f37f0c1a2e5f3b6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad390f112c056607f9f37f0c1a2e5f3b6">&#9670;&#160;</a></span>pedalsPeriodic()</h2>
@@ -333,133 +142,15 @@ Variables</h2></td></tr>
 <p>Processes pedal sensor readings and sets faults as necessary. </p>
 <dl class="section note"><dt>Note</dt><dd>This function is called periodically by the scheduler </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00070">70</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00063">63</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
 
-<p class="reference">References <a class="el" href="common__defs_8h_source.html#l00044">ABS</a>, <a class="el" href="pedals_8h_source.html#l00025">APPS_BRAKE_THRESHOLD</a>, <a class="el" href="pedals_8h_source.html#l00027">APPS_THROTTLE_CLEARFAULT_THRESHOLD</a>, <a class="el" href="pedals_8h_source.html#l00026">APPS_THROTTLE_FAULT_THRESHOLD</a>, <a class="el" href="dashboard_2main_8h_source.html#l00027">raw_adc_values_t::b1</a>, <a class="el" href="pedals_8c_source.html#l00021">b1_final</a>, <a class="el" href="pedals_8h_source.html#l00051">pedal_calibration_t::b1_max</a>, <a class="el" href="pedals_8h_source.html#l00050">pedal_calibration_t::b1_min</a>, <a class="el" href="pedals_8c_source.html#l00017">b1_raw</a>, <a class="el" href="dashboard_2main_8h_source.html#l00028">raw_adc_values_t::b2</a>, <a class="el" href="pedals_8c_source.html#l00022">b2_final</a>, <a class="el" href="pedals_8h_source.html#l00053">pedal_calibration_t::b2_max</a>, <a class="el" href="pedals_8h_source.html#l00052">pedal_calibration_t::b2_min</a>, <a class="el" href="pedals_8c_source.html#l00018">b2_raw</a>, <a class="el" href="pedals_8h_source.html#l00058">pedal_values_t::brake</a>, <a class="el" href="common__defs_8h_source.html#l00036">CLAMP</a>, <a class="el" href="faults__common_8h.html#a686858e89e455a414a1e7c87c5e35be5">is_latched()</a>, <a class="el" href="pedals_8c_source.html#l00060">normalize()</a>, <a class="el" href="pedals_8c_source.html#l00026">pedal_calibration</a>, <a class="el" href="pedals_8c_source.html#l00039">pedal_values</a>, <a class="el" href="dashboard_2main_8c_source.html#l00064">raw_adc_values</a>, <a class="el" href="dashboard_2main_8h_source.html#l00025">raw_adc_values_t::t1</a>, <a class="el" href="pedals_8c_source.html#l00019">t1_final</a>, <a class="el" href="pedals_8h_source.html#l00047">pedal_calibration_t::t1_max</a>, <a class="el" href="pedals_8h_source.html#l00046">pedal_calibration_t::t1_min</a>, <a class="el" href="pedals_8c_source.html#l00015">t1_raw</a>, <a class="el" href="dashboard_2main_8h_source.html#l00026">raw_adc_values_t::t2</a>, <a class="el" href="pedals_8c_source.html#l00020">t2_final</a>, <a class="el" href="pedals_8h_source.html#l00049">pedal_calibration_t::t2_max</a>, <a class="el" href="pedals_8h_source.html#l00048">pedal_calibration_t::t2_min</a>, <a class="el" href="pedals_8c_source.html#l00016">t2_raw</a>, <a class="el" href="pedals_8h_source.html#l00057">pedal_values_t::throttle</a>, and <a class="el" href="faults__common_8h.html#a30c665a5b3c4674a4854fcd2210406a0">update_fault()</a>.</p>
+<p class="reference">References <a class="el" href="pedals_8c_source.html#l00027">APPS_BRAKE_THRESHOLD</a>, <a class="el" href="pedals_8c_source.html#l00026">APPS_THROTTLE_THRESHOLD</a>, <a class="el" href="dashboard_2main_8h_source.html#l00023">raw_adc_values_t::b1</a>, <a class="el" href="dashboard_2main_8h_source.html#l00024">raw_adc_values_t::b2</a>, <a class="el" href="pedals_8c_source.html#l00022">BRAKE1_MAX</a>, <a class="el" href="pedals_8c_source.html#l00021">BRAKE1_MIN</a>, <a class="el" href="pedals_8c_source.html#l00024">BRAKE2_MAX</a>, <a class="el" href="pedals_8c_source.html#l00023">BRAKE2_MIN</a>, <a class="el" href="pedals_8c_source.html#l00052">clamp()</a>, <a class="el" href="faults__common_8h.html#a686858e89e455a414a1e7c87c5e35be5">is_latched()</a>, <a class="el" href="pedals_8c_source.html#l00044">normalize()</a>, <a class="el" href="dashboard_2main_8c_source.html#l00066">raw_adc_values</a>, <a class="el" href="dashboard_2main_8h_source.html#l00021">raw_adc_values_t::t1</a>, <a class="el" href="dashboard_2main_8h_source.html#l00022">raw_adc_values_t::t2</a>, <a class="el" href="pedals_8c_source.html#l00018">THROTTLE1_MAX</a>, <a class="el" href="pedals_8c_source.html#l00017">THROTTLE1_MIN</a>, <a class="el" href="pedals_8c_source.html#l00020">THROTTLE2_MAX</a>, <a class="el" href="pedals_8c_source.html#l00019">THROTTLE2_MIN</a>, and <a class="el" href="faults__common_8h.html#a30c665a5b3c4674a4854fcd2210406a0">update_fault()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00208">preflight_task()</a>.</p>
-
-</div>
-</div>
-<a id="a76246fc9b6f51937bd43cb4a60a8a5b2" name="a76246fc9b6f51937bd43cb4a60a8a5b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76246fc9b6f51937bd43cb4a60a8a5b2">&#9670;&#160;</a></span>readPedalProfiles()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void readPedalProfiles </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00138">138</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00363">initLCD()</a>.</p>
-
-</div>
-</div>
-<a id="ad4e777fe95feb16ed038b7d1e801b214" name="ad4e777fe95feb16ed038b7d1e801b214"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4e777fe95feb16ed038b7d1e801b214">&#9670;&#160;</a></span>writePedalProfiles()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int writePedalProfiles </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00119">119</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-<p class="reference">References <a class="el" href="pedals_8h_source.html#l00031">PROFILE_WRITE_SUCCESS</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00760">pedalProfilesSaveButton_CALLBACK()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00157">main()</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a093431542ad374f17697265503211ec3" name="a093431542ad374f17697265503211ec3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a093431542ad374f17697265503211ec3">&#9670;&#160;</a></span>driver_pedal_profiles</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structdriver__pedal__profile__t.html">driver_pedal_profile_t</a> driver_pedal_profiles[4]</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00045">45</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-</div>
-</div>
-<a id="a9c659da464966db7d2d9dea4f4c87edc" name="a9c659da464966db7d2d9dea4f4c87edc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c659da464966db7d2d9dea4f4c87edc">&#9670;&#160;</a></span>pedal_calibration</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structpedal__calibration__t.html">pedal_calibration_t</a> pedal_calibration</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00026">26</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pedals_8c_source.html#l00070">pedalsPeriodic()</a>.</p>
-
-</div>
-</div>
-<a id="a889452ccedc892a1fd3d3348f65dbf07" name="a889452ccedc892a1fd3d3348f65dbf07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a889452ccedc892a1fd3d3348f65dbf07">&#9670;&#160;</a></span>pedal_faults</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structpedal__faults__t.html">pedal_faults_t</a> pedal_faults</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00010">10</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-</div>
-</div>
 <a id="a04f66772314df6ee10ca7ccf555278cd" name="a04f66772314df6ee10ca7ccf555278cd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a04f66772314df6ee10ca7ccf555278cd">&#9670;&#160;</a></span>pedal_values</h2>
 
@@ -480,33 +171,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00039">39</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pedals_8c_source.html#l00070">pedalsPeriodic()</a>.</p>
-
-</div>
-</div>
-<a id="a6306ee43db388ef3c268f39771601132" name="a6306ee43db388ef3c268f39771601132"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6306ee43db388ef3c268f39771601132">&#9670;&#160;</a></span>thtl_limit</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t thtl_limit</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00012">12</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00032">32</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
 
 </div>
 </div>

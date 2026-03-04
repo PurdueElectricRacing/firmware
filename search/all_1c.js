@@ -90,11 +90,10 @@ var searchData=
   ['write_5fvar_5fa_87',['write_var_a',['../structdaq__variable__t.html#a77e6e6f98782241c59c24f9569096d14',1,'daq_variable_t']]],
   ['writeblockpapartial_88',['WriteBlockPaPartial',['../structSD__CSD.html#a27824f576bf5d6a01dd7602aae8dad96',1,'SD_CSD']]],
   ['writepage_89',['writePage',['../eeprom__spi_8c.html#aa639fbdf7be238a64da85c18f16c5528',1,'writePage(uint16_t addr, uint8_t *page, uint8_t size):&#160;eeprom_spi.c'],['../eeprom__spi_8h.html#aa639fbdf7be238a64da85c18f16c5528',1,'writePage(uint16_t addr, uint8_t *page, uint8_t size):&#160;eeprom_spi.c']]],
-  ['writepedalprofiles_90',['writePedalProfiles',['../pedals_8c.html#a1eea9a39be719b2571393e14a3f6afe2',1,'writePedalProfiles():&#160;pedals.c'],['../pedals_8h.html#ad4e777fe95feb16ed038b7d1e801b214',1,'writePedalProfiles(void):&#160;pedals.c']]],
-  ['writevar_91',['writeVar',['../daq__base_8c.html#af2c40b79aa0ad16181ed8992016d68c8',1,'daq_base.c']]],
-  ['wrprotectgrenable_92',['WrProtectGrEnable',['../structSD__CSD.html#a7cf93c94ebd2f9092b62e791f1565d30',1,'SD_CSD']]],
-  ['wrprotectgrsize_93',['WrProtectGrSize',['../structSD__CSD.html#a03486966abee0e50401e2a56d33bf1bb',1,'SD_CSD']]],
-  ['wrpwma_94',['WRPWMA',['../commands_8c.html#a6aae54bfcb762c2fbb1c8fd742edea51',1,'WRPWMA:&#160;commands.c'],['../commands_8h.html#a6aae54bfcb762c2fbb1c8fd742edea51',1,'WRPWMA:&#160;commands.c']]],
-  ['wrpwmb_95',['WRPWMB',['../commands_8c.html#ad1fe66d772ef1fc817d3c3a67671275e',1,'WRPWMB:&#160;commands.c'],['../commands_8h.html#ad1fe66d772ef1fc817d3c3a67671275e',1,'WRPWMB:&#160;commands.c']]],
-  ['wrspeedfact_96',['WrSpeedFact',['../structSD__CSD.html#a471bde59e37efab5eb960510d4d94aca',1,'SD_CSD']]]
+  ['writevar_90',['writeVar',['../daq__base_8c.html#af2c40b79aa0ad16181ed8992016d68c8',1,'daq_base.c']]],
+  ['wrprotectgrenable_91',['WrProtectGrEnable',['../structSD__CSD.html#a7cf93c94ebd2f9092b62e791f1565d30',1,'SD_CSD']]],
+  ['wrprotectgrsize_92',['WrProtectGrSize',['../structSD__CSD.html#a03486966abee0e50401e2a56d33bf1bb',1,'SD_CSD']]],
+  ['wrpwma_93',['WRPWMA',['../commands_8c.html#a6aae54bfcb762c2fbb1c8fd742edea51',1,'WRPWMA:&#160;commands.c'],['../commands_8h.html#a6aae54bfcb762c2fbb1c8fd742edea51',1,'WRPWMA:&#160;commands.c']]],
+  ['wrpwmb_94',['WRPWMB',['../commands_8c.html#ad1fe66d772ef1fc817d3c3a67671275e',1,'WRPWMB:&#160;commands.c'],['../commands_8h.html#ad1fe66d772ef1fc817d3c3a67671275e',1,'WRPWMB:&#160;commands.c']]],
+  ['wrspeedfact_95',['WrSpeedFact',['../structSD__CSD.html#a471bde59e37efab5eb960510d4d94aca',1,'SD_CSD']]]
 ];

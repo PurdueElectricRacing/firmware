@@ -62,7 +62,7 @@ var searchData=
   ['max_5fnum_5fsid_5ffilter_59',['MAX_NUM_SID_FILTER',['../fdcan_8h.html#a3ca7e5783844cd3ae93e4b6595915888',1,'fdcan.h']]],
   ['max_5fnum_5fxid_5ffilter_60',['MAX_NUM_XID_FILTER',['../fdcan_8h.html#af13ca5d141e24966ae0906d5176202d2',1,'fdcan.h']]],
   ['max_5fpages_61',['MAX_PAGES',['../eeprom__spi_8h.html#a85f89e842475a0305bb474a98d61bdfe',1,'eeprom_spi.h']]],
-  ['max_5fpedal_5fmeas_62',['MAX_PEDAL_MEAS',['../pedals_8h.html#af991168f3f52d43942c079612918d9a2',1,'pedals.h']]],
+  ['max_5fpedal_5fmeas_62',['MAX_PEDAL_MEAS',['../pedals_8c.html#af991168f3f52d43942c079612918d9a2',1,'pedals.c']]],
   ['max_5ftasks_63',['MAX_TASKS',['../psched_8h.html#aac747bed84189f8cfa509b94d488e622',1,'psched.h']]],
   ['max_5ftherm_5ftemp_64',['max_therm_temp',['../structadbms__module__t.html#a0d5d7b69ba1fa7da851641683eba6238',1,'adbms_module_t::max_therm_temp'],['../structadbms__bms__t.html#af1d1ccfa36199d33a19d0ccf292a5512',1,'adbms_bms_t::max_therm_temp']]],
   ['max_5fval_65',['max_val',['../classparser_1_1Signal.html#a755a3b1971f172f7895f83089e5239ab',1,'parser::Signal']]],

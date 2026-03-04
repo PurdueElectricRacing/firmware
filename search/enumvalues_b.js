@@ -6,5 +6,6 @@ var searchData=
   ['nm_5fpingblock_3',['NM_PINGBLOCK',['../group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca8e9226206aa8567b284ede0dff7540be',1,'wizchip_conf.h']]],
   ['nm_5fpppoe_4',['NM_PPPOE',['../group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca37ebbd5edda6ee0dccfcd481d4690416',1,'wizchip_conf.h']]],
   ['nm_5fwakeonlan_5',['NM_WAKEONLAN',['../group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca273098a5481a025f536a599c6a008759',1,'wizchip_conf.h']]],
-  ['num_5ffault_5fprios_6',['NUM_FAULT_PRIOS',['../faults__common_8h.html#a03cf0c7e0fba09e53e6aacd890b3d4eea00b1fe1b6035838201f5ae8c0f20c0d8',1,'faults_common.h']]]
+  ['num_5ffault_5fprios_6',['NUM_FAULT_PRIOS',['../faults__common_8h.html#a03cf0c7e0fba09e53e6aacd890b3d4eea00b1fe1b6035838201f5ae8c0f20c0d8',1,'faults_common.h']]],
+  ['num_5fpages_7',['NUM_PAGES',['../lcd_8h.html#a7153150b299cf930f17d200a89628d88acd382a61c55aa2f67b15244ad7cd9618',1,'lcd.h']]]
 ];

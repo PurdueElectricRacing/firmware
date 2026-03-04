@@ -261,8 +261,8 @@ $(function(){initNavTree('faultgen_8py_source.html',''); initResizable(true); })
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    global_idx = 0</div>
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keywordflow">for</span> module <span class="keywordflow">in</span> fault_modules:</div>
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <span class="keywordflow">for</span> fault <span class="keywordflow">in</span> module.faults:</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            <span class="comment"># The prefix will be FAULT_ID_</span></div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            choices.append(f<span class="stringliteral">&quot;{module.node_name}_{fault.name}&quot;</span>)</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            <span class="comment"># The generated fault name will be FAULT_ID_{name}</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            choices.append(fault.name)</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            fault.absolute_index = global_idx</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            global_idx += 1</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            </div>

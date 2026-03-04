@@ -10,7 +10,7 @@ var searchData=
   ['initcanfilter_7',['initCANFilter',['../can__parse__starter_8c.html#abae44b6190b962a199bece66ab31d17b',1,'can_parse_starter.c']]],
   ['initcanparse_8',['initCANParse',['../daq__can_8c.html#a77a9a85a7a3386905bff0a072b10f660',1,'initCANParse():&#160;daq_can.c'],['../daq__can_8h.html#a77a9a85a7a3386905bff0a072b10f660',1,'initCANParse():&#160;daq_can.c'],['../can__parse__starter_8c.html#a4d193b13e622c5158b9fd924ab9f458c',1,'initCANParse(q_handle_t *rx_a):&#160;can_parse_starter.c'],['../can__parse__starter_8h.html#a46f1da6e61014a6553d5a6b4f12c223f',1,'initCANParse(q_handle_t *q_rx_can_a):&#160;can_parse_starter.c']]],
   ['initcanparsebase_9',['initCANParseBase',['../daq__can_8c.html#a27068a2e4fc3b799b5a16f6aa4b255a0',1,'daq_can.c']]],
-  ['initlcd_10',['initLCD',['../lcd_8c.html#a08529d00f32f8441dc7669b1a1d3783c',1,'initLCD():&#160;lcd.c'],['../lcd_8h.html#a08529d00f32f8441dc7669b1a1d3783c',1,'initLCD():&#160;lcd.c']]],
+  ['initlcd_10',['initLCD',['../lcd_8h.html#a08529d00f32f8441dc7669b1a1d3783c',1,'lcd.h']]],
   ['initmem_11',['initMem',['../eeprom__spi_8c.html#a73ee46b31719dd2669d7a81205ace711',1,'initMem(GPIO_TypeDef *wc_gpio_port, uint32_t wc_gpio_pin, SPI_InitConfig_t *spi, uint16_t version, bool force_init):&#160;eeprom_spi.c'],['../eeprom__spi_8h.html#a73ee46b31719dd2669d7a81205ace711',1,'initMem(GPIO_TypeDef *wc_gpio_port, uint32_t wc_gpio_pin, SPI_InitConfig_t *spi, uint16_t version, bool force_init):&#160;eeprom_spi.c']]],
   ['inject_5ffault_5fmessages_12',['inject_fault_messages',['../namespacefaultgen.html#afe2e346a8ad428ca4e08342785a61c6a',1,'faultgen']]],
   ['inject_5ffault_5ftypes_13',['inject_fault_types',['../namespacefaultgen.html#a11190d4ffc206ee3ce93696a63e5dcc0',1,'faultgen']]],

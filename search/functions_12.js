@@ -11,10 +11,5 @@ var searchData=
   ['tim2_5firqhandler_8',['TIM2_IRQHandler',['../tim_8c.html#a69ed77607e30e5935ea2d6994e94be10',1,'tim.c']]],
   ['tim7_5firqhandler_9',['TIM7_IRQHandler',['../psched_8c.html#a7fea4239a98a1a59b03e85a9589e1d01',1,'psched.c']]],
   ['to_5fmacro_5fname_10',['to_macro_name',['../namespaceutils.html#ab9cea1bbee0e11aeae770ebc49c3fccb',1,'utils']]],
-  ['torquevector_5fbl_5fcmd_5fcallback_11',['torquevector_bl_cmd_CALLBACK',['../bootloader_8c.html#a8f68820222c3f559999ca8ea7d339ec6',1,'bootloader.c']]],
-  ['tvmovedown_12',['tvMoveDown',['../lcd_8c.html#ac9a43f6004dfe81f61f17248035f4772',1,'lcd.c']]],
-  ['tvmoveup_13',['tvMoveUp',['../lcd_8c.html#a68985dfe48b7bdb36cb08008ec9ef7ea',1,'lcd.c']]],
-  ['tvpageupdate_14',['tvPageUpdate',['../lcd_8c.html#aae4c931f9209007019574f19d498859a',1,'lcd.c']]],
-  ['tvselect_15',['tvSelect',['../lcd_8c.html#af0cd9603adc431e8d82e4b0f306131a7',1,'lcd.c']]],
-  ['tvsetenumnames_16',['tvSetEnumNames',['../lcd_8c.html#abacde0d693b9f91fe13e625cadff4ca1',1,'lcd.c']]]
+  ['torquevector_5fbl_5fcmd_5fcallback_11',['torquevector_bl_cmd_CALLBACK',['../bootloader_8c.html#a8f68820222c3f559999ca8ea7d339ec6',1,'bootloader.c']]]
 ];

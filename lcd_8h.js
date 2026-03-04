@@ -61,7 +61,6 @@ var lcd_8h =
     [ "MC_TEMP", "lcd_8h.html#acfc40702d5cd528f4ccb61dc254b0225", null ],
     [ "MOT_TEMP", "lcd_8h.html#a41f21e09beb3f0f0f855a2962e76698a", null ],
     [ "MPS_TO_MPH", "lcd_8h.html#acf2e9f53e2a9df22071ea1212d2431e3", null ],
-    [ "PAGE_COUNT", "lcd_8h.html#a782f22e23dde7fc39ed8d5e1f4c9b141", null ],
     [ "PREFLIGHT_STRING", "lcd_8h.html#a8282f42024debdbaf117ffd7a9c32110", null ],
     [ "PROFILE_BRAKE_FLT", "lcd_8h.html#af07e1b7027372ade5570cf507d443ba9", null ],
     [ "PROFILE_CURRENT_TXT", "lcd_8h.html#aae98da3d7f1f88f9d3c9e0c0e25965b5", null ],
@@ -105,18 +104,10 @@ var lcd_8h =
     [ "WHEEL_RADIUS", "lcd_8h.html#aaa6f04f6f0d7cf1008a53279acf49f07", null ],
     [ "page_t", "lcd_8h.html#a7153150b299cf930f17d200a89628d88", [
       [ "PAGE_RACE", "lcd_8h.html#a7153150b299cf930f17d200a89628d88aadedc69ad2923a9f24a5cf427e6fb34f", null ],
-      [ "PAGE_COOLING", "lcd_8h.html#a7153150b299cf930f17d200a89628d88af806d86e4cc93e43e0769d6cd8c66268", null ],
-      [ "PAGE_TVSETTINGS", "lcd_8h.html#a7153150b299cf930f17d200a89628d88aaefb4d63f32067fd48f029490146f5b3", null ],
       [ "PAGE_FAULTS", "lcd_8h.html#a7153150b299cf930f17d200a89628d88a874f8efdf9407c549017fa82242bbb94", null ],
-      [ "PAGE_SDCINFO", "lcd_8h.html#a7153150b299cf930f17d200a89628d88ab5a45289ebcbec613e96f667db27e2f8", null ],
-      [ "PAGE_DRIVER", "lcd_8h.html#a7153150b299cf930f17d200a89628d88a6496019570489c1dcbd7f678c4091e4f", null ],
-      [ "PAGE_PROFILES", "lcd_8h.html#a7153150b299cf930f17d200a89628d88a55aeb6dc7494f25a0a926179880617d6", null ],
-      [ "PAGE_LOGGING", "lcd_8h.html#a7153150b299cf930f17d200a89628d88a0c33723c3d6a9aa26dc7d62f3da2b5ad", null ],
+      [ "PAGE_SDC_INFO", "lcd_8h.html#a7153150b299cf930f17d200a89628d88acb636fd55baa3a5e3636cd128a1417d7", null ],
       [ "PAGE_CALIBRATION", "lcd_8h.html#a7153150b299cf930f17d200a89628d88ad440c6fd0af7c16acce46826f9b46e16", null ],
-      [ "PAGE_PREFLIGHT", "lcd_8h.html#a7153150b299cf930f17d200a89628d88aafba3cb7389f6d91e4c0b22fb7dd14a9", null ],
-      [ "PAGE_WARNING", "lcd_8h.html#a7153150b299cf930f17d200a89628d88ae1dade627e48516d694f0278eeca2b04", null ],
-      [ "PAGE_ERROR", "lcd_8h.html#a7153150b299cf930f17d200a89628d88ac272aeb63a4bd5bea683b5860a877d21", null ],
-      [ "PAGE_FATAL", "lcd_8h.html#a7153150b299cf930f17d200a89628d88a1d986eefcc93077cb32e1273636b444f", null ]
+      [ "NUM_PAGES", "lcd_8h.html#a7153150b299cf930f17d200a89628d88acd382a61c55aa2f67b15244ad7cd9618", null ]
     ] ],
     [ "advancePage", "lcd_8h.html#a685b031373d6540844434c69377f10d2", null ],
     [ "backPage", "lcd_8h.html#ab328996325a24df855157cc23430de3d", null ],

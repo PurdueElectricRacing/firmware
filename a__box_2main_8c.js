@@ -1,6 +1,6 @@
 var a__box_2main_8c =
 [
-    [ "defineThreadStack", "a__box_2main_8c.html#a34024bcc7b8a1a60133fbf9a2ce6d07f", null ],
+    [ "DEFINE_TASK", "a__box_2main_8c.html#a18dfc13d160a3dbbcb64d8ff07671eeb", null ],
     [ "g_bms_periodic", "a__box_2main_8c.html#a13697f2dcf99b104d3f717d35e13d28a", null ],
     [ "HardFault_Handler", "a__box_2main_8c.html#a2bffc10d5bd4106753b7c30e86903bea", null ],
     [ "main", "a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe", null ],

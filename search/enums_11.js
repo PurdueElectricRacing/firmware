@@ -4,8 +4,5 @@ var searchData=
   ['timerccregister_5ft_1',['TimerCCRegister_t',['../tim_8h.html#aa731b2dd903df9f15152a38f60796474',1,'tim.h']]],
   ['timerinputmode_5ft_2',['TimerInputMode_t',['../tim_8h.html#a3eac62f74e7d262d5371adeb6e3a729e',1,'tim.h']]],
   ['timertriggerselection_5ft_3',['TimerTriggerSelection_t',['../tim_8h.html#a73ea0d487ac4b38ec2c271e898f50214',1,'tim.h']]],
-  ['tv_5fcontrol_5fmodes_5ft_4',['tv_control_modes_t',['../lcd_8c.html#aff916cfdbe2cd06af8af8c1daf0494d4',1,'lcd.c']]],
-  ['tv_5felements_5ft_5',['tv_elements_t',['../lcd_8c.html#ae4ac051efe29625014bace5979f6f37f',1,'lcd.c']]],
-  ['tv_5fpermit_5fmodes_5ft_6',['tv_permit_modes_t',['../lcd_8c.html#a6b9cc5930e83a3077a2aaa5574203058',1,'lcd.c']]],
-  ['tx_5fmode_5ft_7',['tx_mode_t',['../phal__L4_2usart_2usart_8h.html#acaaee747d423cb49896842b4c05637f0',1,'usart.h']]]
+  ['tx_5fmode_5ft_4',['tx_mode_t',['../phal__L4_2usart_2usart_8h.html#acaaee747d423cb49896842b4c05637f0',1,'usart.h']]]
 ];

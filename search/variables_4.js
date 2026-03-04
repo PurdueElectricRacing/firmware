@@ -45,10 +45,7 @@ var searchData=
   ['dns_42',['dns',['../structwiz__NetInfo.html#aa9fdb9a8a7e05d9e94073ba532fa91d9',1,'wiz_NetInfo']]],
   ['down_5fbutton_43',['down_button',['../structdashboard__input__state__t.html#a25a59b93795b64f28d290737875d667e',1,'dashboard_input_state_t']]],
   ['dptr_44',['dptr',['../structDIR.html#a0330e9554e1f38795debe4495156873e',1,'DIR']]],
-  ['driver_5felements_45',['driver_elements',['../lcd_8c.html#ad650951ab6b1d83851cee8ed04e9e3af',1,'lcd.c']]],
-  ['driver_5fpage_46',['driver_page',['../lcd_8c.html#a37a347e772a84989c921ac6501dee89b',1,'lcd.c']]],
-  ['driver_5fpedal_5fprofiles_47',['driver_pedal_profiles',['../lcd_8c.html#a093431542ad374f17697265503211ec3',1,'driver_pedal_profiles:&#160;pedals.c'],['../pedals_8c.html#a093431542ad374f17697265503211ec3',1,'driver_pedal_profiles:&#160;pedals.c'],['../pedals_8h.html#a093431542ad374f17697265503211ec3',1,'driver_pedal_profiles:&#160;pedals.c']]],
-  ['dsrimpl_48',['DSRImpl',['../structSD__CSD.html#a1a3df7f40e9afd86c1f811a54e2c63c9',1,'SD_CSD']]],
-  ['dummy_5fcycles_49',['dummy_cycles',['../structQUADSPI__Config__t.html#a137538eaf890acfdf36bb9409da90d0b',1,'QUADSPI_Config_t']]],
-  ['duplex_50',['duplex',['../structwiz__PhyConf.html#ab17faaf9ff11cd17c087aac934a904b6',1,'wiz_PhyConf']]]
+  ['dsrimpl_45',['DSRImpl',['../structSD__CSD.html#a1a3df7f40e9afd86c1f811a54e2c63c9',1,'SD_CSD']]],
+  ['dummy_5fcycles_46',['dummy_cycles',['../structQUADSPI__Config__t.html#a137538eaf890acfdf36bb9409da90d0b',1,'QUADSPI_Config_t']]],
+  ['duplex_47',['duplex',['../structwiz__PhyConf.html#ab17faaf9ff11cd17c087aac934a904b6',1,'wiz_PhyConf']]]
 ];

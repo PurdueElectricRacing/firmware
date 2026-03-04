@@ -38,6 +38,5 @@ var searchData=
   ['wizphy_5fsetphyconf_35',['wizphy_setphyconf',['../group__extra__functions.html#ga60359c86bf85ccd5ca8f6e7cafc849dc',1,'wizphy_setphyconf(wiz_PhyConf *phyconf):&#160;wizchip_conf.c'],['../group__extra__functions.html#ga60359c86bf85ccd5ca8f6e7cafc849dc',1,'wizphy_setphyconf(wiz_PhyConf *phyconf):&#160;wizchip_conf.c']]],
   ['wizphy_5fsetphypmode_36',['wizphy_setphypmode',['../group__extra__functions.html#ga64a4fd3427b5c5f43a3f35fb433cb06c',1,'wizphy_setphypmode(uint8_t pmode):&#160;wizchip_conf.c'],['../group__extra__functions.html#ga64a4fd3427b5c5f43a3f35fb433cb06c',1,'wizphy_setphypmode(uint8_t pmode):&#160;wizchip_conf.c']]],
   ['writepage_37',['writePage',['../eeprom__spi_8c.html#aa639fbdf7be238a64da85c18f16c5528',1,'writePage(uint16_t addr, uint8_t *page, uint8_t size):&#160;eeprom_spi.c'],['../eeprom__spi_8h.html#aa639fbdf7be238a64da85c18f16c5528',1,'writePage(uint16_t addr, uint8_t *page, uint8_t size):&#160;eeprom_spi.c']]],
-  ['writepedalprofiles_38',['writePedalProfiles',['../pedals_8c.html#a1eea9a39be719b2571393e14a3f6afe2',1,'writePedalProfiles():&#160;pedals.c'],['../pedals_8h.html#ad4e777fe95feb16ed038b7d1e801b214',1,'writePedalProfiles(void):&#160;pedals.c']]],
-  ['writevar_39',['writeVar',['../daq__base_8c.html#af2c40b79aa0ad16181ed8992016d68c8',1,'daq_base.c']]]
+  ['writevar_38',['writeVar',['../daq__base_8c.html#af2c40b79aa0ad16181ed8992016d68c8',1,'daq_base.c']]]
 ];

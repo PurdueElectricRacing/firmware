@@ -120,23 +120,23 @@ $(function(){initNavTree('sdc_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">// id by the SDC node number (1-17)</span></div>
 <div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="sdc_8c.html#abb02de51771aeefa48e90bc43814fd04">   18</a></span><span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_struct" href="structsdc__node__t.html">sdc_node_t</a> <a class="code hl_variable" href="sdc_8c.html#abb02de51771aeefa48e90bc43814fd04">SDC_NODE_LUT</a>[<a class="code hl_variable" href="sdc_8c.html#aa1d2d338acd39c4c1b960d8eecbc5571">NUM_SDC_NODES</a>] = {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    {FAULT_ID_MAIN_MODULE_SDC1_IMD,  11},</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    {FAULT_ID_MAIN_MODULE_SDC2_BMS,  10},</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    {FAULT_ID_MAIN_MODULE_SDC3_BSPD,  9},</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    {FAULT_ID_MAIN_MODULE_SDC4_MAIN_OK,  8},</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    {FAULT_ID_MAIN_MODULE_SDC5_BOTS,  7},</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    {FAULT_ID_MAIN_MODULE_SDC6_INERTIA,  6},</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    {FAULT_ID_MAIN_MODULE_SDC7_COCKPIT_ESTOP,  5},</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    {FAULT_ID_SDC1_IMD,  11},</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    {FAULT_ID_SDC2_BMS,  10},</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    {FAULT_ID_SDC3_BSPD,  9},</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    {FAULT_ID_SDC4_MAIN_OK,  8},</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    {FAULT_ID_SDC5_BOTS,  7},</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    {FAULT_ID_SDC6_INERTIA,  6},</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    {FAULT_ID_SDC7_COCKPIT_ESTOP,  5},</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    {0,  <a class="code hl_variable" href="sdc_8c.html#a59bf7735bcdb47a09b0474324e8d9556">SDC_UNREADABLE</a>}, <span class="comment">// SDC8 status cant be checked</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    {FAULT_ID_MAIN_MODULE_SDC9_FRONT_INTERLOCK,  4},</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    {FAULT_ID_MAIN_MODULE_SDC10_RIGHT_ESTOP, 12},</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    {FAULT_ID_MAIN_MODULE_SDC11_LEFT_ESTOP, 3},</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    {FAULT_ID_MAIN_MODULE_SDC12_MSD, 2},</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    {FAULT_ID_MAIN_MODULE_SDC13_E_METER, 13},</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    {FAULT_ID_SDC9_FRONT_INTERLOCK,  4},</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    {FAULT_ID_SDC10_RIGHT_ESTOP, 12},</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    {FAULT_ID_SDC11_LEFT_ESTOP, 3},</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    {FAULT_ID_SDC12_MSD, 2},</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    {FAULT_ID_SDC13_E_METER, 13},</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    {0, <a class="code hl_variable" href="sdc_8c.html#a59bf7735bcdb47a09b0474324e8d9556">SDC_UNREADABLE</a>}, <span class="comment">// SDC14 status cant be checked</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    {FAULT_ID_MAIN_MODULE_SDC15_REAR_INTERLOCK, 1}, <span class="comment">// ! schematic inconsitency, SDC15 is marked as SDC14</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    {FAULT_ID_MAIN_MODULE_SDC16_TSMS, 14},</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    {FAULT_ID_MAIN_MODULE_SDC17_AIR_M, 0}</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    {FAULT_ID_SDC15_REAR_INTERLOCK, 1}, <span class="comment">// ! schematic inconsitency, SDC15 is marked as SDC14</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    {FAULT_ID_SDC16_TSMS, 14},</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    {FAULT_ID_SDC17_AIR_M, 0}</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>};</div>
 </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>

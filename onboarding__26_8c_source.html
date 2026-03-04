@@ -133,7 +133,7 @@ $(function(){initNavTree('onboarding__26_8c_source.html',''); initResizable(true
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keywordtype">void</span> ledblink1();</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">// TODO add more function definitions here</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><a class="code hl_define" href="freertos_8h.html#ae8211032573848acd5d3da2574cc3d5d">defineThreadStack</a>(ledblink1, 250, osPriorityNormal, 64);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>defineThreadStack(ledblink1, 250, osPriorityNormal, 64);</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">// TODO add thread definitions here</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
@@ -149,7 +149,7 @@ $(function(){initNavTree('onboarding__26_8c_source.html',''); initResizable(true
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">// Create threads</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <a class="code hl_define" href="freertos_8h.html#af5353b7aa9443b8e18db35e0757e6200">createThread</a>(ledblink1);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    createThread(ledblink1);</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="comment">// TODO: Create threads here</span></div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    osKernelStart(); <span class="comment">// Go!</span></div>
@@ -181,8 +181,6 @@ $(function(){initNavTree('onboarding__26_8c_source.html',''); initResizable(true
 <div class="ttc" id="abootloader_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="bootloader_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> <a href="bootloader_2main_8c_source.html#l00022">main.c:22</a></div></div>
 <div class="ttc" id="af4__testing_8h_html"><div class="ttname"><a href="f4__testing_8h.html">f4_testing.h</a></div></div>
 <div class="ttc" id="afreertos_8h_html"><div class="ttname"><a href="freertos_8h.html">freertos.h</a></div></div>
-<div class="ttc" id="afreertos_8h_html_ae8211032573848acd5d3da2574cc3d5d"><div class="ttname"><a href="freertos_8h.html#ae8211032573848acd5d3da2574cc3d5d">defineThreadStack</a></div><div class="ttdeci">#define defineThreadStack(T, D, P, S)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00108">freertos.h:108</a></div></div>
-<div class="ttc" id="afreertos_8h_html_af5353b7aa9443b8e18db35e0757e6200"><div class="ttname"><a href="freertos_8h.html#af5353b7aa9443b8e18db35e0757e6200">createThread</a></div><div class="ttdeci">#define createThread(NAME)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00109">freertos.h:109</a></div></div>
 <div class="ttc" id="aphal_2gpio_8h_html"><div class="ttname"><a href="phal_2gpio_8h.html">gpio.h</a></div></div>
 <div class="ttc" id="aphal_2rcc_8h_html"><div class="ttname"><a href="phal_2rcc_8h.html">rcc.h</a></div></div>
 <div class="ttc" id="aphal__F4__F7_2gpio_2gpio_8c_html_a9f473c8a74e27d069fa4de69fcbb4d60"><div class="ttname"><a href="phal__F4__F7_2gpio_2gpio_8c.html#a9f473c8a74e27d069fa4de69fcbb4d60">PHAL_initGPIO</a></div><div class="ttdeci">bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len)</div><div class="ttdoc">Initilize the GPIO perpheral given a list of configuration fields for all of the GPIO pins....</div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2gpio_2gpio_8c_source.html#l00003">gpio.c:3</a></div></div>

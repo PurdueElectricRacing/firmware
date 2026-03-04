@@ -73,7 +73,7 @@ var searchData=
   ['req_5fload_70',['req_load',['../structeeprom.html#a9906595d41a559df04fce6c996d40cc8',1,'eeprom']]],
   ['request_71',['request',['../structdma__init__t.html#ac49ccb5645f84fa388dbaa6f7ec8e722',1,'dma_init_t']]],
   ['res_72',['res',['../structPHAL__SD__Cmd__t.html#ae23b8dee1eb85b64af1f55e610e3109d',1,'PHAL_SD_Cmd_t']]],
-  ['reserved_73',['reserved',['../structdriver__pedal__profile__t.html#a98a76c2d777e3d0d1d061c18481e9b24',1,'driver_pedal_profile_t::reserved'],['../structNAV__PVT__t.html#ad36cc4b3c88aaa1ab01e8ddce28231d2',1,'NAV_PVT_t::reserved']]],
+  ['reserved_73',['reserved',['../structNAV__PVT__t.html#ad36cc4b3c88aaa1ab01e8ddce28231d2',1,'NAV_PVT_t']]],
   ['reserved1_74',['Reserved1',['../structSD__CSD.html#a02708fa8a71cad3e18f27f27ec824e23',1,'SD_CSD::Reserved1'],['../structSD__CID.html#ac7d727aa3b400a2ad1f954195f08abe0',1,'SD_CID::Reserved1']]],
   ['reserved2_75',['Reserved2',['../structSD__CSD.html#acb618dfdfb93386386593bb87772d833',1,'SD_CSD::Reserved2'],['../structSD__CID.html#a9497cfec804967ba494f900e928306e4',1,'SD_CID::Reserved2']]],
   ['reserved3_76',['Reserved3',['../structSD__CSD.html#a35b7ed9f30170c5ffefac5edb49d394b',1,'SD_CSD']]],

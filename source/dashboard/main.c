@@ -167,10 +167,7 @@ int main(void) {
     if (false == PHAL_initUSART(&lcd, APB2ClockRateHz)) {
         HardFault_Handler();
     }
-    if (false
-        == PHAL_initADC(&adc_config,
-                        adc_channel_config,
-                        sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
+    if (false == PHAL_initADC(&adc_config, adc_channel_config, sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
         HardFault_Handler();
     }
     if (false == PHAL_initDMA(&adc_dma_config)) {

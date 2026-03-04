@@ -1,10 +1,8 @@
 #include "pedals.h"
-//#include "common/phal/flash.h"
 #include <stdint.h>
 
 #include "common/can_library/generated/DASHBOARD.h"
 #include "common/can_library/faults_common.h"
-#include "common_defs.h"
 #include "main.h"
 
 pedal_faults_t pedal_faults = {0};
@@ -62,6 +60,12 @@ static inline uint16_t normalize(uint16_t value, uint16_t min, uint16_t max) {
     return (uint16_t)(((uint32_t)(value - min) * MAX_PEDAL_MEAS) / (max - min));
 }
 
+static inline uint16_t clamp(uint16_t input, int32_t lower_bound, int32_t upper_bound) {
+    if (input < lower_bound) return lower_bound;
+    if (input > upper_bound) return upper_bound;
+    return input;
+}
+
 /**
  * @brief Processes pedal sensor readings and sets faults as necessary
  *
@@ -75,14 +79,14 @@ void pedalsPeriodic(void) {
     b2_raw = raw_adc_values.b2;
 
     // Check for wiring faults
-    update_fault(FAULT_ID_DASHBOARD_APPS_WIRING_T1, t1_raw);
-    update_fault(FAULT_ID_DASHBOARD_APPS_WIRING_T2, t2_raw);
+    update_fault(FAULT_ID_APPS_WIRING_T1, t1_raw);
+    update_fault(FAULT_ID_APPS_WIRING_T2, t2_raw);
 
     // Hard clamp the raw values to the min and max values to account for physical limits
-    uint16_t t1_clamped = CLAMP(t1_raw, pedal_calibration.t1_min, pedal_calibration.t1_max);
-    uint16_t t2_clamped = CLAMP(t2_raw, pedal_calibration.t2_min, pedal_calibration.t2_max);
-    uint16_t b1_clamped = CLAMP(b1_raw, pedal_calibration.b1_min, pedal_calibration.b1_max);
-    uint16_t b2_clamped = CLAMP(b2_raw, pedal_calibration.b2_min, pedal_calibration.b2_max);
+    uint16_t t1_clamped = clamp(t1_raw, pedal_calibration.t1_min, pedal_calibration.t1_max);
+    uint16_t t2_clamped = clamp(t2_raw, pedal_calibration.t2_min, pedal_calibration.t2_max);
+    uint16_t b1_clamped = clamp(b1_raw, pedal_calibration.b1_min, pedal_calibration.b1_max);
+    uint16_t b2_clamped = clamp(b2_raw, pedal_calibration.b2_min, pedal_calibration.b2_max);
 
     // Normalize pedal signals to the 0-4095 range while preserving a linear relationship
     t1_final = normalize(t1_clamped, pedal_calibration.t1_min, pedal_calibration.t1_max);
@@ -91,17 +95,17 @@ void pedalsPeriodic(void) {
     b2_final = normalize(b2_clamped, pedal_calibration.b2_min, pedal_calibration.b2_max);
 
     // If both pedals are pressed, set a fault
-    if ((b1_final >= APPS_BRAKE_THRESHOLD && t1_final >= APPS_THROTTLE_FAULT_THRESHOLD) || (is_latched(FAULT_ID_DASHBOARD_APPS_BRAKE) && t1_final >= APPS_THROTTLE_CLEARFAULT_THRESHOLD)) {
+    if ((b1_final >= APPS_BRAKE_THRESHOLD && t1_final >= APPS_THROTTLE_FAULT_THRESHOLD) || (is_latched(FAULT_ID_APPS_BRAKE) && t1_final >= APPS_THROTTLE_CLEARFAULT_THRESHOLD)) {
         // Set APPS to 0
         t2_final = 0;
         t1_final = 0;
-        update_fault(FAULT_ID_DASHBOARD_APPS_BRAKE, 1);
+        update_fault(FAULT_ID_APPS_BRAKE, 1);
     } else if (t1_final <= APPS_THROTTLE_CLEARFAULT_THRESHOLD) { // Clear fault if throttle is released
-        update_fault(FAULT_ID_DASHBOARD_APPS_BRAKE, 0);
+        update_fault(FAULT_ID_APPS_BRAKE, 0);
     }
 
     // Check for APPS sensor deviations (10%)
-    update_fault(FAULT_ID_DASHBOARD_IMPLAUS_DETECTED, ABS((int16_t)t1_final - (int16_t)t2_final));
+    update_fault(FAULT_ID_IMPLAUS_DETECTED, ABS((int16_t)t1_final - (int16_t)t2_final));
 
     // Update the pedal values for external use
     pedal_values.throttle = t1_final;
@@ -109,39 +113,4 @@ void pedalsPeriodic(void) {
 
     // Send the normalized pedal values to Main and TV
     CAN_SEND_filt_throttle_brake(t1_final, b1_final);
-}
-
-// ! the code below will work only if watchdog is disabled
-// static const uint32_t* PROFILE_FLASH_START = (uint32_t*)ADDR_FLASH_SECTOR_3;
-// static volatile uint32_t* profile_current_address;
-
-// TODO deprecate this feature
-int writePedalProfiles() {
-    // profile_current_address = (volatile uint32_t*)PROFILE_FLASH_START;
-
-    //  // !! This will cause a crash if watchdog is enabled !!
-    // if (FLASH_OK != PHAL_flashErasePage(PROFILES_START_SECTOR)) {
-    //     return PROFILE_WRITE_FAIL;
-    // }
-
-    // for (uint8_t i = 0; i < NUM_PROFILES; ++i) {
-    //     if (FLASH_OK != PHAL_flashWriteU32((uint32_t)profile_current_address,
-    //                                      *(uint32_t*)&driver_pedal_profiles[i])) {
-    //         return PROFILE_WRITE_FAIL;
-    //     }
-    //     profile_current_address++;
-    // }
-
-    return PROFILE_WRITE_SUCCESS;
-}
-
-void readPedalProfiles() {
-    // uint32_t read_address = ADDR_FLASH_SECTOR_3;
-
-    // for (uint8_t i = 0; i < NUM_PROFILES; ++i) {
-    //     uint32_t *data = (uint32_t *)&driver_pedal_profiles[i];
-    //     *data = *((uint32_t *)read_address);
-
-    //     read_address += sizeof(driver_pedal_profile_t);
-    // }
 }

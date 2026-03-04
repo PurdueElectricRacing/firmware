@@ -153,8 +153,8 @@ def inject_fault_types(custom_types: Dict, fault_modules: List[FaultModule]):
     global_idx = 0
     for module in fault_modules:
         for fault in module.faults:
-            # The prefix will be FAULT_ID_
-            choices.append(f"{module.node_name}_{fault.name}")
+            # The generated fault name will be FAULT_ID_{name}
+            choices.append(fault.name)
             fault.absolute_index = global_idx
             global_idx += 1
             

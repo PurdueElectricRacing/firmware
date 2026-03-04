@@ -146,7 +146,7 @@ void can_worker_task();
 
 // System critical threads
 defineThreadStack(pedalsPeriodic, FILT_THROTTLE_BRAKE_PERIOD_MS, osPriorityHigh, 512);
-defineThreadStack(can_worker_task, 5, osPriorityHigh, 1024);
+defineThreadStack(can_worker_task, 5, osPriorityNormal, 1024);
 
 // Auxilary threads
 defineThreadStack(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 128);

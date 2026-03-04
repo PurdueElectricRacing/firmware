@@ -99,7 +99,7 @@ void CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo) {
 
 void CAN_rx_update() {
     CanMsgTypeDef_t rx_msg;
-    while (xQueueReceive(q_rx_can, &rx_msg, portMAX_DELAY) == pdPASS) {
+    while (xQueueReceive(q_rx_can, &rx_msg, 0) == pdPASS) {
         last_can_rx_time_ms = OS_TICKS;
         uint8_t periph_idx  = GET_PERIPH_IDX(rx_msg.Bus);
         CAN_rx_dispatcher(rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId,

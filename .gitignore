@@ -3,8 +3,8 @@
 /build/**
 !/output
 /output/**
+docs/*
 !/docs
-/docs/**
 !/docs/*.md
 !/docs/datasheets/
 

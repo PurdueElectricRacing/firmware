@@ -35,6 +35,11 @@
                             "length": 16
                         },
                         {
+                            "sig_name": "charge_enable",
+                            "sig_desc": "Charge mode enabled",
+                            "type": "bool"
+                        },
+                        {
                             "sig_name": "voltage",
                             "sig_desc": "Instantaneous charge voltage",
                             "unit": "V",
@@ -49,11 +54,6 @@
                             "scale": 0.1,
                             "type": "uint16_t",
                             "length": 16
-                        },
-                        {
-                            "sig_name": "is_charge_enable",
-                            "sig_desc": "Charge mode enabled",
-                            "type": "bool"
                         }
                     ],
                     "msg_period": 50,

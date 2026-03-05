@@ -111,7 +111,7 @@ void rtosWrapper(void *arg);
  * @note initial count is set to max count (full by default)
  */
 #define INIT_COUNTING_SEMAPHORE(NAME, MAX_COUNT)                               \
-    (NAME = xSemaphoreCreateCountingStatic((MAX_COUNT), (MAX_COUNT), &(xStaticSemaphore_##NAME))) 
+    (NAME = xSemaphoreCreateCountingStatic((MAX_COUNT), (MAX_COUNT), &(xStaticSemaphore_##NAME)))
     
 /**
  * @brief Initializes the defined static binary semaphore.
@@ -122,7 +122,7 @@ void rtosWrapper(void *arg);
 
 // Timing helper macros
 #define getTick()   xTaskGetTickCount()
-#define getTickms() pdMS_TO_TICKS(getTick())
+#define getMS() (getTick() * portTICK_PERIOD_MS)
 #define mDelay(ms) (osDelay(pdMS_TO_TICKS((ms))))
 
 #endif // __COMMON_FREERTOS_H__

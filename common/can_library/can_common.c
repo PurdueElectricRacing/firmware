@@ -162,7 +162,7 @@ bool CAN_library_init() {
             can_mbx_last_send_time[can_periph][mbx] = 0;
         }
     }
-    INIT_QUEUE(q_rx_can, CanMsgTypeDef_t, 256);
+    INIT_QUEUE(q_rx_can, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
     can_stats = (can_stats_t) {0};
     CAN_data_init();
 

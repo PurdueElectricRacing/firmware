@@ -25,8 +25,8 @@
 #define SPI1_SCK_PIN   (5)
 #define SPI1_MISO_PIN  (6)
 #define SPI1_MOSI_PIN  (7)
-#define SPI1_CS_PORT (GPIOB)
-#define SPI1_CS_PIN  (0)
+#define SPI1_CS_PORT   (GPIOB)
+#define SPI1_CS_PIN    (0)
 
 // ISENSE and VSENSE
 #define ISENSE_GPIO_PORT   (GPIOA)

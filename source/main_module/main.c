@@ -81,7 +81,7 @@ extern void HardFault_Handler(void);
 
 void heartbeat_task() {
     // preflight animation for the first 1.5 seconds after boot
-    if (OS_TICKS <= PREFLIGHT_DURATION_MS) {
+    if (OS_TICKS <= PREFLIGHT_ANIMATION_DURATION_MS) {
         static uint32_t sweep_index = 0;
 
         // Creates a sweeping pattern
@@ -129,7 +129,7 @@ DEFINE_TASK(update_SDC, 5, osPriorityLow, 512);
 DEFINE_TASK(background_can_update, 5, osPriorityHigh, 2048);
 DEFINE_TASK(fsm_periodic, 20, osPriorityNormal, 2048);
 DEFINE_TASK(AMK_task, 15, osPriorityNormal, 1024);
-DEFINE_TASK(fault_library_periodic, 100, osPriorityLow, 1024);
+DEFINE_TASK(fault_library_periodic, MAIN_MODULE_FAULT_SYNC_PERIOD_MS, osPriorityNormal, 1024);
 
 int main(void) {
     // Hardware Initialization

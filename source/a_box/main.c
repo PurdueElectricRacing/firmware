@@ -88,6 +88,7 @@ void heartbeat_task(void);
 
 DEFINE_TASK(bms_task, 200, osPriorityHigh, 2048);
 DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);
+DEFINE_TASK(fault_library_periodic, A_BOX_FAULT_SYNC_PERIOD_MS, osPriorityNormal, 1024);
 
 int main(void) {
     // Hardware Initilization
@@ -126,6 +127,7 @@ int main(void) {
 
     START_TASK(bms_task);
     START_TASK(heartbeat_task); 
+    START_TASK(fault_library_periodic);
 
     osKernelStart(); // no way home
 
@@ -134,7 +136,7 @@ int main(void) {
 
 void heartbeat_task() {
     // preflight animation for the first 1.5 seconds after boot
-    if (OS_TICKS <= PREFLIGHT_DURATION_MS) {
+    if (OS_TICKS <= PREFLIGHT_ANIMATION_DURATION_MS) {
         static uint32_t sweep_index = 0;
 
         // Creates a sweeping pattern

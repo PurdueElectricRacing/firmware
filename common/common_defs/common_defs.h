@@ -78,7 +78,7 @@ static inline uint32_t ROUNDUP(uint32_t a, uint32_t n) {
 #define HSI_TRIM_A_BOX         16
 
 static constexpr uint32_t CONN_LED_TIMEOUT_MS = 1000;
-static constexpr uint32_t PREFLIGHT_DURATION_MS = 1500;
+static constexpr uint32_t PREFLIGHT_ANIMATION_DURATION_MS = 1500;
 static constexpr uint32_t HEARTBEAT_PERIOD_MS = 100;
 
 

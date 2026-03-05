@@ -214,7 +214,7 @@ void send_version() {
  */
 void heartbeat_task() {
     // preflight animation for the first 1.5 seconds after boot
-    if (OS_TICKS <= PREFLIGHT_DURATION_MS) {
+    if (OS_TICKS <= PREFLIGHT_ANIMATION_DURATION_MS) {
         static uint32_t sweep_index = 0;
 
         // Creates a sweeping pattern

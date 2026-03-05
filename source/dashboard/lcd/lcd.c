@@ -348,18 +348,6 @@ void raceTelemetryUpdate() {
         NXT_setTextFormatted(SPEED, "%d", speed);
     }
 
-    // Update the voltage and current
-    if (can_data.orion_currents_volts.stale) {
-        NXT_setText(BATT_VOLT, "S");
-        NXT_setText(BATT_CURR, "S");
-    } else {
-        uint16_t voltage = (can_data.orion_currents_volts.pack_voltage / 10);
-        NXT_setTextFormatted(BATT_VOLT, "%dV", voltage);
-
-        uint16_t current = (can_data.orion_currents_volts.pack_current / 10);
-        NXT_setTextFormatted(BATT_CURR, "%dA", current); // Note: Changed 'V' to 'A' for current
-    }
-
     // Update the battery temperature
     if (can_data.max_cell_temp.stale) {
         NXT_setText(BATT_TEMP, "S");
@@ -390,18 +378,10 @@ void raceTelemetryUpdate() {
                 NXT_setFontColor(CAR_STAT, GREEN);
                 NXT_setText(CAR_STAT, "R2D");
                 break;
-            // case CARSTATE_ERROR:
-            //     NXT_setFontColor(CAR_STAT, YELLOW);
-            //     NXT_setText(CAR_STAT, "ERROR");
-            //     break;
             case CARSTATE_FATAL:
                 NXT_setFontColor(CAR_STAT, RED);
                 NXT_setText(CAR_STAT, "FATAL");
                 break;
-            // case CARSTATE_CONSTANT_TORQUE:
-            //     NXT_setFontColor(CAR_STAT, GREEN);
-            //     NXT_setText(CAR_STAT, "CONST TRQ");
-            //     break;
             default:
                 NXT_setFontColor(CAR_STAT, WHITE);
                 NXT_setText(CAR_STAT, "UNKNOWN");

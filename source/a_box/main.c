@@ -85,10 +85,12 @@ static constexpr float MIN_DELTA_FOR_BALANCE = 0.1f;
 extern void HardFault_Handler(void);
 void bms_task(void);
 void heartbeat_task(void);
+void check_faults(void);
 
 DEFINE_TASK(bms_task, 200, osPriorityHigh, 2048);
 DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);
 DEFINE_TASK(fault_library_periodic, A_BOX_FAULT_SYNC_PERIOD_MS, osPriorityNormal, 1024);
+DEFINE_TASK(check_faults, 10, osPriorityNormal, 512);
 
 int main(void) {
     // Hardware Initilization
@@ -128,6 +130,7 @@ int main(void) {
     START_TASK(bms_task);
     START_TASK(heartbeat_task); 
     START_TASK(fault_library_periodic);
+    START_TASK(check_faults);
 
     osKernelStart(); // no way home
 
@@ -169,6 +172,18 @@ void heartbeat_task() {
 
 void bms_task() {
     adbms_periodic(&g_bms, MIN_V_FOR_BALANCE, MIN_DELTA_FOR_BALANCE);
+}
+
+void check_faults() {
+    // IMD
+    // todo check polarity of this signal
+    bool imd_status = PHAL_readGPIO(IMD_STATUS_PORT, IMD_STATUS_PIN);
+    update_fault(FAULT_ID_IMD, imd_status);
+
+    // Temperature related
+    update_fault(FAULT_ID_PACK_OVERTEMP, g_bms.max_therm_temp);
+    update_fault(FAULT_ID_PACK_WARM, g_bms.max_therm_temp);
+    update_fault(FAULT_ID_PACK_COLD, g_bms.min_therm_temp);
 }
 
 // todo reboot on hardfault

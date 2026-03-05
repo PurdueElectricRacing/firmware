@@ -55,49 +55,40 @@
     "generate_fault_messages": false,
     "faults": [
         {
-            "fault_name": "pack_temp",
-            "max": 500,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 2000,
-            "time_to_unlatch": 5000,
-            "lcd_message": "Pack Temp High (> 50)"
-        },
-        {
-            "fault_name": "pack_temp_exceeded",
-            "max": 600,
+            "fault_name": "PACK_OVERTEMP",
+            "max": 60,
             "min": 0,
             "priority": "error",
             "time_to_latch": 500,
             "time_to_unlatch": 10000,
-            "lcd_message": "Pack Overheating"
+            "lcd_message": "Pack Temp > 60C"
         },
         {
-            "fault_name": "min_pack_temp",
-            "max": 10000,
-            "min": 100,
+            "fault_name": "PACK_WARM",
+            "max": 50,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 2000,
+            "time_to_unlatch": 5000,
+            "lcd_message": "Pack Temp > 50C"
+        },
+        {
+            "fault_name": "PACK_COLD",
+            "max": 10,
+            "min": 0,
             "priority": "error",
             "time_to_latch": 2000,
             "time_to_unlatch": 10000,
-            "lcd_message": "Pack Minimum temp < 10"
+            "lcd_message": "Pack Temp < 10C"
         },
         {
-            "fault_name": "imd",
+            "fault_name": "IMD",
             "max": 1,
             "min": 0,
             "priority": "fatal",
             "time_to_latch": 100,
             "time_to_unlatch": 5000,
             "lcd_message": "IMD Isolation Fault"
-        },
-        {
-            "fault_name": "tmu_power_lost",
-            "max": 5,
-            "min": 3,
-            "priority": "error",
-            "time_to_latch": 100,
-            "time_to_unlatch": 5000,
-            "lcd_message": "Poopy! TMU Power Lost!"
         }
     ]
 }

@@ -17,8 +17,6 @@
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 
-// dma_init_t spi_rx_dma_config    = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
-// dma_init_t spi_tx_dma_config    = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
 SPI_InitConfig_t bms_spi_config = {
     .data_len      = 8,
     .nss_sw        = false, // BMS drive CS pin manually to ensure correct timing
@@ -62,14 +60,14 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_INPUT(IMD_STATUS_PORT, IMD_STATUS_PIN, GPIO_INPUT_OPEN_DRAIN),
 };
 
-static constexpr uint32_t TargetCoreClockrateHz = 16000000;
-ClockRateConfig_t clock_config                  = {
-                     .clock_source           = CLOCK_SOURCE_HSE,
-                     .use_pll                = false,
-                     .system_clock_target_hz = TargetCoreClockrateHz,
-                     .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
-                     .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),
-                     .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
+static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
+ClockRateConfig_t clock_config = {
+    .clock_source           = CLOCK_SOURCE_HSE,
+    .use_pll                = false,
+    .system_clock_target_hz = TargetCoreClockrateHz,
+    .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
+    .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),
+    .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
 };
 
 /* Locals for Clock Rates */
@@ -85,9 +83,11 @@ static constexpr float MIN_V_FOR_BALANCE     = 3.0f;
 static constexpr float MIN_DELTA_FOR_BALANCE = 0.1f;
 
 extern void HardFault_Handler(void);
-void g_bms_periodic(void);
+void bms_task(void);
+void heartbeat_task(void);
 
-DEFINE_TASK(g_bms_periodic, 200, osPriorityHigh, 2048);
+DEFINE_TASK(bms_task, 200, osPriorityHigh, 2048);
+DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);
 
 int main(void) {
     // Hardware Initilization
@@ -114,23 +114,58 @@ int main(void) {
 
     adbms_init(&g_bms, &bms_spi_config, g_bms_tx_buf);
 
-    NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
-    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
+    CAN_library_init();
 
-    // Software Initalization
+    NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
+    NVIC_SetPriority(FDCAN1_IT0_IRQn, 5);
+    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
+    NVIC_SetPriority(FDCAN2_IT0_IRQn, 5);
+
+    // Kernel initalization
     osKernelInitialize();
 
-    START_TASK(g_bms_periodic);
+    START_TASK(bms_task);
+    START_TASK(heartbeat_task); 
 
-    // no way home
-    osKernelStart();
+    osKernelStart(); // no way home
 
     return 0;
 }
 
-void g_bms_periodic() {
+void heartbeat_task() {
+    // preflight animation for the first 1.5 seconds after boot
+    if (OS_TICKS <= PREFLIGHT_DURATION_MS) {
+        static uint32_t sweep_index = 0;
+
+        // Creates a sweeping pattern
+        switch (sweep_index++ % 3) {
+            case 0:
+                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 1);
+                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
+                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
+                break;
+            case 1:
+                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 0);
+                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
+                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
+                break;
+            case 2:
+                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 0);
+                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
+                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
+                break;
+        }
+
+        return;
+    }
+
     PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
 
+    bool can_stale = (OS_TICKS - last_can_rx_time_ms >= CONN_LED_TIMEOUT_MS);
+    PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, can_stale);
+}
+
+void bms_task() {
     adbms_periodic(&g_bms, MIN_V_FOR_BALANCE, MIN_DELTA_FOR_BALANCE);
 }
 
@@ -138,7 +173,7 @@ void g_bms_periodic() {
 void HardFault_Handler() {
     __disable_irq();
     SysTick->CTRL        = 0;
-    ERROR_LED_PORT->BSRR = ERROR_LED_PIN;
+    ERROR_LED_PORT->BSRR = (1 << ERROR_LED_PIN); // Turn on error LED
     while (1) {
         __asm__("NOP"); // Halt forever
     }

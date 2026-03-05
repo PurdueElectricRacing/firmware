@@ -37,12 +37,11 @@
 #define VBATT_ADC_CHANNEL  (2)
 
 // Input status pins
-#define CHARGER_CONNECTED_PORT (GPIOB)
-#define CHARGER_CONNECTED_PIN  (2)
+#define CHARGER_CONNECTED_PORT      (GPIOB)
+#define CHARGER_CONNECTED_PIN       (2)
 #define NOT_PRECHARGE_COMPLETE_PORT (GPIOB)
 #define NOT_PRECHARGE_COMPLETE_PIN  (11)
-#define IMD_STATUS_PORT (GPIOA)
-#define IMD_STATUS_PIN  (9)
-
+#define IMD_STATUS_PORT             (GPIOA)
+#define IMD_STATUS_PIN              (9)
 
 #endif

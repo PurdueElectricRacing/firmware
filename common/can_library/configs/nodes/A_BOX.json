@@ -6,22 +6,33 @@
             "peripheral": "FDCAN1",
             "tx": [
                 {
-                    "msg_name": "precharge_hb",
-                    "msg_desc": "heart beat for precharge",
+                    "msg_name": "pack_stats",
+                    "msg_desc": "Pack voltage, current, and temperature",
                     "signals": [
                         {
-                            "sig_name": "IMD",
-                            "sig_desc": "Fault State of IMD",
-                            "type": "uint8_t"
+                            "sig_name": "pack_voltage",
+                            "sig_desc": "Total pack voltage",
+                            "type": "uint16_t",
+                            "unit": "mV",
+                            "scale": 1
                         },
                         {
-                            "sig_name": "BMS",
-                            "sig_desc": "Fault State of BMS",
-                            "type": "uint8_t"
+                            "sig_name": "pack_current",
+                            "sig_desc": "Total pack current, positive is discharge",
+                            "type": "int16_t",
+                            "unit": "mA",
+                            "scale": 1
+                        },
+                        {
+                            "sig_name": "avg_temp",
+                            "sig_desc": "Average cell temperature in the pack",
+                            "type": "int16_t",
+                            "unit": "C",
+                            "scale": 1
                         }
                     ],
-                    "msg_period": 500,
-                    "msg_priority": 2
+                    "msg_priority": 5,
+                    "msg_period": 1000
                 },
                 {
                     "msg_name": "abox_version",

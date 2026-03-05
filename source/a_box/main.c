@@ -87,13 +87,17 @@ static constexpr float MIN_DELTA_FOR_BALANCE = 0.1f;
 
 extern void HardFault_Handler(void);
 void bms_task(void);
-void heartbeat_task(void);
+void background_can_update(void);
 void check_faults(void);
+void report_telemetry(void);
+void heartbeat_task(void);
 
 DEFINE_TASK(bms_task, 200, osPriorityHigh, STACK_2048);
-DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, STACK_256);
-DEFINE_TASK(fault_library_periodic, A_BOX_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
+DEFINE_TASK(background_can_update, 5, osPriorityHigh, STACK_2048);
 DEFINE_TASK(check_faults, 10, osPriorityNormal, STACK_512);
+DEFINE_TASK(fault_library_periodic, A_BOX_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
+DEFINE_TASK(report_telemetry, PACK_STATS_PERIOD_MS, osPriorityLow, STACK_512);
+DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, STACK_256);
 
 int main(void) {
     // Hardware Initilization
@@ -131,13 +135,25 @@ int main(void) {
     osKernelInitialize();
 
     START_TASK(bms_task);
-    START_TASK(heartbeat_task); 
-    START_TASK(fault_library_periodic);
+    START_TASK(background_can_update);
     START_TASK(check_faults);
+    START_TASK(fault_library_periodic);
+    START_TASK(report_telemetry);
+    START_TASK(heartbeat_task);
 
     osKernelStart(); // no way home
 
     return 0;
+}
+
+void report_telemetry() {
+    // todo isense
+    CAN_SEND_pack_stats(g_bms.sum_voltage, 0, g_bms.avg_therm_temp);
+}
+
+void background_can_update() {
+    CAN_tx_update();
+    CAN_rx_update();
 }
 
 void heartbeat_task() {

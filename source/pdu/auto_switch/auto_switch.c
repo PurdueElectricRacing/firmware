@@ -261,7 +261,6 @@ void checkSwitchFaults() {
     uint8_t dash   = PHAL_readGPIO(DASH_NFLT_GPIO_Port, DASH_NFLT_Pin);
     uint8_t abox   = PHAL_readGPIO(ABOX_NFLT_GPIO_Port, ABOX_NFLT_Pin);
     uint8_t main   = PHAL_readGPIO(MAIN_NFLT_GPIO_Port, MAIN_NFLT_Pin);
-    uint8_t daq    = PHAL_readGPIO(DAQ_NFLT_GPIO_Port, DAQ_NFLT_Pin);
     uint8_t vcrit  = PHAL_readGPIO(CRIT_5V_NFLT_GPIO_Port, CRIT_5V_NFLT_Pin);
     uint8_t vnc    = PHAL_readGPIO(TV_NFLT_GPIO_Port, TV_NFLT_Pin);
     uint8_t dlfr   = PHAL_readGPIO(DLFR_NFLT_GPIO_Port, DLFR_NFLT_Pin);
@@ -272,7 +271,6 @@ void checkSwitchFaults() {
     static uint8_t dash_old   = 1;
     static uint8_t abox_old   = 1;
     static uint8_t main_old   = 1;
-    static uint8_t daq_old    = 1;
     static uint8_t vcrit_old  = 1;
     static uint8_t vnc_old    = 1;
     static uint8_t dlfr_old   = 1;
@@ -289,9 +287,6 @@ void checkSwitchFaults() {
     }
     if (!main && main_old) {
         LED_control(LED_MAIN, LED_BLINK);
-    }
-    if (!daq && daq_old) {
-        LED_control(LED_DAQ, LED_BLINK);
     }
     if (!vcrit && vcrit_old) {
         LED_control(LED_5V_CRIT, LED_BLINK);
@@ -315,7 +310,6 @@ void checkSwitchFaults() {
     dash_old   = dash;
     abox_old   = abox;
     main_old   = main;
-    daq_old    = daq;
     vcrit_old  = vcrit;
     vnc_old    = vnc;
     dlfr_old   = dlfr;
@@ -324,7 +318,7 @@ void checkSwitchFaults() {
     fan5v_old  = fan5v;
 
     static uint8_t fault_num;
-    // Set fault for dash/daq - this is too much for our 1ms window, so send each fault seperately
+    // Set fault - this is too much for our 1ms window, so send each fault seperately
     switch (fault_num) {
         case 0:
             update_fault(FAULT_ID_PDU_DASH_RAIL, !dash);
@@ -336,22 +330,18 @@ void checkSwitchFaults() {
             update_fault(FAULT_ID_PDU_MAIN_RAIL, !main);
             break;
         case 3:
-            update_fault(FAULT_ID_PDU_DAQ_RAIL, !daq);
-            break;
-        case 4:
             update_fault(FAULT_ID_PDU_V_CRIT, !vcrit);
             break;
-        case 5:
+        case 4:
             update_fault(FAULT_ID_PDU_V_NONCRIT, !vnc);
             break;
-        case 6:
-
+        case 5:
             update_fault(FAULT_ID_PDU_FAN1, !dlfr);
             break;
-        case 7:
+        case 6:
             update_fault(FAULT_ID_PDU_FAN2, !dlbk);
             break;
-        case 8:
+        case 7:
             update_fault(FAULT_ID_PDU_BULLET_RAIL, !bullet);
             fault_num = 0;
             break;

@@ -206,19 +206,15 @@
 
 // 5V Critical Switch (5V)
 #define CRIT_5V_CTRL_GPIO_Port (GPIOE)
-#define CRIT_5V_CTRL_Pin       (1)
+#define CRIT_5V_CTRL_Pin       (2)
 #define CRIT_5V_NFLT_GPIO_Port (GPIOE)
-#define CRIT_5V_NFLT_Pin       (0)
+#define CRIT_5V_NFLT_Pin       (1)
 
 // TV Switch (5V)
 #define TV_CTRL_GPIO_Port (GPIOE)
-#define TV_CTRL_Pin       (5)
+#define TV_CTRL_Pin       (6)
 #define TV_NFLT_GPIO_Port (GPIOE)
-#define TV_NFLT_Pin       (4)
-
-// DAQ Switch (5V)
-#define DAQ_NFLT_GPIO_Port (GPIOE)
-#define DAQ_NFLT_Pin       (2)
+#define TV_NFLT_Pin       (5)
 
 // 5V Fan Switch (5V)
 #define FAN_5V_CTRL_GPIO_Port (GPIOE)

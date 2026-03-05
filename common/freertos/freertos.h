@@ -1,6 +1,14 @@
 #ifndef __COMMON_FREERTOS_H__
 #define __COMMON_FREERTOS_H__
 
+/**
+ * @file freertos.h
+ * @brief Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocation and initialization.
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Eileen Yoon (eyn@purdue.edu)
+ */
+
 // clang-format off
 #define myIDENT(x) x
 #define myXSTR(x) #x

@@ -117,7 +117,7 @@ extern daq_hub_t daq_hub;
 // Static buffer allocations
 SPMC_t queue;
 timestamped_frame_t buf;
-DEFINE_STATIC_SEMAPHORE(spi1_lock);
+DEFINE_MUTEX(spi1_lock);
 
 static void configure_interrupts(void);
 bool can_parse_error_status(uint32_t err, timestamped_frame_t* frame);
@@ -154,7 +154,7 @@ int main() {
     daq_hub_init();
     configure_interrupts();
 
-    CREATE_STATIC_SEMAPHORE(spi1_lock);
+    INIT_MUTEX(spi1_lock);
     daq_create_threads();
 
     osKernelStart();

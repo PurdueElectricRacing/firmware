@@ -38,7 +38,8 @@ typedef struct {
 void rtosWrapper(void *arg);
 
 /**
- * DEFINE_TASK: Scaffolds the static memory for a FreeRTOS task.
+ * @brief Scaffolds the static memory for a FreeRTOS task.
+ *
  * @param NAME: The function name of the task.
  * @param PERIOD_MS: Task period in milliseconds.
  * @param PRIORITY: CMSIS-RTOS2 priority (e.g., osPriorityNormal).
@@ -62,45 +63,66 @@ void rtosWrapper(void *arg);
     }
 
 /**
- * START_TASK: Initializes and starts the defined task.
+ * @brief Initializes and starts the defined task.
  */
 #define START_TASK(NAME)                                                       \
     (NAME##_wrapper.handle = osThreadNew(rtosWrapper, &NAME##_wrapper, &NAME##_wrapper.attrs))
 
+/**
+ * @brief Retrieves the FreeRTOS task handle for the defined task.
+ */
 #define getTaskHandle(NAME) (NAME##_wrapper.handle)
 
 /**
- * DEFINE_STATIC_QUEUE: Scaffolds the static memory for a FreeRTOS queue.
+ * @brief Scaffolds the static memory for a FreeRTOS queue.
  */
-#define DEFINE_STATIC_QUEUE(NAME, ITEM, COUNT)                                 \
+#define DEFINE_QUEUE(NAME, ITEM, COUNT)                                        \
     QueueHandle_t NAME;                                                        \
     static StaticQueue_t xStaticQueue_##NAME;                                  \
     static uint8_t       ucQueueStorageArea_##NAME[sizeof(ITEM) * (COUNT)];
 
 /**
- * CREATE_STATIC_QUEUE: Initializes the defined static queue.
+ * @brief Initializes the defined static queue.
  */
-#define CREATE_STATIC_QUEUE(NAME, ITEM, COUNT)                                 \
+#define INIT_QUEUE(NAME, ITEM, COUNT)                                          \
     (NAME = xQueueCreateStatic((COUNT), sizeof(ITEM),                          \
                                ucQueueStorageArea_##NAME, &xStaticQueue_##NAME))
 
 /**
- * DEFINE_STATIC_SEMAPHORE: Scaffolds the static memory for a mutex.
+ * @brief Scaffolds the static memory for a mutex.
  */
-#define DEFINE_STATIC_SEMAPHORE(NAME)                                          \
+#define DEFINE_SEMAPHORE(NAME)                                                 \
     SemaphoreHandle_t NAME;                                                    \
     static StaticSemaphore_t xStaticSemaphore_##NAME;
 
+// Aliases for clarity
+#define DEFINE_MUTEX(NAME) DEFINE_SEMAPHORE(NAME)
+#define DEFINE_COUNTING_SEMAPHORE(NAME) DEFINE_SEMAPHORE(NAME)
+#define DEFINE_BINARY_SEMAPHORE(NAME) DEFINE_SEMAPHORE(NAME)
+
 /**
- * CREATE_STATIC_SEMAPHORE: Initializes the defined static semaphore.
+ * @brief Initializes the defined mutex.
  */
-#define CREATE_STATIC_SEMAPHORE(NAME)                                          \
+#define INIT_MUTEX(NAME)                                                       \
     (NAME = xSemaphoreCreateMutexStatic(&(xStaticSemaphore_##NAME)))
 
+/**
+ * @brief Initializes the defined static counting semaphore.
+ * @note initial count is set to max count (full by default)
+ */
+#define INIT_COUNTING_SEMAPHORE(NAME, MAX_COUNT)                               \
+    (NAME = xSemaphoreCreateCountingStatic((MAX_COUNT), (MAX_COUNT), &(xStaticSemaphore_##NAME))) 
+    
+/**
+ * @brief Initializes the defined static binary semaphore.
+ */
+#define INIT_BINARY_SEMAPHORE(NAME)                                            \
+    (NAME = xSemaphoreCreateBinaryStatic(&(xStaticSemaphore_##NAME)))
 
+
+// Timing helper macros
 #define getTick()   xTaskGetTickCount()
 #define getTickms() pdMS_TO_TICKS(getTick())
-
 #define mDelay(ms) (osDelay(pdMS_TO_TICKS((ms))))
 
 #endif // __COMMON_FREERTOS_H__

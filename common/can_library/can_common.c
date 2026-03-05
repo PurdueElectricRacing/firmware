@@ -14,7 +14,7 @@
 can_data_t can_data;
 can_stats_t can_stats;
 volatile uint32_t last_can_rx_time_ms;
-DEFINE_STATIC_QUEUE(q_rx_can, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
+DEFINE_QUEUE(q_rx_can, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
 
 #if defined(STM32F407xx) || defined(STM32F732xx)
 
@@ -162,8 +162,7 @@ bool CAN_library_init() {
             can_mbx_last_send_time[can_periph][mbx] = 0;
         }
     }
-    //qConstruct(&q_rx_can, sizeof(CanMsgTypeDef_t));
-    CREATE_STATIC_QUEUE(q_rx_can, CanMsgTypeDef_t, 256);
+    INIT_QUEUE(q_rx_can, CanMsgTypeDef_t, 256);
     can_stats = (can_stats_t) {0};
     CAN_data_init();
 
@@ -203,15 +202,15 @@ bool CAN_library_init() {
 
 
 #ifdef USE_FDCAN1
-DEFINE_STATIC_QUEUE(q_tx_can1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+DEFINE_QUEUE(q_tx_can1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 
 #ifdef USE_FDCAN2
-DEFINE_STATIC_QUEUE(q_tx_can2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+DEFINE_QUEUE(q_tx_can2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 
 #ifdef USE_FDCAN3
-DEFINE_STATIC_QUEUE(q_tx_can3, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+DEFINE_QUEUE(q_tx_can3, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 
 QueueHandle_t q_tx_can[NUM_CAN_PERIPHERALS];
@@ -279,22 +278,22 @@ void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
 bool CAN_library_init() {
     // Initialize TX queues (one per peripheral)
 #ifdef USE_FDCAN1
-    CREATE_STATIC_QUEUE(q_tx_can1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    INIT_QUEUE(q_tx_can1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
     q_tx_can[CAN1_IDX] = q_tx_can1;
 #endif
 
 #ifdef USE_FDCAN2
-    CREATE_STATIC_QUEUE(q_tx_can2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    INIT_QUEUE(q_tx_can2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
     q_tx_can[CAN2_IDX] = q_tx_can2;
 #endif
 
 #ifdef USE_FDCAN3
-    CREATE_STATIC_QUEUE(q_tx_can3, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    INIT_QUEUE(q_tx_can3, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
     q_tx_can[CAN3_IDX] = q_tx_can3;
 #endif
 
     // Initialize RX queue
-    CREATE_STATIC_QUEUE(q_rx_can, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
+    INIT_QUEUE(q_rx_can, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
 
     // Clear stats
     can_stats = (can_stats_t) {0};

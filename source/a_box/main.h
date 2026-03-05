@@ -44,4 +44,8 @@
 #define IMD_STATUS_PORT             (GPIOA)
 #define IMD_STATUS_PIN              (9)
 
+// BMS SDC Control
+#define BMS_SDC_CTRL_PORT (GPIOA)
+#define BMS_SDC_CTRL_PIN  (10)
+
 #endif

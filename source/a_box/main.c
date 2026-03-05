@@ -27,7 +27,7 @@ SPI_InitConfig_t bms_spi_config = {
     .periph        = SPI1,
     .cpol          = 0,
     .cpha          = 0,
-    .data_rate     = 500000, // 500 kHz SPI clock for ADBMS6380
+    .data_rate     = 500'000, // 500 kHz SPI clock for ADBMS6380
 };
 
 /* PER HAL Initilization Structures */
@@ -58,6 +58,9 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_INPUT(CHARGER_CONNECTED_PORT, CHARGER_CONNECTED_PIN, GPIO_INPUT_OPEN_DRAIN),
     GPIO_INIT_INPUT(NOT_PRECHARGE_COMPLETE_PORT, NOT_PRECHARGE_COMPLETE_PIN, GPIO_INPUT_OPEN_DRAIN),
     GPIO_INIT_INPUT(IMD_STATUS_PORT, IMD_STATUS_PIN, GPIO_INPUT_OPEN_DRAIN),
+
+    // BMS SDC Control
+    GPIO_INIT_OUTPUT(BMS_SDC_CTRL_PORT, BMS_SDC_CTRL_PIN, GPIO_OUTPUT_LOW_SPEED)
 };
 
 static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
@@ -87,10 +90,10 @@ void bms_task(void);
 void heartbeat_task(void);
 void check_faults(void);
 
-DEFINE_TASK(bms_task, 200, osPriorityHigh, 2048);
-DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 256);
-DEFINE_TASK(fault_library_periodic, A_BOX_FAULT_SYNC_PERIOD_MS, osPriorityNormal, 1024);
-DEFINE_TASK(check_faults, 10, osPriorityNormal, 512);
+DEFINE_TASK(bms_task, 200, osPriorityHigh, STACK_2048);
+DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, STACK_256);
+DEFINE_TASK(fault_library_periodic, A_BOX_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
+DEFINE_TASK(check_faults, 10, osPriorityNormal, STACK_512);
 
 int main(void) {
     // Hardware Initilization

@@ -1,5 +1,10 @@
 var NAVTREEINDEX14 =
 {
+"mapper_8py_source.html":[8,0,0,4,0,6],
+"md_docs_2code__style.html":[1],
+"md_docs_2deploy__n__debug.html":[2],
+"md_docs_2setup.html":[3],
+"md_docs_2setup.html#autotoc_md75":[3,0],
 "md_docs_2setup.html#autotoc_md76":[3,0,0],
 "md_docs_2setup.html#autotoc_md77":[3,0,1],
 "md_docs_2setup.html#autotoc_md78":[3,0,2],
@@ -244,10 +249,5 @@ var NAVTREEINDEX14 =
 "node__defs_8h.html#ac4b9d12a8f672ad483d7da6dbecab69a":[8,0,2,1,3,1],
 "node__defs_8h.html#ad5be5e873b48a53f3dfd889318d61053":[8,0,2,1,3,4],
 "node__defs_8h.html#aee9e013abc17d5ea72b26428853f8847":[8,0,2,1,3,10],
-"node__defs_8h_source.html":[8,0,2,1,3],
-"onboarding__26_8c.html":[8,0,2,5,3],
-"onboarding__26_8c_source.html":[8,0,2,5,3],
-"pages.html":[],
-"parser_8py.html":[8,0,0,4,0,7],
-"parser_8py.html#a26d21343c1fd337d4db4a4af469deb67":[8,0,0,4,0,7,13]
+"node__defs_8h_source.html":[8,0,2,1,3]
 };

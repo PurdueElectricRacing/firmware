@@ -108,7 +108,7 @@ $(function(){initNavTree('can__common_8c_source.html',''); initResizable(true); 
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="can__common_8c.html#a8eaf23ac1da3fc4a879c3b1b11733ea2">   14</a></span>can_data_t <a class="code hl_variable" href="can__common_8c.html#a8eaf23ac1da3fc4a879c3b1b11733ea2">can_data</a>;</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="daq__can_8h.html#a7b5ef4ad1f6bec8cb96f4aafbe58fe73">   15</a></span><a class="code hl_struct" href="structcan__stats__t.html">can_stats_t</a> <a class="code hl_variable" href="can__common_8c.html#a7b5ef4ad1f6bec8cb96f4aafbe58fe73">can_stats</a>;</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="can__common_8c.html#a6d7ff913bb95222bc96d632a6e8d8ea4">   16</a></span><span class="keyword">volatile</span> uint32_t <a class="code hl_variable" href="can__common_8c.html#a6d7ff913bb95222bc96d632a6e8d8ea4">last_can_rx_time_ms</a>;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="can__common_8c.html#a6f84360b1615c05db0bf33db65b8526b">   17</a></span><a class="code hl_define" href="freertos_8h.html#a275b06486046931765e2fa6563be1ab4">DEFINE_STATIC_QUEUE</a>(<a class="code hl_variable" href="bootloader_2main_8c.html#a6f61f7099706a5b18a5161318a097bd9">q_rx_can</a>, <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, <a class="code hl_define" href="can__common_8h.html#a3b0586f06e0aa453bb34475f8ac577d1">CAN_RX_QUEUE_LENGTH</a>);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="can__common_8c.html#ac4037d5b80482bbcef97173486de5dd0">   17</a></span><a class="code hl_define" href="freertos_8h.html#a69f3705c51afcfefed18253d09849302">DEFINE_QUEUE</a>(<a class="code hl_variable" href="bootloader_2main_8c.html#a6f61f7099706a5b18a5161318a097bd9">q_rx_can</a>, <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, <a class="code hl_define" href="can__common_8h.html#a3b0586f06e0aa453bb34475f8ac577d1">CAN_RX_QUEUE_LENGTH</a>);</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#if defined(STM32F407xx) || defined(STM32F732xx)</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
@@ -256,164 +256,163 @@ $(function(){initNavTree('can__common_8c_source.html',''); initResizable(true); 
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            can_mbx_last_send_time[can_periph][mbx] = 0;</div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        }</div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    }</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="comment">//qConstruct(&amp;q_rx_can, sizeof(CanMsgTypeDef_t));</span></div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <a class="code hl_define" href="freertos_8h.html#a7afd9dc1fff11d8c2abc8efc52b1135d">CREATE_STATIC_QUEUE</a>(<a class="code hl_variable" href="bootloader_2main_8c.html#a6f61f7099706a5b18a5161318a097bd9">q_rx_can</a>, <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, 256);</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <a class="code hl_variable" href="can__common_8c.html#a7b5ef4ad1f6bec8cb96f4aafbe58fe73">can_stats</a> = (<a class="code hl_struct" href="structcan__stats__t.html">can_stats_t</a>) {0};</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    CAN_data_init();</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="preprocessor">#if defined(USE_CAN1) || defined(USE_CAN2)</span></div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="comment">// Ensure CAN1 clock is enabled (CAN1 owns all bxCAN filters)</span></div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    RCC-&gt;APB1ENR |= RCC_APB1ENR_CAN1EN;</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keywordflow">if</span> (!CAN_prepare_filter_config(CAN1)) {</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    }</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    bxcan_set_filters(); <span class="comment">// from NODE.h</span></div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keywordflow">if</span> (!CAN_exit_filter_config(CAN1)) {</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    }</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>}</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="preprocessor">#elif defined(STM32G474xx)</span></div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment">// G4/FDCAN implementation - uses TX FIFO (no mailboxes)</span></div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="comment">// FDCAN has 3 TX FIFO slots handled by hardware, so we use a single software queue per peripheral</span></div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="preprocessor">#ifndef NUM_CAN_PERIPHERALS</span></div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="preprocessor">#if defined(USE_FDCAN3)</span></div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="preprocessor">#define NUM_CAN_PERIPHERALS 3</span></div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="preprocessor">#elif defined(USE_FDCAN2)</span></div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="preprocessor">#define NUM_CAN_PERIPHERALS 2</span></div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="preprocessor">#elif defined(USE_FDCAN1)</span></div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="preprocessor">#define NUM_CAN_PERIPHERALS 1</span></div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="preprocessor">#define NUM_CAN_PERIPHERALS 1</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <a class="code hl_define" href="freertos_8h.html#a107127a33a429e4b2ba63232406e0d94">INIT_QUEUE</a>(<a class="code hl_variable" href="bootloader_2main_8c.html#a6f61f7099706a5b18a5161318a097bd9">q_rx_can</a>, <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, <a class="code hl_define" href="can__common_8h.html#a3b0586f06e0aa453bb34475f8ac577d1">CAN_RX_QUEUE_LENGTH</a>);</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <a class="code hl_variable" href="can__common_8c.html#a7b5ef4ad1f6bec8cb96f4aafbe58fe73">can_stats</a> = (<a class="code hl_struct" href="structcan__stats__t.html">can_stats_t</a>) {0};</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    CAN_data_init();</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="preprocessor">#if defined(USE_CAN1) || defined(USE_CAN2)</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="comment">// Ensure CAN1 clock is enabled (CAN1 owns all bxCAN filters)</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    RCC-&gt;APB1ENR |= RCC_APB1ENR_CAN1EN;</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keywordflow">if</span> (!CAN_prepare_filter_config(CAN1)) {</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    }</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    bxcan_set_filters(); <span class="comment">// from NODE.h</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keywordflow">if</span> (!CAN_exit_filter_config(CAN1)) {</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    }</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>}</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="preprocessor">#elif defined(STM32G474xx)</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment">// G4/FDCAN implementation - uses TX FIFO (no mailboxes)</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment">// FDCAN has 3 TX FIFO slots handled by hardware, so we use a single software queue per peripheral</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="preprocessor">#ifndef NUM_CAN_PERIPHERALS</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="preprocessor">#if defined(USE_FDCAN3)</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="preprocessor">#define NUM_CAN_PERIPHERALS 3</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="preprocessor">#elif defined(USE_FDCAN2)</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="preprocessor">#define NUM_CAN_PERIPHERALS 2</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="preprocessor">#elif defined(USE_FDCAN1)</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="preprocessor">#define NUM_CAN_PERIPHERALS 1</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="preprocessor">#define NUM_CAN_PERIPHERALS 1</span></div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="preprocessor">#ifdef USE_FDCAN1</span></div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><a class="code hl_define" href="freertos_8h.html#a275b06486046931765e2fa6563be1ab4">DEFINE_STATIC_QUEUE</a>(q_tx_can1, <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, <a class="code hl_define" href="can__common_8h.html#a1248665f89d7c3c1ff3fc0c66dfc5ee8">CAN_TX_QUEUE_LENGTH</a>);</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="preprocessor">#ifdef USE_FDCAN2</span></div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><a class="code hl_define" href="freertos_8h.html#a275b06486046931765e2fa6563be1ab4">DEFINE_STATIC_QUEUE</a>(q_tx_can2, <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, <a class="code hl_define" href="can__common_8h.html#a1248665f89d7c3c1ff3fc0c66dfc5ee8">CAN_TX_QUEUE_LENGTH</a>);</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="preprocessor">#ifdef USE_FDCAN3</span></div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><a class="code hl_define" href="freertos_8h.html#a275b06486046931765e2fa6563be1ab4">DEFINE_STATIC_QUEUE</a>(q_tx_can3, <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, <a class="code hl_define" href="can__common_8h.html#a1248665f89d7c3c1ff3fc0c66dfc5ee8">CAN_TX_QUEUE_LENGTH</a>);</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>QueueHandle_t <a class="code hl_variable" href="bootloader_2main_8c.html#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a>[NUM_CAN_PERIPHERALS];</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="comment">// QueueHandle_t q_rx_can;</span></div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="keywordtype">void</span> <a class="code hl_function" href="can__common_8h.html#adca5432c2db72ac7c6b25dbfcefbee6b">CAN_enqueue_tx</a>(<a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg) {</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    uint8_t periph_idx = <a class="code hl_define" href="can__common_8h.html#a519312c20b836099ff912a407a257216">GET_PERIPH_IDX</a>(<a class="code hl_variable" href="namespacecan__test.html#a8b7d0f39efba4f6fb77ee7bb779900da">msg</a>-&gt;Bus);</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <span class="comment">// Wait up to CAN_TX_BACKPRESSURE_MS if FDCAN TX FIFO is full before dropping message</span></div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="comment">// TODO: is this the desired behavior? Or should we just drop immediately?</span></div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keywordflow">if</span> (xQueueSendToBack(<a class="code hl_variable" href="bootloader_2main_8c.html#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a>[periph_idx], msg, pdMS_TO_TICKS(<a class="code hl_define" href="can__common_8h.html#ae6b03392d6c59a518349d99a8519ebb0">CAN_TX_BACKPRESSURE_MS</a>)) != pdPASS) {</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        <a class="code hl_variable" href="can__common_8c.html#a7b5ef4ad1f6bec8cb96f4aafbe58fe73">can_stats</a>.<a class="code hl_variable" href="structcan__stats__t.html#a25e541d8452002837366efcfbb6dd7ef">can_peripheral_stats</a>[periph_idx].<a class="code hl_variable" href="structcan__peripheral__stats__t.html#ad9f34185dc29fb51740bd58b9169d64f">tx_of</a>++;</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    }</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>}</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="keywordtype">void</span> <a class="code hl_function" href="daq__can_8h.html#a0a32f054a0f3baae0270d9845d2897e6">CAN_tx_update</a>() {</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> tx_msg;</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="preprocessor">#ifdef USE_FDCAN1</span></div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keywordflow">while</span> (<a class="code hl_function" href="common_2phal__G4_2fdcan_2fdcan_8c.html#a14cb7899d33aebd0249c38d22c906fad">PHAL_FDCAN_txFifoFree</a>(FDCAN1) &amp;&amp; xQueueReceive(<a class="code hl_variable" href="bootloader_2main_8c.html#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a>[<a class="code hl_define" href="can__common_8h.html#a657e66ed8d35d52e0b1effb289ba15df">CAN1_IDX</a>], &amp;tx_msg, 0) == pdPASS) {</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        <a class="code hl_function" href="common_2phal__G4_2fdcan_2fdcan_8c.html#a2a39331cf9d0fc0e27a507069085503f">PHAL_FDCAN_send</a>(&amp;tx_msg);</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    }</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="preprocessor">#ifdef USE_FDCAN2</span></div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="keywordflow">while</span> (<a class="code hl_function" href="common_2phal__G4_2fdcan_2fdcan_8c.html#a14cb7899d33aebd0249c38d22c906fad">PHAL_FDCAN_txFifoFree</a>(FDCAN2) &amp;&amp; xQueueReceive(<a class="code hl_variable" href="bootloader_2main_8c.html#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a>[<a class="code hl_define" href="can__common_8h.html#a0380c9dab59c77ceee5815af7e00e4fb">CAN2_IDX</a>], &amp;tx_msg, 0) == pdPASS) {</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        <a class="code hl_function" href="common_2phal__G4_2fdcan_2fdcan_8c.html#a2a39331cf9d0fc0e27a507069085503f">PHAL_FDCAN_send</a>(&amp;tx_msg);</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    }</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="preprocessor">#ifdef USE_FDCAN3</span></div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keywordflow">while</span> (<a class="code hl_function" href="common_2phal__G4_2fdcan_2fdcan_8c.html#a14cb7899d33aebd0249c38d22c906fad">PHAL_FDCAN_txFifoFree</a>(FDCAN3) &amp;&amp; xQueueReceive(<a class="code hl_variable" href="bootloader_2main_8c.html#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a>[<a class="code hl_define" href="can__common_8h.html#a830b8a26e845574399d8c37fca947cc3">CAN3_IDX</a>], &amp;tx_msg, 0) == pdPASS) {</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        <a class="code hl_function" href="common_2phal__G4_2fdcan_2fdcan_8c.html#a2a39331cf9d0fc0e27a507069085503f">PHAL_FDCAN_send</a>(&amp;tx_msg);</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    }</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>}</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="keywordtype">void</span> <a class="code hl_function" href="can__common_8h.html#abfcff4ec444a1fa4366dd38c73519a51">CAN_rx_update</a>() {</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> rx_msg;</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    <span class="comment">// Timeout: 0, poll only, don&#39;t block</span></div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    <span class="keywordflow">while</span> (xQueueReceive(<a class="code hl_variable" href="bootloader_2main_8c.html#a6f61f7099706a5b18a5161318a097bd9">q_rx_can</a>, &amp;rx_msg, 0) == pdPASS) {</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>        <a class="code hl_variable" href="can__common_8c.html#a6d7ff913bb95222bc96d632a6e8d8ea4">last_can_rx_time_ms</a> = OS_TICKS;</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>        uint8_t periph_idx  = <a class="code hl_define" href="can__common_8h.html#a519312c20b836099ff912a407a257216">GET_PERIPH_IDX</a>(rx_msg.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">Bus</a>);</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        CAN_rx_dispatcher(</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>            rx_msg.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a9dea647c93d4bef0e061c85ad3b5cfa0">IDE</a> == 0 ? rx_msg.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a6b77a8cc916e8ddd9a3619f0a30c8655">StdId</a> : rx_msg.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a184c6e876770b9bc3a766986921cc35c">ExtId</a>,</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            rx_msg.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>,</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>            rx_msg.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a27de06238e18ccb41d49595c239c8e5e">DLC</a>,</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>            periph_idx</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        );</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    }</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>}</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span> </div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span><span class="comment">// FDCAN RX callback - enqueues received messages to the RX queue</span></div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="comment">// This overrides the weak definition in fdcan.c</span></div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span><span class="keywordtype">void</span> <a class="code hl_function" href="common_2phal__G4_2fdcan_2fdcan_8c.html#a8b126471775c8ec5765594c0c9bbbdff">PHAL_FDCAN_rxCallback</a>(<a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg) {</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    BaseType_t xHigherPriorityTaskWoken = pdFALSE;</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="keywordflow">if</span> (xQueueSendFromISR(<a class="code hl_variable" href="bootloader_2main_8c.html#a6f61f7099706a5b18a5161318a097bd9">q_rx_can</a>, msg, &amp;xHigherPriorityTaskWoken) != pdPASS) {</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        <a class="code hl_variable" href="can__common_8c.html#a7b5ef4ad1f6bec8cb96f4aafbe58fe73">can_stats</a>.<a class="code hl_variable" href="structcan__stats__t.html#a0f8c66035803b2d3d7b368cc5c6a9177">rx_of</a>++;</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    }</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    portYIELD_FROM_ISR(xHigherPriorityTaskWoken);</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>}</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span><span class="keywordtype">bool</span> <a class="code hl_function" href="can__common_8h.html#aa6a2e11ac7e69f5da51d64b903198d21">CAN_library_init</a>() {</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <span class="comment">// Initialize TX queues (one per peripheral)</span></div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span><span class="preprocessor">#ifdef USE_FDCAN1</span></div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <a class="code hl_define" href="freertos_8h.html#a7afd9dc1fff11d8c2abc8efc52b1135d">CREATE_STATIC_QUEUE</a>(q_tx_can1, <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, <a class="code hl_define" href="can__common_8h.html#a1248665f89d7c3c1ff3fc0c66dfc5ee8">CAN_TX_QUEUE_LENGTH</a>);</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    <a class="code hl_variable" href="bootloader_2main_8c.html#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a>[<a class="code hl_define" href="can__common_8h.html#a657e66ed8d35d52e0b1effb289ba15df">CAN1_IDX</a>] = q_tx_can1;</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="preprocessor">#ifdef USE_FDCAN2</span></div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    <a class="code hl_define" href="freertos_8h.html#a7afd9dc1fff11d8c2abc8efc52b1135d">CREATE_STATIC_QUEUE</a>(q_tx_can2, <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, <a class="code hl_define" href="can__common_8h.html#a1248665f89d7c3c1ff3fc0c66dfc5ee8">CAN_TX_QUEUE_LENGTH</a>);</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <a class="code hl_variable" href="bootloader_2main_8c.html#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a>[<a class="code hl_define" href="can__common_8h.html#a0380c9dab59c77ceee5815af7e00e4fb">CAN2_IDX</a>] = q_tx_can2;</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="preprocessor">#ifdef USE_FDCAN3</span></div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    <a class="code hl_define" href="freertos_8h.html#a7afd9dc1fff11d8c2abc8efc52b1135d">CREATE_STATIC_QUEUE</a>(q_tx_can3, <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, <a class="code hl_define" href="can__common_8h.html#a1248665f89d7c3c1ff3fc0c66dfc5ee8">CAN_TX_QUEUE_LENGTH</a>);</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    <a class="code hl_variable" href="bootloader_2main_8c.html#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a>[<a class="code hl_define" href="can__common_8h.html#a830b8a26e845574399d8c37fca947cc3">CAN3_IDX</a>] = q_tx_can3;</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span> </div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    <span class="comment">// Initialize RX queue</span></div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    <a class="code hl_define" href="freertos_8h.html#a7afd9dc1fff11d8c2abc8efc52b1135d">CREATE_STATIC_QUEUE</a>(<a class="code hl_variable" href="bootloader_2main_8c.html#a6f61f7099706a5b18a5161318a097bd9">q_rx_can</a>, <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, <a class="code hl_define" href="can__common_8h.html#a3b0586f06e0aa453bb34475f8ac577d1">CAN_RX_QUEUE_LENGTH</a>);</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span> </div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    <span class="comment">// Clear stats</span></div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <a class="code hl_variable" href="can__common_8c.html#a7b5ef4ad1f6bec8cb96f4aafbe58fe73">can_stats</a> = (<a class="code hl_struct" href="structcan__stats__t.html">can_stats_t</a>) {0};</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <span class="comment">// Initialize CAN data from generated code</span></div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    CAN_data_init();</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span> </div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span><span class="preprocessor">#ifdef USE_FDCAN1</span></div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    FDCAN1_set_filters();</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="preprocessor">#ifdef USE_FDCAN2</span></div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    FDCAN2_set_filters();</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span> </div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span><span class="preprocessor">#ifdef USE_FDCAN3</span></div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>    FDCAN3_set_filters();</div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>}</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="preprocessor">#error &quot;Unsupported architecture&quot;</span></div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="preprocessor">#ifdef USE_FDCAN1</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><a class="code hl_define" href="freertos_8h.html#a69f3705c51afcfefed18253d09849302">DEFINE_QUEUE</a>(q_tx_can1, <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, <a class="code hl_define" href="can__common_8h.html#a1248665f89d7c3c1ff3fc0c66dfc5ee8">CAN_TX_QUEUE_LENGTH</a>);</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="preprocessor">#ifdef USE_FDCAN2</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><a class="code hl_define" href="freertos_8h.html#a69f3705c51afcfefed18253d09849302">DEFINE_QUEUE</a>(q_tx_can2, <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, <a class="code hl_define" href="can__common_8h.html#a1248665f89d7c3c1ff3fc0c66dfc5ee8">CAN_TX_QUEUE_LENGTH</a>);</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="preprocessor">#ifdef USE_FDCAN3</span></div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><a class="code hl_define" href="freertos_8h.html#a69f3705c51afcfefed18253d09849302">DEFINE_QUEUE</a>(q_tx_can3, <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, <a class="code hl_define" href="can__common_8h.html#a1248665f89d7c3c1ff3fc0c66dfc5ee8">CAN_TX_QUEUE_LENGTH</a>);</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>QueueHandle_t <a class="code hl_variable" href="bootloader_2main_8c.html#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a>[NUM_CAN_PERIPHERALS];</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="comment">// QueueHandle_t q_rx_can;</span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="keywordtype">void</span> <a class="code hl_function" href="can__common_8h.html#adca5432c2db72ac7c6b25dbfcefbee6b">CAN_enqueue_tx</a>(<a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg) {</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    uint8_t periph_idx = <a class="code hl_define" href="can__common_8h.html#a519312c20b836099ff912a407a257216">GET_PERIPH_IDX</a>(<a class="code hl_variable" href="namespacecan__test.html#a8b7d0f39efba4f6fb77ee7bb779900da">msg</a>-&gt;Bus);</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="comment">// Wait up to CAN_TX_BACKPRESSURE_MS if FDCAN TX FIFO is full before dropping message</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <span class="comment">// TODO: is this the desired behavior? Or should we just drop immediately?</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="keywordflow">if</span> (xQueueSendToBack(<a class="code hl_variable" href="bootloader_2main_8c.html#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a>[periph_idx], msg, pdMS_TO_TICKS(<a class="code hl_define" href="can__common_8h.html#ae6b03392d6c59a518349d99a8519ebb0">CAN_TX_BACKPRESSURE_MS</a>)) != pdPASS) {</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        <a class="code hl_variable" href="can__common_8c.html#a7b5ef4ad1f6bec8cb96f4aafbe58fe73">can_stats</a>.<a class="code hl_variable" href="structcan__stats__t.html#a25e541d8452002837366efcfbb6dd7ef">can_peripheral_stats</a>[periph_idx].<a class="code hl_variable" href="structcan__peripheral__stats__t.html#ad9f34185dc29fb51740bd58b9169d64f">tx_of</a>++;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    }</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>}</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="keywordtype">void</span> <a class="code hl_function" href="daq__can_8h.html#a0a32f054a0f3baae0270d9845d2897e6">CAN_tx_update</a>() {</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> tx_msg;</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="preprocessor">#ifdef USE_FDCAN1</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    <span class="keywordflow">while</span> (<a class="code hl_function" href="common_2phal__G4_2fdcan_2fdcan_8c.html#a14cb7899d33aebd0249c38d22c906fad">PHAL_FDCAN_txFifoFree</a>(FDCAN1) &amp;&amp; xQueueReceive(<a class="code hl_variable" href="bootloader_2main_8c.html#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a>[<a class="code hl_define" href="can__common_8h.html#a657e66ed8d35d52e0b1effb289ba15df">CAN1_IDX</a>], &amp;tx_msg, 0) == pdPASS) {</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        <a class="code hl_function" href="common_2phal__G4_2fdcan_2fdcan_8c.html#a2a39331cf9d0fc0e27a507069085503f">PHAL_FDCAN_send</a>(&amp;tx_msg);</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    }</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="preprocessor">#ifdef USE_FDCAN2</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    <span class="keywordflow">while</span> (<a class="code hl_function" href="common_2phal__G4_2fdcan_2fdcan_8c.html#a14cb7899d33aebd0249c38d22c906fad">PHAL_FDCAN_txFifoFree</a>(FDCAN2) &amp;&amp; xQueueReceive(<a class="code hl_variable" href="bootloader_2main_8c.html#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a>[<a class="code hl_define" href="can__common_8h.html#a0380c9dab59c77ceee5815af7e00e4fb">CAN2_IDX</a>], &amp;tx_msg, 0) == pdPASS) {</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        <a class="code hl_function" href="common_2phal__G4_2fdcan_2fdcan_8c.html#a2a39331cf9d0fc0e27a507069085503f">PHAL_FDCAN_send</a>(&amp;tx_msg);</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    }</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="preprocessor">#ifdef USE_FDCAN3</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    <span class="keywordflow">while</span> (<a class="code hl_function" href="common_2phal__G4_2fdcan_2fdcan_8c.html#a14cb7899d33aebd0249c38d22c906fad">PHAL_FDCAN_txFifoFree</a>(FDCAN3) &amp;&amp; xQueueReceive(<a class="code hl_variable" href="bootloader_2main_8c.html#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a>[<a class="code hl_define" href="can__common_8h.html#a830b8a26e845574399d8c37fca947cc3">CAN3_IDX</a>], &amp;tx_msg, 0) == pdPASS) {</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        <a class="code hl_function" href="common_2phal__G4_2fdcan_2fdcan_8c.html#a2a39331cf9d0fc0e27a507069085503f">PHAL_FDCAN_send</a>(&amp;tx_msg);</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    }</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>}</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span> </div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span><span class="keywordtype">void</span> <a class="code hl_function" href="can__common_8h.html#abfcff4ec444a1fa4366dd38c73519a51">CAN_rx_update</a>() {</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> rx_msg;</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <span class="comment">// Timeout: 0, poll only, don&#39;t block</span></div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    <span class="keywordflow">while</span> (xQueueReceive(<a class="code hl_variable" href="bootloader_2main_8c.html#a6f61f7099706a5b18a5161318a097bd9">q_rx_can</a>, &amp;rx_msg, 0) == pdPASS) {</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        <a class="code hl_variable" href="can__common_8c.html#a6d7ff913bb95222bc96d632a6e8d8ea4">last_can_rx_time_ms</a> = OS_TICKS;</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>        uint8_t periph_idx  = <a class="code hl_define" href="can__common_8h.html#a519312c20b836099ff912a407a257216">GET_PERIPH_IDX</a>(rx_msg.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a">Bus</a>);</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>        CAN_rx_dispatcher(</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>            rx_msg.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a9dea647c93d4bef0e061c85ad3b5cfa0">IDE</a> == 0 ? rx_msg.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a6b77a8cc916e8ddd9a3619f0a30c8655">StdId</a> : rx_msg.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a184c6e876770b9bc3a766986921cc35c">ExtId</a>,</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>            rx_msg.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>,</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            rx_msg.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a27de06238e18ccb41d49595c239c8e5e">DLC</a>,</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>            periph_idx</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        );</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    }</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>}</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span><span class="comment">// FDCAN RX callback - enqueues received messages to the RX queue</span></div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span><span class="comment">// This overrides the weak definition in fdcan.c</span></div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="keywordtype">void</span> <a class="code hl_function" href="common_2phal__G4_2fdcan_2fdcan_8c.html#a8b126471775c8ec5765594c0c9bbbdff">PHAL_FDCAN_rxCallback</a>(<a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg) {</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    BaseType_t xHigherPriorityTaskWoken = pdFALSE;</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="keywordflow">if</span> (xQueueSendFromISR(<a class="code hl_variable" href="bootloader_2main_8c.html#a6f61f7099706a5b18a5161318a097bd9">q_rx_can</a>, msg, &amp;xHigherPriorityTaskWoken) != pdPASS) {</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        <a class="code hl_variable" href="can__common_8c.html#a7b5ef4ad1f6bec8cb96f4aafbe58fe73">can_stats</a>.<a class="code hl_variable" href="structcan__stats__t.html#a0f8c66035803b2d3d7b368cc5c6a9177">rx_of</a>++;</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    }</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    portYIELD_FROM_ISR(xHigherPriorityTaskWoken);</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>}</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span><span class="keywordtype">bool</span> <a class="code hl_function" href="can__common_8h.html#aa6a2e11ac7e69f5da51d64b903198d21">CAN_library_init</a>() {</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <span class="comment">// Initialize TX queues (one per peripheral)</span></div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span><span class="preprocessor">#ifdef USE_FDCAN1</span></div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    <a class="code hl_define" href="freertos_8h.html#a107127a33a429e4b2ba63232406e0d94">INIT_QUEUE</a>(q_tx_can1, <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, <a class="code hl_define" href="can__common_8h.html#a1248665f89d7c3c1ff3fc0c66dfc5ee8">CAN_TX_QUEUE_LENGTH</a>);</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <a class="code hl_variable" href="bootloader_2main_8c.html#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a>[<a class="code hl_define" href="can__common_8h.html#a657e66ed8d35d52e0b1effb289ba15df">CAN1_IDX</a>] = q_tx_can1;</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span><span class="preprocessor">#ifdef USE_FDCAN2</span></div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    <a class="code hl_define" href="freertos_8h.html#a107127a33a429e4b2ba63232406e0d94">INIT_QUEUE</a>(q_tx_can2, <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, <a class="code hl_define" href="can__common_8h.html#a1248665f89d7c3c1ff3fc0c66dfc5ee8">CAN_TX_QUEUE_LENGTH</a>);</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    <a class="code hl_variable" href="bootloader_2main_8c.html#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a>[<a class="code hl_define" href="can__common_8h.html#a0380c9dab59c77ceee5815af7e00e4fb">CAN2_IDX</a>] = q_tx_can2;</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span><span class="preprocessor">#ifdef USE_FDCAN3</span></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    <a class="code hl_define" href="freertos_8h.html#a107127a33a429e4b2ba63232406e0d94">INIT_QUEUE</a>(q_tx_can3, <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, <a class="code hl_define" href="can__common_8h.html#a1248665f89d7c3c1ff3fc0c66dfc5ee8">CAN_TX_QUEUE_LENGTH</a>);</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    <a class="code hl_variable" href="bootloader_2main_8c.html#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a>[<a class="code hl_define" href="can__common_8h.html#a830b8a26e845574399d8c37fca947cc3">CAN3_IDX</a>] = q_tx_can3;</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span> </div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    <span class="comment">// Initialize RX queue</span></div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    <a class="code hl_define" href="freertos_8h.html#a107127a33a429e4b2ba63232406e0d94">INIT_QUEUE</a>(<a class="code hl_variable" href="bootloader_2main_8c.html#a6f61f7099706a5b18a5161318a097bd9">q_rx_can</a>, <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a>, <a class="code hl_define" href="can__common_8h.html#a3b0586f06e0aa453bb34475f8ac577d1">CAN_RX_QUEUE_LENGTH</a>);</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="comment">// Clear stats</span></div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    <a class="code hl_variable" href="can__common_8c.html#a7b5ef4ad1f6bec8cb96f4aafbe58fe73">can_stats</a> = (<a class="code hl_struct" href="structcan__stats__t.html">can_stats_t</a>) {0};</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    <span class="comment">// Initialize CAN data from generated code</span></div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    CAN_data_init();</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span> </div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="preprocessor">#ifdef USE_FDCAN1</span></div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    FDCAN1_set_filters();</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span><span class="preprocessor">#ifdef USE_FDCAN2</span></div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    FDCAN2_set_filters();</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span><span class="preprocessor">#ifdef USE_FDCAN3</span></div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    FDCAN3_set_filters();</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span> </div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>}</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span> </div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span><span class="preprocessor">#error &quot;Unsupported architecture&quot;</span></div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="abootloader_2main_8c_html_a2c95aa854f1338bfb6e9273572403bda"><div class="ttname"><a href="bootloader_2main_8c.html#a2c95aa854f1338bfb6e9273572403bda">q_tx_can</a></div><div class="ttdeci">q_handle_t q_tx_can</div><div class="ttdef"><b>Definition</b> <a href="bootloader_2main_8c_source.html#l00037">main.c:37</a></div></div>
 <div class="ttc" id="abootloader_2main_8c_html_a6f61f7099706a5b18a5161318a097bd9"><div class="ttname"><a href="bootloader_2main_8c.html#a6f61f7099706a5b18a5161318a097bd9">q_rx_can</a></div><div class="ttdeci">q_handle_t q_rx_can</div><div class="ttdef"><b>Definition</b> <a href="bootloader_2main_8c_source.html#l00038">main.c:38</a></div></div>
 <div class="ttc" id="abootloader_2main_8c_html_a990c3a82a9723ab422570b787af03f72"><div class="ttname"><a href="bootloader_2main_8c.html#a990c3a82a9723ab422570b787af03f72">CAN1_RX0_IRQHandler</a></div><div class="ttdeci">void CAN1_RX0_IRQHandler()</div><div class="ttdef"><b>Definition</b> <a href="bootloader_2main_8c_source.html#l00109">main.c:109</a></div></div>
@@ -442,8 +441,8 @@ $(function(){initNavTree('can__common_8c_source.html',''); initResizable(true); 
 <div class="ttc" id="acommon_2phal__G4_2fdcan_2fdcan_8c_html_a8b126471775c8ec5765594c0c9bbbdff"><div class="ttname"><a href="common_2phal__G4_2fdcan_2fdcan_8c.html#a8b126471775c8ec5765594c0c9bbbdff">PHAL_FDCAN_rxCallback</a></div><div class="ttdeci">void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg)</div><div class="ttdef"><b>Definition</b> <a href="common_2phal__G4_2fdcan_2fdcan_8c_source.html#l00360">fdcan.c:360</a></div></div>
 <div class="ttc" id="adaq_2main_8c_html_a8b1e6757f968cf4456a655d61e249555"><div class="ttname"><a href="daq_2main_8c.html#a8b1e6757f968cf4456a655d61e249555">CAN2_RX0_IRQHandler</a></div><div class="ttdeci">void CAN2_RX0_IRQHandler()</div><div class="ttdef"><b>Definition</b> <a href="daq_2main_8c_source.html#l00233">main.c:233</a></div></div>
 <div class="ttc" id="adaq__can_8h_html_a0a32f054a0f3baae0270d9845d2897e6"><div class="ttname"><a href="daq__can_8h.html#a0a32f054a0f3baae0270d9845d2897e6">CAN_tx_update</a></div><div class="ttdeci">void CAN_tx_update(void)</div></div>
-<div class="ttc" id="afreertos_8h_html_a275b06486046931765e2fa6563be1ab4"><div class="ttname"><a href="freertos_8h.html#a275b06486046931765e2fa6563be1ab4">DEFINE_STATIC_QUEUE</a></div><div class="ttdeci">#define DEFINE_STATIC_QUEUE(NAME, ITEM, COUNT)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00075">freertos.h:75</a></div></div>
-<div class="ttc" id="afreertos_8h_html_a7afd9dc1fff11d8c2abc8efc52b1135d"><div class="ttname"><a href="freertos_8h.html#a7afd9dc1fff11d8c2abc8efc52b1135d">CREATE_STATIC_QUEUE</a></div><div class="ttdeci">#define CREATE_STATIC_QUEUE(NAME, ITEM, COUNT)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00083">freertos.h:83</a></div></div>
+<div class="ttc" id="afreertos_8h_html_a107127a33a429e4b2ba63232406e0d94"><div class="ttname"><a href="freertos_8h.html#a107127a33a429e4b2ba63232406e0d94">INIT_QUEUE</a></div><div class="ttdeci">#define INIT_QUEUE(NAME, ITEM, COUNT)</div><div class="ttdoc">Initializes the defined static queue.</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00087">freertos.h:87</a></div></div>
+<div class="ttc" id="afreertos_8h_html_a69f3705c51afcfefed18253d09849302"><div class="ttname"><a href="freertos_8h.html#a69f3705c51afcfefed18253d09849302">DEFINE_QUEUE</a></div><div class="ttdeci">#define DEFINE_QUEUE(NAME, ITEM, COUNT)</div><div class="ttdoc">Scaffolds the static memory for a FreeRTOS queue.</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00079">freertos.h:79</a></div></div>
 <div class="ttc" id="anamespacecan__test_html_a8b7d0f39efba4f6fb77ee7bb779900da"><div class="ttname"><a href="namespacecan__test.html#a8b7d0f39efba4f6fb77ee7bb779900da">can_test.msg</a></div><div class="ttdeci">msg</div><div class="ttdef"><b>Definition</b> <a href="can__test_8py_source.html#l00011">can_test.py:11</a></div></div>
 <div class="ttc" id="aphal__F4__F7_2can_2can_8c_html_a1f302cb498ee6478f4ef4f184b36b01e"><div class="ttname"><a href="phal__F4__F7_2can_2can_8c.html#a1f302cb498ee6478f4ef4f184b36b01e">PHAL_rxCANMessage</a></div><div class="ttdeci">bool PHAL_rxCANMessage(CAN_TypeDef *bus, uint8_t fifo, CanMsgTypeDef_t *msg)</div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2can_2can_8c_source.html#l00221">can.c:221</a></div></div>
 <div class="ttc" id="aphal__F4__F7_2can_2can_8c_html_a22269e3f8f5f895a2a2b8e2865814369"><div class="ttname"><a href="phal__F4__F7_2can_2can_8c.html#a22269e3f8f5f895a2a2b8e2865814369">PHAL_txCANAbort</a></div><div class="ttdeci">void PHAL_txCANAbort(CAN_TypeDef *bus, uint8_t mbx)</div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2can_2can_8c_source.html#l00205">can.c:205</a></div></div>

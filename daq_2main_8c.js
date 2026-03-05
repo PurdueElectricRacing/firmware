@@ -8,7 +8,7 @@ var daq_2main_8c =
     [ "can_rx_irq_handler", "daq_2main_8c.html#a669af579d00fc51b75ef98c883348dac", null ],
     [ "configure_interrupts", "daq_2main_8c.html#aabdbaa50d97bdb9d077e752af668866d", null ],
     [ "debug_printf", "daq_2main_8c.html#a46a8c2e1aeca94194f64ccb086e285ff", null ],
-    [ "DEFINE_STATIC_SEMAPHORE", "daq_2main_8c.html#aa0827b80caaefb00060a13e3ea91f542", null ],
+    [ "DEFINE_MUTEX", "daq_2main_8c.html#a30675093a6c10a6b20735712e5123111", null ],
     [ "EXTI15_10_IRQHandler", "daq_2main_8c.html#a2089b233bd8d6f7dbf78e075033696e3", null ],
     [ "HardFault_Handler", "daq_2main_8c.html#a2af56a8bf3197b2f06cac4c0b84ffc3e", null ],
     [ "main", "daq_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4", null ],

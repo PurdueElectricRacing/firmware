@@ -1,5 +1,10 @@
 var NAVTREEINDEX24 =
 {
+"structraw__adc__values__t.html#a70839be1728bda8bef699c5352dee5ef":[7,0,58,4],
+"structraw__adc__values__t.html#a771a8e2e8815cb9b95f9ee62fc1a30c7":[7,0,58,9],
+"structraw__adc__values__t.html#a80fe5270c85b36e8db3d495f9536e1dc":[7,0,58,1],
+"structraw__adc__values__t.html#a896fa28b4b22996c1ab9c988e11e6216":[7,0,58,6],
+"structraw__adc__values__t.html#a91e331313c2ef9a41a6e02276b5f8229":[7,0,58,0],
 "structraw__adc__values__t.html#a94345e7bcedc5c1cd791b0e3a867596b":[7,0,58,10],
 "structraw__adc__values__t.html#a94b3f84ca3f0215f70a4b12713f60ef3":[7,0,58,5],
 "structraw__adc__values__t.html#af959ee919ea92d8c36b2396f1c0d909b":[7,0,58,3],
@@ -244,10 +249,5 @@ var NAVTREEINDEX24 =
 "validator_8py.html#ac5fe9fb2c36b6f732cafaa21c5b04541":[8,0,0,4,0,9,1],
 "validator_8py.html#acce219090ef99877525bace3d7e9be78":[8,0,0,4,0,9,0],
 "validator_8py.html#ae8c70b27ca2fed63d2769912d9dba3a9":[8,0,0,4,0,9,4],
-"validator_8py_source.html":[8,0,0,4,0,9],
-"vsprintf_8c.html":[8,0,0,10,2],
-"vsprintf_8c.html#a0c51030e94d41094a5dd4aa74db5334c":[8,0,0,10,2,18],
-"vsprintf_8c.html#a11b0cb103c64b0b38ca449fcb9675fe2":[8,0,0,10,2,21],
-"vsprintf_8c.html#a1677124a97a6d75da43d139916137a4a":[8,0,0,10,2,35],
-"vsprintf_8c.html#a1a32633426813343ad10758673fc9a96":[8,0,0,10,2,11]
+"validator_8py_source.html":[8,0,0,4,0,9]
 };

@@ -1,5 +1,10 @@
 var NAVTREEINDEX25 =
 {
+"vsprintf_8c.html":[8,0,0,10,2],
+"vsprintf_8c.html#a0c51030e94d41094a5dd4aa74db5334c":[8,0,0,10,2,18],
+"vsprintf_8c.html#a11b0cb103c64b0b38ca449fcb9675fe2":[8,0,0,10,2,21],
+"vsprintf_8c.html#a1677124a97a6d75da43d139916137a4a":[8,0,0,10,2,35],
+"vsprintf_8c.html#a1a32633426813343ad10758673fc9a96":[8,0,0,10,2,11],
 "vsprintf_8c.html#a1b067588850d976fb7e9daf04c9fae35":[8,0,0,10,2,44],
 "vsprintf_8c.html#a1c117e93361d9654175da3ca52abdc95":[8,0,0,10,2,7],
 "vsprintf_8c.html#a1ee5ea77b28026649f71bf8d07b700bd":[8,0,0,10,2,5],

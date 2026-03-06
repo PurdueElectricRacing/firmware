@@ -1,6 +1,6 @@
 {
     "node_name": "PDU",
-    "scheduler": "psched",
+    "scheduler": "freertos",
     "busses": {
         "VCAN": {
             "peripheral": "CAN1",
@@ -78,6 +78,26 @@
                         },
                         {
                             "sig_name": "i_fan2",
+                            "type": "uint16_t",
+                            "unit": "mA",
+                            "length": 12
+                        }
+                    ],
+                    "msg_period": 500,
+                    "msg_priority": 4
+                },
+                {
+                    "msg_name": "fan_current2",
+                    "msg_desc": "more fan currents",
+                    "signals": [
+                        {
+                            "sig_name": "i_fan3",
+                            "type": "uint16_t",
+                            "unit": "mA",
+                            "length": 12
+                        },
+                        {
+                            "sig_name": "i_fan4",
                             "type": "uint16_t",
                             "unit": "mA",
                             "length": 12
@@ -255,57 +275,39 @@
     "generate_fault_messages": false,
     "faults": [
         {
-            "fault_name": "pdu_mcu_temp_high",
-            "max": 50,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 1000,
-            "time_to_unlatch": 2000,
-            "lcd_message": "HIGH PDU MCU TEMP"
-        },
-        {
             "fault_name": "dash_rail",
             "max": 1,
             "min": 0,
-            "priority": "fatal",
+            "priority": "error",
             "time_to_latch": 100,
-            "time_to_unlatch": 1000,
+            "time_to_unlatch": 10000,
             "lcd_message": "Dash Rail Down"
         },
         {
             "fault_name": "abox_rail",
             "max": 1,
             "min": 0,
-            "priority": "warning",
+            "priority": "error",
             "time_to_latch": 100,
-            "time_to_unlatch": 1000,
+            "time_to_unlatch": 10000,
             "lcd_message": "ABox Rail Down"
         },
         {
             "fault_name": "main_rail",
             "max": 1,
             "min": 0,
-            "priority": "fatal",
+            "priority": "error",
             "time_to_latch": 100,
-            "time_to_unlatch": 1000,
+            "time_to_unlatch": 10000,
             "lcd_message": "Main Rail Down"
-        },
-        {
-            "fault_name": "daq_rail",
-            "max": 1,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 100,
-            "time_to_unlatch": 1000,
-            "lcd_message": "DAQ Rail Down"
         },
         {
             "fault_name": "v_crit",
             "max": 1,
             "min": 0,
-            "priority": "fatal",
+            "priority": "error",
             "time_to_latch": 100,
-            "time_to_unlatch": 1000,
+            "time_to_unlatch": 10000,
             "lcd_message": "5v_crit down"
         },
         {
@@ -314,17 +316,26 @@
             "min": 0,
             "priority": "warning",
             "time_to_latch": 100,
-            "time_to_unlatch": 1000,
+            "time_to_unlatch": 10000,
             "lcd_message": "5V_NC Rail Down"
         },
         {
-            "fault_name": "fan1",
+            "fault_name": "front_driveline_rail",
             "max": 1,
             "min": 0,
             "priority": "warning",
             "time_to_latch": 100,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Fan 1 Rail Down"
+            "time_to_unlatch": 10000,
+            "lcd_message": "Front Driveline Rail Down"
+        },
+        {
+            "fault_name": "rear_driveline_rail",
+            "max": 1,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 100,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Rear Driveline Rail Down"
         },
         {
             "fault_name": "bullet_rail",
@@ -332,17 +343,8 @@
             "min": 0,
             "priority": "warning",
             "time_to_latch": 100,
-            "time_to_unlatch": 1000,
+            "time_to_unlatch": 10000,
             "lcd_message": "Bullet Rail Down"
-        },
-        {
-            "fault_name": "fan2",
-            "max": 1,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 100,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Fan 2 Rail Down"
         },
         {
             "fault_name": "lv_critical_low",

@@ -23,12 +23,12 @@ typedef struct {
     bool is_on; // current state of the controller (true for on, false for off)
 } bangbang_t;
 
-#define INIT_BANG_BANG(name, upper, lower, on_func, off_func, min_interval) \
+#define INIT_BANG_BANG(name, upper, lower, on_callback, off_callback, min_interval) \
     bangbang_t name = { \
         .upper_bound = upper, \
         .lower_bound = lower, \
-        .on_func = on_func, \
-        .off_func = off_func, \
+        .on_func = on_callback, \
+        .off_func = off_callback, \
         .min_switch_interval = min_interval, \
         .last_switch_ms = 0, \
         .is_on = false \

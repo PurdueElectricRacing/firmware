@@ -20,21 +20,21 @@
 
 #define MAX_NUM_LED 14
 
-// LED Driver Pins
-#define LED_PUMP_1   (0)
-#define LED_PUMP_2   (1)
-#define LED_FAN_2    (2)
-#define LED_FAN_1    (3)
-#define LED_ABOX     (4)
-#define LED_DASH     (5)
-#define LED_MAIN     (6)
-#define LED_SDC      (7)
-#define LED_AUX_1    (8)
-#define LED_5V_CRIT  (9)
-#define LED_5V_NCRIT (10)
-#define LED_DAQ      (11)
-#define LED_5V_FAN   (12)
-#define LED_BLT      (13)
+// LED Driver Pins (value = TLC59281 OUT pin number)
+#define LED_PUMP_1  (0)
+#define LED_PUMP_2  (1)
+#define LED_DLBK    (2)
+#define LED_DLFR    (3)
+#define LED_SDC     (4)
+#define LED_MAIN    (5)
+#define LED_DASH    (6)
+#define LED_ABOX    (7)
+#define LED_HXFAN   (8)
+#define LED_5V_FAN  (9)
+#define LED_TV      (10)
+#define LED_DAQ     (11)
+#define LED_5V_CRIT (12)
+#define LED_BLT     (13)
 
 enum LED_state {
     LED_OFF = 0,

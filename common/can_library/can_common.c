@@ -3,7 +3,7 @@
  * @brief Common functions and data structures used in every node in the CAN library
  * 
  * @author Irving Wang (irvingw@purdue.edu)
- * @author Luke Oxley (lcoxley@purdue.edu)
+ * @author Ronak Jain (jain717@purdue.edu)
  */
 
 #include "common/can_library/can_common.h"
@@ -16,13 +16,39 @@ can_stats_t can_stats;
 volatile uint32_t last_can_rx_time_ms;
 DEFINE_QUEUE(q_rx_can, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
 
-#if defined(STM32F407xx) || defined(STM32F732xx)
+// Shared rx update implementation
+void CAN_rx_update() {
+    CanMsgTypeDef_t rx_msg;
+    // Timeout: 0, poll only, don't block
+    while (xQueueReceive(q_rx_can, &rx_msg, 0) == pdPASS) {
+        last_can_rx_time_ms = OS_TICKS;
+        uint8_t periph_idx  = GET_PERIPH_IDX(rx_msg.Bus);
+        CAN_rx_dispatcher(
+            rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId,
+            rx_msg.Data,
+            rx_msg.DLC,
+            periph_idx
+        );
+    }
+}
 
-// todo mailbox based implementation here
-q_handle_t q_tx_can[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
-// q_handle_t q_rx_can;
-//QueueHandle_t q_rx_can;
+#if defined(STM32F407xx)
+
+QueueHandle_t q_tx_can[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
 uint32_t can_mbx_last_send_time[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
+
+// Statically allocate TX queues for CAN1 and CAN2
+#ifdef USE_CAN1
+DEFINE_QUEUE(q_tx_can1_m0, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+DEFINE_QUEUE(q_tx_can1_m1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+DEFINE_QUEUE(q_tx_can1_m2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+#endif
+
+#ifdef USE_CAN2
+DEFINE_QUEUE(q_tx_can2_m0, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+DEFINE_QUEUE(q_tx_can2_m1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+DEFINE_QUEUE(q_tx_can2_m2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+#endif
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
     uint8_t mailbox;
@@ -48,7 +74,7 @@ void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
         mailbox = CAN_MAILBOX_HIGH_PRIO;
     }
 
-    if (qSendToBack(&q_tx_can[periph_idx][mailbox], msg) != SUCCESS_G) {
+    if (xQueueSendToBack(q_tx_can[periph_idx][mailbox], msg, pdMS_TO_TICKS(CAN_TX_BACKPRESSURE_MS)) != pdPASS) {
         can_stats.can_peripheral_stats[periph_idx].tx_of++;
     }
 }
@@ -59,7 +85,7 @@ void CAN_tx_update() {
 #ifdef USE_CAN1
         // Handle CAN1
         if (PHAL_txMailboxFree(CAN1, i)) {
-            if (qReceive(&q_tx_can[CAN1_IDX][i], &tx_msg) == SUCCESS_G) {
+            if (xQueueReceive(q_tx_can[CAN1_IDX][i], &tx_msg, 0) == pdPASS) {
                 PHAL_txCANMessage(&tx_msg, i);
                 can_mbx_last_send_time[CAN1_IDX][i] = OS_TICKS;
             }
@@ -72,7 +98,7 @@ void CAN_tx_update() {
 #ifdef USE_CAN2
         // Handle CAN2
         if (PHAL_txMailboxFree(CAN2, i)) {
-            if (qReceive(&q_tx_can[CAN2_IDX][i], &tx_msg) == SUCCESS_G) {
+            if (xQueueReceive(q_tx_can[CAN2_IDX][i], &tx_msg, 0) == pdPASS) {
                 PHAL_txCANMessage(&tx_msg, i);
                 can_mbx_last_send_time[CAN2_IDX][i] = OS_TICKS;
             }
@@ -84,7 +110,8 @@ void CAN_tx_update() {
     }
 }
 
-void CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo) {
+[[gnu::always_inline]]
+inline void CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo) {
     CanMsgTypeDef_t rx_msg;
     while (PHAL_rxCANMessage(bus, fifo, &rx_msg)) {
         BaseType_t xHigherPriorityTaskWoken = pdFALSE;
@@ -92,18 +119,6 @@ void CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo) {
             can_stats.rx_of++;
         }
         portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
-    }
-}
-
-void CAN_rx_update() {
-    CanMsgTypeDef_t rx_msg;
-    while (xQueueReceive(q_rx_can, &rx_msg, 0) == pdPASS) {
-        last_can_rx_time_ms = OS_TICKS;
-        uint8_t periph_idx  = GET_PERIPH_IDX(rx_msg.Bus);
-        CAN_rx_dispatcher(rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId,
-                          rx_msg.Data,
-                          rx_msg.DLC,
-                          periph_idx);
     }
 }
 
@@ -156,12 +171,34 @@ static inline bool CAN_exit_filter_config(CAN_TypeDef *can) {
 }
 
 bool CAN_library_init() {
-    for (uint8_t can_periph = 0; can_periph < NUM_CAN_PERIPHERALS; can_periph++) {
-        for (uint8_t mbx = 0; mbx < CAN_TX_MAILBOX_CNT; mbx++) {
-            qConstruct(&q_tx_can[can_periph][mbx], sizeof(CanMsgTypeDef_t));
-            can_mbx_last_send_time[can_periph][mbx] = 0;
-        }
+#ifdef USE_CAN1
+    INIT_QUEUE(q_tx_can1_m0, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    INIT_QUEUE(q_tx_can1_m1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    INIT_QUEUE(q_tx_can1_m2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+
+    q_tx_can[CAN1_IDX][0] = q_tx_can1_m0;
+    q_tx_can[CAN1_IDX][1] = q_tx_can1_m1;
+    q_tx_can[CAN1_IDX][2] = q_tx_can1_m2;
+
+    for (uint8_t i = 0; i < CAN_TX_MAILBOX_CNT; i++) {
+        can_mbx_last_send_time[CAN1_IDX][i] = 0;
     }
+#endif
+
+#ifdef USE_CAN2
+    INIT_QUEUE(q_tx_can2_m0, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    INIT_QUEUE(q_tx_can2_m1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    INIT_QUEUE(q_tx_can2_m2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+
+    q_tx_can[CAN2_IDX][0] = q_tx_can2_m0;
+    q_tx_can[CAN2_IDX][1] = q_tx_can2_m1;
+    q_tx_can[CAN2_IDX][2] = q_tx_can2_m2;
+
+    for (uint8_t i = 0; i < CAN_TX_MAILBOX_CNT; i++) {
+        can_mbx_last_send_time[CAN2_IDX][i] = 0;
+    }
+#endif
+
     INIT_QUEUE(q_rx_can, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
     can_stats = (can_stats_t) {0};
     CAN_data_init();
@@ -214,7 +251,6 @@ DEFINE_QUEUE(q_tx_can3, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 
 QueueHandle_t q_tx_can[NUM_CAN_PERIPHERALS];
-// QueueHandle_t q_rx_can;
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
     uint8_t periph_idx = GET_PERIPH_IDX(msg->Bus);
@@ -246,21 +282,6 @@ void CAN_tx_update() {
         PHAL_FDCAN_send(&tx_msg);
     }
 #endif
-}
-
-void CAN_rx_update() {
-    CanMsgTypeDef_t rx_msg;
-    // Timeout: 0, poll only, don't block
-    while (xQueueReceive(q_rx_can, &rx_msg, 0) == pdPASS) {
-        last_can_rx_time_ms = OS_TICKS;
-        uint8_t periph_idx  = GET_PERIPH_IDX(rx_msg.Bus);
-        CAN_rx_dispatcher(
-            rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId,
-            rx_msg.Data,
-            rx_msg.DLC,
-            periph_idx
-        );
-    }
 }
 
 // FDCAN RX callback - enqueues received messages to the RX queue

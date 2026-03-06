@@ -47,6 +47,7 @@ set(COMMON_MODULES
     common/strbuf
     common/lerp_lut
     common/syscalls
+    common/bangbang
 )
 
 foreach(COMMON_MODULE IN LISTS COMMON_MODULES)
@@ -68,7 +69,7 @@ if(MODULES STREQUAL "")
         daq
         driveline
         main_module
-        # pdu
+        pdu
         torque_vector
     )
 endif()

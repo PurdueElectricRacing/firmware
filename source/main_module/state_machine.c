@@ -180,6 +180,8 @@ void fsm_periodic() {
         }
     }
 
+    CAN_SEND_main_hb(g_car.current_state);
+
     AMK_set_torque(&g_car.front_right, g_torque_request.front_right);
     AMK_set_torque(&g_car.front_left,  g_torque_request.front_left);
     AMK_set_torque(&g_car.rear_left,   g_torque_request.rear_left);

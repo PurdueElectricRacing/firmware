@@ -155,24 +155,27 @@ GPIOInitConfig_t gpio_config[] = {
 };
 
 /* ADC Configuration */
+
 ADCInitConfig_t adc_config = {
-    .clock_prescaler =
-        ADC_CLK_PRESC_6, // Desire ADC clock to be 30MHz (upper bound), clocked from APB2 (160/6=27MHz)
-    .resolution     = ADC_RES_12_BIT,
-    .data_align     = ADC_DATA_ALIGN_RIGHT,
-    .cont_conv_mode = true,
-    .adc_number     = 1,
-    .dma_mode       = ADC_DMA_CIRCULAR};
+    .clock_prescaler = ADC_CLK_PRESC_6, // Desire ADC clock to be 30MHz (upper bound), clocked from APB2 (160/6=27MHz)
+    .resolution      = ADC_RES_12_BIT,
+    .data_align      = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode  = true,
+    .adc_number      = 1,
+    .dma_mode        = ADC_DMA_CIRCULAR
+};
 
 /* SPI Configuration */
+// todo evalaute DMA streams. do we need this? can we use it for ADC?
 dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
 dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
-
-SPI_InitConfig_t spi_config = {.data_len   = 8,
-                               .nss_sw     = false,
-                               .rx_dma_cfg = &spi_rx_dma_config,
-                               .tx_dma_cfg = &spi_tx_dma_config,
-                               .periph     = SPI1};
+SPI_InitConfig_t spi_config = {
+    .data_len   = 8,
+    .nss_sw     = false,
+    .rx_dma_cfg = &spi_rx_dma_config,
+    .tx_dma_cfg = &spi_tx_dma_config,
+    .periph     = SPI1
+};
 
 /* With 17 items, 16 prescaler, and 640 sample time, each channel gets read every 1.4ms */
 volatile ADCReadings_t adc_readings;
@@ -339,11 +342,7 @@ int main() {
     if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
         HardFault_Handler();
     }
-
-    if (!PHAL_initADC(ADC1,
-                      &adc_config,
-                      adc_channel_config,
-                      sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
+    if (!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
         HardFault_Handler();
     }
     if (!PHAL_initDMA(&adc_dma_config)) {

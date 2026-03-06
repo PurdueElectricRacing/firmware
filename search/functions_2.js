@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['background_5fcan_5fupdate_0',['background_can_update',['../a__box_2main_8c.html#af14d2c72424a8b2f82fdc9ed8497a61e',1,'background_can_update(void):&#160;main.c'],['../main__module_2main_8c.html#a6889303ebc2ac02a08baeb15f363368a',1,'background_can_update():&#160;main.c']]],
+  ['background_5fcan_5fupdate_0',['background_can_update',['../a__box_2main_8c.html#af14d2c72424a8b2f82fdc9ed8497a61e',1,'background_can_update(void):&#160;main.c'],['../main__module_2main_8c.html#a6889303ebc2ac02a08baeb15f363368a',1,'background_can_update():&#160;main.c'],['../pdu_2main_8c.html#a6889303ebc2ac02a08baeb15f363368a',1,'background_can_update():&#160;main.c']]],
   ['backpage_1',['backPage',['../lcd_8c.html#ab328996325a24df855157cc23430de3d',1,'backPage():&#160;lcd.c'],['../lcd_8h.html#ab328996325a24df855157cc23430de3d',1,'backPage():&#160;lcd.c']]],
   ['bangbang_5fupdate_2',['bangbang_update',['../bangbang_8c.html#a6e64fa5703d5bbbc0b47d207bd44983c',1,'bangbang_update(bangbang_t *controller, float value, uint32_t current_time):&#160;bangbang.c'],['../bangbang_8h.html#a6e64fa5703d5bbbc0b47d207bd44983c',1,'bangbang_update(bangbang_t *controller, float value, uint32_t current_time):&#160;bangbang.c']]],
   ['bitstream_5fdata_5fcallback_3',['bitstream_data_CALLBACK',['../bootloader_8c.html#a2bc2632777121708f3edba5775a1e9b0',1,'bootloader.c']]],

@@ -104,6 +104,7 @@ $(function(){initNavTree('cooling_8c.html',''); initResizable(true); });
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="cooling_8h_source.html">cooling.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="auto__switch_8h_source.html">auto_switch.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="bangbang_8h_source.html">common/bangbang/bangbang.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="fan__control_8h_source.html">fan_control.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="led_8h_source.html">led.h</a>&quot;</code><br />
 </div>
@@ -113,6 +114,22 @@ $(function(){initNavTree('cooling_8c.html',''); initResizable(true); });
 Functions</h2></td></tr>
 <tr class="memitem:af2761ec68d1438c1c8b9feb4be3cfb68" id="r_af2761ec68d1438c1c8b9feb4be3cfb68"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af2761ec68d1438c1c8b9feb4be3cfb68">calculate_cooling_periodic</a> ()</td></tr>
 <tr class="separator:af2761ec68d1438c1c8b9feb4be3cfb68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8bdced3af540da0f642d2b329202751" id="r_aa8bdced3af540da0f642d2b329202751"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8bdced3af540da0f642d2b329202751">set_pump1_on</a> ()</td></tr>
+<tr class="separator:aa8bdced3af540da0f642d2b329202751"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86602beb8892652358aae4a19df20b40" id="r_a86602beb8892652358aae4a19df20b40"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a86602beb8892652358aae4a19df20b40">set_pump1_off</a> ()</td></tr>
+<tr class="separator:a86602beb8892652358aae4a19df20b40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12c9950618f1f7c4e9fd37394178bed0" id="r_a12c9950618f1f7c4e9fd37394178bed0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a12c9950618f1f7c4e9fd37394178bed0">set_fan1_on</a> ()</td></tr>
+<tr class="separator:a12c9950618f1f7c4e9fd37394178bed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5964d322f16cf7e77fc555a64e3bc94d" id="r_a5964d322f16cf7e77fc555a64e3bc94d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5964d322f16cf7e77fc555a64e3bc94d">set_fan1_off</a> ()</td></tr>
+<tr class="separator:a5964d322f16cf7e77fc555a64e3bc94d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbb5c7644b509b26ea0fc03d158ab2e1" id="r_adbb5c7644b509b26ea0fc03d158ab2e1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adbb5c7644b509b26ea0fc03d158ab2e1">set_pump2_on</a> ()</td></tr>
+<tr class="separator:adbb5c7644b509b26ea0fc03d158ab2e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa52b825e372ba5388737a6ab715b876" id="r_aaa52b825e372ba5388737a6ab715b876"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa52b825e372ba5388737a6ab715b876">set_pump2_off</a> ()</td></tr>
+<tr class="separator:aaa52b825e372ba5388737a6ab715b876"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4688150f09fc81f019e9364de648553c" id="r_a4688150f09fc81f019e9364de648553c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4688150f09fc81f019e9364de648553c">set_fan2_on</a> ()</td></tr>
+<tr class="separator:a4688150f09fc81f019e9364de648553c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b78a140522e0a418208c86eccf0ea76" id="r_a7b78a140522e0a418208c86eccf0ea76"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b78a140522e0a418208c86eccf0ea76">set_fan2_off</a> ()</td></tr>
+<tr class="separator:a7b78a140522e0a418208c86eccf0ea76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad30811eac53f601ce45d6ab71f10c678" id="r_ad30811eac53f601ce45d6ab71f10c678"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad30811eac53f601ce45d6ab71f10c678">coolingInit</a> ()</td></tr>
 <tr class="memdesc:ad30811eac53f601ce45d6ab71f10c678"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes cooling_request struct values to 0.  <br /></td></tr>
 <tr class="separator:ad30811eac53f601ce45d6ab71f10c678"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,6 +144,18 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:ace2d3b0e243c256a01e02bbed913a7ed" id="r_ace2d3b0e243c256a01e02bbed913a7ed"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structcooling__request__t.html">cooling_request_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace2d3b0e243c256a01e02bbed913a7ed">cr</a></td></tr>
 <tr class="separator:ace2d3b0e243c256a01e02bbed913a7ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8dd9daa69b1d1d0f092f36154851663" id="r_aa8dd9daa69b1d1d0f092f36154851663"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8dd9daa69b1d1d0f092f36154851663">batt_fan_autospeed</a></td></tr>
+<tr class="separator:aa8dd9daa69b1d1d0f092f36154851663"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc8ddb4cd130a3cd1c6e9838ca406abd" id="r_afc8ddb4cd130a3cd1c6e9838ca406abd"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afc8ddb4cd130a3cd1c6e9838ca406abd">motor_fan_autospeed</a></td></tr>
+<tr class="separator:afc8ddb4cd130a3cd1c6e9838ca406abd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cab22c0dc8c10a9ed775ab64b81b18e" id="r_a5cab22c0dc8c10a9ed775ab64b81b18e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbangbang__t.html">bangbang_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5cab22c0dc8c10a9ed775ab64b81b18e">batt_pump_controller</a> = { .upper_bound = 30 , .lower_bound = ( 30 - 2), .on_func = <a class="el" href="#aa8bdced3af540da0f642d2b329202751">set_pump1_on</a>, .off_func = <a class="el" href="#a86602beb8892652358aae4a19df20b40">set_pump1_off</a>, .min_switch_interval = 1000 , .last_switch_ms = 0, .is_on = false }</td></tr>
+<tr class="separator:a5cab22c0dc8c10a9ed775ab64b81b18e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4f6ee698aa84f9c35c3aa3c7ec9dcff" id="r_aa4f6ee698aa84f9c35c3aa3c7ec9dcff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbangbang__t.html">bangbang_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa4f6ee698aa84f9c35c3aa3c7ec9dcff">batt_fan_controller</a> = { .upper_bound = 30 , .lower_bound = ( 30 - 2), .on_func = <a class="el" href="#a12c9950618f1f7c4e9fd37394178bed0">set_fan1_on</a>, .off_func = <a class="el" href="#a5964d322f16cf7e77fc555a64e3bc94d">set_fan1_off</a>, .min_switch_interval = 1000 , .last_switch_ms = 0, .is_on = false }</td></tr>
+<tr class="separator:aa4f6ee698aa84f9c35c3aa3c7ec9dcff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4b58cf8175982191cd046764924b9f1" id="r_aa4b58cf8175982191cd046764924b9f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbangbang__t.html">bangbang_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa4b58cf8175982191cd046764924b9f1">motor_pump_controller</a> = { .upper_bound = 60 , .lower_bound = ( 60 - 5), .on_func = <a class="el" href="#adbb5c7644b509b26ea0fc03d158ab2e1">set_pump2_on</a>, .off_func = <a class="el" href="#aaa52b825e372ba5388737a6ab715b876">set_pump2_off</a>, .min_switch_interval = 1000 , .last_switch_ms = 0, .is_on = false }</td></tr>
+<tr class="separator:aa4b58cf8175982191cd046764924b9f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf84e467c474c8d7b4bff5988daf4af1" id="r_acf84e467c474c8d7b4bff5988daf4af1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbangbang__t.html">bangbang_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf84e467c474c8d7b4bff5988daf4af1">motor_fan_controller</a> = { .upper_bound = 100 , .lower_bound = ( 100 - 5), .on_func = <a class="el" href="#a4688150f09fc81f019e9364de648553c">set_fan2_on</a>, .off_func = <a class="el" href="#a7b78a140522e0a418208c86eccf0ea76">set_fan2_off</a>, .min_switch_interval = 1000 , .last_switch_ms = 0, .is_on = false }</td></tr>
+<tr class="separator:acf84e467c474c8d7b4bff5988daf4af1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Nicolas Vera (<a href="#" onclick="location.href='mai'+'lto:'+'nve'+'ra'+'pae'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">nvera<span class="obfuscator">.nosp@m.</span>pae@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd></dl>
@@ -159,11 +188,11 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00049">49</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00114">114</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
 
-<p class="reference">References <a class="el" href="cooling_8h_source.html#l00019">BATT_COOLING_ENABLE_TEMP</a>, <a class="el" href="can__parse__starter_8c_source.html#l00016">can_data</a>, <a class="el" href="cooling_8c_source.html#l00017">cr</a>, <a class="el" href="cooling_8h_source.html#l00022">cooling_request_t::fan1_speed</a>, <a class="el" href="cooling_8h_source.html#l00026">cooling_request_t::fan1_status</a>, <a class="el" href="cooling_8h_source.html#l00023">cooling_request_t::fan2_speed</a>, <a class="el" href="cooling_8h_source.html#l00027">cooling_request_t::fan2_status</a>, <a class="el" href="cooling_8h_source.html#l00016">GPS_SPEED_MOVING</a>, <a class="el" href="cooling_8h_source.html#l00017">MOTOR_COOLING_ENABLE_TEMP</a>, <a class="el" href="cooling_8h_source.html#l00018">MOTOR_COOLING_MAX_TEMP</a>, <a class="el" href="cooling_8h_source.html#l00024">cooling_request_t::pump1_status</a>, and <a class="el" href="cooling_8h_source.html#l00025">cooling_request_t::pump2_status</a>.</p>
+<p class="reference">References <a class="el" href="bangbang_8c_source.html#l00018">bangbang_update()</a>, <a class="el" href="can__parse__starter_8c_source.html#l00016">can_data</a>, <a class="el" href="cooling_8c_source.html#l00018">cr</a>, <a class="el" href="cooling_8h_source.html#l00038">cooling_request_t::fan1_speed</a>, <a class="el" href="cooling_8h_source.html#l00044">cooling_request_t::fan1_status</a>, <a class="el" href="cooling_8h_source.html#l00039">cooling_request_t::fan2_speed</a>, <a class="el" href="cooling_8h_source.html#l00045">cooling_request_t::fan2_status</a>, <a class="el" href="cooling_8h_source.html#l00040">cooling_request_t::fan3_speed</a>, <a class="el" href="cooling_8h_source.html#l00046">cooling_request_t::fan3_status</a>, <a class="el" href="cooling_8h_source.html#l00041">cooling_request_t::fan4_speed</a>, <a class="el" href="cooling_8h_source.html#l00047">cooling_request_t::fan4_status</a>, <a class="el" href="bangbang_8h_source.html#l00021">bangbang_t::last_switch_ms</a>, <a class="el" href="common__defs_8h_source.html#l00024">MAX</a>, <a class="el" href="cooling_8h_source.html#l00017">MOTOR_COOLING_ENABLE_TEMP</a>, <a class="el" href="cooling_8c_source.html#l00059">motor_fan_controller</a>, <a class="el" href="cooling_8c_source.html#l00052">motor_pump_controller</a>, <a class="el" href="cooling_8c_source.html#l00213">set_fan2_off()</a>, and <a class="el" href="cooling_8c_source.html#l00202">set_pump2_off()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cooling_8c_source.html#l00030">update_cooling_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cooling_8c_source.html#l00077">update_cooling_periodic()</a>.</p>
 
 </div>
 </div>
@@ -191,9 +220,9 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00093">93</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00220">220</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
 
-<p class="reference">References <a class="el" href="can__parse__starter_8c_source.html#l00016">can_data</a>, <a class="el" href="common__defs_8h_source.html#l00036">CLAMP</a>, <a class="el" href="cooling_8c_source.html#l00017">cr</a>, <a class="el" href="cooling_8h_source.html#l00022">cooling_request_t::fan1_speed</a>, and <a class="el" href="cooling_8h_source.html#l00023">cooling_request_t::fan2_speed</a>.</p>
+<p class="reference">References <a class="el" href="cooling_8c_source.html#l00030">batt_fan_autospeed</a>, <a class="el" href="can__parse__starter_8c_source.html#l00016">can_data</a>, <a class="el" href="common__defs_8h_source.html#l00036">CLAMP</a>, <a class="el" href="cooling_8c_source.html#l00018">cr</a>, <a class="el" href="cooling_8h_source.html#l00038">cooling_request_t::fan1_speed</a>, <a class="el" href="cooling_8h_source.html#l00039">cooling_request_t::fan2_speed</a>, <a class="el" href="cooling_8h_source.html#l00040">cooling_request_t::fan3_speed</a>, <a class="el" href="cooling_8h_source.html#l00041">cooling_request_t::fan4_speed</a>, and <a class="el" href="cooling_8c_source.html#l00031">motor_fan_autospeed</a>.</p>
 
 </div>
 </div>
@@ -221,11 +250,247 @@ Variables</h2></td></tr>
 </dl>
 <p>return </p>
 
-<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00020">20</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00061">61</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
 
-<p class="reference">References <a class="el" href="cooling_8h_source.html#l00028">cooling_request_t::aux_status</a>, <a class="el" href="cooling_8c_source.html#l00017">cr</a>, <a class="el" href="cooling_8h_source.html#l00022">cooling_request_t::fan1_speed</a>, <a class="el" href="cooling_8h_source.html#l00026">cooling_request_t::fan1_status</a>, <a class="el" href="cooling_8h_source.html#l00023">cooling_request_t::fan2_speed</a>, <a class="el" href="cooling_8h_source.html#l00027">cooling_request_t::fan2_status</a>, <a class="el" href="cooling_8h_source.html#l00024">cooling_request_t::pump1_status</a>, and <a class="el" href="cooling_8h_source.html#l00025">cooling_request_t::pump2_status</a>.</p>
+<p class="reference">References <a class="el" href="cooling_8c_source.html#l00030">batt_fan_autospeed</a>, <a class="el" href="cooling_8c_source.html#l00018">cr</a>, <a class="el" href="cooling_8h_source.html#l00038">cooling_request_t::fan1_speed</a>, <a class="el" href="cooling_8h_source.html#l00044">cooling_request_t::fan1_status</a>, <a class="el" href="cooling_8h_source.html#l00039">cooling_request_t::fan2_speed</a>, <a class="el" href="cooling_8h_source.html#l00045">cooling_request_t::fan2_status</a>, <a class="el" href="cooling_8h_source.html#l00040">cooling_request_t::fan3_speed</a>, <a class="el" href="cooling_8h_source.html#l00046">cooling_request_t::fan3_status</a>, <a class="el" href="cooling_8h_source.html#l00041">cooling_request_t::fan4_speed</a>, <a class="el" href="cooling_8h_source.html#l00047">cooling_request_t::fan4_status</a>, <a class="el" href="cooling_8h_source.html#l00048">cooling_request_t::hxfan_status</a>, <a class="el" href="cooling_8c_source.html#l00031">motor_fan_autospeed</a>, <a class="el" href="cooling_8h_source.html#l00042">cooling_request_t::pump1_status</a>, and <a class="el" href="cooling_8h_source.html#l00043">cooling_request_t::pump2_status</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00212">preflightChecks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00345">main()</a>.</p>
+
+</div>
+</div>
+<a id="a5964d322f16cf7e77fc555a64e3bc94d" name="a5964d322f16cf7e77fc555a64e3bc94d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5964d322f16cf7e77fc555a64e3bc94d">&#9670;&#160;</a></span>set_fan1_off()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void set_fan1_off </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00191">191</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+
+<p class="reference">References <a class="el" href="cooling_8c_source.html#l00030">batt_fan_autospeed</a>, <a class="el" href="cooling_8c_source.html#l00018">cr</a>, <a class="el" href="cooling_8h_source.html#l00038">cooling_request_t::fan1_speed</a>, and <a class="el" href="cooling_8h_source.html#l00044">cooling_request_t::fan1_status</a>.</p>
+
+</div>
+</div>
+<a id="a12c9950618f1f7c4e9fd37394178bed0" name="a12c9950618f1f7c4e9fd37394178bed0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12c9950618f1f7c4e9fd37394178bed0">&#9670;&#160;</a></span>set_fan1_on()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void set_fan1_on </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00184">184</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+
+<p class="reference">References <a class="el" href="cooling_8c_source.html#l00030">batt_fan_autospeed</a>, <a class="el" href="cooling_8c_source.html#l00018">cr</a>, <a class="el" href="cooling_8h_source.html#l00038">cooling_request_t::fan1_speed</a>, and <a class="el" href="cooling_8h_source.html#l00044">cooling_request_t::fan1_status</a>.</p>
+
+</div>
+</div>
+<a id="a7b78a140522e0a418208c86eccf0ea76" name="a7b78a140522e0a418208c86eccf0ea76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b78a140522e0a418208c86eccf0ea76">&#9670;&#160;</a></span>set_fan2_off()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void set_fan2_off </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00213">213</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+
+<p class="reference">References <a class="el" href="cooling_8c_source.html#l00018">cr</a>, <a class="el" href="cooling_8h_source.html#l00039">cooling_request_t::fan2_speed</a>, <a class="el" href="cooling_8h_source.html#l00045">cooling_request_t::fan2_status</a>, and <a class="el" href="cooling_8c_source.html#l00031">motor_fan_autospeed</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="cooling_8c_source.html#l00114">calculate_cooling_periodic()</a>.</p>
+
+</div>
+</div>
+<a id="a4688150f09fc81f019e9364de648553c" name="a4688150f09fc81f019e9364de648553c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4688150f09fc81f019e9364de648553c">&#9670;&#160;</a></span>set_fan2_on()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void set_fan2_on </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00206">206</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+
+<p class="reference">References <a class="el" href="cooling_8c_source.html#l00018">cr</a>, <a class="el" href="cooling_8h_source.html#l00039">cooling_request_t::fan2_speed</a>, <a class="el" href="cooling_8h_source.html#l00045">cooling_request_t::fan2_status</a>, and <a class="el" href="cooling_8c_source.html#l00031">motor_fan_autospeed</a>.</p>
+
+</div>
+</div>
+<a id="a86602beb8892652358aae4a19df20b40" name="a86602beb8892652358aae4a19df20b40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86602beb8892652358aae4a19df20b40">&#9670;&#160;</a></span>set_pump1_off()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void set_pump1_off </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00180">180</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+
+<p class="reference">References <a class="el" href="cooling_8c_source.html#l00018">cr</a>, and <a class="el" href="cooling_8h_source.html#l00042">cooling_request_t::pump1_status</a>.</p>
+
+</div>
+</div>
+<a id="aa8bdced3af540da0f642d2b329202751" name="aa8bdced3af540da0f642d2b329202751"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8bdced3af540da0f642d2b329202751">&#9670;&#160;</a></span>set_pump1_on()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void set_pump1_on </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00176">176</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+
+<p class="reference">References <a class="el" href="cooling_8c_source.html#l00018">cr</a>, and <a class="el" href="cooling_8h_source.html#l00042">cooling_request_t::pump1_status</a>.</p>
+
+</div>
+</div>
+<a id="aaa52b825e372ba5388737a6ab715b876" name="aaa52b825e372ba5388737a6ab715b876"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa52b825e372ba5388737a6ab715b876">&#9670;&#160;</a></span>set_pump2_off()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void set_pump2_off </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00202">202</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+
+<p class="reference">References <a class="el" href="cooling_8c_source.html#l00018">cr</a>, and <a class="el" href="cooling_8h_source.html#l00043">cooling_request_t::pump2_status</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="cooling_8c_source.html#l00114">calculate_cooling_periodic()</a>.</p>
+
+</div>
+</div>
+<a id="adbb5c7644b509b26ea0fc03d158ab2e1" name="adbb5c7644b509b26ea0fc03d158ab2e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbb5c7644b509b26ea0fc03d158ab2e1">&#9670;&#160;</a></span>set_pump2_on()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void set_pump2_on </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00198">198</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+
+<p class="reference">References <a class="el" href="cooling_8c_source.html#l00018">cr</a>, and <a class="el" href="cooling_8h_source.html#l00043">cooling_request_t::pump2_status</a>.</p>
 
 </div>
 </div>
@@ -253,15 +518,73 @@ Variables</h2></td></tr>
 </dl>
 <p>return </p>
 
-<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00030">30</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00077">77</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
 
-<p class="reference">References <a class="el" href="cooling_8h_source.html#l00028">cooling_request_t::aux_status</a>, <a class="el" href="cooling_8c_source.html#l00049">calculate_cooling_periodic()</a>, <a class="el" href="cooling_8c_source.html#l00017">cr</a>, <a class="el" href="cooling_8h_source.html#l00022">cooling_request_t::fan1_speed</a>, <a class="el" href="cooling_8h_source.html#l00026">cooling_request_t::fan1_status</a>, <a class="el" href="cooling_8h_source.html#l00023">cooling_request_t::fan2_speed</a>, <a class="el" href="cooling_8h_source.html#l00027">cooling_request_t::fan2_status</a>, <a class="el" href="cooling_8h_source.html#l00024">cooling_request_t::pump1_status</a>, <a class="el" href="cooling_8h_source.html#l00025">cooling_request_t::pump2_status</a>, <a class="el" href="fan__control_8c_source.html#l00008">setFan1Speed()</a>, <a class="el" href="fan__control_8c_source.html#l00012">setFan2Speed()</a>, <a class="el" href="auto__switch_8c_source.html#l00093">setSwitch()</a>, <a class="el" href="auto__switch_8h_source.html#l00047">SW_AUX</a>, <a class="el" href="auto__switch_8h_source.html#l00050">SW_FAN_1</a>, <a class="el" href="auto__switch_8h_source.html#l00051">SW_FAN_2</a>, <a class="el" href="auto__switch_8h_source.html#l00044">SW_PUMP_1</a>, and <a class="el" href="auto__switch_8h_source.html#l00045">SW_PUMP_2</a>.</p>
+<p class="reference">References <a class="el" href="cooling_8c_source.html#l00114">calculate_cooling_periodic()</a>, <a class="el" href="cooling_8c_source.html#l00018">cr</a>, <a class="el" href="cooling_8h_source.html#l00038">cooling_request_t::fan1_speed</a>, <a class="el" href="cooling_8h_source.html#l00044">cooling_request_t::fan1_status</a>, <a class="el" href="cooling_8h_source.html#l00039">cooling_request_t::fan2_speed</a>, <a class="el" href="cooling_8h_source.html#l00045">cooling_request_t::fan2_status</a>, <a class="el" href="cooling_8h_source.html#l00040">cooling_request_t::fan3_speed</a>, <a class="el" href="cooling_8h_source.html#l00046">cooling_request_t::fan3_status</a>, <a class="el" href="cooling_8h_source.html#l00041">cooling_request_t::fan4_speed</a>, <a class="el" href="cooling_8h_source.html#l00047">cooling_request_t::fan4_status</a>, <a class="el" href="cooling_8h_source.html#l00048">cooling_request_t::hxfan_status</a>, <a class="el" href="cooling_8h_source.html#l00042">cooling_request_t::pump1_status</a>, <a class="el" href="cooling_8h_source.html#l00043">cooling_request_t::pump2_status</a>, <a class="el" href="fan__control_8c_source.html#l00008">setFan1Speed()</a>, <a class="el" href="fan__control_8c_source.html#l00012">setFan2Speed()</a>, <a class="el" href="fan__control_8c_source.html#l00016">setFan3Speed()</a>, <a class="el" href="fan__control_8c_source.html#l00020">setFan4Speed()</a>, <a class="el" href="auto__switch_8c_source.html#l00125">setSwitch()</a>, <a class="el" href="auto__switch_8h_source.html#l00049">SW_FAN_1</a>, <a class="el" href="auto__switch_8h_source.html#l00050">SW_FAN_2</a>, <a class="el" href="auto__switch_8h_source.html#l00051">SW_FAN_3</a>, <a class="el" href="auto__switch_8h_source.html#l00052">SW_FAN_4</a>, <a class="el" href="auto__switch_8h_source.html#l00047">SW_HXFAN</a>, <a class="el" href="auto__switch_8h_source.html#l00044">SW_PUMP_1</a>, and <a class="el" href="auto__switch_8h_source.html#l00045">SW_PUMP_2</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00173">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00345">main()</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="aa8dd9daa69b1d1d0f092f36154851663" name="aa8dd9daa69b1d1d0f092f36154851663"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8dd9daa69b1d1d0f092f36154851663">&#9670;&#160;</a></span>batt_fan_autospeed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool batt_fan_autospeed</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00030">30</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="cooling_8c_source.html#l00220">cooling_driver_request_CALLBACK()</a>, <a class="el" href="cooling_8c_source.html#l00061">coolingInit()</a>, <a class="el" href="cooling_8c_source.html#l00191">set_fan1_off()</a>, and <a class="el" href="cooling_8c_source.html#l00184">set_fan1_on()</a>.</p>
+
+</div>
+</div>
+<a id="aa4f6ee698aa84f9c35c3aa3c7ec9dcff" name="aa4f6ee698aa84f9c35c3aa3c7ec9dcff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4f6ee698aa84f9c35c3aa3c7ec9dcff">&#9670;&#160;</a></span>batt_fan_controller</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbangbang__t.html">bangbang_t</a> batt_fan_controller = { .upper_bound = 30 , .lower_bound = ( 30 - 2), .on_func = <a class="el" href="#a12c9950618f1f7c4e9fd37394178bed0">set_fan1_on</a>, .off_func = <a class="el" href="#a5964d322f16cf7e77fc555a64e3bc94d">set_fan1_off</a>, .min_switch_interval = 1000 , .last_switch_ms = 0, .is_on = false }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00045">45</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+
+</div>
+</div>
+<a id="a5cab22c0dc8c10a9ed775ab64b81b18e" name="a5cab22c0dc8c10a9ed775ab64b81b18e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cab22c0dc8c10a9ed775ab64b81b18e">&#9670;&#160;</a></span>batt_pump_controller</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbangbang__t.html">bangbang_t</a> batt_pump_controller = { .upper_bound = 30 , .lower_bound = ( 30 - 2), .on_func = <a class="el" href="#aa8bdced3af540da0f642d2b329202751">set_pump1_on</a>, .off_func = <a class="el" href="#a86602beb8892652358aae4a19df20b40">set_pump1_off</a>, .min_switch_interval = 1000 , .last_switch_ms = 0, .is_on = false }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00038">38</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+
+</div>
+</div>
 <a id="ace2d3b0e243c256a01e02bbed913a7ed" name="ace2d3b0e243c256a01e02bbed913a7ed"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ace2d3b0e243c256a01e02bbed913a7ed">&#9670;&#160;</a></span>cr</h2>
 
@@ -274,9 +597,71 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00017">17</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00018">18</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cooling_8c_source.html#l00049">calculate_cooling_periodic()</a>, <a class="el" href="cooling_8c_source.html#l00093">cooling_driver_request_CALLBACK()</a>, <a class="el" href="cooling_8c_source.html#l00020">coolingInit()</a>, and <a class="el" href="cooling_8c_source.html#l00030">update_cooling_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cooling_8c_source.html#l00114">calculate_cooling_periodic()</a>, <a class="el" href="cooling_8c_source.html#l00220">cooling_driver_request_CALLBACK()</a>, <a class="el" href="cooling_8c_source.html#l00061">coolingInit()</a>, <a class="el" href="cooling_8c_source.html#l00191">set_fan1_off()</a>, <a class="el" href="cooling_8c_source.html#l00184">set_fan1_on()</a>, <a class="el" href="cooling_8c_source.html#l00213">set_fan2_off()</a>, <a class="el" href="cooling_8c_source.html#l00206">set_fan2_on()</a>, <a class="el" href="cooling_8c_source.html#l00180">set_pump1_off()</a>, <a class="el" href="cooling_8c_source.html#l00176">set_pump1_on()</a>, <a class="el" href="cooling_8c_source.html#l00202">set_pump2_off()</a>, <a class="el" href="cooling_8c_source.html#l00198">set_pump2_on()</a>, and <a class="el" href="cooling_8c_source.html#l00077">update_cooling_periodic()</a>.</p>
+
+</div>
+</div>
+<a id="afc8ddb4cd130a3cd1c6e9838ca406abd" name="afc8ddb4cd130a3cd1c6e9838ca406abd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc8ddb4cd130a3cd1c6e9838ca406abd">&#9670;&#160;</a></span>motor_fan_autospeed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool motor_fan_autospeed</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00031">31</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="cooling_8c_source.html#l00220">cooling_driver_request_CALLBACK()</a>, <a class="el" href="cooling_8c_source.html#l00061">coolingInit()</a>, <a class="el" href="cooling_8c_source.html#l00213">set_fan2_off()</a>, and <a class="el" href="cooling_8c_source.html#l00206">set_fan2_on()</a>.</p>
+
+</div>
+</div>
+<a id="acf84e467c474c8d7b4bff5988daf4af1" name="acf84e467c474c8d7b4bff5988daf4af1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf84e467c474c8d7b4bff5988daf4af1">&#9670;&#160;</a></span>motor_fan_controller</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbangbang__t.html">bangbang_t</a> motor_fan_controller = { .upper_bound = 100 , .lower_bound = ( 100 - 5), .on_func = <a class="el" href="#a4688150f09fc81f019e9364de648553c">set_fan2_on</a>, .off_func = <a class="el" href="#a7b78a140522e0a418208c86eccf0ea76">set_fan2_off</a>, .min_switch_interval = 1000 , .last_switch_ms = 0, .is_on = false }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00059">59</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="cooling_8c_source.html#l00114">calculate_cooling_periodic()</a>.</p>
+
+</div>
+</div>
+<a id="aa4b58cf8175982191cd046764924b9f1" name="aa4b58cf8175982191cd046764924b9f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4b58cf8175982191cd046764924b9f1">&#9670;&#160;</a></span>motor_pump_controller</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbangbang__t.html">bangbang_t</a> motor_pump_controller = { .upper_bound = 60 , .lower_bound = ( 60 - 5), .on_func = <a class="el" href="#adbb5c7644b509b26ea0fc03d158ab2e1">set_pump2_on</a>, .off_func = <a class="el" href="#aaa52b825e372ba5388737a6ab715b876">set_pump2_off</a>, .min_switch_interval = 1000 , .last_switch_ms = 0, .is_on = false }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cooling_8c_source.html#l00052">52</a> of file <a class="el" href="cooling_8c_source.html">cooling.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="cooling_8c_source.html#l00114">calculate_cooling_periodic()</a>.</p>
 
 </div>
 </div>

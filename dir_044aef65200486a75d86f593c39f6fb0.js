@@ -1,7 +1,7 @@
 var dir_044aef65200486a75d86f593c39f6fb0 =
 [
     [ "blinky.c", "blinky_8c.html", null ],
-    [ "canpiler.c", "canpiler_8c.html", "canpiler_8c" ],
+    [ "canpiler.c", "g4__testing_2canpiler_8c.html", "g4__testing_2canpiler_8c" ],
     [ "fdcan.c", "source_2g4__testing_2fdcan_8c.html", null ],
     [ "g4_testing.h", "g4__testing_8h.html", "g4__testing_8h" ],
     [ "main.h", "g4__testing_2main_8h.html", "g4__testing_2main_8h" ],

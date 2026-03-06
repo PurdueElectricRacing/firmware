@@ -19,5 +19,7 @@ var searchData=
   ['hour_16',['hour',['../structNAV__PVT__t.html#a2bca5697d3ad496f6b243f6918263477',1,'NAV_PVT_t']]],
   ['hours_5fbcd_17',['hours_bcd',['../structRTC__time__t.html#a8d02832380abd6524b9d4272495f6252',1,'RTC_time_t']]],
   ['huart1_18',['huart1',['../l4__testing_2main_8c.html#a06d36f7d8dfd573ebf393d8868199ffd',1,'main.c']]],
-  ['hw_5fflow_5fctl_19',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]]
+  ['hw_5fflow_5fctl_19',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]],
+  ['hxfan_5fimon_20',['hxfan_imon',['../structADCReadings__t.html#a0af6bd226cd5eebc206f7e87d856378d',1,'ADCReadings_t']]],
+  ['hxfan_5fstatus_21',['hxfan_status',['../structcooling__request__t.html#ab04d2e5031b8cf31400f515635e0cb4b',1,'cooling_request_t']]]
 ];

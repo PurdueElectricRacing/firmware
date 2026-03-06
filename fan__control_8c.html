@@ -114,6 +114,10 @@ Functions</h2></td></tr>
 <tr class="separator:ae5edf1747c65c321ec71071a4576d589"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af20d109abcc21788b274f9ee36850180" id="r_af20d109abcc21788b274f9ee36850180"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af20d109abcc21788b274f9ee36850180">setFan2Speed</a> (uint8_t fan_speed)</td></tr>
 <tr class="separator:af20d109abcc21788b274f9ee36850180"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a419f3091bae0f94db12e11bdbb26e3fc" id="r_a419f3091bae0f94db12e11bdbb26e3fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a419f3091bae0f94db12e11bdbb26e3fc">setFan3Speed</a> (uint8_t fan_speed)</td></tr>
+<tr class="separator:a419f3091bae0f94db12e11bdbb26e3fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88b8f0621cfb39c230a000b655d2157a" id="r_a88b8f0621cfb39c230a000b655d2157a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88b8f0621cfb39c230a000b655d2157a">setFan4Speed</a> (uint8_t fan_speed)</td></tr>
+<tr class="separator:a88b8f0621cfb39c230a000b655d2157a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a53411fffcc6fec6fb84fe2f620dd0448" name="a53411fffcc6fec6fb84fe2f620dd0448"></a>
@@ -135,7 +139,7 @@ Functions</h2></td></tr>
 
 <p class="reference">References <a class="el" href="fan__control_8h_source.html#l00007">FAN_PWM_TIM</a>, <a class="el" href="pwm_8c_source.html#l00015">PHAL_initPWM()</a>, and <a class="el" href="fan__control_8h_source.html#l00006">PWM_FREQUENCY_HZ</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00212">preflightChecks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00345">main()</a>.</p>
 
 </div>
 </div>
@@ -158,7 +162,7 @@ Functions</h2></td></tr>
 
 <p class="reference">References <a class="el" href="fan__control_8h_source.html#l00007">FAN_PWM_TIM</a>, and <a class="el" href="pwm_8c_source.html#l00139">PHAL_PWMsetPercent()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cooling_8c_source.html#l00030">update_cooling_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cooling_8c_source.html#l00077">update_cooling_periodic()</a>.</p>
 
 </div>
 </div>
@@ -181,7 +185,53 @@ Functions</h2></td></tr>
 
 <p class="reference">References <a class="el" href="fan__control_8h_source.html#l00007">FAN_PWM_TIM</a>, and <a class="el" href="pwm_8c_source.html#l00139">PHAL_PWMsetPercent()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cooling_8c_source.html#l00030">update_cooling_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cooling_8c_source.html#l00077">update_cooling_periodic()</a>.</p>
+
+</div>
+</div>
+<a id="a419f3091bae0f94db12e11bdbb26e3fc" name="a419f3091bae0f94db12e11bdbb26e3fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a419f3091bae0f94db12e11bdbb26e3fc">&#9670;&#160;</a></span>setFan3Speed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setFan3Speed </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>fan_speed</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="fan__control_8c_source.html#l00016">16</a> of file <a class="el" href="fan__control_8c_source.html">fan_control.c</a>.</p>
+
+<p class="reference">References <a class="el" href="fan__control_8h_source.html#l00007">FAN_PWM_TIM</a>, and <a class="el" href="pwm_8c_source.html#l00139">PHAL_PWMsetPercent()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="cooling_8c_source.html#l00077">update_cooling_periodic()</a>.</p>
+
+</div>
+</div>
+<a id="a88b8f0621cfb39c230a000b655d2157a" name="a88b8f0621cfb39c230a000b655d2157a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88b8f0621cfb39c230a000b655d2157a">&#9670;&#160;</a></span>setFan4Speed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setFan4Speed </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>fan_speed</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="fan__control_8c_source.html#l00020">20</a> of file <a class="el" href="fan__control_8c_source.html">fan_control.c</a>.</p>
+
+<p class="reference">References <a class="el" href="fan__control_8h_source.html#l00007">FAN_PWM_TIM</a>, and <a class="el" href="pwm_8c_source.html#l00139">PHAL_PWMsetPercent()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="cooling_8c_source.html#l00077">update_cooling_periodic()</a>.</p>
 
 </div>
 </div>

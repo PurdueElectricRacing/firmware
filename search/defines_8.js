@@ -17,5 +17,10 @@ var searchData=
   ['hsi_5ftrim_5fmain_5fmodule_14',['HSI_TRIM_MAIN_MODULE',['../common__defs_8h.html#a452db665b8a3d36ae14778251dfba5d0',1,'common_defs.h']]],
   ['hsi_5ftrim_5fpdu_15',['HSI_TRIM_PDU',['../common__defs_8h.html#a2da974e263720581c368f5bd95f791e6',1,'common_defs.h']]],
   ['hsi_5ftrim_5ftorque_5fvector_16',['HSI_TRIM_TORQUE_VECTOR',['../common__defs_8h.html#a4b7d6f815a5be3b74fff0e458ea2ca9f',1,'common_defs.h']]],
-  ['hz_5fto_5fmhz_17',['HZ_TO_MHZ',['../phal__L4_2rcc_2rcc_8c.html#a17d626e2dfe6e90d6e5a1bd805dc8abe',1,'rcc.c']]]
+  ['hxfan_5fctrl_5fgpio_5fport_17',['HXFAN_CTRL_GPIO_Port',['../pdu_2main_8h.html#a534369aed23f5aecc16899e8ed6069ec',1,'main.h']]],
+  ['hxfan_5fctrl_5fpin_18',['HXFAN_CTRL_Pin',['../pdu_2main_8h.html#af935feec48c69cd8652bc987af28d5b0',1,'main.h']]],
+  ['hxfan_5fimon_5fadc_5fchnl_19',['HXFAN_IMON_ADC_CHNL',['../pdu_2main_8h.html#afb63f071df902228ed4cbbbb6dbf9f7e',1,'main.h']]],
+  ['hxfan_5fimon_5fgpio_5fport_20',['HXFAN_IMON_GPIO_Port',['../pdu_2main_8h.html#ac5ff5ded59b3a25edd0b28d73b88fe7c',1,'main.h']]],
+  ['hxfan_5fimon_5fpin_21',['HXFAN_IMON_Pin',['../pdu_2main_8h.html#a967c93150a0b1b0459760156e061cf39',1,'main.h']]],
+  ['hz_5fto_5fmhz_22',['HZ_TO_MHZ',['../phal__L4_2rcc_2rcc_8c.html#a17d626e2dfe6e90d6e5a1bd805dc8abe',1,'rcc.c']]]
 ];

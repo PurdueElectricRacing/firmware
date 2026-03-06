@@ -30,7 +30,7 @@ var searchData=
   ['include_5fxtaskgetschedulerstate_27',['INCLUDE_xTaskGetSchedulerState',['../FreeRTOSConfig_8h.html#a9ed60ede556830584e6bfd4a3ab4f9de',1,'FreeRTOSConfig.h']]],
   ['include_5fxtimerpendfunctioncall_28',['INCLUDE_xTimerPendFunctionCall',['../FreeRTOSConfig_8h.html#a4b4336acd61a8e513ca2376be84326b5',1,'FreeRTOSConfig.h']]],
   ['info_5fgray_29',['INFO_GRAY',['../nextion_8h.html#a89feeadaedd79cefd6d37d5e13f1fe1c',1,'nextion.h']]],
-  ['init_5fbang_5fbang_30',['INIT_BANG_BANG',['../bangbang_8h.html#a81ba131ca6c8a5ccf84249492abaf0db',1,'bangbang.h']]],
+  ['init_5fbang_5fbang_30',['INIT_BANG_BANG',['../bangbang_8h.html#a237674f6a4b5a022c26ee77593bb8511',1,'bangbang.h']]],
   ['init_5fbinary_5fsemaphore_31',['INIT_BINARY_SEMAPHORE',['../freertos_8h.html#a8412c35f40aa1f99e880a42b27dd559a',1,'freertos.h']]],
   ['init_5fcounting_5fsemaphore_32',['INIT_COUNTING_SEMAPHORE',['../freertos_8h.html#a139fec0a7420bd927f3c4646a94e73bb',1,'freertos.h']]],
   ['init_5fkey_33',['INIT_KEY',['../eeprom__spi_8h.html#a36635d43f5bb84e7af5d9ffecd3a8489',1,'eeprom_spi.h']]],

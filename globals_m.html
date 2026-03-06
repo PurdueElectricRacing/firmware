@@ -106,7 +106,7 @@ $(function(){initNavTree('globals_m.html',''); initResizable(true); });
 <li>M_LEN&#160;:&#160;<a class="el" href="eeprom__spi_8h.html#a27394ea5de7e764ea3d878b4c43ad405">eeprom_spi.h</a></li>
 <li>M_VERSION&#160;:&#160;<a class="el" href="eeprom__spi_8h.html#aad3729431067ab823599e0d96caadf97">eeprom_spi.h</a></li>
 <li>MACRO_PG_SIZE&#160;:&#160;<a class="el" href="eeprom__spi_8h.html#adbf8dd917c03147670a86f9ddf32d5bb">eeprom_spi.h</a></li>
-<li>main()&#160;:&#160;<a class="el" href="a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main.c</a>, <a class="el" href="pwm__testing_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">pwm_testing.c</a>, <a class="el" href="canpiler_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">canpiler.c</a>, <a class="el" href="l4__testing_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main.c</a></li>
+<li>main()&#160;:&#160;<a class="el" href="a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main.c</a>, <a class="el" href="f4__testing_2canpiler_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">canpiler.c</a>, <a class="el" href="l4__testing_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main.c</a></li>
 <li>MAIN_CS_ADC_CHNL&#160;:&#160;<a class="el" href="pdu_2main_8h.html#a323a00f7f0e19988612bd9d5e185f1ed">main.h</a></li>
 <li>MAIN_CS_GPIO_Port&#160;:&#160;<a class="el" href="pdu_2main_8h.html#a0e0d55cb11d60e0779ffd850f9ea36f1">main.h</a></li>
 <li>MAIN_CS_Pin&#160;:&#160;<a class="el" href="pdu_2main_8h.html#a1fa57f91d7ab4bdbddee8da3ecf880a8">main.h</a></li>
@@ -181,8 +181,17 @@ $(function(){initNavTree('globals_m.html',''); initResizable(true); });
 <li>MOT_TEMP&#160;:&#160;<a class="el" href="lcd_8h.html#a41f21e09beb3f0f0f855a2962e76698a">lcd.h</a></li>
 <li>MOTOR_COOLING_ENABLE_TEMP&#160;:&#160;<a class="el" href="cooling_8h.html#a67fb92f4b4ab5056065c581af7796869">cooling.h</a></li>
 <li>MOTOR_COOLING_MAX_TEMP&#160;:&#160;<a class="el" href="cooling_8h.html#ad757ccc8bbc55e84d852b3c493644bf7">cooling.h</a></li>
+<li>motor_fan_autospeed&#160;:&#160;<a class="el" href="cooling_8c.html#afc8ddb4cd130a3cd1c6e9838ca406abd">cooling.c</a></li>
+<li>motor_fan_controller&#160;:&#160;<a class="el" href="cooling_8c.html#acf84e467c474c8d7b4bff5988daf4af1">cooling.c</a></li>
+<li>MOTOR_FAN_OFF_TEMP_C&#160;:&#160;<a class="el" href="cooling_8h.html#ad2c7d706b136271856b1ef0121ffa7e5">cooling.h</a></li>
+<li>MOTOR_FAN_ON_TEMP_C&#160;:&#160;<a class="el" href="cooling_8h.html#aa6ee918ef74cd59995529331d641cd2b">cooling.h</a></li>
+<li>MOTOR_FAN_STOP_OFF_TEMP_C&#160;:&#160;<a class="el" href="cooling_8h.html#a1010c244dec44bd8c3f7189072494dd7">cooling.h</a></li>
+<li>MOTOR_FAN_STOP_ON_TEMP_C&#160;:&#160;<a class="el" href="cooling_8h.html#afd12a6c7406ef88ac77f12145c206334">cooling.h</a></li>
 <li>MOTOR_OVERTEMP_LED_PIN&#160;:&#160;<a class="el" href="dashboard_2main_8h.html#a3b430a269b0f079401c8dd16de84f680">main.h</a></li>
 <li>MOTOR_OVERTEMP_LED_PORT&#160;:&#160;<a class="el" href="dashboard_2main_8h.html#a08b9fabefb35b1fd1d546f25019ed9c5">main.h</a></li>
+<li>motor_pump_controller&#160;:&#160;<a class="el" href="cooling_8c.html#aa4b58cf8175982191cd046764924b9f1">cooling.c</a></li>
+<li>MOTOR_PUMP_OFF_TEMP_C&#160;:&#160;<a class="el" href="cooling_8h.html#a9c3e3cbdb6862a83cb5ff3d22fa9984c">cooling.h</a></li>
+<li>MOTOR_PUMP_ON_TEMP_C&#160;:&#160;<a class="el" href="cooling_8h.html#a1a789091fe5ff689f8c6562361329fb7">cooling.h</a></li>
 <li>mount_volume()&#160;:&#160;<a class="el" href="ff_8c.html#a36cd06cbee94b40df8f415ac7e1cb56c">ff.c</a></li>
 <li>move_window()&#160;:&#160;<a class="el" href="ff_8c.html#a324c71e5b952dff3a420d72358e5168b">ff.c</a></li>
 <li>moveDown()&#160;:&#160;<a class="el" href="lcd_8c.html#a486267210dfc8118e23e6b1bc6090286">lcd.c</a>, <a class="el" href="lcd_8h.html#a486267210dfc8118e23e6b1bc6090286">lcd.h</a></li>
@@ -208,6 +217,17 @@ $(function(){initNavTree('globals_m.html',''); initResizable(true); });
 <li>MUTE&#160;:&#160;<a class="el" href="commands_8c.html#a511c64b735e0d0abd69291e42c259a6f">commands.c</a>, <a class="el" href="commands_8h.html#a511c64b735e0d0abd69291e42c259a6f">commands.h</a></li>
 <li>Mutex&#160;:&#160;<a class="el" href="ffsystem_8c.html#a8523239bd557bc10da104d361f0fbb41">ffsystem.c</a></li>
 <li>MutexControlBlocks&#160;:&#160;<a class="el" href="ffsystem_8c.html#a7de0237daa730e7d4f36db31e28b443e">ffsystem.c</a></li>
+<li>MUX_CTRL_A_GPIO_Port&#160;:&#160;<a class="el" href="pdu_2main_8h.html#a0d9c5da05d9eb578ec4b309c27fdd18e">main.h</a></li>
+<li>MUX_CTRL_A_Pin&#160;:&#160;<a class="el" href="pdu_2main_8h.html#ada7eebd452d2e0de8652eccd96781dbb">main.h</a></li>
+<li>MUX_CTRL_B_GPIO_Port&#160;:&#160;<a class="el" href="pdu_2main_8h.html#a503001c3e7cf006ee0021453a30711f3">main.h</a></li>
+<li>MUX_CTRL_B_Pin&#160;:&#160;<a class="el" href="pdu_2main_8h.html#aff7a340c23b1d8408253cd45e051d626">main.h</a></li>
+<li>MUX_CTRL_C_GPIO_Port&#160;:&#160;<a class="el" href="pdu_2main_8h.html#a829a3680dcecd50d76308c7fadd3a617">main.h</a></li>
+<li>MUX_CTRL_C_Pin&#160;:&#160;<a class="el" href="pdu_2main_8h.html#a95f0a15cab3a9646f5c50398ba363197">main.h</a></li>
+<li>mux_index&#160;:&#160;<a class="el" href="auto__switch_8c.html#ad4f7743391576e14f10cbad7f43e1107">auto_switch.c</a></li>
+<li>MUX_OUT_ADC_CHNL&#160;:&#160;<a class="el" href="pdu_2main_8h.html#a0735ab6b9d93e1e80bacb0c13cde49d4">main.h</a></li>
+<li>MUX_OUT_GPIO_Port&#160;:&#160;<a class="el" href="pdu_2main_8h.html#afaccd01290460dcdb99c33610aa50823">main.h</a></li>
+<li>MUX_OUT_Pin&#160;:&#160;<a class="el" href="pdu_2main_8h.html#aaa1dbc1b7324caf09ce28e75b8897302">main.h</a></li>
+<li>mux_readings&#160;:&#160;<a class="el" href="auto__switch_8c.html#a5ef842dc2e4be63a9191c2a1c9dac206">auto_switch.c</a></li>
 <li>my_counter&#160;:&#160;<a class="el" href="daq_8c.html#ab05997d286451b50b3f332495d4e4450">daq.c</a>, <a class="el" href="l4__testing_2main_8c.html#ad46f602a98e6e98dfaca884da87c5f53">main.c</a></li>
 <li>my_counter2&#160;:&#160;<a class="el" href="daq_8c.html#a40b9a70c3c134f75f0c77514ebf0b17b">daq.c</a>, <a class="el" href="l4__testing_2main_8c.html#a40b9a70c3c134f75f0c77514ebf0b17b">main.c</a></li>
 <li>myCounterTest()&#160;:&#160;<a class="el" href="l4__testing_2main_8c.html#a73e9fbfd2dff848cb02f89af2ec6abe7">main.c</a></li>

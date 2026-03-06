@@ -1,8 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"classbootloader__download_1_1CANRxThread.html#a54f85b69aaa9363e63b5b6b486a890dc":[7,0,1,1,2],
-"classbootloader__download_1_1CANRxThread.html#a716517c1b3f248e0ff34616841d101fc":[6,0,1,1,4],
-"classbootloader__download_1_1CANRxThread.html#a716517c1b3f248e0ff34616841d101fc":[7,0,1,1,4],
 "classbootloader__download_1_1CANRxThread.html#a79b1f5dc43f380b6cd915bebd23cbae8":[6,0,1,1,1],
 "classbootloader__download_1_1CANRxThread.html#a79b1f5dc43f380b6cd915bebd23cbae8":[7,0,1,1,1],
 "classbootloader__download_1_1CANRxThread.html#aaa4ddf01b654725c4f4020ca40e0aa8f":[6,0,1,1,3],
@@ -249,5 +246,8 @@ var NAVTREEINDEX3 =
 "classutils_1_1bcolors.html":[6,0,16,0],
 "classutils_1_1bcolors.html":[7,0,6,0],
 "classutils_1_1bcolors.html#a3d98c698113ee9cdeb89950d06a995dc":[6,0,16,0,3],
-"classutils_1_1bcolors.html#a3d98c698113ee9cdeb89950d06a995dc":[7,0,6,0,3]
+"classutils_1_1bcolors.html#a3d98c698113ee9cdeb89950d06a995dc":[7,0,6,0,3],
+"classutils_1_1bcolors.html#a4f0949b51d0b70cb5360b68084f03d6f":[6,0,16,0,1],
+"classutils_1_1bcolors.html#a4f0949b51d0b70cb5360b68084f03d6f":[7,0,6,0,1],
+"classutils_1_1bcolors.html#a74bd2313d3399cbf36e8b4a64a555d5a":[6,0,16,0,0]
 };

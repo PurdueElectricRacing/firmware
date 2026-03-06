@@ -1,5 +1,6 @@
 var can__common_8c =
 [
+    [ "CAN_rx_update", "can__common_8c.html#abfcff4ec444a1fa4366dd38c73519a51", null ],
     [ "DEFINE_QUEUE", "can__common_8c.html#ac4037d5b80482bbcef97173486de5dd0", null ],
     [ "can_data", "can__common_8c.html#a8eaf23ac1da3fc4a879c3b1b11733ea2", null ],
     [ "can_stats", "can__common_8c.html#a7b5ef4ad1f6bec8cb96f4aafbe58fe73", null ],

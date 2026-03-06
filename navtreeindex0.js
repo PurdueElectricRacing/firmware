@@ -249,5 +249,5 @@ var NAVTREEINDEX0 =
 "amk__init_8c_source.html":[8,0,2,8,0],
 "annotated.html":[7,0],
 "auto__switch_8c.html":[8,0,2,9,0,0],
-"auto__switch_8c.html#a19dbab87e0ceca06b137d8feb5b2dc90":[8,0,2,9,0,0,10]
+"auto__switch_8c.html#a19dbab87e0ceca06b137d8feb5b2dc90":[8,0,2,9,0,0,13]
 };

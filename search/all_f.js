@@ -74,7 +74,7 @@ var searchData=
   ['info_5fgray_71',['INFO_GRAY',['../nextion_8h.html#a89feeadaedd79cefd6d37d5e13f1fe1c',1,'nextion.h']]],
   ['init_5fadc_72',['init_ADC',['../l4__testing_2main_8c.html#a342ab07b607f3dc4efa0655ca1acd164',1,'main.c']]],
   ['init_5famks_73',['init_amks',['../amk__init_8c.html#a92749150bd2c7147e0cb50e7e3daef0c',1,'amk_init.c']]],
-  ['init_5fbang_5fbang_74',['INIT_BANG_BANG',['../bangbang_8h.html#a81ba131ca6c8a5ccf84249492abaf0db',1,'bangbang.h']]],
+  ['init_5fbang_5fbang_74',['INIT_BANG_BANG',['../bangbang_8h.html#a237674f6a4b5a022c26ee77593bb8511',1,'bangbang.h']]],
   ['init_5fbinary_5fsemaphore_75',['INIT_BINARY_SEMAPHORE',['../freertos_8h.html#a8412c35f40aa1f99e880a42b27dd559a',1,'freertos.h']]],
   ['init_5fcounting_5fsemaphore_76',['INIT_COUNTING_SEMAPHORE',['../freertos_8h.html#a139fec0a7420bd927f3c4646a94e73bb',1,'freertos.h']]],
   ['init_5fkey_77',['INIT_KEY',['../eeprom__spi_8h.html#a36635d43f5bb84e7af5d9ffecd3a8489',1,'eeprom_spi.h']]],

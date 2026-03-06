@@ -34,7 +34,6 @@ var lcd_8c =
     [ "page_handlers", "lcd_8c.html#af6401c824f0ac3351fc8adbd56754490", null ],
     [ "pedal_values", "lcd_8c.html#a04f66772314df6ee10ca7ccf555278cd", null ],
     [ "prev_page", "lcd_8c.html#a8b71ea5d4f043abfa893e1d47cb51c06", null ],
-    [ "q_fault_history", "lcd_8c.html#abd54b7c198410d9bd98a8925975deb3b", null ],
     [ "race_elements", "lcd_8c.html#a1bb62c63847a1857beb23323d82a9b48", null ],
     [ "race_page", "lcd_8c.html#a6e74610b7350024977fa25d1dcc6ae4f", null ]
 ];

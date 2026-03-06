@@ -84,6 +84,5 @@ var can__common_8h =
     [ "CAN_tx_update", "can__common_8h.html#a49fce4d849c0fd9d2daee17cf822b26a", null ],
     [ "can_stats", "can__common_8h.html#a7b5ef4ad1f6bec8cb96f4aafbe58fe73", null ],
     [ "last_can_rx_time_ms", "can__common_8h.html#a6d7ff913bb95222bc96d632a6e8d8ea4", null ],
-    [ "q_rx_can", "can__common_8h.html#a36735da67d74109f9687d8ae6186b5bf", null ],
-    [ "q_tx_can", "can__common_8h.html#af0a5cb4305ff2b4b0345ae407ca539ef", null ]
+    [ "q_rx_can", "can__common_8h.html#a36735da67d74109f9687d8ae6186b5bf", null ]
 ];

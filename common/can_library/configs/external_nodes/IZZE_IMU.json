@@ -34,7 +34,6 @@
                 }
             ],
             "msg_period": 10,
-            "msg_id_override": "0x4EC",
             "msg_priority": 5
         },
         {
@@ -71,9 +70,12 @@
                 }
             ],
             "msg_period": 10,
-            "msg_id_override": "0x4ED",
             "msg_priority": 5
         }
     ],
-    "rx": []
+    "rx": [
+        {
+            "msg_name": "IZZE_IMU_config"
+        }
+    ]
 }

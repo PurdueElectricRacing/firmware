@@ -1,16 +1,14 @@
+#ifndef MAIN_H
+#define MAIN_H
+
 /**
  * @file main.h
+ * @brief "PDU" node source code
+ * 
  * @author Luke Oxley (lcoxley@purdue.edu)
- * @brief  Software for controlling vehicle power
- *         distribution and monitoring
- * @version 0.1
- * @date 2023-11-09
- *
- * @copyright Copyright (c) 2022
- *
+ * @author Ronak Jain (jain717@purdue.edu)
+ * @author Irving Wang (irvingw@purdue.edu)
  */
-#ifndef _MAIN_H_
-#define _MAIN_H_
 
 //STM32F407VGT6
 
@@ -284,5 +282,5 @@ typedef struct {
 
 volatile extern ADCReadings_t adc_readings;
 
-void canTxSendToBack(CanMsgTypeDef_t *msg);
-#endif
+
+#endif // MAIN_H

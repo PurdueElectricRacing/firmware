@@ -6,7 +6,7 @@
  * @brief Common functions and data structures used in every node in the CAN library
  * 
  * @author Irving Wang (irvingw@purdue.edu)
- * @author Luke Oxley (lcoxley@purdue.edu)
+ * @author Ronak Jain (jain717@purdue.edu)
  */
 
 #include <stdint.h>

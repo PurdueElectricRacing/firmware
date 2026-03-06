@@ -1,3 +1,12 @@
+/**
+ * @file main.c
+ * @brief "PDU" node source code
+ * 
+ * @author Luke Oxley (lcoxley@purdue.edu)
+ * @author Ronak Jain (jain717@purdue.edu)
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 /* System Includes */
 #include "common/can_library/faults_common.h"
 #include "common/common_defs/common_defs.h"

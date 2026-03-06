@@ -111,25 +111,24 @@ int main(void) {
     // Set CS high to start
     adbms6380_set_cs_high(&bms_spi_config);
 
-    if (false == PHAL_FDCAN_init(FDCAN1, false, VCAN_BAUD_RATE)) {
-        HardFault_Handler();
-    }
-    if (false == PHAL_FDCAN_init(FDCAN2, false, CCAN_BAUD_RATE)) {
-        HardFault_Handler();
-    }
-
     if (!PHAL_SPI_init(&bms_spi_config)) {
         HardFault_Handler();
     }
 
     adbms_init(&g_bms, &bms_spi_config, g_bms_tx_buf);
 
-    CAN_library_init();
+    if (false == PHAL_FDCAN_init(FDCAN1, false, VCAN_BAUD_RATE)) {
+        HardFault_Handler();
+    }
+    if (false == PHAL_FDCAN_init(FDCAN2, false, CCAN_BAUD_RATE)) {
+        HardFault_Handler();
+    }
+    NVIC_SetPriority(FDCAN1_IT0_IRQn, 5);
+    NVIC_SetPriority(FDCAN2_IT0_IRQn, 5);
 
     NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
-    NVIC_SetPriority(FDCAN1_IT0_IRQn, 5);
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
-    NVIC_SetPriority(FDCAN2_IT0_IRQn, 5);
+    CAN_library_init();
 
     // Kernel initalization
     osKernelInitialize();
@@ -180,7 +179,6 @@ void heartbeat_task() {
                 PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
                 break;
         }
-
         return;
     }
 

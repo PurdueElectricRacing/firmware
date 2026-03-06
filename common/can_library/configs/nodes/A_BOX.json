@@ -53,7 +53,22 @@
         },
         "CCAN": {
             "peripheral": "FDCAN2",
-            "tx": [],
+            "tx": [
+                {
+                    "msg_name": "ccan_test",
+                    "msg_desc": "ccan testing",
+                    "signals": [
+                        {
+                            "sig_name": "testtest",
+                            "type": "uint64_t",
+                            "sig_desc": "testtest"
+                        }
+                    ],
+                    "msg_priority": 3,
+                    "msg_period": 10,
+                    "msg_id_override": "0x114"
+                }
+            ],
             "rx": [
                 {
                     "msg_name": "elcon_charger_status"

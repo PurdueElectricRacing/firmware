@@ -3,7 +3,7 @@
 
 #include <string.h>
 
-#include "common/can_library/generated/DASHBOARD.h"
+#include "common/can_library/generated/A_BOX.h"
 #include "common/phal/adc.h"
 #include "common/phal/can.h"
 #include "common/phal/dma.h"
@@ -42,7 +42,11 @@ void can_worker() {
     CAN_tx_update();
 }
 
-DEFINE_TASK(fault_library_periodic, 10, osPriorityNormal, 1024);
+void send_periodic() {
+    CAN_SEND_ccan_test(0x3);
+}
+
+DEFINE_TASK(send_periodic, 10, osPriorityNormal, 1024);
 DEFINE_TASK(can_worker, 0, osPriorityLow, 1024);
 
 int main() {
@@ -54,7 +58,7 @@ int main() {
         HardFault_Handler();
     }
 
-    if (!PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
+    if (!PHAL_FDCAN_init(FDCAN2, false, CCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
 
@@ -66,7 +70,7 @@ int main() {
 
     osKernelInitialize();
 
-    START_TASK(fault_library_periodic);
+    START_TASK(send_periodic);
     START_TASK(can_worker);
     osKernelStart();
 

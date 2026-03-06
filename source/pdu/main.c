@@ -324,7 +324,7 @@ void send_iv_readings() {
 }
 
 DEFINE_TASK(heartbeat_task, 500, osPriorityLow, 256);
-DEFINE_TASK(background_can_update, 10, osPriorityHigh, 1024);
+DEFINE_TASK(background_can_update, 5, osPriorityHigh, 1024);
 DEFINE_TASK(autoSwitchPeriodic, 15, osPriorityNormal, 512);
 DEFINE_TASK(update_cooling_periodic, 100, osPriorityNormal, 1024);
 DEFINE_TASK(LED_periodic, 500, osPriorityLow, 512);

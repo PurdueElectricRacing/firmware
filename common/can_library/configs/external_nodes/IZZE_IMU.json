@@ -1,6 +1,6 @@
 {
     "node_name": "IZZE_IMU",
-    "bus_name": "VCAN",
+    "bus_name": "GCAN",
     "tx": [
         {
             "msg_name": "Angular_Rate",

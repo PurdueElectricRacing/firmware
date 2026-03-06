@@ -1,5 +1,7 @@
+create_can_node_lib(G4_TESTING "CMSIS_G474;FREERTOS_G474")
+
 add_firmware_component(
     NAME g4_testing
     LINKER_SCRIPT "STM32G474RETX_FLASH"
-    LIBS "CMSIS_G474;PHAL_G474;FREERTOS_G474;can_node_A_BOX"
+    LIBS "CMSIS_G474;PHAL_G474;FREERTOS_G474;can_node_G4_TESTING"
 )

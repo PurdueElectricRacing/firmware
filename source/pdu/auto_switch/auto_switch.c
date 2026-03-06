@@ -258,91 +258,75 @@ void autoSwitchPeriodic() {
 
 void checkSwitchFaults() {
     // Get status of all switches
-    uint8_t dash   = PHAL_readGPIO(DASH_NFLT_GPIO_Port, DASH_NFLT_Pin);
-    uint8_t abox   = PHAL_readGPIO(ABOX_NFLT_GPIO_Port, ABOX_NFLT_Pin);
-    uint8_t main   = PHAL_readGPIO(MAIN_NFLT_GPIO_Port, MAIN_NFLT_Pin);
-    uint8_t vcrit  = PHAL_readGPIO(CRIT_5V_NFLT_GPIO_Port, CRIT_5V_NFLT_Pin);
-    uint8_t vnc    = PHAL_readGPIO(TV_NFLT_GPIO_Port, TV_NFLT_Pin);
-    uint8_t dlfr   = PHAL_readGPIO(DLFR_NFLT_GPIO_Port, DLFR_NFLT_Pin);
-    uint8_t dlbk   = PHAL_readGPIO(DLBK_NFLT_GPIO_Port, DLBK_NFLT_Pin);
-    uint8_t bullet = PHAL_readGPIO(BLT_NFLT_GPIO_Port, BLT_NFLT_Pin);
-    uint8_t fan5v  = PHAL_readGPIO(FAN_5V_NFLT_GPIO_Port, FAN_5V_NFLT_Pin);
+    uint8_t dash_faulted   = !PHAL_readGPIO(DASH_NFLT_GPIO_Port, DASH_NFLT_Pin);
+    uint8_t abox_faulted   = !PHAL_readGPIO(ABOX_NFLT_GPIO_Port, ABOX_NFLT_Pin);
+    uint8_t main_faulted   = !PHAL_readGPIO(MAIN_NFLT_GPIO_Port, MAIN_NFLT_Pin);
+    uint8_t vcrit_faulted  = !PHAL_readGPIO(CRIT_5V_NFLT_GPIO_Port, CRIT_5V_NFLT_Pin);
+    uint8_t vnc_faulted    = !PHAL_readGPIO(TV_NFLT_GPIO_Port, TV_NFLT_Pin);
+    uint8_t dlfr_faulted   = !PHAL_readGPIO(DLFR_NFLT_GPIO_Port, DLFR_NFLT_Pin);
+    uint8_t dlbk_faulted   = !PHAL_readGPIO(DLBK_NFLT_GPIO_Port, DLBK_NFLT_Pin);
+    uint8_t bullet_faulted = !PHAL_readGPIO(BLT_NFLT_GPIO_Port, BLT_NFLT_Pin);
+    uint8_t fan5v_faulted  = !PHAL_readGPIO(FAN_5V_NFLT_GPIO_Port, FAN_5V_NFLT_Pin);
+    (void) fan5v_faulted; // not used for now
 
-    static uint8_t dash_old   = 1;
-    static uint8_t abox_old   = 1;
-    static uint8_t main_old   = 1;
-    static uint8_t vcrit_old  = 1;
-    static uint8_t vnc_old    = 1;
-    static uint8_t dlfr_old   = 1;
-    static uint8_t dlbk_old   = 1;
-    static uint8_t bullet_old = 1;
-    static uint8_t fan5v_old  = 1;
-
-    // Set Blink error for faulted switch
-    if (!dash && dash_old) {
-        LED_control(LED_DASH, LED_BLINK);
-    }
-    if (!abox && abox_old) {
-        LED_control(LED_ABOX, LED_BLINK);
-    }
-    if (!main && main_old) {
-        LED_control(LED_MAIN, LED_BLINK);
-    }
-    if (!vcrit && vcrit_old) {
-        LED_control(LED_5V_CRIT, LED_BLINK);
-    }
-    if (!vnc && vnc_old) {
-        LED_control(LED_TV, LED_BLINK);
-    }
-    if (!dlfr && dlfr_old) {
-        LED_control(LED_DLFR, LED_BLINK);
-    }
-    if (!dlbk && dlbk_old) {
-        LED_control(LED_DLBK, LED_BLINK);
-    }
-    if (!bullet && bullet_old) {
-        LED_control(LED_BLT, LED_BLINK);
-    }
-    if (!fan5v && fan5v_old) {
-        LED_control(LED_5V_FAN, LED_BLINK);
-    }
-
-    dash_old   = dash;
-    abox_old   = abox;
-    main_old   = main;
-    vcrit_old  = vcrit;
-    vnc_old    = vnc;
-    dlfr_old   = dlfr;
-    dlbk_old   = dlbk;
-    bullet_old = bullet;
-    fan5v_old  = fan5v;
-
-    static uint8_t fault_num;
-    // Set fault - this is too much for our 1ms window, so send each fault seperately
-    switch (fault_num) {
+    static uint8_t fault_num = 0;
+    // Set fault - this is too much for our 1ms window, so send each fault separately
+    switch (fault_num++) {
         case 0:
-            update_fault(FAULT_ID_DASH_RAIL, !dash);
+            update_fault(FAULT_ID_DASH_RAIL, dash_faulted);
+            LED_control(
+                LED_DASH,
+                is_latched(FAULT_ID_DASH_RAIL) ? LED_BLINK : LED_OFF
+            );
             break;
         case 1:
-            update_fault(FAULT_ID_ABOX_RAIL, !abox);
+            update_fault(FAULT_ID_ABOX_RAIL, abox_faulted);
+            LED_control(
+                LED_ABOX,
+                is_latched(FAULT_ID_ABOX_RAIL) ? LED_BLINK : LED_OFF
+            );
             break;
         case 2:
-            update_fault(FAULT_ID_MAIN_RAIL, !main);
+            update_fault(FAULT_ID_MAIN_RAIL, main_faulted);
+            LED_control(
+                LED_MAIN,
+                is_latched(FAULT_ID_MAIN_RAIL) ? LED_BLINK : LED_OFF
+            );
             break;
         case 3:
-            update_fault(FAULT_ID_V_CRIT, !vcrit);
+            update_fault(FAULT_ID_V_CRIT, vcrit_faulted);
+            LED_control(
+                LED_5V_CRIT,
+                is_latched(FAULT_ID_V_CRIT) ? LED_BLINK : LED_OFF
+            );
             break;
         case 4:
-            update_fault(FAULT_ID_V_NONCRIT, !vnc);
+            update_fault(FAULT_ID_V_NONCRIT, vnc_faulted);
+            LED_control(
+                LED_TV,
+                is_latched(FAULT_ID_V_NONCRIT) ? LED_BLINK : LED_OFF
+            );
             break;
         case 5:
-            update_fault(FAULT_ID_FAN1, !dlfr);
+            update_fault(FAULT_ID_FRONT_DRIVELINE_RAIL, dlfr_faulted);
+            LED_control(
+                LED_DLFR,
+                is_latched(FAULT_ID_FRONT_DRIVELINE_RAIL) ? LED_BLINK : LED_OFF
+            );
             break;
         case 6:
-            update_fault(FAULT_ID_FAN2, !dlbk);
+            update_fault(FAULT_ID_REAR_DRIVELINE_RAIL, dlbk_faulted);
+            LED_control(
+                LED_DLBK,
+                is_latched(FAULT_ID_REAR_DRIVELINE_RAIL) ? LED_BLINK : LED_OFF
+            );
             break;
         case 7:
-            update_fault(FAULT_ID_BULLET_RAIL, !bullet);
+            update_fault(FAULT_ID_BULLET_RAIL, bullet_faulted);
+            LED_control(
+                LED_BLT,
+                is_latched(FAULT_ID_BULLET_RAIL) ? LED_BLINK : LED_OFF
+            );
             fault_num = 0;
             break;
     }

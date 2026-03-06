@@ -224,8 +224,6 @@ void background_can_update();
 void send_iv_readings();
 void send_flowrates();
 
-#define PREFLIGHT_DURATION_MS (750)
-
 void heartbeat_task() {
     // Preflight animation for the first PREFLIGHT_DURATION_MS after boot
     if (OS_TICKS <= PREFLIGHT_DURATION_MS) {

@@ -323,15 +323,15 @@ void send_iv_readings() {
     CAN_SEND_pdu_temps((uint16_t)temp);
 }
 
-DEFINE_TASK(heartbeat_task, 500, osPriorityLow, 256);
-DEFINE_TASK(background_can_update, 5, osPriorityHigh, 1024);
-DEFINE_TASK(autoSwitchPeriodic, 15, osPriorityNormal, 512);
-DEFINE_TASK(update_cooling_periodic, 100, osPriorityNormal, 1024);
-DEFINE_TASK(LED_periodic, 500, osPriorityLow, 512);
-DEFINE_TASK(send_iv_readings, 500, osPriorityLow, 512);
-DEFINE_TASK(checkSwitchFaults, 100, osPriorityLow, 512);
-DEFINE_TASK(send_flowrates, 200, osPriorityLow, 256);
-DEFINE_TASK(fault_library_periodic, 100, osPriorityLow, 1024);
+DEFINE_TASK(heartbeat_task, 500, osPriorityLow, STACK_256);
+DEFINE_TASK(background_can_update, 5, osPriorityHigh, STACK_1024);
+DEFINE_TASK(autoSwitchPeriodic, 15, osPriorityNormal, STACK_512);
+DEFINE_TASK(update_cooling_periodic, 100, osPriorityNormal, STACK_1024);
+DEFINE_TASK(LED_periodic, 500, osPriorityLow, STACK_512);
+DEFINE_TASK(send_iv_readings, 500, osPriorityLow, STACK_512);
+DEFINE_TASK(checkSwitchFaults, 100, osPriorityLow, STACK_512);
+DEFINE_TASK(send_flowrates, 200, osPriorityLow, STACK_256);
+DEFINE_TASK(fault_library_periodic, 100, osPriorityLow, STACK_1024);
 
 int main() {
     // Hardware Initialization

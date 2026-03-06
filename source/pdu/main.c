@@ -398,7 +398,7 @@ int main() {
 }
 
 void CAN1_RX0_IRQHandler() {
-    CAN_rx_update();
+    CAN_handle_irq(CAN1, 0);
 }
 
 void HardFault_Handler() {

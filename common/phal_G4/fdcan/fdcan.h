@@ -26,9 +26,6 @@ extern void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg);
 #define MAX_NUM_XID_FILTER (8)
 #define MAX_NUM_SID_FILTER (28)
 
-#define AF_NUM_FDCAN2  (9)
-#define AF_NUM_FDCAN13 (11)
-
 #define AF_NUM_FDCAN1           (9)
 #define AF_NUM_FDCAN2           (9)
 #define AF_NUM_FDCAN3          (11)

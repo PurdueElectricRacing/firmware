@@ -20,6 +20,11 @@ var freertos_8h =
     [ "myIDENT", "freertos_8h.html#abca5333b90b00f973c6491246378f0ef", null ],
     [ "mySTR", "freertos_8h.html#aa0106d66c910122f42a397e25121651f", null ],
     [ "myXSTR", "freertos_8h.html#ae76e8808b78573773246b2ce3f1849d5", null ],
+    [ "STACK_1024", "freertos_8h.html#a9cfaf8e95af7da51f7fc2347815e210f", null ],
+    [ "STACK_2048", "freertos_8h.html#a16d5b4d257fb218fa48b6865c3014f33", null ],
+    [ "STACK_256", "freertos_8h.html#aa38d6c6620457f52272d28f81d2ba811", null ],
+    [ "STACK_4096", "freertos_8h.html#a54f66041ce99e1a81cb0f571768bb057", null ],
+    [ "STACK_512", "freertos_8h.html#a6ab500a15eda5befe7c0a9be1e7669e5", null ],
     [ "START_TASK", "freertos_8h.html#abe574562452fd3a573084481cb7a9cf3", null ],
     [ "rtosWrapper", "freertos_8h.html#a9c778d52c93dd2b838088f502c737e74", null ]
 ];

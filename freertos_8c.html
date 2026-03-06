@@ -101,6 +101,9 @@ $(function(){initNavTree('freertos_8c.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">freertos.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocation and initialization.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="freertos_8h_source.html">freertos.h</a>&quot;</code><br />
 </div>
 <p><a href="freertos_8c_source.html">Go to the source code of this file.</a></p>
@@ -110,7 +113,14 @@ Functions</h2></td></tr>
 <tr class="memitem:acf502ed258e3274614ce5354444af807" id="r_acf502ed258e3274614ce5354444af807"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf502ed258e3274614ce5354444af807">rtosWrapper</a> (void *thread)</td></tr>
 <tr class="separator:acf502ed258e3274614ce5354444af807"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocation and initialization. </p>
+<dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
+<dd>
+Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">eyn@p<span class="obfuscator">.nosp@m.</span>urdu<span class="obfuscator">.nosp@m.</span>e.edu</a>) </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="freertos_8c_source.html">freertos.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="acf502ed258e3274614ce5354444af807" name="acf502ed258e3274614ce5354444af807"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acf502ed258e3274614ce5354444af807">&#9670;&#160;</a></span>rtosWrapper()</h2>
 
@@ -126,9 +136,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="freertos_8c_source.html#l00004">4</a> of file <a class="el" href="freertos_8c_source.html">freertos.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8c_source.html#l00011">11</a> of file <a class="el" href="freertos_8c_source.html">freertos.c</a>.</p>
 
-<p class="reference">References <a class="el" href="freertos_8h_source.html#l00033">ThreadWrapper_t::period_ms</a>, and <a class="el" href="freertos_8h_source.html#l00032">ThreadWrapper_t::taskFunction</a>.</p>
+<p class="reference">References <a class="el" href="freertos_8h_source.html#l00041">ThreadWrapper_t::period_ms</a>, and <a class="el" href="freertos_8h_source.html#l00040">ThreadWrapper_t::taskFunction</a>.</p>
 
 </div>
 </div>

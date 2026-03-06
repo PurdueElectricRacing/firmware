@@ -103,6 +103,9 @@ $(function(){initNavTree('freertos_8h.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">freertos.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocation and initialization.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;_FREERTOS_DIRinclude/FreeRTOS.h&quot;</code><br />
 <code>#include &quot;_FREERTOS_DIRCMSIS_RTOS_V2/cmsis_os2.h&quot;</code><br />
 <code>#include &quot;_FREERTOS_DIRinclude/list.h&quot;</code><br />
@@ -131,6 +134,16 @@ Macros</h2></td></tr>
 <tr class="separator:aec94cba01a34fa12e733d4774709cce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abaded9350cb8265deb1b6a7db964b470" id="r_abaded9350cb8265deb1b6a7db964b470"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abaded9350cb8265deb1b6a7db964b470">_FREERTOS_PATH</a>(y)</td></tr>
 <tr class="separator:abaded9350cb8265deb1b6a7db964b470"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa38d6c6620457f52272d28f81d2ba811" id="r_aa38d6c6620457f52272d28f81d2ba811"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa38d6c6620457f52272d28f81d2ba811">STACK_256</a>&#160;&#160;&#160;(256)</td></tr>
+<tr class="separator:aa38d6c6620457f52272d28f81d2ba811"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ab500a15eda5befe7c0a9be1e7669e5" id="r_a6ab500a15eda5befe7c0a9be1e7669e5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ab500a15eda5befe7c0a9be1e7669e5">STACK_512</a>&#160;&#160;&#160;(512)</td></tr>
+<tr class="separator:a6ab500a15eda5befe7c0a9be1e7669e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cfaf8e95af7da51f7fc2347815e210f" id="r_a9cfaf8e95af7da51f7fc2347815e210f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9cfaf8e95af7da51f7fc2347815e210f">STACK_1024</a>&#160;&#160;&#160;(1024)</td></tr>
+<tr class="separator:a9cfaf8e95af7da51f7fc2347815e210f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16d5b4d257fb218fa48b6865c3014f33" id="r_a16d5b4d257fb218fa48b6865c3014f33"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16d5b4d257fb218fa48b6865c3014f33">STACK_2048</a>&#160;&#160;&#160;(2048)</td></tr>
+<tr class="separator:a16d5b4d257fb218fa48b6865c3014f33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54f66041ce99e1a81cb0f571768bb057" id="r_a54f66041ce99e1a81cb0f571768bb057"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54f66041ce99e1a81cb0f571768bb057">STACK_4096</a>&#160;&#160;&#160;(4096)</td></tr>
+<tr class="separator:a54f66041ce99e1a81cb0f571768bb057"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa06a84e1769e192e02a8bb7482aceeb5" id="r_aa06a84e1769e192e02a8bb7482aceeb5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa06a84e1769e192e02a8bb7482aceeb5">DEFINE_TASK</a>(NAME,  PERIOD_MS,  PRIORITY,  STACK_SIZE)</td></tr>
 <tr class="memdesc:aa06a84e1769e192e02a8bb7482aceeb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scaffolds the static memory for a FreeRTOS task.  <br /></td></tr>
 <tr class="separator:aa06a84e1769e192e02a8bb7482aceeb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -176,7 +189,14 @@ Functions</h2></td></tr>
 <tr class="memitem:a9c778d52c93dd2b838088f502c737e74" id="r_a9c778d52c93dd2b838088f502c737e74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c778d52c93dd2b838088f502c737e74">rtosWrapper</a> (void *arg)</td></tr>
 <tr class="separator:a9c778d52c93dd2b838088f502c737e74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocation and initialization. </p>
+<dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
+<dd>
+Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">eyn@p<span class="obfuscator">.nosp@m.</span>urdu<span class="obfuscator">.nosp@m.</span>e.edu</a>) </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="aec94cba01a34fa12e733d4774709cce6" name="aec94cba01a34fa12e733d4774709cce6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aec94cba01a34fa12e733d4774709cce6">&#9670;&#160;</a></span>__FREERTOS_PATH</h2>
 
@@ -196,10 +216,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#aa0106d66c910122f42a397e25121651f">mySTR</a>(<a class="code hl_define" href="#abca5333b90b00f973c6491246378f0ef">myIDENT</a>(x)y)</div>
-<div class="ttc" id="afreertos_8h_html_aa0106d66c910122f42a397e25121651f"><div class="ttname"><a href="#aa0106d66c910122f42a397e25121651f">mySTR</a></div><div class="ttdeci">#define mySTR(x)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00007">freertos.h:7</a></div></div>
-<div class="ttc" id="afreertos_8h_html_abca5333b90b00f973c6491246378f0ef"><div class="ttname"><a href="#abca5333b90b00f973c6491246378f0ef">myIDENT</a></div><div class="ttdeci">#define myIDENT(x)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00005">freertos.h:5</a></div></div>
+<div class="ttc" id="afreertos_8h_html_aa0106d66c910122f42a397e25121651f"><div class="ttname"><a href="#aa0106d66c910122f42a397e25121651f">mySTR</a></div><div class="ttdeci">#define mySTR(x)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00015">freertos.h:15</a></div></div>
+<div class="ttc" id="afreertos_8h_html_abca5333b90b00f973c6491246378f0ef"><div class="ttname"><a href="#abca5333b90b00f973c6491246378f0ef">myIDENT</a></div><div class="ttdeci">#define myIDENT(x)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00013">freertos.h:13</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00008">8</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00016">16</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -218,9 +238,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#aec94cba01a34fa12e733d4774709cce6">__FREERTOS_PATH</a>(_FREERTOS_DIR, y)</div>
-<div class="ttc" id="afreertos_8h_html_aec94cba01a34fa12e733d4774709cce6"><div class="ttname"><a href="#aec94cba01a34fa12e733d4774709cce6">__FREERTOS_PATH</a></div><div class="ttdeci">#define __FREERTOS_PATH(x, y)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00008">freertos.h:8</a></div></div>
+<div class="ttc" id="afreertos_8h_html_aec94cba01a34fa12e733d4774709cce6"><div class="ttname"><a href="#aec94cba01a34fa12e733d4774709cce6">__FREERTOS_PATH</a></div><div class="ttdeci">#define __FREERTOS_PATH(x, y)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00016">freertos.h:16</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00009">9</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00017">17</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -239,9 +259,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a8d13fab020db2417316bcd86ffe21e16">DEFINE_SEMAPHORE</a>(NAME)</div>
-<div class="ttc" id="afreertos_8h_html_a8d13fab020db2417316bcd86ffe21e16"><div class="ttname"><a href="#a8d13fab020db2417316bcd86ffe21e16">DEFINE_SEMAPHORE</a></div><div class="ttdeci">#define DEFINE_SEMAPHORE(NAME)</div><div class="ttdoc">Scaffolds the static memory for a mutex.</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00094">freertos.h:94</a></div></div>
+<div class="ttc" id="afreertos_8h_html_a8d13fab020db2417316bcd86ffe21e16"><div class="ttname"><a href="#a8d13fab020db2417316bcd86ffe21e16">DEFINE_SEMAPHORE</a></div><div class="ttdeci">#define DEFINE_SEMAPHORE(NAME)</div><div class="ttdoc">Scaffolds the static memory for a mutex.</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00113">freertos.h:113</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00101">101</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00120">120</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -261,7 +281,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a8d13fab020db2417316bcd86ffe21e16">DEFINE_SEMAPHORE</a>(NAME)</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00100">100</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00119">119</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -281,7 +301,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a8d13fab020db2417316bcd86ffe21e16">DEFINE_SEMAPHORE</a>(NAME)</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00099">99</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00118">118</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -314,7 +334,7 @@ Functions</h2></td></tr>
 </div><!-- fragment -->
 <p>Scaffolds the static memory for a FreeRTOS queue. </p>
 
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00079">79</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00098">98</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -337,7 +357,7 @@ Functions</h2></td></tr>
 </div><!-- fragment -->
 <p>Scaffolds the static memory for a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00094">94</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00113">113</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -369,7 +389,11 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <span class="keyword">static</span> StaticTask_t task_cb_##NAME;                                        \</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keyword">static_assert</span>(                                                             \</div>
+<div class="line">        (STACK_SIZE) % <span class="keyword">sizeof</span>(StackType_t) == 0,                               \</div>
+<div class="line">        <span class="stringliteral">&quot;Stack size must be a multiple of StackType_t&quot;</span>                         \</div>
+<div class="line">    );                                                                         \</div>
+<div class="line">    <span class="keyword">static</span> StaticTask_t task_cb_##NAME;                                        \</div>
 <div class="line">    <span class="keyword">static</span> StackType_t  task_stack_##NAME[(STACK_SIZE) / <span class="keyword">sizeof</span>(StackType_t)]; \</div>
 <div class="line">    <a class="code hl_struct" href="structThreadWrapper__t.html">ThreadWrapper_t</a>     NAME##_wrapper = {                                     \</div>
 <div class="line">        .taskFunction = (void (*)(void))NAME,                                  \</div>
@@ -384,7 +408,7 @@ Functions</h2></td></tr>
 <div class="line">            .priority   = (osPriority_t)(PRIORITY),                            \</div>
 <div class="line">        }                                                                      \</div>
 <div class="line">    }</div>
-<div class="ttc" id="astructThreadWrapper__t_html"><div class="ttname"><a href="structThreadWrapper__t.html">ThreadWrapper_t</a></div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00031">freertos.h:31</a></div></div>
+<div class="ttc" id="astructThreadWrapper__t_html"><div class="ttname"><a href="structThreadWrapper__t.html">ThreadWrapper_t</a></div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00039">freertos.h:39</a></div></div>
 </div><!-- fragment -->
 <p>Scaffolds the static memory for a FreeRTOS task. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -397,7 +421,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00048">48</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00063">63</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -416,9 +440,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="#af9bb5b95ae9be61db75d49fa9bd22881">getTick</a>() * portTICK_PERIOD_MS)</div>
-<div class="ttc" id="afreertos_8h_html_af9bb5b95ae9be61db75d49fa9bd22881"><div class="ttname"><a href="#af9bb5b95ae9be61db75d49fa9bd22881">getTick</a></div><div class="ttdeci">#define getTick()</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00124">freertos.h:124</a></div></div>
+<div class="ttc" id="afreertos_8h_html_af9bb5b95ae9be61db75d49fa9bd22881"><div class="ttname"><a href="#af9bb5b95ae9be61db75d49fa9bd22881">getTick</a></div><div class="ttdeci">#define getTick()</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00143">freertos.h:143</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00125">125</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00144">144</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -440,7 +464,7 @@ Functions</h2></td></tr>
 </div><!-- fragment -->
 <p>Retrieves the FreeRTOS task handle for the defined task. </p>
 
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00074">74</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00093">93</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -460,7 +484,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">xTaskGetTickCount()</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00124">124</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00143">143</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="daq__eth_8c_source.html#l00103">_eth_handle_error()</a>, <a class="el" href="daq__sd_8c_source.html#l00078">_sd_write_periodic()</a>, <a class="el" href="daq_2main_8c_source.html#l00185">can_rx_irq_handler()</a>, <a class="el" href="daq__eth_8c_source.html#l00112">eth_reset_error()</a>, <a class="el" href="daq__sd_8c_source.html#l00045">sd_create_new_file()</a>, <a class="el" href="daq__sd_8c_source.html#l00021">sd_handle_error()</a>, <a class="el" href="daq__sd_8c_source.html#l00030">sd_reset_error()</a>, <a class="el" href="daq__sd_8c_source.html#l00135">sd_update_periodic()</a>, and <a class="el" href="daq_2main_8c_source.html#l00329">shutdown()</a>.</p>
 
@@ -484,7 +508,7 @@ Functions</h2></td></tr>
 </div><!-- fragment -->
 <p>Initializes the defined static binary semaphore. </p>
 
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00119">119</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00138">138</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -511,7 +535,7 @@ Functions</h2></td></tr>
 <p>Initializes the defined static counting semaphore. </p>
 <dl class="section note"><dt>Note</dt><dd>initial count is set to max count (full by default) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00113">113</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00132">132</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -533,7 +557,7 @@ Functions</h2></td></tr>
 </div><!-- fragment -->
 <p>Initializes the defined mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00106">106</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00125">125</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00126">main()</a>.</p>
 
@@ -567,7 +591,7 @@ Functions</h2></td></tr>
 </div><!-- fragment -->
 <p>Initializes the defined static queue. </p>
 
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00087">87</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00106">106</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -587,7 +611,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">(osDelay(pdMS_TO_TICKS((ms))))</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00126">126</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00145">145</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="daq__eth_8c_source.html#l00057">eth_update_periodic()</a>.</p>
 
@@ -609,7 +633,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">x</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00005">5</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00013">13</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -628,9 +652,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#ae76e8808b78573773246b2ce3f1849d5">myXSTR</a>(x)</div>
-<div class="ttc" id="afreertos_8h_html_ae76e8808b78573773246b2ce3f1849d5"><div class="ttname"><a href="#ae76e8808b78573773246b2ce3f1849d5">myXSTR</a></div><div class="ttdeci">#define myXSTR(x)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00006">freertos.h:6</a></div></div>
+<div class="ttc" id="afreertos_8h_html_ae76e8808b78573773246b2ce3f1849d5"><div class="ttname"><a href="#ae76e8808b78573773246b2ce3f1849d5">myXSTR</a></div><div class="ttdeci">#define myXSTR(x)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00014">freertos.h:14</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00007">7</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00015">15</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -650,7 +674,87 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><span class="preprocessor">#x</span></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00006">6</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00014">14</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+
+</div>
+</div>
+<a id="a9cfaf8e95af7da51f7fc2347815e210f" name="a9cfaf8e95af7da51f7fc2347815e210f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cfaf8e95af7da51f7fc2347815e210f">&#9670;&#160;</a></span>STACK_1024</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STACK_1024&#160;&#160;&#160;(1024)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00049">49</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+
+</div>
+</div>
+<a id="a16d5b4d257fb218fa48b6865c3014f33" name="a16d5b4d257fb218fa48b6865c3014f33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16d5b4d257fb218fa48b6865c3014f33">&#9670;&#160;</a></span>STACK_2048</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STACK_2048&#160;&#160;&#160;(2048)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00050">50</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+
+</div>
+</div>
+<a id="aa38d6c6620457f52272d28f81d2ba811" name="aa38d6c6620457f52272d28f81d2ba811"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa38d6c6620457f52272d28f81d2ba811">&#9670;&#160;</a></span>STACK_256</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STACK_256&#160;&#160;&#160;(256)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00047">47</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+
+</div>
+</div>
+<a id="a54f66041ce99e1a81cb0f571768bb057" name="a54f66041ce99e1a81cb0f571768bb057"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54f66041ce99e1a81cb0f571768bb057">&#9670;&#160;</a></span>STACK_4096</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STACK_4096&#160;&#160;&#160;(4096)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00051">51</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+
+</div>
+</div>
+<a id="a6ab500a15eda5befe7c0a9be1e7669e5" name="a6ab500a15eda5befe7c0a9be1e7669e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ab500a15eda5befe7c0a9be1e7669e5">&#9670;&#160;</a></span>STACK_512</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STACK_512&#160;&#160;&#160;(512)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00048">48</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -669,13 +773,13 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    (NAME##_wrapper.handle = osThreadNew(<a class="code hl_function" href="#a9c778d52c93dd2b838088f502c737e74">rtosWrapper</a>, &amp;NAME##_wrapper, &amp;NAME##_wrapper.attrs))</div>
-<div class="ttc" id="afreertos_8h_html_a9c778d52c93dd2b838088f502c737e74"><div class="ttname"><a href="#a9c778d52c93dd2b838088f502c737e74">rtosWrapper</a></div><div class="ttdeci">void rtosWrapper(void *arg)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8c_source.html#l00004">freertos.c:4</a></div></div>
+<div class="ttc" id="afreertos_8h_html_a9c778d52c93dd2b838088f502c737e74"><div class="ttname"><a href="#a9c778d52c93dd2b838088f502c737e74">rtosWrapper</a></div><div class="ttdeci">void rtosWrapper(void *arg)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8c_source.html#l00011">freertos.c:11</a></div></div>
 </div><!-- fragment -->
 <p>Initializes and starts the defined task. </p>
 
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00068">68</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00087">87</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq__hub_8c_source.html#l00069">daq_create_threads()</a>, <a class="el" href="canpiler_8c_source.html#l00048">main()</a>, and <a class="el" href="a__box_2main_8c_source.html#l00083">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="daq__hub_8c_source.html#l00069">daq_create_threads()</a>, <a class="el" href="canpiler_8c_source.html#l00058">main()</a>, and <a class="el" href="a__box_2main_8c_source.html#l00102">main()</a>.</p>
 
 </div>
 </div>
@@ -695,9 +799,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="freertos_8c_source.html#l00004">4</a> of file <a class="el" href="freertos_8c_source.html">freertos.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="freertos_8c_source.html#l00011">11</a> of file <a class="el" href="freertos_8c_source.html">freertos.c</a>.</p>
 
-<p class="reference">References <a class="el" href="freertos_8h_source.html#l00033">ThreadWrapper_t::period_ms</a>, and <a class="el" href="freertos_8h_source.html#l00032">ThreadWrapper_t::taskFunction</a>.</p>
+<p class="reference">References <a class="el" href="freertos_8h_source.html#l00041">ThreadWrapper_t::period_ms</a>, and <a class="el" href="freertos_8h_source.html#l00040">ThreadWrapper_t::taskFunction</a>.</p>
 
 </div>
 </div>

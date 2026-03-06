@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['background_5fcan_5fupdate_0',['background_can_update',['../main__module_2main_8c.html#a6889303ebc2ac02a08baeb15f363368a',1,'main.c']]],
+  ['background_5fcan_5fupdate_0',['background_can_update',['../a__box_2main_8c.html#af14d2c72424a8b2f82fdc9ed8497a61e',1,'background_can_update(void):&#160;main.c'],['../main__module_2main_8c.html#a6889303ebc2ac02a08baeb15f363368a',1,'background_can_update():&#160;main.c']]],
   ['backpage_1',['backPage',['../lcd_8c.html#ab328996325a24df855157cc23430de3d',1,'backPage():&#160;lcd.c'],['../lcd_8h.html#ab328996325a24df855157cc23430de3d',1,'backPage():&#160;lcd.c']]],
   ['bangbang_5fupdate_2',['bangbang_update',['../bangbang_8c.html#a6e64fa5703d5bbbc0b47d207bd44983c',1,'bangbang_update(bangbang_t *controller, float value, uint32_t current_time):&#160;bangbang.c'],['../bangbang_8h.html#a6e64fa5703d5bbbc0b47d207bd44983c',1,'bangbang_update(bangbang_t *controller, float value, uint32_t current_time):&#160;bangbang.c']]],
   ['bitstream_5fdata_5fcallback_3',['bitstream_data_CALLBACK',['../bootloader_8c.html#a2bc2632777121708f3edba5775a1e9b0',1,'bootloader.c']]],
@@ -29,12 +29,13 @@ var searchData=
   ['bmi088_5fselectaccel_26',['BMI088_selectAccel',['../bmi088_8c.html#ab3bd4a2c8631c42dfa1eca5e2fb468cf',1,'bmi088.c']]],
   ['bmi088_5fselectgyro_27',['BMI088_selectGyro',['../bmi088_8c.html#ac4f1ab4ba917c50c02fd65e77b331a75',1,'bmi088.c']]],
   ['bmi088_5fwakeaccel_28',['BMI088_wakeAccel',['../bmi088_8c.html#a42991ee485aafc650472bb5331d56f0c',1,'BMI088_wakeAccel(BMI088_Handle_t *bmi):&#160;bmi088.c'],['../bmi088_8h.html#a42991ee485aafc650472bb5331d56f0c',1,'BMI088_wakeAccel(BMI088_Handle_t *bmi):&#160;bmi088.c']]],
-  ['bootloader_5fconfirmapplicationlaunch_29',['Bootloader_ConfirmApplicationLaunch',['../bootloader__common_8h.html#abb64c8d86dc7491a8a4b8d8572876f9f',1,'bootloader_common.h']]],
-  ['bootloader_5fresetforfirmwaredownload_30',['Bootloader_ResetForFirmwareDownload',['../bootlaoder__common_8c.html#a443344bf7e06df6e838aeb443a60da70',1,'Bootloader_ResetForFirmwareDownload():&#160;bootlaoder_common.c'],['../bootloader__common_8h.html#a443344bf7e06df6e838aeb443a60da70',1,'Bootloader_ResetForFirmwareDownload():&#160;bootlaoder_common.c']]],
-  ['bootloader_5fresetforwatchdog_31',['Bootloader_ResetForWatchdog',['../bootlaoder__common_8c.html#ab5d7783aaf9d876b8eb95d2a961a47be',1,'Bootloader_ResetForWatchdog():&#160;bootlaoder_common.c'],['../bootloader__common_8h.html#ab5d7783aaf9d876b8eb95d2a961a47be',1,'Bootloader_ResetForWatchdog():&#160;bootlaoder_common.c']]],
-  ['build_32',['build',['../namespacebuild.html#a040e3e8b77aa8911e86cfee035b5becc',1,'build']]],
-  ['bytes_5fto_5fint16_33',['bytes_to_int16',['../gps_8h.html#a38c39492317c5f3cb526617b52197902',1,'gps.h']]],
-  ['bytes_5fto_5fint32_34',['bytes_to_int32',['../gps_8h.html#a8d0a2378c10eb2c6d1ca5dc2e710c5bd',1,'gps.h']]],
-  ['bytes_5fto_5fuint16_35',['bytes_to_uint16',['../gps_8h.html#aee13cbee5996016c0e2bbd2a3da0d7e2',1,'gps.h']]],
-  ['bytes_5fto_5fuint32_36',['bytes_to_uint32',['../gps_8h.html#ac2e69d9d93852f5cb694c7336d5160cb',1,'gps.h']]]
+  ['bms_5ftask_29',['bms_task',['../a__box_2main_8c.html#a78865f7731d4b7186cdc06c8ff03a0e4',1,'main.c']]],
+  ['bootloader_5fconfirmapplicationlaunch_30',['Bootloader_ConfirmApplicationLaunch',['../bootloader__common_8h.html#abb64c8d86dc7491a8a4b8d8572876f9f',1,'bootloader_common.h']]],
+  ['bootloader_5fresetforfirmwaredownload_31',['Bootloader_ResetForFirmwareDownload',['../bootlaoder__common_8c.html#a443344bf7e06df6e838aeb443a60da70',1,'Bootloader_ResetForFirmwareDownload():&#160;bootlaoder_common.c'],['../bootloader__common_8h.html#a443344bf7e06df6e838aeb443a60da70',1,'Bootloader_ResetForFirmwareDownload():&#160;bootlaoder_common.c']]],
+  ['bootloader_5fresetforwatchdog_32',['Bootloader_ResetForWatchdog',['../bootlaoder__common_8c.html#ab5d7783aaf9d876b8eb95d2a961a47be',1,'Bootloader_ResetForWatchdog():&#160;bootlaoder_common.c'],['../bootloader__common_8h.html#ab5d7783aaf9d876b8eb95d2a961a47be',1,'Bootloader_ResetForWatchdog():&#160;bootlaoder_common.c']]],
+  ['build_33',['build',['../namespacebuild.html#a040e3e8b77aa8911e86cfee035b5becc',1,'build']]],
+  ['bytes_5fto_5fint16_34',['bytes_to_int16',['../gps_8h.html#a38c39492317c5f3cb526617b52197902',1,'gps.h']]],
+  ['bytes_5fto_5fint32_35',['bytes_to_int32',['../gps_8h.html#a8d0a2378c10eb2c6d1ca5dc2e710c5bd',1,'gps.h']]],
+  ['bytes_5fto_5fuint16_36',['bytes_to_uint16',['../gps_8h.html#aee13cbee5996016c0e2bbd2a3da0d7e2',1,'gps.h']]],
+  ['bytes_5fto_5fuint32_37',['bytes_to_uint32',['../gps_8h.html#ac2e69d9d93852f5cb694c7336d5160cb',1,'gps.h']]]
 ];

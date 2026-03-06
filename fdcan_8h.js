@@ -1,8 +1,9 @@
 var fdcan_8h =
 [
     [ "CanMsgTypeDef_t", "structCanMsgTypeDef__t.html", "structCanMsgTypeDef__t" ],
-    [ "AF_NUM_FDCAN13", "fdcan_8h.html#ad0d4675883b3e030447631a9d878cbd7", null ],
+    [ "AF_NUM_FDCAN1", "fdcan_8h.html#ae5373db774cc3bc1a678829c3b8ebfac", null ],
     [ "AF_NUM_FDCAN2", "fdcan_8h.html#ab7d64fc3b002f6084f66cc7e08369dbc", null ],
+    [ "AF_NUM_FDCAN3", "fdcan_8h.html#a782e915646123295ed00b832f8de816a", null ],
     [ "GPIO_INIT_FDCAN1RX_PA11", "fdcan_8h.html#a794f63ec27c878a88dcfb517fb9feade", null ],
     [ "GPIO_INIT_FDCAN1RX_PB8", "fdcan_8h.html#ab8d9b90953130945d76c345fd500881f", null ],
     [ "GPIO_INIT_FDCAN1TX_PA12", "fdcan_8h.html#afd758bf4b1db0128b8abf972cfc059bf", null ],

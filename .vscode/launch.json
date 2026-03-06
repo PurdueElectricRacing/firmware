@@ -40,7 +40,7 @@
             ],
             "debuggerArgs": [
                 "-d",
-                "${workspaceFolder}/source/f4_testing"
+                "${workspaceFolder}/source/pdu"
             ],
             "preLaunchTask": "build",
             "runToEntryPoint": "main",

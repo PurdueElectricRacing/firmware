@@ -113,28 +113,30 @@ void update_cooling_periodic() {
 
 static void calculate_cooling_periodic() {
     // GPS not stale implies GPS fix
-    bool not_moving = !can_data.gps_speed.stale && can_data.gps_speed.gps_speed <= GPS_SPEED_MOVING;
+    // bool not_moving = !can_data.gps_speed.stale && can_data.gps_speed.gps_speed <= GPS_SPEED_MOVING;
+    bool not_moving = true; // TODO temp until we have GPS data
+    
 
     uint32_t now_ms = OS_TICKS;
 
     // PUMP1: Battery pumps
     // Enable if above 30C
     // TODO handle stale
-    if (can_data.max_cell_temp.stale) {
-        batt_pump_controller.last_switch_ms = now_ms;
-        set_pump1_off();
-    } else {
-        bangbang_update(&batt_pump_controller, can_data.max_cell_temp.max_temp / 10.0f, now_ms);
-    }
+    // if (can_data.max_cell_temp.stale) {
+    //     batt_pump_controller.last_switch_ms = now_ms;
+    //     set_pump1_off();
+    // } else {
+    //     bangbang_update(&batt_pump_controller, can_data.max_cell_temp.max_temp / 10.0f, now_ms);
+    // }
 
-    // FAN1: Battery fans
-    // Enable battery fans only when car stopped since there is little airflow
-    if (can_data.max_cell_temp.stale || !not_moving) {
-        batt_fan_controller.last_switch_ms = now_ms;
-        set_fan1_off();
-    } else {
-        bangbang_update(&batt_fan_controller, can_data.max_cell_temp.max_temp / 10.0f, now_ms);
-    }
+    // // FAN1: Battery fans
+    // // Enable battery fans only when car stopped since there is little airflow
+    // if (can_data.max_cell_temp.stale || !not_moving) {
+    //     batt_fan_controller.last_switch_ms = now_ms;
+    //     set_fan1_off();
+    // } else {
+    //     bangbang_update(&batt_fan_controller, can_data.max_cell_temp.max_temp / 10.0f, now_ms);
+    // }
 
     // PUMP2: Motor pumps
     // Enable motor pumps if above 60C

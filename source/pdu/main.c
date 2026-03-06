@@ -229,7 +229,7 @@ void send_flowrates();
 
 void heartbeat_task() {
     // Preflight animation for the first PREFLIGHT_DURATION_MS after boot
-    if (OS_TICKS <= PREFLIGHT_DURATION_MS) {
+    if (OS_TICKS <= PREFLIGHT_ANIMATION_DURATION_MS) {
         static uint32_t time;
         static int led_number;
         static bool led_decrement = false;

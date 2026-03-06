@@ -12,9 +12,7 @@
 #include <stdint.h>
 
 #include "common/freertos/freertos.h"
-
 #include "common/phal/can.h"
-#include "common/queue/queue.h"
 
 typedef struct {
     uint32_t tx_of;      // queue overflow
@@ -143,12 +141,15 @@ typedef struct {
 extern can_stats_t can_stats;
 extern volatile uint32_t last_can_rx_time_ms;
 
-#if defined(STM32G474xx)
+
+#if defined(STM32F407xx) 
+// bxCAN uses 3 mailboxes per peripheral
+extern QueueHandle_t q_tx_can[][CAN_TX_MAILBOX_CNT];
+#elif defined(STM32G474xx)
 // G4/FDCAN uses a single TX queue per peripheral (no mailboxes)
 extern QueueHandle_t q_tx_can[];
 #else
-// bxCAN uses 3 mailboxes per peripheral
-extern q_handle_t q_tx_can[][CAN_TX_MAILBOX_CNT];
+#error "Unsupported architecture"
 #endif
 extern QueueHandle_t q_rx_can;
 

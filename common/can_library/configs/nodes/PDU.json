@@ -278,7 +278,7 @@
             "fault_name": "dash_rail",
             "max": 1,
             "min": 0,
-            "priority": "fatal",
+            "priority": "error",
             "time_to_latch": 100,
             "time_to_unlatch": 10000,
             "lcd_message": "Dash Rail Down"
@@ -287,7 +287,7 @@
             "fault_name": "abox_rail",
             "max": 1,
             "min": 0,
-            "priority": "fatal",
+            "priority": "error",
             "time_to_latch": 100,
             "time_to_unlatch": 10000,
             "lcd_message": "ABox Rail Down"
@@ -296,7 +296,7 @@
             "fault_name": "main_rail",
             "max": 1,
             "min": 0,
-            "priority": "fatal",
+            "priority": "error",
             "time_to_latch": 100,
             "time_to_unlatch": 10000,
             "lcd_message": "Main Rail Down"
@@ -305,7 +305,7 @@
             "fault_name": "v_crit",
             "max": 1,
             "min": 0,
-            "priority": "fatal",
+            "priority": "error",
             "time_to_latch": 100,
             "time_to_unlatch": 10000,
             "lcd_message": "5v_crit down"

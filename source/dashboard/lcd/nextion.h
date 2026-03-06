@@ -26,17 +26,23 @@
 #define ASCII_OFFSET 48
 
 // Color Definitions in 565 format
-#define RED        63488
-#define YELLOW     65504
-#define GREEN      4065
-#define RACE_GREEN 1376
-#define WHITE      65535
-#define INFO_GRAY  48631
-#define BLACK      0
-#define ORANGE     64512
+#define WHITE        65535
+#define DARK_GRAY    33808
+#define LIGHT_GRAY   55261
+#define BLUE         1055
+#define MUTED_BLUE   2278
+#define GREEN        1632
+#define MUTED_GREEN  320
+#define BLACK        0
+#define RED          63910
+#define MUTED_RED    63488
+#define YELLOW       65156
+#define MUTED_YELLOW 12610
+// #define ORANGE       64512
 
 // Nextion Command Strings
 #define NXT_BACKGROUND_COLOR ".bco="
+#define NXT_BORDER_COLOR     ".bdrco="
 #define NXT_FONT_COLOR       ".pco="
 #define NXT_VALUE            ".val="
 #define NXT_TEXT             ".txt="
@@ -51,6 +57,7 @@ void NXT_setValue(char* obj_name, uint16_t val);
 void NXT_setBackground(char* obj_name, uint16_t val);
 void NXT_setFontColor(char* obj_name, uint16_t val);
 void NXT_setBorderWidth(char* obj_name, uint16_t val);
+void NXT_setBorderColor(char* obj_name, uint16_t val);
 void NXT_setText(char* obj_name, char* text);
 void NXT_setTextFormatted(char* obj_name, const char* format, ...);
 void NXT_setPage(char* page_name);

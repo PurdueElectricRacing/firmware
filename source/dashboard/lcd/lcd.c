@@ -7,6 +7,7 @@
 
 #include "common/can_library/generated/DASHBOARD.h"
 #include "common/can_library/faults_common.h"
+#include "common/can_library/generated/can_types.h"
 #include "common_defs.h"
 #include "main.h"
 #include "menu_system.h"
@@ -30,31 +31,31 @@ extern q_handle_t q_fault_history; // Global queue from fault library for fault 
 extern volatile dashboard_input_state_t input_state; // Global dashboard input states
 extern driver_pedal_profile_t driver_pedal_profiles[4];
 
-// Driver Page Functions
-void driverPageUpdate();
-void driverMoveUp();
-void driverMoveDown();
-void driverSelect();
+// // Driver Page Functions
+// void driverPageUpdate();
+// void driverMoveUp();
+// void driverMoveDown();
+// void driverSelect();
 
-// Profile Page Functions
-void pedalProfilesPageUpdate();
-void pedalProfilesMoveUp();
-void pedalProfilesMoveDown();
-void pedalProfilesSelect();
-void pedalProfilesSaveButton_CALLBACK();
+// // Profile Page Functions
+// void pedalProfilesPageUpdate();
+// void pedalProfilesMoveUp();
+// void pedalProfilesMoveDown();
+// void pedalProfilesSelect();
+// void pedalProfilesSaveButton_CALLBACK();
 
-// Cooling Page Functions
-void coolingPageUpdate();
-void coolingMoveUp();
-void coolingMoveDown();
-void coolingSelect();
+// // Cooling Page Functions
+// void coolingPageUpdate();
+// void coolingMoveUp();
+// void coolingMoveDown();
+// void coolingSelect();
 
-// TV Page Functions
-void tvPageUpdate();
-void tvMoveUp();
-void tvMoveDown();
-void tvSelect();
-void tvSetEnumNames();
+// // TV Page Functions
+// void tvPageUpdate();
+// void tvMoveUp();
+// void tvMoveDown();
+// void tvSelect();
+// void tvSetEnumNames();
 
 // Faults Page Functions
 void faultsPageUpdate();
@@ -70,18 +71,18 @@ void raceSelect();
 void raceUpCallback(); // ! temp function to turn on pumps
 void raceDownCallback(); // ! temp function to turn off pumps
 
-// Warning/Error/Fatal Page Functions
-void errorPageSelect();
+// // Warning/Error/Fatal Page Functions
+// void errorPageSelect();
 
-// DAQ Logging Page Functions
-void loggingPageUpdate();
-void loggingSelect();
+// // DAQ Logging Page Functions
+// void loggingPageUpdate();
+// void loggingSelect();
 
-// Telemetry Functions
+// // Telemetry Functions
 void raceTelemetryUpdate();
-void sdcTelemetryUpdate();
+// void sdcTelemetryUpdate();
 void faultTelemetryUpdate();
-void calibrationTelemetryUpdate();
+// void calibrationTelemetryUpdate();
 
 // Utility Functions
 void updateSDCStatus(uint8_t status, char* element);
@@ -91,18 +92,18 @@ void set_faultIndicator(uint16_t fault, char* element);
 const page_handler_t page_handlers[] = {
     // Order must match page_t enum
     [PAGE_RACE]        = {racePageUpdate, raceUpCallback, raceDownCallback, raceSelect, raceTelemetryUpdate}, // No move handlers, telemetry is passive
-    [PAGE_COOLING]     = {coolingPageUpdate, coolingMoveUp, coolingMoveDown, coolingSelect, nullptr},
-    [PAGE_TVSETTINGS]  = {tvPageUpdate, tvMoveUp, tvMoveDown, tvSelect, nullptr},
+    // [PAGE_COOLING]     = {coolingPageUpdate, coolingMoveUp, coolingMoveDown, coolingSelect, nullptr},
+    // [PAGE_TVSETTINGS]  = {tvPageUpdate, tvMoveUp, tvMoveDown, tvSelect, nullptr},
     [PAGE_FAULTS]      = {faultsPageUpdate, faultsMoveUp, faultsMoveDown, faultsSelect, faultTelemetryUpdate},
-    [PAGE_SDCINFO]     = {nullptr, nullptr, nullptr, nullptr, sdcTelemetryUpdate}, // SDCINFO is passive
-    [PAGE_DRIVER]      = {driverPageUpdate, driverMoveUp, driverMoveDown, driverSelect, nullptr},
-    [PAGE_PROFILES]    = {pedalProfilesPageUpdate, pedalProfilesMoveUp, pedalProfilesMoveDown, pedalProfilesSelect, NULL},
-    [PAGE_LOGGING]     = {loggingPageUpdate, nullptr, nullptr, loggingSelect, nullptr},
-    [PAGE_CALIBRATION] = {nullptr, nullptr, nullptr, nullptr, calibrationTelemetryUpdate}, // Calibration is passive
+    // [PAGE_SDCINFO]     = {nullptr, nullptr, nullptr, nullptr, sdcTelemetryUpdate}, // SDCINFO is passive
+    // [PAGE_DRIVER]      = {driverPageUpdate, driverMoveUp, driverMoveDown, driverSelect, nullptr},
+    // [PAGE_PROFILES]    = {pedalProfilesPageUpdate, pedalProfilesMoveUp, pedalProfilesMoveDown, pedalProfilesSelect, NULL},
+    // [PAGE_LOGGING]     = {loggingPageUpdate, nullptr, nullptr, loggingSelect, nullptr},
+    // [PAGE_CALIBRATION] = {nullptr, nullptr, nullptr, nullptr, calibrationTelemetryUpdate}, // Calibration is passive
     [PAGE_PREFLIGHT]   = {nullptr, nullptr, nullptr, nullptr, nullptr}, // Preflight is passive
-    [PAGE_WARNING]     = {nullptr, nullptr, nullptr, errorPageSelect, nullptr}, // Error pages share a select handler
-    [PAGE_ERROR]       = {nullptr, nullptr, nullptr, errorPageSelect, nullptr}, // Error pages share a select handler
-    [PAGE_FATAL]       = {nullptr, nullptr, nullptr, errorPageSelect, nullptr} // Error pages share a select handler
+    // [PAGE_WARNING]     = {nullptr, nullptr, nullptr, errorPageSelect, nullptr}, // Error pages share a select handler
+    // [PAGE_ERROR]       = {nullptr, nullptr, nullptr, errorPageSelect, nullptr}, // Error pages share a select handler
+    // [PAGE_FATAL]       = {nullptr, nullptr, nullptr, errorPageSelect, nullptr} // Error pages share a select handler
 };
 
 menu_element_t race_elements[] = {
@@ -110,7 +111,7 @@ menu_element_t race_elements[] = {
         .type          = ELEMENT_OPTION,
         .object_name   = RACE_TV_ON,
         .current_value = 0,
-        .on_change     = sendTVParameters,
+        // .on_change     = sendTVParameters,
     }
 };
 
@@ -121,169 +122,185 @@ menu_page_t race_page = {
     .is_element_selected = false,
 };
 
-typedef enum {
-    COOLING_DT_FAN_INDEX  = 0,
-    COOLING_DT_PUMP_INDEX = 1,
-    COOLING_B_FAN_INDEX   = 2,
-    COOLING_B_PUMP_INDEX  = 3
-} cooling_elements_t;
+// typedef enum {
+//     COOLING_DT_FAN_INDEX  = 0,
+//     COOLING_DT_PUMP_INDEX = 1,
+//     COOLING_B_FAN_INDEX   = 2,
+//     COOLING_B_PUMP_INDEX  = 3
+// } cooling_elements_t;
 
-menu_element_t cooling_elements[] = {
-    [COOLING_DT_FAN_INDEX] = {
-        .type          = ELEMENT_VAL,
-        .object_name   = DT_FAN_VAL,
-        .current_value = 0,
-        .min_value     = 0,
-        .max_value     = 100,
-        .increment     = 25,
-        .on_change     = sendCoolingParameters,
-    },
-    [COOLING_DT_PUMP_INDEX] = {
-        .type          = ELEMENT_OPTION,
-        .object_name   = DT_PUMP_OP,
-        .current_value = 0,
-        .on_change     = sendCoolingParameters,
-    },
-    [COOLING_B_FAN_INDEX] = {
-        .type          = ELEMENT_VAL,
-        .object_name   = B_FAN_VAL,
-        .current_value = 0,
-        .min_value     = 0,
-        .max_value     = 100,
-        .increment     = 25,
-        .on_change     = sendCoolingParameters,
-    },
-    [COOLING_B_PUMP_INDEX] = {
-        .type          = ELEMENT_OPTION,
-        .object_name   = B_PUMP_OP,
-        .current_value = 0,
-        .on_change     = sendCoolingParameters,
-    },
-};
+// menu_element_t cooling_elements[] = {
+//     [COOLING_DT_FAN_INDEX] = {
+//         .type          = ELEMENT_VAL,
+//         .object_name   = DT_FAN_VAL,
+//         .current_value = 0,
+//         .min_value     = 0,
+//         .max_value     = 100,
+//         .increment     = 25,
+//         .on_change     = sendCoolingParameters,
+//     },
+//     [COOLING_DT_PUMP_INDEX] = {
+//         .type          = ELEMENT_OPTION,
+//         .object_name   = DT_PUMP_OP,
+//         .current_value = 0,
+//         .on_change     = sendCoolingParameters,
+//     },
+//     [COOLING_B_FAN_INDEX] = {
+//         .type          = ELEMENT_VAL,
+//         .object_name   = B_FAN_VAL,
+//         .current_value = 0,
+//         .min_value     = 0,
+//         .max_value     = 100,
+//         .increment     = 25,
+//         .on_change     = sendCoolingParameters,
+//     },
+//     [COOLING_B_PUMP_INDEX] = {
+//         .type          = ELEMENT_OPTION,
+//         .object_name   = B_PUMP_OP,
+//         .current_value = 0,
+//         .on_change     = sendCoolingParameters,
+//     },
+// };
 
-menu_page_t cooling_page = {
-    .elements            = cooling_elements,
-    .num_elements        = sizeof(cooling_elements) / sizeof(cooling_elements[0]),
-    .current_index       = 0,
-    .is_element_selected = false,
-};
+// menu_page_t cooling_page = {
+//     .elements            = cooling_elements,
+//     .num_elements        = sizeof(cooling_elements) / sizeof(cooling_elements[0]),
+//     .current_index       = 0,
+//     .is_element_selected = false,
+// };
 
-typedef enum {
-    TV_VCU_PERMIT_INDEX  = 0,
-    TV_VCU_CONTROL_INDEX = 1,
-    TV_DEADBAND_INDEX    = 2,
-    TV_P_GAIN_INDEX      = 3,
-    TV_TORQUE_DROP_INDEX = 4,
-    TV_MAX_SLIP_INDEX    = 5,
-} tv_elements_t;
+// typedef enum {
+//     TV_VCU_PERMIT_INDEX  = 0,
+//     TV_VCU_CONTROL_INDEX = 1,
+//     TV_DEADBAND_INDEX    = 2,
+//     TV_P_GAIN_INDEX      = 3,
+//     TV_TORQUE_DROP_INDEX = 4,
+//     TV_MAX_SLIP_INDEX    = 5,
+// } tv_elements_t;
 
-typedef enum {
-    TV_PERMIT_NONE     = 0,
-    TV_PERMIT_VARIABLE = 1,
-} tv_permit_modes_t;
+// typedef enum {
+//     TV_PERMIT_NONE     = 0,
+//     TV_PERMIT_VARIABLE = 1,
+// } tv_permit_modes_t;
 
-typedef enum {
-    TV_SPEED_CONTROL_MODE  = 0,
-    TV_TORQUE_CONTROL_MODE = 1,
-} tv_control_modes_t;
+// typedef enum {
+//     TV_SPEED_CONTROL_MODE  = 0,
+//     TV_TORQUE_CONTROL_MODE = 1,
+// } tv_control_modes_t;
 
-// TV Settings page menu elements
-menu_element_t tv_elements[] = {
-    [TV_VCU_PERMIT_INDEX] = {
-        // Not using the OPTION type here to display the text instead of the value
-        .type          = ELEMENT_VAL,
-        .object_name   = TV_PERMIT_MODE_TXT,
-        .current_value = TV_PERMIT_VARIABLE, // Default to variable
-        .min_value     = TV_PERMIT_NONE,
-        .max_value     = TV_PERMIT_VARIABLE,
-        .increment     = 1,
-        .on_change     = sendTVParameters,
-    },
-    [TV_VCU_CONTROL_INDEX] = {
-        // Not using the OPTION type here to display the text instead of the value
-        .type          = ELEMENT_VAL,
-        .object_name   = TV_CONTROL_MODE_TXT,
-        .current_value = TV_TORQUE_CONTROL_MODE, // Default to torque control
-        .min_value     = TV_SPEED_CONTROL_MODE,
-        .max_value     = TV_TORQUE_CONTROL_MODE,
-        .increment     = 1,
-        .on_change     = sendTVParameters,
-    },
-    [TV_DEADBAND_INDEX] = {
-        .type          = ELEMENT_VAL,
-        .object_name   = TV_DEADBAND_TXT,
-        .current_value = TV_DEADBAND_DEFAULT_VALUE,
-        .min_value     = 0,
-        .max_value     = 25,
-        .increment     = 1, // 1 increment
-        .on_change     = sendTVParameters,
-    },
-    [TV_P_GAIN_INDEX] = {
-        .type          = ELEMENT_FLT,
-        .object_name   = TV_P_GAIN_FLT,
-        .current_value = TV_P_GAIN_DEFAULT_VALUE,
-        .min_value     = 0,
-        .max_value     = 10000,
-        .increment     = 10, // 0.1 increment
-        .on_change     = sendTVParameters,
-    },
-    [TV_TORQUE_DROP_INDEX] = {
-        .type          = ELEMENT_FLT,
-        .object_name   = TV_TORQUE_DROP_FLT,
-        .current_value = TV_TORQUE_DROP_DEFAULT_VALUE,
-        .min_value     = 0,
-        .max_value     = 100,
-        .increment     = 2, // 0.02 increment
-        .on_change     = sendTVParameters,
-    },
-    [TV_MAX_SLIP_INDEX] = {
-        .type          = ELEMENT_FLT,
-        .object_name   = TV_MAX_SLIP_FLT,
-        .current_value = TV_SLIP_DEFAULT_VALUE,
-        .min_value     = 0,
-        .max_value     = 100,
-        .increment     = 2, // 0.02 increment
-        .on_change     = sendTVParameters,
-    },
-};
+// // TV Settings page menu elements
+// menu_element_t tv_elements[] = {
+//     [TV_VCU_PERMIT_INDEX] = {
+//         // Not using the OPTION type here to display the text instead of the value
+//         .type          = ELEMENT_VAL,
+//         .object_name   = TV_PERMIT_MODE_TXT,
+//         .current_value = TV_PERMIT_VARIABLE, // Default to variable
+//         .min_value     = TV_PERMIT_NONE,
+//         .max_value     = TV_PERMIT_VARIABLE,
+//         .increment     = 1,
+//         .on_change     = sendTVParameters,
+//     },
+//     [TV_VCU_CONTROL_INDEX] = {
+//         // Not using the OPTION type here to display the text instead of the value
+//         .type          = ELEMENT_VAL,
+//         .object_name   = TV_CONTROL_MODE_TXT,
+//         .current_value = TV_TORQUE_CONTROL_MODE, // Default to torque control
+//         .min_value     = TV_SPEED_CONTROL_MODE,
+//         .max_value     = TV_TORQUE_CONTROL_MODE,
+//         .increment     = 1,
+//         .on_change     = sendTVParameters,
+//     },
+//     [TV_DEADBAND_INDEX] = {
+//         .type          = ELEMENT_VAL,
+//         .object_name   = TV_DEADBAND_TXT,
+//         .current_value = TV_DEADBAND_DEFAULT_VALUE,
+//         .min_value     = 0,
+//         .max_value     = 25,
+//         .increment     = 1, // 1 increment
+//         .on_change     = sendTVParameters,
+//     },
+//     [TV_P_GAIN_INDEX] = {
+//         .type          = ELEMENT_FLT,
+//         .object_name   = TV_P_GAIN_FLT,
+//         .current_value = TV_P_GAIN_DEFAULT_VALUE,
+//         .min_value     = 0,
+//         .max_value     = 10000,
+//         .increment     = 10, // 0.1 increment
+//         .on_change     = sendTVParameters,
+//     },
+//     [TV_TORQUE_DROP_INDEX] = {
+//         .type          = ELEMENT_FLT,
+//         .object_name   = TV_TORQUE_DROP_FLT,
+//         .current_value = TV_TORQUE_DROP_DEFAULT_VALUE,
+//         .min_value     = 0,
+//         .max_value     = 100,
+//         .increment     = 2, // 0.02 increment
+//         .on_change     = sendTVParameters,
+//     },
+//     [TV_MAX_SLIP_INDEX] = {
+//         .type          = ELEMENT_FLT,
+//         .object_name   = TV_MAX_SLIP_FLT,
+//         .current_value = TV_SLIP_DEFAULT_VALUE,
+//         .min_value     = 0,
+//         .max_value     = 100,
+//         .increment     = 2, // 0.02 increment
+//         .on_change     = sendTVParameters,
+//     },
+// };
 
-menu_page_t tv_page = {
-    .elements            = tv_elements,
-    .num_elements        = sizeof(tv_elements) / sizeof(tv_elements[0]),
-    .current_index       = 0,
-    .is_element_selected = false};
+// menu_page_t tv_page = {
+//     .elements            = tv_elements,
+//     .num_elements        = sizeof(tv_elements) / sizeof(tv_elements[0]),
+//     .current_index       = 0,
+//     .is_element_selected = false};
 
 menu_element_t faults_elements[] = {
     [0] = {
         .type        = ELEMENT_BUTTON,
-        .object_name = FAULT1_BUTTON,
+        .object_name = FAULT1_TXT,
         .on_change   = faultsClearButton_CALLBACK // clear fault
     },
     [1] = {
         .type        = ELEMENT_BUTTON,
-        .object_name = FAULT2_BUTTON,
+        .object_name = FAULT2_TXT,
         .on_change   = faultsClearButton_CALLBACK // clear fault
     },
     [2] = {
         .type        = ELEMENT_BUTTON,
-        .object_name = FAULT3_BUTTON,
+        .object_name = FAULT3_TXT,
         .on_change   = faultsClearButton_CALLBACK // clear fault
     },
     [3] = {
         .type        = ELEMENT_BUTTON,
-        .object_name = FAULT4_BUTTON,
+        .object_name = FAULT4_TXT,
         .on_change   = faultsClearButton_CALLBACK // clear fault
     },
     [4] = {
         .type        = ELEMENT_BUTTON,
-        .object_name = FAULT5_BUTTON,
+        .object_name = FAULT5_TXT,
         .on_change   = faultsClearButton_CALLBACK // clear fault
     },
     [5] = {
         .type        = ELEMENT_BUTTON,
+        .object_name = FAULT6_TXT,
+        .on_change   = faultsClearButton_CALLBACK // clear all faults
+    }, 
+    [6] = {
+        .type        = ELEMENT_BUTTON,
+        .object_name = FAULT7_TXT,
+        .on_change   = faultsClearButton_CALLBACK // clear all faults
+    },
+    [7] = {
+        .type        = ELEMENT_BUTTON,
+        .object_name = FAULT8_TXT,
+        .on_change   = faultsClearButton_CALLBACK // clear all faults
+    },
+    [8] = {
+        .type        = ELEMENT_BUTTON,
         .object_name = CLEAR_BUTTON,
         .on_change   = faultsClearButton_CALLBACK // clear all faults
-    }};
+    }
+};
 
 menu_page_t faults_page = {
     .elements            = faults_elements,
@@ -291,72 +308,72 @@ menu_page_t faults_page = {
     .current_index       = 0,
     .is_element_selected = false};
 
-menu_element_t driver_elements[] = {
-    [0] = {
-        .type          = ELEMENT_LIST,
-        .object_name   = DRIVER1_LIST,
-        .current_value = 1 // Default to driver 1
-    },
-    [1] = {.type = ELEMENT_LIST, .object_name = DRIVER2_LIST, .current_value = 0},
-    [2] = {.type = ELEMENT_LIST, .object_name = DRIVER3_LIST, .current_value = 0},
-    [3] = {.type = ELEMENT_LIST, .object_name = DRIVER4_LIST, .current_value = 0}};
+// menu_element_t driver_elements[] = {
+//     [0] = {
+//         .type          = ELEMENT_LIST,
+//         .object_name   = DRIVER1_LIST,
+//         .current_value = 1 // Default to driver 1
+//     },
+//     [1] = {.type = ELEMENT_LIST, .object_name = DRIVER2_LIST, .current_value = 0},
+//     [2] = {.type = ELEMENT_LIST, .object_name = DRIVER3_LIST, .current_value = 0},
+//     [3] = {.type = ELEMENT_LIST, .object_name = DRIVER4_LIST, .current_value = 0}};
 
-menu_page_t driver_page = {
-    .elements            = driver_elements,
-    .num_elements        = sizeof(driver_elements) / sizeof(driver_elements[0]),
-    .current_index       = 0,
-    .is_element_selected = false};
+// menu_page_t driver_page = {
+//     .elements            = driver_elements,
+//     .num_elements        = sizeof(driver_elements) / sizeof(driver_elements[0]),
+//     .current_index       = 0,
+//     .is_element_selected = false};
 
-typedef enum {
-    PROFILE_BRAKE_INDEX    = 0,
-    PROFILE_THROTTLE_INDEX = 1,
-    PROFILE_SAVE_INDEX     = 2
-} pedal_profile_elements_t;
+// typedef enum {
+//     PROFILE_BRAKE_INDEX    = 0,
+//     PROFILE_THROTTLE_INDEX = 1,
+//     PROFILE_SAVE_INDEX     = 2
+// } pedal_profile_elements_t;
 
-// Profile page menu elements
-menu_element_t pedal_profile_elements[] = {
-    [PROFILE_BRAKE_INDEX] = {
-        .type          = ELEMENT_FLT,
-        .object_name   = PROFILE_BRAKE_FLT,
-        .current_value = 0,
-        .min_value     = 0,
-        .max_value     = 20,
-        .increment     = 5,
-    },
-    [PROFILE_THROTTLE_INDEX] = {
-        .type          = ELEMENT_FLT,
-        .object_name   = PROFILE_THROTTLE_FLT,
-        .current_value = 0,
-        .min_value     = 0,
-        .max_value     = 20,
-        .increment     = 5,
-    },
-    [PROFILE_SAVE_INDEX] = {.type = ELEMENT_BUTTON, .object_name = PROFILE_SAVE_BUTTON, .on_change = pedalProfilesSaveButton_CALLBACK}};
+// // Profile page menu elements
+// menu_element_t pedal_profile_elements[] = {
+//     [PROFILE_BRAKE_INDEX] = {
+//         .type          = ELEMENT_FLT,
+//         .object_name   = PROFILE_BRAKE_FLT,
+//         .current_value = 0,
+//         .min_value     = 0,
+//         .max_value     = 20,
+//         .increment     = 5,
+//     },
+//     [PROFILE_THROTTLE_INDEX] = {
+//         .type          = ELEMENT_FLT,
+//         .object_name   = PROFILE_THROTTLE_FLT,
+//         .current_value = 0,
+//         .min_value     = 0,
+//         .max_value     = 20,
+//         .increment     = 5,
+//     },
+//     [PROFILE_SAVE_INDEX] = {.type = ELEMENT_BUTTON, .object_name = PROFILE_SAVE_BUTTON, .on_change = pedalProfilesSaveButton_CALLBACK}};
 
-menu_page_t pedal_profile_page = {
-    .elements            = pedal_profile_elements,
-    .num_elements        = sizeof(pedal_profile_elements) / sizeof(pedal_profile_elements[0]),
-    .current_index       = 0,
-    .is_element_selected = false,
-    .saved               = true,
-};
+// menu_page_t pedal_profile_page = {
+//     .elements            = pedal_profile_elements,
+//     .num_elements        = sizeof(pedal_profile_elements) / sizeof(pedal_profile_elements[0]),
+//     .current_index       = 0,
+//     .is_element_selected = false,
+//     .saved               = true,
+// };
 
-typedef enum {
-    LOGGING_OP_INDEX = 0
-} logging_elements_t;
+// typedef enum {
+//     LOGGING_OP_INDEX = 0
+// } logging_elements_t;
 
-menu_element_t logging_elements[] = {
-    [LOGGING_OP_INDEX] = {
-        .type          = ELEMENT_OPTION,
-        .object_name   = LOG_OP,
-        .current_value = 0,
-        .on_change     = sendLoggingParameters}};
+// menu_element_t logging_elements[] = {
+//     [LOGGING_OP_INDEX] = {
+//         .type          = ELEMENT_OPTION,
+//         .object_name   = LOG_OP,
+//         .current_value = 0,
+//         .on_change     = sendLoggingParameters}};
 
-menu_page_t logging_page = {
-    .elements            = logging_elements,
-    .num_elements        = sizeof(logging_elements) / sizeof(logging_elements[0]),
-    .current_index       = 0,
-    .is_element_selected = false};
+// menu_page_t logging_page = {
+//     .elements            = logging_elements,
+//     .num_elements        = sizeof(logging_elements) / sizeof(logging_elements[0]),
+//     .current_index       = 0,
+//     .is_element_selected = false};
 
 // Initialize the LCD screen
 // Preflight will be shown on power on, then reset to RACE
@@ -367,8 +384,8 @@ void initLCD() {
     NXT_setBaud(LCD_BAUD_RATE);
     NXT_setBrightness(100);
 
-    readPedalProfiles();
-    pedal_profile_page.saved = true;
+    // readPedalProfiles();
+    // pedal_profile_page.saved = true;
 
     // Set page (leave preflight)
     updatePage();
@@ -378,8 +395,8 @@ void initLCD() {
  * @brief Advances to the next selectable page
  */
 void advancePage() {
-    bool is_error_page = (curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL);
-    if (is_error_page) return;
+    // bool is_error_page = (curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL);
+    // if (is_error_page) return;
 
     if (curr_page == PAGE_CALIBRATION) {
         curr_page = PAGE_RACE;
@@ -394,8 +411,8 @@ void advancePage() {
  * @brief Moves to the previous selectable page
  */
 void backPage() {
-    bool is_error_page = (curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL);
-    if (is_error_page) return;
+    // bool is_error_page = (curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL);
+    // if (is_error_page) return;
 
     if (curr_page == PAGE_RACE) {
         curr_page = PAGE_CALIBRATION;
@@ -414,21 +431,21 @@ void backPage() {
  */
 void updatePage() {
     // Only update if we are on a "selectable" page
-    bool is_error_page = (curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL);
+    // bool is_error_page = (curr_page == PAGE_ERROR) || (curr_page == PAGE_WARNING) || (curr_page == PAGE_FATAL);
 
-    // Only update prev_page for non-error pages
-    if (!is_error_page) {
-        fault_time_displayed = 0;
-    }
+    // // Only update prev_page for non-error pages
+    // if (!is_error_page) {
+    //     fault_time_displayed = 0;
+    // }
 
     // If we do not detect a page update, do nothing
     if (curr_page == prev_page) {
         return;
     }
 
-    if (!is_error_page) { // Must come after redundant page check
-        prev_page = curr_page;
-    }
+    // if (!is_error_page) { // Must come after redundant page check
+    //     prev_page = curr_page;
+    // }
 
     // Set the page on display
     switch (curr_page) {
@@ -438,42 +455,42 @@ void updatePage() {
         case PAGE_RACE:
             NXT_setPage(RACE_STRING);
             break;
-        case PAGE_COOLING:
-            NXT_setPage(COOLING_STRING);
-            break;
-        case PAGE_TVSETTINGS:
-            NXT_setPage(TVSETTINGS_STRING);
-            break;
-        case PAGE_FAULTS:
-            NXT_setPage(FAULT_STRING);
-            break;
-        case PAGE_SDCINFO:
-            NXT_setPage(SDCINFO_STRING);
-            break;
-        case PAGE_DRIVER:
-            NXT_setPage(DRIVER_STRING);
-            break;
-        case PAGE_PROFILES:
-            NXT_setPage(DRIVER_CONFIG_STRING);
-            break;
-        case PAGE_LOGGING:
-            NXT_setPage(LOGGING_STRING);
-            break;
+        // case PAGE_COOLING:
+        //     NXT_setPage(COOLING_STRING);
+        //     break;
+        // case PAGE_TVSETTINGS:
+        //     NXT_setPage(TVSETTINGS_STRING);
+        //     break;
+        // case PAGE_FAULTS:
+        //     NXT_setPage(FAULT_STRING);
+        //     break;
+        // case PAGE_SDCINFO:
+        //     NXT_setPage(SDCINFO_STRING);
+        //     break;
+        // case PAGE_DRIVER:
+        //     NXT_setPage(DRIVER_STRING);
+        //     break;
+        // case PAGE_PROFILES:
+        //     NXT_setPage(DRIVER_CONFIG_STRING);
+        //     break;
+        // case PAGE_LOGGING:
+        //     NXT_setPage(LOGGING_STRING);
+        //     break;
         case PAGE_CALIBRATION:
-            NXT_setPage(APPS_STRING);
+            NXT_setPage(CALIBRATION_STRING);
             break;
-        case PAGE_WARNING:
-            NXT_setPage(WARN_STRING);
-            NXT_setText(ERR_TXT, errorText);
-            return;
-        case PAGE_ERROR:
-            NXT_setPage(ERR_STRING);
-            NXT_setText(ERR_TXT, errorText);
-            return;
-        case PAGE_FATAL:
-            NXT_setPage(FATAL_STRING);
-            NXT_setText(ERR_TXT, errorText);
-            return;
+        // case PAGE_WARNING:
+        //     NXT_setPage(WARN_STRING);
+        //     NXT_setText(ERR_TXT, errorText);
+        //     return;
+        // case PAGE_ERROR:
+        //     NXT_setPage(ERR_STRING);
+        //     NXT_setText(ERR_TXT, errorText);
+        //     return;
+        // case PAGE_FATAL:
+        //     NXT_setPage(FATAL_STRING);
+        //     NXT_setText(ERR_TXT, errorText);
+        //     return;
         default:
             curr_page = PAGE_PREFLIGHT; // something probably went wrong
             break;
@@ -560,55 +577,55 @@ void calibrationTelemetryUpdate() {
     NXT_setTextFormatted(CALIBRATION_THROTTLE1_VAL, "%d", raw_adc_values.t1);
     NXT_setTextFormatted(CALIBRATION_THROTTLE2_VAL, "%d", raw_adc_values.t2);
 
-    uint16_t brake_diff = ABS(raw_adc_values.b1 - raw_adc_values.b2);
-    uint16_t brake_dev  = (brake_diff * 1000) / 4095.0;
-    NXT_setValue(CALIBRATION_BRAKE_DEV_VAL, brake_dev);
+    // uint16_t brake_diff = ABS(raw_adc_values.b1 - raw_adc_values.b2);
+    // uint16_t brake_dev  = (brake_diff * 1000) / 4095.0;
+    // NXT_setValue(CALIBRATION_BRAKE_DEV_VAL, brake_dev);
 
-    uint16_t throttle_diff = ABS(raw_adc_values.t1 - raw_adc_values.t2);
-    uint16_t throttle_dev  = (throttle_diff * 1000) / 4095.0;
-    NXT_setValue(CALIBRATION_THROTTLE_DEV_VAL, throttle_dev);
+    // uint16_t throttle_diff = ABS(raw_adc_values.t1 - raw_adc_values.t2);
+    // uint16_t throttle_dev  = (throttle_diff * 1000) / 4095.0;
+    // NXT_setValue(CALIBRATION_THROTTLE_DEV_VAL, throttle_dev);
 
-    // uint16_t brake1_thresh = (raw_adc_values.brk1_thr / 4095.0) * 3.3 * 10;
-    // uint16_t brake2_thresh = (raw_adc_values.brk2_thr / 4095.0) * 3.3 * 10;
-    uint16_t brake1_thresh = 0;
-    uint16_t brake2_thresh = 0;
+    // // uint16_t brake1_thresh = (raw_adc_values.brk1_thr / 4095.0) * 3.3 * 10;
+    // // uint16_t brake2_thresh = (raw_adc_values.brk2_thr / 4095.0) * 3.3 * 10;
+    // uint16_t brake1_thresh = 0;
+    // uint16_t brake2_thresh = 0;
 
-    // update bspd thresholds
-    NXT_setValue(CALIBRATION_BRAKE1_THRESHOLD, brake1_thresh);
-    NXT_setValue(CALIBRATION_BRAKE2_THRESHOLD, brake2_thresh);
+    // // update bspd thresholds
+    // NXT_setValue(CALIBRATION_BRAKE1_THRESHOLD, brake1_thresh);
+    // NXT_setValue(CALIBRATION_BRAKE2_THRESHOLD, brake2_thresh);
 }
 
-/**
- * @brief Sends TV parameters to TV using current values from tv_elements array
- */
-void sendTVParameters() {
-    CAN_SEND_dashboard_vcu_parameters(
-        tv_elements[TV_VCU_PERMIT_INDEX].current_value,
-        tv_elements[TV_VCU_CONTROL_INDEX].current_value,
-        tv_elements[TV_DEADBAND_INDEX].current_value,
-        (uint16_t)tv_elements[TV_P_GAIN_INDEX].current_value,
-        tv_elements[TV_TORQUE_DROP_INDEX].current_value,
-        tv_elements[TV_MAX_SLIP_INDEX].current_value);
-}
+// /**
+//  * @brief Sends TV parameters to TV using current values from tv_elements array
+//  */
+// void sendTVParameters() {
+//     CAN_SEND_dashboard_vcu_parameters(
+//         tv_elements[TV_VCU_PERMIT_INDEX].current_value,
+//         tv_elements[TV_VCU_CONTROL_INDEX].current_value,
+//         tv_elements[TV_DEADBAND_INDEX].current_value,
+//         (uint16_t)tv_elements[TV_P_GAIN_INDEX].current_value,
+//         tv_elements[TV_TORQUE_DROP_INDEX].current_value,
+//         tv_elements[TV_MAX_SLIP_INDEX].current_value);
+// }
 
-/**
- * @brief Sends Cooling parameters to PDU using current values from cooling_elements array.
- */
-void sendCoolingParameters() {
-    CAN_SEND_cooling_driver_request(
-        cooling_elements[COOLING_B_PUMP_INDEX].current_value,
-        cooling_elements[COOLING_B_FAN_INDEX].current_value,
-        cooling_elements[COOLING_DT_PUMP_INDEX].current_value,
-        0, // TODO: remove (deprecated)
-        cooling_elements[COOLING_DT_FAN_INDEX].current_value);
-}
+// /**
+//  * @brief Sends Cooling parameters to PDU using current values from cooling_elements array.
+//  */
+// void sendCoolingParameters() {
+//     CAN_SEND_cooling_driver_request(
+//         cooling_elements[COOLING_B_PUMP_INDEX].current_value,
+//         cooling_elements[COOLING_B_FAN_INDEX].current_value,
+//         cooling_elements[COOLING_DT_PUMP_INDEX].current_value,
+//         0, // TODO: remove (deprecated)
+//         cooling_elements[COOLING_DT_FAN_INDEX].current_value);
+// }
 
-/**
- * @brief Sends Logging parameters to DAQ using current values from logging_elements array.
- */
-void sendLoggingParameters() {
-    CAN_SEND_dashboard_start_logging(logging_elements[LOGGING_OP_INDEX].current_value);
-}
+// /**
+//  * @brief Sends Logging parameters to DAQ using current values from logging_elements array.
+//  */
+// void sendLoggingParameters() {
+//     CAN_SEND_dashboard_start_logging(logging_elements[LOGGING_OP_INDEX].current_value);
+// }
 
 /**
  * @brief Updates fault messages on LCD screen based on priority and timing
@@ -625,251 +642,255 @@ void updateFaultDisplay() {
  * @brief Updates the color of fault text indicators on the faults page
  */
 void faultTelemetryUpdate() {
-    if (curr_page != PAGE_FAULTS) {
-        return;
-    }
+    // if (curr_page != PAGE_FAULTS) {
+    //     return;
+    // }
 
     set_faultIndicator(fault_buf[0], FAULT1_TXT);
     set_faultIndicator(fault_buf[1], FAULT2_TXT);
     set_faultIndicator(fault_buf[2], FAULT3_TXT);
     set_faultIndicator(fault_buf[3], FAULT4_TXT);
     set_faultIndicator(fault_buf[4], FAULT5_TXT);
+    // Implement these faults when we have more than 5 faults
+    // set_faultIndicator(fault_buf[5], FAULT5_TXT);
+    // set_faultIndicator(fault_buf[6], FAULT5_TXT);
+    // set_faultIndicator(fault_buf[7], FAULT5_TXT);
 }
 
-/**
- * @brief Updates the Shutdown Circuit (SDC) status display on the dashboard LCD
- *
- * Only executes if the current page is SDC info page.
- */
-void sdcTelemetryUpdate() {
-    if (curr_page != PAGE_SDCINFO) {
-        return;
-    }
+// /**
+//  * @brief Updates the Shutdown Circuit (SDC) status display on the dashboard LCD
+//  *
+//  * Only executes if the current page is SDC info page.
+//  */
+// void sdcTelemetryUpdate() {
+//     // if (curr_page != PAGE_SDCINFO) {
+//     //     return;
+//     // }
 
-    // cycle through the update groups
+//     // cycle through the update groups
 
-    updateSDCStatus(can_data.precharge_hb.IMD, SDC_IMD_STAT_TXT); // IMD from ABOX
-    updateSDCStatus(can_data.precharge_hb.BMS, SDC_BMS_STAT_TXT);
-    updateSDCStatus(!is_latched(FAULT_INDEX_DASHBOARD_BSPD), SDC_BSPD_STAT_TXT);
-    updateSDCStatus(can_data.sdc_status.BOTS, SDC_BOTS_STAT_TXT);
-    updateSDCStatus(can_data.sdc_status.inertia, SDC_INER_STAT_TXT);
-    updateSDCStatus(can_data.sdc_status.c_estop, SDC_CSTP_STAT_TXT);
-    updateSDCStatus(can_data.sdc_status.main, SDC_MAIN_STAT_TXT);
-    updateSDCStatus(can_data.sdc_status.r_estop, SDC_RSTP_STAT_TXT);
-    updateSDCStatus(can_data.sdc_status.l_estop, SDC_LSTP_STAT_TXT);
-    updateSDCStatus(can_data.sdc_status.HVD, SDC_HVD_STAT_TXT);
-    updateSDCStatus(can_data.sdc_status.hub, SDC_RHUB_STAT_TXT);
-    updateSDCStatus(can_data.sdc_status.TSMS, SDC_TSMS_STAT_TXT);
-    updateSDCStatus(can_data.sdc_status.pchg_out, SDC_PCHG_STAT_TXT);
-    // todo set first trip from latest change in the sdc
-}
+//     updateSDCStatus(can_data.precharge_hb.IMD, SDC_IMD_STAT_TXT); // IMD from ABOX
+//     updateSDCStatus(can_data.precharge_hb.BMS, SDC_BMS_STAT_TXT);
+//     updateSDCStatus(!is_latched(FAULT_INDEX_DASHBOARD_BSPD), SDC_BSPD_STAT_TXT);
+//     updateSDCStatus(can_data.sdc_status.BOTS, SDC_BOTS_STAT_TXT);
+//     updateSDCStatus(can_data.sdc_status.inertia, SDC_INER_STAT_TXT);
+//     updateSDCStatus(can_data.sdc_status.c_estop, SDC_CSTP_STAT_TXT);
+//     updateSDCStatus(can_data.sdc_status.main, SDC_MAIN_STAT_TXT);
+//     updateSDCStatus(can_data.sdc_status.r_estop, SDC_RSTP_STAT_TXT);
+//     updateSDCStatus(can_data.sdc_status.l_estop, SDC_LSTP_STAT_TXT);
+//     updateSDCStatus(can_data.sdc_status.HVD, SDC_HVD_STAT_TXT);
+//     updateSDCStatus(can_data.sdc_status.hub, SDC_RHUB_STAT_TXT);
+//     updateSDCStatus(can_data.sdc_status.TSMS, SDC_TSMS_STAT_TXT);
+//     updateSDCStatus(can_data.sdc_status.pchg_out, SDC_PCHG_STAT_TXT);
+//     // todo set first trip from latest change in the sdc
+// }
 
-// ! Helper function definitions
+// // ! Helper function definitions
 
-void errorPageSelect() {
-    fault_time_displayed = 0; // Reset fault timer first
-    curr_page            = prev_page; // Return to previous page
-    prev_page            = PAGE_PREFLIGHT; // so select item doesnt't break
-    updatePage(); // Important: Update the page before returning
-    return;
-}
+// void errorPageSelect() {
+//     fault_time_displayed = 0; // Reset fault timer first
+//     curr_page            = prev_page; // Return to previous page
+//     prev_page            = PAGE_PREFLIGHT; // so select item doesnt't break
+//     updatePage(); // Important: Update the page before returning
+//     return;
+// }
 
-void driverPageUpdate() {
-    MS_refreshPage(&driver_page);
-}
+// void driverPageUpdate() {
+//     MS_refreshPage(&driver_page);
+// }
 
-void driverMoveUp() {
-    MS_moveUp(&driver_page);
-}
+// void driverMoveUp() {
+//     MS_moveUp(&driver_page);
+// }
 
-void driverMoveDown() {
-    MS_moveDown(&driver_page);
-}
+// void driverMoveDown() {
+//     MS_moveDown(&driver_page);
+// }
 
-void driverSelect() {
-    MS_select(&driver_page);
-}
+// void driverSelect() {
+//     MS_select(&driver_page);
+// }
 
-void pedalProfilesPageUpdate() {
-    // Update displayed driver name
-    int driver_index = MS_listGetSelected(&driver_page);
-    if (driver_index < 0) {
-        return;
-    }
+// void pedalProfilesPageUpdate() {
+//     // Update displayed driver name
+//     int driver_index = MS_listGetSelected(&driver_page);
+//     if (driver_index < 0) {
+//         return;
+//     }
 
-    switch (driver_index) {
-        case 0:
-            NXT_setText(PROFILE_CURRENT_TXT, DRIVER1_NAME);
-            break;
-        case 1:
-            NXT_setText(PROFILE_CURRENT_TXT, DRIVER2_NAME);
-            break;
-        case 2:
-            NXT_setText(PROFILE_CURRENT_TXT, DRIVER3_NAME);
-            break;
-        case 3:
-            NXT_setText(PROFILE_CURRENT_TXT, DRIVER4_NAME);
-            break;
-    }
+//     switch (driver_index) {
+//         case 0:
+//             NXT_setText(PROFILE_CURRENT_TXT, DRIVER1_NAME);
+//             break;
+//         case 1:
+//             NXT_setText(PROFILE_CURRENT_TXT, DRIVER2_NAME);
+//             break;
+//         case 2:
+//             NXT_setText(PROFILE_CURRENT_TXT, DRIVER3_NAME);
+//             break;
+//         case 3:
+//             NXT_setText(PROFILE_CURRENT_TXT, DRIVER4_NAME);
+//             break;
+//     }
 
-    pedal_profile_elements[PROFILE_BRAKE_INDEX].current_value =
-        driver_pedal_profiles[driver_index].brake_travel_threshold;
-    pedal_profile_elements[PROFILE_THROTTLE_INDEX].current_value =
-        driver_pedal_profiles[driver_index].throttle_travel_threshold;
+//     pedal_profile_elements[PROFILE_BRAKE_INDEX].current_value =
+//         driver_pedal_profiles[driver_index].brake_travel_threshold;
+//     pedal_profile_elements[PROFILE_THROTTLE_INDEX].current_value =
+//         driver_pedal_profiles[driver_index].throttle_travel_threshold;
 
-    // Update display and styling
-    MS_refreshPage(&pedal_profile_page);
-}
+//     // Update display and styling
+//     MS_refreshPage(&pedal_profile_page);
+// }
 
-void pedalProfilesMoveUp() {
-    MS_moveUp(&pedal_profile_page);
+// void pedalProfilesMoveUp() {
+//     MS_moveUp(&pedal_profile_page);
 
-    // Update save status indicator on any value change
-    if (!pedal_profile_page.is_element_selected) {
-        NXT_setFontColor(PROFILE_STATUS_TXT, pedal_profile_page.saved ? GREEN : RED);
-        NXT_setText(PROFILE_STATUS_TXT, pedal_profile_page.saved ? "SAVED" : "UNSAVED");
-    }
-}
+//     // Update save status indicator on any value change
+//     if (!pedal_profile_page.is_element_selected) {
+//         NXT_setFontColor(PROFILE_STATUS_TXT, pedal_profile_page.saved ? GREEN : RED);
+//         NXT_setText(PROFILE_STATUS_TXT, pedal_profile_page.saved ? "SAVED" : "UNSAVED");
+//     }
+// }
 
-void pedalProfilesMoveDown() {
-    MS_moveDown(&pedal_profile_page);
+// void pedalProfilesMoveDown() {
+//     MS_moveDown(&pedal_profile_page);
 
-    // Update save status indicator on any value change
-    if (!pedal_profile_page.is_element_selected) {
-        NXT_setFontColor(PROFILE_STATUS_TXT, pedal_profile_page.saved ? GREEN : RED);
-        NXT_setText(PROFILE_STATUS_TXT, pedal_profile_page.saved ? "SAVED" : "UNSAVED");
-    }
-}
+//     // Update save status indicator on any value change
+//     if (!pedal_profile_page.is_element_selected) {
+//         NXT_setFontColor(PROFILE_STATUS_TXT, pedal_profile_page.saved ? GREEN : RED);
+//         NXT_setText(PROFILE_STATUS_TXT, pedal_profile_page.saved ? "SAVED" : "UNSAVED");
+//     }
+// }
 
-void pedalProfilesSelect() {
-    // Handle other elements using menu system
-    MS_select(&pedal_profile_page);
+// void pedalProfilesSelect() {
+//     // Handle other elements using menu system
+//     MS_select(&pedal_profile_page);
 
-    // Mark as unsaved when values change
-    if (pedal_profile_page.is_element_selected) {
-        pedal_profile_page.saved = false;
-        NXT_setFontColor(PROFILE_STATUS_TXT, RED);
-        NXT_setText(PROFILE_STATUS_TXT, "UNSAVED");
-    }
-}
+//     // Mark as unsaved when values change
+//     if (pedal_profile_page.is_element_selected) {
+//         pedal_profile_page.saved = false;
+//         NXT_setFontColor(PROFILE_STATUS_TXT, RED);
+//         NXT_setText(PROFILE_STATUS_TXT, "UNSAVED");
+//     }
+// }
 
-/**
- * @brief Saves the current pedal profile settings to permanent memory
- *        for the selected driver and updates the UI with the save status.
- */
-void pedalProfilesSaveButton_CALLBACK() {
-    int driver_index = MS_listGetSelected(&driver_page);
-    // Save profile values
-    driver_pedal_profiles[driver_index].brake_travel_threshold    = pedal_profile_elements[PROFILE_BRAKE_INDEX].current_value;
-    driver_pedal_profiles[driver_index].throttle_travel_threshold = pedal_profile_elements[PROFILE_THROTTLE_INDEX].current_value;
+// /**
+//  * @brief Saves the current pedal profile settings to permanent memory
+//  *        for the selected driver and updates the UI with the save status.
+//  */
+// void pedalProfilesSaveButton_CALLBACK() {
+//     int driver_index = MS_listGetSelected(&driver_page);
+//     // Save profile values
+//     driver_pedal_profiles[driver_index].brake_travel_threshold    = pedal_profile_elements[PROFILE_BRAKE_INDEX].current_value;
+//     driver_pedal_profiles[driver_index].throttle_travel_threshold = pedal_profile_elements[PROFILE_THROTTLE_INDEX].current_value;
 
-    if (PROFILE_WRITE_SUCCESS != writePedalProfiles()) {
-        pedal_profile_page.saved = false;
-        NXT_setFontColor(PROFILE_STATUS_TXT, RED);
-        NXT_setText(PROFILE_STATUS_TXT, "FAILED");
-    } else {
-        pedal_profile_page.saved = true;
-        NXT_setFontColor(PROFILE_STATUS_TXT, GREEN);
-        NXT_setText(PROFILE_STATUS_TXT, "SAVED");
-    }
-}
+//     if (PROFILE_WRITE_SUCCESS != writePedalProfiles()) {
+//         pedal_profile_page.saved = false;
+//         NXT_setFontColor(PROFILE_STATUS_TXT, RED);
+//         NXT_setText(PROFILE_STATUS_TXT, "FAILED");
+//     } else {
+//         pedal_profile_page.saved = true;
+//         NXT_setFontColor(PROFILE_STATUS_TXT, GREEN);
+//         NXT_setText(PROFILE_STATUS_TXT, "SAVED");
+//     }
+// }
 
-void coolingPageUpdate() {
-    MS_refreshPage(&cooling_page);
-    NXT_setValue(DT_FAN_BAR, cooling_elements[COOLING_DT_FAN_INDEX].current_value);
-    NXT_setValue(B_FAN_BAR, cooling_elements[COOLING_B_FAN_INDEX].current_value);
+// void coolingPageUpdate() {
+//     MS_refreshPage(&cooling_page);
+//     NXT_setValue(DT_FAN_BAR, cooling_elements[COOLING_DT_FAN_INDEX].current_value);
+//     NXT_setValue(B_FAN_BAR, cooling_elements[COOLING_B_FAN_INDEX].current_value);
 
-    if (can_data.coolant_out.stale) {
-        NXT_setBackground(COOLING_CAN_STATUS, RED);
-    } else {
-        NXT_setBackground(COOLING_CAN_STATUS, GREEN);
-    }
-}
+//     if (can_data.coolant_out.stale) {
+//         NXT_setBackground(COOLING_CAN_STATUS, RED);
+//     } else {
+//         NXT_setBackground(COOLING_CAN_STATUS, GREEN);
+//     }
+// }
 
-void coolingMoveUp() {
-    MS_moveUp(&cooling_page);
+// void coolingMoveUp() {
+//     MS_moveUp(&cooling_page);
 
-    // Passively update the bar values
-    if (cooling_page.is_element_selected) {
-        NXT_setValue(DT_FAN_BAR, cooling_elements[COOLING_DT_FAN_INDEX].current_value);
-        NXT_setValue(B_FAN_BAR, cooling_elements[COOLING_B_FAN_INDEX].current_value);
-    }
-}
+//     // Passively update the bar values
+//     if (cooling_page.is_element_selected) {
+//         NXT_setValue(DT_FAN_BAR, cooling_elements[COOLING_DT_FAN_INDEX].current_value);
+//         NXT_setValue(B_FAN_BAR, cooling_elements[COOLING_B_FAN_INDEX].current_value);
+//     }
+// }
 
-void coolingMoveDown() {
-    MS_moveDown(&cooling_page);
+// void coolingMoveDown() {
+//     MS_moveDown(&cooling_page);
 
-    // Passively update the bar values
-    if (cooling_page.is_element_selected) {
-        NXT_setValue(DT_FAN_BAR, cooling_elements[COOLING_DT_FAN_INDEX].current_value);
-        NXT_setValue(B_FAN_BAR, cooling_elements[COOLING_B_FAN_INDEX].current_value);
-    }
-}
+//     // Passively update the bar values
+//     if (cooling_page.is_element_selected) {
+//         NXT_setValue(DT_FAN_BAR, cooling_elements[COOLING_DT_FAN_INDEX].current_value);
+//         NXT_setValue(B_FAN_BAR, cooling_elements[COOLING_B_FAN_INDEX].current_value);
+//     }
+// }
 
-void coolingSelect() {
-    MS_select(&cooling_page);
-}
+// void coolingSelect() {
+//     MS_select(&cooling_page);
+// }
 
-/**
- * @brief Callback function for coolant_in message that updates the cooling page
- *
- * @param msg_data_a Pointer to the parsed CAN message data
- */
-void coolant_out_CALLBACK(can_data_t* can_data) {
-    if (curr_page != PAGE_COOLING) {
-        cooling_elements[COOLING_B_FAN_INDEX].current_value   = can_data->coolant_out.dt_fan;
-        cooling_elements[COOLING_B_PUMP_INDEX].current_value  = can_data->coolant_out.dt_pump;
-        cooling_elements[COOLING_DT_FAN_INDEX].current_value  = can_data->coolant_out.bat_fan;
-        cooling_elements[COOLING_DT_PUMP_INDEX].current_value = can_data->coolant_out.bat_pump;
-    }
-}
+// /**
+//  * @brief Callback function for coolant_in message that updates the cooling page
+//  *
+//  * @param msg_data_a Pointer to the parsed CAN message data
+//  */
+// void coolant_out_CALLBACK(can_data_t* can_data) {
+//     if (curr_page != PAGE_COOLING) {
+//         cooling_elements[COOLING_B_FAN_INDEX].current_value   = can_data->coolant_out.dt_fan;
+//         cooling_elements[COOLING_B_PUMP_INDEX].current_value  = can_data->coolant_out.dt_pump;
+//         cooling_elements[COOLING_DT_FAN_INDEX].current_value  = can_data->coolant_out.bat_fan;
+//         cooling_elements[COOLING_DT_PUMP_INDEX].current_value = can_data->coolant_out.bat_pump;
+//     }
+// }
 
-void tvSetEnumNames() {
-    switch (tv_elements[TV_VCU_PERMIT_INDEX].current_value) {
-        case TV_PERMIT_NONE:
-            NXT_setText(TV_PERMIT_MODE_TXT, "NONE");
-            break;
-        case TV_PERMIT_VARIABLE:
-            NXT_setText(TV_PERMIT_MODE_TXT, "VARIABLE");
-            break;
-        default:
-            NXT_setText(TV_PERMIT_MODE_TXT, "ERR");
-            break;
-    }
+// void tvSetEnumNames() {
+//     switch (tv_elements[TV_VCU_PERMIT_INDEX].current_value) {
+//         case TV_PERMIT_NONE:
+//             NXT_setText(TV_PERMIT_MODE_TXT, "NONE");
+//             break;
+//         case TV_PERMIT_VARIABLE:
+//             NXT_setText(TV_PERMIT_MODE_TXT, "VARIABLE");
+//             break;
+//         default:
+//             NXT_setText(TV_PERMIT_MODE_TXT, "ERR");
+//             break;
+//     }
 
-    switch (tv_elements[TV_VCU_CONTROL_INDEX].current_value) {
-        case TV_SPEED_CONTROL_MODE:
-            NXT_setText(TV_CONTROL_MODE_TXT, "SPEED");
-            break;
-        case TV_TORQUE_CONTROL_MODE:
-            NXT_setText(TV_CONTROL_MODE_TXT, "TORQUE");
-            break;
-        default:
-            NXT_setText(TV_CONTROL_MODE_TXT, "ERR");
-            break;
-    }
-}
+//     switch (tv_elements[TV_VCU_CONTROL_INDEX].current_value) {
+//         case TV_SPEED_CONTROL_MODE:
+//             NXT_setText(TV_CONTROL_MODE_TXT, "SPEED");
+//             break;
+//         case TV_TORQUE_CONTROL_MODE:
+//             NXT_setText(TV_CONTROL_MODE_TXT, "TORQUE");
+//             break;
+//         default:
+//             NXT_setText(TV_CONTROL_MODE_TXT, "ERR");
+//             break;
+//     }
+// }
 
-void tvPageUpdate() {
-    MS_refreshPage(&tv_page);
-    tvSetEnumNames();
-}
+// void tvPageUpdate() {
+//     MS_refreshPage(&tv_page);
+//     tvSetEnumNames();
+// }
 
-void tvMoveUp() {
-    MS_moveUp(&tv_page);
-    tvSetEnumNames();
-}
+// void tvMoveUp() {
+//     MS_moveUp(&tv_page);
+//     tvSetEnumNames();
+// }
 
-void tvMoveDown() {
-    MS_moveDown(&tv_page);
-    tvSetEnumNames();
-}
+// void tvMoveDown() {
+//     MS_moveDown(&tv_page);
+//     tvSetEnumNames();
+// }
 
-void tvSelect() {
-    MS_select(&tv_page);
-    // TODO Race page TV settings
-    // race_elements[0].current_value = tv_elements[TV_ENABLE_INDEX].current_value; // Sync TV settings
-}
+// void tvSelect() {
+//     MS_select(&tv_page);
+//     // TODO Race page TV settings
+//     // race_elements[0].current_value = tv_elements[TV_ENABLE_INDEX].current_value; // Sync TV settings
+// }
 
 /**
  * @brief Updates the display of fault messages on the LCD screen
@@ -986,8 +1007,9 @@ void raceTelemetryUpdate() {
         return;
     }
 
-    NXT_setValue(BRK_BAR, (int)((pedal_values.brake / 4095.0) * 100)); // TODO BRK BAR
+    NXT_setValue(BRK_BAR, (int)((pedal_values.brake / 4095.0) * 100)); 
     NXT_setValue(THROT_BAR, (int)((pedal_values.throttle / 4095.0) * 100));
+    NXT_setValue(RGN_BAR, 0.0);
 
     // update the speed
     if (can_data.gps_speed.stale) {
@@ -1024,21 +1046,35 @@ void raceTelemetryUpdate() {
         NXT_setFontColor(CAR_STAT, WHITE);
     } else {
         switch (can_data.main_hb.car_state) {
-            case CARSTATE_PRECHARGING:
-                NXT_setFontColor(CAR_STAT, ORANGE);
-                NXT_setText(CAR_STAT, "PRECHARGE");
-                break;
-            case CARSTATE_ENERGIZED:
-                NXT_setFontColor(CAR_STAT, ORANGE);
-                NXT_setText(CAR_STAT, "ENERGIZED");
+            case CARSTATE_INIT:
+                NXT_setFontColor(CAR_STAT, WHITE);
+                NXT_setText(CAR_STAT, "INIT");
+                NXT_setBorderColor(CAR_STAT, WHITE);
                 break;
             case CARSTATE_IDLE:
-                NXT_setFontColor(CAR_STAT, INFO_GRAY);
+                NXT_setFontColor(CAR_STAT, WHITE);
                 NXT_setText(CAR_STAT, "IDLE");
+                NXT_setBorderColor(CAR_STAT, WHITE);
+                break;
+            case CARSTATE_PRECHARGING:
+                NXT_setFontColor(CAR_STAT, WHITE);
+                NXT_setText(CAR_STAT, "PRECHARGING");
+                NXT_setBorderColor(CAR_STAT, WHITE);
+                break;
+            case CARSTATE_ENERGIZED:
+                NXT_setFontColor(CAR_STAT, WHITE);
+                NXT_setText(CAR_STAT, "ENERGIZED");
+                NXT_setBorderColor(CAR_STAT, WHITE);
+                break;
+            case CARSTATE_BUZZING:
+                NXT_setFontColor(CAR_STAT, WHITE);
+                NXT_setText(CAR_STAT, "BUZZING");
+                NXT_setBorderColor(CAR_STAT, WHITE);
                 break;
             case CARSTATE_READY2DRIVE:
                 NXT_setFontColor(CAR_STAT, GREEN);
-                NXT_setText(CAR_STAT, "R2D");
+                NXT_setText(CAR_STAT, "READY");
+                NXT_setBorderColor(CAR_STAT, GREEN);
                 break;
             // case CARSTATE_ERROR:
             //     NXT_setFontColor(CAR_STAT, YELLOW);
@@ -1047,6 +1083,7 @@ void raceTelemetryUpdate() {
             case CARSTATE_FATAL:
                 NXT_setFontColor(CAR_STAT, RED);
                 NXT_setText(CAR_STAT, "FATAL");
+                NXT_setBorderColor(CAR_STAT, RED);
                 break;
             // case CARSTATE_CONSTANT_TORQUE:
             //     NXT_setFontColor(CAR_STAT, GREEN);
@@ -1055,29 +1092,30 @@ void raceTelemetryUpdate() {
             default:
                 NXT_setFontColor(CAR_STAT, WHITE);
                 NXT_setText(CAR_STAT, "UNKNOWN");
+                NXT_setBorderColor(CAR_STAT, WHITE);
                 break;
         }
     }
 }
 
 void raceUpCallback() {
-    // turn on both pumps and fans
-    cooling_elements[COOLING_B_PUMP_INDEX].current_value  = 1;
-    cooling_elements[COOLING_DT_PUMP_INDEX].current_value = 1;
-    cooling_elements[COOLING_B_FAN_INDEX].current_value   = 100;
-    cooling_elements[COOLING_DT_FAN_INDEX].current_value  = 100;
+    // // turn on both pumps and fans
+    // cooling_elements[COOLING_B_PUMP_INDEX].current_value  = 1;
+    // cooling_elements[COOLING_DT_PUMP_INDEX].current_value = 1;
+    // cooling_elements[COOLING_B_FAN_INDEX].current_value   = 100;
+    // cooling_elements[COOLING_DT_FAN_INDEX].current_value  = 100;
 
-    sendCoolingParameters();
+    // sendCoolingParameters();
 }
 
 void raceDownCallback() {
-    // turn off both pumps and fans
-    cooling_elements[COOLING_B_PUMP_INDEX].current_value  = 0;
-    cooling_elements[COOLING_DT_PUMP_INDEX].current_value = 0;
-    cooling_elements[COOLING_B_FAN_INDEX].current_value   = 0;
-    cooling_elements[COOLING_DT_FAN_INDEX].current_value  = 0;
+    // // turn off both pumps and fans
+    // cooling_elements[COOLING_B_PUMP_INDEX].current_value  = 0;
+    // cooling_elements[COOLING_DT_PUMP_INDEX].current_value = 0;
+    // cooling_elements[COOLING_B_FAN_INDEX].current_value   = 0;
+    // cooling_elements[COOLING_DT_FAN_INDEX].current_value  = 0;
 
-    sendCoolingParameters();
+    // sendCoolingParameters();
 }
 
 void raceSelect() {
@@ -1086,29 +1124,29 @@ void raceSelect() {
     // tv_elements[TV_ENABLE_INDEX].current_value = race_elements[0].current_value; // Sync TV settings
 }
 
-void loggingPageUpdate() {
-    MS_refreshPage(&logging_page);
+// void loggingPageUpdate() {
+//     MS_refreshPage(&logging_page);
 
-    if (logging_elements[LOGGING_OP_INDEX].current_value == 1) {
-        NXT_setText(LOGGING_STATUS_TXT, "DAQ ON");
-        NXT_setFontColor(LOGGING_STATUS_TXT, GREEN);
-    } else {
-        NXT_setText(LOGGING_STATUS_TXT, "DAQ OFF");
-        NXT_setFontColor(LOGGING_STATUS_TXT, RED);
-    }
-}
+//     if (logging_elements[LOGGING_OP_INDEX].current_value == 1) {
+//         NXT_setText(LOGGING_STATUS_TXT, "DAQ ON");
+//         NXT_setFontColor(LOGGING_STATUS_TXT, GREEN);
+//     } else {
+//         NXT_setText(LOGGING_STATUS_TXT, "DAQ OFF");
+//         NXT_setFontColor(LOGGING_STATUS_TXT, RED);
+//     }
+// }
 
-void loggingSelect() {
-    MS_select(&logging_page);
+// void loggingSelect() {
+//     MS_select(&logging_page);
 
-    if (logging_elements[LOGGING_OP_INDEX].current_value == 1) {
-        NXT_setText(LOGGING_STATUS_TXT, "DAQ ON");
-        NXT_setFontColor(LOGGING_STATUS_TXT, GREEN);
-    } else {
-        NXT_setText(LOGGING_STATUS_TXT, "DAQ OFF");
-        NXT_setFontColor(LOGGING_STATUS_TXT, RED);
-    }
-}
+//     if (logging_elements[LOGGING_OP_INDEX].current_value == 1) {
+//         NXT_setText(LOGGING_STATUS_TXT, "DAQ ON");
+//         NXT_setFontColor(LOGGING_STATUS_TXT, GREEN);
+//     } else {
+//         NXT_setText(LOGGING_STATUS_TXT, "DAQ OFF");
+//         NXT_setFontColor(LOGGING_STATUS_TXT, RED);
+//     }
+// }
 
 /**
  * @brief Sets the color of a fault indicator element based on fault status

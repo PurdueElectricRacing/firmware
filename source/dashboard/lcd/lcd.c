@@ -348,14 +348,6 @@ void raceTelemetryUpdate() {
         NXT_setTextFormatted(SPEED, "%d", speed);
     }
 
-    // Update the battery temperature
-    if (can_data.max_cell_temp.stale) {
-        NXT_setText(BATT_TEMP, "S");
-    } else {
-        uint16_t batt_temp = can_data.max_cell_temp.max_temp / 10;
-        NXT_setTextFormatted(BATT_TEMP, "%dC", batt_temp);
-    }
-
     // Update the state of charge
     if (can_data.main_hb.stale) {
         NXT_setText(CAR_STAT, "S");

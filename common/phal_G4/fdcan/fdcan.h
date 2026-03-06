@@ -26,35 +26,38 @@ extern void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg);
 #define MAX_NUM_XID_FILTER (8)
 #define MAX_NUM_SID_FILTER (28)
 
-#define AF_NUM_FDCAN2  (9)
-#define AF_NUM_FDCAN13 (11)
+#define AF_NUM_FDCAN1 (9)
+#define AF_NUM_FDCAN2 (9)
+#define AF_NUM_FDCAN3 (11)
 
 // FDCAN1 GPIO definitions (PA11/PA12 or PB8/PB9)
 #define GPIO_INIT_FDCAN1RX_PA11 \
     GPIO_INIT_AF(GPIOA, \
                  11, \
-                 AF_NUM_FDCAN13, \
+                 AF_NUM_FDCAN1, \
                  GPIO_OUTPUT_ULTRA_SPEED, \
                  GPIO_OUTPUT_OPEN_DRAIN, \
                  GPIO_INPUT_OPEN_DRAIN)
 #define GPIO_INIT_FDCAN1TX_PA12 \
     GPIO_INIT_AF(GPIOA, \
                  12, \
-                 AF_NUM_FDCAN13, \
+                 AF_NUM_FDCAN1, \
                  GPIO_OUTPUT_ULTRA_SPEED, \
                  GPIO_OUTPUT_PUSH_PULL, \
                  GPIO_INPUT_OPEN_DRAIN)
+
+// !!! double check the AF number for PB8/PB9, not validated yet
 #define GPIO_INIT_FDCAN1RX_PB8 \
     GPIO_INIT_AF(GPIOB, \
                  8, \
-                 AF_NUM_FDCAN13, \
+                 AF_NUM_FDCAN1, \
                  GPIO_OUTPUT_ULTRA_SPEED, \
                  GPIO_OUTPUT_OPEN_DRAIN, \
                  GPIO_INPUT_OPEN_DRAIN)
 #define GPIO_INIT_FDCAN1TX_PB9 \
     GPIO_INIT_AF(GPIOB, \
                  9, \
-                 AF_NUM_FDCAN13, \
+                 AF_NUM_FDCAN1, \
                  GPIO_OUTPUT_ULTRA_SPEED, \
                  GPIO_OUTPUT_PUSH_PULL, \
                  GPIO_INPUT_OPEN_DRAIN)
@@ -93,28 +96,28 @@ extern void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg);
 #define GPIO_INIT_FDCAN3RX_PA8 \
     GPIO_INIT_AF(GPIOA, \
                  8, \
-                 AF_NUM_FDCAN13, \
+                 AF_NUM_FDCAN3, \
                  GPIO_OUTPUT_ULTRA_SPEED, \
                  GPIO_OUTPUT_OPEN_DRAIN, \
                  GPIO_INPUT_OPEN_DRAIN)
 #define GPIO_INIT_FDCAN3TX_PB4 \
     GPIO_INIT_AF(GPIOB, \
                  4, \
-                 AF_NUM_FDCAN13, \
+                 AF_NUM_FDCAN3, \
                  GPIO_OUTPUT_ULTRA_SPEED, \
                  GPIO_OUTPUT_PUSH_PULL, \
                  GPIO_INPUT_OPEN_DRAIN)
 #define GPIO_INIT_FDCAN3TX_PA15 \
     GPIO_INIT_AF(GPIOA, \
                  15, \
-                 AF_NUM_FDCAN13, \
+                 AF_NUM_FDCAN3, \
                  GPIO_OUTPUT_ULTRA_SPEED, \
                  GPIO_OUTPUT_OPEN_DRAIN, \
                  GPIO_INPUT_OPEN_DRAIN)
 #define GPIO_INIT_FDCAN3TX_PB3 \
     GPIO_INIT_AF(GPIOB, \
                  3, \
-                 AF_NUM_FDCAN13, \
+                 AF_NUM_FDCAN3, \
                  GPIO_OUTPUT_ULTRA_SPEED, \
                  GPIO_OUTPUT_PUSH_PULL, \
                  GPIO_INPUT_OPEN_DRAIN)

@@ -1,6 +1,14 @@
 #ifndef __COMMON_FREERTOS_H__
 #define __COMMON_FREERTOS_H__
 
+/**
+ * @file freertos.h
+ * @brief Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocation and initialization.
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Eileen Yoon (eyn@purdue.edu)
+ */
+
 // clang-format off
 #define myIDENT(x) x
 #define myXSTR(x) #x
@@ -35,6 +43,13 @@ typedef struct {
     osThreadId_t   handle;
 } ThreadWrapper_t;
 
+// Stack size defs
+#define STACK_256  (256)
+#define STACK_512  (512)
+#define STACK_1024 (1024)
+#define STACK_2048 (2048)
+#define STACK_4096 (4096)
+
 void rtosWrapper(void *arg);
 
 /**
@@ -46,6 +61,10 @@ void rtosWrapper(void *arg);
  * @param STACK_SIZE: Stack size in bytes.
  */
 #define DEFINE_TASK(NAME, PERIOD_MS, PRIORITY, STACK_SIZE)                     \
+    static_assert(                                                             \
+        (STACK_SIZE) % sizeof(StackType_t) == 0,                               \
+        "Stack size must be a multiple of StackType_t"                         \
+    );                                                                         \
     static StaticTask_t task_cb_##NAME;                                        \
     static StackType_t  task_stack_##NAME[(STACK_SIZE) / sizeof(StackType_t)]; \
     ThreadWrapper_t     NAME##_wrapper = {                                     \

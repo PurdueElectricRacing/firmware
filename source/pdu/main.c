@@ -202,11 +202,11 @@ dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&adc_readings,
                                                  sizeof(adc_readings) / sizeof(adc_readings.v24_vs),
                                                  0b01);
 
-#define TargetCoreClockrateHz 16000000
+#define TargetCoreClockrateHz 16'000'000
 ClockRateConfig_t clock_config = {
     .clock_source              = CLOCK_SOURCE_HSE,
     .use_pll                   = false,
-    .vco_output_rate_target_hz = 160000000,
+    .vco_output_rate_target_hz = 160'000'000,
     .pll_src                   = PLL_SRC_HSE,
     .system_clock_target_hz    = TargetCoreClockrateHz,
     .ahb_clock_target_hz       = (TargetCoreClockrateHz / 1),

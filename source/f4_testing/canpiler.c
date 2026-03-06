@@ -73,6 +73,10 @@ int main() {
     return 0;
 }
 
+void CAN1_RX0_IRQHandler() {
+    CAN_handle_irq(CAN1, 0);
+}
+
 // just to avoid linker error
 void cooling_driver_request_CALLBACK(can_data_t* can_data) {
     (void)can_data; // unused

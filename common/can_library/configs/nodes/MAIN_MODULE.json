@@ -1,6 +1,5 @@
 {
     "node_name": "MAIN_MODULE",
-    "scheduler": "freertos",
     "busses": {
         "VCAN": {
             "peripheral": "FDCAN2",

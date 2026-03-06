@@ -1,6 +1,5 @@
 {
     "node_name": "DAQ",
-    "scheduler": "freertos",
     "busses": {
         "VCAN": {
             "peripheral": "CAN2",

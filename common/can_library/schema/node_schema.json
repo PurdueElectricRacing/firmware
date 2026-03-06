@@ -1,11 +1,10 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
-    "required": ["node_name", "scheduler", "busses", "fault_library_enabled"],
+    "required": ["node_name", "busses", "fault_library_enabled"],
     "additionalProperties": false,
     "properties": {
         "node_name": { "type": "string" },
-        "scheduler": { "enum": ["psched", "freertos"]},
         "busses": {
             "type": "object",
             "additionalProperties": {

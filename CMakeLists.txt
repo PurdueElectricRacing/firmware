@@ -39,7 +39,6 @@ set(COMMON_MODULES
     common/phal_F4_F7
     common/phal_G4
     common/freertos
-    common/queue
     common/common_defs
     common/log
     common/amk

@@ -293,8 +293,8 @@ void send_flowrates() {
 void send_iv_readings() {
     // Set LV Batt faults
     // set_fault(FAULT_ID_PDU_LV_BATT_FIFTY, auto_switches.voltage.in_24v);
-    update_fault(FAULT_ID_PDU_LV_GETTING_LOW, auto_switches.voltage.in_24v);
-    update_fault(FAULT_ID_PDU_LV_CRITICAL_LOW, auto_switches.voltage.in_24v);
+    update_fault(FAULT_ID_LV_GETTING_LOW, auto_switches.voltage.in_24v);
+    update_fault(FAULT_ID_LV_CRITICAL_LOW, auto_switches.voltage.in_24v);
     // Send CAN messages containing voltage and current data
     CAN_SEND_v_rails(auto_switches.voltage.in_24v,
                      auto_switches.voltage.out_5v,

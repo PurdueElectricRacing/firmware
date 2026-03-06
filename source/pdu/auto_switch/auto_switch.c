@@ -321,28 +321,28 @@ void checkSwitchFaults() {
     // Set fault - this is too much for our 1ms window, so send each fault seperately
     switch (fault_num) {
         case 0:
-            update_fault(FAULT_ID_PDU_DASH_RAIL, !dash);
+            update_fault(FAULT_ID_DASH_RAIL, !dash);
             break;
         case 1:
-            update_fault(FAULT_ID_PDU_ABOX_RAIL, !abox);
+            update_fault(FAULT_ID_ABOX_RAIL, !abox);
             break;
         case 2:
-            update_fault(FAULT_ID_PDU_MAIN_RAIL, !main);
+            update_fault(FAULT_ID_MAIN_RAIL, !main);
             break;
         case 3:
-            update_fault(FAULT_ID_PDU_V_CRIT, !vcrit);
+            update_fault(FAULT_ID_V_CRIT, !vcrit);
             break;
         case 4:
-            update_fault(FAULT_ID_PDU_V_NONCRIT, !vnc);
+            update_fault(FAULT_ID_V_NONCRIT, !vnc);
             break;
         case 5:
-            update_fault(FAULT_ID_PDU_FAN1, !dlfr);
+            update_fault(FAULT_ID_FAN1, !dlfr);
             break;
         case 6:
-            update_fault(FAULT_ID_PDU_FAN2, !dlbk);
+            update_fault(FAULT_ID_FAN2, !dlbk);
             break;
         case 7:
-            update_fault(FAULT_ID_PDU_BULLET_RAIL, !bullet);
+            update_fault(FAULT_ID_BULLET_RAIL, !bullet);
             fault_num = 0;
             break;
     }

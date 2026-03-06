@@ -1,5 +1,6 @@
 var NAVTREEINDEX15 =
 {
+"node__defs_8h_source.html":[8,0,2,1,3],
 "onboarding__26_8c.html":[8,0,2,5,3],
 "onboarding__26_8c_source.html":[8,0,2,5,3],
 "pages.html":[],
@@ -248,6 +249,5 @@ var NAVTREEINDEX15 =
 "phal_2rcc_8h_source.html":[8,0,0,11,7],
 "phal_2rtc_8h.html":[8,0,0,11,8],
 "phal_2rtc_8h_source.html":[8,0,0,11,8],
-"phal_2spi_8h.html":[8,0,0,11,9],
-"phal_2spi_8h_source.html":[8,0,0,11,9]
+"phal_2spi_8h.html":[8,0,0,11,9]
 };

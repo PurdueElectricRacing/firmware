@@ -193,7 +193,7 @@ var searchData=
   ['clock_5fsource_5fhsi_190',['CLOCK_SOURCE_HSI',['../phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a',1,'CLOCK_SOURCE_HSI:&#160;rcc.h'],['../phal__G4_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a',1,'CLOCK_SOURCE_HSI:&#160;rcc.h']]],
   ['clockrateconfig_5ft_191',['ClockRateConfig_t',['../structClockRateConfig__t.html',1,'']]],
   ['clocksrc_5ft_192',['ClockSrc_t',['../phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77',1,'ClockSrc_t:&#160;rcc.h'],['../phal__G4_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77',1,'ClockSrc_t:&#160;rcc.h']]],
-  ['clone_20per_20repo_193',['Clone PER repo',['../md_docs_2setup.html#autotoc_md84',1,'']]],
+  ['clone_20per_20repo_193',['Clone PER repo',['../md_docs_2setup.html#autotoc_md88',1,'']]],
   ['close_194',['close',['../group__WIZnet__socket__APIs.html#gaf7c8a46c623edfab31d9e09788394b2f',1,'close(uint8_t sn):&#160;socket.c'],['../group__WIZnet__socket__APIs.html#gaf7c8a46c623edfab31d9e09788394b2f',1,'close(uint8_t sn):&#160;socket.c']]],
   ['clovuv_195',['CLOVUV',['../commands_8c.html#a72e269a6ed3d84736c3d558be8a59d31',1,'CLOVUV:&#160;commands.c'],['../commands_8h.html#a72e269a6ed3d84736c3d558be8a59d31',1,'CLOVUV:&#160;commands.c']]],
   ['clraux_196',['CLRAUX',['../commands_8c.html#ad61667505505bdde8e59efb1accdb566',1,'CLRAUX:&#160;commands.c'],['../commands_8h.html#ad61667505505bdde8e59efb1accdb566',1,'CLRAUX:&#160;commands.c']]],

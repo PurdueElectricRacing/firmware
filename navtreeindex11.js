@@ -1,5 +1,6 @@
 var NAVTREEINDEX11 =
 {
+"globals_vars.html":[8,1,2],
 "globals_vars.html":[8,1,2,0],
 "globals_vars_a.html":[8,1,2,1],
 "globals_vars_b.html":[8,1,2,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX11 =
 "group__Socket__register__access__function.html#gaa28f0311ab098959ba741330d6446453":[5,2,1,2,35],
 "group__Socket__register__access__function.html#gaa2b3835a45b353c5f9501201edcce157":[5,2,1,2,8],
 "group__Socket__register__access__function.html#gaac55cdb1884c61b3e1ad27c1ad388289":[5,2,1,2,21],
-"group__Socket__register__access__function.html#gab17d36eec607ab288d7e0a0689596d57":[5,2,1,2,1],
-"group__Socket__register__access__function.html#gab182bcada4c8e266661e8d03647f92aa":[5,2,1,2,28]
+"group__Socket__register__access__function.html#gab17d36eec607ab288d7e0a0689596d57":[5,2,1,2,1]
 };

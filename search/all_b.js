@@ -143,7 +143,7 @@ var searchData=
   ['ext_5fid_140',['ext_id',['../daq__base_8c.html#aef6f0481a447d0c06d17fe87b89ac451',1,'daq_base.c']]],
   ['ext_5fids_141',['ext_ids',['../classmapper_1_1FDCANFilters.html#adc85bdeeccae4612459040862ba3a88b',1,'mapper::FDCANFilters']]],
   ['extended_5foverhead_142',['EXTENDED_OVERHEAD',['../namespaceload__calc.html#a1e1f1f2b50026bd50d8636ac8527d1e8',1,'load_calc']]],
-  ['extensions_143',['Install Extensions',['../md_docs_2setup.html#autotoc_md80',1,'']]],
+  ['extensions_143',['Install Extensions',['../md_docs_2setup.html#autotoc_md84',1,'']]],
   ['external_5fnode_5fconfig_5fdir_144',['EXTERNAL_NODE_CONFIG_DIR',['../namespaceutils.html#a2a954ebd949f995dc4b81e28220bfe3d',1,'utils']]],
   ['external_5ftherm_5fadc_5fchnl_145',['EXTERNAL_THERM_ADC_CHNL',['../pdu_2main_8h.html#a85a83a82da4ce9473097f771b0334585',1,'main.h']]],
   ['external_5ftherm_5fgpio_5fport_146',['EXTERNAL_THERM_GPIO_Port',['../pdu_2main_8h.html#ad479a9589d68d8406bc1ce1f3680d35a',1,'main.h']]],

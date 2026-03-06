@@ -1,5 +1,6 @@
 var NAVTREEINDEX23 =
 {
+"structadbms__bms__t.html#ab6b9d27ff449a8cb200328724045f2db":[7,0,8,6],
 "structadbms__bms__t.html#abd0c9db656a89d942088c12d10999de3":[7,0,8,2],
 "structadbms__bms__t.html#ac842f4644460db3d691381284d55f0df":[7,0,8,0],
 "structadbms__bms__t.html#ad213d4f7309e88aedb6f726cc12a6d42":[7,0,8,15],
@@ -248,6 +249,5 @@ var NAVTREEINDEX23 =
 "structraw__adc__values__t.html":[7,0,58],
 "structraw__adc__values__t.html#a3848a97815776701119127e3544d163a":[7,0,58,2],
 "structraw__adc__values__t.html#a3b75db64b9ce412a1028846a3204a4ac":[7,0,58,8],
-"structraw__adc__values__t.html#a41c2202fc6ee45bc0b1e9bfd162f0d21":[7,0,58,7],
-"structraw__adc__values__t.html#a4367e8cba96e70f50a11a0e04c6c451d":[7,0,58,11]
+"structraw__adc__values__t.html#a41c2202fc6ee45bc0b1e9bfd162f0d21":[7,0,58,7]
 };

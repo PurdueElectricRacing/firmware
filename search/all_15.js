@@ -39,7 +39,7 @@ var searchData=
   ['pedalsperiodic_36',['pedalsPeriodic',['../pedals_8c.html#ad390f112c056607f9f37f0c1a2e5f3b6',1,'pedalsPeriodic(void):&#160;pedals.c'],['../pedals_8h.html#ad390f112c056607f9f37f0c1a2e5f3b6',1,'pedalsPeriodic(void):&#160;pedals.c']]],
   ['per_37',['PER',['../daq_2main_8h.html#a7f20f8e20c98e1258a339ab8d52810c7',1,'main.h']]],
   ['per_20firmware_20setup_20instructions_38',['PER Firmware Setup Instructions',['../md_docs_2setup.html',1,'']]],
-  ['per_20repo_39',['Clone PER repo',['../md_docs_2setup.html#autotoc_md84',1,'']]],
+  ['per_20repo_39',['Clone PER repo',['../md_docs_2setup.html#autotoc_md88',1,'']]],
   ['per_20vehicle_20firmware_20⚡️_40',['PER Vehicle Firmware ⚡️',['../index.html',1,'']]],
   ['period_41',['period',['../classparser_1_1Message.html#a043e46b181e7052c7d1d0b512a638a72',1,'parser::Message']]],
   ['period_5fms_42',['period_ms',['../structThreadWrapper__t.html#a20635994f0077c28c20ed587d9f9fc4f',1,'ThreadWrapper_t']]],

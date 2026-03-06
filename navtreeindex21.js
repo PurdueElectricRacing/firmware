@@ -1,5 +1,6 @@
 var NAVTREEINDEX21 =
 {
+"sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8cac52c7addfcb59055f5701898c3484d06":[8,0,2,2,2,1,129,11],
 "sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8cac5f321853ccd7c8aaa571afab467dddd":[8,0,2,2,2,1,129,3],
 "sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8cac862cc999fa6648eeb631ea82a07a51e":[8,0,2,2,2,1,129,8],
 "sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8cacc0291fc528b2bb330ca1487a8a3f3cd":[8,0,2,2,2,1,129,6],
@@ -248,6 +249,5 @@ var NAVTREEINDEX21 =
 "structDIR.html#a0330e9554e1f38795debe4495156873e":[7,0,32,3],
 "structDIR.html#a6c2a8c0cf2d55ae99775e93a16593449":[7,0,32,2],
 "structDIR.html#a8fa2dfd8198410ea92a98281d982cf44":[7,0,32,5],
-"structDIR.html#acfbb8ba2d6e73b6f999ceffd1857c190":[7,0,32,1],
-"structDIR.html#ad90d974c0e7640307598c586bf141b32":[7,0,32,4]
+"structDIR.html#acfbb8ba2d6e73b6f999ceffd1857c190":[7,0,32,1]
 };

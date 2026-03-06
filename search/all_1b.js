@@ -45,7 +45,7 @@ var searchData=
   ['voltage_5ft_42',['voltage_t',['../structvoltage__t.html',1,'']]],
   ['volumestr_43',['VolumeStr',['../ff_8c.html#afb71f46958a86a70b63e436eb1816f35',1,'ff.c']]],
   ['vportsvchandler_44',['vPortSVCHandler',['../FreeRTOSConfig_8h.html#ad43047b3ea0a146673e30637488bf754',1,'FreeRTOSConfig.h']]],
-  ['vscode_20setup_20all_20os_45',['2. VSCode Setup (All OS)',['../md_docs_2setup.html#autotoc_md79',1,'']]],
+  ['vscode_20setup_20all_20os_45',['2. VSCode Setup (All OS)',['../md_docs_2setup.html#autotoc_md83',1,'']]],
   ['vsnprintf_46',['vsnprintf',['../vsprintf_8c.html#a1b067588850d976fb7e9daf04c9fae35',1,'vsnprintf(char *str, size_t size, const char *format, va_list args):&#160;vsprintf.c'],['../vsprintf_8h.html#ac943fec1bf81aeccd3c834d2180cd518',1,'vsnprintf(char *buf, size_t size, const char *fmt, va_list args):&#160;vsprintf.c']]],
   ['vsprintf_47',['vsprintf',['../vsprintf_8c.html#aaa83f2a89dae6d03dfe15deae29f383a',1,'vsprintf(char *buf, const char *fmt, va_list args):&#160;vsprintf.c'],['../vsprintf_8h.html#aaa83f2a89dae6d03dfe15deae29f383a',1,'vsprintf(char *buf, const char *fmt, va_list args):&#160;vsprintf.c']]],
   ['vsprintf_2ec_48',['vsprintf.c',['../vsprintf_8c.html',1,'']]],

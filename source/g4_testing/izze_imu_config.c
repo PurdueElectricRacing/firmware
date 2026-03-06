@@ -8,7 +8,18 @@
 #include "common/freertos/freertos.h"
 #include "common/izze_imu/izze_imu.h"
 
+// Status LEDs
+#define HEARTBEAT_LED_PORT  (GPIOB)
+#define HEARTBEAT_LED_PIN   (4)
+#define ERROR_LED_PORT      (GPIOA)
+#define ERROR_LED_PIN       (15)
+#define CONNECTION_LED_PORT (GPIOB)
+#define CONNECTION_LED_PIN  (3)
+
 GPIOInitConfig_t gpio_config[] = {
+    GPIO_INIT_OUTPUT(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(ERROR_LED_PORT, ERROR_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(CONNECTION_LED_PORT, CONNECTION_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_FDCAN2RX_PB12,
     GPIO_INIT_FDCAN2TX_PB13
 };
@@ -41,7 +52,15 @@ static_assert(NEW_CAN_BASE_ID >= 1, "CAN Base ID must be greater than or equal t
 static_assert(NEW_CAN_BASE_ID <= 0x7FF, "CAN Base ID must be less than or equal to 0x7FF");
 // todo more assertions?
 
-void send_periodic() {
+static constexpr uint32_t IMU_CONFIG_TIME_MS = 12'000; // "at least 10 seconds"
+void config_imu() {
+    if (OS_TICKS >= IMU_CONFIG_TIME_MS) {
+        // set LED
+        PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
+        osThreadExit();
+    }
+
+    PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
     CAN_SEND_IZZE_IMU_config(
         IZZE_IMU_PROGRAMMING_CONSTANT,
         NEW_CAN_BASE_ID,
@@ -49,17 +68,20 @@ void send_periodic() {
     );
 }
 
-DEFINE_TASK(send_periodic, 10, osPriorityNormal, 1024);
+DEFINE_TASK(config_imu, IZZE_IMU_CONFIG_PERIOD_MS, osPriorityNormal, 1024);
 DEFINE_TASK(can_worker, 0, osPriorityLow, 1024);
 
 int main() {
     if (PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
-
     if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
         HardFault_Handler();
     }
+
+    PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 0);
+    PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
+    PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
 
     if (!PHAL_FDCAN_init(FDCAN2, false, GCAN_BAUD_RATE)) {
         HardFault_Handler();
@@ -73,7 +95,7 @@ int main() {
 
     osKernelInitialize();
 
-    START_TASK(send_periodic);
+    START_TASK(config_imu);
     START_TASK(can_worker);
     osKernelStart();
 
@@ -81,9 +103,13 @@ int main() {
 }
 
 void HardFault_Handler() {
+    __disable_irq();
+    SysTick->CTRL        = 0;
+    ERROR_LED_PORT->BSRR = (1 << ERROR_LED_PIN);
     while (1) {
-        __asm__("nop");
+        __asm__("NOP"); // Halt forever
     }
 }
+
 
 #endif // G4_TESTING_CHOSEN == IZZE_IMU_CONFIG

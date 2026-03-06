@@ -16,7 +16,6 @@
 
 #include "common/phal/gpio.h"
 #include "common/phal/spi.h"
-#include "common/psched/psched.h"
 
 #define MAX_NUM_LED 14
 

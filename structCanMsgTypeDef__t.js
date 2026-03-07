@@ -1,6 +1,6 @@
 var structCanMsgTypeDef__t =
 [
-    [ "Bus", "structCanMsgTypeDef__t.html#aa43587215a51d07288de14b4af7b1a9a", null ],
+    [ "Bus", "structCanMsgTypeDef__t.html#a27b82ae932da76206323ac8268b3f1e6", null ],
     [ "Bus", "structCanMsgTypeDef__t.html#a4aa42f4d25313b588ecb4323723d2ef6", null ],
     [ "Data", "structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78", null ],
     [ "DLC", "structCanMsgTypeDef__t.html#a27de06238e18ccb41d49595c239c8e5e", null ],

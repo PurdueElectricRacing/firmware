@@ -7,7 +7,6 @@ var structClockRateConfig__t =
     [ "msi_output_rate_target_hz", "structClockRateConfig__t.html#a91cd53f101a121f6780767521beab1a4", null ],
     [ "pll_src", "structClockRateConfig__t.html#a7b80a70da3f019c97b3c28043c04710b", null ],
     [ "system_clock_target_hz", "structClockRateConfig__t.html#a4bcd01af800a1ff65cf10ee4c699dcf9", null ],
-    [ "system_source", "structClockRateConfig__t.html#ac19d6e49ab19ed4041390fee04cf851c", null ],
     [ "use_pll", "structClockRateConfig__t.html#acac53bfa913d0aee434ec90f5acdc394", null ],
     [ "vco_output_rate_target_hz", "structClockRateConfig__t.html#a4039a07f33b4924b422fe5b318399698", null ]
 ];

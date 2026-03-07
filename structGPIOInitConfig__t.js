@@ -2,9 +2,8 @@ var structGPIOInitConfig__t =
 [
     [ "af_num", "structGPIOInitConfig__t.html#a68e727cefe42c5c140ebbfea6fa19856", null ],
     [ "bank", "structGPIOInitConfig__t.html#a3566715e37345acae7c2c7d33776b1c5", null ],
-    [ "config", "structGPIOInitConfig__t.html#a85da3a75be07e4cc9a854561da8c639e", null ],
-    [ "config", "structGPIOInitConfig__t.html#a9f4db18900827c007453b5a3f5670bfe", null ],
-    [ "config", "structGPIOInitConfig__t.html#a60b534f5b1827cdc9d7d3b4a53d6aac0", null ],
+    [ "config", "structGPIOInitConfig__t.html#ac271361b13ba110d2af3699fe610f596", null ],
+    [ "config", "structGPIOInitConfig__t.html#ae181ad1401036a1d27fb3ef63c1bb254", null ],
     [ "ospeed", "structGPIOInitConfig__t.html#a9e91fe0f71b365a8fc0243c59721ecda", null ],
     [ "otype", "structGPIOInitConfig__t.html#a5cccb3d6f1fc7d1ade98fcec56390452", null ],
     [ "pin", "structGPIOInitConfig__t.html#af7c70bb08d9f2d4900cd0cb0a733bd72", null ],

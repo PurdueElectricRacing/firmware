@@ -1,16 +1,5 @@
 var annotated_dup =
 [
-    [ "bootloader_commands", "namespacebootloader__commands.html", [
-      [ "BootloaderCommand", "classbootloader__commands_1_1BootloaderCommand.html", "classbootloader__commands_1_1BootloaderCommand" ]
-    ] ],
-    [ "bootloader_download", "namespacebootloader__download.html", [
-      [ "Bootloader", "classbootloader__download_1_1Bootloader.html", "classbootloader__download_1_1Bootloader" ],
-      [ "CANRxThread", "classbootloader__download_1_1CANRxThread.html", "classbootloader__download_1_1CANRxThread" ]
-    ] ],
-    [ "can_process", "namespacecan__process.html", [
-      [ "CANRxThread", "classcan__process_1_1CANRxThread.html", "classcan__process_1_1CANRxThread" ],
-      [ "CANTxThread", "classcan__process_1_1CANTxThread.html", "classcan__process_1_1CANTxThread" ]
-    ] ],
     [ "linker", "namespacelinker.html", [
       [ "BusLinker", "classlinker_1_1BusLinker.html", "classlinker_1_1BusLinker" ]
     ] ],
@@ -39,38 +28,29 @@ var annotated_dup =
     [ "ADCChannelConfig_t", "structADCChannelConfig__t.html", "structADCChannelConfig__t" ],
     [ "ADCInitConfig_t", "structADCInitConfig__t.html", "structADCInitConfig__t" ],
     [ "ADCReadings_t", "structADCReadings__t.html", "structADCReadings__t" ],
-    [ "adv_feature_t", "structadv__feature__t.html", "structadv__feature__t" ],
     [ "AMK_t", "structAMK__t.html", "structAMK__t" ],
     [ "auto_switches_t", "structauto__switches__t.html", "structauto__switches__t" ],
     [ "bangbang_t", "structbangbang__t.html", "structbangbang__t" ],
     [ "BMI088_Handle_t", "structBMI088__Handle__t.html", "structBMI088__Handle__t" ],
-    [ "BootlaoderSharedMemory_t", "structBootlaoderSharedMemory__t.html", "structBootlaoderSharedMemory__t" ],
     [ "can_peripheral_stats_t", "structcan__peripheral__stats__t.html", "structcan__peripheral__stats__t" ],
     [ "can_stats_t", "structcan__stats__t.html", "structcan__stats__t" ],
     [ "CanMsgTypeDef_t", "structCanMsgTypeDef__t.html", "structCanMsgTypeDef__t" ],
     [ "car_t", "structcar__t.html", "structcar__t" ],
     [ "ClockRateConfig_t", "structClockRateConfig__t.html", "structClockRateConfig__t" ],
-    [ "config_t", "structconfig__t.html", "structconfig__t" ],
     [ "cooling_request_t", "structcooling__request__t.html", "structcooling__request__t" ],
     [ "cpu_time_t", "structcpu__time__t.html", "structcpu__time__t" ],
     [ "daq_hub_t", "structdaq__hub__t.html", "structdaq__hub__t" ],
-    [ "daq_rx_frame_reader_t", "structdaq__rx__frame__reader__t.html", "structdaq__rx__frame__reader__t" ],
-    [ "daq_tx_frame_writer_t", "structdaq__tx__frame__writer__t.html", "structdaq__tx__frame__writer__t" ],
-    [ "daq_variable_t", "structdaq__variable__t.html", "structdaq__variable__t" ],
     [ "dashboard_input_state_t", "structdashboard__input__state__t.html", "structdashboard__input__state__t" ],
     [ "DIR", "structDIR.html", "structDIR" ],
     [ "dma_init_t", "structdma__init__t.html", "structdma__init__t" ],
-    [ "eeprom", "structeeprom.html", "structeeprom" ],
     [ "eth_config_t", "structeth__config__t.html", "structeth__config__t" ],
     [ "FATFS", "structFATFS.html", "structFATFS" ],
     [ "fault_t", "structfault__t.html", "structfault__t" ],
     [ "FFOBJID", "structFFOBJID.html", "structFFOBJID" ],
     [ "FIL", "structFIL.html", "structFIL" ],
     [ "FILINFO", "structFILINFO.html", "structFILINFO" ],
-    [ "FloatConvert_t", "unionFloatConvert__t.html", "unionFloatConvert__t" ],
     [ "GPIOInitConfig_t", "structGPIOInitConfig__t.html", "structGPIOInitConfig__t" ],
     [ "GPS_Handle_t", "structGPS__Handle__t.html", "structGPS__Handle__t" ],
-    [ "i2c_handle_t", "structi2c__handle__t.html", "structi2c__handle__t" ],
     [ "IMU_data_t", "structIMU__data__t.html", "structIMU__data__t" ],
     [ "lerp_lut_t", "structlerp__lut__t.html", "structlerp__lut__t" ],
     [ "lut_entry_t", "structlut__entry__t.html", "structlut__entry__t" ],
@@ -81,9 +61,7 @@ var annotated_dup =
     [ "page_handler_t", "structpage__handler__t.html", "structpage__handler__t" ],
     [ "pedal_values_t", "structpedal__values__t.html", "structpedal__values__t" ],
     [ "PHAL_SD_Cmd_t", "structPHAL__SD__Cmd__t.html", "structPHAL__SD__Cmd__t" ],
-    [ "phys_mem", "structphys__mem.html", "structphys__mem" ],
     [ "q_handle_t", "structq__handle__t.html", "structq__handle__t" ],
-    [ "QUADSPI_Config_t", "structQUADSPI__Config__t.html", "structQUADSPI__Config__t" ],
     [ "raw_adc_values_t", "structraw__adc__values__t.html", "structraw__adc__values__t" ],
     [ "RTC_date_t", "structRTC__date__t.html", "structRTC__date__t" ],
     [ "RTC_time_t", "structRTC__time__t.html", "structRTC__time__t" ],
@@ -101,7 +79,6 @@ var annotated_dup =
     [ "torque_request_t", "structtorque__request__t.html", "structtorque__request__t" ],
     [ "usart_active_transfer_t", "structusart__active__transfer__t.html", "structusart__active__transfer__t" ],
     [ "usart_init_t", "structusart__init__t.html", "structusart__init__t" ],
-    [ "usart_rx_buf_t", "structusart__rx__buf__t.html", "structusart__rx__buf__t" ],
     [ "usart_rx_errors_t", "structusart__rx__errors__t.html", "structusart__rx__errors__t" ],
     [ "usart_tx_errors_t", "structusart__tx__errors__t.html", "structusart__tx__errors__t" ],
     [ "voltage_t", "structvoltage__t.html", "structvoltage__t" ],

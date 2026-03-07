@@ -116,14 +116,14 @@ Data Fields</h2></td></tr>
 <tr class="separator:a91273dc0f61368062cf9fc3aa6461d84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42988953d355601f27923dedb5017c19" id="r_a42988953d355601f27923dedb5017c19"><td class="memItemLeft" >struct {&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0ba0caf43a1ae5bb979ca1752b93128" id="r_af0ba0caf43a1ae5bb979ca1752b93128"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t(*&#160;&#160;&#160;<a class="el" href="#ae7999b27eaa4042a93b2f15c69ba697c">_read_byte</a> )(uint32_t <a class="el" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>)&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="memitem:af0ba0caf43a1ae5bb979ca1752b93128" id="r_af0ba0caf43a1ae5bb979ca1752b93128"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t(*&#160;&#160;&#160;<a class="el" href="#ae7999b27eaa4042a93b2f15c69ba697c">_read_byte</a> )(uint32_t addr)&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="separator:af0ba0caf43a1ae5bb979ca1752b93128"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ec36075959cb1da8e637ace46b1a02b" id="r_a9ec36075959cb1da8e637ace46b1a02b"><td class="memItemLeft" >&#160;&#160;&#160;void(*&#160;&#160;&#160;<a class="el" href="#abd5bec08b6d10c2ec6af9df291ac0779">_write_byte</a> )(uint32_t <a class="el" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>, uint8_t wb)&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="memitem:a9ec36075959cb1da8e637ace46b1a02b" id="r_a9ec36075959cb1da8e637ace46b1a02b"><td class="memItemLeft" >&#160;&#160;&#160;void(*&#160;&#160;&#160;<a class="el" href="#abd5bec08b6d10c2ec6af9df291ac0779">_write_byte</a> )(uint32_t addr, uint8_t wb)&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="separator:a9ec36075959cb1da8e637ace46b1a02b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8482894a38572c34a14ecf75d113200c" id="r_a8482894a38572c34a14ecf75d113200c"><td class="memItemLeft" >&#160;&#160;&#160;void(*&#160;&#160;&#160;<a class="el" href="#a558ae2a0ffc9d76d8df2cb7cd78bb1b8">_read_burst</a> )(uint32_t <a class="el" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>, uint8_t *pBuf,<br class="typebreak" />
+<tr class="memitem:a8482894a38572c34a14ecf75d113200c" id="r_a8482894a38572c34a14ecf75d113200c"><td class="memItemLeft" >&#160;&#160;&#160;void(*&#160;&#160;&#160;<a class="el" href="#a558ae2a0ffc9d76d8df2cb7cd78bb1b8">_read_burst</a> )(uint32_t addr, uint8_t *pBuf,<br class="typebreak" />
 &#160;&#160;&#160;&#160;&#160;&#160; uint16_t len)&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="separator:a8482894a38572c34a14ecf75d113200c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbdfd2cb1afdf84c191777073709c8c0" id="r_adbdfd2cb1afdf84c191777073709c8c0"><td class="memItemLeft" >&#160;&#160;&#160;void(*&#160;&#160;&#160;<a class="el" href="#ac266e0d40c00b390e8763462a63ac7cc">_write_burst</a> )(uint32_t <a class="el" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>, uint8_t *pBuf,<br class="typebreak" />
+<tr class="memitem:adbdfd2cb1afdf84c191777073709c8c0" id="r_adbdfd2cb1afdf84c191777073709c8c0"><td class="memItemLeft" >&#160;&#160;&#160;void(*&#160;&#160;&#160;<a class="el" href="#ac266e0d40c00b390e8763462a63ac7cc">_write_burst</a> )(uint32_t addr, uint8_t *pBuf,<br class="typebreak" />
 &#160;&#160;&#160;&#160;&#160;&#160; uint16_t len)&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="separator:adbdfd2cb1afdf84c191777073709c8c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42988953d355601f27923dedb5017c19" id="r_a42988953d355601f27923dedb5017c19"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a42988953d355601f27923dedb5017c19">SPI</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
@@ -141,7 +141,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void(* _WIZCHIP::_IF::_read_burst) (uint32_t <a class="el" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>, uint8_t *pBuf, uint16_t len)</td>
+          <td class="memname">void(* _WIZCHIP::_IF::_read_burst) (uint32_t addr, uint8_t *pBuf, uint16_t len)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -157,7 +157,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t(* _WIZCHIP::_IF::_read_byte) (uint32_t <a class="el" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>)</td>
+          <td class="memname">uint8_t(* _WIZCHIP::_IF::_read_byte) (uint32_t addr)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -189,7 +189,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void(* _WIZCHIP::_IF::_write_burst) (uint32_t <a class="el" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>, uint8_t *pBuf, uint16_t len)</td>
+          <td class="memname">void(* _WIZCHIP::_IF::_write_burst) (uint32_t addr, uint8_t *pBuf, uint16_t len)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -205,7 +205,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void(* _WIZCHIP::_IF::_write_byte) (uint32_t <a class="el" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>, uint8_t wb)</td>
+          <td class="memname">void(* _WIZCHIP::_IF::_write_byte) (uint32_t addr, uint8_t wb)</td>
         </tr>
       </table>
 </div><div class="memdoc">

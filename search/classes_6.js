@@ -8,6 +8,5 @@ var searchData=
   ['ffobjid_5',['FFOBJID',['../structFFOBJID.html',1,'']]],
   ['fil_6',['FIL',['../structFIL.html',1,'']]],
   ['filinfo_7',['FILINFO',['../structFILINFO.html',1,'']]],
-  ['filterbank_8',['FilterBank',['../classmapper_1_1FilterBank.html',1,'mapper']]],
-  ['floatconvert_5ft_9',['FloatConvert_t',['../unionFloatConvert__t.html',1,'']]]
+  ['filterbank_8',['FilterBank',['../classmapper_1_1FilterBank.html',1,'mapper']]]
 ];

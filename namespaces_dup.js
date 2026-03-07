@@ -1,21 +1,7 @@
 var namespaces_dup =
 [
-    [ "bootloader_commands", "namespacebootloader__commands.html", "namespacebootloader__commands" ],
-    [ "bootloader_download", "namespacebootloader__download.html", "namespacebootloader__download" ],
     [ "build", "namespacebuild.html", [
       [ "build", "namespacebuild.html#a040e3e8b77aa8911e86cfee035b5becc", null ]
-    ] ],
-    [ "can_process", "namespacecan__process.html", "namespacecan__process" ],
-    [ "can_test", "namespacecan__test.html", [
-      [ "addr", "namespacecan__test.html#a0173473c49d52182a6cd0b404d83162b", null ],
-      [ "bus", "namespacecan__test.html#a7dcac6e190ab486a7ce477567f9413c2", null ],
-      [ "bus_num", "namespacecan__test.html#a9dd5acfeb8cbe7e0c7ad803fef2e4bb5", null ],
-      [ "channel", "namespacecan__test.html#ada1791cdb42bd323f3405de5ba8039dd", null ],
-      [ "dev", "namespacecan__test.html#ac9dfc95d91a867de26142a3dfeb9f2eb", null ],
-      [ "msg", "namespacecan__test.html#a8b7d0f39efba4f6fb77ee7bb779900da", null ],
-      [ "msg2", "namespacecan__test.html#a8c323ef4689a7f50e84becd99053ec41", null ],
-      [ "msg3", "namespacecan__test.html#ac15b3e1621630003ec161ddd4e6b8b4a", null ],
-      [ "rx", "namespacecan__test.html#acd5b4137e983d16a57987e9e006af168", null ]
     ] ],
     [ "codegen", "namespacecodegen.html", [
       [ "generate_bus_header", "namespacecodegen.html#aa73182b45936bd454fcae67726fd0394", null ],
@@ -24,18 +10,6 @@ var namespaces_dup =
       [ "generate_node_headers", "namespacecodegen.html#aaf47cca1200566d421b607fccba76810", null ],
       [ "generate_router_header", "namespacecodegen.html#a23ed5be22f539d58a71ab0214251cbe2", null ],
       [ "generate_types_header", "namespacecodegen.html#aa6aa65b39bbfb073cdd730cc1f9e2f9c", null ]
-    ] ],
-    [ "daq_test", "namespacedaq__test.html", [
-      [ "addr", "namespacedaq__test.html#a898237ac34cfdcbf35171f101cdb2335", null ],
-      [ "bus", "namespacedaq__test.html#a686601c65d72728050ab841167afb3a1", null ],
-      [ "bus_num", "namespacedaq__test.html#a27084a9c599cf24ee2171acef06da6f4", null ],
-      [ "channel", "namespacedaq__test.html#ad68eb7a0f4c5edd0800f029c5991ed50", null ],
-      [ "db", "namespacedaq__test.html#a961c0368ff115c2fcfbcfcc0f2301426", null ],
-      [ "dev", "namespacedaq__test.html#a521411f51262dc73b3f94b0174c1bc2d", null ],
-      [ "message", "namespacedaq__test.html#adc1cc230cbfc57adac25de92e060af08", null ],
-      [ "rx", "namespacedaq__test.html#ad573c754b1029759298151aefcfe29af", null ],
-      [ "test_var_command_msg", "namespacedaq__test.html#afa1cef97892f1047d9d00d86fa3b5c6f", null ],
-      [ "test_var_response_msg", "namespacedaq__test.html#a2c18b64ce686cd0addc3b235cf6db22b", null ]
     ] ],
     [ "dbcgen", "namespacedbcgen.html", [
       [ "generate_dbcs", "namespacedbcgen.html#ade6a2af6da26f68e915bc94a74b68515", null ]

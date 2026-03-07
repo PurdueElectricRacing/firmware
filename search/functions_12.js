@@ -18,10 +18,6 @@ var searchData=
   ['usart1_5firqhandler_15',['USART1_IRQHandler',['../common_2phal__G4_2usart_2usart_8c.html#a7139cd4baabbbcbab0c1fe6d7d4ae1cc',1,'usart.c']]],
   ['usart2_5firqhandler_16',['USART2_IRQHandler',['../common_2phal__G4_2usart_2usart_8c.html#a0ca6fd0e6f77921dd1123539857ba0a8',1,'usart.c']]],
   ['usart3_5firqhandler_17',['USART3_IRQHandler',['../common_2phal__G4_2usart_2usart_8c.html#a0d108a3468b2051548183ee5ca2158a0',1,'usart.c']]],
-  ['usart_5fisr_5fhandle_18',['usart_isr_handle',['../common_2phal__L4_2usart_2usart_8c.html#a862d29650c6e62e26003407af8ea07f6',1,'usart.c']]],
-  ['usart_5fmask_5firq_19',['usart_mask_irq',['../common_2phal__L4_2usart_2usart_8c.html#acbd8487f2c016ca225af8dc2033c6b7a',1,'usart.c']]],
-  ['usart_5freceive_5fcomplete_5fcallback_20',['usart_receive_complete_callback',['../common_2phal__G4_2usart_2usart_8c.html#a7b75a737cc4028976dbbadf92522f1ec',1,'usart_receive_complete_callback(usart_init_t *handle):&#160;usart.c'],['../phal__G4_2usart_2usart_8h.html#aef8ccb0b3894da42dce90d590b523a4a',1,'usart_receive_complete_callback(usart_init_t *handle):&#160;usart.c']]],
-  ['usart_5frecieve_5fcomplete_5fcallback_21',['usart_recieve_complete_callback',['../common_2phal__F4__F7_2usart_2usart_8c.html#afd98e1acca0fdcf343db884ea257b819',1,'usart_recieve_complete_callback(usart_init_t *handle):&#160;usart.c'],['../phal__F4__F7_2usart_2usart_8h.html#a61341976b0cee71be1b6cf3bc17db4de',1,'usart_recieve_complete_callback(usart_init_t *handle):&#160;usart.c']]],
-  ['usart_5funmask_5firq_22',['usart_unmask_irq',['../common_2phal__L4_2usart_2usart_8c.html#a854c634dc760e8a586cacdb27d548afb',1,'usart.c']]],
-  ['usarttxtest_23',['usartTXTest',['../l4__testing_2main_8c.html#a77d20b90aa92fc8d1f4826b38809b401',1,'main.c']]]
+  ['usart_5freceive_5fcomplete_5fcallback_18',['usart_receive_complete_callback',['../common_2phal__G4_2usart_2usart_8c.html#a7b75a737cc4028976dbbadf92522f1ec',1,'usart_receive_complete_callback(usart_init_t *handle):&#160;usart.c'],['../phal__G4_2usart_2usart_8h.html#aef8ccb0b3894da42dce90d590b523a4a',1,'usart_receive_complete_callback(usart_init_t *handle):&#160;usart.c']]],
+  ['usart_5frecieve_5fcomplete_5fcallback_19',['usart_recieve_complete_callback',['../common_2phal__F4__F7_2usart_2usart_8c.html#afd98e1acca0fdcf343db884ea257b819',1,'usart_recieve_complete_callback(usart_init_t *handle):&#160;usart.c'],['../phal__F4__F7_2usart_2usart_8h.html#a61341976b0cee71be1b6cf3bc17db4de',1,'usart_recieve_complete_callback(usart_init_t *handle):&#160;usart.c']]]
 ];

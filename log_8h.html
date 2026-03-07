@@ -137,7 +137,7 @@ Macros</h2></td></tr>
 <tr class="separator:a0bde76e54adcf4f659e28906930d3adb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd9180a9b51870a964136f1a4574a664" id="r_afd9180a9b51870a964136f1a4574a664"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd9180a9b51870a964136f1a4574a664">log_char</a>(c)</td></tr>
 <tr class="separator:afd9180a9b51870a964136f1a4574a664"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1579c0e3941543eede30ce0b73ad1f7" id="r_aa1579c0e3941543eede30ce0b73ad1f7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1579c0e3941543eede30ce0b73ad1f7">log_addr</a>(<a class="el" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>)</td></tr>
+<tr class="memitem:aa1579c0e3941543eede30ce0b73ad1f7" id="r_aa1579c0e3941543eede30ce0b73ad1f7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1579c0e3941543eede30ce0b73ad1f7">log_addr</a>(addr)</td></tr>
 <tr class="separator:aa1579c0e3941543eede30ce0b73ad1f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ac6cfcbc46d0c51af3f3b035ab8a300" id="r_a9ac6cfcbc46d0c51af3f3b035ab8a300"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ac6cfcbc46d0c51af3f3b035ab8a300">log_red</a>(...)</td></tr>
 <tr class="separator:a9ac6cfcbc46d0c51af3f3b035ab8a300"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,9 +154,9 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aea1a8e98cdc5b875c80fe806bb3dd6ed" id="r_aea1a8e98cdc5b875c80fe806bb3dd6ed"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea1a8e98cdc5b875c80fe806bb3dd6ed">snprintf</a> (char *<a class="el" href="bootloader_8c.html#a542953c07def3fa38e66087ba9eeb529">buffer</a>, size_t size, const char *fmt,...)</td></tr>
+<tr class="memitem:aea1a8e98cdc5b875c80fe806bb3dd6ed" id="r_aea1a8e98cdc5b875c80fe806bb3dd6ed"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea1a8e98cdc5b875c80fe806bb3dd6ed">snprintf</a> (char *buffer, size_t size, const char *fmt,...)</td></tr>
 <tr class="separator:aea1a8e98cdc5b875c80fe806bb3dd6ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f249b146ff5c6b1fa44247f1435e29c" id="r_a7f249b146ff5c6b1fa44247f1435e29c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f249b146ff5c6b1fa44247f1435e29c">sprintf</a> (char *<a class="el" href="bootloader_8c.html#a542953c07def3fa38e66087ba9eeb529">buffer</a>, const char *fmt,...)</td></tr>
+<tr class="memitem:a7f249b146ff5c6b1fa44247f1435e29c" id="r_a7f249b146ff5c6b1fa44247f1435e29c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f249b146ff5c6b1fa44247f1435e29c">sprintf</a> (char *buffer, const char *fmt,...)</td></tr>
 <tr class="separator:a7f249b146ff5c6b1fa44247f1435e29c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46a8c2e1aeca94194f64ccb086e285ff" id="r_a46a8c2e1aeca94194f64ccb086e285ff"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46a8c2e1aeca94194f64ccb086e285ff">debug_printf</a> (const char *fmt,...)</td></tr>
 <tr class="separator:a46a8c2e1aeca94194f64ccb086e285ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -317,26 +317,25 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="daq_2main_8c.html#a0fe4844d879a07e406e173c877345d0a">_iodev_write</a>(<a class="code hl_struct" href="structusart__init__t.html">usart_init_t</a>* handle, <span class="keywordtype">char</span>* <a class="code hl_variable" href="bootloader_8c.html#a542953c07def3fa38e66087ba9eeb529">buffer</a>, <span class="keywordtype">int</span> size) { \</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="daq_2main_8c.html#a0fe4844d879a07e406e173c877345d0a">_iodev_write</a>(<a class="code hl_struct" href="structusart__init__t.html">usart_init_t</a>* handle, <span class="keywordtype">char</span>* buffer, <span class="keywordtype">int</span> size) { \</div>
 <div class="line">        if (handle) { \</div>
-<div class="line">            PHAL_usartTxBl(handle, (uint8_t*)<a class="code hl_variable" href="bootloader_8c.html#a542953c07def3fa38e66087ba9eeb529">buffer</a>, size); \</div>
+<div class="line">            PHAL_usartTxBl(handle, (uint8_t*)buffer, size); \</div>
 <div class="line">        } \</div>
 <div class="line">    } \</div>
 <div class="line">\</div>
 <div class="line">    <span class="keywordtype">int</span> <a class="code hl_function" href="#a46a8c2e1aeca94194f64ccb086e285ff">debug_printf</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* fmt, ...) { \</div>
 <div class="line">        va_list args; \</div>
-<div class="line">        <span class="keywordtype">char</span> <a class="code hl_variable" href="bootloader_8c.html#a542953c07def3fa38e66087ba9eeb529">buffer</a>[512]; \</div>
+<div class="line">        <span class="keywordtype">char</span> buffer[512]; \</div>
 <div class="line">        <span class="keywordtype">int</span> i; \</div>
 <div class="line">\</div>
 <div class="line">        va_start(args, fmt); \</div>
-<div class="line">        i = <a class="code hl_function" href="vsprintf_8c.html#a1b067588850d976fb7e9daf04c9fae35">vsnprintf</a>(<a class="code hl_variable" href="bootloader_8c.html#a542953c07def3fa38e66087ba9eeb529">buffer</a>, <span class="keyword">sizeof</span>(<a class="code hl_variable" href="bootloader_8c.html#a542953c07def3fa38e66087ba9eeb529">buffer</a>), fmt, args); \</div>
+<div class="line">        i = <a class="code hl_function" href="vsprintf_8c.html#a1b067588850d976fb7e9daf04c9fae35">vsnprintf</a>(buffer, <span class="keyword">sizeof</span>(buffer), fmt, args); \</div>
 <div class="line">        va_end(args); \</div>
 <div class="line">\</div>
-<div class="line">        _iodev_write((HANDLEPTR), <a class="code hl_variable" href="bootloader_8c.html#a542953c07def3fa38e66087ba9eeb529">buffer</a>, <a class="code hl_define" href="common__defs_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(i, (<span class="keywordtype">int</span>)(<span class="keyword">sizeof</span>(<a class="code hl_variable" href="bootloader_8c.html#a542953c07def3fa38e66087ba9eeb529">buffer</a>) - 1))); \</div>
+<div class="line">        _iodev_write((HANDLEPTR), buffer, <a class="code hl_define" href="common__defs_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(i, (<span class="keywordtype">int</span>)(<span class="keyword">sizeof</span>(buffer) - 1))); \</div>
 <div class="line">\</div>
 <div class="line">        <span class="keywordflow">return</span> i; \</div>
 <div class="line">    }</div>
-<div class="ttc" id="abootloader_8c_html_a542953c07def3fa38e66087ba9eeb529"><div class="ttname"><a href="bootloader_8c.html#a542953c07def3fa38e66087ba9eeb529">buffer</a></div><div class="ttdeci">static uint32_t buffer[128]</div><div class="ttdef"><b>Definition</b> <a href="bootloader_8c_source.html#l00090">bootloader.c:90</a></div></div>
 <div class="ttc" id="acommon__defs_8h_html_a74e75242132eaabbc1c512488a135926"><div class="ttname"><a href="common__defs_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a></div><div class="ttdeci">#define MIN(x, y)</div><div class="ttdef"><b>Definition</b> <a href="common__defs_8h_source.html#l00020">common_defs.h:20</a></div></div>
 <div class="ttc" id="adaq_2main_8c_html_a0fe4844d879a07e406e173c877345d0a"><div class="ttname"><a href="daq_2main_8c.html#a0fe4844d879a07e406e173c877345d0a">_iodev_write</a></div><div class="ttdeci">static void _iodev_write(usart_init_t *handle, char *buffer, int size)</div><div class="ttdef"><b>Definition</b> <a href="daq_2main_8c_source.html#l00113">main.c:113</a></div></div>
 <div class="ttc" id="alog_8h_html_a46a8c2e1aeca94194f64ccb086e285ff"><div class="ttname"><a href="#a46a8c2e1aeca94194f64ccb086e285ff">debug_printf</a></div><div class="ttdeci">int debug_printf(const char *fmt,...)</div><div class="ttdef"><b>Definition</b> <a href="daq_2main_8c_source.html#l00113">main.c:113</a></div></div>
@@ -356,13 +355,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">#define log_addr</td>
           <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em><a class="el" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a></em></span></td><td>)</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>addr</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_function" href="#a46a8c2e1aeca94194f64ccb086e285ff">debug_printf</a>(<span class="stringliteral">&quot;%s == %p\n&quot;</span>, (#<a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>), (<span class="keywordtype">void</span>*)(<a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>)))</div>
-<div class="ttc" id="aeeprom__spi_8c_html_ab439e3a90339e2e8ca8f82d4557a34e5"><div class="ttname"><a href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a></div><div class="ttdeci">static uint32_t addr</div><div class="ttdef"><b>Definition</b> <a href="eeprom__spi_8c_source.html#l00229">eeprom_spi.c:229</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_function" href="#a46a8c2e1aeca94194f64ccb086e285ff">debug_printf</a>(<span class="stringliteral">&quot;%s == %p\n&quot;</span>, (#addr), (<span class="keywordtype">void</span>*)(addr)))</div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="log_8h_source.html#l00068">68</a> of file <a class="el" href="log_8h_source.html">log.h</a>.</p>
 
@@ -654,7 +652,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="log_8c_source.html#l00007">7</a> of file <a class="el" href="log_8c_source.html">log.c</a>.</p>
 
-<p class="reference">References <a class="el" href="bootloader_8c_source.html#l00090">buffer</a>, and <a class="el" href="vsprintf_8c_source.html#l00207">vsnprintf()</a>.</p>
+<p class="reference">References <a class="el" href="vsprintf_8c_source.html#l00207">vsnprintf()</a>.</p>
 
 </div>
 </div>
@@ -684,7 +682,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="log_8c_source.html#l00017">17</a> of file <a class="el" href="log_8c_source.html">log.c</a>.</p>
 
-<p class="reference">References <a class="el" href="bootloader_8c_source.html#l00090">buffer</a>, and <a class="el" href="vsprintf_8c_source.html#l00691">vsprintf()</a>.</p>
+<p class="reference">References <a class="el" href="vsprintf_8c_source.html#l00691">vsprintf()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="daq__sd_8c_source.html#l00045">sd_create_new_file()</a>.</p>
 

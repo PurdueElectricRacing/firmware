@@ -1,7 +1,20 @@
 var searchData=
 [
-  ['quadspi_2ec_0',['quadspi.c',['../quadspi_8c.html',1,'']]],
-  ['quadspi_2eh_1',['quadspi.h',['../quadspi_8h.html',1,'']]],
-  ['queue_2ec_2',['queue.c',['../queue_8c.html',1,'']]],
-  ['queue_2eh_3',['queue.h',['../queue_8h.html',1,'']]]
+  ['sdc_2ec_0',['sdc.c',['../sdc_8c.html',1,'']]],
+  ['sdio_2ec_1',['sdio.c',['../sdio_8c.html',1,'']]],
+  ['sdio_2eh_2',['sdio.h',['../sdio_8h.html',1,'']]],
+  ['send_2dand_2drec_2epy_3',['send-and-rec.py',['../send-and-rec_8py.html',1,'']]],
+  ['send_2dto_2dtv_2epy_4',['send-to-tv.py',['../send-to-tv_8py.html',1,'']]],
+  ['setup_2emd_5',['setup.md',['../setup_8md.html',1,'']]],
+  ['socket_2ec_6',['socket.c',['../socket_8c.html',1,'']]],
+  ['socket_2eh_7',['socket.h',['../socket_8h.html',1,'']]],
+  ['spi_2ec_8',['spi.c',['../common_2phal__F4__F7_2spi_2spi_8c.html',1,'(Global Namespace)'],['../common_2phal__G4_2spi_2spi_8c.html',1,'(Global Namespace)'],['../source_2g4__testing_2spi_8c.html',1,'(Global Namespace)']]],
+  ['spi_2eh_9',['spi.h',['../phal_2spi_8h.html',1,'(Global Namespace)'],['../phal__F4__F7_2spi_2spi_8h.html',1,'(Global Namespace)'],['../phal__G4_2spi_2spi_8h.html',1,'(Global Namespace)']]],
+  ['spmc_2ec_10',['spmc.c',['../spmc_8c.html',1,'']]],
+  ['spmc_2eh_11',['spmc.h',['../spmc_8h.html',1,'']]],
+  ['state_5fmachine_2ec_12',['state_machine.c',['../state__machine_8c.html',1,'']]],
+  ['strbuf_2ec_13',['strbuf.c',['../strbuf_8c.html',1,'']]],
+  ['strbuf_2eh_14',['strbuf.h',['../strbuf_8h.html',1,'']]],
+  ['syscalls_2ec_15',['syscalls.c',['../syscalls_8c.html',1,'']]],
+  ['syscalls_2eh_16',['syscalls.h',['../syscalls_8h.html',1,'']]]
 ];

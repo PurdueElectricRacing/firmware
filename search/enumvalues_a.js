@@ -1,15 +1,11 @@
 var searchData=
 [
-  ['mco1_5fsrc_5fhse_0',['MCO1_SRC_HSE',['../phal__F4__F7_2rcc_2rcc_8h.html#a378741c9da736e56ad4972e7bf27fd0aa92c11660c4125b6ad8e338a939a76ec8',1,'MCO1_SRC_HSE:&#160;rcc.h'],['../phal__G4_2rcc_2rcc_8h.html#a378741c9da736e56ad4972e7bf27fd0aa92c11660c4125b6ad8e338a939a76ec8',1,'MCO1_SRC_HSE:&#160;rcc.h']]],
-  ['mco1_5fsrc_5fhsi_1',['MCO1_SRC_HSI',['../phal__F4__F7_2rcc_2rcc_8h.html#a378741c9da736e56ad4972e7bf27fd0aa694e3e4b34c7b22d64cda7c787ce5511',1,'MCO1_SRC_HSI:&#160;rcc.h'],['../phal__G4_2rcc_2rcc_8h.html#a378741c9da736e56ad4972e7bf27fd0aa694e3e4b34c7b22d64cda7c787ce5511',1,'MCO1_SRC_HSI:&#160;rcc.h']]],
-  ['mco1_5fsrc_5flse_2',['MCO1_SRC_LSE',['../phal__F4__F7_2rcc_2rcc_8h.html#a378741c9da736e56ad4972e7bf27fd0aa045de9f21f18b253cffa79b21754f137',1,'MCO1_SRC_LSE:&#160;rcc.h'],['../phal__G4_2rcc_2rcc_8h.html#a378741c9da736e56ad4972e7bf27fd0aa045de9f21f18b253cffa79b21754f137',1,'MCO1_SRC_LSE:&#160;rcc.h']]],
-  ['mco1_5fsrc_5fpll_3',['MCO1_SRC_PLL',['../phal__F4__F7_2rcc_2rcc_8h.html#a378741c9da736e56ad4972e7bf27fd0aa953e0f629f671a6063e0f37bd1904cfd',1,'MCO1_SRC_PLL:&#160;rcc.h'],['../phal__G4_2rcc_2rcc_8h.html#a378741c9da736e56ad4972e7bf27fd0aa953e0f629f671a6063e0f37bd1904cfd',1,'MCO1_SRC_PLL:&#160;rcc.h']]],
-  ['mco_5fdiv_5f2_4',['MCO_DIV_2',['../phal__F4__F7_2rcc_2rcc_8h.html#a60ed31989981f6f69b4f5363337cfd8fac4932e43c2d2836da911c0811a948853',1,'MCO_DIV_2:&#160;rcc.h'],['../phal__G4_2rcc_2rcc_8h.html#a60ed31989981f6f69b4f5363337cfd8fac4932e43c2d2836da911c0811a948853',1,'MCO_DIV_2:&#160;rcc.h']]],
-  ['mco_5fdiv_5f3_5',['MCO_DIV_3',['../phal__F4__F7_2rcc_2rcc_8h.html#a60ed31989981f6f69b4f5363337cfd8fa788d8c3f072ca9c1aa75491c7752a461',1,'MCO_DIV_3:&#160;rcc.h'],['../phal__G4_2rcc_2rcc_8h.html#a60ed31989981f6f69b4f5363337cfd8fa788d8c3f072ca9c1aa75491c7752a461',1,'MCO_DIV_3:&#160;rcc.h']]],
-  ['mco_5fdiv_5f4_6',['MCO_DIV_4',['../phal__F4__F7_2rcc_2rcc_8h.html#a60ed31989981f6f69b4f5363337cfd8fa26dd3271d060d88212a702ce1348ade4',1,'MCO_DIV_4:&#160;rcc.h'],['../phal__G4_2rcc_2rcc_8h.html#a60ed31989981f6f69b4f5363337cfd8fa26dd3271d060d88212a702ce1348ade4',1,'MCO_DIV_4:&#160;rcc.h']]],
-  ['mco_5fdiv_5f5_7',['MCO_DIV_5',['../phal__F4__F7_2rcc_2rcc_8h.html#a60ed31989981f6f69b4f5363337cfd8fa0cb031dded7d4efe9040dcea7dd29c36',1,'MCO_DIV_5:&#160;rcc.h'],['../phal__G4_2rcc_2rcc_8h.html#a60ed31989981f6f69b4f5363337cfd8fa0cb031dded7d4efe9040dcea7dd29c36',1,'MCO_DIV_5:&#160;rcc.h']]],
-  ['mco_5fdiv_5fnone_8',['MCO_DIV_NONE',['../phal__F4__F7_2rcc_2rcc_8h.html#a60ed31989981f6f69b4f5363337cfd8fa96e952f37018f93280090fbe8c39a620',1,'MCO_DIV_NONE:&#160;rcc.h'],['../phal__G4_2rcc_2rcc_8h.html#a60ed31989981f6f69b4f5363337cfd8fa96e952f37018f93280090fbe8c39a620',1,'MCO_DIV_NONE:&#160;rcc.h']]],
-  ['mode_5frx_9',['MODE_RX',['../phal__L4_2usart_2usart_8h.html#a1209980dae4cfa2b7933ccb7c53746dcabf893bbe740b0d6f9619e5821db9b8cb',1,'usart.h']]],
-  ['mode_5ftx_10',['MODE_TX',['../phal__L4_2usart_2usart_8h.html#a1209980dae4cfa2b7933ccb7c53746dca0792e31ca2cf4bd7a6d85fd63213018d',1,'usart.h']]],
-  ['mode_5ftx_5frx_11',['MODE_TX_RX',['../phal__L4_2usart_2usart_8h.html#a1209980dae4cfa2b7933ccb7c53746dca6caf6c8756b6cbeeedb17943e8889bb7',1,'usart.h']]]
+  ['netinfo_5fdhcp_0',['NETINFO_DHCP',['../group__DATA__TYPE.html#gga76e5aa4ff40d1cb562e46e3bf9b1e9d1abb4dffed9037e84b54c972da0fd471e2',1,'wizchip_conf.h']]],
+  ['netinfo_5fstatic_1',['NETINFO_STATIC',['../group__DATA__TYPE.html#gga76e5aa4ff40d1cb562e46e3bf9b1e9d1aeb76552981d146af93acee6aa17dd165',1,'wizchip_conf.h']]],
+  ['nm_5fforcearp_2',['NM_FORCEARP',['../group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca32c5ae489d34cf2de9ff96ae278f028a',1,'wizchip_conf.h']]],
+  ['nm_5fpingblock_3',['NM_PINGBLOCK',['../group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca8e9226206aa8567b284ede0dff7540be',1,'wizchip_conf.h']]],
+  ['nm_5fpppoe_4',['NM_PPPOE',['../group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca37ebbd5edda6ee0dccfcd481d4690416',1,'wizchip_conf.h']]],
+  ['nm_5fwakeonlan_5',['NM_WAKEONLAN',['../group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca273098a5481a025f536a599c6a008759',1,'wizchip_conf.h']]],
+  ['num_5ffault_5fprios_6',['NUM_FAULT_PRIOS',['../faults__common_8h.html#a03cf0c7e0fba09e53e6aacd890b3d4eea00b1fe1b6035838201f5ae8c0f20c0d8',1,'faults_common.h']]],
+  ['num_5fpages_7',['NUM_PAGES',['../lcd_8h.html#a7153150b299cf930f17d200a89628d88acd382a61c55aa2f67b15244ad7cd9618',1,'lcd.h']]]
 ];

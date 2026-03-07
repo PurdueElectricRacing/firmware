@@ -200,16 +200,16 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae40226a1d0575a52ce95e5ac385719e3" id="r_ae40226a1d0575a52ce95e5ac385719e3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae40226a1d0575a52ce95e5ac385719e3">PHAL_initADC</a> (<a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a> *<a class="el" href="daq_8c.html#a25ce4b69d296fc9a3324b494542c2420">config</a>, <a class="el" href="structADCChannelConfig__t.html">ADCChannelConfig_t</a> channels[], uint8_t num_channels)</td></tr>
+<tr class="memitem:ae40226a1d0575a52ce95e5ac385719e3" id="r_ae40226a1d0575a52ce95e5ac385719e3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae40226a1d0575a52ce95e5ac385719e3">PHAL_initADC</a> (<a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a> *config, <a class="el" href="structADCChannelConfig__t.html">ADCChannelConfig_t</a> channels[], uint8_t num_channels)</td></tr>
 <tr class="memdesc:ae40226a1d0575a52ce95e5ac385719e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the ADC, requires GPIO config prior.  <br /></td></tr>
 <tr class="separator:ae40226a1d0575a52ce95e5ac385719e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e6fb62f3aac96eafc47d2f24a633fb6" id="r_a4e6fb62f3aac96eafc47d2f24a633fb6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e6fb62f3aac96eafc47d2f24a633fb6">PHAL_startADC</a> (<a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a> *<a class="el" href="daq_8c.html#a25ce4b69d296fc9a3324b494542c2420">config</a>)</td></tr>
+<tr class="memitem:a4e6fb62f3aac96eafc47d2f24a633fb6" id="r_a4e6fb62f3aac96eafc47d2f24a633fb6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e6fb62f3aac96eafc47d2f24a633fb6">PHAL_startADC</a> (<a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a> *config)</td></tr>
 <tr class="memdesc:a4e6fb62f3aac96eafc47d2f24a633fb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the ADC conversions, requires PHAL_initADC to be called prior.  <br /></td></tr>
 <tr class="separator:a4e6fb62f3aac96eafc47d2f24a633fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a945c5b94cf25d5aa81caee684109ad90" id="r_a945c5b94cf25d5aa81caee684109ad90"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a945c5b94cf25d5aa81caee684109ad90">PHAL_stopADC</a> (<a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a> *<a class="el" href="daq_8c.html#a25ce4b69d296fc9a3324b494542c2420">config</a>)</td></tr>
+<tr class="memitem:a945c5b94cf25d5aa81caee684109ad90" id="r_a945c5b94cf25d5aa81caee684109ad90"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a945c5b94cf25d5aa81caee684109ad90">PHAL_stopADC</a> (<a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a> *config)</td></tr>
 <tr class="memdesc:a945c5b94cf25d5aa81caee684109ad90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the ADC conversions, requires PHAL_initADC to be called prior.  <br /></td></tr>
 <tr class="separator:a945c5b94cf25d5aa81caee684109ad90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9bc7d0ed3e1117cd9b3b9c40bb36fcff" id="r_a9bc7d0ed3e1117cd9b3b9c40bb36fcff"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9bc7d0ed3e1117cd9b3b9c40bb36fcff">PHAL_readADC</a> (<a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a> *<a class="el" href="daq_8c.html#a25ce4b69d296fc9a3324b494542c2420">config</a>)</td></tr>
+<tr class="memitem:a9bc7d0ed3e1117cd9b3b9c40bb36fcff" id="r_a9bc7d0ed3e1117cd9b3b9c40bb36fcff"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9bc7d0ed3e1117cd9b3b9c40bb36fcff">PHAL_readADC</a> (<a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a> *config)</td></tr>
 <tr class="memdesc:a9bc7d0ed3e1117cd9b3b9c40bb36fcff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the ADC data register.  <br /></td></tr>
 <tr class="separator:a9bc7d0ed3e1117cd9b3b9c40bb36fcff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -596,7 +596,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="phal__G4_2adc_2adc_8c_source.html#l00104">104</a> of file <a class="el" href="phal__G4_2adc_2adc_8c_source.html">adc.c</a>.</p>
 
-<p class="reference">References <a class="el" href="phal__F4__F7_2adc_2adc_8h_source.html#l00031">ADC_DMA_CIRCULAR</a>, <a class="el" href="phal__G4_2adc_2adc_8h_source.html#l00031">ADC_DMA_ONESHOT</a>, <a class="el" href="daq_8c_source.html#l00039">config</a>, <a class="el" href="phal__G4_2adc_2adc_8c_source.html#l00053">PHAL_configureADCChannels()</a>, and <a class="el" href="phal__G4_2adc_2adc_8c_source.html#l00013">PHAL_configureOversampling()</a>.</p>
+<p class="reference">References <a class="el" href="phal__F4__F7_2adc_2adc_8h_source.html#l00031">ADC_DMA_CIRCULAR</a>, <a class="el" href="phal__G4_2adc_2adc_8h_source.html#l00031">ADC_DMA_ONESHOT</a>, <a class="el" href="phal__F4__F7_2adc_2adc_8h_source.html#l00043">ADCInitConfig_t::cont_conv_mode</a>, <a class="el" href="phal__F4__F7_2adc_2adc_8h_source.html#l00042">ADCInitConfig_t::data_align</a>, <a class="el" href="phal__F4__F7_2adc_2adc_8h_source.html#l00044">ADCInitConfig_t::dma_mode</a>, <a class="el" href="phal__G4_2adc_2adc_8h_source.html#l00059">ADCInitConfig_t::periph</a>, <a class="el" href="phal__G4_2adc_2adc_8c_source.html#l00053">PHAL_configureADCChannels()</a>, <a class="el" href="phal__G4_2adc_2adc_8c_source.html#l00013">PHAL_configureOversampling()</a>, <a class="el" href="phal__G4_2adc_2adc_8h_source.html#l00053">ADCInitConfig_t::prescaler</a>, and <a class="el" href="phal__F4__F7_2adc_2adc_8h_source.html#l00041">ADCInitConfig_t::resolution</a>.</p>
 
 </div>
 </div>
@@ -626,7 +626,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="phal__G4_2adc_2adc_8c_source.html#l00196">196</a> of file <a class="el" href="phal__G4_2adc_2adc_8c_source.html">adc.c</a>.</p>
 
-<p class="reference">References <a class="el" href="daq_8c_source.html#l00039">config</a>.</p>
+<p class="reference">References <a class="el" href="phal__F4__F7_2adc_2adc_8h_source.html#l00043">ADCInitConfig_t::cont_conv_mode</a>, and <a class="el" href="phal__G4_2adc_2adc_8h_source.html#l00059">ADCInitConfig_t::periph</a>.</p>
 
 </div>
 </div>
@@ -655,7 +655,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="phal__G4_2adc_2adc_8c_source.html#l00182">182</a> of file <a class="el" href="phal__G4_2adc_2adc_8c_source.html">adc.c</a>.</p>
 
-<p class="reference">References <a class="el" href="daq_8c_source.html#l00039">config</a>.</p>
+<p class="reference">References <a class="el" href="phal__G4_2adc_2adc_8h_source.html#l00059">ADCInitConfig_t::periph</a>.</p>
 
 </div>
 </div>
@@ -684,7 +684,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="phal__G4_2adc_2adc_8c_source.html#l00187">187</a> of file <a class="el" href="phal__G4_2adc_2adc_8c_source.html">adc.c</a>.</p>
 
-<p class="reference">References <a class="el" href="daq_8c_source.html#l00039">config</a>.</p>
+<p class="reference">References <a class="el" href="phal__G4_2adc_2adc_8h_source.html#l00059">ADCInitConfig_t::periph</a>.</p>
 
 </div>
 </div>

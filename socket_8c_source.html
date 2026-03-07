@@ -335,7 +335,7 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 </div>
 <div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
 <div class="foldopen" id="foldopen00269" data-start="{" data-end="}">
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno"><a class="line" href="group__WIZnet__socket__APIs.html#gaf7ab832f4201ef0f04eefcac063b998e">  269</a></span>int8_t <a class="code hl_function" href="group__WIZnet__socket__APIs.html#gaf7ab832f4201ef0f04eefcac063b998e">connect</a>(uint8_t sn, uint8_t* <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>, uint16_t port) {</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno"><a class="line" href="group__WIZnet__socket__APIs.html#gaf7ab832f4201ef0f04eefcac063b998e">  269</a></span>int8_t <a class="code hl_function" href="group__WIZnet__socket__APIs.html#gaf7ab832f4201ef0f04eefcac063b998e">connect</a>(uint8_t sn, uint8_t* addr, uint16_t port) {</div>
 <div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <a class="code hl_define" href="socket_8c.html#afe447840d18ed02ec5ca66e3e197b749">CHECK_SOCKNUM</a>();</div>
 <div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <a class="code hl_define" href="socket_8c.html#aef140525633e96efc06dc2b03f71f5fa">CHECK_SOCKMODE</a>(<a class="code hl_define" href="w5500_8h.html#a111a5f7d5eb14054bd5a895dabad372d">Sn_MR_TCP</a>);</div>
 <div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <a class="code hl_define" href="socket_8c.html#a89d4949e11620ee89de6ea32497bc0a5">CHECK_SOCKINIT</a>();</div>
@@ -343,10 +343,10 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="comment">//if( *((uint32_t*)addr) == 0xFFFFFFFF || *((uint32_t*)addr) == 0) return SOCKERR_IPINVALID;</span></div>
 <div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    {</div>
 <div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        uint32_t taddr;</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        taddr = ((uint32_t)<a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[0] &amp; 0x000000FF);</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        taddr = (taddr &lt;&lt; 8) + ((uint32_t)<a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[1] &amp; 0x000000FF);</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        taddr = (taddr &lt;&lt; 8) + ((uint32_t)<a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[2] &amp; 0x000000FF);</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        taddr = (taddr &lt;&lt; 8) + ((uint32_t)<a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[3] &amp; 0x000000FF);</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        taddr = ((uint32_t)addr[0] &amp; 0x000000FF);</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        taddr = (taddr &lt;&lt; 8) + ((uint32_t)addr[1] &amp; 0x000000FF);</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        taddr = (taddr &lt;&lt; 8) + ((uint32_t)addr[2] &amp; 0x000000FF);</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        taddr = (taddr &lt;&lt; 8) + ((uint32_t)addr[3] &amp; 0x000000FF);</div>
 <div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        <span class="keywordflow">if</span> (taddr == 0xFFFFFFFF || taddr == 0)</div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>            <span class="keywordflow">return</span> <a class="code hl_define" href="socket_8h.html#a6a6dd25815b319d08e09382ccb798795">SOCKERR_IPINVALID</a>;</div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    }</div>
@@ -354,7 +354,7 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
 <div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    <span class="keywordflow">if</span> (port == 0)</div>
 <div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="socket_8h.html#af6282af0917498ec1560d934a73103b5">SOCKERR_PORTZERO</a>;</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <a class="code hl_define" href="group__Socket__register__access__function.html#ga90014b65551f3fdbdc6e46da90cc7110">setSn_DIPR</a>(sn, <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>);</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <a class="code hl_define" href="group__Socket__register__access__function.html#ga90014b65551f3fdbdc6e46da90cc7110">setSn_DIPR</a>(sn, addr);</div>
 <div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    <a class="code hl_define" href="group__Socket__register__access__function.html#ga5ac9baf9b7bb880045880aa9c14b2277">setSn_DPORT</a>(sn, port);</div>
 <div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    <a class="code hl_define" href="group__Socket__register__access__function.html#ga540fe9afb87bd91eb5fbe1147429878c">setSn_CR</a>(sn, <a class="code hl_define" href="w5500_8h.html#a7a2f5db2ee176886bb12065f91be2973">Sn_CR_CONNECT</a>);</div>
 <div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    <span class="keywordflow">while</span> (<a class="code hl_define" href="group__Socket__register__access__function.html#ga47c6218a28424d2fb3a3c04f58d0bcfb">getSn_CR</a>(sn))</div>
@@ -569,7 +569,7 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 </div>
 <div class="line"><a id="l00494" name="l00494"></a><span class="lineno">  494</span> </div>
 <div class="foldopen" id="foldopen00495" data-start="{" data-end="}">
-<div class="line"><a id="l00495" name="l00495"></a><span class="lineno"><a class="line" href="group__WIZnet__socket__APIs.html#ga30fc77ba1005733b501994818bde12f8">  495</a></span>int32_t <a class="code hl_function" href="group__WIZnet__socket__APIs.html#ga30fc77ba1005733b501994818bde12f8">sendto</a>(uint8_t sn, uint8_t* <a class="code hl_variable" href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a>, uint16_t len, uint8_t* <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>, uint16_t port) {</div>
+<div class="line"><a id="l00495" name="l00495"></a><span class="lineno"><a class="line" href="group__WIZnet__socket__APIs.html#ga30fc77ba1005733b501994818bde12f8">  495</a></span>int32_t <a class="code hl_function" href="group__WIZnet__socket__APIs.html#ga30fc77ba1005733b501994818bde12f8">sendto</a>(uint8_t sn, uint8_t* <a class="code hl_variable" href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a>, uint16_t len, uint8_t* addr, uint16_t port) {</div>
 <div class="line"><a id="l00496" name="l00496"></a><span class="lineno">  496</span>    uint8_t tmp       = 0;</div>
 <div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span>    uint16_t freesize = 0;</div>
 <div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span>    uint32_t taddr;</div>
@@ -591,10 +591,10 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>    <span class="comment">//if(*((uint32_t*)addr) == 0) return SOCKERR_IPINVALID;</span></div>
 <div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>    <span class="comment">//{</span></div>
 <div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>    <span class="comment">//uint32_t taddr;</span></div>
-<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>    taddr = ((uint32_t)<a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[0]) &amp; 0x000000FF;</div>
-<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>    taddr = (taddr &lt;&lt; 8) + ((uint32_t)<a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[1] &amp; 0x000000FF);</div>
-<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>    taddr = (taddr &lt;&lt; 8) + ((uint32_t)<a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[2] &amp; 0x000000FF);</div>
-<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>    taddr = (taddr &lt;&lt; 8) + ((uint32_t)<a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[3] &amp; 0x000000FF);</div>
+<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>    taddr = ((uint32_t)addr[0]) &amp; 0x000000FF;</div>
+<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>    taddr = (taddr &lt;&lt; 8) + ((uint32_t)addr[1] &amp; 0x000000FF);</div>
+<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>    taddr = (taddr &lt;&lt; 8) + ((uint32_t)addr[2] &amp; 0x000000FF);</div>
+<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>    taddr = (taddr &lt;&lt; 8) + ((uint32_t)addr[3] &amp; 0x000000FF);</div>
 <div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>    <span class="comment">//}</span></div>
 <div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>    <span class="comment">//</span></div>
 <div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>    <span class="comment">//if(*((uint32_t*)addr) == 0) return SOCKERR_IPINVALID;</span></div>
@@ -610,7 +610,7 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>    <span class="comment">//   if(tmp != SOCK_MACRAW &amp;&amp; tmp != SOCK_UDP) return SOCKERR_SOCKSTATUS;</span></div>
 <div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>    <span class="comment">//#endif</span></div>
 <div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span> </div>
-<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>    <a class="code hl_define" href="group__Socket__register__access__function.html#ga90014b65551f3fdbdc6e46da90cc7110">setSn_DIPR</a>(sn, <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>);</div>
+<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>    <a class="code hl_define" href="group__Socket__register__access__function.html#ga90014b65551f3fdbdc6e46da90cc7110">setSn_DIPR</a>(sn, addr);</div>
 <div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>    <a class="code hl_define" href="group__Socket__register__access__function.html#ga5ac9baf9b7bb880045880aa9c14b2277">setSn_DPORT</a>(sn, port);</div>
 <div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>    freesize = <a class="code hl_define" href="w5500_8h.html#aba5cffa90ce609d64d0027285d41336d">getSn_TxMAX</a>(sn);</div>
 <div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>    <span class="keywordflow">if</span> (len &gt; freesize)</div>
@@ -675,7 +675,7 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 </div>
 <div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span> </div>
 <div class="foldopen" id="foldopen00600" data-start="{" data-end="}">
-<div class="line"><a id="l00600" name="l00600"></a><span class="lineno"><a class="line" href="group__WIZnet__socket__APIs.html#gae580bd099f9bcbeca63a3145c0015e62">  600</a></span>int32_t <a class="code hl_function" href="group__WIZnet__socket__APIs.html#gae580bd099f9bcbeca63a3145c0015e62">recvfrom</a>(uint8_t sn, uint8_t* <a class="code hl_variable" href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a>, uint16_t len, uint8_t* <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>, uint16_t* port) {</div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno"><a class="line" href="group__WIZnet__socket__APIs.html#gae580bd099f9bcbeca63a3145c0015e62">  600</a></span>int32_t <a class="code hl_function" href="group__WIZnet__socket__APIs.html#gae580bd099f9bcbeca63a3145c0015e62">recvfrom</a>(uint8_t sn, uint8_t* <a class="code hl_variable" href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a>, uint16_t len, uint8_t* addr, uint16_t* port) {</div>
 <div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span><span class="comment">//M20150601 : For W5300</span></div>
 <div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span><span class="preprocessor">#if _WIZCHIP_ == 5300</span></div>
 <div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>    uint16_t mr;</div>
@@ -731,20 +731,20 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>                <span class="comment">//A20150601 : For W5300</span></div>
 <div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span><span class="preprocessor">#if _WIZCHIP_ == 5300</span></div>
 <div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>                <span class="keywordflow">if</span> (mr1 &amp; MR_FS) {</div>
-<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>                    <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[0]                = head[1];</div>
-<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>                    <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[1]                = head[0];</div>
-<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>                    <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[2]                = head[3];</div>
-<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>                    <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[3]                = head[2];</div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>                    addr[0]                = head[1];</div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>                    addr[1]                = head[0];</div>
+<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>                    addr[2]                = head[3];</div>
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>                    addr[3]                = head[2];</div>
 <div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>                    *port                  = head[5];</div>
 <div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>                    *port                  = (*port &lt;&lt; 8) + head[4];</div>
 <div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>                    <a class="code hl_variable" href="socket_8c.html#ad2e8519d09c2dbb4a6b901618b1ba516">sock_remained_size</a>[sn] = head[7];</div>
 <div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>                    <a class="code hl_variable" href="socket_8c.html#ad2e8519d09c2dbb4a6b901618b1ba516">sock_remained_size</a>[sn] = (<a class="code hl_variable" href="socket_8c.html#ad2e8519d09c2dbb4a6b901618b1ba516">sock_remained_size</a>[sn] &lt;&lt; 8) + head[6];</div>
 <div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>                } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>                    <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[0]                = head[0];</div>
-<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>                    <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[1]                = head[1];</div>
-<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>                    <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[2]                = head[2];</div>
-<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>                    <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[3]                = head[3];</div>
+<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>                    addr[0]                = head[0];</div>
+<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>                    addr[1]                = head[1];</div>
+<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>                    addr[2]                = head[2];</div>
+<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>                    addr[3]                = head[3];</div>
 <div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>                    *port                  = head[4];</div>
 <div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span>                    *port                  = (*port &lt;&lt; 8) + head[5];</div>
 <div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>                    <a class="code hl_variable" href="socket_8c.html#ad2e8519d09c2dbb4a6b901618b1ba516">sock_remained_size</a>[sn] = head[6];</div>
@@ -807,10 +807,10 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>                <a class="code hl_define" href="group__Socket__register__access__function.html#ga540fe9afb87bd91eb5fbe1147429878c">setSn_CR</a>(sn, <a class="code hl_define" href="w5500_8h.html#a282df6e5d976e94953d4f9f32f182827">Sn_CR_RECV</a>);</div>
 <div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>                <span class="keywordflow">while</span> (<a class="code hl_define" href="group__Socket__register__access__function.html#ga47c6218a28424d2fb3a3c04f58d0bcfb">getSn_CR</a>(sn))</div>
 <div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>                    ;</div>
-<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>                <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[0]                = head[0];</div>
-<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>                <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[1]                = head[1];</div>
-<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>                <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[2]                = head[2];</div>
-<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>                <a class="code hl_variable" href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a>[3]                = head[3];</div>
+<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>                addr[0]                = head[0];</div>
+<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>                addr[1]                = head[1];</div>
+<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>                addr[2]                = head[2];</div>
+<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>                addr[3]                = head[3];</div>
 <div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>                <a class="code hl_variable" href="socket_8c.html#ad2e8519d09c2dbb4a6b901618b1ba516">sock_remained_size</a>[sn] = head[4];</div>
 <div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>                <span class="comment">//M20150401 : For Typing Error</span></div>
 <div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>                <span class="comment">//sock_remaiend_size[sn] = (sock_remained_size[sn] &lt;&lt; 8) + head[5];</span></div>
@@ -1018,7 +1018,6 @@ $(function(){initNavTree('socket_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00934" name="l00934"></a><span class="lineno">  934</span>}</div>
 </div>
 <div class="ttc" id="adaq_2main_8c_html_a3a94a8ce8fa02bdc21dbba90dbcbb45d"><div class="ttname"><a href="daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d">buf</a></div><div class="ttdeci">timestamped_frame_t buf</div><div class="ttdef"><b>Definition</b> <a href="daq_2main_8c_source.html#l00119">main.c:119</a></div></div>
-<div class="ttc" id="aeeprom__spi_8c_html_ab439e3a90339e2e8ca8f82d4557a34e5"><div class="ttname"><a href="eeprom__spi_8c.html#ab439e3a90339e2e8ca8f82d4557a34e5">addr</a></div><div class="ttdeci">static uint32_t addr</div><div class="ttdef"><b>Definition</b> <a href="eeprom__spi_8c_source.html#l00229">eeprom_spi.c:229</a></div></div>
 <div class="ttc" id="agroup__Basic__IO__function_html_ga98cbcd6c7ba3abf9ab28caa8261886b1"><div class="ttname"><a href="group__Basic__IO__function.html#ga98cbcd6c7ba3abf9ab28caa8261886b1">wiz_recv_data</a></div><div class="ttdeci">void wiz_recv_data(uint8_t sn, uint8_t *wizdata, uint16_t len)</div><div class="ttdoc">It copies data to your buffer from internal RX memory.</div><div class="ttdef"><b>Definition</b> <a href="w5500_8c_source.html#l00231">w5500.c:231</a></div></div>
 <div class="ttc" id="agroup__Basic__IO__function_html_gaaaae8c46f0d8745e3f474c7b14feaad6"><div class="ttname"><a href="group__Basic__IO__function.html#gaaaae8c46f0d8745e3f474c7b14feaad6">wiz_recv_ignore</a></div><div class="ttdeci">void wiz_recv_ignore(uint8_t sn, uint16_t len)</div><div class="ttdoc">It discard the received data in RX memory.</div><div class="ttdef"><b>Definition</b> <a href="w5500_8c_source.html#l00248">w5500.c:248</a></div></div>
 <div class="ttc" id="agroup__Basic__IO__function_html_gab3dd6071b87bea9afcedcb57e248a7d0"><div class="ttname"><a href="group__Basic__IO__function.html#gab3dd6071b87bea9afcedcb57e248a7d0">wiz_send_data</a></div><div class="ttdeci">void wiz_send_data(uint8_t sn, uint8_t *wizdata, uint16_t len)</div><div class="ttdoc">It copies data to internal TX memory.</div><div class="ttdef"><b>Definition</b> <a href="w5500_8c_source.html#l00214">w5500.c:214</a></div></div>

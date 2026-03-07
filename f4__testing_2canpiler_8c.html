@@ -135,7 +135,7 @@ Functions</h2></td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a990c3a82a9723ab422570b787af03f72" id="r_a990c3a82a9723ab422570b787af03f72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a990c3a82a9723ab422570b787af03f72">CAN1_RX0_IRQHandler</a> ()</td></tr>
 <tr class="separator:a990c3a82a9723ab422570b787af03f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0885e06f6c12bb2931d57983b22e8ba" id="r_ab0885e06f6c12bb2931d57983b22e8ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab0885e06f6c12bb2931d57983b22e8ba">cooling_driver_request_CALLBACK</a> (can_data_t *<a class="el" href="can__parse__starter_8c.html#a8eaf23ac1da3fc4a879c3b1b11733ea2">can_data</a>)</td></tr>
+<tr class="memitem:ab0885e06f6c12bb2931d57983b22e8ba" id="r_ab0885e06f6c12bb2931d57983b22e8ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab0885e06f6c12bb2931d57983b22e8ba">cooling_driver_request_CALLBACK</a> (can_data_t *<a class="el" href="can__common_8c.html#a8eaf23ac1da3fc4a879c3b1b11733ea2">can_data</a>)</td></tr>
 <tr class="memdesc:ab0885e06f6c12bb2931d57983b22e8ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for cooling_driver_request message sent from dashboard, updates values in cooling_request struct based off signal values.  <br /></td></tr>
 <tr class="separator:ab0885e06f6c12bb2931d57983b22e8ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -242,7 +242,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="f4__testing_2canpiler_8c_source.html#l00081">81</a> of file <a class="el" href="f4__testing_2canpiler_8c_source.html">canpiler.c</a>.</p>
 
-<p class="reference">References <a class="el" href="can__parse__starter_8c_source.html#l00016">can_data</a>.</p>
+<p class="reference">References <a class="el" href="can__common_8c_source.html#l00014">can_data</a>.</p>
 
 </div>
 </div>
@@ -346,7 +346,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="f4__testing_2canpiler_8c_source.html#l00048">48</a> of file <a class="el" href="f4__testing_2canpiler_8c_source.html">canpiler.c</a>.</p>
 
-<p class="reference">References <a class="el" href="can__common_8h.html#aa6a2e11ac7e69f5da51d64b903198d21">CAN_library_init()</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00036">can_worker()</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00019">clock_config</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00012">gpio_config</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00085">HardFault_Handler()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>, <a class="el" href="phal__F4__F7_2can_2can_8c_source.html#l00015">PHAL_initCAN()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8c_source.html#l00003">PHAL_initGPIO()</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00041">send_periodic()</a>, and <a class="el" href="freertos_8h_source.html#l00087">START_TASK</a>.</p>
+<p class="reference">References <a class="el" href="can__common_8h.html#aa6a2e11ac7e69f5da51d64b903198d21">CAN_library_init()</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00036">can_worker()</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00019">clock_config</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00012">gpio_config</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00085">HardFault_Handler()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>, <a class="el" href="can_8c_source.html#l00015">PHAL_initCAN()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8c_source.html#l00003">PHAL_initGPIO()</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00041">send_periodic()</a>, and <a class="el" href="freertos_8h_source.html#l00087">START_TASK</a>.</p>
 
 </div>
 </div>
@@ -485,11 +485,9 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
 <div class="line">    </div>
-<div class="line">    <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a9148daba5e9536656ff67dac1badcfa7">GPIO_INIT_CANRX_PD0</a>,</div>
-<div class="line">    <a class="code hl_define" href="phal__L4_2gpio_2gpio_8h.html#a755e5c7e09062f918a745a170022ee43">GPIO_INIT_CANTX_PD1</a></div>
+<div class="line">    GPIO_INIT_CANRX_PD0,</div>
+<div class="line">    GPIO_INIT_CANTX_PD1</div>
 <div class="line">}</div>
-<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_a755e5c7e09062f918a745a170022ee43"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#a755e5c7e09062f918a745a170022ee43">GPIO_INIT_CANTX_PD1</a></div><div class="ttdeci">#define GPIO_INIT_CANTX_PD1</div><div class="ttdef"><b>Definition</b> <a href="phal__L4_2gpio_2gpio_8h_source.html#l00149">gpio.h:149</a></div></div>
-<div class="ttc" id="aphal__L4_2gpio_2gpio_8h_html_a9148daba5e9536656ff67dac1badcfa7"><div class="ttname"><a href="phal__L4_2gpio_2gpio_8h.html#a9148daba5e9536656ff67dac1badcfa7">GPIO_INIT_CANRX_PD0</a></div><div class="ttdeci">#define GPIO_INIT_CANRX_PD0</div><div class="ttdef"><b>Definition</b> <a href="phal__L4_2gpio_2gpio_8h_source.html#l00148">gpio.h:148</a></div></div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="f4__testing_2canpiler_8c_source.html#l00012">12</a> of file <a class="el" href="f4__testing_2canpiler_8c_source.html">canpiler.c</a>.</p>
 

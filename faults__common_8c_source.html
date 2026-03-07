@@ -121,7 +121,7 @@ $(function(){initNavTree('faults__common_8c_source.html',''); initResizable(true
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    }</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="l4__testing_2main_8c.html#afd17cc4589bd055aeb1076aab4b2bec6">faults</a>[fault_id].state == <a class="code hl_enumvalue" href="faults__common_8h.html#a6fd2f0abee328f348e5ac1888ead2ab8a66f055f0edeee92bbb5d35898e25e0e3">FAULT_STATE_LATCHED</a>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">return</span> faults[fault_id].state == <a class="code hl_enumvalue" href="faults__common_8h.html#a6fd2f0abee328f348e5ac1888ead2ab8a66f055f0edeee92bbb5d35898e25e0e3">FAULT_STATE_LATCHED</a>;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keywordtype">void</span> <a class="code hl_function" href="faults__common_8h.html#a30c665a5b3c4674a4854fcd2210406a0">update_fault</a>(fault_id_t fault_id, uint16_t value) {</div>
@@ -129,7 +129,7 @@ $(function(){initNavTree('faults__common_8c_source.html',''); initResizable(true
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_struct" href="structfault__t.html">fault_t</a> *fault        = &amp;<a class="code hl_variable" href="l4__testing_2main_8c.html#afd17cc4589bd055aeb1076aab4b2bec6">faults</a>[fault_id];</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_struct" href="structfault__t.html">fault_t</a> *fault        = &amp;faults[fault_id];</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    uint32_t now          = OS_TICKS;</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="comment">// min is inclusive, max is exclusive, so the healthy range is [min, max)</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">bool</span> is_out_of_bounds = (value &gt;= fault-&gt;<a class="code hl_variable" href="structfault__t.html#aa1ee73dfe01e8242f3e35225a3399601">max_value</a>) || (value &lt; fault-&gt;min_value);</div>
@@ -191,7 +191,7 @@ $(function(){initNavTree('faults__common_8c_source.html',''); initResizable(true
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="comment">// Count latched faults</span></div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; TOTAL_NUM_FAULTS; i++) {</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="faults__common_8h.html#a686858e89e455a414a1e7c87c5e35be5">is_latched</a>(i)) {</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            fault_counters[<a class="code hl_variable" href="l4__testing_2main_8c.html#afd17cc4589bd055aeb1076aab4b2bec6">faults</a>[i].priority]++;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            fault_counters[faults[i].priority]++;</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        }</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    }</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
@@ -264,7 +264,6 @@ $(function(){initNavTree('faults__common_8c_source.html',''); initResizable(true
 <div class="ttc" id="afaults__common_8h_html_a7c41c8fcf2527aa98c7b99e43b67d357"><div class="ttname"><a href="faults__common_8h.html#a7c41c8fcf2527aa98c7b99e43b67d357">is_any_latched</a></div><div class="ttdeci">bool is_any_latched()</div></div>
 <div class="ttc" id="afaults__common_8h_html_af1f330045faf14dff0057e5b9e39a713"><div class="ttname"><a href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic</a></div><div class="ttdeci">void fault_library_periodic()</div></div>
 <div class="ttc" id="afaults__common_8h_html_afd3df4a64e1643d0a79942b5228af63a"><div class="ttname"><a href="faults__common_8h.html#afd3df4a64e1643d0a79942b5228af63a">is_curr_mcu_latched</a></div><div class="ttdeci">bool is_curr_mcu_latched()</div></div>
-<div class="ttc" id="al4__testing_2main_8c_html_afd17cc4589bd055aeb1076aab4b2bec6"><div class="ttname"><a href="l4__testing_2main_8c.html#afd17cc4589bd055aeb1076aab4b2bec6">faults</a></div><div class="ttdeci">uint64_t faults</div><div class="ttdef"><b>Definition</b> <a href="l4__testing_2main_8c_source.html#l00156">main.c:156</a></div></div>
 <div class="ttc" id="astructfault__t_html"><div class="ttname"><a href="structfault__t.html">fault_t</a></div><div class="ttdef"><b>Definition</b> <a href="faults__common_8h_source.html#l00028">faults_common.h:28</a></div></div>
 <div class="ttc" id="astructfault__t_html_a108eebfd8611c3e8620694e006f35cfe"><div class="ttname"><a href="structfault__t.html#a108eebfd8611c3e8620694e006f35cfe">fault_t::start_time_ms</a></div><div class="ttdeci">uint32_t start_time_ms</div><div class="ttdef"><b>Definition</b> <a href="faults__common_8h_source.html#l00029">faults_common.h:29</a></div></div>
 <div class="ttc" id="astructfault__t_html_a1c6eade5dee11a7214eb4d8254613ca4"><div class="ttname"><a href="structfault__t.html#a1c6eade5dee11a7214eb4d8254613ca4">fault_t::unlatch_time_ms</a></div><div class="ttdeci">uint16_t unlatch_time_ms</div><div class="ttdef"><b>Definition</b> <a href="faults__common_8h_source.html#l00033">faults_common.h:33</a></div></div>

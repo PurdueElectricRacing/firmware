@@ -173,9 +173,9 @@ Macros</h2></td></tr>
 <tr class="separator:a54583090d19940d761a224bc0801ec6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afcdc17774047f27e70f3c39f6fb66076" id="r_afcdc17774047f27e70f3c39f6fb66076"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afcdc17774047f27e70f3c39f6fb66076">CAN_ERR_CRTL_UNSPEC</a>&#160;&#160;&#160;0x00 /* unspecified */</td></tr>
 <tr class="separator:afcdc17774047f27e70f3c39f6fb66076"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23d6f05d55b62fffdbd0a50969bc2d04" id="r_a23d6f05d55b62fffdbd0a50969bc2d04"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23d6f05d55b62fffdbd0a50969bc2d04">CAN_ERR_CRTL_RX_OVERFLOW</a>&#160;&#160;&#160;0x01 /* RX <a class="el" href="bootloader_8c.html#a542953c07def3fa38e66087ba9eeb529">buffer</a> overflow */</td></tr>
+<tr class="memitem:a23d6f05d55b62fffdbd0a50969bc2d04" id="r_a23d6f05d55b62fffdbd0a50969bc2d04"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23d6f05d55b62fffdbd0a50969bc2d04">CAN_ERR_CRTL_RX_OVERFLOW</a>&#160;&#160;&#160;0x01 /* RX buffer overflow */</td></tr>
 <tr class="separator:a23d6f05d55b62fffdbd0a50969bc2d04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1412f1e2cc4f23334ed5ea766d12006" id="r_ab1412f1e2cc4f23334ed5ea766d12006"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1412f1e2cc4f23334ed5ea766d12006">CAN_ERR_CRTL_TX_OVERFLOW</a>&#160;&#160;&#160;0x02 /* TX <a class="el" href="bootloader_8c.html#a542953c07def3fa38e66087ba9eeb529">buffer</a> overflow */</td></tr>
+<tr class="memitem:ab1412f1e2cc4f23334ed5ea766d12006" id="r_ab1412f1e2cc4f23334ed5ea766d12006"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1412f1e2cc4f23334ed5ea766d12006">CAN_ERR_CRTL_TX_OVERFLOW</a>&#160;&#160;&#160;0x02 /* TX buffer overflow */</td></tr>
 <tr class="separator:ab1412f1e2cc4f23334ed5ea766d12006"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae93958bbabe5e2e6d328d8fa5d491a96" id="r_ae93958bbabe5e2e6d328d8fa5d491a96"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae93958bbabe5e2e6d328d8fa5d491a96">CAN_ERR_CRTL_RX_WARNING</a>&#160;&#160;&#160;0x04 /* reached warning level for RX errors */</td></tr>
 <tr class="separator:ae93958bbabe5e2e6d328d8fa5d491a96"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -459,7 +459,7 @@ Ronak Jain (<a href="#" onclick="location.href='mai'+'lto:'+'jai'+'n7'+'17@'+'pu
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CAN_ERR_CRTL_RX_OVERFLOW&#160;&#160;&#160;0x01 /* RX <a class="el" href="bootloader_8c.html#a542953c07def3fa38e66087ba9eeb529">buffer</a> overflow */</td>
+          <td class="memname">#define CAN_ERR_CRTL_RX_OVERFLOW&#160;&#160;&#160;0x01 /* RX buffer overflow */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -507,7 +507,7 @@ Ronak Jain (<a href="#" onclick="location.href='mai'+'lto:'+'jai'+'n7'+'17@'+'pu
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CAN_ERR_CRTL_TX_OVERFLOW&#160;&#160;&#160;0x02 /* TX <a class="el" href="bootloader_8c.html#a542953c07def3fa38e66087ba9eeb529">buffer</a> overflow */</td>
+          <td class="memname">#define CAN_ERR_CRTL_TX_OVERFLOW&#160;&#160;&#160;0x02 /* TX buffer overflow */</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1593,7 +1593,7 @@ Ronak Jain (<a href="#" onclick="location.href='mai'+'lto:'+'jai'+'n7'+'17@'+'pu
 
 <p class="definition">Definition at line <a class="el" href="can__common_8c_source.html#l00020">20</a> of file <a class="el" href="can__common_8c_source.html">can_common.c</a>.</p>
 
-<p class="reference">References <a class="el" href="phal__F4__F7_2can_2can_8h_source.html#l00032">CanMsgTypeDef_t::Bus</a>, <a class="el" href="phal__F4__F7_2can_2can_8h_source.html#l00037">CanMsgTypeDef_t::Data</a>, <a class="el" href="phal__F4__F7_2can_2can_8h_source.html#l00036">CanMsgTypeDef_t::DLC</a>, <a class="el" href="phal__F4__F7_2can_2can_8h_source.html#l00034">CanMsgTypeDef_t::ExtId</a>, <a class="el" href="can__common_8h_source.html#l00127">GET_PERIPH_IDX</a>, <a class="el" href="phal__F4__F7_2can_2can_8h_source.html#l00035">CanMsgTypeDef_t::IDE</a>, <a class="el" href="can__common_8c_source.html#l00016">last_can_rx_time_ms</a>, <a class="el" href="bootloader_2main_8c_source.html#l00038">q_rx_can</a>, and <a class="el" href="phal__F4__F7_2can_2can_8h_source.html#l00033">CanMsgTypeDef_t::StdId</a>.</p>
+<p class="reference">References <a class="el" href="phal__F4__F7_2can_2can_8h_source.html#l00032">CanMsgTypeDef_t::Bus</a>, <a class="el" href="phal__F4__F7_2can_2can_8h_source.html#l00037">CanMsgTypeDef_t::Data</a>, <a class="el" href="phal__F4__F7_2can_2can_8h_source.html#l00036">CanMsgTypeDef_t::DLC</a>, <a class="el" href="phal__F4__F7_2can_2can_8h_source.html#l00034">CanMsgTypeDef_t::ExtId</a>, <a class="el" href="can__common_8h_source.html#l00127">GET_PERIPH_IDX</a>, <a class="el" href="phal__F4__F7_2can_2can_8h_source.html#l00035">CanMsgTypeDef_t::IDE</a>, <a class="el" href="can__common_8c_source.html#l00016">last_can_rx_time_ms</a>, <a class="el" href="#a36735da67d74109f9687d8ae6186b5bf">q_rx_can</a>, and <a class="el" href="phal__F4__F7_2can_2can_8h_source.html#l00033">CanMsgTypeDef_t::StdId</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="main__module_2main_8c_source.html#l00115">background_can_update()</a>, <a class="el" href="a__box_2main_8c_source.html#l00154">background_can_update()</a>, <a class="el" href="daq__hub_8c_source.html#l00084">can_send_periodic()</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00036">can_worker()</a>, <a class="el" href="dashboard_2main_8c_source.html#l00199">can_worker_task()</a>, and <a class="el" href="torque__vector_2main_8c_source.html#l00059">can_worker_thread()</a>.</p>
 
@@ -1687,9 +1687,7 @@ Ronak Jain (<a href="#" onclick="location.href='mai'+'lto:'+'jai'+'n7'+'17@'+'pu
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bootloader_2main_8c_source.html#l00038">38</a> of file <a class="el" href="bootloader_2main_8c_source.html">main.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="bootloader_2main_8c_source.html#l00085">BL_CANPoll()</a>, <a class="el" href="bootloader_2main_8c_source.html#l00109">CAN1_RX0_IRQHandler()</a>, <a class="el" href="can__common_8c_source.html#l00020">CAN_rx_update()</a>, and <a class="el" href="bootloader_2main_8c_source.html#l00044">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="can__common_8c_source.html#l00020">CAN_rx_update()</a>.</p>
 
 </div>
 </div>

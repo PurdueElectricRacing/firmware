@@ -1,6 +1,6 @@
 var structdma__init__t =
 [
-    [ "channel", "structdma__init__t.html#addcb5a28cdf6566caff7fd07bfc8d2d8", null ],
+    [ "channel", "structdma__init__t.html#a1b949010fcc98375ef75def840162bea", null ],
     [ "channel_idx", "structdma__init__t.html#a0f64b50f16122f304cf984f2e6e72675", null ],
     [ "circular", "structdma__init__t.html#acea8f26e966c16fff425fb473175767b", null ],
     [ "dir", "structdma__init__t.html#a377884e67ed4aa00aea9c7e925f3b6b3", null ],
@@ -16,7 +16,6 @@ var structdma__init__t =
     [ "periph_inc", "structdma__init__t.html#a1a76ea0998de3b495c6d0d7aaa60f22d", null ],
     [ "periph_size", "structdma__init__t.html#a8cf11454abd34dc0606920f7d8f891d3", null ],
     [ "priority", "structdma__init__t.html#ad49eda1dd86f28dcd3e8a086e2c80eb4", null ],
-    [ "request", "structdma__init__t.html#ac49ccb5645f84fa388dbaa6f7ec8e722", null ],
     [ "stream", "structdma__init__t.html#ac59bfe8352c96f0a92288a00fdbf7a86", null ],
     [ "stream_idx", "structdma__init__t.html#a253be14908866ba881348a5abb33a467", null ],
     [ "tx_isr_en", "structdma__init__t.html#aee8a7152d6ecb69597564f6d225ecd8d", null ],

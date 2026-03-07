@@ -21,6 +21,5 @@ var searchData=
   ['num_5felements_18',['num_elements',['../structmenu__page__t.html#af8408d9007e4a01b547ae1f2ddaac0b7',1,'menu_page_t']]],
   ['num_5fsdc_5fnodes_19',['NUM_SDC_NODES',['../sdc_8c.html#aa1d2d338acd39c4c1b960d8eecbc5571',1,'sdc.c']]],
   ['num_5fvalues_20',['NUM_VALUES',['../namespacesend-and-rec.html#a5c8ba60f2efedb7a018ac3a2ef3b7175',1,'send-and-rec.NUM_VALUES'],['../namespacesend-to-tv.html#a9bed05538a7a6699947e93bd61f00f79',1,'send-to-tv.NUM_VALUES']]],
-  ['num_5fvars_21',['num_vars',['../daq__base_8c.html#a1663a3aa3944e97ce9971b0c9010ba21',1,'daq_base.c']]],
-  ['numsatellites_22',['numSatellites',['../structNAV__PVT__t.html#a8547f3b74d7d1451a83a617c47c1e8fd',1,'NAV_PVT_t']]]
+  ['numsatellites_21',['numSatellites',['../structNAV__PVT__t.html#a8547f3b74d7d1451a83a617c47c1e8fd',1,'NAV_PVT_t']]]
 ];

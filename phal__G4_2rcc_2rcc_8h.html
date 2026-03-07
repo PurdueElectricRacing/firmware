@@ -168,7 +168,7 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7e9d115c0ba7b71bc58eafed17751479" id="r_a7e9d115c0ba7b71bc58eafed17751479"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e9d115c0ba7b71bc58eafed17751479">PHAL_configureClockRates</a> (<a class="el" href="structClockRateConfig__t.html">ClockRateConfig_t</a> *<a class="el" href="daq_8c.html#a25ce4b69d296fc9a3324b494542c2420">config</a>)</td></tr>
+<tr class="memitem:a7e9d115c0ba7b71bc58eafed17751479" id="r_a7e9d115c0ba7b71bc58eafed17751479"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e9d115c0ba7b71bc58eafed17751479">PHAL_configureClockRates</a> (<a class="el" href="structClockRateConfig__t.html">ClockRateConfig_t</a> *config)</td></tr>
 <tr class="memdesc:a7e9d115c0ba7b71bc58eafed17751479"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure all AHB/APB/System clocks from the provided configuration.  <br /></td></tr>
 <tr class="separator:a7e9d115c0ba7b71bc58eafed17751479"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8e3a1b142cf74b1b38984c805673cf5" id="r_ae8e3a1b142cf74b1b38984c805673cf5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8e3a1b142cf74b1b38984c805673cf5">PHAL_configurePLLVCO</a> (<a class="el" href="phal__F4__F7_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522">PLLSrc_t</a> pll_source, uint32_t vco_output_rate_target_hz)</td></tr>
@@ -411,6 +411,10 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00267">267</a> of file <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html">rcc.c</a>.</p>
 
+<p class="reference">References <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00017">AHBClockRateHz</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>.</p>
+
 </div>
 </div>
 <a id="a0bbab857de2d2d1e08975dc977b68342" name="a0bbab857de2d2d1e08975dc977b68342"></a>
@@ -445,6 +449,10 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>false </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00318">318</a> of file <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html">rcc.c</a>.</p>
+
+<p class="reference">References <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00017">AHBClockRateHz</a>, and <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00015">APB1ClockRateHz</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>.</p>
 
 </div>
 </div>
@@ -481,6 +489,10 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00356">356</a> of file <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html">rcc.c</a>.</p>
 
+<p class="reference">References <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00017">AHBClockRateHz</a>, and <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00016">APB2ClockRateHz</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>.</p>
+
 </div>
 </div>
 <a id="a7e9d115c0ba7b71bc58eafed17751479" name="a7e9d115c0ba7b71bc58eafed17751479"></a>
@@ -508,6 +520,10 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Binary encoded representation of which clocks were unsuccessfuly configured. return value of 0 means all clocks were sucessfully configured. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">20</a> of file <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html">rcc.c</a>.</p>
+
+<p class="reference">References <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00092">ClockRateConfig_t::ahb_clock_target_hz</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00093">ClockRateConfig_t::apb1_clock_target_hz</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00094">ClockRateConfig_t::apb2_clock_target_hz</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00089">ClockRateConfig_t::clock_source</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00075">CLOCK_SOURCE_HSE</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00016">HSE_CLOCK_RATE_HZ</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00023">HSI_CLOCK_RATE_HZ</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00267">PHAL_configureAHBClock()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00318">PHAL_configureAPB1Clock()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00356">PHAL_configureAPB2Clock()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00237">PHAL_configureHSESystemClock()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00215">PHAL_configureHSISystemClock()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00121">PHAL_configurePLLSystemClock()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00052">PHAL_configurePLLVCO()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00097">ClockRateConfig_t::pll_src</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00079">RCC_ERROR_AHB_INIT</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00080">RCC_ERROR_APB1_INIT</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00081">RCC_ERROR_APB2_INIT</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00085">RCC_ERROR_HSE_INIT</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00082">RCC_ERROR_HSI_INIT</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00083">RCC_ERROR_PLLSYS_INIT</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00084">RCC_ERROR_PLLVCO_INIT</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00091">ClockRateConfig_t::system_clock_target_hz</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00090">ClockRateConfig_t::use_pll</a>, and <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00098">ClockRateConfig_t::vco_output_rate_target_hz</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00126">main()</a>, and <a class="el" href="a__box_2main_8c_source.html#l00102">main()</a>.</p>
 
 </div>
 </div>
@@ -559,6 +575,8 @@ false </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00215">215</a> of file <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html">rcc.c</a>.</p>
 
+<p class="reference">Referenced by <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>.</p>
+
 </div>
 </div>
 <a id="abd0ea1bcc85ce9ff20dc37966d0286d0" name="abd0ea1bcc85ce9ff20dc37966d0286d0"></a>
@@ -588,6 +606,10 @@ false </dd></dl>
 false </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00121">121</a> of file <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html">rcc.c</a>.</p>
+
+<p class="reference">References <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00018">PLLClockRateHz</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>.</p>
 
 </div>
 </div>
@@ -623,6 +645,10 @@ false </dd></dl>
 false </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00052">52</a> of file <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html">rcc.c</a>.</p>
+
+<p class="reference">References <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00016">HSE_CLOCK_RATE_HZ</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00023">HSI_CLOCK_RATE_HZ</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00053">PLL_SRC_HSE</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00052">PLL_SRC_HSI16</a>, and <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00018">PLLClockRateHz</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>.</p>
 
 </div>
 </div>

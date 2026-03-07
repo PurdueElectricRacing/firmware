@@ -144,17 +144,20 @@ ALLOCATE_STRBUF(lcd_tx_buf, 2048);
 
 void preflight_task();
 void can_worker_task();
+void service_start_button();
 
 // System critical threads
-DEFINE_TASK(pedalsPeriodic, FILT_THROTTLE_BRAKE_PERIOD_MS, osPriorityHigh, 1024);
-DEFINE_TASK(can_worker_task, 5, osPriorityNormal, 2048); // leave stack at 2048
+DEFINE_TASK(pedalsPeriodic, FILT_THROTTLE_BRAKE_PERIOD_MS, osPriorityHigh, STACK_1024);
+DEFINE_TASK(can_worker_task, 5, osPriorityNormal, STACK_2048); // leave stack at 2048
 
 // Auxilary threads
-DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 512);
-DEFINE_TASK(service_button_inputs, 50, osPriorityLow, 1024);
-DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, 1024);
-DEFINE_TASK(LCD_tx_update, 20, osPriorityLow, 512);
+DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, STACK_512);
+DEFINE_TASK(service_button_inputs, 50, osPriorityLow, STACK_1024);
+DEFINE_TASK(service_start_button, START_BUTTON_PERIOD_MS, osPriorityLow, STACK_512);
+DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
+DEFINE_TASK(LCD_tx_update, 20, osPriorityLow, STACK_512);
 
+// DEFINE_TASK(service_button_inputs, 50, osPriorityLow, STACK_1024); // todo LCD related functionality
 int main(void) {
     // Hardware Initialization
     if (0 != PHAL_configureClockRates(&clock_config)) {
@@ -190,6 +193,7 @@ int main(void) {
 
     START_TASK(pedalsPeriodic);
     START_TASK(can_worker_task);
+    // START_TASK(service_start_button);
     START_TASK(heartbeat_task);
     START_TASK(fault_library_periodic);
     START_TASK(service_button_inputs);
@@ -198,6 +202,15 @@ int main(void) {
     osKernelStart(); // GO!
 
     return 0;
+}
+
+void service_start_button() {
+    if (input_state.start_button) {
+        input_state.start_button = 0;
+        CAN_SEND_start_button(true);
+    } else {
+        CAN_SEND_start_button(false);
+    }
 }
 
 void can_worker_task() {
@@ -328,11 +341,6 @@ void service_button_inputs() {
     if (input_state.update_page) {
         input_state.update_page = 0;
         updatePage();
-    }
-
-    if (input_state.start_button) {
-        input_state.start_button = 0;
-        CAN_SEND_start_button(true);
     }
 }
 

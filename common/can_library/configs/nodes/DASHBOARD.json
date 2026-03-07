@@ -38,7 +38,7 @@
                             "type": "bool"
                         }
                     ],
-                    "msg_period": 0,
+                    "msg_period": 300,
                     "msg_priority": 1
                 },
                 {

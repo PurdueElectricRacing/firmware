@@ -79,7 +79,7 @@ static inline bool is_buzzing_time_elapsed() {
 * behave similar to a Shmitt-trigger, preventing blinking
 * during a transition
 */
-void set_brake_light() {
+void update_brake_light() {
     if (can_data.filt_throttle_brake.brake > BRAKE_LIGHT_ON_THRESHOLD) {
         if (!g_car.brake_light) {
             g_car.brake_light = true;
@@ -91,9 +91,23 @@ void set_brake_light() {
     }
 }
 
+void update_tsal() {
+    // FSAE 2026 EV.5.11.5
+    if (is_latched(FAULT_ID_SDC2_BMS) || is_latched(FAULT_ID_IMD)) { 
+        g_car.tsal_green_enable = false;
+        g_car.tsal_red_enable = true; // todo blink @ "2 Hz to 5 Hz, 50% duty cycle"
+    } else {
+        g_car.tsal_green_enable = true;
+        g_car.tsal_red_enable = false;
+    }
+}
+
 void fsm_periodic() {
+    // set default states
     g_car.current_state = g_car.next_state;
     g_car.next_state    = g_car.current_state; // explicit self loop
+    g_car.brake_light = false;
+    g_car.buzzer_enable = false;
 
     // zero torque request by default
     g_torque_request.front_right = 0;
@@ -107,7 +121,8 @@ void fsm_periodic() {
         g_car.next_state = CARSTATE_FATAL;
     }
 
-    set_brake_light();
+    update_brake_light();
+    update_tsal();
 
     // update precharge status
     bool precharge_pin = !PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
@@ -153,12 +168,12 @@ void fsm_periodic() {
             g_car.buzzer_enable = true;
 
             if (is_buzzing_time_elapsed()) {
-                g_car.buzzer_enable = false; // explicitly turn off the buzzer before transitioning
                 g_car.next_state = CARSTATE_READY2DRIVE;
             }
             break;
         }
         case CARSTATE_READY2DRIVE: {
+            g_car.tsal_red_enable = true;
             ready2drive_periodic();
 
             if (is_start_button_pressed()) {

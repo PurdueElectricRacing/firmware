@@ -173,7 +173,6 @@ void fsm_periodic() {
             break;
         }
         case CARSTATE_READY2DRIVE: {
-            g_car.tsal_red_enable = true;
             ready2drive_periodic();
 
             if (is_start_button_pressed()) {

@@ -194,7 +194,7 @@ static void eth_udp_send_periodic(void) {
 
     timestamped_frame_t* buf;
     uint32_t consecutive_items;
-    if (SPMC_follower_pop(&spmc, &buf, &consecutive_items) != 0) {
+    if (SPMC_follower_pop(&spmc, &buf, &consecutive_items) != SPMC_OK) {
         return; // No data to send
     }
 

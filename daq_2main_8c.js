@@ -24,9 +24,9 @@ var daq_2main_8c =
     [ "gpio_config", "daq_2main_8c.html#a60563c6df24a123ae18e090bca85f555", null ],
     [ "lte_usart_config", "daq_2main_8c.html#a0c138f0e32038f427ab58d409c2708ae", null ],
     [ "PLLClockRateHz", "daq_2main_8c.html#aac132aa42c20a1d3744db9df04f31c54", null ],
-    [ "queue", "daq_2main_8c.html#a93698a4098598ac66311c6c5bdd5c10c", null ],
     [ "spi_rx_dma_config", "daq_2main_8c.html#a048ceaccc44b006a77f0c988ae1877ce", null ],
     [ "spi_tx_dma_config", "daq_2main_8c.html#ac9d88a12a20b964301d43f839eee3f94", null ],
+    [ "spmc", "daq_2main_8c.html#af963e75be18e816661bb2b275b68f5df", null ],
     [ "start_time", "daq_2main_8c.html#acda76ed90e15645d7e0a404cb621aecf", null ],
     [ "usart_rx_dma_config", "daq_2main_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e", null ],
     [ "usart_tx_dma_config", "daq_2main_8c.html#a1f94964a4032ad7e8b644485a417b00f", null ]

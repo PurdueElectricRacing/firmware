@@ -4,7 +4,7 @@ var searchData=
   ['daq_5fimon_1',['daq_imon',['../structADCReadings__t.html#a0b0bb43b90aff0403a8a9db484818d38',1,'ADCReadings_t']]],
   ['dash_5fcs_2',['dash_cs',['../structADCReadings__t.html#a390c881bec8ae9e4af84fedbb08554b5',1,'ADCReadings_t']]],
   ['data_3',['Data',['../structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78',1,'CanMsgTypeDef_t']]],
-  ['data_4',['data',['../structSPMC__t.html#a3b71d351122d21ecf0d5a4db88226d5a',1,'SPMC_t::data'],['../structBMI088__Handle__t.html#aa39fc3327f4544f42bcbf90217b4293b',1,'BMI088_Handle_t::data'],['../structGPS__Handle__t.html#ad2cca2ce2d27c6f03f5d615b62235b6b',1,'GPS_Handle_t::data'],['../structstrbuf__t.html#a85a2ff40e2fbf2c7a4133678ee491c4a',1,'strbuf_t::data']]],
+  ['data_4',['data',['../structSPMC__t.html#a6263f8d74ec1e46cdee7035b4f236171',1,'SPMC_t::data'],['../structBMI088__Handle__t.html#aa39fc3327f4544f42bcbf90217b4293b',1,'BMI088_Handle_t::data'],['../structGPS__Handle__t.html#ad2cca2ce2d27c6f03f5d615b62235b6b',1,'GPS_Handle_t::data'],['../structstrbuf__t.html#a85a2ff40e2fbf2c7a4133678ee491c4a',1,'strbuf_t::data']]],
   ['data_5falign_5',['data_align',['../structADCInitConfig__t.html#a831d71662aed8b8591dbbd30a67c1d36',1,'ADCInitConfig_t']]],
   ['data_5flen_6',['data_len',['../structSPI__InitConfig__t.html#a5020aa67597cd45fb1912e0f6a1fa89e',1,'SPI_InitConfig_t']]],
   ['data_5frate_7',['data_rate',['../structSPI__InitConfig__t.html#ab20a4701e255ce07d88bc24e16594566',1,'SPI_InitConfig_t']]],

@@ -324,6 +324,7 @@ $(function(){initNavTree('globals_s.html',''); initResizable(true); });
 <li>SD_WRITE_PERIOD_MS&#160;:&#160;<a class="el" href="daq_2main_8h.html#a7d0c50b5f919a1baab56392059672a02">main.h</a></li>
 <li>sd_write_periodic&#160;:&#160;<a class="el" href="daq__sd_8c.html#a673234df15a5f9c0f87bfb5b9423a091">daq_sd.c</a></li>
 <li>SD_WRITE_PROT_VIOLATION&#160;:&#160;<a class="el" href="sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8ca4e295d82b6481694f927367f35aa182d">sdio.h</a></li>
+<li>SD_WRITE_THRESHOLD&#160;:&#160;<a class="el" href="spmc_8h.html#a68fe44670cc93116a711ee10f08ae0e6">spmc.h</a></li>
 <li>SD_WriteMultiBlocks()&#160;:&#160;<a class="el" href="sdio_8c.html#a64baac72a75a2c522e837935009cbe93">sdio.c</a>, <a class="el" href="sdio_8h.html#a64baac72a75a2c522e837935009cbe93">sdio.h</a></li>
 <li>SDC_BMS_STAT_TXT&#160;:&#160;<a class="el" href="lcd_8h.html#a3271ee200cbd5a8bfa16f0beb18c7749">lcd.h</a></li>
 <li>SDC_BOTS_STAT_TXT&#160;:&#160;<a class="el" href="lcd_8h.html#aa54c736585df4ec6570925e6883fb043">lcd.h</a></li>
@@ -616,13 +617,18 @@ $(function(){initNavTree('globals_s.html',''); initResizable(true); });
 <li>spi_tx_dma_config&#160;:&#160;<a class="el" href="daq_2main_8c.html#ac9d88a12a20b964301d43f839eee3f94">main.c</a></li>
 <li>spi_wb()&#160;:&#160;<a class="el" href="daq__spi_8c.html#ad0d4468782a468debc8139fe25107c43">daq_spi.c</a></li>
 <li>spi_wb_burst()&#160;:&#160;<a class="el" href="daq__spi_8c.html#a5821dc24f7a22e40a3630f554f4c33a7">daq_spi.c</a></li>
-<li>SPMC_enqueue_ISR()&#160;:&#160;<a class="el" href="spmc_8c.html#a78d42d62247be45a7431d1e16a830503">spmc.c</a>, <a class="el" href="spmc_8h.html#a78d42d62247be45a7431d1e16a830503">spmc.h</a></li>
-<li>SPMC_follower_pop()&#160;:&#160;<a class="el" href="spmc_8c.html#a09a4cd96df74d3856d6bb846897148d7">spmc.c</a>, <a class="el" href="spmc_8h.html#a09a4cd96df74d3856d6bb846897148d7">spmc.h</a></li>
-<li>SPMC_init()&#160;:&#160;<a class="el" href="spmc_8c.html#a4211767c41c2876211192eed5ac7267c">spmc.c</a>, <a class="el" href="spmc_8h.html#a4211767c41c2876211192eed5ac7267c">spmc.h</a></li>
-<li>SPMC_master_commit()&#160;:&#160;<a class="el" href="spmc_8c.html#aaab754383a0661451200ee37fb12071f">spmc.c</a>, <a class="el" href="spmc_8h.html#aaab754383a0661451200ee37fb12071f">spmc.h</a></li>
-<li>SPMC_master_get_total()&#160;:&#160;<a class="el" href="spmc_8c.html#aa0f74d5b964fcb30dd374d6b64b4b040">spmc.c</a>, <a class="el" href="spmc_8h.html#aa0f74d5b964fcb30dd374d6b64b4b040">spmc.h</a></li>
-<li>SPMC_master_peek_batch()&#160;:&#160;<a class="el" href="spmc_8c.html#a1e76a7f278a818086b573f4194e02ae7">spmc.c</a>, <a class="el" href="spmc_8h.html#a1e76a7f278a818086b573f4194e02ae7">spmc.h</a></li>
-<li>SPMC_NUM_FRAMES&#160;:&#160;<a class="el" href="spmc_8h.html#a661f2f848c5140ea05f8aa095840eaed">spmc.h</a></li>
+<li>spmc&#160;:&#160;<a class="el" href="daq_2main_8c.html#af963e75be18e816661bb2b275b68f5df">main.c</a>, <a class="el" href="daq_2main_8h.html#af963e75be18e816661bb2b275b68f5df">main.h</a></li>
+<li>SPMC_ALLOCATED_CAPACITY&#160;:&#160;<a class="el" href="spmc_8h.html#a355c6fcd9dada7f2fb4513f259251ac1">spmc.h</a></li>
+<li>SPMC_CAPACITY&#160;:&#160;<a class="el" href="spmc_8h.html#a9ff34b316dddb28b5a26fe9b906a0b08">spmc.h</a></li>
+<li>SPMC_EMPTY&#160;:&#160;<a class="el" href="spmc_8h.html#a32d7f7f47a55a373939ae4e420e44a7fac3ca83aa51ab0af10f1b3411aa98a105">spmc.h</a></li>
+<li>SPMC_enqueue_from_ISR()&#160;:&#160;<a class="el" href="spmc_8c.html#a35081c08ef2d027de5d213128a806b2d">spmc.c</a>, <a class="el" href="spmc_8h.html#a35081c08ef2d027de5d213128a806b2d">spmc.h</a></li>
+<li>SPMC_follower_pop()&#160;:&#160;<a class="el" href="spmc_8c.html#a260afb64887341d807103c7152f1df9c">spmc.c</a>, <a class="el" href="spmc_8h.html#a260afb64887341d807103c7152f1df9c">spmc.h</a></li>
+<li>SPMC_FULL&#160;:&#160;<a class="el" href="spmc_8h.html#a32d7f7f47a55a373939ae4e420e44a7fa691d0774806e4aba69b2026a2243dc82">spmc.h</a></li>
+<li>SPMC_init()&#160;:&#160;<a class="el" href="spmc_8c.html#a89cd8310ea92fcf7779b939853f6f6fc">spmc.c</a>, <a class="el" href="spmc_8h.html#a89cd8310ea92fcf7779b939853f6f6fc">spmc.h</a></li>
+<li>SPMC_master_commit_tail()&#160;:&#160;<a class="el" href="spmc_8c.html#a0c9f2247c3a031c4e18c900270ad708c">spmc.c</a>, <a class="el" href="spmc_8h.html#a0c9f2247c3a031c4e18c900270ad708c">spmc.h</a></li>
+<li>SPMC_master_peek_all()&#160;:&#160;<a class="el" href="spmc_8c.html#a0e02688161d73cfc258183078ce2791c">spmc.c</a>, <a class="el" href="spmc_8h.html#a0e02688161d73cfc258183078ce2791c">spmc.h</a></li>
+<li>SPMC_OK&#160;:&#160;<a class="el" href="spmc_8h.html#a32d7f7f47a55a373939ae4e420e44a7fa48a6d05c68f93e345b2b09b43b9231e4">spmc.h</a></li>
+<li>SPMC_status_t&#160;:&#160;<a class="el" href="spmc_8h.html#a32d7f7f47a55a373939ae4e420e44a7f">spmc.h</a></li>
 <li>sprintf()&#160;:&#160;<a class="el" href="log_8c.html#a7f249b146ff5c6b1fa44247f1435e29c">log.c</a>, <a class="el" href="log_8h.html#a7f249b146ff5c6b1fa44247f1435e29c">log.h</a></li>
 <li>SRAMCAN_FLE_NBR&#160;:&#160;<a class="el" href="fdcan__priv_8h.html#a34d876b66624c5c23499a48dc413e29c">fdcan_priv.h</a></li>
 <li>SRAMCAN_FLE_SIZE&#160;:&#160;<a class="el" href="fdcan__priv_8h.html#a69cecf84f33479f4005700063952e82e">fdcan_priv.h</a></li>

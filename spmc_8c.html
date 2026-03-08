@@ -97,7 +97,8 @@ $(function(){initNavTree('spmc_8c.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">spmc.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -105,23 +106,34 @@ $(function(){initNavTree('spmc_8c.html',''); initResizable(true); });
 <p>Custom SPMC designed for high throughput handling of CAN message streams.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="spmc_8h_source.html">spmc.h</a>&quot;</code><br />
+<code>#include &quot;stm32f407xx.h&quot;</code><br />
 </div>
 <p><a href="spmc_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a4211767c41c2876211192eed5ac7267c" id="r_a4211767c41c2876211192eed5ac7267c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4211767c41c2876211192eed5ac7267c">SPMC_init</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, TaskHandle_t master_task, TaskHandle_t follower_task)</td></tr>
-<tr class="separator:a4211767c41c2876211192eed5ac7267c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78d42d62247be45a7431d1e16a830503" id="r_a78d42d62247be45a7431d1e16a830503"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78d42d62247be45a7431d1e16a830503">SPMC_enqueue_ISR</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> *incoming_frame)</td></tr>
-<tr class="separator:a78d42d62247be45a7431d1e16a830503"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e76a7f278a818086b573f4194e02ae7" id="r_a1e76a7f278a818086b573f4194e02ae7"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e76a7f278a818086b573f4194e02ae7">SPMC_master_peek_batch</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **first_item)</td></tr>
-<tr class="separator:a1e76a7f278a818086b573f4194e02ae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0f74d5b964fcb30dd374d6b64b4b040" id="r_aa0f74d5b964fcb30dd374d6b64b4b040"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa0f74d5b964fcb30dd374d6b64b4b040">SPMC_master_get_total</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **first_item)</td></tr>
-<tr class="separator:aa0f74d5b964fcb30dd374d6b64b4b040"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaab754383a0661451200ee37fb12071f" id="r_aaab754383a0661451200ee37fb12071f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaab754383a0661451200ee37fb12071f">SPMC_master_commit</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, size_t num_consumed)</td></tr>
-<tr class="separator:aaab754383a0661451200ee37fb12071f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09a4cd96df74d3856d6bb846897148d7" id="r_a09a4cd96df74d3856d6bb846897148d7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a09a4cd96df74d3856d6bb846897148d7">SPMC_follower_pop</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **out, uint32_t *consecutive_items)</td></tr>
-<tr class="separator:a09a4cd96df74d3856d6bb846897148d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89cd8310ea92fcf7779b939853f6f6fc" id="r_a89cd8310ea92fcf7779b939853f6f6fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89cd8310ea92fcf7779b939853f6f6fc">SPMC_init</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *<a class="el" href="daq_2main_8c.html#af963e75be18e816661bb2b275b68f5df">spmc</a>)</td></tr>
+<tr class="memdesc:a89cd8310ea92fcf7779b939853f6f6fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the SPMC instance and configures CAN RX interrupts.  <br /></td></tr>
+<tr class="separator:a89cd8310ea92fcf7779b939853f6f6fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35081c08ef2d027de5d213128a806b2d" id="r_a35081c08ef2d027de5d213128a806b2d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="spmc_8h.html#a32d7f7f47a55a373939ae4e420e44a7f">SPMC_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35081c08ef2d027de5d213128a806b2d">SPMC_enqueue_from_ISR</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *<a class="el" href="daq_2main_8c.html#af963e75be18e816661bb2b275b68f5df">spmc</a>, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> *incoming_frame)</td></tr>
+<tr class="memdesc:a35081c08ef2d027de5d213128a806b2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enqueues a received CAN message into the SPMC buffer from an ISR context. ! the two producer ISRs must have the same priority to prevent preemption in the middle of a write.  <br /></td></tr>
+<tr class="separator:a35081c08ef2d027de5d213128a806b2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e02688161d73cfc258183078ce2791c" id="r_a0e02688161d73cfc258183078ce2791c"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e02688161d73cfc258183078ce2791c">SPMC_master_peek_all</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *<a class="el" href="daq_2main_8c.html#af963e75be18e816661bb2b275b68f5df">spmc</a>, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **first_item, size_t *total_unread)</td></tr>
+<tr class="memdesc:a0e02688161d73cfc258183078ce2791c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peeks at the next batch of frames available for processing by the master (SD logging) without committing the tail. Intended to be used with a DMA operation.  <br /></td></tr>
+<tr class="separator:a0e02688161d73cfc258183078ce2791c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c9f2247c3a031c4e18c900270ad708c" id="r_a0c9f2247c3a031c4e18c900270ad708c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c9f2247c3a031c4e18c900270ad708c">SPMC_master_commit_tail</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *<a class="el" href="daq_2main_8c.html#af963e75be18e816661bb2b275b68f5df">spmc</a>, size_t num_consumed)</td></tr>
+<tr class="memdesc:a0c9f2247c3a031c4e18c900270ad708c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Commits the specified number of consumed frames by advancing the master tail pointer.  <br /></td></tr>
+<tr class="separator:a0c9f2247c3a031c4e18c900270ad708c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a260afb64887341d807103c7152f1df9c" id="r_a260afb64887341d807103c7152f1df9c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="spmc_8h.html#a32d7f7f47a55a373939ae4e420e44a7f">SPMC_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a260afb64887341d807103c7152f1df9c">SPMC_follower_pop</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *<a class="el" href="daq_2main_8c.html#af963e75be18e816661bb2b275b68f5df">spmc</a>, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **out, uint32_t *consecutive_items)</td></tr>
+<tr class="memdesc:a260afb64887341d807103c7152f1df9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pops a single frame for the follower (Ethernet transmission) and advances the follower tail pointer. todo: this function is incomplete todo: optimize for DMA batch transfers, similar to the master's function.  <br /></td></tr>
+<tr class="separator:a260afb64887341d807103c7152f1df9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aba59e7da3f2ab8a7e4ba029e5cf24c87" id="r_aba59e7da3f2ab8a7e4ba029e5cf24c87"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba59e7da3f2ab8a7e4ba029e5cf24c87">CAN_RX_IRQ_PRIO</a> = 6</td></tr>
+<tr class="separator:aba59e7da3f2ab8a7e4ba029e5cf24c87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60d694f96a0128f1a84f10e0178e8364" id="r_a60d694f96a0128f1a84f10e0178e8364"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60d694f96a0128f1a84f10e0178e8364">CAN_SCE_IRQ_PRIO</a> = 10</td></tr>
+<tr class="separator:a60d694f96a0128f1a84f10e0178e8364"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Custom SPMC designed for high throughput handling of CAN message streams. </p>
@@ -131,14 +143,14 @@ Shriya Balu (<a href="#" onclick="location.href='mai'+'lto:'+'bal'+'u@'+'pur'+'d
 
 <p class="definition">Definition in file <a class="el" href="spmc_8c_source.html">spmc.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a78d42d62247be45a7431d1e16a830503" name="a78d42d62247be45a7431d1e16a830503"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78d42d62247be45a7431d1e16a830503">&#9670;&#160;</a></span>SPMC_enqueue_ISR()</h2>
+<a id="a35081c08ef2d027de5d213128a806b2d" name="a35081c08ef2d027de5d213128a806b2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35081c08ef2d027de5d213128a806b2d">&#9670;&#160;</a></span>SPMC_enqueue_from_ISR()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int SPMC_enqueue_ISR </td>
+          <td class="memname"><a class="el" href="spmc_8h.html#a32d7f7f47a55a373939ae4e420e44a7f">SPMC_status_t</a> SPMC_enqueue_from_ISR </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSPMC__t.html">SPMC_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spmc</em></span>, </td>
         </tr>
@@ -150,22 +162,32 @@ Shriya Balu (<a href="#" onclick="location.href='mai'+'lto:'+'bal'+'u@'+'pur'+'d
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="spmc_8c_source.html#l00027">27</a> of file <a class="el" href="spmc_8c_source.html">spmc.c</a>.</p>
+<p>Enqueues a received CAN message into the SPMC buffer from an ISR context. ! the two producer ISRs must have the same priority to prevent preemption in the middle of a write. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spmc</td><td>Pointer to the SPMC instance. </td></tr>
+    <tr><td class="paramname">incoming_frame</td><td>Pointer to the <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> containing the received CAN message.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>SPMC_OK if the frame was enqueued successfully, or SPMC_FULL if the buffer is full and the frame was dropped. </dd></dl>
 
-<p class="reference">References <a class="el" href="spmc_8h_source.html#l00034">SPMC_t::data</a>, <a class="el" href="spmc_8h_source.html#l00035">SPMC_t::head</a>, <a class="el" href="spmc_8h_source.html#l00036">SPMC_t::master_tail</a>, <a class="el" href="spmc_8h_source.html#l00042">SPMC_t::overflows</a>, and <a class="el" href="spmc_8h_source.html#l00028">SPMC_NUM_FRAMES</a>.</p>
+<p class="definition">Definition at line <a class="el" href="spmc_8c_source.html#l00049">49</a> of file <a class="el" href="spmc_8c_source.html">spmc.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00185">can_rx_irq_handler()</a>.</p>
+<p class="reference">References <a class="el" href="spmc_8h_source.html#l00045">SPMC_t::data</a>, <a class="el" href="spmc_8h_source.html#l00046">SPMC_t::head</a>, <a class="el" href="spmc_8h_source.html#l00047">SPMC_t::master_tail</a>, <a class="el" href="spmc_8h_source.html#l00049">SPMC_t::overflows</a>, <a class="el" href="daq_2main_8c_source.html#l00118">spmc</a>, <a class="el" href="spmc_8h_source.html#l00034">SPMC_CAPACITY</a>, <a class="el" href="spmc_8h_source.html#l00024">SPMC_FULL</a>, and <a class="el" href="spmc_8h_source.html#l00023">SPMC_OK</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00176">can_rx_irq_handler()</a>.</p>
 
 </div>
 </div>
-<a id="a09a4cd96df74d3856d6bb846897148d7" name="a09a4cd96df74d3856d6bb846897148d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09a4cd96df74d3856d6bb846897148d7">&#9670;&#160;</a></span>SPMC_follower_pop()</h2>
+<a id="a260afb64887341d807103c7152f1df9c" name="a260afb64887341d807103c7152f1df9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a260afb64887341d807103c7152f1df9c">&#9670;&#160;</a></span>SPMC_follower_pop()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int SPMC_follower_pop </td>
+          <td class="memname"><a class="el" href="spmc_8h.html#a32d7f7f47a55a373939ae4e420e44a7f">SPMC_status_t</a> SPMC_follower_pop </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSPMC__t.html">SPMC_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spmc</em></span>, </td>
         </tr>
@@ -182,16 +204,27 @@ Shriya Balu (<a href="#" onclick="location.href='mai'+'lto:'+'bal'+'u@'+'pur'+'d
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="spmc_8c_source.html#l00111">111</a> of file <a class="el" href="spmc_8c_source.html">spmc.c</a>.</p>
+<p>Pops a single frame for the follower (Ethernet transmission) and advances the follower tail pointer. todo: this function is incomplete todo: optimize for DMA batch transfers, similar to the master's function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spmc</td><td>Pointer to the SPMC instance. </td></tr>
+    <tr><td class="paramname">out</td><td>Output pointer to the popped frame. </td></tr>
+    <tr><td class="paramname">consecutive_items</td><td>Output pointer to the number of consecutive frames available.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>SPMC_OK if a frame was successfully popped, or SPMC_EMPTY if the buffer is empty. </dd></dl>
 
-<p class="reference">References <a class="el" href="spmc_8h_source.html#l00034">SPMC_t::data</a>, <a class="el" href="spmc_8h_source.html#l00038">SPMC_t::follower_tail</a>, <a class="el" href="spmc_8h_source.html#l00035">SPMC_t::head</a>, and <a class="el" href="spmc_8h_source.html#l00028">SPMC_NUM_FRAMES</a>.</p>
+<p class="definition">Definition at line <a class="el" href="spmc_8c_source.html#l00130">130</a> of file <a class="el" href="spmc_8c_source.html">spmc.c</a>.</p>
+
+<p class="reference">References <a class="el" href="spmc_8h_source.html#l00045">SPMC_t::data</a>, <a class="el" href="spmc_8h_source.html#l00048">SPMC_t::follower_tail</a>, <a class="el" href="spmc_8h_source.html#l00046">SPMC_t::head</a>, <a class="el" href="daq_2main_8c_source.html#l00118">spmc</a>, <a class="el" href="spmc_8h_source.html#l00034">SPMC_CAPACITY</a>, <a class="el" href="spmc_8h_source.html#l00025">SPMC_EMPTY</a>, and <a class="el" href="spmc_8h_source.html#l00023">SPMC_OK</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="daq__eth_8c_source.html#l00190">eth_udp_send_periodic()</a>.</p>
 
 </div>
 </div>
-<a id="a4211767c41c2876211192eed5ac7267c" name="a4211767c41c2876211192eed5ac7267c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4211767c41c2876211192eed5ac7267c">&#9670;&#160;</a></span>SPMC_init()</h2>
+<a id="a89cd8310ea92fcf7779b939853f6f6fc" name="a89cd8310ea92fcf7779b939853f6f6fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89cd8310ea92fcf7779b939853f6f6fc">&#9670;&#160;</a></span>SPMC_init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,37 +232,36 @@ Shriya Balu (<a href="#" onclick="location.href='mai'+'lto:'+'bal'+'u@'+'pur'+'d
         <tr>
           <td class="memname">void SPMC_init </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structSPMC__t.html">SPMC_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spmc</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="structSPMC__t.html">SPMC_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spmc</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">TaskHandle_t</td>          <td class="paramname"><span class="paramname"><em>master_task</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TaskHandle_t</td>          <td class="paramname"><span class="paramname"><em>follower_task</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="spmc_8c_source.html#l00013">13</a> of file <a class="el" href="spmc_8c_source.html">spmc.c</a>.</p>
+<p>Initializes the SPMC instance and configures CAN RX interrupts. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spmc</td><td>Pointer to the SPMC instance to initialize. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="reference">References <a class="el" href="spmc_8h_source.html#l00038">SPMC_t::follower_tail</a>, <a class="el" href="spmc_8h_source.html#l00039">SPMC_t::follower_task</a>, <a class="el" href="spmc_8h_source.html#l00035">SPMC_t::head</a>, <a class="el" href="spmc_8h_source.html#l00036">SPMC_t::master_tail</a>, and <a class="el" href="spmc_8h_source.html#l00037">SPMC_t::master_task</a>.</p>
+<p class="definition">Definition at line <a class="el" href="spmc_8c_source.html#l00026">26</a> of file <a class="el" href="spmc_8c_source.html">spmc.c</a>.</p>
+
+<p class="reference">References <a class="el" href="spmc_8c_source.html#l00014">CAN_RX_IRQ_PRIO</a>, <a class="el" href="spmc_8h_source.html#l00048">SPMC_t::follower_tail</a>, <a class="el" href="spmc_8h_source.html#l00046">SPMC_t::head</a>, <a class="el" href="spmc_8h_source.html#l00047">SPMC_t::master_tail</a>, and <a class="el" href="daq_2main_8c_source.html#l00118">spmc</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00126">main()</a>.</p>
 
 </div>
 </div>
-<a id="aaab754383a0661451200ee37fb12071f" name="aaab754383a0661451200ee37fb12071f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaab754383a0661451200ee37fb12071f">&#9670;&#160;</a></span>SPMC_master_commit()</h2>
+<a id="a0c9f2247c3a031c4e18c900270ad708c" name="a0c9f2247c3a031c4e18c900270ad708c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c9f2247c3a031c4e18c900270ad708c">&#9670;&#160;</a></span>SPMC_master_commit_tail()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SPMC_master_commit </td>
+          <td class="memname">void SPMC_master_commit_tail </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSPMC__t.html">SPMC_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spmc</em></span>, </td>
         </tr>
@@ -241,65 +273,114 @@ Shriya Balu (<a href="#" onclick="location.href='mai'+'lto:'+'bal'+'u@'+'pur'+'d
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="spmc_8c_source.html#l00100">100</a> of file <a class="el" href="spmc_8c_source.html">spmc.c</a>.</p>
+<p>Commits the specified number of consumed frames by advancing the master tail pointer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spmc</td><td>Pointer to the SPMC instance. </td></tr>
+    <tr><td class="paramname">num_consumed</td><td>The number of frames to commit. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="reference">References <a class="el" href="spmc_8h_source.html#l00036">SPMC_t::master_tail</a>, and <a class="el" href="spmc_8h_source.html#l00028">SPMC_NUM_FRAMES</a>.</p>
+<p class="definition">Definition at line <a class="el" href="spmc_8c_source.html#l00107">107</a> of file <a class="el" href="spmc_8c_source.html">spmc.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq__sd_8c_source.html#l00078">_sd_write_periodic()</a>.</p>
+<p class="reference">References <a class="el" href="spmc_8c_source.html#l00014">CAN_RX_IRQ_PRIO</a>, <a class="el" href="spmc_8h_source.html#l00047">SPMC_t::master_tail</a>, <a class="el" href="daq_2main_8c_source.html#l00118">spmc</a>, and <a class="el" href="spmc_8h_source.html#l00034">SPMC_CAPACITY</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="daq__sd_8c_source.html#l00079">_sd_write_periodic()</a>.</p>
 
 </div>
 </div>
-<a id="aa0f74d5b964fcb30dd374d6b64b4b040" name="aa0f74d5b964fcb30dd374d6b64b4b040"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0f74d5b964fcb30dd374d6b64b4b040">&#9670;&#160;</a></span>SPMC_master_get_total()</h2>
+<a id="a0e02688161d73cfc258183078ce2791c" name="a0e02688161d73cfc258183078ce2791c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e02688161d73cfc258183078ce2791c">&#9670;&#160;</a></span>SPMC_master_peek_all()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">size_t SPMC_master_get_total </td>
+          <td class="memname">size_t SPMC_master_peek_all </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSPMC__t.html">SPMC_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spmc</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **</td>          <td class="paramname"><span class="paramname"><em>first_item</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="spmc_8c_source.html#l00075">75</a> of file <a class="el" href="spmc_8c_source.html">spmc.c</a>.</p>
-
-<p class="reference">References <a class="el" href="spmc_8h_source.html#l00034">SPMC_t::data</a>, <a class="el" href="spmc_8h_source.html#l00035">SPMC_t::head</a>, <a class="el" href="spmc_8h_source.html#l00036">SPMC_t::master_tail</a>, and <a class="el" href="spmc_8h_source.html#l00028">SPMC_NUM_FRAMES</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="daq__sd_8c_source.html#l00078">_sd_write_periodic()</a>.</p>
-
-</div>
-</div>
-<a id="a1e76a7f278a818086b573f4194e02ae7" name="a1e76a7f278a818086b573f4194e02ae7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e76a7f278a818086b573f4194e02ae7">&#9670;&#160;</a></span>SPMC_master_peek_batch()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t SPMC_master_peek_batch </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structSPMC__t.html">SPMC_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spmc</em></span>, </td>
+          <td class="paramtype"><a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **</td>          <td class="paramname"><span class="paramname"><em>first_item</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **</td>          <td class="paramname"><span class="paramname"><em>first_item</em></span>&#160;)</td>
+          <td class="paramtype">size_t *</td>          <td class="paramname"><span class="paramname"><em>total_unread</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="spmc_8c_source.html#l00053">53</a> of file <a class="el" href="spmc_8c_source.html">spmc.c</a>.</p>
+<p>Peeks at the next batch of frames available for processing by the master (SD logging) without committing the tail. Intended to be used with a DMA operation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spmc</td><td>Pointer to the SPMC instance. </td></tr>
+    <tr><td class="paramname">first_item</td><td>Output pointer that will point to the first item in the batch if available, or NULL if no items are available. </td></tr>
+    <tr><td class="paramname">total_unread</td><td>Output pointer that will be set to the total number of unread frames available in the buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of contiguous items available in the batch. </dd></dl>
 
-<p class="reference">References <a class="el" href="spmc_8h_source.html#l00034">SPMC_t::data</a>, <a class="el" href="spmc_8h_source.html#l00035">SPMC_t::head</a>, <a class="el" href="spmc_8h_source.html#l00036">SPMC_t::master_tail</a>, and <a class="el" href="spmc_8h_source.html#l00028">SPMC_NUM_FRAMES</a>.</p>
+<p class="definition">Definition at line <a class="el" href="spmc_8c_source.html#l00082">82</a> of file <a class="el" href="spmc_8c_source.html">spmc.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq__sd_8c_source.html#l00078">_sd_write_periodic()</a>.</p>
+<p class="reference">References <a class="el" href="spmc_8h_source.html#l00045">SPMC_t::data</a>, <a class="el" href="spmc_8h_source.html#l00046">SPMC_t::head</a>, <a class="el" href="spmc_8h_source.html#l00047">SPMC_t::master_tail</a>, <a class="el" href="daq_2main_8c_source.html#l00118">spmc</a>, and <a class="el" href="spmc_8h_source.html#l00034">SPMC_CAPACITY</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="daq__sd_8c_source.html#l00079">_sd_write_periodic()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aba59e7da3f2ab8a7e4ba029e5cf24c87" name="aba59e7da3f2ab8a7e4ba029e5cf24c87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba59e7da3f2ab8a7e4ba029e5cf24c87">&#9670;&#160;</a></span>CAN_RX_IRQ_PRIO</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t CAN_RX_IRQ_PRIO = 6</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="spmc_8c_source.html#l00014">14</a> of file <a class="el" href="spmc_8c_source.html">spmc.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="spmc_8c_source.html#l00026">SPMC_init()</a>, and <a class="el" href="spmc_8c_source.html#l00107">SPMC_master_commit_tail()</a>.</p>
+
+</div>
+</div>
+<a id="a60d694f96a0128f1a84f10e0178e8364" name="a60d694f96a0128f1a84f10e0178e8364"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60d694f96a0128f1a84f10e0178e8364">&#9670;&#160;</a></span>CAN_SCE_IRQ_PRIO</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t CAN_SCE_IRQ_PRIO = 10</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="spmc_8c_source.html#l00015">15</a> of file <a class="el" href="spmc_8c_source.html">spmc.c</a>.</p>
 
 </div>
 </div>

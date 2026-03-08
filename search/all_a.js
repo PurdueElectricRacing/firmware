@@ -43,7 +43,7 @@ var searchData=
   ['dash_5fnflt_5fpin_40',['DASH_NFLT_Pin',['../pdu_2main_8h.html#ab982882d549addc38189a1a9f8a6b651',1,'main.h']]],
   ['dashboard_5finput_5fstate_5ft_41',['dashboard_input_state_t',['../structdashboard__input__state__t.html',1,'']]],
   ['data_42',['Data',['../structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78',1,'CanMsgTypeDef_t']]],
-  ['data_43',['data',['../structSPMC__t.html#a3b71d351122d21ecf0d5a4db88226d5a',1,'SPMC_t::data'],['../structBMI088__Handle__t.html#aa39fc3327f4544f42bcbf90217b4293b',1,'BMI088_Handle_t::data'],['../structGPS__Handle__t.html#ad2cca2ce2d27c6f03f5d615b62235b6b',1,'GPS_Handle_t::data'],['../structstrbuf__t.html#a85a2ff40e2fbf2c7a4133678ee491c4a',1,'strbuf_t::data']]],
+  ['data_43',['data',['../structSPMC__t.html#a6263f8d74ec1e46cdee7035b4f236171',1,'SPMC_t::data'],['../structBMI088__Handle__t.html#aa39fc3327f4544f42bcbf90217b4293b',1,'BMI088_Handle_t::data'],['../structGPS__Handle__t.html#ad2cca2ce2d27c6f03f5d615b62235b6b',1,'GPS_Handle_t::data'],['../structstrbuf__t.html#a85a2ff40e2fbf2c7a4133678ee491c4a',1,'strbuf_t::data']]],
   ['data_20type_44',['DATA TYPE',['../group__DATA__TYPE.html',1,'']]],
   ['data_5falign_45',['data_align',['../structADCInitConfig__t.html#a831d71662aed8b8591dbbd30a67c1d36',1,'ADCInitConfig_t']]],
   ['data_5flen_46',['data_len',['../structSPI__InitConfig__t.html#a5020aa67597cd45fb1912e0f6a1fa89e',1,'SPI_InitConfig_t']]],

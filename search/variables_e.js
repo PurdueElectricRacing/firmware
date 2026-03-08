@@ -16,7 +16,7 @@ var searchData=
   ['otype_13',['otype',['../structGPIOInitConfig__t.html#a5cccb3d6f1fc7d1ade98fcec56390452',1,'GPIOInitConfig_t']]],
   ['out_5f3v3_14',['out_3v3',['../structvoltage__t.html#a3a9409130cff6a1e817501e4305b76ad',1,'voltage_t']]],
   ['out_5f5v_15',['out_5v',['../structvoltage__t.html#a18c9ce48d5effc7e11b2eca371925cf0',1,'voltage_t']]],
-  ['overflows_16',['overflows',['../structSPMC__t.html#af7891f89a1e13069e5bd6ae1284f9b3c',1,'SPMC_t']]],
+  ['overflows_16',['overflows',['../structSPMC__t.html#a6e92e9eabf6fb0592258f55087885ca7',1,'SPMC_t']]],
   ['overrides_5fby_5fprio_17',['overrides_by_prio',['../classlinker_1_1BusLinker.html#a23e3b19f205574d834a149b4e05c9091',1,'linker::BusLinker']]],
   ['overrun_18',['overrun',['../structusart__rx__errors__t.html#abf71439361d0c2575b46c7eb42f61f8b',1,'usart_rx_errors_t']]],
   ['oversample_19',['oversample',['../structADCInitConfig__t.html#a3a78341826c13d4f2a4c8a7c4a089b67',1,'ADCInitConfig_t']]],

@@ -8,7 +8,8 @@ var searchData=
   ['sockint_5fkind_5',['sockint_kind',['../group__DATA__TYPE.html#gaa9d536c54137cd7b425c4c1e3cbfd49c',1,'socket.h']]],
   ['sockopt_5ftype_6',['sockopt_type',['../group__DATA__TYPE.html#ga2f86b7ad233f3b8d6ae0af3ee91e9944',1,'socket.h']]],
   ['spi_5fmode_7',['SPI_Mode',['../phal__G4_2spi_2spi_8h.html#a60a7e3d74577b38aa79ea6983362f942',1,'spi.h']]],
-  ['stop_5fbits_5ft_8',['stop_bits_t',['../phal__F4__F7_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553',1,'stop_bits_t:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553',1,'stop_bits_t:&#160;usart.h']]],
-  ['success_5ft_9',['success_t',['../queue_8h.html#aa84621068460234b71e1839c7a1bab25',1,'queue.h']]],
-  ['switches_5ft_10',['switches_t',['../auto__switch_8h.html#afd674820118f9c76a33b0b8a9b0ff908',1,'auto_switch.h']]]
+  ['spmc_5fstatus_5ft_8',['SPMC_status_t',['../spmc_8h.html#a32d7f7f47a55a373939ae4e420e44a7f',1,'spmc.h']]],
+  ['stop_5fbits_5ft_9',['stop_bits_t',['../phal__F4__F7_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553',1,'stop_bits_t:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553',1,'stop_bits_t:&#160;usart.h']]],
+  ['success_5ft_10',['success_t',['../queue_8h.html#aa84621068460234b71e1839c7a1bab25',1,'queue.h']]],
+  ['switches_5ft_11',['switches_t',['../auto__switch_8h.html#afd674820118f9c76a33b0b8a9b0ff908',1,'auto_switch.h']]]
 ];

@@ -1,9 +1,10 @@
 var spmc_8c =
 [
-    [ "SPMC_enqueue_ISR", "spmc_8c.html#a78d42d62247be45a7431d1e16a830503", null ],
-    [ "SPMC_follower_pop", "spmc_8c.html#a09a4cd96df74d3856d6bb846897148d7", null ],
-    [ "SPMC_init", "spmc_8c.html#a4211767c41c2876211192eed5ac7267c", null ],
-    [ "SPMC_master_commit", "spmc_8c.html#aaab754383a0661451200ee37fb12071f", null ],
-    [ "SPMC_master_get_total", "spmc_8c.html#aa0f74d5b964fcb30dd374d6b64b4b040", null ],
-    [ "SPMC_master_peek_batch", "spmc_8c.html#a1e76a7f278a818086b573f4194e02ae7", null ]
+    [ "SPMC_enqueue_from_ISR", "spmc_8c.html#a35081c08ef2d027de5d213128a806b2d", null ],
+    [ "SPMC_follower_pop", "spmc_8c.html#a260afb64887341d807103c7152f1df9c", null ],
+    [ "SPMC_init", "spmc_8c.html#a89cd8310ea92fcf7779b939853f6f6fc", null ],
+    [ "SPMC_master_commit_tail", "spmc_8c.html#a0c9f2247c3a031c4e18c900270ad708c", null ],
+    [ "SPMC_master_peek_all", "spmc_8c.html#a0e02688161d73cfc258183078ce2791c", null ],
+    [ "CAN_RX_IRQ_PRIO", "spmc_8c.html#aba59e7da3f2ab8a7e4ba029e5cf24c87", null ],
+    [ "CAN_SCE_IRQ_PRIO", "spmc_8c.html#a60d694f96a0128f1a84f10e0178e8364", null ]
 ];

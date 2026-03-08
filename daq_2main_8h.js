@@ -44,7 +44,7 @@ var daq_2main_8h =
     [ "UDP_MAX_BUFFER_SIZE", "daq_2main_8h.html#a7ffe972e4f939b13d105937b6340f54b", null ],
     [ "UDP_MAX_WRITE_COUNT", "daq_2main_8h.html#a10c12a1be8601bcd8b9c12a4d44abe80", null ],
     [ "HardFault_Handler", "daq_2main_8h.html#a2af56a8bf3197b2f06cac4c0b84ffc3e", null ],
-    [ "queue", "daq_2main_8h.html#a93698a4098598ac66311c6c5bdd5c10c", null ],
     [ "SD_BLOCKING_TIMEOUT_TICKS", "daq_2main_8h.html#a005f8af8cd6c38ffbc9ef2e854acacd6", null ],
-    [ "spi1_lock", "daq_2main_8h.html#ae22098d7a44a0de1e81110ffc31e5377", null ]
+    [ "spi1_lock", "daq_2main_8h.html#ae22098d7a44a0de1e81110ffc31e5377", null ],
+    [ "spmc", "daq_2main_8h.html#af963e75be18e816661bb2b275b68f5df", null ]
 ];

@@ -24,17 +24,19 @@ static_assert(
     "timestamped_frame_t must be 16 bytes for optimal access patterns"
 );
 
-// todo determine appropriate values based on testing
-static constexpr size_t SPMC_NUM_FRAMES = 512;
-static constexpr size_t MIN_WRITE_FRAMES = 32;
+// todo tune values based on testing
+static constexpr size_t SPMC_CAPACITY = 512;
+static constexpr size_t SD_WRITE_THRESHOLD = 32;
 static_assert(
-    SPMC_NUM_FRAMES % MIN_WRITE_FRAMES == 0,
-    "the usable capacity must be a multiple of MIN_WRITE_FRAMES "
+    SPMC_CAPACITY % SD_WRITE_THRESHOLD == 0,
+    "the SPMC capacity must be a multiple of SD_WRITE_THRESHOLD "
     "to prevent DMA wraparound issues"
 );
+// ! allocate one extra frame to distinguish full vs empty conditions
+static constexpr size_t SPMC_ALLOCATED_CAPACITY = SPMC_CAPACITY + 1;
 
 typedef struct {
-    timestamped_frame_t data[SPMC_NUM_FRAMES];
+    timestamped_frame_t data[SPMC_ALLOCATED_CAPACITY];
     volatile size_t head;
     volatile size_t master_tail; // SD tail
     volatile size_t follower_tail; // best-effort ETH tail

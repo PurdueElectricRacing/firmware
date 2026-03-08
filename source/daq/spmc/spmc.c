@@ -44,10 +44,11 @@ void SPMC_init(SPMC_t *spmc) {
  * @param spmc Pointer to the SPMC instance.
  * @param incoming_frame Pointer to the timestamped_frame_t containing the received CAN message.
  */
-int SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame) {
+[[gnu::always_inline]]
+inline int SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame) {
     // calc next head and account for wraparound
     size_t next_head = spmc->head + 1;
-    if (next_head == SPMC_NUM_FRAMES) {
+    if (next_head == SPMC_CAPACITY) {
         next_head = 0;
     }
 
@@ -92,8 +93,8 @@ size_t SPMC_master_peek_all(SPMC_t *spmc, timestamped_frame_t **first_item, size
     }
 
     // wraparound case
-    *total_unread = (SPMC_NUM_FRAMES - tail) + head;
-    return (SPMC_NUM_FRAMES - tail);
+    *total_unread = (SPMC_CAPACITY - tail) + head;
+    return (SPMC_CAPACITY - tail);
 }
 
 /**
@@ -107,7 +108,7 @@ void SPMC_master_commit_tail(SPMC_t *spmc, size_t num_consumed) {
     uint32_t basepri = __get_BASEPRI();
     __set_BASEPRI(CAN_RX_IRQ_PRIO << (8 - __NVIC_PRIO_BITS));
 
-    const size_t next_tail = (spmc->master_tail + num_consumed) % SPMC_NUM_FRAMES;
+    const size_t next_tail = (spmc->master_tail + num_consumed) % SPMC_CAPACITY;
     spmc->master_tail = next_tail;
     __DSB();
 
@@ -137,13 +138,13 @@ int SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out, uint32_t *consecu
 
     // todo "catchup" the tail if it's too far behind?
 
-    size_t next = (spmc->follower_tail + 1) % SPMC_NUM_FRAMES;
+    size_t next = (spmc->follower_tail + 1) % SPMC_CAPACITY;
     spmc->follower_tail = next;
 
     if (head >= spmc->follower_tail) {
         *consecutive_items = head - spmc->follower_tail;
     } else {
-        *consecutive_items = (SPMC_NUM_FRAMES - spmc->follower_tail) + head;
+        *consecutive_items = (SPMC_CAPACITY - spmc->follower_tail) + head;
     }
     return 0;
 }

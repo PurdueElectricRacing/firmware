@@ -19,6 +19,12 @@ typedef struct {
     uint64_t payload;  // message data
 } timestamped_frame_t;
 
+typedef enum : int {
+    SPMC_OK = 0,
+    SPMC_FULL = -1,
+    SPMC_EMPTY = -2,
+} SPMC_status_t;
+
 static_assert(
     sizeof(timestamped_frame_t) == 16,
     "timestamped_frame_t must be 16 bytes for optimal access patterns"
@@ -44,9 +50,9 @@ typedef struct {
 } SPMC_t;
 
 void SPMC_init(SPMC_t *spmc);
-int SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame);
+static inline SPMC_status_t SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame);
 size_t SPMC_master_peek_all(SPMC_t *spmc, timestamped_frame_t **first_item, size_t *total_unread);
 void SPMC_master_commit_tail(SPMC_t *spmc, size_t num_consumed);
-int SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out, uint32_t *consecutive_items);
+SPMC_status_t SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out, uint32_t *consecutive_items);
 
 #endif // SPMC_H

@@ -43,9 +43,11 @@ void SPMC_init(SPMC_t *spmc) {
  * 
  * @param spmc Pointer to the SPMC instance.
  * @param incoming_frame Pointer to the timestamped_frame_t containing the received CAN message.
+ *
+ * @return SPMC_OK if the frame was enqueued successfully, or SPMC_FULL if the buffer is full and the frame was dropped.
  */
 [[gnu::always_inline]]
-inline int SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame) {
+static inline SPMC_status_t SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame) {
     // calc next head and account for wraparound
     size_t next_head = spmc->head + 1;
     if (next_head == SPMC_CAPACITY) {
@@ -55,7 +57,7 @@ inline int SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_fra
     // ! the frame is dropped if the buffer is full
     if (next_head == spmc->master_tail) {
         spmc->overflows++;
-        return -1;
+        return SPMC_FULL;
     }
 
     // write the frame into the buffer
@@ -65,7 +67,7 @@ inline int SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_fra
 
     __DSB(); // halt the cpu until write is finished
 
-    return 0;
+    return SPMC_OK;
 }
 
 /**
@@ -124,14 +126,14 @@ void SPMC_master_commit_tail(SPMC_t *spmc, size_t num_consumed) {
  * @param out Output pointer to the popped frame.
  * @param consecutive_items Output pointer to the number of consecutive frames available.
  *
- * @return 0 on success, -1 if no frames are available.
+ * @return SPMC_OK if a frame was successfully popped, or SPMC_EMPTY if the buffer is empty.
  */
-int SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out, uint32_t *consecutive_items) {
+SPMC_status_t SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out, uint32_t *consecutive_items) {
     const size_t head = spmc->head;
     __DMB(); // ensure data visibility of head before reading tail
     if (spmc->follower_tail == head) {
         *consecutive_items = 0;
-        return -1;
+        return SPMC_EMPTY;
     }
 
     *out = &spmc->data[spmc->follower_tail];
@@ -146,6 +148,6 @@ int SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out, uint32_t *consecu
     } else {
         *consecutive_items = (SPMC_CAPACITY - spmc->follower_tail) + head;
     }
-    return 0;
+    return SPMC_OK;
 }
 

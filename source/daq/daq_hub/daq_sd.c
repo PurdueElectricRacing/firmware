@@ -75,39 +75,40 @@ static inline void sd_file_sync(void) {
     }
 }
 
+// todo reevaluate the logic here
 static void _sd_write_periodic(bool bypass) {
-    timestamped_frame_t* buf;
-    uint32_t consecutive_items;
-    UINT bytes_written;
-    FRESULT result;
-
-    if (daq_hub.sd_state != SD_STATE_ACTIVE)
-        return;
-
-    // Use the total item count, not contiguous for the threshold
-    consecutive_items = SPMC_master_get_total(&queue, &buf);
-    if (!(bypass || consecutive_items >= SD_MAX_WRITE_COUNT)) {
+    if (daq_hub.sd_state != SD_STATE_ACTIVE) {
         return;
     }
 
-    if (SPMC_master_peek_batch(&queue, &buf) == 0) {
+    // Use the unread item count, not contiguous for the threshold
+    timestamped_frame_t* buf; // written to by peek_all()
+    size_t unread_items; // written to by peek_all()
+    size_t consecutive_items = SPMC_master_peek_all(&spmc, &buf, &unread_items);
+    
+    bool is_threshold_met = unread_items >= SD_MAX_WRITE_COUNT;
+    if (!is_threshold_met && !bypass) {
+        return;
+    }
+    
+    if (consecutive_items == 0) {
         daq_hub.sd_rx_overflow++;
         return;
     }
 
-    consecutive_items = SPMC_master_peek_batch(&queue, &buf);
     if (consecutive_items > SD_MAX_WRITE_COUNT) {
         consecutive_items = SD_MAX_WRITE_COUNT; // enforce the limit
     }
         
     // Write time :D
     PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 1);
-    result = f_write(&daq_hub.log_fp, buf, consecutive_items * sizeof(*buf), &bytes_written);
+    UINT bytes_written; // written to by f_write()
+    FRESULT result = f_write(&daq_hub.log_fp, buf, consecutive_items * sizeof(*buf), &bytes_written);
     if (result != FR_OK) {
         sd_handle_error(SD_ERROR_WRITE, result);
     } else {
         daq_hub.last_write_ms = getTick();
-        SPMC_master_commit(&queue, bytes_written/sizeof(*buf));
+        SPMC_master_commit_tail(&spmc, bytes_written/sizeof(*buf));
         sd_file_sync(); // fsync takes only 4 ticks and ensures sure cache is flushed on close
     }
     PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
@@ -119,10 +120,13 @@ void sd_shutdown(void) {
             // _sd_write_periodic(true); // Finish write (bypass count limit)
             sd_file_sync(); // Flush cache
             f_close(&daq_hub.log_fp); // Close file
+            // ! intentional fall through
         case SD_STATE_MOUNTED:
             f_mount(0, "", 1); // Unmount drive
+            // ! intentional fall through
         case SD_STATE_IDLE:
             SD_DeInit(); // Shutdown SDIO peripheral
+            // ! intentional fall through
         default:
             daq_hub.sd_state = SD_STATE_IDLE;
             PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);

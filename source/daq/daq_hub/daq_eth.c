@@ -188,22 +188,26 @@ static int8_t eth_udp_init(void) {
 }
 
 static void eth_udp_send_periodic(void) {
-    int32_t ret;
+    if (daq_hub.eth_state != ETH_LINK_UP) {
+        return; // link not up
+    }
+
     timestamped_frame_t* buf;
     uint32_t consecutive_items;
-
-    if (daq_hub.eth_state == ETH_LINK_UP) {
-        if (SPMC_follower_pop(&queue, &buf, &consecutive_items) == 0) {
-            if (consecutive_items > UDP_MAX_WRITE_COUNT)
-            
-                consecutive_items = UDP_MAX_WRITE_COUNT; // limit
-            // Write time :D
-            ret = sendto(eth_config.udp_bc_sock, (uint8_t*)buf, consecutive_items * sizeof(*buf), eth_config.udp_bc_addr, eth_config.udp_bc_port);
-            if (ret < consecutive_items * sizeof(*buf)) {
-                eth_handle_error(ETH_ERROR_UDP_SEND, ret);
-            } 
-        }
+    if (SPMC_follower_pop(&spmc, &buf, &consecutive_items) != SPMC_OK) {
+        return; // No data to send
     }
+
+    if (consecutive_items > UDP_MAX_WRITE_COUNT) {
+        consecutive_items = UDP_MAX_WRITE_COUNT; // limit
+    }
+
+    // Write time :D
+    uint16_t write_len = consecutive_items * sizeof(timestamped_frame_t);
+    int32_t ret = sendto(eth_config.udp_bc_sock, (uint8_t*)buf, write_len, eth_config.udp_bc_addr, eth_config.udp_bc_port);
+    if (ret < write_len) {
+        eth_handle_error(ETH_ERROR_UDP_SEND, ret);
+    } 
 }
 
 // static void eth_udp_send_frame(timestamped_frame_t* frame) {

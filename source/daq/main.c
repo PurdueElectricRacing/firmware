@@ -115,7 +115,7 @@ DEBUG_PRINTF_USART_DEFINE(&lte_usart_config) // use LTE uart lmao
 extern daq_hub_t daq_hub;
 
 // Static buffer allocations
-SPMC_t queue;
+SPMC_t spmc;
 timestamped_frame_t buf;
 DEFINE_MUTEX(spi1_lock);
 
@@ -124,10 +124,6 @@ bool can_parse_error_status(uint32_t err, timestamped_frame_t* frame);
 void shutdown(void);
 
 int main() {
-    osKernelInitialize();
-
-    SPMC_init(&queue, NULL,  NULL);
-
     if (0 != PHAL_configureClockRates(&clock_config))
         HardFault_Handler();
 
@@ -152,6 +148,9 @@ int main() {
 
     daq_spi_register_callbacks(); // Link SPI for ethernet driver
     daq_hub_init();
+
+    osKernelInitialize();
+    SPMC_init(&spmc);
     configure_interrupts();
 
     INIT_MUTEX(spi1_lock);
@@ -170,19 +169,11 @@ static void configure_interrupts(void) {
     EXTI->IMR |= EXTI_IMR_MR15; // Unmask EXTI15
     EXTI->FTSR |= EXTI_FTSR_TR15; // Enable the falling edge trigger (active low reset)
     NVIC_SetPriority(EXTI15_10_IRQn, 15); // allow other interrupts to preempt this one (especially systick and dma)
-
-    NVIC_SetPriority(CAN1_RX0_IRQn, 6); // highest RTOS priority
-    NVIC_SetPriority(CAN2_RX0_IRQn, 7);
-    NVIC_SetPriority(CAN1_SCE_IRQn, 10);
-
-    NVIC_EnableIRQ(CAN1_RX0_IRQn);
-    NVIC_EnableIRQ(CAN1_SCE_IRQn);
-    NVIC_EnableIRQ(CAN2_RX0_IRQn);
     NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
 // TODO verify with canable that this works 
-static void can_rx_irq_handler(CAN_TypeDef* can_h) {
+static inline void can_rx_irq_handler(CAN_TypeDef* can_h) {
     portBASE_TYPE xHigherPriorityTaskWoken;
     xHigherPriorityTaskWoken = pdFALSE;
 
@@ -216,7 +207,7 @@ static void can_rx_irq_handler(CAN_TypeDef* can_h) {
         rx->payload = (uint64_t) (can_h->sFIFOMailBox[0].RDLR); 
         rx->payload |= (uint64_t) (can_h->sFIFOMailBox[0].RDHR) << 32;
 
-        SPMC_enqueue_ISR(&queue,rx);
+        (void)SPMC_enqueue_from_ISR(&spmc, rx);
 
         if ((daq_hub.rtc_config_state != RTC_SYNC_COMPLETE) && ((rx->identity & STD_ID_MASK) == GPS_TIME_MSG_ID)) rtc_config_cb(rx);
     } 

@@ -7,126 +7,146 @@
  */
 
 #include "spmc.h"
+#include "stm32f407xx.h"
 
-// todo maybe commit the last write right when power is lost?? idk
+// todo maybe commit the last write right when power is lost?
 
-void SPMC_init(
-    SPMC_t *spmc,
-    TaskHandle_t master_task,
-    TaskHandle_t follower_task
-) {
+static constexpr uint32_t CAN_RX_IRQ_PRIO = 6;  // highest RTOS priority
+static constexpr uint32_t CAN_SCE_IRQ_PRIO = 10;
+static_assert(
+    CAN_RX_IRQ_PRIO < CAN_SCE_IRQ_PRIO,
+    "RX IRQs should have higher priority than SCE IRQs"
+);
+
+/**
+ * @brief Initializes the SPMC instance and configures CAN RX interrupts.
+ *
+ * @param spmc Pointer to the SPMC instance to initialize.
+ */
+void SPMC_init(SPMC_t *spmc) {
     memset(spmc, 0, sizeof(SPMC_t));
-    spmc->master_task = master_task;
-    spmc->follower_task = follower_task;
     spmc->head = 0;
     spmc->master_tail = 0;
     spmc->follower_tail = 0;
+
+    // CAN1 and CAN2 RX0 IRQs must be set to the same priority to hold the SPMC single producer assumption
+    NVIC_SetPriority(CAN1_RX0_IRQn, CAN_RX_IRQ_PRIO);
+    NVIC_SetPriority(CAN2_RX0_IRQn, CAN_RX_IRQ_PRIO);
+    NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    NVIC_EnableIRQ(CAN2_RX0_IRQn);
 }
 
-// ! note: the two producer ISRs must have the same priority to prevent interruption in the middle of a write
-int SPMC_enqueue_ISR(
-    SPMC_t *spmc,
-    timestamped_frame_t *incoming_frame
-) {
+
+/**
+ * @brief Enqueues a received CAN message into the SPMC buffer from an ISR context.
+ * ! the two producer ISRs must have the same priority to prevent preemption in the middle of a write
+ * 
+ * @param spmc Pointer to the SPMC instance.
+ * @param incoming_frame Pointer to the timestamped_frame_t containing the received CAN message.
+ *
+ * @return SPMC_OK if the frame was enqueued successfully, or SPMC_FULL if the buffer is full and the frame was dropped.
+ */
+SPMC_status_t SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame) {
     // calc next head and account for wraparound
     size_t next_head = spmc->head + 1;
-    if (next_head == SPMC_NUM_FRAMES) {
+    if (next_head == SPMC_CAPACITY) {
         next_head = 0;
     }
 
+    // ! the frame is dropped if the buffer is full
     if (next_head == spmc->master_tail) {
         spmc->overflows++;
-        return -1;
+        return SPMC_FULL;
     }
 
     // write the frame into the buffer
     spmc->data[spmc->head] = *incoming_frame;
-
-    // commit next head only after the write is completed
+    __DMB(); // do not switch the order of the data write and head update
     spmc->head = next_head;
 
-    return 0;
+    __DSB(); // halt the cpu until write is finished
+
+    return SPMC_OK;
 }
 
-// get a contiguous batch for DMA transfer without actually committing the master tail yet
-// returns the number of contiguous items?
-size_t SPMC_master_peek_batch(
-    SPMC_t *spmc,
-    timestamped_frame_t **first_item
-) {
+/**
+ * @brief Peeks at the next batch of frames available for processing by the master (SD logging) without committing the tail.
+ * Intended to be used with a DMA operation.
+ * 
+ * @param spmc Pointer to the SPMC instance.
+ * @param first_item Output pointer that will point to the first item in the batch if available, or NULL if no items are available.
+ * @param total_unread Output pointer that will be set to the total number of unread frames available in the buffer.
+ *
+ * @return The number of contiguous items available in the batch.
+ */
+size_t SPMC_master_peek_all(SPMC_t *spmc, timestamped_frame_t **first_item, size_t *total_unread) {
     const size_t head = spmc->head;
+    __DMB(); // ensure data visibility of head before reading tail
     const size_t tail = spmc->master_tail;
 
-    if (head == tail) {
-        *first_item = NULL;
-        return 0;
-    }
-
+    __DMB(); // dont read the buffer before tail/head are ready
     *first_item = &spmc->data[tail];
     
-    if (head > tail) {
-        return head - tail;
-    } else {
-        return SPMC_NUM_FRAMES - tail;
+    // contiguous case
+    if (head >= tail) {
+        *total_unread = head - tail;
+        return *total_unread;
     }
+
+    // wraparound case
+    *total_unread = (SPMC_CAPACITY - tail) + head;
+    return (SPMC_CAPACITY - tail);
 }
 
+/**
+ * @brief Commits the specified number of consumed frames by advancing the master tail pointer.
+ * 
+ * @param spmc Pointer to the SPMC instance.
+ * @param num_consumed The number of frames to commit.
+ */
+void SPMC_master_commit_tail(SPMC_t *spmc, size_t num_consumed) {
+    // mask the CAN RX IRQs
+    uint32_t basepri = __get_BASEPRI();
+    __set_BASEPRI(CAN_RX_IRQ_PRIO << (8 - __NVIC_PRIO_BITS));
 
-size_t SPMC_master_get_total(
-    SPMC_t *spmc,
-    timestamped_frame_t **first_item
-) {
-    const size_t head = spmc->head;
-    const size_t tail = spmc->master_tail;
-
-    if (head == tail) {
-        *first_item = NULL;
-        return 0;
-    }
-
-    *first_item = &spmc->data[tail];
-    
-    if (head > tail) {
-        return head - tail;
-    } else {
-        return SPMC_NUM_FRAMES - (tail - head);
-    }
-}
-
-/*
-    this function must be kept extremely short to prevent
-    overflowing the CAN peripheral and missing data
-*/ 
-void SPMC_master_commit(SPMC_t *spmc, size_t num_consumed) {
-    // defer producer IRQs to prevent a .. race condition?
-    taskENTER_CRITICAL();
-    const size_t next_tail = (spmc->master_tail + num_consumed) % SPMC_NUM_FRAMES;
+    const size_t next_tail = (spmc->master_tail + num_consumed) % SPMC_CAPACITY;
     spmc->master_tail = next_tail;
-    taskEXIT_CRITICAL();
+    __DSB();
+
+    __set_BASEPRI(basepri);
 }
 
-/*
-    get a single frame we dont care how fast it is or how out of date the data is
-*/ 
-int SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out ,uint32_t *consecutive_items) {
+/**
+ * @brief Pops a single frame for the follower (Ethernet transmission) and advances the follower tail pointer.
+ * todo: this function is incomplete
+ * todo: optimize for DMA batch transfers, similar to the master's function
+ *
+ * @param spmc Pointer to the SPMC instance.
+ * @param out Output pointer to the popped frame.
+ * @param consecutive_items Output pointer to the number of consecutive frames available.
+ *
+ * @return SPMC_OK if a frame was successfully popped, or SPMC_EMPTY if the buffer is empty.
+ */
+SPMC_status_t SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out, uint32_t *consecutive_items) {
     const size_t head = spmc->head;
-    if (spmc->follower_tail == spmc->head) {
-        return -1;
+    __DMB(); // ensure data visibility of head before reading tail
+    if (spmc->follower_tail == head) {
+        *consecutive_items = 0;
+        return SPMC_EMPTY;
     }
 
     *out = &spmc->data[spmc->follower_tail];
 
     // todo "catchup" the tail if it's too far behind?
 
-    size_t next = spmc->follower_tail + 1;
-    if (next == SPMC_NUM_FRAMES) next = 0;
+    size_t next = (spmc->follower_tail + 1) % SPMC_CAPACITY;
     spmc->follower_tail = next;
 
-    if (head > spmc->follower_tail) {
+    if (head >= spmc->follower_tail) {
         *consecutive_items = head - spmc->follower_tail;
     } else {
-        *consecutive_items =  SPMC_NUM_FRAMES - spmc->follower_tail;
+        *consecutive_items = (SPMC_CAPACITY - spmc->follower_tail) + head;
     }
-    return 0;
+    return SPMC_OK;
 }
 

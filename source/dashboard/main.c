@@ -193,7 +193,7 @@ int main(void) {
 
     START_TASK(pedalsPeriodic);
     START_TASK(can_worker_task);
-    // START_TASK(service_start_button);
+    START_TASK(service_start_button);
     START_TASK(heartbeat_task);
     START_TASK(fault_library_periodic);
     START_TASK(service_button_inputs);
@@ -204,13 +204,10 @@ int main(void) {
     return 0;
 }
 
+bool start_button_pressed = false;
 void service_start_button() {
-    if (input_state.start_button) {
-        input_state.start_button = 0;
-        CAN_SEND_start_button(true);
-    } else {
-        CAN_SEND_start_button(false);
-    }
+    start_button_pressed = PHAL_readGPIO(START_BTN_GPIO_Port, START_BTN_Pin);
+    CAN_SEND_start_button(start_button_pressed);
 }
 
 void can_worker_task() {

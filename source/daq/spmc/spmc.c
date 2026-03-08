@@ -46,8 +46,7 @@ void SPMC_init(SPMC_t *spmc) {
  *
  * @return SPMC_OK if the frame was enqueued successfully, or SPMC_FULL if the buffer is full and the frame was dropped.
  */
-[[gnu::always_inline]]
-static inline SPMC_status_t SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame) {
+SPMC_status_t SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame) {
     // calc next head and account for wraparound
     size_t next_head = spmc->head + 1;
     if (next_head == SPMC_CAPACITY) {

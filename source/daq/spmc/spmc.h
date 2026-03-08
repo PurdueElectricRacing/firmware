@@ -50,7 +50,7 @@ typedef struct {
 } SPMC_t;
 
 void SPMC_init(SPMC_t *spmc);
-static inline SPMC_status_t SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame);
+SPMC_status_t SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame);
 size_t SPMC_master_peek_all(SPMC_t *spmc, timestamped_frame_t **first_item, size_t *total_unread);
 void SPMC_master_commit_tail(SPMC_t *spmc, size_t num_consumed);
 SPMC_status_t SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out, uint32_t *consecutive_items);

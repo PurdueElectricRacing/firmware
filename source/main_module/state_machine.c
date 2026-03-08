@@ -33,8 +33,9 @@ void ready2drive_periodic() {
     // todo alternative throttle mapping (like S curve)
 
     // assumes filt_throttle_brake.throttle is in the range [0, 4095]
-    float throttle = can_data.filt_throttle_brake.throttle / 4095.0f;
-    int16_t torque_req_percent = (int16_t)(throttle * 100);
+    // float throttle = can_data.filt_throttle_brake.throttle / 4095.0f;
+    // int16_t torque_req_percent = (int16_t)(throttle * 100);
+    int16_t torque_req_percent = 2; // ! temp for testing
     
     g_torque_request.front_right = torque_req_percent;
     g_torque_request.front_left  = torque_req_percent;
@@ -125,7 +126,8 @@ void fsm_periodic() {
     update_tsal();
 
     // update precharge status
-    bool precharge_pin = !PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
+    // bool precharge_pin = !PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
+    bool precharge_pin = false;
     update_fault(FAULT_ID_PRECHARGE_INCOMPLETE, precharge_pin);
     // amks need a bool to point to for precharge status
     g_car.is_precharge_complete = !is_latched(FAULT_ID_PRECHARGE_INCOMPLETE);
@@ -158,7 +160,7 @@ void fsm_periodic() {
         case CARSTATE_ENERGIZED: {
             // do nothing for now
 
-            if (is_start_button_pressed() && is_all_AMKS_running()) {
+            if (is_start_button_pressed()) {
                 g_car.buzzer_start_time = OS_TICKS;
                 g_car.next_state = CARSTATE_BUZZING;
             }

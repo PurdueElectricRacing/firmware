@@ -1,6 +1,6 @@
 {
     "node_name": "IZZE_IMU",
-    "bus_name": "GCAN",
+    "bus_name": "VCAN",
     "tx": [
         {
             "msg_name": "Angular_Rate",
@@ -34,6 +34,7 @@
                 }
             ],
             "msg_period": 10,
+            "msg_id_override": "0x4EC",
             "msg_priority": 5
         },
         {
@@ -70,6 +71,7 @@
                 }
             ],
             "msg_period": 10,
+            "msg_id_override": "0x4ED",
             "msg_priority": 5
         }
     ],

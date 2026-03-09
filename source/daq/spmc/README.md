@@ -18,4 +18,4 @@ Assumptions:
 
 ![timing diagram](SD_timing_diagram.png)
 
-![sd fsm](SD_thread_fsm.png)
+![sd fsm](SD_thread_FSM.png)

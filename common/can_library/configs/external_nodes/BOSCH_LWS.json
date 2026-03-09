@@ -1,5 +1,5 @@
 {
-    "node_name": "STEERING",
+    "node_name": "BOSCH_LWS",
     "bus_name": "VCAN",
     "tx": [
         {

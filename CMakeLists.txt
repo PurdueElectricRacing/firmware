@@ -24,11 +24,15 @@ set(COMMON_SOURCE_DIR ${CMAKE_SOURCE_DIR}/common)
 # Add Libraries
 include(cmake/utils.cmake)
 include(cmake/FindCMSIS.cmake)
+include(cmake/FindCMSIS-DSP.cmake)
 include(cmake/FindSTM32HAL.cmake)
 
 # See cmake/FindCMSIS.cmake and cmake/FindSTM32HAL.cmake for constructing additional libraries
 make_cmsis_library(CMSIS_F407 STM32F4xx STM32F407xx ${CMAKE_SOURCE_DIR}/external/STM32CubeF4/Drivers/CMSIS)
 make_cmsis_library(CMSIS_G474 STM32G4xx STM32G474xx ${CMAKE_SOURCE_DIR}/external/STM32CubeG4/Drivers/CMSIS)
+
+# Include CMSIS-DSP library
+add_cmsis_dsp(CMSISDSP)
 
 include(cmake/FindFreeRTOS.cmake)
 

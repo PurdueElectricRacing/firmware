@@ -54,3 +54,19 @@ int _getpid(void) {
 int _getpid_r(struct _reent* r) {
     return _getpid();
 }
+
+/*
+    dummy global errno to make linker happy 
+ */
+
+#include <errno.h>
+
+static int global_errno = 0;
+
+int *__errno_location(void) {
+    return &global_errno;
+}
+
+int *__errno(void) {
+    return &global_errno;
+}

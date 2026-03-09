@@ -1,5 +1,5 @@
 {
-    "node_name": "CHARGER",
+    "node_name": "ELCON_CHARGER",
     "bus_name": "CCAN",
     "tx": [
         {
@@ -10,15 +10,13 @@
                     "sig_name": "charge_voltage",
                     "unit": "V",
                     "scale": 0.1,
-                    "type": "uint16_t",
-                    "length": 16
+                    "type": "uint16_t"
                 },
                 {
                     "sig_name": "charge_current",
                     "unit": "A",
                     "scale": 0.1,
-                    "type": "uint16_t",
-                    "length": 16
+                    "type": "uint16_t"
                 },
                 {
                     "sig_name": "hw_fail",

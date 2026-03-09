@@ -1,6 +1,6 @@
 {
     "node_name": "BOSCH_LWS",
-    "bus_name": "VCAN",
+    "bus_name": "SCAN",
     "tx": [
         {
             "msg_name": "LWS_Standard",

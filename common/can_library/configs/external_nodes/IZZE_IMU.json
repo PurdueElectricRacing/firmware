@@ -3,7 +3,7 @@
     "bus_name": "VCAN",
     "tx": [
         {
-            "msg_name": "Angular_Rate",
+            "msg_name": "IZZE_angular_rate",
             "msg_desc": "Angular Rate",
             "signals": [
                 {
@@ -38,7 +38,7 @@
             "msg_priority": 5
         },
         {
-            "msg_name": "Acceleration",
+            "msg_name": "IZZE_acceleration",
             "msg_desc": "Acceleration",
             "signals": [
                 {

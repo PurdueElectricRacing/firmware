@@ -25,41 +25,41 @@
 #define WHEEL_RADIUS (8) // inches
 
 // Driver Configuration Page
-#define DRIVER1_LIST "t1"
-#define DRIVER2_LIST "t2"
-#define DRIVER3_LIST "t3"
-#define DRIVER4_LIST "t4"
-#define DRIVER1_NAME "Default"
-#define DRIVER2_NAME "Tyler"
-#define DRIVER3_NAME "Luca"
-#define DRIVER4_NAME "Luke"
+// #define DRIVER1_LIST "t1"
+// #define DRIVER2_LIST "t2"
+// #define DRIVER3_LIST "t3"
+// #define DRIVER4_LIST "t4"
+// #define DRIVER1_NAME "Default"
+// #define DRIVER2_NAME "Tyler"
+// #define DRIVER3_NAME "Luca"
+// #define DRIVER4_NAME "Luke"
 
 // Profile Page
-#define PROFILE_CURRENT_TXT  "curr"
-#define PROFILE_BRAKE_FLT    "brake"
-#define PROFILE_THROTTLE_FLT "throt"
-#define PROFILE_SAVE_BUTTON  "save"
-#define PROFILE_STATUS_TXT   "stat"
+// #define PROFILE_CURRENT_TXT  "curr"
+// #define PROFILE_BRAKE_FLT    "brake"
+// #define PROFILE_THROTTLE_FLT "throt"
+// #define PROFILE_SAVE_BUTTON  "save"
+// #define PROFILE_STATUS_TXT   "stat"
 
 //Error/Knob page values
-#define TIME_BAR "j0" // todo
-#define ERR_TXT  "t1"
+// #define TIME_BAR "j0" // todo
+// #define ERR_TXT  "t1"
 
 // SDC Info Page
-#define SDC_IMD_STAT_TXT   "t2"
-#define SDC_BMS_STAT_TXT   "t8"
-#define SDC_BSPD_STAT_TXT  "t14"
-#define SDC_BOTS_STAT_TXT  "t20"
-#define SDC_INER_STAT_TXT  "t26"
-#define SDC_CSTP_STAT_TXT  "t4"
-#define SDC_MAIN_STAT_TXT  "t10"
-#define SDC_RSTP_STAT_TXT  "t16"
-#define SDC_LSTP_STAT_TXT  "t22"
-#define SDC_HVD_STAT_TXT   "t6"
-#define SDC_RHUB_STAT_TXT  "t12"
-#define SDC_TSMS_STAT_TXT  "t18"
-#define SDC_PCHG_STAT_TXT  "t24"
-#define SDC_FIRST_TRIP_TXT "t28"
+// #define SDC_IMD_STAT_TXT   "t2"
+// #define SDC_BMS_STAT_TXT   "t8"
+// #define SDC_BSPD_STAT_TXT  "t14"
+// #define SDC_BOTS_STAT_TXT  "t20"
+// #define SDC_INER_STAT_TXT  "t26"
+// #define SDC_CSTP_STAT_TXT  "t4"
+// #define SDC_MAIN_STAT_TXT  "t10"
+// #define SDC_RSTP_STAT_TXT  "t16"
+// #define SDC_LSTP_STAT_TXT  "t22"
+// #define SDC_HVD_STAT_TXT   "t6"
+// #define SDC_RHUB_STAT_TXT  "t12"
+// #define SDC_TSMS_STAT_TXT  "t18"
+// #define SDC_PCHG_STAT_TXT  "t24"
+// #define SDC_FIRST_TRIP_TXT "t28"
 
 // Fault Page
 #define FAULT1_BUTTON     "ERROR1"
@@ -82,28 +82,28 @@
 #define FAULT_NONE_STRING "NONE\0"
 
 // TV Settings Page Values
-#define TV_PERMIT_MODE_TXT  "permit"
-#define TV_CONTROL_MODE_TXT "control"
-#define TV_DEADBAND_TXT     "dead"
-#define TV_P_GAIN_FLT       "pgain"
-#define TV_TORQUE_DROP_FLT  "tdrop"
-#define TV_MAX_SLIP_FLT     "slip"
-#define TV_CAN_STATUS       "can"
-// Default to Tyler's settings
-#define TV_DEADBAND_DEFAULT_VALUE    5U // 5
-#define TV_P_GAIN_DEFAULT_VALUE      250U // 2.50
-#define TV_TORQUE_DROP_DEFAULT_VALUE 100U // 1.00
-#define TV_SLIP_DEFAULT_VALUE        100U // 1.00
+// #define TV_PERMIT_MODE_TXT  "permit"
+// #define TV_CONTROL_MODE_TXT "control"
+// #define TV_DEADBAND_TXT     "dead"
+// #define TV_P_GAIN_FLT       "pgain"
+// #define TV_TORQUE_DROP_FLT  "tdrop"
+// #define TV_MAX_SLIP_FLT     "slip"
+// #define TV_CAN_STATUS       "can"
+// // Default to Tyler's settings
+// #define TV_DEADBAND_DEFAULT_VALUE    5U // 5
+// #define TV_P_GAIN_DEFAULT_VALUE      250U // 2.50
+// #define TV_TORQUE_DROP_DEFAULT_VALUE 100U // 1.00
+// #define TV_SLIP_DEFAULT_VALUE        100U // 1.00
 
 // Cooling Page
-#define DT_FAN_VAL         "DFan"
-#define DT_FAN_BAR         "DBar"
-#define DT_PUMP_OP         "DPump"
-#define B_FAN_VAL          "BFan"
-#define B_FAN_BAR          "BBar"
-#define B_PUMP_OP          "BPump"
-#define BAR_INTERVAL       (25)
-#define COOLING_CAN_STATUS "can"
+// #define DT_FAN_VAL         "DFan"
+// #define DT_FAN_BAR         "DBar"
+// #define DT_PUMP_OP         "DPump"
+// #define B_FAN_VAL          "BFan"
+// #define B_FAN_BAR          "BBar"
+// #define B_PUMP_OP          "BPump"
+// #define BAR_INTERVAL       (25)
+// #define COOLING_CAN_STATUS "can"
 
 // Race Page
 // #define THROT_BAR          "throt"
@@ -163,7 +163,7 @@
 #define CALIBRATION_BRAKE_PRS2_VAL   "brkprs2"
 
 typedef enum {
-    // Should corresspond with the page count in main.h
+    // Should correspond with the page count in main.h
     PAGE_PREFLIGHT    = 0,
     PAGE_RACE        = 1,
     // PAGE_SDC_INFO    = 2,

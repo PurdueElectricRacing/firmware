@@ -287,7 +287,6 @@ void faultTelemetryUpdate() {
     // todo
 }
 
-
 /**
  * @brief Updates the display of fault messages on the LCD screen
  *

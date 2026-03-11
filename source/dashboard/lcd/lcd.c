@@ -182,7 +182,7 @@ void updatePage() {
             NXT_setPage(FAULT_STRING);
             break;
         case PAGE_CALIBRATION:
-            NXT_setPage(APPS_STRING);
+            NXT_setPage(CALIBRATION_STRING);
             break;
         default:
             curr_page = PAGE_RACE; // something probably went wrong

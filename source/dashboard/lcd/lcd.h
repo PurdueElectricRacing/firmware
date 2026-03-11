@@ -8,7 +8,7 @@
 #define PREFLIGHT_STRING     "preflight"
 #define RACE_STRING          "race"
 // #define COOLING_STRING       "cooling"
-#define APPS_STRING          "calibration"
+#define CALIBRATION_STRING          "calibration"
 // #define ERR_STRING           "error"
 // #define WARN_STRING          "warning"
 // #define FATAL_STRING         "critical"

@@ -7,17 +7,17 @@
 // Page Strings (must match Nextion page names)
 #define PREFLIGHT_STRING     "preflight"
 #define RACE_STRING          "race"
-#define COOLING_STRING       "cooling"
+// #define COOLING_STRING       "cooling"
 #define APPS_STRING          "calibration"
-#define ERR_STRING           "error"
-#define WARN_STRING          "warning"
-#define FATAL_STRING         "critical"
-#define FAULT_STRING         "faults"
-#define TVSETTINGS_STRING    "tvsettings"
-#define DRIVER_STRING        "driver"
-#define DRIVER_CONFIG_STRING "profile"
-#define SDCINFO_STRING       "sdcinfo"
-#define LOGGING_STRING       "logging"
+// #define ERR_STRING           "error"
+// #define WARN_STRING          "warning"
+// #define FATAL_STRING         "critical"
+#define FAULT_STRING         "fault"
+// #define TVSETTINGS_STRING    "tvsettings"
+// #define DRIVER_STRING        "driver"
+// #define DRIVER_CONFIG_STRING "profile"
+// #define SDCINFO_STRING       "sdcinfo"
+// #define LOGGING_STRING       "logging"
 
 // Info
 #define MPS_TO_MPH   (2.237F)
@@ -62,17 +62,23 @@
 #define SDC_FIRST_TRIP_TXT "t28"
 
 // Fault Page
-#define FAULT1_BUTTON     "t1"
-#define FAULT2_BUTTON     "t2"
-#define FAULT3_BUTTON     "t3"
-#define FAULT4_BUTTON     "t4"
-#define FAULT5_BUTTON     "t5"
-#define FAULT1_TXT        "fault1"
-#define FAULT2_TXT        "fault2"
-#define FAULT3_TXT        "fault3"
-#define FAULT4_TXT        "fault4"
-#define FAULT5_TXT        "fault5"
-#define CLEAR_BUTTON      "clear"
+#define FAULT1_BUTTON     "ERROR1"
+#define FAULT2_BUTTON     "ERROR2"
+#define FAULT3_BUTTON     "ERROR3"
+#define FAULT4_BUTTON     "ERROR4"
+#define FAULT5_BUTTON     "ERROR5"
+#define FAULT6_BUTTON     "ERROR6"
+#define FAULT7_BUTTON     "ERROR7"
+#define FAULT8_BUTTON     "ERROR8"
+#define FAULT1_TXT        "ERROR1"
+#define FAULT2_TXT        "ERROR2"
+#define FAULT3_TXT        "ERROR3"
+#define FAULT4_TXT        "ERROR4"
+#define FAULT5_TXT        "ERROR5"
+#define FAULT6_TXT        "ERROR6"
+#define FAULT7_TXT        "ERROR7"
+#define FAULT8_TXT        "ERROR8"
+#define CLEAR_BUTTON      "clear_stale"
 #define FAULT_NONE_STRING "NONE\0"
 
 // TV Settings Page Values
@@ -100,8 +106,25 @@
 #define COOLING_CAN_STATUS "can"
 
 // Race Page
+// #define THROT_BAR          "throt"
+// #define BRK_BAR            "brake"
+// #define BATT_TEMP          "BTemp"
+// #define BATT_VOLT          "volt"
+// #define BATT_CURR          "amp"
+// #define MOT_TEMP           "MTemp"
+// #define MC_TEMP            "IGBTemp" // IGBT Temp now
+// #define CAR_STAT           "stat"
+// #define SPEED              "speed"
+// #define RACE_TV_ON         "tv"
+// #define AMK_MOTOR_OVERLOAD "amk"
 #define THROT_BAR          "throt"
 #define BRK_BAR            "brake"
+#define RGN_BAR            "regen"
+#define FL_BAR             "FL"
+#define FR_BAR             "FR"
+#define RL_BAR             "RL"
+#define RR_BAR             "RR"
+#define PUMP_CHECK         "pump"
 #define BATT_TEMP          "BTemp"
 #define BATT_VOLT          "volt"
 #define BATT_CURR          "amp"
@@ -110,32 +133,42 @@
 #define CAR_STAT           "stat"
 #define SPEED              "speed"
 #define RACE_TV_ON         "tv"
-#define AMK_MOTOR_OVERLOAD "amk"
+// #define AMK_MOTOR_OVERLOAD "amk"
+#define CURRENT_TIME       "current"
+#define BEST_TIME          "best"
+#define LAP_TIME           "lap"
 
 // Logging Page
 #define LOG_OP             "log"
 #define LOGGING_STATUS_TXT "stat"
 
 // Calibration Page
-#define CALIBRATION_BRAKE1_VAL       "B1"
-#define CALIBRATION_BRAKE2_VAL       "B2"
-#define CALIBRATION_THROTTLE1_VAL    "T1"
-#define CALIBRATION_THROTTLE2_VAL    "T2"
-#define CALIBRATION_BRAKE_DEV_VAL    "BDev"
-#define CALIBRATION_THROTTLE_DEV_VAL "TDev"
-#define CALIBRATION_BRAKE_BAR        "brake"
-#define CALIBRATION_THROTTLE_BAR     "throt"
-#define CALIBRATION_BRAKE_STAT       "stat"
-#define CALIBRATION_BRAKE_FAIL       "fail"
-#define CALIBRATION_BRAKE1_THRESHOLD "B1T"
-#define CALIBRATION_BRAKE2_THRESHOLD "B2T"
+// #define CALIBRATION_BRAKE1_VAL       "B1"
+// #define CALIBRATION_BRAKE2_VAL       "B2"
+// #define CALIBRATION_THROTTLE1_VAL    "T1"
+// #define CALIBRATION_THROTTLE2_VAL    "T2"
+// #define CALIBRATION_BRAKE_DEV_VAL    "BDev"
+// #define CALIBRATION_THROTTLE_DEV_VAL "TDev"
+// #define CALIBRATION_BRAKE_BAR        "brake"
+// #define CALIBRATION_THROTTLE_BAR     "throt"
+// #define CALIBRATION_BRAKE_STAT       "stat"
+// #define CALIBRATION_BRAKE_FAIL       "fail"
+// #define CALIBRATION_BRAKE1_THRESHOLD "B1T"
+// #define CALIBRATION_BRAKE2_THRESHOLD "B2T"
+#define CALIBRATION_BRAKE1_VAL       "brk1"
+#define CALIBRATION_BRAKE2_VAL       "brk2"
+#define CALIBRATION_THROTTLE1_VAL    "thr1"
+#define CALIBRATION_THROTTLE2_VAL    "thr2"
+#define CALIBRATION_BRAKE_PRS1_VAL   "brkprs1"
+#define CALIBRATION_BRAKE_PRS2_VAL   "brkprs2"
 
 typedef enum {
     // Should corresspond with the page count in main.h
-    PAGE_RACE        = 0,
-    PAGE_FAULTS      = 1,
-    PAGE_SDC_INFO    = 2,
-    PAGE_CALIBRATION = 3,
+    PAGE_PREFLIGHT    = 0,
+    PAGE_RACE        = 1,
+    // PAGE_SDC_INFO    = 2,
+    PAGE_CALIBRATION = 2,
+    PAGE_FAULTS      = 3,
     NUM_PAGES       = 4,
 } page_t;
 

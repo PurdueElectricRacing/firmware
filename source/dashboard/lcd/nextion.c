@@ -77,6 +77,17 @@ void NXT_setBorderWidth(char* obj_name, uint16_t val) {
 }
 
 /**
+ * @brief Sets the border color of a specified object on the Nextion display.
+ *
+ * @param obj_name The name of the object on the Nextion display.
+ * @param val The border color value to set for the specified object.
+ */
+void NXT_setBorderColor(char* obj_name, uint16_t val) {
+    strbuf_printf(&lcd_tx_buf, "%s%s%d", obj_name, NXT_BORDER_COLOR, val);
+    strbuf_append(&lcd_tx_buf, NXT_CMD_TERM, 3);
+}
+
+/**
  * @brief Sets the text of a Nextion display object.
  *
  * @param obj_name The name of the Nextion object (e.g., "t0").

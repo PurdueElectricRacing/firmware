@@ -64,4 +64,9 @@ void MS_decrementValue(menu_element_t* element);
 void MS_refreshPage(menu_page_t* page);
 int8_t MS_listGetSelected(menu_page_t* page);
 
+// Style functions
+void MS_setStyleNormal(menu_element_t* element);
+void MS_setStyleHover(menu_element_t* element);
+void MS_setStyleSelected(menu_element_t* element);
+
 #endif // MENU_SYSTEM_H

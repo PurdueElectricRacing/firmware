@@ -95,6 +95,21 @@ menu_element_t faults_elements[] = {
     },
     [5] = {
         .type        = ELEMENT_BUTTON,
+        .object_name = FAULT6_BUTTON,
+        .on_change   = faultsClearButton_CALLBACK // clear fault
+    },
+    [6] = {
+        .type        = ELEMENT_BUTTON,
+        .object_name = FAULT7_BUTTON,
+        .on_change   = faultsClearButton_CALLBACK // clear fault
+    },
+    [7] = {
+        .type        = ELEMENT_BUTTON,
+        .object_name = FAULT8_BUTTON,
+        .on_change   = faultsClearButton_CALLBACK // clear fault
+    },
+    [8] = {
+        .type        = ELEMENT_BUTTON,
         .object_name = CLEAR_BUTTON,
         .on_change   = faultsClearButton_CALLBACK // clear all faults
     }
@@ -118,11 +133,22 @@ void LCD_init(uint32_t baud_rate) {
     updatePage();
 }
 
+// Pages available for user navigation
+static const page_t selectable_pages[] = {
+    PAGE_RACE,
+    PAGE_CALIBRATION,
+    PAGE_FAULTS,
+};
+static constexpr uint32_t NUM_SELECTABLE_PAGES = sizeof(selectable_pages) / sizeof(selectable_pages[0]);
+
+static int current_page_index = 0;
+
 /**
  * @brief Advances to the next selectable page
  */
 void advancePage() {
-    // todo
+    current_page_index = (current_page_index + 1) % NUM_SELECTABLE_PAGES;
+    curr_page = selectable_pages[current_page_index];
     updatePage();
 }
 
@@ -130,8 +156,8 @@ void advancePage() {
  * @brief Moves to the previous selectable page
  */
 void backPage() {
-    // todo
-
+    current_page_index = (current_page_index - 1 + NUM_SELECTABLE_PAGES) % NUM_SELECTABLE_PAGES;
+    curr_page = selectable_pages[current_page_index];
     updatePage();
 }
 
@@ -152,13 +178,8 @@ void updatePage() {
         case PAGE_RACE:
             NXT_setPage(RACE_STRING);
             break;
-            break;
         case PAGE_FAULTS:
             NXT_setPage(FAULT_STRING);
-            break;
-        case PAGE_SDC_INFO:
-            NXT_setPage(SDCINFO_STRING);
-            break;
             break;
         case PAGE_CALIBRATION:
             NXT_setPage(APPS_STRING);
@@ -168,8 +189,10 @@ void updatePage() {
             break;
     }
 
+    prev_page = curr_page;
+
     // Bounds Check
-    if (curr_page > NUM_PAGES && curr_page < 0) {
+    if (curr_page >= NUM_PAGES) {
         return;
     }
 
@@ -181,7 +204,7 @@ void updatePage() {
 
 void moveUp() {
     // Bounds Check
-    if (curr_page > NUM_PAGES && curr_page < 0) {
+    if (curr_page >= NUM_PAGES) {
         return;
     }
 
@@ -192,7 +215,7 @@ void moveUp() {
 
 void moveDown() {
     // Bounds Check
-    if (curr_page > NUM_PAGES && curr_page < 0) {
+    if (curr_page >= NUM_PAGES) {
         return;
     }
 
@@ -203,7 +226,7 @@ void moveDown() {
 
 void selectItem() {
     // Bounds Check
-    if (curr_page > NUM_PAGES && curr_page < 0) {
+    if (curr_page >= NUM_PAGES) {
         return;
     }
 
@@ -217,7 +240,7 @@ void selectItem() {
  */
 void updateTelemetryPages() {
     // Bounds Check
-    if (curr_page > NUM_PAGES && curr_page < 0) {
+    if (curr_page >= NUM_PAGES) {
         return;
     }
 
@@ -311,8 +334,8 @@ void clearFault(int index) {
  */
 void faultsClearButton_CALLBACK() {
     int hover_index = faults_page.current_index;
-    if (hover_index == 5) {
-        for (int i = 4; i >= 0; i--) { // Clear all faults which are not latched
+    if (hover_index == 8) {
+        for (int i = 7; i >= 0; i--) { // Clear all faults which are not latched
             clearFault(i);
         }
     } else {
@@ -355,28 +378,34 @@ void raceTelemetryUpdate() {
     } else {
         switch (can_data.main_hb.car_state) {
             case CARSTATE_PRECHARGING:
-                NXT_setFontColor(CAR_STAT, ORANGE);
+                NXT_setFontColor(CAR_STAT, WHITE);
                 NXT_setText(CAR_STAT, "PRECHARGE");
+                NXT_setBorderColor(CAR_STAT, WHITE);
                 break;
             case CARSTATE_ENERGIZED:
-                NXT_setFontColor(CAR_STAT, ORANGE);
+                NXT_setFontColor(CAR_STAT, WHITE);
                 NXT_setText(CAR_STAT, "ENERGIZED");
+                NXT_setBorderColor(CAR_STAT, WHITE);
                 break;
             case CARSTATE_IDLE:
-                NXT_setFontColor(CAR_STAT, INFO_GRAY);
+                NXT_setFontColor(CAR_STAT, WHITE);
                 NXT_setText(CAR_STAT, "IDLE");
+                NXT_setBorderColor(CAR_STAT, WHITE);
                 break;
             case CARSTATE_READY2DRIVE:
                 NXT_setFontColor(CAR_STAT, GREEN);
                 NXT_setText(CAR_STAT, "R2D");
+                NXT_setBorderColor(CAR_STAT, GREEN);
                 break;
             case CARSTATE_FATAL:
                 NXT_setFontColor(CAR_STAT, RED);
                 NXT_setText(CAR_STAT, "FATAL");
+                NXT_setBorderColor(CAR_STAT, RED);
                 break;
             default:
                 NXT_setFontColor(CAR_STAT, WHITE);
                 NXT_setText(CAR_STAT, "UNKNOWN");
+                NXT_setBorderColor(CAR_STAT, WHITE);
                 break;
         }
     }

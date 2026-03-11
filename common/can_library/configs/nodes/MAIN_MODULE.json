@@ -12,7 +12,7 @@
                         {
                             "sig_name": "car_state",
                             "sig_desc": "Main car state",
-                            "type": "CarState_t"
+                            "type": "car_state_t"
                         }
                     ],
                     "msg_period": 500,

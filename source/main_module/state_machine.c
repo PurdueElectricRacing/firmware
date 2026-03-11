@@ -117,8 +117,8 @@ void fsm_periodic() {
 
     // check SDC before doing anything else
     if (is_fatal_latched()) {
-        g_car.current_state = CARSTATE_FATAL;
-        g_car.next_state = CARSTATE_FATAL;
+        g_car.current_state = CAR_STATE_FATAL;
+        g_car.next_state = CAR_STATE_FATAL;
     }
 
     update_brake_light();
@@ -131,65 +131,65 @@ void fsm_periodic() {
     g_car.is_precharge_complete = !is_latched(FAULT_ID_PRECHARGE_INCOMPLETE);
 
     switch (g_car.current_state) {
-        case CARSTATE_INIT: {
+        case CAR_STATE_INIT: {
             // do nothing for now
 
             if (is_init_complete()) {
-                g_car.next_state = CARSTATE_IDLE;
+                g_car.next_state = CAR_STATE_IDLE;
             }
             break;
         }
-        case CARSTATE_IDLE: {
+        case CAR_STATE_IDLE: {
             // do nothing for now
 
             if (is_TSMS_closed()) {
-                g_car.next_state = CARSTATE_PRECHARGING;
+                g_car.next_state = CAR_STATE_PRECHARGING;
             }
             break;
         }
-        case CARSTATE_PRECHARGING: {
+        case CAR_STATE_PRECHARGING: {
             // do nothing for now
 
             if (is_precharge_complete()) {
-                g_car.next_state = CARSTATE_ENERGIZED;
+                g_car.next_state = CAR_STATE_ENERGIZED;
             }
             break;
         }
-        case CARSTATE_ENERGIZED: {
+        case CAR_STATE_ENERGIZED: {
             // do nothing for now
 
             if (is_start_button_pressed() && is_all_AMKS_running()) {
                 g_car.buzzer_start_time = OS_TICKS;
-                g_car.next_state = CARSTATE_BUZZING;
+                g_car.next_state = CAR_STATE_BUZZING;
             }
             break;
         }
-        case CARSTATE_BUZZING: {
+        case CAR_STATE_BUZZING: {
             g_car.buzzer_enable = true;
 
             if (is_buzzing_time_elapsed()) {
-                g_car.next_state = CARSTATE_READY2DRIVE;
+                g_car.next_state = CAR_STATE_READY2DRIVE;
             }
             break;
         }
-        case CARSTATE_READY2DRIVE: {
+        case CAR_STATE_READY2DRIVE: {
             ready2drive_periodic();
 
             if (is_start_button_pressed()) {
-                g_car.next_state = CARSTATE_IDLE;
+                g_car.next_state = CAR_STATE_IDLE;
             }
             break;
         }
-        case CARSTATE_FATAL: {
+        case CAR_STATE_FATAL: {
             // nothing for now
 
             if (!is_fatal_latched()) {
-                g_car.next_state = CARSTATE_IDLE;
+                g_car.next_state = CAR_STATE_IDLE;
             }
             break;
         }
         default: { // should never reach here
-            g_car.next_state = CARSTATE_FATAL;
+            g_car.next_state = CAR_STATE_FATAL;
             break;
         }
     }

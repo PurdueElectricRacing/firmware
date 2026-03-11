@@ -68,9 +68,9 @@ bool PHAL_initDMA(dma_init_t* dma) {
     // DMAMUX channels 0 to 7 are connected to DMA1 channels 1 to 8
     // DMAMUX channels 8 to 15 are connected to DMA2 channels 1 to 8
     // DMAMUX Channel (usually equal to DMA channel number - 1)
-    DMAMUX_Channel_TypeDef* mux;
-    mux      = (DMAMUX1_Channel0 + dma->channel_idx - 1);
-    mux->CCR = (mux->CCR & ~0x7F) | dma->mux_request;
+    uint8_t mux_idx = (dma->periph == DMA2) ? (dma->channel_idx + 7) : (dma->channel_idx - 1);
+    DMAMUX_Channel_TypeDef* mux = (DMAMUX1_Channel0 + mux_idx);
+    mux->CCR = (mux->CCR & ~0x7F) | dma->mux_request;   
 
     return true;
 }

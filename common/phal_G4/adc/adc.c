@@ -46,6 +46,7 @@ static bool PHAL_configureOversampling(ADCInitConfig_t* config) {
 
     // Set new oversampling ratio and shift
     adc->CFGR2 |= (ovsr << ADC_CFGR2_OVSR_Pos) | (ovss << ADC_CFGR2_OVSS_Pos);
+    
 
     return true;
 }
@@ -119,6 +120,9 @@ bool PHAL_initADC(ADCInitConfig_t* config, ADCChannelConfig_t channels[], uint8_
         ADC12_COMMON->CCR |= (config->prescaler << ADC_CCR_PRESC_Pos) & ADC_CCR_PRESC_Msk;
     } else if (adc == ADC3 || adc == ADC4 || adc == ADC5) {
         RCC->AHB2ENR |= RCC_AHB2ENR_ADC345EN;
+
+        RCC->CCIPR &= ~RCC_CCIPR_ADC345SEL;
+        RCC->CCIPR |= RCC_CCIPR_ADC345SEL_0; // Select PCLK
 
         ADC345_COMMON->CCR &= ~ADC_CCR_CKMODE;
         ADC345_COMMON->CCR |= (0x1UL << ADC_CCR_CKMODE_Pos);

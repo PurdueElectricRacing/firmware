@@ -77,20 +77,36 @@
                 },
                 {
                     "msg_name": "front_load",
-                    "msg_desc": "Load Sensor readings from left and right",
+                    "msg_desc": "Load Sensor readings from front left and right",
                     "signals": [
                       {
-                        "sig_name": "left_load_sensor",
+                        "sig_name": "fl_load_sensor",
                         "sig_desc": "Left Normal Force",
-                        "type": "float",
+                        "type": "int16_t",
                         "unit": "N",
                         "scale": 0.1
 
                       },
                       {
-                        "sig_name": "right_load_sensor",
+                        "sig_name": "fr_load_sensor",
                         "sig_desc": "Right Normal Force",
-                        "type": "float",
+                        "type": "int16_t",
+                        "unit": "N",
+                        "scale": 0.1
+
+                      },
+                        {
+                        "sig_name": "rl_load_sensor",
+                        "sig_desc": "Left Normal Force",
+                        "type": "int16_t",
+                        "unit": "N",
+                        "scale": 0.1
+
+                      },
+                      {
+                        "sig_name": "rr_load_sensor",
+                        "sig_desc": "Right Normal Force",
+                        "type": "int16_t",
                         "unit": "N",
                         "scale": 0.1
 
@@ -101,20 +117,36 @@
                   },
                   {
                     "msg_name": "rear_load",
-                    "msg_desc": "Load Sensor readings from left and right",
+                    "msg_desc": "Load Sensor readings rear from left and right",
                     "signals": [
                       {
-                        "sig_name": "left_load_sensor",
+                        "sig_name": "fl_load_sensor",
                         "sig_desc": "Left Normal Force",
-                        "type": "float",
+                        "type": "int16_t",
                         "unit": "N",
                         "scale": 0.1
 
                       },
                       {
-                        "sig_name": "right_load_sensor",
+                        "sig_name": "fr_load_sensor",
                         "sig_desc": "Right Normal Force",
-                        "type": "float",
+                        "type": "int16_t",
+                        "unit": "N",
+                        "scale": 0.1
+
+                      },
+                        {
+                        "sig_name": "rl_load_sensor",
+                        "sig_desc": "Left Normal Force",
+                        "type": "int16_t",
+                        "unit": "N",
+                        "scale": 0.1
+
+                      },
+                      {
+                        "sig_name": "rr_load_sensor",
+                        "sig_desc": "Right Normal Force",
+                        "type": "int16_t",
                         "unit": "N",
                         "scale": 0.1
 

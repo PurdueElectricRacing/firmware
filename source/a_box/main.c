@@ -146,9 +146,9 @@ int main(void) {
 }
 
 void report_telemetry() {
-    uint16_t pack_voltage_mv = (uint16_t)(g_bms.sum_voltage);
+    uint16_t pack_voltage = (uint16_t)(g_bms.sum_voltage * PACK_COEFF_PACK_STATS_PACK_VOLTAGE);
     uint16_t pack_current = 0; // todo isense
-    CAN_SEND_pack_stats(pack_voltage_mv, pack_current, g_bms.avg_therm_temp);
+    CAN_SEND_pack_stats(pack_voltage, pack_current, g_bms.avg_therm_temp);
 }
 
 void background_can_update() {

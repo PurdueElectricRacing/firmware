@@ -69,17 +69,14 @@ static constexpr float RPM_TO_MPH = INCHES_PER_MOTOR_REV * MINUTES_PER_HOUR / IN
 #define BEST_TIME    "best"
 #define LAP_TIME     "lap"
 
-// Logging Page
-#define LOG_OP             "log"
-#define LOGGING_STATUS_TXT "stat"
-
 // Calibration Page
-#define CALIBRATION_BRAKE1_VAL       "brk1"
-#define CALIBRATION_BRAKE2_VAL       "brk2"
-#define CALIBRATION_THROTTLE1_VAL    "thr1"
-#define CALIBRATION_THROTTLE2_VAL    "thr2"
-#define CALIBRATION_BRAKE_PRS1_VAL   "brkprs1"
-#define CALIBRATION_BRAKE_PRS2_VAL   "brkprs2"
+#define CALIBRATION_THROTTLE1  "thr1"
+#define CALIBRATION_THROTTLE2  "thr2"
+#define CALIBRATION_BRAKE1     "brk1"
+#define CALIBRATION_BRAKE2     "brk2"
+#define CALIBRATION_BRAKE_PRS1 "brkprs1"
+#define CALIBRATION_BRAKE_PRS2 "brkprs2"
+#define CALIBRATION_STATUS     "status"
 
 typedef enum : uint8_t {
     // Should correspond with the page count in main.h

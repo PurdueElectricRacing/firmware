@@ -262,7 +262,26 @@ void calibrationTelemetryUpdate() {
         return;
     }
 
-    // todo
+    if (is_latched(FAULT_ID_APPS_IMPLAUSIBLE)) {
+        NXT_setText(CALIBRATION_STATUS, "IMPLAUSIBLE");
+        NXT_setFontColor(CALIBRATION_STATUS, RED);
+    } else if (is_latched(FAULT_ID_APPS_BRAKE)){
+        NXT_setText(CALIBRATION_STATUS, "BRAKE-THROTTLE");
+        NXT_setFontColor(CALIBRATION_STATUS, RED);
+    } else if (is_latched(FAULT_ID_APPS_WIRING_T1) || is_latched(FAULT_ID_APPS_WIRING_T2)) {
+        NXT_setText(CALIBRATION_STATUS, "WIRING FAULT");
+        NXT_setFontColor(CALIBRATION_STATUS, RED);
+    } else {
+        NXT_setText(CALIBRATION_STATUS, "OK");
+        NXT_setFontColor(CALIBRATION_STATUS, GREEN);
+    }
+
+    NXT_setTextFormatted(CALIBRATION_THROTTLE1, "%d", raw_adc_values.t1);
+    NXT_setTextFormatted(CALIBRATION_THROTTLE2, "%d", raw_adc_values.t2);
+    NXT_setTextFormatted(CALIBRATION_BRAKE1, "%d", raw_adc_values.b1);
+    NXT_setTextFormatted(CALIBRATION_BRAKE2, "%d", raw_adc_values.b2);
+    NXT_setTextFormatted(CALIBRATION_BRAKE_PRS1, "%d", raw_adc_values.brake1_pressure);
+    NXT_setTextFormatted(CALIBRATION_BRAKE_PRS2, "%d", raw_adc_values.brake2_pressure);
 }
 
 /**

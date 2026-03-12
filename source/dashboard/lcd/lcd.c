@@ -1,12 +1,17 @@
+/**
+ * @file lcd.c
+ * @brief LCD display management
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include "lcd.h"
 
 #include <stddef.h>
 #include <stdint.h>
-#include <stdio.h>
 
 #include "common/can_library/generated/DASHBOARD.h"
 #include "common/can_library/faults_common.h"
-#include "common_defs.h"
 #include "menu_system.h"
 #include "nextion.h"
 #include "pedals.h"
@@ -107,11 +112,6 @@ menu_element_t faults_elements[] = {
         .type        = ELEMENT_BUTTON,
         .object_name = FAULT8_BUTTON,
         .on_change   = faultsClearButton_CALLBACK // clear fault
-    },
-    [8] = {
-        .type        = ELEMENT_BUTTON,
-        .object_name = CLEAR_BUTTON,
-        .on_change   = faultsClearButton_CALLBACK // clear all faults
     }
 };
 
@@ -262,7 +262,26 @@ void calibrationTelemetryUpdate() {
         return;
     }
 
-    // todo
+    if (is_latched(FAULT_ID_APPS_IMPLAUSIBLE)) {
+        NXT_setText(CALIBRATION_STATUS, "IMPLAUSIBLE");
+        NXT_setFontColor(CALIBRATION_STATUS, RED);
+    } else if (is_latched(FAULT_ID_APPS_BRAKE)){
+        NXT_setText(CALIBRATION_STATUS, "BRAKE-THROTTLE");
+        NXT_setFontColor(CALIBRATION_STATUS, RED);
+    } else if (is_latched(FAULT_ID_APPS_WIRING_T1) || is_latched(FAULT_ID_APPS_WIRING_T2)) {
+        NXT_setText(CALIBRATION_STATUS, "WIRING FAULT");
+        NXT_setFontColor(CALIBRATION_STATUS, RED);
+    } else {
+        NXT_setText(CALIBRATION_STATUS, "OK");
+        NXT_setFontColor(CALIBRATION_STATUS, GREEN);
+    }
+
+    NXT_setTextFormatted(CALIBRATION_THROTTLE1, "%d", raw_adc_values.t1);
+    NXT_setTextFormatted(CALIBRATION_THROTTLE2, "%d", raw_adc_values.t2);
+    NXT_setTextFormatted(CALIBRATION_BRAKE1, "%d", raw_adc_values.b1);
+    NXT_setTextFormatted(CALIBRATION_BRAKE2, "%d", raw_adc_values.b2);
+    NXT_setTextFormatted(CALIBRATION_BRAKE_PRS1, "%d", raw_adc_values.brake1_pressure);
+    NXT_setTextFormatted(CALIBRATION_BRAKE_PRS2, "%d", raw_adc_values.brake2_pressure);
 }
 
 /**
@@ -344,6 +363,57 @@ void faultsClearButton_CALLBACK() {
     updateFaultMessages();
 }
 
+void style_car_stat() {
+    if (can_data.main_hb.stale) {
+        NXT_setText(CAR_STAT, "STALE");
+        NXT_setFontColor(CAR_STAT, WHITE);
+        return;
+    }
+
+    switch (can_data.main_hb.car_state) {
+        case CAR_STATE_INIT:
+            NXT_setFontColor(CAR_STAT, WHITE);
+            NXT_setText(CAR_STAT, "INIT");
+            NXT_setBorderColor(CAR_STAT, WHITE);
+            break;
+        case CAR_STATE_IDLE:
+            NXT_setFontColor(CAR_STAT, WHITE);
+            NXT_setText(CAR_STAT, "IDLE");
+            NXT_setBorderColor(CAR_STAT, WHITE);
+            break;
+        case CAR_STATE_PRECHARGING:
+            NXT_setFontColor(CAR_STAT, YELLOW);
+            NXT_setText(CAR_STAT, "PRECHRG");
+            NXT_setBorderColor(CAR_STAT, YELLOW);
+            break;
+        case CAR_STATE_ENERGIZED:
+            NXT_setFontColor(CAR_STAT, GREEN);
+            NXT_setText(CAR_STAT, "ENERGZD");
+            NXT_setBorderColor(CAR_STAT, GREEN);
+            break;
+        case CAR_STATE_BUZZING:
+            NXT_setFontColor(CAR_STAT, YELLOW);
+            NXT_setText(CAR_STAT, "BUZZING");
+            NXT_setBorderColor(CAR_STAT, YELLOW);
+            break;
+        case CAR_STATE_READY2DRIVE:
+            NXT_setFontColor(CAR_STAT, GREEN);
+            NXT_setText(CAR_STAT, "R2D");
+            NXT_setBorderColor(CAR_STAT, GREEN);
+            break;
+        case CAR_STATE_FATAL:
+            NXT_setFontColor(CAR_STAT, RED);
+            NXT_setText(CAR_STAT, "FATAL");
+            NXT_setBorderColor(CAR_STAT, RED);
+            break;
+        default:
+            NXT_setFontColor(CAR_STAT, WHITE);
+            NXT_setText(CAR_STAT, "UNKNOWN");
+            NXT_setBorderColor(CAR_STAT, WHITE);
+            break;
+    }
+}
+
 void racePageUpdate() {
     MS_refreshPage(&race_page);
 }
@@ -358,62 +428,72 @@ void raceTelemetryUpdate() {
         return;
     }
 
-    NXT_setValue(BRK_BAR, (int)((pedal_values.brake / 4095.0) * 100)); // TODO BRK BAR
+    NXT_setValue(BRK_BAR, (int)((pedal_values.brake / 4095.0) * 100));
     NXT_setValue(THROT_BAR, (int)((pedal_values.throttle / 4095.0) * 100));
 
-    // update the speed
-    if (can_data.gps_speed.stale) {
-        NXT_setText(SPEED, "S");
+    if (can_data.pack_stats.stale) { // update battery stats
+        NXT_setText(BATT_VOLT, "S");
+        NXT_setText(BATT_CURR, "S");
+        NXT_setText(BATT_TEMP, "S");
     } else {
-        // uint16_t speed = can_data.rear_wheel_speeds.left_speed_mc * RPM_TO_MPH; // Convert to mph
-        uint16_t speed = (uint16_t)(can_data.gps_speed.gps_speed * MPS_TO_MPH + 0.5); // Round to nearest whole number
-        NXT_setTextFormatted(SPEED, "%d", speed);
+        uint16_t scaled_voltage = can_data.pack_stats.pack_voltage * UNPACK_COEFF_PACK_STATS_PACK_VOLTAGE;
+        int16_t scaled_current = can_data.pack_stats.pack_current * UNPACK_COEFF_PACK_STATS_PACK_CURRENT;
+        NXT_setTextFormatted(BATT_VOLT, "%dV", scaled_voltage);
+        NXT_setTextFormatted(BATT_CURR, "%dA", scaled_current);
+        NXT_setTextFormatted(BATT_TEMP, "%dC", can_data.pack_stats.avg_temp);
     }
 
-    // Update the state of charge
-    if (can_data.main_hb.stale) {
-        NXT_setText(CAR_STAT, "S");
-        NXT_setFontColor(CAR_STAT, WHITE);
+    // todo better temp display
+    if (can_data.motor_temps.stale) { // update motor temps
+        NXT_setText(MOT_TEMP, "S");
     } else {
-        switch (can_data.main_hb.car_state) {
-            case CARSTATE_PRECHARGING:
-                NXT_setFontColor(CAR_STAT, WHITE);
-                NXT_setText(CAR_STAT, "PRECHARGE");
-                NXT_setBorderColor(CAR_STAT, WHITE);
-                break;
-            case CARSTATE_ENERGIZED:
-                NXT_setFontColor(CAR_STAT, WHITE);
-                NXT_setText(CAR_STAT, "ENERGIZED");
-                NXT_setBorderColor(CAR_STAT, WHITE);
-                break;
-            case CARSTATE_IDLE:
-                NXT_setFontColor(CAR_STAT, WHITE);
-                NXT_setText(CAR_STAT, "IDLE");
-                NXT_setBorderColor(CAR_STAT, WHITE);
-                break;
-            case CARSTATE_READY2DRIVE:
-                NXT_setFontColor(CAR_STAT, GREEN);
-                NXT_setText(CAR_STAT, "R2D");
-                NXT_setBorderColor(CAR_STAT, GREEN);
-                break;
-            case CARSTATE_FATAL:
-                NXT_setFontColor(CAR_STAT, RED);
-                NXT_setText(CAR_STAT, "FATAL");
-                NXT_setBorderColor(CAR_STAT, RED);
-                break;
-            default:
-                NXT_setFontColor(CAR_STAT, WHITE);
-                NXT_setText(CAR_STAT, "UNKNOWN");
-                NXT_setBorderColor(CAR_STAT, WHITE);
-                break;
+        int16_t max_motor_temp = MAX4(
+            can_data.motor_temps.front_right,
+            can_data.motor_temps.front_left,
+            can_data.motor_temps.rear_left,
+            can_data.motor_temps.rear_right
+        );
+
+        int16_t scaled_motor_temp = max_motor_temp * UNPACK_COEFF_MOTOR_TEMPS_FRONT_RIGHT;
+        NXT_setTextFormatted(MOT_TEMP, "%dC", scaled_motor_temp);
+    }
+
+    if (can_data.igbt_temps.stale) { // update igbt temps
+        NXT_setText(MC_TEMP, "S");
+    } else {
+        int16_t max_igbt_temp = MAX4(
+            can_data.igbt_temps.front_right,
+            can_data.igbt_temps.front_left,
+            can_data.igbt_temps.rear_left,
+            can_data.igbt_temps.rear_right
+        );
+
+        int16_t scaled_igbt_temp = max_igbt_temp * UNPACK_COEFF_IGBT_TEMPS_FRONT_RIGHT;
+        NXT_setTextFormatted(MC_TEMP, "%dC", scaled_igbt_temp);
+    }
+
+    // todo better speed calc lol
+    if (can_data.wheel_speeds.stale) {
+        NXT_setText(SPEED, "S");
+    } else {
+        if (can_data.wheel_speeds.rear_left < 0) {
+            NXT_setText(SPEED, "NEG");
+        } else {
+            int16_t max_speed = MAX4(
+                can_data.wheel_speeds.front_right,
+                can_data.wheel_speeds.front_left,
+                can_data.wheel_speeds.rear_left,
+                can_data.wheel_speeds.rear_right
+            );
+            NXT_setTextFormatted(SPEED, "%d", max_speed);
         }
     }
+
+    style_car_stat();
 }
 
 void raceSelect() {
     MS_select(&race_page);
-    // TODO Race page TV settings
-    // tv_elements[TV_ENABLE_INDEX].current_value = race_elements[0].current_value; // Sync TV settings
 }
 
 /**

@@ -6,12 +6,12 @@
             "peripheral": "FDCAN2",
             "tx": [
                 {
-                    "msg_name": "filt_throttle_brake",
-                    "msg_desc": "Filtered throttle and brake values",
+                    "msg_name": "pedals",
+                    "msg_desc": "Pedal values",
                     "signals": [
                         {
                             "sig_name": "throttle",
-                            "sig_desc": "Official throttle request from driver",
+                            "sig_desc": "Throttle request from driver",
                             "type": "uint16_t",
                             "length": 12,
                             "scale": 0.02442,
@@ -19,7 +19,7 @@
                         },
                         {
                             "sig_name": "brake",
-                            "sig_desc": "Processed brake request from driver",
+                            "sig_desc": "Brake request from driver",
                             "type": "uint16_t",
                             "length": 12,
                             "scale": 0.02442,
@@ -38,7 +38,7 @@
                             "type": "bool"
                         }
                     ],
-                    "msg_period": 0,
+                    "msg_period": 300,
                     "msg_priority": 1
                 },
                 {
@@ -171,7 +171,16 @@
                     "msg_name": "main_hb"
                 },
                 {
-                    "msg_name": "gps_speed"
+                    "msg_name": "pack_stats"
+                },
+                {
+                    "msg_name": "wheel_speeds"
+                },
+                {
+                    "msg_name": "motor_temps"
+                },
+                {
+                    "msg_name": "igbt_temps"
                 }
             ]
         }
@@ -181,8 +190,8 @@
     "faults": [
         {
             "fault_name": "APPS_wiring_t1",
-            "max": 4095,
-            "min": 0,
+            "max": 3500,
+            "min": 500,
             "priority": "error",
             "time_to_latch": 10,
             "time_to_unlatch": 1000,
@@ -190,8 +199,8 @@
         },
         {
             "fault_name": "APPS_wiring_t2",
-            "max": 4095,
-            "min": 0,
+            "max": 3500,
+            "min": 500,
             "priority": "error",
             "time_to_latch": 10,
             "time_to_unlatch": 1000,

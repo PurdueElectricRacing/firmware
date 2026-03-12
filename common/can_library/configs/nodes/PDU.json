@@ -266,7 +266,7 @@
                     "msg_name": "main_hb"
                 },
                 {
-                    "msg_name": "rear_motor_temps"
+                    "msg_name": "motor_temps"
                 }
             ]
         }

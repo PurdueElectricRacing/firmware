@@ -17,8 +17,6 @@
 #define __NEXTION_H__
 
 #include <stdint.h>
-#include <string.h>
-#include <stdio.h>
 #include <strbuf.h>
 
 // Serial insturcitons must be terminated with 3 bytes 0xFF
@@ -26,14 +24,6 @@
 #define ASCII_OFFSET 48
 
 // Color Definitions in 565 format
-// #define RED        63488
-// #define YELLOW     65504
-// #define GREEN      4065
-// #define RACE_GREEN 1376
-// #define WHITE      65535
-// #define INFO_GRAY  48631
-// #define BLACK      0
-// #define ORANGE     64512
 #define WHITE        65535
 #define DARK_GRAY    33808
 #define LIGHT_GRAY   55261

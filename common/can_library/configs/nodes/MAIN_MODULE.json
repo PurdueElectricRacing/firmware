@@ -12,7 +12,7 @@
                         {
                             "sig_name": "car_state",
                             "sig_desc": "Main car state",
-                            "type": "CarState_t"
+                            "type": "car_state_t"
                         }
                     ],
                     "msg_period": 500,
@@ -154,70 +154,96 @@
                     "msg_priority": 0
                 },
                 {
-                    "msg_name": "rear_motor_temps",
-                    "msg_desc": "Temperature of motor controllers and motors",
+                    "msg_name": "motor_temps",
+                    "msg_desc": "Temperature of motors",
                     "signals": [
                         {
-                            "sig_name": "left_mot_temp",
-                            "type": "uint8_t",
-                            "length": 8,
+                            "sig_name": "front_right",
+                            "type": "int16_t",
                             "unit": "C",
                             "scale": 0.1
                         },
                         {
-                            "sig_name": "right_mot_temp",
-                            "type": "uint8_t",
-                            "length": 8,
+                            "sig_name": "front_left",
+                            "type": "int16_t",
                             "unit": "C",
                             "scale": 0.1
                         },
                         {
-                            "sig_name": "left_inv_temp",
-                            "type": "uint8_t",
-                            "length": 8,
+                            "sig_name": "rear_left",
+                            "type": "int16_t",
                             "unit": "C",
                             "scale": 0.1
                         },
                         {
-                            "sig_name": "right_inv_temp",
-                            "type": "uint8_t",
-                            "length": 8,
-                            "unit": "C",
-                            "scale": 0.1
-                        },
-                        {
-                            "sig_name": "left_igbt_temp",
-                            "type": "uint8_t",
-                            "length": 8,
-                            "unit": "C",
-                            "scale": 0.1
-                        },
-                        {
-                            "sig_name": "right_igbt_temp",
-                            "type": "uint8_t",
-                            "length": 8,
+                            "sig_name": "rear_right",
+                            "type": "int16_t",
                             "unit": "C",
                             "scale": 0.1
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 5
+                    "msg_priority": 4
                 },
                 {
-                    "msg_name": "rear_wheel_speeds",
-                    "msg_desc": "Rear Wheel speeds from motor controllers",
+                    "msg_name": "igbt_temps",
+                    "msg_desc": "Temperature of igbts",
                     "signals": [
                         {
-                            "sig_name": "left_speed_sensor",
-                            "type": "uint16_t",
-                            "unit": "rad/s",
-                            "scale": 0.01
+                            "sig_name": "front_right",
+                            "type": "int16_t",
+                            "unit": "C",
+                            "scale": 0.1
                         },
                         {
-                            "sig_name": "right_speed_sensor",
-                            "type": "uint16_t",
-                            "unit": "rad/s",
-                            "scale": 0.01
+                            "sig_name": "front_left",
+                            "type": "int16_t",
+                            "unit": "C",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "rear_left",
+                            "type": "int16_t",
+                            "unit": "C",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "rear_right",
+                            "type": "int16_t",
+                            "unit": "C",
+                            "scale": 0.1
+                        }
+                    ],
+                    "msg_period": 1000,
+                    "msg_priority": 4
+                },
+                {
+                    "msg_name": "wheel_speeds",
+                    "msg_desc": "Wheel speeds from motor controllers",
+                    "signals": [
+                        {
+                            "sig_name": "front_right",
+                            "type": "int16_t",
+                            "unit": "rpm",
+                            "scale": 1
+                        },
+                        {
+                            "sig_name": "front_left",
+                            "type": "int16_t",
+                            "unit": "rpm",
+                            "scale": 1
+                        },
+                        {
+                            "sig_name": "rear_left",
+                            "type": "int16_t",
+                            "unit": "rpm",
+                            "scale": 1
+                        },
+                        {
+                            "sig_name": "rear_right",
+                            "type": "int16_t",
+                            "unit": "rpm",
+                            "scale": 1
                         }
                     ],
                     "msg_period": 15,
@@ -239,7 +265,7 @@
             ],
             "rx": [
                 {
-                    "msg_name": "filt_throttle_brake"
+                    "msg_name": "pedals"
                 },
                 {
                     "msg_name": "start_button",

@@ -11,8 +11,8 @@
 #include "common/amk/amk.h"
 
 typedef struct {
-    CarState_t current_state;
-    CarState_t next_state;
+    car_state_t current_state;
+    car_state_t next_state;
     AMK_t front_right; // INVA
     AMK_t front_left;  // INVB
     AMK_t rear_left;   // INVC

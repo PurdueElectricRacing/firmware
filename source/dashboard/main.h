@@ -75,10 +75,10 @@ typedef struct {
 #define VCAN_TX_Pin       (6)
 
 // Throttle
-#define THTL_1_GPIO_Port (GPIOC)
+#define THTL_1_GPIO_Port (GPIOC) // THROTTLE
 #define THTL_1_Pin       (2)
 #define THTL_1_ADC_CHNL  (8)
-#define THTL_2_GPIO_Port (GPIOC)
+#define THTL_2_GPIO_Port (GPIOC) // THROTTLE_INV
 #define THTL_2_Pin       (1)
 #define THTL_2_ADC_CHNL  (7)
 

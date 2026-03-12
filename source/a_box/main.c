@@ -93,7 +93,7 @@ void report_telemetry(void);
 void heartbeat_task(void);
 
 DEFINE_TASK(bms_task, 200, osPriorityHigh, STACK_2048);
-DEFINE_TASK(background_can_update, 5, osPriorityHigh, STACK_2048);
+DEFINE_TASK(background_can_update, 2, osPriorityHigh, STACK_2048);
 DEFINE_TASK(check_faults, 10, osPriorityNormal, STACK_512);
 DEFINE_TASK(fault_library_periodic, A_BOX_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
 DEFINE_TASK(report_telemetry, PACK_STATS_PERIOD_MS, osPriorityLow, STACK_512);
@@ -146,9 +146,9 @@ int main(void) {
 }
 
 void report_telemetry() {
-    // todo isense
-    uint16_t pack_voltage_mv = (uint16_t)(g_bms.sum_voltage * 1000.0f);
-    CAN_SEND_pack_stats(pack_voltage_mv, 0, g_bms.avg_therm_temp);
+    uint16_t pack_voltage = (uint16_t)(g_bms.sum_voltage * PACK_COEFF_PACK_STATS_PACK_VOLTAGE);
+    uint16_t pack_current = 0; // todo isense
+    CAN_SEND_pack_stats(pack_voltage, pack_current, g_bms.avg_therm_temp);
 }
 
 void background_can_update() {

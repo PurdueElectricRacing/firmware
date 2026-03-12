@@ -19,7 +19,7 @@ static constexpr uint16_t BRAKE_LIGHT_ON_THRESHOLD = 200; // ~5% of 4095
 static constexpr uint16_t BRAKE_LIGHT_OFF_THRESHOLD = 100; // ~2.5% of 4095
 
 void ready2drive_periodic() {
-    if (can_data.filt_throttle_brake.stale) {
+    if (can_data.pedals.stale) {
         g_torque_request.front_right = 0;
         g_torque_request.front_left  = 0;
         g_torque_request.rear_left   = 0;
@@ -32,8 +32,8 @@ void ready2drive_periodic() {
     // todo torque vectoring
     // todo alternative throttle mapping (like S curve)
 
-    // assumes filt_throttle_brake.throttle is in the range [0, 4095]
-    float throttle = can_data.filt_throttle_brake.throttle / 4095.0f;
+    // assumes pedals.throttle is in the range [0, 4095]
+    float throttle = can_data.pedals.throttle / 4095.0f;
     int16_t torque_req_percent = (int16_t)(throttle * 100);
     
     g_torque_request.front_right = torque_req_percent;
@@ -73,27 +73,60 @@ static inline bool is_buzzing_time_elapsed() {
     return (OS_TICKS - g_car.buzzer_start_time >= MIN_BUZZING_TIME_MS);
 }
 
-/**
-* Brake Light Control
-* The on threshold is larger than the off threshold to
-* behave similar to a Shmitt-trigger, preventing blinking
-* during a transition
-*/
-void set_brake_light() {
-    if (can_data.filt_throttle_brake.brake > BRAKE_LIGHT_ON_THRESHOLD) {
+void update_brake_light() {
+    if (can_data.pedals.brake > BRAKE_LIGHT_ON_THRESHOLD) {
         if (!g_car.brake_light) {
             g_car.brake_light = true;
         }
-    } else if (can_data.filt_throttle_brake.brake < BRAKE_LIGHT_OFF_THRESHOLD) {
+    } else if (can_data.pedals.brake < BRAKE_LIGHT_OFF_THRESHOLD) {
         if (g_car.brake_light) {
             g_car.brake_light = false;
         }
     }
 }
 
+void update_tsal() {
+    // FSAE 2026 EV.5.11.5
+    if (is_latched(FAULT_ID_SDC2_BMS) || is_latched(FAULT_ID_IMD)) { 
+        g_car.tsal_green_enable = false;
+        g_car.tsal_red_enable = true; // todo blink @ "2 Hz to 5 Hz, 50% duty cycle"
+    } else {
+        g_car.tsal_green_enable = true;
+        g_car.tsal_red_enable = false;
+    }
+}
+
+void report_telemetry() {
+    CAN_SEND_main_hb(g_car.current_state);
+
+    CAN_SEND_wheel_speeds(
+        g_car.front_right.crit->AMK_ActualSpeed,
+        g_car.front_left.crit->AMK_ActualSpeed,
+        g_car.rear_left.crit->AMK_ActualSpeed,
+        g_car.rear_right.crit->AMK_ActualSpeed
+    );
+
+    CAN_SEND_motor_temps(
+        g_car.front_right.temps->AMK_MotorTemp,
+        g_car.front_left.temps->AMK_MotorTemp,
+        g_car.rear_left.temps->AMK_MotorTemp,
+        g_car.rear_right.temps->AMK_MotorTemp
+    );
+
+    CAN_SEND_igbt_temps(
+        g_car.front_right.temps->AMK_IGBTTemp,
+        g_car.front_left.temps->AMK_IGBTTemp,
+        g_car.rear_left.temps->AMK_IGBTTemp,
+        g_car.rear_right.temps->AMK_IGBTTemp
+    );
+}
+
 void fsm_periodic() {
+    // set default states
     g_car.current_state = g_car.next_state;
     g_car.next_state    = g_car.current_state; // explicit self loop
+    g_car.brake_light = false;
+    g_car.buzzer_enable = false;
 
     // zero torque request by default
     g_torque_request.front_right = 0;
@@ -103,11 +136,12 @@ void fsm_periodic() {
 
     // check SDC before doing anything else
     if (is_fatal_latched()) {
-        g_car.current_state = CARSTATE_FATAL;
-        g_car.next_state = CARSTATE_FATAL;
+        g_car.current_state = CAR_STATE_FATAL;
+        g_car.next_state = CAR_STATE_FATAL;
     }
 
-    set_brake_light();
+    update_brake_light();
+    update_tsal();
 
     // update precharge status
     bool precharge_pin = !PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
@@ -116,76 +150,75 @@ void fsm_periodic() {
     g_car.is_precharge_complete = !is_latched(FAULT_ID_PRECHARGE_INCOMPLETE);
 
     switch (g_car.current_state) {
-        case CARSTATE_INIT: {
+        case CAR_STATE_INIT: {
             // do nothing for now
 
             if (is_init_complete()) {
-                g_car.next_state = CARSTATE_IDLE;
+                g_car.next_state = CAR_STATE_IDLE;
             }
             break;
         }
-        case CARSTATE_IDLE: {
+        case CAR_STATE_IDLE: {
             // do nothing for now
 
             if (is_TSMS_closed()) {
-                g_car.next_state = CARSTATE_PRECHARGING;
+                g_car.next_state = CAR_STATE_PRECHARGING;
             }
             break;
         }
-        case CARSTATE_PRECHARGING: {
+        case CAR_STATE_PRECHARGING: {
             // do nothing for now
 
             if (is_precharge_complete()) {
-                g_car.next_state = CARSTATE_ENERGIZED;
+                g_car.next_state = CAR_STATE_ENERGIZED;
             }
             break;
         }
-        case CARSTATE_ENERGIZED: {
+        case CAR_STATE_ENERGIZED: {
             // do nothing for now
 
             if (is_start_button_pressed() && is_all_AMKS_running()) {
                 g_car.buzzer_start_time = OS_TICKS;
-                g_car.next_state = CARSTATE_BUZZING;
+                g_car.next_state = CAR_STATE_BUZZING;
             }
             break;
         }
-        case CARSTATE_BUZZING: {
+        case CAR_STATE_BUZZING: {
             g_car.buzzer_enable = true;
 
             if (is_buzzing_time_elapsed()) {
-                g_car.buzzer_enable = false; // explicitly turn off the buzzer before transitioning
-                g_car.next_state = CARSTATE_READY2DRIVE;
+                g_car.next_state = CAR_STATE_READY2DRIVE;
             }
             break;
         }
-        case CARSTATE_READY2DRIVE: {
+        case CAR_STATE_READY2DRIVE: {
             ready2drive_periodic();
 
             if (is_start_button_pressed()) {
-                g_car.next_state = CARSTATE_IDLE;
+                g_car.next_state = CAR_STATE_IDLE;
             }
             break;
         }
-        case CARSTATE_FATAL: {
+        case CAR_STATE_FATAL: {
             // nothing for now
 
             if (!is_fatal_latched()) {
-                g_car.next_state = CARSTATE_IDLE;
+                g_car.next_state = CAR_STATE_IDLE;
             }
             break;
         }
         default: { // should never reach here
-            g_car.next_state = CARSTATE_FATAL;
+            g_car.next_state = CAR_STATE_FATAL;
             break;
         }
     }
-
-    CAN_SEND_main_hb(g_car.current_state);
 
     AMK_set_torque(&g_car.front_right, g_torque_request.front_right);
     AMK_set_torque(&g_car.front_left,  g_torque_request.front_left);
     AMK_set_torque(&g_car.rear_left,   g_torque_request.rear_left);
     AMK_set_torque(&g_car.rear_right,  g_torque_request.rear_right);
+
+    report_telemetry();
 
     // flush the internal state
     PHAL_writeGPIO(BRAKE_LIGHT_PORT, BRAKE_LIGHT_PIN, g_car.brake_light);

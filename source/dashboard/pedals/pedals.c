@@ -14,10 +14,14 @@
 #include "main.h"
 
 // todo pedal calibration
-static constexpr uint16_t THROTTLE1_MIN = 0;
-static constexpr uint16_t THROTTLE1_MAX = 4095;
-static constexpr uint16_t THROTTLE2_MIN = 0;
-static constexpr uint16_t THROTTLE2_MAX = 4095;
+static constexpr uint16_t THROTTLE1_MIN = 840;
+static constexpr uint16_t THROTTLE1_MAX = 1190;
+static_assert(THROTTLE1_MIN < THROTTLE1_MAX, "Invalid throttle 1 calibration values");
+
+static constexpr uint16_t THROTTLE2_MIN = 920;
+static constexpr uint16_t THROTTLE2_MAX = 1250;
+static_assert(THROTTLE2_MIN < THROTTLE2_MAX, "Invalid throttle 2 calibration values");
+
 static constexpr uint16_t BRAKE1_MIN = 0;
 static constexpr uint16_t BRAKE1_MAX = 4095;
 static constexpr uint16_t BRAKE2_MIN = 0;
@@ -45,11 +49,12 @@ static inline uint16_t normalize(uint16_t input, uint16_t lower_bound, uint16_t 
     uint16_t range = upper_bound - lower_bound;
     uint16_t input_diff = input - lower_bound;
     
-    uint16_t normalized_value = (input_diff * MAX_PEDAL_MEAS) / range;
+    float normalized_value_f = ((float)input_diff * 4095.0f) / (float)range;
+    uint16_t normalized_value = (uint16_t)normalized_value_f;
     return normalized_value;
 }
 
-static inline uint16_t clamp(uint16_t input, int32_t lower_bound, int32_t upper_bound) {
+static inline uint16_t clamp(uint16_t input, uint16_t lower_bound, uint16_t upper_bound) {
     if (input < lower_bound) return lower_bound;
     if (input > upper_bound) return upper_bound;
     return input;
@@ -83,6 +88,10 @@ void pedalsPeriodic(void) {
     brake1 = normalize(brake1, BRAKE1_MIN, BRAKE1_MAX);
     brake2 = normalize(brake2, BRAKE2_MIN, BRAKE2_MAX);
 
+    // Update global for visibility
+    pedal_values.throttle = throttle1;
+    pedal_values.brake = brake1;
+
     uint16_t throttle_command = throttle1;
     uint16_t brake_command = brake1;
 
@@ -107,5 +116,5 @@ void pedalsPeriodic(void) {
         throttle_command = 0;
     }
 
-    CAN_SEND_filt_throttle_brake(throttle_command, brake_command);
+    CAN_SEND_pedals(throttle_command, brake_command);
 }

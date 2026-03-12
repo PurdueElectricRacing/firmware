@@ -27,7 +27,10 @@
  * @param element Pointer to the menu element to be styled
  */
 void MS_setStyleNormal(menu_element_t* element) {
+    NXT_setBackground(element->object_name, STEEL);
     NXT_setFontColor(element->object_name, WHITE);
+    // change to set border to indicate selected? (requires intelligent series)
+    // set_border_width(element->object_name, 0);
 }
 
 /**
@@ -35,7 +38,10 @@ void MS_setStyleNormal(menu_element_t* element) {
  * @param element Pointer to the menu element to be styled
  */
 void MS_setStyleHover(menu_element_t* element) {
-    NXT_setFontColor(element->object_name, GREEN);
+    NXT_setBackground(element->object_name, STEAM);
+    NXT_setFontColor(element->object_name, BLACK);
+    // change to set border to indicate selected? (requires intelligent series)
+    // set_border_width(element->object_name, 3);
 }
 
 /**
@@ -212,7 +218,6 @@ void MS_refreshPage(menu_page_t* page) {
 
     for (uint8_t i = 0; i < page->num_elements; i++) {
         menu_element_t* curr_element = &page->elements[i];
-        MS_setStyleNormal(curr_element);
         switch (curr_element->type) {
             case ELEMENT_LIST:
                 if (curr_element->current_value) {
@@ -230,9 +235,6 @@ void MS_refreshPage(menu_page_t* page) {
                 break;
         }
     }
-
-    // Highlight the first element
-    MS_setStyleHover(&page->elements[0]);
 }
 
 /**

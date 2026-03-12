@@ -13,15 +13,15 @@
                             "sig_name": "pack_voltage",
                             "sig_desc": "Total pack voltage",
                             "type": "uint16_t",
-                            "unit": "mV",
-                            "scale": 1
+                            "unit": "V",
+                            "scale": 0.01
                         },
                         {
                             "sig_name": "pack_current",
                             "sig_desc": "Total pack current, positive is discharge",
                             "type": "int16_t",
-                            "unit": "mA",
-                            "scale": 1
+                            "unit": "A",
+                            "scale": 0.1
                         },
                         {
                             "sig_name": "avg_temp",

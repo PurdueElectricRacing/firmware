@@ -111,7 +111,7 @@ usart_init_t lcd = {
 
 static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
 ClockRateConfig_t clock_config = {
-    .clock_source           = CLOCK_SOURCE_HSI,
+    .clock_source           = CLOCK_SOURCE_HSE,
     .use_pll                = false,
     .system_clock_target_hz = TargetCoreClockrateHz,
     .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
@@ -140,7 +140,7 @@ void LCD_init(uint32_t baud_rate);
 extern void HardFault_Handler();
 
 // Communication queues
-ALLOCATE_STRBUF(lcd_tx_buf, 1024);
+ALLOCATE_STRBUF(lcd_tx_buf, 2048);
 
 void preflight_task();
 void can_worker_task();

@@ -107,11 +107,6 @@ menu_element_t faults_elements[] = {
         .type        = ELEMENT_BUTTON,
         .object_name = FAULT8_BUTTON,
         .on_change   = faultsClearButton_CALLBACK // clear fault
-    },
-    [8] = {
-        .type        = ELEMENT_BUTTON,
-        .object_name = CLEAR_BUTTON,
-        .on_change   = faultsClearButton_CALLBACK // clear all faults
     }
 };
 
@@ -344,6 +339,57 @@ void faultsClearButton_CALLBACK() {
     updateFaultMessages();
 }
 
+void style_car_stat() {
+    if (can_data.main_hb.stale) {
+        NXT_setText(CAR_STAT, "STALE");
+        NXT_setFontColor(CAR_STAT, WHITE);
+        return;
+    }
+
+    switch (can_data.main_hb.car_state) {
+        case CARSTATE_INIT:
+            NXT_setFontColor(CAR_STAT, WHITE);
+            NXT_setText(CAR_STAT, "INIT");
+            NXT_setBorderColor(CAR_STAT, WHITE);
+            break;
+        case CARSTATE_IDLE:
+            NXT_setFontColor(CAR_STAT, WHITE);
+            NXT_setText(CAR_STAT, "IDLE");
+            NXT_setBorderColor(CAR_STAT, WHITE);
+            break;
+        case CARSTATE_PRECHARGING:
+            NXT_setFontColor(CAR_STAT, YELLOW);
+            NXT_setText(CAR_STAT, "PRECHRG");
+            NXT_setBorderColor(CAR_STAT, YELLOW);
+            break;
+        case CARSTATE_ENERGIZED:
+            NXT_setFontColor(CAR_STAT, GREEN);
+            NXT_setText(CAR_STAT, "ENERGZD");
+            NXT_setBorderColor(CAR_STAT, GREEN);
+            break;
+        case CARSTATE_BUZZING:
+            NXT_setFontColor(CAR_STAT, YELLOW);
+            NXT_setText(CAR_STAT, "BUZZING");
+            NXT_setBorderColor(CAR_STAT, YELLOW);
+            break;
+        case CARSTATE_READY2DRIVE:
+            NXT_setFontColor(CAR_STAT, GREEN);
+            NXT_setText(CAR_STAT, "R2D");
+            NXT_setBorderColor(CAR_STAT, GREEN);
+            break;
+        case CARSTATE_FATAL:
+            NXT_setFontColor(CAR_STAT, RED);
+            NXT_setText(CAR_STAT, "FATAL");
+            NXT_setBorderColor(CAR_STAT, RED);
+            break;
+        default:
+            NXT_setFontColor(CAR_STAT, WHITE);
+            NXT_setText(CAR_STAT, "UNKNOWN");
+            NXT_setBorderColor(CAR_STAT, WHITE);
+            break;
+    }
+}
+
 void racePageUpdate() {
     MS_refreshPage(&race_page);
 }
@@ -370,50 +416,11 @@ void raceTelemetryUpdate() {
         NXT_setTextFormatted(SPEED, "%d", speed);
     }
 
-    // Update the state of charge
-    if (can_data.main_hb.stale) {
-        NXT_setText(CAR_STAT, "S");
-        NXT_setFontColor(CAR_STAT, WHITE);
-    } else {
-        switch (can_data.main_hb.car_state) {
-            case CARSTATE_PRECHARGING:
-                NXT_setFontColor(CAR_STAT, WHITE);
-                NXT_setText(CAR_STAT, "PRECHARGE");
-                NXT_setBorderColor(CAR_STAT, WHITE);
-                break;
-            case CARSTATE_ENERGIZED:
-                NXT_setFontColor(CAR_STAT, WHITE);
-                NXT_setText(CAR_STAT, "ENERGIZED");
-                NXT_setBorderColor(CAR_STAT, WHITE);
-                break;
-            case CARSTATE_IDLE:
-                NXT_setFontColor(CAR_STAT, WHITE);
-                NXT_setText(CAR_STAT, "IDLE");
-                NXT_setBorderColor(CAR_STAT, WHITE);
-                break;
-            case CARSTATE_READY2DRIVE:
-                NXT_setFontColor(CAR_STAT, GREEN);
-                NXT_setText(CAR_STAT, "R2D");
-                NXT_setBorderColor(CAR_STAT, GREEN);
-                break;
-            case CARSTATE_FATAL:
-                NXT_setFontColor(CAR_STAT, RED);
-                NXT_setText(CAR_STAT, "FATAL");
-                NXT_setBorderColor(CAR_STAT, RED);
-                break;
-            default:
-                NXT_setFontColor(CAR_STAT, WHITE);
-                NXT_setText(CAR_STAT, "UNKNOWN");
-                NXT_setBorderColor(CAR_STAT, WHITE);
-                break;
-        }
-    }
+    style_car_stat();
 }
 
 void raceSelect() {
     MS_select(&race_page);
-    // TODO Race page TV settings
-    // tv_elements[TV_ENABLE_INDEX].current_value = race_elements[0].current_value; // Sync TV settings
 }
 
 /**

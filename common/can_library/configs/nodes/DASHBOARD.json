@@ -140,7 +140,29 @@
                     ],
                     "msg_priority": 5,
                     "msg_period": 5000
+                }
+            ],
+            "rx": [
+                {
+                    "msg_name": "main_hb"
                 },
+                {
+                    "msg_name": "pack_stats"
+                },
+                {
+                    "msg_name": "wheel_speeds"
+                },
+                {
+                    "msg_name": "motor_temps"
+                },
+                {
+                    "msg_name": "igbt_temps"
+                }
+            ]
+        },
+        "SCAN": {
+            "peripheral": "FDCAN1",
+            "tx": [
                 {
                     "msg_name": "LWS_Config",
                     "msg_desc": "Steering sensor configuration",
@@ -168,19 +190,7 @@
             ],
             "rx": [
                 {
-                    "msg_name": "main_hb"
-                },
-                {
-                    "msg_name": "pack_stats"
-                },
-                {
-                    "msg_name": "wheel_speeds"
-                },
-                {
-                    "msg_name": "motor_temps"
-                },
-                {
-                    "msg_name": "igbt_temps"
+                    "msg_name": "LWS_Standard"
                 }
             ]
         }

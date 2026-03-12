@@ -17,8 +17,6 @@
 #define __NEXTION_H__
 
 #include <stdint.h>
-#include <string.h>
-#include <stdio.h>
 #include <strbuf.h>
 
 // Serial insturcitons must be terminated with 3 bytes 0xFF

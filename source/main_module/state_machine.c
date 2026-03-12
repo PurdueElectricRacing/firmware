@@ -194,12 +194,19 @@ void fsm_periodic() {
         }
     }
 
-    CAN_SEND_main_hb(g_car.current_state);
-
     AMK_set_torque(&g_car.front_right, g_torque_request.front_right);
     AMK_set_torque(&g_car.front_left,  g_torque_request.front_left);
     AMK_set_torque(&g_car.rear_left,   g_torque_request.rear_left);
     AMK_set_torque(&g_car.rear_right,  g_torque_request.rear_right);
+
+    // report telemetry
+    CAN_SEND_main_hb(g_car.current_state);
+    CAN_SEND_wheel_speeds(
+        g_car.front_right.crit->AMK_ActualSpeed,
+        g_car.front_left.crit->AMK_ActualSpeed,
+        g_car.rear_left.crit->AMK_ActualSpeed,
+        g_car.rear_right.crit->AMK_ActualSpeed
+    );
 
     // flush the internal state
     PHAL_writeGPIO(BRAKE_LIGHT_PORT, BRAKE_LIGHT_PIN, g_car.brake_light);

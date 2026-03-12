@@ -171,7 +171,10 @@
                     "msg_name": "main_hb"
                 },
                 {
-                    "msg_name": "gps_speed"
+                    "msg_name": "pack_stats"
+                },
+                {
+                    "msg_name": "wheel_speeds"
                 }
             ]
         }

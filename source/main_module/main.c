@@ -126,7 +126,7 @@ void AMK_task() {
 
 DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, STACK_256);
 DEFINE_TASK(update_SDC, 5, osPriorityLow, STACK_512);
-DEFINE_TASK(background_can_update, 5, osPriorityHigh, STACK_2048);
+DEFINE_TASK(background_can_update, 2, osPriorityHigh, STACK_2048);
 DEFINE_TASK(fsm_periodic, 20, osPriorityNormal, STACK_2048);
 DEFINE_TASK(AMK_task, 15, osPriorityNormal, STACK_1024);
 DEFINE_TASK(fault_library_periodic, MAIN_MODULE_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);

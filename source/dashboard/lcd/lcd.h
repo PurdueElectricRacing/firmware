@@ -11,9 +11,18 @@
 #define FAULT_STRING       "fault"
 
 // Info
-#define MPS_TO_MPH   (2.237F)
-#define RPM_TO_MPH   (0.00595F)
-#define WHEEL_RADIUS (8) // inches
+constexpr float WHEEL_RADIUS_IN = 8.0f;
+constexpr float GEAR_RATIO = 12.51f;
+constexpr float PI = 3.14159f;
+
+constexpr float WHEEL_CIRCUMFERENCE_IN = 2.0f * PI * WHEEL_RADIUS_IN;
+constexpr float OUTPUT_REV_PER_MOTOR_REV = 1.0f / GEAR_RATIO;
+constexpr float INCHES_PER_MOTOR_REV = WHEEL_CIRCUMFERENCE_IN * OUTPUT_REV_PER_MOTOR_REV;
+
+constexpr float MINUTES_PER_HOUR = 60.0f;
+constexpr float INCHES_PER_MILE = 63360.0f;
+
+constexpr float RPM_TO_MPH = INCHES_PER_MOTOR_REV * MINUTES_PER_HOUR / INCHES_PER_MILE;
 
 // Fault Page
 #define FAULT1_BUTTON     "ERROR1"

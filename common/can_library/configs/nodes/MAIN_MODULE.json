@@ -204,20 +204,32 @@
                     "msg_priority": 5
                 },
                 {
-                    "msg_name": "rear_wheel_speeds",
-                    "msg_desc": "Rear Wheel speeds from motor controllers",
+                    "msg_name": "wheel_speeds",
+                    "msg_desc": "Wheel speeds from motor controllers",
                     "signals": [
                         {
-                            "sig_name": "left_speed_sensor",
-                            "type": "uint16_t",
-                            "unit": "rad/s",
-                            "scale": 0.01
+                            "sig_name": "front_right",
+                            "type": "int16_t",
+                            "unit": "rpm",
+                            "scale": 1
                         },
                         {
-                            "sig_name": "right_speed_sensor",
-                            "type": "uint16_t",
-                            "unit": "rad/s",
-                            "scale": 0.01
+                            "sig_name": "front_left",
+                            "type": "int16_t",
+                            "unit": "rpm",
+                            "scale": 1
+                        },
+                        {
+                            "sig_name": "rear_left",
+                            "type": "int16_t",
+                            "unit": "rpm",
+                            "scale": 1
+                        },
+                        {
+                            "sig_name": "rear_right",
+                            "type": "int16_t",
+                            "unit": "rpm",
+                            "scale": 1
                         }
                     ],
                     "msg_period": 15,

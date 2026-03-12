@@ -407,13 +407,24 @@ void raceTelemetryUpdate() {
     NXT_setValue(BRK_BAR, (int)((pedal_values.brake / 4095.0) * 100)); // TODO BRK BAR
     NXT_setValue(THROT_BAR, (int)((pedal_values.throttle / 4095.0) * 100));
 
-    // update the speed
-    if (can_data.gps_speed.stale) {
+    if (can_data.pack_stats.stale) {
+        NXT_setText(BATT_VOLT, "S");
+        NXT_setText(BATT_CURR, "S");
+    } else {
+        NXT_setTextFormatted(BATT_VOLT, "%d", can_data.pack_stats.pack_voltage);
+        NXT_setTextFormatted(BATT_CURR, "%d", can_data.pack_stats.pack_current);
+    }
+
+    // todo better speed calc lol
+    if (can_data.wheel_speeds.stale) {
         NXT_setText(SPEED, "S");
     } else {
-        // uint16_t speed = can_data.rear_wheel_speeds.left_speed_mc * RPM_TO_MPH; // Convert to mph
-        uint16_t speed = (uint16_t)(can_data.gps_speed.gps_speed * MPS_TO_MPH + 0.5); // Round to nearest whole number
-        NXT_setTextFormatted(SPEED, "%d", speed);
+        if (can_data.wheel_speeds.rear_left < 0) {
+            NXT_setText(SPEED, "NEG");
+        } else {
+            uint16_t speed = can_data.wheel_speeds.front_left * RPM_TO_MPH; // Convert to mph
+            NXT_setTextFormatted(SPEED, "%d", speed);
+        }
     }
 
     style_car_stat();

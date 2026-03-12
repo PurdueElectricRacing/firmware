@@ -111,7 +111,7 @@ usart_init_t lcd = {
 
 static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
 ClockRateConfig_t clock_config = {
-    .clock_source           = CLOCK_SOURCE_HSE,
+    .clock_source           = CLOCK_SOURCE_HSI,
     .use_pll                = false,
     .system_clock_target_hz = TargetCoreClockrateHz,
     .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
@@ -148,7 +148,7 @@ void service_start_button();
 
 // System critical threads
 DEFINE_TASK(pedalsPeriodic, FILT_THROTTLE_BRAKE_PERIOD_MS, osPriorityHigh, STACK_1024);
-DEFINE_TASK(can_worker_task, 5, osPriorityNormal, STACK_2048); // leave stack at 2048
+DEFINE_TASK(can_worker_task, 2, osPriorityNormal, STACK_2048); // leave stack at 2048
 
 // Auxilary threads
 DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, STACK_512);
@@ -156,6 +156,7 @@ DEFINE_TASK(service_button_inputs, 50, osPriorityLow, STACK_1024);
 DEFINE_TASK(service_start_button, START_BUTTON_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
 DEFINE_TASK(LCD_tx_update, 20, osPriorityLow, STACK_512);
+DEFINE_TASK(updateTelemetryPages, 100, osPriorityNormal, STACK_1024);
 
 // DEFINE_TASK(service_button_inputs, 50, osPriorityLow, STACK_1024); // todo LCD related functionality
 int main(void) {
@@ -198,6 +199,7 @@ int main(void) {
     START_TASK(fault_library_periodic);
     START_TASK(service_button_inputs);
     START_TASK(LCD_tx_update);
+    START_TASK(updateTelemetryPages);
 
     osKernelStart(); // GO!
 

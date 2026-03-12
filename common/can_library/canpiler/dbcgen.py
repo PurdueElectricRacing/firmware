@@ -5,7 +5,8 @@ Author: Irving Wang (irvingw@purdue.edu)
 """
 
 from parser import SystemContext
-from cantools import db
+from cantools import database
+from cantools.database.conversion import BaseConversion
 from utils import DBC_DIR, print_as_success, print_as_ok
 
 def generate_dbcs(context: SystemContext):
@@ -23,11 +24,11 @@ def generate_dbcs(context: SystemContext):
     git_hash = context.version
 
     for bus_name, view in context.busses.items():
-        can_db = db.Database()
+        can_db = database.can.Database()
         
         # Add nodes
         for node_name in sorted(view.nodes):
-            can_db.nodes.append(db.Node(name=node_name, comment=""))
+            can_db.nodes.append(database.can.Node(name=node_name, comment=""))
 
         # Add messages
         for msg in view.messages:
@@ -48,26 +49,30 @@ def generate_dbcs(context: SystemContext):
                 elif sig.datatype == 'bool':
                     choices = {0: "OFF", 1: "ON"}
 
-                signals.append(db.Signal(
+                conversion = BaseConversion.factory(
+                    scale=sig.scale,
+                    offset=sig.offset,
+                    choices=choices,
+                    is_float=(sig.datatype in ['float', 'double'])
+                )
+
+                signals.append(database.can.Signal(
                     name=sig.name,
                     start=sig.bit_offset,
                     length=sig.length,
                     byte_order="little_endian",
                     is_signed=sig.is_signed,
-                    initial=sig.offset,
-                    scale=sig.scale,
-                    offset=sig.offset,
+                    conversion=conversion,
                     minimum=sig.min_val,
                     maximum=sig.max_val,
                     unit=sig.unit if sig.unit else "",
-                    comment=sig.desc,
-                    choices=choices
+                    comment=sig.desc
                 ))
             
             # Use pre-calculated sender mapping
             sender = view.sender_map.get(msg.name, "Vector__XXX")
 
-            can_db.messages.append(db.Message(
+            can_db.messages.append(database.can.Message(
                 frame_id=msg.final_id,
                 name=msg.name,
                 length=msg.get_dlc(context.custom_types),

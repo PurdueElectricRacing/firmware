@@ -43,6 +43,12 @@
                 "max": { "type": "number" },
                 "unit": { "type": "string" },
                 "choices": { "type": "array", "items": { "type": "string" } }
+            },
+            "if": {
+                "properties": { "type": { "const": "float" } }
+            },
+            "then": {
+                "properties": { "length": { "const": 32 } }
             }
         }
     }

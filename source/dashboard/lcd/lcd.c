@@ -347,37 +347,37 @@ void style_car_stat() {
     }
 
     switch (can_data.main_hb.car_state) {
-        case CARSTATE_INIT:
+        case CAR_STATE_INIT:
             NXT_setFontColor(CAR_STAT, WHITE);
             NXT_setText(CAR_STAT, "INIT");
             NXT_setBorderColor(CAR_STAT, WHITE);
             break;
-        case CARSTATE_IDLE:
+        case CAR_STATE_IDLE:
             NXT_setFontColor(CAR_STAT, WHITE);
             NXT_setText(CAR_STAT, "IDLE");
             NXT_setBorderColor(CAR_STAT, WHITE);
             break;
-        case CARSTATE_PRECHARGING:
+        case CAR_STATE_PRECHARGING:
             NXT_setFontColor(CAR_STAT, YELLOW);
             NXT_setText(CAR_STAT, "PRECHRG");
             NXT_setBorderColor(CAR_STAT, YELLOW);
             break;
-        case CARSTATE_ENERGIZED:
+        case CAR_STATE_ENERGIZED:
             NXT_setFontColor(CAR_STAT, GREEN);
             NXT_setText(CAR_STAT, "ENERGZD");
             NXT_setBorderColor(CAR_STAT, GREEN);
             break;
-        case CARSTATE_BUZZING:
+        case CAR_STATE_BUZZING:
             NXT_setFontColor(CAR_STAT, YELLOW);
             NXT_setText(CAR_STAT, "BUZZING");
             NXT_setBorderColor(CAR_STAT, YELLOW);
             break;
-        case CARSTATE_READY2DRIVE:
+        case CAR_STATE_READY2DRIVE:
             NXT_setFontColor(CAR_STAT, GREEN);
             NXT_setText(CAR_STAT, "R2D");
             NXT_setBorderColor(CAR_STAT, GREEN);
             break;
-        case CARSTATE_FATAL:
+        case CAR_STATE_FATAL:
             NXT_setFontColor(CAR_STAT, RED);
             NXT_setText(CAR_STAT, "FATAL");
             NXT_setBorderColor(CAR_STAT, RED);

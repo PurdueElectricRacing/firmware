@@ -136,6 +136,7 @@ void LCD_tx_update();
 void config_button_irqs();
 void service_button_inputs();
 void send_version();
+void LCD_init(uint32_t baud_rate);
 extern void HardFault_Handler();
 
 // Communication queues
@@ -152,7 +153,7 @@ DEFINE_TASK(can_worker_task, 5, osPriorityNormal, 2048); // leave stack at 2048
 DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, 512);
 DEFINE_TASK(service_button_inputs, 50, osPriorityLow, 1024);
 DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, 1024);
-// todo LCD related functionality
+DEFINE_TASK(LCD_tx_update, 20, osPriorityLow, 512);
 
 int main(void) {
     // Hardware Initialization
@@ -182,6 +183,7 @@ int main(void) {
     CAN_library_init();
 
     config_button_irqs();
+    LCD_init(LCD_BAUD_RATE);
 
     // Software Initialization
     osKernelInitialize();
@@ -190,6 +192,8 @@ int main(void) {
     START_TASK(can_worker_task);
     START_TASK(heartbeat_task);
     START_TASK(fault_library_periodic);
+    START_TASK(service_button_inputs);
+    START_TASK(LCD_tx_update);
 
     osKernelStart(); // GO!
 

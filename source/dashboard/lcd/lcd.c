@@ -1,12 +1,17 @@
+/**
+ * @file lcd.c
+ * @brief LCD display management
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include "lcd.h"
 
 #include <stddef.h>
 #include <stdint.h>
-#include <stdio.h>
 
 #include "common/can_library/generated/DASHBOARD.h"
 #include "common/can_library/faults_common.h"
-#include "common_defs.h"
 #include "menu_system.h"
 #include "nextion.h"
 #include "pedals.h"
@@ -407,12 +412,39 @@ void raceTelemetryUpdate() {
     NXT_setValue(BRK_BAR, (int)((pedal_values.brake / 4095.0) * 100)); // TODO BRK BAR
     NXT_setValue(THROT_BAR, (int)((pedal_values.throttle / 4095.0) * 100));
 
-    if (can_data.pack_stats.stale) {
+    if (can_data.pack_stats.stale) { // update battery stats
         NXT_setText(BATT_VOLT, "S");
         NXT_setText(BATT_CURR, "S");
+        NXT_setText(BATT_TEMP, "S");
     } else {
-        NXT_setTextFormatted(BATT_VOLT, "%d", can_data.pack_stats.pack_voltage);
-        NXT_setTextFormatted(BATT_CURR, "%d", can_data.pack_stats.pack_current);
+        NXT_setTextFormatted(BATT_VOLT, "%dV", can_data.pack_stats.pack_voltage);
+        NXT_setTextFormatted(BATT_CURR, "%dA", can_data.pack_stats.pack_current);
+        NXT_setTextFormatted(BATT_TEMP, "%dC", can_data.pack_stats.avg_temp);
+    }
+
+    // todo better temp display
+    if (can_data.motor_temps.stale) { // update motor temps
+        NXT_setText(MOT_TEMP, "S");
+    } else {
+        int16_t max_motor_temp = MAX4(
+            can_data.motor_temps.front_right,
+            can_data.motor_temps.front_left,
+            can_data.motor_temps.rear_left,
+            can_data.motor_temps.rear_right
+        );
+        NXT_setTextFormatted(MOT_TEMP, "%dC", max_motor_temp);
+    }
+
+    if (can_data.igbt_temps.stale) { // update igbt temps
+        NXT_setText(MC_TEMP, "S");
+    } else {
+        int16_t max_igbt_temp = MAX4(
+            can_data.igbt_temps.front_right,
+            can_data.igbt_temps.front_left,
+            can_data.igbt_temps.rear_left,
+            can_data.igbt_temps.rear_right
+        );
+        NXT_setTextFormatted(MC_TEMP, "%dC", max_igbt_temp);
     }
 
     // todo better speed calc lol
@@ -422,8 +454,13 @@ void raceTelemetryUpdate() {
         if (can_data.wheel_speeds.rear_left < 0) {
             NXT_setText(SPEED, "NEG");
         } else {
-            uint16_t speed = can_data.wheel_speeds.front_left * RPM_TO_MPH; // Convert to mph
-            NXT_setTextFormatted(SPEED, "%d", speed);
+            int16_t max_speed = MAX4(
+                can_data.wheel_speeds.front_right,
+                can_data.wheel_speeds.front_left,
+                can_data.wheel_speeds.rear_left,
+                can_data.wheel_speeds.rear_right
+            );
+            NXT_setTextFormatted(SPEED, "%d", max_speed);
         }
     }
 

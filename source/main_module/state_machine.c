@@ -102,6 +102,31 @@ void update_tsal() {
     }
 }
 
+void report_telemetry() {
+    CAN_SEND_main_hb(g_car.current_state);
+
+    CAN_SEND_wheel_speeds(
+        g_car.front_right.crit->AMK_ActualSpeed,
+        g_car.front_left.crit->AMK_ActualSpeed,
+        g_car.rear_left.crit->AMK_ActualSpeed,
+        g_car.rear_right.crit->AMK_ActualSpeed
+    );
+
+    CAN_SEND_motor_temps(
+        g_car.front_right.temps->AMK_MotorTemp,
+        g_car.front_left.temps->AMK_MotorTemp,
+        g_car.rear_left.temps->AMK_MotorTemp,
+        g_car.rear_right.temps->AMK_MotorTemp
+    );
+
+    CAN_SEND_igbt_temps(
+        g_car.front_right.temps->AMK_IGBTTemp,
+        g_car.front_left.temps->AMK_IGBTTemp,
+        g_car.rear_left.temps->AMK_IGBTTemp,
+        g_car.rear_right.temps->AMK_IGBTTemp
+    );
+}
+
 void fsm_periodic() {
     // set default states
     g_car.current_state = g_car.next_state;
@@ -199,14 +224,7 @@ void fsm_periodic() {
     AMK_set_torque(&g_car.rear_left,   g_torque_request.rear_left);
     AMK_set_torque(&g_car.rear_right,  g_torque_request.rear_right);
 
-    // report telemetry
-    CAN_SEND_main_hb(g_car.current_state);
-    CAN_SEND_wheel_speeds(
-        g_car.front_right.crit->AMK_ActualSpeed,
-        g_car.front_left.crit->AMK_ActualSpeed,
-        g_car.rear_left.crit->AMK_ActualSpeed,
-        g_car.rear_right.crit->AMK_ActualSpeed
-    );
+    report_telemetry();
 
     // flush the internal state
     PHAL_writeGPIO(BRAKE_LIGHT_PORT, BRAKE_LIGHT_PIN, g_car.brake_light);

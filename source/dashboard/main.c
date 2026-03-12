@@ -17,6 +17,7 @@
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "common/phal/usart.h"
+#include "common/strbuf/strbuf.h"
 
 /* Module Includes */
 #include "common/can_library/generated/DASHBOARD.h"

@@ -154,54 +154,68 @@
                     "msg_priority": 0
                 },
                 {
-                    "msg_name": "rear_motor_temps",
-                    "msg_desc": "Temperature of motor controllers and motors",
+                    "msg_name": "motor_temps",
+                    "msg_desc": "Temperature of motors",
                     "signals": [
                         {
-                            "sig_name": "left_mot_temp",
-                            "type": "uint8_t",
-                            "length": 8,
+                            "sig_name": "front_right",
+                            "type": "int16_t",
                             "unit": "C",
                             "scale": 0.1
                         },
                         {
-                            "sig_name": "right_mot_temp",
-                            "type": "uint8_t",
-                            "length": 8,
+                            "sig_name": "front_left",
+                            "type": "int16_t",
                             "unit": "C",
                             "scale": 0.1
                         },
                         {
-                            "sig_name": "left_inv_temp",
-                            "type": "uint8_t",
-                            "length": 8,
+                            "sig_name": "rear_left",
+                            "type": "int16_t",
                             "unit": "C",
                             "scale": 0.1
                         },
                         {
-                            "sig_name": "right_inv_temp",
-                            "type": "uint8_t",
-                            "length": 8,
-                            "unit": "C",
-                            "scale": 0.1
-                        },
-                        {
-                            "sig_name": "left_igbt_temp",
-                            "type": "uint8_t",
-                            "length": 8,
-                            "unit": "C",
-                            "scale": 0.1
-                        },
-                        {
-                            "sig_name": "right_igbt_temp",
-                            "type": "uint8_t",
-                            "length": 8,
+                            "sig_name": "rear_right",
+                            "type": "int16_t",
                             "unit": "C",
                             "scale": 0.1
                         }
                     ],
                     "msg_period": 1000,
-                    "msg_priority": 5
+                    "msg_priority": 4
+                },
+                {
+                    "msg_name": "igbt_temps",
+                    "msg_desc": "Temperature of igbts",
+                    "signals": [
+                        {
+                            "sig_name": "front_right",
+                            "type": "int16_t",
+                            "unit": "C",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "front_left",
+                            "type": "int16_t",
+                            "unit": "C",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "rear_left",
+                            "type": "int16_t",
+                            "unit": "C",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "rear_right",
+                            "type": "int16_t",
+                            "unit": "C",
+                            "scale": 0.1
+                        }
+                    ],
+                    "msg_period": 1000,
+                    "msg_priority": 4
                 },
                 {
                     "msg_name": "wheel_speeds",

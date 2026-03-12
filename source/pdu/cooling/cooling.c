@@ -140,23 +140,23 @@ static void calculate_cooling_periodic() {
 
     // PUMP2: Motor pumps
     // Enable motor pumps if above 60C
-    if (can_data.rear_motor_temps.stale) {
+    if (can_data.motor_temps.stale) {
         motor_pump_controller.last_switch_ms = now_ms;
         set_pump2_off();
     } else {
-        float motor_temp = (float)MAX(can_data.rear_motor_temps.left_mot_temp,
-                                      can_data.rear_motor_temps.right_mot_temp);
+        float motor_temp = (float)MAX(can_data.motor_temps.front_right,
+                                      can_data.motor_temps.front_left);
         bangbang_update(&motor_pump_controller, motor_temp, now_ms);
     }
 
     // FAN2: Motor fans
     // Enable motor fans if (above 100C) || (car stopped && temp > 60)
-    if (can_data.rear_motor_temps.stale) {
+    if (can_data.motor_temps.stale) {
         motor_fan_controller.last_switch_ms = now_ms;
         set_fan2_off();
     } else {
-        float motor_temp = (float)MAX(can_data.rear_motor_temps.left_mot_temp,
-                                      can_data.rear_motor_temps.right_mot_temp);
+        float motor_temp = (float)MAX(can_data.motor_temps.front_left,
+                                      can_data.motor_temps.front_right);
         if (not_moving) {
             bangbang_update(&motor_fan_controller, motor_temp, now_ms);
         } else if (motor_temp < MOTOR_COOLING_ENABLE_TEMP) {

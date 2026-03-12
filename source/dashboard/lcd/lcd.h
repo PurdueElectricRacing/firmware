@@ -1,8 +1,14 @@
-#ifndef __LCD_H__
-#define __LCD_H__
+#ifndef LCD_H
+#define LCD_H
 
-#include "menu_system.h"
-#include "nextion.h"
+/**
+ * @file lcd.h
+ * @brief LCD display management
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
+#include "common_defs.h"
 
 // Page Strings (must match Nextion page names)
 #define PREFLIGHT_STRING   "preflight"
@@ -13,7 +19,6 @@
 // Info
 constexpr float WHEEL_RADIUS_IN = 8.0f;
 constexpr float GEAR_RATIO = 12.51f;
-constexpr float PI = 3.14159f;
 
 constexpr float WHEEL_CIRCUMFERENCE_IN = 2.0f * PI * WHEEL_RADIUS_IN;
 constexpr float OUTPUT_REV_PER_MOTOR_REV = 1.0f / GEAR_RATIO;
@@ -22,7 +27,7 @@ constexpr float INCHES_PER_MOTOR_REV = WHEEL_CIRCUMFERENCE_IN * OUTPUT_REV_PER_M
 constexpr float MINUTES_PER_HOUR = 60.0f;
 constexpr float INCHES_PER_MILE = 63360.0f;
 
-constexpr float RPM_TO_MPH = INCHES_PER_MOTOR_REV * MINUTES_PER_HOUR / INCHES_PER_MILE;
+static constexpr float RPM_TO_MPH = INCHES_PER_MOTOR_REV * MINUTES_PER_HOUR / INCHES_PER_MILE;
 
 // Fault Page
 #define FAULT1_BUTTON     "ERROR1"
@@ -76,7 +81,7 @@ constexpr float RPM_TO_MPH = INCHES_PER_MOTOR_REV * MINUTES_PER_HOUR / INCHES_PE
 #define CALIBRATION_BRAKE_PRS1_VAL   "brkprs1"
 #define CALIBRATION_BRAKE_PRS2_VAL   "brkprs2"
 
-typedef enum {
+typedef enum : uint8_t {
     // Should correspond with the page count in main.h
     PAGE_PREFLIGHT    = 0,
     PAGE_RACE        = 1,
@@ -107,4 +112,4 @@ void sendTVParameters(); // Periodically send updates to the TV configuration to
 void sendCoolingParameters(); // Periodically send updates to the cooling configuration to the cooling board
 void sendLoggingParameters(); // Periodically send updates to the logging configuration to the daq board
 
-#endif // __LCD_H__
+#endif // LCD_H

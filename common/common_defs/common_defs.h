@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef COMMON_DEFS_H_
-#define COMMON_DEFS_H_
+#ifndef COMMON_DEFS_H
+#define COMMON_DEFS_H
 
 #include <stdint.h>
 
@@ -62,8 +62,11 @@ static inline uint32_t ROUNDUP(uint32_t a, uint32_t n) {
     return ROUNDDOWN(a + n - 1, n);
 }
 
+#define MAX2(x, y) ((x) > (y) ? (x) : (y))
+#define MAX4(a, b, c, d) (MAX2(MAX2((a), (b)), MAX2((c), (d))))
+
 /* Constants */
-#define PI (3.14159f)
+static constexpr float PI = 3.14159f;
 
 /* Unit Conversions */
 #define DEG_TO_RAD (PI / 180.0f)
@@ -81,4 +84,4 @@ static constexpr uint32_t CONN_LED_TIMEOUT_MS = 1000;
 static constexpr uint32_t PREFLIGHT_ANIMATION_DURATION_MS = 1500;
 static constexpr uint32_t HEARTBEAT_PERIOD_MS = 100;
 
-#endif /* COMMON_DEFS_H_ */
+#endif // COMMON_DEFS_H

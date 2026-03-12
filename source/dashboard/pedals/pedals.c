@@ -116,5 +116,5 @@ void pedalsPeriodic(void) {
         throttle_command = 0;
     }
 
-    CAN_SEND_filt_throttle_brake(throttle_command, brake_command);
+    CAN_SEND_pedals(throttle_command, brake_command);
 }

@@ -265,7 +265,7 @@
             ],
             "rx": [
                 {
-                    "msg_name": "filt_throttle_brake"
+                    "msg_name": "pedals"
                 },
                 {
                     "msg_name": "start_button",

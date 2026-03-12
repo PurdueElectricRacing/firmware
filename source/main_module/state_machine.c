@@ -19,7 +19,7 @@ static constexpr uint16_t BRAKE_LIGHT_ON_THRESHOLD = 200; // ~5% of 4095
 static constexpr uint16_t BRAKE_LIGHT_OFF_THRESHOLD = 100; // ~2.5% of 4095
 
 void ready2drive_periodic() {
-    if (can_data.filt_throttle_brake.stale) {
+    if (can_data.pedals.stale) {
         g_torque_request.front_right = 0;
         g_torque_request.front_left  = 0;
         g_torque_request.rear_left   = 0;
@@ -33,7 +33,7 @@ void ready2drive_periodic() {
     // todo alternative throttle mapping (like S curve)
 
     // assumes filt_throttle_brake.throttle is in the range [0, 4095]
-    float throttle = can_data.filt_throttle_brake.throttle / 4095.0f;
+    float throttle = can_data.pedals.throttle / 4095.0f;
     int16_t torque_req_percent = (int16_t)(throttle * 100);
     
     g_torque_request.front_right = torque_req_percent;
@@ -80,11 +80,11 @@ static inline bool is_buzzing_time_elapsed() {
 * during a transition
 */
 void update_brake_light() {
-    if (can_data.filt_throttle_brake.brake > BRAKE_LIGHT_ON_THRESHOLD) {
+    if (can_data.pedals.brake > BRAKE_LIGHT_ON_THRESHOLD) {
         if (!g_car.brake_light) {
             g_car.brake_light = true;
         }
-    } else if (can_data.filt_throttle_brake.brake < BRAKE_LIGHT_OFF_THRESHOLD) {
+    } else if (can_data.pedals.brake < BRAKE_LIGHT_OFF_THRESHOLD) {
         if (g_car.brake_light) {
             g_car.brake_light = false;
         }

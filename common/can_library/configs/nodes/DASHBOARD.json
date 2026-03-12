@@ -6,12 +6,12 @@
             "peripheral": "FDCAN2",
             "tx": [
                 {
-                    "msg_name": "filt_throttle_brake",
-                    "msg_desc": "Filtered throttle and brake values",
+                    "msg_name": "pedals",
+                    "msg_desc": "Pedal values",
                     "signals": [
                         {
                             "sig_name": "throttle",
-                            "sig_desc": "Official throttle request from driver",
+                            "sig_desc": "Throttle request from driver",
                             "type": "uint16_t",
                             "length": 12,
                             "scale": 0.02442,
@@ -19,7 +19,7 @@
                         },
                         {
                             "sig_name": "brake",
-                            "sig_desc": "Processed brake request from driver",
+                            "sig_desc": "Brake request from driver",
                             "type": "uint16_t",
                             "length": 12,
                             "scale": 0.02442,

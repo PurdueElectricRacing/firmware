@@ -314,7 +314,7 @@ var searchData=
   ['send_2dto_2dtv_2epy_311',['send-to-tv.py',['../send-to-tv_8py.html',1,'']]],
   ['send_5fflowrates_312',['send_flowrates',['../pdu_2main_8c.html#ab7a4ebf8321efc467754ed8e2295b790',1,'main.c']]],
   ['send_5fiv_5freadings_313',['send_iv_readings',['../pdu_2main_8c.html#afef31b64be658f62747f5ae34f9bacdd',1,'main.c']]],
-  ['send_5fperiodic_314',['send_periodic',['../f4__testing_2canpiler_8c.html#acaa1e25c4d31d8a87cbecf968c4d6c57',1,'send_periodic():&#160;canpiler.c'],['../g4__testing_2canpiler_8c.html#acaa1e25c4d31d8a87cbecf968c4d6c57',1,'send_periodic():&#160;canpiler.c']]],
+  ['send_5fperiodic_314',['send_periodic',['../f4__testing_2canpiler_8c.html#acaa1e25c4d31d8a87cbecf968c4d6c57',1,'canpiler.c']]],
   ['send_5fserial_5fstruct_315',['send_serial_struct',['../namespacesend-and-rec.html#a01d3b2fda2022c7ef30bd6220da4027c',1,'send-and-rec.send_serial_struct()'],['../namespacesend-to-tv.html#ac998305484369f02392c8a8e8ab35608',1,'send-to-tv.send_serial_struct()']]],
   ['send_5fstruct_5fformat_316',['SEND_STRUCT_FORMAT',['../namespacesend-and-rec.html#a7ee6fd24e953772fea2cfe26f24f574f',1,'send-and-rec']]],
   ['send_5fversion_317',['send_version',['../dashboard_2main_8c.html#abc93ec4e65bbde41cb8ac5740eeee397',1,'main.c']]],

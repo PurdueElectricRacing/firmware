@@ -7,6 +7,7 @@ var dir_bdd9a5d540de89e9fe90efdfc6973a4f =
     [ "common_defs", "dir_d14dad6d4dd0a53ace723c1f049478ea.html", "dir_d14dad6d4dd0a53ace723c1f049478ea" ],
     [ "freertos", "dir_26279b31032f3838120ccd2327025368.html", "dir_26279b31032f3838120ccd2327025368" ],
     [ "gps", "dir_75090a41b2477eee887f7599f1bd926e.html", "dir_75090a41b2477eee887f7599f1bd926e" ],
+    [ "izze_imu", "dir_3d869cf79cc855611296189de4de01e3.html", "dir_3d869cf79cc855611296189de4de01e3" ],
     [ "lerp_lut", "dir_f0d476005fd60c6020cb81dc0b85194b.html", "dir_f0d476005fd60c6020cb81dc0b85194b" ],
     [ "log", "dir_017de2976029d5961d56ff770475ad88.html", "dir_017de2976029d5961d56ff770475ad88" ],
     [ "phal", "dir_a3c0d50f55deba8c32b4e660038b52ec.html", "dir_a3c0d50f55deba8c32b4e660038b52ec" ],

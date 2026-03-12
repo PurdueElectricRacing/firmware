@@ -96,7 +96,7 @@ var searchData=
   ['gpio_2ec_93',['gpio.c',['../phal__F4__F7_2gpio_2gpio_8c.html',1,'(Global Namespace)'],['../phal__G4_2gpio_2gpio_8c.html',1,'(Global Namespace)']]],
   ['gpio_2eh_94',['gpio.h',['../phal_2gpio_8h.html',1,'(Global Namespace)'],['../phal__F4__F7_2gpio_2gpio_8h.html',1,'(Global Namespace)'],['../phal__G4_2gpio_2gpio_8h.html',1,'(Global Namespace)']]],
   ['gpio_5fclear_5fbit_95',['GPIO_CLEAR_BIT',['../daq__hub_8c.html#a800082af94e74e28477c51f973bf562e',1,'daq_hub.c']]],
-  ['gpio_5fconfig_96',['gpio_config',['../a__box_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../daq_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../dashboard_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../driveline_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../f4__testing_2canpiler_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;canpiler.c'],['../g4__testing_2canpiler_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;canpiler.c'],['../main__module_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../pdu_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../torque__vector_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c']]],
+  ['gpio_5fconfig_96',['gpio_config',['../a__box_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../daq_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../dashboard_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../driveline_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../f4__testing_2canpiler_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;canpiler.c'],['../izze__imu__config_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;izze_imu_config.c'],['../main__module_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../pdu_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../torque__vector_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c']]],
   ['gpio_5finit_5faf_97',['GPIO_INIT_AF',['../phal__F4__F7_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641',1,'GPIO_INIT_AF:&#160;gpio.h'],['../phal__G4_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641',1,'GPIO_INIT_AF:&#160;gpio.h']]],
   ['gpio_5finit_5fanalog_98',['GPIO_INIT_ANALOG',['../phal__F4__F7_2gpio_2gpio_8h.html#a9f3e383e90eea420ba388b6041e6c866',1,'GPIO_INIT_ANALOG:&#160;gpio.h'],['../phal__G4_2gpio_2gpio_8h.html#a9f3e383e90eea420ba388b6041e6c866',1,'GPIO_INIT_ANALOG:&#160;gpio.h']]],
   ['gpio_5finit_5ffdcan1rx_5fpa11_99',['GPIO_INIT_FDCAN1RX_PA11',['../fdcan_8h.html#a794f63ec27c878a88dcfb517fb9feade',1,'fdcan.h']]],
@@ -240,7 +240,14 @@ var searchData=
   ['gyro_5frange_5f2000_237',['GYRO_RANGE_2000',['../bmi088_8h.html#a0c7cba54f7fc9d5af1eb933057708fe0ab0c1e157df5cef39a6c1399531cc9e91',1,'bmi088.h']]],
   ['gyro_5frange_5f250_238',['GYRO_RANGE_250',['../bmi088_8h.html#a0c7cba54f7fc9d5af1eb933057708fe0aa7495aaab9b9c19e6186ea1d491a03f5',1,'bmi088.h']]],
   ['gyro_5frange_5f500_239',['GYRO_RANGE_500',['../bmi088_8h.html#a0c7cba54f7fc9d5af1eb933057708fe0a84a813cd02b4931f28e61b0043483cf3',1,'bmi088.h']]],
-  ['gyro_5fx_240',['gyro_x',['../structIMU__data__t.html#aa83953a2ea1ea0ec1d683a12e716b482',1,'IMU_data_t']]],
-  ['gyro_5fy_241',['gyro_y',['../structIMU__data__t.html#a8958e82e47331123345e19bb0e09436d',1,'IMU_data_t']]],
-  ['gyro_5fz_242',['gyro_z',['../structIMU__data__t.html#a1639873b6eef7cdb9458ef49e70eec1e',1,'IMU_data_t']]]
+  ['gyro_5fscale_5f1000dps_240',['GYRO_SCALE_1000DPS',['../izze__imu_8h.html#a40203eb9892b3f173a1180e6d30401ffad921df7234a5e5f1a674a5dd8b25015c',1,'izze_imu.h']]],
+  ['gyro_5fscale_5f125dps_241',['GYRO_SCALE_125DPS',['../izze__imu_8h.html#a40203eb9892b3f173a1180e6d30401ffaab9fb0bbe3b4c91277fa9669247c8542',1,'izze_imu.h']]],
+  ['gyro_5fscale_5f2000dps_242',['GYRO_SCALE_2000DPS',['../izze__imu_8h.html#a40203eb9892b3f173a1180e6d30401ffa273d59d1ea152eed94f714fdaee51987',1,'izze_imu.h']]],
+  ['gyro_5fscale_5f250dps_243',['GYRO_SCALE_250DPS',['../izze__imu_8h.html#a40203eb9892b3f173a1180e6d30401ffab8210ec1918dff0f9cb599efe953b80f',1,'izze_imu.h']]],
+  ['gyro_5fscale_5f4000dps_244',['GYRO_SCALE_4000DPS',['../izze__imu_8h.html#a40203eb9892b3f173a1180e6d30401ffa49c16f67b7a71e16f8909d0b3ca94554',1,'izze_imu.h']]],
+  ['gyro_5fscale_5f500dps_245',['GYRO_SCALE_500DPS',['../izze__imu_8h.html#a40203eb9892b3f173a1180e6d30401ffa5e0787a0969a7af6f8a08bf114fc496f',1,'izze_imu.h']]],
+  ['gyro_5fscale_5ft_246',['gyro_scale_t',['../izze__imu_8h.html#a40203eb9892b3f173a1180e6d30401ff',1,'izze_imu.h']]],
+  ['gyro_5fx_247',['gyro_x',['../structIMU__data__t.html#aa83953a2ea1ea0ec1d683a12e716b482',1,'IMU_data_t']]],
+  ['gyro_5fy_248',['gyro_y',['../structIMU__data__t.html#a8958e82e47331123345e19bb0e09436d',1,'IMU_data_t']]],
+  ['gyro_5fz_249',['gyro_z',['../structIMU__data__t.html#a1639873b6eef7cdb9458ef49e70eec1e',1,'IMU_data_t']]]
 ];

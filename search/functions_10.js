@@ -36,7 +36,7 @@ var searchData=
   ['send_33',['send',['../group__WIZnet__socket__APIs.html#gacd77c3cc60e87d09a5714932506d7c4b',1,'send(uint8_t sn, uint8_t *buf, uint16_t len):&#160;socket.c'],['../group__WIZnet__socket__APIs.html#gacd77c3cc60e87d09a5714932506d7c4b',1,'send(uint8_t sn, uint8_t *buf, uint16_t len):&#160;socket.c']]],
   ['send_5fflowrates_34',['send_flowrates',['../pdu_2main_8c.html#ab7a4ebf8321efc467754ed8e2295b790',1,'main.c']]],
   ['send_5fiv_5freadings_35',['send_iv_readings',['../pdu_2main_8c.html#afef31b64be658f62747f5ae34f9bacdd',1,'main.c']]],
-  ['send_5fperiodic_36',['send_periodic',['../f4__testing_2canpiler_8c.html#acaa1e25c4d31d8a87cbecf968c4d6c57',1,'send_periodic():&#160;canpiler.c'],['../g4__testing_2canpiler_8c.html#acaa1e25c4d31d8a87cbecf968c4d6c57',1,'send_periodic():&#160;canpiler.c']]],
+  ['send_5fperiodic_36',['send_periodic',['../f4__testing_2canpiler_8c.html#acaa1e25c4d31d8a87cbecf968c4d6c57',1,'canpiler.c']]],
   ['send_5fserial_5fstruct_37',['send_serial_struct',['../namespacesend-and-rec.html#a01d3b2fda2022c7ef30bd6220da4027c',1,'send-and-rec.send_serial_struct()'],['../namespacesend-to-tv.html#ac998305484369f02392c8a8e8ab35608',1,'send-to-tv.send_serial_struct()']]],
   ['send_5fversion_38',['send_version',['../dashboard_2main_8c.html#abc93ec4e65bbde41cb8ac5740eeee397',1,'main.c']]],
   ['sendcoolingparameters_39',['sendCoolingParameters',['../lcd_8h.html#a75562cebcb171ee3057a36ace3a6c9b7',1,'lcd.h']]],

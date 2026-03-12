@@ -114,10 +114,10 @@ void update_cooling_periodic() {
 static void calculate_cooling_periodic() {
     // GPS not stale implies GPS fix
     // bool not_moving = !can_data.gps_speed.stale && can_data.gps_speed.gps_speed <= GPS_SPEED_MOVING;
-    bool not_moving = true; // TODO temp until we have GPS data
+    // bool not_moving = true; // TODO temp until we have GPS data
     
 
-    uint32_t now_ms = OS_TICKS;
+    // uint32_t now_ms = OS_TICKS;
 
     // PUMP1: Battery pumps
     // Enable if above 30C
@@ -140,32 +140,40 @@ static void calculate_cooling_periodic() {
 
     // PUMP2: Motor pumps
     // Enable motor pumps if above 60C
-    if (can_data.motor_temps.stale) {
-        motor_pump_controller.last_switch_ms = now_ms;
-        set_pump2_off();
-    } else {
-        float motor_temp = (float)MAX(can_data.motor_temps.front_right,
-                                      can_data.motor_temps.front_left);
-        bangbang_update(&motor_pump_controller, motor_temp, now_ms);
-    }
+    // if (can_data.motor_temps.stale) {
+    //     motor_pump_controller.last_switch_ms = now_ms;
+    //     set_pump2_off();
+    // } else {
+    //     float motor_temp = (float)MAX(can_data.motor_temps.front_right,
+    //                                   can_data.motor_temps.front_left);
+    //     bangbang_update(&motor_pump_controller, motor_temp, now_ms);
+    // }
 
-    // FAN2: Motor fans
-    // Enable motor fans if (above 100C) || (car stopped && temp > 60)
-    if (can_data.motor_temps.stale) {
-        motor_fan_controller.last_switch_ms = now_ms;
-        set_fan2_off();
-    } else {
-        float motor_temp = (float)MAX(can_data.motor_temps.front_left,
-                                      can_data.motor_temps.front_right);
-        if (not_moving) {
-            bangbang_update(&motor_fan_controller, motor_temp, now_ms);
-        } else if (motor_temp < MOTOR_COOLING_ENABLE_TEMP) {
-            motor_fan_controller.last_switch_ms = now_ms;
-            set_fan2_off();
-        } else {
-            bangbang_update(&motor_fan_controller, motor_temp, now_ms);
-        }
-    }
+    // // FAN2: Motor fans
+    // // Enable motor fans if (above 100C) || (car stopped && temp > 60)
+    // if (can_data.motor_temps.stale) {
+    //     motor_fan_controller.last_switch_ms = now_ms;
+    //     set_fan2_off();
+    // } else {
+    //     float motor_temp = (float)MAX(can_data.motor_temps.front_left,
+    //                                   can_data.motor_temps.front_right);
+    //     if (not_moving) {
+    //         bangbang_update(&motor_fan_controller, motor_temp, now_ms);
+    //     } else if (motor_temp < MOTOR_COOLING_ENABLE_TEMP) {
+    //         motor_fan_controller.last_switch_ms = now_ms;
+    //         set_fan2_off();
+    //     } else {
+    //         bangbang_update(&motor_fan_controller, motor_temp, now_ms);
+    //     }
+    // }
+
+    // todo cooling
+
+    set_fan1_on();
+    set_fan2_on();
+    // todo: turn this on when pumps are harnessed
+    // set_pump1_on();
+    // set_pump2_on();
 
     cr.fan3_status = cr.fan1_status;
     cr.fan3_speed  = cr.fan1_speed;

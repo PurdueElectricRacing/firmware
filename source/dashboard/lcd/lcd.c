@@ -428,7 +428,7 @@ void raceTelemetryUpdate() {
         return;
     }
 
-    NXT_setValue(BRK_BAR, (int)((pedal_values.brake / 4095.0) * 100)); // TODO BRK BAR
+    NXT_setValue(BRK_BAR, (int)((pedal_values.brake / 4095.0) * 100));
     NXT_setValue(THROT_BAR, (int)((pedal_values.throttle / 4095.0) * 100));
 
     if (can_data.pack_stats.stale) { // update battery stats
@@ -436,8 +436,10 @@ void raceTelemetryUpdate() {
         NXT_setText(BATT_CURR, "S");
         NXT_setText(BATT_TEMP, "S");
     } else {
-        NXT_setTextFormatted(BATT_VOLT, "%dV", can_data.pack_stats.pack_voltage);
-        NXT_setTextFormatted(BATT_CURR, "%dA", can_data.pack_stats.pack_current);
+        uint16_t scaled_voltage = can_data.pack_stats.pack_voltage * UNPACK_COEFF_PACK_STATS_PACK_VOLTAGE;
+        uint16_t scaled_current = can_data.pack_stats.pack_current * UNPACK_COEFF_PACK_STATS_PACK_CURRENT;
+        NXT_setTextFormatted(BATT_VOLT, "%dV", scaled_voltage);
+        NXT_setTextFormatted(BATT_CURR, "%dA", scaled_current);
         NXT_setTextFormatted(BATT_TEMP, "%dC", can_data.pack_stats.avg_temp);
     }
 
@@ -451,7 +453,9 @@ void raceTelemetryUpdate() {
             can_data.motor_temps.rear_left,
             can_data.motor_temps.rear_right
         );
-        NXT_setTextFormatted(MOT_TEMP, "%dC", max_motor_temp);
+
+        int16_t scaled_motor_temp = max_motor_temp * UNPACK_COEFF_MOTOR_TEMPS_FRONT_RIGHT;
+        NXT_setTextFormatted(MOT_TEMP, "%dC", scaled_motor_temp);
     }
 
     if (can_data.igbt_temps.stale) { // update igbt temps
@@ -463,7 +467,9 @@ void raceTelemetryUpdate() {
             can_data.igbt_temps.rear_left,
             can_data.igbt_temps.rear_right
         );
-        NXT_setTextFormatted(MC_TEMP, "%dC", max_igbt_temp);
+
+        int16_t scaled_igbt_temp = max_igbt_temp * UNPACK_COEFF_IGBT_TEMPS_FRONT_RIGHT;
+        NXT_setTextFormatted(MC_TEMP, "%dC", scaled_igbt_temp);
     }
 
     // todo better speed calc lol

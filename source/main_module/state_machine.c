@@ -32,7 +32,7 @@ void ready2drive_periodic() {
     // todo torque vectoring
     // todo alternative throttle mapping (like S curve)
 
-    // assumes filt_throttle_brake.throttle is in the range [0, 4095]
+    // assumes pedals.throttle is in the range [0, 4095]
     float throttle = can_data.pedals.throttle / 4095.0f;
     int16_t torque_req_percent = (int16_t)(throttle * 100);
     
@@ -73,12 +73,6 @@ static inline bool is_buzzing_time_elapsed() {
     return (OS_TICKS - g_car.buzzer_start_time >= MIN_BUZZING_TIME_MS);
 }
 
-/**
-* Brake Light Control
-* The on threshold is larger than the off threshold to
-* behave similar to a Shmitt-trigger, preventing blinking
-* during a transition
-*/
 void update_brake_light() {
     if (can_data.pedals.brake > BRAKE_LIGHT_ON_THRESHOLD) {
         if (!g_car.brake_light) {

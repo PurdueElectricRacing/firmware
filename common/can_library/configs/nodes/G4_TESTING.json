@@ -7,7 +7,7 @@
             "tx": [
                 {
                     "msg_name": "IZZE_IMU_config",
-                    "msg_desc": "gps fix status",
+                    "msg_desc": "Config message. Power cycle after 10-15 seconds of sending",
                     "signals": [
                         {
                             "sig_name": "programming_constant",

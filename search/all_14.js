@@ -20,7 +20,7 @@ var searchData=
   ['one_20should_20i_20look_20at_17',['Which one should I look at?',['..//github/workspace/docs/datasheets/README.md#autotoc_md66',1,'']]],
   ['open_20a_20new_20terminal_18',['Open a new terminal',['../md_docs_2setup.html#autotoc_md82',1,'']]],
   ['operation_19',['Periodic Operation',['..//github/workspace/source/a_box/adbms/README.md#autotoc_md8',1,'']]],
-  ['orange_20',['ORANGE',['../classutils_1_1bcolors.html#ac694c6b38347e344122c497ea16d8132',1,'utils.bcolors.ORANGE'],['../nextion_8h.html#ac5b6e19bf06822021f35602c59658de3',1,'ORANGE:&#160;nextion.h']]],
+  ['orange_20',['ORANGE',['../classutils_1_1bcolors.html#ac694c6b38347e344122c497ea16d8132',1,'utils::bcolors']]],
   ['os_21',['OS',['../md_docs_2setup.html#autotoc_md78',1,'2. VSCode Setup (All OS)'],['../md_docs_2setup.html#autotoc_md81',1,'3. Repository Setup (All OS)']]],
   ['os_5fticks_22',['os_ticks',['../structsched__t.html#a00eeb3d75bd5397f31925ce0f10f6aed',1,'sched_t']]],
   ['ospeed_23',['ospeed',['../structGPIOInitConfig__t.html#a9e91fe0f71b365a8fc0243c59721ecda',1,'GPIOInitConfig_t']]],

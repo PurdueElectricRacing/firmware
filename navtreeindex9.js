@@ -1,5 +1,7 @@
 var NAVTREEINDEX9 =
 {
+"globals_defs_g.html":[8,1,6,7],
+"globals_defs_h.html":[8,1,6,8],
 "globals_defs_i.html":[8,1,6,9],
 "globals_defs_l.html":[8,1,6,10],
 "globals_defs_m.html":[8,1,6,11],
@@ -247,7 +249,5 @@ var NAVTREEINDEX9 =
 "group__DATA__TYPE.html#gga3a77339a724cf087b366b8710aa683e6abdad4e84a9a5a8084e9662d4d8587f18":[5,1,5,7],
 "group__DATA__TYPE.html#gga3a77339a724cf087b366b8710aa683e6aef32fa8c2e9399355ed769ec77729f8e":[5,1,5,4],
 "group__DATA__TYPE.html#gga3a77339a724cf087b366b8710aa683e6af7caa802f7e7242ca70ce5640a9b8e85":[5,1,5,1],
-"group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca273098a5481a025f536a599c6a008759":[5,1,9,1],
-"group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca32c5ae489d34cf2de9ff96ae278f028a":[5,1,9,0],
-"group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca37ebbd5edda6ee0dccfcd481d4690416":[5,1,9,3]
+"group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca273098a5481a025f536a599c6a008759":[5,1,9,1]
 };

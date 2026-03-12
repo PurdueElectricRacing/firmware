@@ -27,13 +27,16 @@ var lcd_8c =
     [ "updateSDCStatus", "lcd_8c.html#abfa214fccc53b7ab6c6810249d863a72", null ],
     [ "updateTelemetryPages", "lcd_8c.html#a9ceeac8764aca15be67680bddfe70704", null ],
     [ "curr_page", "lcd_8c.html#af64f99df8657acc696aa097fce871251", null ],
+    [ "current_page_index", "lcd_8c.html#a0440bed2629dc4bcc4b12f35c550b962", null ],
     [ "errorText", "lcd_8c.html#a88107c811085e3d38140676734f63644", null ],
     [ "faults_elements", "lcd_8c.html#a598e836117e5c44672d55d79bcfecbb4", null ],
     [ "faults_page", "lcd_8c.html#aeaff39bbc3544b2fcd5f7aab1292a9fb", null ],
     [ "input_state", "lcd_8c.html#a78b28a5859c49a3ced4466bcdfca9368", null ],
+    [ "NUM_SELECTABLE_PAGES", "lcd_8c.html#a20367b754e069cb1c2262982240c5ac7", null ],
     [ "page_handlers", "lcd_8c.html#af6401c824f0ac3351fc8adbd56754490", null ],
     [ "pedal_values", "lcd_8c.html#a04f66772314df6ee10ca7ccf555278cd", null ],
     [ "prev_page", "lcd_8c.html#a8b71ea5d4f043abfa893e1d47cb51c06", null ],
     [ "race_elements", "lcd_8c.html#a1bb62c63847a1857beb23323d82a9b48", null ],
-    [ "race_page", "lcd_8c.html#a6e74610b7350024977fa25d1dcc6ae4f", null ]
+    [ "race_page", "lcd_8c.html#a6e74610b7350024977fa25d1dcc6ae4f", null ],
+    [ "selectable_pages", "lcd_8c.html#a22fef40ec8581c336f7a0ee2024c3fff", null ]
 ];

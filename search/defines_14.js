@@ -5,14 +5,13 @@ var searchData=
   ['w5200_2',['W5200',['../wizchip__conf_8h.html#a87c29ecd67ca522541567408808be12f',1,'wizchip_conf.h']]],
   ['w5300_3',['W5300',['../wizchip__conf_8h.html#a8b4cd677a2cbaf598edf17c6169494d5',1,'wizchip_conf.h']]],
   ['w5500_4',['W5500',['../wizchip__conf_8h.html#a9ef926aed787eb1a97050469e9d53e4b',1,'wizchip_conf.h']]],
-  ['warn_5fstring_5',['WARN_STRING',['../lcd_8h.html#a68be2e50ca8954fe2c024b7604d23623',1,'lcd.h']]],
-  ['wheel_5fradius_6',['WHEEL_RADIUS',['../lcd_8h.html#aaa6f04f6f0d7cf1008a53279acf49f07',1,'lcd.h']]],
-  ['white_7',['WHITE',['../nextion_8h.html#a87b537f5fa5c109d3c05c13d6b18f382',1,'nextion.h']]],
-  ['wizchip_5fcreg_5fblock_8',['WIZCHIP_CREG_BLOCK',['../w5500_8h.html#a587e5f530ec3c23e54e0736ea7342f90',1,'w5500.h']]],
-  ['wizchip_5fcritical_5fenter_9',['WIZCHIP_CRITICAL_ENTER',['../w5500_8h.html#ac59d6ec9327da0fd3ea8fa3fd21b9701',1,'w5500.h']]],
-  ['wizchip_5fcritical_5fexit_10',['WIZCHIP_CRITICAL_EXIT',['../w5500_8h.html#a0bfaa1b1d5c9582dddf46b6265b96ab7',1,'w5500.h']]],
-  ['wizchip_5foffset_5finc_11',['WIZCHIP_OFFSET_INC',['../w5500_8h.html#a19f3b761780d0e9fe375801e99c0d4e8',1,'w5500.h']]],
-  ['wizchip_5frxbuf_5fblock_12',['WIZCHIP_RXBUF_BLOCK',['../w5500_8h.html#a043c3f6b1ab6f9a00572bee520c8a502',1,'w5500.h']]],
-  ['wizchip_5fsreg_5fblock_13',['WIZCHIP_SREG_BLOCK',['../w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054',1,'w5500.h']]],
-  ['wizchip_5ftxbuf_5fblock_14',['WIZCHIP_TXBUF_BLOCK',['../w5500_8h.html#ae3f7cc188dc5a4aba9604a6d6479de98',1,'w5500.h']]]
+  ['wheel_5fradius_5',['WHEEL_RADIUS',['../lcd_8h.html#aaa6f04f6f0d7cf1008a53279acf49f07',1,'lcd.h']]],
+  ['white_6',['WHITE',['../nextion_8h.html#a87b537f5fa5c109d3c05c13d6b18f382',1,'nextion.h']]],
+  ['wizchip_5fcreg_5fblock_7',['WIZCHIP_CREG_BLOCK',['../w5500_8h.html#a587e5f530ec3c23e54e0736ea7342f90',1,'w5500.h']]],
+  ['wizchip_5fcritical_5fenter_8',['WIZCHIP_CRITICAL_ENTER',['../w5500_8h.html#ac59d6ec9327da0fd3ea8fa3fd21b9701',1,'w5500.h']]],
+  ['wizchip_5fcritical_5fexit_9',['WIZCHIP_CRITICAL_EXIT',['../w5500_8h.html#a0bfaa1b1d5c9582dddf46b6265b96ab7',1,'w5500.h']]],
+  ['wizchip_5foffset_5finc_10',['WIZCHIP_OFFSET_INC',['../w5500_8h.html#a19f3b761780d0e9fe375801e99c0d4e8',1,'w5500.h']]],
+  ['wizchip_5frxbuf_5fblock_11',['WIZCHIP_RXBUF_BLOCK',['../w5500_8h.html#a043c3f6b1ab6f9a00572bee520c8a502',1,'w5500.h']]],
+  ['wizchip_5fsreg_5fblock_12',['WIZCHIP_SREG_BLOCK',['../w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054',1,'w5500.h']]],
+  ['wizchip_5ftxbuf_5fblock_13',['WIZCHIP_TXBUF_BLOCK',['../w5500_8h.html#ae3f7cc188dc5a4aba9604a6d6479de98',1,'w5500.h']]]
 ];

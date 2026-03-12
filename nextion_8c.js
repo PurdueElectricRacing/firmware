@@ -2,6 +2,7 @@ var nextion_8c =
 [
     [ "NXT_setBackground", "nextion_8c.html#a19c3df8972af2eaea366cb65fad34d43", null ],
     [ "NXT_setBaud", "nextion_8c.html#ae7d537c10e1e85e6537850a02a315fd7", null ],
+    [ "NXT_setBorderColor", "nextion_8c.html#a46ee1522cb7ef9d6bc11a77879e3300e", null ],
     [ "NXT_setBorderWidth", "nextion_8c.html#ae995d182561a5fa3087569539bb551d2", null ],
     [ "NXT_setBrightness", "nextion_8c.html#acab8846ee36ca76ce5019adef4d04faf", null ],
     [ "NXT_setFloat", "nextion_8c.html#a03b977180b40a84a35a22cec5211d146", null ],

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['lcd_5finit_0',['LCD_init',['../lcd_8c.html#a249040ab9dd6b041b4412dbed6546ece',1,'lcd.c']]],
+  ['lcd_5finit_0',['LCD_init',['../lcd_8c.html#a249040ab9dd6b041b4412dbed6546ece',1,'LCD_init(uint32_t baud_rate):&#160;lcd.c'],['../dashboard_2main_8c.html#a249040ab9dd6b041b4412dbed6546ece',1,'LCD_init(uint32_t baud_rate):&#160;lcd.c']]],
   ['lcd_5ftx_5fupdate_1',['LCD_tx_update',['../dashboard_2main_8c.html#ac191b78cad5b7406d9b8d6227de36a1d',1,'main.c']]],
   ['ld_5fclust_2',['ld_clust',['../ff_8c.html#ad1b3343c92d0f0e58ba448c3c11b1f39',1,'ff.c']]],
   ['ld_5fdword_3',['ld_dword',['../ff_8c.html#aa4880817cfec23d4e560b785d1ceefcb',1,'ff.c']]],

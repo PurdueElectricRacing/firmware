@@ -14,11 +14,12 @@ var searchData=
   ['num_5fcan_5fperipherals_5fmax_11',['NUM_CAN_PERIPHERALS_MAX',['../can__common_8h.html#a2183332a909aa096e75fabfb69a91856',1,'can_common.h']]],
   ['nxt_5fbackground_5fcolor_12',['NXT_BACKGROUND_COLOR',['../nextion_8h.html#ae6d10ba8c48f3d0e3a58572789935a76',1,'nextion.h']]],
   ['nxt_5fbaud_13',['NXT_BAUD',['../nextion_8h.html#a5d668abac5196cd46df676c330890504',1,'nextion.h']]],
-  ['nxt_5fborderw_14',['NXT_BORDERW',['../nextion_8h.html#a63ace6fa3e7fca3ec048d6c160e9a182',1,'nextion.h']]],
-  ['nxt_5fbrightness_15',['NXT_BRIGHTNESS',['../nextion_8h.html#a38f805984c721410f8cb5bcd140d39b7',1,'nextion.h']]],
-  ['nxt_5fcmd_5fterm_16',['NXT_CMD_TERM',['../nextion_8h.html#a9103be471f1a868467c6abd00059970b',1,'nextion.h']]],
-  ['nxt_5ffont_5fcolor_17',['NXT_FONT_COLOR',['../nextion_8h.html#a8efd290ff41b537206712236e2d04b8c',1,'nextion.h']]],
-  ['nxt_5fpage_18',['NXT_PAGE',['../nextion_8h.html#a64693af0725d6715a5fbf24cf522ebde',1,'nextion.h']]],
-  ['nxt_5ftext_19',['NXT_TEXT',['../nextion_8h.html#a5f2209d0e2a141f1c3af1ebdd81aaa16',1,'nextion.h']]],
-  ['nxt_5fvalue_20',['NXT_VALUE',['../nextion_8h.html#a81860eb8c2792552a95c98cbf8c4e61f',1,'nextion.h']]]
+  ['nxt_5fborder_5fcolor_14',['NXT_BORDER_COLOR',['../nextion_8h.html#ace53c1428a51881ff38a9c429c9f0b26',1,'nextion.h']]],
+  ['nxt_5fborderw_15',['NXT_BORDERW',['../nextion_8h.html#a63ace6fa3e7fca3ec048d6c160e9a182',1,'nextion.h']]],
+  ['nxt_5fbrightness_16',['NXT_BRIGHTNESS',['../nextion_8h.html#a38f805984c721410f8cb5bcd140d39b7',1,'nextion.h']]],
+  ['nxt_5fcmd_5fterm_17',['NXT_CMD_TERM',['../nextion_8h.html#a9103be471f1a868467c6abd00059970b',1,'nextion.h']]],
+  ['nxt_5ffont_5fcolor_18',['NXT_FONT_COLOR',['../nextion_8h.html#a8efd290ff41b537206712236e2d04b8c',1,'nextion.h']]],
+  ['nxt_5fpage_19',['NXT_PAGE',['../nextion_8h.html#a64693af0725d6715a5fbf24cf522ebde',1,'nextion.h']]],
+  ['nxt_5ftext_20',['NXT_TEXT',['../nextion_8h.html#a5f2209d0e2a141f1c3af1ebdd81aaa16',1,'nextion.h']]],
+  ['nxt_5fvalue_21',['NXT_VALUE',['../nextion_8h.html#a81860eb8c2792552a95c98cbf8c4e61f',1,'nextion.h']]]
 ];

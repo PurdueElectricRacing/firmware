@@ -160,6 +160,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a23c0189c067cb5dfd0a1ab4514e0ecc0" id="r_a23c0189c067cb5dfd0a1ab4514e0ecc0"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23c0189c067cb5dfd0a1ab4514e0ecc0">MS_listGetSelected</a> (<a class="el" href="structmenu__page__t.html">menu_page_t</a> *page)</td></tr>
 <tr class="memdesc:a23c0189c067cb5dfd0a1ab4514e0ecc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the index of the selected element in a menu page.  <br /></td></tr>
 <tr class="separator:a23c0189c067cb5dfd0a1ab4514e0ecc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52e23759a2403de35a5610f96cae0cd0" id="r_a52e23759a2403de35a5610f96cae0cd0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52e23759a2403de35a5610f96cae0cd0">MS_setStyleNormal</a> (<a class="el" href="structmenu__element__t.html">menu_element_t</a> *element)</td></tr>
+<tr class="memdesc:a52e23759a2403de35a5610f96cae0cd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies normal (default) styling to a menu element.  <br /></td></tr>
+<tr class="separator:a52e23759a2403de35a5610f96cae0cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7645a0be2314be1c0a9117b4b34b4ed3" id="r_a7645a0be2314be1c0a9117b4b34b4ed3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7645a0be2314be1c0a9117b4b34b4ed3">MS_setStyleHover</a> (<a class="el" href="structmenu__element__t.html">menu_element_t</a> *element)</td></tr>
+<tr class="memdesc:a7645a0be2314be1c0a9117b4b34b4ed3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies hover styling effect to a menu element.  <br /></td></tr>
+<tr class="separator:a7645a0be2314be1c0a9117b4b34b4ed3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6173507fa7b7cf81afec896f80300c9a" id="r_a6173507fa7b7cf81afec896f80300c9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6173507fa7b7cf81afec896f80300c9a">MS_setStyleSelected</a> (<a class="el" href="structmenu__element__t.html">menu_element_t</a> *element)</td></tr>
+<tr class="memdesc:a6173507fa7b7cf81afec896f80300c9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies selected state styling to a menu element.  <br /></td></tr>
+<tr class="separator:a6173507fa7b7cf81afec896f80300c9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of menu system for LCD display interface. </p>
@@ -238,11 +247,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00191">191</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00185">185</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
 
-<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00040">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00020">ELEMENT_FLT</a>, <a class="el" href="menu__system_8h_source.html#l00019">ELEMENT_VAL</a>, <a class="el" href="menu__system_8h_source.html#l00043">menu_element_t::increment</a>, <a class="el" href="menu__system_8h_source.html#l00042">menu_element_t::max_value</a>, <a class="el" href="menu__system_8h_source.html#l00041">menu_element_t::min_value</a>, <a class="el" href="nextion_8c_source.html#l00098">NXT_setTextFormatted()</a>, <a class="el" href="nextion_8c_source.html#l00041">NXT_setValue()</a>, <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::object_name</a>, and <a class="el" href="menu__system_8h_source.html#l00036">menu_element_t::type</a>.</p>
+<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00040">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00020">ELEMENT_FLT</a>, <a class="el" href="menu__system_8h_source.html#l00019">ELEMENT_VAL</a>, <a class="el" href="menu__system_8h_source.html#l00043">menu_element_t::increment</a>, <a class="el" href="menu__system_8h_source.html#l00042">menu_element_t::max_value</a>, <a class="el" href="menu__system_8h_source.html#l00041">menu_element_t::min_value</a>, <a class="el" href="nextion_8c_source.html#l00109">NXT_setTextFormatted()</a>, <a class="el" href="nextion_8c_source.html#l00041">NXT_setValue()</a>, <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::object_name</a>, and <a class="el" href="menu__system_8h_source.html#l00036">menu_element_t::type</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00082">MS_moveDown()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00076">MS_moveDown()</a>.</p>
 
 </div>
 </div>
@@ -270,11 +279,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00164">164</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00158">158</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
 
-<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00040">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00020">ELEMENT_FLT</a>, <a class="el" href="menu__system_8h_source.html#l00019">ELEMENT_VAL</a>, <a class="el" href="menu__system_8h_source.html#l00043">menu_element_t::increment</a>, <a class="el" href="menu__system_8h_source.html#l00042">menu_element_t::max_value</a>, <a class="el" href="menu__system_8h_source.html#l00041">menu_element_t::min_value</a>, <a class="el" href="nextion_8c_source.html#l00098">NXT_setTextFormatted()</a>, <a class="el" href="nextion_8c_source.html#l00041">NXT_setValue()</a>, <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::object_name</a>, and <a class="el" href="menu__system_8h_source.html#l00036">menu_element_t::type</a>.</p>
+<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00040">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00020">ELEMENT_FLT</a>, <a class="el" href="menu__system_8h_source.html#l00019">ELEMENT_VAL</a>, <a class="el" href="menu__system_8h_source.html#l00043">menu_element_t::increment</a>, <a class="el" href="menu__system_8h_source.html#l00042">menu_element_t::max_value</a>, <a class="el" href="menu__system_8h_source.html#l00041">menu_element_t::min_value</a>, <a class="el" href="nextion_8c_source.html#l00109">NXT_setTextFormatted()</a>, <a class="el" href="nextion_8c_source.html#l00041">NXT_setValue()</a>, <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::object_name</a>, and <a class="el" href="menu__system_8h_source.html#l00036">menu_element_t::type</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00061">MS_moveUp()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00055">MS_moveUp()</a>.</p>
 
 </div>
 </div>
@@ -302,7 +311,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Index of the selected element, -1 if no element is selected </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00246">246</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00244">244</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
 
 <p class="reference">References <a class="el" href="menu__system_8h_source.html#l00040">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::elements</a>, and <a class="el" href="menu__system_8h_source.html#l00049">menu_page_t::num_elements</a>.</p>
 
@@ -331,11 +340,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00082">82</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00076">76</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
 
-<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00050">menu_page_t::current_index</a>, <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::elements</a>, <a class="el" href="menu__system_8h_source.html#l00051">menu_page_t::is_element_selected</a>, <a class="el" href="menu__system_8c_source.html#l00191">MS_decrementValue()</a>, <a class="el" href="menu__system_8c_source.html#l00040">MS_setStyleHover()</a>, <a class="el" href="menu__system_8c_source.html#l00029">MS_setStyleNormal()</a>, and <a class="el" href="menu__system_8h_source.html#l00049">menu_page_t::num_elements</a>.</p>
+<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00050">menu_page_t::current_index</a>, <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::elements</a>, <a class="el" href="menu__system_8h_source.html#l00051">menu_page_t::is_element_selected</a>, <a class="el" href="menu__system_8c_source.html#l00185">MS_decrementValue()</a>, <a class="el" href="menu__system_8c_source.html#l00037">MS_setStyleHover()</a>, <a class="el" href="menu__system_8c_source.html#l00029">MS_setStyleNormal()</a>, and <a class="el" href="menu__system_8h_source.html#l00049">menu_page_t::num_elements</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00288">faultsMoveDown()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00310">faultsMoveDown()</a>.</p>
 
 </div>
 </div>
@@ -362,11 +371,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00061">61</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00055">55</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
 
-<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00050">menu_page_t::current_index</a>, <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::elements</a>, <a class="el" href="menu__system_8h_source.html#l00051">menu_page_t::is_element_selected</a>, <a class="el" href="menu__system_8c_source.html#l00164">MS_incrementValue()</a>, <a class="el" href="menu__system_8c_source.html#l00040">MS_setStyleHover()</a>, <a class="el" href="menu__system_8c_source.html#l00029">MS_setStyleNormal()</a>, and <a class="el" href="menu__system_8h_source.html#l00049">menu_page_t::num_elements</a>.</p>
+<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00050">menu_page_t::current_index</a>, <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::elements</a>, <a class="el" href="menu__system_8h_source.html#l00051">menu_page_t::is_element_selected</a>, <a class="el" href="menu__system_8c_source.html#l00158">MS_incrementValue()</a>, <a class="el" href="menu__system_8c_source.html#l00037">MS_setStyleHover()</a>, <a class="el" href="menu__system_8c_source.html#l00029">MS_setStyleNormal()</a>, and <a class="el" href="menu__system_8h_source.html#l00049">menu_page_t::num_elements</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00284">faultsMoveUp()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00306">faultsMoveUp()</a>.</p>
 
 </div>
 </div>
@@ -393,11 +402,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00215">215</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00209">209</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
 
-<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00050">menu_page_t::current_index</a>, <a class="el" href="menu__system_8h_source.html#l00040">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00020">ELEMENT_FLT</a>, <a class="el" href="menu__system_8h_source.html#l00024">ELEMENT_LIST</a>, <a class="el" href="menu__system_8h_source.html#l00023">ELEMENT_OPTION</a>, <a class="el" href="menu__system_8h_source.html#l00019">ELEMENT_VAL</a>, <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::elements</a>, <a class="el" href="menu__system_8h_source.html#l00051">menu_page_t::is_element_selected</a>, <a class="el" href="menu__system_8c_source.html#l00051">MS_setStyleSelected()</a>, <a class="el" href="menu__system_8h_source.html#l00049">menu_page_t::num_elements</a>, <a class="el" href="nextion_8c_source.html#l00098">NXT_setTextFormatted()</a>, <a class="el" href="nextion_8c_source.html#l00041">NXT_setValue()</a>, <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::object_name</a>, and <a class="el" href="menu__system_8h_source.html#l00036">menu_element_t::type</a>.</p>
+<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00050">menu_page_t::current_index</a>, <a class="el" href="menu__system_8h_source.html#l00040">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00020">ELEMENT_FLT</a>, <a class="el" href="menu__system_8h_source.html#l00024">ELEMENT_LIST</a>, <a class="el" href="menu__system_8h_source.html#l00023">ELEMENT_OPTION</a>, <a class="el" href="menu__system_8h_source.html#l00019">ELEMENT_VAL</a>, <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::elements</a>, <a class="el" href="menu__system_8h_source.html#l00051">menu_page_t::is_element_selected</a>, <a class="el" href="menu__system_8c_source.html#l00037">MS_setStyleHover()</a>, <a class="el" href="menu__system_8c_source.html#l00029">MS_setStyleNormal()</a>, <a class="el" href="menu__system_8c_source.html#l00045">MS_setStyleSelected()</a>, <a class="el" href="menu__system_8h_source.html#l00049">menu_page_t::num_elements</a>, <a class="el" href="nextion_8c_source.html#l00109">NXT_setTextFormatted()</a>, <a class="el" href="nextion_8c_source.html#l00041">NXT_setValue()</a>, <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::object_name</a>, and <a class="el" href="menu__system_8h_source.html#l00036">menu_element_t::type</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00278">faultsPageUpdate()</a>, and <a class="el" href="lcd_8c_source.html#l00325">racePageUpdate()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00300">faultsPageUpdate()</a>, and <a class="el" href="lcd_8c_source.html#l00347">racePageUpdate()</a>.</p>
 
 </div>
 </div>
@@ -424,11 +433,104 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00103">103</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00097">97</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
 
-<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00050">menu_page_t::current_index</a>, <a class="el" href="menu__system_8h_source.html#l00040">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00022">ELEMENT_BUTTON</a>, <a class="el" href="menu__system_8h_source.html#l00020">ELEMENT_FLT</a>, <a class="el" href="menu__system_8h_source.html#l00024">ELEMENT_LIST</a>, <a class="el" href="menu__system_8h_source.html#l00023">ELEMENT_OPTION</a>, <a class="el" href="menu__system_8h_source.html#l00019">ELEMENT_VAL</a>, <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::elements</a>, <a class="el" href="menu__system_8h_source.html#l00051">menu_page_t::is_element_selected</a>, <a class="el" href="menu__system_8c_source.html#l00040">MS_setStyleHover()</a>, <a class="el" href="menu__system_8c_source.html#l00029">MS_setStyleNormal()</a>, <a class="el" href="menu__system_8c_source.html#l00051">MS_setStyleSelected()</a>, <a class="el" href="menu__system_8h_source.html#l00049">menu_page_t::num_elements</a>, <a class="el" href="nextion_8c_source.html#l00041">NXT_setValue()</a>, <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::object_name</a>, <a class="el" href="menu__system_8h_source.html#l00039">menu_element_t::on_change</a>, and <a class="el" href="menu__system_8h_source.html#l00036">menu_element_t::type</a>.</p>
+<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00050">menu_page_t::current_index</a>, <a class="el" href="menu__system_8h_source.html#l00040">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00022">ELEMENT_BUTTON</a>, <a class="el" href="menu__system_8h_source.html#l00020">ELEMENT_FLT</a>, <a class="el" href="menu__system_8h_source.html#l00024">ELEMENT_LIST</a>, <a class="el" href="menu__system_8h_source.html#l00023">ELEMENT_OPTION</a>, <a class="el" href="menu__system_8h_source.html#l00019">ELEMENT_VAL</a>, <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::elements</a>, <a class="el" href="menu__system_8h_source.html#l00051">menu_page_t::is_element_selected</a>, <a class="el" href="menu__system_8c_source.html#l00037">MS_setStyleHover()</a>, <a class="el" href="menu__system_8c_source.html#l00029">MS_setStyleNormal()</a>, <a class="el" href="menu__system_8c_source.html#l00045">MS_setStyleSelected()</a>, <a class="el" href="menu__system_8h_source.html#l00049">menu_page_t::num_elements</a>, <a class="el" href="nextion_8c_source.html#l00041">NXT_setValue()</a>, <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::object_name</a>, <a class="el" href="menu__system_8h_source.html#l00039">menu_element_t::on_change</a>, and <a class="el" href="menu__system_8h_source.html#l00036">menu_element_t::type</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00292">faultsSelect()</a>, and <a class="el" href="lcd_8c_source.html#l00385">raceSelect()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00314">faultsSelect()</a>, and <a class="el" href="lcd_8c_source.html#l00413">raceSelect()</a>.</p>
+
+</div>
+</div>
+<a id="a7645a0be2314be1c0a9117b4b34b4ed3" name="a7645a0be2314be1c0a9117b4b34b4ed3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7645a0be2314be1c0a9117b4b34b4ed3">&#9670;&#160;</a></span>MS_setStyleHover()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MS_setStyleHover </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structmenu__element__t.html">menu_element_t</a> *</td>          <td class="paramname"><span class="paramname"><em>element</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applies hover styling effect to a menu element. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">element</td><td>Pointer to the menu element to be styled </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00037">37</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+
+<p class="reference">References <a class="el" href="nextion_8h_source.html#l00042">GREEN</a>, <a class="el" href="nextion_8c_source.html#l00063">NXT_setFontColor()</a>, and <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::object_name</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00076">MS_moveDown()</a>, <a class="el" href="menu__system_8c_source.html#l00055">MS_moveUp()</a>, <a class="el" href="menu__system_8c_source.html#l00209">MS_refreshPage()</a>, and <a class="el" href="menu__system_8c_source.html#l00097">MS_select()</a>.</p>
+
+</div>
+</div>
+<a id="a52e23759a2403de35a5610f96cae0cd0" name="a52e23759a2403de35a5610f96cae0cd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52e23759a2403de35a5610f96cae0cd0">&#9670;&#160;</a></span>MS_setStyleNormal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MS_setStyleNormal </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structmenu__element__t.html">menu_element_t</a> *</td>          <td class="paramname"><span class="paramname"><em>element</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applies normal (default) styling to a menu element. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">element</td><td>Pointer to the menu element to be styled </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00029">29</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+
+<p class="reference">References <a class="el" href="nextion_8c_source.html#l00063">NXT_setFontColor()</a>, <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::object_name</a>, and <a class="el" href="nextion_8h_source.html#l00037">WHITE</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00076">MS_moveDown()</a>, <a class="el" href="menu__system_8c_source.html#l00055">MS_moveUp()</a>, <a class="el" href="menu__system_8c_source.html#l00209">MS_refreshPage()</a>, and <a class="el" href="menu__system_8c_source.html#l00097">MS_select()</a>.</p>
+
+</div>
+</div>
+<a id="a6173507fa7b7cf81afec896f80300c9a" name="a6173507fa7b7cf81afec896f80300c9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6173507fa7b7cf81afec896f80300c9a">&#9670;&#160;</a></span>MS_setStyleSelected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MS_setStyleSelected </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structmenu__element__t.html">menu_element_t</a> *</td>          <td class="paramname"><span class="paramname"><em>element</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Applies selected state styling to a menu element. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">element</td><td>Pointer to the menu element to be styled </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00045">45</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+
+<p class="reference">References <a class="el" href="nextion_8c_source.html#l00052">NXT_setBackground()</a>, <a class="el" href="nextion_8c_source.html#l00063">NXT_setFontColor()</a>, <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::object_name</a>, <a class="el" href="menu__system_8c_source.html#l00018">RUSH</a>, and <a class="el" href="nextion_8h_source.html#l00037">WHITE</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00209">MS_refreshPage()</a>, and <a class="el" href="menu__system_8c_source.html#l00097">MS_select()</a>.</p>
 
 </div>
 </div>

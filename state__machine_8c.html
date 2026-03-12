@@ -130,8 +130,12 @@ Functions</h2></td></tr>
 <tr class="separator:ab7318162392bf2c166e5f992b9053da2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac21ffbc05e480a2884c934be58d38eb2" id="r_ac21ffbc05e480a2884c934be58d38eb2"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac21ffbc05e480a2884c934be58d38eb2">is_buzzing_time_elapsed</a> ()</td></tr>
 <tr class="separator:ac21ffbc05e480a2884c934be58d38eb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f7571407c7c46e4fa558468f58e1f1c" id="r_a9f7571407c7c46e4fa558468f58e1f1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f7571407c7c46e4fa558468f58e1f1c">set_brake_light</a> ()</td></tr>
-<tr class="separator:a9f7571407c7c46e4fa558468f58e1f1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a812b3caac92a9b2681f51936f2ccc34e" id="r_a812b3caac92a9b2681f51936f2ccc34e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a812b3caac92a9b2681f51936f2ccc34e">update_brake_light</a> ()</td></tr>
+<tr class="separator:a812b3caac92a9b2681f51936f2ccc34e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab91ea6d5f36331a47d001b0b0ad94d1b" id="r_ab91ea6d5f36331a47d001b0b0ad94d1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab91ea6d5f36331a47d001b0b0ad94d1b">update_tsal</a> ()</td></tr>
+<tr class="separator:ab91ea6d5f36331a47d001b0b0ad94d1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a304cdeb3eec856985e62788bd5ec1b60" id="r_a304cdeb3eec856985e62788bd5ec1b60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a304cdeb3eec856985e62788bd5ec1b60">report_telemetry</a> ()</td></tr>
+<tr class="separator:a304cdeb3eec856985e62788bd5ec1b60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afada7c6c7e810e225bf4aa0614a92791" id="r_afada7c6c7e810e225bf4aa0614a92791"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afada7c6c7e810e225bf4aa0614a92791">fsm_periodic</a> ()</td></tr>
 <tr class="separator:afada7c6c7e810e225bf4aa0614a92791"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -165,9 +169,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="state__machine_8c_source.html#l00094">94</a> of file <a class="el" href="state__machine_8c_source.html">state_machine.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="state__machine_8c_source.html#l00124">124</a> of file <a class="el" href="state__machine_8c_source.html">state_machine.c</a>.</p>
 
-<p class="reference">References <a class="el" href="amk_8c_source.html#l00058">AMK_set_torque()</a>, <a class="el" href="main__module_2main_8h_source.html#l00024">car_t::brake_light</a>, <a class="el" href="pindefs_8h_source.html#l00035">BRAKE_LIGHT_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00034">BRAKE_LIGHT_PORT</a>, <a class="el" href="main__module_2main_8h_source.html#l00027">car_t::buzzer_enable</a>, <a class="el" href="pindefs_8h_source.html#l00037">BUZZER_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00036">BUZZER_PORT</a>, <a class="el" href="main__module_2main_8h_source.html#l00022">car_t::buzzer_start_time</a>, <a class="el" href="main__module_2main_8h_source.html#l00014">car_t::current_state</a>, <a class="el" href="main__module_2main_8h_source.html#l00017">car_t::front_left</a>, <a class="el" href="main__module_2main_8h_source.html#l00037">torque_request_t::front_left</a>, <a class="el" href="main__module_2main_8h_source.html#l00016">car_t::front_right</a>, <a class="el" href="main__module_2main_8h_source.html#l00036">torque_request_t::front_right</a>, <a class="el" href="main__module_2main_8c_source.html#l00021">g_car</a>, <a class="el" href="main__module_2main_8c_source.html#l00022">g_torque_request</a>, <a class="el" href="state__machine_8c_source.html#l00057">is_all_AMKS_running()</a>, <a class="el" href="state__machine_8c_source.html#l00072">is_buzzing_time_elapsed()</a>, <a class="el" href="faults__common_8h.html#a1dbab920f7f9b5d889670b63ac61e357">is_fatal_latched()</a>, <a class="el" href="state__machine_8c_source.html#l00045">is_init_complete()</a>, <a class="el" href="faults__common_8h.html#a686858e89e455a414a1e7c87c5e35be5">is_latched()</a>, <a class="el" href="main__module_2main_8h_source.html#l00031">car_t::is_precharge_complete</a>, <a class="el" href="state__machine_8c_source.html#l00053">is_precharge_complete()</a>, <a class="el" href="state__machine_8c_source.html#l00064">is_start_button_pressed()</a>, <a class="el" href="state__machine_8c_source.html#l00049">is_TSMS_closed()</a>, <a class="el" href="main__module_2main_8h_source.html#l00015">car_t::next_state</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00271">PHAL_readGPIO()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, <a class="el" href="pindefs_8h_source.html#l00061">PRECHARGE_COMPLETE_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00060">PRECHARGE_COMPLETE_PORT</a>, <a class="el" href="state__machine_8c_source.html#l00021">ready2drive_periodic()</a>, <a class="el" href="main__module_2main_8h_source.html#l00018">car_t::rear_left</a>, <a class="el" href="main__module_2main_8h_source.html#l00038">torque_request_t::rear_left</a>, <a class="el" href="main__module_2main_8h_source.html#l00019">car_t::rear_right</a>, <a class="el" href="main__module_2main_8h_source.html#l00039">torque_request_t::rear_right</a>, <a class="el" href="state__machine_8c_source.html#l00082">set_brake_light()</a>, <a class="el" href="pindefs_8h_source.html#l00027">TSAL_GREEN_CTRL_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00026">TSAL_GREEN_CTRL_PORT</a>, <a class="el" href="main__module_2main_8h_source.html#l00025">car_t::tsal_green_enable</a>, <a class="el" href="pindefs_8h_source.html#l00025">TSAL_RED_CTRL_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00024">TSAL_RED_CTRL_PORT</a>, <a class="el" href="main__module_2main_8h_source.html#l00026">car_t::tsal_red_enable</a>, and <a class="el" href="faults__common_8h.html#a30c665a5b3c4674a4854fcd2210406a0">update_fault()</a>.</p>
+<p class="reference">References <a class="el" href="amk_8c_source.html#l00058">AMK_set_torque()</a>, <a class="el" href="main__module_2main_8h_source.html#l00024">car_t::brake_light</a>, <a class="el" href="pindefs_8h_source.html#l00035">BRAKE_LIGHT_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00034">BRAKE_LIGHT_PORT</a>, <a class="el" href="main__module_2main_8h_source.html#l00027">car_t::buzzer_enable</a>, <a class="el" href="pindefs_8h_source.html#l00037">BUZZER_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00036">BUZZER_PORT</a>, <a class="el" href="main__module_2main_8h_source.html#l00022">car_t::buzzer_start_time</a>, <a class="el" href="main__module_2main_8h_source.html#l00014">car_t::current_state</a>, <a class="el" href="main__module_2main_8h_source.html#l00017">car_t::front_left</a>, <a class="el" href="main__module_2main_8h_source.html#l00037">torque_request_t::front_left</a>, <a class="el" href="main__module_2main_8h_source.html#l00016">car_t::front_right</a>, <a class="el" href="main__module_2main_8h_source.html#l00036">torque_request_t::front_right</a>, <a class="el" href="main__module_2main_8c_source.html#l00021">g_car</a>, <a class="el" href="main__module_2main_8c_source.html#l00022">g_torque_request</a>, <a class="el" href="state__machine_8c_source.html#l00057">is_all_AMKS_running()</a>, <a class="el" href="state__machine_8c_source.html#l00072">is_buzzing_time_elapsed()</a>, <a class="el" href="faults__common_8h.html#a1dbab920f7f9b5d889670b63ac61e357">is_fatal_latched()</a>, <a class="el" href="state__machine_8c_source.html#l00045">is_init_complete()</a>, <a class="el" href="faults__common_8h.html#a686858e89e455a414a1e7c87c5e35be5">is_latched()</a>, <a class="el" href="main__module_2main_8h_source.html#l00031">car_t::is_precharge_complete</a>, <a class="el" href="state__machine_8c_source.html#l00053">is_precharge_complete()</a>, <a class="el" href="state__machine_8c_source.html#l00064">is_start_button_pressed()</a>, <a class="el" href="state__machine_8c_source.html#l00049">is_TSMS_closed()</a>, <a class="el" href="main__module_2main_8h_source.html#l00015">car_t::next_state</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00271">PHAL_readGPIO()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, <a class="el" href="pindefs_8h_source.html#l00061">PRECHARGE_COMPLETE_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00060">PRECHARGE_COMPLETE_PORT</a>, <a class="el" href="state__machine_8c_source.html#l00021">ready2drive_periodic()</a>, <a class="el" href="main__module_2main_8h_source.html#l00018">car_t::rear_left</a>, <a class="el" href="main__module_2main_8h_source.html#l00038">torque_request_t::rear_left</a>, <a class="el" href="main__module_2main_8h_source.html#l00019">car_t::rear_right</a>, <a class="el" href="main__module_2main_8h_source.html#l00039">torque_request_t::rear_right</a>, <a class="el" href="state__machine_8c_source.html#l00099">report_telemetry()</a>, <a class="el" href="pindefs_8h_source.html#l00027">TSAL_GREEN_CTRL_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00026">TSAL_GREEN_CTRL_PORT</a>, <a class="el" href="main__module_2main_8h_source.html#l00025">car_t::tsal_green_enable</a>, <a class="el" href="pindefs_8h_source.html#l00025">TSAL_RED_CTRL_PIN</a>, <a class="el" href="pindefs_8h_source.html#l00024">TSAL_RED_CTRL_PORT</a>, <a class="el" href="main__module_2main_8h_source.html#l00026">car_t::tsal_red_enable</a>, <a class="el" href="state__machine_8c_source.html#l00076">update_brake_light()</a>, <a class="el" href="faults__common_8h.html#a30c665a5b3c4674a4854fcd2210406a0">update_fault()</a>, and <a class="el" href="state__machine_8c_source.html#l00088">update_tsal()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="main__module_2main_8c_source.html#l00134">main()</a>.</p>
 
@@ -200,7 +204,7 @@ Variables</h2></td></tr>
 
 <p class="reference">References <a class="el" href="amk_8h_source.html#l00019">AMK_STATE_RUNNING</a>, <a class="el" href="main__module_2main_8h_source.html#l00017">car_t::front_left</a>, <a class="el" href="main__module_2main_8h_source.html#l00016">car_t::front_right</a>, <a class="el" href="main__module_2main_8c_source.html#l00021">g_car</a>, <a class="el" href="main__module_2main_8h_source.html#l00018">car_t::rear_left</a>, <a class="el" href="main__module_2main_8h_source.html#l00019">car_t::rear_right</a>, and <a class="el" href="amk_8h_source.html#l00039">AMK_t::state</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00094">fsm_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00124">fsm_periodic()</a>.</p>
 
 </div>
 </div>
@@ -231,7 +235,7 @@ Variables</h2></td></tr>
 
 <p class="reference">References <a class="el" href="main__module_2main_8h_source.html#l00022">car_t::buzzer_start_time</a>, <a class="el" href="main__module_2main_8c_source.html#l00021">g_car</a>, and <a class="el" href="state__machine_8c_source.html#l00017">MIN_BUZZING_TIME_MS</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00094">fsm_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00124">fsm_periodic()</a>.</p>
 
 </div>
 </div>
@@ -260,7 +264,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="state__machine_8c_source.html#l00045">45</a> of file <a class="el" href="state__machine_8c_source.html">state_machine.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00094">fsm_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00124">fsm_periodic()</a>.</p>
 
 </div>
 </div>
@@ -291,7 +295,7 @@ Variables</h2></td></tr>
 
 <p class="reference">References <a class="el" href="faults__common_8h.html#a686858e89e455a414a1e7c87c5e35be5">is_latched()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00094">fsm_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00124">fsm_periodic()</a>.</p>
 
 </div>
 </div>
@@ -322,7 +326,7 @@ Variables</h2></td></tr>
 
 <p class="reference">References <a class="el" href="can__common_8c_source.html#l00014">can_data</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00094">fsm_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00124">fsm_periodic()</a>.</p>
 
 </div>
 </div>
@@ -353,7 +357,7 @@ Variables</h2></td></tr>
 
 <p class="reference">References <a class="el" href="faults__common_8h.html#a686858e89e455a414a1e7c87c5e35be5">is_latched()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00094">fsm_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00124">fsm_periodic()</a>.</p>
 
 </div>
 </div>
@@ -376,31 +380,76 @@ Variables</h2></td></tr>
 
 <p class="reference">References <a class="el" href="can__common_8c_source.html#l00014">can_data</a>, <a class="el" href="main__module_2main_8h_source.html#l00037">torque_request_t::front_left</a>, <a class="el" href="main__module_2main_8h_source.html#l00036">torque_request_t::front_right</a>, <a class="el" href="main__module_2main_8c_source.html#l00022">g_torque_request</a>, <a class="el" href="main__module_2main_8h_source.html#l00038">torque_request_t::rear_left</a>, and <a class="el" href="main__module_2main_8h_source.html#l00039">torque_request_t::rear_right</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00094">fsm_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00124">fsm_periodic()</a>.</p>
 
 </div>
 </div>
-<a id="a9f7571407c7c46e4fa558468f58e1f1c" name="a9f7571407c7c46e4fa558468f58e1f1c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f7571407c7c46e4fa558468f58e1f1c">&#9670;&#160;</a></span>set_brake_light()</h2>
+<a id="a304cdeb3eec856985e62788bd5ec1b60" name="a304cdeb3eec856985e62788bd5ec1b60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a304cdeb3eec856985e62788bd5ec1b60">&#9670;&#160;</a></span>report_telemetry()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void set_brake_light </td>
+          <td class="memname">void report_telemetry </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="state__machine_8c_source.html#l00099">99</a> of file <a class="el" href="state__machine_8c_source.html">state_machine.c</a>.</p>
+
+<p class="reference">References <a class="el" href="amk_8h_source.html#l00032">AMK_t::crit</a>, <a class="el" href="main__module_2main_8h_source.html#l00014">car_t::current_state</a>, <a class="el" href="main__module_2main_8h_source.html#l00017">car_t::front_left</a>, <a class="el" href="main__module_2main_8h_source.html#l00016">car_t::front_right</a>, <a class="el" href="main__module_2main_8c_source.html#l00021">g_car</a>, <a class="el" href="main__module_2main_8h_source.html#l00018">car_t::rear_left</a>, <a class="el" href="main__module_2main_8h_source.html#l00019">car_t::rear_right</a>, and <a class="el" href="amk_8h_source.html#l00034">AMK_t::temps</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00124">fsm_periodic()</a>.</p>
+
+</div>
+</div>
+<a id="a812b3caac92a9b2681f51936f2ccc34e" name="a812b3caac92a9b2681f51936f2ccc34e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a812b3caac92a9b2681f51936f2ccc34e">&#9670;&#160;</a></span>update_brake_light()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void update_brake_light </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Brake Light Control The on threshold is larger than the off threshold to behave similar to a Shmitt-trigger, preventing blinking during a transition </p>
 
-<p class="definition">Definition at line <a class="el" href="state__machine_8c_source.html#l00082">82</a> of file <a class="el" href="state__machine_8c_source.html">state_machine.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="state__machine_8c_source.html#l00076">76</a> of file <a class="el" href="state__machine_8c_source.html">state_machine.c</a>.</p>
 
 <p class="reference">References <a class="el" href="main__module_2main_8h_source.html#l00024">car_t::brake_light</a>, <a class="el" href="state__machine_8c_source.html#l00019">BRAKE_LIGHT_OFF_THRESHOLD</a>, <a class="el" href="state__machine_8c_source.html#l00018">BRAKE_LIGHT_ON_THRESHOLD</a>, <a class="el" href="can__common_8c_source.html#l00014">can_data</a>, and <a class="el" href="main__module_2main_8c_source.html#l00021">g_car</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00094">fsm_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00124">fsm_periodic()</a>.</p>
+
+</div>
+</div>
+<a id="ab91ea6d5f36331a47d001b0b0ad94d1b" name="ab91ea6d5f36331a47d001b0b0ad94d1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab91ea6d5f36331a47d001b0b0ad94d1b">&#9670;&#160;</a></span>update_tsal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void update_tsal </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="state__machine_8c_source.html#l00088">88</a> of file <a class="el" href="state__machine_8c_source.html">state_machine.c</a>.</p>
+
+<p class="reference">References <a class="el" href="main__module_2main_8c_source.html#l00021">g_car</a>, <a class="el" href="faults__common_8h.html#a686858e89e455a414a1e7c87c5e35be5">is_latched()</a>, <a class="el" href="main__module_2main_8h_source.html#l00025">car_t::tsal_green_enable</a>, and <a class="el" href="main__module_2main_8h_source.html#l00026">car_t::tsal_red_enable</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00124">fsm_periodic()</a>.</p>
 
 </div>
 </div>
@@ -427,7 +476,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="state__machine_8c_source.html#l00019">19</a> of file <a class="el" href="state__machine_8c_source.html">state_machine.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00082">set_brake_light()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00076">update_brake_light()</a>.</p>
 
 </div>
 </div>
@@ -453,7 +502,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="state__machine_8c_source.html#l00018">18</a> of file <a class="el" href="state__machine_8c_source.html">state_machine.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00082">set_brake_light()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00076">update_brake_light()</a>.</p>
 
 </div>
 </div>

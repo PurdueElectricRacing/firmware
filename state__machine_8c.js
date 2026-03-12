@@ -8,7 +8,9 @@ var state__machine_8c =
     [ "is_start_button_pressed", "state__machine_8c.html#ab7318162392bf2c166e5f992b9053da2", null ],
     [ "is_TSMS_closed", "state__machine_8c.html#a94b2d538481fba4727f0670a6cf9ca3b", null ],
     [ "ready2drive_periodic", "state__machine_8c.html#ae3b09c96fab52e2b35ddfa360ef88260", null ],
-    [ "set_brake_light", "state__machine_8c.html#a9f7571407c7c46e4fa558468f58e1f1c", null ],
+    [ "report_telemetry", "state__machine_8c.html#a304cdeb3eec856985e62788bd5ec1b60", null ],
+    [ "update_brake_light", "state__machine_8c.html#a812b3caac92a9b2681f51936f2ccc34e", null ],
+    [ "update_tsal", "state__machine_8c.html#ab91ea6d5f36331a47d001b0b0ad94d1b", null ],
     [ "BRAKE_LIGHT_OFF_THRESHOLD", "state__machine_8c.html#a4960fe02c9d909ddfbdcc15d2765cfbc", null ],
     [ "BRAKE_LIGHT_ON_THRESHOLD", "state__machine_8c.html#ad22dc6865076ce6332800b86bf24b45d", null ],
     [ "MIN_BUZZING_TIME_MS", "state__machine_8c.html#a5fb642b4ec0653744013c28d36de327b", null ]

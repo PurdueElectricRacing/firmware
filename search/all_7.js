@@ -196,7 +196,7 @@ var searchData=
   ['align_193',['align',['../structMKFS__PARM.html#af244e017c4cb2c821e5e819fff7db710',1,'MKFS_PARM']]],
   ['all_20os_194',['All OS',['../md_docs_2setup.html#autotoc_md78',1,'2. VSCode Setup (All OS)'],['../md_docs_2setup.html#autotoc_md81',1,'3. Repository Setup (All OS)']]],
   ['all_5fused_5fids_195',['all_used_ids',['../classlinker_1_1BusLinker.html#a2fdc3c32b8a397107d3962efa22e84b5',1,'linker.BusLinker.all_used_ids'],['../classlinker_1_1BusLinker.html#a1dd989697674ef81071ee8259446f80d',1,'linker.BusLinker.all_used_ids']]],
-  ['allocate_5fstrbuf_196',['ALLOCATE_STRBUF',['../strbuf_8h.html#a30f1008dff6e5e81b5cfd515db9f8d9a',1,'ALLOCATE_STRBUF:&#160;strbuf.h'],['../dashboard_2main_8c.html#aeb1649fc677829700918d87f29386ced',1,'ALLOCATE_STRBUF(lcd_tx_buf, 1024):&#160;main.c']]],
+  ['allocate_5fstrbuf_196',['ALLOCATE_STRBUF',['../strbuf_8h.html#a30f1008dff6e5e81b5cfd515db9f8d9a',1,'ALLOCATE_STRBUF:&#160;strbuf.h'],['../dashboard_2main_8c.html#a70b38ce0660d25aa6a9381518e9ac622',1,'ALLOCATE_STRBUF(lcd_tx_buf, 2048):&#160;main.c']]],
   ['altname_197',['altname',['../structFILINFO.html#a52f0aecff265511f3c2e76dab7e905bf',1,'FILINFO']]],
   ['am_5farc_198',['AM_ARC',['../ff_8h.html#ae8174d00798e34e7c9e95898cb9e1a09',1,'ff.h']]],
   ['am_5fdir_199',['AM_DIR',['../ff_8h.html#a3a9db44e978ed6c13b641e092d4cd7d3',1,'ff.h']]],

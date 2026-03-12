@@ -18,7 +18,7 @@ var searchData=
   ['registerpreflightcomplete_15',['registerPreflightComplete',['../psched_8c.html#ab48a10022f67b9c0a77652f859330cf2',1,'registerPreflightComplete(uint8_t status):&#160;psched.c'],['../psched_8h.html#ab48a10022f67b9c0a77652f859330cf2',1,'registerPreflightComplete(uint8_t status):&#160;psched.c']]],
   ['remove_5fchain_16',['remove_chain',['../ff_8c.html#af7e31794d8bbe9eeb098f9383ea0d448',1,'ff.c']]],
   ['render_5ftemplate_17',['render_template',['../namespaceutils.html#af4091f06871b22ed4b76fb76a8df18bd',1,'utils']]],
-  ['report_5ftelemetry_18',['report_telemetry',['../a__box_2main_8c.html#a79b2c19cb2dda656363aa2e27e0d0ee9',1,'main.c']]],
+  ['report_5ftelemetry_18',['report_telemetry',['../a__box_2main_8c.html#a79b2c19cb2dda656363aa2e27e0d0ee9',1,'report_telemetry(void):&#160;main.c'],['../state__machine_8c.html#a304cdeb3eec856985e62788bd5ec1b60',1,'report_telemetry():&#160;state_machine.c']]],
   ['resolve_5flayout_19',['resolve_layout',['../classparser_1_1Message.html#a48c2960f979f89e4866e3c8cdad57181',1,'parser::Message']]],
   ['rounddown_20',['ROUNDDOWN',['../common__defs_8h.html#a7790c59a206addb5b0bcc7a34667a1da',1,'common_defs.h']]],
   ['roundup_21',['ROUNDUP',['../common__defs_8h.html#ad9b3fa34cf7fd298a0333cd51094762c',1,'common_defs.h']]],

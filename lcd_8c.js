@@ -21,6 +21,7 @@ var lcd_8c =
     [ "sdcTelemetryUpdate", "lcd_8c.html#ad0bf4fe40d01774afeb7efadaec0b57d", null ],
     [ "selectItem", "lcd_8c.html#ac609e22e16c9e8ab1b73acd57e5b7664", null ],
     [ "set_faultIndicator", "lcd_8c.html#a6e70ac2acdbe6c0345373db5b228e2db", null ],
+    [ "style_car_stat", "lcd_8c.html#ad17a5d72d7d3f3e5eae09b9c5df7cfd2", null ],
     [ "updateFaultDisplay", "lcd_8c.html#a7b6beed0e6479ed4a5fd25aaabc45dff", null ],
     [ "updateFaultMessages", "lcd_8c.html#ad4cde6073d48d2ca5850d3396744104a", null ],
     [ "updatePage", "lcd_8c.html#aa13fa254ddd44573fd2a83874763cae8", null ],

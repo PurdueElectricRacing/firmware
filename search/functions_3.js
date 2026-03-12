@@ -29,7 +29,7 @@ var searchData=
   ['check_5ffs_26',['check_fs',['../ff_8c.html#a885f0bf82916f50e5263445cf622b16d',1,'ff.c']]],
   ['checkpreflightend_27',['checkPreflightEnd',['../psched_8c.html#a4ba1b5612e7718bfaa3d74af48307ef4',1,'psched.c']]],
   ['checkswitchfaults_28',['checkSwitchFaults',['../auto__switch_8c.html#aea4edf80bd2f6bda11bfa85669197d6f',1,'checkSwitchFaults():&#160;auto_switch.c'],['../auto__switch_8h.html#aea4edf80bd2f6bda11bfa85669197d6f',1,'checkSwitchFaults():&#160;auto_switch.c']]],
-  ['clamp_29',['clamp',['../pedals_8c.html#a456783f71435e236b868d080bc35c470',1,'pedals.c']]],
+  ['clamp_29',['clamp',['../pedals_8c.html#a4a6b9828f1ad730c5089a2698a79253c',1,'pedals.c']]],
   ['clamp_5ff_30',['clamp_f',['../common__defs_8h.html#a1448847ce5365862e963b813c4f01626',1,'common_defs.h']]],
   ['clamp_5fi_31',['clamp_i',['../common__defs_8h.html#af86547d3091e2dbf173fd87596fec5db',1,'common_defs.h']]],
   ['clearfault_32',['clearFault',['../lcd_8c.html#a3c83700ea3c787004b4f24072139d85f',1,'lcd.c']]],

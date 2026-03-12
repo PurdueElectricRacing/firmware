@@ -23,7 +23,7 @@ var searchData=
   ['ms_5fmoveup_20',['MS_moveUp',['../menu__system_8c.html#abb6e83f43c566270750060807da99fa4',1,'MS_moveUp(menu_page_t *page):&#160;menu_system.c'],['../menu__system_8h.html#abb6e83f43c566270750060807da99fa4',1,'MS_moveUp(menu_page_t *page):&#160;menu_system.c']]],
   ['ms_5frefreshpage_21',['MS_refreshPage',['../menu__system_8c.html#aaaa431be258445ad9f1278c488a3f502',1,'MS_refreshPage(menu_page_t *page):&#160;menu_system.c'],['../menu__system_8h.html#aaaa431be258445ad9f1278c488a3f502',1,'MS_refreshPage(menu_page_t *page):&#160;menu_system.c']]],
   ['ms_5fselect_22',['MS_select',['../menu__system_8c.html#a962aad262b004bf39deed9578941a89e',1,'MS_select(menu_page_t *page):&#160;menu_system.c'],['../menu__system_8h.html#a962aad262b004bf39deed9578941a89e',1,'MS_select(menu_page_t *page):&#160;menu_system.c']]],
-  ['ms_5fsetstylehover_23',['MS_setStyleHover',['../menu__system_8c.html#a7645a0be2314be1c0a9117b4b34b4ed3',1,'MS_setStyleHover(menu_element_t *element):&#160;menu_system.c'],['../menu__system_8h.html#a7645a0be2314be1c0a9117b4b34b4ed3',1,'MS_setStyleHover(menu_element_t *element):&#160;menu_system.c']]],
-  ['ms_5fsetstylenormal_24',['MS_setStyleNormal',['../menu__system_8c.html#a52e23759a2403de35a5610f96cae0cd0',1,'MS_setStyleNormal(menu_element_t *element):&#160;menu_system.c'],['../menu__system_8h.html#a52e23759a2403de35a5610f96cae0cd0',1,'MS_setStyleNormal(menu_element_t *element):&#160;menu_system.c']]],
-  ['ms_5fsetstyleselected_25',['MS_setStyleSelected',['../menu__system_8c.html#a6173507fa7b7cf81afec896f80300c9a',1,'MS_setStyleSelected(menu_element_t *element):&#160;menu_system.c'],['../menu__system_8h.html#a6173507fa7b7cf81afec896f80300c9a',1,'MS_setStyleSelected(menu_element_t *element):&#160;menu_system.c']]]
+  ['ms_5fsetstylehover_23',['MS_setStyleHover',['../menu__system_8c.html#a7645a0be2314be1c0a9117b4b34b4ed3',1,'menu_system.c']]],
+  ['ms_5fsetstylenormal_24',['MS_setStyleNormal',['../menu__system_8c.html#a52e23759a2403de35a5610f96cae0cd0',1,'menu_system.c']]],
+  ['ms_5fsetstyleselected_25',['MS_setStyleSelected',['../menu__system_8c.html#a6173507fa7b7cf81afec896f80300c9a',1,'menu_system.c']]]
 ];

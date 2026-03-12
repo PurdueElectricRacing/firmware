@@ -21,8 +21,5 @@ var menu__system_8h =
     [ "MS_moveDown", "menu__system_8h.html#a7e670c0b8fc296a5cb8e5e5f340e508c", null ],
     [ "MS_moveUp", "menu__system_8h.html#abb6e83f43c566270750060807da99fa4", null ],
     [ "MS_refreshPage", "menu__system_8h.html#aaaa431be258445ad9f1278c488a3f502", null ],
-    [ "MS_select", "menu__system_8h.html#a962aad262b004bf39deed9578941a89e", null ],
-    [ "MS_setStyleHover", "menu__system_8h.html#a7645a0be2314be1c0a9117b4b34b4ed3", null ],
-    [ "MS_setStyleNormal", "menu__system_8h.html#a52e23759a2403de35a5610f96cae0cd0", null ],
-    [ "MS_setStyleSelected", "menu__system_8h.html#a6173507fa7b7cf81afec896f80300c9a", null ]
+    [ "MS_select", "menu__system_8h.html#a962aad262b004bf39deed9578941a89e", null ]
 ];

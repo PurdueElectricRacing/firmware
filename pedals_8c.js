@@ -1,7 +1,7 @@
 var pedals_8c =
 [
     [ "MAX_PEDAL_MEAS", "pedals_8c.html#af991168f3f52d43942c079612918d9a2", null ],
-    [ "clamp", "pedals_8c.html#a456783f71435e236b868d080bc35c470", null ],
+    [ "clamp", "pedals_8c.html#a4a6b9828f1ad730c5089a2698a79253c", null ],
     [ "normalize", "pedals_8c.html#a1302d463027af8c022506f6c9969613a", null ],
     [ "pedalsPeriodic", "pedals_8c.html#ad390f112c056607f9f37f0c1a2e5f3b6", null ],
     [ "APPS_BRAKE_THRESHOLD", "pedals_8c.html#a59a5cb965667136dc98b8366978ea6eb", null ],

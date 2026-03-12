@@ -114,6 +114,7 @@ $(function(){initNavTree('dashboard_2main_8c.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="phal_2gpio_8h_source.html">common/phal/gpio.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal_2rcc_8h_source.html">common/phal/rcc.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal_2usart_8h_source.html">common/phal/usart.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="strbuf_8h_source.html">common/strbuf/strbuf.h</a>&quot;</code><br />
 <code>#include &quot;common/can_library/generated/DASHBOARD.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="lcd_8h_source.html">lcd.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="dashboard_2main_8h_source.html">main.h</a>&quot;</code><br />
@@ -142,24 +143,30 @@ Functions</h2></td></tr>
 <tr class="separator:a249040ab9dd6b041b4412dbed6546ece"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2af56a8bf3197b2f06cac4c0b84ffc3e" id="r_a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2af56a8bf3197b2f06cac4c0b84ffc3e">HardFault_Handler</a> ()</td></tr>
 <tr class="separator:a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb1649fc677829700918d87f29386ced" id="r_aeb1649fc677829700918d87f29386ced"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb1649fc677829700918d87f29386ced">ALLOCATE_STRBUF</a> (<a class="el" href="nextion_8c.html#a233b6c1602a0d956759fa15d734873cb">lcd_tx_buf</a>, 1024)</td></tr>
-<tr class="separator:aeb1649fc677829700918d87f29386ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70b38ce0660d25aa6a9381518e9ac622" id="r_a70b38ce0660d25aa6a9381518e9ac622"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70b38ce0660d25aa6a9381518e9ac622">ALLOCATE_STRBUF</a> (<a class="el" href="nextion_8c.html#a233b6c1602a0d956759fa15d734873cb">lcd_tx_buf</a>, 2048)</td></tr>
+<tr class="separator:a70b38ce0660d25aa6a9381518e9ac622"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89b14fa3031866ffa50cc407ef7169e3" id="r_a89b14fa3031866ffa50cc407ef7169e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89b14fa3031866ffa50cc407ef7169e3">preflight_task</a> ()</td></tr>
 <tr class="separator:a89b14fa3031866ffa50cc407ef7169e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c7c563fdbde1b364eb1248c18ea05c2" id="r_a1c7c563fdbde1b364eb1248c18ea05c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1c7c563fdbde1b364eb1248c18ea05c2">can_worker_task</a> ()</td></tr>
 <tr class="separator:a1c7c563fdbde1b364eb1248c18ea05c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49639045af848f296b1c1e6ae8617630" id="r_a49639045af848f296b1c1e6ae8617630"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a49639045af848f296b1c1e6ae8617630">DEFINE_TASK</a> (<a class="el" href="pedals_8c.html#ad390f112c056607f9f37f0c1a2e5f3b6">pedalsPeriodic</a>, FILT_THROTTLE_BRAKE_PERIOD_MS, osPriorityHigh, 1024)</td></tr>
-<tr class="separator:a49639045af848f296b1c1e6ae8617630"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d8661522eb3c1a136282983733023b9" id="r_a5d8661522eb3c1a136282983733023b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d8661522eb3c1a136282983733023b9">DEFINE_TASK</a> (<a class="el" href="#a1c7c563fdbde1b364eb1248c18ea05c2">can_worker_task</a>, 5, osPriorityNormal, 2048)</td></tr>
-<tr class="separator:a5d8661522eb3c1a136282983733023b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20273d18479360633ecdddd4f88bb619" id="r_a20273d18479360633ecdddd4f88bb619"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20273d18479360633ecdddd4f88bb619">DEFINE_TASK</a> (<a class="el" href="a__box_2main_8c.html#a73a90d100f8b99f3a551262ee0c7735b">heartbeat_task</a>, <a class="el" href="common__defs_8h.html#aba882a54e761d19d12cc40b3a2a91d8b">HEARTBEAT_PERIOD_MS</a>, osPriorityLow, 512)</td></tr>
-<tr class="separator:a20273d18479360633ecdddd4f88bb619"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a905e30866f6a18ea5b787fb77d226e64" id="r_a905e30866f6a18ea5b787fb77d226e64"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a905e30866f6a18ea5b787fb77d226e64">DEFINE_TASK</a> (<a class="el" href="#a783fffd08ae8a2bb6a2bc1c5c56b5933">service_button_inputs</a>, 50, osPriorityLow, 1024)</td></tr>
-<tr class="separator:a905e30866f6a18ea5b787fb77d226e64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a437ac044655bec67960c4db62ecaefea" id="r_a437ac044655bec67960c4db62ecaefea"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a437ac044655bec67960c4db62ecaefea">DEFINE_TASK</a> (<a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic</a>, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, 1024)</td></tr>
-<tr class="separator:a437ac044655bec67960c4db62ecaefea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae59f0825cfea9e8eac9698376d3f4a7f" id="r_ae59f0825cfea9e8eac9698376d3f4a7f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae59f0825cfea9e8eac9698376d3f4a7f">DEFINE_TASK</a> (<a class="el" href="#ac191b78cad5b7406d9b8d6227de36a1d">LCD_tx_update</a>, 20, osPriorityLow, 512)</td></tr>
-<tr class="separator:ae59f0825cfea9e8eac9698376d3f4a7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18c3e1428bba19774305c0d3b3b97942" id="r_a18c3e1428bba19774305c0d3b3b97942"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a18c3e1428bba19774305c0d3b3b97942">service_start_button</a> ()</td></tr>
+<tr class="separator:a18c3e1428bba19774305c0d3b3b97942"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d9126d7e4c27bb0a23567781e38cfc9" id="r_a5d9126d7e4c27bb0a23567781e38cfc9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d9126d7e4c27bb0a23567781e38cfc9">DEFINE_TASK</a> (<a class="el" href="pedals_8c.html#ad390f112c056607f9f37f0c1a2e5f3b6">pedalsPeriodic</a>, PEDALS_PERIOD_MS, osPriorityHigh, <a class="el" href="freertos_8h.html#a9cfaf8e95af7da51f7fc2347815e210f">STACK_1024</a>)</td></tr>
+<tr class="separator:a5d9126d7e4c27bb0a23567781e38cfc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb036e488b26cc65a63f73fa0cdc8563" id="r_acb036e488b26cc65a63f73fa0cdc8563"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb036e488b26cc65a63f73fa0cdc8563">DEFINE_TASK</a> (<a class="el" href="#a1c7c563fdbde1b364eb1248c18ea05c2">can_worker_task</a>, 2, osPriorityNormal, <a class="el" href="freertos_8h.html#a16d5b4d257fb218fa48b6865c3014f33">STACK_2048</a>)</td></tr>
+<tr class="separator:acb036e488b26cc65a63f73fa0cdc8563"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af72b06e7c2b64a2ac90b6400bebeff73" id="r_af72b06e7c2b64a2ac90b6400bebeff73"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af72b06e7c2b64a2ac90b6400bebeff73">DEFINE_TASK</a> (<a class="el" href="a__box_2main_8c.html#a73a90d100f8b99f3a551262ee0c7735b">heartbeat_task</a>, <a class="el" href="common__defs_8h.html#aba882a54e761d19d12cc40b3a2a91d8b">HEARTBEAT_PERIOD_MS</a>, osPriorityLow, <a class="el" href="freertos_8h.html#a6ab500a15eda5befe7c0a9be1e7669e5">STACK_512</a>)</td></tr>
+<tr class="separator:af72b06e7c2b64a2ac90b6400bebeff73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa7c1e80f6ee9549972d529199b8a9f3" id="r_afa7c1e80f6ee9549972d529199b8a9f3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa7c1e80f6ee9549972d529199b8a9f3">DEFINE_TASK</a> (<a class="el" href="#a783fffd08ae8a2bb6a2bc1c5c56b5933">service_button_inputs</a>, 50, osPriorityLow, <a class="el" href="freertos_8h.html#a9cfaf8e95af7da51f7fc2347815e210f">STACK_1024</a>)</td></tr>
+<tr class="separator:afa7c1e80f6ee9549972d529199b8a9f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b98c5c2a1e4c3797e783887824bb364" id="r_a4b98c5c2a1e4c3797e783887824bb364"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b98c5c2a1e4c3797e783887824bb364">DEFINE_TASK</a> (<a class="el" href="#a18c3e1428bba19774305c0d3b3b97942">service_start_button</a>, START_BUTTON_PERIOD_MS, osPriorityLow, <a class="el" href="freertos_8h.html#a6ab500a15eda5befe7c0a9be1e7669e5">STACK_512</a>)</td></tr>
+<tr class="separator:a4b98c5c2a1e4c3797e783887824bb364"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecd64d319898a803fca92ff39b399166" id="r_aecd64d319898a803fca92ff39b399166"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aecd64d319898a803fca92ff39b399166">DEFINE_TASK</a> (<a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic</a>, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, <a class="el" href="freertos_8h.html#a9cfaf8e95af7da51f7fc2347815e210f">STACK_1024</a>)</td></tr>
+<tr class="separator:aecd64d319898a803fca92ff39b399166"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afac85e305a7ddeb54fead2a270b05b4a" id="r_afac85e305a7ddeb54fead2a270b05b4a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afac85e305a7ddeb54fead2a270b05b4a">DEFINE_TASK</a> (<a class="el" href="#ac191b78cad5b7406d9b8d6227de36a1d">LCD_tx_update</a>, 20, osPriorityLow, <a class="el" href="freertos_8h.html#a6ab500a15eda5befe7c0a9be1e7669e5">STACK_512</a>)</td></tr>
+<tr class="separator:afac85e305a7ddeb54fead2a270b05b4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5d218479f85a32574fac55c6cfd79b6" id="r_af5d218479f85a32574fac55c6cfd79b6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5d218479f85a32574fac55c6cfd79b6">DEFINE_TASK</a> (<a class="el" href="lcd_8c.html#a9ceeac8764aca15be67680bddfe70704">updateTelemetryPages</a>, 100, osPriorityNormal, <a class="el" href="freertos_8h.html#a9cfaf8e95af7da51f7fc2347815e210f">STACK_1024</a>)</td></tr>
+<tr class="separator:af5d218479f85a32574fac55c6cfd79b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f0a091727452df71a1760d1133bf9b4" id="r_a9f0a091727452df71a1760d1133bf9b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f0a091727452df71a1760d1133bf9b4">EXTI9_5_IRQHandler</a> ()</td></tr>
@@ -199,10 +206,12 @@ Variables</h2></td></tr>
 <tr class="separator:a2c40deeaa6aeb002bafb0bc892484e0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac132aa42c20a1d3744db9df04f31c54" id="r_aac132aa42c20a1d3744db9df04f31c54"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac132aa42c20a1d3744db9df04f31c54">PLLClockRateHz</a></td></tr>
 <tr class="separator:aac132aa42c20a1d3744db9df04f31c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a876fc64f27ffd0e165e5e6552d995ad3" id="r_a876fc64f27ffd0e165e5e6552d995ad3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88">page_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a876fc64f27ffd0e165e5e6552d995ad3">curr_page</a></td></tr>
+<tr class="memitem:a876fc64f27ffd0e165e5e6552d995ad3" id="r_a876fc64f27ffd0e165e5e6552d995ad3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="lcd_8h.html#a99a5fddfe71e6e9cd0c559b9a9a41a99">page_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a876fc64f27ffd0e165e5e6552d995ad3">curr_page</a></td></tr>
 <tr class="separator:a876fc64f27ffd0e165e5e6552d995ad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78b28a5859c49a3ced4466bcdfca9368" id="r_a78b28a5859c49a3ced4466bcdfca9368"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structdashboard__input__state__t.html">dashboard_input_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78b28a5859c49a3ced4466bcdfca9368">input_state</a> = {0}</td></tr>
 <tr class="separator:a78b28a5859c49a3ced4466bcdfca9368"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af03f677104cded4cc16a240a53430d91" id="r_af03f677104cded4cc16a240a53430d91"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af03f677104cded4cc16a240a53430d91">start_button_pressed</a> = false</td></tr>
+<tr class="separator:af03f677104cded4cc16a240a53430d91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>"Dashboard" node source code </p>
@@ -214,8 +223,8 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 
 <p class="definition">Definition in file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="aeb1649fc677829700918d87f29386ced" name="aeb1649fc677829700918d87f29386ced"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb1649fc677829700918d87f29386ced">&#9670;&#160;</a></span>ALLOCATE_STRBUF()</h2>
+<a id="a70b38ce0660d25aa6a9381518e9ac622" name="a70b38ce0660d25aa6a9381518e9ac622"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70b38ce0660d25aa6a9381518e9ac622">&#9670;&#160;</a></span>ALLOCATE_STRBUF()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -228,7 +237,7 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">1024</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">2048</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -250,11 +259,11 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00203">203</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00216">216</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
 <p class="reference">References <a class="el" href="can__common_8c_source.html#l00020">CAN_rx_update()</a>, and <a class="el" href="daq__can_8h.html#a0a32f054a0f3baae0270d9845d2897e6">CAN_tx_update()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00158">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00163">main()</a>.</p>
 
 </div>
 </div>
@@ -273,14 +282,14 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00339">339</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00347">347</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00158">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00163">main()</a>.</p>
 
 </div>
 </div>
-<a id="a5d8661522eb3c1a136282983733023b9" name="a5d8661522eb3c1a136282983733023b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d8661522eb3c1a136282983733023b9">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[1/6]</span></h2>
+<a id="acb036e488b26cc65a63f73fa0cdc8563" name="acb036e488b26cc65a63f73fa0cdc8563"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb036e488b26cc65a63f73fa0cdc8563">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -293,7 +302,7 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">5</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype">2</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -303,15 +312,15 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">2048</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a16d5b4d257fb218fa48b6865c3014f33">STACK_2048</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a437ac044655bec67960c4db62ecaefea" name="a437ac044655bec67960c4db62ecaefea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a437ac044655bec67960c4db62ecaefea">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[2/6]</span></h2>
+<a id="aecd64d319898a803fca92ff39b399166" name="aecd64d319898a803fca92ff39b399166"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecd64d319898a803fca92ff39b399166">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[2/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -334,15 +343,15 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">1024</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a9cfaf8e95af7da51f7fc2347815e210f">STACK_1024</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a20273d18479360633ecdddd4f88bb619" name="a20273d18479360633ecdddd4f88bb619"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20273d18479360633ecdddd4f88bb619">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[3/6]</span></h2>
+<a id="af72b06e7c2b64a2ac90b6400bebeff73" name="af72b06e7c2b64a2ac90b6400bebeff73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af72b06e7c2b64a2ac90b6400bebeff73">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[3/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -365,15 +374,15 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">512</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a6ab500a15eda5befe7c0a9be1e7669e5">STACK_512</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ae59f0825cfea9e8eac9698376d3f4a7f" name="ae59f0825cfea9e8eac9698376d3f4a7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae59f0825cfea9e8eac9698376d3f4a7f">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[4/6]</span></h2>
+<a id="afac85e305a7ddeb54fead2a270b05b4a" name="afac85e305a7ddeb54fead2a270b05b4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afac85e305a7ddeb54fead2a270b05b4a">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[4/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -396,15 +405,15 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">512</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a6ab500a15eda5befe7c0a9be1e7669e5">STACK_512</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a49639045af848f296b1c1e6ae8617630" name="a49639045af848f296b1c1e6ae8617630"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49639045af848f296b1c1e6ae8617630">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[5/6]</span></h2>
+<a id="a5d9126d7e4c27bb0a23567781e38cfc9" name="a5d9126d7e4c27bb0a23567781e38cfc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d9126d7e4c27bb0a23567781e38cfc9">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[5/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -417,7 +426,7 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">FILT_THROTTLE_BRAKE_PERIOD_MS</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype">PEDALS_PERIOD_MS</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -427,15 +436,15 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">1024</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a9cfaf8e95af7da51f7fc2347815e210f">STACK_1024</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a905e30866f6a18ea5b787fb77d226e64" name="a905e30866f6a18ea5b787fb77d226e64"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a905e30866f6a18ea5b787fb77d226e64">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[6/6]</span></h2>
+<a id="afa7c1e80f6ee9549972d529199b8a9f3" name="afa7c1e80f6ee9549972d529199b8a9f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa7c1e80f6ee9549972d529199b8a9f3">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[6/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -458,7 +467,69 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">1024</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a9cfaf8e95af7da51f7fc2347815e210f">STACK_1024</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4b98c5c2a1e4c3797e783887824bb364" name="a4b98c5c2a1e4c3797e783887824bb364"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b98c5c2a1e4c3797e783887824bb364">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[7/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a18c3e1428bba19774305c0d3b3b97942">service_start_button</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">START_BUTTON_PERIOD_MS</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityLow</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a6ab500a15eda5befe7c0a9be1e7669e5">STACK_512</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af5d218479f85a32574fac55c6cfd79b6" name="af5d218479f85a32574fac55c6cfd79b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5d218479f85a32574fac55c6cfd79b6">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[8/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lcd_8c.html#a9ceeac8764aca15be67680bddfe70704">updateTelemetryPages</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">100</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityNormal</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a9cfaf8e95af7da51f7fc2347815e210f">STACK_1024</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -480,9 +551,9 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00283">283</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00296">296</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">References <a class="el" href="dashboard_2main_8c_source.html#l00130">input_state</a>, <a class="el" href="dashboard_2main_8h_source.html#l00036">dashboard_input_state_t::select_button</a>, and <a class="el" href="dashboard_2main_8h_source.html#l00037">dashboard_input_state_t::start_button</a>.</p>
+<p class="reference">References <a class="el" href="dashboard_2main_8c_source.html#l00131">input_state</a>, <a class="el" href="dashboard_2main_8h_source.html#l00036">dashboard_input_state_t::select_button</a>, and <a class="el" href="dashboard_2main_8h_source.html#l00037">dashboard_input_state_t::start_button</a>.</p>
 
 </div>
 </div>
@@ -501,9 +572,9 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00257">257</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00270">270</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">References <a class="el" href="dashboard_2main_8h_source.html#l00033">dashboard_input_state_t::down_button</a>, <a class="el" href="dashboard_2main_8c_source.html#l00130">input_state</a>, <a class="el" href="dashboard_2main_8h_source.html#l00034">dashboard_input_state_t::left_button</a>, <a class="el" href="dashboard_2main_8h_source.html#l00035">dashboard_input_state_t::right_button</a>, and <a class="el" href="dashboard_2main_8h_source.html#l00032">dashboard_input_state_t::up_button</a>.</p>
+<p class="reference">References <a class="el" href="dashboard_2main_8h_source.html#l00033">dashboard_input_state_t::down_button</a>, <a class="el" href="dashboard_2main_8c_source.html#l00131">input_state</a>, <a class="el" href="dashboard_2main_8h_source.html#l00034">dashboard_input_state_t::left_button</a>, <a class="el" href="dashboard_2main_8h_source.html#l00035">dashboard_input_state_t::right_button</a>, and <a class="el" href="dashboard_2main_8h_source.html#l00032">dashboard_input_state_t::up_button</a>.</p>
 
 </div>
 </div>
@@ -530,7 +601,7 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00374">374</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00382">382</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
 <p class="reference">References <a class="el" href="a__box_2main_8h_source.html#l00017">ERROR_LED_PIN</a>, and <a class="el" href="a__box_2main_8h_source.html#l00016">ERROR_LED_PORT</a>.</p>
 
@@ -554,9 +625,9 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 <p>Updates system LED indicators and CAN stats. </p>
 <p>Controls heartbeat, connection, precharge, IMD and BMS status LEDs. </p>
 
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00219">219</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00232">232</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">References <a class="el" href="common__defs_8h_source.html#l00080">CONN_LED_TIMEOUT_MS</a>, <a class="el" href="a__box_2main_8h_source.html#l00019">CONNECTION_LED_PIN</a>, <a class="el" href="a__box_2main_8h_source.html#l00018">CONNECTION_LED_PORT</a>, <a class="el" href="a__box_2main_8h_source.html#l00017">ERROR_LED_PIN</a>, <a class="el" href="a__box_2main_8h_source.html#l00016">ERROR_LED_PORT</a>, <a class="el" href="a__box_2main_8h_source.html#l00015">HEARTBEAT_LED_PIN</a>, <a class="el" href="a__box_2main_8h_source.html#l00014">HEARTBEAT_LED_PORT</a>, <a class="el" href="faults__common_8h.html#a686858e89e455a414a1e7c87c5e35be5">is_latched()</a>, <a class="el" href="can__common_8c_source.html#l00016">last_can_rx_time_ms</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00286">PHAL_toggleGPIO()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, <a class="el" href="dashboard_2main_8h_source.html#l00054">PRCHG_LED_PIN</a>, <a class="el" href="dashboard_2main_8h_source.html#l00053">PRCHG_LED_PORT</a>, and <a class="el" href="common__defs_8h_source.html#l00081">PREFLIGHT_ANIMATION_DURATION_MS</a>.</p>
+<p class="reference">References <a class="el" href="common__defs_8h_source.html#l00083">CONN_LED_TIMEOUT_MS</a>, <a class="el" href="a__box_2main_8h_source.html#l00019">CONNECTION_LED_PIN</a>, <a class="el" href="a__box_2main_8h_source.html#l00018">CONNECTION_LED_PORT</a>, <a class="el" href="a__box_2main_8h_source.html#l00017">ERROR_LED_PIN</a>, <a class="el" href="a__box_2main_8h_source.html#l00016">ERROR_LED_PORT</a>, <a class="el" href="a__box_2main_8h_source.html#l00015">HEARTBEAT_LED_PIN</a>, <a class="el" href="a__box_2main_8h_source.html#l00014">HEARTBEAT_LED_PORT</a>, <a class="el" href="faults__common_8h.html#a686858e89e455a414a1e7c87c5e35be5">is_latched()</a>, <a class="el" href="can__common_8c_source.html#l00016">last_can_rx_time_ms</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00286">PHAL_toggleGPIO()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, <a class="el" href="dashboard_2main_8h_source.html#l00054">PRCHG_LED_PIN</a>, <a class="el" href="dashboard_2main_8h_source.html#l00053">PRCHG_LED_PORT</a>, and <a class="el" href="common__defs_8h_source.html#l00084">PREFLIGHT_ANIMATION_DURATION_MS</a>.</p>
 
 </div>
 </div>
@@ -577,9 +648,9 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 
 <p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00127">127</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00015">curr_page</a>, <a class="el" href="nextion_8c_source.html#l00148">NXT_setBaud()</a>, <a class="el" href="nextion_8c_source.html#l00136">NXT_setBrightness()</a>, <a class="el" href="lcd_8h_source.html#l00168">PAGE_RACE</a>, and <a class="el" href="lcd_8c_source.html#l00170">updatePage()</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00020">curr_page</a>, <a class="el" href="nextion_8c_source.html#l00150">NXT_setBaud()</a>, <a class="el" href="nextion_8c_source.html#l00138">NXT_setBrightness()</a>, <a class="el" href="lcd_8h_source.html#l00084">PAGE_RACE</a>, and <a class="el" href="lcd_8c_source.html#l00170">updatePage()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00158">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00163">main()</a>.</p>
 
 </div>
 </div>
@@ -600,11 +671,11 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 
 <p>Called periodically to send commands to the Nextion LCD display via USART. </p>
 
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00366">366</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00374">374</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">References <a class="el" href="strbuf_8h_source.html#l00016">strbuf_t::data</a>, <a class="el" href="dashboard_2main_8c_source.html#l00097">lcd</a>, <a class="el" href="nextion_8c.html#a233b6c1602a0d956759fa15d734873cb">lcd_tx_buf</a>, <a class="el" href="strbuf_8h_source.html#l00017">strbuf_t::length</a>, <a class="el" href="common_2phal__F4__F7_2usart_2usart_8c_source.html#l00273">PHAL_usartTxBusy()</a>, <a class="el" href="common_2phal__F4__F7_2usart_2usart_8c_source.html#l00207">PHAL_usartTxDma()</a>, and <a class="el" href="strbuf_8c_source.html#l00017">strbuf_clear()</a>.</p>
+<p class="reference">References <a class="el" href="strbuf_8h_source.html#l00016">strbuf_t::data</a>, <a class="el" href="dashboard_2main_8c_source.html#l00098">lcd</a>, <a class="el" href="nextion_8c.html#a233b6c1602a0d956759fa15d734873cb">lcd_tx_buf</a>, <a class="el" href="strbuf_8h_source.html#l00017">strbuf_t::length</a>, <a class="el" href="common_2phal__F4__F7_2usart_2usart_8c_source.html#l00273">PHAL_usartTxBusy()</a>, <a class="el" href="common_2phal__F4__F7_2usart_2usart_8c_source.html#l00207">PHAL_usartTxDma()</a>, and <a class="el" href="strbuf_8c_source.html#l00017">strbuf_clear()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00158">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00163">main()</a>.</p>
 
 </div>
 </div>
@@ -623,9 +694,9 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00158">158</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00163">163</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">References <a class="el" href="dashboard_2main_8c_source.html#l00078">adc_channel_config</a>, <a class="el" href="dashboard_2main_8c_source.html#l00069">adc_config</a>, <a class="el" href="dashboard_2main_8c_source.html#l00087">adc_dma_config</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00016">APB2ClockRateHz</a>, <a class="el" href="can__common_8h.html#aa6a2e11ac7e69f5da51d64b903198d21">CAN_library_init()</a>, <a class="el" href="dashboard_2main_8c_source.html#l00203">can_worker_task()</a>, <a class="el" href="a__box_2main_8c_source.html#l00067">clock_config</a>, <a class="el" href="dashboard_2main_8c_source.html#l00339">config_button_irqs()</a>, <a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic()</a>, <a class="el" href="a__box_2main_8c_source.html#l00034">gpio_config</a>, <a class="el" href="a__box_2main_8c_source.html#l00208">HardFault_Handler()</a>, <a class="el" href="a__box_2main_8c_source.html#l00159">heartbeat_task()</a>, <a class="el" href="dashboard_2main_8c_source.html#l00097">lcd</a>, <a class="el" href="dashboard_2main_8c_source.html#l00096">LCD_BAUD_RATE</a>, <a class="el" href="lcd_8c_source.html#l00127">LCD_init()</a>, <a class="el" href="dashboard_2main_8c_source.html#l00366">LCD_tx_update()</a>, <a class="el" href="pedals_8c_source.html#l00063">pedalsPeriodic()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>, <a class="el" href="common_2phal__G4_2fdcan_2fdcan_8c_source.html#l00146">PHAL_FDCAN_init()</a>, <a class="el" href="phal__F4__F7_2adc_2adc_8c_source.html#l00011">PHAL_initADC()</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00014">PHAL_initDMA()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8c_source.html#l00003">PHAL_initGPIO()</a>, <a class="el" href="common_2phal__F4__F7_2usart_2usart_8c_source.html#l00034">PHAL_initUSART()</a>, <a class="el" href="phal__F4__F7_2adc_2adc_8c_source.html#l00082">PHAL_startADC()</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00094">PHAL_startTxfer()</a>, <a class="el" href="dashboard_2main_8c_source.html#l00302">service_button_inputs()</a>, and <a class="el" href="freertos_8h_source.html#l00087">START_TASK</a>.</p>
+<p class="reference">References <a class="el" href="dashboard_2main_8c_source.html#l00079">adc_channel_config</a>, <a class="el" href="dashboard_2main_8c_source.html#l00070">adc_config</a>, <a class="el" href="dashboard_2main_8c_source.html#l00088">adc_dma_config</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00016">APB2ClockRateHz</a>, <a class="el" href="can__common_8h.html#aa6a2e11ac7e69f5da51d64b903198d21">CAN_library_init()</a>, <a class="el" href="dashboard_2main_8c_source.html#l00216">can_worker_task()</a>, <a class="el" href="a__box_2main_8c_source.html#l00067">clock_config</a>, <a class="el" href="dashboard_2main_8c_source.html#l00347">config_button_irqs()</a>, <a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic()</a>, <a class="el" href="a__box_2main_8c_source.html#l00034">gpio_config</a>, <a class="el" href="a__box_2main_8c_source.html#l00208">HardFault_Handler()</a>, <a class="el" href="a__box_2main_8c_source.html#l00159">heartbeat_task()</a>, <a class="el" href="dashboard_2main_8c_source.html#l00098">lcd</a>, <a class="el" href="dashboard_2main_8c_source.html#l00097">LCD_BAUD_RATE</a>, <a class="el" href="lcd_8c_source.html#l00127">LCD_init()</a>, <a class="el" href="dashboard_2main_8c_source.html#l00374">LCD_tx_update()</a>, <a class="el" href="pedals_8c_source.html#l00068">pedalsPeriodic()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>, <a class="el" href="common_2phal__G4_2fdcan_2fdcan_8c_source.html#l00146">PHAL_FDCAN_init()</a>, <a class="el" href="phal__F4__F7_2adc_2adc_8c_source.html#l00011">PHAL_initADC()</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00014">PHAL_initDMA()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8c_source.html#l00003">PHAL_initGPIO()</a>, <a class="el" href="common_2phal__F4__F7_2usart_2usart_8c_source.html#l00034">PHAL_initUSART()</a>, <a class="el" href="phal__F4__F7_2adc_2adc_8c_source.html#l00082">PHAL_startADC()</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00094">PHAL_startTxfer()</a>, <a class="el" href="dashboard_2main_8c_source.html#l00315">service_button_inputs()</a>, <a class="el" href="dashboard_2main_8c_source.html#l00211">service_start_button()</a>, <a class="el" href="freertos_8h_source.html#l00087">START_TASK</a>, and <a class="el" href="lcd_8c_source.html#l00241">updateTelemetryPages()</a>.</p>
 
 </div>
 </div>
@@ -678,7 +749,7 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00208">208</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00221">221</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
 </div>
 </div>
@@ -700,11 +771,34 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 <p>Processes dashboard button flags and triggers corresponding actions. </p>
 <p>Meant to be called periodically. </p>
 
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00302">302</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00315">315</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00149">advancePage()</a>, <a class="el" href="lcd_8c_source.html#l00158">backPage()</a>, <a class="el" href="dashboard_2main_8h_source.html#l00033">dashboard_input_state_t::down_button</a>, <a class="el" href="dashboard_2main_8c_source.html#l00130">input_state</a>, <a class="el" href="dashboard_2main_8h_source.html#l00034">dashboard_input_state_t::left_button</a>, <a class="el" href="lcd_8c_source.html#l00216">moveDown()</a>, <a class="el" href="lcd_8c_source.html#l00205">moveUp()</a>, <a class="el" href="dashboard_2main_8h_source.html#l00035">dashboard_input_state_t::right_button</a>, <a class="el" href="dashboard_2main_8h_source.html#l00036">dashboard_input_state_t::select_button</a>, <a class="el" href="lcd_8c_source.html#l00227">selectItem()</a>, <a class="el" href="dashboard_2main_8h_source.html#l00037">dashboard_input_state_t::start_button</a>, <a class="el" href="dashboard_2main_8h_source.html#l00032">dashboard_input_state_t::up_button</a>, <a class="el" href="dashboard_2main_8h_source.html#l00031">dashboard_input_state_t::update_page</a>, and <a class="el" href="lcd_8c_source.html#l00170">updatePage()</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00149">advancePage()</a>, <a class="el" href="lcd_8c_source.html#l00158">backPage()</a>, <a class="el" href="dashboard_2main_8h_source.html#l00033">dashboard_input_state_t::down_button</a>, <a class="el" href="dashboard_2main_8c_source.html#l00131">input_state</a>, <a class="el" href="dashboard_2main_8h_source.html#l00034">dashboard_input_state_t::left_button</a>, <a class="el" href="lcd_8c_source.html#l00216">moveDown()</a>, <a class="el" href="lcd_8c_source.html#l00205">moveUp()</a>, <a class="el" href="dashboard_2main_8h_source.html#l00035">dashboard_input_state_t::right_button</a>, <a class="el" href="dashboard_2main_8h_source.html#l00036">dashboard_input_state_t::select_button</a>, <a class="el" href="lcd_8c_source.html#l00227">selectItem()</a>, <a class="el" href="dashboard_2main_8h_source.html#l00032">dashboard_input_state_t::up_button</a>, <a class="el" href="dashboard_2main_8h_source.html#l00031">dashboard_input_state_t::update_page</a>, and <a class="el" href="lcd_8c_source.html#l00170">updatePage()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00158">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00163">main()</a>.</p>
+
+</div>
+</div>
+<a id="a18c3e1428bba19774305c0d3b3b97942" name="a18c3e1428bba19774305c0d3b3b97942"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18c3e1428bba19774305c0d3b3b97942">&#9670;&#160;</a></span>service_start_button()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void service_start_button </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00211">211</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+
+<p class="reference">References <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00271">PHAL_readGPIO()</a>, <a class="el" href="dashboard_2main_8h_source.html#l00061">START_BTN_GPIO_Port</a>, <a class="el" href="dashboard_2main_8h_source.html#l00062">START_BTN_Pin</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00210">start_button_pressed</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00163">main()</a>.</p>
 
 </div>
 </div>
@@ -730,9 +824,9 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 <div class="line">}</div>
 <div class="ttc" id="aphal__F4__F7_2adc_2adc_8h_html_a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158"><div class="ttname"><a href="phal__F4__F7_2adc_2adc_8h.html#a3b4912a4712446e46171c080ef0bd94eab534be807051df6a86906bab3e00d158">ADC_CHN_SMP_CYCLES_480</a></div><div class="ttdeci">@ ADC_CHN_SMP_CYCLES_480</div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2adc_2adc_8h_source.html#l00056">adc.h:56</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00078">78</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00079">79</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00345">main()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00158">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00345">main()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00163">main()</a>.</p>
 
 </div>
 </div>
@@ -760,9 +854,9 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 <div class="ttc" id="aphal__F4__F7_2adc_2adc_8h_html_a4bbc03ecdf3f9b89bb7067c5db0efb53aa3df857706dacf41e64568f9c75943fc"><div class="ttname"><a href="phal__F4__F7_2adc_2adc_8h.html#a4bbc03ecdf3f9b89bb7067c5db0efb53aa3df857706dacf41e64568f9c75943fc">ADC_DATA_ALIGN_RIGHT</a></div><div class="ttdeci">@ ADC_DATA_ALIGN_RIGHT</div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2adc_2adc_8h_source.html#l00035">adc.h:35</a></div></div>
 <div class="ttc" id="aphal__F4__F7_2adc_2adc_8h_html_a5bcab41e07d982e8ebcf218dcd09ae3da1f386cd1d8e41a5828afac83e1c56b70"><div class="ttname"><a href="phal__F4__F7_2adc_2adc_8h.html#a5bcab41e07d982e8ebcf218dcd09ae3da1f386cd1d8e41a5828afac83e1c56b70">ADC_CLK_PRESC_2</a></div><div class="ttdeci">@ ADC_CLK_PRESC_2</div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2adc_2adc_8h_source.html#l00022">adc.h:22</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00069">69</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00070">70</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00345">main()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00158">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00345">main()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00163">main()</a>.</p>
 
 </div>
 </div>
@@ -782,13 +876,13 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 <div class="line">    (uint32_t)&amp;<a class="code hl_variable" href="#a29bc293670e53a11d854f35bca555254">raw_adc_values</a>,</div>
 <div class="line">    <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a29bc293670e53a11d854f35bca555254">raw_adc_values</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a29bc293670e53a11d854f35bca555254">raw_adc_values</a>.<a class="code hl_variable" href="structraw__adc__values__t.html#a896fa28b4b22996c1ab9c988e11e6216">t1</a>), 0b01</div>
 <div class="line">)</div>
-<div class="ttc" id="adashboard_2main_8c_html_a29bc293670e53a11d854f35bca555254"><div class="ttname"><a href="#a29bc293670e53a11d854f35bca555254">raw_adc_values</a></div><div class="ttdeci">volatile raw_adc_values_t raw_adc_values</div><div class="ttdef"><b>Definition</b> <a href="dashboard_2main_8c_source.html#l00066">main.c:66</a></div></div>
+<div class="ttc" id="adashboard_2main_8c_html_a29bc293670e53a11d854f35bca555254"><div class="ttname"><a href="#a29bc293670e53a11d854f35bca555254">raw_adc_values</a></div><div class="ttdeci">volatile raw_adc_values_t raw_adc_values</div><div class="ttdef"><b>Definition</b> <a href="dashboard_2main_8c_source.html#l00067">main.c:67</a></div></div>
 <div class="ttc" id="aphal__F4__F7_2adc_2adc_8h_html_a9bf789bb8843fa4ab14a8f71510b8868"><div class="ttname"><a href="phal__F4__F7_2adc_2adc_8h.html#a9bf789bb8843fa4ab14a8f71510b8868">ADC1_DMA_CONT_CONFIG</a></div><div class="ttdeci">#define ADC1_DMA_CONT_CONFIG(mem_addr_, tx_size_, priority_)</div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2adc_2adc_8h_source.html#l00066">adc.h:66</a></div></div>
 <div class="ttc" id="astructraw__adc__values__t_html_a896fa28b4b22996c1ab9c988e11e6216"><div class="ttname"><a href="structraw__adc__values__t.html#a896fa28b4b22996c1ab9c988e11e6216">raw_adc_values_t::t1</a></div><div class="ttdeci">uint16_t t1</div><div class="ttdef"><b>Definition</b> <a href="dashboard_2main_8h_source.html#l00021">main.h:21</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00087">87</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00088">88</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00345">main()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00158">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00345">main()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00163">main()</a>.</p>
 
 </div>
 </div>
@@ -886,7 +980,7 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 <div class="ttc" id="aa__box_2main_8c_html_aceecad98eec5ec4009d14ca16ea1bfc8"><div class="ttname"><a href="a__box_2main_8c.html#aceecad98eec5ec4009d14ca16ea1bfc8">TargetCoreClockrateHz</a></div><div class="ttdeci">static constexpr uint32_t TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> <a href="a__box_2main_8c_source.html#l00066">main.c:66</a></div></div>
 <div class="ttc" id="aphal__F4__F7_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a"><div class="ttname"><a href="phal__F4__F7_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a4dfb0fae3e479d88eb8896f98a36822a">CLOCK_SOURCE_HSI</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSI</div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2rcc_2rcc_8h_source.html#l00074">rcc.h:74</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00113">113</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00114">114</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
 </div>
 </div>
@@ -900,7 +994,7 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="lcd_8h.html#a7153150b299cf930f17d200a89628d88">page_t</a> curr_page</td>
+          <td class="memname"><a class="el" href="lcd_8h.html#a99a5fddfe71e6e9cd0c559b9a9a41a99">page_t</a> curr_page</td>
         </tr>
       </table>
   </td>
@@ -910,9 +1004,9 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00015">15</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00020">20</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00149">advancePage()</a>, <a class="el" href="lcd_8c_source.html#l00158">backPage()</a>, <a class="el" href="lcd_8c_source.html#l00260">calibrationTelemetryUpdate()</a>, <a class="el" href="lcd_8c_source.html#l00282">faultTelemetryUpdate()</a>, <a class="el" href="lcd_8c_source.html#l00127">LCD_init()</a>, <a class="el" href="lcd_8c_source.html#l00216">moveDown()</a>, <a class="el" href="lcd_8c_source.html#l00205">moveUp()</a>, <a class="el" href="lcd_8c_source.html#l00356">raceTelemetryUpdate()</a>, <a class="el" href="lcd_8c_source.html#l00227">selectItem()</a>, <a class="el" href="lcd_8c_source.html#l00170">updatePage()</a>, and <a class="el" href="lcd_8c_source.html#l00241">updateTelemetryPages()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00149">advancePage()</a>, <a class="el" href="lcd_8c_source.html#l00158">backPage()</a>, <a class="el" href="lcd_8c_source.html#l00260">calibrationTelemetryUpdate()</a>, <a class="el" href="lcd_8c_source.html#l00301">faultTelemetryUpdate()</a>, <a class="el" href="lcd_8c_source.html#l00127">LCD_init()</a>, <a class="el" href="lcd_8c_source.html#l00216">moveDown()</a>, <a class="el" href="lcd_8c_source.html#l00205">moveUp()</a>, <a class="el" href="lcd_8c_source.html#l00426">raceTelemetryUpdate()</a>, <a class="el" href="lcd_8c_source.html#l00227">selectItem()</a>, <a class="el" href="lcd_8c_source.html#l00170">updatePage()</a>, and <a class="el" href="lcd_8c_source.html#l00241">updateTelemetryPages()</a>.</p>
 
 </div>
 </div>
@@ -928,7 +1022,7 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00027">27</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00028">28</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
 </div>
 </div>
@@ -944,9 +1038,9 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00130">130</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00131">131</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00283">EXTI15_10_IRQHandler()</a>, <a class="el" href="dashboard_2main_8c_source.html#l00257">EXTI9_5_IRQHandler()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00302">service_button_inputs()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00296">EXTI15_10_IRQHandler()</a>, <a class="el" href="dashboard_2main_8c_source.html#l00270">EXTI9_5_IRQHandler()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00315">service_button_inputs()</a>.</p>
 
 </div>
 </div>
@@ -977,7 +1071,7 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 <div class="line">}</div>
 <div class="ttc" id="adaq_2main_8c_html_a1f94964a4032ad7e8b644485a417b00f"><div class="ttname"><a href="daq_2main_8c.html#a1f94964a4032ad7e8b644485a417b00f">usart_tx_dma_config</a></div><div class="ttdeci">dma_init_t usart_tx_dma_config</div><div class="ttdef"><b>Definition</b> <a href="daq_2main_8c_source.html#l00098">main.c:98</a></div></div>
 <div class="ttc" id="adaq_2main_8c_html_ab5e5c5f93446e92415dfe222fd3d0e6e"><div class="ttname"><a href="daq_2main_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e">usart_rx_dma_config</a></div><div class="ttdeci">dma_init_t usart_rx_dma_config</div><div class="ttdef"><b>Definition</b> <a href="daq_2main_8c_source.html#l00099">main.c:99</a></div></div>
-<div class="ttc" id="adashboard_2main_8c_html_ad09c19efeeec2514707662f506d2267a"><div class="ttname"><a href="#ad09c19efeeec2514707662f506d2267a">LCD_BAUD_RATE</a></div><div class="ttdeci">static constexpr uint32_t LCD_BAUD_RATE</div><div class="ttdef"><b>Definition</b> <a href="dashboard_2main_8c_source.html#l00096">main.c:96</a></div></div>
+<div class="ttc" id="adashboard_2main_8c_html_ad09c19efeeec2514707662f506d2267a"><div class="ttname"><a href="#ad09c19efeeec2514707662f506d2267a">LCD_BAUD_RATE</a></div><div class="ttdeci">static constexpr uint32_t LCD_BAUD_RATE</div><div class="ttdef"><b>Definition</b> <a href="dashboard_2main_8c_source.html#l00097">main.c:97</a></div></div>
 <div class="ttc" id="aphal__F4__F7_2usart_2usart_8h_html_a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027"><div class="ttname"><a href="phal__F4__F7_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a></div><div class="ttdeci">@ WORD_8</div><div class="ttdoc">8-Bit word length</div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2usart_2usart_8h_source.html#l00065">usart.h:65</a></div></div>
 <div class="ttc" id="aphal__F4__F7_2usart_2usart_8h_html_a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6"><div class="ttname"><a href="phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a></div><div class="ttdeci">@ HW_DISABLE</div><div class="ttdoc">Hardware flow control disable.</div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2usart_2usart_8h_source.html#l00077">usart.h:77</a></div></div>
 <div class="ttc" id="aphal__F4__F7_2usart_2usart_8h_html_a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b"><div class="ttname"><a href="phal__F4__F7_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a></div><div class="ttdeci">@ OB_DISABLE</div><div class="ttdoc">Disable one bit sampling.</div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2usart_2usart_8h_source.html#l00089">usart.h:89</a></div></div>
@@ -986,9 +1080,9 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 <div class="ttc" id="aphal__F4__F7_2usart_2usart_8h_html_a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6"><div class="ttname"><a href="phal__F4__F7_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a></div><div class="ttdeci">@ OV_16</div><div class="ttdoc">Oversample by 16.</div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2usart_2usart_8h_source.html#l00084">usart.h:84</a></div></div>
 <div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a5e5a0ec370741e7f284f0557ee477c82"><div class="ttname"><a href="phal__G4_2usart_2usart_8h.html#a5e5a0ec370741e7f284f0557ee477c82">USART1_ACTIVE_IDX</a></div><div class="ttdeci">#define USART1_ACTIVE_IDX</div><div class="ttdef"><b>Definition</b> <a href="phal__G4_2usart_2usart_8h_source.html#l00008">usart.h:8</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00097">97</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00098">98</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00366">LCD_tx_update()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00158">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00374">LCD_tx_update()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00163">main()</a>.</p>
 
 </div>
 </div>
@@ -1012,9 +1106,9 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00096">96</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00097">97</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00158">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00163">main()</a>.</p>
 
 </div>
 </div>
@@ -1054,9 +1148,27 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00066">66</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00067">67</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pedals_8c_source.html#l00063">pedalsPeriodic()</a>, and <a class="el" href="driveline_2main_8c_source.html#l00112">shockpot_thread()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00260">calibrationTelemetryUpdate()</a>, <a class="el" href="pedals_8c_source.html#l00068">pedalsPeriodic()</a>, and <a class="el" href="driveline_2main_8c_source.html#l00112">shockpot_thread()</a>.</p>
+
+</div>
+</div>
+<a id="af03f677104cded4cc16a240a53430d91" name="af03f677104cded4cc16a240a53430d91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af03f677104cded4cc16a240a53430d91">&#9670;&#160;</a></span>start_button_pressed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool start_button_pressed = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00210">210</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00211">service_start_button()</a>.</p>
 
 </div>
 </div>
@@ -1080,7 +1192,7 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00112">112</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00113">113</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
 </div>
 </div>
@@ -1096,7 +1208,7 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00095">95</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00096">96</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
 </div>
 </div>
@@ -1112,7 +1224,7 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00094">94</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dashboard_2main_8c_source.html#l00095">95</a> of file <a class="el" href="dashboard_2main_8c_source.html">main.c</a>.</p>
 
 </div>
 </div>

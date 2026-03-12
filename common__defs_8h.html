@@ -120,9 +120,11 @@ Macros</h2></td></tr>
 <tr class="separator:a33bd933f5d4895b3b6d18c2d5fed91a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a996f7be338ccb40d1a2a5abc1ad61759" id="r_a996f7be338ccb40d1a2a5abc1ad61759"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a996f7be338ccb40d1a2a5abc1ad61759">ABS</a>(x)</td></tr>
 <tr class="separator:a996f7be338ccb40d1a2a5abc1ad61759"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a598a3330b3c21701223ee0ca14316eca" id="r_a598a3330b3c21701223ee0ca14316eca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a598a3330b3c21701223ee0ca14316eca">PI</a>&#160;&#160;&#160;(3.14159f)</td></tr>
-<tr class="separator:a598a3330b3c21701223ee0ca14316eca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a212460e743fecb084d717bb2180c5a56" id="r_a212460e743fecb084d717bb2180c5a56"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a212460e743fecb084d717bb2180c5a56">DEG_TO_RAD</a>&#160;&#160;&#160;(<a class="el" href="#a598a3330b3c21701223ee0ca14316eca">PI</a> / 180.0f)</td></tr>
+<tr class="memitem:a57562d98bd289bc7ea77ba251915d8fb" id="r_a57562d98bd289bc7ea77ba251915d8fb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57562d98bd289bc7ea77ba251915d8fb">MAX2</a>(x,  y)</td></tr>
+<tr class="separator:a57562d98bd289bc7ea77ba251915d8fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf9c1f64129f8817d22f83b96f6ed466" id="r_acf9c1f64129f8817d22f83b96f6ed466"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf9c1f64129f8817d22f83b96f6ed466">MAX4</a>(a,  b,  c,  d)</td></tr>
+<tr class="separator:acf9c1f64129f8817d22f83b96f6ed466"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a212460e743fecb084d717bb2180c5a56" id="r_a212460e743fecb084d717bb2180c5a56"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a212460e743fecb084d717bb2180c5a56">DEG_TO_RAD</a>&#160;&#160;&#160;(<a class="el" href="#ac01434fcf858bd4b50b62784079ad3c0">PI</a> / 180.0f)</td></tr>
 <tr class="separator:a212460e743fecb084d717bb2180c5a56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41a1cf8805cf2b37a8d4f1cdb218c8db" id="r_a41a1cf8805cf2b37a8d4f1cdb218c8db"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41a1cf8805cf2b37a8d4f1cdb218c8db">G_TO_M_S</a>&#160;&#160;&#160;(9.80665f)</td></tr>
 <tr class="separator:a41a1cf8805cf2b37a8d4f1cdb218c8db"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -168,6 +170,8 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:ac01434fcf858bd4b50b62784079ad3c0" id="r_ac01434fcf858bd4b50b62784079ad3c0"><td class="memItemLeft" align="right" valign="top">static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac01434fcf858bd4b50b62784079ad3c0">PI</a> = 3.14159f</td></tr>
+<tr class="separator:ac01434fcf858bd4b50b62784079ad3c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7734c719f4ed69952e7c2f622eacda52" id="r_a7734c719f4ed69952e7c2f622eacda52"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7734c719f4ed69952e7c2f622eacda52">CONN_LED_TIMEOUT_MS</a> = 1000</td></tr>
 <tr class="separator:a7734c719f4ed69952e7c2f622eacda52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21b6510f3b958625ebaae25b90ad9c3c" id="r_a21b6510f3b958625ebaae25b90ad9c3c"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a21b6510f3b958625ebaae25b90ad9c3c">PREFLIGHT_ANIMATION_DURATION_MS</a> = 1500</td></tr>
@@ -241,7 +245,7 @@ Variables</h2></td></tr>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00036">36</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cooling_8c_source.html#l00220">cooling_driver_request_CALLBACK()</a>, and <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00022">PHAL_SPI_init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cooling_8c_source.html#l00228">cooling_driver_request_CALLBACK()</a>, and <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00022">PHAL_SPI_init()</a>.</p>
 
 </div>
 </div>
@@ -252,12 +256,12 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DEG_TO_RAD&#160;&#160;&#160;(<a class="el" href="#a598a3330b3c21701223ee0ca14316eca">PI</a> / 180.0f)</td>
+          <td class="memname">#define DEG_TO_RAD&#160;&#160;&#160;(<a class="el" href="#ac01434fcf858bd4b50b62784079ad3c0">PI</a> / 180.0f)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00069">69</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00072">72</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="bmi088_8c_source.html#l00114">BMI088_getGyroScale()</a>.</p>
 
@@ -275,7 +279,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00070">70</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00073">73</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="bmi088_8c_source.html#l00190">BMI088_readAccel()</a>.</p>
 
@@ -293,7 +297,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00078">78</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00081">81</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
 
 </div>
 </div>
@@ -309,7 +313,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00077">77</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00080">80</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
 
 </div>
 </div>
@@ -325,7 +329,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00076">76</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00079">79</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
 
 </div>
 </div>
@@ -341,7 +345,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00074">74</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00077">77</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
 
 </div>
 </div>
@@ -357,7 +361,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00075">75</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00078">78</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00345">main()</a>.</p>
 
@@ -375,7 +379,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00073">73</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00076">76</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
 
 </div>
 </div>
@@ -403,7 +407,68 @@ Variables</h2></td></tr>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00024">24</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="bmi088_8c_source.html#l00155">BMI088_readGyro()</a>, and <a class="el" href="cooling_8c_source.html#l00114">calculate_cooling_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="bmi088_8c_source.html#l00155">BMI088_readGyro()</a>.</p>
+
+</div>
+</div>
+<a id="a57562d98bd289bc7ea77ba251915d8fb" name="a57562d98bd289bc7ea77ba251915d8fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57562d98bd289bc7ea77ba251915d8fb">&#9670;&#160;</a></span>MAX2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX2</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">((x) &gt; (y) ? (x) : (y))</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00065">65</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
+
+</div>
+</div>
+<a id="acf9c1f64129f8817d22f83b96f6ed466" name="acf9c1f64129f8817d22f83b96f6ed466"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf9c1f64129f8817d22f83b96f6ed466">&#9670;&#160;</a></span>MAX4</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX4</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>b</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>c</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>d</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="#a57562d98bd289bc7ea77ba251915d8fb">MAX2</a>(<a class="code hl_define" href="#a57562d98bd289bc7ea77ba251915d8fb">MAX2</a>((a), (b)), <a class="code hl_define" href="#a57562d98bd289bc7ea77ba251915d8fb">MAX2</a>((c), (d))))</div>
+<div class="ttc" id="acommon__defs_8h_html_a57562d98bd289bc7ea77ba251915d8fb"><div class="ttname"><a href="#a57562d98bd289bc7ea77ba251915d8fb">MAX2</a></div><div class="ttdeci">#define MAX2(x, y)</div><div class="ttdef"><b>Definition</b> <a href="common__defs_8h_source.html#l00065">common_defs.h:65</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00066">66</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00426">raceTelemetryUpdate()</a>.</p>
 
 </div>
 </div>
@@ -430,22 +495,6 @@ Variables</h2></td></tr>
 <div class="ttc" id="acommon__defs_8h_html_af58386d95cccc93d8a768fef7de17db8"><div class="ttname"><a href="#af58386d95cccc93d8a768fef7de17db8">min_f</a></div><div class="ttdeci">static float min_f(float x, float y)</div><div class="ttdef"><b>Definition</b> <a href="common__defs_8h_source.html#l00019">common_defs.h:19</a></div></div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00020">20</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
-
-</div>
-</div>
-<a id="a598a3330b3c21701223ee0ca14316eca" name="a598a3330b3c21701223ee0ca14316eca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a598a3330b3c21701223ee0ca14316eca">&#9670;&#160;</a></span>PI</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PI&#160;&#160;&#160;(3.14159f)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00066">66</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
 
 </div>
 </div>
@@ -847,9 +896,9 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00080">80</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00083">83</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00219">heartbeat_task()</a>, and <a class="el" href="a__box_2main_8c_source.html#l00159">heartbeat_task()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00232">heartbeat_task()</a>, and <a class="el" href="a__box_2main_8c_source.html#l00159">heartbeat_task()</a>.</p>
 
 </div>
 </div>
@@ -873,7 +922,31 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00082">82</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00085">85</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
+
+</div>
+</div>
+<a id="ac01434fcf858bd4b50b62784079ad3c0" name="ac01434fcf858bd4b50b62784079ad3c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac01434fcf858bd4b50b62784079ad3c0">&#9670;&#160;</a></span>PI</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PI = 3.14159f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00069">69</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
 
 </div>
 </div>
@@ -897,9 +970,9 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00081">81</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common__defs_8h_source.html#l00084">84</a> of file <a class="el" href="common__defs_8h_source.html">common_defs.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00219">heartbeat_task()</a>, and <a class="el" href="a__box_2main_8c_source.html#l00159">heartbeat_task()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00232">heartbeat_task()</a>, and <a class="el" href="a__box_2main_8c_source.html#l00159">heartbeat_task()</a>.</p>
 
 </div>
 </div>

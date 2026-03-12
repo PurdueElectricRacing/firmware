@@ -3,7 +3,7 @@ var a__box_2main_8c =
     [ "background_can_update", "a__box_2main_8c.html#af14d2c72424a8b2f82fdc9ed8497a61e", null ],
     [ "bms_task", "a__box_2main_8c.html#a78865f7731d4b7186cdc06c8ff03a0e4", null ],
     [ "check_faults", "a__box_2main_8c.html#a5d9ec2793fb7109e53e6f1960f9044f5", null ],
-    [ "DEFINE_TASK", "a__box_2main_8c.html#a5d209043f351dbfcf771dc1a8cda2d9d", null ],
+    [ "DEFINE_TASK", "a__box_2main_8c.html#a7c6a950efacc9cad0320a885a5b9afb4", null ],
     [ "DEFINE_TASK", "a__box_2main_8c.html#a1fa3993064bc3738e29650ffc9de990b", null ],
     [ "DEFINE_TASK", "a__box_2main_8c.html#a1f3ae7ea9e76a5b0a2844a7696ceb50c", null ],
     [ "DEFINE_TASK", "a__box_2main_8c.html#a89cea2c803c93d23518f66878f5bf3f8", null ],

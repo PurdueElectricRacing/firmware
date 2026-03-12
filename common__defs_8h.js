@@ -11,8 +11,9 @@ var common__defs_8h =
     [ "HSI_TRIM_PDU", "common__defs_8h.html#a2da974e263720581c368f5bd95f791e6", null ],
     [ "HSI_TRIM_TORQUE_VECTOR", "common__defs_8h.html#a4b7d6f815a5be3b74fff0e458ea2ca9f", null ],
     [ "MAX", "common__defs_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95", null ],
+    [ "MAX2", "common__defs_8h.html#a57562d98bd289bc7ea77ba251915d8fb", null ],
+    [ "MAX4", "common__defs_8h.html#acf9c1f64129f8817d22f83b96f6ed466", null ],
     [ "MIN", "common__defs_8h.html#a74e75242132eaabbc1c512488a135926", null ],
-    [ "PI", "common__defs_8h.html#a598a3330b3c21701223ee0ca14316eca", null ],
     [ "abs_f", "common__defs_8h.html#a5bac71bc07cae41285cab5ef33071c96", null ],
     [ "abs_i", "common__defs_8h.html#a03e3fa423dd4f279ebfa70df9434201c", null ],
     [ "clamp_f", "common__defs_8h.html#a1448847ce5365862e963b813c4f01626", null ],
@@ -27,5 +28,6 @@ var common__defs_8h =
     [ "ROUNDUP", "common__defs_8h.html#ad9b3fa34cf7fd298a0333cd51094762c", null ],
     [ "CONN_LED_TIMEOUT_MS", "common__defs_8h.html#a7734c719f4ed69952e7c2f622eacda52", null ],
     [ "HEARTBEAT_PERIOD_MS", "common__defs_8h.html#aba882a54e761d19d12cc40b3a2a91d8b", null ],
+    [ "PI", "common__defs_8h.html#ac01434fcf858bd4b50b62784079ad3c0", null ],
     [ "PREFLIGHT_ANIMATION_DURATION_MS", "common__defs_8h.html#a21b6510f3b958625ebaae25b90ad9c3c", null ]
 ];

@@ -17,6 +17,7 @@ typedef struct {
     uint32_t connection_pin;
     GPIO_TypeDef *error_port;
     uint32_t error_pin;
+    void (*preflight_callback)(void);
 } status_leds_t;
 
 extern void heartbeat_task(status_leds_t *leds);
@@ -30,14 +31,15 @@ extern void heartbeat_task(status_leds_t *leds);
  * 3. Call DEFINE_HEARTBEAT_TASK() in your source file to define the task.
  * 4. Call START_HEARTBEAT_TASK() in your main function after initializing the kernel to start the task.
  */
-#define DEFINE_HEARTBEAT_TASK(); \
+#define DEFINE_HEARTBEAT_TASK(PREFLIGHT_CALLBACK); \
     status_leds_t status_leds = { \
         .heartbeat_port = HEARTBEAT_LED_PORT, \
         .heartbeat_pin = HEARTBEAT_LED_PIN, \
         .connection_port = CONNECTION_LED_PORT, \
         .connection_pin = CONNECTION_LED_PIN, \
         .error_port = ERROR_LED_PORT, \
-        .error_pin = ERROR_LED_PIN \
+        .error_pin = ERROR_LED_PIN, \
+        .preflight_callback = (PREFLIGHT_CALLBACK) \
     }; \
     void heartbeat_wrapper(void) { heartbeat_task(&status_leds); }; \
     DEFINE_TASK(heartbeat_wrapper, 100, osPriorityLow, STACK_512);

@@ -92,7 +92,7 @@ void AMK_task() {
     AMK_periodic(&g_car.rear_right);
 }
 
-DEFINE_HEARTBEAT_TASK();
+DEFINE_HEARTBEAT_TASK(nullptr);
 DEFINE_TASK(update_SDC, 5, osPriorityLow, STACK_512);
 DEFINE_TASK(background_can_update, 2, osPriorityHigh, STACK_2048);
 DEFINE_TASK(fsm_periodic, 20, osPriorityNormal, STACK_2048);

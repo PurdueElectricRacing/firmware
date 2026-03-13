@@ -75,7 +75,7 @@ extern void HardFault_Handler();
 void shockpot_thread();
 
 DEFINE_TASK(shockpot_thread, 100, osPriorityNormal, 512);
-DEFINE_HEARTBEAT_TASK();
+DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
     // Hardware Initilization

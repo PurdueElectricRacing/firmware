@@ -18,6 +18,7 @@
 #include "common/phal/rcc.h"
 #include "common/phal/usart.h"
 #include "common/strbuf/strbuf.h"
+#include "common/heartbeat/heartbeat.h"
 
 /* Module Includes */
 #include "common/can_library/generated/DASHBOARD.h"
@@ -132,7 +133,6 @@ volatile dashboard_input_state_t input_state = {0}; // Clear all input states
 
 /* Function Prototypes */
 void preflight_animation(void);
-void heartbeat_task();
 void LCD_tx_update();
 void config_button_irqs();
 void driver_interface_periodic();
@@ -152,7 +152,7 @@ DEFINE_TASK(pedalsPeriodic, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024);
 DEFINE_TASK(can_worker_task, 2, osPriorityNormal, STACK_2048); // leave stack at 2048
 
 // Auxilary threads
-DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, STACK_512);
+DEFINE_HEARTBEAT_TASK();
 DEFINE_TASK(driver_interface_periodic, 50, osPriorityLow, STACK_1024);
 DEFINE_TASK(service_start_button, START_BUTTON_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
@@ -196,11 +196,11 @@ int main(void) {
     START_TASK(pedalsPeriodic);
     START_TASK(can_worker_task);
     START_TASK(service_start_button);
-    START_TASK(heartbeat_task);
     START_TASK(fault_library_periodic);
     START_TASK(driver_interface_periodic);
     START_TASK(LCD_tx_update);
     START_TASK(updateTelemetryPages);
+    START_HEARTBEAT_TASK();
 
     osKernelStart(); // GO!
 
@@ -223,44 +223,6 @@ void send_version() {
 }
 
 // jose was here
-
-/**
- * @brief Updates system LED indicators and CAN stats
- *
- * Controls heartbeat, connection, precharge, IMD and BMS status LEDs.
- */
-void heartbeat_task() { // todo update to use the common heartbeat implementation
-    // preflight animation for the first 1.5 seconds after boot
-    if (OS_TICKS <= PREFLIGHT_ANIMATION_DURATION_MS) {
-        static uint32_t sweep_index = 0;
-
-        // Creates a sweeping pattern
-        switch (sweep_index++ % 3) {
-            case 0:
-                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 1);
-                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
-                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
-                break;
-            case 1:
-                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 0);
-                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
-                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
-                break;
-            case 2:
-                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 0);
-                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
-                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
-                break;
-        }
-
-        return;
-    }
-
-    PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
-
-    bool can_stale = (OS_TICKS - last_can_rx_time_ms >= CONN_LED_TIMEOUT_MS);
-    PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, can_stale);
-}
 
 void EXTI9_5_IRQHandler() {
     // EXTI9 (LEFT Button) triggered the interrupt

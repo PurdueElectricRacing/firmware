@@ -16,6 +16,7 @@
 #include "common/phal/dma.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
+#include "common/heartbeat/heartbeat.h"
 
 /* Module Includes */
 #include "auto_switch.h"
@@ -28,9 +29,9 @@
 
 GPIOInitConfig_t gpio_config[] = {
     // Status Indicators
-    GPIO_INIT_OUTPUT(ERR_LED_GPIO_Port, ERR_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_OUTPUT(CONN_LED_GPIO_Port, CONN_LED_Pin, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_OUTPUT(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(CONNECTION_LED_PORT, CONNECTION_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(ERROR_LED_PORT, ERROR_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     // CAN
     GPIO_INIT_CANRX_PD0,
     GPIO_INIT_CANTX_PD1,
@@ -231,64 +232,22 @@ extern uint32_t PLLClockRateHz;
 void HardFault_Handler();
 
 /* Task functions */
-void heartbeat_task();
 void background_can_update();
 void send_iv_readings();
 void send_flowrates();
 
-void heartbeat_task() { // todo update to use the common heartbeat implementation
-    // Preflight animation for the first PREFLIGHT_DURATION_MS after boot
-    if (OS_TICKS <= PREFLIGHT_ANIMATION_DURATION_MS) {
-        static uint32_t time;
-        static int led_number;
+void sparkle_leds() {
+    static int led_number;
         static bool led_decrement = false;
-
-        // Three-LED sweep
-        PHAL_writeGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, 0);
-        PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 0);
-        PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
-
-        switch (time++ % 24) {
-            case 0:
-            case 5:
-                PHAL_writeGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin, 1);
-                break;
-            case 1:
-            case 4:
-                PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
-                break;
-            case 2:
-            case 3:
-                PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
-                break;
-        }
-
-        if (led_number < MAX_NUM_LED && !led_decrement) {
-            led_number++;
-            LED_control(led_number, LED_ON);
-        } else if (led_number >= MAX_NUM_LED && !led_decrement) {
-            led_decrement = true;
-        } else {
-            led_number--;
-            LED_control(led_number, LED_OFF);
-        }
-
-        return;
+    if (led_number < MAX_NUM_LED && !led_decrement) {
+        led_number++;
+        LED_control(led_number, LED_ON);
+    } else if (led_number >= MAX_NUM_LED && !led_decrement) {
+        led_decrement = true;
+    } else {
+        led_number--;
+        LED_control(led_number, LED_OFF);
     }
-
-    PHAL_toggleGPIO(HEARTBEAT_GPIO_Port, HEARTBEAT_Pin);
-    if ((OS_TICKS - last_can_rx_time_ms) >= CONN_LED_MS_THRESH)
-        PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 0);
-    else
-        PHAL_writeGPIO(CONN_LED_GPIO_Port, CONN_LED_Pin, 1);
-
-    static uint8_t trig;
-    if (trig)
-        CAN_SEND_pdu_can_stats(can_stats.can_peripheral_stats[CAN1_IDX].tx_of,
-                               can_stats.can_peripheral_stats[CAN1_IDX].tx_fail,
-                               can_stats.rx_of,
-                               can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
-    trig = !trig;
 }
 
 void background_can_update() {
@@ -332,7 +291,7 @@ void send_iv_readings() {
     CAN_SEND_pdu_temps((uint16_t)temp);
 }
 
-DEFINE_TASK(heartbeat_task, 500, osPriorityLow, STACK_256);
+DEFINE_HEARTBEAT_TASK(sparkle_leds);
 DEFINE_TASK(background_can_update, 5, osPriorityHigh, STACK_1024);
 DEFINE_TASK(autoSwitchPeriodic, 15, osPriorityNormal, STACK_512);
 DEFINE_TASK(update_cooling_periodic, 100, osPriorityNormal, STACK_1024);
@@ -389,7 +348,7 @@ int main() {
 
     osKernelInitialize();
 
-    START_TASK(heartbeat_task);
+    
     START_TASK(background_can_update);
     START_TASK(autoSwitchPeriodic);
     START_TASK(update_cooling_periodic);
@@ -398,6 +357,7 @@ int main() {
     START_TASK(checkSwitchFaults);
     START_TASK(send_flowrates);
     START_TASK(fault_library_periodic);
+    START_HEARTBEAT_TASK();
 
     // no way home
     osKernelStart();
@@ -409,11 +369,13 @@ void CAN1_RX0_IRQHandler() {
     CAN_handle_irq(CAN1, 0);
 }
 
+// todo reboot on hardfault
 void HardFault_Handler() {
     __disable_irq();
     SysTick->CTRL = 0;
-    PHAL_writeGPIO(ERR_LED_GPIO_Port, ERR_LED_Pin, 1);
+    ERROR_LED_PORT->BSRR = (1 << ERROR_LED_PIN);
     while (1) {
-        __asm__("NOP");
+        __asm__("NOP"); // Halt forever
     }
 }
+

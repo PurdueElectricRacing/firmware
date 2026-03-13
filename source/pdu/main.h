@@ -12,16 +12,15 @@
 
 //STM32F407VGT6
 
-#include "common/phal/can.h"
+#include <stdint.h>
 
 // Status Indicators
-#define ERR_LED_GPIO_Port   (GPIOC)
-#define ERR_LED_Pin         (13)
-#define CONN_LED_GPIO_Port  (GPIOC)
-#define CONN_LED_Pin        (14)
-#define CONN_LED_MS_THRESH  (500)
-#define HEARTBEAT_GPIO_Port (GPIOC)
-#define HEARTBEAT_Pin       (15)
+#define HEARTBEAT_LED_PORT  (GPIOC)
+#define HEARTBEAT_LED_PIN   (15)
+#define ERROR_LED_PORT      (GPIOC)
+#define ERROR_LED_PIN       (13)
+#define CONNECTION_LED_PORT (GPIOC)
+#define CONNECTION_LED_PIN  (14)
 
 // CAN
 #define VCAN_RX_GPIO_Port (GPIOD)

@@ -16,6 +16,7 @@
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "pindefs.h"
+#include "common/heartbeat/heartbeat.h"
 
 // Global data structures
 car_t g_car;
@@ -79,39 +80,6 @@ extern uint32_t PLLClockRateHz;
 
 extern void HardFault_Handler(void);
 
-void heartbeat_task() {
-    // preflight animation for the first 1.5 seconds after boot
-    if (OS_TICKS <= PREFLIGHT_ANIMATION_DURATION_MS) {
-        static uint32_t sweep_index = 0;
-
-        // Creates a sweeping pattern
-        switch (sweep_index++ % 3) {
-            case 0:
-                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 1);
-                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
-                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
-                break;
-            case 1:
-                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 0);
-                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
-                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
-                break;
-            case 2:
-                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 0);
-                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
-                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
-                break;
-        }
-
-        return;
-    }
-
-    PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
-
-    bool can_stale = (OS_TICKS - last_can_rx_time_ms >= CONN_LED_TIMEOUT_MS);
-    PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, can_stale);
-}
-
 void background_can_update() {
     CAN_rx_update();
     CAN_tx_update();
@@ -124,7 +92,7 @@ void AMK_task() {
     AMK_periodic(&g_car.rear_right);
 }
 
-DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, STACK_256);
+DEFINE_HEARTBEAT_TASK();
 DEFINE_TASK(update_SDC, 5, osPriorityLow, STACK_512);
 DEFINE_TASK(background_can_update, 2, osPriorityHigh, STACK_2048);
 DEFINE_TASK(fsm_periodic, 20, osPriorityNormal, STACK_2048);
@@ -157,12 +125,12 @@ int main(void) {
     // Software Initialization
     osKernelInitialize();
 
-    START_TASK(heartbeat_task);
     START_TASK(background_can_update);
     START_TASK(update_SDC);
     START_TASK(fsm_periodic);
     START_TASK(AMK_task);
     START_TASK(fault_library_periodic);
+    START_HEARTBEAT_TASK();
 
     // no way home
     osKernelStart();

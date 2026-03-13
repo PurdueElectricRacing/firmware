@@ -229,7 +229,7 @@ void send_version() {
  *
  * Controls heartbeat, connection, precharge, IMD and BMS status LEDs.
  */
-void heartbeat_task() {
+void heartbeat_task() { // todo update to use the common heartbeat implementation
     // preflight animation for the first 1.5 seconds after boot
     if (OS_TICKS <= PREFLIGHT_ANIMATION_DURATION_MS) {
         static uint32_t sweep_index = 0;

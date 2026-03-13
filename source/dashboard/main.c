@@ -152,7 +152,7 @@ DEFINE_TASK(pedalsPeriodic, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024);
 DEFINE_TASK(can_worker_task, 2, osPriorityNormal, STACK_2048); // leave stack at 2048
 
 // Auxilary threads
-DEFINE_HEARTBEAT_TASK();
+DEFINE_HEARTBEAT_TASK(nullptr);
 DEFINE_TASK(driver_interface_periodic, 50, osPriorityLow, STACK_1024);
 DEFINE_TASK(service_start_button, START_BUTTON_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);

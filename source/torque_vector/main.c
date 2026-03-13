@@ -63,7 +63,7 @@ void can_worker_thread() {
 }
 
 DEFINE_TASK(can_worker_thread, 15, osPriorityNormal, 2048);
-DEFINE_HEARTBEAT_TASK();
+DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
     // Hardware Initialization

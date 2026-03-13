@@ -38,6 +38,10 @@ void heartbeat_task(status_leds_t *leds) {
                 break;
         }
 
+        if (leds->preflight_callback) {
+            leds->preflight_callback();
+        }
+
         return;
     }
 

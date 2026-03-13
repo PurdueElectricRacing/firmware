@@ -34,6 +34,14 @@ GPIOInitConfig_t gpio_config[] = {
     // ! these pin are erroneously swapped on the schematic
     // GPIO_INIT_FDCAN1TX_PA12,
     // GPIO_INIT_FDCAN1RX_PA11,
+
+    // Base GPS UART
+    GPIO_INIT_USART1TX_PA9,
+    GPIO_INIT_USART1RX_PA10,
+
+    // Rover GPS UART
+    // GPIO_INIT_USART3RX_PB11,
+    // GPIO_INIT_USART3TX_PB12,    
 };
 
 static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;

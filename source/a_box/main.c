@@ -16,6 +16,7 @@
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
+#include "common/heartbeat/heartbeat.h"
 
 SPI_InitConfig_t bms_spi_config = {
     .data_len      = 8,
@@ -90,14 +91,14 @@ void bms_task(void);
 void background_can_update(void);
 void check_faults(void);
 void report_telemetry(void);
-void heartbeat_task(void);
+
 
 DEFINE_TASK(bms_task, 200, osPriorityHigh, STACK_2048);
 DEFINE_TASK(background_can_update, 2, osPriorityHigh, STACK_2048);
 DEFINE_TASK(check_faults, 10, osPriorityNormal, STACK_512);
 DEFINE_TASK(fault_library_periodic, A_BOX_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
 DEFINE_TASK(report_telemetry, PACK_STATS_PERIOD_MS, osPriorityLow, STACK_512);
-DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, STACK_256);
+DEFINE_HEARTBEAT_TASK();
 
 int main(void) {
     // Hardware Initilization
@@ -138,7 +139,7 @@ int main(void) {
     START_TASK(check_faults);
     START_TASK(fault_library_periodic);
     START_TASK(report_telemetry);
-    START_TASK(heartbeat_task);
+    START_HEARTBEAT_TASK();
 
     osKernelStart(); // no way home
 
@@ -154,38 +155,6 @@ void report_telemetry() {
 void background_can_update() {
     CAN_tx_update();
     CAN_rx_update();
-}
-
-void heartbeat_task() {
-    // preflight animation for the first 1.5 seconds after boot
-    if (OS_TICKS <= PREFLIGHT_ANIMATION_DURATION_MS) {
-        static uint32_t sweep_index = 0;
-
-        // Creates a sweeping pattern
-        switch (sweep_index++ % 3) {
-            case 0:
-                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 1);
-                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
-                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
-                break;
-            case 1:
-                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 0);
-                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
-                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
-                break;
-            case 2:
-                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 0);
-                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
-                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
-                break;
-        }
-        return;
-    }
-
-    PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
-
-    bool can_stale = (OS_TICKS - last_can_rx_time_ms >= CONN_LED_TIMEOUT_MS);
-    PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, can_stale);
 }
 
 void bms_task() {

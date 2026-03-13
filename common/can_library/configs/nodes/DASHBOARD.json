@@ -199,8 +199,8 @@
     "faults": [
         {
             "fault_name": "APPS_wiring_t1",
-            "max": 3500,
-            "min": 500,
+            "max": 1500,
+            "min": 200,
             "priority": "error",
             "time_to_latch": 10,
             "time_to_unlatch": 1000,
@@ -208,8 +208,8 @@
         },
         {
             "fault_name": "APPS_wiring_t2",
-            "max": 3500,
-            "min": 500,
+            "max": 1500,
+            "min": 200,
             "priority": "error",
             "time_to_latch": 10,
             "time_to_unlatch": 1000,

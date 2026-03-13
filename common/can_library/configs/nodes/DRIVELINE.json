@@ -1,6 +1,5 @@
 {
     "node_name": "DRIVELINE",
-    "scheduler": "freertos",
     "busses": {
         "VCAN": {
             "peripheral": "FDCAN2",

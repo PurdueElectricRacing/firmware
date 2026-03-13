@@ -6,7 +6,6 @@
 
 ## Node Attributes
 - `node_name`: Name of the node. Must be unique.
-- `scheduler`: Target operating system/scheduler (`freertos` or `psched`).
 - `faults`: (Optional) Array of fault definitions specific to this node.
 
 ## CAN Message Attributes (TX)

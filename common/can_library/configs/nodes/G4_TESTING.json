@@ -1,6 +1,5 @@
 {
     "node_name": "G4_TESTING",
-    "scheduler": "freertos",
     "busses": {
         "GCAN": {
             "peripheral": "FDCAN2",

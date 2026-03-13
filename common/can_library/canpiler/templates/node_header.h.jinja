@@ -17,13 +17,7 @@
 #include "common/can_library/generated/{{ bus_name }}.h"
 {% endfor %}
 
-{% if node.scheduler == "freertos" %}
-#include "common/freertos/freertos.h"
 #define OS_TICKS (xTaskGetTickCount())
-{% else %}
-#include "common/psched/psched.h"
-#define OS_TICKS (sched.os_ticks)
-{% endif %}
 
 // System Version: {{ context.version }}
 static constexpr uint32_t GIT_HASH = 0x{{ context.version }};

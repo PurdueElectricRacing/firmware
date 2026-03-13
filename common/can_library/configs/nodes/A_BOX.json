@@ -1,6 +1,5 @@
 {
     "node_name": "A_BOX",
-    "scheduler": "freertos",
     "busses": {
         "VCAN": {
             "peripheral": "FDCAN1",

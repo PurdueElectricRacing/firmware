@@ -1,6 +1,5 @@
 {
     "node_name": "TORQUE_VECTOR",
-    "scheduler": "freertos",
     "busses": {
         "VCAN": {
             "peripheral": "FDCAN2",

@@ -38,9 +38,7 @@ include(common/can_library/can_library.cmake)
 set(COMMON_MODULES
     common/phal_F4_F7
     common/phal_G4
-    common/psched
     common/freertos
-    common/queue
     common/common_defs
     common/log
     common/amk

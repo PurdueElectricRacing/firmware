@@ -1,13 +1,5 @@
 var NAVTREEINDEX12 =
 {
-"namespacefaultgen.html#a0b8f1265d8faeba6a2d68e2e1509389d":[6,0,3,1],
-"namespacefaultgen.html#a0e8b5f173761fe44d09f0e8662d1a652":[6,0,3,5],
-"namespacefaultgen.html#a11190d4ffc206ee3ce93696a63e5dcc0":[6,0,3,3],
-"namespacefaultgen.html#a68f5c4425c2486ac4b858fe2e3cd9603":[6,0,3,4],
-"namespacefaultgen.html#ab996a6dd47c2529b9a739520011f0843":[6,0,3,0],
-"namespacefaultgen.html#afe2e346a8ad428ca4e08342785a61c6a":[6,0,3,2],
-"namespacelinker.html":[6,0,4],
-"namespacelinker.html#aed4b2af437cd3fe7ac809072fc8999d7":[6,0,4,1],
 "namespaceload__calc.html":[6,0,5],
 "namespaceload__calc.html#a1e1f1f2b50026bd50d8636ac8527d1e8":[6,0,5,1],
 "namespaceload__calc.html#afb8d90d0933e3b0db2692ebee3422797":[6,0,5,3],
@@ -144,8 +136,8 @@ var NAVTREEINDEX12 =
 "nextion_8h.html#ae995d182561a5fa3087569539bb551d2":[8,0,2,2,0,5,26],
 "nextion_8h.html#af603b7d431ae4f94d55bf04b2034a8cc":[8,0,2,2,0,5,29],
 "nextion_8h_source.html":[8,0,2,2,0,5],
-"onboarding__26_8c.html":[8,0,2,4,4],
-"onboarding__26_8c_source.html":[8,0,2,4,4],
+"onboarding__26_8c.html":[8,0,2,4,3],
+"onboarding__26_8c_source.html":[8,0,2,4,3],
 "pages.html":[],
 "parser_8py.html":[8,0,0,3,0,7],
 "parser_8py.html#a26d21343c1fd337d4db4a4af469deb67":[8,0,0,3,0,7,13],
@@ -249,5 +241,13 @@ var NAVTREEINDEX12 =
 "pdu_2main_8h.html#a4f2368962819118618c8cc41711887ca":[8,0,2,7,6,112],
 "pdu_2main_8h.html#a503001c3e7cf006ee0021453a30711f3":[8,0,2,7,6,131],
 "pdu_2main_8h.html#a5053116e39f1f2bb65f36df8fc2a0419":[8,0,2,7,6,145],
-"pdu_2main_8h.html#a509561dcbd044108500d5d42021c14d6":[8,0,2,7,6,32]
+"pdu_2main_8h.html#a509561dcbd044108500d5d42021c14d6":[8,0,2,7,6,32],
+"pdu_2main_8h.html#a50f053b138a6f8ab9e525170526dead3":[8,0,2,7,6,58],
+"pdu_2main_8h.html#a5210d1dd85d36dc27bf90382129d6038":[8,0,2,7,6,44],
+"pdu_2main_8h.html#a528d819b3b647505b5fe45e54c6b45c5":[8,0,2,7,6,81],
+"pdu_2main_8h.html#a534369aed23f5aecc16899e8ed6069ec":[8,0,2,7,6,106],
+"pdu_2main_8h.html#a53ffbd54ae0666ad00edaecd5e39376f":[8,0,2,7,6,138],
+"pdu_2main_8h.html#a55b6261fb3f492357e7142d06eb436aa":[8,0,2,7,6,158],
+"pdu_2main_8h.html#a58970d16274bc25307ed4c6a35005f14":[8,0,2,7,6,88],
+"pdu_2main_8h.html#a5958bc1522348b4c70395a4d1b851c3e":[8,0,2,7,6,94]
 };

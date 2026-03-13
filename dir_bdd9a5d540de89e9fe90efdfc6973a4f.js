@@ -13,8 +13,6 @@ var dir_bdd9a5d540de89e9fe90efdfc6973a4f =
     [ "phal", "dir_a3c0d50f55deba8c32b4e660038b52ec.html", "dir_a3c0d50f55deba8c32b4e660038b52ec" ],
     [ "phal_F4_F7", "dir_a828499ce5b3216570db528e38974466.html", "dir_a828499ce5b3216570db528e38974466" ],
     [ "phal_G4", "dir_537865b7fa0534ad07c686239f783682.html", "dir_537865b7fa0534ad07c686239f783682" ],
-    [ "psched", "dir_bae8349903b42c5df5e3ba00557f0077.html", "dir_bae8349903b42c5df5e3ba00557f0077" ],
-    [ "queue", "dir_3677059d6fce5b09335f4228af9b5d96.html", "dir_3677059d6fce5b09335f4228af9b5d96" ],
     [ "strbuf", "dir_b326de142a01610c2e2fbdc361522621.html", "dir_b326de142a01610c2e2fbdc361522621" ],
     [ "syscalls", "dir_1ce6f96d2d04ccccac1834bfcdb7bdde.html", "dir_1ce6f96d2d04ccccac1834bfcdb7bdde" ]
 ];

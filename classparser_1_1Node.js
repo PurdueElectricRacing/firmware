@@ -7,6 +7,5 @@ var classparser_1_1Node =
     [ "faults", "classparser_1_1Node.html#a8ec91951054fcbe22c2f6174be2a7764", null ],
     [ "generate_fault_strings", "classparser_1_1Node.html#aac9da7c744839a4ee889755204cca6f5", null ],
     [ "is_external", "classparser_1_1Node.html#a5cc4c7302a63927448c0e75e4cc22354", null ],
-    [ "name", "classparser_1_1Node.html#ae78efe9aa2b9c99ef09f168e71941bd0", null ],
-    [ "scheduler", "classparser_1_1Node.html#a33d3944be55932a4a3cd1760c98b5856", null ]
+    [ "name", "classparser_1_1Node.html#ae78efe9aa2b9c99ef09f168e71941bd0", null ]
 ];

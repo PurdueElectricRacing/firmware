@@ -77,13 +77,11 @@ var searchData=
   ['rpm_5fto_5fmph_74',['RPM_TO_MPH',['../lcd_8h.html#ae5b018de69495706d7a6fd10ff8e505e',1,'lcd.h']]],
   ['rstcc_75',['RSTCC',['../commands_8c.html#ae5873ee730573af9fb3b474d8f0a5343',1,'RSTCC:&#160;commands.c'],['../commands_8h.html#ae5873ee730573af9fb3b474d8f0a5343',1,'RSTCC:&#160;commands.c']]],
   ['rtc_5fconfig_5fstate_76',['rtc_config_state',['../structdaq__hub__t.html#ada96d52722cd6a0b5e4a55c3c384c3c5',1,'daq_hub_t']]],
-  ['run_5fnext_77',['run_next',['../structsched__t.html#a806b0e3d03d34593f86e019bc996ad5d',1,'sched_t']]],
-  ['running_78',['running',['../structsched__t.html#ac4c29356a03b3eb0ee507a550ee192d1',1,'sched_t']]],
-  ['rx_5fbuf_79',['rx_buf',['../structadbms__bms__t.html#a264e0f402090486ecc498a7f28954fbf',1,'adbms_bms_t']]],
-  ['rx_5fdma_5fcfg_80',['rx_dma_cfg',['../structSPI__InitConfig__t.html#accb8a2f6b9a30e8e5bdbb4d553d76fb6',1,'SPI_InitConfig_t::rx_dma_cfg'],['../structusart__init__t.html#af5d23adc2cedc26541544b41b6a56701',1,'usart_init_t::rx_dma_cfg']]],
-  ['rx_5ferrors_81',['rx_errors',['../structusart__init__t.html#a24612c03fe5128673f397644b7277840',1,'usart_init_t']]],
-  ['rx_5fmessages_82',['rx_messages',['../classparser_1_1Bus.html#ac6b20e3f3c3dd8347de5b145657a5f61',1,'parser::Bus']]],
-  ['rx_5fof_83',['rx_of',['../structcan__stats__t.html#a0f8c66035803b2d3d7b368cc5c6a9177',1,'can_stats_t']]],
-  ['rx_5foverrun_84',['rx_overrun',['../structcan__peripheral__stats__t.html#a457c15f9442166cc47f8ffe2a27cba99',1,'can_peripheral_stats_t']]],
-  ['rxfer_5fsize_85',['rxfer_size',['../structusart__active__transfer__t.html#a6e3ea925b24b1ff38a1c5c910dd56010',1,'usart_active_transfer_t']]]
+  ['rx_5fbuf_77',['rx_buf',['../structadbms__bms__t.html#a264e0f402090486ecc498a7f28954fbf',1,'adbms_bms_t']]],
+  ['rx_5fdma_5fcfg_78',['rx_dma_cfg',['../structSPI__InitConfig__t.html#accb8a2f6b9a30e8e5bdbb4d553d76fb6',1,'SPI_InitConfig_t::rx_dma_cfg'],['../structusart__init__t.html#af5d23adc2cedc26541544b41b6a56701',1,'usart_init_t::rx_dma_cfg']]],
+  ['rx_5ferrors_79',['rx_errors',['../structusart__init__t.html#a24612c03fe5128673f397644b7277840',1,'usart_init_t']]],
+  ['rx_5fmessages_80',['rx_messages',['../classparser_1_1Bus.html#ac6b20e3f3c3dd8347de5b145657a5f61',1,'parser::Bus']]],
+  ['rx_5fof_81',['rx_of',['../structcan__stats__t.html#a0f8c66035803b2d3d7b368cc5c6a9177',1,'can_stats_t']]],
+  ['rx_5foverrun_82',['rx_overrun',['../structcan__peripheral__stats__t.html#a457c15f9442166cc47f8ffe2a27cba99',1,'can_peripheral_stats_t']]],
+  ['rxfer_5fsize_83',['rxfer_size',['../structusart__active__transfer__t.html#a6e3ea925b24b1ff38a1c5c910dd56010',1,'usart_active_transfer_t']]]
 ];

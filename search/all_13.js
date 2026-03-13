@@ -12,7 +12,7 @@ var searchData=
   ['netinfo_5fdhcp_9',['NETINFO_DHCP',['../group__DATA__TYPE.html#gga76e5aa4ff40d1cb562e46e3bf9b1e9d1abb4dffed9037e84b54c972da0fd471e2',1,'wizchip_conf.h']]],
   ['netinfo_5fstatic_10',['NETINFO_STATIC',['../group__DATA__TYPE.html#gga76e5aa4ff40d1cb562e46e3bf9b1e9d1aeb76552981d146af93acee6aa17dd165',1,'wizchip_conf.h']]],
   ['netmode_5ftype_11',['netmode_type',['../group__DATA__TYPE.html#ga7543c641a8f3ad6dce26f2387e7e8eac',1,'wizchip_conf.h']]],
-  ['new_20terminal_12',['Open a new terminal',['../md_docs_2setup.html#autotoc_md82',1,'']]],
+  ['new_20terminal_12',['Open a new terminal',['../md_docs_2setup.html#autotoc_md73',1,'']]],
   ['new_5fcan_5fbase_5fid_13',['NEW_CAN_BASE_ID',['../izze__imu__config_8c.html#ab63ec853cd6ace5cb52b2b5cd3b43eca',1,'izze_imu_config.c']]],
   ['next_5favail_5fid_14',['next_avail_id',['../classlinker_1_1BusLinker.html#aa1bec6f3bd42ecdf3cd95a9ff130fc60',1,'linker::BusLinker']]],
   ['next_5fstate_15',['next_state',['../structcar__t.html#a6d77e36d6df9b24ef449e4ff49a52299',1,'car_t::next_state'],['../structAMK__t.html#a9e703545478b58b07d5a1eefef5e0c28',1,'AMK_t::next_state']]],

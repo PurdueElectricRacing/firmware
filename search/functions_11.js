@@ -1,10 +1,24 @@
 var searchData=
 [
-  ['taskcreate_0',['taskCreate',['../psched_8c.html#a8573802f3283bce5a41c40b696b1ccf4',1,'taskCreate(func_ptr_t func, uint16_t task_time):&#160;psched.c'],['../psched_8h.html#a8573802f3283bce5a41c40b696b1ccf4',1,'taskCreate(func_ptr_t func, uint16_t task_time):&#160;psched.c']]],
-  ['taskcreatebackground_1',['taskCreateBackground',['../psched_8c.html#a0dcf80050cd9aed13c033b1552af7609',1,'taskCreateBackground(func_ptr_t func):&#160;psched.c'],['../psched_8h.html#a0dcf80050cd9aed13c033b1552af7609',1,'taskCreateBackground(func_ptr_t func):&#160;psched.c']]],
-  ['taskdelete_2',['taskDelete',['../psched_8c.html#a4301eda9e41a261fe186489a5564c63d',1,'taskDelete(uint8_t type, uint8_t task):&#160;psched.c'],['../psched_8h.html#a4301eda9e41a261fe186489a5564c63d',1,'taskDelete(uint8_t type, uint8_t task):&#160;psched.c']]],
-  ['tchar2uni_3',['tchar2uni',['../ff_8c.html#aaf6366e682ee1327e88a37ca9bbe9062',1,'ff.c']]],
-  ['thermistor_5fr_5fto_5ft_4',['thermistor_R_to_T',['../thermistor_8h.html#a026b496fe9ccc675fb110ee9bbc0e267',1,'thermistor.h']]],
-  ['tim7_5firqhandler_5',['TIM7_IRQHandler',['../psched_8c.html#a7fea4239a98a1a59b03e85a9589e1d01',1,'psched.c']]],
-  ['to_5fmacro_5fname_6',['to_macro_name',['../namespaceutils.html#ab9cea1bbee0e11aeae770ebc49c3fccb',1,'utils']]]
+  ['uds_5freceive_5fperiodic_0',['uds_receive_periodic',['../daq__hub_8h.html#a40dfd460b565c8d8e6940c535b6a8f05',1,'daq_hub.h']]],
+  ['unlock_5fvolume_1',['unlock_volume',['../ff_8c.html#aa8506773ae37981260d78633aca766b0',1,'ff.c']]],
+  ['update_5fbrake_5flight_2',['update_brake_light',['../state__machine_8c.html#a812b3caac92a9b2681f51936f2ccc34e',1,'state_machine.c']]],
+  ['update_5fcooling_5fperiodic_3',['update_cooling_periodic',['../cooling_8c.html#a3e02c27284622cd9e494e2af92cbe398',1,'update_cooling_periodic():&#160;cooling.c'],['../cooling_8h.html#a3e02c27284622cd9e494e2af92cbe398',1,'update_cooling_periodic():&#160;cooling.c']]],
+  ['update_5fcrc_4',['update_crc',['../crc_8c.html#a9e77f93e732c5c4633004ca4e0c19fbd',1,'crc.c']]],
+  ['update_5ffault_5',['update_fault',['../faults__common_8h.html#a30c665a5b3c4674a4854fcd2210406a0',1,'faults_common.h']]],
+  ['update_5fsdc_6',['update_SDC',['../main__module_2main_8h.html#ae15fd3183fc7ce084b538afa9d21057b',1,'update_SDC():&#160;sdc.c'],['../sdc_8c.html#ae15fd3183fc7ce084b538afa9d21057b',1,'update_SDC():&#160;sdc.c']]],
+  ['update_5ftsal_7',['update_tsal',['../state__machine_8c.html#ab91ea6d5f36331a47d001b0b0ad94d1b',1,'state_machine.c']]],
+  ['updatecurrent_8',['updateCurrent',['../auto__switch_8c.html#a681c7bea0f3bd6e8ee3da0bbe0613d6a',1,'auto_switch.c']]],
+  ['updatefaultdisplay_9',['updateFaultDisplay',['../lcd_8c.html#a7b6beed0e6479ed4a5fd25aaabc45dff',1,'updateFaultDisplay():&#160;lcd.c'],['../lcd_8h.html#a7b6beed0e6479ed4a5fd25aaabc45dff',1,'updateFaultDisplay():&#160;lcd.c']]],
+  ['updatefaultmessages_10',['updateFaultMessages',['../lcd_8c.html#ad4cde6073d48d2ca5850d3396744104a',1,'lcd.c']]],
+  ['updatemux_11',['updateMux',['../auto__switch_8c.html#af8a20291b1c7dbd7c7d0744be18dbeb2',1,'auto_switch.c']]],
+  ['updatepage_12',['updatePage',['../lcd_8c.html#aa13fa254ddd44573fd2a83874763cae8',1,'updatePage():&#160;lcd.c'],['../lcd_8h.html#aa13fa254ddd44573fd2a83874763cae8',1,'updatePage():&#160;lcd.c']]],
+  ['updatesdcstatus_13',['updateSDCStatus',['../lcd_8c.html#abfa214fccc53b7ab6c6810249d863a72',1,'lcd.c']]],
+  ['updatetelemetrypages_14',['updateTelemetryPages',['../lcd_8c.html#a9ceeac8764aca15be67680bddfe70704',1,'updateTelemetryPages():&#160;lcd.c'],['../lcd_8h.html#a9ceeac8764aca15be67680bddfe70704',1,'updateTelemetryPages():&#160;lcd.c']]],
+  ['updatevoltage_15',['updateVoltage',['../auto__switch_8c.html#af886926ba94cdd591f0c5a4c43aac91a',1,'auto_switch.c']]],
+  ['usart1_5firqhandler_16',['USART1_IRQHandler',['../common_2phal__G4_2usart_2usart_8c.html#a7139cd4baabbbcbab0c1fe6d7d4ae1cc',1,'usart.c']]],
+  ['usart2_5firqhandler_17',['USART2_IRQHandler',['../common_2phal__G4_2usart_2usart_8c.html#a0ca6fd0e6f77921dd1123539857ba0a8',1,'usart.c']]],
+  ['usart3_5firqhandler_18',['USART3_IRQHandler',['../common_2phal__G4_2usart_2usart_8c.html#a0d108a3468b2051548183ee5ca2158a0',1,'usart.c']]],
+  ['usart_5freceive_5fcomplete_5fcallback_19',['usart_receive_complete_callback',['../common_2phal__G4_2usart_2usart_8c.html#a7b75a737cc4028976dbbadf92522f1ec',1,'usart_receive_complete_callback(usart_init_t *handle):&#160;usart.c'],['../phal__G4_2usart_2usart_8h.html#aef8ccb0b3894da42dce90d590b523a4a',1,'usart_receive_complete_callback(usart_init_t *handle):&#160;usart.c']]],
+  ['usart_5frecieve_5fcomplete_5fcallback_20',['usart_recieve_complete_callback',['../common_2phal__F4__F7_2usart_2usart_8c.html#afd98e1acca0fdcf343db884ea257b819',1,'usart_recieve_complete_callback(usart_init_t *handle):&#160;usart.c'],['../phal__F4__F7_2usart_2usart_8h.html#a61341976b0cee71be1b6cf3bc17db4de',1,'usart_recieve_complete_callback(usart_init_t *handle):&#160;usart.c']]]
 ];

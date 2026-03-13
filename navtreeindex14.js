@@ -1,13 +1,5 @@
 var NAVTREEINDEX14 =
 {
-"phal__F4__F7_2dma_2dma_8h_source.html":[8,0,0,11,3,1],
-"phal__F4__F7_2flash_2flash_8h.html":[8,0,0,11,4,1],
-"phal__F4__F7_2flash_2flash_8h.html#a06241b0941cf9d9499981b423626a62d":[8,0,0,11,4,1,7],
-"phal__F4__F7_2flash_2flash_8h.html#a45ebac977c2f0f311fe1d49907059222":[8,0,0,11,4,1,5],
-"phal__F4__F7_2flash_2flash_8h.html#a54016d163dff0d1c1dba3fc5db415fee":[8,0,0,11,4,1,8],
-"phal__F4__F7_2flash_2flash_8h.html#a761a132a670ec9be76e7adde37625057":[8,0,0,11,4,1,6],
-"phal__F4__F7_2flash_2flash_8h.html#a80a1c24cd45f9e935f2e4c2db63318d0":[8,0,0,11,4,1,0],
-"phal__F4__F7_2flash_2flash_8h.html#ac485437c5bd0991fd68791403c8cb3b3":[8,0,0,11,4,1,3],
 "phal__F4__F7_2flash_2flash_8h.html#ad25180dbc5296145ee08ce351cbcb5d8":[8,0,0,11,4,1,4],
 "phal__F4__F7_2flash_2flash_8h.html#ad9e14ac53de9acaf4c25e8f2b9bb0a92":[8,0,0,11,4,1,1],
 "phal__F4__F7_2flash_2flash_8h.html#ade105fb61c89561bc7716aee94dfbae0":[8,0,0,11,4,1,2],
@@ -249,5 +241,13 @@ var NAVTREEINDEX14 =
 "phal__G4_2adc_2adc_8h.html#a945c5b94cf25d5aa81caee684109ad90":[8,0,0,12,0,1,21],
 "phal__G4_2adc_2adc_8h.html#a9b03830c6f3dd7eea458d3310d381bfb":[8,0,0,12,0,1,6],
 "phal__G4_2adc_2adc_8h.html#a9bc7d0ed3e1117cd9b3b9c40bb36fcff":[8,0,0,12,0,1,19],
-"phal__G4_2adc_2adc_8h.html#a9bf789bb8843fa4ab14a8f71510b8868":[8,0,0,12,0,1,10]
+"phal__G4_2adc_2adc_8h.html#a9bf789bb8843fa4ab14a8f71510b8868":[8,0,0,12,0,1,10],
+"phal__G4_2adc_2adc_8h.html#aa3a86f84ddbe79b12a16c9f0765e4871":[8,0,0,12,0,1,11],
+"phal__G4_2adc_2adc_8h.html#aa3a86f84ddbe79b12a16c9f0765e4871a203b48944d019f4fda969a6fc2a9e492":[8,0,0,12,0,1,11,0],
+"phal__G4_2adc_2adc_8h.html#aa3a86f84ddbe79b12a16c9f0765e4871a358c6f5e7243a7ed09640253d83d2131":[8,0,0,12,0,1,11,3],
+"phal__G4_2adc_2adc_8h.html#aa3a86f84ddbe79b12a16c9f0765e4871a6ca054f67bee5197eec92a0379cffb6e":[8,0,0,12,0,1,11,2],
+"phal__G4_2adc_2adc_8h.html#aa3a86f84ddbe79b12a16c9f0765e4871ab5ff3c915ec02ae6ac3980a1312a4815":[8,0,0,12,0,1,11,1],
+"phal__G4_2adc_2adc_8h.html#ab6dc6e0e45f12971fa98d18b6d2d564e":[8,0,0,12,0,1,5],
+"phal__G4_2adc_2adc_8h.html#ac9f7347be93945c9fcafaf7a6f5f13e7":[8,0,0,12,0,1,8],
+"phal__G4_2adc_2adc_8h.html#ae40226a1d0575a52ce95e5ac385719e3":[8,0,0,12,0,1,18]
 };

@@ -5,6 +5,5 @@ var searchData=
   ['canmsgtypedef_5ft_2',['CanMsgTypeDef_t',['../structCanMsgTypeDef__t.html',1,'']]],
   ['car_5ft_3',['car_t',['../structcar__t.html',1,'']]],
   ['clockrateconfig_5ft_4',['ClockRateConfig_t',['../structClockRateConfig__t.html',1,'']]],
-  ['cooling_5frequest_5ft_5',['cooling_request_t',['../structcooling__request__t.html',1,'']]],
-  ['cpu_5ftime_5ft_6',['cpu_time_t',['../structcpu__time__t.html',1,'']]]
+  ['cooling_5frequest_5ft_5',['cooling_request_t',['../structcooling__request__t.html',1,'']]]
 ];

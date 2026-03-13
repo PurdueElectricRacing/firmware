@@ -1,10 +1,5 @@
 var NAVTREEINDEX9 =
 {
-"globals_defs_n.html":[8,1,6,12],
-"globals_defs_o.html":[8,1,6,13],
-"globals_defs_p.html":[8,1,6,14],
-"globals_defs_r.html":[8,1,6,15],
-"globals_defs_s.html":[8,1,6,16],
 "globals_defs_t.html":[8,1,6,17],
 "globals_defs_u.html":[8,1,6,18],
 "globals_defs_v.html":[8,1,6,19],
@@ -49,13 +44,12 @@ var NAVTREEINDEX9 =
 "globals_func_m.html":[8,1,1,11],
 "globals_func_n.html":[8,1,1,12],
 "globals_func_p.html":[8,1,1,13],
-"globals_func_q.html":[8,1,1,14],
-"globals_func_r.html":[8,1,1,15],
-"globals_func_s.html":[8,1,1,16],
-"globals_func_t.html":[8,1,1,17],
-"globals_func_u.html":[8,1,1,18],
-"globals_func_v.html":[8,1,1,19],
-"globals_func_w.html":[8,1,1,20],
+"globals_func_r.html":[8,1,1,14],
+"globals_func_s.html":[8,1,1,15],
+"globals_func_t.html":[8,1,1,16],
+"globals_func_u.html":[8,1,1,17],
+"globals_func_v.html":[8,1,1,18],
+"globals_func_w.html":[8,1,1,19],
 "globals_g.html":[8,1,0,7],
 "globals_h.html":[8,1,0,8],
 "globals_i.html":[8,1,0,9],
@@ -249,5 +243,11 @@ var NAVTREEINDEX9 =
 "group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca273098a5481a025f536a599c6a008759":[5,1,9,1],
 "group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca32c5ae489d34cf2de9ff96ae278f028a":[5,1,9,0],
 "group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca37ebbd5edda6ee0dccfcd481d4690416":[5,1,9,3],
-"group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca8e9226206aa8567b284ede0dff7540be":[5,1,9,2]
+"group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca8e9226206aa8567b284ede0dff7540be":[5,1,9,2],
+"group__DATA__TYPE.html#gga76e5aa4ff40d1cb562e46e3bf9b1e9d1abb4dffed9037e84b54c972da0fd471e2":[5,1,7,1],
+"group__DATA__TYPE.html#gga76e5aa4ff40d1cb562e46e3bf9b1e9d1aeb76552981d146af93acee6aa17dd165":[5,1,7,0],
+"group__DATA__TYPE.html#ggaa9d536c54137cd7b425c4c1e3cbfd49ca083fdc9e4e60122e9430e00cea78ecba":[5,1,10,2],
+"group__DATA__TYPE.html#ggaa9d536c54137cd7b425c4c1e3cbfd49ca263f2ee924ce301138f6ff041d539bd2":[5,1,10,4],
+"group__DATA__TYPE.html#ggaa9d536c54137cd7b425c4c1e3cbfd49ca572b5fc4792b828241e3cb59c95d8162":[5,1,10,0],
+"group__DATA__TYPE.html#ggaa9d536c54137cd7b425c4c1e3cbfd49ca9680dba91346657e5ace550b548e078b":[5,1,10,1]
 };

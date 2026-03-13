@@ -69,10 +69,9 @@ var searchData=
   ['ansi_5fred_66',['ANSI_RED',['../log_8h.html#a7f026776e12ac1b5e7736c24b756085d',1,'log.h']]],
   ['ansi_5freset_67',['ANSI_RESET',['../log_8h.html#af77a445894f2f750d43cf2182cd29e55',1,'log.h']]],
   ['ansi_5fyellow_68',['ANSI_YELLOW',['../log_8h.html#af6e8b5c7b35e8bff4c581efd8019c798',1,'log.h']]],
-  ['arr_5fset_69',['ARR_SET',['../psched_8h.html#ade7a3b19187d374456bb952bad193a60',1,'psched.h']]],
-  ['ascii_5foffset_70',['ASCII_OFFSET',['../nextion_8h.html#ae3c47801ea3ac450ff9b877b1e008e1a',1,'nextion.h']]],
-  ['ata_71',['ATA',['../diskio_8c.html#a2c51f8df39130923660818986234711f',1,'diskio.c']]],
-  ['ata_5fget_5fmodel_72',['ATA_GET_MODEL',['../diskio_8h.html#a31f556ab98ab80c39058b38d9283865d',1,'diskio.h']]],
-  ['ata_5fget_5frev_73',['ATA_GET_REV',['../diskio_8h.html#a23f5fff3341e98825ea1f7367fd09f1a',1,'diskio.h']]],
-  ['ata_5fget_5fsn_74',['ATA_GET_SN',['../diskio_8h.html#a469c4f989757ee1ee404134fea3c74ba',1,'diskio.h']]]
+  ['ascii_5foffset_69',['ASCII_OFFSET',['../nextion_8h.html#ae3c47801ea3ac450ff9b877b1e008e1a',1,'nextion.h']]],
+  ['ata_70',['ATA',['../diskio_8c.html#a2c51f8df39130923660818986234711f',1,'diskio.c']]],
+  ['ata_5fget_5fmodel_71',['ATA_GET_MODEL',['../diskio_8h.html#a31f556ab98ab80c39058b38d9283865d',1,'diskio.h']]],
+  ['ata_5fget_5frev_72',['ATA_GET_REV',['../diskio_8h.html#a23f5fff3341e98825ea1f7367fd09f1a',1,'diskio.h']]],
+  ['ata_5fget_5fsn_73',['ATA_GET_SN',['../diskio_8h.html#a469c4f989757ee1ee404134fea3c74ba',1,'diskio.h']]]
 ];

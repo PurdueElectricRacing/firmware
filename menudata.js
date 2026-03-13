@@ -160,7 +160,6 @@ var menudata={children:[
 {text:"m",url:"globals_func_m.html#index_m"},
 {text:"n",url:"globals_func_n.html#index_n"},
 {text:"p",url:"globals_func_p.html#index_p"},
-{text:"q",url:"globals_func_q.html#index_q"},
 {text:"r",url:"globals_func_r.html#index_r"},
 {text:"s",url:"globals_func_s.html#index_s"},
 {text:"t",url:"globals_func_t.html#index_t"},

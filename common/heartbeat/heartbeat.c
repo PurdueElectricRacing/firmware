@@ -1,3 +1,10 @@
+/**
+ * @file heartbeat.c
+ * @brief Shared heartbeat task implementation for status LEDs.
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include "heartbeat.h"
 #include "common/freertos/freertos.h"
 

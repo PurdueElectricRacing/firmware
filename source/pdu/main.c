@@ -236,7 +236,7 @@ void background_can_update();
 void send_iv_readings();
 void send_flowrates();
 
-void heartbeat_task() {
+void heartbeat_task() { // todo update to use the common heartbeat implementation
     // Preflight animation for the first PREFLIGHT_DURATION_MS after boot
     if (OS_TICKS <= PREFLIGHT_ANIMATION_DURATION_MS) {
         static uint32_t time;

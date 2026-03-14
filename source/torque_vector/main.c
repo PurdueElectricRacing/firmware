@@ -15,6 +15,7 @@
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
+#include "common/heartbeat/heartbeat.h"
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -61,8 +62,8 @@ void can_worker_thread() {
     CAN_tx_update();
 }
 
-DEFINE_TASK(ledblink, 500, osPriorityLow, 256);
 DEFINE_TASK(can_worker_thread, 15, osPriorityNormal, 2048);
+DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
     // Hardware Initialization
@@ -83,8 +84,8 @@ int main(void) {
     // Software Initialization
     osKernelInitialize();
 
-    START_TASK(ledblink);
     START_TASK(can_worker_thread);
+    START_HEARTBEAT_TASK();
 
     // no way home
     osKernelStart();

@@ -1,0 +1,29 @@
+#ifndef RACE_H
+#define RACE_H
+
+#define RACE_STRING "race"
+
+// Nextion object names
+#define THROT_BAR    "throt"
+#define BRK_BAR      "brake"
+#define RGN_BAR      "regen"
+#define FL_BAR       "FL"
+#define FR_BAR       "FR"
+#define RL_BAR       "RL"
+#define RR_BAR       "RR"
+#define PUMP_CHECK   "pump"
+#define BATT_TEMP    "BTemp"
+#define BATT_VOLT    "volt"
+#define BATT_CURR    "amp"
+#define MOTOR_TEMP   "MTemp"
+#define IGBT_TEMP    "IGBTemp"
+#define CAR_STATE    "stat"
+#define SPEED        "speed"
+#define RACE_TV_ON   "tv"
+#define CURRENT_TIME "current"
+#define BEST_TIME    "best"
+#define LAP_TIME     "lap"
+
+void race_telemetry_update();
+
+#endif // RACE_H

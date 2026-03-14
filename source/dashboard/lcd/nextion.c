@@ -6,11 +6,7 @@
  * 
  * @author Matthew Flanagan (matthewdavidflanagan@outlook.com)
  * @author Luke Oxley (lcoxley@purdue.edu)
- * @author Irving Wang (wang5952@purdue.edu)
- * 
- * Original implementation by Matthew Flanagan
- * Converted for current use by Luke Oxley
- * Expanded by Irving Wang
+ * @author Irving Wang (irvingw@purdue.edu)
  */
 
 #include "nextion.h"

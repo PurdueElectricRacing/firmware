@@ -1,3 +1,10 @@
+/**
+ * @file race.c
+ * @brief Race page implementation
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include "race.h"
 
 #include "nextion.h"

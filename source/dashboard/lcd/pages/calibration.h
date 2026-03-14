@@ -1,6 +1,13 @@
 #ifndef CALIBRATION_H
 #define CALIBRATION_H
 
+/**
+ * @file calibration.h
+ * @brief Calibration page implementation
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 // Nextion object names
 #define CALIBRATION_THROTTLE1  "thr1"
 #define CALIBRATION_THROTTLE2  "thr2"

@@ -15,7 +15,7 @@
 // pages
 #include "pages/race.h"
 #include "pages/calibration.h"
-#include "pages/fault_view.h"
+#include "pages/faults.h"
 
 volatile page_t curr_page; // Current page displayed on the LCD
 volatile page_t prev_page; // Previous page displayed on the LCD

@@ -1,6 +1,13 @@
 #ifndef RACE_H
 #define RACE_H
 
+/**
+ * @file race.h
+ * @brief Race page implementation
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #define RACE_STRING "race"
 
 // Nextion object names

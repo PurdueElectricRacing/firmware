@@ -1,3 +1,10 @@
+/**
+ * @file calibration.c
+ * @brief Calibration page implementation
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include "calibration.h"
 
 #include "nextion.h"

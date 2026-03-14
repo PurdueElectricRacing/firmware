@@ -1,5 +1,12 @@
-#ifndef FAULT_VIEW_H
-#define FAULT_VIEW_H
+#ifndef FAULTS_H
+#define FAULTS_H
+
+/**
+ * @file faults.c
+ * @brief Faults page implementation
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
 
 // Object names for Fault View page
 #define FAULT1_BUTTON     "ERROR1"
@@ -22,4 +29,4 @@
 
 void fault_telemetry_update(void);
 
-#endif // FAULT_VIEW_H
+#endif // FAULTS_H

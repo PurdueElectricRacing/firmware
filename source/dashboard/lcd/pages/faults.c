@@ -1,9 +1,15 @@
-#include "fault_view.h"
+/**
+ * @file faults.c
+ * @brief Faults page implementation
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
 
-#include "nextion.h"
+#include "faults.h"
+
 #include "menu_system.h"
-#include "common/can_library/faults_common.h"
-#include "main.h"
+
+// TODO: implement this page
 
 
 menu_element_t fault_view_elements[] = {

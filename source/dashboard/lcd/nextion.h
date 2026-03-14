@@ -6,15 +6,11 @@
  *
  * @author Matthew Flanagan (matthewdavidflanagan@outlook.com)
  * @author Luke Oxley (lcoxley@purdue.edu)
- * @author Irving Wang (wang5952@purdue.edu)
- *
- * Original implementation by Matthew Flanagan
- * Converted for current use by Luke Oxley
- * Expanded by Irving Wang
+ * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#ifndef __NEXTION_H__
-#define __NEXTION_H__
+#ifndef NEXTION_H
+#define NEXTION_H
 
 #include <stdint.h>
 #include <strbuf.h>
@@ -63,4 +59,4 @@ void NXT_setPage(char* page_name);
 void NXT_setBrightness(uint8_t brightness);
 void NXT_setBaud(uint32_t baud);
 
-#endif
+#endif // NEXTION_H

@@ -100,13 +100,7 @@ void updatePage() {
 
     // Set the page on display
     NXT_setPage(page_handlers[curr_page].string);
-
     prev_page = curr_page;
-
-    // Bounds Check
-    if (curr_page >= NUM_PAGES) {
-        return;
-    }
 
     // Call update handler if available
     if (page_handlers[curr_page].update != nullptr) {

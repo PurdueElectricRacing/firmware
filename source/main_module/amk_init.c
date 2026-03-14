@@ -96,7 +96,7 @@ void init_amks() {
 
     // Inverter B
      AMK_init(
-        &g_car.front_left,
+        &g_car.rear_right,
         flush_invb,
         (INVA_SET_data_t *) &can_data.INVB_SET,
         (INVA_CRIT_data_t *) &can_data.INVB_CRIT,
@@ -122,7 +122,7 @@ void init_amks() {
 
     // Inverter D
     AMK_init(
-        &g_car.rear_right,
+        &g_car.front_left,
         flush_invd,
         (INVA_SET_data_t *) &can_data.INVD_SET,
         (INVA_CRIT_data_t *) &can_data.INVD_CRIT,

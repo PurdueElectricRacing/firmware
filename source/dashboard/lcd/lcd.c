@@ -17,8 +17,8 @@
 #include "pages/calibration.h"
 #include "pages/faults.h"
 
-volatile page_t curr_page; // Current page displayed on the LCD
-volatile page_t prev_page; // Previous page displayed on the LCD
+volatile page_t curr_page = PAGE_PREFLIGHT; // Current page displayed on the LCD
+volatile page_t prev_page = PAGE_PREFLIGHT; // Previous page displayed on the LCD
 
 // Page handlers array stored in flash
 const page_handler_t page_handlers[NUM_PAGES] = { // Order must match page_t enum

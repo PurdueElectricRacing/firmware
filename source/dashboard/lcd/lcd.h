@@ -10,11 +10,6 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-// Page Strings (must match Nextion page names)
-#define RACE_STRING        "race"
-#define CALIBRATION_STRING "calibration"
-#define FAULT_STRING       "fault"
-
 typedef enum : uint8_t {
     PAGE_RACE        = 0,
     PAGE_CALIBRATION = 1,

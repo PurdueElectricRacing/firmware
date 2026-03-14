@@ -8,6 +8,8 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
+#define CALIBRATION_STRING "calibration"
+
 // Nextion object names
 #define CALIBRATION_THROTTLE1  "thr1"
 #define CALIBRATION_THROTTLE2  "thr2"

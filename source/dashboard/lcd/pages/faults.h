@@ -8,6 +8,8 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
+#define FAULT_STRING "faults"
+
 // Object names for Fault View page
 #define FAULT1_BUTTON     "ERROR1"
 #define FAULT2_BUTTON     "ERROR2"

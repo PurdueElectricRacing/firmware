@@ -21,27 +21,30 @@ volatile page_t curr_page; // Current page displayed on the LCD
 volatile page_t prev_page; // Previous page displayed on the LCD
 
 // Page handlers array stored in flash
-const page_handler_t page_handlers[] = { // Order must match page_t enum
+const page_handler_t page_handlers[NUM_PAGES] = { // Order must match page_t enum
     [PAGE_RACE] = {
-        .update           = nullptr,
-        .move_up          = nullptr,
-        .move_down        = nullptr,
-        .select           = nullptr,
-        .telemetry = race_telemetry_update
+        .update    = nullptr,
+        .move_up   = nullptr,
+        .move_down = nullptr,
+        .select    = nullptr,
+        .telemetry = race_telemetry_update,
+        .string    = RACE_STRING
     },
-    [PAGE_FAULTS]      = {
-        .update           = nullptr,
-        .move_up          = nullptr,
-        .move_down        = nullptr,
-        .select           = nullptr,
-        .telemetry = fault_telemetry_update
+    [PAGE_FAULTS] = {
+        .update    = nullptr,
+        .move_up   = nullptr,
+        .move_down = nullptr,
+        .select    = nullptr,
+        .telemetry = fault_telemetry_update,
+        .string    = FAULT_STRING
     },
     [PAGE_CALIBRATION] = {
-        .update           = nullptr,
-        .move_up          = nullptr,
-        .move_down        = nullptr,
-        .select           = nullptr,
-        .telemetry = calibration_telemetry_update
+        .update    = nullptr,
+        .move_up   = nullptr,
+        .move_down = nullptr,
+        .select    = nullptr,
+        .telemetry = calibration_telemetry_update,
+        .string    = CALIBRATION_STRING
     }
 };
 
@@ -96,20 +99,7 @@ void updatePage() {
     }
 
     // Set the page on display
-    switch (curr_page) {
-        case PAGE_RACE:
-            NXT_setPage(RACE_STRING);
-            break;
-        case PAGE_FAULTS:
-            NXT_setPage(FAULT_STRING);
-            break;
-        case PAGE_CALIBRATION:
-            NXT_setPage(CALIBRATION_STRING);
-            break;
-        default:
-            curr_page = PAGE_RACE; // something probably went wrong
-            break;
-    }
+    NXT_setPage(page_handlers[curr_page].string);
 
     prev_page = curr_page;
 
@@ -119,7 +109,7 @@ void updatePage() {
     }
 
     // Call update handler if available
-    if (page_handlers[curr_page].update != NULL) {
+    if (page_handlers[curr_page].update != nullptr) {
         page_handlers[curr_page].update();
     }
 }
@@ -129,7 +119,7 @@ void moveUp() {
         return;
     }
 
-    if (page_handlers[curr_page].move_up != NULL) {
+    if (page_handlers[curr_page].move_up != nullptr) {
         page_handlers[curr_page].move_up();
     }
 }
@@ -139,7 +129,7 @@ void moveDown() {
         return;
     }
 
-    if (page_handlers[curr_page].move_down != NULL) {
+    if (page_handlers[curr_page].move_down != nullptr) {
         page_handlers[curr_page].move_down();
     }
 }
@@ -149,7 +139,7 @@ void selectItem() {
         return;
     }
 
-    if (page_handlers[curr_page].select != NULL) {
+    if (page_handlers[curr_page].select != nullptr) {
         page_handlers[curr_page].select();
     }
 }
@@ -162,7 +152,7 @@ void updateTelemetryPages() {
         return;
     }
 
-    if (page_handlers[curr_page].telemetry != NULL) {
+    if (page_handlers[curr_page].telemetry != nullptr) {
         page_handlers[curr_page].telemetry();
     }
 }

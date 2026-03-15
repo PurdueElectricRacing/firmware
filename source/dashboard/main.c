@@ -329,6 +329,11 @@ void driver_interface_periodic() {
         updatePage();
     }
 
+    // dont update the external LEDS until we're out of preflight
+    if (status_leds.state == HEARTBEAT_STATE_PREFLIGHT) {
+        return;
+    }
+
     bool precharge_incomplete = is_latched(FAULT_ID_PRECHARGE_INCOMPLETE);
     PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, !precharge_incomplete);
 

@@ -90,7 +90,7 @@ void update_tsal() {
     // FSAE 2026 EV.5.11.5
     if (is_latched(FAULT_ID_SDC2_BMS) || is_latched(FAULT_ID_IMD)) { 
         g_car.tsal_green_enable = false;
-        g_car.tsal_red_enable = true; // todo blink @ "2 Hz to 5 Hz, 50% duty cycle"
+        g_car.tsal_red_enable = true;
     } else {
         g_car.tsal_green_enable = true;
         g_car.tsal_red_enable = false;
@@ -148,7 +148,7 @@ void fsm_periodic() {
     bool precharge_pin = !PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
     update_fault(FAULT_ID_PRECHARGE_INCOMPLETE, precharge_pin);
     // amks need a bool to point to for precharge status
-    g_car.is_precharge_complete = !is_latched(FAULT_ID_PRECHARGE_INCOMPLETE);
+    g_car.is_precharge_complete = is_clear(FAULT_ID_PRECHARGE_INCOMPLETE);
 
     switch (g_car.current_state) {
         case CAR_STATE_INIT: {

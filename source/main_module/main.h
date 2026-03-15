@@ -26,9 +26,7 @@ typedef struct {
     bool tsal_red_enable;
     bool buzzer_enable;
 
-    // AMKs are pointed to this bool for now,
-    // later use is_latched(PRECHARGED_INCOMPLETE) instead
-    bool is_precharge_complete;
+    bool is_precharge_complete; // AMKs are pointed to this variable
 } car_t;
 extern car_t g_car;
 

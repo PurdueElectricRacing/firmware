@@ -38,7 +38,7 @@ bool is_clear(fault_id_t fault_id) {
 
     fault_state_t state = faults[fault_id].state;
 
-    return state == FAULT_STATE_OK || state == FAULT_STATE_PENDING;
+    return state == FAULT_STATE_CLEAR || state == FAULT_STATE_PENDING;
 }
 
 void update_fault(fault_id_t fault_id, uint16_t value) {
@@ -55,7 +55,7 @@ void update_fault(fault_id_t fault_id, uint16_t value) {
     // I know this FSM is not "mathematically pure", but it must be implemented in this way
     // to satisfy timing constraints/defensive programming
     switch (fault->state) {
-        case FAULT_STATE_OK: {
+        case FAULT_STATE_CLEAR: {
             if (is_out_of_bounds) {
                 fault->state         = FAULT_STATE_PENDING;
                 fault->start_time_ms = now;
@@ -64,7 +64,7 @@ void update_fault(fault_id_t fault_id, uint16_t value) {
         }
         case FAULT_STATE_PENDING: {
             if (!is_out_of_bounds) {
-                fault->state = FAULT_STATE_OK;
+                fault->state = FAULT_STATE_CLEAR;
                 break;
             }
 
@@ -92,7 +92,7 @@ void update_fault(fault_id_t fault_id, uint16_t value) {
             uint32_t elapsed = now - fault->start_time_ms;
             // do not update the start_time
             if (elapsed >= fault->unlatch_time_ms) {
-                fault->state = FAULT_STATE_OK;
+                fault->state = FAULT_STATE_CLEAR;
             }
             break;
         }

@@ -5,7 +5,7 @@
  * Provides functions for managing menu navigation, element styling,
  * and user interaction with the LCD display menu system.
  *
- * @author Irving Wang (wang5952@purdue.edu)
+ * @author Irving Wang (irvingw@purdue.edu)
  */
 
 #ifndef MENU_SYSTEM_H

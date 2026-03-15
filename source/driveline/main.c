@@ -13,6 +13,7 @@
 #include "common/phal/adc.h"
 #include "common/phal/dma.h"
 #include "common/freertos/freertos.h"
+#include "common/heartbeat/heartbeat.h"
 
 /* Module Includes */
 #include "pin_defs.h"
@@ -23,6 +24,7 @@ GPIOInitConfig_t gpio_config[] = {
     // Status LEDs
     GPIO_INIT_OUTPUT(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(ERROR_LED_PORT, ERROR_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(CONNECTION_LED_PORT, CONNECTION_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
 
     // VCAN
     GPIO_INIT_FDCAN2RX_PB12,
@@ -73,6 +75,7 @@ extern void HardFault_Handler();
 void shockpot_thread();
 
 DEFINE_TASK(shockpot_thread, 100, osPriorityNormal, 512);
+DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
     // Hardware Initilization
@@ -100,6 +103,7 @@ int main(void) {
     osKernelInitialize();
 
     START_TASK(shockpot_thread);
+    START_HEARTBEAT_TASK();
 
     // no way home
     osKernelStart();

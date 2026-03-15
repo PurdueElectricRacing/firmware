@@ -18,6 +18,7 @@
 #include "common/phal/rcc.h"
 #include "common/phal/usart.h"
 #include "common/strbuf/strbuf.h"
+#include "common/heartbeat/heartbeat.h"
 
 /* Module Includes */
 #include "common/can_library/generated/DASHBOARD.h"
@@ -131,19 +132,17 @@ extern page_t curr_page;
 volatile dashboard_input_state_t input_state = {0}; // Clear all input states
 
 /* Function Prototypes */
-void preflight_animation(void);
-void heartbeat_task();
 void LCD_tx_update();
 void config_button_irqs();
-void service_button_inputs();
+void driver_interface_periodic();
 void send_version();
 void LCD_init(uint32_t baud_rate);
+void sweep_external_leds();
 extern void HardFault_Handler();
 
 // Communication queues
 ALLOCATE_STRBUF(lcd_tx_buf, 2048);
 
-void preflight_task();
 void can_worker_task();
 void service_start_button();
 
@@ -152,14 +151,13 @@ DEFINE_TASK(pedalsPeriodic, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024);
 DEFINE_TASK(can_worker_task, 2, osPriorityNormal, STACK_2048); // leave stack at 2048
 
 // Auxilary threads
-DEFINE_TASK(heartbeat_task, HEARTBEAT_PERIOD_MS, osPriorityLow, STACK_512);
-DEFINE_TASK(service_button_inputs, 50, osPriorityLow, STACK_1024);
+DEFINE_HEARTBEAT_TASK(sweep_external_leds);
+DEFINE_TASK(driver_interface_periodic, 50, osPriorityLow, STACK_1024);
 DEFINE_TASK(service_start_button, START_BUTTON_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
 DEFINE_TASK(LCD_tx_update, 20, osPriorityLow, STACK_512);
 DEFINE_TASK(updateTelemetryPages, 100, osPriorityNormal, STACK_1024);
 
-// DEFINE_TASK(service_button_inputs, 50, osPriorityLow, STACK_1024); // todo LCD related functionality
 int main(void) {
     // Hardware Initialization
     if (0 != PHAL_configureClockRates(&clock_config)) {
@@ -196,11 +194,11 @@ int main(void) {
     START_TASK(pedalsPeriodic);
     START_TASK(can_worker_task);
     START_TASK(service_start_button);
-    START_TASK(heartbeat_task);
     START_TASK(fault_library_periodic);
-    START_TASK(service_button_inputs);
+    START_TASK(driver_interface_periodic);
     START_TASK(LCD_tx_update);
     START_TASK(updateTelemetryPages);
+    START_HEARTBEAT_TASK();
 
     osKernelStart(); // GO!
 
@@ -223,49 +221,6 @@ void send_version() {
 }
 
 // jose was here
-
-/**
- * @brief Updates system LED indicators and CAN stats
- *
- * Controls heartbeat, connection, precharge, IMD and BMS status LEDs.
- */
-void heartbeat_task() {
-    // preflight animation for the first 1.5 seconds after boot
-    if (OS_TICKS <= PREFLIGHT_ANIMATION_DURATION_MS) {
-        static uint32_t sweep_index = 0;
-
-        // Creates a sweeping pattern
-        switch (sweep_index++ % 3) {
-            case 0:
-                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 1);
-                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
-                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
-                break;
-            case 1:
-                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 0);
-                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
-                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
-                break;
-            case 2:
-                PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 0);
-                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
-                PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
-                break;
-        }
-
-        return;
-    }
-
-    PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
-
-    bool can_stale = (OS_TICKS - last_can_rx_time_ms >= CONN_LED_TIMEOUT_MS);
-    PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, can_stale);
-
-    bool precharge_incomplete = is_latched(FAULT_ID_PRECHARGE_INCOMPLETE);
-    PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, !precharge_incomplete);
-
-    // todo IMD and BMS
-}
 
 void EXTI9_5_IRQHandler() {
     // EXTI9 (LEFT Button) triggered the interrupt
@@ -307,12 +262,43 @@ void EXTI15_10_IRQHandler() {
     }
 }
 
+void sweep_external_leds() {
+    static uint32_t sweep_index = 0;
+
+    switch (sweep_index++ % 4) {
+        case 0:
+            PHAL_writeGPIO(IMD_LED_PORT, IMD_LED_PIN, 1);
+            PHAL_writeGPIO(BMS_LED_PORT, BMS_LED_PIN, 0);
+            PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, 0);
+            PHAL_writeGPIO(REGEN_LED_PORT, REGEN_LED_PIN, 0);
+            break;
+        case 1:
+            PHAL_writeGPIO(IMD_LED_PORT, IMD_LED_PIN, 0);
+            PHAL_writeGPIO(BMS_LED_PORT, BMS_LED_PIN, 1);
+            PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, 0);
+            PHAL_writeGPIO(REGEN_LED_PORT, REGEN_LED_PIN, 0);
+            break;
+        case 2:
+            PHAL_writeGPIO(IMD_LED_PORT, IMD_LED_PIN, 0);
+            PHAL_writeGPIO(BMS_LED_PORT, BMS_LED_PIN, 0);
+            PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, 1);
+            PHAL_writeGPIO(REGEN_LED_PORT, REGEN_LED_PIN, 0);
+            break;
+        case 3:
+            PHAL_writeGPIO(IMD_LED_PORT, IMD_LED_PIN, 0);
+            PHAL_writeGPIO(BMS_LED_PORT, BMS_LED_PIN, 0);
+            PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, 0);
+            PHAL_writeGPIO(REGEN_LED_PORT, REGEN_LED_PIN, 1);
+            break;
+    }
+}
+
 /**
  * @brief Processes dashboard button flags and triggers corresponding actions
  *
  * Meant to be called periodically.
  */
-void service_button_inputs() {
+void driver_interface_periodic() {
     if (input_state.up_button) {
         input_state.up_button = 0;
         moveUp();
@@ -342,6 +328,16 @@ void service_button_inputs() {
         input_state.update_page = 0;
         updatePage();
     }
+
+    // dont update the external LEDS until we're out of preflight
+    if (status_leds.state == HEARTBEAT_STATE_PREFLIGHT) {
+        return;
+    }
+
+    bool precharge_incomplete = is_latched(FAULT_ID_PRECHARGE_INCOMPLETE);
+    PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, !precharge_incomplete);
+
+    // todo IMD and BMS
 }
 
 void config_button_irqs() {

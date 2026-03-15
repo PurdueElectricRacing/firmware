@@ -52,10 +52,8 @@ typedef struct {
 #define BMS_LED_PIN             (6)
 #define PRCHG_LED_PORT          (GPIOC)
 #define PRCHG_LED_PIN           (4)
-#define MOTOR_OVERTEMP_LED_PORT (GPIOC)
-#define MOTOR_OVERTEMP_LED_PIN  (5)
-#define TIRE_OVERTEMP_LED_PORT  (GPIOB)
-#define TIRE_OVERTEMP_LED_PIN   (10)
+#define REGEN_LED_PORT          (GPIOC)
+#define REGEN_LED_PIN           (0)
 
 // Status Inputs
 #define START_BTN_GPIO_Port (GPIOB)

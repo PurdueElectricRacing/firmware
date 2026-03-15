@@ -44,7 +44,7 @@ extern void heartbeat_task(status_leds_t *leds);
  *
  * @param PREFLIGHT_CALLBACK optional callback function periodically called during the preflight state.
  */
-#define DEFINE_HEARTBEAT_TASK(PREFLIGHT_CALLBACK); \
+#define DEFINE_HEARTBEAT_TASK(PREFLIGHT_CALLBACK) \
     status_leds_t status_leds = { \
         .heartbeat_port = HEARTBEAT_LED_PORT, \
         .heartbeat_pin = HEARTBEAT_LED_PIN, \
@@ -56,8 +56,8 @@ extern void heartbeat_task(status_leds_t *leds);
         .state = HEARTBEAT_STATE_PREFLIGHT \
     }; \
     void heartbeat_wrapper(void) { heartbeat_task(&status_leds); }; \
-    DEFINE_TASK(heartbeat_wrapper, HEARTBEAT_PERIOD_MS, osPriorityLow, STACK_512);
+    DEFINE_TASK(heartbeat_wrapper, HEARTBEAT_PERIOD_MS, osPriorityLow, STACK_512)
 
-#define START_HEARTBEAT_TASK(); START_TASK(heartbeat_wrapper);
+#define START_HEARTBEAT_TASK() START_TASK(heartbeat_wrapper)
 
 #endif // HEARTBEAT_H

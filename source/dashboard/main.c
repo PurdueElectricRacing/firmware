@@ -132,18 +132,17 @@ extern page_t curr_page;
 volatile dashboard_input_state_t input_state = {0}; // Clear all input states
 
 /* Function Prototypes */
-void preflight_animation(void);
 void LCD_tx_update();
 void config_button_irqs();
 void driver_interface_periodic();
 void send_version();
 void LCD_init(uint32_t baud_rate);
+void sweep_external_leds();
 extern void HardFault_Handler();
 
 // Communication queues
 ALLOCATE_STRBUF(lcd_tx_buf, 2048);
 
-void preflight_task();
 void can_worker_task();
 void service_start_button();
 
@@ -152,14 +151,13 @@ DEFINE_TASK(pedalsPeriodic, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024);
 DEFINE_TASK(can_worker_task, 2, osPriorityNormal, STACK_2048); // leave stack at 2048
 
 // Auxilary threads
-DEFINE_HEARTBEAT_TASK(nullptr);
+DEFINE_HEARTBEAT_TASK(sweep_external_leds);
 DEFINE_TASK(driver_interface_periodic, 50, osPriorityLow, STACK_1024);
 DEFINE_TASK(service_start_button, START_BUTTON_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
 DEFINE_TASK(LCD_tx_update, 20, osPriorityLow, STACK_512);
 DEFINE_TASK(updateTelemetryPages, 100, osPriorityNormal, STACK_1024);
 
-// DEFINE_TASK(service_button_inputs, 50, osPriorityLow, STACK_1024); // todo LCD related functionality
 int main(void) {
     // Hardware Initialization
     if (0 != PHAL_configureClockRates(&clock_config)) {
@@ -261,6 +259,37 @@ void EXTI15_10_IRQHandler() {
     if (EXTI->PR1 & EXTI_PR1_PIF14) {
         input_state.start_button = 1;
         EXTI->PR1 |= EXTI_PR1_PIF14;
+    }
+}
+
+void sweep_external_leds() {
+    static uint32_t sweep_index = 0;
+
+    switch (sweep_index++ % 4) {
+        case 0:
+            PHAL_writeGPIO(IMD_LED_PORT, IMD_LED_PIN, 1);
+            PHAL_writeGPIO(BMS_LED_PORT, BMS_LED_PIN, 0);
+            PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, 0);
+            PHAL_writeGPIO(REGEN_LED_PORT, REGEN_LED_PIN, 0);
+            break;
+        case 1:
+            PHAL_writeGPIO(IMD_LED_PORT, IMD_LED_PIN, 0);
+            PHAL_writeGPIO(BMS_LED_PORT, BMS_LED_PIN, 1);
+            PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, 0);
+            PHAL_writeGPIO(REGEN_LED_PORT, REGEN_LED_PIN, 0);
+            break;
+        case 2:
+            PHAL_writeGPIO(IMD_LED_PORT, IMD_LED_PIN, 0);
+            PHAL_writeGPIO(BMS_LED_PORT, BMS_LED_PIN, 0);
+            PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, 1);
+            PHAL_writeGPIO(REGEN_LED_PORT, REGEN_LED_PIN, 0);
+            break;
+        case 3:
+            PHAL_writeGPIO(IMD_LED_PORT, IMD_LED_PIN, 0);
+            PHAL_writeGPIO(BMS_LED_PORT, BMS_LED_PIN, 0);
+            PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, 0);
+            PHAL_writeGPIO(REGEN_LED_PORT, REGEN_LED_PIN, 1);
+            break;
     }
 }
 

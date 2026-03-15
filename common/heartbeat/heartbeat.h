@@ -9,6 +9,16 @@
  */
 
 #include "common/phal/gpio.h"
+#include "common/freertos/freertos.h"
+
+static constexpr uint32_t PREFLIGHT_DURATION_MS = 1500;
+static constexpr uint32_t HEARTBEAT_PERIOD_MS = 100;
+static constexpr uint32_t CONN_LED_TIMEOUT_MS = 1000;
+
+typedef enum : uint8_t {
+    HEARTBEAT_STATE_PREFLIGHT,
+    HEARTBEAT_STATE_NORMAL
+} heartbeat_state_t;
 
 typedef struct {
     GPIO_TypeDef *heartbeat_port;
@@ -18,6 +28,7 @@ typedef struct {
     GPIO_TypeDef *error_port;
     uint32_t error_pin;
     void (*preflight_callback)(void);
+    heartbeat_state_t state;
 } status_leds_t;
 
 extern void heartbeat_task(status_leds_t *leds);
@@ -27,9 +38,11 @@ extern void heartbeat_task(status_leds_t *leds);
  * 
  * Usage:
  * 1. Ensure that the macros HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, CONNECTION_LED_PORT, CONNECTION_LED_PIN, ERROR_LED_PORT, and ERROR_LED_PIN are defined
- * 2. Init the GPIOS for the LEDs as outputs in your hardware initialization code.
+ * 2. Init the GPIOS for the LEDs as outputs.
  * 3. Call DEFINE_HEARTBEAT_TASK() in your source file to define the task.
  * 4. Call START_HEARTBEAT_TASK() in your main function after initializing the kernel to start the task.
+ *
+ * @param PREFLIGHT_CALLBACK optional callback function periodically called during the preflight state.
  */
 #define DEFINE_HEARTBEAT_TASK(PREFLIGHT_CALLBACK); \
     status_leds_t status_leds = { \
@@ -39,10 +52,11 @@ extern void heartbeat_task(status_leds_t *leds);
         .connection_pin = CONNECTION_LED_PIN, \
         .error_port = ERROR_LED_PORT, \
         .error_pin = ERROR_LED_PIN, \
-        .preflight_callback = (PREFLIGHT_CALLBACK) \
+        .preflight_callback = (PREFLIGHT_CALLBACK), \
+        .state = HEARTBEAT_STATE_PREFLIGHT \
     }; \
     void heartbeat_wrapper(void) { heartbeat_task(&status_leds); }; \
-    DEFINE_TASK(heartbeat_wrapper, 100, osPriorityLow, STACK_512);
+    DEFINE_TASK(heartbeat_wrapper, HEARTBEAT_PERIOD_MS, osPriorityLow, STACK_512);
 
 #define START_HEARTBEAT_TASK(); START_TASK(heartbeat_wrapper);
 

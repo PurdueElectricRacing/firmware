@@ -7,47 +7,53 @@
 
 #include "heartbeat.h"
 #include "common/freertos/freertos.h"
+#include "common/can_library/can_common.h"
 
-extern uint32_t last_can_rx_time_ms;
+static void preflight_led_sweep(status_leds_t *leds) {
+    static uint32_t sweep_index = 0;
 
-static constexpr uint32_t CONN_LED_TIMEOUT_MS = 1000;
-static constexpr uint32_t PREFLIGHT_ANIMATION_DURATION_MS = 1500;
-// static constexpr uint32_t HEARTBEAT_PERIOD_MS = 100;
+    switch (sweep_index++ % 3) {
+        case 0:
+            PHAL_writeGPIO(leds->heartbeat_port, leds->heartbeat_pin, 1);
+            PHAL_writeGPIO(leds->connection_port, leds->connection_pin, 0);
+            PHAL_writeGPIO(leds->error_port, leds->error_pin, 0);
+            break;
+        case 1:
+            PHAL_writeGPIO(leds->heartbeat_port, leds->heartbeat_pin, 0);
+            PHAL_writeGPIO(leds->connection_port, leds->connection_pin, 1);
+            PHAL_writeGPIO(leds->error_port, leds->error_pin, 0);
+            break;
+        case 2:
+            PHAL_writeGPIO(leds->heartbeat_port, leds->heartbeat_pin, 0);
+            PHAL_writeGPIO(leds->connection_port, leds->connection_pin, 0);
+            PHAL_writeGPIO(leds->error_port, leds->error_pin, 1);
+            break;
+    }
+}
 
 void heartbeat_task(status_leds_t *leds) {
-    // preflight animation for the first seconds after boot
-    if (getTick() <= PREFLIGHT_ANIMATION_DURATION_MS) {
-        static uint32_t sweep_index = 0;
+    switch (leds->state) {
+        case HEARTBEAT_STATE_PREFLIGHT:
+            preflight_led_sweep(leds);
 
-        // Creates a sweeping pattern
-        switch (sweep_index++ % 3) {
-            case 0:
-                PHAL_writeGPIO(leds->heartbeat_port, leds->heartbeat_pin, 1);
-                PHAL_writeGPIO(leds->connection_port, leds->connection_pin, 0);
-                PHAL_writeGPIO(leds->error_port, leds->error_pin, 0);
-                break;
-            case 1:
-                PHAL_writeGPIO(leds->heartbeat_port, leds->heartbeat_pin, 0);
-                PHAL_writeGPIO(leds->connection_port, leds->connection_pin, 1);
-                PHAL_writeGPIO(leds->error_port, leds->error_pin, 0);
-                break;
-            case 2:
+            if (leds->preflight_callback) {
+                leds->preflight_callback();
+            }
+
+            // exit preflight after a certain time has elapsed
+            if (getTick() > PREFLIGHT_DURATION_MS) {
                 PHAL_writeGPIO(leds->heartbeat_port, leds->heartbeat_pin, 0);
                 PHAL_writeGPIO(leds->connection_port, leds->connection_pin, 0);
-                PHAL_writeGPIO(leds->error_port, leds->error_pin, 1);
-                break;
-        }
+                PHAL_writeGPIO(leds->error_port, leds->error_pin, 0);
+                leds->state = HEARTBEAT_STATE_NORMAL;
+            }
+            break;
+        case HEARTBEAT_STATE_NORMAL:
+            PHAL_toggleGPIO(leds->heartbeat_port, leds->heartbeat_pin);
 
-        if (leds->preflight_callback) {
-            leds->preflight_callback();
-        }
-
-        return;
-    }
-
-    PHAL_toggleGPIO(leds->heartbeat_port, leds->heartbeat_pin);
-
-    bool is_can_ok = (getTick() - last_can_rx_time_ms < CONN_LED_TIMEOUT_MS);
-    PHAL_writeGPIO(leds->connection_port, leds->connection_pin, is_can_ok);
+            bool is_can_ok = (getTick() - last_can_rx_time_ms < CONN_LED_TIMEOUT_MS);
+            PHAL_writeGPIO(leds->connection_port, leds->connection_pin, is_can_ok);
+            break;
+    }    
 }
 

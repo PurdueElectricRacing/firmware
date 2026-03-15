@@ -80,8 +80,4 @@ static constexpr float PI = 3.14159f;
 #define HSI_TRIM_DAQ           17
 #define HSI_TRIM_A_BOX         16
 
-static constexpr uint32_t CONN_LED_TIMEOUT_MS = 1000;
-static constexpr uint32_t PREFLIGHT_ANIMATION_DURATION_MS = 1500;
-static constexpr uint32_t HEARTBEAT_PERIOD_MS = 100;
-
 #endif // COMMON_DEFS_H

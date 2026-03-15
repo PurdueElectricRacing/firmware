@@ -13,6 +13,7 @@
 //STM32F407VGT6
 
 #include <stdint.h>
+#include "common/phal/gpio.h"
 
 // Status Indicators
 #define HEARTBEAT_LED_PORT  (GPIOC)

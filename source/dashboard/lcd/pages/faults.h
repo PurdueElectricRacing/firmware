@@ -2,7 +2,7 @@
 #define FAULTS_H
 
 /**
- * @file faults.c
+ * @file faults.h
  * @brief Faults page implementation
  *
  * @author Irving Wang (irvingw@purdue.edu)

@@ -13,15 +13,15 @@
 #include "common_defs.h"
 
 // For speed calcs
-constexpr float WHEEL_RADIUS_IN = 8.0f;
-constexpr float GEAR_RATIO = 12.51f;
+static constexpr float WHEEL_RADIUS_IN = 8.0f;
+static constexpr float GEAR_RATIO = 12.51f;
 
-constexpr float WHEEL_CIRCUMFERENCE_IN = 2.0f * PI * WHEEL_RADIUS_IN;
-constexpr float OUTPUT_REV_PER_MOTOR_REV = 1.0f / GEAR_RATIO;
-constexpr float INCHES_PER_MOTOR_REV = WHEEL_CIRCUMFERENCE_IN * OUTPUT_REV_PER_MOTOR_REV;
+static constexpr float WHEEL_CIRCUMFERENCE_IN = 2.0f * PI * WHEEL_RADIUS_IN;
+static constexpr float OUTPUT_REV_PER_MOTOR_REV = 1.0f / GEAR_RATIO;
+static constexpr float INCHES_PER_MOTOR_REV = WHEEL_CIRCUMFERENCE_IN * OUTPUT_REV_PER_MOTOR_REV;
 
-constexpr float MINUTES_PER_HOUR = 60.0f;
-constexpr float INCHES_PER_MILE = 63360.0f;
+static constexpr float MINUTES_PER_HOUR = 60.0f;
+static constexpr float INCHES_PER_MILE = 63360.0f;
 
 static constexpr float RPM_TO_MPH = INCHES_PER_MOTOR_REV * MINUTES_PER_HOUR / INCHES_PER_MILE;
 
@@ -145,8 +145,8 @@ static inline void update_speed_telemetry() {
 }
 
 static inline void update_pedal_telemetry() {
-    NXT_setValue(BRK_BAR, (int)((pedal_values.brake / 4095.0) * 100));
-    NXT_setValue(THROT_BAR, (int)((pedal_values.throttle / 4095.0) * 100));
+    NXT_setValue(BRK_BAR, (int)((pedal_values.brake / 4095.0f) * 100));
+    NXT_setValue(THROT_BAR, (int)((pedal_values.throttle / 4095.0f) * 100));
 }
 
 /**

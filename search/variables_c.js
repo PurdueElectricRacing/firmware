@@ -38,7 +38,7 @@ var searchData=
   ['min_5fvoltage_35',['min_voltage',['../structadbms__module__t.html#a22a9b737478af86395d9ac4a3b7e97de',1,'adbms_module_t::min_voltage'],['../structadbms__bms__t.html#a02a24766efa845b293ffeb298f0e4971',1,'adbms_bms_t::min_voltage']]],
   ['minute_36',['minute',['../structNAV__PVT__t.html#a1ed4a7a025dc936877c4cdfd42fb1927',1,'NAV_PVT_t']]],
   ['minutes_5fbcd_37',['minutes_bcd',['../structRTC__time__t.html#ae9bb53398fdf1b3d0cb55f41bf5f8d19',1,'RTC_time_t']]],
-  ['minutes_5fper_5fhour_38',['MINUTES_PER_HOUR',['../lcd_8h.html#a284e66719c46225b92910ec6a0eb5062',1,'lcd.h']]],
+  ['minutes_5fper_5fhour_38',['MINUTES_PER_HOUR',['../race_8c.html#a284e66719c46225b92910ec6a0eb5062',1,'race.c']]],
   ['mode_39',['mode',['../structwiz__PhyConf.html#a5e5a52612ec16c70500d8cfd14f01d93',1,'wiz_PhyConf::mode'],['../structSPI__InitConfig__t.html#af9eedccb06edcc4fcf10f3eca321238d',1,'SPI_InitConfig_t::mode']]],
   ['modules_40',['modules',['../structadbms__bms__t.html#ad213d4f7309e88aedb6f726cc12a6d42',1,'adbms_bms_t']]],
   ['month_41',['month',['../structNAV__PVT__t.html#a55903070557b55508267641956cd7cf9',1,'NAV_PVT_t']]],

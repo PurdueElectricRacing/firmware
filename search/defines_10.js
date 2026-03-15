@@ -234,7 +234,7 @@ var searchData=
   ['sockerr_5ftimeout_231',['SOCKERR_TIMEOUT',['../socket_8h.html#a8d293d23a00072c794547d2fccfa5a6e',1,'socket.h']]],
   ['socket_232',['SOCKET',['../socket_8h.html#aff55fe551a9992a54ec54621c524d0a4',1,'socket.h']]],
   ['sockfatal_5fpacklen_233',['SOCKFATAL_PACKLEN',['../socket_8h.html#a381abf0c05f627dfe0ed9876106cb34c',1,'socket.h']]],
-  ['speed_234',['SPEED',['../lcd_8h.html#aac3553b3932cbfeeac4526ce7ca0336b',1,'lcd.h']]],
+  ['speed_234',['SPEED',['../race_8h.html#aac3553b3932cbfeeac4526ce7ca0336b',1,'race.h']]],
   ['spi1_5fcs_5fpin_235',['SPI1_CS_PIN',['../a__box_2main_8h.html#a28e3b9a83990e6c65c180a9c03d9747a',1,'main.h']]],
   ['spi1_5fcs_5fport_236',['SPI1_CS_PORT',['../a__box_2main_8h.html#a898214e0ac884181dd81f34d8821829f',1,'main.h']]],
   ['spi1_5fmiso_5fpin_237',['SPI1_MISO_PIN',['../a__box_2main_8h.html#ad78661760fc1a7e2851c49d3cead2519',1,'main.h']]],

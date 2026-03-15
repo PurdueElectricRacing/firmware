@@ -98,17 +98,15 @@ $(function(){initNavTree('lcd_8h.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
-<a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">lcd.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>LCD display management.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="common__defs_8h_source.html">common_defs.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 </div>
 <p><a href="lcd_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -117,964 +115,46 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpage__handler__t.html">page_handler_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a8282f42024debdbaf117ffd7a9c32110" id="r_a8282f42024debdbaf117ffd7a9c32110"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8282f42024debdbaf117ffd7a9c32110">PREFLIGHT_STRING</a>&#160;&#160;&#160;&quot;preflight&quot;</td></tr>
-<tr class="separator:a8282f42024debdbaf117ffd7a9c32110"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1982af4d7a313b7ec064857aa743d02b" id="r_a1982af4d7a313b7ec064857aa743d02b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1982af4d7a313b7ec064857aa743d02b">RACE_STRING</a>&#160;&#160;&#160;&quot;race&quot;</td></tr>
-<tr class="separator:a1982af4d7a313b7ec064857aa743d02b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed5e8647f43873c895fb8a6ed715e497" id="r_aed5e8647f43873c895fb8a6ed715e497"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed5e8647f43873c895fb8a6ed715e497">CALIBRATION_STRING</a>&#160;&#160;&#160;&quot;calibration&quot;</td></tr>
-<tr class="separator:aed5e8647f43873c895fb8a6ed715e497"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a344e22ec915588172914c3a5a523a6" id="r_a0a344e22ec915588172914c3a5a523a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a344e22ec915588172914c3a5a523a6">FAULT_STRING</a>&#160;&#160;&#160;&quot;fault&quot;</td></tr>
-<tr class="separator:a0a344e22ec915588172914c3a5a523a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d3f75ec8caec21072685495be7d4970" id="r_a3d3f75ec8caec21072685495be7d4970"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d3f75ec8caec21072685495be7d4970">FAULT1_BUTTON</a>&#160;&#160;&#160;&quot;ERROR1&quot;</td></tr>
-<tr class="separator:a3d3f75ec8caec21072685495be7d4970"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45296d82c741d2959e4da56a7fbb50a4" id="r_a45296d82c741d2959e4da56a7fbb50a4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45296d82c741d2959e4da56a7fbb50a4">FAULT2_BUTTON</a>&#160;&#160;&#160;&quot;ERROR2&quot;</td></tr>
-<tr class="separator:a45296d82c741d2959e4da56a7fbb50a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92c43aae42a51d5dd8537e62aa99644a" id="r_a92c43aae42a51d5dd8537e62aa99644a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92c43aae42a51d5dd8537e62aa99644a">FAULT3_BUTTON</a>&#160;&#160;&#160;&quot;ERROR3&quot;</td></tr>
-<tr class="separator:a92c43aae42a51d5dd8537e62aa99644a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae57ed049b31261339a7e85b4cf7a9f8a" id="r_ae57ed049b31261339a7e85b4cf7a9f8a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae57ed049b31261339a7e85b4cf7a9f8a">FAULT4_BUTTON</a>&#160;&#160;&#160;&quot;ERROR4&quot;</td></tr>
-<tr class="separator:ae57ed049b31261339a7e85b4cf7a9f8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdcd37bf1fe80a474639ff17bde1562f" id="r_afdcd37bf1fe80a474639ff17bde1562f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdcd37bf1fe80a474639ff17bde1562f">FAULT5_BUTTON</a>&#160;&#160;&#160;&quot;ERROR5&quot;</td></tr>
-<tr class="separator:afdcd37bf1fe80a474639ff17bde1562f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb66b27aac618a28bc0ee73533cc6e97" id="r_aeb66b27aac618a28bc0ee73533cc6e97"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb66b27aac618a28bc0ee73533cc6e97">FAULT6_BUTTON</a>&#160;&#160;&#160;&quot;ERROR6&quot;</td></tr>
-<tr class="separator:aeb66b27aac618a28bc0ee73533cc6e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a619453be59249401aa77e1a1a9e493b0" id="r_a619453be59249401aa77e1a1a9e493b0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a619453be59249401aa77e1a1a9e493b0">FAULT7_BUTTON</a>&#160;&#160;&#160;&quot;ERROR7&quot;</td></tr>
-<tr class="separator:a619453be59249401aa77e1a1a9e493b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7bf42902cfdb27d5d8463a2bec80f05" id="r_ab7bf42902cfdb27d5d8463a2bec80f05"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7bf42902cfdb27d5d8463a2bec80f05">FAULT8_BUTTON</a>&#160;&#160;&#160;&quot;ERROR8&quot;</td></tr>
-<tr class="separator:ab7bf42902cfdb27d5d8463a2bec80f05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f455e15d51cd5d24653f79cd3b30a7f" id="r_a3f455e15d51cd5d24653f79cd3b30a7f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f455e15d51cd5d24653f79cd3b30a7f">FAULT1_TXT</a>&#160;&#160;&#160;&quot;ERROR1&quot;</td></tr>
-<tr class="separator:a3f455e15d51cd5d24653f79cd3b30a7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc2cdf438e52ee8006e7db342ec799a7" id="r_adc2cdf438e52ee8006e7db342ec799a7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc2cdf438e52ee8006e7db342ec799a7">FAULT2_TXT</a>&#160;&#160;&#160;&quot;ERROR2&quot;</td></tr>
-<tr class="separator:adc2cdf438e52ee8006e7db342ec799a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b6930e5aea9b1f35c48a5a976dfe529" id="r_a7b6930e5aea9b1f35c48a5a976dfe529"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b6930e5aea9b1f35c48a5a976dfe529">FAULT3_TXT</a>&#160;&#160;&#160;&quot;ERROR3&quot;</td></tr>
-<tr class="separator:a7b6930e5aea9b1f35c48a5a976dfe529"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0134f6a995002734e8984816a7ca45ab" id="r_a0134f6a995002734e8984816a7ca45ab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0134f6a995002734e8984816a7ca45ab">FAULT4_TXT</a>&#160;&#160;&#160;&quot;ERROR4&quot;</td></tr>
-<tr class="separator:a0134f6a995002734e8984816a7ca45ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acdac5eb81dace71dc7535357af19fe31" id="r_acdac5eb81dace71dc7535357af19fe31"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acdac5eb81dace71dc7535357af19fe31">FAULT5_TXT</a>&#160;&#160;&#160;&quot;ERROR5&quot;</td></tr>
-<tr class="separator:acdac5eb81dace71dc7535357af19fe31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4210a5e9b94d931af5874be2d5c38677" id="r_a4210a5e9b94d931af5874be2d5c38677"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4210a5e9b94d931af5874be2d5c38677">FAULT6_TXT</a>&#160;&#160;&#160;&quot;ERROR6&quot;</td></tr>
-<tr class="separator:a4210a5e9b94d931af5874be2d5c38677"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2125509debf5b82814fa6d8854c10a9" id="r_ae2125509debf5b82814fa6d8854c10a9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae2125509debf5b82814fa6d8854c10a9">FAULT7_TXT</a>&#160;&#160;&#160;&quot;ERROR7&quot;</td></tr>
-<tr class="separator:ae2125509debf5b82814fa6d8854c10a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad81ef7bd543ab42bc940b127faf3047e" id="r_ad81ef7bd543ab42bc940b127faf3047e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad81ef7bd543ab42bc940b127faf3047e">FAULT8_TXT</a>&#160;&#160;&#160;&quot;ERROR8&quot;</td></tr>
-<tr class="separator:ad81ef7bd543ab42bc940b127faf3047e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7e4b8e3473e9d70a9f25ce9ca6a0191" id="r_af7e4b8e3473e9d70a9f25ce9ca6a0191"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af7e4b8e3473e9d70a9f25ce9ca6a0191">FAULT_NONE_STRING</a>&#160;&#160;&#160;&quot;NONE\0&quot;</td></tr>
-<tr class="separator:af7e4b8e3473e9d70a9f25ce9ca6a0191"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acfd30e79279478e4cdec0f61c217f3c6" id="r_acfd30e79279478e4cdec0f61c217f3c6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acfd30e79279478e4cdec0f61c217f3c6">THROT_BAR</a>&#160;&#160;&#160;&quot;throt&quot;</td></tr>
-<tr class="separator:acfd30e79279478e4cdec0f61c217f3c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab272c91d08313fdf7351798e4920bac9" id="r_ab272c91d08313fdf7351798e4920bac9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab272c91d08313fdf7351798e4920bac9">BRK_BAR</a>&#160;&#160;&#160;&quot;brake&quot;</td></tr>
-<tr class="separator:ab272c91d08313fdf7351798e4920bac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adcbd24807c368922f903d005bb57ace5" id="r_adcbd24807c368922f903d005bb57ace5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adcbd24807c368922f903d005bb57ace5">RGN_BAR</a>&#160;&#160;&#160;&quot;regen&quot;</td></tr>
-<tr class="separator:adcbd24807c368922f903d005bb57ace5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6db4e3d5176b8fbb7c07c2c7681d1211" id="r_a6db4e3d5176b8fbb7c07c2c7681d1211"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6db4e3d5176b8fbb7c07c2c7681d1211">FL_BAR</a>&#160;&#160;&#160;&quot;FL&quot;</td></tr>
-<tr class="separator:a6db4e3d5176b8fbb7c07c2c7681d1211"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3997b53655ed5d6f2222c7816bc1dd3e" id="r_a3997b53655ed5d6f2222c7816bc1dd3e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3997b53655ed5d6f2222c7816bc1dd3e">FR_BAR</a>&#160;&#160;&#160;&quot;FR&quot;</td></tr>
-<tr class="separator:a3997b53655ed5d6f2222c7816bc1dd3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f1446c9ca232acfe50218b2dc8b1c7e" id="r_a7f1446c9ca232acfe50218b2dc8b1c7e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f1446c9ca232acfe50218b2dc8b1c7e">RL_BAR</a>&#160;&#160;&#160;&quot;RL&quot;</td></tr>
-<tr class="separator:a7f1446c9ca232acfe50218b2dc8b1c7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f4deff86b034f68083e782d0acbd8af" id="r_a6f4deff86b034f68083e782d0acbd8af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f4deff86b034f68083e782d0acbd8af">RR_BAR</a>&#160;&#160;&#160;&quot;RR&quot;</td></tr>
-<tr class="separator:a6f4deff86b034f68083e782d0acbd8af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c7550b4b1595f88da28c89b20dd2a99" id="r_a7c7550b4b1595f88da28c89b20dd2a99"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c7550b4b1595f88da28c89b20dd2a99">PUMP_CHECK</a>&#160;&#160;&#160;&quot;pump&quot;</td></tr>
-<tr class="separator:a7c7550b4b1595f88da28c89b20dd2a99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2707af80bfc659ff14aba14a516a07a6" id="r_a2707af80bfc659ff14aba14a516a07a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2707af80bfc659ff14aba14a516a07a6">BATT_TEMP</a>&#160;&#160;&#160;&quot;BTemp&quot;</td></tr>
-<tr class="separator:a2707af80bfc659ff14aba14a516a07a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a474fd5ac3b123247b0482397fa599cdf" id="r_a474fd5ac3b123247b0482397fa599cdf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a474fd5ac3b123247b0482397fa599cdf">BATT_VOLT</a>&#160;&#160;&#160;&quot;volt&quot;</td></tr>
-<tr class="separator:a474fd5ac3b123247b0482397fa599cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6065ce9bb9687eab5ae85362b21d6f63" id="r_a6065ce9bb9687eab5ae85362b21d6f63"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6065ce9bb9687eab5ae85362b21d6f63">BATT_CURR</a>&#160;&#160;&#160;&quot;amp&quot;</td></tr>
-<tr class="separator:a6065ce9bb9687eab5ae85362b21d6f63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41f21e09beb3f0f0f855a2962e76698a" id="r_a41f21e09beb3f0f0f855a2962e76698a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41f21e09beb3f0f0f855a2962e76698a">MOT_TEMP</a>&#160;&#160;&#160;&quot;MTemp&quot;</td></tr>
-<tr class="separator:a41f21e09beb3f0f0f855a2962e76698a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acfc40702d5cd528f4ccb61dc254b0225" id="r_acfc40702d5cd528f4ccb61dc254b0225"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acfc40702d5cd528f4ccb61dc254b0225">MC_TEMP</a>&#160;&#160;&#160;&quot;IGBTemp&quot;</td></tr>
-<tr class="separator:acfc40702d5cd528f4ccb61dc254b0225"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a563f32c847a1954ef2686a140816d899" id="r_a563f32c847a1954ef2686a140816d899"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a563f32c847a1954ef2686a140816d899">CAR_STAT</a>&#160;&#160;&#160;&quot;stat&quot;</td></tr>
-<tr class="separator:a563f32c847a1954ef2686a140816d899"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac3553b3932cbfeeac4526ce7ca0336b" id="r_aac3553b3932cbfeeac4526ce7ca0336b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac3553b3932cbfeeac4526ce7ca0336b">SPEED</a>&#160;&#160;&#160;&quot;speed&quot;</td></tr>
-<tr class="separator:aac3553b3932cbfeeac4526ce7ca0336b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a543f146e5787e37e3f59d6ddb65d2150" id="r_a543f146e5787e37e3f59d6ddb65d2150"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a543f146e5787e37e3f59d6ddb65d2150">RACE_TV_ON</a>&#160;&#160;&#160;&quot;tv&quot;</td></tr>
-<tr class="separator:a543f146e5787e37e3f59d6ddb65d2150"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61eabc8e73414cfe55910effa8bcc4ef" id="r_a61eabc8e73414cfe55910effa8bcc4ef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61eabc8e73414cfe55910effa8bcc4ef">CURRENT_TIME</a>&#160;&#160;&#160;&quot;current&quot;</td></tr>
-<tr class="separator:a61eabc8e73414cfe55910effa8bcc4ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7248777f839135a76605fc4dca4767d" id="r_ac7248777f839135a76605fc4dca4767d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7248777f839135a76605fc4dca4767d">BEST_TIME</a>&#160;&#160;&#160;&quot;best&quot;</td></tr>
-<tr class="separator:ac7248777f839135a76605fc4dca4767d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b2b288e78fbf14ad846e0a2137cfced" id="r_a5b2b288e78fbf14ad846e0a2137cfced"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b2b288e78fbf14ad846e0a2137cfced">LAP_TIME</a>&#160;&#160;&#160;&quot;lap&quot;</td></tr>
-<tr class="separator:a5b2b288e78fbf14ad846e0a2137cfced"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e6f7286cdf6c48edc58370f1adf9b0f" id="r_a3e6f7286cdf6c48edc58370f1adf9b0f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3e6f7286cdf6c48edc58370f1adf9b0f">CALIBRATION_THROTTLE1</a>&#160;&#160;&#160;&quot;thr1&quot;</td></tr>
-<tr class="separator:a3e6f7286cdf6c48edc58370f1adf9b0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac488fe9ccd4b39c1306a002d0b915187" id="r_ac488fe9ccd4b39c1306a002d0b915187"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac488fe9ccd4b39c1306a002d0b915187">CALIBRATION_THROTTLE2</a>&#160;&#160;&#160;&quot;thr2&quot;</td></tr>
-<tr class="separator:ac488fe9ccd4b39c1306a002d0b915187"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67dc59d015d5b5729c9019ed8b84d00d" id="r_a67dc59d015d5b5729c9019ed8b84d00d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a67dc59d015d5b5729c9019ed8b84d00d">CALIBRATION_BRAKE1</a>&#160;&#160;&#160;&quot;brk1&quot;</td></tr>
-<tr class="separator:a67dc59d015d5b5729c9019ed8b84d00d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2449d8b030465aa4e73a084f2855eb1" id="r_ac2449d8b030465aa4e73a084f2855eb1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac2449d8b030465aa4e73a084f2855eb1">CALIBRATION_BRAKE2</a>&#160;&#160;&#160;&quot;brk2&quot;</td></tr>
-<tr class="separator:ac2449d8b030465aa4e73a084f2855eb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff824fd3ce3946300f1284fa8a3d86bc" id="r_aff824fd3ce3946300f1284fa8a3d86bc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff824fd3ce3946300f1284fa8a3d86bc">CALIBRATION_BRAKE_PRS1</a>&#160;&#160;&#160;&quot;brkprs1&quot;</td></tr>
-<tr class="separator:aff824fd3ce3946300f1284fa8a3d86bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea20931eef70002d55454e2be8caedd9" id="r_aea20931eef70002d55454e2be8caedd9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea20931eef70002d55454e2be8caedd9">CALIBRATION_BRAKE_PRS2</a>&#160;&#160;&#160;&quot;brkprs2&quot;</td></tr>
-<tr class="separator:aea20931eef70002d55454e2be8caedd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6c8b89ef2400d3cbba33faec61e30e3" id="r_aa6c8b89ef2400d3cbba33faec61e30e3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6c8b89ef2400d3cbba33faec61e30e3">CALIBRATION_STATUS</a>&#160;&#160;&#160;&quot;status&quot;</td></tr>
-<tr class="separator:aa6c8b89ef2400d3cbba33faec61e30e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:a99a5fddfe71e6e9cd0c559b9a9a41a99" id="r_a99a5fddfe71e6e9cd0c559b9a9a41a99"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99a5fddfe71e6e9cd0c559b9a9a41a99">page_t</a> : uint8_t { <br />
-&#160;&#160;<a class="el" href="#a99a5fddfe71e6e9cd0c559b9a9a41a99aafba3cb7389f6d91e4c0b22fb7dd14a9">PAGE_PREFLIGHT</a> = 0
-, <a class="el" href="#a99a5fddfe71e6e9cd0c559b9a9a41a99aadedc69ad2923a9f24a5cf427e6fb34f">PAGE_RACE</a> = 1
+&#160;&#160;<a class="el" href="#a99a5fddfe71e6e9cd0c559b9a9a41a99aadedc69ad2923a9f24a5cf427e6fb34f">PAGE_RACE</a> = 0
+, <a class="el" href="#a99a5fddfe71e6e9cd0c559b9a9a41a99a874f8efdf9407c549017fa82242bbb94">PAGE_FAULTS</a> = 1
 , <a class="el" href="#a99a5fddfe71e6e9cd0c559b9a9a41a99ad440c6fd0af7c16acce46826f9b46e16">PAGE_CALIBRATION</a> = 2
-, <a class="el" href="#a99a5fddfe71e6e9cd0c559b9a9a41a99a874f8efdf9407c549017fa82242bbb94">PAGE_FAULTS</a> = 3
+, <a class="el" href="#a99a5fddfe71e6e9cd0c559b9a9a41a99acd382a61c55aa2f67b15244ad7cd9618">NUM_PAGES</a>
 , <br />
-&#160;&#160;<a class="el" href="#a99a5fddfe71e6e9cd0c559b9a9a41a99acd382a61c55aa2f67b15244ad7cd9618">NUM_PAGES</a> = 4
+&#160;&#160;<a class="el" href="#a99a5fddfe71e6e9cd0c559b9a9a41a99aafba3cb7389f6d91e4c0b22fb7dd14a9">PAGE_PREFLIGHT</a>
 <br />
  }</td></tr>
 <tr class="separator:a99a5fddfe71e6e9cd0c559b9a9a41a99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a08529d00f32f8441dc7669b1a1d3783c" id="r_a08529d00f32f8441dc7669b1a1d3783c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08529d00f32f8441dc7669b1a1d3783c">initLCD</a> ()</td></tr>
-<tr class="separator:a08529d00f32f8441dc7669b1a1d3783c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa13fa254ddd44573fd2a83874763cae8" id="r_aa13fa254ddd44573fd2a83874763cae8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa13fa254ddd44573fd2a83874763cae8">updatePage</a> ()</td></tr>
-<tr class="memdesc:aa13fa254ddd44573fd2a83874763cae8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates LCD display page.  <br /></td></tr>
-<tr class="separator:aa13fa254ddd44573fd2a83874763cae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a685b031373d6540844434c69377f10d2" id="r_a685b031373d6540844434c69377f10d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a685b031373d6540844434c69377f10d2">advancePage</a> ()</td></tr>
 <tr class="memdesc:a685b031373d6540844434c69377f10d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances to the next selectable page.  <br /></td></tr>
 <tr class="separator:a685b031373d6540844434c69377f10d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab328996325a24df855157cc23430de3d" id="r_ab328996325a24df855157cc23430de3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab328996325a24df855157cc23430de3d">backPage</a> ()</td></tr>
 <tr class="memdesc:ab328996325a24df855157cc23430de3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves to the previous selectable page.  <br /></td></tr>
 <tr class="separator:ab328996325a24df855157cc23430de3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac609e22e16c9e8ab1b73acd57e5b7664" id="r_ac609e22e16c9e8ab1b73acd57e5b7664"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac609e22e16c9e8ab1b73acd57e5b7664">selectItem</a> ()</td></tr>
+<tr class="separator:ac609e22e16c9e8ab1b73acd57e5b7664"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75e03afeaf9e13a6399279ed36c0c59f" id="r_a75e03afeaf9e13a6399279ed36c0c59f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75e03afeaf9e13a6399279ed36c0c59f">moveUp</a> ()</td></tr>
 <tr class="separator:a75e03afeaf9e13a6399279ed36c0c59f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a486267210dfc8118e23e6b1bc6090286" id="r_a486267210dfc8118e23e6b1bc6090286"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a486267210dfc8118e23e6b1bc6090286">moveDown</a> ()</td></tr>
 <tr class="separator:a486267210dfc8118e23e6b1bc6090286"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac609e22e16c9e8ab1b73acd57e5b7664" id="r_ac609e22e16c9e8ab1b73acd57e5b7664"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac609e22e16c9e8ab1b73acd57e5b7664">selectItem</a> ()</td></tr>
-<tr class="separator:ac609e22e16c9e8ab1b73acd57e5b7664"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b6beed0e6479ed4a5fd25aaabc45dff" id="r_a7b6beed0e6479ed4a5fd25aaabc45dff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b6beed0e6479ed4a5fd25aaabc45dff">updateFaultDisplay</a> ()</td></tr>
-<tr class="memdesc:a7b6beed0e6479ed4a5fd25aaabc45dff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates fault messages on LCD screen based on priority and timing.  <br /></td></tr>
-<tr class="separator:a7b6beed0e6479ed4a5fd25aaabc45dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa13fa254ddd44573fd2a83874763cae8" id="r_aa13fa254ddd44573fd2a83874763cae8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa13fa254ddd44573fd2a83874763cae8">updatePage</a> ()</td></tr>
+<tr class="memdesc:aa13fa254ddd44573fd2a83874763cae8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates LCD display page.  <br /></td></tr>
+<tr class="separator:aa13fa254ddd44573fd2a83874763cae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ceeac8764aca15be67680bddfe70704" id="r_a9ceeac8764aca15be67680bddfe70704"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ceeac8764aca15be67680bddfe70704">updateTelemetryPages</a> ()</td></tr>
 <tr class="memdesc:a9ceeac8764aca15be67680bddfe70704"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates current telemetry page by calling its handler if available.  <br /></td></tr>
 <tr class="separator:a9ceeac8764aca15be67680bddfe70704"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a249c0ceab96d27daebec9a6b8954f60a" id="r_a249c0ceab96d27daebec9a6b8954f60a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a249c0ceab96d27daebec9a6b8954f60a">sendTVParameters</a> ()</td></tr>
-<tr class="separator:a249c0ceab96d27daebec9a6b8954f60a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75562cebcb171ee3057a36ace3a6c9b7" id="r_a75562cebcb171ee3057a36ace3a6c9b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75562cebcb171ee3057a36ace3a6c9b7">sendCoolingParameters</a> ()</td></tr>
-<tr class="separator:a75562cebcb171ee3057a36ace3a6c9b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef98dd463d4a38ba6d4753854045a61f" id="r_aef98dd463d4a38ba6d4753854045a61f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef98dd463d4a38ba6d4753854045a61f">sendLoggingParameters</a> ()</td></tr>
-<tr class="separator:aef98dd463d4a38ba6d4753854045a61f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:aa0ffa8a098be39f4206ea8290a138f60" id="r_aa0ffa8a098be39f4206ea8290a138f60"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa0ffa8a098be39f4206ea8290a138f60">WHEEL_RADIUS_IN</a> = 8.0f</td></tr>
-<tr class="separator:aa0ffa8a098be39f4206ea8290a138f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ceba12f5f5bd48ea9a93d64bb8ddf82" id="r_a7ceba12f5f5bd48ea9a93d64bb8ddf82"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ceba12f5f5bd48ea9a93d64bb8ddf82">GEAR_RATIO</a> = 12.51f</td></tr>
-<tr class="separator:a7ceba12f5f5bd48ea9a93d64bb8ddf82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a284846036ea71dd362de4fd2608bd9dc" id="r_a284846036ea71dd362de4fd2608bd9dc"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a284846036ea71dd362de4fd2608bd9dc">WHEEL_CIRCUMFERENCE_IN</a> = 2.0f * <a class="el" href="common__defs_8h.html#ac01434fcf858bd4b50b62784079ad3c0">PI</a> * <a class="el" href="#aa0ffa8a098be39f4206ea8290a138f60">WHEEL_RADIUS_IN</a></td></tr>
-<tr class="separator:a284846036ea71dd362de4fd2608bd9dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadaa167f92c7d7e6d0a3c341d93b0220" id="r_aadaa167f92c7d7e6d0a3c341d93b0220"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aadaa167f92c7d7e6d0a3c341d93b0220">OUTPUT_REV_PER_MOTOR_REV</a> = 1.0f / <a class="el" href="#a7ceba12f5f5bd48ea9a93d64bb8ddf82">GEAR_RATIO</a></td></tr>
-<tr class="separator:aadaa167f92c7d7e6d0a3c341d93b0220"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e2856c5397fa2831e1dfa3ee411b5bb" id="r_a4e2856c5397fa2831e1dfa3ee411b5bb"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e2856c5397fa2831e1dfa3ee411b5bb">INCHES_PER_MOTOR_REV</a> = <a class="el" href="#a284846036ea71dd362de4fd2608bd9dc">WHEEL_CIRCUMFERENCE_IN</a> * <a class="el" href="#aadaa167f92c7d7e6d0a3c341d93b0220">OUTPUT_REV_PER_MOTOR_REV</a></td></tr>
-<tr class="separator:a4e2856c5397fa2831e1dfa3ee411b5bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a284e66719c46225b92910ec6a0eb5062" id="r_a284e66719c46225b92910ec6a0eb5062"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a284e66719c46225b92910ec6a0eb5062">MINUTES_PER_HOUR</a> = 60.0f</td></tr>
-<tr class="separator:a284e66719c46225b92910ec6a0eb5062"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61643af34f785696a8bcea17ef6161be" id="r_a61643af34f785696a8bcea17ef6161be"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61643af34f785696a8bcea17ef6161be">INCHES_PER_MILE</a> = 63360.0f</td></tr>
-<tr class="separator:a61643af34f785696a8bcea17ef6161be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5b018de69495706d7a6fd10ff8e505e" id="r_ae5b018de69495706d7a6fd10ff8e505e"><td class="memItemLeft" align="right" valign="top">static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5b018de69495706d7a6fd10ff8e505e">RPM_TO_MPH</a> = <a class="el" href="#a4e2856c5397fa2831e1dfa3ee411b5bb">INCHES_PER_MOTOR_REV</a> * <a class="el" href="#a284e66719c46225b92910ec6a0eb5062">MINUTES_PER_HOUR</a> / <a class="el" href="#a61643af34f785696a8bcea17ef6161be">INCHES_PER_MILE</a></td></tr>
-<tr class="separator:ae5b018de69495706d7a6fd10ff8e505e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>LCD display management. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-</div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a6065ce9bb9687eab5ae85362b21d6f63" name="a6065ce9bb9687eab5ae85362b21d6f63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6065ce9bb9687eab5ae85362b21d6f63">&#9670;&#160;</a></span>BATT_CURR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define BATT_CURR&#160;&#160;&#160;&quot;amp&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00062">62</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00426">raceTelemetryUpdate()</a>.</p>
-
-</div>
-</div>
-<a id="a2707af80bfc659ff14aba14a516a07a6" name="a2707af80bfc659ff14aba14a516a07a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2707af80bfc659ff14aba14a516a07a6">&#9670;&#160;</a></span>BATT_TEMP</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define BATT_TEMP&#160;&#160;&#160;&quot;BTemp&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00060">60</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00426">raceTelemetryUpdate()</a>.</p>
-
-</div>
-</div>
-<a id="a474fd5ac3b123247b0482397fa599cdf" name="a474fd5ac3b123247b0482397fa599cdf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a474fd5ac3b123247b0482397fa599cdf">&#9670;&#160;</a></span>BATT_VOLT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define BATT_VOLT&#160;&#160;&#160;&quot;volt&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00061">61</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00426">raceTelemetryUpdate()</a>.</p>
-
-</div>
-</div>
-<a id="ac7248777f839135a76605fc4dca4767d" name="ac7248777f839135a76605fc4dca4767d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7248777f839135a76605fc4dca4767d">&#9670;&#160;</a></span>BEST_TIME</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define BEST_TIME&#160;&#160;&#160;&quot;best&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00069">69</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="ab272c91d08313fdf7351798e4920bac9" name="ab272c91d08313fdf7351798e4920bac9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab272c91d08313fdf7351798e4920bac9">&#9670;&#160;</a></span>BRK_BAR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define BRK_BAR&#160;&#160;&#160;&quot;brake&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00053">53</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00426">raceTelemetryUpdate()</a>.</p>
-
-</div>
-</div>
-<a id="a67dc59d015d5b5729c9019ed8b84d00d" name="a67dc59d015d5b5729c9019ed8b84d00d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67dc59d015d5b5729c9019ed8b84d00d">&#9670;&#160;</a></span>CALIBRATION_BRAKE1</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CALIBRATION_BRAKE1&#160;&#160;&#160;&quot;brk1&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00075">75</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00260">calibrationTelemetryUpdate()</a>.</p>
-
-</div>
-</div>
-<a id="ac2449d8b030465aa4e73a084f2855eb1" name="ac2449d8b030465aa4e73a084f2855eb1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2449d8b030465aa4e73a084f2855eb1">&#9670;&#160;</a></span>CALIBRATION_BRAKE2</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CALIBRATION_BRAKE2&#160;&#160;&#160;&quot;brk2&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00076">76</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00260">calibrationTelemetryUpdate()</a>.</p>
-
-</div>
-</div>
-<a id="aff824fd3ce3946300f1284fa8a3d86bc" name="aff824fd3ce3946300f1284fa8a3d86bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff824fd3ce3946300f1284fa8a3d86bc">&#9670;&#160;</a></span>CALIBRATION_BRAKE_PRS1</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CALIBRATION_BRAKE_PRS1&#160;&#160;&#160;&quot;brkprs1&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00077">77</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00260">calibrationTelemetryUpdate()</a>.</p>
-
-</div>
-</div>
-<a id="aea20931eef70002d55454e2be8caedd9" name="aea20931eef70002d55454e2be8caedd9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea20931eef70002d55454e2be8caedd9">&#9670;&#160;</a></span>CALIBRATION_BRAKE_PRS2</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CALIBRATION_BRAKE_PRS2&#160;&#160;&#160;&quot;brkprs2&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00078">78</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00260">calibrationTelemetryUpdate()</a>.</p>
-
-</div>
-</div>
-<a id="aa6c8b89ef2400d3cbba33faec61e30e3" name="aa6c8b89ef2400d3cbba33faec61e30e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6c8b89ef2400d3cbba33faec61e30e3">&#9670;&#160;</a></span>CALIBRATION_STATUS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CALIBRATION_STATUS&#160;&#160;&#160;&quot;status&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00079">79</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00260">calibrationTelemetryUpdate()</a>.</p>
-
-</div>
-</div>
-<a id="aed5e8647f43873c895fb8a6ed715e497" name="aed5e8647f43873c895fb8a6ed715e497"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed5e8647f43873c895fb8a6ed715e497">&#9670;&#160;</a></span>CALIBRATION_STRING</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CALIBRATION_STRING&#160;&#160;&#160;&quot;calibration&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00016">16</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00170">updatePage()</a>.</p>
-
-</div>
-</div>
-<a id="a3e6f7286cdf6c48edc58370f1adf9b0f" name="a3e6f7286cdf6c48edc58370f1adf9b0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e6f7286cdf6c48edc58370f1adf9b0f">&#9670;&#160;</a></span>CALIBRATION_THROTTLE1</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CALIBRATION_THROTTLE1&#160;&#160;&#160;&quot;thr1&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00073">73</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00260">calibrationTelemetryUpdate()</a>.</p>
-
-</div>
-</div>
-<a id="ac488fe9ccd4b39c1306a002d0b915187" name="ac488fe9ccd4b39c1306a002d0b915187"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac488fe9ccd4b39c1306a002d0b915187">&#9670;&#160;</a></span>CALIBRATION_THROTTLE2</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CALIBRATION_THROTTLE2&#160;&#160;&#160;&quot;thr2&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00074">74</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00260">calibrationTelemetryUpdate()</a>.</p>
-
-</div>
-</div>
-<a id="a563f32c847a1954ef2686a140816d899" name="a563f32c847a1954ef2686a140816d899"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a563f32c847a1954ef2686a140816d899">&#9670;&#160;</a></span>CAR_STAT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAR_STAT&#160;&#160;&#160;&quot;stat&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00065">65</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00366">style_car_stat()</a>.</p>
-
-</div>
-</div>
-<a id="a61eabc8e73414cfe55910effa8bcc4ef" name="a61eabc8e73414cfe55910effa8bcc4ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61eabc8e73414cfe55910effa8bcc4ef">&#9670;&#160;</a></span>CURRENT_TIME</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CURRENT_TIME&#160;&#160;&#160;&quot;current&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00068">68</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a3d3f75ec8caec21072685495be7d4970" name="a3d3f75ec8caec21072685495be7d4970"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d3f75ec8caec21072685495be7d4970">&#9670;&#160;</a></span>FAULT1_BUTTON</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAULT1_BUTTON&#160;&#160;&#160;&quot;ERROR1&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00033">33</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a3f455e15d51cd5d24653f79cd3b30a7f" name="a3f455e15d51cd5d24653f79cd3b30a7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f455e15d51cd5d24653f79cd3b30a7f">&#9670;&#160;</a></span>FAULT1_TXT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAULT1_TXT&#160;&#160;&#160;&quot;ERROR1&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00041">41</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a45296d82c741d2959e4da56a7fbb50a4" name="a45296d82c741d2959e4da56a7fbb50a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45296d82c741d2959e4da56a7fbb50a4">&#9670;&#160;</a></span>FAULT2_BUTTON</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAULT2_BUTTON&#160;&#160;&#160;&quot;ERROR2&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00034">34</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="adc2cdf438e52ee8006e7db342ec799a7" name="adc2cdf438e52ee8006e7db342ec799a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc2cdf438e52ee8006e7db342ec799a7">&#9670;&#160;</a></span>FAULT2_TXT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAULT2_TXT&#160;&#160;&#160;&quot;ERROR2&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00042">42</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a92c43aae42a51d5dd8537e62aa99644a" name="a92c43aae42a51d5dd8537e62aa99644a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92c43aae42a51d5dd8537e62aa99644a">&#9670;&#160;</a></span>FAULT3_BUTTON</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAULT3_BUTTON&#160;&#160;&#160;&quot;ERROR3&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00035">35</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a7b6930e5aea9b1f35c48a5a976dfe529" name="a7b6930e5aea9b1f35c48a5a976dfe529"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b6930e5aea9b1f35c48a5a976dfe529">&#9670;&#160;</a></span>FAULT3_TXT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAULT3_TXT&#160;&#160;&#160;&quot;ERROR3&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00043">43</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="ae57ed049b31261339a7e85b4cf7a9f8a" name="ae57ed049b31261339a7e85b4cf7a9f8a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae57ed049b31261339a7e85b4cf7a9f8a">&#9670;&#160;</a></span>FAULT4_BUTTON</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAULT4_BUTTON&#160;&#160;&#160;&quot;ERROR4&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00036">36</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a0134f6a995002734e8984816a7ca45ab" name="a0134f6a995002734e8984816a7ca45ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0134f6a995002734e8984816a7ca45ab">&#9670;&#160;</a></span>FAULT4_TXT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAULT4_TXT&#160;&#160;&#160;&quot;ERROR4&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00044">44</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="afdcd37bf1fe80a474639ff17bde1562f" name="afdcd37bf1fe80a474639ff17bde1562f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afdcd37bf1fe80a474639ff17bde1562f">&#9670;&#160;</a></span>FAULT5_BUTTON</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAULT5_BUTTON&#160;&#160;&#160;&quot;ERROR5&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00037">37</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="acdac5eb81dace71dc7535357af19fe31" name="acdac5eb81dace71dc7535357af19fe31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acdac5eb81dace71dc7535357af19fe31">&#9670;&#160;</a></span>FAULT5_TXT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAULT5_TXT&#160;&#160;&#160;&quot;ERROR5&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00045">45</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="aeb66b27aac618a28bc0ee73533cc6e97" name="aeb66b27aac618a28bc0ee73533cc6e97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb66b27aac618a28bc0ee73533cc6e97">&#9670;&#160;</a></span>FAULT6_BUTTON</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAULT6_BUTTON&#160;&#160;&#160;&quot;ERROR6&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00038">38</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a4210a5e9b94d931af5874be2d5c38677" name="a4210a5e9b94d931af5874be2d5c38677"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4210a5e9b94d931af5874be2d5c38677">&#9670;&#160;</a></span>FAULT6_TXT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAULT6_TXT&#160;&#160;&#160;&quot;ERROR6&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00046">46</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a619453be59249401aa77e1a1a9e493b0" name="a619453be59249401aa77e1a1a9e493b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a619453be59249401aa77e1a1a9e493b0">&#9670;&#160;</a></span>FAULT7_BUTTON</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAULT7_BUTTON&#160;&#160;&#160;&quot;ERROR7&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00039">39</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="ae2125509debf5b82814fa6d8854c10a9" name="ae2125509debf5b82814fa6d8854c10a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2125509debf5b82814fa6d8854c10a9">&#9670;&#160;</a></span>FAULT7_TXT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAULT7_TXT&#160;&#160;&#160;&quot;ERROR7&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00047">47</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="ab7bf42902cfdb27d5d8463a2bec80f05" name="ab7bf42902cfdb27d5d8463a2bec80f05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7bf42902cfdb27d5d8463a2bec80f05">&#9670;&#160;</a></span>FAULT8_BUTTON</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAULT8_BUTTON&#160;&#160;&#160;&quot;ERROR8&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00040">40</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="ad81ef7bd543ab42bc940b127faf3047e" name="ad81ef7bd543ab42bc940b127faf3047e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad81ef7bd543ab42bc940b127faf3047e">&#9670;&#160;</a></span>FAULT8_TXT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAULT8_TXT&#160;&#160;&#160;&quot;ERROR8&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00048">48</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="af7e4b8e3473e9d70a9f25ce9ca6a0191" name="af7e4b8e3473e9d70a9f25ce9ca6a0191"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7e4b8e3473e9d70a9f25ce9ca6a0191">&#9670;&#160;</a></span>FAULT_NONE_STRING</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAULT_NONE_STRING&#160;&#160;&#160;&quot;NONE\0&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00049">49</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a0a344e22ec915588172914c3a5a523a6" name="a0a344e22ec915588172914c3a5a523a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a344e22ec915588172914c3a5a523a6">&#9670;&#160;</a></span>FAULT_STRING</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAULT_STRING&#160;&#160;&#160;&quot;fault&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00017">17</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00170">updatePage()</a>.</p>
-
-</div>
-</div>
-<a id="a6db4e3d5176b8fbb7c07c2c7681d1211" name="a6db4e3d5176b8fbb7c07c2c7681d1211"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6db4e3d5176b8fbb7c07c2c7681d1211">&#9670;&#160;</a></span>FL_BAR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FL_BAR&#160;&#160;&#160;&quot;FL&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00055">55</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a3997b53655ed5d6f2222c7816bc1dd3e" name="a3997b53655ed5d6f2222c7816bc1dd3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3997b53655ed5d6f2222c7816bc1dd3e">&#9670;&#160;</a></span>FR_BAR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FR_BAR&#160;&#160;&#160;&quot;FR&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00056">56</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a5b2b288e78fbf14ad846e0a2137cfced" name="a5b2b288e78fbf14ad846e0a2137cfced"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b2b288e78fbf14ad846e0a2137cfced">&#9670;&#160;</a></span>LAP_TIME</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define LAP_TIME&#160;&#160;&#160;&quot;lap&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00070">70</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="acfc40702d5cd528f4ccb61dc254b0225" name="acfc40702d5cd528f4ccb61dc254b0225"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acfc40702d5cd528f4ccb61dc254b0225">&#9670;&#160;</a></span>MC_TEMP</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MC_TEMP&#160;&#160;&#160;&quot;IGBTemp&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00064">64</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00426">raceTelemetryUpdate()</a>.</p>
-
-</div>
-</div>
-<a id="a41f21e09beb3f0f0f855a2962e76698a" name="a41f21e09beb3f0f0f855a2962e76698a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41f21e09beb3f0f0f855a2962e76698a">&#9670;&#160;</a></span>MOT_TEMP</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MOT_TEMP&#160;&#160;&#160;&quot;MTemp&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00063">63</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00426">raceTelemetryUpdate()</a>.</p>
-
-</div>
-</div>
-<a id="a8282f42024debdbaf117ffd7a9c32110" name="a8282f42024debdbaf117ffd7a9c32110"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8282f42024debdbaf117ffd7a9c32110">&#9670;&#160;</a></span>PREFLIGHT_STRING</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PREFLIGHT_STRING&#160;&#160;&#160;&quot;preflight&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00014">14</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a7c7550b4b1595f88da28c89b20dd2a99" name="a7c7550b4b1595f88da28c89b20dd2a99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c7550b4b1595f88da28c89b20dd2a99">&#9670;&#160;</a></span>PUMP_CHECK</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PUMP_CHECK&#160;&#160;&#160;&quot;pump&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00059">59</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a1982af4d7a313b7ec064857aa743d02b" name="a1982af4d7a313b7ec064857aa743d02b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1982af4d7a313b7ec064857aa743d02b">&#9670;&#160;</a></span>RACE_STRING</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define RACE_STRING&#160;&#160;&#160;&quot;race&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00015">15</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00170">updatePage()</a>.</p>
-
-</div>
-</div>
-<a id="a543f146e5787e37e3f59d6ddb65d2150" name="a543f146e5787e37e3f59d6ddb65d2150"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a543f146e5787e37e3f59d6ddb65d2150">&#9670;&#160;</a></span>RACE_TV_ON</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define RACE_TV_ON&#160;&#160;&#160;&quot;tv&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00067">67</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="adcbd24807c368922f903d005bb57ace5" name="adcbd24807c368922f903d005bb57ace5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adcbd24807c368922f903d005bb57ace5">&#9670;&#160;</a></span>RGN_BAR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define RGN_BAR&#160;&#160;&#160;&quot;regen&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00054">54</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a7f1446c9ca232acfe50218b2dc8b1c7e" name="a7f1446c9ca232acfe50218b2dc8b1c7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f1446c9ca232acfe50218b2dc8b1c7e">&#9670;&#160;</a></span>RL_BAR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define RL_BAR&#160;&#160;&#160;&quot;RL&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00057">57</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a6f4deff86b034f68083e782d0acbd8af" name="a6f4deff86b034f68083e782d0acbd8af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f4deff86b034f68083e782d0acbd8af">&#9670;&#160;</a></span>RR_BAR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define RR_BAR&#160;&#160;&#160;&quot;RR&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00058">58</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="aac3553b3932cbfeeac4526ce7ca0336b" name="aac3553b3932cbfeeac4526ce7ca0336b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac3553b3932cbfeeac4526ce7ca0336b">&#9670;&#160;</a></span>SPEED</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SPEED&#160;&#160;&#160;&quot;speed&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00066">66</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00426">raceTelemetryUpdate()</a>.</p>
-
-</div>
-</div>
-<a id="acfd30e79279478e4cdec0f61c217f3c6" name="acfd30e79279478e4cdec0f61c217f3c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acfd30e79279478e4cdec0f61c217f3c6">&#9670;&#160;</a></span>THROT_BAR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define THROT_BAR&#160;&#160;&#160;&quot;throt&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00052">52</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00426">raceTelemetryUpdate()</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a99a5fddfe71e6e9cd0c559b9a9a41a99" name="a99a5fddfe71e6e9cd0c559b9a9a41a99"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a99a5fddfe71e6e9cd0c559b9a9a41a99">&#9670;&#160;</a></span>page_t</h2>
 
@@ -1087,14 +167,14 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a99a5fddfe71e6e9cd0c559b9a9a41a99aafba3cb7389f6d91e4c0b22fb7dd14a9" name="a99a5fddfe71e6e9cd0c559b9a9a41a99aafba3cb7389f6d91e4c0b22fb7dd14a9"></a>PAGE_PREFLIGHT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a99a5fddfe71e6e9cd0c559b9a9a41a99aadedc69ad2923a9f24a5cf427e6fb34f" name="a99a5fddfe71e6e9cd0c559b9a9a41a99aadedc69ad2923a9f24a5cf427e6fb34f"></a>PAGE_RACE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a99a5fddfe71e6e9cd0c559b9a9a41a99ad440c6fd0af7c16acce46826f9b46e16" name="a99a5fddfe71e6e9cd0c559b9a9a41a99ad440c6fd0af7c16acce46826f9b46e16"></a>PAGE_CALIBRATION&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a99a5fddfe71e6e9cd0c559b9a9a41a99aadedc69ad2923a9f24a5cf427e6fb34f" name="a99a5fddfe71e6e9cd0c559b9a9a41a99aadedc69ad2923a9f24a5cf427e6fb34f"></a>PAGE_RACE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a99a5fddfe71e6e9cd0c559b9a9a41a99a874f8efdf9407c549017fa82242bbb94" name="a99a5fddfe71e6e9cd0c559b9a9a41a99a874f8efdf9407c549017fa82242bbb94"></a>PAGE_FAULTS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a99a5fddfe71e6e9cd0c559b9a9a41a99ad440c6fd0af7c16acce46826f9b46e16" name="a99a5fddfe71e6e9cd0c559b9a9a41a99ad440c6fd0af7c16acce46826f9b46e16"></a>PAGE_CALIBRATION&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a99a5fddfe71e6e9cd0c559b9a9a41a99acd382a61c55aa2f67b15244ad7cd9618" name="a99a5fddfe71e6e9cd0c559b9a9a41a99acd382a61c55aa2f67b15244ad7cd9618"></a>NUM_PAGES&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a99a5fddfe71e6e9cd0c559b9a9a41a99aafba3cb7389f6d91e4c0b22fb7dd14a9" name="a99a5fddfe71e6e9cd0c559b9a9a41a99aafba3cb7389f6d91e4c0b22fb7dd14a9"></a>PAGE_PREFLIGHT&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00081">81</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00013">13</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
 </div>
 </div>
@@ -1116,9 +196,9 @@ Variables</h2></td></tr>
 
 <p>Advances to the next selectable page. </p>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00149">149</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00067">67</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00020">curr_page</a>, <a class="el" href="lcd_8c_source.html#l00144">current_page_index</a>, <a class="el" href="lcd_8c_source.html#l00142">NUM_SELECTABLE_PAGES</a>, <a class="el" href="lcd_8c_source.html#l00137">selectable_pages</a>, and <a class="el" href="lcd_8c_source.html#l00170">updatePage()</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00020">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00017">NUM_PAGES</a>, and <a class="el" href="lcd_8c_source.html#l00095">updatePage()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00315">service_button_inputs()</a>.</p>
 
@@ -1141,28 +221,11 @@ Variables</h2></td></tr>
 
 <p>Moves to the previous selectable page. </p>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00158">158</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00079">79</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00020">curr_page</a>, <a class="el" href="lcd_8c_source.html#l00144">current_page_index</a>, <a class="el" href="lcd_8c_source.html#l00142">NUM_SELECTABLE_PAGES</a>, <a class="el" href="lcd_8c_source.html#l00137">selectable_pages</a>, and <a class="el" href="lcd_8c_source.html#l00170">updatePage()</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00020">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00017">NUM_PAGES</a>, and <a class="el" href="lcd_8c_source.html#l00095">updatePage()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00315">service_button_inputs()</a>.</p>
-
-</div>
-</div>
-<a id="a08529d00f32f8441dc7669b1a1d3783c" name="a08529d00f32f8441dc7669b1a1d3783c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08529d00f32f8441dc7669b1a1d3783c">&#9670;&#160;</a></span>initLCD()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void initLCD </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -1181,9 +244,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00216">216</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00121">121</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00020">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00094">page_handler_t::move_down</a>, <a class="el" href="lcd_8h_source.html#l00088">NUM_PAGES</a>, and <a class="el" href="lcd_8c_source.html#l00052">page_handlers</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00020">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00024">page_handler_t::move_down</a>, <a class="el" href="lcd_8h_source.html#l00017">NUM_PAGES</a>, and <a class="el" href="lcd_8c_source.html#l00024">page_handlers</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00315">service_button_inputs()</a>.</p>
 
@@ -1204,9 +267,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00205">205</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00111">111</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00020">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00093">page_handler_t::move_up</a>, <a class="el" href="lcd_8h_source.html#l00088">NUM_PAGES</a>, and <a class="el" href="lcd_8c_source.html#l00052">page_handlers</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00020">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00023">page_handler_t::move_up</a>, <a class="el" href="lcd_8h_source.html#l00017">NUM_PAGES</a>, and <a class="el" href="lcd_8c_source.html#l00024">page_handlers</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00315">service_button_inputs()</a>.</p>
 
@@ -1227,84 +290,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00227">227</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00131">131</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00020">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00088">NUM_PAGES</a>, <a class="el" href="lcd_8c_source.html#l00052">page_handlers</a>, and <a class="el" href="lcd_8h_source.html#l00095">page_handler_t::select</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00020">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00017">NUM_PAGES</a>, <a class="el" href="lcd_8c_source.html#l00024">page_handlers</a>, and <a class="el" href="lcd_8h_source.html#l00025">page_handler_t::select</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00315">service_button_inputs()</a>.</p>
-
-</div>
-</div>
-<a id="a75562cebcb171ee3057a36ace3a6c9b7" name="a75562cebcb171ee3057a36ace3a6c9b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75562cebcb171ee3057a36ace3a6c9b7">&#9670;&#160;</a></span>sendCoolingParameters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void sendCoolingParameters </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aef98dd463d4a38ba6d4753854045a61f" name="aef98dd463d4a38ba6d4753854045a61f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef98dd463d4a38ba6d4753854045a61f">&#9670;&#160;</a></span>sendLoggingParameters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void sendLoggingParameters </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a249c0ceab96d27daebec9a6b8954f60a" name="a249c0ceab96d27daebec9a6b8954f60a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a249c0ceab96d27daebec9a6b8954f60a">&#9670;&#160;</a></span>sendTVParameters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void sendTVParameters </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7b6beed0e6479ed4a5fd25aaabc45dff" name="a7b6beed0e6479ed4a5fd25aaabc45dff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b6beed0e6479ed4a5fd25aaabc45dff">&#9670;&#160;</a></span>updateFaultDisplay()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void updateFaultDisplay </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Updates fault messages on LCD screen based on priority and timing. </p>
-<p>Manages fault display rotation, processes new faults from queue, and updates screen according to fault priorities and display timing requirements. </p>
-
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00293">293</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
 </div>
 </div>
@@ -1328,11 +318,11 @@ Variables</h2></td></tr>
 <li>Maintains display of error pages when active </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00170">170</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00095">95</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="lcd_8h_source.html#l00016">CALIBRATION_STRING</a>, <a class="el" href="lcd_8c_source.html#l00020">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00017">FAULT_STRING</a>, <a class="el" href="lcd_8h_source.html#l00088">NUM_PAGES</a>, <a class="el" href="nextion_8c_source.html#l00128">NXT_setPage()</a>, <a class="el" href="lcd_8h_source.html#l00086">PAGE_CALIBRATION</a>, <a class="el" href="lcd_8h_source.html#l00087">PAGE_FAULTS</a>, <a class="el" href="lcd_8c_source.html#l00052">page_handlers</a>, <a class="el" href="lcd_8h_source.html#l00084">PAGE_RACE</a>, <a class="el" href="lcd_8c_source.html#l00021">prev_page</a>, <a class="el" href="lcd_8h_source.html#l00015">RACE_STRING</a>, and <a class="el" href="lcd_8h_source.html#l00092">page_handler_t::update</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00020">curr_page</a>, <a class="el" href="nextion_8c_source.html#l00124">NXT_setPage()</a>, <a class="el" href="lcd_8c_source.html#l00024">page_handlers</a>, <a class="el" href="lcd_8c_source.html#l00021">prev_page</a>, and <a class="el" href="lcd_8h_source.html#l00022">page_handler_t::update</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00149">advancePage()</a>, <a class="el" href="lcd_8c_source.html#l00158">backPage()</a>, <a class="el" href="lcd_8c_source.html#l00127">LCD_init()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00315">service_button_inputs()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00067">advancePage()</a>, <a class="el" href="lcd_8c_source.html#l00079">backPage()</a>, <a class="el" href="lcd_8c_source.html#l00055">LCD_init()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00315">service_button_inputs()</a>.</p>
 
 </div>
 </div>
@@ -1353,204 +343,11 @@ Variables</h2></td></tr>
 
 <p>Updates current telemetry page by calling its handler if available. </p>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00241">241</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00144">144</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00020">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00088">NUM_PAGES</a>, <a class="el" href="lcd_8c_source.html#l00052">page_handlers</a>, and <a class="el" href="lcd_8h_source.html#l00096">page_handler_t::telemetry</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00020">curr_page</a>, <a class="el" href="lcd_8h_source.html#l00017">NUM_PAGES</a>, <a class="el" href="lcd_8c_source.html#l00024">page_handlers</a>, and <a class="el" href="lcd_8h_source.html#l00026">page_handler_t::telemetry</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00163">main()</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="a7ceba12f5f5bd48ea9a93d64bb8ddf82" name="a7ceba12f5f5bd48ea9a93d64bb8ddf82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ceba12f5f5bd48ea9a93d64bb8ddf82">&#9670;&#160;</a></span>GEAR_RATIO</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float GEAR_RATIO = 12.51f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00021">21</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a61643af34f785696a8bcea17ef6161be" name="a61643af34f785696a8bcea17ef6161be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61643af34f785696a8bcea17ef6161be">&#9670;&#160;</a></span>INCHES_PER_MILE</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float INCHES_PER_MILE = 63360.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00028">28</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a4e2856c5397fa2831e1dfa3ee411b5bb" name="a4e2856c5397fa2831e1dfa3ee411b5bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e2856c5397fa2831e1dfa3ee411b5bb">&#9670;&#160;</a></span>INCHES_PER_MOTOR_REV</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float INCHES_PER_MOTOR_REV = <a class="el" href="#a284846036ea71dd362de4fd2608bd9dc">WHEEL_CIRCUMFERENCE_IN</a> * <a class="el" href="#aadaa167f92c7d7e6d0a3c341d93b0220">OUTPUT_REV_PER_MOTOR_REV</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00025">25</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a284e66719c46225b92910ec6a0eb5062" name="a284e66719c46225b92910ec6a0eb5062"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a284e66719c46225b92910ec6a0eb5062">&#9670;&#160;</a></span>MINUTES_PER_HOUR</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float MINUTES_PER_HOUR = 60.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00027">27</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="aadaa167f92c7d7e6d0a3c341d93b0220" name="aadaa167f92c7d7e6d0a3c341d93b0220"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadaa167f92c7d7e6d0a3c341d93b0220">&#9670;&#160;</a></span>OUTPUT_REV_PER_MOTOR_REV</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float OUTPUT_REV_PER_MOTOR_REV = 1.0f / <a class="el" href="#a7ceba12f5f5bd48ea9a93d64bb8ddf82">GEAR_RATIO</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00024">24</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="ae5b018de69495706d7a6fd10ff8e505e" name="ae5b018de69495706d7a6fd10ff8e505e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5b018de69495706d7a6fd10ff8e505e">&#9670;&#160;</a></span>RPM_TO_MPH</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float RPM_TO_MPH = <a class="el" href="#a4e2856c5397fa2831e1dfa3ee411b5bb">INCHES_PER_MOTOR_REV</a> * <a class="el" href="#a284e66719c46225b92910ec6a0eb5062">MINUTES_PER_HOUR</a> / <a class="el" href="#a61643af34f785696a8bcea17ef6161be">INCHES_PER_MILE</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00030">30</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="a284846036ea71dd362de4fd2608bd9dc" name="a284846036ea71dd362de4fd2608bd9dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a284846036ea71dd362de4fd2608bd9dc">&#9670;&#160;</a></span>WHEEL_CIRCUMFERENCE_IN</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float WHEEL_CIRCUMFERENCE_IN = 2.0f * <a class="el" href="common__defs_8h.html#ac01434fcf858bd4b50b62784079ad3c0">PI</a> * <a class="el" href="#aa0ffa8a098be39f4206ea8290a138f60">WHEEL_RADIUS_IN</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00023">23</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
-
-</div>
-</div>
-<a id="aa0ffa8a098be39f4206ea8290a138f60" name="aa0ffa8a098be39f4206ea8290a138f60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0ffa8a098be39f4206ea8290a138f60">&#9670;&#160;</a></span>WHEEL_RADIUS_IN</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float WHEEL_RADIUS_IN = 8.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="lcd_8h_source.html#l00020">20</a> of file <a class="el" href="lcd_8h_source.html">lcd.h</a>.</p>
 
 </div>
 </div>

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['lap_5ftime_0',['LAP_TIME',['../lcd_8h.html#a5b2b288e78fbf14ad846e0a2137cfced',1,'lcd.h']]],
+  ['lap_5ftime_0',['LAP_TIME',['../race_8h.html#a5b2b288e78fbf14ad846e0a2137cfced',1,'race.h']]],
   ['lcd_5fuart_1',['LCD_UART',['../dashboard_2main_8h.html#ac97d2f2948a6022fb2fb7e50138f002b',1,'main.h']]],
   ['lcd_5fuart_5frx_5fgpio_5fport_2',['LCD_UART_RX_GPIO_Port',['../dashboard_2main_8h.html#a0e000f3446c1ad6cf67df369ac563149',1,'main.h']]],
   ['lcd_5fuart_5frx_5fpin_3',['LCD_UART_RX_Pin',['../dashboard_2main_8h.html#a4b89e89e5dfb9c7282c193a4055cc785',1,'main.h']]],

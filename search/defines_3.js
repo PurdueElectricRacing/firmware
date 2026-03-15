@@ -1,13 +1,13 @@
 var searchData=
 [
-  ['calibration_5fbrake1_0',['CALIBRATION_BRAKE1',['../lcd_8h.html#a67dc59d015d5b5729c9019ed8b84d00d',1,'lcd.h']]],
-  ['calibration_5fbrake2_1',['CALIBRATION_BRAKE2',['../lcd_8h.html#ac2449d8b030465aa4e73a084f2855eb1',1,'lcd.h']]],
-  ['calibration_5fbrake_5fprs1_2',['CALIBRATION_BRAKE_PRS1',['../lcd_8h.html#aff824fd3ce3946300f1284fa8a3d86bc',1,'lcd.h']]],
-  ['calibration_5fbrake_5fprs2_3',['CALIBRATION_BRAKE_PRS2',['../lcd_8h.html#aea20931eef70002d55454e2be8caedd9',1,'lcd.h']]],
-  ['calibration_5fstatus_4',['CALIBRATION_STATUS',['../lcd_8h.html#aa6c8b89ef2400d3cbba33faec61e30e3',1,'lcd.h']]],
-  ['calibration_5fstring_5',['CALIBRATION_STRING',['../lcd_8h.html#aed5e8647f43873c895fb8a6ed715e497',1,'lcd.h']]],
-  ['calibration_5fthrottle1_6',['CALIBRATION_THROTTLE1',['../lcd_8h.html#a3e6f7286cdf6c48edc58370f1adf9b0f',1,'lcd.h']]],
-  ['calibration_5fthrottle2_7',['CALIBRATION_THROTTLE2',['../lcd_8h.html#ac488fe9ccd4b39c1306a002d0b915187',1,'lcd.h']]],
+  ['calibration_5fbrake1_0',['CALIBRATION_BRAKE1',['../calibration_8h.html#a67dc59d015d5b5729c9019ed8b84d00d',1,'calibration.h']]],
+  ['calibration_5fbrake2_1',['CALIBRATION_BRAKE2',['../calibration_8h.html#ac2449d8b030465aa4e73a084f2855eb1',1,'calibration.h']]],
+  ['calibration_5fbrake_5fprs1_2',['CALIBRATION_BRAKE_PRS1',['../calibration_8h.html#aff824fd3ce3946300f1284fa8a3d86bc',1,'calibration.h']]],
+  ['calibration_5fbrake_5fprs2_3',['CALIBRATION_BRAKE_PRS2',['../calibration_8h.html#aea20931eef70002d55454e2be8caedd9',1,'calibration.h']]],
+  ['calibration_5fstatus_4',['CALIBRATION_STATUS',['../calibration_8h.html#aa6c8b89ef2400d3cbba33faec61e30e3',1,'calibration.h']]],
+  ['calibration_5fstring_5',['CALIBRATION_STRING',['../calibration_8h.html#aed5e8647f43873c895fb8a6ed715e497',1,'calibration.h']]],
+  ['calibration_5fthrottle1_6',['CALIBRATION_THROTTLE1',['../calibration_8h.html#a3e6f7286cdf6c48edc58370f1adf9b0f',1,'calibration.h']]],
+  ['calibration_5fthrottle2_7',['CALIBRATION_THROTTLE2',['../calibration_8h.html#ac488fe9ccd4b39c1306a002d0b915187',1,'calibration.h']]],
   ['can1_5fidx_8',['CAN1_IDX',['../can__common_8h.html#a657e66ed8d35d52e0b1effb289ba15df',1,'can_common.h']]],
   ['can2_5fidx_9',['CAN2_IDX',['../can__common_8h.html#a0380c9dab59c77ceee5815af7e00e4fb',1,'can_common.h']]],
   ['can3_5fidx_10',['CAN3_IDX',['../can__common_8h.html#a830b8a26e845574399d8c37fca947cc3',1,'can_common.h']]],
@@ -82,7 +82,7 @@ var searchData=
   ['can_5ftx_5fmailbox_5fcnt_79',['CAN_TX_MAILBOX_CNT',['../can__common_8h.html#a15ff5b005bbef3c1b021fb605f9d8e6c',1,'can_common.h']]],
   ['can_5ftx_5fqueue_5flength_80',['CAN_TX_QUEUE_LENGTH',['../can__common_8h.html#a1248665f89d7c3c1ff3fc0c66dfc5ee8',1,'can_common.h']]],
   ['can_5ftx_5ftimeout_5fms_81',['CAN_TX_TIMEOUT_MS',['../can__common_8h.html#abe4ea8b0c378d1c95afe5fb570d1aed1',1,'can_common.h']]],
-  ['car_5fstat_82',['CAR_STAT',['../lcd_8h.html#a563f32c847a1954ef2686a140816d899',1,'lcd.h']]],
+  ['car_5fstate_82',['CAR_STATE',['../race_8h.html#a9f8fccc48f98c66a795497e0e6c46c13',1,'race.h']]],
   ['charger_5fconnected_5fpin_83',['CHARGER_CONNECTED_PIN',['../a__box_2main_8h.html#a238045ce9c5b3c5118a87297565e15bc',1,'main.h']]],
   ['charger_5fconnected_5fport_84',['CHARGER_CONNECTED_PORT',['../a__box_2main_8h.html#a1983cd8b1a2d2a9d5b8ca06e7997820b',1,'main.h']]],
   ['chartoint_85',['CHARTOINT',['../vsprintf_8c.html#aee93378d425edba849905e67aca30144',1,'vsprintf.c']]],
@@ -152,6 +152,6 @@ var searchData=
   ['ctrl_5flock_149',['CTRL_LOCK',['../diskio_8h.html#af40e5cf3000553a978ff6e30dae70858',1,'diskio.h']]],
   ['ctrl_5fpower_150',['CTRL_POWER',['../diskio_8h.html#a345531a07462afbd999f414708e3b65b',1,'diskio.h']]],
   ['ctrl_5fsync_151',['CTRL_SYNC',['../diskio_8h.html#a1b3c492f9aec325f0655941b75256f3c',1,'diskio.h']]],
-  ['current_5ftime_152',['CURRENT_TIME',['../lcd_8h.html#a61eabc8e73414cfe55910effa8bcc4ef',1,'lcd.h']]],
+  ['current_5ftime_152',['CURRENT_TIME',['../race_8h.html#a61eabc8e73414cfe55910effa8bcc4ef',1,'race.h']]],
   ['cvtbl_153',['CVTBL',['../ffunicode_8c.html#afcbf86dfddc068d1df5155276ffc8ef8',1,'ffunicode.c']]]
 ];

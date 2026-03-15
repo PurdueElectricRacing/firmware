@@ -1,9 +1,5 @@
 var NAVTREEINDEX19 =
 {
-"structadbms__bms__t.html#a888891baf62b77d0c0ecdf617d736f79":[7,0,5,9],
-"structadbms__bms__t.html#a9a19d01495a286d680a300f33173e5e5":[7,0,5,17],
-"structadbms__bms__t.html#a9ae7b72a5ac37a212c39ce2c0b69f6af":[7,0,5,19],
-"structadbms__bms__t.html#a9f5eb054ed27b5b9c6dc84903d6d23c7":[7,0,5,20],
 "structadbms__bms__t.html#ab6b9d27ff449a8cb200328724045f2db":[7,0,5,6],
 "structadbms__bms__t.html#abd0c9db656a89d942088c12d10999de3":[7,0,5,2],
 "structadbms__bms__t.html#ac842f4644460db3d691381284d55f0df":[7,0,5,0],
@@ -166,10 +162,11 @@ var NAVTREEINDEX19 =
 "structmenu__page__t.html#af8408d9007e4a01b547ae1f2ddaac0b7":[7,0,36,3],
 "structpage__handler__t.html":[7,0,39],
 "structpage__handler__t.html#a05a4602e47a57aa97d04e9d6a36887c9":[7,0,39,0],
-"structpage__handler__t.html#a0c7619a8c7df0a1afc3b8e1f59916640":[7,0,39,4],
+"structpage__handler__t.html#a0c7619a8c7df0a1afc3b8e1f59916640":[7,0,39,5],
 "structpage__handler__t.html#a0f1ab0097d5d47b7fdc51880cf103ce2":[7,0,39,2],
+"structpage__handler__t.html#a26b90f92fec11cabad0f6a67730ab926":[7,0,39,3],
 "structpage__handler__t.html#a733864a3437eac6774742cbdfff8528d":[7,0,39,1],
-"structpage__handler__t.html#af1108e14d47108ba9eb968123065477e":[7,0,39,3],
+"structpage__handler__t.html#af1108e14d47108ba9eb968123065477e":[7,0,39,4],
 "structpedal__values__t.html":[7,0,40],
 "structpedal__values__t.html#a53b66256b9d232391c3779aa9f4908ad":[7,0,40,1],
 "structpedal__values__t.html#a63a6f179b1df5148a5e6aefcb026bbd4":[7,0,40,0],
@@ -249,5 +246,8 @@ var NAVTREEINDEX19 =
 "structwiz__NetInfo.html#aa9fdb9a8a7e05d9e94073ba532fa91d9":[5,1,2,1],
 "structwiz__NetTimeout.html":[5,1,3],
 "structwiz__NetTimeout.html#a0bbc0e684b2208913f452041a0ad1feb":[5,1,3,1],
-"structwiz__NetTimeout.html#af1f11b58ee05012ac199f1bc8a30f170":[5,1,3,0]
+"structwiz__NetTimeout.html#af1f11b58ee05012ac199f1bc8a30f170":[5,1,3,0],
+"structwiz__PhyConf.html":[5,1,1],
+"structwiz__PhyConf.html#a37a1fa3bbb118dc7c534197ea0b93ace":[5,1,1,0],
+"structwiz__PhyConf.html#a57135b2f90059cd13c52220bd055f853":[5,1,1,3]
 };

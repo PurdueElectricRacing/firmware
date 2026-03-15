@@ -30,7 +30,7 @@ var searchData=
   ['test_5fpwm_27',['TEST_PWM',['../f4__testing_8h.html#a91a16cc33ca4d17845106e8082d84e61',1,'f4_testing.h']]],
   ['test_5fspi_28',['TEST_SPI',['../g4__testing_8h.html#a56a27255240e687884327372399cb508',1,'g4_testing.h']]],
   ['test_5fusart_29',['TEST_USART',['../g4__testing_8h.html#af34c78aee83aefb9cadaaecefdd0d45b',1,'g4_testing.h']]],
-  ['throt_5fbar_30',['THROT_BAR',['../lcd_8h.html#acfd30e79279478e4cdec0f61c217f3c6',1,'lcd.h']]],
+  ['throt_5fbar_30',['THROT_BAR',['../race_8h.html#acfd30e79279478e4cdec0f61c217f3c6',1,'race.h']]],
   ['thtl_5f1_5fadc_5fchnl_31',['THTL_1_ADC_CHNL',['../dashboard_2main_8h.html#a5d8bda549f17e3f2c106d5bda0104868',1,'main.h']]],
   ['thtl_5f1_5fgpio_5fport_32',['THTL_1_GPIO_Port',['../dashboard_2main_8h.html#a043fe906bb15d95f9aa78bfe954439c0',1,'main.h']]],
   ['thtl_5f1_5fpin_33',['THTL_1_Pin',['../dashboard_2main_8h.html#a81ac8c1cc171e5961fc6cbb7c1bf8c08',1,'main.h']]],

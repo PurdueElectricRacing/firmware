@@ -7,10 +7,10 @@ var a__box_2main_8c =
     [ "DEFINE_TASK", "a__box_2main_8c.html#a1fa3993064bc3738e29650ffc9de990b", null ],
     [ "DEFINE_TASK", "a__box_2main_8c.html#a1f3ae7ea9e76a5b0a2844a7696ceb50c", null ],
     [ "DEFINE_TASK", "a__box_2main_8c.html#a89cea2c803c93d23518f66878f5bf3f8", null ],
-    [ "DEFINE_TASK", "a__box_2main_8c.html#a7f774d420c998d57ad84e9547b966ef8", null ],
+    [ "DEFINE_TASK", "a__box_2main_8c.html#a02024b8f5854954c8b322e684b1a0846", null ],
     [ "DEFINE_TASK", "a__box_2main_8c.html#a3969fc3976e3533ebc6d9a30b6c23367", null ],
     [ "HardFault_Handler", "a__box_2main_8c.html#a2bffc10d5bd4106753b7c30e86903bea", null ],
-    [ "heartbeat_task", "a__box_2main_8c.html#a73a90d100f8b99f3a551262ee0c7735b", null ],
+    [ "heartbeat_wrapper", "a__box_2main_8c.html#ac6975f2c5f6bed19aaacda816f511655", null ],
     [ "main", "a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe", null ],
     [ "report_telemetry", "a__box_2main_8c.html#a79b2c19cb2dda656363aa2e27e0d0ee9", null ],
     [ "AHBClockRateHz", "a__box_2main_8c.html#a2c40deeaa6aeb002bafb0bc892484e0c", null ],
@@ -24,5 +24,6 @@ var a__box_2main_8c =
     [ "MIN_DELTA_FOR_BALANCE", "a__box_2main_8c.html#af63a5e708a1a061eacf7c3437a371490", null ],
     [ "MIN_V_FOR_BALANCE", "a__box_2main_8c.html#aa3fb4752f26486b9d8283433f0d7a39e", null ],
     [ "PLLClockRateHz", "a__box_2main_8c.html#aac132aa42c20a1d3744db9df04f31c54", null ],
+    [ "status_leds", "a__box_2main_8c.html#ab358b4de0d227c3352c7bad61fd1dc9c", null ],
     [ "TargetCoreClockrateHz", "a__box_2main_8c.html#aceecad98eec5ec4009d14ca16ea1bfc8", null ]
 ];

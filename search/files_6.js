@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['izze_5fimu_2eh_0',['izze_imu.h',['../izze__imu_8h.html',1,'']]],
-  ['izze_5fimu_5fconfig_2ec_1',['izze_imu_config.c',['../izze__imu__config_8c.html',1,'']]]
+  ['heartbeat_2ec_0',['heartbeat.c',['../heartbeat_8c.html',1,'']]],
+  ['heartbeat_2eh_1',['heartbeat.h',['../heartbeat_8h.html',1,'']]]
 ];

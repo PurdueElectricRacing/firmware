@@ -195,7 +195,7 @@ var searchData=
   ['bs_5fvollab32_192',['BS_VolLab32',['../ff_8c.html#a8241a49bce313184a58617ba1ad9e84c',1,'ff.c']]],
   ['buf_193',['buf',['../structFIL.html#ae3b59b45a5fb08eed7d853d99a4d59b3',1,'FIL::buf'],['../daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d',1,'buf:&#160;main.c']]],
   ['buffer_5fsize_194',['BUFFER_SIZE',['../namespacereceive-from-tv.html#a362d1e9367eeb8088b655ebbdf8f97cc',1,'receive-from-tv.BUFFER_SIZE'],['../namespacesend-and-rec.html#ade075385ab144c46f2536461f09bfc66',1,'send-and-rec.BUFFER_SIZE']]],
-  ['build_195',['Setup &amp; Build',['../md_docs_2setup.html#autotoc_md76',1,'']]],
+  ['build_195',['Setup &amp; Build',['../md_docs_2setup.html#autotoc_md77',1,'']]],
   ['build_196',['build',['../namespacebuild.html',1,'build'],['../namespacebuild.html#a040e3e8b77aa8911e86cfee035b5becc',1,'build.build()']]],
   ['build_2epy_197',['build.py',['../build_8py.html',1,'']]],
   ['building_20firmware_198',['Building Firmware',['../index.html#autotoc_md3',1,'']]],

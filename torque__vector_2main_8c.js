@@ -1,8 +1,8 @@
 var torque__vector_2main_8c =
 [
     [ "can_worker_thread", "torque__vector_2main_8c.html#a90bf0a9f946401661f11e4bdabf91066", null ],
+    [ "DEFINE_HEARTBEAT_TASK", "torque__vector_2main_8c.html#a845eaf447179a8baf75c69794c49856d", null ],
     [ "DEFINE_TASK", "torque__vector_2main_8c.html#abd2f66bb00f33935d9aa0958cd7d3ccc", null ],
-    [ "DEFINE_TASK", "torque__vector_2main_8c.html#a4d627b1c0da6666cd2d3a8da0c733b73", null ],
     [ "HardFault_Handler", "torque__vector_2main_8c.html#a2bffc10d5bd4106753b7c30e86903bea", null ],
     [ "ledblink", "torque__vector_2main_8c.html#a4d45d2638da49ff751c95786863b9087", null ],
     [ "main", "torque__vector_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe", null ],

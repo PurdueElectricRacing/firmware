@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['onboarding_5f26_2ec_0',['onboarding_26.c',['../onboarding__26_8c.html',1,'']]]
+  ['nextion_2ec_0',['nextion.c',['../nextion_8c.html',1,'']]],
+  ['nextion_2eh_1',['nextion.h',['../nextion_8h.html',1,'']]]
 ];

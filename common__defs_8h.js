@@ -26,8 +26,5 @@ var common__defs_8h =
     [ "min_i", "common__defs_8h.html#a09cb0020465febd97326d0bbfa1d67a8", null ],
     [ "ROUNDDOWN", "common__defs_8h.html#a7790c59a206addb5b0bcc7a34667a1da", null ],
     [ "ROUNDUP", "common__defs_8h.html#ad9b3fa34cf7fd298a0333cd51094762c", null ],
-    [ "CONN_LED_TIMEOUT_MS", "common__defs_8h.html#a7734c719f4ed69952e7c2f622eacda52", null ],
-    [ "HEARTBEAT_PERIOD_MS", "common__defs_8h.html#aba882a54e761d19d12cc40b3a2a91d8b", null ],
-    [ "PI", "common__defs_8h.html#ac01434fcf858bd4b50b62784079ad3c0", null ],
-    [ "PREFLIGHT_ANIMATION_DURATION_MS", "common__defs_8h.html#a21b6510f3b958625ebaae25b90ad9c3c", null ]
+    [ "PI", "common__defs_8h.html#ac01434fcf858bd4b50b62784079ad3c0", null ]
 ];

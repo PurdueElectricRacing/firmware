@@ -104,16 +104,16 @@ $(function(){initNavTree('pdu_2main_8h_source.html',''); initResizable(true); })
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">//STM32F407VGT6</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="phal_2can_8h.html">common/phal/can.h</a>&quot;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">// Status Indicators</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="pdu_2main_8h.html#ad606c68e7c4fc77a58df05a77a2ac2d0">   18</a></span><span class="preprocessor">#define ERR_LED_GPIO_Port   (GPIOC)</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="pdu_2main_8h.html#ac38565041738156d70795f7d45a458ef">   19</a></span><span class="preprocessor">#define ERR_LED_Pin         (13)</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="pdu_2main_8h.html#a75d1cb8230e6eaf53142a5bca49003ef">   20</a></span><span class="preprocessor">#define CONN_LED_GPIO_Port  (GPIOC)</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="pdu_2main_8h.html#a0111b42f1cdfd22b52e5aa836d743a60">   21</a></span><span class="preprocessor">#define CONN_LED_Pin        (14)</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="pdu_2main_8h.html#a0fdbfbcfbcb8f2c98f4bf69597b60ae8">   22</a></span><span class="preprocessor">#define CONN_LED_MS_THRESH  (500)</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="pdu_2main_8h.html#a5a1bec8475d2774ce7a82559f9644f09">   23</a></span><span class="preprocessor">#define HEARTBEAT_GPIO_Port (GPIOC)</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="pdu_2main_8h.html#ab1f60dbdca30f90ed4ab09fb63e83a50">   24</a></span><span class="preprocessor">#define HEARTBEAT_Pin       (15)</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="phal_2gpio_8h.html">common/phal/gpio.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">// Status Indicators</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="pdu_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50">   19</a></span><span class="preprocessor">#define HEARTBEAT_LED_PORT  (GPIOC)</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="pdu_2main_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3">   20</a></span><span class="preprocessor">#define HEARTBEAT_LED_PIN   (15)</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="pdu_2main_8h.html#a84357dafca10c0bedd27ddf562ec038f">   21</a></span><span class="preprocessor">#define ERROR_LED_PORT      (GPIOC)</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="pdu_2main_8h.html#a16617de3bb2ca54675ae2515d8515e12">   22</a></span><span class="preprocessor">#define ERROR_LED_PIN       (13)</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="pdu_2main_8h.html#aa5bf4e4a187f66b98a273bb051ec3877">   23</a></span><span class="preprocessor">#define CONNECTION_LED_PORT (GPIOC)</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="pdu_2main_8h.html#a8437cdc43b488d816a5e56f7b6457b86">   24</a></span><span class="preprocessor">#define CONNECTION_LED_PIN  (14)</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">// CAN</span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="pdu_2main_8h.html#ae149f315898d37fba8fd24600c9e0daa">   27</a></span><span class="preprocessor">#define VCAN_RX_GPIO_Port (GPIOD)</span></div>
@@ -378,8 +378,8 @@ $(function(){initNavTree('pdu_2main_8h_source.html',''); initResizable(true); })
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
 <div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
 <div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="preprocessor">#endif </span><span class="comment">// MAIN_H</span></div>
-<div class="ttc" id="apdu_2main_8h_html_a27666df6fadbd9638916906797be5ebe"><div class="ttname"><a href="pdu_2main_8h.html#a27666df6fadbd9638916906797be5ebe">adc_readings</a></div><div class="ttdeci">volatile ADCReadings_t adc_readings</div><div class="ttdef"><b>Definition</b> <a href="pdu_2main_8c_source.html#l00190">main.c:190</a></div></div>
-<div class="ttc" id="aphal_2can_8h_html"><div class="ttname"><a href="phal_2can_8h.html">can.h</a></div></div>
+<div class="ttc" id="apdu_2main_8h_html_a27666df6fadbd9638916906797be5ebe"><div class="ttname"><a href="pdu_2main_8h.html#a27666df6fadbd9638916906797be5ebe">adc_readings</a></div><div class="ttdeci">volatile ADCReadings_t adc_readings</div><div class="ttdef"><b>Definition</b> <a href="pdu_2main_8c_source.html#l00191">main.c:191</a></div></div>
+<div class="ttc" id="aphal_2gpio_8h_html"><div class="ttname"><a href="phal_2gpio_8h.html">gpio.h</a></div></div>
 <div class="ttc" id="astructADCReadings__t_html"><div class="ttname"><a href="structADCReadings__t.html">ADCReadings_t</a></div><div class="ttdef"><b>Definition</b> <a href="#l00260">main.h:260</a></div></div>
 <div class="ttc" id="astructADCReadings__t_html_a0af6bd226cd5eebc206f7e87d856378d"><div class="ttname"><a href="structADCReadings__t.html#a0af6bd226cd5eebc206f7e87d856378d">ADCReadings_t::hxfan_imon</a></div><div class="ttdeci">uint16_t hxfan_imon</div><div class="ttdef"><b>Definition</b> <a href="#l00266">main.h:266</a></div></div>
 <div class="ttc" id="astructADCReadings__t_html_a0b0bb43b90aff0403a8a9db484818d38"><div class="ttname"><a href="structADCReadings__t.html#a0b0bb43b90aff0403a8a9db484818d38">ADCReadings_t::daq_imon</a></div><div class="ttdeci">uint16_t daq_imon</div><div class="ttdef"><b>Definition</b> <a href="#l00273">main.h:273</a></div></div>

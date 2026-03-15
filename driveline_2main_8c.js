@@ -1,6 +1,7 @@
 var driveline_2main_8c =
 [
     [ "raw_adc_values_t", "structraw__adc__values__t.html", "structraw__adc__values__t" ],
+    [ "DEFINE_HEARTBEAT_TASK", "driveline_2main_8c.html#a845eaf447179a8baf75c69794c49856d", null ],
     [ "DEFINE_TASK", "driveline_2main_8c.html#add809ee66f497da17e998fe8eabb88a2", null ],
     [ "HardFault_Handler", "driveline_2main_8c.html#a2af56a8bf3197b2f06cac4c0b84ffc3e", null ],
     [ "main", "driveline_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe", null ],

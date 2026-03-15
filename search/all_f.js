@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['i_20look_20at_0',['Which one should I look at?',['..//github/workspace/docs/datasheets/README.md#autotoc_md58',1,'']]],
+  ['i_20look_20at_0',['Which one should I look at?',['..//github/workspace/docs/datasheets/README.md#autotoc_md59',1,'']]],
   ['i_20o_20function_1',['Basic I/O function',['../group__Basic__IO__function.html',1,'']]],
   ['i_20o_20functions_2',['WIZCHIP I/O functions',['../group__WIZCHIP__IO__Functions.html',1,'']]],
   ['id_3',['id',['../structFATFS.html#a417095d7c20d56d417dc0998e0dd5a5c',1,'FATFS::id'],['../structFFOBJID.html#afc765e01ff97bfd9645c42b0ba30397f',1,'FFOBJID::id'],['../struct__WIZCHIP.html#afd8ed1655ef7787ebfc49d74ecd454d3',1,'_WIZCHIP::id'],['../classparser_1_1Fault.html#a0e31d50dd8fac774486e9273eaf1dc2b',1,'parser.Fault.id']]],
@@ -71,7 +71,7 @@ var searchData=
   ['inject_5ffault_5fmessages_68',['inject_fault_messages',['../namespacefaultgen.html#afe2e346a8ad428ca4e08342785a61c6a',1,'faultgen']]],
   ['inject_5ffault_5ftypes_69',['inject_fault_types',['../namespacefaultgen.html#a11190d4ffc206ee3ce93696a63e5dcc0',1,'faultgen']]],
   ['input_5fstate_70',['input_state',['../dashboard_2main_8c.html#a78b28a5859c49a3ced4466bcdfca9368',1,'main.c']]],
-  ['install_20extensions_71',['Install Extensions',['../md_docs_2setup.html#autotoc_md71',1,'']]],
+  ['install_20extensions_71',['Install Extensions',['../md_docs_2setup.html#autotoc_md72',1,'']]],
   ['instructions_72',['PER Firmware Setup Instructions',['../md_docs_2setup.html',1,'']]],
   ['internal_5ftherm_73',['internal_therm',['../structADCReadings__t.html#a7f1a985fe69828a8f472b258975076c5',1,'ADCReadings_t']]],
   ['internal_5ftherm_5fadc_5fchnl_74',['INTERNAL_THERM_ADC_CHNL',['../pdu_2main_8h.html#a1cbc6a9cd1dee627e19b856033260320',1,'main.h']]],

@@ -51,7 +51,7 @@ var searchData=
   ['upper_5fbound_48',['upper_bound',['../structbangbang__t.html#a8893cb5a9934f8791fadc5f27a9e9d72',1,'bangbang_t']]],
   ['uptrdiff_5ft_49',['UPTRDIFF_T',['../vsprintf_8c.html#a3f433e23099246793fd3603c3a4cce89',1,'vsprintf.c']]],
   ['usage_50',['Usage',['..//github/workspace/source/a_box/adbms/README.md#autotoc_md6',1,'Usage'],['..//github/workspace/common/can_library/README.md#autotoc_md48',1,'Usage']]],
-  ['usage_20example_3a_51',['Usage Example:',['..//github/workspace/common/lerp_lut/README.md#autotoc_md52',1,'Usage Example:'],['..//github/workspace/common/strbuf/README.md#autotoc_md55',1,'Usage Example:']]],
+  ['usage_20example_3a_51',['Usage Example:',['..//github/workspace/common/lerp_lut/README.md#autotoc_md53',1,'Usage Example:'],['..//github/workspace/common/strbuf/README.md#autotoc_md56',1,'Usage Example:']]],
   ['usage_3a_52',['Usage:',['..//github/workspace/common/can_library/README.md#autotoc_md50',1,'']]],
   ['usart_2ec_53',['usart.c',['../common_2phal__F4__F7_2usart_2usart_8c.html',1,'(Global Namespace)'],['../common_2phal__G4_2usart_2usart_8c.html',1,'(Global Namespace)'],['../source_2g4__testing_2usart_8c.html',1,'(Global Namespace)']]],
   ['usart_2eh_54',['usart.h',['../phal_2usart_8h.html',1,'(Global Namespace)'],['../phal__F4__F7_2usart_2usart_8h.html',1,'(Global Namespace)'],['../phal__G4_2usart_2usart_8h.html',1,'(Global Namespace)']]],
@@ -86,7 +86,7 @@ var searchData=
   ['usart_5ftx_5ferrors_5ft_83',['usart_tx_errors_t',['../structusart__tx__errors__t.html',1,'']]],
   ['usb_84',['USB',['../diskio_8c.html#a779bf099075a999d1074357fccbd466b',1,'diskio.c']]],
   ['use_5fpll_85',['use_pll',['../structClockRateConfig__t.html#acac53bfa913d0aee434ec90f5acdc394',1,'ClockRateConfig_t']]],
-  ['using_20the_20debugging_20tools_86',['Using the Debugging Tools',['../md_docs_2deploy__n__debug.html#autotoc_md64',1,'']]],
+  ['using_20the_20debugging_20tools_86',['Using the Debugging Tools',['../md_docs_2deploy__n__debug.html#autotoc_md65',1,'']]],
   ['utils_87',['utils',['../namespaceutils.html',1,'']]],
   ['utils_2epy_88',['utils.py',['../utils_8py.html',1,'']]]
 ];

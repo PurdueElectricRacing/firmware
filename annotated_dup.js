@@ -70,6 +70,7 @@ var annotated_dup =
     [ "sdc_node_t", "structsdc__node__t.html", "structsdc__node__t" ],
     [ "SPI_InitConfig_t", "structSPI__InitConfig__t.html", "structSPI__InitConfig__t" ],
     [ "SPMC_t", "structSPMC__t.html", "structSPMC__t" ],
+    [ "status_leds_t", "structstatus__leds__t.html", "structstatus__leds__t" ],
     [ "strbuf_t", "structstrbuf__t.html", "structstrbuf__t" ],
     [ "ThreadWrapper_t", "structThreadWrapper__t.html", "structThreadWrapper__t" ],
     [ "timestamped_frame_t", "structtimestamped__frame__t.html", "structtimestamped__frame__t" ],

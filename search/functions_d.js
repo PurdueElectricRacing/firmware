@@ -86,14 +86,13 @@ var searchData=
   ['phal_5fusarttxdma_83',['PHAL_usartTxDma',['../common_2phal__F4__F7_2usart_2usart_8c.html#abbaa51dfa3243c22b4015aaff9eba9da',1,'PHAL_usartTxDma(usart_init_t *handle, uint16_t *data, uint32_t len):&#160;usart.c'],['../phal__F4__F7_2usart_2usart_8h.html#abbaa51dfa3243c22b4015aaff9eba9da',1,'PHAL_usartTxDma(usart_init_t *handle, uint16_t *data, uint32_t len):&#160;usart.c'],['../common_2phal__G4_2usart_2usart_8c.html#a61183ec430b48e9dc2eef1a49f292a65',1,'PHAL_usartTxDma(usart_init_t *handle, uint8_t *data, uint32_t len):&#160;usart.c'],['../phal__G4_2usart_2usart_8h.html#a61183ec430b48e9dc2eef1a49f292a65',1,'PHAL_usartTxDma(usart_init_t *handle, uint8_t *data, uint32_t len):&#160;usart.c']]],
   ['phal_5fwritegpio_84',['PHAL_writeGPIO',['../phal__F4__F7_2gpio_2gpio_8h.html#a67db851520637ffa4de5968c9730220b',1,'PHAL_writeGPIO(GPIO_TypeDef *bank, uint8_t pin, bool value):&#160;gpio.h'],['../phal__G4_2gpio_2gpio_8h.html#a67db851520637ffa4de5968c9730220b',1,'PHAL_writeGPIO(GPIO_TypeDef *bank, uint8_t pin, bool value):&#160;gpio.h']]],
   ['pick_5flfn_85',['pick_lfn',['../ff_8c.html#a2a2c96233e92d8abe12c4496caec85cf',1,'ff.c']]],
-  ['preflight_5fanimation_86',['preflight_animation',['../dashboard_2main_8c.html#a4eea638751f327d3f332d265e53aa7e5',1,'main.c']]],
-  ['preflight_5ftask_87',['preflight_task',['../dashboard_2main_8c.html#a89b14fa3031866ffa50cc407ef7169e3',1,'main.c']]],
-  ['print_5fas_5ferror_88',['print_as_error',['../namespaceutils.html#ad591a8e5f64cc509e407bf7097b17148',1,'utils']]],
-  ['print_5fas_5fok_89',['print_as_ok',['../namespaceutils.html#aa464792903a6e58a565329818163930a',1,'utils']]],
-  ['print_5fas_5fsuccess_90',['print_as_success',['../namespaceutils.html#a16b94f0d7e84a12470ef1807860b9a2a',1,'utils']]],
-  ['print_5fas_5fwarning_91',['print_as_warning',['../namespaceutils.html#a108b2584ebc0ab1afbafdf87e07d4a2d',1,'utils']]],
-  ['printsep_92',['printsep',['../vsprintf_8c.html#a6b71baafe12c91bfb66fadce8d869170',1,'vsprintf.c']]],
-  ['put_5ffat_93',['put_fat',['../ff_8c.html#a45d7e11c6d4013ba545d070a27759154',1,'ff.c']]],
-  ['put_5flfn_94',['put_lfn',['../ff_8c.html#a8c4d5fec86b5a363c5cefa2bb806d80f',1,'ff.c']]],
-  ['put_5futf_95',['put_utf',['../ff_8c.html#a02fec3f2a427f6e467c74031eb0cab78',1,'ff.c']]]
+  ['preflight_5fled_5fsweep_86',['preflight_led_sweep',['../heartbeat_8c.html#a1d58d4db1dcf0ec5b290850c6ae31f3b',1,'heartbeat.c']]],
+  ['print_5fas_5ferror_87',['print_as_error',['../namespaceutils.html#ad591a8e5f64cc509e407bf7097b17148',1,'utils']]],
+  ['print_5fas_5fok_88',['print_as_ok',['../namespaceutils.html#aa464792903a6e58a565329818163930a',1,'utils']]],
+  ['print_5fas_5fsuccess_89',['print_as_success',['../namespaceutils.html#a16b94f0d7e84a12470ef1807860b9a2a',1,'utils']]],
+  ['print_5fas_5fwarning_90',['print_as_warning',['../namespaceutils.html#a108b2584ebc0ab1afbafdf87e07d4a2d',1,'utils']]],
+  ['printsep_91',['printsep',['../vsprintf_8c.html#a6b71baafe12c91bfb66fadce8d869170',1,'vsprintf.c']]],
+  ['put_5ffat_92',['put_fat',['../ff_8c.html#a45d7e11c6d4013ba545d070a27759154',1,'ff.c']]],
+  ['put_5flfn_93',['put_lfn',['../ff_8c.html#a8c4d5fec86b5a363c5cefa2bb806d80f',1,'ff.c']]],
+  ['put_5futf_94',['put_utf',['../ff_8c.html#a02fec3f2a427f6e467c74031eb0cab78',1,'ff.c']]]
 ];

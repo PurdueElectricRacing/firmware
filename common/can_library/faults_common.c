@@ -26,7 +26,19 @@ bool is_latched(fault_id_t fault_id) {
         return false;
     }
 
-    return faults[fault_id].state == FAULT_STATE_LATCHED;
+    fault_state_t state = faults[fault_id].state;
+
+    return state == FAULT_STATE_LATCHED || state == FAULT_STATE_RECOVERING;
+}
+
+bool is_clear(fault_id_t fault_id) {
+    if (fault_id >= TOTAL_NUM_FAULTS) {
+        return false;
+    }
+
+    fault_state_t state = faults[fault_id].state;
+
+    return state == FAULT_STATE_OK || state == FAULT_STATE_PENDING;
 }
 
 void update_fault(fault_id_t fault_id, uint16_t value) {
@@ -121,10 +133,10 @@ bool is_any_latched() {
 }
 
 #ifdef HAS_FAULT_STRINGS
-const char *get_fault_string(fault_id_t idx) {
-    if (idx >= TOTAL_NUM_FAULTS)
+const char *get_fault_string(fault_id_t fault_id) {
+    if (fault_id >= TOTAL_NUM_FAULTS)
         return nullptr;
-    return fault_strings[idx];
+    return fault_strings[fault_id];
 }
 #endif
 

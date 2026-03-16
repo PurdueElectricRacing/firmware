@@ -135,8 +135,8 @@ void fsm_periodic() {
     g_torque_request.rear_left   = 0;
     g_torque_request.rear_right  = 0;
 
-    // check SDC before doing anything else
-    if (is_fatal_latched()) {
+    // check SDCs before TSMS before doing anything else
+    if (is_latched(FAULT_ID_SDC15_REAR_INTERLOCK)) {
         g_car.current_state = CAR_STATE_FATAL;
         g_car.next_state = CAR_STATE_FATAL;
     }

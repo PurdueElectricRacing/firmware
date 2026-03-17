@@ -8,7 +8,6 @@
 #include "common/phal/rtc.h"
 #include "common/phal/spi.h"
 #include "common/phal/usart.h"
-#include "daq_can.h"
 #include "daq_hub.h"
 #include "daq_spi.h"
 
@@ -139,7 +138,6 @@ int main() {
 
     if (!PHAL_initUSART(&lte_usart_config, APB2ClockRateHz))
         HardFault_Handler();
-    log_yellow("PER PER PER\n");
 
     PHAL_initCAN(CAN1, false, MCAN_BAUD_RATE);
 
@@ -172,7 +170,6 @@ static void configure_interrupts(void) {
     NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
-// TODO verify with canable that this works 
 static inline void can_rx_irq_handler(CAN_TypeDef* can_h) {
     portBASE_TYPE xHigherPriorityTaskWoken;
     xHigherPriorityTaskWoken = pdFALSE;
@@ -189,18 +186,22 @@ static inline void can_rx_irq_handler(CAN_TypeDef* can_h) {
         timestamped_frame_t* rx = &buf;
         rx->ticks_ms    = getTick();
         if (can_h == CAN1) {
-        rx->identity = (uint32_t) (1 << 31);
+            // bus ID is 31st bit of identity field, set to 0 for CAN1
+            rx->identity &= (uint32_t) ~(1 << SPMC_BUS_ID_Pos);
         }
-        rx->identity = (uint32_t) ((can_h == CAN1) ? BUS_ID_CAN1 : BUS_ID_CAN2) << 31;
+        else {
+            // CAN2, bus ID set to 1 
+            rx->identity |= (uint32_t) (1 << SPMC_BUS_ID_Pos);
+        }
 
         // Get either StdId or ExtId
         if (CAN_RI0R_IDE & can_h->sFIFOMailBox[0].RIR) {
             // Extended ID
-            rx->identity |= (uint32_t) 1 << 30;
-            rx->identity |= CAN_EFF_FLAG | (((CAN_RI0R_EXID | CAN_RI0R_STID) & can_h->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos); // idk how right ts is
+            rx->identity |= (uint32_t) 1 << SPMC_IS_EXTID_Pos;
+            rx->identity |= CAN_EFF_FLAG | (((CAN_RI0R_EXID | CAN_RI0R_STID) & can_h->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos); 
         } else {
             // Standard ID
-            rx->identity &= (uint32_t) ~(1 << 30);
+            rx->identity &= (uint32_t) ~(1 << SPMC_IS_EXTID_Pos);
             rx->identity |= (CAN_RI0R_STID & can_h->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
         }
 
@@ -226,92 +227,6 @@ void CAN2_RX0_IRQHandler() {
     can_rx_irq_handler(CAN2);
 }
 
-volatile uint32_t error_irq_cnt = 0;
-
-// TODO update to work with new struct
-// void CAN1_SCE_IRQHandler() {
-//     // TODO track errors
-//     uint32_t err_stat;
-//     error_irq_cnt++;
-//     if (CAN1->MSR & CAN_MSR_ERRI) {
-//         err_stat = CAN1->ESR;
-//         CAN1->ESR &= ~(CAN_ESR_LEC_Msk);
-
-//         timestamped_frame_t* rx;
-//         uint32_t cont;
-//         if (bGetHeadForWrite(&b_rx_can, (void**)&rx, &cont) == 0) {
-//             rx->ticks_ms = getTick();
-//             // can_parse_error_status(err_stat, rx);
-//             bCommitWrite(&b_rx_can, 1);
-//         }
-//         CAN1->MSR |= CAN_MSR_ERRI; // clear interrupt
-//     }
-// }
-
-// TODO update to work with new struct + figure out what it does bc I have not thought about it
-// bool can_parse_error_status(uint32_t err, timestamped_frame_t* frame) {
-//     //frame->echo_id = 0xFFFFFFFF;
-//     frame->bus_id  = 0;
-//     frame->msg_id  = CAN_ERR_FLAG | CAN_ERR_CRTL;
-//     frame->dlc     = CAN_ERR_DLC;
-//     frame->data[0] = CAN_ERR_LOSTARB_UNSPEC;
-//     frame->data[1] = CAN_ERR_CRTL_UNSPEC;
-//     frame->data[2] = CAN_ERR_PROT_UNSPEC;
-//     frame->data[3] = CAN_ERR_PROT_LOC_UNSPEC;
-//     frame->data[4] = CAN_ERR_TRX_UNSPEC;
-//     frame->data[5] = 0;
-//     frame->data[6] = 0;
-//     frame->data[7] = 0;
-
-//     if ((err & CAN_ESR_BOFF) != 0) {
-//         frame->msg_id |= CAN_ERR_BUSOFF;
-//     }
-
-//     /*
-// 	uint8_t tx_error_cnt = (err>>16) & 0xFF;
-// 	uint8_t rx_error_cnt = (err>>24) & 0xFF;
-// 	*/
-
-//     if (err & CAN_ESR_EPVF) {
-//         frame->data[1] |= CAN_ERR_CRTL_RX_PASSIVE | CAN_ERR_CRTL_TX_PASSIVE;
-//     } else if (err & CAN_ESR_EWGF) {
-//         frame->data[1] |= CAN_ERR_CRTL_RX_WARNING | CAN_ERR_CRTL_TX_WARNING;
-//     }
-
-//     uint8_t lec = (err >> 4) & 0x07;
-//     if (lec != 0) { /* protocol error */
-//         switch (lec) {
-//             case 0x01: /* stuff error */
-//                 frame->msg_id |= CAN_ERR_PROT;
-//                 frame->data[2] |= CAN_ERR_PROT_STUFF;
-//                 break;
-//             case 0x02: /* form error */
-//                 frame->msg_id |= CAN_ERR_PROT;
-//                 frame->data[2] |= CAN_ERR_PROT_FORM;
-//                 break;
-//             case 0x03: /* ack error */
-//                 frame->msg_id |= CAN_ERR_ACK;
-//                 break;
-//             case 0x04: /* bit recessive error */
-//                 frame->msg_id |= CAN_ERR_PROT;
-//                 frame->data[2] |= CAN_ERR_PROT_BIT1;
-//                 break;
-//             case 0x05: /* bit dominant error */
-//                 frame->msg_id |= CAN_ERR_PROT;
-//                 frame->data[2] |= CAN_ERR_PROT_BIT0;
-//                 break;
-//             case 0x06: /* CRC error */
-//                 frame->msg_id |= CAN_ERR_PROT;
-//                 frame->data[3] |= CAN_ERR_PROT_LOC_CRC_SEQ;
-//                 break;
-//             default:
-//                 break;
-//         }
-//     }
-
-//     return true;
-// }
-
 /**
  * @brief Disables high power consumption devices
  *        If file open, flushes it to the sd card
@@ -322,7 +237,6 @@ void shutdown(void) {
     uint32_t start_tick = getTick();
     while (getTick() - start_tick < 3000 || PHAL_readGPIO(PWR_LOSS_PORT, PWR_LOSS_PIN) == 0) // wait for power to fully turn off -> if it does not, restart
     {
-        //if (getTick() % 250 == 0) PHAL_toggleGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN);
     }
     NVIC_SystemReset(); // oof, we assumed wrong, restart and resume execution since the power is still on!
 }

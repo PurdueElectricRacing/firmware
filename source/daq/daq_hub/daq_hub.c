@@ -18,7 +18,6 @@
 #include <string.h>
 
 #include "common/phal/gpio.h"
-#include "daq_can.h"
 #include "daq_eth.h"
 #include "daq_sd.h"
 #include "daq_rtc_config.h"

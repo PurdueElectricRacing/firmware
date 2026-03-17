@@ -1,7 +1,6 @@
 #include "common/phal/can.h"
 #include "common/phal/rtc.h"
 #include "common/phal/gpio.h"
-#include "daq_can.h"
 #include "daq_hub.h"
 #include "main.h"
 

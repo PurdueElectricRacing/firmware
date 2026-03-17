@@ -13,6 +13,9 @@
 #include <stdint.h>
 #include <string.h>
 
+#define SPMC_BUS_ID_Pos (31U)
+#define SPMC_IS_EXTID_Pos (30U)
+
 typedef struct {
     uint32_t ticks_ms; // ms timestamp of reception
     uint32_t identity; // [1 bit bus ID] [1 bit isExtID] [1 bit reserved] [29 bits CAN ID]

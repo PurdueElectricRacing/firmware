@@ -26,7 +26,6 @@ static constexpr float INCHES_PER_MILE = 63360.0f;
 
 static constexpr float RPM_TO_MPH = INCHES_PER_MOTOR_REV * MINUTES_PER_HOUR / INCHES_PER_MILE;
 
-
 static inline void update_car_state_telemetry() {
     if (can_data.main_hb.stale) {
         NXT_setText(CAR_STATE, "STALE");
@@ -36,44 +35,46 @@ static inline void update_car_state_telemetry() {
 
     switch (can_data.main_hb.car_state) {
         case CAR_STATE_INIT:
-            NXT_setFontColor(CAR_STATE, WHITE);
             NXT_setText(CAR_STATE, "INIT");
+            NXT_setFontColor(CAR_STATE, WHITE);
             NXT_setBorderColor(CAR_STATE, WHITE);
+            NXT_setBackground(CAR_STATE, BLACK);
             break;
         case CAR_STATE_IDLE:
-            NXT_setFontColor(CAR_STATE, WHITE);
             NXT_setText(CAR_STATE, "IDLE");
+            NXT_setFontColor(CAR_STATE, WHITE);
             NXT_setBorderColor(CAR_STATE, WHITE);
+            NXT_setBackground(CAR_STATE, BLACK);
             break;
         case CAR_STATE_PRECHARGING:
+            NXT_setText(CAR_STATE, "PRECHARGING");
             NXT_setFontColor(CAR_STATE, YELLOW);
-            NXT_setText(CAR_STATE, "PRECHRG");
             NXT_setBorderColor(CAR_STATE, YELLOW);
+            NXT_setBackground(CAR_STATE, MUTED_YELLOW);
             break;
         case CAR_STATE_ENERGIZED:
+            NXT_setText(CAR_STATE, "ENERGIZED");
             NXT_setFontColor(CAR_STATE, GREEN);
-            NXT_setText(CAR_STATE, "ENERGZD");
             NXT_setBorderColor(CAR_STATE, GREEN);
+            NXT_setBackground(CAR_STATE, MUTED_GREEN);
             break;
         case CAR_STATE_BUZZING:
-            NXT_setFontColor(CAR_STATE, YELLOW);
             NXT_setText(CAR_STATE, "BUZZING");
+            NXT_setFontColor(CAR_STATE, YELLOW);
             NXT_setBorderColor(CAR_STATE, YELLOW);
+            NXT_setBackground(CAR_STATE, MUTED_YELLOW);
             break;
         case CAR_STATE_READY2DRIVE:
+            NXT_setText(CAR_STATE, "READY2DRIVE");
             NXT_setFontColor(CAR_STATE, GREEN);
-            NXT_setText(CAR_STATE, "R2D");
             NXT_setBorderColor(CAR_STATE, GREEN);
+            NXT_setBackground(CAR_STATE, MUTED_GREEN);
             break;
         case CAR_STATE_FATAL:
-            NXT_setFontColor(CAR_STATE, RED);
             NXT_setText(CAR_STATE, "FATAL");
+            NXT_setFontColor(CAR_STATE, RED);
             NXT_setBorderColor(CAR_STATE, RED);
-            break;
-        default:
-            NXT_setFontColor(CAR_STATE, WHITE);
-            NXT_setText(CAR_STATE, "UNKNOWN");
-            NXT_setBorderColor(CAR_STATE, WHITE);
+            NXT_setBackground(CAR_STATE, MUTED_RED);
             break;
     }
 }

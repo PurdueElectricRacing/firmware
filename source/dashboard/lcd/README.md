@@ -8,3 +8,5 @@ todo:
 - faults page
 - torque vector settings
 - error pages
+
+![colors](PER26_colors.png)

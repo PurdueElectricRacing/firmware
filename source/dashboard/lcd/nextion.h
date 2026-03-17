@@ -21,11 +21,11 @@
 
 // Nextion Command Strings
 #define NXT_BACKGROUND_COLOR ".bco="
-#define NXT_BORDER_COLOR     ".bdrco="
 #define NXT_FONT_COLOR       ".pco="
 #define NXT_VALUE            ".val="
 #define NXT_TEXT             ".txt="
-#define NXT_BORDERW          ".borderw=" // Cannot modify the borderw of the TEXT object without intelligent series
+#define NXT_BORDERW          ".borderw="
+#define NXT_BORDER_COLOR     ".borderc="
 #define NXT_PAGE             "page "
 #define NXT_BRIGHTNESS       "dims="
 #define NXT_BAUD             "bauds="

@@ -53,11 +53,15 @@ var searchData=
   ['msgs_5fby_5fprio_50',['msgs_by_prio',['../classlinker_1_1BusLinker.html#a65251938e4d89fcd6bbf52fa91e8ab0b',1,'linker::BusLinker']]],
   ['msi_5foutput_5frate_5ftarget_5fhz_51',['msi_output_rate_target_hz',['../structClockRateConfig__t.html#a91cd53f101a121f6780767521beab1a4',1,'ClockRateConfig_t']]],
   ['mute_52',['MUTE',['../commands_8c.html#a511c64b735e0d0abd69291e42c259a6f',1,'MUTE:&#160;commands.c'],['../commands_8h.html#a511c64b735e0d0abd69291e42c259a6f',1,'MUTE:&#160;commands.c']]],
-  ['mutex_53',['Mutex',['../ffsystem_8c.html#a8523239bd557bc10da104d361f0fbb41',1,'ffsystem.c']]],
-  ['mutexcontrolblocks_54',['MutexControlBlocks',['../ffsystem_8c.html#a7de0237daa730e7d4f36db31e28b443e',1,'ffsystem.c']]],
-  ['mux_5faddr_55',['mux_addr',['../structsdc__node__t.html#afc450fbd57df7c3aef10390027fd46b6',1,'sdc_node_t']]],
-  ['mux_5findex_56',['mux_index',['../auto__switch_8c.html#ad4f7743391576e14f10cbad7f43e1107',1,'auto_switch.c']]],
-  ['mux_5fout_57',['mux_out',['../structADCReadings__t.html#aa6cc99ea866aa729268572eae945dbaa',1,'ADCReadings_t']]],
-  ['mux_5freadings_58',['mux_readings',['../auto__switch_8c.html#a5ef842dc2e4be63a9191c2a1c9dac206',1,'auto_switch.c']]],
-  ['mux_5frequest_59',['mux_request',['../structdma__init__t.html#a89d56b6aa15a185bb69dec4c78a2c279',1,'dma_init_t']]]
+  ['muted_5fblue_53',['MUTED_BLUE',['../colors_8h.html#a46f95052a250fadb5f243d9c1e4ec343',1,'colors.h']]],
+  ['muted_5fgreen_54',['MUTED_GREEN',['../colors_8h.html#a7a536021206f05439e052feb1ce5cddd',1,'colors.h']]],
+  ['muted_5fred_55',['MUTED_RED',['../colors_8h.html#aee24eb0013072041d01e42322aca5dd8',1,'colors.h']]],
+  ['muted_5fyellow_56',['MUTED_YELLOW',['../colors_8h.html#a8738427affedebee707e7a1bf8a1988e',1,'colors.h']]],
+  ['mutex_57',['Mutex',['../ffsystem_8c.html#a8523239bd557bc10da104d361f0fbb41',1,'ffsystem.c']]],
+  ['mutexcontrolblocks_58',['MutexControlBlocks',['../ffsystem_8c.html#a7de0237daa730e7d4f36db31e28b443e',1,'ffsystem.c']]],
+  ['mux_5faddr_59',['mux_addr',['../structsdc__node__t.html#afc450fbd57df7c3aef10390027fd46b6',1,'sdc_node_t']]],
+  ['mux_5findex_60',['mux_index',['../auto__switch_8c.html#ad4f7743391576e14f10cbad7f43e1107',1,'auto_switch.c']]],
+  ['mux_5fout_61',['mux_out',['../structADCReadings__t.html#aa6cc99ea866aa729268572eae945dbaa',1,'ADCReadings_t']]],
+  ['mux_5freadings_62',['mux_readings',['../auto__switch_8c.html#a5ef842dc2e4be63a9191c2a1c9dac206',1,'auto_switch.c']]],
+  ['mux_5frequest_63',['mux_request',['../structdma__init__t.html#a89d56b6aa15a185bb69dec4c78a2c279',1,'dma_init_t']]]
 ];

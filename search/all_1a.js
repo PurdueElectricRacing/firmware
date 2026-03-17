@@ -33,7 +33,7 @@ var searchData=
   ['update_5fcar_5fstate_5ftelemetry_30',['update_car_state_telemetry',['../race_8c.html#af94dd7e3b6512b662e2e44124a1a660c',1,'race.c']]],
   ['update_5fcooling_5fperiodic_31',['update_cooling_periodic',['../cooling_8c.html#a3e02c27284622cd9e494e2af92cbe398',1,'update_cooling_periodic():&#160;cooling.c'],['../cooling_8h.html#a3e02c27284622cd9e494e2af92cbe398',1,'update_cooling_periodic():&#160;cooling.c']]],
   ['update_5fcrc_32',['update_crc',['../crc_8c.html#a9e77f93e732c5c4633004ca4e0c19fbd',1,'crc.c']]],
-  ['update_5ffault_33',['update_fault',['../faults__common_8h.html#a30c665a5b3c4674a4854fcd2210406a0',1,'faults_common.h']]],
+  ['update_5ffault_33',['update_fault',['../faults__common_8h.html#af55b58b58005adef79c816e1e1d8cd70',1,'faults_common.h']]],
   ['update_5figbt_5ftelemetry_34',['update_igbt_telemetry',['../race_8c.html#ac86b7955f40539589f8904e0213c368e',1,'race.c']]],
   ['update_5fmotor_5ftelemetry_35',['update_motor_telemetry',['../race_8c.html#a236fe508f9d82e9178cdb22b363116b7',1,'race.c']]],
   ['update_5fpack_5ftelemetry_36',['update_pack_telemetry',['../race_8c.html#a218ea7152d92e1c6574e594de6c5f0be',1,'race.c']]],

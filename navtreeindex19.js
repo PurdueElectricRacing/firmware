@@ -1,6 +1,5 @@
 var NAVTREEINDEX19 =
 {
-"structadbms__bms__t.html#a3f35a3debc951e3533be8f8142a6c398":[7,0,5,3],
 "structadbms__bms__t.html#a5b2b1769ea04b93271a037d87444bb03":[7,0,5,12],
 "structadbms__bms__t.html#a5bf82d8f5b88621abee2f73ce7a56640":[7,0,5,5],
 "structadbms__bms__t.html#a6211801abd739018cc177e36c5040147":[7,0,5,1],
@@ -249,5 +248,6 @@ var NAVTREEINDEX19 =
 "structusart__rx__errors__t.html#abf71439361d0c2575b46c7eb42f61f8b":[7,0,59,5],
 "structusart__tx__errors__t.html":[7,0,60],
 "structusart__tx__errors__t.html#a080c7f4052d8d5f9b744c7538ba835a5":[7,0,60,0],
-"structusart__tx__errors__t.html#a4619827b6121000a0e72015da7ba738e":[7,0,60,1]
+"structusart__tx__errors__t.html#a4619827b6121000a0e72015da7ba738e":[7,0,60,1],
+"structusart__tx__errors__t.html#a5f78132d149494385100ed372f8e0885":[7,0,60,2]
 };

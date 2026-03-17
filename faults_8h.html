@@ -149,8 +149,16 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:adeceab864f6b69ad5454f2de2cb8f802" id="r_adeceab864f6b69ad5454f2de2cb8f802"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adeceab864f6b69ad5454f2de2cb8f802">fault_telemetry_update</a> (void)</td></tr>
-<tr class="separator:adeceab864f6b69ad5454f2de2cb8f802"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a485ee86ab08012cb879de88af565e596" id="r_a485ee86ab08012cb879de88af565e596"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a485ee86ab08012cb879de88af565e596">faults_update</a> (void)</td></tr>
+<tr class="separator:a485ee86ab08012cb879de88af565e596"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38e94e380e93875214d9c8579dc7a006" id="r_a38e94e380e93875214d9c8579dc7a006"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38e94e380e93875214d9c8579dc7a006">faults_move_up</a> (void)</td></tr>
+<tr class="separator:a38e94e380e93875214d9c8579dc7a006"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94d6f13b83e7bc7da77e6df88d39b8c7" id="r_a94d6f13b83e7bc7da77e6df88d39b8c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a94d6f13b83e7bc7da77e6df88d39b8c7">faults_move_down</a> (void)</td></tr>
+<tr class="separator:a94d6f13b83e7bc7da77e6df88d39b8c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93581b575e6bcb9de7f38980237bf965" id="r_a93581b575e6bcb9de7f38980237bf965"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93581b575e6bcb9de7f38980237bf965">faults_select</a> (void)</td></tr>
+<tr class="separator:a93581b575e6bcb9de7f38980237bf965"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b3a3d15a61836bc8747994b6fd90be1" id="r_a9b3a3d15a61836bc8747994b6fd90be1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b3a3d15a61836bc8747994b6fd90be1">faults_telemetry_update</a> (void)</td></tr>
+<tr class="separator:a9b3a3d15a61836bc8747994b6fd90be1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Faults page implementation. </p>
@@ -447,14 +455,77 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="adeceab864f6b69ad5454f2de2cb8f802" name="adeceab864f6b69ad5454f2de2cb8f802"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adeceab864f6b69ad5454f2de2cb8f802">&#9670;&#160;</a></span>fault_telemetry_update()</h2>
+<a id="a94d6f13b83e7bc7da77e6df88d39b8c7" name="a94d6f13b83e7bc7da77e6df88d39b8c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94d6f13b83e7bc7da77e6df88d39b8c7">&#9670;&#160;</a></span>faults_move_down()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void fault_telemetry_update </td>
+          <td class="memname">void faults_move_down </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="faults_8c_source.html#l00073">73</a> of file <a class="el" href="faults_8c_source.html">faults.c</a>.</p>
+
+<p class="reference">References <a class="el" href="faults_8c_source.html#l00058">faults_page</a>, and <a class="el" href="menu__system_8c_source.html#l00070">MS_moveDown()</a>.</p>
+
+</div>
+</div>
+<a id="a38e94e380e93875214d9c8579dc7a006" name="a38e94e380e93875214d9c8579dc7a006"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38e94e380e93875214d9c8579dc7a006">&#9670;&#160;</a></span>faults_move_up()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void faults_move_up </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="faults_8c_source.html#l00069">69</a> of file <a class="el" href="faults_8c_source.html">faults.c</a>.</p>
+
+<p class="reference">References <a class="el" href="faults_8c_source.html#l00058">faults_page</a>, and <a class="el" href="menu__system_8c_source.html#l00049">MS_moveUp()</a>.</p>
+
+</div>
+</div>
+<a id="a93581b575e6bcb9de7f38980237bf965" name="a93581b575e6bcb9de7f38980237bf965"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93581b575e6bcb9de7f38980237bf965">&#9670;&#160;</a></span>faults_select()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void faults_select </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="faults_8c_source.html#l00077">77</a> of file <a class="el" href="faults_8c_source.html">faults.c</a>.</p>
+
+<p class="reference">References <a class="el" href="faults_8c_source.html#l00058">faults_page</a>, and <a class="el" href="menu__system_8c_source.html#l00091">MS_select()</a>.</p>
+
+</div>
+</div>
+<a id="a9b3a3d15a61836bc8747994b6fd90be1" name="a9b3a3d15a61836bc8747994b6fd90be1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b3a3d15a61836bc8747994b6fd90be1">&#9670;&#160;</a></span>faults_telemetry_update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void faults_telemetry_update </td>
           <td>(</td>
           <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -463,6 +534,27 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="faults_8c_source.html#l00081">81</a> of file <a class="el" href="faults_8c_source.html">faults.c</a>.</p>
+
+</div>
+</div>
+<a id="a485ee86ab08012cb879de88af565e596" name="a485ee86ab08012cb879de88af565e596"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a485ee86ab08012cb879de88af565e596">&#9670;&#160;</a></span>faults_update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void faults_update </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="faults_8c_source.html#l00065">65</a> of file <a class="el" href="faults_8c_source.html">faults.c</a>.</p>
+
+<p class="reference">References <a class="el" href="faults_8c_source.html#l00058">faults_page</a>, and <a class="el" href="menu__system_8c_source.html#l00203">MS_refreshPage()</a>.</p>
 
 </div>
 </div>

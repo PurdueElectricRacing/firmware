@@ -16,7 +16,8 @@ var searchData=
   ['horizontalaccuracy_13',['horizontalAccuracy',['../structNAV__PVT__t.html#a94bd2e29f2131891fa0dfaae2269dabc',1,'NAV_PVT_t']]],
   ['hour_14',['hour',['../structNAV__PVT__t.html#a2bca5697d3ad496f6b243f6918263477',1,'NAV_PVT_t']]],
   ['hours_5fbcd_15',['hours_bcd',['../structRTC__time__t.html#a8d02832380abd6524b9d4272495f6252',1,'RTC_time_t']]],
-  ['hw_5fflow_5fctl_16',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]],
-  ['hxfan_5fimon_17',['hxfan_imon',['../structADCReadings__t.html#a0af6bd226cd5eebc206f7e87d856378d',1,'ADCReadings_t']]],
-  ['hxfan_5fstatus_18',['hxfan_status',['../structcooling__request__t.html#ab04d2e5031b8cf31400f515635e0cb4b',1,'cooling_request_t']]]
+  ['hover_5fborder_5fwidth_16',['HOVER_BORDER_WIDTH',['../menu__system_8c.html#a3c301bd8bfb775fb3e61da22899491ec',1,'menu_system.c']]],
+  ['hw_5fflow_5fctl_17',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]],
+  ['hxfan_5fimon_18',['hxfan_imon',['../structADCReadings__t.html#a0af6bd226cd5eebc206f7e87d856378d',1,'ADCReadings_t']]],
+  ['hxfan_5fstatus_19',['hxfan_status',['../structcooling__request__t.html#ab04d2e5031b8cf31400f515635e0cb4b',1,'cooling_request_t']]]
 ];

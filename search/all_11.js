@@ -83,7 +83,7 @@ var searchData=
   ['level_80',['Node Level',['..//github/workspace/common/can_library/configs/README.md#autotoc_md45',1,'']]],
   ['lfnbuf_81',['lfnbuf',['../structFATFS.html#ad1999aa771ae428c3abe14dbe585e981',1,'FATFS']]],
   ['lfnofs_82',['LfnOfs',['../ff_8c.html#a3b4d3baf920ca4a0ac8731e7b3e680c4',1,'ff.c']]],
-  ['light_5fgray_83',['LIGHT_GRAY',['../nextion_8h.html#a9663e02e20b5b578e6a31adae265cb88',1,'nextion.h']]],
+  ['light_5fgray_83',['LIGHT_GRAY',['../colors_8h.html#a47535194f7bbf6018e2316295e18a750',1,'colors.h']]],
   ['link_84',['link',['../classlinker_1_1BusLinker.html#af9380f9290a883f29ba09b0bb64a519f',1,'linker::BusLinker']]],
   ['link_5fall_85',['link_all',['../namespacelinker.html#aed4b2af437cd3fe7ac809072fc8999d7',1,'linker']]],
   ['linker_86',['3. Linker',['..//github/workspace/common/can_library/canpiler/README.md#autotoc_md33',1,'']]],

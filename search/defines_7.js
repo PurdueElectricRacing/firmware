@@ -110,6 +110,5 @@ var searchData=
   ['gpth_5frev_107',['GPTH_Rev',['../ff_8c.html#a2da96e2de03ca769426591b23fecdde9',1,'ff.c']]],
   ['gpth_5fsign_108',['GPTH_Sign',['../ff_8c.html#afff5a1b885cf62ef3382022e6f2bf5c2',1,'ff.c']]],
   ['gpth_5fsize_109',['GPTH_Size',['../ff_8c.html#a58237ab846855bf2b4a0ab750493e8a3',1,'ff.c']]],
-  ['great_110',['GREAT',['../daq_2main_8h.html#af0894540bc29ba5d31c3ed83f0809af4',1,'main.h']]],
-  ['green_111',['GREEN',['../nextion_8h.html#acfbc006ea433ad708fdee3e82996e721',1,'nextion.h']]]
+  ['great_110',['GREAT',['../daq_2main_8h.html#af0894540bc29ba5d31c3ed83f0809af4',1,'main.h']]]
 ];

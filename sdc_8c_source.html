@@ -160,7 +160,7 @@ $(function(){initNavTree('sdc_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordtype">bool</span> is_node_open = !<a class="code hl_function" href="phal__F4__F7_2gpio_2gpio_8h.html#a613ebbfff35a56132e58a75c773d7876">PHAL_readGPIO</a>(<a class="code hl_define" href="pindefs_8h.html#ae89c6f9448b5ebf484d754ff0bffe57b">SDC_MUX_PORT</a>, <a class="code hl_define" href="pindefs_8h.html#a65f979a00e84c8672ad78513ce027c57">SDC_MUX_PIN</a>);</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="comment">// Read the signal and update the relevant fault state</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <a class="code hl_function" href="faults__common_8h.html#a30c665a5b3c4674a4854fcd2210406a0">update_fault</a>(current_node-&gt;<a class="code hl_variable" href="structsdc__node__t.html#a9611bf30d66b9fd6fc325505b5eac983">fault_id</a>, is_node_open);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <a class="code hl_function" href="faults__common_8h.html#af55b58b58005adef79c816e1e1d8cd70">update_fault</a>(current_node-&gt;<a class="code hl_variable" href="structsdc__node__t.html#a9611bf30d66b9fd6fc325505b5eac983">fault_id</a>, is_node_open);</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">// update the poll id for the next cycle (0-16 = sdc 1-17)</span></div>
@@ -169,7 +169,7 @@ $(function(){initNavTree('sdc_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
 </div>
 <div class="ttc" id="afaults__common_8h_html"><div class="ttname"><a href="faults__common_8h.html">faults_common.h</a></div><div class="ttdoc">Event-based FIDR system.</div></div>
-<div class="ttc" id="afaults__common_8h_html_a30c665a5b3c4674a4854fcd2210406a0"><div class="ttname"><a href="faults__common_8h.html#a30c665a5b3c4674a4854fcd2210406a0">update_fault</a></div><div class="ttdeci">void update_fault(fault_id_t idx, uint16_t value)</div></div>
+<div class="ttc" id="afaults__common_8h_html_af55b58b58005adef79c816e1e1d8cd70"><div class="ttname"><a href="faults__common_8h.html#af55b58b58005adef79c816e1e1d8cd70">update_fault</a></div><div class="ttdeci">void update_fault(fault_id_t fault_id, uint16_t value)</div></div>
 <div class="ttc" id="afreertos_8h_html"><div class="ttname"><a href="freertos_8h.html">freertos.h</a></div><div class="ttdoc">Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati...</div></div>
 <div class="ttc" id="amain__module_2main_8h_html"><div class="ttname"><a href="main__module_2main_8h.html">main.h</a></div><div class="ttdoc">&quot;Main Module&quot; node source code</div></div>
 <div class="ttc" id="aphal_2gpio_8h_html"><div class="ttname"><a href="phal_2gpio_8h.html">gpio.h</a></div></div>

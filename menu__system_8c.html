@@ -97,8 +97,8 @@ $(function(){initNavTree('menu__system_8c.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">menu_system.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -106,26 +106,12 @@ $(function(){initNavTree('menu__system_8c.html',''); initResizable(true); });
 <p>Implementation of menu system for LCD display interface.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="menu__system_8h_source.html">menu_system.h</a>&quot;</code><br />
-<code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="colors_8h_source.html">colors.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="nextion_8h_source.html">nextion.h</a>&quot;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
 </div>
 <p><a href="menu__system_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a2e6154fd7a55f45e8eb5988f50eb6a39" id="r_a2e6154fd7a55f45e8eb5988f50eb6a39"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e6154fd7a55f45e8eb5988f50eb6a39">RUSH</a>&#160;&#160;&#160;(56640)</td></tr>
-<tr class="separator:a2e6154fd7a55f45e8eb5988f50eb6a39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a469c8a799aba9595bd02bf7e25e83cb6" id="r_a469c8a799aba9595bd02bf7e25e83cb6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a469c8a799aba9595bd02bf7e25e83cb6">BOILERMAKER</a>&#160;&#160;&#160;(52690)</td></tr>
-<tr class="separator:a469c8a799aba9595bd02bf7e25e83cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbab477a47201196b8e02020a1c022a1" id="r_abbab477a47201196b8e02020a1c022a1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abbab477a47201196b8e02020a1c022a1">FIELD</a>&#160;&#160;&#160;(56776)</td></tr>
-<tr class="separator:abbab477a47201196b8e02020a1c022a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c651c9e541c06ca19577be9e0e34e93" id="r_a0c651c9e541c06ca19577be9e0e34e93"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c651c9e541c06ca19577be9e0e34e93">STEEL</a>&#160;&#160;&#160;(21196)</td></tr>
-<tr class="separator:a0c651c9e541c06ca19577be9e0e34e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc6ec69d348d30239ece9c90001f4a5c" id="r_afc6ec69d348d30239ece9c90001f4a5c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afc6ec69d348d30239ece9c90001f4a5c">COOL_GRAY</a>&#160;&#160;&#160;(27535)</td></tr>
-<tr class="separator:afc6ec69d348d30239ece9c90001f4a5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e6f25a07fed4aa119add4f8dbde4f2e" id="r_a2e6f25a07fed4aa119add4f8dbde4f2e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e6f25a07fed4aa119add4f8dbde4f2e">STEAM</a>&#160;&#160;&#160;(50680)</td></tr>
-<tr class="separator:a2e6f25a07fed4aa119add4f8dbde4f2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a52e23759a2403de35a5610f96cae0cd0" id="r_a52e23759a2403de35a5610f96cae0cd0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52e23759a2403de35a5610f96cae0cd0">MS_setStyleNormal</a> (<a class="el" href="structmenu__element__t.html">menu_element_t</a> *element)</td></tr>
@@ -158,6 +144,13 @@ Functions</h2></td></tr>
 <tr class="memitem:a23c0189c067cb5dfd0a1ab4514e0ecc0" id="r_a23c0189c067cb5dfd0a1ab4514e0ecc0"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23c0189c067cb5dfd0a1ab4514e0ecc0">MS_listGetSelected</a> (<a class="el" href="structmenu__page__t.html">menu_page_t</a> *page)</td></tr>
 <tr class="memdesc:a23c0189c067cb5dfd0a1ab4514e0ecc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the index of the selected element in a menu page.  <br /></td></tr>
 <tr class="separator:a23c0189c067cb5dfd0a1ab4514e0ecc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a3c301bd8bfb775fb3e61da22899491ec" id="r_a3c301bd8bfb775fb3e61da22899491ec"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3c301bd8bfb775fb3e61da22899491ec">HOVER_BORDER_WIDTH</a> = 3</td></tr>
+<tr class="separator:a3c301bd8bfb775fb3e61da22899491ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1905c9ccf270185a84f5f2389a23c10" id="r_ab1905c9ccf270185a84f5f2389a23c10"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1905c9ccf270185a84f5f2389a23c10">NO_BORDER_WIDTH</a> = 0</td></tr>
+<tr class="separator:ab1905c9ccf270185a84f5f2389a23c10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of menu system for LCD display interface. </p>
@@ -165,110 +158,7 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
-</div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a469c8a799aba9595bd02bf7e25e83cb6" name="a469c8a799aba9595bd02bf7e25e83cb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a469c8a799aba9595bd02bf7e25e83cb6">&#9670;&#160;</a></span>BOILERMAKER</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define BOILERMAKER&#160;&#160;&#160;(52690)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00019">19</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
-
-</div>
-</div>
-<a id="afc6ec69d348d30239ece9c90001f4a5c" name="afc6ec69d348d30239ece9c90001f4a5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc6ec69d348d30239ece9c90001f4a5c">&#9670;&#160;</a></span>COOL_GRAY</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define COOL_GRAY&#160;&#160;&#160;(27535)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00022">22</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
-
-</div>
-</div>
-<a id="abbab477a47201196b8e02020a1c022a1" name="abbab477a47201196b8e02020a1c022a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbab477a47201196b8e02020a1c022a1">&#9670;&#160;</a></span>FIELD</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FIELD&#160;&#160;&#160;(56776)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00020">20</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
-
-</div>
-</div>
-<a id="a2e6154fd7a55f45e8eb5988f50eb6a39" name="a2e6154fd7a55f45e8eb5988f50eb6a39"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e6154fd7a55f45e8eb5988f50eb6a39">&#9670;&#160;</a></span>RUSH</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define RUSH&#160;&#160;&#160;(56640)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00018">18</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00051">MS_setStyleSelected()</a>.</p>
-
-</div>
-</div>
-<a id="a2e6f25a07fed4aa119add4f8dbde4f2e" name="a2e6f25a07fed4aa119add4f8dbde4f2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e6f25a07fed4aa119add4f8dbde4f2e">&#9670;&#160;</a></span>STEAM</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define STEAM&#160;&#160;&#160;(50680)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00023">23</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00040">MS_setStyleHover()</a>.</p>
-
-</div>
-</div>
-<a id="a0c651c9e541c06ca19577be9e0e34e93" name="a0c651c9e541c06ca19577be9e0e34e93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c651c9e541c06ca19577be9e0e34e93">&#9670;&#160;</a></span>STEEL</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define STEEL&#160;&#160;&#160;(21196)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00021">21</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00029">MS_setStyleNormal()</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a28391906e0d6d059553293e1e2e6e7f4" name="a28391906e0d6d059553293e1e2e6e7f4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a28391906e0d6d059553293e1e2e6e7f4">&#9670;&#160;</a></span>MS_decrementValue()</h2>
 
@@ -293,11 +183,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00191">191</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00179">179</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
 
-<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00040">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00020">ELEMENT_FLT</a>, <a class="el" href="menu__system_8h_source.html#l00019">ELEMENT_VAL</a>, <a class="el" href="menu__system_8h_source.html#l00043">menu_element_t::increment</a>, <a class="el" href="menu__system_8h_source.html#l00042">menu_element_t::max_value</a>, <a class="el" href="menu__system_8h_source.html#l00041">menu_element_t::min_value</a>, <a class="el" href="nextion_8c_source.html#l00107">NXT_setTextFormatted()</a>, <a class="el" href="nextion_8c_source.html#l00039">NXT_setValue()</a>, <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::object_name</a>, and <a class="el" href="menu__system_8h_source.html#l00036">menu_element_t::type</a>.</p>
+<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00039">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00019">ELEMENT_FLT</a>, <a class="el" href="menu__system_8h_source.html#l00018">ELEMENT_VAL</a>, <a class="el" href="menu__system_8h_source.html#l00042">menu_element_t::increment</a>, <a class="el" href="menu__system_8h_source.html#l00041">menu_element_t::max_value</a>, <a class="el" href="menu__system_8h_source.html#l00040">menu_element_t::min_value</a>, <a class="el" href="nextion_8c_source.html#l00107">NXT_setTextFormatted()</a>, <a class="el" href="nextion_8c_source.html#l00039">NXT_setValue()</a>, <a class="el" href="menu__system_8h_source.html#l00037">menu_element_t::object_name</a>, and <a class="el" href="menu__system_8h_source.html#l00035">menu_element_t::type</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00082">MS_moveDown()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00070">MS_moveDown()</a>.</p>
 
 </div>
 </div>
@@ -325,11 +215,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00164">164</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00152">152</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
 
-<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00040">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00020">ELEMENT_FLT</a>, <a class="el" href="menu__system_8h_source.html#l00019">ELEMENT_VAL</a>, <a class="el" href="menu__system_8h_source.html#l00043">menu_element_t::increment</a>, <a class="el" href="menu__system_8h_source.html#l00042">menu_element_t::max_value</a>, <a class="el" href="menu__system_8h_source.html#l00041">menu_element_t::min_value</a>, <a class="el" href="nextion_8c_source.html#l00107">NXT_setTextFormatted()</a>, <a class="el" href="nextion_8c_source.html#l00039">NXT_setValue()</a>, <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::object_name</a>, and <a class="el" href="menu__system_8h_source.html#l00036">menu_element_t::type</a>.</p>
+<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00039">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00019">ELEMENT_FLT</a>, <a class="el" href="menu__system_8h_source.html#l00018">ELEMENT_VAL</a>, <a class="el" href="menu__system_8h_source.html#l00042">menu_element_t::increment</a>, <a class="el" href="menu__system_8h_source.html#l00041">menu_element_t::max_value</a>, <a class="el" href="menu__system_8h_source.html#l00040">menu_element_t::min_value</a>, <a class="el" href="nextion_8c_source.html#l00107">NXT_setTextFormatted()</a>, <a class="el" href="nextion_8c_source.html#l00039">NXT_setValue()</a>, <a class="el" href="menu__system_8h_source.html#l00037">menu_element_t::object_name</a>, and <a class="el" href="menu__system_8h_source.html#l00035">menu_element_t::type</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00061">MS_moveUp()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00049">MS_moveUp()</a>.</p>
 
 </div>
 </div>
@@ -357,9 +247,9 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Index of the selected element, -1 if no element is selected </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00246">246</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00234">234</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
 
-<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00040">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::elements</a>, and <a class="el" href="menu__system_8h_source.html#l00049">menu_page_t::num_elements</a>.</p>
+<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00039">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00047">menu_page_t::elements</a>, and <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::num_elements</a>.</p>
 
 </div>
 </div>
@@ -386,11 +276,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00082">82</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00070">70</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
 
-<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00050">menu_page_t::current_index</a>, <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::elements</a>, <a class="el" href="menu__system_8h_source.html#l00051">menu_page_t::is_element_selected</a>, <a class="el" href="menu__system_8c_source.html#l00191">MS_decrementValue()</a>, <a class="el" href="menu__system_8c_source.html#l00040">MS_setStyleHover()</a>, <a class="el" href="menu__system_8c_source.html#l00029">MS_setStyleNormal()</a>, and <a class="el" href="menu__system_8h_source.html#l00049">menu_page_t::num_elements</a>.</p>
+<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00049">menu_page_t::current_index</a>, <a class="el" href="menu__system_8h_source.html#l00047">menu_page_t::elements</a>, <a class="el" href="menu__system_8h_source.html#l00050">menu_page_t::is_element_selected</a>, <a class="el" href="menu__system_8c_source.html#l00179">MS_decrementValue()</a>, <a class="el" href="menu__system_8c_source.html#l00032">MS_setStyleHover()</a>, <a class="el" href="menu__system_8c_source.html#l00023">MS_setStyleNormal()</a>, and <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::num_elements</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="faults_8c_source.html#l00073">fault_view_moveDown()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="faults_8c_source.html#l00073">faults_move_down()</a>.</p>
 
 </div>
 </div>
@@ -417,11 +307,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00061">61</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00049">49</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
 
-<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00050">menu_page_t::current_index</a>, <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::elements</a>, <a class="el" href="menu__system_8h_source.html#l00051">menu_page_t::is_element_selected</a>, <a class="el" href="menu__system_8c_source.html#l00164">MS_incrementValue()</a>, <a class="el" href="menu__system_8c_source.html#l00040">MS_setStyleHover()</a>, <a class="el" href="menu__system_8c_source.html#l00029">MS_setStyleNormal()</a>, and <a class="el" href="menu__system_8h_source.html#l00049">menu_page_t::num_elements</a>.</p>
+<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00049">menu_page_t::current_index</a>, <a class="el" href="menu__system_8h_source.html#l00047">menu_page_t::elements</a>, <a class="el" href="menu__system_8h_source.html#l00050">menu_page_t::is_element_selected</a>, <a class="el" href="menu__system_8c_source.html#l00152">MS_incrementValue()</a>, <a class="el" href="menu__system_8c_source.html#l00032">MS_setStyleHover()</a>, <a class="el" href="menu__system_8c_source.html#l00023">MS_setStyleNormal()</a>, and <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::num_elements</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="faults_8c_source.html#l00069">fault_view_moveUp()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="faults_8c_source.html#l00069">faults_move_up()</a>.</p>
 
 </div>
 </div>
@@ -448,11 +338,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00215">215</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00203">203</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
 
-<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00050">menu_page_t::current_index</a>, <a class="el" href="menu__system_8h_source.html#l00040">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00020">ELEMENT_FLT</a>, <a class="el" href="menu__system_8h_source.html#l00024">ELEMENT_LIST</a>, <a class="el" href="menu__system_8h_source.html#l00023">ELEMENT_OPTION</a>, <a class="el" href="menu__system_8h_source.html#l00019">ELEMENT_VAL</a>, <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::elements</a>, <a class="el" href="menu__system_8h_source.html#l00051">menu_page_t::is_element_selected</a>, <a class="el" href="menu__system_8c_source.html#l00051">MS_setStyleSelected()</a>, <a class="el" href="menu__system_8h_source.html#l00049">menu_page_t::num_elements</a>, <a class="el" href="nextion_8c_source.html#l00107">NXT_setTextFormatted()</a>, <a class="el" href="nextion_8c_source.html#l00039">NXT_setValue()</a>, <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::object_name</a>, and <a class="el" href="menu__system_8h_source.html#l00036">menu_element_t::type</a>.</p>
+<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00049">menu_page_t::current_index</a>, <a class="el" href="menu__system_8h_source.html#l00039">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00019">ELEMENT_FLT</a>, <a class="el" href="menu__system_8h_source.html#l00023">ELEMENT_LIST</a>, <a class="el" href="menu__system_8h_source.html#l00022">ELEMENT_OPTION</a>, <a class="el" href="menu__system_8h_source.html#l00018">ELEMENT_VAL</a>, <a class="el" href="menu__system_8h_source.html#l00047">menu_page_t::elements</a>, <a class="el" href="menu__system_8h_source.html#l00050">menu_page_t::is_element_selected</a>, <a class="el" href="menu__system_8c_source.html#l00040">MS_setStyleSelected()</a>, <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::num_elements</a>, <a class="el" href="nextion_8c_source.html#l00107">NXT_setTextFormatted()</a>, <a class="el" href="nextion_8c_source.html#l00039">NXT_setValue()</a>, <a class="el" href="menu__system_8h_source.html#l00037">menu_element_t::object_name</a>, and <a class="el" href="menu__system_8h_source.html#l00035">menu_element_t::type</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="faults_8c_source.html#l00065">fault_view_refresh()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="faults_8c_source.html#l00065">faults_update()</a>.</p>
 
 </div>
 </div>
@@ -479,11 +369,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00103">103</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00091">91</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
 
-<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00050">menu_page_t::current_index</a>, <a class="el" href="menu__system_8h_source.html#l00040">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00022">ELEMENT_BUTTON</a>, <a class="el" href="menu__system_8h_source.html#l00020">ELEMENT_FLT</a>, <a class="el" href="menu__system_8h_source.html#l00024">ELEMENT_LIST</a>, <a class="el" href="menu__system_8h_source.html#l00023">ELEMENT_OPTION</a>, <a class="el" href="menu__system_8h_source.html#l00019">ELEMENT_VAL</a>, <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::elements</a>, <a class="el" href="menu__system_8h_source.html#l00051">menu_page_t::is_element_selected</a>, <a class="el" href="menu__system_8c_source.html#l00040">MS_setStyleHover()</a>, <a class="el" href="menu__system_8c_source.html#l00029">MS_setStyleNormal()</a>, <a class="el" href="menu__system_8c_source.html#l00051">MS_setStyleSelected()</a>, <a class="el" href="menu__system_8h_source.html#l00049">menu_page_t::num_elements</a>, <a class="el" href="nextion_8c_source.html#l00039">NXT_setValue()</a>, <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::object_name</a>, <a class="el" href="menu__system_8h_source.html#l00039">menu_element_t::on_change</a>, and <a class="el" href="menu__system_8h_source.html#l00036">menu_element_t::type</a>.</p>
+<p class="reference">References <a class="el" href="menu__system_8h_source.html#l00049">menu_page_t::current_index</a>, <a class="el" href="menu__system_8h_source.html#l00039">menu_element_t::current_value</a>, <a class="el" href="menu__system_8h_source.html#l00021">ELEMENT_BUTTON</a>, <a class="el" href="menu__system_8h_source.html#l00019">ELEMENT_FLT</a>, <a class="el" href="menu__system_8h_source.html#l00023">ELEMENT_LIST</a>, <a class="el" href="menu__system_8h_source.html#l00022">ELEMENT_OPTION</a>, <a class="el" href="menu__system_8h_source.html#l00018">ELEMENT_VAL</a>, <a class="el" href="menu__system_8h_source.html#l00047">menu_page_t::elements</a>, <a class="el" href="menu__system_8h_source.html#l00050">menu_page_t::is_element_selected</a>, <a class="el" href="menu__system_8c_source.html#l00032">MS_setStyleHover()</a>, <a class="el" href="menu__system_8c_source.html#l00023">MS_setStyleNormal()</a>, <a class="el" href="menu__system_8c_source.html#l00040">MS_setStyleSelected()</a>, <a class="el" href="menu__system_8h_source.html#l00048">menu_page_t::num_elements</a>, <a class="el" href="nextion_8c_source.html#l00039">NXT_setValue()</a>, <a class="el" href="menu__system_8h_source.html#l00037">menu_element_t::object_name</a>, <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::on_change</a>, and <a class="el" href="menu__system_8h_source.html#l00035">menu_element_t::type</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="faults_8c_source.html#l00077">fault_view_select()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="faults_8c_source.html#l00077">faults_select()</a>.</p>
 
 </div>
 </div>
@@ -510,11 +400,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00040">40</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00032">32</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
 
-<p class="reference">References <a class="el" href="nextion_8h_source.html#l00030">BLACK</a>, <a class="el" href="nextion_8c_source.html#l00050">NXT_setBackground()</a>, <a class="el" href="nextion_8c_source.html#l00061">NXT_setFontColor()</a>, <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::object_name</a>, and <a class="el" href="menu__system_8c_source.html#l00023">STEAM</a>.</p>
+<p class="reference">References <a class="el" href="menu__system_8c_source.html#l00016">HOVER_BORDER_WIDTH</a>, <a class="el" href="nextion_8c_source.html#l00072">NXT_setBorderWidth()</a>, and <a class="el" href="menu__system_8h_source.html#l00037">menu_element_t::object_name</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00082">MS_moveDown()</a>, <a class="el" href="menu__system_8c_source.html#l00061">MS_moveUp()</a>, and <a class="el" href="menu__system_8c_source.html#l00103">MS_select()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00070">MS_moveDown()</a>, <a class="el" href="menu__system_8c_source.html#l00049">MS_moveUp()</a>, and <a class="el" href="menu__system_8c_source.html#l00091">MS_select()</a>.</p>
 
 </div>
 </div>
@@ -541,11 +431,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00029">29</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00023">23</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
 
-<p class="reference">References <a class="el" href="nextion_8c_source.html#l00050">NXT_setBackground()</a>, <a class="el" href="nextion_8c_source.html#l00061">NXT_setFontColor()</a>, <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::object_name</a>, <a class="el" href="menu__system_8c_source.html#l00021">STEEL</a>, and <a class="el" href="nextion_8h_source.html#l00023">WHITE</a>.</p>
+<p class="reference">References <a class="el" href="colors_8h_source.html#l00021">BLACK</a>, <a class="el" href="menu__system_8c_source.html#l00017">NO_BORDER_WIDTH</a>, <a class="el" href="nextion_8c_source.html#l00050">NXT_setBackground()</a>, <a class="el" href="nextion_8c_source.html#l00072">NXT_setBorderWidth()</a>, and <a class="el" href="menu__system_8h_source.html#l00037">menu_element_t::object_name</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00082">MS_moveDown()</a>, <a class="el" href="menu__system_8c_source.html#l00061">MS_moveUp()</a>, and <a class="el" href="menu__system_8c_source.html#l00103">MS_select()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00070">MS_moveDown()</a>, <a class="el" href="menu__system_8c_source.html#l00049">MS_moveUp()</a>, and <a class="el" href="menu__system_8c_source.html#l00091">MS_select()</a>.</p>
 
 </div>
 </div>
@@ -572,11 +462,64 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00051">51</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00040">40</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
 
-<p class="reference">References <a class="el" href="nextion_8c_source.html#l00050">NXT_setBackground()</a>, <a class="el" href="nextion_8c_source.html#l00061">NXT_setFontColor()</a>, <a class="el" href="menu__system_8h_source.html#l00038">menu_element_t::object_name</a>, <a class="el" href="menu__system_8c_source.html#l00018">RUSH</a>, and <a class="el" href="nextion_8h_source.html#l00023">WHITE</a>.</p>
+<p class="reference">References <a class="el" href="colors_8h_source.html#l00015">DARK_GRAY</a>, <a class="el" href="nextion_8c_source.html#l00050">NXT_setBackground()</a>, and <a class="el" href="menu__system_8h_source.html#l00037">menu_element_t::object_name</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00215">MS_refreshPage()</a>, and <a class="el" href="menu__system_8c_source.html#l00103">MS_select()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00203">MS_refreshPage()</a>, and <a class="el" href="menu__system_8c_source.html#l00091">MS_select()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a3c301bd8bfb775fb3e61da22899491ec" name="a3c301bd8bfb775fb3e61da22899491ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c301bd8bfb775fb3e61da22899491ec">&#9670;&#160;</a></span>HOVER_BORDER_WIDTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t HOVER_BORDER_WIDTH = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00016">16</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00032">MS_setStyleHover()</a>.</p>
+
+</div>
+</div>
+<a id="ab1905c9ccf270185a84f5f2389a23c10" name="ab1905c9ccf270185a84f5f2389a23c10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1905c9ccf270185a84f5f2389a23c10">&#9670;&#160;</a></span>NO_BORDER_WIDTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t NO_BORDER_WIDTH = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="menu__system_8c_source.html#l00017">17</a> of file <a class="el" href="menu__system_8c_source.html">menu_system.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="menu__system_8c_source.html#l00023">MS_setStyleNormal()</a>.</p>
 
 </div>
 </div>

@@ -59,7 +59,7 @@ var searchData=
   ['rear_5fleft_56',['rear_left',['../structcar__t.html#a1144b61118d0fac863c004ad6cb633ac',1,'car_t::rear_left'],['../structtorque__request__t.html#a459816998ad64658b2841fbed79c9bfd',1,'torque_request_t::rear_left']]],
   ['rear_5fright_57',['rear_right',['../structcar__t.html#a2b2cf6fa49d2222bbffd43c0754baf57',1,'car_t::rear_right'],['../structtorque__request__t.html#ae112ecb9eaa97db91fd3df4f338ee702',1,'torque_request_t::rear_right']]],
   ['receive_5fstruct_5fformat_58',['RECEIVE_STRUCT_FORMAT',['../namespacesend-and-rec.html#a3758ae561ee7e0d54695a1b4c21f1c18',1,'send-and-rec']]],
-  ['red_59',['RED',['../classutils_1_1bcolors.html#ab57123de3e4e04437ce063fd94c654ba',1,'utils::bcolors']]],
+  ['red_59',['RED',['../classutils_1_1bcolors.html#ab57123de3e4e04437ce063fd94c654ba',1,'utils.bcolors.RED'],['../colors_8h.html#a4ddeb42356517866d27fa61bfa82667d',1,'RED:&#160;colors.h']]],
   ['rega_60',['rega',['../structadbms__module__t.html#a46fda561ea45bb9434a405077d3c3319',1,'adbms_module_t']]],
   ['regb_61',['regb',['../structadbms__module__t.html#ac0cd01bbf8fd7ab58f6459aa43006424',1,'adbms_module_t']]],
   ['res_62',['res',['../structPHAL__SD__Cmd__t.html#ae23b8dee1eb85b64af1f55e610e3109d',1,'PHAL_SD_Cmd_t']]],

@@ -6,14 +6,12 @@ var searchData=
   ['rcc_5ffdcanclksource_5fpclk1_3',['RCC_FDCANCLKSOURCE_PCLK1',['../fdcan__priv_8h.html#a8f94cdfd972975981d05ac98f84514a7',1,'fdcan_priv.h']]],
   ['rcc_5ffdcanclksource_5fpll_4',['RCC_FDCANCLKSOURCE_PLL',['../fdcan__priv_8h.html#ab80bfb60e0d8c6ebbf5e0843fe1da7de',1,'fdcan_priv.h']]],
   ['rddem_5',['RDDEM',['../ff_8c.html#a24b6bc427cbd37fbe76e087f7f188abb',1,'ff.c']]],
-  ['red_6',['RED',['../nextion_8h.html#a8d23feea868a983c8c2b661e1e16972f',1,'nextion.h']]],
-  ['regen_5fled_5fpin_7',['REGEN_LED_PIN',['../dashboard_2main_8h.html#a99033f5d13d6b9740d65dbfeecd9cd2e',1,'main.h']]],
-  ['regen_5fled_5fport_8',['REGEN_LED_PORT',['../dashboard_2main_8h.html#ae7eff457babe433b4bbb6d1ea2adf304',1,'main.h']]],
-  ['rgn_5fbar_9',['RGN_BAR',['../race_8h.html#adcbd24807c368922f903d005bb57ace5',1,'race.h']]],
-  ['rl_5fbar_10',['RL_BAR',['../race_8h.html#a7f1446c9ca232acfe50218b2dc8b1c7e',1,'race.h']]],
-  ['rr_5fbar_11',['RR_BAR',['../race_8h.html#a6f4deff86b034f68083e782d0acbd8af',1,'race.h']]],
-  ['rtc_5fasync_5fprescal_12',['RTC_ASYNC_PRESCAL',['../phal__F4__F7_2rtc_2rtc_8h.html#a23265a91627f354343a8bf32bdcab608',1,'rtc.h']]],
-  ['rtc_5fconv_5fto_5fbcd_13',['RTC_CONV_TO_BCD',['../phal__F4__F7_2rtc_2rtc_8h.html#a3056be58546c4e25fed72a5eb743f94a',1,'rtc.h']]],
-  ['rtc_5fsync_5fprescal_14',['RTC_SYNC_PRESCAL',['../phal__F4__F7_2rtc_2rtc_8h.html#a74e42a61f38d2bc8242923e3ce6a68f8',1,'rtc.h']]],
-  ['rush_15',['RUSH',['../menu__system_8c.html#a2e6154fd7a55f45e8eb5988f50eb6a39',1,'menu_system.c']]]
+  ['regen_5fled_5fpin_6',['REGEN_LED_PIN',['../dashboard_2main_8h.html#a99033f5d13d6b9740d65dbfeecd9cd2e',1,'main.h']]],
+  ['regen_5fled_5fport_7',['REGEN_LED_PORT',['../dashboard_2main_8h.html#ae7eff457babe433b4bbb6d1ea2adf304',1,'main.h']]],
+  ['rgn_5fbar_8',['RGN_BAR',['../race_8h.html#adcbd24807c368922f903d005bb57ace5',1,'race.h']]],
+  ['rl_5fbar_9',['RL_BAR',['../race_8h.html#a7f1446c9ca232acfe50218b2dc8b1c7e',1,'race.h']]],
+  ['rr_5fbar_10',['RR_BAR',['../race_8h.html#a6f4deff86b034f68083e782d0acbd8af',1,'race.h']]],
+  ['rtc_5fasync_5fprescal_11',['RTC_ASYNC_PRESCAL',['../phal__F4__F7_2rtc_2rtc_8h.html#a23265a91627f354343a8bf32bdcab608',1,'rtc.h']]],
+  ['rtc_5fconv_5fto_5fbcd_12',['RTC_CONV_TO_BCD',['../phal__F4__F7_2rtc_2rtc_8h.html#a3056be58546c4e25fed72a5eb743f94a',1,'rtc.h']]],
+  ['rtc_5fsync_5fprescal_13',['RTC_SYNC_PRESCAL',['../phal__F4__F7_2rtc_2rtc_8h.html#a74e42a61f38d2bc8242923e3ce6a68f8',1,'rtc.h']]]
 ];

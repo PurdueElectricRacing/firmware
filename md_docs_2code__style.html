@@ -233,7 +233,7 @@ Rules and Suggestions</h2>
 <li>Always explicitly declare the base type of the enum, ESPECIALLY when it is a member of a <code>struct</code></li>
 <li>It is recommended to assign explicit values to each enum member</li>
 </ol>
-<p class="startli"><code>c // example enum typedef enum : uint8_t { FAULT_STATE_OK = 0, FAULT_STATE_PENDING = 1, FAULT_STATE_LATCHED = 2, FAULT_STATE_RECOVERING = 3 } fault_state_t; </code></p>
+<p class="startli"><code>c // example enum typedef enum : uint8_t { FAULT_STATE_CLEAR = 0, FAULT_STATE_PENDING = 1, FAULT_STATE_LATCHED = 2, FAULT_STATE_RECOVERING = 3 } fault_state_t; </code></p>
 </li>
 <li><p class="startli">Check null pointers before dereferencing</p>
 <p class="startli">```c // bad void pass_by_reference(uint16_t *ptr) { *ptr = 10 }</p>

@@ -1,5 +1,6 @@
 var NAVTREEINDEX16 =
 {
+"pwm_8h.html#a0feea9f1d41ed207ccc9901fb1ec3be2":[8,0,0,12,6,1,1],
 "pwm_8h.html#ab72396114a93e461ec3d59ba61aaa976":[8,0,0,12,6,1,0],
 "pwm_8h_source.html":[8,0,0,12,6,1],
 "pwm__testing_8c.html":[8,0,2,4,4],
@@ -248,6 +249,5 @@ var NAVTREEINDEX16 =
 "sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8ca07b0cc4f75330bdc7efb59f3b3492a3f":[8,0,2,1,2,1,129,22],
 "sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8ca093949ff310e17d6596e686804cd0e1e":[8,0,2,1,2,1,129,13],
 "sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8ca1111de40fd22949b14d492954755a70c":[8,0,2,1,2,1,129,37],
-"sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8ca2435ce658dcb58fc0970c9750fecbf10":[8,0,2,1,2,1,129,7],
-"sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8ca280d7d545d73078027a223ff35a2b696":[8,0,2,1,2,1,129,39]
+"sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8ca2435ce658dcb58fc0970c9750fecbf10":[8,0,2,1,2,1,129,7]
 };

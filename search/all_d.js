@@ -222,7 +222,7 @@ var searchData=
   ['gpth_5fsign_219',['GPTH_Sign',['../ff_8c.html#afff5a1b885cf62ef3382022e6f2bf5c2',1,'ff.c']]],
   ['gpth_5fsize_220',['GPTH_Size',['../ff_8c.html#a58237ab846855bf2b4a0ab750493e8a3',1,'ff.c']]],
   ['great_221',['GREAT',['../daq_2main_8h.html#af0894540bc29ba5d31c3ed83f0809af4',1,'main.h']]],
-  ['green_222',['GREEN',['../classutils_1_1bcolors.html#aa6a8c026d01cc05d51531af6ec9a37cb',1,'utils.bcolors.GREEN'],['../nextion_8h.html#acfbc006ea433ad708fdee3e82996e721',1,'GREEN:&#160;nextion.h']]],
+  ['green_222',['GREEN',['../classutils_1_1bcolors.html#aa6a8c026d01cc05d51531af6ec9a37cb',1,'utils.bcolors.GREEN'],['../colors_8h.html#a0e60d91d28eb400c0c99c4d6be3edd65',1,'GREEN:&#160;colors.h']]],
   ['groundspeed_223',['groundSpeed',['../structNAV__PVT__t.html#a2e9e003fdbd5fbd7ee45aa776a630904',1,'NAV_PVT_t']]],
   ['gw_224',['gw',['../structwiz__NetInfo.html#a27bed859246669aaf4c83bb0258eb4fa',1,'wiz_NetInfo']]],
   ['gyro_5fdatarate_225',['gyro_datarate',['../structBMI088__Handle__t.html#addd17bffaa0828170649e650edf99c06',1,'BMI088_Handle_t']]],

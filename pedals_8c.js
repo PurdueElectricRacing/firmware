@@ -8,8 +8,6 @@ var pedals_8c =
     [ "APPS_THROTTLE_THRESHOLD", "pedals_8c.html#ab5e207fbb792838d2eda926b595ce89e", null ],
     [ "BRAKE1_MAX", "pedals_8c.html#a8182fb64b059c1a510e2d938eb081a69", null ],
     [ "BRAKE1_MIN", "pedals_8c.html#a98a3a4ce675601bacd4affa0de232839", null ],
-    [ "BRAKE2_MAX", "pedals_8c.html#a877b5fb487a73356fdc54b33995d0d8e", null ],
-    [ "BRAKE2_MIN", "pedals_8c.html#a2f74cc661b11f809e8ca9b34b68b7015", null ],
     [ "pedal_values", "pedals_8c.html#a04f66772314df6ee10ca7ccf555278cd", null ],
     [ "THROTTLE1_MAX", "pedals_8c.html#a50b38032ee0ab56ca505bd670b45f2c9", null ],
     [ "THROTTLE1_MIN", "pedals_8c.html#a7ecaa09d241f96c6b3442c7b0f6e9fde", null ],

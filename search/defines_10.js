@@ -288,9 +288,7 @@ var searchData=
   ['start_5fheartbeat_5ftask_285',['START_HEARTBEAT_TASK',['../heartbeat_8h.html#af26a1445fde81a0129f7cbc8df05234b',1,'heartbeat.h']]],
   ['start_5ftask_286',['START_TASK',['../freertos_8h.html#abe574562452fd3a573084481cb7a9cf3',1,'freertos.h']]],
   ['std_5fid_5fmask_287',['STD_ID_MASK',['../daq_2main_8h.html#a9a7a20771e18d9f6c6f93ac4c48facde',1,'main.h']]],
-  ['steam_288',['STEAM',['../menu__system_8c.html#a2e6f25a07fed4aa119add4f8dbde4f2e',1,'menu_system.c']]],
-  ['steel_289',['STEEL',['../menu__system_8c.html#a0c651c9e541c06ca19577be9e0e34e93',1,'menu_system.c']]],
-  ['sz_5fgpte_290',['SZ_GPTE',['../ff_8c.html#aaaa69650a3bce4a6f68f88e2e3a07f43',1,'ff.c']]],
-  ['sz_5fpte_291',['SZ_PTE',['../ff_8c.html#af133060c47366e7e557d4085d931183f',1,'ff.c']]],
-  ['szdire_292',['SZDIRE',['../ff_8c.html#a90943705ce4b32e47562c9f56860c7af',1,'ff.c']]]
+  ['sz_5fgpte_288',['SZ_GPTE',['../ff_8c.html#aaaa69650a3bce4a6f68f88e2e3a07f43',1,'ff.c']]],
+  ['sz_5fpte_289',['SZ_PTE',['../ff_8c.html#af133060c47366e7e557d4085d931183f',1,'ff.c']]],
+  ['szdire_290',['SZDIRE',['../ff_8c.html#a90943705ce4b32e47562c9f56860c7af',1,'ff.c']]]
 ];

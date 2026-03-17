@@ -35,7 +35,7 @@ var searchData=
   ['daq_5fspi_2ec_32',['daq_spi.c',['../daq__spi_8c.html',1,'']]],
   ['daq_5fspi_2eh_33',['daq_spi.h',['../daq__spi_8h.html',1,'']]],
   ['daq_5fspi_5fregister_5fcallbacks_34',['daq_spi_register_callbacks',['../daq__spi_8c.html#a24fc1aee5d45c9bf7d31d3e844fd8b6e',1,'daq_spi_register_callbacks(void):&#160;daq_spi.c'],['../daq__spi_8h.html#a24fc1aee5d45c9bf7d31d3e844fd8b6e',1,'daq_spi_register_callbacks(void):&#160;daq_spi.c']]],
-  ['dark_5fgray_35',['DARK_GRAY',['../nextion_8h.html#aca56870f2285abae489635f0ee4d65e3',1,'nextion.h']]],
+  ['dark_5fgray_35',['DARK_GRAY',['../colors_8h.html#a3d2faf9045cd447b1c2938e70df62e33',1,'colors.h']]],
   ['dash_5fcs_36',['dash_cs',['../structADCReadings__t.html#a390c881bec8ae9e4af84fedbb08554b5',1,'ADCReadings_t']]],
   ['dash_5fcs_5fadc_5fchnl_37',['DASH_CS_ADC_CHNL',['../pdu_2main_8h.html#a8a5983ded49c96ee81ee435caaf3d645',1,'main.h']]],
   ['dash_5fcs_5fgpio_5fport_38',['DASH_CS_GPIO_Port',['../pdu_2main_8h.html#a94dcae86b2f584dfe45ef4b76b459e29',1,'main.h']]],

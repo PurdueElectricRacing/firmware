@@ -247,7 +247,7 @@ var NAVTREEINDEX2 =
 "codegen_8py.html#aa73182b45936bd454fcae67726fd0394":[8,0,0,3,0,1,0],
 "codegen_8py.html#aaf47cca1200566d421b607fccba76810":[8,0,0,3,0,1,3],
 "codegen_8py_source.html":[8,0,0,3,0,1],
-"commands_8c.html":[8,0,2,0,0,4],
-"commands_8c.html#a02512a6509a4fdab64dda70725cfd537":[8,0,2,0,0,4,25],
-"commands_8c.html#a1562c2ce8eba9d26439f88bfe0fc425d":[8,0,2,0,0,4,28]
+"colors_8h.html":[8,0,2,2,0,1],
+"colors_8h.html#a01ca0b8d16a19254e9afaafe8a4653aa":[8,0,2,2,0,1,10],
+"colors_8h.html#a0495be85124bee06b6aaa0a379b7a0c8":[8,0,2,2,0,1,0]
 };

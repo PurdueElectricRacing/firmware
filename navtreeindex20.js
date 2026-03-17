@@ -1,6 +1,5 @@
 var NAVTREEINDEX20 =
 {
-"structusart__tx__errors__t.html#a5f78132d149494385100ed372f8e0885":[7,0,60,2],
 "structvoltage__t.html":[7,0,61],
 "structvoltage__t.html#a18c9ce48d5effc7e11b2eca371925cf0":[7,0,61,2],
 "structvoltage__t.html#a3a9409130cff6a1e817501e4305b76ad":[7,0,61,1],
@@ -249,5 +248,6 @@ var NAVTREEINDEX20 =
 "w5500_8h.html#ab6cf8eea2f492464f992bfe1ba97c67a":[8,0,2,1,4,3,76],
 "w5500_8h.html#aba5cffa90ce609d64d0027285d41336d":[8,0,2,1,4,3,45],
 "w5500_8h.html#abc39e3f85e53d41bcdf7d014d4b009bc":[8,0,2,1,4,3,92],
-"w5500_8h.html#abd0cb4be1cfc71f6c10f7c04b411373a":[8,0,2,1,4,3,83]
+"w5500_8h.html#abd0cb4be1cfc71f6c10f7c04b411373a":[8,0,2,1,4,3,83],
+"w5500_8h.html#abf96615d54d7d81630efc2e8f1770223":[8,0,2,1,4,3,63]
 };

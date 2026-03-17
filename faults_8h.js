@@ -18,5 +18,9 @@ var faults_8h =
     [ "FAULT8_TXT", "faults_8h.html#ad81ef7bd543ab42bc940b127faf3047e", null ],
     [ "FAULT_NONE_STRING", "faults_8h.html#af7e4b8e3473e9d70a9f25ce9ca6a0191", null ],
     [ "FAULT_STRING", "faults_8h.html#a0a344e22ec915588172914c3a5a523a6", null ],
-    [ "fault_telemetry_update", "faults_8h.html#adeceab864f6b69ad5454f2de2cb8f802", null ]
+    [ "faults_move_down", "faults_8h.html#a94d6f13b83e7bc7da77e6df88d39b8c7", null ],
+    [ "faults_move_up", "faults_8h.html#a38e94e380e93875214d9c8579dc7a006", null ],
+    [ "faults_select", "faults_8h.html#a93581b575e6bcb9de7f38980237bf965", null ],
+    [ "faults_telemetry_update", "faults_8h.html#a9b3a3d15a61836bc8747994b6fd90be1", null ],
+    [ "faults_update", "faults_8h.html#a485ee86ab08012cb879de88af565e596", null ]
 ];

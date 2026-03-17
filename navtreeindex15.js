@@ -1,5 +1,6 @@
 var NAVTREEINDEX15 =
 {
+"phal__G4_2dma_2dma_8h.html#afbbae78e38bfc3ee7c8e29db0b60fa5a":[8,0,0,13,1,1,11],
 "phal__G4_2dma_2dma_8h_source.html":[8,0,0,13,1,1],
 "phal__G4_2gpio_2gpio_8c.html":[8,0,0,13,3,0],
 "phal__G4_2gpio_2gpio_8c.html#a9f473c8a74e27d069fa4de69fcbb4d60":[8,0,0,13,3,0,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX15 =
 "pwm_8c.html#ae3f547c0ac514dd12e5bab27a6b60bec":[8,0,0,12,6,0,2],
 "pwm_8c.html#afdc1120bbc54485ac4c735d8f9756743":[8,0,0,12,6,0,3],
 "pwm_8c_source.html":[8,0,0,12,6,0],
-"pwm_8h.html":[8,0,0,12,6,1],
-"pwm_8h.html#a0feea9f1d41ed207ccc9901fb1ec3be2":[8,0,0,12,6,1,1]
+"pwm_8h.html":[8,0,0,12,6,1]
 };

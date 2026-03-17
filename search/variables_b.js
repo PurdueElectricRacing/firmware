@@ -20,11 +20,12 @@ var searchData=
   ['length_17',['length',['../classparser_1_1Signal.html#a0d01440070b915c81f4281c43924919c',1,'parser.Signal.length'],['../structstrbuf__t.html#ae6fc3758286e761d9c7873b489786a89',1,'strbuf_t::length']]],
   ['lfnbuf_18',['lfnbuf',['../structFATFS.html#ad1999aa771ae428c3abe14dbe585e981',1,'FATFS']]],
   ['lfnofs_19',['LfnOfs',['../ff_8c.html#a3b4d3baf920ca4a0ac8731e7b3e680c4',1,'ff.c']]],
-  ['log_5fenable_5fsw_20',['log_enable_sw',['../structdaq__hub__t.html#a30728bd411c9acd1b9bf3056c9e0b3d7',1,'daq_hub_t']]],
-  ['log_5fenable_5ftcp_21',['log_enable_tcp',['../structdaq__hub__t.html#aa51794676ebd4d12eba28f3dc62cd2d3',1,'daq_hub_t']]],
-  ['log_5ffp_22',['log_fp',['../structdaq__hub__t.html#ac3463ce5b2ad2142596d134db34456a8',1,'daq_hub_t']]],
-  ['log_5fstart_5fms_23',['log_start_ms',['../structdaq__hub__t.html#a500fb86b3428b8b4ee8153db523180e5',1,'daq_hub_t']]],
-  ['longitude_24',['longitude',['../structNAV__PVT__t.html#ab8d8baf81fbfcba9623bfdf5d6235766',1,'NAV_PVT_t']]],
-  ['lower_5fbound_25',['lower_bound',['../structbangbang__t.html#a267162078132dc1ef04b43874c16cb12',1,'bangbang_t']]],
-  ['lte_5fusart_5fconfig_26',['lte_usart_config',['../daq_2main_8c.html#a0c138f0e32038f427ab58d409c2708ae',1,'main.c']]]
+  ['light_5fgray_20',['LIGHT_GRAY',['../colors_8h.html#a47535194f7bbf6018e2316295e18a750',1,'colors.h']]],
+  ['log_5fenable_5fsw_21',['log_enable_sw',['../structdaq__hub__t.html#a30728bd411c9acd1b9bf3056c9e0b3d7',1,'daq_hub_t']]],
+  ['log_5fenable_5ftcp_22',['log_enable_tcp',['../structdaq__hub__t.html#aa51794676ebd4d12eba28f3dc62cd2d3',1,'daq_hub_t']]],
+  ['log_5ffp_23',['log_fp',['../structdaq__hub__t.html#ac3463ce5b2ad2142596d134db34456a8',1,'daq_hub_t']]],
+  ['log_5fstart_5fms_24',['log_start_ms',['../structdaq__hub__t.html#a500fb86b3428b8b4ee8153db523180e5',1,'daq_hub_t']]],
+  ['longitude_25',['longitude',['../structNAV__PVT__t.html#ab8d8baf81fbfcba9623bfdf5d6235766',1,'NAV_PVT_t']]],
+  ['lower_5fbound_26',['lower_bound',['../structbangbang__t.html#a267162078132dc1ef04b43874c16cb12',1,'bangbang_t']]],
+  ['lte_5fusart_5fconfig_27',['lte_usart_config',['../daq_2main_8c.html#a0c138f0e32038f427ab58d409c2708ae',1,'main.c']]]
 ];

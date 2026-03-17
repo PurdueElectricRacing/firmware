@@ -47,14 +47,6 @@ static inline bool is_init_complete() {
     return true;
 }
 
-static inline bool is_TSMS_closed() {
-    return !is_latched(FAULT_ID_SDC16_TSMS);
-}
-
-static inline bool is_precharge_complete() {
-    return !is_latched(FAULT_ID_PRECHARGE_INCOMPLETE);
-}
-
 static inline bool is_all_AMKS_running() {
     return g_car.front_right.state == AMK_STATE_RUNNING
         && g_car.front_left.state  == AMK_STATE_RUNNING
@@ -162,7 +154,7 @@ void fsm_periodic() {
         case CAR_STATE_IDLE: {
             // do nothing for now
 
-            if (is_TSMS_closed()) {
+            if (is_clear(FAULT_ID_SDC16_TSMS)) { // TSMS is closed
                 g_car.next_state = CAR_STATE_PRECHARGING;
             }
             break;
@@ -170,7 +162,7 @@ void fsm_periodic() {
         case CAR_STATE_PRECHARGING: {
             // do nothing for now
 
-            if (is_precharge_complete()) {
+            if (is_clear(FAULT_ID_PRECHARGE_INCOMPLETE)) { // precharge is complete
                 g_car.next_state = CAR_STATE_ENERGIZED;
             }
             break;

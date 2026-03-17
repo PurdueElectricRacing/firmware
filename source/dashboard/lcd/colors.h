@@ -2,7 +2,7 @@
 #define COLORS_H
 
 /**
- * @file colors.c
+ * @file colors.h
  * @brief Color definitions for LCD display
  *
  * @author Irving Wang (irvingw@purdue.edu)
@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 
-// PER26 Color Pallete in 565 format
+// PER26 Color Pallette in 565 format
 static constexpr uint16_t WHITE        = 65535; // #FFFFFF
 static constexpr uint16_t DARK_GRAY    = 33808; // #838383
 static constexpr uint16_t LIGHT_GRAY   = 57051; // #D9D9D9

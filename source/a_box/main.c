@@ -168,6 +168,15 @@ void check_faults() {
     bool imd_status = PHAL_readGPIO(IMD_STATUS_PORT, IMD_STATUS_PIN);
     update_fault(FAULT_ID_IMD, imd_status);
 
+    // BMS
+    bool is_bms_disconnected = g_bms.state != ADBMS_STATE_CONNECTED;
+    update_fault(FAULT_ID_BMS_DISCONNECTED, is_bms_disconnected);
+    PHAL_writeGPIO(BMS_SDC_CTRL_PORT, BMS_SDC_CTRL_PIN, is_clear(FAULT_ID_BMS_DISCONNECTED));
+
+    // Cell voltage bounds
+    int16_t scaled_min_voltage = (int16_t)(g_bms.min_voltage * 10.0f);
+    update_fault(FAULT_ID_CELL_UNDERVOLTAGE, scaled_min_voltage);
+
     // Temperature related
     update_fault(FAULT_ID_PACK_OVERTEMP, g_bms.max_therm_temp);
     update_fault(FAULT_ID_PACK_WARM, g_bms.max_therm_temp);

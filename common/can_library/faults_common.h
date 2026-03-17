@@ -19,7 +19,7 @@ typedef enum : uint8_t {
 } fault_priority_t;
 
 typedef enum : uint8_t {
-    FAULT_STATE_OK = 0,
+    FAULT_STATE_CLEAR = 0,
     FAULT_STATE_PENDING = 1,
     FAULT_STATE_LATCHED = 2,
     FAULT_STATE_RECOVERING = 3
@@ -37,8 +37,9 @@ typedef struct {
 } fault_t;
 
 // API
-void update_fault(fault_id_t idx, uint16_t value);
-bool is_latched(fault_id_t idx);
+void update_fault(fault_id_t fault_id, uint16_t value);
+bool is_latched(fault_id_t fault_id);
+bool is_clear(fault_id_t fault_id);
 void fault_library_periodic();
 
 bool is_warning_latched();
@@ -49,7 +50,7 @@ bool is_other_mcus_latched();
 bool is_any_latched();
 
 #ifdef HAS_FAULT_STRINGS
-const char* get_fault_string(fault_id_t idx);
+const char* get_fault_string(fault_id_t fault_id);
 #endif
 
 #endif // FAULTS_COMMON_H

@@ -29,6 +29,10 @@
 #define FAULT8_TXT        "ERROR8"
 #define FAULT_NONE_STRING "NONE\0"
 
-void fault_telemetry_update(void);
+void faults_update(void);
+void faults_move_up(void);
+void faults_move_down(void);
+void faults_select(void);
+void faults_telemetry_update(void);
 
 #endif // FAULTS_H

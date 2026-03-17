@@ -10,6 +10,7 @@
 #include "nextion.h"
 #include "common/can_library/faults_common.h"
 #include "main.h"
+#include "colors.h"
 
 /**
  * @brief Updates the LCD display with current pedal telemetry data when on CALIBRATION page
@@ -35,7 +36,7 @@ void calibration_telemetry_update() {
     }
 
     NXT_setTextFormatted(CALIBRATION_THROTTLE1, "%d", raw_adc_values.t1);
-    NXT_setTextFormatted(CALIBRATION_THROTTLE2, "%d", raw_adc_values.t2);
+    NXT_setTextFormatted(CALIBRATION_THROTTLE2, "%d", 4095 - raw_adc_values.t2);
     NXT_setTextFormatted(CALIBRATION_BRAKE1, "%d", raw_adc_values.b1);
     NXT_setTextFormatted(CALIBRATION_BRAKE2, "%d", raw_adc_values.b2);
     NXT_setTextFormatted(CALIBRATION_BRAKE_PRS1, "%d", raw_adc_values.brake1_pressure);

@@ -18,7 +18,7 @@ fault_t faults[TOTAL_NUM_FAULTS] = {
         .min_value = {{ fault.min_val }},
         .latch_time_ms = {{ fault.time_to_latch }},
         .unlatch_time_ms = {{ fault.time_to_unlatch }},
-        .state = FAULT_STATE_OK,
+        .state = FAULT_STATE_LATCHED, // start latched to sync initial state across MCUs
         .priority = FAULT_PRIO_{{ fault.priority|upper }}
     },
 {% endfor %}
@@ -42,14 +42,14 @@ const char* const fault_strings[TOTAL_NUM_FAULTS] = {
 #ifndef CAN_NODE_{{ module.node_name|upper }}
 void {{ module.node_name|lower }}_fault_sync_CALLBACK(can_data_t* can_data) {
 {% for fault in module.faults %}
-    faults[FAULT_ID_{{ fault.name|upper }}].state = can_data->{{ module.node_name|lower }}_fault_sync.{{ fault.name }} ? FAULT_STATE_LATCHED : FAULT_STATE_OK;
+    faults[FAULT_ID_{{ fault.name|upper }}].state = can_data->{{ module.node_name|lower }}_fault_sync.{{ fault.name }} ? FAULT_STATE_LATCHED : FAULT_STATE_CLEAR;
 {% endfor %}
 }
 
 void {{ module.node_name|lower }}_fault_event_CALLBACK(can_data_t* can_data) {
     uint16_t idx = can_data->{{ module.node_name|lower }}_fault_event.idx;
     if (idx < TOTAL_NUM_FAULTS) {
-        faults[idx].state = (can_data->{{ module.node_name|lower }}_fault_event.state != 0) ? FAULT_STATE_LATCHED : FAULT_STATE_OK;
+        faults[idx].state = (can_data->{{ module.node_name|lower }}_fault_event.state != 0) ? FAULT_STATE_LATCHED : FAULT_STATE_CLEAR;
     }
 }
 #else

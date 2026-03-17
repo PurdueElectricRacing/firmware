@@ -761,8 +761,8 @@
             "max": 1,
             "min": 0,
             "priority": "error",
-            "time_to_latch": 40,
-            "time_to_unlatch": 100,
+            "time_to_latch": 500,
+            "time_to_unlatch": 5000,
             "lcd_message": "Precharge is not complete"
         }
 

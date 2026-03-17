@@ -160,7 +160,7 @@ Additionally, the compiler standard for `firmware` is set to C23, enabling sever
     ```c
     // example enum
     typedef enum : uint8_t {
-        FAULT_STATE_OK = 0,
+        FAULT_STATE_CLEAR = 0,
         FAULT_STATE_PENDING = 1,
         FAULT_STATE_LATCHED = 2,
         FAULT_STATE_RECOVERING = 3

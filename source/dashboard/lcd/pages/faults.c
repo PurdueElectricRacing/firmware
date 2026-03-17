@@ -12,7 +12,7 @@
 // TODO: implement this page
 
 
-menu_element_t fault_view_elements[] = {
+menu_element_t faults_elements[] = {
     [0] = {
         .type        = ELEMENT_BUTTON,
         .object_name = FAULT1_BUTTON,
@@ -55,29 +55,29 @@ menu_element_t fault_view_elements[] = {
     }
 };
 
-menu_page_t fault_view_page = {
-    .elements            = fault_view_elements,
-    .num_elements        = sizeof(fault_view_elements) / sizeof(fault_view_elements[0]),
+menu_page_t faults_page = {
+    .elements            = faults_elements,
+    .num_elements        = sizeof(faults_elements) / sizeof(faults_elements[0]),
     .current_index       = 0,
     .is_element_selected = false
 };
 
-void fault_view_refresh() {
-    MS_refreshPage(&fault_view_page);
+void faults_update() {
+    MS_refreshPage(&faults_page);
 }
 
-void fault_view_moveUp() {
-    MS_moveUp(&fault_view_page);
+void faults_move_up() {
+    MS_moveUp(&faults_page);
 }
 
-void fault_view_moveDown() {
-    MS_moveDown(&fault_view_page);
+void faults_move_down() {
+    MS_moveDown(&faults_page);
 }
 
-void fault_view_select() {
-    MS_select(&fault_view_page);
+void faults_select() {
+    MS_select(&faults_page);
 }
 
-void fault_telemetry_update() {
+void faults_telemetry_update() {
     return; // todo
 }

@@ -14,21 +14,21 @@
 #include "main.h"
 
 // todo pedal calibration
-static constexpr uint16_t THROTTLE1_MIN = 840;
-static constexpr uint16_t THROTTLE1_MAX = 1190;
+static constexpr uint16_t THROTTLE1_MIN = 420;
+static constexpr uint16_t THROTTLE1_MAX = 1010;
 static_assert(THROTTLE1_MIN < THROTTLE1_MAX, "Invalid throttle 1 calibration values");
 
-static constexpr uint16_t THROTTLE2_MIN = 920;
-static constexpr uint16_t THROTTLE2_MAX = 1250;
+static constexpr uint16_t THROTTLE2_MIN = 110;
+static constexpr uint16_t THROTTLE2_MAX = 830;
 static_assert(THROTTLE2_MIN < THROTTLE2_MAX, "Invalid throttle 2 calibration values");
 
-static constexpr uint16_t BRAKE1_MIN = 0;
-static constexpr uint16_t BRAKE1_MAX = 4095;
-static constexpr uint16_t BRAKE2_MIN = 0;
-static constexpr uint16_t BRAKE2_MAX = 4095;
+static constexpr uint16_t BRAKE1_MIN = 420;
+static constexpr uint16_t BRAKE1_MAX = 1000;
+// static constexpr uint16_t BRAKE2_MIN = 0;
+// static constexpr uint16_t BRAKE2_MAX = 4095;
 
-static constexpr uint16_t APPS_THROTTLE_THRESHOLD = 409; // 10% of 4095
-static constexpr uint16_t APPS_BRAKE_THRESHOLD = 409; // 10% of 4095
+static constexpr uint16_t APPS_THROTTLE_THRESHOLD = 4095 / 10; // 10% of 4095
+static constexpr uint16_t APPS_BRAKE_THRESHOLD = 4095 / 10; // 10% of 4095
 
 #define MAX_PEDAL_MEAS (4095)
 
@@ -70,7 +70,7 @@ void pedalsPeriodic(void) {
     uint16_t throttle1 = raw_adc_values.t1;
     uint16_t throttle2 = 4095 - raw_adc_values.t2; // Invert value for t2 (pull-up resistor)
     uint16_t brake1 = raw_adc_values.b1;
-    uint16_t brake2 = raw_adc_values.b2;
+    // uint16_t brake2 = raw_adc_values.brake2_pressure;
 
     // FSAE 2026 T.4.2.10
     update_fault(FAULT_ID_APPS_WIRING_T1, throttle1);
@@ -80,13 +80,13 @@ void pedalsPeriodic(void) {
     throttle1 = clamp(throttle1, THROTTLE1_MIN, THROTTLE1_MAX);
     throttle2 = clamp(throttle2, THROTTLE2_MIN, THROTTLE2_MAX);
     brake1 = clamp(brake1, BRAKE1_MIN, BRAKE1_MAX);
-    brake2 = clamp(brake2, BRAKE2_MIN, BRAKE2_MAX);
+    // brake2 = clamp(brake2, BRAKE2_MIN, BRAKE2_MAX);
 
     // Normalize pedal signals to the 0-4095 range while preserving a linear relationship
     throttle1 = normalize(throttle1, THROTTLE1_MIN, THROTTLE1_MAX);
     throttle2 = normalize(throttle2, THROTTLE2_MIN, THROTTLE2_MAX);
     brake1 = normalize(brake1, BRAKE1_MIN, BRAKE1_MAX);
-    brake2 = normalize(brake2, BRAKE2_MIN, BRAKE2_MAX);
+    // brake2 = normalize(brake2, BRAKE2_MIN, BRAKE2_MAX);
 
     // Update global for visibility
     pedal_values.throttle = throttle1;

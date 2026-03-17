@@ -35,23 +35,16 @@ void ready2drive_periodic() {
     // assumes pedals.throttle is in the range [0, 4095]
     float throttle = can_data.pedals.throttle / 4095.0f;
     int16_t torque_req_percent = (int16_t)(throttle * 100);
+    int16_t throttle_req_limited = torque_req_percent / 10;
     
-    g_torque_request.front_right = torque_req_percent;
-    g_torque_request.front_left  = torque_req_percent;
-    g_torque_request.rear_left   = torque_req_percent;
-    g_torque_request.rear_right  = torque_req_percent;
+    g_torque_request.front_right = throttle_req_limited;
+    g_torque_request.front_left  = throttle_req_limited;
+    g_torque_request.rear_left   = throttle_req_limited;
+    g_torque_request.rear_right  = throttle_req_limited;
 }
 
 static inline bool is_init_complete() {
     return true;
-}
-
-static inline bool is_TSMS_closed() {
-    return !is_latched(FAULT_ID_SDC16_TSMS);
-}
-
-static inline bool is_precharge_complete() {
-    return !is_latched(FAULT_ID_PRECHARGE_INCOMPLETE);
 }
 
 static inline bool is_all_AMKS_running() {
@@ -89,7 +82,7 @@ void update_tsal() {
     // FSAE 2026 EV.5.11.5
     if (is_latched(FAULT_ID_SDC2_BMS) || is_latched(FAULT_ID_IMD)) { 
         g_car.tsal_green_enable = false;
-        g_car.tsal_red_enable = true; // todo blink @ "2 Hz to 5 Hz, 50% duty cycle"
+        g_car.tsal_red_enable = true;
     } else {
         g_car.tsal_green_enable = true;
         g_car.tsal_red_enable = false;
@@ -134,8 +127,8 @@ void fsm_periodic() {
     g_torque_request.rear_left   = 0;
     g_torque_request.rear_right  = 0;
 
-    // check SDC before doing anything else
-    if (is_fatal_latched()) {
+    // check SDCs before TSMS before doing anything else
+    if (is_latched(FAULT_ID_SDC15_REAR_INTERLOCK)) {
         g_car.current_state = CAR_STATE_FATAL;
         g_car.next_state = CAR_STATE_FATAL;
     }
@@ -147,7 +140,7 @@ void fsm_periodic() {
     bool precharge_pin = !PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
     update_fault(FAULT_ID_PRECHARGE_INCOMPLETE, precharge_pin);
     // amks need a bool to point to for precharge status
-    g_car.is_precharge_complete = !is_latched(FAULT_ID_PRECHARGE_INCOMPLETE);
+    g_car.is_precharge_complete = is_clear(FAULT_ID_PRECHARGE_INCOMPLETE);
 
     switch (g_car.current_state) {
         case CAR_STATE_INIT: {
@@ -161,7 +154,7 @@ void fsm_periodic() {
         case CAR_STATE_IDLE: {
             // do nothing for now
 
-            if (is_TSMS_closed()) {
+            if (is_clear(FAULT_ID_SDC16_TSMS)) { // TSMS is closed
                 g_car.next_state = CAR_STATE_PRECHARGING;
             }
             break;
@@ -169,7 +162,7 @@ void fsm_periodic() {
         case CAR_STATE_PRECHARGING: {
             // do nothing for now
 
-            if (is_precharge_complete()) {
+            if (is_clear(FAULT_ID_PRECHARGE_INCOMPLETE)) { // precharge is complete
                 g_car.next_state = CAR_STATE_ENERGIZED;
             }
             break;

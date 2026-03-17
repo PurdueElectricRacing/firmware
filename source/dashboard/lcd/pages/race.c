@@ -11,6 +11,7 @@
 #include "common/can_library/generated/DASHBOARD.h"
 #include "pedals.h"
 #include "common_defs.h"
+#include "colors.h"
 
 // For speed calcs
 static constexpr float WHEEL_RADIUS_IN = 8.0f;

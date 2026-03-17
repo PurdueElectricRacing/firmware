@@ -10,6 +10,7 @@
 #include "nextion.h"
 #include "common/can_library/faults_common.h"
 #include "main.h"
+#include "colors.h"
 
 /**
  * @brief Updates the LCD display with current pedal telemetry data when on CALIBRATION page

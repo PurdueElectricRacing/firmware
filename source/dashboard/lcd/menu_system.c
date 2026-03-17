@@ -9,28 +9,20 @@
  */
 
 #include "menu_system.h"
-
+#include "colors.h"
+#include "nextion.h"
 #include <stdint.h>
 
-#include "nextion.h"
-
-// Purdue color palette in 565 format
-#define RUSH        (56640) // bright gold
-#define BOILERMAKER (52690) // pale gold
-#define FIELD       (56776) // light gold
-#define STEEL       (21196) // dark grey
-#define COOL_GRAY   (27535) // medium grey
-#define STEAM       (50680) // light grey
+static constexpr uint16_t HOVER_BORDER_WIDTH = 3;
+static constexpr uint16_t NO_BORDER_WIDTH = 0;
 
 /**
  * @brief Applies normal (default) styling to a menu element
  * @param element Pointer to the menu element to be styled
  */
 void MS_setStyleNormal(menu_element_t* element) {
-    NXT_setBackground(element->object_name, STEEL);
-    NXT_setFontColor(element->object_name, WHITE);
-    // change to set border to indicate selected? (requires intelligent series)
-    // set_border_width(element->object_name, 0);
+    NXT_setBackground(element->object_name, BLACK);
+    NXT_setBorderWidth(element->object_name, NO_BORDER_WIDTH);
 }
 
 /**
@@ -38,10 +30,7 @@ void MS_setStyleNormal(menu_element_t* element) {
  * @param element Pointer to the menu element to be styled
  */
 void MS_setStyleHover(menu_element_t* element) {
-    NXT_setBackground(element->object_name, STEAM);
-    NXT_setFontColor(element->object_name, BLACK);
-    // change to set border to indicate selected? (requires intelligent series)
-    // set_border_width(element->object_name, 3);
+    NXT_setBorderWidth(element->object_name, HOVER_BORDER_WIDTH);
 }
 
 /**
@@ -49,8 +38,7 @@ void MS_setStyleHover(menu_element_t* element) {
  * @param element Pointer to the menu element to be styled
  */
 void MS_setStyleSelected(menu_element_t* element) {
-    NXT_setBackground(element->object_name, RUSH);
-    NXT_setFontColor(element->object_name, WHITE);
+    NXT_setBackground(element->object_name, DARK_GRAY);
 }
 
 /**

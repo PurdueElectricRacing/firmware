@@ -11,7 +11,6 @@
 #ifndef MENU_SYSTEM_H
 #define MENU_SYSTEM_H
 
-#include <stdbool.h>
 #include <stdint.h>
 
 // Element types

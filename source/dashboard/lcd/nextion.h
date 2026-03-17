@@ -19,20 +19,6 @@
 #define NXT_CMD_TERM "\xFF\xFF\xFF"
 #define ASCII_OFFSET 48
 
-// Color Definitions in 565 format
-#define WHITE        65535
-#define DARK_GRAY    33808
-#define LIGHT_GRAY   55261
-#define BLUE         1055
-#define MUTED_BLUE   2278
-#define GREEN        1632
-#define MUTED_GREEN  320
-#define BLACK        0
-#define RED          63910
-#define MUTED_RED    63488
-#define YELLOW       65156
-#define MUTED_YELLOW 12610
-
 // Nextion Command Strings
 #define NXT_BACKGROUND_COLOR ".bco="
 #define NXT_BORDER_COLOR     ".bdrco="

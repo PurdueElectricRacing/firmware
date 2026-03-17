@@ -16,6 +16,6 @@ Assumptions:
 > [!NOTE]
 > todo more detailed docs
 
-![timing diagram](SD_timing_diagram.png)
+![timing diagram](SD_timing_diagram.drawio.png)
 
-![sd fsm](SD_thread_FSM.png)
+![sd fsm](SD_thread_FSM.drawio.png)

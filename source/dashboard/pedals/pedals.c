@@ -22,13 +22,13 @@ static constexpr uint16_t THROTTLE2_MIN = 110;
 static constexpr uint16_t THROTTLE2_MAX = 830;
 static_assert(THROTTLE2_MIN < THROTTLE2_MAX, "Invalid throttle 2 calibration values");
 
-static constexpr uint16_t BRAKE1_MIN = 0;
-static constexpr uint16_t BRAKE1_MAX = 4095;
+static constexpr uint16_t BRAKE1_MIN = 420;
+static constexpr uint16_t BRAKE1_MAX = 1000;
 // static constexpr uint16_t BRAKE2_MIN = 0;
 // static constexpr uint16_t BRAKE2_MAX = 4095;
 
-static constexpr uint16_t APPS_THROTTLE_THRESHOLD = 409; // 10% of 4095
-static constexpr uint16_t APPS_BRAKE_THRESHOLD = 409; // 10% of 4095
+static constexpr uint16_t APPS_THROTTLE_THRESHOLD = 4095 / 10; // 10% of 4095
+static constexpr uint16_t APPS_BRAKE_THRESHOLD = 4095 / 10; // 10% of 4095
 
 #define MAX_PEDAL_MEAS (4095)
 

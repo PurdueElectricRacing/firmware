@@ -162,7 +162,9 @@ void fsm_periodic() {
         case CAR_STATE_PRECHARGING: {
             // do nothing for now
 
-            if (is_clear(FAULT_ID_PRECHARGE_INCOMPLETE)) { // precharge is complete
+            if (is_latched(FAULT_ID_SDC16_TSMS)) {
+                g_car.next_state = CAR_STATE_IDLE;
+            } else if (is_clear(FAULT_ID_PRECHARGE_INCOMPLETE)) {
                 g_car.next_state = CAR_STATE_ENERGIZED;
             }
             break;
@@ -187,7 +189,7 @@ void fsm_periodic() {
         case CAR_STATE_READY2DRIVE: {
             ready2drive_periodic();
 
-            if (is_start_button_pressed()) {
+            if (is_start_button_pressed() || is_latched(FAULT_ID_SDC16_TSMS)) {
                 g_car.next_state = CAR_STATE_IDLE;
             }
             break;
@@ -195,13 +197,9 @@ void fsm_periodic() {
         case CAR_STATE_FATAL: {
             // nothing for now
 
-            if (!is_fatal_latched()) {
+            if (is_clear(FAULT_ID_SDC15_REAR_INTERLOCK)) {
                 g_car.next_state = CAR_STATE_IDLE;
             }
-            break;
-        }
-        default: { // should never reach here
-            g_car.next_state = CAR_STATE_FATAL;
             break;
         }
     }

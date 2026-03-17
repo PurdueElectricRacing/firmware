@@ -136,7 +136,7 @@ void init_amks() {
 
 void car_init() {
     // enter INIT at n_reset
-    g_car.current_state = CAR_STATE_INIT;
-    g_car.next_state    = CAR_STATE_INIT;
+    g_car.current_state = CAR_STATE_FATAL;
+    g_car.next_state    = CAR_STATE_FATAL;
     init_amks();
 }

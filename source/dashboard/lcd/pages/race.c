@@ -34,11 +34,11 @@ static inline void update_car_state_telemetry() {
     }
 
     switch (can_data.main_hb.car_state) {
-        case CAR_STATE_INIT:
-            NXT_setText(CAR_STATE, "INIT");
-            NXT_setFontColor(CAR_STATE, WHITE);
-            NXT_setBorderColor(CAR_STATE, WHITE);
-            NXT_setBackground(CAR_STATE, BLACK);
+        case CAR_STATE_FATAL:
+            NXT_setText(CAR_STATE, "FATAL");
+            NXT_setFontColor(CAR_STATE, RED);
+            NXT_setBorderColor(CAR_STATE, RED);
+            NXT_setBackground(CAR_STATE, MUTED_RED);
             break;
         case CAR_STATE_IDLE:
             NXT_setText(CAR_STATE, "IDLE");
@@ -69,12 +69,6 @@ static inline void update_car_state_telemetry() {
             NXT_setFontColor(CAR_STATE, GREEN);
             NXT_setBorderColor(CAR_STATE, GREEN);
             NXT_setBackground(CAR_STATE, MUTED_GREEN);
-            break;
-        case CAR_STATE_FATAL:
-            NXT_setText(CAR_STATE, "FATAL");
-            NXT_setFontColor(CAR_STATE, RED);
-            NXT_setBorderColor(CAR_STATE, RED);
-            NXT_setBackground(CAR_STATE, MUTED_RED);
             break;
     }
 }

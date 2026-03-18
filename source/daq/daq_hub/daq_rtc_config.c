@@ -1,8 +1,6 @@
 #include "common/phal/can.h"
 #include "common/phal/rtc.h"
 #include "common/phal/gpio.h"
-#include "daq_can.h"
-#include "daq_hub.h"
 #include "main.h"
 
 static void parse_gps_time(const timestamped_frame_t* msg, RTC_timestamp_t* gps_rtc_time);

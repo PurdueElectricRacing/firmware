@@ -3,50 +3,63 @@
 
 #include "common/freertos/freertos.h"
 #include "common/log/log.h"
-#include "daq_hub.h"
+#include "daq_eth.h"
+#include "daq_sd.h"
+#include "ff.h"
+#include "daq_rtc_config.h"
+#include "spmc.h"
+#include "sdio.h"
 
 // Pinouts
 // LEDs
-#define HEARTBEAT_LED_PORT  GPIOD
-#define HEARTBEAT_LED_PIN   13
-#define CONNECTION_LED_PORT GPIOD
-#define CONNECTION_LED_PIN  14
-#define ERROR_LED_PORT      GPIOD
-#define ERROR_LED_PIN       15
+#define HEARTBEAT_LED_PORT  (GPIOD)
+#define HEARTBEAT_LED_PIN   (13)
+#define CONNECTION_LED_PORT (GPIOD)
+#define CONNECTION_LED_PIN  (14)
+#define ERROR_LED_PORT      (GPIOD)
+#define ERROR_LED_PIN       (15)
 
 // SD Card SDIO
-#define SD_ACTIVITY_LED_PORT GPIOA
-#define SD_ACTIVITY_LED_PIN  9
-#define SD_ERROR_LED_PORT    GPIOA
-#define SD_ERROR_LED_PIN     8
-#define SD_DETECT_LED_PORT   GPIOA
-#define SD_DETECT_LED_PIN    10
-#define SD_CD_PORT           GPIOD
-#define SD_CD_PIN            4
+#define SD_ACTIVITY_LED_PORT (GPIOA)
+#define SD_ACTIVITY_LED_PIN  (9)
+#define SD_ERROR_LED_PORT    (GPIOA)
+#define SD_ERROR_LED_PIN     (8)
+#define SD_DETECT_LED_PORT   (GPIOA)
+#define SD_DETECT_LED_PIN    (10)
+#define SD_CD_PORT           (GPIOD)
+#define SD_CD_PIN            (4)
 
 // W5500 ETH SPI1
-#define ETH_CS_PORT   GPIOA
-#define ETH_CS_PIN    4
-#define ETH_SCK_PORT  GPIOA
-#define ETH_SCK_PIN   5
-#define ETH_MISO_PORT GPIOA
-#define ETH_MISO_PIN  6
-#define ETH_MOSI_PORT GPIOA
-#define ETH_MOSI_PIN  7
-#define ETH_RST_PORT  GPIOE
-#define ETH_RST_PIN   3
+#define ETH_CS_PORT   (GPIOA)
+#define ETH_CS_PIN    (4)
+#define ETH_SCK_PORT  (GPIOA)
+#define ETH_SCK_PIN   (5)
+#define ETH_MISO_PORT (GPIOA)
+#define ETH_MISO_PIN  (6)
+#define ETH_MOSI_PORT (GPIOA)
+#define ETH_MOSI_PIN  (7)
+#define ETH_RST_PORT  (GPIOE)
+#define ETH_RST_PIN   (3)
 
 // LTE USART6
-#define LTE_UART_TX_PORT GPIOC
-#define LTE_UART_TX_PIN  6
-#define LTE_UART_RX_PORT GPIOC
-#define LTE_UART_RX_PIN  7
+#define LTE_UART_TX_PORT (GPIOC)
+#define LTE_UART_TX_PIN  (6)
+#define LTE_UART_RX_PORT (GPIOC)
+#define LTE_UART_RX_PIN  (7)
 
 // MISC
-#define PWR_LOSS_PORT   GPIOE
-#define PWR_LOSS_PIN    15
-#define LOG_ENABLE_PORT GPIOC
-#define LOG_ENABLE_PIN  15
+#define PWR_LOSS_PORT   (GPIOE)
+#define PWR_LOSS_PIN    (15)
+#define LOG_ENABLE_PORT (GPIOC)
+#define LOG_ENABLE_PIN  (15)
+
+// CAN 
+#define BUS_ID_CAN1 0
+#define BUS_ID_CAN2 1
+#define STD_ID_MASK ((1U << 11) - 1) // bottom 11 bits 
+
+// GPIO helper macros
+#define GPIO_CLEAR_BIT(PIN) ((1 << ((1 << 4) | (PIN))))
 
 #define PER   1
 #define GREAT PER
@@ -62,12 +75,44 @@ static_assert(PER == GREAT); // Long live daq loop
 #define UDP_MAX_BUFFER_SIZE (8192)
 #define UDP_MAX_WRITE_COUNT (UDP_MAX_BUFFER_SIZE / (sizeof(timestamped_frame_t)))
 
-#define STD_ID_MASK ((1U << 11) - 1)
-
 constexpr TickType_t SD_BLOCKING_TIMEOUT_TICKS = pdMS_TO_TICKS(SD_BLOCKING_TIMEOUT_MS); 
+
+typedef struct
+{
+    // Ethernet
+    eth_state_t eth_state;
+    rtc_config_state_t rtc_config_state;
+    eth_tcp_state_t eth_tcp_state;
+    uint32_t eth_error_ct;
+    eth_error_t eth_last_err;
+    int32_t eth_last_err_res;
+    uint32_t eth_last_error_time;
+
+    // SD Card
+    sd_state_t sd_state;
+    FATFS fat_fs;
+    uint32_t sd_error_ct;
+    sd_error_t sd_last_err;
+    FRESULT sd_last_err_res;
+    uint32_t sd_last_error_time;
+    xTaskHandle sd_task_handle;
+
+    FIL log_fp;
+    uint32_t log_start_ms;
+    uint32_t last_write_ms;
+    uint32_t last_file_ms;
+    bool log_enable_sw; //!< Debounced switch state
+    bool log_enable_tcp;
+
+    uint32_t bcan_rx_overflow;
+    uint32_t can1_rx_overflow;
+    uint32_t sd_rx_overflow;
+    uint32_t tcp_tx_overflow;
+} daq_hub_t;
 
 extern SPMC_t spmc;
 extern SemaphoreHandle_t spi1_lock;
+extern daq_hub_t daq_hub;
 
 void HardFault_Handler();
 

@@ -72,7 +72,5 @@
             "accept_all_messages": true
         }
     },
-    "fault_library_enabled": false,
-    "generate_fault_messages": false,
-    "faults": []
+    "fault_library_enabled": false
 }

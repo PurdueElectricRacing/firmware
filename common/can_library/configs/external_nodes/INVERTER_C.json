@@ -22,12 +22,14 @@
                 {
                     "sig_name": "AMK_DisplayOverloadInverter",
                     "type": "uint16_t",
-                    "scale": 0.1
+                    "scale": 0.1,
+                    "unit": "%"
                 },
                 {
                     "sig_name": "AMK_DisplayOverloadMotor",
                     "type": "uint16_t",
-                    "scale": 0.1
+                    "scale": 0.1,
+                    "unit": "%"
                 }
             ],
             "msg_period": 15,

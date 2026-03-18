@@ -5,8 +5,9 @@ Author: Irving Wang (irvingw@purdue.edu)
 """
 
 import sys
+import jsonschema
 from jsonschema import Draft202012Validator, ValidationError
-from jsonschema.exceptions import best_match
+from jsonschema.exceptions import best_match, relevance
 from referencing import Registry, Resource
 from utils import load_json, SCHEMA_DIR, COMMON_TYPES_CONFIG_PATH, BUS_CONFIG_PATH, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, print_as_error, print_as_ok, print_as_warning, print_as_success
 
@@ -25,17 +26,18 @@ def validate_against_schema(data, schema, schema_store=None, filename="<unknown>
 
     validator = Draft202012Validator(schema, registry=registry)
 
-    # Use best_match to find the most relevant error for clearer reporting
-    error = best_match(validator.iter_errors(data))
-    
-    if error is None:
+    # Use best_match with relevance sorting to find the most relevant error
+    errors = list(validator.iter_errors(data))
+    if not errors:
         return True
 
+    # best_match finds the most relevant error for clearer reporting
+    error = best_match(errors)
+    
     print_as_warning(f"Error in {filename}:")
     path = ".".join(map(str, error.path)) or "root"
     print_as_error(f"Field '{path}': {error.message}")
     
-    # Optionally also show other errors if any, but best_match is usually enough
     return False
 
 def validate_common_types() -> bool:
@@ -91,8 +93,13 @@ def validate_all() -> bool:
     
     # Load shared schemas for references
     message_schema = load_json(SCHEMA_DIR / 'message_schema.json')
+    signal_schema = load_json(SCHEMA_DIR / 'signal_schema.json')
+    fault_schema = load_json(SCHEMA_DIR / 'fault_schema.json')
+    
     schema_store = {
-        'file:///message_schema.json': message_schema,
+        'https://github.com/PER/canpiler/message_schema.json': message_schema,
+        'https://github.com/PER/canpiler/signal_schema.json': signal_schema,
+        'https://github.com/PER/canpiler/fault_schema.json': fault_schema,
     }
 
     # Validate custom types schema

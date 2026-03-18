@@ -115,21 +115,14 @@ class Message:
             print_as_error(f"Message '{self.name}' exceeds 64 bits (has {total_length})")
             raise ValueError("Message too long")
         
-        # Validate ID Override Range
+        # ID Override Range and format are now handled by regex and pattern in message_schema.json
+        # Standard vs Extended ID mismatch is handled by parser but formatting/parsing errors
+        # are now caught earlier in the validation stage.
         if self.id_override:
-            try:
-                raw_id = int(self.id_override, 0)
-                if not self.is_extended and raw_id > 0x7FF:
-                    print_as_error(f"Message '{self.name}' has override ID {hex(raw_id)} which exceeds 11-bit limit for standard bus.")
-                    raise ValueError(f"ID override too large for standard bus: {self.name}")
-                if raw_id > 0x1FFFFFFF:
-                    print_as_error(f"Message '{self.name}' has override ID {hex(raw_id)} which exceeds 29-bit CAN limit.")
-                    raise ValueError(f"ID override exceeds CAN protocol limits: {self.name}")
-            except ValueError as e:
-                if "invalid literal" in str(e):
-                    print_as_error(f"Message '{self.name}' has invalid ID override format: {self.id_override}")
-                    raise ValueError("Invalid ID override format")
-                raise
+            raw_id = int(self.id_override, 0)
+            if not self.is_extended and raw_id > 0x7FF:
+                print_as_error(f"Message '{self.name}' has override ID {hex(raw_id)} which exceeds 11-bit limit for standard bus.")
+                raise ValueError(f"ID override too large for standard bus: {self.name}")
 
     def get_total_bit_length(self, custom_types: Optional[Dict] = None) -> int:
         return sum(sig.get_bit_length(custom_types) for sig in self.signals)

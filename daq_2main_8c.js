@@ -1,14 +1,14 @@
 var daq_2main_8c =
 [
     [ "TargetCoreClockrateHz", "daq_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008", null ],
-    [ "_iodev_write", "daq_2main_8c.html#a0fe4844d879a07e406e173c877345d0a", null ],
     [ "CAN1_RX0_IRQHandler", "daq_2main_8c.html#a990c3a82a9723ab422570b787af03f72", null ],
     [ "CAN2_RX0_IRQHandler", "daq_2main_8c.html#a8b1e6757f968cf4456a655d61e249555", null ],
-    [ "can_parse_error_status", "daq_2main_8c.html#a057a247fae9ca4e717ebfa48c8943259", null ],
     [ "can_rx_irq_handler", "daq_2main_8c.html#a669af579d00fc51b75ef98c883348dac", null ],
     [ "configure_interrupts", "daq_2main_8c.html#aabdbaa50d97bdb9d077e752af668866d", null ],
-    [ "debug_printf", "daq_2main_8c.html#a46a8c2e1aeca94194f64ccb086e285ff", null ],
+    [ "DEFINE_HEARTBEAT_TASK", "daq_2main_8c.html#a845eaf447179a8baf75c69794c49856d", null ],
     [ "DEFINE_MUTEX", "daq_2main_8c.html#a30675093a6c10a6b20735712e5123111", null ],
+    [ "DEFINE_TASK", "daq_2main_8c.html#a5b22a833aa62fe6448db16cc3fa6df4e", null ],
+    [ "DEFINE_TASK", "daq_2main_8c.html#aa0a83f2bbe619516ee1148f4fe3ef690", null ],
     [ "EXTI15_10_IRQHandler", "daq_2main_8c.html#a2089b233bd8d6f7dbf78e075033696e3", null ],
     [ "HardFault_Handler", "daq_2main_8c.html#a2af56a8bf3197b2f06cac4c0b84ffc3e", null ],
     [ "main", "daq_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4", null ],
@@ -19,15 +19,11 @@ var daq_2main_8c =
     [ "buf", "daq_2main_8c.html#a3a94a8ce8fa02bdc21dbba90dbcbb45d", null ],
     [ "clock_config", "daq_2main_8c.html#a2e372d6fcb26e99141502c56d908f788", null ],
     [ "daq_hub", "daq_2main_8c.html#a463a81d797c8f5a6dd67dbbb5b57c066", null ],
-    [ "error_irq_cnt", "daq_2main_8c.html#a79c84650f96e16f1f36ca6784214bf7f", null ],
     [ "eth_spi_config", "daq_2main_8c.html#a9a42a1a6599015412816e4954c32f1bb", null ],
+    [ "fallback_timestamp", "daq_2main_8c.html#a4137e6409c902491154da4b630740e6c", null ],
     [ "gpio_config", "daq_2main_8c.html#a60563c6df24a123ae18e090bca85f555", null ],
-    [ "lte_usart_config", "daq_2main_8c.html#a0c138f0e32038f427ab58d409c2708ae", null ],
     [ "PLLClockRateHz", "daq_2main_8c.html#aac132aa42c20a1d3744db9df04f31c54", null ],
     [ "spi_rx_dma_config", "daq_2main_8c.html#a048ceaccc44b006a77f0c988ae1877ce", null ],
     [ "spi_tx_dma_config", "daq_2main_8c.html#ac9d88a12a20b964301d43f839eee3f94", null ],
-    [ "spmc", "daq_2main_8c.html#af963e75be18e816661bb2b275b68f5df", null ],
-    [ "start_time", "daq_2main_8c.html#acda76ed90e15645d7e0a404cb621aecf", null ],
-    [ "usart_rx_dma_config", "daq_2main_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e", null ],
-    [ "usart_tx_dma_config", "daq_2main_8c.html#a1f94964a4032ad7e8b644485a417b00f", null ]
+    [ "spmc", "daq_2main_8c.html#af963e75be18e816661bb2b275b68f5df", null ]
 ];

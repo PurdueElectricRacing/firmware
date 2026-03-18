@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['daq_5fhub_0',['daq_hub',['../daq__hub_8c.html#a463a81d797c8f5a6dd67dbbb5b57c066',1,'daq_hub:&#160;daq_hub.c'],['../daq__hub_8h.html#a463a81d797c8f5a6dd67dbbb5b57c066',1,'daq_hub:&#160;daq_hub.c'],['../daq_2main_8c.html#a463a81d797c8f5a6dd67dbbb5b57c066',1,'daq_hub:&#160;daq_hub.c']]],
+  ['daq_5fhub_0',['daq_hub',['../daq_2main_8c.html#a463a81d797c8f5a6dd67dbbb5b57c066',1,'daq_hub:&#160;main.c'],['../daq_2main_8h.html#a463a81d797c8f5a6dd67dbbb5b57c066',1,'daq_hub:&#160;main.c']]],
   ['daq_5fimon_1',['daq_imon',['../structADCReadings__t.html#a0b0bb43b90aff0403a8a9db484818d38',1,'ADCReadings_t']]],
   ['dark_5fgray_2',['DARK_GRAY',['../colors_8h.html#a3d2faf9045cd447b1c2938e70df62e33',1,'colors.h']]],
   ['dash_5fcs_3',['dash_cs',['../structADCReadings__t.html#a390c881bec8ae9e4af84fedbb08554b5',1,'ADCReadings_t']]],

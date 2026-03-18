@@ -2,8 +2,6 @@ var diskio_8c =
 [
     [ "ATA", "diskio_8c.html#a2c51f8df39130923660818986234711f", null ],
     [ "BLOCK_SIZE", "diskio_8c.html#ad51ded0bbd705f02f73fc60c0b721ced", null ],
-    [ "DISKIO_LOG", "diskio_8c.html#ac383030cb54b48cde634f0cd5de575a3", null ],
-    [ "DISKIO_LOG_RED", "diskio_8c.html#a75e2d53c39f1eb4a62b3fed9601cab90", null ],
     [ "SDRAM", "diskio_8c.html#af27497bf886df8e612621a4d3d5a15a3", null ],
     [ "SPI_FLASH", "diskio_8c.html#a76ef2edf77faa2f18d8567bf7300c542", null ],
     [ "TM_FATFS_CUSTOM_FATTIME", "diskio_8c.html#ad7bca243d523c37eae63daeb1def9d9a", null ],

@@ -2,6 +2,8 @@ var spmc_8h =
 [
     [ "timestamped_frame_t", "structtimestamped__frame__t.html", "structtimestamped__frame__t" ],
     [ "SPMC_t", "structSPMC__t.html", "structSPMC__t" ],
+    [ "SPMC_BUS_ID_Pos", "spmc_8h.html#a334cf9c4c6d70d27fcb6432378cbbfd3", null ],
+    [ "SPMC_IS_EXTID_Pos", "spmc_8h.html#a0e868c273b4de5cbe1111ab81d2b75b6", null ],
     [ "SPMC_status_t", "spmc_8h.html#a32d7f7f47a55a373939ae4e420e44a7f", [
       [ "SPMC_OK", "spmc_8h.html#a32d7f7f47a55a373939ae4e420e44a7fa48a6d05c68f93e345b2b09b43b9231e4", null ],
       [ "SPMC_FULL", "spmc_8h.html#a32d7f7f47a55a373939ae4e420e44a7fa691d0774806e4aba69b2026a2243dc82", null ],

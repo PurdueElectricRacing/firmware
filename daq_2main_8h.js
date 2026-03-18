@@ -1,5 +1,8 @@
 var daq_2main_8h =
 [
+    [ "daq_hub_t", "structdaq__hub__t.html", "structdaq__hub__t" ],
+    [ "BUS_ID_CAN1", "daq_2main_8h.html#aaa97d12a888bca47fdc5cf943e76e0d8", null ],
+    [ "BUS_ID_CAN2", "daq_2main_8h.html#a2cce965ec7205089e66552f5d521a481", null ],
     [ "CONNECTION_LED_PIN", "daq_2main_8h.html#a8437cdc43b488d816a5e56f7b6457b86", null ],
     [ "CONNECTION_LED_PORT", "daq_2main_8h.html#aa5bf4e4a187f66b98a273bb051ec3877", null ],
     [ "ERROR_LED_PIN", "daq_2main_8h.html#a16617de3bb2ca54675ae2515d8515e12", null ],
@@ -15,6 +18,7 @@ var daq_2main_8h =
     [ "ETH_RST_PORT", "daq_2main_8h.html#a6165c9b14969b8791d71fcb9aec7ec43", null ],
     [ "ETH_SCK_PIN", "daq_2main_8h.html#a04ae6aa599b3dd0e13976c6e00c1d485", null ],
     [ "ETH_SCK_PORT", "daq_2main_8h.html#a69bb22bad34b2a805ba69912f406874e", null ],
+    [ "GPIO_CLEAR_BIT", "daq_2main_8h.html#a800082af94e74e28477c51f973bf562e", null ],
     [ "GREAT", "daq_2main_8h.html#af0894540bc29ba5d31c3ed83f0809af4", null ],
     [ "HEARTBEAT_LED_PIN", "daq_2main_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3", null ],
     [ "HEARTBEAT_LED_PORT", "daq_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50", null ],
@@ -44,6 +48,7 @@ var daq_2main_8h =
     [ "UDP_MAX_BUFFER_SIZE", "daq_2main_8h.html#a7ffe972e4f939b13d105937b6340f54b", null ],
     [ "UDP_MAX_WRITE_COUNT", "daq_2main_8h.html#a10c12a1be8601bcd8b9c12a4d44abe80", null ],
     [ "HardFault_Handler", "daq_2main_8h.html#a2af56a8bf3197b2f06cac4c0b84ffc3e", null ],
+    [ "daq_hub", "daq_2main_8h.html#a463a81d797c8f5a6dd67dbbb5b57c066", null ],
     [ "SD_BLOCKING_TIMEOUT_TICKS", "daq_2main_8h.html#a005f8af8cd6c38ffbc9ef2e854acacd6", null ],
     [ "spi1_lock", "daq_2main_8h.html#ae22098d7a44a0de1e81110ffc31e5377", null ],
     [ "spmc", "daq_2main_8h.html#af963e75be18e816661bb2b275b68f5df", null ]

@@ -124,8 +124,8 @@ var searchData=
   ['bs_5fvolid32_121',['BS_VolID32',['../ff_8c.html#abaa3aafdcf5e83f8cb7e2bb373b13525',1,'ff.c']]],
   ['bs_5fvollab_122',['BS_VolLab',['../ff_8c.html#a28498ba4b07ff90aaa9628e81fb89d32',1,'ff.c']]],
   ['bs_5fvollab32_123',['BS_VolLab32',['../ff_8c.html#a8241a49bce313184a58617ba1ad9e84c',1,'ff.c']]],
-  ['bus_5fid_5fcan1_124',['BUS_ID_CAN1',['../daq__can_8h.html#aaa97d12a888bca47fdc5cf943e76e0d8',1,'daq_can.h']]],
-  ['bus_5fid_5fcan2_125',['BUS_ID_CAN2',['../daq__can_8h.html#a2cce965ec7205089e66552f5d521a481',1,'daq_can.h']]],
+  ['bus_5fid_5fcan1_124',['BUS_ID_CAN1',['../daq_2main_8h.html#aaa97d12a888bca47fdc5cf943e76e0d8',1,'main.h']]],
+  ['bus_5fid_5fcan2_125',['BUS_ID_CAN2',['../daq_2main_8h.html#a2cce965ec7205089e66552f5d521a481',1,'main.h']]],
   ['buzzer_5fpin_126',['BUZZER_PIN',['../pindefs_8h.html#ab61d0981ed42df9e18211b273d22cfcd',1,'pindefs.h']]],
   ['buzzer_5fport_127',['BUZZER_PORT',['../pindefs_8h.html#abf0d28f731e836936a87086ea8b798da',1,'pindefs.h']]]
 ];

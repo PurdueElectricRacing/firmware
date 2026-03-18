@@ -258,10 +258,6 @@
             ],
             "rx": [
                 {
-                    "msg_name": "cooling_driver_request",
-                    "callback": true
-                },
-                {
                     "msg_name": "main_hb"
                 },
                 {

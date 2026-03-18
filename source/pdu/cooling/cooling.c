@@ -224,16 +224,3 @@ static void set_fan2_off() {
         cr.fan2_speed = 0;
     }
 }
-
-void cooling_driver_request_CALLBACK(can_data_t *p_can_data) {
-    // Only receive fan speed values from dash now
-    cr.fan1_speed       = CLAMP(can_data.cooling_driver_request.batt_fan, 0, 100);
-    cr.fan2_speed       = CLAMP(can_data.cooling_driver_request.dt_fan, 0, 100);
-    cr.fan3_speed       = cr.fan1_speed;
-    cr.fan4_speed       = cr.fan2_speed;
-    batt_fan_autospeed  = cr.fan1_speed == 0;
-    motor_fan_autospeed = cr.fan2_speed == 0;
-    //cr.pump1_status = can_data.cooling_driver_request.dt_pump; // determine if pumps are on or off
-    //cr.pump2_status = can_data.cooling_driver_request.batt_pump;
-    //cr.aux_status = can_data.cooling_driver_request.batt_pump2;
-}

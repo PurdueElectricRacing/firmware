@@ -3,7 +3,6 @@
 
 #include "common/phal/gpio.h"
 #include "common/phal/rtc.h"
-#include "daq_hub.h"
 #include "ff.h"
 #include "main.h"
 
@@ -24,7 +23,6 @@ static void sd_handle_error(sd_error_t sd_error, FRESULT result) {
     daq_hub.sd_last_err_res    = result;
     daq_hub.sd_last_error_time = getTick();
     PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 1);
-    debug_printf("sd err: %d res: %d\n", sd_error, result);
 }
 
 static void sd_reset_error(void) {
@@ -61,7 +59,6 @@ static FRESULT sd_create_new_file(void) {
         return result;
     }
 
-    debug_printf("delta: %d: created file %02d: %s\n", getTick() - daq_hub.last_file_ms, log_num, f_name);
     log_num++;
     daq_hub.last_file_ms = getTick();
 
@@ -164,7 +161,6 @@ void sd_update_periodic(void) {
 
             daq_hub.sd_state = SD_STATE_MOUNTED;
             PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
-            debug_printf("SD UP!\n");
             break;
         case SD_STATE_MOUNTED:
             result = sd_create_new_file();

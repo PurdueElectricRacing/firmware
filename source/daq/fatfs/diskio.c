@@ -20,13 +20,6 @@
 
 #include "main.h"
 #include "sdio.h"
-#if 0
-#define DISKIO_LOG(...)     log_msg(__VA_ARGS__)
-#define DISKIO_LOG_RED(...) log_red(__VA_ARGS__)
-#else
-#define DISKIO_LOG(...)
-#define DISKIO_LOG_RED(...) log_red(__VA_ARGS__)
-#endif
 
 /* Definitions of physical drive number for each media */
 #define ATA       0
@@ -87,7 +80,6 @@ DRESULT disk_read(
     DWORD sector, /* Sector address (LBA) */
     UINT count /* Number of sectors to read (1..128) */
 ) {
-    DISKIO_LOG("Disk read sector %x of count %d\n", sector, count);
     /* Check count */
     if (!count) {
         return RES_PARERR;
@@ -96,7 +88,8 @@ DRESULT disk_read(
     DRESULT res = _sdio_disk_read(buff, sector, count);
     PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
     if (res != RES_OK) {
-        DISKIO_LOG_RED("Disk read failed with res %d.\n", res);
+        // TODO: Log disk read error
+        // DISKIO_LOG_RED("Disk read failed with res %d.\n", res);
     }
     return res;
 }
@@ -142,7 +135,8 @@ static DRESULT _sdio_disk_read(
             ;
 
         if ((State == SD_TRANSFER_ERROR) || (Status != SD_OK)) {
-            DISKIO_LOG_RED("Read transfer error, state %d, status %d\n", State, Status);
+            // TODO: log disk read transfer error
+            // DISKIO_LOG_RED("Read transfer error, state %d, status %d\n", State, Status);
             return RES_ERROR;
         } else {
             return RES_OK;
@@ -162,7 +156,6 @@ DRESULT disk_write(
     DWORD sector, /* Sector address (LBA) */
     UINT count /* Number of sectors to write (1..128) */
 ) {
-    DISKIO_LOG("Disk write sector %x of count %d\n", sector, count);
     /* Check count */
     if (!count) {
         return RES_PARERR;
@@ -171,7 +164,8 @@ DRESULT disk_write(
     DRESULT res = _sdio_disk_write(buff, sector, count);
 
     if (res != RES_OK) {
-        DISKIO_LOG_RED("Disk write failed with res %d.\n", res);
+        // TODO: Log disk write error
+        // DISKIO_LOG_RED("Disk write failed with res %d.\n", res);
     }
     return res;
 }

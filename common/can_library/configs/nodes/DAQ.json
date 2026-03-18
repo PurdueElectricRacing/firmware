@@ -38,11 +38,6 @@
                     "msg_desc": "Queue diagnostics",
                     "signals": [
                         {
-                            "sig_name": "bcan_rx_overflow",
-                            "type": "uint16_t",
-                            "sig_desc": "CAN RX buffer overflow"
-                        },
-                        {
                             "sig_name": "can1_rx_overflow",
                             "type": "uint16_t",
                             "sig_desc": "CAN RX queue overflow"
@@ -51,11 +46,6 @@
                             "sig_name": "sd_rx_overflow",
                             "type": "uint16_t",
                             "sig_desc": "SD RX queue overflow"
-                        },
-                        {
-                            "sig_name": "tcp_tx_overflow",
-                            "type": "uint16_t",
-                            "sig_desc": "TCP TX queue overflow"
                         }
                     ],
                     "msg_period": 1000,

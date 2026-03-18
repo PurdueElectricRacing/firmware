@@ -15,7 +15,6 @@
 
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
-#include "daq_hub.h"
 #include "main.h"
 #include "w5500/socket.h"
 #include "w5500/wizchip_conf.h"
@@ -76,7 +75,6 @@ void eth_update_periodic(void) {
         case ETH_LINK_STARTING:
             if (eth_get_link_up()) {
                 PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
-                debug_printf("UDP UP!\n");
                 daq_hub.eth_state = ETH_LINK_UP;
             }
             break;
@@ -105,7 +103,6 @@ static void _eth_handle_error(eth_error_t err, int32_t reason) {
     daq_hub.eth_last_err_res    = reason;
     daq_hub.eth_last_error_time = getTick();
     PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
-    debug_printf("eth err: %d res: %d\n", err, reason);
 }
 
 static void eth_reset_error(void) {

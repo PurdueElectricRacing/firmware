@@ -8,7 +8,6 @@
 #include "common/phal/rtc.h"
 #include "common/phal/spi.h"
 #include "common/phal/usart.h"
-#include "daq_hub.h"
 #include "daq_spi.h"
 
 GPIOInitConfig_t gpio_config[] = {
@@ -82,7 +81,7 @@ SPI_InitConfig_t eth_spi_config = {
     .periph        = SPI1,
 };
 
-RTC_timestamp_t start_time =
+RTC_timestamp_t fallback_timestamp =
     {
         .date = {.month_bcd = RTC_MONTH_UNKNOWN,
                  .weekday   = RTC_WEEKDAY_UNKNOWN,
@@ -94,24 +93,32 @@ RTC_timestamp_t start_time =
                  .time_format = RTC_FORMAT_24_HOUR},
 };
 
-dma_init_t usart_tx_dma_config = USART6_TXDMA_CONT_CONFIG(NULL, 1);
-dma_init_t usart_rx_dma_config = USART6_RXDMA_CONT_CONFIG(NULL, 2);
-usart_init_t lte_usart_config  = {
-     .baud_rate        = 115200,
-     .word_length      = WORD_8,
-     .stop_bits        = SB_ONE,
-     .parity           = PT_NONE,
-     .hw_flow_ctl      = HW_DISABLE,
-     .ovsample         = OV_16,
-     .obsample         = OB_DISABLE,
-     .periph           = USART6,
-     .wake_addr        = false,
-     .usart_active_num = USART6_ACTIVE_IDX,
-     .tx_dma_cfg       = &usart_tx_dma_config,
-     .rx_dma_cfg       = &usart_rx_dma_config};
-DEBUG_PRINTF_USART_DEFINE(&lte_usart_config) // use LTE uart lmao
+daq_hub_t daq_hub = {
+    // Ethernet
+    .eth_state           = ETH_LINK_IDLE,
+    .eth_tcp_state       = ETH_TCP_IDLE,
+    .eth_error_ct        = 0,
+    .eth_last_error_time = 0,
+    .eth_last_err        = ETH_ERROR_NONE,
+    .eth_last_err_res    = 0,
 
-extern daq_hub_t daq_hub;
+    // SD Card
+    .sd_state           = SD_STATE_IDLE,
+    .sd_error_ct        = 0,
+    .sd_last_error_time = 0,
+    .sd_last_err        = SD_ERROR_NONE,
+    .sd_last_err_res    = 0,
+    .sd_task_handle     = NULL,
+
+    .rtc_config_state   = RTC_SYNC_PENDING,
+    
+    .last_file_ms       = 0,
+    .last_write_ms      = 0,
+    .log_enable_sw      = false,
+
+    .can1_rx_overflow   = 0,
+    .sd_rx_overflow     = 0
+};
 
 // Static buffer allocations
 SPMC_t spmc;
@@ -119,8 +126,14 @@ timestamped_frame_t buf;
 DEFINE_MUTEX(spi1_lock);
 
 static void configure_interrupts(void);
-bool can_parse_error_status(uint32_t err, timestamped_frame_t* frame);
+static void daq_heartbeat(void);
+static void can_send_periodic(void);
 void shutdown(void);
+
+DEFINE_TASK(daq_heartbeat, 500, osPriorityNormal, 512); // HB
+DEFINE_TASK(sd_update_periodic, 100, osPriorityNormal, 4096); // SD WRITE
+DEFINE_TASK(eth_update_periodic, 50, osPriorityNormal, 4096); // BULLET COMMS 
+DEFINE_TASK(can_send_periodic, 50, osPriorityNormal, 128); // CAN1 TX
 
 int main() {
     if (0 != PHAL_configureClockRates(&clock_config))
@@ -133,10 +146,7 @@ int main() {
     if (!PHAL_SPI_init(&eth_spi_config))
         HardFault_Handler();
 
-    if (!PHAL_configureRTC(&start_time, false))
-        HardFault_Handler();
-
-    if (!PHAL_initUSART(&lte_usart_config, APB2ClockRateHz))
+    if (!PHAL_configureRTC(&fallback_timestamp, false))
         HardFault_Handler();
 
     PHAL_initCAN(CAN1, false, MCAN_BAUD_RATE);
@@ -145,14 +155,17 @@ int main() {
         HardFault_Handler();
 
     daq_spi_register_callbacks(); // Link SPI for ethernet driver
-    daq_hub_init();
 
     osKernelInitialize();
     SPMC_init(&spmc);
     configure_interrupts();
 
     INIT_MUTEX(spi1_lock);
-    daq_create_threads();
+
+    START_TASK(daq_heartbeat);       // HB
+    START_TASK(sd_update_periodic);  // SD WRITE
+    START_TASK(eth_update_periodic); // BULLET COMMS
+    START_TASK(can_send_periodic);   // CAN1 TX
 
     osKernelStart();
 
@@ -227,17 +240,43 @@ void CAN2_RX0_IRQHandler() {
     can_rx_irq_handler(CAN2);
 }
 
+static void daq_heartbeat(void) {
+    PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
+    CAN_SEND_daq_can_stats(can_stats.can_peripheral_stats[CAN1_IDX].tx_of, can_stats.can_peripheral_stats[CAN1_IDX].tx_fail, can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
+    if (daq_hub.can1_rx_overflow || daq_hub.sd_rx_overflow) {
+        CAN_SEND_daq_queue_stats(daq_hub.can1_rx_overflow, daq_hub.sd_rx_overflow); // TODO reset & only send once?
+    }
+}
+
+static void can_send_periodic(void) {
+    CAN_tx_update();
+    CAN_rx_update();
+}
+
 /**
  * @brief Disables high power consumption devices
  *        If file open, flushes it to the sd card
  *        Then unmounts sd card
  */
 void shutdown(void) {
-    daq_shutdown_hook();
+    // First, turn off all power consuming devices to increase our write time to sd card
+    // To whoever is doing future DAQ rev: also change the GPIO ports here
+    // all LEDs go bye bye
+    GPIOD->BSRR |= GPIO_CLEAR_BIT(HEARTBEAT_LED_PIN) | GPIO_CLEAR_BIT(CONNECTION_LED_PIN) | GPIO_CLEAR_BIT(ERROR_LED_PIN);
+    GPIOA->BSRR |= GPIO_CLEAR_BIT(SD_DETECT_LED_PIN) | GPIO_CLEAR_BIT(SD_ACTIVITY_LED_PIN) | GPIO_CLEAR_BIT(SD_ERROR_LED_PIN);
+
+    PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 0);
+    PHAL_deinitCAN(CAN1);
+    PHAL_deinitCAN(CAN2);
+
+    sd_shutdown();
+    // Hooray, we made it, blink an LED to show the world
+    PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
+
+    // wait for power to fully turn off -> if it does not, restart
     uint32_t start_tick = getTick();
-    while (getTick() - start_tick < 3000 || PHAL_readGPIO(PWR_LOSS_PORT, PWR_LOSS_PIN) == 0) // wait for power to fully turn off -> if it does not, restart
-    {
-    }
+    while (getTick() - start_tick < 3000 || PHAL_readGPIO(PWR_LOSS_PORT, PWR_LOSS_PIN) == 0);
+
     NVIC_SystemReset(); // oof, we assumed wrong, restart and resume execution since the power is still on!
 }
 

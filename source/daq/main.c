@@ -9,6 +9,7 @@
 #include "common/phal/spi.h"
 #include "common/phal/usart.h"
 #include "daq_spi.h"
+#include "common/heartbeat/heartbeat.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // LEDs
@@ -81,16 +82,19 @@ SPI_InitConfig_t eth_spi_config = {
     .periph        = SPI1,
 };
 
-RTC_timestamp_t fallback_timestamp =
-    {
-        .date = {.month_bcd = RTC_MONTH_UNKNOWN,
-                 .weekday   = RTC_WEEKDAY_UNKNOWN,
-                 .day_bcd   = 0x00,
-                 .year_bcd  = 0x00},
-        .time = {.hours_bcd   = 0x00,
-                 .minutes_bcd = 0x00,
-                 .seconds_bcd = 0x00,
-                 .time_format = RTC_FORMAT_24_HOUR},
+RTC_timestamp_t fallback_timestamp ={
+    .date = {
+        .month_bcd = RTC_MONTH_UNKNOWN,
+        .weekday   = RTC_WEEKDAY_UNKNOWN,
+        .day_bcd   = 0x00,
+        .year_bcd  = 0x00
+    },
+    .time = {
+        .hours_bcd   = 0x00,
+        .minutes_bcd = 0x00,
+        .seconds_bcd = 0x00,
+        .time_format = RTC_FORMAT_24_HOUR
+    },
 };
 
 daq_hub_t daq_hub = {
@@ -126,33 +130,36 @@ timestamped_frame_t buf;
 DEFINE_MUTEX(spi1_lock);
 
 static void configure_interrupts(void);
-static void daq_heartbeat(void);
-static void can_send_periodic(void);
 void shutdown(void);
 
-DEFINE_TASK(daq_heartbeat, 500, osPriorityNormal, 512); // HB
 DEFINE_TASK(sd_update_periodic, 100, osPriorityNormal, 4096); // SD WRITE
 DEFINE_TASK(eth_update_periodic, 50, osPriorityNormal, 4096); // BULLET COMMS 
-DEFINE_TASK(can_send_periodic, 50, osPriorityNormal, 128); // CAN1 TX
+DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main() {
-    if (0 != PHAL_configureClockRates(&clock_config))
+    if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
-
-    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t)))
+    }
+    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
         HardFault_Handler();
-
+    }
+        
     PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 1);
-    if (!PHAL_SPI_init(&eth_spi_config))
+    if (!PHAL_SPI_init(&eth_spi_config)) {
         HardFault_Handler();
+    }
 
-    if (!PHAL_configureRTC(&fallback_timestamp, false))
+    if (!PHAL_configureRTC(&fallback_timestamp, false)) {
         HardFault_Handler();
+    }
 
-    PHAL_initCAN(CAN1, false, MCAN_BAUD_RATE);
-
-    if (!PHAL_initCAN(CAN2, false, VCAN_BAUD_RATE))
+    // ! CAN1 is bricked, use CAN2 on VCAN for now
+    // if (!PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
+    //     HardFault_Handler();
+    // }
+    if (!PHAL_initCAN(CAN2, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
+    }
 
     daq_spi_register_callbacks(); // Link SPI for ethernet driver
 
@@ -162,10 +169,9 @@ int main() {
 
     INIT_MUTEX(spi1_lock);
 
-    START_TASK(daq_heartbeat);       // HB
     START_TASK(sd_update_periodic);  // SD WRITE
     START_TASK(eth_update_periodic); // BULLET COMMS
-    START_TASK(can_send_periodic);   // CAN1 TX
+    START_HEARTBEAT_TASK();
 
     osKernelStart();
 
@@ -238,19 +244,6 @@ void CAN1_RX0_IRQHandler() {
 void CAN2_RX0_IRQHandler() {
     /* TODO if main relays CAN2 onto CAN1, then there will be redundant messages in logs */
     can_rx_irq_handler(CAN2);
-}
-
-static void daq_heartbeat(void) {
-    PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
-    CAN_SEND_daq_can_stats(can_stats.can_peripheral_stats[CAN1_IDX].tx_of, can_stats.can_peripheral_stats[CAN1_IDX].tx_fail, can_stats.rx_of, can_stats.can_peripheral_stats[CAN1_IDX].rx_overrun);
-    if (daq_hub.can1_rx_overflow || daq_hub.sd_rx_overflow) {
-        CAN_SEND_daq_queue_stats(daq_hub.can1_rx_overflow, daq_hub.sd_rx_overflow); // TODO reset & only send once?
-    }
-}
-
-static void can_send_periodic(void) {
-    CAN_tx_update();
-    CAN_rx_update();
 }
 
 /**

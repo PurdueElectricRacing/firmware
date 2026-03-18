@@ -12,46 +12,46 @@
 
 // Pinouts
 // LEDs
-#define HEARTBEAT_LED_PORT  GPIOD
-#define HEARTBEAT_LED_PIN   13
-#define CONNECTION_LED_PORT GPIOD
-#define CONNECTION_LED_PIN  14
-#define ERROR_LED_PORT      GPIOD
-#define ERROR_LED_PIN       15
+#define HEARTBEAT_LED_PORT  (GPIOD)
+#define HEARTBEAT_LED_PIN   (13)
+#define CONNECTION_LED_PORT (GPIOD)
+#define CONNECTION_LED_PIN  (14)
+#define ERROR_LED_PORT      (GPIOD)
+#define ERROR_LED_PIN       (15)
 
 // SD Card SDIO
-#define SD_ACTIVITY_LED_PORT GPIOA
-#define SD_ACTIVITY_LED_PIN  9
-#define SD_ERROR_LED_PORT    GPIOA
-#define SD_ERROR_LED_PIN     8
-#define SD_DETECT_LED_PORT   GPIOA
-#define SD_DETECT_LED_PIN    10
-#define SD_CD_PORT           GPIOD
-#define SD_CD_PIN            4
+#define SD_ACTIVITY_LED_PORT (GPIOA)
+#define SD_ACTIVITY_LED_PIN  (9)
+#define SD_ERROR_LED_PORT    (GPIOA)
+#define SD_ERROR_LED_PIN     (8)
+#define SD_DETECT_LED_PORT   (GPIOA)
+#define SD_DETECT_LED_PIN    (10)
+#define SD_CD_PORT           (GPIOD)
+#define SD_CD_PIN            (4)
 
 // W5500 ETH SPI1
-#define ETH_CS_PORT   GPIOA
-#define ETH_CS_PIN    4
-#define ETH_SCK_PORT  GPIOA
-#define ETH_SCK_PIN   5
-#define ETH_MISO_PORT GPIOA
-#define ETH_MISO_PIN  6
-#define ETH_MOSI_PORT GPIOA
-#define ETH_MOSI_PIN  7
-#define ETH_RST_PORT  GPIOE
-#define ETH_RST_PIN   3
+#define ETH_CS_PORT   (GPIOA)
+#define ETH_CS_PIN    (4)
+#define ETH_SCK_PORT  (GPIOA)
+#define ETH_SCK_PIN   (5)
+#define ETH_MISO_PORT (GPIOA)
+#define ETH_MISO_PIN  (6)
+#define ETH_MOSI_PORT (GPIOA)
+#define ETH_MOSI_PIN  (7)
+#define ETH_RST_PORT  (GPIOE)
+#define ETH_RST_PIN   (3)
 
 // LTE USART6
-#define LTE_UART_TX_PORT GPIOC
-#define LTE_UART_TX_PIN  6
-#define LTE_UART_RX_PORT GPIOC
-#define LTE_UART_RX_PIN  7
+#define LTE_UART_TX_PORT (GPIOC)
+#define LTE_UART_TX_PIN  (6)
+#define LTE_UART_RX_PORT (GPIOC)
+#define LTE_UART_RX_PIN  (7)
 
 // MISC
-#define PWR_LOSS_PORT   GPIOE
-#define PWR_LOSS_PIN    15
-#define LOG_ENABLE_PORT GPIOC
-#define LOG_ENABLE_PIN  15
+#define PWR_LOSS_PORT   (GPIOE)
+#define PWR_LOSS_PIN    (15)
+#define LOG_ENABLE_PORT (GPIOC)
+#define LOG_ENABLE_PIN  (15)
 
 // CAN 
 #define BUS_ID_CAN1 0

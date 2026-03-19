@@ -250,11 +250,6 @@ void sparkle_leds() {
     }
 }
 
-void background_can_update() {
-    CAN_rx_update();
-    CAN_tx_update();
-}
-
 void send_flowrates() {
     CAN_SEND_flowrates(getFlowRate1(), getFlowRate2());
 }
@@ -292,7 +287,8 @@ void send_iv_readings() {
 }
 
 DEFINE_HEARTBEAT_TASK(sparkle_leds);
-DEFINE_TASK(background_can_update, 5, osPriorityHigh, STACK_1024);
+DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
+DEFINE_TASK(CAN_tx_update, 5, osPriorityHigh, STACK_1024);
 DEFINE_TASK(autoSwitchPeriodic, 15, osPriorityNormal, STACK_512);
 DEFINE_TASK(update_cooling_periodic, 100, osPriorityNormal, STACK_1024);
 DEFINE_TASK(LED_periodic, 500, osPriorityLow, STACK_512);
@@ -348,8 +344,8 @@ int main() {
 
     osKernelInitialize();
 
-    
-    START_TASK(background_can_update);
+    START_TASK(CAN_rx_update);
+    START_TASK(CAN_tx_update);
     START_TASK(autoSwitchPeriodic);
     START_TASK(update_cooling_periodic);
     START_TASK(LED_periodic);

@@ -57,12 +57,8 @@ void ledblink() {
     PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
 }
 
-void can_worker_thread() {
-    CAN_rx_update();
-    CAN_tx_update();
-}
-
-DEFINE_TASK(can_worker_thread, 15, osPriorityNormal, 2048);
+DEFINE_TASK(CAN_tx_update, 15, osPriorityNormal, 2048);
+DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
@@ -84,7 +80,8 @@ int main(void) {
     // Software Initialization
     osKernelInitialize();
 
-    START_TASK(can_worker_thread);
+    START_TASK(CAN_rx_update);
+    START_TASK(CAN_tx_update);
     START_HEARTBEAT_TASK();
 
     // no way home

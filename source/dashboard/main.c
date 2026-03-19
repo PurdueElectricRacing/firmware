@@ -148,7 +148,8 @@ void service_start_button();
 
 // System critical threads
 DEFINE_TASK(pedalsPeriodic, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024);
-DEFINE_TASK(can_worker_task, 2, osPriorityNormal, STACK_2048); // leave stack at 2048
+DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
+DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048); // leave stack at 2048
 
 // Auxilary threads
 DEFINE_HEARTBEAT_TASK(sweep_external_leds);
@@ -191,8 +192,9 @@ int main(void) {
     // Software Initialization
     osKernelInitialize();
 
+    START_TASK(CAN_rx_update);
     START_TASK(pedalsPeriodic);
-    START_TASK(can_worker_task);
+    START_TASK(CAN_tx_update);
     START_TASK(service_start_button);
     START_TASK(fault_library_periodic);
     START_TASK(driver_interface_periodic);
@@ -209,11 +211,6 @@ bool start_button_pressed = false;
 void service_start_button() {
     start_button_pressed = PHAL_readGPIO(START_BTN_GPIO_Port, START_BTN_Pin);
     CAN_SEND_start_button(start_button_pressed);
-}
-
-void can_worker_task() {
-    CAN_rx_update();
-    CAN_tx_update();
 }
 
 void send_version() {

@@ -19,8 +19,9 @@ DEFINE_QUEUE(q_rx_can, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
 // Shared rx update implementation
 void CAN_rx_update() {
     CanMsgTypeDef_t rx_msg;
-    // Timeout: 0, poll only, don't block
-    while (xQueueReceive(q_rx_can, &rx_msg, 0) == pdPASS) {
+
+    // Block until a message is received
+    if (xQueueReceive(q_rx_can, &rx_msg, portMAX_DELAY) == pdPASS) {
         last_can_rx_time_ms = OS_TICKS;
         uint8_t periph_idx  = GET_PERIPH_IDX(rx_msg.Bus);
         CAN_rx_dispatcher(

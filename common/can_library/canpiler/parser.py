@@ -116,10 +116,19 @@ class Message:
             raise ValueError("Message too long")
         
         if self.id_override:
-            raw_id = int(self.id_override, 0)
+            try:
+                raw_id = int(self.id_override, 0)
+            except ValueError:
+                print_as_error(f"Message '{self.name}' has invalid override ID format: '{self.id_override}'")
+                raise ValueError(f"Invalid ID override format for {self.name}")
+
             if not self.is_extended and raw_id > 0x7FF:
-                print_as_error(f"Message '{self.name}' has override ID {hex(raw_id)} which exceeds 11-bit limit for standard bus.")
-                raise ValueError(f"ID override too large for standard bus: {self.name}")
+                print_as_error(f"Message '{self.name}' has override ID {hex(raw_id)} which exceeds 11-bit limit (0x7FF) for standard message.")
+                raise ValueError(f"ID override too large for standard message: {self.name}")
+            
+            if self.is_extended and raw_id > 0x1FFFFFFF:
+                print_as_error(f"Message '{self.name}' has override ID {hex(raw_id)} which exceeds 29-bit limit (0x1FFFFFFF) for extended message.")
+                raise ValueError(f"ID override too large for extended message: {self.name}")
 
     def get_total_bit_length(self, custom_types: Optional[Dict] = None) -> int:
         return sum(sig.get_bit_length(custom_types) for sig in self.signals)

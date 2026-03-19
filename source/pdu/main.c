@@ -1,7 +1,7 @@
 /**
  * @file main.c
  * @brief "PDU" node source code
- * 
+ *
  * @author Luke Oxley (lcoxley@purdue.edu)
  * @author Ronak Jain (jain717@purdue.edu)
  * @author Irving Wang (irvingw@purdue.edu)
@@ -286,7 +286,7 @@ void send_iv_readings() {
     CAN_SEND_pdu_temps((uint16_t)temp);
 }
 
-DEFINE_HEARTBEAT_TASK(sparkle_leds);
+// Thread Defines
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
 DEFINE_TASK(CAN_tx_update, 5, osPriorityHigh, STACK_1024);
 DEFINE_TASK(autoSwitchPeriodic, 15, osPriorityNormal, STACK_512);
@@ -296,6 +296,7 @@ DEFINE_TASK(send_iv_readings, 500, osPriorityLow, STACK_512);
 DEFINE_TASK(checkSwitchFaults, 100, osPriorityLow, STACK_512);
 DEFINE_TASK(send_flowrates, 200, osPriorityLow, STACK_256);
 DEFINE_TASK(fault_library_periodic, 100, osPriorityLow, STACK_1024);
+DEFINE_HEARTBEAT_TASK(sparkle_leds);
 
 int main() {
     // Hardware Initialization
@@ -318,7 +319,7 @@ int main() {
     if (!PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
-    
+
     CAN_library_init();
     NVIC_SetPriority(CAN1_RX0_IRQn, 6);
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
@@ -374,4 +375,3 @@ void HardFault_Handler() {
         __asm__("NOP"); // Halt forever
     }
 }
-

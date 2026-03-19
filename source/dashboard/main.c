@@ -86,7 +86,7 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel = BRAKE2_PRESSURE_ADC_CHANNEL, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480}
 };
 
-dma_init_t adc_dma_config = 
+dma_init_t adc_dma_config =
 ADC1_DMA_CONT_CONFIG(
     (uint32_t)&raw_adc_values,
     sizeof(raw_adc_values) / sizeof(raw_adc_values.t1), 0b01
@@ -146,18 +146,16 @@ ALLOCATE_STRBUF(lcd_tx_buf, 2048);
 void can_worker_task();
 void service_start_button();
 
-// System critical threads
+// Thread Defines
 DEFINE_TASK(pedalsPeriodic, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024);
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
 DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048); // leave stack at 2048
-
-// Auxilary threads
-DEFINE_HEARTBEAT_TASK(sweep_external_leds);
-DEFINE_TASK(driver_interface_periodic, 50, osPriorityLow, STACK_1024);
-DEFINE_TASK(service_start_button, START_BUTTON_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
-DEFINE_TASK(LCD_tx_update, 20, osPriorityLow, STACK_512);
 DEFINE_TASK(updateTelemetryPages, 100, osPriorityNormal, STACK_1024);
+DEFINE_TASK(service_start_button, START_BUTTON_PERIOD_MS, osPriorityLow, STACK_512);
+DEFINE_TASK(driver_interface_periodic, 50, osPriorityLow, STACK_1024);
+DEFINE_TASK(LCD_tx_update, 20, osPriorityLow, STACK_512);
+DEFINE_HEARTBEAT_TASK(sweep_external_leds);
 
 int main(void) {
     // Hardware Initialization
@@ -192,14 +190,14 @@ int main(void) {
     // Software Initialization
     osKernelInitialize();
 
-    START_TASK(CAN_rx_update);
     START_TASK(pedalsPeriodic);
+    START_TASK(CAN_rx_update);
     START_TASK(CAN_tx_update);
-    START_TASK(service_start_button);
     START_TASK(fault_library_periodic);
+    START_TASK(updateTelemetryPages);
+    START_TASK(service_start_button);
     START_TASK(driver_interface_periodic);
     START_TASK(LCD_tx_update);
-    START_TASK(updateTelemetryPages);
     START_HEARTBEAT_TASK();
 
     osKernelStart(); // GO!

@@ -1,9 +1,9 @@
 /**
  * @file main.c
  * @brief "Torque Vector" node source code
- * 
+ *
  * @author Irving Wang (irvingw@purdue.edu)
- * 
+ *
  */
 
 #include "main.h"
@@ -57,8 +57,9 @@ void ledblink() {
     PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
 }
 
-DEFINE_TASK(CAN_tx_update, 15, osPriorityNormal, 2048);
+// Thread Defines
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
+DEFINE_TASK(CAN_tx_update, 15, osPriorityNormal, 2048);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {

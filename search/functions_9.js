@@ -17,5 +17,6 @@ var searchData=
   ['is_5fother_5fmcus_5flatched_14',['is_other_mcus_latched',['../faults__common_8h.html#a6a4afce3ed471db381c8bc61dc35fff0',1,'faults_common.h']]],
   ['is_5fstart_5fbutton_5fpressed_15',['is_start_button_pressed',['../state__machine_8c.html#ab7318162392bf2c166e5f992b9053da2',1,'state_machine.c']]],
   ['is_5fvalid_5fheader_16',['is_valid_header',['../gps_8h.html#a4388761471fe2c06f0146d84fbd6ee18',1,'gps.h']]],
-  ['is_5fwarning_5flatched_17',['is_warning_latched',['../faults__common_8h.html#a731895d731bdcc9ea2038351278ffef7',1,'faults_common.h']]]
+  ['is_5fwarning_5flatched_17',['is_warning_latched',['../faults__common_8h.html#a731895d731bdcc9ea2038351278ffef7',1,'faults_common.h']]],
+  ['isense_5fto_5fcurrent_18',['isense_to_current',['../a__box_2main_8c.html#afb424c80381cc68635ab9a3f30e99394',1,'main.c']]]
 ];

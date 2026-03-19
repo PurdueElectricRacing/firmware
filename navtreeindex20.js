@@ -1,5 +1,9 @@
 var NAVTREEINDEX20 =
 {
+"syscalls_8h.html#a38f8394eee3a086b87ff6d431e1e5343":[8,0,0,15,1,9],
+"syscalls_8h.html#a41eef54307912a82d20e71c3d47315aa":[8,0,0,15,1,1],
+"syscalls_8h.html#a4f9bf1e1602f2828e0a54e70c3b2dccb":[8,0,0,15,1,8],
+"syscalls_8h.html#a5aab5e2acfd600e3667dc915a2bbc7cb":[8,0,0,15,1,0],
 "syscalls_8h.html#a727b166113490efb1291e2255fe34700":[8,0,0,15,1,3],
 "syscalls_8h.html#a7a61311bdf1cb025fc07dc2bdae22ce4":[8,0,0,15,1,7],
 "syscalls_8h.html#a945e539df8e0f66d3c73c533fe1968ee":[8,0,0,15,1,2],
@@ -245,9 +249,5 @@ var NAVTREEINDEX20 =
 "wizchip__conf_8c.html#a4236dcf85dce5f74aa27236cd82fa902":[8,0,2,1,4,4,30],
 "wizchip__conf_8c.html#a44d6cd4b7f4f35526f6a6eb8402fa71b":[8,0,2,1,4,4,25],
 "wizchip__conf_8c.html#a46a76bce886968fef0c9ff15f8a104d5":[8,0,2,1,4,4,33],
-"wizchip__conf_8c.html#a558a7118b574e41fd9edb3de0bbbd4f0":[8,0,2,1,4,4,11],
-"wizchip__conf_8c.html#a5bdad4969369fb3952908977d2aa2b2d":[8,0,2,1,4,4,36],
-"wizchip__conf_8c.html#a63208f3ad63e6290be0ed33705baa27e":[8,0,2,1,4,4,4],
-"wizchip__conf_8c.html#a648393936fa392a41529e87a829ca53a":[8,0,2,1,4,4,26],
-"wizchip__conf_8c.html#a658e320e9c986ecab81857a8716b8b87":[8,0,2,1,4,4,3]
+"wizchip__conf_8c.html#a558a7118b574e41fd9edb3de0bbbd4f0":[8,0,2,1,4,4,11]
 };

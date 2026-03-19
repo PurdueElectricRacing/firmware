@@ -1,5 +1,9 @@
 var NAVTREEINDEX21 =
 {
+"wizchip__conf_8c.html#a5bdad4969369fb3952908977d2aa2b2d":[8,0,2,1,4,4,36],
+"wizchip__conf_8c.html#a63208f3ad63e6290be0ed33705baa27e":[8,0,2,1,4,4,4],
+"wizchip__conf_8c.html#a648393936fa392a41529e87a829ca53a":[8,0,2,1,4,4,26],
+"wizchip__conf_8c.html#a658e320e9c986ecab81857a8716b8b87":[8,0,2,1,4,4,3],
 "wizchip__conf_8c.html#a67a82552d83baa52a8012ad37af1679a":[8,0,2,1,4,4,2],
 "wizchip__conf_8c.html#a7d042c7f99430808337d853b18c2695e":[8,0,2,1,4,4,5],
 "wizchip__conf_8c.html#a80268b180b4b03c9c53fadd97fe6744f":[8,0,2,1,4,4,8],

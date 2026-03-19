@@ -28,11 +28,12 @@ var searchData=
   ['is_5fprecharge_5fcomplete_25',['is_precharge_complete',['../structcar__t.html#a9b1516d8a66ba7c53b9ed957aa689356',1,'car_t']]],
   ['is_5fsigned_26',['is_signed',['../classparser_1_1Signal.html#a9b880c06ac146df487344bea4045e50b',1,'parser::Signal']]],
   ['isaccelready_27',['isAccelReady',['../structBMI088__Handle__t.html#a7115088258f083e1b9d8015c29c7df45',1,'BMI088_Handle_t']]],
-  ['isfullyresolved_28',['isFullyResolved',['../structGPS__Handle__t.html#a0aa8f538c26fade11391bc156dcb83b3',1,'GPS_Handle_t']]],
-  ['isgyrook_29',['isGyroOK',['../structBMI088__Handle__t.html#af4658bd547ae80f93ad66536d721bc7b',1,'BMI088_Handle_t']]],
-  ['isvaliddate_30',['isValidDate',['../structGPS__Handle__t.html#a6c37caf3a62fa6c1489615bab257a21e',1,'GPS_Handle_t']]],
-  ['isvalidmag_31',['isValidMag',['../structGPS__Handle__t.html#a228fa27ac6d5cd66b053852b3e03e9a8',1,'GPS_Handle_t']]],
-  ['isvalidtime_32',['isValidTime',['../structGPS__Handle__t.html#ab7f1409ce892a564ff5851321a9109f3',1,'GPS_Handle_t']]],
-  ['itow_33',['iTOW',['../structNAV__PVT__t.html#abc64e2cc2ce6e15abd8d7e2d11512d4e',1,'NAV_PVT_t']]],
-  ['izze_5fimu_5fprogramming_5fconstant_34',['IZZE_IMU_PROGRAMMING_CONSTANT',['../izze__imu_8h.html#a838dbb8e41bcf270aba226d360042204',1,'izze_imu.h']]]
+  ['isense_5fraw_28',['isense_raw',['../a__box_2main_8c.html#a922e6001d7bbbd10a001e09a76a470d0',1,'main.c']]],
+  ['isfullyresolved_29',['isFullyResolved',['../structGPS__Handle__t.html#a0aa8f538c26fade11391bc156dcb83b3',1,'GPS_Handle_t']]],
+  ['isgyrook_30',['isGyroOK',['../structBMI088__Handle__t.html#af4658bd547ae80f93ad66536d721bc7b',1,'BMI088_Handle_t']]],
+  ['isvaliddate_31',['isValidDate',['../structGPS__Handle__t.html#a6c37caf3a62fa6c1489615bab257a21e',1,'GPS_Handle_t']]],
+  ['isvalidmag_32',['isValidMag',['../structGPS__Handle__t.html#a228fa27ac6d5cd66b053852b3e03e9a8',1,'GPS_Handle_t']]],
+  ['isvalidtime_33',['isValidTime',['../structGPS__Handle__t.html#ab7f1409ce892a564ff5851321a9109f3',1,'GPS_Handle_t']]],
+  ['itow_34',['iTOW',['../structNAV__PVT__t.html#abc64e2cc2ce6e15abd8d7e2d11512d4e',1,'NAV_PVT_t']]],
+  ['izze_5fimu_5fprogramming_5fconstant_35',['IZZE_IMU_PROGRAMMING_CONSTANT',['../izze__imu_8h.html#a838dbb8e41bcf270aba226d360042204',1,'izze_imu.h']]]
 ];

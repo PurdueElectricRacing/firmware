@@ -1,5 +1,9 @@
 var NAVTREEINDEX17 =
 {
+"sdio_8h.html#ad0df99cd4f523813b603109db94f07c6":[8,0,2,1,2,1,61],
+"sdio_8h.html#ad37fe2cf88496122b5fdf14ae7f529b5":[8,0,2,1,2,1,127],
+"sdio_8h.html#ad3dc52f076ae8145e105cb4d8a37b043":[8,0,2,1,2,1,148],
+"sdio_8h.html#ad3f9516a5e6764baf2083f76f4bc0eea":[8,0,2,1,2,1,76],
 "sdio_8h.html#ad4677c73c4e8e7e1ec2161554cfdfeeb":[8,0,2,1,2,1,104],
 "sdio_8h.html#ad469cc842f03b1d49e08e91b515b7ded":[8,0,2,1,2,1,134],
 "sdio_8h.html#ad528da3ef5cf61ecf6d500a9b527c3e9":[8,0,2,1,2,1,87],
@@ -245,9 +249,5 @@ var NAVTREEINDEX17 =
 "structFATFS.html#a56716c7e7ac10cf46e73ffb2a2e9b545":[7,0,25,13],
 "structFATFS.html#a647e43c9ccae94b7274793d1909897de":[7,0,25,17],
 "structFATFS.html#a78b1024e7d7d086d132a58ee943b31df":[7,0,25,3],
-"structFATFS.html#a84e9cdc5a6a8e33ea7ec192058abf161":[7,0,25,6],
-"structFATFS.html#a89358c0e7b2293254c9481dcd2984d30":[7,0,25,16],
-"structFATFS.html#a8da50eeba6469bc20d60ca0cf9a1307c":[7,0,25,12],
-"structFATFS.html#aaa678cb2c36f5e7d8157ae295f1fbb42":[7,0,25,10],
-"structFATFS.html#aaf7eccaccdc9c4243230672d6b2f6566":[7,0,25,19]
+"structFATFS.html#a84e9cdc5a6a8e33ea7ec192058abf161":[7,0,25,6]
 };

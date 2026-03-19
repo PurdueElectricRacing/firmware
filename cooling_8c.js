@@ -1,7 +1,6 @@
 var cooling_8c =
 [
     [ "calculate_cooling_periodic", "cooling_8c.html#af2761ec68d1438c1c8b9feb4be3cfb68", null ],
-    [ "cooling_driver_request_CALLBACK", "cooling_8c.html#ae983f748767d33f50733d2914821f3e1", null ],
     [ "coolingInit", "cooling_8c.html#ad30811eac53f601ce45d6ab71f10c678", null ],
     [ "set_fan1_off", "cooling_8c.html#a5964d322f16cf7e77fc555a64e3bc94d", null ],
     [ "set_fan1_on", "cooling_8c.html#a12c9950618f1f7c4e9fd37394178bed0", null ],

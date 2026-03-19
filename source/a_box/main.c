@@ -45,7 +45,7 @@ uint16_t isense_raw = 0;
 ADCChannelConfig_t adc_channel_config[] = {
     {.channel = ISENSE_ADC_CHANNEL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
 };
-dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&isense_raw, sizeof(uint16_t), 0b01);
+dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&isense_raw, 1, 0b01);
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {

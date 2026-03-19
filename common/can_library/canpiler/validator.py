@@ -5,26 +5,34 @@ Author: Irving Wang (irvingw@purdue.edu)
 """
 
 import sys
-from jsonschema import RefResolver, Draft7Validator, ValidationError
+from jsonschema import Draft202012Validator
+from referencing import Registry, Resource
 from utils import load_json, SCHEMA_DIR, COMMON_TYPES_CONFIG_PATH, BUS_CONFIG_PATH, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, print_as_error, print_as_ok, print_as_warning, print_as_success
 
-def validate_against_schema(data, schema, schema_store=None, base_uri='', filename="<unknown>") -> bool:
+def validate_against_schema(data, schema, schema_store=None, filename="<unknown>") -> bool:
     """
     Validate data against schema and return success status.
     Prints all validation errors found in the file.
     """
-    resolver = RefResolver(base_uri, schema, store=schema_store) if schema_store else None
-    validator = Draft7Validator(schema, resolver=resolver)
+    if schema_store:
+        registry = Registry().with_resources([
+            (uri, Resource.from_contents(content))
+            for uri, content in schema_store.items()
+        ])
+    else:
+        registry = Registry()
 
-    errors = sorted(validator.iter_errors(data), key=lambda e: str(e.path))
-    
+    validator = Draft202012Validator(schema, registry=registry)
+
+    # Collect all validation errors
+    errors = list(validator.iter_errors(data))
     if not errors:
         return True
 
-    print_as_warning(f"Errors in {filename}:")
+    print_as_warning(f"Schema validation failed for {filename}:")
     for error in errors:
         path = ".".join(map(str, error.path)) or "root"
-        print_as_error(f"Field '{path}': {error.message}")
+        print_as_error(f"  Field '{path}': {error.message}")
     
     return False
 
@@ -81,8 +89,13 @@ def validate_all() -> bool:
     
     # Load shared schemas for references
     message_schema = load_json(SCHEMA_DIR / 'message_schema.json')
+    signal_schema = load_json(SCHEMA_DIR / 'signal_schema.json')
+    fault_schema = load_json(SCHEMA_DIR / 'fault_schema.json')
+    
     schema_store = {
-        'file:///message_schema.json': message_schema,
+        'https://github.com/PER/canpiler/message_schema.json': message_schema,
+        'https://github.com/PER/canpiler/signal_schema.json': signal_schema,
+        'https://github.com/PER/canpiler/fault_schema.json': fault_schema,
     }
 
     # Validate custom types schema

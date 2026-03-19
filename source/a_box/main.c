@@ -16,6 +16,7 @@
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
+#include "common/phal/adc.h"
 #include "common/heartbeat/heartbeat.h"
 
 SPI_InitConfig_t bms_spi_config = {
@@ -30,6 +31,21 @@ SPI_InitConfig_t bms_spi_config = {
     .cpha          = 0,
     .data_rate     = 500'000, // 500 kHz SPI clock for ADBMS6380
 };
+
+ADCInitConfig_t adc_config = {
+    .prescaler      = ADC_CLK_PRESC_2,
+    .resolution     = ADC_RES_12_BIT,
+    .data_align     = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode = true,
+    .dma_mode       = ADC_DMA_CIRCULAR,
+    .periph         = ADC1,
+};
+
+uint16_t isense_raw = 0;
+ADCChannelConfig_t adc_channel_config[] = {
+    {.channel = ISENSE_ADC_CHANNEL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+};
+dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&isense_raw, 1, 0b01);
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -147,9 +163,29 @@ int main(void) {
     return 0;
 }
 
+// DHAB S/134 current sensor conversion
+static int16_t isense_to_current(uint16_t isense_raw) {
+    static constexpr float ADC_VREF = 3.3f;
+    static constexpr float ADC_MAX  = 4095.0f;
+
+    static constexpr float DIV_R1 = 2400.0f;
+    static constexpr float DIV_R2 = 4700.0f;
+
+    static constexpr float V_OFFSET = 2.5f;
+    static constexpr float G = 10.0e-3f;
+
+    float divider_gain = (DIV_R1 + DIV_R2) / DIV_R2;
+    float v_adc = isense_raw * ADC_VREF / ADC_MAX;
+    float v_sensor = v_adc * divider_gain;
+    float current = (v_sensor - V_OFFSET) / G;
+    float scaled_current = current * PACK_COEFF_PACK_STATS_PACK_CURRENT;
+
+    return (int16_t)scaled_current;
+}
+
 void report_telemetry() {
     uint16_t pack_voltage = (uint16_t)(g_bms.sum_voltage * PACK_COEFF_PACK_STATS_PACK_VOLTAGE);
-    uint16_t pack_current = 0; // todo isense
+    int16_t pack_current = isense_to_current(isense_raw);
     CAN_SEND_pack_stats(pack_voltage, pack_current, g_bms.avg_therm_temp);
 }
 
@@ -167,6 +203,15 @@ void check_faults() {
     // todo check polarity of this signal
     bool imd_status = PHAL_readGPIO(IMD_STATUS_PORT, IMD_STATUS_PIN);
     update_fault(FAULT_ID_IMD, imd_status);
+
+    // BMS
+    bool is_bms_disconnected = g_bms.state != ADBMS_STATE_CONNECTED;
+    update_fault(FAULT_ID_BMS_DISCONNECTED, is_bms_disconnected);
+    PHAL_writeGPIO(BMS_SDC_CTRL_PORT, BMS_SDC_CTRL_PIN, is_clear(FAULT_ID_BMS_DISCONNECTED));
+
+    // Cell voltage bounds
+    int16_t scaled_min_voltage = (int16_t)(g_bms.min_voltage * 10.0f);
+    update_fault(FAULT_ID_CELL_UNDERVOLTAGE, scaled_min_voltage);
 
     // Temperature related
     update_fault(FAULT_ID_PACK_OVERTEMP, g_bms.max_therm_temp);

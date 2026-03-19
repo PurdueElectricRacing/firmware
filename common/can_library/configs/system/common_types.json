@@ -4,13 +4,12 @@
             "name": "car_state_t",
             "base_type": "uint8_t",
             "choices": [
-                "init",
+                "fatal",
                 "idle",
                 "precharging",
                 "energized",
                 "buzzing",
-                "ready2drive",
-                "fatal"
+                "ready2drive"
             ]
         },
         {

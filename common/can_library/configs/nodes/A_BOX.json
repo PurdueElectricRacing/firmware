@@ -31,7 +31,7 @@
                         }
                     ],
                     "msg_priority": 5,
-                    "msg_period": 1000
+                    "msg_period": 200
                 },
                 {
                     "msg_name": "abox_version",
@@ -114,6 +114,24 @@
             "time_to_latch": 100,
             "time_to_unlatch": 5000,
             "lcd_message": "IMD Isolation Fault"
+        },
+        {
+            "fault_name": "BMS_DISCONNECTED",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 5000,
+            "time_to_unlatch": 1000,
+            "lcd_message": "BMS Disconnected"
+        },
+        {
+            "fault_name": "CELL_UNDERVOLTAGE",
+            "max": 42,
+            "min": 27,
+            "priority": "error",
+            "time_to_latch": 1000,
+            "time_to_unlatch": 5000,
+            "lcd_message": "Min Cell Voltage < 2.7V"
         }
     ]
 }

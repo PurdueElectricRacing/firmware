@@ -127,12 +127,6 @@ void fsm_periodic() {
     g_torque_request.rear_left   = 0;
     g_torque_request.rear_right  = 0;
 
-    // check SDCs before TSMS before doing anything else
-    if (is_latched(FAULT_ID_SDC15_REAR_INTERLOCK)) {
-        g_car.current_state = CAR_STATE_FATAL;
-        g_car.next_state = CAR_STATE_FATAL;
-    }
-
     update_brake_light();
     update_tsal();
 
@@ -142,11 +136,20 @@ void fsm_periodic() {
     // amks need a bool to point to for precharge status
     g_car.is_precharge_complete = is_clear(FAULT_ID_PRECHARGE_INCOMPLETE);
 
-    switch (g_car.current_state) {
-        case CAR_STATE_INIT: {
-            // do nothing for now
+    // any SDCs latched 1-15 faults will cause a fatal state
+    if (is_latched(FAULT_ID_SDC15_REAR_INTERLOCK)) {
+        g_car.current_state = CAR_STATE_FATAL;
+        g_car.next_state = CAR_STATE_FATAL;
+    } else if (is_latched(FAULT_ID_SDC16_TSMS)) { // return to idle if TSMS is opened
+        g_car.current_state = CAR_STATE_IDLE;
+        g_car.next_state = CAR_STATE_IDLE;
+    }
 
-            if (is_init_complete()) {
+    switch (g_car.current_state) {
+        case CAR_STATE_FATAL: {
+            // nothing for now
+
+            if (is_clear(FAULT_ID_SDC15_REAR_INTERLOCK)) {
                 g_car.next_state = CAR_STATE_IDLE;
             }
             break;
@@ -162,7 +165,7 @@ void fsm_periodic() {
         case CAR_STATE_PRECHARGING: {
             // do nothing for now
 
-            if (is_clear(FAULT_ID_PRECHARGE_INCOMPLETE)) { // precharge is complete
+            if (is_clear(FAULT_ID_PRECHARGE_INCOMPLETE)) {
                 g_car.next_state = CAR_STATE_ENERGIZED;
             }
             break;
@@ -190,18 +193,6 @@ void fsm_periodic() {
             if (is_start_button_pressed()) {
                 g_car.next_state = CAR_STATE_IDLE;
             }
-            break;
-        }
-        case CAR_STATE_FATAL: {
-            // nothing for now
-
-            if (!is_fatal_latched()) {
-                g_car.next_state = CAR_STATE_IDLE;
-            }
-            break;
-        }
-        default: { // should never reach here
-            g_car.next_state = CAR_STATE_FATAL;
             break;
         }
     }

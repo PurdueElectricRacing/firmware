@@ -59,7 +59,7 @@ void ledblink() {
 
 // Thread Defines
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 15, osPriorityNormal, 2048);
+DEFINE_TASK(CAN_tx_update, 15, osPriorityNormal, STACK_2048);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {

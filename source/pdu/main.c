@@ -232,7 +232,6 @@ extern uint32_t PLLClockRateHz;
 void HardFault_Handler();
 
 /* Task functions */
-void background_can_update();
 void send_iv_readings();
 void send_flowrates();
 

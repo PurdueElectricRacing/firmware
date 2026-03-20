@@ -2,9 +2,9 @@ var f4__testing_2canpiler_8c =
 [
     [ "TargetCoreClockrateHz", "f4__testing_2canpiler_8c.html#a041cbdf351ae1da6f864d0d249c93008", null ],
     [ "CAN1_RX0_IRQHandler", "f4__testing_2canpiler_8c.html#a990c3a82a9723ab422570b787af03f72", null ],
-    [ "can_worker", "f4__testing_2canpiler_8c.html#a4db3e7b978a53bc85c1bd8306f8ad7fd", null ],
     [ "cooling_driver_request_CALLBACK", "f4__testing_2canpiler_8c.html#ab0885e06f6c12bb2931d57983b22e8ba", null ],
-    [ "DEFINE_TASK", "f4__testing_2canpiler_8c.html#a13a885854f3d96bca11138312d5d3b94", null ],
+    [ "DEFINE_TASK", "f4__testing_2canpiler_8c.html#ab2affa98a476a899af886fd2cc19bf28", null ],
+    [ "DEFINE_TASK", "f4__testing_2canpiler_8c.html#a2afbb531579394cd620a515183452cb6", null ],
     [ "DEFINE_TASK", "f4__testing_2canpiler_8c.html#a1ab8a9910c73f044f44415e569125ddb", null ],
     [ "HardFault_Handler", "f4__testing_2canpiler_8c.html#a2af56a8bf3197b2f06cac4c0b84ffc3e", null ],
     [ "main", "f4__testing_2canpiler_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4", null ],

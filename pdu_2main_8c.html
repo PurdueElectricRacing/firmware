@@ -134,18 +134,16 @@ Macros</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a2af56a8bf3197b2f06cac4c0b84ffc3e" id="r_a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2af56a8bf3197b2f06cac4c0b84ffc3e">HardFault_Handler</a> ()</td></tr>
 <tr class="separator:a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6889303ebc2ac02a08baeb15f363368a" id="r_a6889303ebc2ac02a08baeb15f363368a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6889303ebc2ac02a08baeb15f363368a">background_can_update</a> ()</td></tr>
-<tr class="separator:a6889303ebc2ac02a08baeb15f363368a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afef31b64be658f62747f5ae34f9bacdd" id="r_afef31b64be658f62747f5ae34f9bacdd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afef31b64be658f62747f5ae34f9bacdd">send_iv_readings</a> ()</td></tr>
 <tr class="separator:afef31b64be658f62747f5ae34f9bacdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7a4ebf8321efc467754ed8e2295b790" id="r_ab7a4ebf8321efc467754ed8e2295b790"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7a4ebf8321efc467754ed8e2295b790">send_flowrates</a> ()</td></tr>
 <tr class="separator:ab7a4ebf8321efc467754ed8e2295b790"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a030bfc73223143b394343fa39d98695c" id="r_a030bfc73223143b394343fa39d98695c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a030bfc73223143b394343fa39d98695c">sparkle_leds</a> ()</td></tr>
 <tr class="separator:a030bfc73223143b394343fa39d98695c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade2c1da3cc6cfc7049c92adeab90ee33" id="r_ade2c1da3cc6cfc7049c92adeab90ee33"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade2c1da3cc6cfc7049c92adeab90ee33">DEFINE_HEARTBEAT_TASK</a> (<a class="el" href="#a030bfc73223143b394343fa39d98695c">sparkle_leds</a>)</td></tr>
-<tr class="separator:ade2c1da3cc6cfc7049c92adeab90ee33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b3d7448b115241137534e4e2e337509" id="r_a6b3d7448b115241137534e4e2e337509"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b3d7448b115241137534e4e2e337509">DEFINE_TASK</a> (<a class="el" href="a__box_2main_8c.html#af14d2c72424a8b2f82fdc9ed8497a61e">background_can_update</a>, 5, osPriorityHigh, <a class="el" href="freertos_8h.html#a9cfaf8e95af7da51f7fc2347815e210f">STACK_1024</a>)</td></tr>
-<tr class="separator:a6b3d7448b115241137534e4e2e337509"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2affa98a476a899af886fd2cc19bf28" id="r_ab2affa98a476a899af886fd2cc19bf28"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2affa98a476a899af886fd2cc19bf28">DEFINE_TASK</a> (<a class="el" href="can__common_8c.html#abfcff4ec444a1fa4366dd38c73519a51">CAN_rx_update</a>, 0, osPriorityHigh, <a class="el" href="freertos_8h.html#a16d5b4d257fb218fa48b6865c3014f33">STACK_2048</a>)</td></tr>
+<tr class="separator:ab2affa98a476a899af886fd2cc19bf28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6f23b34fe48478ed553a0435304ca4b" id="r_ae6f23b34fe48478ed553a0435304ca4b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6f23b34fe48478ed553a0435304ca4b">DEFINE_TASK</a> (<a class="el" href="can__common_8h.html#a49fce4d849c0fd9d2daee17cf822b26a">CAN_tx_update</a>, 5, osPriorityHigh, <a class="el" href="freertos_8h.html#a9cfaf8e95af7da51f7fc2347815e210f">STACK_1024</a>)</td></tr>
+<tr class="separator:ae6f23b34fe48478ed553a0435304ca4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa13004782e2d6cec1c64faffead92471" id="r_aa13004782e2d6cec1c64faffead92471"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa13004782e2d6cec1c64faffead92471">DEFINE_TASK</a> (<a class="el" href="auto__switch_8c.html#a467332216958e3faa3f70724fcf10194">autoSwitchPeriodic</a>, 15, osPriorityNormal, <a class="el" href="freertos_8h.html#a6ab500a15eda5befe7c0a9be1e7669e5">STACK_512</a>)</td></tr>
 <tr class="separator:aa13004782e2d6cec1c64faffead92471"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8bf2ffa0fb5da3ab407685928aa9941" id="r_af8bf2ffa0fb5da3ab407685928aa9941"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8bf2ffa0fb5da3ab407685928aa9941">DEFINE_TASK</a> (<a class="el" href="cooling_8c.html#a3e02c27284622cd9e494e2af92cbe398">update_cooling_periodic</a>, 100, osPriorityNormal, <a class="el" href="freertos_8h.html#a9cfaf8e95af7da51f7fc2347815e210f">STACK_1024</a>)</td></tr>
@@ -160,6 +158,8 @@ Functions</h2></td></tr>
 <tr class="separator:a50037ce3f2981d37ecf0a7dd10dd535c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf183b26e282ecdf7e2acfed5c37cd5c" id="r_abf183b26e282ecdf7e2acfed5c37cd5c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf183b26e282ecdf7e2acfed5c37cd5c">DEFINE_TASK</a> (<a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic</a>, 100, osPriorityLow, <a class="el" href="freertos_8h.html#a9cfaf8e95af7da51f7fc2347815e210f">STACK_1024</a>)</td></tr>
 <tr class="separator:abf183b26e282ecdf7e2acfed5c37cd5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade2c1da3cc6cfc7049c92adeab90ee33" id="r_ade2c1da3cc6cfc7049c92adeab90ee33"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade2c1da3cc6cfc7049c92adeab90ee33">DEFINE_HEARTBEAT_TASK</a> (<a class="el" href="#a030bfc73223143b394343fa39d98695c">sparkle_leds</a>)</td></tr>
+<tr class="separator:ade2c1da3cc6cfc7049c92adeab90ee33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a990c3a82a9723ab422570b787af03f72" id="r_a990c3a82a9723ab422570b787af03f72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a990c3a82a9723ab422570b787af03f72">CAN1_RX0_IRQHandler</a> ()</td></tr>
@@ -221,27 +221,6 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a6889303ebc2ac02a08baeb15f363368a" name="a6889303ebc2ac02a08baeb15f363368a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6889303ebc2ac02a08baeb15f363368a">&#9670;&#160;</a></span>background_can_update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void background_can_update </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pdu_2main_8c_source.html#l00253">253</a> of file <a class="el" href="pdu_2main_8c_source.html">main.c</a>.</p>
-
-<p class="reference">References <a class="el" href="can__common_8c_source.html#l00020">CAN_rx_update()</a>, and <a class="el" href="can__common_8h.html#a49fce4d849c0fd9d2daee17cf822b26a">CAN_tx_update()</a>.</p>
-
-</div>
-</div>
 <a id="a990c3a82a9723ab422570b787af03f72" name="a990c3a82a9723ab422570b787af03f72"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a990c3a82a9723ab422570b787af03f72">&#9670;&#160;</a></span>CAN1_RX0_IRQHandler()</h2>
 
@@ -257,7 +236,7 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="pdu_2main_8c_source.html#l00368">368</a> of file <a class="el" href="pdu_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pdu_2main_8c_source.html#l00364">364</a> of file <a class="el" href="pdu_2main_8c_source.html">main.c</a>.</p>
 
 <p class="reference">References <a class="el" href="can__common_8h.html#a97dc567036cc7485b20e4f272ccd968c">CAN_handle_irq()</a>.</p>
 
@@ -281,7 +260,7 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
 </div>
 </div>
 <a id="aa13004782e2d6cec1c64faffead92471" name="aa13004782e2d6cec1c64faffead92471"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa13004782e2d6cec1c64faffead92471">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[1/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa13004782e2d6cec1c64faffead92471">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[1/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -311,8 +290,8 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
 
 </div>
 </div>
-<a id="a6b3d7448b115241137534e4e2e337509" name="a6b3d7448b115241137534e4e2e337509"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b3d7448b115241137534e4e2e337509">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[2/8]</span></h2>
+<a id="ab2affa98a476a899af886fd2cc19bf28" name="ab2affa98a476a899af886fd2cc19bf28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2affa98a476a899af886fd2cc19bf28">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[2/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -320,7 +299,38 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
         <tr>
           <td class="memname">DEFINE_TASK </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a__box_2main_8c.html#af14d2c72424a8b2f82fdc9ed8497a61e">background_can_update</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype"><a class="el" href="can__common_8c.html#abfcff4ec444a1fa4366dd38c73519a51">CAN_rx_update</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">0</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityHigh</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a16d5b4d257fb218fa48b6865c3014f33">STACK_2048</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae6f23b34fe48478ed553a0435304ca4b" name="ae6f23b34fe48478ed553a0435304ca4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6f23b34fe48478ed553a0435304ca4b">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[3/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="can__common_8h.html#a49fce4d849c0fd9d2daee17cf822b26a">CAN_tx_update</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -343,7 +353,7 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
 </div>
 </div>
 <a id="a849c7ccbac8e35b68c8f99de31db42e5" name="a849c7ccbac8e35b68c8f99de31db42e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a849c7ccbac8e35b68c8f99de31db42e5">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[3/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a849c7ccbac8e35b68c8f99de31db42e5">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[4/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -374,7 +384,7 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
 </div>
 </div>
 <a id="abf183b26e282ecdf7e2acfed5c37cd5c" name="abf183b26e282ecdf7e2acfed5c37cd5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf183b26e282ecdf7e2acfed5c37cd5c">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[4/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abf183b26e282ecdf7e2acfed5c37cd5c">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[5/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -405,7 +415,7 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
 </div>
 </div>
 <a id="aced1ebae29d08a597cc7838b9fbbe91e" name="aced1ebae29d08a597cc7838b9fbbe91e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aced1ebae29d08a597cc7838b9fbbe91e">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[5/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aced1ebae29d08a597cc7838b9fbbe91e">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[6/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -436,7 +446,7 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
 </div>
 </div>
 <a id="a50037ce3f2981d37ecf0a7dd10dd535c" name="a50037ce3f2981d37ecf0a7dd10dd535c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50037ce3f2981d37ecf0a7dd10dd535c">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[6/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a50037ce3f2981d37ecf0a7dd10dd535c">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[7/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -467,7 +477,7 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
 </div>
 </div>
 <a id="a735771fec700d516056905e16c2e9bbe" name="a735771fec700d516056905e16c2e9bbe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a735771fec700d516056905e16c2e9bbe">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[7/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a735771fec700d516056905e16c2e9bbe">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[8/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -498,7 +508,7 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
 </div>
 </div>
 <a id="af8bf2ffa0fb5da3ab407685928aa9941" name="af8bf2ffa0fb5da3ab407685928aa9941"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8bf2ffa0fb5da3ab407685928aa9941">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[8/8]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af8bf2ffa0fb5da3ab407685928aa9941">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[9/9]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -543,7 +553,7 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="pdu_2main_8c_source.html#l00373">373</a> of file <a class="el" href="pdu_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pdu_2main_8c_source.html#l00369">369</a> of file <a class="el" href="pdu_2main_8c_source.html">main.c</a>.</p>
 
 <p class="reference">References <a class="el" href="a__box_2main_8h_source.html#l00017">ERROR_LED_PIN</a>, and <a class="el" href="a__box_2main_8h_source.html#l00016">ERROR_LED_PORT</a>.</p>
 
@@ -564,9 +574,9 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="pdu_2main_8c_source.html#l00304">304</a> of file <a class="el" href="pdu_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pdu_2main_8c_source.html#l00300">300</a> of file <a class="el" href="pdu_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">References <a class="el" href="a__box_2main_8c_source.html#l00045">adc_channel_config</a>, <a class="el" href="a__box_2main_8c_source.html#l00035">adc_config</a>, <a class="el" href="a__box_2main_8c_source.html#l00048">adc_dma_config</a>, <a class="el" href="auto__switch_8c_source.html#l00253">autoSwitchPeriodic()</a>, <a class="el" href="a__box_2main_8c_source.html#l00192">background_can_update()</a>, <a class="el" href="can__common_8h.html#aa6a2e11ac7e69f5da51d64b903198d21">CAN_library_init()</a>, <a class="el" href="auto__switch_8c_source.html#l00259">checkSwitchFaults()</a>, <a class="el" href="a__box_2main_8c_source.html#l00085">clock_config</a>, <a class="el" href="cooling_8c_source.html#l00061">coolingInit()</a>, <a class="el" href="fan__control_8c_source.html#l00004">fanControlInit()</a>, <a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic()</a>, <a class="el" href="flow__rate_8c_source.html#l00021">flowRateInit()</a>, <a class="el" href="a__box_2main_8c_source.html#l00051">gpio_config</a>, <a class="el" href="a__box_2main_8c_source.html#l00223">HardFault_Handler()</a>, <a class="el" href="common__defs_8h_source.html#l00078">HSI_TRIM_PDU</a>, <a class="el" href="pdu_2main_8h_source.html#l00050">LED_CTRL_BLANK_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00051">LED_CTRL_BLANK_Pin</a>, <a class="el" href="led_8c_source.html#l00086">LED_periodic()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>, <a class="el" href="phal__F4__F7_2adc_2adc_8c_source.html#l00011">PHAL_initADC()</a>, <a class="el" href="can_8c_source.html#l00015">PHAL_initCAN()</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00014">PHAL_initDMA()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8c_source.html#l00003">PHAL_initGPIO()</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00022">PHAL_SPI_init()</a>, <a class="el" href="phal__F4__F7_2adc_2adc_8c_source.html#l00082">PHAL_startADC()</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00094">PHAL_startTxfer()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00393">PHAL_trimHSI()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, <a class="el" href="pdu_2main_8c_source.html#l00258">send_flowrates()</a>, <a class="el" href="pdu_2main_8c_source.html#l00262">send_iv_readings()</a>, <a class="el" href="auto__switch_8c_source.html#l00125">setSwitch()</a>, <a class="el" href="pdu_2main_8c_source.html#l00182">spi_config</a>, <a class="el" href="heartbeat_8h_source.html#l00061">START_HEARTBEAT_TASK</a>, <a class="el" href="freertos_8h_source.html#l00087">START_TASK</a>, <a class="el" href="auto__switch_8h_source.html#l00058">SW_ABOX</a>, <a class="el" href="auto__switch_8h_source.html#l00072">SW_BLT</a>, <a class="el" href="auto__switch_8h_source.html#l00074">SW_CRIT_5V</a>, <a class="el" href="auto__switch_8h_source.html#l00076">SW_DAQ</a>, <a class="el" href="auto__switch_8h_source.html#l00057">SW_DASH</a>, <a class="el" href="auto__switch_8h_source.html#l00059">SW_MAIN</a>, <a class="el" href="auto__switch_8h_source.html#l00046">SW_SDC</a>, <a class="el" href="auto__switch_8h_source.html#l00075">SW_TV</a>, and <a class="el" href="cooling_8c_source.html#l00077">update_cooling_periodic()</a>.</p>
+<p class="reference">References <a class="el" href="a__box_2main_8c_source.html#l00045">adc_channel_config</a>, <a class="el" href="a__box_2main_8c_source.html#l00035">adc_config</a>, <a class="el" href="a__box_2main_8c_source.html#l00048">adc_dma_config</a>, <a class="el" href="auto__switch_8c_source.html#l00253">autoSwitchPeriodic()</a>, <a class="el" href="can__common_8h.html#aa6a2e11ac7e69f5da51d64b903198d21">CAN_library_init()</a>, <a class="el" href="can__common_8c_source.html#l00020">CAN_rx_update()</a>, <a class="el" href="can__common_8h.html#a49fce4d849c0fd9d2daee17cf822b26a">CAN_tx_update()</a>, <a class="el" href="auto__switch_8c_source.html#l00259">checkSwitchFaults()</a>, <a class="el" href="a__box_2main_8c_source.html#l00085">clock_config</a>, <a class="el" href="cooling_8c_source.html#l00061">coolingInit()</a>, <a class="el" href="fan__control_8c_source.html#l00004">fanControlInit()</a>, <a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic()</a>, <a class="el" href="flow__rate_8c_source.html#l00021">flowRateInit()</a>, <a class="el" href="a__box_2main_8c_source.html#l00051">gpio_config</a>, <a class="el" href="a__box_2main_8c_source.html#l00219">HardFault_Handler()</a>, <a class="el" href="common__defs_8h_source.html#l00078">HSI_TRIM_PDU</a>, <a class="el" href="pdu_2main_8h_source.html#l00050">LED_CTRL_BLANK_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00051">LED_CTRL_BLANK_Pin</a>, <a class="el" href="led_8c_source.html#l00086">LED_periodic()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>, <a class="el" href="phal__F4__F7_2adc_2adc_8c_source.html#l00011">PHAL_initADC()</a>, <a class="el" href="can_8c_source.html#l00015">PHAL_initCAN()</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00014">PHAL_initDMA()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8c_source.html#l00003">PHAL_initGPIO()</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00022">PHAL_SPI_init()</a>, <a class="el" href="phal__F4__F7_2adc_2adc_8c_source.html#l00082">PHAL_startADC()</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00094">PHAL_startTxfer()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00393">PHAL_trimHSI()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, <a class="el" href="pdu_2main_8c_source.html#l00252">send_flowrates()</a>, <a class="el" href="pdu_2main_8c_source.html#l00256">send_iv_readings()</a>, <a class="el" href="auto__switch_8c_source.html#l00125">setSwitch()</a>, <a class="el" href="pdu_2main_8c_source.html#l00182">spi_config</a>, <a class="el" href="heartbeat_8h_source.html#l00061">START_HEARTBEAT_TASK</a>, <a class="el" href="freertos_8h_source.html#l00087">START_TASK</a>, <a class="el" href="auto__switch_8h_source.html#l00058">SW_ABOX</a>, <a class="el" href="auto__switch_8h_source.html#l00072">SW_BLT</a>, <a class="el" href="auto__switch_8h_source.html#l00074">SW_CRIT_5V</a>, <a class="el" href="auto__switch_8h_source.html#l00076">SW_DAQ</a>, <a class="el" href="auto__switch_8h_source.html#l00057">SW_DASH</a>, <a class="el" href="auto__switch_8h_source.html#l00059">SW_MAIN</a>, <a class="el" href="auto__switch_8h_source.html#l00046">SW_SDC</a>, <a class="el" href="auto__switch_8h_source.html#l00075">SW_TV</a>, and <a class="el" href="cooling_8c_source.html#l00077">update_cooling_periodic()</a>.</p>
 
 </div>
 </div>
@@ -585,11 +595,11 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="pdu_2main_8c_source.html#l00258">258</a> of file <a class="el" href="pdu_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pdu_2main_8c_source.html#l00252">252</a> of file <a class="el" href="pdu_2main_8c_source.html">main.c</a>.</p>
 
 <p class="reference">References <a class="el" href="flow__rate_8c_source.html#l00113">getFlowRate1()</a>, and <a class="el" href="flow__rate_8c_source.html#l00123">getFlowRate2()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00304">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00300">main()</a>.</p>
 
 </div>
 </div>
@@ -608,11 +618,11 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="pdu_2main_8c_source.html#l00262">262</a> of file <a class="el" href="pdu_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pdu_2main_8c_source.html#l00256">256</a> of file <a class="el" href="pdu_2main_8c_source.html">main.c</a>.</p>
 
 <p class="reference">References <a class="el" href="pdu_2main_8c_source.html#l00191">adc_readings</a>, <a class="el" href="auto__switch_8c_source.html#l00020">auto_switches</a>, <a class="el" href="auto__switch_8h_source.html#l00064">CS_24V</a>, <a class="el" href="auto__switch_8h_source.html#l00065">CS_5V</a>, <a class="el" href="auto__switch_8h_source.html#l00088">auto_switches_t::current</a>, <a class="el" href="auto__switch_8h_source.html#l00082">voltage_t::in_24v</a>, <a class="el" href="pdu_2main_8h_source.html#l00279">ADCReadings_t::internal_therm</a>, <a class="el" href="auto__switch_8h_source.html#l00084">voltage_t::out_3v3</a>, <a class="el" href="auto__switch_8h_source.html#l00083">voltage_t::out_5v</a>, <a class="el" href="auto__switch_8h_source.html#l00058">SW_ABOX</a>, <a class="el" href="auto__switch_8h_source.html#l00057">SW_DASH</a>, <a class="el" href="auto__switch_8h_source.html#l00049">SW_FAN_1</a>, <a class="el" href="auto__switch_8h_source.html#l00050">SW_FAN_2</a>, <a class="el" href="auto__switch_8h_source.html#l00051">SW_FAN_3</a>, <a class="el" href="auto__switch_8h_source.html#l00052">SW_FAN_4</a>, <a class="el" href="auto__switch_8h_source.html#l00047">SW_HXFAN</a>, <a class="el" href="auto__switch_8h_source.html#l00059">SW_MAIN</a>, <a class="el" href="auto__switch_8h_source.html#l00044">SW_PUMP_1</a>, <a class="el" href="auto__switch_8h_source.html#l00045">SW_PUMP_2</a>, <a class="el" href="auto__switch_8h_source.html#l00046">SW_SDC</a>, <a class="el" href="faults__common_8h.html#af55b58b58005adef79c816e1e1d8cd70">update_fault()</a>, and <a class="el" href="auto__switch_8h_source.html#l00089">auto_switches_t::voltage</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00304">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00300">main()</a>.</p>
 
 </div>
 </div>
@@ -631,7 +641,7 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="pdu_2main_8c_source.html#l00239">239</a> of file <a class="el" href="pdu_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pdu_2main_8c_source.html#l00238">238</a> of file <a class="el" href="pdu_2main_8c_source.html">main.c</a>.</p>
 
 <p class="reference">References <a class="el" href="led_8c_source.html#l00020">LED_control()</a>, <a class="el" href="led_8h_source.html#l00039">LED_OFF</a>, <a class="el" href="led_8h_source.html#l00040">LED_ON</a>, and <a class="el" href="led_8h_source.html#l00020">MAX_NUM_LED</a>.</p>
 
@@ -738,7 +748,7 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
 
 <p class="definition">Definition at line <a class="el" href="pdu_2main_8c_source.html#l00191">191</a> of file <a class="el" href="pdu_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="auto__switch_8c_source.html#l00102">calcCurrent_Total()</a>, <a class="el" href="pdu_2main_8c_source.html#l00262">send_iv_readings()</a>, <a class="el" href="auto__switch_8c_source.html#l00035">updateCurrent()</a>, <a class="el" href="auto__switch_8c_source.html#l00068">updateMux()</a>, and <a class="el" href="auto__switch_8c_source.html#l00062">updateVoltage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="auto__switch_8c_source.html#l00102">calcCurrent_Total()</a>, <a class="el" href="pdu_2main_8c_source.html#l00256">send_iv_readings()</a>, <a class="el" href="auto__switch_8c_source.html#l00035">updateCurrent()</a>, <a class="el" href="auto__switch_8c_source.html#l00068">updateMux()</a>, and <a class="el" href="auto__switch_8c_source.html#l00062">updateVoltage()</a>.</p>
 
 </div>
 </div>
@@ -906,7 +916,7 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="pdu_2main_8c_source.html#l00182">182</a> of file <a class="el" href="pdu_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="led_8c_source.html#l00020">LED_control()</a>, and <a class="el" href="pdu_2main_8c_source.html#l00304">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="led_8c_source.html#l00020">LED_control()</a>, and <a class="el" href="pdu_2main_8c_source.html#l00300">main()</a>.</p>
 
 </div>
 </div>

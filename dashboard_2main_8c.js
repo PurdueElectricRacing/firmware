@@ -1,10 +1,10 @@
 var dashboard_2main_8c =
 [
     [ "ALLOCATE_STRBUF", "dashboard_2main_8c.html#a70b38ce0660d25aa6a9381518e9ac622", null ],
-    [ "can_worker_task", "dashboard_2main_8c.html#a1c7c563fdbde1b364eb1248c18ea05c2", null ],
     [ "config_button_irqs", "dashboard_2main_8c.html#a9aee09af5e3fe925ed51c1c48ce580eb", null ],
     [ "DEFINE_HEARTBEAT_TASK", "dashboard_2main_8c.html#ad9e952c64c0b2692ce9c74cc9bfb6a2e", null ],
-    [ "DEFINE_TASK", "dashboard_2main_8c.html#acb036e488b26cc65a63f73fa0cdc8563", null ],
+    [ "DEFINE_TASK", "dashboard_2main_8c.html#ab2affa98a476a899af886fd2cc19bf28", null ],
+    [ "DEFINE_TASK", "dashboard_2main_8c.html#a2afbb531579394cd620a515183452cb6", null ],
     [ "DEFINE_TASK", "dashboard_2main_8c.html#a1f7ad2a89874dbe81ab64fa5b355c2fd", null ],
     [ "DEFINE_TASK", "dashboard_2main_8c.html#aecd64d319898a803fca92ff39b399166", null ],
     [ "DEFINE_TASK", "dashboard_2main_8c.html#afac85e305a7ddeb54fead2a270b05b4a", null ],

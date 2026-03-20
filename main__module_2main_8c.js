@@ -1,10 +1,10 @@
 var main__module_2main_8c =
 [
     [ "AMK_task", "main__module_2main_8c.html#a24f903597dd423be4f1cb8186512f0fa", null ],
-    [ "background_can_update", "main__module_2main_8c.html#a6889303ebc2ac02a08baeb15f363368a", null ],
     [ "DEFINE_HEARTBEAT_TASK", "main__module_2main_8c.html#a845eaf447179a8baf75c69794c49856d", null ],
     [ "DEFINE_TASK", "main__module_2main_8c.html#a6489fd6d3693eec5e4a7872d0d24ea8f", null ],
-    [ "DEFINE_TASK", "main__module_2main_8c.html#a7c6a950efacc9cad0320a885a5b9afb4", null ],
+    [ "DEFINE_TASK", "main__module_2main_8c.html#ab2affa98a476a899af886fd2cc19bf28", null ],
+    [ "DEFINE_TASK", "main__module_2main_8c.html#ada5efcd42c4f6226870b2cc04784966b", null ],
     [ "DEFINE_TASK", "main__module_2main_8c.html#a28798638ab09b76fe93500b8f3f9ec6e", null ],
     [ "DEFINE_TASK", "main__module_2main_8c.html#a134334308c6a425e4d4641580558cd9e", null ],
     [ "DEFINE_TASK", "main__module_2main_8c.html#a09773ccc696769d7d3f6df692b9ba931", null ],

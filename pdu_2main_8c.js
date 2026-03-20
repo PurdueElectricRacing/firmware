@@ -1,11 +1,11 @@
 var pdu_2main_8c =
 [
     [ "TargetCoreClockrateHz", "pdu_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008", null ],
-    [ "background_can_update", "pdu_2main_8c.html#a6889303ebc2ac02a08baeb15f363368a", null ],
     [ "CAN1_RX0_IRQHandler", "pdu_2main_8c.html#a990c3a82a9723ab422570b787af03f72", null ],
     [ "DEFINE_HEARTBEAT_TASK", "pdu_2main_8c.html#ade2c1da3cc6cfc7049c92adeab90ee33", null ],
     [ "DEFINE_TASK", "pdu_2main_8c.html#aa13004782e2d6cec1c64faffead92471", null ],
-    [ "DEFINE_TASK", "pdu_2main_8c.html#a6b3d7448b115241137534e4e2e337509", null ],
+    [ "DEFINE_TASK", "pdu_2main_8c.html#ab2affa98a476a899af886fd2cc19bf28", null ],
+    [ "DEFINE_TASK", "pdu_2main_8c.html#ae6f23b34fe48478ed553a0435304ca4b", null ],
     [ "DEFINE_TASK", "pdu_2main_8c.html#a849c7ccbac8e35b68c8f99de31db42e5", null ],
     [ "DEFINE_TASK", "pdu_2main_8c.html#abf183b26e282ecdf7e2acfed5c37cd5c", null ],
     [ "DEFINE_TASK", "pdu_2main_8c.html#aced1ebae29d08a597cc7838b9fbbe91e", null ],

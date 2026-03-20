@@ -123,14 +123,14 @@ Macros</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a2af56a8bf3197b2f06cac4c0b84ffc3e" id="r_a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2af56a8bf3197b2f06cac4c0b84ffc3e">HardFault_Handler</a> ()</td></tr>
 <tr class="separator:a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4db3e7b978a53bc85c1bd8306f8ad7fd" id="r_a4db3e7b978a53bc85c1bd8306f8ad7fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4db3e7b978a53bc85c1bd8306f8ad7fd">can_worker</a> ()</td></tr>
-<tr class="separator:a4db3e7b978a53bc85c1bd8306f8ad7fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acaa1e25c4d31d8a87cbecf968c4d6c57" id="r_acaa1e25c4d31d8a87cbecf968c4d6c57"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acaa1e25c4d31d8a87cbecf968c4d6c57">send_periodic</a> ()</td></tr>
 <tr class="separator:acaa1e25c4d31d8a87cbecf968c4d6c57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2affa98a476a899af886fd2cc19bf28" id="r_ab2affa98a476a899af886fd2cc19bf28"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2affa98a476a899af886fd2cc19bf28">DEFINE_TASK</a> (<a class="el" href="can__common_8c.html#abfcff4ec444a1fa4366dd38c73519a51">CAN_rx_update</a>, 0, osPriorityHigh, <a class="el" href="freertos_8h.html#a16d5b4d257fb218fa48b6865c3014f33">STACK_2048</a>)</td></tr>
+<tr class="separator:ab2affa98a476a899af886fd2cc19bf28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2afbb531579394cd620a515183452cb6" id="r_a2afbb531579394cd620a515183452cb6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2afbb531579394cd620a515183452cb6">DEFINE_TASK</a> (<a class="el" href="can__common_8h.html#a49fce4d849c0fd9d2daee17cf822b26a">CAN_tx_update</a>, 2, osPriorityNormal, <a class="el" href="freertos_8h.html#a16d5b4d257fb218fa48b6865c3014f33">STACK_2048</a>)</td></tr>
+<tr class="separator:a2afbb531579394cd620a515183452cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ab8a9910c73f044f44415e569125ddb" id="r_a1ab8a9910c73f044f44415e569125ddb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ab8a9910c73f044f44415e569125ddb">DEFINE_TASK</a> (<a class="el" href="#acaa1e25c4d31d8a87cbecf968c4d6c57">send_periodic</a>, 10, osPriorityNormal, 1024)</td></tr>
 <tr class="separator:a1ab8a9910c73f044f44415e569125ddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13a885854f3d96bca11138312d5d3b94" id="r_a13a885854f3d96bca11138312d5d3b94"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13a885854f3d96bca11138312d5d3b94">DEFINE_TASK</a> (<a class="el" href="#a4db3e7b978a53bc85c1bd8306f8ad7fd">can_worker</a>, 0, osPriorityLow, 1024)</td></tr>
-<tr class="separator:a13a885854f3d96bca11138312d5d3b94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a990c3a82a9723ab422570b787af03f72" id="r_a990c3a82a9723ab422570b787af03f72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a990c3a82a9723ab422570b787af03f72">CAN1_RX0_IRQHandler</a> ()</td></tr>
@@ -187,32 +187,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="f4__testing_2canpiler_8c_source.html#l00076">76</a> of file <a class="el" href="f4__testing_2canpiler_8c_source.html">canpiler.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="f4__testing_2canpiler_8c_source.html#l00074">74</a> of file <a class="el" href="f4__testing_2canpiler_8c_source.html">canpiler.c</a>.</p>
 
 <p class="reference">References <a class="el" href="can__common_8h.html#a97dc567036cc7485b20e4f272ccd968c">CAN_handle_irq()</a>.</p>
-
-</div>
-</div>
-<a id="a4db3e7b978a53bc85c1bd8306f8ad7fd" name="a4db3e7b978a53bc85c1bd8306f8ad7fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4db3e7b978a53bc85c1bd8306f8ad7fd">&#9670;&#160;</a></span>can_worker()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void can_worker </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="f4__testing_2canpiler_8c_source.html#l00036">36</a> of file <a class="el" href="f4__testing_2canpiler_8c_source.html">canpiler.c</a>.</p>
-
-<p class="reference">References <a class="el" href="can__common_8c_source.html#l00020">CAN_rx_update()</a>, and <a class="el" href="can__common_8h.html#a49fce4d849c0fd9d2daee17cf822b26a">CAN_tx_update()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="f4__testing_2canpiler_8c_source.html#l00048">main()</a>.</p>
 
 </div>
 </div>
@@ -240,14 +217,14 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="f4__testing_2canpiler_8c_source.html#l00081">81</a> of file <a class="el" href="f4__testing_2canpiler_8c_source.html">canpiler.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="f4__testing_2canpiler_8c_source.html#l00079">79</a> of file <a class="el" href="f4__testing_2canpiler_8c_source.html">canpiler.c</a>.</p>
 
 <p class="reference">References <a class="el" href="can__common_8c_source.html#l00014">can_data</a>.</p>
 
 </div>
 </div>
-<a id="a13a885854f3d96bca11138312d5d3b94" name="a13a885854f3d96bca11138312d5d3b94"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13a885854f3d96bca11138312d5d3b94">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[1/2]</span></h2>
+<a id="ab2affa98a476a899af886fd2cc19bf28" name="ab2affa98a476a899af886fd2cc19bf28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2affa98a476a899af886fd2cc19bf28">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -255,7 +232,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">DEFINE_TASK </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a4db3e7b978a53bc85c1bd8306f8ad7fd">can_worker</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype"><a class="el" href="can__common_8c.html#abfcff4ec444a1fa4366dd38c73519a51">CAN_rx_update</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -265,12 +242,43 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">osPriorityLow</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype">osPriorityHigh</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">1024</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a16d5b4d257fb218fa48b6865c3014f33">STACK_2048</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2afbb531579394cd620a515183452cb6" name="a2afbb531579394cd620a515183452cb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2afbb531579394cd620a515183452cb6">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="can__common_8h.html#a49fce4d849c0fd9d2daee17cf822b26a">CAN_tx_update</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">2</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityNormal</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a16d5b4d257fb218fa48b6865c3014f33">STACK_2048</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -278,7 +286,7 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a id="a1ab8a9910c73f044f44415e569125ddb" name="a1ab8a9910c73f044f44415e569125ddb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ab8a9910c73f044f44415e569125ddb">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ab8a9910c73f044f44415e569125ddb">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -323,9 +331,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="f4__testing_2canpiler_8c_source.html#l00085">85</a> of file <a class="el" href="f4__testing_2canpiler_8c_source.html">canpiler.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="f4__testing_2canpiler_8c_source.html#l00083">83</a> of file <a class="el" href="f4__testing_2canpiler_8c_source.html">canpiler.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="f4__testing_2canpiler_8c_source.html#l00048">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="f4__testing_2canpiler_8c_source.html#l00044">main()</a>.</p>
 
 </div>
 </div>
@@ -344,9 +352,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="f4__testing_2canpiler_8c_source.html#l00048">48</a> of file <a class="el" href="f4__testing_2canpiler_8c_source.html">canpiler.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="f4__testing_2canpiler_8c_source.html#l00044">44</a> of file <a class="el" href="f4__testing_2canpiler_8c_source.html">canpiler.c</a>.</p>
 
-<p class="reference">References <a class="el" href="can__common_8h.html#aa6a2e11ac7e69f5da51d64b903198d21">CAN_library_init()</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00036">can_worker()</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00019">clock_config</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00012">gpio_config</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00085">HardFault_Handler()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>, <a class="el" href="can_8c_source.html#l00015">PHAL_initCAN()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8c_source.html#l00003">PHAL_initGPIO()</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00041">send_periodic()</a>, and <a class="el" href="freertos_8h_source.html#l00087">START_TASK</a>.</p>
+<p class="reference">References <a class="el" href="can__common_8h.html#aa6a2e11ac7e69f5da51d64b903198d21">CAN_library_init()</a>, <a class="el" href="can__common_8c_source.html#l00020">CAN_rx_update()</a>, <a class="el" href="can__common_8h.html#a49fce4d849c0fd9d2daee17cf822b26a">CAN_tx_update()</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00019">clock_config</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00012">gpio_config</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00083">HardFault_Handler()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>, <a class="el" href="can_8c_source.html#l00015">PHAL_initCAN()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8c_source.html#l00003">PHAL_initGPIO()</a>, <a class="el" href="f4__testing_2canpiler_8c_source.html#l00036">send_periodic()</a>, and <a class="el" href="freertos_8h_source.html#l00087">START_TASK</a>.</p>
 
 </div>
 </div>
@@ -365,9 +373,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="f4__testing_2canpiler_8c_source.html#l00041">41</a> of file <a class="el" href="f4__testing_2canpiler_8c_source.html">canpiler.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="f4__testing_2canpiler_8c_source.html#l00036">36</a> of file <a class="el" href="f4__testing_2canpiler_8c_source.html">canpiler.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="f4__testing_2canpiler_8c_source.html#l00048">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="f4__testing_2canpiler_8c_source.html#l00044">main()</a>.</p>
 
 </div>
 </div>
@@ -468,7 +476,7 @@ Variables</h2></td></tr>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="f4__testing_2canpiler_8c_source.html#l00019">19</a> of file <a class="el" href="f4__testing_2canpiler_8c_source.html">canpiler.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="f4__testing_2canpiler_8c_source.html#l00048">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="f4__testing_2canpiler_8c_source.html#l00044">main()</a>.</p>
 
 </div>
 </div>
@@ -491,7 +499,7 @@ Variables</h2></td></tr>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="f4__testing_2canpiler_8c_source.html#l00012">12</a> of file <a class="el" href="f4__testing_2canpiler_8c_source.html">canpiler.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="f4__testing_2canpiler_8c_source.html#l00048">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="f4__testing_2canpiler_8c_source.html#l00044">main()</a>.</p>
 
 </div>
 </div>

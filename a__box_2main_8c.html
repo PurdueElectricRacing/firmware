@@ -125,16 +125,16 @@ Functions</h2></td></tr>
 <tr class="separator:a2bffc10d5bd4106753b7c30e86903bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78865f7731d4b7186cdc06c8ff03a0e4" id="r_a78865f7731d4b7186cdc06c8ff03a0e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78865f7731d4b7186cdc06c8ff03a0e4">bms_task</a> (void)</td></tr>
 <tr class="separator:a78865f7731d4b7186cdc06c8ff03a0e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af14d2c72424a8b2f82fdc9ed8497a61e" id="r_af14d2c72424a8b2f82fdc9ed8497a61e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af14d2c72424a8b2f82fdc9ed8497a61e">background_can_update</a> (void)</td></tr>
-<tr class="separator:af14d2c72424a8b2f82fdc9ed8497a61e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d9ec2793fb7109e53e6f1960f9044f5" id="r_a5d9ec2793fb7109e53e6f1960f9044f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d9ec2793fb7109e53e6f1960f9044f5">check_faults</a> (void)</td></tr>
 <tr class="separator:a5d9ec2793fb7109e53e6f1960f9044f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79b2c19cb2dda656363aa2e27e0d0ee9" id="r_a79b2c19cb2dda656363aa2e27e0d0ee9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79b2c19cb2dda656363aa2e27e0d0ee9">report_telemetry</a> (void)</td></tr>
 <tr class="separator:a79b2c19cb2dda656363aa2e27e0d0ee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fa3993064bc3738e29650ffc9de990b" id="r_a1fa3993064bc3738e29650ffc9de990b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1fa3993064bc3738e29650ffc9de990b">DEFINE_TASK</a> (<a class="el" href="#a78865f7731d4b7186cdc06c8ff03a0e4">bms_task</a>, 200, osPriorityHigh, <a class="el" href="freertos_8h.html#a16d5b4d257fb218fa48b6865c3014f33">STACK_2048</a>)</td></tr>
 <tr class="separator:a1fa3993064bc3738e29650ffc9de990b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c6a950efacc9cad0320a885a5b9afb4" id="r_a7c6a950efacc9cad0320a885a5b9afb4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c6a950efacc9cad0320a885a5b9afb4">DEFINE_TASK</a> (<a class="el" href="#af14d2c72424a8b2f82fdc9ed8497a61e">background_can_update</a>, 2, osPriorityHigh, <a class="el" href="freertos_8h.html#a16d5b4d257fb218fa48b6865c3014f33">STACK_2048</a>)</td></tr>
-<tr class="separator:a7c6a950efacc9cad0320a885a5b9afb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2affa98a476a899af886fd2cc19bf28" id="r_ab2affa98a476a899af886fd2cc19bf28"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2affa98a476a899af886fd2cc19bf28">DEFINE_TASK</a> (<a class="el" href="can__common_8c.html#abfcff4ec444a1fa4366dd38c73519a51">CAN_rx_update</a>, 0, osPriorityHigh, <a class="el" href="freertos_8h.html#a16d5b4d257fb218fa48b6865c3014f33">STACK_2048</a>)</td></tr>
+<tr class="separator:ab2affa98a476a899af886fd2cc19bf28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2afbb531579394cd620a515183452cb6" id="r_a2afbb531579394cd620a515183452cb6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2afbb531579394cd620a515183452cb6">DEFINE_TASK</a> (<a class="el" href="can__common_8h.html#a49fce4d849c0fd9d2daee17cf822b26a">CAN_tx_update</a>, 2, osPriorityNormal, <a class="el" href="freertos_8h.html#a16d5b4d257fb218fa48b6865c3014f33">STACK_2048</a>)</td></tr>
+<tr class="separator:a2afbb531579394cd620a515183452cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f3ae7ea9e76a5b0a2844a7696ceb50c" id="r_a1f3ae7ea9e76a5b0a2844a7696ceb50c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f3ae7ea9e76a5b0a2844a7696ceb50c">DEFINE_TASK</a> (<a class="el" href="#a5d9ec2793fb7109e53e6f1960f9044f5">check_faults</a>, 10, osPriorityNormal, <a class="el" href="freertos_8h.html#a6ab500a15eda5befe7c0a9be1e7669e5">STACK_512</a>)</td></tr>
 <tr class="separator:a1f3ae7ea9e76a5b0a2844a7696ceb50c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89cea2c803c93d23518f66878f5bf3f8" id="r_a89cea2c803c93d23518f66878f5bf3f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89cea2c803c93d23518f66878f5bf3f8">DEFINE_TASK</a> (<a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic</a>, A_BOX_FAULT_SYNC_PERIOD_MS, osPriorityNormal, <a class="el" href="freertos_8h.html#a9cfaf8e95af7da51f7fc2347815e210f">STACK_1024</a>)</td></tr>
@@ -193,29 +193,6 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="af14d2c72424a8b2f82fdc9ed8497a61e" name="af14d2c72424a8b2f82fdc9ed8497a61e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af14d2c72424a8b2f82fdc9ed8497a61e">&#9670;&#160;</a></span>background_can_update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void background_can_update </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00192">192</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
-
-<p class="reference">References <a class="el" href="can__common_8c_source.html#l00020">CAN_rx_update()</a>, and <a class="el" href="can__common_8h.html#a49fce4d849c0fd9d2daee17cf822b26a">CAN_tx_update()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00304">main()</a>, and <a class="el" href="a__box_2main_8c_source.html#l00120">main()</a>.</p>
-
-</div>
-</div>
 <a id="a78865f7731d4b7186cdc06c8ff03a0e4" name="a78865f7731d4b7186cdc06c8ff03a0e4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a78865f7731d4b7186cdc06c8ff03a0e4">&#9670;&#160;</a></span>bms_task()</h2>
 
@@ -231,7 +208,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00197">197</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00193">193</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 
 <p class="reference">References <a class="el" href="adbms_8c_source.html#l00384">adbms_periodic()</a>, <a class="el" href="a__box_2main_8c_source.html#l00100">g_bms</a>, <a class="el" href="a__box_2main_8c_source.html#l00104">MIN_DELTA_FOR_BALANCE</a>, and <a class="el" href="a__box_2main_8c_source.html#l00103">MIN_V_FOR_BALANCE</a>.</p>
 
@@ -254,7 +231,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00201">201</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00197">197</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 
 <p class="reference">References <a class="el" href="adbms_8h_source.html#l00056">ADBMS_STATE_CONNECTED</a>, <a class="el" href="a__box_2main_8h_source.html#l00049">BMS_SDC_CTRL_PIN</a>, <a class="el" href="a__box_2main_8h_source.html#l00048">BMS_SDC_CTRL_PORT</a>, <a class="el" href="a__box_2main_8c_source.html#l00100">g_bms</a>, <a class="el" href="a__box_2main_8h_source.html#l00045">IMD_STATUS_PIN</a>, <a class="el" href="a__box_2main_8h_source.html#l00044">IMD_STATUS_PORT</a>, <a class="el" href="faults__common_8h.html#a22ea5f8bc7464c7728f4f9d67a9417cf">is_clear()</a>, <a class="el" href="adbms_8h_source.html#l00124">adbms_bms_t::max_therm_temp</a>, <a class="el" href="adbms_8h_source.html#l00122">adbms_bms_t::min_therm_temp</a>, <a class="el" href="adbms_8h_source.html#l00113">adbms_bms_t::min_voltage</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00271">PHAL_readGPIO()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, <a class="el" href="adbms_8h_source.html#l00107">adbms_bms_t::state</a>, and <a class="el" href="faults__common_8h.html#af55b58b58005adef79c816e1e1d8cd70">update_fault()</a>.</p>
 
@@ -262,39 +239,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a7c6a950efacc9cad0320a885a5b9afb4" name="a7c6a950efacc9cad0320a885a5b9afb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c6a950efacc9cad0320a885a5b9afb4">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[1/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">DEFINE_TASK </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="#af14d2c72424a8b2f82fdc9ed8497a61e">background_can_update</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">2</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">osPriorityHigh</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="freertos_8h.html#a16d5b4d257fb218fa48b6865c3014f33">STACK_2048</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a1fa3993064bc3738e29650ffc9de990b" name="a1fa3993064bc3738e29650ffc9de990b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fa3993064bc3738e29650ffc9de990b">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fa3993064bc3738e29650ffc9de990b">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -324,8 +270,70 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ab2affa98a476a899af886fd2cc19bf28" name="ab2affa98a476a899af886fd2cc19bf28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2affa98a476a899af886fd2cc19bf28">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[2/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="can__common_8c.html#abfcff4ec444a1fa4366dd38c73519a51">CAN_rx_update</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">0</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityHigh</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a16d5b4d257fb218fa48b6865c3014f33">STACK_2048</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2afbb531579394cd620a515183452cb6" name="a2afbb531579394cd620a515183452cb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2afbb531579394cd620a515183452cb6">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[3/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="can__common_8h.html#a49fce4d849c0fd9d2daee17cf822b26a">CAN_tx_update</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">2</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">osPriorityNormal</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a16d5b4d257fb218fa48b6865c3014f33">STACK_2048</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1f3ae7ea9e76a5b0a2844a7696ceb50c" name="a1f3ae7ea9e76a5b0a2844a7696ceb50c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f3ae7ea9e76a5b0a2844a7696ceb50c">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f3ae7ea9e76a5b0a2844a7696ceb50c">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[4/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -356,7 +364,7 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a id="a89cea2c803c93d23518f66878f5bf3f8" name="a89cea2c803c93d23518f66878f5bf3f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89cea2c803c93d23518f66878f5bf3f8">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a89cea2c803c93d23518f66878f5bf3f8">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[5/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -387,7 +395,7 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a id="a02024b8f5854954c8b322e684b1a0846" name="a02024b8f5854954c8b322e684b1a0846"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02024b8f5854954c8b322e684b1a0846">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a02024b8f5854954c8b322e684b1a0846">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[6/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -418,7 +426,7 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a id="a3969fc3976e3533ebc6d9a30b6c23367" name="a3969fc3976e3533ebc6d9a30b6c23367"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3969fc3976e3533ebc6d9a30b6c23367">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3969fc3976e3533ebc6d9a30b6c23367">&#9670;&#160;</a></span>DEFINE_TASK() <span class="overload">[7/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -471,7 +479,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00223">223</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00219">219</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 
 <p class="reference">References <a class="el" href="a__box_2main_8h_source.html#l00017">ERROR_LED_PIN</a>, and <a class="el" href="a__box_2main_8h_source.html#l00016">ERROR_LED_PORT</a>.</p>
 
@@ -521,11 +529,11 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00167">167</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00168">168</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 
 <p class="reference">References <a class="el" href="auto__switch_8h_source.html#l00020">ADC_MAX</a>, and <a class="el" href="a__box_2main_8c_source.html#l00044">isense_raw</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="a__box_2main_8c_source.html#l00186">report_telemetry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a__box_2main_8c_source.html#l00187">report_telemetry()</a>.</p>
 
 </div>
 </div>
@@ -546,7 +554,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00120">120</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">References <a class="el" href="adbms6380_8c_source.html#l00025">adbms6380_set_cs_high()</a>, <a class="el" href="adbms_8c_source.html#l00021">adbms_init()</a>, <a class="el" href="a__box_2main_8c_source.html#l00192">background_can_update()</a>, <a class="el" href="a__box_2main_8c_source.html#l00022">bms_spi_config</a>, <a class="el" href="a__box_2main_8c_source.html#l00197">bms_task()</a>, <a class="el" href="can__common_8h.html#aa6a2e11ac7e69f5da51d64b903198d21">CAN_library_init()</a>, <a class="el" href="a__box_2main_8c_source.html#l00201">check_faults()</a>, <a class="el" href="a__box_2main_8c_source.html#l00085">clock_config</a>, <a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic()</a>, <a class="el" href="a__box_2main_8c_source.html#l00100">g_bms</a>, <a class="el" href="a__box_2main_8c_source.html#l00101">g_bms_tx_buf</a>, <a class="el" href="a__box_2main_8c_source.html#l00051">gpio_config</a>, <a class="el" href="a__box_2main_8c_source.html#l00223">HardFault_Handler()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>, <a class="el" href="common_2phal__G4_2fdcan_2fdcan_8c_source.html#l00146">PHAL_FDCAN_init()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8c_source.html#l00003">PHAL_initGPIO()</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00022">PHAL_SPI_init()</a>, <a class="el" href="a__box_2main_8c_source.html#l00186">report_telemetry()</a>, <a class="el" href="heartbeat_8h_source.html#l00061">START_HEARTBEAT_TASK</a>, and <a class="el" href="freertos_8h_source.html#l00087">START_TASK</a>.</p>
+<p class="reference">References <a class="el" href="adbms6380_8c_source.html#l00025">adbms6380_set_cs_high()</a>, <a class="el" href="adbms_8c_source.html#l00021">adbms_init()</a>, <a class="el" href="a__box_2main_8c_source.html#l00022">bms_spi_config</a>, <a class="el" href="a__box_2main_8c_source.html#l00193">bms_task()</a>, <a class="el" href="can__common_8h.html#aa6a2e11ac7e69f5da51d64b903198d21">CAN_library_init()</a>, <a class="el" href="can__common_8c_source.html#l00020">CAN_rx_update()</a>, <a class="el" href="can__common_8h.html#a49fce4d849c0fd9d2daee17cf822b26a">CAN_tx_update()</a>, <a class="el" href="a__box_2main_8c_source.html#l00197">check_faults()</a>, <a class="el" href="a__box_2main_8c_source.html#l00085">clock_config</a>, <a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic()</a>, <a class="el" href="a__box_2main_8c_source.html#l00100">g_bms</a>, <a class="el" href="a__box_2main_8c_source.html#l00101">g_bms_tx_buf</a>, <a class="el" href="a__box_2main_8c_source.html#l00051">gpio_config</a>, <a class="el" href="a__box_2main_8c_source.html#l00219">HardFault_Handler()</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00020">PHAL_configureClockRates()</a>, <a class="el" href="common_2phal__G4_2fdcan_2fdcan_8c_source.html#l00146">PHAL_FDCAN_init()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8c_source.html#l00003">PHAL_initGPIO()</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00022">PHAL_SPI_init()</a>, <a class="el" href="a__box_2main_8c_source.html#l00187">report_telemetry()</a>, <a class="el" href="heartbeat_8h_source.html#l00061">START_HEARTBEAT_TASK</a>, and <a class="el" href="freertos_8h_source.html#l00087">START_TASK</a>.</p>
 
 </div>
 </div>
@@ -565,9 +573,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00186">186</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00187">187</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">References <a class="el" href="adbms_8h_source.html#l00126">adbms_bms_t::avg_therm_temp</a>, <a class="el" href="a__box_2main_8c_source.html#l00100">g_bms</a>, <a class="el" href="a__box_2main_8c_source.html#l00044">isense_raw</a>, <a class="el" href="a__box_2main_8c_source.html#l00167">isense_to_current()</a>, and <a class="el" href="adbms_8h_source.html#l00119">adbms_bms_t::sum_voltage</a>.</p>
+<p class="reference">References <a class="el" href="adbms_8h_source.html#l00126">adbms_bms_t::avg_therm_temp</a>, <a class="el" href="a__box_2main_8c_source.html#l00100">g_bms</a>, <a class="el" href="a__box_2main_8c_source.html#l00044">isense_raw</a>, <a class="el" href="a__box_2main_8c_source.html#l00168">isense_to_current()</a>, and <a class="el" href="adbms_8h_source.html#l00119">adbms_bms_t::sum_voltage</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="a__box_2main_8c_source.html#l00120">main()</a>.</p>
 
@@ -592,7 +600,7 @@ Variables</h2></td></tr>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00045">45</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00304">main()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00161">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00300">main()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00158">main()</a>.</p>
 
 </div>
 </div>
@@ -622,7 +630,7 @@ Variables</h2></td></tr>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00035">35</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00304">main()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00161">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00300">main()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00158">main()</a>.</p>
 
 </div>
 </div>
@@ -640,7 +648,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00048">48</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00304">main()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00161">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00300">main()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00158">main()</a>.</p>
 
 </div>
 </div>
@@ -714,7 +722,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00016">16</a> of file <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html">rcc.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00161">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00158">main()</a>.</p>
 
 </div>
 </div>
@@ -790,7 +798,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00100">100</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="a__box_2main_8c_source.html#l00197">bms_task()</a>, <a class="el" href="a__box_2main_8c_source.html#l00201">check_faults()</a>, <a class="el" href="a__box_2main_8c_source.html#l00120">main()</a>, and <a class="el" href="a__box_2main_8c_source.html#l00186">report_telemetry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a__box_2main_8c_source.html#l00193">bms_task()</a>, <a class="el" href="a__box_2main_8c_source.html#l00197">check_faults()</a>, <a class="el" href="a__box_2main_8c_source.html#l00120">main()</a>, and <a class="el" href="a__box_2main_8c_source.html#l00187">report_telemetry()</a>.</p>
 
 </div>
 </div>
@@ -844,7 +852,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00044">44</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="a__box_2main_8c_source.html#l00167">isense_to_current()</a>, and <a class="el" href="a__box_2main_8c_source.html#l00186">report_telemetry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a__box_2main_8c_source.html#l00168">isense_to_current()</a>, and <a class="el" href="a__box_2main_8c_source.html#l00187">report_telemetry()</a>.</p>
 
 </div>
 </div>
@@ -870,7 +878,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00104">104</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="a__box_2main_8c_source.html#l00197">bms_task()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a__box_2main_8c_source.html#l00193">bms_task()</a>.</p>
 
 </div>
 </div>
@@ -896,7 +904,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00103">103</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="a__box_2main_8c_source.html#l00197">bms_task()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="a__box_2main_8c_source.html#l00193">bms_task()</a>.</p>
 
 </div>
 </div>
@@ -938,7 +946,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="a__box_2main_8c_source.html#l00118">118</a> of file <a class="el" href="a__box_2main_8c_source.html">main.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00301">driver_interface_periodic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00294">driver_interface_periodic()</a>.</p>
 
 </div>
 </div>

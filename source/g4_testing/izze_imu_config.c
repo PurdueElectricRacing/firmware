@@ -42,11 +42,6 @@ extern uint32_t PLLClockRateHz;
 
 void HardFault_Handler();
 
-void can_worker() {
-    CAN_rx_update();
-    CAN_tx_update();
-}
-
 static constexpr uint16_t NEW_CAN_BASE_ID = 0x4EE;
 static_assert(NEW_CAN_BASE_ID >= 1, "CAN Base ID must be greater than or equal to 1");
 static_assert(NEW_CAN_BASE_ID <= 0x7FF, "CAN Base ID must be less than or equal to 0x7FF");
@@ -68,8 +63,9 @@ void config_imu() {
     );
 }
 
+DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
+DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048);
 DEFINE_TASK(config_imu, IZZE_IMU_CONFIG_PERIOD_MS, osPriorityNormal, 1024);
-DEFINE_TASK(can_worker, 0, osPriorityLow, 1024);
 
 int main() {
     if (PHAL_configureClockRates(&clock_config)) {
@@ -95,8 +91,10 @@ int main() {
 
     osKernelInitialize();
 
+    START_TASK(CAN_rx_update);
+    START_TASK(CAN_tx_update);
     START_TASK(config_imu);
-    START_TASK(can_worker);
+
     osKernelStart();
 
     return 0;

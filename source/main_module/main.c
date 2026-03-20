@@ -1,7 +1,7 @@
 /**
  * @file main.c
  * @brief "Main Module" node source code
- * 
+ *
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
@@ -80,11 +80,6 @@ extern uint32_t PLLClockRateHz;
 
 extern void HardFault_Handler(void);
 
-void background_can_update() {
-    CAN_rx_update();
-    CAN_tx_update();
-}
-
 void AMK_task() {
     AMK_periodic(&g_car.front_right);
     AMK_periodic(&g_car.front_left);
@@ -92,12 +87,14 @@ void AMK_task() {
     AMK_periodic(&g_car.rear_right);
 }
 
-DEFINE_HEARTBEAT_TASK(nullptr);
-DEFINE_TASK(update_SDC, 5, osPriorityLow, STACK_512);
-DEFINE_TASK(background_can_update, 2, osPriorityHigh, STACK_2048);
+// Thread Defines
+DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
+DEFINE_TASK(CAN_tx_update, 2, osPriorityHigh, STACK_2048);
 DEFINE_TASK(fsm_periodic, 20, osPriorityNormal, STACK_2048);
 DEFINE_TASK(AMK_task, 15, osPriorityNormal, STACK_1024);
 DEFINE_TASK(fault_library_periodic, MAIN_MODULE_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
+DEFINE_TASK(update_SDC, 5, osPriorityLow, STACK_512);
+DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
     // Hardware Initialization
@@ -125,11 +122,12 @@ int main(void) {
     // Software Initialization
     osKernelInitialize();
 
-    START_TASK(background_can_update);
-    START_TASK(update_SDC);
+    START_TASK(CAN_rx_update);
+    START_TASK(CAN_tx_update);
     START_TASK(fsm_periodic);
     START_TASK(AMK_task);
     START_TASK(fault_library_periodic);
+    START_TASK(update_SDC);
     START_HEARTBEAT_TASK();
 
     // no way home

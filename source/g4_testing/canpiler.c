@@ -39,11 +39,6 @@ extern uint32_t PLLClockRateHz;
 
 void HardFault_Handler();
 
-void can_worker() {
-    CAN_rx_update();
-    CAN_tx_update();
-}
-
 // void send_periodic() {
 //     CAN_SEND_ccan_test(0x3);
 // }
@@ -52,8 +47,9 @@ void send_periodic() {
     CAN_SEND_abox_version(GIT_HASH);
 }
 
+DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
+DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048);
 DEFINE_TASK(send_periodic, 10, osPriorityNormal, 1024);
-DEFINE_TASK(can_worker, 0, osPriorityLow, 1024);
 
 int main() {
     if (PHAL_configureClockRates(&clock_config)) {
@@ -76,8 +72,10 @@ int main() {
 
     osKernelInitialize();
 
+    START_TASK(CAN_rx_update);
+    START_TASK(CAN_tx_update);
     START_TASK(send_periodic);
-    START_TASK(can_worker);
+
     osKernelStart();
 
     return 0;

@@ -1,7 +1,7 @@
 /**
  * @file main.c
  * @brief "PDU" node source code
- * 
+ *
  * @author Luke Oxley (lcoxley@purdue.edu)
  * @author Ronak Jain (jain717@purdue.edu)
  * @author Irving Wang (irvingw@purdue.edu)
@@ -232,7 +232,6 @@ extern uint32_t PLLClockRateHz;
 void HardFault_Handler();
 
 /* Task functions */
-void background_can_update();
 void send_iv_readings();
 void send_flowrates();
 
@@ -248,11 +247,6 @@ void sparkle_leds() {
         led_number--;
         LED_control(led_number, LED_OFF);
     }
-}
-
-void background_can_update() {
-    CAN_rx_update();
-    CAN_tx_update();
 }
 
 void send_flowrates() {
@@ -291,8 +285,9 @@ void send_iv_readings() {
     CAN_SEND_pdu_temps((uint16_t)temp);
 }
 
-DEFINE_HEARTBEAT_TASK(sparkle_leds);
-DEFINE_TASK(background_can_update, 5, osPriorityHigh, STACK_1024);
+// Thread Defines
+DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
+DEFINE_TASK(CAN_tx_update, 5, osPriorityHigh, STACK_1024);
 DEFINE_TASK(autoSwitchPeriodic, 15, osPriorityNormal, STACK_512);
 DEFINE_TASK(update_cooling_periodic, 100, osPriorityNormal, STACK_1024);
 DEFINE_TASK(LED_periodic, 500, osPriorityLow, STACK_512);
@@ -300,6 +295,7 @@ DEFINE_TASK(send_iv_readings, 500, osPriorityLow, STACK_512);
 DEFINE_TASK(checkSwitchFaults, 100, osPriorityLow, STACK_512);
 DEFINE_TASK(send_flowrates, 200, osPriorityLow, STACK_256);
 DEFINE_TASK(fault_library_periodic, 100, osPriorityLow, STACK_1024);
+DEFINE_HEARTBEAT_TASK(sparkle_leds);
 
 int main() {
     // Hardware Initialization
@@ -322,7 +318,7 @@ int main() {
     if (!PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
-    
+
     CAN_library_init();
     NVIC_SetPriority(CAN1_RX0_IRQn, 6);
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
@@ -348,8 +344,8 @@ int main() {
 
     osKernelInitialize();
 
-    
-    START_TASK(background_can_update);
+    START_TASK(CAN_rx_update);
+    START_TASK(CAN_tx_update);
     START_TASK(autoSwitchPeriodic);
     START_TASK(update_cooling_periodic);
     START_TASK(LED_periodic);
@@ -378,4 +374,3 @@ void HardFault_Handler() {
         __asm__("NOP"); // Halt forever
     }
 }
-

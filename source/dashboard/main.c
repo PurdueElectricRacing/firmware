@@ -138,13 +138,11 @@ void driver_interface_periodic();
 void send_version();
 void LCD_init(uint32_t baud_rate);
 void sweep_external_leds();
+void service_start_button();
 extern void HardFault_Handler();
 
 // Communication queues
 ALLOCATE_STRBUF(lcd_tx_buf, 2048);
-
-void can_worker_task();
-void service_start_button();
 
 // Thread Defines
 DEFINE_TASK(pedalsPeriodic, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024);

@@ -227,9 +227,6 @@ bool CAN_library_init() {
 
 #elif defined(STM32G474xx)
 
-// G4/FDCAN implementation - uses TX FIFO (no mailboxes)
-// FDCAN has 3 TX FIFO slots handled by hardware, so we use a single software queue per peripheral
-
 #ifndef NUM_CAN_PERIPHERALS
 #if defined(USE_FDCAN3)
 #define NUM_CAN_PERIPHERALS 3
@@ -274,25 +271,36 @@ void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
 }
 
 void CAN_tx_update() {
-    CanMsgTypeDef_t tx_msg;
+    // Block until a notification is received
+    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+
+    // Feed the peripheral TX FIFOs until all queues are empty or FIFOs are full
+    bool is_message_sent;
+    do { // Loop to handle the case where a FIFO slot opens during processing
+        is_message_sent = false;
+        CanMsgTypeDef_t tx_msg;
 
 #ifdef USE_FDCAN1
-    while (PHAL_FDCAN_txFifoFree(FDCAN1) && xQueueReceive(q_tx_can[CAN1_IDX], &tx_msg, 0) == pdPASS) {
-        PHAL_FDCAN_send(&tx_msg);
-    }
+        while (PHAL_FDCAN_txFifoFree(FDCAN1) && xQueueReceive(q_tx_can[CAN1_IDX], &tx_msg, 0) == pdPASS) {
+            PHAL_FDCAN_send(&tx_msg);
+            is_message_sent = true;
+        }
 #endif
 
 #ifdef USE_FDCAN2
-    while (PHAL_FDCAN_txFifoFree(FDCAN2) && xQueueReceive(q_tx_can[CAN2_IDX], &tx_msg, 0) == pdPASS) {
-        PHAL_FDCAN_send(&tx_msg);
-    }
+        while (PHAL_FDCAN_txFifoFree(FDCAN2) && xQueueReceive(q_tx_can[CAN2_IDX], &tx_msg, 0) == pdPASS) {
+            PHAL_FDCAN_send(&tx_msg);
+            is_message_sent = true;
+        }
 #endif
 
 #ifdef USE_FDCAN3
-    while (PHAL_FDCAN_txFifoFree(FDCAN3) && xQueueReceive(q_tx_can[CAN3_IDX], &tx_msg, 0) == pdPASS) {
-        PHAL_FDCAN_send(&tx_msg);
-    }
+        while (PHAL_FDCAN_txFifoFree(FDCAN3) && xQueueReceive(q_tx_can[CAN3_IDX], &tx_msg, 0) == pdPASS) {
+            PHAL_FDCAN_send(&tx_msg);
+            is_message_sent = true;
+        }
 #endif
+    } while (is_message_sent);
 }
 
 // FDCAN RX callback - enqueues received messages to the RX queue

@@ -338,38 +338,67 @@ static int PHAL_FDCAN_getRxMessage(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t *
 
 [[gnu::always_inline]]
 static inline void PHAL_FDCAN_RX_IRQHandler(FDCAN_GlobalTypeDef *fdcan) {
-    uint32_t ir = fdcan->IR;
-    if (ir & FDCAN_IR_RF0L) {
+    uint32_t interrupt_register = fdcan->IR;
+    if (interrupt_register & FDCAN_IR_RF0L) {
         fdcan->IR = FDCAN_IR_RF0L;
         // TODO message lost
     }
 
-    if (ir & FDCAN_IR_RF0F) {
+    if (interrupt_register & FDCAN_IR_RF0F) {
         fdcan->IR = FDCAN_IR_RF0F;
         // TODO FIFO full
     }
 
-    if (ir & FDCAN_IR_RF0N) {
-        CanMsgTypeDef_t m;
-        while (PHAL_FDCAN_getRxMessage(fdcan, &m) == 0) {
-            PHAL_FDCAN_rxCallback(&m); // or enqueue
+    if (interrupt_register & FDCAN_IR_RF0N) {
+        fdcan->IR = FDCAN_IR_RF0N;
+
+        CanMsgTypeDef_t rx;
+        while (PHAL_FDCAN_getRxMessage(fdcan, &rx) == 0) {
+            PHAL_FDCAN_rxCallback(&rx); // or enqueue
         }
-        fdcan->IR = FDCAN_IR_RF0N; // clear after draining
     }
 }
 
-void __attribute__((weak)) PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
+[[gnu::always_inline]]
+static inline void PHAL_FDCAN_TX_IRQHandler(FDCAN_GlobalTypeDef *fdcan) {
+    uint32_t interrupt_register = fdcan->IR;
+    if (interrupt_register & FDCAN_IR_TC) {
+        fdcan->IR = FDCAN_IR_TC;
+        PHAL_FDCAN_txCallback();
+    }
+}
+
+[[gnu::weak]]
+void PHAL_FDCAN_txCallback() {
+    (void)0;
+}
+
+[[gnu::weak]]
+void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
     (void)msg;
 }
 
+// Setup IT0 for RX and IT1 for TX
 void FDCAN1_IT0_IRQHandler(void) {
     PHAL_FDCAN_RX_IRQHandler(FDCAN1);
+}
+
+void FDCAN1_IT1_IRQHandler(void) {
+    PHAL_FDCAN_TX_IRQHandler(FDCAN1);
 }
 
 void FDCAN2_IT0_IRQHandler(void) {
     PHAL_FDCAN_RX_IRQHandler(FDCAN2);
 }
 
+void FDCAN2_IT1_IRQHandler(void) {
+    PHAL_FDCAN_TX_IRQHandler(FDCAN2);
+}
+
 void FDCAN3_IT0_IRQHandler(void) {
     PHAL_FDCAN_RX_IRQHandler(FDCAN3);
+}
+
+void FDCAN3_IT1_IRQHandler(void) {
+    PHAL_FDCAN_TX_IRQHandler(FDCAN3);
 }

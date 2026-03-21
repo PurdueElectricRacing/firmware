@@ -146,8 +146,7 @@ ALLOCATE_STRBUF(lcd_tx_buf, 2048);
 
 // Thread Defines
 DEFINE_TASK(pedalsPeriodic, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024);
-DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048); // leave stack at 2048
+DEFINE_CAN_TASKS();
 DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
 DEFINE_TASK(updateTelemetryPages, 100, osPriorityNormal, STACK_1024);
 DEFINE_TASK(service_start_button, START_BUTTON_PERIOD_MS, osPriorityLow, STACK_512);
@@ -189,8 +188,7 @@ int main(void) {
     osKernelInitialize();
 
     START_TASK(pedalsPeriodic);
-    START_TASK(CAN_rx_update);
-    START_TASK(CAN_tx_update);
+    START_CAN_TASKS();
     START_TASK(fault_library_periodic);
     START_TASK(updateTelemetryPages);
     START_TASK(service_start_button);

@@ -37,8 +37,7 @@ void send_periodic() {
     CAN_SEND_pdu_version(GIT_HASH);
 }
 
-DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048);
+DEFINE_CAN_TASKS();
 DEFINE_TASK(send_periodic, 10, osPriorityNormal, 1024);
 
 int main() {
@@ -62,8 +61,7 @@ int main() {
 
     osKernelInitialize();
 
-    START_TASK(CAN_rx_update);
-    START_TASK(CAN_tx_update);
+    START_CAN_TASKS();
     START_TASK(send_periodic);
     
     osKernelStart();

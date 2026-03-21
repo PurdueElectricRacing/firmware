@@ -16,6 +16,9 @@ can_stats_t can_stats;
 volatile uint32_t last_can_rx_time_ms;
 DEFINE_QUEUE(q_rx_can, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
 
+extern ThreadWrapper_t CAN_rx_update_wrapper;
+extern ThreadWrapper_t CAN_tx_update_wrapper;
+
 // Shared rx update implementation
 void CAN_rx_update() {
     CanMsgTypeDef_t rx_msg;
@@ -292,6 +295,17 @@ void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
 
     if (xQueueSendFromISR(q_rx_can, msg, &xHigherPriorityTaskWoken) != pdPASS) {
         can_stats.rx_of++;
+    }
+
+    portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+}
+
+void PHAL_FDCAN_txCallback(FDCAN_GlobalTypeDef *fdcan) {
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+    TaskHandle_t tx_task = getTaskHandle(CAN_tx_update);
+
+    if (tx_task != NULL) {
+        vTaskNotifyGiveFromISR(tx_task, &xHigherPriorityTaskWoken);
     }
 
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);

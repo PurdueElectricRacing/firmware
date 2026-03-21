@@ -353,13 +353,13 @@ static inline void PHAL_FDCAN_RX_IRQHandler(FDCAN_GlobalTypeDef *fdcan) {
 static inline void PHAL_FDCAN_TX_IRQHandler(FDCAN_GlobalTypeDef *fdcan) {
     if (fdcan->IR & FDCAN_IR_TC) {
         fdcan->IR = FDCAN_IR_TC;
-        PHAL_FDCAN_txCallback();
+        PHAL_FDCAN_txCallback(fdcan);
     }
 }
 
 [[gnu::weak]]
-void PHAL_FDCAN_txCallback() {
-    (void)0;
+void PHAL_FDCAN_txCallback(FDCAN_GlobalTypeDef *fdcan) {
+    (void)fdcan;
 }
 
 [[gnu::weak]]

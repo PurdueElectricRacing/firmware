@@ -120,8 +120,7 @@ void charging_fsm_periodic(void);
 
 // Thread Defines
 DEFINE_TASK(bms_task, 200, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048);
+DEFINE_CAN_TASKS();
 DEFINE_TASK(check_faults, 10, osPriorityNormal, STACK_512);
 DEFINE_TASK(charging_fsm_periodic, ELCON_COMMAND_PERIOD_MS, osPriorityNormal, STACK_512);
 DEFINE_TASK(fault_library_periodic, A_BOX_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
@@ -172,8 +171,7 @@ int main(void) {
     osKernelInitialize();
 
     START_TASK(bms_task);
-    START_TASK(CAN_rx_update);
-    START_TASK(CAN_tx_update);
+    START_CAN_TASKS();
     START_TASK(check_faults);
     START_TASK(fault_library_periodic);
     START_TASK(report_telemetry);

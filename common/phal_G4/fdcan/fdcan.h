@@ -24,7 +24,7 @@ void PHAL_FDCAN_setFilters(
 void PHAL_FDCAN_send(CanMsgTypeDef_t *msg);
 bool PHAL_FDCAN_txFifoFree(FDCAN_GlobalTypeDef *fdcan);
 extern void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg);
-extern void PHAL_FDCAN_txCallback();
+extern void PHAL_FDCAN_txCallback(FDCAN_GlobalTypeDef *fdcan);
 
 #define MAX_NUM_XID_FILTER (8)
 #define MAX_NUM_SID_FILTER (28)

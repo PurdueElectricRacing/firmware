@@ -63,8 +63,7 @@ void config_imu() {
     );
 }
 
-DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048);
+DEFINE_CAN_TASKS();
 DEFINE_TASK(config_imu, IZZE_IMU_CONFIG_PERIOD_MS, osPriorityNormal, 1024);
 
 int main() {
@@ -91,8 +90,7 @@ int main() {
 
     osKernelInitialize();
 
-    START_TASK(CAN_rx_update);
-    START_TASK(CAN_tx_update);
+    START_CAN_TASKS();
     START_TASK(config_imu);
 
     osKernelStart();

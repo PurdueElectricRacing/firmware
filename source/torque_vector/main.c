@@ -58,8 +58,7 @@ void ledblink() {
 }
 
 // Thread Defines
-DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 15, osPriorityNormal, STACK_2048);
+DEFINE_CAN_TASKS();
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
@@ -82,8 +81,7 @@ int main(void) {
     // Software Initialization
     osKernelInitialize();
 
-    START_TASK(CAN_rx_update);
-    START_TASK(CAN_tx_update);
+    START_CAN_TASKS();
     START_HEARTBEAT_TASK();
 
     // no way home

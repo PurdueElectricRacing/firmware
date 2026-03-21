@@ -75,7 +75,8 @@ void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
         mailbox = CAN_MAILBOX_HIGH_PRIO;
     }
 
-    if (xQueueSendToBack(q_tx_can[periph_idx][mailbox], msg, pdMS_TO_TICKS(CAN_TX_BACKPRESSURE_MS)) != pdPASS) {
+    // Immediately drop the message and bump overflow counter if the queue is full
+    if (xQueueSendToBack(q_tx_can[periph_idx][mailbox], msg, 0) != pdPASS) {
         can_stats.can_peripheral_stats[periph_idx].tx_of++;
     }
 }
@@ -256,9 +257,8 @@ QueueHandle_t q_tx_can[NUM_CAN_PERIPHERALS];
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
     uint8_t periph_idx = GET_PERIPH_IDX(msg->Bus);
 
-    // Wait up to CAN_TX_BACKPRESSURE_MS if FDCAN TX FIFO is full before dropping message
-    // TODO: is this the desired behavior? Or should we just drop immediately?
-    if (xQueueSendToBack(q_tx_can[periph_idx], msg, pdMS_TO_TICKS(CAN_TX_BACKPRESSURE_MS)) != pdPASS) {
+    // Immediately drop the message and bump overflow counter if the queue is full
+    if (xQueueSendToBack(q_tx_can[periph_idx], msg, 0) != pdPASS) {
         can_stats.can_peripheral_stats[periph_idx].tx_of++;
     }
 }

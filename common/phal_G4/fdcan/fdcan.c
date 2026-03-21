@@ -182,14 +182,15 @@ bool PHAL_FDCAN_init(FDCAN_GlobalTypeDef *fdcan, bool test_mode, uint32_t bit_ra
     // FIFOs
     fdcan->TXBC &= ~FDCAN_TXBC_TFQM; // Tx FIFO mode
 
-    // Clear interrupt flags
-    fdcan->IR |= 0xFFFFFFFF;
-    // Enable RX FIFO0 interrupts
-    fdcan->IE |= FDCAN_IE_RF0NE   // New message
-        | FDCAN_IE_RF0FE          // FIFO full (optional)
-        | FDCAN_IE_RF0LE;         // Message lost (optional)
-    fdcan->ILS = 0;               // Route to interrupt line 0
-    fdcan->ILE = FDCAN_ILE_EINT0; // Enable line 0
+    // Route RX to line 0, TC to line 1
+    fdcan->ILS = 0;               // default all to line 0
+    fdcan->ILS |= FDCAN_ILS_SMSG; // route the SMSG group to line 1
+
+    fdcan->IE |= FDCAN_IE_RF0NE; // New message
+    fdcan->IE |= FDCAN_IE_TCE;   // Transmission completed
+
+    // Enable both interrupt lines
+    fdcan->ILE = FDCAN_ILE_EINT0 | FDCAN_ILE_EINT1;
 
     // Mode
     fdcan->CCCR &= ~(FDCAN_CCCR_MON | FDCAN_CCCR_TEST | FDCAN_CCCR_ASM);
@@ -338,18 +339,7 @@ static int PHAL_FDCAN_getRxMessage(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t *
 
 [[gnu::always_inline]]
 static inline void PHAL_FDCAN_RX_IRQHandler(FDCAN_GlobalTypeDef *fdcan) {
-    uint32_t interrupt_register = fdcan->IR;
-    if (interrupt_register & FDCAN_IR_RF0L) {
-        fdcan->IR = FDCAN_IR_RF0L;
-        // TODO message lost
-    }
-
-    if (interrupt_register & FDCAN_IR_RF0F) {
-        fdcan->IR = FDCAN_IR_RF0F;
-        // TODO FIFO full
-    }
-
-    if (interrupt_register & FDCAN_IR_RF0N) {
+    if (fdcan->IR & FDCAN_IR_RF0N) {
         fdcan->IR = FDCAN_IR_RF0N;
 
         CanMsgTypeDef_t rx;
@@ -361,8 +351,7 @@ static inline void PHAL_FDCAN_RX_IRQHandler(FDCAN_GlobalTypeDef *fdcan) {
 
 [[gnu::always_inline]]
 static inline void PHAL_FDCAN_TX_IRQHandler(FDCAN_GlobalTypeDef *fdcan) {
-    uint32_t interrupt_register = fdcan->IR;
-    if (interrupt_register & FDCAN_IR_TC) {
+    if (fdcan->IR & FDCAN_IR_TC) {
         fdcan->IR = FDCAN_IR_TC;
         PHAL_FDCAN_txCallback();
     }

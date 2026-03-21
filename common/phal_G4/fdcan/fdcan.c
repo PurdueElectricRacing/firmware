@@ -336,7 +336,8 @@ static int PHAL_FDCAN_getRxMessage(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t *
     return 0;
 }
 
-void PHAL_FDCAN_RX_IRQHandler(FDCAN_GlobalTypeDef *fdcan) {
+[[gnu::always_inline]]
+static inline void PHAL_FDCAN_RX_IRQHandler(FDCAN_GlobalTypeDef *fdcan) {
     uint32_t ir = fdcan->IR;
     if (ir & FDCAN_IR_RF0L) {
         fdcan->IR = FDCAN_IR_RF0L;

@@ -18,6 +18,12 @@
 #define PHAL_CAN_INIT_TIMEOUT (5000U)
 
 // Bit timing recovered from http://www.bittiming.can-wiki.info/
+
+#define PHAL_CAN_16MHz_1M (0x033a0000) 
+#define PHAL_CAN_24MHz_1M (0x03270001) 
+#define PHAL_CAN_36MHz_1M (0x033c0001)
+#define PHAL_CAN_42MHz_1M (0x033a0001) 
+
 #define PHAL_CAN_16MHz_500k (0x033a0001) // sample point = 75%, SJW = 4
 #define PHAL_CAN_24MHz_500k (0x033a0002) // sample point = 75%, SJW = 4
 #define PHAL_CAN_36MHz_500k (0x03270005)

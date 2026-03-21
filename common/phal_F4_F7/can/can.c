@@ -46,49 +46,49 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode, uint32_t bit_rate) {
     timeout = 0;
 
     // Bit timing recovered from http://www.bittiming.can-wiki.info/
-    if (bit_rate == 1000000) {
+    if (bit_rate == 1'000'000) {
         switch (APB1ClockRateHz) {
-            case 16000000:
+            case 16'000'000:
                 bus->BTR = PHAL_CAN_16MHz_1M;  
                 break;
-            case 24000000:
+            case 24'000'000:
                 bus->BTR = PHAL_CAN_24MHz_1M;
                 break;
-            case 36000000:
+            case 36'000'000:
                 bus->BTR = PHAL_CAN_36MHz_1M;
                 break;
-            case 42000000:
+            case 42'000'000:
                 bus->BTR = PHAL_CAN_42MHz_1M;
                 break;
             default:
                 return false;
         }
-    } else if (bit_rate == 500000) {
+    } else if (bit_rate == 500'000) {
         switch (APB1ClockRateHz) {
-            case 16000000:
+            case 16'000'000:
                 bus->BTR = PHAL_CAN_16MHz_500k;
                 break;
-            case 24000000:
+            case 24'000'000:
                 bus->BTR = PHAL_CAN_24MHz_500k;
                 break;
-            case 36000000:
+            case 36'000'000:
                 bus->BTR = PHAL_CAN_36MHz_500k;
                 break;
-            case 42000000:
+            case 42'000'000:
                 bus->BTR = PHAL_CAN_42MHz_500k;
                 break;
             default:
                 return false;
         }
-    } else if (bit_rate == 250000) {
+    } else if (bit_rate == 250'000) {
         switch (APB1ClockRateHz) {
-            case 16000000:
+            case 16'000'000:
                 bus->BTR = PHAL_CAN_16MHz_250k;
                 break;
-            case 24000000:
+            case 24'000'000:
                 bus->BTR = PHAL_CAN_24MHz_250k;
                 break;
-            case 36000000:
+            case 36'000'000:
                 bus->BTR = PHAL_CAN_36MHz_250k;
                 break;
             default:

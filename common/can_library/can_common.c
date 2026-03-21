@@ -263,6 +263,13 @@ void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
     // Immediately drop the message and bump overflow counter if the queue is full
     if (xQueueSendToBack(q_tx_can[periph_idx], msg, 0) != pdPASS) {
         can_stats.can_peripheral_stats[periph_idx].tx_of++;
+        return;
+    }
+
+    // Wake the TX task to attempt an immediate send
+    TaskHandle_t tx_task = getTaskHandle(CAN_tx_update);
+    if (tx_task != NULL) {
+        xTaskNotifyGive(tx_task);
     }
 }
 
@@ -289,7 +296,6 @@ void CAN_tx_update() {
 }
 
 // FDCAN RX callback - enqueues received messages to the RX queue
-// This overrides the weak definition in fdcan.c
 void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 

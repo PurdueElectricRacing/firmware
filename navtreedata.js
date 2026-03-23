@@ -29,19 +29,19 @@ var NAVTREE =
     [ "code_style", "md_docs_2code__style.html", null ],
     [ "deploy_n_debug", "md_docs_2deploy__n__debug.html", null ],
     [ "PER Firmware Setup Instructions", "md_docs_2setup.html", [
-      [ "Tools", "md_docs_2setup.html#autotoc_md67", [
-        [ "MacOS Tools Setup", "md_docs_2setup.html#autotoc_md68", null ],
-        [ "Windows Tools Setup", "md_docs_2setup.html#autotoc_md69", null ],
-        [ "Linux Tools Setup", "md_docs_2setup.html#autotoc_md70", null ]
+      [ "Tools", "md_docs_2setup.html#autotoc_md75", [
+        [ "MacOS Tools Setup", "md_docs_2setup.html#autotoc_md76", null ],
+        [ "Windows Tools Setup", "md_docs_2setup.html#autotoc_md77", null ],
+        [ "Linux Tools Setup", "md_docs_2setup.html#autotoc_md78", null ]
       ] ],
-      [ "VSCode Setup (All OS)", "md_docs_2setup.html#autotoc_md71", [
-        [ "Install Extensions", "md_docs_2setup.html#autotoc_md72", null ],
-        [ "Turn on Autosave", "md_docs_2setup.html#autotoc_md73", null ]
+      [ "VSCode Setup (All OS)", "md_docs_2setup.html#autotoc_md79", [
+        [ "Install Extensions", "md_docs_2setup.html#autotoc_md80", null ],
+        [ "Turn on Autosave", "md_docs_2setup.html#autotoc_md81", null ]
       ] ],
-      [ "Repository Setup (All OS)", "md_docs_2setup.html#autotoc_md74", [
-        [ "Open a new terminal", "md_docs_2setup.html#autotoc_md75", null ],
-        [ "Clone PER repo", "md_docs_2setup.html#autotoc_md76", null ],
-        [ "Setup & Build", "md_docs_2setup.html#autotoc_md77", null ]
+      [ "Repository Setup (All OS)", "md_docs_2setup.html#autotoc_md82", [
+        [ "Open a new terminal", "md_docs_2setup.html#autotoc_md83", null ],
+        [ "Clone PER repo", "md_docs_2setup.html#autotoc_md84", null ],
+        [ "Setup & Build", "md_docs_2setup.html#autotoc_md85", null ]
       ] ]
     ] ],
     [ "Todo List", "todo.html", null ],
@@ -91,17 +91,17 @@ var NAVTREEINDEX =
 "ff_8h.html#ae936e4c15227768f7da4e0951def89c8",
 "globals_func_b.html",
 "group__DATA__TYPE.html#ggaca023f09ee4830a55aa38846e1bb3b44a73cae02488658f1fc27ccd322c391f02",
-"load__calc_8py.html#a1e1f1f2b50026bd50d8636ac8527d1e8",
-"nextion_8h.html#a81860eb8c2792552a95c98cbf8c4e61f",
-"pec_8h.html#af26a3fb59c4ae59fb10ac19030eef174",
-"phal__F4__F7_2rtc_2rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cba4b7ac548d39b357a0108bcc228fcf6c7",
-"phal__G4_2rcc_2rcc_8h.html#a6f4ca605cce4be908b761c7a5bb90692",
-"sdio_8c.html#a928ef806ccdf828249e4a31bcd2f6ad7",
-"socket_8c.html#a4de733d12d951cb93d5ec3adb9fe92a2",
-"structIMU__data__t.html#a1639873b6eef7cdb9458ef49e70eec1e",
-"structdaq__hub__t.html#aa6c597f29b1a3e2fa842333bf10063d0",
-"utils_8py.html#a0978fa33a1b01da796b16e2ac1a1d0d5",
-"wizchip__conf_8h.html#aec45fdaf72e12f9b7958c77bb4ff4913"
+"load__calc_8py.html",
+"nextion_8h.html#a64693af0725d6715a5fbf24cf522ebde",
+"pec_8h.html#acf61d2142265cf21d2a680bff41883b9",
+"phal__F4__F7_2rtc_2rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cba280a8e791eea8fc858c97d745d42af0f",
+"phal__G4_2rcc_2rcc_8h.html#a60ed31989981f6f69b4f5363337cfd8fac4932e43c2d2836da911c0811a948853",
+"sdio_8c.html#a9076421cff565712aa53dfae713e4ae4",
+"socket_8c.html",
+"structIMU__data__t.html",
+"structdaq__hub__t.html#aa51794676ebd4d12eba28f3dc62cd2d3",
+"utils_8py.html",
+"wizchip__conf_8h.html#ae18a71e8a9558b4cead60cee7a438cf1"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

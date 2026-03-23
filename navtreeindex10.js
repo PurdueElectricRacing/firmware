@@ -125,6 +125,7 @@ var NAVTREEINDEX10 =
 "index.html#autotoc_md2":[0,1],
 "index.html#autotoc_md3":[0,2],
 "index.html#autotoc_md4":[0,3],
+"index.html#autotoc_md5":[0,4],
 "izze__imu_8h.html":[8,0,0,8,0],
 "izze__imu_8h.html#a044be3dd587ce19e0580925a67234a2f":[8,0,0,8,0,3],
 "izze__imu_8h.html#a044be3dd587ce19e0580925a67234a2fa0943907842cffb0f92c71b58e49582ab":[8,0,0,8,0,3,8],
@@ -248,6 +249,5 @@ var NAVTREEINDEX10 =
 "lerp__lut_8h_source.html":[8,0,0,9,1],
 "linker_8py.html":[8,0,0,3,0,4],
 "linker_8py.html#aed4b2af437cd3fe7ac809072fc8999d7":[8,0,0,3,0,4,1],
-"linker_8py_source.html":[8,0,0,3,0,4],
-"load__calc_8py.html":[8,0,0,3,0,5]
+"linker_8py_source.html":[8,0,0,3,0,4]
 };

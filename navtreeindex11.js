@@ -1,5 +1,6 @@
 var NAVTREEINDEX11 =
 {
+"load__calc_8py.html":[8,0,0,3,0,5],
 "load__calc_8py.html#a1e1f1f2b50026bd50d8636ac8527d1e8":[8,0,0,3,0,5,1],
 "load__calc_8py.html#afb8d90d0933e3b0db2692ebee3422797":[8,0,0,3,0,5,3],
 "load__calc_8py.html#afcc2f6fa4f7e671612cadb827a958b24":[8,0,0,3,0,5,2],
@@ -75,17 +76,17 @@ var NAVTREEINDEX11 =
 "md_docs_2code__style.html":[1],
 "md_docs_2deploy__n__debug.html":[2],
 "md_docs_2setup.html":[3],
-"md_docs_2setup.html#autotoc_md67":[3,0],
-"md_docs_2setup.html#autotoc_md68":[3,0,0],
-"md_docs_2setup.html#autotoc_md69":[3,0,1],
-"md_docs_2setup.html#autotoc_md70":[3,0,2],
-"md_docs_2setup.html#autotoc_md71":[3,1],
-"md_docs_2setup.html#autotoc_md72":[3,1,0],
-"md_docs_2setup.html#autotoc_md73":[3,1,1],
-"md_docs_2setup.html#autotoc_md74":[3,2],
-"md_docs_2setup.html#autotoc_md75":[3,2,0],
-"md_docs_2setup.html#autotoc_md76":[3,2,1],
-"md_docs_2setup.html#autotoc_md77":[3,2,2],
+"md_docs_2setup.html#autotoc_md75":[3,0],
+"md_docs_2setup.html#autotoc_md76":[3,0,0],
+"md_docs_2setup.html#autotoc_md77":[3,0,1],
+"md_docs_2setup.html#autotoc_md78":[3,0,2],
+"md_docs_2setup.html#autotoc_md79":[3,1],
+"md_docs_2setup.html#autotoc_md80":[3,1,0],
+"md_docs_2setup.html#autotoc_md81":[3,1,1],
+"md_docs_2setup.html#autotoc_md82":[3,2],
+"md_docs_2setup.html#autotoc_md83":[3,2,0],
+"md_docs_2setup.html#autotoc_md84":[3,2,1],
+"md_docs_2setup.html#autotoc_md85":[3,2,2],
 "menu__system_8c.html":[8,0,2,2,0,4],
 "menu__system_8c.html#a23c0189c067cb5dfd0a1ab4514e0ecc0":[8,0,2,2,0,4,2],
 "menu__system_8c.html#a28391906e0d6d059553293e1e2e6e7f4":[8,0,2,2,0,4,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX11 =
 "nextion_8h.html#a46ee1522cb7ef9d6bc11a77879e3300e":[8,0,2,2,0,7,13],
 "nextion_8h.html#a5d668abac5196cd46df676c330890504":[8,0,2,2,0,7,2],
 "nextion_8h.html#a5f2209d0e2a141f1c3af1ebdd81aaa16":[8,0,2,2,0,7,9],
-"nextion_8h.html#a63ace6fa3e7fca3ec048d6c160e9a182":[8,0,2,2,0,7,4],
-"nextion_8h.html#a64693af0725d6715a5fbf24cf522ebde":[8,0,2,2,0,7,8]
+"nextion_8h.html#a63ace6fa3e7fca3ec048d6c160e9a182":[8,0,2,2,0,7,4]
 };

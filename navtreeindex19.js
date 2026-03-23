@@ -1,5 +1,6 @@
 var NAVTREEINDEX19 =
 {
+"structdaq__hub__t.html#aa51794676ebd4d12eba28f3dc62cd2d3":[7,0,20,12],
 "structdaq__hub__t.html#aa6c597f29b1a3e2fa842333bf10063d0":[7,0,20,17],
 "structdaq__hub__t.html#ab8ae5890d3a0df1f46e950b6d0e46d89":[7,0,20,8],
 "structdaq__hub__t.html#ac04dfcc0b6ba25c10ed4a4ef9a9f88be":[7,0,20,16],
@@ -248,6 +249,5 @@ var NAVTREEINDEX19 =
 "union__WIZCHIP_1_1__IF.html#a91273dc0f61368062cf9fc3aa6461d84":[5,1,0,2,6],
 "union__WIZCHIP_1_1__IF.html#abd5bec08b6d10c2ec6af9df291ac0779":[5,1,0,2,4],
 "union__WIZCHIP_1_1__IF.html#ac266e0d40c00b390e8763462a63ac7cc":[5,1,0,2,3],
-"union__WIZCHIP_1_1__IF.html#ae7999b27eaa4042a93b2f15c69ba697c":[5,1,0,2,1],
-"utils_8py.html":[8,0,0,3,0,8]
+"union__WIZCHIP_1_1__IF.html#ae7999b27eaa4042a93b2f15c69ba697c":[5,1,0,2,1]
 };

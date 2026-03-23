@@ -1,5 +1,6 @@
 var NAVTREEINDEX18 =
 {
+"structIMU__data__t.html":[7,0,32],
 "structIMU__data__t.html#a1639873b6eef7cdb9458ef49e70eec1e":[7,0,32,5],
 "structIMU__data__t.html#a2825c4856040edf7c84b3037fe154edd":[7,0,32,2],
 "structIMU__data__t.html#a82d72d11f82a7e2ebb0e3cea18763bc9":[7,0,32,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX18 =
 "structdaq__hub__t.html#a30728bd411c9acd1b9bf3056c9e0b3d7":[7,0,20,11],
 "structdaq__hub__t.html#a500fb86b3428b8b4ee8153db523180e5":[7,0,20,14],
 "structdaq__hub__t.html#a611550dd39262914ba1af13006758c1a":[7,0,20,9],
-"structdaq__hub__t.html#a6927a4cc267444b1e7d3352f96ab6577":[7,0,20,3],
-"structdaq__hub__t.html#aa51794676ebd4d12eba28f3dc62cd2d3":[7,0,20,12]
+"structdaq__hub__t.html#a6927a4cc267444b1e7d3352f96ab6577":[7,0,20,3]
 };

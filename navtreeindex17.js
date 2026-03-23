@@ -1,5 +1,6 @@
 var NAVTREEINDEX17 =
 {
+"socket_8c.html":[8,0,2,1,4,0],
 "socket_8c.html#a4de733d12d951cb93d5ec3adb9fe92a2":[8,0,2,1,4,0,0],
 "socket_8c.html#a80bab3a987b736830d92983e0eae58fd":[8,0,2,1,4,0,4],
 "socket_8c.html#a89d4949e11620ee89de6ea32497bc0a5":[8,0,2,1,4,0,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX17 =
 "structGPS__Handle__t.html#a6c37caf3a62fa6c1489615bab257a21e":[7,0,31,4],
 "structGPS__Handle__t.html#ab7f1409ce892a564ff5851321a9109f3":[7,0,31,6],
 "structGPS__Handle__t.html#ad2cca2ce2d27c6f03f5d615b62235b6b":[7,0,31,0],
-"structGPS__Handle__t.html#ae5a5329707961dfd09eba0ada30b788f":[7,0,31,2],
-"structIMU__data__t.html":[7,0,32]
+"structGPS__Handle__t.html#ae5a5329707961dfd09eba0ada30b788f":[7,0,31,2]
 };

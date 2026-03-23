@@ -1,11 +1,14 @@
 var searchData=
 [
-  ['eth_5fget_5flink_5fup_0',['eth_get_link_up',['../daq__eth_8c.html#a94976248e995a4ece2401f88a68ea1d4',1,'daq_eth.c']]],
-  ['eth_5finit_1',['eth_init',['../daq__eth_8c.html#a1a55d116f8b86ec298f1728029da10d4',1,'daq_eth.c']]],
-  ['eth_5freset_5ferror_2',['eth_reset_error',['../daq__eth_8c.html#a286b0b1a41367e2824bcf6449fbae789',1,'daq_eth.c']]],
-  ['eth_5fudp_5finit_3',['eth_udp_init',['../daq__eth_8c.html#a9d53050bed0e141ed27daf3c1cf33cba',1,'daq_eth.c']]],
-  ['eth_5fudp_5fsend_5fperiodic_4',['eth_udp_send_periodic',['../daq__eth_8c.html#a855eb1e8b27221da5e80d0fc7dd5fe4c',1,'daq_eth.c']]],
-  ['eth_5fupdate_5fperiodic_5',['eth_update_periodic',['../daq__eth_8c.html#af92254f174f970df107d7b79251da089',1,'eth_update_periodic(void):&#160;daq_eth.c'],['../daq__eth_8h.html#af92254f174f970df107d7b79251da089',1,'eth_update_periodic(void):&#160;daq_eth.c']]],
-  ['exti15_5f10_5firqhandler_6',['EXTI15_10_IRQHandler',['../daq_2main_8c.html#a2089b233bd8d6f7dbf78e075033696e3',1,'EXTI15_10_IRQHandler():&#160;main.c'],['../dashboard_2main_8c.html#a2089b233bd8d6f7dbf78e075033696e3',1,'EXTI15_10_IRQHandler():&#160;main.c']]],
-  ['exti9_5f5_5firqhandler_7',['EXTI9_5_IRQHandler',['../dashboard_2main_8c.html#a9f0a091727452df71a1760d1133bf9b4',1,'main.c']]]
+  ['generate_5fdbcs_0',['generate_dbcs',['../namespacedbcgen.html#ade6a2af6da26f68e915bc94a74b68515',1,'dbcgen']]],
+  ['generate_5ffault_5fdata_1',['generate_fault_data',['../namespacefaultgen.html#a0b8f1265d8faeba6a2d68e2e1509389d',1,'faultgen']]],
+  ['get_5fdlc_2',['get_dlc',['../classparser_1_1Message.html#a3fd1133766bdda2d92a6a0fda552fb29',1,'parser::Message']]],
+  ['get_5fgit_5fhash_3',['get_git_hash',['../namespaceutils.html#a5ea003cf13d4e3bb99f6df674fb22a21',1,'utils']]],
+  ['get_5flayout_5fhash_4',['get_layout_hash',['../namespaceutils.html#a673d645eea2981b1aed0db6a0228f625',1,'utils']]],
+  ['get_5fled_5fstatus_5',['get_LED_status',['../led_8c.html#ab2644007c0a1014ac3229035bd76a257',1,'get_LED_status(int led):&#160;led.c'],['../led_8h.html#ab2644007c0a1014ac3229035bd76a257',1,'get_LED_status(int led):&#160;led.c']]],
+  ['getsn_5frx_5frsr_6',['getSn_RX_RSR',['../group__Socket__register__access__function.html#ga321fbcdaf88299f5c4022314376e4e74',1,'getSn_RX_RSR(uint8_t sn):&#160;w5500.c'],['../group__Socket__register__access__function.html#ga321fbcdaf88299f5c4022314376e4e74',1,'getSn_RX_RSR(uint8_t sn):&#160;w5500.c']]],
+  ['getsn_5ftx_5ffsr_7',['getSn_TX_FSR',['../group__Socket__register__access__function.html#gadd5918adebaa3744ddc01a76c84a894a',1,'getSn_TX_FSR(uint8_t sn):&#160;w5500.c'],['../group__Socket__register__access__function.html#gadd5918adebaa3744ddc01a76c84a894a',1,'getSn_TX_FSR(uint8_t sn):&#160;w5500.c']]],
+  ['getsockopt_8',['getsockopt',['../group__WIZnet__socket__APIs.html#ga631998ae17cbf099b0071f20c88ce5cf',1,'getsockopt(uint8_t sn, sockopt_type sotype, void *arg):&#160;socket.c'],['../group__WIZnet__socket__APIs.html#ga631998ae17cbf099b0071f20c88ce5cf',1,'getsockopt(uint8_t sn, sockopt_type sotype, void *arg):&#160;socket.c']]],
+  ['getswitchstatus_9',['getSwitchStatus',['../auto__switch_8c.html#a9615dad272d72b1eda4edb0eabf3c4ae',1,'getSwitchStatus(switches_t auto_switch_enum):&#160;auto_switch.c'],['../auto__switch_8h.html#a9615dad272d72b1eda4edb0eabf3c4ae',1,'getSwitchStatus(switches_t auto_switch_enum):&#160;auto_switch.c']]],
+  ['gps_5fdecode_10',['GPS_Decode',['../gps_8c.html#a8aa2ccfc6bae9091b677a8a1ad4b69a3',1,'GPS_Decode(GPS_Handle_t *gps):&#160;gps.c'],['../gps_8h.html#a8aa2ccfc6bae9091b677a8a1ad4b69a3',1,'GPS_Decode(GPS_Handle_t *gps):&#160;gps.c']]]
 ];

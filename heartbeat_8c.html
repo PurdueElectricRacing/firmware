@@ -107,75 +107,17 @@ $(function(){initNavTree('heartbeat_8c.html',''); initResizable(true); });
 <div class="textblock"><code>#include &quot;<a class="el" href="heartbeat_8h_source.html">heartbeat.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="can__common_8h_source.html">common/can_library/can_common.h</a>&quot;</code><br />
-</div>
-<p><a href="heartbeat_8c_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1d58d4db1dcf0ec5b290850c6ae31f3b" id="r_a1d58d4db1dcf0ec5b290850c6ae31f3b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d58d4db1dcf0ec5b290850c6ae31f3b">preflight_led_sweep</a> (<a class="el" href="structstatus__leds__t.html">status_leds_t</a> *leds)</td></tr>
-<tr class="separator:a1d58d4db1dcf0ec5b290850c6ae31f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2681be62cc27208946c262df62f4a06" id="r_ab2681be62cc27208946c262df62f4a06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2681be62cc27208946c262df62f4a06">heartbeat_task</a> (<a class="el" href="structstatus__leds__t.html">status_leds_t</a> *leds)</td></tr>
+<tr class="memitem:ab2681be62cc27208946c262df62f4a06" id="r_ab2681be62cc27208946c262df62f4a06"><td class="memItemLeft" align="right" valign="top"><a id="ab2681be62cc27208946c262df62f4a06" name="ab2681be62cc27208946c262df62f4a06"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>heartbeat_task</b> (<a class="el" href="structstatus__leds__t.html">status_leds_t</a> *leds)</td></tr>
 <tr class="separator:ab2681be62cc27208946c262df62f4a06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Shared heartbeat task implementation for status LEDs. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-
-<p class="definition">Definition in file <a class="el" href="heartbeat_8c_source.html">heartbeat.c</a>.</p>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a id="ab2681be62cc27208946c262df62f4a06" name="ab2681be62cc27208946c262df62f4a06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2681be62cc27208946c262df62f4a06">&#9670;&#160;</a></span>heartbeat_task()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void heartbeat_task </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structstatus__leds__t.html">status_leds_t</a> *</td>          <td class="paramname"><span class="paramname"><em>leds</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="heartbeat_8c_source.html#l00034">34</a> of file <a class="el" href="heartbeat_8c_source.html">heartbeat.c</a>.</p>
-
-<p class="reference">References <a class="el" href="heartbeat_8h_source.html#l00016">CONN_LED_TIMEOUT_MS</a>, <a class="el" href="heartbeat_8h_source.html#l00027">status_leds_t::connection_pin</a>, <a class="el" href="heartbeat_8h_source.html#l00026">status_leds_t::connection_port</a>, <a class="el" href="heartbeat_8h_source.html#l00029">status_leds_t::error_pin</a>, <a class="el" href="heartbeat_8h_source.html#l00028">status_leds_t::error_port</a>, <a class="el" href="freertos_8h_source.html#l00143">getTick</a>, <a class="el" href="heartbeat_8h_source.html#l00025">status_leds_t::heartbeat_pin</a>, <a class="el" href="heartbeat_8h_source.html#l00024">status_leds_t::heartbeat_port</a>, <a class="el" href="heartbeat_8h_source.html#l00020">HEARTBEAT_STATE_NORMAL</a>, <a class="el" href="heartbeat_8h_source.html#l00019">HEARTBEAT_STATE_PREFLIGHT</a>, <a class="el" href="can__common_8c_source.html#l00016">last_can_rx_time_ms</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00286">PHAL_toggleGPIO()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, <a class="el" href="heartbeat_8h_source.html#l00030">status_leds_t::preflight_callback</a>, <a class="el" href="heartbeat_8h_source.html#l00014">PREFLIGHT_DURATION_MS</a>, <a class="el" href="heartbeat_8c_source.html#l00012">preflight_led_sweep()</a>, and <a class="el" href="heartbeat_8h_source.html#l00031">status_leds_t::state</a>.</p>
-
-</div>
-</div>
-<a id="a1d58d4db1dcf0ec5b290850c6ae31f3b" name="a1d58d4db1dcf0ec5b290850c6ae31f3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d58d4db1dcf0ec5b290850c6ae31f3b">&#9670;&#160;</a></span>preflight_led_sweep()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void preflight_led_sweep </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structstatus__leds__t.html">status_leds_t</a> *</td>          <td class="paramname"><span class="paramname"><em>leds</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="heartbeat_8c_source.html#l00012">12</a> of file <a class="el" href="heartbeat_8c_source.html">heartbeat.c</a>.</p>
-
-<p class="reference">References <a class="el" href="heartbeat_8h_source.html#l00027">status_leds_t::connection_pin</a>, <a class="el" href="heartbeat_8h_source.html#l00026">status_leds_t::connection_port</a>, <a class="el" href="heartbeat_8h_source.html#l00029">status_leds_t::error_pin</a>, <a class="el" href="heartbeat_8h_source.html#l00028">status_leds_t::error_port</a>, <a class="el" href="heartbeat_8h_source.html#l00025">status_leds_t::heartbeat_pin</a>, <a class="el" href="heartbeat_8h_source.html#l00024">status_leds_t::heartbeat_port</a>, and <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="heartbeat_8c_source.html#l00034">heartbeat_task()</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

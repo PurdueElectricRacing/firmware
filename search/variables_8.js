@@ -1,23 +1,4 @@
 var searchData=
 [
-  ['handle_0',['handle',['../structThreadWrapper__t.html#a817a76a0085c21a6827a797f44bda13a',1,'ThreadWrapper_t']]],
-  ['hasgnssfix_1',['hasGNSSFix',['../structGPS__Handle__t.html#ae5a5329707961dfd09eba0ada30b788f',1,'GPS_Handle_t']]],
-  ['head_2',['head',['../structSPMC__t.html#a819c0967e831284aa97a85f53587e065',1,'SPMC_t']]],
-  ['header_3',['HEADER',['../classutils_1_1bcolors.html#ae1b46bb5726457898bd2c00acbc617d7',1,'utils::bcolors']]],
-  ['header1_4',['HEADER1',['../namespacereceive-from-tv.html#ae29c1f565929de6e8052200662246df2',1,'receive-from-tv.HEADER1'],['../namespacesend-and-rec.html#aeba7a536a1f5f006d25db15a8a7380d5',1,'send-and-rec.HEADER1']]],
-  ['header2_5',['HEADER2',['../namespacereceive-from-tv.html#a2e294b3fa6aadcd8d3c8b5ebab525332',1,'receive-from-tv.HEADER2'],['../namespacesend-and-rec.html#a676aa4b3046983f8f867e40dddb56ec1',1,'send-and-rec.HEADER2']]],
-  ['headingmotion_6',['headingMotion',['../structNAV__PVT__t.html#a4641a17663dcc26f819966502308b576',1,'NAV_PVT_t']]],
-  ['headingvehicle_7',['headingVehicle',['../structNAV__PVT__t.html#a7f62d73366c11c0e24f2379073526954',1,'NAV_PVT_t']]],
-  ['heartbeat_5fperiod_5fms_8',['HEARTBEAT_PERIOD_MS',['../heartbeat_8h.html#aba882a54e761d19d12cc40b3a2a91d8b',1,'heartbeat.h']]],
-  ['heartbeat_5fpin_9',['heartbeat_pin',['../structstatus__leds__t.html#a583b521decbea9e8914917f80f0ac2cb',1,'status_leds_t']]],
-  ['heartbeat_5fport_10',['heartbeat_port',['../structstatus__leds__t.html#ae4dc83c710e18df7170a9dc432e03fa8',1,'status_leds_t']]],
-  ['height_11',['height',['../structNAV__PVT__t.html#a9a8442e88106a9ba347cfa2af3546203',1,'NAV_PVT_t']]],
-  ['heightmsl_12',['heightMSL',['../structNAV__PVT__t.html#a68bd5335616cea5646bb48afd58fc3a2',1,'NAV_PVT_t']]],
-  ['horizontalaccuracy_13',['horizontalAccuracy',['../structNAV__PVT__t.html#a94bd2e29f2131891fa0dfaae2269dabc',1,'NAV_PVT_t']]],
-  ['hour_14',['hour',['../structNAV__PVT__t.html#a2bca5697d3ad496f6b243f6918263477',1,'NAV_PVT_t']]],
-  ['hours_5fbcd_15',['hours_bcd',['../structRTC__time__t.html#a8d02832380abd6524b9d4272495f6252',1,'RTC_time_t']]],
-  ['hover_5fborder_5fwidth_16',['HOVER_BORDER_WIDTH',['../menu__system_8c.html#a3c301bd8bfb775fb3e61da22899491ec',1,'menu_system.c']]],
-  ['hw_5fflow_5fctl_17',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]],
-  ['hxfan_5fimon_18',['hxfan_imon',['../structADCReadings__t.html#a0af6bd226cd5eebc206f7e87d856378d',1,'ADCReadings_t']]],
-  ['hxfan_5fstatus_19',['hxfan_status',['../structcooling__request__t.html#ab04d2e5031b8cf31400f515635e0cb4b',1,'cooling_request_t']]]
+  ['hw_5fflow_5fctl_0',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]]
 ];

@@ -1,20 +1,4 @@
 var searchData=
 [
-  ['g_5fbms_0',['g_bms',['../a__box_2main_8c.html#a54910fb29db8c9eac2409cc73cc828c5',1,'main.c']]],
-  ['g_5fbms_5ftx_5fbuf_1',['g_bms_tx_buf',['../a__box_2main_8c.html#a99b892b6086d375bba69c6a4985b3262',1,'main.c']]],
-  ['g_5fcar_2',['g_car',['../main__module_2main_8c.html#a0c603b6be14ee38a80f5b39fef2668da',1,'g_car:&#160;main.c'],['../main__module_2main_8h.html#a0c603b6be14ee38a80f5b39fef2668da',1,'g_car:&#160;main.c']]],
-  ['g_5ftorque_5frequest_3',['g_torque_request',['../main__module_2main_8c.html#a766b4068a82ed7a189256a31ec0086e2',1,'g_torque_request:&#160;main.c'],['../main__module_2main_8h.html#a766b4068a82ed7a189256a31ec0086e2',1,'g_torque_request:&#160;main.c']]],
-  ['gear_5fratio_4',['GEAR_RATIO',['../race_8c.html#a7ceba12f5f5bd48ea9a93d64bb8ddf82',1,'race.c']]],
-  ['generate_5ffault_5fstrings_5',['generate_fault_strings',['../classparser_1_1Node.html#aac9da7c744839a4ee889755204cca6f5',1,'parser::Node']]],
-  ['generated_5fdir_6',['GENERATED_DIR',['../namespaceutils.html#ac362a6b5ef2c9f6c3a36ed75b9e19470',1,'utils']]],
-  ['gpio_5fconfig_7',['gpio_config',['../a__box_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../daq_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../dashboard_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../driveline_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../f4__testing_2canpiler_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;canpiler.c'],['../izze__imu__config_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;izze_imu_config.c'],['../main__module_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../pdu_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../torque__vector_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c']]],
-  ['gps_5frx_5fbuffer_8',['gps_rx_buffer',['../structGPS__Handle__t.html#a15d5e60a4134f21ec6a0344a0c444739',1,'GPS_Handle_t']]],
-  ['green_9',['GREEN',['../classutils_1_1bcolors.html#aa6a8c026d01cc05d51531af6ec9a37cb',1,'utils.bcolors.GREEN'],['../colors_8h.html#a0e60d91d28eb400c0c99c4d6be3edd65',1,'GREEN:&#160;colors.h']]],
-  ['groundspeed_10',['groundSpeed',['../structNAV__PVT__t.html#a2e9e003fdbd5fbd7ee45aa776a630904',1,'NAV_PVT_t']]],
-  ['gw_11',['gw',['../structwiz__NetInfo.html#a27bed859246669aaf4c83bb0258eb4fa',1,'wiz_NetInfo']]],
-  ['gyro_5fdatarate_12',['gyro_datarate',['../structBMI088__Handle__t.html#addd17bffaa0828170649e650edf99c06',1,'BMI088_Handle_t']]],
-  ['gyro_5frange_13',['gyro_range',['../structBMI088__Handle__t.html#a40d507743884ed7b0d27d2b8208ca081',1,'BMI088_Handle_t']]],
-  ['gyro_5fx_14',['gyro_x',['../structIMU__data__t.html#aa83953a2ea1ea0ec1d683a12e716b482',1,'IMU_data_t']]],
-  ['gyro_5fy_15',['gyro_y',['../structIMU__data__t.html#a8958e82e47331123345e19bb0e09436d',1,'IMU_data_t']]],
-  ['gyro_5fz_16',['gyro_z',['../structIMU__data__t.html#a1639873b6eef7cdb9458ef49e70eec1e',1,'IMU_data_t']]]
+  ['gw_0',['gw',['../structwiz__NetInfo__t.html#a6a78be2d765ba8e6f00ab9570ea6d702',1,'wiz_NetInfo_t']]]
 ];

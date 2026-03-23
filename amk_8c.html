@@ -97,8 +97,7 @@ $(function(){initNavTree('amk_8c.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">amk.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -106,32 +105,21 @@ $(function(){initNavTree('amk_8c.html',''); initResizable(true); });
 <p>Modernized AMK driver.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="amk_8h_source.html">common/amk/amk.h</a>&quot;</code><br />
-</div>
-<p><a href="amk_8c_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ace399960d8699525e3e7186c395f214c" id="r_ace399960d8699525e3e7186c395f214c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace399960d8699525e3e7186c395f214c">AMK_init</a> (<a class="el" href="structAMK__t.html">AMK_t</a> *amk, void(*set_function)(void), INVA_SET_data_t *set, INVA_CRIT_data_t *crit, INVA_INFO_data_t *info, INVA_TEMPS_data_t *temps, INVA_ERR_1_data_t *err1, INVA_ERR_2_data_t *err2, bool *precharge_ptr)</td></tr>
+<tr class="memitem:ace399960d8699525e3e7186c395f214c" id="r_ace399960d8699525e3e7186c395f214c"><td class="memItemLeft" align="right" valign="top"><a id="ace399960d8699525e3e7186c395f214c" name="ace399960d8699525e3e7186c395f214c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AMK_init</b> (<a class="el" href="structAMK__t.html">AMK_t</a> *amk, void(*set_function)(void), INVA_SET_data_t *set, INVA_CRIT_data_t *crit, INVA_INFO_data_t *info, INVA_TEMPS_data_t *temps, INVA_ERR_1_data_t *err1, INVA_ERR_2_data_t *err2, bool *precharge_ptr)</td></tr>
 <tr class="separator:ace399960d8699525e3e7186c395f214c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae93684e0e9805a9672a4816708fa1bf3" id="r_ae93684e0e9805a9672a4816708fa1bf3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae93684e0e9805a9672a4816708fa1bf3">AMK_reset</a> (<a class="el" href="structAMK__t.html">AMK_t</a> *amk)</td></tr>
+<tr class="memitem:ae93684e0e9805a9672a4816708fa1bf3" id="r_ae93684e0e9805a9672a4816708fa1bf3"><td class="memItemLeft" align="right" valign="top"><a id="ae93684e0e9805a9672a4816708fa1bf3" name="ae93684e0e9805a9672a4816708fa1bf3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AMK_reset</b> (<a class="el" href="structAMK__t.html">AMK_t</a> *amk)</td></tr>
 <tr class="separator:ae93684e0e9805a9672a4816708fa1bf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a356e87a341a5ab48cba5c0aa6ad3bdbe" id="r_a356e87a341a5ab48cba5c0aa6ad3bdbe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a356e87a341a5ab48cba5c0aa6ad3bdbe">AMK_set_torque</a> (<a class="el" href="structAMK__t.html">AMK_t</a> *amk, int16_t torque_percent)</td></tr>
+<tr class="memitem:a356e87a341a5ab48cba5c0aa6ad3bdbe" id="r_a356e87a341a5ab48cba5c0aa6ad3bdbe"><td class="memItemLeft" align="right" valign="top"><a id="a356e87a341a5ab48cba5c0aa6ad3bdbe" name="a356e87a341a5ab48cba5c0aa6ad3bdbe"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AMK_set_torque</b> (<a class="el" href="structAMK__t.html">AMK_t</a> *amk, int16_t torque_percent)</td></tr>
 <tr class="separator:a356e87a341a5ab48cba5c0aa6ad3bdbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a850f8d409d4274d526c8c7156eb1272d" id="r_a850f8d409d4274d526c8c7156eb1272d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a850f8d409d4274d526c8c7156eb1272d">AMK_stop</a> (<a class="el" href="structAMK__t.html">AMK_t</a> *amk)</td></tr>
-<tr class="separator:a850f8d409d4274d526c8c7156eb1272d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6843102040b2a233465b0ecd3118dbd4" id="r_a6843102040b2a233465b0ecd3118dbd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6843102040b2a233465b0ecd3118dbd4">AMK_periodic</a> (<a class="el" href="structAMK__t.html">AMK_t</a> *amk)</td></tr>
+<tr class="memitem:a6843102040b2a233465b0ecd3118dbd4" id="r_a6843102040b2a233465b0ecd3118dbd4"><td class="memItemLeft" align="right" valign="top"><a id="a6843102040b2a233465b0ecd3118dbd4" name="a6843102040b2a233465b0ecd3118dbd4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AMK_periodic</b> (<a class="el" href="structAMK__t.html">AMK_t</a> *amk)</td></tr>
 <tr class="separator:a6843102040b2a233465b0ecd3118dbd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a6549e2367c9b214dc00bdb66f39ef54f" id="r_a6549e2367c9b214dc00bdb66f39ef54f"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6549e2367c9b214dc00bdb66f39ef54f">AMK_CAN_ERR_ID</a> = 3587U</td></tr>
-<tr class="separator:a6549e2367c9b214dc00bdb66f39ef54f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a456fe2bf39d7998eae1123bc0b4ae6db" id="r_a456fe2bf39d7998eae1123bc0b4ae6db"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a456fe2bf39d7998eae1123bc0b4ae6db">AMK_DC_BUS_ID</a> = 1049U</td></tr>
-<tr class="separator:a456fe2bf39d7998eae1123bc0b4ae6db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a963ca070a39b0eb53fa30040de87438e" id="r_a963ca070a39b0eb53fa30040de87438e"><td class="memItemLeft" align="right" valign="top">static constexpr int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a963ca070a39b0eb53fa30040de87438e">AMK_DEFAULT_POS_LIMIT</a> = 2140</td></tr>
-<tr class="separator:a963ca070a39b0eb53fa30040de87438e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11acd3569c5f8d8b5144935813ae4a68" id="r_a11acd3569c5f8d8b5144935813ae4a68"><td class="memItemLeft" align="right" valign="top">static constexpr int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11acd3569c5f8d8b5144935813ae4a68">AMK_DEFAULT_NEG_LIMIT</a> = -1</td></tr>
-<tr class="separator:a11acd3569c5f8d8b5144935813ae4a68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Modernized AMK driver. </p>
@@ -140,281 +128,7 @@ Variables</h2></td></tr>
 Cole Roberts (<a href="#" onclick="location.href='mai'+'lto:'+'rob'+'er'+'638'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">rober<span class="obfuscator">.nosp@m.</span>638@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd>
 <dd>
 Chris McGalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'all'+'ia'+'rd@'+'gm'+'ail'+'.c'+'om'; return false;">cpmcg<span class="obfuscator">.nosp@m.</span>alli<span class="obfuscator">.nosp@m.</span>ard@g<span class="obfuscator">.nosp@m.</span>mail<span class="obfuscator">.nosp@m.</span>.com</a>) </dd></dl>
-
-<p class="definition">Definition in file <a class="el" href="amk_8c_source.html">amk.c</a>.</p>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a id="ace399960d8699525e3e7186c395f214c" name="ace399960d8699525e3e7186c395f214c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace399960d8699525e3e7186c395f214c">&#9670;&#160;</a></span>AMK_init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void AMK_init </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structAMK__t.html">AMK_t</a> *</td>          <td class="paramname"><span class="paramname"><em>amk</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void(*</td>          <td class="paramname"><span class="paramname"><em>set_function&#160;</em></span>)(void), </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">INVA_SET_data_t *</td>          <td class="paramname"><span class="paramname"><em>set</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">INVA_CRIT_data_t *</td>          <td class="paramname"><span class="paramname"><em>crit</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">INVA_INFO_data_t *</td>          <td class="paramname"><span class="paramname"><em>info</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">INVA_TEMPS_data_t *</td>          <td class="paramname"><span class="paramname"><em>temps</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">INVA_ERR_1_data_t *</td>          <td class="paramname"><span class="paramname"><em>err1</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">INVA_ERR_2_data_t *</td>          <td class="paramname"><span class="paramname"><em>err2</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool *</td>          <td class="paramname"><span class="paramname"><em>precharge_ptr</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="amk_8c_source.html#l00020">20</a> of file <a class="el" href="amk_8c_source.html">amk.c</a>.</p>
-
-<p class="reference">References <a class="el" href="amk_8c_source.html#l00018">AMK_DEFAULT_NEG_LIMIT</a>, <a class="el" href="amk_8c_source.html#l00017">AMK_DEFAULT_POS_LIMIT</a>, <a class="el" href="amk_8h_source.html#l00017">AMK_STATE_OFF</a>, <a class="el" href="amk_8h_source.html#l00032">AMK_t::crit</a>, <a class="el" href="amk_8h_source.html#l00035">AMK_t::err1</a>, <a class="el" href="amk_8h_source.html#l00036">AMK_t::err2</a>, <a class="el" href="amk_8h_source.html#l00033">AMK_t::info</a>, <a class="el" href="amk_8h_source.html#l00040">AMK_t::next_state</a>, <a class="el" href="amk_8h_source.html#l00041">AMK_t::precharge_ptr</a>, <a class="el" href="amk_8h_source.html#l00031">AMK_t::set</a>, <a class="el" href="amk_8h_source.html#l00027">AMK_t::set_function</a>, <a class="el" href="amk_8h_source.html#l00039">AMK_t::state</a>, and <a class="el" href="amk_8h_source.html#l00034">AMK_t::temps</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="amk__init_8c_source.html#l00083">init_amks()</a>.</p>
-
-</div>
-</div>
-<a id="a6843102040b2a233465b0ecd3118dbd4" name="a6843102040b2a233465b0ecd3118dbd4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6843102040b2a233465b0ecd3118dbd4">&#9670;&#160;</a></span>AMK_periodic()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void AMK_periodic </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structAMK__t.html">AMK_t</a> *</td>          <td class="paramname"><span class="paramname"><em>amk</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="amk_8c_source.html#l00081">81</a> of file <a class="el" href="amk_8c_source.html">amk.c</a>.</p>
-
-<p class="reference">References <a class="el" href="amk_8c_source.html#l00013">AMK_CAN_ERR_ID</a>, <a class="el" href="amk_8c_source.html#l00014">AMK_DC_BUS_ID</a>, <a class="el" href="amk_8c_source.html#l00018">AMK_DEFAULT_NEG_LIMIT</a>, <a class="el" href="amk_8c_source.html#l00017">AMK_DEFAULT_POS_LIMIT</a>, <a class="el" href="amk_8c_source.html#l00052">AMK_reset()</a>, <a class="el" href="amk_8h_source.html#l00021">AMK_STATE_FATAL</a>, <a class="el" href="amk_8h_source.html#l00017">AMK_STATE_OFF</a>, <a class="el" href="amk_8h_source.html#l00020">AMK_STATE_RECOVERING</a>, <a class="el" href="amk_8h_source.html#l00019">AMK_STATE_RUNNING</a>, <a class="el" href="amk_8h_source.html#l00018">AMK_STATE_STARTING</a>, <a class="el" href="amk_8c_source.html#l00072">AMK_stop()</a>, <a class="el" href="amk_8h_source.html#l00035">AMK_t::err1</a>, <a class="el" href="amk_8h_source.html#l00033">AMK_t::info</a>, <a class="el" href="amk_8h_source.html#l00040">AMK_t::next_state</a>, <a class="el" href="amk_8h_source.html#l00041">AMK_t::precharge_ptr</a>, <a class="el" href="amk_8h_source.html#l00031">AMK_t::set</a>, <a class="el" href="amk_8h_source.html#l00027">AMK_t::set_function</a>, and <a class="el" href="amk_8h_source.html#l00039">AMK_t::state</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="main__module_2main_8c_source.html#l00083">AMK_task()</a>.</p>
-
-</div>
-</div>
-<a id="ae93684e0e9805a9672a4816708fa1bf3" name="ae93684e0e9805a9672a4816708fa1bf3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae93684e0e9805a9672a4816708fa1bf3">&#9670;&#160;</a></span>AMK_reset()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void AMK_reset </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structAMK__t.html">AMK_t</a> *</td>          <td class="paramname"><span class="paramname"><em>amk</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="amk_8c_source.html#l00052">52</a> of file <a class="el" href="amk_8c_source.html">amk.c</a>.</p>
-
-<p class="reference">References <a class="el" href="amk_8h_source.html#l00031">AMK_t::set</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="amk_8c_source.html#l00081">AMK_periodic()</a>.</p>
-
-</div>
-</div>
-<a id="a356e87a341a5ab48cba5c0aa6ad3bdbe" name="a356e87a341a5ab48cba5c0aa6ad3bdbe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a356e87a341a5ab48cba5c0aa6ad3bdbe">&#9670;&#160;</a></span>AMK_set_torque()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void AMK_set_torque </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structAMK__t.html">AMK_t</a> *</td>          <td class="paramname"><span class="paramname"><em>amk</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int16_t</td>          <td class="paramname"><span class="paramname"><em>torque_percent</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="amk_8c_source.html#l00058">58</a> of file <a class="el" href="amk_8c_source.html">amk.c</a>.</p>
-
-<p class="reference">References <a class="el" href="amk_8h_source.html#l00019">AMK_STATE_RUNNING</a>, <a class="el" href="amk_8h_source.html#l00031">AMK_t::set</a>, and <a class="el" href="amk_8h_source.html#l00039">AMK_t::state</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00117">fsm_periodic()</a>.</p>
-
-</div>
-</div>
-<a id="a850f8d409d4274d526c8c7156eb1272d" name="a850f8d409d4274d526c8c7156eb1272d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a850f8d409d4274d526c8c7156eb1272d">&#9670;&#160;</a></span>AMK_stop()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void AMK_stop </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structAMK__t.html">AMK_t</a> *</td>          <td class="paramname"><span class="paramname"><em>amk</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="amk_8c_source.html#l00072">72</a> of file <a class="el" href="amk_8c_source.html">amk.c</a>.</p>
-
-<p class="reference">References <a class="el" href="amk_8h_source.html#l00031">AMK_t::set</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="amk_8c_source.html#l00081">AMK_periodic()</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="a6549e2367c9b214dc00bdb66f39ef54f" name="a6549e2367c9b214dc00bdb66f39ef54f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6549e2367c9b214dc00bdb66f39ef54f">&#9670;&#160;</a></span>AMK_CAN_ERR_ID</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t AMK_CAN_ERR_ID = 3587U</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="amk_8c_source.html#l00013">13</a> of file <a class="el" href="amk_8c_source.html">amk.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="amk_8c_source.html#l00081">AMK_periodic()</a>.</p>
-
-</div>
-</div>
-<a id="a456fe2bf39d7998eae1123bc0b4ae6db" name="a456fe2bf39d7998eae1123bc0b4ae6db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a456fe2bf39d7998eae1123bc0b4ae6db">&#9670;&#160;</a></span>AMK_DC_BUS_ID</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t AMK_DC_BUS_ID = 1049U</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="amk_8c_source.html#l00014">14</a> of file <a class="el" href="amk_8c_source.html">amk.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="amk_8c_source.html#l00081">AMK_periodic()</a>.</p>
-
-</div>
-</div>
-<a id="a11acd3569c5f8d8b5144935813ae4a68" name="a11acd3569c5f8d8b5144935813ae4a68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11acd3569c5f8d8b5144935813ae4a68">&#9670;&#160;</a></span>AMK_DEFAULT_NEG_LIMIT</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int16_t AMK_DEFAULT_NEG_LIMIT = -1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="amk_8c_source.html#l00018">18</a> of file <a class="el" href="amk_8c_source.html">amk.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="amk_8c_source.html#l00020">AMK_init()</a>, and <a class="el" href="amk_8c_source.html#l00081">AMK_periodic()</a>.</p>
-
-</div>
-</div>
-<a id="a963ca070a39b0eb53fa30040de87438e" name="a963ca070a39b0eb53fa30040de87438e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a963ca070a39b0eb53fa30040de87438e">&#9670;&#160;</a></span>AMK_DEFAULT_POS_LIMIT</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int16_t AMK_DEFAULT_POS_LIMIT = 2140</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="amk_8c_source.html#l00017">17</a> of file <a class="el" href="amk_8c_source.html">amk.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="amk_8c_source.html#l00020">AMK_init()</a>, and <a class="el" href="amk_8c_source.html#l00081">AMK_periodic()</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

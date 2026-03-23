@@ -1,9 +1,5 @@
 var w5500_8c =
 [
-    [ "_W5500_SPI_FDM_OP_LEN1_", "w5500_8c.html#a59a6e3345ba48e42085803d548d69a76", null ],
-    [ "_W5500_SPI_FDM_OP_LEN2_", "w5500_8c.html#ad2a3d376b1a1af890d53303918469021", null ],
-    [ "_W5500_SPI_FDM_OP_LEN4_", "w5500_8c.html#abf88151c66bb496413ccc9442768d181", null ],
-    [ "_W5500_SPI_VDM_OP_", "w5500_8c.html#add999688d09468795353e968566b9f3b", null ],
     [ "getSn_RX_RSR", "group__Socket__register__access__function.html#ga321fbcdaf88299f5c4022314376e4e74", null ],
     [ "getSn_TX_FSR", "group__Socket__register__access__function.html#gadd5918adebaa3744ddc01a76c84a894a", null ],
     [ "wiz_recv_data", "group__Basic__IO__function.html#ga98cbcd6c7ba3abf9ab28caa8261886b1", null ],

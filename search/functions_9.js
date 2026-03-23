@@ -1,22 +1,14 @@
 var searchData=
 [
-  ['init_5famks_0',['init_amks',['../amk__init_8c.html#a92749150bd2c7147e0cb50e7e3daef0c',1,'amk_init.c']]],
-  ['inject_5ffault_5fmessages_1',['inject_fault_messages',['../namespacefaultgen.html#afe2e346a8ad428ca4e08342785a61c6a',1,'faultgen']]],
-  ['inject_5ffault_5ftypes_2',['inject_fault_types',['../namespacefaultgen.html#a11190d4ffc206ee3ce93696a63e5dcc0',1,'faultgen']]],
-  ['is_5fall_5famks_5frunning_3',['is_all_AMKS_running',['../state__machine_8c.html#a313205b758d02ca97059713e3f3f9064',1,'state_machine.c']]],
-  ['is_5fany_5flatched_4',['is_any_latched',['../faults__common_8h.html#a7c41c8fcf2527aa98c7b99e43b67d357',1,'faults_common.h']]],
-  ['is_5fbuzzing_5ftime_5felapsed_5',['is_buzzing_time_elapsed',['../state__machine_8c.html#ac21ffbc05e480a2884c934be58d38eb2',1,'state_machine.c']]],
-  ['is_5fclear_6',['is_clear',['../faults__common_8h.html#a22ea5f8bc7464c7728f4f9d67a9417cf',1,'faults_common.h']]],
-  ['is_5fcurr_5fmcu_5flatched_7',['is_curr_mcu_latched',['../faults__common_8h.html#afd3df4a64e1643d0a79942b5228af63a',1,'faults_common.h']]],
-  ['is_5ferror_5flatched_8',['is_error_latched',['../faults__common_8h.html#a66f9b8058fa200632c824de0b671b491',1,'faults_common.h']]],
-  ['is_5ffatal_5flatched_9',['is_fatal_latched',['../faults__common_8h.html#a1dbab920f7f9b5d889670b63ac61e357',1,'faults_common.h']]],
-  ['is_5ffdcan_5fperipheral_10',['is_fdcan_peripheral',['../namespacemapper.html#ab89b192dd9148287787db079cf2ae320',1,'mapper']]],
-  ['is_5ffloating_5fpoint_11',['is_floating_point',['../classparser_1_1Signal.html#a252d109649cb5fc26e029d59ff1de0a1',1,'parser::Signal']]],
-  ['is_5finit_5fcomplete_12',['is_init_complete',['../state__machine_8c.html#a41478ce6c3a2274b608de4302d8c0c4c',1,'state_machine.c']]],
-  ['is_5flatched_13',['is_latched',['../faults__common_8h.html#a34304ae5ca942d0605c4f3c030a71eb3',1,'faults_common.h']]],
-  ['is_5fother_5fmcus_5flatched_14',['is_other_mcus_latched',['../faults__common_8h.html#a6a4afce3ed471db381c8bc61dc35fff0',1,'faults_common.h']]],
-  ['is_5fstart_5fbutton_5fpressed_15',['is_start_button_pressed',['../state__machine_8c.html#ab7318162392bf2c166e5f992b9053da2',1,'state_machine.c']]],
-  ['is_5fvalid_5fheader_16',['is_valid_header',['../gps_8h.html#a4388761471fe2c06f0146d84fbd6ee18',1,'gps.h']]],
-  ['is_5fwarning_5flatched_17',['is_warning_latched',['../faults__common_8h.html#a731895d731bdcc9ea2038351278ffef7',1,'faults_common.h']]],
-  ['isense_5fto_5fcurrent_18',['isense_to_current',['../a__box_2main_8c.html#afb424c80381cc68635ab9a3f30e99394',1,'main.c']]]
+  ['nxt_5fsetbackground_0',['NXT_setBackground',['../nextion_8c.html#a19c3df8972af2eaea366cb65fad34d43',1,'NXT_setBackground(char *obj_name, uint16_t val):&#160;nextion.c'],['../nextion_8h.html#a19c3df8972af2eaea366cb65fad34d43',1,'NXT_setBackground(char *obj_name, uint16_t val):&#160;nextion.c']]],
+  ['nxt_5fsetbaud_1',['NXT_setBaud',['../nextion_8c.html#ae7d537c10e1e85e6537850a02a315fd7',1,'NXT_setBaud(uint32_t baud):&#160;nextion.c'],['../nextion_8h.html#ae7d537c10e1e85e6537850a02a315fd7',1,'NXT_setBaud(uint32_t baud):&#160;nextion.c']]],
+  ['nxt_5fsetbordercolor_2',['NXT_setBorderColor',['../nextion_8c.html#a46ee1522cb7ef9d6bc11a77879e3300e',1,'NXT_setBorderColor(char *obj_name, uint16_t val):&#160;nextion.c'],['../nextion_8h.html#a46ee1522cb7ef9d6bc11a77879e3300e',1,'NXT_setBorderColor(char *obj_name, uint16_t val):&#160;nextion.c']]],
+  ['nxt_5fsetborderwidth_3',['NXT_setBorderWidth',['../nextion_8c.html#ae995d182561a5fa3087569539bb551d2',1,'NXT_setBorderWidth(char *obj_name, uint16_t val):&#160;nextion.c'],['../nextion_8h.html#ae995d182561a5fa3087569539bb551d2',1,'NXT_setBorderWidth(char *obj_name, uint16_t val):&#160;nextion.c']]],
+  ['nxt_5fsetbrightness_4',['NXT_setBrightness',['../nextion_8c.html#acab8846ee36ca76ce5019adef4d04faf',1,'NXT_setBrightness(uint8_t percentage):&#160;nextion.c'],['../nextion_8h.html#a3a521680a4e7c63d0cbdd8d8f85c09fd',1,'NXT_setBrightness(uint8_t brightness):&#160;nextion.c']]],
+  ['nxt_5fsetfloat_5',['NXT_setFloat',['../nextion_8c.html#a03b977180b40a84a35a22cec5211d146',1,'NXT_setFloat(char *obj_name, char *param, float num, uint8_t precision):&#160;nextion.c'],['../nextion_8h.html#a03b977180b40a84a35a22cec5211d146',1,'NXT_setFloat(char *obj_name, char *param, float num, uint8_t precision):&#160;nextion.c']]],
+  ['nxt_5fsetfontcolor_6',['NXT_setFontColor',['../nextion_8c.html#af603b7d431ae4f94d55bf04b2034a8cc',1,'NXT_setFontColor(char *obj_name, uint16_t val):&#160;nextion.c'],['../nextion_8h.html#af603b7d431ae4f94d55bf04b2034a8cc',1,'NXT_setFontColor(char *obj_name, uint16_t val):&#160;nextion.c']]],
+  ['nxt_5fsetpage_7',['NXT_setPage',['../nextion_8c.html#ac5753abcb75fb40221a51bcdec98bbd4',1,'NXT_setPage(char *page_name):&#160;nextion.c'],['../nextion_8h.html#ac5753abcb75fb40221a51bcdec98bbd4',1,'NXT_setPage(char *page_name):&#160;nextion.c']]],
+  ['nxt_5fsettext_8',['NXT_setText',['../nextion_8c.html#ab2a89fd8e292338a6e570a41a698ad3a',1,'NXT_setText(char *obj_name, char *text):&#160;nextion.c'],['../nextion_8h.html#ab2a89fd8e292338a6e570a41a698ad3a',1,'NXT_setText(char *obj_name, char *text):&#160;nextion.c']]],
+  ['nxt_5fsettextformatted_9',['NXT_setTextFormatted',['../nextion_8c.html#a8af8629d8160abf996231ff267e43564',1,'NXT_setTextFormatted(char *obj_name, const char *format,...):&#160;nextion.c'],['../nextion_8h.html#a8af8629d8160abf996231ff267e43564',1,'NXT_setTextFormatted(char *obj_name, const char *format,...):&#160;nextion.c']]],
+  ['nxt_5fsetvalue_10',['NXT_setValue',['../nextion_8c.html#ac7e3e9fc4674d17281069e97b8a5384d',1,'NXT_setValue(char *obj_name, uint16_t val):&#160;nextion.c'],['../nextion_8h.html#ac7e3e9fc4674d17281069e97b8a5384d',1,'NXT_setValue(char *obj_name, uint16_t val):&#160;nextion.c']]]
 ];

@@ -103,145 +103,29 @@ $(function(){initNavTree('pwm_8c.html',''); initResizable(true); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="pwm_8h_source.html">common/phal_F4_F7/pwm/pwm.h</a>&quot;</code><br />
-</div>
-<p><a href="pwm_8c_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab72396114a93e461ec3d59ba61aaa976" id="r_ab72396114a93e461ec3d59ba61aaa976"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab72396114a93e461ec3d59ba61aaa976">PHAL_initPWM</a> (uint32_t frequency_hz, TIM_TypeDef *tim, uint8_t channelsToEnable)</td></tr>
+<tr class="memitem:ab72396114a93e461ec3d59ba61aaa976" id="r_ab72396114a93e461ec3d59ba61aaa976"><td class="memItemLeft" align="right" valign="top"><a id="ab72396114a93e461ec3d59ba61aaa976" name="ab72396114a93e461ec3d59ba61aaa976"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_initPWM</b> (uint32_t frequency_hz, TIM_TypeDef *tim, uint8_t channelsToEnable)</td></tr>
 <tr class="separator:ab72396114a93e461ec3d59ba61aaa976"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0feea9f1d41ed207ccc9901fb1ec3be2" id="r_a0feea9f1d41ed207ccc9901fb1ec3be2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0feea9f1d41ed207ccc9901fb1ec3be2">PHAL_PWMsetPercent</a> (TIM_TypeDef *tim, uint8_t channel, uint8_t percent)</td></tr>
+<tr class="memitem:a0feea9f1d41ed207ccc9901fb1ec3be2" id="r_a0feea9f1d41ed207ccc9901fb1ec3be2"><td class="memItemLeft" align="right" valign="top"><a id="a0feea9f1d41ed207ccc9901fb1ec3be2" name="a0feea9f1d41ed207ccc9901fb1ec3be2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_PWMsetPercent</b> (TIM_TypeDef *tim, uint8_t channel, uint8_t percent)</td></tr>
 <tr class="separator:a0feea9f1d41ed207ccc9901fb1ec3be2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ae3f547c0ac514dd12e5bab27a6b60bec" id="r_ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3f547c0ac514dd12e5bab27a6b60bec">APB1ClockRateHz</a></td></tr>
+<tr class="memitem:ae3f547c0ac514dd12e5bab27a6b60bec" id="r_ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memItemLeft" align="right" valign="top"><a id="ae3f547c0ac514dd12e5bab27a6b60bec" name="ae3f547c0ac514dd12e5bab27a6b60bec"></a>
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>APB1ClockRateHz</b></td></tr>
 <tr class="separator:ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdc1120bbc54485ac4c735d8f9756743" id="r_afdc1120bbc54485ac4c735d8f9756743"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdc1120bbc54485ac4c735d8f9756743">APB2ClockRateHz</a></td></tr>
+<tr class="memitem:afdc1120bbc54485ac4c735d8f9756743" id="r_afdc1120bbc54485ac4c735d8f9756743"><td class="memItemLeft" align="right" valign="top"><a id="afdc1120bbc54485ac4c735d8f9756743" name="afdc1120bbc54485ac4c735d8f9756743"></a>
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>APB2ClockRateHz</b></td></tr>
 <tr class="separator:afdc1120bbc54485ac4c735d8f9756743"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Seth Baird (<a href="#" onclick="location.href='mai'+'lto:'+'bai'+'rd'+'33@'+'pu'+'rdu'+'e.'+'edu'; return false;">baird<span class="obfuscator">.nosp@m.</span>33@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2025-10-02 </dd></dl>
-
-<p class="definition">Definition in file <a class="el" href="pwm_8c_source.html">pwm.c</a>.</p>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a id="ab72396114a93e461ec3d59ba61aaa976" name="ab72396114a93e461ec3d59ba61aaa976"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab72396114a93e461ec3d59ba61aaa976">&#9670;&#160;</a></span>PHAL_initPWM()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool PHAL_initPWM </td>
-          <td>(</td>
-          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>frequency_hz</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TIM_TypeDef *</td>          <td class="paramname"><span class="paramname"><em>tim</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>channelsToEnable</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pwm_8c_source.html#l00015">15</a> of file <a class="el" href="pwm_8c_source.html">pwm.c</a>.</p>
-
-<p class="reference">References <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00015">APB1ClockRateHz</a>, and <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00016">APB2ClockRateHz</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="fan__control_8c_source.html#l00004">fanControlInit()</a>.</p>
-
-</div>
-</div>
-<a id="a0feea9f1d41ed207ccc9901fb1ec3be2" name="a0feea9f1d41ed207ccc9901fb1ec3be2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0feea9f1d41ed207ccc9901fb1ec3be2">&#9670;&#160;</a></span>PHAL_PWMsetPercent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void PHAL_PWMsetPercent </td>
-          <td>(</td>
-          <td class="paramtype">TIM_TypeDef *</td>          <td class="paramname"><span class="paramname"><em>tim</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>channel</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>percent</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pwm_8c_source.html#l00139">139</a> of file <a class="el" href="pwm_8c_source.html">pwm.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="fan__control_8c_source.html#l00008">setFan1Speed()</a>, <a class="el" href="fan__control_8c_source.html#l00012">setFan2Speed()</a>, <a class="el" href="fan__control_8c_source.html#l00016">setFan3Speed()</a>, and <a class="el" href="fan__control_8c_source.html#l00020">setFan4Speed()</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="ae3f547c0ac514dd12e5bab27a6b60bec" name="ae3f547c0ac514dd12e5bab27a6b60bec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3f547c0ac514dd12e5bab27a6b60bec">&#9670;&#160;</a></span>APB1ClockRateHz</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t APB1ClockRateHz</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00015">15</a> of file <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html">rcc.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pwm_8c_source.html#l00015">PHAL_initPWM()</a>.</p>
-
-</div>
-</div>
-<a id="afdc1120bbc54485ac4c735d8f9756743" name="afdc1120bbc54485ac4c735d8f9756743"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afdc1120bbc54485ac4c735d8f9756743">&#9670;&#160;</a></span>APB2ClockRateHz</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t APB2ClockRateHz</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00016">16</a> of file <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html">rcc.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pwm_8c_source.html#l00015">PHAL_initPWM()</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

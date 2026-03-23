@@ -7,5 +7,5 @@ var dir_537865b7fa0534ad07c686239f783682 =
     [ "rcc", "dir_1e58ee294d93added638b3151c7c87cc.html", "dir_1e58ee294d93added638b3151c7c87cc" ],
     [ "spi", "dir_c226f1171586ce7e45a5ca5af7643d56.html", "dir_c226f1171586ce7e45a5ca5af7643d56" ],
     [ "usart", "dir_040ae95eb02d4c973a6128ffff704b5a.html", "dir_040ae95eb02d4c973a6128ffff704b5a" ],
-    [ "phal_G4.h", "phal__G4_8h.html", null ]
+    [ "phal_G4.h", "phal__G4_8h_source.html", null ]
 ];

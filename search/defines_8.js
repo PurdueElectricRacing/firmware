@@ -1,23 +1,6 @@
 var searchData=
 [
-  ['heartbeat_5fled_5fpin_0',['HEARTBEAT_LED_PIN',['../a__box_2main_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3',1,'HEARTBEAT_LED_PIN:&#160;main.h'],['../daq_2main_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3',1,'HEARTBEAT_LED_PIN:&#160;main.h'],['../dashboard_2main_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3',1,'HEARTBEAT_LED_PIN:&#160;main.h'],['../pin__defs_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3',1,'HEARTBEAT_LED_PIN:&#160;pin_defs.h'],['../izze__imu__config_8c.html#a5e9e4203b861d671cdcd3bf5f08655a3',1,'HEARTBEAT_LED_PIN:&#160;izze_imu_config.c'],['../pindefs_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3',1,'HEARTBEAT_LED_PIN:&#160;pindefs.h'],['../pdu_2main_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3',1,'HEARTBEAT_LED_PIN:&#160;main.h'],['../torque__vector_2main_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3',1,'HEARTBEAT_LED_PIN:&#160;main.h']]],
-  ['heartbeat_5fled_5fport_1',['HEARTBEAT_LED_PORT',['../a__box_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50',1,'HEARTBEAT_LED_PORT:&#160;main.h'],['../daq_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50',1,'HEARTBEAT_LED_PORT:&#160;main.h'],['../dashboard_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50',1,'HEARTBEAT_LED_PORT:&#160;main.h'],['../pin__defs_8h.html#a8a762e1254b034eba6b4993ae11cee50',1,'HEARTBEAT_LED_PORT:&#160;pin_defs.h'],['../izze__imu__config_8c.html#a8a762e1254b034eba6b4993ae11cee50',1,'HEARTBEAT_LED_PORT:&#160;izze_imu_config.c'],['../pindefs_8h.html#a8a762e1254b034eba6b4993ae11cee50',1,'HEARTBEAT_LED_PORT:&#160;pindefs.h'],['../pdu_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50',1,'HEARTBEAT_LED_PORT:&#160;main.h'],['../torque__vector_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50',1,'HEARTBEAT_LED_PORT:&#160;main.h']]],
-  ['hp_5fcs_5fr1_2',['HP_CS_R1',['../auto__switch_8h.html#a9400af1c2a429229b4e8f28070d64e28',1,'auto_switch.h']]],
-  ['hp_5fcs_5fr2_3',['HP_CS_R2',['../auto__switch_8h.html#ad58d411cb91a45afa19bf03b4c3f8e0a',1,'auto_switch.h']]],
-  ['hp_5fcs_5fr3_4',['HP_CS_R3',['../auto__switch_8h.html#ada6b0ca1566e85d74136c7d3e812afbb',1,'auto_switch.h']]],
-  ['hp_5fcs_5fr_5fsense_5',['HP_CS_R_SENSE',['../auto__switch_8h.html#a7ccc9e35da6f5e15469cb952fbd07fa5',1,'auto_switch.h']]],
-  ['hse_5fclock_5frate_5fhz_6',['HSE_CLOCK_RATE_HZ',['../phal__F4__F7_2rcc_2rcc_8h.html#a6f4ca605cce4be908b761c7a5bb90692',1,'HSE_CLOCK_RATE_HZ:&#160;rcc.h'],['../phal__G4_2rcc_2rcc_8h.html#a6f4ca605cce4be908b761c7a5bb90692',1,'HSE_CLOCK_RATE_HZ:&#160;rcc.h']]],
-  ['hse_5fclock_5frate_5fhz_5finvalid_7',['HSE_CLOCK_RATE_HZ_INVALID',['../phal__F4__F7_2rcc_2rcc_8h.html#a806f47f30aefdcc387743342ac78fe31',1,'HSE_CLOCK_RATE_HZ_INVALID:&#160;rcc.h'],['../phal__G4_2rcc_2rcc_8h.html#a806f47f30aefdcc387743342ac78fe31',1,'HSE_CLOCK_RATE_HZ_INVALID:&#160;rcc.h']]],
-  ['hsi_5fclock_5frate_5fhz_8',['HSI_CLOCK_RATE_HZ',['../phal__F4__F7_2rcc_2rcc_8h.html#a931e4bece2bc8e45e95492702b1a79db',1,'HSI_CLOCK_RATE_HZ:&#160;rcc.h'],['../phal__G4_2rcc_2rcc_8h.html#a931e4bece2bc8e45e95492702b1a79db',1,'HSI_CLOCK_RATE_HZ:&#160;rcc.h']]],
-  ['hsi_5ftrim_5fa_5fbox_9',['HSI_TRIM_A_BOX',['../common__defs_8h.html#a9c9f9a9679cc551c6aa1a3965b6ac7a0',1,'common_defs.h']]],
-  ['hsi_5ftrim_5fdaq_10',['HSI_TRIM_DAQ',['../common__defs_8h.html#ab2636c286eeca1b801328094a5894a39',1,'common_defs.h']]],
-  ['hsi_5ftrim_5fdashboard_11',['HSI_TRIM_DASHBOARD',['../common__defs_8h.html#a4f999fe2b2e535f0575f8e189125246a',1,'common_defs.h']]],
-  ['hsi_5ftrim_5fmain_5fmodule_12',['HSI_TRIM_MAIN_MODULE',['../common__defs_8h.html#a452db665b8a3d36ae14778251dfba5d0',1,'common_defs.h']]],
-  ['hsi_5ftrim_5fpdu_13',['HSI_TRIM_PDU',['../common__defs_8h.html#a2da974e263720581c368f5bd95f791e6',1,'common_defs.h']]],
-  ['hsi_5ftrim_5ftorque_5fvector_14',['HSI_TRIM_TORQUE_VECTOR',['../common__defs_8h.html#a4b7d6f815a5be3b74fff0e458ea2ca9f',1,'common_defs.h']]],
-  ['hxfan_5fctrl_5fgpio_5fport_15',['HXFAN_CTRL_GPIO_Port',['../pdu_2main_8h.html#a534369aed23f5aecc16899e8ed6069ec',1,'main.h']]],
-  ['hxfan_5fctrl_5fpin_16',['HXFAN_CTRL_Pin',['../pdu_2main_8h.html#af935feec48c69cd8652bc987af28d5b0',1,'main.h']]],
-  ['hxfan_5fimon_5fadc_5fchnl_17',['HXFAN_IMON_ADC_CHNL',['../pdu_2main_8h.html#afb63f071df902228ed4cbbbb6dbf9f7e',1,'main.h']]],
-  ['hxfan_5fimon_5fgpio_5fport_18',['HXFAN_IMON_GPIO_Port',['../pdu_2main_8h.html#ac5ff5ded59b3a25edd0b28d73b88fe7c',1,'main.h']]],
-  ['hxfan_5fimon_5fpin_19',['HXFAN_IMON_Pin',['../pdu_2main_8h.html#a967c93150a0b1b0459760156e061cf39',1,'main.h']]]
+  ['w5100_0',['W5100',['../wizchip__conf_8h.html#aced62b5ad0da484e43bc7b5eeac377e8',1,'wizchip_conf.h']]],
+  ['wizchip_5fcritical_5fenter_1',['WIZCHIP_CRITICAL_ENTER',['../w5500_8h.html#ac59d6ec9327da0fd3ea8fa3fd21b9701',1,'w5500.h']]],
+  ['wizchip_5fcritical_5fexit_2',['WIZCHIP_CRITICAL_EXIT',['../w5500_8h.html#a0bfaa1b1d5c9582dddf46b6265b96ab7',1,'w5500.h']]]
 ];

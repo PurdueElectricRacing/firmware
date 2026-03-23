@@ -105,61 +105,40 @@ $(function(){initNavTree('auto__switch_8c.html',''); initResizable(true); });
 <div class="textblock"><code>#include &quot;<a class="el" href="auto__switch_8h_source.html">auto_switch.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="faults__common_8h_source.html">common/can_library/faults_common.h</a>&quot;</code><br />
 <code>#include &quot;common/can_library/generated/PDU.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal_2gpio_8h_source.html">common/phal/gpio.h</a>&quot;</code><br />
+<code>#include &quot;common/phal/gpio.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="led_8h_source.html">led.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
-</div>
-<p><a href="auto__switch_8c_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a681c7bea0f3bd6e8ee3da0bbe0613d6a" id="r_a681c7bea0f3bd6e8ee3da0bbe0613d6a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a681c7bea0f3bd6e8ee3da0bbe0613d6a">updateCurrent</a> ()</td></tr>
-<tr class="separator:a681c7bea0f3bd6e8ee3da0bbe0613d6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af886926ba94cdd591f0c5a4c43aac91a" id="r_af886926ba94cdd591f0c5a4c43aac91a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af886926ba94cdd591f0c5a4c43aac91a">updateVoltage</a> ()</td></tr>
-<tr class="separator:af886926ba94cdd591f0c5a4c43aac91a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8389008527372065fe893f0bf7fa40c" id="r_ac8389008527372065fe893f0bf7fa40c"><td class="memItemLeft" align="right" valign="top">static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8389008527372065fe893f0bf7fa40c">calcCurrent_HP</a> (uint16_t)</td></tr>
-<tr class="separator:ac8389008527372065fe893f0bf7fa40c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d0cee83ba11f47405b8cee38a99decb" id="r_a5d0cee83ba11f47405b8cee38a99decb"><td class="memItemLeft" align="right" valign="top">static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d0cee83ba11f47405b8cee38a99decb">calcCurrent_LP</a> (uint16_t)</td></tr>
-<tr class="separator:a5d0cee83ba11f47405b8cee38a99decb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d6be9cafaf0f276a0cce10f5a24e148" id="r_a1d6be9cafaf0f276a0cce10f5a24e148"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d6be9cafaf0f276a0cce10f5a24e148">calcCurrent_Total</a> ()</td></tr>
-<tr class="separator:a1d6be9cafaf0f276a0cce10f5a24e148"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc9f4c4a9ef91b63117bcbe1b8ad5e82" id="r_acc9f4c4a9ef91b63117bcbe1b8ad5e82"><td class="memItemLeft" align="right" valign="top">static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc9f4c4a9ef91b63117bcbe1b8ad5e82">calcVoltage</a> (uint16_t, int, int)</td></tr>
-<tr class="separator:acc9f4c4a9ef91b63117bcbe1b8ad5e82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af15fe66a4d69300df4650e05e96c6593" id="r_af15fe66a4d69300df4650e05e96c6593"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af15fe66a4d69300df4650e05e96c6593">setMuxChannel</a> (uint8_t channel)</td></tr>
-<tr class="separator:af15fe66a4d69300df4650e05e96c6593"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8a20291b1c7dbd7c7d0744be18dbeb2" id="r_af8a20291b1c7dbd7c7d0744be18dbeb2"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8a20291b1c7dbd7c7d0744be18dbeb2">updateMux</a> ()</td></tr>
-<tr class="separator:af8a20291b1c7dbd7c7d0744be18dbeb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77b521e46cb06e03fb0189c73d35473c" id="r_a77b521e46cb06e03fb0189c73d35473c"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a77b521e46cb06e03fb0189c73d35473c">getMuxReading</a> (uint8_t channel)</td></tr>
+<tr class="memitem:a77b521e46cb06e03fb0189c73d35473c" id="r_a77b521e46cb06e03fb0189c73d35473c"><td class="memItemLeft" align="right" valign="top"><a id="a77b521e46cb06e03fb0189c73d35473c" name="a77b521e46cb06e03fb0189c73d35473c"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>getMuxReading</b> (uint8_t channel)</td></tr>
 <tr class="separator:a77b521e46cb06e03fb0189c73d35473c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8509532d58f56e7044ab6f36a2f17eb5" id="r_a8509532d58f56e7044ab6f36a2f17eb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8509532d58f56e7044ab6f36a2f17eb5">setSwitch</a> (<a class="el" href="auto__switch_8h.html#afd674820118f9c76a33b0b8a9b0ff908">switches_t</a> auto_switch_enum, bool state)</td></tr>
+<tr class="memitem:a8509532d58f56e7044ab6f36a2f17eb5" id="r_a8509532d58f56e7044ab6f36a2f17eb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8509532d58f56e7044ab6f36a2f17eb5">setSwitch</a> (switches_t auto_switch_enum, bool state)</td></tr>
 <tr class="memdesc:a8509532d58f56e7044ab6f36a2f17eb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable a switch.  <br /></td></tr>
 <tr class="separator:a8509532d58f56e7044ab6f36a2f17eb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9615dad272d72b1eda4edb0eabf3c4ae" id="r_a9615dad272d72b1eda4edb0eabf3c4ae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9615dad272d72b1eda4edb0eabf3c4ae">getSwitchStatus</a> (<a class="el" href="auto__switch_8h.html#afd674820118f9c76a33b0b8a9b0ff908">switches_t</a> auto_switch_enum)</td></tr>
+<tr class="memitem:a9615dad272d72b1eda4edb0eabf3c4ae" id="r_a9615dad272d72b1eda4edb0eabf3c4ae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9615dad272d72b1eda4edb0eabf3c4ae">getSwitchStatus</a> (switches_t auto_switch_enum)</td></tr>
 <tr class="memdesc:a9615dad272d72b1eda4edb0eabf3c4ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a switch is enabled.  <br /></td></tr>
 <tr class="separator:a9615dad272d72b1eda4edb0eabf3c4ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a467332216958e3faa3f70724fcf10194" id="r_a467332216958e3faa3f70724fcf10194"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a467332216958e3faa3f70724fcf10194">autoSwitchPeriodic</a> ()</td></tr>
-<tr class="memdesc:a467332216958e3faa3f70724fcf10194"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combined function that calls <a class="el" href="#af886926ba94cdd591f0c5a4c43aac91a">updateVoltage()</a> and <a class="el" href="#a681c7bea0f3bd6e8ee3da0bbe0613d6a">updateCurrent()</a>  <br /></td></tr>
+<tr class="memdesc:a467332216958e3faa3f70724fcf10194"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combined function that calls updateVoltage() and updateCurrent()  <br /></td></tr>
 <tr class="separator:a467332216958e3faa3f70724fcf10194"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea4edf80bd2f6bda11bfa85669197d6f" id="r_aea4edf80bd2f6bda11bfa85669197d6f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea4edf80bd2f6bda11bfa85669197d6f">checkSwitchFaults</a> ()</td></tr>
-<tr class="memdesc:aea4edf80bd2f6bda11bfa85669197d6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the status of various auto switches to ensure rails are ok. Sets fault and activates blink indicator if not..  <br /></td></tr>
+<tr class="memitem:aea4edf80bd2f6bda11bfa85669197d6f" id="r_aea4edf80bd2f6bda11bfa85669197d6f"><td class="memItemLeft" align="right" valign="top"><a id="aea4edf80bd2f6bda11bfa85669197d6f" name="aea4edf80bd2f6bda11bfa85669197d6f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>checkSwitchFaults</b> ()</td></tr>
+<tr class="memdesc:aea4edf80bd2f6bda11bfa85669197d6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the status of various auto switches to ensure rails are ok. Sets fault and activates blink indicator if not.. <br /></td></tr>
 <tr class="separator:aea4edf80bd2f6bda11bfa85669197d6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a19dbab87e0ceca06b137d8feb5b2dc90" id="r_a19dbab87e0ceca06b137d8feb5b2dc90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structauto__switches__t.html">auto_switches_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19dbab87e0ceca06b137d8feb5b2dc90">auto_switches</a></td></tr>
+<tr class="memitem:a19dbab87e0ceca06b137d8feb5b2dc90" id="r_a19dbab87e0ceca06b137d8feb5b2dc90"><td class="memItemLeft" align="right" valign="top"><a id="a19dbab87e0ceca06b137d8feb5b2dc90" name="a19dbab87e0ceca06b137d8feb5b2dc90"></a>
+<a class="el" href="structauto__switches__t.html">auto_switches_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>auto_switches</b></td></tr>
 <tr class="separator:a19dbab87e0ceca06b137d8feb5b2dc90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ef842dc2e4be63a9191c2a1c9dac206" id="r_a5ef842dc2e4be63a9191c2a1c9dac206"><td class="memItemLeft" align="right" valign="top">static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ef842dc2e4be63a9191c2a1c9dac206">mux_readings</a> [6]</td></tr>
-<tr class="separator:a5ef842dc2e4be63a9191c2a1c9dac206"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4f7743391576e14f10cbad7f43e1107" id="r_ad4f7743391576e14f10cbad7f43e1107"><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4f7743391576e14f10cbad7f43e1107">mux_index</a></td></tr>
-<tr class="separator:ad4f7743391576e14f10cbad7f43e1107"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Gavin Zyonse (<a href="#" onclick="location.href='mai'+'lto:'+'gzy'+'on'+'se@'+'pu'+'rdu'+'e.'+'edu'; return false;">gzyon<span class="obfuscator">.nosp@m.</span>se@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2023-11-09</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2023 </dd></dl>
-
-<p class="definition">Definition in file <a class="el" href="auto__switch_8c_source.html">auto_switch.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a467332216958e3faa3f70724fcf10194" name="a467332216958e3faa3f70724fcf10194"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a467332216958e3faa3f70724fcf10194">&#9670;&#160;</a></span>autoSwitchPeriodic()</h2>
@@ -176,194 +155,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Combined function that calls <a class="el" href="#af886926ba94cdd591f0c5a4c43aac91a">updateVoltage()</a> and <a class="el" href="#a681c7bea0f3bd6e8ee3da0bbe0613d6a">updateCurrent()</a> </p>
+<p>Combined function that calls updateVoltage() and updateCurrent() </p>
 <p>Voltage on each rail is stored at: auto_switches.voltage.in_24v auto_switches.voltage.out_5v auto_switches.voltage.out_3v3</p>
 <p>Current through each switch is stored at: auto_switches.current[auto_switch_enum] </p>
-
-<p class="definition">Definition at line <a class="el" href="auto__switch_8c_source.html#l00253">253</a> of file <a class="el" href="auto__switch_8c_source.html">auto_switch.c</a>.</p>
-
-<p class="reference">References <a class="el" href="auto__switch_8c_source.html#l00035">updateCurrent()</a>, <a class="el" href="auto__switch_8c_source.html#l00068">updateMux()</a>, and <a class="el" href="auto__switch_8c_source.html#l00062">updateVoltage()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00300">main()</a>.</p>
-
-</div>
-</div>
-<a id="ac8389008527372065fe893f0bf7fa40c" name="ac8389008527372065fe893f0bf7fa40c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8389008527372065fe893f0bf7fa40c">&#9670;&#160;</a></span>calcCurrent_HP()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t calcCurrent_HP </td>
-          <td>(</td>
-          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>current</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="auto__switch_8c_source.html#l00089">89</a> of file <a class="el" href="auto__switch_8c_source.html">auto_switch.c</a>.</p>
-
-<p class="reference">References <a class="el" href="auto__switch_8h_source.html#l00020">ADC_MAX</a>, <a class="el" href="pdu_2main_8h_source.html#l00258">ADC_REF_mV</a>, <a class="el" href="auto__switch_8h_source.html#l00033">HP_CS_R1</a>, <a class="el" href="auto__switch_8h_source.html#l00034">HP_CS_R2</a>, and <a class="el" href="auto__switch_8h_source.html#l00035">HP_CS_R3</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="auto__switch_8c_source.html#l00035">updateCurrent()</a>.</p>
-
-</div>
-</div>
-<a id="a5d0cee83ba11f47405b8cee38a99decb" name="a5d0cee83ba11f47405b8cee38a99decb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d0cee83ba11f47405b8cee38a99decb">&#9670;&#160;</a></span>calcCurrent_LP()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t calcCurrent_LP </td>
-          <td>(</td>
-          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>current</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="auto__switch_8c_source.html#l00096">96</a> of file <a class="el" href="auto__switch_8c_source.html">auto_switch.c</a>.</p>
-
-<p class="reference">References <a class="el" href="auto__switch_8h_source.html#l00020">ADC_MAX</a>, and <a class="el" href="pdu_2main_8h_source.html#l00258">ADC_REF_mV</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="auto__switch_8c_source.html#l00035">updateCurrent()</a>.</p>
-
-</div>
-</div>
-<a id="a1d6be9cafaf0f276a0cce10f5a24e148" name="a1d6be9cafaf0f276a0cce10f5a24e148"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d6be9cafaf0f276a0cce10f5a24e148">&#9670;&#160;</a></span>calcCurrent_Total()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void calcCurrent_Total </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="auto__switch_8c_source.html#l00102">102</a> of file <a class="el" href="auto__switch_8c_source.html">auto_switch.c</a>.</p>
-
-<p class="reference">References <a class="el" href="auto__switch_8h_source.html#l00020">ADC_MAX</a>, <a class="el" href="pdu_2main_8c_source.html#l00191">adc_readings</a>, <a class="el" href="pdu_2main_8h_source.html#l00258">ADC_REF_mV</a>, <a class="el" href="auto__switch_8c_source.html#l00020">auto_switches</a>, <a class="el" href="auto__switch_8h_source.html#l00064">CS_24V</a>, <a class="el" href="auto__switch_8h_source.html#l00065">CS_5V</a>, <a class="el" href="auto__switch_8h_source.html#l00039">CS_GAIN</a>, <a class="el" href="auto__switch_8h_source.html#l00088">auto_switches_t::current</a>, <a class="el" href="auto__switch_8h_source.html#l00038">HP_CS_R_SENSE</a>, <a class="el" href="pdu_2main_8h_source.html#l00275">ADCReadings_t::v24_cs</a>, and <a class="el" href="pdu_2main_8h_source.html#l00277">ADCReadings_t::v5_cs</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="auto__switch_8c_source.html#l00035">updateCurrent()</a>.</p>
-
-</div>
-</div>
-<a id="acc9f4c4a9ef91b63117bcbe1b8ad5e82" name="acc9f4c4a9ef91b63117bcbe1b8ad5e82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acc9f4c4a9ef91b63117bcbe1b8ad5e82">&#9670;&#160;</a></span>calcVoltage()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t calcVoltage </td>
-          <td>(</td>
-          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>voltage</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>r1</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>r2</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="auto__switch_8c_source.html#l00116">116</a> of file <a class="el" href="auto__switch_8c_source.html">auto_switch.c</a>.</p>
-
-<p class="reference">References <a class="el" href="auto__switch_8h_source.html#l00020">ADC_MAX</a>, and <a class="el" href="pdu_2main_8h_source.html#l00258">ADC_REF_mV</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="auto__switch_8c_source.html#l00062">updateVoltage()</a>.</p>
-
-</div>
-</div>
-<a id="aea4edf80bd2f6bda11bfa85669197d6f" name="aea4edf80bd2f6bda11bfa85669197d6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea4edf80bd2f6bda11bfa85669197d6f">&#9670;&#160;</a></span>checkSwitchFaults()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void checkSwitchFaults </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks the status of various auto switches to ensure rails are ok. Sets fault and activates blink indicator if not.. </p>
-
-<p class="definition">Definition at line <a class="el" href="auto__switch_8c_source.html#l00259">259</a> of file <a class="el" href="auto__switch_8c_source.html">auto_switch.c</a>.</p>
-
-<p class="reference">References <a class="el" href="pdu_2main_8h_source.html#l00193">ABOX_NFLT_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00194">ABOX_NFLT_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00202">BLT_NFLT_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00203">BLT_NFLT_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00208">CRIT_5V_NFLT_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00209">CRIT_5V_NFLT_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00186">DASH_NFLT_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00187">DASH_NFLT_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00173">DLBK_NFLT_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00174">DLBK_NFLT_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00169">DLFR_NFLT_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00170">DLFR_NFLT_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00220">FAN_5V_NFLT_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00221">FAN_5V_NFLT_Pin</a>, <a class="el" href="faults__common_8h.html#a34304ae5ca942d0605c4f3c030a71eb3">is_latched()</a>, <a class="el" href="led_8h_source.html#l00035">LED_5V_CRIT</a>, <a class="el" href="led_8h_source.html#l00030">LED_ABOX</a>, <a class="el" href="led_8h_source.html#l00041">LED_BLINK</a>, <a class="el" href="led_8h_source.html#l00036">LED_BLT</a>, <a class="el" href="led_8c_source.html#l00020">LED_control()</a>, <a class="el" href="led_8h_source.html#l00029">LED_DASH</a>, <a class="el" href="led_8h_source.html#l00025">LED_DLBK</a>, <a class="el" href="led_8h_source.html#l00026">LED_DLFR</a>, <a class="el" href="led_8h_source.html#l00028">LED_MAIN</a>, <a class="el" href="led_8h_source.html#l00039">LED_OFF</a>, <a class="el" href="led_8h_source.html#l00033">LED_TV</a>, <a class="el" href="pdu_2main_8h_source.html#l00179">MAIN_NFLT_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00180">MAIN_NFLT_Pin</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00271">PHAL_readGPIO()</a>, <a class="el" href="pdu_2main_8h_source.html#l00214">TV_NFLT_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00215">TV_NFLT_Pin</a>, and <a class="el" href="faults__common_8h.html#af55b58b58005adef79c816e1e1d8cd70">update_fault()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00300">main()</a>.</p>
-
-</div>
-</div>
-<a id="a77b521e46cb06e03fb0189c73d35473c" name="a77b521e46cb06e03fb0189c73d35473c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77b521e46cb06e03fb0189c73d35473c">&#9670;&#160;</a></span>getMuxReading()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t getMuxReading </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="auto__switch_8c_source.html#l00074">74</a> of file <a class="el" href="auto__switch_8c_source.html">auto_switch.c</a>.</p>
-
-<p class="reference">References <a class="el" href="auto__switch_8c_source.html#l00021">mux_readings</a>.</p>
 
 </div>
 </div>
@@ -376,7 +170,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">bool getSwitchStatus </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="auto__switch_8h.html#afd674820118f9c76a33b0b8a9b0ff908">switches_t</a></td>          <td class="paramname"><span class="paramname"><em>auto_switch_enum</em></span></td><td>)</td>
+          <td class="paramtype">switches_t</td>          <td class="paramname"><span class="paramname"><em>auto_switch_enum</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -391,41 +185,6 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if enabled, 0 if disabled </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="auto__switch_8c_source.html#l00204">204</a> of file <a class="el" href="auto__switch_8c_source.html">auto_switch.c</a>.</p>
-
-<p class="reference">References <a class="el" href="pdu_2main_8h_source.html#l00200">BLT_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00201">BLT_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00206">CRIT_5V_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00207">CRIT_5V_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00171">DLBK_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00172">DLBK_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00167">DLFR_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00168">DLFR_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00152">FAN_1_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00153">FAN_1_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00155">FAN_2_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00156">FAN_2_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00146">FAN_3_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00147">FAN_3_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00149">FAN_4_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00150">FAN_4_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00218">FAN_5V_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00219">FAN_5V_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00134">HXFAN_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00135">HXFAN_CTRL_Pin</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00271">PHAL_readGPIO()</a>, <a class="el" href="pdu_2main_8h_source.html#l00121">PUMP_1_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00122">PUMP_1_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00127">PUMP_2_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00128">PUMP_2_CTRL_Pin</a>, <a class="el" href="auto__switch_8h_source.html#l00072">SW_BLT</a>, <a class="el" href="auto__switch_8h_source.html#l00074">SW_CRIT_5V</a>, <a class="el" href="auto__switch_8h_source.html#l00061">SW_DLBK</a>, <a class="el" href="auto__switch_8h_source.html#l00060">SW_DLFR</a>, <a class="el" href="auto__switch_8h_source.html#l00049">SW_FAN_1</a>, <a class="el" href="auto__switch_8h_source.html#l00050">SW_FAN_2</a>, <a class="el" href="auto__switch_8h_source.html#l00051">SW_FAN_3</a>, <a class="el" href="auto__switch_8h_source.html#l00052">SW_FAN_4</a>, <a class="el" href="auto__switch_8h_source.html#l00077">SW_FAN_5V</a>, <a class="el" href="auto__switch_8h_source.html#l00047">SW_HXFAN</a>, <a class="el" href="auto__switch_8h_source.html#l00044">SW_PUMP_1</a>, <a class="el" href="auto__switch_8h_source.html#l00045">SW_PUMP_2</a>, <a class="el" href="auto__switch_8h_source.html#l00075">SW_TV</a>, <a class="el" href="pdu_2main_8h_source.html#l00212">TV_CTRL_GPIO_Port</a>, and <a class="el" href="pdu_2main_8h_source.html#l00213">TV_CTRL_Pin</a>.</p>
-
-</div>
-</div>
-<a id="af15fe66a4d69300df4650e05e96c6593" name="af15fe66a4d69300df4650e05e96c6593"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af15fe66a4d69300df4650e05e96c6593">&#9670;&#160;</a></span>setMuxChannel()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void setMuxChannel </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="auto__switch_8c_source.html#l00082">82</a> of file <a class="el" href="auto__switch_8c_source.html">auto_switch.c</a>.</p>
-
-<p class="reference">References <a class="el" href="pdu_2main_8h_source.html#l00033">MUX_CTRL_A_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00034">MUX_CTRL_A_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00035">MUX_CTRL_B_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00036">MUX_CTRL_B_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00037">MUX_CTRL_C_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00038">MUX_CTRL_C_Pin</a>, and <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="auto__switch_8c_source.html#l00068">updateMux()</a>.</p>
-
 </div>
 </div>
 <a id="a8509532d58f56e7044ab6f36a2f17eb5" name="a8509532d58f56e7044ab6f36a2f17eb5"></a>
@@ -437,7 +196,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void setSwitch </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="auto__switch_8h.html#afd674820118f9c76a33b0b8a9b0ff908">switches_t</a></td>          <td class="paramname"><span class="paramname"><em>auto_switch_enum</em></span>, </td>
+          <td class="paramtype">switches_t</td>          <td class="paramname"><span class="paramname"><em>auto_switch_enum</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -455,176 +214,6 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p class="definition">Definition at line <a class="el" href="auto__switch_8c_source.html#l00125">125</a> of file <a class="el" href="auto__switch_8c_source.html">auto_switch.c</a>.</p>
-
-<p class="reference">References <a class="el" href="pdu_2main_8h_source.html#l00200">BLT_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00201">BLT_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00206">CRIT_5V_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00207">CRIT_5V_CTRL_Pin</a>, <a class="el" href="auto__switch_8h_source.html#l00064">CS_24V</a>, <a class="el" href="auto__switch_8h_source.html#l00065">CS_5V</a>, <a class="el" href="auto__switch_8h_source.html#l00069">CS_SWITCH_COUNT</a>, <a class="el" href="pdu_2main_8h_source.html#l00171">DLBK_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00172">DLBK_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00167">DLFR_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00168">DLFR_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00152">FAN_1_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00153">FAN_1_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00155">FAN_2_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00156">FAN_2_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00146">FAN_3_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00147">FAN_3_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00149">FAN_4_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00150">FAN_4_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00218">FAN_5V_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00219">FAN_5V_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00134">HXFAN_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00135">HXFAN_CTRL_Pin</a>, <a class="el" href="led_8h_source.html#l00035">LED_5V_CRIT</a>, <a class="el" href="led_8h_source.html#l00032">LED_5V_FAN</a>, <a class="el" href="led_8h_source.html#l00030">LED_ABOX</a>, <a class="el" href="led_8h_source.html#l00036">LED_BLT</a>, <a class="el" href="led_8c_source.html#l00020">LED_control()</a>, <a class="el" href="led_8h_source.html#l00034">LED_DAQ</a>, <a class="el" href="led_8h_source.html#l00029">LED_DASH</a>, <a class="el" href="led_8h_source.html#l00025">LED_DLBK</a>, <a class="el" href="led_8h_source.html#l00026">LED_DLFR</a>, <a class="el" href="led_8h_source.html#l00031">LED_HXFAN</a>, <a class="el" href="led_8h_source.html#l00028">LED_MAIN</a>, <a class="el" href="led_8h_source.html#l00023">LED_PUMP_1</a>, <a class="el" href="led_8h_source.html#l00024">LED_PUMP_2</a>, <a class="el" href="led_8h_source.html#l00027">LED_SDC</a>, <a class="el" href="led_8h_source.html#l00033">LED_TV</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, <a class="el" href="pdu_2main_8h_source.html#l00121">PUMP_1_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00122">PUMP_1_CTRL_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00127">PUMP_2_CTRL_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00128">PUMP_2_CTRL_Pin</a>, <a class="el" href="auto__switch_8h_source.html#l00058">SW_ABOX</a>, <a class="el" href="auto__switch_8h_source.html#l00053">SW_AMK1</a>, <a class="el" href="auto__switch_8h_source.html#l00054">SW_AMK2</a>, <a class="el" href="auto__switch_8h_source.html#l00072">SW_BLT</a>, <a class="el" href="auto__switch_8h_source.html#l00074">SW_CRIT_5V</a>, <a class="el" href="auto__switch_8h_source.html#l00076">SW_DAQ</a>, <a class="el" href="auto__switch_8h_source.html#l00057">SW_DASH</a>, <a class="el" href="auto__switch_8h_source.html#l00061">SW_DLBK</a>, <a class="el" href="auto__switch_8h_source.html#l00060">SW_DLFR</a>, <a class="el" href="auto__switch_8h_source.html#l00049">SW_FAN_1</a>, <a class="el" href="auto__switch_8h_source.html#l00050">SW_FAN_2</a>, <a class="el" href="auto__switch_8h_source.html#l00051">SW_FAN_3</a>, <a class="el" href="auto__switch_8h_source.html#l00052">SW_FAN_4</a>, <a class="el" href="auto__switch_8h_source.html#l00077">SW_FAN_5V</a>, <a class="el" href="auto__switch_8h_source.html#l00047">SW_HXFAN</a>, <a class="el" href="auto__switch_8h_source.html#l00059">SW_MAIN</a>, <a class="el" href="auto__switch_8h_source.html#l00044">SW_PUMP_1</a>, <a class="el" href="auto__switch_8h_source.html#l00045">SW_PUMP_2</a>, <a class="el" href="auto__switch_8h_source.html#l00046">SW_SDC</a>, <a class="el" href="auto__switch_8h_source.html#l00075">SW_TV</a>, <a class="el" href="pdu_2main_8h_source.html#l00212">TV_CTRL_GPIO_Port</a>, and <a class="el" href="pdu_2main_8h_source.html#l00213">TV_CTRL_Pin</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00300">main()</a>, and <a class="el" href="cooling_8c_source.html#l00077">update_cooling_periodic()</a>.</p>
-
-</div>
-</div>
-<a id="a681c7bea0f3bd6e8ee3da0bbe0613d6a" name="a681c7bea0f3bd6e8ee3da0bbe0613d6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a681c7bea0f3bd6e8ee3da0bbe0613d6a">&#9670;&#160;</a></span>updateCurrent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void updateCurrent </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="auto__switch_8c_source.html#l00035">35</a> of file <a class="el" href="auto__switch_8c_source.html">auto_switch.c</a>.</p>
-
-<p class="reference">References <a class="el" href="pdu_2main_8h_source.html#l00272">ADCReadings_t::abox_cs</a>, <a class="el" href="pdu_2main_8c_source.html#l00191">adc_readings</a>, <a class="el" href="auto__switch_8c_source.html#l00020">auto_switches</a>, <a class="el" href="auto__switch_8c_source.html#l00089">calcCurrent_HP()</a>, <a class="el" href="auto__switch_8c_source.html#l00096">calcCurrent_LP()</a>, <a class="el" href="auto__switch_8c_source.html#l00102">calcCurrent_Total()</a>, <a class="el" href="auto__switch_8h_source.html#l00088">auto_switches_t::current</a>, <a class="el" href="pdu_2main_8h_source.html#l00271">ADCReadings_t::dash_cs</a>, <a class="el" href="pdu_2main_8h_source.html#l00269">ADCReadings_t::dlbk_cs</a>, <a class="el" href="pdu_2main_8h_source.html#l00268">ADCReadings_t::dlfr_cs</a>, <a class="el" href="pdu_2main_8h_source.html#l00266">ADCReadings_t::hxfan_imon</a>, <a class="el" href="pdu_2main_8h_source.html#l00270">ADCReadings_t::main_cs</a>, <a class="el" href="auto__switch_8c_source.html#l00021">mux_readings</a>, <a class="el" href="pdu_2main_8h_source.html#l00264">ADCReadings_t::pump_1_imon</a>, <a class="el" href="pdu_2main_8h_source.html#l00265">ADCReadings_t::pump_2_imon</a>, <a class="el" href="pdu_2main_8h_source.html#l00267">ADCReadings_t::sdc_imon</a>, <a class="el" href="auto__switch_8h_source.html#l00058">SW_ABOX</a>, <a class="el" href="auto__switch_8h_source.html#l00053">SW_AMK1</a>, <a class="el" href="auto__switch_8h_source.html#l00054">SW_AMK2</a>, <a class="el" href="auto__switch_8h_source.html#l00057">SW_DASH</a>, <a class="el" href="auto__switch_8h_source.html#l00061">SW_DLBK</a>, <a class="el" href="auto__switch_8h_source.html#l00060">SW_DLFR</a>, <a class="el" href="auto__switch_8h_source.html#l00049">SW_FAN_1</a>, <a class="el" href="auto__switch_8h_source.html#l00050">SW_FAN_2</a>, <a class="el" href="auto__switch_8h_source.html#l00051">SW_FAN_3</a>, <a class="el" href="auto__switch_8h_source.html#l00052">SW_FAN_4</a>, <a class="el" href="auto__switch_8h_source.html#l00047">SW_HXFAN</a>, <a class="el" href="auto__switch_8h_source.html#l00059">SW_MAIN</a>, <a class="el" href="auto__switch_8h_source.html#l00044">SW_PUMP_1</a>, <a class="el" href="auto__switch_8h_source.html#l00045">SW_PUMP_2</a>, and <a class="el" href="auto__switch_8h_source.html#l00046">SW_SDC</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="auto__switch_8c_source.html#l00253">autoSwitchPeriodic()</a>.</p>
-
-</div>
-</div>
-<a id="af8a20291b1c7dbd7c7d0744be18dbeb2" name="af8a20291b1c7dbd7c7d0744be18dbeb2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8a20291b1c7dbd7c7d0744be18dbeb2">&#9670;&#160;</a></span>updateMux()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void updateMux </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="auto__switch_8c_source.html#l00068">68</a> of file <a class="el" href="auto__switch_8c_source.html">auto_switch.c</a>.</p>
-
-<p class="reference">References <a class="el" href="pdu_2main_8c_source.html#l00191">adc_readings</a>, <a class="el" href="auto__switch_8c_source.html#l00022">mux_index</a>, <a class="el" href="pdu_2main_8h_source.html#l00280">ADCReadings_t::mux_out</a>, <a class="el" href="auto__switch_8c_source.html#l00021">mux_readings</a>, and <a class="el" href="auto__switch_8c_source.html#l00082">setMuxChannel()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="auto__switch_8c_source.html#l00253">autoSwitchPeriodic()</a>.</p>
-
-</div>
-</div>
-<a id="af886926ba94cdd591f0c5a4c43aac91a" name="af886926ba94cdd591f0c5a4c43aac91a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af886926ba94cdd591f0c5a4c43aac91a">&#9670;&#160;</a></span>updateVoltage()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void updateVoltage </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="auto__switch_8c_source.html#l00062">62</a> of file <a class="el" href="auto__switch_8c_source.html">auto_switch.c</a>.</p>
-
-<p class="reference">References <a class="el" href="pdu_2main_8c_source.html#l00191">adc_readings</a>, <a class="el" href="auto__switch_8c_source.html#l00020">auto_switches</a>, <a class="el" href="auto__switch_8c_source.html#l00116">calcVoltage()</a>, <a class="el" href="auto__switch_8h_source.html#l00082">voltage_t::in_24v</a>, <a class="el" href="auto__switch_8h_source.html#l00023">LV_24V_R1</a>, <a class="el" href="auto__switch_8h_source.html#l00024">LV_24V_R2</a>, <a class="el" href="auto__switch_8h_source.html#l00027">LV_3V3_R1</a>, <a class="el" href="auto__switch_8h_source.html#l00028">LV_3V3_R2</a>, <a class="el" href="auto__switch_8h_source.html#l00025">LV_5V_R1</a>, <a class="el" href="auto__switch_8h_source.html#l00026">LV_5V_R2</a>, <a class="el" href="auto__switch_8h_source.html#l00084">voltage_t::out_3v3</a>, <a class="el" href="auto__switch_8h_source.html#l00083">voltage_t::out_5v</a>, <a class="el" href="pdu_2main_8h_source.html#l00274">ADCReadings_t::v24_vs</a>, <a class="el" href="pdu_2main_8h_source.html#l00278">ADCReadings_t::v3v3_vs</a>, <a class="el" href="pdu_2main_8h_source.html#l00276">ADCReadings_t::v5_vs</a>, and <a class="el" href="auto__switch_8h_source.html#l00089">auto_switches_t::voltage</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="auto__switch_8c_source.html#l00253">autoSwitchPeriodic()</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="a19dbab87e0ceca06b137d8feb5b2dc90" name="a19dbab87e0ceca06b137d8feb5b2dc90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19dbab87e0ceca06b137d8feb5b2dc90">&#9670;&#160;</a></span>auto_switches</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structauto__switches__t.html">auto_switches_t</a> auto_switches</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="auto__switch_8c_source.html#l00020">20</a> of file <a class="el" href="auto__switch_8c_source.html">auto_switch.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="auto__switch_8c_source.html#l00102">calcCurrent_Total()</a>, <a class="el" href="pdu_2main_8c_source.html#l00256">send_iv_readings()</a>, <a class="el" href="auto__switch_8c_source.html#l00035">updateCurrent()</a>, and <a class="el" href="auto__switch_8c_source.html#l00062">updateVoltage()</a>.</p>
-
-</div>
-</div>
-<a id="ad4f7743391576e14f10cbad7f43e1107" name="ad4f7743391576e14f10cbad7f43e1107"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4f7743391576e14f10cbad7f43e1107">&#9670;&#160;</a></span>mux_index</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t mux_index</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="auto__switch_8c_source.html#l00022">22</a> of file <a class="el" href="auto__switch_8c_source.html">auto_switch.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="auto__switch_8c_source.html#l00068">updateMux()</a>.</p>
-
-</div>
-</div>
-<a id="a5ef842dc2e4be63a9191c2a1c9dac206" name="a5ef842dc2e4be63a9191c2a1c9dac206"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ef842dc2e4be63a9191c2a1c9dac206">&#9670;&#160;</a></span>mux_readings</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t mux_readings[6]</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="auto__switch_8c_source.html#l00021">21</a> of file <a class="el" href="auto__switch_8c_source.html">auto_switch.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="auto__switch_8c_source.html#l00074">getMuxReading()</a>, <a class="el" href="auto__switch_8c_source.html#l00035">updateCurrent()</a>, and <a class="el" href="auto__switch_8c_source.html#l00068">updateMux()</a>.</p>
 
 </div>
 </div>

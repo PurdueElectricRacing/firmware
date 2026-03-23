@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['firmware_20⚡️_0',['PER Vehicle Firmware ⚡️',['../index.html',1,'']]],
-  ['firmware_20setup_20instructions_1',['PER Firmware Setup Instructions',['../md_docs_2setup.html',1,'']]]
+  ['board_0',['Data Acquisition Board',['../md_source_2daq_2README.html',1,'']]],
+  ['bus_20attributes_1',['Bus Attributes',['../md_common_2can__library_2configs_2README.html',1,'']]]
 ];

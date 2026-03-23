@@ -200,9 +200,7 @@ Socket register configures and control SOCKETn which is necessary to data commun
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x0001 &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
-<div class="ttc" id="aw5500_8h_html_a7b7a44f4a655c6f5789913f3146cb054"><div class="ttname"><a href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a></div><div class="ttdeci">#define WIZCHIP_SREG_BLOCK(N)</div><div class="ttdef"><b>Definition</b> <a href="w5500_8h_source.html#l00069">w5500.h:69</a></div></div>
-<div class="ttc" id="aw5500_8h_html_af89b081530cae025a4c85cf9e39e110c"><div class="ttname"><a href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a></div><div class="ttdeci">#define _W5500_IO_BASE_</div><div class="ttdef"><b>Definition</b> <a href="w5500_8h_source.html#l00063">w5500.h:63</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x0001 &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>Socket command register(R/W) </p>
 <p>This is used to set the command for Socket n such as OPEN, CLOSE, CONNECT, LISTEN, SEND, and RECEIVE.<br  />
@@ -218,8 +216,6 @@ To check whether the command is completed or not, please check the <a class="el"
 <li><a class="el" href="w5500_8h.html#a2f256f6b27ce37836cc08d4f7f36ab62">Sn_CR_SEND_KEEP</a> : Send keep alive message.</li>
 <li><a class="el" href="w5500_8h.html#a282df6e5d976e94953d4f9f32f182827">Sn_CR_RECV</a> : Update RX buffer pointer and receive data. </li>
 </ul>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00451">451</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
 
 </div>
 </div>
@@ -237,12 +233,10 @@ To check whether the command is completed or not, please check the <a class="el"
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x0006 &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x0006 &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>Peer MAC register address(R/W) </p>
 <p><a class="el" href="#ga9365097160096e747cdd94a633051286">Sn_DHAR</a> configures the destination hardware address of Socket n when using SEND_MAC command in UDP mode or it indicates that it is acquired in ARP-process by CONNECT/SEND command. </p>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00508">508</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
 
 </div>
 </div>
@@ -260,12 +254,10 @@ To check whether the command is completed or not, please check the <a class="el"
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x000C &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x000C &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>Peer IP register address(R/W) </p>
 <p><a class="el" href="#ga07db81e43763069a0a59acc54d4d347b">Sn_DIPR</a> configures or indicates the destination IP address of Socket n. It is valid when Socket n is used in TCP/UDP mode. In TCP client mode, it configures an IP address of TCP serverbefore CONNECT command. In TCP server mode, it indicates an IP address of TCP clientafter successfully establishing connection. In UDP mode, it configures an IP address of peer to be received the UDP packet by SEND or SEND_MAC command. </p>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00518">518</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
 
 </div>
 </div>
@@ -283,12 +275,10 @@ To check whether the command is completed or not, please check the <a class="el"
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x0010 &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x0010 &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>Peer port register address(R/W) </p>
 <p><a class="el" href="#ga912f0add3b86fe80c0f35d88dcaad972">Sn_DPORT</a> configures or indicates the destination port number of Socket n. It is valid when Socket n is used in TCP/UDP mode. In TCP clientmode, it configures the listen port number of TCP serverbefore CONNECT command. In TCP Servermode, it indicates the port number of TCP client after successfully establishing connection. In UDP mode, it configures the port number of peer to be transmitted the UDP packet by SEND/SEND_MAC command. </p>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00528">528</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
 
 </div>
 </div>
@@ -306,12 +296,10 @@ To check whether the command is completed or not, please check the <a class="el"
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x002D &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x002D &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>Fragment field value in IP header register(R/W) </p>
 <p><a class="el" href="#ga750ec1fbef9a19e403999e53b67d1dab">Sn_FRAG</a> configures the FRAG(Fragment field in IP header). </p>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00667">667</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
 
 </div>
 </div>
@@ -329,12 +317,10 @@ To check whether the command is completed or not, please check the <a class="el"
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x002C &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x002C &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>socket interrupt mask register(R) </p>
 <p><a class="el" href="#ga98959aecefdcdc8f241104d3fd35940e">Sn_IMR</a> masks the interrupt of Socket n. Each bit corresponds to each bit of <a class="el" href="#ga49cb8b15ab6bbf2c41223aa9f9188af1">Sn_IR</a>. When a Socket n Interrupt is occurred and the corresponding bit of <a class="el" href="#ga98959aecefdcdc8f241104d3fd35940e">Sn_IMR</a> is the corresponding bit of <a class="el" href="#ga49cb8b15ab6bbf2c41223aa9f9188af1">Sn_IR</a> becomes When both the corresponding bit of <a class="el" href="#ga98959aecefdcdc8f241104d3fd35940e">Sn_IMR</a> and <a class="el" href="#ga49cb8b15ab6bbf2c41223aa9f9188af1">Sn_IR</a> are and the n-th bit of <a class="el" href="group__Common__register__group.html#ga68e22635ff207d8ca10459833856bd75">IR</a> is Host is interrupted by asserted INTn PIN to low. </p>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00660">660</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
 
 </div>
 </div>
@@ -352,7 +338,7 @@ To check whether the command is completed or not, please check the <a class="el"
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x0002 &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x0002 &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>Socket interrupt register(R) </p>
 <p><a class="el" href="#ga49cb8b15ab6bbf2c41223aa9f9188af1">Sn_IR</a> indicates the status of Socket Interrupt such as establishment, termination, receiving data, timeout).<br  />
@@ -372,8 +358,6 @@ In order to clear the <a class="el" href="#ga49cb8b15ab6bbf2c41223aa9f9188af1">S
 <li><a class="el" href="w5500_8h.html#aab062cd504413d28bab4ddb338f6ff35">Sn_IR_CON</a> : <b>CON Interrupt</b> </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00469">469</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
-
 </div>
 </div>
 <a id="ga3a5d07b1fcf6e9f9441c69146e479114" name="ga3a5d07b1fcf6e9f9441c69146e479114"></a>
@@ -390,12 +374,10 @@ In order to clear the <a class="el" href="#ga49cb8b15ab6bbf2c41223aa9f9188af1">S
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x002F &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x002F &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>Keep Alive Timer register(R/W) </p>
 <p><a class="el" href="#ga3a5d07b1fcf6e9f9441c69146e479114">Sn_KPALVTR</a> configures the transmitting timer of �KEEP ALIVE(KA)packet of SOCKETn. It is valid only in TCP mode, and ignored in other modes. The time unit is 5s. KA packet is transmittable after <a class="el" href="#ga958511984021889fe9d54d7a704d4957">Sn_SR</a> is changed to SOCK_ESTABLISHED and after the data is transmitted or received to/from a peer at least once. In case of '<a class="el" href="#ga3a5d07b1fcf6e9f9441c69146e479114">Sn_KPALVTR</a> &gt; 0', W5500 automatically transmits KA packet after time-period for checking the TCP connection (Auto-keepalive-process). In case of '<a class="el" href="#ga3a5d07b1fcf6e9f9441c69146e479114">Sn_KPALVTR</a> = 0', Auto-keep-alive-process will not operate, and KA packet can be transmitted by SEND_KEEP command by the host (Manual-keep-alive-process). Manual-keep-alive-process is ignored in case of '<a class="el" href="#ga3a5d07b1fcf6e9f9441c69146e479114">Sn_KPALVTR</a> &gt; 0'. </p>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00680">680</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
 
 </div>
 </div>
@@ -413,7 +395,7 @@ In order to clear the <a class="el" href="#ga49cb8b15ab6bbf2c41223aa9f9188af1">S
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x0000 &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x0000 &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>socket Mode register(R/W) </p>
 <p><a class="el" href="#ga9d485719088a4f1a18e29a0f9be921a4">Sn_MR</a> configures the option or protocol type of Socket n.<br  />
@@ -455,8 +437,6 @@ Each bit of <a class="el" href="#ga9d485719088a4f1a18e29a0f9be921a4">Sn_MR</a> d
 </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00432">432</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
-
 </div>
 </div>
 <a id="gaafca4e6d08b7ba632bcf56348ad0c2a9" name="gaafca4e6d08b7ba632bcf56348ad0c2a9"></a>
@@ -473,12 +453,10 @@ Each bit of <a class="el" href="#ga9d485719088a4f1a18e29a0f9be921a4">Sn_MR</a> d
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x0012 &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x0012 &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>Maximum Segment Size(Sn_MSSR0) register address(R/W) </p>
 <p><a class="el" href="#gaafca4e6d08b7ba632bcf56348ad0c2a9">Sn_MSSR</a> configures or indicates the MTU(Maximum Transfer Unit) of Socket n. </p>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00535">535</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
 
 </div>
 </div>
@@ -496,12 +474,10 @@ Each bit of <a class="el" href="#ga9d485719088a4f1a18e29a0f9be921a4">Sn_MR</a> d
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x0004 &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x0004 &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>source port register(R/W) </p>
 <p><a class="el" href="#gad2a011202c09a7f21d0e59b0fb3e796d">Sn_PORT</a> configures the source port number of Socket n. It is valid when Socket n is used in TCP/UDP mode. It should be set before OPEN command is ordered. </p>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00500">500</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
 
 </div>
 </div>
@@ -519,7 +495,7 @@ Each bit of <a class="el" href="#ga9d485719088a4f1a18e29a0f9be921a4">Sn_MR</a> d
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x0028 &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x0028 &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>Read point of Receive memory(R/W) </p>
 <p><a class="el" href="#gad0bffc9ad3fc9039e1258696a2556df7">Sn_RX_RD</a> is initialized by OPEN command. Make sure to be read or updated as follows.<br  />
@@ -532,8 +508,6 @@ Each bit of <a class="el" href="#ga9d485719088a4f1a18e29a0f9be921a4">Sn_MR</a> d
 </li>
 <li>Order RECV command is for notifying the updated <a class="el" href="#gad0bffc9ad3fc9039e1258696a2556df7">Sn_RX_RD</a> to W5500. </li>
 </ol>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00641">641</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
 
 </div>
 </div>
@@ -551,14 +525,10 @@ Each bit of <a class="el" href="#ga9d485719088a4f1a18e29a0f9be921a4">Sn_MR</a> d
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x0026 &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x0026 &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>Received data size register(R) </p>
 <p><a class="el" href="#ga829fa770582f59f596c6bc88c591aaff">Sn_RX_RSR</a> indicates the data size received and saved in Socket n RX Buffer. <a class="el" href="#ga829fa770582f59f596c6bc88c591aaff">Sn_RX_RSR</a> does not exceed the <a class="el" href="#gae4131b33d899ce3cd35061e7c68b7187">Sn_RXBUF_SIZE</a> and is calculated as the difference between �Socket n RX Write Pointer (<a class="el" href="#gaf901a72769de81cca29ccd219cf0bf3f">Sn_RX_WR</a>)and �Socket n RX Read Pointer (<a class="el" href="#gad0bffc9ad3fc9039e1258696a2556df7">Sn_RX_RD</a>) </p>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00628">628</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="w5500_8c_source.html#l00200">getSn_RX_RSR()</a>.</p>
 
 </div>
 </div>
@@ -576,12 +546,10 @@ Each bit of <a class="el" href="#ga9d485719088a4f1a18e29a0f9be921a4">Sn_MR</a> d
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x002A &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x002A &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>Write point of Receive memory(R) </p>
 <p><a class="el" href="#gaf901a72769de81cca29ccd219cf0bf3f">Sn_RX_WR</a> is initialized by OPEN command and it is auto-increased by the data reception. If the increased value exceeds the maximum value 0xFFFF, (greater than 0x10000 and the carry bit occurs), then the carry bit is ignored and will automatically update with the lower 16bits value. </p>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00650">650</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
 
 </div>
 </div>
@@ -599,12 +567,10 @@ Each bit of <a class="el" href="#ga9d485719088a4f1a18e29a0f9be921a4">Sn_MR</a> d
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x001E &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x001E &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>Receive memory size register(R/W) </p>
 <p><a class="el" href="#gae4131b33d899ce3cd35061e7c68b7187">Sn_RXBUF_SIZE</a> configures the RX buffer block size of Socket n. Socket n RX Buffer Block size can be configured with 1,2,4,8, and 16 Kbytes. If a different size is configured, the data cannot be normally received from a peer. Although Socket n RX Buffer Block size is initially configured to 2Kbytes, user can re-configure its size using <a class="el" href="#gae4131b33d899ce3cd35061e7c68b7187">Sn_RXBUF_SIZE</a>. The total sum of <a class="el" href="#gae4131b33d899ce3cd35061e7c68b7187">Sn_RXBUF_SIZE</a> can not be exceed 16Kbytes. When exceeded, the data reception error is occurred. </p>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00571">571</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
 
 </div>
 </div>
@@ -622,7 +588,7 @@ Each bit of <a class="el" href="#ga9d485719088a4f1a18e29a0f9be921a4">Sn_MR</a> d
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x0003 &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x0003 &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>Socket status register(R) </p>
 <p><a class="el" href="#ga958511984021889fe9d54d7a704d4957">Sn_SR</a> indicates the status of Socket n.<br  />
@@ -646,8 +612,6 @@ Each bit of <a class="el" href="#ga9d485719088a4f1a18e29a0f9be921a4">Sn_MR</a> d
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00492">492</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
-
 </div>
 </div>
 <a id="ga9e1ff4191d71d893ef657e9bc1b32072" name="ga9e1ff4191d71d893ef657e9bc1b32072"></a>
@@ -664,12 +628,10 @@ Each bit of <a class="el" href="#ga9d485719088a4f1a18e29a0f9be921a4">Sn_MR</a> d
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x0015 &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x0015 &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>IP Type of Service(TOS) Register(R/W) </p>
 <p><a class="el" href="#ga9e1ff4191d71d893ef657e9bc1b32072">Sn_TOS</a> configures the TOS(Type Of Service field in IP Header) of Socket n. It is set before OPEN command. </p>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00545">545</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
 
 </div>
 </div>
@@ -687,12 +649,10 @@ Each bit of <a class="el" href="#ga9d485719088a4f1a18e29a0f9be921a4">Sn_MR</a> d
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x0016 &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x0016 &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>IP Time to live(TTL) Register(R/W) </p>
 <p><a class="el" href="#gae03714ed66656a8fa5fcb23280aefcbc">Sn_TTL</a> configures the TTL(Time To Live field in IP header) of Socket n. It is set before OPEN command. </p>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00552">552</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
 
 </div>
 </div>
@@ -710,14 +670,10 @@ Each bit of <a class="el" href="#ga9d485719088a4f1a18e29a0f9be921a4">Sn_MR</a> d
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x0020 &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x0020 &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>Transmit free memory size register(R) </p>
 <p><a class="el" href="#ga64d1348f67a8ede134bd181527d23acb">Sn_TX_FSR</a> indicates the free size of Socket n TX Buffer Block. It is initialized to the configured size by <a class="el" href="#ga6172c53b2254f7e4f2720589f0c2e982">Sn_TXBUF_SIZE</a>. Data bigger than <a class="el" href="#ga64d1348f67a8ede134bd181527d23acb">Sn_TX_FSR</a> should not be saved in the Socket n TX Buffer because the bigger data overwrites the previous saved data not yet sent. Therefore, check before saving the data to the Socket n TX Buffer, and if data is equal or smaller than its checked size, transmit the data with SEND/SEND_MAC command after saving the data in Socket n TX buffer. But, if data is bigger than its checked size, transmit the data after dividing into the checked size and saving in the Socket n TX buffer. </p>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00593">593</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="w5500_8c_source.html#l00186">getSn_TX_FSR()</a>.</p>
 
 </div>
 </div>
@@ -735,12 +691,10 @@ Each bit of <a class="el" href="#ga9d485719088a4f1a18e29a0f9be921a4">Sn_MR</a> d
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x0022 &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x0022 &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>Transmit memory read pointer register address(R) </p>
 <p><a class="el" href="#gaa080f81d611b21749de7e463b6b3060b">Sn_TX_RD</a> is initialized by OPEN command. However, if <a class="el" href="#ga9d485719088a4f1a18e29a0f9be921a4" title="socket Mode register(R/W)">Sn_MR(P[3:0])</a> is TCP mode(001, it is re-initialized while connecting with TCP. After its initialization, it is auto-increased by SEND command. SEND command transmits the saved data from the current <a class="el" href="#gaa080f81d611b21749de7e463b6b3060b">Sn_TX_RD</a> to the <a class="el" href="#gae0de0822d78274f53cbed5aea9718371">Sn_TX_WR</a> in the Socket n TX Buffer. After transmitting the saved data, the SEND command increases the <a class="el" href="#gaa080f81d611b21749de7e463b6b3060b">Sn_TX_RD</a> as same as the <a class="el" href="#gae0de0822d78274f53cbed5aea9718371">Sn_TX_WR</a>. If its increment value exceeds the maximum value 0xFFFF, (greater than 0x10000 and the carry bit occurs), then the carry bit is ignored and will automatically update with the lower 16bits value. </p>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00605">605</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
 
 </div>
 </div>
@@ -758,7 +712,7 @@ Each bit of <a class="el" href="#ga9d485719088a4f1a18e29a0f9be921a4">Sn_MR</a> d
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x0024 &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x0024 &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>Transmit memory write pointer register address(R/W) </p>
 <p><a class="el" href="#gae0de0822d78274f53cbed5aea9718371">Sn_TX_WR</a> is initialized by OPEN command. However, if <a class="el" href="#ga9d485719088a4f1a18e29a0f9be921a4" title="socket Mode register(R/W)">Sn_MR(P[3:0])</a> is TCP mode(001, it is re-initialized while connecting with TCP.<br  />
@@ -772,8 +726,6 @@ It should be read or be updated like as follows.<br  />
 </li>
 <li>Transmit the saved data in Socket n TX Buffer by using SEND/SEND command </li>
 </ol>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00619">619</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
 
 </div>
 </div>
@@ -791,12 +743,10 @@ It should be read or be updated like as follows.<br  />
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="w5500_8h.html#af89b081530cae025a4c85cf9e39e110c">_W5500_IO_BASE_</a> + (0x001F &lt;&lt; 8) + (<a class="code hl_define" href="w5500_8h.html#a7b7a44f4a655c6f5789913f3146cb054">WIZCHIP_SREG_BLOCK</a>(N) &lt;&lt; 3))</div>
+<b>Value:</b><div class="fragment"><div class="line">(_W5500_IO_BASE_ + (0x001F &lt;&lt; 8) + (WIZCHIP_SREG_BLOCK(N) &lt;&lt; 3))</div>
 </div><!-- fragment -->
 <p>Transmit memory size register(R/W) </p>
 <p><a class="el" href="#ga6172c53b2254f7e4f2720589f0c2e982">Sn_TXBUF_SIZE</a> configures the TX buffer block size of Socket n. Socket n TX Buffer Block size can be configured with 1,2,4,8, and 16 Kbytes. If a different size is configured, the data can�t be normally transmitted to a peer. Although Socket n TX Buffer Block size is initially configured to 2Kbytes, user can be re-configure its size using <a class="el" href="#ga6172c53b2254f7e4f2720589f0c2e982">Sn_TXBUF_SIZE</a>. The total sum of <a class="el" href="#ga6172c53b2254f7e4f2720589f0c2e982">Sn_TXBUF_SIZE</a> can not be exceed 16Kbytes. When exceeded, the data transmission error is occurred. </p>
-
-<p class="definition">Definition at line <a class="el" href="w5500_8h_source.html#l00582">582</a> of file <a class="el" href="w5500_8h_source.html">w5500.h</a>.</p>
 
 </div>
 </div>

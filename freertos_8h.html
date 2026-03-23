@@ -97,7 +97,7 @@ $(function(){initNavTree('freertos_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">freertos.h File Reference</div></div>
@@ -106,19 +106,12 @@ $(function(){initNavTree('freertos_8h.html',''); initResizable(true); });
 
 <p>Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocation and initialization.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;_FREERTOS_DIRinclude/FreeRTOS.h&quot;</code><br />
-<code>#include &quot;_FREERTOS_DIRCMSIS_RTOS_V2/cmsis_os2.h&quot;</code><br />
-<code>#include &quot;_FREERTOS_DIRinclude/list.h&quot;</code><br />
-<code>#include &quot;_FREERTOS_DIRinclude/queue.h&quot;</code><br />
-<code>#include &quot;_FREERTOS_DIRinclude/semphr.h&quot;</code><br />
-<code>#include &quot;_FREERTOS_DIRinclude/task.h&quot;</code><br />
-<code>#include &quot;_FREERTOS_DIRinclude/timers.h&quot;</code><br />
-<code>#include &lt;stdint.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 </div>
 <p><a href="freertos_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Data Structures</h2></td></tr>
+Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structThreadWrapper__t.html">ThreadWrapper_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -134,15 +127,20 @@ Macros</h2></td></tr>
 <tr class="separator:aec94cba01a34fa12e733d4774709cce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abaded9350cb8265deb1b6a7db964b470" id="r_abaded9350cb8265deb1b6a7db964b470"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abaded9350cb8265deb1b6a7db964b470">_FREERTOS_PATH</a>(y)</td></tr>
 <tr class="separator:abaded9350cb8265deb1b6a7db964b470"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa38d6c6620457f52272d28f81d2ba811" id="r_aa38d6c6620457f52272d28f81d2ba811"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa38d6c6620457f52272d28f81d2ba811">STACK_256</a>&#160;&#160;&#160;(256)</td></tr>
+<tr class="memitem:aa38d6c6620457f52272d28f81d2ba811" id="r_aa38d6c6620457f52272d28f81d2ba811"><td class="memItemLeft" align="right" valign="top"><a id="aa38d6c6620457f52272d28f81d2ba811" name="aa38d6c6620457f52272d28f81d2ba811"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>STACK_256</b>&#160;&#160;&#160;(256)</td></tr>
 <tr class="separator:aa38d6c6620457f52272d28f81d2ba811"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ab500a15eda5befe7c0a9be1e7669e5" id="r_a6ab500a15eda5befe7c0a9be1e7669e5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ab500a15eda5befe7c0a9be1e7669e5">STACK_512</a>&#160;&#160;&#160;(512)</td></tr>
+<tr class="memitem:a6ab500a15eda5befe7c0a9be1e7669e5" id="r_a6ab500a15eda5befe7c0a9be1e7669e5"><td class="memItemLeft" align="right" valign="top"><a id="a6ab500a15eda5befe7c0a9be1e7669e5" name="a6ab500a15eda5befe7c0a9be1e7669e5"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>STACK_512</b>&#160;&#160;&#160;(512)</td></tr>
 <tr class="separator:a6ab500a15eda5befe7c0a9be1e7669e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cfaf8e95af7da51f7fc2347815e210f" id="r_a9cfaf8e95af7da51f7fc2347815e210f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9cfaf8e95af7da51f7fc2347815e210f">STACK_1024</a>&#160;&#160;&#160;(1024)</td></tr>
+<tr class="memitem:a9cfaf8e95af7da51f7fc2347815e210f" id="r_a9cfaf8e95af7da51f7fc2347815e210f"><td class="memItemLeft" align="right" valign="top"><a id="a9cfaf8e95af7da51f7fc2347815e210f" name="a9cfaf8e95af7da51f7fc2347815e210f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>STACK_1024</b>&#160;&#160;&#160;(1024)</td></tr>
 <tr class="separator:a9cfaf8e95af7da51f7fc2347815e210f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16d5b4d257fb218fa48b6865c3014f33" id="r_a16d5b4d257fb218fa48b6865c3014f33"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16d5b4d257fb218fa48b6865c3014f33">STACK_2048</a>&#160;&#160;&#160;(2048)</td></tr>
+<tr class="memitem:a16d5b4d257fb218fa48b6865c3014f33" id="r_a16d5b4d257fb218fa48b6865c3014f33"><td class="memItemLeft" align="right" valign="top"><a id="a16d5b4d257fb218fa48b6865c3014f33" name="a16d5b4d257fb218fa48b6865c3014f33"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>STACK_2048</b>&#160;&#160;&#160;(2048)</td></tr>
 <tr class="separator:a16d5b4d257fb218fa48b6865c3014f33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54f66041ce99e1a81cb0f571768bb057" id="r_a54f66041ce99e1a81cb0f571768bb057"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54f66041ce99e1a81cb0f571768bb057">STACK_4096</a>&#160;&#160;&#160;(4096)</td></tr>
+<tr class="memitem:a54f66041ce99e1a81cb0f571768bb057" id="r_a54f66041ce99e1a81cb0f571768bb057"><td class="memItemLeft" align="right" valign="top"><a id="a54f66041ce99e1a81cb0f571768bb057" name="a54f66041ce99e1a81cb0f571768bb057"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>STACK_4096</b>&#160;&#160;&#160;(4096)</td></tr>
 <tr class="separator:a54f66041ce99e1a81cb0f571768bb057"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa06a84e1769e192e02a8bb7482aceeb5" id="r_aa06a84e1769e192e02a8bb7482aceeb5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa06a84e1769e192e02a8bb7482aceeb5">DEFINE_TASK</a>(NAME,  PERIOD_MS,  PRIORITY,  STACK_SIZE)</td></tr>
 <tr class="memdesc:aa06a84e1769e192e02a8bb7482aceeb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scaffolds the static memory for a FreeRTOS task.  <br /></td></tr>
@@ -186,7 +184,8 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a9c778d52c93dd2b838088f502c737e74" id="r_a9c778d52c93dd2b838088f502c737e74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c778d52c93dd2b838088f502c737e74">rtosWrapper</a> (void *arg)</td></tr>
+<tr class="memitem:a9c778d52c93dd2b838088f502c737e74" id="r_a9c778d52c93dd2b838088f502c737e74"><td class="memItemLeft" align="right" valign="top"><a id="a9c778d52c93dd2b838088f502c737e74" name="a9c778d52c93dd2b838088f502c737e74"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>rtosWrapper</b> (void *arg)</td></tr>
 <tr class="separator:a9c778d52c93dd2b838088f502c737e74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -194,8 +193,6 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
 <dd>
 Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">eyn@p<span class="obfuscator">.nosp@m.</span>urdu<span class="obfuscator">.nosp@m.</span>e.edu</a>) </dd></dl>
-
-<p class="definition">Definition in file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="aec94cba01a34fa12e733d4774709cce6" name="aec94cba01a34fa12e733d4774709cce6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aec94cba01a34fa12e733d4774709cce6">&#9670;&#160;</a></span>__FREERTOS_PATH</h2>
@@ -215,12 +212,8 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#aa0106d66c910122f42a397e25121651f">mySTR</a>(<a class="code hl_define" href="#abca5333b90b00f973c6491246378f0ef">myIDENT</a>(x)y)</div>
-<div class="ttc" id="afreertos_8h_html_aa0106d66c910122f42a397e25121651f"><div class="ttname"><a href="#aa0106d66c910122f42a397e25121651f">mySTR</a></div><div class="ttdeci">#define mySTR(x)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00015">freertos.h:15</a></div></div>
-<div class="ttc" id="afreertos_8h_html_abca5333b90b00f973c6491246378f0ef"><div class="ttname"><a href="#abca5333b90b00f973c6491246378f0ef">myIDENT</a></div><div class="ttdeci">#define myIDENT(x)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00013">freertos.h:13</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line">mySTR(myIDENT(x)y)</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00016">16</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
 </div>
 </div>
 <a id="abaded9350cb8265deb1b6a7db964b470" name="abaded9350cb8265deb1b6a7db964b470"></a>
@@ -237,11 +230,8 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#aec94cba01a34fa12e733d4774709cce6">__FREERTOS_PATH</a>(_FREERTOS_DIR, y)</div>
-<div class="ttc" id="afreertos_8h_html_aec94cba01a34fa12e733d4774709cce6"><div class="ttname"><a href="#aec94cba01a34fa12e733d4774709cce6">__FREERTOS_PATH</a></div><div class="ttdeci">#define __FREERTOS_PATH(x, y)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00016">freertos.h:16</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line">__FREERTOS_PATH(_FREERTOS_DIR, y)</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00017">17</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
 </div>
 </div>
 <a id="a752d37c3f3872e96e8655ad575690796" name="a752d37c3f3872e96e8655ad575690796"></a>
@@ -259,10 +249,8 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a8d13fab020db2417316bcd86ffe21e16">DEFINE_SEMAPHORE</a>(NAME)</div>
-<div class="ttc" id="afreertos_8h_html_a8d13fab020db2417316bcd86ffe21e16"><div class="ttname"><a href="#a8d13fab020db2417316bcd86ffe21e16">DEFINE_SEMAPHORE</a></div><div class="ttdeci">#define DEFINE_SEMAPHORE(NAME)</div><div class="ttdoc">Scaffolds the static memory for a mutex.</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00113">freertos.h:113</a></div></div>
+<div class="ttc" id="afreertos_8h_html_a8d13fab020db2417316bcd86ffe21e16"><div class="ttname"><a href="#a8d13fab020db2417316bcd86ffe21e16">DEFINE_SEMAPHORE</a></div><div class="ttdeci">#define DEFINE_SEMAPHORE(NAME)</div><div class="ttdoc">Scaffolds the static memory for a mutex.</div><div class="ttdef"><b>Definition</b> freertos.h:113</div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00120">120</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
 </div>
 </div>
 <a id="a49e8e202b080478a2e875a33383fd772" name="a49e8e202b080478a2e875a33383fd772"></a>
@@ -281,8 +269,6 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a8d13fab020db2417316bcd86ffe21e16">DEFINE_SEMAPHORE</a>(NAME)</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00119">119</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
 </div>
 </div>
 <a id="a045abf0c9fcc8f496be9a4a057e62f87" name="a045abf0c9fcc8f496be9a4a057e62f87"></a>
@@ -301,8 +287,6 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a8d13fab020db2417316bcd86ffe21e16">DEFINE_SEMAPHORE</a>(NAME)</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00118">118</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
 </div>
 </div>
 <a id="a69f3705c51afcfefed18253d09849302" name="a69f3705c51afcfefed18253d09849302"></a>
@@ -334,8 +318,6 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
 </div><!-- fragment -->
 <p>Scaffolds the static memory for a FreeRTOS queue. </p>
 
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00098">98</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
 </div>
 </div>
 <a id="a8d13fab020db2417316bcd86ffe21e16" name="a8d13fab020db2417316bcd86ffe21e16"></a>
@@ -356,8 +338,6 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
 <div class="line">    <span class="keyword">static</span> StaticSemaphore_t xStaticSemaphore_##NAME;</div>
 </div><!-- fragment -->
 <p>Scaffolds the static memory for a mutex. </p>
-
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00113">113</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -408,7 +388,7 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
 <div class="line">            .priority   = (osPriority_t)(PRIORITY),                            \</div>
 <div class="line">        }                                                                      \</div>
 <div class="line">    }</div>
-<div class="ttc" id="astructThreadWrapper__t_html"><div class="ttname"><a href="structThreadWrapper__t.html">ThreadWrapper_t</a></div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00039">freertos.h:39</a></div></div>
+<div class="ttc" id="astructThreadWrapper__t_html"><div class="ttname"><a href="structThreadWrapper__t.html">ThreadWrapper_t</a></div><div class="ttdef"><b>Definition</b> freertos.h:39</div></div>
 </div><!-- fragment -->
 <p>Scaffolds the static memory for a FreeRTOS task. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -420,8 +400,6 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
   </table>
   </dd>
 </dl>
-
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00063">63</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -439,11 +417,8 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="#af9bb5b95ae9be61db75d49fa9bd22881">getTick</a>() * portTICK_PERIOD_MS)</div>
-<div class="ttc" id="afreertos_8h_html_af9bb5b95ae9be61db75d49fa9bd22881"><div class="ttname"><a href="#af9bb5b95ae9be61db75d49fa9bd22881">getTick</a></div><div class="ttdeci">#define getTick()</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00143">freertos.h:143</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line">(getTick() * portTICK_PERIOD_MS)</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00144">144</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
 </div>
 </div>
 <a id="a3de6343dd1d29b508dd7d52f93416750" name="a3de6343dd1d29b508dd7d52f93416750"></a>
@@ -464,8 +439,6 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
 </div><!-- fragment -->
 <p>Retrieves the FreeRTOS task handle for the defined task. </p>
 
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00093">93</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
 </div>
 </div>
 <a id="af9bb5b95ae9be61db75d49fa9bd22881" name="af9bb5b95ae9be61db75d49fa9bd22881"></a>
@@ -484,10 +457,6 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">xTaskGetTickCount()</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00143">143</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="daq__eth_8c_source.html#l00100">_eth_handle_error()</a>, <a class="el" href="daq__sd_8c_source.html#l00076">_sd_write_periodic()</a>, <a class="el" href="daq_2main_8c_source.html#l00192">can_rx_irq_handler()</a>, <a class="el" href="daq__eth_8c_source.html#l00108">eth_reset_error()</a>, <a class="el" href="heartbeat_8c_source.html#l00034">heartbeat_task()</a>, <a class="el" href="daq__sd_8c_source.html#l00043">sd_create_new_file()</a>, <a class="el" href="daq__sd_8c_source.html#l00020">sd_handle_error()</a>, <a class="el" href="daq__sd_8c_source.html#l00028">sd_reset_error()</a>, <a class="el" href="daq__sd_8c_source.html#l00136">sd_update_periodic()</a>, and <a class="el" href="daq_2main_8c_source.html#l00254">shutdown()</a>.</p>
-
 </div>
 </div>
 <a id="a8412c35f40aa1f99e880a42b27dd559a" name="a8412c35f40aa1f99e880a42b27dd559a"></a>
@@ -507,8 +476,6 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
 <b>Value:</b><div class="fragment"><div class="line">    (NAME = xSemaphoreCreateBinaryStatic(&amp;(xStaticSemaphore_##NAME)))</div>
 </div><!-- fragment -->
 <p>Initializes the defined static binary semaphore. </p>
-
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00138">138</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
 
 </div>
 </div>
@@ -535,8 +502,6 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
 <p>Initializes the defined static counting semaphore. </p>
 <dl class="section note"><dt>Note</dt><dd>initial count is set to max count (full by default) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00132">132</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
 </div>
 </div>
 <a id="a2e8ac32c8f392c8a236d495be93ba002" name="a2e8ac32c8f392c8a236d495be93ba002"></a>
@@ -556,10 +521,6 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
 <b>Value:</b><div class="fragment"><div class="line">    (NAME = xSemaphoreCreateMutexStatic(&amp;(xStaticSemaphore_##NAME)))</div>
 </div><!-- fragment -->
 <p>Initializes the defined mutex. </p>
-
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00125">125</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00139">main()</a>.</p>
 
 </div>
 </div>
@@ -591,8 +552,6 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
 </div><!-- fragment -->
 <p>Initializes the defined static queue. </p>
 
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00106">106</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
 </div>
 </div>
 <a id="a3d5d0a016332574ab3a9906ff20d959a" name="a3d5d0a016332574ab3a9906ff20d959a"></a>
@@ -611,10 +570,6 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">(osDelay(pdMS_TO_TICKS((ms))))</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00145">145</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="daq__eth_8c_source.html#l00055">eth_update_periodic()</a>.</p>
-
 </div>
 </div>
 <a id="abca5333b90b00f973c6491246378f0ef" name="abca5333b90b00f973c6491246378f0ef"></a>
@@ -633,8 +588,6 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">x</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00013">13</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
 </div>
 </div>
 <a id="aa0106d66c910122f42a397e25121651f" name="aa0106d66c910122f42a397e25121651f"></a>
@@ -651,11 +604,8 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#ae76e8808b78573773246b2ce3f1849d5">myXSTR</a>(x)</div>
-<div class="ttc" id="afreertos_8h_html_ae76e8808b78573773246b2ce3f1849d5"><div class="ttname"><a href="#ae76e8808b78573773246b2ce3f1849d5">myXSTR</a></div><div class="ttdeci">#define myXSTR(x)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8h_source.html#l00014">freertos.h:14</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line">myXSTR(x)</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00015">15</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
 </div>
 </div>
 <a id="ae76e8808b78573773246b2ce3f1849d5" name="ae76e8808b78573773246b2ce3f1849d5"></a>
@@ -674,88 +624,6 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><span class="preprocessor">#x</span></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00014">14</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
-</div>
-</div>
-<a id="a9cfaf8e95af7da51f7fc2347815e210f" name="a9cfaf8e95af7da51f7fc2347815e210f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cfaf8e95af7da51f7fc2347815e210f">&#9670;&#160;</a></span>STACK_1024</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define STACK_1024&#160;&#160;&#160;(1024)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00049">49</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
-</div>
-</div>
-<a id="a16d5b4d257fb218fa48b6865c3014f33" name="a16d5b4d257fb218fa48b6865c3014f33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16d5b4d257fb218fa48b6865c3014f33">&#9670;&#160;</a></span>STACK_2048</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define STACK_2048&#160;&#160;&#160;(2048)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00050">50</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
-</div>
-</div>
-<a id="aa38d6c6620457f52272d28f81d2ba811" name="aa38d6c6620457f52272d28f81d2ba811"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa38d6c6620457f52272d28f81d2ba811">&#9670;&#160;</a></span>STACK_256</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define STACK_256&#160;&#160;&#160;(256)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00047">47</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
-</div>
-</div>
-<a id="a54f66041ce99e1a81cb0f571768bb057" name="a54f66041ce99e1a81cb0f571768bb057"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54f66041ce99e1a81cb0f571768bb057">&#9670;&#160;</a></span>STACK_4096</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define STACK_4096&#160;&#160;&#160;(4096)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00051">51</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
-</div>
-</div>
-<a id="a6ab500a15eda5befe7c0a9be1e7669e5" name="a6ab500a15eda5befe7c0a9be1e7669e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ab500a15eda5befe7c0a9be1e7669e5">&#9670;&#160;</a></span>STACK_512</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define STACK_512&#160;&#160;&#160;(512)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00048">48</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
 </div>
 </div>
 <a id="abe574562452fd3a573084481cb7a9cf3" name="abe574562452fd3a573084481cb7a9cf3"></a>
@@ -772,36 +640,9 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    (NAME##_wrapper.handle = osThreadNew(<a class="code hl_function" href="#a9c778d52c93dd2b838088f502c737e74">rtosWrapper</a>, &amp;NAME##_wrapper, &amp;NAME##_wrapper.attrs))</div>
-<div class="ttc" id="afreertos_8h_html_a9c778d52c93dd2b838088f502c737e74"><div class="ttname"><a href="#a9c778d52c93dd2b838088f502c737e74">rtosWrapper</a></div><div class="ttdeci">void rtosWrapper(void *arg)</div><div class="ttdef"><b>Definition</b> <a href="freertos_8c_source.html#l00011">freertos.c:11</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line">    (NAME##_wrapper.handle = osThreadNew(rtosWrapper, &amp;NAME##_wrapper, &amp;NAME##_wrapper.attrs))</div>
 </div><!-- fragment -->
 <p>Initializes and starts the defined task. </p>
-
-<p class="definition">Definition at line <a class="el" href="freertos_8h_source.html#l00087">87</a> of file <a class="el" href="freertos_8h_source.html">freertos.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00139">main()</a>, and <a class="el" href="a__box_2main_8c_source.html#l00120">main()</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a9c778d52c93dd2b838088f502c737e74" name="a9c778d52c93dd2b838088f502c737e74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c778d52c93dd2b838088f502c737e74">&#9670;&#160;</a></span>rtosWrapper()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void rtosWrapper </td>
-          <td>(</td>
-          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>arg</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="freertos_8c_source.html#l00011">11</a> of file <a class="el" href="freertos_8c_source.html">freertos.c</a>.</p>
-
-<p class="reference">References <a class="el" href="freertos_8h_source.html#l00041">ThreadWrapper_t::period_ms</a>, and <a class="el" href="freertos_8h_source.html#l00040">ThreadWrapper_t::taskFunction</a>.</p>
 
 </div>
 </div>

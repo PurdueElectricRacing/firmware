@@ -110,13 +110,13 @@ Flashing Firmware</h2>
 <li>Select the appropriate debug configuration (based on node name) from the dropdown at the top of the panel.</li>
 <li>Connect the device to your computer via an ST-Link.</li>
 <li>Click the green play button at the top of the panel to start the flashing process.</li>
-<li>If successful, you should see the debug program jump to the <code><a class="el" href="a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a></code> in the source code.</li>
+<li>If successful, you should see the debug program jump to the <code>main()</code> in the source code.</li>
 </ol>
 <p>Additional Notes:</p><ul>
 <li>The VSCode debug configurations are stored in the <code>.vscode/launch.json</code> file.<ul>
 <li>Helpful parameters to tweak include:<ul>
 <li><code>preLaunchTask</code>: Comment it out to prevent automatic building before flashing.</li>
-<li><code>runToEntryPoint</code>: Comment it out to prevent automatic pausing at <code><a class="el" href="a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a></code>.</li>
+<li><code>runToEntryPoint</code>: Comment it out to prevent automatic pausing at <code>main()</code>.</li>
 </ul>
 </li>
 </ul>
@@ -130,7 +130,7 @@ Using the Debugging Tools</h2>
 <li>Breakpoints can be disabled/re-enabled without being removed by toggling the checkbox</li>
 </ul>
 </li>
-<li>Reset: Reset the device (goes back to <code><a class="el" href="a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a></code>).</li>
+<li>Reset: Reset the device (goes back to <code>main()</code>).</li>
 <li>Step Over: Execute the next line of code, skipping over function calls.</li>
 <li>Step Into: Step into function calls to debug inside them.</li>
 <li>Step Out: Step out of the current function.</li>
@@ -154,7 +154,7 @@ Using the Debugging Tools</h2>
 <p><b>Call Stack</b>:</p><ul>
 <li>View the current function call stack to understand the execution flow.</li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>If you put a breakpoint in <code><a class="el" href="a__box_2main_8c.html#a2bffc10d5bd4106753b7c30e86903bea">HardFault_Handler()</a></code>, you can check the call stack to see where the fault originated from.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If you put a breakpoint in <code>HardFault_Handler()</code>, you can check the call stack to see where the fault originated from.</dd></dl>
 <p><b>GDB</b>:</p><ul>
 <li>Open the debug console in VSCode to enter GDB commands directly.</li>
 <li>All standard GDB commands are supported:<ul>

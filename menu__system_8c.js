@@ -9,7 +9,5 @@ var menu__system_8c =
     [ "MS_select", "menu__system_8c.html#a962aad262b004bf39deed9578941a89e", null ],
     [ "MS_setStyleHover", "menu__system_8c.html#a7645a0be2314be1c0a9117b4b34b4ed3", null ],
     [ "MS_setStyleNormal", "menu__system_8c.html#a52e23759a2403de35a5610f96cae0cd0", null ],
-    [ "MS_setStyleSelected", "menu__system_8c.html#a6173507fa7b7cf81afec896f80300c9a", null ],
-    [ "HOVER_BORDER_WIDTH", "menu__system_8c.html#a3c301bd8bfb775fb3e61da22899491ec", null ],
-    [ "NO_BORDER_WIDTH", "menu__system_8c.html#ab1905c9ccf270185a84f5f2389a23c10", null ]
+    [ "MS_setStyleSelected", "menu__system_8c.html#a6173507fa7b7cf81afec896f80300c9a", null ]
 ];

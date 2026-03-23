@@ -105,9 +105,7 @@ $(function(){initNavTree('gps_8c.html',''); initResizable(true); });
 <p>GPS driver for UBLOX NEO-M9N GPS module.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="gps_8h_source.html">gps.h</a>&quot;</code><br />
-</div>
-<p><a href="gps_8c_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a8aa2ccfc6bae9091b677a8a1ad4b69a3" id="r_a8aa2ccfc6bae9091b677a8a1ad4b69a3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8aa2ccfc6bae9091b677a8a1ad4b69a3">GPS_Decode</a> (<a class="el" href="structGPS__Handle__t.html">GPS_Handle_t</a> *gps)</td></tr>
@@ -117,8 +115,6 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>GPS driver for UBLOX NEO-M9N GPS module. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-
-<p class="definition">Definition in file <a class="el" href="gps_8c_source.html">gps.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a8aa2ccfc6bae9091b677a8a1ad4b69a3" name="a8aa2ccfc6bae9091b677a8a1ad4b69a3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8aa2ccfc6bae9091b677a8a1ad4b69a3">&#9670;&#160;</a></span>GPS_Decode()</h2>
@@ -145,10 +141,6 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>true Parsing successful </dd>
 <dd>
 false Parsing failed </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="gps_8c_source.html#l00010">10</a> of file <a class="el" href="gps_8c_source.html">gps.c</a>.</p>
-
-<p class="reference">References <a class="el" href="gps_8h_source.html#l00147">bytes_to_int16()</a>, <a class="el" href="gps_8h_source.html#l00134">bytes_to_int32()</a>, <a class="el" href="gps_8h_source.html#l00143">bytes_to_uint16()</a>, <a class="el" href="gps_8h_source.html#l00139">bytes_to_uint32()</a>, <a class="el" href="gps_8h_source.html#l00126">GPS_Handle_t::data</a>, <a class="el" href="gps_8h_source.html#l00085">NAV_PVT_t::day</a>, <a class="el" href="gps_8h_source.html#l00095">NAV_PVT_t::fixType</a>, <a class="el" href="gps_8h_source.html#l00096">NAV_PVT_t::flags1</a>, <a class="el" href="gps_8h_source.html#l00097">NAV_PVT_t::flags2</a>, <a class="el" href="gps_8h_source.html#l00052">GPS_FIX_TYPE_GNSS_2D</a>, <a class="el" href="gps_8h_source.html#l00053">GPS_FIX_TYPE_GNSS_3D</a>, <a class="el" href="gps_8h_source.html#l00124">GPS_Handle_t::gps_rx_buffer</a>, <a class="el" href="gps_8h_source.html#l00043">GPS_VALID_DATE</a>, <a class="el" href="gps_8h_source.html#l00045">GPS_VALID_FULLY_RESOLVED</a>, <a class="el" href="gps_8h_source.html#l00046">GPS_VALID_MAG</a>, <a class="el" href="gps_8h_source.html#l00044">GPS_VALID_TIME</a>, <a class="el" href="gps_8h_source.html#l00110">NAV_PVT_t::groundSpeed</a>, <a class="el" href="gps_8h_source.html#l00131">GPS_Handle_t::hasGNSSFix</a>, <a class="el" href="gps_8h_source.html#l00111">NAV_PVT_t::headingMotion</a>, <a class="el" href="gps_8h_source.html#l00117">NAV_PVT_t::headingVehicle</a>, <a class="el" href="gps_8h_source.html#l00102">NAV_PVT_t::height</a>, <a class="el" href="gps_8h_source.html#l00103">NAV_PVT_t::heightMSL</a>, <a class="el" href="gps_8h_source.html#l00104">NAV_PVT_t::horizontalAccuracy</a>, <a class="el" href="gps_8h_source.html#l00086">NAV_PVT_t::hour</a>, <a class="el" href="gps_8h_source.html#l00152">is_valid_header()</a>, <a class="el" href="gps_8h_source.html#l00129">GPS_Handle_t::isFullyResolved</a>, <a class="el" href="gps_8h_source.html#l00127">GPS_Handle_t::isValidDate</a>, <a class="el" href="gps_8h_source.html#l00130">GPS_Handle_t::isValidMag</a>, <a class="el" href="gps_8h_source.html#l00128">GPS_Handle_t::isValidTime</a>, <a class="el" href="gps_8h_source.html#l00082">NAV_PVT_t::iTOW</a>, <a class="el" href="gps_8h_source.html#l00101">NAV_PVT_t::latitude</a>, <a class="el" href="gps_8h_source.html#l00100">NAV_PVT_t::longitude</a>, <a class="el" href="gps_8h_source.html#l00120">NAV_PVT_t::magneticAcc</a>, <a class="el" href="gps_8h_source.html#l00119">NAV_PVT_t::magneticDec</a>, <a class="el" href="gps_8h_source.html#l00087">NAV_PVT_t::minute</a>, <a class="el" href="gps_8h_source.html#l00084">NAV_PVT_t::month</a>, <a class="el" href="gps_8h_source.html#l00093">NAV_PVT_t::nano</a>, <a class="el" href="gps_8h_source.html#l00099">NAV_PVT_t::numSatellites</a>, <a class="el" href="gps_8h_source.html#l00114">NAV_PVT_t::positionDOP</a>, <a class="el" href="gps_8h_source.html#l00115">NAV_PVT_t::reserved</a>, <a class="el" href="gps_8h_source.html#l00088">NAV_PVT_t::second</a>, <a class="el" href="gps_8h_source.html#l00112">NAV_PVT_t::speedAccuracy</a>, <a class="el" href="gps_8h_source.html#l00092">NAV_PVT_t::timeAccuracy</a>, <a class="el" href="gps_8h_source.html#l00090">NAV_PVT_t::valid</a>, <a class="el" href="gps_8h_source.html#l00109">NAV_PVT_t::velDown</a>, <a class="el" href="gps_8h_source.html#l00108">NAV_PVT_t::velEast</a>, <a class="el" href="gps_8h_source.html#l00107">NAV_PVT_t::velNorth</a>, <a class="el" href="gps_8h_source.html#l00105">NAV_PVT_t::verticalAccuracy</a>, and <a class="el" href="gps_8h_source.html#l00083">NAV_PVT_t::year</a>.</p>
 
 </div>
 </div>

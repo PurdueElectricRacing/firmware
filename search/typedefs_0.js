@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['byte_0',['BYTE',['../ff_8h.html#a4ae1dab0fb4b072a66584546209e7d58',1,'ff.h']]]
+  ['_5fwizchip_0',['_WIZCHIP',['../group__DATA__TYPE.html#gac69f15a66bab10650b3834c758643066',1,'wizchip_conf.h']]]
 ];

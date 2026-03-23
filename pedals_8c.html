@@ -106,48 +106,26 @@ $(function(){initNavTree('pedals_8c.html',''); initResizable(true); });
 
 <p>Pedal processing logic.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="pedals_8h_source.html">pedals.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;pedals.h&quot;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;common/can_library/generated/DASHBOARD.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="faults__common_8h_source.html">common/can_library/faults_common.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
-</div>
-<p><a href="pedals_8c_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:af991168f3f52d43942c079612918d9a2" id="r_af991168f3f52d43942c079612918d9a2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af991168f3f52d43942c079612918d9a2">MAX_PEDAL_MEAS</a>&#160;&#160;&#160;(4095)</td></tr>
+<tr class="memitem:af991168f3f52d43942c079612918d9a2" id="r_af991168f3f52d43942c079612918d9a2"><td class="memItemLeft" align="right" valign="top"><a id="af991168f3f52d43942c079612918d9a2" name="af991168f3f52d43942c079612918d9a2"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_PEDAL_MEAS</b>&#160;&#160;&#160;(4095)</td></tr>
 <tr class="separator:af991168f3f52d43942c079612918d9a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1302d463027af8c022506f6c9969613a" id="r_a1302d463027af8c022506f6c9969613a"><td class="memItemLeft" align="right" valign="top">static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1302d463027af8c022506f6c9969613a">normalize</a> (uint16_t input, uint16_t lower_bound, uint16_t upper_bound)</td></tr>
-<tr class="memdesc:a1302d463027af8c022506f6c9969613a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalizes a value between min and max to a range of 0 to MAX_PEDAL_MEAS (4095)  <br /></td></tr>
-<tr class="separator:a1302d463027af8c022506f6c9969613a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a6b9828f1ad730c5089a2698a79253c" id="r_a4a6b9828f1ad730c5089a2698a79253c"><td class="memItemLeft" align="right" valign="top">static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a6b9828f1ad730c5089a2698a79253c">clamp</a> (uint16_t input, uint16_t lower_bound, uint16_t upper_bound)</td></tr>
-<tr class="separator:a4a6b9828f1ad730c5089a2698a79253c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad390f112c056607f9f37f0c1a2e5f3b6" id="r_ad390f112c056607f9f37f0c1a2e5f3b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad390f112c056607f9f37f0c1a2e5f3b6">pedalsPeriodic</a> (void)</td></tr>
 <tr class="memdesc:ad390f112c056607f9f37f0c1a2e5f3b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes pedal sensor readings and sets faults as necessary.  <br /></td></tr>
 <tr class="separator:ad390f112c056607f9f37f0c1a2e5f3b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a7ecaa09d241f96c6b3442c7b0f6e9fde" id="r_a7ecaa09d241f96c6b3442c7b0f6e9fde"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ecaa09d241f96c6b3442c7b0f6e9fde">THROTTLE1_MIN</a> = 420</td></tr>
-<tr class="separator:a7ecaa09d241f96c6b3442c7b0f6e9fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50b38032ee0ab56ca505bd670b45f2c9" id="r_a50b38032ee0ab56ca505bd670b45f2c9"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50b38032ee0ab56ca505bd670b45f2c9">THROTTLE1_MAX</a> = 1010</td></tr>
-<tr class="separator:a50b38032ee0ab56ca505bd670b45f2c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93bc9856409b5361ca77db1b1f3a9a3a" id="r_a93bc9856409b5361ca77db1b1f3a9a3a"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93bc9856409b5361ca77db1b1f3a9a3a">THROTTLE2_MIN</a> = 120</td></tr>
-<tr class="separator:a93bc9856409b5361ca77db1b1f3a9a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada52037ac8ecf8e91741ae67861ef03e" id="r_ada52037ac8ecf8e91741ae67861ef03e"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada52037ac8ecf8e91741ae67861ef03e">THROTTLE2_MAX</a> = 840</td></tr>
-<tr class="separator:ada52037ac8ecf8e91741ae67861ef03e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98a3a4ce675601bacd4affa0de232839" id="r_a98a3a4ce675601bacd4affa0de232839"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98a3a4ce675601bacd4affa0de232839">BRAKE1_MIN</a> = 410</td></tr>
-<tr class="separator:a98a3a4ce675601bacd4affa0de232839"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8182fb64b059c1a510e2d938eb081a69" id="r_a8182fb64b059c1a510e2d938eb081a69"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8182fb64b059c1a510e2d938eb081a69">BRAKE1_MAX</a> = 1100</td></tr>
-<tr class="separator:a8182fb64b059c1a510e2d938eb081a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5e207fbb792838d2eda926b595ce89e" id="r_ab5e207fbb792838d2eda926b595ce89e"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5e207fbb792838d2eda926b595ce89e">APPS_THROTTLE_THRESHOLD</a> = 4095 / 10</td></tr>
-<tr class="separator:ab5e207fbb792838d2eda926b595ce89e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59a5cb965667136dc98b8366978ea6eb" id="r_a59a5cb965667136dc98b8366978ea6eb"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59a5cb965667136dc98b8366978ea6eb">APPS_BRAKE_THRESHOLD</a> = 4095 / 10</td></tr>
-<tr class="separator:a59a5cb965667136dc98b8366978ea6eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04f66772314df6ee10ca7ccf555278cd" id="r_a04f66772314df6ee10ca7ccf555278cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpedal__values__t.html">pedal_values_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04f66772314df6ee10ca7ccf555278cd">pedal_values</a></td></tr>
 <tr class="separator:a04f66772314df6ee10ca7ccf555278cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -156,112 +134,7 @@ Variables</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
 <dd>
 Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu'+'rdu'+'e.'+'edu'; return false;">lcoxl<span class="obfuscator">.nosp@m.</span>ey@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-
-<p class="definition">Definition in file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-</div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="af991168f3f52d43942c079612918d9a2" name="af991168f3f52d43942c079612918d9a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af991168f3f52d43942c079612918d9a2">&#9670;&#160;</a></span>MAX_PEDAL_MEAS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MAX_PEDAL_MEAS&#160;&#160;&#160;(4095)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00033">33</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a4a6b9828f1ad730c5089a2698a79253c" name="a4a6b9828f1ad730c5089a2698a79253c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a6b9828f1ad730c5089a2698a79253c">&#9670;&#160;</a></span>clamp()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static uint16_t clamp </td>
-          <td>(</td>
-          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>input</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>lower_bound</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>upper_bound</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00057">57</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pedals_8c_source.html#l00068">pedalsPeriodic()</a>.</p>
-
-</div>
-</div>
-<a id="a1302d463027af8c022506f6c9969613a" name="a1302d463027af8c022506f6c9969613a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1302d463027af8c022506f6c9969613a">&#9670;&#160;</a></span>normalize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static uint16_t normalize </td>
-          <td>(</td>
-          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>input</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>lower_bound</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>upper_bound</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Normalizes a value between min and max to a range of 0 to MAX_PEDAL_MEAS (4095) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">value</td><td>Raw value to normalize </td></tr>
-    <tr><td class="paramname">min</td><td>Minimum value of the input range </td></tr>
-    <tr><td class="paramname">max</td><td>Maximum value of the input range </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00048">48</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pedals_8c_source.html#l00068">pedalsPeriodic()</a>.</p>
-
-</div>
-</div>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="ad390f112c056607f9f37f0c1a2e5f3b6" name="ad390f112c056607f9f37f0c1a2e5f3b6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad390f112c056607f9f37f0c1a2e5f3b6">&#9670;&#160;</a></span>pedalsPeriodic()</h2>
 
@@ -280,119 +153,9 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
 <p>Processes pedal sensor readings and sets faults as necessary. </p>
 <dl class="section note"><dt>Note</dt><dd>This function is called periodically by the scheduler </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00068">68</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-<p class="reference">References <a class="el" href="pedals_8c_source.html#l00031">APPS_BRAKE_THRESHOLD</a>, <a class="el" href="pedals_8c_source.html#l00030">APPS_THROTTLE_THRESHOLD</a>, <a class="el" href="dashboard_2main_8h_source.html#l00023">raw_adc_values_t::b1</a>, <a class="el" href="pedals_8h_source.html#l00016">pedal_values_t::brake</a>, <a class="el" href="pedals_8c_source.html#l00026">BRAKE1_MAX</a>, <a class="el" href="pedals_8c_source.html#l00025">BRAKE1_MIN</a>, <a class="el" href="pedals_8c_source.html#l00057">clamp()</a>, <a class="el" href="faults__common_8h.html#a34304ae5ca942d0605c4f3c030a71eb3">is_latched()</a>, <a class="el" href="pedals_8c_source.html#l00048">normalize()</a>, <a class="el" href="pedals_8c_source.html#l00036">pedal_values</a>, <a class="el" href="dashboard_2main_8c_source.html#l00068">raw_adc_values</a>, <a class="el" href="dashboard_2main_8h_source.html#l00021">raw_adc_values_t::t1</a>, <a class="el" href="dashboard_2main_8h_source.html#l00022">raw_adc_values_t::t2</a>, <a class="el" href="pedals_8h_source.html#l00015">pedal_values_t::throttle</a>, <a class="el" href="pedals_8c_source.html#l00018">THROTTLE1_MAX</a>, <a class="el" href="pedals_8c_source.html#l00017">THROTTLE1_MIN</a>, <a class="el" href="pedals_8c_source.html#l00022">THROTTLE2_MAX</a>, <a class="el" href="pedals_8c_source.html#l00021">THROTTLE2_MIN</a>, and <a class="el" href="faults__common_8h.html#af55b58b58005adef79c816e1e1d8cd70">update_fault()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="dashboard_2main_8c_source.html#l00158">main()</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a59a5cb965667136dc98b8366978ea6eb" name="a59a5cb965667136dc98b8366978ea6eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59a5cb965667136dc98b8366978ea6eb">&#9670;&#160;</a></span>APPS_BRAKE_THRESHOLD</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t APPS_BRAKE_THRESHOLD = 4095 / 10</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00031">31</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pedals_8c_source.html#l00068">pedalsPeriodic()</a>.</p>
-
-</div>
-</div>
-<a id="ab5e207fbb792838d2eda926b595ce89e" name="ab5e207fbb792838d2eda926b595ce89e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5e207fbb792838d2eda926b595ce89e">&#9670;&#160;</a></span>APPS_THROTTLE_THRESHOLD</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t APPS_THROTTLE_THRESHOLD = 4095 / 10</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00030">30</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pedals_8c_source.html#l00068">pedalsPeriodic()</a>.</p>
-
-</div>
-</div>
-<a id="a8182fb64b059c1a510e2d938eb081a69" name="a8182fb64b059c1a510e2d938eb081a69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8182fb64b059c1a510e2d938eb081a69">&#9670;&#160;</a></span>BRAKE1_MAX</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t BRAKE1_MAX = 1100</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00026">26</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pedals_8c_source.html#l00068">pedalsPeriodic()</a>.</p>
-
-</div>
-</div>
-<a id="a98a3a4ce675601bacd4affa0de232839" name="a98a3a4ce675601bacd4affa0de232839"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98a3a4ce675601bacd4affa0de232839">&#9670;&#160;</a></span>BRAKE1_MIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t BRAKE1_MIN = 410</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00025">25</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pedals_8c_source.html#l00068">pedalsPeriodic()</a>.</p>
-
-</div>
-</div>
 <a id="a04f66772314df6ee10ca7ccf555278cd" name="a04f66772314df6ee10ca7ccf555278cd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a04f66772314df6ee10ca7ccf555278cd">&#9670;&#160;</a></span>pedal_values</h2>
 
@@ -409,114 +172,6 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
 <div class="line">    .brake    = 0,</div>
 <div class="line">}</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00036">36</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pedals_8c_source.html#l00068">pedalsPeriodic()</a>, and <a class="el" href="race_8c_source.html#l00143">update_pedal_telemetry()</a>.</p>
-
-</div>
-</div>
-<a id="a50b38032ee0ab56ca505bd670b45f2c9" name="a50b38032ee0ab56ca505bd670b45f2c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50b38032ee0ab56ca505bd670b45f2c9">&#9670;&#160;</a></span>THROTTLE1_MAX</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t THROTTLE1_MAX = 1010</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00018">18</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pedals_8c_source.html#l00068">pedalsPeriodic()</a>.</p>
-
-</div>
-</div>
-<a id="a7ecaa09d241f96c6b3442c7b0f6e9fde" name="a7ecaa09d241f96c6b3442c7b0f6e9fde"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ecaa09d241f96c6b3442c7b0f6e9fde">&#9670;&#160;</a></span>THROTTLE1_MIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t THROTTLE1_MIN = 420</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00017">17</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pedals_8c_source.html#l00068">pedalsPeriodic()</a>.</p>
-
-</div>
-</div>
-<a id="ada52037ac8ecf8e91741ae67861ef03e" name="ada52037ac8ecf8e91741ae67861ef03e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada52037ac8ecf8e91741ae67861ef03e">&#9670;&#160;</a></span>THROTTLE2_MAX</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t THROTTLE2_MAX = 840</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00022">22</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pedals_8c_source.html#l00068">pedalsPeriodic()</a>.</p>
-
-</div>
-</div>
-<a id="a93bc9856409b5361ca77db1b1f3a9a3a" name="a93bc9856409b5361ca77db1b1f3a9a3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93bc9856409b5361ca77db1b1f3a9a3a">&#9670;&#160;</a></span>THROTTLE2_MIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t THROTTLE2_MIN = 120</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pedals_8c_source.html#l00021">21</a> of file <a class="el" href="pedals_8c_source.html">pedals.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pedals_8c_source.html#l00068">pedalsPeriodic()</a>.</p>
-
 </div>
 </div>
 </div><!-- contents -->

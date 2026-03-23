@@ -3,13 +3,6 @@ var phal__F4__F7_2usart_2usart_8h =
     [ "usart_rx_errors_t", "structusart__rx__errors__t.html", "structusart__rx__errors__t" ],
     [ "usart_tx_errors_t", "structusart__tx__errors__t.html", "structusart__tx__errors__t" ],
     [ "usart_init_t", "structusart__init__t.html", "structusart__init__t" ],
-    [ "UART5_RXDMA_CONT_CONFIG", "phal__F4__F7_2usart_2usart_8h.html#a87cbbe90cea66b62d095c20a8bc6c7a8", null ],
-    [ "UART5_TXDMA_CONT_CONFIG", "phal__F4__F7_2usart_2usart_8h.html#ab4f69731eee38d79a38877765f1c1da9", null ],
-    [ "USART1_RXDMA_CONT_CONFIG", "phal__F4__F7_2usart_2usart_8h.html#aa2fb89650553d0f56438cc55669ed014", null ],
-    [ "USART1_TXDMA_CONT_CONFIG", "phal__F4__F7_2usart_2usart_8h.html#a207e6b60144d3609a73c96b42bfa3c1c", null ],
-    [ "USART4_RXDMA_CONT_CONFIG", "phal__F4__F7_2usart_2usart_8h.html#aa166abd04c0dedc6986d324a66989c51", null ],
-    [ "USART4_TXDMA_CONT_CONFIG", "phal__F4__F7_2usart_2usart_8h.html#ae3f737a2390de88ed8b648ca0a18814a", null ],
-    [ "ptr_int", "phal__F4__F7_2usart_2usart_8h.html#a44e0b82277af9738fcb79164886954c9", null ],
     [ "hw_flow_ctl_t", "phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2", [
       [ "HW_DISABLE", "phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6", null ],
       [ "CTS", "phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a97dc7d7bbe8a217f4bc934b4a868c521", null ],

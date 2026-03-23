@@ -105,33 +105,28 @@ $(function(){initNavTree('common_2phal__G4_2spi_2spi_8c.html',''); initResizable
 
 <p>G4 SPI.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="phal__G4_2spi_2spi_8h_source.html">common/phal_G4/spi/spi.h</a>&quot;</code><br />
-</div>
-<p><a href="common_2phal__G4_2spi_2spi_8c_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
+<div class="textblock"><code>#include &quot;common/phal_G4/spi/spi.h&quot;</code><br />
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a65f9e26b43c08713fe917d0dd61bb506" id="r_a65f9e26b43c08713fe917d0dd61bb506"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65f9e26b43c08713fe917d0dd61bb506">handleTxComplete</a> (DMA_TypeDef *dma_periph, uint8_t channel)</td></tr>
-<tr class="separator:a65f9e26b43c08713fe917d0dd61bb506"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a4524eb6715f19d2d2128ad7f410269" id="r_a0a4524eb6715f19d2d2128ad7f410269"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a4524eb6715f19d2d2128ad7f410269">PHAL_SPI_init</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *cfg)</td></tr>
 <tr class="memdesc:a0a4524eb6715f19d2d2128ad7f410269"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initilize SPI peripheral with the configuired structure.  <br /></td></tr>
 <tr class="separator:a0a4524eb6715f19d2d2128ad7f410269"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7593e1c8be8711c7bda6d7de43913816" id="r_a7593e1c8be8711c7bda6d7de43913816"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7593e1c8be8711c7bda6d7de43913816">PHAL_SPI_transfer_noDMA</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, const uint8_t *out_data, uint32_t txlen, uint32_t rxlen, uint8_t *in_data)</td></tr>
 <tr class="memdesc:a7593e1c8be8711c7bda6d7de43913816"><td class="mdescLeft">&#160;</td><td class="mdescRight">SPI handle.  <br /></td></tr>
 <tr class="separator:a7593e1c8be8711c7bda6d7de43913816"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9da5be05aad59873975238094d15b27" id="r_ab9da5be05aad59873975238094d15b27"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab9da5be05aad59873975238094d15b27">PHAL_SPI_transfer</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, const uint8_t *out_data, const uint32_t data_len, uint8_t *in_data)</td></tr>
+<tr class="memitem:ab9da5be05aad59873975238094d15b27" id="r_ab9da5be05aad59873975238094d15b27"><td class="memItemLeft" align="right" valign="top"><a id="ab9da5be05aad59873975238094d15b27" name="ab9da5be05aad59873975238094d15b27"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_SPI_transfer</b> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, const uint8_t *out_data, const uint32_t data_len, uint8_t *in_data)</td></tr>
 <tr class="separator:ab9da5be05aad59873975238094d15b27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35fd94eb02f487e09065ddc0ecb92e53" id="r_a35fd94eb02f487e09065ddc0ecb92e53"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35fd94eb02f487e09065ddc0ecb92e53">PHAL_SPI_busy</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *cfg)</td></tr>
 <tr class="memdesc:a35fd94eb02f487e09065ddc0ecb92e53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check for current SPI transaction to complete.  <br /></td></tr>
 <tr class="separator:a35fd94eb02f487e09065ddc0ecb92e53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebd7fc8129153c417096d7d4c99b3674" id="r_aebd7fc8129153c417096d7d4c99b3674"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aebd7fc8129153c417096d7d4c99b3674">PHAL_SPI_ForceReset</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi)</td></tr>
+<tr class="memitem:aebd7fc8129153c417096d7d4c99b3674" id="r_aebd7fc8129153c417096d7d4c99b3674"><td class="memItemLeft" align="right" valign="top"><a id="aebd7fc8129153c417096d7d4c99b3674" name="aebd7fc8129153c417096d7d4c99b3674"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_SPI_ForceReset</b> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi)</td></tr>
 <tr class="separator:aebd7fc8129153c417096d7d4c99b3674"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadb8937353693c94b0d8e32fc6f18fc2" id="r_aadb8937353693c94b0d8e32fc6f18fc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aadb8937353693c94b0d8e32fc6f18fc2">DMA1_Channel3_IRQHandler</a> (void)</td></tr>
-<tr class="separator:aadb8937353693c94b0d8e32fc6f18fc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd16b3391557c4a3a8020d675e2c452f" id="r_abd16b3391557c4a3a8020d675e2c452f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd16b3391557c4a3a8020d675e2c452f">DMA1_Channel5_IRQHandler</a> (void)</td></tr>
-<tr class="separator:abd16b3391557c4a3a8020d675e2c452f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66857fec7bb282eed8204a690f4ce5ae" id="r_a66857fec7bb282eed8204a690f4ce5ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a66857fec7bb282eed8204a690f4ce5ae">DMA2_Channel3_IRQHandler</a> (void)</td></tr>
-<tr class="separator:a66857fec7bb282eed8204a690f4ce5ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9aace1b44b73111e15aa39f06f43456" id="r_af9aace1b44b73111e15aa39f06f43456"><td class="memItemLeft" align="right" valign="top"><a id="af9aace1b44b73111e15aa39f06f43456" name="af9aace1b44b73111e15aa39f06f43456"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>__attribute__</b> ((weak))</td></tr>
+<tr class="separator:af9aace1b44b73111e15aa39f06f43456"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac35bd14ad3b560e0ad69320caef4d4ac" id="r_ac35bd14ad3b560e0ad69320caef4d4ac"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac35bd14ad3b560e0ad69320caef4d4ac">PHAL_SPI_readByte</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, uint8_t address, bool skipDummy)</td></tr>
 <tr class="memdesc:ac35bd14ad3b560e0ad69320caef4d4ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocking function to read a single byte from a SPI device. Useful for Initilization functions that just need to read a single byte in a blocking function.  <br /></td></tr>
 <tr class="separator:ac35bd14ad3b560e0ad69320caef4d4ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,122 +136,18 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:afdc1120bbc54485ac4c735d8f9756743" id="r_afdc1120bbc54485ac4c735d8f9756743"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdc1120bbc54485ac4c735d8f9756743">APB2ClockRateHz</a></td></tr>
+<tr class="memitem:afdc1120bbc54485ac4c735d8f9756743" id="r_afdc1120bbc54485ac4c735d8f9756743"><td class="memItemLeft" align="right" valign="top"><a id="afdc1120bbc54485ac4c735d8f9756743" name="afdc1120bbc54485ac4c735d8f9756743"></a>
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>APB2ClockRateHz</b></td></tr>
 <tr class="separator:afdc1120bbc54485ac4c735d8f9756743"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3f547c0ac514dd12e5bab27a6b60bec" id="r_ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3f547c0ac514dd12e5bab27a6b60bec">APB1ClockRateHz</a></td></tr>
+<tr class="memitem:ae3f547c0ac514dd12e5bab27a6b60bec" id="r_ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memItemLeft" align="right" valign="top"><a id="ae3f547c0ac514dd12e5bab27a6b60bec" name="ae3f547c0ac514dd12e5bab27a6b60bec"></a>
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>APB1ClockRateHz</b></td></tr>
 <tr class="separator:ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ea25b2ed9df62bc02d3805b3bfb93e4" id="r_a9ea25b2ed9df62bc02d3805b3bfb93e4"><td class="memItemLeft" align="right" valign="top">static volatile <a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ea25b2ed9df62bc02d3805b3bfb93e4">dma1_active_tx</a> [8] = {0}</td></tr>
-<tr class="separator:a9ea25b2ed9df62bc02d3805b3bfb93e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2b503f000c160de9a2bbfa364cf60d0" id="r_ae2b503f000c160de9a2bbfa364cf60d0"><td class="memItemLeft" align="right" valign="top">static volatile <a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae2b503f000c160de9a2bbfa364cf60d0">dma2_active_tx</a> [8] = {0}</td></tr>
-<tr class="separator:ae2b503f000c160de9a2bbfa364cf60d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a756235ee84f91148d0e0d83b3bf8396f" id="r_a756235ee84f91148d0e0d83b3bf8396f"><td class="memItemLeft" align="right" valign="top">static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a756235ee84f91148d0e0d83b3bf8396f">trash_can</a></td></tr>
-<tr class="separator:a756235ee84f91148d0e0d83b3bf8396f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7412b93c6525c9c9e53677b29cc9f5aa" id="r_a7412b93c6525c9c9e53677b29cc9f5aa"><td class="memItemLeft" align="right" valign="top">static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7412b93c6525c9c9e53677b29cc9f5aa">zero</a></td></tr>
-<tr class="separator:a7412b93c6525c9c9e53677b29cc9f5aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>G4 SPI. </p>
 <dl class="section author"><dt>Author</dt><dd>Ronak Jain </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
-
-<p class="definition">Definition in file <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html">spi.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="aadb8937353693c94b0d8e32fc6f18fc2" name="aadb8937353693c94b0d8e32fc6f18fc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadb8937353693c94b0d8e32fc6f18fc2">&#9670;&#160;</a></span>DMA1_Channel3_IRQHandler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DMA1_Channel3_IRQHandler </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00305">305</a> of file <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html">spi.c</a>.</p>
-
-<p class="reference">References <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00238">handleTxComplete()</a>.</p>
-
-</div>
-</div>
-<a id="abd16b3391557c4a3a8020d675e2c452f" name="abd16b3391557c4a3a8020d675e2c452f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd16b3391557c4a3a8020d675e2c452f">&#9670;&#160;</a></span>DMA1_Channel5_IRQHandler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DMA1_Channel5_IRQHandler </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00309">309</a> of file <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html">spi.c</a>.</p>
-
-<p class="reference">References <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00238">handleTxComplete()</a>.</p>
-
-</div>
-</div>
-<a id="a66857fec7bb282eed8204a690f4ce5ae" name="a66857fec7bb282eed8204a690f4ce5ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66857fec7bb282eed8204a690f4ce5ae">&#9670;&#160;</a></span>DMA2_Channel3_IRQHandler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DMA2_Channel3_IRQHandler </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00313">313</a> of file <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html">spi.c</a>.</p>
-
-<p class="reference">References <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00238">handleTxComplete()</a>.</p>
-
-</div>
-</div>
-<a id="a65f9e26b43c08713fe917d0dd61bb506" name="a65f9e26b43c08713fe917d0dd61bb506"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65f9e26b43c08713fe917d0dd61bb506">&#9670;&#160;</a></span>handleTxComplete()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void handleTxComplete </td>
-          <td>(</td>
-          <td class="paramtype">DMA_TypeDef *</td>          <td class="paramname"><span class="paramname"><em>dma_periph</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>channel</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00245">245</a> of file <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html">spi.c</a>.</p>
-
-<p class="reference">References <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00036">SPI_InitConfig_t::_busy</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00038">SPI_InitConfig_t::_direct_mode_error</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00037">SPI_InitConfig_t::_error</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00039">SPI_InitConfig_t::_fifo_overrun</a>, <a class="el" href="phal__G4_2dma_2dma_8h_source.html#l00056">dma_init_t::channel_idx</a>, <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00014">dma1_active_tx</a>, <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00015">dma2_active_tx</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00031">SPI_InitConfig_t::nss_gpio_pin</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00030">SPI_InitConfig_t::nss_gpio_port</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00029">SPI_InitConfig_t::nss_sw</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8h_source.html#l00035">dma_init_t::periph</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00041">SPI_InitConfig_t::periph</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00099">PHAL_stopTxfer()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00033">SPI_InitConfig_t::rx_dma_cfg</a>, and <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00034">SPI_InitConfig_t::tx_dma_cfg</a>.</p>
-
-</div>
-</div>
 <a id="a35fd94eb02f487e09065ddc0ecb92e53" name="a35fd94eb02f487e09065ddc0ecb92e53"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a35fd94eb02f487e09065ddc0ecb92e53">&#9670;&#160;</a></span>PHAL_SPI_busy()</h2>
 
@@ -282,31 +173,6 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>true </dd>
 <dd>
 false </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00222">222</a> of file <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html">spi.c</a>.</p>
-
-<p class="reference">References <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00036">SPI_InitConfig_t::_busy</a>.</p>
-
-</div>
-</div>
-<a id="aebd7fc8129153c417096d7d4c99b3674" name="aebd7fc8129153c417096d7d4c99b3674"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebd7fc8129153c417096d7d4c99b3674">&#9670;&#160;</a></span>PHAL_SPI_ForceReset()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void PHAL_SPI_ForceReset </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spi</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00226">226</a> of file <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html">spi.c</a>.</p>
-
-<p class="reference">References <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00041">SPI_InitConfig_t::periph</a>.</p>
 
 </div>
 </div>
@@ -335,10 +201,6 @@ false </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>true </dd>
 <dd>
 false </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00022">22</a> of file <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html">spi.c</a>.</p>
-
-<p class="reference">References <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00036">SPI_InitConfig_t::_busy</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00038">SPI_InitConfig_t::_direct_mode_error</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00037">SPI_InitConfig_t::_error</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00039">SPI_InitConfig_t::_fifo_overrun</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00015">APB1ClockRateHz</a>, <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00016">APB2ClockRateHz</a>, <a class="el" href="common__defs_8h_source.html#l00036">CLAMP</a>, <a class="el" href="phal__G4_2spi_2spi_8h_source.html#l00035">SPI_InitConfig_t::cpha</a>, <a class="el" href="phal__G4_2spi_2spi_8h_source.html#l00034">SPI_InitConfig_t::cpol</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00028">SPI_InitConfig_t::data_len</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00027">SPI_InitConfig_t::data_rate</a>, <a class="el" href="common__defs_8h_source.html#l00047">LOG2_DOWN()</a>, <a class="el" href="phal__G4_2spi_2spi_8h_source.html#l00029">SPI_InitConfig_t::mode</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00031">SPI_InitConfig_t::nss_gpio_pin</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00030">SPI_InitConfig_t::nss_gpio_port</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00029">SPI_InitConfig_t::nss_sw</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00041">SPI_InitConfig_t::periph</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00014">PHAL_initDMA()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00033">SPI_InitConfig_t::rx_dma_cfg</a>, <a class="el" href="phal__G4_2spi_2spi_8h_source.html#l00022">SPI_MODE_MASTER</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00034">SPI_InitConfig_t::tx_dma_cfg</a>, and <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00018">zero</a>.</p>
 
 </div>
 </div>
@@ -375,45 +237,6 @@ false </dd></dl>
   </table>
   </dd>
 </dl>
-
-<p class="definition">Definition at line <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00317">317</a> of file <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html">spi.c</a>.</p>
-
-<p class="reference">References <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00215">PHAL_SPI_busy()</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00153">PHAL_SPI_transfer()</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00087">PHAL_SPI_transfer_noDMA()</a>, and <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00033">SPI_InitConfig_t::rx_dma_cfg</a>.</p>
-
-</div>
-</div>
-<a id="ab9da5be05aad59873975238094d15b27" name="ab9da5be05aad59873975238094d15b27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9da5be05aad59873975238094d15b27">&#9670;&#160;</a></span>PHAL_SPI_transfer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool PHAL_SPI_transfer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spi</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const uint8_t *</td>          <td class="paramname"><span class="paramname"><em>out_data</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>data_len</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>in_data</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00162">162</a> of file <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html">spi.c</a>.</p>
-
-<p class="reference">References <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00036">SPI_InitConfig_t::_busy</a>, <a class="el" href="phal__G4_2dma_2dma_8h_source.html#l00056">dma_init_t::channel_idx</a>, <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00014">dma1_active_tx</a>, <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00015">dma2_active_tx</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8h_source.html#l00026">dma_init_t::mem_inc</a>, <a class="el" href="phal__G4_2spi_2spi_8h_source.html#l00029">SPI_InitConfig_t::mode</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00031">SPI_InitConfig_t::nss_gpio_pin</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00030">SPI_InitConfig_t::nss_gpio_port</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00029">SPI_InitConfig_t::nss_sw</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8h_source.html#l00035">dma_init_t::periph</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00041">SPI_InitConfig_t::periph</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00136">PHAL_DMA_setMemAddress()</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00140">PHAL_DMA_setTxferLength()</a>, <a class="el" href="phal__F4__F7_2dma_2dma_8c_source.html#l00104">PHAL_reEnable()</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00215">PHAL_SPI_busy()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00033">SPI_InitConfig_t::rx_dma_cfg</a>, <a class="el" href="phal__G4_2spi_2spi_8h_source.html#l00022">SPI_MODE_MASTER</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00017">trash_can</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00034">SPI_InitConfig_t::tx_dma_cfg</a>, and <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00018">zero</a>.</p>
 
 </div>
 </div>
@@ -466,10 +289,6 @@ false </dd></dl>
 <dd>
 false Unable to complete non-DMA SPI transaction </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00097">97</a> of file <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html">spi.c</a>.</p>
-
-<p class="reference">References <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00036">SPI_InitConfig_t::_busy</a>, <a class="el" href="phal__G4_2spi_2spi_8h_source.html#l00029">SPI_InitConfig_t::mode</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00031">SPI_InitConfig_t::nss_gpio_pin</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00030">SPI_InitConfig_t::nss_gpio_port</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00029">SPI_InitConfig_t::nss_sw</a>, <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00041">SPI_InitConfig_t::periph</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00215">PHAL_SPI_busy()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, and <a class="el" href="phal__G4_2spi_2spi_8h_source.html#l00022">SPI_MODE_MASTER</a>.</p>
-
 </div>
 </div>
 <a id="a214be7044d1c8a6193ccf7f3e883fab2" name="a214be7044d1c8a6193ccf7f3e883fab2"></a>
@@ -505,163 +324,6 @@ false Unable to complete non-DMA SPI transaction </dd></dl>
   </table>
   </dd>
 </dl>
-
-<p class="definition">Definition at line <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00334">334</a> of file <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html">spi.c</a>.</p>
-
-<p class="reference">References <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00215">PHAL_SPI_busy()</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00153">PHAL_SPI_transfer()</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00087">PHAL_SPI_transfer_noDMA()</a>, and <a class="el" href="phal__F4__F7_2spi_2spi_8h_source.html#l00034">SPI_InitConfig_t::tx_dma_cfg</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="ae3f547c0ac514dd12e5bab27a6b60bec" name="ae3f547c0ac514dd12e5bab27a6b60bec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3f547c0ac514dd12e5bab27a6b60bec">&#9670;&#160;</a></span>APB1ClockRateHz</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t APB1ClockRateHz</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00015">15</a> of file <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html">rcc.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00318">PHAL_configureAPB1Clock()</a>.</p>
-
-</div>
-</div>
-<a id="afdc1120bbc54485ac4c735d8f9756743" name="afdc1120bbc54485ac4c735d8f9756743"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afdc1120bbc54485ac4c735d8f9756743">&#9670;&#160;</a></span>APB2ClockRateHz</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t APB2ClockRateHz</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00016">16</a> of file <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html">rcc.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="phal__F4__F7_2rcc_2rcc_8c_source.html#l00356">PHAL_configureAPB2Clock()</a>.</p>
-
-</div>
-</div>
-<a id="a9ea25b2ed9df62bc02d3805b3bfb93e4" name="a9ea25b2ed9df62bc02d3805b3bfb93e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ea25b2ed9df62bc02d3805b3bfb93e4">&#9670;&#160;</a></span>dma1_active_tx</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile <a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a>* dma1_active_tx[8] = {0}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00014">14</a> of file <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html">spi.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00245">handleTxComplete()</a>, and <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00162">PHAL_SPI_transfer()</a>.</p>
-
-</div>
-</div>
-<a id="ae2b503f000c160de9a2bbfa364cf60d0" name="ae2b503f000c160de9a2bbfa364cf60d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2b503f000c160de9a2bbfa364cf60d0">&#9670;&#160;</a></span>dma2_active_tx</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile <a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a>* dma2_active_tx[8] = {0}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00015">15</a> of file <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html">spi.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00245">handleTxComplete()</a>, and <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00162">PHAL_SPI_transfer()</a>.</p>
-
-</div>
-</div>
-<a id="a756235ee84f91148d0e0d83b3bf8396f" name="a756235ee84f91148d0e0d83b3bf8396f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a756235ee84f91148d0e0d83b3bf8396f">&#9670;&#160;</a></span>trash_can</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t trash_can</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00017">17</a> of file <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html">spi.c</a>.</p>
-
-</div>
-</div>
-<a id="a7412b93c6525c9c9e53677b29cc9f5aa" name="a7412b93c6525c9c9e53677b29cc9f5aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7412b93c6525c9c9e53677b29cc9f5aa">&#9670;&#160;</a></span>zero</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t zero</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html#l00018">18</a> of file <a class="el" href="common_2phal__G4_2spi_2spi_8c_source.html">spi.c</a>.</p>
 
 </div>
 </div>

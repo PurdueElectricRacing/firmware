@@ -106,15 +106,20 @@ $(function(){initNavTree('namespacevalidator.html',''); initResizable(true); });
 Functions</h2></td></tr>
 <tr class="memitem:ad74e451228ba7abf08a67866500943e8" id="r_ad74e451228ba7abf08a67866500943e8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad74e451228ba7abf08a67866500943e8">validate_against_schema</a> (data, schema, schema_store=None, filename=&quot;&lt;unknown&gt;&quot;)</td></tr>
 <tr class="separator:ad74e451228ba7abf08a67866500943e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a572ca20affe36c35373104f802b24c6b" id="r_a572ca20affe36c35373104f802b24c6b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a572ca20affe36c35373104f802b24c6b">validate_common_types</a> ()</td></tr>
+<tr class="memitem:a572ca20affe36c35373104f802b24c6b" id="r_a572ca20affe36c35373104f802b24c6b"><td class="memItemLeft" align="right" valign="top"><a id="a572ca20affe36c35373104f802b24c6b" name="a572ca20affe36c35373104f802b24c6b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>validate_common_types</b> ()</td></tr>
 <tr class="separator:a572ca20affe36c35373104f802b24c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c7b2b80d2b9281978f0e94043966dff" id="r_a6c7b2b80d2b9281978f0e94043966dff"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c7b2b80d2b9281978f0e94043966dff">validate_bus_config</a> (schema_store)</td></tr>
+<tr class="memitem:a6c7b2b80d2b9281978f0e94043966dff" id="r_a6c7b2b80d2b9281978f0e94043966dff"><td class="memItemLeft" align="right" valign="top"><a id="a6c7b2b80d2b9281978f0e94043966dff" name="a6c7b2b80d2b9281978f0e94043966dff"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>validate_bus_config</b> (schema_store)</td></tr>
 <tr class="separator:a6c7b2b80d2b9281978f0e94043966dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf7028b305cec50a0b042bf0389eb8a5" id="r_abf7028b305cec50a0b042bf0389eb8a5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf7028b305cec50a0b042bf0389eb8a5">validate_internal_nodes</a> (schema_store)</td></tr>
+<tr class="memitem:abf7028b305cec50a0b042bf0389eb8a5" id="r_abf7028b305cec50a0b042bf0389eb8a5"><td class="memItemLeft" align="right" valign="top"><a id="abf7028b305cec50a0b042bf0389eb8a5" name="abf7028b305cec50a0b042bf0389eb8a5"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>validate_internal_nodes</b> (schema_store)</td></tr>
 <tr class="separator:abf7028b305cec50a0b042bf0389eb8a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8c70b27ca2fed63d2769912d9dba3a9" id="r_ae8c70b27ca2fed63d2769912d9dba3a9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8c70b27ca2fed63d2769912d9dba3a9">validate_external_nodes</a> (schema_store)</td></tr>
+<tr class="memitem:ae8c70b27ca2fed63d2769912d9dba3a9" id="r_ae8c70b27ca2fed63d2769912d9dba3a9"><td class="memItemLeft" align="right" valign="top"><a id="ae8c70b27ca2fed63d2769912d9dba3a9" name="ae8c70b27ca2fed63d2769912d9dba3a9"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>validate_external_nodes</b> (schema_store)</td></tr>
 <tr class="separator:ae8c70b27ca2fed63d2769912d9dba3a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5fe9fb2c36b6f732cafaa21c5b04541" id="r_ac5fe9fb2c36b6f732cafaa21c5b04541"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5fe9fb2c36b6f732cafaa21c5b04541">validate_all</a> ()</td></tr>
+<tr class="memitem:ac5fe9fb2c36b6f732cafaa21c5b04541" id="r_ac5fe9fb2c36b6f732cafaa21c5b04541"><td class="memItemLeft" align="right" valign="top"><a id="ac5fe9fb2c36b6f732cafaa21c5b04541" name="ac5fe9fb2c36b6f732cafaa21c5b04541"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>validate_all</b> ()</td></tr>
 <tr class="separator:ac5fe9fb2c36b6f732cafaa21c5b04541"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -153,123 +158,6 @@ Author: Irving Wang (irvingw@purdue.edu)
 <pre class="fragment">Validate data against schema and return success status.
 Prints all validation errors found in the file.
 </pre> 
-<p class="definition">Definition at line <a class="el" href="validator_8py_source.html#l00012">12</a> of file <a class="el" href="validator_8py_source.html">validator.py</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="validator_8py_source.html#l00048">validate_bus_config()</a>, <a class="el" href="validator_8py_source.html#l00039">validate_common_types()</a>, <a class="el" href="validator_8py_source.html#l00072">validate_external_nodes()</a>, and <a class="el" href="validator_8py_source.html#l00059">validate_internal_nodes()</a>.</p>
-
-</div>
-</div>
-<a id="ac5fe9fb2c36b6f732cafaa21c5b04541" name="ac5fe9fb2c36b6f732cafaa21c5b04541"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5fe9fb2c36b6f732cafaa21c5b04541">&#9670;&#160;</a></span>validate_all()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> bool validator.validate_all </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="validator_8py_source.html#l00085">85</a> of file <a class="el" href="validator_8py_source.html">validator.py</a>.</p>
-
-<p class="reference">References <a class="el" href="validator_8py_source.html#l00048">validate_bus_config()</a>, <a class="el" href="validator_8py_source.html#l00039">validate_common_types()</a>, <a class="el" href="validator_8py_source.html#l00072">validate_external_nodes()</a>, and <a class="el" href="validator_8py_source.html#l00059">validate_internal_nodes()</a>.</p>
-
-</div>
-</div>
-<a id="a6c7b2b80d2b9281978f0e94043966dff" name="a6c7b2b80d2b9281978f0e94043966dff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c7b2b80d2b9281978f0e94043966dff">&#9670;&#160;</a></span>validate_bus_config()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> bool validator.validate_bus_config </td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>schema_store</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="validator_8py_source.html#l00048">48</a> of file <a class="el" href="validator_8py_source.html">validator.py</a>.</p>
-
-<p class="reference">References <a class="el" href="validator_8py_source.html#l00012">validate_against_schema()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="validator_8py_source.html#l00085">validate_all()</a>.</p>
-
-</div>
-</div>
-<a id="a572ca20affe36c35373104f802b24c6b" name="a572ca20affe36c35373104f802b24c6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a572ca20affe36c35373104f802b24c6b">&#9670;&#160;</a></span>validate_common_types()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> bool validator.validate_common_types </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="validator_8py_source.html#l00039">39</a> of file <a class="el" href="validator_8py_source.html">validator.py</a>.</p>
-
-<p class="reference">References <a class="el" href="validator_8py_source.html#l00012">validate_against_schema()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="validator_8py_source.html#l00085">validate_all()</a>.</p>
-
-</div>
-</div>
-<a id="ae8c70b27ca2fed63d2769912d9dba3a9" name="ae8c70b27ca2fed63d2769912d9dba3a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8c70b27ca2fed63d2769912d9dba3a9">&#9670;&#160;</a></span>validate_external_nodes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> bool validator.validate_external_nodes </td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>schema_store</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="validator_8py_source.html#l00072">72</a> of file <a class="el" href="validator_8py_source.html">validator.py</a>.</p>
-
-<p class="reference">References <a class="el" href="validator_8py_source.html#l00012">validate_against_schema()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="validator_8py_source.html#l00085">validate_all()</a>.</p>
-
-</div>
-</div>
-<a id="abf7028b305cec50a0b042bf0389eb8a5" name="abf7028b305cec50a0b042bf0389eb8a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf7028b305cec50a0b042bf0389eb8a5">&#9670;&#160;</a></span>validate_internal_nodes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> bool validator.validate_internal_nodes </td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>schema_store</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="validator_8py_source.html#l00059">59</a> of file <a class="el" href="validator_8py_source.html">validator.py</a>.</p>
-
-<p class="reference">References <a class="el" href="validator_8py_source.html#l00012">validate_against_schema()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="validator_8py_source.html#l00085">validate_all()</a>.</p>
-
 </div>
 </div>
 </div><!-- contents -->

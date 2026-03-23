@@ -14,7 +14,6 @@ var socket_8h =
     [ "SF_TCP_NODELAY", "socket_8h.html#a73908595a4322a54ab879938f1f9e263", null ],
     [ "SF_UNI_BLOCK", "socket_8h.html#a0a3656cb954d39bb1df851da40e82d53", null ],
     [ "SOCK_BUSY", "socket_8h.html#af338f8defd644d00125c76201a38ce74", null ],
-    [ "SOCK_ERROR", "socket_8h.html#a46c7c571ffee7a316b5ca7d696c6f68e", null ],
     [ "SOCK_FATAL", "socket_8h.html#a3692681cc0dc13c8e8df68868785f894", null ],
     [ "SOCK_IO_BLOCK", "socket_8h.html#afcca2a4e4c6a32d4f4e270de0c75c15d", null ],
     [ "SOCK_IO_NONBLOCK", "socket_8h.html#a9a8a9af7811e4ca01799a4ab3dd54efc", null ],

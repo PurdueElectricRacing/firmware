@@ -1,16 +1,5 @@
 var sdio_8c =
 [
-    [ "SD_LOG", "sdio_8c.html#a3bfd1b1d1688b6d1804e1a0c7d4fe7b6", null ],
-    [ "SDIO_RXDMA_CONFIG", "sdio_8c.html#abf3bcb8809a652820f0040abc632fad1", null ],
-    [ "SDIO_TXDMA_CONFIG", "sdio_8c.html#a5bff3a6dd53b72101f6200feeebabf92", null ],
-    [ "CmdError", "sdio_8c.html#a9cb1b7845e3aa6fd9a0bee925a6fb209", null ],
-    [ "CmdResp1Error", "sdio_8c.html#a7566a8f0aaba0e993a8b9e914897c812", null ],
-    [ "CmdResp2Error", "sdio_8c.html#af08305e59ade894dfc710139006e0b92", null ],
-    [ "CmdResp3Error", "sdio_8c.html#ab70454aba2121dc3573841173fa0c113", null ],
-    [ "CmdResp6Error", "sdio_8c.html#aa300faf33b17c1a3cb9a315cebd374ca", null ],
-    [ "CmdResp7Error", "sdio_8c.html#ae8b612323f1004f8e7e8612b818dac64", null ],
-    [ "DMA2_Stream6_IRQHandler", "sdio_8c.html#a76d38919f345dfea8ab0e0cd9e2c47e3", null ],
-    [ "FindSCR", "sdio_8c.html#a6a5fc4e4656231dfde1e7a157337aa17", null ],
     [ "PHAL_SDIO_init", "sdio_8c.html#a7b441f99db323528145ce61011b5b204", null ],
     [ "PHAL_SDIO_SendCommand", "sdio_8c.html#a4b480281586b4fd1ccf150129fe21120", null ],
     [ "SD_DeInit", "sdio_8c.html#ad469cc842f03b1d49e08e91b515b7ded", null ],
@@ -31,18 +20,5 @@ var sdio_8c =
     [ "SD_WaitReadOperation", "sdio_8c.html#a42ab410b834d74d7f3ee757dc888b8cc", null ],
     [ "SD_WaitWriteOperation", "sdio_8c.html#ad55967ea67075f01671fb2144c7f7b0d", null ],
     [ "SD_WriteMultiBlocks", "sdio_8c.html#a64baac72a75a2c522e837935009cbe93", null ],
-    [ "SDEnWideBus", "sdio_8c.html#a34c053adf6c432bad5d856d470094519", null ],
-    [ "SDIO_IRQHandler", "sdio_8c.html#adb3e01a3e924c7c52cad43949a43e9c7", null ],
-    [ "CardType", "sdio_8c.html#a979c75853cc30f2c08f66faa80849fd3", null ],
-    [ "CID_Tab", "sdio_8c.html#a11ddf9e2e0081e7746d09f40a9ecdf18", null ],
-    [ "CSD_Tab", "sdio_8c.html#a6f24971fb957f6512c0b379c0aa5f5cb", null ],
-    [ "DMAEndOfTransfer", "sdio_8c.html#a928ef806ccdf828249e4a31bcd2f6ad7", null ],
-    [ "last_read_length", "sdio_8c.html#abb82596fd68fee7f26490c83cb22a171", null ],
-    [ "RCA", "sdio_8c.html#a9076421cff565712aa53dfae713e4ae4", null ],
-    [ "SDCardInfo", "sdio_8c.html#ad9b4efaae93cd75532b18c0528a4ca3d", null ],
-    [ "sdio_rx_config", "sdio_8c.html#a19ff1726533d01d3340cbbe93a034867", null ],
-    [ "sdio_tx_config", "sdio_8c.html#a277ac25c6a1f8b507fc73417dc397234", null ],
-    [ "SDSTATUS_Tab", "sdio_8c.html#a9889bc1be9c128f5bba64fca4bfd73bf", null ],
-    [ "TransferEnd", "sdio_8c.html#a674dd7110bb05a30aea8530db5e6b74d", null ],
-    [ "TransferError", "sdio_8c.html#a0c5a80166fc0941496f4259c276156e9", null ]
+    [ "SDIO_IRQHandler", "sdio_8c.html#adb3e01a3e924c7c52cad43949a43e9c7", null ]
 ];

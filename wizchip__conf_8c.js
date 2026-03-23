@@ -36,7 +36,5 @@ var wizchip__conf_8c =
     [ "wizphy_reset", "wizchip__conf_8c.html#a46a76bce886968fef0c9ff15f8a104d5", null ],
     [ "wizphy_setphyconf", "group__extra__functions.html#ga60359c86bf85ccd5ca8f6e7cafc849dc", null ],
     [ "wizphy_setphypmode", "group__extra__functions.html#ga64a4fd3427b5c5f43a3f35fb433cb06c", null ],
-    [ "_DHCP_", "wizchip__conf_8c.html#a5bdad4969369fb3952908977d2aa2b2d", null ],
-    [ "_DNS_", "wizchip__conf_8c.html#aba98e691657adf8397c25e56ccfc60ea", null ],
     [ "WIZCHIP", "wizchip__conf_8c.html#ad0efd19f6465f2071d41dbf2a9090133", null ]
 ];

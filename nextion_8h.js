@@ -1,16 +1,5 @@
 var nextion_8h =
 [
-    [ "ASCII_OFFSET", "nextion_8h.html#ae3c47801ea3ac450ff9b877b1e008e1a", null ],
-    [ "NXT_BACKGROUND_COLOR", "nextion_8h.html#ae6d10ba8c48f3d0e3a58572789935a76", null ],
-    [ "NXT_BAUD", "nextion_8h.html#a5d668abac5196cd46df676c330890504", null ],
-    [ "NXT_BORDER_COLOR", "nextion_8h.html#ace53c1428a51881ff38a9c429c9f0b26", null ],
-    [ "NXT_BORDERW", "nextion_8h.html#a63ace6fa3e7fca3ec048d6c160e9a182", null ],
-    [ "NXT_BRIGHTNESS", "nextion_8h.html#a38f805984c721410f8cb5bcd140d39b7", null ],
-    [ "NXT_CMD_TERM", "nextion_8h.html#a9103be471f1a868467c6abd00059970b", null ],
-    [ "NXT_FONT_COLOR", "nextion_8h.html#a8efd290ff41b537206712236e2d04b8c", null ],
-    [ "NXT_PAGE", "nextion_8h.html#a64693af0725d6715a5fbf24cf522ebde", null ],
-    [ "NXT_TEXT", "nextion_8h.html#a5f2209d0e2a141f1c3af1ebdd81aaa16", null ],
-    [ "NXT_VALUE", "nextion_8h.html#a81860eb8c2792552a95c98cbf8c4e61f", null ],
     [ "NXT_setBackground", "nextion_8h.html#a19c3df8972af2eaea366cb65fad34d43", null ],
     [ "NXT_setBaud", "nextion_8h.html#ae7d537c10e1e85e6537850a02a315fd7", null ],
     [ "NXT_setBorderColor", "nextion_8h.html#a46ee1522cb7ef9d6bc11a77879e3300e", null ],

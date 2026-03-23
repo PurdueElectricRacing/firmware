@@ -1,30 +1,13 @@
 var freertos_8h =
 [
-    [ "ThreadWrapper_t", "structThreadWrapper__t.html", "structThreadWrapper__t" ],
-    [ "__FREERTOS_PATH", "freertos_8h.html#aec94cba01a34fa12e733d4774709cce6", null ],
-    [ "_FREERTOS_PATH", "freertos_8h.html#abaded9350cb8265deb1b6a7db964b470", null ],
-    [ "DEFINE_BINARY_SEMAPHORE", "freertos_8h.html#a752d37c3f3872e96e8655ad575690796", null ],
-    [ "DEFINE_COUNTING_SEMAPHORE", "freertos_8h.html#a49e8e202b080478a2e875a33383fd772", null ],
-    [ "DEFINE_MUTEX", "freertos_8h.html#a045abf0c9fcc8f496be9a4a057e62f87", null ],
+    [ "ThreadWrapper_t", "structThreadWrapper__t.html", null ],
     [ "DEFINE_QUEUE", "freertos_8h.html#a69f3705c51afcfefed18253d09849302", null ],
     [ "DEFINE_SEMAPHORE", "freertos_8h.html#a8d13fab020db2417316bcd86ffe21e16", null ],
     [ "DEFINE_TASK", "freertos_8h.html#aa06a84e1769e192e02a8bb7482aceeb5", null ],
-    [ "getMS", "freertos_8h.html#a022e004ffb7bc7f71f7344f7af9c6fa1", null ],
     [ "getTaskHandle", "freertos_8h.html#a3de6343dd1d29b508dd7d52f93416750", null ],
-    [ "getTick", "freertos_8h.html#af9bb5b95ae9be61db75d49fa9bd22881", null ],
     [ "INIT_BINARY_SEMAPHORE", "freertos_8h.html#a8412c35f40aa1f99e880a42b27dd559a", null ],
     [ "INIT_COUNTING_SEMAPHORE", "freertos_8h.html#a139fec0a7420bd927f3c4646a94e73bb", null ],
     [ "INIT_MUTEX", "freertos_8h.html#a2e8ac32c8f392c8a236d495be93ba002", null ],
     [ "INIT_QUEUE", "freertos_8h.html#a107127a33a429e4b2ba63232406e0d94", null ],
-    [ "mDelay", "freertos_8h.html#a3d5d0a016332574ab3a9906ff20d959a", null ],
-    [ "myIDENT", "freertos_8h.html#abca5333b90b00f973c6491246378f0ef", null ],
-    [ "mySTR", "freertos_8h.html#aa0106d66c910122f42a397e25121651f", null ],
-    [ "myXSTR", "freertos_8h.html#ae76e8808b78573773246b2ce3f1849d5", null ],
-    [ "STACK_1024", "freertos_8h.html#a9cfaf8e95af7da51f7fc2347815e210f", null ],
-    [ "STACK_2048", "freertos_8h.html#a16d5b4d257fb218fa48b6865c3014f33", null ],
-    [ "STACK_256", "freertos_8h.html#aa38d6c6620457f52272d28f81d2ba811", null ],
-    [ "STACK_4096", "freertos_8h.html#a54f66041ce99e1a81cb0f571768bb057", null ],
-    [ "STACK_512", "freertos_8h.html#a6ab500a15eda5befe7c0a9be1e7669e5", null ],
-    [ "START_TASK", "freertos_8h.html#abe574562452fd3a573084481cb7a9cf3", null ],
-    [ "rtosWrapper", "freertos_8h.html#a9c778d52c93dd2b838088f502c737e74", null ]
+    [ "START_TASK", "freertos_8h.html#abe574562452fd3a573084481cb7a9cf3", null ]
 ];

@@ -97,7 +97,7 @@ $(function(){initNavTree('lerp__lut_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">lerp_lut.h File Reference</div></div>
@@ -111,7 +111,7 @@ $(function(){initNavTree('lerp__lut_8h.html',''); initResizable(true); });
 <p><a href="lerp__lut_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Data Structures</h2></td></tr>
+Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlut__entry__t.html">lut_entry_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlerp__lut__t.html">lerp_lut_t</a></td></tr>
@@ -131,8 +131,6 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Linear interpolation lookup table (LUT). </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-
-<p class="definition">Definition in file <a class="el" href="lerp__lut_8h_source.html">lerp_lut.h</a>.</p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a0b5e49448d9451f321ee947d30651f78" name="a0b5e49448d9451f321ee947d30651f78"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0b5e49448d9451f321ee947d30651f78">&#9670;&#160;</a></span>LERP_LUT_INIT</h2>
@@ -164,11 +162,9 @@ Functions</h2></td></tr>
 <div class="line">    static_assert(<span class="keyword">sizeof</span>(_entries) / <span class="keyword">sizeof</span>(<a class="code hl_struct" href="structlut__entry__t.html">lut_entry_t</a>) == _size, \</div>
 <div class="line">                  <span class="stringliteral">&quot;Entries array size must match _size&quot;</span>); \</div>
 <div class="line">    static_assert(_size &gt; 1, <span class="stringliteral">&quot;LUT size must be greater than 1&quot;</span>)</div>
-<div class="ttc" id="astructlerp__lut__t_html"><div class="ttname"><a href="structlerp__lut__t.html">lerp_lut_t</a></div><div class="ttdef"><b>Definition</b> <a href="lerp__lut_8h_source.html#l00018">lerp_lut.h:18</a></div></div>
-<div class="ttc" id="astructlut__entry__t_html"><div class="ttname"><a href="structlut__entry__t.html">lut_entry_t</a></div><div class="ttdef"><b>Definition</b> <a href="lerp__lut_8h_source.html#l00013">lerp_lut.h:13</a></div></div>
+<div class="ttc" id="astructlerp__lut__t_html"><div class="ttname"><a href="structlerp__lut__t.html">lerp_lut_t</a></div><div class="ttdef"><b>Definition</b> lerp_lut.h:18</div></div>
+<div class="ttc" id="astructlut__entry__t_html"><div class="ttname"><a href="structlut__entry__t.html">lut_entry_t</a></div><div class="ttdef"><b>Definition</b> lerp_lut.h:13</div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="lerp__lut_8h_source.html#l00023">23</a> of file <a class="el" href="lerp__lut_8h_source.html">lerp_lut.h</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
@@ -201,12 +197,6 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The interpolated value. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="lerp__lut_8c_source.html#l00020">20</a> of file <a class="el" href="lerp__lut_8c_source.html">lerp_lut.c</a>.</p>
-
-<p class="reference">References <a class="el" href="lerp__lut_8h_source.html#l00019">lerp_lut_t::entries</a>, <a class="el" href="lerp__lut_8h_source.html#l00014">lut_entry_t::key</a>, <a class="el" href="lerp__lut_8h_source.html#l00020">lerp_lut_t::size</a>, and <a class="el" href="lerp__lut_8h_source.html#l00015">lut_entry_t::value</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="thermistor_8h_source.html#l00017">thermistor_R_to_T()</a>.</p>
 
 </div>
 </div>

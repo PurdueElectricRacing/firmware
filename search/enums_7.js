@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['heartbeat_5fstate_5ft_0',['heartbeat_state_t',['../heartbeat_8h.html#a0bcf4de1e57ca5568f188b209f8ee7a5',1,'heartbeat.h']]],
-  ['hw_5fflow_5fctl_5ft_1',['hw_flow_ctl_t',['../phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2',1,'hw_flow_ctl_t:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2',1,'hw_flow_ctl_t:&#160;usart.h']]]
+  ['obsample_5ft_0',['obsample_t',['../phal__F4__F7_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9',1,'usart.h']]],
+  ['ovsample_5ft_1',['ovsample_t',['../phal__F4__F7_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7',1,'usart.h']]]
 ];

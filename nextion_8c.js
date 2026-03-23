@@ -10,6 +10,5 @@ var nextion_8c =
     [ "NXT_setPage", "nextion_8c.html#ac5753abcb75fb40221a51bcdec98bbd4", null ],
     [ "NXT_setText", "nextion_8c.html#ab2a89fd8e292338a6e570a41a698ad3a", null ],
     [ "NXT_setTextFormatted", "nextion_8c.html#a8af8629d8160abf996231ff267e43564", null ],
-    [ "NXT_setValue", "nextion_8c.html#ac7e3e9fc4674d17281069e97b8a5384d", null ],
-    [ "lcd_tx_buf", "nextion_8c.html#a233b6c1602a0d956759fa15d734873cb", null ]
+    [ "NXT_setValue", "nextion_8c.html#ac7e3e9fc4674d17281069e97b8a5384d", null ]
 ];

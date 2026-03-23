@@ -97,7 +97,7 @@ $(function(){initNavTree('can__common_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
@@ -109,13 +109,13 @@ $(function(){initNavTree('can__common_8h.html',''); initResizable(true); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal_2can_8h_source.html">common/phal/can.h</a>&quot;</code><br />
+<code>#include &quot;common/phal/can.h&quot;</code><br />
 <code>#include &quot;common/can_library/generated/can_router.h&quot;</code><br />
 </div>
 <p><a href="can__common_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Data Structures</h2></td></tr>
+Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcan__peripheral__stats__t.html">can_peripheral_stats_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcan__stats__t.html">can_stats_t</a></td></tr>
@@ -123,67 +123,94 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ae6b03392d6c59a518349d99a8519ebb0" id="r_ae6b03392d6c59a518349d99a8519ebb0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6b03392d6c59a518349d99a8519ebb0">CAN_TX_BACKPRESSURE_MS</a>&#160;&#160;&#160;(2)</td></tr>
+<tr class="memitem:ae6b03392d6c59a518349d99a8519ebb0" id="r_ae6b03392d6c59a518349d99a8519ebb0"><td class="memItemLeft" align="right" valign="top"><a id="ae6b03392d6c59a518349d99a8519ebb0" name="ae6b03392d6c59a518349d99a8519ebb0"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_TX_BACKPRESSURE_MS</b>&#160;&#160;&#160;(2)</td></tr>
 <tr class="separator:ae6b03392d6c59a518349d99a8519ebb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1248665f89d7c3c1ff3fc0c66dfc5ee8" id="r_a1248665f89d7c3c1ff3fc0c66dfc5ee8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1248665f89d7c3c1ff3fc0c66dfc5ee8">CAN_TX_QUEUE_LENGTH</a>&#160;&#160;&#160;(64)</td></tr>
+<tr class="memitem:a1248665f89d7c3c1ff3fc0c66dfc5ee8" id="r_a1248665f89d7c3c1ff3fc0c66dfc5ee8"><td class="memItemLeft" align="right" valign="top"><a id="a1248665f89d7c3c1ff3fc0c66dfc5ee8" name="a1248665f89d7c3c1ff3fc0c66dfc5ee8"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_TX_QUEUE_LENGTH</b>&#160;&#160;&#160;(64)</td></tr>
 <tr class="separator:a1248665f89d7c3c1ff3fc0c66dfc5ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b0586f06e0aa453bb34475f8ac577d1" id="r_a3b0586f06e0aa453bb34475f8ac577d1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b0586f06e0aa453bb34475f8ac577d1">CAN_RX_QUEUE_LENGTH</a>&#160;&#160;&#160;(64)</td></tr>
+<tr class="memitem:a3b0586f06e0aa453bb34475f8ac577d1" id="r_a3b0586f06e0aa453bb34475f8ac577d1"><td class="memItemLeft" align="right" valign="top"><a id="a3b0586f06e0aa453bb34475f8ac577d1" name="a3b0586f06e0aa453bb34475f8ac577d1"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_RX_QUEUE_LENGTH</b>&#160;&#160;&#160;(64)</td></tr>
 <tr class="separator:a3b0586f06e0aa453bb34475f8ac577d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15ff5b005bbef3c1b021fb605f9d8e6c" id="r_a15ff5b005bbef3c1b021fb605f9d8e6c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15ff5b005bbef3c1b021fb605f9d8e6c">CAN_TX_MAILBOX_CNT</a>&#160;&#160;&#160;(3)</td></tr>
+<tr class="memitem:a15ff5b005bbef3c1b021fb605f9d8e6c" id="r_a15ff5b005bbef3c1b021fb605f9d8e6c"><td class="memItemLeft" align="right" valign="top"><a id="a15ff5b005bbef3c1b021fb605f9d8e6c" name="a15ff5b005bbef3c1b021fb605f9d8e6c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_TX_MAILBOX_CNT</b>&#160;&#160;&#160;(3)</td></tr>
 <tr class="separator:a15ff5b005bbef3c1b021fb605f9d8e6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe4ea8b0c378d1c95afe5fb570d1aed1" id="r_abe4ea8b0c378d1c95afe5fb570d1aed1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe4ea8b0c378d1c95afe5fb570d1aed1">CAN_TX_TIMEOUT_MS</a>&#160;&#160;&#160;(15)</td></tr>
+<tr class="memitem:abe4ea8b0c378d1c95afe5fb570d1aed1" id="r_abe4ea8b0c378d1c95afe5fb570d1aed1"><td class="memItemLeft" align="right" valign="top"><a id="abe4ea8b0c378d1c95afe5fb570d1aed1" name="abe4ea8b0c378d1c95afe5fb570d1aed1"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_TX_TIMEOUT_MS</b>&#160;&#160;&#160;(15)</td></tr>
 <tr class="separator:abe4ea8b0c378d1c95afe5fb570d1aed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6425fe407d29245e0fe0a98a9fd23f75" id="r_a6425fe407d29245e0fe0a98a9fd23f75"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6425fe407d29245e0fe0a98a9fd23f75">CAN_TX_BLOCK_TIMEOUT</a>&#160;&#160;&#160;(30 * 16000)</td></tr>
+<tr class="memitem:a6425fe407d29245e0fe0a98a9fd23f75" id="r_a6425fe407d29245e0fe0a98a9fd23f75"><td class="memItemLeft" align="right" valign="top"><a id="a6425fe407d29245e0fe0a98a9fd23f75" name="a6425fe407d29245e0fe0a98a9fd23f75"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_TX_BLOCK_TIMEOUT</b>&#160;&#160;&#160;(30 * 16000)</td></tr>
 <tr class="separator:a6425fe407d29245e0fe0a98a9fd23f75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ca8acd405061ea42ff0e40b42bb3c9b" id="r_a6ca8acd405061ea42ff0e40b42bb3c9b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ca8acd405061ea42ff0e40b42bb3c9b">CAN_MAILBOX_HIGH_PRIO</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:a6ca8acd405061ea42ff0e40b42bb3c9b" id="r_a6ca8acd405061ea42ff0e40b42bb3c9b"><td class="memItemLeft" align="right" valign="top"><a id="a6ca8acd405061ea42ff0e40b42bb3c9b" name="a6ca8acd405061ea42ff0e40b42bb3c9b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_MAILBOX_HIGH_PRIO</b>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:a6ca8acd405061ea42ff0e40b42bb3c9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20806e55c9070814e10e2ee9e808e422" id="r_a20806e55c9070814e10e2ee9e808e422"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20806e55c9070814e10e2ee9e808e422">CAN_MAILBOX_MED_PRIO</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:a20806e55c9070814e10e2ee9e808e422" id="r_a20806e55c9070814e10e2ee9e808e422"><td class="memItemLeft" align="right" valign="top"><a id="a20806e55c9070814e10e2ee9e808e422" name="a20806e55c9070814e10e2ee9e808e422"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_MAILBOX_MED_PRIO</b>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:a20806e55c9070814e10e2ee9e808e422"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a9c6aed31ef3d6417060d7ba3734142" id="r_a8a9c6aed31ef3d6417060d7ba3734142"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8a9c6aed31ef3d6417060d7ba3734142">CAN_MAILBOX_LOW_PRIO</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memitem:a8a9c6aed31ef3d6417060d7ba3734142" id="r_a8a9c6aed31ef3d6417060d7ba3734142"><td class="memItemLeft" align="right" valign="top"><a id="a8a9c6aed31ef3d6417060d7ba3734142" name="a8a9c6aed31ef3d6417060d7ba3734142"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_MAILBOX_LOW_PRIO</b>&#160;&#160;&#160;2</td></tr>
 <tr class="separator:a8a9c6aed31ef3d6417060d7ba3734142"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ae55ab3741140024858bd7b8762ea42" id="r_a5ae55ab3741140024858bd7b8762ea42"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ae55ab3741140024858bd7b8762ea42">CAN_EFF_FLAG</a>&#160;&#160;&#160;0x80000000U /* EFF/SFF is set in the MSB */</td></tr>
+<tr class="memitem:a5ae55ab3741140024858bd7b8762ea42" id="r_a5ae55ab3741140024858bd7b8762ea42"><td class="memItemLeft" align="right" valign="top"><a id="a5ae55ab3741140024858bd7b8762ea42" name="a5ae55ab3741140024858bd7b8762ea42"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_EFF_FLAG</b>&#160;&#160;&#160;0x80000000U /* EFF/SFF is set in the MSB */</td></tr>
 <tr class="separator:a5ae55ab3741140024858bd7b8762ea42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af324d65226057755175038a15d9bbd75" id="r_af324d65226057755175038a15d9bbd75"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af324d65226057755175038a15d9bbd75">CAN_RTR_FLAG</a>&#160;&#160;&#160;0x40000000U /* remote transmission request */</td></tr>
+<tr class="memitem:af324d65226057755175038a15d9bbd75" id="r_af324d65226057755175038a15d9bbd75"><td class="memItemLeft" align="right" valign="top"><a id="af324d65226057755175038a15d9bbd75" name="af324d65226057755175038a15d9bbd75"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_RTR_FLAG</b>&#160;&#160;&#160;0x40000000U /* remote transmission request */</td></tr>
 <tr class="separator:af324d65226057755175038a15d9bbd75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24df2eae50a2cef0f7f08c73a246a012" id="r_a24df2eae50a2cef0f7f08c73a246a012"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24df2eae50a2cef0f7f08c73a246a012">CAN_ERR_FLAG</a>&#160;&#160;&#160;0x20000000U /* error message frame */</td></tr>
+<tr class="memitem:a24df2eae50a2cef0f7f08c73a246a012" id="r_a24df2eae50a2cef0f7f08c73a246a012"><td class="memItemLeft" align="right" valign="top"><a id="a24df2eae50a2cef0f7f08c73a246a012" name="a24df2eae50a2cef0f7f08c73a246a012"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_ERR_FLAG</b>&#160;&#160;&#160;0x20000000U /* error message frame */</td></tr>
 <tr class="separator:a24df2eae50a2cef0f7f08c73a246a012"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe4fc3f9cab58aeeb463861289e8ce93" id="r_afe4fc3f9cab58aeeb463861289e8ce93"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe4fc3f9cab58aeeb463861289e8ce93">CAN_SFF_MASK</a>&#160;&#160;&#160;0x000007FFU /* standard frame format (SFF) */</td></tr>
+<tr class="memitem:afe4fc3f9cab58aeeb463861289e8ce93" id="r_afe4fc3f9cab58aeeb463861289e8ce93"><td class="memItemLeft" align="right" valign="top"><a id="afe4fc3f9cab58aeeb463861289e8ce93" name="afe4fc3f9cab58aeeb463861289e8ce93"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_SFF_MASK</b>&#160;&#160;&#160;0x000007FFU /* standard frame format (SFF) */</td></tr>
 <tr class="separator:afe4fc3f9cab58aeeb463861289e8ce93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83b943dca61d0aad5b07ec01c3317572" id="r_a83b943dca61d0aad5b07ec01c3317572"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83b943dca61d0aad5b07ec01c3317572">CAN_EFF_MASK</a>&#160;&#160;&#160;0x1FFFFFFFU /* extended frame format (EFF) */</td></tr>
+<tr class="memitem:a83b943dca61d0aad5b07ec01c3317572" id="r_a83b943dca61d0aad5b07ec01c3317572"><td class="memItemLeft" align="right" valign="top"><a id="a83b943dca61d0aad5b07ec01c3317572" name="a83b943dca61d0aad5b07ec01c3317572"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_EFF_MASK</b>&#160;&#160;&#160;0x1FFFFFFFU /* extended frame format (EFF) */</td></tr>
 <tr class="separator:a83b943dca61d0aad5b07ec01c3317572"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4061a08b8c5aa6de3bb390efd3b6bd6" id="r_ad4061a08b8c5aa6de3bb390efd3b6bd6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4061a08b8c5aa6de3bb390efd3b6bd6">CAN_ERR_MASK</a>&#160;&#160;&#160;0x1FFFFFFFU /* omit EFF, RTR, ERR flags */</td></tr>
+<tr class="memitem:ad4061a08b8c5aa6de3bb390efd3b6bd6" id="r_ad4061a08b8c5aa6de3bb390efd3b6bd6"><td class="memItemLeft" align="right" valign="top"><a id="ad4061a08b8c5aa6de3bb390efd3b6bd6" name="ad4061a08b8c5aa6de3bb390efd3b6bd6"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_ERR_MASK</b>&#160;&#160;&#160;0x1FFFFFFFU /* omit EFF, RTR, ERR flags */</td></tr>
 <tr class="separator:ad4061a08b8c5aa6de3bb390efd3b6bd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a657e66ed8d35d52e0b1effb289ba15df" id="r_a657e66ed8d35d52e0b1effb289ba15df"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a657e66ed8d35d52e0b1effb289ba15df">CAN1_IDX</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:a657e66ed8d35d52e0b1effb289ba15df" id="r_a657e66ed8d35d52e0b1effb289ba15df"><td class="memItemLeft" align="right" valign="top"><a id="a657e66ed8d35d52e0b1effb289ba15df" name="a657e66ed8d35d52e0b1effb289ba15df"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN1_IDX</b>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:a657e66ed8d35d52e0b1effb289ba15df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0380c9dab59c77ceee5815af7e00e4fb" id="r_a0380c9dab59c77ceee5815af7e00e4fb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0380c9dab59c77ceee5815af7e00e4fb">CAN2_IDX</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:a0380c9dab59c77ceee5815af7e00e4fb" id="r_a0380c9dab59c77ceee5815af7e00e4fb"><td class="memItemLeft" align="right" valign="top"><a id="a0380c9dab59c77ceee5815af7e00e4fb" name="a0380c9dab59c77ceee5815af7e00e4fb"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN2_IDX</b>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:a0380c9dab59c77ceee5815af7e00e4fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a830b8a26e845574399d8c37fca947cc3" id="r_a830b8a26e845574399d8c37fca947cc3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a830b8a26e845574399d8c37fca947cc3">CAN3_IDX</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memitem:a830b8a26e845574399d8c37fca947cc3" id="r_a830b8a26e845574399d8c37fca947cc3"><td class="memItemLeft" align="right" valign="top"><a id="a830b8a26e845574399d8c37fca947cc3" name="a830b8a26e845574399d8c37fca947cc3"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN3_IDX</b>&#160;&#160;&#160;2</td></tr>
 <tr class="separator:a830b8a26e845574399d8c37fca947cc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a519312c20b836099ff912a407a257216" id="r_a519312c20b836099ff912a407a257216"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a519312c20b836099ff912a407a257216">GET_PERIPH_IDX</a>(bus)</td></tr>
 <tr class="separator:a519312c20b836099ff912a407a257216"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2183332a909aa096e75fabfb69a91856" id="r_a2183332a909aa096e75fabfb69a91856"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2183332a909aa096e75fabfb69a91856">NUM_CAN_PERIPHERALS_MAX</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memitem:a2183332a909aa096e75fabfb69a91856" id="r_a2183332a909aa096e75fabfb69a91856"><td class="memItemLeft" align="right" valign="top"><a id="a2183332a909aa096e75fabfb69a91856" name="a2183332a909aa096e75fabfb69a91856"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>NUM_CAN_PERIPHERALS_MAX</b>&#160;&#160;&#160;2</td></tr>
 <tr class="separator:a2183332a909aa096e75fabfb69a91856"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:adca5432c2db72ac7c6b25dbfcefbee6b" id="r_adca5432c2db72ac7c6b25dbfcefbee6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adca5432c2db72ac7c6b25dbfcefbee6b">CAN_enqueue_tx</a> (<a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg)</td></tr>
+<tr class="memitem:adca5432c2db72ac7c6b25dbfcefbee6b" id="r_adca5432c2db72ac7c6b25dbfcefbee6b"><td class="memItemLeft" align="right" valign="top"><a id="adca5432c2db72ac7c6b25dbfcefbee6b" name="adca5432c2db72ac7c6b25dbfcefbee6b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_enqueue_tx</b> (<a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg)</td></tr>
 <tr class="separator:adca5432c2db72ac7c6b25dbfcefbee6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49fce4d849c0fd9d2daee17cf822b26a" id="r_a49fce4d849c0fd9d2daee17cf822b26a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a49fce4d849c0fd9d2daee17cf822b26a">CAN_tx_update</a> ()</td></tr>
+<tr class="memitem:a49fce4d849c0fd9d2daee17cf822b26a" id="r_a49fce4d849c0fd9d2daee17cf822b26a"><td class="memItemLeft" align="right" valign="top"><a id="a49fce4d849c0fd9d2daee17cf822b26a" name="a49fce4d849c0fd9d2daee17cf822b26a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_tx_update</b> ()</td></tr>
 <tr class="separator:a49fce4d849c0fd9d2daee17cf822b26a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfcff4ec444a1fa4366dd38c73519a51" id="r_abfcff4ec444a1fa4366dd38c73519a51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abfcff4ec444a1fa4366dd38c73519a51">CAN_rx_update</a> ()</td></tr>
+<tr class="memitem:abfcff4ec444a1fa4366dd38c73519a51" id="r_abfcff4ec444a1fa4366dd38c73519a51"><td class="memItemLeft" align="right" valign="top"><a id="abfcff4ec444a1fa4366dd38c73519a51" name="abfcff4ec444a1fa4366dd38c73519a51"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_rx_update</b> ()</td></tr>
 <tr class="separator:abfcff4ec444a1fa4366dd38c73519a51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6a2e11ac7e69f5da51d64b903198d21" id="r_aa6a2e11ac7e69f5da51d64b903198d21"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6a2e11ac7e69f5da51d64b903198d21">CAN_library_init</a> ()</td></tr>
+<tr class="memitem:aa6a2e11ac7e69f5da51d64b903198d21" id="r_aa6a2e11ac7e69f5da51d64b903198d21"><td class="memItemLeft" align="right" valign="top"><a id="aa6a2e11ac7e69f5da51d64b903198d21" name="aa6a2e11ac7e69f5da51d64b903198d21"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_library_init</b> ()</td></tr>
 <tr class="separator:aa6a2e11ac7e69f5da51d64b903198d21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97dc567036cc7485b20e4f272ccd968c" id="r_a97dc567036cc7485b20e4f272ccd968c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a97dc567036cc7485b20e4f272ccd968c">CAN_handle_irq</a> (CAN_TypeDef *bus, uint8_t fifo)</td></tr>
+<tr class="memitem:a97dc567036cc7485b20e4f272ccd968c" id="r_a97dc567036cc7485b20e4f272ccd968c"><td class="memItemLeft" align="right" valign="top"><a id="a97dc567036cc7485b20e4f272ccd968c" name="a97dc567036cc7485b20e4f272ccd968c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_handle_irq</b> (CAN_TypeDef *bus, uint8_t fifo)</td></tr>
 <tr class="separator:a97dc567036cc7485b20e4f272ccd968c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a7b5ef4ad1f6bec8cb96f4aafbe58fe73" id="r_a7b5ef4ad1f6bec8cb96f4aafbe58fe73"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcan__stats__t.html">can_stats_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b5ef4ad1f6bec8cb96f4aafbe58fe73">can_stats</a></td></tr>
+<tr class="memitem:a7b5ef4ad1f6bec8cb96f4aafbe58fe73" id="r_a7b5ef4ad1f6bec8cb96f4aafbe58fe73"><td class="memItemLeft" align="right" valign="top"><a id="a7b5ef4ad1f6bec8cb96f4aafbe58fe73" name="a7b5ef4ad1f6bec8cb96f4aafbe58fe73"></a>
+<a class="el" href="structcan__stats__t.html">can_stats_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>can_stats</b></td></tr>
 <tr class="separator:a7b5ef4ad1f6bec8cb96f4aafbe58fe73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d7ff913bb95222bc96d632a6e8d8ea4" id="r_a6d7ff913bb95222bc96d632a6e8d8ea4"><td class="memItemLeft" align="right" valign="top">volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d7ff913bb95222bc96d632a6e8d8ea4">last_can_rx_time_ms</a></td></tr>
+<tr class="memitem:a6d7ff913bb95222bc96d632a6e8d8ea4" id="r_a6d7ff913bb95222bc96d632a6e8d8ea4"><td class="memItemLeft" align="right" valign="top"><a id="a6d7ff913bb95222bc96d632a6e8d8ea4" name="a6d7ff913bb95222bc96d632a6e8d8ea4"></a>
+volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>last_can_rx_time_ms</b></td></tr>
 <tr class="separator:a6d7ff913bb95222bc96d632a6e8d8ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36735da67d74109f9687d8ae6186b5bf" id="r_a36735da67d74109f9687d8ae6186b5bf"><td class="memItemLeft" align="right" valign="top">QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a36735da67d74109f9687d8ae6186b5bf">q_rx_can</a></td></tr>
+<tr class="memitem:a36735da67d74109f9687d8ae6186b5bf" id="r_a36735da67d74109f9687d8ae6186b5bf"><td class="memItemLeft" align="right" valign="top"><a id="a36735da67d74109f9687d8ae6186b5bf" name="a36735da67d74109f9687d8ae6186b5bf"></a>
+QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>q_rx_can</b></td></tr>
 <tr class="separator:a36735da67d74109f9687d8ae6186b5bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -191,299 +218,7 @@ Variables</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
 <dd>
 Ronak Jain (<a href="#" onclick="location.href='mai'+'lto:'+'jai'+'n7'+'17@'+'pu'+'rdu'+'e.'+'edu'; return false;">jain7<span class="obfuscator">.nosp@m.</span>17@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-
-<p class="definition">Definition in file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a657e66ed8d35d52e0b1effb289ba15df" name="a657e66ed8d35d52e0b1effb289ba15df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a657e66ed8d35d52e0b1effb289ba15df">&#9670;&#160;</a></span>CAN1_IDX</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN1_IDX&#160;&#160;&#160;0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00047">47</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-</div>
-</div>
-<a id="a0380c9dab59c77ceee5815af7e00e4fb" name="a0380c9dab59c77ceee5815af7e00e4fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0380c9dab59c77ceee5815af7e00e4fb">&#9670;&#160;</a></span>CAN2_IDX</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN2_IDX&#160;&#160;&#160;1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00050">50</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-</div>
-</div>
-<a id="a830b8a26e845574399d8c37fca947cc3" name="a830b8a26e845574399d8c37fca947cc3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a830b8a26e845574399d8c37fca947cc3">&#9670;&#160;</a></span>CAN3_IDX</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN3_IDX&#160;&#160;&#160;2</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00053">53</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-</div>
-</div>
-<a id="a5ae55ab3741140024858bd7b8762ea42" name="a5ae55ab3741140024858bd7b8762ea42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ae55ab3741140024858bd7b8762ea42">&#9670;&#160;</a></span>CAN_EFF_FLAG</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN_EFF_FLAG&#160;&#160;&#160;0x80000000U /* EFF/SFF is set in the MSB */</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00037">37</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="daq_2main_8c_source.html#l00192">can_rx_irq_handler()</a>.</p>
-
-</div>
-</div>
-<a id="a83b943dca61d0aad5b07ec01c3317572" name="a83b943dca61d0aad5b07ec01c3317572"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83b943dca61d0aad5b07ec01c3317572">&#9670;&#160;</a></span>CAN_EFF_MASK</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN_EFF_MASK&#160;&#160;&#160;0x1FFFFFFFU /* extended frame format (EFF) */</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00043">43</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-</div>
-</div>
-<a id="a24df2eae50a2cef0f7f08c73a246a012" name="a24df2eae50a2cef0f7f08c73a246a012"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24df2eae50a2cef0f7f08c73a246a012">&#9670;&#160;</a></span>CAN_ERR_FLAG</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN_ERR_FLAG&#160;&#160;&#160;0x20000000U /* error message frame */</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00039">39</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-</div>
-</div>
-<a id="ad4061a08b8c5aa6de3bb390efd3b6bd6" name="ad4061a08b8c5aa6de3bb390efd3b6bd6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4061a08b8c5aa6de3bb390efd3b6bd6">&#9670;&#160;</a></span>CAN_ERR_MASK</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN_ERR_MASK&#160;&#160;&#160;0x1FFFFFFFU /* omit EFF, RTR, ERR flags */</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00044">44</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-</div>
-</div>
-<a id="a6ca8acd405061ea42ff0e40b42bb3c9b" name="a6ca8acd405061ea42ff0e40b42bb3c9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ca8acd405061ea42ff0e40b42bb3c9b">&#9670;&#160;</a></span>CAN_MAILBOX_HIGH_PRIO</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN_MAILBOX_HIGH_PRIO&#160;&#160;&#160;0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00032">32</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-</div>
-</div>
-<a id="a8a9c6aed31ef3d6417060d7ba3734142" name="a8a9c6aed31ef3d6417060d7ba3734142"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a9c6aed31ef3d6417060d7ba3734142">&#9670;&#160;</a></span>CAN_MAILBOX_LOW_PRIO</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN_MAILBOX_LOW_PRIO&#160;&#160;&#160;2</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00034">34</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-</div>
-</div>
-<a id="a20806e55c9070814e10e2ee9e808e422" name="a20806e55c9070814e10e2ee9e808e422"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20806e55c9070814e10e2ee9e808e422">&#9670;&#160;</a></span>CAN_MAILBOX_MED_PRIO</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN_MAILBOX_MED_PRIO&#160;&#160;&#160;1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00033">33</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-</div>
-</div>
-<a id="af324d65226057755175038a15d9bbd75" name="af324d65226057755175038a15d9bbd75"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af324d65226057755175038a15d9bbd75">&#9670;&#160;</a></span>CAN_RTR_FLAG</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN_RTR_FLAG&#160;&#160;&#160;0x40000000U /* remote transmission request */</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00038">38</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-</div>
-</div>
-<a id="a3b0586f06e0aa453bb34475f8ac577d1" name="a3b0586f06e0aa453bb34475f8ac577d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b0586f06e0aa453bb34475f8ac577d1">&#9670;&#160;</a></span>CAN_RX_QUEUE_LENGTH</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN_RX_QUEUE_LENGTH&#160;&#160;&#160;(64)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00026">26</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-</div>
-</div>
-<a id="afe4fc3f9cab58aeeb463861289e8ce93" name="afe4fc3f9cab58aeeb463861289e8ce93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe4fc3f9cab58aeeb463861289e8ce93">&#9670;&#160;</a></span>CAN_SFF_MASK</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN_SFF_MASK&#160;&#160;&#160;0x000007FFU /* standard frame format (SFF) */</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00042">42</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-</div>
-</div>
-<a id="ae6b03392d6c59a518349d99a8519ebb0" name="ae6b03392d6c59a518349d99a8519ebb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6b03392d6c59a518349d99a8519ebb0">&#9670;&#160;</a></span>CAN_TX_BACKPRESSURE_MS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN_TX_BACKPRESSURE_MS&#160;&#160;&#160;(2)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00024">24</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-</div>
-</div>
-<a id="a6425fe407d29245e0fe0a98a9fd23f75" name="a6425fe407d29245e0fe0a98a9fd23f75"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6425fe407d29245e0fe0a98a9fd23f75">&#9670;&#160;</a></span>CAN_TX_BLOCK_TIMEOUT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN_TX_BLOCK_TIMEOUT&#160;&#160;&#160;(30 * 16000)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00030">30</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-</div>
-</div>
-<a id="a15ff5b005bbef3c1b021fb605f9d8e6c" name="a15ff5b005bbef3c1b021fb605f9d8e6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15ff5b005bbef3c1b021fb605f9d8e6c">&#9670;&#160;</a></span>CAN_TX_MAILBOX_CNT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN_TX_MAILBOX_CNT&#160;&#160;&#160;(3)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00028">28</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-</div>
-</div>
-<a id="a1248665f89d7c3c1ff3fc0c66dfc5ee8" name="a1248665f89d7c3c1ff3fc0c66dfc5ee8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1248665f89d7c3c1ff3fc0c66dfc5ee8">&#9670;&#160;</a></span>CAN_TX_QUEUE_LENGTH</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN_TX_QUEUE_LENGTH&#160;&#160;&#160;(64)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00025">25</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-</div>
-</div>
-<a id="abe4ea8b0c378d1c95afe5fb570d1aed1" name="abe4ea8b0c378d1c95afe5fb570d1aed1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe4ea8b0c378d1c95afe5fb570d1aed1">&#9670;&#160;</a></span>CAN_TX_TIMEOUT_MS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CAN_TX_TIMEOUT_MS&#160;&#160;&#160;(15)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00029">29</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-</div>
-</div>
 <a id="a519312c20b836099ff912a407a257216" name="a519312c20b836099ff912a407a257216"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a519312c20b836099ff912a407a257216">&#9670;&#160;</a></span>GET_PERIPH_IDX</h2>
 
@@ -498,207 +233,8 @@ Ronak Jain (<a href="#" onclick="location.href='mai'+'lto:'+'jai'+'n7'+'17@'+'pu
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">((bus == CAN1) ? <a class="code hl_define" href="#a657e66ed8d35d52e0b1effb289ba15df">CAN1_IDX</a> : <a class="code hl_define" href="#a0380c9dab59c77ceee5815af7e00e4fb">CAN2_IDX</a>)</div>
-<div class="ttc" id="acan__common_8h_html_a0380c9dab59c77ceee5815af7e00e4fb"><div class="ttname"><a href="#a0380c9dab59c77ceee5815af7e00e4fb">CAN2_IDX</a></div><div class="ttdeci">#define CAN2_IDX</div><div class="ttdef"><b>Definition</b> <a href="can__common_8h_source.html#l00050">can_common.h:50</a></div></div>
-<div class="ttc" id="acan__common_8h_html_a657e66ed8d35d52e0b1effb289ba15df"><div class="ttname"><a href="#a657e66ed8d35d52e0b1effb289ba15df">CAN1_IDX</a></div><div class="ttdeci">#define CAN1_IDX</div><div class="ttdef"><b>Definition</b> <a href="can__common_8h_source.html#l00047">can_common.h:47</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line">((bus == CAN1) ? CAN1_IDX : CAN2_IDX)</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00061">61</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="can__common_8c_source.html#l00020">CAN_rx_update()</a>.</p>
-
-</div>
-</div>
-<a id="a2183332a909aa096e75fabfb69a91856" name="a2183332a909aa096e75fabfb69a91856"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2183332a909aa096e75fabfb69a91856">&#9670;&#160;</a></span>NUM_CAN_PERIPHERALS_MAX</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define NUM_CAN_PERIPHERALS_MAX&#160;&#160;&#160;2</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8h_source.html#l00067">67</a> of file <a class="el" href="can__common_8h_source.html">can_common.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="adca5432c2db72ac7c6b25dbfcefbee6b" name="adca5432c2db72ac7c6b25dbfcefbee6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adca5432c2db72ac7c6b25dbfcefbee6b">&#9670;&#160;</a></span>CAN_enqueue_tx()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CAN_enqueue_tx </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *</td>          <td class="paramname"><span class="paramname"><em>msg</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a97dc567036cc7485b20e4f272ccd968c" name="a97dc567036cc7485b20e4f272ccd968c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97dc567036cc7485b20e4f272ccd968c">&#9670;&#160;</a></span>CAN_handle_irq()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CAN_handle_irq </td>
-          <td>(</td>
-          <td class="paramtype">CAN_TypeDef *</td>          <td class="paramname"><span class="paramname"><em>bus</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>fifo</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00364">CAN1_RX0_IRQHandler()</a>.</p>
-
-</div>
-</div>
-<a id="aa6a2e11ac7e69f5da51d64b903198d21" name="aa6a2e11ac7e69f5da51d64b903198d21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6a2e11ac7e69f5da51d64b903198d21">&#9670;&#160;</a></span>CAN_library_init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool CAN_library_init </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00300">main()</a>, and <a class="el" href="a__box_2main_8c_source.html#l00120">main()</a>.</p>
-
-</div>
-</div>
-<a id="abfcff4ec444a1fa4366dd38c73519a51" name="abfcff4ec444a1fa4366dd38c73519a51"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abfcff4ec444a1fa4366dd38c73519a51">&#9670;&#160;</a></span>CAN_rx_update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CAN_rx_update </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8c_source.html#l00020">20</a> of file <a class="el" href="can__common_8c_source.html">can_common.c</a>.</p>
-
-<p class="reference">References <a class="el" href="phal__F4__F7_2can_2can_8h_source.html#l00032">CanMsgTypeDef_t::Bus</a>, <a class="el" href="phal__F4__F7_2can_2can_8h_source.html#l00037">CanMsgTypeDef_t::Data</a>, <a class="el" href="phal__F4__F7_2can_2can_8h_source.html#l00036">CanMsgTypeDef_t::DLC</a>, <a class="el" href="phal__F4__F7_2can_2can_8h_source.html#l00034">CanMsgTypeDef_t::ExtId</a>, <a class="el" href="can__common_8h_source.html#l00061">GET_PERIPH_IDX</a>, <a class="el" href="phal__F4__F7_2can_2can_8h_source.html#l00035">CanMsgTypeDef_t::IDE</a>, <a class="el" href="can__common_8c_source.html#l00016">last_can_rx_time_ms</a>, <a class="el" href="#a36735da67d74109f9687d8ae6186b5bf">q_rx_can</a>, and <a class="el" href="phal__F4__F7_2can_2can_8h_source.html#l00033">CanMsgTypeDef_t::StdId</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00300">main()</a>, and <a class="el" href="a__box_2main_8c_source.html#l00120">main()</a>.</p>
-
-</div>
-</div>
-<a id="a49fce4d849c0fd9d2daee17cf822b26a" name="a49fce4d849c0fd9d2daee17cf822b26a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49fce4d849c0fd9d2daee17cf822b26a">&#9670;&#160;</a></span>CAN_tx_update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CAN_tx_update </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00300">main()</a>, and <a class="el" href="a__box_2main_8c_source.html#l00120">main()</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="a7b5ef4ad1f6bec8cb96f4aafbe58fe73" name="a7b5ef4ad1f6bec8cb96f4aafbe58fe73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b5ef4ad1f6bec8cb96f4aafbe58fe73">&#9670;&#160;</a></span>can_stats</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structcan__stats__t.html">can_stats_t</a> can_stats</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8c_source.html#l00015">15</a> of file <a class="el" href="can__common_8c_source.html">can_common.c</a>.</p>
-
-</div>
-</div>
-<a id="a6d7ff913bb95222bc96d632a6e8d8ea4" name="a6d7ff913bb95222bc96d632a6e8d8ea4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d7ff913bb95222bc96d632a6e8d8ea4">&#9670;&#160;</a></span>last_can_rx_time_ms</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile uint32_t last_can_rx_time_ms</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="can__common_8c_source.html#l00016">16</a> of file <a class="el" href="can__common_8c_source.html">can_common.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="can__common_8c_source.html#l00020">CAN_rx_update()</a>, and <a class="el" href="heartbeat_8c_source.html#l00034">heartbeat_task()</a>.</p>
-
-</div>
-</div>
-<a id="a36735da67d74109f9687d8ae6186b5bf" name="a36735da67d74109f9687d8ae6186b5bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36735da67d74109f9687d8ae6186b5bf">&#9670;&#160;</a></span>q_rx_can</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QueueHandle_t q_rx_can</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="reference">Referenced by <a class="el" href="can__common_8c_source.html#l00020">CAN_rx_update()</a>.</p>
-
 </div>
 </div>
 </div><!-- contents -->

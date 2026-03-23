@@ -106,95 +106,23 @@ $(function(){initNavTree('thermistor_8c.html',''); initResizable(true); });
 <p>Thermistor lookup table from datasheet.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="lerp__lut_8h_source.html">common/lerp_lut/lerp_lut.h</a>&quot;</code><br />
-</div>
-<p><a href="thermistor_8c_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:abd11d79cd9bde6efa76cf4088096ecba" id="r_abd11d79cd9bde6efa76cf4088096ecba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd11d79cd9bde6efa76cf4088096ecba">LERP_LUT_INIT</a> (<a class="el" href="thermistor_8h.html#a8302cb9eebdd6ddbaca93f268a5cd7f8">thermistor_lut</a>, <a class="el" href="#ad4ca3d95f36229506cf0e7e27ca26784">B57861S0103A039_data</a>, <a class="el" href="#a71b269e80da00ecac21cc1487056621c">B57861S0103A039_LUT_SIZE</a>)</td></tr>
+<tr class="memitem:abd11d79cd9bde6efa76cf4088096ecba" id="r_abd11d79cd9bde6efa76cf4088096ecba"><td class="memItemLeft" align="right" valign="top"><a id="abd11d79cd9bde6efa76cf4088096ecba" name="abd11d79cd9bde6efa76cf4088096ecba"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>LERP_LUT_INIT</b> (thermistor_lut, B57861S0103A039_data, B57861S0103A039_LUT_SIZE)</td></tr>
 <tr class="separator:abd11d79cd9bde6efa76cf4088096ecba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a71b269e80da00ecac21cc1487056621c" id="r_a71b269e80da00ecac21cc1487056621c"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71b269e80da00ecac21cc1487056621c">B57861S0103A039_LUT_SIZE</a> = 43</td></tr>
-<tr class="separator:a71b269e80da00ecac21cc1487056621c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4ca3d95f36229506cf0e7e27ca26784" id="r_ad4ca3d95f36229506cf0e7e27ca26784"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structlut__entry__t.html">lut_entry_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4ca3d95f36229506cf0e7e27ca26784">B57861S0103A039_data</a> [<a class="el" href="#a71b269e80da00ecac21cc1487056621c">B57861S0103A039_LUT_SIZE</a>]</td></tr>
+<tr class="memitem:ad4ca3d95f36229506cf0e7e27ca26784" id="r_ad4ca3d95f36229506cf0e7e27ca26784"><td class="memItemLeft" align="right" valign="top"><a id="ad4ca3d95f36229506cf0e7e27ca26784" name="ad4ca3d95f36229506cf0e7e27ca26784"></a>
+const <a class="el" href="structlut__entry__t.html">lut_entry_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>B57861S0103A039_data</b> [B57861S0103A039_LUT_SIZE]</td></tr>
 <tr class="separator:ad4ca3d95f36229506cf0e7e27ca26784"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Thermistor lookup table from datasheet. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>), Millan Kumar (<a href="#" onclick="location.href='mai'+'lto:'+'kum'+'ar'+'798'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">kumar<span class="obfuscator">.nosp@m.</span>798@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd></dl>
-
-<p class="definition">Definition in file <a class="el" href="thermistor_8c_source.html">thermistor.c</a>.</p>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a id="abd11d79cd9bde6efa76cf4088096ecba" name="abd11d79cd9bde6efa76cf4088096ecba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd11d79cd9bde6efa76cf4088096ecba">&#9670;&#160;</a></span>LERP_LUT_INIT()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">LERP_LUT_INIT </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="thermistor_8h.html#a8302cb9eebdd6ddbaca93f268a5cd7f8">thermistor_lut</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="#ad4ca3d95f36229506cf0e7e27ca26784">B57861S0103A039_data</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="#a71b269e80da00ecac21cc1487056621c">B57861S0103A039_LUT_SIZE</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="ad4ca3d95f36229506cf0e7e27ca26784" name="ad4ca3d95f36229506cf0e7e27ca26784"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4ca3d95f36229506cf0e7e27ca26784">&#9670;&#160;</a></span>B57861S0103A039_data</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="structlut__entry__t.html">lut_entry_t</a> B57861S0103A039_data[<a class="el" href="#a71b269e80da00ecac21cc1487056621c">B57861S0103A039_LUT_SIZE</a>]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="thermistor_8c_source.html#l00014">14</a> of file <a class="el" href="thermistor_8c_source.html">thermistor.c</a>.</p>
-
-</div>
-</div>
-<a id="a71b269e80da00ecac21cc1487056621c" name="a71b269e80da00ecac21cc1487056621c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71b269e80da00ecac21cc1487056621c">&#9670;&#160;</a></span>B57861S0103A039_LUT_SIZE</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t B57861S0103A039_LUT_SIZE = 43</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="thermistor_8c_source.html#l00012">12</a> of file <a class="el" href="thermistor_8c_source.html">thermistor.c</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

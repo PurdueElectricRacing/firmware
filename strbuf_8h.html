@@ -97,7 +97,7 @@ $(function(){initNavTree('strbuf_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">strbuf.h File Reference</div></div>
@@ -112,7 +112,7 @@ $(function(){initNavTree('strbuf_8h.html',''); initResizable(true); });
 <p><a href="strbuf_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Data Structures</h2></td></tr>
+Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstrbuf__t.html">strbuf_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -124,8 +124,9 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a64d216f0276598d2d7f68c8a0c453fb7" id="r_a64d216f0276598d2d7f68c8a0c453fb7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64d216f0276598d2d7f68c8a0c453fb7">strbuf_clear</a> (<a class="el" href="structstrbuf__t.html">strbuf_t</a> *sb)</td></tr>
-<tr class="memdesc:a64d216f0276598d2d7f68c8a0c453fb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the buffer by resetting length to 0.  <br /></td></tr>
+<tr class="memitem:a64d216f0276598d2d7f68c8a0c453fb7" id="r_a64d216f0276598d2d7f68c8a0c453fb7"><td class="memItemLeft" align="right" valign="top"><a id="a64d216f0276598d2d7f68c8a0c453fb7" name="a64d216f0276598d2d7f68c8a0c453fb7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>strbuf_clear</b> (<a class="el" href="structstrbuf__t.html">strbuf_t</a> *sb)</td></tr>
+<tr class="memdesc:a64d216f0276598d2d7f68c8a0c453fb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the buffer by resetting length to 0. <br /></td></tr>
 <tr class="separator:a64d216f0276598d2d7f68c8a0c453fb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15380dc153a462b38a9b54f274c9c3b5" id="r_a15380dc153a462b38a9b54f274c9c3b5"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15380dc153a462b38a9b54f274c9c3b5">strbuf_append</a> (<a class="el" href="structstrbuf__t.html">strbuf_t</a> *sb, const void *data, size_t length)</td></tr>
 <tr class="memdesc:a15380dc153a462b38a9b54f274c9c3b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended.  <br /></td></tr>
@@ -137,8 +138,6 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Fixed-size string builder. Useful for building large CMD strings before transmission. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-
-<p class="definition">Definition in file <a class="el" href="strbuf_8h_source.html">strbuf.h</a>.</p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a30f1008dff6e5e81b5cfd515db9f8d9a" name="a30f1008dff6e5e81b5cfd515db9f8d9a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a30f1008dff6e5e81b5cfd515db9f8d9a">&#9670;&#160;</a></span>ALLOCATE_STRBUF</h2>
@@ -161,11 +160,10 @@ Functions</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">    uint8_t NAME##_data[(MAX_SIZE)]; \</div>
 <div class="line">    <a class="code hl_struct" href="structstrbuf__t.html">strbuf_t</a> NAME = { \</div>
 <div class="line">        .data    = NAME##_data, \</div>
-<div class="line">        .<a class="code hl_variable" href="structstrbuf__t.html#ae6fc3758286e761d9c7873b489786a89">length</a>  = 0, \</div>
+<div class="line">        .length  = 0, \</div>
 <div class="line">        .max_len = (MAX_SIZE), \</div>
 <div class="line">    }</div>
-<div class="ttc" id="astructstrbuf__t_html"><div class="ttname"><a href="structstrbuf__t.html">strbuf_t</a></div><div class="ttdef"><b>Definition</b> <a href="strbuf_8h_source.html#l00015">strbuf.h:15</a></div></div>
-<div class="ttc" id="astructstrbuf__t_html_ae6fc3758286e761d9c7873b489786a89"><div class="ttname"><a href="structstrbuf__t.html#ae6fc3758286e761d9c7873b489786a89">strbuf_t::length</a></div><div class="ttdeci">size_t length</div><div class="ttdef"><b>Definition</b> <a href="strbuf_8h_source.html#l00017">strbuf.h:17</a></div></div>
+<div class="ttc" id="astructstrbuf__t_html"><div class="ttname"><a href="structstrbuf__t.html">strbuf_t</a></div><div class="ttdef"><b>Definition</b> strbuf.h:15</div></div>
 </div><!-- fragment -->
 <p>Macro to allocate and initialize a <a class="el" href="structstrbuf__t.html">strbuf_t</a> with a fixed-size buffer. Also creates the underlying data buffer in the same scope. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -175,8 +173,6 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p class="definition">Definition at line <a class="el" href="strbuf_8h_source.html#l00034">34</a> of file <a class="el" href="strbuf_8h_source.html">strbuf.h</a>.</p>
 
 </div>
 </div>
@@ -208,37 +204,6 @@ Functions</h2></td></tr>
 <p>Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended. </p>
 <dl class="section return"><dt>Returns</dt><dd>Num bytes written to the buffer </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="strbuf_8c_source.html#l00025">25</a> of file <a class="el" href="strbuf_8c_source.html">strbuf.c</a>.</p>
-
-<p class="reference">References <a class="el" href="strbuf_8h_source.html#l00016">strbuf_t::data</a>, <a class="el" href="strbuf_8h_source.html#l00017">strbuf_t::length</a>, and <a class="el" href="strbuf_8h_source.html#l00018">strbuf_t::max_len</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="adbms6380_8c_source.html#l00082">adbms6380_prepare_command()</a>, <a class="el" href="adbms6380_8c_source.html#l00090">adbms6380_prepare_data_packet()</a>, <a class="el" href="nextion_8c_source.html#l00050">NXT_setBackground()</a>, <a class="el" href="nextion_8c_source.html#l00146">NXT_setBaud()</a>, <a class="el" href="nextion_8c_source.html#l00083">NXT_setBorderColor()</a>, <a class="el" href="nextion_8c_source.html#l00072">NXT_setBorderWidth()</a>, <a class="el" href="nextion_8c_source.html#l00134">NXT_setBrightness()</a>, <a class="el" href="nextion_8c_source.html#l00028">NXT_setFloat()</a>, <a class="el" href="nextion_8c_source.html#l00061">NXT_setFontColor()</a>, <a class="el" href="nextion_8c_source.html#l00124">NXT_setPage()</a>, <a class="el" href="nextion_8c_source.html#l00094">NXT_setText()</a>, <a class="el" href="nextion_8c_source.html#l00107">NXT_setTextFormatted()</a>, and <a class="el" href="nextion_8c_source.html#l00039">NXT_setValue()</a>.</p>
-
-</div>
-</div>
-<a id="a64d216f0276598d2d7f68c8a0c453fb7" name="a64d216f0276598d2d7f68c8a0c453fb7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64d216f0276598d2d7f68c8a0c453fb7">&#9670;&#160;</a></span>strbuf_clear()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void strbuf_clear </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structstrbuf__t.html">strbuf_t</a> *</td>          <td class="paramname"><span class="paramname"><em>sb</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clears the buffer by resetting length to 0. </p>
-
-<p class="definition">Definition at line <a class="el" href="strbuf_8c_source.html#l00017">17</a> of file <a class="el" href="strbuf_8c_source.html">strbuf.c</a>.</p>
-
-<p class="reference">References <a class="el" href="strbuf_8h_source.html#l00017">strbuf_t::length</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="adbms6380_8c_source.html#l00223">adbms6380_read_cell_voltages()</a>, <a class="el" href="adbms6380_8c_source.html#l00281">adbms6380_read_gpio_voltages()</a>, <a class="el" href="adbms_8c_source.html#l00165">adbms_connect()</a>, <a class="el" href="adbms_8c_source.html#l00097">adbms_read_and_check_rega()</a>, <a class="el" href="adbms_8c_source.html#l00131">adbms_read_and_check_regb()</a>, <a class="el" href="adbms_8c_source.html#l00309">adbms_read_therms()</a>, <a class="el" href="adbms_8c_source.html#l00055">adbms_write_rega()</a>, <a class="el" href="adbms_8c_source.html#l00075">adbms_write_regb()</a>, and <a class="el" href="dashboard_2main_8c_source.html#l00363">LCD_tx_update()</a>.</p>
-
 </div>
 </div>
 <a id="a52ce36e86451c208f1846411e1f67dcf" name="a52ce36e86451c208f1846411e1f67dcf"></a>
@@ -267,12 +232,6 @@ Functions</h2></td></tr>
 
 <p>Appends formatted data to the buffer using printf-style formatting. ! </p>
 <dl class="section warning"><dt>Warning</dt><dd>This function is unsafe if the formatted string exceeds the remaining buffer space. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="strbuf_8c_source.html#l00041">41</a> of file <a class="el" href="strbuf_8c_source.html">strbuf.c</a>.</p>
-
-<p class="reference">References <a class="el" href="strbuf_8h_source.html#l00016">strbuf_t::data</a>, <a class="el" href="strbuf_8h_source.html#l00017">strbuf_t::length</a>, <a class="el" href="strbuf_8h_source.html#l00018">strbuf_t::max_len</a>, and <a class="el" href="vsprintf_8c_source.html#l00207">vsnprintf()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="nextion_8c_source.html#l00050">NXT_setBackground()</a>, <a class="el" href="nextion_8c_source.html#l00146">NXT_setBaud()</a>, <a class="el" href="nextion_8c_source.html#l00083">NXT_setBorderColor()</a>, <a class="el" href="nextion_8c_source.html#l00072">NXT_setBorderWidth()</a>, <a class="el" href="nextion_8c_source.html#l00134">NXT_setBrightness()</a>, <a class="el" href="nextion_8c_source.html#l00028">NXT_setFloat()</a>, <a class="el" href="nextion_8c_source.html#l00061">NXT_setFontColor()</a>, <a class="el" href="nextion_8c_source.html#l00124">NXT_setPage()</a>, <a class="el" href="nextion_8c_source.html#l00094">NXT_setText()</a>, <a class="el" href="nextion_8c_source.html#l00107">NXT_setTextFormatted()</a>, and <a class="el" href="nextion_8c_source.html#l00039">NXT_setValue()</a>.</p>
 
 </div>
 </div>

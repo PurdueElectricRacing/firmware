@@ -105,47 +105,47 @@ $(function(){initNavTree('can__common_8h_source.html',''); initResizable(true); 
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="freertos_8h.html">common/freertos/freertos.h</a>&quot;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="phal_2can_8h.html">common/phal/can.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;common/phal/can.h&quot;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="structcan__peripheral__stats__t.html">   17</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structcan__peripheral__stats__t.html#ad9f34185dc29fb51740bd58b9169d64f">   18</a></span>    uint32_t <a class="code hl_variable" href="structcan__peripheral__stats__t.html#ad9f34185dc29fb51740bd58b9169d64f">tx_of</a>;      <span class="comment">// queue overflow</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="structcan__peripheral__stats__t.html#aa27f7c9ece5f9ba3b929924ee99fa9ff">   19</a></span>    uint32_t <a class="code hl_variable" href="structcan__peripheral__stats__t.html#aa27f7c9ece5f9ba3b929924ee99fa9ff">tx_fail</a>;    <span class="comment">// timed out</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="structcan__peripheral__stats__t.html#a457c15f9442166cc47f8ffe2a27cba99">   20</a></span>    uint32_t <a class="code hl_variable" href="structcan__peripheral__stats__t.html#a457c15f9442166cc47f8ffe2a27cba99">rx_overrun</a>; <span class="comment">// fifo overrun</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    uint32_t tx_of;      <span class="comment">// queue overflow</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    uint32_t tx_fail;    <span class="comment">// timed out</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    uint32_t rx_overrun; <span class="comment">// fifo overrun</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>} <a class="code hl_struct" href="structcan__peripheral__stats__t.html">can_peripheral_stats_t</a>;</div>
 </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">// FreeRTOS</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="can__common_8h.html#ae6b03392d6c59a518349d99a8519ebb0">   24</a></span><span class="preprocessor">#define CAN_TX_BACKPRESSURE_MS (2) </span><span class="comment">// Wait up to 2ms if FDCAN TX FIFO is full before dropping message</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="can__common_8h.html#a1248665f89d7c3c1ff3fc0c66dfc5ee8">   25</a></span><span class="preprocessor">#define CAN_TX_QUEUE_LENGTH (64)     </span><span class="comment">// Length of software queue for each CAN peripheral</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="can__common_8h.html#a3b0586f06e0aa453bb34475f8ac577d1">   26</a></span><span class="preprocessor">#define CAN_RX_QUEUE_LENGTH (64)     </span><span class="comment">// Length of software queue for received messages</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#define CAN_TX_BACKPRESSURE_MS (2) </span><span class="comment">// Wait up to 2ms if FDCAN TX FIFO is full before dropping message</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#define CAN_TX_QUEUE_LENGTH (64)     </span><span class="comment">// Length of software queue for each CAN peripheral</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#define CAN_RX_QUEUE_LENGTH (64)     </span><span class="comment">// Length of software queue for received messages</span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="can__common_8h.html#a15ff5b005bbef3c1b021fb605f9d8e6c">   28</a></span><span class="preprocessor">#define CAN_TX_MAILBOX_CNT   (3)</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="can__common_8h.html#abe4ea8b0c378d1c95afe5fb570d1aed1">   29</a></span><span class="preprocessor">#define CAN_TX_TIMEOUT_MS    (15)</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="can__common_8h.html#a6425fe407d29245e0fe0a98a9fd23f75">   30</a></span><span class="preprocessor">#define CAN_TX_BLOCK_TIMEOUT (30 * 16000)</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#define CAN_TX_MAILBOX_CNT   (3)</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#define CAN_TX_TIMEOUT_MS    (15)</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#define CAN_TX_BLOCK_TIMEOUT (30 * 16000)</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="can__common_8h.html#a6ca8acd405061ea42ff0e40b42bb3c9b">   32</a></span><span class="preprocessor">#define CAN_MAILBOX_HIGH_PRIO 0</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="can__common_8h.html#a20806e55c9070814e10e2ee9e808e422">   33</a></span><span class="preprocessor">#define CAN_MAILBOX_MED_PRIO  1</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="can__common_8h.html#a8a9c6aed31ef3d6417060d7ba3734142">   34</a></span><span class="preprocessor">#define CAN_MAILBOX_LOW_PRIO  2</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#define CAN_MAILBOX_HIGH_PRIO 0</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#define CAN_MAILBOX_MED_PRIO  1</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#define CAN_MAILBOX_LOW_PRIO  2</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">/* Standard CAN flag and mask definitions */</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="can__common_8h.html#a5ae55ab3741140024858bd7b8762ea42">   37</a></span><span class="preprocessor">#define CAN_EFF_FLAG 0x80000000U </span><span class="comment">/* EFF/SFF is set in the MSB */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="can__common_8h.html#af324d65226057755175038a15d9bbd75">   38</a></span><span class="preprocessor">#define CAN_RTR_FLAG 0x40000000U </span><span class="comment">/* remote transmission request */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="can__common_8h.html#a24df2eae50a2cef0f7f08c73a246a012">   39</a></span><span class="preprocessor">#define CAN_ERR_FLAG 0x20000000U </span><span class="comment">/* error message frame */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#define CAN_EFF_FLAG 0x80000000U </span><span class="comment">/* EFF/SFF is set in the MSB */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#define CAN_RTR_FLAG 0x40000000U </span><span class="comment">/* remote transmission request */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#define CAN_ERR_FLAG 0x20000000U </span><span class="comment">/* error message frame */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">/* valid bits in CAN ID for frame formats */</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="can__common_8h.html#afe4fc3f9cab58aeeb463861289e8ce93">   42</a></span><span class="preprocessor">#define CAN_SFF_MASK 0x000007FFU </span><span class="comment">/* standard frame format (SFF) */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="can__common_8h.html#a83b943dca61d0aad5b07ec01c3317572">   43</a></span><span class="preprocessor">#define CAN_EFF_MASK 0x1FFFFFFFU </span><span class="comment">/* extended frame format (EFF) */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="can__common_8h.html#ad4061a08b8c5aa6de3bb390efd3b6bd6">   44</a></span><span class="preprocessor">#define CAN_ERR_MASK 0x1FFFFFFFU </span><span class="comment">/* omit EFF, RTR, ERR flags */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#define CAN_SFF_MASK 0x000007FFU </span><span class="comment">/* standard frame format (SFF) */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#define CAN_EFF_MASK 0x1FFFFFFFU </span><span class="comment">/* extended frame format (EFF) */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#define CAN_ERR_MASK 0x1FFFFFFFU </span><span class="comment">/* omit EFF, RTR, ERR flags */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#ifndef CAN1_IDX</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="can__common_8h.html#a657e66ed8d35d52e0b1effb289ba15df">   47</a></span><span class="preprocessor">#define CAN1_IDX 0</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#define CAN1_IDX 0</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#ifndef CAN2_IDX</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="can__common_8h.html#a0380c9dab59c77ceee5815af7e00e4fb">   50</a></span><span class="preprocessor">#define CAN2_IDX 1</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#define CAN2_IDX 1</span></div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#ifndef CAN3_IDX</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="can__common_8h.html#a830b8a26e845574399d8c37fca947cc3">   53</a></span><span class="preprocessor">#define CAN3_IDX 2</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#define CAN3_IDX 2</span></div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#if defined(STM32G474xx)</span></div>
@@ -153,71 +153,56 @@ $(function(){initNavTree('can__common_8h_source.html',''); initResizable(true); 
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#define GET_PERIPH_IDX(bus) ((bus == FDCAN1) ? CAN1_IDX : ((bus == FDCAN2) ? CAN2_IDX : CAN3_IDX))</span></div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#else</span></div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">// F4/F7/L4 use bxCAN peripheral</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="can__common_8h.html#a519312c20b836099ff912a407a257216">   61</a></span><span class="preprocessor">#define GET_PERIPH_IDX(bus) ((bus == CAN1) ? CAN1_IDX : CAN2_IDX)</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#define GET_PERIPH_IDX(bus) ((bus == CAN1) ? CAN1_IDX : CAN2_IDX)</span></div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#if defined(STM32G474xx)</span></div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#define NUM_CAN_PERIPHERALS_MAX 3</span></div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="can__common_8h.html#a2183332a909aa096e75fabfb69a91856">   67</a></span><span class="preprocessor">#define NUM_CAN_PERIPHERALS_MAX 2</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#define NUM_CAN_PERIPHERALS_MAX 2</span></div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
 <div class="foldopen" id="foldopen00070" data-start="{" data-end="};">
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structcan__stats__t.html">   70</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="structcan__stats__t.html#a0f8c66035803b2d3d7b368cc5c6a9177">   71</a></span>    uint32_t <a class="code hl_variable" href="structcan__stats__t.html#a0f8c66035803b2d3d7b368cc5c6a9177">rx_of</a>; <span class="comment">// queue overflow</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="structcan__stats__t.html#a25e541d8452002837366efcfbb6dd7ef">   72</a></span>    <a class="code hl_struct" href="structcan__peripheral__stats__t.html">can_peripheral_stats_t</a> can_peripheral_stats[<a class="code hl_define" href="can__common_8h.html#a2183332a909aa096e75fabfb69a91856">NUM_CAN_PERIPHERALS_MAX</a>];</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    uint32_t rx_of; <span class="comment">// queue overflow</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_struct" href="structcan__peripheral__stats__t.html">can_peripheral_stats_t</a> can_peripheral_stats[NUM_CAN_PERIPHERALS_MAX];</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>} <a class="code hl_struct" href="structcan__stats__t.html">can_stats_t</a>;</div>
 </div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keyword">extern</span> <a class="code hl_struct" href="structcan__stats__t.html">can_stats_t</a> <a class="code hl_variable" href="can__common_8h.html#a7b5ef4ad1f6bec8cb96f4aafbe58fe73">can_stats</a>;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keyword">extern</span> <span class="keyword">volatile</span> uint32_t <a class="code hl_variable" href="can__common_8h.html#a6d7ff913bb95222bc96d632a6e8d8ea4">last_can_rx_time_ms</a>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keyword">extern</span> <a class="code hl_struct" href="structcan__stats__t.html">can_stats_t</a> can_stats;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keyword">extern</span> <span class="keyword">volatile</span> uint32_t last_can_rx_time_ms;</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="preprocessor">#if defined(STM32F407xx) </span></div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">// bxCAN uses 3 mailboxes per peripheral</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keyword">extern</span> QueueHandle_t q_tx_can[][<a class="code hl_define" href="can__common_8h.html#a15ff5b005bbef3c1b021fb605f9d8e6c">CAN_TX_MAILBOX_CNT</a>];</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keyword">extern</span> QueueHandle_t q_tx_can[][CAN_TX_MAILBOX_CNT];</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">#elif defined(STM32G474xx)</span></div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">// G4/FDCAN uses a single TX queue per peripheral (no mailboxes)</span></div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">extern</span> QueueHandle_t q_tx_can[];</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">#else</span></div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">#error &quot;Unsupported architecture&quot;</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword">extern</span> QueueHandle_t <a class="code hl_variable" href="can__common_8h.html#a36735da67d74109f9687d8ae6186b5bf">q_rx_can</a>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword">extern</span> QueueHandle_t q_rx_can;</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="can__common_8h.html#adca5432c2db72ac7c6b25dbfcefbee6b">   90</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="can__common_8h.html#adca5432c2db72ac7c6b25dbfcefbee6b">CAN_enqueue_tx</a>(<a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="keywordtype">void</span> CAN_enqueue_tx(<a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg);</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="preprocessor">#include &quot;common/can_library/generated/can_router.h&quot;</span></div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="can__common_8h.html#a49fce4d849c0fd9d2daee17cf822b26a">   94</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="can__common_8h.html#a49fce4d849c0fd9d2daee17cf822b26a">CAN_tx_update</a>();</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="keywordtype">void</span> <a class="code hl_function" href="can__common_8h.html#abfcff4ec444a1fa4366dd38c73519a51">CAN_rx_update</a>();</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="can__common_8h.html#aa6a2e11ac7e69f5da51d64b903198d21">   96</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="can__common_8h.html#aa6a2e11ac7e69f5da51d64b903198d21">CAN_library_init</a>();</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keywordtype">void</span> CAN_tx_update();</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="keywordtype">void</span> CAN_rx_update();</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="keywordtype">bool</span> CAN_library_init();</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="preprocessor">#if defined(STM32G474xx)</span></div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment">// G4/FDCAN IRQ handling is done in fdcan.c via PHAL_FDCAN_rxCallback</span></div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="can__common_8h.html#a97dc567036cc7485b20e4f272ccd968c">  101</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="can__common_8h.html#a97dc567036cc7485b20e4f272ccd968c">CAN_handle_irq</a>(CAN_TypeDef *bus, uint8_t fifo);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="keywordtype">void</span> CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo);</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="preprocessor">#endif </span><span class="comment">// CAN_COMMON_H</span></div>
-<div class="ttc" id="acan__common_8h_html_a15ff5b005bbef3c1b021fb605f9d8e6c"><div class="ttname"><a href="can__common_8h.html#a15ff5b005bbef3c1b021fb605f9d8e6c">CAN_TX_MAILBOX_CNT</a></div><div class="ttdeci">#define CAN_TX_MAILBOX_CNT</div><div class="ttdef"><b>Definition</b> <a href="#l00028">can_common.h:28</a></div></div>
-<div class="ttc" id="acan__common_8h_html_a2183332a909aa096e75fabfb69a91856"><div class="ttname"><a href="can__common_8h.html#a2183332a909aa096e75fabfb69a91856">NUM_CAN_PERIPHERALS_MAX</a></div><div class="ttdeci">#define NUM_CAN_PERIPHERALS_MAX</div><div class="ttdef"><b>Definition</b> <a href="#l00067">can_common.h:67</a></div></div>
-<div class="ttc" id="acan__common_8h_html_a36735da67d74109f9687d8ae6186b5bf"><div class="ttname"><a href="can__common_8h.html#a36735da67d74109f9687d8ae6186b5bf">q_rx_can</a></div><div class="ttdeci">QueueHandle_t q_rx_can</div></div>
-<div class="ttc" id="acan__common_8h_html_a49fce4d849c0fd9d2daee17cf822b26a"><div class="ttname"><a href="can__common_8h.html#a49fce4d849c0fd9d2daee17cf822b26a">CAN_tx_update</a></div><div class="ttdeci">void CAN_tx_update()</div></div>
-<div class="ttc" id="acan__common_8h_html_a6d7ff913bb95222bc96d632a6e8d8ea4"><div class="ttname"><a href="can__common_8h.html#a6d7ff913bb95222bc96d632a6e8d8ea4">last_can_rx_time_ms</a></div><div class="ttdeci">volatile uint32_t last_can_rx_time_ms</div><div class="ttdef"><b>Definition</b> <a href="can__common_8c_source.html#l00016">can_common.c:16</a></div></div>
-<div class="ttc" id="acan__common_8h_html_a7b5ef4ad1f6bec8cb96f4aafbe58fe73"><div class="ttname"><a href="can__common_8h.html#a7b5ef4ad1f6bec8cb96f4aafbe58fe73">can_stats</a></div><div class="ttdeci">can_stats_t can_stats</div><div class="ttdef"><b>Definition</b> <a href="can__common_8c_source.html#l00015">can_common.c:15</a></div></div>
-<div class="ttc" id="acan__common_8h_html_a97dc567036cc7485b20e4f272ccd968c"><div class="ttname"><a href="can__common_8h.html#a97dc567036cc7485b20e4f272ccd968c">CAN_handle_irq</a></div><div class="ttdeci">void CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo)</div></div>
-<div class="ttc" id="acan__common_8h_html_aa6a2e11ac7e69f5da51d64b903198d21"><div class="ttname"><a href="can__common_8h.html#aa6a2e11ac7e69f5da51d64b903198d21">CAN_library_init</a></div><div class="ttdeci">bool CAN_library_init()</div></div>
-<div class="ttc" id="acan__common_8h_html_abfcff4ec444a1fa4366dd38c73519a51"><div class="ttname"><a href="can__common_8h.html#abfcff4ec444a1fa4366dd38c73519a51">CAN_rx_update</a></div><div class="ttdeci">void CAN_rx_update()</div><div class="ttdef"><b>Definition</b> <a href="can__common_8c_source.html#l00020">can_common.c:20</a></div></div>
-<div class="ttc" id="acan__common_8h_html_adca5432c2db72ac7c6b25dbfcefbee6b"><div class="ttname"><a href="can__common_8h.html#adca5432c2db72ac7c6b25dbfcefbee6b">CAN_enqueue_tx</a></div><div class="ttdeci">void CAN_enqueue_tx(CanMsgTypeDef_t *msg)</div></div>
 <div class="ttc" id="afreertos_8h_html"><div class="ttname"><a href="freertos_8h.html">freertos.h</a></div><div class="ttdoc">Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati...</div></div>
-<div class="ttc" id="aphal_2can_8h_html"><div class="ttname"><a href="phal_2can_8h.html">can.h</a></div></div>
-<div class="ttc" id="astructCanMsgTypeDef__t_html"><div class="ttname"><a href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a></div><div class="ttdef"><b>Definition</b> <a href="phal__F4__F7_2can_2can_8h_source.html#l00030">can.h:31</a></div></div>
-<div class="ttc" id="astructcan__peripheral__stats__t_html"><div class="ttname"><a href="structcan__peripheral__stats__t.html">can_peripheral_stats_t</a></div><div class="ttdef"><b>Definition</b> <a href="#l00017">can_common.h:17</a></div></div>
-<div class="ttc" id="astructcan__peripheral__stats__t_html_a457c15f9442166cc47f8ffe2a27cba99"><div class="ttname"><a href="structcan__peripheral__stats__t.html#a457c15f9442166cc47f8ffe2a27cba99">can_peripheral_stats_t::rx_overrun</a></div><div class="ttdeci">uint32_t rx_overrun</div><div class="ttdef"><b>Definition</b> <a href="#l00020">can_common.h:20</a></div></div>
-<div class="ttc" id="astructcan__peripheral__stats__t_html_aa27f7c9ece5f9ba3b929924ee99fa9ff"><div class="ttname"><a href="structcan__peripheral__stats__t.html#aa27f7c9ece5f9ba3b929924ee99fa9ff">can_peripheral_stats_t::tx_fail</a></div><div class="ttdeci">uint32_t tx_fail</div><div class="ttdef"><b>Definition</b> <a href="#l00019">can_common.h:19</a></div></div>
-<div class="ttc" id="astructcan__peripheral__stats__t_html_ad9f34185dc29fb51740bd58b9169d64f"><div class="ttname"><a href="structcan__peripheral__stats__t.html#ad9f34185dc29fb51740bd58b9169d64f">can_peripheral_stats_t::tx_of</a></div><div class="ttdeci">uint32_t tx_of</div><div class="ttdef"><b>Definition</b> <a href="#l00018">can_common.h:18</a></div></div>
-<div class="ttc" id="astructcan__stats__t_html"><div class="ttname"><a href="structcan__stats__t.html">can_stats_t</a></div><div class="ttdef"><b>Definition</b> <a href="#l00070">can_common.h:70</a></div></div>
-<div class="ttc" id="astructcan__stats__t_html_a0f8c66035803b2d3d7b368cc5c6a9177"><div class="ttname"><a href="structcan__stats__t.html#a0f8c66035803b2d3d7b368cc5c6a9177">can_stats_t::rx_of</a></div><div class="ttdeci">uint32_t rx_of</div><div class="ttdef"><b>Definition</b> <a href="#l00071">can_common.h:71</a></div></div>
+<div class="ttc" id="astructCanMsgTypeDef__t_html"><div class="ttname"><a href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a></div><div class="ttdef"><b>Definition</b> can.h:31</div></div>
+<div class="ttc" id="astructcan__peripheral__stats__t_html"><div class="ttname"><a href="structcan__peripheral__stats__t.html">can_peripheral_stats_t</a></div><div class="ttdef"><b>Definition</b> can_common.h:17</div></div>
+<div class="ttc" id="astructcan__stats__t_html"><div class="ttname"><a href="structcan__stats__t.html">can_stats_t</a></div><div class="ttdef"><b>Definition</b> can_common.h:70</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

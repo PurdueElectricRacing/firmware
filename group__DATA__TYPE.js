@@ -1,48 +1,43 @@
 var group__DATA__TYPE =
 [
-    [ "_WIZCHIP", "struct__WIZCHIP.html", [
-      [ "_CRIS", "struct__WIZCHIP_1_1__CRIS.html", [
-        [ "_enter", "struct__WIZCHIP_1_1__CRIS.html#a81e2f65da8de1617c7621f1d44e52ccb", null ],
-        [ "_exit", "struct__WIZCHIP_1_1__CRIS.html#a9cf3fe26ffe0695ca889a516733e97a8", null ]
+    [ "__WIZCHIP", "struct____WIZCHIP.html", [
+      [ "_CRIS", "struct____WIZCHIP_1_1__CRIS.html", [
+        [ "_enter", "struct____WIZCHIP_1_1__CRIS.html#a6e79d71b5870d8e3a98447631466f576", null ],
+        [ "_exit", "struct____WIZCHIP_1_1__CRIS.html#a38056870600bd75d5e1341b2f9f40012", null ]
       ] ],
-      [ "_CS", "struct__WIZCHIP_1_1__CS.html", [
-        [ "_deselect", "struct__WIZCHIP_1_1__CS.html#a0ac7f73a5990b832ff19c9b67c22a510", null ],
-        [ "_select", "struct__WIZCHIP_1_1__CS.html#a2d73e72c3b1d6ff45a9bb56bf6140bc9", null ]
+      [ "_CS", "struct____WIZCHIP_1_1__CS.html", [
+        [ "_deselect", "struct____WIZCHIP_1_1__CS.html#a357192b8b3b9d89706d7ded1077f5dcb", null ],
+        [ "_select", "struct____WIZCHIP_1_1__CS.html#a266166a051ac0e94a3952e5b07ae5272", null ]
       ] ],
-      [ "_IF", "union__WIZCHIP_1_1__IF.html", [
-        [ "_read_burst", "union__WIZCHIP_1_1__IF.html#a558ae2a0ffc9d76d8df2cb7cd78bb1b8", null ],
-        [ "_read_byte", "union__WIZCHIP_1_1__IF.html#ae7999b27eaa4042a93b2f15c69ba697c", null ],
-        [ "_read_data", "union__WIZCHIP_1_1__IF.html#a324ae8cb47e7a77373480fc787454b9b", null ],
-        [ "_write_burst", "union__WIZCHIP_1_1__IF.html#ac266e0d40c00b390e8763462a63ac7cc", null ],
-        [ "_write_byte", "union__WIZCHIP_1_1__IF.html#abd5bec08b6d10c2ec6af9df291ac0779", null ],
-        [ "_write_data", "union__WIZCHIP_1_1__IF.html#a7a818e410e8e858fb168d077d65c3cbf", null ],
-        [ "BUS", "union__WIZCHIP_1_1__IF.html#a91273dc0f61368062cf9fc3aa6461d84", null ],
-        [ "SPI", "union__WIZCHIP_1_1__IF.html#a42988953d355601f27923dedb5017c19", null ]
+      [ "_IF", "union____WIZCHIP_1_1__IF.html", [
+        [ "BUS", "union____WIZCHIP_1_1__IF.html#a39981ec4acc9cac30fba3c89440b34b6", null ],
+        [ "SPI", "union____WIZCHIP_1_1__IF.html#a50d58c63f70671976672aa3051e36758", null ]
       ] ],
-      [ "CRIS", "struct__WIZCHIP.html#a9d87a61132904387bc869c61ed65f8ea", null ],
-      [ "CS", "struct__WIZCHIP.html#ad758dbdfd0ef4b1e915097d4dbfff37f", null ],
-      [ "id", "struct__WIZCHIP.html#afd8ed1655ef7787ebfc49d74ecd454d3", null ],
-      [ "IF", "struct__WIZCHIP.html#a296a8ba86c3234a01d8b43836c40e128", null ],
-      [ "if_mode", "struct__WIZCHIP.html#a9076de2a3e5d7a51f41cc63357a6dab8", null ]
+      [ "id", "struct____WIZCHIP.html#a3c25a464bd796e523b562b563d4a60e7", null ],
+      [ "if_mode", "struct____WIZCHIP.html#a32fec318d5bfa58b3ebd8493959a1b31", null ]
     ] ],
-    [ "wiz_PhyConf", "structwiz__PhyConf.html", [
-      [ "by", "structwiz__PhyConf.html#a37a1fa3bbb118dc7c534197ea0b93ace", null ],
-      [ "duplex", "structwiz__PhyConf.html#ab17faaf9ff11cd17c087aac934a904b6", null ],
-      [ "mode", "structwiz__PhyConf.html#a5e5a52612ec16c70500d8cfd14f01d93", null ],
-      [ "speed", "structwiz__PhyConf.html#a57135b2f90059cd13c52220bd055f853", null ]
+    [ "wiz_PhyConf_t", "structwiz__PhyConf__t.html", [
+      [ "by", "structwiz__PhyConf__t.html#a59b0be57ff79e69bd30dcbbfd9fceacf", null ],
+      [ "duplex", "structwiz__PhyConf__t.html#a42f9d62936cfdf563c3d1c25a0c88cf2", null ],
+      [ "mode", "structwiz__PhyConf__t.html#a08fbc557790c3a9ffd15e179d8c1884f", null ],
+      [ "speed", "structwiz__PhyConf__t.html#a6d2408f16a514c024e68f1faba61440b", null ]
     ] ],
-    [ "wiz_NetInfo", "structwiz__NetInfo.html", [
-      [ "dhcp", "structwiz__NetInfo.html#a54622921214cebe23e576feaddc39558", null ],
-      [ "dns", "structwiz__NetInfo.html#aa9fdb9a8a7e05d9e94073ba532fa91d9", null ],
-      [ "gw", "structwiz__NetInfo.html#a27bed859246669aaf4c83bb0258eb4fa", null ],
-      [ "ip", "structwiz__NetInfo.html#a2a7a610b6cd6aa70158c1ffc74df2b63", null ],
-      [ "mac", "structwiz__NetInfo.html#a1019c5ca0bf405c3170b72c7a6cf42e5", null ],
-      [ "sn", "structwiz__NetInfo.html#a9a881e43e503a945f973fef90248cbfb", null ]
+    [ "wiz_NetInfo_t", "structwiz__NetInfo__t.html", [
+      [ "dhcp", "structwiz__NetInfo__t.html#a763202a23c996695abad319fc6e60dcf", null ],
+      [ "dns", "structwiz__NetInfo__t.html#a51a0066964c8a7dcb02e8740858696bb", null ],
+      [ "gw", "structwiz__NetInfo__t.html#a6a78be2d765ba8e6f00ab9570ea6d702", null ],
+      [ "ip", "structwiz__NetInfo__t.html#acf3c4fdbc1f0701b795c9962c66f6979", null ],
+      [ "mac", "structwiz__NetInfo__t.html#ae9c5f0c32486ae54d9a149ad368e1b15", null ],
+      [ "sn", "structwiz__NetInfo__t.html#ad2dc7c0a2b935879c34046a095c2006a", null ]
     ] ],
-    [ "wiz_NetTimeout", "structwiz__NetTimeout.html", [
-      [ "retry_cnt", "structwiz__NetTimeout.html#af1f11b58ee05012ac199f1bc8a30f170", null ],
-      [ "time_100us", "structwiz__NetTimeout.html#a0bbc0e684b2208913f452041a0ad1feb", null ]
+    [ "wiz_NetTimeout_t", "structwiz__NetTimeout__t.html", [
+      [ "retry_cnt", "structwiz__NetTimeout__t.html#a5d33e21e06eae14bf79488d36097d073", null ],
+      [ "time_100us", "structwiz__NetTimeout__t.html#a65f6be16231eee9449e9561601ad6f57", null ]
     ] ],
+    [ "_WIZCHIP", "group__DATA__TYPE.html#gac69f15a66bab10650b3834c758643066", null ],
+    [ "wiz_NetInfo", "group__DATA__TYPE.html#ga2ff9b34f5647319803e5d63f970728c9", null ],
+    [ "wiz_NetTimeout", "group__DATA__TYPE.html#ga6a2040213546a67cffd2e9333f59cbc3", null ],
+    [ "wiz_PhyConf", "group__DATA__TYPE.html#gac40ecf56c0038249b1431f63a925427b", null ],
     [ "ctlnetwork_type", "group__DATA__TYPE.html#gabc27f589bbab92c248e76e7d15eb31e8", [
       [ "CN_SET_NETINFO", "group__DATA__TYPE.html#ggabc27f589bbab92c248e76e7d15eb31e8aa0da954a5b2c47ffee3bed4a6c24328a", null ],
       [ "CN_GET_NETINFO", "group__DATA__TYPE.html#ggabc27f589bbab92c248e76e7d15eb31e8a7dbd12469e7535228b5a2d549201cda1", null ],

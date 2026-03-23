@@ -1,21 +1,13 @@
 var searchData=
 [
   ['_5fbusy_0',['_busy',['../structSPI__InitConfig__t.html#a0359b0800a83162884d8d67f6d68f9d1',1,'SPI_InitConfig_t']]],
-  ['_5fdeselect_1',['_deselect',['../struct__WIZCHIP_1_1__CS.html#a0ac7f73a5990b832ff19c9b67c22a510',1,'_WIZCHIP::_CS']]],
-  ['_5fdhcp_5f_2',['_DHCP_',['../wizchip__conf_8c.html#a5bdad4969369fb3952908977d2aa2b2d',1,'wizchip_conf.c']]],
-  ['_5fdirect_5fmode_5ferror_3',['_direct_mode_error',['../structSPI__InitConfig__t.html#a210d8b45ed4dcf9e7c7a46d1bd94717e',1,'SPI_InitConfig_t']]],
-  ['_5fdns_5f_4',['_DNS_',['../wizchip__conf_8c.html#aba98e691657adf8397c25e56ccfc60ea',1,'wizchip_conf.c']]],
-  ['_5fenter_5',['_enter',['../struct__WIZCHIP_1_1__CRIS.html#a81e2f65da8de1617c7621f1d44e52ccb',1,'_WIZCHIP::_CRIS']]],
-  ['_5ferror_6',['_error',['../structSPI__InitConfig__t.html#ada152e2e047c6680d60ff8e66857b349',1,'SPI_InitConfig_t']]],
-  ['_5fexit_7',['_exit',['../struct__WIZCHIP_1_1__CRIS.html#a9cf3fe26ffe0695ca889a516733e97a8',1,'_WIZCHIP::_CRIS']]],
-  ['_5ffifo_5foverrun_8',['_fifo_overrun',['../structSPI__InitConfig__t.html#aadfb91be77d4793f5dd8331b1c7e892d',1,'SPI_InitConfig_t']]],
-  ['_5fread_5fburst_9',['_read_burst',['../union__WIZCHIP_1_1__IF.html#a558ae2a0ffc9d76d8df2cb7cd78bb1b8',1,'_WIZCHIP::_IF']]],
-  ['_5fread_5fbyte_10',['_read_byte',['../union__WIZCHIP_1_1__IF.html#ae7999b27eaa4042a93b2f15c69ba697c',1,'_WIZCHIP::_IF']]],
-  ['_5fread_5fdata_11',['_read_data',['../union__WIZCHIP_1_1__IF.html#a324ae8cb47e7a77373480fc787454b9b',1,'_WIZCHIP::_IF']]],
-  ['_5frx_5fbusy_12',['_rx_busy',['../structusart__active__transfer__t.html#ad5705eb4be605cd9bc3d9fd1e5dbda1c',1,'usart_active_transfer_t']]],
-  ['_5fselect_13',['_select',['../struct__WIZCHIP_1_1__CS.html#a2d73e72c3b1d6ff45a9bb56bf6140bc9',1,'_WIZCHIP::_CS']]],
-  ['_5ftx_5fbusy_14',['_tx_busy',['../structusart__active__transfer__t.html#ae68b95e433700ce2a0d13de1d4a05d82',1,'usart_active_transfer_t']]],
-  ['_5fwrite_5fburst_15',['_write_burst',['../union__WIZCHIP_1_1__IF.html#ac266e0d40c00b390e8763462a63ac7cc',1,'_WIZCHIP::_IF']]],
-  ['_5fwrite_5fbyte_16',['_write_byte',['../union__WIZCHIP_1_1__IF.html#abd5bec08b6d10c2ec6af9df291ac0779',1,'_WIZCHIP::_IF']]],
-  ['_5fwrite_5fdata_17',['_write_data',['../union__WIZCHIP_1_1__IF.html#a7a818e410e8e858fb168d077d65c3cbf',1,'_WIZCHIP::_IF']]]
+  ['_5fdeselect_1',['_deselect',['../struct____WIZCHIP_1_1__CS.html#a357192b8b3b9d89706d7ded1077f5dcb',1,'__WIZCHIP::_CS']]],
+  ['_5fdirect_5fmode_5ferror_2',['_direct_mode_error',['../structSPI__InitConfig__t.html#a210d8b45ed4dcf9e7c7a46d1bd94717e',1,'SPI_InitConfig_t']]],
+  ['_5fenter_3',['_enter',['../struct____WIZCHIP_1_1__CRIS.html#a6e79d71b5870d8e3a98447631466f576',1,'__WIZCHIP::_CRIS']]],
+  ['_5ferror_4',['_error',['../structSPI__InitConfig__t.html#ada152e2e047c6680d60ff8e66857b349',1,'SPI_InitConfig_t']]],
+  ['_5fexit_5',['_exit',['../struct____WIZCHIP_1_1__CRIS.html#a38056870600bd75d5e1341b2f9f40012',1,'__WIZCHIP::_CRIS']]],
+  ['_5ffifo_5foverrun_6',['_fifo_overrun',['../structSPI__InitConfig__t.html#aadfb91be77d4793f5dd8331b1c7e892d',1,'SPI_InitConfig_t']]],
+  ['_5frx_5fbusy_7',['_rx_busy',['../structusart__active__transfer__t.html#ad5705eb4be605cd9bc3d9fd1e5dbda1c',1,'usart_active_transfer_t']]],
+  ['_5fselect_8',['_select',['../struct____WIZCHIP_1_1__CS.html#a266166a051ac0e94a3952e5b07ae5272',1,'__WIZCHIP::_CS']]],
+  ['_5ftx_5fbusy_9',['_tx_busy',['../structusart__active__transfer__t.html#ae68b95e433700ce2a0d13de1d4a05d82',1,'usart_active_transfer_t']]]
 ];

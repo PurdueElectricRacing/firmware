@@ -1,23 +1,12 @@
 var searchData=
 [
-  ['obj_0',['obj',['../structFIL.html#ad95b6e85106673b0d7a1855da4d264f4',1,'FIL::obj'],['../structDIR.html#a8fa2dfd8198410ea92a98281d982cf44',1,'DIR::obj']]],
-  ['object_5fname_1',['object_name',['../structmenu__element__t.html#ae8a67b2ebe969da700aa5211116c2b30',1,'menu_element_t']]],
-  ['objsize_2',['objsize',['../structFFOBJID.html#a83c51ba99687054f0cc653b45f195268',1,'FFOBJID']]],
-  ['obsample_3',['obsample',['../structusart__init__t.html#a800535a10dcb513f67b6792ff478e957',1,'usart_init_t']]],
-  ['oem_5fappliid_4',['OEM_AppliID',['../structSD__CID.html#a0f4bec1369ddd5e87a5c25237b82007e',1,'SD_CID']]],
-  ['off_5ffunc_5',['off_func',['../structbangbang__t.html#ab3961d26a098da797ad4c86dbbcea7ef',1,'bangbang_t']]],
-  ['offset_6',['offset',['../classparser_1_1Signal.html#a1573891bbb60839e83db9a2a964e6f69',1,'parser::Signal']]],
-  ['on_5fchange_7',['on_change',['../structmenu__element__t.html#aeedbfc7ca9914885f15ac87b2864e1a1',1,'menu_element_t']]],
-  ['on_5ffunc_8',['on_func',['../structbangbang__t.html#a5f3e6b7f134a67f58e8e277f556f443a',1,'bangbang_t']]],
-  ['orange_9',['ORANGE',['../classutils_1_1bcolors.html#ac694c6b38347e344122c497ea16d8132',1,'utils::bcolors']]],
-  ['ospeed_10',['ospeed',['../structGPIOInitConfig__t.html#a9e91fe0f71b365a8fc0243c59721ecda',1,'GPIOInitConfig_t']]],
-  ['otype_11',['otype',['../structGPIOInitConfig__t.html#a5cccb3d6f1fc7d1ade98fcec56390452',1,'GPIOInitConfig_t']]],
-  ['out_5f3v3_12',['out_3v3',['../structvoltage__t.html#a3a9409130cff6a1e817501e4305b76ad',1,'voltage_t']]],
-  ['out_5f5v_13',['out_5v',['../structvoltage__t.html#a18c9ce48d5effc7e11b2eca371925cf0',1,'voltage_t']]],
-  ['output_5frev_5fper_5fmotor_5frev_14',['OUTPUT_REV_PER_MOTOR_REV',['../race_8c.html#aadaa167f92c7d7e6d0a3c341d93b0220',1,'race.c']]],
-  ['overflows_15',['overflows',['../structSPMC__t.html#a6e92e9eabf6fb0592258f55087885ca7',1,'SPMC_t']]],
-  ['overrides_5fby_5fprio_16',['overrides_by_prio',['../classlinker_1_1BusLinker.html#a23e3b19f205574d834a149b4e05c9091',1,'linker::BusLinker']]],
-  ['overrun_17',['overrun',['../structusart__rx__errors__t.html#abf71439361d0c2575b46c7eb42f61f8b',1,'usart_rx_errors_t']]],
-  ['oversample_18',['oversample',['../structADCInitConfig__t.html#a3a78341826c13d4f2a4c8a7c4a089b67',1,'ADCInitConfig_t']]],
-  ['ovsample_19',['ovsample',['../structusart__init__t.html#a2820018bf22cf98f54b55244fe1ffc80',1,'usart_init_t']]]
+  ['parity_0',['parity',['../structusart__init__t.html#af7a973e7a9e5d4bf63c16310f38a51f5',1,'usart_init_t']]],
+  ['parity_5ferror_1',['parity_error',['../structusart__rx__errors__t.html#a9e8e88d78d1fa9f3dc6cb6ece10c3945',1,'usart_rx_errors_t']]],
+  ['partblockread_2',['PartBlockRead',['../structSD__CSD.html#a887b657a7d27b871d18db94b30cf04a4',1,'SD_CSD']]],
+  ['periph_3',['periph',['../structSPI__InitConfig__t.html#a7d8e16b0433752f3d6d31b7ca211f874',1,'SPI_InitConfig_t::periph'],['../structusart__init__t.html#a741fa263917e0b14eb0c4ffd60f24501',1,'usart_init_t::periph']]],
+  ['permwrprotect_4',['PermWrProtect',['../structSD__CSD.html#a3d8236fe8fded189a4bad617e60d8eeb',1,'SD_CSD']]],
+  ['prodname1_5',['ProdName1',['../structSD__CID.html#a9de67c191275820bab9396d1877d3259',1,'SD_CID']]],
+  ['prodname2_6',['ProdName2',['../structSD__CID.html#ac83f18e9ee6a1f05b78174ee7e0da2af',1,'SD_CID']]],
+  ['prodrev_7',['ProdRev',['../structSD__CID.html#a9ce3ada9a6128bb30812339110cf011a',1,'SD_CID']]],
+  ['prodsn_8',['ProdSN',['../structSD__CID.html#add333126fba58ef6560e48a98559b503',1,'SD_CID']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['setup_20instructions_0',['PER Firmware Setup Instructions',['../md_docs_2setup.html',1,'']]]
+  ['g4_20testing_0',['G4 Testing',['../md_source_2g4__testing_2README.html',1,'']]]
 ];

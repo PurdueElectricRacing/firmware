@@ -109,9 +109,7 @@ $(function(){initNavTree('calibration_8c.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="faults__common_8h_source.html">common/can_library/faults_common.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="colors_8h_source.html">colors.h</a>&quot;</code><br />
-</div>
-<p><a href="calibration_8c_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ada13ef83abd18bb0bca101454a62ab22" id="r_ada13ef83abd18bb0bca101454a62ab22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada13ef83abd18bb0bca101454a62ab22">calibration_telemetry_update</a> ()</td></tr>
@@ -121,8 +119,6 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Calibration page implementation. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-
-<p class="definition">Definition in file <a class="el" href="calibration_8c_source.html">calibration.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="ada13ef83abd18bb0bca101454a62ab22" name="ada13ef83abd18bb0bca101454a62ab22"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ada13ef83abd18bb0bca101454a62ab22">&#9670;&#160;</a></span>calibration_telemetry_update()</h2>
@@ -142,10 +138,6 @@ Functions</h2></td></tr>
 <p>Updates the LCD display with current pedal telemetry data when on CALIBRATION page. </p>
 <p>Updates brake and throttle bars, raw ADC values, deviation percentages, and status indicators for brake and throttle pedals. Also displays fault statuses if detected.</p>
 <dl class="section note"><dt>Note</dt><dd>Only executes when current page is PAGE_CALIBRATION </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="calibration_8c_source.html#l00023">23</a> of file <a class="el" href="calibration_8c_source.html">calibration.c</a>.</p>
-
-<p class="reference">References <a class="el" href="dashboard_2main_8h_source.html#l00023">raw_adc_values_t::b1</a>, <a class="el" href="dashboard_2main_8h_source.html#l00024">raw_adc_values_t::b2</a>, <a class="el" href="dashboard_2main_8h_source.html#l00025">raw_adc_values_t::brake1_pressure</a>, <a class="el" href="dashboard_2main_8h_source.html#l00026">raw_adc_values_t::brake2_pressure</a>, <a class="el" href="calibration_8h_source.html#l00016">CALIBRATION_BRAKE1</a>, <a class="el" href="calibration_8h_source.html#l00017">CALIBRATION_BRAKE2</a>, <a class="el" href="calibration_8h_source.html#l00018">CALIBRATION_BRAKE_PRS1</a>, <a class="el" href="calibration_8h_source.html#l00019">CALIBRATION_BRAKE_PRS2</a>, <a class="el" href="calibration_8h_source.html#l00020">CALIBRATION_STATUS</a>, <a class="el" href="calibration_8h_source.html#l00014">CALIBRATION_THROTTLE1</a>, <a class="el" href="calibration_8h_source.html#l00015">CALIBRATION_THROTTLE2</a>, <a class="el" href="colors_8h_source.html#l00019">GREEN</a>, <a class="el" href="faults__common_8h.html#a34304ae5ca942d0605c4f3c030a71eb3">is_latched()</a>, <a class="el" href="nextion_8c_source.html#l00061">NXT_setFontColor()</a>, <a class="el" href="nextion_8c_source.html#l00094">NXT_setText()</a>, <a class="el" href="nextion_8c_source.html#l00107">NXT_setTextFormatted()</a>, <a class="el" href="dashboard_2main_8c_source.html#l00068">raw_adc_values</a>, <a class="el" href="colors_8h_source.html#l00022">RED</a>, <a class="el" href="dashboard_2main_8h_source.html#l00021">raw_adc_values_t::t1</a>, and <a class="el" href="dashboard_2main_8h_source.html#l00022">raw_adc_values_t::t2</a>.</p>
 
 </div>
 </div>

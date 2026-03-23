@@ -159,10 +159,9 @@ Rules and Suggestions</h2>
 <div class="fragment"><div class="line">g_global_var = 0;</div>
 <div class="line">g_last_rx_time_ms = 0;</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">void</span> <a class="code hl_function" href="a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a>() {</div>
+<div class="line"><span class="keywordtype">void</span> main() {</div>
 <div class="line">    local_var = 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="aa__box_2main_8c_html_a840291bc02cba5474a4cb46a9b9566fe"><div class="ttname"><a href="a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a></div><div class="ttdeci">int main(void)</div><div class="ttdef"><b>Definition</b> <a href="a__box_2main_8c_source.html#l00120">main.c:120</a></div></div>
 </div><!-- fragment --></li>
 <li><p class="startli">Function names</p><ol type="a">
 <li>Use <code>snake_case</code></li>
@@ -178,7 +177,7 @@ Rules and Suggestions</h2>
 <li>Same rules as function names</li>
 <li><p class="startli">Wrap values with parenthesis to prevent expansion edge cases</p>
 <p class="startli">```c // Example pulled from firmware/PR(#147)</p>
-<p class="startli">// bad #define <a class="el" href="common__defs_8h.html#a996f7be338ccb40d1a2a5abc1ad61759">ABS(x)</a> ((x) &lt; 0 ? (-1 * x) : x) // good #define <a class="el" href="common__defs_8h.html#a996f7be338ccb40d1a2a5abc1ad61759">ABS(x)</a> ((x) &lt; 0 ? (-1 * (x)) : (x)) ```</p>
+<p class="startli">// bad #define ABS(x) ((x) &lt; 0 ? (-1 * x) : x) // good #define ABS(x) ((x) &lt; 0 ? (-1 * (x)) : (x)) ```</p>
 </li>
 </ol>
 </li>

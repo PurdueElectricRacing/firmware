@@ -1,6 +1,0 @@
-var NAVTREEINDEX21 =
-{
-"wizchip__conf_8h.html#ae18a71e8a9558b4cead60cee7a438cf1":[8,0,2,1,4,5,26],
-"wizchip__conf_8h.html#aec45fdaf72e12f9b7958c77bb4ff4913":[8,0,2,1,4,5,25],
-"wizchip__conf_8h_source.html":[8,0,2,1,4,5]
-};

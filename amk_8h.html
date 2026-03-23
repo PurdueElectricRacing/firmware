@@ -97,7 +97,7 @@ $(function(){initNavTree('amk_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">amk.h File Reference</div></div>
@@ -112,32 +112,36 @@ $(function(){initNavTree('amk_8h.html',''); initResizable(true); });
 <p><a href="amk_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Data Structures</h2></td></tr>
+Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structAMK__t.html">AMK_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ad3d5f56d9a4a4eb3d76b40416645465f" id="r_ad3d5f56d9a4a4eb3d76b40416645465f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad3d5f56d9a4a4eb3d76b40416645465f">AMK_motor_state_t</a> : uint8_t { <br />
-&#160;&#160;<a class="el" href="#ad3d5f56d9a4a4eb3d76b40416645465fade54ba9c4f4577eaaad94dd170a3ca31">AMK_STATE_OFF</a> = 0
-, <a class="el" href="#ad3d5f56d9a4a4eb3d76b40416645465fa993883b3a36b6646e37b47179255029b">AMK_STATE_STARTING</a> = 1
-, <a class="el" href="#ad3d5f56d9a4a4eb3d76b40416645465fa7138b5429401aca15c1f1ab6f91a179c">AMK_STATE_RUNNING</a> = 2
-, <a class="el" href="#ad3d5f56d9a4a4eb3d76b40416645465fa088fe76aa7fa4eedbc5d59f8d6abe6a7">AMK_STATE_RECOVERING</a> = 3
+<tr class="memitem:ad3d5f56d9a4a4eb3d76b40416645465f" id="r_ad3d5f56d9a4a4eb3d76b40416645465f"><td class="memItemLeft" align="right" valign="top"><a id="ad3d5f56d9a4a4eb3d76b40416645465f" name="ad3d5f56d9a4a4eb3d76b40416645465f"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>AMK_motor_state_t</b> : uint8_t { <br />
+&#160;&#160;<b>AMK_STATE_OFF</b> = 0
+, <b>AMK_STATE_STARTING</b> = 1
+, <b>AMK_STATE_RUNNING</b> = 2
+, <b>AMK_STATE_RECOVERING</b> = 3
 , <br />
-&#160;&#160;<a class="el" href="#ad3d5f56d9a4a4eb3d76b40416645465faaa70b8fa885d970f5625c27f3b9d79ef">AMK_STATE_FATAL</a> = 4
+&#160;&#160;<b>AMK_STATE_FATAL</b> = 4
 <br />
  }</td></tr>
 <tr class="separator:ad3d5f56d9a4a4eb3d76b40416645465f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0619f64f824cb704426995e29417ce51" id="r_a0619f64f824cb704426995e29417ce51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0619f64f824cb704426995e29417ce51">AMK_init</a> (<a class="el" href="structAMK__t.html">AMK_t</a> *amk, void(*set_func)(void), INVA_SET_data_t *set, INVA_CRIT_data_t *crit, INVA_INFO_data_t *info, INVA_TEMPS_data_t *temps, INVA_ERR_1_data_t *err1, INVA_ERR_2_data_t *err2, bool *precharge_ptr)</td></tr>
+<tr class="memitem:a0619f64f824cb704426995e29417ce51" id="r_a0619f64f824cb704426995e29417ce51"><td class="memItemLeft" align="right" valign="top"><a id="a0619f64f824cb704426995e29417ce51" name="a0619f64f824cb704426995e29417ce51"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AMK_init</b> (<a class="el" href="structAMK__t.html">AMK_t</a> *amk, void(*set_func)(void), INVA_SET_data_t *set, INVA_CRIT_data_t *crit, INVA_INFO_data_t *info, INVA_TEMPS_data_t *temps, INVA_ERR_1_data_t *err1, INVA_ERR_2_data_t *err2, bool *precharge_ptr)</td></tr>
 <tr class="separator:a0619f64f824cb704426995e29417ce51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae93684e0e9805a9672a4816708fa1bf3" id="r_ae93684e0e9805a9672a4816708fa1bf3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae93684e0e9805a9672a4816708fa1bf3">AMK_reset</a> (<a class="el" href="structAMK__t.html">AMK_t</a> *amk)</td></tr>
+<tr class="memitem:ae93684e0e9805a9672a4816708fa1bf3" id="r_ae93684e0e9805a9672a4816708fa1bf3"><td class="memItemLeft" align="right" valign="top"><a id="ae93684e0e9805a9672a4816708fa1bf3" name="ae93684e0e9805a9672a4816708fa1bf3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AMK_reset</b> (<a class="el" href="structAMK__t.html">AMK_t</a> *amk)</td></tr>
 <tr class="separator:ae93684e0e9805a9672a4816708fa1bf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a356e87a341a5ab48cba5c0aa6ad3bdbe" id="r_a356e87a341a5ab48cba5c0aa6ad3bdbe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a356e87a341a5ab48cba5c0aa6ad3bdbe">AMK_set_torque</a> (<a class="el" href="structAMK__t.html">AMK_t</a> *amk, int16_t torque_percent)</td></tr>
+<tr class="memitem:a356e87a341a5ab48cba5c0aa6ad3bdbe" id="r_a356e87a341a5ab48cba5c0aa6ad3bdbe"><td class="memItemLeft" align="right" valign="top"><a id="a356e87a341a5ab48cba5c0aa6ad3bdbe" name="a356e87a341a5ab48cba5c0aa6ad3bdbe"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AMK_set_torque</b> (<a class="el" href="structAMK__t.html">AMK_t</a> *amk, int16_t torque_percent)</td></tr>
 <tr class="separator:a356e87a341a5ab48cba5c0aa6ad3bdbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6843102040b2a233465b0ecd3118dbd4" id="r_a6843102040b2a233465b0ecd3118dbd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6843102040b2a233465b0ecd3118dbd4">AMK_periodic</a> (<a class="el" href="structAMK__t.html">AMK_t</a> *amk)</td></tr>
+<tr class="memitem:a6843102040b2a233465b0ecd3118dbd4" id="r_a6843102040b2a233465b0ecd3118dbd4"><td class="memItemLeft" align="right" valign="top"><a id="a6843102040b2a233465b0ecd3118dbd4" name="a6843102040b2a233465b0ecd3118dbd4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AMK_periodic</b> (<a class="el" href="structAMK__t.html">AMK_t</a> *amk)</td></tr>
 <tr class="separator:a6843102040b2a233465b0ecd3118dbd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -147,169 +151,7 @@ Functions</h2></td></tr>
 Cole Roberts (<a href="#" onclick="location.href='mai'+'lto:'+'rob'+'er'+'638'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">rober<span class="obfuscator">.nosp@m.</span>638@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd>
 <dd>
 Chris McGalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'all'+'ia'+'rd@'+'gm'+'ail'+'.c'+'om'; return false;">cpmcg<span class="obfuscator">.nosp@m.</span>alli<span class="obfuscator">.nosp@m.</span>ard@g<span class="obfuscator">.nosp@m.</span>mail<span class="obfuscator">.nosp@m.</span>.com</a>) </dd></dl>
-
-<p class="definition">Definition in file <a class="el" href="amk_8h_source.html">amk.h</a>.</p>
-</div><h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="ad3d5f56d9a4a4eb3d76b40416645465f" name="ad3d5f56d9a4a4eb3d76b40416645465f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3d5f56d9a4a4eb3d76b40416645465f">&#9670;&#160;</a></span>AMK_motor_state_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="#ad3d5f56d9a4a4eb3d76b40416645465f">AMK_motor_state_t</a> : uint8_t</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad3d5f56d9a4a4eb3d76b40416645465fade54ba9c4f4577eaaad94dd170a3ca31" name="ad3d5f56d9a4a4eb3d76b40416645465fade54ba9c4f4577eaaad94dd170a3ca31"></a>AMK_STATE_OFF&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad3d5f56d9a4a4eb3d76b40416645465fa993883b3a36b6646e37b47179255029b" name="ad3d5f56d9a4a4eb3d76b40416645465fa993883b3a36b6646e37b47179255029b"></a>AMK_STATE_STARTING&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad3d5f56d9a4a4eb3d76b40416645465fa7138b5429401aca15c1f1ab6f91a179c" name="ad3d5f56d9a4a4eb3d76b40416645465fa7138b5429401aca15c1f1ab6f91a179c"></a>AMK_STATE_RUNNING&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad3d5f56d9a4a4eb3d76b40416645465fa088fe76aa7fa4eedbc5d59f8d6abe6a7" name="ad3d5f56d9a4a4eb3d76b40416645465fa088fe76aa7fa4eedbc5d59f8d6abe6a7"></a>AMK_STATE_RECOVERING&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad3d5f56d9a4a4eb3d76b40416645465faaa70b8fa885d970f5625c27f3b9d79ef" name="ad3d5f56d9a4a4eb3d76b40416645465faaa70b8fa885d970f5625c27f3b9d79ef"></a>AMK_STATE_FATAL&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="amk_8h_source.html#l00016">16</a> of file <a class="el" href="amk_8h_source.html">amk.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a0619f64f824cb704426995e29417ce51" name="a0619f64f824cb704426995e29417ce51"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0619f64f824cb704426995e29417ce51">&#9670;&#160;</a></span>AMK_init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void AMK_init </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structAMK__t.html">AMK_t</a> *</td>          <td class="paramname"><span class="paramname"><em>amk</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void(*</td>          <td class="paramname"><span class="paramname"><em>set_func&#160;</em></span>)(void), </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">INVA_SET_data_t *</td>          <td class="paramname"><span class="paramname"><em>set</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">INVA_CRIT_data_t *</td>          <td class="paramname"><span class="paramname"><em>crit</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">INVA_INFO_data_t *</td>          <td class="paramname"><span class="paramname"><em>info</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">INVA_TEMPS_data_t *</td>          <td class="paramname"><span class="paramname"><em>temps</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">INVA_ERR_1_data_t *</td>          <td class="paramname"><span class="paramname"><em>err1</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">INVA_ERR_2_data_t *</td>          <td class="paramname"><span class="paramname"><em>err2</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool *</td>          <td class="paramname"><span class="paramname"><em>precharge_ptr</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="amk_8c_source.html#l00020">20</a> of file <a class="el" href="amk_8c_source.html">amk.c</a>.</p>
-
-<p class="reference">References <a class="el" href="amk_8c_source.html#l00018">AMK_DEFAULT_NEG_LIMIT</a>, <a class="el" href="amk_8c_source.html#l00017">AMK_DEFAULT_POS_LIMIT</a>, <a class="el" href="amk_8h_source.html#l00017">AMK_STATE_OFF</a>, <a class="el" href="amk_8h_source.html#l00032">AMK_t::crit</a>, <a class="el" href="amk_8h_source.html#l00035">AMK_t::err1</a>, <a class="el" href="amk_8h_source.html#l00036">AMK_t::err2</a>, <a class="el" href="amk_8h_source.html#l00033">AMK_t::info</a>, <a class="el" href="amk_8h_source.html#l00040">AMK_t::next_state</a>, <a class="el" href="amk_8h_source.html#l00041">AMK_t::precharge_ptr</a>, <a class="el" href="amk_8h_source.html#l00031">AMK_t::set</a>, <a class="el" href="amk_8h_source.html#l00027">AMK_t::set_function</a>, <a class="el" href="amk_8h_source.html#l00039">AMK_t::state</a>, and <a class="el" href="amk_8h_source.html#l00034">AMK_t::temps</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="amk__init_8c_source.html#l00083">init_amks()</a>.</p>
-
-</div>
-</div>
-<a id="a6843102040b2a233465b0ecd3118dbd4" name="a6843102040b2a233465b0ecd3118dbd4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6843102040b2a233465b0ecd3118dbd4">&#9670;&#160;</a></span>AMK_periodic()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void AMK_periodic </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structAMK__t.html">AMK_t</a> *</td>          <td class="paramname"><span class="paramname"><em>amk</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="amk_8c_source.html#l00081">81</a> of file <a class="el" href="amk_8c_source.html">amk.c</a>.</p>
-
-<p class="reference">References <a class="el" href="amk_8c_source.html#l00013">AMK_CAN_ERR_ID</a>, <a class="el" href="amk_8c_source.html#l00014">AMK_DC_BUS_ID</a>, <a class="el" href="amk_8c_source.html#l00018">AMK_DEFAULT_NEG_LIMIT</a>, <a class="el" href="amk_8c_source.html#l00017">AMK_DEFAULT_POS_LIMIT</a>, <a class="el" href="amk_8c_source.html#l00052">AMK_reset()</a>, <a class="el" href="amk_8h_source.html#l00021">AMK_STATE_FATAL</a>, <a class="el" href="amk_8h_source.html#l00017">AMK_STATE_OFF</a>, <a class="el" href="amk_8h_source.html#l00020">AMK_STATE_RECOVERING</a>, <a class="el" href="amk_8h_source.html#l00019">AMK_STATE_RUNNING</a>, <a class="el" href="amk_8h_source.html#l00018">AMK_STATE_STARTING</a>, <a class="el" href="amk_8c_source.html#l00072">AMK_stop()</a>, <a class="el" href="amk_8h_source.html#l00035">AMK_t::err1</a>, <a class="el" href="amk_8h_source.html#l00033">AMK_t::info</a>, <a class="el" href="amk_8h_source.html#l00040">AMK_t::next_state</a>, <a class="el" href="amk_8h_source.html#l00041">AMK_t::precharge_ptr</a>, <a class="el" href="amk_8h_source.html#l00031">AMK_t::set</a>, <a class="el" href="amk_8h_source.html#l00027">AMK_t::set_function</a>, and <a class="el" href="amk_8h_source.html#l00039">AMK_t::state</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="main__module_2main_8c_source.html#l00083">AMK_task()</a>.</p>
-
-</div>
-</div>
-<a id="ae93684e0e9805a9672a4816708fa1bf3" name="ae93684e0e9805a9672a4816708fa1bf3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae93684e0e9805a9672a4816708fa1bf3">&#9670;&#160;</a></span>AMK_reset()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void AMK_reset </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structAMK__t.html">AMK_t</a> *</td>          <td class="paramname"><span class="paramname"><em>amk</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="amk_8c_source.html#l00052">52</a> of file <a class="el" href="amk_8c_source.html">amk.c</a>.</p>
-
-<p class="reference">References <a class="el" href="amk_8h_source.html#l00031">AMK_t::set</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="amk_8c_source.html#l00081">AMK_periodic()</a>.</p>
-
-</div>
-</div>
-<a id="a356e87a341a5ab48cba5c0aa6ad3bdbe" name="a356e87a341a5ab48cba5c0aa6ad3bdbe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a356e87a341a5ab48cba5c0aa6ad3bdbe">&#9670;&#160;</a></span>AMK_set_torque()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void AMK_set_torque </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structAMK__t.html">AMK_t</a> *</td>          <td class="paramname"><span class="paramname"><em>amk</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int16_t</td>          <td class="paramname"><span class="paramname"><em>torque_percent</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="amk_8c_source.html#l00058">58</a> of file <a class="el" href="amk_8c_source.html">amk.c</a>.</p>
-
-<p class="reference">References <a class="el" href="amk_8h_source.html#l00019">AMK_STATE_RUNNING</a>, <a class="el" href="amk_8h_source.html#l00031">AMK_t::set</a>, and <a class="el" href="amk_8h_source.html#l00039">AMK_t::state</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="state__machine_8c_source.html#l00117">fsm_periodic()</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

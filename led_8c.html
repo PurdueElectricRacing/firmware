@@ -104,12 +104,10 @@ $(function(){initNavTree('led_8c.html',''); initResizable(true); });
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="led_8h_source.html">led.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
-</div>
-<p><a href="led_8c_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a25f4f6c595a65e2015d9d76af5fab4ac" id="r_a25f4f6c595a65e2015d9d76af5fab4ac"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25f4f6c595a65e2015d9d76af5fab4ac">LED_control</a> (int led, enum <a class="el" href="led_8h.html#a438571ce7381d91926ff187b59c90bf5">LED_state</a> state)</td></tr>
+<tr class="memitem:a25f4f6c595a65e2015d9d76af5fab4ac" id="r_a25f4f6c595a65e2015d9d76af5fab4ac"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25f4f6c595a65e2015d9d76af5fab4ac">LED_control</a> (int led, enum LED_state state)</td></tr>
 <tr class="memdesc:a25f4f6c595a65e2015d9d76af5fab4ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set, clear, or toggle a specified LED pin.  <br /></td></tr>
 <tr class="separator:a25f4f6c595a65e2015d9d76af5fab4ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d38b8e14425dcbf14215634bcfa5290" id="r_a1d38b8e14425dcbf14215634bcfa5290"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d38b8e14425dcbf14215634bcfa5290">LED_periodic</a> ()</td></tr>
@@ -121,11 +119,14 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ada0a7177585eb88526a6239618b3bfdf" id="r_ada0a7177585eb88526a6239618b3bfdf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada0a7177585eb88526a6239618b3bfdf">spi_config</a></td></tr>
+<tr class="memitem:ada0a7177585eb88526a6239618b3bfdf" id="r_ada0a7177585eb88526a6239618b3bfdf"><td class="memItemLeft" align="right" valign="top"><a id="ada0a7177585eb88526a6239618b3bfdf" name="ada0a7177585eb88526a6239618b3bfdf"></a>
+<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>spi_config</b></td></tr>
 <tr class="separator:ada0a7177585eb88526a6239618b3bfdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcef61c6836874faeb233c3e85c12291" id="r_abcef61c6836874faeb233c3e85c12291"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abcef61c6836874faeb233c3e85c12291">LED_control_data</a> = 0x0000</td></tr>
+<tr class="memitem:abcef61c6836874faeb233c3e85c12291" id="r_abcef61c6836874faeb233c3e85c12291"><td class="memItemLeft" align="right" valign="top"><a id="abcef61c6836874faeb233c3e85c12291" name="abcef61c6836874faeb233c3e85c12291"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>LED_control_data</b> = 0x0000</td></tr>
 <tr class="separator:abcef61c6836874faeb233c3e85c12291"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bae526bcc0328325dcf079af69982a6" id="r_a8bae526bcc0328325dcf079af69982a6"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8bae526bcc0328325dcf079af69982a6">LED_toggle</a> = 0x0000</td></tr>
+<tr class="memitem:a8bae526bcc0328325dcf079af69982a6" id="r_a8bae526bcc0328325dcf079af69982a6"><td class="memItemLeft" align="right" valign="top"><a id="a8bae526bcc0328325dcf079af69982a6" name="a8bae526bcc0328325dcf079af69982a6"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>LED_toggle</b> = 0x0000</td></tr>
 <tr class="separator:a8bae526bcc0328325dcf079af69982a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -133,8 +134,6 @@ Variables</h2></td></tr>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2024-1-13</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
-
-<p class="definition">Definition in file <a class="el" href="led_8c_source.html">led.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="ab2644007c0a1014ac3229035bd76a257" name="ab2644007c0a1014ac3229035bd76a257"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab2644007c0a1014ac3229035bd76a257">&#9670;&#160;</a></span>get_LED_status()</h2>
@@ -160,10 +159,6 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>enum for the LED state </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="led_8c_source.html#l00094">94</a> of file <a class="el" href="led_8c_source.html">led.c</a>.</p>
-
-<p class="reference">References <a class="el" href="led_8h_source.html#l00041">LED_BLINK</a>, <a class="el" href="led_8c_source.html#l00017">LED_control_data</a>, <a class="el" href="led_8h_source.html#l00039">LED_OFF</a>, <a class="el" href="led_8h_source.html#l00040">LED_ON</a>, and <a class="el" href="led_8c_source.html#l00018">LED_toggle</a>.</p>
-
 </div>
 </div>
 <a id="a25f4f6c595a65e2015d9d76af5fab4ac" name="a25f4f6c595a65e2015d9d76af5fab4ac"></a>
@@ -180,7 +175,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">enum <a class="el" href="led_8h.html#a438571ce7381d91926ff187b59c90bf5">LED_state</a></td>          <td class="paramname"><span class="paramname"><em>state</em></span>&#160;)</td>
+          <td class="paramtype">enum LED_state</td>          <td class="paramname"><span class="paramname"><em>state</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -197,12 +192,6 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>true if data transfer is successful </dd>
 <dd>
 false if data transfer fails </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="led_8c_source.html#l00020">20</a> of file <a class="el" href="led_8c_source.html">led.c</a>.</p>
-
-<p class="reference">References <a class="el" href="led_8h_source.html#l00041">LED_BLINK</a>, <a class="el" href="led_8c_source.html#l00017">LED_control_data</a>, <a class="el" href="pdu_2main_8h_source.html#l00050">LED_CTRL_BLANK_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00051">LED_CTRL_BLANK_Pin</a>, <a class="el" href="pdu_2main_8h_source.html#l00048">LED_CTRL_LAT_GPIO_Port</a>, <a class="el" href="pdu_2main_8h_source.html#l00049">LED_CTRL_LAT_Pin</a>, <a class="el" href="led_8h_source.html#l00039">LED_OFF</a>, <a class="el" href="led_8h_source.html#l00040">LED_ON</a>, <a class="el" href="led_8c_source.html#l00018">LED_toggle</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00215">PHAL_SPI_busy()</a>, <a class="el" href="common_2phal__F4__F7_2spi_2spi_8c_source.html#l00153">PHAL_SPI_transfer()</a>, <a class="el" href="phal__F4__F7_2gpio_2gpio_8h_source.html#l00282">PHAL_writeGPIO()</a>, and <a class="el" href="pdu_2main_8c_source.html#l00182">spi_config</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="auto__switch_8c_source.html#l00259">checkSwitchFaults()</a>, <a class="el" href="led_8c_source.html#l00086">LED_periodic()</a>, <a class="el" href="auto__switch_8c_source.html#l00125">setSwitch()</a>, and <a class="el" href="pdu_2main_8c_source.html#l00238">sparkle_leds()</a>.</p>
 
 </div>
 </div>
@@ -229,75 +218,6 @@ false if data transfer fails </dd></dl>
   </dd>
 </dl>
 <p>return </p>
-
-<p class="definition">Definition at line <a class="el" href="led_8c_source.html#l00086">86</a> of file <a class="el" href="led_8c_source.html">led.c</a>.</p>
-
-<p class="reference">References <a class="el" href="led_8h_source.html#l00041">LED_BLINK</a>, <a class="el" href="led_8c_source.html#l00020">LED_control()</a>, <a class="el" href="led_8c_source.html#l00018">LED_toggle</a>, and <a class="el" href="led_8h_source.html#l00020">MAX_NUM_LED</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="pdu_2main_8c_source.html#l00300">main()</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="abcef61c6836874faeb233c3e85c12291" name="abcef61c6836874faeb233c3e85c12291"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abcef61c6836874faeb233c3e85c12291">&#9670;&#160;</a></span>LED_control_data</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t LED_control_data = 0x0000</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="led_8c_source.html#l00017">17</a> of file <a class="el" href="led_8c_source.html">led.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="led_8c_source.html#l00094">get_LED_status()</a>, and <a class="el" href="led_8c_source.html#l00020">LED_control()</a>.</p>
-
-</div>
-</div>
-<a id="a8bae526bcc0328325dcf079af69982a6" name="a8bae526bcc0328325dcf079af69982a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8bae526bcc0328325dcf079af69982a6">&#9670;&#160;</a></span>LED_toggle</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t LED_toggle = 0x0000</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="led_8c_source.html#l00018">18</a> of file <a class="el" href="led_8c_source.html">led.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="led_8c_source.html#l00094">get_LED_status()</a>, <a class="el" href="led_8c_source.html#l00020">LED_control()</a>, and <a class="el" href="led_8c_source.html#l00086">LED_periodic()</a>.</p>
-
-</div>
-</div>
-<a id="ada0a7177585eb88526a6239618b3bfdf" name="ada0a7177585eb88526a6239618b3bfdf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada0a7177585eb88526a6239618b3bfdf">&#9670;&#160;</a></span>spi_config</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> spi_config</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pdu_2main_8c_source.html#l00182">182</a> of file <a class="el" href="pdu_2main_8c_source.html">main.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="led_8c_source.html#l00020">LED_control()</a>, and <a class="el" href="pdu_2main_8c_source.html#l00300">main()</a>.</p>
 
 </div>
 </div>

@@ -1,27 +1,7 @@
 var searchData=
 [
-  ['n_5ffat_0',['n_fat',['../structMKFS__PARM.html#a0ff8e4728bddfe0636c50367af399e25',1,'MKFS_PARM']]],
-  ['n_5ffatent_1',['n_fatent',['../structFATFS.html#a8da50eeba6469bc20d60ca0cf9a1307c',1,'FATFS']]],
-  ['n_5ffats_2',['n_fats',['../structFATFS.html#a56716c7e7ac10cf46e73ffb2a2e9b545',1,'FATFS']]],
-  ['n_5froot_3',['n_root',['../structMKFS__PARM.html#a2b8a26b614381e0c2e0ff26f138feea6',1,'MKFS_PARM']]],
-  ['n_5frootdir_4',['n_rootdir',['../structFATFS.html#a189a00aa038044ffad0fc7f7dcf2aae1',1,'FATFS']]],
-  ['name_5',['name',['../classparser_1_1Signal.html#aab91a9456e673501395671026c3f6577',1,'parser.Signal.name'],['../classparser_1_1Message.html#a17a9b528445d06db1ed37142b649f183',1,'parser.Message.name'],['../classparser_1_1Bus.html#aafa9b7ea8e2cf8da1ffee3071ab627bd',1,'parser.Bus.name'],['../classparser_1_1Node.html#ae78efe9aa2b9c99ef09f168e71941bd0',1,'parser.Node.name'],['../classparser_1_1Fault.html#a0de82aceb989d60ba61c1160905a024a',1,'parser.Fault.name']]],
-  ['nano_6',['nano',['../structNAV__PVT__t.html#a856c373667e8628d5f5bf3af8e798dd6',1,'NAV_PVT_t']]],
-  ['net_5finfo_7',['net_info',['../structeth__config__t.html#ac45bb89c0c9c201673edcdb938e062fc',1,'eth_config_t']]],
-  ['new_5fcan_5fbase_5fid_8',['NEW_CAN_BASE_ID',['../izze__imu__config_8c.html#ab63ec853cd6ace5cb52b2b5cd3b43eca',1,'izze_imu_config.c']]],
-  ['next_5favail_5fid_9',['next_avail_id',['../classlinker_1_1BusLinker.html#aa1bec6f3bd42ecdf3cd95a9ff130fc60',1,'linker::BusLinker']]],
-  ['next_5fstate_10',['next_state',['../structcar__t.html#a6d77e36d6df9b24ef449e4ff49a52299',1,'car_t::next_state'],['../structAMK__t.html#a9e703545478b58b07d5a1eefef5e0c28',1,'AMK_t::next_state']]],
-  ['no_5fborder_5fwidth_11',['NO_BORDER_WIDTH',['../menu__system_8c.html#ab1905c9ccf270185a84f5f2389a23c10',1,'menu_system.c']]],
-  ['node_5fconfig_5fdir_12',['NODE_CONFIG_DIR',['../namespaceutils.html#adc64efe6c07bab2434359f0e9c23cdf8',1,'utils']]],
-  ['node_5fname_13',['node_name',['../classparser_1_1FaultModule.html#a74c6e191b1e06c9f24e77ca39c1477c8',1,'parser::FaultModule']]],
-  ['nodes_14',['nodes',['../classparser_1_1BusView.html#ad4b1dc64ee8181da88d04c15dafa9280',1,'parser.BusView.nodes'],['../classparser_1_1SystemContext.html#adff0a80f5c78b3399f8cbb0ad6f08348',1,'parser.SystemContext.nodes']]],
-  ['noise_5fdetected_15',['noise_detected',['../structusart__rx__errors__t.html#a869bb2f95236126d499d2b3817c821c1',1,'usart_rx_errors_t']]],
-  ['nsac_16',['NSAC',['../structSD__CSD.html#a620a7d05c2a4910290cf07888ae36ac5',1,'SD_CSD']]],
-  ['nss_5fgpio_5fpin_17',['nss_gpio_pin',['../structSPI__InitConfig__t.html#ad0862369c85d703198c28df1f085ad11',1,'SPI_InitConfig_t']]],
-  ['nss_5fgpio_5fport_18',['nss_gpio_port',['../structSPI__InitConfig__t.html#ae82235e4faf01aa37ffcb212f626abc2',1,'SPI_InitConfig_t']]],
-  ['nss_5fsw_19',['nss_sw',['../structSPI__InitConfig__t.html#ac7b65af149334e39252e9d91e1d324ba',1,'SPI_InitConfig_t']]],
-  ['num_5felements_20',['num_elements',['../structmenu__page__t.html#af8408d9007e4a01b547ae1f2ddaac0b7',1,'menu_page_t']]],
-  ['num_5fsdc_5fnodes_21',['NUM_SDC_NODES',['../sdc_8c.html#aa1d2d338acd39c4c1b960d8eecbc5571',1,'sdc.c']]],
-  ['num_5fvalues_22',['NUM_VALUES',['../namespacesend-and-rec.html#a5c8ba60f2efedb7a018ac3a2ef3b7175',1,'send-and-rec.NUM_VALUES'],['../namespacesend-to-tv.html#a9bed05538a7a6699947e93bd61f00f79',1,'send-to-tv.NUM_VALUES']]],
-  ['numsatellites_23',['numSatellites',['../structNAV__PVT__t.html#a8547f3b74d7d1451a83a617c47c1e8fd',1,'NAV_PVT_t']]]
+  ['obsample_0',['obsample',['../structusart__init__t.html#a800535a10dcb513f67b6792ff478e957',1,'usart_init_t']]],
+  ['oem_5fappliid_1',['OEM_AppliID',['../structSD__CID.html#a0f4bec1369ddd5e87a5c25237b82007e',1,'SD_CID']]],
+  ['overrun_2',['overrun',['../structusart__rx__errors__t.html#abf71439361d0c2575b46c7eb42f61f8b',1,'usart_rx_errors_t']]],
+  ['ovsample_3',['ovsample',['../structusart__init__t.html#a2820018bf22cf98f54b55244fe1ffc80',1,'usart_init_t']]]
 ];

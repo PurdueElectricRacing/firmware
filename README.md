@@ -13,6 +13,10 @@ A monorepo of all firmware projects, build tools, and scripts driving the PER ve
 - `source/` - Source code for each vehicle PCB
 
 
+## Doxygen
+Most recent doxygen deployment (master branch): https://purdueelectricracing.github.io/firmware/
+
+
 ## Getting Started
 
 To compile software for the PER vehicle, make sure your system is set up by following the steps in [setup.md](docs/setup.md) if you haven’t already.

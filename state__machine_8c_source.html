@@ -131,7 +131,7 @@ $(function(){initNavTree('state__machine_8c_source.html',''); initResizable(true
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="comment">// assumes pedals.throttle is in the range [0, 4095]</span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">float</span> throttle = <a class="code hl_variable" href="can__common_8c.html#a8eaf23ac1da3fc4a879c3b1b11733ea2">can_data</a>.pedals.throttle / 4095.0f;</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    int16_t torque_req_percent = (int16_t)(throttle * 100);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    int16_t throttle_req_limited = torque_req_percent / 10;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    int16_t throttle_req_limited = torque_req_percent;</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_variable" href="main__module_2main_8c.html#a766b4068a82ed7a189256a31ec0086e2">g_torque_request</a>.<a class="code hl_variable" href="structtorque__request__t.html#a6044c54ed73c86aa64f9b43e9369fa48">front_right</a> = throttle_req_limited;</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_variable" href="main__module_2main_8c.html#a766b4068a82ed7a189256a31ec0086e2">g_torque_request</a>.<a class="code hl_variable" href="structtorque__request__t.html#a3d703852f96edaff8315ecfbd6177f5c">front_left</a>  = throttle_req_limited;</div>

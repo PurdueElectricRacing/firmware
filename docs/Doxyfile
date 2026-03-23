@@ -56,6 +56,14 @@ PROJECT_NUMBER         =
 
 PROJECT_BRIEF          =
 
+# If the USE_MD_AS_MAIN_PAGE tag refers to the name of a markdown file that is
+# part of the input, its contents will be placed on the main page
+# (index.html). This can be useful if you have a project on a site like github
+# and want to reuse the main project file also of the main page of the generated
+# doxygen documentation.
+
+USE_MD_AS_MAIN_PAGE    = README.md
+
 # With the PROJECT_LOGO tag one can specify a logo or an icon that is included
 # in the documentation. The maximum height of the logo should not exceed 55
 # pixels and the maximum width should not exceed 200 pixels. Doxygen will copy

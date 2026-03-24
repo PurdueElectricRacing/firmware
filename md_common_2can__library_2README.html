@@ -127,8 +127,11 @@ Usage</h1>
 <h1><a class="anchor" id="autotoc_md57"></a>
 Fault System</h1>
 <p>The <code>faults_common</code> module implements the <b>FIDR (Fault Isolation, Detection, and Recovery)</b> system. It manages the lifecycle of system-wide faults using a robust Finite State Machine (FSM) to prevent flickering and ensure deterministic fault handling.</p>
-<p><img src="fault_fsm.drawio.png" alt="Fault FSM Diagram" class="inline"/></p>
-<h2><a class="anchor" id="autotoc_md58"></a>
+<div class="image">
+<img src="fault_fsm.drawio.png" alt=""/>
+<div class="caption">
+Fault FSM Diagram</div></div>
+    <h2><a class="anchor" id="autotoc_md58"></a>
 Usage:</h2>
 <ul>
 <li><code>update_fault(fault_index, value)</code>: Called by the owner node to feed sensor/status data into the FSM.</li>

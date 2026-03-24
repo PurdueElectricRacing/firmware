@@ -100,9 +100,7 @@ $(function(){initNavTree('md_source_2daq_2spmc_2README.html',''); initResizable(
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="autotoc_md20"></a></p>
-<p>Specialized data structure designed specifically for DAQ.</p><ul>
-<li></li>
-</ul>
+<p>Specialized data structure designed specifically for DAQ.</p>
 <p>Guiding design requirements:</p><ul>
 <li>Single producer (CAN_IRQs w same priority)</li>
 <li>Multiple Consumer (SD, ETH)</li>
@@ -111,13 +109,19 @@ $(function(){initNavTree('md_source_2daq_2spmc_2README.html',''); initResizable(
 <li>high throughput, lock free</li>
 </ul>
 <p>Assumptions:</p><ul>
-<li>Even though there are actuall two producing ISRs (CAN1 and CAN2), they have the same priority and cannot preempt each other, so we can treat them as a single producer for the purposes of this data structure.</li>
-<li>We do not care if the follower tail "drops" data, as long as the master tail is guaranteed to consume all messages</li>
+<li>Even though there are actually two producing ISRs (CAN1 and CAN2), they have the same priority and cannot preempt each other, so we can treat them as a single producer for the purposes of this data structure.</li>
+<li>We do not care if the follower tail "drops" data, as long as the master tail is guaranteed to consume all messages in the queue.</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>todo more detailed docs</dd></dl>
-<p><img src="SD_timing_diagram.drawio.png" alt="timing diagram" class="inline"/></p>
-<p><img src="SD_thread_FSM.drawio.png" alt="sd fsm" class="inline"/> </p>
-</div></div><!-- contents -->
+<div class="image">
+<img src="SD_timing_diagram.drawio.png" alt=""/>
+<div class="caption">
+timing diagram</div></div>
+    <div class="image">
+<img src="SD_thread_FSM.drawio.png" alt=""/>
+<div class="caption">
+sd fsm</div></div>
+     </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->

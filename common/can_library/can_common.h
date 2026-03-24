@@ -108,4 +108,7 @@ void CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo);
     START_TASK(CAN_rx_update); \
     START_TASK(CAN_tx_update);
 
+#define NVIC_RX_IRQ_PRIO (6)
+#define NVIC_TX_IRQ_PRIO (7)
+
 #endif // CAN_COMMON_H

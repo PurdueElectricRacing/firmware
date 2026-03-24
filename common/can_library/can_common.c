@@ -314,6 +314,7 @@ void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
+// FDCAN TX callback - wakes the TX task to handle the next message
 void PHAL_FDCAN_txCallback(FDCAN_GlobalTypeDef *fdcan) {
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
     TaskHandle_t tx_task = getTaskHandle(CAN_tx_update);
@@ -326,20 +327,29 @@ void PHAL_FDCAN_txCallback(FDCAN_GlobalTypeDef *fdcan) {
 }
 
 bool CAN_library_init() {
-    // Initialize TX queues (one per peripheral)
+    // set up TX queues and filters for each FDCAN peripheral
 #ifdef USE_FDCAN1
     INIT_QUEUE(q_tx_can1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
     q_tx_can[CAN1_IDX] = q_tx_can1;
+    FDCAN1_set_filters();
+    NVIC_SetPriority(FDCAN1_IT0_IRQn, NVIC_RX_IRQ_PRIO);
+    NVIC_SetPriority(FDCAN1_IT1_IRQn, NVIC_TX_IRQ_PRIO);
 #endif
 
 #ifdef USE_FDCAN2
     INIT_QUEUE(q_tx_can2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
     q_tx_can[CAN2_IDX] = q_tx_can2;
+    FDCAN2_set_filters();
+    NVIC_SetPriority(FDCAN2_IT0_IRQn, NVIC_RX_IRQ_PRIO);
+    NVIC_SetPriority(FDCAN2_IT1_IRQn, NVIC_TX_IRQ_PRIO);
 #endif
 
 #ifdef USE_FDCAN3
     INIT_QUEUE(q_tx_can3, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
     q_tx_can[CAN3_IDX] = q_tx_can3;
+    FDCAN3_set_filters();
+    NVIC_SetPriority(FDCAN3_IT0_IRQn, NVIC_RX_IRQ_PRIO);
+    NVIC_SetPriority(FDCAN3_IT1_IRQn, NVIC_TX_IRQ_PRIO);
 #endif
 
     // Initialize RX queue
@@ -351,18 +361,22 @@ bool CAN_library_init() {
     // Initialize CAN data from generated code
     CAN_data_init();
 
+    return true;
+}
+
+bool CAN_enable_IRQs() {
 #ifdef USE_FDCAN1
-    FDCAN1_set_filters();
+    NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
+    NVIC_EnableIRQ(FDCAN1_IT1_IRQn);
 #endif
-
 #ifdef USE_FDCAN2
-    FDCAN2_set_filters();
+    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
+    NVIC_EnableIRQ(FDCAN2_IT1_IRQn);
 #endif
-
 #ifdef USE_FDCAN3
-    FDCAN3_set_filters();
+    NVIC_EnableIRQ(FDCAN3_IT0_IRQn);
+    NVIC_EnableIRQ(FDCAN3_IT1_IRQn);
 #endif
-
     return true;
 }
 

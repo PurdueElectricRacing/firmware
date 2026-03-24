@@ -16,6 +16,7 @@
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "common/heartbeat/heartbeat.h"
+#include "common/bootloader/bootloader_common.h"
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -63,6 +64,11 @@ DEFINE_TASK(CAN_tx_update, 15, osPriorityNormal, STACK_2048);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
+#if defined(BOOTLOADER_ENABLED)
+    // Confirm application launch to bootloader
+    Bootloader_ConfirmApplicationLaunch();
+#endif
+
     // Hardware Initialization
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();

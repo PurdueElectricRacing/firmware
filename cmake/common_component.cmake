@@ -34,6 +34,7 @@ function(add_firmware_component)
     # Linker script logic
     if(BOOTLOADER_BUILD AND NOT ARG_IS_BOOTLOADER)
         set(LS_SUFFIX "_APP.ld")
+        target_compile_definitions(${TARGET_NAME} PRIVATE BOOTLOADER_ENABLED=1)
     elseif(ARG_IS_BOOTLOADER)
         set(LS_SUFFIX "_BL.ld")
     else()

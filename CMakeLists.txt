@@ -47,6 +47,7 @@ set(COMMON_MODULES
     common/syscalls
     common/bangbang
     common/heartbeat
+    common/bootloader
 )
 
 foreach(COMMON_MODULE IN LISTS COMMON_MODULES)
@@ -70,6 +71,7 @@ if(MODULES STREQUAL "")
         main_module
         pdu
         torque_vector
+        bootloader
     )
 endif()
 

@@ -10,6 +10,7 @@
 #include "common/phal/usart.h"
 #include "daq_spi.h"
 #include "common/heartbeat/heartbeat.h"
+#include "common/bootloader/bootloader_common.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // LEDs
@@ -137,6 +138,11 @@ DEFINE_TASK(eth_update_periodic, 50, osPriorityNormal, 4096); // BULLET COMMS
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main() {
+#if defined(BOOTLOADER_ENABLED)
+    // Confirm application launch to bootloader
+    Bootloader_ConfirmApplicationLaunch();
+#endif
+
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }

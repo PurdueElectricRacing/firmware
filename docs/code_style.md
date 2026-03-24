@@ -118,7 +118,7 @@ Additionally, the compiler standard for `firmware` is set to C23, enabling sever
     int16_t num2;
     ```
     
-10.  Always initialize variables with a value
+10. Always initialize variables with a value
     1. global variables should explicitly be zero’d out (even though the compiler does this for you)
     
     ```c

@@ -191,7 +191,7 @@ void fsm_periodic() {
             ready2drive_periodic();
 
             if (is_start_button_pressed()) {
-                g_car.next_state = CAR_STATE_IDLE;
+                g_car.next_state = CAR_STATE_ENERGIZED;
             }
             break;
         }

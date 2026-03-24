@@ -21,7 +21,8 @@
         {
             "label": "run doxygen",
             "type": "shell",
-            "command": "doxygen Doxyfile"
+            "command": "doxygen docs/Doxyfile",
+            "problemMatcher": []
         }
     ]
 }

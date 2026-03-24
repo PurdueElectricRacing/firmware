@@ -175,7 +175,7 @@ static inline bool CAN_exit_filter_config(CAN_TypeDef *can) {
     return timeout != PHAL_CAN_INIT_TIMEOUT;
 }
 
-bool CAN_library_init() {
+bool CAN_init() {
 #ifdef USE_CAN1
     INIT_QUEUE(q_tx_can1_m0, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
     INIT_QUEUE(q_tx_can1_m1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
@@ -188,6 +188,8 @@ bool CAN_library_init() {
     for (uint8_t i = 0; i < CAN_TX_MAILBOX_CNT; i++) {
         can_mbx_last_send_time[CAN1_IDX][i] = 0;
     }
+    NVIC_SetPriority(CAN1_RX0_IRQn, NVIC_RX_IRQ_PRIO);
+    NVIC_SetPriority(CAN1_RX1_IRQn, NVIC_RX_IRQ_PRIO);
 #endif
 
 #ifdef USE_CAN2
@@ -202,6 +204,8 @@ bool CAN_library_init() {
     for (uint8_t i = 0; i < CAN_TX_MAILBOX_CNT; i++) {
         can_mbx_last_send_time[CAN2_IDX][i] = 0;
     }
+    NVIC_SetPriority(CAN2_RX0_IRQn, NVIC_RX_IRQ_PRIO);
+    NVIC_SetPriority(CAN2_RX1_IRQn, NVIC_RX_IRQ_PRIO);
 #endif
 
     INIT_QUEUE(q_rx_can, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
@@ -222,6 +226,18 @@ bool CAN_library_init() {
     }
 #endif
 
+    return true;
+}
+
+bool CAN_enable_IRQs() {
+#ifdef USE_CAN1
+    NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    NVIC_EnableIRQ(CAN1_RX1_IRQn);
+#endif
+#ifdef USE_CAN2
+    NVIC_EnableIRQ(CAN2_RX0_IRQn);
+    NVIC_EnableIRQ(CAN2_RX1_IRQn);
+#endif
     return true;
 }
 
@@ -326,7 +342,7 @@ void PHAL_FDCAN_txCallback(FDCAN_GlobalTypeDef *fdcan) {
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
-bool CAN_library_init() {
+bool CAN_init() {
     // set up TX queues and filters for each FDCAN peripheral
 #ifdef USE_FDCAN1
     INIT_QUEUE(q_tx_can1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);

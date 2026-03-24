@@ -318,9 +318,7 @@ int main() {
         HardFault_Handler();
     }
 
-    CAN_library_init();
-    NVIC_SetPriority(CAN1_RX0_IRQn, 6);
-    NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    CAN_init();
 
     if (!PHAL_SPI_init(&spi_config)) {
         HardFault_Handler();

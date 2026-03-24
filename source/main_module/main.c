@@ -109,12 +109,8 @@ int main(void) {
     if (false == PHAL_FDCAN_init(FDCAN3, false, MCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
-    NVIC_SetPriority(FDCAN2_IT0_IRQn, 5);
-    NVIC_SetPriority(FDCAN3_IT0_IRQn, 5);
-
-    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
-    NVIC_EnableIRQ(FDCAN3_IT0_IRQn);
-    CAN_library_init();
+    
+    CAN_init();
 
     car_init();
 

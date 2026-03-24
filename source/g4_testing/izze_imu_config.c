@@ -82,11 +82,7 @@ int main() {
         HardFault_Handler();
     }
 
-    CAN_library_init();
-
-    // NVIC
-    NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
-    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
+    CAN_init();
 
     osKernelInitialize();
 

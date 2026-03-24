@@ -202,12 +202,7 @@ int main(void) {
     PHAL_startADC(&adc3_config);
     PHAL_startADC(&adc4_config);
 
-
-    CAN_library_init();
-    NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
-    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
-
-    CAN_library_init();
+    CAN_init();
 
     // Software Initalization
     osKernelInitialize();

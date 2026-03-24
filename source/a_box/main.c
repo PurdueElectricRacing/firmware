@@ -160,12 +160,8 @@ int main(void) {
     if (false == PHAL_FDCAN_init(FDCAN2, false, CCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
-    NVIC_SetPriority(FDCAN1_IT0_IRQn, 5);
-    NVIC_SetPriority(FDCAN2_IT0_IRQn, 5);
-
-    NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
-    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
-    CAN_library_init();
+    
+    CAN_init();
 
     // Kernel initalization
     osKernelInitialize();

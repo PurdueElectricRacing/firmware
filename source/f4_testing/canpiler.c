@@ -53,11 +53,7 @@ int main() {
         HardFault_Handler();
     }
     
-    CAN_library_init();
-
-    // NVIC
-    NVIC_SetPriority(CAN1_RX0_IRQn, 6);
-    NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    CAN_init();
 
     osKernelInitialize();
 

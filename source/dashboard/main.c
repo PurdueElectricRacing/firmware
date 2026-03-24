@@ -177,9 +177,8 @@ int main(void) {
     if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
-    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
-    NVIC_SetPriority(FDCAN2_IT0_IRQn, 5);
-    CAN_library_init();
+
+    CAN_init();
 
     config_button_irqs();
     LCD_init(LCD_BAUD_RATE);

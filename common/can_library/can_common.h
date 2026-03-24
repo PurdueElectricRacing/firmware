@@ -92,7 +92,8 @@ void CAN_enqueue_tx(CanMsgTypeDef_t *msg);
 
 void CAN_tx_update();
 void CAN_rx_update();
-bool CAN_library_init();
+bool CAN_init();
+bool CAN_enable_IRQs();
 
 #if defined(STM32G474xx)
 // G4/FDCAN IRQ handling is done in fdcan.c via PHAL_FDCAN_rxCallback
@@ -106,7 +107,8 @@ void CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo);
 
 #define START_CAN_TASKS() \
     START_TASK(CAN_rx_update); \
-    START_TASK(CAN_tx_update);
+    START_TASK(CAN_tx_update); \
+    CAN_enable_IRQs();
 
 #define NVIC_RX_IRQ_PRIO (6)
 #define NVIC_TX_IRQ_PRIO (7)

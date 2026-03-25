@@ -129,7 +129,7 @@ SPMC_t spmc;
 timestamped_frame_t buf;
 DEFINE_MUTEX(spi1_lock);
 
-uint32_t last_can_rx_time_ms;
+volatile uint32_t last_can_rx_time_ms;
 
 static void configure_interrupts(void);
 void shutdown(void);

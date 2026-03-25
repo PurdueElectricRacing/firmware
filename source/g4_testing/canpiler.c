@@ -65,10 +65,6 @@ int main() {
 
     CAN_library_init();
 
-    // NVIC
-    NVIC_SetPriority(FDCAN1_IT0_IRQn, 6);
-    NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
-
     osKernelInitialize();
 
     START_CAN_TASKS();

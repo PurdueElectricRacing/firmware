@@ -108,7 +108,9 @@ void CAN_tx_update() {
 inline void CAN_rx_ISR(CAN_TypeDef *bus, uint8_t fifo) {
     CanMsgTypeDef_t rx_msg;
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-    if (PHAL_rxCANMessage(bus, fifo, &rx_msg)) {
+
+    // Drain the hardware FIFO
+    while (PHAL_rxCANMessage(bus, fifo, &rx_msg)) {
         if (xQueueSendFromISR(q_rx_can, &rx_msg, &xHigherPriorityTaskWoken) != pdPASS) {
             can_stats.rx_of++;
         }

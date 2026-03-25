@@ -11,8 +11,8 @@
 #include "common/can_library/generated/can_router.h"
 
 // common data structures
-can_data_t can_data;
-can_stats_t can_stats;
+volatile can_data_t can_data;
+volatile can_stats_t can_stats;
 volatile uint32_t last_can_rx_time_ms;
 QueueHandle_t can_tx_queues[CAN_NUM_PERIPHERALS];
 
@@ -44,7 +44,7 @@ void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
 
     // Immediately drop the message and bump overflow counter if the queue is full
     if (xQueueSendToBack(can_tx_queues[peripheral], msg, 0) != pdPASS) {
-        can_stats.can_peripheral_stats[peripheral].tx_of++;
+        can_stats.tx_overflow++;
         return;
     }
 
@@ -116,7 +116,7 @@ inline void CAN_rx_ISR(CAN_TypeDef *bus, uint8_t fifo) {
     // Drain the hardware FIFO
     while (PHAL_rxCANMessage(bus, fifo, &rx_msg)) {
         if (xQueueSendFromISR(can_rx_queue, &rx_msg, &xHigherPriorityTaskWoken) != pdPASS) {
-            can_stats.rx_of++;
+            can_stats.rx_overflow++;
         }
     }
 
@@ -289,7 +289,7 @@ void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 
     if (xQueueSendFromISR(can_rx_queue, msg, &xHigherPriorityTaskWoken) != pdPASS) {
-        can_stats.rx_of++;
+        can_stats.rx_overflow++;
     }
 
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);

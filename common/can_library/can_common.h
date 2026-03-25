@@ -49,17 +49,11 @@ static inline CAN_peripheral_t BUS_TO_PERIPHERAL(CAN_TypeDef *bus) {
 #endif
 
 typedef struct {
-    uint32_t tx_of;      // queue overflow
-    uint32_t tx_fail;    // timed outs
-    uint32_t rx_overrun; // fifo overrun
-} can_peripheral_stats_t;
-
-typedef struct {
-    uint32_t rx_of; // queue overflow
-    can_peripheral_stats_t can_peripheral_stats[CAN_NUM_PERIPHERALS];
+    uint32_t rx_overflow; // software queue overflow
+    uint32_t tx_overflow; // software queue overflow
 } can_stats_t;
 
-extern can_stats_t can_stats;
+extern volatile can_stats_t can_stats;
 extern volatile uint32_t last_can_rx_time_ms;
 
 extern QueueHandle_t can_rx_queue;

@@ -85,5 +85,13 @@ bool CAN_enable_IRQs();
 
 #define NVIC_RX_IRQ_PRIO (6)
 #define NVIC_TX_IRQ_PRIO (7)
+static_assert(
+    configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY < NVIC_RX_IRQ_PRIO,
+    "Do not set an IRQ priority higher (numerically lower) than FreeRTOS to prevent corruption of kernel data structures"
+);
+static_assert(
+    NVIC_RX_IRQ_PRIO < NVIC_TX_IRQ_PRIO,
+    "RX priority should be higher (numerically lower) than TX"
+);
 
 #endif // CAN_COMMON_H

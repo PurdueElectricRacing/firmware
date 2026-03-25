@@ -36,13 +36,6 @@
 
 #include <stdint.h>
 
-typedef struct {
-    void (*taskFunction)(void);
-    uint32_t       period_ms;
-    osThreadAttr_t attrs;
-    osThreadId_t   handle;
-} ThreadWrapper_t;
-
 // Stack size defs
 #define STACK_256  (256)
 #define STACK_512  (512)
@@ -50,7 +43,12 @@ typedef struct {
 #define STACK_2048 (2048)
 #define STACK_4096 (4096)
 
-void rtosWrapper(void *arg);
+typedef struct {
+    void (*taskFunction)(void);
+    uint32_t period_ms;
+} periodic_task_params_t;
+
+void periodic_task_runner(void *arg);
 
 /**
  * @brief Scaffolds the static memory for a FreeRTOS task.
@@ -65,37 +63,39 @@ void rtosWrapper(void *arg);
         (STACK_SIZE) % sizeof(StackType_t) == 0,                               \
         "Stack size must be a multiple of StackType_t"                         \
     );                                                                         \
-    static StaticTask_t task_cb_##NAME;                                        \
-    static StackType_t  task_stack_##NAME[(STACK_SIZE) / sizeof(StackType_t)]; \
-    ThreadWrapper_t     NAME##_wrapper = {                                     \
+    static StaticTask_t NAME##_tcb;                                            \
+    static StackType_t  NAME##_stack[(STACK_SIZE) / sizeof(StackType_t)];      \
+    periodic_task_params_t NAME##_params = {                                   \
         .taskFunction = (void (*)(void))NAME,                                  \
         .period_ms    = (PERIOD_MS),                                           \
-        .attrs = {                                                             \
-            .name       = #NAME,                                               \
-            .attr_bits  = osThreadDetached,                                    \
-            .cb_mem     = &task_cb_##NAME,                                     \
-            .cb_size    = sizeof(StaticTask_t),                                \
-            .stack_mem  = task_stack_##NAME,                                   \
-            .stack_size = sizeof(task_stack_##NAME),                           \
-            .priority   = (osPriority_t)(PRIORITY),                            \
-        }                                                                      \
-    }
+    };                                                                         \
+    osThreadAttr_t NAME##_attrs = {                                            \
+        .name       = #NAME,                                                   \
+        .attr_bits  = osThreadDetached,                                        \
+        .cb_mem     = &NAME##_tcb,                                             \
+        .cb_size    = sizeof(StaticTask_t),                                    \
+        .stack_mem  = NAME##_stack,                                            \
+        .stack_size = sizeof(NAME##_stack),                                    \
+        .priority   = (osPriority_t)(PRIORITY),                                \
+    };                                                                         \
+    osThreadId_t NAME##_handle;
 
 /**
  * @brief Initializes and starts the defined task.
  */
 #define START_TASK(NAME)                                                       \
-    (NAME##_wrapper.handle = osThreadNew(rtosWrapper, &NAME##_wrapper, &NAME##_wrapper.attrs))
+    (NAME##_handle = osThreadNew(periodic_task_runner, &NAME##_params, &NAME##_attrs))
 
 /**
  * @brief Retrieves the FreeRTOS task handle for the defined task.
  */
-#define getTaskHandle(NAME) (NAME##_wrapper.handle)
+#define getTaskHandle(NAME) (NAME##_handle)
 
 /**
  * @brief Scaffolds the static memory for a FreeRTOS queue.
  */
 #define DEFINE_QUEUE(NAME, ITEM, COUNT)                                        \
+    static_assert(COUNT > 0, "Queue count must be greater than 0");            \
     QueueHandle_t NAME;                                                        \
     static StaticQueue_t xStaticQueue_##NAME;                                  \
     static uint8_t       ucQueueStorageArea_##NAME[sizeof(ITEM) * (COUNT)];

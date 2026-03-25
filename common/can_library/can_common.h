@@ -14,10 +14,6 @@
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
 
-// FreeRTOS
-#define CAN_TX_QUEUE_LENGTH (64)     // Length of software queue for each CAN peripheral
-#define CAN_RX_QUEUE_LENGTH (64)     // Length of software queue for received messages
-
 #if defined(STM32G474xx)
 typedef enum : uint8_t {
     CAN_PERIPHERAL1 = 0,
@@ -51,6 +47,7 @@ static inline CAN_peripheral_t BUS_TO_PERIPHERAL(CAN_TypeDef *bus) {
 typedef struct {
     uint32_t rx_overflow; // software queue overflow
     uint32_t tx_overflow; // software queue overflow
+    // todo: track hardware stats
 } can_stats_t;
 
 extern volatile can_stats_t can_stats;
@@ -60,9 +57,6 @@ extern QueueHandle_t can_rx_queue;
 extern QueueHandle_t can_tx_queues[CAN_NUM_PERIPHERALS];
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg);
-
-#include "common/can_library/generated/can_router.h"
-
 void CAN_tx_update();
 void CAN_rx_update();
 bool CAN_init();
@@ -76,6 +70,9 @@ bool CAN_enable_IRQs();
     START_TASK(CAN_rx_update); \
     START_TASK(CAN_tx_update); \
     CAN_enable_IRQs();
+
+#define CAN_TX_QUEUE_LENGTH (16) // Length of software queue for each CAN peripheral
+#define CAN_RX_QUEUE_LENGTH (16) // Length of software queue for received messages
 
 #define NVIC_RX_IRQ_PRIO (6)
 #define NVIC_TX_IRQ_PRIO (7)

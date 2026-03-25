@@ -63,7 +63,7 @@ int main() {
         HardFault_Handler();
     }
 
-    CAN_library_init();
+    CAN_init();
 
     osKernelInitialize();
 

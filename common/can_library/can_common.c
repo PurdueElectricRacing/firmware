@@ -28,7 +28,7 @@ void CAN_rx_update() {
     // Block until a message is received
     if (xQueueReceive(q_rx_can, &rx_msg, portMAX_DELAY) == pdPASS) {
         last_can_rx_time_ms = OS_TICKS;
-        CAN_peripheral_t peripheral  = BUS_TO_PERIPHERAL(rx_msg.Bus);
+        CAN_peripheral_t peripheral = BUS_TO_PERIPHERAL(rx_msg.Bus);
         CAN_rx_dispatcher(
             rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId,
             rx_msg.Data,

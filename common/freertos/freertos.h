@@ -1,5 +1,5 @@
-#ifndef __COMMON_FREERTOS_H__
-#define __COMMON_FREERTOS_H__
+#ifndef PER_FREERTOS_H
+#define PER_FREERTOS_H
 
 /**
  * @file freertos.h
@@ -48,6 +48,7 @@ typedef struct {
     uint32_t period_ms;
 } periodic_task_params_t;
 
+// this is the function actually scheduled by freertos
 void periodic_task_runner(void *arg);
 
 /**
@@ -97,22 +98,21 @@ void periodic_task_runner(void *arg);
 #define DEFINE_QUEUE(NAME, ITEM, COUNT)                                        \
     static_assert(COUNT > 0, "Queue count must be greater than 0");            \
     QueueHandle_t NAME;                                                        \
-    static StaticQueue_t xStaticQueue_##NAME;                                  \
-    static uint8_t       ucQueueStorageArea_##NAME[sizeof(ITEM) * (COUNT)];
+    static StaticQueue_t NAME##_cb;                                            \
+    static uint8_t       NAME##_data[sizeof(ITEM) * (COUNT)];
 
 /**
  * @brief Initializes the defined static queue.
  */
 #define INIT_QUEUE(NAME, ITEM, COUNT)                                          \
-    (NAME = xQueueCreateStatic((COUNT), sizeof(ITEM),                          \
-                               ucQueueStorageArea_##NAME, &xStaticQueue_##NAME))
+    (NAME = xQueueCreateStatic((COUNT), sizeof(ITEM), NAME##_data, &NAME##_cb))
 
 /**
- * @brief Scaffolds the static memory for a mutex.
+ * @brief Scaffolds the static memory for a semaphore (and related variants).
  */
 #define DEFINE_SEMAPHORE(NAME)                                                 \
     SemaphoreHandle_t NAME;                                                    \
-    static StaticSemaphore_t xStaticSemaphore_##NAME;
+    static StaticSemaphore_t NAME##_cb;
 
 // Aliases for clarity
 #define DEFINE_MUTEX(NAME) DEFINE_SEMAPHORE(NAME)
@@ -123,20 +123,20 @@ void periodic_task_runner(void *arg);
  * @brief Initializes the defined mutex.
  */
 #define INIT_MUTEX(NAME)                                                       \
-    (NAME = xSemaphoreCreateMutexStatic(&(xStaticSemaphore_##NAME)))
+    (NAME = xSemaphoreCreateMutexStatic(&(NAME##_cb)))
 
 /**
  * @brief Initializes the defined static counting semaphore.
  * @note initial count is set to max count (full by default)
  */
 #define INIT_COUNTING_SEMAPHORE(NAME, MAX_COUNT)                               \
-    (NAME = xSemaphoreCreateCountingStatic((MAX_COUNT), (MAX_COUNT), &(xStaticSemaphore_##NAME)))
+    (NAME = xSemaphoreCreateCountingStatic((MAX_COUNT), (MAX_COUNT), &(NAME##_cb)))
     
 /**
  * @brief Initializes the defined static binary semaphore.
  */
 #define INIT_BINARY_SEMAPHORE(NAME)                                            \
-    (NAME = xSemaphoreCreateBinaryStatic(&(xStaticSemaphore_##NAME)))
+    (NAME = xSemaphoreCreateBinaryStatic(&(NAME##_cb)))
 
 
 // Timing helper macros
@@ -144,4 +144,4 @@ void periodic_task_runner(void *arg);
 #define getMS() (getTick() * portTICK_PERIOD_MS)
 #define mDelay(ms) (osDelay(pdMS_TO_TICKS((ms))))
 
-#endif // __COMMON_FREERTOS_H__
+#endif // PER_FREERTOS_H

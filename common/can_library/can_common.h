@@ -14,58 +14,56 @@
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
 
-typedef struct {
-    uint32_t tx_of;      // queue overflow
-    uint32_t tx_fail;    // timed out
-    uint32_t rx_overrun; // fifo overrun
-} can_peripheral_stats_t;
-
 // FreeRTOS
 #define CAN_TX_QUEUE_LENGTH (64)     // Length of software queue for each CAN peripheral
 #define CAN_RX_QUEUE_LENGTH (64)     // Length of software queue for received messages
 
-#define CAN_TX_MAILBOX_CNT   (3)
-#define CAN_TX_TIMEOUT_MS    (15)
-#define CAN_TX_BLOCK_TIMEOUT (30 * 16000)
-
-#define CAN_MAILBOX_HIGH_PRIO 0
-#define CAN_MAILBOX_MED_PRIO  1
-#define CAN_MAILBOX_LOW_PRIO  2
-
-#ifndef CAN1_IDX
-#define CAN1_IDX 0
-#endif
-#ifndef CAN2_IDX
-#define CAN2_IDX 1
-#endif
-#ifndef CAN3_IDX
-#define CAN3_IDX 2
-#endif
-
 #if defined(STM32G474xx)
-// G4 uses FDCAN peripheral
-#define GET_PERIPH_IDX(bus) ((bus == FDCAN1) ? CAN1_IDX : ((bus == FDCAN2) ? CAN2_IDX : CAN3_IDX))
-#else
-// F4/F7/L4 use bxCAN peripheral
-#define GET_PERIPH_IDX(bus) ((bus == CAN1) ? CAN1_IDX : CAN2_IDX)
-#endif
+typedef enum : uint8_t {
+    CAN_PERIPHERAL1 = 0,
+    CAN_PERIPERAL2 = 1,
+    CAN_PERIPERAL3 = 2,
+    CAN_NUM_PERIPHERALS = 3,
+    CAN_PERIPHERAL_INVALID = 0xFF
+} CAN_peripheral_t;
 
-#if defined(STM32G474xx)
-#define NUM_CAN_PERIPHERALS_MAX 3
+static inline CAN_peripheral_t BUS_TO_PERIPHERAL(FDCAN_GlobalTypeDef *bus) {
+    if (bus == FDCAN1) return CAN_PERIPHERAL1;
+    else if (bus == FDCAN2) return CAN_PERIPERAL2;
+    else if (bus == FDCAN3) return CAN_PERIPERAL3;
+    else return CAN_PERIPHERAL_INVALID;
+}
 #else
-#define NUM_CAN_PERIPHERALS_MAX 2
+typedef enum : uint8_t {
+    CAN_PERIPERAL1 = 0,
+    CAN_PERIPERAL2 = 1,
+    CAN_NUM_PERIPHERALS = 2,
+    CAN_PERIPHERAL_INVALID = 0xFF
+} CAN_peripheral_t;
+
+static inline CAN_peripheral_t BUS_TO_PERIPHERAL(CAN_TypeDef *bus) {
+    if (bus == CAN1) return CAN_PERIPERAL1;
+    else if (bus == CAN2) return CAN_PERIPERAL2;
+    else return CAN_PERIPHERAL_INVALID;
+}
 #endif
 
 typedef struct {
+    uint32_t tx_of;      // queue overflow
+    uint32_t tx_fail;    // timed outs
+    uint32_t rx_overrun; // fifo overrun
+} can_peripheral_stats_t;
+
+typedef struct {
     uint32_t rx_of; // queue overflow
-    can_peripheral_stats_t can_peripheral_stats[NUM_CAN_PERIPHERALS_MAX];
+    can_peripheral_stats_t can_peripheral_stats[CAN_NUM_PERIPHERALS];
 } can_stats_t;
 
 extern can_stats_t can_stats;
 extern volatile uint32_t last_can_rx_time_ms;
 
 extern QueueHandle_t q_rx_can;
-extern QueueHandle_t q_tx_can[];
+extern QueueHandle_t q_tx_can[CAN_NUM_PERIPHERALS];
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg);
 

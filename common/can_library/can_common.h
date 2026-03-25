@@ -32,16 +32,6 @@ typedef struct {
 #define CAN_MAILBOX_MED_PRIO  1
 #define CAN_MAILBOX_LOW_PRIO  2
 
-/* Standard CAN flag and mask definitions */
-#define CAN_EFF_FLAG 0x80000000U /* EFF/SFF is set in the MSB */
-#define CAN_RTR_FLAG 0x40000000U /* remote transmission request */
-#define CAN_ERR_FLAG 0x20000000U /* error message frame */
-
-/* valid bits in CAN ID for frame formats */
-#define CAN_SFF_MASK 0x000007FFU /* standard frame format (SFF) */
-#define CAN_EFF_MASK 0x1FFFFFFFU /* extended frame format (EFF) */
-#define CAN_ERR_MASK 0x1FFFFFFFU /* omit EFF, RTR, ERR flags */
-
 #ifndef CAN1_IDX
 #define CAN1_IDX 0
 #endif
@@ -85,12 +75,6 @@ void CAN_tx_update();
 void CAN_rx_update();
 bool CAN_init();
 bool CAN_enable_IRQs();
-
-#if defined(STM32G474xx)
-// G4/FDCAN IRQ handling is done in fdcan.c via PHAL_FDCAN_rxCallback
-#else
-void CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo);
-#endif
 
 #define DEFINE_CAN_TASKS() \
     DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048); \

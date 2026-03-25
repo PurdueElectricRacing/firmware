@@ -1,6 +1,5 @@
 #include "main.h"
 #include "spmc.h"
-#include "common/can_library/generated/DAQ.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
@@ -10,6 +9,7 @@
 #include "common/phal/usart.h"
 #include "daq_spi.h"
 #include "common/heartbeat/heartbeat.h"
+#include "common/can_library/generated/VCAN.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // LEDs
@@ -129,6 +129,8 @@ SPMC_t spmc;
 timestamped_frame_t buf;
 DEFINE_MUTEX(spi1_lock);
 
+uint32_t last_can_rx_time_ms;
+
 static void configure_interrupts(void);
 void shutdown(void);
 
@@ -189,6 +191,16 @@ static void configure_interrupts(void) {
     NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
+/* Standard CAN flag and mask definitions */
+#define CAN_EFF_FLAG 0x80000000U /* EFF/SFF is set in the MSB */
+#define CAN_RTR_FLAG 0x40000000U /* remote transmission request */
+#define CAN_ERR_FLAG 0x20000000U /* error message frame */
+
+/* valid bits in CAN ID for frame formats */
+#define CAN_SFF_MASK 0x000007FFU /* standard frame format (SFF) */
+#define CAN_EFF_MASK 0x1FFFFFFFU /* extended frame format (EFF) */
+#define CAN_ERR_MASK 0x1FFFFFFFU /* omit EFF, RTR, ERR flags */
+
 static inline void can_rx_irq_handler(CAN_TypeDef* can_h) {
     portBASE_TYPE xHigherPriorityTaskWoken;
     xHigherPriorityTaskWoken = pdFALSE;
@@ -202,6 +214,8 @@ static inline void can_rx_irq_handler(CAN_TypeDef* can_h) {
 
     if (can_h->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
     {
+        last_can_rx_time_ms = getTick();
+
         timestamped_frame_t* rx = &buf;
         rx->ticks_ms    = getTick();
         if (can_h == CAN1) {

@@ -361,10 +361,6 @@ int main() {
     return 0;
 }
 
-void CAN1_RX0_IRQHandler() {
-    CAN_handle_irq(CAN1, 0);
-}
-
 // todo reboot on hardfault
 void HardFault_Handler() {
     __disable_irq();

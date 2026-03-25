@@ -36,115 +36,113 @@ void CAN_rx_update() {
     }
 }
 
-#if defined(STM32F407xx)
-
-QueueHandle_t q_tx_can[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
-uint32_t can_mbx_last_send_time[NUM_CAN_PERIPHERALS][CAN_TX_MAILBOX_CNT];
-
-// Statically allocate TX queues for CAN1 and CAN2
-#ifdef USE_CAN1
-DEFINE_QUEUE(q_tx_can1_m0, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
-DEFINE_QUEUE(q_tx_can1_m1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
-DEFINE_QUEUE(q_tx_can1_m2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
-#endif
-
-#ifdef USE_CAN2
-DEFINE_QUEUE(q_tx_can2_m0, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
-DEFINE_QUEUE(q_tx_can2_m1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
-DEFINE_QUEUE(q_tx_can2_m2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
-#endif
-
+// Shared tx enqueue implementation
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
-    uint8_t mailbox;
     uint8_t periph_idx = GET_PERIPH_IDX(msg->Bus);
 
-    if (msg->IDE != 0) {
-        // Extended ID: Use HLP bits (26-28) to determine priority mailbox
-        switch ((msg->ExtId >> 26) & 0b111) {
-            case 0:
-            case 1:
-                mailbox = CAN_MAILBOX_HIGH_PRIO;
-                break;
-            case 2:
-            case 3:
-                mailbox = CAN_MAILBOX_MED_PRIO;
-                break;
-            default:
-                mailbox = CAN_MAILBOX_LOW_PRIO;
-                break;
-        }
-    } else {
-        // Standard ID: Default to high priority
-        mailbox = CAN_MAILBOX_HIGH_PRIO;
+    // Immediately drop the message and bump overflow counter if the queue is full
+    if (xQueueSendToBack(q_tx_can[periph_idx], msg, 0) != pdPASS) {
+        can_stats.can_peripheral_stats[periph_idx].tx_of++;
+        return;
     }
 
-    // Immediately drop the message and bump overflow counter if the queue is full
-    if (xQueueSendToBack(q_tx_can[periph_idx][mailbox], msg, 0) != pdPASS) {
-        can_stats.can_peripheral_stats[periph_idx].tx_of++;
+    // Wake the TX task to attempt an immediate send
+    TaskHandle_t tx_task = getTaskHandle(CAN_tx_update);
+    if (tx_task != NULL) {
+        xTaskNotifyGive(tx_task);
     }
 }
 
-void CAN_tx_update() {
-    CanMsgTypeDef_t tx_msg;
-    for (uint8_t i = 0; i < CAN_TX_MAILBOX_CNT; ++i) {
+// Shared tx isr implementation
+[[gnu::always_inline]]
+static inline void CAN_wake_tx_from_ISR() {
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+    TaskHandle_t tx_task = getTaskHandle(CAN_tx_update);
+
+    if (tx_task != NULL) {
+        vTaskNotifyGiveFromISR(tx_task, &xHigherPriorityTaskWoken);
+    }
+
+    portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+}
+
+#if defined(STM32F407xx)
+
+QueueHandle_t q_tx_can[NUM_CAN_PERIPHERALS];
 #ifdef USE_CAN1
-        // Handle CAN1
-        if (PHAL_txMailboxFree(CAN1, i)) {
-            if (xQueueReceive(q_tx_can[CAN1_IDX][i], &tx_msg, 0) == pdPASS) {
-                PHAL_txCANMessage(&tx_msg, i);
-                can_mbx_last_send_time[CAN1_IDX][i] = OS_TICKS;
-            }
-        } else if (OS_TICKS - can_mbx_last_send_time[CAN1_IDX][i] > CAN_TX_TIMEOUT_MS) {
-            PHAL_txCANAbort(CAN1, i);
-            can_stats.can_peripheral_stats[CAN1_IDX].tx_fail++;
+DEFINE_QUEUE(q_tx_can1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+#endif
+
+#ifdef USE_CAN2
+DEFINE_QUEUE(q_tx_can2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+#endif
+
+void CAN_tx_update() {
+    // Block until a notification is received
+    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+
+    // Feed the peripheral TX FIFOs until all queues are empty or FIFOs are full
+    bool is_message_sent;
+    do { // Loop to handle the case where a FIFO slot opens during processing
+        is_message_sent = false;
+        CanMsgTypeDef_t tx_msg;
+        uint8_t free_index;
+
+#ifdef USE_CAN1
+        while (PHAL_getFreeTxMailbox(CAN1, &free_index) && xQueueReceive(q_tx_can[CAN1_IDX], &tx_msg, 0) == pdPASS) {
+            PHAL_txCANMessage(&tx_msg, free_index);
+            is_message_sent = true;
         }
 #endif
 
 #ifdef USE_CAN2
-        // Handle CAN2
-        if (PHAL_txMailboxFree(CAN2, i)) {
-            if (xQueueReceive(q_tx_can[CAN2_IDX][i], &tx_msg, 0) == pdPASS) {
-                PHAL_txCANMessage(&tx_msg, i);
-                can_mbx_last_send_time[CAN2_IDX][i] = OS_TICKS;
-            }
-        } else if (OS_TICKS - can_mbx_last_send_time[CAN2_IDX][i] > CAN_TX_TIMEOUT_MS) {
-            PHAL_txCANAbort(CAN2, i);
-            can_stats.can_peripheral_stats[CAN2_IDX].tx_fail++;
+        while (PHAL_getFreeTxMailbox(CAN2, &free_index) && xQueueReceive(q_tx_can[CAN2_IDX], &tx_msg, 0) == pdPASS) {
+            PHAL_txCANMessage(&tx_msg, free_index);
+            is_message_sent = true;
         }
 #endif
-    }
+    } while (is_message_sent);
 }
 
 [[gnu::always_inline]]
-inline void CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo) {
+inline void CAN_rx_ISR(CAN_TypeDef *bus, uint8_t fifo) {
     CanMsgTypeDef_t rx_msg;
-    while (PHAL_rxCANMessage(bus, fifo, &rx_msg)) {
-        BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+    if (PHAL_rxCANMessage(bus, fifo, &rx_msg)) {
         if (xQueueSendFromISR(q_rx_can, &rx_msg, &xHigherPriorityTaskWoken) != pdPASS) {
             can_stats.rx_of++;
         }
-        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
     }
+
+    portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
 // ! Define these in your main.c for now !
 #ifdef USE_CAN1
 void __attribute__((weak, used)) CAN1_RX0_IRQHandler() {
-    CAN_handle_irq(CAN1, 0);
+    CAN_rx_ISR(CAN1, 0);
 }
 
 void __attribute__((weak, used)) CAN1_RX1_IRQHandler() {
-    CAN_handle_irq(CAN1, 1);
+    CAN_rx_ISR(CAN1, 1);
+}
+
+void CAN1_TX_IRQHandler() {
+    CAN_wake_tx_from_ISR();
 }
 #endif
 
 #ifdef USE_CAN2
 void __attribute__((weak, used)) CAN2_RX0_IRQHandler() {
-    CAN_handle_irq(CAN2, 0);
+    CAN_rx_ISR(CAN2, 0);
 }
 
 void __attribute__((weak, used)) CAN2_RX1_IRQHandler() {
-    CAN_handle_irq(CAN2, 1);
+    CAN_rx_ISR(CAN2, 1);
+}
+
+void CAN2_TX_IRQHandler() {
+    CAN_wake_tx_from_ISR();
 }
 #endif
 
@@ -177,35 +175,21 @@ static inline bool CAN_exit_filter_config(CAN_TypeDef *can) {
 
 bool CAN_init() {
 #ifdef USE_CAN1
-    INIT_QUEUE(q_tx_can1_m0, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
-    INIT_QUEUE(q_tx_can1_m1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
-    INIT_QUEUE(q_tx_can1_m2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    INIT_QUEUE(q_tx_can1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    q_tx_can[CAN1_IDX] = q_tx_can1;
 
-    q_tx_can[CAN1_IDX][0] = q_tx_can1_m0;
-    q_tx_can[CAN1_IDX][1] = q_tx_can1_m1;
-    q_tx_can[CAN1_IDX][2] = q_tx_can1_m2;
-
-    for (uint8_t i = 0; i < CAN_TX_MAILBOX_CNT; i++) {
-        can_mbx_last_send_time[CAN1_IDX][i] = 0;
-    }
     NVIC_SetPriority(CAN1_RX0_IRQn, NVIC_RX_IRQ_PRIO);
     NVIC_SetPriority(CAN1_RX1_IRQn, NVIC_RX_IRQ_PRIO);
+    NVIC_SetPriority(CAN1_TX_IRQn, NVIC_TX_IRQ_PRIO);
 #endif
 
 #ifdef USE_CAN2
-    INIT_QUEUE(q_tx_can2_m0, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
-    INIT_QUEUE(q_tx_can2_m1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
-    INIT_QUEUE(q_tx_can2_m2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    INIT_QUEUE(q_tx_can2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    q_tx_can[CAN2_IDX] = q_tx_can2;
 
-    q_tx_can[CAN2_IDX][0] = q_tx_can2_m0;
-    q_tx_can[CAN2_IDX][1] = q_tx_can2_m1;
-    q_tx_can[CAN2_IDX][2] = q_tx_can2_m2;
-
-    for (uint8_t i = 0; i < CAN_TX_MAILBOX_CNT; i++) {
-        can_mbx_last_send_time[CAN2_IDX][i] = 0;
-    }
     NVIC_SetPriority(CAN2_RX0_IRQn, NVIC_RX_IRQ_PRIO);
     NVIC_SetPriority(CAN2_RX1_IRQn, NVIC_RX_IRQ_PRIO);
+    NVIC_SetPriority(CAN2_TX_IRQn, NVIC_TX_IRQ_PRIO);
 #endif
 
     INIT_QUEUE(q_rx_can, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
@@ -233,10 +217,12 @@ bool CAN_enable_IRQs() {
 #ifdef USE_CAN1
     NVIC_EnableIRQ(CAN1_RX0_IRQn);
     NVIC_EnableIRQ(CAN1_RX1_IRQn);
+    NVIC_EnableIRQ(CAN1_TX_IRQn);
 #endif
 #ifdef USE_CAN2
     NVIC_EnableIRQ(CAN2_RX0_IRQn);
     NVIC_EnableIRQ(CAN2_RX1_IRQn);
+    NVIC_EnableIRQ(CAN2_TX_IRQn);
 #endif
     return true;
 }
@@ -269,22 +255,6 @@ DEFINE_QUEUE(q_tx_can3, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 
 QueueHandle_t q_tx_can[NUM_CAN_PERIPHERALS];
-
-void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
-    uint8_t periph_idx = GET_PERIPH_IDX(msg->Bus);
-
-    // Immediately drop the message and bump overflow counter if the queue is full
-    if (xQueueSendToBack(q_tx_can[periph_idx], msg, 0) != pdPASS) {
-        can_stats.can_peripheral_stats[periph_idx].tx_of++;
-        return;
-    }
-
-    // Wake the TX task to attempt an immediate send
-    TaskHandle_t tx_task = getTaskHandle(CAN_tx_update);
-    if (tx_task != NULL) {
-        xTaskNotifyGive(tx_task);
-    }
-}
 
 void CAN_tx_update() {
     // Block until a notification is received
@@ -332,14 +302,8 @@ void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
 
 // FDCAN TX callback - wakes the TX task to handle the next message
 void PHAL_FDCAN_txCallback(FDCAN_GlobalTypeDef *fdcan) {
-    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-    TaskHandle_t tx_task = getTaskHandle(CAN_tx_update);
-
-    if (tx_task != NULL) {
-        vTaskNotifyGiveFromISR(tx_task, &xHigherPriorityTaskWoken);
-    }
-
-    portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+    (void)fdcan;
+    CAN_wake_tx_from_ISR();
 }
 
 bool CAN_init() {

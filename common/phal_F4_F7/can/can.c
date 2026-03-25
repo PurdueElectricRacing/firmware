@@ -221,6 +221,25 @@ bool PHAL_txMailboxFree(CAN_TypeDef* bus, uint8_t mbx) {
     }
 }
 
+bool PHAL_anyTxMailboxFree(CAN_TypeDef* bus) {
+    return bus->TSR & (CAN_TSR_TME0 | CAN_TSR_TME1 | CAN_TSR_TME2);
+}
+
+bool PHAL_getFreeTxMailbox(CAN_TypeDef* bus, uint8_t* mbx) {
+    if (bus->TSR & CAN_TSR_TME0) {
+        *mbx = 0;
+        return true;
+    } else if (bus->TSR & CAN_TSR_TME1) {
+        *mbx = 1;
+        return true;
+    } else if (bus->TSR & CAN_TSR_TME2) {
+        *mbx = 2;
+        return true;
+    } else {
+        return false; // No free mailbox
+    }
+}
+
 void PHAL_txCANAbort(CAN_TypeDef* bus, uint8_t mbx) {
     switch (mbx) {
         case 0:

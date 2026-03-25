@@ -62,8 +62,8 @@ typedef struct {
 extern can_stats_t can_stats;
 extern volatile uint32_t last_can_rx_time_ms;
 
-extern QueueHandle_t q_rx_can;
-extern QueueHandle_t q_tx_can[CAN_NUM_PERIPHERALS];
+extern QueueHandle_t can_rx_queue;
+extern QueueHandle_t can_tx_queues[CAN_NUM_PERIPHERALS];
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg);
 

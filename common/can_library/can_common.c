@@ -14,9 +14,9 @@
 can_data_t can_data;
 can_stats_t can_stats;
 volatile uint32_t last_can_rx_time_ms;
-QueueHandle_t q_tx_can[CAN_NUM_PERIPHERALS];
+QueueHandle_t can_tx_queues[CAN_NUM_PERIPHERALS];
 
-DEFINE_QUEUE(q_rx_can, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
+DEFINE_QUEUE(can_rx_queue, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
 
 extern ThreadWrapper_t CAN_rx_update_wrapper;
 extern ThreadWrapper_t CAN_tx_update_wrapper;
@@ -26,7 +26,7 @@ void CAN_rx_update() {
     CanMsgTypeDef_t rx_msg;
 
     // Block until a message is received
-    if (xQueueReceive(q_rx_can, &rx_msg, portMAX_DELAY) == pdPASS) {
+    if (xQueueReceive(can_rx_queue, &rx_msg, portMAX_DELAY) == pdPASS) {
         last_can_rx_time_ms = OS_TICKS;
         CAN_peripheral_t peripheral = BUS_TO_PERIPHERAL(rx_msg.Bus);
         CAN_rx_dispatcher(
@@ -43,7 +43,7 @@ void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
     CAN_peripheral_t peripheral = BUS_TO_PERIPHERAL(msg->Bus);
 
     // Immediately drop the message and bump overflow counter if the queue is full
-    if (xQueueSendToBack(q_tx_can[peripheral], msg, 0) != pdPASS) {
+    if (xQueueSendToBack(can_tx_queues[peripheral], msg, 0) != pdPASS) {
         can_stats.can_peripheral_stats[peripheral].tx_of++;
         return;
     }
@@ -71,11 +71,11 @@ static inline void CAN_wake_tx_from_ISR() {
 #if defined(STM32F407xx)
 
 #ifdef USE_CAN1
-DEFINE_QUEUE(q_tx_can1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+DEFINE_QUEUE(can1_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 
 #ifdef USE_CAN2
-DEFINE_QUEUE(q_tx_can2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+DEFINE_QUEUE(can2_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 
 void CAN_tx_update() {
@@ -91,7 +91,7 @@ void CAN_tx_update() {
         QueueHandle_t tx_queue;
 
 #ifdef USE_CAN1
-        tx_queue = q_tx_can[BUS_TO_PERIPHERAL(CAN1)];
+        tx_queue = can_tx_queues[BUS_TO_PERIPHERAL(CAN1)];
         while (PHAL_getFreeTxMailbox(CAN1, &free_index) && xQueueReceive(tx_queue, &tx_msg, 0) == pdPASS) {
             PHAL_txCANMessage(&tx_msg, free_index);
             is_message_sent = true;
@@ -99,7 +99,7 @@ void CAN_tx_update() {
 #endif
 
 #ifdef USE_CAN2
-        tx_queue = q_tx_can[BUS_TO_PERIPHERAL(CAN2)];
+        tx_queue = can_tx_queues[BUS_TO_PERIPHERAL(CAN2)];
         while (PHAL_getFreeTxMailbox(CAN2, &free_index) && xQueueReceive(tx_queue, &tx_msg, 0) == pdPASS) {
             PHAL_txCANMessage(&tx_msg, free_index);
             is_message_sent = true;
@@ -115,7 +115,7 @@ inline void CAN_rx_ISR(CAN_TypeDef *bus, uint8_t fifo) {
 
     // Drain the hardware FIFO
     while (PHAL_rxCANMessage(bus, fifo, &rx_msg)) {
-        if (xQueueSendFromISR(q_rx_can, &rx_msg, &xHigherPriorityTaskWoken) != pdPASS) {
+        if (xQueueSendFromISR(can_rx_queue, &rx_msg, &xHigherPriorityTaskWoken) != pdPASS) {
             can_stats.rx_of++;
         }
     }
@@ -181,8 +181,8 @@ static inline bool CAN_exit_filter_config(CAN_TypeDef *can) {
 
 bool CAN_init() {
 #ifdef USE_CAN1
-    INIT_QUEUE(q_tx_can1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
-    q_tx_can[BUS_TO_PERIPHERAL(CAN1)] = q_tx_can1;
+    INIT_QUEUE(can1_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    can_tx_queues[BUS_TO_PERIPHERAL(CAN1)] = can1_tx_queue;
 
     NVIC_SetPriority(CAN1_RX0_IRQn, NVIC_RX_IRQ_PRIO);
     NVIC_SetPriority(CAN1_RX1_IRQn, NVIC_RX_IRQ_PRIO);
@@ -190,15 +190,15 @@ bool CAN_init() {
 #endif
 
 #ifdef USE_CAN2
-    INIT_QUEUE(q_tx_can2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
-    q_tx_can[BUS_TO_PERIPHERAL(CAN2)] = q_tx_can2;
+    INIT_QUEUE(can2_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    can_tx_queues[BUS_TO_PERIPHERAL(CAN2)] = can2_tx_queue;
 
     NVIC_SetPriority(CAN2_RX0_IRQn, NVIC_RX_IRQ_PRIO);
     NVIC_SetPriority(CAN2_RX1_IRQn, NVIC_RX_IRQ_PRIO);
     NVIC_SetPriority(CAN2_TX_IRQn, NVIC_TX_IRQ_PRIO);
 #endif
 
-    INIT_QUEUE(q_rx_can, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
+    INIT_QUEUE(can_rx_queue, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
     can_stats = (can_stats_t) {0};
     CAN_data_init();
 
@@ -236,15 +236,15 @@ bool CAN_enable_IRQs() {
 #elif defined(STM32G474xx)
 
 #ifdef USE_FDCAN1
-DEFINE_QUEUE(q_tx_can1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+DEFINE_QUEUE(can1_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 
 #ifdef USE_FDCAN2
-DEFINE_QUEUE(q_tx_can2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+DEFINE_QUEUE(can2_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 
 #ifdef USE_FDCAN3
-DEFINE_QUEUE(q_tx_can3, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+DEFINE_QUEUE(can3_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 
 void CAN_tx_update() {
@@ -259,7 +259,7 @@ void CAN_tx_update() {
         QueueHandle_t tx_queue;
 
 #ifdef USE_FDCAN1
-        tx_queue = q_tx_can[BUS_TO_PERIPHERAL(FDCAN1)];
+        tx_queue = can_tx_queues[BUS_TO_PERIPHERAL(FDCAN1)];
         while (PHAL_FDCAN_txFifoFree(FDCAN1) && xQueueReceive(tx_queue, &tx_msg, 0) == pdPASS) {
             PHAL_FDCAN_send(&tx_msg);
             is_message_sent = true;
@@ -267,7 +267,7 @@ void CAN_tx_update() {
 #endif
 
 #ifdef USE_FDCAN2
-        tx_queue = q_tx_can[BUS_TO_PERIPHERAL(FDCAN2)];
+        tx_queue = can_tx_queues[BUS_TO_PERIPHERAL(FDCAN2)];
         while (PHAL_FDCAN_txFifoFree(FDCAN2) && xQueueReceive(tx_queue, &tx_msg, 0) == pdPASS) {
             PHAL_FDCAN_send(&tx_msg);
             is_message_sent = true;
@@ -275,7 +275,7 @@ void CAN_tx_update() {
 #endif
 
 #ifdef USE_FDCAN3
-        tx_queue = q_tx_can[BUS_TO_PERIPHERAL(FDCAN3)];
+        tx_queue = can_tx_queues[BUS_TO_PERIPHERAL(FDCAN3)];
         while (PHAL_FDCAN_txFifoFree(FDCAN3) && xQueueReceive(tx_queue, &tx_msg, 0) == pdPASS) {
             PHAL_FDCAN_send(&tx_msg);
             is_message_sent = true;
@@ -288,7 +288,7 @@ void CAN_tx_update() {
 void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 
-    if (xQueueSendFromISR(q_rx_can, msg, &xHigherPriorityTaskWoken) != pdPASS) {
+    if (xQueueSendFromISR(can_rx_queue, msg, &xHigherPriorityTaskWoken) != pdPASS) {
         can_stats.rx_of++;
     }
 
@@ -304,31 +304,31 @@ void PHAL_FDCAN_txCallback(FDCAN_GlobalTypeDef *fdcan) {
 bool CAN_init() {
     // set up TX queues and filters for each FDCAN peripheral
 #ifdef USE_FDCAN1
-    INIT_QUEUE(q_tx_can1, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
-    q_tx_can[BUS_TO_PERIPHERAL(FDCAN1)] = q_tx_can1;
+    INIT_QUEUE(can1_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    can_tx_queues[BUS_TO_PERIPHERAL(FDCAN1)] = can1_tx_queue;
     FDCAN1_set_filters();
     NVIC_SetPriority(FDCAN1_IT0_IRQn, NVIC_RX_IRQ_PRIO);
     NVIC_SetPriority(FDCAN1_IT1_IRQn, NVIC_TX_IRQ_PRIO);
 #endif
 
 #ifdef USE_FDCAN2
-    INIT_QUEUE(q_tx_can2, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
-    q_tx_can[BUS_TO_PERIPHERAL(FDCAN2)] = q_tx_can2;
+    INIT_QUEUE(can2_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    can_tx_queues[BUS_TO_PERIPHERAL(FDCAN2)] = can2_tx_queue;
     FDCAN2_set_filters();
     NVIC_SetPriority(FDCAN2_IT0_IRQn, NVIC_RX_IRQ_PRIO);
     NVIC_SetPriority(FDCAN2_IT1_IRQn, NVIC_TX_IRQ_PRIO);
 #endif
 
 #ifdef USE_FDCAN3
-    INIT_QUEUE(q_tx_can3, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
-    q_tx_can[BUS_TO_PERIPHERAL(FDCAN3)] = q_tx_can3;
+    INIT_QUEUE(can3_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    can_tx_queues[BUS_TO_PERIPHERAL(FDCAN3)] = can3_tx_queue;
     FDCAN3_set_filters();
     NVIC_SetPriority(FDCAN3_IT0_IRQn, NVIC_RX_IRQ_PRIO);
     NVIC_SetPriority(FDCAN3_IT1_IRQn, NVIC_TX_IRQ_PRIO);
 #endif
 
     // Initialize RX queue
-    INIT_QUEUE(q_rx_can, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
+    INIT_QUEUE(can_rx_queue, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
 
     // Clear stats
     can_stats = (can_stats_t) {0};

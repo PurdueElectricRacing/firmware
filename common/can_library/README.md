@@ -12,6 +12,15 @@ Standardized framework for CAN communication and system-wide fault management wi
 - `faults_common.h / .c`: System-wide fault management.
 - `can_library.cmake`: CMake integration and node library generation.
 
+## Logic
+The high-level logic flow of an RX is shown here:
+![CAN RX Logic](can_rx_logic.drawio.png)
+
+The high-level logic flow of a TX is shown here:
+![CAN TX Logic](can_tx_logic.drawio.png)
+> [!NOTE]
+> The actual implementation of the CAN TX task manages up to 3 seperate hardware peripherals at once, each with its own software queue.
+
 ## Usage
 1. Define your CAN network and global faults in `common/can_library/configs/` using the provided JSON schemas.
     1. Use FDCAN peripherals on G4 and CAN peripherals on F4/F7.
@@ -22,12 +31,6 @@ Standardized framework for CAN communication and system-wide fault management wi
 
 The most recent rx'd data is available in the `can_data` struct, which is updated by the CAN RX task.
 Sending CAN messages is done via the generated `CAN_SEND_<message_name>()` functions, which enqueue messages to be sent by the CAN TX task.
-
-The high-level logic flow of a TX is shown here:
-![CAN TX Logic](can_tx_logic.drawio.png)
-> [!NOTE]
-> The actual implementation of the CAN TX task manages up to 3 seperate hardware peripherals at once, each with its own software queue.
-
 
 ## Fault System
 The `faults_common` module implements the **FIDR (Fault Isolation, Detection, and Recovery)** system. It manages the lifecycle of system-wide faults using a robust Finite State Machine (FSM) to prevent flickering and ensure deterministic fault handling.

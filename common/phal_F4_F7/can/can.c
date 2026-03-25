@@ -132,6 +132,9 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode, uint32_t bit_rate) {
     bus->IER |= CAN_IER_FMPIE0;
     bus->IER |= CAN_IER_FMPIE1;
 
+    // Enable TX mailbox empty interrupt
+    bus->IER |= CAN_IER_TMEIE;
+
     // Enter NORMAL mode
     bus->MCR &= ~CAN_MCR_INRQ;
     while ((bus->MSR & CAN_MSR_INAK) && ++timeout < PHAL_CAN_INIT_TIMEOUT)

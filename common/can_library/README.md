@@ -23,6 +23,9 @@ Standardized framework for CAN communication and system-wide fault management wi
 The most recent rx'd data is available in the `can_data` struct, which is updated by the CAN RX task.
 Sending CAN messages is done via the generated `CAN_SEND_<message_name>()` functions, which enqueue messages to be sent by the CAN TX task.
 
+The logic flow of a TX is shown here:
+![CAN TX Logic](can_tx_logic.drawio.png)
+
 ## Fault System
 The `faults_common` module implements the **FIDR (Fault Isolation, Detection, and Recovery)** system. It manages the lifecycle of system-wide faults using a robust Finite State Machine (FSM) to prevent flickering and ensure deterministic fault handling.
 

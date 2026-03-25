@@ -83,9 +83,9 @@ void CAN_tx_update() {
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
 
     // Feed the peripheral TX FIFOs until all queues are empty or FIFOs are full
-    bool is_message_sent;
+    bool is_tx_success;
     do { // Loop to handle the case where a FIFO slot opens during processing
-        is_message_sent = false;
+        is_tx_success = false;
         CanMsgTypeDef_t tx_msg;
         uint8_t free_index;
         QueueHandle_t tx_queue;
@@ -94,7 +94,7 @@ void CAN_tx_update() {
         tx_queue = can_tx_queues[BUS_TO_PERIPHERAL(CAN1)];
         while (PHAL_getFreeTxMailbox(CAN1, &free_index) && xQueueReceive(tx_queue, &tx_msg, 0) == pdPASS) {
             PHAL_txCANMessage(&tx_msg, free_index);
-            is_message_sent = true;
+            is_tx_success = true;
         }
 #endif
 
@@ -102,10 +102,10 @@ void CAN_tx_update() {
         tx_queue = can_tx_queues[BUS_TO_PERIPHERAL(CAN2)];
         while (PHAL_getFreeTxMailbox(CAN2, &free_index) && xQueueReceive(tx_queue, &tx_msg, 0) == pdPASS) {
             PHAL_txCANMessage(&tx_msg, free_index);
-            is_message_sent = true;
+            is_tx_success = true;
         }
 #endif
-    } while (is_message_sent);
+    } while (is_tx_success);
 }
 
 [[gnu::always_inline]]
@@ -252,9 +252,9 @@ void CAN_tx_update() {
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
 
     // Feed the peripheral TX FIFOs until all queues are empty or FIFOs are full
-    bool is_message_sent;
+    bool is_tx_success;
     do { // Loop to handle the case where a FIFO slot opens during processing
-        is_message_sent = false;
+        is_tx_success = false;
         CanMsgTypeDef_t tx_msg;
         QueueHandle_t tx_queue;
 
@@ -262,7 +262,7 @@ void CAN_tx_update() {
         tx_queue = can_tx_queues[BUS_TO_PERIPHERAL(FDCAN1)];
         while (PHAL_FDCAN_txFifoFree(FDCAN1) && xQueueReceive(tx_queue, &tx_msg, 0) == pdPASS) {
             PHAL_FDCAN_send(&tx_msg);
-            is_message_sent = true;
+            is_tx_success = true;
         }
 #endif
 
@@ -270,7 +270,7 @@ void CAN_tx_update() {
         tx_queue = can_tx_queues[BUS_TO_PERIPHERAL(FDCAN2)];
         while (PHAL_FDCAN_txFifoFree(FDCAN2) && xQueueReceive(tx_queue, &tx_msg, 0) == pdPASS) {
             PHAL_FDCAN_send(&tx_msg);
-            is_message_sent = true;
+            is_tx_success = true;
         }
 #endif
 
@@ -278,10 +278,10 @@ void CAN_tx_update() {
         tx_queue = can_tx_queues[BUS_TO_PERIPHERAL(FDCAN3)];
         while (PHAL_FDCAN_txFifoFree(FDCAN3) && xQueueReceive(tx_queue, &tx_msg, 0) == pdPASS) {
             PHAL_FDCAN_send(&tx_msg);
-            is_message_sent = true;
+            is_tx_success = true;
         }
 #endif
-    } while (is_message_sent);
+    } while (is_tx_success);
 }
 
 // FDCAN RX callback - enqueues received messages to the RX queue

@@ -16,12 +16,12 @@ Standardized framework for CAN communication and system-wide fault management wi
 1. Define your CAN network and global faults in `common/can_library/configs/` using the provided JSON schemas.
     1. Use FDCAN peripherals on G4 and CAN peripherals on F4/F7.
 2. Add to `COMMON_LIBRARIES` of your target: `can_node_<node_name>`.
-3. Define your RX interrupt handlers to call `CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo)`
+3. Include the generated header for your node (e.g. `#include "common/can_library/generated/can_node_<node_name>.h"`) in your `main.c`.
+3. Initialize the CAN library in your `main.c` with `CAN_init()`.
+4. Setup CAN tasks in your `main.c` using `DEFINE_CAN_TASKS()` and `START_CAN_TASKS()`.
 
-> [!NOTE]
-> Weird quirk: we run the CANpiler twice.
-> Once during CMake configuration time and one during build time.
-> This avoids any possibility of building with stale generated files.
+The most recent rx'd data is available in the `can_data` struct, which is updated by the CAN RX task.
+Sending CAN messages is done via the generated `CAN_SEND_<message_name>()` functions, which enqueue messages to be sent by the CAN TX task.
 
 ## Fault System
 The `faults_common` module implements the **FIDR (Fault Isolation, Detection, and Recovery)** system. It manages the lifecycle of system-wide faults using a robust Finite State Machine (FSM) to prevent flickering and ensure deterministic fault handling.
@@ -32,6 +32,7 @@ The `faults_common` module implements the **FIDR (Fault Isolation, Detection, an
 - `update_fault(fault_index, value)`: Called by the owner node to feed sensor/status data into the FSM.
 - `fault_library_periodic()`: Tally active faults and broadcast a `tx_fault_sync` message.
 - `is_latched(fault_index)`: Check if a specific fault is active.
+- `is_clear(fault_index)`: Check if a specific fault is clear.
 
 > [!NOTE]
 > Each node is assigned a specific range of faults (`MY_FAULT_START` to `MY_FAULT_END`).

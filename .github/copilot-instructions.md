@@ -12,6 +12,7 @@ The codebase represents a real-time distributed system for an FSAE electric vehi
 ## Code Standards
 - Codestyle is defined in `docs/code_style.md`
 - Dynamic memory allocation is FORBIDDEN
+- In-repo documentation should be updated in the same PR as code changes.
 
 ## Real-Time Constraints
 - Code must be deterministic

@@ -15,6 +15,8 @@ Standardized framework for CAN communication and system-wide fault management wi
 ## Logic
 The high-level logic flow of an RX is shown here:
 ![CAN RX Logic](can_rx_logic.drawio.png)
+> [!NOTE]
+> The all RX IRQs push to the same queue rather than having separate queues per peripheral.
 
 The high-level logic flow of a TX is shown here:
 ![CAN TX Logic](can_tx_logic.drawio.png)

@@ -1,6 +1,6 @@
 var freertos_8h =
 [
-    [ "ThreadWrapper_t", "structThreadWrapper__t.html", null ],
+    [ "periodic_task_params_t", "structperiodic__task__params__t.html", null ],
     [ "DEFINE_QUEUE", "freertos_8h.html#a69f3705c51afcfefed18253d09849302", null ],
     [ "DEFINE_SEMAPHORE", "freertos_8h.html#a8d13fab020db2417316bcd86ffe21e16", null ],
     [ "DEFINE_TASK", "freertos_8h.html#aa06a84e1769e192e02a8bb7482aceeb5", null ],

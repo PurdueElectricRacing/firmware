@@ -1,8 +1,8 @@
 var NAVTREEINDEX5 =
 {
-"structsdc__node__t.html":[32,0,49],
-"structstatus__leds__t.html":[32,0,52],
-"structstrbuf__t.html":[32,0,53],
+"structsdc__node__t.html":[32,0,50],
+"structstatus__leds__t.html":[32,0,53],
+"structstrbuf__t.html":[32,0,54],
 "structtimestamped__frame__t.html":[32,0,55],
 "structtorque__request__t.html":[32,0,56],
 "structusart__active__transfer__t.html":[32,0,57],

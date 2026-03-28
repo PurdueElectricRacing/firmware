@@ -113,7 +113,7 @@ $(function(){initNavTree('freertos_8h.html',''); initResizable(true); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structThreadWrapper__t.html">ThreadWrapper_t</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structperiodic__task__params__t.html">periodic_task_params_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
@@ -159,7 +159,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:a107127a33a429e4b2ba63232406e0d94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the defined static queue.  <br /></td></tr>
 <tr class="separator:a107127a33a429e4b2ba63232406e0d94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d13fab020db2417316bcd86ffe21e16" id="r_a8d13fab020db2417316bcd86ffe21e16"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d13fab020db2417316bcd86ffe21e16">DEFINE_SEMAPHORE</a>(NAME)</td></tr>
-<tr class="memdesc:a8d13fab020db2417316bcd86ffe21e16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scaffolds the static memory for a mutex.  <br /></td></tr>
+<tr class="memdesc:a8d13fab020db2417316bcd86ffe21e16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scaffolds the static memory for a semaphore (and related variants).  <br /></td></tr>
 <tr class="separator:a8d13fab020db2417316bcd86ffe21e16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a045abf0c9fcc8f496be9a4a057e62f87" id="r_a045abf0c9fcc8f496be9a4a057e62f87"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a045abf0c9fcc8f496be9a4a057e62f87">DEFINE_MUTEX</a>(NAME)</td></tr>
 <tr class="separator:a045abf0c9fcc8f496be9a4a057e62f87"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,9 +185,9 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a9c778d52c93dd2b838088f502c737e74" id="r_a9c778d52c93dd2b838088f502c737e74"><td class="memItemLeft" align="right" valign="top"><a id="a9c778d52c93dd2b838088f502c737e74" name="a9c778d52c93dd2b838088f502c737e74"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>rtosWrapper</b> (void *arg)</td></tr>
-<tr class="separator:a9c778d52c93dd2b838088f502c737e74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a735140a9d6b93347544bd18d5ea9d94b" id="r_a735140a9d6b93347544bd18d5ea9d94b"><td class="memItemLeft" align="right" valign="top"><a id="a735140a9d6b93347544bd18d5ea9d94b" name="a735140a9d6b93347544bd18d5ea9d94b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>periodic_task_runner</b> (void *arg)</td></tr>
+<tr class="separator:a735140a9d6b93347544bd18d5ea9d94b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocation and initialization. </p>
@@ -250,7 +250,7 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a8d13fab020db2417316bcd86ffe21e16">DEFINE_SEMAPHORE</a>(NAME)</div>
-<div class="ttc" id="afreertos_8h_html_a8d13fab020db2417316bcd86ffe21e16"><div class="ttname"><a href="#a8d13fab020db2417316bcd86ffe21e16">DEFINE_SEMAPHORE</a></div><div class="ttdeci">#define DEFINE_SEMAPHORE(NAME)</div><div class="ttdoc">Scaffolds the static memory for a mutex.</div><div class="ttdef"><b>Definition</b> freertos.h:113</div></div>
+<div class="ttc" id="afreertos_8h_html_a8d13fab020db2417316bcd86ffe21e16"><div class="ttname"><a href="#a8d13fab020db2417316bcd86ffe21e16">DEFINE_SEMAPHORE</a></div><div class="ttdeci">#define DEFINE_SEMAPHORE(NAME)</div><div class="ttdoc">Scaffolds the static memory for a semaphore (and related variants).</div><div class="ttdef"><b>Definition</b> freertos.h:113</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -313,9 +313,10 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    QueueHandle_t NAME;                                                        \</div>
-<div class="line">    <span class="keyword">static</span> StaticQueue_t xStaticQueue_##NAME;                                  \</div>
-<div class="line">    <span class="keyword">static</span> uint8_t       ucQueueStorageArea_##NAME[<span class="keyword">sizeof</span>(ITEM) * (COUNT)];</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keyword">static_assert</span>(COUNT &gt; 0, <span class="stringliteral">&quot;Queue count must be greater than 0&quot;</span>);            \</div>
+<div class="line">    QueueHandle_t NAME;                                                        \</div>
+<div class="line">    <span class="keyword">static</span> StaticQueue_t NAME##_cb;                                            \</div>
+<div class="line">    <span class="keyword">static</span> uint8_t       NAME##_data[<span class="keyword">sizeof</span>(ITEM) * (COUNT)];</div>
 </div><!-- fragment -->
 <p>Scaffolds the static memory for a FreeRTOS queue. </p>
 
@@ -336,9 +337,9 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    SemaphoreHandle_t NAME;                                                    \</div>
-<div class="line">    <span class="keyword">static</span> StaticSemaphore_t xStaticSemaphore_##NAME;</div>
+<div class="line">    <span class="keyword">static</span> StaticSemaphore_t NAME##_cb;</div>
 </div><!-- fragment -->
-<p>Scaffolds the static memory for a mutex. </p>
+<p>Scaffolds the static memory for a semaphore (and related variants). </p>
 
 </div>
 </div>
@@ -374,22 +375,23 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
 <div class="line">        (STACK_SIZE) % <span class="keyword">sizeof</span>(StackType_t) == 0,                               \</div>
 <div class="line">        <span class="stringliteral">&quot;Stack size must be a multiple of StackType_t&quot;</span>                         \</div>
 <div class="line">    );                                                                         \</div>
-<div class="line">    <span class="keyword">static</span> StaticTask_t task_cb_##NAME;                                        \</div>
-<div class="line">    <span class="keyword">static</span> StackType_t  task_stack_##NAME[(STACK_SIZE) / <span class="keyword">sizeof</span>(StackType_t)]; \</div>
-<div class="line">    <a class="code hl_struct" href="structThreadWrapper__t.html">ThreadWrapper_t</a>     NAME##_wrapper = {                                     \</div>
+<div class="line">    <span class="keyword">static</span> StaticTask_t NAME##_tcb;                                            \</div>
+<div class="line">    <span class="keyword">static</span> StackType_t  NAME##_stack[(STACK_SIZE) / <span class="keyword">sizeof</span>(StackType_t)];      \</div>
+<div class="line">    <a class="code hl_struct" href="structperiodic__task__params__t.html">periodic_task_params_t</a> NAME##_params = {                                   \</div>
 <div class="line">        .taskFunction = (void (*)(void))NAME,                                  \</div>
 <div class="line">        .period_ms    = (PERIOD_MS),                                           \</div>
-<div class="line">        .attrs = {                                                             \</div>
-<div class="line">            .name       = #NAME,                                               \</div>
-<div class="line">            .attr_bits  = osThreadDetached,                                    \</div>
-<div class="line">            .cb_mem     = &amp;task_cb_##NAME,                                     \</div>
-<div class="line">            .cb_size    = <span class="keyword">sizeof</span>(StaticTask_t),                                \</div>
-<div class="line">            .stack_mem  = task_stack_##NAME,                                   \</div>
-<div class="line">            .stack_size = <span class="keyword">sizeof</span>(task_stack_##NAME),                           \</div>
-<div class="line">            .priority   = (osPriority_t)(PRIORITY),                            \</div>
-<div class="line">        }                                                                      \</div>
-<div class="line">    }</div>
-<div class="ttc" id="astructThreadWrapper__t_html"><div class="ttname"><a href="structThreadWrapper__t.html">ThreadWrapper_t</a></div><div class="ttdef"><b>Definition</b> freertos.h:39</div></div>
+<div class="line">    };                                                                         \</div>
+<div class="line">    osThreadAttr_t NAME##_attrs = {                                            \</div>
+<div class="line">        .name       = #NAME,                                                   \</div>
+<div class="line">        .attr_bits  = osThreadDetached,                                        \</div>
+<div class="line">        .cb_mem     = &amp;NAME##_tcb,                                             \</div>
+<div class="line">        .cb_size    = <span class="keyword">sizeof</span>(StaticTask_t),                                    \</div>
+<div class="line">        .stack_mem  = NAME##_stack,                                            \</div>
+<div class="line">        .stack_size = <span class="keyword">sizeof</span>(NAME##_stack),                                    \</div>
+<div class="line">        .priority   = (osPriority_t)(PRIORITY),                                \</div>
+<div class="line">    };                                                                         \</div>
+<div class="line">    osThreadId_t NAME##_handle;</div>
+<div class="ttc" id="astructperiodic__task__params__t_html"><div class="ttname"><a href="structperiodic__task__params__t.html">periodic_task_params_t</a></div><div class="ttdef"><b>Definition</b> freertos.h:46</div></div>
 </div><!-- fragment -->
 <p>Scaffolds the static memory for a FreeRTOS task. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -436,7 +438,7 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(NAME##_wrapper.handle)</div>
+<b>Value:</b><div class="fragment"><div class="line">(NAME##_handle)</div>
 </div><!-- fragment -->
 <p>Retrieves the FreeRTOS task handle for the defined task. </p>
 
@@ -474,7 +476,7 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    (NAME = xSemaphoreCreateBinaryStatic(&amp;(xStaticSemaphore_##NAME)))</div>
+<b>Value:</b><div class="fragment"><div class="line">    (NAME = xSemaphoreCreateBinaryStatic(&amp;(NAME##_cb)))</div>
 </div><!-- fragment -->
 <p>Initializes the defined static binary semaphore. </p>
 
@@ -498,7 +500,7 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    (NAME = xSemaphoreCreateCountingStatic((MAX_COUNT), (MAX_COUNT), &amp;(xStaticSemaphore_##NAME)))</div>
+<b>Value:</b><div class="fragment"><div class="line">    (NAME = xSemaphoreCreateCountingStatic((MAX_COUNT), (MAX_COUNT), &amp;(NAME##_cb)))</div>
 </div><!-- fragment -->
 <p>Initializes the defined static counting semaphore. </p>
 <dl class="section note"><dt>Note</dt><dd>initial count is set to max count (full by default) </dd></dl>
@@ -519,7 +521,7 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    (NAME = xSemaphoreCreateMutexStatic(&amp;(xStaticSemaphore_##NAME)))</div>
+<b>Value:</b><div class="fragment"><div class="line">    (NAME = xSemaphoreCreateMutexStatic(&amp;(NAME##_cb)))</div>
 </div><!-- fragment -->
 <p>Initializes the defined mutex. </p>
 
@@ -548,8 +550,7 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    (NAME = xQueueCreateStatic((COUNT), <span class="keyword">sizeof</span>(ITEM),                          \</div>
-<div class="line">                               ucQueueStorageArea_##NAME, &amp;xStaticQueue_##NAME))</div>
+<b>Value:</b><div class="fragment"><div class="line">    (NAME = xQueueCreateStatic((COUNT), <span class="keyword">sizeof</span>(ITEM), NAME##_data, &amp;NAME##_cb))</div>
 </div><!-- fragment -->
 <p>Initializes the defined static queue. </p>
 
@@ -641,7 +642,7 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    (NAME##_wrapper.handle = osThreadNew(rtosWrapper, &amp;NAME##_wrapper, &amp;NAME##_wrapper.attrs))</div>
+<b>Value:</b><div class="fragment"><div class="line">    (NAME##_handle = osThreadNew(periodic_task_runner, &amp;NAME##_params, &amp;NAME##_attrs))</div>
 </div><!-- fragment -->
 <p>Initializes and starts the defined task. </p>
 

@@ -18,8 +18,8 @@ QueueHandle_t can_tx_queues[CAN_NUM_PERIPHERALS];
 
 DEFINE_QUEUE(can_rx_queue, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
 
-extern ThreadWrapper_t CAN_rx_update_wrapper;
-extern ThreadWrapper_t CAN_tx_update_wrapper;
+extern osThreadId_t CAN_rx_update_handle;
+extern osThreadId_t CAN_tx_update_handle;
 
 // Shared rx update implementation
 void CAN_rx_update() {

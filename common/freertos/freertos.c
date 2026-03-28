@@ -8,8 +8,8 @@
 
 #include "freertos.h"
 
-void rtosWrapper(void *thread) {
-    ThreadWrapper_t *wrapper = (ThreadWrapper_t *)thread;
+void periodic_task_runner(void *arg) {
+    periodic_task_params_t *wrapper = (periodic_task_params_t *)arg;
 
     while (true) {
         wrapper->taskFunction();

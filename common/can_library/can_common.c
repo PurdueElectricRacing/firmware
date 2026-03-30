@@ -14,12 +14,12 @@
 volatile can_data_t can_data;
 volatile can_stats_t can_stats;
 volatile uint32_t last_can_rx_time_ms;
-QueueHandle_t can_tx_queues[CAN_NUM_PERIPHERALS];
-
-DEFINE_QUEUE(can_rx_queue, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
 
 extern osThreadId_t CAN_rx_update_handle;
 extern osThreadId_t CAN_tx_update_handle;
+
+QueueHandle_t can_tx_queues[CAN_NUM_PERIPHERALS];
+DEFINE_QUEUE(can_rx_queue, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
 
 // Shared rx update implementation
 void CAN_rx_update() {
@@ -49,9 +49,8 @@ void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
     }
 
     // Wake the TX task to attempt an immediate send
-    TaskHandle_t tx_task = getTaskHandle(CAN_tx_update);
-    if (tx_task != NULL) {
-        xTaskNotifyGive(tx_task);
+    if (CAN_tx_update_handle != NULL) {
+        xTaskNotifyGive(CAN_tx_update_handle);
     }
 }
 
@@ -59,10 +58,9 @@ void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
 [[gnu::always_inline]]
 static inline void CAN_wake_tx_from_ISR() {
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-    TaskHandle_t tx_task = getTaskHandle(CAN_tx_update);
 
-    if (tx_task != NULL) {
-        vTaskNotifyGiveFromISR(tx_task, &xHigherPriorityTaskWoken);
+    if (CAN_tx_update_handle != NULL) {
+        vTaskNotifyGiveFromISR(CAN_tx_update_handle, &xHigherPriorityTaskWoken);
     }
 
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);

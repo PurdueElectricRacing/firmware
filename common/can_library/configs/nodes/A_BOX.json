@@ -120,7 +120,7 @@
             ],
             "rx": [
                 {
-                    "msg_name": "elcon_charger_status"
+                    "msg_name": "elcon_status"
                 },
                 {
                     "msg_name": "charge_request"

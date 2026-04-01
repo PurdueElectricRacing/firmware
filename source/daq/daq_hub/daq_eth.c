@@ -18,7 +18,6 @@
 #include "main.h"
 #include "w5500/socket.h"
 #include "w5500/wizchip_conf.h"
-#include "common/can_library/generated/DAQ.h"
 
 static constexpr uint32_t ETH_ERROR_RETRY_MS = 250;
 static constexpr size_t UDP_MAX_BUFFER_SIZE = 8192;

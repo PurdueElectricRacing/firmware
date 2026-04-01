@@ -1,6 +1,5 @@
 #include "main.h"
 #include "spmc.h"
-#include "common/can_library/generated/DAQ.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
@@ -10,6 +9,8 @@
 #include "common/phal/usart.h"
 #include "daq_spi.h"
 #include "common/heartbeat/heartbeat.h"
+#include "common/can_library/generated/VCAN.h"
+#include "common/can_library/generated/MCAN.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // LEDs
@@ -187,6 +188,7 @@ static void configure_interrupts(void) {
 
 volatile uint32_t last_vcan_rx = 0;
 volatile uint32_t last_mcan_rx = 0;
+volatile uint32_t last_can_rx_time_ms = 0;
 static void can_rx_irq_handler(CAN_TypeDef *peripheral) {
     portBASE_TYPE xHigherPriorityTaskWoken;
     xHigherPriorityTaskWoken = pdFALSE;
@@ -198,9 +200,9 @@ static void can_rx_irq_handler(CAN_TypeDef *peripheral) {
         return;
     }
 
-    CAN_FIFOMailBox_TypeDef *mailbox = &peripheral->sFIFOMailBox[0];
     timestamped_frame_t rx = {0}; // temp stack allocated variable
     rx.ticks_ms            = xTaskGetTickCountFromISR();
+    last_can_rx_time_ms    = rx.ticks_ms;
 
     // set bus ID bit based on CAN peripheral
     if (peripheral == CAN1) {
@@ -210,6 +212,8 @@ static void can_rx_irq_handler(CAN_TypeDef *peripheral) {
         rx.identity |= BUS_ID_MASK;
         last_mcan_rx = rx.ticks_ms;
     }
+
+    CAN_FIFOMailBox_TypeDef *mailbox = &peripheral->sFIFOMailBox[0];
 
     // set id type and extract ID
     bool is_xid = (mailbox->RIR & CAN_RI0R_IDE) != 0;

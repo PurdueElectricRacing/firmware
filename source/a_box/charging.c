@@ -13,12 +13,14 @@ static inline bool is_daq_requesting_charge() {
 }
 
 static inline bool is_elcon_ready() {
-    return !can_data.elcon_charger_status.stale && !can_data.elcon_charger_status.startup_fail;
+    return !can_data.elcon_status.stale && !can_data.elcon_status.startup_fail;
 }
 
 void charging_fsm_periodic() {
+    // set default states
     current_state = next_state;
     next_state = current_state;
+
     g_bms.is_balancing_enabled = false;
 
     update_fault(FAULT_ID_PACK_FULL, g_bms.sum_voltage);
@@ -32,6 +34,7 @@ void charging_fsm_periodic() {
 
     switch (current_state) {
         case CHARGING_STATE_IDLE: {
+            // do nothing
 
             if (is_charging_permitted) {
                 next_state = CHARGING_STATE_CHARGING;

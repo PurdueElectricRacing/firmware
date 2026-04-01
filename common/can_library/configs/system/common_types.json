@@ -15,7 +15,9 @@
         {
             "name": "fault_id_t",
             "base_type": "uint16_t",
-            "choices": ["reserved_type"]
+            "choices": [
+                "CANpiler will inject faults here"
+            ]
         },
         {
             "name": "charging_state_t",

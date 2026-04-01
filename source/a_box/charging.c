@@ -11,7 +11,7 @@ charging_state_t next_state = CHARGING_STATE_IDLE;
 
 extern adbms_bms_t g_bms;
 
-static inline bool is_daq_requesting_charge() {
+static inline bool is_daqapp_requesting_charge() {
     return !can_data.charge_request.stale && can_data.charge_request.charge_enable;
 }
 
@@ -36,7 +36,7 @@ void charging_fsm_periodic() {
         is_clear(FAULT_ID_PACK_FULL) &&
         is_clear(FAULT_ID_BMS_DISCONNECTED) &&
         is_latched(FAULT_ID_SDC16_TSMS) && // car should not energize while charging
-        is_daq_requesting_charge() &&
+        is_daqapp_requesting_charge() &&
         is_elcon_ready();
 
     switch (current_state) {

@@ -160,16 +160,6 @@
             "time_to_latch": 10000,
             "time_to_unlatch": 10000,
             "lcd_message": "Pack Full"
-        },
-        {
-            "fault_name": "DAQAPP_STALE",
-            "max": 1,
-            "min": 0,
-            "priority": "warning",
-            "time_to_latch": 5000,
-            "time_to_unlatch": 5000,
-            "lcd_message": "DAQ App Stale"
         }
-
     ]
 }

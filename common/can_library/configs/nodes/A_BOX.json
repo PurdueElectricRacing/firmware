@@ -71,6 +71,9 @@
             "rx": [
                 {
                     "msg_name": "elcon_charger_status"
+                },
+                {
+                    "msg_name": "charge_request"
                 }
             ],
             "accept_all_messages": false
@@ -132,6 +135,25 @@
             "time_to_latch": 1000,
             "time_to_unlatch": 5000,
             "lcd_message": "Min Cell Voltage < 2.7V"
+        },
+        {
+            "fault_name": "PACK_FULL",
+            "max": 520,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 10000,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Pack Full"
+        },
+        {
+            "fault_name": "DAQAPP_STALE",
+            "max": 1,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 5000,
+            "time_to_unlatch": 5000,
+            "lcd_message": "DAQ App Stale"
         }
+
     ]
 }

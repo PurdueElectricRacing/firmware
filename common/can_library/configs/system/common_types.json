@@ -16,6 +16,14 @@
             "name": "fault_id_t",
             "base_type": "uint16_t",
             "choices": ["reserved_type"]
+        },
+        {
+            "name": "charging_state_t",
+            "base_type": "uint8_t",
+            "choices": [
+                "idle",
+                "charging"
+            ]
         }
     ]
 }

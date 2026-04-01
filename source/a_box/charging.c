@@ -3,6 +3,9 @@
 #include "common/can_library/generated/can_types.h"
 #include "common/can_library/generated/A_BOX.h"
 
+static constexpr uint16_t PACK_CHARGING_DECIVOLTS = 540 * 10;
+static constexpr uint16_t PACK_CHARGING_DECIAMPS = 10 * 10;
+
 charging_state_t current_state = CHARGING_STATE_IDLE;
 charging_state_t next_state = CHARGING_STATE_IDLE;
 
@@ -14,6 +17,10 @@ static inline bool is_daq_requesting_charge() {
 
 static inline bool is_elcon_ready() {
     return !can_data.elcon_status.stale && !can_data.elcon_status.startup_fail;
+}
+
+static inline void report_charging_telemetry() {
+    // todo
 }
 
 void charging_fsm_periodic() {
@@ -44,9 +51,11 @@ void charging_fsm_periodic() {
         case CHARGING_STATE_CHARGING: {
             g_bms.is_balancing_enabled = true;
 
-            // send elcon charging message
-            // send pack stats on CCAN
-
+            // todo daq requests the charging parameters?
+            CAN_SEND_elcon_command(PACK_CHARGING_DECIVOLTS, PACK_CHARGING_DECIAMPS, false);
+            
+            report_charging_telemetry();
+            
             if (!is_charging_permitted) {
                 next_state = CHARGING_STATE_IDLE;
             }

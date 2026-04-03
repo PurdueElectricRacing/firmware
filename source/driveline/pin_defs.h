@@ -14,9 +14,9 @@
 #define HEARTBEAT_LED_PORT  (GPIOA)
 #define HEARTBEAT_LED_PIN   (15)
 #define ERROR_LED_PORT      (GPIOB)
-#define ERROR_LED_PIN       (2)
+#define ERROR_LED_PIN       (4)
 #define CONNECTION_LED_PORT (GPIOB)
-#define CONNECTION_LED_PIN  (1)
+#define CONNECTION_LED_PIN  (3)
 
 // Shockpots
 #define SHOCKPOT_LEFT_GPIO_PORT  (GPIOA)

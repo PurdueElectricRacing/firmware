@@ -20,7 +20,15 @@
 #include "common/phal_G4/dma/dma.h"
 #include "pin_defs.h"
 #include "config.h"
+#include "oil_temp_table.h"
+#include "amb_temp_table.h"
+#include "water_temp_table.h"
 
+#define ADC_RESOLUTION  4096.0f
+#define V_REF           3.3f      
+#define R_PULLUP        1300.0f
+#define BRAKE_PRESSURE_OFFSET_V     0.5f
+#define BRAKE_PRESSURE_SENSITIVITY  0.01538f
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
     // Status LEDs
@@ -291,119 +299,146 @@ int main(void) {
 }
 
 // Shockpots
-int16_t shock_l_scaled;
-int16_t shock_r_scaled;
-int16_t shock_l_raw;
 int16_t shock_r_raw;
+int16_t shock_l_raw;
 
 void shockpot_thread() {
 
-    shock_r_raw = (int16_t) raw_adc4_values.shock_r;
-    shock_l_raw = (int16_t) raw_adc3_values.shock_l;
+    int16_t shock_r_raw = raw_adc4_values.shock_r;
+    int16_t shock_l_raw = raw_adc3_values.shock_l;
     
-   float shock_l_parsed = -1.0 * ((POT_MAX_DIST - ((shock_l_raw / (POT_VOLT_MIN_L - POT_VOLT_MAX_L)) * POT_MAX_DIST)) - POT_DIST_DROOP_L);
-   float shock_r_parsed = -1.0 * ((POT_MAX_DIST - ((shock_r_raw / (POT_VOLT_MIN_R - POT_VOLT_MAX_R)) * POT_MAX_DIST)) - POT_DIST_DROOP_R);
+    float shock_l_parsed = -1.0 * ((POT_MAX_DIST - ((shock_l_raw / (POT_VOLT_MIN_L - POT_VOLT_MAX_L)) * POT_MAX_DIST)) - POT_DIST_DROOP_L);
+    float shock_r_parsed = -1.0 * ((POT_MAX_DIST - ((shock_r_raw / (POT_VOLT_MIN_R - POT_VOLT_MAX_R)) * POT_MAX_DIST)) - POT_DIST_DROOP_R);
 
-    shock_l_scaled = (int16_t)(shock_l_parsed * PACK_COEFF_FRONT_SHOCKPOTS_LEFT);
-    shock_r_scaled = (int16_t)(shock_r_parsed * PACK_COEFF_FRONT_SHOCKPOTS_RIGHT);
+    int16_t shock_l_scaled = (int16_t)(shock_l_parsed * PACK_COEFF_FRONT_SHOCKPOTS_LEFT);
+    int16_t shock_r_scaled = (int16_t)(shock_r_parsed * PACK_COEFF_FRONT_SHOCKPOTS_RIGHT);
 
     #ifdef SEND_SHOCKPOTS
     SEND_SHOCKPOTS(shock_l_scaled, shock_r_scaled);
     #endif
 }
 
+// Load Cells
+
+void loadcell_thread() {
+    int16_t load_fl = raw_adc4_values.load_fl;
+    int16_t load_fr = raw_adc5_values.load_fr;
+    int16_t load_rl = raw_adc2_values.load_rl;
+    int16_t load_rr = raw_adc5_values.load_rr;
+
+    float load_fl_voltage = ((float)load_fl / ADC_RESOLUTION) * V_REF;
+    float load_fr_voltage = ((float)load_fr / ADC_RESOLUTION) * V_REF;
+    float load_rl_voltage = ((float)load_rl / ADC_RESOLUTION) * V_REF;
+    float load_rr_voltage = ((float)load_rr / ADC_RESOLUTION) * V_REF;
+
+    // Calculation is (ADC_reading)/5V * calibrated weight
+    int16_t load_fl_N = (int16_t)((load_fl_voltage / LOAD_VOLT_MAX) * LOAD_CELL_CALIBRATION * 9.81f);
+    int16_t load_fr_N = (int16_t)((load_fr_voltage / LOAD_VOLT_MAX) * LOAD_CELL_CALIBRATION * 9.81f);
+    int16_t load_rl_N = (int16_t)((load_rl_voltage / LOAD_VOLT_MAX) * LOAD_CELL_CALIBRATION * 9.81f);
+    int16_t load_rr_N = (int16_t)((load_rr_voltage / LOAD_VOLT_MAX) * LOAD_CELL_CALIBRATION * 9.81f);
+
+
+    SEND_LOAD(load_fl_N,load_fr_N,load_rl_N, load_rr_N);
+}
+
+// Brake Temps
+
+void braketemp_thread() { 
+
+    int16_t brake_temp_l = (int16_t) raw_adc2_values.brake_temp_left;
+    int16_t brake_temp_r = (int16_t) raw_adc2_values.brake_temp_right;
+
+    float brake_temp_l_voltage = ((float)brake_temp_l / ADC_RESOLUTION) * V_REF;
+    float brake_temp_r_voltage = ((float)brake_temp_r / ADC_RESOLUTION) * V_REF;
+
+    int16_t brake_temp_l_c = (int16_t) (200 * brake_temp_l_voltage - 100);
+    int16_t brake_temp_r_c = (int16_t) (200 * brake_temp_r_voltage - 100);
+
+    SEND_BRAKE_TEMPS(brake_temp_l_c, brake_temp_r_c);
+
+}
+
+
 // Oil Temps
-int16_t oil_temp_l;
-int16_t oil_temp_r;
-int16_t brake_pressure_l;
-int16_t brake_pressure_r;
 
 void oil_temp_thread() {
-    oil_temp_l = (int16_t) raw_adc1_values.oil_temp_left;
-    oil_temp_r = (int16_t) raw_adc2_values.oil_temp_right;
+    int16_t oil_temp_l = (int16_t) raw_adc1_values.oil_temp_left;
+    int16_t oil_temp_r = (int16_t) raw_adc2_values.oil_temp_right;
+
+    float oil_l_volts = ((float)oil_temp_l / ADC_RESOLUTION) * V_REF;
+    float oil_r_volts = ((float)oil_temp_r / ADC_RESOLUTION) * V_REF;
 
 
-}
+    int16_t oil_temp_l_resistance = (R_PULLUP * oil_l_volts) / (V_REF - oil_l_volts);
+    int16_t oil_temp_r_resistance = (R_PULLUP * oil_r_volts) / (V_REF - oil_r_volts);
 
-// Brake Pressures
-int16_t brake_pressure_l;
-int16_t brake_pressure_r;
+    int16_t oil_temp_l_celsius = (int16_t) oil_temp_ohms_to_celsius(oil_temp_l_resistance);
+    int16_t oil_temp_r_celsius = (int16_t) oil_temp_ohms_to_celsius(oil_temp_r_resistance);
+    
+    SEND_OIL_TEMPS(oil_temp_l_celsius, oil_temp_r_celsius);
 
-void brake_pressure_thread() {
-    brake_pressure_l = (int16_t) raw_adc2_values.brake_pressure_left;
-    brake_pressure_r = (int16_t) raw_adc1_values.brake_pressure_right;
-}
-
-// Water Temps
-int16_t water_temp_fl;
-int16_t water_temp_rl;
-int16_t water_temp_fr;
-int16_t water_temp_rr;
-
-void water_temp_thread() {
-     water_temp_fl = raw_adc2_values.water_temp_fl;
-     water_temp_rl = raw_adc2_values.water_temp_rl;
-     water_temp_fr = raw_adc2_values.water_temp_fr;
-     water_temp_rr = raw_adc3_values.water_temp_rr;
-
-    // SEND_WATER_TEMPS(water_temp_fl, water_temp_rl, water_temp_fr, water_temp_rr);
 }
 
 // Ambient Temp
-int16_t amb_temp;
+
 void amb_temp_thread() {
-    amb_temp = raw_adc3_values.amb_temp;
+    int16_t amb_temp = raw_adc3_values.amb_temp;
+    float voltage = ((float)amb_temp / ADC_RESOLUTION) * V_REF;
+    float amb_temp_resistance = (R_PULLUP * voltage) / (V_REF - voltage);
 
-    // SEND_AMB_TEMP(amb_temp);
+    int16_t amb_temp_celsius = (int16_t) amb_temp_ohms_to_celsius(amb_temp_resistance);
+
+    SEND_AMB_TEMP(amb_temp_celsius);
 }
 
-// Load Cells
-float load_fl_kg;
-float load_fr_kg;
-float load_rl_kg;
-float load_rr_kg;
-uint16_t load_fl;
-uint16_t load_fr;
-uint16_t load_rl;
-uint16_t load_rr;
+// Water Temps
 
-//convert voltage to kg - yash
-void loadcell_thread() {
-    //Loading Data from struct
-     load_fl = raw_adc4_values.load_fl;
-     load_fr = raw_adc5_values.load_fr;
-     load_rl = raw_adc2_values.load_rl;
-     load_rr = raw_adc5_values.load_rr;
+void water_temp_thread() {
+
+     int16_t water_temp_fl = raw_adc2_values.water_temp_fl;
+     int16_t water_temp_rl = raw_adc2_values.water_temp_rl;
+     int16_t water_temp_fr = raw_adc2_values.water_temp_fr;
+     int16_t water_temp_rr = raw_adc3_values.water_temp_rr;
+
+     float water_temp_fl_voltage = ((float)water_temp_fl / ADC_RESOLUTION) * V_REF;
+     float water_temp_fr_voltage = ((float)water_temp_fr / ADC_RESOLUTION) * V_REF;
+     float water_temp_rl_voltage = ((float)water_temp_rl / ADC_RESOLUTION) * V_REF;
+     float water_temp_rr_voltage = ((float)water_temp_rr / ADC_RESOLUTION) * V_REF;
+
+     float water_temp_fl_ohms = (R_PULLUP * water_temp_fl_voltage) / (V_REF - water_temp_fl_voltage);
+     float water_temp_fr_ohms = (R_PULLUP * water_temp_fr_voltage) / (V_REF - water_temp_fr_voltage);
+     float water_temp_rl_ohms = (R_PULLUP * water_temp_rl_voltage) / (V_REF - water_temp_rl_voltage);
+     float water_temp_rr_ohms = (R_PULLUP * water_temp_rr_voltage) / (V_REF - water_temp_rr_voltage);
+
+     int16_t water_temp_fl_celsius = (int16_t) water_temp_ohms_to_celsius(water_temp_fl_ohms);
+     int16_t water_temp_fr_celsius = (int16_t) water_temp_ohms_to_celsius(water_temp_fr_ohms);
+     int16_t water_temp_rl_celsius = (int16_t) water_temp_ohms_to_celsius(water_temp_rl_ohms);
+     int16_t water_temp_rr_celsius = (int16_t) water_temp_ohms_to_celsius(water_temp_rr_ohms);
 
 
-    // Calculation is (ADC_reading)/5V * calibrated weight
-    load_fl_kg = (load_fl / LOAD_VOLT_MAX) * LOAD_CELL_CALIBRATION; 
-    load_fr_kg = (load_fr / LOAD_VOLT_MAX) * LOAD_CELL_CALIBRATION; 
-    load_rl_kg = (load_rl / LOAD_VOLT_MAX) * LOAD_CELL_CALIBRATION;
-    load_rr_kg = (load_rr / LOAD_VOLT_MAX) * LOAD_CELL_CALIBRATION;
-
-    SEND_LOAD(load_fl_kg,load_fr_kg,load_rl_kg, load_rr_kg);
+     SEND_WATER_TEMPS(water_temp_fl_celsius, water_temp_fr_celsius, water_temp_rl_celsius, water_temp_rr_celsius);
 }
 
-// convert voltage to celsius?
-// Brake Temps
-int16_t brake_temp_l;
-int16_t brake_temp_r;
+// Brake Pressures
 
-void braketemp_thread() {
+void brake_pressure_thread() {
 
-    //get raw voltage from brake temp sensors
-    brake_temp_l = (int16_t) raw_adc2_values.brake_temp_left;
-    brake_temp_r = (int16_t) raw_adc2_values.brake_temp_right;
+    int16_t brake_pressure_l = (int16_t) raw_adc2_values.brake_pressure_left;
+    int16_t brake_pressure_r = (int16_t) raw_adc1_values.brake_pressure_right;
 
+    float brake_pressure_l_volts = ((float)brake_pressure_l / ADC_RESOLUTION) * V_REF;
+    float brake_pressure_r_volts = ((float)brake_pressure_r / ADC_RESOLUTION) * V_REF;
 
-    double brake_temp_v_l = brake_temp_l;
-    double brake_temp_v_r = brake_temp_r;
-    brake_temp_l = (int16_t) (brake_temp_v_l - 0.5)/0.005;
-    brake_temp_r = (int16_t) (brake_temp_v_r - 0.5)/0.005;
-    SEND_BRAKE_TEMPS(brake_temp_l, brake_temp_r);
+    int16_t brake_pressure_l_bar = (int16_t) ((brake_pressure_l_volts - BRAKE_PRESSURE_OFFSET_V) / BRAKE_PRESSURE_SENSITIVITY);
+    int16_t brake_pressure_r_bar = (int16_t) ((brake_pressure_r_volts - BRAKE_PRESSURE_OFFSET_V) / BRAKE_PRESSURE_SENSITIVITY);
+
+    SEND_BRAKE_PRESSURE(brake_pressure_l_bar, brake_pressure_r_bar);
+
 
 }
+
+
+
 
 // todo reboot on hardfault
 void HardFault_Handler() {

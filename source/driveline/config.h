@@ -33,6 +33,11 @@ static constexpr float POT_VOLT_MIN_R = 4092.0f;
 
 #define SEND_LOAD CAN_SEND_front_load
 #define SEND_BRAKE_TEMPS CAN_SEND_front_brake_temps
+#define SEND_OIL_TEMPS CAN_SEND_front_oil_temps
+#define SEND_AMB_TEMP CAN_SEND_front_amb_temp
+#define SEND_WATER_TEMPS CAN_SEND_front_water_temps
+#define SEND_BRAKE_PRESSURE CAN_SEND_front_brake_pressure
+
 
 
 // others here
@@ -54,6 +59,12 @@ static constexpr float POT_VOLT_MIN_R = 4092.0f;
 #define POT_DIST_DROOP_R 55
 #define SEND_LOAD CAN_SEND_rear_load
 #define SEND_BRAKE_TEMPS CAN_SEND_rear_brake_temps
+#define SEND_OIL_TEMPS CAN_SEND_rear_oil_temps
+#define SEND_AMB_TEMP CAN_SEND_rear_amb_temp
+#define SEND_WATER_TEMPS CAN_SEND_rear_water_temps
+#define SEND_BRAKE_PRESSURE CAN_SEND_rear_brake_pressure
+
+
 
 // others here
 #endif

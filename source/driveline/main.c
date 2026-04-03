@@ -98,6 +98,7 @@ int main(void) {
     PHAL_startADC(&adc_config);
 
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
+    CAN_library_init();
 
     // Software Initalization
     osKernelInitialize();

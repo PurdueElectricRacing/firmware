@@ -18,25 +18,25 @@ typedef struct {
 } xVCU_struct;
 
 typedef struct {
-    float TH;
-    float TH_PO;
-    float TH_RG;
-    float ST;
-    float VB;
-    float WM[4];
-    float GS;
-    float AV[3];
-    float IB;
-    float MT;
-    float IGBT_T;
-    float INV_T;
-    float MC;
-    float IC;
-    float BT;
-    float TO[4];
-    float PB;
-    float TO_BL_PO[4];
-    float TORQUE_OUT[4];
+        float TH;
+        float TH_PO;
+        float TH_RG;
+        float ST;
+        float VB;
+        float WM[4];
+        float GS;
+        float AV[3];
+        float IB;
+        float MT;
+        float IGBT_T;
+        float INV_T;
+        float MC;
+        float IC;
+        float BT;
+        float TO[4];
+        float PB;
+        float TO_BL_PO[4];
+        float TORQUE_OUT[4];
 } yVCU_struct;
 
 typedef struct {
@@ -44,14 +44,14 @@ typedef struct {
     float ht[2];
     float wb;
     float gr;
-    float MAX_TO_ABS;
+    float MAX_TO_ABS_PO;
     float PB_derating_full_T;
     float PB_derating_half_T;
     float PB_derating_FR;
     float INV_T_derating_full_T;
-    float INV_derating_zero_T;
-    float IGBT_derating_full_T;
-    float IGBT_derating_zero_T;
+    float INV_T_derating_zero_T;
+    float IGBT_T_derating_full_T;
+    float IGBT_T_derating_zero_T;
     float MT_derating_full_T;
     float MT_derating_zero_T;
     float BT_derating_full_T;

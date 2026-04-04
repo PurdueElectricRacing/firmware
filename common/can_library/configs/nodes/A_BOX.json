@@ -27,7 +27,7 @@
                             "sig_desc": "Average cell temperature in the pack",
                             "type": "int16_t",
                             "unit": "C",
-                            "scale": 1
+                            "scale": 0.01
                         }
                     ],
                     "msg_priority": 5,
@@ -49,21 +49,21 @@
                             "sig_desc": "Minimum cell voltage in the module",
                             "type": "uint16_t",
                             "unit": "V",
-                            "scale": 0.01
+                            "scale": 0.005
                         },
                         {
                             "sig_name": "max_voltage",
                             "sig_desc": "Maximum cell voltage in the module",
                             "type": "uint16_t",
                             "unit": "V",
-                            "scale": 0.01
+                            "scale": 0.005
                         },
                         {
                             "sig_name": "sum_voltage",
                             "sig_desc": "Sum of cell voltages in the module",
                             "type": "uint16_t",
                             "unit": "V",
-                            "scale": 0.01
+                            "scale": 0.005
                         }
                     ],
                     "msg_priority": 4,
@@ -85,7 +85,7 @@
                             "sig_desc": "Maximum thermistor temperature in the module",
                             "type": "int16_t",
                             "unit": "C",
-                            "scale": 0.1
+                            "scale": 0.01
                         },
                         {
                             "sig_name": "balancing_mask",
@@ -126,7 +126,7 @@
                             "sig_desc": "Sample reading in volts or Celsius depending on is_temp",
                             "type": "int16_t",
                             "unit": "V or C",
-                            "scale": 0.01
+                            "scale": 0.005
                         }
                     ],
                     "msg_priority": 4,

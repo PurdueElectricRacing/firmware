@@ -110,9 +110,6 @@ static constexpr uint32_t REPORT_TELEMETRY_PERIOD_MS         = 8;
 static constexpr uint32_t PACK_STATS_SEND_PERIOD_MS          = 200;
 static constexpr uint32_t MODULE_STATS_SEND_PERIOD_MS        = 125;
 static constexpr uint32_t INDIVIDUAL_SAMPLE_SEND_PERIOD_MS   = 48;
-static constexpr float MODULE_VOLTAGE_SCALE                  = 100.0f;
-static constexpr float MODULE_TEMP_SCALE                     = 10.0f;
-static constexpr float MODULE_SAMPLE_SCALE                   = 100.0f;
 
 extern void HardFault_Handler(void);
 void bms_task(void);
@@ -120,17 +117,6 @@ void check_faults(void);
 void report_telemetry(void);
 void charging_fsm_periodic(void);
 
-static uint16_t scale_voltage(float voltage) {
-    return (uint16_t)(voltage * MODULE_VOLTAGE_SCALE);
-}
-
-static int16_t scale_temp(float temp_c) {
-    return (int16_t)(temp_c * MODULE_TEMP_SCALE);
-}
-
-static int16_t scale_sample(float sample_value) {
-    return (int16_t)(sample_value * MODULE_SAMPLE_SCALE);
-}
 
 static uint16_t balance_mask_from_module(size_t module_idx) {
     uint16_t balance_mask = 0;
@@ -146,14 +132,14 @@ static uint16_t balance_mask_from_module(size_t module_idx) {
 
 static void send_module_voltage_stats(size_t module_idx) {
     CAN_SEND_module_voltage_stats((uint8_t)module_idx,
-                                  scale_voltage(g_bms.modules[module_idx].min_voltage),
-                                  scale_voltage(g_bms.modules[module_idx].max_voltage),
-                                  scale_voltage(g_bms.modules[module_idx].sum_voltage));
+                                  (uint16_t)(g_bms.modules[module_idx].min_voltage * PACK_COEFF_MODULE_VOLTAGE_STATS_MIN_VOLTAGE),
+                                  (uint16_t)(g_bms.modules[module_idx].max_voltage * PACK_COEFF_MODULE_VOLTAGE_STATS_MAX_VOLTAGE),
+                                  (uint16_t)(g_bms.modules[module_idx].sum_voltage * PACK_COEFF_MODULE_VOLTAGE_STATS_SUM_VOLTAGE));
 }
 
 static void send_module_temp_balance_stats(size_t module_idx) {
     CAN_SEND_module_temp_balance_stats((uint8_t)module_idx,
-                                       scale_temp(g_bms.modules[module_idx].max_therm_temp),
+                                       (int16_t)(g_bms.modules[module_idx].max_therm_temp * PACK_COEFF_MODULE_TEMP_BALANCE_STATS_MAX_TEMP),
                                        balance_mask_from_module(module_idx));
 }
 
@@ -162,14 +148,14 @@ static void send_individual_module_sample(size_t module_idx, bool is_temp, size_
         CAN_SEND_module_sample((uint8_t)module_idx,
                                (uint8_t)sample_idx,
                                true,
-                               scale_sample(g_bms.modules[module_idx].therms_temps[sample_idx]));
+                               (int16_t)(g_bms.modules[module_idx].therms_temps[sample_idx] * PACK_COEFF_MODULE_SAMPLE_SAMPLE_VALUE));
         return;
     }
 
     CAN_SEND_module_sample((uint8_t)module_idx,
                            (uint8_t)sample_idx,
                            false,
-                           scale_sample(g_bms.modules[module_idx].cell_voltages[sample_idx]));
+                           (int16_t)(g_bms.modules[module_idx].cell_voltages[sample_idx] * PACK_COEFF_MODULE_SAMPLE_SAMPLE_VALUE));
 }
 
 // Thread Defines
@@ -273,9 +259,10 @@ void report_telemetry() {
 
     uint16_t pack_voltage = (uint16_t)(g_bms.sum_voltage * PACK_COEFF_PACK_STATS_PACK_VOLTAGE);
     int16_t pack_current = isense_to_current(isense_raw);
+    int16_t avg_temp = (int16_t)(g_bms.avg_therm_temp * PACK_COEFF_PACK_STATS_AVG_TEMP);
 
     while (now >= next_pack_stats_ms) {
-        CAN_SEND_pack_stats(pack_voltage, pack_current, g_bms.avg_therm_temp);
+        CAN_SEND_pack_stats(pack_voltage, pack_current, avg_temp);
         next_pack_stats_ms += PACK_STATS_SEND_PERIOD_MS;
     }
 

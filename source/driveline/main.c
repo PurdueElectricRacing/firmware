@@ -28,7 +28,11 @@ GPIOInitConfig_t gpio_config[] = {
 
     // VCAN
     GPIO_INIT_FDCAN2RX_PB12,
-    GPIO_INIT_FDCAN2TX_PB13
+    GPIO_INIT_FDCAN2TX_PB13,
+
+    // Shock Pots
+    GPIO_INIT_ANALOG(SHOCKPOT_LEFT_GPIO_PORT , SHOCKPOT_LEFT_GPIO_PIN),
+    GPIO_INIT_ANALOG(SHOCKPOT_RIGHT_GPIO_PORT, SHOCKPOT_RIGHT_GPIO_PIN)
 };
 
 static constexpr uint32_t TargetCoreClockrateHz = 16000000;
@@ -42,7 +46,7 @@ ClockRateConfig_t clock_config = {
 };
 
 /* ADC Configuration */
-ADCInitConfig_t adc_config = {
+ADCInitConfig_t adc1_config = {
     .prescaler      = ADC_CLK_PRESC_2,
     .resolution     = ADC_RES_12_BIT,
     .data_align     = ADC_DATA_ALIGN_RIGHT,
@@ -50,20 +54,50 @@ ADCInitConfig_t adc_config = {
     .dma_mode       = ADC_DMA_CIRCULAR,
     .periph         = ADC1,
 };
-ADCChannelConfig_t adc_channel_config[] = {
+
+ADCInitConfig_t adc3_config = {
+    .prescaler      = ADC_CLK_PRESC_2,
+    .resolution     = ADC_RES_12_BIT,
+    .data_align     = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode = true,
+    .dma_mode       = ADC_DMA_CIRCULAR,
+    .periph         = ADC3,
+};
+
+ADCChannelConfig_t adc3_channel_config[] = {
     {.channel = SHOCKPOT_LEFT_ADC_CHNL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+};
+
+typedef struct {
+    uint16_t shock_l;
+} raw_adc3_values_t;
+volatile raw_adc3_values_t raw_adc3_values;
+
+dma_init_t adc3_dma_config = ADC3_DMA_CONT_CONFIG((uint32_t)&raw_adc3_values, sizeof(raw_adc3_values) / sizeof(uint16_t), 0b01);
+
+ADCInitConfig_t adc4_config = {
+    .prescaler      = ADC_CLK_PRESC_2,
+    .resolution     = ADC_RES_12_BIT,
+    .data_align     = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode = true,
+    .dma_mode       = ADC_DMA_CIRCULAR,
+    .periph         = ADC4,
+};
+
+ADCChannelConfig_t adc4_channel_config[] = {
     {.channel = SHOCKPOT_RIGHT_ADC_CHNL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},
 };
+
+typedef struct {
+    uint16_t shock_r;
+} raw_adc4_values_t;
+volatile raw_adc4_values_t raw_adc4_values;
+dma_init_t adc4_dma_config = ADC4_DMA_CONT_CONFIG((uint32_t)&raw_adc4_values, sizeof(raw_adc4_values) / sizeof(uint16_t), 0b01);
 
 // note: this struct is the target of the DMA controller,
 // it's layout must match the order and size of the ADC channels in adc_channel_config
 // additonally, it must have no padding and members must be uint16_t to match the ADC resolution and data alignment
-typedef struct {
-    uint16_t shock_l;
-    uint16_t shock_r;
-} raw_adc_values_t;
-volatile raw_adc_values_t raw_adc_values;
-dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc_values, sizeof(raw_adc_values) / sizeof(uint16_t), 0b01);
+
 
 /* Locals for Clock Rates */
 extern uint32_t APB1ClockRateHz;
@@ -88,14 +122,24 @@ int main(void) {
     if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
-    if (false == PHAL_initADC(&adc_config, adc_channel_config, sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
+    if (false == PHAL_initDMA(&adc3_dma_config)) {
         HardFault_Handler();
     }
-    if (false == PHAL_initDMA(&adc_dma_config)) {
+     if (false == PHAL_initDMA(&adc4_dma_config)) {
+        HardFault_Handler();
+     }
+    if (false == PHAL_initADC(&adc3_config, adc3_channel_config, sizeof(adc3_channel_config) / sizeof(ADCChannelConfig_t))) {
         HardFault_Handler();
     }
-    PHAL_startTxfer(&adc_dma_config);
-    PHAL_startADC(&adc_config);
+    if (false == PHAL_initADC(&adc4_config, adc4_channel_config, sizeof(adc4_channel_config) / sizeof(ADCChannelConfig_t))) {
+        HardFault_Handler();
+    }
+    PHAL_startTxfer(&adc3_dma_config);
+    PHAL_startTxfer(&adc4_dma_config);
+
+    PHAL_startADC(&adc3_config);
+    PHAL_startADC(&adc4_config);
+
 
     CAN_library_init();
     NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
@@ -116,8 +160,11 @@ int main(void) {
 // Both driveline nodes
 
 void shockpot_thread() {
-    float shock_l_parsed = -1.0 * ((POT_MAX_DIST - ((raw_adc_values.shock_l / (POT_VOLT_MIN_L - POT_VOLT_MAX_L)) * POT_MAX_DIST)) - POT_DIST_DROOP_L);
-    float shock_r_parsed = -1.0 * ((POT_MAX_DIST - ((raw_adc_values.shock_r / (POT_VOLT_MIN_R - POT_VOLT_MAX_R)) * POT_MAX_DIST)) - POT_DIST_DROOP_R);
+    int16_t shock_r_raw = raw_adc4_values.shock_r;
+    int16_t shock_l_raw = raw_adc3_values.shock_l;
+
+    float shock_l_parsed = -1.0 * ((POT_MAX_DIST - ((shock_l_raw / (POT_VOLT_MIN_L - POT_VOLT_MAX_L)) * POT_MAX_DIST)) - POT_DIST_DROOP_L);
+    float shock_r_parsed = -1.0 * ((POT_MAX_DIST - ((shock_r_raw / (POT_VOLT_MIN_R - POT_VOLT_MAX_R)) * POT_MAX_DIST)) - POT_DIST_DROOP_R);
 
     int16_t shock_l_scaled = (int16_t)(shock_l_parsed * PACK_COEFF_FRONT_SHOCKPOTS_LEFT);
     int16_t shock_r_scaled = (int16_t)(shock_r_parsed * PACK_COEFF_FRONT_SHOCKPOTS_RIGHT);

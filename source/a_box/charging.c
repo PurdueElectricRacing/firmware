@@ -41,7 +41,7 @@ void charging_fsm_periodic() {
 
     switch (current_state) {
         case CHARGING_STATE_IDLE: {
-            // do nothing
+            CAN_SEND_elcon_command(PACK_CHARGING_DECIVOLTS, PACK_CHARGING_DECIAMPS, true);
 
             if (is_charging_permitted) {
                 next_state = CHARGING_STATE_CHARGING;

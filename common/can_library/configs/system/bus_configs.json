@@ -16,7 +16,7 @@
         },
         {
             "name": "CCAN",
-            "baud_rate": 500000,
+            "baud_rate": 250000,
             "is_extended_id": true,
             "is_flexible_data_rate": false,
             "host_fault_library": false

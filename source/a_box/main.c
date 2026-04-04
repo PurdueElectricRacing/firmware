@@ -107,12 +107,14 @@ extern void HardFault_Handler(void);
 void bms_task(void);
 void check_faults(void);
 void report_telemetry(void);
+void charging_fsm_periodic(void);
 
 // Thread Defines
 DEFINE_TASK(bms_task, 200, osPriorityHigh, STACK_2048);
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
 DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048);
 DEFINE_TASK(check_faults, 10, osPriorityNormal, STACK_512);
+DEFINE_TASK(charging_fsm_periodic, 1000, osPriorityNormal, STACK_512);
 DEFINE_TASK(fault_library_periodic, A_BOX_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
 DEFINE_TASK(report_telemetry, PACK_STATS_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
@@ -157,6 +159,7 @@ int main(void) {
     START_TASK(check_faults);
     START_TASK(fault_library_periodic);
     START_TASK(report_telemetry);
+    START_TASK(charging_fsm_periodic);
     START_HEARTBEAT_TASK();
 
     osKernelStart(); // no way home

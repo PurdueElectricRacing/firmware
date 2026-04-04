@@ -19,7 +19,7 @@ static constexpr uint16_t BRAKE_LIGHT_ON_THRESHOLD = 200; // ~5% of 4095
 static constexpr uint16_t BRAKE_LIGHT_OFF_THRESHOLD = 100; // ~2.5% of 4095
 
 void ready2drive_periodic() {
-    if (can_data.pedals.stale) {
+    if (can_data.pedals.is_stale()) {
         g_torque_request.front_right = 0;
         g_torque_request.front_left  = 0;
         g_torque_request.rear_left   = 0;
@@ -55,7 +55,7 @@ static inline bool is_all_AMKS_running() {
 }
 
 static inline bool is_start_button_pressed() {
-    if (can_data.start_button.stale) {
+    if (can_data.start_button.is_stale()) {
         return false;
     }
 

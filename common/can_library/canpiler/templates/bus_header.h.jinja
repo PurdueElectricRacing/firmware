@@ -21,7 +21,7 @@ static constexpr uint64_t {{ msg.macro_name }}_LAYOUT_HASH = {{ msg.layout_hash 
 typedef struct {
     uint32_t last_rx;
 {% if msg.period > 0 %}
-    bool (*stale)(void);
+    bool (*is_stale)(void);
 {% endif %}
     // Begin signal defs
 {% for sig in msg.signals %}

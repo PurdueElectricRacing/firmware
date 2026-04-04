@@ -27,7 +27,7 @@ static constexpr float INCHES_PER_MILE = 63360.0f;
 static constexpr float RPM_TO_MPH = INCHES_PER_MOTOR_REV * MINUTES_PER_HOUR / INCHES_PER_MILE;
 
 static inline void update_car_state_telemetry() {
-    if (can_data.main_hb.stale) {
+    if (can_data.main_hb.is_stale()) {
         NXT_setText(CAR_STATE, "STALE");
         NXT_setFontColor(CAR_STATE, WHITE);
         return;
@@ -74,7 +74,7 @@ static inline void update_car_state_telemetry() {
 }
 
 static inline void update_motor_telemetry() {
-    if (can_data.motor_temps.stale) {
+    if (can_data.motor_temps.is_stale()) {
         NXT_setText(MOTOR_TEMP, "S");
     } else {
         int16_t max_motor_temp = MAX4(
@@ -90,7 +90,7 @@ static inline void update_motor_telemetry() {
 }
 
 static inline void update_igbt_telemetry() {
-    if (can_data.igbt_temps.stale) {
+    if (can_data.igbt_temps.is_stale()) {
         NXT_setText(IGBT_TEMP, "S");
     } else {
         int16_t max_igbt_temp = MAX4(
@@ -106,7 +106,7 @@ static inline void update_igbt_telemetry() {
 }
 
 static inline void update_pack_telemetry() {
-    if (can_data.pack_stats.stale) {
+    if (can_data.pack_stats.is_stale()) {
         NXT_setText(BATT_VOLT, "S");
         NXT_setText(BATT_CURR, "S");
         NXT_setText(BATT_TEMP, "S");
@@ -121,7 +121,7 @@ static inline void update_pack_telemetry() {
 
 // todo better speed calc lol
 static inline void update_speed_telemetry() {
-    if (can_data.wheel_speeds.stale) {
+    if (can_data.wheel_speeds.is_stale()) {
         NXT_setText(SPEED, "S");
     } else {
         if (can_data.wheel_speeds.rear_left < 0) {

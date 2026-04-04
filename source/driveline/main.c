@@ -97,8 +97,9 @@ int main(void) {
     PHAL_startTxfer(&adc_dma_config);
     PHAL_startADC(&adc_config);
 
-    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
     CAN_library_init();
+    NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
+    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
 
     // Software Initalization
     osKernelInitialize();

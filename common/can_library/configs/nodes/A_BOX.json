@@ -34,12 +34,112 @@
                     "msg_period": 10
                 },
                 {
+                    "msg_name": "module_voltage_stats",
+                    "msg_desc": "Rotating module voltage statistics",
+                    "signals": [
+                        {
+                            "sig_name": "module_index",
+                            "sig_desc": "Module index in the daisy chain",
+                            "type": "uint8_t",
+                            "unit": "idx",
+                            "length": 8
+                        },
+                        {
+                            "sig_name": "min_voltage",
+                            "sig_desc": "Minimum cell voltage in the module",
+                            "type": "uint16_t",
+                            "unit": "V",
+                            "scale": 0.01
+                        },
+                        {
+                            "sig_name": "max_voltage",
+                            "sig_desc": "Maximum cell voltage in the module",
+                            "type": "uint16_t",
+                            "unit": "V",
+                            "scale": 0.01
+                        },
+                        {
+                            "sig_name": "sum_voltage",
+                            "sig_desc": "Sum of cell voltages in the module",
+                            "type": "uint16_t",
+                            "unit": "V",
+                            "scale": 0.01
+                        }
+                    ],
+                    "msg_priority": 4,
+                    "msg_period": 250
+                },
+                {
+                    "msg_name": "module_temp_balance_stats",
+                    "msg_desc": "Rotating module temperature and balancing statistics",
+                    "signals": [
+                        {
+                            "sig_name": "module_index",
+                            "sig_desc": "Module index in the daisy chain",
+                            "type": "uint8_t",
+                            "unit": "idx",
+                            "length": 8
+                        },
+                        {
+                            "sig_name": "max_temp",
+                            "sig_desc": "Maximum thermistor temperature in the module",
+                            "type": "int16_t",
+                            "unit": "C",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "balancing_mask",
+                            "sig_desc": "Bitmask of cells currently enabled for balancing",
+                            "type": "uint16_t",
+                            "length": 16
+                        }
+                    ],
+                    "msg_priority": 4,
+                    "msg_period": 250
+                },
+                {
+                    "msg_name": "module_sample",
+                    "msg_desc": "Rotating individual module cell voltage or thermistor sample",
+                    "signals": [
+                        {
+                            "sig_name": "module_index",
+                            "sig_desc": "Module index in the daisy chain",
+                            "type": "uint8_t",
+                            "unit": "idx",
+                            "length": 8
+                        },
+                        {
+                            "sig_name": "sample_index",
+                            "sig_desc": "Cell or thermistor index within the module",
+                            "type": "uint8_t",
+                            "unit": "idx",
+                            "length": 8
+                        },
+                        {
+                            "sig_name": "is_temp",
+                            "sig_desc": "True when sample_value is a thermistor temperature, false for a cell voltage",
+                            "unit": "bool",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "sample_value",
+                            "sig_desc": "Sample reading in volts or Celsius depending on is_temp",
+                            "type": "int16_t",
+                            "unit": "V or C",
+                            "scale": 0.01
+                        }
+                    ],
+                    "msg_priority": 4,
+                    "msg_period": 40
+                },
+                {
                     "msg_name": "abox_version",
                     "msg_desc": "ABox version",
                     "signals": [
                         {
                             "sig_name": "git_hash",
                             "type": "uint32_t",
+                            "unit": "hash",
                             "sig_desc": "int representation of git short hash"
                         }
                     ],

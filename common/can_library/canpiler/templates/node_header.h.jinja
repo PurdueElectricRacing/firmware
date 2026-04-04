@@ -93,7 +93,7 @@ static inline void CAN_rx_dispatcher(uint32_t id, uint8_t* data, uint8_t len, ui
 {% set msg = rx_msg.resolved_message %}
 {% if msg.period > 0 %}
 static bool is_{{ msg.name }}_stale() {
-    return (OS_TICKS - can_data.{{ msg.name }}.last_rx) > {{ (msg.period * 2.5)|int }};
+    return (OS_TICKS - can_data.{{ msg.name }}.last_rx) > {{ msg.macro_name }}_STALE_TIMEOUT_MS;
 }
 {% endif %}
 {% endfor %}

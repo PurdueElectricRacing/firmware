@@ -61,10 +61,6 @@ static inline void update_charge_request() {
     charge_enable = true;
 }
 
-static inline void report_charging_telemetry() {
-    // todo
-}
-
 void charging_fsm_periodic() {
     // set default states
     current_state = next_state;

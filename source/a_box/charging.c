@@ -12,11 +12,11 @@ charging_state_t next_state = CHARGING_STATE_IDLE;
 extern adbms_bms_t g_bms;
 
 static inline bool is_daqapp_requesting_charge() {
-    return !can_data.charge_request.stale && can_data.charge_request.charge_enable;
+    return !can_data.charge_request.is_stale() && can_data.charge_request.charge_enable;
 }
 
 static inline bool is_elcon_ready() {
-    return !can_data.elcon_status.stale && !can_data.elcon_status.startup_fail;
+    return !can_data.elcon_status.is_stale() && !can_data.elcon_status.startup_fail;
 }
 
 static inline void report_charging_telemetry() {

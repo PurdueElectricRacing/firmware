@@ -145,4 +145,44 @@ uint16_t PHAL_readADC(ADCInitConfig_t* config);
      .periph           = DMA1, \
      .channel          = DMA1_Channel1}
 
+#define ADC3_DMA_CONT_CONFIG(mem_addr_, tx_size_, priority_) \
+    {.periph_addr      = (uint32_t)&(ADC3->DR), \
+     .mem_addr         = mem_addr_, \
+     .tx_size          = tx_size_, \
+     .increment        = true, \
+     .circular         = true, \
+     .dir              = 0b0, \
+     .mem_inc          = true, \
+     .periph_inc       = false, \
+     .mem_to_mem       = false, \
+     .priority         = priority_, \
+     .mem_size         = DMA_SIZE_16BIT, \
+     .periph_size      = DMA_SIZE_16BIT, \
+     .tx_isr_en        = false, \
+     .dma_chan_request = 0b0000, \
+     .channel_idx      = 2, \
+     .mux_request      = DMA_REQUEST_ADC3, \
+     .periph           = DMA2, \
+     .channel          = DMA2_Channel2}
+
+#define ADC4_DMA_CONT_CONFIG(mem_addr_, tx_size_, priority_) \
+    {.periph_addr      = (uint32_t)&(ADC4->DR), \
+     .mem_addr         = mem_addr_, \
+     .tx_size          = tx_size_, \
+     .increment        = true, \
+     .circular         = true, \
+     .dir              = 0b0, \
+     .mem_inc          = true, \
+     .periph_inc       = false, \
+     .mem_to_mem       = false, \
+     .priority         = priority_, \
+     .mem_size         = DMA_SIZE_16BIT, \
+     .periph_size      = DMA_SIZE_16BIT, \
+     .tx_isr_en        = false, \
+     .dma_chan_request = 0b0000, \
+     .channel_idx      = 3, \
+     .mux_request      = DMA_REQUEST_ADC4, \
+     .periph           = DMA2, \
+     .channel          = DMA2_Channel3}
+
 #endif // __PHAL_G4_ADC_H__

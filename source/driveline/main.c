@@ -85,7 +85,7 @@ ADCInitConfig_t adc4_config = {
 };
 
 ADCChannelConfig_t adc4_channel_config[] = {
-    {.channel = SHOCKPOT_RIGHT_ADC_CHNL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = SHOCKPOT_RIGHT_ADC_CHNL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
 };
 
 typedef struct {
@@ -166,8 +166,8 @@ void shockpot_thread() {
     float shock_l_parsed = -1.0 * ((POT_MAX_DIST - ((shock_l_raw / (POT_VOLT_MIN_L - POT_VOLT_MAX_L)) * POT_MAX_DIST)) - POT_DIST_DROOP_L);
     float shock_r_parsed = -1.0 * ((POT_MAX_DIST - ((shock_r_raw / (POT_VOLT_MIN_R - POT_VOLT_MAX_R)) * POT_MAX_DIST)) - POT_DIST_DROOP_R);
 
-    int16_t shock_l_scaled = (int16_t)(shock_l_parsed * PACK_COEFF_FRONT_SHOCKPOTS_LEFT);
-    int16_t shock_r_scaled = (int16_t)(shock_r_parsed * PACK_COEFF_FRONT_SHOCKPOTS_RIGHT);
+    int16_t shock_l_scaled = (int16_t)(shock_l_parsed * PACK_COEFF_SHOCKPOTS_LEFT);
+    int16_t shock_r_scaled = (int16_t)(shock_r_parsed * PACK_COEFF_SHOCKPOTS_RIGHT);
 
     #ifdef SEND_SHOCKPOTS
     SEND_SHOCKPOTS(shock_l_scaled, shock_r_scaled);

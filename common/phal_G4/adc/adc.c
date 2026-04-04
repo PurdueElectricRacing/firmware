@@ -120,6 +120,9 @@ bool PHAL_initADC(ADCInitConfig_t* config, ADCChannelConfig_t channels[], uint8_
     } else if (adc == ADC3 || adc == ADC4 || adc == ADC5) {
         RCC->AHB2ENR |= RCC_AHB2ENR_ADC345EN;
 
+        RCC->CCIPR &= ~RCC_CCIPR_ADC345SEL;
+        RCC->CCIPR |= RCC_CCIPR_ADC345SEL_0; 
+
         ADC345_COMMON->CCR &= ~ADC_CCR_CKMODE;
         ADC345_COMMON->CCR |= (0x1UL << ADC_CCR_CKMODE_Pos);
         ADC345_COMMON->CCR &= ~(ADC_CCR_PRESC_Msk);

@@ -101,9 +101,12 @@ static bool is_{{ msg.name }}_stale() {
 // Data initialization
 static inline void CAN_data_init() {
     memset(&can_data, 0, sizeof(can_data));
+    // Underflow the last_rx timers to ensure messages are stale until first rx
+    // Setup the stale function pointers
     {% for rx_msg, periph, bus in rx_msgs %}
     {% set msg = rx_msg.resolved_message %}
     {% if msg.period > 0 %}
+    can_data.{{ msg.name }}.last_rx = (uint32_t) -({{ msg.macro_name }}_STALE_TIMEOUT_MS + 1);
     can_data.{{ msg.name }}.is_stale = is_{{ msg.name }}_stale;
     {% endif %}
     {% endfor %}

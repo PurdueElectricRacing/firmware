@@ -64,8 +64,8 @@ void HardFault_Handler();
 
 static void can_tx_100hz(void);
 static void can_rx_1khz(void);
-static void ledblink3(void);
-static void ledblink4(void);
+// static void ledblink3(void);
+// static void ledblink4(void);
 
 defineThreadStack(can_tx_100hz, 10, osPriorityHigh, 256);
 defineThreadStack(can_rx_1khz, 1, osPriorityHigh, 256);
@@ -109,7 +109,7 @@ int main() {
     createThread(can_tx_100hz);
     createThread(can_rx_1khz);
 
-    q_can_rx = createStaticQueue(q_can_rx, CanMsgTypeDef_t, 256);
+    createStaticQueue(q_can_rx, CanMsgTypeDef_t, 256);
 
     // NVIC
     NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
@@ -141,16 +141,16 @@ static void PHAL_FDCAN_testExtended(void) {
     PHAL_FDCAN_send(&msg);
 }
 
-static void PHAL_FDCAN_testStandard(void) {
-    CanMsgTypeDef_t msg;
-    msg.Bus            = FDCAN3;
-    msg.IDE            = 0;
-    msg.StdId          = 0x300 + 4;
-    uint8_t payload[8] = {'S', 'T', 'D', 'I', 'D', '_', 'T', 'X'};
-    msg.DLC            = sizeof(payload);
-    memcpy(msg.Data, payload, sizeof(payload));
-    PHAL_FDCAN_send(&msg);
-}
+// static void PHAL_FDCAN_testStandard(void) {
+//     CanMsgTypeDef_t msg;
+//     msg.Bus            = FDCAN3;
+//     msg.IDE            = 0;
+//     msg.StdId          = 0x300 + 4;
+//     uint8_t payload[8] = {'S', 'T', 'D', 'I', 'D', '_', 'T', 'X'};
+//     msg.DLC            = sizeof(payload);
+//     memcpy(msg.Data, payload, sizeof(payload));
+//     PHAL_FDCAN_send(&msg);
+// }
 
 static void can_tx_100hz(void) {
     // PHAL_FDCAN_testStandard();

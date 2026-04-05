@@ -21,28 +21,41 @@ static_assert(MY_FAULT_END < TOTAL_NUM_FAULTS);
 #error "Fault library misconfigured"
 #endif
 
-bool is_latched(fault_index_t fault_index) {
-    if (fault_index >= TOTAL_NUM_FAULTS) {
+bool is_latched(fault_id_t fault_id) {
+    if (fault_id >= TOTAL_NUM_FAULTS) {
         return false;
     }
 
-    return faults[fault_index].state == FAULT_STATE_LATCHED;
+    fault_state_t state = faults[fault_id].state;
+
+    return state == FAULT_STATE_LATCHED || state == FAULT_STATE_RECOVERING;
 }
 
-void update_fault(fault_index_t fault_index, uint16_t value) {
-    if ((fault_index < MY_FAULT_START) || (fault_index > MY_FAULT_END)) {
+bool is_clear(fault_id_t fault_id) {
+    if (fault_id >= TOTAL_NUM_FAULTS) {
+        return false;
+    }
+
+    fault_state_t state = faults[fault_id].state;
+
+    return state == FAULT_STATE_CLEAR || state == FAULT_STATE_PENDING;
+}
+
+void update_fault(fault_id_t fault_id, uint16_t value) {
+    if ((fault_id < MY_FAULT_START) || (fault_id > MY_FAULT_END)) {
         return;
     }
 
-    fault_t *fault        = &faults[fault_index];
+    fault_t *fault        = &faults[fault_id];
     uint32_t now          = OS_TICKS;
-    bool is_out_of_bounds = (value > fault->max_value) || (value < fault->min_value);
+    // min is inclusive, max is exclusive, so the healthy range is [min, max)
+    bool is_out_of_bounds = (value >= fault->max_value) || (value < fault->min_value);
 
     // Implementation of the FSM diagram in common/can_library/README
     // I know this FSM is not "mathematically pure", but it must be implemented in this way
     // to satisfy timing constraints/defensive programming
     switch (fault->state) {
-        case FAULT_STATE_OK: {
+        case FAULT_STATE_CLEAR: {
             if (is_out_of_bounds) {
                 fault->state         = FAULT_STATE_PENDING;
                 fault->start_time_ms = now;
@@ -51,15 +64,14 @@ void update_fault(fault_index_t fault_index, uint16_t value) {
         }
         case FAULT_STATE_PENDING: {
             if (!is_out_of_bounds) {
-                fault->state = FAULT_STATE_OK;
+                fault->state = FAULT_STATE_CLEAR;
                 break;
             }
 
             uint32_t elapsed = now - fault->start_time_ms;
             // do not update the start_time
-            if (elapsed > fault->latch_time_ms) {
+            if (elapsed >= fault->latch_time_ms) {
                 fault->state = FAULT_STATE_LATCHED;
-                tx_fault_event(fault_index, value);
             }
             break;
         }
@@ -79,8 +91,8 @@ void update_fault(fault_index_t fault_index, uint16_t value) {
 
             uint32_t elapsed = now - fault->start_time_ms;
             // do not update the start_time
-            if (elapsed > fault->unlatch_time_ms) {
-                fault->state = FAULT_STATE_OK;
+            if (elapsed >= fault->unlatch_time_ms) {
+                fault->state = FAULT_STATE_CLEAR;
             }
             break;
         }
@@ -121,10 +133,10 @@ bool is_any_latched() {
 }
 
 #ifdef HAS_FAULT_STRINGS
-const char *get_fault_string(fault_index_t idx) {
-    if (idx >= TOTAL_NUM_FAULTS)
+const char *get_fault_string(fault_id_t fault_id) {
+    if (fault_id >= TOTAL_NUM_FAULTS)
         return nullptr;
-    return fault_strings[idx];
+    return fault_strings[fault_id];
 }
 #endif
 

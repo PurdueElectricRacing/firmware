@@ -14,6 +14,7 @@
 #include "common/phal/adc.h"
 #include "common/phal/dma.h"
 #include "common/freertos/freertos.h"
+#include "common/heartbeat/heartbeat.h"
 
 /* Module Includes */
 #include "common/phal_G4/adc/adc.h"
@@ -34,6 +35,7 @@ GPIOInitConfig_t gpio_config[] = {
     // Status LEDs
     GPIO_INIT_OUTPUT(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(ERROR_LED_PORT, ERROR_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(CONNECTION_LED_PORT, CONNECTION_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
 
     // VCAN
     GPIO_INIT_FDCAN2RX_PB12,
@@ -216,13 +218,8 @@ void brake_pressure_thread();
 void water_temp_thread();
 void amb_temp_thread();
 
-defineThreadStack(shockpot_thread, 100, osPriorityNormal, 512);
-defineThreadStack(loadcell_thread, 100, osPriorityNormal, 512);
-defineThreadStack(braketemp_thread, 100, osPriorityNormal, 512);
-defineThreadStack(oil_temp_thread, 100, osPriorityNormal, 512);
-defineThreadStack(brake_pressure_thread, 100, osPriorityNormal, 512);
-defineThreadStack(water_temp_thread, 100, osPriorityNormal, 512);
-defineThreadStack(amb_temp_thread, 100, osPriorityNormal, 512);
+DEFINE_TASK(shockpot_thread, 100, osPriorityNormal, 512);
+DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
     //Hardware Initilization
@@ -266,7 +263,6 @@ int main(void) {
     if (false == PHAL_initADC(&adc5_config, adc5_channel_config, sizeof(adc5_channel_config) / sizeof(ADCChannelConfig_t))) {
         HardFault_Handler();
     }
-
     PHAL_startTxfer(&adc1_dma_config);
     PHAL_startTxfer(&adc2_dma_config);
     PHAL_startTxfer(&adc3_dma_config);
@@ -279,18 +275,15 @@ int main(void) {
     PHAL_startADC(&adc4_config);
     PHAL_startADC(&adc5_config);
 
+    CAN_library_init();
+    NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
 
     // Software Initalization
     osKernelInitialize();
 
-    createThread(shockpot_thread);
-    createThread(loadcell_thread);
-    createThread(braketemp_thread);
-    createThread(oil_temp_thread);
-    createThread(brake_pressure_thread);
-    createThread(water_temp_thread);
-    createThread(amb_temp_thread);
+    START_TASK(shockpot_thread);
+    START_HEARTBEAT_TASK();
 
     // no way home
     osKernelStart();

@@ -8,11 +8,11 @@
         "bus_name": { "type": "string" },
         "tx": {
             "type": "array",
-            "items": { "$ref": "file:///message_schema.json#/$defs/tx_message" }
+            "items": { "$ref": "https://github.com/PER/canpiler/message_schema.json#/$defs/tx_message" }
         },
         "rx": {
             "type": "array",
-            "items": { "$ref": "file:///message_schema.json#/$defs/rx_message" }
+            "items": { "$ref": "https://github.com/PER/canpiler/message_schema.json#/$defs/rx_message" }
         }
     }
 }

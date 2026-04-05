@@ -6,7 +6,6 @@
 
 ## Node Attributes
 - `node_name`: Name of the node. Must be unique.
-- `scheduler`: Target operating system/scheduler (`freertos` or `psched`).
 - `faults`: (Optional) Array of fault definitions specific to this node.
 
 ## CAN Message Attributes (TX)
@@ -62,8 +61,8 @@ Node-specific faults are defined directly in the node JSON under the `"faults"` 
 
 ### Fault Attributes
 - `fault_name`: Unique name within the node.
-- `min`: Minimum healthy value (inclusive). Triggers fault if value < min.
-- `max`: Maximum healthy value (exclusive). Triggers fault if value >= max.
+- `min`: Minimum healthy value. Triggers fault if value < min.
+- `max`: Maximum healthy value. Triggers fault if value >= max.
 - `priority`: Impact of the fault (`warning`, `error`, `fatal`).
 - `time_to_latch`: Time in ms the condition must persist before the fault is latched.
 - `time_to_unlatch`: Time in ms the condition must be healthy before the fault is cleared.

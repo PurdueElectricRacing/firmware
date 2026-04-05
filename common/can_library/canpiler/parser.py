@@ -7,7 +7,12 @@ Author: Irving Wang (irvingw@purdue.edu)
 from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Set
 from pathlib import Path
-from utils import load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, COMMON_TYPES_CONFIG_PATH, BUS_CONFIG_PATH, CTYPE_SIZES, print_as_error, print_as_ok, print_as_success, to_macro_name, get_git_hash
+from utils import (
+    load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, 
+    COMMON_TYPES_CONFIG_PATH, BUS_CONFIG_PATH, CTYPE_SIZES, 
+    print_as_error, print_as_ok, print_as_success, to_macro_name, 
+    get_git_hash, get_layout_hash
+)
 
 @dataclass
 class Signal:
@@ -64,6 +69,7 @@ class Message:
     is_extended: bool = False
     final_id: int = 0
     dlc: int = 0
+    layout_hash: str = ""
 
     @property
     def macro_name(self) -> str:
@@ -91,6 +97,7 @@ class Message:
             current_offset += length
         
         self.dlc = (current_offset + 7) // 8
+        self.layout_hash = get_layout_hash(self)
 
     def validate_semantics(self, custom_types: Dict) -> None:
         """
@@ -108,21 +115,20 @@ class Message:
             print_as_error(f"Message '{self.name}' exceeds 64 bits (has {total_length})")
             raise ValueError("Message too long")
         
-        # Validate ID Override Range
         if self.id_override:
             try:
                 raw_id = int(self.id_override, 0)
-                if not self.is_extended and raw_id > 0x7FF:
-                    print_as_error(f"Message '{self.name}' has override ID {hex(raw_id)} which exceeds 11-bit limit for standard bus.")
-                    raise ValueError(f"ID override too large for standard bus: {self.name}")
-                if raw_id > 0x1FFFFFFF:
-                    print_as_error(f"Message '{self.name}' has override ID {hex(raw_id)} which exceeds 29-bit CAN limit.")
-                    raise ValueError(f"ID override exceeds CAN protocol limits: {self.name}")
-            except ValueError as e:
-                if "invalid literal" in str(e):
-                    print_as_error(f"Message '{self.name}' has invalid ID override format: {self.id_override}")
-                    raise ValueError("Invalid ID override format")
-                raise
+            except ValueError:
+                print_as_error(f"Message '{self.name}' has invalid override ID format: '{self.id_override}'")
+                raise ValueError(f"Invalid ID override format for {self.name}")
+
+            if not self.is_extended and raw_id > 0x7FF:
+                print_as_error(f"Message '{self.name}' has override ID {hex(raw_id)} which exceeds 11-bit limit (0x7FF) for standard message.")
+                raise ValueError(f"ID override too large for standard message: {self.name}")
+            
+            if self.is_extended and raw_id > 0x1FFFFFFF:
+                print_as_error(f"Message '{self.name}' has override ID {hex(raw_id)} which exceeds 29-bit limit (0x1FFFFFFF) for extended message.")
+                raise ValueError(f"ID override too large for extended message: {self.name}")
 
     def get_total_bit_length(self, custom_types: Optional[Dict] = None) -> int:
         return sum(sig.get_bit_length(custom_types) for sig in self.signals)
@@ -156,7 +162,6 @@ class Node:
     name: str
     busses: Dict[str, Bus] = field(default_factory=dict)
     is_external: bool = False
-    scheduler: str = "psched"
     faults: List['Fault'] = field(default_factory=list)
     generate_fault_strings: bool = False
     fault_library_enabled: bool = False
@@ -339,8 +344,8 @@ def parse_message(data: Dict, bus_config: Dict) -> Message:
     return Message(
         name=data['msg_name'],
         desc=data.get('msg_desc', ''),
-        signals=[parse_signal(s) for s in data.get('signals', [])],
-        priority=data.get('msg_priority', 0),
+        signals=[parse_signal(s) for s in data['signals']],
+        priority=data['msg_priority'],
         period=data.get('msg_period', 0),
         id_override=data.get('msg_id_override'),
         is_extended=is_extended
@@ -368,7 +373,7 @@ def parse_bus(name: str, data: Dict, bus_configs: Dict) -> Bus:
     bus_config = bus_configs.get(name, {})
     return Bus(
         name=name,
-        peripheral=data.get('peripheral', 'UNKNOWN'),
+        peripheral=data['peripheral'],
         tx_messages=[parse_message(m, bus_config) for m in data.get('tx', [])],
         rx_messages=[parse_rx_message(m) for m in data.get('rx', [])],
         accept_all_messages=data.get('accept_all_messages', False)
@@ -384,10 +389,9 @@ def parse_internal_node(filepath: Path, bus_configs: Dict) -> Node:
         name=data['node_name'],
         busses=busses,
         is_external=False,
-        scheduler=data.get('scheduler', 'psched'),
         faults=[parse_fault(f) for f in data.get('faults', [])],
         generate_fault_strings=data.get("generate_fault_messages", False),
-        fault_library_enabled=data.get("fault_library_enabled", True)
+        fault_library_enabled=data['fault_library_enabled']
     )
     return node
 
@@ -409,5 +413,6 @@ def parse_external_node(filepath: Path, bus_configs: Dict) -> Node:
         busses={bus_name: bus},
         is_external=True,
         faults=[],
-        generate_fault_strings=False
+        generate_fault_strings=False,
+        fault_library_enabled=False
     )

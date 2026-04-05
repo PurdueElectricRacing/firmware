@@ -31,18 +31,6 @@ typedef struct {
     PHAL_SD_CmdResp_t res; //!< Command response type
     uint32_t arg; //!< Command argument
 } PHAL_SD_Cmd_t;
-
-/**
- * @brief Configuration entry for SDIO initilization
- */
-// typedef struct
-// {
-//     GPIO_TypeDef *cd_gpio_port; //!< GPIO Port of SDIO CD (card detect) pin
-//     uint32_t cd_gpio_pin;       //!< GPIO Pin of SDIO CD (card detect) pin
-//     // dma_init_t *rx_dma_cfg;  //!< DMA initilization for RX transfer
-//     // dma_init_t *tx_dma_cfg;  //!< DMA initilization for TX transfer
-// } SDIO_InitConfig_t;
-
 typedef enum {
     /**
 	 * @brief  SDIO specific error defines
@@ -365,7 +353,7 @@ bool PHAL_SDIO_init(void);
 #define SDIO_BusWide_4b (4)
 #define SDIO_BusWide_8b (8)
 
-#define FATFS_SDIO_4BIT 0
+#define FATFS_SDIO_4BIT 1
 
 /** 
  * @brief  Following commands are SD Card Specific commands.
@@ -384,7 +372,8 @@ bool PHAL_SDIO_init(void);
 /**
  * @brief  SDIO Data Transfer Frequency (25MHz max)
  */
-// #define SDIO_TRANSFER_CLK_DIV           ((uint8_t)78)
+// SDIO_CK = SDIOCLK / (CLKDIV + 2)
+// Select even CLKDIV for 50% duty
 #define SDIO_TRANSFER_CLK_DIV ((uint8_t)0) //(46)
 // #define SDIO_TRANSFER_CLK_DIV           ((uint8_t)78)
 // TODO: see about increasing (1MHz now)

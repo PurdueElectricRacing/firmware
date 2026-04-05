@@ -32,7 +32,7 @@ jobs:
           echo "branch=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
       - name: Run per_build.py
-        run: python3 per_build.py --release --package
+        run: python3 per_build.py --package
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4

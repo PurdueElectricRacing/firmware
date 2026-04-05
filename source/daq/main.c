@@ -1,6 +1,5 @@
 #include "main.h"
-
-#include "buffer.h"
+#include "spmc.h"
 #include "common/can_library/generated/DAQ.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
@@ -9,9 +8,8 @@
 #include "common/phal/rtc.h"
 #include "common/phal/spi.h"
 #include "common/phal/usart.h"
-#include "daq_can.h"
-#include "daq_hub.h"
 #include "daq_spi.h"
+#include "common/heartbeat/heartbeat.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // LEDs
@@ -84,97 +82,96 @@ SPI_InitConfig_t eth_spi_config = {
     .periph        = SPI1,
 };
 
-RTC_timestamp_t start_time =
-    {
-        .date = {.month_bcd = RTC_MONTH_UNKNOWN,
-                 .weekday   = RTC_WEEKDAY_UNKNOWN,
-                 .day_bcd   = 0x00,
-                 .year_bcd  = 0x00},
-        .time = {.hours_bcd   = 0x00,
-                 .minutes_bcd = 0x00,
-                 .seconds_bcd = 0x00,
-                 .time_format = RTC_FORMAT_24_HOUR},
+RTC_timestamp_t fallback_timestamp ={
+    .date = {
+        .month_bcd = RTC_MONTH_UNKNOWN,
+        .weekday   = RTC_WEEKDAY_UNKNOWN,
+        .day_bcd   = 0x00,
+        .year_bcd  = 0x00
+    },
+    .time = {
+        .hours_bcd   = 0x00,
+        .minutes_bcd = 0x00,
+        .seconds_bcd = 0x00,
+        .time_format = RTC_FORMAT_24_HOUR
+    },
 };
 
-dma_init_t usart_tx_dma_config = USART6_TXDMA_CONT_CONFIG(NULL, 1);
-dma_init_t usart_rx_dma_config = USART6_RXDMA_CONT_CONFIG(NULL, 2);
-usart_init_t lte_usart_config  = {
-     .baud_rate        = 115200,
-     .word_length      = WORD_8,
-     .stop_bits        = SB_ONE,
-     .parity           = PT_NONE,
-     .hw_flow_ctl      = HW_DISABLE,
-     .ovsample         = OV_16,
-     .obsample         = OB_DISABLE,
-     .periph           = USART6,
-     .wake_addr        = false,
-     .usart_active_num = USART6_ACTIVE_IDX,
-     .tx_dma_cfg       = &usart_tx_dma_config,
-     .rx_dma_cfg       = &usart_rx_dma_config};
-DEBUG_PRINTF_USART_DEFINE(&lte_usart_config) // use LTE uart lmao
+daq_hub_t daq_hub = {
+    // Ethernet
+    .eth_state           = ETH_LINK_IDLE,
+    .eth_tcp_state       = ETH_TCP_IDLE,
+    .eth_error_ct        = 0,
+    .eth_last_error_time = 0,
+    .eth_last_err        = ETH_ERROR_NONE,
+    .eth_last_err_res    = 0,
 
-extern daq_hub_t daq_hub;
+    // SD Card
+    .sd_state           = SD_STATE_IDLE,
+    .sd_error_ct        = 0,
+    .sd_last_error_time = 0,
+    .sd_last_err        = SD_ERROR_NONE,
+    .sd_last_err_res    = 0,
+    .sd_task_handle     = NULL,
+
+    .rtc_config_state   = RTC_SYNC_PENDING,
+    
+    .last_file_ms       = 0,
+    .last_write_ms      = 0,
+    .log_enable_sw      = false,
+
+    .can1_rx_overflow   = 0,
+    .sd_rx_overflow     = 0
+};
 
 // Static buffer allocations
-volatile timestamped_frame_t can_rx_buffer[RX_BUFF_ITEM_COUNT];
-b_tail_t tails[RX_TAIL_COUNT];
-b_handle_t b_rx_can = {
-    .buffer    = (volatile uint8_t*)can_rx_buffer,
-    .tails     = tails,
-    .num_tails = RX_TAIL_COUNT,
-};
-
-timestamped_frame_t tcp_rx_buf[TCP_RX_ITEM_COUNT];
-defineStaticQueue(q_tcp_tx, timestamped_frame_t, TCP_TX_ITEM_COUNT);
-// defineStaticQueue()
-defineStaticQueue(q_can1_rx, timestamped_frame_t, DAQ_CAN1_RX_COUNT); // CAN messages RX'd to DAQ
-defineStaticSemaphore(spi1_lock);
+SPMC_t spmc;
+timestamped_frame_t buf;
+DEFINE_MUTEX(spi1_lock);
 
 static void configure_interrupts(void);
-bool can_parse_error_status(uint32_t err, timestamped_frame_t* frame);
 void shutdown(void);
 
+DEFINE_TASK(sd_update_periodic, 100, osPriorityNormal, 4096); // SD WRITE
+DEFINE_TASK(eth_update_periodic, 50, osPriorityNormal, 4096); // BULLET COMMS 
+DEFINE_HEARTBEAT_TASK(nullptr);
+
 int main() {
-    osKernelInitialize();
-
-    bConstruct(&b_rx_can, sizeof(*can_rx_buffer), sizeof(can_rx_buffer));
-
-    if (0 != PHAL_configureClockRates(&clock_config))
+    if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
-
-    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t)))
+    }
+    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
         HardFault_Handler();
-
+    }
+        
     PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 1);
-    if (!PHAL_SPI_init(&eth_spi_config))
+    if (!PHAL_SPI_init(&eth_spi_config)) {
         HardFault_Handler();
+    }
 
-    if (!PHAL_configureRTC(&start_time, false))
+    if (!PHAL_configureRTC(&fallback_timestamp, false)) {
         HardFault_Handler();
+    }
 
-    if (!PHAL_initUSART(&lte_usart_config, APB2ClockRateHz))
+    // ! CAN1 is bricked, use CAN2 on VCAN for now
+    // if (!PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
+    //     HardFault_Handler();
+    // }
+    if (!PHAL_initCAN(CAN2, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
-    log_yellow("PER PER PER\n");
-
-    PHAL_initCAN(CAN1, false, MCAN_BAUD_RATE);
-    // CAN1->IER |= CAN_IER_ERRIE | CAN_IER_LECIE |
-    //              CAN_IER_BOFIE | CAN_IER_EPVIE |
-    //              CAN_IER_EWGIE;
-
-    if (!PHAL_initCAN(CAN2, false, VCAN_BAUD_RATE))
-        HardFault_Handler();
-
-    // if (!CAN_library_init())
-        // HardFault_Handler();
+    }
 
     daq_spi_register_callbacks(); // Link SPI for ethernet driver
-    daq_hub_init();
+
+    osKernelInitialize();
+    SPMC_init(&spmc);
     configure_interrupts();
 
-    spi1_lock = createStaticSemaphore(spi1_lock);
-    q_tcp_tx  = createStaticQueue(q_tcp_tx, timestamped_frame_t, TCP_TX_ITEM_COUNT);
-    q_can1_rx = createStaticQueue(q_can1_rx, timestamped_frame_t, DAQ_CAN1_RX_COUNT);
-    daq_create_threads();
+    INIT_MUTEX(spi1_lock);
+
+    START_TASK(sd_update_periodic);  // SD WRITE
+    START_TASK(eth_update_periodic); // BULLET COMMS
+    START_HEARTBEAT_TASK();
 
     osKernelStart();
 
@@ -189,18 +186,10 @@ static void configure_interrupts(void) {
     EXTI->IMR |= EXTI_IMR_MR15; // Unmask EXTI15
     EXTI->FTSR |= EXTI_FTSR_TR15; // Enable the falling edge trigger (active low reset)
     NVIC_SetPriority(EXTI15_10_IRQn, 15); // allow other interrupts to preempt this one (especially systick and dma)
-
-    NVIC_SetPriority(CAN1_RX0_IRQn, 6); // highest RTOS priority
-    NVIC_SetPriority(CAN2_RX0_IRQn, 7);
-    NVIC_SetPriority(CAN1_SCE_IRQn, 10);
-
-    NVIC_EnableIRQ(CAN1_RX0_IRQn);
-    NVIC_EnableIRQ(CAN1_SCE_IRQn);
-    NVIC_EnableIRQ(CAN2_RX0_IRQn);
     NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
-static void can_rx_irq_handler(CAN_TypeDef* can_h) {
+static inline void can_rx_irq_handler(CAN_TypeDef* can_h) {
     portBASE_TYPE xHigherPriorityTaskWoken;
     xHigherPriorityTaskWoken = pdFALSE;
 
@@ -213,49 +202,37 @@ static void can_rx_irq_handler(CAN_TypeDef* can_h) {
 
     if (can_h->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
     {
-        timestamped_frame_t* rx;
-        uint32_t cont;
-        if (bGetHeadForWrite(&b_rx_can, (void**)&rx, &cont) == 0) {
-            rx->frame_type = DAQ_FRAME_CAN_RX; // msg generated by CAN interrupt
-            rx->tick_ms    = getTick();
-
-            rx->bus_id = (can_h == CAN1) ? BUS_ID_CAN1 : BUS_ID_CAN2;
-
-            // Get either StdId or ExtId
-            if (CAN_RI0R_IDE & can_h->sFIFOMailBox[0].RIR) {
-                rx->msg_id = CAN_EFF_FLAG | (((CAN_RI0R_EXID | CAN_RI0R_STID) & can_h->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos);
-            } else {
-                rx->msg_id = (CAN_RI0R_STID & can_h->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
-            }
-
-            rx->dlc = (CAN_RDT0R_DLC & can_h->sFIFOMailBox[0].RDTR) >> CAN_RDT0R_DLC_Pos;
-
-            rx->data[0] = (uint8_t)(can_h->sFIFOMailBox[0].RDLR >> 0) & 0xFF;
-            rx->data[1] = (uint8_t)(can_h->sFIFOMailBox[0].RDLR >> 8) & 0xFF;
-            rx->data[2] = (uint8_t)(can_h->sFIFOMailBox[0].RDLR >> 16) & 0xFF;
-            rx->data[3] = (uint8_t)(can_h->sFIFOMailBox[0].RDLR >> 24) & 0xFF;
-            rx->data[4] = (uint8_t)(can_h->sFIFOMailBox[0].RDHR >> 0) & 0xFF;
-            rx->data[5] = (uint8_t)(can_h->sFIFOMailBox[0].RDHR >> 8) & 0xFF;
-            rx->data[6] = (uint8_t)(can_h->sFIFOMailBox[0].RDHR >> 16) & 0xFF;
-            rx->data[7] = (uint8_t)(can_h->sFIFOMailBox[0].RDHR >> 24) & 0xFF;
-
-            bCommitWrite(&b_rx_can, 1);
-
-            CanMsgTypeDef_t msg;
-            msg.Bus = can_h;
-            msg.IDE = (rx->msg_id & CAN_EFF_FLAG) ? 1 : 0;
-            if (msg.IDE == 1) msg.ExtId = rx->msg_id & ~CAN_EFF_FLAG;
-            else msg.StdId = rx->msg_id;
-            msg.DLC = rx->dlc;
-            memcpy(msg.Data, rx->data, 8);
-            qSendToBack(&q_rx_can, &msg);
-
-            if(msg.ExtId == GPS_TIME_MSG_ID) rtc_config_cb(&msg);
-        } else {
-            daq_hub.bcan_rx_overflow++;
+        timestamped_frame_t* rx = &buf;
+        rx->ticks_ms    = getTick();
+        if (can_h == CAN1) {
+            // bus ID is 31st bit of identity field, set to 0 for CAN1
+            rx->identity &= (uint32_t) ~(1 << SPMC_BUS_ID_Pos);
         }
-        can_h->RF0R |= (CAN_RF0R_RFOM0);
-    }
+        else {
+            // CAN2, bus ID set to 1 
+            rx->identity |= (uint32_t) (1 << SPMC_BUS_ID_Pos);
+        }
+
+        // Get either StdId or ExtId
+        if (CAN_RI0R_IDE & can_h->sFIFOMailBox[0].RIR) {
+            // Extended ID
+            rx->identity |= (uint32_t) 1 << SPMC_IS_EXTID_Pos;
+            rx->identity |= CAN_EFF_FLAG | (((CAN_RI0R_EXID | CAN_RI0R_STID) & can_h->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos); 
+        } else {
+            // Standard ID
+            rx->identity &= (uint32_t) ~(1 << SPMC_IS_EXTID_Pos);
+            rx->identity |= (CAN_RI0R_STID & can_h->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
+        }
+
+        rx->payload = (uint64_t) (can_h->sFIFOMailBox[0].RDLR); 
+        rx->payload |= (uint64_t) (can_h->sFIFOMailBox[0].RDHR) << 32;
+
+        (void)SPMC_enqueue_from_ISR(&spmc, rx);
+
+        if ((daq_hub.rtc_config_state != RTC_SYNC_COMPLETE) && ((rx->identity & STD_ID_MASK) == GPS_TIME_MSG_ID)) rtc_config_cb(rx);
+    } 
+
+    can_h->RF0R |= (CAN_RF0R_RFOM0);
 
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
@@ -269,103 +246,30 @@ void CAN2_RX0_IRQHandler() {
     can_rx_irq_handler(CAN2);
 }
 
-//volatile uint32_t last_err_stat = 0;
-volatile uint32_t error_irq_cnt = 0;
-
-void CAN1_SCE_IRQHandler() {
-    // TODO track errors
-    uint32_t err_stat;
-    error_irq_cnt++;
-    if (CAN1->MSR & CAN_MSR_ERRI) {
-        err_stat = CAN1->ESR;
-        CAN1->ESR &= ~(CAN_ESR_LEC_Msk);
-
-        timestamped_frame_t* rx;
-        uint32_t cont;
-        if (bGetHeadForWrite(&b_rx_can, (void**)&rx, &cont) == 0) {
-            rx->tick_ms = getTick();
-            can_parse_error_status(err_stat, rx);
-            bCommitWrite(&b_rx_can, 1);
-        }
-        CAN1->MSR |= CAN_MSR_ERRI; // clear interrupt
-    }
-}
-
-bool can_parse_error_status(uint32_t err, timestamped_frame_t* frame) {
-    //frame->echo_id = 0xFFFFFFFF;
-    frame->bus_id  = 0;
-    frame->msg_id  = CAN_ERR_FLAG | CAN_ERR_CRTL;
-    frame->dlc     = CAN_ERR_DLC;
-    frame->data[0] = CAN_ERR_LOSTARB_UNSPEC;
-    frame->data[1] = CAN_ERR_CRTL_UNSPEC;
-    frame->data[2] = CAN_ERR_PROT_UNSPEC;
-    frame->data[3] = CAN_ERR_PROT_LOC_UNSPEC;
-    frame->data[4] = CAN_ERR_TRX_UNSPEC;
-    frame->data[5] = 0;
-    frame->data[6] = 0;
-    frame->data[7] = 0;
-
-    if ((err & CAN_ESR_BOFF) != 0) {
-        frame->msg_id |= CAN_ERR_BUSOFF;
-    }
-
-    /*
-	uint8_t tx_error_cnt = (err>>16) & 0xFF;
-	uint8_t rx_error_cnt = (err>>24) & 0xFF;
-	*/
-
-    if (err & CAN_ESR_EPVF) {
-        frame->data[1] |= CAN_ERR_CRTL_RX_PASSIVE | CAN_ERR_CRTL_TX_PASSIVE;
-    } else if (err & CAN_ESR_EWGF) {
-        frame->data[1] |= CAN_ERR_CRTL_RX_WARNING | CAN_ERR_CRTL_TX_WARNING;
-    }
-
-    uint8_t lec = (err >> 4) & 0x07;
-    if (lec != 0) { /* protocol error */
-        switch (lec) {
-            case 0x01: /* stuff error */
-                frame->msg_id |= CAN_ERR_PROT;
-                frame->data[2] |= CAN_ERR_PROT_STUFF;
-                break;
-            case 0x02: /* form error */
-                frame->msg_id |= CAN_ERR_PROT;
-                frame->data[2] |= CAN_ERR_PROT_FORM;
-                break;
-            case 0x03: /* ack error */
-                frame->msg_id |= CAN_ERR_ACK;
-                break;
-            case 0x04: /* bit recessive error */
-                frame->msg_id |= CAN_ERR_PROT;
-                frame->data[2] |= CAN_ERR_PROT_BIT1;
-                break;
-            case 0x05: /* bit dominant error */
-                frame->msg_id |= CAN_ERR_PROT;
-                frame->data[2] |= CAN_ERR_PROT_BIT0;
-                break;
-            case 0x06: /* CRC error */
-                frame->msg_id |= CAN_ERR_PROT;
-                frame->data[3] |= CAN_ERR_PROT_LOC_CRC_SEQ;
-                break;
-            default:
-                break;
-        }
-    }
-
-    return true;
-}
-
 /**
  * @brief Disables high power consumption devices
  *        If file open, flushes it to the sd card
  *        Then unmounts sd card
  */
 void shutdown(void) {
-    daq_shutdown_hook();
+    // First, turn off all power consuming devices to increase our write time to sd card
+    // To whoever is doing future DAQ rev: also change the GPIO ports here
+    // all LEDs go bye bye
+    GPIOD->BSRR |= GPIO_CLEAR_BIT(HEARTBEAT_LED_PIN) | GPIO_CLEAR_BIT(CONNECTION_LED_PIN) | GPIO_CLEAR_BIT(ERROR_LED_PIN);
+    GPIOA->BSRR |= GPIO_CLEAR_BIT(SD_DETECT_LED_PIN) | GPIO_CLEAR_BIT(SD_ACTIVITY_LED_PIN) | GPIO_CLEAR_BIT(SD_ERROR_LED_PIN);
+
+    PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 0);
+    PHAL_deinitCAN(CAN1);
+    PHAL_deinitCAN(CAN2);
+
+    sd_shutdown();
+    // Hooray, we made it, blink an LED to show the world
+    PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
+
+    // wait for power to fully turn off -> if it does not, restart
     uint32_t start_tick = getTick();
-    while (getTick() - start_tick < 3000 || PHAL_readGPIO(PWR_LOSS_PORT, PWR_LOSS_PIN) == 0) // wait for power to fully turn off -> if it does not, restart
-    {
-        //if (getTick() % 250 == 0) PHAL_toggleGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN);
-    }
+    while (getTick() - start_tick < 3000 || PHAL_readGPIO(PWR_LOSS_PORT, PWR_LOSS_PIN) == 0);
+
     NVIC_SystemReset(); // oof, we assumed wrong, restart and resume execution since the power is still on!
 }
 
@@ -383,9 +287,4 @@ void HardFault_Handler() {
     while (1) {
         __asm__("nop");
     }
-}
-
-void daq_bl_cmd_CALLBACK(can_data_t* p_can_data)
-{
-    // Handle bootloader commands
 }

@@ -25,7 +25,8 @@ Standardized framework for CAN communication and system-wide fault management wi
 
 ## Fault System
 The `faults_common` module implements the **FIDR (Fault Isolation, Detection, and Recovery)** system. It manages the lifecycle of system-wide faults using a robust Finite State Machine (FSM) to prevent flickering and ensure deterministic fault handling.
-![Fault FSM Diagram](./fault_fsm.png)
+
+![Fault FSM Diagram](fault_fsm.drawio.png)
 
 ### Usage:
 - `update_fault(fault_index, value)`: Called by the owner node to feed sensor/status data into the FSM.

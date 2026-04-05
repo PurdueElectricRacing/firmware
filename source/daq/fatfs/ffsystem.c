@@ -33,6 +33,7 @@ void ff_memfree(
 
 #include "common/freertos/freertos.h"
 static SemaphoreHandle_t Mutex[FF_VOLUMES + 1]; /* Table of mutex handle */
+static StaticSemaphore_t MutexControlBlocks[FF_VOLUMES + 1]; /* Table of mutex control blocks */
 
 /*------------------------------------------------------------------------*/
 /* Create a Mutex                                                         */
@@ -44,7 +45,7 @@ static SemaphoreHandle_t Mutex[FF_VOLUMES + 1]; /* Table of mutex handle */
 int ff_mutex_create(/* Returns 1:Function succeeded or 0:Could not create the mutex */
                     int vol /* Mutex ID: Volume mutex (0 to FF_VOLUMES - 1) or system mutex (FF_VOLUMES) */
 ) {
-    Mutex[vol] = xSemaphoreCreateMutex();
+    Mutex[vol] = xSemaphoreCreateMutexStatic(&MutexControlBlocks[vol]);
     return (int)(Mutex[vol] != NULL);
 }
 

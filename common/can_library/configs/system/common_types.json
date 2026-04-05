@@ -1,37 +1,31 @@
 {
     "types": [
         {
-            "name": "CarState_t",
+            "name": "car_state_t",
             "base_type": "uint8_t",
             "choices": [
+                "fatal",
                 "idle",
                 "precharging",
                 "energized",
                 "buzzing",
-                "ready2drive",
-                "error",
-                "fatal",
-                "reset",
-                "recover",
-                "constant_torque"
+                "ready2drive"
             ]
         },
         {
-            "name": "VCU_mode_t",
+            "name": "fault_id_t",
+            "base_type": "uint16_t",
+            "choices": [
+                "CANpiler will inject faults here"
+            ]
+        },
+        {
+            "name": "charging_state_t",
             "base_type": "uint8_t",
             "choices": [
-                "invalid",
-                "equal_speed",
-                "variable_speed",
-                "equal_torque",
-                "equal_torque_with_safety",
-                "variable_torque"
+                "idle",
+                "charging"
             ]
-        },
-        {
-            "name": "fault_index_t",
-            "base_type": "uint16_t",
-            "choices": ["reserved_type"]
         }
     ]
 }

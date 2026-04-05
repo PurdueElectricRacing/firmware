@@ -88,4 +88,6 @@ bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len) {
                 return false;
         }
     }
+
+    return true;
 }

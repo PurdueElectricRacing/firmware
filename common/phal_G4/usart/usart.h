@@ -184,11 +184,6 @@ bool PHAL_usartRxBusy(usart_init_t* handle);
  */
 extern void usart_receive_complete_callback(usart_init_t* handle);
 
-// Helper function to handle USART interrupts
-static void handleUsartIRQ(USART_TypeDef* periph, uint8_t idx);
-// Helper function to handle DMA interrupts
-static void
-handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t dma_type, uint8_t idx);
 
 #define _DEF_USART_RXDMA_CONFIG(rx_addr_, priority_, USARTx, dma_num, channel_num, req_id) \
     { \

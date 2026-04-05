@@ -3,18 +3,16 @@
 /build/**
 !/output
 /output/**
-!/docs
-/docs/**
-!/docs/*.md
+
+# Ignore doxygen output
+/docs/doxygen
 
 # Allow per-user settings and debug states
+.cache/
+/.vscode/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-!.vscode/c_cpp_properties.json
-.vscode/.cortex-debug*
-.vscode/settings.json
-.cache/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

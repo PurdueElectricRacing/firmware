@@ -1,5 +1,13 @@
-#ifndef __COMMON_FREERTOS_H__
-#define __COMMON_FREERTOS_H__
+#ifndef PER_FREERTOS_H
+#define PER_FREERTOS_H
+
+/**
+ * @file freertos.h
+ * @brief Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocation and initialization.
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Eileen Yoon (eyn@purdue.edu)
+ */
 
 // clang-format off
 #define myIDENT(x) x
@@ -10,8 +18,6 @@
 
 #if defined(STM32F407xx)
 #define _FREERTOS_DIR external/STM32CubeF4/Middlewares/Third_Party/FreeRTOS/Source/
-#elif defined(STM32F732xx)
-#define _FREERTOS_DIR external/STM32CubeF7/Middlewares/Third_Party/FreeRTOS/Source/
 #elif defined(STM32G474xx)
 #define _FREERTOS_DIR external/STM32CubeG4/Middlewares/Third_Party/FreeRTOS/Source/
 #else
@@ -21,9 +27,6 @@
 #include _FREERTOS_PATH(include/FreeRTOS.h)
 #include _FREERTOS_PATH(CMSIS_RTOS_V2/cmsis_os2.h)
 
-#if !defined(STM32F732xx)
-    #include _FREERTOS_PATH(include/atomic.h)
-#endif
 #include _FREERTOS_PATH(include/list.h)
 #include _FREERTOS_PATH(include/queue.h)
 #include _FREERTOS_PATH(include/semphr.h)
@@ -33,124 +36,112 @@
 
 #include <stdint.h>
 
-#if 0
-// usage as drop-in replacement for psched:
-
-#include "common/freertos/freertos.h"(also add FREERTOS to cmake.txt LIBS =)
-
-void heartbeat_LED() { PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN); }
-defineThreadStack(heartbeat_LED, 500, osPriorityNormal, 256); // define up here so its global
-defineStaticQueue(tcp_tx_queue, timestamped_frame_t, TCP_TX_ITEM_COUNT);
-defineStaticSemaphore(myHandle);
-
-int main(void)
-{
-    osKernelInitialize(); // s/schedInit/osKernelInitialize
-
-    // Do all hardware initialization + rtos object creations here
-    if(0 != PHAL_configureClockRates(&clock_config))
-    {
-        HardFault_Handler();
-    }
-    NVIC_SetPriority(CAN1_RX0_IRQn, 6); // set priority >= 6, see configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY in FreeRTOSConfig.h
-
-    createThread(heartbeat_LED); // s/taskCreate/createThread/
-    tcp_tx_queue = createStaticQueue(tcp_tx_queue, timestamped_frame_t, TCP_TX_ITEM_COUNT);
-    myHandle = createStaticSemaphore();
-
-    osKernelStart(); // s/schedStart/osKernelStart
-}
-
-Very good resource: Mastering the FreeRTOS™ Real Time Kernel
-https://www.freertos.org/Documentation/02-Kernel/07-Books-and-manual/01-RTOS_book
-
-Key notes:
-- under the freertos kernel, a task can either be in running or blocked state. you can only block a task (in the freertos sense) by calling an rtos blocking function, e.g. osDelay, semaphore wait, queue receive, etc.
-- blocking in the freertos sense does not mean it blocks in the usual sense (i.e. polls and waits within that function), it will switch to another task.
-- specifically freertos will always execute the highest priority task that can run (i.e. not in blocked state)
-
-Other notes:
-- if it crashes try increasing stack size
-- lock all hardware acceses, e.g. spi transfers. best to raise a semaphore in the ISR when its done
-- switch queues (e.g can queues) to freertos queues so freertos knows to block. TODO CAN wrapper
-- if the total given loop time is less than the time it takes to actually execute all the tasks, lower priority tasks (or the tasks started last) will not be executed (task starved)
-- use static allocations for all freertos objects (queues, sema) hence the macros here
-- no static local variables
-- direct task notifications are useful for state machines. e.g.
-
-e.g. eth_send_udp_periodic() blocks until a direct notification from the state updater eth_update_connection_state()
-
-static void eth_update_connection_state(void)
-    switch (dh.eth_state)
-        case ETH_IDLE:
-            if (eth_init() == ETH_ERROR_NONE)
-            {
-                dh.eth_state = ETH_LINK_UP;
-                xTaskNotify(getTaskHandle(eth_send_udp_periodic), 0, eNoAction);
-            }
-
-static void eth_send_udp_periodic(void)
-    if (dh.eth_state != ETH_LINK_UP)
-    {
-        ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-    }
-
-- note eth_send_udp_periodic child task has to be started before eth_update_connection_state so it can enter blocking state
-
-#endif
+// Stack size defs
+#define STACK_256  (256)
+#define STACK_512  (512)
+#define STACK_1024 (1024)
+#define STACK_2048 (2048)
+#define STACK_4096 (4096)
 
 typedef struct {
-    void (*taskFunction)();
-    uint32_t period;
-    osThreadAttr_t attrs;
-    osThreadId_t handle;
-} ThreadWrapper;
+    void (*taskFunction)(void);
+    uint32_t period_ms;
+} periodic_task_params_t;
 
-void rtosWrapper(void *);
+// this is the function actually scheduled by freertos
+void periodic_task_runner(void *arg);
 
-// Cursed macro
-#define threadWrapperName(NAME) (threadWrapper_##NAME)
-// TASK: task function name
-// PERIOD: period of task in ticks (should be ms)
-// PRIORITY: one of osPriorityNormal, osPriorityHigh, etc
-// STACK: stack size
-#define __defineThread(TASK, PERIOD, PRIORITY, STACK) \
-    ThreadWrapper threadWrapperName(TASK) = {.taskFunction = &(TASK), \
-                                             .period       = (PERIOD), \
-                                             .attrs        = { \
-                                                        .priority   = (PRIORITY), \
-                                                        .stack_size = (STACK), \
-                                                        .name       = "\"" #TASK "\"", \
-                                             }};
+/**
+ * @brief Scaffolds the static memory for a FreeRTOS task.
+ *
+ * @param NAME: The function name of the task.
+ * @param PERIOD_MS: Task period in milliseconds.
+ * @param PRIORITY: CMSIS-RTOS2 priority (e.g., osPriorityNormal).
+ * @param STACK_SIZE: Stack size in bytes.
+ */
+#define DEFINE_TASK(NAME, PERIOD_MS, PRIORITY, STACK_SIZE)                     \
+    static_assert(                                                             \
+        (STACK_SIZE) % sizeof(StackType_t) == 0,                               \
+        "Stack size must be a multiple of StackType_t"                         \
+    );                                                                         \
+    static StaticTask_t NAME##_tcb;                                            \
+    static StackType_t  NAME##_stack[(STACK_SIZE) / sizeof(StackType_t)];      \
+    periodic_task_params_t NAME##_params = {                                   \
+        .taskFunction = (void (*)(void))NAME,                                  \
+        .period_ms    = (PERIOD_MS),                                           \
+    };                                                                         \
+    osThreadAttr_t NAME##_attrs = {                                            \
+        .name       = #NAME,                                                   \
+        .attr_bits  = osThreadDetached,                                        \
+        .cb_mem     = &NAME##_tcb,                                             \
+        .cb_size    = sizeof(StaticTask_t),                                    \
+        .stack_mem  = NAME##_stack,                                            \
+        .stack_size = sizeof(NAME##_stack),                                    \
+        .priority   = (osPriority_t)(PRIORITY),                                \
+    };                                                                         \
+    osThreadId_t NAME##_handle;
 
-#define defineThread(T, D, P)         __defineThread(T, D, P, 1024) // TODO calculate stack size
-#define defineThreadStack(T, D, P, S) __defineThread(T, D, P, S)
+/**
+ * @brief Initializes and starts the defined task.
+ */
+#define START_TASK(NAME)                                                       \
+    (NAME##_handle = osThreadNew(periodic_task_runner, &NAME##_params, &NAME##_attrs))
 
-#define __createThread(NAME) \
-    threadWrapperName(NAME).handle = \
-        osThreadNew(rtosWrapper, &(threadWrapperName(NAME)), &(threadWrapperName(NAME)).attrs);
-#define createThread(NAME) __createThread(NAME)
+/**
+ * @brief Retrieves the FreeRTOS task handle for the defined task.
+ */
+#define getTaskHandle(NAME) (NAME##_handle)
 
-#define getTaskHandle(NAME) threadWrapperName(NAME).handle
+/**
+ * @brief Scaffolds the static memory for a FreeRTOS queue.
+ */
+#define DEFINE_QUEUE(NAME, ITEM, COUNT)                                        \
+    static_assert(COUNT > 0, "Queue count must be greater than 0");            \
+    QueueHandle_t NAME;                                                        \
+    static StaticQueue_t NAME##_cb;                                            \
+    static uint8_t       NAME##_data[sizeof(ITEM) * (COUNT)];
 
-// queues
-#define defineStaticQueue(NAME, ITEM, COUNT) \
-    QueueHandle_t NAME; \
-    static StaticQueue_t xStaticQueue_##NAME; \
-    uint8_t ucQueueStorageArea_##NAME[sizeof(ITEM) * (COUNT)];
+/**
+ * @brief Initializes the defined static queue.
+ */
+#define INIT_QUEUE(NAME, ITEM, COUNT)                                          \
+    (NAME = xQueueCreateStatic((COUNT), sizeof(ITEM), NAME##_data, &NAME##_cb))
 
-#define createStaticQueue(NAME, ITEM, COUNT) \
-    xQueueCreateStatic((COUNT), sizeof(ITEM), ucQueueStorageArea_##NAME, &xStaticQueue_##NAME);
+/**
+ * @brief Scaffolds the static memory for a semaphore (and related variants).
+ */
+#define DEFINE_SEMAPHORE(NAME)                                                 \
+    SemaphoreHandle_t NAME;                                                    \
+    static StaticSemaphore_t NAME##_cb;
 
-// semaphores
-#define defineStaticSemaphore(NAME) \
-    SemaphoreHandle_t NAME; \
-    static StaticSemaphore_t xStaticSemaphore_##NAME;
-#define createStaticSemaphore(NAME) xSemaphoreCreateMutexStatic(&(xStaticSemaphore_##NAME));
+// Aliases for clarity
+#define DEFINE_MUTEX(NAME) DEFINE_SEMAPHORE(NAME)
+#define DEFINE_COUNTING_SEMAPHORE(NAME) DEFINE_SEMAPHORE(NAME)
+#define DEFINE_BINARY_SEMAPHORE(NAME) DEFINE_SEMAPHORE(NAME)
 
+/**
+ * @brief Initializes the defined mutex.
+ */
+#define INIT_MUTEX(NAME)                                                       \
+    (NAME = xSemaphoreCreateMutexStatic(&(NAME##_cb)))
+
+/**
+ * @brief Initializes the defined static counting semaphore.
+ * @note initial count is set to max count (full by default)
+ */
+#define INIT_COUNTING_SEMAPHORE(NAME, MAX_COUNT)                               \
+    (NAME = xSemaphoreCreateCountingStatic((MAX_COUNT), (MAX_COUNT), &(NAME##_cb)))
+    
+/**
+ * @brief Initializes the defined static binary semaphore.
+ */
+#define INIT_BINARY_SEMAPHORE(NAME)                                            \
+    (NAME = xSemaphoreCreateBinaryStatic(&(NAME##_cb)))
+
+
+// Timing helper macros
 #define getTick()   xTaskGetTickCount()
-#define getTickms() pdMS_TO_TICKS(getTick())
-
+#define getMS() (getTick() * portTICK_PERIOD_MS)
 #define mDelay(ms) (osDelay(pdMS_TO_TICKS((ms))))
 
-#endif // __COMMON_FREERTOS_H__
+#endif // PER_FREERTOS_H

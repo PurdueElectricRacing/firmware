@@ -118,7 +118,7 @@ Additionally, the compiler standard for `firmware` is set to C23, enabling sever
     int16_t num2;
     ```
     
-10.  Always initialize variables with a value
+10. Always initialize variables with a value
     1. global variables should explicitly be zero’d out (even though the compiler does this for you)
     
     ```c
@@ -160,7 +160,7 @@ Additionally, the compiler standard for `firmware` is set to C23, enabling sever
     ```c
     // example enum
     typedef enum : uint8_t {
-        FAULT_STATE_OK = 0,
+        FAULT_STATE_CLEAR = 0,
         FAULT_STATE_PENDING = 1,
         FAULT_STATE_LATCHED = 2,
         FAULT_STATE_RECOVERING = 3
@@ -183,6 +183,15 @@ Additionally, the compiler standard for `firmware` is set to C23, enabling sever
     	*ptr = 10
     }
     ```
+
+14. Use apostrophes to format large numbers (C23)
+    ```c
+    // bad
+    static constexpr uint32_t TargetCoreClockrateHz = 16000000;
+
+    // good
+    static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
+    ```
     
-14. Run da formatter before merging your PR
+15. Run da formatter before merging your PR
     1. Use the command `clang-format -i file.c`

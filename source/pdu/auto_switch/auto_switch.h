@@ -44,28 +44,35 @@ typedef enum {
     SW_PUMP_1,
     SW_PUMP_2,
     SW_SDC,
-    SW_AUX,
-
-    // Low power switches
+    SW_HXFAN,
+    // High power switches (mux-sensed)
     SW_FAN_1,
     SW_FAN_2,
+    SW_FAN_3,
+    SW_FAN_4,
+    SW_AMK1,
+    SW_AMK2,
+
+    // Low power switches
     SW_DASH,
     SW_ABOX,
     SW_MAIN,
+    SW_DLFR,
+    SW_DLBK,
 
     // Not actually switches
     CS_24V,
     CS_5V,
 
     // Number of switches with CS signals (used for array bounds)
-    // If switch has a current senese circuit, PLACE IT ABOVE THIS COMMENT
+    // If switch has a current sense circuit, PLACE IT ABOVE THIS COMMENT
     CS_SWITCH_COUNT,
 
     // Low power switches (no CS)
     SW_BLT,
     // 5V switches (no CS)
     SW_CRIT_5V,
-    SW_NCRIT_5V,
+    SW_TV,
     SW_DAQ,
     SW_FAN_5V
 } switches_t;
@@ -75,7 +82,6 @@ typedef struct {
     uint16_t in_24v;
     uint16_t out_5v;
     uint16_t out_3v3;
-    uint16_t amk_24v;
 } voltage_t; // Voltage in mV
 
 typedef struct {
@@ -121,5 +127,7 @@ void autoSwitchPeriodic();
  *
  */
 void checkSwitchFaults();
+
+uint16_t getMuxReading(uint8_t channel);
 
 #endif

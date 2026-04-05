@@ -325,7 +325,6 @@ bool PHAL_usartRxBusy(usart_init_t* handle) {
  */
 static void handleUsartIRQ(USART_TypeDef* periph, uint8_t idx) {
     uint32_t isr = periph->ISR;
-    static uint32_t trash;
 
     // USART RX Not Empty interrupt flag
     if (isr & USART_ISR_RXNE_RXFNE) {
@@ -439,23 +438,23 @@ __WEAK void usart_receive_complete_callback(usart_init_t* handle) {
 }
 
 /* DMA Interrupt Handlers */
-void DMA1_Channel7_IRQHandler(void) {
+__attribute__((weak)) void DMA1_Channel7_IRQHandler(void) {
     handleDMAxComplete(DMA1, 7, USART_DMA_TX, USART1_ACTIVE_IDX);
 }
 
-void DMA1_Channel5_IRQHandler(void) {
+__attribute__((weak)) void DMA1_Channel5_IRQHandler(void) {
     handleDMAxComplete(DMA1, 5, USART_DMA_RX, USART1_ACTIVE_IDX);
 }
 
-void DMA1_Channel4_IRQHandler(void) {
+__attribute__((weak)) void DMA1_Channel4_IRQHandler(void) {
     handleDMAxComplete(DMA1, 4, USART_DMA_TX, USART2_ACTIVE_IDX);
 }
 
-void DMA1_Channel3_IRQHandler(void) {
+__attribute__((weak)) void DMA1_Channel3_IRQHandler(void) {
     handleDMAxComplete(DMA1, 3, USART_DMA_RX, USART2_ACTIVE_IDX);
 }
 
-void DMA1_Channel2_IRQHandler(void) {
+__attribute__((weak)) void DMA1_Channel2_IRQHandler(void) {
     handleDMAxComplete(DMA1, 2, USART_DMA_TX, USART3_ACTIVE_IDX);
 }
 

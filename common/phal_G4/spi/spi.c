@@ -302,15 +302,15 @@ static void handleTxComplete(DMA_TypeDef *dma_periph, uint8_t channel) {
 }
 
 /* Map DMA channel IRQs to handler for common SPI usage. Adjust as needed per project. */
-void DMA1_Channel3_IRQHandler(void) { // example: SPI1_TX on DMA1 Ch3
+__attribute__((weak)) void DMA1_Channel3_IRQHandler(void) { // example: SPI1_TX on DMA1 Ch3
     handleTxComplete(DMA1, 3);
 }
 
-void DMA1_Channel5_IRQHandler(void) { // example: SPI2_TX on DMA1 Ch5
+__attribute__((weak)) void DMA1_Channel5_IRQHandler(void) { // example: SPI2_TX on DMA1 Ch5
     handleTxComplete(DMA1, 5);
 }
 
-void DMA2_Channel3_IRQHandler(void) { // example: SPI3_TX on DMA2 Ch3
+__attribute__((weak)) void DMA2_Channel3_IRQHandler(void) { // example: SPI3_TX on DMA2 Ch3
     handleTxComplete(DMA2, 3);
 }
 

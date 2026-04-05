@@ -76,6 +76,8 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
                 ;
             pll_input_f_hz = HSE_CLOCK_RATE_HZ;
             break;
+        default:
+            return false; // Invalid PLL source
     }
 
     /* Search for a possible PLL configuration */

@@ -1,53 +1,41 @@
+/**
+ * @file pedals.c
+ * @brief Pedal processing logic
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Luke Oxley (lcoxley@purdue.edu)
+ */
+
 #include "pedals.h"
-//#include "common/phal/flash.h"
 #include <stdint.h>
 
 #include "common/can_library/generated/DASHBOARD.h"
 #include "common/can_library/faults_common.h"
-#include "common_defs.h"
 #include "main.h"
 
-pedal_faults_t pedal_faults = {0};
+// todo pedal calibration
+static constexpr uint16_t THROTTLE1_MIN = 85;
+static constexpr uint16_t THROTTLE1_MAX = 730;
+static_assert(THROTTLE1_MIN < THROTTLE1_MAX, "Invalid throttle 1 calibration values");
 
-uint16_t thtl_limit = 4096;
+static constexpr uint16_t THROTTLE2_MIN = 165;
+static constexpr uint16_t THROTTLE2_MAX = 760;
+static_assert(THROTTLE2_MIN < THROTTLE2_MAX, "Invalid throttle 2 calibration values");
 
-// Globals to enable live watching
-uint16_t t1_raw;
-uint16_t t2_raw;
-uint16_t b1_raw;
-uint16_t b2_raw;
-uint16_t t1_final;
-uint16_t t2_final;
-uint16_t b1_final;
-uint16_t b2_final;
+static constexpr uint16_t BRAKE1_MIN = 410;
+static constexpr uint16_t BRAKE1_MAX = 750;
+// static constexpr uint16_t BRAKE2_MIN = 0;
+// static constexpr uint16_t BRAKE2_MAX = 4095;
 
-// TODO: tune these values for the new pedals
-// ! WARNING: DAQ VARIABLE, IF EEPROM ENABLED, VALUE WILL CHANGE
-pedal_calibration_t pedal_calibration = {
-    // These values are given from 0-4095
-    .t1_min = 980,
-    .t1_max = 1600,
-    .t2_min = 1550,
-    .t2_max = 2050,
-    .b1_min = 475,
-    .b1_max = 1490,
-    .b2_min = 500,
-    .b2_max = 1490,
-};
+static constexpr uint16_t APPS_THROTTLE_THRESHOLD = 4095 / 10; // 10% of 4095
+static constexpr uint16_t APPS_BRAKE_THRESHOLD = 4095 / 10; // 10% of 4095
+
+#define MAX_PEDAL_MEAS (4095)
 
 // Contains the current pedal values for external use
 pedal_values_t pedal_values = {
     .throttle = 0,
     .brake    = 0,
-};
-
-// Allows for drivers to set their own pedal profiles
-driver_pedal_profile_t driver_pedal_profiles[4] = {
-    // TODO link to pedal logic
-    {0, 10, 10, 0},
-    {1, 10, 10, 0},
-    {2, 10, 10, 0},
-    {3, 10, 10, 0},
 };
 
 /**
@@ -57,9 +45,19 @@ driver_pedal_profile_t driver_pedal_profiles[4] = {
  * @param min Minimum value of the input range
  * @param max Maximum value of the input range
  */
-static inline uint16_t normalize(uint16_t value, uint16_t min, uint16_t max) {
-    // Use a 32-bit value to prevent overflow
-    return (uint16_t)(((uint32_t)(value - min) * MAX_PEDAL_MEAS) / (max - min));
+static inline uint16_t normalize(uint16_t input, uint16_t lower_bound, uint16_t upper_bound) {
+    uint16_t range = upper_bound - lower_bound;
+    uint16_t input_diff = input - lower_bound;
+    
+    float normalized_value_f = ((float)input_diff * 4095.0f) / (float)range;
+    uint16_t normalized_value = (uint16_t)normalized_value_f;
+    return normalized_value;
+}
+
+static inline uint16_t clamp(uint16_t input, uint16_t lower_bound, uint16_t upper_bound) {
+    if (input < lower_bound) return lower_bound;
+    if (input > upper_bound) return upper_bound;
+    return input;
 }
 
 /**
@@ -69,82 +67,54 @@ static inline uint16_t normalize(uint16_t value, uint16_t min, uint16_t max) {
  */
 void pedalsPeriodic(void) {
     // Get current values (don't want them changing mid-calculation)
-    t1_raw = raw_adc_values.t1;
-    t2_raw = 4095 - raw_adc_values.t2; // Invert value for t2 (pull-up resistor)
-    b1_raw = raw_adc_values.b1;
-    b2_raw = raw_adc_values.b2;
+    uint16_t throttle1 = raw_adc_values.t1;
+    uint16_t throttle2 = 4095 - raw_adc_values.t2; // Invert value for t2 (pull-up resistor)
+    uint16_t brake1 = raw_adc_values.b1;
+    // uint16_t brake2 = raw_adc_values.brake2_pressure;
 
-    // Check for wiring faults
-    update_fault(FAULT_INDEX_DASHBOARD_APPS_WIRING_T1, t1_raw);
-    update_fault(FAULT_INDEX_DASHBOARD_APPS_WIRING_T2, t2_raw);
+    // FSAE 2026 T.4.2.10
+    update_fault(FAULT_ID_APPS_WIRING_T1, throttle1);
+    update_fault(FAULT_ID_APPS_WIRING_T2, throttle2);
 
     // Hard clamp the raw values to the min and max values to account for physical limits
-    uint16_t t1_clamped = CLAMP(t1_raw, pedal_calibration.t1_min, pedal_calibration.t1_max);
-    uint16_t t2_clamped = CLAMP(t2_raw, pedal_calibration.t2_min, pedal_calibration.t2_max);
-    uint16_t b1_clamped = CLAMP(b1_raw, pedal_calibration.b1_min, pedal_calibration.b1_max);
-    uint16_t b2_clamped = CLAMP(b2_raw, pedal_calibration.b2_min, pedal_calibration.b2_max);
+    throttle1 = clamp(throttle1, THROTTLE1_MIN, THROTTLE1_MAX);
+    throttle2 = clamp(throttle2, THROTTLE2_MIN, THROTTLE2_MAX);
+    brake1 = clamp(brake1, BRAKE1_MIN, BRAKE1_MAX);
+    // brake2 = clamp(brake2, BRAKE2_MIN, BRAKE2_MAX);
 
     // Normalize pedal signals to the 0-4095 range while preserving a linear relationship
-    t1_final = normalize(t1_clamped, pedal_calibration.t1_min, pedal_calibration.t1_max);
-    t2_final = normalize(t2_clamped, pedal_calibration.t2_min, pedal_calibration.t2_max);
-    b1_final = normalize(b1_clamped, pedal_calibration.b1_min, pedal_calibration.b1_max);
-    b2_final = normalize(b2_clamped, pedal_calibration.b2_min, pedal_calibration.b2_max);
+    throttle1 = normalize(throttle1, THROTTLE1_MIN, THROTTLE1_MAX);
+    throttle2 = normalize(throttle2, THROTTLE2_MIN, THROTTLE2_MAX);
+    brake1 = normalize(brake1, BRAKE1_MIN, BRAKE1_MAX);
+    // brake2 = normalize(brake2, BRAKE2_MIN, BRAKE2_MAX);
 
-    // If both pedals are pressed, set a fault
-    if ((b1_final >= APPS_BRAKE_THRESHOLD && t1_final >= APPS_THROTTLE_FAULT_THRESHOLD) || (is_latched(FAULT_INDEX_DASHBOARD_APPS_BRAKE) && t1_final >= APPS_THROTTLE_CLEARFAULT_THRESHOLD)) {
-        // Set APPS to 0
-        t2_final = 0;
-        t1_final = 0;
-        update_fault(FAULT_INDEX_DASHBOARD_APPS_BRAKE, 1);
-    } else if (t1_final <= APPS_THROTTLE_CLEARFAULT_THRESHOLD) { // Clear fault if throttle is released
-        update_fault(FAULT_INDEX_DASHBOARD_APPS_BRAKE, 0);
+    // Update global for visibility
+    pedal_values.throttle = throttle1;
+    pedal_values.brake = brake1;
+
+    uint16_t throttle_command = throttle1;
+    uint16_t brake_command = brake1;
+
+    // FSAE 2026 T.4.2.5
+    uint16_t throttle_diff;
+    if (throttle1 > throttle2) {
+        throttle_diff = throttle1 - throttle2;
+    } else {
+        throttle_diff = throttle2 - throttle1;
+    }
+    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, throttle_diff);
+    if (is_latched(FAULT_ID_APPS_IMPLAUSIBLE)) {
+        throttle_command = 0;
     }
 
-    // Check for APPS sensor deviations (10%)
-    update_fault(FAULT_INDEX_DASHBOARD_IMPLAUS_DETECTED, ABS((int16_t)t1_final - (int16_t)t2_final));
+    // If both pedals are pressed, set throttle to 0
+    // todo FSAE 2026 EV.4.7
+    bool is_brake_pressed = brake_command >= APPS_BRAKE_THRESHOLD;
+    bool is_throttle_pressed = throttle_command >= APPS_THROTTLE_THRESHOLD;
+    update_fault(FAULT_ID_APPS_BRAKE, is_brake_pressed && is_throttle_pressed);
+    if (is_latched(FAULT_ID_APPS_BRAKE)) {
+        throttle_command = 0;
+    }
 
-    // Update the pedal values for external use
-    pedal_values.throttle = t1_final;
-    pedal_values.brake    = b1_final;
-
-    // Log the raw pedal values
-    CAN_SEND_raw_throttle_brake(t1_raw, t2_raw, b1_raw, b2_raw, 0);
-
-    // Send the normalized pedal values to Main and TV
-    CAN_SEND_filt_throttle_brake(t1_final, b1_final);
-}
-
-// ! the code below will work only if watchdog is disabled
-// static const uint32_t* PROFILE_FLASH_START = (uint32_t*)ADDR_FLASH_SECTOR_3;
-// static volatile uint32_t* profile_current_address;
-
-// TODO deprecate this feature
-int writePedalProfiles() {
-    // profile_current_address = (volatile uint32_t*)PROFILE_FLASH_START;
-
-    //  // !! This will cause a crash if watchdog is enabled !!
-    // if (FLASH_OK != PHAL_flashErasePage(PROFILES_START_SECTOR)) {
-    //     return PROFILE_WRITE_FAIL;
-    // }
-
-    // for (uint8_t i = 0; i < NUM_PROFILES; ++i) {
-    //     if (FLASH_OK != PHAL_flashWriteU32((uint32_t)profile_current_address,
-    //                                      *(uint32_t*)&driver_pedal_profiles[i])) {
-    //         return PROFILE_WRITE_FAIL;
-    //     }
-    //     profile_current_address++;
-    // }
-
-    return PROFILE_WRITE_SUCCESS;
-}
-
-void readPedalProfiles() {
-    // uint32_t read_address = ADDR_FLASH_SECTOR_3;
-
-    // for (uint8_t i = 0; i < NUM_PROFILES; ++i) {
-    //     uint32_t *data = (uint32_t *)&driver_pedal_profiles[i];
-    //     *data = *((uint32_t *)read_address);
-
-    //     read_address += sizeof(driver_pedal_profile_t);
-    // }
+    CAN_SEND_pedals(throttle_command, brake_command);
 }

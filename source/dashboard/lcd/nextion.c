@@ -6,14 +6,12 @@
  * 
  * @author Matthew Flanagan (matthewdavidflanagan@outlook.com)
  * @author Luke Oxley (lcoxley@purdue.edu)
- * @author Irving Wang (wang5952@purdue.edu)
- * 
- * Original implementation by Matthew Flanagan
- * Converted for current use by Luke Oxley
- * Expanded by Irving Wang
+ * @author Irving Wang (irvingw@purdue.edu)
  */
 
 #include "nextion.h"
+#include <string.h>
+#include <stdio.h>
 #include <stdint.h>
 #include <stdarg.h>
 
@@ -73,6 +71,17 @@ void NXT_setFontColor(char* obj_name, uint16_t val) {
  */
 void NXT_setBorderWidth(char* obj_name, uint16_t val) {
     strbuf_printf(&lcd_tx_buf, "%s%s%d", obj_name, NXT_BORDERW, val);
+    strbuf_append(&lcd_tx_buf, NXT_CMD_TERM, 3);
+}
+
+/**
+ * @brief Sets the border color of a specified object on the Nextion display.
+ *
+ * @param obj_name The name of the object on the Nextion display.
+ * @param val The border color value to set for the specified object.
+ */
+void NXT_setBorderColor(char* obj_name, uint16_t val) {
+    strbuf_printf(&lcd_tx_buf, "%s%s%d", obj_name, NXT_BORDER_COLOR, val);
     strbuf_append(&lcd_tx_buf, NXT_CMD_TERM, 3);
 }
 

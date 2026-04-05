@@ -1,6 +1,5 @@
 {
     "node_name": "DAQ",
-    "scheduler": "freertos",
     "busses": {
         "VCAN": {
             "peripheral": "CAN2",
@@ -39,11 +38,6 @@
                     "msg_desc": "Queue diagnostics",
                     "signals": [
                         {
-                            "sig_name": "bcan_rx_overflow",
-                            "type": "uint16_t",
-                            "sig_desc": "CAN RX buffer overflow"
-                        },
-                        {
                             "sig_name": "can1_rx_overflow",
                             "type": "uint16_t",
                             "sig_desc": "CAN RX queue overflow"
@@ -52,11 +46,6 @@
                             "sig_name": "sd_rx_overflow",
                             "type": "uint16_t",
                             "sig_desc": "SD RX queue overflow"
-                        },
-                        {
-                            "sig_name": "tcp_tx_overflow",
-                            "type": "uint16_t",
-                            "sig_desc": "TCP TX queue overflow"
                         }
                     ],
                     "msg_period": 1000,
@@ -76,19 +65,12 @@
                     "msg_period": 5000
                 }
             ],
-            "rx": [
-                {
-                    "msg_name": "daq_bl_cmd",
-                    "callback": true
-                }
-            ]
+            "rx": []
         },
         "MCAN": {
             "peripheral": "CAN1",
             "accept_all_messages": true
         }
     },
-    "fault_library_enabled": false,
-    "generate_fault_messages": false,
-    "faults": []
+    "fault_library_enabled": false
 }

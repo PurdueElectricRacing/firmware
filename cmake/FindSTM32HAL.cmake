@@ -1,4 +1,4 @@
-# CMAKE file for building STM32CubeL4 CMSIS module
+# CMAKE file for building STM32CubeXX CMSIS module
 
 function(make_stm32_hal_library LIB_NAME LIB_PATH)
     add_library(${LIB_NAME} STATIC)

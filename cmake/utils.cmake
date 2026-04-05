@@ -1,13 +1,6 @@
 # Helper for generating common CMake targets in the components directroy
 
-function(postbuild_target TARGET_NAME)
-
-    get_target_property(COMPONENT_NAME ${TARGET_NAME} COMPONENT_NAME)
-    # Print out memory section usage
-    # target_link_options(${TARGET_NAME} PUBLIC
-    #     -Wl,--print-memory-usage
-    # )
-
+function(postbuild_target TARGET_NAME COMPONENT_NAME OUTPUT_DIR_OVERRIDE)
     if(BOOTLOADER_BUILD)
       set(OUTPUT_FILE_NAME BL_${COMPONENT_NAME})
     else()
@@ -15,31 +8,38 @@ function(postbuild_target TARGET_NAME)
     endif()
 
     # Archive generated image and perform post-processing output
-    get_target_property(COMPONENT_OUTPUT_DIR ${TARGET_NAME} OUTPUT_DIR)
-    if (NOT COMPONENT_OUTPUT_DIR)
+    if(OUTPUT_DIR_OVERRIDE)
+        set(COMPONENT_OUTPUT_DIR ${OUTPUT_DIR_OVERRIDE})
+    else()
         set(COMPONENT_OUTPUT_DIR ${PROJECT_OUTPUT_DIR}/${COMPONENT_NAME})
     endif()
 
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${COMPONENT_OUTPUT_DIR}
         COMMAND ${CMAKE_COMMAND} -E copy ${TARGET_NAME} ${COMPONENT_OUTPUT_DIR}/${OUTPUT_FILE_NAME}.elf
         COMMENT "Archive target"
     )
 
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
-        COMMAND arm-none-eabi-objcopy -S -O ihex ${TARGET_NAME} ${COMPONENT_OUTPUT_DIR}/${OUTPUT_FILE_NAME}.hex
+        COMMAND ${CMAKE_OBJCOPY} -S -O ihex ${TARGET_NAME} ${COMPONENT_OUTPUT_DIR}/${OUTPUT_FILE_NAME}.hex
         COMMENT "Generating HEX file"
     )
 
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
-        COMMAND cmake -E echo 
-        COMMENT "Formatting"
-    )
-
-    add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
-        COMMAND arm-none-eabi-size ${TARGET_NAME} 
+        COMMAND ${CMAKE_SIZE_UTIL} ${TARGET_NAME} 
         COMMENT "Binary Output Size"
     )
+endfunction()
 
+# Helper to get CPU flags based on STM32 Family
+function(get_cpu_flags FAMILY_NAME OUT_FLAGS)
+    if(${FAMILY_NAME} MATCHES "STM32F4.*" OR ${FAMILY_NAME} MATCHES "STM32G4.*")
+        set(${OUT_FLAGS} "-mcpu=cortex-m4" "-mfloat-abi=hard" "-mfpu=fpv4-sp-d16" PARENT_SCOPE)
+    elseif(${FAMILY_NAME} MATCHES "STM32F7.*")
+        set(${OUT_FLAGS} "-mcpu=cortex-m7" "-mfloat-abi=hard" "-mfpu=fpv5-d16" PARENT_SCOPE)
+    else()
+        message(FATAL_ERROR "Unknown STM32 Family: ${FAMILY_NAME}")
+    endif()
 endfunction()
 
 MACRO(SUBDIRLIST curdir result)

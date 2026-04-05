@@ -35,7 +35,7 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_ANALOG(SHOCKPOT_RIGHT_GPIO_PORT, SHOCKPOT_RIGHT_GPIO_PIN)
 };
 
-static constexpr uint32_t TargetCoreClockrateHz = 16000000;
+static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
 ClockRateConfig_t clock_config = {
     .clock_source           = CLOCK_SOURCE_HSI, // todo change to HSE
     .use_pll                = false,
@@ -151,17 +151,14 @@ int main(void) {
 // Both driveline nodes
 
 void shockpot_thread() {
-    int16_t shock_r_raw = raw_adc4_values.shock_r;
-    int16_t shock_l_raw = raw_adc3_values.shock_l;
+    // send the raw ADC values
+    uint16_t shock_r_raw = raw_adc4_values.shock_r;
+    uint16_t shock_l_raw = raw_adc3_values.shock_l;
 
-    float shock_l_parsed = -1.0 * ((POT_MAX_DIST - ((shock_l_raw / (POT_VOLT_MIN_L - POT_VOLT_MAX_L)) * POT_MAX_DIST)) - POT_DIST_DROOP_L);
-    float shock_r_parsed = -1.0 * ((POT_MAX_DIST - ((shock_r_raw / (POT_VOLT_MIN_R - POT_VOLT_MAX_R)) * POT_MAX_DIST)) - POT_DIST_DROOP_R);
-
-    int16_t shock_l_scaled = (int16_t)(shock_l_parsed * PACK_COEFF_SHOCKPOTS_LEFT);
-    int16_t shock_r_scaled = (int16_t)(shock_r_parsed * PACK_COEFF_SHOCKPOTS_RIGHT);
+    // todo scale to physical units (mm)
 
     #ifdef SEND_SHOCKPOTS
-    SEND_SHOCKPOTS(shock_l_scaled, shock_r_scaled);
+    SEND_SHOCKPOTS(shock_l_raw, shock_r_raw);
     #endif
 }
 

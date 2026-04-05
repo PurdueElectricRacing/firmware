@@ -11,16 +11,14 @@
                         {
                             "sig_name": "left",
                             "sig_desc": "Travel distance of front left shockpot",
-                            "type": "int16_t",
-                            "scale": 0.1,
-                            "unit": "mm"
+                            "type": "uint16_t",
+                            "unit": "ADC counts (0-4095)"
                         },
                         {
                             "sig_name": "right",
                             "sig_desc": "Travel distance of front right shockpot",
-                            "type": "int16_t",
-                            "scale": 0.1,
-                            "unit": "mm"
+                            "type": "uint16_t",
+                            "unit": "ADC counts (0-4095)"
                         }
                     ],
                     "msg_period": 10,
@@ -33,16 +31,14 @@
                         {
                             "sig_name": "left",
                             "sig_desc": "Left Shockpot Travel",
-                            "type": "int16_t",
-                            "scale": 0.1,
-                            "unit": "mm"
+                            "type": "uint16_t",
+                            "unit": "ADC counts (0-4095)"
                         },
                         {
                             "sig_name": "right",
                             "sig_desc": "Right Shockpot Travel",
-                            "type": "int16_t",
-                            "scale": 0.1,
-                            "unit": "mm"
+                            "type": "uint16_t",
+                            "unit": "ADC counts (0-4095)"
                         }
                     ],
                     "msg_period": 10,

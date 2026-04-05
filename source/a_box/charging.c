@@ -57,6 +57,8 @@ static inline void update_charge_request() {
     } else {
         charge_request_deciamps = can_data.charge_request.charge_current;
     }
+
+    charge_enable = true;
 }
 
 void charging_fsm_periodic() {
@@ -88,7 +90,7 @@ void charging_fsm_periodic() {
         }
         case CHARGING_STATE_CHARGING: {
             g_bms.is_balancing_enabled = true;
-            report_charging_telemetry();
+            update_charge_request();
             
             if (!is_charging_permitted) {
                 next_state = CHARGING_STATE_IDLE;
@@ -102,4 +104,6 @@ void charging_fsm_periodic() {
         charge_request_deciamps,
         !charge_enable
     );
+
+    report_charging_telemetry();
 }

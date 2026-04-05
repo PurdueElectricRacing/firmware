@@ -118,6 +118,12 @@
                 },
                 {
                     "msg_name": "rear_shockpots"
+                },
+                {
+                    "msg_name": "IZZE_angular_rate"
+                },
+                {
+                    "msg_name": "IZZE_acceleration"
                 }
             ]
         }

@@ -212,9 +212,8 @@ void bms_task() {
 
 void check_faults() {
     // IMD
-    // todo check polarity of this signal
-    bool imd_status = PHAL_readGPIO(IMD_STATUS_PORT, IMD_STATUS_PIN);
-    update_fault(FAULT_ID_IMD, imd_status);
+    bool imd_faulted = !PHAL_readGPIO(IMD_STATUS_PORT, IMD_STATUS_PIN);
+    update_fault(FAULT_ID_IMD, imd_faulted);
 
     // BMS
     bool is_bms_disconnected = g_bms.state != ADBMS_STATE_CONNECTED;

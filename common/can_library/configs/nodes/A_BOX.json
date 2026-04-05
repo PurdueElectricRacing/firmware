@@ -82,6 +82,40 @@
                     "msg_priority": 3,
                     "msg_id_override": "0x1806E5F4",
                     "msg_period": 1000
+                },
+                {
+                    "msg_name": "charging_telemetry",
+                    "msg_desc": "Reported battery stats during charging",
+                    "signals": [
+                        {
+                            "sig_name": "pack_voltage",
+                            "sig_desc": "Total pack voltage",
+                            "type": "uint16_t",
+                            "unit": "V",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "min_cell_voltage",
+                            "sig_desc": "Minimum cell voltage in the pack",
+                            "type": "uint16_t",
+                            "unit": "V",
+                            "scale": 0.01
+                        },
+                        {
+                            "sig_name": "max_cell_voltage",
+                            "sig_desc": "Maximum cell voltage in the pack",
+                            "type": "uint16_t",
+                            "unit": "V",
+                            "scale": 0.01
+                        },
+                        {
+                            "sig_name": "charging_state",
+                            "sig_desc": "abox charging fsm state",
+                            "type": "charging_state_t"
+                        }
+                    ],
+                    "msg_priority": 5,
+                    "msg_period": 1000
                 }
             ],
             "rx": [

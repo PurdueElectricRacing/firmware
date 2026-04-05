@@ -13,14 +13,14 @@
                 },
                 {
                     "sig_name": "charge_volts",
-                    "sig_desc": "Requested charge voltage in Volts",
+                    "sig_desc": "Requested charge voltage in decivolts",
                     "type": "uint16_t",
                     "unit": "V",
                     "scale": 0.1
                 },
                 {
                     "sig_name": "charge_current",
-                    "sig_desc": "Requested charge current in Amps",
+                    "sig_desc": "Requested charge current in deciamps",
                     "type": "uint16_t",
                     "unit": "A",
                     "scale": 0.1

@@ -161,7 +161,7 @@ var NAVTREEINDEX =
 "group__DATA__TYPE.html#ggac6b85cbd7d245ccf3cbfa734760d6ed3ab213bc1ba38c6fe1a21f09ca68bb03ff",
 "namespacecodegen.html",
 "race_8h.html#a07291ac7d61fe81b6a92f48d9b55b092",
-"structsdc__node__t.html"
+"structraw__adc4__values__t.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

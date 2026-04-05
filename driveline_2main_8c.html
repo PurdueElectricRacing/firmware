@@ -120,7 +120,9 @@ $(function(){initNavTree('driveline_2main_8c.html',''); initResizable(true); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structraw__adc__values__t.html">raw_adc_values_t</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structraw__adc3__values__t.html">raw_adc3_values_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structraw__adc4__values__t.html">raw_adc4_values_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -131,9 +133,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>HardFault_Handler</b>
 <tr class="memitem:a834433812aa752324e9d5ef254216c28" id="r_a834433812aa752324e9d5ef254216c28"><td class="memItemLeft" align="right" valign="top"><a id="a834433812aa752324e9d5ef254216c28" name="a834433812aa752324e9d5ef254216c28"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>shockpot_thread</b> ()</td></tr>
 <tr class="separator:a834433812aa752324e9d5ef254216c28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add809ee66f497da17e998fe8eabb88a2" id="r_add809ee66f497da17e998fe8eabb88a2"><td class="memItemLeft" align="right" valign="top"><a id="add809ee66f497da17e998fe8eabb88a2" name="add809ee66f497da17e998fe8eabb88a2"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (shockpot_thread, 100, osPriorityNormal, 512)</td></tr>
-<tr class="separator:add809ee66f497da17e998fe8eabb88a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2affa98a476a899af886fd2cc19bf28" id="r_ab2affa98a476a899af886fd2cc19bf28"><td class="memItemLeft" align="right" valign="top"><a id="ab2affa98a476a899af886fd2cc19bf28" name="ab2affa98a476a899af886fd2cc19bf28"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (CAN_rx_update, 0, osPriorityHigh, STACK_2048)</td></tr>
+<tr class="separator:ab2affa98a476a899af886fd2cc19bf28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2afbb531579394cd620a515183452cb6" id="r_a2afbb531579394cd620a515183452cb6"><td class="memItemLeft" align="right" valign="top"><a id="a2afbb531579394cd620a515183452cb6" name="a2afbb531579394cd620a515183452cb6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (CAN_tx_update, 2, osPriorityNormal, STACK_2048)</td></tr>
+<tr class="separator:a2afbb531579394cd620a515183452cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cc6e7bb8d3d9a2a282ef26f9ec47e11" id="r_a1cc6e7bb8d3d9a2a282ef26f9ec47e11"><td class="memItemLeft" align="right" valign="top"><a id="a1cc6e7bb8d3d9a2a282ef26f9ec47e11" name="a1cc6e7bb8d3d9a2a282ef26f9ec47e11"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (shockpot_thread, 100, osPriorityNormal, STACK_512)</td></tr>
+<tr class="separator:a1cc6e7bb8d3d9a2a282ef26f9ec47e11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a845eaf447179a8baf75c69794c49856d" id="r_a845eaf447179a8baf75c69794c49856d"><td class="memItemLeft" align="right" valign="top"><a id="a845eaf447179a8baf75c69794c49856d" name="a845eaf447179a8baf75c69794c49856d"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_HEARTBEAT_TASK</b> (nullptr)</td></tr>
 <tr class="separator:a845eaf447179a8baf75c69794c49856d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,16 +155,26 @@ Variables</h2></td></tr>
 <tr class="separator:a60563c6df24a123ae18e090bca85f555"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e372d6fcb26e99141502c56d908f788" id="r_a2e372d6fcb26e99141502c56d908f788"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structClockRateConfig__t.html">ClockRateConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e372d6fcb26e99141502c56d908f788">clock_config</a></td></tr>
 <tr class="separator:a2e372d6fcb26e99141502c56d908f788"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6af434e991280036f038f6db015e26f9" id="r_a6af434e991280036f038f6db015e26f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6af434e991280036f038f6db015e26f9">adc_config</a></td></tr>
-<tr class="separator:a6af434e991280036f038f6db015e26f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a900ff7ac22bd3d9e8566f23458355b34" id="r_a900ff7ac22bd3d9e8566f23458355b34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCChannelConfig__t.html">ADCChannelConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a900ff7ac22bd3d9e8566f23458355b34">adc_channel_config</a> []</td></tr>
-<tr class="separator:a900ff7ac22bd3d9e8566f23458355b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29bc293670e53a11d854f35bca555254" id="r_a29bc293670e53a11d854f35bca555254"><td class="memItemLeft" align="right" valign="top"><a id="a29bc293670e53a11d854f35bca555254" name="a29bc293670e53a11d854f35bca555254"></a>
-volatile <a class="el" href="structraw__adc__values__t.html">raw_adc_values_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>raw_adc_values</b></td></tr>
-<tr class="separator:a29bc293670e53a11d854f35bca555254"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed595ebe33fb020bde82d6a1bcca6052" id="r_aed595ebe33fb020bde82d6a1bcca6052"><td class="memItemLeft" align="right" valign="top"><a id="aed595ebe33fb020bde82d6a1bcca6052" name="aed595ebe33fb020bde82d6a1bcca6052"></a>
-<a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>adc_dma_config</b> = ADC1_DMA_CONT_CONFIG((uint32_t)&amp;raw_adc_values, sizeof(raw_adc_values) / sizeof(uint16_t), 0b01)</td></tr>
-<tr class="separator:aed595ebe33fb020bde82d6a1bcca6052"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac551c38e644908cf012430c6dde91172" id="r_ac551c38e644908cf012430c6dde91172"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac551c38e644908cf012430c6dde91172">adc3_config</a></td></tr>
+<tr class="separator:ac551c38e644908cf012430c6dde91172"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83322dc1bcb6cf0fad05250c22190029" id="r_a83322dc1bcb6cf0fad05250c22190029"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCChannelConfig__t.html">ADCChannelConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83322dc1bcb6cf0fad05250c22190029">adc3_channel_config</a> []</td></tr>
+<tr class="separator:a83322dc1bcb6cf0fad05250c22190029"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c055faade567356fd6e5eb9a7c802ee" id="r_a4c055faade567356fd6e5eb9a7c802ee"><td class="memItemLeft" align="right" valign="top"><a id="a4c055faade567356fd6e5eb9a7c802ee" name="a4c055faade567356fd6e5eb9a7c802ee"></a>
+volatile <a class="el" href="structraw__adc3__values__t.html">raw_adc3_values_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>raw_adc3_values</b></td></tr>
+<tr class="separator:a4c055faade567356fd6e5eb9a7c802ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b11bae80359297316fac8dd52cf8f2f" id="r_a7b11bae80359297316fac8dd52cf8f2f"><td class="memItemLeft" align="right" valign="top"><a id="a7b11bae80359297316fac8dd52cf8f2f" name="a7b11bae80359297316fac8dd52cf8f2f"></a>
+<a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>adc3_dma_config</b> = ADC3_DMA_CONT_CONFIG((uint32_t)&amp;raw_adc3_values, sizeof(raw_adc3_values) / sizeof(uint16_t), 0b01)</td></tr>
+<tr class="separator:a7b11bae80359297316fac8dd52cf8f2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5b3e067d8ea62644a2dab7042a9572e" id="r_ad5b3e067d8ea62644a2dab7042a9572e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad5b3e067d8ea62644a2dab7042a9572e">adc4_config</a></td></tr>
+<tr class="separator:ad5b3e067d8ea62644a2dab7042a9572e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd4bbd765b4392589e9a3faa3a889a81" id="r_afd4bbd765b4392589e9a3faa3a889a81"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCChannelConfig__t.html">ADCChannelConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd4bbd765b4392589e9a3faa3a889a81">adc4_channel_config</a> []</td></tr>
+<tr class="separator:afd4bbd765b4392589e9a3faa3a889a81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a289260078b628302fbadb0dbd8fda4c6" id="r_a289260078b628302fbadb0dbd8fda4c6"><td class="memItemLeft" align="right" valign="top"><a id="a289260078b628302fbadb0dbd8fda4c6" name="a289260078b628302fbadb0dbd8fda4c6"></a>
+volatile <a class="el" href="structraw__adc4__values__t.html">raw_adc4_values_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>raw_adc4_values</b></td></tr>
+<tr class="separator:a289260078b628302fbadb0dbd8fda4c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58e0a1cc3b6ec736f5ee36bfe808c48a" id="r_a58e0a1cc3b6ec736f5ee36bfe808c48a"><td class="memItemLeft" align="right" valign="top"><a id="a58e0a1cc3b6ec736f5ee36bfe808c48a" name="a58e0a1cc3b6ec736f5ee36bfe808c48a"></a>
+<a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>adc4_dma_config</b> = ADC4_DMA_CONT_CONFIG((uint32_t)&amp;raw_adc4_values, sizeof(raw_adc4_values) / sizeof(uint16_t), 0b01)</td></tr>
+<tr class="separator:a58e0a1cc3b6ec736f5ee36bfe808c48a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3f547c0ac514dd12e5bab27a6b60bec" id="r_ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memItemLeft" align="right" valign="top"><a id="ae3f547c0ac514dd12e5bab27a6b60bec" name="ae3f547c0ac514dd12e5bab27a6b60bec"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>APB1ClockRateHz</b></td></tr>
 <tr class="separator:ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,32 +192,31 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>PLLClockRateHz</b
 <div class="textblock"><p>"Driveline" node source code </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div><h2 class="groupheader">Variable Documentation</h2>
-<a id="a900ff7ac22bd3d9e8566f23458355b34" name="a900ff7ac22bd3d9e8566f23458355b34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a900ff7ac22bd3d9e8566f23458355b34">&#9670;&#160;</a></span>adc_channel_config</h2>
+<a id="a83322dc1bcb6cf0fad05250c22190029" name="a83322dc1bcb6cf0fad05250c22190029"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83322dc1bcb6cf0fad05250c22190029">&#9670;&#160;</a></span>adc3_channel_config</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structADCChannelConfig__t.html">ADCChannelConfig_t</a> adc_channel_config[]</td>
+          <td class="memname"><a class="el" href="structADCChannelConfig__t.html">ADCChannelConfig_t</a> adc3_channel_config[]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
 <div class="line">    {.channel = SHOCKPOT_LEFT_ADC_CHNL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},</div>
-<div class="line">    {.channel = SHOCKPOT_RIGHT_ADC_CHNL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},</div>
 <div class="line">}</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a6af434e991280036f038f6db015e26f9" name="a6af434e991280036f038f6db015e26f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6af434e991280036f038f6db015e26f9">&#9670;&#160;</a></span>adc_config</h2>
+<a id="ac551c38e644908cf012430c6dde91172" name="ac551c38e644908cf012430c6dde91172"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac551c38e644908cf012430c6dde91172">&#9670;&#160;</a></span>adc3_config</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a> adc_config</td>
+          <td class="memname"><a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a> adc3_config</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -209,7 +226,46 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>PLLClockRateHz</b
 <div class="line">    .data_align     = ADC_DATA_ALIGN_RIGHT,</div>
 <div class="line">    .cont_conv_mode = <span class="keyword">true</span>,</div>
 <div class="line">    .dma_mode       = ADC_DMA_CIRCULAR,</div>
-<div class="line">    .periph         = ADC1,</div>
+<div class="line">    .periph         = ADC3,</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="afd4bbd765b4392589e9a3faa3a889a81" name="afd4bbd765b4392589e9a3faa3a889a81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd4bbd765b4392589e9a3faa3a889a81">&#9670;&#160;</a></span>adc4_channel_config</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structADCChannelConfig__t.html">ADCChannelConfig_t</a> adc4_channel_config[]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    {.channel = SHOCKPOT_RIGHT_ADC_CHNL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad5b3e067d8ea62644a2dab7042a9572e" name="ad5b3e067d8ea62644a2dab7042a9572e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5b3e067d8ea62644a2dab7042a9572e">&#9670;&#160;</a></span>adc4_config</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a> adc4_config</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .prescaler      = ADC_CLK_PRESC_2,</div>
+<div class="line">    .resolution     = ADC_RES_12_BIT,</div>
+<div class="line">    .data_align     = ADC_DATA_ALIGN_RIGHT,</div>
+<div class="line">    .cont_conv_mode = <span class="keyword">true</span>,</div>
+<div class="line">    .dma_mode       = ADC_DMA_CIRCULAR,</div>
+<div class="line">    .periph         = ADC4,</div>
 <div class="line">}</div>
 </div><!-- fragment -->
 </div>
@@ -254,10 +310,15 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>PLLClockRateHz</b
 <div class="line">    <a class="code hl_define" href="phal__F4__F7_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a>(CONNECTION_LED_PORT, CONNECTION_LED_PIN, GPIO_OUTPUT_LOW_SPEED),</div>
 <div class="line"> </div>
 <div class="line">    </div>
-<div class="line">    GPIO_INIT_FDCAN2RX_PB12,</div>
-<div class="line">    GPIO_INIT_FDCAN2TX_PB13</div>
+<div class="line">    GPIO_INIT_FDCAN2TX_PB6,</div>
+<div class="line">    GPIO_INIT_FDCAN2RX_PB5,</div>
+<div class="line"> </div>
+<div class="line">    </div>
+<div class="line">    <a class="code hl_define" href="phal__F4__F7_2gpio_2gpio_8h.html#a9f3e383e90eea420ba388b6041e6c866">GPIO_INIT_ANALOG</a>(SHOCKPOT_LEFT_GPIO_PORT , SHOCKPOT_LEFT_GPIO_PIN),</div>
+<div class="line"> </div>
 <div class="line">}</div>
 <div class="ttc" id="aphal__F4__F7_2gpio_2gpio_8h_html_a3e9b27b94f7c10702f9a82a6b87d31a5"><div class="ttname"><a href="phal__F4__F7_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a></div><div class="ttdeci">#define GPIO_INIT_OUTPUT(gpio_bank, pin_num, ospeed_sel)</div><div class="ttdoc">Create GPIO Init struct to intilize a GPIO pin for output.</div><div class="ttdef"><b>Definition</b> gpio.h:131</div></div>
+<div class="ttc" id="aphal__F4__F7_2gpio_2gpio_8h_html_a9f3e383e90eea420ba388b6041e6c866"><div class="ttname"><a href="phal__F4__F7_2gpio_2gpio_8h.html#a9f3e383e90eea420ba388b6041e6c866">GPIO_INIT_ANALOG</a></div><div class="ttdeci">#define GPIO_INIT_ANALOG(gpio_bank, pin_num)</div><div class="ttdoc">Create GPIO Init struct to intilize a GPIO pin for analog.</div><div class="ttdef"><b>Definition</b> gpio.h:148</div></div>
 </div><!-- fragment -->
 </div>
 </div>

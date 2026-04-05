@@ -341,6 +341,8 @@ int main() {
     setSwitch(SW_DASH, 1);
     setSwitch(SW_CRIT_5V, 1);
     setSwitch(SW_BLT, 1);
+    setSwitch(SW_HXFAN, 1);
+    setSwitch(SW_DLBK, 1);
 
     osKernelInitialize();
 

@@ -69,7 +69,7 @@ void coolingInit() {
     cr.fan4_status      = true;
     cr.pump1_status     = false;
     cr.pump2_status     = false;
-    cr.hxfan_status     = false;
+    cr.hxfan_status     = true;
     batt_fan_autospeed  = false;
     motor_fan_autospeed = false;
 }

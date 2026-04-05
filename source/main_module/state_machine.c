@@ -35,12 +35,16 @@ void ready2drive_periodic() {
     // assumes pedals.throttle is in the range [0, 4095]
     float throttle = can_data.pedals.throttle / 4095.0f;
     int16_t torque_req_percent = (int16_t)(throttle * 100);
-    int16_t throttle_req_limited = torque_req_percent;
+
+    int16_t rear_torque = torque_req_percent * 1.5f; // allow 50% over-torque
+
+    // Bias to feel like a 30% - 70% torque split
+    int16_t front_torque = (30.0f / 70.0f) * rear_torque;
     
-    g_torque_request.front_right = throttle_req_limited;
-    g_torque_request.front_left  = throttle_req_limited;
-    g_torque_request.rear_left   = throttle_req_limited;
-    g_torque_request.rear_right  = throttle_req_limited;
+    g_torque_request.front_right = front_torque;
+    g_torque_request.front_left  = front_torque;
+    g_torque_request.rear_left   = rear_torque;
+    g_torque_request.rear_right  = rear_torque;
 }
 
 static inline bool is_init_complete() {

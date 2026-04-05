@@ -30,6 +30,8 @@ static constexpr float POT_VOLT_MIN_R = 4092.0f;
 #define POT_MAX_DIST     75
 #define POT_DIST_DROOP_L 56
 #define POT_DIST_DROOP_R 55
+#define PACK_COEFF_SHOCKPOTS_LEFT  10.0f
+#define PACK_COEFF_SHOCKPOTS_RIGHT  10.0f
 
 // others here
 #endif
@@ -47,6 +49,8 @@ static constexpr float POT_VOLT_MIN_R = 4092.0f;
 #define POT_MAX_DIST     75
 #define POT_DIST_DROOP_L 56
 #define POT_DIST_DROOP_R 55
+#define PACK_COEFF_SHOCKPOTS_LEFT  10.0f
+#define PACK_COEFF_SHOCKPOTS_RIGHT 10.0f
 
 // others here
 #endif

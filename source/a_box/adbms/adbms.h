@@ -126,7 +126,7 @@ typedef struct {
     float avg_therm_temp;
 
     /** True if cell discharge balancing is permitted by higher-level logic. */
-    bool is_discharge_enabled;
+    bool is_balancing_enabled;
 
     /** SPI instance used for ADBMS communication (CS control is manual by ADBMS6380 driver). */
     SPI_InitConfig_t *spi;

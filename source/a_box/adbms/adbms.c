@@ -22,7 +22,7 @@ void adbms_init(adbms_bms_t *bms, SPI_InitConfig_t *spi, uint8_t *tx_buf) {
     bms->spi   = spi;
     bms->state = ADBMS_STATE_IDLE;
 
-    bms->is_discharge_enabled = false;
+    bms->is_balancing_enabled = false;
     for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
         for (size_t j = 0; j < ADBMS6380_CELL_COUNT; j++) {
             bms->modules[i].is_discharging[j] = false;
@@ -209,7 +209,7 @@ void adbms_connect(adbms_bms_t *bms) {
 }
 
 void adbms_calculate_balance_cells(adbms_bms_t *bms, float min_voltage, float min_delta) {
-    if (!bms->is_discharge_enabled) {
+    if (!bms->is_balancing_enabled) {
         // Disable all discharging
         for (size_t i = 0; i < ADBMS_MODULE_COUNT; i++) {
             for (size_t j = 0; j < ADBMS6380_CELL_COUNT; j++) {

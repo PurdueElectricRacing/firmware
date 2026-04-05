@@ -41,11 +41,15 @@ ADCInitConfig_t adc_config = {
     .periph         = ADC1,
 };
 
-uint16_t isense_raw = 0;
+volatile uint16_t isense_raw = 0;
 ADCChannelConfig_t adc_channel_config[] = {
     {.channel = ISENSE_ADC_CHANNEL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
 };
-dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&isense_raw, 1, 0b01);
+dma_init_t adc_dma_config =
+ADC1_DMA_CONT_CONFIG(
+    (uint32_t)&isense_raw,
+    1, 0b01
+);
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -107,12 +111,14 @@ extern void HardFault_Handler(void);
 void bms_task(void);
 void check_faults(void);
 void report_telemetry(void);
+void charging_fsm_periodic(void);
 
 // Thread Defines
 DEFINE_TASK(bms_task, 200, osPriorityHigh, STACK_2048);
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
 DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048);
 DEFINE_TASK(check_faults, 10, osPriorityNormal, STACK_512);
+DEFINE_TASK(charging_fsm_periodic, ELCON_COMMAND_PERIOD_MS, osPriorityNormal, STACK_512);
 DEFINE_TASK(fault_library_periodic, A_BOX_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
 DEFINE_TASK(report_telemetry, PACK_STATS_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
@@ -134,6 +140,15 @@ int main(void) {
     }
 
     adbms_init(&g_bms, &bms_spi_config, g_bms_tx_buf);
+
+    if (false == PHAL_initADC(&adc_config, adc_channel_config, sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
+        HardFault_Handler();
+    }
+    if (false == PHAL_initDMA(&adc_dma_config)) {
+        HardFault_Handler();
+    }
+    PHAL_startADC(&adc_config);
+    PHAL_startTxfer(&adc_dma_config);
 
     if (false == PHAL_FDCAN_init(FDCAN1, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
@@ -157,6 +172,7 @@ int main(void) {
     START_TASK(check_faults);
     START_TASK(fault_library_periodic);
     START_TASK(report_telemetry);
+    START_TASK(charging_fsm_periodic);
     START_HEARTBEAT_TASK();
 
     osKernelStart(); // no way home

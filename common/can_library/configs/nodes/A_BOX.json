@@ -31,7 +31,7 @@
                         }
                     ],
                     "msg_priority": 5,
-                    "msg_period": 200
+                    "msg_period": 10
                 },
                 {
                     "msg_name": "abox_version",
@@ -54,23 +54,42 @@
             "peripheral": "FDCAN2",
             "tx": [
                 {
-                    "msg_name": "ccan_test",
-                    "msg_desc": "ccan testing",
+                    "msg_name": "elcon_command",
+                    "msg_desc": "Command from A_BOX to Elcon Charger (Message1)",
                     "signals": [
                         {
-                            "sig_name": "testtest",
-                            "type": "uint64_t",
-                            "sig_desc": "testtest"
+                            "sig_name": "voltage_limit",
+                            "sig_desc": "Requested charge voltage in decivolts",
+                            "unit": "V",
+                            "scale": 0.1,
+                            "type": "uint16_t",
+                            "length": 16
+                        },
+                        {
+                            "sig_name": "current_limit",
+                            "sig_desc": "Requested charge current in deciamps",
+                            "unit": "A",
+                            "scale": 0.1,
+                            "type": "uint16_t",
+                            "length": 16
+                        },
+                        {
+                            "sig_name": "charger_disable",
+                            "sig_desc": "0 to enable charging, 1 to disable charging",
+                            "type": "bool"
                         }
                     ],
                     "msg_priority": 3,
-                    "msg_period": 10,
-                    "msg_id_override": "0x114"
+                    "msg_id_override": "0x1806E5F4",
+                    "msg_period": 1000
                 }
             ],
             "rx": [
                 {
-                    "msg_name": "elcon_charger_status"
+                    "msg_name": "elcon_status"
+                },
+                {
+                    "msg_name": "charge_request"
                 }
             ],
             "accept_all_messages": false
@@ -132,6 +151,15 @@
             "time_to_latch": 1000,
             "time_to_unlatch": 5000,
             "lcd_message": "Min Cell Voltage < 2.7V"
+        },
+        {
+            "fault_name": "PACK_FULL",
+            "max": 520,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 10000,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Pack Full"
         }
     ]
 }

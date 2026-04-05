@@ -52,7 +52,7 @@ var searchData=
   ['ir_5fpppoe_49',['IR_PPPoE',['../w5500_8h.html#a67b7b183626e64205544d75ec9b5cb3b',1,'w5500.h']]],
   ['ir_5funreach_50',['IR_UNREACH',['../w5500_8h.html#af65d5b6dab9b2b134a96f311990ce6a4',1,'w5500.h']]],
   ['is_20deprecated_51',['THIS MODULE IS DEPRECATED',['../md_common_2bmi088_2README.html',1,'']]],
-  ['is_5fdischarge_5fenabled_52',['is_discharge_enabled',['../structadbms__bms__t.html#adb9993882ddbdc18bb65466def65635e',1,'adbms_bms_t']]],
+  ['is_5fbalancing_5fenabled_52',['is_balancing_enabled',['../structadbms__bms__t.html#aab87eec2db519f610e2f4a751437aeda',1,'adbms_bms_t']]],
   ['is_5fdischarging_53',['is_discharging',['../structadbms__module__t.html#a47efba10a91489397be11fb33920221d',1,'adbms_module_t']]],
   ['is_5ffdcan_5fperipheral_54',['is_fdcan_peripheral',['../namespacemapper.html#ab89b192dd9148287787db079cf2ae320',1,'mapper']]]
 ];

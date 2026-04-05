@@ -180,8 +180,7 @@ Accessing Measurements</h2>
 <h2><a class="anchor" id="autotoc_md12"></a>
 Controlling the Balancing</h2>
 <ul>
-<li>To enable or disable BMS balancing, simply set the <code>is_discharge_enabled</code> field in the <code><a class="el" href="structadbms__bms__t.html" title="Top-level ADBMS driver state, I/O buffers, measurements, and error flags.">adbms_bms_t</a></code> struct before the next periodic call: <div class="fragment"><div class="line">g_bms.<a class="code hl_variable" href="structadbms__bms__t.html#adb9993882ddbdc18bb65466def65635e">is_discharge_enabled</a> = <span class="keyword">true</span>; <span class="comment">// or false to disable balancing</span></div>
-<div class="ttc" id="astructadbms__bms__t_html_adb9993882ddbdc18bb65466def65635e"><div class="ttname"><a href="structadbms__bms__t.html#adb9993882ddbdc18bb65466def65635e">adbms_bms_t::is_discharge_enabled</a></div><div class="ttdeci">bool is_discharge_enabled</div><div class="ttdef"><b>Definition</b> adbms.h:129</div></div>
+<li>To enable or disable BMS balancing, simply set the <code>is_discharge_enabled</code> field in the <code><a class="el" href="structadbms__bms__t.html" title="Top-level ADBMS driver state, I/O buffers, measurements, and error flags.">adbms_bms_t</a></code> struct before the next periodic call: <div class="fragment"><div class="line">g_bms.is_discharge_enabled = <span class="keyword">true</span>; <span class="comment">// or false to disable balancing</span></div>
 </div><!-- fragment --> The driver will handle the rest (setting the appropriate bits in the REGB register of each module based on the cell voltages and the configured thresholds).</li>
 </ul>
 <h3><a class="anchor" id="autotoc_md13"></a>

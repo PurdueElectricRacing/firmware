@@ -10,7 +10,7 @@ var structadbms__bms__t =
     [ "err_regb_mismatch", "structadbms__bms__t.html#a2bb229e3800846e87da3e599b5f7526e", null ],
     [ "err_regb_pec", "structadbms__bms__t.html#a71c09b1df557cb246e4784fb4d1a6ff5", null ],
     [ "err_spi", "structadbms__bms__t.html#a888891baf62b77d0c0ecdf617d736f79", null ],
-    [ "is_discharge_enabled", "structadbms__bms__t.html#adb9993882ddbdc18bb65466def65635e", null ],
+    [ "is_balancing_enabled", "structadbms__bms__t.html#aab87eec2db519f610e2f4a751437aeda", null ],
     [ "max_therm_temp", "structadbms__bms__t.html#af1d1ccfa36199d33a19d0ccf292a5512", null ],
     [ "max_voltage", "structadbms__bms__t.html#a5b2b1769ea04b93271a037d87444bb03", null ],
     [ "min_therm_temp", "structadbms__bms__t.html#aeb5980d530ddb671c21914be786f8e6d", null ],

@@ -132,6 +132,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>check_faults</b> (voi
 <tr class="memitem:a79b2c19cb2dda656363aa2e27e0d0ee9" id="r_a79b2c19cb2dda656363aa2e27e0d0ee9"><td class="memItemLeft" align="right" valign="top"><a id="a79b2c19cb2dda656363aa2e27e0d0ee9" name="a79b2c19cb2dda656363aa2e27e0d0ee9"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>report_telemetry</b> (void)</td></tr>
 <tr class="separator:a79b2c19cb2dda656363aa2e27e0d0ee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dc3e50da5228cd6681c9df3a5db5dd2" id="r_a8dc3e50da5228cd6681c9df3a5db5dd2"><td class="memItemLeft" align="right" valign="top"><a id="a8dc3e50da5228cd6681c9df3a5db5dd2" name="a8dc3e50da5228cd6681c9df3a5db5dd2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>charging_fsm_periodic</b> (void)</td></tr>
+<tr class="separator:a8dc3e50da5228cd6681c9df3a5db5dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fa3993064bc3738e29650ffc9de990b" id="r_a1fa3993064bc3738e29650ffc9de990b"><td class="memItemLeft" align="right" valign="top"><a id="a1fa3993064bc3738e29650ffc9de990b" name="a1fa3993064bc3738e29650ffc9de990b"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (bms_task, 200, osPriorityHigh, STACK_2048)</td></tr>
 <tr class="separator:a1fa3993064bc3738e29650ffc9de990b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -144,6 +147,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>report_telemetry</b> 
 <tr class="memitem:a1f3ae7ea9e76a5b0a2844a7696ceb50c" id="r_a1f3ae7ea9e76a5b0a2844a7696ceb50c"><td class="memItemLeft" align="right" valign="top"><a id="a1f3ae7ea9e76a5b0a2844a7696ceb50c" name="a1f3ae7ea9e76a5b0a2844a7696ceb50c"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (check_faults, 10, osPriorityNormal, STACK_512)</td></tr>
 <tr class="separator:a1f3ae7ea9e76a5b0a2844a7696ceb50c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe5ec6ab4009b1322670a30fb38478ed" id="r_abe5ec6ab4009b1322670a30fb38478ed"><td class="memItemLeft" align="right" valign="top"><a id="abe5ec6ab4009b1322670a30fb38478ed" name="abe5ec6ab4009b1322670a30fb38478ed"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (charging_fsm_periodic, ELCON_COMMAND_PERIOD_MS, osPriorityNormal, STACK_512)</td></tr>
+<tr class="separator:abe5ec6ab4009b1322670a30fb38478ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89cea2c803c93d23518f66878f5bf3f8" id="r_a89cea2c803c93d23518f66878f5bf3f8"><td class="memItemLeft" align="right" valign="top"><a id="a89cea2c803c93d23518f66878f5bf3f8" name="a89cea2c803c93d23518f66878f5bf3f8"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (fault_library_periodic, A_BOX_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024)</td></tr>
 <tr class="separator:a89cea2c803c93d23518f66878f5bf3f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,13 +169,12 @@ Variables</h2></td></tr>
 <tr class="separator:ad139ebffcf7f11feddfec40191b40aef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6af434e991280036f038f6db015e26f9" id="r_a6af434e991280036f038f6db015e26f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6af434e991280036f038f6db015e26f9">adc_config</a></td></tr>
 <tr class="separator:a6af434e991280036f038f6db015e26f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a922e6001d7bbbd10a001e09a76a470d0" id="r_a922e6001d7bbbd10a001e09a76a470d0"><td class="memItemLeft" align="right" valign="top"><a id="a922e6001d7bbbd10a001e09a76a470d0" name="a922e6001d7bbbd10a001e09a76a470d0"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>isense_raw</b> = 0</td></tr>
-<tr class="separator:a922e6001d7bbbd10a001e09a76a470d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7d8c88c469a5606f5c86e68f3e8b828" id="r_ad7d8c88c469a5606f5c86e68f3e8b828"><td class="memItemLeft" align="right" valign="top"><a id="ad7d8c88c469a5606f5c86e68f3e8b828" name="ad7d8c88c469a5606f5c86e68f3e8b828"></a>
+volatile uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>isense_raw</b> = 0</td></tr>
+<tr class="separator:ad7d8c88c469a5606f5c86e68f3e8b828"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a900ff7ac22bd3d9e8566f23458355b34" id="r_a900ff7ac22bd3d9e8566f23458355b34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCChannelConfig__t.html">ADCChannelConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a900ff7ac22bd3d9e8566f23458355b34">adc_channel_config</a> []</td></tr>
 <tr class="separator:a900ff7ac22bd3d9e8566f23458355b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed595ebe33fb020bde82d6a1bcca6052" id="r_aed595ebe33fb020bde82d6a1bcca6052"><td class="memItemLeft" align="right" valign="top"><a id="aed595ebe33fb020bde82d6a1bcca6052" name="aed595ebe33fb020bde82d6a1bcca6052"></a>
-<a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>adc_dma_config</b> = ADC1_DMA_CONT_CONFIG((uint32_t)&amp;isense_raw, 1, 0b01)</td></tr>
+<tr class="memitem:aed595ebe33fb020bde82d6a1bcca6052" id="r_aed595ebe33fb020bde82d6a1bcca6052"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed595ebe33fb020bde82d6a1bcca6052">adc_dma_config</a></td></tr>
 <tr class="separator:aed595ebe33fb020bde82d6a1bcca6052"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60563c6df24a123ae18e090bca85f555" id="r_a60563c6df24a123ae18e090bca85f555"><td class="memItemLeft" align="right" valign="top"><a id="a60563c6df24a123ae18e090bca85f555" name="a60563c6df24a123ae18e090bca85f555"></a>
 <a class="el" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>gpio_config</b> []</td></tr>
@@ -235,6 +240,25 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>g_bms_tx_buf</b> [
 <div class="line">    .dma_mode       = ADC_DMA_CIRCULAR,</div>
 <div class="line">    .periph         = ADC1,</div>
 <div class="line">}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aed595ebe33fb020bde82d6a1bcca6052" name="aed595ebe33fb020bde82d6a1bcca6052"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed595ebe33fb020bde82d6a1bcca6052">&#9670;&#160;</a></span>adc_dma_config</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> adc_dma_config</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">ADC1_DMA_CONT_CONFIG(</div>
+<div class="line">    (uint32_t)&amp;isense_raw,</div>
+<div class="line">    1, 0b01</div>
+<div class="line">)</div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -12,7 +12,7 @@
                     "type": "bool"
                 },
                 {
-                    "sig_name": "charge_volts",
+                    "sig_name": "charge_voltage",
                     "sig_desc": "Requested charge voltage in decivolts",
                     "type": "uint16_t",
                     "unit": "V",
@@ -30,5 +30,12 @@
             "msg_priority": 3
         }
     ],
-    "rx": []
+    "rx": [
+        {
+            "msg_name": "elcon_status"
+        },
+        {
+            "msg_name": "charging_telemetry"
+        }
+    ]
 }

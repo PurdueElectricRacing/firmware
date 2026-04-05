@@ -3,11 +3,15 @@
 #include "common/can_library/generated/can_types.h"
 #include "common/can_library/generated/A_BOX.h"
 
-static constexpr uint16_t PACK_CHARGING_DECIVOLTS = 540 * 10;
-static constexpr uint16_t PACK_CHARGING_DECIAMPS = 10 * 10;
+static constexpr uint16_t MAX_PACK_CHARGING_DECIVOLTS = 540 * 10;
+static constexpr uint16_t MAX_PACK_CHARGING_DECIAMPS = 20 * 10;
 
 charging_state_t current_state = CHARGING_STATE_IDLE;
 charging_state_t next_state = CHARGING_STATE_IDLE;
+
+uint16_t charge_request_decivolts = 0;
+uint16_t charge_request_deciamps = 0;
+bool charge_enable = false;
 
 extern adbms_bms_t g_bms;
 
@@ -20,7 +24,41 @@ static inline bool is_elcon_ready() {
 }
 
 static inline void report_charging_telemetry() {
-    // todo
+    uint16_t pack_voltage = (uint16_t)(g_bms.sum_voltage * PACK_COEFF_CHARGING_TELEMETRY_PACK_VOLTAGE);
+    uint16_t min_cell_voltage = (uint16_t)(g_bms.min_voltage * PACK_COEFF_CHARGING_TELEMETRY_MIN_CELL_VOLTAGE);
+    uint16_t max_cell_voltage = (uint16_t)(g_bms.max_voltage * PACK_COEFF_CHARGING_TELEMETRY_MAX_CELL_VOLTAGE);
+
+    CAN_SEND_charging_telemetry(
+        pack_voltage,
+        min_cell_voltage,
+        max_cell_voltage,
+        current_state
+    );
+}
+
+static inline void update_charge_request() {
+    if (can_data.charge_request.is_stale()) {
+        charge_request_decivolts = 0;
+        charge_request_deciamps = 0;
+        charge_enable = false;
+        return;
+    }
+
+    // cap the charge request to max values
+    if (can_data.charge_request.charge_voltage > MAX_PACK_CHARGING_DECIVOLTS) {
+        charge_request_decivolts = MAX_PACK_CHARGING_DECIVOLTS;
+    } else {
+        charge_request_decivolts = can_data.charge_request.charge_voltage;
+    }
+
+    // cap the charge request to max values
+    if (can_data.charge_request.charge_current > MAX_PACK_CHARGING_DECIAMPS) {
+        charge_request_deciamps = MAX_PACK_CHARGING_DECIAMPS;
+    } else {
+        charge_request_deciamps = can_data.charge_request.charge_current;
+    }
+
+    charge_enable = true;
 }
 
 void charging_fsm_periodic() {
@@ -29,6 +67,9 @@ void charging_fsm_periodic() {
     next_state = current_state;
 
     g_bms.is_balancing_enabled = false;
+    charge_request_decivolts = 0;
+    charge_request_deciamps = 0;
+    charge_enable = false;
 
     update_fault(FAULT_ID_PACK_FULL, g_bms.sum_voltage);
 
@@ -41,7 +82,6 @@ void charging_fsm_periodic() {
 
     switch (current_state) {
         case CHARGING_STATE_IDLE: {
-            CAN_SEND_elcon_command(PACK_CHARGING_DECIVOLTS, PACK_CHARGING_DECIAMPS, true);
 
             if (is_charging_permitted) {
                 next_state = CHARGING_STATE_CHARGING;
@@ -50,11 +90,7 @@ void charging_fsm_periodic() {
         }
         case CHARGING_STATE_CHARGING: {
             g_bms.is_balancing_enabled = true;
-
-            // todo daq requests the charging parameters?
-            CAN_SEND_elcon_command(PACK_CHARGING_DECIVOLTS, PACK_CHARGING_DECIAMPS, false);
-            
-            report_charging_telemetry();
+            update_charge_request();
             
             if (!is_charging_permitted) {
                 next_state = CHARGING_STATE_IDLE;
@@ -62,4 +98,12 @@ void charging_fsm_periodic() {
             break;
         }
     }
+
+    CAN_SEND_elcon_command(
+        charge_request_decivolts,
+        charge_request_deciamps,
+        !charge_enable
+    );
+
+    report_charging_telemetry();
 }

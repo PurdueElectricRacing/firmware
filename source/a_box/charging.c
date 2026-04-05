@@ -2,6 +2,7 @@
 #include "common/can_library/faults_common.h"
 #include "common/can_library/generated/can_types.h"
 #include "common/can_library/generated/A_BOX.h"
+#include "telem.h"
 
 static constexpr uint16_t MAX_PACK_CHARGING_DECIVOLTS = 540 * 10;
 static constexpr uint16_t MAX_PACK_CHARGING_DECIAMPS = 20 * 10;

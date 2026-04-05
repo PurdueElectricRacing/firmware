@@ -18,6 +18,7 @@
 #include "common/phal/rcc.h"
 #include "common/phal/adc.h"
 #include "common/heartbeat/heartbeat.h"
+#include "telem.h"
 
 SPI_InitConfig_t bms_spi_config = {
     .data_len      = 8,
@@ -106,57 +107,12 @@ uint8_t g_bms_tx_buf[ADBMS_SPI_TX_BUFFER_SIZE] = {0};
 
 static constexpr float MIN_V_FOR_BALANCE     = 3.0f;
 static constexpr float MIN_DELTA_FOR_BALANCE = 0.1f;
-static constexpr uint32_t REPORT_TELEMETRY_PERIOD_MS         = 8;
-static constexpr uint32_t PACK_STATS_SEND_PERIOD_MS          = 200;
-static constexpr uint32_t MODULE_STATS_SEND_PERIOD_MS        = 125;
-static constexpr uint32_t INDIVIDUAL_SAMPLE_SEND_PERIOD_MS   = 48;
 
 extern void HardFault_Handler(void);
 void bms_task(void);
 void check_faults(void);
 void report_telemetry(void);
 void charging_fsm_periodic(void);
-
-
-static uint16_t balance_mask_from_module(size_t module_idx) {
-    uint16_t balance_mask = 0;
-
-    for (size_t cell_idx = 0; cell_idx < ADBMS6380_CELL_COUNT; cell_idx++) {
-        if (g_bms.modules[module_idx].is_discharging[cell_idx]) {
-            balance_mask |= (uint16_t)(1u << cell_idx);
-        }
-    }
-
-    return balance_mask;
-}
-
-static void send_module_voltage_stats(size_t module_idx) {
-    CAN_SEND_module_voltage_stats((uint8_t)module_idx,
-                                  (uint16_t)(g_bms.modules[module_idx].min_voltage * PACK_COEFF_MODULE_VOLTAGE_STATS_MIN_VOLTAGE),
-                                  (uint16_t)(g_bms.modules[module_idx].max_voltage * PACK_COEFF_MODULE_VOLTAGE_STATS_MAX_VOLTAGE),
-                                  (uint16_t)(g_bms.modules[module_idx].sum_voltage * PACK_COEFF_MODULE_VOLTAGE_STATS_SUM_VOLTAGE));
-}
-
-static void send_module_temp_balance_stats(size_t module_idx) {
-    CAN_SEND_module_temp_balance_stats((uint8_t)module_idx,
-                                       (int16_t)(g_bms.modules[module_idx].max_therm_temp * PACK_COEFF_MODULE_TEMP_BALANCE_STATS_MAX_TEMP),
-                                       balance_mask_from_module(module_idx));
-}
-
-static void send_individual_module_sample(size_t module_idx, bool is_temp, size_t sample_idx) {
-    if (is_temp) {
-        CAN_SEND_module_sample((uint8_t)module_idx,
-                               (uint8_t)sample_idx,
-                               true,
-                               (int16_t)(g_bms.modules[module_idx].therms_temps[sample_idx] * PACK_COEFF_MODULE_SAMPLE_SAMPLE_VALUE));
-        return;
-    }
-
-    CAN_SEND_module_sample((uint8_t)module_idx,
-                           (uint8_t)sample_idx,
-                           false,
-                           (int16_t)(g_bms.modules[module_idx].cell_voltages[sample_idx] * PACK_COEFF_MODULE_SAMPLE_SAMPLE_VALUE));
-}
 
 // Thread Defines
 DEFINE_TASK(bms_task, 200, osPriorityHigh, STACK_2048);
@@ -165,7 +121,7 @@ DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048);
 DEFINE_TASK(check_faults, 10, osPriorityNormal, STACK_512);
 DEFINE_TASK(charging_fsm_periodic, ELCON_COMMAND_PERIOD_MS, osPriorityNormal, STACK_512);
 DEFINE_TASK(fault_library_periodic, A_BOX_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
-DEFINE_TASK(report_telemetry, REPORT_TELEMETRY_PERIOD_MS, osPriorityLow, STACK_512);
+DEFINE_TASK(report_telemetry, TELEM_REPORT_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
@@ -223,81 +179,6 @@ int main(void) {
     osKernelStart(); // no way home
 
     return 0;
-}
-
-// DHAB S/134 current sensor conversion
-static int16_t isense_to_current(uint16_t isense_raw) {
-    static constexpr float ADC_VREF = 3.3f;
-    static constexpr float ADC_MAX  = 4095.0f;
-
-    static constexpr float DIV_R1 = 2400.0f;
-    static constexpr float DIV_R2 = 4700.0f;
-
-    static constexpr float V_OFFSET = 2.5f;
-    static constexpr float G = 10.0e-3f;
-
-    float divider_gain = (DIV_R1 + DIV_R2) / DIV_R2;
-    float v_adc = isense_raw * ADC_VREF / ADC_MAX;
-    float v_sensor = v_adc * divider_gain;
-    float current = (v_sensor - V_OFFSET) / G;
-    float scaled_current = current * PACK_COEFF_PACK_STATS_PACK_CURRENT;
-
-    return (int16_t)scaled_current;
-}
-
-void report_telemetry() {
-    static uint32_t next_pack_stats_ms        = 0;
-    static uint32_t next_module_stats_ms      = 0;
-    static uint32_t next_sample_ms            = 0;
-    static size_t module_stats_module_idx     = 0;
-    static bool send_balance_stats_next       = false;
-    static size_t sample_module_idx           = 0;
-    static size_t sample_sensor_idx           = 0;
-    static bool sample_is_temp                = false;
-
-    uint32_t now = OS_TICKS;
-
-    uint16_t pack_voltage = (uint16_t)(g_bms.sum_voltage * PACK_COEFF_PACK_STATS_PACK_VOLTAGE);
-    int16_t pack_current = isense_to_current(isense_raw);
-    int16_t avg_temp = (int16_t)(g_bms.avg_therm_temp * PACK_COEFF_PACK_STATS_AVG_TEMP);
-
-    while (now >= next_pack_stats_ms) {
-        CAN_SEND_pack_stats(pack_voltage, pack_current, avg_temp);
-        next_pack_stats_ms += PACK_STATS_SEND_PERIOD_MS;
-    }
-
-    while (now >= next_module_stats_ms) {
-        if (send_balance_stats_next) {
-            send_module_temp_balance_stats(module_stats_module_idx);
-            module_stats_module_idx = (module_stats_module_idx + 1) % ADBMS_MODULE_COUNT;
-        } else {
-            send_module_voltage_stats(module_stats_module_idx);
-        }
-
-        send_balance_stats_next = !send_balance_stats_next;
-        next_module_stats_ms += MODULE_STATS_SEND_PERIOD_MS;
-    }
-
-    while (now >= next_sample_ms) {
-        send_individual_module_sample(sample_module_idx, sample_is_temp, sample_sensor_idx);
-
-        if (sample_is_temp) {
-            sample_sensor_idx++;
-            if (sample_sensor_idx >= ADBMS6380_GPIO_COUNT) {
-                sample_sensor_idx = 0;
-                sample_is_temp    = false;
-                sample_module_idx = (sample_module_idx + 1) % ADBMS_MODULE_COUNT;
-            }
-        } else {
-            sample_sensor_idx++;
-            if (sample_sensor_idx >= ADBMS6380_CELL_COUNT) {
-                sample_sensor_idx = 0;
-                sample_is_temp    = true;
-            }
-        }
-
-        next_sample_ms += INDIVIDUAL_SAMPLE_SEND_PERIOD_MS;
-    }
 }
 
 void bms_task() {

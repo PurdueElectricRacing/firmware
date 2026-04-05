@@ -27,8 +27,8 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(CONNECTION_LED_PORT, CONNECTION_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
 
     // VCAN
-    GPIO_INIT_FDCAN2RX_PB12,
-    GPIO_INIT_FDCAN2TX_PB13,
+    GPIO_INIT_FDCAN2TX_PB6,
+    GPIO_INIT_FDCAN2RX_PB5,
 
     // Shock Pots
     GPIO_INIT_ANALOG(SHOCKPOT_LEFT_GPIO_PORT , SHOCKPOT_LEFT_GPIO_PIN),
@@ -99,7 +99,9 @@ extern uint32_t PLLClockRateHz;
 extern void HardFault_Handler();
 void shockpot_thread();
 
-DEFINE_TASK(shockpot_thread, 100, osPriorityNormal, 512);
+DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
+DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048); // leave stack at 2048
+DEFINE_TASK(shockpot_thread, 100, osPriorityNormal, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
@@ -139,6 +141,8 @@ int main(void) {
     // Software Initalization
     osKernelInitialize();
 
+    START_TASK(CAN_rx_update);
+    START_TASK(CAN_tx_update);
     START_TASK(shockpot_thread);
     START_HEARTBEAT_TASK();
 
@@ -151,15 +155,9 @@ int main(void) {
 // Both driveline nodes
 
 void shockpot_thread() {
-    // send the raw ADC values
-    uint16_t shock_r_raw = raw_adc4_values.shock_r;
-    uint16_t shock_l_raw = raw_adc3_values.shock_l;
-
     // todo scale to physical units (mm)
 
-    #ifdef SEND_SHOCKPOTS
-    SEND_SHOCKPOTS(shock_l_raw, shock_r_raw);
-    #endif
+    SEND_SHOCKPOTS(raw_adc3_values.shock_l, raw_adc4_values.shock_r);
 }
 
 // todo reboot on hardfault

@@ -25,7 +25,7 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(CONNECTION_LED_PORT, CONNECTION_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
 
     // VCAN
-    GPIO_INIT_FDCAN2TX_PB13,
+    GPIO_INIT_FDCAN2TX_PB13, // we fly swapped TX/RX
     GPIO_INIT_FDCAN2RX_PB12,
 
     // GCAN
@@ -75,8 +75,9 @@ int main(void) {
         HardFault_Handler();
     }
 
-    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
     CAN_library_init();
+    NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
+    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
 
     // Software Initialization
     osKernelInitialize();

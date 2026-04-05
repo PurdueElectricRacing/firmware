@@ -46,15 +46,6 @@ ClockRateConfig_t clock_config = {
 };
 
 /* ADC Configuration */
-ADCInitConfig_t adc1_config = {
-    .prescaler      = ADC_CLK_PRESC_2,
-    .resolution     = ADC_RES_12_BIT,
-    .data_align     = ADC_DATA_ALIGN_RIGHT,
-    .cont_conv_mode = true,
-    .dma_mode       = ADC_DMA_CIRCULAR,
-    .periph         = ADC1,
-};
-
 ADCInitConfig_t adc3_config = {
     .prescaler      = ADC_CLK_PRESC_2,
     .resolution     = ADC_RES_12_BIT,
@@ -125,9 +116,9 @@ int main(void) {
     if (false == PHAL_initDMA(&adc3_dma_config)) {
         HardFault_Handler();
     }
-     if (false == PHAL_initDMA(&adc4_dma_config)) {
+    if (false == PHAL_initDMA(&adc4_dma_config)) {
         HardFault_Handler();
-     }
+    }
     if (false == PHAL_initADC(&adc3_config, adc3_channel_config, sizeof(adc3_channel_config) / sizeof(ADCChannelConfig_t))) {
         HardFault_Handler();
     }

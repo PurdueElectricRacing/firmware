@@ -2,15 +2,14 @@
 
 #include "adbms.h"
 #include "common/can_library/generated/A_BOX.h"
+#include "common/can_library/generated/VCAN.h"
 
 extern adbms_bms_t g_bms;
 extern volatile uint16_t isense_raw;
 
-static constexpr uint32_t PACK_STATS_SEND_PERIOD_MS        = 200;
-static constexpr uint32_t MODULE_STATS_SEND_PERIOD_MS      = 125;
-static constexpr uint32_t INDIVIDUAL_SAMPLE_SEND_PERIOD_MS = 48;
+static constexpr uint32_t INDIVIDUAL_SAMPLE_SEND_PERIOD_MS = 50;
 
-telem_state_t g_telem = {0};
+static telem_state_t g_telem = {0};
 
 // DHAB S/134 current sensor conversion
 static int16_t isense_to_current(uint16_t raw_isense) {
@@ -27,7 +26,7 @@ static int16_t isense_to_current(uint16_t raw_isense) {
     float v_adc = raw_isense * ADC_VREF / ADC_MAX;
     float v_sensor = v_adc * divider_gain;
     float current = (v_sensor - V_OFFSET) / G;
-    float scaled_current = current * PACK_COEFF_PACK_STATS_PACK_CURRENT;
+    float scaled_current = current * PACK_COEFF_PACK_CORE_STATS_PACK_CURRENT;
 
     return (int16_t)scaled_current;
 }
@@ -53,8 +52,16 @@ static void send_module_voltage_stats(size_t module_idx) {
 
 static void send_module_temp_balance_stats(size_t module_idx) {
     CAN_SEND_module_temp_balance_stats((uint8_t)module_idx,
+                                       (int16_t)(g_bms.modules[module_idx].min_therm_temp * PACK_COEFF_MODULE_TEMP_BALANCE_STATS_MIN_TEMP),
                                        (int16_t)(g_bms.modules[module_idx].max_therm_temp * PACK_COEFF_MODULE_TEMP_BALANCE_STATS_MAX_TEMP),
                                        balance_mask_from_module(module_idx));
+}
+
+static void send_pack_voltage_temp_stats(void) {
+    CAN_SEND_pack_voltage_temp_stats((uint16_t)(g_bms.min_voltage * PACK_COEFF_PACK_VOLTAGE_TEMP_STATS_MIN_CELL_VOLTAGE),
+                                    (uint16_t)(g_bms.max_voltage * PACK_COEFF_PACK_VOLTAGE_TEMP_STATS_MAX_CELL_VOLTAGE),
+                                    (int16_t)(g_bms.min_therm_temp * PACK_COEFF_PACK_VOLTAGE_TEMP_STATS_MIN_THERM_TEMP),
+                                    (int16_t)(g_bms.max_therm_temp * PACK_COEFF_PACK_VOLTAGE_TEMP_STATS_MAX_THERM_TEMP));
 }
 
 static void send_individual_module_sample(size_t module_idx, bool is_temp, size_t sample_idx) {
@@ -72,16 +79,19 @@ static void send_individual_module_sample(size_t module_idx, bool is_temp, size_
 	}
 }
 
+// Call at PACK_CORE_STATS_PERIOD_MS interval
 void report_telemetry(void) {
     uint32_t now = OS_TICKS;
 
-    uint16_t pack_voltage = (uint16_t)(g_bms.sum_voltage * PACK_COEFF_PACK_STATS_PACK_VOLTAGE);
+    uint16_t pack_voltage = (uint16_t)(g_bms.sum_voltage * PACK_COEFF_PACK_CORE_STATS_PACK_VOLTAGE);
     int16_t pack_current = isense_to_current(isense_raw);
-    int16_t avg_temp = (int16_t)(g_bms.avg_therm_temp * PACK_COEFF_PACK_STATS_AVG_TEMP);
+    int16_t avg_temp = (int16_t)(g_bms.avg_therm_temp * PACK_COEFF_PACK_CORE_STATS_AVG_TEMP);
 
-    while (now >= g_telem.next_pack_stats_ms) {
-        CAN_SEND_pack_stats(pack_voltage, pack_current, avg_temp);
-        g_telem.next_pack_stats_ms += PACK_STATS_SEND_PERIOD_MS;
+    CAN_SEND_pack_core_stats(pack_voltage, pack_current, avg_temp);
+
+    if (now >= g_telem.next_pack_voltage_temp_stats_ms) {
+        send_pack_voltage_temp_stats();
+        g_telem.next_pack_voltage_temp_stats_ms = now + PACK_VOLTAGE_TEMP_STATS_PERIOD_MS;
     }
 
     while (now >= g_telem.next_module_stats_ms) {
@@ -93,7 +103,7 @@ void report_telemetry(void) {
         }
 
         g_telem.send_balance_stats_next = !g_telem.send_balance_stats_next;
-        g_telem.next_module_stats_ms += MODULE_STATS_SEND_PERIOD_MS;
+        g_telem.next_module_stats_ms += MODULE_VOLTAGE_STATS_PERIOD_MS;
     }
 
     while (now >= g_telem.next_sample_ms) {

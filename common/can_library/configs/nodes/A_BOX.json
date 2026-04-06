@@ -34,15 +34,51 @@
                     "msg_period": 10
                 },
                 {
+                    "msg_name": "pack_voltage_temp_stats",
+                    "msg_desc": "Pack min/min max voltage and min/max temperature",
+                    "signals": [
+                        {
+                            "sig_name": "min_cell_voltage",
+                            "sig_desc": "Minimum cell voltage in the pack",
+                            "type": "uint16_t",
+                            "unit": "V",
+                            "scale": 0.005
+                        },
+                        {
+                            "sig_name": "max_cell_voltage",
+                            "sig_desc": "Maximum cell voltage in the pack",
+                            "type": "uint16_t",
+                            "unit": "V",
+                            "scale": 0.005
+                        },
+                        {
+                            "sig_name": "min_therm_temp",
+                            "sig_desc": "Minimum cell temperature in the pack",
+                            "type": "int16_t",
+                            "unit": "C",
+                            "scale": 0.01
+                        },
+                        {
+                            "sig_name": "max_therm_temp",
+                            "sig_desc": "Maximum cell temperature in the pack",
+                            "type": "int16_t",
+                            "unit": "C",
+                            "scale": 0.01
+                        }
+                    ],
+                    "msg_priority": 5,
+                    "msg_period": 200
+                },
+                {
                     "msg_name": "module_voltage_stats",
-                    "msg_desc": "Rotating module voltage statistics",
+                    "msg_desc": "Rotating module voltage statistics (min, max, sum)",
                     "signals": [
                         {
                             "sig_name": "module_index",
                             "sig_desc": "Module index in the daisy chain",
                             "type": "uint8_t",
                             "unit": "idx",
-                            "length": 8
+                            "length": 3
                         },
                         {
                             "sig_name": "min_voltage",
@@ -67,18 +103,25 @@
                         }
                     ],
                     "msg_priority": 4,
-                    "msg_period": 250
+                    "msg_period": 120
                 },
                 {
                     "msg_name": "module_temp_balance_stats",
-                    "msg_desc": "Rotating module temperature and balancing statistics",
+                    "msg_desc": "Rotating module temperature (min/max) and balancing statistics",
                     "signals": [
                         {
                             "sig_name": "module_index",
                             "sig_desc": "Module index in the daisy chain",
                             "type": "uint8_t",
                             "unit": "idx",
-                            "length": 8
+                            "length": 3
+                        },
+                        {
+                            "sig_name": "min_temp",
+                            "sig_desc": "Minimum thermistor temperature in the module",
+                            "type": "int16_t",
+                            "unit": "C",
+                            "scale": 0.01
                         },
                         {
                             "sig_name": "max_temp",
@@ -95,7 +138,7 @@
                         }
                     ],
                     "msg_priority": 4,
-                    "msg_period": 250
+                    "msg_period": 120
                 },
                 {
                     "msg_name": "module_sample",
@@ -130,7 +173,7 @@
                         }
                     ],
                     "msg_priority": 4,
-                    "msg_period": 40
+                    "msg_period": 25
                 },
                 {
                     "msg_name": "abox_version",

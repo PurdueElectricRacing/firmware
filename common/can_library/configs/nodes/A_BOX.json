@@ -5,7 +5,7 @@
             "peripheral": "FDCAN1",
             "tx": [
                 {
-                    "msg_name": "pack_stats",
+                    "msg_name": "pack_core_stats",
                     "msg_desc": "Pack voltage, current, and temperature",
                     "signals": [
                         {

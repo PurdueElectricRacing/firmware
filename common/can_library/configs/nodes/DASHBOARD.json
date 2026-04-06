@@ -59,7 +59,7 @@
                     "msg_name": "main_hb"
                 },
                 {
-                    "msg_name": "pack_stats"
+                    "msg_name": "pack_core_stats"
                 },
                 {
                     "msg_name": "wheel_speeds"

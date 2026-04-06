@@ -119,8 +119,32 @@
                             "type": "bool"
                         }
                     ],
-                    "msg_priority": 5,
+                    "msg_priority": 4,
                     "msg_period": 1000
+                },
+                {
+                    "msg_name": "cell_telemetry",
+                    "msg_desc": "Individual cell voltages during charging",
+                    "signals": [
+                        {
+                            "sig_name": "cell_voltage",
+                            "sig_desc": "floating point cell voltage",
+                            "type": "float",
+                            "unit": "V"
+                        },
+                        {
+                            "sig_name": "module_num",
+                            "sig_desc": "Total pack voltage",
+                            "type": "uint8_t"
+                        },
+                        {
+                            "sig_name": "cell_num",
+                            "sig_desc": "Minimum cell voltage in the pack",
+                            "type": "uint8_t"
+                        }
+                    ],
+                    "msg_priority": 5,
+                    "msg_period": 10
                 }
             ],
             "rx": [

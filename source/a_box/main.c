@@ -204,6 +204,21 @@ void report_telemetry() {
     uint16_t pack_voltage = (uint16_t)(g_bms.sum_voltage * PACK_COEFF_PACK_STATS_PACK_VOLTAGE);
     int16_t pack_current = isense_to_current(isense_raw);
     CAN_SEND_pack_stats(pack_voltage, pack_current, g_bms.avg_therm_temp);
+
+    // Report cell voltages one at a time
+    static uint8_t module_num = 0;
+    static uint8_t cell_num = 0;
+    adbms_module_t *current_module = &g_bms.modules[module_num];
+    float cell_voltage = current_module->cell_voltages[cell_num];
+
+    CAN_SEND_cell_telemetry(module_num, cell_num, cell_voltage);
+    
+    if (++cell_num >= ADBMS6380_CELL_COUNT) {
+        cell_num = 0;
+        if (++module_num >= ADBMS_MODULE_COUNT) {
+            module_num = 0;
+        }
+    }
 }
 
 void bms_task() {

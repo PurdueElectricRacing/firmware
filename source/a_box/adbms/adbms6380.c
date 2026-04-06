@@ -159,6 +159,9 @@ adbms6380_read_result_t adbms6380_read(SPI_InitConfig_t *spi,
                                        const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE],
                                        uint8_t *rx_buffer,
                                        size_t rx_length_per_module) {
+    // Clear buffer before reading
+    memset(rx_buffer, 0, module_count * rx_length_per_module);
+                                        
     // Send command and get response
     adbms6380_set_cs_low(spi);
     // First send command. Command is passed to all modules in the daisy chain.

@@ -112,6 +112,11 @@
                             "sig_name": "charging_state",
                             "sig_desc": "abox charging fsm state",
                             "type": "charging_state_t"
+                        },
+                        {
+                            "sig_name": "balancing_status",
+                            "sig_desc": "Balancing status of the pack",
+                            "type": "bool"
                         }
                     ],
                     "msg_priority": 5,

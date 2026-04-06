@@ -7,11 +7,6 @@
             "msg_desc": "Message from DAQ App to A_BOX to request charging",
             "signals": [
                 {
-                    "sig_name": "charge_enable",
-                    "sig_desc": "Request to start charging",
-                    "type": "bool"
-                },
-                {
                     "sig_name": "charge_voltage",
                     "sig_desc": "Requested charge voltage in decivolts",
                     "type": "uint16_t",
@@ -24,6 +19,16 @@
                     "type": "uint16_t",
                     "unit": "A",
                     "scale": 0.1
+                },
+                {
+                    "sig_name": "charge_enable",
+                    "sig_desc": "Request to start charging",
+                    "type": "bool"
+                },
+                {
+                    "sig_name": "balance_enable",
+                    "sig_desc": "Request to start balancing",
+                    "type": "bool"
                 }
             ],
             "msg_period": 500,

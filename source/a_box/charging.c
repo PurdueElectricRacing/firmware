@@ -32,7 +32,8 @@ static inline void report_charging_telemetry() {
         pack_voltage,
         min_cell_voltage,
         max_cell_voltage,
-        current_state
+        current_state,
+        g_bms.is_balancing_enabled
     );
 }
 
@@ -41,6 +42,7 @@ static inline void update_charge_request() {
         charge_request_decivolts = 0;
         charge_request_deciamps = 0;
         charge_enable = false;
+        g_bms.is_balancing_enabled = false;
         return;
     }
 
@@ -59,6 +61,7 @@ static inline void update_charge_request() {
     }
 
     charge_enable = can_data.charge_request.charge_enable;
+    g_bms.is_balancing_enabled = can_data.charge_request.balance_enable;
 }
 
 static inline bool is_charging_permitted() {
@@ -100,7 +103,6 @@ void charging_fsm_periodic() {
             break;
         }
         case CHARGING_STATE_CHARGING: {
-            g_bms.is_balancing_enabled = true;
             update_charge_request();
             
             if (!is_daqapp_requesting_charge()) {

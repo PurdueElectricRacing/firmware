@@ -46,10 +46,10 @@ static inline void update_charge_request() {
     }
 
     // cap the charge request to max values
-    if (can_data.charge_request.charge_voltage > MAX_PACK_CHARGING_DECIVOLTS) {
+    if (can_data.charge_request.charge_volts > MAX_PACK_CHARGING_DECIVOLTS) {
         charge_request_decivolts = MAX_PACK_CHARGING_DECIVOLTS;
     } else {
-        charge_request_decivolts = can_data.charge_request.charge_voltage;
+        charge_request_decivolts = can_data.charge_request.charge_volts;
     }
 
     // cap the charge request to max values

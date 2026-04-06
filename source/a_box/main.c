@@ -13,11 +13,11 @@
 #include "common/can_library/faults_common.h"
 #include "common/can_library/generated/A_BOX.h"
 #include "common/freertos/freertos.h"
+#include "common/heartbeat/heartbeat.h"
+#include "common/phal/adc.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
-#include "common/phal/adc.h"
-#include "common/heartbeat/heartbeat.h"
 #include "telem.h"
 
 SPI_InitConfig_t bms_spi_config = {
@@ -42,15 +42,11 @@ ADCInitConfig_t adc_config = {
     .periph         = ADC1,
 };
 
-volatile uint16_t isense_raw = 0;
+volatile uint16_t isense_raw            = 0;
 ADCChannelConfig_t adc_channel_config[] = {
     {.channel = ISENSE_ADC_CHANNEL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
 };
-dma_init_t adc_dma_config =
-ADC1_DMA_CONT_CONFIG(
-    (uint32_t)&isense_raw,
-    1, 0b01
-);
+dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&isense_raw, 1, 0b01);
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -83,10 +79,10 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_INPUT(IMD_STATUS_PORT, IMD_STATUS_PIN, GPIO_INPUT_OPEN_DRAIN),
 
     // BMS SDC Control
-    GPIO_INIT_OUTPUT(BMS_SDC_CTRL_PORT, BMS_SDC_CTRL_PIN, GPIO_OUTPUT_LOW_SPEED)
-};
+    GPIO_INIT_OUTPUT(BMS_SDC_CTRL_PORT, BMS_SDC_CTRL_PIN, GPIO_OUTPUT_LOW_SPEED)};
 
 static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
+
 ClockRateConfig_t clock_config = {
     .clock_source           = CLOCK_SOURCE_HSE,
     .use_pll                = false,
@@ -142,19 +138,21 @@ int main(void) {
 
     adbms_init(&g_bms, &bms_spi_config, g_bms_tx_buf);
 
-    if (false == PHAL_initADC(&adc_config, adc_channel_config, sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
+    if (!PHAL_initADC(&adc_config,
+                      adc_channel_config,
+                      sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
         HardFault_Handler();
     }
-    if (false == PHAL_initDMA(&adc_dma_config)) {
+    if (!PHAL_initDMA(&adc_dma_config)) {
         HardFault_Handler();
     }
     PHAL_startADC(&adc_config);
     PHAL_startTxfer(&adc_dma_config);
 
-    if (false == PHAL_FDCAN_init(FDCAN1, false, VCAN_BAUD_RATE)) {
+    if (!PHAL_FDCAN_init(FDCAN1, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
-    if (false == PHAL_FDCAN_init(FDCAN2, false, CCAN_BAUD_RATE)) {
+    if (!PHAL_FDCAN_init(FDCAN2, false, CCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
     NVIC_SetPriority(FDCAN1_IT0_IRQn, 5);

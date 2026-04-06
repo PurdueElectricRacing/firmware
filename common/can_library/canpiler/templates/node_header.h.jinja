@@ -100,7 +100,7 @@ static bool is_{{ msg.name }}_stale() {
 
 // Data initialization
 static inline void CAN_data_init() {
-    memset(&can_data, 0, sizeof(can_data));
+    memset((void *)&can_data, 0, sizeof(can_data));
     // Underflow the last_rx timers to ensure messages are stale until first rx
     // Setup the stale function pointers
     {% for rx_msg, periph, bus in rx_msgs %}

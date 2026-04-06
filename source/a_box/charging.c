@@ -58,7 +58,14 @@ static inline void update_charge_request() {
         charge_request_deciamps = can_data.charge_request.charge_current;
     }
 
-    charge_enable = true;
+    charge_enable = can_data.charge_request.charge_enable;
+}
+
+static inline bool is_charging_permitted() {
+    return is_clear(FAULT_ID_PACK_FULL)
+        && is_clear(FAULT_ID_BMS_DISCONNECTED)
+        && is_latched(FAULT_ID_SDC16_TSMS) // car should not energize while charging
+        && is_elcon_ready();
 }
 
 void charging_fsm_periodic() {
@@ -73,17 +80,21 @@ void charging_fsm_periodic() {
 
     update_fault(FAULT_ID_PACK_FULL, g_bms.sum_voltage);
 
-    bool is_charging_permitted = 
-        is_clear(FAULT_ID_PACK_FULL) &&
-        is_clear(FAULT_ID_BMS_DISCONNECTED) &&
-        is_latched(FAULT_ID_SDC16_TSMS) && // car should not energize while charging
-        is_daqapp_requesting_charge() &&
-        is_elcon_ready();
+    if (!is_charging_permitted()) {
+        current_state = CHARGING_STATE_IDLE;
+    }
 
     switch (current_state) {
         case CHARGING_STATE_IDLE: {
 
-            if (is_charging_permitted) {
+            if (is_charging_permitted()) {
+                next_state = CHARGING_STATE_CHARGING;
+            }
+            break;
+        }
+        case CHARGING_STATE_READY2CHARGE: {
+            
+            if (is_daqapp_requesting_charge()) {
                 next_state = CHARGING_STATE_CHARGING;
             }
             break;
@@ -92,8 +103,8 @@ void charging_fsm_periodic() {
             g_bms.is_balancing_enabled = true;
             update_charge_request();
             
-            if (!is_charging_permitted) {
-                next_state = CHARGING_STATE_IDLE;
+            if (!is_daqapp_requesting_charge()) {
+                next_state = CHARGING_STATE_READY2CHARGE;
             }
             break;
         }

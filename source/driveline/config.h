@@ -19,6 +19,8 @@
 
 #ifdef IS_FRONT_DRIVELINE
 #define SEND_SHOCKPOTS CAN_SEND_front_shockpots
+#define SEND_OIL_TEMPS CAN_SEND_front_oil_temps
+
 // Shock Pot Calibration
 #define POT_TOTAL_RES 3000
 #define POT_MAX_RES   3300
@@ -33,11 +35,14 @@ static constexpr float POT_VOLT_MIN_R = 4092.0f;
 #define PACK_COEFF_SHOCKPOTS_LEFT  10.0f
 #define PACK_COEFF_SHOCKPOTS_RIGHT  10.0f
 
+
 // others here
 #endif
 
 #ifdef IS_REAR_DRIVELINE
 #define SEND_SHOCKPOTS CAN_SEND_rear_shockpots
+#define SEND_OIL_TEMPS CAN_SEND_rear_oil_temps
+
 // Shock Pot Calibration
 #define POT_TOTAL_RES 3000
 #define POT_MAX_RES   3300

@@ -18,6 +18,10 @@
 /* Module Includes */
 #include "pin_defs.h"
 #include "config.h"
+#include "source/driveline/oil_temps/oil_temps_table.h"
+#define ADC_RESOLUTION  4096.0f
+#define V_REF           3.3f      
+#define R_PULLUP        1300.0f
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -32,7 +36,12 @@ GPIOInitConfig_t gpio_config[] = {
 
     // Shock Pots
     GPIO_INIT_ANALOG(SHOCKPOT_LEFT_GPIO_PORT , SHOCKPOT_LEFT_GPIO_PIN),
-    GPIO_INIT_ANALOG(SHOCKPOT_RIGHT_GPIO_PORT, SHOCKPOT_RIGHT_GPIO_PIN)
+    GPIO_INIT_ANALOG(SHOCKPOT_RIGHT_GPIO_PORT, SHOCKPOT_RIGHT_GPIO_PIN),
+
+    //Oil temps
+    GPIO_INIT_ANALOG(OIL_TEMP_L_GPIO_Port, OIL_TEMP_L_Pin),
+    GPIO_INIT_ANALOG(OIL_TEMP_R_GPIO_Port, OIL_TEMP_R_Pin),
+
 };
 
 static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
@@ -46,6 +55,45 @@ ClockRateConfig_t clock_config = {
 };
 
 /* ADC Configuration */
+
+ADCInitConfig_t adc1_config = {
+    .prescaler      = ADC_CLK_PRESC_2,
+    .resolution     = ADC_RES_12_BIT,
+    .data_align     = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode = true,
+    .dma_mode       = ADC_DMA_CIRCULAR,
+    .periph         = ADC1,
+};
+
+ADCChannelConfig_t adc1_channel_config[] = {
+ {.channel = OIL_TEMP_L_ADC_CH, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+}; 
+typedef struct {
+    uint16_t oil_temp_left;
+} raw_adc1_values_t; 
+volatile raw_adc1_values_t raw_adc1_values;
+dma_init_t adc1_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc1_values, sizeof(raw_adc1_values) / sizeof(uint16_t), 0b01);
+
+ADCInitConfig_t adc2_config = {
+    .prescaler      = ADC_CLK_PRESC_2,
+    .resolution     = ADC_RES_12_BIT,
+    .data_align     = ADC_DATA_ALIGN_RIGHT,
+    .cont_conv_mode = true,
+    .dma_mode       = ADC_DMA_CIRCULAR,
+    .periph         = ADC2,
+};
+
+// ADC 2
+ADCChannelConfig_t adc2_channel_config[] = {
+{.channel = OIL_TEMP_R_ADC_CH, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+};
+typedef struct {
+    uint16_t oil_temp_right;
+
+} raw_adc2_values_t; 
+volatile raw_adc2_values_t raw_adc2_values;
+dma_init_t adc2_dma_config = ADC2_DMA_CONT_CONFIG((uint32_t)&raw_adc2_values, sizeof(raw_adc2_values) / sizeof(uint16_t), 0b01);
+
 ADCInitConfig_t adc3_config = {
     .prescaler      = ADC_CLK_PRESC_2,
     .resolution     = ADC_RES_12_BIT,
@@ -98,10 +146,12 @@ extern uint32_t PLLClockRateHz;
 
 extern void HardFault_Handler();
 void shockpot_thread();
+void oil_temps_thread();
 
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
 DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048); // leave stack at 2048
 DEFINE_TASK(shockpot_thread, 100, osPriorityNormal, STACK_512);
+DEFINE_TASK(oil_temps_thread, 100, osPriorityNormal, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
@@ -115,10 +165,22 @@ int main(void) {
     if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
+     if (false == PHAL_initDMA(&adc1_dma_config)) {
+        HardFault_Handler();
+    }
+    if (false == PHAL_initDMA(&adc2_dma_config)) {
+        HardFault_Handler();
+    }
     if (false == PHAL_initDMA(&adc3_dma_config)) {
         HardFault_Handler();
     }
     if (false == PHAL_initDMA(&adc4_dma_config)) {
+        HardFault_Handler();
+    }
+    if (false == PHAL_initADC(&adc1_config, adc1_channel_config, sizeof(adc1_channel_config) / sizeof(ADCChannelConfig_t))) {
+        HardFault_Handler();
+    }
+    if (false == PHAL_initADC(&adc2_config, adc2_channel_config, sizeof(adc2_channel_config) / sizeof(ADCChannelConfig_t))) {
         HardFault_Handler();
     }
     if (false == PHAL_initADC(&adc3_config, adc3_channel_config, sizeof(adc3_channel_config) / sizeof(ADCChannelConfig_t))) {
@@ -127,9 +189,14 @@ int main(void) {
     if (false == PHAL_initADC(&adc4_config, adc4_channel_config, sizeof(adc4_channel_config) / sizeof(ADCChannelConfig_t))) {
         HardFault_Handler();
     }
+    
+    PHAL_startTxfer(&adc1_dma_config);
+    PHAL_startTxfer(&adc2_dma_config);
     PHAL_startTxfer(&adc3_dma_config);
     PHAL_startTxfer(&adc4_dma_config);
 
+    PHAL_startADC(&adc1_config);
+    PHAL_startADC(&adc2_config);
     PHAL_startADC(&adc3_config);
     PHAL_startADC(&adc4_config);
 
@@ -144,6 +211,7 @@ int main(void) {
     START_TASK(CAN_rx_update);
     START_TASK(CAN_tx_update);
     START_TASK(shockpot_thread);
+    START_TASK(oil_temps_thread);
     START_HEARTBEAT_TASK();
 
     // no way home
@@ -158,6 +226,26 @@ void shockpot_thread() {
     // todo scale to physical units (mm)
 
     SEND_SHOCKPOTS(raw_adc3_values.shock_l, raw_adc4_values.shock_r);
+}
+
+// Oil Temps
+
+void oil_temps_thread() {
+    uint16_t oil_temp_l = (uint16_t) raw_adc1_values.oil_temp_left;
+    uint16_t oil_temp_r = (uint16_t) raw_adc2_values.oil_temp_right;
+
+    float oil_l_volts = ((float)oil_temp_l / ADC_RESOLUTION) * V_REF;
+    float oil_r_volts = ((float)oil_temp_r / ADC_RESOLUTION) * V_REF;
+
+
+    float oil_temp_l_resistance = (R_PULLUP * oil_l_volts) / (V_REF - oil_l_volts);
+    float oil_temp_r_resistance = (R_PULLUP * oil_r_volts) / (V_REF - oil_r_volts);
+
+    int16_t oil_temp_l_celsius = (int16_t) oil_temps_R_to_T(oil_temp_l_resistance);
+    int16_t oil_temp_r_celsius = (int16_t) oil_temps_R_to_T(oil_temp_r_resistance);
+    
+   SEND_OIL_TEMPS(oil_temp_l_celsius, oil_temp_r_celsius);
+
 }
 
 // todo reboot on hardfault

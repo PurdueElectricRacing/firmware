@@ -22,6 +22,7 @@ typedef enum {
 
 // Mux requests (TODO support all)
 #define DMA_REQUEST_ADC1 5U
+#define DMA_REQUEST_ADC2 36U
 #define DMA_REQUEST_ADC3 37U
 #define DMA_REQUEST_ADC4 38U
 

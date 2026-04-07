@@ -189,16 +189,16 @@ static inline int16_t isense_to_current(uint16_t isense_raw) {
     static constexpr float ADC_VREF = 3.3f;
     static constexpr float ADC_MAX  = 4095.0f;
 
-    static constexpr float DIV_R1 = 2400.0f;
-    static constexpr float DIV_R2 = 4700.0f;
+    static constexpr float DIV_R1   = 2400.0f;
+    static constexpr float DIV_R2   = 4700.0f;
     static constexpr float DIV_GAIN = (DIV_R1 + DIV_R2) / DIV_R2;
 
     static constexpr float V_OFFSET = 2.5f;
-    static constexpr float G = 10.0e-3f;
-    
-    float v_adc = isense_raw * ADC_VREF / ADC_MAX;
-    float v_sensor = v_adc * DIV_GAIN;
-    float current = (v_sensor - V_OFFSET) / G;
+    static constexpr float G        = 10.0e-3f;
+
+    float v_adc          = isense_raw * ADC_VREF / ADC_MAX;
+    float v_sensor       = v_adc * DIV_GAIN;
+    float current        = (v_sensor - V_OFFSET) / G;
     float scaled_current = current * PACK_COEFF_PACK_STATS_PACK_CURRENT;
 
     return (int16_t)scaled_current;
@@ -211,10 +211,10 @@ static inline uint16_t vbatt_to_voltage(uint16_t vbatt_raw) {
     static constexpr float RTOP   = 2'375'000.0f;
     static constexpr float RSENSE = 7943.2f;
 
-    static constexpr float DIV_GAIN = (RTOP + RSENSE) / RSENSE; // ~300
+    static constexpr float DIV_GAIN    = (RTOP + RSENSE) / RSENSE; // ~300
     static constexpr float ANALOG_GAIN = 2.0f; // set to 1.0f if ADC sees 0-2V node
 
-    float v_adc = vbatt_raw * ADC_VREF / ADC_MAX;
+    float v_adc  = vbatt_raw * ADC_VREF / ADC_MAX;
     float v_batt = v_adc * DIV_GAIN / ANALOG_GAIN;
 
     return (uint16_t)(v_batt * PACK_COEFF_PACK_STATS_PACK_VOLTAGE);
@@ -222,7 +222,7 @@ static inline uint16_t vbatt_to_voltage(uint16_t vbatt_raw) {
 
 void report_telemetry() {
     uint16_t pack_voltage = vbatt_to_voltage(adc1_dma_buffer.vbatt_raw);
-    int16_t pack_current = isense_to_current(adc1_dma_buffer.isense_raw);
+    int16_t pack_current  = isense_to_current(adc1_dma_buffer.isense_raw);
     CAN_SEND_pack_stats(pack_voltage, pack_current, g_bms.avg_therm_temp);
 
     // Report cell voltages one at a time

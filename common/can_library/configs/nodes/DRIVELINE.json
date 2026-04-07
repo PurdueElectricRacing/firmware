@@ -45,6 +45,46 @@
                     "msg_priority": 5
                 },
                 {
+                    "msg_name": "front_oil_temps",
+                    "msg_desc": "oil temps from front",
+                    "signals": [
+                        {
+                            "sig_name": "left_oil_temp",
+                            "sig_desc": "Oil temp from left",
+                            "type": "float",
+                            "unit": "C"
+                        },
+                        {
+                            "sig_name": "right_oil_temp",
+                            "sig_desc": "Oil temp from right",
+                            "type": "float",
+                            "unit": "C"
+                        }
+                    ],
+                    "msg_priority": 3,
+                    "msg_period": 1000
+                },
+                {
+                    "msg_name": "rear_oil_temps",
+                    "msg_desc": "oil temps from rear",
+                    "signals": [
+                        {
+                            "sig_name": "left_oil_temp",
+                            "sig_desc": "Oil temp from left",
+                            "type": "float",
+                            "unit": "C"
+                        },
+                        {
+                            "sig_name": "right_oil_temp",
+                            "sig_desc": "Oil temp from right",
+                            "type": "float",
+                            "unit": "C"
+                        }
+                    ],
+                    "msg_priority": 3,
+                    "msg_period": 1000
+                },
+                {
                     "msg_name": "front_driveline_version",
                     "msg_desc": "Front Driveline Version",
                     "signals": [
@@ -69,48 +109,7 @@
                     ],
                     "msg_priority": 5,
                     "msg_period": 5000
-                },
-                        {
-          "msg_name": "front_oil_temps",
-          "msg_desc": "oil temps from front",
-          "signals": [
-            {
-              "sig_name": "left_oil_temp",
-              "sig_desc": "Oil temp from left",
-              "type": "int16_t",
-              "unit": "C"
-            },
-            {
-              "sig_name": "right_oil_temp",
-              "sig_desc": "Oil temp from right",
-              "type": "int16_t",
-              "unit": "C"
-            }
-          ],
-          "msg_priority": 3,
-          "msg_period": 5000
-        },
-        {
-          "msg_name": "rear_oil_temps",
-          "msg_desc": "oil temps from rear",
-          "signals": [
-            {
-              "sig_name": "left_oil_temp",
-              "sig_desc": "Oil temp from left",
-              "type": "int16_t",
-              "unit": "C"
-            },
-            {
-              "sig_name": "right_oil_temp",
-              "sig_desc": "Oil temp from right",
-              "type": "int16_t",
-              "unit": "C"
-            }
-          ],
-          "msg_priority": 3,
-          "msg_period": 5000
-        }
-
+                }
             ],
             "rx": []
         }

@@ -157,8 +157,8 @@ void oil_temps_thread();
 
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
 DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048); // leave stack at 2048
-DEFINE_TASK(shockpot_thread, 100, osPriorityNormal, STACK_512);
-DEFINE_TASK(oil_temps_thread, 100, osPriorityNormal, STACK_512);
+DEFINE_TASK(shockpot_thread, FRONT_SHOCKPOTS_PERIOD_MS, osPriorityNormal, STACK_512);
+DEFINE_TASK(oil_temps_thread, FRONT_OIL_TEMPS_PERIOD_MS, osPriorityNormal, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
@@ -229,6 +229,8 @@ int main(void) {
 
 // Both driveline nodes
 
+// Shock pots
+static_assert(FRONT_SHOCKPOTS_LAYOUT_HASH == REAR_SHOCKPOTS_LAYOUT_HASH, "Shockpot messages should be the same");
 void shockpot_thread() {
     // todo scale to physical units (mm)
 
@@ -236,7 +238,7 @@ void shockpot_thread() {
 }
 
 // Oil Temps
-
+static_assert(FRONT_OIL_TEMPS_LAYOUT_HASH == REAR_OIL_TEMPS_LAYOUT_HASH, "Oil temp messages should be the same");
 void oil_temps_thread() {
     uint16_t oil_temp_l = (uint16_t) raw_adc1_values.oil_temp_left;
     uint16_t oil_temp_r = (uint16_t) raw_adc2_values.oil_temp_right;

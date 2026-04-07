@@ -3,6 +3,7 @@
  * @brief "Driveline" node source code
  *
  * @author Irving Wang (irvingw@purdue.edu)
+ * @author Anya Pokrovskaya (apokrovs@purdue.edu)
  */
 
 /* System Includes */

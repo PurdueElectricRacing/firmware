@@ -56,6 +56,7 @@ ClockRateConfig_t clock_config = {
 
 /* ADC Configuration */
 
+// ADC 1
 ADCInitConfig_t adc1_config = {
     .prescaler      = ADC_CLK_PRESC_2,
     .resolution     = ADC_RES_12_BIT,
@@ -72,6 +73,7 @@ typedef struct {
     uint16_t oil_temp_left;
 } raw_adc1_values_t; 
 volatile raw_adc1_values_t raw_adc1_values;
+
 dma_init_t adc1_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc1_values, sizeof(raw_adc1_values) / sizeof(uint16_t), 0b01);
 
 ADCInitConfig_t adc2_config = {
@@ -92,7 +94,10 @@ typedef struct {
 
 } raw_adc2_values_t; 
 volatile raw_adc2_values_t raw_adc2_values;
+
 dma_init_t adc2_dma_config = ADC2_DMA_CONT_CONFIG((uint32_t)&raw_adc2_values, sizeof(raw_adc2_values) / sizeof(uint16_t), 0b01);
+
+// ADC 3
 
 ADCInitConfig_t adc3_config = {
     .prescaler      = ADC_CLK_PRESC_2,
@@ -113,6 +118,8 @@ typedef struct {
 volatile raw_adc3_values_t raw_adc3_values;
 
 dma_init_t adc3_dma_config = ADC3_DMA_CONT_CONFIG((uint32_t)&raw_adc3_values, sizeof(raw_adc3_values) / sizeof(uint16_t), 0b01);
+
+// ADC 4
 
 ADCInitConfig_t adc4_config = {
     .prescaler      = ADC_CLK_PRESC_2,
@@ -236,7 +243,6 @@ void oil_temps_thread() {
 
     float oil_l_volts = ((float)oil_temp_l / ADC_RESOLUTION) * V_REF;
     float oil_r_volts = ((float)oil_temp_r / ADC_RESOLUTION) * V_REF;
-
 
     float oil_temp_l_resistance = (R_PULLUP * oil_l_volts) / (V_REF - oil_l_volts);
     float oil_temp_r_resistance = (R_PULLUP * oil_r_volts) / (V_REF - oil_r_volts);

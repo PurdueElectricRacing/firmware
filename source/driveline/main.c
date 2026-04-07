@@ -173,7 +173,7 @@ int main(void) {
     if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
-     if (false == PHAL_initDMA(&adc1_dma_config)) {
+    if (false == PHAL_initDMA(&adc1_dma_config)) {
         HardFault_Handler();
     }
     if (false == PHAL_initDMA(&adc2_dma_config)) {

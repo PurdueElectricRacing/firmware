@@ -9,8 +9,8 @@
 extern "C" {
 #endif
 
-double interp1(const double varargin_1[2], const double varargin_2[2],
-               double varargin_3);
+float interp1(const float varargin_1[2], const float varargin_2[2],
+              float varargin_3);
 
 #ifdef __cplusplus
 }

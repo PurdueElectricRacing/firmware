@@ -41,14 +41,18 @@ ADCInitConfig_t adc_config = {
     .periph         = ADC1,
 };
 
-volatile uint16_t isense_raw = 0;
+typedef struct {
+    uint16_t isense_raw;
+    uint16_t vbatt_raw;
+} adc1_dma_buffer_t;
+volatile adc1_dma_buffer_t adc1_dma_buffer;
 ADCChannelConfig_t adc_channel_config[] = {
     {.channel = ISENSE_ADC_CHANNEL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = VBATT_ADC_CHANNEL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480}
 };
-dma_init_t adc_dma_config =
-ADC1_DMA_CONT_CONFIG(
-    (uint32_t)&isense_raw,
-    1, 0b01
+dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG(
+    (uint32_t)&adc1_dma_buffer,
+    sizeof(adc1_dma_buffer) / sizeof(uint16_t), 0b01
 );
 
 /* PER HAL Initilization Structures */
@@ -181,28 +185,44 @@ int main(void) {
 }
 
 // DHAB S/134 current sensor conversion
-static int16_t isense_to_current(uint16_t isense_raw) {
+static inline int16_t isense_to_current(uint16_t isense_raw) {
     static constexpr float ADC_VREF = 3.3f;
     static constexpr float ADC_MAX  = 4095.0f;
 
     static constexpr float DIV_R1 = 2400.0f;
     static constexpr float DIV_R2 = 4700.0f;
+    static constexpr float DIV_GAIN = (DIV_R1 + DIV_R2) / DIV_R2;
 
     static constexpr float V_OFFSET = 2.5f;
     static constexpr float G = 10.0e-3f;
-
-    float divider_gain = (DIV_R1 + DIV_R2) / DIV_R2;
+    
     float v_adc = isense_raw * ADC_VREF / ADC_MAX;
-    float v_sensor = v_adc * divider_gain;
+    float v_sensor = v_adc * DIV_GAIN;
     float current = (v_sensor - V_OFFSET) / G;
     float scaled_current = current * PACK_COEFF_PACK_STATS_PACK_CURRENT;
 
     return (int16_t)scaled_current;
 }
 
+static inline uint16_t vbatt_to_voltage(uint16_t vbatt_raw) {
+    static constexpr float ADC_VREF = 3.3f;
+    static constexpr float ADC_MAX  = 4095.0f;
+
+    static constexpr float RTOP   = 2'375'000.0f;
+    static constexpr float RSENSE = 7943.2f;
+
+    static constexpr float DIV_GAIN = (RTOP + RSENSE) / RSENSE; // ~300
+    static constexpr float ANALOG_GAIN = 2.0f; // set to 1.0f if ADC sees 0-2V node
+
+    float v_adc = vbatt_raw * ADC_VREF / ADC_MAX;
+    float v_batt = v_adc * DIV_GAIN / ANALOG_GAIN;
+
+    return (uint16_t)(v_batt * PACK_COEFF_PACK_STATS_PACK_VOLTAGE);
+}
+
 void report_telemetry() {
-    uint16_t pack_voltage = (uint16_t)(g_bms.sum_voltage * PACK_COEFF_PACK_STATS_PACK_VOLTAGE);
-    int16_t pack_current = isense_to_current(isense_raw);
+    uint16_t pack_voltage = vbatt_to_voltage(adc1_dma_buffer.vbatt_raw);
+    int16_t pack_current = isense_to_current(adc1_dma_buffer.isense_raw);
     CAN_SEND_pack_stats(pack_voltage, pack_current, g_bms.avg_therm_temp);
 
     // Report cell voltages one at a time

@@ -7,6 +7,7 @@
 
 #include "main.h"
 
+#include <math.h>
 #include <stdint.h>
 
 #include "adbms.h"
@@ -184,6 +185,13 @@ int main(void) {
     return 0;
 }
 
+static inline float get_isense_correction_offset(float current) {
+    // Linear fit to benchtop data to correct for sensor non-idealities, especially at low currents.
+    // R^2 = 0.8428
+    float abs_current = fabsf(current);
+    return -0.0495f * abs_current + 3.3756f;
+}
+
 // DHAB S/134 current sensor conversion
 static inline int16_t isense_to_current(uint16_t isense_raw) {
     static constexpr float ADC_VREF = 3.3f;
@@ -196,11 +204,16 @@ static inline int16_t isense_to_current(uint16_t isense_raw) {
     static constexpr float V_OFFSET = 2.5f;
     static constexpr float G        = 10.0e-3f;
 
-    float v_adc          = isense_raw * ADC_VREF / ADC_MAX;
-    float v_sensor       = v_adc * DIV_GAIN;
-    float current        = (v_sensor - V_OFFSET) / G;
-    float scaled_current = current * PACK_COEFF_PACK_STATS_PACK_CURRENT;
+    float v_adc    = isense_raw * ADC_VREF / ADC_MAX;
+    float v_sensor = v_adc * DIV_GAIN;
+    float current  = (v_sensor - V_OFFSET) / G;
+    float correction = get_isense_correction_offset(current);
 
+    // Apply correction in the correct direction
+    if (current < 0.0f) current -= correction;
+    else current += correction;
+
+    float scaled_current = current * PACK_COEFF_PACK_STATS_PACK_CURRENT;
     return (int16_t)scaled_current;
 }
 

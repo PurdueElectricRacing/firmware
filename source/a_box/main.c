@@ -196,6 +196,7 @@ static inline float get_isense_correction_offset(float current) {
 static inline int16_t isense_to_current(uint16_t isense_raw) {
     static constexpr float ADC_VREF = 3.3f;
     static constexpr float ADC_MAX  = 4095.0f;
+    static constexpr float ADC_TO_VOLTS = ADC_VREF / ADC_MAX;
 
     static constexpr float DIV_R1   = 2400.0f;
     static constexpr float DIV_R2   = 4700.0f;
@@ -204,9 +205,9 @@ static inline int16_t isense_to_current(uint16_t isense_raw) {
     static constexpr float V_OFFSET = 2.5f;
     static constexpr float G        = 10.0e-3f;
 
-    float v_adc    = isense_raw * ADC_VREF / ADC_MAX;
-    float v_sensor = v_adc * DIV_GAIN;
-    float current  = (v_sensor - V_OFFSET) / G;
+    float v_adc      = isense_raw * ADC_TO_VOLTS;
+    float v_sensor   = v_adc * DIV_GAIN;
+    float current    = (v_sensor - V_OFFSET) / G; // data
     float correction = get_isense_correction_offset(current);
 
     // Apply correction in the correct direction
@@ -220,6 +221,7 @@ static inline int16_t isense_to_current(uint16_t isense_raw) {
 static inline uint16_t vbatt_to_voltage(uint16_t vbatt_raw) {
     static constexpr float ADC_VREF = 3.3f;
     static constexpr float ADC_MAX  = 4095.0f;
+    static constexpr float ADC_TO_VOLTS = ADC_VREF / ADC_MAX;
 
     static constexpr float RTOP   = 2'375'000.0f;
     static constexpr float RSENSE = 7943.2f;
@@ -227,7 +229,7 @@ static inline uint16_t vbatt_to_voltage(uint16_t vbatt_raw) {
     static constexpr float DIV_GAIN    = (RTOP + RSENSE) / RSENSE; // ~300
     static constexpr float ANALOG_GAIN = 2.0f; // set to 1.0f if ADC sees 0-2V node
 
-    float v_adc  = vbatt_raw * ADC_VREF / ADC_MAX;
+    float v_adc  = vbatt_raw * ADC_TO_VOLTS;
     float v_batt = v_adc * DIV_GAIN / ANALOG_GAIN;
 
     return (uint16_t)(v_batt * PACK_COEFF_PACK_STATS_PACK_VOLTAGE);

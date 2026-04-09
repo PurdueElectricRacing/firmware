@@ -8,7 +8,7 @@ var indexSectionsWithContent =
   5: "_abcdefghilmnoprstuw",
   6: "_w",
   7: "acdghinopsuw",
-  8: "achinoprsuw",
+  8: "chinoprsuw",
   9: "_adgimpsw",
   10: "12abcdefiorstw",
   11: "6abcdfghilmpqrstv⚡"

@@ -1,5 +1,6 @@
 var NAVTREEINDEX4 =
 {
+"race_8h.html":[33,0,1,2,0,0,5],
 "race_8h.html#a07291ac7d61fe81b6a92f48d9b55b092":[33,0,1,2,0,0,5,0],
 "race_8h_source.html":[33,0,1,2,0,0,5],
 "sdio_8c.html":[33,0,1,1,2,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX4 =
 "structmenu__page__t.html":[32,0,36],
 "structpage__handler__t.html":[32,0,39],
 "structpedal__values__t.html":[32,0,40],
-"structperiodic__task__params__t.html":[32,0,41],
-"structraw__adc3__values__t.html":[32,0,43]
+"structperiodic__task__params__t.html":[32,0,41]
 };

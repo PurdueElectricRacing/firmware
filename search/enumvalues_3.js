@@ -1,16 +1,9 @@
 var searchData=
 [
-  ['ik_5fdest_5funreach_0',['IK_DEST_UNREACH',['../group__DATA__TYPE.html#ggac6b85cbd7d245ccf3cbfa734760d6ed3a8ed2f23205215b8f79823244dec43df4',1,'wizchip_conf.h']]],
-  ['ik_5fip_5fconflict_1',['IK_IP_CONFLICT',['../group__DATA__TYPE.html#ggac6b85cbd7d245ccf3cbfa734760d6ed3a443c975f7482e7e38fa47e528ff9ae2f',1,'wizchip_conf.h']]],
-  ['ik_5fpppoe_5fterminated_2',['IK_PPPOE_TERMINATED',['../group__DATA__TYPE.html#ggac6b85cbd7d245ccf3cbfa734760d6ed3ab213bc1ba38c6fe1a21f09ca68bb03ff',1,'wizchip_conf.h']]],
-  ['ik_5fsock_5f0_3',['IK_SOCK_0',['../group__DATA__TYPE.html#ggac6b85cbd7d245ccf3cbfa734760d6ed3a0df5fcd3ee3790963b189bf121e0ae27',1,'wizchip_conf.h']]],
-  ['ik_5fsock_5f1_4',['IK_SOCK_1',['../group__DATA__TYPE.html#ggac6b85cbd7d245ccf3cbfa734760d6ed3a0a1bb068ff3ccbe0e44ac6eb816ed37d',1,'wizchip_conf.h']]],
-  ['ik_5fsock_5f2_5',['IK_SOCK_2',['../group__DATA__TYPE.html#ggac6b85cbd7d245ccf3cbfa734760d6ed3a0774c8e40dd61e667f4189384a8223a9',1,'wizchip_conf.h']]],
-  ['ik_5fsock_5f3_6',['IK_SOCK_3',['../group__DATA__TYPE.html#ggac6b85cbd7d245ccf3cbfa734760d6ed3a1895584cc2c1436567516390c41959a8',1,'wizchip_conf.h']]],
-  ['ik_5fsock_5f4_7',['IK_SOCK_4',['../group__DATA__TYPE.html#ggac6b85cbd7d245ccf3cbfa734760d6ed3a357b799cbb058ccb10c47ecb9088d4e6',1,'wizchip_conf.h']]],
-  ['ik_5fsock_5f5_8',['IK_SOCK_5',['../group__DATA__TYPE.html#ggac6b85cbd7d245ccf3cbfa734760d6ed3ac6c749f1d2bb07d2a1bb5743fd7f2015',1,'wizchip_conf.h']]],
-  ['ik_5fsock_5f6_9',['IK_SOCK_6',['../group__DATA__TYPE.html#ggac6b85cbd7d245ccf3cbfa734760d6ed3afeee8b19dfe579551745081b7727a5e2',1,'wizchip_conf.h']]],
-  ['ik_5fsock_5f7_10',['IK_SOCK_7',['../group__DATA__TYPE.html#ggac6b85cbd7d245ccf3cbfa734760d6ed3add2eaa8136ed8c2a4c0bc7ca214d422d',1,'wizchip_conf.h']]],
-  ['ik_5fsock_5fall_11',['IK_SOCK_ALL',['../group__DATA__TYPE.html#ggac6b85cbd7d245ccf3cbfa734760d6ed3a77bc0cc803e53da92b009e4b096ccd61',1,'wizchip_conf.h']]],
-  ['ik_5fwol_12',['IK_WOL',['../group__DATA__TYPE.html#ggac6b85cbd7d245ccf3cbfa734760d6ed3a0233e6c9719bcac46c402b67a696e139',1,'wizchip_conf.h']]]
+  ['netinfo_5fdhcp_0',['NETINFO_DHCP',['../group__DATA__TYPE.html#gga76e5aa4ff40d1cb562e46e3bf9b1e9d1abb4dffed9037e84b54c972da0fd471e2',1,'wizchip_conf.h']]],
+  ['netinfo_5fstatic_1',['NETINFO_STATIC',['../group__DATA__TYPE.html#gga76e5aa4ff40d1cb562e46e3bf9b1e9d1aeb76552981d146af93acee6aa17dd165',1,'wizchip_conf.h']]],
+  ['nm_5fforcearp_2',['NM_FORCEARP',['../group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca32c5ae489d34cf2de9ff96ae278f028a',1,'wizchip_conf.h']]],
+  ['nm_5fpingblock_3',['NM_PINGBLOCK',['../group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca8e9226206aa8567b284ede0dff7540be',1,'wizchip_conf.h']]],
+  ['nm_5fpppoe_4',['NM_PPPOE',['../group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca37ebbd5edda6ee0dccfcd481d4690416',1,'wizchip_conf.h']]],
+  ['nm_5fwakeonlan_5',['NM_WAKEONLAN',['../group__DATA__TYPE.html#gga7543c641a8f3ad6dce26f2387e7e8eaca273098a5481a025f536a599c6a008759',1,'wizchip_conf.h']]]
 ];

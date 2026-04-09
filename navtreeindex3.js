@@ -1,5 +1,6 @@
 var NAVTREEINDEX3 =
 {
+"namespacebuild.html":[31,0,0],
 "namespacecodegen.html":[31,0,1],
 "namespacedbcgen.html":[31,0,2],
 "namespacedbcgen.html#ade6a2af6da26f68e915bc94a74b68515":[31,0,2,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX3 =
 "pwm_8h.html":[33,0,0,12,6,1],
 "pwm_8h_source.html":[33,0,0,12,6,1],
 "race_8c.html":[33,0,1,2,0,0,4],
-"race_8c.html#a07291ac7d61fe81b6a92f48d9b55b092":[33,0,1,2,0,0,4,0],
-"race_8h.html":[33,0,1,2,0,0,5]
+"race_8c.html#a07291ac7d61fe81b6a92f48d9b55b092":[33,0,1,2,0,0,4,0]
 };

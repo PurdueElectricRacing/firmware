@@ -185,10 +185,11 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ae3c531589407da7b11a35ed5ac463a6a" id="r_ae3c531589407da7b11a35ed5ac463a6a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3c531589407da7b11a35ed5ac463a6a">adbms_state_t</a> { <a class="el" href="#ae3c531589407da7b11a35ed5ac463a6aa04c2661858c493dfa11e0984b43eff0a">ADBMS_STATE_IDLE</a> = 0
-, <a class="el" href="#ae3c531589407da7b11a35ed5ac463a6aaa49388d8d0066aa557c09946aac053e7">ADBMS_STATE_CONNECTED</a>
+<tr class="memitem:ae3c531589407da7b11a35ed5ac463a6a" id="r_ae3c531589407da7b11a35ed5ac463a6a"><td class="memItemLeft" align="right" valign="top"><a id="ae3c531589407da7b11a35ed5ac463a6a" name="ae3c531589407da7b11a35ed5ac463a6a"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3c531589407da7b11a35ed5ac463a6a">adbms_state_t</a> { <b>ADBMS_STATE_IDLE</b> = 0
+, <b>ADBMS_STATE_CONNECTED</b> = 1
+, <b>ADBMS_STATE_RECOVERING</b> = 2
  }</td></tr>
-<tr class="memdesc:ae3c531589407da7b11a35ed5ac463a6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ADBMS driver connection/operation state.  <a href="#ae3c531589407da7b11a35ed5ac463a6a">More...</a><br /></td></tr>
+<tr class="memdesc:ae3c531589407da7b11a35ed5ac463a6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ADBMS driver connection/operation state. <br /></td></tr>
 <tr class="separator:ae3c531589407da7b11a35ed5ac463a6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -230,30 +231,7 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Primary logic and interface for ADBMS battery management system driver. </p>
 <dl class="section author"><dt>Author</dt><dd>Millan Kumar (<a href="#" onclick="location.href='mai'+'lto:'+'kum'+'ar'+'798'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">kumar<span class="obfuscator">.nosp@m.</span>798@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd></dl>
-</div><h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="ae3c531589407da7b11a35ed5ac463a6a" name="ae3c531589407da7b11a35ed5ac463a6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3c531589407da7b11a35ed5ac463a6a">&#9670;&#160;</a></span>adbms_state_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="#ae3c531589407da7b11a35ed5ac463a6a">adbms_state_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>ADBMS driver connection/operation state. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae3c531589407da7b11a35ed5ac463a6aa04c2661858c493dfa11e0984b43eff0a" name="ae3c531589407da7b11a35ed5ac463a6aa04c2661858c493dfa11e0984b43eff0a"></a>ADBMS_STATE_IDLE&#160;</td><td class="fielddoc"><p>Driver is idle; not connected or awaiting re-connection. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ae3c531589407da7b11a35ed5ac463a6aaa49388d8d0066aa557c09946aac053e7" name="ae3c531589407da7b11a35ed5ac463a6aaa49388d8d0066aa557c09946aac053e7"></a>ADBMS_STATE_CONNECTED&#160;</td><td class="fielddoc"><p>Driver is connected; periodic reads/balancing are active. </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="ab002d432c17c600b7ab08560de287272" name="ab002d432c17c600b7ab08560de287272"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab002d432c17c600b7ab08560de287272">&#9670;&#160;</a></span>adbms_balance_and_update_regb()</h2>
 

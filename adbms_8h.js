@@ -4,7 +4,8 @@ var adbms_8h =
     [ "adbms_bms_t", "structadbms__bms__t.html", "structadbms__bms__t" ],
     [ "adbms_state_t", "adbms_8h.html#ae3c531589407da7b11a35ed5ac463a6a", [
       [ "ADBMS_STATE_IDLE", "adbms_8h.html#ae3c531589407da7b11a35ed5ac463a6aa04c2661858c493dfa11e0984b43eff0a", null ],
-      [ "ADBMS_STATE_CONNECTED", "adbms_8h.html#ae3c531589407da7b11a35ed5ac463a6aaa49388d8d0066aa557c09946aac053e7", null ]
+      [ "ADBMS_STATE_CONNECTED", "adbms_8h.html#ae3c531589407da7b11a35ed5ac463a6aaa49388d8d0066aa557c09946aac053e7", null ],
+      [ "ADBMS_STATE_RECOVERING", "adbms_8h.html#ae3c531589407da7b11a35ed5ac463a6aaaf1566728500e40a8766ae03c9765024", null ]
     ] ],
     [ "adbms_balance_and_update_regb", "adbms_8h.html#ab002d432c17c600b7ab08560de287272", null ],
     [ "adbms_calculate_balance_cells", "adbms_8h.html#a2824a26859b556b5b6935bf933f931c2", null ],

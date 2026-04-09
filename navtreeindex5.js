@@ -1,5 +1,6 @@
 var NAVTREEINDEX5 =
 {
+"structraw__adc3__values__t.html":[32,0,43],
 "structraw__adc4__values__t.html":[32,0,44],
 "structsdc__node__t.html":[32,0,51],
 "structstatus__leds__t.html":[32,0,54],

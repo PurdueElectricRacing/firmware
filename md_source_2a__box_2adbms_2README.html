@@ -109,7 +109,7 @@ Initialization</h2>
 <ol type="1">
 <li>Define a global <code><a class="el" href="structadbms__bms__t.html" title="Top-level ADBMS driver state, I/O buffers, measurements, and error flags.">adbms_bms_t</a></code> struct and a TX buffer: <div class="fragment"><div class="line"><a class="code hl_struct" href="structadbms__bms__t.html">adbms_bms_t</a> g_bms = {0};</div>
 <div class="line">uint8_t g_bms_tx_buf[ADBMS_SPI_TX_BUFFER_SIZE] = {0};</div>
-<div class="ttc" id="astructadbms__bms__t_html"><div class="ttname"><a href="structadbms__bms__t.html">adbms_bms_t</a></div><div class="ttdoc">Top-level ADBMS driver state, I/O buffers, measurements, and error flags.</div><div class="ttdef"><b>Definition</b> adbms.h:105</div></div>
+<div class="ttc" id="astructadbms__bms__t_html"><div class="ttname"><a href="structadbms__bms__t.html">adbms_bms_t</a></div><div class="ttdoc">Top-level ADBMS driver state, I/O buffers, measurements, and error flags.</div><div class="ttdef"><b>Definition</b> adbms.h:104</div></div>
 </div><!-- fragment --></li>
 <li>Configure your SPI peripheral and GPIOs. Note that the driver expects manual control of the CS line (<code>nss_sw</code> must be false in the SPI config).</li>
 <li>Initialize the driver in main (after GPIO and SPI setup): <div class="fragment"><div class="line"><a class="code hl_function" href="adbms_8c.html#a5cc683403abbabe7a848dd389b42489a">adbms_init</a>(&amp;g_bms, &amp;bms_spi_config, g_bms_tx_buf);</div>

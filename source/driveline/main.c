@@ -234,6 +234,7 @@ void shockpot_thread() {
     SEND_SHOCKPOTS(raw_adc3_values.shock_l, raw_adc4_values.shock_r);
 }
 
+// ! temp global variables for GDB
 int16_t oil_temp_r_celsius;
 float oil_temp_r_resistance;
 float oil_r_volts;

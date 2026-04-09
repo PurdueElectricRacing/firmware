@@ -17,6 +17,7 @@
 #include "common/phal/spi.h"
 #include "common/strbuf/strbuf.h"
 #include "thermistor.h"
+#include "common/freertos/freertos.h"
 
 void adbms_init(adbms_bms_t *bms, SPI_InitConfig_t *spi, uint8_t *tx_buf) {
     bms->spi   = spi;
@@ -392,6 +393,11 @@ void adbms_periodic(adbms_bms_t *bms, float min_voltage_for_balance, float min_d
             adbms_read_cells(bms);
             adbms_read_therms(bms);
             adbms_balance_and_update_regb(bms, min_voltage_for_balance, min_delta_for_balance);
+            // likely not connected, disconnect for a few seconds before trying again
+            if (bms->min_voltage < 1.0f) { 
+                bms->state = ADBMS_STATE_IDLE;
+                osDelay(3000);
+            }
             break;
         }
     }

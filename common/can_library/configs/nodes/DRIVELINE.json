@@ -51,14 +51,16 @@
                         {
                             "sig_name": "left_oil_temp",
                             "sig_desc": "Oil temp from left",
-                            "type": "float",
-                            "unit": "C"
+                            "type": "uint16_t",
+                            "unit": "C",
+                            "scale": 0.01
                         },
                         {
                             "sig_name": "right_oil_temp",
                             "sig_desc": "Oil temp from right",
-                            "type": "float",
-                            "unit": "C"
+                            "type": "uint16_t",
+                            "unit": "C",
+                            "scale": 0.01
                         }
                     ],
                     "msg_priority": 3,
@@ -71,14 +73,16 @@
                         {
                             "sig_name": "left_oil_temp",
                             "sig_desc": "Oil temp from left",
-                            "type": "float",
-                            "unit": "C"
+                            "type": "uint16_t",
+                            "unit": "C",
+                            "scale": 0.01
                         },
                         {
                             "sig_name": "right_oil_temp",
                             "sig_desc": "Oil temp from right",
-                            "type": "float",
-                            "unit": "C"
+                            "type": "uint16_t",
+                            "unit": "C",
+                            "scale": 0.01
                         }
                     ],
                     "msg_priority": 3,

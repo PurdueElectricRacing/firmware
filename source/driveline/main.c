@@ -234,14 +234,6 @@ void shockpot_thread() {
     SEND_SHOCKPOTS(raw_adc3_values.shock_l, raw_adc4_values.shock_r);
 }
 
-// ! temp global variables for GDB
-int16_t oil_temp_r_celsius;
-float oil_temp_r_resistance;
-float oil_r_volts;
-int16_t oil_temp_l_celsius;
-float oil_temp_l_resistance;
-float oil_l_volts;
-
 // Oil Temps
 void oil_temps_thread() {
     static_assert(FRONT_OIL_TEMPS_LAYOUT_HASH == REAR_OIL_TEMPS_LAYOUT_HASH, "Oil temp messages should be the same");
@@ -250,17 +242,23 @@ void oil_temps_thread() {
     static constexpr float ADC_TO_VOLTS = ADC_VREF / ADC_MAX;
     static constexpr float R1           = 220.0f;
 
-    oil_l_volts = raw_adc1_values.oil_temp_left * ADC_TO_VOLTS;
-    oil_r_volts = raw_adc2_values.oil_temp_right * ADC_TO_VOLTS;
+    float left_volts = raw_adc1_values.oil_temp_left * ADC_TO_VOLTS;
+    float right_volts = raw_adc2_values.oil_temp_right * ADC_TO_VOLTS;
 
     // R_thermistor = (V_out * R1) / (V_ref - V_out)
-    oil_temp_l_resistance = (oil_l_volts * R1) / (ADC_VREF - oil_l_volts);
-    oil_temp_r_resistance = (oil_r_volts * R1) / (ADC_VREF - oil_r_volts);
+    float left_resistance = (left_volts * R1) / (ADC_VREF - left_volts);
+    float right_resistance = (right_volts * R1) / (ADC_VREF - right_volts);
 
-    oil_temp_l_celsius    = (int16_t)oil_temps_R_to_T(oil_temp_l_resistance);
-    oil_temp_r_celsius    = (int16_t)oil_temps_R_to_T(oil_temp_r_resistance);
+    float left_celsius = oil_temps_R_to_T(left_resistance);
+    float right_celsius = oil_temps_R_to_T(right_resistance);
 
-    SEND_OIL_TEMPS(oil_temp_l_celsius, oil_temp_r_celsius);
+    static uint16_t left_celsius_scaled = 0;
+    static uint16_t right_celsius_scaled = 0;
+
+    left_celsius_scaled = (uint16_t)(left_celsius * PACK_COEFF_FRONT_OIL_TEMPS_LEFT_OIL_TEMP);
+    right_celsius_scaled = (uint16_t)(right_celsius * PACK_COEFF_FRONT_OIL_TEMPS_RIGHT_OIL_TEMP);
+
+    SEND_OIL_TEMPS(left_celsius_scaled, right_celsius_scaled);
 }
 
 // todo reboot on hardfault

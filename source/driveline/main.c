@@ -255,17 +255,17 @@ void oil_temps_thread() {
     static constexpr float ADC_TO_VOLTS = ADC_VREF / ADC_MAX;
     static constexpr float R1           = 220.0f;
 
-    float left_volts = raw_adc1_values.oil_temp_left * ADC_TO_VOLTS;
+    float left_volts  = raw_adc1_values.oil_temp_left * ADC_TO_VOLTS;
     float right_volts = raw_adc2_values.oil_temp_right * ADC_TO_VOLTS;
 
     // R_thermistor = (V_out * R1) / (V_ref - V_out)
-    float left_resistance = (left_volts * R1) / (ADC_VREF - left_volts);
+    float left_resistance  = (left_volts * R1) / (ADC_VREF - left_volts);
     float right_resistance = (right_volts * R1) / (ADC_VREF - right_volts);
 
-    float left_celsius = oil_temps_R_to_T(left_resistance);
+    float left_celsius  = oil_temps_R_to_T(left_resistance);
     float right_celsius = oil_temps_R_to_T(right_resistance);
 
-    left_celsius_scaled = (uint16_t)(left_celsius * PACK_COEFF_FRONT_OIL_TEMPS_LEFT);
+    left_celsius_scaled  = (uint16_t)(left_celsius * PACK_COEFF_FRONT_OIL_TEMPS_LEFT);
     right_celsius_scaled = (uint16_t)(right_celsius * PACK_COEFF_FRONT_OIL_TEMPS_RIGHT);
 
     SEND_OIL_TEMPS(left_celsius_scaled, right_celsius_scaled);

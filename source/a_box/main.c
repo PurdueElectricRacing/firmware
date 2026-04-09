@@ -18,6 +18,7 @@
 #include "common/phal/rcc.h"
 #include "common/phal/adc.h"
 #include "common/heartbeat/heartbeat.h"
+#include "common/bootloader/bootloader_common.h"
 
 SPI_InitConfig_t bms_spi_config = {
     .data_len      = 8,
@@ -124,6 +125,11 @@ DEFINE_TASK(report_telemetry, PACK_STATS_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
+#if defined(BOOTLOADER_ENABLED)
+    // Confirm application launch to bootloader
+    Bootloader_ConfirmApplicationLaunch();
+#endif
+
     // Hardware Initilization
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();

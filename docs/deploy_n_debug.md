@@ -1,5 +1,8 @@
 Irving Wang (irvingw@purdue.edu)
 
+> [!TIP]
+> For bootloader-specific flashing/update flow and CAN IDs, see [`docs/bootloader.md`](bootloader.md).
+
 ## About
 This document provides step by step instructions on how to flash firmware to PER devices and how to use the debugging tools set up for this project.
 
@@ -56,7 +59,6 @@ Additional Notes:
 > [!NOTE]
 > The `disassemble {function_name}` command is used to view the assembly instructions of a function.
 > This can be useful when your debugger seems to "jump around" unexpectedly in the VSCode GUI due to compiler optimizations.
-
 
 
 

@@ -1,0 +1,37 @@
+{
+    "node_name": "BL_PDU",
+    "busses": {
+        "VCAN": {
+            "peripheral": "CAN1",
+            "tx": [
+                {
+                    "msg_name": "bl_pdu_resp",
+                    "msg_desc": "Bootloader response for PDU",
+                    "signals": [
+                        {
+                            "sig_name": "status",
+                            "type": "uint8_t"
+                        },
+                        {
+                            "sig_name": "detail",
+                            "type": "uint32_t"
+                        }
+                    ],
+                    "msg_id_override": "0x18E",
+                    "msg_priority": 0
+                }
+            ],
+            "rx": [
+                {
+                    "msg_name": "bl_pdu_cmd",
+                    "callback": true
+                },
+                {
+                    "msg_name": "bl_pdu_data",
+                    "callback": true
+                }
+            ]
+        }
+    },
+    "fault_library_enabled": false
+}

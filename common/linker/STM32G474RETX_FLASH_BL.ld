@@ -129,6 +129,14 @@ SECTIONS
     __bss_end__ = _ebss;
   } >RAM
 
+  .noinit (NOLOAD) :
+  {
+    . = ALIGN(4);
+    *(.noinit)
+    *(.noinit*)
+    . = ALIGN(4);
+  } >RAM
+
   ._user_heap_stack :
   {
     . = ALIGN(8);

@@ -19,6 +19,7 @@
 #include "common/phal/usart.h"
 #include "common/strbuf/strbuf.h"
 #include "common/heartbeat/heartbeat.h"
+#include "common/bootloader/bootloader_common.h"
 
 /* Module Includes */
 #include "common/can_library/generated/DASHBOARD.h"
@@ -156,6 +157,11 @@ DEFINE_TASK(LCD_tx_update, 20, osPriorityLow, STACK_512);
 DEFINE_HEARTBEAT_TASK(sweep_external_leds);
 
 int main(void) {
+#if defined(BOOTLOADER_ENABLED)
+    // Confirm application launch to bootloader
+    Bootloader_ConfirmApplicationLaunch();
+#endif
+
     // Hardware Initialization
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();

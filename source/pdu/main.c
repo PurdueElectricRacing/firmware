@@ -17,6 +17,7 @@
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "common/heartbeat/heartbeat.h"
+#include "common/bootloader/bootloader_common.h"
 
 /* Module Includes */
 #include "auto_switch.h"
@@ -298,6 +299,11 @@ DEFINE_TASK(fault_library_periodic, 100, osPriorityLow, STACK_1024);
 DEFINE_HEARTBEAT_TASK(sparkle_leds);
 
 int main() {
+#if defined(BOOTLOADER_ENABLED)
+    // Confirm application launch to bootloader
+    Bootloader_ConfirmApplicationLaunch();
+#endif
+
     // Hardware Initialization
     PHAL_trimHSI(HSI_TRIM_PDU);
     if (0 != PHAL_configureClockRates(&clock_config)) {

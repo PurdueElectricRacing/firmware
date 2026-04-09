@@ -145,3 +145,8 @@ Cmd + Shift + B on macOS
 ```
 
 All done!
+
+## Related Docs
+
+- Bootloader workflow and CAN contract: [`bootloader.md`](bootloader.md)
+- Flash/debug process: [`deploy_n_debug.md`](deploy_n_debug.md)

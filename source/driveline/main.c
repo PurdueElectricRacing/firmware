@@ -14,6 +14,7 @@
 #include "common/phal/dma.h"
 #include "common/freertos/freertos.h"
 #include "common/heartbeat/heartbeat.h"
+#include "common/bootloader/bootloader_common.h"
 
 /* Module Includes */
 #include "pin_defs.h"
@@ -105,6 +106,11 @@ DEFINE_TASK(shockpot_thread, 100, osPriorityNormal, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
+#if defined(BOOTLOADER_ENABLED)
+    // Confirm application launch to bootloader
+    Bootloader_ConfirmApplicationLaunch();
+#endif
+
     // Hardware Initilization
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();

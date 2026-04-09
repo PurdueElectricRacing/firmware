@@ -4,7 +4,7 @@ foreach(SIDE front rear)
     add_firmware_component(
         NAME ${SIDE}_driveline
         LINKER_SCRIPT "STM32G474RETX_FLASH"
-        LIBS "can_node_DRIVELINE;CMSIS_G474;FREERTOS_G474;PHAL_G474;HEARTBEAT"
+        LIBS "can_node_DRIVELINE;CMSIS_G474;FREERTOS_G474;PHAL_G474;HEARTBEAT;BOOTLOADER_COMMON"
     )
 
     # Pass the location define to the compiler

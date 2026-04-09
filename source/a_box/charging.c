@@ -91,7 +91,7 @@ void charging_fsm_periodic() {
         case CHARGING_STATE_IDLE: {
 
             if (is_charging_permitted()) {
-                next_state = CHARGING_STATE_CHARGING;
+                next_state = CHARGING_STATE_READY2CHARGE;
             }
             break;
         }

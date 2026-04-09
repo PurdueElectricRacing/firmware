@@ -124,7 +124,7 @@
                 },
                 {
                     "msg_name": "cell_telemetry",
-                    "msg_desc": "Individual cell voltages during charging",
+                    "msg_desc": "Individual cell voltages and balancing status",
                     "signals": [
                         {
                             "sig_name": "cell_voltage",
@@ -135,12 +135,12 @@
                         },
                         {
                             "sig_name": "module_num",
-                            "sig_desc": "Total pack voltage",
+                            "sig_desc": "Module number of the cell being reported, 0 indexed",
                             "type": "uint8_t"
                         },
                         {
                             "sig_name": "cell_num",
-                            "sig_desc": "Minimum cell voltage in the pack",
+                            "sig_desc": "Cell number within the module, 0 indexed",
                             "type": "uint8_t"
                         },
                         {

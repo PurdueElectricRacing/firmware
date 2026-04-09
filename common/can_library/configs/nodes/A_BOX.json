@@ -129,8 +129,9 @@
                         {
                             "sig_name": "cell_voltage",
                             "sig_desc": "floating point cell voltage",
-                            "type": "float",
-                            "unit": "V"
+                            "type": "uint16_t",
+                            "unit": "V",
+                            "scale": 0.01
                         },
                         {
                             "sig_name": "module_num",

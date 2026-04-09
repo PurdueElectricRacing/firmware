@@ -96,6 +96,7 @@ void charging_fsm_periodic() {
             break;
         }
         case CHARGING_STATE_READY2CHARGE: {
+            // todo: allow balancing in this state if requested by daqapp
             
             if (is_daqapp_requesting_charge()) {
                 next_state = CHARGING_STATE_CHARGING;

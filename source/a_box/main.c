@@ -211,9 +211,10 @@ void report_telemetry() {
     adbms_module_t *current_module = &g_bms.modules[module_num];
 
     float cell_voltage = current_module->cell_voltages[cell_num];
+    uint16_t scaled_cell_voltage = (uint16_t)(cell_voltage * PACK_COEFF_CELL_TELEMETRY_CELL_VOLTAGE);
     bool is_balancing  = current_module->is_discharging[cell_num];
 
-    CAN_SEND_cell_telemetry(module_num, cell_num, cell_voltage, is_balancing);
+    CAN_SEND_cell_telemetry(scaled_cell_voltage, module_num, cell_num, is_balancing);
 
     if (++cell_num >= ADBMS6380_CELL_COUNT) {
         cell_num = 0;

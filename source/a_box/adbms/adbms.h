@@ -50,10 +50,9 @@
  * @brief ADBMS driver connection/operation state.
  */
 typedef enum {
-    /** Driver is idle; not connected or awaiting re-connection. */
-    ADBMS_STATE_IDLE = 0,
-    /** Driver is connected; periodic reads/balancing are active. */
-    ADBMS_STATE_CONNECTED,
+    ADBMS_STATE_IDLE       = 0, // Not connected or awaiting re-connection.
+    ADBMS_STATE_CONNECTED  = 1, // Actively connected and reading/controlling
+    ADBMS_STATE_RECOVERING = 2, // Detected an error and attempting to recover
 } adbms_state_t;
 
 /**

@@ -112,10 +112,45 @@
                             "sig_name": "charging_state",
                             "sig_desc": "abox charging fsm state",
                             "type": "charging_state_t"
+                        },
+                        {
+                            "sig_name": "balancing_status",
+                            "sig_desc": "Balancing status of the pack",
+                            "type": "bool"
+                        }
+                    ],
+                    "msg_priority": 4,
+                    "msg_period": 1000
+                },
+                {
+                    "msg_name": "cell_telemetry",
+                    "msg_desc": "Individual cell voltages during charging",
+                    "signals": [
+                        {
+                            "sig_name": "cell_voltage",
+                            "sig_desc": "floating point cell voltage",
+                            "type": "uint16_t",
+                            "unit": "V",
+                            "scale": 0.01
+                        },
+                        {
+                            "sig_name": "module_num",
+                            "sig_desc": "Total pack voltage",
+                            "type": "uint8_t"
+                        },
+                        {
+                            "sig_name": "cell_num",
+                            "sig_desc": "Minimum cell voltage in the pack",
+                            "type": "uint8_t"
+                        },
+                        {
+                            "sig_name": "balance_status",
+                            "sig_desc": "Whether the cell is currently being balanced",
+                            "type": "bool"
                         }
                     ],
                     "msg_priority": 5,
-                    "msg_period": 1000
+                    "msg_period": 10
                 }
             ],
             "rx": [

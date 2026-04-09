@@ -45,6 +45,50 @@
                     "msg_priority": 5
                 },
                 {
+                    "msg_name": "front_oil_temps",
+                    "msg_desc": "oil temps from front",
+                    "signals": [
+                        {
+                            "sig_name": "left_oil_temp",
+                            "sig_desc": "Oil temp from left",
+                            "type": "uint16_t",
+                            "unit": "C",
+                            "scale": 0.01
+                        },
+                        {
+                            "sig_name": "right_oil_temp",
+                            "sig_desc": "Oil temp from right",
+                            "type": "uint16_t",
+                            "unit": "C",
+                            "scale": 0.01
+                        }
+                    ],
+                    "msg_priority": 3,
+                    "msg_period": 1000
+                },
+                {
+                    "msg_name": "rear_oil_temps",
+                    "msg_desc": "oil temps from rear",
+                    "signals": [
+                        {
+                            "sig_name": "left_oil_temp",
+                            "sig_desc": "Oil temp from left",
+                            "type": "uint16_t",
+                            "unit": "C",
+                            "scale": 0.01
+                        },
+                        {
+                            "sig_name": "right_oil_temp",
+                            "sig_desc": "Oil temp from right",
+                            "type": "uint16_t",
+                            "unit": "C",
+                            "scale": 0.01
+                        }
+                    ],
+                    "msg_priority": 3,
+                    "msg_period": 1000
+                },
+                {
                     "msg_name": "front_driveline_version",
                     "msg_desc": "Front Driveline Version",
                     "signals": [

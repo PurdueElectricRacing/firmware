@@ -224,26 +224,32 @@ int main(void) {
 }
 
 // Shock pots
+
+// globals for GDB
+uint16_t left_length_scaled = 0;
+uint16_t right_length_scaled = 0;
 void shockpot_thread() {
     static_assert(FRONT_SHOCKPOTS_LAYOUT_HASH == REAR_SHOCKPOTS_LAYOUT_HASH, "Shockpot messages should be the same");
     static constexpr float ADC_MAX         = 4095.0f;
     static constexpr float STROKE_MM       = 75.0f;
     static constexpr float FIXED_LENGTH_MM = 120.0f + 25.0f; // 120mm shock body + 25mm head
 
-    // ! assumes that 4095 is fully extended and 0 is fully compressed
-    float left_travel  = (raw_adc3_values.shock_l / ADC_MAX) * STROKE_MM;
-    float right_travel = (raw_adc4_values.shock_r / ADC_MAX) * STROKE_MM;
+    // ! assumes that 4095 is fully compressed and 0 is fully extended
+    uint16_t inverted_shock_l = 4095 - raw_adc3_values.shock_l;
+    uint16_t inverted_shock_r = 4095 - raw_adc4_values.shock_r;
+    float left_travel  = (inverted_shock_l / ADC_MAX) * STROKE_MM;
+    float right_travel = (inverted_shock_r / ADC_MAX) * STROKE_MM;
 
     float left_length  = left_travel + FIXED_LENGTH_MM;
     float right_length = right_travel + FIXED_LENGTH_MM;
 
-    uint16_t left_length_scaled  = (uint16_t)(left_length * PACK_COEFF_FRONT_SHOCKPOTS_LEFT);
-    uint16_t right_length_scaled = (uint16_t)(right_length * PACK_COEFF_FRONT_SHOCKPOTS_RIGHT);
+    left_length_scaled  = (uint16_t)(left_length * PACK_COEFF_FRONT_SHOCKPOTS_LEFT);
+    right_length_scaled = (uint16_t)(right_length * PACK_COEFF_FRONT_SHOCKPOTS_RIGHT);
 
     SEND_SHOCKPOTS(left_length_scaled, right_length_scaled);
 }
 
-// ! globals for GDB
+// globals for GDB
 uint16_t left_celsius_scaled = 0;
 uint16_t right_celsius_scaled = 0;
 

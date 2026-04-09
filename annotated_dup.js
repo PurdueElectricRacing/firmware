@@ -61,6 +61,8 @@ var annotated_dup =
     [ "pedal_values_t", "structpedal__values__t.html", null ],
     [ "periodic_task_params_t", "structperiodic__task__params__t.html", null ],
     [ "PHAL_SD_Cmd_t", "structPHAL__SD__Cmd__t.html", "structPHAL__SD__Cmd__t" ],
+    [ "raw_adc1_values_t", "structraw__adc1__values__t.html", null ],
+    [ "raw_adc2_values_t", "structraw__adc2__values__t.html", null ],
     [ "raw_adc3_values_t", "structraw__adc3__values__t.html", null ],
     [ "raw_adc4_values_t", "structraw__adc4__values__t.html", null ],
     [ "RTC_date_t", "structRTC__date__t.html", null ],

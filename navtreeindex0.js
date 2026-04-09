@@ -203,7 +203,7 @@ var NAVTREEINDEX0 =
 "common_2phal__G4_2spi_2spi_8c.html#ac35bd14ad3b560e0ad69320caef4d4ac":[33,0,0,13,5,0,2],
 "common__defs_8h.html":[33,0,0,4,0],
 "common__defs_8h_source.html":[33,0,0,4,0],
-"config_8h_source.html":[33,0,1,3,0],
+"config_8h_source.html":[33,0,1,3,1],
 "cooling_8c.html":[33,0,1,7,1,0],
 "cooling_8c.html#a3e02c27284622cd9e494e2af92cbe398":[33,0,1,7,1,0,0],
 "cooling_8h.html":[33,0,1,7,1,1],

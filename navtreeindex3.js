@@ -1,5 +1,6 @@
 var NAVTREEINDEX3 =
 {
+"menu__system_8h_source.html":[33,0,1,2,0,5],
 "namespacebuild.html":[31,0,0],
 "namespacecodegen.html":[31,0,1],
 "namespacedbcgen.html":[31,0,2],
@@ -60,6 +61,8 @@ var NAVTREEINDEX3 =
 "nextion_8h.html#ae995d182561a5fa3087569539bb551d2":[33,0,1,2,0,7,3],
 "nextion_8h.html#af603b7d431ae4f94d55bf04b2034a8cc":[33,0,1,2,0,7,6],
 "nextion_8h_source.html":[33,0,1,2,0,7],
+"oil__temps__table_8h.html":[33,0,1,3,0,0],
+"oil__temps__table_8h_source.html":[33,0,1,3,0,0],
 "onboarding__26_8c.html":[33,0,1,4,1],
 "pages.html":[],
 "pdu_2main_8c.html":[33,0,1,7,5],
@@ -241,13 +244,10 @@ var NAVTREEINDEX3 =
 "phal__G4_8h_source.html":[33,0,0,13,7],
 "phal__mcu_8h.html":[33,0,0,11,6],
 "phal__mcu_8h_source.html":[33,0,0,11,6],
-"pin__defs_8h.html":[33,0,1,3,2],
-"pin__defs_8h_source.html":[33,0,1,3,2],
+"pin__defs_8h.html":[33,0,1,3,3],
+"pin__defs_8h_source.html":[33,0,1,3,3],
 "pindefs_8h.html":[33,0,1,6,2],
 "pindefs_8h_source.html":[33,0,1,6,2],
 "pwm_8c.html":[33,0,0,12,6,0],
-"pwm_8h.html":[33,0,0,12,6,1],
-"pwm_8h_source.html":[33,0,0,12,6,1],
-"race_8c.html":[33,0,1,2,0,0,4],
-"race_8c.html#a07291ac7d61fe81b6a92f48d9b55b092":[33,0,1,2,0,0,4,0]
+"pwm_8h.html":[33,0,0,12,6,1]
 };

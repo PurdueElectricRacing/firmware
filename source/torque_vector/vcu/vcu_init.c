@@ -17,7 +17,9 @@ xVCU_struct init_xVCU(void) {
         .BT_RAW = 0,
         .TO_RAW = {0, 0, 0, 0}
     };
+    return xVCU;
 }
+
 
 yVCU_struct init_yVCU(void) {
     yVCU_struct yVCU = {
@@ -39,9 +41,12 @@ yVCU_struct init_yVCU(void) {
         .TO = {0, 0, 0, 0},
         .PB = 0,
         .TO_BL_PO = {0, 0, 0, 0},
+        .TO_BL_RG = {0, 0, 0, 0},
         .TORQUE_OUT = {0, 0, 0, 0}
     };
+    return yVCU;
 }
+
 
 pVCU_struct init_pVCU(void) {
     pVCU_struct pVCU = {
@@ -50,8 +55,9 @@ pVCU_struct init_pVCU(void) {
         .wb = 2,
         .gr = 12.51,
         .MAX_TO_ABS_PO = 21,
-        .PB_derating_full_T = 70,
-        .PB_derating_half_T = 75,
+        .MAX_TO_ABS_RG = 21,
+        .PB_derating_full_T = 75,
+        .PB_derating_half_T = 80,
         .PB_derating_FR = 0.75,
         .INV_T_derating_full_T = 50,
         .INV_T_derating_zero_T = 60,
@@ -64,6 +70,13 @@ pVCU_struct init_pVCU(void) {
         .VB_derating_full_T = 400,
         .VB_derating_zero_T = 340,
         .IB_derating_full_T = 200,
-        .IB_derating_zero_T = 230
+        .IB_derating_zero_T = 230,
+        .VB_RG_derating_full_T = 340,
+        .VB_RG_derating_zero_T = 400,
+        .IB_RG_derating_full_T = -145,
+        .IB_RG_derating_zero_T = -160,
+        .GS_RG_derating_zero = 1.3888889,
+        .GS_RG_derating_full = 2.7777778
     };
+    return pVCU;
 }

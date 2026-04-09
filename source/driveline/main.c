@@ -234,6 +234,10 @@ void shockpot_thread() {
     SEND_SHOCKPOTS(raw_adc3_values.shock_l, raw_adc4_values.shock_r);
 }
 
+// ! globals for GDB
+uint16_t left_celsius_scaled = 0;
+uint16_t right_celsius_scaled = 0;
+
 // Oil Temps
 void oil_temps_thread() {
     static_assert(FRONT_OIL_TEMPS_LAYOUT_HASH == REAR_OIL_TEMPS_LAYOUT_HASH, "Oil temp messages should be the same");
@@ -251,9 +255,6 @@ void oil_temps_thread() {
 
     float left_celsius = oil_temps_R_to_T(left_resistance);
     float right_celsius = oil_temps_R_to_T(right_resistance);
-
-    static uint16_t left_celsius_scaled = 0;
-    static uint16_t right_celsius_scaled = 0;
 
     left_celsius_scaled = (uint16_t)(left_celsius * PACK_COEFF_FRONT_OIL_TEMPS_LEFT_OIL_TEMP);
     right_celsius_scaled = (uint16_t)(right_celsius * PACK_COEFF_FRONT_OIL_TEMPS_RIGHT_OIL_TEMP);

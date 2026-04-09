@@ -141,6 +141,11 @@
                             "sig_name": "cell_num",
                             "sig_desc": "Minimum cell voltage in the pack",
                             "type": "uint8_t"
+                        },
+                        {
+                            "sig_name": "balance_status",
+                            "sig_desc": "Whether the cell is currently being balanced",
+                            "type": "bool"
                         }
                     ],
                     "msg_priority": 5,

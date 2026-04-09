@@ -223,8 +223,6 @@ int main(void) {
     return 0;
 }
 
-// Shock pots
-
 // globals for GDB
 uint16_t left_length_scaled = 0;
 uint16_t right_length_scaled = 0;
@@ -252,8 +250,6 @@ void shockpot_thread() {
 // globals for GDB
 uint16_t left_celsius_scaled = 0;
 uint16_t right_celsius_scaled = 0;
-
-// Oil Temps
 void oil_temps_thread() {
     static_assert(FRONT_OIL_TEMPS_LAYOUT_HASH == REAR_OIL_TEMPS_LAYOUT_HASH, "Oil temp messages should be the same");
     static constexpr float ADC_MAX      = 4095.0f;

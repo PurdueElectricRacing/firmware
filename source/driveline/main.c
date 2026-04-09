@@ -15,11 +15,10 @@
 #include "common/phal/dma.h"
 #include "common/freertos/freertos.h"
 #include "common/heartbeat/heartbeat.h"
-#include <math.h>
 /* Module Includes */
-#include "pin_defs.h"
 #include "config.h"
-#include "source/driveline/oil_temps/oil_temps_table.h"
+#include "pin_defs.h"
+#include "oil_temps_table.h"
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -224,14 +223,24 @@ int main(void) {
     return 0;
 }
 
-// Both driveline nodes
-
 // Shock pots
 void shockpot_thread() {
     static_assert(FRONT_SHOCKPOTS_LAYOUT_HASH == REAR_SHOCKPOTS_LAYOUT_HASH, "Shockpot messages should be the same");
-    // todo scale to physical units (mm)
+    static constexpr float ADC_MAX         = 4095.0f;
+    static constexpr float STROKE_MM       = 75.0f;
+    static constexpr float FIXED_LENGTH_MM = 120.0f + 25.0f; // 120mm shock body + 25mm head
 
-    SEND_SHOCKPOTS(raw_adc3_values.shock_l, raw_adc4_values.shock_r);
+    // ! assumes that 4095 is fully extended and 0 is fully compressed
+    float left_travel  = (raw_adc3_values.shock_l / ADC_MAX) * STROKE_MM;
+    float right_travel = (raw_adc4_values.shock_r / ADC_MAX) * STROKE_MM;
+
+    float left_length  = left_travel + FIXED_LENGTH_MM;
+    float right_length = right_travel + FIXED_LENGTH_MM;
+
+    uint16_t left_length_scaled  = (uint16_t)(left_length * PACK_COEFF_FRONT_SHOCKPOTS_LEFT);
+    uint16_t right_length_scaled = (uint16_t)(right_length * PACK_COEFF_FRONT_SHOCKPOTS_RIGHT);
+
+    SEND_SHOCKPOTS(left_length_scaled, right_length_scaled);
 }
 
 // ! globals for GDB
@@ -256,8 +265,8 @@ void oil_temps_thread() {
     float left_celsius = oil_temps_R_to_T(left_resistance);
     float right_celsius = oil_temps_R_to_T(right_resistance);
 
-    left_celsius_scaled = (uint16_t)(left_celsius * PACK_COEFF_FRONT_OIL_TEMPS_LEFT_OIL_TEMP);
-    right_celsius_scaled = (uint16_t)(right_celsius * PACK_COEFF_FRONT_OIL_TEMPS_RIGHT_OIL_TEMP);
+    left_celsius_scaled = (uint16_t)(left_celsius * PACK_COEFF_FRONT_OIL_TEMPS_LEFT);
+    right_celsius_scaled = (uint16_t)(right_celsius * PACK_COEFF_FRONT_OIL_TEMPS_RIGHT);
 
     SEND_OIL_TEMPS(left_celsius_scaled, right_celsius_scaled);
 }

@@ -10,15 +10,17 @@
                     "signals": [
                         {
                             "sig_name": "left",
-                            "sig_desc": "Travel distance of front left shockpot",
+                            "sig_desc": "Length of front left shockpot",
                             "type": "uint16_t",
-                            "unit": "ADC counts (0-4095)"
+                            "unit": "mm",
+                            "scale": 0.01
                         },
                         {
                             "sig_name": "right",
-                            "sig_desc": "Travel distance of front right shockpot",
+                            "sig_desc": "Length of front right shockpot",
                             "type": "uint16_t",
-                            "unit": "ADC counts (0-4095)"
+                            "unit": "mm",
+                            "scale": 0.01
                         }
                     ],
                     "msg_period": 10,
@@ -30,15 +32,17 @@
                     "signals": [
                         {
                             "sig_name": "left",
-                            "sig_desc": "Left Shockpot Travel",
+                            "sig_desc": "Length of rear left shockpot",
                             "type": "uint16_t",
-                            "unit": "ADC counts (0-4095)"
+                            "unit": "mm",
+                            "scale": 0.01
                         },
                         {
                             "sig_name": "right",
-                            "sig_desc": "Right Shockpot Travel",
+                            "sig_desc": "Length of rear right shockpot",
                             "type": "uint16_t",
-                            "unit": "ADC counts (0-4095)"
+                            "unit": "mm",
+                            "scale": 0.01
                         }
                     ],
                     "msg_period": 10,
@@ -49,15 +53,15 @@
                     "msg_desc": "oil temps from front",
                     "signals": [
                         {
-                            "sig_name": "left_oil_temp",
-                            "sig_desc": "Oil temp from left",
+                            "sig_name": "left",
+                            "sig_desc": "Oil temp in front left gearbox",
                             "type": "uint16_t",
                             "unit": "C",
                             "scale": 0.01
                         },
                         {
-                            "sig_name": "right_oil_temp",
-                            "sig_desc": "Oil temp from right",
+                            "sig_name": "right",
+                            "sig_desc": "Oil temp in front right gearbox",
                             "type": "uint16_t",
                             "unit": "C",
                             "scale": 0.01
@@ -71,15 +75,15 @@
                     "msg_desc": "oil temps from rear",
                     "signals": [
                         {
-                            "sig_name": "left_oil_temp",
-                            "sig_desc": "Oil temp from left",
+                            "sig_name": "left",
+                            "sig_desc": "Oil temp in rear left gearbox",
                             "type": "uint16_t",
                             "unit": "C",
                             "scale": 0.01
                         },
                         {
-                            "sig_name": "right_oil_temp",
-                            "sig_desc": "Oil temp from right",
+                            "sig_name": "right",
+                            "sig_desc": "Oil temp in rear right gearbox",
                             "type": "uint16_t",
                             "unit": "C",
                             "scale": 0.01

@@ -15,14 +15,12 @@
 #include "common/phal/dma.h"
 #include "common/freertos/freertos.h"
 #include "common/heartbeat/heartbeat.h"
-
+#include <math.h>
 /* Module Includes */
 #include "pin_defs.h"
 #include "config.h"
 #include "source/driveline/oil_temps/oil_temps_table.h"
-#define ADC_RESOLUTION  4096.0f
-#define V_REF           3.3f      
-#define R_PULLUP        1300.0f
+#define R_PULLUP        200.0f
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -72,7 +70,7 @@ ADCChannelConfig_t adc1_channel_config[] = {
 }; 
 typedef struct {
     uint16_t oil_temp_left;
-} raw_adc1_values_t; 
+} raw_adc1_values_t;
 volatile raw_adc1_values_t raw_adc1_values;
 
 dma_init_t adc1_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc1_values, sizeof(raw_adc1_values) / sizeof(uint16_t), 0b01);
@@ -92,8 +90,7 @@ ADCChannelConfig_t adc2_channel_config[] = {
 };
 typedef struct {
     uint16_t oil_temp_right;
-
-} raw_adc2_values_t; 
+} raw_adc2_values_t;
 volatile raw_adc2_values_t raw_adc2_values;
 
 dma_init_t adc2_dma_config = ADC2_DMA_CONT_CONFIG((uint32_t)&raw_adc2_values, sizeof(raw_adc2_values) / sizeof(uint16_t), 0b01);
@@ -238,20 +235,30 @@ void shockpot_thread() {
     SEND_SHOCKPOTS(raw_adc3_values.shock_l, raw_adc4_values.shock_r);
 }
 
+int16_t oil_temp_r_celsius;
+float oil_temp_r_resistance;
+float oil_r_volts;
+int16_t oil_temp_l_celsius;
+float oil_temp_l_resistance;
+float oil_l_volts;
+
 // Oil Temps
 static_assert(FRONT_OIL_TEMPS_LAYOUT_HASH == REAR_OIL_TEMPS_LAYOUT_HASH, "Oil temp messages should be the same");
 void oil_temps_thread() {
-    uint16_t oil_temp_l = (uint16_t) raw_adc1_values.oil_temp_left;
-    uint16_t oil_temp_r = (uint16_t) raw_adc2_values.oil_temp_right;
+    static constexpr float ADC_MAX = 4095.0f;
+    static constexpr float ADC_VREF = 3.3f;
+    static constexpr float ADC_TO_VOLTS = ADC_VREF / ADC_MAX;
 
-    float oil_l_volts = ((float)oil_temp_l / ADC_RESOLUTION) * V_REF;
-    float oil_r_volts = ((float)oil_temp_r / ADC_RESOLUTION) * V_REF;
+    uint16_t oil_temp_l = raw_adc1_values.oil_temp_left;
+    uint16_t oil_temp_r = raw_adc2_values.oil_temp_right;
 
-    float oil_temp_l_resistance = (R_PULLUP * oil_l_volts) / (V_REF - oil_l_volts);
-    float oil_temp_r_resistance = (R_PULLUP * oil_r_volts) / (V_REF - oil_r_volts);
+    oil_l_volts = oil_temp_l * ADC_TO_VOLTS;
+    oil_r_volts = oil_temp_r * ADC_TO_VOLTS;
 
-    int16_t oil_temp_l_celsius = (int16_t) oil_temps_R_to_T(oil_temp_l_resistance);
-    int16_t oil_temp_r_celsius = (int16_t) oil_temps_R_to_T(oil_temp_r_resistance);
+    oil_temp_l_resistance = (R_PULLUP * oil_l_volts) / (ADC_VREF - oil_l_volts);
+    oil_temp_r_resistance = (float) ((oil_r_volts * 220) / (3.3 - oil_r_volts));
+    oil_temp_l_celsius = (int16_t) oil_temps_R_to_T(oil_temp_l_resistance);
+    oil_temp_r_celsius = (int16_t) oil_temps_R_to_T(oil_temp_r_resistance);
     
    SEND_OIL_TEMPS(oil_temp_l_celsius, oil_temp_r_celsius);
 

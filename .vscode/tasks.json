@@ -1,28 +1,28 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "build",
-            "type": "shell",
-            "command": "clear && python3 per_build.py",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
-        {
-            "label": "generate can library",
-            "type": "shell",
-            "command": "python3 ./common/can_library/canpiler/build.py",
-            "group": {
-                "kind": "build"
-            }
-        },
-        {
-            "label": "run doxygen",
-            "type": "shell",
-            "command": "doxygen docs/Doxyfile",
-            "problemMatcher": []
-        }
-    ]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "clear && python3 per_build.py",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "generate can library",
+      "type": "shell",
+      "command": "python3 ./common/can_library/canpiler/build.py",
+      "group": {
+        "kind": "build"
+      }
+    },
+    {
+      "label": "run doxygen",
+      "type": "shell",
+      "command": "doxygen docs/Doxyfile",
+      "problemMatcher": []
+    }
+  ]
 }

@@ -20,7 +20,6 @@
 #include "pin_defs.h"
 #include "config.h"
 #include "source/driveline/oil_temps/oil_temps_table.h"
-#define R_PULLUP        200.0f
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -255,8 +254,9 @@ void oil_temps_thread() {
     oil_l_volts = oil_temp_l * ADC_TO_VOLTS;
     oil_r_volts = oil_temp_r * ADC_TO_VOLTS;
 
-    oil_temp_l_resistance = (R_PULLUP * oil_l_volts) / (ADC_VREF - oil_l_volts);
-    oil_temp_r_resistance = (float) ((oil_r_volts * 220) / (3.3 - oil_r_volts));
+    //dont know if we need to cast to float or not. probably?
+    oil_temp_l_resistance = (oil_l_volts * 220) / (ADC_VREF - oil_l_volts);
+    oil_temp_r_resistance = (float) ((oil_r_volts * 220) / (ADC_VREF- oil_r_volts));
     oil_temp_l_celsius = (int16_t) oil_temps_R_to_T(oil_temp_l_resistance);
     oil_temp_r_celsius = (int16_t) oil_temps_R_to_T(oil_temp_r_resistance);
     

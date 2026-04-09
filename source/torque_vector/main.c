@@ -62,6 +62,11 @@ DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
 DEFINE_TASK(CAN_tx_update, 15, osPriorityNormal, STACK_2048);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
+// VCU Data
+static pVCU_struct pVCU;
+static xVCU_struct xVCU;
+static yVCU_struct yVCU;
+
 int main(void) {
     // Hardware Initialization
     if (0 != PHAL_configureClockRates(&clock_config)) {
@@ -86,8 +91,17 @@ int main(void) {
     START_TASK(CAN_tx_update);
     START_HEARTBEAT_TASK();
 
+    // TV initialization (will break watchdog)
+    pVCU = init_pVCU();
+    xVCU = init_xVCU();
+    yVCU = init_yVCU();
+
+    vcu_step(&pVCU, &xVCU, &yVCU);
+
     // no way home
     osKernelStart();
+
+
 
     return 0;
 }

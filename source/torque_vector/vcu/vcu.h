@@ -1,5 +1,5 @@
-
 // VCU structs
+
 typedef struct {
     float TH_RAW;
     float ST_RAW;
@@ -18,25 +18,26 @@ typedef struct {
 } xVCU_struct;
 
 typedef struct {
-        float TH;
-        float TH_PO;
-        float TH_RG;
-        float ST;
-        float VB;
-        float WM[4];
-        float GS;
-        float AV[3];
-        float IB;
-        float MT;
-        float IGBT_T;
-        float INV_T;
-        float MC;
-        float IC;
-        float BT;
-        float TO[4];
-        float PB;
-        float TO_BL_PO[4];
-        float TORQUE_OUT[4];
+    float TH;
+    float TH_PO;
+    float TH_RG;
+    float ST;
+    float VB;
+    float WM[4];
+    float GS;
+    float AV[3];
+    float IB;
+    float MT;
+    float IGBT_T;
+    float INV_T;
+    float MC;
+    float IC;
+    float BT;
+    float TO[4];
+    float PB;
+    float TO_BL_PO[4];
+    float TO_BL_RG[4];
+    float TORQUE_OUT[4];
 } yVCU_struct;
 
 typedef struct {
@@ -45,6 +46,7 @@ typedef struct {
     float wb;
     float gr;
     float MAX_TO_ABS_PO;
+    float MAX_TO_ABS_RG;
     float PB_derating_full_T;
     float PB_derating_half_T;
     float PB_derating_FR;
@@ -60,4 +62,17 @@ typedef struct {
     float VB_derating_zero_T;
     float IB_derating_full_T;
     float IB_derating_zero_T;
+    float VB_RG_derating_full_T;
+    float VB_RG_derating_zero_T;
+    float IB_RG_derating_full_T;
+    float IB_RG_derating_zero_T;
+    float GS_RG_derating_zero;
+    float GS_RG_derating_full;
 } pVCU_struct;
+
+// VCU struct initialization functions
+xVCU_struct init_xVCU(void);
+yVCU_struct init_yVCU(void);
+pVCU_struct init_pVCU(void);
+
+void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y);

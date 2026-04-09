@@ -8,6 +8,8 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
+#include "vcu.h"
+
 #include <stdint.h>
 
 #include "common/phal/gpio.h"

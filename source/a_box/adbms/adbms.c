@@ -393,11 +393,18 @@ void adbms_periodic(adbms_bms_t *bms, float min_voltage_for_balance, float min_d
             adbms_read_cells(bms);
             adbms_read_therms(bms);
             adbms_balance_and_update_regb(bms, min_voltage_for_balance, min_delta_for_balance);
-            // likely not connected, disconnect for a few seconds before trying again
-            if (bms->min_voltage < 1.0f) { 
-                bms->state = ADBMS_STATE_IDLE;
-                osDelay(3000);
+
+            // todo add more robust corruption checks
+            bool corruption_detected = (bms->min_voltage < 1.0f) || (bms->max_voltage > 5.0f);
+            if (corruption_detected) {
+                bms->state = ADBMS_STATE_RECOVERING;
             }
+            break;
+        }
+        case ADBMS_STATE_RECOVERING: {
+            // Do a full sleep-wake cycle
+            osDelay(2500); // ADBMS6380 chips sleep after 2.2s of inactivity
+            bms->state = ADBMS_STATE_IDLE;
             break;
         }
     }

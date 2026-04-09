@@ -227,8 +227,8 @@ int main(void) {
 // Both driveline nodes
 
 // Shock pots
-static_assert(FRONT_SHOCKPOTS_LAYOUT_HASH == REAR_SHOCKPOTS_LAYOUT_HASH, "Shockpot messages should be the same");
 void shockpot_thread() {
+    static_assert(FRONT_SHOCKPOTS_LAYOUT_HASH == REAR_SHOCKPOTS_LAYOUT_HASH, "Shockpot messages should be the same");
     // todo scale to physical units (mm)
 
     SEND_SHOCKPOTS(raw_adc3_values.shock_l, raw_adc4_values.shock_r);
@@ -242,26 +242,24 @@ float oil_temp_l_resistance;
 float oil_l_volts;
 
 // Oil Temps
-static_assert(FRONT_OIL_TEMPS_LAYOUT_HASH == REAR_OIL_TEMPS_LAYOUT_HASH, "Oil temp messages should be the same");
 void oil_temps_thread() {
-    static constexpr float ADC_MAX = 4095.0f;
-    static constexpr float ADC_VREF = 3.3f;
+    static_assert(FRONT_OIL_TEMPS_LAYOUT_HASH == REAR_OIL_TEMPS_LAYOUT_HASH, "Oil temp messages should be the same");
+    static constexpr float ADC_MAX      = 4095.0f;
+    static constexpr float ADC_VREF     = 3.3f;
     static constexpr float ADC_TO_VOLTS = ADC_VREF / ADC_MAX;
+    static constexpr float R1           = 220.0f;
 
-    uint16_t oil_temp_l = raw_adc1_values.oil_temp_left;
-    uint16_t oil_temp_r = raw_adc2_values.oil_temp_right;
+    oil_l_volts = raw_adc1_values.oil_temp_left * ADC_TO_VOLTS;
+    oil_r_volts = raw_adc2_values.oil_temp_right * ADC_TO_VOLTS;
 
-    oil_l_volts = oil_temp_l * ADC_TO_VOLTS;
-    oil_r_volts = oil_temp_r * ADC_TO_VOLTS;
+    // R_thermistor = (V_out * R1) / (V_ref - V_out)
+    oil_temp_l_resistance = (oil_l_volts * R1) / (ADC_VREF - oil_l_volts);
+    oil_temp_r_resistance = (oil_r_volts * R1) / (ADC_VREF - oil_r_volts);
 
-    //dont know if we need to cast to float or not. probably?
-    oil_temp_l_resistance = (oil_l_volts * 220) / (ADC_VREF - oil_l_volts);
-    oil_temp_r_resistance = (float) ((oil_r_volts * 220) / (ADC_VREF- oil_r_volts));
-    oil_temp_l_celsius = (int16_t) oil_temps_R_to_T(oil_temp_l_resistance);
-    oil_temp_r_celsius = (int16_t) oil_temps_R_to_T(oil_temp_r_resistance);
-    
-   SEND_OIL_TEMPS(oil_temp_l_celsius, oil_temp_r_celsius);
+    oil_temp_l_celsius    = (int16_t)oil_temps_R_to_T(oil_temp_l_resistance);
+    oil_temp_r_celsius    = (int16_t)oil_temps_R_to_T(oil_temp_r_resistance);
 
+    SEND_OIL_TEMPS(oil_temp_l_celsius, oil_temp_r_celsius);
 }
 
 // todo reboot on hardfault

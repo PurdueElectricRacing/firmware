@@ -24,9 +24,12 @@ static inline bool is_elcon_ready() {
 }
 
 static inline void report_internal_state() {
+    uint16_t scaled_charge_command_volts = (uint16_t)(charge_command_volts * PACK_COEFF_CHARGING_FSM_INTERNALS_VOLTAGE_LIMIT);
+    uint16_t scaled_charge_command_amps = (uint16_t)(charge_command_amps * PACK_COEFF_CHARGING_FSM_INTERNALS_CURRENT_LIMIT);
+
     CAN_SEND_charging_fsm_internals(
-        charge_request_decivolts,
-        charge_request_deciamps,
+        scaled_charge_command_volts,
+        scaled_charge_command_amps,
         g_bms.is_balancing_enabled,
         charging_state
     );
@@ -109,7 +112,7 @@ void charging_fsm_periodic() {
         }
     }
 
-    uint16_t scaled_charge_command_volts = (uint16_t)(charge_command_volts * PACK_COEFF_ELCON_COMMAND_CURRENT_LIMIT);
+    uint16_t scaled_charge_command_volts = (uint16_t)(charge_command_volts * PACK_COEFF_ELCON_COMMAND_VOLTAGE_LIMIT);
     uint16_t scaled_charge_command_amps = (uint16_t)(charge_command_amps * PACK_COEFF_ELCON_COMMAND_CURRENT_LIMIT);
     CAN_SEND_elcon_command(
         scaled_charge_command_volts,

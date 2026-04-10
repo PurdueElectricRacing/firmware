@@ -26,6 +26,7 @@ var annotated_dup =
     [ "__WIZCHIP", "struct____WIZCHIP.html", "struct____WIZCHIP" ],
     [ "adbms_bms_t", "structadbms__bms__t.html", "structadbms__bms__t" ],
     [ "adbms_module_t", "structadbms__module__t.html", "structadbms__module__t" ],
+    [ "adc1_dma_buffer_t", "structadc1__dma__buffer__t.html", null ],
     [ "ADCChannelConfig_t", "structADCChannelConfig__t.html", null ],
     [ "ADCInitConfig_t", "structADCInitConfig__t.html", null ],
     [ "AMK_t", "structAMK__t.html", null ],

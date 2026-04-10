@@ -98,6 +98,7 @@ $(function(){initNavTree('a__box_2main_8c.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">main.c File Reference</div></div>
@@ -107,6 +108,7 @@ $(function(){initNavTree('a__box_2main_8c.html',''); initResizable(true); });
 <p>"Abox" node source code  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="a__box_2main_8h_source.html">main.h</a>&quot;</code><br />
+<code>#include &lt;math.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="adbms_8h_source.html">adbms.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="faults__common_8h_source.html">common/can_library/faults_common.h</a>&quot;</code><br />
@@ -118,6 +120,11 @@ $(function(){initNavTree('a__box_2main_8c.html',''); initResizable(true); });
 <code>#include &quot;common/phal/adc.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="heartbeat_8h_source.html">common/heartbeat/heartbeat.h</a>&quot;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structadc1__dma__buffer__t.html">adc1_dma_buffer_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a2bffc10d5bd4106753b7c30e86903bea" id="r_a2bffc10d5bd4106753b7c30e86903bea"><td class="memItemLeft" align="right" valign="top"><a id="a2bffc10d5bd4106753b7c30e86903bea" name="a2bffc10d5bd4106753b7c30e86903bea"></a>
@@ -169,9 +176,9 @@ Variables</h2></td></tr>
 <tr class="separator:ad139ebffcf7f11feddfec40191b40aef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6af434e991280036f038f6db015e26f9" id="r_a6af434e991280036f038f6db015e26f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6af434e991280036f038f6db015e26f9">adc_config</a></td></tr>
 <tr class="separator:a6af434e991280036f038f6db015e26f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7d8c88c469a5606f5c86e68f3e8b828" id="r_ad7d8c88c469a5606f5c86e68f3e8b828"><td class="memItemLeft" align="right" valign="top"><a id="ad7d8c88c469a5606f5c86e68f3e8b828" name="ad7d8c88c469a5606f5c86e68f3e8b828"></a>
-volatile uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>isense_raw</b> = 0</td></tr>
-<tr class="separator:ad7d8c88c469a5606f5c86e68f3e8b828"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae25b2d4ee7535b3161795c5914bbd1d1" id="r_ae25b2d4ee7535b3161795c5914bbd1d1"><td class="memItemLeft" align="right" valign="top"><a id="ae25b2d4ee7535b3161795c5914bbd1d1" name="ae25b2d4ee7535b3161795c5914bbd1d1"></a>
+volatile <a class="el" href="structadc1__dma__buffer__t.html">adc1_dma_buffer_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>adc1_dma_buffer</b></td></tr>
+<tr class="separator:ae25b2d4ee7535b3161795c5914bbd1d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a900ff7ac22bd3d9e8566f23458355b34" id="r_a900ff7ac22bd3d9e8566f23458355b34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCChannelConfig__t.html">ADCChannelConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a900ff7ac22bd3d9e8566f23458355b34">adc_channel_config</a> []</td></tr>
 <tr class="separator:a900ff7ac22bd3d9e8566f23458355b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed595ebe33fb020bde82d6a1bcca6052" id="r_aed595ebe33fb020bde82d6a1bcca6052"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed595ebe33fb020bde82d6a1bcca6052">adc_dma_config</a></td></tr>
@@ -217,6 +224,7 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>g_bms_tx_buf</b> [
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
 <div class="line">    {.channel = ISENSE_ADC_CHANNEL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},</div>
+<div class="line">    {.channel = VBATT_ADC_CHANNEL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480}</div>
 <div class="line">}</div>
 </div><!-- fragment -->
 </div>
@@ -254,10 +262,9 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>g_bms_tx_buf</b> [
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">ADC1_DMA_CONT_CONFIG(</div>
-<div class="line">    (uint32_t)&amp;isense_raw,</div>
-<div class="line">    1, 0b01</div>
+<b>Initial value:</b><div class="fragment"><div class="line">= ADC1_DMA_CONT_CONFIG(</div>
+<div class="line">    (uint32_t)&amp;adc1_dma_buffer,</div>
+<div class="line">    <span class="keyword">sizeof</span>(adc1_dma_buffer) / <span class="keyword">sizeof</span>(uint16_t), 0b01</div>
 <div class="line">)</div>
 </div><!-- fragment -->
 </div>

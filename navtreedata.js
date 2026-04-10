@@ -161,7 +161,7 @@ var NAVTREEINDEX =
 "group__DATA__TYPE.html#ggac6b85cbd7d245ccf3cbfa734760d6ed3a77bc0cc803e53da92b009e4b096ccd61",
 "menu__system_8h_source.html",
 "pwm_8h_source.html",
-"structpage__handler__t.html"
+"structmenu__page__t.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

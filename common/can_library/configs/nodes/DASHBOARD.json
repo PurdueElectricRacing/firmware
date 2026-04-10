@@ -69,6 +69,9 @@
                 },
                 {
                     "msg_name": "igbt_temps"
+                },
+                {
+                    "msg_name": "rear_oil_temps"
                 }
             ]
         },

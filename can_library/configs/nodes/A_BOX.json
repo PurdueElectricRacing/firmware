@@ -62,14 +62,16 @@
                             "sig_desc": "Requested charge voltage in decivolts",
                             "unit": "V",
                             "scale": 0.1,
-                            "type": "uint16_t"
+                            "type": "uint16_t",
+                            "byte_order": "big_endian"
                         },
                         {
                             "sig_name": "current_limit",
                             "sig_desc": "Requested charge current in deciamps",
                             "unit": "A",
                             "scale": 0.1,
-                            "type": "uint16_t"
+                            "type": "uint16_t",
+                            "byte_order": "big_endian"
                         },
                         {
                             "sig_name": "charger_disable",

@@ -22,6 +22,7 @@ class Signal:
     length: int = 0
     unit: Optional[str] = None
     choices: Optional[List[str]] = None
+    byte_order: str = "little_endian"
     scale: float = 1.0
     offset: float = 0.0
     min_val: Optional[float] = None
@@ -84,8 +85,25 @@ class Message:
         for sig in self.signals:
             length = sig.get_bit_length(custom_types)
             sig.length = length
-            sig.bit_offset = current_offset
-            sig.bit_shift = current_offset
+            
+            if sig.byte_order == 'big_endian':
+                # Motorola/Big Endian bit numbering
+                # In DBC, the start bit is the LSB for Intel, but MSB for Motorola
+                # However, for our code generation, we want the "effective" bit shift 
+                # in a little-endian host (ARM). 
+                # For Big Endian signals, the bits are placed such that the MSB of the 
+                # signal corresponds to the lower bit index within its first byte in the CAN frame.
+                # Actually, the standard "sawtooth" mapping is:
+                # Byte 0: 7 6 5 4 3 2 1 0
+                # Byte 1: 15 14 13 12 11 10 9 8
+                # If we want MSB in Byte 0 and LSB in Byte 1:
+                # MSB is at bit 7, next at 6... down to bit 0, then wraps to bit 15.
+                sig.bit_offset = current_offset
+                sig.bit_shift = current_offset
+            else:
+                sig.bit_offset = current_offset
+                sig.bit_shift = current_offset
+                
             sig.mask = (1 << length) - 1
             
             # Resolve signedness
@@ -331,6 +349,7 @@ def parse_signal(data: Dict) -> Signal:
         length=data.get('length', 0),
         unit=data.get('unit'),
         choices=data.get('choices'),
+        byte_order=data.get('byte_order', 'little_endian'),
         scale=data.get('scale', 1.0),
         offset=data.get('offset', 0.0),
         min_val=data.get('min'),

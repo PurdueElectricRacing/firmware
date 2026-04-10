@@ -193,7 +193,7 @@ static inline float get_isense_correction_offset(float current) {
 }
 
 // DHAB S/134 current sensor conversion
-static inline int16_t isense_to_current(uint16_t isense_raw) {
+static inline float isense_to_current(uint16_t isense_raw) {
     static constexpr float ADC_VREF = 3.3f;
     static constexpr float ADC_MAX  = 4095.0f;
     static constexpr float ADC_TO_VOLTS = ADC_VREF / ADC_MAX;
@@ -214,8 +214,7 @@ static inline int16_t isense_to_current(uint16_t isense_raw) {
     if (current < 0.0f) current -= correction;
     else current += correction;
 
-    float scaled_current = current * PACK_COEFF_PACK_STATS_PACK_CURRENT;
-    return (int16_t)scaled_current;
+    return current;
 }
 
 static inline uint16_t vbatt_to_voltage(uint16_t vbatt_raw) {
@@ -230,15 +229,26 @@ static inline uint16_t vbatt_to_voltage(uint16_t vbatt_raw) {
     static constexpr float ANALOG_GAIN = 2.0f; // set to 1.0f if ADC sees 0-2V node
 
     float v_adc  = vbatt_raw * ADC_TO_VOLTS;
-    float v_batt = v_adc * DIV_GAIN / ANALOG_GAIN;
+    float voltage = v_adc * DIV_GAIN / ANALOG_GAIN;
 
-    return (uint16_t)(v_batt * PACK_COEFF_PACK_STATS_PACK_VOLTAGE);
+    return voltage;
 }
 
 void report_telemetry() {
-    uint16_t pack_voltage = vbatt_to_voltage(adc1_dma_buffer.vbatt_raw);
-    int16_t pack_current  = isense_to_current(adc1_dma_buffer.isense_raw);
+    uint16_t pack_voltage = (uint16_t)(vbatt_to_voltage(adc1_dma_buffer.vbatt_raw) * PACK_COEFF_PACK_STATS_PACK_VOLTAGE);
+    int16_t pack_current  = (int16_t)(isense_to_current(adc1_dma_buffer.isense_raw) * PACK_COEFF_PACK_STATS_PACK_CURRENT);
+
     CAN_SEND_pack_stats(pack_voltage, pack_current, g_bms.avg_therm_temp);
+
+    uint16_t min_cell_voltage = (uint16_t)(g_bms.min_voltage * PACK_COEFF_CHARGING_TELEMETRY_MIN_CELL_VOLTAGE);
+    uint16_t max_cell_voltage = (uint16_t)(g_bms.max_voltage * PACK_COEFF_CHARGING_TELEMETRY_MAX_CELL_VOLTAGE);
+
+    CAN_SEND_charging_telemetry(
+        pack_voltage,
+        pack_current,
+        min_cell_voltage,
+        max_cell_voltage
+    );
 
     // Report cell voltages one at a time
     static uint8_t module_num      = 0;

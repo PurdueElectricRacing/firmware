@@ -62,16 +62,14 @@
                             "sig_desc": "Requested charge voltage in decivolts",
                             "unit": "V",
                             "scale": 0.1,
-                            "type": "uint16_t",
-                            "length": 16
+                            "type": "uint16_t"
                         },
                         {
                             "sig_name": "current_limit",
                             "sig_desc": "Requested charge current in deciamps",
                             "unit": "A",
                             "scale": 0.1,
-                            "type": "uint16_t",
-                            "length": 16
+                            "type": "uint16_t"
                         },
                         {
                             "sig_name": "charger_disable",
@@ -95,6 +93,13 @@
                             "scale": 0.1
                         },
                         {
+                            "sig_name": "pack_current",
+                            "sig_desc": "Total pack current, positive is discharge",
+                            "type": "int16_t",
+                            "unit": "A",
+                            "scale": 0.1
+                        },
+                        {
                             "sig_name": "min_cell_voltage",
                             "sig_desc": "Minimum cell voltage in the pack",
                             "type": "uint16_t",
@@ -107,16 +112,38 @@
                             "type": "uint16_t",
                             "unit": "V",
                             "scale": 0.01
+                        }
+                    ],
+                    "msg_priority": 4,
+                    "msg_period": 10
+                },
+                {
+                    "msg_name": "charging_fsm_internals",
+                    "msg_desc": "Reported battery stats during charging",
+                    "signals": [
+                        {
+                            "sig_name": "voltage_limit",
+                            "sig_desc": "Requested charge voltage in decivolts",
+                            "unit": "V",
+                            "scale": 0.1,
+                            "type": "uint16_t"
                         },
                         {
-                            "sig_name": "charging_state",
-                            "sig_desc": "abox charging fsm state",
-                            "type": "charging_state_t"
+                            "sig_name": "current_limit",
+                            "sig_desc": "Requested charge current in deciamps",
+                            "unit": "A",
+                            "scale": 0.1,
+                            "type": "uint16_t"
                         },
                         {
                             "sig_name": "balancing_status",
                             "sig_desc": "Balancing status of the pack",
                             "type": "bool"
+                        },
+                        {
+                            "sig_name": "charging_state",
+                            "sig_desc": "abox charging fsm state",
+                            "type": "charging_state_t"
                         }
                     ],
                     "msg_priority": 4,

@@ -6,8 +6,8 @@
 static constexpr uint16_t MAX_PACK_CHARGING_DECIVOLTS = 540 * 10;
 static constexpr uint16_t MAX_PACK_CHARGING_DECIAMPS = 20 * 10;
 
-charging_state_t current_state = CHARGING_STATE_IDLE;
-charging_state_t next_state = CHARGING_STATE_IDLE;
+charging_state_t charging_state = CHARGING_STATE_IDLE;
+charging_state_t next_charging_state = CHARGING_STATE_IDLE;
 
 uint16_t charge_request_decivolts = 0;
 uint16_t charge_request_deciamps = 0;
@@ -23,17 +23,12 @@ static inline bool is_elcon_ready() {
     return !can_data.elcon_status.is_stale() && !can_data.elcon_status.startup_fail;
 }
 
-static inline void report_charging_telemetry() {
-    uint16_t pack_voltage = (uint16_t)(g_bms.sum_voltage * PACK_COEFF_CHARGING_TELEMETRY_PACK_VOLTAGE);
-    uint16_t min_cell_voltage = (uint16_t)(g_bms.min_voltage * PACK_COEFF_CHARGING_TELEMETRY_MIN_CELL_VOLTAGE);
-    uint16_t max_cell_voltage = (uint16_t)(g_bms.max_voltage * PACK_COEFF_CHARGING_TELEMETRY_MAX_CELL_VOLTAGE);
-
-    CAN_SEND_charging_telemetry(
-        pack_voltage,
-        min_cell_voltage,
-        max_cell_voltage,
-        current_state,
-        g_bms.is_balancing_enabled
+static inline void report_internal_state() {
+    CAN_SEND_charging_fsm_internals(
+        charge_request_decivolts,
+        charge_request_deciamps,
+        g_bms.is_balancing_enabled,
+        charging_state
     );
 }
 
@@ -73,8 +68,8 @@ static inline bool is_charging_permitted() {
 
 void charging_fsm_periodic() {
     // set default states
-    current_state = next_state;
-    next_state = current_state;
+    charging_state = next_charging_state;
+    next_charging_state = charging_state;
 
     g_bms.is_balancing_enabled = false;
     charge_request_decivolts = 0;
@@ -84,14 +79,14 @@ void charging_fsm_periodic() {
     update_fault(FAULT_ID_PACK_FULL, g_bms.sum_voltage);
 
     if (!is_charging_permitted()) {
-        current_state = CHARGING_STATE_IDLE;
+        charging_state = CHARGING_STATE_IDLE;
     }
 
-    switch (current_state) {
+    switch (charging_state) {
         case CHARGING_STATE_IDLE: {
 
             if (is_charging_permitted()) {
-                next_state = CHARGING_STATE_READY2CHARGE;
+                next_charging_state = CHARGING_STATE_READY2CHARGE;
             }
             break;
         }
@@ -99,7 +94,7 @@ void charging_fsm_periodic() {
             // todo: allow balancing in this state if requested by daqapp
             
             if (is_daqapp_requesting_charge()) {
-                next_state = CHARGING_STATE_CHARGING;
+                next_charging_state = CHARGING_STATE_CHARGING;
             }
             break;
         }
@@ -107,7 +102,7 @@ void charging_fsm_periodic() {
             update_charge_request();
             
             if (!is_daqapp_requesting_charge()) {
-                next_state = CHARGING_STATE_READY2CHARGE;
+                next_charging_state = CHARGING_STATE_READY2CHARGE;
             }
             break;
         }
@@ -119,5 +114,5 @@ void charging_fsm_periodic() {
         !charge_enable
     );
 
-    report_charging_telemetry();
+    report_internal_state();
 }

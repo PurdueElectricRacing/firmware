@@ -115,10 +115,9 @@ $(function(){initNavTree('driveline_2main_8c.html',''); initResizable(true); });
 <code>#include &quot;common/phal/dma.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="heartbeat_8h_source.html">common/heartbeat/heartbeat.h</a>&quot;</code><br />
-<code>#include &lt;math.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="pin__defs_8h_source.html">pin_defs.h</a>&quot;</code><br />
 <code>#include &quot;config.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="oil__temps__table_8h_source.html">source/driveline/oil_temps/oil_temps_table.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="pin__defs_8h_source.html">pin_defs.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="oil__temps__table_8h_source.html">oil_temps_table.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -219,12 +218,18 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>AHBClockRateHz</b
 <tr class="memitem:aac132aa42c20a1d3744db9df04f31c54" id="r_aac132aa42c20a1d3744db9df04f31c54"><td class="memItemLeft" align="right" valign="top"><a id="aac132aa42c20a1d3744db9df04f31c54" name="aac132aa42c20a1d3744db9df04f31c54"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>PLLClockRateHz</b></td></tr>
 <tr class="separator:aac132aa42c20a1d3744db9df04f31c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cbd042adad8ab29e5b421e1b01921ad" id="r_a7cbd042adad8ab29e5b421e1b01921ad"><td class="memItemLeft" align="right" valign="top"><a id="a7cbd042adad8ab29e5b421e1b01921ad" name="a7cbd042adad8ab29e5b421e1b01921ad"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>left_celsius_scaled</b> = 0</td></tr>
-<tr class="separator:a7cbd042adad8ab29e5b421e1b01921ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3303c69e9e7f1c3a3e511df9647a785" id="r_ab3303c69e9e7f1c3a3e511df9647a785"><td class="memItemLeft" align="right" valign="top"><a id="ab3303c69e9e7f1c3a3e511df9647a785" name="ab3303c69e9e7f1c3a3e511df9647a785"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>right_celsius_scaled</b> = 0</td></tr>
-<tr class="separator:ab3303c69e9e7f1c3a3e511df9647a785"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2c8ff4638387ce48a0cc0dff1b8561f" id="r_ad2c8ff4638387ce48a0cc0dff1b8561f"><td class="memItemLeft" align="right" valign="top"><a id="ad2c8ff4638387ce48a0cc0dff1b8561f" name="ad2c8ff4638387ce48a0cc0dff1b8561f"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>left_length_scaled</b> = 0</td></tr>
+<tr class="separator:ad2c8ff4638387ce48a0cc0dff1b8561f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7e316c6cc26becb52a2f6a3a6a26a65" id="r_ab7e316c6cc26becb52a2f6a3a6a26a65"><td class="memItemLeft" align="right" valign="top"><a id="ab7e316c6cc26becb52a2f6a3a6a26a65" name="ab7e316c6cc26becb52a2f6a3a6a26a65"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>right_length_scaled</b> = 0</td></tr>
+<tr class="separator:ab7e316c6cc26becb52a2f6a3a6a26a65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70c7f30ff122b1b5c72e9a745c1ac17a" id="r_a70c7f30ff122b1b5c72e9a745c1ac17a"><td class="memItemLeft" align="right" valign="top"><a id="a70c7f30ff122b1b5c72e9a745c1ac17a" name="a70c7f30ff122b1b5c72e9a745c1ac17a"></a>
+int16_t&#160;</td><td class="memItemRight" valign="bottom"><b>left_celsius_scaled</b> = 0</td></tr>
+<tr class="separator:a70c7f30ff122b1b5c72e9a745c1ac17a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b752e4d3fe77b3b52c9dafc1b41490f" id="r_a9b752e4d3fe77b3b52c9dafc1b41490f"><td class="memItemLeft" align="right" valign="top"><a id="a9b752e4d3fe77b3b52c9dafc1b41490f" name="a9b752e4d3fe77b3b52c9dafc1b41490f"></a>
+int16_t&#160;</td><td class="memItemRight" valign="bottom"><b>right_celsius_scaled</b> = 0</td></tr>
+<tr class="separator:a9b752e4d3fe77b3b52c9dafc1b41490f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>"Driveline" node source code </p>

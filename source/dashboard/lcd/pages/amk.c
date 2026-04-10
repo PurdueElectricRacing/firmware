@@ -8,7 +8,7 @@
 
 #include "amk.h"
 
-#include "common/can_library/generated/DASHBOARD.h"
+#include "can_library/generated/DASHBOARD.h"
 #include "nextion.h"
 #include "colors.h"
 

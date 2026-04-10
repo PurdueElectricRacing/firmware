@@ -217,7 +217,7 @@ static inline float isense_to_current(uint16_t isense_raw) {
     return current;
 }
 
-static inline uint16_t vbatt_to_voltage(uint16_t vbatt_raw) {
+static inline float vbatt_to_voltage(uint16_t vbatt_raw) {
     static constexpr float ADC_VREF = 3.3f;
     static constexpr float ADC_MAX  = 4095.0f;
     static constexpr float ADC_TO_VOLTS = ADC_VREF / ADC_MAX;

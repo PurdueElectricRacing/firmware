@@ -90,7 +90,7 @@
                             "sig_desc": "Total pack voltage",
                             "type": "uint16_t",
                             "unit": "V",
-                            "scale": 0.1
+                            "scale": 0.01
                         },
                         {
                             "sig_name": "pack_current",
@@ -119,7 +119,7 @@
                 },
                 {
                     "msg_name": "charging_fsm_internals",
-                    "msg_desc": "Reported battery stats during charging",
+                    "msg_desc": "Internal states of the charging FSM for debugging purposes",
                     "signals": [
                         {
                             "sig_name": "voltage_limit",

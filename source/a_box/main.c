@@ -208,11 +208,11 @@ static inline float isense_to_current(uint16_t isense_raw) {
     float v_adc      = isense_raw * ADC_TO_VOLTS;
     float v_sensor   = v_adc * DIV_GAIN;
     float current    = (v_sensor - V_OFFSET) / G; // data
-    float correction = get_isense_correction_offset(current);
+    // float correction = get_isense_correction_offset(current);
 
-    // Apply correction in the correct direction
-    if (current < 0.0f) current -= correction;
-    else current += correction;
+    // // Apply correction in the correct direction
+    // if (current < 0.0f) current -= correction;
+    // else current += correction;
 
     return current;
 }
@@ -235,7 +235,7 @@ static inline float vbatt_to_voltage(uint16_t vbatt_raw) {
 }
 
 void report_telemetry() {
-    uint16_t pack_voltage = (uint16_t)(vbatt_to_voltage(adc1_dma_buffer.vbatt_raw) * PACK_COEFF_PACK_STATS_PACK_VOLTAGE);
+    uint16_t pack_voltage = (uint16_t)(g_bms.sum_voltage * PACK_COEFF_PACK_STATS_PACK_VOLTAGE);
     int16_t pack_current  = (int16_t)(isense_to_current(adc1_dma_buffer.isense_raw) * PACK_COEFF_PACK_STATS_PACK_CURRENT);
 
     CAN_SEND_pack_stats(pack_voltage, pack_current, g_bms.avg_therm_temp);

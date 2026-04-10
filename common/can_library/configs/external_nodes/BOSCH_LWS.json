@@ -22,27 +22,27 @@
                     "length": 8
                 },
                 {
-                    "sig_name": "Ok",
-                    "sig_desc": "Sensor failure status",
+                    "sig_name": "OK",
+                    "sig_desc": "Sensor failure status, 0 = failure, 1 = OK",
                     "type": "bool"
                 },
                 {
-                    "sig_name": "Cal",
-                    "sig_desc": "Sensor calibration status",
+                    "sig_name": "CAL",
+                    "sig_desc": "Sensor calibration status, 0 = uncalibrated, 1 = calibrated",
                     "type": "bool"
                 },
                 {
-                    "sig_name": "Trim",
-                    "sig_desc": "Sensor information validity flag (invalid if 0)",
+                    "sig_name": "TRIM",
+                    "sig_desc": "Sensor trim status, 0 = invalid, 1 = valid",
                     "type": "bool"
                 },
                 {
-                    "sig_name": "Reserved_1",
+                    "sig_name": "reserved1",
                     "type": "uint8_t",
                     "length": 5
                 },
                 {
-                    "sig_name": "Reserved_2",
+                    "sig_name": "reserved2",
                     "type": "uint8_t",
                     "length": 8
                 }

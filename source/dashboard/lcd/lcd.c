@@ -10,6 +10,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "amk.h"
 #include "nextion.h"
 
 // pages
@@ -45,6 +46,14 @@ const page_handler_t page_handlers[NUM_PAGES] = { // Order must match page_t enu
         .select    = nullptr,
         .telemetry = calibration_telemetry_update,
         .string    = CALIBRATION_STRING
+    },
+    [PAGE_AMK] = {
+        .update    = nullptr,
+        .move_up   = nullptr,
+        .move_down = nullptr,
+        .select    = nullptr,
+        .telemetry = amk_telemetry_update,
+        .string    = AMK_STRING
     }
 };
 

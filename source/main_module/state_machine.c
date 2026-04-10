@@ -116,6 +116,54 @@ void report_telemetry() {
         g_car.rear_left.temps->AMK_IGBTTemp,
         g_car.rear_right.temps->AMK_IGBTTemp
     );
+
+    CAN_SEND_inva_set_vcan(
+        g_car.front_right.set->AMK_Control_bReserve,
+        g_car.front_right.set->AMK_Control_bInverterOn,
+        g_car.front_right.set->AMK_Control_bDcOn,
+        g_car.front_right.set->AMK_Control_bEnable,
+        g_car.front_right.set->AMK_Control_bErrorReset,
+        g_car.front_right.set->AMK_Control_bReserve2,
+        g_car.front_right.set->AMK_TorqueSetpoint,
+        g_car.front_right.set->AMK_PositiveTorqueLimit,
+        g_car.front_right.set->AMK_NegativeTorqueLimit
+    );
+
+    CAN_SEND_invb_set_vcan(
+        g_car.front_left.set->AMK_Control_bReserve,
+        g_car.front_left.set->AMK_Control_bInverterOn,
+        g_car.front_left.set->AMK_Control_bDcOn,
+        g_car.front_left.set->AMK_Control_bEnable,
+        g_car.front_left.set->AMK_Control_bErrorReset,
+        g_car.front_left.set->AMK_Control_bReserve2,
+        g_car.front_left.set->AMK_TorqueSetpoint,
+        g_car.front_left.set->AMK_PositiveTorqueLimit,
+        g_car.front_left.set->AMK_NegativeTorqueLimit
+    );
+
+    CAN_SEND_invc_set_vcan(
+        g_car.rear_left.set->AMK_Control_bReserve,
+        g_car.rear_left.set->AMK_Control_bInverterOn,
+        g_car.rear_left.set->AMK_Control_bDcOn,
+        g_car.rear_left.set->AMK_Control_bEnable,
+        g_car.rear_left.set->AMK_Control_bErrorReset,
+        g_car.rear_left.set->AMK_Control_bReserve2,
+        g_car.rear_left.set->AMK_TorqueSetpoint,
+        g_car.rear_left.set->AMK_PositiveTorqueLimit,
+        g_car.rear_left.set->AMK_NegativeTorqueLimit
+    );
+
+    CAN_SEND_invd_set_vcan(
+        g_car.rear_right.set->AMK_Control_bReserve,
+        g_car.rear_right.set->AMK_Control_bInverterOn,
+        g_car.rear_right.set->AMK_Control_bDcOn,
+        g_car.rear_right.set->AMK_Control_bEnable,
+        g_car.rear_right.set->AMK_Control_bErrorReset,
+        g_car.rear_right.set->AMK_Control_bReserve2,
+        g_car.rear_right.set->AMK_TorqueSetpoint,
+        g_car.rear_right.set->AMK_PositiveTorqueLimit,
+        g_car.rear_right.set->AMK_NegativeTorqueLimit
+    );
 }
 
 void fsm_periodic() {

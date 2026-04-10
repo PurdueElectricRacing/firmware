@@ -69,6 +69,18 @@
                 },
                 {
                     "msg_name": "igbt_temps"
+                },
+                {
+                    "msg_name": "inva_set_vcan"
+                },
+                {
+                    "msg_name": "invb_set_vcan"
+                },
+                {
+                    "msg_name": "invc_set_vcan"
+                },
+                {
+                    "msg_name": "invd_set_vcan"
                 }
             ]
         },

@@ -248,8 +248,8 @@ void shockpot_thread() {
 }
 
 // globals for GDB
-uint16_t left_celsius_scaled = 0;
-uint16_t right_celsius_scaled = 0;
+int16_t left_celsius_scaled = 0;
+int16_t right_celsius_scaled = 0;
 void oil_temps_thread() {
     static_assert(FRONT_OIL_TEMPS_LAYOUT_HASH == REAR_OIL_TEMPS_LAYOUT_HASH, "Oil temp messages should be the same");
     static constexpr float ADC_MAX      = 4095.0f;
@@ -267,8 +267,8 @@ void oil_temps_thread() {
     float left_celsius  = oil_temps_R_to_T(left_resistance);
     float right_celsius = oil_temps_R_to_T(right_resistance);
 
-    left_celsius_scaled  = (uint16_t)(left_celsius * PACK_COEFF_FRONT_OIL_TEMPS_LEFT);
-    right_celsius_scaled = (uint16_t)(right_celsius * PACK_COEFF_FRONT_OIL_TEMPS_RIGHT);
+    left_celsius_scaled  = (int16_t)(left_celsius * PACK_COEFF_FRONT_OIL_TEMPS_LEFT);
+    right_celsius_scaled = (int16_t)(right_celsius * PACK_COEFF_FRONT_OIL_TEMPS_RIGHT);
 
     SEND_OIL_TEMPS(left_celsius_scaled, right_celsius_scaled);
 }

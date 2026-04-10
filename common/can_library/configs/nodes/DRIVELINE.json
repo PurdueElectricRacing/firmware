@@ -55,14 +55,14 @@
                         {
                             "sig_name": "left",
                             "sig_desc": "Oil temp in front left gearbox",
-                            "type": "uint16_t",
+                            "type": "int16_t",
                             "unit": "C",
                             "scale": 0.01
                         },
                         {
                             "sig_name": "right",
                             "sig_desc": "Oil temp in front right gearbox",
-                            "type": "uint16_t",
+                            "type": "int16_t",
                             "unit": "C",
                             "scale": 0.01
                         }
@@ -77,14 +77,14 @@
                         {
                             "sig_name": "left",
                             "sig_desc": "Oil temp in rear left gearbox",
-                            "type": "uint16_t",
+                            "type": "int16_t",
                             "unit": "C",
                             "scale": 0.01
                         },
                         {
                             "sig_name": "right",
                             "sig_desc": "Oil temp in rear right gearbox",
-                            "type": "uint16_t",
+                            "type": "int16_t",
                             "unit": "C",
                             "scale": 0.01
                         }

@@ -72,14 +72,14 @@ static inline void CAN_rx_dispatcher(uint32_t id, uint8_t *data, uint8_t len, ui
                 {% if sig.byte_order == 'big_endian' %}
                 // Motorola/Big Endian: Needs byte-swap for 16/32/64 bit signals
                 {% if sig.length == 16 %}
-                uint16_t sig_raw = (uint16_t)((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }});
-                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})__builtin_bswap16(sig_raw);
+                uint16_t sig_raw_{{ sig.name }} = (uint16_t)((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }});
+                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})__builtin_bswap16(sig_raw_{{ sig.name }});
                 {% elif sig.length == 32 %}
-                uint32_t sig_raw = (uint32_t)((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }});
-                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})__builtin_bswap32(sig_raw);
+                uint32_t sig_raw_{{ sig.name }} = (uint32_t)((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }});
+                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})__builtin_bswap32(sig_raw_{{ sig.name }});
                 {% elif sig.length == 64 %}
-                uint64_t sig_raw = (uint64_t)((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }});
-                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})__builtin_bswap64(sig_raw);
+                uint64_t sig_raw_{{ sig.name }} = (uint64_t)((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }});
+                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})__builtin_bswap64(sig_raw_{{ sig.name }});
                 {% else %}
                 // For lengths other than 16/32/64, standard shift applies (DBC start bit must be LSB for sub-byte GE signals)
                 can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }});

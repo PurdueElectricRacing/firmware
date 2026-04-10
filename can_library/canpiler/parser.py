@@ -88,17 +88,15 @@ class Message:
             
             if sig.byte_order == 'big_endian':
                 # Motorola/Big Endian bit numbering
-                # In DBC, the start bit is the LSB for Intel, but MSB for Motorola
-                # However, for our code generation, we want the "effective" bit shift 
-                # in a little-endian host (ARM). 
-                # For Big Endian signals, the bits are placed such that the MSB of the 
-                # signal corresponds to the lower bit index within its first byte in the CAN frame.
-                # Actually, the standard "sawtooth" mapping is:
-                # Byte 0: 7 6 5 4 3 2 1 0
-                # Byte 1: 15 14 13 12 11 10 9 8
-                # If we want MSB in Byte 0 and LSB in Byte 1:
-                # MSB is at bit 7, next at 6... down to bit 0, then wraps to bit 15.
-                sig.bit_offset = current_offset
+                # In DBC, for Motorola, the start bit refers to the MSB.
+                # Standard conversion: bit_offset = (byte_idx * 8) + (7 - bit_idx_in_byte)
+                # For our simple pack/unpack in code, we keep bit_shift the same 
+                # but we need to ensure bit_offset (for DBC) is correct.
+                # However, cantools expects the "DBC start bit" which for Motorola is MSB.
+                byte_idx = current_offset // 8
+                bit_idx_in_byte = current_offset % 8
+                # Map our linear bit 0..7 to 7..0, 8..15 to 15..8 etc for MSB-first
+                sig.bit_offset = (byte_idx * 8) + (7 - bit_idx_in_byte)
                 sig.bit_shift = current_offset
             else:
                 sig.bit_offset = current_offset

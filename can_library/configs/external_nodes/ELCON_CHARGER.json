@@ -10,13 +10,15 @@
                     "sig_name": "charge_voltage",
                     "unit": "V",
                     "scale": 0.1,
-                    "type": "uint16_t"
+                    "type": "uint16_t",
+                    "byte_order": "big_endian"
                 },
                 {
                     "sig_name": "charge_current",
                     "unit": "A",
                     "scale": 0.1,
-                    "type": "uint16_t"
+                    "type": "uint16_t",
+                    "byte_order": "big_endian"
                 },
                 {
                     "sig_name": "hw_fail",

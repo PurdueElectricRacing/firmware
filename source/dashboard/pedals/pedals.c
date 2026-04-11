@@ -14,12 +14,12 @@
 #include "main.h"
 
 // todo pedal calibration
-static constexpr uint16_t THROTTLE1_MIN = 350;
-static constexpr uint16_t THROTTLE1_MAX = 800;
+static constexpr uint16_t THROTTLE1_MIN = 75;
+static constexpr uint16_t THROTTLE1_MAX = 440;
 static_assert(THROTTLE1_MIN < THROTTLE1_MAX, "Invalid throttle 1 calibration values");
 
-static constexpr uint16_t THROTTLE2_MIN = 400;
-static constexpr uint16_t THROTTLE2_MAX = 880;
+static constexpr uint16_t THROTTLE2_MIN = 10;
+static constexpr uint16_t THROTTLE2_MAX = 300;
 static_assert(THROTTLE2_MIN < THROTTLE2_MAX, "Invalid throttle 2 calibration values");
 
 static constexpr uint16_t BRAKE1_MIN = 410;
@@ -74,7 +74,7 @@ void pedalsPeriodic(void) {
 
     // FSAE 2026 T.4.2.10
     update_fault(FAULT_ID_APPS_WIRING_T1, throttle1);
-    update_fault(FAULT_ID_APPS_WIRING_T2, throttle2);
+    update_fault(FAULT_ID_APPS_WIRING_T2, throttle2+10);
 
     // Hard clamp the raw values to the min and max values to account for physical limits
     throttle1 = clamp(throttle1, THROTTLE1_MIN, THROTTLE1_MAX);

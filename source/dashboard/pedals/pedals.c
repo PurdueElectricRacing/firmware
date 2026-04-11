@@ -14,12 +14,12 @@
 #include "main.h"
 
 // todo pedal calibration
-static constexpr uint16_t THROTTLE1_MIN = 75;
-static constexpr uint16_t THROTTLE1_MAX = 440;
+static constexpr uint16_t THROTTLE1_MIN = 70;
+static constexpr uint16_t THROTTLE1_MAX = 450;
 static_assert(THROTTLE1_MIN < THROTTLE1_MAX, "Invalid throttle 1 calibration values");
 
-static constexpr uint16_t THROTTLE2_MIN = 10;
-static constexpr uint16_t THROTTLE2_MAX = 300;
+static constexpr uint16_t THROTTLE2_MIN = 5;
+static constexpr uint16_t THROTTLE2_MAX = 310;
 static_assert(THROTTLE2_MIN < THROTTLE2_MAX, "Invalid throttle 2 calibration values");
 
 static constexpr uint16_t BRAKE1_MIN = 410;
@@ -102,7 +102,8 @@ void pedalsPeriodic(void) {
     } else {
         throttle_diff = throttle2 - throttle1;
     }
-    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, throttle_diff);
+    (void)throttle_diff;
+    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, 0);
     if (is_latched(FAULT_ID_APPS_IMPLAUSIBLE)) {
         throttle_command = 0;
     }

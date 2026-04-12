@@ -36,7 +36,7 @@ void ready2drive_periodic() {
     float throttle = can_data.pedals.throttle / 4095.0f;
     int16_t torque_req_percent = (int16_t)(throttle * 100);
 
-    int16_t rear_torque = torque_req_percent * 1.5f; // allow 50% over-torque
+    int16_t rear_torque = torque_req_percent * 2.1f; // allow 110% over-torque
 
     // Bias to feel like a 30% - 70% torque split
     int16_t front_torque = (30.0f / 70.0f) * rear_torque;

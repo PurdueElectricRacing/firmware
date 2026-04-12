@@ -14,8 +14,8 @@
 #include "main.h"
 
 // todo pedal calibration
-static constexpr uint16_t THROTTLE1_MIN = 70;
-static constexpr uint16_t THROTTLE1_MAX = 450;
+static constexpr uint16_t THROTTLE1_MIN = 80;
+static constexpr uint16_t THROTTLE1_MAX = 500;
 static_assert(THROTTLE1_MIN < THROTTLE1_MAX, "Invalid throttle 1 calibration values");
 
 static constexpr uint16_t THROTTLE2_MIN = 5;

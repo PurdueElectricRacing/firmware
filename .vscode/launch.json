@@ -18,6 +18,7 @@
                 "-d",
                 "${workspaceFolder}/source/main_module"
             ],
+            "preLaunchTask": "build",
             "runToEntryPoint": "main",
             "liveWatch": {
                 "enabled": true,
@@ -65,7 +66,7 @@
                 "-d",
                 "${workspaceFolder}/source/dashboard"
             ],
-            // "preLaunchTask": "build",
+            "preLaunchTask": "build",
             "runToEntryPoint": "main",
             "liveWatch": {
                 "enabled": true,

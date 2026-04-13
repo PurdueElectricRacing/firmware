@@ -74,7 +74,7 @@ void pedalsPeriodic(void) {
 
     // FSAE 2026 T.4.2.10
     update_fault(FAULT_ID_APPS_WIRING_T1, throttle1);
-    update_fault(FAULT_ID_APPS_WIRING_T2, throttle2+10);
+    update_fault(FAULT_ID_APPS_WIRING_T2, throttle2);
 
     // Hard clamp the raw values to the min and max values to account for physical limits
     throttle1 = clamp(throttle1, THROTTLE1_MIN, THROTTLE1_MAX);
@@ -102,8 +102,7 @@ void pedalsPeriodic(void) {
     } else {
         throttle_diff = throttle2 - throttle1;
     }
-    (void)throttle_diff;
-    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, 0);
+    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, throttle_diff);
     if (is_latched(FAULT_ID_APPS_IMPLAUSIBLE)) {
         throttle_command = 0;
     }

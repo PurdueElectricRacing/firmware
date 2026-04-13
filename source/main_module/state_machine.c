@@ -38,8 +38,8 @@ void ready2drive_periodic() {
 
     int16_t rear_torque = torque_req_percent * 2.1f; // allow 110% over-torque
 
-    // Bias to feel like a 30% - 70% torque split
-    int16_t front_torque = (30.0f / 70.0f) * rear_torque;
+    // Bias to feel like a 40% - 60% torque split
+    int16_t front_torque = (40.0f / 60.0f) * rear_torque;
     
     g_torque_request.front_right = front_torque;
     g_torque_request.front_left  = front_torque;

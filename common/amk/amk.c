@@ -60,8 +60,8 @@ void AMK_set_torque(AMK_t *amk, int16_t torque_percent) {
         return;
     }
 
-    if (torque_percent > 150)
-        torque_percent = 150;
+    if (torque_percent > 210)
+        torque_percent = 210;
     if (torque_percent < 0)
         torque_percent = 0;
 

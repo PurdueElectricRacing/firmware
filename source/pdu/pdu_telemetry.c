@@ -1,0 +1,51 @@
+#include "pdu_telemetry.h"
+
+#include "common/can_library/faults_common.h"
+#include "common/can_library/generated/PDU.h"
+#include "flow_rate.h"
+#include "main.h"
+#include "pdu_state.h"
+#include "pdu_switches.h"
+
+static uint16_t pdu_telemetry_internal_temp_c(uint16_t internal_therm_adc_counts) {
+    float vsense = (internal_therm_adc_counts / (float)4095) * 3.3f;
+    float temp_c = ((vsense - 0.76f) / 0.0025f) + 25.0f;
+    return (uint16_t)temp_c;
+}
+
+void pdu_telemetry_power_periodic(void) {
+    update_fault(FAULT_ID_LV_GETTING_LOW, g_pdu_state.rail_voltage_mv.in_24v_mv);
+    update_fault(FAULT_ID_LV_CRITICAL_LOW, g_pdu_state.rail_voltage_mv.in_24v_mv);
+
+    CAN_SEND_v_rails(
+        g_pdu_state.rail_voltage_mv.in_24v_mv,
+        g_pdu_state.rail_voltage_mv.out_5v_mv,
+        g_pdu_state.rail_voltage_mv.out_3v3_mv,
+        0
+    );
+
+    CAN_SEND_rail_currents(g_pdu_state.switch_current_ma[CS_24V], g_pdu_state.switch_current_ma[CS_5V]);
+
+    CAN_SEND_pump_and_fan_current(
+        g_pdu_state.switch_current_ma[SW_PUMP_1],
+        g_pdu_state.switch_current_ma[SW_PUMP_2],
+        g_pdu_state.switch_current_ma[SW_FAN_1],
+        g_pdu_state.switch_current_ma[SW_FAN_2]
+    );
+
+    CAN_SEND_fan_current2(g_pdu_state.switch_current_ma[SW_FAN_3], g_pdu_state.switch_current_ma[SW_FAN_4]);
+
+    CAN_SEND_other_currents(
+        g_pdu_state.switch_current_ma[SW_SDC],
+        g_pdu_state.switch_current_ma[SW_HXFAN],
+        g_pdu_state.switch_current_ma[SW_DASH],
+        g_pdu_state.switch_current_ma[SW_ABOX],
+        g_pdu_state.switch_current_ma[SW_MAIN]
+    );
+
+    CAN_SEND_pdu_temps(pdu_telemetry_internal_temp_c(adc_readings.internal_therm));
+}
+
+void pdu_telemetry_flow_periodic(void) {
+    CAN_SEND_flowrates(getFlowRate1(), getFlowRate2());
+}

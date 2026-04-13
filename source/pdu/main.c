@@ -7,27 +7,28 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-/* System Includes */
+#include "main.h"
+
+#include "can_library/generated/PDU.h"
 #include "can_library/faults_common.h"
-#include "common/common_defs/common_defs.h"
 #include "common/freertos/freertos.h"
+#include "common/heartbeat/heartbeat.h"
 #include "common/phal/adc.h"
 #include "common/phal/can.h"
 #include "common/phal/dma.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
-#include "common/heartbeat/heartbeat.h"
 #include "common/utils/countof.h"
 #include "common/watchdog/watchdog.h"
 
-/* Module Includes */
-#include "auto_switch.h"
-#include "can_library/generated/PDU.h"
-#include "cooling.h"
 #include "fan_control.h"
 #include "flow_rate.h"
 #include "led.h"
-#include "main.h"
+#include "pdu_cooling.h"
+#include "pdu_faults.h"
+#include "pdu_state.h"
+#include "pdu_switches.h"
+#include "pdu_telemetry.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // Status Indicators
@@ -233,58 +234,25 @@ extern uint32_t PLLClockRateHz;
 
 void HardFault_Handler();
 
-/* Task functions */
-void send_iv_readings();
-void send_flowrates();
+static void pdu_heartbeat_led_sweep(void) {
+    static int led_index = 0;
+    static bool decrement = false;
 
-void sparkle_leds() {
-    static int led_number;
-        static bool led_decrement = false;
-    if (led_number < MAX_NUM_LED && !led_decrement) {
-        led_number++;
-        LED_control(led_number, LED_ON);
-    } else if (led_number >= MAX_NUM_LED && !led_decrement) {
-        led_decrement = true;
+    if (!decrement) {
+        LED_control(led_index, LED_ON);
+        led_index++;
+        if (led_index >= MAX_NUM_LED) {
+            led_index = MAX_NUM_LED - 1;
+            decrement = true;
+        }
     } else {
-        led_number--;
-        LED_control(led_number, LED_OFF);
+        LED_control(led_index, LED_OFF);
+        if (led_index == 0) {
+            decrement = false;
+        } else {
+            led_index--;
+        }
     }
-}
-
-void send_flowrates() {
-    CAN_SEND_flowrates(getFlowRate1(), getFlowRate2());
-}
-
-void send_iv_readings() {
-    // Set LV Batt faults
-    // set_fault(FAULT_ID_PDU_LV_BATT_FIFTY, auto_switches.voltage.in_24v);
-    update_fault(FAULT_ID_LV_GETTING_LOW, auto_switches.voltage.in_24v);
-    update_fault(FAULT_ID_LV_CRITICAL_LOW, auto_switches.voltage.in_24v);
-    // Send CAN messages containing voltage and current data
-    CAN_SEND_v_rails(auto_switches.voltage.in_24v,
-                     auto_switches.voltage.out_5v,
-                     auto_switches.voltage.out_3v3,
-                     0); // amk_24v removed: mux ch4/5 are current sense, not voltage
-    CAN_SEND_rail_currents(auto_switches.current[CS_24V], auto_switches.current[CS_5V]);
-    CAN_SEND_pump_and_fan_current(auto_switches.current[SW_PUMP_1],
-                                  auto_switches.current[SW_PUMP_2],
-                                  auto_switches.current[SW_FAN_1],
-                                  auto_switches.current[SW_FAN_2]);
-    CAN_SEND_fan_current2(auto_switches.current[SW_FAN_3], auto_switches.current[SW_FAN_4]);
-    CAN_SEND_other_currents(auto_switches.current[SW_SDC],
-                            auto_switches.current[SW_HXFAN],
-                            auto_switches.current[SW_DASH],
-                            auto_switches.current[SW_ABOX],
-                            auto_switches.current[SW_MAIN]);
-
-    // DS8626 Rev 10 pg 139
-    // Reference voltage is 3.3
-    // 12 bit adc max is 4095
-    // Voltage at 25 degrees c is 0.76
-    // Average slope is 2.5mV per degree c
-    float vsense = (adc_readings.internal_therm / (float)4095) * 3.3f;
-    float temp   = ((vsense - 0.76f) / 0.0025f) + 25.0f;
-    CAN_SEND_pdu_temps((uint16_t)temp);
 }
 
 // Thread Defines
@@ -298,7 +266,6 @@ DEFINE_TASK(send_flowrates, 200, osPriorityLow, STACK_256);
 DEFINE_TASK(fault_library_periodic, 100, osPriorityLow, STACK_1024);
 DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(sparkle_leds);
-
 int main() {
     // Hardware Initialization
     if (0 != PHAL_configureClockRates(&clock_config)) {
@@ -327,23 +294,15 @@ int main() {
     }
     PHAL_writeGPIO(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, 1);
 
+    pdu_state_init_defaults();
+    pdu_switches_init();
+    pdu_faults_init();
+
     fanControlInit();
-    coolingInit();
+    pdu_cooling_init();
     flowRateInit();
 
-    // Initialize default 'ON' rails
-    setSwitch(SW_SDC, 1);
-    setSwitch(SW_DAQ, 1);
-    setSwitch(SW_TV, 1);
-    setSwitch(SW_MAIN, 1);
-    setSwitch(SW_ABOX, 1);
-    setSwitch(SW_DASH, 1);
-    setSwitch(SW_CRIT_5V, 1);
-    setSwitch(SW_BLT, 1);
-    setSwitch(SW_HXFAN, 1);
-    setSwitch(SW_DLBK, 1);
-    setSwitch(SW_PUMP_1, 1);
-    setSwitch(SW_PUMP_2, 1);
+    pdu_switches_enable_default_rails();
 
     osKernelInitialize();
 

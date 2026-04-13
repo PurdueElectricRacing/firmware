@@ -246,9 +246,9 @@ void shockpot_thread() {
 
 #ifdef IS_FRONT_DRIVELINE
     // ! account for error in the harness: front left and right are swapped
-    SEND_SHOCKPOTS(right_length_scaled, left_length_scaled);
+    CAN_SEND_front_shockpots(right_length_scaled, left_length_scaled);
 #else
-    SEND_SHOCKPOTS(left_length_scaled, right_length_scaled);
+    CAN_SEND_rear_shockpots(left_length_scaled, right_length_scaled);
 #endif
 }
 

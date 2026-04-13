@@ -47,10 +47,6 @@ void ready2drive_periodic() {
     g_torque_request.rear_right  = rear_torque;
 }
 
-static inline bool is_init_complete() {
-    return true;
-}
-
 static inline bool is_all_AMKS_running() {
     return g_car.front_right.state == AMK_STATE_RUNNING
         && g_car.front_left.state  == AMK_STATE_RUNNING

@@ -244,7 +244,12 @@ void shockpot_thread() {
     left_length_scaled  = (uint16_t)(left_length * PACK_COEFF_FRONT_SHOCKPOTS_LEFT);
     right_length_scaled = (uint16_t)(right_length * PACK_COEFF_FRONT_SHOCKPOTS_RIGHT);
 
+#ifdef IS_FRONT_DRIVELINE
+    // ! account for error in the harness: front left and right are swapped
+    SEND_SHOCKPOTS(right_length_scaled, left_length_scaled);
+#else
     SEND_SHOCKPOTS(left_length_scaled, right_length_scaled);
+#endif
 }
 
 // globals for GDB

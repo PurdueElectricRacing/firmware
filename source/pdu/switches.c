@@ -1,10 +1,10 @@
-#include "pdu_switches.h"
+#include "switches.h"
 
 #include <string.h>
 
 #include "led.h"
 #include "main.h"
-#include "pdu_state.h"
+#include "state.h"
 
 #include "common/phal/gpio.h"
 
@@ -57,7 +57,7 @@ static const pdu_switch_output_t PDU_SWITCH_OUTPUTS[] = {
     {.switch_id = SW_FAN_5V, .ctrl_port = FAN_5V_CTRL_GPIO_Port, .ctrl_pin = FAN_5V_CTRL_Pin, .has_ctrl_output = true, .led_id = LED_5V_FAN},
 };
 
-static const pdu_switch_output_t *pdu_switches_get_output(switches_t switch_id) {
+static const pdu_switch_output_t *switches_get_output(switches_t switch_id) {
     for (uint32_t i = 0; i < (sizeof(PDU_SWITCH_OUTPUTS) / sizeof(PDU_SWITCH_OUTPUTS[0])); i++) {
         if (PDU_SWITCH_OUTPUTS[i].switch_id == switch_id) {
             return &PDU_SWITCH_OUTPUTS[i];
@@ -67,57 +67,57 @@ static const pdu_switch_output_t *pdu_switches_get_output(switches_t switch_id) 
     return nullptr;
 }
 
-static uint16_t pdu_switches_convert_high_power_current_ma(uint16_t adc_counts) {
+static uint16_t switches_convert_high_power_current_ma(uint16_t adc_counts) {
     adc_counts = adc_counts * ADC_REF_mV / ADC_MAX_COUNTS;
     adc_counts = adc_counts * (HP_CS_R1 + HP_CS_R2) / HP_CS_R2;
     adc_counts = adc_counts * HP_CS_R3 / (HP_CS_R1 + HP_CS_R2);
     return adc_counts;
 }
 
-static uint16_t pdu_switches_convert_low_power_current_ma(uint16_t adc_counts) {
+static uint16_t switches_convert_low_power_current_ma(uint16_t adc_counts) {
     adc_counts = adc_counts * ADC_REF_mV / ADC_MAX_COUNTS;
     return adc_counts;
 }
 
-static uint16_t pdu_switches_convert_voltage_mv(uint16_t adc_counts, int r1_ohm, int r2_ohm) {
+static uint16_t switches_convert_voltage_mv(uint16_t adc_counts, int r1_ohm, int r2_ohm) {
     adc_counts = adc_counts * (r1_ohm + r2_ohm) / r2_ohm;
     adc_counts = adc_counts * ADC_REF_mV / ADC_MAX_COUNTS;
     return adc_counts;
 }
 
-static void pdu_switches_select_mux_channel(uint8_t channel) {
+static void switches_select_mux_channel(uint8_t channel) {
     PHAL_writeGPIO(MUX_CTRL_A_GPIO_Port, MUX_CTRL_A_Pin, (channel & 0x01U) != 0U);
     PHAL_writeGPIO(MUX_CTRL_B_GPIO_Port, MUX_CTRL_B_Pin, (channel & 0x02U) != 0U);
     PHAL_writeGPIO(MUX_CTRL_C_GPIO_Port, MUX_CTRL_C_Pin, (channel & 0x04U) != 0U);
 }
 
-static void pdu_switches_update_mux_measurements(void) {
+static void switches_update_mux_measurements(void) {
     const uint8_t sampled_channel = g_pdu_state.next_mux_channel;
 
     g_pdu_state.mux_adc_counts[sampled_channel] = adc_readings.mux_out;
     g_pdu_state.next_mux_channel                = (uint8_t)((sampled_channel + 1U) % 6U);
 
-    pdu_switches_select_mux_channel(g_pdu_state.next_mux_channel);
+    switches_select_mux_channel(g_pdu_state.next_mux_channel);
 }
 
-static void pdu_switches_update_currents(void) {
-    g_pdu_state.switch_current_ma[SW_PUMP_1] = pdu_switches_convert_high_power_current_ma(adc_readings.pump_1_imon);
-    g_pdu_state.switch_current_ma[SW_PUMP_2] = pdu_switches_convert_high_power_current_ma(adc_readings.pump_2_imon);
-    g_pdu_state.switch_current_ma[SW_SDC]    = pdu_switches_convert_high_power_current_ma(adc_readings.sdc_imon);
-    g_pdu_state.switch_current_ma[SW_HXFAN]  = pdu_switches_convert_high_power_current_ma(adc_readings.hxfan_imon);
+static void switches_update_currents(void) {
+    g_pdu_state.switch_current_ma[SW_PUMP_1] = switches_convert_high_power_current_ma(adc_readings.pump_1_imon);
+    g_pdu_state.switch_current_ma[SW_PUMP_2] = switches_convert_high_power_current_ma(adc_readings.pump_2_imon);
+    g_pdu_state.switch_current_ma[SW_SDC]    = switches_convert_high_power_current_ma(adc_readings.sdc_imon);
+    g_pdu_state.switch_current_ma[SW_HXFAN]  = switches_convert_high_power_current_ma(adc_readings.hxfan_imon);
 
-    g_pdu_state.switch_current_ma[SW_FAN_1] = pdu_switches_convert_high_power_current_ma(g_pdu_state.mux_adc_counts[0]);
-    g_pdu_state.switch_current_ma[SW_FAN_2] = pdu_switches_convert_high_power_current_ma(g_pdu_state.mux_adc_counts[1]);
-    g_pdu_state.switch_current_ma[SW_FAN_3] = pdu_switches_convert_high_power_current_ma(g_pdu_state.mux_adc_counts[2]);
-    g_pdu_state.switch_current_ma[SW_FAN_4] = pdu_switches_convert_high_power_current_ma(g_pdu_state.mux_adc_counts[3]);
-    g_pdu_state.switch_current_ma[SW_AMK1]  = pdu_switches_convert_high_power_current_ma(g_pdu_state.mux_adc_counts[4]);
-    g_pdu_state.switch_current_ma[SW_AMK2]  = pdu_switches_convert_high_power_current_ma(g_pdu_state.mux_adc_counts[5]);
+    g_pdu_state.switch_current_ma[SW_FAN_1] = switches_convert_high_power_current_ma(g_pdu_state.mux_adc_counts[0]);
+    g_pdu_state.switch_current_ma[SW_FAN_2] = switches_convert_high_power_current_ma(g_pdu_state.mux_adc_counts[1]);
+    g_pdu_state.switch_current_ma[SW_FAN_3] = switches_convert_high_power_current_ma(g_pdu_state.mux_adc_counts[2]);
+    g_pdu_state.switch_current_ma[SW_FAN_4] = switches_convert_high_power_current_ma(g_pdu_state.mux_adc_counts[3]);
+    g_pdu_state.switch_current_ma[SW_AMK1]  = switches_convert_high_power_current_ma(g_pdu_state.mux_adc_counts[4]);
+    g_pdu_state.switch_current_ma[SW_AMK2]  = switches_convert_high_power_current_ma(g_pdu_state.mux_adc_counts[5]);
 
-    g_pdu_state.switch_current_ma[SW_DASH] = pdu_switches_convert_low_power_current_ma(adc_readings.dash_cs);
-    g_pdu_state.switch_current_ma[SW_ABOX] = pdu_switches_convert_low_power_current_ma(adc_readings.abox_cs);
-    g_pdu_state.switch_current_ma[SW_MAIN] = pdu_switches_convert_low_power_current_ma(adc_readings.main_cs);
-    g_pdu_state.switch_current_ma[SW_DLFR] = pdu_switches_convert_low_power_current_ma(adc_readings.dlfr_cs);
-    g_pdu_state.switch_current_ma[SW_DLBK] = pdu_switches_convert_low_power_current_ma(adc_readings.dlbk_cs);
+    g_pdu_state.switch_current_ma[SW_DASH] = switches_convert_low_power_current_ma(adc_readings.dash_cs);
+    g_pdu_state.switch_current_ma[SW_ABOX] = switches_convert_low_power_current_ma(adc_readings.abox_cs);
+    g_pdu_state.switch_current_ma[SW_MAIN] = switches_convert_low_power_current_ma(adc_readings.main_cs);
+    g_pdu_state.switch_current_ma[SW_DLFR] = switches_convert_low_power_current_ma(adc_readings.dlfr_cs);
+    g_pdu_state.switch_current_ma[SW_DLBK] = switches_convert_low_power_current_ma(adc_readings.dlbk_cs);
 
     uint16_t current_mv = adc_readings.v24_cs;
     current_mv = current_mv * ADC_REF_mV / ADC_MAX_COUNTS;
@@ -129,30 +129,30 @@ static void pdu_switches_update_currents(void) {
     g_pdu_state.switch_current_ma[CS_5V] = current_mv;
 }
 
-static void pdu_switches_update_voltages(void) {
-    g_pdu_state.rail_voltage_mv.in_24v_mv  = pdu_switches_convert_voltage_mv(adc_readings.v24_vs, LV_24V_R1, LV_24V_R2);
-    g_pdu_state.rail_voltage_mv.out_5v_mv  = pdu_switches_convert_voltage_mv(adc_readings.v5_vs, LV_5V_R1, LV_5V_R2);
-    g_pdu_state.rail_voltage_mv.out_3v3_mv = pdu_switches_convert_voltage_mv(adc_readings.v3v3_vs, LV_3V3_R1, LV_3V3_R2);
+static void switches_update_voltages(void) {
+    g_pdu_state.rail_voltage_mv.in_24v_mv  = switches_convert_voltage_mv(adc_readings.v24_vs, LV_24V_R1, LV_24V_R2);
+    g_pdu_state.rail_voltage_mv.out_5v_mv  = switches_convert_voltage_mv(adc_readings.v5_vs, LV_5V_R1, LV_5V_R2);
+    g_pdu_state.rail_voltage_mv.out_3v3_mv = switches_convert_voltage_mv(adc_readings.v3v3_vs, LV_3V3_R1, LV_3V3_R2);
 }
 
-void pdu_switches_init(void) {
+void switches_init(void) {
     g_pdu_state.next_mux_channel = 0;
     memset(g_pdu_state.mux_adc_counts, 0, sizeof(g_pdu_state.mux_adc_counts));
-    pdu_switches_select_mux_channel(g_pdu_state.next_mux_channel);
+    switches_select_mux_channel(g_pdu_state.next_mux_channel);
 }
 
-void pdu_switches_periodic(void) {
-    pdu_switches_update_mux_measurements();
-    pdu_switches_update_currents();
-    pdu_switches_update_voltages();
+void switches_periodic(void) {
+    switches_update_mux_measurements();
+    switches_update_currents();
+    switches_update_voltages();
 }
 
-void pdu_switches_set_state(switches_t switch_id, bool enabled) {
+void switches_set_state(switches_t switch_id, bool enabled) {
     if (switch_id == CS_24V || switch_id == CS_5V || switch_id == CS_SWITCH_COUNT) {
         return;
     }
 
-    const pdu_switch_output_t *output = pdu_switches_get_output(switch_id);
+    const pdu_switch_output_t *output = switches_get_output(switch_id);
     if (output == nullptr) {
         return;
     }
@@ -166,8 +166,8 @@ void pdu_switches_set_state(switches_t switch_id, bool enabled) {
     }
 }
 
-bool pdu_switches_is_enabled(switches_t switch_id) {
-    const pdu_switch_output_t *output = pdu_switches_get_output(switch_id);
+bool switches_is_enabled(switches_t switch_id) {
+    const pdu_switch_output_t *output = switches_get_output(switch_id);
     if (output == nullptr || !output->has_ctrl_output) {
         return true;
     }
@@ -175,7 +175,7 @@ bool pdu_switches_is_enabled(switches_t switch_id) {
     return PHAL_readGPIO(output->ctrl_port, output->ctrl_pin);
 }
 
-uint16_t pdu_switches_get_mux_adc_counts(uint8_t channel) {
+uint16_t switches_get_mux_adc_counts(uint8_t channel) {
     if (channel >= 6U) {
         return 0;
     }
@@ -183,17 +183,17 @@ uint16_t pdu_switches_get_mux_adc_counts(uint8_t channel) {
     return g_pdu_state.mux_adc_counts[channel];
 }
 
-void pdu_switches_enable_default_rails(void) {
-    pdu_switches_set_state(SW_SDC, true);
-    pdu_switches_set_state(SW_DAQ, true);
-    pdu_switches_set_state(SW_TV, true);
-    pdu_switches_set_state(SW_MAIN, true);
-    pdu_switches_set_state(SW_ABOX, true);
-    pdu_switches_set_state(SW_DASH, true);
-    pdu_switches_set_state(SW_CRIT_5V, true);
-    pdu_switches_set_state(SW_BLT, true);
-    pdu_switches_set_state(SW_HXFAN, true);
-    pdu_switches_set_state(SW_DLBK, true);
-    pdu_switches_set_state(SW_PUMP_1, true);
-    pdu_switches_set_state(SW_PUMP_2, true);
+void switches_enable_default_rails(void) {
+    switches_set_state(SW_SDC, true);
+    switches_set_state(SW_DAQ, true);
+    switches_set_state(SW_TV, true);
+    switches_set_state(SW_MAIN, true);
+    switches_set_state(SW_ABOX, true);
+    switches_set_state(SW_DASH, true);
+    switches_set_state(SW_CRIT_5V, true);
+    switches_set_state(SW_BLT, true);
+    switches_set_state(SW_HXFAN, true);
+    switches_set_state(SW_DLBK, true);
+    switches_set_state(SW_PUMP_1, true);
+    switches_set_state(SW_PUMP_2, true);
 }

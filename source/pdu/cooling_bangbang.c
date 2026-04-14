@@ -1,4 +1,4 @@
-#include "pdu_cooling_bangbang.h"
+#include "cooling_bangbang.h"
 
 #if PDU_COOLING_ENABLE_BANGBANG
 
@@ -50,24 +50,32 @@ INIT_BANG_BANG(
     BANGBANG_MIN_SWITCH_MS
 )
 
-static float pdu_cooling_hottest_motor_temp_c(void) {
+static float cooling_hottest_motor_temp_c(void) {
     float front_left = can_data.motor_temps.front_left;
     float front_right = can_data.motor_temps.front_right;
     return front_left > front_right ? front_left : front_right;
 }
 
-bool pdu_cooling_bangbang_is_enabled(void) {
+static bool cooling_not_moving(void) {
+    if (can_data.main_hb.is_stale()) {
+        return true;
+    }
+
+    return can_data.main_hb.car_state != CAR_STATE_READY2DRIVE;
+}
+
+bool cooling_bangbang_is_enabled(void) {
     return true;
 }
 
-void pdu_cooling_bangbang_init(void) {
+void cooling_bangbang_init(void) {
     motor_pump_controller.is_on = false;
     motor_fan_controller.is_on = false;
     motor_pump_controller.last_switch_ms = 0;
     motor_fan_controller.last_switch_ms = 0;
 }
 
-void pdu_cooling_bangbang_update(pdu_cooling_command_t *cooling_command) {
+void cooling_bangbang_update(pdu_cooling_command_t *cooling_command) {
     if (cooling_command == nullptr) {
         return;
     }
@@ -78,12 +86,12 @@ void pdu_cooling_bangbang_update(pdu_cooling_command_t *cooling_command) {
         return;
     }
 
-    float motor_temp_c = pdu_cooling_hottest_motor_temp_c();
+    float motor_temp_c = cooling_hottest_motor_temp_c();
     uint32_t now_ms = OS_TICKS;
 
     bangbang_update(&motor_pump_controller, motor_temp_c, now_ms);
 
-    bool not_moving = true;
+    bool not_moving = cooling_not_moving();
     if (not_moving) {
         bangbang_update(&motor_fan_controller, motor_temp_c, now_ms);
     } else if (motor_temp_c < MOTOR_FAN_STOP_ON_TEMP_C) {
@@ -96,14 +104,14 @@ void pdu_cooling_bangbang_update(pdu_cooling_command_t *cooling_command) {
 
 #else
 
-bool pdu_cooling_bangbang_is_enabled(void) {
+bool cooling_bangbang_is_enabled(void) {
     return false;
 }
 
-void pdu_cooling_bangbang_init(void) {
+void cooling_bangbang_init(void) {
 }
 
-void pdu_cooling_bangbang_update(pdu_cooling_command_t *cooling_command) {
+void cooling_bangbang_update(pdu_cooling_command_t *cooling_command) {
     (void)cooling_command;
 }
 

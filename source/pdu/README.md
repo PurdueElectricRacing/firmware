@@ -16,30 +16,30 @@ PDU controls and monitors low-voltage power rails and cooling hardware for the c
   - Board init, peripheral init, task definitions, task startup order.
   - No business logic beyond orchestration.
 
-- `pdu_state.h/.c`
+- `state.h/.c`
   - Shared runtime state (`g_pdu_state`) for all PDU logic.
 
-- `pdu_switches.h/.c`
+- `switches.h/.c`
   - Switch command/read API.
   - ADC and mux measurement pipeline.
   - Rail current/voltage conversions.
   - Default-rail enable sequence.
 
-- `pdu_faults.h/.c`
+- `faults.h/.c`
   - Table-driven nFAULT polling.
   - One-fault-slot-per-cycle update cadence.
   - Rail fault LED behavior.
 
-- `pdu_cooling.h/.c`
+- `cooling.h/.c`
   - Cooling policy computation.
   - Cooling actuation (switches + fan PWM).
   - Cooling CAN output publication.
 
-- `pdu_cooling_bangbang.h/.c`
+- `cooling_bangbang.h/.c`
   - Optional bang-bang policy backend.
   - Compiled in but disabled by default.
 
-- `pdu_telemetry.h/.c`
+- `telemetry.h/.c`
   - Power/thermal telemetry CAN publication.
   - Flowrate telemetry CAN publication.
 
@@ -64,20 +64,20 @@ Defined in `main.c`:
 
 - `CAN_rx_update` (0 ms)
 - `CAN_tx_update` (5 ms)
-- `pdu_switches_periodic` (15 ms)
-- `pdu_cooling_periodic` (100 ms)
-- `pdu_faults_periodic` (100 ms)
+- `switches_periodic` (15 ms)
+- `cooling_periodic` (100 ms)
+- `faults_periodic` (100 ms)
 - `fault_library_periodic` (100 ms)
-- `pdu_telemetry_flow_periodic` (200 ms)
+- `telemetry_flow_periodic` (200 ms)
 - `LED_periodic` (500 ms)
-- `pdu_telemetry_power_periodic` (500 ms)
+- `telemetry_power_periodic` (500 ms)
 - Heartbeat task (LED sweep callback)
 
 ## Cooling Backend: Bang-Bang (Disabled by Default)
 
 The bang-bang backend is present for future policy work, but disabled to preserve current behavior.
 
-- Toggle: `PDU_COOLING_ENABLE_BANGBANG` in `pdu_cooling_bangbang.h`
+- Toggle: `PDU_COOLING_ENABLE_BANGBANG` in `cooling_bangbang.h`
   - `0` (default): backend is a no-op.
   - `1`: motor temp based bang-bang updates are applied.
 

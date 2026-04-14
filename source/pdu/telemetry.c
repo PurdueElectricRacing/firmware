@@ -1,19 +1,27 @@
-#include "pdu_telemetry.h"
+#include "telemetry.h"
 
 #include "common/can_library/faults_common.h"
 #include "common/can_library/generated/PDU.h"
 #include "flow_rate.h"
 #include "main.h"
-#include "pdu_state.h"
-#include "pdu_switches.h"
+#include "state.h"
+#include "switches.h"
 
-static uint16_t pdu_telemetry_internal_temp_c(uint16_t internal_therm_adc_counts) {
+static uint16_t telemetry_internal_temp_c(uint16_t internal_therm_adc_counts) {
     float vsense = (internal_therm_adc_counts / (float)4095) * 3.3f;
     float temp_c = ((vsense - 0.76f) / 0.0025f) + 25.0f;
+    if (temp_c <= 0.0f) {
+        return 0;
+    }
+
+    if (temp_c >= 65535.0f) {
+        return 65535;
+    }
+
     return (uint16_t)temp_c;
 }
 
-void pdu_telemetry_power_periodic(void) {
+void telemetry_power_periodic(void) {
     update_fault(FAULT_ID_LV_GETTING_LOW, g_pdu_state.rail_voltage_mv.in_24v_mv);
     update_fault(FAULT_ID_LV_CRITICAL_LOW, g_pdu_state.rail_voltage_mv.in_24v_mv);
 
@@ -43,9 +51,9 @@ void pdu_telemetry_power_periodic(void) {
         g_pdu_state.switch_current_ma[SW_MAIN]
     );
 
-    CAN_SEND_pdu_temps(pdu_telemetry_internal_temp_c(adc_readings.internal_therm));
+    CAN_SEND_pdu_temps(telemetry_internal_temp_c(adc_readings.internal_therm));
 }
 
-void pdu_telemetry_flow_periodic(void) {
+void telemetry_flow_periodic(void) {
     CAN_SEND_flowrates(getFlowRate1(), getFlowRate2());
 }

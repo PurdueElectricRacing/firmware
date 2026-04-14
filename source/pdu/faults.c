@@ -1,9 +1,9 @@
-#include "pdu_faults.h"
+#include "faults.h"
 
 #include "common/can_library/faults_common.h"
 #include "led.h"
 #include "main.h"
-#include "pdu_state.h"
+#include "state.h"
 
 #include "common/phal/gpio.h"
 
@@ -25,11 +25,11 @@ static const pdu_rail_fault_map_t PDU_RAIL_FAULT_MAP[] = {
     {.fault_id = FAULT_ID_BULLET_RAIL, .nflt_port = BLT_NFLT_GPIO_Port, .nflt_pin = BLT_NFLT_Pin, .led_id = LED_BLT},
 };
 
-void pdu_faults_init(void) {
+void faults_init(void) {
     g_pdu_state.next_rail_fault_index = 0;
 }
 
-void pdu_faults_periodic(void) {
+void faults_periodic(void) {
     const uint8_t index = g_pdu_state.next_rail_fault_index;
     const pdu_rail_fault_map_t *fault = &PDU_RAIL_FAULT_MAP[index];
 

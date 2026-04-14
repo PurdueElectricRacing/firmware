@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "pdu_switches.h"
+#include "switches.h"
 
 typedef struct {
     uint8_t fan1_percent;
@@ -39,6 +39,6 @@ typedef struct {
 
 extern pdu_state_t g_pdu_state;
 
-void pdu_state_init_defaults(void);
+void state_init_defaults(void);
 
 #endif // PDU_STATE_H

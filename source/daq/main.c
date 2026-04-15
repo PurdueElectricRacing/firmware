@@ -126,7 +126,6 @@ daq_hub_t daq_hub = {
 
 // Static buffer allocations
 SPMC_t spmc;
-timestamped_frame_t buf;
 DEFINE_MUTEX(spi1_lock);
 
 static void configure_interrupts(void);
@@ -189,54 +188,56 @@ static void configure_interrupts(void) {
     NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
-static inline void can_rx_irq_handler(CAN_TypeDef* can_h) {
+[[gnu::always_inline]]
+static inline void can_rx_irq_handler(CAN_TypeDef* peripheral) {
     portBASE_TYPE xHigherPriorityTaskWoken;
     xHigherPriorityTaskWoken = pdFALSE;
 
-    // TODO: track FIFO overrun and full errors
-    if (can_h->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
-        can_h->RF0R &= ~(CAN_RF0R_FOVR0);
+    // message !empty
+    bool message_pending = (peripheral->RF0R & CAN_RF0R_FMP0_Msk);
+    if (!message_pending) {
+        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+        return;
+    }
 
-    if (can_h->RF0R & CAN_RF0R_FULL0) // FIFO Full
-        can_h->RF0R &= ~(CAN_RF0R_FULL0);
+    timestamped_frame_t rx = {0}; // temp stack allocated variable
+    rx.ticks_ms = getTick();
 
-    if (can_h->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
-    {
-        timestamped_frame_t* rx = &buf;
-        rx->ticks_ms    = getTick();
-        if (can_h == CAN1) {
-            // bus ID is 31st bit of identity field, set to 0 for CAN1
-            rx->identity &= (uint32_t) ~(1 << SPMC_BUS_ID_Pos);
-        }
-        else {
-            // CAN2, bus ID set to 1 
-            rx->identity |= (uint32_t) (1 << SPMC_BUS_ID_Pos);
-        }
+    // set bus ID bit based on CAN peripheral
+    if (peripheral == CAN1) {
+        rx.identity ^= ~BUS_ID_MASK;
+    } else {
+        rx.identity |= BUS_ID_MASK;
+    }
 
-        // Get either StdId or ExtId
-        if (CAN_RI0R_IDE & can_h->sFIFOMailBox[0].RIR) {
-            // Extended ID
-            rx->identity |= (uint32_t) 1 << SPMC_IS_EXTID_Pos;
-            rx->identity |= CAN_EFF_FLAG | (((CAN_RI0R_EXID | CAN_RI0R_STID) & can_h->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos); 
-        } else {
-            // Standard ID
-            rx->identity &= (uint32_t) ~(1 << SPMC_IS_EXTID_Pos);
-            rx->identity |= (CAN_RI0R_STID & can_h->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
-        }
+    // set id bits
+    bool is_xid = (CAN_RI0R_IDE & peripheral->sFIFOMailBox[0].RIR) != 0;
+    if (is_xid) {
+        rx.identity |= IS_XID_MASK;
+    } else {
+        rx.identity &= ~IS_XID_MASK;
+    }
 
-        rx->payload = (uint64_t) (can_h->sFIFOMailBox[0].RDLR); 
-        rx->payload |= (uint64_t) (can_h->sFIFOMailBox[0].RDHR) << 32;
+    // extract CAN ID
+    uint32_t can_id = 0;
+    // todo
+    rx.identity |= can_id;
 
-        (void)SPMC_enqueue_from_ISR(&spmc, rx);
+    // copy payload
+    rx.payload |= (uint64_t) (peripheral->sFIFOMailBox[0].RDLR); 
+    rx.payload |= (uint64_t) (peripheral->sFIFOMailBox[0].RDHR) << 32;
 
-        if ((daq_hub.rtc_config_state != RTC_SYNC_COMPLETE) && ((rx->identity & STD_ID_MASK) == GPS_TIME_MSG_ID)) {
-            rtc_config_cb(rx);
-        }
-    } 
+    (void)SPMC_enqueue_from_ISR(&spmc, &rx);
 
-    can_h->RF0R |= (CAN_RF0R_RFOM0);
+    if (can_id == GPS_TIME_MSG_ID) {
+        // todo wake the RTC sync task
+    }
+
+    // release the FIFO
+    peripheral->RF0R |= (CAN_RF0R_RFOM0);
 
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+    return;
 }
 
 void CAN1_RX0_IRQHandler() {
@@ -244,7 +245,6 @@ void CAN1_RX0_IRQHandler() {
 }
 
 void CAN2_RX0_IRQHandler() {
-    /* TODO if main relays CAN2 onto CAN1, then there will be redundant messages in logs */
     can_rx_irq_handler(CAN2);
 }
 

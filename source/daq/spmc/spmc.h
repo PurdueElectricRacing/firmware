@@ -12,15 +12,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <string.h>
-
-#define SPMC_BUS_ID_Pos (31U)
-#define SPMC_IS_EXTID_Pos (30U)
-
-typedef struct {
-    uint32_t ticks_ms; // ms timestamp of reception
-    uint32_t identity; // [1 bit bus ID] [1 bit isExtID] [1 bit reserved] [29 bits CAN ID]
-    uint64_t payload;  // message data
-} timestamped_frame_t;
+#include "timestamped_frame.h"
 
 typedef enum : int {
     SPMC_OK = 0,
@@ -28,14 +20,9 @@ typedef enum : int {
     SPMC_EMPTY = -2,
 } SPMC_status_t;
 
-static_assert(
-    sizeof(timestamped_frame_t) == 16,
-    "timestamped_frame_t must be 16 bytes for optimal access patterns"
-);
-
 // todo tune values based on testing
 static constexpr size_t SPMC_CAPACITY = 512;
-static constexpr size_t SD_WRITE_THRESHOLD = 32;
+static constexpr size_t SD_WRITE_THRESHOLD = 128;
 static_assert(
     SPMC_CAPACITY % SD_WRITE_THRESHOLD == 0,
     "the SPMC capacity must be a multiple of SD_WRITE_THRESHOLD "

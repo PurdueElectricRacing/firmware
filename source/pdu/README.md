@@ -77,7 +77,7 @@ Defined in `main.c`:
 
 The bang-bang backend is present for future policy work, but disabled to preserve current behavior.
 
-- Toggle: `PDU_COOLING_ENABLE_BANGBANG` in `cooling_bangbang.h`
+- Toggle: `COOLING_ENABLE_BANGBANG` in `cooling_bangbang.h`
   - `0` (default): backend is a no-op.
   - `1`: motor temp based bang-bang updates are applied.
 

@@ -37,5 +37,8 @@ void faults_periodic(void) {
     update_fault(fault->fault_id, is_faulted);
     LED_control(fault->led_id, is_latched(fault->fault_id) ? LED_BLINK : LED_OFF);
 
-    g_pdu_state.next_rail_fault_index = (uint8_t)((index + 1U) % (sizeof(PDU_RAIL_FAULT_MAP) / sizeof(PDU_RAIL_FAULT_MAP[0])));
+    g_pdu_state.next_rail_fault_index = index + 1U;
+    if (g_pdu_state.next_rail_fault_index >= (sizeof(PDU_RAIL_FAULT_MAP) / sizeof(PDU_RAIL_FAULT_MAP[0]))) {
+        g_pdu_state.next_rail_fault_index = 0;
+    }
 }

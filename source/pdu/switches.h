@@ -1,5 +1,5 @@
-#ifndef PDU_SWITCHES_H
-#define PDU_SWITCHES_H
+#ifndef SWITCHES_H
+#define SWITCHES_H
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -47,4 +47,4 @@ void switches_set_state(switches_t switch_id, bool enabled);
 bool switches_is_enabled(switches_t switch_id);
 uint16_t switches_get_mux_adc_counts(uint8_t channel);
 
-#endif // PDU_SWITCHES_H
+#endif // SWITCHES_H

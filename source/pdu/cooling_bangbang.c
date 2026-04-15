@@ -1,6 +1,6 @@
 #include "cooling_bangbang.h"
 
-#if PDU_COOLING_ENABLE_BANGBANG
+#if COOLING_ENABLE_BANGBANG
 
 #include "common/bangbang/bangbang.h"
 #include "common/can_library/generated/PDU.h"
@@ -51,9 +51,21 @@ INIT_BANG_BANG(
 )
 
 static float cooling_hottest_motor_temp_c(void) {
-    float front_left = can_data.motor_temps.front_left;
-    float front_right = can_data.motor_temps.front_right;
-    return front_left > front_right ? front_left : front_right;
+    float hottest = can_data.motor_temps.front_left;
+
+    if (can_data.motor_temps.front_right > hottest) {
+        hottest = can_data.motor_temps.front_right;
+    }
+
+    if (can_data.motor_temps.rear_left > hottest) {
+        hottest = can_data.motor_temps.rear_left;
+    }
+
+    if (can_data.motor_temps.rear_right > hottest) {
+        hottest = can_data.motor_temps.rear_right;
+    }
+
+    return hottest;
 }
 
 static bool cooling_not_moving(void) {
@@ -82,7 +94,7 @@ void cooling_bangbang_update(pdu_cooling_command_t *cooling_command) {
 
     g_active_command = cooling_command;
 
-    if (can_data.motor_temps.stale) {
+    if (can_data.motor_temps.is_stale()) {
         return;
     }
 

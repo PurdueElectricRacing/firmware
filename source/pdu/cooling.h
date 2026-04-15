@@ -1,7 +1,7 @@
-#ifndef PDU_COOLING_H
-#define PDU_COOLING_H
+#ifndef COOLING_H
+#define COOLING_H
 
 void cooling_init(void);
 void cooling_periodic(void);
 
-#endif // PDU_COOLING_H
+#endif // COOLING_H

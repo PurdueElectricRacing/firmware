@@ -1,5 +1,5 @@
-#ifndef PDU_STATE_H
-#define PDU_STATE_H
+#ifndef STATE_H
+#define STATE_H
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -41,4 +41,4 @@ extern pdu_state_t g_pdu_state;
 
 void state_init_defaults(void);
 
-#endif // PDU_STATE_H
+#endif // STATE_H

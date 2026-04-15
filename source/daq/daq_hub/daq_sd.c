@@ -104,7 +104,8 @@ static void sd_write_periodic(bool bypass_limit) {
     } else {
         // success
         daq_hub.last_write_ms = getTick();
-        SPMC_master_commit_tail(&spmc, bytes_written / sizeof(*frame));
+        size_t frames_written = bytes_written / sizeof(timestamped_frame_t);
+        SPMC_master_commit_tail(&spmc, frames_written);
         sd_file_sync(); // fsync takes only 4 ticks and ensures sure cache is flushed on close
     }
 

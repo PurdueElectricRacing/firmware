@@ -159,7 +159,7 @@ int main() {
     PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 1);
 
     osKernelInitialize();
-    SPMC_init(&spmc);
+    SPMC_init(&spmc); // also inits CAN interrupts
     configure_interrupts();
 
     INIT_MUTEX(spi1_lock);
@@ -185,7 +185,7 @@ static void configure_interrupts(void) {
 }
 
 [[gnu::always_inline]]
-static inline void can_rx_irq_handler(CAN_TypeDef* peripheral) {
+static inline void can_rx_irq_handler(CAN_TypeDef *peripheral) {
     portBASE_TYPE xHigherPriorityTaskWoken;
     xHigherPriorityTaskWoken = pdFALSE;
 
@@ -197,7 +197,7 @@ static inline void can_rx_irq_handler(CAN_TypeDef* peripheral) {
     }
 
     timestamped_frame_t rx = {0}; // temp stack allocated variable
-    rx.ticks_ms = getTick();
+    rx.ticks_ms            = xTaskGetTickCountFromISR();
 
     // set bus ID bit based on CAN peripheral
     if (peripheral == CAN1) {
@@ -220,8 +220,8 @@ static inline void can_rx_irq_handler(CAN_TypeDef* peripheral) {
     rx.identity |= can_id;
 
     // copy payload
-    rx.payload |= (uint64_t) (peripheral->sFIFOMailBox[0].RDLR); 
-    rx.payload |= (uint64_t) (peripheral->sFIFOMailBox[0].RDHR) << 32;
+    rx.payload |= (uint64_t)(peripheral->sFIFOMailBox[0].RDLR);
+    rx.payload |= (uint64_t)(peripheral->sFIFOMailBox[0].RDHR) << 32;
 
     (void)SPMC_enqueue_from_ISR(&spmc, &rx);
 

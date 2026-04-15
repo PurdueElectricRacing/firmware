@@ -41,30 +41,17 @@
 #define ETH_RST_PORT  (GPIOE)
 #define ETH_RST_PIN   (3)
 
-// LTE USART6
-#define LTE_UART_TX_PORT (GPIOC)
-#define LTE_UART_TX_PIN  (6)
-#define LTE_UART_RX_PORT (GPIOC)
-#define LTE_UART_RX_PIN  (7)
-
 // MISC
 #define PWR_LOSS_PORT   (GPIOE)
 #define PWR_LOSS_PIN    (15)
 #define LOG_ENABLE_PORT (GPIOC)
 #define LOG_ENABLE_PIN  (15)
 
-// CAN 
-#define BUS_ID_CAN1 0
-#define BUS_ID_CAN2 1
-#define STD_ID_MASK ((1U << 11) - 1) // bottom 11 bits 
-
-// GPIO helper macros
-#define GPIO_CLEAR_BIT(PIN) ((1 << ((1 << 4) | (PIN))))
-
 #define PER   1
 #define GREAT PER
 static_assert(PER == GREAT); // Long live daq loop
 
+// ! somebody wanna move this to the appropriate files?
 #define SD_WRITE_PERIOD_MS    (100)
 #define SD_NEW_FILE_PERIOD_MS (1 * 60 * 1000) // 1 min
 #define SD_MAX_WRITE_COUNT    (128)

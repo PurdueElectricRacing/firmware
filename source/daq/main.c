@@ -196,6 +196,7 @@ static inline void can_rx_irq_handler(CAN_TypeDef *peripheral) {
         return;
     }
 
+    CAN_FIFOMailBox_TypeDef *mailbox = &peripheral->sFIFOMailBox[0];
     timestamped_frame_t rx = {0}; // temp stack allocated variable
     rx.ticks_ms            = xTaskGetTickCountFromISR();
 
@@ -206,27 +207,27 @@ static inline void can_rx_irq_handler(CAN_TypeDef *peripheral) {
         rx.identity |= BUS_ID_MASK;
     }
 
-    // set id type
-    bool is_xid = (CAN_RI0R_IDE & peripheral->sFIFOMailBox[0].RIR) != 0;
+    // set id type and extract ID
+    bool is_xid = (mailbox->RIR & CAN_RI0R_IDE) != 0;
+    uint32_t can_id = 0;
+    // the right shift logic makes sense when you read RM0090 pg 1122
     if (is_xid) {
         rx.identity |= IS_XID_MASK;
+        can_id = (mailbox->RIR & CAN_RI0R_EXID) >> CAN_RI0R_EXID_Pos;
     } else {
         rx.identity &= ~IS_XID_MASK;
+        can_id = (mailbox->RIR & CAN_RI0R_STID) >> CAN_RI0R_STID_Pos;
     }
-
-    // extract CAN ID
-    uint32_t can_id = 0;
-    // todo
     rx.identity |= can_id;
 
     // copy payload
-    rx.payload |= (uint64_t)(peripheral->sFIFOMailBox[0].RDLR);
-    rx.payload |= (uint64_t)(peripheral->sFIFOMailBox[0].RDHR) << 32;
+    rx.payload |= (uint64_t)(mailbox->RDLR);
+    rx.payload |= (uint64_t)(mailbox->RDHR) << 32;
 
     (void)SPMC_enqueue_from_ISR(&spmc, &rx);
 
     // release the FIFO
-    peripheral->RF0R |= (CAN_RF0R_RFOM0);
+    peripheral->RF0R |= CAN_RF0R_RFOM0;
 
     if (can_id == GPS_TIME_MSG_ID) {
         // todo wake the RTC sync task
@@ -249,12 +250,13 @@ void CAN2_RX0_IRQHandler() {
  *        If file open, flushes it to the sd card
  *        Then unmounts sd card
  */
+ // todo
 void shutdown(void) {
     // First, turn off all power consuming devices to increase our write time to sd card
     // To whoever is doing future DAQ rev: also change the GPIO ports here
     // all LEDs go bye bye
-    GPIOD->BSRR |= GPIO_CLEAR_BIT(HEARTBEAT_LED_PIN) | GPIO_CLEAR_BIT(CONNECTION_LED_PIN) | GPIO_CLEAR_BIT(ERROR_LED_PIN);
-    GPIOA->BSRR |= GPIO_CLEAR_BIT(SD_DETECT_LED_PIN) | GPIO_CLEAR_BIT(SD_ACTIVITY_LED_PIN) | GPIO_CLEAR_BIT(SD_ERROR_LED_PIN);
+    // GPIOD->BSRR |= GPIO_CLEAR_BIT(HEARTBEAT_LED_PIN) | GPIO_CLEAR_BIT(CONNECTION_LED_PIN) | GPIO_CLEAR_BIT(ERROR_LED_PIN);
+    // GPIOA->BSRR |= GPIO_CLEAR_BIT(SD_DETECT_LED_PIN) | GPIO_CLEAR_BIT(SD_ACTIVITY_LED_PIN) | GPIO_CLEAR_BIT(SD_ERROR_LED_PIN);
 
     PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 0);
     PHAL_deinitCAN(CAN1);

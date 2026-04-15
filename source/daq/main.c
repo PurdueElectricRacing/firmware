@@ -131,8 +131,8 @@ DEFINE_MUTEX(spi1_lock);
 static void configure_interrupts(void);
 void shutdown(void);
 
-DEFINE_TASK(sd_update_periodic, 100, osPriorityNormal, 4096); // SD WRITE
-DEFINE_TASK(eth_update_periodic, 50, osPriorityNormal, 4096); // BULLET COMMS 
+DEFINE_TASK(sd_update_periodic, 100, osPriorityNormal, STACK_4096); // SD WRITE
+DEFINE_TASK(eth_update_periodic, 50, osPriorityNormal, STACK_4096); // BULLET COMMS 
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main() {

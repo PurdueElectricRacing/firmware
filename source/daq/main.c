@@ -229,7 +229,9 @@ static inline void can_rx_irq_handler(CAN_TypeDef* can_h) {
 
         (void)SPMC_enqueue_from_ISR(&spmc, rx);
 
-        if ((daq_hub.rtc_config_state != RTC_SYNC_COMPLETE) && ((rx->identity & STD_ID_MASK) == GPS_TIME_MSG_ID)) rtc_config_cb(rx);
+        if ((daq_hub.rtc_config_state != RTC_SYNC_COMPLETE) && ((rx->identity & STD_ID_MASK) == GPS_TIME_MSG_ID)) {
+            rtc_config_cb(rx);
+        }
     } 
 
     can_h->RF0R |= (CAN_RF0R_RFOM0);

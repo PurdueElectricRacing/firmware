@@ -63,7 +63,6 @@ SPMC_status_t SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_
     spmc->data[spmc->head] = *incoming_frame;
     __DMB(); // do not switch the order of the data write and head update
     spmc->head = next_head;
-
     __DSB(); // halt the cpu until write is finished
 
     return SPMC_OK;

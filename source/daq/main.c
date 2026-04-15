@@ -283,7 +283,7 @@ void EXTI15_10_IRQHandler() {
 }
 
 void HardFault_Handler() {
-    PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
+    ERROR_LED_PORT->BSRR = (1 << ERROR_LED_PIN);
     while (1) {
         __asm__("nop");
     }

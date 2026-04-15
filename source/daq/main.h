@@ -67,7 +67,7 @@ static_assert(PER == GREAT); // Long live daq loop
 
 #define SD_WRITE_PERIOD_MS    (100)
 #define SD_NEW_FILE_PERIOD_MS (1 * 60 * 1000) // 1 min
-#define SD_MAX_WRITE_COUNT    (100)
+#define SD_MAX_WRITE_COUNT    (128)
 #define SD_ERROR_RETRY_MS     (250)
 #define ETH_ERROR_RETRY_MS    (250)
 #define SD_BLOCKING_TIMEOUT_MS (5000)

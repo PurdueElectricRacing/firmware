@@ -142,25 +142,21 @@ int main() {
     if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
         HardFault_Handler();
     }
-        
-    PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 1);
     if (!PHAL_SPI_init(&eth_spi_config)) {
         HardFault_Handler();
     }
-
     if (!PHAL_configureRTC(&fallback_timestamp, false)) {
         HardFault_Handler();
     }
-
-    // ! CAN1 is bricked, use CAN2 on VCAN for now
-    // if (!PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
-    //     HardFault_Handler();
-    // }
-    if (!PHAL_initCAN(CAN2, false, VCAN_BAUD_RATE)) {
+    if (!PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
+        HardFault_Handler();
+    }
+    if (!PHAL_initCAN(CAN2, false, MCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
 
     daq_spi_register_callbacks(); // Link SPI for ethernet driver
+    PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 1);
 
     osKernelInitialize();
     SPMC_init(&spmc);
@@ -210,7 +206,7 @@ static inline void can_rx_irq_handler(CAN_TypeDef* peripheral) {
         rx.identity |= BUS_ID_MASK;
     }
 
-    // set id bits
+    // set id type
     bool is_xid = (CAN_RI0R_IDE & peripheral->sFIFOMailBox[0].RIR) != 0;
     if (is_xid) {
         rx.identity |= IS_XID_MASK;
@@ -229,12 +225,12 @@ static inline void can_rx_irq_handler(CAN_TypeDef* peripheral) {
 
     (void)SPMC_enqueue_from_ISR(&spmc, &rx);
 
+    // release the FIFO
+    peripheral->RF0R |= (CAN_RF0R_RFOM0);
+
     if (can_id == GPS_TIME_MSG_ID) {
         // todo wake the RTC sync task
     }
-
-    // release the FIFO
-    peripheral->RF0R |= (CAN_RF0R_RFOM0);
 
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
     return;

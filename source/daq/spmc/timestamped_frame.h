@@ -17,5 +17,4 @@ static_assert(
     "timestamped_frame_t should be 16 bytes for optimal access patterns"
 );
 
-
 #endif // TIMESTAMPED_FRAME_H

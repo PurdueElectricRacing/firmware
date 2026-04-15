@@ -213,7 +213,7 @@ static inline void can_rx_irq_handler(CAN_TypeDef *peripheral) {
     // the right shift logic makes sense when you read RM0090 pg 1122
     if (is_xid) {
         rx.identity |= IS_XID_MASK;
-        can_id = (mailbox->RIR & CAN_RI0R_EXID) >> CAN_RI0R_EXID_Pos;
+        can_id = (mailbox->RIR & (CAN_RI0R_STID | CAN_RI0R_EXID)) >> CAN_RI0R_EXID_Pos;
     } else {
         rx.identity &= ~IS_XID_MASK;
         can_id = (mailbox->RIR & CAN_RI0R_STID) >> CAN_RI0R_STID_Pos;

@@ -55,7 +55,7 @@ eth_config_t eth_config = {
 void eth_update_periodic(void) {
     static uint8_t eth_startup = 0;
     if (!eth_startup) {
-        mDelay(250); // Wait for module to kick up
+        osDelay(250); // Wait for module to kick up
         eth_startup = 1;
     }
 
@@ -101,13 +101,13 @@ static void _eth_handle_error(eth_error_t err, int32_t reason) {
     ++daq_hub.eth_error_ct;
     daq_hub.eth_last_err        = err;
     daq_hub.eth_last_err_res    = reason;
-    daq_hub.eth_last_error_time = getTick();
+    daq_hub.eth_last_error_time = xTaskGetTickCount();
     PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
 }
 
 static void eth_reset_error(void) {
     // Do not retry immediately
-    if (!(getTick() - daq_hub.eth_last_error_time > ETH_ERROR_RETRY_MS))
+    if (!(xTaskGetTickCount() - daq_hub.eth_last_error_time > ETH_ERROR_RETRY_MS))
         return;
 
     if (daq_hub.eth_tcp_state == ETH_TCP_FAIL) {

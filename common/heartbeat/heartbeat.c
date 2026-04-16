@@ -41,7 +41,7 @@ void heartbeat_task(status_leds_t *leds) {
             }
 
             // exit preflight after a certain time has elapsed
-            if (getTick() > PREFLIGHT_DURATION_MS) {
+            if (xTaskGetTickCount() > PREFLIGHT_DURATION_MS) {
                 PHAL_writeGPIO(leds->heartbeat_port, leds->heartbeat_pin, 0);
                 PHAL_writeGPIO(leds->connection_port, leds->connection_pin, 0);
                 PHAL_writeGPIO(leds->error_port, leds->error_pin, 0);
@@ -51,7 +51,7 @@ void heartbeat_task(status_leds_t *leds) {
         case HEARTBEAT_STATE_NORMAL:
             PHAL_toggleGPIO(leds->heartbeat_port, leds->heartbeat_pin);
 
-            bool is_can_ok = (getTick() - last_can_rx_time_ms < CONN_LED_TIMEOUT_MS);
+            bool is_can_ok = (xTaskGetTickCount() - last_can_rx_time_ms < CONN_LED_TIMEOUT_MS);
             PHAL_writeGPIO(leds->connection_port, leds->connection_pin, is_can_ok);
             break;
     }    

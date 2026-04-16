@@ -20,17 +20,17 @@ static void sd_handle_error(sd_error_t sd_error, FRESULT result) {
     ++daq_hub.sd_error_ct;
     daq_hub.sd_last_err        = sd_error;
     daq_hub.sd_last_err_res    = result;
-    daq_hub.sd_last_error_time = getTick();
+    daq_hub.sd_last_error_time = xTaskGetTickCount();
     PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 1);
 }
 
 static void sd_reset_error(void) {
     // Do not retry immediately
-    if (!(getTick() - daq_hub.sd_last_error_time > SD_ERROR_RETRY_MS)) {
+    if (!(xTaskGetTickCount() - daq_hub.sd_last_error_time > SD_ERROR_RETRY_MS)) {
         return;
     }
 
-    daq_hub.sd_last_error_time = getTick();
+    daq_hub.sd_last_error_time = xTaskGetTickCount();
     if (daq_hub.sd_last_err != SD_ERROR_NONE) {
         daq_hub.sd_state        = SD_STATE_IDLE; // Retry
         daq_hub.sd_last_err     = SD_ERROR_NONE;
@@ -59,7 +59,7 @@ static FRESULT sd_create_new_file(void) {
     }
 
     log_num++;
-    daq_hub.last_file_ms = getTick();
+    daq_hub.last_file_ms = xTaskGetTickCount();
 
     return result;
 }
@@ -103,7 +103,7 @@ static void sd_write_periodic(bool bypass_limit) {
         sd_handle_error(SD_ERROR_WRITE, result);
     } else {
         // success
-        daq_hub.last_write_ms = getTick();
+        daq_hub.last_write_ms = xTaskGetTickCount();
         size_t frames_written = bytes_written / sizeof(timestamped_frame_t);
         SPMC_master_commit_tail(&spmc, frames_written);
         sd_file_sync(); // fsync takes only 4 ticks and ensures sure cache is flushed on close
@@ -167,15 +167,15 @@ void sd_update_periodic(void) {
             result = sd_create_new_file();
             if (result == FR_OK) {
                 daq_hub.sd_state     = SD_STATE_ACTIVE;
-                daq_hub.log_start_ms = getTick();
+                daq_hub.log_start_ms = xTaskGetTickCount();
             }
             break;
         case SD_STATE_ACTIVE:
-            if (getTick() - daq_hub.last_write_ms > SD_WRITE_PERIOD_MS) {
+            if (xTaskGetTickCount() - daq_hub.last_write_ms > SD_WRITE_PERIOD_MS) {
                 sd_write_periodic(false);
             }
 
-            if (getTick() - daq_hub.last_file_ms > SD_NEW_FILE_PERIOD_MS) {
+            if (xTaskGetTickCount() - daq_hub.last_file_ms > SD_NEW_FILE_PERIOD_MS) {
                 sd_create_new_file();
             }
             break;

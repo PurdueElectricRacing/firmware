@@ -202,7 +202,7 @@ static inline void can_rx_irq_handler(CAN_TypeDef *peripheral) {
 
     // set bus ID bit based on CAN peripheral
     if (peripheral == CAN1) {
-        rx.identity ^= ~BUS_ID_MASK;
+        rx.identity &= ~BUS_ID_MASK;
     } else {
         rx.identity |= BUS_ID_MASK;
     }

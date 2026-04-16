@@ -6,7 +6,6 @@
 #include "common/phal/rcc.h"
 #include "common/phal/rtc.h"
 #include "common/phal/spi.h"
-#include "common/phal/usart.h"
 #include "daq_spi.h"
 #include "common/heartbeat/heartbeat.h"
 #include "common/can_library/generated/VCAN.h"
@@ -38,10 +37,6 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_INPUT(SD_CD_PORT, SD_CD_PIN, GPIO_INPUT_PULL_UP),
     GPIO_INIT_INPUT(LOG_ENABLE_PORT, LOG_ENABLE_PIN, GPIO_INPUT_PULL_DOWN), // ! pull down to fix floating input issue
     GPIO_INIT_INPUT(PWR_LOSS_PORT, PWR_LOSS_PIN, GPIO_INPUT_OPEN_DRAIN), // SPL EXTI
-
-    // LTE UART
-    GPIO_INIT_USART6TX_PC6,
-    GPIO_INIT_USART6RX_PC7,
 
     // CAN1
     GPIO_INIT_CANRX_PA11,

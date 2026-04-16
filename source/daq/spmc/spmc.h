@@ -15,8 +15,8 @@
 #include "timestamped_frame.h"
 
 typedef enum : int {
-    SPMC_OK = 0,
-    SPMC_FULL = -1,
+    SPMC_OK    = 0,
+    SPMC_FULL  = -1,
     SPMC_EMPTY = -2,
 } SPMC_status_t;
 
@@ -33,11 +33,16 @@ static constexpr size_t SPMC_ALLOCATED_CAPACITY = SPMC_CAPACITY + 1;
 
 typedef struct {
     timestamped_frame_t data[SPMC_ALLOCATED_CAPACITY];
-    volatile size_t head;
-    volatile size_t master_tail; // SD tail
+    volatile size_t head;          // shared head
+    volatile size_t master_tail;   // SD tail
     volatile size_t follower_tail; // best-effort ETH tail
-    volatile uint32_t overflows;
+    volatile uint32_t overflows;   // items dropped due to full buffer
 } SPMC_t;
+
+static_assert(
+    sizeof(size_t) == 4,
+    "32-bit loads and stores are atomic, this is required for the lock-free design to work"
+);
 
 void SPMC_init(SPMC_t *spmc);
 SPMC_status_t SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame);

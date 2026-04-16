@@ -2,7 +2,7 @@
     "node_name": "DAQ",
     "busses": {
         "VCAN": {
-            "peripheral": "CAN2",
+            "peripheral": "CAN1",
             "accept_all_messages": true,
             "tx": [
                 {
@@ -68,7 +68,7 @@
             "rx": []
         },
         "MCAN": {
-            "peripheral": "CAN1",
+            "peripheral": "CAN2",
             "accept_all_messages": true
         }
     },

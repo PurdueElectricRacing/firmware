@@ -184,8 +184,10 @@ static void configure_interrupts(void) {
     NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
-[[gnu::always_inline]]
-static inline void can_rx_irq_handler(CAN_TypeDef *peripheral) {
+
+volatile uint32_t last_vcan_rx = 0;
+volatile uint32_t last_mcan_rx = 0;
+static void can_rx_irq_handler(CAN_TypeDef *peripheral) {
     portBASE_TYPE xHigherPriorityTaskWoken;
     xHigherPriorityTaskWoken = pdFALSE;
 
@@ -203,8 +205,10 @@ static inline void can_rx_irq_handler(CAN_TypeDef *peripheral) {
     // set bus ID bit based on CAN peripheral
     if (peripheral == CAN1) {
         rx.identity &= ~BUS_ID_MASK;
+        last_vcan_rx = rx.ticks_ms;
     } else {
         rx.identity |= BUS_ID_MASK;
+        last_mcan_rx = rx.ticks_ms;
     }
 
     // set id type and extract ID

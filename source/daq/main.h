@@ -51,11 +51,6 @@
 #define GREAT PER
 static_assert(PER == GREAT); // Long live daq loop
 
-// ! somebody wanna move this to the appropriate files?
-#define ETH_ERROR_RETRY_MS    (250)
-#define UDP_MAX_BUFFER_SIZE (8192)
-#define UDP_MAX_WRITE_COUNT (UDP_MAX_BUFFER_SIZE / (sizeof(timestamped_frame_t)))
-
 #define SD_BLOCKING_TIMEOUT_MS (5000)
 constexpr TickType_t SD_BLOCKING_TIMEOUT_TICKS = pdMS_TO_TICKS(SD_BLOCKING_TIMEOUT_MS); 
 

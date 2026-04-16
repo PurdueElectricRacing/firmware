@@ -20,6 +20,10 @@
 #include "w5500/wizchip_conf.h"
 #include "common/can_library/generated/DAQ.h"
 
+static constexpr uint32_t ETH_ERROR_RETRY_MS = 250;
+static constexpr size_t UDP_MAX_BUFFER_SIZE = 8192;
+static constexpr size_t UDP_MAX_WRITE_COUNT = UDP_MAX_BUFFER_SIZE / sizeof(timestamped_frame_t);
+
 static int8_t eth_init(void);
 static int8_t eth_get_link_up(void);
 static int8_t eth_udp_init(void);

@@ -25,7 +25,7 @@ static void sd_handle_error(sd_error_t sd_error, FRESULT result) {
     daq_hub.sd_last_err        = sd_error;
     daq_hub.sd_last_err_res    = result;
     daq_hub.sd_last_error_time = xTaskGetTickCount();
-    PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 1);
+    // PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 1);
 }
 
 static void sd_reset_error(void) {
@@ -39,7 +39,7 @@ static void sd_reset_error(void) {
         daq_hub.sd_state        = SD_STATE_IDLE; // Retry
         daq_hub.sd_last_err     = SD_ERROR_NONE;
         daq_hub.sd_last_err_res = 0;
-        PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 0);
+        // PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 0);
     }
 }
 
@@ -133,7 +133,7 @@ void sd_shutdown(void) {
             daq_hub.sd_state = SD_STATE_IDLE;
             PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
             PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
-            PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 0);
+            // PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 0);
             break;
     }
 }

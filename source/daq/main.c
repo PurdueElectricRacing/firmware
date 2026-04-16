@@ -232,7 +232,7 @@ static void can_rx_irq_handler(CAN_TypeDef *peripheral) {
     // release the FIFO
     peripheral->RF0R |= CAN_RF0R_RFOM0;
 
-    if (can_id == GPS_TIME_MSG_ID) {
+    if (peripheral == CAN1 && can_id == GPS_TIME_MSG_ID) {
         // todo wake the RTC sync task
     }
 

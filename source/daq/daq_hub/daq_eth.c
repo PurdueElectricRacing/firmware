@@ -77,19 +77,19 @@ void eth_update_periodic(void) {
         case ETH_LINK_DOWN: // intentional fall through
         case ETH_LINK_STARTING:
             if (eth_get_link_up()) {
-                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
+                // PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
                 daq_hub.eth_state = ETH_LINK_UP;
             }
             break;
         case ETH_LINK_UP:
             if (eth_get_link_up()) {
                 daq_hub.eth_state = ETH_LINK_UP;
-                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
+                // PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
                 /* Eth link UP routines */
                 eth_udp_send_periodic();
             } else {
                 daq_hub.eth_state = ETH_LINK_DOWN;
-                PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
+                // PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
             }
             break;
         case ETH_LINK_FAIL:
@@ -105,7 +105,7 @@ static void _eth_handle_error(eth_error_t err, int32_t reason) {
     daq_hub.eth_last_err        = err;
     daq_hub.eth_last_err_res    = reason;
     daq_hub.eth_last_error_time = xTaskGetTickCount();
-    PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
+    // PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
 }
 
 static void eth_reset_error(void) {
@@ -117,22 +117,22 @@ static void eth_reset_error(void) {
         daq_hub.eth_tcp_state    = ETH_TCP_IDLE; // Retry TCP only
         daq_hub.eth_last_err     = ETH_ERROR_NONE;
         daq_hub.eth_last_err_res = 0;
-        PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
+        // PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
     } else if (daq_hub.eth_last_err != ETH_ERROR_NONE || daq_hub.eth_state == ETH_LINK_FAIL) {
         daq_hub.eth_state        = ETH_LINK_IDLE; // Retry
         daq_hub.eth_last_err     = ETH_ERROR_NONE;
         daq_hub.eth_last_err_res = 0;
-        PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
+        // PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
     }
 
-    if (daq_hub.eth_state == ETH_LINK_UP) {
-        if (daq_hub.eth_tcp_state == ETH_TCP_ESTABLISHED)
-            PHAL_toggleGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN); // Blink on TCP
-        else
-            PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
-    } else {
-        PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
-    }
+    // if (daq_hub.eth_state == ETH_LINK_UP) {
+    //     if (daq_hub.eth_tcp_state == ETH_TCP_ESTABLISHED)
+    //         PHAL_toggleGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN); // Blink on TCP
+    //     else
+    //         PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
+    // } else {
+    //     PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
+    // }
 }
 
 /* UDP */

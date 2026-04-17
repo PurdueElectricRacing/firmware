@@ -6,7 +6,6 @@
  * @brief Custom SPMC designed for high throughput handling of CAN message streams.
  *
  * @author Irving Wang (irvingw@purdue.edu)
- * @author Shriya Balu (balu@purdue.edu)
  */
 
 #include <stddef.h>

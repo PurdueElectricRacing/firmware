@@ -181,8 +181,6 @@ static void configure_interrupts(void) {
 }
 
 
-volatile uint32_t last_vcan_rx = 0;
-volatile uint32_t last_mcan_rx = 0;
 volatile uint32_t last_can_rx_time_ms = 0;
 
 [[gnu::always_inline]]
@@ -201,29 +199,21 @@ static inline void can_rx_irq_handler(CAN_TypeDef *peripheral) {
     rx.ticks_ms            = xTaskGetTickCountFromISR();
     last_can_rx_time_ms    = rx.ticks_ms;
 
-    // set bus ID bit based on CAN peripheral
-    if (peripheral == CAN1) {
-        rx.identity &= ~BUS_ID_MASK;
-        last_vcan_rx = rx.ticks_ms;
-    } else {
-        rx.identity |= BUS_ID_MASK;
-        last_mcan_rx = rx.ticks_ms;
-    }
+    // CAN1 = VCAN = bus 0
+    set_bus_id(&rx, (peripheral == CAN1) ? 0 : 1);
 
     CAN_FIFOMailBox_TypeDef *mailbox = &peripheral->sFIFOMailBox[0];
-
-    // set id type and extract ID
     bool is_xid = (mailbox->RIR & CAN_RI0R_IDE) != 0;
-    uint32_t can_id = 0;
+    set_xid(&rx, is_xid);
+
     // the right shift logic makes sense when you read RM0090 pg 1122
+    uint32_t can_id;
     if (is_xid) {
-        rx.identity |= IS_XID_MASK;
         can_id = (mailbox->RIR & (CAN_RI0R_STID | CAN_RI0R_EXID)) >> CAN_RI0R_EXID_Pos;
     } else {
-        rx.identity &= ~IS_XID_MASK;
         can_id = (mailbox->RIR & CAN_RI0R_STID) >> CAN_RI0R_STID_Pos;
     }
-    rx.identity |= can_id;
+    set_can_id(&rx, can_id);
 
     // copy payload
     rx.payload |= (uint64_t)(mailbox->RDLR);

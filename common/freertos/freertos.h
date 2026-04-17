@@ -138,10 +138,4 @@ void periodic_task_runner(void *arg);
 #define INIT_BINARY_SEMAPHORE(NAME)                                            \
     (NAME = xSemaphoreCreateBinaryStatic(&(NAME##_cb)))
 
-
-// Timing helper macros
-#define getTick()   xTaskGetTickCount()
-#define getMS() (getTick() * portTICK_PERIOD_MS)
-#define mDelay(ms) (osDelay(pdMS_TO_TICKS((ms))))
-
 #endif // PER_FREERTOS_H

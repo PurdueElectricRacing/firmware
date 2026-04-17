@@ -41,40 +41,17 @@
 #define ETH_RST_PORT  (GPIOE)
 #define ETH_RST_PIN   (3)
 
-// LTE USART6
-#define LTE_UART_TX_PORT (GPIOC)
-#define LTE_UART_TX_PIN  (6)
-#define LTE_UART_RX_PORT (GPIOC)
-#define LTE_UART_RX_PIN  (7)
-
 // MISC
 #define PWR_LOSS_PORT   (GPIOE)
 #define PWR_LOSS_PIN    (15)
 #define LOG_ENABLE_PORT (GPIOC)
 #define LOG_ENABLE_PIN  (15)
 
-// CAN 
-#define BUS_ID_CAN1 0
-#define BUS_ID_CAN2 1
-#define STD_ID_MASK ((1U << 11) - 1) // bottom 11 bits 
-
-// GPIO helper macros
-#define GPIO_CLEAR_BIT(PIN) ((1 << ((1 << 4) | (PIN))))
-
 #define PER   1
 #define GREAT PER
 static_assert(PER == GREAT); // Long live daq loop
 
-#define SD_WRITE_PERIOD_MS    (100)
-#define SD_NEW_FILE_PERIOD_MS (1 * 60 * 1000) // 1 min
-#define SD_MAX_WRITE_COUNT    (100)
-#define SD_ERROR_RETRY_MS     (250)
-#define ETH_ERROR_RETRY_MS    (250)
 #define SD_BLOCKING_TIMEOUT_MS (5000)
-
-#define UDP_MAX_BUFFER_SIZE (8192)
-#define UDP_MAX_WRITE_COUNT (UDP_MAX_BUFFER_SIZE / (sizeof(timestamped_frame_t)))
-
 constexpr TickType_t SD_BLOCKING_TIMEOUT_TICKS = pdMS_TO_TICKS(SD_BLOCKING_TIMEOUT_MS); 
 
 typedef struct

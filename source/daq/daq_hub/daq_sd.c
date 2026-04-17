@@ -6,12 +6,15 @@
 #include "ff.h"
 #include "main.h"
 
+static constexpr uint32_t SD_WRITE_PERIOD_MS = 100;
+static constexpr uint32_t SD_NEW_FILE_PERIOD_MS = 1 * 60 * 1000; // 1 min
+static constexpr uint32_t SD_ERROR_RETRY_MS = 250;
+
 static FRESULT sd_create_new_file(void);
 static inline void sd_file_sync(void);
-static void _sd_write_periodic(bool bypass);
+static void sd_write_periodic(bool bypass_limit);
 static void sd_handle_error(sd_error_t sd_error, FRESULT result);
 static void sd_reset_error(void);
-#define sd_write_periodic() _sd_write_periodic(false)
 
 bool daq_request_sd_mount(void) {
     return daq_hub.sd_state == SD_STATE_MOUNTED || daq_hub.sd_state == SD_STATE_ACTIVE;
@@ -21,22 +24,22 @@ static void sd_handle_error(sd_error_t sd_error, FRESULT result) {
     ++daq_hub.sd_error_ct;
     daq_hub.sd_last_err        = sd_error;
     daq_hub.sd_last_err_res    = result;
-    daq_hub.sd_last_error_time = getTick();
-    PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 1);
+    daq_hub.sd_last_error_time = xTaskGetTickCount();
+    // PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 1);
 }
 
 static void sd_reset_error(void) {
     // Do not retry immediately
-    if (!(getTick() - daq_hub.sd_last_error_time > SD_ERROR_RETRY_MS)) {
+    if (!(xTaskGetTickCount() - daq_hub.sd_last_error_time > SD_ERROR_RETRY_MS)) {
         return;
     }
 
-    daq_hub.sd_last_error_time = getTick();
+    daq_hub.sd_last_error_time = xTaskGetTickCount();
     if (daq_hub.sd_last_err != SD_ERROR_NONE) {
         daq_hub.sd_state        = SD_STATE_IDLE; // Retry
         daq_hub.sd_last_err     = SD_ERROR_NONE;
         daq_hub.sd_last_err_res = 0;
-        PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 0);
+        // PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 0);
     }
 }
 
@@ -60,7 +63,7 @@ static FRESULT sd_create_new_file(void) {
     }
 
     log_num++;
-    daq_hub.last_file_ms = getTick();
+    daq_hub.last_file_ms = xTaskGetTickCount();
 
     return result;
 }
@@ -73,48 +76,50 @@ static inline void sd_file_sync(void) {
 }
 
 // todo reevaluate the logic here
-static void _sd_write_periodic(bool bypass) {
+static void sd_write_periodic(bool bypass_limit) {
     if (daq_hub.sd_state != SD_STATE_ACTIVE) {
         return;
     }
 
     // Use the unread item count, not contiguous for the threshold
-    timestamped_frame_t* buf; // written to by peek_all()
-    size_t unread_items; // written to by peek_all()
-    size_t consecutive_items = SPMC_master_peek_all(&spmc, &buf, &unread_items);
-    
-    bool is_threshold_met = unread_items >= SD_MAX_WRITE_COUNT;
-    if (!is_threshold_met && !bypass) {
-        return;
-    }
-    
-    if (consecutive_items == 0) {
-        daq_hub.sd_rx_overflow++;
+    timestamped_frame_t *frame; // updated to by SPMC_master_peek_all()
+    size_t unread_items;        // updated to by SPMC_master_peek_all()
+    size_t consecutive_items = SPMC_master_peek_all(&spmc, &frame, &unread_items);
+
+    bool is_threshold_met = unread_items >= SD_WRITE_THRESHOLD;
+    if (!is_threshold_met && !bypass_limit) {
         return;
     }
 
-    if (consecutive_items > SD_MAX_WRITE_COUNT) {
-        consecutive_items = SD_MAX_WRITE_COUNT; // enforce the limit
+    // Cap the number of items to the threshold
+    size_t items_to_write = consecutive_items;
+    if (items_to_write > SD_WRITE_THRESHOLD) {
+        items_to_write = SD_WRITE_THRESHOLD;
     }
-        
+
     // Write time :D
     PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 1);
-    UINT bytes_written; // written to by f_write()
-    FRESULT result = f_write(&daq_hub.log_fp, buf, consecutive_items * sizeof(*buf), &bytes_written);
+
+    UINT bytes_written; // updated to by f_write()
+    size_t total_bytes = items_to_write * sizeof(timestamped_frame_t);
+    FRESULT result     = f_write(&daq_hub.log_fp, frame, total_bytes, &bytes_written);
     if (result != FR_OK) {
         sd_handle_error(SD_ERROR_WRITE, result);
     } else {
-        daq_hub.last_write_ms = getTick();
-        SPMC_master_commit_tail(&spmc, bytes_written/sizeof(*buf));
+        // success
+        daq_hub.last_write_ms = xTaskGetTickCount();
+        size_t frames_written = bytes_written / sizeof(timestamped_frame_t);
+        SPMC_master_commit_tail(&spmc, frames_written);
         sd_file_sync(); // fsync takes only 4 ticks and ensures sure cache is flushed on close
     }
+
     PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
 }
 
 void sd_shutdown(void) {
     switch (daq_hub.sd_state) {
         case SD_STATE_ACTIVE:
-            // _sd_write_periodic(true); // Finish write (bypass count limit)
+            // sd_write_periodic(true); // Finish write (bypass count limit)
             sd_file_sync(); // Flush cache
             f_close(&daq_hub.log_fp); // Close file
             // ! intentional fall through
@@ -128,7 +133,7 @@ void sd_shutdown(void) {
             daq_hub.sd_state = SD_STATE_IDLE;
             PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
             PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
-            PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 0);
+            // PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 0);
             break;
     }
 }
@@ -166,15 +171,15 @@ void sd_update_periodic(void) {
             result = sd_create_new_file();
             if (result == FR_OK) {
                 daq_hub.sd_state     = SD_STATE_ACTIVE;
-                daq_hub.log_start_ms = getTick();
+                daq_hub.log_start_ms = xTaskGetTickCount();
             }
             break;
         case SD_STATE_ACTIVE:
-            if (getTick() - daq_hub.last_write_ms > SD_WRITE_PERIOD_MS) {
-                sd_write_periodic();
+            if (xTaskGetTickCount() - daq_hub.last_write_ms > SD_WRITE_PERIOD_MS) {
+                sd_write_periodic(false);
             }
 
-            if (getTick() - daq_hub.last_file_ms > SD_NEW_FILE_PERIOD_MS) {
+            if (xTaskGetTickCount() - daq_hub.last_file_ms > SD_NEW_FILE_PERIOD_MS) {
                 sd_create_new_file();
             }
             break;

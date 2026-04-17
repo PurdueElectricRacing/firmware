@@ -1,15 +1,15 @@
 #include "main.h"
 #include "spmc.h"
-#include "common/can_library/generated/DAQ.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "common/phal/rtc.h"
 #include "common/phal/spi.h"
-#include "common/phal/usart.h"
 #include "daq_spi.h"
 #include "common/heartbeat/heartbeat.h"
+#include "common/can_library/generated/VCAN.h"
+#include "common/can_library/generated/MCAN.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // LEDs
@@ -35,12 +35,8 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_SDIO_DT2,
     GPIO_INIT_SDIO_DT3,
     GPIO_INIT_INPUT(SD_CD_PORT, SD_CD_PIN, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_INPUT(LOG_ENABLE_PORT, LOG_ENABLE_PIN, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(LOG_ENABLE_PORT, LOG_ENABLE_PIN, GPIO_INPUT_PULL_DOWN), // ! pull down to fix floating input issue
     GPIO_INIT_INPUT(PWR_LOSS_PORT, PWR_LOSS_PIN, GPIO_INPUT_OPEN_DRAIN), // SPL EXTI
-
-    // LTE UART
-    GPIO_INIT_USART6TX_PC6,
-    GPIO_INIT_USART6RX_PC7,
 
     // CAN1
     GPIO_INIT_CANRX_PA11,
@@ -57,12 +53,12 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
-#define TargetCoreClockrateHz 168000000
+#define TargetCoreClockrateHz 168'000'000
 ClockRateConfig_t clock_config = {
     .clock_source              = CLOCK_SOURCE_HSE,
     .use_pll                   = true,
     .pll_src                   = PLL_SRC_HSE,
-    .vco_output_rate_target_hz = 336000000, //288000000,
+    .vco_output_rate_target_hz = 336'000'000,
     .system_clock_target_hz    = TargetCoreClockrateHz,
     .ahb_clock_target_hz       = (TargetCoreClockrateHz / 1),
     .apb1_clock_target_hz      = (TargetCoreClockrateHz / 4),
@@ -126,14 +122,13 @@ daq_hub_t daq_hub = {
 
 // Static buffer allocations
 SPMC_t spmc;
-timestamped_frame_t buf;
 DEFINE_MUTEX(spi1_lock);
 
 static void configure_interrupts(void);
 void shutdown(void);
 
-DEFINE_TASK(sd_update_periodic, 100, osPriorityNormal, 4096); // SD WRITE
-DEFINE_TASK(eth_update_periodic, 50, osPriorityNormal, 4096); // BULLET COMMS 
+DEFINE_TASK(sd_update_periodic, 100, osPriorityNormal, STACK_4096); // SD WRITE
+DEFINE_TASK(eth_update_periodic, 50, osPriorityNormal, STACK_4096); // BULLET COMMS 
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main() {
@@ -143,28 +138,24 @@ int main() {
     if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
         HardFault_Handler();
     }
-        
-    PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 1);
     if (!PHAL_SPI_init(&eth_spi_config)) {
         HardFault_Handler();
     }
-
     if (!PHAL_configureRTC(&fallback_timestamp, false)) {
         HardFault_Handler();
     }
-
-    // ! CAN1 is bricked, use CAN2 on VCAN for now
-    // if (!PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
-    //     HardFault_Handler();
-    // }
-    if (!PHAL_initCAN(CAN2, false, VCAN_BAUD_RATE)) {
+    if (!PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
+        HardFault_Handler();
+    }
+    if (!PHAL_initCAN(CAN2, false, MCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
 
     daq_spi_register_callbacks(); // Link SPI for ethernet driver
+    PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 1);
 
     osKernelInitialize();
-    SPMC_init(&spmc);
+    SPMC_init(&spmc); // also inits CAN interrupts
     configure_interrupts();
 
     INIT_MUTEX(spi1_lock);
@@ -189,52 +180,66 @@ static void configure_interrupts(void) {
     NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
-static inline void can_rx_irq_handler(CAN_TypeDef* can_h) {
+
+volatile uint32_t last_vcan_rx = 0;
+volatile uint32_t last_mcan_rx = 0;
+volatile uint32_t last_can_rx_time_ms = 0;
+
+[[gnu::always_inline]]
+static inline void can_rx_irq_handler(CAN_TypeDef *peripheral) {
     portBASE_TYPE xHigherPriorityTaskWoken;
     xHigherPriorityTaskWoken = pdFALSE;
 
-    // TODO: track FIFO overrun and full errors
-    if (can_h->RF0R & CAN_RF0R_FOVR0) // FIFO Overrun
-        can_h->RF0R &= ~(CAN_RF0R_FOVR0);
+    // message !empty
+    bool message_pending = (peripheral->RF0R & CAN_RF0R_FMP0_Msk);
+    if (!message_pending) {
+        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+        return;
+    }
 
-    if (can_h->RF0R & CAN_RF0R_FULL0) // FIFO Full
-        can_h->RF0R &= ~(CAN_RF0R_FULL0);
+    timestamped_frame_t rx = {0}; // temp stack allocated variable
+    rx.ticks_ms            = xTaskGetTickCountFromISR();
+    last_can_rx_time_ms    = rx.ticks_ms;
 
-    if (can_h->RF0R & CAN_RF0R_FMP0_Msk) // Release message pending
-    {
-        timestamped_frame_t* rx = &buf;
-        rx->ticks_ms    = getTick();
-        if (can_h == CAN1) {
-            // bus ID is 31st bit of identity field, set to 0 for CAN1
-            rx->identity &= (uint32_t) ~(1 << SPMC_BUS_ID_Pos);
-        }
-        else {
-            // CAN2, bus ID set to 1 
-            rx->identity |= (uint32_t) (1 << SPMC_BUS_ID_Pos);
-        }
+    // set bus ID bit based on CAN peripheral
+    if (peripheral == CAN1) {
+        rx.identity &= ~BUS_ID_MASK;
+        last_vcan_rx = rx.ticks_ms;
+    } else {
+        rx.identity |= BUS_ID_MASK;
+        last_mcan_rx = rx.ticks_ms;
+    }
 
-        // Get either StdId or ExtId
-        if (CAN_RI0R_IDE & can_h->sFIFOMailBox[0].RIR) {
-            // Extended ID
-            rx->identity |= (uint32_t) 1 << SPMC_IS_EXTID_Pos;
-            rx->identity |= CAN_EFF_FLAG | (((CAN_RI0R_EXID | CAN_RI0R_STID) & can_h->sFIFOMailBox[0].RIR) >> CAN_RI0R_EXID_Pos); 
-        } else {
-            // Standard ID
-            rx->identity &= (uint32_t) ~(1 << SPMC_IS_EXTID_Pos);
-            rx->identity |= (CAN_RI0R_STID & can_h->sFIFOMailBox[0].RIR) >> CAN_TI0R_STID_Pos;
-        }
+    CAN_FIFOMailBox_TypeDef *mailbox = &peripheral->sFIFOMailBox[0];
 
-        rx->payload = (uint64_t) (can_h->sFIFOMailBox[0].RDLR); 
-        rx->payload |= (uint64_t) (can_h->sFIFOMailBox[0].RDHR) << 32;
+    // set id type and extract ID
+    bool is_xid = (mailbox->RIR & CAN_RI0R_IDE) != 0;
+    uint32_t can_id = 0;
+    // the right shift logic makes sense when you read RM0090 pg 1122
+    if (is_xid) {
+        rx.identity |= IS_XID_MASK;
+        can_id = (mailbox->RIR & (CAN_RI0R_STID | CAN_RI0R_EXID)) >> CAN_RI0R_EXID_Pos;
+    } else {
+        rx.identity &= ~IS_XID_MASK;
+        can_id = (mailbox->RIR & CAN_RI0R_STID) >> CAN_RI0R_STID_Pos;
+    }
+    rx.identity |= can_id;
 
-        (void)SPMC_enqueue_from_ISR(&spmc, rx);
+    // copy payload
+    rx.payload |= (uint64_t)(mailbox->RDLR);
+    rx.payload |= (uint64_t)(mailbox->RDHR) << 32;
 
-        if ((daq_hub.rtc_config_state != RTC_SYNC_COMPLETE) && ((rx->identity & STD_ID_MASK) == GPS_TIME_MSG_ID)) rtc_config_cb(rx);
-    } 
+    (void)SPMC_enqueue_from_ISR(&spmc, &rx);
 
-    can_h->RF0R |= (CAN_RF0R_RFOM0);
+    // release the FIFO
+    peripheral->RF0R |= CAN_RF0R_RFOM0;
+
+    if (peripheral == CAN1 && can_id == GPS_TIME_MSG_ID) {
+        // todo wake the RTC sync task
+    }
 
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+    return;
 }
 
 void CAN1_RX0_IRQHandler() {
@@ -242,7 +247,6 @@ void CAN1_RX0_IRQHandler() {
 }
 
 void CAN2_RX0_IRQHandler() {
-    /* TODO if main relays CAN2 onto CAN1, then there will be redundant messages in logs */
     can_rx_irq_handler(CAN2);
 }
 
@@ -251,12 +255,13 @@ void CAN2_RX0_IRQHandler() {
  *        If file open, flushes it to the sd card
  *        Then unmounts sd card
  */
+ // todo
 void shutdown(void) {
     // First, turn off all power consuming devices to increase our write time to sd card
     // To whoever is doing future DAQ rev: also change the GPIO ports here
     // all LEDs go bye bye
-    GPIOD->BSRR |= GPIO_CLEAR_BIT(HEARTBEAT_LED_PIN) | GPIO_CLEAR_BIT(CONNECTION_LED_PIN) | GPIO_CLEAR_BIT(ERROR_LED_PIN);
-    GPIOA->BSRR |= GPIO_CLEAR_BIT(SD_DETECT_LED_PIN) | GPIO_CLEAR_BIT(SD_ACTIVITY_LED_PIN) | GPIO_CLEAR_BIT(SD_ERROR_LED_PIN);
+    // GPIOD->BSRR |= GPIO_CLEAR_BIT(HEARTBEAT_LED_PIN) | GPIO_CLEAR_BIT(CONNECTION_LED_PIN) | GPIO_CLEAR_BIT(ERROR_LED_PIN);
+    // GPIOA->BSRR |= GPIO_CLEAR_BIT(SD_DETECT_LED_PIN) | GPIO_CLEAR_BIT(SD_ACTIVITY_LED_PIN) | GPIO_CLEAR_BIT(SD_ERROR_LED_PIN);
 
     PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 0);
     PHAL_deinitCAN(CAN1);
@@ -267,8 +272,8 @@ void shutdown(void) {
     PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
 
     // wait for power to fully turn off -> if it does not, restart
-    uint32_t start_tick = getTick();
-    while (getTick() - start_tick < 3000 || PHAL_readGPIO(PWR_LOSS_PORT, PWR_LOSS_PIN) == 0);
+    uint32_t start_tick = xTaskGetTickCountFromISR();
+    while (xTaskGetTickCountFromISR() - start_tick < 3000 || PHAL_readGPIO(PWR_LOSS_PORT, PWR_LOSS_PIN) == 0);
 
     NVIC_SystemReset(); // oof, we assumed wrong, restart and resume execution since the power is still on!
 }
@@ -283,7 +288,7 @@ void EXTI15_10_IRQHandler() {
 }
 
 void HardFault_Handler() {
-    PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 1);
+    ERROR_LED_PORT->BSRR = (1 << ERROR_LED_PIN);
     while (1) {
         __asm__("nop");
     }

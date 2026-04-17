@@ -9,7 +9,7 @@
 #include "spmc.h"
 #include "stm32f407xx.h"
 
-// todo maybe commit the last write right when power is lost?
+// todo commit the last write right when power is lost
 
 static constexpr uint32_t CAN_RX_IRQ_PRIO = 6;  // highest RTOS priority
 static constexpr uint32_t CAN_SCE_IRQ_PRIO = 10;
@@ -52,6 +52,8 @@ SPMC_status_t SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_
     if (next_head == SPMC_CAPACITY) {
         next_head = 0;
     }
+    
+    // todo: xnotifyfromisr the sd thread to wake when size >= SD_WRITE_THRESHOLD
 
     // ! the frame is dropped if the buffer is full
     if (next_head == spmc->master_tail) {
@@ -63,7 +65,6 @@ SPMC_status_t SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_
     spmc->data[spmc->head] = *incoming_frame;
     __DMB(); // do not switch the order of the data write and head update
     spmc->head = next_head;
-
     __DSB(); // halt the cpu until write is finished
 
     return SPMC_OK;

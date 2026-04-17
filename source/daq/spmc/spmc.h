@@ -15,7 +15,7 @@
 
 // todo tune values based on testing
 static constexpr size_t SPMC_CHUNK_NUM_FRAMES = 128;
-static constexpr size_t SPMC_CHUNK_CAPACITY = 4;
+static constexpr size_t SPMC_CHUNK_CAPACITY = 12;
 static constexpr size_t SPMC_FRAME_CAPACITY = SPMC_CHUNK_NUM_FRAMES * SPMC_CHUNK_CAPACITY;
 static_assert(
     SPMC_FRAME_CAPACITY % SPMC_CHUNK_NUM_FRAMES == 0,

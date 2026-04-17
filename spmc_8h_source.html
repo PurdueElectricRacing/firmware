@@ -106,64 +106,54 @@ $(function(){initNavTree('spmc_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;stddef.h&gt;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#define SPMC_BUS_ID_Pos (31U)</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#define SPMC_IS_EXTID_Pos (30U)</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="structtimestamped__frame__t.html">   19</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    uint32_t ticks_ms; <span class="comment">// ms timestamp of reception</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    uint32_t identity; <span class="comment">// [1 bit bus ID] [1 bit isExtID] [1 bit reserved] [29 bits CAN ID]</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    uint64_t payload;  <span class="comment">// message data</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>} <a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;timestamped_frame.h&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">typedef</span> enum : <span class="keywordtype">int</span> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    SPMC_OK    = 0,</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    SPMC_FULL  = -1,</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    SPMC_EMPTY = -2,</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>} SPMC_status_t;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">// todo tune values based on testing</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">size_t</span> SPMC_CAPACITY = 512;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">size_t</span> SD_WRITE_THRESHOLD = 128;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">static_assert</span>(</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    SPMC_CAPACITY % SD_WRITE_THRESHOLD == 0,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="stringliteral">&quot;the SPMC capacity must be a multiple of SD_WRITE_THRESHOLD &quot;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="stringliteral">&quot;to prevent DMA wraparound issues&quot;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">// ! allocate one extra frame to distinguish full vs empty conditions</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">size_t</span> SPMC_ALLOCATED_CAPACITY = SPMC_CAPACITY + 1;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="foldopen" id="foldopen00034" data-start="{" data-end="};">
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structSPMC__t.html">   34</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a> data[SPMC_ALLOCATED_CAPACITY];</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">volatile</span> <span class="keywordtype">size_t</span> head;          <span class="comment">// shared head</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">volatile</span> <span class="keywordtype">size_t</span> master_tail;   <span class="comment">// SD tail</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">volatile</span> <span class="keywordtype">size_t</span> follower_tail; <span class="comment">// best-effort ETH tail</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">volatile</span> uint32_t overflows;   <span class="comment">// items dropped due to full buffer</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>} <a class="code hl_struct" href="structSPMC__t.html">SPMC_t</a>;</div>
 </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">typedef</span> enum : <span class="keywordtype">int</span> {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    SPMC_OK = 0,</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    SPMC_FULL = -1,</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    SPMC_EMPTY = -2,</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>} SPMC_status_t;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">static_assert</span>(</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">sizeof</span>(<a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a>) == 16,</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="stringliteral">&quot;timestamped_frame_t must be 16 bytes for optimal access patterns&quot;</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">// todo tune values based on testing</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">size_t</span> SPMC_CAPACITY = 512;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">size_t</span> SD_WRITE_THRESHOLD = 32;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">static_assert</span>(</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    SPMC_CAPACITY % SD_WRITE_THRESHOLD == 0,</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="stringliteral">&quot;the SPMC capacity must be a multiple of SD_WRITE_THRESHOLD &quot;</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="stringliteral">&quot;to prevent DMA wraparound issues&quot;</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">// ! allocate one extra frame to distinguish full vs empty conditions</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">size_t</span> SPMC_ALLOCATED_CAPACITY = SPMC_CAPACITY + 1;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">static_assert</span>(</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">sizeof</span>(size_t) == 4,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="stringliteral">&quot;32-bit loads and stores are atomic, this is required for the lock-free design to work&quot;</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>);</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="foldopen" id="foldopen00047" data-start="{" data-end="};">
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structSPMC__t.html">   47</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a> data[SPMC_ALLOCATED_CAPACITY];</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">volatile</span> <span class="keywordtype">size_t</span> head;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">volatile</span> <span class="keywordtype">size_t</span> master_tail; <span class="comment">// SD tail</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">volatile</span> <span class="keywordtype">size_t</span> follower_tail; <span class="comment">// best-effort ETH tail</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">volatile</span> uint32_t overflows;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>} <a class="code hl_struct" href="structSPMC__t.html">SPMC_t</a>;</div>
-</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keywordtype">void</span> <a class="code hl_function" href="spmc_8h.html#a89cd8310ea92fcf7779b939853f6f6fc">SPMC_init</a>(<a class="code hl_struct" href="structSPMC__t.html">SPMC_t</a> *spmc);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>SPMC_status_t <a class="code hl_function" href="spmc_8h.html#a35081c08ef2d027de5d213128a806b2d">SPMC_enqueue_from_ISR</a>(<a class="code hl_struct" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a> *incoming_frame);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keywordtype">size_t</span> <a class="code hl_function" href="spmc_8h.html#a0e02688161d73cfc258183078ce2791c">SPMC_master_peek_all</a>(<a class="code hl_struct" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **first_item, <span class="keywordtype">size_t</span> *total_unread);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keywordtype">void</span> <a class="code hl_function" href="spmc_8h.html#a0c9f2247c3a031c4e18c900270ad708c">SPMC_master_commit_tail</a>(<a class="code hl_struct" href="structSPMC__t.html">SPMC_t</a> *spmc, <span class="keywordtype">size_t</span> num_consumed);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>SPMC_status_t <a class="code hl_function" href="spmc_8h.html#a260afb64887341d807103c7152f1df9c">SPMC_follower_pop</a>(<a class="code hl_struct" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **out, uint32_t *consecutive_items);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#endif </span><span class="comment">// SPMC_H</span></div>
-<div class="ttc" id="aspmc_8h_html_a0c9f2247c3a031c4e18c900270ad708c"><div class="ttname"><a href="spmc_8h.html#a0c9f2247c3a031c4e18c900270ad708c">SPMC_master_commit_tail</a></div><div class="ttdeci">void SPMC_master_commit_tail(SPMC_t *spmc, size_t num_consumed)</div><div class="ttdoc">Commits the specified number of consumed frames by advancing the master tail pointer.</div><div class="ttdef"><b>Definition</b> spmc.c:107</div></div>
-<div class="ttc" id="aspmc_8h_html_a0e02688161d73cfc258183078ce2791c"><div class="ttname"><a href="spmc_8h.html#a0e02688161d73cfc258183078ce2791c">SPMC_master_peek_all</a></div><div class="ttdeci">size_t SPMC_master_peek_all(SPMC_t *spmc, timestamped_frame_t **first_item, size_t *total_unread)</div><div class="ttdoc">Peeks at the next batch of frames available for processing by the master (SD logging) without committ...</div><div class="ttdef"><b>Definition</b> spmc.c:82</div></div>
-<div class="ttc" id="aspmc_8h_html_a260afb64887341d807103c7152f1df9c"><div class="ttname"><a href="spmc_8h.html#a260afb64887341d807103c7152f1df9c">SPMC_follower_pop</a></div><div class="ttdeci">SPMC_status_t SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out, uint32_t *consecutive_items)</div><div class="ttdoc">Pops a single frame for the follower (Ethernet transmission) and advances the follower tail pointer....</div><div class="ttdef"><b>Definition</b> spmc.c:130</div></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keywordtype">void</span> <a class="code hl_function" href="spmc_8h.html#a89cd8310ea92fcf7779b939853f6f6fc">SPMC_init</a>(<a class="code hl_struct" href="structSPMC__t.html">SPMC_t</a> *spmc);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>SPMC_status_t <a class="code hl_function" href="spmc_8h.html#a35081c08ef2d027de5d213128a806b2d">SPMC_enqueue_from_ISR</a>(<a class="code hl_struct" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a> *incoming_frame);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keywordtype">size_t</span> <a class="code hl_function" href="spmc_8h.html#a0e02688161d73cfc258183078ce2791c">SPMC_master_peek_all</a>(<a class="code hl_struct" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **first_item, <span class="keywordtype">size_t</span> *total_unread);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keywordtype">void</span> <a class="code hl_function" href="spmc_8h.html#a0c9f2247c3a031c4e18c900270ad708c">SPMC_master_commit_tail</a>(<a class="code hl_struct" href="structSPMC__t.html">SPMC_t</a> *spmc, <span class="keywordtype">size_t</span> num_consumed);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>SPMC_status_t <a class="code hl_function" href="spmc_8h.html#a260afb64887341d807103c7152f1df9c">SPMC_follower_pop</a>(<a class="code hl_struct" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **out, uint32_t *consecutive_items);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#endif </span><span class="comment">// SPMC_H</span></div>
+<div class="ttc" id="aspmc_8h_html_a0c9f2247c3a031c4e18c900270ad708c"><div class="ttname"><a href="spmc_8h.html#a0c9f2247c3a031c4e18c900270ad708c">SPMC_master_commit_tail</a></div><div class="ttdeci">void SPMC_master_commit_tail(SPMC_t *spmc, size_t num_consumed)</div><div class="ttdoc">Commits the specified number of consumed frames by advancing the master tail pointer.</div><div class="ttdef"><b>Definition</b> spmc.c:108</div></div>
+<div class="ttc" id="aspmc_8h_html_a0e02688161d73cfc258183078ce2791c"><div class="ttname"><a href="spmc_8h.html#a0e02688161d73cfc258183078ce2791c">SPMC_master_peek_all</a></div><div class="ttdeci">size_t SPMC_master_peek_all(SPMC_t *spmc, timestamped_frame_t **first_item, size_t *total_unread)</div><div class="ttdoc">Peeks at the next batch of frames available for processing by the master (SD logging) without committ...</div><div class="ttdef"><b>Definition</b> spmc.c:83</div></div>
+<div class="ttc" id="aspmc_8h_html_a260afb64887341d807103c7152f1df9c"><div class="ttname"><a href="spmc_8h.html#a260afb64887341d807103c7152f1df9c">SPMC_follower_pop</a></div><div class="ttdeci">SPMC_status_t SPMC_follower_pop(SPMC_t *spmc, timestamped_frame_t **out, uint32_t *consecutive_items)</div><div class="ttdoc">Pops a single frame for the follower (Ethernet transmission) and advances the follower tail pointer....</div><div class="ttdef"><b>Definition</b> spmc.c:131</div></div>
 <div class="ttc" id="aspmc_8h_html_a35081c08ef2d027de5d213128a806b2d"><div class="ttname"><a href="spmc_8h.html#a35081c08ef2d027de5d213128a806b2d">SPMC_enqueue_from_ISR</a></div><div class="ttdeci">SPMC_status_t SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame)</div><div class="ttdoc">Enqueues a received CAN message into the SPMC buffer from an ISR context. ! the two producer ISRs mus...</div><div class="ttdef"><b>Definition</b> spmc.c:49</div></div>
 <div class="ttc" id="aspmc_8h_html_a89cd8310ea92fcf7779b939853f6f6fc"><div class="ttname"><a href="spmc_8h.html#a89cd8310ea92fcf7779b939853f6f6fc">SPMC_init</a></div><div class="ttdeci">void SPMC_init(SPMC_t *spmc)</div><div class="ttdoc">Initializes the SPMC instance and configures CAN RX interrupts.</div><div class="ttdef"><b>Definition</b> spmc.c:26</div></div>
-<div class="ttc" id="astructSPMC__t_html"><div class="ttname"><a href="structSPMC__t.html">SPMC_t</a></div><div class="ttdef"><b>Definition</b> spmc.h:47</div></div>
-<div class="ttc" id="astructtimestamped__frame__t_html"><div class="ttname"><a href="structtimestamped__frame__t.html">timestamped_frame_t</a></div><div class="ttdef"><b>Definition</b> spmc.h:19</div></div>
+<div class="ttc" id="astructSPMC__t_html"><div class="ttname"><a href="structSPMC__t.html">SPMC_t</a></div><div class="ttdef"><b>Definition</b> spmc.h:34</div></div>
+<div class="ttc" id="astructtimestamped__frame__t_html"><div class="ttname"><a href="structtimestamped__frame__t.html">timestamped_frame_t</a></div><div class="ttdef"><b>Definition</b> timestamped_frame.h:9</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

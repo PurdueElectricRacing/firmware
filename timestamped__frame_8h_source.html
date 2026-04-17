@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: source/daq/daq_hub/daq_rtc_config.h Source File</title>
+<title>PER Firmware: source/daq/spmc/timestamped_frame.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('daq__rtc__config_8h_source.html',''); initResizable(true); });
+$(function(){initNavTree('timestamped__frame_8h_source.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -97,21 +97,38 @@ $(function(){initNavTree('daq__rtc__config_8h_source.html',''); initResizable(tr
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">daq_rtc_config.h</div></div>
+  <div class="headertitle"><div class="title">timestamped_frame.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="spmc_8h.html">spmc.h</a>&quot;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;common/phal/rtc.h&quot;</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef TIMESTAMPED_FRAME_H</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define TIMESTAMPED_FRAME_H</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keywordtype">void</span> rtc_config_cb(<a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a>*);</div>
-<div class="ttc" id="aspmc_8h_html"><div class="ttname"><a href="spmc_8h.html">spmc.h</a></div><div class="ttdoc">Custom SPMC designed for high throughput handling of CAN message streams.</div></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">static</span> <span class="keyword">constexpr</span> uint32_t BUS_ID_MASK = (1u &lt;&lt; 31u);</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">static</span> <span class="keyword">constexpr</span> uint32_t IS_XID_MASK = (1u &lt;&lt; 30u);</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="foldopen" id="foldopen00009" data-start="{" data-end="};">
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="structtimestamped__frame__t.html">    9</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    uint32_t ticks_ms; <span class="comment">// ms timestamp of reception</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    uint32_t identity; <span class="comment">// [1 bit bus ID] [1 bit isExtID] [1 bit reserved] [29 bits CAN ID]</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    uint64_t payload;  <span class="comment">// message data</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>} <a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a>;</div>
+</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">static_assert</span>(</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">sizeof</span>(<a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a>) == 16,</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="stringliteral">&quot;timestamped_frame_t should be 16 bytes for optimal access patterns&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#endif </span><span class="comment">// TIMESTAMPED_FRAME_H</span></div>
 <div class="ttc" id="astructtimestamped__frame__t_html"><div class="ttname"><a href="structtimestamped__frame__t.html">timestamped_frame_t</a></div><div class="ttdef"><b>Definition</b> timestamped_frame.h:9</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_58db63217748590974291dcef374365a.html">daq</a></li><li class="navelem"><a class="el" href="dir_a2e1dcf6fda5ea83ea456c15f5f86ae9.html">daq_hub</a></li><li class="navelem"><b>daq_rtc_config.h</b></li>
+    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_58db63217748590974291dcef374365a.html">daq</a></li><li class="navelem"><a class="el" href="dir_e67555d1f5fe7292c6a7c448ab46b58b.html">spmc</a></li><li class="navelem"><b>timestamped_frame.h</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

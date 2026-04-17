@@ -143,91 +143,68 @@ $(function(){initNavTree('daq_2main_8h_source.html',''); initResizable(true); })
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#define ETH_RST_PORT  (GPIOE)</span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#define ETH_RST_PIN   (3)</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">// LTE USART6</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#define LTE_UART_TX_PORT (GPIOC)</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#define LTE_UART_TX_PIN  (6)</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#define LTE_UART_RX_PORT (GPIOC)</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#define LTE_UART_RX_PIN  (7)</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">// MISC</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#define PWR_LOSS_PORT   (GPIOE)</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#define PWR_LOSS_PIN    (15)</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#define LOG_ENABLE_PORT (GPIOC)</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#define LOG_ENABLE_PIN  (15)</span></div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">// MISC</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#define PWR_LOSS_PORT   (GPIOE)</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#define PWR_LOSS_PIN    (15)</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#define LOG_ENABLE_PORT (GPIOC)</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#define LOG_ENABLE_PIN  (15)</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">// CAN </span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#define BUS_ID_CAN1 0</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#define BUS_ID_CAN2 1</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#define STD_ID_MASK ((1U &lt;&lt; 11) - 1) </span><span class="comment">// bottom 11 bits </span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">// GPIO helper macros</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#define GPIO_CLEAR_BIT(PIN) ((1 &lt;&lt; ((1 &lt;&lt; 4) | (PIN))))</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#define PER   1</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#define GREAT PER</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">static_assert</span>(PER == GREAT); <span class="comment">// Long live daq loop</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#define PER   1</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#define GREAT PER</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">static_assert</span>(PER == GREAT); <span class="comment">// Long live daq loop</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#define SD_BLOCKING_TIMEOUT_MS (5000)</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">constexpr</span> TickType_t SD_BLOCKING_TIMEOUT_TICKS = pdMS_TO_TICKS(SD_BLOCKING_TIMEOUT_MS); </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="};">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="structdaq__hub__t.html">   57</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>{</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="comment">// Ethernet</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    eth_state_t eth_state;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    rtc_config_state_t rtc_config_state;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    eth_tcp_state_t eth_tcp_state;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    uint32_t eth_error_ct;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    eth_error_t eth_last_err;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    int32_t eth_last_err_res;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    uint32_t eth_last_error_time;</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#define SD_WRITE_PERIOD_MS    (100)</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#define SD_NEW_FILE_PERIOD_MS (1 * 60 * 1000) </span><span class="comment">// 1 min</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#define SD_MAX_WRITE_COUNT    (100)</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">#define SD_ERROR_RETRY_MS     (250)</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">#define ETH_ERROR_RETRY_MS    (250)</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">#define SD_BLOCKING_TIMEOUT_MS (5000)</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#define UDP_MAX_BUFFER_SIZE (8192)</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="preprocessor">#define UDP_MAX_WRITE_COUNT (UDP_MAX_BUFFER_SIZE / (sizeof(timestamped_frame_t)))</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keyword">constexpr</span> TickType_t SD_BLOCKING_TIMEOUT_TICKS = pdMS_TO_TICKS(SD_BLOCKING_TIMEOUT_MS); </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="foldopen" id="foldopen00080" data-start="{" data-end="};">
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="structdaq__hub__t.html">   80</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>{</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="comment">// Ethernet</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    eth_state_t eth_state;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    rtc_config_state_t rtc_config_state;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    eth_tcp_state_t eth_tcp_state;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    uint32_t eth_error_ct;</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    eth_error_t eth_last_err;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    int32_t eth_last_err_res;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    uint32_t eth_last_error_time;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="comment">// SD Card</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    sd_state_t sd_state;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <a class="code hl_struct" href="structFATFS.html">FATFS</a> fat_fs;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    uint32_t sd_error_ct;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    sd_error_t sd_last_err;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    FRESULT sd_last_err_res;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    uint32_t sd_last_error_time;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    xTaskHandle sd_task_handle;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <a class="code hl_struct" href="structFIL.html">FIL</a> log_fp;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    uint32_t log_start_ms;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    uint32_t last_write_ms;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    uint32_t last_file_ms;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="structdaq__hub__t.html#a30728bd411c9acd1b9bf3056c9e0b3d7">  104</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structdaq__hub__t.html#a30728bd411c9acd1b9bf3056c9e0b3d7">log_enable_sw</a>; </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordtype">bool</span> log_enable_tcp;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    uint32_t bcan_rx_overflow;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    uint32_t can1_rx_overflow;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    uint32_t sd_rx_overflow;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    uint32_t tcp_tx_overflow;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>} <a class="code hl_struct" href="structdaq__hub__t.html">daq_hub_t</a>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="comment">// SD Card</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    sd_state_t sd_state;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_struct" href="structFATFS.html">FATFS</a> fat_fs;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    uint32_t sd_error_ct;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    sd_error_t sd_last_err;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    FRESULT sd_last_err_res;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    uint32_t sd_last_error_time;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    xTaskHandle sd_task_handle;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <a class="code hl_struct" href="structFIL.html">FIL</a> log_fp;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    uint32_t log_start_ms;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    uint32_t last_write_ms;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    uint32_t last_file_ms;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="structdaq__hub__t.html#a30728bd411c9acd1b9bf3056c9e0b3d7">   81</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structdaq__hub__t.html#a30728bd411c9acd1b9bf3056c9e0b3d7">log_enable_sw</a>; </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordtype">bool</span> log_enable_tcp;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    uint32_t bcan_rx_overflow;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    uint32_t can1_rx_overflow;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    uint32_t sd_rx_overflow;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    uint32_t tcp_tx_overflow;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>} <a class="code hl_struct" href="structdaq__hub__t.html">daq_hub_t</a>;</div>
 </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="keyword">extern</span> <a class="code hl_struct" href="structSPMC__t.html">SPMC_t</a> spmc;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="keyword">extern</span> SemaphoreHandle_t spi1_lock;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="keyword">extern</span> <a class="code hl_struct" href="structdaq__hub__t.html">daq_hub_t</a> daq_hub;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="keywordtype">void</span> HardFault_Handler();</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="keyword">extern</span> <a class="code hl_struct" href="structSPMC__t.html">SPMC_t</a> spmc;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keyword">extern</span> SemaphoreHandle_t spi1_lock;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keyword">extern</span> <a class="code hl_struct" href="structdaq__hub__t.html">daq_hub_t</a> daq_hub;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keywordtype">void</span> HardFault_Handler();</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="afreertos_8h_html"><div class="ttname"><a href="freertos_8h.html">freertos.h</a></div><div class="ttdoc">Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati...</div></div>
 <div class="ttc" id="aspmc_8h_html"><div class="ttname"><a href="spmc_8h.html">spmc.h</a></div><div class="ttdoc">Custom SPMC designed for high throughput handling of CAN message streams.</div></div>
 <div class="ttc" id="astructFATFS_html"><div class="ttname"><a href="structFATFS.html">FATFS</a></div><div class="ttdef"><b>Definition</b> ff.h:124</div></div>
 <div class="ttc" id="astructFIL_html"><div class="ttname"><a href="structFIL.html">FIL</a></div><div class="ttdef"><b>Definition</b> ff.h:191</div></div>
-<div class="ttc" id="astructSPMC__t_html"><div class="ttname"><a href="structSPMC__t.html">SPMC_t</a></div><div class="ttdef"><b>Definition</b> spmc.h:47</div></div>
-<div class="ttc" id="astructdaq__hub__t_html"><div class="ttname"><a href="structdaq__hub__t.html">daq_hub_t</a></div><div class="ttdef"><b>Definition</b> main.h:81</div></div>
-<div class="ttc" id="astructdaq__hub__t_html_a30728bd411c9acd1b9bf3056c9e0b3d7"><div class="ttname"><a href="structdaq__hub__t.html#a30728bd411c9acd1b9bf3056c9e0b3d7">daq_hub_t::log_enable_sw</a></div><div class="ttdeci">bool log_enable_sw</div><div class="ttdoc">Debounced switch state.</div><div class="ttdef"><b>Definition</b> main.h:104</div></div>
+<div class="ttc" id="astructSPMC__t_html"><div class="ttname"><a href="structSPMC__t.html">SPMC_t</a></div><div class="ttdef"><b>Definition</b> spmc.h:34</div></div>
+<div class="ttc" id="astructdaq__hub__t_html"><div class="ttname"><a href="structdaq__hub__t.html">daq_hub_t</a></div><div class="ttdef"><b>Definition</b> main.h:58</div></div>
+<div class="ttc" id="astructdaq__hub__t_html_a30728bd411c9acd1b9bf3056c9e0b3d7"><div class="ttname"><a href="structdaq__hub__t.html#a30728bd411c9acd1b9bf3056c9e0b3d7">daq_hub_t::log_enable_sw</a></div><div class="ttdeci">bool log_enable_sw</div><div class="ttdoc">Debounced switch state.</div><div class="ttdef"><b>Definition</b> main.h:81</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

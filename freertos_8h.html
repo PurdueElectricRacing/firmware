@@ -176,12 +176,6 @@ Macros</h2></td></tr>
 <tr class="memitem:a8412c35f40aa1f99e880a42b27dd559a" id="r_a8412c35f40aa1f99e880a42b27dd559a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8412c35f40aa1f99e880a42b27dd559a">INIT_BINARY_SEMAPHORE</a>(NAME)</td></tr>
 <tr class="memdesc:a8412c35f40aa1f99e880a42b27dd559a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the defined static binary semaphore.  <br /></td></tr>
 <tr class="separator:a8412c35f40aa1f99e880a42b27dd559a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9bb5b95ae9be61db75d49fa9bd22881" id="r_af9bb5b95ae9be61db75d49fa9bd22881"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9bb5b95ae9be61db75d49fa9bd22881">getTick</a>()</td></tr>
-<tr class="separator:af9bb5b95ae9be61db75d49fa9bd22881"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a022e004ffb7bc7f71f7344f7af9c6fa1" id="r_a022e004ffb7bc7f71f7344f7af9c6fa1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a022e004ffb7bc7f71f7344f7af9c6fa1">getMS</a>()</td></tr>
-<tr class="separator:a022e004ffb7bc7f71f7344f7af9c6fa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d5d0a016332574ab3a9906ff20d959a" id="r_a3d5d0a016332574ab3a9906ff20d959a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d5d0a016332574ab3a9906ff20d959a">mDelay</a>(ms)</td></tr>
-<tr class="separator:a3d5d0a016332574ab3a9906ff20d959a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -406,24 +400,6 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
 
 </div>
 </div>
-<a id="a022e004ffb7bc7f71f7344f7af9c6fa1" name="a022e004ffb7bc7f71f7344f7af9c6fa1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a022e004ffb7bc7f71f7344f7af9c6fa1">&#9670;&#160;</a></span>getMS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define getMS</td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(getTick() * portTICK_PERIOD_MS)</div>
-</div><!-- fragment -->
-</div>
-</div>
 <a id="a3de6343dd1d29b508dd7d52f93416750" name="a3de6343dd1d29b508dd7d52f93416750"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3de6343dd1d29b508dd7d52f93416750">&#9670;&#160;</a></span>getTaskHandle</h2>
 
@@ -442,24 +418,6 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
 </div><!-- fragment -->
 <p>Retrieves the FreeRTOS task handle for the defined task. </p>
 
-</div>
-</div>
-<a id="af9bb5b95ae9be61db75d49fa9bd22881" name="af9bb5b95ae9be61db75d49fa9bd22881"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9bb5b95ae9be61db75d49fa9bd22881">&#9670;&#160;</a></span>getTick</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define getTick</td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">xTaskGetTickCount()</div>
-</div><!-- fragment -->
 </div>
 </div>
 <a id="a8412c35f40aa1f99e880a42b27dd559a" name="a8412c35f40aa1f99e880a42b27dd559a"></a>
@@ -554,24 +512,6 @@ Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'u
 </div><!-- fragment -->
 <p>Initializes the defined static queue. </p>
 
-</div>
-</div>
-<a id="a3d5d0a016332574ab3a9906ff20d959a" name="a3d5d0a016332574ab3a9906ff20d959a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d5d0a016332574ab3a9906ff20d959a">&#9670;&#160;</a></span>mDelay</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define mDelay</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>ms</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(osDelay(pdMS_TO_TICKS((ms))))</div>
-</div><!-- fragment -->
 </div>
 </div>
 <a id="abca5333b90b00f973c6491246378f0ef" name="abca5333b90b00f973c6491246378f0ef"></a>

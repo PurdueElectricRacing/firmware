@@ -1,6 +1,5 @@
 var spmc_8h =
 [
-    [ "timestamped_frame_t", "structtimestamped__frame__t.html", null ],
     [ "SPMC_t", "structSPMC__t.html", null ],
     [ "SPMC_enqueue_from_ISR", "spmc_8h.html#a35081c08ef2d027de5d213128a806b2d", null ],
     [ "SPMC_follower_pop", "spmc_8h.html#a260afb64887341d807103c7152f1df9c", null ],

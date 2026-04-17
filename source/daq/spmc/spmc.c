@@ -54,7 +54,7 @@ void SPMC_init(SPMC_t *spmc) {
 
 /**
  * @brief Enqueues a received CAN message into the SPMC buffer from an ISR context.
- * ! the two producer ISRs must have the same NVIC priority to prevent preemption of eachother in the middle of a write
+ * ! the two producer ISRs must have the same NVIC priority to prevent preemption of each other in the middle of a write
  * 
  * @param spmc Pointer to the SPMC instance.
  * @param incoming_frame Pointer to the timestamped_frame_t containing the received CAN message.
@@ -76,7 +76,7 @@ bool SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame) {
         next_head = 0;
     }
     
-    // todo: xnotifyfromisr the sd thread to wake when size >= SD_WRITE_THRESHOLD
+    // todo: notify the SD thread from here?
 
     // write the frame into the buffer
     spmc->data[head] = *incoming_frame;

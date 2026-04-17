@@ -12,7 +12,7 @@ static constexpr uint32_t SD_ERROR_RETRY_MS = 250;
 
 static FRESULT sd_create_new_file(void);
 static inline void sd_file_sync(void);
-static void sd_write_periodic(bool bypass_limit);
+static void sd_write_periodic();
 static void sd_handle_error(sd_error_t sd_error, FRESULT result);
 static void sd_reset_error(void);
 
@@ -76,13 +76,13 @@ static inline void sd_file_sync(void) {
 }
 
 // todo reevaluate the logic here
-static void sd_write_periodic(bool bypass_limit) {
+static void sd_write_periodic() {
     if (daq_hub.sd_state != SD_STATE_ACTIVE) {
         return;
     }
 
     // Use the unread item count, not contiguous for the threshold
-    timestamped_frame_t *frame; // updated to by SPMC_master_peek_all()
+    timestamped_frame_t *frame; // updated by SPMC_master_peek_chunk() on success
 
     if (!SPMC_master_peek_chunk(&spmc, &frame)) {
         return;
@@ -167,7 +167,7 @@ void sd_update_periodic(void) {
             break;
         case SD_STATE_ACTIVE:
             if (xTaskGetTickCount() - daq_hub.last_write_ms > SD_WRITE_PERIOD_MS) {
-                sd_write_periodic(false);
+                sd_write_periodic();
             }
 
             if (xTaskGetTickCount() - daq_hub.last_file_ms > SD_NEW_FILE_PERIOD_MS) {

@@ -255,27 +255,9 @@ void CAN2_RX0_IRQHandler() {
  *        If file open, flushes it to the sd card
  *        Then unmounts sd card
  */
- // todo
-void shutdown(void) {
-    // First, turn off all power consuming devices to increase our write time to sd card
-    // To whoever is doing future DAQ rev: also change the GPIO ports here
-    // all LEDs go bye bye
-    // GPIOD->BSRR |= GPIO_CLEAR_BIT(HEARTBEAT_LED_PIN) | GPIO_CLEAR_BIT(CONNECTION_LED_PIN) | GPIO_CLEAR_BIT(ERROR_LED_PIN);
-    // GPIOA->BSRR |= GPIO_CLEAR_BIT(SD_DETECT_LED_PIN) | GPIO_CLEAR_BIT(SD_ACTIVITY_LED_PIN) | GPIO_CLEAR_BIT(SD_ERROR_LED_PIN);
-
-    PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 0);
-    PHAL_deinitCAN(CAN1);
-    PHAL_deinitCAN(CAN2);
-
-    sd_shutdown();
-    // Hooray, we made it, blink an LED to show the world
-    PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
-
-    // wait for power to fully turn off -> if it does not, restart
-    uint32_t start_tick = xTaskGetTickCountFromISR();
-    while (xTaskGetTickCountFromISR() - start_tick < 3000 || PHAL_readGPIO(PWR_LOSS_PORT, PWR_LOSS_PIN) == 0);
-
-    NVIC_SystemReset(); // oof, we assumed wrong, restart and resume execution since the power is still on!
+[[gnu::always_inline]]
+static void inline shutdown_callback(void) {
+    // todo shutdown hook
 }
 
 // Interrupt handler for power loss detection
@@ -283,7 +265,7 @@ void shutdown(void) {
 void EXTI15_10_IRQHandler() {
     if (EXTI->PR & EXTI_PR_PR15) {
         EXTI->PR |= EXTI_PR_PR15; // Clear interrupt
-        shutdown();
+        shutdown_callback();
     }
 }
 

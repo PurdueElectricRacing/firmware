@@ -11,7 +11,6 @@
 #ifndef _PHAL_SDIO_H
 #define _PHAL_SDIO_H
 
-#include <stdbool.h>
 #include <stddef.h>
 
 #include "common/phal/dma.h"

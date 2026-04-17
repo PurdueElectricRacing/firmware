@@ -184,7 +184,9 @@ static void configure_interrupts(void) {
 volatile uint32_t last_vcan_rx = 0;
 volatile uint32_t last_mcan_rx = 0;
 volatile uint32_t last_can_rx_time_ms = 0;
-static void can_rx_irq_handler(CAN_TypeDef *peripheral) {
+
+[[gnu::always_inline]]
+static inline void can_rx_irq_handler(CAN_TypeDef *peripheral) {
     portBASE_TYPE xHigherPriorityTaskWoken;
     xHigherPriorityTaskWoken = pdFALSE;
 

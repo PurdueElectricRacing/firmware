@@ -59,12 +59,12 @@ void SPMC_init(SPMC_t *spmc) {
  * @param spmc Pointer to the SPMC instance.
  * @param incoming_frame Pointer to the timestamped_frame_t containing the received CAN message.
  *
- * @return SPMC_OK if the frame was enqueued successfully, or SPMC_FULL if the buffer is full and the frame was dropped.
+ * @return true if the frame was enqueued successfully, or false if the buffer is full and the frame was dropped.
  */
-SPMC_status_t SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame) {
+bool SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame) {
     if (spmc->is_full) { // atomic load
         spmc->overflows++; 
-        return SPMC_FULL; // ! the frame is dropped
+        return false; // ! the frame is dropped
     }
 
     const size_t head = spmc->head; // atomic load
@@ -84,7 +84,7 @@ SPMC_status_t SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_
     spmc->head    = next_head;
     spmc->is_full = (next_head == master_tail);
 
-    return SPMC_OK;
+    return true;
 }
 
 /**
@@ -93,9 +93,9 @@ SPMC_status_t SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_
  * @param spmc Pointer to the SPMC instance.
  * @param first_item Output pointer that will point to the first item in the chunk if available, or NULL if no items are available.
  *
- * @return SPMC_OK if a chunk is available, SPMC_EMPTY if no items/not enough are available
+ * @return true if a chunk is available, false if no items/not enough are available
  */
-SPMC_status_t SPMC_master_peek_chunk(SPMC_t *spmc, timestamped_frame_t **first_item) {
+bool SPMC_master_peek_chunk(SPMC_t *spmc, timestamped_frame_t **first_item) {
     uint32_t basepri = __get_BASEPRI();
     __set_BASEPRI(CAN_RX_IRQ_PRIO << (8 - __NVIC_PRIO_BITS));
 
@@ -113,11 +113,11 @@ SPMC_status_t SPMC_master_peek_chunk(SPMC_t *spmc, timestamped_frame_t **first_i
     // not enough data for even one chunk
     if (count < SPMC_CHUNK_NUM_FRAMES) {
         *first_item = NULL;
-        return SPMC_EMPTY;
+        return false;
     }
 
     *first_item = &spmc->data[master_tail];
-    return SPMC_OK;
+    return true;
 }
 
 /**
@@ -139,8 +139,9 @@ void SPMC_master_advance_tail(SPMC_t *spmc) {
     }
 
     spmc->master_tail = next_tail;
-    spmc->is_full = false; // if we were full, we must now have space
     __DMB();
+    spmc->is_full = false; // if we were full, we must now have space
+
     __set_BASEPRI(basepri);
 }
 

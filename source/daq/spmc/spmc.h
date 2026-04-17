@@ -13,12 +13,6 @@
 #include <stdint.h>
 #include "timestamped_frame.h"
 
-typedef enum : int {
-    SPMC_OK    = 0,
-    SPMC_FULL  = -1,
-    SPMC_EMPTY = -2,
-} SPMC_status_t;
-
 // todo tune values based on testing
 static constexpr size_t SPMC_CHUNK_NUM_FRAMES = 128;
 static constexpr size_t SPMC_CHUNK_CAPACITY = 4;
@@ -47,9 +41,9 @@ static_assert(
 );
 
 void SPMC_init(SPMC_t *spmc);
-SPMC_status_t SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame);
+bool SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame);
 
-SPMC_status_t SPMC_master_peek_chunk(SPMC_t *spmc, timestamped_frame_t **first_item);
+bool SPMC_master_peek_chunk(SPMC_t *spmc, timestamped_frame_t **first_item);
 void SPMC_master_advance_tail(SPMC_t *spmc);
 
 size_t SPMC_follower_peek_chunks(SPMC_t *spmc, timestamped_frame_t **first_item);

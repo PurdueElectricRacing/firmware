@@ -83,33 +83,24 @@ static void sd_write_periodic(bool bypass_limit) {
 
     // Use the unread item count, not contiguous for the threshold
     timestamped_frame_t *frame; // updated to by SPMC_master_peek_all()
-    size_t unread_items;        // updated to by SPMC_master_peek_all()
-    size_t consecutive_items = SPMC_master_peek_all(&spmc, &frame, &unread_items);
 
-    bool is_threshold_met = unread_items >= SD_WRITE_THRESHOLD;
-    if (!is_threshold_met && !bypass_limit) {
+    if (!SPMC_master_peek_chunk(&spmc, &frame)) {
         return;
-    }
-
-    // Cap the number of items to the threshold
-    size_t items_to_write = consecutive_items;
-    if (items_to_write > SD_WRITE_THRESHOLD) {
-        items_to_write = SD_WRITE_THRESHOLD;
     }
 
     // Write time :D
     PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 1);
 
     UINT bytes_written; // updated to by f_write()
-    size_t total_bytes = items_to_write * sizeof(timestamped_frame_t);
+    size_t total_bytes = SPMC_CHUNK_NUM_FRAMES * sizeof(timestamped_frame_t);
     FRESULT result     = f_write(&daq_hub.log_fp, frame, total_bytes, &bytes_written);
     if (result != FR_OK) {
+        // todo check bytes written
         sd_handle_error(SD_ERROR_WRITE, result);
     } else {
         // success
         daq_hub.last_write_ms = xTaskGetTickCount();
-        size_t frames_written = bytes_written / sizeof(timestamped_frame_t);
-        SPMC_master_commit_tail(&spmc, frames_written);
+        SPMC_master_advance_tail(&spmc);
         sd_file_sync(); // fsync takes only 4 ticks and ensures sure cache is flushed on close
     }
 

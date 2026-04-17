@@ -272,8 +272,8 @@ void shutdown(void) {
     PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
 
     // wait for power to fully turn off -> if it does not, restart
-    uint32_t start_tick = xTaskGetTickCount();
-    while (xTaskGetTickCount() - start_tick < 3000 || PHAL_readGPIO(PWR_LOSS_PORT, PWR_LOSS_PIN) == 0);
+    uint32_t start_tick = xTaskGetTickCountFromISR();
+    while (xTaskGetTickCountFromISR() - start_tick < 3000 || PHAL_readGPIO(PWR_LOSS_PORT, PWR_LOSS_PIN) == 0);
 
     NVIC_SystemReset(); // oof, we assumed wrong, restart and resume execution since the power is still on!
 }

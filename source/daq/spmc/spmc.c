@@ -65,7 +65,6 @@ SPMC_status_t SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_
     spmc->data[spmc->head] = *incoming_frame;
     __DMB(); // do not switch the order of the data write and head update
     spmc->head = next_head;
-    __DSB(); // halt the cpu until write is finished
 
     return SPMC_OK;
 }
@@ -84,7 +83,6 @@ size_t SPMC_master_peek_all(SPMC_t *spmc, timestamped_frame_t **first_item, size
     const size_t head = spmc->head;
     __DMB(); // ensure data visibility of head before reading tail
     const size_t tail = spmc->master_tail;
-
     __DMB(); // dont read the buffer before tail/head are ready
     *first_item = &spmc->data[tail];
     
@@ -106,13 +104,11 @@ size_t SPMC_master_peek_all(SPMC_t *spmc, timestamped_frame_t **first_item, size
  * @param num_consumed The number of frames to commit.
  */
 void SPMC_master_commit_tail(SPMC_t *spmc, size_t num_consumed) {
-    // mask the CAN RX IRQs
-    uint32_t basepri = __get_BASEPRI();
+    uint32_t basepri = __get_BASEPRI(); // mask the CAN RX IRQs only
     __set_BASEPRI(CAN_RX_IRQ_PRIO << (8 - __NVIC_PRIO_BITS));
 
     const size_t next_tail = (spmc->master_tail + num_consumed) % SPMC_CAPACITY;
     spmc->master_tail = next_tail;
-    __DSB();
 
     __set_BASEPRI(basepri);
 }

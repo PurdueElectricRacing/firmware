@@ -12,85 +12,97 @@
 #include "nextion.h"
 #include "colors.h"
 
+void reset_inverter_text_colors(char *error_id, char *torque_id, char *on_id) {
+    NXT_setFontColor(error_id, WHITE);
+    NXT_setFontColor(torque_id, WHITE);
+    NXT_setFontColor(on_id, WHITE);
+}
+
+void update_inverter_telemetry(
+    char *status_id,
+    char *error_id,
+    char *torque_id,
+    char *on_id,
+    bool is_stale,
+    bool is_enabled,
+    bool command_inverter_on,
+    bool command_error_reset,
+    int16_t torque_setpoint,
+    bool inverter_on,
+    bool has_error
+) {
+    if (is_stale) {
+        NXT_setFontColor(status_id, RED);
+        NXT_setText(status_id, "STALE");
+        NXT_setText(error_id, "--");
+        NXT_setText(torque_id, "--");
+        NXT_setText(on_id, "--");
+        return;
+    }
+    
+    NXT_setFontColor(status_id, is_enabled ? GREEN : RED);
+    NXT_setText(status_id, is_enabled ? "ENABLE" : "DISABLE");
+    NXT_setText(on_id, (inverter_on || command_inverter_on) ? "ON" : "OFF");
+    NXT_setText(error_id, has_error ? "ERROR" : (command_error_reset ? "RESET" : "OK"));
+    NXT_setTextFormatted(torque_id, "%d", (int) torque_setpoint);
+}
+
 void amk_telemetry_update() {
-    NXT_setFontColor(INVA_BERROR, WHITE);
-    NXT_setFontColor(INVB_BERROR, WHITE);
-    NXT_setFontColor(INVC_BERROR, WHITE);
-    NXT_setFontColor(INVD_BERROR, WHITE);
-    NXT_setFontColor(INVA_DIAGNOSTIC, WHITE);
-    NXT_setFontColor(INVB_DIAGNOSTIC, WHITE);
-    NXT_setFontColor(INVC_DIAGNOSTIC, WHITE);
-    NXT_setFontColor(INVD_DIAGNOSTIC, WHITE);
-    NXT_setFontColor(INVA_ON, WHITE);
-    NXT_setFontColor(INVB_ON, WHITE);
-    NXT_setFontColor(INVC_ON, WHITE);
-    NXT_setFontColor(INVD_ON, WHITE);
+    reset_inverter_text_colors(INVA_ERROR, INVA_DIAGNOSTIC, INVA_ON);
+    reset_inverter_text_colors(INVB_ERROR, INVB_DIAGNOSTIC, INVB_ON);
+    reset_inverter_text_colors(INVC_ERROR, INVC_DIAGNOSTIC, INVC_ON);
+    reset_inverter_text_colors(INVD_ERROR, INVD_DIAGNOSTIC, INVD_ON);
 
-    if (can_data.inva_set_vcan.is_stale()) {
-        NXT_setFontColor(INVA_STATUS, RED);
-        NXT_setText(INVA_STATUS, "STALE");
-        NXT_setText(INVA_BERROR, "--");
-        NXT_setText(INVA_DIAGNOSTIC, "--");
-        NXT_setText(INVA_ON, "--");
-    } else {
-        NXT_setFontColor(INVA_STATUS, can_data.inva_set_vcan.AMK_Control_bEnable ? GREEN : RED);
-        NXT_setText(INVA_STATUS, can_data.inva_set_vcan.AMK_Control_bEnable ? "ENABLE" : "DISABLE");
-        NXT_setText(INVA_ON, can_data.inva_set_vcan.AMK_Control_bInverterOn ? "ON" : "OFF");
-        NXT_setText(INVA_BERROR, can_data.inva_set_vcan.AMK_Control_bErrorReset ? "RESET" : "OK");
-        int16_t inva_torque = (int16_t)(
-            can_data.inva_set_vcan.AMK_TorqueSetpoint * UNPACK_COEFF_INVC_SET_VCAN_AMK_TORQUESETPOINT
-        );
-        NXT_setTextFormatted(INVA_DIAGNOSTIC, "%d", inva_torque);
-    }
-
-    if (can_data.invb_set_vcan.is_stale()) {
-        NXT_setFontColor(INVB_STATUS, RED);
-        NXT_setText(INVB_STATUS, "STALE");
-        NXT_setText(INVB_BERROR, "--");
-        NXT_setText(INVB_DIAGNOSTIC, "--");
-        NXT_setText(INVB_ON, "--");
-    } else {
-        NXT_setFontColor(INVB_STATUS, can_data.invb_set_vcan.AMK_Control_bEnable ? GREEN : RED);
-        NXT_setText(INVB_STATUS, can_data.invb_set_vcan.AMK_Control_bEnable ? "ENABLE" : "DISABLE");
-        NXT_setText(INVB_ON, can_data.invb_set_vcan.AMK_Control_bInverterOn ? "ON" : "OFF");
-        NXT_setText(INVB_BERROR, can_data.invb_set_vcan.AMK_Control_bErrorReset ? "RESET" : "OK");
-        int16_t invb_torque = (int16_t)(
-            can_data.invb_set_vcan.AMK_TorqueSetpoint * UNPACK_COEFF_INVC_SET_VCAN_AMK_TORQUESETPOINT
-        );
-        NXT_setTextFormatted(INVB_DIAGNOSTIC, "%d", invb_torque);
-    }
-
-    if (can_data.invc_set_vcan.is_stale()) {
-        NXT_setFontColor(INVC_STATUS, RED);
-        NXT_setText(INVC_STATUS, "STALE");
-        NXT_setText(INVC_BERROR, "--");
-        NXT_setText(INVC_DIAGNOSTIC, "--");
-        NXT_setText(INVC_ON, "--");
-    } else {
-        NXT_setFontColor(INVC_STATUS, can_data.invc_set_vcan.AMK_Control_bEnable ? GREEN : RED);
-        NXT_setText(INVC_STATUS, can_data.invc_set_vcan.AMK_Control_bEnable ? "ENABLE" : "DISABLE");
-        NXT_setText(INVC_ON, can_data.invc_set_vcan.AMK_Control_bInverterOn ? "ON" : "OFF");
-        NXT_setText(INVC_BERROR, can_data.invc_set_vcan.AMK_Control_bErrorReset ? "RESET" : "OK");
-        int16_t invc_torque = (int16_t)(
-            can_data.invc_set_vcan.AMK_TorqueSetpoint * UNPACK_COEFF_INVC_SET_VCAN_AMK_TORQUESETPOINT
-        );
-        NXT_setTextFormatted(INVC_DIAGNOSTIC, "%d", invc_torque);
-    }
-
-    if (can_data.invd_set_vcan.is_stale()) {
-        NXT_setFontColor(INVD_STATUS, RED);
-        NXT_setText(INVD_STATUS, "STALE");
-        NXT_setText(INVD_BERROR, "--");
-        NXT_setText(INVD_DIAGNOSTIC, "--");
-        NXT_setText(INVD_ON, "--");
-    } else {
-        NXT_setFontColor(INVD_STATUS, can_data.invd_set_vcan.AMK_Control_bEnable ? GREEN : RED);
-        NXT_setText(INVD_STATUS, can_data.invd_set_vcan.AMK_Control_bEnable ? "ENABLE" : "DISABLE");
-        NXT_setText(INVD_ON, can_data.invd_set_vcan.AMK_Control_bInverterOn ? "ON" : "OFF");
-        NXT_setText(INVD_BERROR, can_data.invd_set_vcan.AMK_Control_bErrorReset ? "RESET" : "OK");
-        int16_t invd_torque = (int16_t)(
-            can_data.invd_set_vcan.AMK_TorqueSetpoint * UNPACK_COEFF_INVC_SET_VCAN_AMK_TORQUESETPOINT
-        );
-        NXT_setTextFormatted(INVD_DIAGNOSTIC, "%d", invd_torque);
-    }
+    update_inverter_telemetry(
+        INVA_STATUS,
+        INVA_ERROR,
+        INVA_DIAGNOSTIC,
+        INVA_ON,
+        can_data.inva_state_diag_vcan.is_stale(),
+        can_data.inva_state_diag_vcan.amk_control_enable,
+        can_data.inva_state_diag_vcan.amk_control_inverter_on,
+        can_data.inva_state_diag_vcan.amk_control_error_reset,
+        can_data.inva_state_diag_vcan.amk_torque_setpoint,
+        can_data.inva_state_diag_vcan.amk_state_inverter_on,
+        can_data.inva_state_diag_vcan.amk_state_error
+    );
+    update_inverter_telemetry(
+        INVB_STATUS,
+        INVB_ERROR,
+        INVB_DIAGNOSTIC,
+        INVB_ON,
+        can_data.invb_state_diag_vcan.is_stale(),
+        can_data.invb_state_diag_vcan.amk_control_enable,
+        can_data.invb_state_diag_vcan.amk_control_inverter_on,
+        can_data.invb_state_diag_vcan.amk_control_error_reset,
+        can_data.invb_state_diag_vcan.amk_torque_setpoint,
+        can_data.invb_state_diag_vcan.amk_state_inverter_on,
+        can_data.invb_state_diag_vcan.amk_state_error
+    );
+    update_inverter_telemetry(
+        INVC_STATUS,
+        INVC_ERROR,
+        INVC_DIAGNOSTIC,
+        INVC_ON,
+        can_data.invc_state_diag_vcan.is_stale(),
+        can_data.invc_state_diag_vcan.amk_control_enable,
+        can_data.invc_state_diag_vcan.amk_control_inverter_on,
+        can_data.invc_state_diag_vcan.amk_control_error_reset,
+        can_data.invc_state_diag_vcan.amk_torque_setpoint,
+        can_data.invc_state_diag_vcan.amk_state_inverter_on,
+        can_data.invc_state_diag_vcan.amk_state_error
+    );
+    update_inverter_telemetry(
+        INVD_STATUS,
+        INVD_ERROR,
+        INVD_DIAGNOSTIC,
+        INVD_ON,
+        can_data.invd_state_diag_vcan.is_stale(),
+        can_data.invd_state_diag_vcan.amk_control_enable,
+        can_data.invd_state_diag_vcan.amk_control_inverter_on,
+        can_data.invd_state_diag_vcan.amk_control_error_reset,
+        can_data.invd_state_diag_vcan.amk_torque_setpoint,
+        can_data.invd_state_diag_vcan.amk_state_inverter_on,
+        can_data.invd_state_diag_vcan.amk_state_error
+    );
 }

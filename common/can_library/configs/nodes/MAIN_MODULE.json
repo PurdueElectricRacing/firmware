@@ -127,247 +127,183 @@
                     "msg_period": 5000
                 },
                 {
-                    "msg_name": "inva_set_vcan",
-                    "msg_desc": "VCAN mirror of INVA set command for dashboard",
+                    "msg_name": "inva_state_diag_vcan",
+                    "msg_desc": "VCAN diagnostics for inverter A",
                     "signals": [
                         {
-                            "sig_name": "AMK_Control_bReserve",
-                            "sig_desc": "RESERVED",
-                            "type": "uint8_t",
-                            "length": 8
-                        },
-                        {
-                            "sig_name": "AMK_Control_bInverterOn",
-                            "sig_desc": "controller enable",
+                            "sig_name": "amk_control_enable",
+                            "sig_desc": "Commanded inverter enable",
                             "type": "bool"
                         },
                         {
-                            "sig_name": "AMK_Control_bDcOn",
-                            "sig_desc": "HV activation",
+                            "sig_name": "amk_control_inverter_on",
+                            "sig_desc": "Commanded inverter on",
                             "type": "bool"
                         },
                         {
-                            "sig_name": "AMK_Control_bEnable",
-                            "sig_desc": "driver enable",
+                            "sig_name": "amk_control_error_reset",
+                            "sig_desc": "Commanded error reset",
                             "type": "bool"
                         },
                         {
-                            "sig_name": "AMK_Control_bErrorReset",
-                            "sig_desc": "remove error",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "AMK_Control_bReserve2",
-                            "sig_desc": "RESERVED",
-                            "type": "uint8_t",
-                            "length": 4
-                        },
-                        {
-                            "sig_name": "AMK_TorqueSetpoint",
-                            "sig_desc": "Torque setpoint",
+                            "sig_name": "amk_torque_setpoint",
+                            "sig_desc": "Commanded torque setpoint",
                             "type": "int16_t",
                             "unit": "Nm",
                             "scale": 0.1
                         },
                         {
-                            "sig_name": "AMK_PositiveTorqueLimit",
-                            "sig_desc": "Positive Torque Limit",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
+                            "sig_name": "amk_state_ready",
+                            "sig_desc": "AMK system ready",
+                            "type": "bool"
                         },
                         {
-                            "sig_name": "AMK_NegativeTorqueLimit",
-                            "sig_desc": "Negative Torque Limit",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
+                            "sig_name": "amk_state_inverter_on",
+                            "sig_desc": "AMK inverter on",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "amk_state_error",
+                            "sig_desc": "AMK error active",
+                            "type": "bool"
                         }
                     ],
-                    "msg_period": 15,
+                    "msg_period": 100,
                     "msg_priority": 5
                 },
                 {
-                    "msg_name": "invb_set_vcan",
-                    "msg_desc": "VCAN mirror of INVB set command for dashboard",
+                    "msg_name": "invb_state_diag_vcan",
+                    "msg_desc": "VCAN diagnostics for inverter B",
                     "signals": [
                         {
-                            "sig_name": "AMK_Control_bReserve",
-                            "sig_desc": "RESERVED",
-                            "type": "uint8_t",
-                            "length": 8
-                        },
-                        {
-                            "sig_name": "AMK_Control_bInverterOn",
-                            "sig_desc": "controller enable",
+                            "sig_name": "amk_control_enable",
+                            "sig_desc": "Commanded inverter enable",
                             "type": "bool"
                         },
                         {
-                            "sig_name": "AMK_Control_bDcOn",
-                            "sig_desc": "HV activation",
+                            "sig_name": "amk_control_inverter_on",
+                            "sig_desc": "Commanded inverter on",
                             "type": "bool"
                         },
                         {
-                            "sig_name": "AMK_Control_bEnable",
-                            "sig_desc": "driver enable",
+                            "sig_name": "amk_control_error_reset",
+                            "sig_desc": "Commanded error reset",
                             "type": "bool"
                         },
                         {
-                            "sig_name": "AMK_Control_bErrorReset",
-                            "sig_desc": "remove error",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "AMK_Control_bReserve2",
-                            "sig_desc": "RESERVED",
-                            "type": "uint8_t",
-                            "length": 4
-                        },
-                        {
-                            "sig_name": "AMK_TorqueSetpoint",
-                            "sig_desc": "Torque setpoint",
+                            "sig_name": "amk_torque_setpoint",
+                            "sig_desc": "Commanded torque setpoint",
                             "type": "int16_t",
                             "unit": "Nm",
                             "scale": 0.1
                         },
                         {
-                            "sig_name": "AMK_PositiveTorqueLimit",
-                            "sig_desc": "Positive Torque Limit",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
+                            "sig_name": "amk_state_ready",
+                            "sig_desc": "AMK system ready",
+                            "type": "bool"
                         },
                         {
-                            "sig_name": "AMK_NegativeTorqueLimit",
-                            "sig_desc": "Negative Torque Limit",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
+                            "sig_name": "amk_state_inverter_on",
+                            "sig_desc": "AMK inverter on",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "amk_state_error",
+                            "sig_desc": "AMK error active",
+                            "type": "bool"
                         }
                     ],
-                    "msg_period": 15,
+                    "msg_period": 100,
                     "msg_priority": 5
                 },
                 {
-                    "msg_name": "invc_set_vcan",
-                    "msg_desc": "VCAN mirror of INVC set command for dashboard",
+                    "msg_name": "invc_state_diag_vcan",
+                    "msg_desc": "VCAN diagnostics for inverter C",
                     "signals": [
                         {
-                            "sig_name": "AMK_Control_bReserve",
-                            "sig_desc": "RESERVED",
-                            "type": "uint8_t",
-                            "length": 8
-                        },
-                        {
-                            "sig_name": "AMK_Control_bInverterOn",
-                            "sig_desc": "controller enable",
+                            "sig_name": "amk_control_enable",
+                            "sig_desc": "Commanded inverter enable",
                             "type": "bool"
                         },
                         {
-                            "sig_name": "AMK_Control_bDcOn",
-                            "sig_desc": "HV activation",
+                            "sig_name": "amk_control_inverter_on",
+                            "sig_desc": "Commanded inverter on",
                             "type": "bool"
                         },
                         {
-                            "sig_name": "AMK_Control_bEnable",
-                            "sig_desc": "driver enable",
+                            "sig_name": "amk_control_error_reset",
+                            "sig_desc": "Commanded error reset",
                             "type": "bool"
                         },
                         {
-                            "sig_name": "AMK_Control_bErrorReset",
-                            "sig_desc": "remove error",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "AMK_Control_bReserve2",
-                            "sig_desc": "RESERVED",
-                            "type": "uint8_t",
-                            "length": 4
-                        },
-                        {
-                            "sig_name": "AMK_TorqueSetpoint",
-                            "sig_desc": "Torque setpoint",
+                            "sig_name": "amk_torque_setpoint",
+                            "sig_desc": "Commanded torque setpoint",
                             "type": "int16_t",
                             "unit": "Nm",
                             "scale": 0.1
                         },
                         {
-                            "sig_name": "AMK_PositiveTorqueLimit",
-                            "sig_desc": "Positive Torque Limit",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
+                            "sig_name": "amk_state_ready",
+                            "sig_desc": "AMK system ready",
+                            "type": "bool"
                         },
                         {
-                            "sig_name": "AMK_NegativeTorqueLimit",
-                            "sig_desc": "Negative Torque Limit",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
+                            "sig_name": "amk_state_inverter_on",
+                            "sig_desc": "AMK inverter on",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "amk_state_error",
+                            "sig_desc": "AMK error active",
+                            "type": "bool"
                         }
                     ],
-                    "msg_period": 15,
+                    "msg_period": 100,
                     "msg_priority": 5
                 },
                 {
-                    "msg_name": "invd_set_vcan",
-                    "msg_desc": "VCAN mirror of INVD set command for dashboard",
+                    "msg_name": "invd_state_diag_vcan",
+                    "msg_desc": "VCAN diagnostics for inverter D",
                     "signals": [
                         {
-                            "sig_name": "AMK_Control_bReserve",
-                            "sig_desc": "RESERVED",
-                            "type": "uint8_t",
-                            "length": 8
-                        },
-                        {
-                            "sig_name": "AMK_Control_bInverterOn",
-                            "sig_desc": "controller enable",
+                            "sig_name": "amk_control_enable",
+                            "sig_desc": "Commanded inverter enable",
                             "type": "bool"
                         },
                         {
-                            "sig_name": "AMK_Control_bDcOn",
-                            "sig_desc": "HV activation",
+                            "sig_name": "amk_control_inverter_on",
+                            "sig_desc": "Commanded inverter on",
                             "type": "bool"
                         },
                         {
-                            "sig_name": "AMK_Control_bEnable",
-                            "sig_desc": "Driver enable",
+                            "sig_name": "amk_control_error_reset",
+                            "sig_desc": "Commanded error reset",
                             "type": "bool"
                         },
                         {
-                            "sig_name": "AMK_Control_bErrorReset",
-                            "sig_desc": "Remove error",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "AMK_Control_bReserve2",
-                            "sig_desc": "RESERVED",
-                            "type": "uint8_t",
-                            "length": 4
-                        },
-                        {
-                            "sig_name": "AMK_TorqueSetpoint",
-                            "sig_desc": "Torque setpoint",
+                            "sig_name": "amk_torque_setpoint",
+                            "sig_desc": "Commanded torque setpoint",
                             "type": "int16_t",
                             "unit": "Nm",
                             "scale": 0.1
                         },
                         {
-                            "sig_name": "AMK_PositiveTorqueLimit",
-                            "sig_desc": "Positive Torque Limit",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
+                            "sig_name": "amk_state_ready",
+                            "sig_desc": "AMK system ready",
+                            "type": "bool"
                         },
                         {
-                            "sig_name": "AMK_NegativeTorqueLimit",
-                            "sig_desc": "Negative Torque Limit",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
+                            "sig_name": "amk_state_inverter_on",
+                            "sig_desc": "AMK inverter on",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "amk_state_error",
+                            "sig_desc": "AMK error active",
+                            "type": "bool"
                         }
                     ],
-                    "msg_period": 15,
+                    "msg_period": 100,
                     "msg_priority": 5
                 }
             ],

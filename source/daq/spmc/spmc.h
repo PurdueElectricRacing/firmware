@@ -15,12 +15,17 @@
 // todo tune values based on testing
 static constexpr size_t SPMC_CHUNK_NUM_FRAMES = 128;
 static constexpr size_t SPMC_CHUNK_CAPACITY = 12;
-
 static constexpr size_t SPMC_FRAME_CAPACITY = SPMC_CHUNK_NUM_FRAMES * SPMC_CHUNK_CAPACITY;
 static_assert(
     SPMC_FRAME_CAPACITY % SPMC_CHUNK_NUM_FRAMES == 0,
     "the SPMC capacity must be a multiple of SPMC_CHUNK_NUM_FRAMES "
     "to prevent DMA wraparound issues and fragmentation"
+);
+
+static constexpr size_t SPMC_QUARTER_NUM_FRAMES = SPMC_CHUNK_NUM_FRAMES / 4;
+static_assert(
+    SPMC_CHUNK_NUM_FRAMES % 4 == 0,
+    "SPMC_CHUNK_NUM_FRAMES must be divisible by 4 to allow quarter chunk peeks for the ETH follower"
 );
 
 typedef struct {
@@ -47,6 +52,6 @@ bool SPMC_master_peek_chunk(SPMC_t *spmc, timestamped_frame_t **first_item);
 void SPMC_master_advance_tail(SPMC_t *spmc);
 
 size_t SPMC_follower_peek_chunks(SPMC_t *spmc, timestamped_frame_t **first_item);
-void SPMC_follower_advance_tail(SPMC_t *spmc, size_t chunks_consumed);
+void SPMC_follower_advance_tail(SPMC_t *spmc, size_t quarters_consumed);
 
 #endif // SPMC_H

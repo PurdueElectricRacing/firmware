@@ -22,6 +22,7 @@
 static constexpr uint32_t ETH_ERROR_RETRY_MS = 250;
 static constexpr size_t UDP_MAX_BUFFER_SIZE = 8192;
 static constexpr size_t UDP_MAX_WRITE_COUNT = UDP_MAX_BUFFER_SIZE / sizeof(timestamped_frame_t);
+static constexpr size_t UDP_MAX_WRITE_CHUNKS = UDP_MAX_WRITE_COUNT / SPMC_CHUNK_NUM_FRAMES;
 
 static int8_t eth_init(void);
 static int8_t eth_get_link_up(void);
@@ -192,28 +193,22 @@ static void eth_udp_send_periodic(void) {
     }
 
     timestamped_frame_t* buf;
-    uint32_t consecutive_items;
-    if (SPMC_follower_pop(&spmc, &buf, &consecutive_items) != SPMC_OK) {
+    size_t chunks_available = SPMC_follower_peek_chunks(&spmc, &buf);
+    if (chunks_available == 0) {
         return; // No data to send
     }
 
-    if (consecutive_items > UDP_MAX_WRITE_COUNT) {
-        consecutive_items = UDP_MAX_WRITE_COUNT; // limit
+    if (chunks_available > UDP_MAX_WRITE_CHUNKS) {
+        chunks_available = UDP_MAX_WRITE_CHUNKS; // Cap to max UDP size
     }
 
     // Write time :D
-    uint16_t write_len = consecutive_items * sizeof(timestamped_frame_t);
+    uint16_t write_len = SPMC_CHUNK_NUM_FRAMES * chunks_available * sizeof(timestamped_frame_t);
     int32_t ret = sendto(eth_config.udp_bc_sock, (uint8_t*)buf, write_len, eth_config.udp_bc_addr, eth_config.udp_bc_port);
     if (ret < write_len) {
+        // todo handle this error
         eth_handle_error(ETH_ERROR_UDP_SEND, ret);
     } 
-}
 
-// static void eth_udp_send_frame(timestamped_frame_t* frame) {
-//     timestamped_frame_t* rx; // TODO check if this is safe (two producers)
-//     uint32_t cont;
-//     if (bGetHeadForWrite(&b_rx_can, (void**)&rx, &cont) == 0) {
-//         memcpy(rx, frame, sizeof(*frame));
-//         bCommitWrite(&b_rx_can, 1); // Add it to regular CAN RX queue that DAQ broadcasts
-//     }
-// }
+    SPMC_follower_advance_tail(&spmc, chunks_available);
+}

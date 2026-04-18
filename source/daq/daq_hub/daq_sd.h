@@ -1,8 +1,6 @@
 #ifndef __DAQ_SD_H__
 #define __DAQ_SD_H__
 
-#include <stdbool.h>
-
 typedef enum {
     SD_STATE_IDLE    = 0,
     SD_STATE_MOUNTED = 1,

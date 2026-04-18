@@ -181,8 +181,6 @@ static void configure_interrupts(void) {
 }
 
 
-volatile uint32_t last_vcan_rx = 0;
-volatile uint32_t last_mcan_rx = 0;
 volatile uint32_t last_can_rx_time_ms = 0;
 
 [[gnu::always_inline]]
@@ -201,29 +199,21 @@ static inline void can_rx_irq_handler(CAN_TypeDef *peripheral) {
     rx.ticks_ms            = xTaskGetTickCountFromISR();
     last_can_rx_time_ms    = rx.ticks_ms;
 
-    // set bus ID bit based on CAN peripheral
-    if (peripheral == CAN1) {
-        rx.identity &= ~BUS_ID_MASK;
-        last_vcan_rx = rx.ticks_ms;
-    } else {
-        rx.identity |= BUS_ID_MASK;
-        last_mcan_rx = rx.ticks_ms;
-    }
+    // CAN1 = VCAN = bus 0
+    set_bus_id(&rx, (peripheral == CAN1) ? 0 : 1);
 
     CAN_FIFOMailBox_TypeDef *mailbox = &peripheral->sFIFOMailBox[0];
-
-    // set id type and extract ID
     bool is_xid = (mailbox->RIR & CAN_RI0R_IDE) != 0;
-    uint32_t can_id = 0;
+    set_xid(&rx, is_xid);
+
     // the right shift logic makes sense when you read RM0090 pg 1122
+    uint32_t can_id;
     if (is_xid) {
-        rx.identity |= IS_XID_MASK;
         can_id = (mailbox->RIR & (CAN_RI0R_STID | CAN_RI0R_EXID)) >> CAN_RI0R_EXID_Pos;
     } else {
-        rx.identity &= ~IS_XID_MASK;
         can_id = (mailbox->RIR & CAN_RI0R_STID) >> CAN_RI0R_STID_Pos;
     }
-    rx.identity |= can_id;
+    set_can_id(&rx, can_id);
 
     // copy payload
     rx.payload |= (uint64_t)(mailbox->RDLR);
@@ -255,27 +245,9 @@ void CAN2_RX0_IRQHandler() {
  *        If file open, flushes it to the sd card
  *        Then unmounts sd card
  */
- // todo
-void shutdown(void) {
-    // First, turn off all power consuming devices to increase our write time to sd card
-    // To whoever is doing future DAQ rev: also change the GPIO ports here
-    // all LEDs go bye bye
-    // GPIOD->BSRR |= GPIO_CLEAR_BIT(HEARTBEAT_LED_PIN) | GPIO_CLEAR_BIT(CONNECTION_LED_PIN) | GPIO_CLEAR_BIT(ERROR_LED_PIN);
-    // GPIOA->BSRR |= GPIO_CLEAR_BIT(SD_DETECT_LED_PIN) | GPIO_CLEAR_BIT(SD_ACTIVITY_LED_PIN) | GPIO_CLEAR_BIT(SD_ERROR_LED_PIN);
-
-    PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 0);
-    PHAL_deinitCAN(CAN1);
-    PHAL_deinitCAN(CAN2);
-
-    sd_shutdown();
-    // Hooray, we made it, blink an LED to show the world
-    PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
-
-    // wait for power to fully turn off -> if it does not, restart
-    uint32_t start_tick = xTaskGetTickCountFromISR();
-    while (xTaskGetTickCountFromISR() - start_tick < 3000 || PHAL_readGPIO(PWR_LOSS_PORT, PWR_LOSS_PIN) == 0);
-
-    NVIC_SystemReset(); // oof, we assumed wrong, restart and resume execution since the power is still on!
+[[gnu::always_inline]]
+static void inline shutdown_callback(void) {
+    // todo shutdown hook
 }
 
 // Interrupt handler for power loss detection
@@ -283,7 +255,7 @@ void shutdown(void) {
 void EXTI15_10_IRQHandler() {
     if (EXTI->PR & EXTI_PR_PR15) {
         EXTI->PR |= EXTI_PR_PR15; // Clear interrupt
-        shutdown();
+        shutdown_callback();
     }
 }
 

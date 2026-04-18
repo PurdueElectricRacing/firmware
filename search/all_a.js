@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['daq_20lockless_20spmc_20queue_0',['DAQ Lockless SPMC Queue',['../md_source_2daq_2spmc_2README.html',1,'']]],
+  ['daq_20spmc_20buffer_0',['DAQ SPMC Buffer',['../md_source_2daq_2spmc_2README.html#autotoc_md20',1,'']]],
   ['daq_5feth_2ec_1',['daq_eth.c',['../daq__eth_8c.html',1,'']]],
   ['daq_5fhub_5ft_2',['daq_hub_t',['../structdaq__hub__t.html',1,'']]],
   ['dashboard_3',['Dashboard',['../md_source_2dashboard_2README.html',1,'']]],

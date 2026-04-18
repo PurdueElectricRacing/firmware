@@ -106,9 +106,9 @@ $(function(){initNavTree('structSPMC__t.html',''); initResizable(true); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a6263f8d74ec1e46cdee7035b4f236171" id="r_a6263f8d74ec1e46cdee7035b4f236171"><td class="memItemLeft" align="right" valign="top"><a id="a6263f8d74ec1e46cdee7035b4f236171" name="a6263f8d74ec1e46cdee7035b4f236171"></a>
-<a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>data</b> [SPMC_ALLOCATED_CAPACITY]</td></tr>
-<tr class="separator:a6263f8d74ec1e46cdee7035b4f236171"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dd7037229d6f97a0442de956749abe0" id="r_a3dd7037229d6f97a0442de956749abe0"><td class="memItemLeft" align="right" valign="top"><a id="a3dd7037229d6f97a0442de956749abe0" name="a3dd7037229d6f97a0442de956749abe0"></a>
+<a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>data</b> [SPMC_FRAME_CAPACITY]</td></tr>
+<tr class="separator:a3dd7037229d6f97a0442de956749abe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a819c0967e831284aa97a85f53587e065" id="r_a819c0967e831284aa97a85f53587e065"><td class="memItemLeft" align="right" valign="top"><a id="a819c0967e831284aa97a85f53587e065" name="a819c0967e831284aa97a85f53587e065"></a>
 volatile size_t&#160;</td><td class="memItemRight" valign="bottom"><b>head</b></td></tr>
 <tr class="separator:a819c0967e831284aa97a85f53587e065"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,6 +121,12 @@ volatile size_t&#160;</td><td class="memItemRight" valign="bottom"><b>follower_t
 <tr class="memitem:a6e92e9eabf6fb0592258f55087885ca7" id="r_a6e92e9eabf6fb0592258f55087885ca7"><td class="memItemLeft" align="right" valign="top"><a id="a6e92e9eabf6fb0592258f55087885ca7" name="a6e92e9eabf6fb0592258f55087885ca7"></a>
 volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>overflows</b></td></tr>
 <tr class="separator:a6e92e9eabf6fb0592258f55087885ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a009324383a55dc9bf2a85103a52193ec" id="r_a009324383a55dc9bf2a85103a52193ec"><td class="memItemLeft" align="right" valign="top"><a id="a009324383a55dc9bf2a85103a52193ec" name="a009324383a55dc9bf2a85103a52193ec"></a>
+volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>follower_drops</b></td></tr>
+<tr class="separator:a009324383a55dc9bf2a85103a52193ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac18347d74c0b3587e649811ec0265ed9" id="r_ac18347d74c0b3587e649811ec0265ed9"><td class="memItemLeft" align="right" valign="top"><a id="ac18347d74c0b3587e649811ec0265ed9" name="ac18347d74c0b3587e649811ec0265ed9"></a>
+volatile bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_full</b></td></tr>
+<tr class="separator:ac18347d74c0b3587e649811ec0265ed9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>source/daq/spmc/<a class="el" href="spmc_8h_source.html">spmc.h</a></li>

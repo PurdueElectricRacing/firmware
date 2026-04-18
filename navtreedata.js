@@ -51,7 +51,7 @@ var NAVTREE =
     [ "Data Acquisition Board", "md_source_2daq_2README.html", [
       [ "Directory Structure", "md_source_2daq_2README.html#autotoc_md19", null ]
     ] ],
-    [ "DAQ Lockless SPMC Queue", "md_source_2daq_2spmc_2README.html", null ],
+    [ "README", "md_source_2daq_2spmc_2README.html", null ],
     [ "ioLibrary Driver", "md_source_2daq_2w5500_2README.html", [
       [ "ioLibrary", "md_source_2daq_2w5500_2README.html#autotoc_md22", null ],
       [ "How to add an ioLibrary in project through github site.", "md_source_2daq_2w5500_2README.html#autotoc_md23", null ],
@@ -161,7 +161,7 @@ var NAVTREEINDEX =
 "group__DATA__TYPE.html#ggac6b85cbd7d245ccf3cbfa734760d6ed3a77bc0cc803e53da92b009e4b096ccd61",
 "menu__system_8h_source.html",
 "pwm_8h_source.html",
-"structmenu__page__t.html"
+"structlut__entry__t.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

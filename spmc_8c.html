@@ -107,39 +107,42 @@ $(function(){initNavTree('spmc_8c.html',''); initResizable(true); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="spmc_8h_source.html">spmc.h</a>&quot;</code><br />
 <code>#include &quot;stm32f407xx.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a89cd8310ea92fcf7779b939853f6f6fc" id="r_a89cd8310ea92fcf7779b939853f6f6fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89cd8310ea92fcf7779b939853f6f6fc">SPMC_init</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc)</td></tr>
 <tr class="memdesc:a89cd8310ea92fcf7779b939853f6f6fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the SPMC instance and configures CAN RX interrupts.  <br /></td></tr>
 <tr class="separator:a89cd8310ea92fcf7779b939853f6f6fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35081c08ef2d027de5d213128a806b2d" id="r_a35081c08ef2d027de5d213128a806b2d"><td class="memItemLeft" align="right" valign="top">SPMC_status_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35081c08ef2d027de5d213128a806b2d">SPMC_enqueue_from_ISR</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> *incoming_frame)</td></tr>
-<tr class="memdesc:a35081c08ef2d027de5d213128a806b2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enqueues a received CAN message into the SPMC buffer from an ISR context. ! the two producer ISRs must have the same priority to prevent preemption in the middle of a write.  <br /></td></tr>
-<tr class="separator:a35081c08ef2d027de5d213128a806b2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e02688161d73cfc258183078ce2791c" id="r_a0e02688161d73cfc258183078ce2791c"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e02688161d73cfc258183078ce2791c">SPMC_master_peek_all</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **first_item, size_t *total_unread)</td></tr>
-<tr class="memdesc:a0e02688161d73cfc258183078ce2791c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peeks at the next batch of frames available for processing by the master (SD logging) without committing the tail. Intended to be used with a DMA operation.  <br /></td></tr>
-<tr class="separator:a0e02688161d73cfc258183078ce2791c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c9f2247c3a031c4e18c900270ad708c" id="r_a0c9f2247c3a031c4e18c900270ad708c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c9f2247c3a031c4e18c900270ad708c">SPMC_master_commit_tail</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, size_t num_consumed)</td></tr>
-<tr class="memdesc:a0c9f2247c3a031c4e18c900270ad708c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Commits the specified number of consumed frames by advancing the master tail pointer.  <br /></td></tr>
-<tr class="separator:a0c9f2247c3a031c4e18c900270ad708c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a260afb64887341d807103c7152f1df9c" id="r_a260afb64887341d807103c7152f1df9c"><td class="memItemLeft" align="right" valign="top">SPMC_status_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a260afb64887341d807103c7152f1df9c">SPMC_follower_pop</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **out, uint32_t *consecutive_items)</td></tr>
-<tr class="memdesc:a260afb64887341d807103c7152f1df9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pops a single frame for the follower (Ethernet transmission) and advances the follower tail pointer. todo: this function is incomplete todo: optimize for DMA batch transfers, similar to the master's function.  <br /></td></tr>
-<tr class="separator:a260afb64887341d807103c7152f1df9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cceacc1cc78c112192bb84aaee313aa" id="r_a1cceacc1cc78c112192bb84aaee313aa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1cceacc1cc78c112192bb84aaee313aa">SPMC_enqueue_from_ISR</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> *incoming_frame)</td></tr>
+<tr class="memdesc:a1cceacc1cc78c112192bb84aaee313aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enqueues a received CAN message into the SPMC buffer from an ISR context. ! the two producer ISRs must have the same NVIC priority to prevent preemption of each other in the middle of a write.  <br /></td></tr>
+<tr class="separator:a1cceacc1cc78c112192bb84aaee313aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59e1e77dc52c3fdf1fedb2f0525287ff" id="r_a59e1e77dc52c3fdf1fedb2f0525287ff"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59e1e77dc52c3fdf1fedb2f0525287ff">SPMC_master_peek_chunk</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **first_item)</td></tr>
+<tr class="memdesc:a59e1e77dc52c3fdf1fedb2f0525287ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peeks at the next chunk for the master (SD logging) without committing the tail.  <br /></td></tr>
+<tr class="separator:a59e1e77dc52c3fdf1fedb2f0525287ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87e903c37208248544ce3feaa583e7a4" id="r_a87e903c37208248544ce3feaa583e7a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87e903c37208248544ce3feaa583e7a4">SPMC_master_advance_tail</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc)</td></tr>
+<tr class="memdesc:a87e903c37208248544ce3feaa583e7a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances the master tail pointer by one chunk.  <br /></td></tr>
+<tr class="separator:a87e903c37208248544ce3feaa583e7a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a622ca0468a21b095a4bcd813e6753842" id="r_a622ca0468a21b095a4bcd813e6753842"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a622ca0468a21b095a4bcd813e6753842">SPMC_follower_peek_chunks</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **first_item)</td></tr>
+<tr class="memdesc:a622ca0468a21b095a4bcd813e6753842"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peeks at the number of contiguous chunks available for the follower without lapping the master's tail without committing the tail.  <br /></td></tr>
+<tr class="separator:a622ca0468a21b095a4bcd813e6753842"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0155f958be732e0565e5b63c1b310ff1" id="r_a0155f958be732e0565e5b63c1b310ff1"><td class="memItemLeft" align="right" valign="top"><a id="a0155f958be732e0565e5b63c1b310ff1" name="a0155f958be732e0565e5b63c1b310ff1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SPMC_follower_advance_tail</b> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, size_t chunks_consumed)</td></tr>
+<tr class="memdesc:a0155f958be732e0565e5b63c1b310ff1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances the follower tail pointer by a given number of chunks. <br /></td></tr>
+<tr class="separator:a0155f958be732e0565e5b63c1b310ff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Custom SPMC designed for high throughput handling of CAN message streams. </p>
-<dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
-<dd>
-Shriya Balu (<a href="#" onclick="location.href='mai'+'lto:'+'bal'+'u@'+'pur'+'du'+'e.e'+'du'; return false;">balu@<span class="obfuscator">.nosp@m.</span>purd<span class="obfuscator">.nosp@m.</span>ue.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a35081c08ef2d027de5d213128a806b2d" name="a35081c08ef2d027de5d213128a806b2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35081c08ef2d027de5d213128a806b2d">&#9670;&#160;</a></span>SPMC_enqueue_from_ISR()</h2>
+<a id="a1cceacc1cc78c112192bb84aaee313aa" name="a1cceacc1cc78c112192bb84aaee313aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cceacc1cc78c112192bb84aaee313aa">&#9670;&#160;</a></span>SPMC_enqueue_from_ISR()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">SPMC_status_t SPMC_enqueue_from_ISR </td>
+          <td class="memname">bool SPMC_enqueue_from_ISR </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSPMC__t.html">SPMC_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spmc</em></span>, </td>
         </tr>
@@ -151,7 +154,7 @@ Shriya Balu (<a href="#" onclick="location.href='mai'+'lto:'+'bal'+'u@'+'pur'+'d
       </table>
 </div><div class="memdoc">
 
-<p>Enqueues a received CAN message into the SPMC buffer from an ISR context. ! the two producer ISRs must have the same priority to prevent preemption in the middle of a write. </p>
+<p>Enqueues a received CAN message into the SPMC buffer from an ISR context. ! the two producer ISRs must have the same NVIC priority to prevent preemption of each other in the middle of a write. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">spmc</td><td>Pointer to the SPMC instance. </td></tr>
@@ -159,44 +162,31 @@ Shriya Balu (<a href="#" onclick="location.href='mai'+'lto:'+'bal'+'u@'+'pur'+'d
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>SPMC_OK if the frame was enqueued successfully, or SPMC_FULL if the buffer is full and the frame was dropped. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the frame was enqueued successfully, or false if the buffer is full and the frame was dropped. </dd></dl>
 
 </div>
 </div>
-<a id="a260afb64887341d807103c7152f1df9c" name="a260afb64887341d807103c7152f1df9c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a260afb64887341d807103c7152f1df9c">&#9670;&#160;</a></span>SPMC_follower_pop()</h2>
+<a id="a622ca0468a21b095a4bcd813e6753842" name="a622ca0468a21b095a4bcd813e6753842"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a622ca0468a21b095a4bcd813e6753842">&#9670;&#160;</a></span>SPMC_follower_peek_chunks()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">SPMC_status_t SPMC_follower_pop </td>
+          <td class="memname">size_t SPMC_follower_peek_chunks </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSPMC__t.html">SPMC_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spmc</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **</td>          <td class="paramname"><span class="paramname"><em>out</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32_t *</td>          <td class="paramname"><span class="paramname"><em>consecutive_items</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **</td>          <td class="paramname"><span class="paramname"><em>first_item</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Pops a single frame for the follower (Ethernet transmission) and advances the follower tail pointer. todo: this function is incomplete todo: optimize for DMA batch transfers, similar to the master's function. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">spmc</td><td>Pointer to the SPMC instance. </td></tr>
-    <tr><td class="paramname">out</td><td>Output pointer to the popped frame. </td></tr>
-    <tr><td class="paramname">consecutive_items</td><td>Output pointer to the number of consecutive frames available.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>SPMC_OK if a frame was successfully popped, or SPMC_EMPTY if the buffer is empty. </dd></dl>
+<p>Peeks at the number of contiguous chunks available for the follower without lapping the master's tail without committing the tail. </p>
+<dl class="section return"><dt>Returns</dt><dd>The number of contiguous chunks available. </dd></dl>
 
 </div>
 </div>
@@ -225,70 +215,60 @@ Shriya Balu (<a href="#" onclick="location.href='mai'+'lto:'+'bal'+'u@'+'pur'+'d
 
 </div>
 </div>
-<a id="a0c9f2247c3a031c4e18c900270ad708c" name="a0c9f2247c3a031c4e18c900270ad708c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c9f2247c3a031c4e18c900270ad708c">&#9670;&#160;</a></span>SPMC_master_commit_tail()</h2>
+<a id="a87e903c37208248544ce3feaa583e7a4" name="a87e903c37208248544ce3feaa583e7a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87e903c37208248544ce3feaa583e7a4">&#9670;&#160;</a></span>SPMC_master_advance_tail()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SPMC_master_commit_tail </td>
+          <td class="memname">void SPMC_master_advance_tail </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structSPMC__t.html">SPMC_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spmc</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="structSPMC__t.html">SPMC_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spmc</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>num_consumed</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Commits the specified number of consumed frames by advancing the master tail pointer. </p>
+<p>Advances the master tail pointer by one chunk. </p>
+<dl class="section warning"><dt>Warning</dt><dd>this function should only be called by the master consumer context</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">spmc</td><td>Pointer to the SPMC instance. </td></tr>
-    <tr><td class="paramname">num_consumed</td><td>The number of frames to commit. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a0e02688161d73cfc258183078ce2791c" name="a0e02688161d73cfc258183078ce2791c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e02688161d73cfc258183078ce2791c">&#9670;&#160;</a></span>SPMC_master_peek_all()</h2>
+<a id="a59e1e77dc52c3fdf1fedb2f0525287ff" name="a59e1e77dc52c3fdf1fedb2f0525287ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59e1e77dc52c3fdf1fedb2f0525287ff">&#9670;&#160;</a></span>SPMC_master_peek_chunk()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">size_t SPMC_master_peek_all </td>
+          <td class="memname">bool SPMC_master_peek_chunk </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSPMC__t.html">SPMC_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spmc</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **</td>          <td class="paramname"><span class="paramname"><em>first_item</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t *</td>          <td class="paramname"><span class="paramname"><em>total_unread</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **</td>          <td class="paramname"><span class="paramname"><em>first_item</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Peeks at the next batch of frames available for processing by the master (SD logging) without committing the tail. Intended to be used with a DMA operation. </p>
+<p>Peeks at the next chunk for the master (SD logging) without committing the tail. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">spmc</td><td>Pointer to the SPMC instance. </td></tr>
-    <tr><td class="paramname">first_item</td><td>Output pointer that will point to the first item in the batch if available, or NULL if no items are available. </td></tr>
-    <tr><td class="paramname">total_unread</td><td>Output pointer that will be set to the total number of unread frames available in the buffer.</td></tr>
+    <tr><td class="paramname">first_item</td><td>Output pointer that will point to the first item in the chunk if available, or NULL if no items are available.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of contiguous items available in the batch. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if a chunk is available, false if no items/not enough are available </dd></dl>
 
 </div>
 </div>

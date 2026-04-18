@@ -22,13 +22,14 @@ var searchData=
   ['bmi088_5freadaccel_19',['BMI088_readAccel',['../bmi088_8c.html#a236059cb2cd1459e4d2c45949de64326',1,'BMI088_readAccel(BMI088_Handle_t *bmi):&#160;bmi088.c'],['../bmi088_8h.html#a236059cb2cd1459e4d2c45949de64326',1,'BMI088_readAccel(BMI088_Handle_t *bmi):&#160;bmi088.c']]],
   ['bmi088_5freadgyro_20',['BMI088_readGyro',['../bmi088_8c.html#a1dfbb27cde5d045d6291dba7fe0e709f',1,'BMI088_readGyro(BMI088_Handle_t *bmi):&#160;bmi088.c'],['../bmi088_8h.html#a1dfbb27cde5d045d6291dba7fe0e709f',1,'BMI088_readGyro(BMI088_Handle_t *bmi):&#160;bmi088.c']]],
   ['board_21',['Data Acquisition Board',['../md_source_2daq_2README.html',1,'']]],
-  ['build_22',['Setup &amp; Build',['../md_docs_2setup.html#autotoc_md85',1,'']]],
-  ['build_23',['build',['../namespacebuild.html',1,'']]],
-  ['building_20firmware_24',['Building Firmware',['../md_README.html#autotoc_md4',1,'']]],
-  ['bus_25',['BUS',['../union____WIZCHIP_1_1__IF.html#a39981ec4acc9cac30fba3c89440b34b6',1,'__WIZCHIP::_IF']]],
-  ['bus_26',['Bus',['../classparser_1_1Bus.html',1,'parser.Bus'],['../structCanMsgTypeDef__t.html#a27b82ae932da76206323ac8268b3f1e6',1,'CanMsgTypeDef_t::Bus'],['../structCanMsgTypeDef__t.html#a4aa42f4d25313b588ecb4323723d2ef6',1,'CanMsgTypeDef_t::Bus']]],
-  ['bus_20attributes_27',['Bus Attributes',['../md_common_2can__library_2configs_2README.html',1,'']]],
-  ['buslinker_28',['BusLinker',['../classlinker_1_1BusLinker.html',1,'linker']]],
-  ['busview_29',['BusView',['../classparser_1_1BusView.html',1,'parser']]],
-  ['by_30',['by',['../structwiz__PhyConf__t.html#a59b0be57ff79e69bd30dcbbfd9fceacf',1,'wiz_PhyConf_t']]]
+  ['buffer_22',['DAQ SPMC Buffer',['../md_source_2daq_2spmc_2README.html#autotoc_md20',1,'']]],
+  ['build_23',['Setup &amp; Build',['../md_docs_2setup.html#autotoc_md85',1,'']]],
+  ['build_24',['build',['../namespacebuild.html',1,'']]],
+  ['building_20firmware_25',['Building Firmware',['../md_README.html#autotoc_md4',1,'']]],
+  ['bus_26',['BUS',['../union____WIZCHIP_1_1__IF.html#a39981ec4acc9cac30fba3c89440b34b6',1,'__WIZCHIP::_IF']]],
+  ['bus_27',['Bus',['../classparser_1_1Bus.html',1,'parser.Bus'],['../structCanMsgTypeDef__t.html#a27b82ae932da76206323ac8268b3f1e6',1,'CanMsgTypeDef_t::Bus'],['../structCanMsgTypeDef__t.html#a4aa42f4d25313b588ecb4323723d2ef6',1,'CanMsgTypeDef_t::Bus']]],
+  ['bus_20attributes_28',['Bus Attributes',['../md_common_2can__library_2configs_2README.html',1,'']]],
+  ['buslinker_29',['BusLinker',['../classlinker_1_1BusLinker.html',1,'linker']]],
+  ['busview_30',['BusView',['../classparser_1_1BusView.html',1,'parser']]],
+  ['by_31',['by',['../structwiz__PhyConf__t.html#a59b0be57ff79e69bd30dcbbfd9fceacf',1,'wiz_PhyConf_t']]]
 ];

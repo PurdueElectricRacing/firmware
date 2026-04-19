@@ -18,8 +18,7 @@
                     "sig_desc": "Angular speed of steering input",
                     "type": "uint8_t",
                     "unit": "deg/s",
-                    "scale": 4,
-                    "length": 8
+                    "scale": 4
                 },
                 {
                     "sig_name": "OK",

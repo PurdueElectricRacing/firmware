@@ -46,11 +46,15 @@
                     "signals": [
                         {
                             "sig_name": "angle",
-                            "type": "uint16_t"
+                            "type": "int16_t",
+                            "unit": "deg",
+                            "scale": 0.1
                         },
                         {
                             "sig_name": "angular_rate",
-                            "type": "uint16_t"
+                            "type": "uint16_t",
+                            "unit": "deg/s",
+                            "scale": 4
                         },
                         {
                             "sig_name": "data_valid",

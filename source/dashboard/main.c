@@ -178,9 +178,14 @@ int main(void) {
     if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
-    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
-    NVIC_SetPriority(FDCAN2_IT0_IRQn, 5);
+    if (false == PHAL_FDCAN_init(FDCAN3, false, SCAN_BAUD_RATE)) {
+        HardFault_Handler();
+    }
     CAN_library_init();
+    NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
+    NVIC_SetPriority(FDCAN3_IT0_IRQn, 6);
+    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
+    NVIC_EnableIRQ(FDCAN3_IT0_IRQn);
 
     config_button_irqs();
     LCD_init(LCD_BAUD_RATE);
@@ -366,6 +371,31 @@ void LCD_tx_update() {
         strbuf_clear(&lcd_tx_buf);
     }
 }
+
+
+void zero_lws() {
+    // CCW = command code word
+    static constexpr uint8_t CONFIG_CCW_ZERO = 0x3;
+    CAN_SEND_LWS_Config(CONFIG_CCW_ZERO, 0, 0);
+}
+
+void reset_lws() {
+    // CCW = command code word
+    static constexpr uint8_t CONFIG_CCW_RESET = 0x5;
+    CAN_SEND_LWS_Config(CONFIG_CCW_RESET, 0, 0);
+}
+
+void LWS_Standard_CALLBACK(can_data_t* can_data) {
+    // forwards LWS data onto VCAN, simplifies flag parsing
+    bool data_valid = can_data->LWS_Standard.OK && can_data->LWS_Standard.CAL && can_data->LWS_Standard.TRIM;
+
+    CAN_SEND_steering_angle(
+        can_data->LWS_Standard.LWS_ANGLE,
+        can_data->LWS_Standard.LWS_SPEED,
+        data_valid
+    );
+}
+
 
 // todo reboot on hardfault
 void HardFault_Handler() {

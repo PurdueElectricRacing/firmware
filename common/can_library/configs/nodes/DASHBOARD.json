@@ -41,6 +41,30 @@
                     "msg_priority": 1
                 },
                 {
+                    "msg_name": "steering_angle",
+                    "msg_desc": "steering data",
+                    "signals": [
+                        {
+                            "sig_name": "angle",
+                            "type": "int16_t",
+                            "unit": "deg",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "angular_rate",
+                            "type": "uint16_t",
+                            "unit": "deg/s",
+                            "scale": 4
+                        },
+                        {
+                            "sig_name": "data_valid",
+                            "type": "bool"
+                        }
+                    ],
+                    "msg_period": 10,
+                    "msg_priority": 4
+                },
+                {
                     "msg_name": "dash_version",
                     "msg_desc": "Dashboard version",
                     "signals": [
@@ -85,7 +109,7 @@
             ]
         },
         "SCAN": {
-            "peripheral": "FDCAN1",
+            "peripheral": "FDCAN3",
             "tx": [
                 {
                     "msg_name": "LWS_Config",
@@ -93,16 +117,17 @@
                     "signals": [
                         {
                             "sig_name": "CCW",
+                            "sig_desc": "Command Code Word",
                             "type": "uint8_t",
                             "length": 3
                         },
                         {
-                            "sig_name": "Reserved_1",
+                            "sig_name": "reserved1",
                             "type": "uint8_t",
                             "length": 5
                         },
                         {
-                            "sig_name": "Reserved_2",
+                            "sig_name": "reserved2",
                             "type": "uint8_t",
                             "length": 8
                         }
@@ -114,7 +139,8 @@
             ],
             "rx": [
                 {
-                    "msg_name": "LWS_Standard"
+                    "msg_name": "LWS_Standard",
+                    "callback": true
                 }
             ]
         }

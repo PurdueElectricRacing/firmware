@@ -8,7 +8,7 @@
 #include "ff.h"
 #include "daq_rtc_config.h"
 #include "spmc.h"
-#include "sdio.h"
+#include "common/sdio/sdio.h"
 
 // Pinouts
 // LEDs

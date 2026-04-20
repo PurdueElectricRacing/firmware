@@ -47,6 +47,7 @@ set(COMMON_MODULES
     common/syscalls
     common/bangbang
     common/heartbeat
+    common/sdio
 )
 
 foreach(COMMON_MODULE IN LISTS COMMON_MODULES)

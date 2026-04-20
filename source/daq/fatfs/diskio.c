@@ -19,7 +19,7 @@
 #include <string.h>
 
 #include "main.h"
-#include "sdio.h"
+#include "common/sdio/sdio.h"
 
 /* Definitions of physical drive number for each media */
 #define ATA       0

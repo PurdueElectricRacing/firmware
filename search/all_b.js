@@ -13,8 +13,7 @@ var searchData=
   ['err_5fspi_10',['err_spi',['../structadbms__bms__t.html#a888891baf62b77d0c0ecdf617d736f79',1,'adbms_bms_t']]],
   ['eth_5fconfig_5ft_11',['eth_config_t',['../structeth__config__t.html',1,'']]],
   ['example_12',['For example',['../md_source_2a__box_2adbms_2README.html#autotoc_md10',1,'']]],
-  ['example_3a_13',['Example:',['../md_common_2lerp__lut_2README.html#autotoc_md61',1,'Usage Example:'],['../md_common_2strbuf_2README.html#autotoc_md64',1,'Usage Example:']]],
-  ['extensions_14',['Install Extensions',['../md_docs_2setup.html#autotoc_md80',1,'']]],
-  ['extid_15',['ExtId',['../structCanMsgTypeDef__t.html#a184c6e876770b9bc3a766986921cc35c',1,'CanMsgTypeDef_t']]],
-  ['extra_20functions_16',['2. WIZnet Extra Functions',['../group__extra__functions.html',1,'']]]
+  ['example_3a_13',['Example:',['../md_common_2lerp__lut_2README.html#autotoc_md57',1,'Usage Example:'],['../md_common_2strbuf_2README.html#autotoc_md60',1,'Usage Example:']]],
+  ['extensions_14',['Install Extensions',['../md_docs_2setup.html#autotoc_md76',1,'']]],
+  ['extid_15',['ExtId',['../structCanMsgTypeDef__t.html#a184c6e876770b9bc3a766986921cc35c',1,'CanMsgTypeDef_t']]]
 ];

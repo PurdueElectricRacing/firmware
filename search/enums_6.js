@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['netmode_5ftype_0',['netmode_type',['../group__DATA__TYPE.html#ga7543c641a8f3ad6dce26f2387e7e8eac',1,'wizchip_conf.h']]]
+  ['usart_5fdma_5fmode_5ft_0',['usart_dma_mode_t',['../common_2phal__F4__F7_2usart_2usart_8c.html#a7bd69e038fbf6f28b02d943c2748241f',1,'usart.c']]]
 ];

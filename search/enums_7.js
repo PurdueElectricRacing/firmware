@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['obsample_5ft_0',['obsample_t',['../phal__F4__F7_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9',1,'usart.h']]],
-  ['ovsample_5ft_1',['ovsample_t',['../phal__F4__F7_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7',1,'usart.h']]]
+  ['word_5flength_5ft_0',['word_length_t',['../phal__F4__F7_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493',1,'usart.h']]]
 ];

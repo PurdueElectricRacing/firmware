@@ -100,7 +100,7 @@ $(function(){initNavTree('md_common_2can__library_2README.html',''); initResizab
   <div class="headertitle"><div class="title">PER CAN Library</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md55"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md51"></a></p>
 <p>Standardized framework for CAN communication and system-wide fault management within PER vehicles.</p>
 <ul>
 <li><code>canpiler/</code>: Jinja2-based Python module for parsing configurations and generating code</li>
@@ -114,7 +114,7 @@ $(function(){initNavTree('md_common_2can__library_2README.html',''); initResizab
 <li><code><a class="el" href="faults__common_8h.html" title="Event-based FIDR system.">faults_common.h</a> / .c</code>: System-wide fault management.</li>
 <li><code>can_library.cmake</code>: CMake integration and node library generation.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md56"></a>
+<h1><a class="anchor" id="autotoc_md52"></a>
 Usage</h1>
 <ol type="1">
 <li>Define your CAN network and global faults in <code>common/can_library/configs/</code> using the provided JSON schemas.<ol type="a">
@@ -125,14 +125,14 @@ Usage</h1>
 <li>Define your RX interrupt handlers to call <code>CAN_handle_irq(CAN_TypeDef *bus, uint8_t fifo)</code></li>
 </ol>
 <dl class="section note"><dt>Note</dt><dd>Weird quirk: we run the CANpiler twice. Once during CMake configuration time and one during build time. This avoids any possibility of building with stale generated files.</dd></dl>
-<h1><a class="anchor" id="autotoc_md57"></a>
+<h1><a class="anchor" id="autotoc_md53"></a>
 Fault System</h1>
 <p>The <code>faults_common</code> module implements the <b>FIDR (Fault Isolation, Detection, and Recovery)</b> system. It manages the lifecycle of system-wide faults using a robust Finite State Machine (FSM) to prevent flickering and ensure deterministic fault handling.</p>
 <div class="image">
 <img src="fault_fsm.drawio.png" alt=""/>
 <div class="caption">
 Fault FSM Diagram</div></div>
-    <h2><a class="anchor" id="autotoc_md58"></a>
+    <h2><a class="anchor" id="autotoc_md54"></a>
 Usage:</h2>
 <ul>
 <li><code>update_fault(fault_index, value)</code>: Called by the owner node to feed sensor/status data into the FSM.</li>

@@ -23,7 +23,6 @@ var annotated_dup =
       [ "bcolors", "classutils_1_1bcolors.html", null ]
     ] ],
     [ "__attribute__", "struct____attribute____.html", null ],
-    [ "__WIZCHIP", "struct____WIZCHIP.html", "struct____WIZCHIP" ],
     [ "adbms_bms_t", "structadbms__bms__t.html", "structadbms__bms__t" ],
     [ "adbms_module_t", "structadbms__module__t.html", "structadbms__module__t" ],
     [ "adc1_dma_buffer_t", "structadc1__dma__buffer__t.html", null ],
@@ -41,14 +40,9 @@ var annotated_dup =
     [ "cooling_request_t", "structcooling__request__t.html", null ],
     [ "daq_hub_t", "structdaq__hub__t.html", "structdaq__hub__t" ],
     [ "dashboard_input_state_t", "structdashboard__input__state__t.html", null ],
-    [ "DIR", "structDIR.html", null ],
     [ "dma_init_t", "structdma__init__t.html", null ],
     [ "eth_config_t", "structeth__config__t.html", null ],
-    [ "FATFS", "structFATFS.html", null ],
     [ "fault_t", "structfault__t.html", null ],
-    [ "FFOBJID", "structFFOBJID.html", null ],
-    [ "FIL", "structFIL.html", null ],
-    [ "FILINFO", "structFILINFO.html", null ],
     [ "GPIOInitConfig_t", "structGPIOInitConfig__t.html", null ],
     [ "GPS_Handle_t", "structGPS__Handle__t.html", null ],
     [ "IMU_data_t", "structIMU__data__t.html", null ],
@@ -56,7 +50,6 @@ var annotated_dup =
     [ "lut_entry_t", "structlut__entry__t.html", null ],
     [ "menu_element_t", "structmenu__element__t.html", null ],
     [ "menu_page_t", "structmenu__page__t.html", null ],
-    [ "MKFS_PARM", "structMKFS__PARM.html", null ],
     [ "NAV_PVT_t", "structNAV__PVT__t.html", null ],
     [ "page_handler_t", "structpage__handler__t.html", null ],
     [ "pedal_values_t", "structpedal__values__t.html", null ],
@@ -83,8 +76,5 @@ var annotated_dup =
     [ "usart_init_t", "structusart__init__t.html", "structusart__init__t" ],
     [ "usart_rx_errors_t", "structusart__rx__errors__t.html", "structusart__rx__errors__t" ],
     [ "usart_tx_errors_t", "structusart__tx__errors__t.html", "structusart__tx__errors__t" ],
-    [ "voltage_t", "structvoltage__t.html", null ],
-    [ "wiz_NetInfo_t", "structwiz__NetInfo__t.html", "structwiz__NetInfo__t" ],
-    [ "wiz_NetTimeout_t", "structwiz__NetTimeout__t.html", "structwiz__NetTimeout__t" ],
-    [ "wiz_PhyConf_t", "structwiz__PhyConf__t.html", "structwiz__PhyConf__t" ]
+    [ "voltage_t", "structvoltage__t.html", null ]
 ];

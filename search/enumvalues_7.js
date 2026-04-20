@@ -1,26 +1,5 @@
 var searchData=
 [
-  ['sb_5fhalf_0',['SB_HALF',['../phal__F4__F7_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553ad0547d788f5201c0b3beb75bf289ecfb',1,'usart.h']]],
-  ['sb_5fone_1',['SB_ONE',['../phal__F4__F7_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da',1,'usart.h']]],
-  ['sb_5fone_5fhalf_2',['SB_ONE_HALF',['../phal__F4__F7_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553ab67ebf519fad921e7749842e16f9685c',1,'usart.h']]],
-  ['sb_5ftwo_3',['SB_TWO',['../phal__F4__F7_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553abd98b798e8db67c8f79d30573152cd87',1,'usart.h']]],
-  ['sik_5fall_4',['SIK_ALL',['../group__DATA__TYPE.html#ggaa9d536c54137cd7b425c4c1e3cbfd49cab047934b1869746fbc0f144b5a750235',1,'socket.h']]],
-  ['sik_5fconnected_5',['SIK_CONNECTED',['../group__DATA__TYPE.html#ggaa9d536c54137cd7b425c4c1e3cbfd49ca572b5fc4792b828241e3cb59c95d8162',1,'socket.h']]],
-  ['sik_5fdisconnected_6',['SIK_DISCONNECTED',['../group__DATA__TYPE.html#ggaa9d536c54137cd7b425c4c1e3cbfd49ca9680dba91346657e5ace550b548e078b',1,'socket.h']]],
-  ['sik_5freceived_7',['SIK_RECEIVED',['../group__DATA__TYPE.html#ggaa9d536c54137cd7b425c4c1e3cbfd49ca083fdc9e4e60122e9430e00cea78ecba',1,'socket.h']]],
-  ['sik_5fsent_8',['SIK_SENT',['../group__DATA__TYPE.html#ggaa9d536c54137cd7b425c4c1e3cbfd49ca263f2ee924ce301138f6ff041d539bd2',1,'socket.h']]],
-  ['sik_5ftimeout_9',['SIK_TIMEOUT',['../group__DATA__TYPE.html#ggaa9d536c54137cd7b425c4c1e3cbfd49ca9932f0ef330402b0f60a08073fd5a753',1,'socket.h']]],
-  ['so_5fdestip_10',['SO_DESTIP',['../group__DATA__TYPE.html#gga2f86b7ad233f3b8d6ae0af3ee91e9944aedcfb91978540124a81e0302c58bb6d7',1,'socket.h']]],
-  ['so_5fdestport_11',['SO_DESTPORT',['../group__DATA__TYPE.html#gga2f86b7ad233f3b8d6ae0af3ee91e9944a3429f41e7099b4badca2630c7a5e4f1c',1,'socket.h']]],
-  ['so_5fflag_12',['SO_FLAG',['../group__DATA__TYPE.html#gga2f86b7ad233f3b8d6ae0af3ee91e9944af21c9fec4a305d9504e0487f7ae7fc26',1,'socket.h']]],
-  ['so_5fkeepaliveauto_13',['SO_KEEPALIVEAUTO',['../group__DATA__TYPE.html#gga2f86b7ad233f3b8d6ae0af3ee91e9944a779fa4480ecb9a4b247bd6130c25647f',1,'socket.h']]],
-  ['so_5fkeepalivesend_14',['SO_KEEPALIVESEND',['../group__DATA__TYPE.html#gga2f86b7ad233f3b8d6ae0af3ee91e9944a2bf80fd82c7e9231c427cd62a5d62cf0',1,'socket.h']]],
-  ['so_5fmss_15',['SO_MSS',['../group__DATA__TYPE.html#gga2f86b7ad233f3b8d6ae0af3ee91e9944ae7f6aaf2aaef0519a813b3e26ef9c4fd',1,'socket.h']]],
-  ['so_5fpackinfo_16',['SO_PACKINFO',['../group__DATA__TYPE.html#gga2f86b7ad233f3b8d6ae0af3ee91e9944af1a89a6cfe6fce7381f825553de1a905',1,'socket.h']]],
-  ['so_5frecvbuf_17',['SO_RECVBUF',['../group__DATA__TYPE.html#gga2f86b7ad233f3b8d6ae0af3ee91e9944ab30861739974726fb7a170bbac572c22',1,'socket.h']]],
-  ['so_5fremainsize_18',['SO_REMAINSIZE',['../group__DATA__TYPE.html#gga2f86b7ad233f3b8d6ae0af3ee91e9944ac8e0d12b5a8ee43e5ebe37a39b31988a',1,'socket.h']]],
-  ['so_5fsendbuf_19',['SO_SENDBUF',['../group__DATA__TYPE.html#gga2f86b7ad233f3b8d6ae0af3ee91e9944a1b0e150a176b12a227d6ab7c294fc05a',1,'socket.h']]],
-  ['so_5fstatus_20',['SO_STATUS',['../group__DATA__TYPE.html#gga2f86b7ad233f3b8d6ae0af3ee91e9944a3f76c1b04cfc969826bed37a3c4cff06',1,'socket.h']]],
-  ['so_5ftos_21',['SO_TOS',['../group__DATA__TYPE.html#gga2f86b7ad233f3b8d6ae0af3ee91e9944afef2289d3bfeecda602214576b0a42e3',1,'socket.h']]],
-  ['so_5fttl_22',['SO_TTL',['../group__DATA__TYPE.html#gga2f86b7ad233f3b8d6ae0af3ee91e9944a69762968a8cae82544deffe1c3ac32cf',1,'socket.h']]]
+  ['word_5f8_0',['WORD_8',['../phal__F4__F7_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027',1,'usart.h']]],
+  ['word_5f9_1',['WORD_9',['../phal__F4__F7_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493aaf384e56f1bc9d30d7733088c7ad3274',1,'usart.h']]]
 ];

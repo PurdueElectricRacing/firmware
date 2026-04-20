@@ -6,6 +6,5 @@ var searchData=
   ['deploy_5fn_5fdebug_3',['deploy_n_debug',['../md_docs_2deploy__n__debug.html',1,'']]],
   ['deprecated_4',['THIS MODULE IS DEPRECATED',['../md_common_2bmi088_2README.html',1,'']]],
   ['documentation_5',['AMK Documentation',['../md_common_2amk_2README.html',1,'']]],
-  ['driveline_6',['Driveline',['../md_source_2driveline_2README.html',1,'']]],
-  ['driver_7',['ioLibrary Driver',['../md_source_2daq_2w5500_2README.html',1,'']]]
+  ['driveline_6',['Driveline',['../md_source_2driveline_2README.html',1,'']]]
 ];

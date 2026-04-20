@@ -47,6 +47,9 @@ set(COMMON_MODULES
     common/syscalls
     common/bangbang
     common/heartbeat
+    common/sdio
+    external/w5500
+    external/fatfs
 )
 
 foreach(COMMON_MODULE IN LISTS COMMON_MODULES)

@@ -48,6 +48,7 @@ set(COMMON_MODULES
     common/bangbang
     common/heartbeat
     common/sdio
+    external/w5500
 )
 
 foreach(COMMON_MODULE IN LISTS COMMON_MODULES)

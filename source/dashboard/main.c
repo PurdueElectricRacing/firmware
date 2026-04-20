@@ -8,7 +8,7 @@
  */
 
 /* System Includes */
-#include "common/can_library/faults_common.h"
+#include "can_library/faults_common.h"
 #include "common/common_defs/common_defs.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/adc.h"
@@ -21,7 +21,7 @@
 #include "common/heartbeat/heartbeat.h"
 
 /* Module Includes */
-#include "common/can_library/generated/DASHBOARD.h"
+#include "can_library/generated/DASHBOARD.h"
 #include "lcd.h"
 #include "main.h"
 #include "pedals.h"

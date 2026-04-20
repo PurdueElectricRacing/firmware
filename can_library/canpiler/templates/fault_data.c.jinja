@@ -5,8 +5,8 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#include "common/can_library/generated/fault_data.h"
-#include "common/can_library/generated/can_router.h"
+#include "can_library/generated/fault_data.h"
+#include "can_library/generated/can_router.h"
 
 fault_t faults[TOTAL_NUM_FAULTS] = {
 {% for module in fault_modules %}

@@ -10,7 +10,7 @@
 #ifndef AMK_H
 #define AMK_H
 
-#include "common/can_library/generated/MCAN.h"
+#include "can_library/generated/MCAN.h"
 #include <stdint.h>
 
 typedef enum : uint8_t {

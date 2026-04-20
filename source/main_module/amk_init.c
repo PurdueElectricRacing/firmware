@@ -1,5 +1,5 @@
 #include "main.h"
-#include "common/can_library/generated/MAIN_MODULE.h"
+#include "can_library/generated/MAIN_MODULE.h"
 
 // ! important: assert that the layout hashes of all AMK messages match
 static_assert(INVA_SET_LAYOUT_HASH == INVB_SET_LAYOUT_HASH, "AMK INVA/B Struct Mismatch");

@@ -1,7 +1,7 @@
 #include "f4_testing.h"
 #if (F4_TESTING_CHOSEN == TEST_CANPILER)
 
-#include "common/can_library/generated/PDU.h"
+#include "can_library/generated/PDU.h"
 #include "common/phal/adc.h"
 #include "common/phal/can.h"
 #include "common/phal/dma.h"

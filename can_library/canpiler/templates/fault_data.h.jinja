@@ -9,7 +9,7 @@
  */
 
 #include <stdint.h>
-#include "common/can_library/generated/can_types.h"
+#include "can_library/generated/can_types.h"
 
 // Node Configuration (Activation & Ownership)
 {% for node in nodes %}
@@ -27,7 +27,7 @@
 {% endif %}
 {% endfor %}
 
-#include "common/can_library/faults_common.h"
+#include "can_library/faults_common.h"
 
 #define TOTAL_NUM_FAULTS ({{ total_faults }}U)
 

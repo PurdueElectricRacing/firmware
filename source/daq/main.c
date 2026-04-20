@@ -128,7 +128,7 @@ static void configure_interrupts(void);
 void shutdown(void);
 
 DEFINE_TASK(sd_update_periodic, 100, osPriorityNormal, STACK_4096); // SD WRITE
-DEFINE_TASK(eth_update_periodic, 50, osPriorityNormal, STACK_4096); // BULLET COMMS 
+DEFINE_TASK(eth_thread_periodic, 0, osPriorityLow, STACK_4096); // BULLET COMMS 
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main() {

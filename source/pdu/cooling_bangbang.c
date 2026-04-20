@@ -3,7 +3,7 @@
 #if COOLING_ENABLE_BANGBANG
 
 #include "common/bangbang/bangbang.h"
-#include "common/can_library/generated/PDU.h"
+#include "can_library/generated/PDU.h"
 
 static constexpr float MOTOR_PUMP_ON_TEMP_C = 60.0f;
 static constexpr float MOTOR_PUMP_OFF_TEMP_C = 55.0f;

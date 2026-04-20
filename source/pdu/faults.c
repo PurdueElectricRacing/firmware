@@ -1,6 +1,6 @@
 #include "faults.h"
 
-#include "common/can_library/faults_common.h"
+#include "can_library/faults_common.h"
 #include "led.h"
 #include "main.h"
 #include "state.h"

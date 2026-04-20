@@ -49,6 +49,7 @@ set(COMMON_MODULES
     common/heartbeat
     common/sdio
     external/w5500
+    external/fatfs
 )
 
 foreach(COMMON_MODULE IN LISTS COMMON_MODULES)

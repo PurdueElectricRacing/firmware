@@ -146,11 +146,11 @@ void SPMC_master_advance_tail(SPMC_t *spmc) {
 }
 
 /**
- * @brief Peeks at the number of contiguous quarter chunks available for the follower without lapping the master's tail without committing the tail.
+ * @brief Peeks at the number of contiguous mini chunks available for the follower without lapping the master's tail without committing the tail.
  *
- * @return The number of contiguous quarter chunks available.
+ * @return The number of contiguous mini chunks available.
  */
-size_t SPMC_follower_peek_quarters(SPMC_t *spmc, timestamped_frame_t **first_item) {
+size_t SPMC_follower_peek_minis(SPMC_t *spmc, timestamped_frame_t **first_item) {
     uint32_t basepri = __get_BASEPRI();
     __set_BASEPRI(CAN_RX_IRQ_PRIO << (8 - __NVIC_PRIO_BITS));
 
@@ -176,8 +176,8 @@ size_t SPMC_follower_peek_quarters(SPMC_t *spmc, timestamped_frame_t **first_ite
         spmc->follower_tail = new_follower_tail; // commit the catchup
     }
 
-    // not enough data for even one quarter chunk
-    if (follower_count < SPMC_QUARTER_NUM_FRAMES) {
+    // not enough data for even one mini chunk
+    if (follower_count < SPMC_MINI_NUM_FRAMES) {
         *first_item = NULL;
         return 0;
     }
@@ -188,20 +188,20 @@ size_t SPMC_follower_peek_quarters(SPMC_t *spmc, timestamped_frame_t **first_ite
         contiguous_frames = follower_count;
     }
 
-    const size_t contiguous_quarters = contiguous_frames / SPMC_QUARTER_NUM_FRAMES;
+    const size_t contiguous_minis = contiguous_frames / SPMC_MINI_NUM_FRAMES;
 
     *first_item = &spmc->data[new_follower_tail];
-    return contiguous_quarters;
+    return contiguous_minis;
 }
 
 /**
- * @brief Advances the follower tail pointer by a given number of quarter chunks.
+ * @brief Advances the follower tail pointer by a given number of mini chunks.
  */
-void SPMC_follower_advance_tail(SPMC_t *spmc, size_t quarters_consumed) {
+void SPMC_follower_advance_tail(SPMC_t *spmc, size_t minis_consumed) {
     // no critical section needed because follower tail is not shared with other contexts
     const size_t follower_tail = spmc->follower_tail;
 
-    size_t next_tail = follower_tail + (quarters_consumed * SPMC_QUARTER_NUM_FRAMES);
+    size_t next_tail = follower_tail + (minis_consumed * SPMC_MINI_NUM_FRAMES);
     while (next_tail >= SPMC_FRAME_CAPACITY) {
         next_tail -= SPMC_FRAME_CAPACITY;
     }

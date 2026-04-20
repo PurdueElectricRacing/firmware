@@ -22,10 +22,11 @@ static_assert(
     "to prevent DMA wraparound issues and fragmentation"
 );
 
-static constexpr size_t SPMC_QUARTER_NUM_FRAMES = SPMC_CHUNK_NUM_FRAMES / 4;
+static constexpr size_t SPMC_MINI_NUM_FRAMES = 4;
 static_assert(
-    SPMC_CHUNK_NUM_FRAMES % 4 == 0,
-    "SPMC_CHUNK_NUM_FRAMES must be divisible by 4 to allow quarter chunk peeks for the ETH follower"
+    SPMC_CHUNK_NUM_FRAMES % SPMC_MINI_NUM_FRAMES == 0,
+    "SPMC_CHUNK_NUM_FRAMES must be divisible by SPMC_MINI_NUM_FRAMES "
+    "to allow mini chunk peeks for the ETH follower"
 );
 
 typedef struct {
@@ -51,7 +52,7 @@ bool SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame);
 bool SPMC_master_peek_chunk(SPMC_t *spmc, timestamped_frame_t **first_item);
 void SPMC_master_advance_tail(SPMC_t *spmc);
 
-size_t SPMC_follower_peek_quarters(SPMC_t *spmc, timestamped_frame_t **first_item);
-void SPMC_follower_advance_tail(SPMC_t *spmc, size_t quarters_consumed);
+size_t SPMC_follower_peek_minis(SPMC_t *spmc, timestamped_frame_t **first_item);
+void SPMC_follower_advance_tail(SPMC_t *spmc, size_t minis_consumed);
 
 #endif // SPMC_H

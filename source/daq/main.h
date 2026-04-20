@@ -2,12 +2,10 @@
 #define _MAIN_H_
 
 #include "common/freertos/freertos.h"
-#include "common/log/log.h"
 #include "daq_sd.h"
 #include "ff.h"
 #include "daq_rtc_config.h"
 #include "spmc.h"
-#include "common/sdio/sdio.h"
 
 // Pinouts
 // LEDs

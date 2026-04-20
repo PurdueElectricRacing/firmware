@@ -36,7 +36,6 @@ static_assert(
     "UDP socket number should be less than WIZCHIP socket max"
 );
 
-
 static eth_thread_state_t current_state = ETH_THREAD_HW_INIT;
 static eth_thread_state_t next_state = ETH_THREAD_HW_INIT;
 
@@ -92,27 +91,30 @@ static bool init_udp(void) {
 static void eth_ready_periodic(void) {
     static constexpr size_t UDP_MAX_BUFFER_SIZE = 1500;
     static constexpr size_t UDP_MAX_WRITE_COUNT = UDP_MAX_BUFFER_SIZE / sizeof(timestamped_frame_t);
-    static constexpr size_t UDP_MAX_WRITE_QUARTERS = UDP_MAX_WRITE_COUNT / SPMC_QUARTER_NUM_FRAMES;
+    static constexpr size_t UDP_MAX_WRITE_MINIS = UDP_MAX_WRITE_COUNT / SPMC_MINI_NUM_FRAMES;
 
     timestamped_frame_t* outgoing;
-    size_t quarters_available = SPMC_follower_peek_quarters(&spmc, &outgoing);
-    if (quarters_available == 0) {
+    size_t minis_available = SPMC_follower_peek_minis(&spmc, &outgoing);
+    if (minis_available == 0) {
         return; // No data to send
     }
 
-    if (quarters_available > UDP_MAX_WRITE_QUARTERS) {
-        quarters_available = UDP_MAX_WRITE_QUARTERS; // Cap to max UDP size
+    if (minis_available > UDP_MAX_WRITE_MINIS) {
+        minis_available = UDP_MAX_WRITE_MINIS; // Cap to max UDP size
     }
 
     // Write time :D
-    uint16_t write_len = SPMC_QUARTER_NUM_FRAMES * quarters_available * sizeof(timestamped_frame_t);
+    uint16_t write_len = SPMC_MINI_NUM_FRAMES * minis_available * sizeof(timestamped_frame_t);
     int32_t ret = sendto(config.udp_socket, (uint8_t*)outgoing, write_len, config.udp_address, config.udp_port);
-    if (ret < write_len) {
-        // todo handle this error
+    if (ret < 0) {
+        // todo: something is not initialized correctly
+        return;
+    } else if (ret < write_len) {
+        // todo: a partial write occured
         return;
     } 
 
-    SPMC_follower_advance_tail(&spmc, quarters_available);
+    SPMC_follower_advance_tail(&spmc, minis_available);
 }
 
 void eth_thread_periodic(void) {

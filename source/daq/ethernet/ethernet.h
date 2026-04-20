@@ -30,6 +30,6 @@ typedef struct {
 } ethernet_config_t;
 
 void w5500_register_callbacks(void);
-void eth_thread_periodic();
+void eth_thread_periodic(void);
 
 #endif // ETHERNET_H

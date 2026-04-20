@@ -1,4 +1,7 @@
-#include "spmc.h"
+#ifndef DAQ_RTC_CONFIG_H
+#define DAQ_RTC_CONFIG_H
+
+#include "timestamped_frame.h"
 #include "common/phal/rtc.h"
 
 typedef enum {
@@ -7,3 +10,5 @@ typedef enum {
 } rtc_config_state_t;
 
 void rtc_config_cb(timestamped_frame_t*);
+
+#endif // DAQ_RTC_CONFIG_H

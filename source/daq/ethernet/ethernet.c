@@ -19,7 +19,7 @@
 static constexpr uint8_t DAQ_UDP_SOCKET_NUM = 0;
 static constexpr uint16_t DAQ_UDP_SOCKET_PORT = 5005;
 
-ethernet_config_t config = {
+static ethernet_config_t config = {
     .net_info = {
         .mac = {0x00, 0x08, 0xdc, 0xab, 0xcd, 0xef}, // Mac address
         .ip  = {192, 168, 10, 41}, // IP address of DAQ PCB
@@ -40,12 +40,12 @@ static_assert(
 static eth_thread_state_t current_state = ETH_THREAD_HW_INIT;
 static eth_thread_state_t next_state = ETH_THREAD_HW_INIT;
 
-static inline bool is_linked() {
+static inline bool is_linked(void) {
     volatile uint8_t phycfgr = getPHYCFGR();
     return phycfgr & PHY_LINK_ON;
 }
 
-static bool init_w5500() {
+static bool init_w5500(void) {
     static constexpr uint8_t EXPECTED_W5500_VERSION_ID = 0x04;
 
     w5500_register_callbacks(); // register custom SPI callbacks for W5500 driver
@@ -115,7 +115,7 @@ static void eth_ready_periodic(void) {
     SPMC_follower_advance_tail(&spmc, quarters_available);
 }
 
-void eth_thread_periodic() {
+void eth_thread_periodic(void) {
     current_state = next_state;
     next_state = current_state; // default to no state change
 

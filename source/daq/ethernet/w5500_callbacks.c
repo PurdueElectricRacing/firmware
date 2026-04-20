@@ -1,11 +1,14 @@
 
-#include "daq_spi.h"
+/**
+ * @file w5500_callbacks.c
+ * @brief Implementation of the W5500 SPI callbacks for ethernet communication.
+ *
+ * @author Eileen Yoon (eyn@purdue.edu)
+ */
 
+#include "w5500/wizchip_conf.h"
 #include "common/phal/spi.h"
 #include "main.h"
-#include "w5500/wizchip_conf.h"
-
-/* SPI Callbacks for Ethernet Driver */
 
 extern SPI_InitConfig_t eth_spi_config;
 
@@ -128,7 +131,7 @@ static void crit_exit(void) {
     xSemaphoreGive(spi1_lock);
 }
 
-void daq_spi_register_callbacks(void) {
+void w5500_register_callbacks(void) {
     PHAL_writeGPIO(ETH_CS_PORT, ETH_CS_PIN, 1);
     reg_wizchip_cs_cbfunc(cs_sel, cs_desel);
     reg_wizchip_spi_cbfunc(spi_rb, spi_wb);

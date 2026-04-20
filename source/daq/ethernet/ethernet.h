@@ -13,13 +13,6 @@
 #include <stdint.h>
 #include "w5500/wizchip_conf.h"
 
-// W5500 has 8 sockets internally
-#define DAQ_SOCKET_UDP_BROADCAST 0
-#define DAQ_SOCKET_TCP           1
-#define DAQ_SOCKET_FTP_CTRL0     2 // FTP uses 3 sockets
-#define DAQ_SOCKET_FTP_DATA      3
-#define DAQ_SOCKET_FTP_CTRL1     4
-
 typedef enum {
     ETH_THREAD_HW_INIT    = 0,
     ETH_THREAD_UDP_INIT   = 1,
@@ -36,5 +29,8 @@ typedef struct {
     uint16_t udp_port;
     uint8_t udp_socket;
 } ethernet_config_t;
+
+void w5500_register_callbacks(void);
+void eth_thread_periodic();
 
 #endif // ETHERNET_H

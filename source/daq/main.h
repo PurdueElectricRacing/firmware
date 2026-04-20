@@ -3,7 +3,6 @@
 
 #include "common/freertos/freertos.h"
 #include "common/log/log.h"
-#include "daq_eth.h"
 #include "daq_sd.h"
 #include "ff.h"
 #include "daq_rtc_config.h"
@@ -54,16 +53,9 @@ static_assert(PER == GREAT); // Long live daq loop
 #define SD_BLOCKING_TIMEOUT_MS (5000)
 constexpr TickType_t SD_BLOCKING_TIMEOUT_TICKS = pdMS_TO_TICKS(SD_BLOCKING_TIMEOUT_MS); 
 
-typedef struct
-{
-    // Ethernet
-    eth_state_t eth_state;
+typedef struct {
+    // RTC
     rtc_config_state_t rtc_config_state;
-    eth_tcp_state_t eth_tcp_state;
-    uint32_t eth_error_ct;
-    eth_error_t eth_last_err;
-    int32_t eth_last_err_res;
-    uint32_t eth_last_error_time;
 
     // SD Card
     sd_state_t sd_state;

@@ -17,10 +17,7 @@
 #include "ethernet.h"
 
 static constexpr uint8_t DAQ_UDP_SOCKET_NUM = 0;
-static_assert(
-    DAQ_UDP_SOCKET_NUM < _WIZCHIP_SOCK_NUM_,
-    "UDP socket number should be less than WIZCHIP socket max"
-);
+static constexpr uint16_t DAQ_UDP_SOCKET_PORT = 5005;
 
 ethernet_config_t config = {
     .net_info = {
@@ -30,9 +27,15 @@ ethernet_config_t config = {
         .gw  = {192, 168, 10, 1},  // Gateway address
     },
     .udp_address = {192, 168, 10, 255}, // Broadcast address
-    .udp_port = 5005,
+    .udp_port = DAQ_UDP_SOCKET_PORT,
     .udp_socket = DAQ_UDP_SOCKET_NUM
 };
+
+static_assert(
+    DAQ_UDP_SOCKET_NUM < _WIZCHIP_SOCK_NUM_,
+    "UDP socket number should be less than WIZCHIP socket max"
+);
+
 
 static eth_thread_state_t current_state = ETH_THREAD_HW_INIT;
 static eth_thread_state_t next_state = ETH_THREAD_HW_INIT;
@@ -45,6 +48,8 @@ static inline bool is_linked() {
 static bool init_w5500() {
     static constexpr uint8_t EXPECTED_W5500_VERSION_ID = 0x04;
 
+    w5500_register_callbacks(); // register custom SPI callbacks for W5500 driver
+
     // hold and release ETH reset pin
     PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 0);
     osDelay(10);
@@ -56,15 +61,14 @@ static bool init_w5500() {
         return false;
     }
 
-    // W5500 has 16kB memory for RX/TX each internally. It doesnt matter how the block is distributed
-    // across its 8 internal sockets, so allocate all 16kB to the sockets we actually use.
-    // 0: UDP broadcast (don't need RX buffer, need big TX)
-    // 1: TCP/UDS (need big RX buffer for bootloader, only need small TX for ack messages)
-    // 2/3/4: FTP
-    uint8_t rxBufSizes[] = {8, 8, 0, 0, 0, 0, 0, 0}; // kB
-    uint8_t txBufSizes[] = {8, 8, 0, 0, 0, 0, 0, 0}; // kB
+    
+    // W5500 has 16kB memory for RX/TX each internally.
+    // It doesnt matter how the block is distributed across the 8 sockets.
+    // We only use socket 0 for UDP broadcast, so we can allocate all the memory to that socket.
+    uint8_t tx_sizes[] = {16, 0, 0, 0, 0, 0, 0, 0}; // kB
+    uint8_t rx_sizes[] = {16, 0, 0, 0, 0, 0, 0, 0}; // kB
 
-    if (wizchip_init(txBufSizes, rxBufSizes)) {
+    if (wizchip_init(tx_sizes, rx_sizes) != 0) {
         return false;
     }
 

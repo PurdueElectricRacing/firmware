@@ -18,9 +18,8 @@ typedef enum {
     ETH_THREAD_UDP_INIT   = 1,
     ETH_THREAD_LINKING    = 2,
     ETH_THREAD_READY      = 3,
-    ETH_THREAD_TXING      = 4,
-    ETH_THREAD_RECOVERING = 5,
-    ETH_THREAD_FATAL      = 6,
+    ETH_THREAD_RECOVERING = 4,
+    ETH_THREAD_FATAL      = 5,
 } eth_thread_state_t;
 
 typedef struct {

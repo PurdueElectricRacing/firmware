@@ -89,7 +89,7 @@ static bool init_udp(void) {
     return true;
 }
 
-static void broadcast_udp(void) {
+static void eth_ready_periodic(void) {
     static constexpr size_t UDP_MAX_BUFFER_SIZE = 8192;
     static constexpr size_t UDP_MAX_WRITE_COUNT = UDP_MAX_BUFFER_SIZE / sizeof(timestamped_frame_t);
     static constexpr size_t UDP_MAX_WRITE_CHUNKS = UDP_MAX_WRITE_COUNT / SPMC_CHUNK_NUM_FRAMES;
@@ -135,26 +135,19 @@ void eth_thread_periodic() {
             }
             break;
         case ETH_THREAD_LINKING:
-            osDelay(100); // block for a bit between each link check
+            osDelay(200); // block for a bit between each link check
 
             if (is_linked()) {
                 next_state = ETH_THREAD_READY;
             }
             break;
         case ETH_THREAD_READY:
-            // todo sleep until woken by an ISR, then begin TX
-            // xNotifyTake(, portMAX_DELAY);
+            eth_ready_periodic();
+            osDelay(10); // 100 Hz tx rate
 
             if (!is_linked()) {
                 next_state = ETH_THREAD_LINKING; // Link lost, try to relink
-            } else {
-                next_state = ETH_THREAD_TXING;
-            }
-            break;
-        case ETH_THREAD_TXING:
-            broadcast_udp();
-
-            next_state = ETH_THREAD_READY;
+            } 
             break;
         case ETH_THREAD_RECOVERING:
             // todo timeout or error during TX

@@ -51,7 +51,7 @@ bool SPMC_enqueue_from_ISR(SPMC_t *spmc, timestamped_frame_t *incoming_frame);
 bool SPMC_master_peek_chunk(SPMC_t *spmc, timestamped_frame_t **first_item);
 void SPMC_master_advance_tail(SPMC_t *spmc);
 
-size_t SPMC_follower_peek_chunks(SPMC_t *spmc, timestamped_frame_t **first_item);
+size_t SPMC_follower_peek_quarters(SPMC_t *spmc, timestamped_frame_t **first_item);
 void SPMC_follower_advance_tail(SPMC_t *spmc, size_t quarters_consumed);
 
 #endif // SPMC_H

@@ -150,7 +150,7 @@ void SPMC_master_advance_tail(SPMC_t *spmc) {
  *
  * @return The number of contiguous quarter chunks available.
  */
-size_t SPMC_follower_peek_chunks(SPMC_t *spmc, timestamped_frame_t **first_item) {
+size_t SPMC_follower_peek_quarters(SPMC_t *spmc, timestamped_frame_t **first_item) {
     uint32_t basepri = __get_BASEPRI();
     __set_BASEPRI(CAN_RX_IRQ_PRIO << (8 - __NVIC_PRIO_BITS));
 

@@ -344,33 +344,33 @@
                     "signals": [
                         {
                             "sig_name": "AMK_Control_bReserve",
-                            "sig_desc": "RESERVED",
+                            "sig_desc": "Control word: RESERVED",
                             "type": "uint8_t",
                             "length": 8
                         },
                         {
                             "sig_name": "AMK_Control_bInverterOn",
-                            "sig_desc": "Controller enable",
+                            "sig_desc": "Control word: Controller enable",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bDcOn",
-                            "sig_desc": "HV activation",
+                            "sig_desc": "Control word: HV activation",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bEnable",
-                            "sig_desc": "Driver enable",
+                            "sig_desc": "Control word: Driver enable",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bErrorReset",
-                            "sig_desc": "Remove error",
+                            "sig_desc": "Control word: Remove error",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bReserve2",
-                            "sig_desc": "RESERVED",
+                            "sig_desc": "Control word: RESERVED",
                             "type": "uint8_t",
                             "length": 4
                         },
@@ -406,33 +406,33 @@
                     "signals": [
                         {
                             "sig_name": "AMK_Control_bReserve",
-                            "sig_desc": "RESERVED",
+                            "sig_desc": "Control word: RESERVED",
                             "type": "uint8_t",
                             "length": 8
                         },
                         {
                             "sig_name": "AMK_Control_bInverterOn",
-                            "sig_desc": "Controller enable",
+                            "sig_desc": "Control word: Controller enable",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bDcOn",
-                            "sig_desc": "HV activation",
+                            "sig_desc": "Control word: HV activation",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bEnable",
-                            "sig_desc": "Driver enable",
+                            "sig_desc": "Control word: Driver enable",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bErrorReset",
-                            "sig_desc": "Remove error",
+                            "sig_desc": "Control word: Remove error",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bReserve2",
-                            "sig_desc": "RESERVED",
+                            "sig_desc": "Control word: RESERVED",
                             "type": "uint8_t",
                             "length": 4
                         },
@@ -468,33 +468,33 @@
                     "signals": [
                         {
                             "sig_name": "AMK_Control_bReserve",
-                            "sig_desc": "RESERVED",
+                            "sig_desc": "Control word: RESERVED",
                             "type": "uint8_t",
                             "length": 8
                         },
                         {
                             "sig_name": "AMK_Control_bInverterOn",
-                            "sig_desc": "Controller enable",
+                            "sig_desc": "Control word: Controller enable",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bDcOn",
-                            "sig_desc": "HV activation",
+                            "sig_desc": "Control word: HV activation",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bEnable",
-                            "sig_desc": "Driver enable",
+                            "sig_desc": "Control word: Driver enable",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bErrorReset",
-                            "sig_desc": "Remove error",
+                            "sig_desc": "Control word: Remove error",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bReserve2",
-                            "sig_desc": "RESERVED",
+                            "sig_desc": "Control word: RESERVED",
                             "type": "uint8_t",
                             "length": 4
                         },
@@ -530,33 +530,33 @@
                     "signals": [
                         {
                             "sig_name": "AMK_Control_bReserve",
-                            "sig_desc": "RESERVED",
+                            "sig_desc": "Control word: RESERVED",
                             "type": "uint8_t",
                             "length": 8
                         },
                         {
                             "sig_name": "AMK_Control_bInverterOn",
-                            "sig_desc": "Controller enable",
+                            "sig_desc": "Control word: Controller enable",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bDcOn",
-                            "sig_desc": "HV activation",
+                            "sig_desc": "Control word: HV activation",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bEnable",
-                            "sig_desc": "Driver enable",
+                            "sig_desc": "Control word: Driver enable",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bErrorReset",
-                            "sig_desc": "Remove error",
+                            "sig_desc": "Control word: Remove error",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bReserve2",
-                            "sig_desc": "RESERVED",
+                            "sig_desc": "Control word: RESERVED",
                             "type": "uint8_t",
                             "length": 4
                         },

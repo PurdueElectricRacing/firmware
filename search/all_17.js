@@ -1,26 +1,7 @@
 var searchData=
 [
-  ['taac_0',['TAAC',['../structSD__CSD.html#ab410317204ee5c8db2ed26f0469dc914',1,'SD_CSD']]],
-  ['tempwrprotect_1',['TempWrProtect',['../structSD__CSD.html#a2ee8313de8301ba0e9c40e12b9df4414',1,'SD_CSD']]],
-  ['terminal_2',['Open a new terminal',['../md_docs_2setup.html#autotoc_md79',1,'']]],
-  ['testing_3',['Testing',['../md_source_2f4__testing_2README.html',1,'F4 Testing'],['../md_source_2g4__testing_2README.html',1,'G4 Testing']]],
-  ['the_20balancing_4',['Controlling the Balancing',['../md_source_2a__box_2adbms_2README.html#autotoc_md12',1,'']]],
-  ['the_20debugging_20tools_5',['Using the Debugging Tools',['../md_docs_2deploy__n__debug.html#autotoc_md69',1,'']]],
-  ['the_20microcontrollers_6',['About the microcontrollers',['../md_docs_2datasheets_2README.html#autotoc_md64',1,'']]],
-  ['thermistor_2ec_7',['thermistor.c',['../thermistor_8c.html',1,'']]],
-  ['thermistor_2eh_8',['thermistor.h',['../thermistor_8h.html',1,'']]],
-  ['therms_5ftemps_9',['therms_temps',['../structadbms__module__t.html#aa3b0a2095c3dbf91856b32f124a65cd1',1,'adbms_module_t']]],
-  ['therms_5fvoltages_10',['therms_voltages',['../structadbms__module__t.html#a1b490b9bf2f6348f3380d4deed5502c7',1,'adbms_module_t']]],
-  ['this_20module_20is_20deprecated_11',['THIS MODULE IS DEPRECATED',['../md_common_2bmi088_2README.html',1,'']]],
-  ['timestamped_5fframe_2eh_12',['timestamped_frame.h',['../timestamped__frame_8h.html',1,'']]],
-  ['timestamped_5fframe_5ft_13',['timestamped_frame_t',['../structtimestamped__frame__t.html',1,'']]],
-  ['tools_14',['Tools',['../md_docs_2setup.html#autotoc_md71',1,'1. Tools'],['../md_docs_2deploy__n__debug.html#autotoc_md69',1,'Using the Debugging Tools']]],
-  ['tools_20setup_15',['Tools Setup',['../md_docs_2setup.html#autotoc_md74',1,'Linux Tools Setup'],['../md_docs_2setup.html#autotoc_md72',1,'MacOS Tools Setup'],['../md_docs_2setup.html#autotoc_md73',1,'Windows Tools Setup']]],
-  ['torque_20vectoring_16',['Torque Vectoring',['../md_source_2torque__vector_2README.html',1,'']]],
-  ['torque_5frequest_5ft_17',['torque_request_t',['../structtorque__request__t.html',1,'']]],
-  ['turn_20on_20autosave_18',['Turn on Autosave',['../md_docs_2setup.html#autotoc_md77',1,'']]],
-  ['tx_19',['CAN Message Attributes (TX)',['../md_common_2can__library_2configs_2README.html#autotoc_md44',1,'']]],
-  ['tx_5fdma_5fcfg_20',['tx_dma_cfg',['../structSPI__InitConfig__t.html#aaa9a3f6785303663045a517526a64da1',1,'SPI_InitConfig_t::tx_dma_cfg'],['../structusart__init__t.html#a0c7fab65ad8ab4ea54185a97147a9d06',1,'usart_init_t::tx_dma_cfg']]],
-  ['tx_5ferrors_21',['tx_errors',['../structusart__init__t.html#a07ef62d79c7f5cc1e02a13fa3333652f',1,'usart_init_t']]],
-  ['tx_5fstrbuf_22',['tx_strbuf',['../structadbms__bms__t.html#a9f5eb054ed27b5b9c6dc84903d6d23c7',1,'adbms_bms_t']]]
+  ['vectoring_0',['Torque Vectoring',['../md_source_2torque__vector_2README.html',1,'']]],
+  ['vehicle_20firmware_20⚡️_1',['PER Vehicle Firmware ⚡️',['../md_README.html',1,'']]],
+  ['voltage_5ft_2',['voltage_t',['../structvoltage__t.html',1,'']]],
+  ['vscode_20setup_20all_20os_3',['2. VSCode Setup (All OS)',['../md_docs_2setup.html#autotoc_md53',1,'']]]
 ];

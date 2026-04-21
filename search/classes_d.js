@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['raw_5fadc1_5fvalues_5ft_0',['raw_adc1_values_t',['../structraw__adc1__values__t.html',1,'']]],
-  ['raw_5fadc2_5fvalues_5ft_1',['raw_adc2_values_t',['../structraw__adc2__values__t.html',1,'']]],
-  ['raw_5fadc3_5fvalues_5ft_2',['raw_adc3_values_t',['../structraw__adc3__values__t.html',1,'']]],
-  ['raw_5fadc4_5fvalues_5ft_3',['raw_adc4_values_t',['../structraw__adc4__values__t.html',1,'']]],
-  ['rtc_5fdate_5ft_4',['RTC_date_t',['../structRTC__date__t.html',1,'']]],
-  ['rtc_5ftime_5ft_5',['RTC_time_t',['../structRTC__time__t.html',1,'']]],
-  ['rtc_5ftimestamp_5ft_6',['RTC_timestamp_t',['../structRTC__timestamp__t.html',1,'']]],
-  ['rxmessage_7',['RxMessage',['../classparser_1_1RxMessage.html',1,'parser']]]
+  ['sd_5fcardinfo_0',['SD_CardInfo',['../structSD__CardInfo.html',1,'']]],
+  ['sd_5fcid_1',['SD_CID',['../structSD__CID.html',1,'']]],
+  ['sd_5fcsd_2',['SD_CSD',['../structSD__CSD.html',1,'']]],
+  ['sdc_5fnode_5ft_3',['sdc_node_t',['../structsdc__node__t.html',1,'']]],
+  ['spi_5finitconfig_5ft_4',['SPI_InitConfig_t',['../structSPI__InitConfig__t.html',1,'']]],
+  ['spmc_5ft_5',['SPMC_t',['../structSPMC__t.html',1,'']]],
+  ['status_5fleds_5ft_6',['status_leds_t',['../structstatus__leds__t.html',1,'']]],
+  ['strbuf_5ft_7',['strbuf_t',['../structstrbuf__t.html',1,'']]]
 ];

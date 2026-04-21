@@ -1,9 +1,4 @@
 var searchData=
 [
-  ['calculate_5fbus_5fload_0',['calculate_bus_load',['../namespaceload__calc.html#afef182f3063b8244e9594f80bc7671be',1,'load_calc']]],
-  ['calibration_5ftelemetry_5fupdate_1',['calibration_telemetry_update',['../calibration_8c.html#ada13ef83abd18bb0bca101454a62ab22',1,'calibration_telemetry_update():&#160;calibration.c'],['../calibration_8h.html#ada13ef83abd18bb0bca101454a62ab22',1,'calibration_telemetry_update():&#160;calibration.c']]],
-  ['checkswitchfaults_2',['checkSwitchFaults',['../auto__switch_8c.html#aea4edf80bd2f6bda11bfa85669197d6f',1,'checkSwitchFaults():&#160;auto_switch.c'],['../auto__switch_8h.html#aea4edf80bd2f6bda11bfa85669197d6f',1,'checkSwitchFaults():&#160;auto_switch.c']]],
-  ['cooling_5fdriver_5frequest_5fcallback_3',['cooling_driver_request_CALLBACK',['../cooling_8h.html#ae983f748767d33f50733d2914821f3e1',1,'canpiler.c']]],
-  ['coolinginit_4',['coolingInit',['../cooling_8h.html#ad30811eac53f601ce45d6ab71f10c678',1,'cooling.h']]],
-  ['create_5fsystem_5fcontext_5',['create_system_context',['../namespaceparser.html#ac084676a30f9ea8eaec1ff9ca6509db5',1,'parser']]]
+  ['driver_5finterface_5fperiodic_0',['driver_interface_periodic',['../dashboard_2main_8c.html#a4c3ae616da8068a3f290a1cd68d6ffb0',1,'main.c']]]
 ];

@@ -1,12 +1,14 @@
 var searchData=
 [
-  ['lcd_5ftx_5fupdate_0',['LCD_tx_update',['../dashboard_2main_8c.html#ac191b78cad5b7406d9b8d6227de36a1d',1,'main.c']]],
-  ['led_5fcontrol_1',['LED_control',['../led_8c.html#a25f4f6c595a65e2015d9d76af5fab4ac',1,'LED_control(int led, enum LED_state state):&#160;led.c'],['../led_8h.html#a25f4f6c595a65e2015d9d76af5fab4ac',1,'LED_control(int led, enum LED_state state):&#160;led.c']]],
-  ['led_5fperiodic_2',['LED_periodic',['../led_8c.html#a1d38b8e14425dcbf14215634bcfa5290',1,'LED_periodic():&#160;led.c'],['../led_8h.html#a1d38b8e14425dcbf14215634bcfa5290',1,'LED_periodic():&#160;led.c']]],
-  ['link_3',['link',['../classlinker_1_1BusLinker.html#af9380f9290a883f29ba09b0bb64a519f',1,'linker::BusLinker']]],
-  ['link_5fall_4',['link_all',['../namespacelinker.html#aed4b2af437cd3fe7ac809072fc8999d7',1,'linker']]],
-  ['load_5fbus_5fconfigs_5',['load_bus_configs',['../namespaceparser.html#ab5cd10e7b003490287356ed390368b65',1,'parser']]],
-  ['load_5fcustom_5ftypes_6',['load_custom_types',['../namespaceparser.html#a93720c5cd2352c25b61ee5783cfe2096',1,'parser']]],
-  ['load_5fjson_7',['load_json',['../namespaceutils.html#a9bdd3064ac11001c40863580f4a2c86f',1,'utils']]],
-  ['lut_5flookup_8',['lut_lookup',['../lerp__lut_8c.html#aa6730914e04aa912dcb777e28f9e4004',1,'lut_lookup(const lerp_lut_t *lut, float key):&#160;lerp_lut.c'],['../lerp__lut_8h.html#aa6730914e04aa912dcb777e28f9e4004',1,'lut_lookup(const lerp_lut_t *lut, float key):&#160;lerp_lut.c']]]
+  ['nxt_5fsetbackground_0',['NXT_setBackground',['../nextion_8c.html#a19c3df8972af2eaea366cb65fad34d43',1,'NXT_setBackground(char *obj_name, uint16_t val):&#160;nextion.c'],['../nextion_8h.html#a19c3df8972af2eaea366cb65fad34d43',1,'NXT_setBackground(char *obj_name, uint16_t val):&#160;nextion.c']]],
+  ['nxt_5fsetbaud_1',['NXT_setBaud',['../nextion_8c.html#ae7d537c10e1e85e6537850a02a315fd7',1,'NXT_setBaud(uint32_t baud):&#160;nextion.c'],['../nextion_8h.html#ae7d537c10e1e85e6537850a02a315fd7',1,'NXT_setBaud(uint32_t baud):&#160;nextion.c']]],
+  ['nxt_5fsetbordercolor_2',['NXT_setBorderColor',['../nextion_8c.html#a46ee1522cb7ef9d6bc11a77879e3300e',1,'NXT_setBorderColor(char *obj_name, uint16_t val):&#160;nextion.c'],['../nextion_8h.html#a46ee1522cb7ef9d6bc11a77879e3300e',1,'NXT_setBorderColor(char *obj_name, uint16_t val):&#160;nextion.c']]],
+  ['nxt_5fsetborderwidth_3',['NXT_setBorderWidth',['../nextion_8c.html#ae995d182561a5fa3087569539bb551d2',1,'NXT_setBorderWidth(char *obj_name, uint16_t val):&#160;nextion.c'],['../nextion_8h.html#ae995d182561a5fa3087569539bb551d2',1,'NXT_setBorderWidth(char *obj_name, uint16_t val):&#160;nextion.c']]],
+  ['nxt_5fsetbrightness_4',['NXT_setBrightness',['../nextion_8c.html#acab8846ee36ca76ce5019adef4d04faf',1,'NXT_setBrightness(uint8_t percentage):&#160;nextion.c'],['../nextion_8h.html#a3a521680a4e7c63d0cbdd8d8f85c09fd',1,'NXT_setBrightness(uint8_t brightness):&#160;nextion.c']]],
+  ['nxt_5fsetfloat_5',['NXT_setFloat',['../nextion_8c.html#a03b977180b40a84a35a22cec5211d146',1,'NXT_setFloat(char *obj_name, char *param, float num, uint8_t precision):&#160;nextion.c'],['../nextion_8h.html#a03b977180b40a84a35a22cec5211d146',1,'NXT_setFloat(char *obj_name, char *param, float num, uint8_t precision):&#160;nextion.c']]],
+  ['nxt_5fsetfontcolor_6',['NXT_setFontColor',['../nextion_8c.html#af603b7d431ae4f94d55bf04b2034a8cc',1,'NXT_setFontColor(char *obj_name, uint16_t val):&#160;nextion.c'],['../nextion_8h.html#af603b7d431ae4f94d55bf04b2034a8cc',1,'NXT_setFontColor(char *obj_name, uint16_t val):&#160;nextion.c']]],
+  ['nxt_5fsetpage_7',['NXT_setPage',['../nextion_8c.html#ac5753abcb75fb40221a51bcdec98bbd4',1,'NXT_setPage(char *page_name):&#160;nextion.c'],['../nextion_8h.html#ac5753abcb75fb40221a51bcdec98bbd4',1,'NXT_setPage(char *page_name):&#160;nextion.c']]],
+  ['nxt_5fsettext_8',['NXT_setText',['../nextion_8c.html#ab2a89fd8e292338a6e570a41a698ad3a',1,'NXT_setText(char *obj_name, char *text):&#160;nextion.c'],['../nextion_8h.html#ab2a89fd8e292338a6e570a41a698ad3a',1,'NXT_setText(char *obj_name, char *text):&#160;nextion.c']]],
+  ['nxt_5fsettextformatted_9',['NXT_setTextFormatted',['../nextion_8c.html#a8af8629d8160abf996231ff267e43564',1,'NXT_setTextFormatted(char *obj_name, const char *format,...):&#160;nextion.c'],['../nextion_8h.html#a8af8629d8160abf996231ff267e43564',1,'NXT_setTextFormatted(char *obj_name, const char *format,...):&#160;nextion.c']]],
+  ['nxt_5fsetvalue_10',['NXT_setValue',['../nextion_8c.html#ac7e3e9fc4674d17281069e97b8a5384d',1,'NXT_setValue(char *obj_name, uint16_t val):&#160;nextion.c'],['../nextion_8h.html#ac7e3e9fc4674d17281069e97b8a5384d',1,'NXT_setValue(char *obj_name, uint16_t val):&#160;nextion.c']]]
 ];

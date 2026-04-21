@@ -1,27 +1,5 @@
 var annotated_dup =
 [
-    [ "linker", "namespacelinker.html", [
-      [ "BusLinker", "classlinker_1_1BusLinker.html", "classlinker_1_1BusLinker" ]
-    ] ],
-    [ "mapper", "namespacemapper.html", [
-      [ "FDCANFilters", "classmapper_1_1FDCANFilters.html", null ],
-      [ "FilterBank", "classmapper_1_1FilterBank.html", null ],
-      [ "NodeMapping", "classmapper_1_1NodeMapping.html", null ]
-    ] ],
-    [ "parser", "namespaceparser.html", [
-      [ "Bus", "classparser_1_1Bus.html", null ],
-      [ "BusView", "classparser_1_1BusView.html", null ],
-      [ "Fault", "classparser_1_1Fault.html", null ],
-      [ "FaultModule", "classparser_1_1FaultModule.html", null ],
-      [ "Message", "classparser_1_1Message.html", "classparser_1_1Message" ],
-      [ "Node", "classparser_1_1Node.html", "classparser_1_1Node" ],
-      [ "RxMessage", "classparser_1_1RxMessage.html", null ],
-      [ "Signal", "classparser_1_1Signal.html", null ],
-      [ "SystemContext", "classparser_1_1SystemContext.html", null ]
-    ] ],
-    [ "utils", "namespaceutils.html", [
-      [ "bcolors", "classutils_1_1bcolors.html", null ]
-    ] ],
     [ "__attribute__", "struct____attribute____.html", null ],
     [ "adbms_bms_t", "structadbms__bms__t.html", "structadbms__bms__t" ],
     [ "adbms_module_t", "structadbms__module__t.html", "structadbms__module__t" ],
@@ -32,8 +10,6 @@ var annotated_dup =
     [ "auto_switches_t", "structauto__switches__t.html", null ],
     [ "bangbang_t", "structbangbang__t.html", null ],
     [ "BMI088_Handle_t", "structBMI088__Handle__t.html", null ],
-    [ "can_peripheral_stats_t", "structcan__peripheral__stats__t.html", null ],
-    [ "can_stats_t", "structcan__stats__t.html", null ],
     [ "CanMsgTypeDef_t", "structCanMsgTypeDef__t.html", "structCanMsgTypeDef__t" ],
     [ "car_t", "structcar__t.html", null ],
     [ "ClockRateConfig_t", "structClockRateConfig__t.html", null ],
@@ -42,7 +18,6 @@ var annotated_dup =
     [ "dashboard_input_state_t", "structdashboard__input__state__t.html", null ],
     [ "dma_init_t", "structdma__init__t.html", null ],
     [ "ethernet_config_t", "structethernet__config__t.html", null ],
-    [ "fault_t", "structfault__t.html", null ],
     [ "GPIOInitConfig_t", "structGPIOInitConfig__t.html", null ],
     [ "GPS_Handle_t", "structGPS__Handle__t.html", null ],
     [ "IMU_data_t", "structIMU__data__t.html", null ],

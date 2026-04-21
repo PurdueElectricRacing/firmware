@@ -1,7 +1,10 @@
 var searchData=
 [
-  ['page_5fhandler_5ft_0',['page_handler_t',['../structpage__handler__t.html',1,'']]],
-  ['pedal_5fvalues_5ft_1',['pedal_values_t',['../structpedal__values__t.html',1,'']]],
-  ['periodic_5ftask_5fparams_5ft_2',['periodic_task_params_t',['../structperiodic__task__params__t.html',1,'']]],
-  ['phal_5fsd_5fcmd_5ft_3',['PHAL_SD_Cmd_t',['../structPHAL__SD__Cmd__t.html',1,'']]]
+  ['raw_5fadc1_5fvalues_5ft_0',['raw_adc1_values_t',['../structraw__adc1__values__t.html',1,'']]],
+  ['raw_5fadc2_5fvalues_5ft_1',['raw_adc2_values_t',['../structraw__adc2__values__t.html',1,'']]],
+  ['raw_5fadc3_5fvalues_5ft_2',['raw_adc3_values_t',['../structraw__adc3__values__t.html',1,'']]],
+  ['raw_5fadc4_5fvalues_5ft_3',['raw_adc4_values_t',['../structraw__adc4__values__t.html',1,'']]],
+  ['rtc_5fdate_5ft_4',['RTC_date_t',['../structRTC__date__t.html',1,'']]],
+  ['rtc_5ftime_5ft_5',['RTC_time_t',['../structRTC__time__t.html',1,'']]],
+  ['rtc_5ftimestamp_5ft_6',['RTC_timestamp_t',['../structRTC__timestamp__t.html',1,'']]]
 ];

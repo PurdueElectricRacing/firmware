@@ -1,11 +1,7 @@
 var searchData=
 [
-  ['generate_5fdbcs_0',['generate_dbcs',['../namespacedbcgen.html#ade6a2af6da26f68e915bc94a74b68515',1,'dbcgen']]],
-  ['generate_5ffault_5fdata_1',['generate_fault_data',['../namespacefaultgen.html#a0b8f1265d8faeba6a2d68e2e1509389d',1,'faultgen']]],
-  ['get_5fdlc_2',['get_dlc',['../classparser_1_1Message.html#a3fd1133766bdda2d92a6a0fda552fb29',1,'parser::Message']]],
-  ['get_5fgit_5fhash_3',['get_git_hash',['../namespaceutils.html#a5ea003cf13d4e3bb99f6df674fb22a21',1,'utils']]],
-  ['get_5flayout_5fhash_4',['get_layout_hash',['../namespaceutils.html#a673d645eea2981b1aed0db6a0228f625',1,'utils']]],
-  ['get_5fled_5fstatus_5',['get_LED_status',['../led_8c.html#ab2644007c0a1014ac3229035bd76a257',1,'get_LED_status(int led):&#160;led.c'],['../led_8h.html#ab2644007c0a1014ac3229035bd76a257',1,'get_LED_status(int led):&#160;led.c']]],
-  ['getswitchstatus_6',['getSwitchStatus',['../auto__switch_8c.html#a9615dad272d72b1eda4edb0eabf3c4ae',1,'getSwitchStatus(switches_t auto_switch_enum):&#160;auto_switch.c'],['../auto__switch_8h.html#a9615dad272d72b1eda4edb0eabf3c4ae',1,'getSwitchStatus(switches_t auto_switch_enum):&#160;auto_switch.c']]],
-  ['gps_5fdecode_7',['GPS_Decode',['../gps_8c.html#a8aa2ccfc6bae9091b677a8a1ad4b69a3',1,'GPS_Decode(GPS_Handle_t *gps):&#160;gps.c'],['../gps_8h.html#a8aa2ccfc6bae9091b677a8a1ad4b69a3',1,'GPS_Decode(GPS_Handle_t *gps):&#160;gps.c']]]
+  ['lcd_5ftx_5fupdate_0',['LCD_tx_update',['../dashboard_2main_8c.html#ac191b78cad5b7406d9b8d6227de36a1d',1,'main.c']]],
+  ['led_5fcontrol_1',['LED_control',['../led_8c.html#a25f4f6c595a65e2015d9d76af5fab4ac',1,'LED_control(int led, enum LED_state state):&#160;led.c'],['../led_8h.html#a25f4f6c595a65e2015d9d76af5fab4ac',1,'LED_control(int led, enum LED_state state):&#160;led.c']]],
+  ['led_5fperiodic_2',['LED_periodic',['../led_8c.html#a1d38b8e14425dcbf14215634bcfa5290',1,'LED_periodic():&#160;led.c'],['../led_8h.html#a1d38b8e14425dcbf14215634bcfa5290',1,'LED_periodic():&#160;led.c']]],
+  ['lut_5flookup_3',['lut_lookup',['../lerp__lut_8c.html#aa6730914e04aa912dcb777e28f9e4004',1,'lut_lookup(const lerp_lut_t *lut, float key):&#160;lerp_lut.c'],['../lerp__lut_8h.html#aa6730914e04aa912dcb777e28f9e4004',1,'lut_lookup(const lerp_lut_t *lut, float key):&#160;lerp_lut.c']]]
 ];

@@ -15,14 +15,6 @@
 #include <stdint.h>
 
 /* Math Functions */
-static inline int32_t min_i(int32_t x, int32_t y) { return (x < y) ? x : y; }
-static inline float min_f(float x, float y) { return (x < y) ? x : y; }
-#define MIN(x, y) _Generic((x), float: min_f, double: min_f, default: min_i)((x), (y))
-
-static inline int32_t max_i(int32_t x, int32_t y) { return (x < y) ? y : x; }
-static inline float max_f(float x, float y) { return (x < y) ? y : x; }
-#define MAX(x, y) _Generic((x), float: max_f, double: max_f, default: max_i)((x), (y))
-
 static inline int32_t clamp_i(int32_t x, int32_t min, int32_t max) {
     if (x < min) return min;
     if (x > max) return max;
@@ -61,9 +53,6 @@ static inline uint32_t ROUNDDOWN(uint32_t a, uint32_t n) {
 static inline uint32_t ROUNDUP(uint32_t a, uint32_t n) {
     return ROUNDDOWN(a + n - 1, n);
 }
-
-#define MAX2(x, y) ((x) > (y) ? (x) : (y))
-#define MAX4(a, b, c, d) (MAX2(MAX2((a), (b)), MAX2((c), (d))))
 
 /* Constants */
 static constexpr float PI = 3.14159f;

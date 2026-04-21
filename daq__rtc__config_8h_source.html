@@ -100,12 +100,22 @@ $(function(){initNavTree('daq__rtc__config_8h_source.html',''); initResizable(tr
   <div class="headertitle"><div class="title">daq_rtc_config.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="spmc_8h.html">spmc.h</a>&quot;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;common/phal/rtc.h&quot;</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef DAQ_RTC_CONFIG_H</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define DAQ_RTC_CONFIG_H</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keywordtype">void</span> rtc_config_cb(<a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a>*);</div>
-<div class="ttc" id="aspmc_8h_html"><div class="ttname"><a href="spmc_8h.html">spmc.h</a></div><div class="ttdoc">Custom SPMC designed for high throughput handling of CAN message streams.</div></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="timestamped__frame_8h.html">timestamped_frame.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;common/phal/rtc.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    RTC_SYNC_PENDING   = 0,</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    RTC_SYNC_COMPLETE  = 1,</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>} rtc_config_state_t;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keywordtype">void</span> rtc_config_cb(<a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a>*);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#endif </span><span class="comment">// DAQ_RTC_CONFIG_H</span></div>
 <div class="ttc" id="astructtimestamped__frame__t_html"><div class="ttname"><a href="structtimestamped__frame__t.html">timestamped_frame_t</a></div><div class="ttdef"><b>Definition</b> timestamped_frame.h:13</div></div>
+<div class="ttc" id="atimestamped__frame_8h_html"><div class="ttname"><a href="timestamped__frame_8h.html">timestamped_frame.h</a></div><div class="ttdoc">Definition for timestamped CAN frames.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

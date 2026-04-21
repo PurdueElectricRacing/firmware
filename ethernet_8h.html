@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: source/daq/timestamped_frame.h File Reference</title>
+<title>PER Firmware: source/daq/ethernet/ethernet.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('timestamped__frame_8h.html',''); initResizable(true); });
+$(function(){initNavTree('ethernet_8h.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -98,31 +98,61 @@ $(function(){initNavTree('timestamped__frame_8h.html',''); initResizable(true); 
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
-  <div class="headertitle"><div class="title">timestamped_frame.h File Reference</div></div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">ethernet.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Definition for timestamped CAN frames.  
+<p>Implementation of the ethernet thread for wireless data acquisition.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &quot;w5500/wizchip_conf.h&quot;</code><br />
 </div>
-<p><a href="timestamped__frame_8h_source.html">Go to the source code of this file.</a></p>
+<p><a href="ethernet_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structethernet__config__t.html">ethernet_config_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a46273df4c4a032cd2d63f8243be00fc6" id="r_a46273df4c4a032cd2d63f8243be00fc6"><td class="memItemLeft" align="right" valign="top"><a id="a46273df4c4a032cd2d63f8243be00fc6" name="a46273df4c4a032cd2d63f8243be00fc6"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>eth_thread_state_t</b> { <br />
+&#160;&#160;<b>ETH_THREAD_HW_INIT</b> = 0
+, <b>ETH_THREAD_UDP_INIT</b> = 1
+, <b>ETH_THREAD_LINKING</b> = 2
+, <b>ETH_THREAD_READY</b> = 3
+, <br />
+&#160;&#160;<b>ETH_THREAD_RECOVERING</b> = 4
+, <b>ETH_THREAD_FATAL</b> = 5
+<br />
+ }</td></tr>
+<tr class="separator:a46273df4c4a032cd2d63f8243be00fc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a45aed330f89610c0411f94d25250c49f" id="r_a45aed330f89610c0411f94d25250c49f"><td class="memItemLeft" align="right" valign="top"><a id="a45aed330f89610c0411f94d25250c49f" name="a45aed330f89610c0411f94d25250c49f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>w5500_register_callbacks</b> (void)</td></tr>
+<tr class="separator:a45aed330f89610c0411f94d25250c49f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51e3f87b57872e0e225e22a7ea3044a0" id="r_a51e3f87b57872e0e225e22a7ea3044a0"><td class="memItemLeft" align="right" valign="top"><a id="a51e3f87b57872e0e225e22a7ea3044a0" name="a51e3f87b57872e0e225e22a7ea3044a0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>eth_thread_periodic</b> (void)</td></tr>
+<tr class="separator:a51e3f87b57872e0e225e22a7ea3044a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Definition for timestamped CAN frames. </p>
-<dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
+<div class="textblock"><p>Implementation of the ethernet thread for wireless data acquisition. </p>
+<dl class="section author"><dt>Author</dt><dd>Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu'+'rdu'+'e.'+'edu'; return false;">lcoxl<span class="obfuscator">.nosp@m.</span>ey@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
+<dd>
+Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">eyn@p<span class="obfuscator">.nosp@m.</span>urdu<span class="obfuscator">.nosp@m.</span>e.edu</a>) </dd>
+<dd>
+Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_58db63217748590974291dcef374365a.html">daq</a></li><li class="navelem"><a class="el" href="timestamped__frame_8h.html">timestamped_frame.h</a></li>
+    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_58db63217748590974291dcef374365a.html">daq</a></li><li class="navelem"><a class="el" href="dir_a95dc96b6b69b069638ca32b8df7f50b.html">ethernet</a></li><li class="navelem"><a class="el" href="ethernet_8h.html">ethernet.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

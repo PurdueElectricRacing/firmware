@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: Member List</title>
+<title>PER Firmware: source/daq/ethernet/ethernet.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('structeth__config__t.html',''); initResizable(true); });
+$(function(){initNavTree('ethernet_8c.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -97,23 +97,41 @@ $(function(){initNavTree('structeth__config__t.html',''); initResizable(true); }
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">eth_config_t Member List</div></div>
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">ethernet.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="structeth__config__t.html">eth_config_t</a>, including all inherited members.</p>
-<table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>net_info</b> (defined in <a class="el" href="structeth__config__t.html">eth_config_t</a>)</td><td class="entry"><a class="el" href="structeth__config__t.html">eth_config_t</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>tcp_port</b> (defined in <a class="el" href="structeth__config__t.html">eth_config_t</a>)</td><td class="entry"><a class="el" href="structeth__config__t.html">eth_config_t</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>tcp_sock</b> (defined in <a class="el" href="structeth__config__t.html">eth_config_t</a>)</td><td class="entry"><a class="el" href="structeth__config__t.html">eth_config_t</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>udp_bc_addr</b> (defined in <a class="el" href="structeth__config__t.html">eth_config_t</a>)</td><td class="entry"><a class="el" href="structeth__config__t.html">eth_config_t</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>udp_bc_port</b> (defined in <a class="el" href="structeth__config__t.html">eth_config_t</a>)</td><td class="entry"><a class="el" href="structeth__config__t.html">eth_config_t</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>udp_bc_sock</b> (defined in <a class="el" href="structeth__config__t.html">eth_config_t</a>)</td><td class="entry"><a class="el" href="structeth__config__t.html">eth_config_t</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Implementation of the ethernet thread for wireless data acquisition.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &quot;w5500/socket.h&quot;</code><br />
+<code>#include &quot;common/phal/gpio.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
+<code>#include &quot;main.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="spmc_8h_source.html">spmc.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ethernet_8h_source.html">ethernet.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a51e3f87b57872e0e225e22a7ea3044a0" id="r_a51e3f87b57872e0e225e22a7ea3044a0"><td class="memItemLeft" align="right" valign="top"><a id="a51e3f87b57872e0e225e22a7ea3044a0" name="a51e3f87b57872e0e225e22a7ea3044a0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>eth_thread_periodic</b> (void)</td></tr>
+<tr class="separator:a51e3f87b57872e0e225e22a7ea3044a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation of the ethernet thread for wireless data acquisition. </p>
+<dl class="section author"><dt>Author</dt><dd>Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu'+'rdu'+'e.'+'edu'; return false;">lcoxl<span class="obfuscator">.nosp@m.</span>ey@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
+<dd>
+Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">eyn@p<span class="obfuscator">.nosp@m.</span>urdu<span class="obfuscator">.nosp@m.</span>e.edu</a>) </dd>
+<dd>
+Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_58db63217748590974291dcef374365a.html">daq</a></li><li class="navelem"><a class="el" href="dir_a95dc96b6b69b069638ca32b8df7f50b.html">ethernet</a></li><li class="navelem"><a class="el" href="ethernet_8c.html">ethernet.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

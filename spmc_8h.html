@@ -131,13 +131,13 @@ Functions</h2></td></tr>
 <tr class="memitem:a87e903c37208248544ce3feaa583e7a4" id="r_a87e903c37208248544ce3feaa583e7a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87e903c37208248544ce3feaa583e7a4">SPMC_master_advance_tail</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc)</td></tr>
 <tr class="memdesc:a87e903c37208248544ce3feaa583e7a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances the master tail pointer by one chunk.  <br /></td></tr>
 <tr class="separator:a87e903c37208248544ce3feaa583e7a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a622ca0468a21b095a4bcd813e6753842" id="r_a622ca0468a21b095a4bcd813e6753842"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a622ca0468a21b095a4bcd813e6753842">SPMC_follower_peek_chunks</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **first_item)</td></tr>
-<tr class="memdesc:a622ca0468a21b095a4bcd813e6753842"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peeks at the number of contiguous chunks available for the follower without lapping the master's tail without committing the tail.  <br /></td></tr>
-<tr class="separator:a622ca0468a21b095a4bcd813e6753842"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0155f958be732e0565e5b63c1b310ff1" id="r_a0155f958be732e0565e5b63c1b310ff1"><td class="memItemLeft" align="right" valign="top"><a id="a0155f958be732e0565e5b63c1b310ff1" name="a0155f958be732e0565e5b63c1b310ff1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SPMC_follower_advance_tail</b> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, size_t chunks_consumed)</td></tr>
-<tr class="memdesc:a0155f958be732e0565e5b63c1b310ff1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances the follower tail pointer by a given number of chunks. <br /></td></tr>
-<tr class="separator:a0155f958be732e0565e5b63c1b310ff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ce4d496b1d03859046de565bb84b542" id="r_a9ce4d496b1d03859046de565bb84b542"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ce4d496b1d03859046de565bb84b542">SPMC_follower_peek_minis</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **first_item)</td></tr>
+<tr class="memdesc:a9ce4d496b1d03859046de565bb84b542"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peeks at the number of contiguous mini chunks available for the follower without lapping the master's tail without committing the tail.  <br /></td></tr>
+<tr class="separator:a9ce4d496b1d03859046de565bb84b542"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acac386d9c3934e6da2b92c20b4646247" id="r_acac386d9c3934e6da2b92c20b4646247"><td class="memItemLeft" align="right" valign="top"><a id="acac386d9c3934e6da2b92c20b4646247" name="acac386d9c3934e6da2b92c20b4646247"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SPMC_follower_advance_tail</b> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, size_t minis_consumed)</td></tr>
+<tr class="memdesc:acac386d9c3934e6da2b92c20b4646247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances the follower tail pointer by a given number of mini chunks. <br /></td></tr>
+<tr class="separator:acac386d9c3934e6da2b92c20b4646247"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Custom SPMC designed for high throughput handling of CAN message streams. </p>
@@ -174,14 +174,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SPMC_follower_advance
 
 </div>
 </div>
-<a id="a622ca0468a21b095a4bcd813e6753842" name="a622ca0468a21b095a4bcd813e6753842"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a622ca0468a21b095a4bcd813e6753842">&#9670;&#160;</a></span>SPMC_follower_peek_chunks()</h2>
+<a id="a9ce4d496b1d03859046de565bb84b542" name="a9ce4d496b1d03859046de565bb84b542"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ce4d496b1d03859046de565bb84b542">&#9670;&#160;</a></span>SPMC_follower_peek_minis()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">size_t SPMC_follower_peek_chunks </td>
+          <td class="memname">size_t SPMC_follower_peek_minis </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSPMC__t.html">SPMC_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spmc</em></span>, </td>
         </tr>
@@ -193,8 +193,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SPMC_follower_advance
       </table>
 </div><div class="memdoc">
 
-<p>Peeks at the number of contiguous chunks available for the follower without lapping the master's tail without committing the tail. </p>
-<dl class="section return"><dt>Returns</dt><dd>The number of contiguous chunks available. </dd></dl>
+<p>Peeks at the number of contiguous mini chunks available for the follower without lapping the master's tail without committing the tail. </p>
+<dl class="section return"><dt>Returns</dt><dd>The number of contiguous mini chunks available. </dd></dl>
 
 </div>
 </div>

@@ -41,7 +41,7 @@ var annotated_dup =
     [ "daq_hub_t", "structdaq__hub__t.html", "structdaq__hub__t" ],
     [ "dashboard_input_state_t", "structdashboard__input__state__t.html", null ],
     [ "dma_init_t", "structdma__init__t.html", null ],
-    [ "eth_config_t", "structeth__config__t.html", null ],
+    [ "ethernet_config_t", "structethernet__config__t.html", null ],
     [ "fault_t", "structfault__t.html", null ],
     [ "GPIOInitConfig_t", "structGPIOInitConfig__t.html", null ],
     [ "GPS_Handle_t", "structGPS__Handle__t.html", null ],

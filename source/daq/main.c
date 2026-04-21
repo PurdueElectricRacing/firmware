@@ -1,15 +1,16 @@
-#include "main.h"
-#include "spmc.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "common/phal/rtc.h"
 #include "common/phal/spi.h"
-#include "daq_spi.h"
 #include "common/heartbeat/heartbeat.h"
 #include "common/can_library/generated/VCAN.h"
 #include "common/can_library/generated/MCAN.h"
+
+#include "main.h"
+#include "spmc.h"
+#include "ethernet.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // LEDs
@@ -94,14 +95,6 @@ RTC_timestamp_t fallback_timestamp ={
 };
 
 daq_hub_t daq_hub = {
-    // Ethernet
-    .eth_state           = ETH_LINK_IDLE,
-    .eth_tcp_state       = ETH_TCP_IDLE,
-    .eth_error_ct        = 0,
-    .eth_last_error_time = 0,
-    .eth_last_err        = ETH_ERROR_NONE,
-    .eth_last_err_res    = 0,
-
     // SD Card
     .sd_state           = SD_STATE_IDLE,
     .sd_error_ct        = 0,
@@ -128,7 +121,7 @@ static void configure_interrupts(void);
 void shutdown(void);
 
 DEFINE_TASK(sd_update_periodic, 100, osPriorityNormal, STACK_4096); // SD WRITE
-DEFINE_TASK(eth_update_periodic, 50, osPriorityNormal, STACK_4096); // BULLET COMMS 
+DEFINE_TASK(eth_thread_periodic, 0, osPriorityLow, STACK_4096); // BULLET COMMS 
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main() {
@@ -151,7 +144,6 @@ int main() {
         HardFault_Handler();
     }
 
-    daq_spi_register_callbacks(); // Link SPI for ethernet driver
     PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 1);
 
     osKernelInitialize();
@@ -161,7 +153,7 @@ int main() {
     INIT_MUTEX(spi1_lock);
 
     START_TASK(sd_update_periodic);  // SD WRITE
-    START_TASK(eth_update_periodic); // BULLET COMMS
+    START_TASK(eth_thread_periodic); // BULLET COMMS
     START_HEARTBEAT_TASK();
 
     osKernelStart();

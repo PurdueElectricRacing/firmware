@@ -10,13 +10,13 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "amk.h"
 #include "nextion.h"
 
 // pages
 #include "pages/race.h"
 #include "pages/calibration.h"
 #include "pages/faults.h"
+#include "pages/amk.h"
 
 volatile page_t curr_page = PAGE_PREFLIGHT; // Current page displayed on the LCD
 volatile page_t prev_page = PAGE_PREFLIGHT; // Previous page displayed on the LCD

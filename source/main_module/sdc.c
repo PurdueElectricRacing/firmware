@@ -2,7 +2,7 @@
 #include "pindefs.h"
 
 #include "common/phal/gpio.h"
-#include "common/can_library/faults_common.h"
+#include "can_library/faults_common.h"
 #include "common/freertos/freertos.h"
 
 typedef struct {

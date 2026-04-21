@@ -7,6 +7,7 @@ A monorepo of all firmware projects, build tools, and scripts driving the PER ve
 
 
 ## Directory Structure
+- `can_library/` - In-house distributed CAN library and generation infrastructure
 - `common/` - Common libraries shared across the codebase
 - `docs/` - Documentation files
 - `external/` - External dependencies and third-party libraries

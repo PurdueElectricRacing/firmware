@@ -1,7 +1,7 @@
 #include "g4_testing.h"
 #if (G4_TESTING_CHOSEN == IZZE_IMU_CONFIG)
 
-#include "common/can_library/generated/G4_TESTING.h"
+#include "can_library/generated/G4_TESTING.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"

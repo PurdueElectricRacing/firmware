@@ -9,7 +9,7 @@
  */
 
 #include <stdint.h>
-#include "common/can_library/generated/can_types.h"
+#include "can_library/generated/can_types.h"
 
 typedef enum : uint8_t {
     FAULT_PRIO_WARNING,

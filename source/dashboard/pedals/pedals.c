@@ -9,8 +9,8 @@
 #include "pedals.h"
 #include <stdint.h>
 
-#include "common/can_library/generated/DASHBOARD.h"
-#include "common/can_library/faults_common.h"
+#include "can_library/generated/DASHBOARD.h"
+#include "can_library/faults_common.h"
 #include "main.h"
 
 // todo pedal calibration

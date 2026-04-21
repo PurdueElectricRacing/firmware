@@ -5,10 +5,10 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#include "common/can_library/faults_common.h"
+#include "can_library/faults_common.h"
 
-#include "common/can_library/generated/can_router.h"
-#include "common/can_library/generated/fault_data.h"
+#include "can_library/generated/can_router.h"
+#include "can_library/generated/fault_data.h"
 
 #ifdef FAULT_LIB_ENABLED
 
@@ -51,7 +51,7 @@ void update_fault(fault_id_t fault_id, uint16_t value) {
     // min is inclusive, max is exclusive, so the healthy range is [min, max)
     bool is_out_of_bounds = (value >= fault->max_value) || (value < fault->min_value);
 
-    // Implementation of the FSM diagram in common/can_library/README
+    // Implementation of the FSM diagram in can_library/README
     // I know this FSM is not "mathematically pure", but it must be implemented in this way
     // to satisfy timing constraints/defensive programming
     switch (fault->state) {

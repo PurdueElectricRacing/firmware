@@ -33,7 +33,7 @@ make_cmsis_library(CMSIS_G474 STM32G4xx STM32G474xx ${CMAKE_SOURCE_DIR}/external
 include(cmake/FindFreeRTOS.cmake)
 
 # Include new CAN Library
-include(common/can_library/can_library.cmake)
+include(can_library/can_library.cmake)
 
 set(COMMON_MODULES
     common/phal_F4_F7

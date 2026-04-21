@@ -8,9 +8,9 @@
 #include "main.h"
 #include "pindefs.h"
 
-#include "common/can_library/faults_common.h"
-#include "common/can_library/generated/MAIN_MODULE.h"
-#include "common/can_library/generated/can_types.h"
+#include "can_library/faults_common.h"
+#include "can_library/generated/MAIN_MODULE.h"
+#include "can_library/generated/can_types.h"
 #include "common/phal/gpio.h"
 
 // FSAE 2026 EV.9.7.2: The Ready to Drive Sound must be sounded continuously for minimum 1 second and maximum 3 seconds

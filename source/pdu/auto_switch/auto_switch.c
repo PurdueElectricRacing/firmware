@@ -10,8 +10,8 @@
  */
 #include "auto_switch.h"
 
-#include "common/can_library/faults_common.h"
-#include "common/can_library/generated/PDU.h"
+#include "can_library/faults_common.h"
+#include "can_library/generated/PDU.h"
 #include "common/phal/gpio.h"
 #include "led.h"
 #include "main.h"

@@ -7,7 +7,7 @@
  */
 
 /* System Includes */
-#include "common/can_library/generated/DRIVELINE.h"
+#include "can_library/generated/DRIVELINE.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"

@@ -7,7 +7,7 @@
 
 #include "heartbeat.h"
 #include "common/freertos/freertos.h"
-#include "common/can_library/can_common.h"
+#include "can_library/can_common.h"
 
 static void preflight_led_sweep(status_leds_t *leds) {
     static uint32_t sweep_index = 0;

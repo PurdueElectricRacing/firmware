@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 
-#include "common/can_library/generated/TORQUE_VECTOR.h"
+#include "can_library/generated/TORQUE_VECTOR.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"

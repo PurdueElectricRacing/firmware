@@ -8,7 +8,7 @@
  */
 
 /* System Includes */
-#include "common/can_library/faults_common.h"
+#include "can_library/faults_common.h"
 #include "common/common_defs/common_defs.h"
 #include "common/freertos/freertos.h"
 #include "common/phal/adc.h"
@@ -20,7 +20,7 @@
 
 /* Module Includes */
 #include "auto_switch.h"
-#include "common/can_library/generated/PDU.h"
+#include "can_library/generated/PDU.h"
 #include "cooling.h"
 #include "fan_control.h"
 #include "flow_rate.h"

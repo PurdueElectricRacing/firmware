@@ -25,7 +25,7 @@ static inline volts_t volts_from(amps_t current, ohms_t resistance) {
     return (volts_t){ .value = current.value * resistance.value };
 }
 
-static inline ohms_t ohms_from(amps_t current, volts_t voltage) {
+static inline ohms_t ohms_from(volts_t voltage, amps_t current) {
     return (ohms_t){ .value = voltage.value / current.value };
 }
 
@@ -86,6 +86,7 @@ typedef struct { float value; } milliseconds_t;
 typedef struct { float value; } seconds_t;
 typedef struct { float value; } minutes_t;
 typedef struct { float value; } hours_t;
+typedef struct { float value; } days_t;
 
 static inline seconds_t seconds_from_milliseconds(milliseconds_t ms) {
     return (seconds_t){ .value = ms.value / 1000.0f };
@@ -99,10 +100,45 @@ static inline seconds_t seconds_from_hours(hours_t hr) {
     return (seconds_t){ .value = hr.value * 3600.0f };
 }
 
+static inline seconds_t seconds_from_days(days_t d) {
+    return (seconds_t){ .value = d.value * 86400.0f };
+}
+
 #define seconds_from(x) _Generic((x), \
     milliseconds_t: seconds_from_milliseconds, \
     minutes_t: seconds_from_minutes, \
-    hours_t: seconds_from_hours \
+    hours_t: seconds_from_hours, \
+    days_t: seconds_from_days \
+)(x)
+
+// Angular units
+typedef struct { float value; } degrees_t;
+typedef struct { float value; } radians_t;
+
+static inline radians_t radians_from(degrees_t deg) {
+    return (radians_t){ .value = deg.value * 3.14159265f / 180.0f };
+}
+
+static inline degrees_t degrees_from(radians_t rad) {
+    return (degrees_t){ .value = rad.value * 180.0f / 3.14159265f };
+}
+
+// Mass units
+typedef struct { float value; } grams_t;
+typedef struct { float value; } kilograms_t;
+typedef struct { float value; } pounds_t;
+
+static inline kilograms_t kilograms_from_grams(grams_t g) {
+    return (kilograms_t){ .value = g.value / 1000.0f };
+}
+
+static inline kilograms_t kilograms_from_pounds(pounds_t lb) {
+    return (kilograms_t){ .value = lb.value * 0.453592f };
+}
+
+#define kilograms_from(x) _Generic((x), \
+    grams_t: kilograms_from_grams, \
+    pounds_t: kilograms_from_pounds \
 )(x)
 
 #endif // UNITS_H

@@ -57,12 +57,4 @@ static constexpr float PI = 3.14159f;
 #define DEG_TO_RAD (PI / 180.0f)
 #define G_TO_M_S   (9.80665f)
 
-/* Per-Node HSI RCC Trim Constants */
-#define HSI_TRIM_TORQUE_VECTOR 15
-#define HSI_TRIM_MAIN_MODULE   15
-#define HSI_TRIM_PDU           16
-#define HSI_TRIM_DASHBOARD     15
-#define HSI_TRIM_DAQ           17
-#define HSI_TRIM_A_BOX         16
-
 #endif // COMMON_DEFS_H

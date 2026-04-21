@@ -299,7 +299,6 @@ DEFINE_HEARTBEAT_TASK(sparkle_leds);
 
 int main() {
     // Hardware Initialization
-    PHAL_trimHSI(HSI_TRIM_PDU);
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }

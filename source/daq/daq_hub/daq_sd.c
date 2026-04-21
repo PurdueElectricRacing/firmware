@@ -5,6 +5,8 @@
 #include "common/phal/rtc.h"
 #include "ff.h"
 #include "main.h"
+#include "common/sdio/sdio.h"
+#include "common/log/log.h"
 
 static constexpr uint32_t SD_WRITE_PERIOD_MS = 100;
 static constexpr uint32_t SD_NEW_FILE_PERIOD_MS = 1 * 60 * 1000; // 1 min

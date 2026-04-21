@@ -146,11 +146,11 @@ void SPMC_master_advance_tail(SPMC_t *spmc) {
 }
 
 /**
- * @brief Peeks at the number of contiguous chunks available for the follower without lapping the master's tail without committing the tail.
+ * @brief Peeks at the number of contiguous mini chunks available for the follower without lapping the master's tail without committing the tail.
  *
- * @return The number of contiguous chunks available.
+ * @return The number of contiguous mini chunks available.
  */
-size_t SPMC_follower_peek_chunks(SPMC_t *spmc, timestamped_frame_t **first_item) {
+size_t SPMC_follower_peek_minis(SPMC_t *spmc, timestamped_frame_t **first_item) {
     uint32_t basepri = __get_BASEPRI();
     __set_BASEPRI(CAN_RX_IRQ_PRIO << (8 - __NVIC_PRIO_BITS));
 
@@ -158,49 +158,50 @@ size_t SPMC_follower_peek_chunks(SPMC_t *spmc, timestamped_frame_t **first_item)
     const size_t head        = spmc->head;
     __DMB(); // dont reorder head and tail reads
     const size_t master_tail = spmc->master_tail;
+    const size_t follower_tail = spmc->follower_tail;
     const bool is_full       = spmc->is_full;
 
     __set_BASEPRI(basepri);
 
     // tail catchup logic
-    size_t follower_tail      = spmc->follower_tail;
     size_t follower_count     = get_count(head, follower_tail, is_full);
     const size_t master_count = get_count(head, master_tail, is_full);
+    size_t new_follower_tail = follower_tail;
     if (follower_count > master_count) { // follower is behind master_tail, so old data was already overwritten/lost
         const size_t dropped = follower_count - master_count;
         spmc->follower_drops += (uint32_t)dropped;
 
-        follower_tail  = master_tail;
+        new_follower_tail  = master_tail;
         follower_count = master_count;
-        spmc->follower_tail = follower_tail; // commit the catchup
+        spmc->follower_tail = new_follower_tail; // commit the catchup
     }
 
-    // not enough data for even one chunk
-    if (follower_count < SPMC_CHUNK_NUM_FRAMES) {
+    // not enough data for even one mini chunk
+    if (follower_count < SPMC_MINI_NUM_FRAMES) {
         *first_item = NULL;
         return 0;
     }
 
     // calc contiguous frames available before wrap
-    size_t contiguous_frames = SPMC_FRAME_CAPACITY - follower_tail;
+    size_t contiguous_frames = SPMC_FRAME_CAPACITY - new_follower_tail;
     if (contiguous_frames > follower_count) {
         contiguous_frames = follower_count;
     }
 
-    const size_t contiguous_chunks = contiguous_frames / SPMC_CHUNK_NUM_FRAMES;
+    const size_t contiguous_minis = contiguous_frames / SPMC_MINI_NUM_FRAMES;
 
-    *first_item = &spmc->data[follower_tail];
-    return contiguous_chunks;
+    *first_item = &spmc->data[new_follower_tail];
+    return contiguous_minis;
 }
 
 /**
- * @brief Advances the follower tail pointer by a given number of chunks.
+ * @brief Advances the follower tail pointer by a given number of mini chunks.
  */
-void SPMC_follower_advance_tail(SPMC_t *spmc, size_t chunks_consumed) {
+void SPMC_follower_advance_tail(SPMC_t *spmc, size_t minis_consumed) {
     // no critical section needed because follower tail is not shared with other contexts
     const size_t follower_tail = spmc->follower_tail;
 
-    size_t next_tail = follower_tail + (chunks_consumed * SPMC_CHUNK_NUM_FRAMES);
+    size_t next_tail = follower_tail + (minis_consumed * SPMC_MINI_NUM_FRAMES);
     while (next_tail >= SPMC_FRAME_CAPACITY) {
         next_tail -= SPMC_FRAME_CAPACITY;
     }

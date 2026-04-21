@@ -13,7 +13,7 @@
         {
             "label": "generate can library",
             "type": "shell",
-            "command": "python3 ./common/can_library/canpiler/build.py",
+            "command": "python3 ./can_library/canpiler/build.py",
             "group": {
                 "kind": "build"
             }

@@ -8,7 +8,7 @@
 #include "race.h"
 
 #include "nextion.h"
-#include "common/can_library/generated/DASHBOARD.h"
+#include "can_library/generated/DASHBOARD.h"
 #include "pedals.h"
 #include "common_defs.h"
 #include "colors.h"

@@ -1,7 +1,7 @@
 #include "adbms.h"
-#include "common/can_library/faults_common.h"
-#include "common/can_library/generated/can_types.h"
-#include "common/can_library/generated/A_BOX.h"
+#include "can_library/faults_common.h"
+#include "can_library/generated/can_types.h"
+#include "can_library/generated/A_BOX.h"
 
 static constexpr uint16_t MAX_PACK_CHARGING_VOLTS = 540;
 static constexpr uint16_t MAX_PACK_CHARGING_AMPS = 10;

@@ -3,7 +3,7 @@
 
 #include <string.h>
 
-#include "common/can_library/generated/A_BOX.h"
+#include "can_library/generated/A_BOX.h"
 #include "common/phal/adc.h"
 #include "common/phal/can.h"
 #include "common/phal/dma.h"
@@ -11,7 +11,7 @@
 #include "common/phal/rcc.h"
 #include "common/freertos/freertos.h"
 #include "main.h"
-#include "common/can_library/faults_common.h"
+#include "can_library/faults_common.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // GPIO_INIT_FDCAN2RX_PB12,

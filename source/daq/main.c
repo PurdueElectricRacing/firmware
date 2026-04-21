@@ -5,8 +5,8 @@
 #include "common/phal/rtc.h"
 #include "common/phal/spi.h"
 #include "common/heartbeat/heartbeat.h"
-#include "common/can_library/generated/VCAN.h"
-#include "common/can_library/generated/MCAN.h"
+#include "can_library/generated/VCAN.h"
+#include "can_library/generated/MCAN.h"
 
 #include "main.h"
 #include "spmc.h"

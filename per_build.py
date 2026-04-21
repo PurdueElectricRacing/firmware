@@ -46,7 +46,7 @@ CWD = pathlib.Path.cwd()
 BUILD_DIR = CWD/"build"
 SOURCE_DIR = CWD
 OUT_DIR = CWD/"output"
-CAN_GEN_DIR = SOURCE_DIR/"common"/"can_library"/"generated"
+CAN_GEN_DIR = SOURCE_DIR/"can_library"/"generated"
 
 # Setup cli arguments
 parser = OptionParser()

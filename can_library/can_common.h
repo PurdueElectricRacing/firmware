@@ -89,7 +89,7 @@ extern QueueHandle_t q_rx_can;
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg);
 
-#include "common/can_library/generated/can_router.h"
+#include "can_library/generated/can_router.h"
 
 void CAN_tx_update();
 void CAN_rx_update();

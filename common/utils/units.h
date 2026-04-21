@@ -3,10 +3,10 @@
 
 /**
  * @file units.h
- * @brief SI and Imperial unit conversion functions utility header.
+ * @brief SI and Imperial unit defs and conversion functions.
  *
  * Provides simple type-safe wrappers around physical unit conversions.
- * Everything under the hood is a struct containing a single float.
+ * All types under the hood are structs containing a single float.
  *
  * @author Irving Wang (irvingw@purdue.edu)
  */

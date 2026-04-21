@@ -12,7 +12,7 @@
  */
 
 [[gnu::always_inline]]
-static inline int abs_i(int x) {
+static inline signed int abs_i(int x) {
     return (x < 0) ? -x : x;
 }
 

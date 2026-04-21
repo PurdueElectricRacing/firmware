@@ -25,6 +25,7 @@ set(C_FLAGS
     "-Wall"
     "-Werror"
     "-Wdouble-promotion"
+    "-Wsign-compare"
 )
 set(LINKER_FLAGS 
     "-Wl,--gc-sections"

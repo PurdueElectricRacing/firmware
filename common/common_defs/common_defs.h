@@ -31,10 +31,6 @@ static inline float clamp_f(float x, float min, float max) {
     default: clamp_i \
 )((x), (min), (max))
 
-static inline int32_t abs_i(int32_t x) { return (x < 0) ? -x : x; }
-static inline float abs_f(float x) { return (x < 0.0f) ? -x : x; }
-#define ABS(x) _Generic((x), float: abs_f, double: abs_f, default: abs_i)(x)
-
 // Base-2 logarithm that rounds down
 static inline uint32_t LOG2_DOWN(uint32_t x) {
     return 31U - (uint32_t)__builtin_clz(x);

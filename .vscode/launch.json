@@ -9,7 +9,7 @@
             "type": "cortex-debug",
             "servertype": "openocd",
             "device": "STM32G474RET6",
-            "svdFile": "${workspaceRoot}/common/svd/STM32G474.svd",
+            "svdFile": "${workspaceRoot}/support/svd/STM32G474.svd",
             "configFiles": [
                 "interface/stlink.cfg",
                 "target/stm32g4x.cfg"
@@ -33,7 +33,7 @@
             "type": "cortex-debug",
             "servertype": "openocd",
             "device": "STM32F407VG",
-            "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
+            "svdFile": "${workspaceRoot}/support/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
                 "target/stm32f4x.cfg"
@@ -57,7 +57,7 @@
             "type": "cortex-debug",
             "servertype": "openocd",
             "device": "STM32G474RET6",
-            "svdFile": "${workspaceRoot}/common/svd/STM32G474.svd",
+            "svdFile": "${workspaceRoot}/support/svd/STM32G474.svd",
             "configFiles": [
                 "interface/stlink.cfg",
                 "target/stm32g4x.cfg"
@@ -81,7 +81,7 @@
             "type": "cortex-debug",
             "servertype": "openocd",
             "device": "STM32G474CET6",
-            "svdFile": "${workspaceRoot}/common/svd/STM32G474.svd",
+            "svdFile": "${workspaceRoot}/support/svd/STM32G474.svd",
             "configFiles": [
                 "interface/stlink.cfg",
                 "target/stm32g4x.cfg"
@@ -105,7 +105,7 @@
             "type": "cortex-debug",
             "servertype": "openocd",
             "device": "STM32G474CET6",
-            "svdFile": "${workspaceRoot}/common/svd/STM32G474.svd",
+            "svdFile": "${workspaceRoot}/support/svd/STM32G474.svd",
             "configFiles": [
                 "interface/stlink.cfg",
                 "target/stm32g4x.cfg"
@@ -129,7 +129,7 @@
             "type": "cortex-debug",
             "servertype": "openocd",
             "device": "STM32G474CET6",
-            "svdFile": "${workspaceRoot}/common/svd/STM32G474.svd",
+            "svdFile": "${workspaceRoot}/support/svd/STM32G474.svd",
             "configFiles": [
                 "interface/stlink.cfg",
                 "target/stm32g4x.cfg"
@@ -153,7 +153,7 @@
             "type": "cortex-debug",
             "servertype": "openocd",
             "device": "STM32G474CET6",
-            "svdFile": "${workspaceRoot}/common/svd/STM32G474.svd",
+            "svdFile": "${workspaceRoot}/support/svd/STM32G474.svd",
             "configFiles": [
                 "interface/stlink.cfg",
                 "target/stm32g4x.cfg"
@@ -173,11 +173,11 @@
             "type": "cortex-debug",
             "servertype": "openocd",
             "device": "STM32F407VG",
-            "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
+            "svdFile": "${workspaceRoot}/support/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
                 "target/stm32f4x.cfg",
-                "${workspaceRoot}/common/openocd/openocd-gdb.cfg"
+                "${workspaceRoot}/support/openocd/openocd-gdb.cfg"
             ],
             "debuggerArgs": [
                 "-d",
@@ -198,7 +198,7 @@
             "type": "cortex-debug",
             "servertype": "openocd",
             "device": "STM32F407VG",
-            "svdFile": "${workspaceRoot}/common/svd/STM32F407.svd",
+            "svdFile": "${workspaceRoot}/support/svd/STM32F407.svd",
             "configFiles": [
                 "interface/stlink.cfg",
                 "target/stm32f4x.cfg"
@@ -222,7 +222,7 @@
             "type": "cortex-debug",
             "servertype": "openocd",
             "device": "STM32G474CET6",
-            "svdFile": "${workspaceRoot}/common/svd/STM32G474.svd",
+            "svdFile": "${workspaceRoot}/support/svd/STM32G474.svd",
             "configFiles": [
                 "interface/stlink.cfg",
                 "target/stm32g4x.cfg"

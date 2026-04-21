@@ -20,6 +20,7 @@ set(PROJECT_OUTPUT_DIR ${CMAKE_SOURCE_DIR}/output)
 
 # Common Variables
 set(COMMON_SOURCE_DIR ${CMAKE_SOURCE_DIR}/common)
+set(SUPPORT_DIR ${CMAKE_SOURCE_DIR}/support)
 
 # Add Libraries
 include(cmake/utils.cmake)

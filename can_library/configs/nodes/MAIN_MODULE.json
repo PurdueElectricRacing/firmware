@@ -350,7 +350,7 @@
                         },
                         {
                             "sig_name": "AMK_Control_bInverterOn",
-                            "sig_desc": "Control word: Controller enable",
+                            "sig_desc": "Control word: controller enable",
                             "type": "bool"
                         },
                         {
@@ -360,12 +360,12 @@
                         },
                         {
                             "sig_name": "AMK_Control_bEnable",
-                            "sig_desc": "Control word: Driver enable",
+                            "sig_desc": "Control word: driver enable",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bErrorReset",
-                            "sig_desc": "Control word: Remove error",
+                            "sig_desc": "Control word: remove error",
                             "type": "bool"
                         },
                         {
@@ -412,7 +412,7 @@
                         },
                         {
                             "sig_name": "AMK_Control_bInverterOn",
-                            "sig_desc": "Control word: Controller enable",
+                            "sig_desc": "Control word: controller enable",
                             "type": "bool"
                         },
                         {
@@ -422,12 +422,12 @@
                         },
                         {
                             "sig_name": "AMK_Control_bEnable",
-                            "sig_desc": "Control word: Driver enable",
+                            "sig_desc": "Control word: driver enable",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bErrorReset",
-                            "sig_desc": "Control word: Remove error",
+                            "sig_desc": "Control word: remove error",
                             "type": "bool"
                         },
                         {
@@ -474,7 +474,7 @@
                         },
                         {
                             "sig_name": "AMK_Control_bInverterOn",
-                            "sig_desc": "Control word: Controller enable",
+                            "sig_desc": "Control word: controller enable",
                             "type": "bool"
                         },
                         {
@@ -484,12 +484,12 @@
                         },
                         {
                             "sig_name": "AMK_Control_bEnable",
-                            "sig_desc": "Control word: Driver enable",
+                            "sig_desc": "Control word: driver enable",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bErrorReset",
-                            "sig_desc": "Control word: Remove error",
+                            "sig_desc": "Control word: remove error",
                             "type": "bool"
                         },
                         {
@@ -536,7 +536,7 @@
                         },
                         {
                             "sig_name": "AMK_Control_bInverterOn",
-                            "sig_desc": "Control word: Controller enable",
+                            "sig_desc": "Control word: controller enable",
                             "type": "bool"
                         },
                         {
@@ -546,12 +546,12 @@
                         },
                         {
                             "sig_name": "AMK_Control_bEnable",
-                            "sig_desc": "Control word: Driver enable",
+                            "sig_desc": "Control word: driver enable",
                             "type": "bool"
                         },
                         {
                             "sig_name": "AMK_Control_bErrorReset",
-                            "sig_desc": "Control word: Remove error",
+                            "sig_desc": "Control word: remove error",
                             "type": "bool"
                         },
                         {

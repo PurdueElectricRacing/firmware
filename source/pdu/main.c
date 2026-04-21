@@ -280,8 +280,8 @@ void send_iv_readings() {
     // 12 bit adc max is 4095
     // Voltage at 25 degrees c is 0.76
     // Average slope is 2.5mV per degree c
-    float vsense = (adc_readings.internal_therm / (float)4095) * 3.3;
-    float temp   = ((vsense - 0.76) / 0.0025) + 25;
+    float vsense = (adc_readings.internal_therm / (float)4095) * 3.3f;
+    float temp   = ((vsense - 0.76f) / 0.0025f) + 25.0f;
     CAN_SEND_pdu_temps((uint16_t)temp);
 }
 

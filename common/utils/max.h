@@ -1,0 +1,37 @@
+#ifndef MAX_H
+#define MAX_H
+
+/**
+ * @file max.h
+ * @brief Maximum value functions utility header.
+ *
+ * Typesafe, supporting ints and floats.
+ * Generic MAXOF interface for 2, 3, or 4 arguments.
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
+[[gnu::always_inline]]
+static inline int max2_int(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+[[gnu::always_inline]]
+static inline float max2_float(float a, float b) {
+    return (a > b) ? a : b;
+}
+
+#define MAXOF2(a, b) _Generic((a) + (b), \
+    int: max2_int, \
+    float: max2_float \
+)(a, b)
+
+#define MAXOF3(a, b, c) MAXOF2(MAXOF2(a, b), c)
+#define MAXOF4(a, b, c, d) MAXOF2(MAXOF2(a, b), MAXOF2(c, d))
+// if you need more than four arguments, just add them here
+
+// dispatcher macro selects the correct MAXOF function based on the number of arguments
+#define DISPATCH_MAXOF(_1, _2, _3, _4, NAME, ...) NAME
+#define MAXOF(...) DISPATCH_MAXOF(__VA_ARGS__, MAXOF4, MAXOF3, MAXOF2)(__VA_ARGS__)
+
+#endif // MAX_H

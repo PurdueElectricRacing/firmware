@@ -7,12 +7,18 @@
  *
  * Typesafe, supporting ints and floats.
  * Generic MAXOF interface for 2, 3, or 4 arguments.
+ * Integer promotions also cover int8_t, uint8_t, int16_t, uint16_t
  *
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
 [[gnu::always_inline]]
-static inline int max2_int(int a, int b) {
+static inline int max2_signed(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+[[gnu::always_inline]]
+static inline unsigned int max2_unsigned(unsigned int a, unsigned int b) {
     return (a > b) ? a : b;
 }
 
@@ -22,7 +28,8 @@ static inline float max2_float(float a, float b) {
 }
 
 #define MAXOF2(a, b) _Generic((a) + (b), \
-    int: max2_int, \
+    int: max2_signed, \
+    unsigned int: max2_unsigned, \
     float: max2_float \
 )(a, b)
 

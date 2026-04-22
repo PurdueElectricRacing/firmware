@@ -1,10 +1,12 @@
 var searchData=
 [
-  ['raw_5fadc1_5fvalues_5ft_0',['raw_adc1_values_t',['../structraw__adc1__values__t.html',1,'']]],
-  ['raw_5fadc2_5fvalues_5ft_1',['raw_adc2_values_t',['../structraw__adc2__values__t.html',1,'']]],
-  ['raw_5fadc3_5fvalues_5ft_2',['raw_adc3_values_t',['../structraw__adc3__values__t.html',1,'']]],
-  ['raw_5fadc4_5fvalues_5ft_3',['raw_adc4_values_t',['../structraw__adc4__values__t.html',1,'']]],
-  ['rtc_5fdate_5ft_4',['RTC_date_t',['../structRTC__date__t.html',1,'']]],
-  ['rtc_5ftime_5ft_5',['RTC_time_t',['../structRTC__time__t.html',1,'']]],
-  ['rtc_5ftimestamp_5ft_6',['RTC_timestamp_t',['../structRTC__timestamp__t.html',1,'']]]
+  ['menu_5felement_5ft_0',['menu_element_t',['../structmenu__element__t.html',1,'']]],
+  ['menu_5fpage_5ft_1',['menu_page_t',['../structmenu__page__t.html',1,'']]],
+  ['meters_5ft_2',['meters_t',['../structmeters__t.html',1,'']]],
+  ['miles_5ft_3',['miles_t',['../structmiles__t.html',1,'']]],
+  ['millimeters_5ft_4',['millimeters_t',['../structmillimeters__t.html',1,'']]],
+  ['milliseconds_5ft_5',['milliseconds_t',['../structmilliseconds__t.html',1,'']]],
+  ['minutes_5ft_6',['minutes_t',['../structminutes__t.html',1,'']]],
+  ['mph_5ft_7',['mph_t',['../structmph__t.html',1,'']]],
+  ['mps_5ft_8',['mps_t',['../structmps__t.html',1,'']]]
 ];

@@ -15,5 +15,6 @@ var dir_bdd9a5d540de89e9fe90efdfc6973a4f =
     [ "phal_G4", "dir_537865b7fa0534ad07c686239f783682.html", "dir_537865b7fa0534ad07c686239f783682" ],
     [ "sdio", "dir_6bd8692ac8326d2f6b10c3d83e4ae569.html", "dir_6bd8692ac8326d2f6b10c3d83e4ae569" ],
     [ "strbuf", "dir_b326de142a01610c2e2fbdc361522621.html", "dir_b326de142a01610c2e2fbdc361522621" ],
-    [ "syscalls", "dir_1ce6f96d2d04ccccac1834bfcdb7bdde.html", "dir_1ce6f96d2d04ccccac1834bfcdb7bdde" ]
+    [ "syscalls", "dir_1ce6f96d2d04ccccac1834bfcdb7bdde.html", "dir_1ce6f96d2d04ccccac1834bfcdb7bdde" ],
+    [ "utils", "dir_85effdddc426fd82e3610be0948fd413.html", "dir_85effdddc426fd82e3610be0948fd413" ]
 ];

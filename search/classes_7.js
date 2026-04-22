@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['imu_5fdata_5ft_0',['IMU_data_t',['../structIMU__data__t.html',1,'']]]
+  ['gpioinitconfig_5ft_0',['GPIOInitConfig_t',['../structGPIOInitConfig__t.html',1,'']]],
+  ['gps_5fhandle_5ft_1',['GPS_Handle_t',['../structGPS__Handle__t.html',1,'']]],
+  ['grams_5ft_2',['grams_t',['../structgrams__t.html',1,'']]]
 ];

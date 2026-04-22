@@ -19,5 +19,6 @@ var searchData=
   ['gps_2ec_16',['gps.c',['../gps_8c.html',1,'']]],
   ['gps_2eh_17',['gps.h',['../gps_8h.html',1,'']]],
   ['gps_5fdecode_18',['GPS_Decode',['../gps_8c.html#a8aa2ccfc6bae9091b677a8a1ad4b69a3',1,'GPS_Decode(GPS_Handle_t *gps):&#160;gps.c'],['../gps_8h.html#a8aa2ccfc6bae9091b677a8a1ad4b69a3',1,'GPS_Decode(GPS_Handle_t *gps):&#160;gps.c']]],
-  ['gps_5fhandle_5ft_19',['GPS_Handle_t',['../structGPS__Handle__t.html',1,'']]]
+  ['gps_5fhandle_5ft_19',['GPS_Handle_t',['../structGPS__Handle__t.html',1,'']]],
+  ['grams_5ft_20',['grams_t',['../structgrams__t.html',1,'']]]
 ];

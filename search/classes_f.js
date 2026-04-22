@@ -1,7 +1,11 @@
 var searchData=
 [
-  ['usart_5factive_5ftransfer_5ft_0',['usart_active_transfer_t',['../structusart__active__transfer__t.html',1,'']]],
-  ['usart_5finit_5ft_1',['usart_init_t',['../structusart__init__t.html',1,'']]],
-  ['usart_5frx_5ferrors_5ft_2',['usart_rx_errors_t',['../structusart__rx__errors__t.html',1,'']]],
-  ['usart_5ftx_5ferrors_5ft_3',['usart_tx_errors_t',['../structusart__tx__errors__t.html',1,'']]]
+  ['radians_5ft_0',['radians_t',['../structradians__t.html',1,'']]],
+  ['raw_5fadc1_5fvalues_5ft_1',['raw_adc1_values_t',['../structraw__adc1__values__t.html',1,'']]],
+  ['raw_5fadc2_5fvalues_5ft_2',['raw_adc2_values_t',['../structraw__adc2__values__t.html',1,'']]],
+  ['raw_5fadc3_5fvalues_5ft_3',['raw_adc3_values_t',['../structraw__adc3__values__t.html',1,'']]],
+  ['raw_5fadc4_5fvalues_5ft_4',['raw_adc4_values_t',['../structraw__adc4__values__t.html',1,'']]],
+  ['rtc_5fdate_5ft_5',['RTC_date_t',['../structRTC__date__t.html',1,'']]],
+  ['rtc_5ftime_5ft_6',['RTC_time_t',['../structRTC__time__t.html',1,'']]],
+  ['rtc_5ftimestamp_5ft_7',['RTC_timestamp_t',['../structRTC__timestamp__t.html',1,'']]]
 ];

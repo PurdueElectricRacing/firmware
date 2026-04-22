@@ -70,29 +70,30 @@ var NAVTREE =
     [ "lerp_lut", "md_common_2lerp__lut_2README.html", null ],
     [ "Common Modules", "md_common_2README.html", null ],
     [ "strbuf", "md_common_2strbuf_2README.html", null ],
+    [ "PER Utility Functions", "md_common_2utils_2README.html", null ],
     [ "code_style", "md_docs_2code__style.html", null ],
     [ "README", "md_docs_2datasheets_2README.html", [
-      [ "Which one should I look at?", "md_docs_2datasheets_2README.html#autotoc_md41", [
-        [ "About the microcontrollers", "md_docs_2datasheets_2README.html#autotoc_md42", null ],
-        [ "Drivers", "md_docs_2datasheets_2README.html#autotoc_md43", null ],
-        [ "Hardware", "md_docs_2datasheets_2README.html#autotoc_md44", null ]
+      [ "Which one should I look at?", "md_docs_2datasheets_2README.html#autotoc_md42", [
+        [ "About the microcontrollers", "md_docs_2datasheets_2README.html#autotoc_md43", null ],
+        [ "Drivers", "md_docs_2datasheets_2README.html#autotoc_md44", null ],
+        [ "Hardware", "md_docs_2datasheets_2README.html#autotoc_md45", null ]
       ] ]
     ] ],
     [ "deploy_n_debug", "md_docs_2deploy__n__debug.html", null ],
     [ "PER Firmware Setup Instructions", "md_docs_2setup.html", [
-      [ "Tools", "md_docs_2setup.html#autotoc_md49", [
-        [ "MacOS Tools Setup", "md_docs_2setup.html#autotoc_md50", null ],
-        [ "Windows Tools Setup", "md_docs_2setup.html#autotoc_md51", null ],
-        [ "Linux Tools Setup", "md_docs_2setup.html#autotoc_md52", null ]
+      [ "Tools", "md_docs_2setup.html#autotoc_md50", [
+        [ "MacOS Tools Setup", "md_docs_2setup.html#autotoc_md51", null ],
+        [ "Windows Tools Setup", "md_docs_2setup.html#autotoc_md52", null ],
+        [ "Linux Tools Setup", "md_docs_2setup.html#autotoc_md53", null ]
       ] ],
-      [ "VSCode Setup (All OS)", "md_docs_2setup.html#autotoc_md53", [
-        [ "Install Extensions", "md_docs_2setup.html#autotoc_md54", null ],
-        [ "Turn on Autosave", "md_docs_2setup.html#autotoc_md55", null ]
+      [ "VSCode Setup (All OS)", "md_docs_2setup.html#autotoc_md54", [
+        [ "Install Extensions", "md_docs_2setup.html#autotoc_md55", null ],
+        [ "Turn on Autosave", "md_docs_2setup.html#autotoc_md56", null ]
       ] ],
-      [ "Repository Setup (All OS)", "md_docs_2setup.html#autotoc_md56", [
-        [ "Open a new terminal", "md_docs_2setup.html#autotoc_md57", null ],
-        [ "Clone PER repo", "md_docs_2setup.html#autotoc_md58", null ],
-        [ "Setup & Build", "md_docs_2setup.html#autotoc_md59", null ]
+      [ "Repository Setup (All OS)", "md_docs_2setup.html#autotoc_md57", [
+        [ "Open a new terminal", "md_docs_2setup.html#autotoc_md58", null ],
+        [ "Clone PER repo", "md_docs_2setup.html#autotoc_md59", null ],
+        [ "Setup & Build", "md_docs_2setup.html#autotoc_md60", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
@@ -119,9 +120,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "FreeRTOSConfig_8h_source.html",
-"freertos_8h.html#a139fec0a7420bd927f3c4646a94e73bb",
-"phal__F4__F7_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef",
-"structSD__CSD.html#ab96f260933654d16a42b4682dbe9b823"
+"freertos_8c.html",
+"phal__F4__F7_2gpio_2gpio_8h.html#a976b33799b2b8c4fe7d2a4415a88991ba2e971f8f1da5eb3ff891017f22c98927",
+"structSD__CSD.html#a7b1f766965a62bee16196b71d3061541"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

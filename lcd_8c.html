@@ -113,6 +113,7 @@ $(function(){initNavTree('lcd_8c.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="race_8h_source.html">pages/race.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="calibration_8h_source.html">pages/calibration.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="faults_8h_source.html">pages/faults.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="source_2dashboard_2lcd_2pages_2amk_8h_source.html">pages/amk.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -152,7 +153,8 @@ volatile page_t&#160;</td><td class="memItemRight" valign="bottom"><b>curr_page<
 <tr class="memitem:a8b71ea5d4f043abfa893e1d47cb51c06" id="r_a8b71ea5d4f043abfa893e1d47cb51c06"><td class="memItemLeft" align="right" valign="top"><a id="a8b71ea5d4f043abfa893e1d47cb51c06" name="a8b71ea5d4f043abfa893e1d47cb51c06"></a>
 volatile page_t&#160;</td><td class="memItemRight" valign="bottom"><b>prev_page</b> = PAGE_PREFLIGHT</td></tr>
 <tr class="separator:a8b71ea5d4f043abfa893e1d47cb51c06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0100435ab443897cfb77d50c768c71d" id="r_ac0100435ab443897cfb77d50c768c71d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structpage__handler__t.html">page_handler_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0100435ab443897cfb77d50c768c71d">page_handlers</a> [NUM_PAGES]</td></tr>
+<tr class="memitem:ac0100435ab443897cfb77d50c768c71d" id="r_ac0100435ab443897cfb77d50c768c71d"><td class="memItemLeft" align="right" valign="top"><a id="ac0100435ab443897cfb77d50c768c71d" name="ac0100435ab443897cfb77d50c768c71d"></a>
+const <a class="el" href="structpage__handler__t.html">page_handler_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>page_handlers</b> [NUM_PAGES]</td></tr>
 <tr class="separator:ac0100435ab443897cfb77d50c768c71d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -179,49 +181,6 @@ volatile page_t&#160;</td><td class="memItemRight" valign="bottom"><b>prev_page<
 <li>Maintains display of error pages when active </li>
 </ul>
 
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="ac0100435ab443897cfb77d50c768c71d" name="ac0100435ab443897cfb77d50c768c71d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0100435ab443897cfb77d50c768c71d">&#9670;&#160;</a></span>page_handlers</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="structpage__handler__t.html">page_handler_t</a> page_handlers[NUM_PAGES]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= { </div>
-<div class="line">    [PAGE_RACE] = {</div>
-<div class="line">        .update    = <span class="keyword">nullptr</span>,</div>
-<div class="line">        .move_up   = <span class="keyword">nullptr</span>,</div>
-<div class="line">        .move_down = <span class="keyword">nullptr</span>,</div>
-<div class="line">        .select    = <span class="keyword">nullptr</span>,</div>
-<div class="line">        .telemetry = <a class="code hl_function" href="race_8c.html#a07291ac7d61fe81b6a92f48d9b55b092">race_telemetry_update</a>,</div>
-<div class="line">        .string    = RACE_STRING</div>
-<div class="line">    },</div>
-<div class="line">    [PAGE_FAULTS] = {</div>
-<div class="line">        .update    = faults_update,</div>
-<div class="line">        .move_up   = faults_move_up,</div>
-<div class="line">        .move_down = faults_move_down,</div>
-<div class="line">        .select    = faults_select,</div>
-<div class="line">        .telemetry = faults_telemetry_update,</div>
-<div class="line">        .string    = FAULT_STRING</div>
-<div class="line">    },</div>
-<div class="line">    [PAGE_CALIBRATION] = {</div>
-<div class="line">        .update    = <span class="keyword">nullptr</span>,</div>
-<div class="line">        .move_up   = <span class="keyword">nullptr</span>,</div>
-<div class="line">        .move_down = <span class="keyword">nullptr</span>,</div>
-<div class="line">        .select    = <span class="keyword">nullptr</span>,</div>
-<div class="line">        .telemetry = <a class="code hl_function" href="calibration_8c.html#ada13ef83abd18bb0bca101454a62ab22">calibration_telemetry_update</a>,</div>
-<div class="line">        .string    = CALIBRATION_STRING</div>
-<div class="line">    }</div>
-<div class="line">}</div>
-<div class="ttc" id="acalibration_8c_html_ada13ef83abd18bb0bca101454a62ab22"><div class="ttname"><a href="calibration_8c.html#ada13ef83abd18bb0bca101454a62ab22">calibration_telemetry_update</a></div><div class="ttdeci">void calibration_telemetry_update()</div><div class="ttdoc">Updates the LCD display with current pedal telemetry data when on CALIBRATION page.</div><div class="ttdef"><b>Definition</b> calibration.c:23</div></div>
-<div class="ttc" id="arace_8c_html_a07291ac7d61fe81b6a92f48d9b55b092"><div class="ttname"><a href="race_8c.html#a07291ac7d61fe81b6a92f48d9b55b092">race_telemetry_update</a></div><div class="ttdeci">void race_telemetry_update()</div><div class="ttdoc">Updates telemetry data on the race dashboard LCD display.</div><div class="ttdef"><b>Definition</b> race.c:153</div></div>
-</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

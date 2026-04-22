@@ -109,35 +109,36 @@ $(function(){initNavTree('lcd_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    PAGE_RACE        = 0,</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    PAGE_FAULTS      = 1,</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    PAGE_CALIBRATION = 2,</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    NUM_PAGES, <span class="comment">// leave as auto to count number of pages</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    PAGE_PREFLIGHT, <span class="comment">// not selectable, only shown on power on</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>} page_t;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="foldopen" id="foldopen00021" data-start="{" data-end="};">
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="structpage__handler__t.html">   21</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    void (*update)(void);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    void (*move_up)(void);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    void (*move_down)(void);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    void (*select)(void);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    void (*telemetry)(void);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordtype">char</span> *string;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>} <a class="code hl_struct" href="structpage__handler__t.html">page_handler_t</a>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    PAGE_AMK         = 3,</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    NUM_PAGES, <span class="comment">// leave as auto to count number of pages</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    PAGE_PREFLIGHT, <span class="comment">// not selectable, only shown on power on</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>} page_t;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="structpage__handler__t.html">   22</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    void (*update)(void);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    void (*move_up)(void);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    void (*move_down)(void);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    void (*select)(void);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    void (*telemetry)(void);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordtype">char</span> *string;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>} <a class="code hl_struct" href="structpage__handler__t.html">page_handler_t</a>;</div>
 </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keywordtype">void</span> <a class="code hl_function" href="lcd_8h.html#a685b031373d6540844434c69377f10d2">advancePage</a>();</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keywordtype">void</span> <a class="code hl_function" href="lcd_8h.html#ab328996325a24df855157cc23430de3d">backPage</a>();</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keywordtype">void</span> selectItem();</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keywordtype">void</span> moveUp();</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keywordtype">void</span> moveDown();</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keywordtype">void</span> <a class="code hl_function" href="lcd_8h.html#aa13fa254ddd44573fd2a83874763cae8">updatePage</a>();</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">void</span> <a class="code hl_function" href="lcd_8h.html#a9ceeac8764aca15be67680bddfe70704">updateTelemetryPages</a>();</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#endif </span><span class="comment">// LCD_H</span></div>
-<div class="ttc" id="alcd_8h_html_a685b031373d6540844434c69377f10d2"><div class="ttname"><a href="lcd_8h.html#a685b031373d6540844434c69377f10d2">advancePage</a></div><div class="ttdeci">void advancePage()</div><div class="ttdoc">Advances to the next selectable page.</div><div class="ttdef"><b>Definition</b> lcd.c:67</div></div>
-<div class="ttc" id="alcd_8h_html_a9ceeac8764aca15be67680bddfe70704"><div class="ttname"><a href="lcd_8h.html#a9ceeac8764aca15be67680bddfe70704">updateTelemetryPages</a></div><div class="ttdeci">void updateTelemetryPages()</div><div class="ttdoc">Updates current telemetry page by calling its handler if available.</div><div class="ttdef"><b>Definition</b> lcd.c:144</div></div>
-<div class="ttc" id="alcd_8h_html_aa13fa254ddd44573fd2a83874763cae8"><div class="ttname"><a href="lcd_8h.html#aa13fa254ddd44573fd2a83874763cae8">updatePage</a></div><div class="ttdeci">void updatePage()</div><div class="ttdoc">Updates LCD display page.</div><div class="ttdef"><b>Definition</b> lcd.c:95</div></div>
-<div class="ttc" id="alcd_8h_html_ab328996325a24df855157cc23430de3d"><div class="ttname"><a href="lcd_8h.html#ab328996325a24df855157cc23430de3d">backPage</a></div><div class="ttdeci">void backPage()</div><div class="ttdoc">Moves to the previous selectable page.</div><div class="ttdef"><b>Definition</b> lcd.c:79</div></div>
-<div class="ttc" id="astructpage__handler__t_html"><div class="ttname"><a href="structpage__handler__t.html">page_handler_t</a></div><div class="ttdef"><b>Definition</b> lcd.h:21</div></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keywordtype">void</span> <a class="code hl_function" href="lcd_8h.html#a685b031373d6540844434c69377f10d2">advancePage</a>();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keywordtype">void</span> <a class="code hl_function" href="lcd_8h.html#ab328996325a24df855157cc23430de3d">backPage</a>();</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keywordtype">void</span> selectItem();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keywordtype">void</span> moveUp();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keywordtype">void</span> moveDown();</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">void</span> <a class="code hl_function" href="lcd_8h.html#aa13fa254ddd44573fd2a83874763cae8">updatePage</a>();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keywordtype">void</span> <a class="code hl_function" href="lcd_8h.html#a9ceeac8764aca15be67680bddfe70704">updateTelemetryPages</a>();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#endif </span><span class="comment">// LCD_H</span></div>
+<div class="ttc" id="alcd_8h_html_a685b031373d6540844434c69377f10d2"><div class="ttname"><a href="lcd_8h.html#a685b031373d6540844434c69377f10d2">advancePage</a></div><div class="ttdeci">void advancePage()</div><div class="ttdoc">Advances to the next selectable page.</div><div class="ttdef"><b>Definition</b> lcd.c:76</div></div>
+<div class="ttc" id="alcd_8h_html_a9ceeac8764aca15be67680bddfe70704"><div class="ttname"><a href="lcd_8h.html#a9ceeac8764aca15be67680bddfe70704">updateTelemetryPages</a></div><div class="ttdeci">void updateTelemetryPages()</div><div class="ttdoc">Updates current telemetry page by calling its handler if available.</div><div class="ttdef"><b>Definition</b> lcd.c:153</div></div>
+<div class="ttc" id="alcd_8h_html_aa13fa254ddd44573fd2a83874763cae8"><div class="ttname"><a href="lcd_8h.html#aa13fa254ddd44573fd2a83874763cae8">updatePage</a></div><div class="ttdeci">void updatePage()</div><div class="ttdoc">Updates LCD display page.</div><div class="ttdef"><b>Definition</b> lcd.c:104</div></div>
+<div class="ttc" id="alcd_8h_html_ab328996325a24df855157cc23430de3d"><div class="ttname"><a href="lcd_8h.html#ab328996325a24df855157cc23430de3d">backPage</a></div><div class="ttdeci">void backPage()</div><div class="ttdoc">Moves to the previous selectable page.</div><div class="ttdef"><b>Definition</b> lcd.c:88</div></div>
+<div class="ttc" id="astructpage__handler__t_html"><div class="ttname"><a href="structpage__handler__t.html">page_handler_t</a></div><div class="ttdef"><b>Definition</b> lcd.h:22</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

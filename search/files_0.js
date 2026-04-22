@@ -6,8 +6,8 @@ var searchData=
   ['adbms6380_2eh_3',['adbms6380.h',['../adbms6380_8h.html',1,'']]],
   ['adc_2ec_4',['adc.c',['../phal__F4__F7_2adc_2adc_8c.html',1,'(Global Namespace)'],['../phal__G4_2adc_2adc_8c.html',1,'(Global Namespace)']]],
   ['adc_2eh_5',['adc.h',['../phal__F4__F7_2adc_2adc_8h.html',1,'(Global Namespace)'],['../phal__G4_2adc_2adc_8h.html',1,'(Global Namespace)']]],
-  ['amk_2ec_6',['amk.c',['../amk_8c.html',1,'']]],
-  ['amk_2eh_7',['amk.h',['../amk_8h.html',1,'']]],
+  ['amk_2ec_6',['amk.c',['../common_2amk_2amk_8c.html',1,'(Global Namespace)'],['../source_2dashboard_2lcd_2pages_2amk_8c.html',1,'(Global Namespace)']]],
+  ['amk_2eh_7',['amk.h',['../common_2amk_2amk_8h.html',1,'(Global Namespace)'],['../source_2dashboard_2lcd_2pages_2amk_8h.html',1,'(Global Namespace)']]],
   ['auto_5fswitch_2ec_8',['auto_switch.c',['../auto__switch_8c.html',1,'']]],
   ['auto_5fswitch_2eh_9',['auto_switch.h',['../auto__switch_8h.html',1,'']]]
 ];

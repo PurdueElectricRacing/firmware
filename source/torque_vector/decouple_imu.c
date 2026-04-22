@@ -9,7 +9,7 @@ typedef enum {
 } decoupling_state_t;
 
 static volatile decoupling_state_t decoupling_state = DECOUPLING_STATE_IDLE;
-matrix3x3_t calibration_matrix;
+static matrix3x3_t calibration_matrix;
 
 // Statistics for calibration
 static constexpr uint32_t CALIBRATION_SAMPLE_THRESHOLD = 100;
@@ -31,7 +31,7 @@ static_assert(IZZE_ACCELERATION_LAYOUT_HASH == IMU_ACCELERATION_LAYOUT_HASH,
 /**
  * @brief Initialize the IMU decoupling calibration data structures and state.
  */
-void initialize_calibration() {
+void initialize_calibration(void) {
     decoupling_state = DECOUPLING_STATE_CALIBRATING;
     accel_sum.x      = 0;
     accel_sum.y      = 0;
@@ -101,7 +101,7 @@ void IZZE_angular_rate_CALLBACK(void) {
 /**
  * @brief Callback function for handling IZZE acceleration data.
  *
- * In calibration mode, acumulates the raw acceleration data to derive the calibration rotation.
+ * In calibration mode, accumulates the raw acceleration data to derive the calibration rotation.
  * In active mode, applies the decoupling rotation to the raw acceleration data and sends it out as IMU acceleration.
  */
 void IZZE_acceleration_CALLBACK(void) {
@@ -110,6 +110,8 @@ void IZZE_acceleration_CALLBACK(void) {
         .y = can_data.IZZE_acceleration.Y_axis * UNPACK_COEFF_IZZE_ACCELERATION_Y_AXIS,
         .z = can_data.IZZE_acceleration.Z_axis * UNPACK_COEFF_IZZE_ACCELERATION_Z_AXIS
     };
+
+    uint16_t temperature = can_data.IZZE_acceleration.temperature * UNPACK_COEFF_IZZE_ACCELERATION_TEMPERATURE;
 
     if (decoupling_state == DECOUPLING_STATE_CALIBRATING) {
         accel_sum.x += raw_data.x;
@@ -132,6 +134,6 @@ void IZZE_acceleration_CALLBACK(void) {
         calibrated_data.x * PACK_COEFF_IMU_ACCELERATION_X_AXIS,
         calibrated_data.y * PACK_COEFF_IMU_ACCELERATION_Y_AXIS,
         calibrated_data.z * PACK_COEFF_IMU_ACCELERATION_Z_AXIS,
-        0
+        temperature * PACK_COEFF_IMU_ACCELERATION_TEMPERATURE
     );
 }

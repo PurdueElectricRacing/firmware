@@ -34,7 +34,7 @@ typedef struct {
  * @param vec The input vector
  * @return The magnitude of the vector.
  */
-static inline float vector3_magnitude(vector3_t vec) {
+static inline float vector3_magnitude(const vector3_t vec) {
     return sqrtf(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
 }
 
@@ -44,7 +44,7 @@ static inline float vector3_magnitude(vector3_t vec) {
  * @param vec The input vector
  * @return The normalized vector.
  */
-static inline vector3_t vector3_normalize(vector3_t vec) {
+static inline vector3_t vector3_normalize(const vector3_t vec) {
     float mag = vector3_magnitude(vec);
     if (mag < 0.0001f) {
         return (vector3_t){0, 0, 0};
@@ -60,11 +60,11 @@ static inline vector3_t vector3_normalize(vector3_t vec) {
 /**
  * @brief Multiply a 3x3 matrix with a 3D vector.
  *
- * @param mat The the input matrix
+ * @param mat The input matrix
  * @param in The input vector
  * @return The resulting vector.
  */
-static inline vector3_t matrix_multiply_vector3(matrix3x3_t *mat, vector3_t *in) {
+static inline vector3_t matrix_multiply_vector3(const matrix3x3_t *mat, const vector3_t *in) {
     vector3_t out;
     out.x = mat->data[0][0] * in->x + mat->data[0][1] * in->y + mat->data[0][2] * in->z;
     out.y = mat->data[1][0] * in->x + mat->data[1][1] * in->y + mat->data[1][2] * in->z;
@@ -78,7 +78,7 @@ static inline vector3_t matrix_multiply_vector3(matrix3x3_t *mat, vector3_t *in)
  * @param angles The Euler angles.
  * @return The resulting rotation matrix.
  */
-static inline matrix3x3_t tait_bryan(euler_angles_t angles) {
+static inline matrix3x3_t tait_bryan(const euler_angles_t angles) {
     matrix3x3_t rot;
     float cos_roll  = cosf(angles.roll);
     float sin_roll  = sinf(angles.roll);

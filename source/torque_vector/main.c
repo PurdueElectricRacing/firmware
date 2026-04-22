@@ -17,7 +17,7 @@
 #include "common/phal/rcc.h"
 #include "common/heartbeat/heartbeat.h"
 
-extern void initialize_calibration();
+extern void initialize_calibration(void);
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {

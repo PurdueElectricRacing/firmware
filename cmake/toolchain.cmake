@@ -41,6 +41,7 @@ set(C_FLAGS
 set(LINKER_FLAGS 
     "-Wl,--gc-sections"
     "-Wl,--no-warn-rwx-segments"
+    "-lm"
 )
 
 set(ASM_FLAGS

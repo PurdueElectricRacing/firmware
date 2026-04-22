@@ -40,7 +40,7 @@ function(add_firmware_component)
         set(LS_SUFFIX ".ld")
     endif()
     
-    target_link_options(${TARGET_NAME} PRIVATE -T${COMMON_SOURCE_DIR}/linker/${ARG_LINKER_SCRIPT}${LS_SUFFIX})
+    target_link_options(${TARGET_NAME} PRIVATE -T${SUPPORT_DIR}/linker/${ARG_LINKER_SCRIPT}${LS_SUFFIX})
 
     # Post-build actions
     postbuild_target(${TARGET_NAME} ${ARG_NAME} "${ARG_OUTPUT_DIR}")

@@ -34,7 +34,7 @@ GPIOInitConfig_t gpio_config[] = {
     // GPIO_INIT_FDCAN1RX_PA11,
 };
 
-static constexpr uint32_t TargetCoreClockrateHz = 16000000;
+static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
 ClockRateConfig_t clock_config = {
     .clock_source           = CLOCK_SOURCE_HSE,
     .use_pll                = false,

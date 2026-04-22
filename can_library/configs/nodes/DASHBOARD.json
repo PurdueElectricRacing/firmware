@@ -95,16 +95,16 @@
                     "msg_name": "igbt_temps"
                 },
                 {
-                    "msg_name": "inva_state_diag_vcan"
+                    "msg_name": "inva_diagnostics"
                 },
                 {
-                    "msg_name": "invb_state_diag_vcan"
+                    "msg_name": "invb_diagnostics"
                 },
                 {
-                    "msg_name": "invc_state_diag_vcan"
+                    "msg_name": "invc_diagnostics"
                 },
                 {
-                    "msg_name": "invd_state_diag_vcan"
+                    "msg_name": "invd_diagnostics"
                 }
             ]
         },

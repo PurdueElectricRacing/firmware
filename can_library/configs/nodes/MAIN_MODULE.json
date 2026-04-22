@@ -127,184 +127,116 @@
                     "msg_period": 5000
                 },
                 {
-                    "msg_name": "inva_state_diag_vcan",
+                    "msg_name": "inva_diagnostics",
                     "msg_desc": "VCAN diagnostics for inverter A",
                     "signals": [
                         {
-                            "sig_name": "amk_control_enable",
-                            "sig_desc": "Commanded inverter enable",
+                            "sig_name": "inverter_state",
+                            "sig_desc": "Current inverter state",
+                            "type": "uint8_t"
+                        },
+                        {
+                            "sig_name": "bError",
+                            "sig_desc": "AMK status error bit",
                             "type": "bool"
                         },
                         {
-                            "sig_name": "amk_control_inverter_on",
-                            "sig_desc": "Commanded inverter on",
-                            "type": "bool"
+                            "sig_name": "diagnostic_number",
+                            "sig_desc": "AMK diagnostic number",
+                            "type": "uint32_t"
                         },
                         {
-                            "sig_name": "amk_control_error_reset",
-                            "sig_desc": "Commanded error reset",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "amk_torque_setpoint",
-                            "sig_desc": "Commanded torque setpoint",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
-                        },
-                        {
-                            "sig_name": "amk_state_ready",
-                            "sig_desc": "AMK system ready",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "amk_state_inverter_on",
-                            "sig_desc": "AMK inverter on",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "amk_state_error",
-                            "sig_desc": "AMK error active",
+                            "sig_name": "InverterOn",
+                            "sig_desc": "AMK inverter on status",
                             "type": "bool"
                         }
                     ],
-                    "msg_period": 100,
-                    "msg_priority": 5
+                    "msg_period": 2000,
+                    "msg_priority": 4
                 },
                 {
-                    "msg_name": "invb_state_diag_vcan",
+                    "msg_name": "invb_diagnostics",
                     "msg_desc": "VCAN diagnostics for inverter B",
                     "signals": [
                         {
-                            "sig_name": "amk_control_enable",
-                            "sig_desc": "Commanded inverter enable",
+                            "sig_name": "inverter_state",
+                            "sig_desc": "Current inverter state",
+                            "type": "uint8_t"
+                        },
+                        {
+                            "sig_name": "bError",
+                            "sig_desc": "AMK status error bit",
                             "type": "bool"
                         },
                         {
-                            "sig_name": "amk_control_inverter_on",
-                            "sig_desc": "Commanded inverter on",
-                            "type": "bool"
+                            "sig_name": "diagnostic_number",
+                            "sig_desc": "AMK diagnostic number",
+                            "type": "uint32_t"
                         },
                         {
-                            "sig_name": "amk_control_error_reset",
-                            "sig_desc": "Commanded error reset",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "amk_torque_setpoint",
-                            "sig_desc": "Commanded torque setpoint",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
-                        },
-                        {
-                            "sig_name": "amk_state_ready",
-                            "sig_desc": "AMK system ready",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "amk_state_inverter_on",
-                            "sig_desc": "AMK inverter on",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "amk_state_error",
-                            "sig_desc": "AMK error active",
+                            "sig_name": "InverterOn",
+                            "sig_desc": "AMK inverter on status",
                             "type": "bool"
                         }
                     ],
-                    "msg_period": 100,
-                    "msg_priority": 5
+                    "msg_period": 2000,
+                    "msg_priority": 4
                 },
                 {
-                    "msg_name": "invc_state_diag_vcan",
+                    "msg_name": "invc_diagnostics",
                     "msg_desc": "VCAN diagnostics for inverter C",
                     "signals": [
                         {
-                            "sig_name": "amk_control_enable",
-                            "sig_desc": "Commanded inverter enable",
+                            "sig_name": "inverter_state",
+                            "sig_desc": "Current inverter state",
+                            "type": "uint8_t"
+                        },
+                        {
+                            "sig_name": "bError",
+                            "sig_desc": "AMK status error bit",
                             "type": "bool"
                         },
                         {
-                            "sig_name": "amk_control_inverter_on",
-                            "sig_desc": "Commanded inverter on",
-                            "type": "bool"
+                            "sig_name": "diagnostic_number",
+                            "sig_desc": "AMK diagnostic number",
+                            "type": "uint32_t"
                         },
                         {
-                            "sig_name": "amk_control_error_reset",
-                            "sig_desc": "Commanded error reset",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "amk_torque_setpoint",
-                            "sig_desc": "Commanded torque setpoint",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
-                        },
-                        {
-                            "sig_name": "amk_state_ready",
-                            "sig_desc": "AMK system ready",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "amk_state_inverter_on",
-                            "sig_desc": "AMK inverter on",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "amk_state_error",
-                            "sig_desc": "AMK error active",
+                            "sig_name": "InverterOn",
+                            "sig_desc": "AMK inverter on status",
                             "type": "bool"
                         }
                     ],
-                    "msg_period": 100,
-                    "msg_priority": 5
+                    "msg_period": 2000,
+                    "msg_priority": 4
                 },
                 {
-                    "msg_name": "invd_state_diag_vcan",
+                    "msg_name": "invd_diagnostics",
                     "msg_desc": "VCAN diagnostics for inverter D",
                     "signals": [
                         {
-                            "sig_name": "amk_control_enable",
-                            "sig_desc": "Commanded inverter enable",
+                            "sig_name": "inverter_state",
+                            "sig_desc": "Current inverter state",
+                            "type": "uint8_t"
+                        },
+                        {
+                            "sig_name": "bError",
+                            "sig_desc": "AMK status error bit",
                             "type": "bool"
                         },
                         {
-                            "sig_name": "amk_control_inverter_on",
-                            "sig_desc": "Commanded inverter on",
-                            "type": "bool"
+                            "sig_name": "diagnostic_number",
+                            "sig_desc": "AMK diagnostic number",
+                            "type": "uint32_t"
                         },
                         {
-                            "sig_name": "amk_control_error_reset",
-                            "sig_desc": "Commanded error reset",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "amk_torque_setpoint",
-                            "sig_desc": "Commanded torque setpoint",
-                            "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
-                        },
-                        {
-                            "sig_name": "amk_state_ready",
-                            "sig_desc": "AMK system ready",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "amk_state_inverter_on",
-                            "sig_desc": "AMK inverter on",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "amk_state_error",
-                            "sig_desc": "AMK error active",
+                            "sig_name": "InverterOn",
+                            "sig_desc": "AMK inverter on status",
                             "type": "bool"
                         }
                     ],
-                    "msg_period": 100,
-                    "msg_priority": 5
+                    "msg_period": 2000,
+                    "msg_priority": 4
                 }
             ],
             "rx": [

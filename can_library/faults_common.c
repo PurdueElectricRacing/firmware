@@ -101,12 +101,12 @@ void update_fault(fault_id_t fault_id, uint16_t value) {
 
 void fault_library_periodic() {
     // Reset priority counters
-    for (int i = 0; i < NUM_FAULT_PRIOS; i++) {
+    for (unsigned int i = 0; i < NUM_FAULT_PRIOS; i++) {
         fault_counters[i] = 0;
     }
 
     // Count latched faults
-    for (int i = 0; i < TOTAL_NUM_FAULTS; i++) {
+    for (unsigned int i = 0; i < TOTAL_NUM_FAULTS; i++) {
         if (is_latched(i)) {
             fault_counters[faults[i].priority]++;
         }
@@ -142,7 +142,7 @@ const char *get_fault_string(fault_id_t fault_id) {
 
 bool is_curr_mcu_latched() {
 #ifdef MY_FAULT_START
-    for (int i = MY_FAULT_START; i <= MY_FAULT_END; i++) {
+    for (unsigned int i = MY_FAULT_START; i <= MY_FAULT_END; i++) {
         if (is_latched(i))
             return true;
     }
@@ -151,7 +151,7 @@ bool is_curr_mcu_latched() {
 }
 
 bool is_other_mcus_latched() {
-    for (int i = 0; i < TOTAL_NUM_FAULTS; i++) {
+    for (unsigned int i = 0; i < TOTAL_NUM_FAULTS; i++) {
 #ifdef MY_FAULT_START
         if (i >= MY_FAULT_START && i <= MY_FAULT_END)
             continue;

@@ -385,13 +385,13 @@ void reset_lws() {
     CAN_SEND_LWS_Config(CONFIG_CCW_RESET, 0, 0);
 }
 
-void LWS_Standard_CALLBACK(can_data_t* can_data) {
+void LWS_Standard_CALLBACK() {
     // forwards LWS data onto VCAN, simplifies flag parsing
-    bool data_valid = can_data->LWS_Standard.OK && can_data->LWS_Standard.CAL && can_data->LWS_Standard.TRIM;
+    bool data_valid = can_data.LWS_Standard.OK && can_data.LWS_Standard.CAL && can_data.LWS_Standard.TRIM;
 
     CAN_SEND_steering_angle(
-        can_data->LWS_Standard.LWS_ANGLE,
-        can_data->LWS_Standard.LWS_SPEED,
+        can_data.LWS_Standard.LWS_ANGLE,
+        can_data.LWS_Standard.LWS_SPEED,
         data_valid
     );
 }

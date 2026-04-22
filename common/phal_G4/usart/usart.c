@@ -124,7 +124,7 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck) {
  */
 void PHAL_usartTxBl(usart_init_t* handle, uint8_t* data, uint32_t len) {
     handle->periph->CR1 |= USART_CR1_TE;
-    for (int i = 0; i < len; i++) {
+    for (unsigned int i = 0; i < len; i++) {
         while (!(handle->periph->ISR & USART_ISR_TXE_TXFNF))
             ;
         handle->periph->TDR = data[i] & 0xff;
@@ -142,7 +142,7 @@ void PHAL_usartTxBl(usart_init_t* handle, uint8_t* data, uint32_t len) {
  */
 void PHAL_usartRxBl(usart_init_t* handle, uint8_t* data, uint32_t len) {
     handle->periph->CR1 |= USART_CR1_RE;
-    for (int i = 0; i < len; i++) {
+    for (unsigned int i = 0; i < len; i++) {
         while (!(handle->periph->ISR & USART_ISR_RXNE_RXFNE))
             ;
         data[i] = handle->periph->RDR & 0xff;

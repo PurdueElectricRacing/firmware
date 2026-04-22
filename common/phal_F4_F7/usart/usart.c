@@ -148,7 +148,7 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck) {
 }
 
 void PHAL_usartTxBl(usart_init_t* handle, uint8_t* data, uint32_t len) {
-    int i;
+    unsigned int i;
 
     handle->periph->CR1 |= USART_CR1_TE;
 
@@ -180,7 +180,7 @@ void PHAL_usartTxBl(usart_init_t* handle, uint8_t* data, uint32_t len) {
 }
 
 void PHAL_usartRxBl(usart_init_t* handle, uint8_t* data, uint32_t len) {
-    int i;
+    unsigned int i;
     handle->periph->CR1 |= USART_CR1_RE;
 
 #ifdef STM32F407xx

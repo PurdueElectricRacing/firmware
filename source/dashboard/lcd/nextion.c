@@ -26,7 +26,7 @@ extern strbuf_t lcd_tx_buf;
  * @param precision The number of decimal places to include in the formatted float value.
  */
 void NXT_setFloat(char* obj_name, char* param, float num, uint8_t precision) {
-    strbuf_printf(&lcd_tx_buf, "%s%s\"%.*f\"", obj_name, param, precision, num);
+    strbuf_printf(&lcd_tx_buf, "%s%s\"%.*f\"", obj_name, param, precision, (double)num);
     strbuf_append(&lcd_tx_buf, NXT_CMD_TERM, 3);
 }
 

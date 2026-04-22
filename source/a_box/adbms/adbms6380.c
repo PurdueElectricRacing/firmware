@@ -37,8 +37,8 @@ void adbms6380_wake(SPI_InitConfig_t *spi, size_t module_count) {
 
 uint16_t adbms6380_get_threshold_voltage_cfg(float threshold_voltage) {
     uint8_t rbits     = 12;
-    threshold_voltage = (threshold_voltage - 1.5);
-    threshold_voltage = threshold_voltage / (16 * 0.000150);
+    threshold_voltage = (threshold_voltage - 1.5f);
+    threshold_voltage = threshold_voltage / (16.0f * 0.000150f);
     uint16_t cfg      = (uint16_t)(threshold_voltage + 2 * (1 << (rbits - 1)));
     cfg &= 0xFFF;
     return cfg;

@@ -12,17 +12,11 @@
 #ifndef COMMON_DEFS_H
 #define COMMON_DEFS_H
 
+// todo: axe this file. common/utils/ contains modernized implementations
+
 #include <stdint.h>
 
 /* Math Functions */
-static inline int32_t min_i(int32_t x, int32_t y) { return (x < y) ? x : y; }
-static inline float min_f(float x, float y) { return (x < y) ? x : y; }
-#define MIN(x, y) _Generic((x), float: min_f, double: min_f, default: min_i)((x), (y))
-
-static inline int32_t max_i(int32_t x, int32_t y) { return (x < y) ? y : x; }
-static inline float max_f(float x, float y) { return (x < y) ? y : x; }
-#define MAX(x, y) _Generic((x), float: max_f, double: max_f, default: max_i)((x), (y))
-
 static inline int32_t clamp_i(int32_t x, int32_t min, int32_t max) {
     if (x < min) return min;
     if (x > max) return max;
@@ -38,10 +32,6 @@ static inline float clamp_f(float x, float min, float max) {
     double: clamp_f, \
     default: clamp_i \
 )((x), (min), (max))
-
-static inline int32_t abs_i(int32_t x) { return (x < 0) ? -x : x; }
-static inline float abs_f(float x) { return (x < 0.0f) ? -x : x; }
-#define ABS(x) _Generic((x), float: abs_f, double: abs_f, default: abs_i)(x)
 
 // Base-2 logarithm that rounds down
 static inline uint32_t LOG2_DOWN(uint32_t x) {
@@ -61,23 +51,5 @@ static inline uint32_t ROUNDDOWN(uint32_t a, uint32_t n) {
 static inline uint32_t ROUNDUP(uint32_t a, uint32_t n) {
     return ROUNDDOWN(a + n - 1, n);
 }
-
-#define MAX2(x, y) ((x) > (y) ? (x) : (y))
-#define MAX4(a, b, c, d) (MAX2(MAX2((a), (b)), MAX2((c), (d))))
-
-/* Constants */
-static constexpr float PI = 3.14159f;
-
-/* Unit Conversions */
-#define DEG_TO_RAD (PI / 180.0f)
-#define G_TO_M_S   (9.80665f)
-
-/* Per-Node HSI RCC Trim Constants */
-#define HSI_TRIM_TORQUE_VECTOR 15
-#define HSI_TRIM_MAIN_MODULE   15
-#define HSI_TRIM_PDU           16
-#define HSI_TRIM_DASHBOARD     15
-#define HSI_TRIM_DAQ           17
-#define HSI_TRIM_A_BOX         16
 
 #endif // COMMON_DEFS_H

@@ -29,6 +29,8 @@ set(C_FLAGS
     "-Wdouble-promotion"
     "-Wsign-compare"
     "-Wunused-result"
+    "-Wformat=2"
+    "-Wformat-truncation"
 
     "-fanalyzer"
     "-Wno-analyzer-infinite-loop"

@@ -49,7 +49,7 @@ static void finish_calibration(void) {
     angles.roll  = atan2f(unit_g.y, unit_g.z); // Roll is rotation around X: sin(roll) = accel_y / cos(pitch)
     angles.yaw   = 0.0f; // Yaw cannot be determined by gravity alone
 
-    calibration_matrix = matrix3x3_from_euler(angles);
+    calibration_matrix = tait_bryan(angles);
     decoupling_state = DECOUPLING_STATE_ACTIVE;
 }
 

@@ -1,3 +1,12 @@
+/**
+ * @file decouple_imu.c
+ * @brief IMU decoupling utility functions.
+ *
+ * Functions for calibrating and applying decoupling transformations to IMU data.
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include "common/utils/linear_algebra.h"
 #include "can_library/generated/TORQUE_VECTOR.h"
 #include <math.h>

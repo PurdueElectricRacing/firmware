@@ -12,6 +12,8 @@
 #ifndef COMMON_DEFS_H
 #define COMMON_DEFS_H
 
+// todo: axe this file. common/utils/ contains modernized implementations
+
 #include <stdint.h>
 
 /* Math Functions */
@@ -49,12 +51,5 @@ static inline uint32_t ROUNDDOWN(uint32_t a, uint32_t n) {
 static inline uint32_t ROUNDUP(uint32_t a, uint32_t n) {
     return ROUNDDOWN(a + n - 1, n);
 }
-
-/* Constants */
-static constexpr float PI = 3.14159f;
-
-/* Unit Conversions */
-#define DEG_TO_RAD (PI / 180.0f)
-#define G_TO_M_S   (9.80665f)
 
 #endif // COMMON_DEFS_H

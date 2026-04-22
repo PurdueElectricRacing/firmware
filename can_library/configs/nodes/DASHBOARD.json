@@ -93,6 +93,18 @@
                 },
                 {
                     "msg_name": "igbt_temps"
+                },
+                {
+                    "msg_name": "inva_diagnostics"
+                },
+                {
+                    "msg_name": "invb_diagnostics"
+                },
+                {
+                    "msg_name": "invc_diagnostics"
+                },
+                {
+                    "msg_name": "invd_diagnostics"
                 }
             ]
         },

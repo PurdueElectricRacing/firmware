@@ -114,6 +114,36 @@ void report_telemetry() {
     );
 }
 
+void report_telemetry_5hz() {
+    CAN_SEND_inva_diagnostics(
+        g_car.front_right.state,
+        g_car.front_right.info->AMK_Status_bError,
+        g_car.front_right.err1->AMK_DiagnosticNumber,
+        g_car.front_right.info->AMK_Status_bInverterOn
+    );
+
+    CAN_SEND_invb_diagnostics(
+        g_car.front_left.state,
+        g_car.front_left.info->AMK_Status_bError,
+        g_car.front_left.err1->AMK_DiagnosticNumber,
+        g_car.front_left.info->AMK_Status_bInverterOn
+    );
+
+    CAN_SEND_invc_diagnostics(
+        g_car.rear_left.state,
+        g_car.rear_left.info->AMK_Status_bError,
+        g_car.rear_left.err1->AMK_DiagnosticNumber,
+        g_car.rear_left.info->AMK_Status_bInverterOn
+    );
+
+    CAN_SEND_invd_diagnostics(
+        g_car.rear_right.state,
+        g_car.rear_right.info->AMK_Status_bError,
+        g_car.rear_right.err1->AMK_DiagnosticNumber,
+        g_car.rear_right.info->AMK_Status_bInverterOn
+    );
+}
+
 void fsm_periodic() {
     // set default states
     g_car.current_state = g_car.next_state;
@@ -203,6 +233,7 @@ void fsm_periodic() {
     AMK_set_torque(&g_car.rear_right,  g_torque_request.rear_right);
 
     report_telemetry();
+    report_telemetry_5hz();
 
     // flush the internal state
     PHAL_writeGPIO(BRAKE_LIGHT_PORT, BRAKE_LIGHT_PIN, g_car.brake_light);

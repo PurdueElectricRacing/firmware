@@ -16,6 +16,7 @@
 #include "pages/race.h"
 #include "pages/calibration.h"
 #include "pages/faults.h"
+#include "pages/amk.h"
 
 volatile page_t curr_page = PAGE_PREFLIGHT; // Current page displayed on the LCD
 volatile page_t prev_page = PAGE_PREFLIGHT; // Previous page displayed on the LCD
@@ -45,6 +46,14 @@ const page_handler_t page_handlers[NUM_PAGES] = { // Order must match page_t enu
         .select    = nullptr,
         .telemetry = calibration_telemetry_update,
         .string    = CALIBRATION_STRING
+    },
+    [PAGE_AMK] = {
+        .update    = nullptr,
+        .move_up   = nullptr,
+        .move_down = nullptr,
+        .select    = nullptr,
+        .telemetry = amk_telemetry_update,
+        .string    = AMK_STRING
     }
 };
 

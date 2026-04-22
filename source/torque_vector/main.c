@@ -17,6 +17,8 @@
 #include "common/phal/rcc.h"
 #include "common/heartbeat/heartbeat.h"
 
+extern void initialize_calibration(void);
+
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
     // Status LEDs
@@ -34,7 +36,7 @@ GPIOInitConfig_t gpio_config[] = {
     // GPIO_INIT_FDCAN1RX_PA11,
 };
 
-static constexpr uint32_t TargetCoreClockrateHz = 16000000;
+static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
 ClockRateConfig_t clock_config = {
     .clock_source           = CLOCK_SOURCE_HSE,
     .use_pll                = false,
@@ -81,6 +83,7 @@ int main(void) {
     }
 
     CAN_library_init();
+    initialize_calibration();
     NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
 

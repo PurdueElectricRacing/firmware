@@ -110,6 +110,76 @@
                     ],
                     "msg_period": 1000,
                     "msg_priority": 4
+                },
+                {
+                    "msg_name": "IMU_angular_rate",
+                    "msg_desc": "rotated IMU data",
+                    "signals": [
+                        {
+                            "sig_name": "X_axis",
+                            "sig_desc": "Angular Rate around X-axis",
+                            "type": "int16_t",
+                            "unit": "deg/s",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "Y_axis",
+                            "sig_desc": "Angular Rate around Y-axis",
+                            "type": "int16_t",
+                            "unit": "deg/s",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "Z_axis",
+                            "sig_desc": "Angular Rate around Z-axis",
+                            "type": "int16_t",
+                            "unit": "deg/s",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "reserved",
+                            "sig_desc": "reserved",
+                            "type": "uint16_t"
+                        }
+                    ],
+                    "msg_period": 10,
+                    "msg_priority": 5
+                },
+                {
+                    "msg_name": "IMU_acceleration",
+                    "msg_desc": "rotated IMU ",
+                    "signals": [
+                        {
+                            "sig_name": "X_axis",
+                            "sig_desc": "Acceleration along X-axis",
+                            "type": "int16_t",
+                            "unit": "g",
+                            "scale": 0.01
+                        },
+                        {
+                            "sig_name": "Y_axis",
+                            "sig_desc": "Acceleration along Y-axis",
+                            "type": "int16_t",
+                            "unit": "g",
+                            "scale": 0.01
+                        },
+                        {
+                            "sig_name": "Z_axis",
+                            "sig_desc": "Acceleration along Z-axis",
+                            "type": "int16_t",
+                            "unit": "g",
+                            "scale": 0.01
+                        },
+                        {
+                            "sig_name": "temperature",
+                            "sig_desc": "IMU Temperature",
+                            "type": "int16_t",
+                            "unit": "C",
+                            "scale": 0.1
+                        }
+                    ],
+                    "msg_period": 10,
+                    "msg_priority": 5
                 }
             ],
             "rx": [
@@ -120,10 +190,12 @@
                     "msg_name": "rear_shockpots"
                 },
                 {
-                    "msg_name": "IZZE_angular_rate"
+                    "msg_name": "IZZE_angular_rate",
+                    "callback": true
                 },
                 {
-                    "msg_name": "IZZE_acceleration"
+                    "msg_name": "IZZE_acceleration",
+                    "callback": true
                 }
             ]
         }

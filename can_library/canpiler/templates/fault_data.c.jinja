@@ -66,7 +66,7 @@ void tx_fault_sync(void) {
 #ifdef CAN_NODE_{{ module.node_name|upper }}
     CAN_SEND_{{ module.node_name|lower }}_fault_sync(
 {% for fault in module.faults %}
-        (faults[FAULT_ID_{{ fault.name|upper }}].state == FAULT_STATE_LATCHED){{ "," if not loop.last }}
+        is_latched(FAULT_ID_{{ fault.name|upper }}){{ "," if not loop.last }}
 {% endfor %}
     );
 #endif

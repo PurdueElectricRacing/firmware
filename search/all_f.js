@@ -12,9 +12,10 @@ var searchData=
   ['lerp_5flut_2ec_9',['lerp_lut.c',['../lerp__lut_8c.html',1,'']]],
   ['lerp_5flut_2eh_10',['lerp_lut.h',['../lerp__lut_8h.html',1,'']]],
   ['lerp_5flut_5ft_11',['lerp_lut_t',['../structlerp__lut__t.html',1,'']]],
-  ['linux_20tools_20setup_12',['Linux Tools Setup',['../md_docs_2setup.html#autotoc_md53',1,'']]],
-  ['log_5fenable_5fsw_13',['log_enable_sw',['../structdaq__hub__t.html#a30728bd411c9acd1b9bf3056c9e0b3d7',1,'daq_hub_t']]],
-  ['look_20at_14',['Which one should I look at?',['../md_docs_2datasheets_2README.html#autotoc_md42',1,'']]],
-  ['lut_5fentry_5ft_15',['lut_entry_t',['../structlut__entry__t.html',1,'']]],
-  ['lut_5flookup_16',['lut_lookup',['../lerp__lut_8c.html#aa6730914e04aa912dcb777e28f9e4004',1,'lut_lookup(const lerp_lut_t *lut, float key):&#160;lerp_lut.c'],['../lerp__lut_8h.html#aa6730914e04aa912dcb777e28f9e4004',1,'lut_lookup(const lerp_lut_t *lut, float key):&#160;lerp_lut.c']]]
+  ['linear_5falgebra_2eh_12',['linear_algebra.h',['../linear__algebra_8h.html',1,'']]],
+  ['linux_20tools_20setup_13',['Linux Tools Setup',['../md_docs_2setup.html#autotoc_md53',1,'']]],
+  ['log_5fenable_5fsw_14',['log_enable_sw',['../structdaq__hub__t.html#a30728bd411c9acd1b9bf3056c9e0b3d7',1,'daq_hub_t']]],
+  ['look_20at_15',['Which one should I look at?',['../md_docs_2datasheets_2README.html#autotoc_md42',1,'']]],
+  ['lut_5fentry_5ft_16',['lut_entry_t',['../structlut__entry__t.html',1,'']]],
+  ['lut_5flookup_17',['lut_lookup',['../lerp__lut_8c.html#aa6730914e04aa912dcb777e28f9e4004',1,'lut_lookup(const lerp_lut_t *lut, float key):&#160;lerp_lut.c'],['../lerp__lut_8h.html#aa6730914e04aa912dcb777e28f9e4004',1,'lut_lookup(const lerp_lut_t *lut, float key):&#160;lerp_lut.c']]]
 ];

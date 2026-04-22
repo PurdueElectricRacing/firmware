@@ -176,6 +176,10 @@ var NAVTREEINDEX0 =
 "dashboard_2main_8c.html#a4c3ae616da8068a3f290a1cd68d6ffb0":[27,0,1,2,2,0],
 "dashboard_2main_8c.html#ac191b78cad5b7406d9b8d6227de36a1d":[27,0,1,2,2,1],
 "dashboard_2main_8h_source.html":[27,0,1,2,3],
+"decouple__imu_8c.html":[27,0,1,8,1],
+"decouple__imu_8c.html#a033e363e85c9a7712d85b7fb947a94c0":[27,0,1,8,1,2],
+"decouple__imu_8c.html#a3da0b33ad58b4a9b357b9ae12a3707b6":[27,0,1,8,1,0],
+"decouple__imu_8c.html#a4e2ff3413851866d1385d942698f59e9":[27,0,1,8,1,1],
 "dir_017de2976029d5961d56ff770475ad88.html":[27,0,0,9],
 "dir_040ae95eb02d4c973a6128ffff704b5a.html":[27,0,0,12,6],
 "dir_044aef65200486a75d86f593c39f6fb0.html":[27,0,1,5],
@@ -245,9 +249,5 @@ var NAVTREEINDEX0 =
 "fan__control_8h_source.html":[27,0,1,7,2,0],
 "faults_8c.html":[27,0,1,2,0,0,4],
 "faults_8h.html":[27,0,1,2,0,0,5],
-"faults_8h_source.html":[27,0,1,2,0,0,5],
-"fdcan_8h_source.html":[27,0,0,12,2,1],
-"fdcan__priv_8h_source.html":[27,0,0,12,2,2],
-"files.html":[27,0],
-"flash_8c.html":[27,0,0,11,4,0]
+"faults_8h_source.html":[27,0,1,2,0,0,5]
 };

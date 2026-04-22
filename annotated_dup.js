@@ -23,6 +23,7 @@ var annotated_dup =
     [ "degrees_t", "structdegrees__t.html", null ],
     [ "dma_init_t", "structdma__init__t.html", null ],
     [ "ethernet_config_t", "structethernet__config__t.html", null ],
+    [ "euler_angles_t", "structeuler__angles__t.html", null ],
     [ "fahrenheit_t", "structfahrenheit__t.html", null ],
     [ "feet_t", "structfeet__t.html", null ],
     [ "GPIOInitConfig_t", "structGPIOInitConfig__t.html", null ],
@@ -35,6 +36,7 @@ var annotated_dup =
     [ "kph_t", "structkph__t.html", null ],
     [ "lerp_lut_t", "structlerp__lut__t.html", null ],
     [ "lut_entry_t", "structlut__entry__t.html", null ],
+    [ "matrix3x3_t", "structmatrix3x3__t.html", null ],
     [ "menu_element_t", "structmenu__element__t.html", null ],
     [ "menu_page_t", "structmenu__page__t.html", null ],
     [ "meters_t", "structmeters__t.html", null ],
@@ -76,6 +78,7 @@ var annotated_dup =
     [ "usart_init_t", "structusart__init__t.html", "structusart__init__t" ],
     [ "usart_rx_errors_t", "structusart__rx__errors__t.html", "structusart__rx__errors__t" ],
     [ "usart_tx_errors_t", "structusart__tx__errors__t.html", "structusart__tx__errors__t" ],
+    [ "vector3_t", "structvector3__t.html", null ],
     [ "voltage_t", "structvoltage__t.html", null ],
     [ "xVCU_struct", "structxVCU__struct.html", null ],
     [ "yVCU_struct", "structyVCU__struct.html", null ]

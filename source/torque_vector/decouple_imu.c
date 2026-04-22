@@ -1,58 +1,30 @@
-#include "can_library/generated/TORQUE_VECTOR.h"
 #include "common/utils/linear_algebra.h"
+#include "can_library/generated/TORQUE_VECTOR.h"
 #include <math.h>
 
-typedef struct {
-    float roll;
-    float pitch;
-    float yaw;
-} euler_angles_t;
-
 matrix3x3_t calibration_matrix;
-volatile bool calibration_initialized = false;
-volatile bool calibration_in_progress = false;
+volatile bool is_calibration_started = false;
+volatile bool is_calibration_finished = false;
 
 // Statistics for calibration
-static vector3_t accel_sum = {0, 0, 0};
+static vector3_t accel_sum = {
+    .x = 0,
+    .y = 0,
+    .z = 0
+};
 static uint32_t accel_samples = 0;
 #define CALIBRATION_SAMPLES 100
 
-static matrix3x3_t calculate_rotation_matrix(euler_angles_t angles) {
-    matrix3x3_t rot;
-    float cr = cosf(angles.roll);
-    float sr = sinf(angles.roll);
-    float cp = cosf(angles.pitch);
-    float sp = sinf(angles.pitch);
-    float cy = cosf(angles.yaw);
-    float sy = sinf(angles.yaw);
-
-    // ZYX Euler sequence (Yaw -> Pitch -> Roll)
-    // R = Rz(yaw) * Ry(pitch) * Rx(roll)
-    rot.m[0][0] = cp * cy;
-    rot.m[0][1] = cy * sp * sr - cr * sy;
-    rot.m[0][2] = sr * sy + cr * cy * sp;
-
-    rot.m[1][0] = cp * sy;
-    rot.m[1][1] = cr * cy + sr * sp * sy;
-    rot.m[1][2] = cr * sp * sy - cy * sr;
-
-    rot.m[2][0] = -sp;
-    rot.m[2][1] = cp * sr;
-    rot.m[2][2] = cp * cr;
-
-    return rot;
-}
-
-void initialize_calibration(void) {
+void initialize_calibration() {
+    is_calibration_started = true;
+    is_calibration_finished = false;
     accel_sum.x = 0;
     accel_sum.y = 0;
     accel_sum.z = 0;
     accel_samples = 0;
-    calibration_in_progress = true;
-    calibration_initialized = false;
 }
 
-static void finalize_calibration(void) {
+static void finish_calibration(void) {
     if (accel_samples < CALIBRATION_SAMPLES) return;
 
     vector3_t avg_accel = {
@@ -71,13 +43,13 @@ static void finalize_calibration(void) {
     angles.roll = atan2f(unit_g.y, unit_g.z);
     angles.yaw = 0.0f; // Yaw cannot be determined by gravity alone
 
-    calibration_matrix = calculate_rotation_matrix(angles);
-    calibration_initialized = true;
-    calibration_in_progress = false;
+    calibration_matrix = matrix3x3_from_euler(angles);
+    is_calibration_finished = true;
+    is_calibration_started = false;
 }
 
 void IZZE_angular_rate_CALLBACK(void) {
-    if (!calibration_initialized) {
+    if (!is_calibration_finished) {
         return;
     }
 
@@ -104,18 +76,18 @@ void IZZE_acceleration_CALLBACK(void) {
         .z = can_data.IZZE_acceleration.Z_axis * UNPACK_COEFF_IZZE_ACCELERATION_Z_AXIS
     };
 
-    if (calibration_in_progress) {
+    if (is_calibration_started) {
         accel_sum.x += raw_data.x;
         accel_sum.y += raw_data.y;
         accel_sum.z += raw_data.z;
         accel_samples++;
 
         if (accel_samples >= CALIBRATION_SAMPLES) {
-            finalize_calibration();
+            finish_calibration();
         }
     }
 
-    if (!calibration_initialized) {
+    if (!is_calibration_finished) {
         return;
     }
 

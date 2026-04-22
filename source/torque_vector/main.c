@@ -17,6 +17,8 @@
 #include "common/phal/rcc.h"
 #include "common/heartbeat/heartbeat.h"
 
+extern void initialize_calibration();
+
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
     // Status LEDs
@@ -81,6 +83,7 @@ int main(void) {
     }
 
     CAN_library_init();
+    initialize_calibration();
     NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
 

@@ -70,5 +70,5 @@ void update_cooling_periodic();
  * @param *msg_data_a CAN msg data
  * @return
  */
-void cooling_driver_request_CALLBACK(can_data_t *p_can_data);
+void cooling_driver_request_CALLBACK(void);
 #endif

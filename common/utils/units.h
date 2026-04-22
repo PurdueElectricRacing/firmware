@@ -12,7 +12,7 @@
  */
 
 // Global Constants
-constexpr float PI_F = 3.1415926535f;
+static constexpr float PI_F = 3.1415926535f;
 
 // Function modifiers for unit conversion functions
 #define UNIT_FUNC_MODIFIERS [[nodiscard, gnu::always_inline]] static inline

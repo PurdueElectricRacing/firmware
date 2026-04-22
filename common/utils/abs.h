@@ -21,7 +21,7 @@ static inline float abs_f(float x) {
     return (x < 0.0f) ? -x : x;
 }
 
-#define ABS(x) _Generic((x), \
+#define ABS(x) _Generic((x) + 0, \
     int: abs_i, \
     float: abs_f \
 )((x))

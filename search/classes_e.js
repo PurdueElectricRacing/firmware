@@ -6,5 +6,6 @@ var searchData=
   ['periodic_5ftask_5fparams_5ft_3',['periodic_task_params_t',['../structperiodic__task__params__t.html',1,'']]],
   ['phal_5fsd_5fcmd_5ft_4',['PHAL_SD_Cmd_t',['../structPHAL__SD__Cmd__t.html',1,'']]],
   ['pounds_5ft_5',['pounds_t',['../structpounds__t.html',1,'']]],
-  ['psi_5ft_6',['psi_t',['../structpsi__t.html',1,'']]]
+  ['psi_5ft_6',['psi_t',['../structpsi__t.html',1,'']]],
+  ['pvcu_5fstruct_7',['pVCU_struct',['../structpVCU__struct.html',1,'']]]
 ];

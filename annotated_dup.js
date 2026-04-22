@@ -52,6 +52,7 @@ var annotated_dup =
     [ "PHAL_SD_Cmd_t", "structPHAL__SD__Cmd__t.html", "structPHAL__SD__Cmd__t" ],
     [ "pounds_t", "structpounds__t.html", null ],
     [ "psi_t", "structpsi__t.html", null ],
+    [ "pVCU_struct", "structpVCU__struct.html", null ],
     [ "radians_t", "structradians__t.html", null ],
     [ "raw_adc1_values_t", "structraw__adc1__values__t.html", null ],
     [ "raw_adc2_values_t", "structraw__adc2__values__t.html", null ],
@@ -75,5 +76,7 @@ var annotated_dup =
     [ "usart_init_t", "structusart__init__t.html", "structusart__init__t" ],
     [ "usart_rx_errors_t", "structusart__rx__errors__t.html", "structusart__rx__errors__t" ],
     [ "usart_tx_errors_t", "structusart__tx__errors__t.html", "structusart__tx__errors__t" ],
-    [ "voltage_t", "structvoltage__t.html", null ]
+    [ "voltage_t", "structvoltage__t.html", null ],
+    [ "xVCU_struct", "structxVCU__struct.html", null ],
+    [ "yVCU_struct", "structyVCU__struct.html", null ]
 ];

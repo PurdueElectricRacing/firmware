@@ -20,6 +20,7 @@ set(C_FLAGS
     "-fdata-sections"
     "-ffreestanding"
     "-fno-common"
+    "-fno-math-errno"
 
     "-Og"
     "-g3"

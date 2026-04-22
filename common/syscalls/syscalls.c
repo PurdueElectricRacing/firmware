@@ -1,5 +1,10 @@
 #include "syscalls.h"
 
+int* __errno(void) {
+    static int errno_val;
+    return &errno_val;
+}
+
 int _write(int file, char* ptr, int len) {
     return len;
 }

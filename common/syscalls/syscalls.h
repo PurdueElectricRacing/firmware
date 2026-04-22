@@ -7,6 +7,7 @@
 extern "C" {
 #endif
 
+int *__errno(void);
 int _write(int file, char* ptr, int len);
 int _read(int file, char* ptr, int len);
 int _close(int file);

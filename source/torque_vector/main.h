@@ -22,4 +22,7 @@
 #define CONNECTION_LED_PORT (GPIOB)
 #define CONNECTION_LED_PIN  (3)
 
+#define ROVER_RESET_PORT (GPIOB)
+#define ROVER_RESET_PIN  (1)
+
 #endif

@@ -76,7 +76,7 @@ void CAN1_RX0_IRQHandler() {
 }
 
 // just to avoid linker error
-void cooling_driver_request_CALLBACK(can_data_t* can_data) {
+void cooling_driver_request_CALLBACK() {
     (void)can_data; // unused
 }
 

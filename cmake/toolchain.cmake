@@ -18,14 +18,20 @@ set(C_FLAGS
     "-ffunction-sections"
     "-fdata-sections"
     "-ffreestanding"
-    "-fanalyzer"
-    "-Wno-analyzer-infinite-loop"
+    "-fno-common"
+
     "-Og"
-    "-g"
+    "-g3"
+    
     "-Wall"
     "-Werror"
+    "-Wshadow"
     "-Wdouble-promotion"
     "-Wsign-compare"
+    "-Wunused-result"
+
+    "-fanalyzer"
+    "-Wno-analyzer-infinite-loop"
 )
 set(LINKER_FLAGS 
     "-Wl,--gc-sections"

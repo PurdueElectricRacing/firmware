@@ -59,7 +59,7 @@ extern void {{ rx_msg.name }}_CALLBACK();
 {% endfor %}
 
 // RX Dispatcher
-static inline void CAN_rx_dispatcher(uint32_t id, uint8_t* data, uint8_t len, uint8_t peripheral_idx) {
+static inline void CAN_rx_dispatcher(uint32_t id, uint8_t *data, uint8_t len, uint8_t peripheral_idx) {
     switch(id) {
     {% for rx_msg, periph, bus in rx_msgs %}
     {% set msg = rx_msg.resolved_message %}

@@ -2,54 +2,59 @@
 #include "can_library/generated/TORQUE_VECTOR.h"
 #include <math.h>
 
+typedef enum {
+    DECOUPLING_STATE_IDLE,
+    DECOUPLING_STATE_CALIBRATING,
+    DECOUPLING_STATE_ACTIVE
+} decoupling_state_t;
+
+static volatile decoupling_state_t decoupling_state = DECOUPLING_STATE_IDLE;
 matrix3x3_t calibration_matrix;
-volatile bool is_calibration_started = false;
-volatile bool is_calibration_finished = false;
 
 // Statistics for calibration
+static constexpr uint32_t CALIBRATION_SAMPLE_THRESHOLD = 100;
 static vector3_t accel_sum = {
     .x = 0,
     .y = 0,
     .z = 0
 };
-static uint32_t accel_samples = 0;
-#define CALIBRATION_SAMPLES 100
+static uint32_t num_samples = 0;
 
 void initialize_calibration() {
-    is_calibration_started = true;
-    is_calibration_finished = false;
-    accel_sum.x = 0;
-    accel_sum.y = 0;
-    accel_sum.z = 0;
-    accel_samples = 0;
+    decoupling_state = DECOUPLING_STATE_CALIBRATING;
+    accel_sum.x      = 0;
+    accel_sum.y      = 0;
+    accel_sum.z      = 0;
+    num_samples      = 0;
 }
 
 static void finish_calibration(void) {
-    if (accel_samples < CALIBRATION_SAMPLES) return;
+    if (num_samples < CALIBRATION_SAMPLE_THRESHOLD) {
+        return;
+    }
 
     vector3_t avg_accel = {
-        .x = accel_sum.x / accel_samples,
-        .y = accel_sum.y / accel_samples,
-        .z = accel_sum.z / accel_samples
+        .x = accel_sum.x / num_samples,
+        .y = accel_sum.y / num_samples,
+        .z = accel_sum.z / num_samples
     };
 
     vector3_t unit_g = vector3_normalize(avg_accel);
 
-    // Target is Z+ up (unit_g should be [0, 0, 1] in vehicle frame)
-    // Pitch is rotation around Y: sin(pitch) = -accel_x
-    // Roll is rotation around X: sin(roll) = accel_y / cos(pitch)
+    // Target coordinate frame: X+ is forward, Y+ is left, Z+ is up
+    // unit_g should be [0, 0, 1]
     euler_angles_t angles = {0};
-    angles.pitch = asinf(-unit_g.x);
-    angles.roll = atan2f(unit_g.y, unit_g.z);
-    angles.yaw = 0.0f; // Yaw cannot be determined by gravity alone
+
+    angles.pitch = asinf(-unit_g.x); // Pitch is rotation around Y: sin(pitch) = -accel_x
+    angles.roll  = atan2f(unit_g.y, unit_g.z); // Roll is rotation around X: sin(roll) = accel_y / cos(pitch)
+    angles.yaw   = 0.0f; // Yaw cannot be determined by gravity alone
 
     calibration_matrix = matrix3x3_from_euler(angles);
-    is_calibration_finished = true;
-    is_calibration_started = false;
+    decoupling_state = DECOUPLING_STATE_ACTIVE;
 }
 
 void IZZE_angular_rate_CALLBACK(void) {
-    if (!is_calibration_finished) {
+    if (decoupling_state != DECOUPLING_STATE_ACTIVE) {
         return;
     }
 
@@ -76,18 +81,18 @@ void IZZE_acceleration_CALLBACK(void) {
         .z = can_data.IZZE_acceleration.Z_axis * UNPACK_COEFF_IZZE_ACCELERATION_Z_AXIS
     };
 
-    if (is_calibration_started) {
+    if (decoupling_state == DECOUPLING_STATE_CALIBRATING) {
         accel_sum.x += raw_data.x;
         accel_sum.y += raw_data.y;
         accel_sum.z += raw_data.z;
-        accel_samples++;
+        num_samples++;
 
-        if (accel_samples >= CALIBRATION_SAMPLES) {
+        if (num_samples >= CALIBRATION_SAMPLE_THRESHOLD) {
             finish_calibration();
         }
     }
 
-    if (!is_calibration_finished) {
+    if (decoupling_state != DECOUPLING_STATE_ACTIVE) {
         return;
     }
 

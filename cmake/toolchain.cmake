@@ -12,6 +12,7 @@ set(COMMON_FLAGS
     "-mthumb"
     "--specs=nosys.specs"
 )
+
 set(C_FLAGS      
     "--specs=nano.specs"
     "-std=c23"
@@ -35,19 +36,25 @@ set(C_FLAGS
     "-fanalyzer"
     "-Wno-analyzer-infinite-loop"
 )
+
 set(LINKER_FLAGS 
     "-Wl,--gc-sections"
     "-Wl,--no-warn-rwx-segments"
+)
+
+set(ASM_FLAGS
+    "-x assembler-with-cpp"
 )
 
 # Convert lists back to strings for CMake initialization variables
 string(JOIN " " COMMON_FLAGS_STR ${COMMON_FLAGS})
 string(JOIN " " C_FLAGS_STR      ${C_FLAGS})
 string(JOIN " " LINKER_FLAGS_STR ${LINKER_FLAGS})
+string(JOIN " " ASM_FLAGS_STR    ${ASM_FLAGS})
 
-set(CMAKE_C_FLAGS_INIT          "${COMMON_FLAGS_STR} ${C_FLAGS_STR}"          CACHE STRING "" FORCE)
-set(CMAKE_ASM_FLAGS_INIT        "${COMMON_FLAGS_STR} -x assembler-with-cpp"   CACHE STRING "" FORCE)
-set(CMAKE_EXE_LINKER_FLAGS_INIT "${LINKER_FLAGS_STR}"                         CACHE STRING "" FORCE)
+set(CMAKE_C_FLAGS_INIT          "${COMMON_FLAGS_STR} ${C_FLAGS_STR}"   CACHE STRING "" FORCE)
+set(CMAKE_ASM_FLAGS_INIT        "${COMMON_FLAGS_STR} ${ASM_FLAGS_STR}" CACHE STRING "" FORCE)
+set(CMAKE_EXE_LINKER_FLAGS_INIT "${LINKER_FLAGS_STR}"                  CACHE STRING "" FORCE)
 
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)

@@ -19,6 +19,9 @@
 #include "common/phal/usart.h"
 #include "common/ublox/nav_pvt.h"
 
+#include "decouple_imu.h"
+#include "gps.h"
+
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
     // Status LEDs
@@ -83,7 +86,6 @@ volatile uint8_t rover_gps_rx_buffer[NAV_PVT_TOTAL_LENGTH] = {0}; // Buffer for 
 NAV_PVT_data_t nav_pvt = {0};
 
 extern void HardFault_Handler(void);
-extern void initialize_calibration(void);
 
 void gps_periodic() {
     NAV_PVT_decode(&nav_pvt, (uint8_t *)rover_gps_rx_buffer);

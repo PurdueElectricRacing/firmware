@@ -17,8 +17,7 @@
 #include "common/phal/rcc.h"
 #include "common/heartbeat/heartbeat.h"
 #include "common/phal/usart.h"
-
-extern void initialize_calibration(void);
+#include "nav_pvt.h"
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -80,17 +79,20 @@ usart_init_t usart3 = {
     .tx_dma_cfg       = &rover_tx_dma_config,
     .rx_dma_cfg       = &rover_rx_dma_config,
 };
-volatile uint8_t rover_gps_rx_buffer[128] = {0xFF}; // Buffer for GPS data reception
+volatile uint8_t rover_gps_rx_buffer[100] = {0}; // Buffer for GPS data reception
+NAV_PVT_data_t nav_pvt = {0};
 
 extern void HardFault_Handler(void);
+extern void initialize_calibration(void);
 
-void ledblink() {
-    PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
+void gps_periodic() {
+    NAV_PVT_decode(&nav_pvt, (uint8_t *)rover_gps_rx_buffer);
 }
 
 // Thread Defines
 DEFINE_TASK(CAN_rx_update, 1, osPriorityHigh, STACK_2048);
 DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048);
+DEFINE_TASK(gps_periodic, 100, osPriorityLow, STACK_1024);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 // VCU Data
@@ -128,6 +130,7 @@ int main(void) {
 
     START_TASK(CAN_rx_update);
     START_TASK(CAN_tx_update);
+    START_TASK(gps_periodic);
     START_HEARTBEAT_TASK();
 
     // TV initialization (will break watchdog)

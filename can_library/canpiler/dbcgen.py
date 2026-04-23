@@ -80,7 +80,7 @@ def generate_dbcs(context: SystemContext):
                 comment=msg.desc,
                 is_extended_frame=msg.is_extended,
                 senders=[sender],
-                strict=False
+                strict=True
             ))
         
         filename = f"{bus_name}_{git_hash}.dbc"

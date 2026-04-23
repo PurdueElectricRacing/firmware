@@ -7,6 +7,7 @@
  */
 
 /* System Includes */
+#include <stdint.h>
 #include "can_library/generated/DRIVELINE.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
@@ -19,6 +20,7 @@
 #include "config.h"
 #include "pin_defs.h"
 #include "oil_temps_table.h"
+
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -38,6 +40,9 @@ GPIOInitConfig_t gpio_config[] = {
     //Oil temps
     GPIO_INIT_ANALOG(OIL_TEMP_L_GPIO_Port, OIL_TEMP_L_Pin),
     GPIO_INIT_ANALOG(OIL_TEMP_R_GPIO_Port, OIL_TEMP_R_Pin),
+
+    GPIO_INIT_ANALOG(BRAKE_PRESSURE_R_GPIO_Port, BRAKE_PRESSURE_R_Pin),
+    GPIO_INIT_ANALOG(BRAKE_PRESSURE_L_GPIO_Port, BRAKE_PRESSURE_L_Pin),
 
 };
 
@@ -65,9 +70,11 @@ ADCInitConfig_t adc1_config = {
 
 ADCChannelConfig_t adc1_channel_config[] = {
  {.channel = OIL_TEMP_L_ADC_CH, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+ {.channel = BRAKE_PRESSURE_R_ADC_CH, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},
 }; 
 typedef struct {
     uint16_t oil_temp_left;
+    uint16_t brake_pressure_right;
 } raw_adc1_values_t;
 volatile raw_adc1_values_t raw_adc1_values;
 
@@ -85,9 +92,11 @@ ADCInitConfig_t adc2_config = {
 // ADC 2
 ADCChannelConfig_t adc2_channel_config[] = {
 {.channel = OIL_TEMP_R_ADC_CH, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+{.channel = BRAKE_PRESSURE_L_ADC_CH, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},    
 };
 typedef struct {
     uint16_t oil_temp_right;
+    uint16_t brake_pressure_left;
 } raw_adc2_values_t;
 volatile raw_adc2_values_t raw_adc2_values;
 
@@ -150,11 +159,13 @@ extern uint32_t PLLClockRateHz;
 extern void HardFault_Handler();
 void shockpot_thread();
 void oil_temps_thread();
+void brake_pressure_thread();
 
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
 DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048); // leave stack at 2048
 DEFINE_TASK(shockpot_thread, FRONT_SHOCKPOTS_PERIOD_MS, osPriorityNormal, STACK_512);
 DEFINE_TASK(oil_temps_thread, FRONT_OIL_TEMPS_PERIOD_MS, osPriorityNormal, STACK_512);
+DEFINE_TASK(brake_pressure_thread, FRONT_OIL_TEMPS_PERIOD_MS, osPriorityNormal, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
@@ -215,6 +226,7 @@ int main(void) {
     START_TASK(CAN_tx_update);
     START_TASK(shockpot_thread);
     START_TASK(oil_temps_thread);
+    START_TASK(brake_pressure_thread);
     START_HEARTBEAT_TASK();
 
     // no way home
@@ -276,6 +288,25 @@ void oil_temps_thread() {
     right_celsius_scaled = (int16_t)(right_celsius * PACK_COEFF_FRONT_OIL_TEMPS_RIGHT);
 
     SEND_OIL_TEMPS(left_celsius_scaled, right_celsius_scaled);
+}
+
+//https://www.bosch-motorsport.com/media/catalog_content/downloads_catalog/pdf_catalog/data_sheet_69507595_pressure_sensor_fluid_psc-260.pdf
+void brake_pressure_thread() {
+    static constexpr float ADC_MAX      = 4095.0f;
+    static constexpr float ADC_VREF     = 3.3f;
+    static constexpr float ADC_TO_VOLTS = ADC_VREF / ADC_MAX;
+    static constexpr float OFFSET = 0.05f;
+    static constexpr float SENSITIVITY = 0.01538f;
+
+    float brake_pressure_l_volts = raw_adc2_values.brake_pressure_left * ADC_TO_VOLTS;
+    float brake_pressure_r_volts = raw_adc1_values.brake_pressure_right * ADC_TO_VOLTS;
+
+    int16_t brake_pressure_l_bar = (int16_t) ((brake_pressure_l_volts - OFFSET) / SENSITIVITY);
+    int16_t brake_pressure_r_bar = (int16_t) ((brake_pressure_r_volts - OFFSET) / SENSITIVITY);
+
+    SEND_BRAKE_PRESSURE(brake_pressure_l_bar, brake_pressure_r_bar);
+
+
 }
 
 // todo reboot on hardfault

@@ -1,126 +1,170 @@
 {
-    "node_name": "DRIVELINE",
-    "busses": {
-        "VCAN": {
-            "peripheral": "FDCAN2",
-            "tx": [
-                {
-                    "msg_name": "front_shockpots",
-                    "msg_desc": "Shockpot readings from front left and front right",
-                    "signals": [
-                        {
-                            "sig_name": "left",
-                            "sig_desc": "Length of front left shockpot",
-                            "type": "uint16_t",
-                            "unit": "mm",
-                            "scale": 0.01
-                        },
-                        {
-                            "sig_name": "right",
-                            "sig_desc": "Length of front right shockpot",
-                            "type": "uint16_t",
-                            "unit": "mm",
-                            "scale": 0.01
-                        }
-                    ],
-                    "msg_period": 10,
-                    "msg_priority": 5
-                },
-                {
-                    "msg_name": "rear_shockpots",
-                    "msg_desc": "Shockpot readings from rear left and rear right",
-                    "signals": [
-                        {
-                            "sig_name": "left",
-                            "sig_desc": "Length of rear left shockpot",
-                            "type": "uint16_t",
-                            "unit": "mm",
-                            "scale": 0.01
-                        },
-                        {
-                            "sig_name": "right",
-                            "sig_desc": "Length of rear right shockpot",
-                            "type": "uint16_t",
-                            "unit": "mm",
-                            "scale": 0.01
-                        }
-                    ],
-                    "msg_period": 10,
-                    "msg_priority": 5
-                },
-                {
-                    "msg_name": "front_oil_temps",
-                    "msg_desc": "oil temps from front",
-                    "signals": [
-                        {
-                            "sig_name": "left",
-                            "sig_desc": "Oil temp in front left gearbox",
-                            "type": "int16_t",
-                            "unit": "C",
-                            "scale": 0.01
-                        },
-                        {
-                            "sig_name": "right",
-                            "sig_desc": "Oil temp in front right gearbox",
-                            "type": "int16_t",
-                            "unit": "C",
-                            "scale": 0.01
-                        }
-                    ],
-                    "msg_priority": 3,
-                    "msg_period": 1000
-                },
-                {
-                    "msg_name": "rear_oil_temps",
-                    "msg_desc": "oil temps from rear",
-                    "signals": [
-                        {
-                            "sig_name": "left",
-                            "sig_desc": "Oil temp in rear left gearbox",
-                            "type": "int16_t",
-                            "unit": "C",
-                            "scale": 0.01
-                        },
-                        {
-                            "sig_name": "right",
-                            "sig_desc": "Oil temp in rear right gearbox",
-                            "type": "int16_t",
-                            "unit": "C",
-                            "scale": 0.01
-                        }
-                    ],
-                    "msg_priority": 3,
-                    "msg_period": 1000
-                },
-                {
-                    "msg_name": "front_driveline_version",
-                    "msg_desc": "Front Driveline Version",
-                    "signals": [
-                        {
-                            "sig_name": "git_hash",
-                            "type": "uint32_t",
-                            "sig_desc": "int representation of git short hash"
-                        }
-                    ],
-                    "msg_priority": 5,
-                    "msg_period": 5000
-                },
-                {
-                    "msg_name": "rear_driveline_version",
-                    "msg_desc": "Rear Driveline Version",
-                    "signals": [
-                        {
-                            "sig_name": "git_hash",
-                            "type": "uint32_t",
-                            "sig_desc": "int representation of git short hash"
-                        }
-                    ],
-                    "msg_priority": 5,
-                    "msg_period": 5000
-                }
-            ],
-            "rx": []
+  "node_name": "DRIVELINE",
+  "busses": {
+    "VCAN": {
+      "peripheral": "FDCAN2",
+      "tx": [
+        {
+          "msg_name": "front_shockpots",
+          "msg_desc": "Shockpot readings from front left and front right",
+          "signals": [
+            {
+              "sig_name": "left",
+              "sig_desc": "Length of front left shockpot",
+              "type": "uint16_t",
+              "unit": "mm",
+              "scale": 0.01
+            },
+            {
+              "sig_name": "right",
+              "sig_desc": "Length of front right shockpot",
+              "type": "uint16_t",
+              "unit": "mm",
+              "scale": 0.01
+            }
+          ],
+          "msg_period": 10,
+          "msg_priority": 5
+        },
+        {
+          "msg_name": "rear_shockpots",
+          "msg_desc": "Shockpot readings from rear left and rear right",
+          "signals": [
+            {
+              "sig_name": "left",
+              "sig_desc": "Length of rear left shockpot",
+              "type": "uint16_t",
+              "unit": "mm",
+              "scale": 0.01
+            },
+            {
+              "sig_name": "right",
+              "sig_desc": "Length of rear right shockpot",
+              "type": "uint16_t",
+              "unit": "mm",
+              "scale": 0.01
+            }
+          ],
+          "msg_period": 10,
+          "msg_priority": 5
+        },
+        {
+          "msg_name": "front_oil_temps",
+          "msg_desc": "oil temps from front",
+          "signals": [
+            {
+              "sig_name": "left",
+              "sig_desc": "Oil temp in front left gearbox",
+              "type": "int16_t",
+              "unit": "C",
+              "scale": 0.01
+            },
+            {
+              "sig_name": "right",
+              "sig_desc": "Oil temp in front right gearbox",
+              "type": "int16_t",
+              "unit": "C",
+              "scale": 0.01
+            }
+          ],
+          "msg_priority": 3,
+          "msg_period": 1000
+        },
+        {
+          "msg_name": "rear_oil_temps",
+          "msg_desc": "oil temps from rear",
+          "signals": [
+            {
+              "sig_name": "left",
+              "sig_desc": "Oil temp in rear left gearbox",
+              "type": "int16_t",
+              "unit": "C",
+              "scale": 0.01
+            },
+            {
+              "sig_name": "right",
+              "sig_desc": "Oil temp in rear right gearbox",
+              "type": "int16_t",
+              "unit": "C",
+              "scale": 0.01
+            }
+          ],
+          "msg_priority": 3,
+          "msg_period": 1000
+        },
+        {
+          "msg_name": "front_brake_pressure",
+          "msg_desc": "Brake pressure from front",
+          "signals": [
+            {
+              "sig_name": "left",
+              "sig_desc": "Brake pressure from front left",
+              "type": "int16_t",
+              "unit": "bar",
+              "scale": 0.1
+            },
+            {
+              "sig_name": "right",
+              "sig_desc": "Brake pressure from front right",
+              "type": "int16_t",
+              "unit": "bar",
+              "scale": 0.1
+            }
+          ],
+          "msg_priority": 3,
+          "msg_period": 5000
+        },
+        {
+          "msg_name": "rear_brake_pressure",
+          "msg_desc": "Brake pressure from rear",
+          "signals": [
+            {
+              "sig_name": "left",
+              "sig_desc": "Brake pressure from rear left",
+              "type": "int16_t",
+              "unit": "bar",
+              "scale": 0.1
+            },
+            {
+              "sig_name": "right",
+              "sig_desc": "Brake pressure from rear right",
+              "type": "int16_t",
+              "unit": "bar",
+              "scale": 0.1
+            }
+          ],
+          "msg_priority": 3,
+          "msg_period": 5000
+        },
+        {
+          "msg_name": "front_driveline_version",
+          "msg_desc": "Front Driveline Version",
+          "signals": [
+            {
+              "sig_name": "git_hash",
+              "type": "uint32_t",
+              "sig_desc": "int representation of git short hash"
+            }
+          ],
+          "msg_priority": 5,
+          "msg_period": 5000
+        },
+        {
+          "msg_name": "rear_driveline_version",
+          "msg_desc": "Rear Driveline Version",
+          "signals": [
+            {
+              "sig_name": "git_hash",
+              "type": "uint32_t",
+              "sig_desc": "int representation of git short hash"
+            }
+          ],
+          "msg_priority": 5,
+          "msg_period": 5000
         }
-    },
-    "fault_library_enabled": false
+      ],
+      "rx": []
+    }
+  },
+  "fault_library_enabled": false
 }

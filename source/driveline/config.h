@@ -22,11 +22,14 @@
 #ifdef IS_FRONT_DRIVELINE
 #define SEND_SHOCKPOTS CAN_SEND_front_shockpots
 #define SEND_OIL_TEMPS CAN_SEND_front_oil_temps
+#define SEND_BRAKE_PRESSURE CAN_SEND_front_brake_pressure
 #endif
 
 #ifdef IS_REAR_DRIVELINE
 #define SEND_SHOCKPOTS CAN_SEND_rear_shockpots
 #define SEND_OIL_TEMPS CAN_SEND_rear_oil_temps
+#define SEND_BRAKE_PRESSURE CAN_SEND_rear_brake_pressure
+
 #endif
 
 #endif // CONFIG_H

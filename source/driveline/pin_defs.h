@@ -37,4 +37,15 @@
 #define OIL_TEMP_R_Pin       (1)
 #define OIL_TEMP_R_ADC_CH    (2)
 
+// Brake Pressure
+
+// Brake Pressure
+#define BRAKE_PRESSURE_R_GPIO_Port (GPIOA)
+#define BRAKE_PRESSURE_R_Pin       (3)
+#define BRAKE_PRESSURE_R_ADC_CH (4)
+
+#define BRAKE_PRESSURE_L_GPIO_Port (GPIOA)
+#define BRAKE_PRESSURE_L_Pin       (4)
+#define BRAKE_PRESSURE_L_ADC_CH (17)
+
 #endif // PIN_DEFS_H

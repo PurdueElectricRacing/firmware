@@ -1,4 +1,11 @@
 
+/**
+ * @file nav_pvt.c
+ * @brief UBX NAV-PVT message definition and decoder function.
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include <stdint.h>
 #include <string.h>
 #include "nav_pvt.h"

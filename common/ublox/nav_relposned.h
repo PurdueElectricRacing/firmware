@@ -1,6 +1,13 @@
 #ifndef NAV_RELPOSNED_H
 #define NAV_RELPOSNED_H
 
+/**
+ * @file nav_relposned.h
+ * @brief UBX NAV-RELPOSNED message definition and decoder function.
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include <stdint.h>
 #include <stddef.h>
 

@@ -1,3 +1,10 @@
+/**
+ * @file nav_relposned.c
+ * @brief UBX NAV-RELPOSNED message definition and decoder function.
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include "nav_relposned.h"
 #include <string.h>
 

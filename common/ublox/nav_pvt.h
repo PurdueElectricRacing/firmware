@@ -1,6 +1,13 @@
 #ifndef NAV_PVT_H
 #define NAV_PVT_H
 
+/**
+ * @file nav_pvt.h
+ * @brief UBX NAV-PVT message definition and decoder function.
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include <stdint.h>
 #include <stddef.h>
 

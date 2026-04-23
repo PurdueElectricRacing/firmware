@@ -1,6 +1,6 @@
-set(TARGET_NAME GPS)
+set(TARGET_NAME UBLOX)
 add_library(${TARGET_NAME} INTERFACE)
 
-target_sources(${TARGET_NAME} INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/gps.c")
+target_sources(${TARGET_NAME} INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/nav_pvt.c")
 
 target_include_directories(${TARGET_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})

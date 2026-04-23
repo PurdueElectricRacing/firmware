@@ -16,8 +16,8 @@
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "common/heartbeat/heartbeat.h"
-
-extern void initialize_calibration(void);
+#include "common/phal/usart.h"
+#include "common/ublox/nav_pvt.h"
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -34,6 +34,15 @@ GPIOInitConfig_t gpio_config[] = {
     // ! these pin are erroneously swapped on the schematic
     // GPIO_INIT_FDCAN1TX_PA12,
     // GPIO_INIT_FDCAN1RX_PA11,
+
+    // Base GPS UART
+    GPIO_INIT_USART1TX_PA9,
+    GPIO_INIT_USART1RX_PA10,
+
+    // Rover GPS UART
+    GPIO_INIT_USART3RX_PB11,
+    GPIO_INIT_USART3TX_PB10,
+    GPIO_INIT_OUTPUT(ROVER_RESET_PORT, ROVER_RESET_PIN, GPIO_OUTPUT_LOW_SPEED)
 };
 
 static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
@@ -52,16 +61,38 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
+// USART Configuration for GPS
+static constexpr uint32_t GPS_BAUD_RATE = 115'200;
+dma_init_t rover_tx_dma_config = USART3_TXDMA_CONT_CONFIG(NULL, 2);
+dma_init_t rover_rx_dma_config = USART3_RXDMA_CONT_CONFIG(NULL, 1);
+usart_init_t usart3 = {
+    .baud_rate        = GPS_BAUD_RATE,
+    .word_length      = WORD_8,
+    .stop_bits        = SB_ONE,
+    .parity           = PT_NONE,
+    .hw_flow_ctl      = HW_DISABLE,
+    .ovsample         = OV_16,
+    .obsample         = OB_DISABLE,
+    .periph           = USART3,
+    .wake_addr        = false,
+    .usart_active_num = USART3_ACTIVE_IDX,
+    .tx_dma_cfg       = &rover_tx_dma_config,
+    .rx_dma_cfg       = &rover_rx_dma_config,
+};
+volatile uint8_t rover_gps_rx_buffer[100] = {0}; // Buffer for GPS data reception
+NAV_PVT_data_t nav_pvt = {0};
 
 extern void HardFault_Handler(void);
+extern void initialize_calibration(void);
 
-void ledblink() {
-    PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
+void gps_periodic() {
+    NAV_PVT_decode(&nav_pvt, (uint8_t *)rover_gps_rx_buffer);
 }
 
 // Thread Defines
-DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 15, osPriorityNormal, STACK_2048);
+DEFINE_TASK(CAN_rx_update, 1, osPriorityHigh, STACK_2048);
+DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048);
+DEFINE_TASK(gps_periodic, 100, osPriorityLow, STACK_1024);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 // VCU Data
@@ -77,7 +108,12 @@ int main(void) {
     if (false == PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
         HardFault_Handler();
     }
-
+    if (false == PHAL_initUSART(&usart3, APB1ClockRateHz)) {
+        HardFault_Handler();
+    }
+    if (false == PHAL_usartRxDma(&usart3, (uint8_t *)rover_gps_rx_buffer, sizeof(rover_gps_rx_buffer), 1)) {
+        HardFault_Handler();
+    }
     if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
@@ -87,11 +123,14 @@ int main(void) {
     NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
 
+    PHAL_writeGPIO(ROVER_RESET_PORT, ROVER_RESET_PIN, 1);
+
     // Software Initialization
     osKernelInitialize();
 
     START_TASK(CAN_rx_update);
     START_TASK(CAN_tx_update);
+    START_TASK(gps_periodic);
     START_HEARTBEAT_TASK();
 
     // TV initialization (will break watchdog)
@@ -103,8 +142,6 @@ int main(void) {
 
     // no way home
     osKernelStart();
-
-
 
     return 0;
 }

@@ -182,6 +182,21 @@ static inline bool PHAL_readGPIO(GPIO_TypeDef *bank, uint8_t pin) {
                  GPIO_OUTPUT_OPEN_DRAIN, \
                  GPIO_INPUT_OPEN_DRAIN)
 
+#define GPIO_INIT_USART3TX_PB10 \
+    GPIO_INIT_AF(GPIOB, \
+                 10, \
+                 7, \
+                 GPIO_OUTPUT_ULTRA_SPEED, \
+                 GPIO_OUTPUT_PUSH_PULL, \
+                 GPIO_INPUT_OPEN_DRAIN)
+#define GPIO_INIT_USART3RX_PB11 \
+    GPIO_INIT_AF(GPIOB, \
+                 11, \
+                 7, \
+                 GPIO_OUTPUT_ULTRA_SPEED, \
+                 GPIO_OUTPUT_OPEN_DRAIN, \
+                 GPIO_INPUT_OPEN_DRAIN)
+
 #define GPIO_INIT_USART2TX_PA2 \
     GPIO_INIT_AF(GPIOA, 2, 7, GPIO_OUTPUT_ULTRA_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN)
 #define GPIO_INIT_USART2RX_PA3 \

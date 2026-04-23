@@ -114,25 +114,30 @@ $(function(){initNavTree('torque__vector_2main_8c.html',''); initResizable(true)
 <code>#include &quot;common/phal/gpio.h&quot;</code><br />
 <code>#include &quot;common/phal/rcc.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="heartbeat_8h_source.html">common/heartbeat/heartbeat.h</a>&quot;</code><br />
+<code>#include &quot;common/phal/usart.h&quot;</code><br />
+<code>#include &quot;common/ublox/nav_pvt.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a2bffc10d5bd4106753b7c30e86903bea" id="r_a2bffc10d5bd4106753b7c30e86903bea"><td class="memItemLeft" align="right" valign="top"><a id="a2bffc10d5bd4106753b7c30e86903bea" name="a2bffc10d5bd4106753b7c30e86903bea"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>HardFault_Handler</b> (void)</td></tr>
+<tr class="separator:a2bffc10d5bd4106753b7c30e86903bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3da0b33ad58b4a9b357b9ae12a3707b6" id="r_a3da0b33ad58b4a9b357b9ae12a3707b6"><td class="memItemLeft" align="right" valign="top"><a id="a3da0b33ad58b4a9b357b9ae12a3707b6" name="a3da0b33ad58b4a9b357b9ae12a3707b6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>initialize_calibration</b> (void)</td></tr>
 <tr class="memdesc:a3da0b33ad58b4a9b357b9ae12a3707b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the IMU decoupling calibration data structures and state. <br /></td></tr>
 <tr class="separator:a3da0b33ad58b4a9b357b9ae12a3707b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bffc10d5bd4106753b7c30e86903bea" id="r_a2bffc10d5bd4106753b7c30e86903bea"><td class="memItemLeft" align="right" valign="top"><a id="a2bffc10d5bd4106753b7c30e86903bea" name="a2bffc10d5bd4106753b7c30e86903bea"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>HardFault_Handler</b> (void)</td></tr>
-<tr class="separator:a2bffc10d5bd4106753b7c30e86903bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d45d2638da49ff751c95786863b9087" id="r_a4d45d2638da49ff751c95786863b9087"><td class="memItemLeft" align="right" valign="top"><a id="a4d45d2638da49ff751c95786863b9087" name="a4d45d2638da49ff751c95786863b9087"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ledblink</b> ()</td></tr>
-<tr class="separator:a4d45d2638da49ff751c95786863b9087"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2affa98a476a899af886fd2cc19bf28" id="r_ab2affa98a476a899af886fd2cc19bf28"><td class="memItemLeft" align="right" valign="top"><a id="ab2affa98a476a899af886fd2cc19bf28" name="ab2affa98a476a899af886fd2cc19bf28"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (CAN_rx_update, 0, osPriorityHigh, STACK_2048)</td></tr>
-<tr class="separator:ab2affa98a476a899af886fd2cc19bf28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f9890fd47ebf9f172dcf8e1984bc18c" id="r_a0f9890fd47ebf9f172dcf8e1984bc18c"><td class="memItemLeft" align="right" valign="top"><a id="a0f9890fd47ebf9f172dcf8e1984bc18c" name="a0f9890fd47ebf9f172dcf8e1984bc18c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (CAN_tx_update, 15, osPriorityNormal, STACK_2048)</td></tr>
-<tr class="separator:a0f9890fd47ebf9f172dcf8e1984bc18c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b65679cdab3d705d64eaee937b7fc52" id="r_a6b65679cdab3d705d64eaee937b7fc52"><td class="memItemLeft" align="right" valign="top"><a id="a6b65679cdab3d705d64eaee937b7fc52" name="a6b65679cdab3d705d64eaee937b7fc52"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>gps_periodic</b> ()</td></tr>
+<tr class="separator:a6b65679cdab3d705d64eaee937b7fc52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e6651fd5345ba7f914a06f3bf4c49c7" id="r_a2e6651fd5345ba7f914a06f3bf4c49c7"><td class="memItemLeft" align="right" valign="top"><a id="a2e6651fd5345ba7f914a06f3bf4c49c7" name="a2e6651fd5345ba7f914a06f3bf4c49c7"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (CAN_rx_update, 1, osPriorityHigh, STACK_2048)</td></tr>
+<tr class="separator:a2e6651fd5345ba7f914a06f3bf4c49c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2afbb531579394cd620a515183452cb6" id="r_a2afbb531579394cd620a515183452cb6"><td class="memItemLeft" align="right" valign="top"><a id="a2afbb531579394cd620a515183452cb6" name="a2afbb531579394cd620a515183452cb6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (CAN_tx_update, 2, osPriorityNormal, STACK_2048)</td></tr>
+<tr class="separator:a2afbb531579394cd620a515183452cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc4b5eead7ad24448c08a1d34070baf4" id="r_abc4b5eead7ad24448c08a1d34070baf4"><td class="memItemLeft" align="right" valign="top"><a id="abc4b5eead7ad24448c08a1d34070baf4" name="abc4b5eead7ad24448c08a1d34070baf4"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (gps_periodic, 100, osPriorityLow, STACK_1024)</td></tr>
+<tr class="separator:abc4b5eead7ad24448c08a1d34070baf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a845eaf447179a8baf75c69794c49856d" id="r_a845eaf447179a8baf75c69794c49856d"><td class="memItemLeft" align="right" valign="top"><a id="a845eaf447179a8baf75c69794c49856d" name="a845eaf447179a8baf75c69794c49856d"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_HEARTBEAT_TASK</b> (nullptr)</td></tr>
 <tr class="separator:a845eaf447179a8baf75c69794c49856d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,6 +163,20 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>AHBClockRateHz</b
 <tr class="memitem:aac132aa42c20a1d3744db9df04f31c54" id="r_aac132aa42c20a1d3744db9df04f31c54"><td class="memItemLeft" align="right" valign="top"><a id="aac132aa42c20a1d3744db9df04f31c54" name="aac132aa42c20a1d3744db9df04f31c54"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>PLLClockRateHz</b></td></tr>
 <tr class="separator:aac132aa42c20a1d3744db9df04f31c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a291ebde75dfbcaa1c7330dc473450812" id="r_a291ebde75dfbcaa1c7330dc473450812"><td class="memItemLeft" align="right" valign="top"><a id="a291ebde75dfbcaa1c7330dc473450812" name="a291ebde75dfbcaa1c7330dc473450812"></a>
+<a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>rover_tx_dma_config</b> = USART3_TXDMA_CONT_CONFIG(NULL, 2)</td></tr>
+<tr class="separator:a291ebde75dfbcaa1c7330dc473450812"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a234e9400810f03d0d93399841bef5fab" id="r_a234e9400810f03d0d93399841bef5fab"><td class="memItemLeft" align="right" valign="top"><a id="a234e9400810f03d0d93399841bef5fab" name="a234e9400810f03d0d93399841bef5fab"></a>
+<a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>rover_rx_dma_config</b> = USART3_RXDMA_CONT_CONFIG(NULL, 1)</td></tr>
+<tr class="separator:a234e9400810f03d0d93399841bef5fab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f2e2f846b93d9e8a93eb0cd40c13638" id="r_a7f2e2f846b93d9e8a93eb0cd40c13638"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structusart__init__t.html">usart_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f2e2f846b93d9e8a93eb0cd40c13638">usart3</a></td></tr>
+<tr class="separator:a7f2e2f846b93d9e8a93eb0cd40c13638"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53cc1964541ec05dd08c0d146375e2f2" id="r_a53cc1964541ec05dd08c0d146375e2f2"><td class="memItemLeft" align="right" valign="top"><a id="a53cc1964541ec05dd08c0d146375e2f2" name="a53cc1964541ec05dd08c0d146375e2f2"></a>
+volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>rover_gps_rx_buffer</b> [100] = {0}</td></tr>
+<tr class="separator:a53cc1964541ec05dd08c0d146375e2f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a645cb19c4f1bb0b1d1f8d2186ddf8ecb" id="r_a645cb19c4f1bb0b1d1f8d2186ddf8ecb"><td class="memItemLeft" align="right" valign="top"><a id="a645cb19c4f1bb0b1d1f8d2186ddf8ecb" name="a645cb19c4f1bb0b1d1f8d2186ddf8ecb"></a>
+<a class="el" href="structNAV__PVT__data__t.html">NAV_PVT_data_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>nav_pvt</b> = {0}</td></tr>
+<tr class="separator:a645cb19c4f1bb0b1d1f8d2186ddf8ecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>"Torque Vector" node source code </p>
@@ -210,8 +229,51 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>PLLClockRateHz</b
 <div class="line">    </div>
 <div class="line">    </div>
 <div class="line">    </div>
+<div class="line"> </div>
+<div class="line">    </div>
+<div class="line">    GPIO_INIT_USART1TX_PA9,</div>
+<div class="line">    GPIO_INIT_USART1RX_PA10,</div>
+<div class="line"> </div>
+<div class="line">    </div>
+<div class="line">    GPIO_INIT_USART3RX_PB11,</div>
+<div class="line">    GPIO_INIT_USART3TX_PB10,</div>
+<div class="line"> </div>
 <div class="line">}</div>
 <div class="ttc" id="aphal__F4__F7_2gpio_2gpio_8h_html_a3e9b27b94f7c10702f9a82a6b87d31a5"><div class="ttname"><a href="phal__F4__F7_2gpio_2gpio_8h.html#a3e9b27b94f7c10702f9a82a6b87d31a5">GPIO_INIT_OUTPUT</a></div><div class="ttdeci">#define GPIO_INIT_OUTPUT(gpio_bank, pin_num, ospeed_sel)</div><div class="ttdoc">Create GPIO Init struct to intilize a GPIO pin for output.</div><div class="ttdef"><b>Definition</b> gpio.h:131</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a7f2e2f846b93d9e8a93eb0cd40c13638" name="a7f2e2f846b93d9e8a93eb0cd40c13638"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f2e2f846b93d9e8a93eb0cd40c13638">&#9670;&#160;</a></span>usart3</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structusart__init__t.html">usart_init_t</a> usart3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .baud_rate        = GPS_BAUD_RATE,</div>
+<div class="line">    .word_length      = <a class="code hl_enumvalue" href="phal__F4__F7_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a>,</div>
+<div class="line">    .stop_bits        = <a class="code hl_enumvalue" href="phal__F4__F7_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a>,</div>
+<div class="line">    .parity           = <a class="code hl_enumvalue" href="phal__F4__F7_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398">PT_NONE</a>,</div>
+<div class="line">    .hw_flow_ctl      = <a class="code hl_enumvalue" href="phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a>,</div>
+<div class="line">    .ovsample         = <a class="code hl_enumvalue" href="phal__F4__F7_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a>,</div>
+<div class="line">    .obsample         = <a class="code hl_enumvalue" href="phal__F4__F7_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a>,</div>
+<div class="line">    .periph           = USART3,</div>
+<div class="line">    .wake_addr        = <span class="keyword">false</span>,</div>
+<div class="line">    .usart_active_num = USART3_ACTIVE_IDX,</div>
+<div class="line">    .tx_dma_cfg       = &amp;rover_tx_dma_config,</div>
+<div class="line">    .rx_dma_cfg       = &amp;rover_rx_dma_config,</div>
+<div class="line">}</div>
+<div class="ttc" id="aphal__F4__F7_2usart_2usart_8h_html_a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027"><div class="ttname"><a href="phal__F4__F7_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a></div><div class="ttdeci">@ WORD_8</div><div class="ttdoc">8-Bit word length</div><div class="ttdef"><b>Definition</b> usart.h:65</div></div>
+<div class="ttc" id="aphal__F4__F7_2usart_2usart_8h_html_a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6"><div class="ttname"><a href="phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a></div><div class="ttdeci">@ HW_DISABLE</div><div class="ttdoc">Hardware flow control disable.</div><div class="ttdef"><b>Definition</b> usart.h:77</div></div>
+<div class="ttc" id="aphal__F4__F7_2usart_2usart_8h_html_a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b"><div class="ttname"><a href="phal__F4__F7_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b">OB_DISABLE</a></div><div class="ttdeci">@ OB_DISABLE</div><div class="ttdoc">Disable one bit sampling.</div><div class="ttdef"><b>Definition</b> usart.h:89</div></div>
+<div class="ttc" id="aphal__F4__F7_2usart_2usart_8h_html_a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398"><div class="ttname"><a href="phal__F4__F7_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398">PT_NONE</a></div><div class="ttdeci">@ PT_NONE</div><div class="ttdoc">Disable Parity bits.</div><div class="ttdef"><b>Definition</b> usart.h:61</div></div>
+<div class="ttc" id="aphal__F4__F7_2usart_2usart_8h_html_a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da"><div class="ttname"><a href="phal__F4__F7_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a></div><div class="ttdeci">@ SB_ONE</div><div class="ttdoc">One Stop bit.</div><div class="ttdef"><b>Definition</b> usart.h:70</div></div>
+<div class="ttc" id="aphal__F4__F7_2usart_2usart_8h_html_a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6"><div class="ttname"><a href="phal__F4__F7_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a></div><div class="ttdeci">@ OV_16</div><div class="ttdoc">Oversample by 16.</div><div class="ttdef"><b>Definition</b> usart.h:84</div></div>
 </div><!-- fragment -->
 </div>
 </div>

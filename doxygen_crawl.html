@@ -13,7 +13,6 @@
 <a href="common__defs_8h_source.html"/>
 <a href="freertos_8h_source.html"/>
 <a href="FreeRTOSConfig_8h_source.html"/>
-<a href="gps_8h_source.html"/>
 <a href="heartbeat_8h_source.html"/>
 <a href="izze__imu_8h_source.html"/>
 <a href="lerp__lut_8h_source.html"/>
@@ -54,6 +53,7 @@
 <a href="sdio_8h_source.html"/>
 <a href="strbuf_8h_source.html"/>
 <a href="syscalls_8h_source.html"/>
+<a href="nav__pvt_8h_source.html"/>
 <a href="abs_8h_source.html"/>
 <a href="linear__algebra_8h_source.html"/>
 <a href="max_8h_source.html"/>
@@ -105,8 +105,6 @@
 <a href="common__defs_8h.html"/>
 <a href="freertos_8c.html"/>
 <a href="freertos_8h.html"/>
-<a href="gps_8c.html"/>
-<a href="gps_8h.html"/>
 <a href="heartbeat_8c.html"/>
 <a href="heartbeat_8h.html"/>
 <a href="lerp__lut_8c.html"/>
@@ -283,8 +281,6 @@
 <a href="structfeet__t-members.html"/>
 <a href="structGPIOInitConfig__t.html"/>
 <a href="structGPIOInitConfig__t-members.html"/>
-<a href="structGPS__Handle__t.html"/>
-<a href="structGPS__Handle__t-members.html"/>
 <a href="structgrams__t.html"/>
 <a href="structgrams__t-members.html"/>
 <a href="structhours__t.html"/>
@@ -321,8 +317,8 @@
 <a href="structmph__t-members.html"/>
 <a href="structmps__t.html"/>
 <a href="structmps__t-members.html"/>
-<a href="structNAV__PVT__t.html"/>
-<a href="structNAV__PVT__t-members.html"/>
+<a href="structNAV__PVT__data__t.html"/>
+<a href="structNAV__PVT__data__t-members.html"/>
 <a href="structpage__handler__t.html"/>
 <a href="structpage__handler__t-members.html"/>
 <a href="structpascals__t.html"/>
@@ -424,7 +420,6 @@
 <a href="dir_044aef65200486a75d86f593c39f6fb0.html"/>
 <a href="dir_04b1000628f0abbd00e8faa894aff149.html"/>
 <a href="dir_09a3e892158f418cf818062ef1a7d448.html"/>
-<a href="dir_75090a41b2477eee887f7599f1bd926e.html"/>
 <a href="dir_563894f7215726e0b3ecac9d309826e0.html"/>
 <a href="dir_3d869cf79cc855611296189de4de01e3.html"/>
 <a href="dir_c55563ae3dd665c8fbfd7e63a14aea43.html"/>
@@ -452,6 +447,7 @@
 <a href="dir_1ce6f96d2d04ccccac1834bfcdb7bdde.html"/>
 <a href="dir_1f58a266b0235ff01a1a3d64d0bb7dc7.html"/>
 <a href="dir_4d7522402bdc013effffc7486e0cdc4d.html"/>
+<a href="dir_961b758cd052750ea8bbc705926feacf.html"/>
 <a href="dir_3e9ad6a2ba4bb2a288fbfa2c753c225f.html"/>
 <a href="dir_040ae95eb02d4c973a6128ffff704b5a.html"/>
 <a href="dir_78ced1629e7c7113e29289d1061ff914.html"/>
@@ -743,13 +739,13 @@
 <a href="dir_58db63217748590974291dcef374365a.html"/>
 <a href="dir_64afa103a080406df3b8f11fe3f238ba.html"/>
 <a href="dir_6bd8692ac8326d2f6b10c3d83e4ae569.html"/>
-<a href="dir_75090a41b2477eee887f7599f1bd926e.html"/>
 <a href="dir_76465991e619dc15dab2652a198a2763.html"/>
 <a href="dir_779b9deccfc03a296e3883562e470c2a.html"/>
 <a href="dir_7d1268d878ebb53f0d1f03000315f147.html"/>
 <a href="dir_85effdddc426fd82e3610be0948fd413.html"/>
 <a href="dir_87b6c12181ecd41350adad5e9f064798.html"/>
 <a href="dir_92cd89fe1a7f4ffa14caa98c8985cc29.html"/>
+<a href="dir_961b758cd052750ea8bbc705926feacf.html"/>
 <a href="dir_9d9eb10f0bbaade9ac8f82a0e05a480b.html"/>
 <a href="dir_a2e1dcf6fda5ea83ea456c15f5f86ae9.html"/>
 <a href="dir_a3c0d50f55deba8c32b4e660038b52ec.html"/>
@@ -838,10 +834,6 @@
 <a href="globals_s.html"/>
 <a href="globals_u.html"/>
 <a href="globals_w.html"/>
-<a href="gps_8c.html"/>
-<a href="gps_8c.html#a8aa2ccfc6bae9091b677a8a1ad4b69a3"/>
-<a href="gps_8h.html"/>
-<a href="gps_8h.html#a8aa2ccfc6bae9091b677a8a1ad4b69a3"/>
 <a href="heartbeat_8c.html"/>
 <a href="heartbeat_8h.html"/>
 <a href="heartbeat_8h.html#ad40088e79e8c996b0974ded98e470497"/>
@@ -959,6 +951,7 @@
 <a href="menu__system_8h.html#abb6e83f43c566270750060807da99fa4"/>
 <a href="menu__system_8h.html#ad29034f2b375212cc2bb9d4ef615583d"/>
 <a href="min_8h.html"/>
+<a href="nav__pvt_8h_source.html"/>
 <a href="nextion_8c.html"/>
 <a href="nextion_8c.html#a03b977180b40a84a35a22cec5211d146"/>
 <a href="nextion_8c.html#a19c3df8972af2eaea366cb65fad34d43"/>
@@ -1218,9 +1211,8 @@
 <a href="structCanMsgTypeDef__t.html#a9dea647c93d4bef0e061c85ad3b5cfa0"/>
 <a href="structClockRateConfig__t.html"/>
 <a href="structGPIOInitConfig__t.html"/>
-<a href="structGPS__Handle__t.html"/>
 <a href="structIMU__data__t.html"/>
-<a href="structNAV__PVT__t.html"/>
+<a href="structNAV__PVT__data__t.html"/>
 <a href="structPHAL__SD__Cmd__t.html"/>
 <a href="structPHAL__SD__Cmd__t.html#ad9628bf702ae01d6b16fa4179417bf56"/>
 <a href="structPHAL__SD__Cmd__t.html#ae1119095bd6a8e4a24627b97fe818eaa"/>

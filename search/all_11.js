@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['nav_5fpvt_5ft_0',['NAV_PVT_t',['../structNAV__PVT__t.html',1,'']]],
+  ['nav_5fpvt_5fdata_5ft_0',['NAV_PVT_data_t',['../structNAV__PVT__data__t.html',1,'']]],
   ['new_20terminal_1',['Open a new terminal',['../md_docs_2setup.html#autotoc_md58',1,'']]],
   ['nextion_2ec_2',['nextion.c',['../nextion_8c.html',1,'']]],
   ['nextion_2eh_3',['nextion.h',['../nextion_8h.html',1,'']]],

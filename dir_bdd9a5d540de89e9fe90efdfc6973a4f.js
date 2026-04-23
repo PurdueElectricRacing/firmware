@@ -5,7 +5,6 @@ var dir_bdd9a5d540de89e9fe90efdfc6973a4f =
     [ "bmi088", "dir_3b210a51bdfb7207c4ccc3bce16efa01.html", "dir_3b210a51bdfb7207c4ccc3bce16efa01" ],
     [ "common_defs", "dir_d14dad6d4dd0a53ace723c1f049478ea.html", "dir_d14dad6d4dd0a53ace723c1f049478ea" ],
     [ "freertos", "dir_26279b31032f3838120ccd2327025368.html", "dir_26279b31032f3838120ccd2327025368" ],
-    [ "gps", "dir_75090a41b2477eee887f7599f1bd926e.html", "dir_75090a41b2477eee887f7599f1bd926e" ],
     [ "heartbeat", "dir_563894f7215726e0b3ecac9d309826e0.html", "dir_563894f7215726e0b3ecac9d309826e0" ],
     [ "izze_imu", "dir_3d869cf79cc855611296189de4de01e3.html", "dir_3d869cf79cc855611296189de4de01e3" ],
     [ "lerp_lut", "dir_f0d476005fd60c6020cb81dc0b85194b.html", "dir_f0d476005fd60c6020cb81dc0b85194b" ],
@@ -16,5 +15,6 @@ var dir_bdd9a5d540de89e9fe90efdfc6973a4f =
     [ "sdio", "dir_6bd8692ac8326d2f6b10c3d83e4ae569.html", "dir_6bd8692ac8326d2f6b10c3d83e4ae569" ],
     [ "strbuf", "dir_b326de142a01610c2e2fbdc361522621.html", "dir_b326de142a01610c2e2fbdc361522621" ],
     [ "syscalls", "dir_1ce6f96d2d04ccccac1834bfcdb7bdde.html", "dir_1ce6f96d2d04ccccac1834bfcdb7bdde" ],
+    [ "ublox", "dir_961b758cd052750ea8bbc705926feacf.html", "dir_961b758cd052750ea8bbc705926feacf" ],
     [ "utils", "dir_85effdddc426fd82e3610be0948fd413.html", "dir_85effdddc426fd82e3610be0948fd413" ]
 ];

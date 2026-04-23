@@ -56,22 +56,21 @@
                 {
                     "msg_name": "elcon_command",
                     "msg_desc": "Command from A_BOX to Elcon Charger (Message1)",
+                    "byte_order": "big_endian",
                     "signals": [
                         {
                             "sig_name": "voltage_limit",
                             "sig_desc": "Requested charge voltage in decivolts",
                             "unit": "V",
                             "scale": 0.1,
-                            "type": "uint16_t",
-                            "byte_order": "big_endian"
+                            "type": "uint16_t"
                         },
                         {
                             "sig_name": "current_limit",
                             "sig_desc": "Requested charge current in deciamps",
                             "unit": "A",
                             "scale": 0.1,
-                            "type": "uint16_t",
-                            "byte_order": "big_endian"
+                            "type": "uint16_t"
                         },
                         {
                             "sig_name": "charger_disable",

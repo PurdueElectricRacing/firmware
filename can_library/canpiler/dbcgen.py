@@ -60,7 +60,7 @@ def generate_dbcs(context: SystemContext):
                     name=sig.name,
                     start=sig.bit_offset,
                     length=sig.length,
-                    byte_order=sig.byte_order,
+                    byte_order=msg.byte_order,
                     is_signed=sig.is_signed,
                     conversion=conversion,
                     minimum=sig.min_val,
@@ -79,7 +79,8 @@ def generate_dbcs(context: SystemContext):
                 signals=signals,
                 comment=msg.desc,
                 is_extended_frame=msg.is_extended,
-                senders=[sender]
+                senders=[sender],
+                strict=False
             ))
         
         filename = f"{bus_name}_{git_hash}.dbc"

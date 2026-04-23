@@ -5,20 +5,19 @@
         {
             "msg_name": "elcon_status",
             "msg_desc": "Status message from Elcon Charger to A_BOX (Message2)",
+            "byte_order": "big_endian",
             "signals": [
                 {
                     "sig_name": "charge_voltage",
                     "unit": "V",
                     "scale": 0.1,
-                    "type": "uint16_t",
-                    "byte_order": "big_endian"
+                    "type": "uint16_t"
                 },
                 {
                     "sig_name": "charge_current",
                     "unit": "A",
                     "scale": 0.1,
-                    "type": "uint16_t",
-                    "byte_order": "big_endian"
+                    "type": "uint16_t"
                 },
                 {
                     "sig_name": "hw_fail",

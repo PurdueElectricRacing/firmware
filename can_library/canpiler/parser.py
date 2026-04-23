@@ -22,7 +22,6 @@ class Signal:
     length: int = 0
     unit: Optional[str] = None
     choices: Optional[List[str]] = None
-    byte_order: str = "little_endian"
     scale: float = 1.0
     offset: float = 0.0
     min_val: Optional[float] = None
@@ -68,6 +67,7 @@ class Message:
     period: int = 0
     id_override: Optional[str] = None
     is_extended: bool = False
+    byte_order: str = "little_endian"
     final_id: int = 0
     dlc: int = 0
     layout_hash: str = ""
@@ -86,17 +86,11 @@ class Message:
             length = sig.get_bit_length(custom_types)
             sig.length = length
             
-            if sig.byte_order == 'big_endian':
+            if self.byte_order == 'big_endian':
                 # Motorola/Big Endian bit numbering
-                # In DBC, for Motorola, the start bit refers to the MSB.
-                # Standard conversion: bit_offset = (byte_idx * 8) + (7 - bit_idx_in_byte)
-                # For our simple pack/unpack in code, we keep bit_shift the same 
-                # but we need to ensure bit_offset (for DBC) is correct.
-                # However, cantools expects the "DBC start bit" which for Motorola is MSB.
-                byte_idx = current_offset // 8
-                bit_idx_in_byte = current_offset % 8
-                # Map our linear bit 0..7 to 7..0, 8..15 to 15..8 etc for MSB-first
-                sig.bit_offset = (byte_idx * 8) + (7 - bit_idx_in_byte)
+                # Use linear bit offset (Sequential). 
+                # Linear 0 -> 0|16@0 (LSB=0, MSB=7 in Motorola DBC notation)
+                sig.bit_offset = current_offset
                 sig.bit_shift = current_offset
             else:
                 sig.bit_offset = current_offset
@@ -347,7 +341,6 @@ def parse_signal(data: Dict) -> Signal:
         length=data.get('length', 0),
         unit=data.get('unit'),
         choices=data.get('choices'),
-        byte_order=data.get('byte_order', 'little_endian'),
         scale=data.get('scale', 1.0),
         offset=data.get('offset', 0.0),
         min_val=data.get('min'),
@@ -365,6 +358,7 @@ def parse_message(data: Dict, bus_config: Dict) -> Message:
         priority=data['msg_priority'],
         period=data.get('msg_period', 0),
         id_override=data.get('msg_id_override'),
+        byte_order=data.get('byte_order', 'little_endian'),
         is_extended=is_extended
     )
 

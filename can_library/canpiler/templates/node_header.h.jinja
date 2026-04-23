@@ -69,7 +69,7 @@ static inline void CAN_rx_dispatcher(uint32_t id, uint8_t *data, uint8_t len, ui
                 memcpy(&host_data, data, len);
                 
                 {% for sig in msg.signals %}
-                {% if sig.byte_order == 'big_endian' %}
+                {% if msg.byte_order == 'big_endian' %}
                 // Motorola/Big Endian: Needs byte-swap for 16/32/64 bit signals
                 {% if sig.length == 16 %}
                 uint16_t sig_raw_{{ sig.name }} = (uint16_t)((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }});
@@ -150,7 +150,7 @@ static inline void CAN_SEND_{{ tx_msg.name }}(
     uint64_t data = 0;
     {% for sig in tx_msg.signals %}
     {% set val_to_pack = sig.name %}
-    {% if sig.byte_order == 'big_endian' %}
+    {% if tx_msg.byte_order == 'big_endian' %}
     {% if sig.length == 16 %}
     uint16_t {{ sig.name }}_packed = __builtin_bswap16((uint16_t){{ sig.name }});
     {% set val_to_pack = sig.name + "_packed" %}

@@ -12,6 +12,7 @@
                 "msg_desc": { "type": "string" },
                 "msg_priority": { "type": "integer", "minimum": 0, "maximum": 5 },
                 "msg_period": { "type": "integer", "minimum": 0 },
+                "byte_order": { "enum": ["little_endian", "big_endian"], "default": "little_endian" },
                 "msg_id_override": { 
                     "type": "string",
                     "pattern": "^0x([0-1]?[0-9a-fA-F]{1,7}|[0-9a-fA-F]{1,7})$"

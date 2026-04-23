@@ -123,9 +123,6 @@ def validate_all() -> bool:
 if __name__ == "__main__":
     try:
         validate_all()
-    except ValidationError as e:
-        print_as_error(f"Validation error: {e}")
-        sys.exit(1)
     except Exception as e:
         print_as_error(f"Unexpected error: {e}")
         sys.exit(1)

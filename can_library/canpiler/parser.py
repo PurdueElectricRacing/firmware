@@ -5,7 +5,7 @@ Author: Irving Wang (irvingw@purdue.edu)
 """
 
 from dataclasses import dataclass, field
-from typing import List, Optional, Dict, Set
+from typing import List, Optional, Dict, Set, Literal
 from pathlib import Path
 from utils import (
     load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, 
@@ -67,7 +67,7 @@ class Message:
     period: int = 0
     id_override: Optional[str] = None
     is_extended: bool = False
-    byte_order: str = "little_endian"
+    byte_order: Literal["little_endian", "big_endian"] = "little_endian"
     final_id: int = 0
     dlc: int = 0
     layout_hash: str = ""

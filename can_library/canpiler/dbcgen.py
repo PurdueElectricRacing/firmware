@@ -3,10 +3,12 @@ dbcgen.py
 
 Author: Irving Wang (irvingw@purdue.edu)
 """
-
+from typing import Optional
+from collections import OrderedDict
 from parser import SystemContext
 from cantools import database
 from cantools.database.conversion import BaseConversion
+from cantools.database.can.signal import NamedSignalValue
 from utils import DBC_DIR, print_as_success, print_as_ok
 
 def generate_dbcs(context: SystemContext):
@@ -17,8 +19,8 @@ def generate_dbcs(context: SystemContext):
 
     # Ensure output directory exists and is clean
     if DBC_DIR.exists():
-        for f in DBC_DIR.glob("*.dbc"):
-            f.unlink()
+        for found_dbc_path in DBC_DIR.glob("*.dbc"):
+            found_dbc_path.unlink()
     DBC_DIR.mkdir(exist_ok=True)
 
     git_hash = context.version
@@ -39,15 +41,15 @@ def generate_dbcs(context: SystemContext):
             
             for sig in sorted_signals:
                 # Resolve choices (enums) for VAL_ table in DBC
-                choices = None
+                choices: Optional[OrderedDict[int, str | NamedSignalValue]] = None
                 if sig.choices:
-                    choices = {i: c for i, c in enumerate(sig.choices)}
+                    choices = OrderedDict((i, c) for i, c in enumerate(sig.choices))
                 elif sig.datatype in context.custom_types:
                     type_info = context.custom_types[sig.datatype]
                     if 'choices' in type_info:
-                        choices = {i: c for i, c in enumerate(type_info['choices'])}
+                        choices = OrderedDict((i, c) for i, c in enumerate(type_info['choices']))
                 elif sig.datatype == 'bool':
-                    choices = {0: "OFF", 1: "ON"}
+                    choices = OrderedDict({0: "OFF", 1: "ON"})
 
                 conversion = BaseConversion.factory(
                     scale=sig.scale,

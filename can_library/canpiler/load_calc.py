@@ -24,7 +24,7 @@ def calculate_bus_load(context: SystemContext):
     print("Bus Load Analysis:")
 
     for bus_name, bus_view in sorted(context.busses.items()):
-        total_bits_per_sec = 0
+        total_bits_per_sec = 0.0
         
         bus_config = context.bus_configs.get(bus_name, {})
         baud_rate = bus_config.get("baud_rate")

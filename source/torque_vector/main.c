@@ -17,7 +17,7 @@
 #include "common/phal/rcc.h"
 #include "common/heartbeat/heartbeat.h"
 #include "common/phal/usart.h"
-#include "nav_pvt.h"
+#include "common/ublox/nav_pvt.h"
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {

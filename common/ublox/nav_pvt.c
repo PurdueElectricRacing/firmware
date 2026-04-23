@@ -3,7 +3,7 @@
 #include <string.h>
 #include "nav_pvt.h"
 
-void NAV_PVT_decode(NAV_PVT_data_t *nav_pvt, uint8_t *rx_buffer) {
+void NAV_PVT_decode(NAV_PVT_data_t *nav_pvt, const uint8_t *rx_buffer) {
     bool is_header_valid =
         (rx_buffer[0] == UBX_NAV_PVT_HEADER_B0) &&
         (rx_buffer[1] == UBX_NAV_PVT_HEADER_B1) &&

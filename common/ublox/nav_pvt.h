@@ -2,6 +2,8 @@
 #define NAV_PVT_H
 
 #include <stdint.h>
+#include <stddef.h>
+
 typedef enum : uint8_t {
     GPS_VALID_DATE           = 0x01, // Valid UTC Date
     GPS_VALID_TIME           = 0x02, // Valid UTC Time
@@ -102,6 +104,6 @@ static constexpr uint8_t UBX_NAV_PVT_HEADER_B1 = 0x62; // UBX message header syn
 static constexpr uint8_t UBX_NAV_PVT_CLASS     = 0x01; // UBX message class for NAV-PVT
 static constexpr uint8_t UBX_NAV_PVT_MSG_ID    = 0x07; // UBX message ID for NAV-PVT
 
-void NAV_PVT_decode(NAV_PVT_data_t *nav_pvt, uint8_t *rx_buffer);
+void NAV_PVT_decode(NAV_PVT_data_t *nav_pvt, const uint8_t *rx_buffer);
 
 #endif // NAV_PVT_H

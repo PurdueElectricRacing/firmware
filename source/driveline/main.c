@@ -295,8 +295,8 @@ void brake_pressure_thread() {
     static constexpr float ADC_MAX      = 4095.0f;
     static constexpr float ADC_VREF     = 3.3f;
     static constexpr float ADC_TO_VOLTS = ADC_VREF / ADC_MAX;
-    static constexpr float OFFSET = 0.05f;
-    static constexpr float SENSITIVITY = 0.01538f;
+    static constexpr float OFFSET       = 0.05f;
+    static constexpr float SENSITIVITY  = 0.01538f;
 
     float brake_pressure_l_volts = raw_adc2_values.brake_pressure_left * ADC_TO_VOLTS;
     float brake_pressure_r_volts = raw_adc1_values.brake_pressure_right * ADC_TO_VOLTS;

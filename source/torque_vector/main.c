@@ -79,7 +79,7 @@ usart_init_t usart3 = {
     .tx_dma_cfg       = &rover_tx_dma_config,
     .rx_dma_cfg       = &rover_rx_dma_config,
 };
-volatile uint8_t rover_gps_rx_buffer[100] = {0}; // Buffer for GPS data reception
+volatile uint8_t rover_gps_rx_buffer[NAV_PVT_TOTAL_LENGTH] = {0}; // Buffer for GPS data reception
 NAV_PVT_data_t nav_pvt = {0};
 
 extern void HardFault_Handler(void);

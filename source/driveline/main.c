@@ -305,8 +305,6 @@ void brake_pressure_thread() {
     int16_t brake_pressure_r_bar = (int16_t) ((brake_pressure_r_volts - OFFSET) / SENSITIVITY);
 
     SEND_BRAKE_PRESSURE(brake_pressure_l_bar, brake_pressure_r_bar);
-
-
 }
 
 // todo reboot on hardfault

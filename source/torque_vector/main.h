@@ -22,7 +22,12 @@
 #define CONNECTION_LED_PORT (GPIOB)
 #define CONNECTION_LED_PIN  (3)
 
+// Rover GPS
 #define ROVER_RESET_PORT (GPIOB)
 #define ROVER_RESET_PIN  (1)
+
+// Base GPS
+#define BASE_RESET_PORT (GPIOB)
+#define BASE_RESET_PIN  (6)
 
 #endif

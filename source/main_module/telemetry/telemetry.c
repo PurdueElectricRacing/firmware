@@ -19,28 +19,28 @@ void report_telemetry_50hz() {
 }
 
 void report_telemetry_1hz() {
-    CAN_SEND_INVA_diagnostics(
+    CAN_SEND_inva_diagnostics(
         g_car.front_right.state,
         g_car.front_right.info->AMK_Status_bError,
         g_car.front_right.err1->AMK_DiagnosticNumber,
         g_car.front_right.info->AMK_Status_bInverterOn
     );
 
-    CAN_SEND_INVB_diagnostics(
+    CAN_SEND_invb_diagnostics(
         g_car.front_left.state,
         g_car.front_left.info->AMK_Status_bError,
         g_car.front_left.err1->AMK_DiagnosticNumber,
         g_car.front_left.info->AMK_Status_bInverterOn
     );
 
-    CAN_SEND_INVC_diagnostics(
+    CAN_SEND_invc_diagnostics(
         g_car.rear_left.state,
         g_car.rear_left.info->AMK_Status_bError,
         g_car.rear_left.err1->AMK_DiagnosticNumber,
         g_car.rear_left.info->AMK_Status_bInverterOn
     );
 
-    CAN_SEND_INVD_diagnostics(
+    CAN_SEND_invd_diagnostics(
         g_car.rear_right.state,
         g_car.rear_right.info->AMK_Status_bError,
         g_car.rear_right.err1->AMK_DiagnosticNumber,

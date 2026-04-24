@@ -27,14 +27,25 @@
 #include "pedals.h"
 
 GPIOInitConfig_t gpio_config[] = {
-    // Status Indicators
+    // On-board LEDs
     GPIO_INIT_OUTPUT(CONNECTION_LED_PORT, CONNECTION_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(ERROR_LED_PORT, ERROR_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
+
+    // External LEDs
     GPIO_INIT_OUTPUT_OPEN_DRAIN(PRCHG_LED_PORT, PRCHG_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT_OPEN_DRAIN(IMD_LED_PORT, IMD_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT_OPEN_DRAIN(BMS_LED_PORT, BMS_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_INPUT(START_BTN_GPIO_Port, START_BTN_Pin, GPIO_INPUT_PULL_UP),
+
+    // Main Button inputs
+    GPIO_INIT_INPUT(SELECT_BUTTON_PORT, SELECT_BUTTON_PIN, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(DOWN_BUTTON_PORT, DOWN_BUTTON_PIN, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(UP_BUTTON_PORT, UP_BUTTON_PIN, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(LEFT_BUTTON_PORT, LEFT_BUTTON_PIN, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(RIGHT_BUTTON_PORT, RIGHT_BUTTON_PIN, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(START_BUTTON_PORT, START_BUTTON_PIN, GPIO_INPUT_PULL_UP),
+
+    // todo steering wheel buttons
 
     // VCAN
     GPIO_INIT_FDCAN2RX_PB5,
@@ -44,25 +55,20 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_FDCAN3TX_PB4,
 
     // Throttle
-    GPIO_INIT_ANALOG(THTL_1_GPIO_Port, THTL_1_Pin),
-    GPIO_INIT_ANALOG(THTL_2_GPIO_Port, THTL_2_Pin),
+    GPIO_INIT_ANALOG(THROTTLE1_PORT, THROTTLE1_PIN),
+    GPIO_INIT_ANALOG(THROTTLE2_PORT, THROTTLE2_PIN),
 
     // Brake
-    GPIO_INIT_ANALOG(BRK_1_GPIO_Port, BRK_1_Pin),
-    GPIO_INIT_ANALOG(BRK_2_GPIO_Port, BRK_2_Pin),
+    GPIO_INIT_ANALOG(BRAKE1_PORT, BRAKE1_PIN),
+    GPIO_INIT_ANALOG(BRAKE2_PORT, BRAKE2_PIN),
+
+    // Brake Pressure
     GPIO_INIT_ANALOG(BRAKE1_PRESSURE_PORT, BRAKE1_PRESSURE_PIN),
     GPIO_INIT_ANALOG(BRAKE2_PRESSURE_PORT, BRAKE2_PRESSURE_PIN),
 
     // LCD
     GPIO_INIT_USART1TX_PA9,
     GPIO_INIT_USART1RX_PA10,
-
-    // Buttons/Switches
-    GPIO_INIT_INPUT(B_SELECT_GPIO_Port, B_SELECT_Pin, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_INPUT(B_DOWN_GPIO_Port, B_DOWN_Pin, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_INPUT(B_UP_GPIO_Port, B_UP_Pin, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_INPUT(B_LEFT_GPIO_Port, B_LEFT_Pin, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_INPUT(B_RIGHT_GPIO_Port, B_RIGHT_Pin, GPIO_INPUT_PULL_UP)
 };
 
 volatile raw_adc_values_t raw_adc_values;
@@ -78,10 +84,10 @@ ADCInitConfig_t adc_config = {
 };
 
 ADCChannelConfig_t adc_channel_config[] = {
-    {.channel = THTL_1_ADC_CHNL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = THTL_2_ADC_CHNL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = BRK_1_ADC_CHNL, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = BRK_2_ADC_CHNL, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = THROTTLE1_ADC_CHANNEL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = THROTTLE2_ADC_CHANNEL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = BRAKE1_ADC_CHANNEL, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = BRAKE2_ADC_CHANNEL, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = BRAKE1_PRESSURE_ADC_CHANNEL, .rank = 5, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = BRAKE2_PRESSURE_ADC_CHANNEL, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480}
 };
@@ -210,7 +216,7 @@ int main(void) {
 
 bool start_button_pressed = false;
 void service_start_button() {
-    start_button_pressed = PHAL_readGPIO(START_BTN_GPIO_Port, START_BTN_Pin);
+    start_button_pressed = PHAL_readGPIO(START_BUTTON_PORT, START_BUTTON_PIN);
     CAN_SEND_start_button(start_button_pressed);
 }
 

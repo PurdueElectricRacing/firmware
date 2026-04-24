@@ -46,72 +46,60 @@ typedef struct {
 #define ERROR_LED_PIN       (2)
 
 // External LEDs
-#define IMD_LED_PORT            (GPIOA)
-#define IMD_LED_PIN             (7)
-#define BMS_LED_PORT            (GPIOA)
-#define BMS_LED_PIN             (6)
-#define PRCHG_LED_PORT          (GPIOC)
-#define PRCHG_LED_PIN           (4)
-#define REGEN_LED_PORT          (GPIOC)
-#define REGEN_LED_PIN           (0)
+#define IMD_LED_PORT   (GPIOA)
+#define IMD_LED_PIN    (7)
+#define BMS_LED_PORT   (GPIOA)
+#define BMS_LED_PIN    (6)
+#define PRCHG_LED_PORT (GPIOC)
+#define PRCHG_LED_PIN  (4)
+#define REGEN_LED_PORT (GPIOC)
+#define REGEN_LED_PIN  (0)
 
-// Status Inputs
-#define START_BTN_GPIO_Port (GPIOB)
-#define START_BTN_Pin       (14)
+// Main Button inputs
+#define UP_BUTTON_PORT     (GPIOC)
+#define UP_BUTTON_PIN      (6)
+#define DOWN_BUTTON_PORT   (GPIOC)
+#define DOWN_BUTTON_PIN    (7)
+#define RIGHT_BUTTON_PORT  (GPIOC)
+#define RIGHT_BUTTON_PIN   (8)
+#define LEFT_BUTTON_PORT   (GPIOC)
+#define LEFT_BUTTON_PIN    (9)
+#define START_BUTTON_PORT  (GPIOB)
+#define START_BUTTON_PIN   (14)
+#define SELECT_BUTTON_PORT (GPIOB)
+#define SELECT_BUTTON_PIN  (15)
 
-#define BRK1_THR_GPIO_Port (GPIOC)
-#define BRK1_THR_Pin       (3)
-#define BRK1_THR_ADC_CHNL  (9)
-#define BRK2_THR_GPIO_Port (GPIOA)
-#define BRK2_THR_Pin       (0)
-#define BRK2_THR_ADC_CHNL  (1)
-
-// CAN
-#define VCAN_RX_GPIO_Port (GPIOB)
-#define VCAN_RX_Pin       (5)
-#define VCAN_TX_GPIO_Port (GPIOB)
-#define VCAN_TX_Pin       (6)
+// Steering Wheel Button inputs
+#define LAP_TIMER_PORT    (GPIOA)
+#define LAP_TIMER_PIN     (3)
+#define REGEN_ENABLE_PORT (GPIOA)
+#define REGEN_ENABLE_PIN  (4)
+#define MARK_DATA_PORT    (GPIOA)
+#define MARK_DATA_PIN     (5)
+// todo more wheel buttons
 
 // Throttle
-#define THTL_1_GPIO_Port (GPIOC) // THROTTLE
-#define THTL_1_Pin       (2)
-#define THTL_1_ADC_CHNL  (8)
-#define THTL_2_GPIO_Port (GPIOC) // THROTTLE_INV
-#define THTL_2_Pin       (1)
-#define THTL_2_ADC_CHNL  (7)
-
-// Aux Button inputs
-#define B_UP_GPIO_Port     (GPIOC)
-#define B_UP_Pin           (6)
-#define B_DOWN_GPIO_Port   (GPIOC)
-#define B_DOWN_Pin         (7)
-#define B_RIGHT_GPIO_Port  (GPIOC)
-#define B_RIGHT_Pin        (8)
-#define B_LEFT_GPIO_Port   (GPIOC)
-#define B_LEFT_Pin         (9)
-#define B_SELECT_GPIO_Port (GPIOB)
-#define B_SELECT_Pin       (15)
+#define THROTTLE1_PORT        (GPIOC) // THROTTLE
+#define THROTTLE1_PIN         (2)
+#define THROTTLE1_ADC_CHANNEL (8)
+#define THROTTLE2_PORT        (GPIOC) // THROTTLE_INV
+#define THROTTLE2_PIN         (1)
+#define THROTTLE2_ADC_CHANNEL (7)
 
 // Brake
-#define BRK_1_GPIO_Port     (GPIOC)
-#define BRK_1_Pin           (3)
-#define BRK_1_ADC_CHNL      (9)
-#define BRK_2_GPIO_Port     (GPIOA)
-#define BRK_2_Pin           (0)
-#define BRK_2_ADC_CHNL      (1)
+#define BRAKE1_PORT        (GPIOC)
+#define BRAKE1_PIN         (3)
+#define BRAKE1_ADC_CHANNEL (9)
+#define BRAKE2_PORT        (GPIOA)
+#define BRAKE2_PIN         (0)
+#define BRAKE2_ADC_CHANNEL (1)
 
+// Brake Pressure
 #define BRAKE1_PRESSURE_PORT        (GPIOA)
 #define BRAKE1_PRESSURE_PIN         (1)
 #define BRAKE1_PRESSURE_ADC_CHANNEL (2)
 #define BRAKE2_PRESSURE_PORT        (GPIOA)
 #define BRAKE2_PRESSURE_PIN         (2)
 #define BRAKE2_PRESSURE_ADC_CHANNEL (3)
-
-// LCD
-#define LCD_UART              (USART1)
-#define LCD_UART_TX_GPIO_Port (GPIOA)
-#define LCD_UART_TX_Pin       (9)
-#define LCD_UART_RX_GPIO_Port (GPIOA)
-#define LCD_UART_RX_Pin       (10)
 
 #endif

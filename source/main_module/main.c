@@ -99,19 +99,21 @@ int main(void) {
     if (false == PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
         HardFault_Handler();
     }
+
+    // CAN init
     if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
     if (false == PHAL_FDCAN_init(FDCAN3, false, MCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
+    CAN_library_init();
     NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
     NVIC_SetPriority(FDCAN3_IT0_IRQn, 6);
-
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
     NVIC_EnableIRQ(FDCAN3_IT0_IRQn);
-    CAN_library_init();
 
+    // ! important
     vehicle_init();
 
     // Software Initialization

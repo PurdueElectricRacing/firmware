@@ -1,5 +1,4 @@
 #include "main.h"
-#include "pindefs.h"
 
 #include "common/phal/gpio.h"
 #include "can_library/faults_common.h"
@@ -35,7 +34,7 @@ static const sdc_node_t SDC_NODE_LUT[NUM_SDC_NODES] = {
     {FAULT_ID_SDC17_AIR_M, 0}
 };
 
-void SDC_thread_periodic() {
+void SDC_task_periodic(void) {
     static uint8_t sdc_poll_index = 0;
     const sdc_node_t *current_node = &SDC_NODE_LUT[sdc_poll_index];
     uint8_t mux_addr = current_node->mux_addr;

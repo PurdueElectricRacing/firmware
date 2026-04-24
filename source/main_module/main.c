@@ -15,12 +15,12 @@
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
-#include "pindefs.h"
 #include "common/heartbeat/heartbeat.h"
 
-// Global data structures
-car_t g_car;
-torque_request_t g_torque_request;
+#include "vehicle_init.h"
+#include "vehicle_fsm.h"
+#include "sdc.h"
+#include "telemetry.h"
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -80,20 +80,14 @@ extern uint32_t PLLClockRateHz;
 
 extern void HardFault_Handler(void);
 
-void AMK_task() {
-    AMK_periodic(&g_car.front_right);
-    AMK_periodic(&g_car.front_left);
-    AMK_periodic(&g_car.rear_left);
-    AMK_periodic(&g_car.rear_right);
-}
-
 // Thread Defines
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
 DEFINE_TASK(CAN_tx_update, 2, osPriorityHigh, STACK_2048);
-DEFINE_TASK(vehicle_fsm_periodic, 20, osPriorityNormal, STACK_2048);
-DEFINE_TASK(AMK_task, 15, osPriorityNormal, STACK_1024);
+DEFINE_TASK(vehicle_fsm_periodic, VEHICLE_FSM_PERIOD_MS, osPriorityNormal, STACK_2048);
 DEFINE_TASK(fault_library_periodic, MAIN_MODULE_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
-DEFINE_TASK(SDC_thread_periodic, 5, osPriorityLow, STACK_512);
+DEFINE_TASK(SDC_task_periodic, SDC_TASK_PERIOD_MS, osPriorityNormal, STACK_512);
+DEFINE_TASK(report_telemetry_50hz, 50, osPriorityLow, STACK_512);
+DEFINE_TASK(report_telemetry_1hz, 1000, osPriorityLow, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
@@ -117,17 +111,18 @@ int main(void) {
     NVIC_EnableIRQ(FDCAN3_IT0_IRQn);
     CAN_library_init();
 
-    car_init();
+    vehicle_init();
 
     // Software Initialization
     osKernelInitialize();
 
     START_TASK(CAN_rx_update);
     START_TASK(CAN_tx_update);
-    START_TASK(fsm_periodic);
-    START_TASK(AMK_task);
+    START_TASK(vehicle_fsm_periodic);
     START_TASK(fault_library_periodic);
-    START_TASK(update_SDC);
+    START_TASK(SDC_task_periodic);
+    START_TASK(report_telemetry_50hz);
+    START_TASK(report_telemetry_1hz);
     START_HEARTBEAT_TASK();
 
     // no way home

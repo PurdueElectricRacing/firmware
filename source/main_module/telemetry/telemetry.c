@@ -1,5 +1,6 @@
 #include "telemetry.h"
 #include "can_library/generated/MAIN_MODULE.h"
+#include "vehicle_fsm.h"
 
 void report_telemetry_50hz() {
     CAN_SEND_wheel_speeds(

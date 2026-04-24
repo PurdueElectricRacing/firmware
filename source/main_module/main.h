@@ -8,38 +8,55 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#include "common/amk/amk.h"
 
-typedef struct {
-    car_state_t current_state;
-    car_state_t next_state;
-    AMK_t front_right; // INVA
-    AMK_t front_left;  // INVB
-    AMK_t rear_left;   // INVC
-    AMK_t rear_right;  // INVD
+#include "common/phal/gpio.h"
 
-    // internal state variables
-    uint32_t buzzer_start_time;
-    bool last_start_button_state;
-    bool brake_light;
-    bool tsal_green_enable;
-    bool tsal_red_enable;
-    bool buzzer_enable;
+// Status LEDs
+#define HEARTBEAT_LED_PORT  (GPIOA)
+#define HEARTBEAT_LED_PIN   (0)
+#define ERROR_LED_PORT      (GPIOA)
+#define ERROR_LED_PIN       (5)
+#define CONNECTION_LED_PORT (GPIOB)
+#define CONNECTION_LED_PIN  (2)
 
-    bool is_precharge_complete; // AMKs are pointed to this variable
-} car_t;
-extern car_t g_car;
+// TSAL
+#define TSAL_RED_CTRL_PORT   (GPIOC)
+#define TSAL_RED_CTRL_PIN    (15)
+#define TSAL_GREEN_CTRL_PORT (GPIOA)
+#define TSAL_GREEN_CTRL_PIN  (3)
+#define TSAL_RTM_ENABLE_PORT (GPIOB)
+#define TSAL_RTM_ENABLE_PIN  (0)
+#define TSAL_FAULT_PORT      (GPIOB)
+#define TSAL_FAULT_PIN       (1)
 
-typedef struct {
-    int16_t front_right;
-    int16_t front_left;
-    int16_t rear_left;
-    int16_t rear_right;
-} torque_request_t;
-extern torque_request_t g_torque_request;
+// Brake and Buzzer
+#define BRAKE_LIGHT_PORT (GPIOA)
+#define BRAKE_LIGHT_PIN  (1)
+#define BUZZER_PORT      (GPIOA)
+#define BUZZER_PIN       (2)
 
-void vehicle_fsm_periodic();
-void car_init();
-void SDC_thread_periodic();
+// SDC
+#define ECU_SDC_CTRL_PORT (GPIOC)
+#define ECU_SDC_CTRL_PIN  (14)
+#define SDC_MUX_PORT      (GPIOB)
+#define SDC_MUX_PIN       (9)
+#define SDC_MUX_S3_PORT   (GPIOB)
+#define SDC_MUX_S3_PIN    (7)
+#define SDC_MUX_S2_PORT   (GPIOB)
+#define SDC_MUX_S2_PIN    (6)
+#define SDC_MUX_S1_PORT   (GPIOB)
+#define SDC_MUX_S1_PIN    (5)
+#define SDC_MUX_S0_PORT   (GPIOB)
+#define SDC_MUX_S0_PIN    (4)
+
+// Input status pins
+#define BMS_STATUS_PORT         (GPIOC)
+#define BMS_STATUS_PIN          (13)
+#define VBATT_ECU_PORT          (GPIOA)
+#define VBATT_ECU_PIN           (4)
+#define VMC_ECU_PORT            (GPIOA)
+#define VMC_ECU_PIN             (6)
+#define PRECHARGE_COMPLETE_PORT (GPIOB)
+#define PRECHARGE_COMPLETE_PIN  (10)
 
 #endif // MAIN_H

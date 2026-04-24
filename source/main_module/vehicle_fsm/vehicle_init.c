@@ -1,4 +1,4 @@
-#include "main.h"
+#include "vehicle_fsm.h"
 #include "can_library/generated/MAIN_MODULE.h"
 
 // ! important: assert that the layout hashes of all AMK messages match
@@ -134,9 +134,10 @@ void init_amks() {
     );
 }
 
-void car_init() {
+void vehicle_init(void) {
     // enter INIT at n_reset
     g_car.current_state = CAR_STATE_FATAL;
     g_car.next_state    = CAR_STATE_FATAL;
+    g_torque_request = (torque_request_t){0};
     init_amks();
 }

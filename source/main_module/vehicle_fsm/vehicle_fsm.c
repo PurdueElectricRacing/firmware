@@ -5,13 +5,16 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
+#include "vehicle_fsm.h"
 #include "main.h"
-#include "pindefs.h"
 
 #include "can_library/faults_common.h"
 #include "can_library/generated/MAIN_MODULE.h"
-#include "can_library/generated/can_types.h"
 #include "common/phal/gpio.h"
+
+// Global data structures
+car_t g_car;
+torque_request_t g_torque_request;
 
 static void ready2drive_periodic() {
     if (can_data.pedals.is_stale()) {
@@ -90,11 +93,19 @@ static void update_tsal() {
     }
 }
 
+static void update_amks() {
+    // iterate the AMK fsms
+    AMK_periodic(&g_car.front_right);
+    AMK_periodic(&g_car.front_left);
+    AMK_periodic(&g_car.rear_left);
+    AMK_periodic(&g_car.rear_right);
+}
+
 void vehicle_fsm_periodic(void) {
     // set default states
     g_car.current_state = g_car.next_state;
     g_car.next_state    = g_car.current_state; // explicit self loop
-    g_car.brake_light = false;
+    g_car.brake_light   = false;
     g_car.buzzer_enable = false;
 
     // zero torque request by default
@@ -102,7 +113,8 @@ void vehicle_fsm_periodic(void) {
     g_torque_request.front_left  = 0;
     g_torque_request.rear_left   = 0;
     g_torque_request.rear_right  = 0;
-
+    
+    update_amks();
     update_brake_light();
     update_tsal();
 

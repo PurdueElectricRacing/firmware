@@ -88,6 +88,7 @@ DEFINE_TASK(fault_library_periodic, MAIN_MODULE_FAULT_SYNC_PERIOD_MS, osPriority
 DEFINE_TASK(SDC_task_periodic, SDC_TASK_PERIOD_MS, osPriorityNormal, STACK_512);
 DEFINE_TASK(report_telemetry_50hz, 20, osPriorityLow, STACK_512);
 DEFINE_TASK(report_telemetry_1hz, 1000, osPriorityLow, STACK_512);
+DEFINE_TASK(report_telemetry_02hz, 5000, osPriorityLow, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
@@ -123,6 +124,7 @@ int main(void) {
     START_TASK(SDC_task_periodic);
     START_TASK(report_telemetry_50hz);
     START_TASK(report_telemetry_1hz);
+    START_TASK(report_telemetry_02hz);
     START_HEARTBEAT_TASK();
 
     // no way home

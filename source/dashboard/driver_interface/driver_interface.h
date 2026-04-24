@@ -11,7 +11,12 @@ typedef enum {
     FORWARD_PAGE,
     SELECT_BUTTON,
     START_BUTTON,
-    MARK_DATA
+    MARK_DATA,
+    TOGGLE_REGEN,
+    EBB_MINUS,
+    EBB_PLUS,
+    TV1_MINUS,
+    TV1_PLUS
 } interface_action_t;
 
 static constexpr uint32_t DRIVER_INTERFACE_PERIOD_MS = 50;

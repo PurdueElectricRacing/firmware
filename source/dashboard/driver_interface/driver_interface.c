@@ -15,86 +15,193 @@ DEFINE_QUEUE(action_queue, interface_action_t, ACTION_QUEUE_LENGTH);
 volatile uint16_t data_mark_index = 0;
 
 static constexpr uint32_t INTERRUPT_DEBOUNCE_MS = 1;
+
+void EXTI0_IRQHandler() {
+    static volatile uint32_t last_interrupt_time = 0;
+    uint32_t now = xTaskGetTickCountFromISR();
+
+    if (now - last_interrupt_time <= INTERRUPT_DEBOUNCE_MS) {
+        EXTI->PR1 = EXTI_PR1_PIF0;
+        return;
+    }
+    last_interrupt_time = now;
+
+    if (EXTI->PR1 & EXTI_PR1_PIF0) {
+        xQueueSendFromISR(action_queue, &(interface_action_t){EBB_MINUS}, NULL);
+        EXTI->PR1 = EXTI_PR1_PIF0;
+    }
+}
+
+void EXTI1_IRQHandler() {
+    static volatile uint32_t last_interrupt_time = 0;
+    uint32_t now = xTaskGetTickCountFromISR();
+
+    if (now - last_interrupt_time <= INTERRUPT_DEBOUNCE_MS) {
+        EXTI->PR1 = EXTI_PR1_PIF1;
+        return;
+    }
+    last_interrupt_time = now;
+
+    if (EXTI->PR1 & EXTI_PR1_PIF1) {
+        xQueueSendFromISR(action_queue, &(interface_action_t){EBB_PLUS}, NULL);
+        EXTI->PR1 = EXTI_PR1_PIF1;
+    }
+}
+
+void EXTI4_IRQHandler() {
+    static volatile uint32_t last_interrupt_time = 0;
+    uint32_t now = xTaskGetTickCountFromISR();
+
+    if (now - last_interrupt_time <= INTERRUPT_DEBOUNCE_MS) {
+        EXTI->PR1 = EXTI_PR1_PIF4;
+        return;
+    }
+    last_interrupt_time = now;
+
+    if (EXTI->PR1 & EXTI_PR1_PIF4) {
+        xQueueSendFromISR(action_queue, &(interface_action_t){TOGGLE_REGEN}, NULL);
+        EXTI->PR1 = EXTI_PR1_PIF4;
+    }
+}
+
 void EXTI9_5_IRQHandler() {
     static volatile uint32_t last_interrupt_time = 0;
-    if (xTaskGetTickCountFromISR() - last_interrupt_time > INTERRUPT_DEBOUNCE_MS) {
-        last_interrupt_time = xTaskGetTickCountFromISR();
-    }
+    uint32_t now = xTaskGetTickCountFromISR();
 
-    // EXTI5 (MARK_DATA Button) triggered the interrupt
+    if (now - last_interrupt_time <= INTERRUPT_DEBOUNCE_MS) {
+        EXTI->PR1 = EXTI_PR1_PIF5 | EXTI_PR1_PIF6 | EXTI_PR1_PIF7 |
+                    EXTI_PR1_PIF8 | EXTI_PR1_PIF9;
+        return;
+    }
+    last_interrupt_time = now;
+
     if (EXTI->PR1 & EXTI_PR1_PIF5) {
         xQueueSendFromISR(action_queue, &(interface_action_t){MARK_DATA}, NULL);
-        EXTI->PR1 |= EXTI_PR1_PIF5;
+        EXTI->PR1 = EXTI_PR1_PIF5;
     }
 
-    // EXTI6 (UP Button) triggered the interrupt
     if (EXTI->PR1 & EXTI_PR1_PIF6) {
         xQueueSendFromISR(action_queue, &(interface_action_t){MENU_UP}, NULL);
-        EXTI->PR1 |= EXTI_PR1_PIF6;
+        EXTI->PR1 = EXTI_PR1_PIF6;
     }
 
-    // EXTI7 (DOWN Button) triggered the interrupt
     if (EXTI->PR1 & EXTI_PR1_PIF7) {
         xQueueSendFromISR(action_queue, &(interface_action_t){MENU_DOWN}, NULL);
-        EXTI->PR1 |= EXTI_PR1_PIF7;
+        EXTI->PR1 = EXTI_PR1_PIF7;
     }
 
-    // EXTI8 (RIGHT Button) triggered the interrupt
     if (EXTI->PR1 & EXTI_PR1_PIF8) {
         xQueueSendFromISR(action_queue, &(interface_action_t){FORWARD_PAGE}, NULL);
-        EXTI->PR1 |= EXTI_PR1_PIF8;
+        EXTI->PR1 = EXTI_PR1_PIF8;
     }
 
-    // EXTI9 (LEFT Button) triggered the interrupt
     if (EXTI->PR1 & EXTI_PR1_PIF9) {
         xQueueSendFromISR(action_queue, &(interface_action_t){BACK_PAGE}, NULL);
-        EXTI->PR1 |= EXTI_PR1_PIF9;
+        EXTI->PR1 = EXTI_PR1_PIF9;
     }
 }
 
 void EXTI15_10_IRQHandler() {
     static volatile uint32_t last_interrupt_time = 0;
-    if (xTaskGetTickCountFromISR() - last_interrupt_time > INTERRUPT_DEBOUNCE_MS) {
-        last_interrupt_time = xTaskGetTickCountFromISR();
+    uint32_t now = xTaskGetTickCountFromISR();
+
+    if (now - last_interrupt_time <= INTERRUPT_DEBOUNCE_MS) {
+        EXTI->PR1 = EXTI_PR1_PIF12 | EXTI_PR1_PIF13 |
+                    EXTI_PR1_PIF14 | EXTI_PR1_PIF15;
+        return;
+    }
+    last_interrupt_time = now;
+
+    if (EXTI->PR1 & EXTI_PR1_PIF12) {
+        xQueueSendFromISR(action_queue, &(interface_action_t){TV1_PLUS}, NULL);
+        EXTI->PR1 = EXTI_PR1_PIF12;
     }
 
-    // EXTI14 (START button) triggered the interrupt
+    if (EXTI->PR1 & EXTI_PR1_PIF13) {
+        xQueueSendFromISR(action_queue, &(interface_action_t){TV1_MINUS}, NULL);
+        EXTI->PR1 = EXTI_PR1_PIF13;
+    }
+
     if (EXTI->PR1 & EXTI_PR1_PIF14) {
         xQueueSendFromISR(action_queue, &(interface_action_t){START_BUTTON}, NULL);
-        EXTI->PR1 |= EXTI_PR1_PIF14;
+        EXTI->PR1 = EXTI_PR1_PIF14;
     }
 
-    // EXTI15 (SELECT button) triggered the interrupt
     if (EXTI->PR1 & EXTI_PR1_PIF15) {
         xQueueSendFromISR(action_queue, &(interface_action_t){SELECT_BUTTON}, NULL);
-        EXTI->PR1 |= EXTI_PR1_PIF15;
+        EXTI->PR1 = EXTI_PR1_PIF15;
     }
 }
+
+#define BUTTON_EXTI_MASK (EXTI_IMR1_IM0  | EXTI_IMR1_IM1  | \
+                          EXTI_IMR1_IM4  | EXTI_IMR1_IM5  | \
+                          EXTI_IMR1_IM6  | EXTI_IMR1_IM7  | \
+                          EXTI_IMR1_IM8  | EXTI_IMR1_IM9  | \
+                          EXTI_IMR1_IM12 | EXTI_IMR1_IM13 | \
+                          EXTI_IMR1_IM14 | EXTI_IMR1_IM15)
 
 void driver_interface_init() {
     INIT_QUEUE(action_queue, interface_action_t, ACTION_QUEUE_LENGTH);
 
-    // Enable the SYSCFG clock for interrupts
+    // Enable SYSCFG clock
     RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
 
-    // Map EXTI lines to correct GPIO ports
-    // PA5, PC6, PC7 (EXTI 5,6, 7)
-    SYSCFG->EXTICR[1] |= (SYSCFG_EXTICR2_EXTI5_PA | SYSCFG_EXTICR2_EXTI6_PC | SYSCFG_EXTICR2_EXTI7_PC);
-    // PC8, PC9 (EXTI8, 9)
-    SYSCFG->EXTICR[2] |= (SYSCFG_EXTICR3_EXTI8_PC | SYSCFG_EXTICR3_EXTI9_PC);
-    // PB14, PB15 (EXTI14, 15)
-    SYSCFG->EXTICR[3] |= (SYSCFG_EXTICR4_EXTI14_PB | SYSCFG_EXTICR4_EXTI15_PB);
+    // PB0, PB1 -> EXTI0, EXTI1
+    SYSCFG->EXTICR[0] &= ~(SYSCFG_EXTICR1_EXTI0 |
+                           SYSCFG_EXTICR1_EXTI1);
 
-    // Unmask interrupts (EXTI lines 5,6,7,8,9,14,15)
-    EXTI->IMR1 |= (EXTI_IMR1_IM5 | EXTI_IMR1_IM6 | EXTI_IMR1_IM7 | EXTI_IMR1_IM8 | EXTI_IMR1_IM9 | EXTI_IMR1_IM14 | EXTI_IMR1_IM15);
+    SYSCFG->EXTICR[0] |=  (SYSCFG_EXTICR1_EXTI0_PB |
+                           SYSCFG_EXTICR1_EXTI1_PB);
 
-    // Falling edge trigger only (pull-up buttons)
-    EXTI->RTSR1 &= ~(EXTI_RTSR1_RT5 | EXTI_RTSR1_RT6 | EXTI_RTSR1_RT7 | EXTI_RTSR1_RT8 | EXTI_RTSR1_RT9 | EXTI_RTSR1_RT14 | EXTI_RTSR1_RT15);
+    // PA4, PA5, PC6, PC7 -> EXTI4, EXTI5, EXTI6, EXTI7
+    SYSCFG->EXTICR[1] &= ~(SYSCFG_EXTICR2_EXTI4 |
+                           SYSCFG_EXTICR2_EXTI5 |
+                           SYSCFG_EXTICR2_EXTI6 |
+                           SYSCFG_EXTICR2_EXTI7);
 
-    EXTI->FTSR1 |= (EXTI_FTSR1_FT5 | EXTI_FTSR1_FT6 | EXTI_FTSR1_FT7 | EXTI_FTSR1_FT8 | EXTI_FTSR1_FT9 | EXTI_FTSR1_FT14 | EXTI_FTSR1_FT15);
+    SYSCFG->EXTICR[1] |=  (SYSCFG_EXTICR2_EXTI4_PA |
+                           SYSCFG_EXTICR2_EXTI5_PA |
+                           SYSCFG_EXTICR2_EXTI6_PC |
+                           SYSCFG_EXTICR2_EXTI7_PC);
 
+    // PC8, PC9 -> EXTI8, EXTI9
+    SYSCFG->EXTICR[2] &= ~(SYSCFG_EXTICR3_EXTI8 |
+                           SYSCFG_EXTICR3_EXTI9);
+
+    SYSCFG->EXTICR[2] |=  (SYSCFG_EXTICR3_EXTI8_PC |
+                           SYSCFG_EXTICR3_EXTI9_PC);
+
+    // PB12, PB13, PB14, PB15 -> EXTI12, EXTI13, EXTI14, EXTI15
+    SYSCFG->EXTICR[3] &= ~(SYSCFG_EXTICR4_EXTI12 |
+                           SYSCFG_EXTICR4_EXTI13 |
+                           SYSCFG_EXTICR4_EXTI14 |
+                           SYSCFG_EXTICR4_EXTI15);
+
+    SYSCFG->EXTICR[3] |=  (SYSCFG_EXTICR4_EXTI12_PB |
+                           SYSCFG_EXTICR4_EXTI13_PB |
+                           SYSCFG_EXTICR4_EXTI14_PB |
+                           SYSCFG_EXTICR4_EXTI15_PB);
+
+    // Clear pending flags before enabling interrupts
+    EXTI->PR1 = BUTTON_EXTI_MASK;
+
+    // Unmask interrupts
+    EXTI->IMR1 |= BUTTON_EXTI_MASK;
+
+    // Falling edge only
+    EXTI->RTSR1 &= ~BUTTON_EXTI_MASK;
+    EXTI->FTSR1 |=  BUTTON_EXTI_MASK;
+
+    // NVIC setup
+    NVIC_SetPriority(EXTI0_IRQn, 7);
+    NVIC_SetPriority(EXTI1_IRQn, 7);
+    NVIC_SetPriority(EXTI4_IRQn, 7);
     NVIC_SetPriority(EXTI9_5_IRQn, 7);
     NVIC_SetPriority(EXTI15_10_IRQn, 7);
+
+    NVIC_EnableIRQ(EXTI0_IRQn);
+    NVIC_EnableIRQ(EXTI1_IRQn);
+    NVIC_EnableIRQ(EXTI4_IRQn);
     NVIC_EnableIRQ(EXTI9_5_IRQn);
     NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
@@ -128,6 +235,21 @@ void action_dispatcher(void) {
             case MARK_DATA:
                 CAN_SEND_mark_data(xTaskGetTickCount(), data_mark_index);
                 data_mark_index++;
+                break;
+            case TOGGLE_REGEN:
+                CAN_SEND_driver_request(DRIVER_REQUEST_TOGGLE_REGEN);
+                break;
+            case EBB_MINUS:
+                CAN_SEND_driver_request(DRIVER_REQUEST_EBB_MINUS);
+                break;
+            case EBB_PLUS:
+                CAN_SEND_driver_request(DRIVER_REQUEST_EBB_PLUS);
+                break;
+            case TV1_PLUS:
+                CAN_SEND_driver_request(DRIVER_REQUEST_TV1_PLUS);
+                break;
+            case TV1_MINUS:
+                CAN_SEND_driver_request(DRIVER_REQUEST_TV1_MINUS);
                 break;
             default:
                 break;

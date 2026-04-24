@@ -41,16 +41,16 @@
                     "msg_priority": 1
                 },
                 {
-                    "msg_name": "update_regen_enable",
-                    "msg_desc": "Regen enable update from driver",
+                    "msg_name": "driver_request",
+                    "msg_desc": "Driver requests like regen toggle and TV adjustments",
                     "signals": [
                         {
-                            "sig_name": "is_regen_enabled",
-                            "type": "bool"
+                            "sig_name": "request",
+                            "type": "driver_request_t"
                         }
                     ],
                     "msg_period": 0,
-                    "msg_priority": 1
+                    "msg_priority": 2
                 },
                 {
                     "msg_name": "steering_angle",

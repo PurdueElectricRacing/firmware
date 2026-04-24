@@ -1,4 +1,12 @@
-#include "main.h"
+/**
+ * @file vehicle_init.c
+ * @brief Vehicle initialization implementation
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
+#include "vehicle_init.h"
+#include "vehicle_fsm.h"
 #include "can_library/generated/MAIN_MODULE.h"
 
 // ! important: assert that the layout hashes of all AMK messages match
@@ -24,7 +32,7 @@ static_assert(INVA_PHASE_I_LAYOUT_HASH == INVB_PHASE_I_LAYOUT_HASH, "AMK INVA/B 
 static_assert(INVA_PHASE_I_LAYOUT_HASH == INVC_PHASE_I_LAYOUT_HASH, "AMK INVA/C Phase I Struct Mismatch");
 static_assert(INVA_PHASE_I_LAYOUT_HASH == INVD_PHASE_I_LAYOUT_HASH, "AMK INVA/D Phase I Struct Mismatch");
 
-void flush_inva() {
+void flush_inva(void) {
     CAN_SEND_INVA_SET(
         g_car.front_right.set->AMK_Control_bReserve,
         g_car.front_right.set->AMK_Control_bInverterOn,
@@ -38,7 +46,7 @@ void flush_inva() {
     );
 }
 
-void flush_invb() {
+void flush_invb(void) {
     CAN_SEND_INVB_SET(
         g_car.front_left.set->AMK_Control_bReserve,
         g_car.front_left.set->AMK_Control_bInverterOn,
@@ -52,7 +60,7 @@ void flush_invb() {
     );
 }
 
-void flush_invc() {
+void flush_invc(void) {
     CAN_SEND_INVC_SET(
         g_car.rear_left.set->AMK_Control_bReserve,
         g_car.rear_left.set->AMK_Control_bInverterOn,
@@ -66,7 +74,7 @@ void flush_invc() {
     );
 }
 
-void flush_invd() {
+void flush_invd(void) {
     CAN_SEND_INVD_SET(
         g_car.rear_right.set->AMK_Control_bReserve,
         g_car.rear_right.set->AMK_Control_bInverterOn,
@@ -80,7 +88,7 @@ void flush_invd() {
     );
 }
 
-void init_amks() {
+void init_amks(void) {
     // Inverter A
     AMK_init(
         &g_car.front_right,
@@ -134,9 +142,10 @@ void init_amks() {
     );
 }
 
-void car_init() {
+void vehicle_init(void) {
     // enter INIT at n_reset
     g_car.current_state = CAR_STATE_FATAL;
     g_car.next_state    = CAR_STATE_FATAL;
+    g_torque_request = (torque_request_t){0};
     init_amks();
 }

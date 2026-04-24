@@ -1,24 +1,22 @@
 /**
- * @file state_machine.c
- * @brief "Main Module" master state machine implementation
+ * @file vehicle_fsm.c
+ * @brief Master vehicle state machine implementation
  * 
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
+#include "vehicle_fsm.h"
 #include "main.h"
-#include "pindefs.h"
 
 #include "can_library/faults_common.h"
 #include "can_library/generated/MAIN_MODULE.h"
-#include "can_library/generated/can_types.h"
 #include "common/phal/gpio.h"
 
-// FSAE 2026 EV.9.7.2: The Ready to Drive Sound must be sounded continuously for minimum 1 second and maximum 3 seconds
-static constexpr uint32_t MIN_BUZZING_TIME_MS = 2500;
-static constexpr uint16_t BRAKE_LIGHT_ON_THRESHOLD = 200; // ~5% of 4095
-static constexpr uint16_t BRAKE_LIGHT_OFF_THRESHOLD = 100; // ~2.5% of 4095
+// Global data structures
+car_t g_car;
+torque_request_t g_torque_request;
 
-void ready2drive_periodic() {
+static void ready2drive_periodic() {
     if (can_data.pedals.is_stale()) {
         g_torque_request.front_right = 0;
         g_torque_request.front_left  = 0;
@@ -63,10 +61,16 @@ static inline bool is_start_button_pressed() {
 }
 
 static inline bool is_buzzing_time_elapsed() {
+    // FSAE 2026 EV.9.7.2: The Ready to Drive Sound must be sounded continuously for minimum 1 second and maximum 3 seconds
+    static constexpr uint32_t MIN_BUZZING_TIME_MS = 2500;
+
     return (OS_TICKS - g_car.buzzer_start_time >= MIN_BUZZING_TIME_MS);
 }
 
-void update_brake_light() {
+static void update_brake_light() {
+    static constexpr uint16_t BRAKE_LIGHT_ON_THRESHOLD  = 200; // ~5% of 4095
+    static constexpr uint16_t BRAKE_LIGHT_OFF_THRESHOLD = 100; // ~2.5% of 4095
+
     if (can_data.pedals.brake > BRAKE_LIGHT_ON_THRESHOLD) {
         if (!g_car.brake_light) {
             g_car.brake_light = true;
@@ -78,7 +82,7 @@ void update_brake_light() {
     }
 }
 
-void update_tsal() {
+static void update_tsal() {
     // FSAE 2026 EV.5.11.5
     if (is_latched(FAULT_ID_SDC2_BMS) || is_latched(FAULT_ID_IMD)) { 
         g_car.tsal_green_enable = false;
@@ -89,66 +93,19 @@ void update_tsal() {
     }
 }
 
-void report_telemetry() {
-    CAN_SEND_main_hb(g_car.current_state);
-
-    CAN_SEND_wheel_speeds(
-        g_car.front_right.crit->AMK_ActualSpeed,
-        g_car.front_left.crit->AMK_ActualSpeed,
-        g_car.rear_left.crit->AMK_ActualSpeed,
-        g_car.rear_right.crit->AMK_ActualSpeed
-    );
-
-    CAN_SEND_motor_temps(
-        g_car.front_right.temps->AMK_MotorTemp,
-        g_car.front_left.temps->AMK_MotorTemp,
-        g_car.rear_left.temps->AMK_MotorTemp,
-        g_car.rear_right.temps->AMK_MotorTemp
-    );
-
-    CAN_SEND_igbt_temps(
-        g_car.front_right.temps->AMK_IGBTTemp,
-        g_car.front_left.temps->AMK_IGBTTemp,
-        g_car.rear_left.temps->AMK_IGBTTemp,
-        g_car.rear_right.temps->AMK_IGBTTemp
-    );
+static void update_amks() {
+    // iterate the AMK fsms
+    AMK_periodic(&g_car.front_right);
+    AMK_periodic(&g_car.front_left);
+    AMK_periodic(&g_car.rear_left);
+    AMK_periodic(&g_car.rear_right);
 }
 
-void report_telemetry_5hz() {
-    CAN_SEND_inva_diagnostics(
-        g_car.front_right.state,
-        g_car.front_right.info->AMK_Status_bError,
-        g_car.front_right.err1->AMK_DiagnosticNumber,
-        g_car.front_right.info->AMK_Status_bInverterOn
-    );
-
-    CAN_SEND_invb_diagnostics(
-        g_car.front_left.state,
-        g_car.front_left.info->AMK_Status_bError,
-        g_car.front_left.err1->AMK_DiagnosticNumber,
-        g_car.front_left.info->AMK_Status_bInverterOn
-    );
-
-    CAN_SEND_invc_diagnostics(
-        g_car.rear_left.state,
-        g_car.rear_left.info->AMK_Status_bError,
-        g_car.rear_left.err1->AMK_DiagnosticNumber,
-        g_car.rear_left.info->AMK_Status_bInverterOn
-    );
-
-    CAN_SEND_invd_diagnostics(
-        g_car.rear_right.state,
-        g_car.rear_right.info->AMK_Status_bError,
-        g_car.rear_right.err1->AMK_DiagnosticNumber,
-        g_car.rear_right.info->AMK_Status_bInverterOn
-    );
-}
-
-void fsm_periodic() {
+void vehicle_fsm_periodic(void) {
     // set default states
     g_car.current_state = g_car.next_state;
     g_car.next_state    = g_car.current_state; // explicit self loop
-    g_car.brake_light = false;
+    g_car.brake_light   = false;
     g_car.buzzer_enable = false;
 
     // zero torque request by default
@@ -156,7 +113,8 @@ void fsm_periodic() {
     g_torque_request.front_left  = 0;
     g_torque_request.rear_left   = 0;
     g_torque_request.rear_right  = 0;
-
+    
+    update_amks();
     update_brake_light();
     update_tsal();
 
@@ -227,15 +185,14 @@ void fsm_periodic() {
         }
     }
 
+    // flush the internal state
     AMK_set_torque(&g_car.front_right, g_torque_request.front_right);
     AMK_set_torque(&g_car.front_left,  g_torque_request.front_left);
     AMK_set_torque(&g_car.rear_left,   g_torque_request.rear_left);
     AMK_set_torque(&g_car.rear_right,  g_torque_request.rear_right);
 
-    report_telemetry();
-    report_telemetry_5hz();
+    CAN_SEND_main_hb(g_car.current_state);
 
-    // flush the internal state
     PHAL_writeGPIO(BRAKE_LIGHT_PORT, BRAKE_LIGHT_PIN, g_car.brake_light);
     PHAL_writeGPIO(TSAL_GREEN_CTRL_PORT, TSAL_GREEN_CTRL_PIN, g_car.tsal_green_enable);
     PHAL_writeGPIO(TSAL_RED_CTRL_PORT, TSAL_RED_CTRL_PIN, g_car.tsal_red_enable);

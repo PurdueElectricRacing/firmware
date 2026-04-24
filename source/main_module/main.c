@@ -15,12 +15,12 @@
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
-#include "pindefs.h"
 #include "common/heartbeat/heartbeat.h"
 
-// Global data structures
-car_t g_car;
-torque_request_t g_torque_request;
+#include "vehicle_init.h"
+#include "vehicle_fsm.h"
+#include "sdc.h"
+#include "telemetry.h"
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -80,20 +80,15 @@ extern uint32_t PLLClockRateHz;
 
 extern void HardFault_Handler(void);
 
-void AMK_task() {
-    AMK_periodic(&g_car.front_right);
-    AMK_periodic(&g_car.front_left);
-    AMK_periodic(&g_car.rear_left);
-    AMK_periodic(&g_car.rear_right);
-}
-
 // Thread Defines
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 2, osPriorityHigh, STACK_2048);
-DEFINE_TASK(fsm_periodic, 20, osPriorityNormal, STACK_2048);
-DEFINE_TASK(AMK_task, 15, osPriorityNormal, STACK_1024);
+DEFINE_TASK(CAN_tx_update, 1, osPriorityHigh, STACK_2048);
+DEFINE_TASK(vehicle_fsm_periodic, VEHICLE_FSM_PERIOD_MS, osPriorityNormal, STACK_2048);
 DEFINE_TASK(fault_library_periodic, MAIN_MODULE_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
-DEFINE_TASK(update_SDC, 5, osPriorityLow, STACK_512);
+DEFINE_TASK(SDC_task_periodic, SDC_TASK_PERIOD_MS, osPriorityNormal, STACK_512);
+DEFINE_TASK(report_telemetry_50hz, TELEMETRY_50HZ_PERIOD_MS, osPriorityLow, STACK_512);
+DEFINE_TASK(report_telemetry_1hz, TELEMETRY_1HZ_PERIOD_MS, osPriorityLow, STACK_512);
+DEFINE_TASK(report_telemetry_02hz, TELEMETRY_02HZ_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
@@ -104,30 +99,34 @@ int main(void) {
     if (false == PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
         HardFault_Handler();
     }
+
+    // CAN init
     if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
     if (false == PHAL_FDCAN_init(FDCAN3, false, MCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
-    NVIC_SetPriority(FDCAN2_IT0_IRQn, 5);
-    NVIC_SetPriority(FDCAN3_IT0_IRQn, 5);
-
+    CAN_library_init();
+    NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
+    NVIC_SetPriority(FDCAN3_IT0_IRQn, 6);
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
     NVIC_EnableIRQ(FDCAN3_IT0_IRQn);
-    CAN_library_init();
 
-    car_init();
+    // ! important
+    vehicle_init();
 
     // Software Initialization
     osKernelInitialize();
 
     START_TASK(CAN_rx_update);
     START_TASK(CAN_tx_update);
-    START_TASK(fsm_periodic);
-    START_TASK(AMK_task);
+    START_TASK(vehicle_fsm_periodic);
     START_TASK(fault_library_periodic);
-    START_TASK(update_SDC);
+    START_TASK(SDC_task_periodic);
+    START_TASK(report_telemetry_50hz);
+    START_TASK(report_telemetry_1hz);
+    START_TASK(report_telemetry_02hz);
     START_HEARTBEAT_TASK();
 
     // no way home

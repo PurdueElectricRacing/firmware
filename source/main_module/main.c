@@ -82,11 +82,11 @@ extern void HardFault_Handler(void);
 
 // Thread Defines
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 2, osPriorityHigh, STACK_2048);
+DEFINE_TASK(CAN_tx_update, 1, osPriorityHigh, STACK_2048);
 DEFINE_TASK(vehicle_fsm_periodic, VEHICLE_FSM_PERIOD_MS, osPriorityNormal, STACK_2048);
 DEFINE_TASK(fault_library_periodic, MAIN_MODULE_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
 DEFINE_TASK(SDC_task_periodic, SDC_TASK_PERIOD_MS, osPriorityNormal, STACK_512);
-DEFINE_TASK(report_telemetry_50hz, 50, osPriorityLow, STACK_512);
+DEFINE_TASK(report_telemetry_50hz, 20, osPriorityLow, STACK_512);
 DEFINE_TASK(report_telemetry_1hz, 1000, osPriorityLow, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
 

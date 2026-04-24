@@ -75,7 +75,8 @@
                         {
                             "sig_name": "charger_disable",
                             "sig_desc": "0 to enable charging, 1 to disable charging",
-                            "type": "uint8_t"
+                            "type": "uint8_t",
+                            "choices": ["ENABLE", "DISABLE"]
                         },
                         {
                             "sig_name": "reserved1",

@@ -7,7 +7,7 @@
 
 #include "calibration.h"
 
-#include "nextion.h"
+#include "common/nextion/nextion.h"
 #include "can_library/faults_common.h"
 #include "main.h"
 #include "colors.h"

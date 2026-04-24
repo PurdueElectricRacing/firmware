@@ -7,10 +7,21 @@
  * @author Chris Mcgalliard (cpmcgalliard@gmail.com)
  */
 
-#ifndef _MAIN_H_
-#define _MAIN_H_
+#ifndef MAIN_H
+#define MAIN_H
 
+#include <stdint.h>
 #include "common/phal/gpio.h"
+
+typedef volatile struct {
+    uint16_t t1;
+    uint16_t t2;
+    uint16_t b1;
+    uint16_t b2;
+    uint16_t brake1_pressure;
+    uint16_t brake2_pressure;
+} raw_adc_values_t;
+extern volatile raw_adc_values_t raw_adc_values;
 
 // On-board Status LEDs
 #define CONNECTION_LED_PORT (GPIOB)
@@ -77,4 +88,4 @@
 #define BRAKE2_PRESSURE_PIN         (2)
 #define BRAKE2_PRESSURE_ADC_CHANNEL (3)
 
-#endif
+#endif // MAIN_H

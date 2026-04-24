@@ -28,6 +28,8 @@ typedef struct {
     char *string;
 } page_handler_t;
 
+void LCD_init(uint32_t baud_rate);
+void LCD_tx_update(void);
 void advancePage(void);
 void backPage(void);
 void selectItem(void);
@@ -35,6 +37,5 @@ void moveUp(void);
 void moveDown(void);
 void updatePage(void);
 void updateTelemetryPages(void);
-void flush_LCD(void);
 
 #endif // LCD_H

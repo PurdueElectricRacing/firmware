@@ -7,7 +7,7 @@
 
 #include "race.h"
 
-#include "nextion.h"
+#include "common/nextion/nextion.h"
 #include "can_library/generated/DASHBOARD.h"
 #include "pedals.h"
 #include "common/utils/max.h"

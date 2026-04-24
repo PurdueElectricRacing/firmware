@@ -91,14 +91,6 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel = BRAKE2_PRESSURE_ADC_CHANNEL, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480}
 };
 
-typedef volatile struct {
-    uint16_t t1;
-    uint16_t t2;
-    uint16_t b1;
-    uint16_t b2;
-    uint16_t brake1_pressure;
-    uint16_t brake2_pressure;
-} raw_adc_values_t;
 static_assert(
     (sizeof(raw_adc_values_t) / sizeof(uint16_t)) ==
     (sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t)),
@@ -152,23 +144,19 @@ extern uint32_t PLLClockRateHz;
 extern page_t curr_page;
 
 /* Function Prototypes */
-void LCD_tx_update();
-void config_button_irqs();
 void driver_interface_periodic();
 void send_version();
-void LCD_init(uint32_t baud_rate);
 void sweep_external_leds();
 void service_start_button();
 extern void HardFault_Handler();
 
 // Thread Defines
-DEFINE_TASK(pedalsPeriodic, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024);
+DEFINE_TASK(pedals_periodic, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024);
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048); // leave stack at 2048
+DEFINE_TASK(CAN_tx_update, 1, osPriorityNormal, STACK_2048); // leave stack at 2048
 DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
-DEFINE_TASK(updateTelemetryPages, 100, osPriorityNormal, STACK_1024);
+DEFINE_TASK(driver_interface_periodic, DRIVER_INTERFACE_PERIOD_MS, osPriorityLow, STACK_1024);
 DEFINE_TASK(service_start_button, START_BUTTON_PERIOD_MS, osPriorityLow, STACK_512);
-DEFINE_TASK(driver_interface_periodic, 50, osPriorityLow, STACK_1024);
 DEFINE_HEARTBEAT_TASK(sweep_external_leds);
 
 int main(void) {
@@ -203,17 +191,16 @@ int main(void) {
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
     NVIC_EnableIRQ(FDCAN3_IT0_IRQn);
 
-    config_button_irqs();
+    driver_interface_init();
     LCD_init(LCD_BAUD_RATE);
 
     // Software Initialization
     osKernelInitialize();
 
-    START_TASK(pedalsPeriodic);
+    START_TASK(pedals_periodic);
     START_TASK(CAN_rx_update);
     START_TASK(CAN_tx_update);
     START_TASK(fault_library_periodic);
-    START_TASK(updateTelemetryPages);
     START_TASK(service_start_button);
     START_TASK(driver_interface_periodic);
     START_HEARTBEAT_TASK();
@@ -265,32 +252,6 @@ void sweep_external_leds() {
             break;
     }
 }
-
-void config_button_irqs() {
-    // Enable the SYSCFG clock for interrupts
-    RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
-
-    // Map EXTI lines to correct GPIO ports
-    // PC6, PC7 (EXTI6, 7)
-    SYSCFG->EXTICR[1] |= (SYSCFG_EXTICR2_EXTI6_PC | SYSCFG_EXTICR2_EXTI7_PC);
-    // PC8, PC9 (EXTI8, 9)
-    SYSCFG->EXTICR[2] |= (SYSCFG_EXTICR3_EXTI8_PC | SYSCFG_EXTICR3_EXTI9_PC);
-    // PB14, PB15 (EXTI14, 15)
-    SYSCFG->EXTICR[3] |= (SYSCFG_EXTICR4_EXTI14_PB | SYSCFG_EXTICR4_EXTI15_PB);
-
-    // Unmask interrupts (EXTI lines 6,7,8,9,14,15)
-    EXTI->IMR1 |= (EXTI_IMR1_IM6 | EXTI_IMR1_IM7 | EXTI_IMR1_IM8 | EXTI_IMR1_IM9 | EXTI_IMR1_IM14 | EXTI_IMR1_IM15);
-
-    // Falling edge trigger only (pull-up buttons)
-    EXTI->RTSR1 &= ~(EXTI_RTSR1_RT6 | EXTI_RTSR1_RT7 | EXTI_RTSR1_RT8 | EXTI_RTSR1_RT9 | EXTI_RTSR1_RT14 | EXTI_RTSR1_RT15);
-
-    EXTI->FTSR1 |= (EXTI_FTSR1_FT6 | EXTI_FTSR1_FT7 | EXTI_FTSR1_FT8 | EXTI_FTSR1_FT9 | EXTI_FTSR1_FT14 | EXTI_FTSR1_FT15);
-
-    NVIC_EnableIRQ(EXTI9_5_IRQn);
-    NVIC_EnableIRQ(EXTI15_10_IRQn);
-}
-
-
 
 
 void zero_lws() {

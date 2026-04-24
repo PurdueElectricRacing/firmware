@@ -4,20 +4,15 @@
 #include "common/heartbeat/heartbeat.h"
 #include "common/phal/usart.h"
 
+#include "driver_interface.h"
 #include "lcd.h"
 #include "main.h"
 #include "strbuf.h"
 
-typedef enum {
-    UPDATE_PAGE,
-    MENU_UP,
-    MENU_DOWN,
-    BACK_PAGE,
-    FORWARD_PAGE,
-    SELECT_BUTTON,
-    START_BUTTON,
-} interface_action_t;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-variable"
 DEFINE_QUEUE(action_queue, interface_action_t, 10);
+#pragma GCC diagnostic pop
 
 void EXTI9_5_IRQHandler() {
     // EXTI9 (LEFT Button) triggered the interrupt
@@ -59,6 +54,30 @@ void EXTI15_10_IRQHandler() {
     }
 }
 
+void driver_interface_init() {
+    // Enable the SYSCFG clock for interrupts
+    RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+
+    // Map EXTI lines to correct GPIO ports
+    // PC6, PC7 (EXTI6, 7)
+    SYSCFG->EXTICR[1] |= (SYSCFG_EXTICR2_EXTI6_PC | SYSCFG_EXTICR2_EXTI7_PC);
+    // PC8, PC9 (EXTI8, 9)
+    SYSCFG->EXTICR[2] |= (SYSCFG_EXTICR3_EXTI8_PC | SYSCFG_EXTICR3_EXTI9_PC);
+    // PB14, PB15 (EXTI14, 15)
+    SYSCFG->EXTICR[3] |= (SYSCFG_EXTICR4_EXTI14_PB | SYSCFG_EXTICR4_EXTI15_PB);
+
+    // Unmask interrupts (EXTI lines 6,7,8,9,14,15)
+    EXTI->IMR1 |= (EXTI_IMR1_IM6 | EXTI_IMR1_IM7 | EXTI_IMR1_IM8 | EXTI_IMR1_IM9 | EXTI_IMR1_IM14 | EXTI_IMR1_IM15);
+
+    // Falling edge trigger only (pull-up buttons)
+    EXTI->RTSR1 &= ~(EXTI_RTSR1_RT6 | EXTI_RTSR1_RT7 | EXTI_RTSR1_RT8 | EXTI_RTSR1_RT9 | EXTI_RTSR1_RT14 | EXTI_RTSR1_RT15);
+
+    EXTI->FTSR1 |= (EXTI_FTSR1_FT6 | EXTI_FTSR1_FT7 | EXTI_FTSR1_FT8 | EXTI_FTSR1_FT9 | EXTI_FTSR1_FT14 | EXTI_FTSR1_FT15);
+
+    NVIC_EnableIRQ(EXTI9_5_IRQn);
+    NVIC_EnableIRQ(EXTI15_10_IRQn);
+}
+
 void action_dispatcher(void) {
     interface_action_t action;
     while (xQueueReceive(action_queue, &action, 0) == pdTRUE) {
@@ -82,7 +101,8 @@ void action_dispatcher(void) {
                 selectItem();
                 break;
             case START_BUTTON:
-                CAN_SEND_start_button(true);
+                // CAN_SEND_start_button(true);
+                // todo: non-periodic start button using a callback
                 break;
             default:
                 break;
@@ -102,31 +122,12 @@ void set_external_leds(void) {
 
 }
 
-// Communication queues
-ALLOCATE_STRBUF(lcd_tx_buf, 2048);
-
-/**
- * @brief Called periodically to send commands to the Nextion LCD display via USART
- */
-void LCD_tx_update(void) {
-    if (PHAL_usartTxBusy(&lcd)) {
-        return;
-    }
-
-    if (lcd_tx_buf.length == 0) {
-        return;
-    }
-
-    PHAL_usartTxDma(&lcd, (uint8_t *)lcd_tx_buf.data, lcd_tx_buf.length);
-    strbuf_clear(&lcd_tx_buf);
-}
-
 void driver_interface_periodic(void) {
     action_dispatcher(); // Process Pending Driver Actions
 
     updateTelemetryPages();
 
-    flush_LCD(); // dump the command
+    LCD_tx_update(); // dump the command
 
     set_external_leds();
 }

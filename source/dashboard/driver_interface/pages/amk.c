@@ -9,7 +9,7 @@
 #include "amk.h"
 
 #include "can_library/generated/DASHBOARD.h"
-#include "nextion.h"
+#include "common/nextion/nextion.h"
 #include "colors.h"
 
 static void update_inverter_telemetry(

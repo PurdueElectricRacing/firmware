@@ -19,6 +19,6 @@ typedef struct {
 extern pedal_values_t pedal_values;
 
 /* Function Prototypes */
-void pedalsPeriodic(void);
+void pedals_periodic(void);
 
 #endif // PEDALS_H

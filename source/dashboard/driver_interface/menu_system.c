@@ -10,7 +10,7 @@
 
 #include "menu_system.h"
 #include "colors.h"
-#include "nextion.h"
+#include "common/nextion/nextion.h"
 #include <stdint.h>
 
 static constexpr uint16_t HOVER_BORDER_WIDTH = 3;

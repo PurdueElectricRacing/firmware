@@ -65,7 +65,7 @@ static inline uint16_t clamp(uint16_t input, uint16_t lower_bound, uint16_t uppe
  *
  * @note This function is called periodically by the scheduler
  */
-void pedalsPeriodic(void) {
+void pedals_periodic(void) {
     // Get current values (don't want them changing mid-calculation)
     uint16_t throttle1 = raw_adc_values.t1;
     uint16_t throttle2 = 4095 - raw_adc_values.t2; // Invert value for t2 (pull-up resistor)

@@ -3,8 +3,20 @@
 
 #include <stdint.h>
 
-static constexpr uint32_t DRIVER_INTERFACE_PERIOD_MS = 100;
+typedef enum {
+    UPDATE_PAGE,
+    MENU_UP,
+    MENU_DOWN,
+    BACK_PAGE,
+    FORWARD_PAGE,
+    SELECT_BUTTON,
+    START_BUTTON,
+} interface_action_t;
+
+static constexpr uint32_t DRIVER_INTERFACE_PERIOD_MS = 50;
 void driver_interface_periodic(void);
+
+void driver_interface_init(void);
 
 // Button EXTI handlers
 void EXTI9_5_IRQHandler();

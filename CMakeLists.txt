@@ -50,6 +50,7 @@ set(COMMON_MODULES
     common/heartbeat
     common/sdio
     common/ublox
+    common/nextion
     external/w5500
     external/fatfs
 )

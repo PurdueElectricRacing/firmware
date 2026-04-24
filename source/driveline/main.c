@@ -22,7 +22,6 @@
 #include "pin_defs.h"
 #include "oil_temps_table.h"
 
-
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
     // Status LEDs

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: torque_request_t Struct Reference</title>
+<title>PER Firmware: source/main_module/telemetry/telemetry.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('structtorque__request__t.html',''); initResizable(true); });
+$(function(){initNavTree('telemetry_8c.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -98,36 +98,41 @@ $(function(){initNavTree('structtorque__request__t.html',''); initResizable(true
 
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structtorque__request__t-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">torque_request_t Struct Reference</div></div>
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">telemetry.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a6044c54ed73c86aa64f9b43e9369fa48" id="r_a6044c54ed73c86aa64f9b43e9369fa48"><td class="memItemLeft" align="right" valign="top"><a id="a6044c54ed73c86aa64f9b43e9369fa48" name="a6044c54ed73c86aa64f9b43e9369fa48"></a>
-int16_t&#160;</td><td class="memItemRight" valign="bottom"><b>front_right</b></td></tr>
-<tr class="separator:a6044c54ed73c86aa64f9b43e9369fa48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d703852f96edaff8315ecfbd6177f5c" id="r_a3d703852f96edaff8315ecfbd6177f5c"><td class="memItemLeft" align="right" valign="top"><a id="a3d703852f96edaff8315ecfbd6177f5c" name="a3d703852f96edaff8315ecfbd6177f5c"></a>
-int16_t&#160;</td><td class="memItemRight" valign="bottom"><b>front_left</b></td></tr>
-<tr class="separator:a3d703852f96edaff8315ecfbd6177f5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a459816998ad64658b2841fbed79c9bfd" id="r_a459816998ad64658b2841fbed79c9bfd"><td class="memItemLeft" align="right" valign="top"><a id="a459816998ad64658b2841fbed79c9bfd" name="a459816998ad64658b2841fbed79c9bfd"></a>
-int16_t&#160;</td><td class="memItemRight" valign="bottom"><b>rear_left</b></td></tr>
-<tr class="separator:a459816998ad64658b2841fbed79c9bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae112ecb9eaa97db91fd3df4f338ee702" id="r_ae112ecb9eaa97db91fd3df4f338ee702"><td class="memItemLeft" align="right" valign="top"><a id="ae112ecb9eaa97db91fd3df4f338ee702" name="ae112ecb9eaa97db91fd3df4f338ee702"></a>
-int16_t&#160;</td><td class="memItemRight" valign="bottom"><b>rear_right</b></td></tr>
-<tr class="separator:ae112ecb9eaa97db91fd3df4f338ee702"><td class="memSeparator" colspan="2">&#160;</td></tr>
+
+<p>Telemetry task implementations.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="telemetry_8h_source.html">telemetry.h</a>&quot;</code><br />
+<code>#include &quot;can_library/generated/MAIN_MODULE.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="vehicle__fsm_8h_source.html">vehicle_fsm.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a14fa998ab27981c4409143eae0bde0e1" id="r_a14fa998ab27981c4409143eae0bde0e1"><td class="memItemLeft" align="right" valign="top"><a id="a14fa998ab27981c4409143eae0bde0e1" name="a14fa998ab27981c4409143eae0bde0e1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>report_telemetry_50hz</b> (void)</td></tr>
+<tr class="memdesc:a14fa998ab27981c4409143eae0bde0e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports telemetry data at 50 Hz rate Includes: AMK reported wheel_speeds. <br /></td></tr>
+<tr class="separator:a14fa998ab27981c4409143eae0bde0e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d0a75c0aee5808a962691e3973ee968" id="r_a6d0a75c0aee5808a962691e3973ee968"><td class="memItemLeft" align="right" valign="top"><a id="a6d0a75c0aee5808a962691e3973ee968" name="a6d0a75c0aee5808a962691e3973ee968"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>report_telemetry_1hz</b> (void)</td></tr>
+<tr class="memdesc:a6d0a75c0aee5808a962691e3973ee968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports telemetry data at 1 Hz rate Includes: AMK diagnostics. <br /></td></tr>
+<tr class="separator:a6d0a75c0aee5808a962691e3973ee968"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74034e258280659c81e74c002594b2e2" id="r_a74034e258280659c81e74c002594b2e2"><td class="memItemLeft" align="right" valign="top"><a id="a74034e258280659c81e74c002594b2e2" name="a74034e258280659c81e74c002594b2e2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>report_telemetry_02hz</b> (void)</td></tr>
+<tr class="memdesc:a74034e258280659c81e74c002594b2e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports telemetry data at 0.2 Hz rate Includes: AMK reported motor and IGBT temperatures, firmware version. <br /></td></tr>
+<tr class="separator:a74034e258280659c81e74c002594b2e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>source/main_module/vehicle_fsm/<a class="el" href="vehicle__fsm_8h_source.html">vehicle_fsm.h</a></li>
-</ul>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Telemetry task implementations. </p>
+<dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="structtorque__request__t.html">torque_request_t</a></li>
+    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_92cd89fe1a7f4ffa14caa98c8985cc29.html">main_module</a></li><li class="navelem"><a class="el" href="dir_716eb21476e6667075ada1cffbb2e013.html">telemetry</a></li><li class="navelem"><a class="el" href="telemetry_8c.html">telemetry.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

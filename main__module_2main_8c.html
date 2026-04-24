@@ -115,35 +115,41 @@ $(function(){initNavTree('main__module_2main_8c.html',''); initResizable(true); 
 <code>#include &quot;common/phal/can.h&quot;</code><br />
 <code>#include &quot;common/phal/gpio.h&quot;</code><br />
 <code>#include &quot;common/phal/rcc.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="pindefs_8h_source.html">pindefs.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="heartbeat_8h_source.html">common/heartbeat/heartbeat.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="vehicle__init_8h_source.html">vehicle_init.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="vehicle__fsm_8h_source.html">vehicle_fsm.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="sdc_8h_source.html">sdc.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="telemetry_8h_source.html">telemetry.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a2bffc10d5bd4106753b7c30e86903bea" id="r_a2bffc10d5bd4106753b7c30e86903bea"><td class="memItemLeft" align="right" valign="top"><a id="a2bffc10d5bd4106753b7c30e86903bea" name="a2bffc10d5bd4106753b7c30e86903bea"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>HardFault_Handler</b> (void)</td></tr>
 <tr class="separator:a2bffc10d5bd4106753b7c30e86903bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24f903597dd423be4f1cb8186512f0fa" id="r_a24f903597dd423be4f1cb8186512f0fa"><td class="memItemLeft" align="right" valign="top"><a id="a24f903597dd423be4f1cb8186512f0fa" name="a24f903597dd423be4f1cb8186512f0fa"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>AMK_task</b> ()</td></tr>
-<tr class="separator:a24f903597dd423be4f1cb8186512f0fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2affa98a476a899af886fd2cc19bf28" id="r_ab2affa98a476a899af886fd2cc19bf28"><td class="memItemLeft" align="right" valign="top"><a id="ab2affa98a476a899af886fd2cc19bf28" name="ab2affa98a476a899af886fd2cc19bf28"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (CAN_rx_update, 0, osPriorityHigh, STACK_2048)</td></tr>
 <tr class="separator:ab2affa98a476a899af886fd2cc19bf28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada5efcd42c4f6226870b2cc04784966b" id="r_ada5efcd42c4f6226870b2cc04784966b"><td class="memItemLeft" align="right" valign="top"><a id="ada5efcd42c4f6226870b2cc04784966b" name="ada5efcd42c4f6226870b2cc04784966b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (CAN_tx_update, 2, osPriorityHigh, STACK_2048)</td></tr>
-<tr class="separator:ada5efcd42c4f6226870b2cc04784966b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a134334308c6a425e4d4641580558cd9e" id="r_a134334308c6a425e4d4641580558cd9e"><td class="memItemLeft" align="right" valign="top"><a id="a134334308c6a425e4d4641580558cd9e" name="a134334308c6a425e4d4641580558cd9e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (fsm_periodic, 20, osPriorityNormal, STACK_2048)</td></tr>
-<tr class="separator:a134334308c6a425e4d4641580558cd9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6489fd6d3693eec5e4a7872d0d24ea8f" id="r_a6489fd6d3693eec5e4a7872d0d24ea8f"><td class="memItemLeft" align="right" valign="top"><a id="a6489fd6d3693eec5e4a7872d0d24ea8f" name="a6489fd6d3693eec5e4a7872d0d24ea8f"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (AMK_task, 15, osPriorityNormal, STACK_1024)</td></tr>
-<tr class="separator:a6489fd6d3693eec5e4a7872d0d24ea8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a419a01c3920e580cdbea463efa83b1c1" id="r_a419a01c3920e580cdbea463efa83b1c1"><td class="memItemLeft" align="right" valign="top"><a id="a419a01c3920e580cdbea463efa83b1c1" name="a419a01c3920e580cdbea463efa83b1c1"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (CAN_tx_update, 1, osPriorityHigh, STACK_2048)</td></tr>
+<tr class="separator:a419a01c3920e580cdbea463efa83b1c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a560a082cb9ff2613c20e3c5875b916a8" id="r_a560a082cb9ff2613c20e3c5875b916a8"><td class="memItemLeft" align="right" valign="top"><a id="a560a082cb9ff2613c20e3c5875b916a8" name="a560a082cb9ff2613c20e3c5875b916a8"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (vehicle_fsm_periodic, VEHICLE_FSM_PERIOD_MS, osPriorityNormal, STACK_2048)</td></tr>
+<tr class="separator:a560a082cb9ff2613c20e3c5875b916a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28798638ab09b76fe93500b8f3f9ec6e" id="r_a28798638ab09b76fe93500b8f3f9ec6e"><td class="memItemLeft" align="right" valign="top"><a id="a28798638ab09b76fe93500b8f3f9ec6e" name="a28798638ab09b76fe93500b8f3f9ec6e"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (fault_library_periodic, MAIN_MODULE_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024)</td></tr>
 <tr class="separator:a28798638ab09b76fe93500b8f3f9ec6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09773ccc696769d7d3f6df692b9ba931" id="r_a09773ccc696769d7d3f6df692b9ba931"><td class="memItemLeft" align="right" valign="top"><a id="a09773ccc696769d7d3f6df692b9ba931" name="a09773ccc696769d7d3f6df692b9ba931"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (update_SDC, 5, osPriorityLow, STACK_512)</td></tr>
-<tr class="separator:a09773ccc696769d7d3f6df692b9ba931"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac50ff6364f87a3b7cb869664e57039c7" id="r_ac50ff6364f87a3b7cb869664e57039c7"><td class="memItemLeft" align="right" valign="top"><a id="ac50ff6364f87a3b7cb869664e57039c7" name="ac50ff6364f87a3b7cb869664e57039c7"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (SDC_task_periodic, SDC_TASK_PERIOD_MS, osPriorityNormal, STACK_512)</td></tr>
+<tr class="separator:ac50ff6364f87a3b7cb869664e57039c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71050f8af6f8c7abc4e625fecf2c4846" id="r_a71050f8af6f8c7abc4e625fecf2c4846"><td class="memItemLeft" align="right" valign="top"><a id="a71050f8af6f8c7abc4e625fecf2c4846" name="a71050f8af6f8c7abc4e625fecf2c4846"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="telemetry_8c.html#a14fa998ab27981c4409143eae0bde0e1">report_telemetry_50hz</a>, TELEMETRY_50HZ_PERIOD_MS, osPriorityLow, STACK_512)</td></tr>
+<tr class="separator:a71050f8af6f8c7abc4e625fecf2c4846"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fb57622cb7edc7563416da2a85a894a" id="r_a7fb57622cb7edc7563416da2a85a894a"><td class="memItemLeft" align="right" valign="top"><a id="a7fb57622cb7edc7563416da2a85a894a" name="a7fb57622cb7edc7563416da2a85a894a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="telemetry_8c.html#a6d0a75c0aee5808a962691e3973ee968">report_telemetry_1hz</a>, TELEMETRY_1HZ_PERIOD_MS, osPriorityLow, STACK_512)</td></tr>
+<tr class="separator:a7fb57622cb7edc7563416da2a85a894a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6760d120cd4ba27426aa85efb16495d" id="r_af6760d120cd4ba27426aa85efb16495d"><td class="memItemLeft" align="right" valign="top"><a id="af6760d120cd4ba27426aa85efb16495d" name="af6760d120cd4ba27426aa85efb16495d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="telemetry_8c.html#a74034e258280659c81e74c002594b2e2">report_telemetry_02hz</a>, TELEMETRY_02HZ_PERIOD_MS, osPriorityLow, STACK_512)</td></tr>
+<tr class="separator:af6760d120cd4ba27426aa85efb16495d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a845eaf447179a8baf75c69794c49856d" id="r_a845eaf447179a8baf75c69794c49856d"><td class="memItemLeft" align="right" valign="top"><a id="a845eaf447179a8baf75c69794c49856d" name="a845eaf447179a8baf75c69794c49856d"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_HEARTBEAT_TASK</b> (nullptr)</td></tr>
 <tr class="separator:a845eaf447179a8baf75c69794c49856d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,12 +159,6 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (void)</td></
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a0c603b6be14ee38a80f5b39fef2668da" id="r_a0c603b6be14ee38a80f5b39fef2668da"><td class="memItemLeft" align="right" valign="top"><a id="a0c603b6be14ee38a80f5b39fef2668da" name="a0c603b6be14ee38a80f5b39fef2668da"></a>
-<a class="el" href="structcar__t.html">car_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>g_car</b></td></tr>
-<tr class="separator:a0c603b6be14ee38a80f5b39fef2668da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a766b4068a82ed7a189256a31ec0086e2" id="r_a766b4068a82ed7a189256a31ec0086e2"><td class="memItemLeft" align="right" valign="top"><a id="a766b4068a82ed7a189256a31ec0086e2" name="a766b4068a82ed7a189256a31ec0086e2"></a>
-<a class="el" href="structtorque__request__t.html">torque_request_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>g_torque_request</b></td></tr>
-<tr class="separator:a766b4068a82ed7a189256a31ec0086e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60563c6df24a123ae18e090bca85f555" id="r_a60563c6df24a123ae18e090bca85f555"><td class="memItemLeft" align="right" valign="top"><a id="a60563c6df24a123ae18e090bca85f555" name="a60563c6df24a123ae18e090bca85f555"></a>
 <a class="el" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>gpio_config</b> []</td></tr>
 <tr class="separator:a60563c6df24a123ae18e090bca85f555"><td class="memSeparator" colspan="2">&#160;</td></tr>

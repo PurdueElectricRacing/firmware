@@ -10,22 +10,7 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-#include "common/phal/can.h"
-
-//STM32F407
-
-typedef struct __attribute__((packed)) {
-    // Do not modify this struct unless
-    // you modify the ADC DMA config
-    // in main.h to match
-    uint16_t t1;
-    uint16_t t2;
-    uint16_t b1;
-    uint16_t b2;
-    uint16_t brake1_pressure;
-    uint16_t brake2_pressure;
-} raw_adc_values_t;
-volatile extern raw_adc_values_t raw_adc_values;
+#include "common/phal/gpio.h"
 
 // On-board Status LEDs
 #define CONNECTION_LED_PORT (GPIOB)

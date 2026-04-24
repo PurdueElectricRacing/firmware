@@ -25,6 +25,7 @@
 #include "lcd.h"
 #include "main.h"
 #include "pedals.h"
+#include "driver_interface.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // On-board LEDs
@@ -71,8 +72,6 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_USART1RX_PA10,
 };
 
-volatile raw_adc_values_t raw_adc_values;
-
 /* ADC Configuration */
 ADCInitConfig_t adc_config = {
     .prescaler      = ADC_CLK_PRESC_2,
@@ -91,6 +90,22 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel = BRAKE1_PRESSURE_ADC_CHANNEL, .rank = 5, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = BRAKE2_PRESSURE_ADC_CHANNEL, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480}
 };
+
+typedef volatile struct {
+    uint16_t t1;
+    uint16_t t2;
+    uint16_t b1;
+    uint16_t b2;
+    uint16_t brake1_pressure;
+    uint16_t brake2_pressure;
+} raw_adc_values_t;
+static_assert(
+    (sizeof(raw_adc_values_t) / sizeof(uint16_t)) ==
+    (sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t)),
+    "ADC channel config and raw ADC values struct must have the same number of channels"
+);
+
+volatile raw_adc_values_t raw_adc_values; // DMA target
 
 dma_init_t adc_dma_config =
 ADC1_DMA_CONT_CONFIG(
@@ -135,7 +150,6 @@ extern uint32_t PLLClockRateHz;
 
 // LCD Variables
 extern page_t curr_page;
-volatile dashboard_input_state_t input_state = {0}; // Clear all input states
 
 /* Function Prototypes */
 void LCD_tx_update();
@@ -155,7 +169,6 @@ DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNo
 DEFINE_TASK(updateTelemetryPages, 100, osPriorityNormal, STACK_1024);
 DEFINE_TASK(service_start_button, START_BUTTON_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_TASK(driver_interface_periodic, 50, osPriorityLow, STACK_1024);
-DEFINE_TASK(LCD_tx_update, 20, osPriorityLow, STACK_512);
 DEFINE_HEARTBEAT_TASK(sweep_external_leds);
 
 int main(void) {
@@ -203,7 +216,6 @@ int main(void) {
     START_TASK(updateTelemetryPages);
     START_TASK(service_start_button);
     START_TASK(driver_interface_periodic);
-    START_TASK(LCD_tx_update);
     START_HEARTBEAT_TASK();
 
     osKernelStart(); // GO!
@@ -222,47 +234,6 @@ void send_version() {
 }
 
 // jose was here
-
-extern QueueHandle_t pending_services_handle;
-void EXTI9_5_IRQHandler() {
-    // EXTI9 (LEFT Button) triggered the interrupt
-    if (EXTI->PR1 & EXTI_PR1_PIF9) {
-        xQueueSendFromISR(pending_services_handle, &(lcd_action_t){}, NULL);
-        EXTI->PR1 |= EXTI_PR1_PIF9;
-    }
-
-    // EXTI8 (RIGHT Button) triggered the interrupt
-    if (EXTI->PR1 & EXTI_PR1_PIF8) {
-        input_state.right_button = 1;
-        EXTI->PR1 |= EXTI_PR1_PIF8;
-    }
-
-    // EXTI7 (DOWN Button) triggered the interrupt
-    if (EXTI->PR1 & EXTI_PR1_PIF7) {
-        input_state.down_button = 1;
-        EXTI->PR1 |= EXTI_PR1_PIF7;
-    }
-
-    // EXTI6 (UP Button) triggered the interrupt
-    if (EXTI->PR1 & EXTI_PR1_PIF6) {
-        input_state.up_button = 1;
-        EXTI->PR1 |= EXTI_PR1_PIF6;
-    }
-}
-
-void EXTI15_10_IRQHandler() {
-    // EXTI15 (SELECT button) triggered the interrupt
-    if (EXTI->PR1 & EXTI_PR1_PIF15) {
-        input_state.select_button = 1;
-        EXTI->PR1 |= EXTI_PR1_PIF15;
-    }
-
-    // EXTI14 (START button) triggered the interrupt
-    if (EXTI->PR1 & EXTI_PR1_PIF14) {
-        input_state.start_button = 1;
-        EXTI->PR1 |= EXTI_PR1_PIF14;
-    }
-}
 
 void sweep_external_leds() {
     static uint32_t sweep_index = 0;
@@ -295,19 +266,6 @@ void sweep_external_leds() {
     }
 }
 
-/**
- * @brief Processes dashboard button flags and triggers corresponding actions
- *
- * Meant to be called periodically.
- */
-void driver_interface_periodic() {
-    
-
-    
-
-    // todo IMD and BMS
-}
-
 void config_button_irqs() {
     // Enable the SYSCFG clock for interrupts
     RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
@@ -332,15 +290,7 @@ void config_button_irqs() {
     NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
-/**
- * @brief Called periodically to send commands to the Nextion LCD display via USART
- */
-void LCD_tx_update() {
-    if ((false == PHAL_usartTxBusy(&lcd)) && (lcd_tx_buf.length > 0)) {
-        PHAL_usartTxDma(&lcd, (uint8_t *)lcd_tx_buf.data, lcd_tx_buf.length);
-        strbuf_clear(&lcd_tx_buf);
-    }
-}
+
 
 
 void zero_lws() {

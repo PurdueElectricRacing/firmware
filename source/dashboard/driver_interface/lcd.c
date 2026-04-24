@@ -10,7 +10,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "nextion.h"
+#include "common/nextion/nextion.h"
 
 // pages
 #include "pages/race.h"

@@ -28,12 +28,13 @@ typedef struct {
     char *string;
 } page_handler_t;
 
-void advancePage();
-void backPage();
-void selectItem();
-void moveUp();
-void moveDown();
-void updatePage();
-void updateTelemetryPages();
+void advancePage(void);
+void backPage(void);
+void selectItem(void);
+void moveUp(void);
+void moveDown(void);
+void updatePage(void);
+void updateTelemetryPages(void);
+void flush_LCD(void);
 
 #endif // LCD_H

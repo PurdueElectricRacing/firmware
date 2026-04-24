@@ -5,7 +5,7 @@ Author: Irving Wang (irvingw@purdue.edu)
 """
 
 from dataclasses import dataclass, field
-from typing import List, Optional, Dict, Set
+from typing import List, Optional, Dict, Set, Literal
 from pathlib import Path
 from utils import (
     load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, 
@@ -67,6 +67,7 @@ class Message:
     period: int = 0
     id_override: Optional[str] = None
     is_extended: bool = False
+    byte_order: Literal["little_endian", "big_endian"] = "little_endian"
     final_id: int = 0
     dlc: int = 0
     layout_hash: str = ""
@@ -84,8 +85,22 @@ class Message:
         for sig in self.signals:
             length = sig.get_bit_length(custom_types)
             sig.length = length
-            sig.bit_offset = current_offset
-            sig.bit_shift = current_offset
+            
+            if self.byte_order == 'big_endian':
+                # Motorola/Big Endian: DBC start bit is the MSB position
+                # using sawtooth bit numbering
+                msb_byte = current_offset // 8
+                msb_bit_in_byte = 7 - (current_offset % 8)
+                sig.bit_offset = msb_byte * 8 + msb_bit_in_byte # DBC Motorola MSB start bit
+                sig.bit_shift = current_offset  # keep linear for C codegen
+                # Note: sub-byte signals (length < 8, not spanning byte boundaries) need no
+                # bswap as the C codegen's else branch handles them with a plain shift+mask,
+                # which is correct since memcpy into uint64_t preserves byte ordering on
+                # little-endian hosts (ARM).
+            else:
+                sig.bit_offset = current_offset
+                sig.bit_shift = current_offset
+                
             sig.mask = (1 << length) - 1
             
             # Resolve signedness
@@ -348,6 +363,7 @@ def parse_message(data: Dict, bus_config: Dict) -> Message:
         priority=data['msg_priority'],
         period=data.get('msg_period', 0),
         id_override=data.get('msg_id_override'),
+        byte_order=data.get('byte_order', 'little_endian'),
         is_extended=is_extended
     )
 

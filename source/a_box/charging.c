@@ -115,13 +115,13 @@ void charging_fsm_periodic() {
     uint16_t scaled_charge_command_volts = (uint16_t)(charge_command_volts * PACK_COEFF_ELCON_COMMAND_VOLTAGE_LIMIT);
     uint16_t scaled_charge_command_amps = (uint16_t)(charge_command_amps * PACK_COEFF_ELCON_COMMAND_CURRENT_LIMIT);
 
-    // ! temporary: swap byte order here until we fix CANpiler
-    uint16_t BE_charge_command_volts = __builtin_bswap16(scaled_charge_command_volts);
-    uint16_t BE_charge_command_amps = __builtin_bswap16(scaled_charge_command_amps);
     CAN_SEND_elcon_command(
-        BE_charge_command_volts,
-        BE_charge_command_amps,
-        !charge_enable
+        scaled_charge_command_volts,
+        scaled_charge_command_amps,
+        !charge_enable,
+        0, // reserved
+        0, // reserved
+        0  // reserved
     );
 
     report_internal_state();

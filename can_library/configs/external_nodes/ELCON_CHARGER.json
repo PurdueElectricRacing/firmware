@@ -5,6 +5,7 @@
         {
             "msg_name": "elcon_status",
             "msg_desc": "Status message from Elcon Charger to A_BOX (Message2)",
+            "byte_order": "big_endian",
             "signals": [
                 {
                     "sig_name": "charge_voltage",
@@ -19,18 +20,20 @@
                     "type": "uint16_t"
                 },
                 {
-                    "sig_name": "hw_fail",
-                    "sig_desc": "Hardware failure",
+                    "sig_name": "reserved_bit7",
                     "type": "bool"
                 },
                 {
-                    "sig_name": "temp_fail",
-                    "sig_desc": "Temperature failure",
+                    "sig_name": "reserved_bit6",
                     "type": "bool"
                 },
                 {
-                    "sig_name": "input_v_fail",
-                    "sig_desc": "Input voltage failure",
+                    "sig_name": "reserved_bit5",
+                    "type": "bool"
+                },
+                {
+                    "sig_name": "communication_fail",
+                    "sig_desc": " 5s timeout from communication failure",
                     "type": "bool"
                 },
                 {
@@ -39,8 +42,18 @@
                     "type": "bool"
                 },
                 {
-                    "sig_name": "communication_fail",
-                    "sig_desc": " 5s timeout from communication failure",
+                    "sig_name": "input_v_fail",
+                    "sig_desc": "Input voltage failure",
+                    "type": "bool"
+                },
+                {
+                    "sig_name": "temp_fail",
+                    "sig_desc": "Temperature failure",
+                    "type": "bool"
+                },
+                {
+                    "sig_name": "hw_fail",
+                    "sig_desc": "Hardware failure",
                     "type": "bool"
                 }
             ],

@@ -35,7 +35,8 @@
             ],
             "msg_period": 10,
             "msg_id_override": "0x4EC",
-            "msg_priority": 5
+            "msg_priority": 5,
+            "byte_order": "big_endian"
         },
         {
             "msg_name": "IZZE_acceleration",
@@ -72,7 +73,8 @@
             ],
             "msg_period": 10,
             "msg_id_override": "0x4ED",
-            "msg_priority": 5
+            "msg_priority": 5,
+            "byte_order": "big_endian"
         }
     ],
     "rx": [

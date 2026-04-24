@@ -69,7 +69,49 @@ static inline void CAN_rx_dispatcher(uint32_t id, uint8_t *data, uint8_t len, ui
                 memcpy(&host_data, data, len);
                 
                 {% for sig in msg.signals %}
+                {% if msg.byte_order == 'big_endian' %}
+                // Motorola/Big Endian: extract, byte-swap, then reinterpret for floats / sign-extend for signed
+                {% if sig.length == 16 %}
+                uint16_t sig_raw_{{ sig.name }} = __builtin_bswap16((uint16_t)((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }}));
+                {% if sig.is_floating_point %}
+                // float reinterpret (bfloat16 not supported; 16-bit floats are unusual — treat as raw bits)
+                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})sig_raw_{{ sig.name }};
+                {% elif sig.is_signed %}
+                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})((int16_t)sig_raw_{{ sig.name }});
+                {% else %}
+                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})sig_raw_{{ sig.name }};
+                {% endif %}
+                {% elif sig.length == 32 %}
+                uint32_t sig_raw_{{ sig.name }} = __builtin_bswap32((uint32_t)((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }}));
+                {% if sig.is_floating_point %}
+                union { float f; uint32_t u; } _{{ sig.name }}_rx_u;
+                _{{ sig.name }}_rx_u.u = sig_raw_{{ sig.name }};
+                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})_{{ sig.name }}_rx_u.f;
+                {% elif sig.is_signed %}
+                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})((int32_t)sig_raw_{{ sig.name }});
+                {% else %}
+                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})sig_raw_{{ sig.name }};
+                {% endif %}
+                {% elif sig.length == 64 %}
+                uint64_t sig_raw_{{ sig.name }} = __builtin_bswap64((uint64_t)((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }}));
+                {% if sig.is_floating_point %}
+                union { double f; uint64_t u; } _{{ sig.name }}_rx_u;
+                _{{ sig.name }}_rx_u.u = sig_raw_{{ sig.name }};
+                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})_{{ sig.name }}_rx_u.f;
+                {% elif sig.is_signed %}
+                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})((int64_t)sig_raw_{{ sig.name }});
+                {% else %}
+                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})sig_raw_{{ sig.name }};
+                {% endif %}
+                {% else %}
+                // Sub-byte or non-power-of-two big-endian signal — no byte-swap, sign-extend if needed
                 {% if sig.is_signed and sig.length < 64 %}
+                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})((int64_t)((uint64_t)((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }}) << ({{ 64 - sig.length }})) >> ({{ 64 - sig.length }}));
+                {% else %}
+                can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }});
+                {% endif %}
+                {% endif %}
+                {% elif sig.is_signed and sig.length < 64 %}
                 can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})((int64_t)((uint64_t)((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }}) << ({{ 64 - sig.length }})) >> ({{ 64 - sig.length }}));
                 {% else %}
                 can_data.{{ msg.name }}.{{ sig.name }} = ({{ sig.c_type }})((host_data >> {{ sig.bit_shift }}) & {{ sig.mask|to_c_hex }});
@@ -134,13 +176,45 @@ static inline void CAN_SEND_{{ tx_msg.name }}(
 
     uint64_t data = 0;
     {% for sig in tx_msg.signals %}
+    {% set val_to_pack = sig.name %}
+    {% if tx_msg.byte_order == 'big_endian' %}
     {% if sig.is_floating_point %}
+    {# For floats: reinterpret bits first, then bswap the integer representation #}
+    {% if sig.length == 32 %}
+    union { float f; uint32_t u; } _{{ sig.name }}_tx_u;
+    _{{ sig.name }}_tx_u.f = {{ sig.name }};
+    uint32_t {{ sig.name }}_packed = __builtin_bswap32(_{{ sig.name }}_tx_u.u);
+    {% set val_to_pack = sig.name + "_packed" %}
+    {% elif sig.length == 64 %}
+    union { double f; uint64_t u; } _{{ sig.name }}_tx_u;
+    _{{ sig.name }}_tx_u.f = {{ sig.name }};
+    uint64_t {{ sig.name }}_packed = __builtin_bswap64(_{{ sig.name }}_tx_u.u);
+    {% set val_to_pack = sig.name + "_packed" %}
+    {% endif %}
+    {% elif sig.length == 16 %}
+    uint16_t {{ sig.name }}_packed = __builtin_bswap16((uint16_t){{ sig.name }});
+    {% set val_to_pack = sig.name + "_packed" %}
+    {% elif sig.length == 32 %}
+    uint32_t {{ sig.name }}_packed = __builtin_bswap32((uint32_t){{ sig.name }});
+    {% set val_to_pack = sig.name + "_packed" %}
+    {% elif sig.length == 64 %}
+    uint64_t {{ sig.name }}_packed = __builtin_bswap64((uint64_t){{ sig.name }});
+    {% set val_to_pack = sig.name + "_packed" %}
+    {% endif %}
+    {% endif %}
+
+    {% if sig.is_floating_point %}
+    {# val_to_pack is already the bswapped integer for big_endian, or the raw float name for little_endian #}
+    {% if tx_msg.byte_order == 'big_endian' and (sig.length == 32 or sig.length == 64) %}
+    data |= ((uint64_t)({{ val_to_pack }} & {{ sig.mask|to_c_hex }})) << ({{ sig.bit_shift }});
+    {% else %}
     {% set union_type = "uint32_t" if sig.c_type == 'float' else "uint64_t" %}
     union { {{ sig.c_type }} f; {{ union_type }} u; } _{{ sig.name }}_u;
     _{{ sig.name }}_u.f = {{ sig.name }};
     data |= ((uint64_t)(_{{ sig.name }}_u.u & {{ sig.mask|to_c_hex }})) << ({{ sig.bit_shift }});
+    {% endif %}
     {% else %}
-    data |= ((uint64_t)({{ sig.name }} & {{ sig.mask|to_c_hex }})) << ({{ sig.bit_shift }});
+    data |= ((uint64_t)({{ val_to_pack }} & {{ sig.mask|to_c_hex }})) << ({{ sig.bit_shift }});
     {% endif %}
     {% endfor %}
 

@@ -67,7 +67,7 @@ def map_node_hardware(node: Node, bus_configs: Dict) -> NodeMapping:
     peripherals = sorted(list(set(bus.peripheral for bus in node.busses.values())))
 
     # Group RX messages by peripheral
-    periph_to_msgs = {p: [] for p in peripherals}
+    periph_to_msgs: Dict[str, List[tuple[Message, str]]] = {p: [] for p in peripherals}
     for bus_name, bus in node.busses.items():
         for rx_msg in bus.rx_messages:
             if rx_msg.resolved_message:
@@ -123,9 +123,9 @@ def map_fdcan_filters(node_name: str, periph: str, msgs: List) -> FDCANFilters:
     return filters
 
 
-def map_bxcan_filters(node_name: str, periph: str, msgs: List) -> List[FilterBank]:
+def map_bxcan_filters(node_name: str, periph: str, msgs: List[tuple[Message, str]]) -> List[FilterBank]:
     """Map messages to bxCAN filter banks"""
-    banks = []
+    banks: List[FilterBank] = []
 
     if not msgs:
         return banks

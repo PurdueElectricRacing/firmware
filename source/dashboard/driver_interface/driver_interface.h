@@ -11,6 +11,7 @@ typedef enum {
     FORWARD_PAGE,
     SELECT_BUTTON,
     START_BUTTON,
+    MARK_DATA
 } interface_action_t;
 
 static constexpr uint32_t DRIVER_INTERFACE_PERIOD_MS = 50;

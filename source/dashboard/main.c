@@ -48,6 +48,7 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_INPUT(START_BUTTON_PORT, START_BUTTON_PIN, GPIO_INPUT_PULL_UP),
 
     // todo steering wheel buttons
+    GPIO_INIT_INPUT(MARK_DATA_PORT, MARK_DATA_PIN, GPIO_INPUT_PULL_UP),
 
     // VCAN
     GPIO_INIT_FDCAN2RX_PB5,

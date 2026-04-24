@@ -67,7 +67,9 @@ def generate_node_header(env, node: Node, context: SystemContext):
                 rx_msgs.append((rx_msg, bus.peripheral, bus_name))
         for msg in bus.tx_messages:
             tx_msgs.append((msg, bus.peripheral, bus_name))
-            
+    
+    # TODO: don't require messages that start with "reserved_" to be used in the CAN_SEND_
+    # Instead have them get 0-ed automatically
     render_template(env, 'node_header.h.jinja',
                     filename,
                     node=node,

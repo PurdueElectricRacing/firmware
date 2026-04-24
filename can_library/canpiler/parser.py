@@ -87,13 +87,16 @@ class Message:
             sig.length = length
             
             if self.byte_order == 'big_endian':
-                # Linear 0 -> 0|16@0 (LSB=0, MSB=7 in Motorola DBC notation)
                 # Motorola/Big Endian: DBC start bit is the MSB position
-                # using sawtooth bit numbering (cantools Motorola convention)
+                # using sawtooth bit numbering
                 msb_byte = current_offset // 8
                 msb_bit_in_byte = 7 - (current_offset % 8)
-                sig.bit_offset = msb_byte * 8 + msb_bit_in_byte
+                sig.bit_offset = msb_byte * 8 + msb_bit_in_byte # DBC Motorola MSB start bit
                 sig.bit_shift = current_offset  # keep linear for C codegen
+                # Note: sub-byte signals (length < 8, not spanning byte boundaries) need no
+                # bswap as the C codegen's else branch handles them with a plain shift+mask,
+                # which is correct since memcpy into uint64_t preserves byte ordering on
+                # little-endian hosts (ARM).
             else:
                 sig.bit_offset = current_offset
                 sig.bit_shift = current_offset

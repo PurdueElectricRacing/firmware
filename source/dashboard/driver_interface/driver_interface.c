@@ -3,6 +3,7 @@
 #include "common/freertos/freertos.h"
 #include "common/heartbeat/heartbeat.h"
 #include "common/phal/usart.h"
+#include "common/freertos/freertos.h"
 
 #include "driver_interface.h"
 #include "lcd.h"
@@ -13,7 +14,13 @@
 DEFINE_QUEUE(action_queue, interface_action_t, ACTION_QUEUE_LENGTH);
 volatile uint16_t data_mark_index = 0;
 
+static constexpr uint32_t INTERRUPT_DEBOUNCE_MS = 1;
 void EXTI9_5_IRQHandler() {
+    static volatile uint32_t last_interrupt_time = 0;
+    if (xTaskGetTickCountFromISR() - last_interrupt_time > INTERRUPT_DEBOUNCE_MS) {
+        last_interrupt_time = xTaskGetTickCountFromISR();
+    }
+
     // EXTI5 (MARK_DATA Button) triggered the interrupt
     if (EXTI->PR1 & EXTI_PR1_PIF5) {
         xQueueSendFromISR(action_queue, &(interface_action_t){MARK_DATA}, NULL);
@@ -46,6 +53,11 @@ void EXTI9_5_IRQHandler() {
 }
 
 void EXTI15_10_IRQHandler() {
+    static volatile uint32_t last_interrupt_time = 0;
+    if (xTaskGetTickCountFromISR() - last_interrupt_time > INTERRUPT_DEBOUNCE_MS) {
+        last_interrupt_time = xTaskGetTickCountFromISR();
+    }
+
     // EXTI14 (START button) triggered the interrupt
     if (EXTI->PR1 & EXTI_PR1_PIF14) {
         xQueueSendFromISR(action_queue, &(interface_action_t){START_BUTTON}, NULL);

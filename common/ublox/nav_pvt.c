@@ -10,7 +10,7 @@
 #include <string.h>
 #include "nav_pvt.h"
 
-void NAV_PVT_decode(NAV_PVT_data_t *nav_pvt, const uint8_t *rx_buffer) {
+void NAV_PVT_decode(NAV_PVT_data_t *nav_pvt, const volatile uint8_t *rx_buffer) {
     bool is_header_valid =
         (rx_buffer[0] == NAV_PVT_HEADER_B0) &&
         (rx_buffer[1] == NAV_PVT_HEADER_B1) &&
@@ -21,7 +21,7 @@ void NAV_PVT_decode(NAV_PVT_data_t *nav_pvt, const uint8_t *rx_buffer) {
         return;
     }
 
-    memcpy(nav_pvt, (rx_buffer + 6), sizeof(NAV_PVT_data_t));
+    memcpy(nav_pvt, (uint8_t *)(rx_buffer + 6), sizeof(NAV_PVT_data_t));
 
 
     // todo validate checksum

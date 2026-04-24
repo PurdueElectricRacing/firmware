@@ -113,6 +113,6 @@ static_assert(offsetof(NAV_PVT_data_t, longitude) == 24);
 static_assert(offsetof(NAV_PVT_data_t, headingVehicle) == 84);
 static_assert(offsetof(NAV_PVT_data_t, magneticAcc) == 90);
 
-void NAV_PVT_decode(NAV_PVT_data_t *nav_pvt, const uint8_t *rx_buffer);
+void NAV_PVT_decode(NAV_PVT_data_t *nav_pvt, const volatile uint8_t *rx_buffer);
 
 #endif // NAV_PVT_H

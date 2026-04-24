@@ -69,6 +69,6 @@ static_assert(offsetof(NAV_RELPOSNED_data_t, accE) == 28);
 static_assert(offsetof(NAV_RELPOSNED_data_t, accD) == 32);
 static_assert(offsetof(NAV_RELPOSNED_data_t, flags) == 36);
 
-void NAV_RELPOSNED_decode(NAV_RELPOSNED_data_t *relposned, const uint8_t *rx_buffer);
+void NAV_RELPOSNED_decode(NAV_RELPOSNED_data_t *relposned, const volatile uint8_t *rx_buffer);
 
 #endif // NAV_RELPOSNED_H

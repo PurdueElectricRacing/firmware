@@ -8,7 +8,7 @@
 #include "nav_relposned.h"
 #include <string.h>
 
-void NAV_RELPOSNED_decode(NAV_RELPOSNED_data_t *nav_relposned, const uint8_t *rx_buffer) {
+void NAV_RELPOSNED_decode(NAV_RELPOSNED_data_t *nav_relposned, const volatile uint8_t *rx_buffer) {
     bool is_header_valid =
         (rx_buffer[0] == NAV_RELPOSNED_HEADER_B0) &&
         (rx_buffer[1] == NAV_RELPOSNED_HEADER_B1) &&
@@ -19,7 +19,7 @@ void NAV_RELPOSNED_decode(NAV_RELPOSNED_data_t *nav_relposned, const uint8_t *rx
         return;
     }
 
-    memcpy(nav_relposned, (rx_buffer + 6), sizeof(NAV_RELPOSNED_data_t));
+    memcpy(nav_relposned, (uint8_t *)(rx_buffer + 6), sizeof(NAV_RELPOSNED_data_t));
 
     // todo validate checksum
 }

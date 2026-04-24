@@ -1,17 +1,24 @@
+/**
+ * @file sdc.c
+ * @brief SDC task implementation
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include "main.h"
 
 #include "common/phal/gpio.h"
 #include "can_library/faults_common.h"
 #include "common/freertos/freertos.h"
 
+// mux address to indicate the node is inaccessible
+static constexpr uint8_t SDC_UNREADABLE = 0xFF; 
+static constexpr int NUM_SDC_NODES = 17;
+
 typedef struct {
     fault_id_t fault_id;
     uint8_t mux_addr;
 } sdc_node_t;
-
-// mux address to indicate the node is inaccessible
-static constexpr uint8_t SDC_UNREADABLE = 0xFF; 
-static constexpr int NUM_SDC_NODES = 17;
 
 // id by the SDC node number (1-17)
 static const sdc_node_t SDC_NODE_LUT[NUM_SDC_NODES] = {

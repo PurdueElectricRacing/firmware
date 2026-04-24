@@ -2,8 +2,8 @@
 #define TELEMETRY_H
 
 /**
- * @file vehicle_fsm.h
- * @brief Master vehicle state machine implementation
+ * @file telemetry.h
+ * @brief Telemetry task implementations
  * 
  * @author Irving Wang (irvingw@purdue.edu)
  */

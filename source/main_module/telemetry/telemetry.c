@@ -1,3 +1,10 @@
+/**
+ * @file telemetry.c
+ * @brief Telemetry task implementations
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include "telemetry.h"
 #include "can_library/generated/MAIN_MODULE.h"
 #include "vehicle_fsm.h"

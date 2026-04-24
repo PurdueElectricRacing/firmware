@@ -8,7 +8,6 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-
 #include "common/phal/gpio.h"
 
 // Status LEDs

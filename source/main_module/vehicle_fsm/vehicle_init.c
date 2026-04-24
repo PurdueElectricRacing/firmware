@@ -1,3 +1,10 @@
+/**
+ * @file vehicle_init.c
+ * @brief Vehicle initialization implementation
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include "vehicle_fsm.h"
 #include "can_library/generated/MAIN_MODULE.h"
 

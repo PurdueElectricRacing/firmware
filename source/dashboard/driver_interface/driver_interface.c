@@ -126,7 +126,7 @@ void driver_interface_periodic(void) {
 
     updateTelemetryPages();
 
-    LCD_tx_update(); // dump the command
+    flush_LCD(); // dump the command
 
     set_external_leds();
 }

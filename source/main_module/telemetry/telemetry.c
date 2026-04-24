@@ -9,6 +9,11 @@
 #include "can_library/generated/MAIN_MODULE.h"
 #include "vehicle_fsm.h"
 
+/**
+ * @brief Reports telemetry data at 50 Hz rate
+ * Includes: AMK reported wheel_speeds
+ */
+static_assert(TELEMETRY_50HZ_PERIOD_MS == WHEEL_SPEEDS_PERIOD_MS);
 void report_telemetry_50hz(void) {
     CAN_SEND_wheel_speeds(
         g_car.front_right.crit->AMK_ActualSpeed,
@@ -18,6 +23,14 @@ void report_telemetry_50hz(void) {
     );
 }
 
+/**
+ * @brief Reports telemetry data at 1 Hz rate
+ * Includes: AMK diagnostics
+ */
+static_assert(TELEMETRY_1HZ_PERIOD_MS == INVA_DIAGNOSTICS_PERIOD_MS);
+static_assert(TELEMETRY_1HZ_PERIOD_MS == INVB_DIAGNOSTICS_PERIOD_MS);
+static_assert(TELEMETRY_1HZ_PERIOD_MS == INVC_DIAGNOSTICS_PERIOD_MS);
+static_assert(TELEMETRY_1HZ_PERIOD_MS == INVD_DIAGNOSTICS_PERIOD_MS);
 void report_telemetry_1hz(void) {
     CAN_SEND_inva_diagnostics(
         g_car.front_right.state,
@@ -48,6 +61,12 @@ void report_telemetry_1hz(void) {
     );
 }
 
+/**
+ * @brief Reports telemetry data at 0.2 Hz rate
+ * Includes: AMK reported motor and IGBT temperatures, firmware version
+ */
+static_assert(TELEMETRY_02HZ_PERIOD_MS == MOTOR_TEMPS_PERIOD_MS);
+static_assert(TELEMETRY_02HZ_PERIOD_MS == IGBT_TEMPS_PERIOD_MS);
 void report_telemetry_02hz(void) {
     CAN_SEND_motor_temps(
         g_car.front_right.temps->AMK_MotorTemp,

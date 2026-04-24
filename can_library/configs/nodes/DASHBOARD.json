@@ -41,6 +41,18 @@
                     "msg_priority": 1
                 },
                 {
+                    "msg_name": "update_regen_enable",
+                    "msg_desc": "Regen enable update from driver",
+                    "signals": [
+                        {
+                            "sig_name": "is_regen_enabled",
+                            "type": "bool"
+                        }
+                    ],
+                    "msg_period": 0,
+                    "msg_priority": 1
+                },
+                {
                     "msg_name": "steering_angle",
                     "msg_desc": "steering data",
                     "signals": [

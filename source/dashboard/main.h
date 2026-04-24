@@ -56,13 +56,18 @@ extern volatile raw_adc_values_t raw_adc_values;
 #define SELECT_BUTTON_PIN  (15)
 
 // Steering Wheel Button inputs
-#define LAP_TIMER_PORT    (GPIOA)
-#define LAP_TIMER_PIN     (3)
-#define REGEN_ENABLE_PORT (GPIOA)
-#define REGEN_ENABLE_PIN  (4)
+#define REGEN_TOGGLE_PORT (GPIOA)
+#define REGEN_TOGGLE_PIN  (4)
 #define MARK_DATA_PORT    (GPIOA)
 #define MARK_DATA_PIN     (5)
-// todo more wheel buttons
+#define EBB_MINUS_PORT    (GPIOB)
+#define EBB_MINUS_PIN     (0)
+#define EBB_PLUS_PORT     (GPIOB)
+#define EBB_PLUS_PIN      (1)
+#define TV1_PLUS_PORT     (GPIOB)
+#define TV1_PLUS_PIN      (12)
+#define TV1_MINUS_PORT    (GPIOB)
+#define TV1_MINUS_PIN     (13)
 
 // Throttle
 #define THROTTLE1_PORT        (GPIOC) // THROTTLE

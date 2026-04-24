@@ -9,21 +9,18 @@
 #include "main.h"
 #include "strbuf.h"
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-variable"
 DEFINE_QUEUE(action_queue, interface_action_t, 10);
-#pragma GCC diagnostic pop
 
 void EXTI9_5_IRQHandler() {
     // EXTI9 (LEFT Button) triggered the interrupt
     if (EXTI->PR1 & EXTI_PR1_PIF9) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){FORWARD_PAGE}, NULL);
+        xQueueSendFromISR(action_queue, &(interface_action_t){BACK_PAGE}, NULL);
         EXTI->PR1 |= EXTI_PR1_PIF9;
     }
 
     // EXTI8 (RIGHT Button) triggered the interrupt
     if (EXTI->PR1 & EXTI_PR1_PIF8) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){BACK_PAGE}, NULL);
+        xQueueSendFromISR(action_queue, &(interface_action_t){FORWARD_PAGE}, NULL);
         EXTI->PR1 |= EXTI_PR1_PIF8;
     }
 
@@ -55,6 +52,8 @@ void EXTI15_10_IRQHandler() {
 }
 
 void driver_interface_init() {
+    INIT_QUEUE(action_queue, interface_action_t, 10);
+
     // Enable the SYSCFG clock for interrupts
     RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
 
@@ -74,6 +73,8 @@ void driver_interface_init() {
 
     EXTI->FTSR1 |= (EXTI_FTSR1_FT6 | EXTI_FTSR1_FT7 | EXTI_FTSR1_FT8 | EXTI_FTSR1_FT9 | EXTI_FTSR1_FT14 | EXTI_FTSR1_FT15);
 
+    NVIC_SetPriority(EXTI9_5_IRQn, 7);
+    NVIC_SetPriority(EXTI15_10_IRQn, 7);
     NVIC_EnableIRQ(EXTI9_5_IRQn);
     NVIC_EnableIRQ(EXTI15_10_IRQn);
 }

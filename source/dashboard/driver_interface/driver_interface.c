@@ -14,22 +14,10 @@ DEFINE_QUEUE(action_queue, interface_action_t, ACTION_QUEUE_LENGTH);
 volatile uint16_t data_mark_index = 0;
 
 void EXTI9_5_IRQHandler() {
-    // EXTI9 (LEFT Button) triggered the interrupt
-    if (EXTI->PR1 & EXTI_PR1_PIF9) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){BACK_PAGE}, NULL);
-        EXTI->PR1 |= EXTI_PR1_PIF9;
-    }
-
-    // EXTI8 (RIGHT Button) triggered the interrupt
-    if (EXTI->PR1 & EXTI_PR1_PIF8) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){FORWARD_PAGE}, NULL);
-        EXTI->PR1 |= EXTI_PR1_PIF8;
-    }
-
-    // EXTI7 (DOWN Button) triggered the interrupt
-    if (EXTI->PR1 & EXTI_PR1_PIF7) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){MENU_DOWN}, NULL);
-        EXTI->PR1 |= EXTI_PR1_PIF7;
+    // EXTI5 (MARK_DATA Button) triggered the interrupt
+    if (EXTI->PR1 & EXTI_PR1_PIF5) {
+        xQueueSendFromISR(action_queue, &(interface_action_t){MARK_DATA}, NULL);
+        EXTI->PR1 |= EXTI_PR1_PIF5;
     }
 
     // EXTI6 (UP Button) triggered the interrupt
@@ -38,24 +26,36 @@ void EXTI9_5_IRQHandler() {
         EXTI->PR1 |= EXTI_PR1_PIF6;
     }
 
-    // EXTI5 (MARK_DATA Button) triggered the interrupt
-    if (EXTI->PR1 & EXTI_PR1_PIF5) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){MARK_DATA}, NULL);
-        EXTI->PR1 |= EXTI_PR1_PIF5;
+    // EXTI7 (DOWN Button) triggered the interrupt
+    if (EXTI->PR1 & EXTI_PR1_PIF7) {
+        xQueueSendFromISR(action_queue, &(interface_action_t){MENU_DOWN}, NULL);
+        EXTI->PR1 |= EXTI_PR1_PIF7;
+    }
+
+    // EXTI8 (RIGHT Button) triggered the interrupt
+    if (EXTI->PR1 & EXTI_PR1_PIF8) {
+        xQueueSendFromISR(action_queue, &(interface_action_t){FORWARD_PAGE}, NULL);
+        EXTI->PR1 |= EXTI_PR1_PIF8;
+    }
+
+    // EXTI9 (LEFT Button) triggered the interrupt
+    if (EXTI->PR1 & EXTI_PR1_PIF9) {
+        xQueueSendFromISR(action_queue, &(interface_action_t){BACK_PAGE}, NULL);
+        EXTI->PR1 |= EXTI_PR1_PIF9;
     }
 }
 
 void EXTI15_10_IRQHandler() {
-    // EXTI15 (SELECT button) triggered the interrupt
-    if (EXTI->PR1 & EXTI_PR1_PIF15) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){SELECT_BUTTON}, NULL);
-        EXTI->PR1 |= EXTI_PR1_PIF15;
-    }
-
     // EXTI14 (START button) triggered the interrupt
     if (EXTI->PR1 & EXTI_PR1_PIF14) {
         xQueueSendFromISR(action_queue, &(interface_action_t){START_BUTTON}, NULL);
         EXTI->PR1 |= EXTI_PR1_PIF14;
+    }
+
+    // EXTI15 (SELECT button) triggered the interrupt
+    if (EXTI->PR1 & EXTI_PR1_PIF15) {
+        xQueueSendFromISR(action_queue, &(interface_action_t){SELECT_BUTTON}, NULL);
+        EXTI->PR1 |= EXTI_PR1_PIF15;
     }
 }
 

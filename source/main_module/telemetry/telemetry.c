@@ -9,7 +9,7 @@
 #include "can_library/generated/MAIN_MODULE.h"
 #include "vehicle_fsm.h"
 
-void report_telemetry_50hz() {
+void report_telemetry_50hz(void) {
     CAN_SEND_wheel_speeds(
         g_car.front_right.crit->AMK_ActualSpeed,
         g_car.front_left.crit->AMK_ActualSpeed,
@@ -18,7 +18,7 @@ void report_telemetry_50hz() {
     );
 }
 
-void report_telemetry_1hz() {
+void report_telemetry_1hz(void) {
     CAN_SEND_inva_diagnostics(
         g_car.front_right.state,
         g_car.front_right.info->AMK_Status_bError,
@@ -48,7 +48,7 @@ void report_telemetry_1hz() {
     );
 }
 
-void report_telemetry_02hz() {
+void report_telemetry_02hz(void) {
     CAN_SEND_motor_temps(
         g_car.front_right.temps->AMK_MotorTemp,
         g_car.front_left.temps->AMK_MotorTemp,

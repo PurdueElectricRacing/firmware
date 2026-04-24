@@ -106,15 +106,15 @@ void EXTI15_10_IRQHandler() {
     uint32_t now = xTaskGetTickCountFromISR();
 
     if (now - last_interrupt_time <= INTERRUPT_DEBOUNCE_MS) {
-        EXTI->PR1 = EXTI_PR1_PIF12 | EXTI_PR1_PIF13 |
+        EXTI->PR1 = EXTI_PR1_PIF11 | EXTI_PR1_PIF13 |
                     EXTI_PR1_PIF14 | EXTI_PR1_PIF15;
         return;
     }
     last_interrupt_time = now;
 
-    if (EXTI->PR1 & EXTI_PR1_PIF12) {
+    if (EXTI->PR1 & EXTI_PR1_PIF11) {
         xQueueSendFromISR(action_queue, &(interface_action_t){TV1_PLUS}, NULL);
-        EXTI->PR1 = EXTI_PR1_PIF12;
+        EXTI->PR1 = EXTI_PR1_PIF11;
     }
 
     if (EXTI->PR1 & EXTI_PR1_PIF13) {
@@ -137,7 +137,7 @@ void EXTI15_10_IRQHandler() {
                           EXTI_IMR1_IM4  | EXTI_IMR1_IM5  | \
                           EXTI_IMR1_IM6  | EXTI_IMR1_IM7  | \
                           EXTI_IMR1_IM8  | EXTI_IMR1_IM9  | \
-                          EXTI_IMR1_IM12 | EXTI_IMR1_IM13 | \
+                          EXTI_IMR1_IM11 | EXTI_IMR1_IM13 | \
                           EXTI_IMR1_IM14 | EXTI_IMR1_IM15)
 
 void driver_interface_init() {
@@ -164,21 +164,21 @@ void driver_interface_init() {
                            SYSCFG_EXTICR2_EXTI6_PC |
                            SYSCFG_EXTICR2_EXTI7_PC);
 
-    // PC8, PC9 -> EXTI8, EXTI9
+    // PC8, PC9, PB11 -> EXTI8, EXTI9, EXTI11
     SYSCFG->EXTICR[2] &= ~(SYSCFG_EXTICR3_EXTI8 |
-                           SYSCFG_EXTICR3_EXTI9);
+                           SYSCFG_EXTICR3_EXTI9 |
+                           SYSCFG_EXTICR3_EXTI11);
 
     SYSCFG->EXTICR[2] |=  (SYSCFG_EXTICR3_EXTI8_PC |
-                           SYSCFG_EXTICR3_EXTI9_PC);
+                           SYSCFG_EXTICR3_EXTI9_PC |
+                           SYSCFG_EXTICR3_EXTI11_PB);
 
-    // PB12, PB13, PB14, PB15 -> EXTI12, EXTI13, EXTI14, EXTI15
-    SYSCFG->EXTICR[3] &= ~(SYSCFG_EXTICR4_EXTI12 |
-                           SYSCFG_EXTICR4_EXTI13 |
+    // PB13, PB14, PB15 -> EXTI13, EXTI14, EXTI15
+    SYSCFG->EXTICR[3] &= ~(SYSCFG_EXTICR4_EXTI13 |
                            SYSCFG_EXTICR4_EXTI14 |
                            SYSCFG_EXTICR4_EXTI15);
 
-    SYSCFG->EXTICR[3] |=  (SYSCFG_EXTICR4_EXTI12_PB |
-                           SYSCFG_EXTICR4_EXTI13_PB |
+    SYSCFG->EXTICR[3] |=  (SYSCFG_EXTICR4_EXTI13_PB |
                            SYSCFG_EXTICR4_EXTI14_PB |
                            SYSCFG_EXTICR4_EXTI15_PB);
 

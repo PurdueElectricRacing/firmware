@@ -65,7 +65,7 @@ extern volatile raw_adc_values_t raw_adc_values;
 #define EBB_PLUS_PORT     (GPIOB)
 #define EBB_PLUS_PIN      (1)
 #define TV1_PLUS_PORT     (GPIOB)
-#define TV1_PLUS_PIN      (12)
+#define TV1_PLUS_PIN      (11)
 #define TV1_MINUS_PORT    (GPIOB)
 #define TV1_MINUS_PIN     (13)
 

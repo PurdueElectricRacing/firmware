@@ -46,6 +46,7 @@ var annotated_dup =
     [ "mph_t", "structmph__t.html", null ],
     [ "mps_t", "structmps__t.html", null ],
     [ "NAV_PVT_data_t", "structNAV__PVT__data__t.html", null ],
+    [ "NAV_RELPOSNED_data_t", "structNAV__RELPOSNED__data__t.html", null ],
     [ "page_handler_t", "structpage__handler__t.html", null ],
     [ "pascals_t", "structpascals__t.html", null ],
     [ "pedal_values_t", "structpedal__values__t.html", null ],

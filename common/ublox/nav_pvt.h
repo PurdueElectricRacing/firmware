@@ -1,8 +1,23 @@
 #ifndef NAV_PVT_H
 #define NAV_PVT_H
 
+/**
+ * @file nav_pvt.h
+ * @brief UBX NAV-PVT message definition and decoder function.
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include <stdint.h>
 #include <stddef.h>
+
+// UBX NAV-PVT message header
+static constexpr uint8_t NAV_PVT_HEADER_B0 = 0xB5; // UBX message header sync byte 0
+static constexpr uint8_t NAV_PVT_HEADER_B1 = 0x62; // UBX message header sync byte 1
+static constexpr uint8_t NAV_PVT_CLASS     = 0x01; // UBX message class for NAV-PVT
+static constexpr uint8_t NAV_PVT_MSG_ID    = 0x07; // UBX message ID for NAV-PVT
+
+static constexpr size_t NAV_PVT_TOTAL_LENGTH = 100;
 
 typedef enum : uint8_t {
     GPS_VALID_DATE           = 0x01, // Valid UTC Date
@@ -21,7 +36,7 @@ typedef enum : uint8_t {
 } gps_fix_type_t;
 
 typedef enum : uint8_t {
-    GPS_FLAG1_GNSS_FIX_OK = 0x01, // GPS fix OK
+    GPS_FLAG1_GNSS_FIX_OK = 0x01, // GNSS fix OK
     GPS_FLAG1_DIFF_SOLN   = 0x02, // Differential GPS fix
 
     GPS_FLAG1_PSM_MASK            = 0x1C, // PSM (Power Save Mode) mask
@@ -98,12 +113,6 @@ static_assert(offsetof(NAV_PVT_data_t, longitude) == 24);
 static_assert(offsetof(NAV_PVT_data_t, headingVehicle) == 84);
 static_assert(offsetof(NAV_PVT_data_t, magneticAcc) == 90);
 
-// UBX NAV-PVT message header
-static constexpr uint8_t UBX_NAV_PVT_HEADER_B0 = 0xB5; // UBX message header sync byte 0
-static constexpr uint8_t UBX_NAV_PVT_HEADER_B1 = 0x62; // UBX message header sync byte 1
-static constexpr uint8_t UBX_NAV_PVT_CLASS     = 0x01; // UBX message class for NAV-PVT
-static constexpr uint8_t UBX_NAV_PVT_MSG_ID    = 0x07; // UBX message ID for NAV-PVT
-
-void NAV_PVT_decode(NAV_PVT_data_t *nav_pvt, const uint8_t *rx_buffer);
+void NAV_PVT_decode(NAV_PVT_data_t *nav_pvt, const volatile uint8_t *rx_buffer);
 
 #endif // NAV_PVT_H

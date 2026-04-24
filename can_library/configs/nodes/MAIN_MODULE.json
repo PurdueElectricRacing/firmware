@@ -46,7 +46,7 @@
                             "scale": 0.1
                         }
                     ],
-                    "msg_period": 1000,
+                    "msg_period": 5000,
                     "msg_priority": 4
                 },
                 {
@@ -110,7 +110,7 @@
                             "scale": 1
                         }
                     ],
-                    "msg_period": 15,
+                    "msg_period": 20,
                     "msg_priority": 5
                 },
                 {

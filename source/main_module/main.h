@@ -38,8 +38,8 @@ typedef struct {
 } torque_request_t;
 extern torque_request_t g_torque_request;
 
-void fsm_periodic();
+void vehicle_fsm_periodic();
 void car_init();
-void update_SDC();
+void SDC_thread_periodic();
 
 #endif // MAIN_H

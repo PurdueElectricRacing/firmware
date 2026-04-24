@@ -90,10 +90,10 @@ void AMK_task() {
 // Thread Defines
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
 DEFINE_TASK(CAN_tx_update, 2, osPriorityHigh, STACK_2048);
-DEFINE_TASK(fsm_periodic, 20, osPriorityNormal, STACK_2048);
+DEFINE_TASK(vehicle_fsm_periodic, 20, osPriorityNormal, STACK_2048);
 DEFINE_TASK(AMK_task, 15, osPriorityNormal, STACK_1024);
 DEFINE_TASK(fault_library_periodic, MAIN_MODULE_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
-DEFINE_TASK(update_SDC, 5, osPriorityLow, STACK_512);
+DEFINE_TASK(SDC_thread_periodic, 5, osPriorityLow, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {

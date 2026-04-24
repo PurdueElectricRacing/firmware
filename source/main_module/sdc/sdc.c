@@ -35,7 +35,7 @@ static const sdc_node_t SDC_NODE_LUT[NUM_SDC_NODES] = {
     {FAULT_ID_SDC17_AIR_M, 0}
 };
 
-void update_SDC() {
+void SDC_thread_periodic() {
     static uint8_t sdc_poll_index = 0;
     const sdc_node_t *current_node = &SDC_NODE_LUT[sdc_poll_index];
     uint8_t mux_addr = current_node->mux_addr;

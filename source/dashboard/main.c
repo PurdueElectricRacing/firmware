@@ -147,9 +147,6 @@ void sweep_external_leds();
 void service_start_button();
 extern void HardFault_Handler();
 
-// Communication queues
-ALLOCATE_STRBUF(lcd_tx_buf, 2048);
-
 // Thread Defines
 DEFINE_TASK(pedalsPeriodic, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024);
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
@@ -226,10 +223,11 @@ void send_version() {
 
 // jose was here
 
+extern QueueHandle_t pending_services_handle;
 void EXTI9_5_IRQHandler() {
     // EXTI9 (LEFT Button) triggered the interrupt
     if (EXTI->PR1 & EXTI_PR1_PIF9) {
-        input_state.left_button = 1;
+        xQueueSendFromISR(pending_services_handle, &(lcd_action_t){}, NULL);
         EXTI->PR1 |= EXTI_PR1_PIF9;
     }
 
@@ -303,43 +301,9 @@ void sweep_external_leds() {
  * Meant to be called periodically.
  */
 void driver_interface_periodic() {
-    if (input_state.up_button) {
-        input_state.up_button = 0;
-        moveUp();
-    }
+    
 
-    if (input_state.down_button) {
-        input_state.down_button = 0;
-        moveDown();
-    }
-
-    if (input_state.left_button) {
-        input_state.left_button = 0;
-        backPage();
-    }
-
-    if (input_state.right_button) {
-        input_state.right_button = 0;
-        advancePage();
-    }
-
-    if (input_state.select_button) {
-        input_state.select_button = 0;
-        selectItem();
-    }
-
-    if (input_state.update_page) {
-        input_state.update_page = 0;
-        updatePage();
-    }
-
-    // dont update the external LEDS until we're out of preflight
-    if (status_leds.state == HEARTBEAT_STATE_PREFLIGHT) {
-        return;
-    }
-
-    bool precharge_incomplete = is_latched(FAULT_ID_PRECHARGE_INCOMPLETE);
-    PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, !precharge_incomplete);
+    
 
     // todo IMD and BMS
 }

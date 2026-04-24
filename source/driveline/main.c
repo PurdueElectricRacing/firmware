@@ -9,6 +9,7 @@
 /* System Includes */
 #include <stdint.h>
 #include "can_library/generated/DRIVELINE.h"
+#include "can_library/generated/VCAN.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
@@ -165,7 +166,7 @@ DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
 DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048); // leave stack at 2048
 DEFINE_TASK(shockpot_thread, FRONT_SHOCKPOTS_PERIOD_MS, osPriorityNormal, STACK_512);
 DEFINE_TASK(oil_temps_thread, FRONT_OIL_TEMPS_PERIOD_MS, osPriorityNormal, STACK_512);
-DEFINE_TASK(brake_pressure_thread, FRONT_OIL_TEMPS_PERIOD_MS, osPriorityNormal, STACK_512);
+DEFINE_TASK(brake_pressure_thread, FRONT_BRAKE_PRESSURE_PERIOD_MS, osPriorityNormal, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
@@ -291,20 +292,27 @@ void oil_temps_thread() {
 }
 
 //https://www.bosch-motorsport.com/media/catalog_content/downloads_catalog/pdf_catalog/data_sheet_69507595_pressure_sensor_fluid_psc-260.pdf
+// globals for GDB
+int16_t left_bar_scaled = 0;
+int16_t right_bar_scaled = 0;
 void brake_pressure_thread() {
+    static_assert(FRONT_BRAKE_PRESSURE_LAYOUT_HASH == REAR_BRAKE_PRESSURE_LAYOUT_HASH, "Brake pressure messages should be the same");
     static constexpr float ADC_MAX      = 4095.0f;
     static constexpr float ADC_VREF     = 3.3f;
     static constexpr float ADC_TO_VOLTS = ADC_VREF / ADC_MAX;
-    static constexpr float OFFSET       = 0.05f;
+    static constexpr float OFFSET       = 0.5f;
     static constexpr float SENSITIVITY  = 0.01538f;
 
     float brake_pressure_l_volts = raw_adc2_values.brake_pressure_left * ADC_TO_VOLTS;
     float brake_pressure_r_volts = raw_adc1_values.brake_pressure_right * ADC_TO_VOLTS;
 
-    int16_t brake_pressure_l_bar = (int16_t) ((brake_pressure_l_volts - OFFSET) / SENSITIVITY);
-    int16_t brake_pressure_r_bar = (int16_t) ((brake_pressure_r_volts - OFFSET) / SENSITIVITY);
+    float brake_pressure_l_bar = (brake_pressure_l_volts - OFFSET) / SENSITIVITY;
+    float brake_pressure_r_bar = (brake_pressure_r_volts - OFFSET) / SENSITIVITY;
 
-    SEND_BRAKE_PRESSURE(brake_pressure_l_bar, brake_pressure_r_bar);
+    left_bar_scaled = (int16_t)(brake_pressure_l_bar * PACK_COEFF_FRONT_BRAKE_PRESSURE_LEFT);
+    right_bar_scaled = (int16_t)(brake_pressure_r_bar * PACK_COEFF_FRONT_BRAKE_PRESSURE_RIGHT);
+
+    SEND_BRAKE_PRESSURE(left_bar_scaled, right_bar_scaled);
 }
 
 // todo reboot on hardfault

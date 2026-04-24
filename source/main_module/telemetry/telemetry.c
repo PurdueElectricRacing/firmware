@@ -67,6 +67,7 @@ void report_telemetry_1hz(void) {
  */
 static_assert(TELEMETRY_02HZ_PERIOD_MS == MOTOR_TEMPS_PERIOD_MS);
 static_assert(TELEMETRY_02HZ_PERIOD_MS == IGBT_TEMPS_PERIOD_MS);
+static_assert(TELEMETRY_02HZ_PERIOD_MS == MAIN_VERSION_PERIOD_MS);
 void report_telemetry_02hz(void) {
     CAN_SEND_motor_temps(
         g_car.front_right.temps->AMK_MotorTemp,

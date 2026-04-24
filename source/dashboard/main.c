@@ -26,6 +26,7 @@
 #include "main.h"
 #include "pedals.h"
 #include "driver_interface.h"
+#include "telemetry.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // On-board LEDs
@@ -144,8 +145,6 @@ extern uint32_t PLLClockRateHz;
 extern page_t curr_page;
 
 /* Function Prototypes */
-void driver_interface_periodic();
-void send_version();
 void sweep_external_leds();
 void service_start_button();
 extern void HardFault_Handler();
@@ -157,6 +156,7 @@ DEFINE_TASK(CAN_tx_update, 1, osPriorityNormal, STACK_2048); // leave stack at 2
 DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
 DEFINE_TASK(driver_interface_periodic, DRIVER_INTERFACE_PERIOD_MS, osPriorityLow, STACK_1024);
 DEFINE_TASK(service_start_button, START_BUTTON_PERIOD_MS, osPriorityLow, STACK_512);
+DEFINE_TASK(report_telemetry_02hz, TELEMETRY_02HZ_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_HEARTBEAT_TASK(sweep_external_leds);
 
 int main(void) {
@@ -216,10 +216,6 @@ void service_start_button() {
     CAN_SEND_start_button(start_button_pressed);
 }
 
-void send_version() {
-    CAN_SEND_dash_version(GIT_HASH);
-}
-
 // jose was here
 
 void sweep_external_leds() {
@@ -253,7 +249,6 @@ void sweep_external_leds() {
     }
 }
 
-
 void zero_lws() {
     // CCW = command code word
     static constexpr uint8_t CONFIG_CCW_ZERO = 0x3;
@@ -265,18 +260,6 @@ void reset_lws() {
     static constexpr uint8_t CONFIG_CCW_RESET = 0x5;
     CAN_SEND_LWS_Config(CONFIG_CCW_RESET, 0, 0);
 }
-
-void LWS_Standard_CALLBACK() {
-    // forwards LWS data onto VCAN, simplifies flag parsing
-    bool data_valid = can_data.LWS_Standard.OK && can_data.LWS_Standard.CAL && can_data.LWS_Standard.TRIM;
-
-    CAN_SEND_steering_angle(
-        can_data.LWS_Standard.LWS_ANGLE,
-        can_data.LWS_Standard.LWS_SPEED,
-        data_valid
-    );
-}
-
 
 // todo reboot on hardfault
 void HardFault_Handler() {

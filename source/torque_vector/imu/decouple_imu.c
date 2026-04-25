@@ -9,7 +9,8 @@
 
 #include "common/utils/linear_algebra.h"
 #include "can_library/generated/TORQUE_VECTOR.h"
-#include <math.h>
+// #include <math.h>
+#include "common/utils/units.h"
 
 typedef enum {
     DECOUPLING_STATE_IDLE,
@@ -17,17 +18,18 @@ typedef enum {
     DECOUPLING_STATE_ACTIVE
 } decoupling_state_t;
 
-static volatile decoupling_state_t decoupling_state = DECOUPLING_STATE_IDLE;
-static matrix3x3_t calibration_matrix;
+// static volatile decoupling_state_t decoupling_state = DECOUPLING_STATE_IDLE;
+static matrix3x3_t mounting_offset_matrix;
+// static matrix3x3_t calibration_matrix;
 
 // Statistics for calibration
-static constexpr uint32_t CALIBRATION_SAMPLE_THRESHOLD = 100;
-static vector3_t accel_sum = {
-    .x = 0,
-    .y = 0,
-    .z = 0
-};
-static uint32_t num_samples = 0;
+// static constexpr uint32_t CALIBRATION_SAMPLE_THRESHOLD = 100;
+// static vector3_t accel_sum = {
+//     .x = 0,
+//     .y = 0,
+//     .z = 0
+// };
+// static uint32_t num_samples = 0;
 
 static_assert(IZZE_ANGULAR_RATE_LAYOUT_HASH == IMU_ANGULAR_RATE_LAYOUT_HASH,
     "IZZE_angular_rate and IMU_angular_rate layout should be identical"
@@ -41,45 +43,50 @@ static_assert(IZZE_ACCELERATION_LAYOUT_HASH == IMU_ACCELERATION_LAYOUT_HASH,
  * @brief Initialize the IMU decoupling calibration data structures and state.
  */
 void initialize_calibration(void) {
-    decoupling_state = DECOUPLING_STATE_CALIBRATING;
-    accel_sum.x      = 0;
-    accel_sum.y      = 0;
-    accel_sum.z      = 0;
-    num_samples      = 0;
+    // accel_sum.x      = 0;
+    // accel_sum.y      = 0;
+    // accel_sum.z      = 0;
+    // num_samples      = 0;
+
+    float pi_2 = PI_F / 2.0f;
+    euler_angles_t mounting_offset = {2.2689280276f, 0, -pi_2};
+    mounting_offset_matrix = tait_bryan(mounting_offset);
+
+    // decoupling_state = DECOUPLING_STATE_CALIBRATING;
 }
 
 /**
  * @brief Finalize the IMU decoupling calibration by deriving the rotation matrix from the accumulated accelerometer data.
  */
-static void finalize_calibration(void) {
-    if (num_samples < CALIBRATION_SAMPLE_THRESHOLD) {
-        return;
-    }
+// static void finalize_calibration(void) {
+//     if (num_samples < CALIBRATION_SAMPLE_THRESHOLD) {
+//         return;
+//     }
 
-    vector3_t avg_accel = {
-        .x = accel_sum.x / num_samples,
-        .y = accel_sum.y / num_samples,
-        .z = accel_sum.z / num_samples
-    };
+//     vector3_t avg_accel = {
+//         .x = accel_sum.x / num_samples,
+//         .y = accel_sum.y / num_samples,
+//         .z = accel_sum.z / num_samples
+//     };
 
-    vector3_t unit_g = vector3_normalize(avg_accel);
+//     vector3_t unit_g = vector3_normalize(avg_accel);
 
-    // Target coordinate frame: X+ is forward, Y+ is left, Z+ is up
-    // unit_g should be [0, 0, 1]
-    euler_angles_t angles = {0};
+//     // Target coordinate frame: X+ is forward, Y+ is left, Z+ is up
+//     // unit_g should be [0, 0, -1]
+//     euler_angles_t angles = {0};
 
-    // avoid asinf() domain errors due to fp noise by clamping the input to [-0.9999, 0.9999]
-    float clamped_pitch = -unit_g.x;
-    if (clamped_pitch < -0.9999f) { clamped_pitch = -0.9999f; }
-    if (clamped_pitch > 0.9999f) { clamped_pitch = 0.9999f; }
+//     // avoid asinf() domain errors due to fp noise by clamping the input to [-0.9999, 0.9999]
+//     float clamped_pitch = -unit_g.x;
+//     if (clamped_pitch < -0.9999f) { clamped_pitch = -0.9999f; }
+//     if (clamped_pitch > 0.9999f) { clamped_pitch = 0.9999f; }
 
-    angles.pitch = asinf(clamped_pitch); // Pitch is rotation around Y: sin(pitch) = -accel_x
-    angles.roll  = atan2f(unit_g.y, unit_g.z); // Roll is rotation around X: sin(roll) = accel_y / cos(pitch)
-    angles.yaw   = 0.0f; // Yaw cannot be determined by gravity alone
+//     angles.pitch = asinf(clamped_pitch); // Pitch is rotation around Y: sin(pitch) = -accel_x
+//     angles.roll  = atan2f(-unit_g.y, -unit_g.z); // Roll is rotation around X: sin(roll) = accel_y / cos(pitch)
+//     angles.yaw   = 0.0f; // Yaw cannot be determined by gravity alone
 
-    calibration_matrix = tait_bryan(angles);
-    decoupling_state = DECOUPLING_STATE_ACTIVE;
-}
+//     calibration_matrix = tait_bryan(angles);
+//     decoupling_state = DECOUPLING_STATE_ACTIVE;
+// }
 
 /**
  * @brief Callback function for handling IZZE angular rate data.
@@ -87,9 +94,9 @@ static void finalize_calibration(void) {
  * In active mode, applies the decoupling rotation to the raw angular rate data and sends it out as IMU angular rate.
  */
 void IZZE_angular_rate_CALLBACK(void) {
-    if (decoupling_state != DECOUPLING_STATE_ACTIVE) {
-        return;
-    }
+    // if (decoupling_state != DECOUPLING_STATE_ACTIVE) {
+    //     return;
+    // }
 
     vector3_t raw_data = {
         .x = can_data.IZZE_angular_rate.X_axis * UNPACK_COEFF_IZZE_ANGULAR_RATE_X_AXIS,
@@ -97,7 +104,9 @@ void IZZE_angular_rate_CALLBACK(void) {
         .z = can_data.IZZE_angular_rate.Z_axis * UNPACK_COEFF_IZZE_ANGULAR_RATE_Z_AXIS
     };
 
-    vector3_t calibrated_data = matrix_multiply_vector3(&calibration_matrix, &raw_data);
+    // raw_data = matrix_multiply_vector3(&mounting_offset_matrix, &raw_data);
+
+    vector3_t calibrated_data = matrix_multiply_vector3(&mounting_offset_matrix, &raw_data);
 
     CAN_SEND_IMU_angular_rate(
         calibrated_data.x * PACK_COEFF_IMU_ANGULAR_RATE_X_AXIS,
@@ -120,24 +129,26 @@ void IZZE_acceleration_CALLBACK(void) {
         .z = can_data.IZZE_acceleration.Z_axis * UNPACK_COEFF_IZZE_ACCELERATION_Z_AXIS
     };
 
+    // raw_data = matrix_multiply_vector3(&mounting_offset_matrix, &raw_data);
+
     uint16_t temperature = can_data.IZZE_acceleration.temperature * UNPACK_COEFF_IZZE_ACCELERATION_TEMPERATURE;
 
-    if (decoupling_state == DECOUPLING_STATE_CALIBRATING) {
-        accel_sum.x += raw_data.x;
-        accel_sum.y += raw_data.y;
-        accel_sum.z += raw_data.z;
-        num_samples++;
+    // if (decoupling_state == DECOUPLING_STATE_CALIBRATING) {
+    //     accel_sum.x += raw_data.x;
+    //     accel_sum.y += raw_data.y;
+    //     accel_sum.z += raw_data.z;
+    //     num_samples++;
 
-        if (num_samples >= CALIBRATION_SAMPLE_THRESHOLD) {
-            finalize_calibration();
-        }
-    }
+    //     if (num_samples >= CALIBRATION_SAMPLE_THRESHOLD) {
+    //         finalize_calibration();
+    //     }
+    // }
 
-    if (decoupling_state != DECOUPLING_STATE_ACTIVE) {
-        return;
-    }
+    // if (decoupling_state != DECOUPLING_STATE_ACTIVE) {
+    //     return;
+    // }
 
-    vector3_t calibrated_data = matrix_multiply_vector3(&calibration_matrix, &raw_data);
+    vector3_t calibrated_data = matrix_multiply_vector3(&mounting_offset_matrix, &raw_data);
 
     CAN_SEND_IMU_acceleration(
         calibrated_data.x * PACK_COEFF_IMU_ACCELERATION_X_AXIS,

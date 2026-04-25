@@ -112,7 +112,7 @@ void vcu_task() {
     xVCU.WM_RAW[1] = can_data.wheel_speeds.front_right;
     xVCU.WM_RAW[2] = can_data.wheel_speeds.rear_left;
     xVCU.WM_RAW[3] = can_data.wheel_speeds.rear_right;
-    xVCU.GS_RAW = nav_pvt.groundSpeed; // todo scale
+    xVCU.GS_RAW = nav_pvt.groundSpeed * (1000.0f); // mm/s to m/s
     xVCU.AV_RAW[0] = gyro_data.x * UNPACK_COEFF_IMU_ANGULAR_RATE_X_AXIS;
     xVCU.AV_RAW[1] = gyro_data.y * UNPACK_COEFF_IMU_ANGULAR_RATE_Y_AXIS;
     xVCU.AV_RAW[2] = gyro_data.z * UNPACK_COEFF_IMU_ANGULAR_RATE_Z_AXIS;
@@ -134,11 +134,11 @@ void vcu_task() {
         can_data.igbt_temps.rear_right
     );
     int16_t scaled_igbt_temp = max_igbt_temp * UNPACK_COEFF_IGBT_TEMPS_FRONT_RIGHT;
-    xVCU.IGBT_RAW = scaled_igbt_temp;
+    xVCU.IGBT_T_RAW = scaled_igbt_temp;
 
     // todo hardcode the battery cell temp
 
-    xVCU.RG_split_FR_RAW = 0.3f;
+    xVCU.RG_split_FR_RAW = 0.3f; // todo driver configurable
 
     // step the VCU model
     vcu_step(&pVCU, &xVCU, &yVCU);
@@ -153,10 +153,8 @@ void gps_periodic() {
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
 DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048);
 DEFINE_TASK(gps_periodic, 100, osPriorityLow, STACK_1024);
-DEFINE_TASK(vcu_task, 50, osPriorityNormal, STACK_1024);
+DEFINE_TASK(vcu_task, 2, osPriorityNormal, STACK_1024);
 DEFINE_HEARTBEAT_TASK(nullptr);
-
-
 
 int main(void) {
     // Hardware Initialization

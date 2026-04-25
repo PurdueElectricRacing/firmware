@@ -211,6 +211,9 @@
                 },
                 {
                     "msg_name": "motor_temps"
+                },
+                {
+                    "msg_name": "igbt_temps"
                 }
             ]
         }

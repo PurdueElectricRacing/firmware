@@ -136,7 +136,7 @@ void vcu_task() {
     int16_t scaled_igbt_temp = max_igbt_temp * UNPACK_COEFF_IGBT_TEMPS_FRONT_RIGHT;
     xVCU.IGBT_T_RAW = scaled_igbt_temp;
 
-    // todo hardcode the battery cell temp
+    xVCU.BT_RAW = 30.0f; // hardcoded to 30C
 
     xVCU.RG_split_FR_RAW = 0.3f; // todo driver configurable
 

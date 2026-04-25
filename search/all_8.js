@@ -9,7 +9,7 @@ var searchData=
   ['data_5frate_6',['data_rate',['../structSPI__InitConfig__t.html#ab20a4701e255ce07d88bc24e16594566',1,'SPI_InitConfig_t']]],
   ['days_5ft_7',['days_t',['../structdays__t.html',1,'']]],
   ['debugging_8',['Hardware Debugging',['../md_README.html#autotoc_md5',1,'']]],
-  ['debugging_20tools_9',['Using the Debugging Tools',['../md_docs_2deploy__n__debug.html#autotoc_md48',1,'']]],
+  ['debugging_20tools_9',['Using the Debugging Tools',['../md_docs_2deploy__n__debug.html#autotoc_md54',1,'']]],
   ['decouple_5fimu_2ec_10',['decouple_imu.c',['../decouple__imu_8c.html',1,'']]],
   ['decouple_5fimu_2eh_11',['decouple_imu.h',['../decouple__imu_8h.html',1,'']]],
   ['define_5fheartbeat_5ftask_12',['DEFINE_HEARTBEAT_TASK',['../heartbeat_8h.html#ad40088e79e8c996b0974ded98e470497',1,'heartbeat.h']]],
@@ -32,6 +32,6 @@ var searchData=
   ['documentation_29',['AMK Documentation',['../md_common_2amk_2README.html',1,'']]],
   ['doxygen_30',['Doxygen',['../md_README.html#autotoc_md2',1,'']]],
   ['driveline_31',['Driveline',['../md_source_2driveline_2README.html',1,'']]],
-  ['drivers_32',['Drivers',['../md_docs_2datasheets_2README.html#autotoc_md44',1,'']]],
+  ['drivers_32',['Drivers',['../md_docs_2datasheets_2README.html#autotoc_md50',1,'']]],
   ['dsrimpl_33',['DSRImpl',['../structSD__CSD.html#a1a3df7f40e9afd86c1f811a54e2c63c9',1,'SD_CSD']]]
 ];

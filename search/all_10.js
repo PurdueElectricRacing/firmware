@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['macos_20tools_20setup_0',['MacOS Tools Setup',['../md_docs_2setup.html#autotoc_md51',1,'']]],
+  ['macos_20tools_20setup_0',['MacOS Tools Setup',['../md_docs_2setup.html#autotoc_md57',1,'']]],
   ['main_20module_1',['Main Module',['../md_source_2main__module_2README.html',1,'']]],
   ['main_2ec_2',['main.c',['../a__box_2main_8c.html',1,'(Global Namespace)'],['../dashboard_2main_8c.html',1,'(Global Namespace)'],['../driveline_2main_8c.html',1,'(Global Namespace)'],['../main__module_2main_8c.html',1,'(Global Namespace)'],['../pdu_2main_8c.html',1,'(Global Namespace)'],['../torque__vector_2main_8c.html',1,'(Global Namespace)']]],
   ['main_2eh_3',['main.h',['../a__box_2main_8h.html',1,'(Global Namespace)'],['../main__module_2main_8h.html',1,'(Global Namespace)'],['../pdu_2main_8h.html',1,'(Global Namespace)'],['../torque__vector_2main_8h.html',1,'(Global Namespace)']]],
@@ -23,7 +23,7 @@ var searchData=
   ['menu_5fsystem_2ec_20',['menu_system.c',['../menu__system_8c.html',1,'']]],
   ['menu_5fsystem_2eh_21',['menu_system.h',['../menu__system_8h.html',1,'']]],
   ['meters_5ft_22',['meters_t',['../structmeters__t.html',1,'']]],
-  ['microcontrollers_23',['About the microcontrollers',['../md_docs_2datasheets_2README.html#autotoc_md43',1,'']]],
+  ['microcontrollers_23',['About the microcontrollers',['../md_docs_2datasheets_2README.html#autotoc_md49',1,'']]],
   ['miles_5ft_24',['miles_t',['../structmiles__t.html',1,'']]],
   ['millimeters_5ft_25',['millimeters_t',['../structmillimeters__t.html',1,'']]],
   ['milliseconds_5ft_26',['milliseconds_t',['../structmilliseconds__t.html',1,'']]],

@@ -62,8 +62,18 @@ var NAVTREE =
     [ "PDU", "md_source_2pdu_2README.html", null ],
     [ "Source", "md_source_2README.html", null ],
     [ "Torque Vectoring", "md_source_2torque__vector_2README.html", null ],
+    [ "Input", "md_source_2torque__vector_2vcu_2TV_01Interface.html", [
+      [ "xVCU", "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md31", [
+        [ "Inputs:", "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md32", null ]
+      ] ],
+      [ "Output", "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md33", [
+        [ "yVCU", "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md34", [
+          [ "Outputs:", "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md35", null ]
+        ] ]
+      ] ]
+    ] ],
     [ "AMK Documentation", "md_common_2amk_2README.html", [
-      [ "2026 AMK CAN ID Assignment Scheme", "md_common_2amk_2README.html#autotoc_md31", null ]
+      [ "2026 AMK CAN ID Assignment Scheme", "md_common_2amk_2README.html#autotoc_md37", null ]
     ] ],
     [ "THIS MODULE IS DEPRECATED", "md_common_2bmi088_2README.html", null ],
     [ "README", "md_common_2freertos_2README.html", null ],
@@ -74,27 +84,27 @@ var NAVTREE =
     [ "PER Utility Functions", "md_common_2utils_2README.html", null ],
     [ "code_style", "md_docs_2code__style.html", null ],
     [ "README", "md_docs_2datasheets_2README.html", [
-      [ "Which one should I look at?", "md_docs_2datasheets_2README.html#autotoc_md42", [
-        [ "About the microcontrollers", "md_docs_2datasheets_2README.html#autotoc_md43", null ],
-        [ "Drivers", "md_docs_2datasheets_2README.html#autotoc_md44", null ],
-        [ "Hardware", "md_docs_2datasheets_2README.html#autotoc_md45", null ]
+      [ "Which one should I look at?", "md_docs_2datasheets_2README.html#autotoc_md48", [
+        [ "About the microcontrollers", "md_docs_2datasheets_2README.html#autotoc_md49", null ],
+        [ "Drivers", "md_docs_2datasheets_2README.html#autotoc_md50", null ],
+        [ "Hardware", "md_docs_2datasheets_2README.html#autotoc_md51", null ]
       ] ]
     ] ],
     [ "deploy_n_debug", "md_docs_2deploy__n__debug.html", null ],
     [ "PER Firmware Setup Instructions", "md_docs_2setup.html", [
-      [ "Tools", "md_docs_2setup.html#autotoc_md50", [
-        [ "MacOS Tools Setup", "md_docs_2setup.html#autotoc_md51", null ],
-        [ "Windows Tools Setup", "md_docs_2setup.html#autotoc_md52", null ],
-        [ "Linux Tools Setup", "md_docs_2setup.html#autotoc_md53", null ]
+      [ "Tools", "md_docs_2setup.html#autotoc_md56", [
+        [ "MacOS Tools Setup", "md_docs_2setup.html#autotoc_md57", null ],
+        [ "Windows Tools Setup", "md_docs_2setup.html#autotoc_md58", null ],
+        [ "Linux Tools Setup", "md_docs_2setup.html#autotoc_md59", null ]
       ] ],
-      [ "VSCode Setup (All OS)", "md_docs_2setup.html#autotoc_md54", [
-        [ "Install Extensions", "md_docs_2setup.html#autotoc_md55", null ],
-        [ "Turn on Autosave", "md_docs_2setup.html#autotoc_md56", null ]
+      [ "VSCode Setup (All OS)", "md_docs_2setup.html#autotoc_md60", [
+        [ "Install Extensions", "md_docs_2setup.html#autotoc_md61", null ],
+        [ "Turn on Autosave", "md_docs_2setup.html#autotoc_md62", null ]
       ] ],
-      [ "Repository Setup (All OS)", "md_docs_2setup.html#autotoc_md57", [
-        [ "Open a new terminal", "md_docs_2setup.html#autotoc_md58", null ],
-        [ "Clone PER repo", "md_docs_2setup.html#autotoc_md59", null ],
-        [ "Setup & Build", "md_docs_2setup.html#autotoc_md60", null ]
+      [ "Repository Setup (All OS)", "md_docs_2setup.html#autotoc_md63", [
+        [ "Open a new terminal", "md_docs_2setup.html#autotoc_md64", null ],
+        [ "Clone PER repo", "md_docs_2setup.html#autotoc_md65", null ],
+        [ "Setup & Build", "md_docs_2setup.html#autotoc_md66", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
@@ -122,8 +132,8 @@ var NAVTREEINDEX =
 [
 "FreeRTOSConfig_8h_source.html",
 "dir_f0d476005fd60c6020cb81dc0b85194b.html",
-"phal_2dma_8h_source.html",
-"structRTC__date__t.html"
+"pedals_8c.html",
+"structNAV__PVT__data__t.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

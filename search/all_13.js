@@ -13,7 +13,7 @@ var searchData=
   ['pedals_2ec_10',['pedals.c',['../pedals_8c.html',1,'']]],
   ['pedals_5fperiodic_11',['pedals_periodic',['../pedals_8c.html#a87b6cf4ba55de2c1523397cc21bbf501',1,'pedals.c']]],
   ['per_20firmware_20setup_20instructions_12',['PER Firmware Setup Instructions',['../md_docs_2setup.html',1,'']]],
-  ['per_20repo_13',['Clone PER repo',['../md_docs_2setup.html#autotoc_md59',1,'']]],
+  ['per_20repo_13',['Clone PER repo',['../md_docs_2setup.html#autotoc_md65',1,'']]],
   ['per_20utility_20functions_14',['PER Utility Functions',['../md_common_2utils_2README.html',1,'']]],
   ['per_20vehicle_20firmware_20⚡️_15',['PER Vehicle Firmware ⚡️',['../md_README.html',1,'']]],
   ['periodic_20operation_16',['Periodic Operation',['../md_source_2a__box_2adbms_2README.html#autotoc_md9',1,'']]],

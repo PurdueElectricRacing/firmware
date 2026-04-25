@@ -22,7 +22,7 @@ var searchData=
   ['bmi088_5freadgyro_19',['BMI088_readGyro',['../bmi088_8c.html#a1dfbb27cde5d045d6291dba7fe0e709f',1,'BMI088_readGyro(BMI088_Handle_t *bmi):&#160;bmi088.c'],['../bmi088_8h.html#a1dfbb27cde5d045d6291dba7fe0e709f',1,'BMI088_readGyro(BMI088_Handle_t *bmi):&#160;bmi088.c']]],
   ['board_20',['Data Acquisition Board',['../md_source_2daq_2README.html',1,'']]],
   ['buffer_21',['DAQ SPMC Buffer',['../md_source_2daq_2spmc_2README.html#autotoc_md20',1,'']]],
-  ['build_22',['Setup &amp; Build',['../md_docs_2setup.html#autotoc_md60',1,'']]],
+  ['build_22',['Setup &amp; Build',['../md_docs_2setup.html#autotoc_md66',1,'']]],
   ['building_20firmware_23',['Building Firmware',['../md_README.html#autotoc_md4',1,'']]],
   ['bus_24',['Bus',['../structCanMsgTypeDef__t.html#a27b82ae932da76206323ac8268b3f1e6',1,'CanMsgTypeDef_t::Bus'],['../structCanMsgTypeDef__t.html#a4aa42f4d25313b588ecb4323723d2ef6',1,'CanMsgTypeDef_t::Bus']]]
 ];

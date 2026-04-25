@@ -8,5 +8,5 @@ var searchData=
   ['vehicle_5finit_2ec_5',['vehicle_init.c',['../vehicle__init_8c.html',1,'']]],
   ['vehicle_5finit_2eh_6',['vehicle_init.h',['../vehicle__init_8h.html',1,'']]],
   ['voltage_5ft_7',['voltage_t',['../structvoltage__t.html',1,'']]],
-  ['vscode_20setup_20all_20os_8',['2. VSCode Setup (All OS)',['../md_docs_2setup.html#autotoc_md54',1,'']]]
+  ['vscode_20setup_20all_20os_8',['2. VSCode Setup (All OS)',['../md_docs_2setup.html#autotoc_md60',1,'']]]
 ];

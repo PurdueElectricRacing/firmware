@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['i_20look_20at_0',['Which one should I look at?',['../md_docs_2datasheets_2README.html#autotoc_md42',1,'']]],
-  ['id_20assignment_20scheme_1',['2026 AMK CAN ID Assignment Scheme',['../md_common_2amk_2README.html#autotoc_md31',1,'']]],
+  ['i_20look_20at_0',['Which one should I look at?',['../md_docs_2datasheets_2README.html#autotoc_md48',1,'']]],
+  ['id_20assignment_20scheme_1',['2026 AMK CAN ID Assignment Scheme',['../md_common_2amk_2README.html#autotoc_md37',1,'']]],
   ['ide_2',['IDE',['../structCanMsgTypeDef__t.html#a9dea647c93d4bef0e061c85ad3b5cfa0',1,'CanMsgTypeDef_t']]],
   ['idx_3',['idx',['../structPHAL__SD__Cmd__t.html#ae1119095bd6a8e4a24627b97fe818eaa',1,'PHAL_SD_Cmd_t']]],
   ['imu_5fdata_5ft_4',['IMU_data_t',['../structIMU__data__t.html',1,'']]],
@@ -12,11 +12,13 @@ var searchData=
   ['init_5fqueue_9',['INIT_QUEUE',['../freertos_8h.html#a107127a33a429e4b2ba63232406e0d94',1,'freertos.h']]],
   ['initialization_10',['Initialization',['../md_source_2a__box_2adbms_2README.html#autotoc_md8',1,'']]],
   ['initialize_5fcalibration_11',['initialize_calibration',['../decouple__imu_8c.html#a3da0b33ad58b4a9b357b9ae12a3707b6',1,'initialize_calibration(void):&#160;decouple_imu.c'],['../decouple__imu_8h.html#a3da0b33ad58b4a9b357b9ae12a3707b6',1,'initialize_calibration(void):&#160;decouple_imu.c']]],
-  ['install_20extensions_12',['Install Extensions',['../md_docs_2setup.html#autotoc_md55',1,'']]],
-  ['instructions_13',['PER Firmware Setup Instructions',['../md_docs_2setup.html',1,'']]],
-  ['is_20deprecated_14',['THIS MODULE IS DEPRECATED',['../md_common_2bmi088_2README.html',1,'']]],
-  ['is_5fbalancing_5fenabled_15',['is_balancing_enabled',['../structadbms__bms__t.html#aab87eec2db519f610e2f4a751437aeda',1,'adbms_bms_t']]],
-  ['is_5fdischarging_16',['is_discharging',['../structadbms__module__t.html#a47efba10a91489397be11fb33920221d',1,'adbms_module_t']]],
-  ['izze_5facceleration_5fcallback_17',['IZZE_acceleration_CALLBACK',['../decouple__imu_8c.html#a4e2ff3413851866d1385d942698f59e9',1,'IZZE_acceleration_CALLBACK(void):&#160;decouple_imu.c'],['../decouple__imu_8h.html#a4e2ff3413851866d1385d942698f59e9',1,'IZZE_acceleration_CALLBACK(void):&#160;decouple_imu.c']]],
-  ['izze_5fangular_5frate_5fcallback_18',['IZZE_angular_rate_CALLBACK',['../decouple__imu_8c.html#a033e363e85c9a7712d85b7fb947a94c0',1,'IZZE_angular_rate_CALLBACK(void):&#160;decouple_imu.c'],['../decouple__imu_8h.html#a033e363e85c9a7712d85b7fb947a94c0',1,'IZZE_angular_rate_CALLBACK(void):&#160;decouple_imu.c']]]
+  ['input_12',['Input',['../md_source_2torque__vector_2vcu_2TV_01Interface.html',1,'']]],
+  ['inputs_3a_13',['Inputs:',['../md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md32',1,'']]],
+  ['install_20extensions_14',['Install Extensions',['../md_docs_2setup.html#autotoc_md61',1,'']]],
+  ['instructions_15',['PER Firmware Setup Instructions',['../md_docs_2setup.html',1,'']]],
+  ['is_20deprecated_16',['THIS MODULE IS DEPRECATED',['../md_common_2bmi088_2README.html',1,'']]],
+  ['is_5fbalancing_5fenabled_17',['is_balancing_enabled',['../structadbms__bms__t.html#aab87eec2db519f610e2f4a751437aeda',1,'adbms_bms_t']]],
+  ['is_5fdischarging_18',['is_discharging',['../structadbms__module__t.html#a47efba10a91489397be11fb33920221d',1,'adbms_module_t']]],
+  ['izze_5facceleration_5fcallback_19',['IZZE_acceleration_CALLBACK',['../decouple__imu_8c.html#a4e2ff3413851866d1385d942698f59e9',1,'IZZE_acceleration_CALLBACK(void):&#160;decouple_imu.c'],['../decouple__imu_8h.html#a4e2ff3413851866d1385d942698f59e9',1,'IZZE_acceleration_CALLBACK(void):&#160;decouple_imu.c']]],
+  ['izze_5fangular_5frate_5fcallback_20',['IZZE_angular_rate_CALLBACK',['../decouple__imu_8c.html#a033e363e85c9a7712d85b7fb947a94c0',1,'IZZE_angular_rate_CALLBACK(void):&#160;decouple_imu.c'],['../decouple__imu_8h.html#a033e363e85c9a7712d85b7fb947a94c0',1,'IZZE_angular_rate_CALLBACK(void):&#160;decouple_imu.c']]]
 ];

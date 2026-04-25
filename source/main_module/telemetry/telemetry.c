@@ -23,6 +23,15 @@ void report_telemetry_50hz(void) {
     );
 }
 
+static inline bool any_amk_message_stale(AMK_t *amk) {
+    return 
+        amk->crit->is_stale()
+        || amk->err1->is_stale()
+        || amk->err2->is_stale()
+        || amk->info->is_stale()
+        || amk->temps->is_stale();
+}
+
 /**
  * @brief Reports telemetry data at 1 Hz rate
  * Includes: AMK diagnostics
@@ -32,32 +41,38 @@ static_assert(TELEMETRY_1HZ_PERIOD_MS == INVB_DIAGNOSTICS_PERIOD_MS);
 static_assert(TELEMETRY_1HZ_PERIOD_MS == INVC_DIAGNOSTICS_PERIOD_MS);
 static_assert(TELEMETRY_1HZ_PERIOD_MS == INVD_DIAGNOSTICS_PERIOD_MS);
 void report_telemetry_1hz(void) {
+    AMK_t *amks[] = {&g_car.front_right, &g_car.front_left, &g_car.rear_left, &g_car.rear_right};
+
     CAN_SEND_inva_diagnostics(
-        g_car.front_right.state,
-        g_car.front_right.info->AMK_Status_bError,
-        g_car.front_right.err1->AMK_DiagnosticNumber,
-        g_car.front_right.info->AMK_Status_bInverterOn
+        amks[0]->err1->AMK_DiagnosticNumber,
+        amks[0]->state,
+        amks[0]->info->AMK_Status_bError,
+        amks[0]->info->AMK_Status_bInverterOn,
+        any_amk_message_stale(amks[0])
     );
 
     CAN_SEND_invb_diagnostics(
-        g_car.front_left.state,
-        g_car.front_left.info->AMK_Status_bError,
-        g_car.front_left.err1->AMK_DiagnosticNumber,
-        g_car.front_left.info->AMK_Status_bInverterOn
+        amks[1]->err1->AMK_DiagnosticNumber,
+        amks[1]->state,
+        amks[1]->info->AMK_Status_bError,
+        amks[1]->info->AMK_Status_bInverterOn,
+        any_amk_message_stale(amks[1])
     );
 
     CAN_SEND_invc_diagnostics(
-        g_car.rear_left.state,
-        g_car.rear_left.info->AMK_Status_bError,
-        g_car.rear_left.err1->AMK_DiagnosticNumber,
-        g_car.rear_left.info->AMK_Status_bInverterOn
+        amks[2]->err1->AMK_DiagnosticNumber,
+        amks[2]->state,
+        amks[2]->info->AMK_Status_bError,
+        amks[2]->info->AMK_Status_bInverterOn,
+        any_amk_message_stale(amks[2])
     );
 
     CAN_SEND_invd_diagnostics(
-        g_car.rear_right.state,
-        g_car.rear_right.info->AMK_Status_bError,
-        g_car.rear_right.err1->AMK_DiagnosticNumber,
-        g_car.rear_right.info->AMK_Status_bInverterOn
+        amks[3]->err1->AMK_DiagnosticNumber,
+        amks[3]->state,
+        amks[3]->info->AMK_Status_bError,
+        amks[3]->info->AMK_Status_bInverterOn,
+        any_amk_message_stale(amks[3])
     );
 }
 

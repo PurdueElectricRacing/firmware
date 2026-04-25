@@ -14,18 +14,21 @@
 #include "main.h"
 
 // ! pedal calibration constants
-static constexpr uint16_t THROTTLE1_MIN = 80;
-static constexpr uint16_t THROTTLE1_MAX = 500;
+static constexpr uint16_t THROTTLE1_MIN = 0;
+static constexpr uint16_t THROTTLE1_MAX = 410;
 static_assert(THROTTLE1_MIN < THROTTLE1_MAX, "Invalid throttle 1 calibration values");
 
 static constexpr uint16_t THROTTLE2_MIN = 5;
 static constexpr uint16_t THROTTLE2_MAX = 310;
 static_assert(THROTTLE2_MIN < THROTTLE2_MAX, "Invalid throttle 2 calibration values");
 
-static constexpr uint16_t BRAKE1_MIN = 410;
-static constexpr uint16_t BRAKE1_MAX = 970;
+static constexpr uint16_t BRAKE1_MIN = 1620;
+static constexpr uint16_t BRAKE1_MAX = 2500;
 // static constexpr uint16_t BRAKE2_MIN = 0;
 // static constexpr uint16_t BRAKE2_MAX = 4095;
+
+static constexpr uint16_t BRAKE1_PRESSURE_MIN = 0;
+static constexpr uint16_t BRAKE1_PRESSURE_MAX = 3000;
 
 static constexpr uint16_t APPS_THROTTLE_THRESHOLD = 4095 / 10; // 10% of 4095
 static constexpr uint16_t APPS_BRAKE_THRESHOLD = 4095 / 10; // 10% of 4095
@@ -69,7 +72,7 @@ void pedals_periodic(void) {
     // Get current values (don't want them changing mid-calculation)
     uint16_t throttle1 = raw_adc_values.t1;
     uint16_t throttle2 = 4095 - raw_adc_values.t2; // Invert value for t2 (pull-up resistor)
-    uint16_t brake1 = raw_adc_values.b1;
+    uint16_t brake1 = raw_adc_values.brake2_pressure; // ! harnessed to here
     // uint16_t brake2 = raw_adc_values.brake2_pressure;
 
     // FSAE 2026 T.4.2.10
@@ -96,13 +99,13 @@ void pedals_periodic(void) {
     uint16_t brake_command = brake1;
 
     // FSAE 2026 T.4.2.5
-    uint16_t throttle_diff;
-    if (throttle1 > throttle2) {
-        throttle_diff = throttle1 - throttle2;
-    } else {
-        throttle_diff = throttle2 - throttle1;
-    }
-    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, throttle_diff);
+    // uint16_t throttle_diff;
+    // if (throttle1 > throttle2) {
+    //     throttle_diff = throttle1 - throttle2;
+    // } else {
+    //     throttle_diff = throttle2 - throttle1;
+    // }
+    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, 10);
     if (is_latched(FAULT_ID_APPS_IMPLAUSIBLE)) {
         throttle_command = 0;
     }

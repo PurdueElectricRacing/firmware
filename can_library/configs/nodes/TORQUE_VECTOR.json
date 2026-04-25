@@ -196,6 +196,21 @@
                 {
                     "msg_name": "IZZE_acceleration",
                     "callback": true
+                },
+                {
+                    "msg_name": "pedals"
+                },
+                {
+                    "msg_name": "steering_angle"
+                },
+                {
+                    "msg_name": "pack_stats"
+                },
+                {
+                    "msg_name": "wheel_speeds"
+                },
+                {
+                    "msg_name": "motor_temps"
                 }
             ]
         }

@@ -19,6 +19,8 @@
 #include "common/phal/usart.h"
 #include "common/ublox/nav_pvt.h"
 #include "common/ublox/nav_relposned.h"
+#include "common/utils/linear_algebra.h"
+#include "common/utils/max.h"
 
 #include "decouple_imu.h"
 #include "gps.h"
@@ -90,6 +92,58 @@ NAV_RELPOSNED_data_t nav_relposned = {0};
 
 extern void HardFault_Handler(void);
 
+// VCU Data
+static pVCU_struct pVCU;
+static xVCU_struct xVCU;
+static yVCU_struct yVCU;
+extern vector3_t gyro_data;
+extern vector3_t accel_data;
+
+void vcu_task() {
+    // load up the xVCU (input) struct with most recent data
+    xVCU.VCU_MODE_REQ = VCU_MODE_AUTOCROSS;
+
+    xVCU.TH_RAW = can_data.pedals.throttle;
+    xVCU.BRK_RAW = can_data.pedals.brake; // todo scale
+
+    xVCU.ST_RAW = can_data.steering_angle.angle * UNPACK_COEFF_STEERING_ANGLE_ANGLE;
+    xVCU.VB_RAW = can_data.pack_stats.pack_voltage * UNPACK_COEFF_PACK_STATS_PACK_VOLTAGE;
+    xVCU.WM_RAW[0] = can_data.wheel_speeds.front_left;
+    xVCU.WM_RAW[1] = can_data.wheel_speeds.front_right;
+    xVCU.WM_RAW[2] = can_data.wheel_speeds.rear_left;
+    xVCU.WM_RAW[3] = can_data.wheel_speeds.rear_right;
+    xVCU.GS_RAW = nav_pvt.groundSpeed; // todo scale
+    xVCU.AV_RAW[0] = gyro_data.x * UNPACK_COEFF_IMU_ANGULAR_RATE_X_AXIS;
+    xVCU.AV_RAW[1] = gyro_data.y * UNPACK_COEFF_IMU_ANGULAR_RATE_Y_AXIS;
+    xVCU.AV_RAW[2] = gyro_data.z * UNPACK_COEFF_IMU_ANGULAR_RATE_Z_AXIS;
+    xVCU.IB_RAW = can_data.pack_stats.pack_current * UNPACK_COEFF_PACK_STATS_PACK_CURRENT;
+
+    int16_t max_motor_temp = MAXOF(
+        can_data.motor_temps.front_right,
+        can_data.motor_temps.front_left,
+        can_data.motor_temps.rear_left,
+        can_data.motor_temps.rear_right
+    );
+    int16_t scaled_motor_temp = max_motor_temp * UNPACK_COEFF_MOTOR_TEMPS_FRONT_RIGHT;
+    xVCU.MT_RAW = scaled_motor_temp;
+
+    int16_t max_igbt_temp = MAXOF(
+        can_data.igbt_temps.front_right,
+        can_data.igbt_temps.front_left,
+        can_data.igbt_temps.rear_left,
+        can_data.igbt_temps.rear_right
+    );
+    int16_t scaled_igbt_temp = max_igbt_temp * UNPACK_COEFF_IGBT_TEMPS_FRONT_RIGHT;
+    xVCU.IGBT_RAW = scaled_igbt_temp;
+
+    // todo hardcode the battery cell temp
+
+    xVCU.RG_split_FR_RAW = 0.3f;
+
+    // step the VCU model
+    vcu_step(&pVCU, &xVCU, &yVCU);
+}
+
 void gps_periodic() {
     NAV_PVT_decode(&nav_pvt, rover_gps_rx_buffer);
     NAV_RELPOSNED_decode(&nav_relposned, (rover_gps_rx_buffer + NAV_PVT_TOTAL_LENGTH));
@@ -99,12 +153,10 @@ void gps_periodic() {
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
 DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048);
 DEFINE_TASK(gps_periodic, 100, osPriorityLow, STACK_1024);
+DEFINE_TASK(vcu_task, 50, osPriorityNormal, STACK_1024);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
-// VCU Data
-static pVCU_struct pVCU;
-static xVCU_struct xVCU;
-static yVCU_struct yVCU;
+
 
 int main(void) {
     // Hardware Initialization
@@ -132,20 +184,19 @@ int main(void) {
     PHAL_writeGPIO(ROVER_RESET_PORT, ROVER_RESET_PIN, 1);
     PHAL_writeGPIO(BASE_RESET_PORT, BASE_RESET_PIN, 1);
 
+    // TV initialization
+    pVCU = init_pVCU();
+    xVCU = init_xVCU();
+    yVCU = init_yVCU();
+
     // Software Initialization
     osKernelInitialize();
 
     START_TASK(CAN_rx_update);
     START_TASK(CAN_tx_update);
     START_TASK(gps_periodic);
+    START_TASK(vcu_task);
     START_HEARTBEAT_TASK();
-
-    // TV initialization (will break watchdog)
-    pVCU = init_pVCU();
-    xVCU = init_xVCU();
-    yVCU = init_yVCU();
-
-    vcu_step(&pVCU, &xVCU, &yVCU);
 
     // no way home
     osKernelStart();

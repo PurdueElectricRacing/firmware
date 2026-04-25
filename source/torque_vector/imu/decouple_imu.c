@@ -20,6 +20,8 @@ typedef enum {
 
 // static volatile decoupling_state_t decoupling_state = DECOUPLING_STATE_IDLE;
 static matrix3x3_t mounting_offset_matrix;
+vector3_t gyro_data;
+vector3_t accel_data;
 // static matrix3x3_t calibration_matrix;
 
 // Statistics for calibration
@@ -107,6 +109,7 @@ void IZZE_angular_rate_CALLBACK(void) {
     // raw_data = matrix_multiply_vector3(&mounting_offset_matrix, &raw_data);
 
     vector3_t calibrated_data = matrix_multiply_vector3(&mounting_offset_matrix, &raw_data);
+    gyro_data = calibrated_data;
 
     CAN_SEND_IMU_angular_rate(
         calibrated_data.x * PACK_COEFF_IMU_ANGULAR_RATE_X_AXIS,
@@ -149,6 +152,7 @@ void IZZE_acceleration_CALLBACK(void) {
     // }
 
     vector3_t calibrated_data = matrix_multiply_vector3(&mounting_offset_matrix, &raw_data);
+    accel_data = calibrated_data;
 
     CAN_SEND_IMU_acceleration(
         calibrated_data.x * PACK_COEFF_IMU_ACCELERATION_X_AXIS,

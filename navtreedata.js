@@ -52,8 +52,9 @@ var NAVTREE =
       [ "Directory Structure", "md_source_2daq_2README.html#autotoc_md19", null ]
     ] ],
     [ "README", "md_source_2daq_2spmc_2README.html", null ],
-    [ "Dashboard LCD", "md_source_2dashboard_2lcd_2README.html", null ],
-    [ "Dashboard", "md_source_2dashboard_2README.html", null ],
+    [ "Dashboard", "md_source_2dashboard_2README.html", [
+      [ "LCD Modules", "md_source_2dashboard_2README.html#autotoc_md22", null ]
+    ] ],
     [ "Driveline", "md_source_2driveline_2README.html", null ],
     [ "F4 Testing", "md_source_2f4__testing_2README.html", null ],
     [ "G4 Testing", "md_source_2g4__testing_2README.html", null ],
@@ -120,9 +121,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "FreeRTOSConfig_8h_source.html",
-"dir_ffee4008ba8677328b2436bbf2819405.html",
-"phal__F4__F7_2adc_2adc_8h.html#af6535c258806559b8e64a6a26bf304a3",
-"structSD__CSD.html#a02708fa8a71cad3e18f27f27ec824e23"
+"dir_f0d476005fd60c6020cb81dc0b85194b.html",
+"phal_2dma_8h_source.html",
+"structRTC__date__t.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

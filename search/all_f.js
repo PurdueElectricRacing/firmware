@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['lcd_0',['Dashboard LCD',['../md_source_2dashboard_2lcd_2README.html',1,'']]],
+  ['lcd_20modules_0',['LCD Modules',['../md_source_2dashboard_2README.html#autotoc_md22',1,'']]],
   ['lcd_2ec_1',['lcd.c',['../lcd_8c.html',1,'']]],
   ['lcd_2eh_2',['lcd.h',['../lcd_8h.html',1,'']]],
-  ['lcd_5ftx_5fupdate_3',['LCD_tx_update',['../dashboard_2main_8c.html#ac191b78cad5b7406d9b8d6227de36a1d',1,'main.c']]],
+  ['lcd_5ftx_5fupdate_3',['LCD_tx_update',['../lcd_8c.html#ab1da20573be93be73a9d5e72e133b7e9',1,'LCD_tx_update(void):&#160;lcd.c'],['../lcd_8h.html#ab1da20573be93be73a9d5e72e133b7e9',1,'LCD_tx_update(void):&#160;lcd.c']]],
   ['led_2ec_4',['led.c',['../led_8c.html',1,'']]],
   ['led_2eh_5',['led.h',['../led_8h.html',1,'']]],
   ['led_5fcontrol_6',['LED_control',['../led_8c.html#a25f4f6c595a65e2015d9d76af5fab4ac',1,'LED_control(int led, enum LED_state state):&#160;led.c'],['../led_8h.html#a25f4f6c595a65e2015d9d76af5fab4ac',1,'LED_control(int led, enum LED_state state):&#160;led.c']]],

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['backpage_0',['backPage',['../lcd_8c.html#ab328996325a24df855157cc23430de3d',1,'backPage():&#160;lcd.c'],['../lcd_8h.html#ab328996325a24df855157cc23430de3d',1,'backPage():&#160;lcd.c']]],
+  ['backpage_0',['backPage',['../lcd_8c.html#ab328996325a24df855157cc23430de3d',1,'backPage():&#160;lcd.c'],['../lcd_8h.html#a01e1155ac8c59efbb3929773127175ec',1,'backPage(void):&#160;lcd.c']]],
   ['bangbang_5fupdate_1',['bangbang_update',['../bangbang_8c.html#a6e64fa5703d5bbbc0b47d207bd44983c',1,'bangbang_update(bangbang_t *controller, float value, uint32_t current_time):&#160;bangbang.c'],['../bangbang_8h.html#a6e64fa5703d5bbbc0b47d207bd44983c',1,'bangbang_update(bangbang_t *controller, float value, uint32_t current_time):&#160;bangbang.c']]],
   ['bmi088_5fgyrook_2',['BMI088_gyroOK',['../bmi088_8c.html#a7b7b6f413f7a504f78fe3feba4e522cb',1,'BMI088_gyroOK(BMI088_Handle_t *bmi):&#160;bmi088.c'],['../bmi088_8h.html#a7b7b6f413f7a504f78fe3feba4e522cb',1,'BMI088_gyroOK(BMI088_Handle_t *bmi):&#160;bmi088.c']]],
   ['bmi088_5fgyroselftestcomplete_3',['BMI088_gyroSelfTestComplete',['../bmi088_8c.html#ac1def4d891e980b505d36e5190d6b0d5',1,'BMI088_gyroSelfTestComplete(BMI088_Handle_t *bmi):&#160;bmi088.c'],['../bmi088_8h.html#ac1def4d891e980b505d36e5190d6b0d5',1,'BMI088_gyroSelfTestComplete(BMI088_Handle_t *bmi):&#160;bmi088.c']]],

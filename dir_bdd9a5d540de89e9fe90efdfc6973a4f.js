@@ -9,6 +9,7 @@ var dir_bdd9a5d540de89e9fe90efdfc6973a4f =
     [ "izze_imu", "dir_3d869cf79cc855611296189de4de01e3.html", "dir_3d869cf79cc855611296189de4de01e3" ],
     [ "lerp_lut", "dir_f0d476005fd60c6020cb81dc0b85194b.html", "dir_f0d476005fd60c6020cb81dc0b85194b" ],
     [ "log", "dir_017de2976029d5961d56ff770475ad88.html", "dir_017de2976029d5961d56ff770475ad88" ],
+    [ "nextion", "dir_a6b6b77475247ffa0f2bc1e504c8d48a.html", "dir_a6b6b77475247ffa0f2bc1e504c8d48a" ],
     [ "phal", "dir_a3c0d50f55deba8c32b4e660038b52ec.html", "dir_a3c0d50f55deba8c32b4e660038b52ec" ],
     [ "phal_F4_F7", "dir_a828499ce5b3216570db528e38974466.html", "dir_a828499ce5b3216570db528e38974466" ],
     [ "phal_G4", "dir_537865b7fa0534ad07c686239f783682.html", "dir_537865b7fa0534ad07c686239f783682" ],

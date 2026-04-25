@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: source/dashboard/lcd/lcd.c File Reference</title>
+<title>PER Firmware: source/dashboard/driver_interface/lcd.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -109,20 +109,25 @@ $(function(){initNavTree('lcd_8c.html',''); initResizable(true); });
 <div class="textblock"><code>#include &quot;<a class="el" href="lcd_8h_source.html">lcd.h</a>&quot;</code><br />
 <code>#include &lt;stddef.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="nextion_8h_source.html">nextion.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="nextion_8h_source.html">common/nextion/nextion.h</a>&quot;</code><br />
+<code>#include &quot;common/phal/usart.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="race_8h_source.html">pages/race.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="calibration_8h_source.html">pages/calibration.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="faults_8h_source.html">pages/faults.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="source_2dashboard_2lcd_2pages_2amk_8h_source.html">pages/amk.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="source_2dashboard_2driver__interface_2pages_2amk_8h_source.html">pages/amk.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa13fa254ddd44573fd2a83874763cae8" id="r_aa13fa254ddd44573fd2a83874763cae8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa13fa254ddd44573fd2a83874763cae8">updatePage</a> ()</td></tr>
-<tr class="memdesc:aa13fa254ddd44573fd2a83874763cae8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates LCD display page.  <br /></td></tr>
-<tr class="separator:aa13fa254ddd44573fd2a83874763cae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70b38ce0660d25aa6a9381518e9ac622" id="r_a70b38ce0660d25aa6a9381518e9ac622"><td class="memItemLeft" align="right" valign="top"><a id="a70b38ce0660d25aa6a9381518e9ac622" name="a70b38ce0660d25aa6a9381518e9ac622"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ALLOCATE_STRBUF</b> (lcd_tx_buf, 2048)</td></tr>
+<tr class="separator:a70b38ce0660d25aa6a9381518e9ac622"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a249040ab9dd6b041b4412dbed6546ece" id="r_a249040ab9dd6b041b4412dbed6546ece"><td class="memItemLeft" align="right" valign="top"><a id="a249040ab9dd6b041b4412dbed6546ece" name="a249040ab9dd6b041b4412dbed6546ece"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>LCD_init</b> (uint32_t baud_rate)</td></tr>
 <tr class="separator:a249040ab9dd6b041b4412dbed6546ece"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1da20573be93be73a9d5e72e133b7e9" id="r_ab1da20573be93be73a9d5e72e133b7e9"><td class="memItemLeft" align="right" valign="top"><a id="ab1da20573be93be73a9d5e72e133b7e9" name="ab1da20573be93be73a9d5e72e133b7e9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>LCD_tx_update</b> (void)</td></tr>
+<tr class="memdesc:ab1da20573be93be73a9d5e72e133b7e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called periodically to send commands to the Nextion LCD display via USART. <br /></td></tr>
+<tr class="separator:ab1da20573be93be73a9d5e72e133b7e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a685b031373d6540844434c69377f10d2" id="r_a685b031373d6540844434c69377f10d2"><td class="memItemLeft" align="right" valign="top"><a id="a685b031373d6540844434c69377f10d2" name="a685b031373d6540844434c69377f10d2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>advancePage</b> ()</td></tr>
 <tr class="memdesc:a685b031373d6540844434c69377f10d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances to the next selectable page. <br /></td></tr>
@@ -131,6 +136,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>advancePage</b> ()</t
 void&#160;</td><td class="memItemRight" valign="bottom"><b>backPage</b> ()</td></tr>
 <tr class="memdesc:ab328996325a24df855157cc23430de3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves to the previous selectable page. <br /></td></tr>
 <tr class="separator:ab328996325a24df855157cc23430de3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa13fa254ddd44573fd2a83874763cae8" id="r_aa13fa254ddd44573fd2a83874763cae8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa13fa254ddd44573fd2a83874763cae8">updatePage</a> ()</td></tr>
+<tr class="memdesc:aa13fa254ddd44573fd2a83874763cae8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates LCD display page.  <br /></td></tr>
+<tr class="separator:aa13fa254ddd44573fd2a83874763cae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75e03afeaf9e13a6399279ed36c0c59f" id="r_a75e03afeaf9e13a6399279ed36c0c59f"><td class="memItemLeft" align="right" valign="top"><a id="a75e03afeaf9e13a6399279ed36c0c59f" name="a75e03afeaf9e13a6399279ed36c0c59f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>moveUp</b> ()</td></tr>
 <tr class="separator:a75e03afeaf9e13a6399279ed36c0c59f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -156,6 +164,9 @@ volatile page_t&#160;</td><td class="memItemRight" valign="bottom"><b>prev_page<
 <tr class="memitem:ac0100435ab443897cfb77d50c768c71d" id="r_ac0100435ab443897cfb77d50c768c71d"><td class="memItemLeft" align="right" valign="top"><a id="ac0100435ab443897cfb77d50c768c71d" name="ac0100435ab443897cfb77d50c768c71d"></a>
 const <a class="el" href="structpage__handler__t.html">page_handler_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>page_handlers</b> [NUM_PAGES]</td></tr>
 <tr class="separator:ac0100435ab443897cfb77d50c768c71d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf94e19caf3951d83556041d6f54d7e6" id="r_abf94e19caf3951d83556041d6f54d7e6"><td class="memItemLeft" align="right" valign="top"><a id="abf94e19caf3951d83556041d6f54d7e6" name="abf94e19caf3951d83556041d6f54d7e6"></a>
+<a class="el" href="structusart__init__t.html">usart_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>lcd</b></td></tr>
+<tr class="separator:abf94e19caf3951d83556041d6f54d7e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>LCD display management. </p>
@@ -170,7 +181,7 @@ const <a class="el" href="structpage__handler__t.html">page_handler_t</a>&#160;<
         <tr>
           <td class="memname">void updatePage </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -188,7 +199,7 @@ const <a class="el" href="structpage__handler__t.html">page_handler_t</a>&#160;<
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_fc3315dec08952c299e22f7c15049669.html">dashboard</a></li><li class="navelem"><a class="el" href="dir_c55563ae3dd665c8fbfd7e63a14aea43.html">lcd</a></li><li class="navelem"><a class="el" href="lcd_8c.html">lcd.c</a></li>
+    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_fc3315dec08952c299e22f7c15049669.html">dashboard</a></li><li class="navelem"><a class="el" href="dir_1d991c2a5c41d31c761e78fbfd9f46c4.html">driver_interface</a></li><li class="navelem"><a class="el" href="lcd_8c.html">lcd.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

@@ -33,7 +33,7 @@ var searchData=
   ['minutes_5ft_30',['minutes_t',['../structminutes__t.html',1,'']]],
   ['module_31',['Module',['../md_common_2heartbeat_2README.html',1,'Heartbeat Module'],['../md_source_2main__module_2README.html',1,'Main Module']]],
   ['module_20is_20deprecated_32',['THIS MODULE IS DEPRECATED',['../md_common_2bmi088_2README.html',1,'']]],
-  ['modules_33',['Common Modules',['../md_common_2README.html',1,'']]],
+  ['modules_33',['Modules',['../md_common_2README.html',1,'Common Modules'],['../md_source_2dashboard_2README.html#autotoc_md22',1,'LCD Modules']]],
   ['modules_34',['modules',['../structadbms__bms__t.html#a18b6c94b1c0a31a05056466e4e86d595',1,'adbms_bms_t']]],
   ['mph_5ft_35',['mph_t',['../structmph__t.html',1,'']]],
   ['mps_5ft_36',['mps_t',['../structmps__t.html',1,'']]],

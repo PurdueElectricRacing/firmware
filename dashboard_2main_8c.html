@@ -121,25 +121,11 @@ $(function(){initNavTree('dashboard_2main_8c.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="lcd_8h_source.html">lcd.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
 <code>#include &quot;pedals.h&quot;</code><br />
+<code>#include &quot;driver_interface.h&quot;</code><br />
+<code>#include &quot;telemetry.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac191b78cad5b7406d9b8d6227de36a1d" id="r_ac191b78cad5b7406d9b8d6227de36a1d"><td class="memItemLeft" align="right" valign="top"><a id="ac191b78cad5b7406d9b8d6227de36a1d" name="ac191b78cad5b7406d9b8d6227de36a1d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>LCD_tx_update</b> ()</td></tr>
-<tr class="memdesc:ac191b78cad5b7406d9b8d6227de36a1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called periodically to send commands to the Nextion LCD display via USART. <br /></td></tr>
-<tr class="separator:ac191b78cad5b7406d9b8d6227de36a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9aee09af5e3fe925ed51c1c48ce580eb" id="r_a9aee09af5e3fe925ed51c1c48ce580eb"><td class="memItemLeft" align="right" valign="top"><a id="a9aee09af5e3fe925ed51c1c48ce580eb" name="a9aee09af5e3fe925ed51c1c48ce580eb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>config_button_irqs</b> ()</td></tr>
-<tr class="separator:a9aee09af5e3fe925ed51c1c48ce580eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c3ae616da8068a3f290a1cd68d6ffb0" id="r_a4c3ae616da8068a3f290a1cd68d6ffb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c3ae616da8068a3f290a1cd68d6ffb0">driver_interface_periodic</a> ()</td></tr>
-<tr class="memdesc:a4c3ae616da8068a3f290a1cd68d6ffb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes dashboard button flags and triggers corresponding actions.  <br /></td></tr>
-<tr class="separator:a4c3ae616da8068a3f290a1cd68d6ffb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc93ec4e65bbde41cb8ac5740eeee397" id="r_abc93ec4e65bbde41cb8ac5740eeee397"><td class="memItemLeft" align="right" valign="top"><a id="abc93ec4e65bbde41cb8ac5740eeee397" name="abc93ec4e65bbde41cb8ac5740eeee397"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>send_version</b> ()</td></tr>
-<tr class="separator:abc93ec4e65bbde41cb8ac5740eeee397"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a249040ab9dd6b041b4412dbed6546ece" id="r_a249040ab9dd6b041b4412dbed6546ece"><td class="memItemLeft" align="right" valign="top"><a id="a249040ab9dd6b041b4412dbed6546ece" name="a249040ab9dd6b041b4412dbed6546ece"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>LCD_init</b> (uint32_t baud_rate)</td></tr>
-<tr class="separator:a249040ab9dd6b041b4412dbed6546ece"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afde7bfa6b37748d965fb66a4803f2ced" id="r_afde7bfa6b37748d965fb66a4803f2ced"><td class="memItemLeft" align="right" valign="top"><a id="afde7bfa6b37748d965fb66a4803f2ced" name="afde7bfa6b37748d965fb66a4803f2ced"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>sweep_external_leds</b> ()</td></tr>
 <tr class="separator:afde7bfa6b37748d965fb66a4803f2ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,67 +135,52 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>service_start_button<
 <tr class="memitem:a2af56a8bf3197b2f06cac4c0b84ffc3e" id="r_a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memItemLeft" align="right" valign="top"><a id="a2af56a8bf3197b2f06cac4c0b84ffc3e" name="a2af56a8bf3197b2f06cac4c0b84ffc3e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>HardFault_Handler</b> ()</td></tr>
 <tr class="separator:a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70b38ce0660d25aa6a9381518e9ac622" id="r_a70b38ce0660d25aa6a9381518e9ac622"><td class="memItemLeft" align="right" valign="top"><a id="a70b38ce0660d25aa6a9381518e9ac622" name="a70b38ce0660d25aa6a9381518e9ac622"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>ALLOCATE_STRBUF</b> (lcd_tx_buf, 2048)</td></tr>
-<tr class="separator:a70b38ce0660d25aa6a9381518e9ac622"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d9126d7e4c27bb0a23567781e38cfc9" id="r_a5d9126d7e4c27bb0a23567781e38cfc9"><td class="memItemLeft" align="right" valign="top"><a id="a5d9126d7e4c27bb0a23567781e38cfc9" name="a5d9126d7e4c27bb0a23567781e38cfc9"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="pedals_8c.html#ad390f112c056607f9f37f0c1a2e5f3b6">pedalsPeriodic</a>, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024)</td></tr>
-<tr class="separator:a5d9126d7e4c27bb0a23567781e38cfc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89d8931061c6b05dbca3f3c36c8ac9ca" id="r_a89d8931061c6b05dbca3f3c36c8ac9ca"><td class="memItemLeft" align="right" valign="top"><a id="a89d8931061c6b05dbca3f3c36c8ac9ca" name="a89d8931061c6b05dbca3f3c36c8ac9ca"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="pedals_8c.html#a87b6cf4ba55de2c1523397cc21bbf501">pedals_periodic</a>, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024)</td></tr>
+<tr class="separator:a89d8931061c6b05dbca3f3c36c8ac9ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2affa98a476a899af886fd2cc19bf28" id="r_ab2affa98a476a899af886fd2cc19bf28"><td class="memItemLeft" align="right" valign="top"><a id="ab2affa98a476a899af886fd2cc19bf28" name="ab2affa98a476a899af886fd2cc19bf28"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (CAN_rx_update, 0, osPriorityHigh, STACK_2048)</td></tr>
 <tr class="separator:ab2affa98a476a899af886fd2cc19bf28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2afbb531579394cd620a515183452cb6" id="r_a2afbb531579394cd620a515183452cb6"><td class="memItemLeft" align="right" valign="top"><a id="a2afbb531579394cd620a515183452cb6" name="a2afbb531579394cd620a515183452cb6"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (CAN_tx_update, 2, osPriorityNormal, STACK_2048)</td></tr>
-<tr class="separator:a2afbb531579394cd620a515183452cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19ac8c2cb09a6ddcb1d10abc27451fb6" id="r_a19ac8c2cb09a6ddcb1d10abc27451fb6"><td class="memItemLeft" align="right" valign="top"><a id="a19ac8c2cb09a6ddcb1d10abc27451fb6" name="a19ac8c2cb09a6ddcb1d10abc27451fb6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (CAN_tx_update, 1, osPriorityNormal, STACK_2048)</td></tr>
+<tr class="separator:a19ac8c2cb09a6ddcb1d10abc27451fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aecd64d319898a803fca92ff39b399166" id="r_aecd64d319898a803fca92ff39b399166"><td class="memItemLeft" align="right" valign="top"><a id="aecd64d319898a803fca92ff39b399166" name="aecd64d319898a803fca92ff39b399166"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024)</td></tr>
 <tr class="separator:aecd64d319898a803fca92ff39b399166"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5d218479f85a32574fac55c6cfd79b6" id="r_af5d218479f85a32574fac55c6cfd79b6"><td class="memItemLeft" align="right" valign="top"><a id="af5d218479f85a32574fac55c6cfd79b6" name="af5d218479f85a32574fac55c6cfd79b6"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="lcd_8c.html#a9ceeac8764aca15be67680bddfe70704">updateTelemetryPages</a>, 100, osPriorityNormal, STACK_1024)</td></tr>
-<tr class="separator:af5d218479f85a32574fac55c6cfd79b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ca860eab037bcd7392dc677b929eaad" id="r_a0ca860eab037bcd7392dc677b929eaad"><td class="memItemLeft" align="right" valign="top"><a id="a0ca860eab037bcd7392dc677b929eaad" name="a0ca860eab037bcd7392dc677b929eaad"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (driver_interface_periodic, DRIVER_INTERFACE_PERIOD_MS, osPriorityLow, STACK_1024)</td></tr>
+<tr class="separator:a0ca860eab037bcd7392dc677b929eaad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b98c5c2a1e4c3797e783887824bb364" id="r_a4b98c5c2a1e4c3797e783887824bb364"><td class="memItemLeft" align="right" valign="top"><a id="a4b98c5c2a1e4c3797e783887824bb364" name="a4b98c5c2a1e4c3797e783887824bb364"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (service_start_button, START_BUTTON_PERIOD_MS, osPriorityLow, STACK_512)</td></tr>
 <tr class="separator:a4b98c5c2a1e4c3797e783887824bb364"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f7ad2a89874dbe81ab64fa5b355c2fd" id="r_a1f7ad2a89874dbe81ab64fa5b355c2fd"><td class="memItemLeft" align="right" valign="top"><a id="a1f7ad2a89874dbe81ab64fa5b355c2fd" name="a1f7ad2a89874dbe81ab64fa5b355c2fd"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="#a4c3ae616da8068a3f290a1cd68d6ffb0">driver_interface_periodic</a>, 50, osPriorityLow, STACK_1024)</td></tr>
-<tr class="separator:a1f7ad2a89874dbe81ab64fa5b355c2fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afac85e305a7ddeb54fead2a270b05b4a" id="r_afac85e305a7ddeb54fead2a270b05b4a"><td class="memItemLeft" align="right" valign="top"><a id="afac85e305a7ddeb54fead2a270b05b4a" name="afac85e305a7ddeb54fead2a270b05b4a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="#ac191b78cad5b7406d9b8d6227de36a1d">LCD_tx_update</a>, 20, osPriorityLow, STACK_512)</td></tr>
-<tr class="separator:afac85e305a7ddeb54fead2a270b05b4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6760d120cd4ba27426aa85efb16495d" id="r_af6760d120cd4ba27426aa85efb16495d"><td class="memItemLeft" align="right" valign="top"><a id="af6760d120cd4ba27426aa85efb16495d" name="af6760d120cd4ba27426aa85efb16495d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="dashboard_2telemetry_2telemetry_8c.html#a74034e258280659c81e74c002594b2e2">report_telemetry_02hz</a>, TELEMETRY_02HZ_PERIOD_MS, osPriorityLow, STACK_512)</td></tr>
+<tr class="separator:af6760d120cd4ba27426aa85efb16495d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9e952c64c0b2692ce9c74cc9bfb6a2e" id="r_ad9e952c64c0b2692ce9c74cc9bfb6a2e"><td class="memItemLeft" align="right" valign="top"><a id="ad9e952c64c0b2692ce9c74cc9bfb6a2e" name="ad9e952c64c0b2692ce9c74cc9bfb6a2e"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_HEARTBEAT_TASK</b> (sweep_external_leds)</td></tr>
 <tr class="separator:ad9e952c64c0b2692ce9c74cc9bfb6a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top"><a id="a840291bc02cba5474a4cb46a9b9566fe" name="a840291bc02cba5474a4cb46a9b9566fe"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (void)</td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f0a091727452df71a1760d1133bf9b4" id="r_a9f0a091727452df71a1760d1133bf9b4"><td class="memItemLeft" align="right" valign="top"><a id="a9f0a091727452df71a1760d1133bf9b4" name="a9f0a091727452df71a1760d1133bf9b4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>EXTI9_5_IRQHandler</b> ()</td></tr>
-<tr class="separator:a9f0a091727452df71a1760d1133bf9b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2089b233bd8d6f7dbf78e075033696e3" id="r_a2089b233bd8d6f7dbf78e075033696e3"><td class="memItemLeft" align="right" valign="top"><a id="a2089b233bd8d6f7dbf78e075033696e3" name="a2089b233bd8d6f7dbf78e075033696e3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>EXTI15_10_IRQHandler</b> ()</td></tr>
-<tr class="separator:a2089b233bd8d6f7dbf78e075033696e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaad727d329e5ae38e7e02a19044a342e" id="r_aaad727d329e5ae38e7e02a19044a342e"><td class="memItemLeft" align="right" valign="top"><a id="aaad727d329e5ae38e7e02a19044a342e" name="aaad727d329e5ae38e7e02a19044a342e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>zero_lws</b> ()</td></tr>
 <tr class="separator:aaad727d329e5ae38e7e02a19044a342e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08ab5cc75c46988efb2526ef66239c63" id="r_a08ab5cc75c46988efb2526ef66239c63"><td class="memItemLeft" align="right" valign="top"><a id="a08ab5cc75c46988efb2526ef66239c63" name="a08ab5cc75c46988efb2526ef66239c63"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>reset_lws</b> ()</td></tr>
 <tr class="separator:a08ab5cc75c46988efb2526ef66239c63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00ed60d606fafa544652da04febdb6b0" id="r_a00ed60d606fafa544652da04febdb6b0"><td class="memItemLeft" align="right" valign="top"><a id="a00ed60d606fafa544652da04febdb6b0" name="a00ed60d606fafa544652da04febdb6b0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>LWS_Standard_CALLBACK</b> ()</td></tr>
-<tr class="separator:a00ed60d606fafa544652da04febdb6b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a60563c6df24a123ae18e090bca85f555" id="r_a60563c6df24a123ae18e090bca85f555"><td class="memItemLeft" align="right" valign="top"><a id="a60563c6df24a123ae18e090bca85f555" name="a60563c6df24a123ae18e090bca85f555"></a>
 <a class="el" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>gpio_config</b> []</td></tr>
 <tr class="separator:a60563c6df24a123ae18e090bca85f555"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29bc293670e53a11d854f35bca555254" id="r_a29bc293670e53a11d854f35bca555254"><td class="memItemLeft" align="right" valign="top"><a id="a29bc293670e53a11d854f35bca555254" name="a29bc293670e53a11d854f35bca555254"></a>
-volatile raw_adc_values_t&#160;</td><td class="memItemRight" valign="bottom"><b>raw_adc_values</b></td></tr>
-<tr class="separator:a29bc293670e53a11d854f35bca555254"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6af434e991280036f038f6db015e26f9" id="r_a6af434e991280036f038f6db015e26f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6af434e991280036f038f6db015e26f9">adc_config</a></td></tr>
 <tr class="separator:a6af434e991280036f038f6db015e26f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a900ff7ac22bd3d9e8566f23458355b34" id="r_a900ff7ac22bd3d9e8566f23458355b34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCChannelConfig__t.html">ADCChannelConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a900ff7ac22bd3d9e8566f23458355b34">adc_channel_config</a> []</td></tr>
 <tr class="separator:a900ff7ac22bd3d9e8566f23458355b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29bc293670e53a11d854f35bca555254" id="r_a29bc293670e53a11d854f35bca555254"><td class="memItemLeft" align="right" valign="top"><a id="a29bc293670e53a11d854f35bca555254" name="a29bc293670e53a11d854f35bca555254"></a>
+volatile <a class="el" href="structraw__adc__values__t.html">raw_adc_values_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>raw_adc_values</b></td></tr>
+<tr class="separator:a29bc293670e53a11d854f35bca555254"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed595ebe33fb020bde82d6a1bcca6052" id="r_aed595ebe33fb020bde82d6a1bcca6052"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed595ebe33fb020bde82d6a1bcca6052">adc_dma_config</a></td></tr>
 <tr class="separator:aed595ebe33fb020bde82d6a1bcca6052"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f94964a4032ad7e8b644485a417b00f" id="r_a1f94964a4032ad7e8b644485a417b00f"><td class="memItemLeft" align="right" valign="top"><a id="a1f94964a4032ad7e8b644485a417b00f" name="a1f94964a4032ad7e8b644485a417b00f"></a>
@@ -237,9 +208,6 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>PLLClockRateHz</b
 <tr class="memitem:a876fc64f27ffd0e165e5e6552d995ad3" id="r_a876fc64f27ffd0e165e5e6552d995ad3"><td class="memItemLeft" align="right" valign="top"><a id="a876fc64f27ffd0e165e5e6552d995ad3" name="a876fc64f27ffd0e165e5e6552d995ad3"></a>
 page_t&#160;</td><td class="memItemRight" valign="bottom"><b>curr_page</b></td></tr>
 <tr class="separator:a876fc64f27ffd0e165e5e6552d995ad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78b28a5859c49a3ced4466bcdfca9368" id="r_a78b28a5859c49a3ced4466bcdfca9368"><td class="memItemLeft" align="right" valign="top"><a id="a78b28a5859c49a3ced4466bcdfca9368" name="a78b28a5859c49a3ced4466bcdfca9368"></a>
-volatile <a class="el" href="structdashboard__input__state__t.html">dashboard_input_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>input_state</b> = {0}</td></tr>
-<tr class="separator:a78b28a5859c49a3ced4466bcdfca9368"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af03f677104cded4cc16a240a53430d91" id="r_af03f677104cded4cc16a240a53430d91"><td class="memItemLeft" align="right" valign="top"><a id="af03f677104cded4cc16a240a53430d91" name="af03f677104cded4cc16a240a53430d91"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>start_button_pressed</b> = false</td></tr>
 <tr class="separator:af03f677104cded4cc16a240a53430d91"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -251,28 +219,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>start_button_pressed<
 Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu'+'rdu'+'e.'+'edu'; return false;">lcoxl<span class="obfuscator">.nosp@m.</span>ey@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
 <dd>
 Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'all'+'ia'+'rd@'+'gm'+'ail'+'.c'+'om'; return false;">cpmcg<span class="obfuscator">.nosp@m.</span>alli<span class="obfuscator">.nosp@m.</span>ard@g<span class="obfuscator">.nosp@m.</span>mail<span class="obfuscator">.nosp@m.</span>.com</a>) </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a id="a4c3ae616da8068a3f290a1cd68d6ffb0" name="a4c3ae616da8068a3f290a1cd68d6ffb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c3ae616da8068a3f290a1cd68d6ffb0">&#9670;&#160;</a></span>driver_interface_periodic()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void driver_interface_periodic </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Processes dashboard button flags and triggers corresponding actions. </p>
-<p>Meant to be called periodically. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
+</div><h2 class="groupheader">Variable Documentation</h2>
 <a id="a900ff7ac22bd3d9e8566f23458355b34" name="a900ff7ac22bd3d9e8566f23458355b34"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a900ff7ac22bd3d9e8566f23458355b34">&#9670;&#160;</a></span>adc_channel_config</h2>
 
@@ -285,10 +232,10 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    {.channel = THTL_1_ADC_CHNL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},</div>
-<div class="line">    {.channel = THTL_2_ADC_CHNL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},</div>
-<div class="line">    {.channel = BRK_1_ADC_CHNL, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_480},</div>
-<div class="line">    {.channel = BRK_2_ADC_CHNL, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480},</div>
+<div class="line">    {.channel = THROTTLE1_ADC_CHANNEL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},</div>
+<div class="line">    {.channel = THROTTLE2_ADC_CHANNEL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},</div>
+<div class="line">    {.channel = BRAKE1_ADC_CHANNEL, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_480},</div>
+<div class="line">    {.channel = BRAKE2_ADC_CHANNEL, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480},</div>
 <div class="line">    {.channel = BRAKE1_PRESSURE_ADC_CHANNEL, .rank = 5, .sampling_time = ADC_CHN_SMP_CYCLES_480},</div>
 <div class="line">    {.channel = BRAKE2_PRESSURE_ADC_CHANNEL, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480}</div>
 <div class="line">}</div>

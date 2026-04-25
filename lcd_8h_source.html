@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: source/dashboard/lcd/lcd.h Source File</title>
+<title>PER Firmware: source/dashboard/driver_interface/lcd.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -125,26 +125,29 @@ $(function(){initNavTree('lcd_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>} <a class="code hl_struct" href="structpage__handler__t.html">page_handler_t</a>;</div>
 </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keywordtype">void</span> <a class="code hl_function" href="lcd_8h.html#a685b031373d6540844434c69377f10d2">advancePage</a>();</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keywordtype">void</span> <a class="code hl_function" href="lcd_8h.html#ab328996325a24df855157cc23430de3d">backPage</a>();</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keywordtype">void</span> selectItem();</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keywordtype">void</span> moveUp();</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keywordtype">void</span> moveDown();</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">void</span> <a class="code hl_function" href="lcd_8h.html#aa13fa254ddd44573fd2a83874763cae8">updatePage</a>();</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keywordtype">void</span> <a class="code hl_function" href="lcd_8h.html#a9ceeac8764aca15be67680bddfe70704">updateTelemetryPages</a>();</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#endif </span><span class="comment">// LCD_H</span></div>
-<div class="ttc" id="alcd_8h_html_a685b031373d6540844434c69377f10d2"><div class="ttname"><a href="lcd_8h.html#a685b031373d6540844434c69377f10d2">advancePage</a></div><div class="ttdeci">void advancePage()</div><div class="ttdoc">Advances to the next selectable page.</div><div class="ttdef"><b>Definition</b> lcd.c:76</div></div>
-<div class="ttc" id="alcd_8h_html_a9ceeac8764aca15be67680bddfe70704"><div class="ttname"><a href="lcd_8h.html#a9ceeac8764aca15be67680bddfe70704">updateTelemetryPages</a></div><div class="ttdeci">void updateTelemetryPages()</div><div class="ttdoc">Updates current telemetry page by calling its handler if available.</div><div class="ttdef"><b>Definition</b> lcd.c:153</div></div>
-<div class="ttc" id="alcd_8h_html_aa13fa254ddd44573fd2a83874763cae8"><div class="ttname"><a href="lcd_8h.html#aa13fa254ddd44573fd2a83874763cae8">updatePage</a></div><div class="ttdeci">void updatePage()</div><div class="ttdoc">Updates LCD display page.</div><div class="ttdef"><b>Definition</b> lcd.c:104</div></div>
-<div class="ttc" id="alcd_8h_html_ab328996325a24df855157cc23430de3d"><div class="ttname"><a href="lcd_8h.html#ab328996325a24df855157cc23430de3d">backPage</a></div><div class="ttdeci">void backPage()</div><div class="ttdoc">Moves to the previous selectable page.</div><div class="ttdef"><b>Definition</b> lcd.c:88</div></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keywordtype">void</span> LCD_init(uint32_t baud_rate);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keywordtype">void</span> <a class="code hl_function" href="lcd_8h.html#ab1da20573be93be73a9d5e72e133b7e9">LCD_tx_update</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keywordtype">void</span> <a class="code hl_function" href="lcd_8h.html#a3cbb41b9f4346a9e29d896d57c695b20">advancePage</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keywordtype">void</span> <a class="code hl_function" href="lcd_8h.html#a01e1155ac8c59efbb3929773127175ec">backPage</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keywordtype">void</span> selectItem(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">void</span> moveUp(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keywordtype">void</span> moveDown(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keywordtype">void</span> <a class="code hl_function" href="lcd_8h.html#a369866d09e16f8c47bef3ad8d90e6bf7">updatePage</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keywordtype">void</span> <a class="code hl_function" href="lcd_8h.html#af43eed5065a4456cc5013ee59b7a2ce7">updateTelemetryPages</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#endif </span><span class="comment">// LCD_H</span></div>
+<div class="ttc" id="alcd_8h_html_a01e1155ac8c59efbb3929773127175ec"><div class="ttname"><a href="lcd_8h.html#a01e1155ac8c59efbb3929773127175ec">backPage</a></div><div class="ttdeci">void backPage(void)</div><div class="ttdoc">Moves to the previous selectable page.</div><div class="ttdef"><b>Definition</b> lcd.c:108</div></div>
+<div class="ttc" id="alcd_8h_html_a369866d09e16f8c47bef3ad8d90e6bf7"><div class="ttname"><a href="lcd_8h.html#a369866d09e16f8c47bef3ad8d90e6bf7">updatePage</a></div><div class="ttdeci">void updatePage(void)</div><div class="ttdoc">Updates LCD display page.</div><div class="ttdef"><b>Definition</b> lcd.c:124</div></div>
+<div class="ttc" id="alcd_8h_html_a3cbb41b9f4346a9e29d896d57c695b20"><div class="ttname"><a href="lcd_8h.html#a3cbb41b9f4346a9e29d896d57c695b20">advancePage</a></div><div class="ttdeci">void advancePage(void)</div><div class="ttdoc">Advances to the next selectable page.</div><div class="ttdef"><b>Definition</b> lcd.c:96</div></div>
+<div class="ttc" id="alcd_8h_html_ab1da20573be93be73a9d5e72e133b7e9"><div class="ttname"><a href="lcd_8h.html#ab1da20573be93be73a9d5e72e133b7e9">LCD_tx_update</a></div><div class="ttdeci">void LCD_tx_update(void)</div><div class="ttdoc">Called periodically to send commands to the Nextion LCD display via USART.</div><div class="ttdef"><b>Definition</b> lcd.c:80</div></div>
+<div class="ttc" id="alcd_8h_html_af43eed5065a4456cc5013ee59b7a2ce7"><div class="ttname"><a href="lcd_8h.html#af43eed5065a4456cc5013ee59b7a2ce7">updateTelemetryPages</a></div><div class="ttdeci">void updateTelemetryPages(void)</div><div class="ttdoc">Updates current telemetry page by calling its handler if available.</div><div class="ttdef"><b>Definition</b> lcd.c:173</div></div>
 <div class="ttc" id="astructpage__handler__t_html"><div class="ttname"><a href="structpage__handler__t.html">page_handler_t</a></div><div class="ttdef"><b>Definition</b> lcd.h:22</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_fc3315dec08952c299e22f7c15049669.html">dashboard</a></li><li class="navelem"><a class="el" href="dir_c55563ae3dd665c8fbfd7e63a14aea43.html">lcd</a></li><li class="navelem"><a class="el" href="lcd_8h.html">lcd.h</a></li>
+    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_fc3315dec08952c299e22f7c15049669.html">dashboard</a></li><li class="navelem"><a class="el" href="dir_1d991c2a5c41d31c761e78fbfd9f46c4.html">driver_interface</a></li><li class="navelem"><a class="el" href="lcd_8h.html">lcd.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

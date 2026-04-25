@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['get_5fled_5fstatus_0',['get_LED_status',['../led_8c.html#ab2644007c0a1014ac3229035bd76a257',1,'get_LED_status(int led):&#160;led.c'],['../led_8h.html#ab2644007c0a1014ac3229035bd76a257',1,'get_LED_status(int led):&#160;led.c']]],
-  ['getswitchstatus_1',['getSwitchStatus',['../auto__switch_8c.html#a9615dad272d72b1eda4edb0eabf3c4ae',1,'getSwitchStatus(switches_t auto_switch_enum):&#160;auto_switch.c'],['../auto__switch_8h.html#a9615dad272d72b1eda4edb0eabf3c4ae',1,'getSwitchStatus(switches_t auto_switch_enum):&#160;auto_switch.c']]]
+  ['initialize_5fcalibration_0',['initialize_calibration',['../decouple__imu_8c.html#a3da0b33ad58b4a9b357b9ae12a3707b6',1,'initialize_calibration(void):&#160;decouple_imu.c'],['../decouple__imu_8h.html#a3da0b33ad58b4a9b357b9ae12a3707b6',1,'initialize_calibration(void):&#160;decouple_imu.c']]],
+  ['izze_5facceleration_5fcallback_1',['IZZE_acceleration_CALLBACK',['../decouple__imu_8c.html#a4e2ff3413851866d1385d942698f59e9',1,'IZZE_acceleration_CALLBACK(void):&#160;decouple_imu.c'],['../decouple__imu_8h.html#a4e2ff3413851866d1385d942698f59e9',1,'IZZE_acceleration_CALLBACK(void):&#160;decouple_imu.c']]],
+  ['izze_5fangular_5frate_5fcallback_2',['IZZE_angular_rate_CALLBACK',['../decouple__imu_8c.html#a033e363e85c9a7712d85b7fb947a94c0',1,'IZZE_angular_rate_CALLBACK(void):&#160;decouple_imu.c'],['../decouple__imu_8h.html#a033e363e85c9a7712d85b7fb947a94c0',1,'IZZE_angular_rate_CALLBACK(void):&#160;decouple_imu.c']]]
 ];

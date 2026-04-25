@@ -11,7 +11,7 @@ var searchData=
   ['pec_2eh_8',['pec.h',['../pec_8h.html',1,'']]],
   ['pedal_5fvalues_5ft_9',['pedal_values_t',['../structpedal__values__t.html',1,'']]],
   ['pedals_2ec_10',['pedals.c',['../pedals_8c.html',1,'']]],
-  ['pedalsperiodic_11',['pedalsPeriodic',['../pedals_8c.html#ad390f112c056607f9f37f0c1a2e5f3b6',1,'pedals.c']]],
+  ['pedals_5fperiodic_11',['pedals_periodic',['../pedals_8c.html#a87b6cf4ba55de2c1523397cc21bbf501',1,'pedals.c']]],
   ['per_20firmware_20setup_20instructions_12',['PER Firmware Setup Instructions',['../md_docs_2setup.html',1,'']]],
   ['per_20repo_13',['Clone PER repo',['../md_docs_2setup.html#autotoc_md59',1,'']]],
   ['per_20utility_20functions_14',['PER Utility Functions',['../md_common_2utils_2README.html',1,'']]],

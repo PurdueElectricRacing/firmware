@@ -73,9 +73,28 @@ static inline vector3_t matrix_multiply_vector3(const matrix3x3_t *mat, const ve
 }
 
 /**
+ * @brief Multiply a 3x3 matrix with another 3x3 matrix.
+ *
+ * @param a The first input matrix
+ * @param b The second input matrix
+ * @return The resulting matrix.
+ */
+static inline matrix3x3_t matrix_multiply_matrix3x3(const matrix3x3_t *a, const matrix3x3_t *b) {
+    matrix3x3_t result;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            result.data[i][j] = a->data[i][0] * b->data[0][j] + 
+                                a->data[i][1] * b->data[1][j] + 
+                                a->data[i][2] * b->data[2][j];
+        }
+    }
+    return result;
+}
+
+/**
  * @brief Perform Tait-Bryan ZYX Euler angle to rotation matrix conversion.
  *
- * @param angles The Euler angles.
+ * @param angles The Euler angles in radians.
  * @return The resulting rotation matrix.
  */
 static inline matrix3x3_t tait_bryan(const euler_angles_t angles) {

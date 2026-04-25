@@ -10,6 +10,7 @@
 #include "common/utils/linear_algebra.h"
 #include "can_library/generated/TORQUE_VECTOR.h"
 #include <math.h>
+#include "common/utils/units.h"
 
 typedef enum {
     DECOUPLING_STATE_IDLE,
@@ -18,6 +19,7 @@ typedef enum {
 } decoupling_state_t;
 
 static volatile decoupling_state_t decoupling_state = DECOUPLING_STATE_IDLE;
+static matrix3x3_t mounting_offset_matrix;
 static matrix3x3_t calibration_matrix;
 
 // Statistics for calibration
@@ -46,6 +48,10 @@ void initialize_calibration(void) {
     accel_sum.y      = 0;
     accel_sum.z      = 0;
     num_samples      = 0;
+
+    float pi_2 = PI_F / 2.0f;
+    euler_angles_t mounting_offset = {pi_2, 0, -pi_2};
+    mounting_offset_matrix = tait_bryan(mounting_offset);
 }
 
 /**
@@ -97,6 +103,8 @@ void IZZE_angular_rate_CALLBACK(void) {
         .z = can_data.IZZE_angular_rate.Z_axis * UNPACK_COEFF_IZZE_ANGULAR_RATE_Z_AXIS
     };
 
+    raw_data = matrix_multiply_vector3(&mounting_offset_matrix, &raw_data);
+
     vector3_t calibrated_data = matrix_multiply_vector3(&calibration_matrix, &raw_data);
 
     CAN_SEND_IMU_angular_rate(
@@ -119,6 +127,8 @@ void IZZE_acceleration_CALLBACK(void) {
         .y = can_data.IZZE_acceleration.Y_axis * UNPACK_COEFF_IZZE_ACCELERATION_Y_AXIS,
         .z = can_data.IZZE_acceleration.Z_axis * UNPACK_COEFF_IZZE_ACCELERATION_Z_AXIS
     };
+
+    raw_data = matrix_multiply_vector3(&mounting_offset_matrix, &raw_data);
 
     uint16_t temperature = can_data.IZZE_acceleration.temperature * UNPACK_COEFF_IZZE_ACCELERATION_TEMPERATURE;
 

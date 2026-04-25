@@ -43,7 +43,6 @@ static_assert(IZZE_ACCELERATION_LAYOUT_HASH == IMU_ACCELERATION_LAYOUT_HASH,
  * @brief Initialize the IMU decoupling calibration data structures and state.
  */
 void initialize_calibration(void) {
-    decoupling_state = DECOUPLING_STATE_CALIBRATING;
     accel_sum.x      = 0;
     accel_sum.y      = 0;
     accel_sum.z      = 0;
@@ -52,6 +51,8 @@ void initialize_calibration(void) {
     float pi_2 = PI_F / 2.0f;
     euler_angles_t mounting_offset = {pi_2, 0, -pi_2};
     mounting_offset_matrix = tait_bryan(mounting_offset);
+
+    decoupling_state = DECOUPLING_STATE_CALIBRATING;
 }
 
 /**

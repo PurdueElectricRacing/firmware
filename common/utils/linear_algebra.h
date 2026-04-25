@@ -77,7 +77,7 @@ static inline vector3_t matrix_multiply_vector3(const matrix3x3_t *mat, const ve
  *
  * @param a The first input matrix
  * @param b The second input matrix
- * @return The resulting matrix.
+ * @return The resulting matrix AB.
  */
 static inline matrix3x3_t matrix_multiply_matrix3x3(const matrix3x3_t *a, const matrix3x3_t *b) {
     matrix3x3_t result;

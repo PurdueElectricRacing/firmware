@@ -152,33 +152,45 @@ $(function(){initNavTree('linear__algebra_8h_source.html',''); initResizable(tru
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordflow">return</span> out;</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keyword">static</span> <span class="keyword">inline</span> <a class="code hl_struct" href="structmatrix3x3__t.html">matrix3x3_t</a> tait_bryan(<span class="keyword">const</span> <a class="code hl_struct" href="structeuler__angles__t.html">euler_angles_t</a> angles) {</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <a class="code hl_struct" href="structmatrix3x3__t.html">matrix3x3_t</a> rot;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordtype">float</span> cos_roll  = cosf(angles.roll);</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordtype">float</span> sin_roll  = sinf(angles.roll);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordtype">float</span> cos_pitch = cosf(angles.pitch);</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordtype">float</span> sin_pitch = sinf(angles.pitch);</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordtype">float</span> cos_yaw   = cosf(angles.yaw);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordtype">float</span> sin_yaw   = sinf(angles.yaw);</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="comment">// ZYX Euler sequence (Yaw -&gt; Pitch -&gt; Roll)</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="comment">// R = Rz(yaw) * Ry(pitch) * Rx(roll)</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    rot.data[0][0] = cos_pitch * cos_yaw;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    rot.data[0][1] = cos_yaw * sin_pitch * sin_roll - cos_roll * sin_yaw;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    rot.data[0][2] = sin_roll * sin_yaw + cos_roll * cos_yaw * sin_pitch;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    rot.data[1][0] = cos_pitch * sin_yaw;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    rot.data[1][1] = cos_roll * cos_yaw + sin_roll * sin_pitch * sin_yaw;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    rot.data[1][2] = cos_roll * sin_pitch * sin_yaw - cos_yaw * sin_roll;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    rot.data[2][0] = -sin_pitch;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    rot.data[2][1] = cos_pitch * sin_roll;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    rot.data[2][2] = cos_pitch * cos_roll;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordflow">return</span> rot;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>}</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="preprocessor">#endif </span><span class="comment">// LINEAR_ALGEBRA_H</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keyword">static</span> <span class="keyword">inline</span> <a class="code hl_struct" href="structmatrix3x3__t.html">matrix3x3_t</a> matrix_multiply_matrix3x3(<span class="keyword">const</span> <a class="code hl_struct" href="structmatrix3x3__t.html">matrix3x3_t</a> *a, <span class="keyword">const</span> <a class="code hl_struct" href="structmatrix3x3__t.html">matrix3x3_t</a> *b) {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <a class="code hl_struct" href="structmatrix3x3__t.html">matrix3x3_t</a> result;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 3; i++) {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; 3; j++) {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            result.data[i][j] = a-&gt;data[i][0] * b-&gt;data[0][j] + </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                                a-&gt;data[i][1] * b-&gt;data[1][j] + </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                                a-&gt;data[i][2] * b-&gt;data[2][j];</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        }</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    }</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keyword">static</span> <span class="keyword">inline</span> <a class="code hl_struct" href="structmatrix3x3__t.html">matrix3x3_t</a> tait_bryan(<span class="keyword">const</span> <a class="code hl_struct" href="structeuler__angles__t.html">euler_angles_t</a> angles) {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <a class="code hl_struct" href="structmatrix3x3__t.html">matrix3x3_t</a> rot;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordtype">float</span> cos_roll  = cosf(angles.roll);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordtype">float</span> sin_roll  = sinf(angles.roll);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordtype">float</span> cos_pitch = cosf(angles.pitch);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordtype">float</span> sin_pitch = sinf(angles.pitch);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordtype">float</span> cos_yaw   = cosf(angles.yaw);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordtype">float</span> sin_yaw   = sinf(angles.yaw);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="comment">// ZYX Euler sequence (Yaw -&gt; Pitch -&gt; Roll)</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="comment">// R = Rz(yaw) * Ry(pitch) * Rx(roll)</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    rot.data[0][0] = cos_pitch * cos_yaw;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    rot.data[0][1] = cos_yaw * sin_pitch * sin_roll - cos_roll * sin_yaw;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    rot.data[0][2] = sin_roll * sin_yaw + cos_roll * cos_yaw * sin_pitch;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    rot.data[1][0] = cos_pitch * sin_yaw;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    rot.data[1][1] = cos_roll * cos_yaw + sin_roll * sin_pitch * sin_yaw;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    rot.data[1][2] = cos_roll * sin_pitch * sin_yaw - cos_yaw * sin_roll;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    rot.data[2][0] = -sin_pitch;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    rot.data[2][1] = cos_pitch * sin_roll;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    rot.data[2][2] = cos_pitch * cos_roll;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keywordflow">return</span> rot;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>}</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="preprocessor">#endif </span><span class="comment">// LINEAR_ALGEBRA_H</span></div>
 <div class="ttc" id="astructeuler__angles__t_html"><div class="ttname"><a href="structeuler__angles__t.html">euler_angles_t</a></div><div class="ttdef"><b>Definition</b> linear_algebra.h:25</div></div>
 <div class="ttc" id="astructmatrix3x3__t_html"><div class="ttname"><a href="structmatrix3x3__t.html">matrix3x3_t</a></div><div class="ttdef"><b>Definition</b> linear_algebra.h:21</div></div>
 <div class="ttc" id="astructvector3__t_html"><div class="ttname"><a href="structvector3__t.html">vector3_t</a></div><div class="ttdef"><b>Definition</b> linear_algebra.h:15</div></div>

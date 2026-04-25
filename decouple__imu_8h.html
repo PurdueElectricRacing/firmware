@@ -115,7 +115,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>initialize_calibratio
 <tr class="memdesc:a3da0b33ad58b4a9b357b9ae12a3707b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the IMU decoupling calibration data structures and state. <br /></td></tr>
 <tr class="separator:a3da0b33ad58b4a9b357b9ae12a3707b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a033e363e85c9a7712d85b7fb947a94c0" id="r_a033e363e85c9a7712d85b7fb947a94c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a033e363e85c9a7712d85b7fb947a94c0">IZZE_angular_rate_CALLBACK</a> (void)</td></tr>
-<tr class="memdesc:a033e363e85c9a7712d85b7fb947a94c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for handling IZZE angular rate data.  <br /></td></tr>
+<tr class="memdesc:a033e363e85c9a7712d85b7fb947a94c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalize the IMU decoupling calibration by deriving the rotation matrix from the accumulated accelerometer data.  <br /></td></tr>
 <tr class="separator:a033e363e85c9a7712d85b7fb947a94c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e2ff3413851866d1385d942698f59e9" id="r_a4e2ff3413851866d1385d942698f59e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e2ff3413851866d1385d942698f59e9">IZZE_acceleration_CALLBACK</a> (void)</td></tr>
 <tr class="memdesc:a4e2ff3413851866d1385d942698f59e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for handling IZZE acceleration data.  <br /></td></tr>
@@ -161,7 +161,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>initialize_calibratio
       </table>
 </div><div class="memdoc">
 
-<p>Callback function for handling IZZE angular rate data. </p>
+<p>Finalize the IMU decoupling calibration by deriving the rotation matrix from the accumulated accelerometer data. </p>
+<p>Callback function for handling IZZE angular rate data.</p>
 <p>In active mode, applies the decoupling rotation to the raw angular rate data and sends it out as IMU angular rate. </p>
 
 </div>

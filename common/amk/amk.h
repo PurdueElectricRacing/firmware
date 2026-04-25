@@ -13,14 +13,6 @@
 #include "can_library/generated/MCAN.h"
 #include <stdint.h>
 
-typedef enum : uint8_t {
-    AMK_STATE_OFF        = 0,
-    AMK_STATE_STARTING   = 1,
-    AMK_STATE_RUNNING    = 2,
-    AMK_STATE_RECOVERING = 3,
-    AMK_STATE_FATAL      = 4
-} AMK_motor_state_t;
-
 typedef struct {
     // Flush functions
     // ! must not be an inline function
@@ -36,8 +28,8 @@ typedef struct {
     INVA_ERR_2_data_t *err2;
 
     // Internal state
-    AMK_motor_state_t state;
-    AMK_motor_state_t next_state;
+    AMK_state_t state;
+    AMK_state_t next_state;
     bool *precharge_ptr; // owned pointer to precharge status from car module
 } AMK_t;
 

@@ -18,17 +18,13 @@ static void update_inverter_telemetry(
     char *diagnostic_id,
     char *on_id,
     bool is_stale,
-    uint8_t inverter_state,
+    AMK_state_t inverter_state,
     bool has_error,
     uint32_t diagnostic_number,
     bool inverter_on
 ) {
-    NXT_setFontColor(error_id, WHITE);
-    NXT_setFontColor(diagnostic_id, WHITE);
-    NXT_setFontColor(on_id, WHITE);
-
     if (is_stale) {
-        NXT_setFontColor(status_id, RED);
+        NXT_setFontColor(status_id, WHITE);
         NXT_setText(status_id, "STALE");
         NXT_setText(error_id, "--");
         NXT_setText(diagnostic_id, "--");
@@ -36,10 +32,29 @@ static void update_inverter_telemetry(
         return;
     }
 
-    NXT_setFontColor(status_id, has_error ? RED : GREEN);
-    NXT_setTextFormatted(status_id, "%u", (unsigned int) inverter_state);
+    switch(inverter_state) {
+        case AMK_STATE_OFF:
+            NXT_setText(status_id, "OFF");
+            break;
+        case AMK_STATE_STARTING:
+            NXT_setText(status_id, "STARTING");
+            break;
+        case AMK_STATE_RUNNING:
+            NXT_setText(status_id, "RUNNING");
+            break;
+        case AMK_STATE_RECOVERING:
+            NXT_setText(status_id, "RECOVERING");
+            break;
+        case AMK_STATE_FATAL:
+            NXT_setText(status_id, "FATAL");
+            break;
+        default:
+            NXT_setText(status_id, "UNKNOWN");
+            break;
+    }
+    NXT_setFontColor(error_id, has_error ? RED : GREEN);
     NXT_setText(error_id, has_error ? "ERROR" : "OK");
-    NXT_setTextFormatted(diagnostic_id, "%lu", (unsigned int) diagnostic_number);
+    NXT_setTextFormatted(diagnostic_id, "%d", diagnostic_number);
     NXT_setText(on_id, inverter_on ? "ON" : "OFF");
 }
 

@@ -27,8 +27,8 @@ static constexpr uint16_t BRAKE1_MAX = 2500;
 // static constexpr uint16_t BRAKE2_MIN = 0;
 // static constexpr uint16_t BRAKE2_MAX = 4095;
 
-static constexpr uint16_t BRAKE1_PRESSURE_MIN = 0;
-static constexpr uint16_t BRAKE1_PRESSURE_MAX = 3000;
+// static constexpr uint16_t BRAKE1_PRESSURE_MIN = 0;
+// static constexpr uint16_t BRAKE1_PRESSURE_MAX = 3000;
 
 static constexpr uint16_t APPS_THROTTLE_THRESHOLD = 4095 / 10; // 10% of 4095
 static constexpr uint16_t APPS_BRAKE_THRESHOLD = 4095 / 10; // 10% of 4095

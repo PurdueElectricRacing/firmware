@@ -47,6 +47,17 @@
                 "SKIDPAD",
                 "AUTOCROSS",
                 "ENDURANCE"
+            ]
+        },
+        {
+            "name": "AMK_state_t",
+            "base_type": "uint8_t",
+            "choices": [
+                "OFF",
+                "STARTING",
+                "RUNNING",
+                "RECOVERING",
+                "FATAL"
              ]
         }
     ]

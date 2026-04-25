@@ -153,7 +153,7 @@ void gps_periodic() {
 
 void report_telemetry_10hz() {
     CAN_SEND_gps_coordinates(nav_pvt.latitude, nav_pvt.longitude);
-    CAN_SEND_gps_velocity(nav_pvt.velNorth, nav_pvt.velEast, nav_pvt.velDown);
+    CAN_SEND_gps_velocity(nav_pvt.velNorth, nav_pvt.velEast);
     CAN_SEND_gps_speed(nav_pvt.groundSpeed, nav_pvt.headingVehicle);
 }
 
@@ -172,8 +172,8 @@ void report_telemetry_1hz() {
 // Thread Defines
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
 DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048);
+DEFINE_TASK(vcu_task, 10, osPriorityNormal, STACK_1024);
 DEFINE_TASK(gps_periodic, 100, osPriorityLow, STACK_1024);
-DEFINE_TASK(vcu_task, 2, osPriorityNormal, STACK_1024);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {

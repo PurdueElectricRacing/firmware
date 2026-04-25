@@ -10,21 +10,15 @@
                     "signals": [
                         {
                             "sig_name": "gps_vel_n",
-                            "type": "int16_t",
+                            "type": "int32_t",
                             "unit": "m/s",
-                            "scale": 0.01
+                            "scale": 1e-3
                         },
                         {
                             "sig_name": "gps_vel_e",
-                            "type": "int16_t",
+                            "type": "int32_t",
                             "unit": "m/s",
-                            "scale": 0.01
-                        },
-                        {
-                            "sig_name": "gps_vel_d",
-                            "type": "int16_t",
-                            "unit": "m/s",
-                            "scale": 0.01
+                            "scale": 1e-3
                         }
                     ],
                     "msg_period": 10,
@@ -36,15 +30,15 @@
                     "signals": [
                         {
                             "sig_name": "gps_speed",
-                            "type": "int16_t",
+                            "type": "int32_t",
                             "unit": "m/s",
-                            "scale": 0.01
+                            "scale": 1e-3
                         },
                         {
                             "sig_name": "gps_heading",
-                            "type": "int16_t",
-                            "unit": "none",
-                            "scale": 0.1
+                            "type": "int32_t",
+                            "unit": "deg",
+                            "scale": 1e-5
                         }
                     ],
                     "msg_period": 10,

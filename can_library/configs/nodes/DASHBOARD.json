@@ -37,8 +37,20 @@
                             "type": "bool"
                         }
                     ],
-                    "msg_period": 300,
+                    "msg_period": 200,
                     "msg_priority": 1
+                },
+                {
+                    "msg_name": "driver_request",
+                    "msg_desc": "Driver requests like regen toggle and TV adjustments",
+                    "signals": [
+                        {
+                            "sig_name": "request",
+                            "type": "driver_request_t"
+                        }
+                    ],
+                    "msg_period": 0,
+                    "msg_priority": 2
                 },
                 {
                     "msg_name": "steering_angle",
@@ -63,6 +75,24 @@
                     ],
                     "msg_period": 10,
                     "msg_priority": 4
+                },
+                {
+                    "msg_name": "mark_data",
+                    "msg_desc": "Mark data for telemetry correlation",
+                    "signals": [
+                        {
+                            "sig_name": "os_tick",
+                            "type": "uint32_t",
+                            "sig_desc": "milliseconds since startup"
+                        },
+                        {
+                            "sig_name": "mark_index",
+                            "type": "uint16_t",
+                            "sig_desc": "incremented each time the mark button is pressed"
+                        }
+                    ],
+                    "msg_priority": 4,
+                    "msg_period": 0
                 },
                 {
                     "msg_name": "dash_version",

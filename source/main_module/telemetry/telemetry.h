@@ -9,7 +9,6 @@
  */
 
 #include <stdint.h>
-#include "can_library/generated/MAIN_MODULE.h"
 
 static constexpr uint32_t TELEMETRY_50HZ_PERIOD_MS = 20;
 void report_telemetry_50hz(void);

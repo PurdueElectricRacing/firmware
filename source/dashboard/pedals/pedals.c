@@ -13,7 +13,7 @@
 #include "can_library/faults_common.h"
 #include "main.h"
 
-// todo pedal calibration
+// ! pedal calibration constants
 static constexpr uint16_t THROTTLE1_MIN = 80;
 static constexpr uint16_t THROTTLE1_MAX = 500;
 static_assert(THROTTLE1_MIN < THROTTLE1_MAX, "Invalid throttle 1 calibration values");
@@ -33,7 +33,7 @@ static constexpr uint16_t APPS_BRAKE_THRESHOLD = 4095 / 10; // 10% of 4095
 #define MAX_PEDAL_MEAS (4095)
 
 // Contains the current pedal values for external use
-pedal_values_t pedal_values = {
+volatile pedal_values_t pedal_values = {
     .throttle = 0,
     .brake    = 0,
 };
@@ -65,7 +65,7 @@ static inline uint16_t clamp(uint16_t input, uint16_t lower_bound, uint16_t uppe
  *
  * @note This function is called periodically by the scheduler
  */
-void pedalsPeriodic(void) {
+void pedals_periodic(void) {
     // Get current values (don't want them changing mid-calculation)
     uint16_t throttle1 = raw_adc_values.t1;
     uint16_t throttle2 = 4095 - raw_adc_values.t2; // Invert value for t2 (pull-up resistor)

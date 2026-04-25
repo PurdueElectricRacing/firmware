@@ -16,9 +16,9 @@ typedef struct {
     uint16_t brake;
 } pedal_values_t;
 
-extern pedal_values_t pedal_values;
+extern volatile pedal_values_t pedal_values;
 
 /* Function Prototypes */
-void pedalsPeriodic(void);
+void pedals_periodic(void);
 
 #endif // PEDALS_H

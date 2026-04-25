@@ -25,16 +25,35 @@
 #include "lcd.h"
 #include "main.h"
 #include "pedals.h"
+#include "driver_interface.h"
+#include "telemetry.h"
 
 GPIOInitConfig_t gpio_config[] = {
-    // Status Indicators
+    // On-board LEDs
     GPIO_INIT_OUTPUT(CONNECTION_LED_PORT, CONNECTION_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(ERROR_LED_PORT, ERROR_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
+
+    // External LEDs
     GPIO_INIT_OUTPUT_OPEN_DRAIN(PRCHG_LED_PORT, PRCHG_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT_OPEN_DRAIN(IMD_LED_PORT, IMD_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT_OPEN_DRAIN(BMS_LED_PORT, BMS_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_INPUT(START_BTN_GPIO_Port, START_BTN_Pin, GPIO_INPUT_PULL_UP),
+
+    // Main Button inputs
+    GPIO_INIT_INPUT(SELECT_BUTTON_PORT, SELECT_BUTTON_PIN, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(DOWN_BUTTON_PORT, DOWN_BUTTON_PIN, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(UP_BUTTON_PORT, UP_BUTTON_PIN, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(LEFT_BUTTON_PORT, LEFT_BUTTON_PIN, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(RIGHT_BUTTON_PORT, RIGHT_BUTTON_PIN, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(START_BUTTON_PORT, START_BUTTON_PIN, GPIO_INPUT_PULL_UP),
+
+    // Steering Wheel buttons
+    GPIO_INIT_INPUT(REGEN_TOGGLE_PORT, REGEN_TOGGLE_PIN, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(MARK_DATA_PORT, MARK_DATA_PIN, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(EBB_MINUS_PORT, EBB_MINUS_PIN, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(EBB_PLUS_PORT, EBB_PLUS_PIN, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(TV1_PLUS_PORT, TV1_PLUS_PIN, GPIO_INPUT_PULL_UP),
+    GPIO_INIT_INPUT(TV1_MINUS_PORT, TV1_MINUS_PIN, GPIO_INPUT_PULL_UP),
 
     // VCAN
     GPIO_INIT_FDCAN2RX_PB5,
@@ -44,28 +63,21 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_FDCAN3TX_PB4,
 
     // Throttle
-    GPIO_INIT_ANALOG(THTL_1_GPIO_Port, THTL_1_Pin),
-    GPIO_INIT_ANALOG(THTL_2_GPIO_Port, THTL_2_Pin),
+    GPIO_INIT_ANALOG(THROTTLE1_PORT, THROTTLE1_PIN),
+    GPIO_INIT_ANALOG(THROTTLE2_PORT, THROTTLE2_PIN),
 
     // Brake
-    GPIO_INIT_ANALOG(BRK_1_GPIO_Port, BRK_1_Pin),
-    GPIO_INIT_ANALOG(BRK_2_GPIO_Port, BRK_2_Pin),
+    GPIO_INIT_ANALOG(BRAKE1_PORT, BRAKE1_PIN),
+    GPIO_INIT_ANALOG(BRAKE2_PORT, BRAKE2_PIN),
+
+    // Brake Pressure
     GPIO_INIT_ANALOG(BRAKE1_PRESSURE_PORT, BRAKE1_PRESSURE_PIN),
     GPIO_INIT_ANALOG(BRAKE2_PRESSURE_PORT, BRAKE2_PRESSURE_PIN),
 
     // LCD
     GPIO_INIT_USART1TX_PA9,
     GPIO_INIT_USART1RX_PA10,
-
-    // Buttons/Switches
-    GPIO_INIT_INPUT(B_SELECT_GPIO_Port, B_SELECT_Pin, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_INPUT(B_DOWN_GPIO_Port, B_DOWN_Pin, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_INPUT(B_UP_GPIO_Port, B_UP_Pin, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_INPUT(B_LEFT_GPIO_Port, B_LEFT_Pin, GPIO_INPUT_PULL_UP),
-    GPIO_INIT_INPUT(B_RIGHT_GPIO_Port, B_RIGHT_Pin, GPIO_INPUT_PULL_UP)
 };
-
-volatile raw_adc_values_t raw_adc_values;
 
 /* ADC Configuration */
 ADCInitConfig_t adc_config = {
@@ -78,13 +90,21 @@ ADCInitConfig_t adc_config = {
 };
 
 ADCChannelConfig_t adc_channel_config[] = {
-    {.channel = THTL_1_ADC_CHNL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = THTL_2_ADC_CHNL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = BRK_1_ADC_CHNL, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = BRK_2_ADC_CHNL, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = THROTTLE1_ADC_CHANNEL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = THROTTLE2_ADC_CHANNEL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = BRAKE1_ADC_CHANNEL, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = BRAKE2_ADC_CHANNEL, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = BRAKE1_PRESSURE_ADC_CHANNEL, .rank = 5, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = BRAKE2_PRESSURE_ADC_CHANNEL, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480}
 };
+
+static_assert(
+    (sizeof(raw_adc_values_t) / sizeof(uint16_t)) ==
+    (sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t)),
+    "ADC channel config and raw ADC values struct must have the same number of channels"
+);
+
+volatile raw_adc_values_t raw_adc_values; // DMA target
 
 dma_init_t adc_dma_config =
 ADC1_DMA_CONT_CONFIG(
@@ -129,30 +149,20 @@ extern uint32_t PLLClockRateHz;
 
 // LCD Variables
 extern page_t curr_page;
-volatile dashboard_input_state_t input_state = {0}; // Clear all input states
 
 /* Function Prototypes */
-void LCD_tx_update();
-void config_button_irqs();
-void driver_interface_periodic();
-void send_version();
-void LCD_init(uint32_t baud_rate);
 void sweep_external_leds();
 void service_start_button();
 extern void HardFault_Handler();
 
-// Communication queues
-ALLOCATE_STRBUF(lcd_tx_buf, 2048);
-
 // Thread Defines
-DEFINE_TASK(pedalsPeriodic, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024);
+DEFINE_TASK(pedals_periodic, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024);
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048); // leave stack at 2048
+DEFINE_TASK(CAN_tx_update, 1, osPriorityNormal, STACK_2048); // leave stack at 2048
 DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
-DEFINE_TASK(updateTelemetryPages, 100, osPriorityNormal, STACK_1024);
+DEFINE_TASK(driver_interface_periodic, DRIVER_INTERFACE_PERIOD_MS, osPriorityLow, STACK_1024);
 DEFINE_TASK(service_start_button, START_BUTTON_PERIOD_MS, osPriorityLow, STACK_512);
-DEFINE_TASK(driver_interface_periodic, 50, osPriorityLow, STACK_1024);
-DEFINE_TASK(LCD_tx_update, 20, osPriorityLow, STACK_512);
+DEFINE_TASK(report_telemetry_02hz, TELEMETRY_02HZ_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_HEARTBEAT_TASK(sweep_external_leds);
 
 int main(void) {
@@ -187,20 +197,18 @@ int main(void) {
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
     NVIC_EnableIRQ(FDCAN3_IT0_IRQn);
 
-    config_button_irqs();
+    driver_interface_init();
     LCD_init(LCD_BAUD_RATE);
 
     // Software Initialization
     osKernelInitialize();
 
-    START_TASK(pedalsPeriodic);
+    START_TASK(pedals_periodic);
     START_TASK(CAN_rx_update);
     START_TASK(CAN_tx_update);
     START_TASK(fault_library_periodic);
-    START_TASK(updateTelemetryPages);
     START_TASK(service_start_button);
     START_TASK(driver_interface_periodic);
-    START_TASK(LCD_tx_update);
     START_HEARTBEAT_TASK();
 
     osKernelStart(); // GO!
@@ -210,55 +218,11 @@ int main(void) {
 
 bool start_button_pressed = false;
 void service_start_button() {
-    start_button_pressed = PHAL_readGPIO(START_BTN_GPIO_Port, START_BTN_Pin);
+    start_button_pressed = PHAL_readGPIO(START_BUTTON_PORT, START_BUTTON_PIN);
     CAN_SEND_start_button(start_button_pressed);
 }
 
-void send_version() {
-    CAN_SEND_dash_version(GIT_HASH);
-}
-
 // jose was here
-
-void EXTI9_5_IRQHandler() {
-    // EXTI9 (LEFT Button) triggered the interrupt
-    if (EXTI->PR1 & EXTI_PR1_PIF9) {
-        input_state.left_button = 1;
-        EXTI->PR1 |= EXTI_PR1_PIF9;
-    }
-
-    // EXTI8 (RIGHT Button) triggered the interrupt
-    if (EXTI->PR1 & EXTI_PR1_PIF8) {
-        input_state.right_button = 1;
-        EXTI->PR1 |= EXTI_PR1_PIF8;
-    }
-
-    // EXTI7 (DOWN Button) triggered the interrupt
-    if (EXTI->PR1 & EXTI_PR1_PIF7) {
-        input_state.down_button = 1;
-        EXTI->PR1 |= EXTI_PR1_PIF7;
-    }
-
-    // EXTI6 (UP Button) triggered the interrupt
-    if (EXTI->PR1 & EXTI_PR1_PIF6) {
-        input_state.up_button = 1;
-        EXTI->PR1 |= EXTI_PR1_PIF6;
-    }
-}
-
-void EXTI15_10_IRQHandler() {
-    // EXTI15 (SELECT button) triggered the interrupt
-    if (EXTI->PR1 & EXTI_PR1_PIF15) {
-        input_state.select_button = 1;
-        EXTI->PR1 |= EXTI_PR1_PIF15;
-    }
-
-    // EXTI14 (START button) triggered the interrupt
-    if (EXTI->PR1 & EXTI_PR1_PIF14) {
-        input_state.start_button = 1;
-        EXTI->PR1 |= EXTI_PR1_PIF14;
-    }
-}
 
 void sweep_external_leds() {
     static uint32_t sweep_index = 0;
@@ -291,88 +255,6 @@ void sweep_external_leds() {
     }
 }
 
-/**
- * @brief Processes dashboard button flags and triggers corresponding actions
- *
- * Meant to be called periodically.
- */
-void driver_interface_periodic() {
-    if (input_state.up_button) {
-        input_state.up_button = 0;
-        moveUp();
-    }
-
-    if (input_state.down_button) {
-        input_state.down_button = 0;
-        moveDown();
-    }
-
-    if (input_state.left_button) {
-        input_state.left_button = 0;
-        backPage();
-    }
-
-    if (input_state.right_button) {
-        input_state.right_button = 0;
-        advancePage();
-    }
-
-    if (input_state.select_button) {
-        input_state.select_button = 0;
-        selectItem();
-    }
-
-    if (input_state.update_page) {
-        input_state.update_page = 0;
-        updatePage();
-    }
-
-    // dont update the external LEDS until we're out of preflight
-    if (status_leds.state == HEARTBEAT_STATE_PREFLIGHT) {
-        return;
-    }
-
-    bool precharge_incomplete = is_latched(FAULT_ID_PRECHARGE_INCOMPLETE);
-    PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, !precharge_incomplete);
-
-    // todo IMD and BMS
-}
-
-void config_button_irqs() {
-    // Enable the SYSCFG clock for interrupts
-    RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
-
-    // Map EXTI lines to correct GPIO ports
-    // PC6, PC7 (EXTI6, 7)
-    SYSCFG->EXTICR[1] |= (SYSCFG_EXTICR2_EXTI6_PC | SYSCFG_EXTICR2_EXTI7_PC);
-    // PC8, PC9 (EXTI8, 9)
-    SYSCFG->EXTICR[2] |= (SYSCFG_EXTICR3_EXTI8_PC | SYSCFG_EXTICR3_EXTI9_PC);
-    // PB14, PB15 (EXTI14, 15)
-    SYSCFG->EXTICR[3] |= (SYSCFG_EXTICR4_EXTI14_PB | SYSCFG_EXTICR4_EXTI15_PB);
-
-    // Unmask interrupts (EXTI lines 6,7,8,9,14,15)
-    EXTI->IMR1 |= (EXTI_IMR1_IM6 | EXTI_IMR1_IM7 | EXTI_IMR1_IM8 | EXTI_IMR1_IM9 | EXTI_IMR1_IM14 | EXTI_IMR1_IM15);
-
-    // Falling edge trigger only (pull-up buttons)
-    EXTI->RTSR1 &= ~(EXTI_RTSR1_RT6 | EXTI_RTSR1_RT7 | EXTI_RTSR1_RT8 | EXTI_RTSR1_RT9 | EXTI_RTSR1_RT14 | EXTI_RTSR1_RT15);
-
-    EXTI->FTSR1 |= (EXTI_FTSR1_FT6 | EXTI_FTSR1_FT7 | EXTI_FTSR1_FT8 | EXTI_FTSR1_FT9 | EXTI_FTSR1_FT14 | EXTI_FTSR1_FT15);
-
-    NVIC_EnableIRQ(EXTI9_5_IRQn);
-    NVIC_EnableIRQ(EXTI15_10_IRQn);
-}
-
-/**
- * @brief Called periodically to send commands to the Nextion LCD display via USART
- */
-void LCD_tx_update() {
-    if ((false == PHAL_usartTxBusy(&lcd)) && (lcd_tx_buf.length > 0)) {
-        PHAL_usartTxDma(&lcd, (uint8_t *)lcd_tx_buf.data, lcd_tx_buf.length);
-        strbuf_clear(&lcd_tx_buf);
-    }
-}
-
-
 void zero_lws() {
     // CCW = command code word
     static constexpr uint8_t CONFIG_CCW_ZERO = 0x3;
@@ -384,18 +266,6 @@ void reset_lws() {
     static constexpr uint8_t CONFIG_CCW_RESET = 0x5;
     CAN_SEND_LWS_Config(CONFIG_CCW_RESET, 0, 0);
 }
-
-void LWS_Standard_CALLBACK() {
-    // forwards LWS data onto VCAN, simplifies flag parsing
-    bool data_valid = can_data.LWS_Standard.OK && can_data.LWS_Standard.CAL && can_data.LWS_Standard.TRIM;
-
-    CAN_SEND_steering_angle(
-        can_data.LWS_Standard.LWS_ANGLE,
-        can_data.LWS_Standard.LWS_SPEED,
-        data_valid
-    );
-}
-
 
 // todo reboot on hardfault
 void HardFault_Handler() {

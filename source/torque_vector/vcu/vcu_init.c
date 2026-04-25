@@ -3,7 +3,8 @@
 xVCU_struct init_xVCU(void) {
     xVCU_struct xVCU = {
         .VCU_MODE_REQ = 0,
-        .TH_RAW = 0,
+        .THROT_RAW = 0,
+        .BRAKE_RAW = 0,
         .ST_RAW = 0,
         .VB_RAW = 600,
         .WM_RAW = {0, 0, 0, 0},
@@ -51,6 +52,7 @@ yVCU_struct init_yVCU(void) {
         .TO_BL_RG = {0, 0, 0, 0},
         .AC_MW = {0, 0, 0, 0},
         .SK_TO = {0, 0, 0, 0},
+        .AX_TO = {0, 0, 0, 0},
         .TORQUE_LIM_NEG = {0, 0, 0, 0},
         .TORQUE_LIM_POS = {0, 0, 0, 0},
         .SPEED_OUT = {0, 0, 0, 0}

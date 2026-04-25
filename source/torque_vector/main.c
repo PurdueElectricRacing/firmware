@@ -103,8 +103,8 @@ void vcu_task() {
     // load up the xVCU (input) struct with most recent data
     xVCU.VCU_MODE_REQ = VCU_MODE_AUTOCROSS;
 
-    xVCU.TH_RAW = can_data.pedals.throttle;
-    xVCU.BRK_RAW = can_data.pedals.brake; // todo scale
+    xVCU.THROT_RAW = can_data.pedals.throttle / 4095.0f / 100.0f; // scale to [1,0]
+    xVCU.BRAKE_RAW = can_data.pedals.brake / 4095.0f / 100.0f * -1.0f; // scale to [0,-1]
 
     xVCU.ST_RAW = can_data.steering_angle.angle * UNPACK_COEFF_STEERING_ANGLE_ANGLE;
     xVCU.VB_RAW = can_data.pack_stats.pack_voltage * UNPACK_COEFF_PACK_STATS_PACK_VOLTAGE;

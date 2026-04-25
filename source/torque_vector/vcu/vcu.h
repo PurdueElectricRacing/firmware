@@ -1,6 +1,6 @@
 // VCU structs
-
 typedef struct {
+    float VCU_MODE_REQ;
     float TH_RAW;
     float ST_RAW;
     float VB_RAW;
@@ -11,13 +11,15 @@ typedef struct {
     float MT_RAW;
     float IGBT_T_RAW;
     float INV_T_RAW;
-    float MC_RAW;
-    float IC_RAW;
+    float MC_RAW[4];
+    float IC_RAW[4];
     float BT_RAW;
     float TO_RAW[4];
+    float RG_split_FR_RAW;
 } xVCU_struct;
 
 typedef struct {
+    float VCU_MODE;
     float TH;
     float TH_PO;
     float TH_RG;
@@ -30,14 +32,22 @@ typedef struct {
     float MT;
     float IGBT_T;
     float INV_T;
-    float MC;
-    float IC;
+    float OV_MOT[4];
+    float OV_INV[4];
     float BT;
     float TO[4];
+    float IB_AVG_buffer[10];
     float PB;
+    float WW[4];
+    float IB_AVG;
     float TO_BL_PO[4];
+    float RG_split_FR;
     float TO_BL_RG[4];
-    float TORQUE_OUT[4];
+    float AC_MW[4];
+    float SK_TO[4];
+    float TORQUE_LIM_NEG[4];
+    float TORQUE_LIM_POS[4];
+    float SPEED_OUT[4];
 } yVCU_struct;
 
 typedef struct {
@@ -45,11 +55,27 @@ typedef struct {
     float ht[2];
     float wb;
     float gr;
+    float MAX_ABS_WM;
+    float IB_AVG_length;
     float MAX_TO_ABS_PO;
-    float MAX_TO_ABS_RG;
     float PB_derating_full_T;
     float PB_derating_half_T;
     float PB_derating_FR;
+    float VB_derating_full_T;
+    float VB_derating_zero_T;
+    float IB_derating_full_T;
+    float IB_derating_zero_T;
+    float OV_MOT_derating_full_T;
+    float OV_MOT_derating_zero_T;
+    float OV_INV_derating_full_T;
+    float OV_INV_derating_zero_T;
+    float MAX_TO_ABS_RG;
+    float VB_RG_derating_full_T;
+    float VB_RG_derating_zero_T;
+    float IB_RG_derating_full_T;
+    float IB_RG_derating_zero_T;
+    float GS_RG_derating_zero;
+    float GS_RG_derating_full;
     float INV_T_derating_full_T;
     float INV_T_derating_zero_T;
     float IGBT_T_derating_full_T;
@@ -58,16 +84,16 @@ typedef struct {
     float MT_derating_zero_T;
     float BT_derating_full_T;
     float BT_derating_zero_T;
-    float VB_derating_full_T;
-    float VB_derating_zero_T;
-    float IB_derating_full_T;
-    float IB_derating_zero_T;
-    float VB_RG_derating_full_T;
-    float VB_RG_derating_zero_T;
-    float IB_RG_derating_full_T;
-    float IB_RG_derating_zero_T;
-    float GS_RG_derating_zero;
-    float GS_RG_derating_full;
+    float AC_speed_brkpt[3];
+    float AC_speed_table[3];
+    float AC_brkpt_lb;
+    float AC_brkpt_ub;
+    float SK_YAW_des;
+    float SK_LR_split_des;
+    float SK_FR_split;
+    float SK_LR_gain;
+    float SK_ST_ZERO_TV;
+    float SK_ST_FULL_TV;
 } pVCU_struct;
 
 // VCU struct initialization functions

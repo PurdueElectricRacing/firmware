@@ -71,7 +71,7 @@ static void finalize_calibration(void) {
     vector3_t unit_g = vector3_normalize(avg_accel);
 
     // Target coordinate frame: X+ is forward, Y+ is left, Z+ is up
-    // unit_g should be [0, 0, 1]
+    // unit_g should be [0, 0, -1]
     euler_angles_t angles = {0};
 
     // avoid asinf() domain errors due to fp noise by clamping the input to [-0.9999, 0.9999]
@@ -80,7 +80,7 @@ static void finalize_calibration(void) {
     if (clamped_pitch > 0.9999f) { clamped_pitch = 0.9999f; }
 
     angles.pitch = asinf(clamped_pitch); // Pitch is rotation around Y: sin(pitch) = -accel_x
-    angles.roll  = atan2f(unit_g.y, unit_g.z); // Roll is rotation around X: sin(roll) = accel_y / cos(pitch)
+    angles.roll  = atan2f(-unit_g.y, -unit_g.z); // Roll is rotation around X: sin(roll) = accel_y / cos(pitch)
     angles.yaw   = 0.0f; // Yaw cannot be determined by gravity alone
 
     calibration_matrix = tait_bryan(angles);

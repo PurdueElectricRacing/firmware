@@ -50,6 +50,7 @@ typedef struct {
     float TORQUE_LIM_NEG[4];
     float TORQUE_LIM_POS[4];
     float SPEED_OUT[4];
+    float TORQUE_OUT[4];
 } yVCU_struct;
 
 typedef struct {

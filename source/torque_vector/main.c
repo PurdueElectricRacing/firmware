@@ -142,11 +142,31 @@ void vcu_task() {
 
     // step the VCU model
     vcu_step(&pVCU, &xVCU, &yVCU);
+
+    // todo send yVCU -> torque requests
 }
 
 void gps_periodic() {
     NAV_PVT_decode(&nav_pvt, rover_gps_rx_buffer);
     NAV_RELPOSNED_decode(&nav_relposned, (rover_gps_rx_buffer + NAV_PVT_TOTAL_LENGTH));
+}
+
+void report_telemetry_10hz() {
+    CAN_SEND_gps_coordinates(nav_pvt.latitude, nav_pvt.longitude);
+    CAN_SEND_gps_velocity(nav_pvt.velNorth, nav_pvt.velEast, nav_pvt.velDown);
+    CAN_SEND_gps_speed(nav_pvt.groundSpeed, nav_pvt.headingVehicle);
+}
+
+void report_telemetry_1hz() {
+    CAN_SEND_gps_time(
+        (uint8_t)(nav_pvt.year - 2000),
+        nav_pvt.month,
+        nav_pvt.day,
+        nav_pvt.hour,
+        nav_pvt.minute,
+        nav_pvt.second,
+        0
+    );
 }
 
 // Thread Defines

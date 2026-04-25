@@ -27,7 +27,7 @@
                             "scale": 0.01
                         }
                     ],
-                    "msg_period": 40,
+                    "msg_period": 10,
                     "msg_priority": 5
                 },
                 {
@@ -47,7 +47,7 @@
                             "scale": 0.1
                         }
                     ],
-                    "msg_period": 40,
+                    "msg_period": 10,
                     "msg_priority": 3
                 },
                 {
@@ -57,15 +57,17 @@
                         {
                             "sig_name": "latitude",
                             "type": "int32_t",
-                            "unit": "deg"
+                            "unit": "deg",
+                            "scale": 1e-7
                         },
                         {
                             "sig_name": "longitude",
                             "type": "int32_t",
-                            "unit": "deg"
+                            "unit": "deg",
+                            "scale": 1e-7
                         }
                     ],
-                    "msg_period": 40,
+                    "msg_period": 10,
                     "msg_priority": 5
                 },
                 {

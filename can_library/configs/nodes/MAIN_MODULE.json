@@ -131,9 +131,14 @@
                     "msg_desc": "VCAN diagnostics for inverter A",
                     "signals": [
                         {
-                            "sig_name": "inverter_state",
+                            "sig_name": "diagnostic_number",
+                            "sig_desc": "AMK diagnostic number",
+                            "type": "uint32_t"
+                        },
+                        {
+                            "sig_name": "amk_state",
                             "sig_desc": "Current inverter state",
-                            "type": "uint8_t"
+                            "type": "AMK_state_t"
                         },
                         {
                             "sig_name": "bError",
@@ -141,13 +146,13 @@
                             "type": "bool"
                         },
                         {
-                            "sig_name": "diagnostic_number",
-                            "sig_desc": "AMK diagnostic number",
-                            "type": "uint32_t"
-                        },
-                        {
                             "sig_name": "InverterOn",
                             "sig_desc": "AMK inverter on status",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "is_any_stale",
+                            "sig_desc": "any message from AMK is stale",
                             "type": "bool"
                         }
                     ],
@@ -159,9 +164,14 @@
                     "msg_desc": "VCAN diagnostics for inverter B",
                     "signals": [
                         {
-                            "sig_name": "inverter_state",
+                            "sig_name": "diagnostic_number",
+                            "sig_desc": "AMK diagnostic number",
+                            "type": "uint32_t"
+                        },
+                        {
+                            "sig_name": "amk_state",
                             "sig_desc": "Current inverter state",
-                            "type": "uint8_t"
+                            "type": "AMK_state_t"
                         },
                         {
                             "sig_name": "bError",
@@ -169,13 +179,13 @@
                             "type": "bool"
                         },
                         {
-                            "sig_name": "diagnostic_number",
-                            "sig_desc": "AMK diagnostic number",
-                            "type": "uint32_t"
-                        },
-                        {
                             "sig_name": "InverterOn",
                             "sig_desc": "AMK inverter on status",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "is_any_stale",
+                            "sig_desc": "any message from AMK is stale",
                             "type": "bool"
                         }
                     ],
@@ -187,9 +197,14 @@
                     "msg_desc": "VCAN diagnostics for inverter C",
                     "signals": [
                         {
-                            "sig_name": "inverter_state",
+                            "sig_name": "diagnostic_number",
+                            "sig_desc": "AMK diagnostic number",
+                            "type": "uint32_t"
+                        },
+                        {
+                            "sig_name": "amk_state",
                             "sig_desc": "Current inverter state",
-                            "type": "uint8_t"
+                            "type": "AMK_state_t"
                         },
                         {
                             "sig_name": "bError",
@@ -197,13 +212,13 @@
                             "type": "bool"
                         },
                         {
-                            "sig_name": "diagnostic_number",
-                            "sig_desc": "AMK diagnostic number",
-                            "type": "uint32_t"
-                        },
-                        {
                             "sig_name": "InverterOn",
                             "sig_desc": "AMK inverter on status",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "is_any_stale",
+                            "sig_desc": "any message from AMK is stale",
                             "type": "bool"
                         }
                     ],
@@ -215,9 +230,14 @@
                     "msg_desc": "VCAN diagnostics for inverter D",
                     "signals": [
                         {
-                            "sig_name": "inverter_state",
+                            "sig_name": "diagnostic_number",
+                            "sig_desc": "AMK diagnostic number",
+                            "type": "uint32_t"
+                        },
+                        {
+                            "sig_name": "amk_state",
                             "sig_desc": "Current inverter state",
-                            "type": "uint8_t"
+                            "type": "AMK_state_t"
                         },
                         {
                             "sig_name": "bError",
@@ -225,13 +245,13 @@
                             "type": "bool"
                         },
                         {
-                            "sig_name": "diagnostic_number",
-                            "sig_desc": "AMK diagnostic number",
-                            "type": "uint32_t"
-                        },
-                        {
                             "sig_name": "InverterOn",
                             "sig_desc": "AMK inverter on status",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "is_any_stale",
+                            "sig_desc": "any message from AMK is stale",
                             "type": "bool"
                         }
                     ],

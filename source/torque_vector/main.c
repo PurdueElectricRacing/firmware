@@ -3,7 +3,6 @@
  * @brief "Torque Vector" node source code
  *
  * @author Irving Wang (irvingw@purdue.edu)
- *
  */
 
 #include "main.h"
@@ -12,16 +11,16 @@
 
 #include "can_library/generated/TORQUE_VECTOR.h"
 #include "common/freertos/freertos.h"
+#include "common/heartbeat/heartbeat.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
-#include "common/heartbeat/heartbeat.h"
 #include "common/phal/usart.h"
 #include "common/ublox/nav_pvt.h"
 #include "common/ublox/nav_relposned.h"
-
-#include "decouple_imu.h"
-#include "gps.h"
+#include "control_loop.h"
+#include "sensors.h"
+#include "telemetry.h"
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -84,27 +83,17 @@ usart_init_t usart3 = {
     .tx_dma_cfg       = &rover_tx_dma_config,
     .rx_dma_cfg       = &rover_rx_dma_config,
 };
-volatile uint8_t rover_gps_rx_buffer[NAV_PVT_TOTAL_LENGTH + NAV_RELPOSNED_TOTAL_LENGTH] = {0};
-NAV_PVT_data_t nav_pvt = {0};
-NAV_RELPOSNED_data_t nav_relposned = {0};
 
 extern void HardFault_Handler(void);
 
-void gps_periodic() {
-    NAV_PVT_decode(&nav_pvt, rover_gps_rx_buffer);
-    NAV_RELPOSNED_decode(&nav_relposned, (rover_gps_rx_buffer + NAV_PVT_TOTAL_LENGTH));
-}
-
 // Thread Defines
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048);
-DEFINE_TASK(gps_periodic, 100, osPriorityLow, STACK_1024);
+DEFINE_TASK(CAN_tx_update, 1, osPriorityNormal, STACK_2048);
+DEFINE_TASK(control_loop, CONTROL_LOOP_PERIOD_MS, osPriorityNormal, STACK_4096);
+DEFINE_TASK(gps_periodic, GPS_THREAD_PERIOD_MS, osPriorityLow, STACK_1024);
+DEFINE_TASK(report_telemetry_100hz, TELEMETRY_100HZ_PERIOD_MS, osPriorityLow, STACK_512);
+DEFINE_TASK(report_telemetry_1hz, TELEMETRY_1HZ_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
-
-// VCU Data
-static pVCU_struct pVCU;
-static xVCU_struct xVCU;
-static yVCU_struct yVCU;
 
 int main(void) {
     // Hardware Initialization
@@ -117,7 +106,7 @@ int main(void) {
     if (false == PHAL_initUSART(&usart3, APB1ClockRateHz)) {
         HardFault_Handler();
     }
-    if (false == PHAL_usartRxDma(&usart3, (uint8_t *)rover_gps_rx_buffer, sizeof(rover_gps_rx_buffer), 1)) {
+    if (false == PHAL_usartRxDma(&usart3, (uint8_t *)rover_rx_buffer, sizeof(rover_rx_buffer), 1)) {
         HardFault_Handler();
     }
     if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
@@ -137,15 +126,11 @@ int main(void) {
 
     START_TASK(CAN_rx_update);
     START_TASK(CAN_tx_update);
+    START_TASK(control_loop);
     START_TASK(gps_periodic);
+    START_TASK(report_telemetry_100hz);
+    START_TASK(report_telemetry_1hz);
     START_HEARTBEAT_TASK();
-
-    // TV initialization (will break watchdog)
-    pVCU = init_pVCU();
-    xVCU = init_xVCU();
-    yVCU = init_yVCU();
-
-    vcu_step(&pVCU, &xVCU, &yVCU);
 
     // no way home
     osKernelStart();

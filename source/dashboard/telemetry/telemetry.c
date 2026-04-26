@@ -24,7 +24,7 @@ void LWS_Standard_CALLBACK(void) {
  * @brief Reports telemetry data at 0.2 Hz rate
  * Includes: Dashboard version string
  */
-static_assert(TELEMETRY_02HZ_PERIOD_MS == DASH_VERSION_PERIOD_MS);
+static_assert(DASH_VERSION_PERIOD_MS == TELEMETRY_02HZ_PERIOD_MS);
 void report_telemetry_02hz(void) {
     CAN_SEND_dash_version(GIT_HASH);
 }

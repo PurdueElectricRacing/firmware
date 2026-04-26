@@ -34,6 +34,31 @@
                     "msg_period": 10
                 },
                 {
+                    "msg_name": "thermal_stats",
+                    "msg_desc": "Individual thermistor readings",
+                    "signals": [
+                        {
+                            "sig_name": "thermistor_temperature",
+                            "sig_desc": "Individual thermistor temperature",
+                            "type": "uint16_t",
+                            "unit": "C",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "module_num",
+                            "sig_desc": "Module number of the cell being reported, 0 indexed",
+                            "type": "uint8_t"
+                        },
+                        {
+                            "sig_name": "thermistor_num",
+                            "sig_desc": "Thermistor number within the module, 0 indexed",
+                            "type": "uint8_t"
+                        }
+                    ],
+                    "msg_priority": 5,
+                    "msg_period": 50
+                },
+                {
                     "msg_name": "abox_version",
                     "msg_desc": "ABox version",
                     "signals": [
@@ -169,7 +194,7 @@
                     "signals": [
                         {
                             "sig_name": "cell_voltage",
-                            "sig_desc": "floating point cell voltage",
+                            "sig_desc": "individual cell voltage",
                             "type": "uint16_t",
                             "unit": "V",
                             "scale": 0.01

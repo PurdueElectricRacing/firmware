@@ -4,11 +4,15 @@
 ### Inputs:
 - `VCU_MODE_REQ`
 	- Requested VCU mode from dashboard
-	-  1 = accel; 2 = skidpad; 3 = autocross; 4 = endurance
-- `TH_RAW`
+	-  0 = accel; 1 = skidpad; 2 = autocross; 3 = endurance
+- `THROT_RAW`
 	- Throttle sensor
 	- Unit: \[unitless] Size: \[1 1]
-	- Max Torque = 1, No Torque = 0, Full Braking = -1
+	- Max Torque = 1, No Torque = 0
+- `BRAKE_RAW`
+	- Brake Sensor
+	- Unit: \[unitless] Size: \[1 1]
+	- Max brake = 1, No brake = 0
 - `ST_RAW`
 	- Steering angle sensor
 	- Unit: \[degree] Size: \[1 1]
@@ -45,15 +49,15 @@
 - `BT_RAW`
 	- Max battery cell temperature
 	- Unit: \[C] Size: \[1 1]
-- `TO_RAW`
+- `TO_RAW` (never used, don't send)
 	- Applied motor torque 
 	- Unit: \[Nm] Size: \[1 4] Order: \[FL FR RL RR]
 	- Torque to move forward = positive value, No torque = 0, regen = negative
-- `OV_MOT`
+- `OV_MOT` (don't need yet)
 	- Motor overload value
 	- Unit: \[\%] Size: \[1 4] Order: \[FL FR RL RR]
 	- AMK `0x2263 'Display overload motor'`
-- `OV_INV`
+- `OV_INV` (don't need yet)
 	- Inverter overload value
 	- Unit: \[\%] Size: \[1 4] Order: \[FL FR RL RR]
 	- AMK `0x2262 'Display overload inverter'`

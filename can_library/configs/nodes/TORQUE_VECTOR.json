@@ -10,44 +10,38 @@
                     "signals": [
                         {
                             "sig_name": "gps_vel_n",
-                            "type": "int16_t",
+                            "type": "int32_t",
                             "unit": "m/s",
-                            "scale": 0.01
+                            "scale": 1e-3
                         },
                         {
                             "sig_name": "gps_vel_e",
-                            "type": "int16_t",
+                            "type": "int32_t",
                             "unit": "m/s",
-                            "scale": 0.01
-                        },
-                        {
-                            "sig_name": "gps_vel_d",
-                            "type": "int16_t",
-                            "unit": "m/s",
-                            "scale": 0.01
+                            "scale": 1e-3
                         }
                     ],
-                    "msg_period": 40,
+                    "msg_period": 10,
                     "msg_priority": 5
                 },
                 {
-                    "msg_name": "gps_speed",
-                    "msg_desc": "gps speed",
+                    "msg_name": "gps_speed_heading",
+                    "msg_desc": "gps 2D ground speed and heading",
                     "signals": [
                         {
                             "sig_name": "gps_speed",
-                            "type": "int16_t",
+                            "type": "int32_t",
                             "unit": "m/s",
-                            "scale": 0.01
+                            "scale": 1e-3
                         },
                         {
                             "sig_name": "gps_heading",
-                            "type": "int16_t",
-                            "unit": "none",
-                            "scale": 0.1
+                            "type": "int32_t",
+                            "unit": "deg",
+                            "scale": 1e-5
                         }
                     ],
-                    "msg_period": 40,
+                    "msg_period": 10,
                     "msg_priority": 3
                 },
                 {
@@ -57,15 +51,17 @@
                         {
                             "sig_name": "latitude",
                             "type": "int32_t",
-                            "unit": "deg"
+                            "unit": "deg",
+                            "scale": 1e-7
                         },
                         {
                             "sig_name": "longitude",
                             "type": "int32_t",
-                            "unit": "deg"
+                            "unit": "deg",
+                            "scale": 1e-7
                         }
                     ],
-                    "msg_period": 40,
+                    "msg_period": 10,
                     "msg_priority": 5
                 },
                 {
@@ -196,6 +192,24 @@
                 {
                     "msg_name": "IZZE_acceleration",
                     "callback": true
+                },
+                {
+                    "msg_name": "pedals"
+                },
+                {
+                    "msg_name": "steering_angle"
+                },
+                {
+                    "msg_name": "pack_stats"
+                },
+                {
+                    "msg_name": "wheel_speeds"
+                },
+                {
+                    "msg_name": "motor_temps"
+                },
+                {
+                    "msg_name": "igbt_temps"
                 }
             ]
         }

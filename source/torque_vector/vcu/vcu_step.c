@@ -125,7 +125,11 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
   int i;
   int j;
   int k;
-  y->TH = fmaxf(fminf(x->TH_RAW, 1.0F), -1.0F);
+  if (x->BRAKE_RAW > 0.0F) {
+    y->TH = -fminf(x->BRAKE_RAW, 1.0F);
+  } else {
+    y->TH = fmaxf(fminf(x->THROT_RAW, 1.0F), 0.0F);
+  }
   value_tmp = fmaxf(y->TH, 0.0F);
   y->TH_PO = value_tmp;
   y->TH_RG = fabsf(fminf(y->TH, 0.0F));
@@ -171,6 +175,17 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
   y->WW[1] = x->WM_RAW[1] / p->gr;
   y->WW[2] = x->WM_RAW[2] / p->gr;
   y->WW[3] = x->WM_RAW[3] / p->gr;
+  if (x->VCU_MODE_REQ == 0.0F) {
+    y->VCU_MODE = 1.0F;
+  } else if (x->VCU_MODE_REQ == 1.0F) {
+    y->VCU_MODE = 2.0F;
+  } else if (x->VCU_MODE_REQ == 2.0F) {
+    y->VCU_MODE = 3.0F;
+  } else if (x->VCU_MODE_REQ == 3.0F) {
+    y->VCU_MODE = 4.0F;
+  } else {
+    y->VCU_MODE = 0.0F;
+  }
   if (y->TH > 0.0F) {
     float varargin_1[28];
     float OV_INV_snipped[4];
@@ -308,15 +323,19 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
       y->TORQUE_LIM_NEG[0] = 0.0F;
       y->TORQUE_LIM_POS[0] = minval[0];
       y->SPEED_OUT[0] = p->MAX_ABS_WM;
+      y->TORQUE_OUT[0] = minval[0];
       y->TORQUE_LIM_NEG[1] = 0.0F;
       y->TORQUE_LIM_POS[1] = minval[1];
       y->SPEED_OUT[1] = p->MAX_ABS_WM;
+      y->TORQUE_OUT[1] = minval[1];
       y->TORQUE_LIM_NEG[2] = 0.0F;
       y->TORQUE_LIM_POS[2] = minval[2];
       y->SPEED_OUT[2] = p->MAX_ABS_WM;
+      y->TORQUE_OUT[2] = minval[2];
       y->TORQUE_LIM_NEG[3] = 0.0F;
       y->TORQUE_LIM_POS[3] = minval[3];
       y->SPEED_OUT[3] = p->MAX_ABS_WM;
+      y->TORQUE_OUT[3] = minval[3];
     } else if (y->VCU_MODE == 1.0F) {
       float b_varargin_1[3];
       float varargin_2[3];
@@ -375,6 +394,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
       y->TORQUE_LIM_NEG[0] = 0.0F;
       y->TORQUE_LIM_POS[0] = minval[0];
       y->SPEED_OUT[0] = f11;
+      y->TORQUE_OUT[0] = minval[0];
       yi_idx_1 = 0.0F;
       if ((WW_snipped_idx_1 <= b_varargin_1[2]) &&
           (WW_snipped_idx_1 >= b_varargin_1[0])) {
@@ -403,6 +423,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
       y->TORQUE_LIM_NEG[1] = 0.0F;
       y->TORQUE_LIM_POS[1] = minval[1];
       y->SPEED_OUT[1] = f11;
+      y->TORQUE_OUT[1] = minval[1];
       yi_idx_2 = 0.0F;
       if ((WW_snipped_idx_2 <= b_varargin_1[2]) &&
           (WW_snipped_idx_2 >= b_varargin_1[0])) {
@@ -431,6 +452,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
       y->TORQUE_LIM_NEG[2] = 0.0F;
       y->TORQUE_LIM_POS[2] = minval[2];
       y->SPEED_OUT[2] = f11;
+      y->TORQUE_OUT[2] = minval[2];
       yi_idx_3 = 0.0F;
       if ((WW_snipped_idx_3 <= b_varargin_1[2]) &&
           (WW_snipped_idx_3 >= b_varargin_1[0])) {
@@ -459,14 +481,15 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
       y->TORQUE_LIM_NEG[3] = 0.0F;
       y->TORQUE_LIM_POS[3] = minval[3];
       y->SPEED_OUT[3] = f11;
+      y->TORQUE_OUT[3] = minval[3];
     } else if (y->VCU_MODE == 2.0F) {
       float LR;
       float b_ex;
-      float b_varargin_1_tmp;
       float c_varargin_1_tmp;
       float control_force;
-      float d_varargin_1_tmp;
+      float e_varargin_1_tmp;
       float f12;
+      float g_varargin_1_tmp;
       float varargin_1_tmp;
       int i1;
       b_p[0] = p->SK_ST_ZERO_TV;
@@ -486,21 +509,21 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
                fmaxf(fminf(p->SK_LR_split_des +
                                ((float)i1 * p->SK_YAW_des - x->AV_RAW[2]) *
                                    p->SK_LR_gain,
-                           0.75F),
-                     0.25F);
+                           0.65F),
+                     0.35F);
       varargin_1_tmp = p->SK_FR_split * LR;
-      b_varargin_1_tmp = p->SK_FR_split * (1.0F - LR);
-      c_varargin_1_tmp = (1.0F - p->SK_FR_split) * LR;
-      d_varargin_1_tmp = (1.0F - p->SK_FR_split) * (1.0F - LR);
+      c_varargin_1_tmp = p->SK_FR_split * (1.0F - LR);
+      e_varargin_1_tmp = (1.0F - p->SK_FR_split) * LR;
+      g_varargin_1_tmp = (1.0F - p->SK_FR_split) * (1.0F - LR);
       b_ex = varargin_1_tmp;
-      if (varargin_1_tmp < b_varargin_1_tmp) {
-        b_ex = b_varargin_1_tmp;
-      }
-      if (b_ex < c_varargin_1_tmp) {
+      if (varargin_1_tmp < c_varargin_1_tmp) {
         b_ex = c_varargin_1_tmp;
       }
-      if (b_ex < d_varargin_1_tmp) {
-        b_ex = d_varargin_1_tmp;
+      if (b_ex < e_varargin_1_tmp) {
+        b_ex = e_varargin_1_tmp;
+      }
+      if (b_ex < g_varargin_1_tmp) {
+        b_ex = g_varargin_1_tmp;
       }
       f12 = fminf(varargin_1_tmp / b_ex * value_tmp * p->MAX_TO_ABS_PO,
                   minval[0]);
@@ -508,24 +531,99 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
       y->TORQUE_LIM_NEG[0] = 0.0F;
       y->TORQUE_LIM_POS[0] = f12;
       y->SPEED_OUT[0] = p->MAX_ABS_WM;
-      f12 = fminf(b_varargin_1_tmp / b_ex * value_tmp * p->MAX_TO_ABS_PO,
+      y->TORQUE_OUT[0] = f12;
+      f12 = fminf(c_varargin_1_tmp / b_ex * value_tmp * p->MAX_TO_ABS_PO,
                   minval[1]);
       y->SK_TO[1] = f12;
       y->TORQUE_LIM_NEG[1] = 0.0F;
       y->TORQUE_LIM_POS[1] = f12;
       y->SPEED_OUT[1] = p->MAX_ABS_WM;
-      f12 = fminf(c_varargin_1_tmp / b_ex * value_tmp * p->MAX_TO_ABS_PO,
+      y->TORQUE_OUT[1] = f12;
+      f12 = fminf(e_varargin_1_tmp / b_ex * value_tmp * p->MAX_TO_ABS_PO,
                   minval[2]);
       y->SK_TO[2] = f12;
       y->TORQUE_LIM_NEG[2] = 0.0F;
       y->TORQUE_LIM_POS[2] = f12;
       y->SPEED_OUT[2] = p->MAX_ABS_WM;
-      f12 = fminf(d_varargin_1_tmp / b_ex * value_tmp * p->MAX_TO_ABS_PO,
+      y->TORQUE_OUT[2] = f12;
+      f12 = fminf(g_varargin_1_tmp / b_ex * value_tmp * p->MAX_TO_ABS_PO,
                   minval[3]);
       y->SK_TO[3] = f12;
       y->TORQUE_LIM_NEG[3] = 0.0F;
       y->TORQUE_LIM_POS[3] = f12;
       y->SPEED_OUT[3] = p->MAX_ABS_WM;
+      y->TORQUE_OUT[3] = f12;
+    } else if (y->VCU_MODE == 3.0F) {
+      float b_LR;
+      float b_control_force;
+      float b_varargin_1_tmp;
+      float c_ex;
+      float d_varargin_1_tmp;
+      float f13;
+      float f_varargin_1_tmp;
+      float h_varargin_1_tmp;
+      int i2;
+      b_p[0] = p->SK_ST_ZERO_TV;
+      b_p[1] = p->SK_ST_FULL_TV;
+      fv[0] = 0.0F;
+      fv[1] = 1.0F;
+      b_control_force = interp1(
+          b_p, fv,
+          fmaxf(fminf(fabsf(x->ST_RAW), p->SK_ST_FULL_TV), p->SK_ST_ZERO_TV));
+      if (x->ST_RAW < 0.0F) {
+        i2 = -1;
+      } else {
+        i2 = (x->ST_RAW > 0.0F);
+      }
+      b_LR = (1.0F - b_control_force) * 0.5F +
+             b_control_force *
+                 fmaxf(fminf(p->SK_LR_split_des +
+                                 ((float)i2 * p->SK_YAW_des - x->AV_RAW[2]) *
+                                     p->SK_LR_gain,
+                             0.75F),
+                       0.25F);
+      b_varargin_1_tmp = p->SK_FR_split * b_LR;
+      d_varargin_1_tmp = p->SK_FR_split * (1.0F - b_LR);
+      f_varargin_1_tmp = (1.0F - p->SK_FR_split) * b_LR;
+      h_varargin_1_tmp = (1.0F - p->SK_FR_split) * (1.0F - b_LR);
+      c_ex = b_varargin_1_tmp;
+      if (b_varargin_1_tmp < d_varargin_1_tmp) {
+        c_ex = d_varargin_1_tmp;
+      }
+      if (c_ex < f_varargin_1_tmp) {
+        c_ex = f_varargin_1_tmp;
+      }
+      if (c_ex < h_varargin_1_tmp) {
+        c_ex = h_varargin_1_tmp;
+      }
+      f13 = fminf(b_varargin_1_tmp / c_ex * value_tmp * p->MAX_TO_ABS_PO,
+                  minval[0]);
+      y->AX_TO[0] = f13;
+      y->TORQUE_LIM_NEG[0] = 0.0F;
+      y->TORQUE_LIM_POS[0] = f13;
+      y->SPEED_OUT[0] = p->MAX_ABS_WM;
+      y->TORQUE_OUT[0] = f13;
+      f13 = fminf(d_varargin_1_tmp / c_ex * value_tmp * p->MAX_TO_ABS_PO,
+                  minval[1]);
+      y->AX_TO[1] = f13;
+      y->TORQUE_LIM_NEG[1] = 0.0F;
+      y->TORQUE_LIM_POS[1] = f13;
+      y->SPEED_OUT[1] = p->MAX_ABS_WM;
+      y->TORQUE_OUT[1] = f13;
+      f13 = fminf(f_varargin_1_tmp / c_ex * value_tmp * p->MAX_TO_ABS_PO,
+                  minval[2]);
+      y->AX_TO[2] = f13;
+      y->TORQUE_LIM_NEG[2] = 0.0F;
+      y->TORQUE_LIM_POS[2] = f13;
+      y->SPEED_OUT[2] = p->MAX_ABS_WM;
+      y->TORQUE_OUT[2] = f13;
+      f13 = fminf(h_varargin_1_tmp / c_ex * value_tmp * p->MAX_TO_ABS_PO,
+                  minval[3]);
+      y->AX_TO[3] = f13;
+      y->TORQUE_LIM_NEG[3] = 0.0F;
+      y->TORQUE_LIM_POS[3] = f13;
+      y->SPEED_OUT[3] = p->MAX_ABS_WM;
+      y->TORQUE_OUT[3] = f13;
     }
   } else if (y->TH < 0.0F) {
     float varargin_1[28];
@@ -641,19 +739,24 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
       y->TO_BL_RG[j] = -f3;
       y->TORQUE_LIM_NEG[j] = -f3;
       y->TORQUE_LIM_POS[j] = 0.0F;
+      y->TORQUE_OUT[j] = -f3;
     }
   } else {
     y->TORQUE_LIM_NEG[0] = 0.0F;
     y->TORQUE_LIM_POS[0] = 0.0F;
     y->SPEED_OUT[0] = 0.0F;
+    y->TORQUE_OUT[0] = 0.0F;
     y->TORQUE_LIM_NEG[1] = 0.0F;
     y->TORQUE_LIM_POS[1] = 0.0F;
     y->SPEED_OUT[1] = 0.0F;
+    y->TORQUE_OUT[1] = 0.0F;
     y->TORQUE_LIM_NEG[2] = 0.0F;
     y->TORQUE_LIM_POS[2] = 0.0F;
     y->SPEED_OUT[2] = 0.0F;
+    y->TORQUE_OUT[2] = 0.0F;
     y->TORQUE_LIM_NEG[3] = 0.0F;
     y->TORQUE_LIM_POS[3] = 0.0F;
     y->SPEED_OUT[3] = 0.0F;
+    y->TORQUE_OUT[3] = 0.0F;
   }
 }

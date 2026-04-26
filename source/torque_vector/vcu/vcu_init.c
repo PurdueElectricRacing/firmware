@@ -1,9 +1,9 @@
 #include "vcu.h"
-
 xVCU_struct init_xVCU(void) {
     xVCU_struct xVCU = {
         .VCU_MODE_REQ = 0,
-        .TH_RAW = 0,
+        .THROT_RAW = 0,
+        .BRAKE_RAW = 0,
         .ST_RAW = 0,
         .VB_RAW = 600,
         .WM_RAW = {0, 0, 0, 0},
@@ -51,9 +51,11 @@ yVCU_struct init_yVCU(void) {
         .TO_BL_RG = {0, 0, 0, 0},
         .AC_MW = {0, 0, 0, 0},
         .SK_TO = {0, 0, 0, 0},
+        .AX_TO = {0, 0, 0, 0},
         .TORQUE_LIM_NEG = {0, 0, 0, 0},
         .TORQUE_LIM_POS = {0, 0, 0, 0},
-        .SPEED_OUT = {0, 0, 0, 0}
+        .SPEED_OUT = {0, 0, 0, 0},
+        .TORQUE_OUT = {0, 0, 0, 0}
     };
     return yVCU;
 }
@@ -65,7 +67,7 @@ pVCU_struct init_pVCU(void) {
         .ht = {0.649, 0.621},
         .wb = 2,
         .gr = 12.51,
-        .MAX_ABS_WM = 500,
+        .MAX_ABS_WM = 3100,
         .IB_AVG_length = 10,
         .MAX_TO_ABS_PO = 21,
         .PB_derating_full_T = 75,
@@ -94,10 +96,10 @@ pVCU_struct init_pVCU(void) {
         .MT_derating_zero_T = 140,
         .BT_derating_full_T = 55,
         .BT_derating_zero_T = 60,
-        .AC_speed_brkpt = {0, 63.6363636, 7.9936051},
-        .AC_speed_table = {70, 70, 43.9648281},
+        .AC_speed_brkpt = {0, 1.598721, 49.5603517},
+        .AC_speed_table = {22, 22, 272.5819345},
         .AC_brkpt_lb = 0,
-        .AC_brkpt_ub = 63.6363636,
+        .AC_brkpt_ub = 49.5603517,
         .SK_YAW_des = 1.2493151,
         .SK_LR_split_des = 0.6,
         .SK_FR_split = 0.4,

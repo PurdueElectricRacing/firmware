@@ -270,6 +270,25 @@ void report_telemetry() {
     }
 }
 
+void report_battery_therms() {
+    // Report cell voltages one at a time
+    static uint8_t module_num      = 0;
+    static uint8_t thermistor_num        = 0;
+    adbms_module_t *current_module = &g_bms.modules[module_num];
+
+    float thermistor_temperature = current_module->therms_temps[thermistor_num];
+    uint16_t scaled_temperature = (uint16_t)(thermistor_temperature * PACK_COEFF_CELL_TELEMETRY_CELL_VOLTAGE);
+
+    CAN_SEND_thermal_stats(scaled_temperature, module_num, thermistor_num);
+
+    if (++thermistor_num >= ADBMS6380_GPIO_COUNT) {
+        thermistor_num = 0;
+        if (++module_num >= ADBMS_MODULE_COUNT) {
+            module_num = 0;
+        }
+    }
+}
+
 void bms_task() {
     adbms_periodic(&g_bms, MIN_V_FOR_BALANCE, MIN_DELTA_FOR_BALANCE);
 }

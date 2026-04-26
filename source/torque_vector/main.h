@@ -5,10 +5,8 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#ifndef MAIN_H_
-#define MAIN_H_
-
-#include "vcu.h"
+#ifndef MAIN_H
+#define MAIN_H
 
 #include <stdint.h>
 
@@ -30,4 +28,4 @@
 #define BASE_RESET_PORT (GPIOB)
 #define BASE_RESET_PIN  (6)
 
-#endif
+#endif // MAIN_H

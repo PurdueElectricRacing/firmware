@@ -167,9 +167,6 @@ int main(void) {
     if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
-    if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
-        HardFault_Handler();
-    }
     if (false == PHAL_initDMA(&adc1_dma_config)) {
         HardFault_Handler();
     }
@@ -205,10 +202,10 @@ int main(void) {
     PHAL_startADC(&adc3_config);
     PHAL_startADC(&adc4_config);
 
-
-    CAN_library_init();
-    NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
-    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
+    if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
+        HardFault_Handler();
+    }
+    CAN_init();
 
     // Software Initalization
     osKernelInitialize();

@@ -115,8 +115,7 @@ extern void HardFault_Handler(void);
 void bms_task(void);
 
 // Thread Defines
-DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 1, osPriorityNormal, STACK_2048);
+DEFINE_CAN_TASKS();
 DEFINE_TASK(bms_task, 200, osPriorityNormal, STACK_2048);
 DEFINE_TASK(charging_fsm_periodic, ELCON_COMMAND_PERIOD_MS, osPriorityNormal, STACK_512);
 DEFINE_TASK(fault_library_periodic, A_BOX_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
@@ -158,19 +157,13 @@ int main(void) {
     if (false == PHAL_FDCAN_init(FDCAN2, false, CCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
-    NVIC_SetPriority(FDCAN1_IT0_IRQn, 6);
-    NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
-
-    NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
-    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
-    CAN_library_init();
+    CAN_init();
 
     // Kernel initalization
     osKernelInitialize();
 
+    START_CAN_TASKS()
     START_TASK(bms_task);
-    START_TASK(CAN_rx_update);
-    START_TASK(CAN_tx_update);
     START_TASK(fault_library_periodic);
     START_TASK(report_telemetry_100hz);
     START_TASK(report_telemetry_8hz);

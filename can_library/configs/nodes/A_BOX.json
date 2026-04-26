@@ -38,7 +38,7 @@
                     "msg_desc": "Individual thermistor readings",
                     "signals": [
                         {
-                            "sig_name": "thermistor_temperature",
+                            "sig_name": "temperature",
                             "sig_desc": "Individual thermistor temperature",
                             "type": "uint16_t",
                             "unit": "C",
@@ -193,7 +193,7 @@
                     "msg_desc": "Individual cell voltages and balancing status",
                     "signals": [
                         {
-                            "sig_name": "cell_voltage",
+                            "sig_name": "voltage",
                             "sig_desc": "individual cell voltage",
                             "type": "uint16_t",
                             "unit": "V",
@@ -265,7 +265,7 @@
             "max": 1,
             "min": 0,
             "priority": "error",
-            "time_to_latch": 100,
+            "time_to_latch": 200,
             "time_to_unlatch": 5000,
             "lcd_message": "IMD Isolation Fault"
         },

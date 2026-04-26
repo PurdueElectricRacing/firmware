@@ -58,12 +58,12 @@ set(EXTERNAL_MODULES
     external/fatfs
 )
 
-foreach(COMMON_MODULE IN LISTS COMMON_MODULES)
-    add_subdirectory(${COMMON_MODULE})
+foreach(MODULE IN LISTS COMMON_MODULES)
+    add_subdirectory(${MODULE})
 endforeach()
 
-foreach(EXTERNAL_MODULES IN LISTS EXTERNAL_MODULES)
-    add_subdirectory(${EXTERNAL_MODULES})
+foreach(MODULE IN LISTS EXTERNAL_MODULES)
+    add_subdirectory(${MODULE})
 endforeach()
 
 # Macro for defining the common build process across all firmware components

@@ -1,5 +1,5 @@
 /**
- * @file telemetry.h
+ * @file telemetry.c
  * @brief ABOX Telemetry task implementations
  * 
  * @author Irving Wang (irvingw@purdue.edu)
@@ -12,6 +12,7 @@
 #include "main.h"
 
 // todo: double check the conversion here
+[[maybe_unused]]
 static inline float vbatt_to_voltage(uint16_t vbatt_raw) {
     static constexpr float ADC_VREF = 3.3f;
     static constexpr float ADC_MAX  = 4095.0f;
@@ -83,7 +84,7 @@ void report_telemetry_100hz(void) {
     adbms_module_t *current_module = &g_bms.modules[module_num];
 
     float cell_voltage = current_module->cell_voltages[cell_num];
-    uint16_t scaled_cell_voltage = (uint16_t)(cell_voltage * PACK_COEFF_CELL_TELEMETRY_CELL_VOLTAGE);
+    uint16_t scaled_cell_voltage = (uint16_t)(cell_voltage * PACK_COEFF_CELL_TELEMETRY_VOLTAGE);
     bool is_balancing  = current_module->is_discharging[cell_num];
 
     CAN_SEND_cell_telemetry(scaled_cell_voltage, module_num, cell_num, is_balancing);
@@ -108,7 +109,7 @@ void report_telemetry_8hz(void) {
     adbms_module_t *current_module = &g_bms.modules[module_num];
 
     float thermistor_temperature = current_module->therms_temps[thermistor_num];
-    uint16_t scaled_temperature = (uint16_t)(thermistor_temperature * PACK_COEFF_CELL_TELEMETRY_CELL_VOLTAGE);
+    uint16_t scaled_temperature = (uint16_t)(thermistor_temperature * PACK_COEFF_THERMISTOR_TELEMETRY_TEMPERATURE);
 
     CAN_SEND_thermistor_telemetry(scaled_temperature, module_num, thermistor_num);
 

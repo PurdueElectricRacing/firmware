@@ -56,7 +56,7 @@
                         }
                     ],
                     "msg_priority": 5,
-                    "msg_period": 50
+                    "msg_period": 125
                 },
                 {
                     "msg_name": "abox_version",

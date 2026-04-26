@@ -9,6 +9,7 @@
  */
 
 #include <stdint.h>
+
 #include "can_library/generated/A_BOX.h"
 
 static constexpr uint32_t CHARGING_FSM_PERIOD_MS = 1000;

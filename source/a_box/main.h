@@ -9,6 +9,7 @@
 #define MAIN_H_
 
 #include "common/phal/gpio.h"
+#include "adbms.h"
 
 // Status LEDs
 #define HEARTBEAT_LED_PORT  (GPIOB)
@@ -47,5 +48,13 @@
 // BMS SDC Control
 #define BMS_SDC_CTRL_PORT (GPIOA)
 #define BMS_SDC_CTRL_PIN  (10)
+
+typedef struct {
+    uint16_t isense_raw;
+    uint16_t vbatt_raw;
+} adc1_dma_buffer_t;
+extern volatile adc1_dma_buffer_t adc1_dma_buffer;
+
+extern adbms_bms_t g_bms;
 
 #endif

@@ -101,8 +101,8 @@ $(function(){initNavTree('adbms6380_8h_source.html',''); initResizable(true); })
 </div><!--header-->
 <div class="contents">
 <a href="adbms6380_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#ifndef _ADBMS6380_H_</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define _ADBMS6380_H_</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#ifndef ADBMS6380_H</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define ADBMS6380_H</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;stddef.h&gt;</span></div>
@@ -217,7 +217,7 @@ $(function(){initNavTree('adbms6380_8h_source.html',''); initResizable(true); })
 <div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
 <div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span><span class="comment">// Other adbms6380 related function declarations can go here</span></div>
 <div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span> </div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span><span class="preprocessor">#endif </span><span class="comment">// _ADBMS6380_H_</span></div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span><span class="preprocessor">#endif </span><span class="comment">// ADBMS6380_H</span></div>
 <div class="ttc" id="aadbms6380_8h_html_a12a7403f2f6b47af40cc7d278909ebe7"><div class="ttname"><a href="adbms6380_8h.html#a12a7403f2f6b47af40cc7d278909ebe7">adbms6380_set_cs_low</a></div><div class="ttdeci">void adbms6380_set_cs_low(SPI_InitConfig_t *spi)</div><div class="ttdoc">Drive the ADBMS CS line low.</div><div class="ttdef"><b>Definition</b> adbms6380.c:21</div></div>
 <div class="ttc" id="aadbms6380_8h_html_a2e9f567aae9798e09e92280c8919a184"><div class="ttname"><a href="adbms6380_8h.html#a2e9f567aae9798e09e92280c8919a184">adbms6380_raw_to_v</a></div><div class="ttdeci">float adbms6380_raw_to_v(int16_t raw)</div><div class="ttdoc">Convert raw voltage measurement from the ADBMS6380 to volts.</div><div class="ttdef"><b>Definition</b> adbms6380.c:51</div></div>
 <div class="ttc" id="aadbms6380_8h_html_a4a46bb68d67c18378f018232362631a6"><div class="ttname"><a href="adbms6380_8h.html#a4a46bb68d67c18378f018232362631a6">adbms6380_read_cell_voltages</a></div><div class="ttdeci">bool adbms6380_read_cell_voltages(SPI_InitConfig_t *spi, strbuf_t *cmd_buffer, uint8_t *rx_buffer, float **cell_voltages, int16_t **cell_voltages_raw, bool pec_error_flags[ADBMS6380_RDCV_CMD_COUNT], size_t module_count, size_t max_retries_on_pec_failure)</div><div class="ttdoc">Read all cell voltages from each module.</div><div class="ttdef"><b>Definition</b> adbms6380.c:223</div></div>

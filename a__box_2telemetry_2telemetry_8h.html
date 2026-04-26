@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: source/a_box/adbms/pec.c File Reference</title>
+<title>PER Firmware: source/a_box/telemetry/telemetry.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('pec_8c.html',''); initResizable(true); });
+$(function(){initNavTree('a__box_2telemetry_2telemetry_8h.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -99,63 +99,70 @@ $(function(){initNavTree('pec_8c.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">pec.c File Reference</div></div>
+  <div class="headertitle"><div class="title">telemetry.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Calculation of PEC (CRC15, CRC10) for ADBMS communication.  
+<p>ABOX Telemetry task implementations.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="pec_8h_source.html">pec.h</a>&quot;</code><br />
-<code>#include &lt;stdbool.h&gt;</code><br />
-<code>#include &lt;stdint.h&gt;</code><br />
-</div><table class="memberdecls">
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+</div>
+<p><a href="a__box_2telemetry_2telemetry_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:acf61d2142265cf21d2a680bff41883b9" id="r_acf61d2142265cf21d2a680bff41883b9"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf61d2142265cf21d2a680bff41883b9">adbms_pec_get_pec15</a> (uint8_t len, const uint8_t *data)</td></tr>
-<tr class="memdesc:acf61d2142265cf21d2a680bff41883b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRC15 Pec Calculation Function.  <br /></td></tr>
-<tr class="separator:acf61d2142265cf21d2a680bff41883b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af26a3fb59c4ae59fb10ac19030eef174" id="r_af26a3fb59c4ae59fb10ac19030eef174"><td class="memItemLeft" align="right" valign="top"><a id="af26a3fb59c4ae59fb10ac19030eef174" name="af26a3fb59c4ae59fb10ac19030eef174"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>adbms_pec_get_pec10</b> (bool bIsRxCmd, uint8_t nLength, const uint8_t *pDataBuf)</td></tr>
-<tr class="separator:af26a3fb59c4ae59fb10ac19030eef174"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad17b4787e885938a20f35bd144928f22" id="r_ad17b4787e885938a20f35bd144928f22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad17b4787e885938a20f35bd144928f22">report_telemetry_100hz</a> (void)</td></tr>
+<tr class="memdesc:ad17b4787e885938a20f35bd144928f22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports telemetry data at 100 Hz rate Includes: Pack stats, charging telemetry, cell telemetry.  <br /></td></tr>
+<tr class="separator:ad17b4787e885938a20f35bd144928f22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7b8e9d406934bf5c0130f05ae09c5b4" id="r_ac7b8e9d406934bf5c0130f05ae09c5b4"><td class="memItemLeft" align="right" valign="top"><a id="ac7b8e9d406934bf5c0130f05ae09c5b4" name="ac7b8e9d406934bf5c0130f05ae09c5b4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>report_telemetry_8hz</b> (void)</td></tr>
+<tr class="memdesc:ac7b8e9d406934bf5c0130f05ae09c5b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports telemetry data at 8 Hz rate Includes: Thermal stats. <br /></td></tr>
+<tr class="separator:ac7b8e9d406934bf5c0130f05ae09c5b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74034e258280659c81e74c002594b2e2" id="r_a74034e258280659c81e74c002594b2e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74034e258280659c81e74c002594b2e2">report_telemetry_02hz</a> (void)</td></tr>
+<tr class="memdesc:a74034e258280659c81e74c002594b2e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports telemetry data at 0.2 Hz rate Includes: ABOX git hash.  <br /></td></tr>
+<tr class="separator:a74034e258280659c81e74c002594b2e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Calculation of PEC (CRC15, CRC10) for ADBMS communication. </p>
-<dl class="section author"><dt>Author</dt><dd>Analog Devices </dd>
-<dd>
-Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
-<dd>
-Millan Kumar (<a href="#" onclick="location.href='mai'+'lto:'+'kum'+'ar'+'798'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">kumar<span class="obfuscator">.nosp@m.</span>798@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd></dl>
+<div class="textblock"><p>ABOX Telemetry task implementations. </p>
+<dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="acf61d2142265cf21d2a680bff41883b9" name="acf61d2142265cf21d2a680bff41883b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf61d2142265cf21d2a680bff41883b9">&#9670;&#160;</a></span>adbms_pec_get_pec15()</h2>
+<a id="a74034e258280659c81e74c002594b2e2" name="a74034e258280659c81e74c002594b2e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74034e258280659c81e74c002594b2e2">&#9670;&#160;</a></span>report_telemetry_02hz()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t adbms_pec_get_pec15 </td>
+          <td class="memname">void report_telemetry_02hz </td>
           <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>len</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">const uint8_t *</td>          <td class="paramname"><span class="paramname"><em>data</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>CRC15 Pec Calculation Function. </p>
-<p>Function: Pec15_Calc </p>
-<p>This function calculates and return the CRC15 value</p>
-<p>Parameters: </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">Len</td><td>Number of bytes that will be used to calculate a PEC</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*data</td><td>Array of data that will be used to calculate a PEC</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>CRC15_Value </dd></dl>
+<p>Reports telemetry data at 0.2 Hz rate Includes: ABOX git hash. </p>
+<p>Reports telemetry data at 0.2 Hz rate Includes: ABOX git hash. </p>
+
+</div>
+</div>
+<a id="ad17b4787e885938a20f35bd144928f22" name="ad17b4787e885938a20f35bd144928f22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad17b4787e885938a20f35bd144928f22">&#9670;&#160;</a></span>report_telemetry_100hz()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void report_telemetry_100hz </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reports telemetry data at 100 Hz rate Includes: Pack stats, charging telemetry, cell telemetry. </p>
+<p>Reports telemetry data at 100 Hz rate Includes: Pack stats, charging telemetry, cell telemetry. </p>
 
 </div>
 </div>
@@ -164,7 +171,7 @@ Millan Kumar (<a href="#" onclick="location.href='mai'+'lto:'+'kum'+'ar'+'798'+'
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_463a06e8c8df3dfb8722b56866f4fb0c.html">a_box</a></li><li class="navelem"><a class="el" href="dir_b9ac109653960c1c094259a09df46e85.html">adbms</a></li><li class="navelem"><a class="el" href="pec_8c.html">pec.c</a></li>
+    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_463a06e8c8df3dfb8722b56866f4fb0c.html">a_box</a></li><li class="navelem"><a class="el" href="dir_863c0072c27e19e4b5c381de25beb72a.html">telemetry</a></li><li class="navelem"><a class="el" href="a__box_2telemetry_2telemetry_8h.html">telemetry.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

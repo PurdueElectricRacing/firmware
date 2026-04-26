@@ -101,17 +101,17 @@ $(function(){initNavTree('pec_8h_source.html',''); initResizable(true); });
 </div><!--header-->
 <div class="contents">
 <a href="pec_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#ifndef _ADBMS_PEC_H_</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define _ADBMS_PEC_H_</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>uint16_t <a class="code hl_function" href="pec_8h.html#acf61d2142265cf21d2a680bff41883b9">adbms_pec_get_pec15</a>(uint8_t len, <span class="keyword">const</span> uint8_t *data);</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>uint16_t adbms_pec_get_pec10(<span class="keywordtype">bool</span> bIsRxCmd, uint8_t nLength, <span class="keyword">const</span> uint8_t *pDataBuf);</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#endif </span><span class="comment">// _ADBMS_PEC_H_</span></div>
-<div class="ttc" id="apec_8h_html_acf61d2142265cf21d2a680bff41883b9"><div class="ttname"><a href="pec_8h.html#acf61d2142265cf21d2a680bff41883b9">adbms_pec_get_pec15</a></div><div class="ttdeci">uint16_t adbms_pec_get_pec15(uint8_t len, const uint8_t *data)</div><div class="ttdoc">CRC15 Pec Calculation Function.</div><div class="ttdef"><b>Definition</b> pec.c:75</div></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#ifndef PEC_H</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#define PEC_H</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>uint16_t <a class="code hl_function" href="pec_8h.html#acf61d2142265cf21d2a680bff41883b9">adbms_pec_get_pec15</a>(uint8_t len, <span class="keyword">const</span> uint8_t *data);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>uint16_t adbms_pec_get_pec10(<span class="keywordtype">bool</span> bIsRxCmd, uint8_t nLength, <span class="keyword">const</span> uint8_t *pDataBuf);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#endif </span><span class="comment">// PEC_H</span></div>
+<div class="ttc" id="apec_8h_html_acf61d2142265cf21d2a680bff41883b9"><div class="ttname"><a href="pec_8h.html#acf61d2142265cf21d2a680bff41883b9">adbms_pec_get_pec15</a></div><div class="ttdeci">uint16_t adbms_pec_get_pec15(uint8_t len, const uint8_t *data)</div><div class="ttdoc">CRC15 Pec Calculation Function.</div><div class="ttdef"><b>Definition</b> pec.c:77</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -101,8 +101,8 @@ $(function(){initNavTree('adbms_8h_source.html',''); initResizable(true); });
 </div><!--header-->
 <div class="contents">
 <a href="adbms_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#ifndef _BMS_H_</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define _BMS_H_</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#ifndef ADBMS_H</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define ADBMS_H</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;stddef.h&gt;</span></div>
@@ -226,7 +226,7 @@ $(function(){initNavTree('adbms_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
 <div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="keywordtype">void</span> <a class="code hl_function" href="adbms_8h.html#a0a1de1018dba58040d4cab70ead2ca28">adbms_periodic</a>(<a class="code hl_struct" href="structadbms__bms__t.html">adbms_bms_t</a> *bms, <span class="keywordtype">float</span> min_voltage_for_balance, <span class="keywordtype">float</span> min_delta_for_balance);</div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><span class="preprocessor">#endif </span><span class="comment">// _BMS_H_</span></div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><span class="preprocessor">#endif </span><span class="comment">// ADBMS_H</span></div>
 <div class="ttc" id="aadbms6380_8h_html"><div class="ttname"><a href="adbms6380_8h.html">adbms6380.h</a></div><div class="ttdoc">Low level BMS driver specific to ADBMS6380 chip.</div></div>
 <div class="ttc" id="aadbms_8h_html_a0a1de1018dba58040d4cab70ead2ca28"><div class="ttname"><a href="adbms_8h.html#a0a1de1018dba58040d4cab70ead2ca28">adbms_periodic</a></div><div class="ttdeci">void adbms_periodic(adbms_bms_t *bms, float min_voltage_for_balance, float min_delta_for_balance)</div><div class="ttdoc">Periodic service routine for connection, measurements, and balancing.</div><div class="ttdef"><b>Definition</b> adbms.c:385</div></div>
 <div class="ttc" id="aadbms_8h_html_a26b82e2eae1b0d9c34d5666901f29bce"><div class="ttname"><a href="adbms_8h.html#a26b82e2eae1b0d9c34d5666901f29bce">adbms_read_therms</a></div><div class="ttdeci">void adbms_read_therms(adbms_bms_t *bms)</div><div class="ttdoc">Read all GPIO/thermistor values (voltage and calculate temperature) and update module/pack statistics...</div><div class="ttdef"><b>Definition</b> adbms.c:310</div></div>

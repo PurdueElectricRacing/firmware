@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: source/torque_vector/control_loop/control_loop.h File Reference</title>
+<title>PER Firmware: source/a_box/charging_fsm/charging_fsm.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('control__loop_8h.html',''); initResizable(true); });
+$(function(){initNavTree('charging__fsm_8h_source.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -97,35 +97,32 @@ $(function(){initNavTree('control__loop_8h.html',''); initResizable(true); });
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">control_loop.h File Reference</div></div>
+  <div class="headertitle"><div class="title">charging_fsm.h</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>Main torque vectoring control loop.  
-<a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-</div>
-<p><a href="control__loop_8h_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a4f05187afaedd0cd35e9137eaf557ef8" id="r_a4f05187afaedd0cd35e9137eaf557ef8"><td class="memItemLeft" align="right" valign="top"><a id="a4f05187afaedd0cd35e9137eaf557ef8" name="a4f05187afaedd0cd35e9137eaf557ef8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>control_loop</b> (void)</td></tr>
-<tr class="separator:a4f05187afaedd0cd35e9137eaf557ef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Main torque vectoring control loop. </p>
-<dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
-<dd>
-Trevor Koessler (<a href="#" onclick="location.href='mai'+'lto:'+'tko'+'es'+'sle'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">tkoes<span class="obfuscator">.nosp@m.</span>sle@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd></dl>
-</div></div><!-- contents -->
+<a href="charging__fsm_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#ifndef CHARGING_FSM_H</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define CHARGING_FSM_H</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;can_library/generated/A_BOX.h&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">static</span> <span class="keyword">constexpr</span> uint32_t CHARGING_FSM_PERIOD_MS = 1000;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">// static assert that the FSM flushes the CAN messages it owns at least as fast as their defined periods</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">static_assert</span>(ELCON_COMMAND_PERIOD_MS == CHARGING_FSM_PERIOD_MS);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">static_assert</span>(CHARGING_FSM_INTERNALS_PERIOD_MS == CHARGING_FSM_PERIOD_MS);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keywordtype">void</span> charging_fsm_periodic(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#endif </span><span class="comment">// CHARGING_FSM_H</span></div>
+</div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_4d7522402bdc013effffc7486e0cdc4d.html">torque_vector</a></li><li class="navelem"><a class="el" href="dir_f6086ef6f30ab9dbc70fe82dbf4283ea.html">control_loop</a></li><li class="navelem"><a class="el" href="control__loop_8h.html">control_loop.h</a></li>
+    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_463a06e8c8df3dfb8722b56866f4fb0c.html">a_box</a></li><li class="navelem"><a class="el" href="dir_7542741782ec7b96c7ee11357d6003db.html">charging_fsm</a></li><li class="navelem"><a class="el" href="charging__fsm_8h.html">charging_fsm.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

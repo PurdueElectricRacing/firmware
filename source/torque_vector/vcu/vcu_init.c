@@ -1,5 +1,4 @@
 #include "vcu.h"
-
 xVCU_struct init_xVCU(void) {
     xVCU_struct xVCU = {
         .VCU_MODE_REQ = 0,
@@ -97,10 +96,10 @@ pVCU_struct init_pVCU(void) {
         .MT_derating_zero_T = 140,
         .BT_derating_full_T = 55,
         .BT_derating_zero_T = 60,
-        .AC_speed_brkpt = {0, 63.6363636, 49.5603517},
-        .AC_speed_table = {70, 70, 272.5819345},
+        .AC_speed_brkpt = {0, 1.598721, 49.5603517},
+        .AC_speed_table = {22, 22, 272.5819345},
         .AC_brkpt_lb = 0,
-        .AC_brkpt_ub = 63.6363636,
+        .AC_brkpt_ub = 49.5603517,
         .SK_YAW_des = 1.2493151,
         .SK_LR_split_des = 0.6,
         .SK_FR_split = 0.4,

@@ -15,11 +15,11 @@
  */
 static_assert(GPS_COORDINATES_PERIOD_MS == TELEMETRY_100HZ_PERIOD_MS);
 static_assert(GPS_VELOCITY_PERIOD_MS == TELEMETRY_100HZ_PERIOD_MS);
-static_assert(GPS_SPEED_PERIOD_MS == TELEMETRY_100HZ_PERIOD_MS);
+static_assert(GPS_SPEED_HEADING_PERIOD_MS == TELEMETRY_100HZ_PERIOD_MS);
 void report_telemetry_100hz(void) {
     CAN_SEND_gps_coordinates(nav_pvt.latitude, nav_pvt.longitude);
     CAN_SEND_gps_velocity(nav_pvt.velNorth, nav_pvt.velEast);
-    CAN_SEND_gps_speed(nav_pvt.groundSpeed, nav_pvt.headingVehicle);
+    CAN_SEND_gps_speed_heading(nav_pvt.groundSpeed, nav_pvt.headingVehicle);
 }
 
 /**

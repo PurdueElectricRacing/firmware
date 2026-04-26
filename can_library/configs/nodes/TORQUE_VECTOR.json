@@ -25,8 +25,8 @@
                     "msg_priority": 5
                 },
                 {
-                    "msg_name": "gps_speed",
-                    "msg_desc": "gps speed",
+                    "msg_name": "gps_speed_heading",
+                    "msg_desc": "gps 2D ground speed and heading",
                     "signals": [
                         {
                             "sig_name": "gps_speed",

@@ -129,7 +129,7 @@ int main(void) {
     START_TASK(CAN_tx_update);
     START_TASK(control_loop);
     START_TASK(gps_periodic);
-    START_TASK(report_telemetry_10hz);
+    START_TASK(report_telemetry_100hz);
     START_TASK(report_telemetry_1hz);
     START_HEARTBEAT_TASK();
 

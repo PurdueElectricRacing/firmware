@@ -29,13 +29,6 @@ static inline float vbatt_to_voltage(uint16_t vbatt_raw) {
     return voltage;
 }
 
-static inline float get_isense_correction_offset(float current) {
-    // Linear fit to benchtop data to correct for sensor non-idealities, especially at low currents.
-    // R^2 = 0.8428
-    float abs_current = ABS(current);
-    return -0.0495f * abs_current + 3.3756f;
-}
-
 // DHAB S/134 current sensor conversion
 static inline float isense_to_current(uint16_t isense_raw) {
     static constexpr float ADC_VREF = 3.3f;
@@ -52,11 +45,10 @@ static inline float isense_to_current(uint16_t isense_raw) {
     float v_adc      = isense_raw * ADC_TO_VOLTS;
     float v_sensor   = v_adc * DIV_GAIN;
     float current    = (v_sensor - V_OFFSET) / G; // data
-    // float correction = get_isense_correction_offset(current);
 
-    // // Apply correction in the correct direction
-    // if (current < 0.0f) current -= correction;
-    // else current += correction;
+    // Apply offset correction
+    static constexpr float ISENSE_OFFSET_AMPS = 2.5f; // todo tune this
+    current += ISENSE_OFFSET_AMPS;
 
     return current;
 }

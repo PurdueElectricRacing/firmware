@@ -1,12 +1,12 @@
-#ifndef CHARGING_FSM_H
-#define CHARGING_FSM_H
-
 /**
  * @file charging_fsm.h
  * @brief Charger control state machine implementation
  *
  * @author Irving Wang (irvingw@purdue.edu)
  */
+
+#ifndef CHARGING_FSM_H
+#define CHARGING_FSM_H
 
 #include <stdint.h>
 

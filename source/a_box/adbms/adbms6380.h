@@ -5,8 +5,8 @@
  * @author Millan Kumar (kumar798@purdue.edu)
  */
 
-#ifndef _ADBMS6380_H_
-#define _ADBMS6380_H_
+#ifndef ADBMS6380_H
+#define ADBMS6380_H
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -310,4 +310,4 @@ bool adbms6380_read_gpio_voltages(SPI_InitConfig_t *spi,
 
 // Other adbms6380 related function declarations can go here
 
-#endif // _ADBMS6380_H_
+#endif // ADBMS6380_H

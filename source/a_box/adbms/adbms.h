@@ -5,8 +5,8 @@
  * @author Millan Kumar (kumar798@purdue.edu)
  */
 
-#ifndef _BMS_H_
-#define _BMS_H_
+#ifndef ADBMS_H
+#define ADBMS_H
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -267,4 +267,4 @@ void adbms_balance_and_update_regb(adbms_bms_t *bms, float min_voltage, float mi
  */
 void adbms_periodic(adbms_bms_t *bms, float min_voltage_for_balance, float min_delta_for_balance);
 
-#endif // _BMS_H_
+#endif // ADBMS_H

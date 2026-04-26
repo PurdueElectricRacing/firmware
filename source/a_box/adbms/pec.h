@@ -7,8 +7,8 @@
  * @author Millan Kumar (kumar798@purdue.edu)
  */
 
-#ifndef _ADBMS_PEC_H_
-#define _ADBMS_PEC_H_
+#ifndef PEC_H
+#define PEC_H
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -16,4 +16,4 @@
 uint16_t adbms_pec_get_pec15(uint8_t len, const uint8_t *data);
 uint16_t adbms_pec_get_pec10(bool bIsRxCmd, uint8_t nLength, const uint8_t *pDataBuf);
 
-#endif // _ADBMS_PEC_H_
+#endif // PEC_H

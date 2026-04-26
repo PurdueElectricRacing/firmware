@@ -1,12 +1,12 @@
-#ifndef TELEMETRY_H
-#define TELEMETRY_H
-
 /**
  * @file telemetry.h
  * @brief ABOX Telemetry task implementations
  * 
  * @author Irving Wang (irvingw@purdue.edu)
  */
+
+#ifndef TELEMETRY_H
+#define TELEMETRY_H
 
 #include <stdint.h>
 

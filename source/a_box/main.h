@@ -6,8 +6,8 @@
  * @author Millan Kumar (kumar798@purdue.edu)
  */
 
-#ifndef MAIN_H_
-#define MAIN_H_
+#ifndef MAIN_H
+#define MAIN_H
 
 #include "common/phal/gpio.h"
 #include "adbms.h"
@@ -58,4 +58,4 @@ extern volatile adc1_dma_buffer_t adc1_dma_buffer;
 
 extern adbms_bms_t g_bms;
 
-#endif
+#endif // MAIN_H

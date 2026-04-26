@@ -41,7 +41,7 @@ bool is_clear(fault_id_t fault_id) {
     return state == FAULT_STATE_CLEAR || state == FAULT_STATE_PENDING;
 }
 
-void update_fault(fault_id_t fault_id, uint16_t value) {
+void update_fault(fault_id_t fault_id, float value) {
     if ((fault_id < MY_FAULT_START) || (fault_id > MY_FAULT_END)) {
         return;
     }

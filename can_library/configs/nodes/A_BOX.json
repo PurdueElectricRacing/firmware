@@ -280,8 +280,8 @@
         },
         {
             "fault_name": "CELL_UNDERVOLTAGE",
-            "max": 42,
-            "min": 27,
+            "max": 10,
+            "min": 2.7,
             "priority": "error",
             "time_to_latch": 1000,
             "time_to_unlatch": 5000,

@@ -21,6 +21,7 @@ set(C_FLAGS
     "-ffreestanding"
     "-fno-common"
     "-fno-math-errno"
+    "-fdiagnostics-color=always"
 
     "-Og"
     "-g3"

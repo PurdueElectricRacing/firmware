@@ -2,7 +2,9 @@
  * @file commands.c
  * @brief Listing of all ADBMS commands.
  *
- * @author Analog Devices, Millan Kumar (kumar798@purdue.edu), Irving Wang (irvingw@purdue.edu)
+ * @author Analog Devices
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Millan Kumar (kumar798@purdue.edu)
  */
 
 #include "commands.h"

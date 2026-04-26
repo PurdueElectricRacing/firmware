@@ -132,6 +132,9 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode, uint32_t bit_rate) {
     bus->IER |= CAN_IER_FMPIE0;
     bus->IER |= CAN_IER_FMPIE1;
 
+    // Enable TX mailbox empty interrupt
+    bus->IER |= CAN_IER_TMEIE;
+
     // Enter NORMAL mode
     bus->MCR &= ~CAN_MCR_INRQ;
     while ((bus->MSR & CAN_MSR_INAK) && ++timeout < PHAL_CAN_INIT_TIMEOUT)
@@ -218,6 +221,25 @@ bool PHAL_txMailboxFree(CAN_TypeDef* bus, uint8_t mbx) {
             return bus->TSR & CAN_TSR_TME2;
         default:
             return false;
+    }
+}
+
+bool PHAL_anyTxMailboxFree(CAN_TypeDef* bus) {
+    return bus->TSR & (CAN_TSR_TME0 | CAN_TSR_TME1 | CAN_TSR_TME2);
+}
+
+bool PHAL_getFreeTxMailbox(CAN_TypeDef* bus, uint8_t* mbx) {
+    if (bus->TSR & CAN_TSR_TME0) {
+        *mbx = 0;
+        return true;
+    } else if (bus->TSR & CAN_TSR_TME1) {
+        *mbx = 1;
+        return true;
+    } else if (bus->TSR & CAN_TSR_TME2) {
+        *mbx = 2;
+        return true;
+    } else {
+        return false; // No free mailbox
     }
 }
 

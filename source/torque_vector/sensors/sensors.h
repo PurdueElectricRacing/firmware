@@ -8,9 +8,10 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
+#include <stdint.h>
+
 #include "common/ublox/nav_pvt.h"
 #include "common/ublox/nav_relposned.h"
-#include <stdint.h>
 
 typedef struct {
     float gyro_y;

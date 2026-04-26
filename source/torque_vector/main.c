@@ -11,16 +11,15 @@
 
 #include "can_library/generated/TORQUE_VECTOR.h"
 #include "common/freertos/freertos.h"
+#include "common/heartbeat/heartbeat.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
-#include "common/heartbeat/heartbeat.h"
 #include "common/phal/usart.h"
 #include "common/ublox/nav_pvt.h"
 #include "common/ublox/nav_relposned.h"
-
-#include "sensors.h"
 #include "control_loop.h"
+#include "sensors.h"
 #include "telemetry.h"
 
 /* PER HAL Initialization Structures */

@@ -5,9 +5,9 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#include "sensors.h"
-#include "common/utils/linear_algebra.h"
 #include "can_library/generated/TORQUE_VECTOR.h"
+#include "common/utils/linear_algebra.h"
+#include "sensors.h"
 // #include <math.h>
 #include "common/utils/units.h"
 

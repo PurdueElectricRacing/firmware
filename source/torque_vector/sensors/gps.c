@@ -5,8 +5,8 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#include "sensors.h"
 #include "common/freertos/freertos.h"
+#include "sensors.h"
 
 volatile uint8_t rover_rx_buffer[ROVER_TX_SIZE] = {0}; // updated by DMA stream
 NAV_PVT_data_t nav_pvt = {0};

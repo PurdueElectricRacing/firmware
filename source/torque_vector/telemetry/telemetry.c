@@ -6,8 +6,9 @@
  */
 
 #include "telemetry.h"
-#include "sensors.h"
+
 #include "can_library/generated/TORQUE_VECTOR.h"
+#include "sensors.h"
 
 /**
  * @brief Reports telemetry data at 100HZ rate

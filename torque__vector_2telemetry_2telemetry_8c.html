@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: source/torque_vector/gps Directory Reference</title>
+<title>PER Firmware: source/torque_vector/telemetry/telemetry.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('dir_b4d576a4f78c00778846bb7b7c27dc27.html',''); initResizable(true); });
+$(function(){initNavTree('torque__vector_2telemetry_2telemetry_8c.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -97,21 +97,58 @@ $(function(){initNavTree('dir_b4d576a4f78c00778846bb7b7c27dc27.html',''); initRe
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">gps Directory Reference</div></div>
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">telemetry.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="files" name="files"></a>
-Files</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top"><a href="gps_8h_source.html"><span class="icondoc"></span></a>&#160;</td><td class="memItemRight" valign="bottom"><b>gps.h</b></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+
+<p>Telemetry task implementations.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="torque__vector_2telemetry_2telemetry_8h_source.html">telemetry.h</a>&quot;</code><br />
+<code>#include &quot;can_library/generated/TORQUE_VECTOR.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="sensors_8h_source.html">sensors.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ad17b4787e885938a20f35bd144928f22" id="r_ad17b4787e885938a20f35bd144928f22"><td class="memItemLeft" align="right" valign="top"><a id="ad17b4787e885938a20f35bd144928f22" name="ad17b4787e885938a20f35bd144928f22"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>report_telemetry_100hz</b> (void)</td></tr>
+<tr class="memdesc:ad17b4787e885938a20f35bd144928f22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports telemetry data at 100HZ rate Includes: GPS coordinates, velocity, speed, heading. <br /></td></tr>
+<tr class="separator:ad17b4787e885938a20f35bd144928f22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d0a75c0aee5808a962691e3973ee968" id="r_a6d0a75c0aee5808a962691e3973ee968"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d0a75c0aee5808a962691e3973ee968">report_telemetry_1hz</a> (void)</td></tr>
+<tr class="memdesc:a6d0a75c0aee5808a962691e3973ee968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports telemetry data at 1HZ rate Includes: GPS time (UTC)  <br /></td></tr>
+<tr class="separator:a6d0a75c0aee5808a962691e3973ee968"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Telemetry task implementations. </p>
+<dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a6d0a75c0aee5808a962691e3973ee968" name="a6d0a75c0aee5808a962691e3973ee968"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d0a75c0aee5808a962691e3973ee968">&#9670;&#160;</a></span>report_telemetry_1hz()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void report_telemetry_1hz </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reports telemetry data at 1HZ rate Includes: GPS time (UTC) </p>
+<p>Reports telemetry data at 1 Hz rate Includes: AMK diagnostics. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_4d7522402bdc013effffc7486e0cdc4d.html">torque_vector</a></li><li class="navelem"><a class="el" href="dir_b4d576a4f78c00778846bb7b7c27dc27.html">gps</a></li>
+    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_4d7522402bdc013effffc7486e0cdc4d.html">torque_vector</a></li><li class="navelem"><a class="el" href="dir_08d1102270f76996924a0ce5491e61fb.html">telemetry</a></li><li class="navelem"><a class="el" href="torque__vector_2telemetry_2telemetry_8c.html">telemetry.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

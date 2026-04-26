@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: source/torque_vector/imu/decouple_imu.h File Reference</title>
+<title>PER Firmware: source/torque_vector/telemetry/telemetry.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('decouple__imu_8h.html',''); initResizable(true); });
+$(function(){initNavTree('torque__vector_2telemetry_2telemetry_8h.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -99,41 +99,38 @@ $(function(){initNavTree('decouple__imu_8h.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">decouple_imu.h File Reference</div></div>
+  <div class="headertitle"><div class="title">telemetry.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>IMU decoupling utility functions.  
+<p>Telemetry task implementations.  
 <a href="#details">More...</a></p>
-
-<p><a href="decouple__imu_8h_source.html">Go to the source code of this file.</a></p>
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+</div>
+<p><a href="torque__vector_2telemetry_2telemetry_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3da0b33ad58b4a9b357b9ae12a3707b6" id="r_a3da0b33ad58b4a9b357b9ae12a3707b6"><td class="memItemLeft" align="right" valign="top"><a id="a3da0b33ad58b4a9b357b9ae12a3707b6" name="a3da0b33ad58b4a9b357b9ae12a3707b6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>initialize_calibration</b> (void)</td></tr>
-<tr class="memdesc:a3da0b33ad58b4a9b357b9ae12a3707b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the IMU decoupling calibration data structures and state. <br /></td></tr>
-<tr class="separator:a3da0b33ad58b4a9b357b9ae12a3707b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a033e363e85c9a7712d85b7fb947a94c0" id="r_a033e363e85c9a7712d85b7fb947a94c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a033e363e85c9a7712d85b7fb947a94c0">IZZE_angular_rate_CALLBACK</a> (void)</td></tr>
-<tr class="memdesc:a033e363e85c9a7712d85b7fb947a94c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalize the IMU decoupling calibration by deriving the rotation matrix from the accumulated accelerometer data.  <br /></td></tr>
-<tr class="separator:a033e363e85c9a7712d85b7fb947a94c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e2ff3413851866d1385d942698f59e9" id="r_a4e2ff3413851866d1385d942698f59e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e2ff3413851866d1385d942698f59e9">IZZE_acceleration_CALLBACK</a> (void)</td></tr>
-<tr class="memdesc:a4e2ff3413851866d1385d942698f59e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for handling IZZE acceleration data.  <br /></td></tr>
-<tr class="separator:a4e2ff3413851866d1385d942698f59e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad17b4787e885938a20f35bd144928f22" id="r_ad17b4787e885938a20f35bd144928f22"><td class="memItemLeft" align="right" valign="top"><a id="ad17b4787e885938a20f35bd144928f22" name="ad17b4787e885938a20f35bd144928f22"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>report_telemetry_100hz</b> (void)</td></tr>
+<tr class="memdesc:ad17b4787e885938a20f35bd144928f22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports telemetry data at 100HZ rate Includes: GPS coordinates, velocity, speed, heading. <br /></td></tr>
+<tr class="separator:ad17b4787e885938a20f35bd144928f22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d0a75c0aee5808a962691e3973ee968" id="r_a6d0a75c0aee5808a962691e3973ee968"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d0a75c0aee5808a962691e3973ee968">report_telemetry_1hz</a> (void)</td></tr>
+<tr class="memdesc:a6d0a75c0aee5808a962691e3973ee968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports telemetry data at 1 Hz rate Includes: AMK diagnostics.  <br /></td></tr>
+<tr class="separator:a6d0a75c0aee5808a962691e3973ee968"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>IMU decoupling utility functions. </p>
-<p>Functions for calibrating and applying decoupling transformations to IMU data.</p>
+<div class="textblock"><p>Telemetry task implementations. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a4e2ff3413851866d1385d942698f59e9" name="a4e2ff3413851866d1385d942698f59e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e2ff3413851866d1385d942698f59e9">&#9670;&#160;</a></span>IZZE_acceleration_CALLBACK()</h2>
+<a id="a6d0a75c0aee5808a962691e3973ee968" name="a6d0a75c0aee5808a962691e3973ee968"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d0a75c0aee5808a962691e3973ee968">&#9670;&#160;</a></span>report_telemetry_1hz()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void IZZE_acceleration_CALLBACK </td>
+          <td class="memname">void report_telemetry_1hz </td>
           <td>(</td>
           <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -141,29 +138,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>initialize_calibratio
       </table>
 </div><div class="memdoc">
 
-<p>Callback function for handling IZZE acceleration data. </p>
-<p>In calibration mode, accumulates the raw acceleration data to derive the calibration rotation. In active mode, applies the decoupling rotation to the raw acceleration data and sends it out as IMU acceleration. </p>
-
-</div>
-</div>
-<a id="a033e363e85c9a7712d85b7fb947a94c0" name="a033e363e85c9a7712d85b7fb947a94c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a033e363e85c9a7712d85b7fb947a94c0">&#9670;&#160;</a></span>IZZE_angular_rate_CALLBACK()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IZZE_angular_rate_CALLBACK </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Finalize the IMU decoupling calibration by deriving the rotation matrix from the accumulated accelerometer data. </p>
-<p>Callback function for handling IZZE angular rate data.</p>
-<p>In active mode, applies the decoupling rotation to the raw angular rate data and sends it out as IMU angular rate. </p>
+<p>Reports telemetry data at 1 Hz rate Includes: AMK diagnostics. </p>
+<p>Reports telemetry data at 1 Hz rate Includes: AMK diagnostics. </p>
 
 </div>
 </div>
@@ -172,7 +148,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>initialize_calibratio
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_4d7522402bdc013effffc7486e0cdc4d.html">torque_vector</a></li><li class="navelem"><a class="el" href="dir_43a818ac89502194abb926087f3d1c55.html">imu</a></li><li class="navelem"><a class="el" href="decouple__imu_8h.html">decouple_imu.h</a></li>
+    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_4d7522402bdc013effffc7486e0cdc4d.html">torque_vector</a></li><li class="navelem"><a class="el" href="dir_08d1102270f76996924a0ce5491e61fb.html">telemetry</a></li><li class="navelem"><a class="el" href="torque__vector_2telemetry_2telemetry_8h.html">telemetry.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

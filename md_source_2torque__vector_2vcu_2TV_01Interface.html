@@ -111,13 +111,19 @@ Inputs:</h2>
 <ul>
 <li><code>VCU_MODE_REQ</code><ul>
 <li>Requested VCU mode from dashboard</li>
-<li>1 = accel; 2 = skidpad; 3 = autocross; 4 = endurance</li>
+<li>0 = accel; 1 = skidpad; 2 = autocross; 3 = endurance</li>
 </ul>
 </li>
-<li><code>TH_RAW</code><ul>
+<li><code>THROT_RAW</code><ul>
 <li>Throttle sensor</li>
 <li>Unit: [unitless] Size: [1 1]</li>
-<li>Max Torque = 1, No Torque = 0, Full Braking = -1</li>
+<li>Max Torque = 1, No Torque = 0</li>
+</ul>
+</li>
+<li><code>BRAKE_RAW</code><ul>
+<li>Brake Sensor</li>
+<li>Unit: [unitless] Size: [1 1]</li>
+<li>Max brake = 1, No brake = 0</li>
 </ul>
 </li>
 <li><code>ST_RAW</code><ul>
@@ -176,16 +182,16 @@ Inputs:</h2>
 <li>Unit: [C] Size: [1 1]</li>
 </ul>
 </li>
-<li><code>TO_RAW</code><ul>
+<li><code>TO_RAW</code> (never used, don't send)<ul>
 <li>Applied motor torque</li>
 <li>Unit: [Nm] Size: [1 4] Order: [FL FR RL RR]</li>
 <li>Torque to move forward = positive value, No torque = 0, regen = negative</li>
 </ul>
 </li>
-<li><code>OV_MOT</code><ul>
+<li><code>OV_MOT</code> (don't need yet)<ul>
 <li>Motor overload value</li>
 <li>Unit: [%] Size: [1 4] Order: [FL FR RL RR]</li>
-<li>AMK &lsquo;0x2263 'Display overload motor&rsquo;<code> -</code>OV_INV<code></code></li>
+<li>AMK &lsquo;0x2263 'Display overload motor&rsquo;<code> -</code>OV_INV<code>(don't need yet)</code></li>
 <li><code>Inverter overload value</code></li>
 <li><code>Unit: \[\%] Size: \[1 4] Order: \[FL FR RL RR]</code></li>
 <li><code>AMK</code>0x2262 'Display overload inverter'<code> -</code>RG_split_FR`</li>

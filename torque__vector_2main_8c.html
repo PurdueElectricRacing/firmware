@@ -110,33 +110,40 @@ $(function(){initNavTree('torque__vector_2main_8c.html',''); initResizable(true)
 <code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;can_library/generated/TORQUE_VECTOR.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="heartbeat_8h_source.html">common/heartbeat/heartbeat.h</a>&quot;</code><br />
 <code>#include &quot;common/phal/can.h&quot;</code><br />
 <code>#include &quot;common/phal/gpio.h&quot;</code><br />
 <code>#include &quot;common/phal/rcc.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="heartbeat_8h_source.html">common/heartbeat/heartbeat.h</a>&quot;</code><br />
 <code>#include &quot;common/phal/usart.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="nav__pvt_8h_source.html">common/ublox/nav_pvt.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="nav__relposned_8h_source.html">common/ublox/nav_relposned.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="decouple__imu_8h_source.html">decouple_imu.h</a>&quot;</code><br />
-<code>#include &quot;gps.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="control__loop_8h_source.html">control_loop.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="sensors_8h_source.html">sensors.h</a>&quot;</code><br />
+<code>#include &quot;telemetry.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a2bffc10d5bd4106753b7c30e86903bea" id="r_a2bffc10d5bd4106753b7c30e86903bea"><td class="memItemLeft" align="right" valign="top"><a id="a2bffc10d5bd4106753b7c30e86903bea" name="a2bffc10d5bd4106753b7c30e86903bea"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>HardFault_Handler</b> (void)</td></tr>
 <tr class="separator:a2bffc10d5bd4106753b7c30e86903bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b65679cdab3d705d64eaee937b7fc52" id="r_a6b65679cdab3d705d64eaee937b7fc52"><td class="memItemLeft" align="right" valign="top"><a id="a6b65679cdab3d705d64eaee937b7fc52" name="a6b65679cdab3d705d64eaee937b7fc52"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>gps_periodic</b> ()</td></tr>
-<tr class="separator:a6b65679cdab3d705d64eaee937b7fc52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2affa98a476a899af886fd2cc19bf28" id="r_ab2affa98a476a899af886fd2cc19bf28"><td class="memItemLeft" align="right" valign="top"><a id="ab2affa98a476a899af886fd2cc19bf28" name="ab2affa98a476a899af886fd2cc19bf28"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (CAN_rx_update, 0, osPriorityHigh, STACK_2048)</td></tr>
 <tr class="separator:ab2affa98a476a899af886fd2cc19bf28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2afbb531579394cd620a515183452cb6" id="r_a2afbb531579394cd620a515183452cb6"><td class="memItemLeft" align="right" valign="top"><a id="a2afbb531579394cd620a515183452cb6" name="a2afbb531579394cd620a515183452cb6"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (CAN_tx_update, 2, osPriorityNormal, STACK_2048)</td></tr>
-<tr class="separator:a2afbb531579394cd620a515183452cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc4b5eead7ad24448c08a1d34070baf4" id="r_abc4b5eead7ad24448c08a1d34070baf4"><td class="memItemLeft" align="right" valign="top"><a id="abc4b5eead7ad24448c08a1d34070baf4" name="abc4b5eead7ad24448c08a1d34070baf4"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (gps_periodic, 100, osPriorityLow, STACK_1024)</td></tr>
-<tr class="separator:abc4b5eead7ad24448c08a1d34070baf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19ac8c2cb09a6ddcb1d10abc27451fb6" id="r_a19ac8c2cb09a6ddcb1d10abc27451fb6"><td class="memItemLeft" align="right" valign="top"><a id="a19ac8c2cb09a6ddcb1d10abc27451fb6" name="a19ac8c2cb09a6ddcb1d10abc27451fb6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (CAN_tx_update, 1, osPriorityNormal, STACK_2048)</td></tr>
+<tr class="separator:a19ac8c2cb09a6ddcb1d10abc27451fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad92d6d74f8f4db7fb3bcf5d2aa1aac24" id="r_ad92d6d74f8f4db7fb3bcf5d2aa1aac24"><td class="memItemLeft" align="right" valign="top"><a id="ad92d6d74f8f4db7fb3bcf5d2aa1aac24" name="ad92d6d74f8f4db7fb3bcf5d2aa1aac24"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (control_loop, CONTROL_LOOP_PERIOD_MS, osPriorityNormal, STACK_4096)</td></tr>
+<tr class="separator:ad92d6d74f8f4db7fb3bcf5d2aa1aac24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5320e36a8e7d647192a619fb028b4e58" id="r_a5320e36a8e7d647192a619fb028b4e58"><td class="memItemLeft" align="right" valign="top"><a id="a5320e36a8e7d647192a619fb028b4e58" name="a5320e36a8e7d647192a619fb028b4e58"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (gps_periodic, GPS_THREAD_PERIOD_MS, osPriorityLow, STACK_1024)</td></tr>
+<tr class="separator:a5320e36a8e7d647192a619fb028b4e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82befa2fb6cd107450427ff2bdc25550" id="r_a82befa2fb6cd107450427ff2bdc25550"><td class="memItemLeft" align="right" valign="top"><a id="a82befa2fb6cd107450427ff2bdc25550" name="a82befa2fb6cd107450427ff2bdc25550"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="torque__vector_2telemetry_2telemetry_8c.html#ad17b4787e885938a20f35bd144928f22">report_telemetry_100hz</a>, TELEMETRY_100HZ_PERIOD_MS, osPriorityLow, STACK_512)</td></tr>
+<tr class="separator:a82befa2fb6cd107450427ff2bdc25550"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fb57622cb7edc7563416da2a85a894a" id="r_a7fb57622cb7edc7563416da2a85a894a"><td class="memItemLeft" align="right" valign="top"><a id="a7fb57622cb7edc7563416da2a85a894a" name="a7fb57622cb7edc7563416da2a85a894a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="main__module_2telemetry_2telemetry_8c.html#a6d0a75c0aee5808a962691e3973ee968">report_telemetry_1hz</a>, TELEMETRY_1HZ_PERIOD_MS, osPriorityLow, STACK_512)</td></tr>
+<tr class="separator:a7fb57622cb7edc7563416da2a85a894a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a845eaf447179a8baf75c69794c49856d" id="r_a845eaf447179a8baf75c69794c49856d"><td class="memItemLeft" align="right" valign="top"><a id="a845eaf447179a8baf75c69794c49856d" name="a845eaf447179a8baf75c69794c49856d"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_HEARTBEAT_TASK</b> (nullptr)</td></tr>
 <tr class="separator:a845eaf447179a8baf75c69794c49856d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -170,15 +177,6 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>PLLClockRateHz</b
 <tr class="separator:a234e9400810f03d0d93399841bef5fab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f2e2f846b93d9e8a93eb0cd40c13638" id="r_a7f2e2f846b93d9e8a93eb0cd40c13638"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structusart__init__t.html">usart_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f2e2f846b93d9e8a93eb0cd40c13638">usart3</a></td></tr>
 <tr class="separator:a7f2e2f846b93d9e8a93eb0cd40c13638"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4add397508f4974710710cf4550cc5f9" id="r_a4add397508f4974710710cf4550cc5f9"><td class="memItemLeft" align="right" valign="top"><a id="a4add397508f4974710710cf4550cc5f9" name="a4add397508f4974710710cf4550cc5f9"></a>
-volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>rover_gps_rx_buffer</b> [NAV_PVT_TOTAL_LENGTH+NAV_RELPOSNED_TOTAL_LENGTH] = {0}</td></tr>
-<tr class="separator:a4add397508f4974710710cf4550cc5f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a645cb19c4f1bb0b1d1f8d2186ddf8ecb" id="r_a645cb19c4f1bb0b1d1f8d2186ddf8ecb"><td class="memItemLeft" align="right" valign="top"><a id="a645cb19c4f1bb0b1d1f8d2186ddf8ecb" name="a645cb19c4f1bb0b1d1f8d2186ddf8ecb"></a>
-<a class="el" href="structNAV__PVT__data__t.html">NAV_PVT_data_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>nav_pvt</b> = {0}</td></tr>
-<tr class="separator:a645cb19c4f1bb0b1d1f8d2186ddf8ecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae821168a51499dd0faf338f31283be5e" id="r_ae821168a51499dd0faf338f31283be5e"><td class="memItemLeft" align="right" valign="top"><a id="ae821168a51499dd0faf338f31283be5e" name="ae821168a51499dd0faf338f31283be5e"></a>
-<a class="el" href="structNAV__RELPOSNED__data__t.html">NAV_RELPOSNED_data_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>nav_relposned</b> = {0}</td></tr>
-<tr class="separator:ae821168a51499dd0faf338f31283be5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>"Torque Vector" node source code </p>

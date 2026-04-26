@@ -1,3 +1,10 @@
+/**
+ * @file telemetry.c
+ * @brief Telemetry task implementations
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include "sensors.h"
 #include "can_library/generated/TORQUE_VECTOR.h"
 

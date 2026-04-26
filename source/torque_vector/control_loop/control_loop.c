@@ -1,8 +1,16 @@
-#include "vcu.h"
+/**
+ * @file control_loop.c
+ * @brief Main torque vectoring control loop
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include <stdint.h>
+
 #include "can_library/generated/TORQUE_VECTOR.h"
-#include "sensors.h"
 #include "common/utils/max.h"
+#include "sensors.h"
+#include "vcu.h"
 
 static pVCU_struct pVCU;
 static xVCU_struct xVCU;
@@ -29,9 +37,9 @@ void control_loop() {
     xVCU.WM_RAW[2] = can_data.wheel_speeds.rear_left;
     xVCU.WM_RAW[3] = can_data.wheel_speeds.rear_right;
     xVCU.GS_RAW = nav_pvt.groundSpeed * (1000.0f); // convert mm/s to m/s
-    xVCU.AV_RAW[0] = imu_data.roll * UNPACK_COEFF_IMU_ANGULAR_RATE_X_AXIS;
-    xVCU.AV_RAW[1] = imu_data.pitch * UNPACK_COEFF_IMU_ANGULAR_RATE_Y_AXIS;
-    xVCU.AV_RAW[2] = imu_data.yaw * UNPACK_COEFF_IMU_ANGULAR_RATE_Z_AXIS;
+    xVCU.AV_RAW[0] = imu_data.gyro_x * UNPACK_COEFF_IMU_ANGULAR_RATE_X_AXIS;
+    xVCU.AV_RAW[1] = imu_data.gyro_y * UNPACK_COEFF_IMU_ANGULAR_RATE_Y_AXIS;
+    xVCU.AV_RAW[2] = imu_data.gyro_z * UNPACK_COEFF_IMU_ANGULAR_RATE_Z_AXIS;
     xVCU.IB_RAW = can_data.pack_stats.pack_current * UNPACK_COEFF_PACK_STATS_PACK_CURRENT;
 
     int16_t max_motor_temp = MAXOF(

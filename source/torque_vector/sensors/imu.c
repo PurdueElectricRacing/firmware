@@ -1,12 +1,11 @@
 /**
  * @file imu.c
- * @brief IMU decoupling utility functions.
- *
- * Functions for calibrating and applying decoupling transformations to IMU data.
+ * @brief IMU calibration and coordinate transformations
  *
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
+#include "sensors.h"
 #include "common/utils/linear_algebra.h"
 #include "can_library/generated/TORQUE_VECTOR.h"
 // #include <math.h>
@@ -19,9 +18,8 @@ typedef enum {
 } decoupling_state_t;
 
 // static volatile decoupling_state_t decoupling_state = DECOUPLING_STATE_IDLE;
-static matrix3x3_t mounting_offset_matrix;
-vector3_t gyro_data;
-vector3_t accel_data;
+static matrix3x3_t mounting_offset_matrix = {0};
+imu_data_t imu_data = {0};
 // static matrix3x3_t calibration_matrix;
 
 // Statistics for calibration
@@ -109,12 +107,14 @@ void IZZE_angular_rate_CALLBACK(void) {
     // raw_data = matrix_multiply_vector3(&mounting_offset_matrix, &raw_data);
 
     vector3_t calibrated_data = matrix_multiply_vector3(&mounting_offset_matrix, &raw_data);
-    gyro_data = calibrated_data;
+    imu_data.gyro_x = calibrated_data.x;
+    imu_data.gyro_y = calibrated_data.y;
+    imu_data.gyro_z = calibrated_data.z;
 
     CAN_SEND_IMU_angular_rate(
-        calibrated_data.x * PACK_COEFF_IMU_ANGULAR_RATE_X_AXIS,
-        calibrated_data.y * PACK_COEFF_IMU_ANGULAR_RATE_Y_AXIS,
-        calibrated_data.z * PACK_COEFF_IMU_ANGULAR_RATE_Z_AXIS,
+        imu_data.gyro_x * PACK_COEFF_IMU_ANGULAR_RATE_X_AXIS,
+        imu_data.gyro_y * PACK_COEFF_IMU_ANGULAR_RATE_Y_AXIS,
+        imu_data.gyro_z * PACK_COEFF_IMU_ANGULAR_RATE_Z_AXIS,
         0
     );
 }
@@ -152,12 +152,14 @@ void IZZE_acceleration_CALLBACK(void) {
     // }
 
     vector3_t calibrated_data = matrix_multiply_vector3(&mounting_offset_matrix, &raw_data);
-    accel_data = calibrated_data;
+    imu_data.accel_x = calibrated_data.x;
+    imu_data.accel_y = calibrated_data.y;
+    imu_data.accel_z = calibrated_data.z;
 
     CAN_SEND_IMU_acceleration(
-        calibrated_data.x * PACK_COEFF_IMU_ACCELERATION_X_AXIS,
-        calibrated_data.y * PACK_COEFF_IMU_ACCELERATION_Y_AXIS,
-        calibrated_data.z * PACK_COEFF_IMU_ACCELERATION_Z_AXIS,
+        imu_data.accel_x * PACK_COEFF_IMU_ACCELERATION_X_AXIS,
+        imu_data.accel_y * PACK_COEFF_IMU_ACCELERATION_Y_AXIS,
+        imu_data.accel_z * PACK_COEFF_IMU_ACCELERATION_Z_AXIS,
         temperature * PACK_COEFF_IMU_ACCELERATION_TEMPERATURE
     );
 }

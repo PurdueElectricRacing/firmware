@@ -1,7 +1,16 @@
+/**
+ * @file charging_fsm.c
+ * @brief Charger control state machine implementation
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
+#include "charging_fsm.h"
+
 #include "adbms.h"
 #include "can_library/faults_common.h"
-#include "can_library/generated/can_types.h"
 #include "can_library/generated/A_BOX.h"
+#include "can_library/generated/can_types.h"
 
 static constexpr uint16_t MAX_PACK_CHARGING_VOLTS = 540;
 static constexpr uint16_t MAX_PACK_CHARGING_AMPS = 10;
@@ -70,7 +79,7 @@ static inline bool is_charging_permitted() {
         && is_elcon_ready();
 }
 
-void charging_fsm_periodic() {
+void charging_fsm_periodic(void) {
     // set default states
     charging_state = next_charging_state;
     next_charging_state = charging_state;

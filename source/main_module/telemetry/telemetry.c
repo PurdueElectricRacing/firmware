@@ -1,6 +1,6 @@
 /**
  * @file telemetry.c
- * @brief Telemetry task implementations
+ * @brief MAIN MODULE telemetry task implementations
  * 
  * @author Irving Wang (irvingw@purdue.edu)
  */

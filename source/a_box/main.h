@@ -2,13 +2,15 @@
  * @file main.h
  * @brief "Abox" node source code
  * 
- * @author Irving Wang (irvingw@purdue.edu), Millan Kumar (kumar798@purdue.edu)
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Millan Kumar (kumar798@purdue.edu)
  */
 
-#ifndef MAIN_H_
-#define MAIN_H_
+#ifndef MAIN_H
+#define MAIN_H
 
 #include "common/phal/gpio.h"
+#include "adbms.h"
 
 // Status LEDs
 #define HEARTBEAT_LED_PORT  (GPIOB)
@@ -48,4 +50,12 @@
 #define BMS_SDC_CTRL_PORT (GPIOA)
 #define BMS_SDC_CTRL_PIN  (10)
 
-#endif
+typedef struct {
+    uint16_t isense_raw;
+    uint16_t vbatt_raw;
+} adc1_dma_buffer_t;
+extern volatile adc1_dma_buffer_t adc1_dma_buffer;
+
+extern adbms_bms_t g_bms;
+
+#endif // MAIN_H

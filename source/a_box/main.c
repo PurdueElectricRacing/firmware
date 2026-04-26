@@ -2,24 +2,26 @@
  * @file main.c
  * @brief "Abox" node source code
  *
- * @author Irving Wang (irvingw@purdue.edu), Millan Kumar (kumar798@purdue.edu)
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Millan Kumar (kumar798@purdue.edu)
  */
 
 #include "main.h"
 
-#include <math.h>
 #include <stdint.h>
 
 #include "adbms.h"
 #include "can_library/faults_common.h"
 #include "can_library/generated/A_BOX.h"
+#include "charging_fsm.h"
 #include "common/freertos/freertos.h"
+#include "common/heartbeat/heartbeat.h"
+#include "common/phal/adc.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
-#include "common/phal/adc.h"
-#include "common/heartbeat/heartbeat.h"
 #include "common/utils/countof.h"
+#include "telemetry.h"
 
 SPI_InitConfig_t bms_spi_config = {
     .data_len      = 8,
@@ -43,10 +45,6 @@ ADCInitConfig_t adc_config = {
     .periph         = ADC1,
 };
 
-typedef struct {
-    uint16_t isense_raw;
-    uint16_t vbatt_raw;
-} adc1_dma_buffer_t;
 volatile adc1_dma_buffer_t adc1_dma_buffer;
 ADCChannelConfig_t adc_channel_config[] = {
     {.channel = ISENSE_ADC_CHANNEL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
@@ -115,18 +113,16 @@ static constexpr float MIN_DELTA_FOR_BALANCE = 0.1f;
 
 extern void HardFault_Handler(void);
 void bms_task(void);
-void check_faults(void);
-void report_telemetry(void);
-void charging_fsm_periodic(void);
 
 // Thread Defines
-DEFINE_TASK(bms_task, 200, osPriorityHigh, STACK_2048);
 DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048);
-DEFINE_TASK(check_faults, 10, osPriorityNormal, STACK_512);
+DEFINE_TASK(CAN_tx_update, 1, osPriorityNormal, STACK_2048);
+DEFINE_TASK(bms_task, 200, osPriorityNormal, STACK_2048);
 DEFINE_TASK(charging_fsm_periodic, ELCON_COMMAND_PERIOD_MS, osPriorityNormal, STACK_512);
 DEFINE_TASK(fault_library_periodic, A_BOX_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
-DEFINE_TASK(report_telemetry, PACK_STATS_PERIOD_MS, osPriorityLow, STACK_512);
+DEFINE_TASK(report_telemetry_100hz, TELEMETRY_100HZ_PERIOD_MS, osPriorityLow, STACK_512);
+DEFINE_TASK(report_telemetry_8hz, TELEMETRY_8HZ_PERIOD_MS, osPriorityLow, STACK_512);
+DEFINE_TASK(report_telemetry_02hz, TELEMETRY_02HZ_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
@@ -162,8 +158,8 @@ int main(void) {
     if (false == PHAL_FDCAN_init(FDCAN2, false, CCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
-    NVIC_SetPriority(FDCAN1_IT0_IRQn, 5);
-    NVIC_SetPriority(FDCAN2_IT0_IRQn, 5);
+    NVIC_SetPriority(FDCAN1_IT0_IRQn, 6);
+    NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
 
     NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
@@ -175,9 +171,10 @@ int main(void) {
     START_TASK(bms_task);
     START_TASK(CAN_rx_update);
     START_TASK(CAN_tx_update);
-    START_TASK(check_faults);
     START_TASK(fault_library_periodic);
-    START_TASK(report_telemetry);
+    START_TASK(report_telemetry_100hz);
+    START_TASK(report_telemetry_8hz);
+    START_TASK(report_telemetry_02hz);
     START_TASK(charging_fsm_periodic);
     START_HEARTBEAT_TASK();
 
@@ -186,120 +183,14 @@ int main(void) {
     return 0;
 }
 
-static inline float get_isense_correction_offset(float current) {
-    // Linear fit to benchtop data to correct for sensor non-idealities, especially at low currents.
-    // R^2 = 0.8428
-    float abs_current = fabsf(current);
-    return -0.0495f * abs_current + 3.3756f;
-}
-
-// DHAB S/134 current sensor conversion
-static inline float isense_to_current(uint16_t isense_raw) {
-    static constexpr float ADC_VREF = 3.3f;
-    static constexpr float ADC_MAX  = 4095.0f;
-    static constexpr float ADC_TO_VOLTS = ADC_VREF / ADC_MAX;
-
-    static constexpr float DIV_R1   = 2400.0f;
-    static constexpr float DIV_R2   = 4700.0f;
-    static constexpr float DIV_GAIN = (DIV_R1 + DIV_R2) / DIV_R2;
-
-    static constexpr float V_OFFSET = 2.5f;
-    static constexpr float G        = 10.0e-3f;
-
-    float v_adc      = isense_raw * ADC_TO_VOLTS;
-    float v_sensor   = v_adc * DIV_GAIN;
-    float current    = (v_sensor - V_OFFSET) / G; // data
-    // float correction = get_isense_correction_offset(current);
-
-    // // Apply correction in the correct direction
-    // if (current < 0.0f) current -= correction;
-    // else current += correction;
-
-    return current;
-}
-
-// todo: double check the conversion here
-static inline float vbatt_to_voltage(uint16_t vbatt_raw) {
-    static constexpr float ADC_VREF = 3.3f;
-    static constexpr float ADC_MAX  = 4095.0f;
-    static constexpr float ADC_TO_VOLTS = ADC_VREF / ADC_MAX;
-
-    static constexpr float RTOP   = 2'375'000.0f;
-    static constexpr float RSENSE = 7943.2f;
-
-    static constexpr float DIV_GAIN    = (RTOP + RSENSE) / RSENSE; // ~300
-    static constexpr float ANALOG_GAIN = 2.0f; // set to 1.0f if ADC sees 0-2V node
-
-    float v_adc  = vbatt_raw * ADC_TO_VOLTS;
-    float voltage = v_adc * DIV_GAIN / ANALOG_GAIN;
-
-    return voltage;
-}
-
-void report_telemetry() {
-    uint16_t pack_voltage = (uint16_t)(g_bms.sum_voltage * PACK_COEFF_PACK_STATS_PACK_VOLTAGE);
-    int16_t pack_current  = (int16_t)(isense_to_current(adc1_dma_buffer.isense_raw) * PACK_COEFF_PACK_STATS_PACK_CURRENT);
-
-    CAN_SEND_pack_stats(pack_voltage, pack_current, g_bms.avg_therm_temp);
-
-    uint16_t min_cell_voltage = (uint16_t)(g_bms.min_voltage * PACK_COEFF_CHARGING_TELEMETRY_MIN_CELL_VOLTAGE);
-    uint16_t max_cell_voltage = (uint16_t)(g_bms.max_voltage * PACK_COEFF_CHARGING_TELEMETRY_MAX_CELL_VOLTAGE);
-
-    CAN_SEND_charging_telemetry(
-        pack_voltage,
-        pack_current,
-        min_cell_voltage,
-        max_cell_voltage
-    );
-
-    // Report cell voltages one at a time
-    static uint8_t module_num      = 0;
-    static uint8_t cell_num        = 0;
-    adbms_module_t *current_module = &g_bms.modules[module_num];
-
-    float cell_voltage = current_module->cell_voltages[cell_num];
-    uint16_t scaled_cell_voltage = (uint16_t)(cell_voltage * PACK_COEFF_CELL_TELEMETRY_CELL_VOLTAGE);
-    bool is_balancing  = current_module->is_discharging[cell_num];
-
-    CAN_SEND_cell_telemetry(scaled_cell_voltage, module_num, cell_num, is_balancing);
-
-    if (++cell_num >= ADBMS6380_CELL_COUNT) {
-        cell_num = 0;
-        if (++module_num >= ADBMS_MODULE_COUNT) {
-            module_num = 0;
-        }
-    }
-}
-
-void report_battery_therms() {
-    // Report cell voltages one at a time
-    static uint8_t module_num      = 0;
-    static uint8_t thermistor_num        = 0;
-    adbms_module_t *current_module = &g_bms.modules[module_num];
-
-    float thermistor_temperature = current_module->therms_temps[thermistor_num];
-    uint16_t scaled_temperature = (uint16_t)(thermistor_temperature * PACK_COEFF_CELL_TELEMETRY_CELL_VOLTAGE);
-
-    CAN_SEND_thermal_stats(scaled_temperature, module_num, thermistor_num);
-
-    if (++thermistor_num >= ADBMS6380_GPIO_COUNT) {
-        thermistor_num = 0;
-        if (++module_num >= ADBMS_MODULE_COUNT) {
-            module_num = 0;
-        }
-    }
-}
-
-void bms_task() {
-    adbms_periodic(&g_bms, MIN_V_FOR_BALANCE, MIN_DELTA_FOR_BALANCE);
-}
-
-void check_faults() {
+void bms_task(void) {
     // IMD
     bool imd_faulted = !PHAL_readGPIO(IMD_STATUS_PORT, IMD_STATUS_PIN);
     update_fault(FAULT_ID_IMD, imd_faulted);
 
-    // BMS
+    // ADBMS
+    adbms_periodic(&g_bms, MIN_V_FOR_BALANCE, MIN_DELTA_FOR_BALANCE);
+
     bool is_bms_disconnected = g_bms.state != ADBMS_STATE_CONNECTED;
     update_fault(FAULT_ID_BMS_DISCONNECTED, is_bms_disconnected);
     PHAL_writeGPIO(BMS_SDC_CTRL_PORT, BMS_SDC_CTRL_PIN, is_clear(FAULT_ID_BMS_DISCONNECTED));

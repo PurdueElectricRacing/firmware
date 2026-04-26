@@ -3,7 +3,7 @@
 
 /**
  * @file telemetry.h
- * @brief Telemetry task implementations
+ * @brief DASHBOARD telemetry task implementations
  * 
  * @author Irving Wang (irvingw@purdue.edu)
  */

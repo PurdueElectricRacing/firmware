@@ -2,11 +2,13 @@
  * @file commands.h
  * @brief Listing of all ADBMS commands.
  *
- * @author Analog Devices, Millan Kumar (kumar798@purdue.edu), Irving Wang (irvingw@purdue.edu)
+ * @author Analog Devices
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Millan Kumar (kumar798@purdue.edu)
  */
 
-#ifndef _ADBMS_COMMAND_H_
-#define _ADBMS_COMMAND_H_
+#ifndef COMMANDS_H
+#define COMMANDS_H
 
 #include <stdint.h>
 
@@ -122,4 +124,4 @@ extern const uint8_t SRST[2];
 // Read SID command
 extern const uint8_t RDSID[2];
 
-#endif // _ADBMS_COMMAND_H_
+#endif // COMMANDS_H

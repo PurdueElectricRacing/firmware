@@ -8,8 +8,8 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#include "can_library/generated/can_types.h"
 #include "amk.h"
+#include "can_library/generated/can_types.h"
 
 typedef struct {
     car_state_t current_state;

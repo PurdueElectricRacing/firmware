@@ -35,11 +35,12 @@ extern uint32_t PLLClockRateHz;
 void HardFault_Handler();
 
 void send_periodic() {
+    PHAL_toggleGPIO(GPIOC, 15);
     CAN_SEND_pdu_version(GIT_HASH);
 }
 
 DEFINE_CAN_TASKS();
-DEFINE_TASK(send_periodic, 10, osPriorityNormal, 1024);
+DEFINE_TASK(send_periodic, 100, osPriorityNormal, 1024);
 
 int main() {
     if (PHAL_configureClockRates(&clock_config)) {
@@ -57,8 +58,7 @@ int main() {
 
     osKernelInitialize();
 
-    START_TASK(CAN_rx_update);
-    START_TASK(CAN_tx_update);
+    START_CAN_TASKS();
     START_TASK(send_periodic);
     
     osKernelStart();

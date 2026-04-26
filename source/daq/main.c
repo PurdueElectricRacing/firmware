@@ -7,6 +7,7 @@
 #include "common/heartbeat/heartbeat.h"
 #include "can_library/generated/VCAN.h"
 #include "can_library/generated/MCAN.h"
+#include "common/utils/countof.h"
 
 #include "main.h"
 #include "spmc.h"
@@ -128,7 +129,7 @@ int main() {
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
-    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
+    if (!PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
     if (!PHAL_SPI_init(&eth_spi_config)) {

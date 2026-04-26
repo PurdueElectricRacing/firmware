@@ -12,6 +12,7 @@
 #include "common/freertos/freertos.h"
 #include "main.h"
 #include "can_library/faults_common.h"
+#include "common/utils/countof.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // GPIO_INIT_FDCAN2RX_PB12,
@@ -56,7 +57,7 @@ int main() {
         HardFault_Handler();
     }
 
-    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
+    if (!PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
 

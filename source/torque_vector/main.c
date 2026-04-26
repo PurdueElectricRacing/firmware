@@ -18,6 +18,7 @@
 #include "common/phal/usart.h"
 #include "common/ublox/nav_pvt.h"
 #include "common/ublox/nav_relposned.h"
+#include "common/utils/countof.h"
 #include "control_loop.h"
 #include "sensors.h"
 #include "telemetry.h"
@@ -100,7 +101,7 @@ int main(void) {
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
-    if (false == PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
+    if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
     if (false == PHAL_initUSART(&usart3, APB1ClockRateHz)) {

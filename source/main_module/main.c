@@ -16,6 +16,7 @@
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "common/heartbeat/heartbeat.h"
+#include "common/utils/countof.h"
 
 #include "vehicle_init.h"
 #include "vehicle_fsm.h"
@@ -96,7 +97,7 @@ int main(void) {
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
-    if (false == PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
+    if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
 

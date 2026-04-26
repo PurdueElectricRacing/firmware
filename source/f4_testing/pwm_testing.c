@@ -10,6 +10,7 @@
 #include "common/freertos/freertos.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
+#include "common/utils/countof.h"
 
 GPIOInitConfig_t gpio_config[] = {
 
@@ -70,7 +71,7 @@ int main() {
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
-    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
+    if (!PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
 

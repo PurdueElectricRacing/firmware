@@ -9,8 +9,10 @@
 
 /* System Includes */
 #include "can_library/faults_common.h"
+#include "can_library/generated/DASHBOARD.h"
 #include "common/common_defs/common_defs.h"
 #include "common/freertos/freertos.h"
+#include "common/heartbeat/heartbeat.h"
 #include "common/phal/adc.h"
 #include "common/phal/can.h"
 #include "common/phal/dma.h"
@@ -18,14 +20,13 @@
 #include "common/phal/rcc.h"
 #include "common/phal/usart.h"
 #include "common/strbuf/strbuf.h"
-#include "common/heartbeat/heartbeat.h"
+#include "common/utils/countof.h"
 
 /* Module Includes */
-#include "can_library/generated/DASHBOARD.h"
+#include "driver_interface.h"
 #include "lcd.h"
 #include "main.h"
 #include "pedals.h"
-#include "driver_interface.h"
 #include "telemetry.h"
 
 GPIOInitConfig_t gpio_config[] = {
@@ -170,13 +171,13 @@ int main(void) {
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
-    if (false == PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
+    if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
     if (false == PHAL_initUSART(&lcd, APB2ClockRateHz)) {
         HardFault_Handler();
     }
-    if (false == PHAL_initADC(&adc_config, adc_channel_config, sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
+    if (false == PHAL_initADC(&adc_config, adc_channel_config, countof(adc_channel_config))) {
         HardFault_Handler();
     }
     if (false == PHAL_initDMA(&adc_dma_config)) {

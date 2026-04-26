@@ -15,6 +15,8 @@
 #include "common/phal/dma.h"
 #include "common/freertos/freertos.h"
 #include "common/heartbeat/heartbeat.h"
+#include "common/utils/countof.h"
+
 /* Module Includes */
 #include "config.h"
 #include "pin_defs.h"
@@ -162,7 +164,7 @@ int main(void) {
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
-    if (false == PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
+    if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
     if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
@@ -180,16 +182,16 @@ int main(void) {
     if (false == PHAL_initDMA(&adc4_dma_config)) {
         HardFault_Handler();
     }
-    if (false == PHAL_initADC(&adc1_config, adc1_channel_config, sizeof(adc1_channel_config) / sizeof(ADCChannelConfig_t))) {
+    if (false == PHAL_initADC(&adc1_config, adc1_channel_config, countof(adc1_channel_config))) {
         HardFault_Handler();
     }
-    if (false == PHAL_initADC(&adc2_config, adc2_channel_config, sizeof(adc2_channel_config) / sizeof(ADCChannelConfig_t))) {
+    if (false == PHAL_initADC(&adc2_config, adc2_channel_config, countof(adc2_channel_config))) {
         HardFault_Handler();
     }
-    if (false == PHAL_initADC(&adc3_config, adc3_channel_config, sizeof(adc3_channel_config) / sizeof(ADCChannelConfig_t))) {
+    if (false == PHAL_initADC(&adc3_config, adc3_channel_config, countof(adc3_channel_config))) {
         HardFault_Handler();
     }
-    if (false == PHAL_initADC(&adc4_config, adc4_channel_config, sizeof(adc4_channel_config) / sizeof(ADCChannelConfig_t))) {
+    if (false == PHAL_initADC(&adc4_config, adc4_channel_config, countof(adc4_channel_config))) {
         HardFault_Handler();
     }
     

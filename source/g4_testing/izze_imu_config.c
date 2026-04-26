@@ -7,6 +7,7 @@
 #include "common/phal/rcc.h"
 #include "common/freertos/freertos.h"
 #include "common/izze_imu/izze_imu.h"
+#include "common/utils/countof.h"
 
 // Status LEDs
 #define HEARTBEAT_LED_PORT  (GPIOB)
@@ -71,7 +72,7 @@ int main() {
     if (PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
-    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
+    if (!PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
 

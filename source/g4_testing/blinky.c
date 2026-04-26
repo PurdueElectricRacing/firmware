@@ -7,6 +7,7 @@
 #include "common/phal/dma.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
+#include "common/utils/countof.h"
 #include "main.h"
 
 GPIOInitConfig_t gpio_config[] = {
@@ -76,7 +77,7 @@ int main() {
         HardFault_Handler();
     }
 
-    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
+    if (!PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
 

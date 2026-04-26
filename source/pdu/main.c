@@ -17,6 +17,7 @@
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "common/heartbeat/heartbeat.h"
+#include "common/utils/countof.h"
 
 /* Module Includes */
 #include "auto_switch.h"
@@ -302,10 +303,10 @@ int main() {
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
-    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
+    if (!PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
-    if (!PHAL_initADC(ADC1, &adc_config, adc_channel_config, sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
+    if (!PHAL_initADC(ADC1, &adc_config, adc_channel_config, countof(adc_channel_config))) {
         HardFault_Handler();
     }
     if (!PHAL_initDMA(&adc_dma_config)) {

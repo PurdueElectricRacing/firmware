@@ -9,6 +9,7 @@
 #include "common/phal_G4/gpio/gpio.h"
 #include "common/phal_G4/rcc/rcc.h"
 #include "common/phal_G4/usart/usart.h"
+#include "common/utils/countof.h"
 
 // Prototypes
 void HardFault_Handler();
@@ -57,7 +58,7 @@ int main() {
 
     if (PHAL_configureClockRates(&clock_config))
         HardFault_Handler();
-    if (!PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t)))
+    if (!PHAL_initGPIO(gpio_config, countof(gpio_config)))
         HardFault_Handler();
 
     // Initialize USART, passing the peripheral clock frequency

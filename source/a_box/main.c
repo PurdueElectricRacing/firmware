@@ -19,6 +19,7 @@
 #include "common/phal/rcc.h"
 #include "common/phal/adc.h"
 #include "common/heartbeat/heartbeat.h"
+#include "common/utils/countof.h"
 
 SPI_InitConfig_t bms_spi_config = {
     .data_len      = 8,
@@ -133,7 +134,7 @@ int main(void) {
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
-    if (false == PHAL_initGPIO(gpio_config, sizeof(gpio_config) / sizeof(GPIOInitConfig_t))) {
+    if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
 
@@ -146,7 +147,7 @@ int main(void) {
 
     adbms_init(&g_bms, &bms_spi_config, g_bms_tx_buf);
 
-    if (false == PHAL_initADC(&adc_config, adc_channel_config, sizeof(adc_channel_config) / sizeof(ADCChannelConfig_t))) {
+    if (false == PHAL_initADC(&adc_config, adc_channel_config, countof(adc_channel_config))) {
         HardFault_Handler();
     }
     if (false == PHAL_initDMA(&adc_dma_config)) {

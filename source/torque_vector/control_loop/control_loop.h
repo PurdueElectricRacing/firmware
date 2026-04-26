@@ -6,6 +6,7 @@
  * @brief Main torque vectoring control loop
  *
  * @author Irving Wang (irvingw@purdue.edu)
+ * @author Trevor Koessler (tkoessle@purdue.edu)
  */
 
 #include <stdint.h>

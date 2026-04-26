@@ -20,6 +20,7 @@
 #include "common/phal/adc.h"
 #include "common/heartbeat/heartbeat.h"
 #include "common/utils/countof.h"
+#include "charging_fsm.h"
 
 SPI_InitConfig_t bms_spi_config = {
     .data_len      = 8,
@@ -117,7 +118,6 @@ extern void HardFault_Handler(void);
 void bms_task(void);
 void check_faults(void);
 void report_telemetry(void);
-void charging_fsm_periodic(void);
 
 // Thread Defines
 DEFINE_TASK(bms_task, 200, osPriorityHigh, STACK_2048);

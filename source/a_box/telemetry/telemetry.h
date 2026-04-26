@@ -3,7 +3,7 @@
 
 /**
  * @file telemetry.h
- * @brief DASHBOARD telemetry task implementations
+ * @brief ABOX Telemetry task implementations
  * 
  * @author Irving Wang (irvingw@purdue.edu)
  */
@@ -11,8 +11,6 @@
 #include <stdint.h>
 
 static constexpr uint32_t TELEMETRY_02HZ_PERIOD_MS = 5000;
-void report_telemetry_02hz(void);
-
-void LWS_Standard_CALLBACK(void); // async LWS data callback
+void report_telemetry(void);
 
 #endif // TELEMETRY_H

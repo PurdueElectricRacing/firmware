@@ -6,11 +6,11 @@
  */
 
 #include "vehicle_fsm.h"
-#include "main.h"
 
 #include "can_library/faults_common.h"
 #include "can_library/generated/MAIN_MODULE.h"
 #include "common/phal/gpio.h"
+#include "main.h"
 
 // Global data structures
 car_t g_car;

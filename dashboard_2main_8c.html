@@ -107,8 +107,10 @@ $(function(){initNavTree('dashboard_2main_8c.html',''); initResizable(true); });
 <p>"Dashboard" node source code  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;can_library/faults_common.h&quot;</code><br />
+<code>#include &quot;can_library/generated/DASHBOARD.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="common__defs_8h_source.html">common/common_defs/common_defs.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="heartbeat_8h_source.html">common/heartbeat/heartbeat.h</a>&quot;</code><br />
 <code>#include &quot;common/phal/adc.h&quot;</code><br />
 <code>#include &quot;common/phal/can.h&quot;</code><br />
 <code>#include &quot;common/phal/dma.h&quot;</code><br />
@@ -116,12 +118,11 @@ $(function(){initNavTree('dashboard_2main_8c.html',''); initResizable(true); });
 <code>#include &quot;common/phal/rcc.h&quot;</code><br />
 <code>#include &quot;common/phal/usart.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="strbuf_8h_source.html">common/strbuf/strbuf.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="heartbeat_8h_source.html">common/heartbeat/heartbeat.h</a>&quot;</code><br />
-<code>#include &quot;can_library/generated/DASHBOARD.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="countof_8h_source.html">common/utils/countof.h</a>&quot;</code><br />
+<code>#include &quot;driver_interface.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="lcd_8h_source.html">lcd.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
 <code>#include &quot;pedals.h&quot;</code><br />
-<code>#include &quot;driver_interface.h&quot;</code><br />
 <code>#include &quot;telemetry.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>

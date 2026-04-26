@@ -11,6 +11,7 @@ var searchData=
   ['control_5floop_2eh_8',['control_loop.h',['../control__loop_8h.html',1,'']]],
   ['cooling_2ec_9',['cooling.c',['../cooling_8c.html',1,'']]],
   ['cooling_2eh_10',['cooling.h',['../cooling_8h.html',1,'']]],
-  ['crc_2ec_11',['crc.c',['../crc_8c.html',1,'']]],
-  ['crc_2eh_12',['crc.h',['../phal__F4__F7_2crc_2crc_8h.html',1,'']]]
+  ['countof_2eh_11',['countof.h',['../countof_8h.html',1,'']]],
+  ['crc_2ec_12',['crc.c',['../crc_8c.html',1,'']]],
+  ['crc_2eh_13',['crc.h',['../phal__F4__F7_2crc_2crc_8h.html',1,'']]]
 ];

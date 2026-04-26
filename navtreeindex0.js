@@ -171,6 +171,8 @@ var NAVTREEINDEX0 =
 "cooling_8h.html#ad30811eac53f601ce45d6ab71f10c678":[27,0,1,7,1,1,2],
 "cooling_8h.html#ae465c618bea0ea4973da55489389f369":[27,0,1,7,1,1,1],
 "cooling_8h_source.html":[27,0,1,7,1,1],
+"countof_8h.html":[27,0,0,17,1],
+"countof_8h_source.html":[27,0,0,17,1],
 "crc_8c.html":[27,0,0,11,2,0],
 "daq_2main_8h_source.html":[27,0,1,1,3],
 "daq__rtc__config_8h_source.html":[27,0,1,1,0,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "dir_f0d476005fd60c6020cb81dc0b85194b.html":[27,0,0,7],
 "dir_f0fe662dd377b691366db18c58a4eadc.html":[27,0,1,7,4],
 "dir_f6086ef6f30ab9dbc70fe82dbf4283ea.html":[27,0,1,8,0],
-"dir_f765ea92361f85119ed2ec32d2c3e943.html":[27,0,1,2,0,0],
-"dir_fc3315dec08952c299e22f7c15049669.html":[27,0,1,2],
-"dir_fc600d5a7cf4d78b3987855773a2b693.html":[27,0,0,11,0]
+"dir_f765ea92361f85119ed2ec32d2c3e943.html":[27,0,1,2,0,0]
 };

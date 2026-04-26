@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"dir_fc3315dec08952c299e22f7c15049669.html":[27,0,1,2],
+"dir_fc600d5a7cf4d78b3987855773a2b693.html":[27,0,0,11,0],
 "dir_ffee4008ba8677328b2436bbf2819405.html":[27,0,1,3,0],
 "driveline_2main_8c.html":[27,0,1,3,2],
 "driver__interface_8h_source.html":[27,0,1,2,0,2],
@@ -103,8 +105,8 @@ var NAVTREEINDEX1 =
 "lerp__lut_8h.html":[27,0,0,7,1],
 "lerp__lut_8h.html#aa6730914e04aa912dcb777e28f9e4004":[27,0,0,7,1,2],
 "lerp__lut_8h_source.html":[27,0,0,7,1],
-"linear__algebra_8h.html":[27,0,0,17,1],
-"linear__algebra_8h_source.html":[27,0,0,17,1],
+"linear__algebra_8h.html":[27,0,0,17,2],
+"linear__algebra_8h_source.html":[27,0,0,17,2],
 "log_8h_source.html":[27,0,0,8,0],
 "main__module_2main_8c.html":[27,0,1,6,3],
 "main__module_2main_8h.html":[27,0,1,6,4],
@@ -118,8 +120,8 @@ var NAVTREEINDEX1 =
 "main__module_2telemetry_2telemetry_8h.html#a6d0a75c0aee5808a962691e3973ee968":[27,0,1,6,1,1,1],
 "main__module_2telemetry_2telemetry_8h.html#a74034e258280659c81e74c002594b2e2":[27,0,1,6,1,1,0],
 "main__module_2telemetry_2telemetry_8h_source.html":[27,0,1,6,1,1],
-"max_8h.html":[27,0,0,17,2],
-"max_8h_source.html":[27,0,0,17,2],
+"max_8h.html":[27,0,0,17,3],
+"max_8h_source.html":[27,0,0,17,3],
 "md_README.html":[0],
 "md_README.html#autotoc_md1":[0,0],
 "md_README.html#autotoc_md2":[0,1],
@@ -204,8 +206,8 @@ var NAVTREEINDEX1 =
 "menu__system_8h.html#abb6e83f43c566270750060807da99fa4":[27,0,1,2,0,6,6],
 "menu__system_8h.html#ad29034f2b375212cc2bb9d4ef615583d":[27,0,1,2,0,6,3],
 "menu__system_8h_source.html":[27,0,1,2,0,6],
-"min_8h.html":[27,0,0,17,3],
-"min_8h_source.html":[27,0,0,17,3],
+"min_8h.html":[27,0,0,17,4],
+"min_8h_source.html":[27,0,0,17,4],
 "nav__pvt_8c.html":[27,0,0,16,0],
 "nav__pvt_8h.html":[27,0,0,16,1],
 "nav__pvt_8h_source.html":[27,0,0,16,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "pec_8c.html":[27,0,1,0,0,6],
 "pec_8c.html#acf61d2142265cf21d2a680bff41883b9":[27,0,1,0,0,6,0],
 "pec_8h.html":[27,0,1,0,0,7],
-"pec_8h.html#acf61d2142265cf21d2a680bff41883b9":[27,0,1,0,0,7,0],
-"pec_8h_source.html":[27,0,1,0,0,7],
-"pedals_8c.html":[27,0,1,2,1,0]
+"pec_8h.html#acf61d2142265cf21d2a680bff41883b9":[27,0,1,0,0,7,0]
 };

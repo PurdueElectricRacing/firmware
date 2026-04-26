@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"pec_8h_source.html":[27,0,1,0,0,7],
+"pedals_8c.html":[27,0,1,2,1,0],
 "pedals_8c.html#a87b6cf4ba55de2c1523397cc21bbf501":[27,0,1,2,1,0,0],
 "pedals_8h_source.html":[27,0,1,2,1,1],
 "phal_2adc_8h_source.html":[27,0,0,10,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX2 =
 "structCanMsgTypeDef__t.html":[26,0,12],
 "structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78":[26,0,12,2],
 "structCanMsgTypeDef__t.html#a184c6e876770b9bc3a766986921cc35c":[26,0,12,4],
-"structCanMsgTypeDef__t.html#a27b82ae932da76206323ac8268b3f1e6":[26,0,12,0],
-"structCanMsgTypeDef__t.html#a27de06238e18ccb41d49595c239c8e5e":[26,0,12,3],
-"structCanMsgTypeDef__t.html#a4aa42f4d25313b588ecb4323723d2ef6":[26,0,12,1]
+"structCanMsgTypeDef__t.html#a27b82ae932da76206323ac8268b3f1e6":[26,0,12,0]
 };

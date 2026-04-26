@@ -1,5 +1,7 @@
 var NAVTREEINDEX3 =
 {
+"structCanMsgTypeDef__t.html#a27de06238e18ccb41d49595c239c8e5e":[26,0,12,3],
+"structCanMsgTypeDef__t.html#a4aa42f4d25313b588ecb4323723d2ef6":[26,0,12,1],
 "structCanMsgTypeDef__t.html#a6b77a8cc916e8ddd9a3619f0a30c8655":[26,0,12,6],
 "structCanMsgTypeDef__t.html#a9dea647c93d4bef0e061c85ad3b5cfa0":[26,0,12,5],
 "structClockRateConfig__t.html":[26,0,16],
@@ -228,8 +230,8 @@ var NAVTREEINDEX3 =
 "torque__vector_2telemetry_2telemetry_8h.html#a6d0a75c0aee5808a962691e3973ee968":[27,0,1,8,2,1,1],
 "torque__vector_2telemetry_2telemetry_8h.html#ad17b4787e885938a20f35bd144928f22":[27,0,1,8,2,1,0],
 "torque__vector_2telemetry_2telemetry_8h_source.html":[27,0,1,8,2,1],
-"units_8h.html":[27,0,0,17,4],
-"units_8h_source.html":[27,0,0,17,4],
+"units_8h.html":[27,0,0,17,5],
+"units_8h_source.html":[27,0,0,17,5],
 "vcu_8h_source.html":[27,0,1,8,3,0],
 "vehicle__fsm_8c.html":[27,0,1,6,2,0],
 "vehicle__fsm_8h.html":[27,0,1,6,2,1],

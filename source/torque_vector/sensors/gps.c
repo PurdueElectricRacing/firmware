@@ -1,4 +1,3 @@
-#include "gps.h"
 #include "common/freertos/freertos.h"
 
 volatile uint32_t last_gps_message_time_ms = 0;

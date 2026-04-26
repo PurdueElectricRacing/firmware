@@ -1,5 +1,5 @@
 /**
- * @file decouple_imu.c
+ * @file imu.c
  * @brief IMU decoupling utility functions.
  *
  * Functions for calibrating and applying decoupling transformations to IMU data.

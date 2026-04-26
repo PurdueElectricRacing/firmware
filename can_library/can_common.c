@@ -132,6 +132,12 @@ void CAN1_RX1_IRQHandler() {
 }
 
 void CAN1_TX_IRQHandler() {
+    uint32_t tsr = CAN1->TSR;
+
+    if (tsr & CAN_TSR_RQCP0) CAN1->TSR = CAN_TSR_RQCP0;
+    if (tsr & CAN_TSR_RQCP1) CAN1->TSR = CAN_TSR_RQCP1;
+    if (tsr & CAN_TSR_RQCP2) CAN1->TSR = CAN_TSR_RQCP2;
+
     CAN_wake_tx_from_ISR();
 }
 #endif
@@ -146,6 +152,12 @@ void CAN2_RX1_IRQHandler() {
 }
 
 void CAN2_TX_IRQHandler() {
+    uint32_t tsr = CAN2->TSR;
+
+    if (tsr & CAN_TSR_RQCP0) CAN2->TSR = CAN_TSR_RQCP0;
+    if (tsr & CAN_TSR_RQCP1) CAN2->TSR = CAN_TSR_RQCP1;
+    if (tsr & CAN_TSR_RQCP2) CAN2->TSR = CAN_TSR_RQCP2;
+
     CAN_wake_tx_from_ISR();
 }
 #endif

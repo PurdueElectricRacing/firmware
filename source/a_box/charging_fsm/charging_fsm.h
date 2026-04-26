@@ -16,6 +16,7 @@ static constexpr uint32_t CHARGING_FSM_PERIOD_MS = 1000;
 
 // static assert that the FSM flushes the CAN messages it owns at least as fast as their defined periods
 static_assert(ELCON_COMMAND_PERIOD_MS == CHARGING_FSM_PERIOD_MS);
+static_assert(CHARGING_FSM_INTERNALS_PERIOD_MS == CHARGING_FSM_PERIOD_MS);
 
 void charging_fsm_periodic(void);
 

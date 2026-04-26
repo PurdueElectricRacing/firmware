@@ -61,6 +61,13 @@ static inline float isense_to_current(uint16_t isense_raw) {
     return current;
 }
 
+/**
+ * @brief Reports telemetry data at 100 Hz rate
+ * Includes: Pack stats, charging telemetry, cell telemetry
+ */
+static_assert(PACK_STATS_PERIOD_MS == TELEMETRY_100HZ_PERIOD_MS);
+static_assert(CHARGING_TELEMETRY_PERIOD_MS == TELEMETRY_100HZ_PERIOD_MS);
+static_assert(CELL_TELEMETRY_PERIOD_MS == TELEMETRY_100HZ_PERIOD_MS);
 void report_telemetry_100hz(void) {
     // todo: report voltage from VBATT, bms only updates at 5HZ 
     uint16_t pack_voltage = (uint16_t)(g_bms.sum_voltage * PACK_COEFF_PACK_STATS_PACK_VOLTAGE);
@@ -97,6 +104,11 @@ void report_telemetry_100hz(void) {
     }
 }
 
+/**
+ * @brief Reports telemetry data at 8 Hz rate
+ * Includes: Thermal stats
+ */
+static_assert(THERMISTOR_TELEMETRY_PERIOD_MS == TELEMETRY_8HZ_PERIOD_MS);
 void report_telemetry_8hz(void) {
     // Report thermistor temperatures one at a time
     static uint8_t module_num      = 0;
@@ -106,7 +118,7 @@ void report_telemetry_8hz(void) {
     float thermistor_temperature = current_module->therms_temps[thermistor_num];
     uint16_t scaled_temperature = (uint16_t)(thermistor_temperature * PACK_COEFF_CELL_TELEMETRY_CELL_VOLTAGE);
 
-    CAN_SEND_thermal_stats(scaled_temperature, module_num, thermistor_num);
+    CAN_SEND_thermistor_telemetry(scaled_temperature, module_num, thermistor_num);
 
     if (++thermistor_num >= ADBMS6380_GPIO_COUNT) {
         thermistor_num = 0;
@@ -116,6 +128,11 @@ void report_telemetry_8hz(void) {
     }
 }
 
+/**
+ * @brief Reports telemetry data at 0.2 Hz rate
+ * Includes: ABOX git hash
+ */
+static_assert(ABOX_VERSION_PERIOD_MS == TELEMETRY_02HZ_PERIOD_MS);
 void report_telemetry_02hz(void) {
     CAN_SEND_abox_version(GIT_HASH);
 }

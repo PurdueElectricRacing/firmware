@@ -34,7 +34,7 @@
                     "msg_period": 10
                 },
                 {
-                    "msg_name": "thermal_stats",
+                    "msg_name": "thermistor_telemetry",
                     "msg_desc": "Individual thermistor readings",
                     "signals": [
                         {

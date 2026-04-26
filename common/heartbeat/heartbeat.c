@@ -51,7 +51,7 @@ void heartbeat_task(status_leds_t *leds) {
         case HEARTBEAT_STATE_NORMAL:
             PHAL_toggleGPIO(leds->heartbeat_port, leds->heartbeat_pin);
 
-            bool is_can_ok = (xTaskGetTickCount() - last_can_rx_time_ms < CONN_LED_TIMEOUT_MS);
+            bool is_can_ok = (xTaskGetTickCount() - last_can_rx_time_ms) < CONN_LED_TIMEOUT_MS;
             PHAL_writeGPIO(leds->connection_port, leds->connection_pin, is_can_ok);
             break;
     }    

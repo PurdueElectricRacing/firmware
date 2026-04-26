@@ -82,8 +82,7 @@ extern uint32_t PLLClockRateHz;
 extern void HardFault_Handler(void);
 
 // Thread Defines
-DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 1, osPriorityHigh, STACK_2048);
+DEFINE_CAN_TASKS();
 DEFINE_TASK(vehicle_fsm_periodic, VEHICLE_FSM_PERIOD_MS, osPriorityNormal, STACK_2048);
 DEFINE_TASK(fault_library_periodic, MAIN_MODULE_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
 DEFINE_TASK(SDC_task_periodic, SDC_TASK_PERIOD_MS, osPriorityNormal, STACK_512);
@@ -108,11 +107,7 @@ int main(void) {
     if (false == PHAL_FDCAN_init(FDCAN3, false, MCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
-    CAN_library_init();
-    NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
-    NVIC_SetPriority(FDCAN3_IT0_IRQn, 6);
-    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
-    NVIC_EnableIRQ(FDCAN3_IT0_IRQn);
+    CAN_init();
 
     // ! important
     vehicle_init();
@@ -120,8 +115,7 @@ int main(void) {
     // Software Initialization
     osKernelInitialize();
 
-    START_TASK(CAN_rx_update);
-    START_TASK(CAN_tx_update);
+    START_CAN_TASKS();
     START_TASK(vehicle_fsm_periodic);
     START_TASK(fault_library_periodic);
     START_TASK(SDC_task_periodic);

@@ -199,8 +199,8 @@ int main(void) {
     // Software Initialization
     osKernelInitialize();
 
-    START_TASK(pedals_periodic);
     START_CAN_TASKS();
+    START_TASK(pedals_periodic);
     START_TASK(fault_library_periodic);
     START_TASK(service_start_button);
     START_TASK(driver_interface_periodic);

@@ -287,8 +287,7 @@ void send_iv_readings() {
 }
 
 // Thread Defines
-DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 5, osPriorityHigh, STACK_1024);
+DEFINE_CAN_TASKS();
 DEFINE_TASK(autoSwitchPeriodic, 15, osPriorityNormal, STACK_512);
 DEFINE_TASK(update_cooling_periodic, 100, osPriorityNormal, STACK_1024);
 DEFINE_TASK(LED_periodic, 500, osPriorityLow, STACK_512);
@@ -319,9 +318,7 @@ int main() {
         HardFault_Handler();
     }
 
-    CAN_library_init();
-    NVIC_SetPriority(CAN1_RX0_IRQn, 6);
-    NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    CAN_init();
 
     if (!PHAL_SPI_init(&spi_config)) {
         HardFault_Handler();
@@ -348,8 +345,7 @@ int main() {
 
     osKernelInitialize();
 
-    START_TASK(CAN_rx_update);
-    START_TASK(CAN_tx_update);
+    START_CAN_TASKS();
     START_TASK(autoSwitchPeriodic);
     START_TASK(update_cooling_periodic);
     START_TASK(LED_periodic);
@@ -363,10 +359,6 @@ int main() {
     osKernelStart();
 
     return 0;
-}
-
-void CAN1_RX0_IRQHandler() {
-    CAN_handle_irq(CAN1, 0);
 }
 
 // todo reboot on hardfault

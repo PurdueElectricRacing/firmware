@@ -123,11 +123,11 @@ inline void CAN_rx_ISR(CAN_TypeDef *bus, uint8_t fifo) {
 
 // ! Define these in your main.c for now !
 #ifdef USE_CAN1
-void __attribute__((weak, used)) CAN1_RX0_IRQHandler() {
+void CAN1_RX0_IRQHandler() {
     CAN_rx_ISR(CAN1, 0);
 }
 
-void __attribute__((weak, used)) CAN1_RX1_IRQHandler() {
+void CAN1_RX1_IRQHandler() {
     CAN_rx_ISR(CAN1, 1);
 }
 
@@ -137,11 +137,11 @@ void CAN1_TX_IRQHandler() {
 #endif
 
 #ifdef USE_CAN2
-void __attribute__((weak, used)) CAN2_RX0_IRQHandler() {
+void CAN2_RX0_IRQHandler() {
     CAN_rx_ISR(CAN2, 0);
 }
 
-void __attribute__((weak, used)) CAN2_RX1_IRQHandler() {
+void CAN2_RX1_IRQHandler() {
     CAN_rx_ISR(CAN2, 1);
 }
 

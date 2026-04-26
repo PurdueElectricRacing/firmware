@@ -88,8 +88,7 @@ usart_init_t usart3 = {
 extern void HardFault_Handler(void);
 
 // Thread Defines
-DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 1, osPriorityNormal, STACK_2048);
+DEFINE_CAN_TASKS();
 DEFINE_TASK(control_loop, CONTROL_LOOP_PERIOD_MS, osPriorityNormal, STACK_4096);
 DEFINE_TASK(gps_periodic, GPS_THREAD_PERIOD_MS, osPriorityLow, STACK_1024);
 DEFINE_TASK(report_telemetry_100hz, TELEMETRY_100HZ_PERIOD_MS, osPriorityLow, STACK_512);
@@ -113,11 +112,9 @@ int main(void) {
     if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
+    CAN_init();
 
-    CAN_library_init();
     initialize_calibration();
-    NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
-    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
 
     PHAL_writeGPIO(ROVER_RESET_PORT, ROVER_RESET_PIN, 1);
     PHAL_writeGPIO(BASE_RESET_PORT, BASE_RESET_PIN, 1);
@@ -125,8 +122,7 @@ int main(void) {
     // Software Initialization
     osKernelInitialize();
 
-    START_TASK(CAN_rx_update);
-    START_TASK(CAN_tx_update);
+    START_CAN_TASKS();
     START_TASK(control_loop);
     START_TASK(gps_periodic);
     START_TASK(report_telemetry_100hz);

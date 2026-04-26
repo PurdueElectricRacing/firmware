@@ -8,6 +8,6 @@
 #define TEST_CANPILER 3
 
 // Change this define to set the test compiled
-#define F4_TESTING_CHOSEN TEST_CANPILER
+#define F4_TESTING_CHOSEN TEST_FREERTOS_DEMO
 
 #endif // __F4_TESTING__

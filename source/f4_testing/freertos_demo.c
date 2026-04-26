@@ -36,7 +36,7 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
-#define TargetCoreClockrateHz 16000000
+#define TargetCoreClockrateHz 16'000'000
 ClockRateConfig_t clock_config = {
     .clock_source              = CLOCK_SOURCE_HSI,
     .use_pll                   = false,
@@ -50,19 +50,19 @@ ClockRateConfig_t clock_config = {
 dma_init_t usart_tx_dma_config = USART2_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_rx_dma_config = USART2_RXDMA_CONT_CONFIG(NULL, 2);
 usart_init_t usart_config      = {
-         .baud_rate        = 115200,
-         .word_length      = WORD_8,
-         .stop_bits        = SB_ONE,
-         .parity           = PT_NONE,
-         .hw_flow_ctl      = HW_DISABLE,
-         .ovsample         = OV_16,
-         .obsample         = OB_DISABLE,
-         .periph           = USART2,
-         .wake_addr        = false,
-         .usart_active_num = USART2_ACTIVE_IDX,
-         .tx_dma_cfg       = &usart_tx_dma_config,
-         .rx_dma_cfg       = &usart_rx_dma_config};
-DEBUG_PRINTF_USART_DEFINE(&usart_config)
+    .baud_rate        = 115200,
+    .word_length      = WORD_8,
+    .stop_bits        = SB_ONE,
+    .parity           = PT_NONE,
+    .hw_flow_ctl      = HW_DISABLE,
+    .ovsample         = OV_16,
+    .obsample         = OB_DISABLE,
+    .periph           = USART2,
+    .wake_addr        = false,
+    .usart_active_num = USART2_ACTIVE_IDX,
+    .tx_dma_cfg       = &usart_tx_dma_config,
+    .rx_dma_cfg       = &usart_rx_dma_config
+};
 
 void HardFault_Handler();
 void ledblink1();
@@ -72,14 +72,14 @@ void ledblink4();
 void usartSend();
 
 // Define up here so they're global
-defineThreadStack(ledblink1, 250, osPriorityNormal, 64);
-defineThreadStack(ledblink2, 300, osPriorityNormal, 64);
-defineThreadStack(ledblink3, 500, osPriorityNormal, 64);
-defineThreadStack(ledblink4, 1000, osPriorityNormal, 64);
-defineThreadStack(usartSend, 1000, osPriorityNormal, 1024);
+DEFINE_TASK(ledblink1, 250, osPriorityNormal, 64);
+DEFINE_TASK(ledblink2, 300, osPriorityNormal, 64);
+DEFINE_TASK(ledblink3, 500, osPriorityNormal, 64);
+DEFINE_TASK(ledblink4, 1000, osPriorityNormal, 64);
+DEFINE_TASK(usartSend, 1000, osPriorityNormal, 1024);
 
-defineStaticQueue(myQueue, uint32_t, 0x45);
-defineStaticSemaphore(mySemaphore);
+DEFINE_QUEUE(myQueue, uint32_t, 0x45);
+DEFINE_MUTEX(mutex);
 
 int main() {
     osKernelInitialize();
@@ -97,15 +97,15 @@ int main() {
     log_yellow("PER PER PER\n");
 
     // Create threads
-    createThread(ledblink1);
-    createThread(ledblink2);
-    createThread(ledblink3);
-    createThread(ledblink4);
-    createThread(usartSend);
+    START_TASK(ledblink1);
+    START_TASK(ledblink2);
+    START_TASK(ledblink3);
+    START_TASK(ledblink4);
+    START_TASK(usartSend);
 
     // Create objects
-    createStaticQueue(myQueue, uint32_t, 0x45);
-    createStaticSemaphore(mySemaphore);
+    INIT_QUEUE(myQueue, uint32_t, 0x45);
+    INIT_MUTEX(mutex);
 
     osKernelStart(); // Go!
 
@@ -129,15 +129,15 @@ void ledblink4() {
 }
 
 void usartSend() {
-    if (xSemaphoreTake(mySemaphore, (TickType_t)10) == pdTRUE) {
+    if (xSemaphoreTake(mutex, (TickType_t)10) == pdTRUE) {
         /* We were able to obtain the semaphore and can now access the
             shared resource. */
 
-        debug_printf("tick: %d\n", getTick());
+        debug_printf("tick: %d\n", xTaskGetTickCount());
 
         /* We have finished accessing the shared resource. Release the
            semaphore. */
-        xSemaphoreGive(mySemaphore);
+        xSemaphoreGive(mutex);
     }
 }
 

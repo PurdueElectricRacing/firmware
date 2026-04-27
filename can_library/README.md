@@ -21,7 +21,7 @@ The high-level logic flow of an RX is shown here:
 The high-level logic flow of a TX is shown here:
 ![CAN TX Logic](can_tx_logic.drawio.png)
 > [!NOTE]
-> The actual implementation of the CAN TX task manages up to 3 seperate hardware peripherals at once, each with its own software queue.
+> The actual implementation of the CAN TX task manages up to 3 separate hardware peripherals at once, each with its own software queue.
 
 ## Usage
 1. Define your CAN network and global faults in `can_library/configs/` using the provided JSON schemas.

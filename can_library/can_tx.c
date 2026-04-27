@@ -110,6 +110,7 @@ static void CAN_drain_tx_bus(CAN_TypeDef *bus) {
         }
 
         PHAL_txCANMessage(&tx_msg, free_index);
+        can_stats.tx_sent_count++;
     }
 
     if (uxQueueMessagesWaiting(tx_queue) > 0) {
@@ -136,11 +137,7 @@ static void CAN_drain_tx_bus(FDCAN_GlobalTypeDef *bus) {
         can_stats.tx_sent_count++;
     }
 
-    /*
-     * TODO:
-     * When PHAL exposes FDCAN TX-space IRQ arm/disarm,
-     * arm it here only if uxQueueMessagesWaiting(tx_queue) > 0.
-     */
+    // todo arm the TX irq only when uxQueueMessagesWaiting(tx_queue) > 0
 }
 #endif
 

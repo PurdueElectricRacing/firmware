@@ -162,7 +162,7 @@ int main(void) {
     // Kernel initalization
     osKernelInitialize();
 
-    START_CAN_TASKS()
+    START_CAN_TASKS();
     START_TASK(bms_task);
     START_TASK(fault_library_periodic);
     START_TASK(report_telemetry_100hz);

@@ -293,20 +293,38 @@ bool PHAL_rxCANMessage(CAN_TypeDef *bus, uint8_t fifo, CanMsgTypeDef_t *msg) {
     return true;
 }
 
-void __attribute__((weak)) CAN1_RX0_IRQHandler() {
-    // Implement for RX Mailbox 0 Handler
+void PHAL_CAN_rxIRQ(CAN_TypeDef *bus, uint8_t fifo) {
+    CanMsgTypeDef_t msg;
+
+    while (PHAL_rxCANMessage(bus, fifo, &msg)) {
+        PHAL_CAN_rxCallback(&msg);
+    }
 }
 
-void __attribute__((weak)) CAN1_RX1_IRQHandler() {
-    // Implement for RX Mailbox 1 Handler
+void __attribute__((weak)) CAN1_RX0_IRQHandler(void) {
+    PHAL_CAN_rxIRQ(CAN1, 0);
 }
 
-#ifdef STM32L496xx
-void __attribute__((weak)) CAN2_RX0_IRQHandler() {
-    // Implement for RX Mailbox 0 Handler
+void __attribute__((weak)) CAN1_RX1_IRQHandler(void) {
+    PHAL_CAN_rxIRQ(CAN1, 1);
 }
 
-void __attribute__((weak)) CAN2_RX1_IRQHandler() {
-    // Implement for RX Mailbox 1 Handler
+#ifdef CAN2
+void __attribute__((weak)) CAN2_RX0_IRQHandler(void) {
+    PHAL_CAN_rxIRQ(CAN2, 0);
+}
+
+void __attribute__((weak)) CAN2_RX1_IRQHandler(void) {
+    PHAL_CAN_rxIRQ(CAN2, 1);
 }
 #endif
+
+[[gnu::weak]]
+void PHAL_CAN_txCallback(CAN_TypeDef *can) {
+    (void)can;
+}
+
+[[gnu::weak]]
+void PHAL_CAN_rxCallback(CanMsgTypeDef_t *msg) {
+    (void)msg;
+}

@@ -27,7 +27,9 @@ macro(create_can_node_lib NODE_NAME ARCH_LIB)
 	
 	# We use a static library so each node has its own object file for can_common.c and faults
 	add_library(${LIB_NAME} STATIC 
-        ${CAN_LIB_DIR}/can_common.c
+        ${CAN_LIB_DIR}/can_init.c
+        ${CAN_LIB_DIR}/can_rx.c
+        ${CAN_LIB_DIR}/can_tx.c
         ${CAN_LIB_DIR}/faults_common.c
         ${CAN_GEN_DIR}/fault_data.c
     )

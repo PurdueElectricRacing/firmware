@@ -47,19 +47,23 @@ typedef struct {
     uint32_t rx_overflow; // software queue overflow
     uint32_t tx_overflow; // software queue overflow
     // todo: track hardware stats
+    // todo: per-peripheral stats
 } can_stats_t;
 
 extern volatile can_stats_t can_stats;
 extern volatile uint32_t last_can_rx_time_ms;
+// todo: last tx time
 
 extern QueueHandle_t can_rx_queue;
 extern QueueHandle_t can_tx_queues[CAN_NUM_PERIPHERALS];
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg);
-void CAN_tx_update();
-void CAN_rx_update();
-bool CAN_init();
-bool CAN_enable_IRQs();
+void CAN_tx_update(void);
+void CAN_rx_update(void);
+bool CAN_init(void);
+void CAN_enable_IRQs(void);
+void CAN_rx_init(void);
+void CAN_tx_init(void);
 
 #define DEFINE_CAN_TASKS() \
     DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048); \

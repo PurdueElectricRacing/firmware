@@ -93,6 +93,50 @@
                     "msg_period": 1000
                 },
                 {
+                    "msg_name": "front_brake_pressure",
+                    "msg_desc": "Brake pressure from front",
+                    "signals": [
+                        {
+                            "sig_name": "left",
+                            "sig_desc": "Brake pressure from front left",
+                            "type": "int16_t",
+                            "unit": "bar",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "right",
+                            "sig_desc": "Brake pressure from front right",
+                            "type": "int16_t",
+                            "unit": "bar",
+                            "scale": 0.1
+                        }
+                    ],
+                    "msg_priority": 3,
+                    "msg_period": 5000
+                },
+                {
+                    "msg_name": "rear_brake_pressure",
+                    "msg_desc": "Brake pressure from rear",
+                    "signals": [
+                        {
+                            "sig_name": "left",
+                            "sig_desc": "Brake pressure from rear left",
+                            "type": "int16_t",
+                            "unit": "bar",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "right",
+                            "sig_desc": "Brake pressure from rear right",
+                            "type": "int16_t",
+                            "unit": "bar",
+                            "scale": 0.1
+                        }
+                    ],
+                    "msg_priority": 3,
+                    "msg_period": 5000
+                },
+                {
                     "msg_name": "front_driveline_version",
                     "msg_desc": "Front Driveline Version",
                     "signals": [

@@ -309,7 +309,6 @@ void __attribute__((weak)) CAN1_RX1_IRQHandler(void) {
     PHAL_CAN_rxIRQ(CAN1, 1);
 }
 
-#ifdef CAN2
 void __attribute__((weak)) CAN2_RX0_IRQHandler(void) {
     PHAL_CAN_rxIRQ(CAN2, 0);
 }
@@ -317,8 +316,28 @@ void __attribute__((weak)) CAN2_RX0_IRQHandler(void) {
 void __attribute__((weak)) CAN2_RX1_IRQHandler(void) {
     PHAL_CAN_rxIRQ(CAN2, 1);
 }
-#endif
 
+void PHAL_CAN_txIRQ(CAN_TypeDef *bus) {
+    uint32_t tsr = bus->TSR;
+
+    if (tsr & CAN_TSR_RQCP0) bus->TSR = CAN_TSR_RQCP0;
+    if (tsr & CAN_TSR_RQCP1) bus->TSR = CAN_TSR_RQCP1;
+    if (tsr & CAN_TSR_RQCP2) bus->TSR = CAN_TSR_RQCP2;
+
+    bus->IER &= ~CAN_IER_TMEIE;
+
+    PHAL_CAN_txCallback(bus);
+}
+
+void CAN1_TX_IRQHandler(void) {
+    PHAL_CAN_txIRQ(CAN1);
+}
+
+void CAN2_TX_IRQHandler(void) {
+    PHAL_CAN_txIRQ(CAN2);
+}
+
+// ! override these in your application code!
 [[gnu::weak]]
 void PHAL_CAN_txCallback(CAN_TypeDef *can) {
     (void)can;

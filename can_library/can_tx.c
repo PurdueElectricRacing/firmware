@@ -1,6 +1,8 @@
 /**
  * @file can_tx.c
- * @brief Common CAN TX queue, task, and ISR/callback handling.
+ * @brief Common CAN TX queue, task, and callback handling.
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
  */
 
 #include "can_common.h"
@@ -10,13 +12,21 @@ extern osThreadId_t CAN_tx_update_handle;
 volatile can_stats_t can_stats;
 QueueHandle_t can_tx_queues[CAN_NUM_PERIPHERALS];
 
-// Guard against bad arch defines
 #if !defined(STM32F407xx) && !defined(STM32G474xx)
 #error "Unsupported architecture"
 #elif defined(STM32F407xx) && defined(STM32G474xx)
 #error "Multiple architectures defined"
 #endif
 
+#if defined(STM32F407xx)
+#define CAN_BUS_TYPE CAN_TypeDef
+#define PHAL_TX_CALLBACK PHAL_CAN_txCallback
+#else // STM32G474xx
+#define CAN_BUS_TYPE FDCAN_GlobalTypeDef
+#define PHAL_TX_CALLBACK PHAL_FDCAN_txCallback
+#endif
+
+// Allocate TX queues
 #ifdef USE_CAN1
 DEFINE_QUEUE(can1_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
@@ -33,6 +43,8 @@ DEFINE_QUEUE(can2_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 DEFINE_QUEUE(can3_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 
+
+// Initialize TX queues
 void CAN_tx_init(void) {
 #ifdef USE_CAN1
     INIT_QUEUE(can1_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
@@ -106,42 +118,6 @@ static void CAN_drain_tx_bus(CAN_TypeDef *bus) {
     }
 }
 
-void CAN_tx_update(void) {
-    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-
-#ifdef USE_CAN1
-    CAN_drain_tx_bus(CAN1);
-#endif
-
-#ifdef USE_CAN2
-    CAN_drain_tx_bus(CAN2);
-#endif
-}
-
-static inline void CAN_tx_ISR(CAN_TypeDef *bus) {
-    uint32_t tsr = bus->TSR;
-
-    if (tsr & CAN_TSR_RQCP0) bus->TSR = CAN_TSR_RQCP0;
-    if (tsr & CAN_TSR_RQCP1) bus->TSR = CAN_TSR_RQCP1;
-    if (tsr & CAN_TSR_RQCP2) bus->TSR = CAN_TSR_RQCP2;
-
-    bus->IER &= ~CAN_IER_TMEIE;
-
-    CAN_wake_tx_from_ISR();
-}
-
-#ifdef USE_CAN1
-void CAN1_TX_IRQHandler(void) {
-    CAN_tx_ISR(CAN1);
-}
-#endif
-
-#ifdef USE_CAN2
-void CAN2_TX_IRQHandler(void) {
-    CAN_tx_ISR(CAN2);
-}
-#endif
-
 #else // STM32G474xx
 
 static void CAN_drain_tx_bus(FDCAN_GlobalTypeDef *bus) {
@@ -165,8 +141,17 @@ static void CAN_drain_tx_bus(FDCAN_GlobalTypeDef *bus) {
      */
 }
 
+#endif
+
 void CAN_tx_update(void) {
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+
+#ifdef USE_CAN1
+    CAN_drain_tx_bus(CAN1);
+#endif
+#ifdef USE_CAN2
+    CAN_drain_tx_bus(CAN2);
+#endif
 #ifdef USE_FDCAN1
     CAN_drain_tx_bus(FDCAN1);
 #endif
@@ -178,9 +163,7 @@ void CAN_tx_update(void) {
 #endif
 }
 
-void PHAL_FDCAN_txCallback(FDCAN_GlobalTypeDef *fdcan) {
-    (void)fdcan;
+void PHAL_TX_CALLBACK(CAN_BUS_TYPE *bus) {
+    (void)bus;
     CAN_wake_tx_from_ISR();
 }
-
-#endif

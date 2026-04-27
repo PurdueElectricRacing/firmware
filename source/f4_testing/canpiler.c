@@ -35,12 +35,12 @@ extern uint32_t PLLClockRateHz;
 void HardFault_Handler();
 
 void send_periodic() {
+    PHAL_toggleGPIO(GPIOC, 15);
     CAN_SEND_pdu_version(GIT_HASH);
 }
 
-DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048);
-DEFINE_TASK(send_periodic, 10, osPriorityNormal, 1024);
+DEFINE_CAN_TASKS();
+DEFINE_TASK(send_periodic, 100, osPriorityNormal, 1024);
 
 int main() {
     if (PHAL_configureClockRates(&clock_config)) {
@@ -54,26 +54,16 @@ int main() {
     if (!PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
-    
-    CAN_library_init();
-
-    // NVIC
-    NVIC_SetPriority(CAN1_RX0_IRQn, 6);
-    NVIC_EnableIRQ(CAN1_RX0_IRQn);
+    CAN_init();
 
     osKernelInitialize();
 
-    START_TASK(CAN_rx_update);
-    START_TASK(CAN_tx_update);
+    START_CAN_TASKS();
     START_TASK(send_periodic);
     
     osKernelStart();
 
     return 0;
-}
-
-void CAN1_RX0_IRQHandler() {
-    CAN_handle_irq(CAN1, 0);
 }
 
 // just to avoid linker error

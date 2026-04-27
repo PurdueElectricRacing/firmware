@@ -157,9 +157,8 @@ void service_start_button();
 extern void HardFault_Handler();
 
 // Thread Defines
+DEFINE_CAN_TASKS();
 DEFINE_TASK(pedals_periodic, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024);
-DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 1, osPriorityNormal, STACK_2048); // leave stack at 2048
 DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
 DEFINE_TASK(driver_interface_periodic, DRIVER_INTERFACE_PERIOD_MS, osPriorityLow, STACK_1024);
 DEFINE_TASK(service_start_button, START_BUTTON_PERIOD_MS, osPriorityLow, STACK_512);
@@ -192,11 +191,7 @@ int main(void) {
     if (false == PHAL_FDCAN_init(FDCAN3, false, SCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
-    CAN_library_init();
-    NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
-    NVIC_SetPriority(FDCAN3_IT0_IRQn, 6);
-    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
-    NVIC_EnableIRQ(FDCAN3_IT0_IRQn);
+    CAN_init();
 
     driver_interface_init();
     LCD_init(LCD_BAUD_RATE);
@@ -204,9 +199,8 @@ int main(void) {
     // Software Initialization
     osKernelInitialize();
 
+    START_CAN_TASKS();
     START_TASK(pedals_periodic);
-    START_TASK(CAN_rx_update);
-    START_TASK(CAN_tx_update);
     START_TASK(fault_library_periodic);
     START_TASK(service_start_button);
     START_TASK(driver_interface_periodic);

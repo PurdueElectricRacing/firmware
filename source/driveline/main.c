@@ -153,8 +153,7 @@ extern void HardFault_Handler();
 void shockpot_thread();
 void oil_temps_thread();
 
-DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 2, osPriorityNormal, STACK_2048); // leave stack at 2048
+DEFINE_CAN_TASKS();
 DEFINE_TASK(shockpot_thread, FRONT_SHOCKPOTS_PERIOD_MS, osPriorityNormal, STACK_512);
 DEFINE_TASK(oil_temps_thread, FRONT_OIL_TEMPS_PERIOD_MS, osPriorityNormal, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
@@ -165,9 +164,6 @@ int main(void) {
         HardFault_Handler();
     }
     if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
-        HardFault_Handler();
-    }
-    if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
     if (false == PHAL_initDMA(&adc1_dma_config)) {
@@ -205,16 +201,15 @@ int main(void) {
     PHAL_startADC(&adc3_config);
     PHAL_startADC(&adc4_config);
 
-
-    CAN_library_init();
-    NVIC_SetPriority(FDCAN2_IT0_IRQn, 6);
-    NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
+    if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
+        HardFault_Handler();
+    }
+    CAN_init();
 
     // Software Initalization
     osKernelInitialize();
 
-    START_TASK(CAN_rx_update);
-    START_TASK(CAN_tx_update);
+    START_CAN_TASKS();
     START_TASK(shockpot_thread);
     START_TASK(oil_temps_thread);
     START_HEARTBEAT_TASK();

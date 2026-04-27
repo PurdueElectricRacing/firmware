@@ -69,5 +69,9 @@ bool PHAL_txCANMessage(CanMsgTypeDef_t* msg, uint8_t mbx);
 bool PHAL_txMailboxFree(CAN_TypeDef* bus, uint8_t mbx);
 void PHAL_txCANAbort(CAN_TypeDef* bus, uint8_t mbx);
 bool PHAL_rxCANMessage(CAN_TypeDef *bus, uint8_t fifo, CanMsgTypeDef_t *msg);
+bool PHAL_anyTxMailboxFree(CAN_TypeDef* bus);
+bool PHAL_getFreeTxMailbox(CAN_TypeDef* bus, uint8_t* mbx);
+extern void PHAL_CAN_rxCallback(CanMsgTypeDef_t *msg);
+extern void PHAL_CAN_txCallback(CAN_TypeDef *can);
 
 #endif // _PHAL_CAN_H

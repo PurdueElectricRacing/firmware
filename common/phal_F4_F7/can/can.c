@@ -132,6 +132,9 @@ bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode, uint32_t bit_rate) {
     bus->IER |= CAN_IER_FMPIE0;
     bus->IER |= CAN_IER_FMPIE1;
 
+    // Enable TX mailbox empty interrupt
+    bus->IER |= CAN_IER_TMEIE;
+
     // Enter NORMAL mode
     bus->MCR &= ~CAN_MCR_INRQ;
     while ((bus->MSR & CAN_MSR_INAK) && ++timeout < PHAL_CAN_INIT_TIMEOUT)
@@ -221,6 +224,25 @@ bool PHAL_txMailboxFree(CAN_TypeDef* bus, uint8_t mbx) {
     }
 }
 
+bool PHAL_anyTxMailboxFree(CAN_TypeDef* bus) {
+    return bus->TSR & (CAN_TSR_TME0 | CAN_TSR_TME1 | CAN_TSR_TME2);
+}
+
+bool PHAL_getFreeTxMailbox(CAN_TypeDef* bus, uint8_t* mbx) {
+    if (bus->TSR & CAN_TSR_TME0) {
+        *mbx = 0;
+        return true;
+    } else if (bus->TSR & CAN_TSR_TME1) {
+        *mbx = 1;
+        return true;
+    } else if (bus->TSR & CAN_TSR_TME2) {
+        *mbx = 2;
+        return true;
+    } else {
+        return false; // No free mailbox
+    }
+}
+
 void PHAL_txCANAbort(CAN_TypeDef* bus, uint8_t mbx) {
     switch (mbx) {
         case 0:
@@ -271,20 +293,57 @@ bool PHAL_rxCANMessage(CAN_TypeDef *bus, uint8_t fifo, CanMsgTypeDef_t *msg) {
     return true;
 }
 
-void __attribute__((weak)) CAN1_RX0_IRQHandler() {
-    // Implement for RX Mailbox 0 Handler
+void PHAL_CAN_rxIRQ(CAN_TypeDef *bus, uint8_t fifo) {
+    CanMsgTypeDef_t msg;
+
+    while (PHAL_rxCANMessage(bus, fifo, &msg)) {
+        PHAL_CAN_rxCallback(&msg);
+    }
 }
 
-void __attribute__((weak)) CAN1_RX1_IRQHandler() {
-    // Implement for RX Mailbox 1 Handler
+void __attribute__((weak)) CAN1_RX0_IRQHandler(void) {
+    PHAL_CAN_rxIRQ(CAN1, 0);
 }
 
-#ifdef STM32L496xx
-void __attribute__((weak)) CAN2_RX0_IRQHandler() {
-    // Implement for RX Mailbox 0 Handler
+void __attribute__((weak)) CAN1_RX1_IRQHandler(void) {
+    PHAL_CAN_rxIRQ(CAN1, 1);
 }
 
-void __attribute__((weak)) CAN2_RX1_IRQHandler() {
-    // Implement for RX Mailbox 1 Handler
+void __attribute__((weak)) CAN2_RX0_IRQHandler(void) {
+    PHAL_CAN_rxIRQ(CAN2, 0);
 }
-#endif
+
+void __attribute__((weak)) CAN2_RX1_IRQHandler(void) {
+    PHAL_CAN_rxIRQ(CAN2, 1);
+}
+
+void PHAL_CAN_txIRQ(CAN_TypeDef *bus) {
+    uint32_t tsr = bus->TSR;
+
+    if (tsr & CAN_TSR_RQCP0) bus->TSR = CAN_TSR_RQCP0;
+    if (tsr & CAN_TSR_RQCP1) bus->TSR = CAN_TSR_RQCP1;
+    if (tsr & CAN_TSR_RQCP2) bus->TSR = CAN_TSR_RQCP2;
+
+    bus->IER &= ~CAN_IER_TMEIE;
+
+    PHAL_CAN_txCallback(bus);
+}
+
+void CAN1_TX_IRQHandler(void) {
+    PHAL_CAN_txIRQ(CAN1);
+}
+
+void CAN2_TX_IRQHandler(void) {
+    PHAL_CAN_txIRQ(CAN2);
+}
+
+// ! override these in your application code!
+[[gnu::weak]]
+void PHAL_CAN_txCallback(CAN_TypeDef *can) {
+    (void)can;
+}
+
+[[gnu::weak]]
+void PHAL_CAN_rxCallback(CanMsgTypeDef_t *msg) {
+    (void)msg;
+}

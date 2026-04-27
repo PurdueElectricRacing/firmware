@@ -5,7 +5,7 @@ bool PHAL_initGPIO(GPIOInitConfig_t config[], uint8_t config_len) {
 
     for (int i = 0; i < config_len; i++) {
         // Enable clock
-        // Not sure if this should live in the GPIO init or a seperate RCC HAL lib
+        // Not sure if this should live in the GPIO init or a separate RCC HAL lib
         switch ((uint32_t)config[i].bank) {
             case (uint32_t)GPIOA:
                 RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;

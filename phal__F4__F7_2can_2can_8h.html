@@ -175,6 +175,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_txCANAbort</b> (
 <tr class="memitem:a1f302cb498ee6478f4ef4f184b36b01e" id="r_a1f302cb498ee6478f4ef4f184b36b01e"><td class="memItemLeft" align="right" valign="top"><a id="a1f302cb498ee6478f4ef4f184b36b01e" name="a1f302cb498ee6478f4ef4f184b36b01e"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_rxCANMessage</b> (CAN_TypeDef *bus, uint8_t fifo, <a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg)</td></tr>
 <tr class="separator:a1f302cb498ee6478f4ef4f184b36b01e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07deff2679c94082b43b04caa1c391cf" id="r_a07deff2679c94082b43b04caa1c391cf"><td class="memItemLeft" align="right" valign="top"><a id="a07deff2679c94082b43b04caa1c391cf" name="a07deff2679c94082b43b04caa1c391cf"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_anyTxMailboxFree</b> (CAN_TypeDef *bus)</td></tr>
+<tr class="separator:a07deff2679c94082b43b04caa1c391cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2843a06714bb3b31deba01618bd8727" id="r_ad2843a06714bb3b31deba01618bd8727"><td class="memItemLeft" align="right" valign="top"><a id="ad2843a06714bb3b31deba01618bd8727" name="ad2843a06714bb3b31deba01618bd8727"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_getFreeTxMailbox</b> (CAN_TypeDef *bus, uint8_t *mbx)</td></tr>
+<tr class="separator:ad2843a06714bb3b31deba01618bd8727"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af35b2b3e9e95b56cdedbc9e86b628303" id="r_af35b2b3e9e95b56cdedbc9e86b628303"><td class="memItemLeft" align="right" valign="top"><a id="af35b2b3e9e95b56cdedbc9e86b628303" name="af35b2b3e9e95b56cdedbc9e86b628303"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_CAN_rxCallback</b> (<a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg)</td></tr>
+<tr class="separator:af35b2b3e9e95b56cdedbc9e86b628303"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abea544fd85dbc838418e27db4c2842df" id="r_abea544fd85dbc838418e27db4c2842df"><td class="memItemLeft" align="right" valign="top"><a id="abea544fd85dbc838418e27db4c2842df" name="abea544fd85dbc838418e27db4c2842df"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_CAN_txCallback</b> (CAN_TypeDef *can)</td></tr>
+<tr class="separator:abea544fd85dbc838418e27db4c2842df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Adam Busch (<a href="#" onclick="location.href='mai'+'lto:'+'bus'+'ch'+'8@p'+'ur'+'due'+'.e'+'du'; return false;">busch<span class="obfuscator">.nosp@m.</span>8@pu<span class="obfuscator">.nosp@m.</span>rdue.<span class="obfuscator">.nosp@m.</span>edu</a>) </dd></dl>

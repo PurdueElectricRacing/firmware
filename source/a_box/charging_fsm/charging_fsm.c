@@ -89,8 +89,6 @@ void charging_fsm_periodic(void) {
     charge_command_amps = 0;
     charge_enable = false;
 
-    update_fault(FAULT_ID_PACK_FULL, g_bms.sum_voltage);
-
     if (!is_charging_permitted()) {
         charging_state = CHARGING_STATE_IDLE;
     }

@@ -195,9 +195,13 @@ void bms_task(void) {
     update_fault(FAULT_ID_BMS_DISCONNECTED, is_bms_disconnected);
     PHAL_writeGPIO(BMS_SDC_CTRL_PORT, BMS_SDC_CTRL_PIN, is_clear(FAULT_ID_BMS_DISCONNECTED));
 
+    // Pack voltage checks
+    update_fault(FAULT_ID_PACK_FULL, g_bms.sum_voltage);
+    update_fault(FAULT_ID_PACK_EMPTY,g_bms.sum_voltage);
+
     // Cell voltage bounds
-    int16_t scaled_min_voltage = (int16_t)(g_bms.min_voltage * 10.0f);
-    update_fault(FAULT_ID_CELL_UNDERVOLTAGE, scaled_min_voltage);
+    update_fault(FAULT_ID_CELL_UNDERVOLTAGE, g_bms.min_voltage);
+    update_fault(FAULT_ID_CELL_OVERVOLTAGE, g_bms.max_voltage);
 
     // Temperature related
     update_fault(FAULT_ID_PACK_OVERTEMP, g_bms.max_therm_temp);

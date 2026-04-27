@@ -41,15 +41,18 @@ bool is_clear(fault_id_t fault_id) {
     return state == FAULT_STATE_CLEAR || state == FAULT_STATE_PENDING;
 }
 
-void update_fault(fault_id_t fault_id, uint16_t value) {
+void update_fault(fault_id_t fault_id, float value) {
     if ((fault_id < MY_FAULT_START) || (fault_id > MY_FAULT_END)) {
-        return;
+        return; // dont allow update of a fault not owned by this node
     }
 
-    fault_t *fault        = &faults[fault_id];
-    uint32_t now          = OS_TICKS;
+    fault_t *fault = &faults[fault_id];
+    uint32_t now   = OS_TICKS;
     // min is inclusive, max is exclusive, so the healthy range is [min, max)
     bool is_out_of_bounds = (value >= fault->max_value) || (value < fault->min_value);
+    if (value != value) {
+        is_out_of_bounds = true; // NaN values are considered out of bounds
+    }
 
     // Implementation of the FSM diagram in can_library/README
     // I know this FSM is not "mathematically pure", but it must be implemented in this way

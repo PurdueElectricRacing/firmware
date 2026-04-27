@@ -280,12 +280,21 @@
         },
         {
             "fault_name": "CELL_UNDERVOLTAGE",
-            "max": 42,
-            "min": 27,
+            "max": 10,
+            "min": 2.7,
             "priority": "error",
             "time_to_latch": 1000,
             "time_to_unlatch": 5000,
             "lcd_message": "Min Cell Voltage < 2.7V"
+        },
+        {
+            "fault_name": "CELL_OVERVOLTAGE",
+            "max": 4.2,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 1000,
+            "time_to_unlatch": 5000,
+            "lcd_message": "Max Cell Voltage > 4.2V"
         },
         {
             "fault_name": "PACK_FULL",
@@ -295,6 +304,15 @@
             "time_to_latch": 10000,
             "time_to_unlatch": 10000,
             "lcd_message": "Pack Full"
+        },
+        {
+            "fault_name": "PACK_EMPTY",
+            "max": 1000,
+            "min": 380,
+            "priority": "warning",
+            "time_to_latch": 10000,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Pack Empty"
         }
     ]
 }

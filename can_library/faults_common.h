@@ -27,17 +27,16 @@ typedef enum : uint8_t {
 
 typedef struct {
     uint32_t start_time_ms;
-    uint16_t max_value;
-    uint16_t min_value;
+    float max_value;
+    float min_value;
     uint16_t latch_time_ms;
     uint16_t unlatch_time_ms;
     fault_state_t state;
     fault_priority_t priority;
-    // 2 byte padding
 } fault_t;
 
 // API
-void update_fault(fault_id_t fault_id, uint16_t value);
+void update_fault(fault_id_t fault_id, float value);
 bool is_latched(fault_id_t fault_id);
 bool is_clear(fault_id_t fault_id);
 void fault_library_periodic();

@@ -6,8 +6,8 @@
     "unevaluatedProperties": false,
     "properties": {
         "fault_name": { "type": "string" },
-        "max": { "type": "integer" },
-        "min": { "type": "integer" },
+        "max": { "type": "number" },
+        "min": { "type": "number" },
         "priority": { "enum": ["warning", "error", "fatal"] },
         "time_to_latch": { "type": "integer", "minimum": 0 },
         "time_to_unlatch": { "type": "integer", "minimum": 0 },

@@ -74,8 +74,8 @@ void CAN_tx_init(void);
     START_TASK(CAN_tx_update); \
     CAN_enable_IRQs();
 
-#define CAN_TX_QUEUE_LENGTH (16) // Length of software queue for each CAN peripheral
-#define CAN_RX_QUEUE_LENGTH (16) // Length of software queue for received messages
+#define CAN_TX_QUEUE_LENGTH (32) // Length of software queue for each CAN peripheral
+#define CAN_RX_QUEUE_LENGTH (32) // Length of software queue for received messages
 
 #define NVIC_RX_IRQ_PRIO (6)
 #define NVIC_TX_IRQ_PRIO (7)

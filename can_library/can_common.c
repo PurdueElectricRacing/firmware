@@ -3,7 +3,6 @@
  * @brief Common functions and data structures used in every node in the CAN library
  * 
  * @author Irving Wang (irvingw@purdue.edu)
- * @author Ronak Jain (jain717@purdue.edu)
  */
 
 #include "can_common.h"
@@ -94,6 +93,12 @@ void CAN_tx_update() {
             PHAL_txCANMessage(&tx_msg, free_index);
             is_tx_success = true;
         }
+
+        if (uxQueueMessagesWaiting(tx_queue) > 0) {
+            CAN1->IER |= CAN_IER_TMEIE;   // need IRQ when mailbox frees
+        } else {
+            CAN1->IER &= ~CAN_IER_TMEIE;  // no pending software msgs, sleep
+        }
 #endif
 
 #ifdef USE_CAN2
@@ -101,6 +106,12 @@ void CAN_tx_update() {
         while (PHAL_getFreeTxMailbox(CAN2, &free_index) && xQueueReceive(tx_queue, &tx_msg, 0) == pdPASS) {
             PHAL_txCANMessage(&tx_msg, free_index);
             is_tx_success = true;
+        }
+
+        if (uxQueueMessagesWaiting(tx_queue) > 0) {
+            CAN2->IER |= CAN_IER_TMEIE;   // need IRQ when mailbox frees
+        } else {
+            CAN2->IER &= ~CAN_IER_TMEIE;  // no pending software msgs, sleep
         }
 #endif
     } while (is_tx_success);
@@ -138,6 +149,8 @@ void CAN1_TX_IRQHandler() {
     if (tsr & CAN_TSR_RQCP1) CAN1->TSR = CAN_TSR_RQCP1;
     if (tsr & CAN_TSR_RQCP2) CAN1->TSR = CAN_TSR_RQCP2;
 
+    CAN1->IER &= ~CAN_IER_TMEIE;
+
     CAN_wake_tx_from_ISR();
 }
 #endif
@@ -157,6 +170,8 @@ void CAN2_TX_IRQHandler() {
     if (tsr & CAN_TSR_RQCP0) CAN2->TSR = CAN_TSR_RQCP0;
     if (tsr & CAN_TSR_RQCP1) CAN2->TSR = CAN_TSR_RQCP1;
     if (tsr & CAN_TSR_RQCP2) CAN2->TSR = CAN_TSR_RQCP2;
+
+    CAN2->IER &= ~CAN_IER_TMEIE;
 
     CAN_wake_tx_from_ISR();
 }

@@ -93,8 +93,7 @@ static inline void CAN_wake_tx_from_ISR(void) {
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
-#if defined(STM32F407xx)
-
+#if defined(USE_CAN1) || defined(USE_CAN2)
 static void CAN_drain_tx_bus(CAN_TypeDef *bus) {
     CAN_peripheral_t peripheral = BUS_TO_PERIPHERAL(bus);
     QueueHandle_t tx_queue = can_tx_queues[peripheral];
@@ -117,9 +116,9 @@ static void CAN_drain_tx_bus(CAN_TypeDef *bus) {
         bus->IER &= ~CAN_IER_TMEIE;
     }
 }
+#endif
 
-#else // STM32G474xx
-
+#if defined(USE_FDCAN1) || defined(USE_FDCAN2) || defined(USE_FDCAN3)
 static void CAN_drain_tx_bus(FDCAN_GlobalTypeDef *bus) {
     CAN_peripheral_t peripheral = BUS_TO_PERIPHERAL(bus);
     QueueHandle_t tx_queue = can_tx_queues[peripheral];
@@ -140,7 +139,6 @@ static void CAN_drain_tx_bus(FDCAN_GlobalTypeDef *bus) {
      * arm it here only if uxQueueMessagesWaiting(tx_queue) > 0.
      */
 }
-
 #endif
 
 void CAN_tx_update(void) {

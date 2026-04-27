@@ -6,6 +6,7 @@
  */
 
 #include "can_common.h"
+#include "generated/can_router.h" // get module specific config
 
 extern osThreadId_t CAN_tx_update_handle;
 

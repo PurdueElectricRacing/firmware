@@ -46,6 +46,10 @@ static inline CAN_peripheral_t BUS_TO_PERIPHERAL(CAN_TypeDef *bus) {
 typedef struct {
     uint32_t rx_overflow; // software queue overflow
     uint32_t tx_overflow; // software queue overflow
+    uint32_t tx_enqueue_count;
+    uint32_t tx_task_wake_count;
+    uint32_t tx_sent_count;
+    uint32_t tx_callback_count;
     // todo: track hardware stats
     // todo: per-peripheral stats
 } can_stats_t;

@@ -182,12 +182,19 @@ bool PHAL_FDCAN_init(FDCAN_GlobalTypeDef *fdcan, bool test_mode, uint32_t bit_ra
     // FIFOs
     fdcan->TXBC &= ~FDCAN_TXBC_TFQM; // Tx FIFO mode
 
-    // Route RX to line 0, TC to line 1
-    fdcan->ILS = 0;               // default all to line 0
-    fdcan->ILS |= FDCAN_ILS_SMSG; // route the SMSG group to line 1
+    // Route RX FIFO0 to line 0, TX status/completion group to line 1
+    fdcan->ILS = 0;
+    fdcan->ILS |= FDCAN_ILS_SMSG;
 
-    fdcan->IE |= FDCAN_IE_RF0NE; // New message
-    fdcan->IE |= FDCAN_IE_TCE;   // Transmission completed
+    // Clear old pending flags
+    fdcan->IR = FDCAN_IR_RF0N | FDCAN_IR_TC;
+
+    // Enable interrupt sources
+    fdcan->IE |= FDCAN_IE_RF0NE; // RX FIFO0 new message
+    fdcan->IE |= FDCAN_IE_TCE;   // TX complete
+
+    // Enable TX complete interrupt for all TX buffers/FIFO elements
+    fdcan->TXBTIE = 0xFFFFFFFFu;
 
     // Enable both interrupt lines
     fdcan->ILE = FDCAN_ILE_EINT0 | FDCAN_ILE_EINT1;

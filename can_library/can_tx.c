@@ -6,7 +6,7 @@
  */
 
 #include "can_common.h"
-#include "generated/can_router.h" // get module specific config
+#include "generated/can_router.h"
 
 extern osThreadId_t CAN_tx_update_handle;
 
@@ -72,6 +72,7 @@ void CAN_tx_init(void) {
 }
 
 void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
+    can_stats.tx_enqueue_count++;
     CAN_peripheral_t peripheral = BUS_TO_PERIPHERAL(msg->Bus);
 
     if (xQueueSendToBack(can_tx_queues[peripheral], msg, 0) != pdPASS) {
@@ -132,6 +133,7 @@ static void CAN_drain_tx_bus(FDCAN_GlobalTypeDef *bus) {
         }
 
         PHAL_FDCAN_send(&tx_msg);
+        can_stats.tx_sent_count++;
     }
 
     /*
@@ -144,6 +146,7 @@ static void CAN_drain_tx_bus(FDCAN_GlobalTypeDef *bus) {
 
 void CAN_tx_update(void) {
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+    can_stats.tx_task_wake_count++;
 
 #ifdef USE_CAN1
     CAN_drain_tx_bus(CAN1);
@@ -165,4 +168,5 @@ void CAN_tx_update(void) {
 void PHAL_TX_CALLBACK(CAN_BUS_TYPE *bus) {
     (void)bus;
     CAN_wake_tx_from_ISR();
+    can_stats.tx_callback_count++;
 }

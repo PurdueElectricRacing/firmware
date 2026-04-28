@@ -1,3 +1,11 @@
+/**
+ * @file rtc_sync.h
+ * @brief Syncrhonization of the RTC peripheral with the GPS UTC time
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Shriya Balu (balu@purdue.edu)
+ */
+
 #ifndef RTC_SYNC_H
 #define RTC_SYNC_H
 
@@ -10,6 +18,5 @@ extern QueueHandle_t gps_time_queue;
 
 void RTC_sync_init(void);
 void RTC_sync_thread(void);
-
 
 #endif // RTC_SYNC_h

@@ -1,3 +1,10 @@
+/**
+ * @file can_irq.c
+ * @brief Timestamped frame producers from CAN RX IRQ
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include "can_irq.h"
 
 #include "can_library/generated/VCAN.h"

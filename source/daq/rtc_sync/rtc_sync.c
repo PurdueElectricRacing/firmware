@@ -1,8 +1,16 @@
+/**
+ * @file rtc_sync.c
+ * @brief Syncrhonization of the RTC peripheral with the GPS UTC time
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Shriya Balu (balu@purdue.edu)
+ */
+
 #include "rtc_sync.h"
 #include "common/phal/rtc.h"
 #include "main.h"
 
-static constexpr uint32_t RTC_SYNC_PERIOD_MS = 60 * 1000;
+static constexpr uint32_t RTC_SYNC_PERIOD_MS = 30 * 1000;
 DEFINE_QUEUE(gps_time_queue, timestamped_frame_t, 1);
 volatile uint32_t last_RTC_sync_time = 0;
 
@@ -52,13 +60,16 @@ void RTC_sync_thread(void) {
     timestamped_frame_t gps_time;
 
     if (xQueueReceive(gps_time_queue, &gps_time, portMAX_DELAY) == pdPASS) {
-        if (last_RTC_sync_time < RTC_SYNC_PERIOD_MS && last_RTC_sync_time != 0) {
+        uint32_t now = xTaskGetTickCount();
+        if ((last_RTC_sync_time != 0) && // allow the first sync immediately
+            (now - last_RTC_sync_time) < RTC_SYNC_PERIOD_MS) {
             return;
         }
+
         RTC_timestamp_t gps_rtc_time = RTC_from_gps(gps_time);
         
         if (PHAL_configureRTC(&gps_rtc_time, true)) {
-            last_RTC_sync_time = xTaskGetTickCount();
+            last_RTC_sync_time = now;
         } else {
             HardFault_Handler();
         }

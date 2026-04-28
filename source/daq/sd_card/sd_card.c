@@ -21,12 +21,6 @@ static constexpr uint32_t SD_WRITE_PERIOD_MS = 100;
 static constexpr uint32_t SD_NEW_FILE_PERIOD_MS = 1 * 60 * 1000; // 1 min
 static constexpr uint32_t SD_ERROR_RETRY_MS = 250;
 
-static FRESULT sd_create_new_file(void);
-static inline void sd_file_sync(void);
-static void sd_write_periodic();
-static void sd_handle_error(sd_error_t sd_error, FRESULT result);
-static void sd_reset_error(void);
-
 SD_manager_t sd_manager = {
     // SD Card
     .sd_state           = SD_STATE_IDLE,

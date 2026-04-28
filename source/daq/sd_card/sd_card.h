@@ -37,7 +37,7 @@ typedef struct {
     sd_error_t sd_last_err;
     FRESULT sd_last_err_res;
     uint32_t sd_last_error_time;
-    xTaskHandle sd_task_handle;
+    osThreadId_t sd_task_handle;
 
     FIL log_fp;
     uint32_t log_start_ms;
@@ -46,7 +46,6 @@ typedef struct {
     bool log_enable_sw; //!< Debounced switch state
     bool log_enable_tcp;
 } SD_manager_t;
-
 extern SD_manager_t sd_manager;
 
 bool daq_request_sd_mount(void);

@@ -84,7 +84,7 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
     uint8_t pll_input_divisor     = RCC_MIN_PLL_INPUT_DIVISOR; // PLLM
     uint8_t pll_output_multiplier = RCC_MIN_PLL_OUTPUT_MULTIPLIER; // PLLN
     bool valid_rate               = false;
-    for (; pll_input_divisor <= RCC_MAX_PLL_INPUT_DIVISOR; pll_input_divisor++) // PLLM must be 1 to 16 
+    for (; pll_input_divisor < RCC_MAX_PLL_INPUT_DIVISOR; pll_input_divisor++) // PLLM must be 1 to 16 
     {
         // VCO input frequency = PLL input clock frequency / PLLM with 1 <= PLLM <= 16
         uint32_t pll_vco_in_rate = pll_input_f_hz / pll_input_divisor;
@@ -135,34 +135,20 @@ bool PHAL_configurePLLSystemClock(uint32_t system_clock_target_hz) {
     if (pll_q_divisor <= 1 || pll_q_divisor > 15) {
         return false;
     }
-    
-    uint32_t pll_q_encoding = 0;
-    uint32_t pll_r_encoding = 0; // set to divide by 2
-
-    switch (pll_q_divisor) {
-        case 2:
-            pll_q_encoding = 0;
-            break;
-        case 4:
-            pll_q_encoding = 1;
-            break;
-        case 6:
-            pll_q_encoding = 2;
-            break;
-        case 8:
-            pll_q_encoding = 3;
-            break;
-        default:
-            return false;
-    }
 
     // 1. Clear the fields
     RCC->PLLCFGR &= ~(RCC_PLLCFGR_PLLPDIV_Msk | RCC_PLLCFGR_PLLR_Msk | RCC_PLLCFGR_PLLQ_Msk);
 
-    // 2. Program PLL output divisors using the computed values
-    RCC->PLLCFGR |= (pll_r_encoding << RCC_PLLCFGR_PLLR_Pos);
-    RCC->PLLCFGR |= (pll_q_encoding << RCC_PLLCFGR_PLLQ_Pos);
-    RCC->PLLCFGR |= (pll_p_divisor << RCC_PLLCFGR_PLLPDIV_Pos);
+    // 2. Set PLLR to Divide by 2 (00)
+    // Clearing mask sets all to divide by 0, but we're being explicit to be clear
+    RCC->PLLCFGR |= (0 << RCC_PLLCFGR_PLLR_Pos); 
+    // PLLQ to divide by 2
+    RCC->PLLCFGR |= (0 << RCC_PLLCFGR_PLLQ_Pos);
+    // PLLPDIV to divide by 2
+    RCC->PLLCFGR |= (2 << RCC_PLLCFGR_PLLPDIV_Pos);
+
+    // Enable output for P, Q and R
+    RCC->PLLCFGR |= RCC_PLLCFGR_PLLREN | RCC_PLLCFGR_PLLQEN | RCC_PLLCFGR_PLLPEN;
 
     __DSB(); // Wait for explicit memory accesses to finish
 
@@ -177,9 +163,7 @@ bool PHAL_configurePLLSystemClock(uint32_t system_clock_target_hz) {
     // Range 1 boost mode (150 MHz < SYSCLK <= 170 MHz) 
     if (system_clock_target_hz > 150'000'000) {
         //  1. The system clock must be divided by 2 using the AHB prescaler before switching to a higher system frequency
-        RCC->CFGR &= ~RCC_CFGR_HPRE_Msk;
-        RCC->CFGR |= RCC_CFGR_HPRE_DIV2;
-        AHBClockRateHz = SystemCoreClock / 2U;
+        PHAL_configureAHBClock(system_clock_target_hz / 2);         
 
         // 2. Clear the R1MODE bit is in the PWR_CR5 register (enables boost mode)
         PWR->CR5 &= ~PWR_CR5_R1MODE;
@@ -207,7 +191,6 @@ bool PHAL_configurePLLSystemClock(uint32_t system_clock_target_hz) {
     FLASH->ACR = flash_acr_temp;
 
     __DSB(); // Wait for explicit memory accesses to finish
-    RCC->CFGR &= ~RCC_CFGR_SW; // Clear system clock switch bits
     RCC->CFGR |= RCC_CFGR_SW_PLL; // Set system clock switch register to PLL
     while ((RCC->CFGR & RCC_CFGR_SWS_PLL) != RCC_CFGR_SWS_PLL) // Wait for PLL to be the new system clock
         ;

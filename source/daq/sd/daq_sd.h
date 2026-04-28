@@ -1,3 +1,12 @@
+/**
+ * @file sd.h
+ * @brief Logging of received bus messages onto an SD card
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Eileen Yoon (eyn@purdue.edu)
+ * @author Luke Oxley (lcoxley@purdue.edu)
+ */
+
 #ifndef __DAQ_SD_H__
 #define __DAQ_SD_H__
 

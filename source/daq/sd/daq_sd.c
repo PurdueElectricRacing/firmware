@@ -1,3 +1,11 @@
+/**
+ * @file sd.c
+ * @brief Logging of received bus messages onto an SD card
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Eileen Yoon (eyn@purdue.edu)
+ * @author Luke Oxley (lcoxley@purdue.edu)
+ */
 
 #include "daq_sd.h"
 

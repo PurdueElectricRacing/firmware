@@ -91,23 +91,6 @@ SPI_InitConfig_t eth_spi_config = {
     .periph        = SPI1,
 };
 
-daq_hub_t daq_hub = {
-    // SD Card
-    .sd_state           = SD_STATE_IDLE,
-    .sd_error_ct        = 0,
-    .sd_last_error_time = 0,
-    .sd_last_err        = SD_ERROR_NONE,
-    .sd_last_err_res    = 0,
-    .sd_task_handle     = NULL,
-    
-    .last_file_ms       = 0,
-    .last_write_ms      = 0,
-    .log_enable_sw      = false,
-
-    .can1_rx_overflow   = 0,
-    .sd_rx_overflow     = 0
-};
-
 DEFINE_MUTEX(spi1_lock);
 
 static void configure_interrupts(void);

@@ -201,7 +201,7 @@ static DRESULT _sdio_disk_write(
         return (res);
     }
 
-    daq_hub.sd_task_handle = xTaskGetCurrentTaskHandle();
+    sd_manager.sd_task_handle = xTaskGetCurrentTaskHandle();
     Status = SD_WriteMultiBlocks((uint8_t*)buff, sector << 9, BLOCK_SIZE, count); // 4GB Compliant
     ulNotificationValue = ulTaskNotifyTake(pdFALSE, SD_BLOCKING_TIMEOUT_TICKS);
 

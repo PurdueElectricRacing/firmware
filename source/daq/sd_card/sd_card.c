@@ -27,30 +27,43 @@ static void sd_write_periodic();
 static void sd_handle_error(sd_error_t sd_error, FRESULT result);
 static void sd_reset_error(void);
 
+SD_manager_t sd_manager = {
+    // SD Card
+    .sd_state           = SD_STATE_IDLE,
+    .sd_error_ct        = 0,
+    .sd_last_error_time = 0,
+    .sd_last_err        = SD_ERROR_NONE,
+    .sd_last_err_res    = 0,
+    .sd_task_handle     = NULL,
+    .last_file_ms       = 0,
+    .last_write_ms      = 0,
+    .log_enable_sw      = false
+};
+
 bool daq_request_sd_mount(void) {
-    return daq_hub.sd_state == SD_STATE_MOUNTED || daq_hub.sd_state == SD_STATE_ACTIVE;
+    return sd_manager.sd_state == SD_STATE_MOUNTED || sd_manager.sd_state == SD_STATE_ACTIVE;
 }
 
 static void sd_handle_error(sd_error_t sd_error, FRESULT result) {
-    ++daq_hub.sd_error_ct;
-    daq_hub.sd_last_err        = sd_error;
-    daq_hub.sd_last_err_res    = result;
-    daq_hub.sd_last_error_time = xTaskGetTickCount();
-    // PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 1);
+    ++sd_manager.sd_error_ct;
+    sd_manager.sd_last_err        = sd_error;
+    sd_manager.sd_last_err_res    = result;
+    sd_manager.sd_last_error_time = xTaskGetTickCount();
+    PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 1);
 }
 
 static void sd_reset_error(void) {
     // Do not retry immediately
-    if (!(xTaskGetTickCount() - daq_hub.sd_last_error_time > SD_ERROR_RETRY_MS)) {
+    if (!(xTaskGetTickCount() - sd_manager.sd_last_error_time > SD_ERROR_RETRY_MS)) {
         return;
     }
 
-    daq_hub.sd_last_error_time = xTaskGetTickCount();
-    if (daq_hub.sd_last_err != SD_ERROR_NONE) {
-        daq_hub.sd_state        = SD_STATE_IDLE; // Retry
-        daq_hub.sd_last_err     = SD_ERROR_NONE;
-        daq_hub.sd_last_err_res = 0;
-        // PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 0);
+    sd_manager.sd_last_error_time = xTaskGetTickCount();
+    if (sd_manager.sd_last_err != SD_ERROR_NONE) {
+        sd_manager.sd_state        = SD_STATE_IDLE; // Retry
+        sd_manager.sd_last_err     = SD_ERROR_NONE;
+        sd_manager.sd_last_err_res = 0;
+        PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 0);
     }
 }
 
@@ -76,20 +89,20 @@ static FRESULT sd_create_new_file(void) {
         sprintf(f_name, "log-%0ld.log", (unsigned long)log_num);
     }
 
-    result = f_open(&daq_hub.log_fp, f_name, FA_OPEN_APPEND | FA_READ | FA_WRITE);
+    result = f_open(&sd_manager.log_fp, f_name, FA_OPEN_APPEND | FA_READ | FA_WRITE);
     if (result != FR_OK) {
         sd_handle_error(SD_ERROR_FOPEN, result);
         return result;
     }
 
     log_num++;
-    daq_hub.last_file_ms = xTaskGetTickCount();
+    sd_manager.last_file_ms = xTaskGetTickCount();
 
     return result;
 }
 
 static inline void sd_file_sync(void) {
-    FRESULT res = f_sync(&daq_hub.log_fp);
+    FRESULT res = f_sync(&sd_manager.log_fp);
     if (res != FR_OK) {
         sd_handle_error(SD_ERROR_SYNC, res);
     }
@@ -97,7 +110,7 @@ static inline void sd_file_sync(void) {
 
 // todo reevaluate the logic here
 static void sd_write_periodic() {
-    if (daq_hub.sd_state != SD_STATE_ACTIVE) {
+    if (sd_manager.sd_state != SD_STATE_ACTIVE) {
         return;
     }
 
@@ -113,13 +126,13 @@ static void sd_write_periodic() {
 
     UINT bytes_written; // updated to by f_write()
     size_t total_bytes = SPMC_CHUNK_NUM_FRAMES * sizeof(timestamped_frame_t);
-    FRESULT result     = f_write(&daq_hub.log_fp, frame, total_bytes, &bytes_written);
+    FRESULT result     = f_write(&sd_manager.log_fp, frame, total_bytes, &bytes_written);
     if (result != FR_OK) {
         // todo check bytes written
         sd_handle_error(SD_ERROR_WRITE, result);
     } else {
         // success
-        daq_hub.last_write_ms = xTaskGetTickCount();
+        sd_manager.last_write_ms = xTaskGetTickCount();
         SPMC_master_advance_tail(&g_spmc);
         sd_file_sync(); // fsync takes only 4 ticks and ensures sure cache is flushed on close
     }
@@ -128,11 +141,11 @@ static void sd_write_periodic() {
 }
 
 void sd_shutdown(void) {
-    switch (daq_hub.sd_state) {
+    switch (sd_manager.sd_state) {
         case SD_STATE_ACTIVE:
             // sd_write_periodic(true); // Finish write (bypass count limit)
             sd_file_sync(); // Flush cache
-            f_close(&daq_hub.log_fp); // Close file
+            f_close(&sd_manager.log_fp); // Close file
             // ! intentional fall through
         case SD_STATE_MOUNTED:
             f_mount(0, "", 1); // Unmount drive
@@ -141,7 +154,7 @@ void sd_shutdown(void) {
             SD_DeInit(); // Shutdown SDIO peripheral
             // ! intentional fall through
         default:
-            daq_hub.sd_state = SD_STATE_IDLE;
+            sd_manager.sd_state = SD_STATE_IDLE;
             PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
             PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
             // PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 0);
@@ -152,8 +165,8 @@ void sd_shutdown(void) {
 void sd_update_periodic(void) {
     FRESULT result;
 
-    daq_hub.log_enable_sw = PHAL_readGPIO(LOG_ENABLE_PORT, LOG_ENABLE_PIN);
-    if (!daq_hub.log_enable_sw) {
+    sd_manager.log_enable_sw = PHAL_readGPIO(LOG_ENABLE_PORT, LOG_ENABLE_PIN);
+    if (!sd_manager.log_enable_sw) {
         PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
         sd_shutdown();
         return;
@@ -161,36 +174,36 @@ void sd_update_periodic(void) {
         PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
     }
 
-    switch (daq_hub.sd_state) {
+    switch (sd_manager.sd_state) {
         case SD_STATE_IDLE:
             if (SD_Detect() != SD_PRESENT) {
                 PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
                 break;
             }
 
-            result = f_mount(&daq_hub.fat_fs, "", 1);
+            result = f_mount(&sd_manager.fat_fs, "", 1);
             if (result != FR_OK) {
                 sd_handle_error(SD_ERROR_MOUNT, result);
                 PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
                 break;
             }
 
-            daq_hub.sd_state = SD_STATE_MOUNTED;
+            sd_manager.sd_state = SD_STATE_MOUNTED;
             PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
             break;
         case SD_STATE_MOUNTED:
             result = sd_create_new_file();
             if (result == FR_OK) {
-                daq_hub.sd_state     = SD_STATE_ACTIVE;
-                daq_hub.log_start_ms = xTaskGetTickCount();
+                sd_manager.sd_state     = SD_STATE_ACTIVE;
+                sd_manager.log_start_ms = xTaskGetTickCount();
             }
             break;
         case SD_STATE_ACTIVE:
-            if (xTaskGetTickCount() - daq_hub.last_write_ms > SD_WRITE_PERIOD_MS) {
+            if (xTaskGetTickCount() - sd_manager.last_write_ms > SD_WRITE_PERIOD_MS) {
                 sd_write_periodic();
             }
 
-            if (xTaskGetTickCount() - daq_hub.last_file_ms > SD_NEW_FILE_PERIOD_MS) {
+            if (xTaskGetTickCount() - sd_manager.last_file_ms > SD_NEW_FILE_PERIOD_MS) {
                 sd_create_new_file();
             }
             break;

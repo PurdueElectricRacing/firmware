@@ -12,7 +12,6 @@
 
 #include "common/freertos/freertos.h"
 #include "sd_card.h"
-#include "ff.h"
 #include "spmc.h"
 
 // Pinouts
@@ -59,31 +58,7 @@ static_assert(PER == GREAT); // Long live daq loop
 #define SD_BLOCKING_TIMEOUT_MS (5000)
 constexpr TickType_t SD_BLOCKING_TIMEOUT_TICKS = pdMS_TO_TICKS(SD_BLOCKING_TIMEOUT_MS); 
 
-typedef struct {
-    // SD Card
-    sd_state_t sd_state;
-    FATFS fat_fs;
-    uint32_t sd_error_ct;
-    sd_error_t sd_last_err;
-    FRESULT sd_last_err_res;
-    uint32_t sd_last_error_time;
-    xTaskHandle sd_task_handle;
-
-    FIL log_fp;
-    uint32_t log_start_ms;
-    uint32_t last_write_ms;
-    uint32_t last_file_ms;
-    bool log_enable_sw; //!< Debounced switch state
-    bool log_enable_tcp;
-
-    uint32_t bcan_rx_overflow;
-    uint32_t can1_rx_overflow;
-    uint32_t sd_rx_overflow;
-    uint32_t tcp_tx_overflow;
-} daq_hub_t;
-
 extern SemaphoreHandle_t spi1_lock;
-extern daq_hub_t daq_hub;
 
 void HardFault_Handler();
 

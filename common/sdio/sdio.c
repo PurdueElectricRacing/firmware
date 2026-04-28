@@ -1510,9 +1510,9 @@ void DMA2_Stream6_IRQHandler(void) {
         // Old end of transfer flag
         DMAEndOfTransfer = 0x01;
 
-        if(daq_hub.sd_task_handle != NULL) {
-            vTaskNotifyGiveFromISR(daq_hub.sd_task_handle, &xHigherPriorityTaskWoken);
-            daq_hub.sd_task_handle = NULL;
+        if(sd_manager.sd_task_handle != NULL) {
+            vTaskNotifyGiveFromISR(sd_manager.sd_task_handle, &xHigherPriorityTaskWoken);
+            sd_manager.sd_task_handle = NULL;
             //portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
             // i probably should figure out why this is bad for wait read idk
         }

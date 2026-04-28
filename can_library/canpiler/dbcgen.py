@@ -62,7 +62,7 @@ def generate_dbcs(context: SystemContext):
                     name=sig.name,
                     start=sig.bit_offset,
                     length=sig.length,
-                    byte_order=msg.byte_order,
+                    byte_order=sig.byte_order,
                     is_signed=sig.is_signed,
                     conversion=conversion,
                     minimum=sig.min_val,

@@ -8,14 +8,14 @@
 #include "watchdog.h"
 
 #if defined(STM32F407xx)
-#include "stm32f4xx.h"
+#include "stm32f407xx.h"
 #elif defined(STM32G474xx)
-#include "stm32g4xx.h"
+#include "stm32g474xx.h"
 #else
 #error "unsupported watchdog arch"
 #endif
 
-void WDG_init() {
+void WDG_init(void) {
     IWDG->KR = 0x5555;
     IWDG->PR = (IWDG_PR_PR_1 | IWDG_PR_PR_0);
     IWDG->RLR = WATCHDOG_TIMEOUT_MS;

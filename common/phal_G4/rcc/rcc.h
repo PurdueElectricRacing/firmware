@@ -13,26 +13,29 @@
 
 #include "common/phal_G4/phal_G4.h"
 
-#define HSE_CLOCK_RATE_HZ (16000000)
+#define HSE_CLOCK_RATE_HZ (16'000'000)
 
 #define HSE_CLOCK_RATE_HZ_INVALID (1) /* High Speed External oscilator value */
 #ifndef HSE_CLOCK_RATE_HZ
 #define HSE_CLOCK_RATE_HZ HSE_CLOCK_RATE_HZ_INVALID /* Define this in order to configure clocks to use the HSE clock */
 #endif // HSE_CLOCK_RATE_HZ
 
-#define HSI_CLOCK_RATE_HZ (16000000)
+#define HSI_CLOCK_RATE_HZ (16'000'000)
 #define MCO_OUT_PIN       (8)
 
 // RCC Constants
 #if defined(STM32G474xx)
 
-#define RCC_MAX_VCO_RATE_HZ           ((uint32_t)128e6)
-#define RCC_MIN_VCO_RATE_HZ           ((uint32_t)96e6)
-#define RCC_MIN_PLL_INPUT_DIVISOR     (2U)
-#define RCC_MAX_PLL_INPUT_DIVISOR     (63U)
-#define RCC_MIN_PLL_OUTPUT_MULTIPLIER (50U)
-#define RCC_MAX_PLL_OUTPUT_MULTIPLIER (432U)
-#define RCC_MAX_SYSCLK_TARGET_HZ      (168000000)
+// TODO: update these based on voltage scaling, current max/min VCO rates are for range 1 voltage scaling
+#define RCC_MAX_VCO_RATE_HZ           ((uint32_t)344e6)
+#define RCC_MIN_VCO_RATE_HZ           ((uint32_t)64e6)
+
+// RM0440 section 7.2.4 PLL defines PLL input divisor (PLLM) 
+#define RCC_MIN_PLL_INPUT_DIVISOR     (1U)
+#define RCC_MAX_PLL_INPUT_DIVISOR     (16U)
+#define RCC_MIN_PLL_OUTPUT_MULTIPLIER (8U)
+#define RCC_MAX_PLL_OUTPUT_MULTIPLIER (127U)
+#define RCC_MAX_SYSCLK_TARGET_HZ      (170'000'000)
 
 #else
 #error "Please define a MCU arch"

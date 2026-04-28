@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['i_20look_20at_0',['Which one should I look at?',['../md_docs_2datasheets_2README.html#autotoc_md48',1,'']]],
-  ['id_20assignment_20scheme_1',['2026 AMK CAN ID Assignment Scheme',['../md_common_2amk_2README.html#autotoc_md37',1,'']]],
+  ['i_20look_20at_0',['Which one should I look at?',['../md_docs_2datasheets_2README.html#autotoc_md53',1,'']]],
+  ['id_20assignment_20scheme_1',['2026 AMK CAN ID Assignment Scheme',['../md_common_2amk_2README.html#autotoc_md42',1,'']]],
   ['ide_2',['IDE',['../structCanMsgTypeDef__t.html#a9dea647c93d4bef0e061c85ad3b5cfa0',1,'CanMsgTypeDef_t']]],
   ['idx_3',['idx',['../structPHAL__SD__Cmd__t.html#ae1119095bd6a8e4a24627b97fe818eaa',1,'PHAL_SD_Cmd_t']]],
   ['imu_2ec_4',['imu.c',['../imu_8c.html',1,'']]],
@@ -15,8 +15,8 @@ var searchData=
   ['initialization_12',['Initialization',['../md_source_2a__box_2adbms_2README.html#autotoc_md8',1,'']]],
   ['initialize_5fcalibration_13',['initialize_calibration',['../imu_8c.html#a3da0b33ad58b4a9b357b9ae12a3707b6',1,'initialize_calibration(void):&#160;imu.c'],['../sensors_8h.html#a3da0b33ad58b4a9b357b9ae12a3707b6',1,'initialize_calibration(void):&#160;imu.c']]],
   ['input_14',['Input',['../md_source_2torque__vector_2vcu_2TV_01Interface.html',1,'']]],
-  ['inputs_3a_15',['Inputs:',['../md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md32',1,'']]],
-  ['install_20extensions_16',['Install Extensions',['../md_docs_2setup.html#autotoc_md61',1,'']]],
+  ['inputs_3a_15',['Inputs:',['../md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md37',1,'']]],
+  ['install_20extensions_16',['Install Extensions',['../md_docs_2setup.html#autotoc_md66',1,'']]],
   ['instructions_17',['PER Firmware Setup Instructions',['../md_docs_2setup.html',1,'']]],
   ['is_20deprecated_18',['THIS MODULE IS DEPRECATED',['../md_common_2bmi088_2README.html',1,'']]],
   ['is_5fbalancing_5fenabled_19',['is_balancing_enabled',['../structadbms__bms__t.html#aab87eec2db519f610e2f4a751437aeda',1,'adbms_bms_t']]],

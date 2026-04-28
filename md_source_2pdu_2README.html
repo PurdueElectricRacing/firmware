@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: PDU</title>
+<title>PER Firmware: PDU Firmware</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -97,11 +97,104 @@ $(function(){initNavTree('md_source_2pdu_2README.html',''); initResizable(true);
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">PDU</div></div>
+  <div class="headertitle"><div class="title">PDU Firmware</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="autotoc_md27"></a></p>
-<p>PDU is responsible for controlling and monitoring critical power rails and cooling loops. </p>
+<p>PDU controls and monitors low-voltage power rails and cooling hardware for the car.</p>
+<h1><a class="anchor" id="autotoc_md28"></a>
+Responsibilities</h1>
+<ul>
+<li>Control switchable rails (GPIO outputs).</li>
+<li>Sample ADC channels for rail voltage/current telemetry.</li>
+<li>Scan rail nFAULT lines and report/latch faults.</li>
+<li>Control fan/pump/hxfan outputs and fan PWM duty cycles.</li>
+<li>Publish PDU telemetry and coolant output status over CAN.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md29"></a>
+Module Layout</h1>
+<ul>
+<li><code>main.c</code><ul>
+<li>Board init, peripheral init, task definitions, task startup order.</li>
+<li>No business logic beyond orchestration.</li>
+</ul>
+</li>
+<li><code><a class="el" href="state_8h_source.html">state.h</a>/.c</code><ul>
+<li>Shared runtime state (<code>g_pdu_state</code>) for all PDU logic.</li>
+</ul>
+</li>
+<li><code><a class="el" href="switches_8h_source.html">switches.h</a>/.c</code><ul>
+<li>Switch command/read API.</li>
+<li>ADC and mux measurement pipeline.</li>
+<li>Rail current/voltage conversions.</li>
+<li>Default-rail enable sequence.</li>
+</ul>
+</li>
+<li><code>faults.h/.c</code><ul>
+<li>Table-driven nFAULT polling.</li>
+<li>One-fault-slot-per-cycle update cadence.</li>
+<li>Rail fault LED behavior.</li>
+</ul>
+</li>
+<li><code><a class="el" href="cooling_8h_source.html">cooling.h</a>/.c</code><ul>
+<li>Cooling policy computation.</li>
+<li>Cooling actuation (switches + fan PWM).</li>
+<li>Cooling CAN output publication.</li>
+</ul>
+</li>
+<li><code><a class="el" href="cooling__bangbang_8h_source.html">cooling_bangbang.h</a>/.c</code><ul>
+<li>Optional bang-bang policy backend.</li>
+<li>Compiled in but disabled by default.</li>
+</ul>
+</li>
+<li><code>telemetry.h/.c</code><ul>
+<li>Power/thermal telemetry CAN publication.</li>
+<li>Flowrate telemetry CAN publication.</li>
+</ul>
+</li>
+<li>Hardware adapter modules (kept separate):<ul>
+<li><code>led/</code></li>
+<li><code>fan_control/</code></li>
+<li><code>flow_rate/</code></li>
+</ul>
+</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md30"></a>
+Runtime State (<code>g_pdu_state</code>)</h1>
+<p>The shared state contains:</p>
+<ul>
+<li><code>rail_voltage_mv</code> for 24V/5V/3V3 measurements.</li>
+<li><code>switch_current_ma[]</code> for sensed currents (switch and rail channels).</li>
+<li><code>mux_adc_counts[]</code> and <code>next_mux_channel</code> for mux-sampled inputs.</li>
+<li><code>next_rail_fault_index</code> for staggered rail fault scanning.</li>
+<li><code>cooling_command</code> for requested/applied cooling outputs.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md31"></a>
+Task Model</h1>
+<p>Defined in <code>main.c</code>:</p>
+<ul>
+<li><code>CAN_rx_update</code> (0 ms)</li>
+<li><code>CAN_tx_update</code> (5 ms)</li>
+<li><code>switches_periodic</code> (15 ms)</li>
+<li><code>cooling_periodic</code> (100 ms)</li>
+<li><code>faults_periodic</code> (100 ms)</li>
+<li><code>fault_library_periodic</code> (100 ms)</li>
+<li><code>telemetry_flow_periodic</code> (200 ms)</li>
+<li><code>LED_periodic</code> (500 ms)</li>
+<li><code>telemetry_power_periodic</code> (500 ms)</li>
+<li>Heartbeat task (LED sweep callback)</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md32"></a>
+Cooling Backend: Bang-Bang (Disabled by Default)</h1>
+<p>The bang-bang backend is present for future policy work, but disabled to preserve current behavior.</p>
+<ul>
+<li>Toggle: <code>COOLING_ENABLE_BANGBANG</code> in <code><a class="el" href="cooling__bangbang_8h_source.html">cooling_bangbang.h</a></code><ul>
+<li><code>0</code> (default): backend is a no-op.</li>
+<li><code>1</code>: motor temp based bang-bang updates are applied.</li>
+</ul>
+</li>
+</ul>
+<p>Current non-bangbang behavior remains the active policy path. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

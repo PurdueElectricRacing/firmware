@@ -11,9 +11,7 @@ var searchData=
   ['common_5fdefs_2eh_8',['common_defs.h',['../common__defs_8h.html',1,'']]],
   ['control_5floop_2ec_9',['control_loop.c',['../control__loop_8c.html',1,'']]],
   ['control_5floop_2eh_10',['control_loop.h',['../control__loop_8h.html',1,'']]],
-  ['cooling_2ec_11',['cooling.c',['../cooling_8c.html',1,'']]],
-  ['cooling_2eh_12',['cooling.h',['../cooling_8h.html',1,'']]],
-  ['countof_2eh_13',['countof.h',['../countof_8h.html',1,'']]],
-  ['crc_2ec_14',['crc.c',['../crc_8c.html',1,'']]],
-  ['crc_2eh_15',['crc.h',['../phal__F4__F7_2crc_2crc_8h.html',1,'']]]
+  ['countof_2eh_11',['countof.h',['../countof_8h.html',1,'']]],
+  ['crc_2ec_12',['crc.c',['../crc_8c.html',1,'']]],
+  ['crc_2eh_13',['crc.h',['../phal__F4__F7_2crc_2crc_8h.html',1,'']]]
 ];

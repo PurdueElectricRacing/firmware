@@ -1,8 +1,8 @@
 var searchData=
 [
   ['g4_20testing_0',['G4 Testing',['../md_source_2g4__testing_2README.html',1,'']]],
-  ['get_5fled_5fstatus_1',['get_LED_status',['../led_8c.html#ab2644007c0a1014ac3229035bd76a257',1,'get_LED_status(int led):&#160;led.c'],['../led_8h.html#ab2644007c0a1014ac3229035bd76a257',1,'get_LED_status(int led):&#160;led.c']]],
-  ['getswitchstatus_2',['getSwitchStatus',['../auto__switch_8c.html#a9615dad272d72b1eda4edb0eabf3c4ae',1,'getSwitchStatus(switches_t auto_switch_enum):&#160;auto_switch.c'],['../auto__switch_8h.html#a9615dad272d72b1eda4edb0eabf3c4ae',1,'getSwitchStatus(switches_t auto_switch_enum):&#160;auto_switch.c']]],
+  ['g_5fpdu_5fstate_20tt_1',['Runtime State (&lt;tt&gt;g_pdu_state&lt;/tt&gt;)',['../md_source_2pdu_2README.html#autotoc_md30',1,'']]],
+  ['get_5fled_5fstatus_2',['get_LED_status',['../led_8c.html#ab2644007c0a1014ac3229035bd76a257',1,'get_LED_status(int led):&#160;led.c'],['../led_8h.html#ab2644007c0a1014ac3229035bd76a257',1,'get_LED_status(int led):&#160;led.c']]],
   ['gettaskhandle_3',['getTaskHandle',['../freertos_8h.html#a3de6343dd1d29b508dd7d52f93416750',1,'freertos.h']]],
   ['getting_20started_4',['Getting Started',['../md_README.html#autotoc_md3',1,'']]],
   ['gpio_2ec_5',['gpio.c',['../phal__G4_2gpio_2gpio_8c.html',1,'']]],

@@ -6,6 +6,5 @@ var searchData=
   ['adcchannelconfig_5ft_3',['ADCChannelConfig_t',['../structADCChannelConfig__t.html',1,'']]],
   ['adcinitconfig_5ft_4',['ADCInitConfig_t',['../structADCInitConfig__t.html',1,'']]],
   ['amk_5fobjects_5ft_5',['AMK_objects_t',['../structAMK__objects__t.html',1,'']]],
-  ['amk_5ft_6',['AMK_t',['../structAMK__t.html',1,'']]],
-  ['auto_5fswitches_5ft_7',['auto_switches_t',['../structauto__switches__t.html',1,'']]]
+  ['amk_5ft_6',['AMK_t',['../structAMK__t.html',1,'']]]
 ];

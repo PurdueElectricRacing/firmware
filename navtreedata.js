@@ -59,21 +59,27 @@ var NAVTREE =
     [ "F4 Testing", "md_source_2f4__testing_2README.html", null ],
     [ "G4 Testing", "md_source_2g4__testing_2README.html", null ],
     [ "Main Module", "md_source_2main__module_2README.html", null ],
-    [ "PDU", "md_source_2pdu_2README.html", null ],
+    [ "PDU Firmware", "md_source_2pdu_2README.html", [
+      [ "Responsibilities", "md_source_2pdu_2README.html#autotoc_md28", null ],
+      [ "Module Layout", "md_source_2pdu_2README.html#autotoc_md29", null ],
+      [ "Runtime State (g_pdu_state)", "md_source_2pdu_2README.html#autotoc_md30", null ],
+      [ "Task Model", "md_source_2pdu_2README.html#autotoc_md31", null ],
+      [ "Cooling Backend: Bang-Bang (Disabled by Default)", "md_source_2pdu_2README.html#autotoc_md32", null ]
+    ] ],
     [ "Source", "md_source_2README.html", null ],
     [ "Torque Vectoring", "md_source_2torque__vector_2README.html", null ],
     [ "Input", "md_source_2torque__vector_2vcu_2TV_01Interface.html", [
-      [ "xVCU", "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md31", [
-        [ "Inputs:", "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md32", null ]
+      [ "xVCU", "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md36", [
+        [ "Inputs:", "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md37", null ]
       ] ],
-      [ "Output", "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md33", [
-        [ "yVCU", "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md34", [
-          [ "Outputs:", "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md35", null ]
+      [ "Output", "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md38", [
+        [ "yVCU", "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md39", [
+          [ "Outputs:", "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md40", null ]
         ] ]
       ] ]
     ] ],
     [ "AMK Documentation", "md_common_2amk_2README.html", [
-      [ "2026 AMK CAN ID Assignment Scheme", "md_common_2amk_2README.html#autotoc_md37", null ]
+      [ "2026 AMK CAN ID Assignment Scheme", "md_common_2amk_2README.html#autotoc_md42", null ]
     ] ],
     [ "THIS MODULE IS DEPRECATED", "md_common_2bmi088_2README.html", null ],
     [ "README", "md_common_2freertos_2README.html", null ],
@@ -84,27 +90,27 @@ var NAVTREE =
     [ "PER Utility Functions", "md_common_2utils_2README.html", null ],
     [ "code_style", "md_docs_2code__style.html", null ],
     [ "README", "md_docs_2datasheets_2README.html", [
-      [ "Which one should I look at?", "md_docs_2datasheets_2README.html#autotoc_md48", [
-        [ "About the microcontrollers", "md_docs_2datasheets_2README.html#autotoc_md49", null ],
-        [ "Drivers", "md_docs_2datasheets_2README.html#autotoc_md50", null ],
-        [ "Hardware", "md_docs_2datasheets_2README.html#autotoc_md51", null ]
+      [ "Which one should I look at?", "md_docs_2datasheets_2README.html#autotoc_md53", [
+        [ "About the microcontrollers", "md_docs_2datasheets_2README.html#autotoc_md54", null ],
+        [ "Drivers", "md_docs_2datasheets_2README.html#autotoc_md55", null ],
+        [ "Hardware", "md_docs_2datasheets_2README.html#autotoc_md56", null ]
       ] ]
     ] ],
     [ "deploy_n_debug", "md_docs_2deploy__n__debug.html", null ],
     [ "PER Firmware Setup Instructions", "md_docs_2setup.html", [
-      [ "Tools", "md_docs_2setup.html#autotoc_md56", [
-        [ "MacOS Tools Setup", "md_docs_2setup.html#autotoc_md57", null ],
-        [ "Windows Tools Setup", "md_docs_2setup.html#autotoc_md58", null ],
-        [ "Linux Tools Setup", "md_docs_2setup.html#autotoc_md59", null ]
+      [ "Tools", "md_docs_2setup.html#autotoc_md61", [
+        [ "MacOS Tools Setup", "md_docs_2setup.html#autotoc_md62", null ],
+        [ "Windows Tools Setup", "md_docs_2setup.html#autotoc_md63", null ],
+        [ "Linux Tools Setup", "md_docs_2setup.html#autotoc_md64", null ]
       ] ],
-      [ "VSCode Setup (All OS)", "md_docs_2setup.html#autotoc_md60", [
-        [ "Install Extensions", "md_docs_2setup.html#autotoc_md61", null ],
-        [ "Turn on Autosave", "md_docs_2setup.html#autotoc_md62", null ]
+      [ "VSCode Setup (All OS)", "md_docs_2setup.html#autotoc_md65", [
+        [ "Install Extensions", "md_docs_2setup.html#autotoc_md66", null ],
+        [ "Turn on Autosave", "md_docs_2setup.html#autotoc_md67", null ]
       ] ],
-      [ "Repository Setup (All OS)", "md_docs_2setup.html#autotoc_md63", [
-        [ "Open a new terminal", "md_docs_2setup.html#autotoc_md64", null ],
-        [ "Clone PER repo", "md_docs_2setup.html#autotoc_md65", null ],
-        [ "Setup & Build", "md_docs_2setup.html#autotoc_md66", null ]
+      [ "Repository Setup (All OS)", "md_docs_2setup.html#autotoc_md68", [
+        [ "Open a new terminal", "md_docs_2setup.html#autotoc_md69", null ],
+        [ "Clone PER repo", "md_docs_2setup.html#autotoc_md70", null ],
+        [ "Setup & Build", "md_docs_2setup.html#autotoc_md71", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
@@ -131,10 +137,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "FreeRTOSConfig_8h_source.html",
-"dir_ca0569005e9160c8885651e059d864db.html",
-"nextion_8h.html#ae7d537c10e1e85e6537850a02a315fd7",
-"strbuf_8h.html",
-"vehicle__fsm_8h_source.html"
+"dir_f0fe662dd377b691366db18c58a4eadc.html",
+"pdu_2faults_2faults_8h_source.html",
+"strbuf_8h_source.html",
+"vehicle__init_8h.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

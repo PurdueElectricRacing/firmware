@@ -107,24 +107,26 @@ $(function(){initNavTree('pdu_2main_8c.html',''); initResizable(true); });
 
 <p>"PDU" node source code  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;can_library/faults_common.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="common__defs_8h_source.html">common/common_defs/common_defs.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="pdu_2main_8h_source.html">main.h</a>&quot;</code><br />
+<code>#include &quot;can_library/generated/PDU.h&quot;</code><br />
+<code>#include &quot;can_library/faults_common.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="heartbeat_8h_source.html">common/heartbeat/heartbeat.h</a>&quot;</code><br />
 <code>#include &quot;common/phal/adc.h&quot;</code><br />
 <code>#include &quot;common/phal/can.h&quot;</code><br />
 <code>#include &quot;common/phal/dma.h&quot;</code><br />
 <code>#include &quot;common/phal/gpio.h&quot;</code><br />
 <code>#include &quot;common/phal/rcc.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="heartbeat_8h_source.html">common/heartbeat/heartbeat.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="countof_8h_source.html">common/utils/countof.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="watchdog_8h_source.html">common/watchdog/watchdog.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="auto__switch_8h_source.html">auto_switch.h</a>&quot;</code><br />
-<code>#include &quot;can_library/generated/PDU.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="cooling_8h_source.html">cooling.h</a>&quot;</code><br />
+<code>#include &quot;cooling.h&quot;</code><br />
 <code>#include &quot;fan_control.h&quot;</code><br />
+<code>#include &quot;faults.h&quot;</code><br />
 <code>#include &quot;flow_rate.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="led_8h_source.html">led.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="pdu_2main_8h_source.html">main.h</a>&quot;</code><br />
+<code>#include &quot;state.h&quot;</code><br />
+<code>#include &quot;switches.h&quot;</code><br />
+<code>#include &quot;telemetry.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -137,42 +139,33 @@ Functions</h2></td></tr>
 <tr class="memitem:a2af56a8bf3197b2f06cac4c0b84ffc3e" id="r_a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memItemLeft" align="right" valign="top"><a id="a2af56a8bf3197b2f06cac4c0b84ffc3e" name="a2af56a8bf3197b2f06cac4c0b84ffc3e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>HardFault_Handler</b> ()</td></tr>
 <tr class="separator:a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afef31b64be658f62747f5ae34f9bacdd" id="r_afef31b64be658f62747f5ae34f9bacdd"><td class="memItemLeft" align="right" valign="top"><a id="afef31b64be658f62747f5ae34f9bacdd" name="afef31b64be658f62747f5ae34f9bacdd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>send_iv_readings</b> ()</td></tr>
-<tr class="separator:afef31b64be658f62747f5ae34f9bacdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7a4ebf8321efc467754ed8e2295b790" id="r_ab7a4ebf8321efc467754ed8e2295b790"><td class="memItemLeft" align="right" valign="top"><a id="ab7a4ebf8321efc467754ed8e2295b790" name="ab7a4ebf8321efc467754ed8e2295b790"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>send_flowrates</b> ()</td></tr>
-<tr class="separator:ab7a4ebf8321efc467754ed8e2295b790"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a030bfc73223143b394343fa39d98695c" id="r_a030bfc73223143b394343fa39d98695c"><td class="memItemLeft" align="right" valign="top"><a id="a030bfc73223143b394343fa39d98695c" name="a030bfc73223143b394343fa39d98695c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>sparkle_leds</b> ()</td></tr>
-<tr class="separator:a030bfc73223143b394343fa39d98695c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a577e29103ef4d1e1121dc63cfb074498" id="r_a577e29103ef4d1e1121dc63cfb074498"><td class="memItemLeft" align="right" valign="top"><a id="a577e29103ef4d1e1121dc63cfb074498" name="a577e29103ef4d1e1121dc63cfb074498"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_CAN_TASKS</b> ()</td></tr>
 <tr class="separator:a577e29103ef4d1e1121dc63cfb074498"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa13004782e2d6cec1c64faffead92471" id="r_aa13004782e2d6cec1c64faffead92471"><td class="memItemLeft" align="right" valign="top"><a id="aa13004782e2d6cec1c64faffead92471" name="aa13004782e2d6cec1c64faffead92471"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="auto__switch_8c.html#a467332216958e3faa3f70724fcf10194">autoSwitchPeriodic</a>, 15, osPriorityNormal, STACK_512)</td></tr>
-<tr class="separator:aa13004782e2d6cec1c64faffead92471"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8bf2ffa0fb5da3ab407685928aa9941" id="r_af8bf2ffa0fb5da3ab407685928aa9941"><td class="memItemLeft" align="right" valign="top"><a id="af8bf2ffa0fb5da3ab407685928aa9941" name="af8bf2ffa0fb5da3ab407685928aa9941"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="cooling_8c.html#a3e02c27284622cd9e494e2af92cbe398">update_cooling_periodic</a>, 100, osPriorityNormal, STACK_1024)</td></tr>
-<tr class="separator:af8bf2ffa0fb5da3ab407685928aa9941"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a082f0f57c132876789ef9bbaa7b6b467" id="r_a082f0f57c132876789ef9bbaa7b6b467"><td class="memItemLeft" align="right" valign="top"><a id="a082f0f57c132876789ef9bbaa7b6b467" name="a082f0f57c132876789ef9bbaa7b6b467"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (switches_periodic, 15, osPriorityNormal, STACK_512)</td></tr>
+<tr class="separator:a082f0f57c132876789ef9bbaa7b6b467"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa31c61127e561e8f7115c1af197b20de" id="r_aa31c61127e561e8f7115c1af197b20de"><td class="memItemLeft" align="right" valign="top"><a id="aa31c61127e561e8f7115c1af197b20de" name="aa31c61127e561e8f7115c1af197b20de"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (cooling_periodic, 100, osPriorityNormal, STACK_1024)</td></tr>
+<tr class="separator:aa31c61127e561e8f7115c1af197b20de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aced1ebae29d08a597cc7838b9fbbe91e" id="r_aced1ebae29d08a597cc7838b9fbbe91e"><td class="memItemLeft" align="right" valign="top"><a id="aced1ebae29d08a597cc7838b9fbbe91e" name="aced1ebae29d08a597cc7838b9fbbe91e"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="led_8c.html#a1d38b8e14425dcbf14215634bcfa5290">LED_periodic</a>, 500, osPriorityLow, STACK_512)</td></tr>
 <tr class="separator:aced1ebae29d08a597cc7838b9fbbe91e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a849c7ccbac8e35b68c8f99de31db42e5" id="r_a849c7ccbac8e35b68c8f99de31db42e5"><td class="memItemLeft" align="right" valign="top"><a id="a849c7ccbac8e35b68c8f99de31db42e5" name="a849c7ccbac8e35b68c8f99de31db42e5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="auto__switch_8c.html#aea4edf80bd2f6bda11bfa85669197d6f">checkSwitchFaults</a>, 100, osPriorityLow, STACK_512)</td></tr>
-<tr class="separator:a849c7ccbac8e35b68c8f99de31db42e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50037ce3f2981d37ecf0a7dd10dd535c" id="r_a50037ce3f2981d37ecf0a7dd10dd535c"><td class="memItemLeft" align="right" valign="top"><a id="a50037ce3f2981d37ecf0a7dd10dd535c" name="a50037ce3f2981d37ecf0a7dd10dd535c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (send_flowrates, 200, osPriorityLow, STACK_256)</td></tr>
-<tr class="separator:a50037ce3f2981d37ecf0a7dd10dd535c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a108693c00f98ae0b66358fc4aa88a5d6" id="r_a108693c00f98ae0b66358fc4aa88a5d6"><td class="memItemLeft" align="right" valign="top"><a id="a108693c00f98ae0b66358fc4aa88a5d6" name="a108693c00f98ae0b66358fc4aa88a5d6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (faults_periodic, 100, osPriorityLow, STACK_512)</td></tr>
+<tr class="separator:a108693c00f98ae0b66358fc4aa88a5d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf183b26e282ecdf7e2acfed5c37cd5c" id="r_abf183b26e282ecdf7e2acfed5c37cd5c"><td class="memItemLeft" align="right" valign="top"><a id="abf183b26e282ecdf7e2acfed5c37cd5c" name="abf183b26e282ecdf7e2acfed5c37cd5c"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (fault_library_periodic, 100, osPriorityLow, STACK_1024)</td></tr>
 <tr class="separator:abf183b26e282ecdf7e2acfed5c37cd5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81be3b04d11ba1c0b56f1cbf6cee5830" id="r_a81be3b04d11ba1c0b56f1cbf6cee5830"><td class="memItemLeft" align="right" valign="top"><a id="a81be3b04d11ba1c0b56f1cbf6cee5830" name="a81be3b04d11ba1c0b56f1cbf6cee5830"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (telemetry_10hz, 100, osPriorityLow, STACK_1024)</td></tr>
+<tr class="separator:a81be3b04d11ba1c0b56f1cbf6cee5830"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11a067a3a0541dc1ed61e5c9bb7591b5" id="r_a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memItemLeft" align="right" valign="top"><a id="a11a067a3a0541dc1ed61e5c9bb7591b5" name="a11a067a3a0541dc1ed61e5c9bb7591b5"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_WATCHDOG_TASK</b> ()</td></tr>
 <tr class="separator:a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade2c1da3cc6cfc7049c92adeab90ee33" id="r_ade2c1da3cc6cfc7049c92adeab90ee33"><td class="memItemLeft" align="right" valign="top"><a id="ade2c1da3cc6cfc7049c92adeab90ee33" name="ade2c1da3cc6cfc7049c92adeab90ee33"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_HEARTBEAT_TASK</b> (sparkle_leds)</td></tr>
-<tr class="separator:ade2c1da3cc6cfc7049c92adeab90ee33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b30d509eaf12fde072dd9517cf65a70" id="r_a1b30d509eaf12fde072dd9517cf65a70"><td class="memItemLeft" align="right" valign="top"><a id="a1b30d509eaf12fde072dd9517cf65a70" name="a1b30d509eaf12fde072dd9517cf65a70"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_HEARTBEAT_TASK</b> (heartbeat_led_sweep)</td></tr>
+<tr class="separator:a1b30d509eaf12fde072dd9517cf65a70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top"><a id="ae66f6b31b5ad750f1fe042a706a4e3d4" name="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> ()</td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>

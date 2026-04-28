@@ -50,7 +50,7 @@ static inline void can_rx_irq_handler(CAN_TypeDef *peripheral) {
     peripheral->RF0R |= CAN_RF0R_RFOM0;
 
     if (peripheral == CAN1 && can_id == GPS_TIME_MSG_ID) {
-        (void)xQueueSendFromISR(gps_time_queue, &rx, &xHigherPriorityTaskWoken);
+        xQueueOverwriteFromISR(gps_time_queue, &rx, &xHigherPriorityTaskWoken);
     }
 
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);

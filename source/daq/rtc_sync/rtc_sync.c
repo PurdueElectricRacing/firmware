@@ -55,8 +55,7 @@ void RTC_sync_thread(void) {
         if (last_RTC_sync_time < RTC_SYNC_PERIOD_MS && last_RTC_sync_time != 0) {
             return;
         }
-        RTC_timestamp_t gps_rtc_time;
-        RTC_from_gps(gps_time);
+        RTC_timestamp_t gps_rtc_time = RTC_from_gps(gps_time);
         
         if (PHAL_configureRTC(&gps_rtc_time, true)) {
             last_RTC_sync_time = xTaskGetTickCount();

@@ -21,8 +21,8 @@ static uint16_t telemetry_internal_temp_c(uint16_t internal_therm_adc_counts) {
     return (uint16_t)temp_c;
 }
 
-void telemetry_power_periodic(void) {
-    update_fault(FAULT_ID_LV_GETTING_LOW, g_pdu_state.rail_voltage_mv.in_24v_mv);
+void telemetry_10hz(void) {
+        update_fault(FAULT_ID_LV_GETTING_LOW, g_pdu_state.rail_voltage_mv.in_24v_mv);
     update_fault(FAULT_ID_LV_CRITICAL_LOW, g_pdu_state.rail_voltage_mv.in_24v_mv);
 
     CAN_SEND_v_rails(
@@ -52,13 +52,6 @@ void telemetry_power_periodic(void) {
     );
 
     CAN_SEND_pdu_temps(telemetry_internal_temp_c(adc_readings.internal_therm));
-}
 
-void telemetry_flow_periodic(void) {
     CAN_SEND_flowrates(getFlowRate1(), getFlowRate2());
-}
-
-void telemetry_10hz(void) {
-    telemetry_flow_periodic();
-    telemetry_power_periodic();
 }

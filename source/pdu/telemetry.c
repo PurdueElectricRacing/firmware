@@ -57,3 +57,8 @@ void telemetry_power_periodic(void) {
 void telemetry_flow_periodic(void) {
     CAN_SEND_flowrates(getFlowRate1(), getFlowRate2());
 }
+
+void telemetry_10hz(void) {
+    telemetry_flow_periodic();
+    telemetry_power_periodic();
+}

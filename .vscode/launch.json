@@ -42,7 +42,6 @@
                 "-d",
                 "${workspaceFolder}/source/pdu"
             ],
-            "preLaunchTask": "build",
             "runToEntryPoint": "main",
             "liveWatch": {
                 "enabled": true,

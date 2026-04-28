@@ -7,8 +7,8 @@
  * @author Luke Oxley (lcoxley@purdue.edu)
  */
 
-#ifndef __DAQ_SD_H__
-#define __DAQ_SD_H__
+#ifndef SD_CARD_H
+#define SD_CARD_H
 
 typedef enum {
     SD_STATE_IDLE    = 0,
@@ -30,4 +30,4 @@ bool daq_request_sd_mount(void);
 void sd_shutdown(void);
 void sd_update_periodic(void);
 
-#endif // __DAQ_SD_H__
+#endif // SD_CARD_H

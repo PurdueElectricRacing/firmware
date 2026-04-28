@@ -43,7 +43,6 @@ set(COMMON_MODULES
     common/freertos
     common/heartbeat
     common/lerp_lut
-    common/log
     common/nextion
     common/phal_F4_F7
     common/phal_G4

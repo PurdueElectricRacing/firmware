@@ -11,7 +11,7 @@
 #define MAIN_H
 
 #include "common/freertos/freertos.h"
-#include "daq_sd.h"
+#include "sd_card.h"
 #include "ff.h"
 #include "spmc.h"
 

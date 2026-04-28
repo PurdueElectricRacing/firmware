@@ -7,14 +7,14 @@
  * @author Luke Oxley (lcoxley@purdue.edu)
  */
 
-#include "daq_sd.h"
+#include "sd_card.h"
 
 #include "common/phal/gpio.h"
 #include "common/phal/rtc.h"
 #include "ff.h"
 #include "main.h"
 #include "common/sdio/sdio.h"
-#include "common/log/log.h"
+#include <stdio.h>
 #include "spmc.h"
 
 static constexpr uint32_t SD_WRITE_PERIOD_MS = 100;
@@ -73,7 +73,7 @@ static FRESULT sd_create_new_file(void) {
             time.time.seconds_bcd
         );
     } else {
-        sprintf(f_name, "log-%04d.log", log_num);
+        sprintf(f_name, "log-%0ld.log", (unsigned long)log_num);
     }
 
     result = f_open(&daq_hub.log_fp, f_name, FA_OPEN_APPEND | FA_READ | FA_WRITE);

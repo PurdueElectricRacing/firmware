@@ -15,6 +15,7 @@
 
 extern volatile uint32_t last_RTC_sync_time;
 extern QueueHandle_t gps_time_queue;
+extern RTC_timestamp_t fallback_timestamp;
 
 void RTC_sync_init(void);
 void RTC_sync_thread(void);

@@ -1,19 +1,28 @@
+/**
+ * @file main.c
+ * @brief "DAQ" node source code
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Eileen Yoon (eyn@purdue.edu)
+ * @author Luke Oxley (lcoxley@purdue.edu)
+ */
+
+#include "main.h"
+
+#include "can_library/generated/MCAN.h"
+#include "can_library/generated/VCAN.h"
 #include "common/freertos/freertos.h"
+#include "common/heartbeat/heartbeat.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "common/phal/rtc.h"
 #include "common/phal/spi.h"
-#include "common/heartbeat/heartbeat.h"
-#include "can_library/generated/VCAN.h"
-#include "can_library/generated/MCAN.h"
 #include "common/utils/countof.h"
 #include "common/watchdog/watchdog.h"
-
-#include "main.h"
-#include "spmc.h"
 #include "ethernet.h"
 #include "rtc_sync.h"
+#include "spmc.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // LEDs
@@ -80,21 +89,6 @@ SPI_InitConfig_t eth_spi_config = {
     .rx_dma_cfg    = &spi_rx_dma_config,
     .tx_dma_cfg    = &spi_tx_dma_config,
     .periph        = SPI1,
-};
-
-RTC_timestamp_t fallback_timestamp ={
-    .date = {
-        .month_bcd = RTC_MONTH_UNKNOWN,
-        .weekday   = RTC_WEEKDAY_UNKNOWN,
-        .day_bcd   = 0x00,
-        .year_bcd  = 0x00
-    },
-    .time = {
-        .hours_bcd   = 0x00,
-        .minutes_bcd = 0x00,
-        .seconds_bcd = 0x00,
-        .time_format = RTC_FORMAT_24_HOUR
-    },
 };
 
 daq_hub_t daq_hub = {

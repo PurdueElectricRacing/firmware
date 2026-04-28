@@ -1,5 +1,14 @@
-#ifndef _MAIN_H_
-#define _MAIN_H_
+/**
+ * @file main.c
+ * @brief "DAQ" node source code
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ * @author Eileen Yoon (eyn@purdue.edu)
+ * @author Luke Oxley (lcoxley@purdue.edu)
+ */
+
+#ifndef MAIN_H
+#define MAIN_H
 
 #include "common/freertos/freertos.h"
 #include "daq_sd.h"
@@ -78,4 +87,4 @@ extern daq_hub_t daq_hub;
 
 void HardFault_Handler();
 
-#endif
+#endif // MAIN_H

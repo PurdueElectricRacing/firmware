@@ -10,9 +10,24 @@
 #include "common/phal/rtc.h"
 #include "main.h"
 
-static constexpr uint32_t RTC_SYNC_PERIOD_MS = 30 * 1000;
+RTC_timestamp_t fallback_timestamp ={
+    .date = {
+        .month_bcd = RTC_MONTH_UNKNOWN,
+        .weekday   = RTC_WEEKDAY_UNKNOWN,
+        .day_bcd   = 0x00,
+        .year_bcd  = 0x00
+    },
+    .time = {
+        .hours_bcd   = 0x00,
+        .minutes_bcd = 0x00,
+        .seconds_bcd = 0x00,
+        .time_format = RTC_FORMAT_24_HOUR
+    },
+};
+
 DEFINE_QUEUE(gps_time_queue, timestamped_frame_t, 1);
 volatile uint32_t last_RTC_sync_time = 0;
+volatile bool is_RTC_sync_complete = false;
 
 static RTC_timestamp_t RTC_from_gps(timestamped_frame_t gps_time) {
     RTC_timestamp_t RTC_time = {0};
@@ -56,20 +71,26 @@ void RTC_sync_init(void) {
     INIT_QUEUE(gps_time_queue, timestamped_frame_t, 1);
 }
 
+// static constexpr uint32_t RTC_SYNC_PERIOD_MS = 30 * 1000;
 void RTC_sync_thread(void) {
     timestamped_frame_t gps_time;
 
     if (xQueueReceive(gps_time_queue, &gps_time, portMAX_DELAY) == pdPASS) {
         uint32_t now = xTaskGetTickCount();
-        if ((last_RTC_sync_time != 0) && // allow the first sync immediately
-            (now - last_RTC_sync_time) < RTC_SYNC_PERIOD_MS) {
-            return;
+        // if (!is_RTC_sync_complete && // allow the first sync immediately
+        //     (now - last_RTC_sync_time) < RTC_SYNC_PERIOD_MS) {
+        //     return;
+        // }
+
+        if (is_RTC_sync_complete) {
+            return; // only allow one sync
         }
 
         RTC_timestamp_t gps_rtc_time = RTC_from_gps(gps_time);
         
         if (PHAL_configureRTC(&gps_rtc_time, true)) {
             last_RTC_sync_time = now;
+            is_RTC_sync_complete = true;
         } else {
             HardFault_Handler();
         }

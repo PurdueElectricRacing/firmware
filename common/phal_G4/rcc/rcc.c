@@ -84,19 +84,20 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
     uint8_t pll_input_divisor     = RCC_MIN_PLL_INPUT_DIVISOR; // PLLM
     uint8_t pll_output_multiplier = RCC_MIN_PLL_OUTPUT_MULTIPLIER; // PLLN
     bool valid_rate               = false;
-    for (; pll_input_divisor <= RCC_MAX_PLL_INPUT_DIVISOR; pll_input_divisor++) // PLLM must be 2 to 63 (Pg. 227)
+    for (; pll_input_divisor < RCC_MAX_PLL_INPUT_DIVISOR; pll_input_divisor++) // PLLM must be 1 to 16 
     {
-        // VCO input frequency = PLL input clock frequency / PLLM with 2 <= PLLM <= 63
+        // VCO input frequency = PLL input clock frequency / PLLM with 1 <= PLLM <= 16
         uint32_t pll_vco_in_rate = pll_input_f_hz / pll_input_divisor;
-        if (pll_vco_in_rate < 1000000 || pll_vco_in_rate > 2000000) // VCO input rate must be 1MHz to 2MHz (Pg. 227 PLLM)
+        if (pll_vco_in_rate < 2'660'000 || pll_vco_in_rate > 16'000'000) // VCO input rate must be between 2.66 MHz and 16 MHz
         {
             continue;
         }
-
+        pll_output_multiplier = RCC_MIN_PLL_OUTPUT_MULTIPLIER; // Reset PLLN for each new PLLM iteration
         // VCO output frequency = VCO input * PLLN
-        for (; pll_output_multiplier <= RCC_MAX_PLL_OUTPUT_MULTIPLIER; pll_output_multiplier++) // PLLN must be 50 to 432 (Pg. 227)
+        for (; pll_output_multiplier <= RCC_MAX_PLL_OUTPUT_MULTIPLIER; pll_output_multiplier++) // PLLN must be 8 to 127
         {
-            if ((pll_input_f_hz / pll_input_divisor) * pll_output_multiplier == vco_output_rate_target_hz) {
+            uint64_t calculated_vco_output = ((uint64_t)pll_input_f_hz * (uint64_t)pll_output_multiplier) / (uint64_t)pll_input_divisor;
+            if (calculated_vco_output == vco_output_rate_target_hz) {
                 valid_rate = true;
                 break;
             }
@@ -108,7 +109,7 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
     if (!valid_rate)
         return false; // Unable to find a valid clock rate!
 
-    RCC->PLLCFGR |= ((pll_input_divisor) << RCC_PLLCFGR_PLLM_Pos) & RCC_PLLCFGR_PLLM_Msk; // Set PLLM
+    RCC->PLLCFGR |= ((pll_input_divisor - 1) << RCC_PLLCFGR_PLLM_Pos) & RCC_PLLCFGR_PLLM_Msk; // Set PLLM
     RCC->PLLCFGR |= ((pll_output_multiplier) << RCC_PLLCFGR_PLLN_Pos) & RCC_PLLCFGR_PLLN_Msk; // Set PLLN
 
     // Update global variable used to reference the PLL
@@ -119,7 +120,7 @@ bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_h
 }
 
 bool PHAL_configurePLLSystemClock(uint32_t system_clock_target_hz) {
-    // Ensure sysetm clock target is valid (Must be under 168 MHz)
+    // Ensure system clock target is valid (Must be under 170 MHz)
     if (system_clock_target_hz > RCC_MAX_SYSCLK_TARGET_HZ) {
         system_clock_target_hz = RCC_MAX_SYSCLK_TARGET_HZ;
     }
@@ -135,74 +136,61 @@ bool PHAL_configurePLLSystemClock(uint32_t system_clock_target_hz) {
         return false;
     }
 
-    // Set the PLLP and PLLQ divisors
-    RCC->PLLCFGR &= ~(RCC_PLLCFGR_PLLP_Msk | RCC_PLLCFGR_PLLQ_Msk);
-    RCC->PLLCFGR |= (((pll_p_divisor / 2) - 1) << RCC_PLLCFGR_PLLP_Pos) & RCC_PLLCFGR_PLLP_Msk; // Divisor value to PLLP bits (Pg. 227)
-    RCC->PLLCFGR |= (pll_q_divisor << RCC_PLLCFGR_PLLQ_Pos) & RCC_PLLCFGR_PLLQ_Msk;
+    // 1. Clear the fields
+    RCC->PLLCFGR &= ~(RCC_PLLCFGR_PLLPDIV_Msk | RCC_PLLCFGR_PLLR_Msk | RCC_PLLCFGR_PLLQ_Msk);
+
+    // 2. Set PLLR to Divide by 2 (00)
+    // Clearing mask sets all to divide by 0, but we're being explicit to be clear
+    RCC->PLLCFGR |= (0 << RCC_PLLCFGR_PLLR_Pos); 
+    // PLLQ to divide by 2
+    RCC->PLLCFGR |= (0 << RCC_PLLCFGR_PLLQ_Pos);
+    // PLLPDIV to divide by 2
+    RCC->PLLCFGR |= (2 << RCC_PLLCFGR_PLLPDIV_Pos);
+
+    // Enable output for P, Q and R
+    RCC->PLLCFGR |= RCC_PLLCFGR_PLLREN | RCC_PLLCFGR_PLLQEN | RCC_PLLCFGR_PLLPEN;
 
     __DSB(); // Wait for explicit memory accesses to finish
 
-#if defined STM32F732xx
-    bool enable_overdrive = false;
-    RCC->APB1ENR |= RCC_APB1ENR_PWREN;
-    // Voltage regulator scaling based on system clock, see p. 14: https://www.st.com/resource/en/product_training/STM32F7_System_PWR.pdf
-    if (system_clock_target_hz > 180000000) {
-        PWR->CR1 &= ~PWR_CR1_VOS;
-        PWR->CR1 |= PWR_CR1_VOS;
-        enable_overdrive = true;
-    } else if (system_clock_target_hz > 168000000) {
-        PWR->CR1 &= ~PWR_CR1_VOS; //No need to use overdrive, but select scale 1 on voltage regulator
-        PWR->CR1 |= PWR_CR1_VOS;
-    } else if (system_clock_target_hz > 144000000) {
-        PWR->CR1 &= ~PWR_CR1_VOS; //No need to use overdrive, but select scale 2 on voltage regulator
-        PWR->CR1 |= PWR_CR1_VOS_1;
-    } else {
-        PWR->CR1 &= ~PWR_CR1_VOS; //No need to use overdrive, but select scale 3 on voltage regulator
-        PWR->CR1 |= PWR_CR1_VOS_0;
+    // Enable power interface clock
+    RCC->APB1ENR1 |= RCC_APB1ENR1_PWREN;
+
+    // RCC control training -- https://www.st.com/resource/en/product_training/STM32G4-System-Reset_and_clock_control_RCC.pdf
+
+    // Ranges are defined in Table 50 of STM32G4 reference manual (RM0440) (Pg. 280)
+    // Voltage scaling sequence is defined in Section 6.1.5 Dynamic voltage scaling management
+
+    // Range 1 boost mode (150 MHz < SYSCLK <= 170 MHz) 
+    if (system_clock_target_hz > 150'000'000) {
+        //  1. The system clock must be divided by 2 using the AHB prescaler before switching to a higher system frequency
+        PHAL_configureAHBClock(system_clock_target_hz / 2);         
+
+        // 2. Clear the R1MODE bit is in the PWR_CR5 register (enables boost mode)
+        PWR->CR5 &= ~PWR_CR5_R1MODE;
     }
 
-#endif
     RCC->CR |= RCC_CR_PLLON; // Enable PLL
     while (!(RCC->CR & RCC_CR_PLLRDY))
         ; // Wait for PLL to turn on
     __DSB();
 
-//Set Level of Internal Voltage Regulator, see ST RM 0090/0431
-#if defined STM32F732xx
-    if (enable_overdrive) {
-        PWR->CR1 |= PWR_CR1_ODEN;
-        while (!(PWR->CSR1 & PWR_CSR1_ODRDY)) //Wait for regulator output to turn on
-            ;
-        PWR->CR1 |= PWR_CR1_ODSWEN; //Enable Overdrive
-        while (!(PWR->CSR1 & PWR_CSR1_ODSWRDY))
-            ; //Wait for overdrive to turn on
-    }
-#endif
-
-    //Flash latency adjustment, see ST RM 0090 Pg. 80, ST RM 0431 Pg. 69
+    // 3. Adjust the number of wait states according to the new frequency target in range1 boost
     uint32_t flash_acr_temp = FLASH->ACR;
     flash_acr_temp &= ~(FLASH_ACR_LATENCY_Msk);
 
-    if (system_clock_target_hz >= 210000000)
-        flash_acr_temp |= FLASH_ACR_LATENCY_7WS << FLASH_ACR_LATENCY_Pos;
-    else if (system_clock_target_hz >= 180000000)
-        flash_acr_temp |= FLASH_ACR_LATENCY_6WS << FLASH_ACR_LATENCY_Pos;
-    else if (system_clock_target_hz >= 150000000)
-        flash_acr_temp |= FLASH_ACR_LATENCY_5WS << FLASH_ACR_LATENCY_Pos;
-    else if (system_clock_target_hz >= 120000000)
+    if (system_clock_target_hz > 136'000'000)      // 136-170 MHz: 4 WS
         flash_acr_temp |= FLASH_ACR_LATENCY_4WS << FLASH_ACR_LATENCY_Pos;
-    else if (system_clock_target_hz >= 90000000)
+    else if (system_clock_target_hz > 102'000'000) // 102-136 MHz: 3 WS
         flash_acr_temp |= FLASH_ACR_LATENCY_3WS << FLASH_ACR_LATENCY_Pos;
-    else if (system_clock_target_hz >= 60000000)
+    else if (system_clock_target_hz > 68'000'000)  // 68-102 MHz:  2 WS
         flash_acr_temp |= FLASH_ACR_LATENCY_2WS << FLASH_ACR_LATENCY_Pos;
-    else if (system_clock_target_hz >= 30000000)
+    else if (system_clock_target_hz > 34'000'000)  // 34-68 MHz:   1 WS
         flash_acr_temp |= FLASH_ACR_LATENCY_1WS << FLASH_ACR_LATENCY_Pos;
-    else
+    else                                         // <= 34 MHz:   0 WS
         flash_acr_temp |= FLASH_ACR_LATENCY_0WS << FLASH_ACR_LATENCY_Pos;
     FLASH->ACR = flash_acr_temp;
 
     __DSB(); // Wait for explicit memory accesses to finish
-    RCC->CFGR &= ~RCC_CFGR_SW;
     RCC->CFGR |= RCC_CFGR_SW_PLL; // Set system clock switch register to PLL
     while ((RCC->CFGR & RCC_CFGR_SWS_PLL) != RCC_CFGR_SWS_PLL) // Wait for PLL to be the new system clock
         ;

@@ -50,10 +50,12 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(BASE_RESET_PORT, BASE_RESET_PIN, GPIO_OUTPUT_LOW_SPEED),
 };
 
-static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
+static constexpr uint32_t TargetCoreClockrateHz = 170'000'000;
 ClockRateConfig_t clock_config = {
     .clock_source           = CLOCK_SOURCE_HSE,
-    .use_pll                = false,
+    .use_pll                   = true,
+    .pll_src                   = PLL_SRC_HSE,
+    .vco_output_rate_target_hz = 340'000'000,
     .system_clock_target_hz = TargetCoreClockrateHz,
     .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
     .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),

@@ -132,7 +132,6 @@ int main() {
     if (!PHAL_configureRTC(&fallback_timestamp, false)) {
         HardFault_Handler();
     }
-    RTC_sync_init();
     if (!PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
@@ -143,7 +142,8 @@ int main() {
     PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 1);
 
     osKernelInitialize();
-    SPMC_init(&g_spmc); // also inits CAN interrupts
+    RTC_sync_init();
+    SPMC_init(&g_spmc); // also enables CAN interrupts
     configure_interrupts();
 
     INIT_MUTEX(spi1_lock);

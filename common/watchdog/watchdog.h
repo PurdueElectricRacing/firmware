@@ -15,9 +15,9 @@ void WDG_init(void);
 void WDG_pet(void);
 
 static constexpr uint32_t WATCHDOG_TIMEOUT_MS = 1000;
-static constexpr uint32_t WATCHDOG_PET_FREQUENCY = 100;
+static constexpr uint32_t WATCHDOG_PET_PERIOD_MS = 100;
 
-#define DEFINE_WATCHDOG_TASK() DEFINE_TASK(WDG_pet, WATCHDOG_PET_FREQUENCY, osPriorityLow, STACK_256)
+#define DEFINE_WATCHDOG_TASK() DEFINE_TASK(WDG_pet, WATCHDOG_PET_PERIOD_MS, osPriorityLow, STACK_256)
 
 #define START_WATCHDOG_TASK() \
     do { \

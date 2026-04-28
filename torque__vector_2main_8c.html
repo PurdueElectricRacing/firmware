@@ -118,6 +118,7 @@ $(function(){initNavTree('torque__vector_2main_8c.html',''); initResizable(true)
 <code>#include &quot;<a class="el" href="nav__pvt_8h_source.html">common/ublox/nav_pvt.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="nav__relposned_8h_source.html">common/ublox/nav_relposned.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="countof_8h_source.html">common/utils/countof.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="watchdog_8h_source.html">common/watchdog/watchdog.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="control__loop_8h_source.html">control_loop.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="sensors_8h_source.html">sensors.h</a>&quot;</code><br />
 <code>#include &quot;telemetry.h&quot;</code><br />
@@ -142,6 +143,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>HardFault_Handler</b>
 <tr class="memitem:a7fb57622cb7edc7563416da2a85a894a" id="r_a7fb57622cb7edc7563416da2a85a894a"><td class="memItemLeft" align="right" valign="top"><a id="a7fb57622cb7edc7563416da2a85a894a" name="a7fb57622cb7edc7563416da2a85a894a"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="main__module_2telemetry_2telemetry_8c.html#a6d0a75c0aee5808a962691e3973ee968">report_telemetry_1hz</a>, TELEMETRY_1HZ_PERIOD_MS, osPriorityLow, STACK_512)</td></tr>
 <tr class="separator:a7fb57622cb7edc7563416da2a85a894a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11a067a3a0541dc1ed61e5c9bb7591b5" id="r_a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memItemLeft" align="right" valign="top"><a id="a11a067a3a0541dc1ed61e5c9bb7591b5" name="a11a067a3a0541dc1ed61e5c9bb7591b5"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_WATCHDOG_TASK</b> ()</td></tr>
+<tr class="separator:a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a845eaf447179a8baf75c69794c49856d" id="r_a845eaf447179a8baf75c69794c49856d"><td class="memItemLeft" align="right" valign="top"><a id="a845eaf447179a8baf75c69794c49856d" name="a845eaf447179a8baf75c69794c49856d"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_HEARTBEAT_TASK</b> (nullptr)</td></tr>
 <tr class="separator:a845eaf447179a8baf75c69794c49856d"><td class="memSeparator" colspan="2">&#160;</td></tr>

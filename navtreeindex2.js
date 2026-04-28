@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"nextion_8h.html#ae7d537c10e1e85e6537850a02a315fd7":[27,0,0,9,1,1],
 "nextion_8h.html#ae995d182561a5fa3087569539bb551d2":[27,0,0,9,1,3],
 "nextion_8h.html#af603b7d431ae4f94d55bf04b2034a8cc":[27,0,0,9,1,6],
 "nextion_8h_source.html":[27,0,0,9,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "strbuf_8c.html":[27,0,0,14,0],
 "strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5":[27,0,0,14,0,0],
 "strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf":[27,0,0,14,0,2],
-"strbuf_8c.html#a64d216f0276598d2d7f68c8a0c453fb7":[27,0,0,14,0,1],
-"strbuf_8h.html":[27,0,0,14,1]
+"strbuf_8c.html#a64d216f0276598d2d7f68c8a0c453fb7":[27,0,0,14,0,1]
 };

@@ -116,6 +116,7 @@ $(function(){initNavTree('driveline_2main_8c.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="heartbeat_8h_source.html">common/heartbeat/heartbeat.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="countof_8h_source.html">common/utils/countof.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="watchdog_8h_source.html">common/watchdog/watchdog.h</a>&quot;</code><br />
 <code>#include &quot;config.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="pin__defs_8h_source.html">pin_defs.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="oil__temps__table_8h_source.html">oil_temps_table.h</a>&quot;</code><br />
@@ -151,6 +152,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>oil_temps_thread</b> 
 <tr class="memitem:a3189e6b21ddc43f5db1761cbf019e2b7" id="r_a3189e6b21ddc43f5db1761cbf019e2b7"><td class="memItemLeft" align="right" valign="top"><a id="a3189e6b21ddc43f5db1761cbf019e2b7" name="a3189e6b21ddc43f5db1761cbf019e2b7"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (oil_temps_thread, FRONT_OIL_TEMPS_PERIOD_MS, osPriorityNormal, STACK_512)</td></tr>
 <tr class="separator:a3189e6b21ddc43f5db1761cbf019e2b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11a067a3a0541dc1ed61e5c9bb7591b5" id="r_a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memItemLeft" align="right" valign="top"><a id="a11a067a3a0541dc1ed61e5c9bb7591b5" name="a11a067a3a0541dc1ed61e5c9bb7591b5"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_WATCHDOG_TASK</b> ()</td></tr>
+<tr class="separator:a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a845eaf447179a8baf75c69794c49856d" id="r_a845eaf447179a8baf75c69794c49856d"><td class="memItemLeft" align="right" valign="top"><a id="a845eaf447179a8baf75c69794c49856d" name="a845eaf447179a8baf75c69794c49856d"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_HEARTBEAT_TASK</b> (nullptr)</td></tr>
 <tr class="separator:a845eaf447179a8baf75c69794c49856d"><td class="memSeparator" colspan="2">&#160;</td></tr>

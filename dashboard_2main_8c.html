@@ -119,6 +119,7 @@ $(function(){initNavTree('dashboard_2main_8c.html',''); initResizable(true); });
 <code>#include &quot;common/phal/usart.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="strbuf_8h_source.html">common/strbuf/strbuf.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="countof_8h_source.html">common/utils/countof.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="watchdog_8h_source.html">common/watchdog/watchdog.h</a>&quot;</code><br />
 <code>#include &quot;driver_interface.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="lcd_8h_source.html">lcd.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
@@ -154,6 +155,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>HardFault_Handler</b>
 <tr class="memitem:af6760d120cd4ba27426aa85efb16495d" id="r_af6760d120cd4ba27426aa85efb16495d"><td class="memItemLeft" align="right" valign="top"><a id="af6760d120cd4ba27426aa85efb16495d" name="af6760d120cd4ba27426aa85efb16495d"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="a__box_2telemetry_2telemetry_8c.html#a74034e258280659c81e74c002594b2e2">report_telemetry_02hz</a>, TELEMETRY_02HZ_PERIOD_MS, osPriorityLow, STACK_512)</td></tr>
 <tr class="separator:af6760d120cd4ba27426aa85efb16495d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11a067a3a0541dc1ed61e5c9bb7591b5" id="r_a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memItemLeft" align="right" valign="top"><a id="a11a067a3a0541dc1ed61e5c9bb7591b5" name="a11a067a3a0541dc1ed61e5c9bb7591b5"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_WATCHDOG_TASK</b> ()</td></tr>
+<tr class="separator:a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9e952c64c0b2692ce9c74cc9bfb6a2e" id="r_ad9e952c64c0b2692ce9c74cc9bfb6a2e"><td class="memItemLeft" align="right" valign="top"><a id="ad9e952c64c0b2692ce9c74cc9bfb6a2e" name="ad9e952c64c0b2692ce9c74cc9bfb6a2e"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_HEARTBEAT_TASK</b> (sweep_external_leds)</td></tr>
 <tr class="separator:ad9e952c64c0b2692ce9c74cc9bfb6a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>

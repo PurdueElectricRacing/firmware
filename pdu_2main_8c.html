@@ -117,6 +117,7 @@ $(function(){initNavTree('pdu_2main_8c.html',''); initResizable(true); });
 <code>#include &quot;common/phal/rcc.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="heartbeat_8h_source.html">common/heartbeat/heartbeat.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="countof_8h_source.html">common/utils/countof.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="watchdog_8h_source.html">common/watchdog/watchdog.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="auto__switch_8h_source.html">auto_switch.h</a>&quot;</code><br />
 <code>#include &quot;can_library/generated/PDU.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="cooling_8h_source.html">cooling.h</a>&quot;</code><br />
@@ -157,9 +158,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sparkle_leds</b> ()</
 <tr class="memitem:aced1ebae29d08a597cc7838b9fbbe91e" id="r_aced1ebae29d08a597cc7838b9fbbe91e"><td class="memItemLeft" align="right" valign="top"><a id="aced1ebae29d08a597cc7838b9fbbe91e" name="aced1ebae29d08a597cc7838b9fbbe91e"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="led_8c.html#a1d38b8e14425dcbf14215634bcfa5290">LED_periodic</a>, 500, osPriorityLow, STACK_512)</td></tr>
 <tr class="separator:aced1ebae29d08a597cc7838b9fbbe91e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a735771fec700d516056905e16c2e9bbe" id="r_a735771fec700d516056905e16c2e9bbe"><td class="memItemLeft" align="right" valign="top"><a id="a735771fec700d516056905e16c2e9bbe" name="a735771fec700d516056905e16c2e9bbe"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (send_iv_readings, 500, osPriorityLow, STACK_512)</td></tr>
-<tr class="separator:a735771fec700d516056905e16c2e9bbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a849c7ccbac8e35b68c8f99de31db42e5" id="r_a849c7ccbac8e35b68c8f99de31db42e5"><td class="memItemLeft" align="right" valign="top"><a id="a849c7ccbac8e35b68c8f99de31db42e5" name="a849c7ccbac8e35b68c8f99de31db42e5"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="auto__switch_8c.html#aea4edf80bd2f6bda11bfa85669197d6f">checkSwitchFaults</a>, 100, osPriorityLow, STACK_512)</td></tr>
 <tr class="separator:a849c7ccbac8e35b68c8f99de31db42e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -169,6 +167,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sparkle_leds</b> ()</
 <tr class="memitem:abf183b26e282ecdf7e2acfed5c37cd5c" id="r_abf183b26e282ecdf7e2acfed5c37cd5c"><td class="memItemLeft" align="right" valign="top"><a id="abf183b26e282ecdf7e2acfed5c37cd5c" name="abf183b26e282ecdf7e2acfed5c37cd5c"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (fault_library_periodic, 100, osPriorityLow, STACK_1024)</td></tr>
 <tr class="separator:abf183b26e282ecdf7e2acfed5c37cd5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11a067a3a0541dc1ed61e5c9bb7591b5" id="r_a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memItemLeft" align="right" valign="top"><a id="a11a067a3a0541dc1ed61e5c9bb7591b5" name="a11a067a3a0541dc1ed61e5c9bb7591b5"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_WATCHDOG_TASK</b> ()</td></tr>
+<tr class="separator:a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade2c1da3cc6cfc7049c92adeab90ee33" id="r_ade2c1da3cc6cfc7049c92adeab90ee33"><td class="memItemLeft" align="right" valign="top"><a id="ade2c1da3cc6cfc7049c92adeab90ee33" name="ade2c1da3cc6cfc7049c92adeab90ee33"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_HEARTBEAT_TASK</b> (sparkle_leds)</td></tr>
 <tr class="separator:ade2c1da3cc6cfc7049c92adeab90ee33"><td class="memSeparator" colspan="2">&#160;</td></tr>

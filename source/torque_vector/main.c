@@ -138,12 +138,12 @@ int main(void) {
     return 0;
 }
 
-// todo reboot on hardfault
 void HardFault_Handler() {
     __disable_irq();
     SysTick->CTRL        = 0;
     ERROR_LED_PORT->BSRR = (1 << ERROR_LED_PIN);
     while (1) {
-        __asm__("NOP"); // Halt forever
+        __asm__("NOP"); // wait for WDG to pop
     }
 }
+

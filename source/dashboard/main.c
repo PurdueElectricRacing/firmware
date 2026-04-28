@@ -21,6 +21,7 @@
 #include "common/phal/usart.h"
 #include "common/strbuf/strbuf.h"
 #include "common/utils/countof.h"
+#include "common/watchdog/watchdog.h"
 
 /* Module Includes */
 #include "driver_interface.h"
@@ -163,6 +164,7 @@ DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNo
 DEFINE_TASK(driver_interface_periodic, DRIVER_INTERFACE_PERIOD_MS, osPriorityLow, STACK_1024);
 DEFINE_TASK(service_start_button, START_BUTTON_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_TASK(report_telemetry_02hz, TELEMETRY_02HZ_PERIOD_MS, osPriorityLow, STACK_512);
+DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(sweep_external_leds);
 
 int main(void) {
@@ -204,6 +206,7 @@ int main(void) {
     START_TASK(fault_library_periodic);
     START_TASK(service_start_button);
     START_TASK(driver_interface_periodic);
+    START_WATCHDOG_TASK();
     START_HEARTBEAT_TASK();
 
     osKernelStart(); // GO!
@@ -262,12 +265,12 @@ void reset_lws() {
     CAN_SEND_LWS_Config(CONFIG_CCW_RESET, 0, 0);
 }
 
-// todo reboot on hardfault
 void HardFault_Handler() {
     __disable_irq();
     SysTick->CTRL = 0;
     ERROR_LED_PORT->BSRR = (1 << ERROR_LED_PIN);
     while (1) {
-        __asm__("NOP"); // Halt forever
+        __asm__("NOP"); // wait for WDG to pop
     }
 }
+

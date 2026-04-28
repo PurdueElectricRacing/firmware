@@ -1,74 +1,7 @@
-/**
- * @file cooling.h
- * @author Nicolas Vera (nverapae@purdue.edu)
- * @brief
- * @version 0.1
- * @date 2024-2-29
- *
- * @copyright Copyright (c) 2024
- *
- */
-#ifndef _COOLING_H_
-#define _COOLING_H_
+#ifndef COOLING_H
+#define COOLING_H
 
-#include "can_library/generated/PDU.h"
+void cooling_init(void);
+void cooling_periodic(void);
 
-#define GPS_SPEED_MOVING          2 // TODO determine
-#define MOTOR_COOLING_ENABLE_TEMP 60
-#define MOTOR_COOLING_MAX_TEMP    100
-#define BATT_COOLING_ENABLE_TEMP  30
-
-#define BATT_PUMP_ON_TEMP_C  BATT_COOLING_ENABLE_TEMP
-#define BATT_PUMP_OFF_TEMP_C (BATT_COOLING_ENABLE_TEMP - 2)
-#define BATT_FAN_ON_TEMP_C   BATT_COOLING_ENABLE_TEMP
-#define BATT_FAN_OFF_TEMP_C  (BATT_COOLING_ENABLE_TEMP - 2)
-
-#define MOTOR_PUMP_ON_TEMP_C  MOTOR_COOLING_ENABLE_TEMP
-#define MOTOR_PUMP_OFF_TEMP_C (MOTOR_COOLING_ENABLE_TEMP - 5)
-
-#define MOTOR_FAN_ON_TEMP_C  MOTOR_COOLING_MAX_TEMP
-#define MOTOR_FAN_OFF_TEMP_C (MOTOR_COOLING_MAX_TEMP - 5)
-
-#define MOTOR_FAN_STOP_ON_TEMP_C  MOTOR_COOLING_ENABLE_TEMP
-#define MOTOR_FAN_STOP_OFF_TEMP_C (MOTOR_COOLING_ENABLE_TEMP - 5)
-
-#define BANGBANG_MIN_SWITCH_MS 1000
-
-typedef struct {
-    uint16_t fan1_speed; // value from 0-100
-    uint16_t fan2_speed; // value from 0-100
-    uint16_t fan3_speed; // value from 0-100
-    uint16_t fan4_speed; // value from 0-100
-    bool pump1_status;
-    bool pump2_status;
-    bool fan1_status;
-    bool fan2_status;
-    bool fan3_status;
-    bool fan4_status;
-    bool hxfan_status;
-} cooling_request_t;
-
-/**
- * @brief Initializes cooling_request struct values to 0
- *
- * @param
- * @return
- */
-void coolingInit();
-
-/**
- * @brief Periodic function that sets switches and fan speeds based off of values in the cooling_request struct
- *
- * @param
- * @return
- */
-void update_cooling_periodic();
-
-/**
- * @brief Callback function for cooling_driver_request message sent from dashboard, updates values in cooling_request struct based off signal values
- *
- * @param *msg_data_a CAN msg data
- * @return
- */
-void cooling_driver_request_CALLBACK(void);
-#endif
+#endif // COOLING_H

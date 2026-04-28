@@ -197,7 +197,9 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>PLLClockRateHz</b
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
 <div class="line">    .clock_source           = CLOCK_SOURCE_HSE,</div>
-<div class="line">    .use_pll                = <span class="keyword">false</span>,</div>
+<div class="line">    .use_pll                   = <span class="keyword">true</span>,</div>
+<div class="line">    .pll_src                   = PLL_SRC_HSE,</div>
+<div class="line">    .vco_output_rate_target_hz = 340&#39;000&#39;000,</div>
 <div class="line">    .system_clock_target_hz = TargetCoreClockrateHz,</div>
 <div class="line">    .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),</div>
 <div class="line">    .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),</div>

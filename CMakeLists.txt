@@ -51,6 +51,7 @@ set(COMMON_MODULES
     common/strbuf
     common/syscalls
     common/ublox
+    common/watchdog
 )
 
 set(EXTERNAL_MODULES

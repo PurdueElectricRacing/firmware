@@ -17,6 +17,7 @@
 #include "common/phal/rcc.h"
 #include "common/heartbeat/heartbeat.h"
 #include "common/utils/countof.h"
+#include "common/watchdog/watchdog.h"
 
 #include "vehicle_init.h"
 #include "vehicle_fsm.h"
@@ -89,6 +90,7 @@ DEFINE_TASK(SDC_task_periodic, SDC_TASK_PERIOD_MS, osPriorityNormal, STACK_512);
 DEFINE_TASK(report_telemetry_50hz, TELEMETRY_50HZ_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_TASK(report_telemetry_1hz, TELEMETRY_1HZ_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_TASK(report_telemetry_02hz, TELEMETRY_02HZ_PERIOD_MS, osPriorityLow, STACK_512);
+DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
@@ -122,6 +124,7 @@ int main(void) {
     START_TASK(report_telemetry_50hz);
     START_TASK(report_telemetry_1hz);
     START_TASK(report_telemetry_02hz);
+    START_WATCHDOG_TASK();
     START_HEARTBEAT_TASK();
 
     // no way home
@@ -130,12 +133,11 @@ int main(void) {
     return 0;
 }
 
-// todo reboot on hardfault
 void HardFault_Handler() {
     __disable_irq();
     SysTick->CTRL = 0;
     ERROR_LED_PORT->BSRR = (1 << ERROR_LED_PIN);
     while (1) {
-        __asm__("NOP"); // Halt forever
+        __asm__("NOP"); // spin
     }
 }

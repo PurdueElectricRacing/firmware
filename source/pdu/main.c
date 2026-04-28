@@ -18,6 +18,7 @@
 #include "common/phal/rcc.h"
 #include "common/heartbeat/heartbeat.h"
 #include "common/utils/countof.h"
+#include "common/watchdog/watchdog.h"
 
 /* Module Includes */
 #include "auto_switch.h"
@@ -291,10 +292,11 @@ DEFINE_CAN_TASKS();
 DEFINE_TASK(autoSwitchPeriodic, 15, osPriorityNormal, STACK_512);
 DEFINE_TASK(update_cooling_periodic, 100, osPriorityNormal, STACK_1024);
 DEFINE_TASK(LED_periodic, 500, osPriorityLow, STACK_512);
-DEFINE_TASK(send_iv_readings, 500, osPriorityLow, STACK_512);
+// DEFINE_TASK(send_iv_readings, 500, osPriorityLow, STACK_1024); // ! wtf this is causing a crash
 DEFINE_TASK(checkSwitchFaults, 100, osPriorityLow, STACK_512);
 DEFINE_TASK(send_flowrates, 200, osPriorityLow, STACK_256);
 DEFINE_TASK(fault_library_periodic, 100, osPriorityLow, STACK_1024);
+DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(sparkle_leds);
 
 int main() {
@@ -349,10 +351,11 @@ int main() {
     START_TASK(autoSwitchPeriodic);
     START_TASK(update_cooling_periodic);
     START_TASK(LED_periodic);
-    START_TASK(send_iv_readings);
+    // START_TASK(send_iv_readings);
     START_TASK(checkSwitchFaults);
     START_TASK(send_flowrates);
     START_TASK(fault_library_periodic);
+    START_WATCHDOG_TASK();
     START_HEARTBEAT_TASK();
 
     // no way home
@@ -361,12 +364,11 @@ int main() {
     return 0;
 }
 
-// todo reboot on hardfault
 void HardFault_Handler() {
     __disable_irq();
     SysTick->CTRL = 0;
     ERROR_LED_PORT->BSRR = (1 << ERROR_LED_PIN);
     while (1) {
-        __asm__("NOP"); // Halt forever
+        __asm__("NOP"); // spin
     }
 }

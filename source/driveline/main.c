@@ -16,6 +16,7 @@
 #include "common/freertos/freertos.h"
 #include "common/heartbeat/heartbeat.h"
 #include "common/utils/countof.h"
+#include "common/watchdog/watchdog.h"
 
 /* Module Includes */
 #include "config.h"
@@ -156,6 +157,7 @@ void oil_temps_thread();
 DEFINE_CAN_TASKS();
 DEFINE_TASK(shockpot_thread, FRONT_SHOCKPOTS_PERIOD_MS, osPriorityNormal, STACK_512);
 DEFINE_TASK(oil_temps_thread, FRONT_OIL_TEMPS_PERIOD_MS, osPriorityNormal, STACK_512);
+DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
@@ -212,6 +214,7 @@ int main(void) {
     START_CAN_TASKS();
     START_TASK(shockpot_thread);
     START_TASK(oil_temps_thread);
+    START_WATCHDOG_TASK();
     START_HEARTBEAT_TASK();
 
     // no way home
@@ -275,12 +278,11 @@ void oil_temps_thread() {
     SEND_OIL_TEMPS(left_celsius_scaled, right_celsius_scaled);
 }
 
-// todo reboot on hardfault
 void HardFault_Handler() {
     __disable_irq();
     SysTick->CTRL = 0;
-    ERROR_LED_PORT->BSRR = ERROR_LED_PIN;
+    ERROR_LED_PORT->BSRR = (1 << ERROR_LED_PIN);
     while (1) {
-        __asm__("NOP"); // Halt forever
+        __asm__("NOP"); // spin
     }
 }

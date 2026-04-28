@@ -19,6 +19,7 @@
 #include "common/ublox/nav_pvt.h"
 #include "common/ublox/nav_relposned.h"
 #include "common/utils/countof.h"
+#include "common/watchdog/watchdog.h"
 #include "control_loop.h"
 #include "sensors.h"
 #include "telemetry.h"
@@ -93,6 +94,7 @@ DEFINE_TASK(control_loop, CONTROL_LOOP_PERIOD_MS, osPriorityNormal, STACK_4096);
 DEFINE_TASK(gps_periodic, GPS_THREAD_PERIOD_MS, osPriorityLow, STACK_1024);
 DEFINE_TASK(report_telemetry_100hz, TELEMETRY_100HZ_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_TASK(report_telemetry_1hz, TELEMETRY_1HZ_PERIOD_MS, osPriorityLow, STACK_512);
+DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
@@ -128,6 +130,7 @@ int main(void) {
     START_TASK(report_telemetry_100hz);
     START_TASK(report_telemetry_1hz);
     START_HEARTBEAT_TASK();
+    START_WATCHDOG_TASK();
 
     // no way home
     osKernelStart();
@@ -135,12 +138,12 @@ int main(void) {
     return 0;
 }
 
-// todo reboot on hardfault
 void HardFault_Handler() {
     __disable_irq();
     SysTick->CTRL        = 0;
     ERROR_LED_PORT->BSRR = (1 << ERROR_LED_PIN);
     while (1) {
-        __asm__("NOP"); // Halt forever
+        __asm__("NOP"); // spin
     }
 }
+

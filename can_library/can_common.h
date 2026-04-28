@@ -71,7 +71,7 @@ void CAN_tx_init(void);
 
 #define DEFINE_CAN_TASKS() \
     DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048); \
-    DEFINE_TASK(CAN_tx_update, 0, osPriorityHigh, STACK_2048);
+    DEFINE_TASK(CAN_tx_update, 0, osPriorityHigh, STACK_1024);
 
 #define START_CAN_TASKS() \
     START_TASK(CAN_rx_update); \

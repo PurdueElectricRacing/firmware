@@ -21,6 +21,7 @@
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "common/utils/countof.h"
+#include "common/watchdog/watchdog.h"
 #include "telemetry.h"
 
 SPI_InitConfig_t bms_spi_config = {
@@ -122,6 +123,7 @@ DEFINE_TASK(fault_library_periodic, A_BOX_FAULT_SYNC_PERIOD_MS, osPriorityNormal
 DEFINE_TASK(report_telemetry_100hz, TELEMETRY_100HZ_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_TASK(report_telemetry_8hz, TELEMETRY_8HZ_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_TASK(report_telemetry_02hz, TELEMETRY_02HZ_PERIOD_MS, osPriorityLow, STACK_512);
+DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
@@ -169,6 +171,7 @@ int main(void) {
     START_TASK(report_telemetry_8hz);
     START_TASK(report_telemetry_02hz);
     START_TASK(charging_fsm_periodic);
+    START_WATCHDOG_TASK();
     START_HEARTBEAT_TASK();
 
     osKernelStart(); // no way home
@@ -202,12 +205,11 @@ void bms_task(void) {
     update_fault(FAULT_ID_PACK_COLD, g_bms.min_therm_temp);
 }
 
-// todo reboot on hardfault
 void HardFault_Handler() {
     __disable_irq();
-    SysTick->CTRL        = 0;
-    ERROR_LED_PORT->BSRR = (1 << ERROR_LED_PIN); // Turn on error LED
+    SysTick->CTRL = 0;
+    ERROR_LED_PORT->BSRR = (1 << ERROR_LED_PIN);
     while (1) {
-        __asm__("NOP"); // Halt forever
+        __asm__("NOP"); // spin
     }
 }

@@ -32,7 +32,7 @@
                             "unit": "mV"
                         }
                     ],
-                    "msg_period": 500,
+                    "msg_period": 100,
                     "msg_priority": 4
                 },
                 {
@@ -52,7 +52,7 @@
                             "unit": "mA"
                         }
                     ],
-                    "msg_period": 500,
+                    "msg_period": 100,
                     "msg_priority": 4
                 },
                 {
@@ -82,7 +82,7 @@
                             "length": 12
                         }
                     ],
-                    "msg_period": 500,
+                    "msg_period": 100,
                     "msg_priority": 4
                 },
                 {
@@ -102,7 +102,7 @@
                             "length": 12
                         }
                     ],
-                    "msg_period": 500,
+                    "msg_period": 100,
                     "msg_priority": 4
                 },
                 {
@@ -140,7 +140,7 @@
                             "length": 12
                         }
                     ],
-                    "msg_period": 500,
+                    "msg_period": 100,
                     "msg_priority": 4
                 },
                 {
@@ -197,7 +197,7 @@
                             "unit": "LPM"
                         }
                     ],
-                    "msg_period": 200,
+                    "msg_period": 100,
                     "msg_priority": 5
                 },
                 {
@@ -211,7 +211,7 @@
                             "unit": "C"
                         }
                     ],
-                    "msg_period": 500,
+                    "msg_period": 100,
                     "msg_priority": 5
                 },
                 {

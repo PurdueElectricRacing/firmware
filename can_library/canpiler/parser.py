@@ -26,6 +26,7 @@ class Signal:
     offset: float = 0.0
     min_val: Optional[float] = None
     max_val: Optional[float] = None
+    byte_order: Literal["little_endian", "big_endian"] = "little_endian"
     
     # Resolved during parsing/linking
     bit_offset: int = 0

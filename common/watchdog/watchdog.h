@@ -19,7 +19,9 @@ static constexpr uint32_t WATCHDOG_PET_FREQUENCY = 100;
 #define DEFINE_WATCHDOG_TASK() DEFINE_TASK(WDG_pet, WATCHDOG_PET_FREQUENCY, osPriorityLow, STACK_256)
 
 #define START_WATCHDOG_TASK() \
-    WDG_init(); \
-    START_TASK(WDG_pet)
+    do { \
+        WDG_init(); \
+        START_TASK(WDG_pet); \
+    } while (0);
 
 #endif // WATCHDOG_H

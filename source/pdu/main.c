@@ -292,7 +292,7 @@ DEFINE_CAN_TASKS();
 DEFINE_TASK(autoSwitchPeriodic, 15, osPriorityNormal, STACK_512);
 DEFINE_TASK(update_cooling_periodic, 100, osPriorityNormal, STACK_1024);
 DEFINE_TASK(LED_periodic, 500, osPriorityLow, STACK_512);
-DEFINE_TASK(send_iv_readings, 500, osPriorityLow, STACK_512);
+// DEFINE_TASK(send_iv_readings, 500, osPriorityLow, STACK_1024); // ! wtf this is causing a crash
 DEFINE_TASK(checkSwitchFaults, 100, osPriorityLow, STACK_512);
 DEFINE_TASK(send_flowrates, 200, osPriorityLow, STACK_256);
 DEFINE_TASK(fault_library_periodic, 100, osPriorityLow, STACK_1024);
@@ -351,7 +351,7 @@ int main() {
     START_TASK(autoSwitchPeriodic);
     START_TASK(update_cooling_periodic);
     START_TASK(LED_periodic);
-    START_TASK(send_iv_readings);
+    // START_TASK(send_iv_readings);
     START_TASK(checkSwitchFaults);
     START_TASK(send_flowrates);
     START_TASK(fault_library_periodic);

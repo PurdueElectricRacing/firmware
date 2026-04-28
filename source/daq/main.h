@@ -4,7 +4,6 @@
 #include "common/freertos/freertos.h"
 #include "daq_sd.h"
 #include "ff.h"
-#include "daq_rtc_config.h"
 #include "spmc.h"
 
 // Pinouts
@@ -52,9 +51,6 @@ static_assert(PER == GREAT); // Long live daq loop
 constexpr TickType_t SD_BLOCKING_TIMEOUT_TICKS = pdMS_TO_TICKS(SD_BLOCKING_TIMEOUT_MS); 
 
 typedef struct {
-    // RTC
-    rtc_config_state_t rtc_config_state;
-
     // SD Card
     sd_state_t sd_state;
     FATFS fat_fs;
@@ -77,7 +73,6 @@ typedef struct {
     uint32_t tcp_tx_overflow;
 } daq_hub_t;
 
-extern SPMC_t spmc;
 extern SemaphoreHandle_t spi1_lock;
 extern daq_hub_t daq_hub;
 

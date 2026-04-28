@@ -9,7 +9,8 @@
 #include "stm32f407xx.h"
 #include "common/freertos/freertos.h"
 
-// todo commit the last write right when power is lost
+// Singleton global allocation
+SPMC_t g_spmc;
 
 static constexpr uint32_t CAN_RX_IRQ_PRIO = 6; // highest RTOS priority
 static_assert(

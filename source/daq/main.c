@@ -8,10 +8,12 @@
 #include "can_library/generated/VCAN.h"
 #include "can_library/generated/MCAN.h"
 #include "common/utils/countof.h"
+#include "common/watchdog/watchdog.h"
 
 #include "main.h"
 #include "spmc.h"
 #include "ethernet.h"
+#include "rtc_sync.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // LEDs
@@ -103,8 +105,6 @@ daq_hub_t daq_hub = {
     .sd_last_err        = SD_ERROR_NONE,
     .sd_last_err_res    = 0,
     .sd_task_handle     = NULL,
-
-    .rtc_config_state   = RTC_SYNC_PENDING,
     
     .last_file_ms       = 0,
     .last_write_ms      = 0,
@@ -114,15 +114,15 @@ daq_hub_t daq_hub = {
     .sd_rx_overflow     = 0
 };
 
-// Static buffer allocations
-SPMC_t spmc;
 DEFINE_MUTEX(spi1_lock);
 
 static void configure_interrupts(void);
 void shutdown(void);
 
-DEFINE_TASK(sd_update_periodic, 100, osPriorityNormal, STACK_4096); // SD WRITE
-DEFINE_TASK(eth_thread_periodic, 0, osPriorityLow, STACK_4096); // BULLET COMMS 
+DEFINE_TASK(sd_update_periodic, 100, osPriorityHigh, STACK_4096); // SD WRITE
+DEFINE_TASK(eth_thread_periodic, 0, osPriorityNormal, STACK_4096); // BULLET COMMS 
+DEFINE_TASK(RTC_sync_thread, 0, osPriorityLow, STACK_512);
+DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main() {
@@ -138,6 +138,7 @@ int main() {
     if (!PHAL_configureRTC(&fallback_timestamp, false)) {
         HardFault_Handler();
     }
+    RTC_sync_init();
     if (!PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
@@ -148,13 +149,15 @@ int main() {
     PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 1);
 
     osKernelInitialize();
-    SPMC_init(&spmc); // also inits CAN interrupts
+    SPMC_init(&g_spmc); // also inits CAN interrupts
     configure_interrupts();
 
     INIT_MUTEX(spi1_lock);
 
     START_TASK(sd_update_periodic);  // SD WRITE
     START_TASK(eth_thread_periodic); // BULLET COMMS
+    START_TASK(RTC_sync_thread);
+    START_WATCHDOG_TASK();
     START_HEARTBEAT_TASK();
 
     osKernelStart();
@@ -171,66 +174,6 @@ static void configure_interrupts(void) {
     EXTI->FTSR |= EXTI_FTSR_TR15; // Enable the falling edge trigger (active low reset)
     NVIC_SetPriority(EXTI15_10_IRQn, 15); // allow other interrupts to preempt this one (especially systick and dma)
     NVIC_EnableIRQ(EXTI15_10_IRQn);
-}
-
-
-volatile uint32_t last_can_rx_time_ms = 0;
-
-[[gnu::always_inline]]
-static inline void can_rx_irq_handler(CAN_TypeDef *peripheral) {
-    portBASE_TYPE xHigherPriorityTaskWoken;
-    xHigherPriorityTaskWoken = pdFALSE;
-
-    // message !empty
-    bool message_pending = (peripheral->RF0R & CAN_RF0R_FMP0_Msk);
-    if (!message_pending) {
-        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
-        return;
-    }
-
-    timestamped_frame_t rx = {0}; // temp stack allocated variable
-    rx.ticks_ms            = xTaskGetTickCountFromISR();
-    last_can_rx_time_ms    = rx.ticks_ms;
-
-    // CAN1 = VCAN = bus 0
-    set_bus_id(&rx, (peripheral == CAN1) ? 0 : 1);
-
-    CAN_FIFOMailBox_TypeDef *mailbox = &peripheral->sFIFOMailBox[0];
-    bool is_xid = (mailbox->RIR & CAN_RI0R_IDE) != 0;
-    set_xid(&rx, is_xid);
-
-    // the right shift logic makes sense when you read RM0090 pg 1122
-    uint32_t can_id;
-    if (is_xid) {
-        can_id = (mailbox->RIR & (CAN_RI0R_STID | CAN_RI0R_EXID)) >> CAN_RI0R_EXID_Pos;
-    } else {
-        can_id = (mailbox->RIR & CAN_RI0R_STID) >> CAN_RI0R_STID_Pos;
-    }
-    set_can_id(&rx, can_id);
-
-    // copy payload
-    rx.payload |= (uint64_t)(mailbox->RDLR);
-    rx.payload |= (uint64_t)(mailbox->RDHR) << 32;
-
-    (void)SPMC_enqueue_from_ISR(&spmc, &rx);
-
-    // release the FIFO
-    peripheral->RF0R |= CAN_RF0R_RFOM0;
-
-    if (peripheral == CAN1 && can_id == GPS_TIME_MSG_ID) {
-        // todo wake the RTC sync task
-    }
-
-    portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
-    return;
-}
-
-void CAN1_RX0_IRQHandler() {
-    can_rx_irq_handler(CAN1);
-}
-
-void CAN2_RX0_IRQHandler() {
-    can_rx_irq_handler(CAN2);
 }
 
 /**

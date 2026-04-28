@@ -7,6 +7,7 @@
 #include "main.h"
 #include "common/sdio/sdio.h"
 #include "common/log/log.h"
+#include "spmc.h"
 
 static constexpr uint32_t SD_WRITE_PERIOD_MS = 100;
 static constexpr uint32_t SD_NEW_FILE_PERIOD_MS = 1 * 60 * 1000; // 1 min
@@ -53,7 +54,16 @@ static FRESULT sd_create_new_file(void) {
     char f_name[30];
     if (PHAL_getTimeRTC(&time)) {
         // Create file name from RTC
-        sprintf(f_name, "log-20%02d-%02d-%02d--%02d-%02d-%02d.log", time.date.year_bcd, time.date.month_bcd, time.date.day_bcd, time.time.hours_bcd, time.time.minutes_bcd, time.time.seconds_bcd);
+        sprintf(
+            f_name, 
+            "log-20%02d-%02d-%02d--%02d-%02d-%02d.log", 
+            time.date.year_bcd,
+            time.date.month_bcd,
+            time.date.day_bcd,
+            time.time.hours_bcd,
+            time.time.minutes_bcd,
+            time.time.seconds_bcd
+        );
     } else {
         sprintf(f_name, "log-%04d.log", log_num);
     }
@@ -86,7 +96,7 @@ static void sd_write_periodic() {
     // Use the unread item count, not contiguous for the threshold
     timestamped_frame_t *frame; // updated by SPMC_master_peek_chunk() on success
 
-    if (!SPMC_master_peek_chunk(&spmc, &frame)) {
+    if (!SPMC_master_peek_chunk(&g_spmc, &frame)) {
         return;
     }
 
@@ -102,7 +112,7 @@ static void sd_write_periodic() {
     } else {
         // success
         daq_hub.last_write_ms = xTaskGetTickCount();
-        SPMC_master_advance_tail(&spmc);
+        SPMC_master_advance_tail(&g_spmc);
         sd_file_sync(); // fsync takes only 4 ticks and ensures sure cache is flushed on close
     }
 

@@ -1,6 +1,6 @@
 /**
  * @file rtc_sync.h
- * @brief Syncrhonization of the RTC peripheral with the GPS UTC time
+ * @brief Synchronization of the RTC peripheral with the GPS UTC time
  * 
  * @author Irving Wang (irvingw@purdue.edu)
  * @author Shriya Balu (balu@purdue.edu)

@@ -1,5 +1,5 @@
 /**
- * @file main.c
+ * @file main.h
  * @brief "DAQ" node source code
  * 
  * @author Irving Wang (irvingw@purdue.edu)

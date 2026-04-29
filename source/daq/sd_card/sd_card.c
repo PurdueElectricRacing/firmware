@@ -1,5 +1,5 @@
 /**
- * @file sd.c
+ * @file sd_card.c
  * @brief Logging of received bus messages onto an SD card
  * 
  * @author Irving Wang (irvingw@purdue.edu)

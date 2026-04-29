@@ -26,6 +26,7 @@ class Signal:
     offset: float = 0.0
     min_val: Optional[float] = None
     max_val: Optional[float] = None
+    byte_order: Literal["little_endian", "big_endian"] = "little_endian"
     
     # Resolved during parsing/linking
     bit_offset: int = 0
@@ -87,19 +88,26 @@ class Message:
             sig.length = length
             
             if self.byte_order == 'big_endian':
-                # Motorola/Big Endian: DBC start bit is the MSB position
-                # using sawtooth bit numbering
                 msb_byte = current_offset // 8
                 msb_bit_in_byte = 7 - (current_offset % 8)
-                sig.bit_offset = msb_byte * 8 + msb_bit_in_byte # DBC Motorola MSB start bit
-                sig.bit_shift = current_offset  # keep linear for C codegen
-                # Note: sub-byte signals (length < 8, not spanning byte boundaries) need no
-                # bswap as the C codegen's else branch handles them with a plain shift+mask,
-                # which is correct since memcpy into uint64_t preserves byte ordering on
-                # little-endian hosts (ARM).
+                lsb_pos = current_offset + length - 1
+                lsb_byte = lsb_pos // 8
+
+                if msb_byte == lsb_byte:
+                    # Sub-byte signal, no byte boundary crossed:
+                    # Intel (little-endian) in DBC using LSB position
+                    sig.bit_offset = current_offset # LSB position, Intel numbering
+                    sig.bit_shift = current_offset
+                    sig.byte_order = "little_endian"
+                else:
+                    # Multi-byte Motorola signal: use sawtooth MSB start bit
+                    sig.bit_offset = msb_byte * 8 + msb_bit_in_byte
+                    sig.bit_shift = current_offset
+                    sig.byte_order = "big_endian"
             else:
                 sig.bit_offset = current_offset
                 sig.bit_shift = current_offset
+                sig.byte_order = "little_endian"
                 
             sig.mask = (1 << length) - 1
             

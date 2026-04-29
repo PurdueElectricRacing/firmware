@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: source/daq/daq_hub/daq_sd.h Source File</title>
+<title>PER Firmware: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('daq__sd_8h_source.html',''); initResizable(true); });
+$(function(){initNavTree('structSD__manager__t.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -97,39 +97,30 @@ $(function(){initNavTree('daq__sd_8h_source.html',''); initResizable(true); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">daq_sd.h</div></div>
+  <div class="headertitle"><div class="title">SD_manager_t Member List</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef __DAQ_SD_H__</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define __DAQ_SD_H__</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>    SD_STATE_IDLE    = 0,</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    SD_STATE_MOUNTED = 1,</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    SD_STATE_ACTIVE  = 2,</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>} sd_state_t;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    SD_ERROR_NONE   = 0,</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    SD_ERROR_MOUNT  = 1,</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    SD_ERROR_FOPEN  = 2,</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    SD_ERROR_FCLOSE = 3,</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    SD_ERROR_WRITE  = 4,</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    SD_ERROR_DETEC  = 5,</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    SD_ERROR_SYNC   = 6,</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>} sd_error_t;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keywordtype">bool</span> daq_request_sd_mount(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keywordtype">void</span> sd_shutdown(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keywordtype">void</span> sd_update_periodic(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#endif </span><span class="comment">// __DAQ_SD_H__</span></div>
-</div><!-- fragment --></div><!-- contents -->
+
+<p>This is the complete list of members for <a class="el" href="structSD__manager__t.html">SD_manager_t</a>, including all inherited members.</p>
+<table class="directory">
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>fat_fs</b> (defined in <a class="el" href="structSD__manager__t.html">SD_manager_t</a>)</td><td class="entry"><a class="el" href="structSD__manager__t.html">SD_manager_t</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>last_file_ms</b> (defined in <a class="el" href="structSD__manager__t.html">SD_manager_t</a>)</td><td class="entry"><a class="el" href="structSD__manager__t.html">SD_manager_t</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>last_write_ms</b> (defined in <a class="el" href="structSD__manager__t.html">SD_manager_t</a>)</td><td class="entry"><a class="el" href="structSD__manager__t.html">SD_manager_t</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="structSD__manager__t.html#a593a44f56454428ca5337946703192fd">log_enable_sw</a></td><td class="entry"><a class="el" href="structSD__manager__t.html">SD_manager_t</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>log_enable_tcp</b> (defined in <a class="el" href="structSD__manager__t.html">SD_manager_t</a>)</td><td class="entry"><a class="el" href="structSD__manager__t.html">SD_manager_t</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>log_fp</b> (defined in <a class="el" href="structSD__manager__t.html">SD_manager_t</a>)</td><td class="entry"><a class="el" href="structSD__manager__t.html">SD_manager_t</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>log_start_ms</b> (defined in <a class="el" href="structSD__manager__t.html">SD_manager_t</a>)</td><td class="entry"><a class="el" href="structSD__manager__t.html">SD_manager_t</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>sd_error_ct</b> (defined in <a class="el" href="structSD__manager__t.html">SD_manager_t</a>)</td><td class="entry"><a class="el" href="structSD__manager__t.html">SD_manager_t</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>sd_last_err</b> (defined in <a class="el" href="structSD__manager__t.html">SD_manager_t</a>)</td><td class="entry"><a class="el" href="structSD__manager__t.html">SD_manager_t</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>sd_last_err_res</b> (defined in <a class="el" href="structSD__manager__t.html">SD_manager_t</a>)</td><td class="entry"><a class="el" href="structSD__manager__t.html">SD_manager_t</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>sd_last_error_time</b> (defined in <a class="el" href="structSD__manager__t.html">SD_manager_t</a>)</td><td class="entry"><a class="el" href="structSD__manager__t.html">SD_manager_t</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>sd_state</b> (defined in <a class="el" href="structSD__manager__t.html">SD_manager_t</a>)</td><td class="entry"><a class="el" href="structSD__manager__t.html">SD_manager_t</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>sd_task_handle</b> (defined in <a class="el" href="structSD__manager__t.html">SD_manager_t</a>)</td><td class="entry"><a class="el" href="structSD__manager__t.html">SD_manager_t</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_58db63217748590974291dcef374365a.html">daq</a></li><li class="navelem"><a class="el" href="dir_a2e1dcf6fda5ea83ea456c15f5f86ae9.html">daq_hub</a></li><li class="navelem"><b>daq_sd.h</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

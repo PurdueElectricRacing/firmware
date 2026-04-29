@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['⚡️_0',['PER Vehicle Firmware ⚡️',['../md_README.html',1,'']]]
+  ['yvcu_20tt_0',['&lt;tt&gt;yVCU&lt;/tt&gt;',['../md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md39',1,'']]],
+  ['yvcu_5fstruct_1',['yVCU_struct',['../structyVCU__struct.html',1,'']]]
 ];

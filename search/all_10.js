@@ -2,8 +2,8 @@ var searchData=
 [
   ['macos_20tools_20setup_0',['MacOS Tools Setup',['../md_docs_2setup.html#autotoc_md62',1,'']]],
   ['main_20module_1',['Main Module',['../md_source_2main__module_2README.html',1,'']]],
-  ['main_2ec_2',['main.c',['../a__box_2main_8c.html',1,'(Global Namespace)'],['../dashboard_2main_8c.html',1,'(Global Namespace)'],['../driveline_2main_8c.html',1,'(Global Namespace)'],['../main__module_2main_8c.html',1,'(Global Namespace)'],['../pdu_2main_8c.html',1,'(Global Namespace)'],['../torque__vector_2main_8c.html',1,'(Global Namespace)']]],
-  ['main_2eh_3',['main.h',['../a__box_2main_8h.html',1,'(Global Namespace)'],['../main__module_2main_8h.html',1,'(Global Namespace)'],['../pdu_2main_8h.html',1,'(Global Namespace)'],['../torque__vector_2main_8h.html',1,'(Global Namespace)']]],
+  ['main_2ec_2',['main.c',['../a__box_2main_8c.html',1,'(Global Namespace)'],['../daq_2main_8c.html',1,'(Global Namespace)'],['../dashboard_2main_8c.html',1,'(Global Namespace)'],['../driveline_2main_8c.html',1,'(Global Namespace)'],['../main__module_2main_8c.html',1,'(Global Namespace)'],['../pdu_2main_8c.html',1,'(Global Namespace)'],['../torque__vector_2main_8c.html',1,'(Global Namespace)']]],
+  ['main_2eh_3',['main.h',['../a__box_2main_8h.html',1,'(Global Namespace)'],['../daq_2main_8h.html',1,'(Global Namespace)'],['../main__module_2main_8h.html',1,'(Global Namespace)'],['../pdu_2main_8h.html',1,'(Global Namespace)'],['../torque__vector_2main_8h.html',1,'(Global Namespace)']]],
   ['mandeflecc_4',['ManDeflECC',['../structSD__CSD.html#aa975a766368e73f2816059c1157c0b68',1,'SD_CSD']]],
   ['manufactdate_5',['ManufactDate',['../structSD__CID.html#a3107b0641f90250b2d300fb6b8ae583d',1,'SD_CID']]],
   ['manufacturerid_6',['ManufacturerID',['../structSD__CID.html#a65f682163c75efe0581133149247b6a0',1,'SD_CID']]],

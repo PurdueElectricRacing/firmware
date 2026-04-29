@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: Data Acquisition Board</title>
+<title>PER Firmware: source/daq/can_irq/can_irq.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('md_source_2daq_2README.html',''); initResizable(true); });
+$(function(){initNavTree('can__irq_8h.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,62 +96,44 @@ $(function(){initNavTree('md_source_2daq_2README.html',''); initResizable(true);
 </div>
 </div>
 
-<div><div class="header">
-  <div class="headertitle"><div class="title">Data Acquisition Board</div></div>
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">can_irq.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md18"></a></p>
-<p>This directory contains the firmware source code for the Data Acquisition (DAQ) board, responsible for data collection, storage, and streaming.</p>
-<h1><a class="anchor" id="autotoc_md19"></a>
-Directory Structure</h1>
-<ul>
-<li><code>main.c / main.h</code> - Main entry point for DAQ firmware, responsible for initialization and thread management.</li>
-<li><code>can_irq/</code> - CAN RX IRQ implementations, consuming CAN busses and feeding the SPMC</li>
-<li><code>spmc/</code> - Custom lockless Single Producer Multiple Consumer queue implementation for high throughput data buffering between CAN IRQs and consumer threads (SD card writing, Ethernet streaming).</li>
-<li><code>rtc_sync/</code> - Synchronization of the RTC peripheral with the reported GPS time</li>
-<li><code>sd_card/</code> - SD logging and file management</li>
-<li><code>ethernet/</code> - Real-time UDP streaming of CAN bus activity wirelessly</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md20"></a>
-DAQ SPMC Queue</h1>
-<p>Specialized data structure designed specifically for DAQ.</p><ul>
-<li>Lockless</li>
-<li>Priority aware</li>
-<li>High throughput</li>
-<li>DMA friendly</li>
-</ul>
-<p>DAQ26 setup:</p><ul>
-<li>Producer(s): CAN1 and CAN2 ISRs</li>
-<li>Master Consumer: SD thread</li>
-<li>Follower Consumer: Ethernet thread</li>
-</ul>
-<p>Notes:</p><ul>
-<li>Even though there are actually two producing ISRs (CAN1 and CAN2), they have the same priority and cannot preempt each other, so we can treat them as a single producer for the purposes of this data structure.</li>
-<li>Data is returned to the consumers in contiguous chunks to optimize for DMA transfers.<ul>
-<li>The total capacity of the buffer is sized to be a multiple of chunk size to prevent fragmentation.</li>
-</ul>
-</li>
-<li>If the SD thread falls behind, data will be dropped until it catches up. These "overflows" are tracked in a counter.<ul>
-<li>Several buffer parameters can be tuned to reduce the likelihood of overflows.</li>
-</ul>
-</li>
-<li>If the ETH thread falls far behind the SD thread, it will fast-forward its tail to the location of the SD thread. The "dropped frames" are also tracked in a counter.</li>
-</ul>
-<dl class="section note"><dt>Note</dt><dd>todo more detailed docs</dd></dl>
-<div class="image">
-<img src="SD_thread_FSM.drawio.png" alt=""/>
-<div class="caption">
-sd fsm</div></div>
-    <div class="image">
-<img src="SD_timing_diagram.drawio.png" alt=""/>
-<div class="caption">
-timing diagram</div></div>
-     </div></div><!-- contents -->
-</div><!-- PageDoc -->
+
+<p>Timestamped frame producers from CAN RX IRQ.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+</div>
+<p><a href="can__irq_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a990c3a82a9723ab422570b787af03f72" id="r_a990c3a82a9723ab422570b787af03f72"><td class="memItemLeft" align="right" valign="top"><a id="a990c3a82a9723ab422570b787af03f72" name="a990c3a82a9723ab422570b787af03f72"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CAN1_RX0_IRQHandler</b> ()</td></tr>
+<tr class="separator:a990c3a82a9723ab422570b787af03f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b1e6757f968cf4456a655d61e249555" id="r_a8b1e6757f968cf4456a655d61e249555"><td class="memItemLeft" align="right" valign="top"><a id="a8b1e6757f968cf4456a655d61e249555" name="a8b1e6757f968cf4456a655d61e249555"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CAN2_RX0_IRQHandler</b> ()</td></tr>
+<tr class="separator:a8b1e6757f968cf4456a655d61e249555"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a6d7ff913bb95222bc96d632a6e8d8ea4" id="r_a6d7ff913bb95222bc96d632a6e8d8ea4"><td class="memItemLeft" align="right" valign="top"><a id="a6d7ff913bb95222bc96d632a6e8d8ea4" name="a6d7ff913bb95222bc96d632a6e8d8ea4"></a>
+volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>last_can_rx_time_ms</b></td></tr>
+<tr class="separator:a6d7ff913bb95222bc96d632a6e8d8ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Timestamped frame producers from CAN RX IRQ. </p>
+<dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_58db63217748590974291dcef374365a.html">daq</a></li><li class="navelem"><a class="el" href="dir_425466e2c435e15f7dbeae5d9ce13088.html">can_irq</a></li><li class="navelem"><a class="el" href="can__irq_8h.html">can_irq.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

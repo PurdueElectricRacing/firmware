@@ -41,6 +41,8 @@ typedef struct {
     volatile bool is_full;
 } SPMC_t;
 
+extern SPMC_t g_spmc;
+
 static_assert(
     sizeof(size_t) == 4,
     "32-bit loads and stores are atomic, this is required for the lock-free design to work"

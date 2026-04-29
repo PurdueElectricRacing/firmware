@@ -94,7 +94,7 @@ static void eth_ready_periodic(void) {
     static constexpr size_t UDP_MAX_WRITE_MINIS = UDP_MAX_WRITE_COUNT / SPMC_MINI_NUM_FRAMES;
 
     timestamped_frame_t* outgoing;
-    size_t minis_available = SPMC_follower_peek_minis(&spmc, &outgoing);
+    size_t minis_available = SPMC_follower_peek_minis(&g_spmc, &outgoing);
     if (minis_available == 0) {
         return; // No data to send
     }
@@ -114,7 +114,7 @@ static void eth_ready_periodic(void) {
         return;
     } 
 
-    SPMC_follower_advance_tail(&spmc, minis_available);
+    SPMC_follower_advance_tail(&g_spmc, minis_available);
 }
 
 void eth_thread_periodic(void) {

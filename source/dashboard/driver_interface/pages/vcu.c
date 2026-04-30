@@ -72,71 +72,71 @@ static uint8_t binding_to_element_index(vcu_binding_t binding) {
 
 static menu_element_t vcu_elements[NUM_VCU_ELEMENTS] = {
     [VCU_MODE_INDEX] = {
-        .type        = ELEMENT_VAL,
-        .object_name = VCU_MODE_BUTTON,
-        .labels = VCU_MODE_LABELS,
+        .type          = ELEMENT_VAL,
+        .object_name   = VCU_MODE_BUTTON,
+        .labels        = VCU_MODE_LABELS,
         .current_value = VCU_MODE_ACCEL,
-        .increment = 1,
-        .min_value = VCU_MODE_ACCEL,
-        .max_value = VCU_MODE_ENDURANCE,
-        .on_change   = send_vcu_driver_request
+        .increment     = 1,
+        .min_value     = VCU_MODE_ACCEL,
+        .max_value     = VCU_MODE_ENDURANCE,
+        .on_change     = send_vcu_driver_request
     },
     [LATERAL_GAIN_INDEX] = {
-        .type        = ELEMENT_VAL,
-        .object_name = LATERAL_GAIN_BUTTON,
+        .type          = ELEMENT_VAL,
+        .object_name   = LATERAL_GAIN_BUTTON,
         .current_value = 50,
-        .increment = 1,
-        .min_value = 0,
-        .max_value = 100,
-        .on_change   = send_vcu_driver_request
+        .increment     = 1,
+        .min_value     = 0,
+        .max_value     = 100,
+        .on_change     = send_vcu_driver_request
     },
     [LONG_GAIN_INDEX] = {
-        .type        = ELEMENT_VAL,
-        .object_name = LONG_GAIN_BUTTON,
+        .type          = ELEMENT_VAL,
+        .object_name   = LONG_GAIN_BUTTON,
         .current_value = 50,
-        .increment = 1,
-        .min_value = 0,
-        .max_value = 100,
-        .on_change   = send_vcu_driver_request
+        .increment     = 1,
+        .min_value     = 0,
+        .max_value     = 100,
+        .on_change     = send_vcu_driver_request
     },
     [EBB_INDEX] = {
-        .type        = ELEMENT_VAL,
-        .object_name = EBB_BUTTON,
+        .type          = ELEMENT_VAL,
+        .object_name   = EBB_BUTTON,
         .current_value = 50,
-        .increment = 1,
-        .min_value = 0,
-        .max_value = 100,
-        .on_change   = send_vcu_driver_request
+        .increment     = 1,
+        .min_value     = 0,
+        .max_value     = 100,
+        .on_change     = send_vcu_driver_request
     },
     [REGEN_INDEX] = {
-        .type        = ELEMENT_OPTION,
-        .object_name = REGEN_BUTTON,
+        .type          = ELEMENT_OPTION,
+        .object_name   = REGEN_BUTTON,
         .current_value = 0,
-        .on_change   = send_vcu_driver_request
+        .on_change     = send_vcu_driver_request
     },
     [TV_INDEX] = {
-        .type        = ELEMENT_OPTION,
-        .object_name = TV_BUTTON,
+        .type          = ELEMENT_OPTION,
+        .object_name   = TV_BUTTON,
         .current_value = 0,
-        .on_change   = send_vcu_driver_request
+        .on_change     = send_vcu_driver_request
     },
     [LEFT_WHEEL_INDEX] = {
-        .type        = ELEMENT_VAL,
-        .object_name = LEFT_WHEEL_BUTTON,
-        .labels = VCU_BINDING_LABELS,
+        .type          = ELEMENT_VAL,
+        .object_name   = LEFT_WHEEL_BUTTON,
+        .labels        = VCU_BINDING_LABELS,
         .current_value = VCU_BINDING_LATERAL_GAIN,
-        .increment = 1,
-        .min_value = VCU_BINDING_MODE,
-        .max_value = VCU_BINDING_EBB
+        .increment     = 1,
+        .min_value     = VCU_BINDING_MODE,
+        .max_value     = VCU_BINDING_EBB
     },
     [RIGHT_WHEEL_INDEX] = {
-        .type        = ELEMENT_VAL,
-        .object_name = RIGHT_WHEEL_BUTTON,
-        .labels = VCU_BINDING_LABELS,
+        .type          = ELEMENT_VAL,
+        .object_name   = RIGHT_WHEEL_BUTTON,
+        .labels        = VCU_BINDING_LABELS,
         .current_value = VCU_BINDING_EBB,
-        .increment = 1,
-        .min_value = VCU_BINDING_MODE,
-        .max_value = VCU_BINDING_EBB
+        .increment     = 1,
+        .min_value     = VCU_BINDING_MODE,
+        .max_value     = VCU_BINDING_EBB
     }
 };
 

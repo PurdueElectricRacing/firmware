@@ -28,7 +28,7 @@ void EXTI0_IRQHandler() {
     last_interrupt_time = now;
 
     if (EXTI->PR1 & EXTI_PR1_PIF0) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){EBB_MINUS}, NULL);
+        xQueueSendFromISR(action_queue, &(interface_action_t){RIGHT_WHEEL_MINUS}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF0;
     }
 }
@@ -44,7 +44,7 @@ void EXTI1_IRQHandler() {
     last_interrupt_time = now;
 
     if (EXTI->PR1 & EXTI_PR1_PIF1) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){EBB_PLUS}, NULL);
+        xQueueSendFromISR(action_queue, &(interface_action_t){RIGHT_WHEEL_PLUS}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF1;
     }
 }
@@ -114,12 +114,12 @@ void EXTI15_10_IRQHandler() {
     last_interrupt_time = now;
 
     if (EXTI->PR1 & EXTI_PR1_PIF11) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){TV1_PLUS}, NULL);
+        xQueueSendFromISR(action_queue, &(interface_action_t){LEFT_WHEEL_PLUS}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF11;
     }
 
     if (EXTI->PR1 & EXTI_PR1_PIF13) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){TV1_MINUS}, NULL);
+        xQueueSendFromISR(action_queue, &(interface_action_t){LEFT_WHEEL_MINUS}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF13;
     }
 
@@ -249,7 +249,7 @@ void action_dispatcher(void) {
                 );
                 break;
             }
-            case EBB_MINUS: {
+            case RIGHT_WHEEL_MINUS: {
                 uint8_t new_bias = CLAMP(can_data.vcu_settings.electronic_brake_bias - 1, 0, 100);
                 CAN_SEND_vcu_driver_request(
                     can_data.vcu_settings.vcu_mode,
@@ -260,7 +260,7 @@ void action_dispatcher(void) {
                 );
                 break;
             }
-            case EBB_PLUS: {
+            case RIGHT_WHEEL_PLUS: {
                 uint8_t new_bias = CLAMP(can_data.vcu_settings.electronic_brake_bias + 1, 0, 100);
                 CAN_SEND_vcu_driver_request(
                     can_data.vcu_settings.vcu_mode,
@@ -271,7 +271,7 @@ void action_dispatcher(void) {
                 );
                 break;
             }
-            case TV1_PLUS: {
+            case LEFT_WHEEL_PLUS: {
                 uint8_t new_lateral_gain = CLAMP(can_data.vcu_settings.lateral_gain + 1, 0, 100);
                 CAN_SEND_vcu_driver_request(
                     can_data.vcu_settings.vcu_mode,
@@ -282,7 +282,7 @@ void action_dispatcher(void) {
                 );
                 break;
             }
-            case TV1_MINUS: {
+            case LEFT_WHEEL_MINUS: {
                 uint8_t new_lateral_gain = CLAMP(can_data.vcu_settings.lateral_gain - 1, 0, 100);
                 CAN_SEND_vcu_driver_request(
                     can_data.vcu_settings.vcu_mode,

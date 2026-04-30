@@ -237,19 +237,19 @@ void action_dispatcher(void) {
                 data_mark_index++;
                 break;
             case TOGGLE_REGEN:
-                CAN_SEND_driver_request(DRIVER_REQUEST_TOGGLE_REGEN);
+                // CAN_SEND_driver_request(DRIVER_REQUEST_TOGGLE_REGEN);
                 break;
             case EBB_MINUS:
-                CAN_SEND_driver_request(DRIVER_REQUEST_EBB_MINUS);
+                // CAN_SEND_driver_request(DRIVER_REQUEST_EBB_MINUS);
                 break;
             case EBB_PLUS:
-                CAN_SEND_driver_request(DRIVER_REQUEST_EBB_PLUS);
+                // CAN_SEND_driver_request(DRIVER_REQUEST_EBB_PLUS);
                 break;
             case TV1_PLUS:
-                CAN_SEND_driver_request(DRIVER_REQUEST_TV1_PLUS);
+                // CAN_SEND_driver_request(DRIVER_REQUEST_TV1_PLUS);
                 break;
             case TV1_MINUS:
-                CAN_SEND_driver_request(DRIVER_REQUEST_TV1_MINUS);
+                // CAN_SEND_driver_request(DRIVER_REQUEST_TV1_MINUS);
                 break;
             default:
                 break;

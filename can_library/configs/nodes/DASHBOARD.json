@@ -248,7 +248,7 @@
         },
         {
             "fault_name": "APPS_IMPLAUSIBLE",
-            "max": 409,
+            "max": 10,
             "min": 0,
             "priority": "error",
             "time_to_latch": 500,

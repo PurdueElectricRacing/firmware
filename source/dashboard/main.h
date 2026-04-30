@@ -14,10 +14,10 @@
 #include "common/phal/gpio.h"
 
 typedef volatile struct {
-    uint16_t t1;
-    uint16_t t2;
-    uint16_t b1;
-    uint16_t b2;
+    uint16_t throttle1;
+    uint16_t throttle2;
+    uint16_t regen1;
+    uint16_t regen2;
     uint16_t brake1_pressure;
     uint16_t brake2_pressure;
 } raw_adc_values_t;
@@ -78,12 +78,12 @@ extern volatile raw_adc_values_t raw_adc_values;
 #define THROTTLE2_ADC_CHANNEL (7)
 
 // Brake
-#define BRAKE1_PORT        (GPIOC)
-#define BRAKE1_PIN         (3)
-#define BRAKE1_ADC_CHANNEL (9)
-#define BRAKE2_PORT        (GPIOA)
-#define BRAKE2_PIN         (0)
-#define BRAKE2_ADC_CHANNEL (1)
+#define REGEN1_PORT        (GPIOC)
+#define REGEN1_PIN         (3)
+#define REGEN1_ADC_CHANNEL (9)
+#define REGEN2_PORT        (GPIOA)
+#define REGEN2_PIN         (0)
+#define REGEN2_ADC_CHANNEL (1)
 
 // Brake Pressure
 #define BRAKE1_PRESSURE_PORT        (GPIOA)

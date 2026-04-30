@@ -7,11 +7,13 @@
  */
 
 #include "pedals.h"
+
 #include <stdint.h>
 
-#include "can_library/generated/DASHBOARD.h"
 #include "can_library/faults_common.h"
+#include "can_library/generated/DASHBOARD.h"
 #include "common/utils/clamp.h"
+#include "common/utils/rescale.h"
 #include "main.h"
 
 // ! pedal calibration constants
@@ -43,22 +45,6 @@ volatile pedal_values_t pedal_values = {
 };
 
 /**
- * @brief Normalizes a value between min and max to a range of 0 to MAX_PEDAL_MEAS (4095)
- *
- * @param value Raw value to normalize
- * @param min Minimum value of the input range
- * @param max Maximum value of the input range
- */
-static inline uint16_t normalize(uint16_t input, uint16_t lower_bound, uint16_t upper_bound) {
-    uint16_t range = upper_bound - lower_bound;
-    uint16_t input_diff = input - lower_bound;
-    
-    float normalized_value_f = ((float)input_diff * 4095.0f) / (float)range;
-    uint16_t normalized_value = (uint16_t)normalized_value_f;
-    return normalized_value;
-}
-
-/**
  * @brief Processes pedal sensor readings and sets faults as necessary
  *
  * @note This function is called periodically by the scheduler
@@ -78,13 +64,13 @@ void pedals_periodic(void) {
     throttle1 = CLAMP(throttle1, THROTTLE1_MIN, THROTTLE1_MAX);
     throttle2 = CLAMP(throttle2, THROTTLE2_MIN, THROTTLE2_MAX);
     brake1 = CLAMP(brake1, BRAKE1_MIN, BRAKE1_MAX);
-    // brake2 = clamp(brake2, BRAKE2_MIN, BRAKE2_MAX);
+    // brake2 = CLAMP(brake2, BRAKE2_MIN, BRAKE2_MAX);
 
     // Normalize pedal signals to the 0-4095 range while preserving a linear relationship
-    throttle1 = normalize(throttle1, THROTTLE1_MIN, THROTTLE1_MAX);
-    throttle2 = normalize(throttle2, THROTTLE2_MIN, THROTTLE2_MAX);
-    brake1 = normalize(brake1, BRAKE1_MIN, BRAKE1_MAX);
-    // brake2 = normalize(brake2, BRAKE2_MIN, BRAKE2_MAX);
+    throttle1 = RESCALE(throttle1, THROTTLE1_MIN, THROTTLE1_MAX, 0, 4095);
+    throttle2 = RESCALE(throttle2, THROTTLE2_MIN, THROTTLE2_MAX, 0, 4095);
+    brake1 = RESCALE(brake1, BRAKE1_MIN, BRAKE1_MAX, 0, 4095);
+    // brake2 = RESCALE(brake2, BRAKE2_MIN, BRAKE2_MAX, 0, 4095);
 
     // Update global for visibility
     pedal_values.throttle = throttle1;

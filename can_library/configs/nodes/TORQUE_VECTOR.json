@@ -176,6 +176,39 @@
                     ],
                     "msg_period": 10,
                     "msg_priority": 5
+                },
+                {
+                    "msg_name": "vcu_settings",
+                    "msg_desc": "currently configured VCU settings",
+                    "signals": [
+                        {
+                            "sig_name": "lateral_gain",
+                            "type": "uint8_t",
+                            "unit": "%",
+                            "max": 100,
+                            "min": 0
+                        },
+                        {
+                            "sig_name": "longitudinal_gain",
+                            "type": "uint8_t",
+                            "unit": "%",
+                            "max": 100,
+                            "min": 0
+                        },
+                        {
+                            "sig_name": "electronic_brake_bias",
+                            "type": "uint8_t",
+                            "unit": "%",
+                            "max": 100,
+                            "min": 0
+                        },
+                        {
+                            "sig_name": "is_regen_enabled",
+                            "type": "bool"
+                        }
+                    ],
+                    "msg_period": 1000,
+                    "msg_priority": 3
                 }
             ],
             "rx": [
@@ -210,6 +243,10 @@
                 },
                 {
                     "msg_name": "igbt_temps"
+                },
+                {
+                    "msg_name": "vcu_driver_request",
+                    "callback": true
                 }
             ]
         }

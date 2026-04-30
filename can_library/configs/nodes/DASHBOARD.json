@@ -41,16 +41,36 @@
                     "msg_priority": 1
                 },
                 {
-                    "msg_name": "driver_request",
-                    "msg_desc": "Driver requests like regen toggle and TV adjustments",
+                    "msg_name": "vcu_driver_request",
+                    "msg_desc": "driver requested VCU settings",
                     "signals": [
                         {
-                            "sig_name": "request",
-                            "type": "driver_request_t"
+                            "sig_name": "lateral_gain",
+                            "type": "uint8_t",
+                            "unit": "%",
+                            "max": 100,
+                            "min": 0
+                        },
+                        {
+                            "sig_name": "longitudinal_gain",
+                            "type": "uint8_t",
+                            "unit": "%",
+                            "max": 100,
+                            "min": 0
+                        },
+                        {
+                            "sig_name": "electronic_brake_bias",
+                            "type": "uint8_t",
+                            "unit": "%",
+                            "max": 100,
+                            "min": 0
+                        },
+                        {
+                            "sig_name": "is_regen_enabled",
+                            "type": "bool"
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 2
+                    "msg_priority": 3
                 },
                 {
                     "msg_name": "steering_angle",

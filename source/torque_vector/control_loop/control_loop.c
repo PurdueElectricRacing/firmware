@@ -17,6 +17,46 @@ static pVCU_struct pVCU;
 static xVCU_struct xVCU;
 static yVCU_struct yVCU;
 
+// init default settings
+vcu_settings_data_t vcu_settings[4] = {
+    [VCU_MODE_ACCEL] = {
+        .lateral_gain = 50,
+        .longitudinal_gain = 50,
+        .electronic_brake_bias = 50,
+        .is_regen_enabled = true
+    },
+    [VCU_MODE_SKIDPAD] = {
+        .lateral_gain = 50,
+        .longitudinal_gain = 50,
+        .electronic_brake_bias = 50,
+        .is_regen_enabled = true
+    },
+    [VCU_MODE_AUTOCROSS] = {
+        .lateral_gain = 50,
+        .longitudinal_gain = 50,
+        .electronic_brake_bias = 50,
+        .is_regen_enabled = true
+    },
+    [VCU_MODE_ENDURANCE] = {
+        .lateral_gain = 50,
+        .longitudinal_gain = 50,
+        .electronic_brake_bias = 50,
+        .is_regen_enabled = true
+    }
+};
+vcu_settings_data_t *current_settings;
+
+static_assert(VCU_SETTINGS_LAYOUT_HASH == VCU_DRIVER_REQUEST_LAYOUT_HASH);
+
+void vcu_driver_request_CALLBACK(void) {
+    CAN_SEND_vcu_settings(
+        current_settings->lateral_gain,
+        current_settings->longitudinal_gain,
+        current_settings->electronic_brake_bias,
+        current_settings->is_regen_enabled
+    );
+}
+
 void control_init(void) {
     // TV initialization
     pVCU = init_pVCU();

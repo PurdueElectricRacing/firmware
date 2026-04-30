@@ -18,8 +18,8 @@ static xVCU_struct xVCU;
 static yVCU_struct yVCU;
 
 // init default settings
-vcu_mode_t vcu_mode = VCU_MODE_AUTOCROSS;
-vcu_settings_data_t vcu_settings[4] = {
+volatile vcu_mode_t vcu_mode = VCU_MODE_AUTOCROSS;
+volatile vcu_settings_data_t vcu_settings[4] = {
     [VCU_MODE_ACCEL] = {
         .lateral_gain = 50,
         .longitudinal_gain = 50,
@@ -45,11 +45,20 @@ vcu_settings_data_t vcu_settings[4] = {
         .is_regen_enabled = true
     }
 };
-vcu_settings_data_t *current_settings;
+uint32_t last_vcu_settings_tx = 0;
 
 static_assert(VCU_SETTINGS_LAYOUT_HASH == VCU_DRIVER_REQUEST_LAYOUT_HASH);
 
-void vcu_driver_request_CALLBACK(void) {
+void control_init(void) {
+    // TV initialization
+    pVCU = init_pVCU();
+    xVCU = init_xVCU();
+    yVCU = init_yVCU();
+}
+
+static inline void report_vcu_settings() {
+    volatile vcu_settings_data_t *current_settings = &vcu_settings[vcu_mode];
+
     CAN_SEND_vcu_settings(
         vcu_mode,
         current_settings->lateral_gain,
@@ -59,15 +68,24 @@ void vcu_driver_request_CALLBACK(void) {
     );
 }
 
-void control_init(void) {
-    // TV initialization
-    pVCU = init_pVCU();
-    xVCU = init_xVCU();
-    yVCU = init_yVCU();
+void vcu_driver_request_CALLBACK(void) {
+    // save the new settings into memory
+    vcu_mode = can_data.vcu_driver_request.vcu_mode;
+    vcu_settings[vcu_mode].lateral_gain = can_data.vcu_driver_request.lateral_gain;
+    vcu_settings[vcu_mode].longitudinal_gain = can_data.vcu_driver_request.longitudinal_gain;
+    vcu_settings[vcu_mode].electronic_brake_bias = can_data.vcu_driver_request.electronic_brake_bias;
+    vcu_settings[vcu_mode].is_regen_enabled = can_data.vcu_driver_request.is_regen_enabled;
+
+    // echo back the current settings
+    report_vcu_settings();
 }
 
 void control_loop() {
-    current_settings = &vcu_settings[vcu_mode];
+    uint32_t now = xTaskGetTickCount();
+    if ((now - last_vcu_settings_tx) >= VCU_SETTINGS_PERIOD_MS) { // periodic sync
+        report_vcu_settings();
+        last_vcu_settings_tx = now;
+    }
 
     // load up the xVCU (input) struct with most recent data
     xVCU.VCU_MODE_REQ = vcu_mode;

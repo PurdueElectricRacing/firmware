@@ -24,25 +24,29 @@ volatile vcu_settings_data_t vcu_settings[4] = {
         .lateral_gain = 50,
         .longitudinal_gain = 50,
         .electronic_brake_bias = 50,
-        .is_regen_enabled = true
+        .is_regen_enabled = true,
+        .is_tv_enabled = true
     },
     [VCU_MODE_SKIDPAD] = {
         .lateral_gain = 50,
         .longitudinal_gain = 50,
         .electronic_brake_bias = 50,
-        .is_regen_enabled = true
+        .is_regen_enabled = true,
+        .is_tv_enabled = true
     },
     [VCU_MODE_AUTOCROSS] = {
         .lateral_gain = 50,
         .longitudinal_gain = 50,
         .electronic_brake_bias = 50,
-        .is_regen_enabled = true
+        .is_regen_enabled = true,
+        .is_tv_enabled = true
     },
     [VCU_MODE_ENDURANCE] = {
         .lateral_gain = 50,
         .longitudinal_gain = 50,
         .electronic_brake_bias = 50,
-        .is_regen_enabled = true
+        .is_regen_enabled = true,
+        .is_tv_enabled = true
     }
 };
 uint32_t last_vcu_settings_tx = 0;
@@ -65,17 +69,22 @@ static inline void report_vcu_settings() {
         current_settings->longitudinal_gain,
         current_settings->electronic_brake_bias,
         current_settings->is_regen_enabled,
-        
+        current_settings->is_tv_enabled
     );
 }
 
 void vcu_driver_request_CALLBACK(void) {
-    // save the new settings into memory
-    vcu_mode = can_data.vcu_driver_request.vcu_mode;
+    vcu_mode_t requested_mode = can_data.vcu_driver_request.vcu_mode;
+    if (vcu_mode != requested_mode) {
+        vcu_mode = requested_mode;
+        return;
+    }
+
     vcu_settings[vcu_mode].lateral_gain = can_data.vcu_driver_request.lateral_gain;
     vcu_settings[vcu_mode].longitudinal_gain = can_data.vcu_driver_request.longitudinal_gain;
     vcu_settings[vcu_mode].electronic_brake_bias = can_data.vcu_driver_request.electronic_brake_bias;
     vcu_settings[vcu_mode].is_regen_enabled = can_data.vcu_driver_request.is_regen_enabled;
+    vcu_settings[vcu_mode].is_tv_enabled = can_data.vcu_driver_request.is_tv_enabled;
 
     // echo back the current settings
     report_vcu_settings();

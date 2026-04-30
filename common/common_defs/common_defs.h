@@ -16,23 +16,6 @@
 
 #include <stdint.h>
 
-/* Math Functions */
-static inline int32_t clamp_i(int32_t x, int32_t min, int32_t max) {
-    if (x < min) return min;
-    if (x > max) return max;
-    return x;
-}
-static inline float clamp_f(float x, float min, float max) {
-    if (x < min) return min;
-    if (x > max) return max;
-    return x;
-}
-#define CLAMP(x, min, max) _Generic((x), \
-    float: clamp_f, \
-    double: clamp_f, \
-    default: clamp_i \
-)((x), (min), (max))
-
 // Base-2 logarithm that rounds down
 static inline uint32_t LOG2_DOWN(uint32_t x) {
     return 31U - (uint32_t)__builtin_clz(x);

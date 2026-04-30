@@ -210,6 +210,10 @@
                         {
                             "sig_name": "is_regen_enabled",
                             "type": "bool"
+                        },
+                        {
+                            "sig_name": "is_tv_enabled",
+                            "type": "bool"
                         }
                     ],
                     "msg_period": 5000,

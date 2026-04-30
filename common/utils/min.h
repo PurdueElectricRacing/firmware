@@ -13,7 +13,7 @@
  */
 
 [[gnu::always_inline]]
-static inline int min2_signed(int a, int b) {
+static inline signed int min2_signed(signed int a, signed int b) {
     return (a < b) ? a : b;
 }
 
@@ -28,7 +28,7 @@ static inline float min2_float(float a, float b) {
 }
 
 #define MINOF2(a, b) _Generic((a) + (b), \
-    int: min2_signed, \
+    signed int: min2_signed, \
     unsigned int: min2_unsigned, \
     float: min2_float \
 )(a, b)

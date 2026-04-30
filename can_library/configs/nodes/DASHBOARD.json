@@ -10,18 +10,26 @@
                     "signals": [
                         {
                             "sig_name": "throttle",
-                            "sig_desc": "Throttle request from driver",
-                            "type": "uint16_t",
-                            "length": 12,
-                            "scale": 0.02442,
+                            "sig_desc": "throttle request from driver",
+                            "type": "uint8_t",
+                            "min": 0,
+                            "max": 100,
+                            "unit": "%"
+                        },
+                        {
+                            "sig_name": "regen",
+                            "sig_desc": "regen request from driver (first throw)",
+                            "type": "uint8_t",
+                            "min": 0,
+                            "max": 100,
                             "unit": "%"
                         },
                         {
                             "sig_name": "brake",
-                            "sig_desc": "Brake request from driver",
-                            "type": "uint16_t",
-                            "length": 12,
-                            "scale": 0.02442,
+                            "sig_desc": "mechanical braking from driver (second throw)",
+                            "type": "uint8_t",
+                            "min": 0,
+                            "max": 100,
                             "unit": "%"
                         }
                     ],

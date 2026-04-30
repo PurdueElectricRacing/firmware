@@ -12,8 +12,8 @@
 
 // Nextion object names
 #define THROT_BAR    "throt"
-#define BRK_BAR      "break" // lol 
 #define RGN_BAR      "regen"
+#define BRK_BAR      "brake"
 #define FL_BAR       "FL"
 #define FR_BAR       "FR"
 #define RL_BAR       "RL"

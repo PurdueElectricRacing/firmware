@@ -18,6 +18,7 @@ static xVCU_struct xVCU;
 static yVCU_struct yVCU;
 
 // init default settings
+vcu_mode_t vcu_mode = VCU_MODE_AUTOCROSS;
 vcu_settings_data_t vcu_settings[4] = {
     [VCU_MODE_ACCEL] = {
         .lateral_gain = 50,
@@ -50,6 +51,7 @@ static_assert(VCU_SETTINGS_LAYOUT_HASH == VCU_DRIVER_REQUEST_LAYOUT_HASH);
 
 void vcu_driver_request_CALLBACK(void) {
     CAN_SEND_vcu_settings(
+        vcu_mode,
         current_settings->lateral_gain,
         current_settings->longitudinal_gain,
         current_settings->electronic_brake_bias,
@@ -65,8 +67,10 @@ void control_init(void) {
 }
 
 void control_loop() {
+    current_settings = &vcu_settings[vcu_mode];
+
     // load up the xVCU (input) struct with most recent data
-    xVCU.VCU_MODE_REQ = VCU_MODE_AUTOCROSS;
+    xVCU.VCU_MODE_REQ = vcu_mode;
 
     xVCU.THROT_RAW = can_data.pedals.throttle / 4095.0f / 100.0f; // scale to [1,0]
     xVCU.BRAKE_RAW = can_data.pedals.brake / 4095.0f / 100.0f * -1.0f; // scale to [0,-1]

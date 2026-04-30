@@ -182,7 +182,12 @@
                     "msg_desc": "currently configured VCU settings",
                     "signals": [
                         {
+                            "sig_name": "vcu_mode",
+                            "type": "vcu_mode_t"
+                        },
+                        {
                             "sig_name": "lateral_gain",
+                            "sig_desc": "higher gain = greater left-right differential",
                             "type": "uint8_t",
                             "unit": "%",
                             "max": 100,

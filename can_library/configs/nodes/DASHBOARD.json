@@ -45,6 +45,10 @@
                     "msg_desc": "driver requested VCU settings",
                     "signals": [
                         {
+                            "sig_name": "vcu_mode",
+                            "type": "vcu_mode_t"
+                        },
+                        {
                             "sig_name": "lateral_gain",
                             "type": "uint8_t",
                             "unit": "%",

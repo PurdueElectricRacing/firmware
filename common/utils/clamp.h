@@ -11,32 +11,27 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-[[gnu::always_inline]]
-static inline signed int clamp_signed(signed int input, signed int lower_bound, signed int upper_bound) {
-    if (input < lower_bound) return lower_bound;
-    if (input > upper_bound) return upper_bound;
-    return input;
+#define DEFINE_CLAMP(type, name)                                      \
+[[gnu::always_inline]]                                                \
+static inline type clamp_##name(type input, type lower, type upper) {  \
+    if (input < lower) return lower;                                  \
+    if (input > upper) return upper;                                  \
+    return input;                                                     \
 }
 
-[[gnu::always_inline]]
-static inline unsigned int clamp_unsigned(unsigned int input, unsigned int lower_bound, unsigned int upper_bound) {
-    if (input < lower_bound) return lower_bound;
-    if (input > upper_bound) return upper_bound;
-    return input;
-}
-
-[[gnu::always_inline]]
-static inline float clamp_f(float input, float lower_bound, float upper_bound) {
-    if (input < lower_bound) return lower_bound;
-    if (input > upper_bound) return upper_bound;
-    return input;
-}
+DEFINE_CLAMP(int, int)
+DEFINE_CLAMP(unsigned int, uint)
+DEFINE_CLAMP(long, long)
+DEFINE_CLAMP(unsigned long, ulong)
+DEFINE_CLAMP(float, float)
 
 #define CLAMP(input, lower_bound, upper_bound) \
     _Generic((input) + (lower_bound) + (upper_bound), \
-    signed int: clamp_signed, \
-    unsigned int: clamp_unsigned, \
-    float: clamp_f \
+    int: clamp_int, \
+    unsigned int: clamp_uint, \
+    long: clamp_long, \
+    unsigned long: clamp_ulong, \
+    float: clamp_float \
 )(input, lower_bound, upper_bound)
 
 

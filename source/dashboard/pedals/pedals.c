@@ -11,6 +11,7 @@
 
 #include "can_library/generated/DASHBOARD.h"
 #include "can_library/faults_common.h"
+#include "common/utils/clamp.h"
 #include "main.h"
 
 // ! pedal calibration constants
@@ -57,12 +58,6 @@ static inline uint16_t normalize(uint16_t input, uint16_t lower_bound, uint16_t 
     return normalized_value;
 }
 
-static inline uint16_t clamp(uint16_t input, uint16_t lower_bound, uint16_t upper_bound) {
-    if (input < lower_bound) return lower_bound;
-    if (input > upper_bound) return upper_bound;
-    return input;
-}
-
 /**
  * @brief Processes pedal sensor readings and sets faults as necessary
  *
@@ -80,9 +75,9 @@ void pedals_periodic(void) {
     update_fault(FAULT_ID_APPS_WIRING_T2, throttle2);
 
     // Hard clamp the raw values to the min and max values to account for physical limits
-    throttle1 = clamp(throttle1, THROTTLE1_MIN, THROTTLE1_MAX);
-    throttle2 = clamp(throttle2, THROTTLE2_MIN, THROTTLE2_MAX);
-    brake1 = clamp(brake1, BRAKE1_MIN, BRAKE1_MAX);
+    throttle1 = CLAMP(throttle1, THROTTLE1_MIN, THROTTLE1_MAX);
+    throttle2 = CLAMP(throttle2, THROTTLE2_MIN, THROTTLE2_MAX);
+    brake1 = CLAMP(brake1, BRAKE1_MIN, BRAKE1_MAX);
     // brake2 = clamp(brake2, BRAKE2_MIN, BRAKE2_MAX);
 
     // Normalize pedal signals to the 0-4095 range while preserving a linear relationship

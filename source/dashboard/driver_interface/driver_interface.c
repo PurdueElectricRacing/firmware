@@ -4,6 +4,7 @@
 #include "common/heartbeat/heartbeat.h"
 #include "common/phal/usart.h"
 #include "common/freertos/freertos.h"
+#include "common/utils/clamp.h"
 
 #include "driver_interface.h"
 #include "lcd.h"
@@ -232,27 +233,66 @@ void action_dispatcher(void) {
                 // CAN_SEND_start_button(true);
                 // todo: non-periodic start button using a callback
                 break;
-            case MARK_DATA:
+            case MARK_DATA: {
                 CAN_SEND_mark_data(xTaskGetTickCount(), data_mark_index);
                 data_mark_index++;
                 break;
-            case TOGGLE_REGEN:
-                // CAN_SEND_driver_request(DRIVER_REQUEST_TOGGLE_REGEN);
+            }
+            case TOGGLE_REGEN: {
+                bool new_regen = !can_data.vcu_settings.is_regen_enabled;
+                CAN_SEND_vcu_driver_request(
+                    can_data.vcu_settings.vcu_mode,
+                   can_data.vcu_settings.lateral_gain,
+                    can_data.vcu_settings.longitudinal_gain,
+                    can_data.vcu_settings.electronic_brake_bias,
+                    new_regen
+                );
                 break;
-            case EBB_MINUS:
-                // CAN_SEND_driver_request(DRIVER_REQUEST_EBB_MINUS);
+            }
+            case EBB_MINUS: {
+                uint8_t new_bias = CLAMP(can_data.vcu_settings.electronic_brake_bias - 1, 0, 100);
+                CAN_SEND_vcu_driver_request(
+                    can_data.vcu_settings.vcu_mode,
+                   can_data.vcu_settings.lateral_gain,
+                    can_data.vcu_settings.longitudinal_gain,
+                    new_bias,
+                    can_data.vcu_settings.is_regen_enabled
+                );
                 break;
-            case EBB_PLUS:
-                // CAN_SEND_driver_request(DRIVER_REQUEST_EBB_PLUS);
+            }
+            case EBB_PLUS: {
+                uint8_t new_bias = CLAMP(can_data.vcu_settings.electronic_brake_bias + 1, 0, 100);
+                CAN_SEND_vcu_driver_request(
+                    can_data.vcu_settings.vcu_mode,
+                   can_data.vcu_settings.lateral_gain,
+                    can_data.vcu_settings.longitudinal_gain,
+                    new_bias,
+                    can_data.vcu_settings.is_regen_enabled
+                );
                 break;
-            case TV1_PLUS:
-                // CAN_SEND_driver_request(DRIVER_REQUEST_TV1_PLUS);
+            }
+            case TV1_PLUS: {
+                uint8_t new_lateral_gain = CLAMP(can_data.vcu_settings.lateral_gain + 1, 0, 100);
+                CAN_SEND_vcu_driver_request(
+                    can_data.vcu_settings.vcu_mode,
+                    new_lateral_gain,
+                    can_data.vcu_settings.longitudinal_gain,
+                    can_data.vcu_settings.electronic_brake_bias,
+                    can_data.vcu_settings.is_regen_enabled
+                );
                 break;
-            case TV1_MINUS:
-                // CAN_SEND_driver_request(DRIVER_REQUEST_TV1_MINUS);
+            }
+            case TV1_MINUS: {
+                uint8_t new_lateral_gain = CLAMP(can_data.vcu_settings.lateral_gain - 1, 0, 100);
+                CAN_SEND_vcu_driver_request(
+                    can_data.vcu_settings.vcu_mode,
+                    new_lateral_gain,
+                    can_data.vcu_settings.longitudinal_gain,
+                    can_data.vcu_settings.electronic_brake_bias,
+                    can_data.vcu_settings.is_regen_enabled
+                );
                 break;
-            default:
-                break;
+            }
         }
     }
 }

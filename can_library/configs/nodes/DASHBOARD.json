@@ -167,6 +167,9 @@
                 },
                 {
                     "msg_name": "invd_diagnostics"
+                },
+                {
+                    "msg_name": "vcu_settings"
                 }
             ]
         },

@@ -150,7 +150,7 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
 // LCD Variables
-extern page_t curr_page;
+extern volatile page_t curr_page;
 
 /* Function Prototypes */
 void sweep_external_leds();

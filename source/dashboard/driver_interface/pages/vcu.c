@@ -6,12 +6,11 @@
  */
 
 #include "vcu.h"
-#include "common/utils/countof.h"
 #include "can_library/generated/DASHBOARD.h"
-
+#include "common/nextion/nextion.h"
+#include "common/utils/clamp.h"
+#include "lcd.h"
 #include "menu_system.h"
-
-void send_vcu_driver_request(void);
 
 typedef enum {
     VCU_MODE_INDEX     = 0,
@@ -25,10 +24,57 @@ typedef enum {
     NUM_VCU_ELEMENTS
 } vcu_elements_t;
 
-menu_element_t vcu_elements[NUM_VCU_ELEMENTS] = {
+static char *const VCU_MODE_LABELS[] = {
+    "ACCEL",
+    "SKIDPAD",
+    "AUTOCROSS",
+    "ENDURANCE",
+};
+
+static char *const VCU_BINDING_LABELS[] = {
+    "VCU MODE",
+    "LAT GAIN",
+    "LONG GAIN",
+    "EBB",
+};
+
+static void render_vcu_element(menu_element_t* element) {
+    switch (element->type) {
+        case ELEMENT_VAL:
+            if (element->labels != nullptr) {
+                NXT_setText(element->object_name, element->labels[element->current_value]);
+            } else {
+                NXT_setTextFormatted(element->object_name, "%d", element->current_value);
+            }
+            break;
+        case ELEMENT_OPTION:
+        case ELEMENT_FLT:
+            NXT_setValue(element->object_name, element->current_value);
+            break;
+        default:
+            break;
+    }
+}
+
+static uint8_t binding_to_element_index(vcu_binding_t binding) {
+    switch (binding) {
+        case VCU_BINDING_MODE:
+            return VCU_MODE_INDEX;
+        case VCU_BINDING_LATERAL_GAIN:
+            return LATERAL_GAIN_INDEX;
+        case VCU_BINDING_LONGITUDINAL_GAIN:
+            return LONG_GAIN_INDEX;
+        case VCU_BINDING_EBB:
+        default:
+            return EBB_INDEX;
+    }
+}
+
+static menu_element_t vcu_elements[NUM_VCU_ELEMENTS] = {
     [VCU_MODE_INDEX] = {
-        .type        = ELEMENT_OPTION,
+        .type        = ELEMENT_VAL,
         .object_name = VCU_MODE_BUTTON,
+        .labels = VCU_MODE_LABELS,
         .current_value = VCU_MODE_ACCEL,
         .increment = 1,
         .min_value = VCU_MODE_ACCEL,
@@ -60,33 +106,40 @@ menu_element_t vcu_elements[NUM_VCU_ELEMENTS] = {
         .on_change   = send_vcu_driver_request
     },
     [REGEN_INDEX] = {
-        .type        = ELEMENT_BUTTON,
+        .type        = ELEMENT_OPTION,
         .object_name = REGEN_BUTTON,
-        .increment = 1,
-        .min_value = 0,
-        .max_value = 1,
+        .current_value = 0,
         .on_change   = send_vcu_driver_request
     },
     [TV_INDEX] = {
-        .type        = ELEMENT_BUTTON,
+        .type        = ELEMENT_OPTION,
         .object_name = TV_BUTTON,
+        .current_value = 0,
         .on_change   = send_vcu_driver_request
     },
     [LEFT_WHEEL_INDEX] = {
-        .type        = ELEMENT_OPTION,
+        .type        = ELEMENT_VAL,
         .object_name = LEFT_WHEEL_BUTTON,
-        .on_change   = send_vcu_driver_request
+        .labels = VCU_BINDING_LABELS,
+        .current_value = VCU_BINDING_MODE,
+        .increment = 1,
+        .min_value = VCU_BINDING_MODE,
+        .max_value = VCU_BINDING_EBB
     },
     [RIGHT_WHEEL_INDEX] = {
-        .type        = ELEMENT_OPTION,
+        .type        = ELEMENT_VAL,
         .object_name = RIGHT_WHEEL_BUTTON,
-        .on_change   = send_vcu_driver_request
+        .labels = VCU_BINDING_LABELS,
+        .current_value = VCU_BINDING_MODE,
+        .increment = 1,
+        .min_value = VCU_BINDING_MODE,
+        .max_value = VCU_BINDING_EBB
     }
 };
 
 menu_page_t vcu_page = {
     .elements            = vcu_elements,
-    .num_elements        = countof(vcu_elements),
+    .num_elements        = NUM_VCU_ELEMENTS,
     .current_index       = 0,
     .is_element_selected = false
 };
@@ -98,6 +151,7 @@ void vcu_update() {
     vcu_elements[LONG_GAIN_INDEX].current_value = can_data.vcu_settings.longitudinal_gain;
     vcu_elements[EBB_INDEX].current_value = can_data.vcu_settings.electronic_brake_bias;
     vcu_elements[REGEN_INDEX].current_value = can_data.vcu_settings.is_regen_enabled;
+    vcu_elements[TV_INDEX].current_value = can_data.vcu_settings.is_tv_enabled;
 
     MS_refreshPage(&vcu_page);
 }
@@ -114,12 +168,40 @@ void vcu_select() {
     MS_select(&vcu_page);
 }
 
+void vcu_wheel_adjust(bool is_right_wheel, int8_t delta) {
+    if (delta == 0) {
+        return;
+    }
+
+    const uint8_t binding_index = is_right_wheel ? RIGHT_WHEEL_INDEX : LEFT_WHEEL_INDEX;
+    const vcu_binding_t binding = (vcu_binding_t)vcu_elements[binding_index].current_value;
+    const uint8_t target_index = binding_to_element_index(binding);
+    menu_element_t* target = &vcu_elements[target_index];
+
+    target->current_value = CLAMP((int32_t)target->current_value + delta, target->min_value, target->max_value);
+
+    if (curr_page == PAGE_VCU) {
+        render_vcu_element(target);
+    }
+
+    send_vcu_driver_request();
+}
+
+void vcu_toggle_regen(void) {
+    vcu_elements[REGEN_INDEX].current_value ^= 1;
+    if (curr_page == PAGE_VCU) {
+        render_vcu_element(&vcu_elements[REGEN_INDEX]);
+    }
+    send_vcu_driver_request();
+}
+
 void send_vcu_driver_request(void) {
     CAN_SEND_vcu_driver_request(
-        can_data.vcu_settings.vcu_mode,
-        can_data.vcu_settings.lateral_gain,
-        can_data.vcu_settings.longitudinal_gain,
-        can_data.vcu_settings.electronic_brake_bias,
-        can_data.vcu_settings.is_regen_enabled
+        (vcu_mode_t)vcu_elements[VCU_MODE_INDEX].current_value,
+        (uint8_t)vcu_elements[LATERAL_GAIN_INDEX].current_value,
+        (uint8_t)vcu_elements[LONG_GAIN_INDEX].current_value,
+        (uint8_t)vcu_elements[EBB_INDEX].current_value,
+        (bool)vcu_elements[REGEN_INDEX].current_value,
+        (bool)vcu_elements[TV_INDEX].current_value
     );
 }

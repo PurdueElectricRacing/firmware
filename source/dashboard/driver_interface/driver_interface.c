@@ -4,11 +4,11 @@
 #include "common/heartbeat/heartbeat.h"
 #include "common/phal/usart.h"
 #include "common/freertos/freertos.h"
-#include "common/utils/clamp.h"
 
 #include "driver_interface.h"
 #include "lcd.h"
 #include "main.h"
+#include "pages/vcu.h"
 #include "strbuf.h"
 
 #define ACTION_QUEUE_LENGTH 10
@@ -239,58 +239,23 @@ void action_dispatcher(void) {
                 break;
             }
             case TOGGLE_REGEN: {
-                bool new_regen = !can_data.vcu_settings.is_regen_enabled;
-                CAN_SEND_vcu_driver_request(
-                    can_data.vcu_settings.vcu_mode,
-                   can_data.vcu_settings.lateral_gain,
-                    can_data.vcu_settings.longitudinal_gain,
-                    can_data.vcu_settings.electronic_brake_bias,
-                    new_regen
-                );
+                vcu_toggle_regen();
                 break;
             }
             case RIGHT_WHEEL_MINUS: {
-                uint8_t new_bias = CLAMP(can_data.vcu_settings.electronic_brake_bias - 1, 0, 100);
-                CAN_SEND_vcu_driver_request(
-                    can_data.vcu_settings.vcu_mode,
-                   can_data.vcu_settings.lateral_gain,
-                    can_data.vcu_settings.longitudinal_gain,
-                    new_bias,
-                    can_data.vcu_settings.is_regen_enabled
-                );
+                vcu_wheel_adjust(true, -1);
                 break;
             }
             case RIGHT_WHEEL_PLUS: {
-                uint8_t new_bias = CLAMP(can_data.vcu_settings.electronic_brake_bias + 1, 0, 100);
-                CAN_SEND_vcu_driver_request(
-                    can_data.vcu_settings.vcu_mode,
-                   can_data.vcu_settings.lateral_gain,
-                    can_data.vcu_settings.longitudinal_gain,
-                    new_bias,
-                    can_data.vcu_settings.is_regen_enabled
-                );
+                vcu_wheel_adjust(true, 1);
                 break;
             }
             case LEFT_WHEEL_PLUS: {
-                uint8_t new_lateral_gain = CLAMP(can_data.vcu_settings.lateral_gain + 1, 0, 100);
-                CAN_SEND_vcu_driver_request(
-                    can_data.vcu_settings.vcu_mode,
-                    new_lateral_gain,
-                    can_data.vcu_settings.longitudinal_gain,
-                    can_data.vcu_settings.electronic_brake_bias,
-                    can_data.vcu_settings.is_regen_enabled
-                );
+                vcu_wheel_adjust(false, 1);
                 break;
             }
             case LEFT_WHEEL_MINUS: {
-                uint8_t new_lateral_gain = CLAMP(can_data.vcu_settings.lateral_gain - 1, 0, 100);
-                CAN_SEND_vcu_driver_request(
-                    can_data.vcu_settings.vcu_mode,
-                    new_lateral_gain,
-                    can_data.vcu_settings.longitudinal_gain,
-                    can_data.vcu_settings.electronic_brake_bias,
-                    can_data.vcu_settings.is_regen_enabled
-                );
+                vcu_wheel_adjust(false, -1);
                 break;
             }
         }

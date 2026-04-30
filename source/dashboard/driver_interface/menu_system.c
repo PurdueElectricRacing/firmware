@@ -16,6 +16,14 @@
 static constexpr uint16_t HOVER_BORDER_WIDTH = 3;
 static constexpr uint16_t NO_BORDER_WIDTH = 0;
 
+static void MS_renderValueElement(const menu_element_t* element) {
+    if (element->labels != NULL) {
+        NXT_setText(element->object_name, element->labels[element->current_value]);
+    } else {
+        NXT_setTextFormatted(element->object_name, "%d", element->current_value);
+    }
+}
+
 /**
  * @brief Applies normal (default) styling to a menu element
  * @param element Pointer to the menu element to be styled
@@ -161,7 +169,7 @@ void MS_incrementValue(menu_element_t* element) {
             NXT_setValue(element->object_name, element->current_value);
             break;
         case ELEMENT_VAL:
-            NXT_setTextFormatted(element->object_name, "%d", element->current_value);
+            MS_renderValueElement(element);
             break;
         default:
             break;
@@ -188,7 +196,7 @@ void MS_decrementValue(menu_element_t* element) {
             NXT_setValue(element->object_name, element->current_value);
             break;
         case ELEMENT_VAL:
-            NXT_setTextFormatted(element->object_name, "%d", element->current_value);
+            MS_renderValueElement(element);
             break;
         default:
             break;
@@ -213,7 +221,7 @@ void MS_refreshPage(menu_page_t* page) {
                 }
                 break;
             case ELEMENT_VAL:
-                NXT_setTextFormatted(curr_element->object_name, "%d", curr_element->current_value);
+                MS_renderValueElement(curr_element);
                 break;
             case ELEMENT_FLT: // Fall through
             case ELEMENT_OPTION:

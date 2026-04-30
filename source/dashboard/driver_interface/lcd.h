@@ -29,6 +29,8 @@ typedef struct {
     char *string;
 } page_handler_t;
 
+extern volatile page_t curr_page;
+
 void LCD_init(uint32_t baud_rate);
 void LCD_tx_update(void);
 void advancePage(void);

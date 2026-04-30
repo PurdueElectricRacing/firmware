@@ -64,7 +64,8 @@ static inline void report_vcu_settings() {
         current_settings->lateral_gain,
         current_settings->longitudinal_gain,
         current_settings->electronic_brake_bias,
-        current_settings->is_regen_enabled
+        current_settings->is_regen_enabled,
+        
     );
 }
 

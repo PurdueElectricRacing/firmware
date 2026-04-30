@@ -15,7 +15,8 @@ typedef enum : uint8_t {
     PAGE_FAULTS      = 1,
     PAGE_CALIBRATION = 2,
     PAGE_AMK         = 3,
-    NUM_PAGES, // leave as auto to count number of pages
+    PAGE_VCU         = 4,
+    NUM_PAGES,      // leave as auto to count number of pages
     PAGE_PREFLIGHT, // not selectable, only shown on power on
 } page_t;
 

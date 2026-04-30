@@ -55,6 +55,14 @@ const page_handler_t page_handlers[NUM_PAGES] = { // Order must match page_t enu
         .select    = nullptr,
         .telemetry = amk_telemetry_update,
         .string    = AMK_STRING
+    },
+    [PAGE_VCU] = {
+        .update    = vcu_update,
+        .move_up   = vcu_move_up,
+        .move_down = vcu_move_down,
+        .select    = vcu_select,
+        .telemetry = nullptr,
+        .string    = VCU_STRING
     }
 };
 

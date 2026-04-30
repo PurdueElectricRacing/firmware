@@ -13,7 +13,7 @@
  */
 
 [[gnu::always_inline]]
-static inline int max2_signed(int a, int b) {
+static inline signed int max2_signed(signed int a, signed int b) {
     return (a > b) ? a : b;
 }
 
@@ -28,7 +28,7 @@ static inline float max2_float(float a, float b) {
 }
 
 #define MAXOF2(a, b) _Generic((a) + (b), \
-    int: max2_signed, \
+    signed int: max2_signed, \
     unsigned int: max2_unsigned, \
     float: max2_float \
 )(a, b)

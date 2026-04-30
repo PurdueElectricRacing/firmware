@@ -6,6 +6,7 @@
  */
 
 #include "common/phal_G4/spi/spi.h"
+#include "common/utils/clamp.h"
 
 extern uint32_t APB2ClockRateHz;
 extern uint32_t APB1ClockRateHz;

@@ -10,6 +10,7 @@
 #include "sensors.h"
 // #include <math.h>
 #include "common/utils/units.h"
+#include "common/utils/clamp.h"
 
 typedef enum {
     DECOUPLING_STATE_IDLE,
@@ -75,10 +76,9 @@ void initialize_calibration(void) {
 //     // unit_g should be [0, 0, -1]
 //     euler_angles_t angles = {0};
 
-//     // avoid asinf() domain errors due to fp noise by clamping the input to [-0.9999, 0.9999]
-//     float clamped_pitch = -unit_g.x;
-//     if (clamped_pitch < -0.9999f) { clamped_pitch = -0.9999f; }
-//     if (clamped_pitch > 0.9999f) { clamped_pitch = 0.9999f; }
+    // avoid asinf() domain errors due to fp noise by clamping the input to [-0.9999, 0.9999]
+    // float clamped_pitch = CLAMP(-unit_g.x, -0.9999f, 0.9999f);
+
 
 //     angles.pitch = asinf(clamped_pitch); // Pitch is rotation around Y: sin(pitch) = -accel_x
 //     angles.roll  = atan2f(-unit_g.y, -unit_g.z); // Roll is rotation around X: sin(roll) = accel_y / cos(pitch)

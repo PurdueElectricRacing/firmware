@@ -9,6 +9,7 @@
  *
  */
 #include "common/phal_F4_F7/spi/spi.h"
+#include "common/utils/clamp.h"
 
 extern uint32_t APB2ClockRateHz;
 extern uint32_t APB1ClockRateHz;

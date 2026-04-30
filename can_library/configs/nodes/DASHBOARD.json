@@ -173,7 +173,8 @@
                     "msg_name": "invd_diagnostics"
                 },
                 {
-                    "msg_name": "vcu_settings"
+                    "msg_name": "vcu_settings",
+                    "callback": true
                 }
             ]
         },

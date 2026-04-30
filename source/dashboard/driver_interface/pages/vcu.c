@@ -121,7 +121,7 @@ static menu_element_t vcu_elements[NUM_VCU_ELEMENTS] = {
         .type        = ELEMENT_VAL,
         .object_name = LEFT_WHEEL_BUTTON,
         .labels = VCU_BINDING_LABELS,
-        .current_value = VCU_BINDING_MODE,
+        .current_value = VCU_BINDING_LATERAL_GAIN,
         .increment = 1,
         .min_value = VCU_BINDING_MODE,
         .max_value = VCU_BINDING_EBB
@@ -130,7 +130,7 @@ static menu_element_t vcu_elements[NUM_VCU_ELEMENTS] = {
         .type        = ELEMENT_VAL,
         .object_name = RIGHT_WHEEL_BUTTON,
         .labels = VCU_BINDING_LABELS,
-        .current_value = VCU_BINDING_MODE,
+        .current_value = VCU_BINDING_EBB,
         .increment = 1,
         .min_value = VCU_BINDING_MODE,
         .max_value = VCU_BINDING_EBB
@@ -144,8 +144,11 @@ menu_page_t vcu_page = {
     .is_element_selected = false
 };
 
-void vcu_update() {
-    // force sync with tv's last reported state
+void vcu_update(void) {
+    MS_refreshPage(&vcu_page);
+}
+
+void vcu_settings_CALLBACK(void) {
     vcu_elements[VCU_MODE_INDEX].current_value = can_data.vcu_settings.vcu_mode;
     vcu_elements[LATERAL_GAIN_INDEX].current_value = can_data.vcu_settings.lateral_gain;
     vcu_elements[LONG_GAIN_INDEX].current_value = can_data.vcu_settings.longitudinal_gain;
@@ -153,7 +156,9 @@ void vcu_update() {
     vcu_elements[REGEN_INDEX].current_value = can_data.vcu_settings.is_regen_enabled;
     vcu_elements[TV_INDEX].current_value = can_data.vcu_settings.is_tv_enabled;
 
-    MS_refreshPage(&vcu_page);
+    if (curr_page == PAGE_VCU) {
+        MS_refreshPage(&vcu_page);
+    }
 }
 
 void vcu_move_up() {

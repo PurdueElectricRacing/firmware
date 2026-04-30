@@ -31,8 +31,7 @@ static void ready2drive_periodic() {
     // todo alternative throttle mapping (like S curve)
 
     // assumes pedals.throttle is in the range [0, 100]
-    float throttle = can_data.pedals.throttle / 100.0f;
-    int16_t torque_req_percent = (int16_t)(throttle * 100);
+    int16_t torque_req_percent = can_data.pedals.throttle;
 
     int16_t rear_torque = torque_req_percent * 2.1f; // allow 110% over-torque
 

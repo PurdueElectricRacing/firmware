@@ -137,10 +137,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "FreeRTOSConfig_8h_source.html",
-"dir_e67555d1f5fe7292c6a7c448ab46b58b.html",
-"oil__temps__table_8h_source.html",
-"strbuf_8c.html",
-"torque__vector_2telemetry_2telemetry_8h.html#ad17b4787e885938a20f35bd144928f22"
+"dir_e44a99400c98fdc940c6db3c014c8b51.html",
+"nextion_8h_source.html",
+"spmc_8h.html#a9ce4d496b1d03859046de565bb84b542",
+"torque__vector_2telemetry_2telemetry_8c.html#a6d0a75c0aee5808a962691e3973ee968"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

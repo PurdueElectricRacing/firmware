@@ -1,9 +1,13 @@
 var NAVTREEINDEX4 =
 {
+"torque__vector_2telemetry_2telemetry_8c.html#a6d0a75c0aee5808a962691e3973ee968":[26,0,1,8,2,0,1],
+"torque__vector_2telemetry_2telemetry_8c.html#ad17b4787e885938a20f35bd144928f22":[26,0,1,8,2,0,0],
+"torque__vector_2telemetry_2telemetry_8h.html":[26,0,1,8,2,1],
+"torque__vector_2telemetry_2telemetry_8h.html#a6d0a75c0aee5808a962691e3973ee968":[26,0,1,8,2,1,1],
 "torque__vector_2telemetry_2telemetry_8h.html#ad17b4787e885938a20f35bd144928f22":[26,0,1,8,2,1,0],
 "torque__vector_2telemetry_2telemetry_8h_source.html":[26,0,1,8,2,1],
-"units_8h.html":[26,0,0,16,5],
-"units_8h_source.html":[26,0,0,16,5],
+"units_8h.html":[26,0,0,16,7],
+"units_8h_source.html":[26,0,0,16,7],
 "vcu_8h_source.html":[26,0,1,8,3,0],
 "vehicle__fsm_8c.html":[26,0,1,6,2,0],
 "vehicle__fsm_8h.html":[26,0,1,6,2,1],

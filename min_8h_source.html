@@ -104,7 +104,7 @@ $(function(){initNavTree('min_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define MIN_H</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>[[gnu::always_inline]]</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">int</span> min2_signed(<span class="keywordtype">int</span> a, <span class="keywordtype">int</span> b) {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">signed</span> <span class="keywordtype">int</span> min2_signed(<span class="keywordtype">signed</span> <span class="keywordtype">int</span> a, <span class="keywordtype">signed</span> <span class="keywordtype">int</span> b) {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">return</span> (a &lt; b) ? a : b;</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
@@ -119,7 +119,7 @@ $(function(){initNavTree('min_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#define MINOF2(a, b) _Generic((a) + (b), \</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">    int: min2_signed, \</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">    signed int: min2_signed, \</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">    unsigned int: min2_unsigned, \</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">    float: min2_float \</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">)(a, b)</span></div>

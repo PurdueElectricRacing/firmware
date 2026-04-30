@@ -7,13 +7,14 @@ var searchData=
   ['can_5firq_2eh_4',['can_irq.h',['../can__irq_8h.html',1,'']]],
   ['charging_5ffsm_2ec_5',['charging_fsm.c',['../charging__fsm_8c.html',1,'']]],
   ['charging_5ffsm_2eh_6',['charging_fsm.h',['../charging__fsm_8h.html',1,'']]],
-  ['colors_2eh_7',['colors.h',['../colors_8h.html',1,'']]],
-  ['commands_2ec_8',['commands.c',['../commands_8c.html',1,'']]],
-  ['commands_2eh_9',['commands.h',['../commands_8h.html',1,'']]],
-  ['common_5fdefs_2eh_10',['common_defs.h',['../common__defs_8h.html',1,'']]],
-  ['control_5floop_2ec_11',['control_loop.c',['../control__loop_8c.html',1,'']]],
-  ['control_5floop_2eh_12',['control_loop.h',['../control__loop_8h.html',1,'']]],
-  ['countof_2eh_13',['countof.h',['../countof_8h.html',1,'']]],
-  ['crc_2ec_14',['crc.c',['../crc_8c.html',1,'']]],
-  ['crc_2eh_15',['crc.h',['../phal__F4__F7_2crc_2crc_8h.html',1,'']]]
+  ['clamp_2eh_7',['clamp.h',['../clamp_8h.html',1,'']]],
+  ['colors_2eh_8',['colors.h',['../colors_8h.html',1,'']]],
+  ['commands_2ec_9',['commands.c',['../commands_8c.html',1,'']]],
+  ['commands_2eh_10',['commands.h',['../commands_8h.html',1,'']]],
+  ['common_5fdefs_2eh_11',['common_defs.h',['../common__defs_8h.html',1,'']]],
+  ['control_5floop_2ec_12',['control_loop.c',['../control__loop_8c.html',1,'']]],
+  ['control_5floop_2eh_13',['control_loop.h',['../control__loop_8h.html',1,'']]],
+  ['countof_2eh_14',['countof.h',['../countof_8h.html',1,'']]],
+  ['crc_2ec_15',['crc.c',['../crc_8c.html',1,'']]],
+  ['crc_2eh_16',['crc.h',['../phal__F4__F7_2crc_2crc_8h.html',1,'']]]
 ];

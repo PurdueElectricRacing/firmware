@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"dir_e44a99400c98fdc940c6db3c014c8b51.html":[26,0,1,6,0],
+"dir_e4bd514faee87035d0410937177ba928.html":[26,0,0,11,2],
 "dir_e67555d1f5fe7292c6a7c448ab46b58b.html":[26,0,1,1,4],
 "dir_eb95523fb33d24af980f98de3484abef.html":[26,0,0,11,1],
 "dir_f03443e72771eabd8bd866680858afac.html":[26,0,1,3],
@@ -111,8 +113,8 @@ var NAVTREEINDEX1 =
 "lerp__lut_8h.html":[26,0,0,7,1],
 "lerp__lut_8h.html#aa6730914e04aa912dcb777e28f9e4004":[26,0,0,7,1,2],
 "lerp__lut_8h_source.html":[26,0,0,7,1],
-"linear__algebra_8h.html":[26,0,0,16,2],
-"linear__algebra_8h_source.html":[26,0,0,16,2],
+"linear__algebra_8h.html":[26,0,0,16,3],
+"linear__algebra_8h_source.html":[26,0,0,16,3],
 "main__module_2main_8c.html":[26,0,1,6,3],
 "main__module_2main_8h.html":[26,0,1,6,4],
 "main__module_2main_8h_source.html":[26,0,1,6,4],
@@ -125,8 +127,8 @@ var NAVTREEINDEX1 =
 "main__module_2telemetry_2telemetry_8h.html#a6d0a75c0aee5808a962691e3973ee968":[26,0,1,6,1,1,1],
 "main__module_2telemetry_2telemetry_8h.html#a74034e258280659c81e74c002594b2e2":[26,0,1,6,1,1,0],
 "main__module_2telemetry_2telemetry_8h_source.html":[26,0,1,6,1,1],
-"max_8h.html":[26,0,0,16,3],
-"max_8h_source.html":[26,0,0,16,3],
+"max_8h.html":[26,0,0,16,4],
+"max_8h_source.html":[26,0,0,16,4],
 "md_README.html":[0],
 "md_README.html#autotoc_md1":[0,0],
 "md_README.html#autotoc_md2":[0,1],
@@ -216,8 +218,8 @@ var NAVTREEINDEX1 =
 "menu__system_8h.html#abb6e83f43c566270750060807da99fa4":[26,0,1,2,0,6,6],
 "menu__system_8h.html#ad29034f2b375212cc2bb9d4ef615583d":[26,0,1,2,0,6,3],
 "menu__system_8h_source.html":[26,0,1,2,0,6],
-"min_8h.html":[26,0,0,16,4],
-"min_8h_source.html":[26,0,0,16,4],
+"min_8h.html":[26,0,0,16,5],
+"min_8h_source.html":[26,0,0,16,5],
 "nav__pvt_8c.html":[26,0,0,15,0],
 "nav__pvt_8h.html":[26,0,0,15,1],
 "nav__pvt_8h_source.html":[26,0,0,15,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "nextion_8h.html#ac7e3e9fc4674d17281069e97b8a5384d":[26,0,0,8,1,10],
 "nextion_8h.html#ae7d537c10e1e85e6537850a02a315fd7":[26,0,0,8,1,1],
 "nextion_8h.html#ae995d182561a5fa3087569539bb551d2":[26,0,0,8,1,3],
-"nextion_8h.html#af603b7d431ae4f94d55bf04b2034a8cc":[26,0,0,8,1,6],
-"nextion_8h_source.html":[26,0,0,8,1],
-"oil__temps__table_8h.html":[26,0,1,3,0,0]
+"nextion_8h.html#af603b7d431ae4f94d55bf04b2034a8cc":[26,0,0,8,1,6]
 };

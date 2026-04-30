@@ -126,6 +126,8 @@ var NAVTREEINDEX0 =
 "charging__fsm_8c.html":[26,0,1,0,1,0],
 "charging__fsm_8h.html":[26,0,1,0,1,1],
 "charging__fsm_8h_source.html":[26,0,1,0,1,1],
+"clamp_8h.html":[26,0,0,16,1],
+"clamp_8h_source.html":[26,0,0,16,1],
 "classes.html":[25,1],
 "colors_8h.html":[26,0,1,2,0,1],
 "colors_8h_source.html":[26,0,1,2,0,1],
@@ -170,8 +172,8 @@ var NAVTREEINDEX0 =
 "control__loop_8h_source.html":[26,0,1,8,0,1],
 "cooling_8h_source.html":[26,0,1,7,0,1],
 "cooling__bangbang_8h_source.html":[26,0,1,7,0,2],
-"countof_8h.html":[26,0,0,16,1],
-"countof_8h_source.html":[26,0,0,16,1],
+"countof_8h.html":[26,0,0,16,2],
+"countof_8h_source.html":[26,0,0,16,2],
 "crc_8c.html":[26,0,0,10,2,0],
 "daq_2main_8c.html":[26,0,1,1,5],
 "daq_2main_8h.html":[26,0,1,1,6],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "dir_ccec678e7899868ab89a84b47b4825e0.html":[26,0,1,7,0],
 "dir_d14dad6d4dd0a53ace723c1f049478ea.html":[26,0,0,3],
 "dir_de701a946b9b364c7aa1bf8586f35be8.html":[26,0,0,10,6],
-"dir_e2d872916054dced2b0c0cd6af07241b.html":[26,0,0,11,0],
-"dir_e44a99400c98fdc940c6db3c014c8b51.html":[26,0,1,6,0],
-"dir_e4bd514faee87035d0410937177ba928.html":[26,0,0,11,2]
+"dir_e2d872916054dced2b0c0cd6af07241b.html":[26,0,0,11,0]
 };

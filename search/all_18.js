@@ -16,6 +16,6 @@ var searchData=
   ['usart_5frecieve_5fcomplete_5fcallback_13',['usart_recieve_complete_callback',['../common_2phal__F4__F7_2usart_2usart_8c.html#afd98e1acca0fdcf343db884ea257b819',1,'usart_recieve_complete_callback(usart_init_t *handle):&#160;usart.c'],['../phal__F4__F7_2usart_2usart_8h.html#a61341976b0cee71be1b6cf3bc17db4de',1,'usart_recieve_complete_callback(usart_init_t *handle):&#160;usart.c']]],
   ['usart_5frx_5ferrors_5ft_14',['usart_rx_errors_t',['../structusart__rx__errors__t.html',1,'']]],
   ['usart_5ftx_5ferrors_5ft_15',['usart_tx_errors_t',['../structusart__tx__errors__t.html',1,'']]],
-  ['using_20the_20debugging_20tools_16',['Using the Debugging Tools',['../md_docs_2deploy__n__debug.html#autotoc_md59',1,'']]],
+  ['using_20the_20debugging_20tools_16',['Using the Debugging Tools',['../md_docs_2deploy__n__debug.html#autotoc_md61',1,'']]],
   ['utility_20functions_17',['PER Utility Functions',['../md_common_2utils_2README.html',1,'']]]
 ];

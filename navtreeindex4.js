@@ -1,5 +1,9 @@
 var NAVTREEINDEX4 =
 {
+"torque__vector_2main_8c.html":[26,0,1,8,4],
+"torque__vector_2main_8h.html":[26,0,1,8,5],
+"torque__vector_2main_8h_source.html":[26,0,1,8,5],
+"torque__vector_2telemetry_2telemetry_8c.html":[26,0,1,8,2,0],
 "torque__vector_2telemetry_2telemetry_8c.html#a6d0a75c0aee5808a962691e3973ee968":[26,0,1,8,2,0,1],
 "torque__vector_2telemetry_2telemetry_8c.html#ad17b4787e885938a20f35bd144928f22":[26,0,1,8,2,0,0],
 "torque__vector_2telemetry_2telemetry_8h.html":[26,0,1,8,2,1],

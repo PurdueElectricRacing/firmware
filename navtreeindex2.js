@@ -1,5 +1,9 @@
 var NAVTREEINDEX2 =
 {
+"nextion_8h.html#ac7e3e9fc4674d17281069e97b8a5384d":[26,0,0,8,1,10],
+"nextion_8h.html#ae7d537c10e1e85e6537850a02a315fd7":[26,0,0,8,1,1],
+"nextion_8h.html#ae995d182561a5fa3087569539bb551d2":[26,0,0,8,1,3],
+"nextion_8h.html#af603b7d431ae4f94d55bf04b2034a8cc":[26,0,0,8,1,6],
 "nextion_8h_source.html":[26,0,0,8,1],
 "oil__temps__table_8h.html":[26,0,1,3,0,0],
 "oil__temps__table_8h_source.html":[26,0,1,3,0,0],
@@ -245,9 +249,5 @@ var NAVTREEINDEX2 =
 "spmc_8c.html#a89cd8310ea92fcf7779b939853f6f6fc":[26,0,1,1,4,0,3],
 "spmc_8c.html#a9ce4d496b1d03859046de565bb84b542":[26,0,1,1,4,0,2],
 "spmc_8c.html#acac386d9c3934e6da2b92c20b4646247":[26,0,1,1,4,0,1],
-"spmc_8h.html":[26,0,1,1,4,1],
-"spmc_8h.html#a1cceacc1cc78c112192bb84aaee313aa":[26,0,1,1,4,1,1],
-"spmc_8h.html#a59e1e77dc52c3fdf1fedb2f0525287ff":[26,0,1,1,4,1,6],
-"spmc_8h.html#a87e903c37208248544ce3feaa583e7a4":[26,0,1,1,4,1,5],
-"spmc_8h.html#a89cd8310ea92fcf7779b939853f6f6fc":[26,0,1,1,4,1,4]
+"spmc_8h.html":[26,0,1,1,4,1]
 };

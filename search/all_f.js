@@ -13,10 +13,10 @@ var searchData=
   ['lerp_5flut_2ec_10',['lerp_lut.c',['../lerp__lut_8c.html',1,'']]],
   ['lerp_5flut_2eh_11',['lerp_lut.h',['../lerp__lut_8h.html',1,'']]],
   ['lerp_5flut_5ft_12',['lerp_lut_t',['../structlerp__lut__t.html',1,'']]],
-  ['linear_5falgebra_2eh_13',['linear_algebra.h',['../linear__algebra_8h.html',1,'']]],
-  ['linux_20tools_20setup_14',['Linux Tools Setup',['../md_docs_2setup.html#autotoc_md64',1,'']]],
-  ['log_5fenable_5fsw_15',['log_enable_sw',['../structSD__manager__t.html#a593a44f56454428ca5337946703192fd',1,'SD_manager_t']]],
-  ['look_20at_16',['Which one should I look at?',['../md_docs_2datasheets_2README.html#autotoc_md53',1,'']]],
+  ['library_13',['Data Sheet Library',['../md_docs_2datasheet__library.html',1,'']]],
+  ['linear_5falgebra_2eh_14',['linear_algebra.h',['../linear__algebra_8h.html',1,'']]],
+  ['linux_20tools_20setup_15',['Linux Tools Setup',['../md_docs_2setup.html#autotoc_md66',1,'']]],
+  ['log_5fenable_5fsw_16',['log_enable_sw',['../structSD__manager__t.html#a593a44f56454428ca5337946703192fd',1,'SD_manager_t']]],
   ['lut_5fentry_5ft_17',['lut_entry_t',['../structlut__entry__t.html',1,'']]],
   ['lut_5flookup_18',['lut_lookup',['../lerp__lut_8c.html#aa6730914e04aa912dcb777e28f9e4004',1,'lut_lookup(const lerp_lut_t *lut, float key):&#160;lerp_lut.c'],['../lerp__lut_8h.html#aa6730914e04aa912dcb777e28f9e4004',1,'lut_lookup(const lerp_lut_t *lut, float key):&#160;lerp_lut.c']]]
 ];

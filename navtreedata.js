@@ -81,36 +81,41 @@ var NAVTREE =
     [ "AMK Documentation", "md_common_2amk_2README.html", [
       [ "2026 AMK CAN ID Assignment Scheme", "md_common_2amk_2README.html#autotoc_md42", null ]
     ] ],
-    [ "THIS MODULE IS DEPRECATED", "md_common_2bmi088_2README.html", null ],
+    [ "BMI088", "md_common_2bmi088_2README.html", null ],
     [ "README", "md_common_2freertos_2README.html", null ],
     [ "Heartbeat Module", "md_common_2heartbeat_2README.html", null ],
     [ "lerp_lut", "md_common_2lerp__lut_2README.html", null ],
     [ "Common Modules", "md_common_2README.html", null ],
     [ "strbuf", "md_common_2strbuf_2README.html", null ],
     [ "PER Utility Functions", "md_common_2utils_2README.html", null ],
-    [ "code_style", "md_docs_2code__style.html", null ],
-    [ "README", "md_docs_2datasheets_2README.html", [
-      [ "Which one should I look at?", "md_docs_2datasheets_2README.html#autotoc_md53", [
-        [ "About the microcontrollers", "md_docs_2datasheets_2README.html#autotoc_md54", null ],
-        [ "Drivers", "md_docs_2datasheets_2README.html#autotoc_md55", null ],
-        [ "Hardware", "md_docs_2datasheets_2README.html#autotoc_md56", null ]
-      ] ]
+    [ "Codestyle", "md_docs_2code__style.html", [
+      [ "About", "md_docs_2code__style.html#autotoc_md52", null ],
+      [ "Rules and Suggestions", "md_docs_2code__style.html#autotoc_md53", null ]
     ] ],
-    [ "deploy_n_debug", "md_docs_2deploy__n__debug.html", null ],
+    [ "Data Sheet Library", "md_docs_2datasheet__library.html", [
+      [ "About the microcontrollers", "md_docs_2datasheet__library.html#autotoc_md55", null ],
+      [ "Drivers", "md_docs_2datasheet__library.html#autotoc_md56", null ],
+      [ "Hardware", "md_docs_2datasheet__library.html#autotoc_md57", null ]
+    ] ],
+    [ "Deployment and Debugging", "md_docs_2deploy__n__debug.html", [
+      [ "About", "md_docs_2deploy__n__debug.html#autotoc_md59", null ],
+      [ "Flashing Firmware", "md_docs_2deploy__n__debug.html#autotoc_md60", null ],
+      [ "Using the Debugging Tools", "md_docs_2deploy__n__debug.html#autotoc_md61", null ]
+    ] ],
     [ "PER Firmware Setup Instructions", "md_docs_2setup.html", [
-      [ "Tools", "md_docs_2setup.html#autotoc_md61", [
-        [ "MacOS Tools Setup", "md_docs_2setup.html#autotoc_md62", null ],
-        [ "Windows Tools Setup", "md_docs_2setup.html#autotoc_md63", null ],
-        [ "Linux Tools Setup", "md_docs_2setup.html#autotoc_md64", null ]
+      [ "Tools", "md_docs_2setup.html#autotoc_md63", [
+        [ "MacOS Tools Setup", "md_docs_2setup.html#autotoc_md64", null ],
+        [ "Windows Tools Setup", "md_docs_2setup.html#autotoc_md65", null ],
+        [ "Linux Tools Setup", "md_docs_2setup.html#autotoc_md66", null ]
       ] ],
-      [ "VSCode Setup (All OS)", "md_docs_2setup.html#autotoc_md65", [
-        [ "Install Extensions", "md_docs_2setup.html#autotoc_md66", null ],
-        [ "Turn on Autosave", "md_docs_2setup.html#autotoc_md67", null ]
+      [ "VSCode Setup (All OS)", "md_docs_2setup.html#autotoc_md67", [
+        [ "Install Extensions", "md_docs_2setup.html#autotoc_md68", null ],
+        [ "Turn on Autosave", "md_docs_2setup.html#autotoc_md69", null ]
       ] ],
-      [ "Repository Setup (All OS)", "md_docs_2setup.html#autotoc_md68", [
-        [ "Open a new terminal", "md_docs_2setup.html#autotoc_md69", null ],
-        [ "Clone PER repo", "md_docs_2setup.html#autotoc_md70", null ],
-        [ "Setup & Build", "md_docs_2setup.html#autotoc_md71", null ]
+      [ "Repository Setup (All OS)", "md_docs_2setup.html#autotoc_md70", [
+        [ "Open a new terminal", "md_docs_2setup.html#autotoc_md71", null ],
+        [ "Clone PER repo", "md_docs_2setup.html#autotoc_md72", null ],
+        [ "Setup & Build", "md_docs_2setup.html#autotoc_md73", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
@@ -138,9 +143,9 @@ var NAVTREEINDEX =
 [
 "FreeRTOSConfig_8h_source.html",
 "dir_e44a99400c98fdc940c6db3c014c8b51.html",
-"nextion_8h_source.html",
-"spmc_8h.html#a9ce4d496b1d03859046de565bb84b542",
-"torque__vector_2telemetry_2telemetry_8c.html#a6d0a75c0aee5808a962691e3973ee968"
+"nextion_8h.html#ac7e3e9fc4674d17281069e97b8a5384d",
+"spmc_8h.html#a1cceacc1cc78c112192bb84aaee313aa",
+"torque__vector_2main_8c.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

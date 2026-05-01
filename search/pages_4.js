@@ -2,8 +2,9 @@ var searchData=
 [
   ['dashboard_0',['Dashboard',['../md_source_2dashboard_2README.html',1,'']]],
   ['data_20acquisition_20board_1',['Data Acquisition Board',['../md_source_2daq_2README.html',1,'']]],
-  ['deploy_5fn_5fdebug_2',['deploy_n_debug',['../md_docs_2deploy__n__debug.html',1,'']]],
-  ['deprecated_3',['THIS MODULE IS DEPRECATED',['../md_common_2bmi088_2README.html',1,'']]],
-  ['documentation_4',['AMK Documentation',['../md_common_2amk_2README.html',1,'']]],
-  ['driveline_5',['Driveline',['../md_source_2driveline_2README.html',1,'']]]
+  ['data_20sheet_20library_2',['Data Sheet Library',['../md_docs_2datasheet__library.html',1,'']]],
+  ['debugging_3',['Deployment and Debugging',['../md_docs_2deploy__n__debug.html',1,'']]],
+  ['deployment_20and_20debugging_4',['Deployment and Debugging',['../md_docs_2deploy__n__debug.html',1,'']]],
+  ['documentation_5',['AMK Documentation',['../md_common_2amk_2README.html',1,'']]],
+  ['driveline_6',['Driveline',['../md_source_2driveline_2README.html',1,'']]]
 ];

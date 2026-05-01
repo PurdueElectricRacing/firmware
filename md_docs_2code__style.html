@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: code_style</title>
+<title>PER Firmware: Codestyle</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -97,12 +97,13 @@ $(function(){initNavTree('md_docs_2code__style.html',''); initResizable(true); }
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">code_style</div></div>
+  <div class="headertitle"><div class="title">Codestyle</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>)</p>
-<h2><a class="anchor" id="autotoc_md51"></a>
-About</h2>
+<div class="textblock"><p><a class="anchor" id="autotoc_md51"></a></p>
+<p>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>)</p>
+<h1><a class="anchor" id="autotoc_md52"></a>
+About</h1>
 <p>This document defines the general coding style and rules for PER-owned projects. Most of these rules are C-specific but the essence of the rules can still be applied to other languages.</p>
 <p>The goal is to maintain a consistent and easily maintainable codebase. Following these rules reduces opportunities for hidden bugs and makes the code more readable and reviewable for others.</p>
 <p>Additionally, the compiler standard for <code>firmware</code> is set to C23, enabling several important modern features.</p><ul>
@@ -110,8 +111,8 @@ About</h2>
 <li><code>constexpr</code> for compile-time constants</li>
 <li><code>static_assert</code> for compile-time assertions</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md52"></a>
-Rules and Suggestions</h2>
+<h1><a class="anchor" id="autotoc_md53"></a>
+Rules and Suggestions</h1>
 <ol type="1">
 <li><p class="startli">Avoid nesting where possible</p><ol type="a">
 <li>Try using early returns and condition inversion<ul>

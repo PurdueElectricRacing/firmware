@@ -6,7 +6,7 @@ var searchData=
   ['nav_5frelposned_2ec_3',['nav_relposned.c',['../nav__relposned_8c.html',1,'']]],
   ['nav_5frelposned_2eh_4',['nav_relposned.h',['../nav__relposned_8h.html',1,'']]],
   ['nav_5frelposned_5fdata_5ft_5',['NAV_RELPOSNED_data_t',['../structNAV__RELPOSNED__data__t.html',1,'']]],
-  ['new_20terminal_6',['Open a new terminal',['../md_docs_2setup.html#autotoc_md69',1,'']]],
+  ['new_20terminal_6',['Open a new terminal',['../md_docs_2setup.html#autotoc_md71',1,'']]],
   ['nextion_2ec_7',['nextion.c',['../nextion_8c.html',1,'']]],
   ['nextion_2eh_8',['nextion.h',['../nextion_8h.html',1,'']]],
   ['noise_5fdetected_9',['noise_detected',['../structusart__rx__errors__t.html#a869bb2f95236126d499d2b3817c821c1',1,'usart_rx_errors_t']]],

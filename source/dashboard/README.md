@@ -1,7 +1,7 @@
 # Dashboard
 This node bears the primary responsibility of managing the pedalbox and thus is a torque-path critical board.
 
-Additionally, it hosts the main user interface for the vehicle, displaying telemetry on a Nextion LCD and handling user input through buttons.
+Additionally, it hosts the main driver interface for the vehicle, displaying telemetry on a Nextion LCD and handling user input through buttons.
 
 ## Notable Files
 - `main.c` / `main.h`: Initialization and application entry point for the dashboard node.

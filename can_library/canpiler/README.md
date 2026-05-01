@@ -38,7 +38,7 @@ Produces the final build artifacts from the `SystemContext` using the **Jinja2**
 - **C23 Standard**: All generated code targets the C23 standard, specifically utilizing `static constexpr` for type-safe constants and identifiers.
 - `codegen.py`: Generates node headers with packed bit-field structs and endianness-safe accessors. Includes hardened sign-extension logic for signed signals.
 - `dbcgen.py`: Produces deterministic, versioned DBC files using the `cantools` library.
-- `faultgen.py`: Injects `FAULT_SYNC` and `FAULT_EVENT` messages into node configurations and generates global fault tracking maps (`fault_data.c/h`).
+- `faultgen.py`: Injects `FAULT_SYNC` and `FAULT_EVENT` messages into node configurations and generates global fault tracking maps (`fault_data.c` / `fault_data.h`).
 
 #### 6. Analysis
 `load_calc.py`: Performs post-generation capacity analysis for each bus in the system.

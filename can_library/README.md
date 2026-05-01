@@ -8,8 +8,8 @@ Standardized framework for CAN communication and system-wide fault management wi
 - `schema/`: JSON schemas for validating configuration files.
 
 **Core Files:**
-- `can_common.h / .c`: Shared hardware abstraction and logic.
-- `faults_common.h / .c`: System-wide fault management.
+- `can_common.c` / `can_common.h`: Shared hardware abstraction and logic.
+- `faults_common.c` / `faults_common.h`: System-wide fault management.
 - `can_library.cmake`: CMake integration and node library generation.
 
 ## Logic

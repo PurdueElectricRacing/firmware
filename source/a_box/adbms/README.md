@@ -100,10 +100,10 @@ The balancing algorithm is a simple threshold-based approach:
 
 ## File Structure
 
-- `adbms.h/c`: High-level driver logic and state management.
-- `adbms6380.h/c`: Low-level chip-specific functions and command encoding.
-- `commands.h/c`: Command definitions for ADBMS6380.
-- `pec.h/c`: PEC (CRC) calculation utilities.
+- `adbms.c` / `adbms.h`: High-level driver logic and state management.
+- `adbms6380.c` / `adbms6380.h`: Low-level chip-specific functions and command encoding.
+- `commands.c` / `commands.h`: Command definitions for ADBMS6380.
+- `pec.c` / `pec.h`: PEC (CRC) calculation utilities.
 
 ## Notes
 

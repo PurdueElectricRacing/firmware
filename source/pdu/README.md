@@ -16,30 +16,30 @@ PDU controls and monitors low-voltage power rails and cooling hardware for the c
   - Board init, peripheral init, task definitions, task startup order.
   - No business logic beyond orchestration.
 
-- `state.h/.c`
+- `state.c` / `state.h`
   - Shared runtime state (`g_pdu_state`) for all PDU logic.
 
-- `switches.h/.c`
+- `switches.c` / `switches.h`
   - Switch command/read API.
   - ADC and mux measurement pipeline.
   - Rail current/voltage conversions.
   - Default-rail enable sequence.
 
-- `faults.h/.c`
+- `faults.c` / `faults.h`
   - Table-driven nFAULT polling.
   - One-fault-slot-per-cycle update cadence.
   - Rail fault LED behavior.
 
-- `cooling.h/.c`
+- `cooling.c` / `cooling.h`
   - Cooling policy computation.
   - Cooling actuation (switches + fan PWM).
   - Cooling CAN output publication.
 
-- `cooling_bangbang.h/.c`
+- `cooling_bangbang.c` / `cooling_bangbang.h`
   - Optional bang-bang policy backend.
   - Compiled in but disabled by default.
 
-- `telemetry.h/.c`
+- `telemetry.c` / `telemetry.h`
   - Power/thermal telemetry CAN publication.
   - Flowrate telemetry CAN publication.
 

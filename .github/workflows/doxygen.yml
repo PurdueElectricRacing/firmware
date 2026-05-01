@@ -2,9 +2,7 @@ name: Generate Documentation
 
 on:
   push:
-    branches:
-      - master
-      - irving/repo-maintenance
+    branches: [master]
   workflow_dispatch:
 
 permissions:

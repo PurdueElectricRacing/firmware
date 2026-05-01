@@ -132,8 +132,7 @@ Additionally, the compiler standard for `firmware` is set to C23, enabling sever
     1. Always use `typedef` and suffix your new type with `_t`
     2. Order your variables in descending size (this saves space from padding)
     3. However exceptions can be made for logical/clarity purposes
-    4. Remember that we target 32-bit architecture for firmware
-        - pointers are 4 bytes
+    4. Remember that we target 32-bit architecture for firmware (pointers are 4 bytes)
     
     ```c
     // bad, 24 bytes of padding

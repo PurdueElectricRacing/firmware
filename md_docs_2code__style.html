@@ -100,9 +100,9 @@ $(function(){initNavTree('md_docs_2code__style.html',''); initResizable(true); }
   <div class="headertitle"><div class="title">Codestyle</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md60"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md67"></a></p>
 <p>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>)</p>
-<h1><a class="anchor" id="autotoc_md61"></a>
+<h1><a class="anchor" id="autotoc_md68"></a>
 About</h1>
 <p>This document defines the general coding style and rules for PER-owned projects. Most of these rules are C-specific but the essence of the rules can still be applied to other languages.</p>
 <p>The goal is to maintain a consistent and easily maintainable codebase. Following these rules reduces opportunities for hidden bugs and makes the code more readable and reviewable for others.</p>
@@ -111,7 +111,7 @@ About</h1>
 <li><code>constexpr</code> for compile-time constants</li>
 <li><code>static_assert</code> for compile-time assertions</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md62"></a>
+<h1><a class="anchor" id="autotoc_md69"></a>
 Rules and Suggestions</h1>
 <ol type="1">
 <li><p class="startli">Avoid nesting where possible</p><ol type="a">
@@ -220,10 +220,7 @@ Rules and Suggestions</h1>
 <li>Always use <code>typedef</code> and suffix your new type with <code>_t</code></li>
 <li>Order your variables in descending size (this saves space from padding)</li>
 <li>However exceptions can be made for logical/clarity purposes</li>
-<li>Remember that we target 32-bit architecture for firmware<ul>
-<li>pointers are 4 bytes</li>
-</ul>
-</li>
+<li>Remember that we target 32-bit architecture for firmware (pointers are 4 bytes)</li>
 </ol>
 <p class="startli">```c // bad, 24 bytes of padding typedef struct { uint16_t small_num; uint32_t medium_num; uint64_t big_num; uint16_t small_num2; } bad_struct_t</p>
 <p class="startli">// good, 0 bytes of padding typedef struct { uint64_t big_num; uint32_t medium_num; uint16_t small_num; uint16_t small_num2; } good_struct_t; ```</p>

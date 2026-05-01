@@ -1,5 +1,12 @@
 var NAVTREEINDEX2 =
 {
+"md_docs_2setup.html#autotoc_md88":[24,2,0],
+"md_docs_2setup.html#autotoc_md89":[24,2,1],
+"md_docs_2setup.html#autotoc_md90":[24,2,2],
+"md_source_2README.html":[10],
+"md_source_2README.html#autotoc_md34":[10,0],
+"md_source_2README.html#autotoc_md35":[10,1],
+"md_source_2README.html#autotoc_md36":[10,2],
 "md_source_2README.html#autotoc_md37":[10,3],
 "md_source_2a__box_2README.html":[2],
 "md_source_2a__box_2adbms_2README.html":[1],
@@ -36,9 +43,9 @@ var NAVTREEINDEX2 =
 "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md43":[12,1,0],
 "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md44":[12,1,0,0],
 "md_support_2README.html":[28],
-"md_support_2README.html#autotoc_md115":[28,0],
-"md_support_2README.html#autotoc_md116":[28,1],
-"md_support_2README.html#autotoc_md117":[28,2],
+"md_support_2README.html#autotoc_md122":[28,0],
+"md_support_2README.html#autotoc_md123":[28,1],
+"md_support_2README.html#autotoc_md124":[28,2],
 "menu__system_8c.html":[31,0,2,2,0,5],
 "menu__system_8c.html#a23c0189c067cb5dfd0a1ab4514e0ecc0":[31,0,2,2,0,5,2],
 "menu__system_8c.html#a28391906e0d6d059553293e1e2e6e7f4":[31,0,2,2,0,5,0],
@@ -242,12 +249,5 @@ var NAVTREEINDEX2 =
 "phal__F4__F7_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9":[31,0,1,10,10,1,4],
 "phal__F4__F7_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9a30aee904e3e05a145ae611bc8de5c41b":[31,0,1,10,10,1,4,1],
 "phal__F4__F7_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b":[31,0,1,10,10,1,4,0],
-"phal__F4__F7_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290":[31,0,1,10,10,1,6],
-"phal__F4__F7_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a0f865113d224387520fe0272ef9cbcac":[31,0,1,10,10,1,6,1],
-"phal__F4__F7_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a476c6f901c0f7e870dcca77b365c3375":[31,0,1,10,10,1,6,0],
-"phal__F4__F7_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290a5e8a3bf54d8aa3d0e50d59ef9b2f1398":[31,0,1,10,10,1,6,2],
-"phal__F4__F7_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553":[31,0,1,10,10,1,7],
-"phal__F4__F7_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553ab67ebf519fad921e7749842e16f9685c":[31,0,1,10,10,1,7,3],
-"phal__F4__F7_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553abd98b798e8db67c8f79d30573152cd87":[31,0,1,10,10,1,7,1],
-"phal__F4__F7_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553ad0547d788f5201c0b3beb75bf289ecfb":[31,0,1,10,10,1,7,2]
+"phal__F4__F7_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290":[31,0,1,10,10,1,6]
 };

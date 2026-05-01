@@ -102,12 +102,11 @@ $(function(){initNavTree('md_common_2freertos_2README.html',''); initResizable(t
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="autotoc_md44"></a></p>
 <p>Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">eyn@p<span class="obfuscator">.nosp@m.</span>urdu<span class="obfuscator">.nosp@m.</span>e.edu</a>)</p>
-<p>usage as drop-in replacement for psched: </p><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="freertos_8h.html">common/freertos/freertos.h</a>&quot;</span>(also add FREERTOS to cmake.txt LIBS =)</div>
+<p>usage as drop-in replacement for psched: </p><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="freertos_8h.html">common/freertos/freertos.h</a>&quot;</span> <span class="comment">// also add FREERTOS to cmake.txt LIBS =</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">void</span> heartbeat_LED() { PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN); }</div>
-<div class="line">defineThreadStack(heartbeat_LED, 500, osPriorityNormal, 256); <span class="comment">// define up here so its global</span></div>
-<div class="line">defineStaticQueue(tcp_tx_queue, <a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a>, TCP_TX_ITEM_COUNT);</div>
-<div class="line">defineStaticSemaphore(myHandle);</div>
+<div class="line"><a class="code hl_define" href="freertos_8h.html#aa06a84e1769e192e02a8bb7482aceeb5">DEFINE_TASK</a>(heartbeat_LED, 500, osPriorityNormal, 256); <span class="comment">// define up here so it is global</span></div>
+<div class="line"><a class="code hl_define" href="freertos_8h.html#a69f3705c51afcfefed18253d09849302">DEFINE_QUEUE</a>(tcp_tx_queue, <a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a>, TCP_TX_ITEM_COUNT);</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">void</span>)</div>
 <div class="line">{</div>
@@ -120,13 +119,16 @@ $(function(){initNavTree('md_common_2freertos_2README.html',''); initResizable(t
 <div class="line">    }</div>
 <div class="line">    NVIC_SetPriority(CAN1_RX0_IRQn, 6); <span class="comment">// set priority &gt;= 6, see configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY in FreeRTOSConfig.h</span></div>
 <div class="line"> </div>
-<div class="line">    createThread(heartbeat_LED); <span class="comment">// s/taskCreate/createThread/</span></div>
-<div class="line">    createStaticQueue(tcp_tx_queue, <a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a>, TCP_TX_ITEM_COUNT);</div>
-<div class="line">    myHandle = createStaticSemaphore();</div>
+<div class="line">    <a class="code hl_define" href="freertos_8h.html#abe574562452fd3a573084481cb7a9cf3">START_TASK</a>(heartbeat_LED); <span class="comment">// s/taskCreate/START_TASK/</span></div>
+<div class="line">    <a class="code hl_define" href="freertos_8h.html#a107127a33a429e4b2ba63232406e0d94">INIT_QUEUE</a>(tcp_tx_queue, <a class="code hl_struct" href="structtimestamped__frame__t.html">timestamped_frame_t</a>, TCP_TX_ITEM_COUNT);</div>
 <div class="line"> </div>
 <div class="line">    osKernelStart(); <span class="comment">// s/schedStart/osKernelStart</span></div>
 <div class="line">}</div>
 <div class="ttc" id="afreertos_8h_html"><div class="ttname"><a href="freertos_8h.html">freertos.h</a></div><div class="ttdoc">Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati...</div></div>
+<div class="ttc" id="afreertos_8h_html_a107127a33a429e4b2ba63232406e0d94"><div class="ttname"><a href="freertos_8h.html#a107127a33a429e4b2ba63232406e0d94">INIT_QUEUE</a></div><div class="ttdeci">#define INIT_QUEUE(NAME, ITEM, COUNT)</div><div class="ttdoc">Initializes the defined static queue.</div><div class="ttdef"><b>Definition</b> freertos.h:107</div></div>
+<div class="ttc" id="afreertos_8h_html_a69f3705c51afcfefed18253d09849302"><div class="ttname"><a href="freertos_8h.html#a69f3705c51afcfefed18253d09849302">DEFINE_QUEUE</a></div><div class="ttdeci">#define DEFINE_QUEUE(NAME, ITEM, COUNT)</div><div class="ttdoc">Scaffolds the static memory for a FreeRTOS queue.</div><div class="ttdef"><b>Definition</b> freertos.h:98</div></div>
+<div class="ttc" id="afreertos_8h_html_aa06a84e1769e192e02a8bb7482aceeb5"><div class="ttname"><a href="freertos_8h.html#aa06a84e1769e192e02a8bb7482aceeb5">DEFINE_TASK</a></div><div class="ttdeci">#define DEFINE_TASK(NAME, PERIOD_MS, PRIORITY, STACK_SIZE)</div><div class="ttdoc">Scaffolds the static memory for a FreeRTOS task.</div><div class="ttdef"><b>Definition</b> freertos.h:62</div></div>
+<div class="ttc" id="afreertos_8h_html_abe574562452fd3a573084481cb7a9cf3"><div class="ttname"><a href="freertos_8h.html#abe574562452fd3a573084481cb7a9cf3">START_TASK</a></div><div class="ttdeci">#define START_TASK(NAME)</div><div class="ttdoc">Initializes and starts the defined task.</div><div class="ttdef"><b>Definition</b> freertos.h:87</div></div>
 <div class="ttc" id="astructtimestamped__frame__t_html"><div class="ttname"><a href="structtimestamped__frame__t.html">timestamped_frame_t</a></div><div class="ttdef"><b>Definition</b> timestamped_frame.h:13</div></div>
 </div><!-- fragment --><p>Very good resource: Mastering the FreeRTOS™ Real Time Kernel <a href="https://www.freertos.org/Documentation/02-Kernel/07-Books-and-manual/01-RTOS_book">https://www.freertos.org/Documentation/02-Kernel/07-Books-and-manual/01-RTOS_book</a></p>
 <p>Key notes:</p><ul>
@@ -137,7 +139,7 @@ $(function(){initNavTree('md_common_2freertos_2README.html',''); initResizable(t
 <p>Other notes:</p><ul>
 <li>if it crashes try increasing stack size</li>
 <li>lock all hardware acceses, e.g. spi transfers. best to raise a semaphore in the ISR when its done</li>
-<li>switch queues (e.g can queues) to freertos queues so freertos knows to block. TODO CAN wrapper</li>
+<li>switch queues (e.g. CAN queues) to FreeRTOS queues so FreeRTOS knows they can block</li>
 <li>if the total given loop time is less than the time it takes to actually execute all the tasks, lower priority tasks (or the tasks started last) will not be executed (task starved)</li>
 <li>use static allocations for all freertos objects (queues, sema) hence the macros here</li>
 <li>no static local variables</li>

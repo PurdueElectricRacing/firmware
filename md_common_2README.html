@@ -102,10 +102,39 @@ $(function(){initNavTree('md_common_2README.html',''); initResizable(true); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="autotoc_md48"></a></p>
 <p>Libraries, drivers, generic data structures, and other utilities.</p>
-<p>Notable modules:</p><ul>
-<li><code>can_library</code> In-house code generation and utilities for CAN bus communication</li>
-<li><code>phal</code> Custom Hardware Abstraction Layer built on top of STM32 HAL</li>
-<li><code>freertos</code> FreeRTOS configuration and wrapper functions. </li>
+<h1><a class="anchor" id="autotoc_md49"></a>
+Core platform layers</h1>
+<ul>
+<li><code>phal</code> Shared PHAL interface layer and common headers.</li>
+<li><code>phal_F4_F7</code> PHAL implementations for STM32F4/F7 targets.</li>
+<li><code>phal_G4</code> PHAL implementations for STM32G4 targets.</li>
+<li><code>freertos</code> FreeRTOS configuration and wrapper functions.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md50"></a>
+Device / protocol drivers</h1>
+<ul>
+<li><code>amk</code> AMK motor controller helpers.</li>
+<li><code>bmi088</code> BMI088 IMU driver.</li>
+<li><code>nextion</code> Nextion display communication helpers.</li>
+<li><code>sdio</code> SDIO helpers.</li>
+<li><code>ublox</code> u-blox GNSS parsing and configuration helpers.</li>
+<li><code>izze_imu</code> IZZE IMU message definitions/helpers.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md51"></a>
+System services</h1>
+<ul>
+<li><code>heartbeat</code> Board heartbeat / liveness utilities.</li>
+<li><code>watchdog</code> Watchdog abstraction and helpers.</li>
+<li><code>syscalls</code> Syscall shims used by embedded runtime/newlib.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md52"></a>
+Utility libraries</h1>
+<ul>
+<li><code>common_defs</code> Shared compile-time/runtime definitions.</li>
+<li><code>utils</code> General-purpose math and macro helpers (<code>min/max/clamp/rescale</code>, etc.).</li>
+<li><code>strbuf</code> Fixed-size string buffer utilities.</li>
+<li><code>lerp_lut</code> Lookup-table interpolation utilities.</li>
+<li><code>bangbang</code> Bang-bang control helper. </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

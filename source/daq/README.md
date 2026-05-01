@@ -3,7 +3,7 @@
 This directory contains the firmware source code for the Data Acquisition (DAQ) board, responsible for data collection, storage, and streaming.
 
 ## Directory Structure
-- `main.c / main.h` - Main entry point for DAQ firmware, responsible for initialization and thread management.
+- [`main.c`](main.c) / [`main.h`](main.h) - Main entry point for DAQ firmware, responsible for initialization and thread management.
 - `can_irq/` - CAN RX IRQ implementations, consuming CAN busses and feeding the SPMC
 - `spmc/` - Custom lockless Single Producer Multiple Consumer queue implementation for high throughput data buffering between CAN IRQs and consumer threads (SD card writing, Ethernet streaming).
 - `rtc_sync/` - Synchronization of the RTC peripheral with the reported GPS time

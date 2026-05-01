@@ -1,13 +1,13 @@
+# FreeRTOS
 Eileen Yoon (eyn@purdue.edu)
 
 usage as drop-in replacement for psched:
 ```c
-#include "common/freertos/freertos.h"(also add FREERTOS to cmake.txt LIBS =)
+#include "common/freertos/freertos.h" // also add FREERTOS to cmake.txt LIBS =
 
 void heartbeat_LED() { PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN); }
-defineThreadStack(heartbeat_LED, 500, osPriorityNormal, 256); // define up here so its global
-defineStaticQueue(tcp_tx_queue, timestamped_frame_t, TCP_TX_ITEM_COUNT);
-defineStaticSemaphore(myHandle);
+DEFINE_TASK(heartbeat_LED, 500, osPriorityNormal, 256); // define up here so it is global
+DEFINE_QUEUE(tcp_tx_queue, timestamped_frame_t, TCP_TX_ITEM_COUNT);
 
 int main(void)
 {
@@ -20,9 +20,8 @@ int main(void)
     }
     NVIC_SetPriority(CAN1_RX0_IRQn, 6); // set priority >= 6, see configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY in FreeRTOSConfig.h
 
-    createThread(heartbeat_LED); // s/taskCreate/createThread/
-    createStaticQueue(tcp_tx_queue, timestamped_frame_t, TCP_TX_ITEM_COUNT);
-    myHandle = createStaticSemaphore();
+    START_TASK(heartbeat_LED); // s/taskCreate/START_TASK/
+    INIT_QUEUE(tcp_tx_queue, timestamped_frame_t, TCP_TX_ITEM_COUNT);
 
     osKernelStart(); // s/schedStart/osKernelStart
 }
@@ -39,7 +38,7 @@ Key notes:
 Other notes:
 - if it crashes try increasing stack size
 - lock all hardware acceses, e.g. spi transfers. best to raise a semaphore in the ISR when its done
-- switch queues (e.g can queues) to freertos queues so freertos knows to block. TODO CAN wrapper
+- switch queues (e.g. CAN queues) to FreeRTOS queues so FreeRTOS knows they can block
 - if the total given loop time is less than the time it takes to actually execute all the tasks, lower priority tasks (or the tasks started last) will not be executed (task starved)
 - use static allocations for all freertos objects (queues, sema) hence the macros here
 - no static local variables

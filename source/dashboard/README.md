@@ -4,7 +4,7 @@ This node bears the primary responsibility of managing the pedalbox and thus is 
 Additionally, it hosts the main driver interface for the vehicle, displaying telemetry on a Nextion LCD and handling user input through buttons.
 
 ## Notable Files
-- `main.c` / `main.h`: Initialization and application entry point for the dashboard node.
+- [`main.c`](main.c) / [`main.h`](main.h): Initialization and application entry point for the dashboard node.
 - `CMakeLists.txt`: Build configuration for the dashboard target.
 - `pedals.c` / `pedals.h`: Pedalbox sampling, plausibility checks, and message TX.
 - `driver_interface.c` / `driver_interface.h`: Periodic loop, button EXTI handlers, and high-level page navigation actions.
@@ -13,6 +13,6 @@ Additionally, it hosts the main driver interface for the vehicle, displaying tel
 - `colors.h`: Named color constants used by the UI.
 - `Dashboard26.HMI`: Nextion Editor design file for the Dashboard26 LCD. Open in Nextion Editor to modify the on-screen layout, then re-flash the LCD.
 - `pages/`: Per-page implementations (`race`, `faults`, `calibration`, `amk`). Each page exposes the callback set required by `lcd.c`.
-- `telemetry.c` / `telemetry.h`
+- [`telemetry.c`](telemetry/telemetry.c) / [`telemetry.h`](telemetry/telemetry.h)
 
 ![colors](PER26_colors.png)

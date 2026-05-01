@@ -12,7 +12,7 @@ PDU controls and monitors low-voltage power rails and cooling hardware for the c
 
 ## Module Layout
 
-- `main.c`
+- [`main.c`](main.c)
   - Board init, peripheral init, task definitions, task startup order.
   - No business logic beyond orchestration.
 
@@ -25,7 +25,7 @@ PDU controls and monitors low-voltage power rails and cooling hardware for the c
   - Rail current/voltage conversions.
   - Default-rail enable sequence.
 
-- `faults.c` / `faults.h`
+- [`faults.c`](faults/faults.c) / [`faults.h`](faults/faults.h)
   - Table-driven nFAULT polling.
   - One-fault-slot-per-cycle update cadence.
   - Rail fault LED behavior.
@@ -39,7 +39,7 @@ PDU controls and monitors low-voltage power rails and cooling hardware for the c
   - Optional bang-bang policy backend.
   - Compiled in but disabled by default.
 
-- `telemetry.c` / `telemetry.h`
+- [`telemetry.c`](telemetry/telemetry.c) / [`telemetry.h`](telemetry/telemetry.h)
   - Power/thermal telemetry CAN publication.
   - Flowrate telemetry CAN publication.
 
@@ -60,7 +60,7 @@ The shared state contains:
 
 ## Task Model
 
-Defined in `main.c`:
+Defined in [`main.c`](main.c):
 
 - `CAN_rx_update` (0 ms)
 - `CAN_tx_update` (5 ms)

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['kilograms_5ft_0',['kilograms_t',['../structkilograms__t.html',1,'']]],
-  ['kph_5ft_1',['kph_t',['../structkph__t.html',1,'']]]
+  ['json_20tt_0',['Bus Definition (&lt;tt&gt;configs/system/bus_configs.json&lt;/tt&gt;)',['../md_can__library_2configs_2README.html#autotoc_md87',1,'']]],
+  ['json_20under_20tt_20busses_20tt_1',['Node-to-Bus Mapping (per node JSON, under &lt;tt&gt;busses&lt;/tt&gt;)',['../md_can__library_2configs_2README.html#autotoc_md88',1,'']]]
 ];

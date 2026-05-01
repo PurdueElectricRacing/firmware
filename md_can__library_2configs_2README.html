@@ -100,52 +100,67 @@ $(function(){initNavTree('md_can__library_2configs_2README.html',''); initResiza
   <div class="headertitle"><div class="title">CAN Configs</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md84"></a></p>
-<h1><a class="anchor" id="autotoc_md85"></a>
-Bus Attributes</h1>
+<div class="textblock"><p><a class="anchor" id="autotoc_md86"></a></p>
+<h1><a class="anchor" id="autotoc_md87"></a>
+Bus Definition (<code>configs/system/bus_configs.json</code>)</h1>
+<p>Validated by <code>bus_schema.json</code>. Describes each logical CAN bus (not how a node attaches to it).</p>
 <ul>
-<li><code>peripheral</code>: Hardware identifier (e.g., <code>CAN1</code>, <code>CAN2</code>, <code>CAN3</code>).</li>
-<li><code>accept_all_messages</code>: Boolean. If true, disables hardware filter optimization (promiscuous mode).</li>
-<li><code>is_extended_id</code>: Boolean. Set at the bus level. Mixed-ID buses are not supported; all messages on a bus will share this framing.</li>
-<li><code>host_fault_library</code>: Boolean. If true, indicates this bus is the primary uplink for fault communication (usually VCAN).</li>
+<li><code>name</code>: Logical bus name (referenced by nodes and external nodes).</li>
+<li><code>baud_rate</code>: CAN bitrate for this bus.</li>
+<li><code>is_extended_id</code>: Boolean. Mixed-ID buses are not supported; all messages on a bus share this framing.</li>
+<li><code>is_flexible_data_rate</code>: Boolean. Whether this bus uses CAN FD.</li>
+<li><code>host_fault_library</code>: Boolean. If true, this bus is the primary uplink for fault communication (usually VCAN).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md86"></a>
+<h1><a class="anchor" id="autotoc_md88"></a>
+Node-to-Bus Mapping (per node JSON, under <code>busses</code>)</h1>
+<p>Validated by <code>node_schema.json</code>. Maps a firmware node onto hardware peripherals and message lists.</p>
+<ul>
+<li><code>peripheral</code>: Hardware peripheral identifier. Allowed values: <code>CAN1</code>, <code>CAN2</code>, <code>FDCAN1</code>, <code>FDCAN2</code>, <code>FDCAN3</code>.</li>
+<li><code>accept_all_messages</code>: Boolean. If true, disables hardware filter optimization (promiscuous mode).</li>
+<li><code>tx</code>: Array of TX message definitions for this node on this bus.</li>
+<li><code>rx</code>: Array of RX message definitions for this node on this bus.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md89"></a>
 Node Attributes</h1>
 <ul>
 <li><code>node_name</code>: Name of the node. Must be unique.</li>
+<li><code>fault_library_enabled</code>: Required boolean. If true, this node participates in the FIDR fault sync system.</li>
 <li><code>faults</code>: (Optional) Array of fault definitions specific to this node.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md87"></a>
+<h1><a class="anchor" id="autotoc_md90"></a>
 CAN Message Attributes (TX)</h1>
 <ul>
 <li><code>msg_name</code>: Unique identifier.</li>
 <li><code>msg_desc</code>: Short description of message purpose.</li>
 <li><code>msg_priority</code>: [0-5]. See priority convention below.</li>
-<li><code>msg_period</code>: Transmission frequency in ms.</li>
+<li><code>msg_period</code>: Optional. Transmission period in ms. Omit or use <code>0</code> for event-triggered (non-periodic) messages.</li>
+<li><code>byte_order</code>: Optional. <code>little_endian</code> (default) or <code>big_endian</code> for multi-byte signal packing within the frame.</li>
 <li><code>msg_id_override</code>: Optional. Manual ID (supports hex <code>0x...</code>). Overrides automatic linking. Must respect the bus framing limits.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md88"></a>
+<h1><a class="anchor" id="autotoc_md91"></a>
 RX Message Attributes</h1>
 <ul>
 <li><code>msg_name</code>: Name of the message to receive (must exist on the bus).</li>
 <li><code>callback</code>: Boolean. If true, generates a weak-linked callback function in the driver.</li>
 <li><code>irq</code>: Boolean. If true, processes the message in the RX interrupt context.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md89"></a>
+<h1><a class="anchor" id="autotoc_md92"></a>
 Signal Attributes</h1>
 <ul>
 <li><code>sig_name</code>: Signal name. Must be unique within the message.</li>
 <li><code>sig_desc</code>: (Optional) Short description of signal purpose.</li>
-<li><code>type</code>: C-type (<code>uint8_t</code>...<code>double</code>) or a custom type defined in <code>common_types.json</code>.</li>
+<li><code>type</code>: C-type (<code>uint8_t</code>...<code>double</code>) or a custom type defined in <code>configs/system/common_types.json</code>.</li>
 <li><code>length</code>: (Optional for standard types) Bit-length. Required for custom packing or sub-byte types.</li>
 <li><code>unit</code>: (Optional) Physical unit label for DBC generation (e.g., <code>V</code>, <code>Amps</code>, <code>C</code>).</li>
 <li><code>scale</code>: Multiplier for physical value conversion. Default 1.0.</li>
-<li><code>min_val</code>: (Optional) Minimum theoretical value.</li>
-<li><code>max_val</code>: (Optional) Maximum theoretical value.</li>
+<li><code>offset</code>: Optional. Linear offset applied during physical conversion. Default 0.0.</li>
+<li><code>min</code>: (Optional) Minimum theoretical value.</li>
+<li><code>max</code>: (Optional) Maximum theoretical value.</li>
 <li><code>choices</code>: (Optional) List of strings for enum-like labels in DBC.</li>
 </ul>
+<dl class="section note"><dt>Note</dt><dd>If <code>scale</code> is present, <code>unit</code> is required by the schema.</dd></dl>
 <dl class="section remark"><dt>Remarks</dt><dd><b>Scaling Constants:</b> The library generates <code>static constexpr float</code> constants for every signal with a scale != 1.0. format: <code>PACK_COEFF_&lt;MSG&gt;_&lt;SIG&gt;</code> and <code>UNPACK_COEFF_&lt;MSG&gt;_&lt;SIG&gt;</code>. Use these to avoid magic numbers in your application code.</dd></dl>
-<h2><a class="anchor" id="autotoc_md90"></a>
+<h2><a class="anchor" id="autotoc_md93"></a>
 Message Priority</h2>
 <p>Lower = higher priority. Range: [0-5]. PER vehicle convention:</p>
 <ol type="1">
@@ -174,15 +189,36 @@ Message Priority</h2>
 </ul>
 </li>
 </ol>
-<h1><a class="anchor" id="autotoc_md91"></a>
+<h1><a class="anchor" id="autotoc_md94"></a>
+External Nodes</h1>
+<p>External nodes (non-PER devices such as chargers or inverters) are defined in <code>configs/external_nodes/</code> and validated by <code>external_node_schema.json</code>.</p>
+<h2><a class="anchor" id="autotoc_md95"></a>
+Attributes</h2>
+<ul>
+<li><code>node_name</code>: Name of the external device. Must be unique.</li>
+<li><code>bus_name</code>: The logical bus this device sits on (must match a bus in <code>bus_configs.json</code>).</li>
+<li><code>tx</code>: Array of messages this device sends toward PER nodes.</li>
+<li><code>rx</code>: Array of messages this device expects to receive.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md96"></a>
+Custom Types</h1>
+<p>Define reusable signal types (enums and aliases) in <code>configs/system/common_types.json</code>. Validated by <code>type_registry.json</code>.</p>
+<h2><a class="anchor" id="autotoc_md97"></a>
+Type Attributes</h2>
+<ul>
+<li><code>name</code>: Type name. Must end in <code>_t</code> (e.g. <code>car_state_t</code>).</li>
+<li><code>base_type</code>: One of <code>uint8_t</code> ... <code>uint64_t</code>, <code>int8_t</code> ... <code>int64_t</code>, <code>bool</code>.</li>
+<li><code>choices</code>: (Optional) Enum value list, generated as a C <code>enum</code>.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md98"></a>
 Fault Configuration</h1>
 <p>Node-specific faults are defined directly in the node JSON under the <code>"faults"</code> key. The library automatically generates bitfield-sync and event messages for fault communication based on these definitions.</p>
-<h2><a class="anchor" id="autotoc_md92"></a>
+<h2><a class="anchor" id="autotoc_md99"></a>
 Node Level</h2>
 <ul>
 <li><code>generate_fault_messages</code>: Boolean. If true, generates LCD string arrays for the node (usually only true for nodes with displays like the Dashboard).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md93"></a>
+<h2><a class="anchor" id="autotoc_md100"></a>
 Fault Attributes</h2>
 <ul>
 <li><code>fault_name</code>: Unique name within the node.</li>

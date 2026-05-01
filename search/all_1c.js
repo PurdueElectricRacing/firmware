@@ -1,17 +1,18 @@
 var searchData=
 [
-  ['w5500_5fcallbacks_2ec_0',['w5500_callbacks.c',['../w5500__callbacks_8c.html',1,'']]],
-  ['wake_5faddr_1',['wake_addr',['../structusart__init__t.html#a72b5f7df2bcce44b8d47c08e616df66f',1,'usart_init_t']]],
-  ['watchdog_2ec_2',['watchdog.c',['../watchdog_8c.html',1,'']]],
-  ['watchdog_2eh_3',['watchdog.h',['../watchdog_8h.html',1,'']]],
-  ['windows_20tools_20setup_4',['Windows Tools Setup',['../md_docs_2setup.html#autotoc_md66',1,'']]],
-  ['word_5f8_5',['WORD_8',['../phal__F4__F7_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027',1,'usart.h']]],
-  ['word_5f9_6',['WORD_9',['../phal__F4__F7_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493aaf384e56f1bc9d30d7733088c7ad3274',1,'usart.h']]],
-  ['word_5flength_7',['word_length',['../structusart__init__t.html#a05cc99e8162f284a52d93388d800c782',1,'usart_init_t']]],
-  ['word_5flength_5ft_8',['word_length_t',['../phal__F4__F7_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493',1,'usart.h']]],
-  ['wrblockmisalign_9',['WrBlockMisalign',['../structSD__CSD.html#a54d08d114ba504e72f0001fa922ec919',1,'SD_CSD']]],
-  ['writeblockpapartial_10',['WriteBlockPaPartial',['../structSD__CSD.html#a27824f576bf5d6a01dd7602aae8dad96',1,'SD_CSD']]],
-  ['wrprotectgrenable_11',['WrProtectGrEnable',['../structSD__CSD.html#a7cf93c94ebd2f9092b62e791f1565d30',1,'SD_CSD']]],
-  ['wrprotectgrsize_12',['WrProtectGrSize',['../structSD__CSD.html#a03486966abee0e50401e2a56d33bf1bb',1,'SD_CSD']]],
-  ['wrspeedfact_13',['WrSpeedFact',['../structSD__CSD.html#a471bde59e37efab5eb960510d4d94aca',1,'SD_CSD']]]
+  ['validate_5fagainst_5fschema_0',['validate_against_schema',['../namespacevalidator.html#ad74e451228ba7abf08a67866500943e8',1,'validator']]],
+  ['validate_5ffault_5fconfigs_1',['validate_fault_configs',['../namespacefaultgen.html#a68f5c4425c2486ac4b858fe2e3cd9603',1,'faultgen']]],
+  ['validate_5ffault_5finjection_2',['validate_fault_injection',['../namespacefaultgen.html#a0e8b5f173761fe44d09f0e8662d1a652',1,'faultgen']]],
+  ['validate_5fnode_3',['validate_node',['../namespaceparser.html#abe8bf0da5b89288baa73812d14e60f11',1,'parser']]],
+  ['validate_5fsemantics_4',['validate_semantics',['../classparser_1_1Message.html#af160d838f632fc72ee3c347f2a6bab4f',1,'parser::Message']]],
+  ['validation_5',['Validation',['../md_can__library_2canpiler_2README.html#autotoc_md78',1,'1. Schema Validation'],['../md_can__library_2canpiler_2README.html#autotoc_md79',1,'2. Parsing and Semantic Validation']]],
+  ['validator_6',['validator',['../namespacevalidator.html',1,'']]],
+  ['vector3_5ft_7',['vector3_t',['../structvector3__t.html',1,'']]],
+  ['vectoring_8',['Torque Vectoring',['../md_source_2torque__vector_2README.html',1,'']]],
+  ['vehicle_20firmware_20⚡️_9',['PER Vehicle Firmware ⚡️',['../md_README.html',1,'']]],
+  ['vehicle_5ffsm_2ec_10',['vehicle_fsm.c',['../vehicle__fsm_8c.html',1,'']]],
+  ['vehicle_5ffsm_2eh_11',['vehicle_fsm.h',['../vehicle__fsm_8h.html',1,'']]],
+  ['vehicle_5finit_2ec_12',['vehicle_init.c',['../vehicle__init_8c.html',1,'']]],
+  ['vehicle_5finit_2eh_13',['vehicle_init.h',['../vehicle__init_8h.html',1,'']]],
+  ['vscode_20setup_20all_20os_14',['2. VSCode Setup (All OS)',['../md_docs_2setup.html#autotoc_md69',1,'']]]
 ];

@@ -114,7 +114,7 @@ Responsibilities</h1>
 <h1><a class="anchor" id="autotoc_md29"></a>
 Module Layout</h1>
 <ul>
-<li><code>main.c</code><ul>
+<li><a href="main.c"><code>main.c</code></a><ul>
 <li>Board init, peripheral init, task definitions, task startup order.</li>
 <li>No business logic beyond orchestration.</li>
 </ul>
@@ -130,7 +130,7 @@ Module Layout</h1>
 <li>Default-rail enable sequence.</li>
 </ul>
 </li>
-<li><code>faults.c</code> / <code>faults.h</code><ul>
+<li><a href="faults/faults.c"><code>faults.c</code></a> / <a href="faults/faults.h"><code>faults.h</code></a><ul>
 <li>Table-driven nFAULT polling.</li>
 <li>One-fault-slot-per-cycle update cadence.</li>
 <li>Rail fault LED behavior.</li>
@@ -147,7 +147,7 @@ Module Layout</h1>
 <li>Compiled in but disabled by default.</li>
 </ul>
 </li>
-<li><code>telemetry.c</code> / <code>telemetry.h</code><ul>
+<li><a href="telemetry/telemetry.c"><code>telemetry.c</code></a> / <a href="telemetry/telemetry.h"><code>telemetry.h</code></a><ul>
 <li>Power/thermal telemetry CAN publication.</li>
 <li>Flowrate telemetry CAN publication.</li>
 </ul>
@@ -171,7 +171,7 @@ Runtime State (<code>g_pdu_state</code>)</h1>
 </ul>
 <h1><a class="anchor" id="autotoc_md31"></a>
 Task Model</h1>
-<p>Defined in <code>main.c</code>:</p>
+<p>Defined in <a href="main.c"><code>main.c</code></a>:</p>
 <ul>
 <li><code>CAN_rx_update</code> (0 ms)</li>
 <li><code>CAN_tx_update</code> (5 ms)</li>

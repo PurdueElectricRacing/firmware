@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: Support Directory</title>
+<title>PER Firmware: Support</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -97,10 +97,35 @@ $(function(){initNavTree('md_support_2README.html',''); initResizable(true); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Support Directory</div></div>
+  <div class="headertitle"><div class="title">Support</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md110"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md114"></a></p>
+<p>Vendor and host-side files used by the build system and debugger. Not compiled into firmware.</p>
+<h1><a class="anchor" id="autotoc_md115"></a>
+<code>linker/</code></h1>
+<p>Per-target GNU linker scripts. <a href="../cmake/common_component.cmake"><code>cmake/common_component.cmake</code></a> selects one based on the <code>LINKER_SCRIPT</code> argument plus a suffix (<code>.ld</code>, <code>_APP.ld</code>, or <code>_BL.ld</code>).</p><ul>
+<li><code>STM32F407VGTx_FLASH.ld</code> Standalone-app layout for the F4 targets (DAQ, PDU, f4_testing).</li>
+<li><code>STM32F407VGTx_FLASH_APP.ld</code> F4 app layout when paired with the bootloader.</li>
+<li><code>STM32F407VGTx_FLASH_BL.ld</code> F4 bootloader layout.</li>
+<li><code>STM32G474RETX_FLASH.ld</code> Standalone-app layout for the G4 targets.</li>
+<li><code>STM32G474RETX_FLASH_APP.ld</code> G4 app layout when paired with the bootloader.</li>
+<li><code>STM32G474RETX_FLASH_BL.ld</code> G4 bootloader layout.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md116"></a>
+<code>svd/</code></h1>
+<p>CMSIS-SVD register descriptions used by Cortex-Debug to render peripheral state in VS Code.</p><ul>
+<li><code>STM32F407.svd</code> Used by F4 launch configs (DAQ, PDU, f4_testing).</li>
+<li><code>STM32G474.svd</code> Used by G4 launch configs (Main Module, Dashboard, Driveline, Torque Vectoring, A_Box, g4_testing).</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md117"></a>
+<code>openocd/</code></h1>
+<p>OpenOCD helpers loaded from VS Code debug configs. Only <code>openocd-gdb.cfg</code> is wired into the standard flow; the others are kept as ad-hoc helpers.</p><ul>
+<li><code>openocd-gdb.cfg</code> Auto-<code>resume</code> on <code>gdb-detach</code>. Loaded by the DAQ debug config.</li>
+<li><code>stlink.cfg</code> Local ST-Link interface override (not referenced from <code>.vscode/</code>).</li>
+<li><code>mem_helper.tcl</code> Memory-access helper script (not referenced from <code>.vscode/</code>).</li>
+<li><code>swj-dp.tcl</code> SWJ/SWD helper script (not referenced from <code>.vscode/</code>). </li>
+</ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

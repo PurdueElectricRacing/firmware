@@ -1,4 +1,4 @@
-## strbuf
+# String Buffer
 The `strbuf` module provides a simple and efficient way to handle "dynamic" strings in C.
 Data is still allocated statically, but the module allows you to append data to a buffer while keeping track of the current length and ensuring that you do not exceed the allocated size.
 

@@ -1,4 +1,4 @@
-## CANpiler
+# CANpiler
 The CANpiler is the centralized code generation authority. It handles CAN message generation, fault library, and (soon) daq variable generation.
 
 

@@ -1,3 +1,5 @@
+# CAN Configs
+
 ## Bus Attributes
 - `peripheral`: Hardware identifier (e.g., `CAN1`, `CAN2`, `CAN3`).
 - `accept_all_messages`: Boolean. If true, disables hardware filter optimization (promiscuous mode).

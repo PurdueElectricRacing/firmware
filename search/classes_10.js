@@ -6,8 +6,10 @@ var searchData=
   ['sd_5fmanager_5ft_3',['SD_manager_t',['../structSD__manager__t.html',1,'']]],
   ['sdc_5fnode_5ft_4',['sdc_node_t',['../structsdc__node__t.html',1,'']]],
   ['seconds_5ft_5',['seconds_t',['../structseconds__t.html',1,'']]],
-  ['spi_5finitconfig_5ft_6',['SPI_InitConfig_t',['../structSPI__InitConfig__t.html',1,'']]],
-  ['spmc_5ft_7',['SPMC_t',['../structSPMC__t.html',1,'']]],
-  ['status_5fleds_5ft_8',['status_leds_t',['../structstatus__leds__t.html',1,'']]],
-  ['strbuf_5ft_9',['strbuf_t',['../structstrbuf__t.html',1,'']]]
+  ['signal_6',['Signal',['../classparser_1_1Signal.html',1,'parser']]],
+  ['spi_5finitconfig_5ft_7',['SPI_InitConfig_t',['../structSPI__InitConfig__t.html',1,'']]],
+  ['spmc_5ft_8',['SPMC_t',['../structSPMC__t.html',1,'']]],
+  ['status_5fleds_5ft_9',['status_leds_t',['../structstatus__leds__t.html',1,'']]],
+  ['strbuf_5ft_10',['strbuf_t',['../structstrbuf__t.html',1,'']]],
+  ['systemcontext_11',['SystemContext',['../classparser_1_1SystemContext.html',1,'parser']]]
 ];

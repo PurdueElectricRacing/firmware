@@ -118,11 +118,43 @@ var NAVTREE =
         [ "Setup & Build", "md_docs_2setup.html#autotoc_md73", null ]
       ] ]
     ] ],
+    [ "CANpiler", "md_can__library_2canpiler_2README.html", [
+      [ "Software Architecture", "md_can__library_2canpiler_2README.html#autotoc_md75", null ]
+    ] ],
+    [ "CAN Configs", "md_can__library_2configs_2README.html", [
+      [ "Bus Attributes", "md_can__library_2configs_2README.html#autotoc_md84", null ],
+      [ "Node Attributes", "md_can__library_2configs_2README.html#autotoc_md85", null ],
+      [ "CAN Message Attributes (TX)", "md_can__library_2configs_2README.html#autotoc_md86", null ],
+      [ "RX Message Attributes", "md_can__library_2configs_2README.html#autotoc_md87", null ],
+      [ "Signal Attributes", "md_can__library_2configs_2README.html#autotoc_md88", [
+        [ "Message Priority", "md_can__library_2configs_2README.html#autotoc_md89", null ]
+      ] ],
+      [ "Fault Configuration", "md_can__library_2configs_2README.html#autotoc_md90", [
+        [ "Node Level", "md_can__library_2configs_2README.html#autotoc_md91", null ],
+        [ "Fault Attributes", "md_can__library_2configs_2README.html#autotoc_md92", null ]
+      ] ]
+    ] ],
+    [ "PER CAN Library", "md_can__library_2README.html", [
+      [ "Logic", "md_can__library_2README.html#autotoc_md94", null ],
+      [ "Usage", "md_can__library_2README.html#autotoc_md95", null ],
+      [ "Fault System", "md_can__library_2README.html#autotoc_md96", [
+        [ "Usage:", "md_can__library_2README.html#autotoc_md97", null ]
+      ] ]
+    ] ],
+    [ "Support Directory", "md_support_2README.html", null ],
+    [ "Namespaces", "namespaces.html", [
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Functions", "namespacemembers_func.html", null ]
+      ] ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
+        [ "Functions", "functions_func.html", null ],
         [ "Variables", "functions_vars.html", null ]
       ] ]
     ] ],
@@ -142,10 +174,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "FreeRTOSConfig_8h_source.html",
-"dir_e44a99400c98fdc940c6db3c014c8b51.html",
-"nextion_8h.html#ac7e3e9fc4674d17281069e97b8a5384d",
-"spmc_8h.html#a1cceacc1cc78c112192bb84aaee313aa",
-"torque__vector_2main_8c.html"
+"dir_3d869cf79cc855611296189de4de01e3.html",
+"md_source_2daq_2README.html#autotoc_md19",
+"phal__G4_2adc_2adc_8h_source.html",
+"structadbms__module__t.html#a4bcc94bcf802dab89bc142b54ee71302"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,5 +1,27 @@
 var annotated_dup =
 [
+    [ "linker", "namespacelinker.html", [
+      [ "BusLinker", "classlinker_1_1BusLinker.html", "classlinker_1_1BusLinker" ]
+    ] ],
+    [ "mapper", "namespacemapper.html", [
+      [ "FDCANFilters", "classmapper_1_1FDCANFilters.html", null ],
+      [ "FilterBank", "classmapper_1_1FilterBank.html", null ],
+      [ "NodeMapping", "classmapper_1_1NodeMapping.html", null ]
+    ] ],
+    [ "parser", "namespaceparser.html", [
+      [ "Bus", "classparser_1_1Bus.html", null ],
+      [ "BusView", "classparser_1_1BusView.html", null ],
+      [ "Fault", "classparser_1_1Fault.html", null ],
+      [ "FaultModule", "classparser_1_1FaultModule.html", null ],
+      [ "Message", "classparser_1_1Message.html", "classparser_1_1Message" ],
+      [ "Node", "classparser_1_1Node.html", "classparser_1_1Node" ],
+      [ "RxMessage", "classparser_1_1RxMessage.html", null ],
+      [ "Signal", "classparser_1_1Signal.html", null ],
+      [ "SystemContext", "classparser_1_1SystemContext.html", null ]
+    ] ],
+    [ "utils", "namespaceutils.html", [
+      [ "bcolors", "classutils_1_1bcolors.html", null ]
+    ] ],
     [ "__attribute__", "struct____attribute____.html", null ],
     [ "adbms_bms_t", "structadbms__bms__t.html", "structadbms__bms__t" ],
     [ "adbms_module_t", "structadbms__module__t.html", "structadbms__module__t" ],
@@ -11,6 +33,7 @@ var annotated_dup =
     [ "bangbang_t", "structbangbang__t.html", null ],
     [ "bar_t", "structbar__t.html", null ],
     [ "BMI088_Handle_t", "structBMI088__Handle__t.html", null ],
+    [ "can_stats_t", "structcan__stats__t.html", null ],
     [ "CanMsgTypeDef_t", "structCanMsgTypeDef__t.html", "structCanMsgTypeDef__t" ],
     [ "car_t", "structcar__t.html", null ],
     [ "celsius_t", "structcelsius__t.html", null ],
@@ -22,6 +45,7 @@ var annotated_dup =
     [ "ethernet_config_t", "structethernet__config__t.html", null ],
     [ "euler_angles_t", "structeuler__angles__t.html", null ],
     [ "fahrenheit_t", "structfahrenheit__t.html", null ],
+    [ "fault_t", "structfault__t.html", null ],
     [ "feet_t", "structfeet__t.html", null ],
     [ "GPIOInitConfig_t", "structGPIOInitConfig__t.html", null ],
     [ "grams_t", "structgrams__t.html", null ],

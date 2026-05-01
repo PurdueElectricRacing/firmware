@@ -100,8 +100,8 @@ $(function(){initNavTree('md_can__library_2configs_2README.html',''); initResiza
   <div class="headertitle"><div class="title">CAN Configs</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md83"></a></p>
-<h1><a class="anchor" id="autotoc_md84"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md84"></a></p>
+<h1><a class="anchor" id="autotoc_md85"></a>
 Bus Attributes</h1>
 <ul>
 <li><code>peripheral</code>: Hardware identifier (e.g., <code>CAN1</code>, <code>CAN2</code>, <code>CAN3</code>).</li>
@@ -109,13 +109,13 @@ Bus Attributes</h1>
 <li><code>is_extended_id</code>: Boolean. Set at the bus level. Mixed-ID buses are not supported; all messages on a bus will share this framing.</li>
 <li><code>host_fault_library</code>: Boolean. If true, indicates this bus is the primary uplink for fault communication (usually VCAN).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md85"></a>
+<h1><a class="anchor" id="autotoc_md86"></a>
 Node Attributes</h1>
 <ul>
 <li><code>node_name</code>: Name of the node. Must be unique.</li>
 <li><code>faults</code>: (Optional) Array of fault definitions specific to this node.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md86"></a>
+<h1><a class="anchor" id="autotoc_md87"></a>
 CAN Message Attributes (TX)</h1>
 <ul>
 <li><code>msg_name</code>: Unique identifier.</li>
@@ -124,14 +124,14 @@ CAN Message Attributes (TX)</h1>
 <li><code>msg_period</code>: Transmission frequency in ms.</li>
 <li><code>msg_id_override</code>: Optional. Manual ID (supports hex <code>0x...</code>). Overrides automatic linking. Must respect the bus framing limits.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md87"></a>
+<h1><a class="anchor" id="autotoc_md88"></a>
 RX Message Attributes</h1>
 <ul>
 <li><code>msg_name</code>: Name of the message to receive (must exist on the bus).</li>
 <li><code>callback</code>: Boolean. If true, generates a weak-linked callback function in the driver.</li>
 <li><code>irq</code>: Boolean. If true, processes the message in the RX interrupt context.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md88"></a>
+<h1><a class="anchor" id="autotoc_md89"></a>
 Signal Attributes</h1>
 <ul>
 <li><code>sig_name</code>: Signal name. Must be unique within the message.</li>
@@ -145,7 +145,7 @@ Signal Attributes</h1>
 <li><code>choices</code>: (Optional) List of strings for enum-like labels in DBC.</li>
 </ul>
 <dl class="section remark"><dt>Remarks</dt><dd><b>Scaling Constants:</b> The library generates <code>static constexpr float</code> constants for every signal with a scale != 1.0. format: <code>PACK_COEFF_&lt;MSG&gt;_&lt;SIG&gt;</code> and <code>UNPACK_COEFF_&lt;MSG&gt;_&lt;SIG&gt;</code>. Use these to avoid magic numbers in your application code.</dd></dl>
-<h2><a class="anchor" id="autotoc_md89"></a>
+<h2><a class="anchor" id="autotoc_md90"></a>
 Message Priority</h2>
 <p>Lower = higher priority. Range: [0-5]. PER vehicle convention:</p>
 <ol type="1">
@@ -174,15 +174,15 @@ Message Priority</h2>
 </ul>
 </li>
 </ol>
-<h1><a class="anchor" id="autotoc_md90"></a>
+<h1><a class="anchor" id="autotoc_md91"></a>
 Fault Configuration</h1>
 <p>Node-specific faults are defined directly in the node JSON under the <code>"faults"</code> key. The library automatically generates bitfield-sync and event messages for fault communication based on these definitions.</p>
-<h2><a class="anchor" id="autotoc_md91"></a>
+<h2><a class="anchor" id="autotoc_md92"></a>
 Node Level</h2>
 <ul>
 <li><code>generate_fault_messages</code>: Boolean. If true, generates LCD string arrays for the node (usually only true for nodes with displays like the Dashboard).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md92"></a>
+<h2><a class="anchor" id="autotoc_md93"></a>
 Fault Attributes</h2>
 <ul>
 <li><code>fault_name</code>: Unique name within the node.</li>

@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"md_source_2daq_2README.html":[3],
 "md_source_2daq_2README.html#autotoc_md19":[3,0],
 "md_source_2daq_2README.html#autotoc_md20":[3,1],
 "md_source_2dashboard_2README.html":[4],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "phal__G4_2adc_2adc_8h.html":[31,0,1,11,0,1],
 "phal__G4_2adc_2adc_8h.html#a4e6fb62f3aac96eafc47d2f24a633fb6":[31,0,1,11,0,1,4],
 "phal__G4_2adc_2adc_8h.html#a945c5b94cf25d5aa81caee684109ad90":[31,0,1,11,0,1,5],
-"phal__G4_2adc_2adc_8h.html#a9bc7d0ed3e1117cd9b3b9c40bb36fcff":[31,0,1,11,0,1,3],
-"phal__G4_2adc_2adc_8h.html#ae40226a1d0575a52ce95e5ac385719e3":[31,0,1,11,0,1,2]
+"phal__G4_2adc_2adc_8h.html#a9bc7d0ed3e1117cd9b3b9c40bb36fcff":[31,0,1,11,0,1,3]
 };

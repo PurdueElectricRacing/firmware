@@ -119,35 +119,35 @@ Module Layout</h1>
 <li>No business logic beyond orchestration.</li>
 </ul>
 </li>
-<li><code><a class="el" href="state_8h_source.html">state.h</a>/.c</code><ul>
+<li><code>state.c</code> / <code><a class="el" href="state_8h_source.html">state.h</a></code><ul>
 <li>Shared runtime state (<code>g_pdu_state</code>) for all PDU logic.</li>
 </ul>
 </li>
-<li><code><a class="el" href="switches_8h_source.html">switches.h</a>/.c</code><ul>
+<li><code>switches.c</code> / <code><a class="el" href="switches_8h_source.html">switches.h</a></code><ul>
 <li>Switch command/read API.</li>
 <li>ADC and mux measurement pipeline.</li>
 <li>Rail current/voltage conversions.</li>
 <li>Default-rail enable sequence.</li>
 </ul>
 </li>
-<li><code>faults.h/.c</code><ul>
+<li><code>faults.c</code> / <code>faults.h</code><ul>
 <li>Table-driven nFAULT polling.</li>
 <li>One-fault-slot-per-cycle update cadence.</li>
 <li>Rail fault LED behavior.</li>
 </ul>
 </li>
-<li><code><a class="el" href="cooling_8h_source.html">cooling.h</a>/.c</code><ul>
+<li><code>cooling.c</code> / <code><a class="el" href="cooling_8h_source.html">cooling.h</a></code><ul>
 <li>Cooling policy computation.</li>
 <li>Cooling actuation (switches + fan PWM).</li>
 <li>Cooling CAN output publication.</li>
 </ul>
 </li>
-<li><code><a class="el" href="cooling__bangbang_8h_source.html">cooling_bangbang.h</a>/.c</code><ul>
+<li><code>cooling_bangbang.c</code> / <code><a class="el" href="cooling__bangbang_8h_source.html">cooling_bangbang.h</a></code><ul>
 <li>Optional bang-bang policy backend.</li>
 <li>Compiled in but disabled by default.</li>
 </ul>
 </li>
-<li><code>telemetry.h/.c</code><ul>
+<li><code>telemetry.c</code> / <code>telemetry.h</code><ul>
 <li>Power/thermal telemetry CAN publication.</li>
 <li>Flowrate telemetry CAN publication.</li>
 </ul>

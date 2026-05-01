@@ -10,7 +10,7 @@ var searchData=
   ['days_5ft_7',['days_t',['../structdays__t.html',1,'']]],
   ['dbcgen_8',['dbcgen',['../namespacedbcgen.html',1,'']]],
   ['debugging_9',['Debugging',['../md_docs_2deploy__n__debug.html',1,'Deployment and Debugging'],['../md_README.html#autotoc_md5',1,'Hardware Debugging']]],
-  ['debugging_20tools_10',['Using the Debugging Tools',['../md_docs_2deploy__n__debug.html#autotoc_md61',1,'']]],
+  ['debugging_20tools_10',['Using the Debugging Tools',['../md_docs_2deploy__n__debug.html#autotoc_md62',1,'']]],
   ['default_11',['Cooling Backend: Bang-Bang (Disabled by Default)',['../md_source_2pdu_2README.html#autotoc_md32',1,'']]],
   ['define_5fheartbeat_5ftask_12',['DEFINE_HEARTBEAT_TASK',['../heartbeat_8h.html#ad40088e79e8c996b0974ded98e470497',1,'heartbeat.h']]],
   ['define_5fqueue_13',['DEFINE_QUEUE',['../freertos_8h.html#a69f3705c51afcfefed18253d09849302',1,'freertos.h']]],
@@ -33,6 +33,5 @@ var searchData=
   ['documentation_30',['AMK Documentation',['../md_common_2amk_2README.html',1,'']]],
   ['doxygen_31',['Doxygen',['../md_README.html#autotoc_md2',1,'']]],
   ['driveline_32',['Driveline',['../md_source_2driveline_2README.html',1,'']]],
-  ['drivers_33',['Drivers',['../md_docs_2datasheet__library.html#autotoc_md56',1,'']]],
-  ['dsrimpl_34',['DSRImpl',['../structSD__CSD.html#a1a3df7f40e9afd86c1f811a54e2c63c9',1,'SD_CSD']]]
+  ['dsrimpl_33',['DSRImpl',['../structSD__CSD.html#a1a3df7f40e9afd86c1f811a54e2c63c9',1,'SD_CSD']]]
 ];

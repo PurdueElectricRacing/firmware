@@ -105,7 +105,7 @@ $(function(){initNavTree('md_source_2daq_2README.html',''); initResizable(true);
 <h1><a class="anchor" id="autotoc_md19"></a>
 Directory Structure</h1>
 <ul>
-<li><code>main.c / main.h</code> - Main entry point for DAQ firmware, responsible for initialization and thread management.</li>
+<li><code>main.c</code> / <code>main.h</code> - Main entry point for DAQ firmware, responsible for initialization and thread management.</li>
 <li><code>can_irq/</code> - CAN RX IRQ implementations, consuming CAN busses and feeding the SPMC</li>
 <li><code>spmc/</code> - Custom lockless Single Producer Multiple Consumer queue implementation for high throughput data buffering between CAN IRQs and consumer threads (SD card writing, Ethernet streaming).</li>
 <li><code>rtc_sync/</code> - Synchronization of the RTC peripheral with the reported GPS time</li>

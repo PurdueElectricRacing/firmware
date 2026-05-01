@@ -26,11 +26,11 @@ var searchData=
   ['bmi088_5freadaccel_23',['BMI088_readAccel',['../bmi088_8c.html#a236059cb2cd1459e4d2c45949de64326',1,'BMI088_readAccel(BMI088_Handle_t *bmi):&#160;bmi088.c'],['../bmi088_8h.html#a236059cb2cd1459e4d2c45949de64326',1,'BMI088_readAccel(BMI088_Handle_t *bmi):&#160;bmi088.c']]],
   ['bmi088_5freadgyro_24',['BMI088_readGyro',['../bmi088_8c.html#a1dfbb27cde5d045d6291dba7fe0e709f',1,'BMI088_readGyro(BMI088_Handle_t *bmi):&#160;bmi088.c'],['../bmi088_8h.html#a1dfbb27cde5d045d6291dba7fe0e709f',1,'BMI088_readGyro(BMI088_Handle_t *bmi):&#160;bmi088.c']]],
   ['board_25',['Data Acquisition Board',['../md_source_2daq_2README.html',1,'']]],
-  ['build_26',['Setup &amp; Build',['../md_docs_2setup.html#autotoc_md73',1,'']]],
+  ['build_26',['Setup &amp; Build',['../md_docs_2setup.html#autotoc_md74',1,'']]],
   ['build_27',['build',['../namespacebuild.html',1,'']]],
   ['building_20firmware_28',['Building Firmware',['../md_README.html#autotoc_md4',1,'']]],
   ['bus_29',['Bus',['../classparser_1_1Bus.html',1,'parser.Bus'],['../structCanMsgTypeDef__t.html#a27b82ae932da76206323ac8268b3f1e6',1,'CanMsgTypeDef_t::Bus'],['../structCanMsgTypeDef__t.html#a4aa42f4d25313b588ecb4323723d2ef6',1,'CanMsgTypeDef_t::Bus']]],
-  ['bus_20attributes_30',['Bus Attributes',['../md_can__library_2configs_2README.html#autotoc_md84',1,'']]],
+  ['bus_20attributes_30',['Bus Attributes',['../md_can__library_2configs_2README.html#autotoc_md85',1,'']]],
   ['buslinker_31',['BusLinker',['../classlinker_1_1BusLinker.html',1,'linker']]],
   ['busview_32',['BusView',['../classparser_1_1BusView.html',1,'parser']]],
   ['by_20default_33',['Cooling Backend: Bang-Bang (Disabled by Default)',['../md_source_2pdu_2README.html#autotoc_md32',1,'']]]

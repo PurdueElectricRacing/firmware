@@ -102,23 +102,20 @@ $(function(){initNavTree('md_source_2dashboard_2README.html',''); initResizable(
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="autotoc_md21"></a></p>
 <p>This node bears the primary responsibility of managing the pedalbox and thus is a torque-path critical board.</p>
-<p>Additionally, it hosts the main user interface for the vehicle, displaying telemetry via an LCD and handling user input through buttons.</p>
-<p>Notable Files</p><ul>
-<li><code>main.c / .h</code>: Main initialization and application logic for the dashboard node.</li>
-<li><code>pedals/ <a class="el" href="pedals_8c.html" title="Pedal processing logic.">pedals.c</a> / .h</code>: Pedalbox interface and processing logic. Filtering, fault detection, CAN broadcasting for pedal signals.</li>
-<li><code>lcd/</code>: LCD display driver and UI rendering code.</li>
-</ul>
+<p>Additionally, it hosts the main driver interface for the vehicle, displaying telemetry on a Nextion LCD and handling user input through buttons.</p>
 <h1><a class="anchor" id="autotoc_md22"></a>
-LCD Modules</h1>
-<p>Code for handling the LCD display and user input on the dashboard. This includes page management, button callbacks, and telemetry updates.</p><ul>
-<li><code>pages/</code>: Contains individual page implementations.</li>
-<li><code><a class="el" href="lcd_8c.html" title="LCD display management.">lcd.c</a></code>: Top level logic for handling page updates and button interactions.</li>
-<li><code><a class="el" href="lcd_8h.html" title="LCD display management.">lcd.h</a></code>: Header file defining the page handler structure and function prototypes.</li>
-</ul>
-<p>todo:</p><ul>
-<li>faults page</li>
-<li>torque vector settings</li>
-<li>error pages</li>
+Notable Files</h1>
+<ul>
+<li><code>main.c</code> / <code>main.h</code>: Initialization and application entry point for the dashboard node.</li>
+<li><code>CMakeLists.txt</code>: Build configuration for the dashboard target.</li>
+<li><code><a class="el" href="pedals_8c.html" title="Pedal processing logic.">pedals.c</a></code> / <code><a class="el" href="pedals_8h_source.html">pedals.h</a></code>: Pedalbox sampling, plausibility checks, and message TX.</li>
+<li><code>driver_interface.c</code> / <code><a class="el" href="driver__interface_8h_source.html">driver_interface.h</a></code>: Periodic loop, button EXTI handlers, and high-level page navigation actions.</li>
+<li><code><a class="el" href="lcd_8c.html" title="LCD display management.">lcd.c</a></code> / <code><a class="el" href="lcd_8h.html" title="LCD display management.">lcd.h</a></code>: Page registry and dispatch (per-page <code>update</code>, <code>move_up</code>, <code>move_down</code>, <code>select</code>, <code>telemetry</code> callbacks).</li>
+<li><code><a class="el" href="menu__system_8c.html" title="Implementation of menu system for LCD display interface.">menu_system.c</a></code> / <code><a class="el" href="menu__system_8h.html" title="Implementation of menu system for LCD display interface.">menu_system.h</a></code>: Generic Nextion menu framework. Defines <code><a class="el" href="structmenu__element__t.html">menu_element_t</a></code> / <code><a class="el" href="structmenu__page__t.html">menu_page_t</a></code> and the navigation/redraw helpers used by every page.</li>
+<li><code><a class="el" href="colors_8h.html" title="Color definitions for LCD display.">colors.h</a></code>: Named color constants used by the UI.</li>
+<li><code>Dashboard26.HMI</code>: Nextion Editor design file for the Dashboard26 LCD. Open in Nextion Editor to modify the on-screen layout, then re-flash the LCD.</li>
+<li><code>pages/</code>: Per-page implementations (<code>race</code>, <code>faults</code>, <code>calibration</code>, <code>amk</code>). Each page exposes the callback set required by <code><a class="el" href="lcd_8c.html" title="LCD display management.">lcd.c</a></code>.</li>
+<li><code>telemetry.c</code> / <code>telemetry.h</code></li>
 </ul>
 <div class="image">
 <img src="PER26_colors.png" alt=""/>

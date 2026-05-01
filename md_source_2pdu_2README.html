@@ -100,9 +100,9 @@ $(function(){initNavTree('md_source_2pdu_2README.html',''); initResizable(true);
   <div class="headertitle"><div class="title">PDU</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md27"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md28"></a></p>
 <p>PDU controls and monitors low-voltage power rails and cooling hardware for the car.</p>
-<h1><a class="anchor" id="autotoc_md28"></a>
+<h1><a class="anchor" id="autotoc_md29"></a>
 Responsibilities</h1>
 <ul>
 <li>Control switchable rails (GPIO outputs).</li>
@@ -111,7 +111,7 @@ Responsibilities</h1>
 <li>Control fan/pump/hxfan outputs and fan PWM duty cycles.</li>
 <li>Publish PDU telemetry and coolant output status over CAN.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md29"></a>
+<h1><a class="anchor" id="autotoc_md30"></a>
 Module Layout</h1>
 <ul>
 <li><a href="main.c"><code>main.c</code></a><ul>
@@ -159,7 +159,7 @@ Module Layout</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md30"></a>
+<h1><a class="anchor" id="autotoc_md31"></a>
 Runtime State (<code>g_pdu_state</code>)</h1>
 <p>The shared state contains:</p>
 <ul>
@@ -169,7 +169,7 @@ Runtime State (<code>g_pdu_state</code>)</h1>
 <li><code>next_rail_fault_index</code> for staggered rail fault scanning.</li>
 <li><code>cooling_command</code> for requested/applied cooling outputs.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md31"></a>
+<h1><a class="anchor" id="autotoc_md32"></a>
 Task Model</h1>
 <p>Defined in <a href="main.c"><code>main.c</code></a>:</p>
 <ul>
@@ -184,7 +184,7 @@ Task Model</h1>
 <li><code>telemetry_power_periodic</code> (500 ms)</li>
 <li>Heartbeat task (LED sweep callback)</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md32"></a>
+<h1><a class="anchor" id="autotoc_md33"></a>
 Cooling Backend: Bang-Bang (Disabled by Default)</h1>
 <p>The bang-bang backend is present for future policy work, but disabled to preserve current behavior.</p>
 <ul>

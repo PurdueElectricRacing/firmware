@@ -1,4 +1,4 @@
-# lerp_lut
+# Linearly Interpolating Lookup Table
 The `lerp_lut` module provides a simple way to create and use lookup tables (LUTs) for linear interpolation in C.
 - keys outside the LUT range will be clamped to the nearest endpoint
 - the LUT must have at least 2 entries to be valid

@@ -187,6 +187,7 @@ Additionally, the compiler standard for `firmware` is set to C23, enabling sever
     ```
 
 14. Use apostrophes to format large numbers (C23)
+
     ```c
     // bad
     static constexpr uint32_t TargetCoreClockrateHz = 16000000;

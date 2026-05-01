@@ -84,7 +84,6 @@ def print_available_targets():
         "main_module",
         "bootloader",
         "f4_testing",
-        "f7_testing",
         "g4_testing",
         "a_box",
         "torque_vector",

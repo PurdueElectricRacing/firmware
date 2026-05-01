@@ -8,7 +8,9 @@ Standardized framework for CAN communication and system-wide fault management wi
 - `schema/`: JSON schemas for validating configuration files.
 
 **Core Files:**
-- `can_common.c` / `can_common.h`: Shared hardware abstraction and logic.
+- [`can_init.c`](can_init.c) / [`can_common.h`](can_common.h): Bus/peripheral initialization and `CAN_init()`.
+- [`can_rx.c`](can_rx.c): CAN RX task and the shared `can_data` instance.
+- [`can_tx.c`](can_tx.c): CAN TX task and per-peripheral software queues.
 - `faults_common.c` / `faults_common.h`: System-wide fault management.
 - `can_library.cmake`: CMake integration and node library generation.
 
@@ -26,10 +28,10 @@ The high-level logic flow of a TX is shown here:
 ## Usage
 1. Define your CAN network and global faults in `can_library/configs/` using the provided JSON schemas.
     1. Use FDCAN peripherals on G4 and CAN peripherals on F4/F7.
-2. Add to `COMMON_LIBRARIES` of your target: `can_node_<node_name>`.
-3. Include the generated header for your node (e.g. `#include "common/can_library/generated/can_node_<node_name>.h"`) in your `main.c`.
-3. Initialize the CAN library in your `main.c` with `CAN_init()`.
-4. Setup CAN tasks in your `main.c` using `DEFINE_CAN_TASKS()` and `START_CAN_TASKS()`.
+2. Add `can_node_<NODE_NAME>` to `LIBS` in your board's `add_firmware_component(...)` call (must match the uppercase node name from CMake).
+3. Include the generated header for your node (e.g. `#include "can_library/generated/PDU.h"` / `#include "can_library/generated/<NODE_NAME>.h"`) in your `main.c`.
+4. Initialize the CAN library in your `main.c` with `CAN_init()`.
+5. Setup CAN tasks in your `main.c` using `DEFINE_CAN_TASKS()` and `START_CAN_TASKS()`.
 
 The most recent rx'd data is available in the `can_data` struct, which is updated by the CAN RX task.
 Sending CAN messages is done via the generated `CAN_SEND_<message_name>()` functions, which enqueue messages to be sent by the CAN TX task.
@@ -40,10 +42,10 @@ The `faults_common` module implements the **FIDR (Fault Isolation, Detection, an
 ![Fault FSM Diagram](fault_fsm.drawio.png)
 
 ### Usage:
-- `update_fault(fault_index, value)`: Called by the owner node to feed sensor/status data into the FSM.
-- `fault_library_periodic()`: Tally active faults and broadcast a `tx_fault_sync` message.
-- `is_latched(fault_index)`: Check if a specific fault is active.
-- `is_clear(fault_index)`: Check if a specific fault is clear.
+- `update_fault(fault_id_t fault_id, float value)`: Called by the owner node to feed sensor/status data into the FSM.
+- `fault_library_periodic()`: Tally active faults and call `tx_fault_sync()`, which broadcasts the node-specific `<node>_fault_sync` CAN message.
+- `is_latched(fault_id_t fault_id)`: Check if a specific fault is active.
+- `is_clear(fault_id_t fault_id)`: Check if a specific fault is clear.
 
 > [!NOTE]
 > Each node is assigned a specific range of faults (`MY_FAULT_START` to `MY_FAULT_END`).

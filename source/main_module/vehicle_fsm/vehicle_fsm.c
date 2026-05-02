@@ -25,9 +25,17 @@ static void ready2drive_periodic() {
         return;
     }
 
-    // todo regen
-    // todo smarter request scheme
-    // todo torque vectoring
+    bool is_tv_stale = can_data.vcu_settings.is_stale() || can_data.vcu_torque_request.is_stale();
+    if (!is_tv_stale && can_data.vcu_settings.is_tv_enabled) {
+        // Forward TV Requested Torques
+        g_torque_request.front_right = can_data.vcu_torque_request.front_right;
+        g_torque_request.front_left = can_data.vcu_torque_request.front_left;
+        g_torque_request.rear_left = can_data.vcu_torque_request.rear_left;
+        g_torque_request.rear_right = can_data.vcu_torque_request.rear_right;
+        return;
+    }
+
+    // Direct mapped throttle
     // todo alternative throttle mapping (like S curve)
 
     // assumes pedals.throttle is in the range [0, 100]

@@ -47,6 +47,7 @@ void MS_setStyleHover(menu_element_t* element) {
  * @param element Pointer to the menu element to be styled
  */
 void MS_setStyleSelected(menu_element_t* element) {
+    NXT_setBorderWidth(element->object_name, HOVER_BORDER_WIDTH);
     NXT_setBackground(element->object_name, DARK_GRAY);
 }
 

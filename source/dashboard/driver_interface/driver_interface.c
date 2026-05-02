@@ -15,7 +15,7 @@
 DEFINE_QUEUE(action_queue, interface_action_t, ACTION_QUEUE_LENGTH);
 volatile uint16_t data_mark_index = 0;
 
-static constexpr uint32_t INTERRUPT_DEBOUNCE_MS = 10;
+static constexpr uint32_t INTERRUPT_DEBOUNCE_MS = 150;
 
 void EXTI0_IRQHandler() {
     static volatile uint32_t last_interrupt_time = 0;

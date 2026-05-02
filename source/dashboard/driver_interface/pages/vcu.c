@@ -25,17 +25,22 @@ typedef enum {
 } vcu_elements_t;
 
 static char *const VCU_MODE_LABELS[] = {
-    "ACCEL",
-    "SKIDPAD",
-    "AUTOCROSS",
-    "ENDURANCE",
+    [VCU_MODE_ACCEL]     = "ACCEL",
+    [VCU_MODE_SKIDPAD]   = "SKIDPAD",
+    [VCU_MODE_AUTOCROSS] = "AUTOCROSS",
+    [VCU_MODE_ENDURANCE] = "ENDURANCE",
 };
 
 static char *const VCU_BINDING_LABELS[] = {
-    "VCU MODE",
-    "LAT GAIN",
-    "LONG GAIN",
-    "EBB",
+    [VCU_BINDING_MODE]              = "VCU MODE",
+    [VCU_BINDING_LATERAL_GAIN]      = "LAT GAIN",
+    [VCU_BINDING_LONGITUDINAL_GAIN] = "LONG GAIN",
+    [VCU_BINDING_EBB]               = "EBB",
+};
+
+static char *const ON_OFF_LABELS[] = {
+    [0] = "OFF",
+    [1] = "ON",
 };
 
 static void render_vcu_element(menu_element_t* element) {
@@ -109,15 +114,23 @@ static menu_element_t vcu_elements[NUM_VCU_ELEMENTS] = {
         .on_change     = send_vcu_driver_request
     },
     [REGEN_INDEX] = {
-        .type          = ELEMENT_OPTION,
+        .type          = ELEMENT_VAL,
         .object_name   = REGEN_BUTTON,
+        .labels        = ON_OFF_LABELS,
         .current_value = 0,
+        .increment     = 1,
+        .min_value     = 0,
+        .max_value     = 1,
         .on_change     = send_vcu_driver_request
     },
     [TV_INDEX] = {
-        .type          = ELEMENT_OPTION,
+        .type          = ELEMENT_VAL,
         .object_name   = TV_BUTTON,
+        .labels        = ON_OFF_LABELS,
         .current_value = 0,
+        .increment     = 1,
+        .min_value     = 0,
+        .max_value     = 1,
         .on_change     = send_vcu_driver_request
     },
     [LEFT_WHEEL_INDEX] = {

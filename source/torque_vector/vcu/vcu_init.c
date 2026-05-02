@@ -5,6 +5,7 @@ xVCU_struct init_xVCU(void) {
         .VCU_MODE_REQ = 0,
         .THROT_RAW = 0,
         .BRAKE_RAW = 0,
+        .REGEN_RAW = 0,
         .ST_RAW = 0,
         .VB_RAW = 600,
         .WM_RAW = {0, 0, 0, 0},

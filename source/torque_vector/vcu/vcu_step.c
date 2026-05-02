@@ -245,6 +245,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
   y->AV[0] = x->AV_RAW[0];
   y->AV[1] = x->AV_RAW[1];
   y->AV[2] = x->AV_RAW[2];
+  y->AV[2] = -x->AV_RAW[2];
   y->IB = x->IB_RAW;
   y->MT = x->MT_RAW;
   y->IGBT_T = x->IGBT_T_RAW;
@@ -616,7 +617,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
       b_LR = (1.0F - control_force) * 0.5F +
              control_force *
                  fmaxf(fminf(p->SK_LR_split_des +
-                                 ((float)i1 * p->SK_YAW_des - x->AV_RAW[2]) *
+                                 ((float)i1 * p->SK_YAW_des - (-x->AV_RAW[2])) *
                                      y->SK_LR_gain,
                              0.65F),
                        0.35F);
@@ -820,7 +821,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
                                    p->AX_TV_yaw_ST_brkpt[0]),
                              fmaxf(fminf(x->GS_RAW, p->AX_TV_yaw_GS_brkpt[50]),
                                    p->AX_TV_yaw_GS_brkpt[0])) -
-                     x->AV_RAW[2]) *
+                     (-x->AV_RAW[2])) *
                         y->AX_LR_gain,
                 0.65F),
           0.35F);

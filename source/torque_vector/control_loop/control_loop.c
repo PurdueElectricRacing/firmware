@@ -144,15 +144,24 @@ void control_loop() {
 
     xVCU.BT_RAW = 30.0f; // ! hardcoded to 30C for now
 
+    // load up driver settings
     volatile vcu_settings_data_t *current_settings = &vcu_settings[vcu_mode];
     xVCU.RG_FR_split_RAW = current_settings->electronic_brake_bias;
-    xVCU.SK_LR_gain_RAW = vcu_settings[VCU_MODE_SKIDPAD].lateral_gain;
+    xVCU.SK_LR_gain_RAW  = vcu_settings[VCU_MODE_SKIDPAD].lateral_gain;
     xVCU.SK_FR_split_RAW = vcu_settings[VCU_MODE_SKIDPAD].longitudinal_gain;
-    xVCU.AX_LR_gain_RAW = vcu_settings[VCU_MODE_AUTOCROSS].lateral_gain;
+    xVCU.AX_LR_gain_RAW  = vcu_settings[VCU_MODE_AUTOCROSS].lateral_gain;
     xVCU.SK_FR_split_RAW = vcu_settings[VCU_MODE_AUTOCROSS].longitudinal_gain;
+    xVCU.TS_LR_split_RAW = vcu_settings[VCU_MODE_TUNING].lateral_gain;
+    xVCU.TS_FR_split_RAW = vcu_settings[VCU_MODE_TUNING].longitudinal_gain;
 
     // step the VCU model
     vcu_step(&pVCU, &xVCU, &yVCU);
 
-    // todo send yVCU -> torque requests
+    // send outputs on CAN
+    CAN_SEND_vcu_torque_request(
+        yVCU.TORQUE_OUT[1],
+        yVCU.TORQUE_OUT[0],
+        yVCU.TORQUE_OUT[2],
+        yVCU.TORQUE_OUT[3]
+    );
 }

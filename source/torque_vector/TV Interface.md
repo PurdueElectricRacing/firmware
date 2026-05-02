@@ -82,8 +82,8 @@
 	- skidpad mode FR split
 	- Unit: \[0-100] Size: \[1 1]
 	- 0 = no front, 100 = all front
-- `AX_LR_gain_RAW`
-	- auto-x mode TV gain (left-right)
+- `AX_LR_control_force_RAW`
+	- auto-x mode TV control force (left-right)
 	- Unit: \[0-100] Size: \[1 1]
 	- 0 = no TV, 100 = full TV
 - `AX_FR_split_RAW`
@@ -98,7 +98,7 @@
 	- Lateral gain -> `SK_LR_gain_RAW`
 - Autocross Mode
 	- Longitudinal gain -> `SK_FR_split_RAW`
-	- Lateral gain -> `SK_LR_gain_RAW`
+	- Lateral gain -> `AX_LR_control_force_RAW`
 - Testing/Tuning Mode
 	- Longitudinal gain -> `TS_FR_split_RAW`
 	- Lateral gain -> `TS_LR_split_RAW`

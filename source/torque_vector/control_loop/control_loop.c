@@ -149,7 +149,7 @@ void control_loop() {
     xVCU.RG_FR_split_RAW = current_settings->electronic_brake_bias;
     xVCU.SK_LR_gain_RAW  = vcu_settings[VCU_MODE_SKIDPAD].lateral_gain;
     xVCU.SK_FR_split_RAW = vcu_settings[VCU_MODE_SKIDPAD].longitudinal_gain;
-    xVCU.AX_LR_gain_RAW  = vcu_settings[VCU_MODE_AUTOCROSS].lateral_gain;
+    xVCU.AX_LR_control_force_RAW  = vcu_settings[VCU_MODE_AUTOCROSS].lateral_gain;
     xVCU.SK_FR_split_RAW = vcu_settings[VCU_MODE_AUTOCROSS].longitudinal_gain;
     xVCU.TS_LR_split_RAW = vcu_settings[VCU_MODE_TUNING].lateral_gain;
     xVCU.TS_FR_split_RAW = vcu_settings[VCU_MODE_TUNING].longitudinal_gain;

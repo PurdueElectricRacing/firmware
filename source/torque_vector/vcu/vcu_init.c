@@ -3,6 +3,7 @@
 xVCU_struct init_xVCU(void) {
     xVCU_struct xVCU = {
         .VCU_MODE_REQ = 0,
+        .REGEN_REQ = 0,
         .THROT_RAW = 0,
         .BRAKE_RAW = 0,
         .REGEN_RAW = 0,
@@ -23,7 +24,7 @@ xVCU_struct init_xVCU(void) {
         .SK_FR_split_RAW = 0.4,
         .SK_LR_gain_RAW = 1,
         .AX_FR_split_RAW = 0.3,
-        .AX_LR_gain_RAW = 0,
+        .AX_LR_control_force_RAW = 0,
         .TS_FR_split_RAW = 0.3,
         .TS_LR_split_RAW = 0.5
     };
@@ -63,7 +64,7 @@ yVCU_struct init_yVCU(void) {
         .SK_LR_gain = 1,
         .AX_TO = {0, 0, 0, 0},
         .AX_FR_split = 0.3,
-        .AX_LR_gain = 1,
+        .AX_LR_control_force = 0.2,
         .TS_TO = {0, 0, 0, 0},
         .TS_FR_split = 0.3,
         .TS_LR_split = 0.1,
@@ -474,13 +475,15 @@ pVCU_struct init_pVCU(void) {
         
         .AX_FR_split_lb = 0,
         .AX_FR_split_ub = 1,
-        .AX_LR_gain_lb = 0,
-        .AX_LR_gain_ub = 2,
-        .TS_LR_gain = 0.004,
+        .AX_LR_control_force_lb = 0,
+        .AX_LR_control_force_ub = 1,
+        .AX_LR_split_max = 0.5,
+        .AX_LR_gain = 1,
+        .TS_LR_max_ST = 20,
         .TS_FR_split_lb = 0,
         .TS_FR_split_ub = 1,
         .TS_LR_split_lb = 0,
-        .TS_LR_split_ub = 1
+        .TS_LR_split_ub = 0.5
     };
     return pVCU;
 }

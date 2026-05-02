@@ -39,6 +39,7 @@ void MS_setStyleNormal(menu_element_t* element) {
  */
 void MS_setStyleHover(menu_element_t* element) {
     NXT_setBorderWidth(element->object_name, HOVER_BORDER_WIDTH);
+    NXT_setBackground(element->object_name, BLACK);
 }
 
 /**

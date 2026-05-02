@@ -19,10 +19,10 @@ xVCU_struct init_xVCU(void) {
         .OV_INV = {0, 0, 0, 0},
         .BT_RAW = 0,
         .TO_RAW = {0, 0, 0, 0},
-        .RG_FR_split_RAW = 0.7,
+        .RG_FR_split_RAW = 0.3,
         .SK_FR_split_RAW = 0.4,
-        .SK_LR_gain_RAW = 1,
-        .AX_FR_split_RAW = 0,
+        .SK_LR_gain_RAW = 0,
+        .AX_FR_split_RAW = 0.3,
         .AX_LR_gain_RAW = 0
     };
     return xVCU;

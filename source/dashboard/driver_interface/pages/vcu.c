@@ -171,10 +171,6 @@ void vcu_settings_CALLBACK(void) {
     vcu_elements[EBB_INDEX].current_value = can_data.vcu_settings.electronic_brake_bias;
     vcu_elements[REGEN_INDEX].current_value = can_data.vcu_settings.is_regen_enabled;
     vcu_elements[TV_INDEX].current_value = can_data.vcu_settings.is_tv_enabled;
-
-    if (curr_page == PAGE_VCU) {
-        MS_refreshPage(&vcu_page);
-    }
 }
 
 void vcu_move_up() {

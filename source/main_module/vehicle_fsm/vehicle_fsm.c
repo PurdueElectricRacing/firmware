@@ -60,11 +60,13 @@ static inline bool is_all_AMKS_running() {
 }
 
 static inline bool is_start_button_pressed() {
-    if (can_data.start_button.is_stale()) {
+    if (!can_data.start_button.is_pressed) {
         return false;
     }
 
-    return can_data.start_button.is_pressed;
+    // "destructive read"
+    can_data.start_button.is_pressed = false;
+    return true;
 }
 
 static inline bool is_buzzing_time_elapsed() {

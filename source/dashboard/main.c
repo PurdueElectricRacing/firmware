@@ -162,7 +162,6 @@ DEFINE_CAN_TASKS();
 DEFINE_TASK(pedals_periodic, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024);
 DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
 DEFINE_TASK(driver_interface_periodic, DRIVER_INTERFACE_PERIOD_MS, osPriorityLow, STACK_1024);
-DEFINE_TASK(service_start_button, START_BUTTON_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_TASK(report_telemetry_02hz, TELEMETRY_02HZ_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(sweep_external_leds);
@@ -204,7 +203,6 @@ int main(void) {
     START_CAN_TASKS();
     START_TASK(pedals_periodic);
     START_TASK(fault_library_periodic);
-    START_TASK(service_start_button);
     START_TASK(driver_interface_periodic);
     START_WATCHDOG_TASK();
     START_HEARTBEAT_TASK();
@@ -212,12 +210,6 @@ int main(void) {
     osKernelStart(); // GO!
 
     return 0;
-}
-
-bool start_button_pressed = false;
-void service_start_button() {
-    start_button_pressed = PHAL_readGPIO(START_BUTTON_PORT, START_BUTTON_PIN);
-    CAN_SEND_start_button(start_button_pressed);
 }
 
 // jose was here

@@ -32,10 +32,9 @@ static char *const VCU_MODE_LABELS[] = {
 };
 
 static char *const VCU_BINDING_LABELS[] = {
-    [VCU_BINDING_MODE]              = "VCU MODE",
-    [VCU_BINDING_LATERAL_GAIN]      = "LAT GAIN",
-    [VCU_BINDING_LONGITUDINAL_GAIN] = "LONG GAIN",
-    [VCU_BINDING_EBB]               = "EBB",
+    [VCU_BINDING_LATERAL_GAIN]       = "LAT GAIN",
+    [VCU_BINDING_LONGITUDINAL_GAIN]    = "LONG GAIN",
+    [VCU_BINDING_EBB]                  = "EBB",
 };
 
 static char *const ON_OFF_LABELS[] = {
@@ -63,8 +62,6 @@ static void render_vcu_element(menu_element_t* element) {
 
 static uint8_t binding_to_element_index(vcu_binding_t binding) {
     switch (binding) {
-        case VCU_BINDING_MODE:
-            return VCU_MODE_INDEX;
         case VCU_BINDING_LATERAL_GAIN:
             return LATERAL_GAIN_INDEX;
         case VCU_BINDING_LONGITUDINAL_GAIN:
@@ -139,7 +136,7 @@ static menu_element_t vcu_elements[NUM_VCU_ELEMENTS] = {
         .labels        = VCU_BINDING_LABELS,
         .current_value = VCU_BINDING_LATERAL_GAIN,
         .increment     = 1,
-        .min_value     = VCU_BINDING_MODE,
+        .min_value     = VCU_BINDING_LATERAL_GAIN,
         .max_value     = VCU_BINDING_EBB
     },
     [RIGHT_WHEEL_INDEX] = {
@@ -148,7 +145,7 @@ static menu_element_t vcu_elements[NUM_VCU_ELEMENTS] = {
         .labels        = VCU_BINDING_LABELS,
         .current_value = VCU_BINDING_EBB,
         .increment     = 1,
-        .min_value     = VCU_BINDING_MODE,
+        .min_value     = VCU_BINDING_LATERAL_GAIN,
         .max_value     = VCU_BINDING_EBB
     }
 };

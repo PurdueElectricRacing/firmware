@@ -23,10 +23,9 @@
 #define RIGHT_WHEEL_BUTTON  "right"
 
 typedef enum : uint8_t {
-    VCU_BINDING_MODE = 0,
-    VCU_BINDING_LATERAL_GAIN = 1,
-    VCU_BINDING_LONGITUDINAL_GAIN = 2,
-    VCU_BINDING_EBB = 3,
+    VCU_BINDING_LATERAL_GAIN       = 0,
+    VCU_BINDING_LONGITUDINAL_GAIN  = 1,
+    VCU_BINDING_EBB                = 2,
 } vcu_binding_t;
 
 void vcu_update(void);

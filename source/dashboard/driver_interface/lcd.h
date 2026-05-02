@@ -15,7 +15,8 @@ typedef enum : uint8_t {
     PAGE_FAULTS      = 1,
     PAGE_CALIBRATION = 2,
     PAGE_AMK         = 3,
-    NUM_PAGES, // leave as auto to count number of pages
+    PAGE_VCU         = 4,
+    NUM_PAGES,      // leave as auto to count number of pages
     PAGE_PREFLIGHT, // not selectable, only shown on power on
 } page_t;
 
@@ -27,6 +28,8 @@ typedef struct {
     void (*telemetry)(void);
     char *string;
 } page_handler_t;
+
+extern volatile page_t curr_page;
 
 void LCD_init(uint32_t baud_rate);
 void LCD_tx_update(void);

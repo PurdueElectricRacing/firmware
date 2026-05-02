@@ -69,8 +69,8 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_ANALOG(THROTTLE2_PORT, THROTTLE2_PIN),
 
     // Brake
-    GPIO_INIT_ANALOG(BRAKE1_PORT, BRAKE1_PIN),
-    GPIO_INIT_ANALOG(BRAKE2_PORT, BRAKE2_PIN),
+    GPIO_INIT_ANALOG(REGEN1_PORT, REGEN1_PIN),
+    GPIO_INIT_ANALOG(REGEN2_PORT, REGEN2_PIN),
 
     // Brake Pressure
     GPIO_INIT_ANALOG(BRAKE1_PRESSURE_PORT, BRAKE1_PRESSURE_PIN),
@@ -94,8 +94,8 @@ ADCInitConfig_t adc_config = {
 ADCChannelConfig_t adc_channel_config[] = {
     {.channel = THROTTLE1_ADC_CHANNEL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = THROTTLE2_ADC_CHANNEL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = BRAKE1_ADC_CHANNEL, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = BRAKE2_ADC_CHANNEL, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = REGEN1_ADC_CHANNEL, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+    {.channel = REGEN2_ADC_CHANNEL, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = BRAKE1_PRESSURE_ADC_CHANNEL, .rank = 5, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = BRAKE2_PRESSURE_ADC_CHANNEL, .rank = 6, .sampling_time = ADC_CHN_SMP_CYCLES_480}
 };
@@ -111,7 +111,7 @@ volatile raw_adc_values_t raw_adc_values; // DMA target
 dma_init_t adc_dma_config =
 ADC1_DMA_CONT_CONFIG(
     (uint32_t)&raw_adc_values,
-    sizeof(raw_adc_values) / sizeof(raw_adc_values.t1), 0b01
+    sizeof(raw_adc_values) / sizeof(raw_adc_values.throttle1), 0b01
 );
 
 // USART Configuration for LCD
@@ -150,7 +150,7 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
 // LCD Variables
-extern page_t curr_page;
+extern volatile page_t curr_page;
 
 /* Function Prototypes */
 void sweep_external_leds();

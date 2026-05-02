@@ -176,6 +176,84 @@
                     ],
                     "msg_period": 10,
                     "msg_priority": 5
+                },
+                {
+                    "msg_name": "vcu_settings",
+                    "msg_desc": "currently configured VCU settings",
+                    "signals": [
+                        {
+                            "sig_name": "vcu_mode",
+                            "type": "vcu_mode_t"
+                        },
+                        {
+                            "sig_name": "lateral_gain",
+                            "sig_desc": "higher gain = greater left-right differential",
+                            "type": "uint8_t",
+                            "unit": "%",
+                            "max": 100,
+                            "min": 0
+                        },
+                        {
+                            "sig_name": "longitudinal_gain",
+                            "type": "uint8_t",
+                            "unit": "%",
+                            "max": 100,
+                            "min": 0
+                        },
+                        {
+                            "sig_name": "electronic_brake_bias",
+                            "type": "uint8_t",
+                            "unit": "%",
+                            "max": 100,
+                            "min": 0
+                        },
+                        {
+                            "sig_name": "is_regen_enabled",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "is_tv_enabled",
+                            "type": "bool"
+                        }
+                    ],
+                    "msg_period": 5000,
+                    "msg_priority": 3
+                },
+                {
+                    "msg_name": "vcu_torque_request",
+                    "msg_desc": "torque request computed by the TV algorithm",
+                    "signals": [
+                        {
+                            "sig_name": "front_right",
+                            "sig_desc": "torque setpoint",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "front_left",
+                            "sig_desc": "torque setpoint",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "rear_left",
+                            "sig_desc": "torque setpoint",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "rear_right",
+                            "sig_desc": "torque setpoint",
+                            "type": "int16_t",
+                            "unit": "Nm",
+                            "scale": 0.1
+                        }
+                    ],
+                    "msg_period": 15,
+                    "msg_priority": 2
                 }
             ],
             "rx": [
@@ -210,6 +288,10 @@
                 },
                 {
                     "msg_name": "igbt_temps"
+                },
+                {
+                    "msg_name": "vcu_driver_request",
+                    "callback": true
                 }
             ]
         }

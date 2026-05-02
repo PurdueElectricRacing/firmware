@@ -10,18 +10,26 @@
                     "signals": [
                         {
                             "sig_name": "throttle",
-                            "sig_desc": "Throttle request from driver",
-                            "type": "uint16_t",
-                            "length": 12,
-                            "scale": 0.02442,
+                            "sig_desc": "throttle request from driver",
+                            "type": "uint8_t",
+                            "min": 0,
+                            "max": 100,
+                            "unit": "%"
+                        },
+                        {
+                            "sig_name": "regen",
+                            "sig_desc": "regen request from driver (first throw)",
+                            "type": "uint8_t",
+                            "min": 0,
+                            "max": 100,
                             "unit": "%"
                         },
                         {
                             "sig_name": "brake",
-                            "sig_desc": "Brake request from driver",
-                            "type": "uint16_t",
-                            "length": 12,
-                            "scale": 0.02442,
+                            "sig_desc": "mechanical braking from driver (second throw)",
+                            "type": "uint8_t",
+                            "min": 0,
+                            "max": 100,
                             "unit": "%"
                         }
                     ],
@@ -41,16 +49,44 @@
                     "msg_priority": 1
                 },
                 {
-                    "msg_name": "driver_request",
-                    "msg_desc": "Driver requests like regen toggle and TV adjustments",
+                    "msg_name": "vcu_driver_request",
+                    "msg_desc": "driver requested VCU settings",
                     "signals": [
                         {
-                            "sig_name": "request",
-                            "type": "driver_request_t"
+                            "sig_name": "vcu_mode",
+                            "type": "vcu_mode_t"
+                        },
+                        {
+                            "sig_name": "lateral_gain",
+                            "type": "uint8_t",
+                            "unit": "%",
+                            "max": 100,
+                            "min": 0
+                        },
+                        {
+                            "sig_name": "longitudinal_gain",
+                            "type": "uint8_t",
+                            "unit": "%",
+                            "max": 100,
+                            "min": 0
+                        },
+                        {
+                            "sig_name": "electronic_brake_bias",
+                            "type": "uint8_t",
+                            "unit": "%",
+                            "max": 100,
+                            "min": 0
+                        },
+                        {
+                            "sig_name": "is_regen_enabled",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "is_tv_enabled",
+                            "type": "bool"
                         }
                     ],
-                    "msg_period": 0,
-                    "msg_priority": 2
+                    "msg_priority": 3
                 },
                 {
                     "msg_name": "steering_angle",
@@ -135,6 +171,10 @@
                 },
                 {
                     "msg_name": "invd_diagnostics"
+                },
+                {
+                    "msg_name": "vcu_settings",
+                    "callback": true
                 }
             ]
         },
@@ -216,7 +256,7 @@
         },
         {
             "fault_name": "APPS_IMPLAUSIBLE",
-            "max": 409,
+            "max": 10,
             "min": 0,
             "priority": "error",
             "time_to_latch": 500,

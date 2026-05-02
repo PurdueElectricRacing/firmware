@@ -1,4 +1,5 @@
 #include "vcu.h"
+
 xVCU_struct init_xVCU(void) {
     xVCU_struct xVCU = {
         .VCU_MODE_REQ = 0,
@@ -17,7 +18,11 @@ xVCU_struct init_xVCU(void) {
         .IC_RAW = {0, 0, 0, 0},
         .BT_RAW = 0,
         .TO_RAW = {0, 0, 0, 0},
-        .RG_split_FR_RAW = 0.7
+        .RG_split_FR_RAW = 0.7,
+        .SK_FR_split_RAW = 0.4,
+        .SK_LR_gain_RAW = 1,
+        .AX_FR_split_RAW = 0,
+        .AX_LR_gain_RAW = 0
     };
     return xVCU;
 }
@@ -51,7 +56,11 @@ yVCU_struct init_yVCU(void) {
         .TO_BL_RG = {0, 0, 0, 0},
         .AC_MW = {0, 0, 0, 0},
         .SK_TO = {0, 0, 0, 0},
+        .SK_FR_split = 0.4,
+        .SK_LR_gain = 1,
         .AX_TO = {0, 0, 0, 0},
+        .AX_FR_split = 0,
+        .AX_LR_gain = 1,
         .TORQUE_LIM_NEG = {0, 0, 0, 0},
         .TORQUE_LIM_POS = {0, 0, 0, 0},
         .SPEED_OUT = {0, 0, 0, 0},
@@ -102,10 +111,12 @@ pVCU_struct init_pVCU(void) {
         .AC_brkpt_ub = 49.5603517,
         .SK_YAW_des = 1.2493151,
         .SK_LR_split_des = 0.6,
-        .SK_FR_split = 0.4,
-        .SK_LR_gain = 1,
         .SK_ST_ZERO_TV = 10,
-        .SK_ST_FULL_TV = 25
+        .SK_ST_FULL_TV = 25,
+        .AX_YAW_des = 1,
+        .AX_ST_ZERO_TV = 10,
+        .AX_ST_FULL_TV = 25,
+        .AX_LR_split_des = 0.6
     };
     return pVCU;
 }

@@ -10,15 +10,10 @@
  */
 
 #include <stdint.h>
+#include "can_library/generated/DASHBOARD.h"
 
-typedef struct {
-    uint16_t throttle;
-    uint16_t brake;
-} pedal_values_t;
+extern volatile pedals_data_t pedal_values;
 
-extern volatile pedal_values_t pedal_values;
-
-/* Function Prototypes */
 void pedals_periodic(void);
 
 #endif // PEDALS_H

@@ -17,6 +17,42 @@ static pVCU_struct pVCU;
 static xVCU_struct xVCU;
 static yVCU_struct yVCU;
 
+// init default settings
+volatile vcu_mode_t vcu_mode = VCU_MODE_AUTOCROSS;
+volatile vcu_settings_data_t vcu_settings[4] = {
+    [VCU_MODE_ACCEL] = {
+        .lateral_gain = 50,
+        .longitudinal_gain = 50,
+        .electronic_brake_bias = 50,
+        .is_regen_enabled = true,
+        .is_tv_enabled = true
+    },
+    [VCU_MODE_SKIDPAD] = {
+        .lateral_gain = 50,
+        .longitudinal_gain = 50,
+        .electronic_brake_bias = 50,
+        .is_regen_enabled = true,
+        .is_tv_enabled = true
+    },
+    [VCU_MODE_AUTOCROSS] = {
+        .lateral_gain = 50,
+        .longitudinal_gain = 50,
+        .electronic_brake_bias = 50,
+        .is_regen_enabled = true,
+        .is_tv_enabled = true
+    },
+    [VCU_MODE_ENDURANCE] = {
+        .lateral_gain = 50,
+        .longitudinal_gain = 50,
+        .electronic_brake_bias = 50,
+        .is_regen_enabled = true,
+        .is_tv_enabled = true
+    }
+};
+uint32_t last_vcu_settings_tx = 0;
+
+static_assert(VCU_SETTINGS_LAYOUT_HASH == VCU_DRIVER_REQUEST_LAYOUT_HASH);
+
 void control_init(void) {
     // TV initialization
     pVCU = init_pVCU();
@@ -24,9 +60,45 @@ void control_init(void) {
     yVCU = init_yVCU();
 }
 
+static inline void report_vcu_settings() {
+    volatile vcu_settings_data_t *current_settings = &vcu_settings[vcu_mode];
+
+    CAN_SEND_vcu_settings(
+        vcu_mode,
+        current_settings->lateral_gain,
+        current_settings->longitudinal_gain,
+        current_settings->electronic_brake_bias,
+        current_settings->is_regen_enabled,
+        current_settings->is_tv_enabled
+    );
+}
+
+void vcu_driver_request_CALLBACK(void) {
+    vcu_mode_t requested_mode = can_data.vcu_driver_request.vcu_mode;
+    if (vcu_mode != requested_mode) {
+        vcu_mode = requested_mode;
+        return;
+    }
+
+    vcu_settings[vcu_mode].lateral_gain = can_data.vcu_driver_request.lateral_gain;
+    vcu_settings[vcu_mode].longitudinal_gain = can_data.vcu_driver_request.longitudinal_gain;
+    vcu_settings[vcu_mode].electronic_brake_bias = can_data.vcu_driver_request.electronic_brake_bias;
+    vcu_settings[vcu_mode].is_regen_enabled = can_data.vcu_driver_request.is_regen_enabled;
+    vcu_settings[vcu_mode].is_tv_enabled = can_data.vcu_driver_request.is_tv_enabled;
+
+    // echo back the current settings
+    report_vcu_settings();
+}
+
 void control_loop() {
+    uint32_t now = xTaskGetTickCount();
+    if ((now - last_vcu_settings_tx) >= VCU_SETTINGS_PERIOD_MS) { // periodic sync
+        report_vcu_settings();
+        last_vcu_settings_tx = now;
+    }
+
     // load up the xVCU (input) struct with most recent data
-    xVCU.VCU_MODE_REQ = VCU_MODE_AUTOCROSS;
+    xVCU.VCU_MODE_REQ = vcu_mode;
 
     xVCU.THROT_RAW = can_data.pedals.throttle / 4095.0f / 100.0f; // scale to [1,0]
     xVCU.BRAKE_RAW = can_data.pedals.brake / 4095.0f / 100.0f * -1.0f; // scale to [0,-1]

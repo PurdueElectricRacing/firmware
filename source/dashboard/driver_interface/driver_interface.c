@@ -8,13 +8,14 @@
 #include "driver_interface.h"
 #include "lcd.h"
 #include "main.h"
+#include "pages/vcu.h"
 #include "strbuf.h"
 
 #define ACTION_QUEUE_LENGTH 10
 DEFINE_QUEUE(action_queue, interface_action_t, ACTION_QUEUE_LENGTH);
 volatile uint16_t data_mark_index = 0;
 
-static constexpr uint32_t INTERRUPT_DEBOUNCE_MS = 1;
+static constexpr uint32_t INTERRUPT_DEBOUNCE_MS = 150;
 
 void EXTI0_IRQHandler() {
     static volatile uint32_t last_interrupt_time = 0;
@@ -27,7 +28,7 @@ void EXTI0_IRQHandler() {
     last_interrupt_time = now;
 
     if (EXTI->PR1 & EXTI_PR1_PIF0) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){EBB_MINUS}, NULL);
+        xQueueSendFromISR(action_queue, &(interface_action_t){RIGHT_WHEEL_MINUS}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF0;
     }
 }
@@ -43,7 +44,7 @@ void EXTI1_IRQHandler() {
     last_interrupt_time = now;
 
     if (EXTI->PR1 & EXTI_PR1_PIF1) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){EBB_PLUS}, NULL);
+        xQueueSendFromISR(action_queue, &(interface_action_t){RIGHT_WHEEL_PLUS}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF1;
     }
 }
@@ -113,12 +114,12 @@ void EXTI15_10_IRQHandler() {
     last_interrupt_time = now;
 
     if (EXTI->PR1 & EXTI_PR1_PIF11) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){TV1_PLUS}, NULL);
+        xQueueSendFromISR(action_queue, &(interface_action_t){LEFT_WHEEL_PLUS}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF11;
     }
 
     if (EXTI->PR1 & EXTI_PR1_PIF13) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){TV1_MINUS}, NULL);
+        xQueueSendFromISR(action_queue, &(interface_action_t){LEFT_WHEEL_MINUS}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF13;
     }
 
@@ -232,27 +233,31 @@ void action_dispatcher(void) {
                 // CAN_SEND_start_button(true);
                 // todo: non-periodic start button using a callback
                 break;
-            case MARK_DATA:
+            case MARK_DATA: {
                 CAN_SEND_mark_data(xTaskGetTickCount(), data_mark_index);
                 data_mark_index++;
                 break;
-            case TOGGLE_REGEN:
-                CAN_SEND_driver_request(DRIVER_REQUEST_TOGGLE_REGEN);
+            }
+            case TOGGLE_REGEN: {
+                vcu_toggle_regen();
                 break;
-            case EBB_MINUS:
-                CAN_SEND_driver_request(DRIVER_REQUEST_EBB_MINUS);
+            }
+            case RIGHT_WHEEL_MINUS: {
+                vcu_wheel_adjust(true, -1);
                 break;
-            case EBB_PLUS:
-                CAN_SEND_driver_request(DRIVER_REQUEST_EBB_PLUS);
+            }
+            case RIGHT_WHEEL_PLUS: {
+                vcu_wheel_adjust(true, 1);
                 break;
-            case TV1_PLUS:
-                CAN_SEND_driver_request(DRIVER_REQUEST_TV1_PLUS);
+            }
+            case LEFT_WHEEL_PLUS: {
+                vcu_wheel_adjust(false, 1);
                 break;
-            case TV1_MINUS:
-                CAN_SEND_driver_request(DRIVER_REQUEST_TV1_MINUS);
+            }
+            case LEFT_WHEEL_MINUS: {
+                vcu_wheel_adjust(false, -1);
                 break;
-            default:
-                break;
+            }
         }
     }
 }

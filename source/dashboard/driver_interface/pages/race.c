@@ -141,8 +141,10 @@ static inline void update_speed_telemetry() {
 }
 
 static inline void update_pedal_telemetry() {
-    NXT_setValue(BRK_BAR, (int)((pedal_values.brake / 4095.0f) * 100));
-    NXT_setValue(THROT_BAR, (int)((pedal_values.throttle / 4095.0f) * 100));
+    // The nextion object expects [0-100]
+    NXT_setValue(THROT_BAR, pedal_values.throttle);
+    NXT_setValue(RGN_BAR, pedal_values.regen);
+    NXT_setValue(BRK_BAR, pedal_values.brake);
 }
 
 /**

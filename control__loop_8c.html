@@ -98,7 +98,8 @@ $(function(){initNavTree('control__loop_8c.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">control_loop.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -116,16 +117,75 @@ Functions</h2></td></tr>
 <tr class="memitem:aa25f2f7d400183f548ec805c54eaa9fc" id="r_aa25f2f7d400183f548ec805c54eaa9fc"><td class="memItemLeft" align="right" valign="top"><a id="aa25f2f7d400183f548ec805c54eaa9fc" name="aa25f2f7d400183f548ec805c54eaa9fc"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>control_init</b> (void)</td></tr>
 <tr class="separator:aa25f2f7d400183f548ec805c54eaa9fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af473b63657e6dcfab3ec6dba8fb68300" id="r_af473b63657e6dcfab3ec6dba8fb68300"><td class="memItemLeft" align="right" valign="top"><a id="af473b63657e6dcfab3ec6dba8fb68300" name="af473b63657e6dcfab3ec6dba8fb68300"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>vcu_driver_request_CALLBACK</b> (void)</td></tr>
+<tr class="separator:af473b63657e6dcfab3ec6dba8fb68300"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c80a804f63cdf1b40bca055d0b2d77d" id="r_a0c80a804f63cdf1b40bca055d0b2d77d"><td class="memItemLeft" align="right" valign="top"><a id="a0c80a804f63cdf1b40bca055d0b2d77d" name="a0c80a804f63cdf1b40bca055d0b2d77d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>control_loop</b> ()</td></tr>
 <tr class="separator:a0c80a804f63cdf1b40bca055d0b2d77d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a883ff9e4332ef2092552aa5dbfd3c4ac" id="r_a883ff9e4332ef2092552aa5dbfd3c4ac"><td class="memItemLeft" align="right" valign="top"><a id="a883ff9e4332ef2092552aa5dbfd3c4ac" name="a883ff9e4332ef2092552aa5dbfd3c4ac"></a>
+volatile vcu_mode_t&#160;</td><td class="memItemRight" valign="bottom"><b>vcu_mode</b> = VCU_MODE_AUTOCROSS</td></tr>
+<tr class="separator:a883ff9e4332ef2092552aa5dbfd3c4ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91d5db511551b2bb62010a23e9f2adb9" id="r_a91d5db511551b2bb62010a23e9f2adb9"><td class="memItemLeft" align="right" valign="top">volatile vcu_settings_data_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91d5db511551b2bb62010a23e9f2adb9">vcu_settings</a> [4]</td></tr>
+<tr class="separator:a91d5db511551b2bb62010a23e9f2adb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac23a9d4980bdf29f3aabd834ecc4f829" id="r_ac23a9d4980bdf29f3aabd834ecc4f829"><td class="memItemLeft" align="right" valign="top"><a id="ac23a9d4980bdf29f3aabd834ecc4f829" name="ac23a9d4980bdf29f3aabd834ecc4f829"></a>
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>last_vcu_settings_tx</b> = 0</td></tr>
+<tr class="separator:ac23a9d4980bdf29f3aabd834ecc4f829"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main torque vectoring control loop. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
 <dd>
 Trevor Koessler (<a href="#" onclick="location.href='mai'+'lto:'+'tko'+'es'+'sle'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">tkoes<span class="obfuscator">.nosp@m.</span>sle@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Variable Documentation</h2>
+<a id="a91d5db511551b2bb62010a23e9f2adb9" name="a91d5db511551b2bb62010a23e9f2adb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91d5db511551b2bb62010a23e9f2adb9">&#9670;&#160;</a></span>vcu_settings</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile vcu_settings_data_t vcu_settings[4]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    [VCU_MODE_ACCEL] = {</div>
+<div class="line">        .lateral_gain = 50,</div>
+<div class="line">        .longitudinal_gain = 50,</div>
+<div class="line">        .electronic_brake_bias = 50,</div>
+<div class="line">        .is_regen_enabled = <span class="keyword">true</span>,</div>
+<div class="line">        .is_tv_enabled = <span class="keyword">true</span></div>
+<div class="line">    },</div>
+<div class="line">    [VCU_MODE_SKIDPAD] = {</div>
+<div class="line">        .lateral_gain = 50,</div>
+<div class="line">        .longitudinal_gain = 50,</div>
+<div class="line">        .electronic_brake_bias = 50,</div>
+<div class="line">        .is_regen_enabled = <span class="keyword">true</span>,</div>
+<div class="line">        .is_tv_enabled = <span class="keyword">true</span></div>
+<div class="line">    },</div>
+<div class="line">    [VCU_MODE_AUTOCROSS] = {</div>
+<div class="line">        .lateral_gain = 50,</div>
+<div class="line">        .longitudinal_gain = 50,</div>
+<div class="line">        .electronic_brake_bias = 50,</div>
+<div class="line">        .is_regen_enabled = <span class="keyword">true</span>,</div>
+<div class="line">        .is_tv_enabled = <span class="keyword">true</span></div>
+<div class="line">    },</div>
+<div class="line">    [VCU_MODE_ENDURANCE] = {</div>
+<div class="line">        .lateral_gain = 50,</div>
+<div class="line">        .longitudinal_gain = 50,</div>
+<div class="line">        .electronic_brake_bias = 50,</div>
+<div class="line">        .is_regen_enabled = <span class="keyword">true</span>,</div>
+<div class="line">        .is_tv_enabled = <span class="keyword">true</span></div>
+<div class="line">    }</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

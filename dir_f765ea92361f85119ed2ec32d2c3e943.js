@@ -7,5 +7,7 @@ var dir_f765ea92361f85119ed2ec32d2c3e943 =
     [ "faults.c", "dashboard_2driver__interface_2pages_2faults_8c.html", null ],
     [ "faults.h", "dashboard_2driver__interface_2pages_2faults_8h.html", null ],
     [ "race.c", "race_8c.html", "race_8c" ],
-    [ "race.h", "race_8h.html", "race_8h" ]
+    [ "race.h", "race_8h.html", "race_8h" ],
+    [ "vcu.c", "vcu_8c.html", null ],
+    [ "vcu.h", "dashboard_2driver__interface_2pages_2vcu_8h_source.html", null ]
 ];

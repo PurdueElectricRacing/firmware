@@ -100,7 +100,8 @@ $(function(){initNavTree('lcd_8h.html',''); initResizable(true); });
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">lcd.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -124,7 +125,8 @@ Enumerations</h2></td></tr>
 , <b>PAGE_CALIBRATION</b> = 2
 , <b>PAGE_AMK</b> = 3
 , <br />
-&#160;&#160;<b>NUM_PAGES</b>
+&#160;&#160;<b>PAGE_VCU</b> = 4
+, <b>NUM_PAGES</b>
 , <b>PAGE_PREFLIGHT</b>
 <br />
  }</td></tr>
@@ -163,6 +165,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>moveDown</b> (void)</
 void&#160;</td><td class="memItemRight" valign="bottom"><b>updateTelemetryPages</b> (void)</td></tr>
 <tr class="memdesc:af43eed5065a4456cc5013ee59b7a2ce7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates current telemetry page by calling its handler if available. <br /></td></tr>
 <tr class="separator:af43eed5065a4456cc5013ee59b7a2ce7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:af64f99df8657acc696aa097fce871251" id="r_af64f99df8657acc696aa097fce871251"><td class="memItemLeft" align="right" valign="top"><a id="af64f99df8657acc696aa097fce871251" name="af64f99df8657acc696aa097fce871251"></a>
+volatile page_t&#160;</td><td class="memItemRight" valign="bottom"><b>curr_page</b></td></tr>
+<tr class="separator:af64f99df8657acc696aa097fce871251"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>LCD display management. </p>

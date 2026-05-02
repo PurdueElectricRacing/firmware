@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"md_docs_2setup.html#autotoc_md88":[24,2],
 "md_docs_2setup.html#autotoc_md89":[24,2,0],
 "md_docs_2setup.html#autotoc_md90":[24,2,1],
 "md_docs_2setup.html#autotoc_md91":[24,2,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a97dc7d7bbe8a217f4bc934b4a868c521":[31,0,1,10,10,1,3,1],
 "phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2ae58caa68ff8b6e4838007985c7e3ae66":[31,0,1,10,10,1,3,2],
 "phal__F4__F7_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9":[31,0,1,10,10,1,4],
-"phal__F4__F7_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9a30aee904e3e05a145ae611bc8de5c41b":[31,0,1,10,10,1,4,1],
-"phal__F4__F7_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b":[31,0,1,10,10,1,4,0]
+"phal__F4__F7_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9a30aee904e3e05a145ae611bc8de5c41b":[31,0,1,10,10,1,4,1]
 };

@@ -228,6 +228,7 @@ var NAVTREEINDEX0 =
 "dashboard_2driver__interface_2pages_2faults_8c.html":[31,0,2,2,0,0,4],
 "dashboard_2driver__interface_2pages_2faults_8h.html":[31,0,2,2,0,0,5],
 "dashboard_2driver__interface_2pages_2faults_8h_source.html":[31,0,2,2,0,0,5],
+"dashboard_2driver__interface_2pages_2vcu_8h_source.html":[31,0,2,2,0,0,9],
 "dashboard_2main_8c.html":[31,0,2,2,3],
 "dashboard_2main_8h_source.html":[31,0,2,2,4],
 "dashboard_2telemetry_2telemetry_8c.html":[31,0,2,2,2,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "dir_1f58a266b0235ff01a1a3d64d0bb7dc7.html":[31,0,2,0,3],
 "dir_2529a79e5dbb50670000f2759231cf73.html":[31,0,2,8,1],
 "dir_26279b31032f3838120ccd2327025368.html":[31,0,1,4],
-"dir_35ec71336139549e9612d2514e88f20f.html":[31,0,2,1,3],
-"dir_3b210a51bdfb7207c4ccc3bce16efa01.html":[31,0,1,2]
+"dir_35ec71336139549e9612d2514e88f20f.html":[31,0,2,1,3]
 };

@@ -76,7 +76,6 @@ var annotated_dup =
     [ "pdu_rail_voltage_mv_t", "structpdu__rail__voltage__mv__t.html", null ],
     [ "pdu_state_t", "structpdu__state__t.html", null ],
     [ "pdu_switch_output_t", "structpdu__switch__output__t.html", null ],
-    [ "pedal_values_t", "structpedal__values__t.html", null ],
     [ "periodic_task_params_t", "structperiodic__task__params__t.html", null ],
     [ "PHAL_SD_Cmd_t", "structPHAL__SD__Cmd__t.html", "structPHAL__SD__Cmd__t" ],
     [ "pounds_t", "structpounds__t.html", null ],

@@ -98,7 +98,6 @@ $(function(){initNavTree('pedals_8c.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">pedals.c File Reference</div></div>
@@ -115,12 +114,6 @@ $(function(){initNavTree('pedals_8c.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="rescale_8h_source.html">common/utils/rescale.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:af991168f3f52d43942c079612918d9a2" id="r_af991168f3f52d43942c079612918d9a2"><td class="memItemLeft" align="right" valign="top"><a id="af991168f3f52d43942c079612918d9a2" name="af991168f3f52d43942c079612918d9a2"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_PEDAL_MEAS</b>&#160;&#160;&#160;(4095)</td></tr>
-<tr class="separator:af991168f3f52d43942c079612918d9a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a87b6cf4ba55de2c1523397cc21bbf501" id="r_a87b6cf4ba55de2c1523397cc21bbf501"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87b6cf4ba55de2c1523397cc21bbf501">pedals_periodic</a> (void)</td></tr>
@@ -129,8 +122,8 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a45385ba7e90ddde4281335ca3d147b1f" id="r_a45385ba7e90ddde4281335ca3d147b1f"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structpedal__values__t.html">pedal_values_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45385ba7e90ddde4281335ca3d147b1f">pedal_values</a></td></tr>
-<tr class="separator:a45385ba7e90ddde4281335ca3d147b1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fc28f3550c5299fff7fdd9b9f252e43" id="r_a8fc28f3550c5299fff7fdd9b9f252e43"><td class="memItemLeft" align="right" valign="top">volatile pedals_data_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8fc28f3550c5299fff7fdd9b9f252e43">pedal_values</a></td></tr>
+<tr class="separator:a8fc28f3550c5299fff7fdd9b9f252e43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Pedal processing logic. </p>
@@ -159,20 +152,21 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a45385ba7e90ddde4281335ca3d147b1f" name="a45385ba7e90ddde4281335ca3d147b1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45385ba7e90ddde4281335ca3d147b1f">&#9670;&#160;</a></span>pedal_values</h2>
+<a id="a8fc28f3550c5299fff7fdd9b9f252e43" name="a8fc28f3550c5299fff7fdd9b9f252e43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fc28f3550c5299fff7fdd9b9f252e43">&#9670;&#160;</a></span>pedal_values</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile <a class="el" href="structpedal__values__t.html">pedal_values_t</a> pedal_values</td>
+          <td class="memname">volatile pedals_data_t pedal_values</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
 <div class="line">    .throttle = 0,</div>
-<div class="line">    .brake    = 0,</div>
+<div class="line">    .regen = 0,</div>
+<div class="line">    .brake = 0</div>
 <div class="line">}</div>
 </div><!-- fragment -->
 </div>

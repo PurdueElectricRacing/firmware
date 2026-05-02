@@ -85,7 +85,7 @@ void pedals_periodic(void) {
     // } else {
     //     throttle_diff = throttle2 - throttle1;
     // }
-    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, 10); // ! disabled for now
+    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, 1); // ! disabled for now
     if (is_latched(FAULT_ID_APPS_IMPLAUSIBLE)) {
         throttle_command = 0;
     }

@@ -29,12 +29,13 @@ static char *const VCU_MODE_LABELS[] = {
     [VCU_MODE_SKIDPAD]   = "SKIDPAD",
     [VCU_MODE_AUTOCROSS] = "AUTOCROSS",
     [VCU_MODE_ENDURANCE] = "ENDURANCE",
+    [VCU_MODE_TUNING]    = "TUNING"
 };
 
 static char *const VCU_BINDING_LABELS[] = {
     [VCU_BINDING_LATERAL_GAIN]       = "LAT GAIN",
-    [VCU_BINDING_LONGITUDINAL_GAIN]    = "LONG GAIN",
-    [VCU_BINDING_EBB]                  = "EBB",
+    [VCU_BINDING_LONGITUDINAL_GAIN]  = "LONG GAIN",
+    [VCU_BINDING_EBB]                = "EBB",
 };
 
 static char *const ON_OFF_LABELS[] = {
@@ -80,7 +81,7 @@ static menu_element_t vcu_elements[NUM_VCU_ELEMENTS] = {
         .current_value = VCU_MODE_ACCEL,
         .increment     = 1,
         .min_value     = VCU_MODE_ACCEL,
-        .max_value     = VCU_MODE_ENDURANCE,
+        .max_value     = VCU_MODE_TUNING,
         .on_change     = send_vcu_driver_request
     },
     [LATERAL_GAIN_INDEX] = {

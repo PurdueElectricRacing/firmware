@@ -21,7 +21,7 @@ static yVCU_struct yVCU;
 volatile vcu_mode_t vcu_mode = VCU_MODE_AUTOCROSS;
 volatile bool is_tv_enabled = false;
 volatile bool is_regen_enabled = false;
-volatile vcu_settings_data_t vcu_settings[4] = {
+volatile vcu_settings_data_t vcu_settings[5] = {
     [VCU_MODE_ACCEL] = {
         .lateral_gain = 50,
         .longitudinal_gain = 50,
@@ -38,6 +38,11 @@ volatile vcu_settings_data_t vcu_settings[4] = {
         .electronic_brake_bias = 50
     },
     [VCU_MODE_ENDURANCE] = {
+        .lateral_gain = 50,
+        .longitudinal_gain = 50,
+        .electronic_brake_bias = 50
+    },
+    [VCU_MODE_TUNING] = {
         .lateral_gain = 50,
         .longitudinal_gain = 50,
         .electronic_brake_bias = 50

@@ -1,4 +1,3 @@
-// VCU structs
 typedef struct {
     float VCU_MODE_REQ;
     float THROT_RAW;
@@ -12,11 +11,11 @@ typedef struct {
     float MT_RAW;
     float IGBT_T_RAW;
     float INV_T_RAW;
-    float MC_RAW[4];
-    float IC_RAW[4];
+    float OV_MOT[4];
+    float OV_INV[4];
     float BT_RAW;
     float TO_RAW[4];
-    float RG_split_FR_RAW;
+    float RG_FR_split_RAW;
     float SK_FR_split_RAW;
     float SK_LR_gain_RAW;
     float AX_FR_split_RAW;
@@ -46,7 +45,7 @@ typedef struct {
     float WW[4];
     float IB_AVG;
     float TO_BL_PO[4];
-    float RG_split_FR;
+    float RG_FR_split;
     float TO_BL_RG[4];
     float AC_MW[4];
     float SK_TO[4];
@@ -55,6 +54,9 @@ typedef struct {
     float AX_TO[4];
     float AX_FR_split;
     float AX_LR_gain;
+    float TS_TO[4];
+    float TS_FR_split;
+    float TS_LR_split;
     float TORQUE_LIM_NEG[4];
     float TORQUE_LIM_POS[4];
     float SPEED_OUT[4];
@@ -103,10 +105,13 @@ typedef struct {
     float SK_LR_split_des;
     float SK_ST_ZERO_TV;
     float SK_ST_FULL_TV;
-    float AX_YAW_des;
-    float AX_ST_ZERO_TV;
-    float AX_ST_FULL_TV;
-    float AX_LR_split_des;
+    float AX_TV_yaw_table[1377];
+    float AX_TV_yaw_GS_brkpt[51];
+    float AX_TV_yaw_ST_brkpt[27];
+    float AX_TV_split_table[1377];
+    float AX_TV_split_GS_brkpt[51];
+    float AX_TV_split_ST_brkpt[27];
+    float TS_LR_gain;
 } pVCU_struct;
 
 // VCU struct initialization functions

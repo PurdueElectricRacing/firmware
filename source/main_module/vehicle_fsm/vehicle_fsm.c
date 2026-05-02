@@ -77,14 +77,14 @@ static inline bool is_buzzing_time_elapsed() {
 }
 
 static void update_brake_light() {
-    static constexpr uint16_t BRAKE_LIGHT_ON_THRESHOLD  = 200; // ~5% of 4095
-    static constexpr uint16_t BRAKE_LIGHT_OFF_THRESHOLD = 100; // ~2.5% of 4095
+    static constexpr uint16_t BRAKE_LIGHT_ON_THRESHOLD  = 30; // 30 %
+    static constexpr uint16_t BRAKE_LIGHT_OFF_THRESHOLD = 10; // 10 %
 
-    if (can_data.pedals.brake > BRAKE_LIGHT_ON_THRESHOLD) {
+    if (can_data.pedals.regen > BRAKE_LIGHT_ON_THRESHOLD) {
         if (!g_car.brake_light) {
             g_car.brake_light = true;
         }
-    } else if (can_data.pedals.brake < BRAKE_LIGHT_OFF_THRESHOLD) {
+    } else if (can_data.pedals.regen < BRAKE_LIGHT_OFF_THRESHOLD) {
         if (g_car.brake_light) {
             g_car.brake_light = false;
         }

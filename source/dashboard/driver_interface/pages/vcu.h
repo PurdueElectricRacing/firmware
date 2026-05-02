@@ -10,7 +10,7 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#define VCU_STRING "VCU"
+#define VCU_STRING "vcu"
 
 // Object names
 #define VCU_MODE_BUTTON     "mode"

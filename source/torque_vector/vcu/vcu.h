@@ -21,6 +21,8 @@ typedef struct {
     float SK_LR_gain_RAW;
     float AX_FR_split_RAW;
     float AX_LR_gain_RAW;
+    float TS_FR_split_RAW;
+    float TS_LR_split_RAW;
 } xVCU_struct;
 
 typedef struct {
@@ -106,13 +108,25 @@ typedef struct {
     float SK_LR_split_des;
     float SK_ST_ZERO_TV;
     float SK_ST_FULL_TV;
+    float SK_FR_split_lb;
+    float SK_FR_split_ub;
+    float SK_LR_gain_lb;
+    float SK_LR_gain_ub;
     float AX_TV_yaw_table[1377];
     float AX_TV_yaw_GS_brkpt[51];
     float AX_TV_yaw_ST_brkpt[27];
     float AX_TV_split_table[1377];
     float AX_TV_split_GS_brkpt[51];
     float AX_TV_split_ST_brkpt[27];
+    float AX_FR_split_lb;
+    float AX_FR_split_ub;
+    float AX_LR_gain_lb;
+    float AX_LR_gain_ub;
     float TS_LR_gain;
+    float TS_FR_split_lb;
+    float TS_FR_split_ub;
+    float TS_LR_split_lb;
+    float TS_LR_split_ub;
 } pVCU_struct;
 
 // VCU struct initialization functions

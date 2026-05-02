@@ -21,9 +21,11 @@ xVCU_struct init_xVCU(void) {
         .TO_RAW = {0, 0, 0, 0},
         .RG_FR_split_RAW = 0.3,
         .SK_FR_split_RAW = 0.4,
-        .SK_LR_gain_RAW = 0,
+        .SK_LR_gain_RAW = 1,
         .AX_FR_split_RAW = 0.3,
-        .AX_LR_gain_RAW = 0
+        .AX_LR_gain_RAW = 0,
+        .TS_FR_split_RAW = 0.3,
+        .TS_LR_split_RAW = 0.5
     };
     return xVCU;
 }
@@ -60,7 +62,7 @@ yVCU_struct init_yVCU(void) {
         .SK_FR_split = 0.4,
         .SK_LR_gain = 1,
         .AX_TO = {0, 0, 0, 0},
-        .AX_FR_split = 0,
+        .AX_FR_split = 0.3,
         .AX_LR_gain = 1,
         .TS_TO = {0, 0, 0, 0},
         .TS_FR_split = 0.3,
@@ -117,6 +119,10 @@ pVCU_struct init_pVCU(void) {
         .SK_LR_split_des = 0.6,
         .SK_ST_ZERO_TV = 10,
         .SK_ST_FULL_TV = 25,
+        .SK_FR_split_lb = 0,
+        .SK_FR_split_ub = 1,
+        .SK_LR_gain_lb = 0,
+        .SK_LR_gain_ub = 2,
         .AX_TV_yaw_table = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0.0036693, 0.0073386, 0.0110078, 0.0146771, 0.0183464,
@@ -466,7 +472,15 @@ pVCU_struct init_pVCU(void) {
         .AX_TV_split_ST_brkpt = {0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65,
         70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130},
         
-        .TS_LR_gain = 0.004
+        .AX_FR_split_lb = 0,
+        .AX_FR_split_ub = 1,
+        .AX_LR_gain_lb = 0,
+        .AX_LR_gain_ub = 2,
+        .TS_LR_gain = 0.004,
+        .TS_FR_split_lb = 0,
+        .TS_FR_split_ub = 1,
+        .TS_LR_split_lb = 0,
+        .TS_LR_split_ub = 1
     };
     return pVCU;
 }

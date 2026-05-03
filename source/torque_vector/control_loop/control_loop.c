@@ -96,8 +96,11 @@ void control_loop() {
         last_vcu_settings_tx = now;
     }
 
-    bool is_crit_stale = can_data.pedals.is_stale() || can_data.steering_angle.is_stale() ||
-                         can_data.wheel_speeds.is_stale() || can_data.IZZE_angular_rate.is_stale();
+    volatile bool pedals_stale = can_data.pedals.is_stale();
+    volatile bool steering_stale = can_data.steering_angle.is_stale();
+    volatile bool wheelspeed_stale = can_data.wheel_speeds.is_stale();
+    volatile bool izze_stale = can_data.IZZE_angular_rate.is_stale();
+    volatile bool is_crit_stale = pedals_stale || steering_stale || wheelspeed_stale || izze_stale;
     if (is_crit_stale) {
         is_tv_enabled = false;
         return;

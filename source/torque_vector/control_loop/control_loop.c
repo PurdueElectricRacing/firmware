@@ -161,11 +161,17 @@ void control_loop() {
     // step the VCU model
     vcu_step(&pVCU, &xVCU, &yVCU);
 
+    static constexpr float nm_to_pct = (1.0f / 9.8f) * 100.0f;
+    float torque_front_right_pct = yVCU.TORQUE_OUT[1] * nm_to_pct;
+    float torque_front_left_pct = yVCU.TORQUE_OUT[0] * nm_to_pct;
+    float torque_rear_left_pct = yVCU.TORQUE_OUT[2] * nm_to_pct;
+    float torque_rear_right_pct = yVCU.TORQUE_OUT[3] * nm_to_pct;
+
     // send outputs on CAN
     CAN_SEND_vcu_torque_request(
-        yVCU.TORQUE_OUT[1],
-        yVCU.TORQUE_OUT[0],
-        yVCU.TORQUE_OUT[2],
-        yVCU.TORQUE_OUT[3]
+        torque_front_right_pct,
+        torque_front_left_pct,
+        torque_rear_left_pct,
+        torque_rear_right_pct
     );
 }

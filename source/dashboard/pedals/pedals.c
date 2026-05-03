@@ -25,8 +25,8 @@ static constexpr uint16_t THROTTLE2_MIN = 5;
 static constexpr uint16_t THROTTLE2_MAX = 310;
 static_assert(THROTTLE2_MIN < THROTTLE2_MAX, "Invalid throttle 2 calibration values");
 
-static constexpr uint16_t REGEN1_MIN = 2600;
-static constexpr uint16_t REGEN1_MAX = 3300;
+static constexpr uint16_t REGEN1_MIN = 2800;
+static constexpr uint16_t REGEN1_MAX = 3350;
 // static constexpr uint16_t BRAKE2_MIN = 0;
 // static constexpr uint16_t BRAKE2_MAX = 4095;
 
@@ -35,7 +35,7 @@ static constexpr uint16_t REGEN1_MAX = 3300;
 
 static constexpr uint8_t PEDAL_MAX = 100;
 static constexpr uint8_t PEDAL_MIN = 0;
-static constexpr uint8_t APPS_THROTTLE_THRESHOLD = PEDAL_MAX / 10u; // 10%
+static constexpr uint8_t APPS_THROTTLE_THRESHOLD = 30; // 10%
 static constexpr uint8_t APPS_BRAKE_THRESHOLD = PEDAL_MAX / 10u; // 10%
 
 // Contains the current pedal values for global visibility

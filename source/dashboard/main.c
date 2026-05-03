@@ -246,6 +246,8 @@ void sweep_external_leds() {
     }
 }
 
+// ! LWS calibration proceedure: send RESET CCW, then ZERO CCW
+
 void zero_lws() {
     // CCW = command code word
     static constexpr uint8_t CONFIG_CCW_ZERO = 0x3;

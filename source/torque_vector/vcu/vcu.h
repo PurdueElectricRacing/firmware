@@ -1,6 +1,6 @@
 typedef struct {
     float VCU_MODE_REQ;
-    float REGEN_REQ;
+    float REGEN_EN;
     float THROT_RAW;
     float BRAKE_RAW;
     float REGEN_RAW;
@@ -28,6 +28,7 @@ typedef struct {
 
 typedef struct {
     float VCU_MODE;
+    float REGEN_EN;
     float TH;
     float TH_PO;
     float TH_RG;

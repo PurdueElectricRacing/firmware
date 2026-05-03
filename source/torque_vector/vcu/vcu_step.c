@@ -354,6 +354,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
   } else {
     y->VCU_MODE = 0.0F;
   }
+  y->REGEN_EN = (float)(x->REGEN_EN == 1.0F);
   if (y->TH > 0.0F) {
     float varargin_1[28];
     float minval[4];
@@ -925,8 +926,11 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
       b_p[1] = p->TS_LR_max_ST;
       fv[0] = 0.5F - y->TS_LR_split;
       fv[1] = y->TS_LR_split + 0.5F;
-      b_LR = interp1(
-          b_p, fv, fmaxf(fminf(x->ST_RAW, p->TS_LR_max_ST), -p->TS_LR_max_ST));
+      b_LR = fmaxf(fminf(interp1(b_p, fv,
+                                 fmaxf(fminf(x->ST_RAW, p->TS_LR_max_ST),
+                                       -p->TS_LR_max_ST)),
+                         1.0F),
+                   0.0F);
       c_varargin_1_tmp = y->TS_FR_split * b_LR;
       e_varargin_1_tmp = y->TS_FR_split * (1.0F - b_LR);
       g_varargin_1_tmp = (1.0F - y->TS_FR_split) * b_LR;
@@ -1066,7 +1070,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
         y->TS_TO[3] = TS_TO_des_idx_3 * c_value;
       }
     }
-  } else if (y->TH < 0.0F) {
+  } else if ((y->TH < 0.0F) && (y->REGEN_EN == 1.0F)) {
     float varargin_1[28];
     float TO_ET_RG[4];
     float TO_ET_RG_tmp;

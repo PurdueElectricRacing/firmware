@@ -3,7 +3,7 @@
 xVCU_struct init_xVCU(void) {
     xVCU_struct xVCU = {
         .VCU_MODE_REQ = 0,
-        .REGEN_REQ = 0,
+        .REGEN_EN = 0,
         .THROT_RAW = 0,
         .BRAKE_RAW = 0,
         .REGEN_RAW = 0,
@@ -20,13 +20,13 @@ xVCU_struct init_xVCU(void) {
         .OV_INV = {0, 0, 0, 0},
         .BT_RAW = 0,
         .TO_RAW = {0, 0, 0, 0},
-        .RG_FR_split_RAW = 0.3,
-        .SK_FR_split_RAW = 0.4,
+        .RG_FR_split_RAW = 50,
+        .SK_FR_split_RAW = 50,
         .SK_LR_gain_RAW = 1,
-        .AX_FR_split_RAW = 0.3,
+        .AX_FR_split_RAW = 50,
         .AX_LR_control_force_RAW = 0,
-        .TS_FR_split_RAW = 0.3,
-        .TS_LR_split_RAW = 0.5
+        .TS_FR_split_RAW = 50,
+        .TS_LR_split_RAW = 50
     };
     return xVCU;
 }
@@ -35,6 +35,7 @@ xVCU_struct init_xVCU(void) {
 yVCU_struct init_yVCU(void) {
     yVCU_struct yVCU = {
         .VCU_MODE = 0,
+        .REGEN_EN = 0,
         .TH = 0,
         .TH_PO = 0,
         .TH_RG = 0,
@@ -108,9 +109,9 @@ pVCU_struct init_pVCU(void) {
         .INV_T_derating_zero_T = 60,
         .IGBT_T_derating_full_T = 115,
         .IGBT_T_derating_zero_T = 125,
-        .MT_derating_full_T = 125,
-        .MT_derating_zero_T = 140,
-        .BT_derating_full_T = 55,
+        .MT_derating_full_T = 115,
+        .MT_derating_zero_T = 125,
+        .BT_derating_full_T = 50,
         .BT_derating_zero_T = 60,
         .AC_speed_brkpt = {0, 1.598721, 49.5603517},
         .AC_speed_table = {22, 22, 272.5819345},
@@ -483,7 +484,7 @@ pVCU_struct init_pVCU(void) {
         .TS_FR_split_lb = 0,
         .TS_FR_split_ub = 1,
         .TS_LR_split_lb = 0,
-        .TS_LR_split_ub = 0.5
+        .TS_LR_split_ub = 0.25
     };
     return pVCU;
 }

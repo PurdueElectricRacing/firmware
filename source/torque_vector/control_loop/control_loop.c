@@ -105,6 +105,7 @@ void control_loop() {
 
     // load up the xVCU (input) struct with most recent data
     xVCU.VCU_MODE_REQ = vcu_mode;
+    xVCU.REGEN_EN = is_regen_enabled;
 
     xVCU.THROT_RAW = can_data.pedals.throttle / 100.0f;
     xVCU.REGEN_RAW = can_data.pedals.regen / 100.0f;

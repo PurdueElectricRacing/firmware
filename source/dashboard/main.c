@@ -204,6 +204,7 @@ int main(void) {
     START_TASK(pedals_periodic);
     START_TASK(fault_library_periodic);
     START_TASK(driver_interface_periodic);
+    START_TASK(report_telemetry_02hz);
     START_WATCHDOG_TASK();
     START_HEARTBEAT_TASK();
 

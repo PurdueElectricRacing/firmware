@@ -18,7 +18,7 @@ static xVCU_struct xVCU;
 static yVCU_struct yVCU;
 
 // init default settings
-volatile vcu_mode_t vcu_mode = VCU_MODE_AUTOCROSS;
+volatile vcu_mode_t vcu_mode = VCU_MODE_TUNING;
 volatile bool is_tv_enabled = false;
 volatile bool is_regen_enabled = false;
 volatile vcu_settings_data_t vcu_settings[5] = {
@@ -111,7 +111,7 @@ void control_loop() {
     xVCU.REGEN_RAW = can_data.pedals.regen / 100.0f;
     xVCU.BRAKE_RAW = can_data.pedals.brake / 100.0f;
 
-    xVCU.ST_RAW = can_data.steering_angle.angle * UNPACK_COEFF_STEERING_ANGLE_ANGLE;
+    xVCU.ST_RAW = can_data.steering_angle.angle * UNPACK_COEFF_STEERING_ANGLE_ANGLE * -1;
     xVCU.VB_RAW = can_data.pack_stats.pack_voltage * UNPACK_COEFF_PACK_STATS_PACK_VOLTAGE;
     xVCU.WM_RAW[0] = can_data.wheel_speeds.front_left;
     xVCU.WM_RAW[1] = can_data.wheel_speeds.front_right;

@@ -34,7 +34,7 @@
                     "type": "uint16_t"
                 }
             ],
-            "msg_period": 10,
+            "msg_period": 50,
             "msg_id_override": "0x4EC",
             "msg_priority": 5
         },
@@ -72,7 +72,7 @@
                     "scale": 0.1
                 }
             ],
-            "msg_period": 10,
+            "msg_period": 50,
             "msg_id_override": "0x4ED",
             "msg_priority": 5
         }

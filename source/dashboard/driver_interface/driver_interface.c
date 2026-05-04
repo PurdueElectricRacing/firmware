@@ -230,8 +230,7 @@ void action_dispatcher(void) {
                 selectItem();
                 break;
             case START_BUTTON:
-                // CAN_SEND_start_button(true);
-                // todo: non-periodic start button using a callback
+                CAN_SEND_start_button(true);
                 break;
             case MARK_DATA: {
                 CAN_SEND_mark_data(xTaskGetTickCount(), data_mark_index);

@@ -6,7 +6,7 @@
 - `VCU_MODE_REQ`
 	- Requested VCU mode from dashboard
 	-  0 = accel; 1 = skidpad; 2 = autocross; 3 = endurance; 4 = testing/tuning
-- `REGEN_EN`
+- `REGEN_REQ`
 	- Regen enabled
 	- 0 = off, 1 = enabled
 - `THROT_RAW`

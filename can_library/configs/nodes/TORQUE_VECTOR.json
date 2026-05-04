@@ -216,7 +216,7 @@
                             "type": "bool"
                         }
                     ],
-                    "msg_period": 5000,
+                    "msg_period": 3000,
                     "msg_priority": 3
                 },
                 {
@@ -252,7 +252,7 @@
                             "scale": 0.1
                         }
                     ],
-                    "msg_period": 15,
+                    "msg_period": 50,
                     "msg_priority": 2
                 }
             ],

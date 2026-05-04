@@ -25,9 +25,17 @@ static void ready2drive_periodic() {
         return;
     }
 
-    // todo regen
-    // todo smarter request scheme
-    // todo torque vectoring
+    bool is_tv_stale = can_data.vcu_settings.is_stale() || can_data.vcu_torque_request.is_stale();
+    if (!is_tv_stale && can_data.vcu_settings.is_tv_enabled) {
+        // Forward TV Requested Torques
+        g_torque_request.front_right = can_data.vcu_torque_request.front_right;
+        g_torque_request.front_left = can_data.vcu_torque_request.front_left;
+        g_torque_request.rear_left = can_data.vcu_torque_request.rear_left;
+        g_torque_request.rear_right = can_data.vcu_torque_request.rear_right;
+        return;
+    }
+
+    // Direct mapped throttle
     // todo alternative throttle mapping (like S curve)
 
     // assumes pedals.throttle is in the range [0, 100]
@@ -52,11 +60,13 @@ static inline bool is_all_AMKS_running() {
 }
 
 static inline bool is_start_button_pressed() {
-    if (can_data.start_button.is_stale()) {
+    if (!can_data.start_button.is_pressed) {
         return false;
     }
 
-    return can_data.start_button.is_pressed;
+    // "destructive read"
+    can_data.start_button.is_pressed = false;
+    return true;
 }
 
 static inline bool is_buzzing_time_elapsed() {
@@ -67,14 +77,14 @@ static inline bool is_buzzing_time_elapsed() {
 }
 
 static void update_brake_light() {
-    static constexpr uint16_t BRAKE_LIGHT_ON_THRESHOLD  = 200; // ~5% of 4095
-    static constexpr uint16_t BRAKE_LIGHT_OFF_THRESHOLD = 100; // ~2.5% of 4095
+    static constexpr uint16_t BRAKE_LIGHT_ON_THRESHOLD  = 30; // 30 %
+    static constexpr uint16_t BRAKE_LIGHT_OFF_THRESHOLD = 10; // 10 %
 
-    if (can_data.pedals.brake > BRAKE_LIGHT_ON_THRESHOLD) {
+    if (can_data.pedals.regen > BRAKE_LIGHT_ON_THRESHOLD) {
         if (!g_car.brake_light) {
             g_car.brake_light = true;
         }
-    } else if (can_data.pedals.brake < BRAKE_LIGHT_OFF_THRESHOLD) {
+    } else if (can_data.pedals.regen < BRAKE_LIGHT_OFF_THRESHOLD) {
         if (g_car.brake_light) {
             g_car.brake_light = false;
         }

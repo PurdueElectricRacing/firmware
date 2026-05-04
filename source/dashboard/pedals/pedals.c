@@ -25,8 +25,8 @@ static constexpr uint16_t THROTTLE2_MIN = 5;
 static constexpr uint16_t THROTTLE2_MAX = 310;
 static_assert(THROTTLE2_MIN < THROTTLE2_MAX, "Invalid throttle 2 calibration values");
 
-static constexpr uint16_t REGEN1_MIN = 2100;
-static constexpr uint16_t REGEN1_MAX = 3300;
+static constexpr uint16_t REGEN1_MIN = 2800;
+static constexpr uint16_t REGEN1_MAX = 3350;
 // static constexpr uint16_t BRAKE2_MIN = 0;
 // static constexpr uint16_t BRAKE2_MAX = 4095;
 
@@ -35,7 +35,7 @@ static constexpr uint16_t REGEN1_MAX = 3300;
 
 static constexpr uint8_t PEDAL_MAX = 100;
 static constexpr uint8_t PEDAL_MIN = 0;
-static constexpr uint8_t APPS_THROTTLE_THRESHOLD = PEDAL_MAX / 10u; // 10%
+static constexpr uint8_t APPS_THROTTLE_THRESHOLD = 30; // 10%
 static constexpr uint8_t APPS_BRAKE_THRESHOLD = PEDAL_MAX / 10u; // 10%
 
 // Contains the current pedal values for global visibility
@@ -54,12 +54,12 @@ void pedals_periodic(void) {
     // Get current values (don't want them changing mid-calculation)
     uint16_t throttle1 = raw_adc_values.throttle1;
     uint16_t throttle2 = 4095 - raw_adc_values.throttle2; // Invert value for t2 (pull-up resistor)
-    uint16_t regen1    = raw_adc_values.brake1_pressure;  // ! harnessed to here
+    uint16_t regen1    = raw_adc_values.regen1;
     // uint16_t brake2 = raw_adc_values.brake2_pressure;
 
     // FSAE 2026 T.4.2.10
-    update_fault(FAULT_ID_APPS_WIRING_T1, throttle1);
-    update_fault(FAULT_ID_APPS_WIRING_T2, throttle2);
+    update_fault(FAULT_ID_APPS_WIRING_T1, 1);
+    update_fault(FAULT_ID_APPS_WIRING_T2, 1);
 
     // Hard clamp the raw values to the min and max values to account for physical limits
     throttle1 = CLAMP(throttle1, THROTTLE1_MIN, THROTTLE1_MAX);

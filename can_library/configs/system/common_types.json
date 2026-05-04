@@ -29,24 +29,14 @@
             ]
         },
         {
-            "name": "driver_request_t",
-            "base_type": "uint8_t",
-            "choices": [
-                "TOGGLE_REGEN",
-                "EBB_MINUS",
-                "EBB_PLUS",
-                "TV1_MINUS",
-                "TV1_PLUS"
-             ]
-        },
-        {
             "name": "vcu_mode_t",
             "base_type": "uint8_t",
             "choices": [
                 "ACCEL",
                 "SKIDPAD",
                 "AUTOCROSS",
-                "ENDURANCE"
+                "ENDURANCE",
+                "TUNING"
             ]
         },
         {

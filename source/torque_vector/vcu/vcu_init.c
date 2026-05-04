@@ -99,8 +99,8 @@ pVCU_struct init_pVCU(void) {
         .OV_INV_derating_full_T = 50,
         .OV_INV_derating_zero_T = 100,
         .MAX_TO_ABS_RG = 5,
-        .VB_RG_derating_full_T = 340,
-        .VB_RG_derating_zero_T = 400,
+        .VB_RG_derating_full_T = 450,
+        .VB_RG_derating_zero_T = 460,
         .IB_RG_derating_full_T = -145,
         .IB_RG_derating_zero_T = -160,
         .GS_RG_derating_zero = 1.3888889,
@@ -484,7 +484,7 @@ pVCU_struct init_pVCU(void) {
         .TS_FR_split_lb = 0,
         .TS_FR_split_ub = 1,
         .TS_LR_split_lb = 0,
-        .TS_LR_split_ub = 0.25
+        .TS_LR_split_ub = 0.5
     };
     return pVCU;
 }

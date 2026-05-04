@@ -513,7 +513,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
       float control_force;
       float d_ex;
       float f9;
-      float i_varargin_1_tmp;
+      float h_varargin_1_tmp;
       float j_varargin_1_tmp;
       float k_varargin_1_tmp;
       float l_varargin_1_tmp;
@@ -540,12 +540,12 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
                                      y->SK_LR_gain,
                              0.65F),
                        0.35F);
-      i_varargin_1_tmp = y->SK_FR_split * c_LR;
+      h_varargin_1_tmp = y->SK_FR_split * c_LR;
       j_varargin_1_tmp = y->SK_FR_split * (1.0F - c_LR);
       k_varargin_1_tmp = (1.0F - y->SK_FR_split) * c_LR;
       l_varargin_1_tmp = (1.0F - y->SK_FR_split) * (1.0F - c_LR);
-      d_ex = i_varargin_1_tmp;
-      if (i_varargin_1_tmp < j_varargin_1_tmp) {
+      d_ex = h_varargin_1_tmp;
+      if (h_varargin_1_tmp < j_varargin_1_tmp) {
         d_ex = j_varargin_1_tmp;
       }
       if (d_ex < k_varargin_1_tmp) {
@@ -554,7 +554,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
       if (d_ex < l_varargin_1_tmp) {
         d_ex = l_varargin_1_tmp;
       }
-      SK_TO_DES_idx_0 = i_varargin_1_tmp / d_ex * value_tmp * p->MAX_TO_ABS_PO;
+      SK_TO_DES_idx_0 = h_varargin_1_tmp / d_ex * value_tmp * p->MAX_TO_ABS_PO;
       SK_TO_DES_idx_1 = j_varargin_1_tmp / d_ex * value_tmp * p->MAX_TO_ABS_PO;
       SK_TO_DES_idx_2 = k_varargin_1_tmp / d_ex * value_tmp * p->MAX_TO_ABS_PO;
       SK_TO_DES_idx_3 = l_varargin_1_tmp / d_ex * value_tmp * p->MAX_TO_ABS_PO;
@@ -707,9 +707,9 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
       float ST_lookup_yaw_tmp;
       float b_ex;
       float b_varargin_1_tmp;
-      float d_varargin_1_tmp;
+      float c_varargin_1_tmp;
+      float e_varargin_1_tmp;
       float f8;
-      float f_varargin_1_tmp;
       float varargin_1_tmp;
       int AX_YAW_des_tmp;
       int b_k;
@@ -752,22 +752,22 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
                    0.35F);
       varargin_1_tmp = y->AX_FR_split * LR;
       b_varargin_1_tmp = y->AX_FR_split * (1.0F - LR);
-      d_varargin_1_tmp = (1.0F - y->AX_FR_split) * LR;
-      f_varargin_1_tmp = (1.0F - y->AX_FR_split) * (1.0F - LR);
+      c_varargin_1_tmp = (1.0F - y->AX_FR_split) * LR;
+      e_varargin_1_tmp = (1.0F - y->AX_FR_split) * (1.0F - LR);
       b_ex = varargin_1_tmp;
       if (varargin_1_tmp < b_varargin_1_tmp) {
         b_ex = b_varargin_1_tmp;
       }
-      if (b_ex < d_varargin_1_tmp) {
-        b_ex = d_varargin_1_tmp;
+      if (b_ex < c_varargin_1_tmp) {
+        b_ex = c_varargin_1_tmp;
       }
-      if (b_ex < f_varargin_1_tmp) {
-        b_ex = f_varargin_1_tmp;
+      if (b_ex < e_varargin_1_tmp) {
+        b_ex = e_varargin_1_tmp;
       }
       AX_TO_DES_idx_0 = varargin_1_tmp / b_ex * value_tmp * p->MAX_TO_ABS_PO;
       AX_TO_DES_idx_1 = b_varargin_1_tmp / b_ex * value_tmp * p->MAX_TO_ABS_PO;
-      AX_TO_DES_idx_2 = d_varargin_1_tmp / b_ex * value_tmp * p->MAX_TO_ABS_PO;
-      AX_TO_DES_idx_3 = f_varargin_1_tmp / b_ex * value_tmp * p->MAX_TO_ABS_PO;
+      AX_TO_DES_idx_2 = c_varargin_1_tmp / b_ex * value_tmp * p->MAX_TO_ABS_PO;
+      AX_TO_DES_idx_3 = e_varargin_1_tmp / b_ex * value_tmp * p->MAX_TO_ABS_PO;
       c_out = false;
       b_k = 0;
       exitg1 = false;
@@ -814,71 +814,71 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
           }
         }
         if (AX_TO_DES_idx_1 != 0.0F) {
-          int g_k;
-          bool h_out;
+          int f_k;
+          bool g_out;
           scale = minval[1] / AX_TO_DES_idx_1;
           TO_scaled[0] = AX_TO_DES_idx_0 * scale;
           TO_scaled[1] = AX_TO_DES_idx_1 * scale;
           TO_scaled[2] = AX_TO_DES_idx_2 * scale;
           TO_scaled[3] = AX_TO_DES_idx_3 * scale;
-          h_out = true;
-          g_k = 0;
+          g_out = true;
+          f_k = 0;
           exitg1 = false;
-          while ((!exitg1) && (g_k < 4)) {
-            if (TO_scaled[g_k] > minval[g_k]) {
-              h_out = false;
+          while ((!exitg1) && (f_k < 4)) {
+            if (TO_scaled[f_k] > minval[f_k]) {
+              g_out = false;
               exitg1 = true;
             } else {
-              g_k++;
+              f_k++;
             }
           }
-          if (h_out) {
+          if (g_out) {
             best_scale = fmaxf(best_scale, scale);
           }
         }
         if (AX_TO_DES_idx_2 != 0.0F) {
-          int i_k;
-          bool j_out;
+          int h_k;
+          bool i_out;
           scale = minval[2] / AX_TO_DES_idx_2;
           TO_scaled[0] = AX_TO_DES_idx_0 * scale;
           TO_scaled[1] = AX_TO_DES_idx_1 * scale;
           TO_scaled[2] = AX_TO_DES_idx_2 * scale;
           TO_scaled[3] = AX_TO_DES_idx_3 * scale;
-          j_out = true;
-          i_k = 0;
+          i_out = true;
+          h_k = 0;
           exitg1 = false;
-          while ((!exitg1) && (i_k < 4)) {
-            if (TO_scaled[i_k] > minval[i_k]) {
-              j_out = false;
+          while ((!exitg1) && (h_k < 4)) {
+            if (TO_scaled[h_k] > minval[h_k]) {
+              i_out = false;
               exitg1 = true;
             } else {
-              i_k++;
+              h_k++;
             }
           }
-          if (j_out) {
+          if (i_out) {
             best_scale = fmaxf(best_scale, scale);
           }
         }
         if (AX_TO_DES_idx_3 != 0.0F) {
-          int l_k;
-          bool m_out;
+          int k_k;
+          bool l_out;
           scale = minval[3] / AX_TO_DES_idx_3;
           TO_scaled[0] = AX_TO_DES_idx_0 * scale;
           TO_scaled[1] = AX_TO_DES_idx_1 * scale;
           TO_scaled[2] = AX_TO_DES_idx_2 * scale;
           TO_scaled[3] = AX_TO_DES_idx_3 * scale;
-          m_out = true;
-          l_k = 0;
+          l_out = true;
+          k_k = 0;
           exitg1 = false;
-          while ((!exitg1) && (l_k < 4)) {
-            if (TO_scaled[l_k] > minval[l_k]) {
-              m_out = false;
+          while ((!exitg1) && (k_k < 4)) {
+            if (TO_scaled[k_k] > minval[k_k]) {
+              l_out = false;
               exitg1 = true;
             } else {
-              l_k++;
+              k_k++;
             }
           }
-          if (m_out) {
+          if (l_out) {
             best_scale = fmaxf(best_scale, scale);
           }
         }
@@ -909,46 +909,48 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
       y->SPEED_OUT[3] = p->MAX_ABS_WM;
       y->TORQUE_OUT[3] = f8;
     } else {
+      float TS_LR_split_clipped;
       float TS_TO_des_idx_0;
       float TS_TO_des_idx_1;
       float TS_TO_des_idx_2;
       float TS_TO_des_idx_3;
       float b_LR;
       float c_ex;
-      float c_varargin_1_tmp;
-      float e_varargin_1_tmp;
+      float d_varargin_1_tmp;
+      float f_varargin_1_tmp;
       float g_varargin_1_tmp;
-      float h_varargin_1_tmp;
+      float i_varargin_1_tmp;
       int c_k;
       bool d_out;
       bool exitg1;
+      TS_LR_split_clipped = fmaxf(fminf(y->TS_LR_split, 0.25F), 0.0F);
       b_p[0] = -p->TS_LR_max_ST;
       b_p[1] = p->TS_LR_max_ST;
-      fv[0] = 0.5F - y->TS_LR_split;
-      fv[1] = y->TS_LR_split + 0.5F;
+      fv[0] = 0.5F - TS_LR_split_clipped;
+      fv[1] = TS_LR_split_clipped + 0.5F;
       b_LR = fmaxf(fminf(interp1(b_p, fv,
                                  fmaxf(fminf(x->ST_RAW, p->TS_LR_max_ST),
                                        -p->TS_LR_max_ST)),
                          1.0F),
                    0.0F);
-      c_varargin_1_tmp = y->TS_FR_split * b_LR;
-      e_varargin_1_tmp = y->TS_FR_split * (1.0F - b_LR);
+      d_varargin_1_tmp = y->TS_FR_split * b_LR;
+      f_varargin_1_tmp = y->TS_FR_split * (1.0F - b_LR);
       g_varargin_1_tmp = (1.0F - y->TS_FR_split) * b_LR;
-      h_varargin_1_tmp = (1.0F - y->TS_FR_split) * (1.0F - b_LR);
-      c_ex = c_varargin_1_tmp;
-      if (c_varargin_1_tmp < e_varargin_1_tmp) {
-        c_ex = e_varargin_1_tmp;
+      i_varargin_1_tmp = (1.0F - y->TS_FR_split) * (1.0F - b_LR);
+      c_ex = d_varargin_1_tmp;
+      if (d_varargin_1_tmp < f_varargin_1_tmp) {
+        c_ex = f_varargin_1_tmp;
       }
       if (c_ex < g_varargin_1_tmp) {
         c_ex = g_varargin_1_tmp;
       }
-      if (c_ex < h_varargin_1_tmp) {
-        c_ex = h_varargin_1_tmp;
+      if (c_ex < i_varargin_1_tmp) {
+        c_ex = i_varargin_1_tmp;
       }
-      TS_TO_des_idx_0 = c_varargin_1_tmp / c_ex * value_tmp * p->MAX_TO_ABS_PO;
-      TS_TO_des_idx_1 = e_varargin_1_tmp / c_ex * value_tmp * p->MAX_TO_ABS_PO;
+      TS_TO_des_idx_0 = d_varargin_1_tmp / c_ex * value_tmp * p->MAX_TO_ABS_PO;
+      TS_TO_des_idx_1 = f_varargin_1_tmp / c_ex * value_tmp * p->MAX_TO_ABS_PO;
       TS_TO_des_idx_2 = g_varargin_1_tmp / c_ex * value_tmp * p->MAX_TO_ABS_PO;
-      TS_TO_des_idx_3 = h_varargin_1_tmp / c_ex * value_tmp * p->MAX_TO_ABS_PO;
+      TS_TO_des_idx_3 = i_varargin_1_tmp / c_ex * value_tmp * p->MAX_TO_ABS_PO;
       d_out = false;
       c_k = 0;
       exitg1 = false;
@@ -972,71 +974,71 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
         float c_value;
         b_best_scale = 0.0F;
         if (TS_TO_des_idx_0 != 0.0F) {
-          int f_k;
-          bool g_out;
+          int g_k;
+          bool h_out;
           b_scale = minval[0] / TS_TO_des_idx_0;
           TO_scaled[0] = TS_TO_des_idx_0 * b_scale;
           TO_scaled[1] = TS_TO_des_idx_1 * b_scale;
           TO_scaled[2] = TS_TO_des_idx_2 * b_scale;
           TO_scaled[3] = TS_TO_des_idx_3 * b_scale;
-          g_out = true;
-          f_k = 0;
+          h_out = true;
+          g_k = 0;
           exitg1 = false;
-          while ((!exitg1) && (f_k < 4)) {
-            if (TO_scaled[f_k] > minval[f_k]) {
-              g_out = false;
+          while ((!exitg1) && (g_k < 4)) {
+            if (TO_scaled[g_k] > minval[g_k]) {
+              h_out = false;
               exitg1 = true;
             } else {
-              f_k++;
+              g_k++;
             }
           }
-          if (g_out) {
+          if (h_out) {
             b_best_scale = fmaxf(0.0F, b_scale);
           }
         }
         if (TS_TO_des_idx_1 != 0.0F) {
-          int h_k;
-          bool i_out;
+          int i_k;
+          bool j_out;
           b_scale = minval[1] / TS_TO_des_idx_1;
           TO_scaled[0] = TS_TO_des_idx_0 * b_scale;
           TO_scaled[1] = TS_TO_des_idx_1 * b_scale;
           TO_scaled[2] = TS_TO_des_idx_2 * b_scale;
           TO_scaled[3] = TS_TO_des_idx_3 * b_scale;
-          i_out = true;
-          h_k = 0;
+          j_out = true;
+          i_k = 0;
           exitg1 = false;
-          while ((!exitg1) && (h_k < 4)) {
-            if (TO_scaled[h_k] > minval[h_k]) {
-              i_out = false;
+          while ((!exitg1) && (i_k < 4)) {
+            if (TO_scaled[i_k] > minval[i_k]) {
+              j_out = false;
               exitg1 = true;
             } else {
-              h_k++;
+              i_k++;
             }
           }
-          if (i_out) {
+          if (j_out) {
             b_best_scale = fmaxf(b_best_scale, b_scale);
           }
         }
         if (TS_TO_des_idx_2 != 0.0F) {
-          int k_k;
-          bool l_out;
+          int l_k;
+          bool m_out;
           b_scale = minval[2] / TS_TO_des_idx_2;
           TO_scaled[0] = TS_TO_des_idx_0 * b_scale;
           TO_scaled[1] = TS_TO_des_idx_1 * b_scale;
           TO_scaled[2] = TS_TO_des_idx_2 * b_scale;
           TO_scaled[3] = TS_TO_des_idx_3 * b_scale;
-          l_out = true;
-          k_k = 0;
+          m_out = true;
+          l_k = 0;
           exitg1 = false;
-          while ((!exitg1) && (k_k < 4)) {
-            if (TO_scaled[k_k] > minval[k_k]) {
-              l_out = false;
+          while ((!exitg1) && (l_k < 4)) {
+            if (TO_scaled[l_k] > minval[l_k]) {
+              m_out = false;
               exitg1 = true;
             } else {
-              k_k++;
+              l_k++;
             }
           }
-          if (l_out) {
+          if (m_out) {
             b_best_scale = fmaxf(b_best_scale, b_scale);
           }
         }

@@ -29,9 +29,9 @@ static void ready2drive_periodic() {
     if (!is_tv_stale && can_data.vcu_settings.is_tv_enabled) {
         // Forward TV Requested Torques
         g_torque_request.front_right = can_data.vcu_torque_request.front_right;
-        g_torque_request.front_left = can_data.vcu_torque_request.front_left;
-        g_torque_request.rear_left = can_data.vcu_torque_request.rear_left;
-        g_torque_request.rear_right = can_data.vcu_torque_request.rear_right;
+        g_torque_request.front_left  = can_data.vcu_torque_request.front_left;
+        g_torque_request.rear_left   = can_data.vcu_torque_request.rear_left;
+        g_torque_request.rear_right  = can_data.vcu_torque_request.rear_right;
         return;
     }
 

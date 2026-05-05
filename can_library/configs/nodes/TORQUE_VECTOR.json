@@ -225,25 +225,25 @@
                     "signals": [
                         {
                             "sig_name": "front_right",
-                            "sig_desc": "torque setpoint",
+                            "sig_desc": "torque setpoint (percentage of nominal torque)",
                             "type": "int16_t",
                             "unit": "%"
                         },
                         {
                             "sig_name": "front_left",
-                            "sig_desc": "torque setpoint",
+                            "sig_desc": "torque setpoint (percentage of nominal torque)",
                             "type": "int16_t",
                             "unit": "%"
                         },
                         {
                             "sig_name": "rear_left",
-                            "sig_desc": "torque setpoint",
+                            "sig_desc": "torque setpoint (percentage of nominal torque)",
                             "type": "int16_t",
                             "unit": "%"
                         },
                         {
                             "sig_name": "rear_right",
-                            "sig_desc": "torque setpoint",
+                            "sig_desc": "torque setpoint (percentage of nominal torque)",
                             "type": "int16_t",
                             "unit": "%"
                         }

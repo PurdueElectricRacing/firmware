@@ -227,29 +227,25 @@
                             "sig_name": "front_right",
                             "sig_desc": "torque setpoint",
                             "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
+                            "unit": "%"
                         },
                         {
                             "sig_name": "front_left",
                             "sig_desc": "torque setpoint",
                             "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
+                            "unit": "%"
                         },
                         {
                             "sig_name": "rear_left",
                             "sig_desc": "torque setpoint",
                             "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
+                            "unit": "%"
                         },
                         {
                             "sig_name": "rear_right",
                             "sig_desc": "torque setpoint",
                             "type": "int16_t",
-                            "unit": "Nm",
-                            "scale": 0.1
+                            "unit": "%"
                         }
                     ],
                     "msg_period": 50,

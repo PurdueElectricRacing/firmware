@@ -14,6 +14,7 @@
 #include "can_library/generated/DASHBOARD.h"
 #include "common/utils/clamp.h"
 #include "common/utils/rescale.h"
+#include "common/utils/abs.h"
 #include "main.h"
 
 // ! pedal calibration constants
@@ -67,7 +68,7 @@ void pedals_periodic(void) {
     regen1    = CLAMP(regen1, REGEN1_MIN, REGEN1_MAX);
     // brake2 = CLAMP(brake2, BRAKE2_MIN, BRAKE2_MAX);
 
-    // Normalize pedal signals to the 0-4095 range while preserving a linear relationship
+    // Rescale pedal signals to the 0-100 range
     throttle1 = RESCALE(throttle1, THROTTLE1_MIN, THROTTLE1_MAX, PEDAL_MIN, PEDAL_MAX);
     throttle2 = RESCALE(throttle2, THROTTLE2_MIN, THROTTLE2_MAX, PEDAL_MIN, PEDAL_MAX);
     regen1    = RESCALE(regen1, REGEN1_MIN, REGEN1_MAX, PEDAL_MIN, PEDAL_MAX);
@@ -76,16 +77,11 @@ void pedals_periodic(void) {
     pedal_values.throttle = throttle1;
     pedal_values.regen = regen1;
 
-    uint16_t throttle_command = throttle1;
+    uint8_t throttle_command = throttle1;
 
     // FSAE 2026 T.4.2.5
-    // uint16_t throttle_diff;
-    // if (throttle1 > throttle2) {
-    //     throttle_diff = throttle1 - throttle2;
-    // } else {
-    //     throttle_diff = throttle2 - throttle1;
-    // }
-    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, 1); // ! disabled for now
+    int throttle_diff = ABS((int)throttle1 - (int)throttle2);
+    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, throttle_diff); // ! disabled for now
     if (is_latched(FAULT_ID_APPS_IMPLAUSIBLE)) {
         throttle_command = 0;
     }

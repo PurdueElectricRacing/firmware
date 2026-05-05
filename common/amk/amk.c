@@ -62,8 +62,6 @@ void AMK_set_torque(AMK_t *amk, int16_t torque_percent) {
 
     if (torque_percent > 210)
         torque_percent = 210;
-    if (torque_percent < 0)
-        torque_percent = 0;
 
     // Scale to ppt (parts per thousand)
     amk->set->AMK_TorqueSetpoint = torque_percent * 10;

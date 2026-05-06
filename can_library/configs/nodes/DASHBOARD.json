@@ -175,6 +175,9 @@
                 {
                     "msg_name": "vcu_settings",
                     "callback": true
+                },
+                {
+                    "msg_name": "vcu_torque_request"
                 }
             ]
         },

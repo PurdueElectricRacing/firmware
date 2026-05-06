@@ -9,7 +9,8 @@ Irving Wang (irvingw@purdue.edu)
 - [ARM Cortex-M4](datasheets/ARM_cortexM4_TRM.pdf) contains highly detailed information about the Cortex-M4 core, If you're looking at this, you're probably too far gone..
 
 ## Components
-- [AMK](datasheets/AMK_datasheet.pdf) contains information about the inverters, wiring diagrams, software interfaces, etc. for the AMK series inverters.
+- [AMK Datasheet](datasheets/AMK_datasheet.pdf) contains information about the inverters, wiring diagrams, software interfaces, etc. for the AMK series inverters.
+- [AMK Diagnostics](datasheets/AMK_diagnostics.pdf) contains detailed list of diagnostic messages reported by the inverters for debugging.
 - [Elcon Charger](datasheets/Elcon_charger.pdf) CAN protocol and operating procedure for HV battery charging via the Elcon charger.
 
 ## Sensors

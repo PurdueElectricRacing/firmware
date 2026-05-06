@@ -147,6 +147,13 @@ static inline void update_pedal_telemetry() {
     NXT_setValue(BRK_BAR, pedal_values.brake);
 }
 
+static inline void update_tv_telemetry() {
+    NXT_setValue(FR_BAR, can_data.vcu_torque_request.front_right);
+    NXT_setValue(FL_BAR, can_data.vcu_torque_request.front_left);
+    NXT_setValue(RL_BAR, can_data.vcu_torque_request.rear_left);
+    NXT_setValue(RR_BAR, can_data.vcu_torque_request.rear_right);
+}
+
 /**
  * @brief Updates telemetry data on the race dashboard LCD display
  *
@@ -155,8 +162,9 @@ static inline void update_pedal_telemetry() {
 void race_telemetry_update() {
     update_pedal_telemetry();
     update_car_state_telemetry();
+    update_speed_telemetry();
     update_motor_telemetry();
     update_igbt_telemetry();
     update_pack_telemetry();
-    update_speed_telemetry();
+    update_tv_telemetry();
 }

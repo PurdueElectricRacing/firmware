@@ -328,9 +328,9 @@
                         },
                         {
                             "sig_name": "AMK_TorqueSetpoint",
-                            "sig_desc": "Torque setpoint",
+                            "sig_desc": "Torque setpoint (percentage of nominal torque)",
                             "type": "int16_t",
-                            "unit": "Nm",
+                            "unit": "%",
                             "scale": 0.1
                         },
                         {
@@ -390,9 +390,9 @@
                         },
                         {
                             "sig_name": "AMK_TorqueSetpoint",
-                            "sig_desc": "Torque setpoint",
+                            "sig_desc": "Torque setpoint (percentage of nominal torque)",
                             "type": "int16_t",
-                            "unit": "Nm",
+                            "unit": "%",
                             "scale": 0.1
                         },
                         {
@@ -452,9 +452,9 @@
                         },
                         {
                             "sig_name": "AMK_TorqueSetpoint",
-                            "sig_desc": "Torque setpoint",
+                            "sig_desc": "Torque setpoint (percentage of nominal torque)",
                             "type": "int16_t",
-                            "unit": "Nm",
+                            "unit": "%",
                             "scale": 0.1
                         },
                         {
@@ -514,9 +514,9 @@
                         },
                         {
                             "sig_name": "AMK_TorqueSetpoint",
-                            "sig_desc": "Torque setpoint",
+                            "sig_desc": "Torque setpoint (percentage of nominal torque)",
                             "type": "int16_t",
-                            "unit": "Nm",
+                            "unit": "%",
                             "scale": 0.1
                         },
                         {

@@ -48,7 +48,7 @@ volatile vcu_settings_data_t vcu_settings[5] = {
         .electronic_brake_bias = 50
     }
 };
-uint32_t last_vcu_settings_tx = 0;
+volatile uint32_t last_vcu_settings_tx = 0;
 
 static_assert(VCU_SETTINGS_LAYOUT_HASH == VCU_DRIVER_REQUEST_LAYOUT_HASH);
 
@@ -90,7 +90,7 @@ void vcu_driver_request_CALLBACK(void) {
 }
 
 void control_loop() {
-    uint32_t now = xTaskGetTickCount();
+    volatile uint32_t now = xTaskGetTickCount();
     if ((now - last_vcu_settings_tx) >= VCU_SETTINGS_PERIOD_MS) { // periodic sync
         report_vcu_settings();
         last_vcu_settings_tx = now;

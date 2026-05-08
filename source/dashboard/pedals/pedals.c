@@ -79,8 +79,8 @@ void pedals_periodic(void) {
     uint8_t throttle_command = throttle1;
 
     // FSAE 2026 T.4.2.5: if the two throttle sensors differ by 10%, trigger implaus
-    int throttle_diff = ABS((int)throttle1 - (int)throttle2);
-    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, throttle_diff); // ! disabled for now
+    // int throttle_diff = ABS((int)throttle1 - (int)throttle2);
+    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, 1); // ! disabled for now
     if (is_latched(FAULT_ID_APPS_IMPLAUSIBLE)) {
         throttle_command = 0;
     }

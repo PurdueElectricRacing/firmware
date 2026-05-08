@@ -19,11 +19,11 @@
 
 // ! pedal calibration constants
 static constexpr uint16_t THROTTLE1_MIN = 0;
-static constexpr uint16_t THROTTLE1_MAX = 410;
+static constexpr uint16_t THROTTLE1_MAX = 370;
 static_assert(THROTTLE1_MIN < THROTTLE1_MAX, "Invalid throttle 1 calibration values");
 
-static constexpr uint16_t THROTTLE2_MIN = 5;
-static constexpr uint16_t THROTTLE2_MAX = 310;
+static constexpr uint16_t THROTTLE2_MIN = 3280;
+static constexpr uint16_t THROTTLE2_MAX = 3450;
 static_assert(THROTTLE2_MIN < THROTTLE2_MAX, "Invalid throttle 2 calibration values");
 
 static constexpr uint16_t REGEN1_MIN = 2800;

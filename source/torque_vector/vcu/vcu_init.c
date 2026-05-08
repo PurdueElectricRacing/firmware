@@ -476,15 +476,15 @@ pVCU_struct init_pVCU(void) {
         
         .AX_FR_split_lb = 0,
         .AX_FR_split_ub = 1,
-        .AX_LR_control_force_lb = 0,
-        .AX_LR_control_force_ub = 1,
+        .AX_LR_split_lb = 0,
+        .AX_LR_split_ub = 1,
         .AX_LR_split_max = 0.5,
         .AX_LR_gain = 1,
         .TS_LR_max_ST = 20,
         .TS_FR_split_lb = 0,
         .TS_FR_split_ub = 1,
         .TS_LR_split_lb = 0,
-        .TS_LR_split_ub = 0.5
+        .TS_LR_split_ub = 1
     };
     return pVCU;
 }

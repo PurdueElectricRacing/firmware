@@ -484,7 +484,7 @@ pVCU_struct init_pVCU(void) {
         .TS_FR_split_lb = 0,
         .TS_FR_split_ub = 1,
         .TS_LR_split_lb = 0,
-        .TS_LR_split_ub = 1
+        .TS_LR_split_ub = 0.5
     };
     return pVCU;
 }

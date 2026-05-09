@@ -5,11 +5,12 @@
  * File: vcu_step.c
  *
  * MATLAB Coder version            : 24.1
- * C/C++ source code generated on  : 08-May-2026 18:58:44
+ * C/C++ source code generated on  : 08-May-2026 21:18:13
  */
 
 /* Include Files */
 #include "vcu.h"
+
 #include <math.h>
 
 /* Function Declarations */
@@ -455,13 +456,13 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
   fv[1] = 100.0F;
   fv1[1] = 1.0F;
   y->TS_FR_split = interp1(fv, fv1, x->TS_FR_split_RAW);
-  /* 'get_CF:84' y.TS_LR_split = interp1([0, 100], [p.TS_LR_split_lb,
-   * p.TS_LR_split_ub], x.TS_LR_split_RAW); */
+  /* 'get_CF:84' y.TS_LR_split = interp1([0, 100], [0, .5], x.TS_LR_split_RAW);
+   */
   fv[0] = 0.0F;
+  fv1[0] = 0.0F;
   fv[1] = 100.0F;
-  b_p[0] = p->TS_LR_split_lb;
-  b_p[1] = p->TS_LR_split_ub;
-  y->TS_LR_split = interp1(fv, b_p, x->TS_LR_split_RAW);
+  fv1[1] = 0.5F;
+  y->TS_LR_split = interp1(fv, fv1, x->TS_LR_split_RAW);
   /*  Update Buffers */
   /*  Moving average battery current */
   /* 'get_CF:88' y.IB_AVG_buffer = [y.IB_AVG_buffer(2:end), y.IB]; */
@@ -1877,7 +1878,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
     }
     /*  estimate groundspeed from wheelspeed, take slowest tire Units: [m/s] */
     /* 'get_BL_RG:24' GS_from_WW_snipped = snip(GS_from_WW,
-     * p.GS_RG_derating_full, p.GS_RG_derating_zero); */
+     * p.GS_RG_derating_zero, p.GS_RG_derating_full); */
     /* SNIP code generation compatible version of 'clip()' */
     /*    clips 'value' to be between lower bound 'LB' and upper bound 'UB' */
     /* 'snip:4' clipped = max(min(value, UB), LB); */
@@ -1889,7 +1890,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
     fv[1] = 0.0F;
     b_b = interp1(
         b_p, fv,
-        fmaxf(fminf(ex, p->GS_RG_derating_zero), p->GS_RG_derating_full));
+        fmaxf(fminf(ex, p->GS_RG_derating_full), p->GS_RG_derating_zero));
     /*  Inverter temp safetey derating - derate all motors based on highest
      * inverter temp */
     /* 'get_BL_RG:28' INV_T_snipped = snip(y.INV_T, p.INV_T_derating_full_T,

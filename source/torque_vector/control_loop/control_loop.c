@@ -19,8 +19,8 @@ static yVCU_struct yVCU;
 
 // init default settings
 volatile vcu_mode_t vcu_mode = VCU_MODE_TUNING;
-volatile bool is_tv_enabled = false;
-volatile bool is_regen_enabled = false;
+volatile bool is_tv_enabled = true;
+volatile bool is_regen_enabled = true;
 volatile vcu_settings_data_t vcu_settings[5] = {
     [VCU_MODE_ACCEL] = {
         .lateral_gain = 50,

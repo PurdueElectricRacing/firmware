@@ -19,8 +19,8 @@ static yVCU_struct yVCU;
 
 // init default settings
 volatile vcu_mode_t vcu_mode = VCU_MODE_TUNING;
-volatile bool is_tv_enabled = false;
-volatile bool is_regen_enabled = false;
+volatile bool is_tv_enabled = true;
+volatile bool is_regen_enabled = true;
 volatile vcu_settings_data_t vcu_settings[5] = {
     [VCU_MODE_ACCEL] = {
         .lateral_gain = 50,
@@ -48,7 +48,7 @@ volatile vcu_settings_data_t vcu_settings[5] = {
         .electronic_brake_bias = 50
     }
 };
-uint32_t last_vcu_settings_tx = 0;
+volatile uint32_t last_vcu_settings_tx = 0;
 
 static_assert(VCU_SETTINGS_LAYOUT_HASH == VCU_DRIVER_REQUEST_LAYOUT_HASH);
 
@@ -90,7 +90,7 @@ void vcu_driver_request_CALLBACK(void) {
 }
 
 void control_loop() {
-    uint32_t now = xTaskGetTickCount();
+    volatile uint32_t now = xTaskGetTickCount();
     if ((now - last_vcu_settings_tx) >= VCU_SETTINGS_PERIOD_MS) { // periodic sync
         report_vcu_settings();
         last_vcu_settings_tx = now;
@@ -116,10 +116,11 @@ void control_loop() {
 
     xVCU.ST_RAW = can_data.steering_angle.angle * UNPACK_COEFF_STEERING_ANGLE_ANGLE * -1;
     xVCU.VB_RAW = can_data.pack_stats.pack_voltage * UNPACK_COEFF_PACK_STATS_PACK_VOLTAGE;
-    xVCU.WM_RAW[0] = can_data.wheel_speeds.front_left;
-    xVCU.WM_RAW[1] = can_data.wheel_speeds.front_right;
-    xVCU.WM_RAW[2] = can_data.wheel_speeds.rear_left;
-    xVCU.WM_RAW[3] = can_data.wheel_speeds.rear_right;
+    static constexpr float rpm2rads = 2.0f * 3.14f / 60.0f;
+    xVCU.WM_RAW[0] = can_data.wheel_speeds.front_left * rpm2rads;
+    xVCU.WM_RAW[1] = can_data.wheel_speeds.front_right * rpm2rads;
+    xVCU.WM_RAW[2] = can_data.wheel_speeds.rear_left * rpm2rads;
+    xVCU.WM_RAW[3] = can_data.wheel_speeds.rear_right * rpm2rads;
     xVCU.GS_RAW = nav_pvt.groundSpeed * 1E-3f; // convert mm/s to m/s
 
     static constexpr float deg2rad = 3.14f / 180.0f;
@@ -154,7 +155,7 @@ void control_loop() {
     xVCU.SK_LR_gain_RAW  = vcu_settings[VCU_MODE_SKIDPAD].lateral_gain;
     xVCU.SK_FR_split_RAW = vcu_settings[VCU_MODE_SKIDPAD].longitudinal_gain;
     xVCU.AX_LR_control_force_RAW  = vcu_settings[VCU_MODE_AUTOCROSS].lateral_gain;
-    xVCU.SK_FR_split_RAW = vcu_settings[VCU_MODE_AUTOCROSS].longitudinal_gain;
+    xVCU.AX_FR_split_RAW = vcu_settings[VCU_MODE_AUTOCROSS].longitudinal_gain;
     xVCU.TS_LR_split_RAW = vcu_settings[VCU_MODE_TUNING].lateral_gain;
     xVCU.TS_FR_split_RAW = vcu_settings[VCU_MODE_TUNING].longitudinal_gain;
 

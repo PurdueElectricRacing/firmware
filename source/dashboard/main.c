@@ -156,6 +156,7 @@ extern volatile page_t curr_page;
 void sweep_external_leds();
 void service_start_button();
 extern void HardFault_Handler();
+void calibrate_LWS();
 
 // Thread Defines
 DEFINE_CAN_TASKS();
@@ -247,17 +248,18 @@ void sweep_external_leds() {
 }
 
 // ! LWS calibration proceedure: send RESET CCW, then ZERO CCW
-
-void zero_lws() {
-    // CCW = command code word
-    static constexpr uint8_t CONFIG_CCW_ZERO = 0x3;
-    CAN_SEND_LWS_Config(CONFIG_CCW_ZERO, 0, 0);
-}
-
-void reset_lws() {
+void calibrate_LWS() {
     // CCW = command code word
     static constexpr uint8_t CONFIG_CCW_RESET = 0x5;
     CAN_SEND_LWS_Config(CONFIG_CCW_RESET, 0, 0);
+    
+    osDelay(200);
+
+    // CCW = command code word
+    static constexpr uint8_t CONFIG_CCW_ZERO = 0x3;
+    CAN_SEND_LWS_Config(CONFIG_CCW_ZERO, 0, 0);
+
+    osThreadExit();
 }
 
 void HardFault_Handler() {

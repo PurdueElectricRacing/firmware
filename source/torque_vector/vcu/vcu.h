@@ -122,8 +122,8 @@ typedef struct {
     float AX_TV_split_ST_brkpt[27];
     float AX_FR_split_lb;
     float AX_FR_split_ub;
-    float AX_LR_control_force_lb;
-    float AX_LR_control_force_ub;
+    float AX_LR_split_lb;
+    float AX_LR_split_ub;
     float AX_LR_split_max;
     float AX_LR_gain;
     float TS_LR_max_ST;

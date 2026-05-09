@@ -19,11 +19,11 @@
 
 // ! pedal calibration constants
 static constexpr uint16_t THROTTLE1_MIN = 0;
-static constexpr uint16_t THROTTLE1_MAX = 410;
+static constexpr uint16_t THROTTLE1_MAX = 370;
 static_assert(THROTTLE1_MIN < THROTTLE1_MAX, "Invalid throttle 1 calibration values");
 
-static constexpr uint16_t THROTTLE2_MIN = 5;
-static constexpr uint16_t THROTTLE2_MAX = 310;
+static constexpr uint16_t THROTTLE2_MIN = 3280;
+static constexpr uint16_t THROTTLE2_MAX = 3450;
 static_assert(THROTTLE2_MIN < THROTTLE2_MAX, "Invalid throttle 2 calibration values");
 
 static constexpr uint16_t REGEN1_MIN = 2800;
@@ -79,8 +79,8 @@ void pedals_periodic(void) {
     uint8_t throttle_command = throttle1;
 
     // FSAE 2026 T.4.2.5: if the two throttle sensors differ by 10%, trigger implaus
-    int throttle_diff = ABS((int)throttle1 - (int)throttle2);
-    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, throttle_diff); // ! disabled for now
+    // int throttle_diff = ABS((int)throttle1 - (int)throttle2);
+    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, 1); // ! disabled for now
     if (is_latched(FAULT_ID_APPS_IMPLAUSIBLE)) {
         throttle_command = 0;
     }

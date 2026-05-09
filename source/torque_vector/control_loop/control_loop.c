@@ -116,10 +116,11 @@ void control_loop() {
 
     xVCU.ST_RAW = can_data.steering_angle.angle * UNPACK_COEFF_STEERING_ANGLE_ANGLE * -1;
     xVCU.VB_RAW = can_data.pack_stats.pack_voltage * UNPACK_COEFF_PACK_STATS_PACK_VOLTAGE;
-    xVCU.WM_RAW[0] = can_data.wheel_speeds.front_left;
-    xVCU.WM_RAW[1] = can_data.wheel_speeds.front_right;
-    xVCU.WM_RAW[2] = can_data.wheel_speeds.rear_left;
-    xVCU.WM_RAW[3] = can_data.wheel_speeds.rear_right;
+    static constexpr float rpm2rads = 2.0f * 3.14f / 60.0f;
+    xVCU.WM_RAW[0] = can_data.wheel_speeds.front_left * rpm2rads;
+    xVCU.WM_RAW[1] = can_data.wheel_speeds.front_right * rpm2rads;
+    xVCU.WM_RAW[2] = can_data.wheel_speeds.rear_left * rpm2rads;
+    xVCU.WM_RAW[3] = can_data.wheel_speeds.rear_right * rpm2rads;
     xVCU.GS_RAW = nav_pvt.groundSpeed * 1E-3f; // convert mm/s to m/s
 
     static constexpr float deg2rad = 3.14f / 180.0f;

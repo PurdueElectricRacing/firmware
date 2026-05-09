@@ -11,6 +11,7 @@
 
 #include <stdint.h>
 
+void control_init(void);
 static constexpr uint32_t CONTROL_LOOP_PERIOD_MS = 10;
 void control_loop(void);
 

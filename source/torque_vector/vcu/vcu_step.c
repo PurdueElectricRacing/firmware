@@ -1,16 +1,15 @@
-#include "vcu.h"
-#include <math.h>
-
+/*
+ * Academic License - for use in teaching, academic research, and meeting
+ * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
  * File: vcu_step.c
  *
  * MATLAB Coder version            : 24.1
- * C/C++ source code generated on  : 08-May-2026 18:53:11
+ * C/C++ source code generated on  : 08-May-2026 18:58:44
  */
 
 /* Include Files */
-#include "vcu_step.h"
-#include "vcu_step_types.h"
+#include "vcu.h"
 #include <math.h>
 
 /* Function Declarations */

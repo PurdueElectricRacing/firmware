@@ -24,6 +24,7 @@
 #include "control_loop.h"
 #include "sensors.h"
 #include "telemetry.h"
+#include "control_loop.h"
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -121,6 +122,8 @@ int main(void) {
 
     PHAL_writeGPIO(ROVER_RESET_PORT, ROVER_RESET_PIN, 1);
     PHAL_writeGPIO(BASE_RESET_PORT, BASE_RESET_PIN, 1);
+
+    control_init();
 
     // Software Initialization
     osKernelInitialize();

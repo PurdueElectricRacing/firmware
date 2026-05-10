@@ -102,10 +102,30 @@ DEFINE_TASK(RTC_sync_thread, 0, osPriorityLow, STACK_512);
 DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(nullptr);
 
+// Have a 3 second start up delay to allow all components to fully get up to voltage.
+// This is required on DAQ due to the bulk capacitance.
+static constexpr uint32_t STARTUP_DELAY_MS = 3000;
+static void startup_delay_ms(uint32_t ms) {
+    // Enable the trace system
+    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+    // Enable the cycle counter
+    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+
+    uint32_t start = DWT->CYCCNT;
+    uint32_t cycles = (SystemCoreClock / 1000) * ms;
+
+    while ((DWT->CYCCNT - start) < cycles) {
+        __asm__("nop");
+    }
+}
+
 int main() {
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
+
+    startup_delay_ms(STARTUP_DELAY_MS);
+
     if (!PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }

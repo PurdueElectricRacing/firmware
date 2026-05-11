@@ -22,7 +22,7 @@ static_assert(
     "to prevent DMA wraparound issues and fragmentation"
 );
 
-static constexpr size_t SPMC_MINI_NUM_FRAMES = 4;
+static constexpr size_t SPMC_MINI_NUM_FRAMES = 16;
 static_assert(
     SPMC_CHUNK_NUM_FRAMES % SPMC_MINI_NUM_FRAMES == 0,
     "SPMC_CHUNK_NUM_FRAMES must be divisible by SPMC_MINI_NUM_FRAMES "

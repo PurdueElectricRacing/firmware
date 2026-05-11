@@ -147,12 +147,25 @@ static inline void update_pedal_telemetry() {
     NXT_setValue(BRK_BAR, pedal_values.brake);
 }
 
-static inline void update_tv_telemetry() {
+// this is diddy but whatever
+static inline void update_tv_bar(char* obj_name, int16_t torque_req) {
     // The nextion object expects [0-100]
-    NXT_setValue(FR_BAR, can_data.vcu_torque_request.front_right / 2.1f);
-    NXT_setValue(FL_BAR, can_data.vcu_torque_request.front_left / 2.1f);
-    NXT_setValue(RL_BAR, can_data.vcu_torque_request.rear_left / 2.1f);
-    NXT_setValue(RR_BAR, can_data.vcu_torque_request.rear_right / 2.1f);
+    if (torque_req < 0) { // regen
+        uint16_t regen_req = (uint16_t)(torque_req * -1);
+        NXT_setFontColor(obj_name, GREEN);
+        NXT_setValue(obj_name, regen_req);
+    } else { // vector request
+        uint16_t scaled_req = torque_req / 2.1f;
+        NXT_setFontColor(obj_name, BLUE);
+        NXT_setValue(obj_name, scaled_req);
+    }
+}
+
+static inline void update_tv_telemetry() {
+    update_tv_bar(FR_BAR, can_data.vcu_torque_request.front_right);
+    update_tv_bar(FL_BAR, can_data.vcu_torque_request.front_left);
+    update_tv_bar(RL_BAR, can_data.vcu_torque_request.rear_left);
+    update_tv_bar(RR_BAR, can_data.vcu_torque_request.rear_right);
 }
 
 /**

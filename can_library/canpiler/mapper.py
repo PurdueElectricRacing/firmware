@@ -5,8 +5,10 @@ Author: Irving Wang (irvingw@purdue.edu)
 """
 
 from dataclasses import dataclass, field
+from collections import defaultdict
 from typing import List, Dict, Optional
 from parser import Node, Message
+from utils import print_as_warning
 
 # Maximum FDCAN filter counts (STM32G4)
 MAX_FDCAN_SID_FILTERS = 28
@@ -65,6 +67,17 @@ def map_node_hardware(node: Node, bus_configs: Dict) -> NodeMapping:
     mapping = NodeMapping(node_name=node.name)
 
     peripherals = sorted(list(set(bus.peripheral for bus in node.busses.values())))
+
+    periph_to_buses: Dict[str, List[str]] = defaultdict(list)
+    for bus_name, bus in node.busses.items():
+        periph_to_buses[bus.peripheral].append(bus_name)
+    for periph, bus_names in sorted(periph_to_buses.items()):
+        unique_buses = sorted(set(bus_names))
+        if len(unique_buses) > 1:
+            print_as_warning(
+                f"Node '{node.name}': peripheral '{periph}' is used by multiple logical buses "
+                f"({', '.join(unique_buses)}). RX filters are merged per peripheral; confirm this is intended."
+            )
 
     # Group RX messages by peripheral
     periph_to_msgs: Dict[str, List[tuple[Message, str]]] = {p: [] for p in peripherals}

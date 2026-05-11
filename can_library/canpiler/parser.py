@@ -393,21 +393,51 @@ def parse_fault(data: Dict) -> 'Fault':
         lcd_message=data["lcd_message"]
     )
 
-def parse_bus(name: str, data: Dict, bus_configs: Dict) -> Bus:
-    bus_config = bus_configs.get(name, {})
+
+def _require_bus_in_system(bus_name: str, bus_configs: Dict, where: str) -> Dict:
+    """Ensure bus_name exists in bus_configs.json so ID mode / baud / schema stay consistent."""
+    cfg = bus_configs.get(bus_name)
+    if cfg is None:
+        known = ", ".join(sorted(bus_configs.keys())) if bus_configs else "(none)"
+        print_as_error(
+            f"{where}: unknown bus '{bus_name}'. It must be listed in bus_configs.json. "
+            f"Known buses: {known}"
+        )
+        raise ValueError(f"Unknown bus '{bus_name}'")
+    return cfg
+
+
+def _rx_msg_names_unique(bus_name: str, rx_items: List[Dict]) -> None:
+    """Reject duplicate msg_name in rx on the same bus (would break generated switch/cases)."""
+    seen: Set[str] = set()
+    for item in rx_items:
+        mname = item.get("msg_name")
+        if mname is None:
+            continue
+        if mname in seen:
+            print_as_error(f"Bus '{bus_name}': duplicate RX entry for message '{mname}'")
+            raise ValueError(f"Duplicate RX message '{mname}' on bus '{bus_name}'")
+        seen.add(mname)
+
+
+def parse_bus(name: str, data: Dict, bus_configs: Dict, where: str) -> Bus:
+    bus_config = _require_bus_in_system(name, bus_configs, where)
+    rx_items = data.get("rx", [])
+    _rx_msg_names_unique(name, rx_items)
     return Bus(
         name=name,
         peripheral=data['peripheral'],
         tx_messages=[parse_message(m, bus_config) for m in data.get('tx', [])],
-        rx_messages=[parse_rx_message(m) for m in data.get('rx', [])],
+        rx_messages=[parse_rx_message(m) for m in rx_items],
         accept_all_messages=data.get('accept_all_messages', False)
     )
 
 def parse_internal_node(filepath: Path, bus_configs: Dict) -> Node:
     data = load_json(filepath)
+    node_name = data.get("node_name", filepath.name)
     busses = {}
     for bus_name, bus_data in data.get('busses', {}).items():
-        busses[bus_name] = parse_bus(bus_name, bus_data, bus_configs)
+        busses[bus_name] = parse_bus(bus_name, bus_data, bus_configs, f"Node '{node_name}'")
     
     node = Node(
         name=data['node_name'],
@@ -422,14 +452,17 @@ def parse_internal_node(filepath: Path, bus_configs: Dict) -> Node:
 def parse_external_node(filepath: Path, bus_configs: Dict) -> Node:
     data = load_json(filepath)
     bus_name = data['bus_name']
-    bus_config = bus_configs.get(bus_name, {})
-    
+    node_name = data.get("node_name", filepath.name)
+    bus_config = _require_bus_in_system(bus_name, bus_configs, f"External node '{node_name}'")
+    rx_items = data.get("rx", [])
+    _rx_msg_names_unique(bus_name, rx_items)
+
     # Create a single bus from the flattened structure
     bus = Bus(
         name=bus_name,
         peripheral="UNKNOWN",
         tx_messages=[parse_message(m, bus_config) for m in data.get('tx', [])],
-        rx_messages=[parse_rx_message(m) for m in data.get('rx', [])]
+        rx_messages=[parse_rx_message(m) for m in rx_items]
     )
     
     return Node(

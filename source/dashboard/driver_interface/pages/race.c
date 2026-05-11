@@ -30,6 +30,8 @@ static inline void update_car_state_telemetry() {
     if (can_data.main_hb.is_stale()) {
         NXT_setText(CAR_STATE, "STALE");
         NXT_setFontColor(CAR_STATE, WHITE);
+        NXT_setBorderColor(CAR_STATE, WHITE);
+        NXT_setBackground(CAR_STATE, BLACK);
         return;
     }
 

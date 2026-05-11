@@ -1,3 +1,10 @@
+/**
+ * @file cooling.h
+ * @brief thermal control state machine implementation
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include "cooling.h"
 
 #include "can_library/generated/PDU.h"
@@ -6,7 +13,6 @@
 #include "common/utils/max.h"
 #include "cooling_callbacks.h"
 #include "main.h"
-#include "state.h"
 
 typedef enum {
     COOLING_STATE_INIT   = 0,

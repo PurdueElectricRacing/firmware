@@ -1,3 +1,10 @@
+/**
+ * @file cooling.h
+ * @brief thermal control state machine implementation
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #ifndef COOLING_H
 #define COOLING_H
 

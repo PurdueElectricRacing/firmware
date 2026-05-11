@@ -77,9 +77,5 @@
             "msg_priority": 5
         }
     ],
-    "rx": [
-        {
-            "msg_name": "IZZE_IMU_config"
-        }
-    ]
+    "rx": []
 }

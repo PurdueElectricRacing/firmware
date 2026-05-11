@@ -29,7 +29,9 @@ Modeled After the traditional compiler pipeline. Written in python for ease of m
 - **Pass 2: ID Assignment**: Assigns remaining dynamic IDs priority-by-priority.
     - Within each priority group, messages are sorted alphabetically by `msg_name` to ensure deterministic builds.
     - The "Water Level" tracks the next available ID; it incrementially rises as IDs are assigned and skips over reserved override ranges.
-- **Dependency Resolution**: Resolves RX message references and calculates bit-level layout (offsets, shifts, masks).
+- **Dependency Resolution**: Resolves each RX `msg_name` on the **same logical bus** as the subscription. Bit-level layout (offsets, shifts, masks) for TX messages is computed earlier in parsing.
+- **Single producer per bus**: For each `(bus_name, msg_name)` there must be exactly one transmitting node on that bus. Duplicate TX definitions (two nodes, or two entries in one node) fail the build.
+- **Foreign TX for RX**: A node may not subscribe on a bus to a message that only it transmits on that bus. Every RX entry requires another node to transmit that `msg_name` on that bus (hardware nodes are not configured to receive their own frames).
 
 #### 4. Mapper
 `mapper.py`: Maps CAN IDs to physical hardware resources.

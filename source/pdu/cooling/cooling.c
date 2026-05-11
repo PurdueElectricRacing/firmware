@@ -3,9 +3,10 @@
 #include "can_library/generated/PDU.h"
 #include "common/bangbang/bangbang.h"
 #include "common/phal_F4_F7/pwm/pwm.h"
-#include "state.h"
+#include "common/utils/max.h"
 #include "cooling_callbacks.h"
 #include "main.h"
+#include "state.h"
 
 typedef enum {
     COOLING_STATE_INIT   = 0,
@@ -34,10 +35,41 @@ INIT_BANG_BANG(battery_fans, 50.0f, 35.0f, battery_fans_on, battery_fans_off, 10
 
 static inline void auto_periodic(void) {
     uint32_t now = xTaskGetTickCount();
-    // todo: pull current temps
-    bangbang_update(&motor_pump, 0, now);
-    bangbang_update(&inverter_pump, 0, now);
-    bangbang_update(&battery_fans, 0, now);
+    
+    if (can_data.motor_temps.is_stale()) {
+        motor_pump_on();
+    } else {
+        int16_t max_motor_temp = MAXOF(
+            can_data.motor_temps.front_right,
+            can_data.motor_temps.front_left,
+            can_data.motor_temps.rear_left,
+            can_data.motor_temps.rear_right
+        );
+
+        int16_t scaled_motor_temp = max_motor_temp * UNPACK_COEFF_MOTOR_TEMPS_FRONT_RIGHT;
+        bangbang_update(&motor_pump, scaled_motor_temp, now);
+    }
+
+    if (can_data.igbt_temps.is_stale()) {
+        inverter_pump_on();
+    } else {
+        int16_t max_igbt_temp = MAXOF(
+            can_data.igbt_temps.front_right,
+            can_data.igbt_temps.front_left,
+            can_data.igbt_temps.rear_left,
+            can_data.igbt_temps.rear_right
+        );
+
+        int16_t scaled_igbt_temp = max_igbt_temp * UNPACK_COEFF_IGBT_TEMPS_FRONT_RIGHT;
+        bangbang_update(&inverter_pump, scaled_igbt_temp, now);
+    }
+
+    if (can_data.pack_stats.is_stale()) {
+        battery_fans_on();
+    } else {
+        int16_t avg_temp = can_data.pack_stats.avg_temp;
+        bangbang_update(&battery_fans, avg_temp, now);
+    }
 }
 static void cooling_fsm_periodic(void) {
     cooling_state = next_cooling_state;

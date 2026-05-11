@@ -148,10 +148,11 @@ static inline void update_pedal_telemetry() {
 }
 
 static inline void update_tv_telemetry() {
-    NXT_setValue(FR_BAR, can_data.vcu_torque_request.front_right);
-    NXT_setValue(FL_BAR, can_data.vcu_torque_request.front_left);
-    NXT_setValue(RL_BAR, can_data.vcu_torque_request.rear_left);
-    NXT_setValue(RR_BAR, can_data.vcu_torque_request.rear_right);
+    // The nextion object expects [0-100]
+    NXT_setValue(FR_BAR, can_data.vcu_torque_request.front_right / 2.1f);
+    NXT_setValue(FL_BAR, can_data.vcu_torque_request.front_left / 2.1f);
+    NXT_setValue(RL_BAR, can_data.vcu_torque_request.rear_left / 2.1f);
+    NXT_setValue(RR_BAR, can_data.vcu_torque_request.rear_right / 2.1f);
 }
 
 /**

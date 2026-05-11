@@ -181,7 +181,7 @@ int main(void) {
 
 void bms_task(void) {
     // IMD
-    bool imd_faulted = !PHAL_readGPIO(IMD_STATUS_PORT, IMD_STATUS_PIN);
+    bool imd_faulted = PHAL_readGPIO(IMD_STATUS_PORT, IMD_STATUS_PIN) == false;
     update_fault(FAULT_ID_IMD, imd_faulted);
 
     // ADBMS

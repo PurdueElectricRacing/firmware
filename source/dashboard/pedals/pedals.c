@@ -19,20 +19,20 @@
 
 // ! pedal calibration constants
 static constexpr uint16_t THROTTLE1_MIN = 0;
-static constexpr uint16_t THROTTLE1_MAX = 370;
+static constexpr uint16_t THROTTLE1_MAX = 480;
 static_assert(THROTTLE1_MIN < THROTTLE1_MAX, "Invalid throttle 1 calibration values");
 
 static constexpr uint16_t THROTTLE2_MIN = 3280;
 static constexpr uint16_t THROTTLE2_MAX = 3450;
 static_assert(THROTTLE2_MIN < THROTTLE2_MAX, "Invalid throttle 2 calibration values");
 
-static constexpr uint16_t REGEN1_MIN = 2500;
-static constexpr uint16_t REGEN1_MAX = 2800;
-// static constexpr uint16_t BRAKE2_MIN = 0;
-// static constexpr uint16_t BRAKE2_MAX = 4095;
+static constexpr uint16_t REGEN1_MIN = 2550;
+static constexpr uint16_t REGEN1_MAX = 3000;
+static_assert(REGEN1_MIN < REGEN1_MAX, "Invalid regen 1 calibration values");
 
-// static constexpr uint16_t BRAKE1_PRESSURE_MIN = 0;
-// static constexpr uint16_t BRAKE1_PRESSURE_MAX = 3000;
+static constexpr uint16_t BRAKE1_MIN = 450;
+static constexpr uint16_t BRAKE1_MAX = 1300;
+static_assert(BRAKE1_MIN < BRAKE1_MAX, "Invalid brake 1 calibration values");
 
 static constexpr uint8_t PEDAL_MAX = 100;
 static constexpr uint8_t PEDAL_MIN = 0;
@@ -55,8 +55,8 @@ void pedals_periodic(void) {
     // snapshot ADC values into local memory
     uint16_t throttle1 = raw_adc_values.throttle1;
     uint16_t throttle2 = 4095 - raw_adc_values.throttle2; // Invert value for t2 (pull-up resistor)
-    uint16_t regen1    = raw_adc_values.regen1;
-    // uint16_t brake2 = raw_adc_values.brake2_pressure;
+    uint16_t regen1    = raw_adc_values.brake1_pressure;  // ! harness flip
+    uint16_t brake1    = raw_adc_values.regen1;
 
     // FSAE 2026 T.4.2.10: open/short circuit detection
     update_fault(FAULT_ID_APPS_WIRING_T1, 1);
@@ -66,16 +66,17 @@ void pedals_periodic(void) {
     throttle1 = CLAMP(throttle1, THROTTLE1_MIN, THROTTLE1_MAX);
     throttle2 = CLAMP(throttle2, THROTTLE2_MIN, THROTTLE2_MAX);
     regen1    = CLAMP(regen1, REGEN1_MIN, REGEN1_MAX);
-    // brake2 = CLAMP(brake2, BRAKE2_MIN, BRAKE2_MAX);
+    brake1 = CLAMP(brake1, BRAKE1_MIN, BRAKE1_MAX);
 
     // rescale the pedal signals to [0,100] range
     throttle1 = RESCALE(throttle1, THROTTLE1_MIN, THROTTLE1_MAX, PEDAL_MIN, PEDAL_MAX);
     throttle2 = RESCALE(throttle2, THROTTLE2_MIN, THROTTLE2_MAX, PEDAL_MIN, PEDAL_MAX);
     regen1    = RESCALE(regen1, REGEN1_MIN, REGEN1_MAX, PEDAL_MIN, PEDAL_MAX);
-    // brake2 = RESCALE(brake2, BRAKE2_MIN, BRAKE2_MAX, 0, 100);
+    brake1 = RESCALE(brake1, BRAKE1_MIN, BRAKE1_MAX, 0, 100);
 
     pedal_values.throttle    = throttle1;
     pedal_values.regen       = regen1;
+    pedal_values.brake       = brake1;
     uint8_t throttle_command = throttle1;
 
     // FSAE 2026 T.4.2.5: if the two throttle sensors differ by 10%, trigger implaus

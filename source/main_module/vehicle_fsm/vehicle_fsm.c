@@ -128,8 +128,8 @@ void vehicle_fsm_periodic(void) {
     update_tsal();
 
     // update precharge status
-    bool precharge_pin = !PHAL_readGPIO(PRECHARGE_COMPLETE_PORT, PRECHARGE_COMPLETE_PIN);
-    update_fault(FAULT_ID_PRECHARGE_INCOMPLETE, precharge_pin);
+    bool precharge_pin = PHAL_readGPIO(NOT_PRECHARGE_COMPLETE_PORT, NOT_PRECHARGE_COMPLETE_PIN);
+    update_fault(FAULT_ID_PRECHARGE_INCOMPLETE, precharge_pin == true);
     // amks need a bool to point to for precharge status
     g_car.is_precharge_complete = is_clear(FAULT_ID_PRECHARGE_INCOMPLETE);
 

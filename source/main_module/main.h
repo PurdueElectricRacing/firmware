@@ -49,13 +49,13 @@
 #define SDC_MUX_S0_PIN    (4)
 
 // Input status pins
-#define BMS_STATUS_PORT         (GPIOC)
-#define BMS_STATUS_PIN          (13)
-#define VBATT_ECU_PORT          (GPIOA)
-#define VBATT_ECU_PIN           (4)
-#define VMC_ECU_PORT            (GPIOA)
-#define VMC_ECU_PIN             (6)
-#define PRECHARGE_COMPLETE_PORT (GPIOB)
-#define PRECHARGE_COMPLETE_PIN  (10)
+#define BMS_STATUS_PORT             (GPIOC)
+#define BMS_STATUS_PIN              (13)
+#define VBATT_ECU_PORT              (GPIOA)
+#define VBATT_ECU_PIN               (4)
+#define VMC_ECU_PORT                (GPIOA)
+#define VMC_ECU_PIN                 (6)
+#define NOT_PRECHARGE_COMPLETE_PORT (GPIOB)
+#define NOT_PRECHARGE_COMPLETE_PIN  (10)
 
 #endif // MAIN_H

@@ -135,7 +135,7 @@ usart_init_t lcd = {
 
 static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
 ClockRateConfig_t clock_config = {
-    .clock_source           = CLOCK_SOURCE_HSI,
+    .clock_source           = CLOCK_SOURCE_HSE,
     .use_pll                = false,
     .system_clock_target_hz = TargetCoreClockrateHz,
     .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
@@ -149,9 +149,6 @@ extern uint32_t APB2ClockRateHz;
 extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
-// LCD Variables
-extern volatile page_t curr_page;
-
 /* Function Prototypes */
 void sweep_external_leds();
 void service_start_button();
@@ -164,6 +161,7 @@ DEFINE_TASK(pedals_periodic, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024);
 DEFINE_TASK(fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024);
 DEFINE_TASK(driver_interface_periodic, DRIVER_INTERFACE_PERIOD_MS, osPriorityLow, STACK_1024);
 DEFINE_TASK(report_telemetry_02hz, TELEMETRY_02HZ_PERIOD_MS, osPriorityLow, STACK_512);
+// DEFINE_TASK(calibrate_LWS, 0, osPriorityLow, STACK_512); // ! only enable for calibration
 DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(sweep_external_leds);
 
@@ -206,6 +204,7 @@ int main(void) {
     START_TASK(fault_library_periodic);
     START_TASK(driver_interface_periodic);
     START_TASK(report_telemetry_02hz);
+    // START_TASK(calibrate_LWS); // ! only enable for calibration
     START_WATCHDOG_TASK();
     START_HEARTBEAT_TASK();
 

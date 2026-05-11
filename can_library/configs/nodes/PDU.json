@@ -160,30 +160,23 @@
                     "msg_desc": "outputs to coolant loops",
                     "signals": [
                         {
-                            "sig_name": "bat_fan",
-                            "sig_desc": "Battery fan speed request",
-                            "type": "uint8_t",
-                            "unit": "%"
-                        },
-                        {
-                            "sig_name": "dt_fan",
-                            "sig_desc": "Drivetrain fan speed request",
-                            "type": "uint8_t",
-                            "unit": "%"
-                        },
-                        {
-                            "sig_name": "bat_pump",
-                            "sig_desc": "Battery pump enabled",
+                            "sig_name": "is_motor_pump_enabled",
+                            "sig_desc": "Motor pump enabled",
                             "type": "bool"
                         },
                         {
-                            "sig_name": "bat_pump_aux",
-                            "sig_desc": "Auxilliary output enable request",
+                            "sig_name": "is_inverter_pump_enabled",
+                            "sig_desc": "Inverter pump enabled",
                             "type": "bool"
                         },
                         {
-                            "sig_name": "dt_pump",
-                            "sig_desc": "Drivetrain pump enabled",
+                            "sig_name": "is_hx_fan_enabled",
+                            "sig_desc": "Heat exchanger fan enabled",
+                            "type": "bool"
+                        },
+                        {
+                            "sig_name": "is_batt_fans_enabled",
+                            "sig_desc": "Battery fans enabled",
                             "type": "bool"
                         }
                     ],

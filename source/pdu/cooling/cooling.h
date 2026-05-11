@@ -1,7 +1,9 @@
 #ifndef COOLING_H
 #define COOLING_H
 
-void cooling_init(void);
-void cooling_periodic(void);
+#include <stdint.h>
+
+static constexpr uint32_t COOLING_FSM_PERIOD_MS = 500;
+void cooling_fsm_periodic(void);
 
 #endif // COOLING_H

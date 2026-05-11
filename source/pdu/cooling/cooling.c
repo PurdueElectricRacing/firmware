@@ -20,7 +20,7 @@ static cooling_state_t next_cooling_state = COOLING_STATE_INIT;
 static constexpr uint32_t PWM_FREQUENCY_HZ = 25'000; // 25kHz
 static constexpr uint8_t  NUM_BATTERY_FANS = 4;
 
-// init assumes they're all on the same channel
+// PWM init assumes they're all on the same channel
 #define FAN_PWM_TIM (TIM1)
 static_assert(FAN_1_PWM_TIM == FAN_PWM_TIM);
 static_assert(FAN_2_PWM_TIM == FAN_PWM_TIM);
@@ -71,7 +71,8 @@ static inline void auto_periodic(void) {
         bangbang_update(&battery_fans, avg_temp, now);
     }
 }
-static void cooling_fsm_periodic(void) {
+
+void cooling_fsm_periodic(void) {
     cooling_state = next_cooling_state;
     next_cooling_state = cooling_state; // default self loop
 
@@ -83,7 +84,7 @@ static void cooling_fsm_periodic(void) {
             PHAL_PWMsetPercent(FAN_3_PWM_TIM, FAN_3_PWM_TIM_CH, 95);
             PHAL_PWMsetPercent(FAN_4_PWM_TIM, FAN_4_PWM_TIM_CH, 95);
 
-            if (PHAL_initPWM(PWM_FREQUENCY_HZ, FAN_PWM_TIM, 4)) {
+            if (PHAL_initPWM(PWM_FREQUENCY_HZ, FAN_PWM_TIM, NUM_BATTERY_FANS)) {
                 next_cooling_state = COOLING_STATE_AUTO;
             }
             break;
@@ -100,10 +101,9 @@ static void cooling_fsm_periodic(void) {
     }
 
     CAN_SEND_coolant_out(
-        g_pdu_state.cooling_command.fan1_percent,
-        g_pdu_state.cooling_command.fan2_percent,
-        g_pdu_state.cooling_command.pump2_enabled,
-        g_pdu_state.cooling_command.hxfan_enabled,
-        g_pdu_state.cooling_command.pump1_enabled
+        motor_pump.is_on,
+        inverter_pump.is_on,
+        hx_fan.is_on,
+        battery_fans.is_on
     );
 }

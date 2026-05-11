@@ -22,7 +22,6 @@
 #include "common/watchdog/watchdog.h"
 
 #include "cooling.h"
-#include "fan_control.h"
 #include "faults.h"
 #include "flow_rate.h"
 #include "led.h"
@@ -268,7 +267,7 @@ static void heartbeat_led_sweep(void) {
 // Thread Defines
 DEFINE_CAN_TASKS();
 DEFINE_TASK(switches_periodic, 15, osPriorityNormal, STACK_512);
-DEFINE_TASK(cooling_fsm_periodic, 100, osPriorityNormal, STACK_1024);
+DEFINE_TASK(cooling_fsm_periodic, COOLING_FSM_PERIOD_MS, osPriorityNormal, STACK_1024);
 DEFINE_TASK(LED_periodic, 500, osPriorityLow, STACK_512);
 DEFINE_TASK(faults_periodic, 100, osPriorityLow, STACK_512);
 DEFINE_TASK(fault_library_periodic, 100, osPriorityLow, STACK_1024);
@@ -309,7 +308,6 @@ int main() {
     switches_init();
     faults_init();
 
-    cooling_init();
     flowRateInit();
 
     switches_enable_default_rails();

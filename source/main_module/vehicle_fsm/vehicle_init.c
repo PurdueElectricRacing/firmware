@@ -10,9 +10,9 @@
 #include "can_library/generated/MAIN_MODULE.h"
 
 INVA_SET_data_t amk_set_front_right;
-INVB_SET_data_t amk_set_front_left;
-INVC_SET_data_t amk_set_rear_left;
-INVD_SET_data_t amk_set_rear_right;
+INVA_SET_data_t amk_set_front_left;
+INVA_SET_data_t amk_set_rear_left;
+INVA_SET_data_t amk_set_rear_right;
 
 // ! important: assert that the layout hashes of all AMK messages match
 static_assert(INVA_SET_LAYOUT_HASH == INVB_SET_LAYOUT_HASH, "AMK INVA/B Struct Mismatch");

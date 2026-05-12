@@ -130,7 +130,7 @@ int main(void) {
     osKernelInitialize();
 
     START_CAN_TASKS();
-    CAN_SEND_tv_CSR(saved_CSR);
+    CAN_SEND_tv_init(WDG_get_CSR());
     START_TASK(control_loop);
     START_TASK(gps_periodic);
     START_TASK(report_telemetry_100hz);

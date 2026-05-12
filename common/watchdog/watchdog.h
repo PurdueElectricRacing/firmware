@@ -11,10 +11,9 @@
 #include <stdint.h>
 #include "common/freertos/freertos.h"
 
-extern volatile uint32_t saved_CSR;
-
 void WDG_init(void);
 void WDG_pet(void);
+uint32_t WDG_get_CSR(void);
 
 static constexpr uint32_t WATCHDOG_TIMEOUT_MS = 1000;
 static constexpr uint32_t WATCHDOG_PET_PERIOD_MS = 100;

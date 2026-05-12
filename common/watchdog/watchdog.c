@@ -41,3 +41,7 @@ void WDG_init(void) {
 void WDG_pet(void) {
     IWDG->KR = 0xAAAA;
 }
+
+uint32_t WDG_get_CSR(void) {
+    return saved_CSR;
+}

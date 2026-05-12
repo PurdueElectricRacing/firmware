@@ -213,7 +213,7 @@ int main(void) {
     osKernelInitialize();
 
     START_CAN_TASKS();
-    CAN_SEND_driveline_CSR(saved_CSR);
+    SEND_INIT(WDG_get_CSR());
     START_TASK(shockpot_thread);
     START_TASK(oil_temps_thread);
     START_WATCHDOG_TASK();

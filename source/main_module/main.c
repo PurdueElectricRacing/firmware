@@ -119,7 +119,7 @@ int main(void) {
     osKernelInitialize();
 
     START_CAN_TASKS();
-    CAN_SEND_main_CSR(saved_CSR);
+    CAN_SEND_main_init(WDG_get_CSR());
     START_TASK(vehicle_fsm_periodic);
     START_TASK(fault_library_periodic);
     START_TASK(SDC_task_periodic);

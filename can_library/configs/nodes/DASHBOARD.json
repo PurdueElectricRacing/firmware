@@ -5,11 +5,12 @@
             "peripheral": "FDCAN2",
             "tx": [
                 {
-                    "msg_name": "dash_CSR",
-                    "msg_desc": "DASH RCC CSR register",
+                    "msg_name": "dash_init",
+                    "msg_desc": "DASH hardware initialized",
                     "signals": [
                         {
-                            "sig_name": "val",
+                            "sig_name": "csr",
+                            "sig_desc": "RCC CSR register",
                             "type": "uint32_t"
                         }
                     ],

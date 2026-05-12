@@ -201,7 +201,7 @@ int main(void) {
     osKernelInitialize();
 
     START_CAN_TASKS();
-    CAN_SEND_dash_CSR(saved_CSR);
+    CAN_SEND_dash_init(WDG_get_CSR());
     START_TASK(pedals_periodic);
     START_TASK(fault_library_periodic);
     START_TASK(driver_interface_periodic);

@@ -5,11 +5,24 @@
             "peripheral": "FDCAN2",
             "tx": [
                 {
-                    "msg_name": "driveline_CSR",
-                    "msg_desc": "Driveline RCC CSR register",
+                    "msg_name": "front_driveline_init",
+                    "msg_desc": "Front driveline hardware initialized",
                     "signals": [
                         {
-                            "sig_name": "val",
+                            "sig_name": "csr",
+                            "sig_desc": "RCC CSR register",
+                            "type": "uint32_t"
+                        }
+                    ],
+                    "msg_priority": 3
+                },
+                {
+                    "msg_name": "rear_driveline_init",
+                    "msg_desc": "Front driveline hardware initialized",
+                    "signals": [
+                        {
+                            "sig_name": "csr",
+                            "sig_desc": "RCC CSR register",
                             "type": "uint32_t"
                         }
                     ],
@@ -34,8 +47,8 @@
                             "scale": 0.01
                         }
                     ],
-                    "msg_period": 10,
-                    "msg_priority": 5
+                    "msg_priority": 5,
+                    "msg_period": 10
                 },
                 {
                     "msg_name": "rear_shockpots",
@@ -56,8 +69,8 @@
                             "scale": 0.01
                         }
                     ],
-                    "msg_period": 10,
-                    "msg_priority": 5
+                    "msg_priority": 5,
+                    "msg_period": 10
                 },
                 {
                     "msg_name": "front_oil_temps",
@@ -78,8 +91,8 @@
                             "scale": 0.01
                         }
                     ],
-                    "msg_priority": 3,
-                    "msg_period": 1000
+                    "msg_priority": 4,
+                    "msg_period": 4000
                 },
                 {
                     "msg_name": "rear_oil_temps",
@@ -100,8 +113,8 @@
                             "scale": 0.01
                         }
                     ],
-                    "msg_priority": 3,
-                    "msg_period": 1000
+                    "msg_priority": 4,
+                    "msg_period": 4000
                 },
                 {
                     "msg_name": "front_driveline_version",

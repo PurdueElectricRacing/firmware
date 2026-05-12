@@ -5,11 +5,12 @@
             "peripheral": "CAN1",
             "tx": [
                 {
-                    "msg_name": "pdu_CSR",
-                    "msg_desc": "PDU RCC CSR register",
+                    "msg_name": "pdu_init",
+                    "msg_desc": "PDU hardware initialized",
                     "signals": [
                         {
-                            "sig_name": "val",
+                            "sig_name": "csr",
+                            "sig_desc": "RCC CSR register",
                             "type": "uint32_t"
                         }
                     ],

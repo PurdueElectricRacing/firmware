@@ -9,6 +9,11 @@
 #include "vehicle_fsm.h"
 #include "can_library/generated/MAIN_MODULE.h"
 
+INVA_SET_data_t amk_set_front_right;
+INVA_SET_data_t amk_set_front_left;
+INVA_SET_data_t amk_set_rear_left;
+INVA_SET_data_t amk_set_rear_right;
+
 // ! important: assert that the layout hashes of all AMK messages match
 static_assert(INVA_SET_LAYOUT_HASH == INVB_SET_LAYOUT_HASH, "AMK INVA/B Struct Mismatch");
 static_assert(INVA_SET_LAYOUT_HASH == INVC_SET_LAYOUT_HASH, "AMK INVA/C Struct Mismatch");
@@ -93,7 +98,7 @@ void init_amks(void) {
     AMK_init(
         &g_car.front_right,
         flush_inva,
-        (INVA_SET_data_t *) &can_data.INVA_SET,
+        (INVA_SET_data_t *) &amk_set_front_right,
         (INVA_CRIT_data_t *) &can_data.INVA_CRIT,
         (INVA_INFO_data_t *) &can_data.INVA_INFO,
         (INVA_TEMPS_data_t *) &can_data.INVA_TEMPS,
@@ -103,10 +108,10 @@ void init_amks(void) {
     );
 
     // Inverter B
-     AMK_init(
+    AMK_init(
         &g_car.front_left,
         flush_invb,
-        (INVA_SET_data_t *) &can_data.INVB_SET,
+        (INVA_SET_data_t *) &amk_set_front_left,
         (INVA_CRIT_data_t *) &can_data.INVB_CRIT,
         (INVA_INFO_data_t *) &can_data.INVB_INFO,
         (INVA_TEMPS_data_t *) &can_data.INVB_TEMPS,
@@ -119,7 +124,7 @@ void init_amks(void) {
     AMK_init(
         &g_car.rear_left,
         flush_invc,
-        (INVA_SET_data_t *) &can_data.INVC_SET,
+        (INVA_SET_data_t *) &amk_set_rear_left,
         (INVA_CRIT_data_t *) &can_data.INVC_CRIT,
         (INVA_INFO_data_t *) &can_data.INVC_INFO,
         (INVA_TEMPS_data_t *) &can_data.INVC_TEMPS,
@@ -132,7 +137,7 @@ void init_amks(void) {
     AMK_init(
         &g_car.rear_right,
         flush_invd,
-        (INVA_SET_data_t *) &can_data.INVD_SET,
+        (INVA_SET_data_t *)&amk_set_rear_right,
         (INVA_CRIT_data_t *) &can_data.INVD_CRIT,
         (INVA_INFO_data_t *) &can_data.INVD_INFO,
         (INVA_TEMPS_data_t *) &can_data.INVD_TEMPS,

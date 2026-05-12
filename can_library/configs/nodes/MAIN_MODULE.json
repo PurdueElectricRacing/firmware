@@ -547,9 +547,6 @@
             ],
             "rx": [
                 {
-                    "msg_name": "INVA_SET"
-                },
-                {
                     "msg_name": "INVA_CRIT"
                 },
                 {
@@ -563,9 +560,6 @@
                 },
                 {
                     "msg_name": "INVA_TEMPS"
-                },
-                {
-                    "msg_name": "INVB_SET"
                 },
                 {
                     "msg_name": "INVB_CRIT"
@@ -583,9 +577,6 @@
                     "msg_name": "INVB_TEMPS"
                 },
                 {
-                    "msg_name": "INVC_SET"
-                },
-                {
                     "msg_name": "INVC_CRIT"
                 },
                 {
@@ -599,9 +590,6 @@
                 },
                 {
                     "msg_name": "INVC_TEMPS"
-                },
-                {
-                    "msg_name": "INVD_SET"
                 },
                 {
                     "msg_name": "INVD_CRIT"

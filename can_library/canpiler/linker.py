@@ -4,10 +4,103 @@ linker.py
 Author: Irving Wang (irvingw@purdue.edu)
 """
 
-from typing import List, Dict, Set, DefaultDict
+from typing import List, Dict, Set, DefaultDict, Tuple
 from collections import defaultdict
 from parser import Node, Message
 from utils import print_as_error, print_as_success, print_as_ok
+
+# bus_name -> msg_name -> (producer_node_name, Message)
+TxProducerRegistry = Dict[str, Dict[str, Tuple[str, Message]]]
+
+
+def _build_tx_producer_registry(nodes: List[Node]) -> TxProducerRegistry:
+    """
+    Build the map of who transmits each message on each bus.
+
+    Rules (fail fast with ValueError):
+    - Exactly one logical producer per (bus, msg_name): two different nodes may not
+      both TX the same msg_name on the same bus.
+    - A single node may not list the same msg_name twice in tx on the same bus.
+    """
+    registry: TxProducerRegistry = {}
+
+    for node in nodes:
+        for bus_name, bus in node.busses.items():
+            per_bus = registry.setdefault(bus_name, {})
+            for msg in bus.tx_messages:
+                existing = per_bus.get(msg.name)
+                if existing is None:
+                    per_bus[msg.name] = (node.name, msg)
+                    continue
+
+                prev_node, prev_msg = existing
+                if prev_node != node.name:
+                    print_as_error(
+                        f"Bus '{bus_name}': Message '{msg.name}' is transmitted by both "
+                        f"'{prev_node}' and '{node.name}' (only one producer per bus)"
+                    )
+                    raise ValueError(
+                        f"Duplicate TX producer for '{msg.name}' on bus '{bus_name}'"
+                    )
+                if prev_msg is not msg:
+                    print_as_error(
+                        f"Node '{node.name}': Bus '{bus_name}': duplicate TX entry "
+                        f"for message '{msg.name}'"
+                    )
+                    raise ValueError(
+                        f"Duplicate TX message name '{msg.name}' on bus '{bus_name}'"
+                    )
+
+    return registry
+
+
+def _resolve_rx_against_registry(nodes: List[Node], tx_on_bus: TxProducerRegistry) -> None:
+    """
+    For each RX subscription, attach the transmitting node's Message on that bus.
+
+    Rules:
+    - RX msg_name must have a TX on the same bus (not another bus with the same name).
+    - The transmitter must be a different node than the subscriber (no self-RX).
+    """
+    for node in nodes:
+        for bus_name, bus in node.busses.items():
+            per_bus = tx_on_bus.get(bus_name, {})
+            for rx_msg in bus.rx_messages:
+                entry = per_bus.get(rx_msg.name)
+                if entry is None:
+                    print_as_error(
+                        f"Node '{node.name}': Bus '{bus_name}': RX message '{rx_msg.name}' "
+                        f"has no transmitter on this bus"
+                    )
+                    raise ValueError(
+                        f"Unresolved RX message '{rx_msg.name}' on bus '{bus_name}'"
+                    )
+
+                producer, msg = entry
+                if producer == node.name:
+                    print_as_error(
+                        f"Node '{node.name}': Bus '{bus_name}': RX message '{rx_msg.name}' "
+                        f"is only transmitted by this node on this bus; expected another producer"
+                    )
+                    raise ValueError(
+                        f"Invalid self-RX for '{rx_msg.name}' on bus '{bus_name}'"
+                    )
+
+                rx_msg.resolved_message = msg
+
+
+def _validate_standard_id_range(nodes: List[Node]) -> None:
+    """Standard-frame IDs must fit in 11 bits when is_extended is false."""
+    for node in nodes:
+        for bus in node.busses.values():
+            for msg in bus.tx_messages:
+                if msg.final_id > 0x7FF and not msg.is_extended:
+                    print_as_error(
+                        f"Message '{msg.name}' has ID {hex(msg.final_id)} "
+                        f"but is not marked as extended."
+                    )
+                    raise ValueError(f"Standard CAN ID exceeds 0x7FF: {hex(msg.final_id)}")
+
 
 class BusLinker:
     def __init__(self, bus_name: str):
@@ -133,33 +226,12 @@ def link_all(nodes: List[Node]) -> List[Node]:
             print_as_error(f"Failed to link bus '{bus_name}'")
             raise
 
-    # 3. Resolve RX Messages
-    # Build global message map
-    all_tx_messages: Dict[str, Message] = {}
-    for node in nodes:
-        for bus in node.busses.values():
-            for msg in bus.tx_messages:
-                if msg.name in all_tx_messages:
-                    # This should be caught by validator, but good to check
-                    print_as_error(f"Duplicate message name '{msg.name}' found during linking")
-                all_tx_messages[msg.name] = msg
+    # 3. RX / TX consistency (per-bus registry, foreign producer for each RX)
+    tx_registry = _build_tx_producer_registry(nodes)
+    _resolve_rx_against_registry(nodes, tx_registry)
 
-    for node in nodes:
-        for bus_name, bus in node.busses.items():
-            for rx_msg in bus.rx_messages:
-                if rx_msg.name in all_tx_messages:
-                    rx_msg.resolved_message = all_tx_messages[rx_msg.name]
-                else:
-                    print_as_error(f"Node '{node.name}': RX message '{rx_msg.name}' not found in any bus")
-                    raise ValueError(f"Unresolved RX message: {rx_msg.name}")
-
-    # 4. Final Validation
-    for node in nodes:
-        for bus in node.busses.values():
-            for msg in bus.tx_messages:
-                if msg.final_id > 0x7FF and not msg.is_extended:
-                    print_as_error(f"Message '{msg.name}' has ID {hex(msg.final_id)} but is not marked as extended.")
-                    raise ValueError(f"Standard CAN ID exceeds 0x7FF: {hex(msg.final_id)}")
+    # 4. Final TX ID checks
+    _validate_standard_id_range(nodes)
 
     print_as_success("Successfully linked all CAN IDs")
     return nodes

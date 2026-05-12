@@ -271,6 +271,7 @@ int main() {
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
+    WDG_init();
     if (!PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }

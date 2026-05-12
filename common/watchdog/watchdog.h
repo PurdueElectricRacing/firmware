@@ -11,6 +11,8 @@
 #include <stdint.h>
 #include "common/freertos/freertos.h"
 
+extern volatile uint32_t CSR_val;
+
 void WDG_init(void);
 void WDG_pet(void);
 
@@ -19,10 +21,6 @@ static constexpr uint32_t WATCHDOG_PET_PERIOD_MS = 100;
 
 #define DEFINE_WATCHDOG_TASK() DEFINE_TASK(WDG_pet, WATCHDOG_PET_PERIOD_MS, osPriorityLow, STACK_256)
 
-#define START_WATCHDOG_TASK() \
-    do { \
-        WDG_init(); \
-        START_TASK(WDG_pet); \
-    } while (0);
+#define START_WATCHDOG_TASK() START_TASK(WDG_pet)
 
 #endif // WATCHDOG_H

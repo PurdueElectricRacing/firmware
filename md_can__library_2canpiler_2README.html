@@ -131,7 +131,9 @@ Software Architecture</h1>
 <li>The "Water Level" tracks the next available ID; it incrementially rises as IDs are assigned and skips over reserved override ranges.</li>
 </ul>
 </li>
-<li><b>Dependency Resolution</b>: Resolves RX message references and calculates bit-level layout (offsets, shifts, masks).</li>
+<li><b>Dependency Resolution</b>: Resolves each RX <code>msg_name</code> on the <b>same logical bus</b> as the subscription. Bit-level layout (offsets, shifts, masks) for TX messages is computed earlier in parsing.</li>
+<li><b>Single producer per bus</b>: For each <code>(bus_name, msg_name)</code> there must be exactly one transmitting node on that bus. Duplicate TX definitions (two nodes, or two entries in one node) fail the build.</li>
+<li><b>Foreign TX for RX</b>: A node may not subscribe on a bus to a message that only it transmits on that bus. Every RX entry requires another node to transmit that <code>msg_name</code> on that bus (hardware nodes are not configured to receive their own frames).</li>
 </ul>
 <h3><a class="anchor" id="autotoc_md108"></a>
 4. Mapper</h3>

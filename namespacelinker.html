@@ -99,7 +99,8 @@ $(function(){initNavTree('namespacelinker.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">linker Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -111,14 +112,116 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a989cbadea09103abb45d35b5dbdf726e" id="r_a989cbadea09103abb45d35b5dbdf726e"><td class="memItemLeft" align="right" valign="top">TxProducerRegistry&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a989cbadea09103abb45d35b5dbdf726e">_build_tx_producer_registry</a> (List[<a class="el" href="classparser_1_1Node.html">Node</a>] nodes)</td></tr>
+<tr class="separator:a989cbadea09103abb45d35b5dbdf726e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afac9d251fe5e567fad2ffb4f162b81e1" id="r_afac9d251fe5e567fad2ffb4f162b81e1"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afac9d251fe5e567fad2ffb4f162b81e1">_resolve_rx_against_registry</a> (List[<a class="el" href="classparser_1_1Node.html">Node</a>] nodes, TxProducerRegistry tx_on_bus)</td></tr>
+<tr class="separator:afac9d251fe5e567fad2ffb4f162b81e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ee3b4eaa57a1af2475ac40ee7270f68" id="r_a7ee3b4eaa57a1af2475ac40ee7270f68"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ee3b4eaa57a1af2475ac40ee7270f68">_validate_standard_id_range</a> (List[<a class="el" href="classparser_1_1Node.html">Node</a>] nodes)</td></tr>
+<tr class="separator:a7ee3b4eaa57a1af2475ac40ee7270f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed4b2af437cd3fe7ac809072fc8999d7" id="r_aed4b2af437cd3fe7ac809072fc8999d7"><td class="memItemLeft" align="right" valign="top">List[<a class="el" href="classparser_1_1Node.html">Node</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed4b2af437cd3fe7ac809072fc8999d7">link_all</a> (List[<a class="el" href="classparser_1_1Node.html">Node</a>] nodes)</td></tr>
 <tr class="separator:aed4b2af437cd3fe7ac809072fc8999d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:abae50414e837f5b650c77c4b96e905a8" id="r_abae50414e837f5b650c77c4b96e905a8"><td class="memItemLeft" align="right" valign="top"><a id="abae50414e837f5b650c77c4b96e905a8" name="abae50414e837f5b650c77c4b96e905a8"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>TxProducerRegistry</b> = Dict[str, Dict[str, Tuple[str, <a class="el" href="classparser_1_1Message.html">Message</a>]]]</td></tr>
+<tr class="separator:abae50414e837f5b650c77c4b96e905a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><pre class="fragment">linker.py
 
 Author: Irving Wang (irvingw@purdue.edu)
 </pre> </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a989cbadea09103abb45d35b5dbdf726e" name="a989cbadea09103abb45d35b5dbdf726e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a989cbadea09103abb45d35b5dbdf726e">&#9670;&#160;</a></span>_build_tx_producer_registry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> TxProducerRegistry linker._build_tx_producer_registry </td>
+          <td>(</td>
+          <td class="paramtype">List[<a class="el" href="classparser_1_1Node.html">Node</a>]</td>          <td class="paramname"><span class="paramname"><em>nodes</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<pre class="fragment">Build the map of who transmits each message on each bus.
+
+Rules (fail fast with ValueError):
+- Exactly one logical producer per (bus, msg_name): two different nodes may not
+  both TX the same msg_name on the same bus.
+- A single node may not list the same msg_name twice in tx on the same bus.
+</pre> 
+</div>
+</div>
+<a id="afac9d251fe5e567fad2ffb4f162b81e1" name="afac9d251fe5e567fad2ffb4f162b81e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afac9d251fe5e567fad2ffb4f162b81e1">&#9670;&#160;</a></span>_resolve_rx_against_registry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None linker._resolve_rx_against_registry </td>
+          <td>(</td>
+          <td class="paramtype">List[<a class="el" href="classparser_1_1Node.html">Node</a>]</td>          <td class="paramname"><span class="paramname"><em>nodes</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TxProducerRegistry</td>          <td class="paramname"><span class="paramname"><em>tx_on_bus</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<pre class="fragment">For each RX subscription, attach the transmitting node's Message on that bus.
+
+Rules:
+- RX msg_name must have a TX on the same bus (not another bus with the same name).
+- The transmitter must be a different node than the subscriber (no self-RX).
+</pre> 
+</div>
+</div>
+<a id="a7ee3b4eaa57a1af2475ac40ee7270f68" name="a7ee3b4eaa57a1af2475ac40ee7270f68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ee3b4eaa57a1af2475ac40ee7270f68">&#9670;&#160;</a></span>_validate_standard_id_range()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None linker._validate_standard_id_range </td>
+          <td>(</td>
+          <td class="paramtype">List[<a class="el" href="classparser_1_1Node.html">Node</a>]</td>          <td class="paramname"><span class="paramname"><em>nodes</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<pre class="fragment">Standard-frame IDs must fit in 11 bits when is_extended is false.</pre> 
+</div>
+</div>
 <a id="aed4b2af437cd3fe7ac809072fc8999d7" name="aed4b2af437cd3fe7ac809072fc8999d7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aed4b2af437cd3fe7ac809072fc8999d7">&#9670;&#160;</a></span>link_all()</h2>
 

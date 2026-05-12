@@ -9,6 +9,8 @@ var namespaceparser =
     [ "RxMessage", "classparser_1_1RxMessage.html", null ],
     [ "Signal", "classparser_1_1Signal.html", null ],
     [ "SystemContext", "classparser_1_1SystemContext.html", null ],
+    [ "_require_bus_in_system", "namespaceparser.html#a39dd231499813df1a4ab5cec0c23271b", null ],
+    [ "_rx_msg_names_unique", "namespaceparser.html#a7ae34e9906160780bae31c785075dc74", null ],
     [ "create_system_context", "namespaceparser.html#ac084676a30f9ea8eaec1ff9ca6509db5", null ],
     [ "load_bus_configs", "namespaceparser.html#ab5cd10e7b003490287356ed390368b65", null ],
     [ "load_custom_types", "namespaceparser.html#a93720c5cd2352c25b61ee5783cfe2096", null ],

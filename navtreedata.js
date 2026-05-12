@@ -222,8 +222,8 @@ var NAVTREEINDEX =
 "FreeRTOSConfig_8h_source.html",
 "dir_3b210a51bdfb7207c4ccc3bce16efa01.html",
 "md_docs_2setup.html#autotoc_md96",
-"phal__F4__F7_2usart_2usart_8h.html#a716a03068c8b5c1138c217cfd2c5e689",
-"struct____attribute____.html"
+"phal__F4__F7_2usart_2usart_8h.html#a2995d18679a10821577043876ac50825",
+"structSPI__InitConfig__t.html#accb8a2f6b9a30e8e5bdbb4d553d76fb6"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

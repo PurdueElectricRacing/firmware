@@ -149,9 +149,13 @@ Functions</h2></td></tr>
 <tr class="memitem:a9a84f6c450e5823a08458623f482a455" id="r_a9a84f6c450e5823a08458623f482a455"><td class="memItemLeft" align="right" valign="top"><a id="a9a84f6c450e5823a08458623f482a455" name="a9a84f6c450e5823a08458623f482a455"></a>
  '<a class="el" href="classparser_1_1Fault.html">Fault</a>'&#160;</td><td class="memItemRight" valign="bottom"><b>parse_fault</b> (Dict data)</td></tr>
 <tr class="separator:a9a84f6c450e5823a08458623f482a455"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26d21343c1fd337d4db4a4af469deb67" id="r_a26d21343c1fd337d4db4a4af469deb67"><td class="memItemLeft" align="right" valign="top"><a id="a26d21343c1fd337d4db4a4af469deb67" name="a26d21343c1fd337d4db4a4af469deb67"></a>
-<a class="el" href="classparser_1_1Bus.html">Bus</a>&#160;</td><td class="memItemRight" valign="bottom"><b>parse_bus</b> (str name, Dict data, Dict bus_configs)</td></tr>
-<tr class="separator:a26d21343c1fd337d4db4a4af469deb67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39dd231499813df1a4ab5cec0c23271b" id="r_a39dd231499813df1a4ab5cec0c23271b"><td class="memItemLeft" align="right" valign="top">Dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a39dd231499813df1a4ab5cec0c23271b">_require_bus_in_system</a> (str bus_name, Dict bus_configs, str where)</td></tr>
+<tr class="separator:a39dd231499813df1a4ab5cec0c23271b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ae34e9906160780bae31c785075dc74" id="r_a7ae34e9906160780bae31c785075dc74"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ae34e9906160780bae31c785075dc74">_rx_msg_names_unique</a> (str bus_name, List[Dict] rx_items)</td></tr>
+<tr class="separator:a7ae34e9906160780bae31c785075dc74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f7474996ca608c05656dc54d866c535" id="r_a3f7474996ca608c05656dc54d866c535"><td class="memItemLeft" align="right" valign="top"><a id="a3f7474996ca608c05656dc54d866c535" name="a3f7474996ca608c05656dc54d866c535"></a>
+<a class="el" href="classparser_1_1Bus.html">Bus</a>&#160;</td><td class="memItemRight" valign="bottom"><b>parse_bus</b> (str name, Dict data, Dict bus_configs, str where)</td></tr>
+<tr class="separator:a3f7474996ca608c05656dc54d866c535"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a743ba04b33afde3520fafb28f26d7da8" id="r_a743ba04b33afde3520fafb28f26d7da8"><td class="memItemLeft" align="right" valign="top"><a id="a743ba04b33afde3520fafb28f26d7da8" name="a743ba04b33afde3520fafb28f26d7da8"></a>
 <a class="el" href="classparser_1_1Node.html">Node</a>&#160;</td><td class="memItemRight" valign="bottom"><b>parse_internal_node</b> (Path filepath, Dict bus_configs)</td></tr>
 <tr class="separator:a743ba04b33afde3520fafb28f26d7da8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -164,6 +168,69 @@ Functions</h2></td></tr>
 
 Author: Irving Wang (irvingw@purdue.edu)
 </pre> </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a39dd231499813df1a4ab5cec0c23271b" name="a39dd231499813df1a4ab5cec0c23271b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39dd231499813df1a4ab5cec0c23271b">&#9670;&#160;</a></span>_require_bus_in_system()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Dict parser._require_bus_in_system </td>
+          <td>(</td>
+          <td class="paramtype">str</td>          <td class="paramname"><span class="paramname"><em>bus_name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Dict</td>          <td class="paramname"><span class="paramname"><em>bus_configs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str</td>          <td class="paramname"><span class="paramname"><em>where</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<pre class="fragment">Ensure bus_name exists in bus_configs.json so ID mode / baud / schema stay consistent.</pre> 
+</div>
+</div>
+<a id="a7ae34e9906160780bae31c785075dc74" name="a7ae34e9906160780bae31c785075dc74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ae34e9906160780bae31c785075dc74">&#9670;&#160;</a></span>_rx_msg_names_unique()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None parser._rx_msg_names_unique </td>
+          <td>(</td>
+          <td class="paramtype">str</td>          <td class="paramname"><span class="paramname"><em>bus_name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List[Dict]</td>          <td class="paramname"><span class="paramname"><em>rx_items</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<pre class="fragment">Reject duplicate msg_name in rx on the same bus (would break generated switch/cases).</pre> 
+</div>
+</div>
 <a id="ac084676a30f9ea8eaec1ff9ca6509db5" name="ac084676a30f9ea8eaec1ff9ca6509db5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac084676a30f9ea8eaec1ff9ca6509db5">&#9670;&#160;</a></span>create_system_context()</h2>
 

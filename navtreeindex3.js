@@ -1,5 +1,10 @@
 var NAVTREEINDEX3 =
 {
+"phal__F4__F7_2usart_2usart_8h.html#a2995d18679a10821577043876ac50825":[32,0,1,10,10,1,9],
+"phal__F4__F7_2usart_2usart_8h.html#a48a7696afd720294a514208cd96d1791":[32,0,1,10,10,1,12],
+"phal__F4__F7_2usart_2usart_8h.html#a55c4f79487a9ee75886ae1a2ccdeef27":[32,0,1,10,10,1,11],
+"phal__F4__F7_2usart_2usart_8h.html#a56f2d3e8345497a11cd895adddb063e3":[32,0,1,10,10,1,15],
+"phal__F4__F7_2usart_2usart_8h.html#a61341976b0cee71be1b6cf3bc17db4de":[32,0,1,10,10,1,17],
 "phal__F4__F7_2usart_2usart_8h.html#a716a03068c8b5c1138c217cfd2c5e689":[32,0,1,10,10,1,13],
 "phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2":[32,0,1,10,10,1,3],
 "phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a4e65306446c6c91076975dffc310218b":[32,0,1,10,10,1,3,3],
@@ -244,10 +249,5 @@ var NAVTREEINDEX3 =
 "structSPI__InitConfig__t.html#aaa9a3f6785303663045a517526a64da1":[31,0,78,11],
 "structSPI__InitConfig__t.html#aadfb91be77d4793f5dd8331b1c7e892d":[31,0,78,3],
 "structSPI__InitConfig__t.html#ab20a4701e255ce07d88bc24e16594566":[31,0,78,5],
-"structSPI__InitConfig__t.html#ac7b65af149334e39252e9d91e1d324ba":[31,0,78,8],
-"structSPI__InitConfig__t.html#accb8a2f6b9a30e8e5bdbb4d553d76fb6":[31,0,78,10],
-"structSPI__InitConfig__t.html#ad0862369c85d703198c28df1f085ad11":[31,0,78,6],
-"structSPI__InitConfig__t.html#ada152e2e047c6680d60ff8e66857b349":[31,0,78,2],
-"structSPI__InitConfig__t.html#ae82235e4faf01aa37ffcb212f626abc2":[31,0,78,7],
-"structSPMC__t.html":[31,0,79]
+"structSPI__InitConfig__t.html#ac7b65af149334e39252e9d91e1d324ba":[31,0,78,8]
 };

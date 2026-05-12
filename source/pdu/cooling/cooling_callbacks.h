@@ -1,3 +1,9 @@
+/**
+ * @file cooling_callbacks.h
+ * @brief callback functions for bang-bang control
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
 #ifndef COOLING_CALLBACKS_H
 #define COOLING_CALLBACKS_H
 

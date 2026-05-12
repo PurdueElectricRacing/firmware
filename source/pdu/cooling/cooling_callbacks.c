@@ -1,5 +1,11 @@
-
+/**
+ * @file cooling_callbacks.c
+ * @brief callback functions for bang-bang control
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
 #include "cooling_callbacks.h"
+
 #include "switches.h"
 
 void motor_pump_on(void) {

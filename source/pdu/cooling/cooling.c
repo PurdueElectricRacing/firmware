@@ -1,5 +1,5 @@
 /**
- * @file cooling.h
+ * @file cooling.c
  * @brief thermal control state machine implementation
  * 
  * @author Irving Wang (irvingw@purdue.edu)
@@ -34,16 +34,61 @@ static_assert(FAN_3_PWM_TIM == FAN_PWM_TIM);
 static_assert(FAN_4_PWM_TIM == FAN_PWM_TIM);
 
 // todo: decide thresholds
-INIT_BANG_BANG(motor_pump, 50.0f, 35.0f, motor_pump_on, motor_pump_off, 1000);
-INIT_BANG_BANG(inverter_pump, 50.0f, 35.0f, inverter_pump_on, inverter_pump_off, 1000);
-INIT_BANG_BANG(hx_fan, 50.0f, 35.0f, hx_fan_on, hx_fan_off, 1000);
-INIT_BANG_BANG(battery_fans, 50.0f, 35.0f, battery_fans_on, battery_fans_off, 1000);
+static constexpr float MOTOR_PUMP_UPPER_LIMIT = 50.0f;
+static constexpr float MOTOR_PUMP_LOWER_LIMIT = 35.0f;
+static constexpr uint32_t MOTOR_PUMP_HYSTERESIS = 1000;
+
+static constexpr float INVERTER_PUMP_UPPER_LIMIT = 50.0f;
+static constexpr float INVERTER_PUMP_LOWER_LIMIT = 35.0f;
+static constexpr uint32_t INVERTER_PUMP_HYSTERESIS = 1000;
+
+static constexpr float HX_FAN_UPPER_LIMIT = 50.0f;
+static constexpr float HX_FAN_LOWER_LIMIT = 35.0f;
+static constexpr uint32_t HX_FAN_HYSTERESIS = 1000;
+
+static constexpr float BATTERY_FAN_UPPER_LIMIT = 50.0f;
+static constexpr float BATTERY_FAN_LOWER_LIMIT = 35.0f;
+static constexpr uint32_t BATTERY_FAN_HYSTERESIS = 1000;
+
+INIT_BANG_BANG(
+    motor_pump,
+    MOTOR_PUMP_UPPER_LIMIT,
+    MOTOR_PUMP_LOWER_LIMIT,
+    motor_pump_on,
+    motor_pump_off,
+    MOTOR_PUMP_HYSTERESIS
+);
+INIT_BANG_BANG(
+    inverter_pump,
+    INVERTER_PUMP_UPPER_LIMIT,
+    INVERTER_PUMP_LOWER_LIMIT,
+    inverter_pump_on,
+    inverter_pump_off,
+    INVERTER_PUMP_HYSTERESIS
+);
+INIT_BANG_BANG(
+    hx_fan,
+    HX_FAN_UPPER_LIMIT,
+    HX_FAN_LOWER_LIMIT,
+    hx_fan_on,
+    hx_fan_off,
+    HX_FAN_HYSTERESIS
+);
+INIT_BANG_BANG(
+    battery_fans,
+    BATTERY_FAN_UPPER_LIMIT,
+    BATTERY_FAN_LOWER_LIMIT,
+    battery_fans_on,
+    battery_fans_off,
+    BATTERY_FAN_HYSTERESIS
+);
 
 static inline void auto_periodic(void) {
     uint32_t now = xTaskGetTickCount();
     
     if (can_data.motor_temps.is_stale()) {
-        motor_pump_on();
+        // force on
+        bangbang_update(&motor_pump, MOTOR_PUMP_UPPER_LIMIT + 1, now);
     } else {
         int16_t max_motor_temp = MAXOF(
             can_data.motor_temps.front_right,
@@ -57,7 +102,8 @@ static inline void auto_periodic(void) {
     }
 
     if (can_data.igbt_temps.is_stale()) {
-        inverter_pump_on();
+        // force on
+        bangbang_update(&inverter_pump, INVERTER_PUMP_UPPER_LIMIT + 1, now);
     } else {
         int16_t max_igbt_temp = MAXOF(
             can_data.igbt_temps.front_right,
@@ -71,11 +117,16 @@ static inline void auto_periodic(void) {
     }
 
     if (can_data.pack_stats.is_stale()) {
-        battery_fans_on();
+        // force on
+        bangbang_update(&battery_fans, BATTERY_FAN_UPPER_LIMIT + 1, now);
     } else {
         int16_t avg_temp = can_data.pack_stats.avg_temp;
         bangbang_update(&battery_fans, avg_temp, now);
     }
+
+    // todo: read water temps
+    // force on
+    bangbang_update(&hx_fan, HX_FAN_UPPER_LIMIT + 1, now);
 }
 
 void cooling_fsm_periodic(void) {
@@ -84,13 +135,12 @@ void cooling_fsm_periodic(void) {
 
     switch (cooling_state) {
         case COOLING_STATE_INIT:
-            // set the PWMS to full
-            PHAL_PWMsetPercent(FAN_1_PWM_TIM, FAN_1_PWM_TIM_CH, 95);
-            PHAL_PWMsetPercent(FAN_2_PWM_TIM, FAN_2_PWM_TIM_CH, 95);
-            PHAL_PWMsetPercent(FAN_3_PWM_TIM, FAN_3_PWM_TIM_CH, 95);
-            PHAL_PWMsetPercent(FAN_4_PWM_TIM, FAN_4_PWM_TIM_CH, 95);
-
             if (PHAL_initPWM(PWM_FREQUENCY_HZ, FAN_PWM_TIM, NUM_BATTERY_FANS)) {
+                // set the PWMS to full
+                PHAL_PWMsetPercent(FAN_1_PWM_TIM, FAN_1_PWM_TIM_CH, 95);
+                PHAL_PWMsetPercent(FAN_2_PWM_TIM, FAN_2_PWM_TIM_CH, 95);
+                PHAL_PWMsetPercent(FAN_3_PWM_TIM, FAN_3_PWM_TIM_CH, 95);
+                PHAL_PWMsetPercent(FAN_4_PWM_TIM, FAN_4_PWM_TIM_CH, 95);
                 next_cooling_state = COOLING_STATE_AUTO;
             }
             break;

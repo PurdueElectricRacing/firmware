@@ -9,8 +9,9 @@
 
 #include "main.h"
 
-#include "can_library/generated/PDU.h"
+// Library includes
 #include "can_library/faults_common.h"
+#include "can_library/generated/PDU.h"
 #include "common/freertos/freertos.h"
 #include "common/heartbeat/heartbeat.h"
 #include "common/phal/adc.h"
@@ -21,7 +22,8 @@
 #include "common/utils/countof.h"
 #include "common/watchdog/watchdog.h"
 
-#include "cooling.h"
+// Module includes
+#include "cooling_fsm.h"
 #include "faults.h"
 #include "flow_rate.h"
 #include "led.h"

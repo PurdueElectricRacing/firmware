@@ -4,6 +4,7 @@
  * 
  * @author Irving Wang (irvingw@purdue.edu)
  */
+
 #include "cooling_callbacks.h"
 
 #include "switches.h"

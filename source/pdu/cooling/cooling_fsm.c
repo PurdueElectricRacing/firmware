@@ -5,7 +5,7 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#include "cooling.h"
+#include "cooling_fsm.h"
 
 #include "can_library/generated/PDU.h"
 #include "common/bangbang/bangbang.h"

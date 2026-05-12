@@ -13,7 +13,7 @@
 #include "can_library/generated/can_types.h"
 
 static constexpr uint16_t MAX_PACK_CHARGING_VOLTS = 540;
-static constexpr uint16_t MAX_PACK_CHARGING_AMPS = 10;
+static constexpr uint16_t MAX_PACK_CHARGING_AMPS = 20;
 
 charging_state_t charging_state = CHARGING_STATE_IDLE;
 charging_state_t next_charging_state = CHARGING_STATE_IDLE;

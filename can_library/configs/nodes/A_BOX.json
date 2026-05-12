@@ -298,7 +298,7 @@
         },
         {
             "fault_name": "PACK_FULL",
-            "max": 520,
+            "max": 537,
             "min": 0,
             "priority": "warning",
             "time_to_latch": 10000,

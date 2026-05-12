@@ -109,8 +109,8 @@ extern uint32_t PLLClockRateHz;
 adbms_bms_t g_bms                              = {0};
 uint8_t g_bms_tx_buf[ADBMS_SPI_TX_BUFFER_SIZE] = {0};
 
-static constexpr float MIN_V_FOR_BALANCE     = 3.0f;
-static constexpr float MIN_DELTA_FOR_BALANCE = 0.1f;
+static constexpr float MIN_V_FOR_BALANCE     = 3.2f; // hardstop to prevent cell drain
+static constexpr float MIN_DELTA_FOR_BALANCE = 0.05f; // ~3% diff
 
 extern void HardFault_Handler(void);
 void bms_task(void);

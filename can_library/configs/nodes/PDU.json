@@ -5,6 +5,17 @@
             "peripheral": "CAN1",
             "tx": [
                 {
+                    "msg_name": "pdu_CSR",
+                    "msg_desc": "PDU RCC CSR register",
+                    "signals": [
+                        {
+                            "sig_name": "val",
+                            "type": "uint32_t"
+                        }
+                    ],
+                    "msg_priority": 0
+                },
+                {
                     "msg_name": "v_rails",
                     "msg_desc": "PDU voltage rail readings",
                     "signals": [

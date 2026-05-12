@@ -15,11 +15,11 @@
 #error "unsupported watchdog arch"
 #endif
 
-volatile uint32_t CSR_val = 0;
+volatile uint32_t saved_CSR = 0;
 
 void WDG_init(void) {
     // save and reset CSR
-    CSR_val = RCC->CSR;
+    saved_CSR = RCC->CSR;
     RCC->CSR |= RCC_CSR_RMVF;
 
     // pause the watchdog during debugging

@@ -308,6 +308,7 @@ int main() {
     osKernelInitialize();
 
     START_CAN_TASKS();
+    CAN_SEND_pdu_CSR(saved_CSR);
     START_TASK(switches_periodic);
     START_TASK(cooling_periodic);
     START_TASK(LED_periodic);

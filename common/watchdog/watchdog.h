@@ -11,7 +11,7 @@
 #include <stdint.h>
 #include "common/freertos/freertos.h"
 
-extern volatile uint32_t CSR_val;
+extern volatile uint32_t saved_CSR;
 
 void WDG_init(void);
 void WDG_pet(void);

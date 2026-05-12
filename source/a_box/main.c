@@ -166,6 +166,7 @@ int main(void) {
     osKernelInitialize();
 
     START_CAN_TASKS();
+    CAN_SEND_abox_CSR(saved_CSR);
     START_TASK(bms_task);
     START_TASK(fault_library_periodic);
     START_TASK(report_telemetry_100hz);

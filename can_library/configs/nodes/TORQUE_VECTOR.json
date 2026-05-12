@@ -5,6 +5,17 @@
             "peripheral": "FDCAN2",
             "tx": [
                 {
+                    "msg_name": "tv_CSR",
+                    "msg_desc": "Torque Vectoring RCC CSR register",
+                    "signals": [
+                        {
+                            "sig_name": "val",
+                            "type": "uint32_t"
+                        }
+                    ],
+                    "msg_priority": 0
+                },
+                {
                     "msg_name": "gps_velocity",
                     "msg_desc": "gps velocity",
                     "signals": [

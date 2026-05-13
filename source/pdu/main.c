@@ -271,6 +271,7 @@ int main() {
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
+    WDG_init();
     if (!PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
@@ -307,6 +308,7 @@ int main() {
     osKernelInitialize();
 
     START_CAN_TASKS();
+    CAN_SEND_pdu_init(WDG_get_CSR());
     START_TASK(switches_periodic);
     START_TASK(cooling_periodic);
     START_TASK(LED_periodic);

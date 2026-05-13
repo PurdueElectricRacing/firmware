@@ -131,6 +131,7 @@ int main(void) {
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
+    WDG_init();
     if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
@@ -165,6 +166,7 @@ int main(void) {
     osKernelInitialize();
 
     START_CAN_TASKS();
+    CAN_SEND_abox_init(WDG_get_CSR());
     START_TASK(bms_task);
     START_TASK(fault_library_periodic);
     START_TASK(report_telemetry_100hz);

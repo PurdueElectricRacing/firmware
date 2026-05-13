@@ -5,6 +5,18 @@
             "peripheral": "FDCAN1",
             "tx": [
                 {
+                    "msg_name": "abox_init",
+                    "msg_desc": "ABOX hardware initialized",
+                    "signals": [
+                        {
+                            "sig_name": "csr",
+                            "sig_desc": "RCC CSR register",
+                            "type": "uint32_t"
+                        }
+                    ],
+                    "msg_priority": 0
+                },
+                {
                     "msg_name": "pack_stats",
                     "msg_desc": "Pack voltage, current, and temperature",
                     "signals": [

@@ -165,6 +165,7 @@ int main(void) {
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
+    WDG_init();
     if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
@@ -212,6 +213,7 @@ int main(void) {
     osKernelInitialize();
 
     START_CAN_TASKS();
+    SEND_INIT(WDG_get_CSR());
     START_TASK(shockpot_thread);
     START_TASK(oil_temps_thread);
     START_WATCHDOG_TASK();

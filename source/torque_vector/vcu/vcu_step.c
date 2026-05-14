@@ -5,7 +5,7 @@
  * File: vcu_step.c
  *
  * MATLAB Coder version            : 24.1
- * C/C++ source code generated on  : 09-May-2026 16:02:55
+ * C/C++ source code generated on  : 13-May-2026 12:36:13
  */
 
 /* Include Files */
@@ -543,16 +543,15 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
   /*  switch between power and regen depending on throttle */
   /* 'vcu_step:22' if y.TH > 0 */
   if (y->TH > 0.0F) {
-    float varargin_1[28];
+    float varargin_1[24];
     float PB_derate_front;
     float PB_derate_rear;
     float PB_snipped;
-    float b;
-    float c_b;
-    float e_b;
-    float g_b;
-    float i_b;
-    float k_b;
+    float b_b;
+    float d_b;
+    float f_b;
+    float h_b;
+    float j_b;
     float out;
     /*  baseline power torque */
     /*  torque limit after current, power, thermal derating */
@@ -599,156 +598,144 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
      * PB_derate_rear, PB_derate_rear]; */
     /*  Inverter temp safetey derating - derate all motors based on highest
      * inverter temp */
-    /* 'get_BL_PO:26' INV_T_snipped = snip(y.INV_T, p.INV_T_derating_full_T,
+    /*  removed, IGBT is hottest part, only derate to it */
+    /*  INV_T_snipped = snip(y.INV_T, p.INV_T_derating_full_T,
      * p.INV_T_derating_zero_T); */
-    /* SNIP code generation compatible version of 'clip()' */
-    /*    clips 'value' to be between lower bound 'LB' and upper bound 'UB' */
-    /* 'snip:4' clipped = max(min(value, UB), LB); */
-    /* 'get_BL_PO:27' INV_T_derate = [1 1 1 1] *
-     * interp1([p.INV_T_derating_full_T, p.INV_T_derating_zero_T], [1,0],
-     * INV_T_snipped); */
-    b_p[0] = p->INV_T_derating_full_T;
-    b_p[1] = p->INV_T_derating_zero_T;
-    fv[0] = 1.0F;
-    fv[1] = 0.0F;
-    b = interp1(b_p, fv,
-                fmaxf(fminf(x->INV_T_RAW, p->INV_T_derating_zero_T),
-                      p->INV_T_derating_full_T));
+    /*  INV_T_derate = [1 1 1 1] * interp1([p.INV_T_derating_full_T,
+     * p.INV_T_derating_zero_T], [1,0], INV_T_snipped); */
     /*  IGBT temp safety derating - derate all motors based on highest IGBT temp
      */
-    /* 'get_BL_PO:30' IGBT_T_snipped = snip(y.IGBT_T, p.IGBT_T_derating_full_T,
+    /* 'get_BL_PO:31' IGBT_T_snipped = snip(y.IGBT_T, p.IGBT_T_derating_full_T,
      * p.IGBT_T_derating_zero_T); */
     /* SNIP code generation compatible version of 'clip()' */
     /*    clips 'value' to be between lower bound 'LB' and upper bound 'UB' */
     /* 'snip:4' clipped = max(min(value, UB), LB); */
-    /* 'get_BL_PO:31' IGBT_T_derate = [1 1 1 1] *
+    /* 'get_BL_PO:32' IGBT_T_derate = [1 1 1 1] *
      * interp1([p.IGBT_T_derating_full_T, p.IGBT_T_derating_zero_T], [1,0],
      * IGBT_T_snipped); */
     b_p[0] = p->IGBT_T_derating_full_T;
     b_p[1] = p->IGBT_T_derating_zero_T;
     fv[0] = 1.0F;
     fv[1] = 0.0F;
-    c_b = interp1(b_p, fv,
+    b_b = interp1(b_p, fv,
                   fmaxf(fminf(x->IGBT_T_RAW, p->IGBT_T_derating_zero_T),
                         p->IGBT_T_derating_full_T));
     /*  Motor temp safetey derating - derate all motors based on highest motor
      * temp */
-    /* 'get_BL_PO:34' MT_snipped = snip(y.MT, p.MT_derating_full_T,
+    /* 'get_BL_PO:35' MT_snipped = snip(y.MT, p.MT_derating_full_T,
      * p.MT_derating_zero_T); */
     /* SNIP code generation compatible version of 'clip()' */
     /*    clips 'value' to be between lower bound 'LB' and upper bound 'UB' */
     /* 'snip:4' clipped = max(min(value, UB), LB); */
-    /* 'get_BL_PO:35' MT_derate = [1 1 1 1] * interp1([p.MT_derating_full_T,
+    /* 'get_BL_PO:36' MT_derate = [1 1 1 1] * interp1([p.MT_derating_full_T,
      * p.MT_derating_zero_T], [1,0], MT_snipped); */
     b_p[0] = p->MT_derating_full_T;
     b_p[1] = p->MT_derating_zero_T;
     fv[0] = 1.0F;
     fv[1] = 0.0F;
-    e_b = interp1(
+    d_b = interp1(
         b_p, fv,
         fmaxf(fminf(x->MT_RAW, p->MT_derating_zero_T), p->MT_derating_full_T));
     /*  Battery temp safety derating - derate all motors based on highest cell
      * temp */
-    /* 'get_BL_PO:38' BT_snipped = snip(y.BT, p.BT_derating_full_T,
+    /* 'get_BL_PO:39' BT_snipped = snip(y.BT, p.BT_derating_full_T,
      * p.BT_derating_zero_T); */
     /* SNIP code generation compatible version of 'clip()' */
     /*    clips 'value' to be between lower bound 'LB' and upper bound 'UB' */
     /* 'snip:4' clipped = max(min(value, UB), LB); */
-    /* 'get_BL_PO:39' BT_derate = [1 1 1 1] * interp1([p.BT_derating_full_T,
+    /* 'get_BL_PO:40' BT_derate = [1 1 1 1] * interp1([p.BT_derating_full_T,
      * p.BT_derating_zero_T], [1,0], BT_snipped); */
     b_p[0] = p->BT_derating_full_T;
     b_p[1] = p->BT_derating_zero_T;
     fv[0] = 1.0F;
     fv[1] = 0.0F;
-    g_b = interp1(
+    f_b = interp1(
         b_p, fv,
         fmaxf(fminf(x->BT_RAW, p->BT_derating_zero_T), p->BT_derating_full_T));
     /*  Battery undervoltage safety derating */
-    /* 'get_BL_PO:42' VB_snipped = snip(y.VB, p.VB_derating_full_T,
+    /* 'get_BL_PO:43' VB_snipped = snip(y.VB, p.VB_derating_full_T,
      * p.VB_derating_zero_T); */
     /* SNIP code generation compatible version of 'clip()' */
     /*    clips 'value' to be between lower bound 'LB' and upper bound 'UB' */
     /* 'snip:4' clipped = max(min(value, UB), LB); */
-    /* 'get_BL_PO:43' VB_derate = [1 1 1 1] * interp1([p.VB_derating_full_T,
+    /* 'get_BL_PO:44' VB_derate = [1 1 1 1] * interp1([p.VB_derating_full_T,
      * p.VB_derating_zero_T], [1,0], VB_snipped); */
     b_p[0] = p->VB_derating_full_T;
     b_p[1] = p->VB_derating_zero_T;
     fv[0] = 1.0F;
     fv[1] = 0.0F;
-    i_b = interp1(
+    h_b = interp1(
         b_p, fv,
         fmaxf(fminf(x->VB_RAW, p->VB_derating_zero_T), p->VB_derating_full_T));
     /*  Battery current safety derating */
-    /* 'get_BL_PO:46' IB_snipped = snip(y.IB_AVG, p.IB_derating_full_T,
+    /* 'get_BL_PO:47' IB_snipped = snip(y.IB_AVG, p.IB_derating_full_T,
      * p.IB_derating_zero_T); */
     /* SNIP code generation compatible version of 'clip()' */
     /*    clips 'value' to be between lower bound 'LB' and upper bound 'UB' */
     /* 'snip:4' clipped = max(min(value, UB), LB); */
-    /* 'get_BL_PO:47' IB_derate = [1 1 1 1] * interp1([p.IB_derating_full_T,
+    /* 'get_BL_PO:48' IB_derate = [1 1 1 1] * interp1([p.IB_derating_full_T,
      * p.IB_derating_zero_T], [1,0], IB_snipped); */
     b_p[0] = p->IB_derating_full_T;
     b_p[1] = p->IB_derating_zero_T;
     fv[0] = 1.0F;
     fv[1] = 0.0F;
-    k_b = interp1(
+    j_b = interp1(
         b_p, fv,
         fmaxf(fminf(y->IB_AVG, p->IB_derating_zero_T), p->IB_derating_full_T));
     /*  Overloading */
-    /* 'get_BL_PO:50' OV_MOT_snipped = snip(y.OV_MOT, p.OV_MOT_derating_full_T,
+    /* 'get_BL_PO:51' OV_MOT_snipped = snip(y.OV_MOT, p.OV_MOT_derating_full_T,
      * p.OV_MOT_derating_zero_T); */
     /* SNIP code generation compatible version of 'clip()' */
     /*    clips 'value' to be between lower bound 'LB' and upper bound 'UB' */
     /* 'snip:4' clipped = max(min(value, UB), LB); */
-    /* 'get_BL_PO:51' OV_MOT_derate = interp1([p.OV_MOT_derating_full_T,
+    /* 'get_BL_PO:52' OV_MOT_derate = interp1([p.OV_MOT_derating_full_T,
      * p.OV_MOT_derating_zero_T], [1,0], OV_MOT_snipped); */
     /*  Overloading */
-    /* 'get_BL_PO:54' OV_INV_snipped = snip(y.OV_INV, p.OV_INV_derating_full_T,
+    /* 'get_BL_PO:55' OV_INV_snipped = snip(y.OV_INV, p.OV_INV_derating_full_T,
      * p.OV_INV_derating_zero_T); */
     /* SNIP code generation compatible version of 'clip()' */
     /*    clips 'value' to be between lower bound 'LB' and upper bound 'UB' */
     /* 'snip:4' clipped = max(min(value, UB), LB); */
-    /* 'get_BL_PO:55' OV_INV_derate = interp1([p.OV_INV_derating_full_T,
+    /* 'get_BL_PO:56' OV_INV_derate = interp1([p.OV_INV_derating_full_T,
      * p.OV_INV_derating_zero_T], [1,0], OV_INV_snipped); */
     /*  combine derating, multiply by abs max torque to get maximum torque
      * allowed */
-    /* 'get_BL_PO:58' TO_DR_MAX = p.MAX_TO_ABS_PO * min([PB_derate;
-     * INV_T_derate; IGBT_T_derate; MT_derate; BT_derate; VB_derate; IB_derate],
-     * [], 1); */
+    /* 'get_BL_PO:59' TO_DR_MAX = p.MAX_TO_ABS_PO * min([PB_derate;
+     * IGBT_T_derate; MT_derate; BT_derate; VB_derate; IB_derate], [], 1); */
     varargin_1[0] = PB_derate_front;
-    varargin_1[7] = PB_derate_front;
-    varargin_1[14] = PB_derate_rear;
-    varargin_1[21] = PB_derate_rear;
+    varargin_1[6] = PB_derate_front;
+    varargin_1[12] = PB_derate_rear;
+    varargin_1[18] = PB_derate_rear;
     /*  TO_OV_MAX = p.MAX_TO_ABS_PO * min([OV_MOT_derate; OV_INV_derate], [],
      * 1); */
     /*  compute overall maximum torque */
     /*  y.TO_BL_PO = min([TO_ET_PO; TO_DR_MAX; TO_OV_MAX], [], 1); */
-    /* 'get_BL_PO:63' y.TO_BL_PO = min([TO_ET_PO; TO_DR_MAX], [], 1); */
-    for (b_j = 0; b_j < 4; b_j++) {
+    /* 'get_BL_PO:64' y.TO_BL_PO = min([TO_ET_PO; TO_DR_MAX], [], 1); */
+    for (j = 0; j < 4; j++) {
       float f;
-      float f2;
-      float f6;
-      varargin_1[7 * b_j + 1] = b;
-      varargin_1[7 * b_j + 2] = c_b;
-      varargin_1[7 * b_j + 3] = e_b;
-      varargin_1[7 * b_j + 4] = g_b;
-      varargin_1[7 * b_j + 5] = i_b;
-      varargin_1[7 * b_j + 6] = k_b;
-      f = varargin_1[7 * b_j];
-      for (b_i = 0; b_i < 6; b_i++) {
-        float f3;
-        f3 = varargin_1[(b_i + 7 * b_j) + 1];
-        if (f > f3) {
-          f = f3;
+      float f1;
+      float f3;
+      varargin_1[6 * j + 1] = b_b;
+      varargin_1[6 * j + 2] = d_b;
+      varargin_1[6 * j + 3] = f_b;
+      varargin_1[6 * j + 4] = h_b;
+      varargin_1[6 * j + 5] = j_b;
+      f = varargin_1[6 * j];
+      for (b_i = 0; b_i < 5; b_i++) {
+        float f2;
+        f2 = varargin_1[(b_i + 6 * j) + 1];
+        if (f > f2) {
+          f = f2;
         }
       }
-      f2 = p->MAX_TO_ABS_PO * f;
-      f6 = out;
-      y->TORQUE_LIM_POS[b_j] = out;
-      if (out > f2) {
-        f6 = f2;
-        y->TORQUE_LIM_POS[b_j] = f2;
+      f1 = p->MAX_TO_ABS_PO * f;
+      f3 = out;
+      y->TORQUE_LIM_POS[j] = out;
+      if (out > f1) {
+        f3 = f1;
+        y->TORQUE_LIM_POS[j] = f1;
       }
-      y->TO_BL_PO[b_j] = f6;
+      y->TO_BL_PO[j] = f3;
     }
     /* 'vcu_step:27' if y.VCU_MODE == 0 */
     if (y->VCU_MODE == 0.0F) {
@@ -1078,8 +1065,8 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
         /*  RR */
         /* 'rescale_torque:50' if TO_in(4) ~= 0 */
         if (SK_TO_DES_idx_3 != 0.0F) {
-          int m_k;
-          bool n_out;
+          int l_k;
+          bool m_out;
           /* 'rescale_torque:51' scale = TO_max(4) / TO_in(4); */
           b_scale = y->TORQUE_LIM_POS[3] / SK_TO_DES_idx_3;
           /* 'rescale_torque:52' TO_scaled = TO_in * scale; */
@@ -1088,18 +1075,18 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
           TO_scaled[2] = SK_TO_DES_idx_2 * b_scale;
           TO_scaled[3] = SK_TO_DES_idx_3 * b_scale;
           /* 'rescale_torque:53' if all(TO_scaled <= TO_max) */
-          n_out = true;
-          m_k = 0;
+          m_out = true;
+          l_k = 0;
           exitg1 = false;
-          while ((!exitg1) && (m_k < 4)) {
-            if (TO_scaled[m_k] > y->TORQUE_LIM_POS[m_k]) {
-              n_out = false;
+          while ((!exitg1) && (l_k < 4)) {
+            if (TO_scaled[l_k] > y->TORQUE_LIM_POS[l_k]) {
+              m_out = false;
               exitg1 = true;
             } else {
-              m_k++;
+              l_k++;
             }
           }
-          if (n_out) {
+          if (m_out) {
             /* 'rescale_torque:54' best_scale = max(best_scale, scale); */
             b_best_scale = fmaxf(b_best_scale, b_scale);
           }
@@ -1158,9 +1145,9 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
       float k_varargin_1_tmp;
       float l_varargin_1_tmp;
       int AX_YAW_des_tmp;
-      int e_k;
+      int f_k;
       bool exitg1;
-      bool f_out;
+      bool g_out;
       /* 'vcu_step:50' elseif y.VCU_MODE == 3 */
       /*  auto-x event controller */
       /* 'vcu_step:51' y = get_AUTOX(p, y); */
@@ -1216,51 +1203,60 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
       /* SNIP code generation compatible version of 'clip()' */
       /*    clips 'value' to be between lower bound 'LB' and upper bound 'UB' */
       /* 'snip:4' clipped = max(min(value, UB), LB); */
-      /* 'get_AUTOX:29' AX_LR_split_des = sign(y.ST) .*
-       * interp2(p.AX_TV_split_ST_brkpt, p.AX_TV_split_GS_brkpt,
-       * p.AX_TV_split_table, ST_lookup_split, GS_lookup_split); */
+      /* 'get_AUTOX:29' AX_LR_split_half = interp2(p.AX_TV_split_ST_brkpt,
+       * p.AX_TV_split_GS_brkpt, p.AX_TV_split_table, ST_lookup_split,
+       * GS_lookup_split); */
+      /* 'get_AUTOX:30' AX_LR_split_LUT_scale = snip(p.AX_LR_split_LUT_max -
+       * 0.5, 0, 0.5); */
+      /* SNIP code generation compatible version of 'clip()' */
+      /*    clips 'value' to be between lower bound 'LB' and upper bound 'UB' */
+      /* 'snip:4' clipped = max(min(value, UB), LB); */
+      /* 'get_AUTOX:31' AX_LR_split_des = 0.5 + sign(y.ST) * AX_LR_split_half *
+       * AX_LR_split_LUT_scale; */
       /*  proportional control on LR split based on error */
       /*  multiply yaw rate error by gain and control force */
-      /* 'get_AUTOX:33' LR_split_raw = AX_LR_split_des + err * p.AX_LR_gain; */
-      /* 'get_AUTOX:34' LR_split_snipped = snip(LR_split_raw, p.AX_LR_split_lb,
-       * p.AX_LR_split_lb); */
+      /* 'get_AUTOX:35' LR_split_raw = AX_LR_split_des + err * p.AX_LR_gain; */
+      /* 'get_AUTOX:36' LR_split_snipped = snip(LR_split_raw, p.AX_LR_split_lb,
+       * p.AX_LR_split_ub); */
       /* SNIP code generation compatible version of 'clip()' */
       /*    clips 'value' to be between lower bound 'LB' and upper bound 'UB' */
       /* 'snip:4' clipped = max(min(value, UB), LB); */
       /*  limit split to reasonable level */
-      /* 'get_AUTOX:35' LR_split = (1 - control_force) * 0.5 + (control_force) *
+      /* 'get_AUTOX:37' LR_split = (1 - control_force) * 0.5 + (control_force) *
        * LR_split_snipped; */
       c_LR =
           (1.0F - y->AX_LR_control_force) * 0.5F +
           y->AX_LR_control_force *
               fmaxf(
-                  fminf(
-                      (float)AX_YAW_des_tmp *
-                              interp2(p->AX_TV_split_ST_brkpt,
-                                      p->AX_TV_split_GS_brkpt,
-                                      p->AX_TV_split_table,
-                                      fmaxf(fminf(ST_lookup_yaw_tmp,
-                                                  p->AX_TV_split_ST_brkpt[26]),
-                                            p->AX_TV_split_ST_brkpt[0]),
-                                      fmaxf(fminf(fabsf(x->GS_RAW),
-                                                  p->AX_TV_split_GS_brkpt[50]),
-                                            p->AX_TV_split_GS_brkpt[0])) +
-                          ((float)AX_YAW_des_tmp *
-                               interp2(p->AX_TV_yaw_ST_brkpt,
-                                       p->AX_TV_yaw_GS_brkpt,
-                                       p->AX_TV_yaw_table,
-                                       fmaxf(fminf(ST_lookup_yaw_tmp,
-                                                   p->AX_TV_yaw_ST_brkpt[26]),
-                                             p->AX_TV_yaw_ST_brkpt[0]),
-                                       fmaxf(fminf(x->GS_RAW,
-                                                   p->AX_TV_yaw_GS_brkpt[50]),
-                                             p->AX_TV_yaw_GS_brkpt[0])) -
-                           (-x->AV_RAW[2])) *
-                              p->AX_LR_gain,
-                      p->AX_LR_split_lb),
+                  fminf(((float)AX_YAW_des_tmp *
+                             interp2(p->AX_TV_split_ST_brkpt,
+                                     p->AX_TV_split_GS_brkpt,
+                                     p->AX_TV_split_table,
+                                     fmaxf(fminf(ST_lookup_yaw_tmp,
+                                                 p->AX_TV_split_ST_brkpt[26]),
+                                           p->AX_TV_split_ST_brkpt[0]),
+                                     fmaxf(fminf(fabsf(x->GS_RAW),
+                                                 p->AX_TV_split_GS_brkpt[50]),
+                                           p->AX_TV_split_GS_brkpt[0])) *
+                             fmaxf(fminf(p->AX_LR_split_LUT_max - 0.5F, 0.5F),
+                                   0.0F) +
+                         0.5F) +
+                            ((float)AX_YAW_des_tmp *
+                                 interp2(p->AX_TV_yaw_ST_brkpt,
+                                         p->AX_TV_yaw_GS_brkpt,
+                                         p->AX_TV_yaw_table,
+                                         fmaxf(fminf(ST_lookup_yaw_tmp,
+                                                     p->AX_TV_yaw_ST_brkpt[26]),
+                                               p->AX_TV_yaw_ST_brkpt[0]),
+                                         fmaxf(fminf(x->GS_RAW,
+                                                     p->AX_TV_yaw_GS_brkpt[50]),
+                                               p->AX_TV_yaw_GS_brkpt[0])) -
+                             (-x->AV_RAW[2])) *
+                                p->AX_LR_gain,
+                        p->AX_LR_split_ub),
                   p->AX_LR_split_lb);
       /*  convert FR, LR split to torques */
-      /* 'get_AUTOX:39' AX_TO_DES = split2torque(y.AX_FR_split, LR_split) .*
+      /* 'get_AUTOX:41' AX_TO_DES = split2torque(y.AX_FR_split, LR_split) .*
        * y.TH_PO .* p.MAX_TO_ABS_PO; */
       /*  Function Description */
       /*  This function computes the four individual torques given a Front:Rear
@@ -1299,7 +1295,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
       AX_TO_DES_idx_2 = k_varargin_1_tmp / d_ex * value_tmp * p->MAX_TO_ABS_PO;
       AX_TO_DES_idx_3 = l_varargin_1_tmp / d_ex * value_tmp * p->MAX_TO_ABS_PO;
       /*  make sure torques do not violate rules or safety derating */
-      /* 'get_AUTOX:42' y.AX_TO = rescale_torque(AX_TO_DES, y.TO_BL_PO); */
+      /* 'get_AUTOX:44' y.AX_TO = rescale_torque(AX_TO_DES, y.TO_BL_PO); */
       /*  if any torque limit is 0, return 0 torque */
       /*  Function Description */
       /*  Takes a set of torques and torque limits, rescales given torques */
@@ -1316,18 +1312,18 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
       /*        exceeds its corresponding torque in TO_lim, and at least one */
       /*        torque in TO_split is equal to its corresponding TO_lim */
       /* 'rescale_torque:16' if any(TO_max == 0) */
-      f_out = false;
-      e_k = 0;
+      g_out = false;
+      f_k = 0;
       exitg1 = false;
-      while ((!exitg1) && (e_k < 4)) {
-        if (y->TORQUE_LIM_POS[e_k] == 0.0F) {
-          f_out = true;
+      while ((!exitg1) && (f_k < 4)) {
+        if (y->TORQUE_LIM_POS[f_k] == 0.0F) {
+          g_out = true;
           exitg1 = true;
         } else {
-          e_k++;
+          f_k++;
         }
       }
-      if (f_out) {
+      if (g_out) {
         /* 'rescale_torque:17' TO_maxed = [0 0 0 0]; */
         y->AX_TO[0] = 0.0F;
         y->AX_TO[1] = 0.0F;
@@ -1346,8 +1342,8 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
         /*  FL */
         /* 'rescale_torque:26' if TO_in(1) ~= 0 */
         if (AX_TO_DES_idx_0 != 0.0F) {
-          int l_k;
-          bool m_out;
+          int m_k;
+          bool n_out;
           /* 'rescale_torque:27' scale = TO_max(1) / TO_in(1); */
           c_scale = y->TORQUE_LIM_POS[0] / AX_TO_DES_idx_0;
           /* 'rescale_torque:28' TO_scaled = TO_in * scale; */
@@ -1356,18 +1352,18 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
           TO_scaled[2] = AX_TO_DES_idx_2 * c_scale;
           TO_scaled[3] = AX_TO_DES_idx_3 * c_scale;
           /* 'rescale_torque:29' if all(TO_scaled <= TO_max) */
-          m_out = true;
-          l_k = 0;
+          n_out = true;
+          m_k = 0;
           exitg1 = false;
-          while ((!exitg1) && (l_k < 4)) {
-            if (TO_scaled[l_k] > y->TORQUE_LIM_POS[l_k]) {
-              m_out = false;
+          while ((!exitg1) && (m_k < 4)) {
+            if (TO_scaled[m_k] > y->TORQUE_LIM_POS[m_k]) {
+              n_out = false;
               exitg1 = true;
             } else {
-              l_k++;
+              m_k++;
             }
           }
-          if (m_out) {
+          if (n_out) {
             /* 'rescale_torque:30' best_scale = max(best_scale, scale); */
             c_best_scale = fmaxf(0.0F, c_scale);
           }
@@ -1694,8 +1690,8 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
         /*  FR */
         /* 'rescale_torque:34' if TO_in(2) ~= 0 */
         if (TS_TO_des_idx_1 != 0.0F) {
-          int f_k;
-          bool g_out;
+          int e_k;
+          bool f_out;
           /* 'rescale_torque:35' scale = TO_max(2) / TO_in(2); */
           scale = y->TORQUE_LIM_POS[1] / TS_TO_des_idx_1;
           /* 'rescale_torque:36' TO_scaled = TO_in * scale; */
@@ -1704,18 +1700,18 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
           TO_scaled[2] = TS_TO_des_idx_2 * scale;
           TO_scaled[3] = TS_TO_des_idx_3 * scale;
           /* 'rescale_torque:37' if all(TO_scaled <= TO_max) */
-          g_out = true;
-          f_k = 0;
+          f_out = true;
+          e_k = 0;
           exitg1 = false;
-          while ((!exitg1) && (f_k < 4)) {
-            if (TO_scaled[f_k] > y->TORQUE_LIM_POS[f_k]) {
-              g_out = false;
+          while ((!exitg1) && (e_k < 4)) {
+            if (TO_scaled[e_k] > y->TORQUE_LIM_POS[e_k]) {
+              f_out = false;
               exitg1 = true;
             } else {
-              f_k++;
+              e_k++;
             }
           }
-          if (g_out) {
+          if (f_out) {
             /* 'rescale_torque:38' best_scale = max(best_scale, scale); */
             best_scale = fmaxf(best_scale, scale);
           }
@@ -1813,24 +1809,24 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
       y->TORQUE_OUT[3] = f8;
     }
   } else if ((y->TH < 0.0F) && (y->REGEN_EN == 1.0F)) {
-    float varargin_1[28];
+    float b_varargin_1[28];
     float TO_ET_RG[4];
     float TO_ET_RG_tmp;
+    float b;
     float b_TO_ET_RG_tmp;
-    float b_b;
     float b_out;
+    float c_b;
     float c_idx_1;
     float c_idx_2;
     float c_idx_3;
-    float d_b;
+    float e_b;
     float ex;
     float ex_tmp;
-    float f_b;
-    float h_b;
-    float j_b;
+    float g_b;
+    float i_b;
+    float k_b;
     float l_b;
     float m;
-    float m_b;
     /* 'vcu_step:70' elseif y.TH < 0 && y.REGEN_EN == 1 */
     /*  baseline regen torque */
     /*  torque limit after speed, current, voltage, thermal derating */
@@ -1888,7 +1884,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
     b_p[1] = p->GS_RG_derating_zero;
     fv[0] = 1.0F;
     fv[1] = 0.0F;
-    b_b = interp1(
+    b = interp1(
         b_p, fv,
         fmaxf(fminf(ex, p->GS_RG_derating_full), p->GS_RG_derating_zero));
     /*  Inverter temp safetey derating - derate all motors based on highest
@@ -1905,7 +1901,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
     b_p[1] = p->INV_T_derating_zero_T;
     fv[0] = 1.0F;
     fv[1] = 0.0F;
-    d_b = interp1(b_p, fv,
+    c_b = interp1(b_p, fv,
                   fmaxf(fminf(x->INV_T_RAW, p->INV_T_derating_zero_T),
                         p->INV_T_derating_full_T));
     /*  IGBT temp safety derating - derate all motors based on highest IGBT temp
@@ -1922,7 +1918,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
     b_p[1] = p->IGBT_T_derating_zero_T;
     fv[0] = 1.0F;
     fv[1] = 0.0F;
-    f_b = interp1(b_p, fv,
+    e_b = interp1(b_p, fv,
                   fmaxf(fminf(x->IGBT_T_RAW, p->IGBT_T_derating_zero_T),
                         p->IGBT_T_derating_full_T));
     /*  Motor temp safetey derating - derate all motors based on highest motor
@@ -1938,7 +1934,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
     b_p[1] = p->MT_derating_zero_T;
     fv[0] = 1.0F;
     fv[1] = 0.0F;
-    h_b = interp1(
+    g_b = interp1(
         b_p, fv,
         fmaxf(fminf(x->MT_RAW, p->MT_derating_zero_T), p->MT_derating_full_T));
     /*  Battery temp safety derating - derate all motors based on highest cell
@@ -1954,7 +1950,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
     b_p[1] = p->BT_derating_zero_T;
     fv[0] = 1.0F;
     fv[1] = 0.0F;
-    j_b = interp1(
+    i_b = interp1(
         b_p, fv,
         fmaxf(fminf(x->BT_RAW, p->BT_derating_zero_T), p->BT_derating_full_T));
     /*  Battery overvoltage safety derating */
@@ -1970,7 +1966,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
     b_p[1] = p->VB_RG_derating_zero_T;
     fv[0] = 1.0F;
     fv[1] = 0.0F;
-    l_b = interp1(b_p, fv,
+    k_b = interp1(b_p, fv,
                   fmaxf(fminf(x->VB_RAW, p->VB_RG_derating_zero_T),
                         p->VB_RG_derating_full_T));
     /*  Battery current safety derating */
@@ -1986,7 +1982,7 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
     b_p[1] = p->IB_RG_derating_zero_T;
     fv[0] = 1.0F;
     fv[1] = 0.0F;
-    m_b = interp1(b_p, fv,
+    l_b = interp1(b_p, fv,
                   fmaxf(fminf(y->IB_AVG, p->IB_RG_derating_zero_T),
                         p->IB_RG_derating_full_T));
     /*  combine derating, multiply by abs max torque to get maximum torque
@@ -2000,29 +1996,29 @@ void vcu_step(const pVCU_struct *p, const xVCU_struct *x, yVCU_struct *y)
     /* 'vcu_step:74' y.TORQUE_LIM_NEG = y.TO_BL_RG; */
     /* 'vcu_step:75' y.TORQUE_LIM_POS = [0 0 0 0]; */
     /* 'vcu_step:76' y.TORQUE_OUT = y.TO_BL_RG; */
-    for (j = 0; j < 4; j++) {
-      float f1;
-      varargin_1[7 * j] = d_b;
-      varargin_1[7 * j + 1] = f_b;
-      varargin_1[7 * j + 2] = h_b;
-      varargin_1[7 * j + 3] = j_b;
-      varargin_1[7 * j + 4] = l_b;
-      varargin_1[7 * j + 5] = m_b;
-      varargin_1[7 * j + 6] = b_b;
-      f1 = d_b;
+    for (b_j = 0; b_j < 4; b_j++) {
+      float f4;
+      b_varargin_1[7 * b_j] = c_b;
+      b_varargin_1[7 * b_j + 1] = e_b;
+      b_varargin_1[7 * b_j + 2] = g_b;
+      b_varargin_1[7 * b_j + 3] = i_b;
+      b_varargin_1[7 * b_j + 4] = k_b;
+      b_varargin_1[7 * b_j + 5] = l_b;
+      b_varargin_1[7 * b_j + 6] = b;
+      f4 = c_b;
       for (c_i = 0; c_i < 6; c_i++) {
-        float f5;
-        f5 = varargin_1[(c_i + 7 * j) + 1];
-        if (f1 > f5) {
-          f1 = f5;
+        float f6;
+        f6 = b_varargin_1[(c_i + 7 * b_j) + 1];
+        if (f4 > f6) {
+          f4 = f6;
         }
       }
-      float f4;
-      f4 = fminf(TO_ET_RG[j], p->MAX_TO_ABS_RG * f1);
-      y->TO_BL_RG[j] = -f4;
-      y->TORQUE_LIM_NEG[j] = -f4;
-      y->TORQUE_LIM_POS[j] = 0.0F;
-      y->TORQUE_OUT[j] = -f4;
+      float f5;
+      f5 = fminf(TO_ET_RG[b_j], p->MAX_TO_ABS_RG * f4);
+      y->TO_BL_RG[b_j] = -f5;
+      y->TORQUE_LIM_NEG[b_j] = -f5;
+      y->TORQUE_LIM_POS[b_j] = 0.0F;
+      y->TORQUE_OUT[b_j] = -f5;
     }
     /*  because of no speed control */
   } else {

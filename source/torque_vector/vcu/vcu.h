@@ -124,7 +124,7 @@ typedef struct {
     float AX_FR_split_ub;
     float AX_LR_split_lb;
     float AX_LR_split_ub;
-    float AX_LR_split_max;
+    float AX_LR_split_LUT_max;
     float AX_LR_gain;
     float TS_LR_max_ST;
     float TS_FR_split_lb;

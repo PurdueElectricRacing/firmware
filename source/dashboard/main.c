@@ -220,27 +220,27 @@ void sweep_external_leds() {
 
     switch (sweep_index++ % 4) {
         case 0:
-            PHAL_writeGPIO(IMD_LED_PORT, IMD_LED_PIN, 1);
+            PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, 1);
+            PHAL_writeGPIO(IMD_LED_PORT, IMD_LED_PIN, 0);
             PHAL_writeGPIO(BMS_LED_PORT, BMS_LED_PIN, 0);
-            PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, 0);
             PHAL_writeGPIO(REGEN_LED_PORT, REGEN_LED_PIN, 0);
             break;
         case 1:
-            PHAL_writeGPIO(IMD_LED_PORT, IMD_LED_PIN, 0);
-            PHAL_writeGPIO(BMS_LED_PORT, BMS_LED_PIN, 1);
             PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, 0);
+            PHAL_writeGPIO(IMD_LED_PORT, IMD_LED_PIN, 1);
+            PHAL_writeGPIO(BMS_LED_PORT, BMS_LED_PIN, 0);
             PHAL_writeGPIO(REGEN_LED_PORT, REGEN_LED_PIN, 0);
             break;
         case 2:
+            PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, 0);
             PHAL_writeGPIO(IMD_LED_PORT, IMD_LED_PIN, 0);
-            PHAL_writeGPIO(BMS_LED_PORT, BMS_LED_PIN, 0);
-            PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, 1);
+            PHAL_writeGPIO(BMS_LED_PORT, BMS_LED_PIN, 1);
             PHAL_writeGPIO(REGEN_LED_PORT, REGEN_LED_PIN, 0);
             break;
         case 3:
+            PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, 0);
             PHAL_writeGPIO(IMD_LED_PORT, IMD_LED_PIN, 0);
             PHAL_writeGPIO(BMS_LED_PORT, BMS_LED_PIN, 0);
-            PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, 0);
             PHAL_writeGPIO(REGEN_LED_PORT, REGEN_LED_PIN, 1);
             break;
     }

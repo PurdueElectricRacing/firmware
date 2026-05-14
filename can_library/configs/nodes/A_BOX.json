@@ -35,8 +35,8 @@
                             "scale": 0.1
                         },
                         {
-                            "sig_name": "avg_temp",
-                            "sig_desc": "Average cell temperature in the pack",
+                            "sig_name": "max_temp",
+                            "sig_desc": "Max thermistor reading in the pack",
                             "type": "int16_t",
                             "unit": "C",
                             "scale": 1

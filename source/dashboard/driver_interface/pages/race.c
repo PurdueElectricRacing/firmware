@@ -117,7 +117,7 @@ static inline void update_pack_telemetry() {
         int16_t scaled_current = can_data.pack_stats.pack_current * UNPACK_COEFF_PACK_STATS_PACK_CURRENT;
         NXT_setTextFormatted(BATT_VOLT, "%dV", scaled_voltage);
         NXT_setTextFormatted(BATT_CURR, "%dA", scaled_current);
-        NXT_setTextFormatted(BATT_TEMP, "%dC", can_data.pack_stats.avg_temp);
+        NXT_setTextFormatted(BATT_TEMP, "%dC", can_data.pack_stats.max_temp);
     }
 }
 

@@ -120,8 +120,8 @@ static inline void auto_periodic(void) {
         // force on
         bangbang_update(&battery_fans, BATTERY_FAN_UPPER_LIMIT + 1, now);
     } else {
-        int16_t avg_temp = can_data.pack_stats.avg_temp;
-        bangbang_update(&battery_fans, avg_temp, now);
+        int16_t max_temp = can_data.pack_stats.max_temp;
+        bangbang_update(&battery_fans, max_temp, now);
     }
 
     // todo: read water temps

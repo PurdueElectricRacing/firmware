@@ -1,11 +1,12 @@
+#include "driver_interface.h"
+
 #include "can_library/faults_common.h"
 #include "can_library/generated/DASHBOARD.h"
+#include "can_library/generated/can_types.h"
 #include "common/freertos/freertos.h"
 #include "common/heartbeat/heartbeat.h"
+#include "common/phal/gpio.h"
 #include "common/phal/usart.h"
-#include "common/freertos/freertos.h"
-
-#include "driver_interface.h"
 #include "lcd.h"
 #include "main.h"
 #include "pages/vcu.h"
@@ -208,6 +209,7 @@ void driver_interface_init() {
 }
 
 void action_dispatcher(void) {
+    // non blocking rx
     interface_action_t action;
     while (xQueueReceive(action_queue, &action, 0) == pdTRUE) {
         switch (action) {
@@ -268,9 +270,24 @@ void set_external_leds(void) {
         return;
     }
 
-    bool precharge_incomplete = is_latched(FAULT_ID_PRECHARGE_INCOMPLETE);
-    PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, !precharge_incomplete);
+    bool precharge_complete = is_clear(FAULT_ID_PRECHARGE_INCOMPLETE);
+    PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, precharge_complete);
 
+    bool imd_faulted = is_latched(FAULT_ID_IMD);
+    PHAL_writeGPIO(IMD_LED_PORT, IMD_LED_PIN, imd_faulted);
+
+    bool bms_faulted = is_latched(FAULT_ID_BMS_DISCONNECTED);
+    PHAL_writeGPIO(BMS_LED_PORT, BMS_LED_PIN, bms_faulted);
+
+    
+    if (can_data.vcu_settings.is_stale) {
+        // default off
+        PHAL_writeGPIO(REGEN_LED_PORT, REGEN_LED_PIN, false);
+        return;
+    }
+
+    bool is_regen_enabled = can_data.vcu_settings.is_regen_enabled;
+    PHAL_writeGPIO(REGEN_LED_PORT, REGEN_LED_PIN, is_regen_enabled);   
 }
 
 void driver_interface_periodic(void) {

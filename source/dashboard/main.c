@@ -27,6 +27,7 @@
 
 /* Module Includes */
 #include "driver_interface.h"
+#include "lcd.h"
 #include "pedals.h"
 #include "telemetry.h"
 

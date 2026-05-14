@@ -32,7 +32,6 @@ typedef enum {
     DI_STATE_ACTIVE   = 2
 } driver_interface_state_t;
 
-static constexpr uint32_t LCD_BAUD_RATE = 115'200;
 static constexpr uint32_t DRIVER_INTERFACE_PERIOD_MS = 50;
 void driver_interface_periodic(void);
 

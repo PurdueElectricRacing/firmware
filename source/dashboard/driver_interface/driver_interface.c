@@ -295,7 +295,7 @@ void set_external_leds(void) {
     }
 
     bool is_regen_enabled = can_data.vcu_settings.is_regen_enabled;
-    PHAL_writeGPIO(REGEN_LED_PORT, REGEN_LED_PIN, is_regen_enabled);   
+    PHAL_writeGPIO(REGEN_LED_PORT, REGEN_LED_PIN, is_regen_enabled);
 }
 
 void driver_interface_periodic(void) {

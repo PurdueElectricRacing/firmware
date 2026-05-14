@@ -1,18 +1,28 @@
-#include "can_library/faults_common.h"
-#include "can_library/generated/DASHBOARD.h"
-#include "common/freertos/freertos.h"
-#include "common/heartbeat/heartbeat.h"
-#include "common/phal/usart.h"
-#include "common/freertos/freertos.h"
+/**
+ * @file driver_interface.c
+ * @brief thread to manage driver-facing LCD, buttons, LEDs
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
 
 #include "driver_interface.h"
+
+#include "can_library/faults_common.h"
+#include "can_library/generated/DASHBOARD.h"
+#include "can_library/generated/can_types.h"
+#include "common/freertos/freertos.h"
+#include "common/heartbeat/heartbeat.h"
+#include "common/phal/gpio.h"
+#include "common/watchdog/watchdog.h"
 #include "lcd.h"
 #include "main.h"
 #include "pages/vcu.h"
-#include "strbuf.h"
 
-#define ACTION_QUEUE_LENGTH 10
-DEFINE_QUEUE(action_queue, interface_action_t, ACTION_QUEUE_LENGTH);
+static driver_interface_state_t di_state = DI_STATE_LCD_INIT;
+static driver_interface_state_t next_di_state = DI_STATE_LCD_INIT;
+
+#define ACTION_QUEUE_LENGTH (10)
+DEFINE_QUEUE(action_queue, driver_interface_action_t, ACTION_QUEUE_LENGTH);
 volatile uint16_t data_mark_index = 0;
 
 static constexpr uint32_t INTERRUPT_DEBOUNCE_MS = 150;
@@ -28,7 +38,7 @@ void EXTI0_IRQHandler() {
     last_interrupt_time = now;
 
     if (EXTI->PR1 & EXTI_PR1_PIF0) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){RIGHT_WHEEL_MINUS}, NULL);
+        xQueueSendFromISR(action_queue, &(driver_interface_action_t){RIGHT_WHEEL_MINUS}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF0;
     }
 }
@@ -44,7 +54,7 @@ void EXTI1_IRQHandler() {
     last_interrupt_time = now;
 
     if (EXTI->PR1 & EXTI_PR1_PIF1) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){RIGHT_WHEEL_PLUS}, NULL);
+        xQueueSendFromISR(action_queue, &(driver_interface_action_t){RIGHT_WHEEL_PLUS}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF1;
     }
 }
@@ -60,7 +70,7 @@ void EXTI4_IRQHandler() {
     last_interrupt_time = now;
 
     if (EXTI->PR1 & EXTI_PR1_PIF4) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){TOGGLE_REGEN}, NULL);
+        xQueueSendFromISR(action_queue, &(driver_interface_action_t){TOGGLE_REGEN}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF4;
     }
 }
@@ -77,27 +87,27 @@ void EXTI9_5_IRQHandler() {
     last_interrupt_time = now;
 
     if (EXTI->PR1 & EXTI_PR1_PIF5) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){MARK_DATA}, NULL);
+        xQueueSendFromISR(action_queue, &(driver_interface_action_t){MARK_DATA}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF5;
     }
 
     if (EXTI->PR1 & EXTI_PR1_PIF6) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){MENU_UP}, NULL);
+        xQueueSendFromISR(action_queue, &(driver_interface_action_t){MENU_UP}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF6;
     }
 
     if (EXTI->PR1 & EXTI_PR1_PIF7) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){MENU_DOWN}, NULL);
+        xQueueSendFromISR(action_queue, &(driver_interface_action_t){MENU_DOWN}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF7;
     }
 
     if (EXTI->PR1 & EXTI_PR1_PIF8) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){FORWARD_PAGE}, NULL);
+        xQueueSendFromISR(action_queue, &(driver_interface_action_t){FORWARD_PAGE}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF8;
     }
 
     if (EXTI->PR1 & EXTI_PR1_PIF9) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){BACK_PAGE}, NULL);
+        xQueueSendFromISR(action_queue, &(driver_interface_action_t){BACK_PAGE}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF9;
     }
 }
@@ -114,22 +124,22 @@ void EXTI15_10_IRQHandler() {
     last_interrupt_time = now;
 
     if (EXTI->PR1 & EXTI_PR1_PIF11) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){LEFT_WHEEL_PLUS}, NULL);
+        xQueueSendFromISR(action_queue, &(driver_interface_action_t){LEFT_WHEEL_PLUS}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF11;
     }
 
     if (EXTI->PR1 & EXTI_PR1_PIF13) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){LEFT_WHEEL_MINUS}, NULL);
+        xQueueSendFromISR(action_queue, &(driver_interface_action_t){LEFT_WHEEL_MINUS}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF13;
     }
 
     if (EXTI->PR1 & EXTI_PR1_PIF14) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){START_BUTTON}, NULL);
+        xQueueSendFromISR(action_queue, &(driver_interface_action_t){START_BUTTON}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF14;
     }
 
     if (EXTI->PR1 & EXTI_PR1_PIF15) {
-        xQueueSendFromISR(action_queue, &(interface_action_t){SELECT_BUTTON}, NULL);
+        xQueueSendFromISR(action_queue, &(driver_interface_action_t){SELECT_BUTTON}, NULL);
         EXTI->PR1 = EXTI_PR1_PIF15;
     }
 }
@@ -141,8 +151,8 @@ void EXTI15_10_IRQHandler() {
                           EXTI_IMR1_IM11 | EXTI_IMR1_IM13 | \
                           EXTI_IMR1_IM14 | EXTI_IMR1_IM15)
 
-void driver_interface_init() {
-    INIT_QUEUE(action_queue, interface_action_t, ACTION_QUEUE_LENGTH);
+static void init_buttons() {
+    INIT_QUEUE(action_queue, driver_interface_action_t, ACTION_QUEUE_LENGTH);
 
     // Enable SYSCFG clock
     RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
@@ -208,7 +218,8 @@ void driver_interface_init() {
 }
 
 void action_dispatcher(void) {
-    interface_action_t action;
+    // non blocking rx
+    driver_interface_action_t action;
     while (xQueueReceive(action_queue, &action, 0) == pdTRUE) {
         switch (action) {
             case UPDATE_PAGE:
@@ -268,17 +279,48 @@ void set_external_leds(void) {
         return;
     }
 
-    bool precharge_incomplete = is_latched(FAULT_ID_PRECHARGE_INCOMPLETE);
-    PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, !precharge_incomplete);
+    bool precharge_complete = is_clear(FAULT_ID_PRECHARGE_INCOMPLETE);
+    PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, precharge_complete);
 
+    bool imd_faulted = is_latched(FAULT_ID_IMD);
+    PHAL_writeGPIO(IMD_LED_PORT, IMD_LED_PIN, imd_faulted);
+
+    bool bms_faulted = is_latched(FAULT_ID_BMS_DISCONNECTED);
+    PHAL_writeGPIO(BMS_LED_PORT, BMS_LED_PIN, bms_faulted);
+    
+    if (can_data.vcu_settings.is_stale) {
+        // default off
+        PHAL_writeGPIO(REGEN_LED_PORT, REGEN_LED_PIN, false);
+        return;
+    }
+
+    bool is_regen_enabled = can_data.vcu_settings.is_regen_enabled;
+    PHAL_writeGPIO(REGEN_LED_PORT, REGEN_LED_PIN, is_regen_enabled);
 }
 
 void driver_interface_periodic(void) {
-    action_dispatcher(); // Process Pending Driver Actions
+    di_state = next_di_state;
+    next_di_state = di_state;
 
-    updateTelemetryPages();
-
-    LCD_tx_update(); // dump the command
-
-    set_external_leds();
+    switch (di_state) {
+        case DI_STATE_LCD_INIT: {
+            if (!was_reset_by_WDG()) {
+                osDelay(1000); // wait a bit for LCD to power-on
+            }
+            LCD_init(LCD_BAUD_RATE);
+            next_di_state = DI_STATE_BUTTONS_INIT;
+            break;
+        }
+        case DI_STATE_BUTTONS_INIT: {
+            init_buttons();
+            next_di_state = DI_STATE_ACTIVE;
+        }
+        case DI_STATE_ACTIVE: {
+            set_external_leds();
+            action_dispatcher();
+            updateTelemetryPages();
+            LCD_tx_update(); // dump the command
+            break;
+        }
+    }
 }

@@ -45,3 +45,7 @@ void WDG_pet(void) {
 uint32_t WDG_get_CSR(void) {
     return saved_CSR;
 }
+
+bool was_reset_by_WDG(void) {
+    return (saved_CSR & RCC_CSR_IWDGRSTF) != 0;
+}

@@ -7,6 +7,8 @@
  * @author Chris Mcgalliard (cpmcgalliard@gmail.com)
  */
 
+#include "main.h"
+
 /* System Includes */
 #include "can_library/faults_common.h"
 #include "can_library/generated/DASHBOARD.h"
@@ -26,7 +28,6 @@
 /* Module Includes */
 #include "driver_interface.h"
 #include "lcd.h"
-#include "main.h"
 #include "pedals.h"
 #include "telemetry.h"
 
@@ -37,9 +38,10 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(ERROR_LED_PORT, ERROR_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
 
     // External LEDs
-    GPIO_INIT_OUTPUT_OPEN_DRAIN(PRCHG_LED_PORT, PRCHG_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_OUTPUT_OPEN_DRAIN(IMD_LED_PORT, IMD_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
-    GPIO_INIT_OUTPUT_OPEN_DRAIN(BMS_LED_PORT, BMS_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(PRCHG_LED_PORT, PRCHG_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(IMD_LED_PORT, IMD_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(BMS_LED_PORT, BMS_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(REGEN_LED_PORT, REGEN_LED_PIN, GPIO_OUTPUT_LOW_SPEED),
 
     // Main Button inputs
     GPIO_INIT_INPUT(SELECT_BUTTON_PORT, SELECT_BUTTON_PIN, GPIO_INPUT_PULL_UP),
@@ -117,7 +119,6 @@ ADC1_DMA_CONT_CONFIG(
 // USART Configuration for LCD
 dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
-static constexpr uint32_t LCD_BAUD_RATE = 115'200;
 usart_init_t lcd = {
     .baud_rate        = LCD_BAUD_RATE,
     .word_length      = WORD_8,
@@ -193,9 +194,6 @@ int main(void) {
         HardFault_Handler();
     }
     CAN_init();
-
-    driver_interface_init();
-    LCD_init(LCD_BAUD_RATE);
 
     // Software Initialization
     osKernelInitialize();

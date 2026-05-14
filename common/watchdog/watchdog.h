@@ -14,6 +14,7 @@
 void WDG_init(void);
 void WDG_pet(void);
 uint32_t WDG_get_CSR(void);
+bool was_reset_by_WDG(void);
 
 static constexpr uint32_t WATCHDOG_TIMEOUT_MS = 1000;
 static constexpr uint32_t WATCHDOG_PET_PERIOD_MS = 100;

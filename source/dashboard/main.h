@@ -39,7 +39,7 @@ extern volatile raw_adc_values_t raw_adc_values;
 #define PRCHG_LED_PORT (GPIOC)
 #define PRCHG_LED_PIN  (4)
 #define REGEN_LED_PORT (GPIOC)
-#define REGEN_LED_PIN  (0)
+#define REGEN_LED_PIN  (5)
 
 // Main Button inputs
 #define UP_BUTTON_PORT     (GPIOC)

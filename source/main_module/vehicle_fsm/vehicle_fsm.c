@@ -60,7 +60,7 @@ static inline bool is_all_AMKS_running() {
 }
 
 static inline bool is_start_button_pressed() {
-    if (!can_data.start_button.is_pressed) {
+    if (can_data.start_button.is_pressed == false) {
         return false;
     }
 

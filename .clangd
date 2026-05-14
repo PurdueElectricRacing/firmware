@@ -1,3 +1,6 @@
+Completion:
+  HeaderInsertion: Never
+
 CompileFlags:
   CompilationDatabase: build
 

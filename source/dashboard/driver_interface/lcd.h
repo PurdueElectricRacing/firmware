@@ -10,6 +10,8 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
+static constexpr uint32_t LCD_BAUD_RATE = 115'200;
+
 typedef enum : uint8_t {
     PAGE_RACE        = 0,
     PAGE_FAULTS      = 1,

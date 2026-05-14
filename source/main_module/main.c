@@ -112,8 +112,9 @@ int main(void) {
     }
     CAN_init();
 
-    // ! important
-    vehicle_init();
+    vehicle_init(); // ! important for amks
+
+    PHAL_writeGPIO(ECU_SDC_CTRL_PORT, ECU_SDC_CTRL_PIN, true); // set SDC high
 
     // Software Initialization
     osKernelInitialize();

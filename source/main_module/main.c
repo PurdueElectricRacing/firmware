@@ -7,22 +7,24 @@
 
 #include "main.h"
 
-#include "common/amk/amk.h"
+/* System Includes */
 #include "can_library/faults_common.h"
 #include "can_library/generated/MAIN_MODULE.h"
+#include "common/amk/amk.h"
 #include "common/common_defs/common_defs.h"
 #include "common/freertos/freertos.h"
+#include "common/heartbeat/heartbeat.h"
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
-#include "common/heartbeat/heartbeat.h"
 #include "common/utils/countof.h"
 #include "common/watchdog/watchdog.h"
 
-#include "vehicle_init.h"
-#include "vehicle_fsm.h"
+/* Module Includes */
 #include "sdc.h"
 #include "telemetry.h"
+#include "vehicle_fsm.h"
+#include "vehicle_init.h"
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {

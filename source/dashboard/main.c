@@ -7,6 +7,8 @@
  * @author Chris Mcgalliard (cpmcgalliard@gmail.com)
  */
 
+#include "main.h"
+
 /* System Includes */
 #include "can_library/faults_common.h"
 #include "can_library/generated/DASHBOARD.h"
@@ -25,8 +27,6 @@
 
 /* Module Includes */
 #include "driver_interface.h"
-#include "lcd.h"
-#include "main.h"
 #include "pedals.h"
 #include "telemetry.h"
 
@@ -117,7 +117,6 @@ ADC1_DMA_CONT_CONFIG(
 // USART Configuration for LCD
 dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
 dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
-static constexpr uint32_t LCD_BAUD_RATE = 115'200;
 usart_init_t lcd = {
     .baud_rate        = LCD_BAUD_RATE,
     .word_length      = WORD_8,
@@ -193,9 +192,6 @@ int main(void) {
         HardFault_Handler();
     }
     CAN_init();
-
-    driver_interface_init();
-    LCD_init(LCD_BAUD_RATE);
 
     // Software Initialization
     osKernelInitialize();

@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"structSPI__InitConfig__t.html#ab20a4701e255ce07d88bc24e16594566":[31,0,78,5],
+"structSPI__InitConfig__t.html#ac7b65af149334e39252e9d91e1d324ba":[31,0,78,8],
 "structSPI__InitConfig__t.html#accb8a2f6b9a30e8e5bdbb4d553d76fb6":[31,0,78,10],
 "structSPI__InitConfig__t.html#ad0862369c85d703198c28df1f085ad11":[31,0,78,6],
 "structSPI__InitConfig__t.html#ada152e2e047c6680d60ff8e66857b349":[31,0,78,2],

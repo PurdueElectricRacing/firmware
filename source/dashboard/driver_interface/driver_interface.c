@@ -12,9 +12,8 @@
 #include "can_library/generated/can_types.h"
 #include "common/freertos/freertos.h"
 #include "common/heartbeat/heartbeat.h"
-#include "common/watchdog/watchdog.h"
 #include "common/phal/gpio.h"
-#include "common/phal/usart.h"
+#include "common/watchdog/watchdog.h"
 #include "lcd.h"
 #include "main.h"
 #include "pages/vcu.h"
@@ -288,7 +287,6 @@ void set_external_leds(void) {
 
     bool bms_faulted = is_latched(FAULT_ID_BMS_DISCONNECTED);
     PHAL_writeGPIO(BMS_LED_PORT, BMS_LED_PIN, bms_faulted);
-
     
     if (can_data.vcu_settings.is_stale) {
         // default off

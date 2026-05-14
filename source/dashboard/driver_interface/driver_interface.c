@@ -1,3 +1,10 @@
+/**
+ * @file driver_interface.c
+ * @brief thread to manage driver-facing LCD, buttons, LEDs
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #include "driver_interface.h"
 
 #include "can_library/faults_common.h"

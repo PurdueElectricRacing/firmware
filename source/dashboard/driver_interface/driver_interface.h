@@ -1,3 +1,10 @@
+/**
+ * @file driver_interface.h
+ * @brief thread to manage driver-facing LCD, buttons, LEDs
+ *
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
 #ifndef DRIVER_INTERFACE_H
 #define DRIVER_INTERFACE_H
 

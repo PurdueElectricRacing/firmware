@@ -8,8 +8,6 @@
 
 #include "pedals.h"
 
-#include <stdint.h>
-
 #include "can_library/faults_common.h"
 #include "can_library/generated/DASHBOARD.h"
 #include "common/utils/clamp.h"
@@ -17,13 +15,12 @@
 #include "common/utils/abs.h"
 #include "main.h"
 
-// ! pedal calibration constants
 static constexpr uint16_t THROTTLE1_MIN = 0;
-static constexpr uint16_t THROTTLE1_MAX = 480;
+static constexpr uint16_t THROTTLE1_MAX = 470;
 static_assert(THROTTLE1_MIN < THROTTLE1_MAX, "Invalid throttle 1 calibration values");
 
-static constexpr uint16_t THROTTLE2_MIN = 3280;
-static constexpr uint16_t THROTTLE2_MAX = 3450;
+static constexpr uint16_t THROTTLE2_MIN = 3320;
+static constexpr uint16_t THROTTLE2_MAX = 3470;
 static_assert(THROTTLE2_MIN < THROTTLE2_MAX, "Invalid throttle 2 calibration values");
 
 static constexpr uint16_t REGEN1_MIN = 2550;
@@ -36,8 +33,9 @@ static_assert(BRAKE1_MIN < BRAKE1_MAX, "Invalid brake 1 calibration values");
 
 static constexpr uint8_t PEDAL_MAX = 100;
 static constexpr uint8_t PEDAL_MIN = 0;
-static constexpr uint8_t APPS_THROTTLE_THRESHOLD = 25; // 25% travel
-static constexpr uint8_t APPS_MECH_BRAKE_THRESHOLD = 80; // 80% travel of the regen pot
+static constexpr uint8_t APPS_THROTTLE_PRESSED_THRESHOLD = 25; // 25% travel
+static constexpr uint8_t APPS_THROTTLE_RELEASE_THRESHOLD = 5; // 5% travel
+static constexpr uint8_t APPS_MECH_BRAKE_THRESHOLD = 5; // 5% travel
 
 // Contains the current pedal values for global visibility
 volatile pedals_data_t pedal_values = {
@@ -58,40 +56,49 @@ void pedals_periodic(void) {
     uint16_t regen1    = raw_adc_values.brake1_pressure;  // ! harness flip
     uint16_t brake1    = raw_adc_values.regen1;
 
-    // FSAE 2026 T.4.2.10: open/short circuit detection
-    update_fault(FAULT_ID_APPS_WIRING_T1, 1);
-    update_fault(FAULT_ID_APPS_WIRING_T2, 1);
+    // FSAE 2026 T.4.2.10: throttle open/short circuit detection
+    update_fault(FAULT_ID_APPS_WIRING_T1, 1); // todo 
+    update_fault(FAULT_ID_APPS_WIRING_T2, throttle2);
+
+    // FSAE 2026 T.4.3: brake open/short circuit detection
+    update_fault(FAULT_ID_BSE, brake1);
 
     // saturate the raw values to the calibration range
     throttle1 = CLAMP(throttle1, THROTTLE1_MIN, THROTTLE1_MAX);
     throttle2 = CLAMP(throttle2, THROTTLE2_MIN, THROTTLE2_MAX);
     regen1    = CLAMP(regen1, REGEN1_MIN, REGEN1_MAX);
-    brake1 = CLAMP(brake1, BRAKE1_MIN, BRAKE1_MAX);
+    brake1    = CLAMP(brake1, BRAKE1_MIN, BRAKE1_MAX);
 
     // rescale the pedal signals to [0,100] range
     throttle1 = RESCALE(throttle1, THROTTLE1_MIN, THROTTLE1_MAX, PEDAL_MIN, PEDAL_MAX);
     throttle2 = RESCALE(throttle2, THROTTLE2_MIN, THROTTLE2_MAX, PEDAL_MIN, PEDAL_MAX);
     regen1    = RESCALE(regen1, REGEN1_MIN, REGEN1_MAX, PEDAL_MIN, PEDAL_MAX);
-    brake1 = RESCALE(brake1, BRAKE1_MIN, BRAKE1_MAX, 0, 100);
+    brake1    = RESCALE(brake1, BRAKE1_MIN, BRAKE1_MAX, PEDAL_MIN, PEDAL_MAX);
 
+    // make visible
     pedal_values.throttle    = throttle1;
+    uint8_t throttle_command = throttle1;
     pedal_values.regen       = regen1;
     pedal_values.brake       = brake1;
-    uint8_t throttle_command = throttle1;
 
     // FSAE 2026 T.4.2.5: if the two throttle sensors differ by 10%, trigger implaus
-    // int throttle_diff = ABS((int)throttle1 - (int)throttle2);
-    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, 1); // ! disabled for now
+    int throttle_diff = ABS((int)throttle1 - (int)throttle2);
+    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, throttle_diff);
     if (is_latched(FAULT_ID_APPS_IMPLAUSIBLE)) {
         throttle_command = 0;
     }
 
-    // FSAE 2026 EV.4.7: if both pedals are pressed, set throttle to 0
-    // todo: unlatch when throttle is released to 5%
-    bool is_brake_pressed = pedal_values.regen >= APPS_MECH_BRAKE_THRESHOLD;
-    bool is_throttle_pressed = pedal_values.throttle >= APPS_THROTTLE_THRESHOLD;
-    update_fault(FAULT_ID_APPS_BRAKE, is_brake_pressed && is_throttle_pressed);
-    if (is_latched(FAULT_ID_APPS_BRAKE)) {
+    // FSAE 2026 EV.4.7: if both pedals are pressed, set throttle to 0 until throttle is released
+    if (is_clear(FAULT_ID_APPS_BRAKE)) {
+        bool is_brake_pressed    = pedal_values.brake >= APPS_MECH_BRAKE_THRESHOLD;
+        bool is_throttle_pressed = pedal_values.throttle >= APPS_THROTTLE_PRESSED_THRESHOLD;
+        update_fault(FAULT_ID_APPS_BRAKE, is_brake_pressed && is_throttle_pressed);
+    } else if (is_latched(FAULT_ID_APPS_BRAKE)) {
+        bool is_throttle_pressed = pedal_values.throttle >= APPS_THROTTLE_RELEASE_THRESHOLD;
+        update_fault(FAULT_ID_APPS_BRAKE, is_throttle_pressed);
+    }
+
+    if (is_latched(FAULT_ID_APPS_BRAKE) || is_latched(FAULT_ID_BSE)) {
         throttle_command = 0;
     }
 

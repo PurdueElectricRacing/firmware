@@ -282,7 +282,7 @@ void set_external_leds(void) {
     bool precharge_complete = is_clear(FAULT_ID_PRECHARGE_INCOMPLETE);
     PHAL_writeGPIO(PRCHG_LED_PORT, PRCHG_LED_PIN, precharge_complete);
 
-    bool imd_faulted = is_latched(FAULT_ID_IMD);
+    bool imd_faulted = is_latched(FAULT_ID_SDC1_IMD);
     PHAL_writeGPIO(IMD_LED_PORT, IMD_LED_PIN, imd_faulted);
 
     bool bms_faulted = is_latched(FAULT_ID_BMS_DISCONNECTED);

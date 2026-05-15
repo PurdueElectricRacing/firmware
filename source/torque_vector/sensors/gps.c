@@ -20,12 +20,4 @@ void gps_periodic(void) {
 
     NAV_PVT_decode(&nav_pvt, rover_rx_buffer);
     NAV_RELPOSNED_decode(&nav_relposned, (rover_rx_buffer + NAV_PVT_TOTAL_LENGTH));
-
-    // todo:
-    // validate the gps header
-        // return if invalid
-
-    // identify the gps message type
-
-    // dispatch to the correct decoder
 }

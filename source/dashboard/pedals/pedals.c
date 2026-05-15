@@ -8,8 +8,6 @@
 
 #include "pedals.h"
 
-#include <stdint.h>
-
 #include "can_library/faults_common.h"
 #include "can_library/generated/DASHBOARD.h"
 #include "common/utils/clamp.h"
@@ -17,7 +15,6 @@
 #include "common/utils/abs.h"
 #include "main.h"
 
-// ! pedal calibration constants
 static constexpr uint16_t THROTTLE1_MIN = 0;
 static constexpr uint16_t THROTTLE1_MAX = 480;
 static_assert(THROTTLE1_MIN < THROTTLE1_MAX, "Invalid throttle 1 calibration values");
@@ -73,12 +70,13 @@ void pedals_periodic(void) {
     throttle1 = RESCALE(throttle1, THROTTLE1_MIN, THROTTLE1_MAX, PEDAL_MIN, PEDAL_MAX);
     throttle2 = RESCALE(throttle2, THROTTLE2_MIN, THROTTLE2_MAX, PEDAL_MIN, PEDAL_MAX);
     regen1    = RESCALE(regen1, REGEN1_MIN, REGEN1_MAX, PEDAL_MIN, PEDAL_MAX);
-    brake1    = RESCALE(brake1, BRAKE1_MIN, BRAKE1_MAX, 0, 100);
+    brake1    = RESCALE(brake1, BRAKE1_MIN, BRAKE1_MAX, PEDAL_MIN, PEDAL_MAX);
 
+    // make visible
     pedal_values.throttle    = throttle1;
+    uint8_t throttle_command = throttle1;
     pedal_values.regen       = regen1;
     pedal_values.brake       = brake1;
-    uint8_t throttle_command = throttle1;
 
     // FSAE 2026 T.4.2.5: if the two throttle sensors differ by 10%, trigger implaus
     int throttle_diff = ABS((int)throttle1 - (int)throttle2);
@@ -88,18 +86,18 @@ void pedals_periodic(void) {
     }
 
     // FSAE 2026 EV.4.7: if both pedals are pressed, set throttle to 0 until throttle is released
-    if (is_latched(FAULT_ID_APPS_BRAKE)) {
-        bool is_throttle_released = pedal_values.throttle <= APPS_THROTTLE_RELEASE_THRESHOLD;
-        update_fault(FAULT_ID_APPS_BRAKE, !is_throttle_released);
-    } else if (is_clear(FAULT_ID_APPS_BRAKE)) {
-        bool is_brake_pressed = pedal_values.brake >= APPS_MECH_BRAKE_THRESHOLD;
+    if (is_clear(FAULT_ID_APPS_BRAKE)) {
+        bool is_brake_pressed    = pedal_values.brake >= APPS_MECH_BRAKE_THRESHOLD;
         bool is_throttle_pressed = pedal_values.throttle >= APPS_THROTTLE_PRESSED_THRESHOLD;
         update_fault(FAULT_ID_APPS_BRAKE, is_brake_pressed && is_throttle_pressed);
+    } else if (is_latched(FAULT_ID_APPS_BRAKE)) {
+        bool is_throttle_pressed = pedal_values.throttle >= APPS_THROTTLE_RELEASE_THRESHOLD;
+        update_fault(FAULT_ID_APPS_BRAKE, is_throttle_pressed);
     }
 
     if (is_latched(FAULT_ID_APPS_BRAKE)) {
         throttle_command = 0;
     }
-    
+
     CAN_SEND_pedals(throttle_command, pedal_values.regen, pedal_values.brake);
 }

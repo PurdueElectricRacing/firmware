@@ -57,7 +57,7 @@ void pedals_periodic(void) {
     uint16_t brake1    = raw_adc_values.regen1;
 
     // FSAE 2026 T.4.2.10: throttle open/short circuit detection
-    update_fault(FAULT_ID_APPS_WIRING_T1, 1);
+    update_fault(FAULT_ID_APPS_WIRING_T1, 1); // todo 
     update_fault(FAULT_ID_APPS_WIRING_T2, throttle2);
 
     // FSAE 2026 T.4.3: brake open/short circuit detection

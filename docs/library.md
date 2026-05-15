@@ -1,6 +1,9 @@
-# Data Sheet Library
+# Library
 
 Irving Wang (irvingw@purdue.edu)
+
+## FSAE
+- [FSAE 2026](rules/FSAE2026_V1.pdf) Rules for the FSAE 2026 Season
 
 ## About the microcontrollers
 - [RM0090](datasheets/STM32F407_RM0090.pdf) contains register and peripheral information for F4 series boards.

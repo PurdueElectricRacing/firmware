@@ -252,24 +252,6 @@
             "lcd_message": "APPS Wiring Fail T2"
         },
         {
-            "fault_name": "BSE",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 100,
-            "time_to_unlatch": 1000,
-            "lcd_message": "Brake Wiring Fail (BSE)"
-        },
-        {
-            "fault_name": "bspd",
-            "max": 182,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 100,
-            "time_to_unlatch": 1000,
-            "lcd_message": "BSE Wiring Fail B2"
-        },
-        {
             "fault_name": "APPS_IMPLAUSIBLE",
             "max": 10,
             "min": 0,
@@ -283,7 +265,7 @@
             "max": 1,
             "min": 0,
             "priority": "warning",
-            "time_to_latch": 100,
+            "time_to_latch": 200,
             "time_to_unlatch": 100,
             "lcd_message": "Release Both Pedals"
         }

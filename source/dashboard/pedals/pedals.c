@@ -36,8 +36,9 @@ static_assert(BRAKE1_MIN < BRAKE1_MAX, "Invalid brake 1 calibration values");
 
 static constexpr uint8_t PEDAL_MAX = 100;
 static constexpr uint8_t PEDAL_MIN = 0;
-static constexpr uint8_t APPS_THROTTLE_THRESHOLD = 25; // 25% travel
-static constexpr uint8_t APPS_MECH_BRAKE_THRESHOLD = 80; // 80% travel of the regen pot
+static constexpr uint8_t APPS_THROTTLE_PRESSED_THRESHOLD = 25; // 25% travel
+static constexpr uint8_t APPS_THROTTLE_RELEASE_THRESHOLD = 5; // 5% travel
+static constexpr uint8_t APPS_MECH_BRAKE_THRESHOLD = 5; // 5% travel
 
 // Contains the current pedal values for global visibility
 volatile pedals_data_t pedal_values = {
@@ -66,13 +67,13 @@ void pedals_periodic(void) {
     throttle1 = CLAMP(throttle1, THROTTLE1_MIN, THROTTLE1_MAX);
     throttle2 = CLAMP(throttle2, THROTTLE2_MIN, THROTTLE2_MAX);
     regen1    = CLAMP(regen1, REGEN1_MIN, REGEN1_MAX);
-    brake1 = CLAMP(brake1, BRAKE1_MIN, BRAKE1_MAX);
+    brake1    = CLAMP(brake1, BRAKE1_MIN, BRAKE1_MAX);
 
     // rescale the pedal signals to [0,100] range
     throttle1 = RESCALE(throttle1, THROTTLE1_MIN, THROTTLE1_MAX, PEDAL_MIN, PEDAL_MAX);
     throttle2 = RESCALE(throttle2, THROTTLE2_MIN, THROTTLE2_MAX, PEDAL_MIN, PEDAL_MAX);
     regen1    = RESCALE(regen1, REGEN1_MIN, REGEN1_MAX, PEDAL_MIN, PEDAL_MAX);
-    brake1 = RESCALE(brake1, BRAKE1_MIN, BRAKE1_MAX, 0, 100);
+    brake1    = RESCALE(brake1, BRAKE1_MIN, BRAKE1_MAX, 0, 100);
 
     pedal_values.throttle    = throttle1;
     pedal_values.regen       = regen1;
@@ -80,20 +81,25 @@ void pedals_periodic(void) {
     uint8_t throttle_command = throttle1;
 
     // FSAE 2026 T.4.2.5: if the two throttle sensors differ by 10%, trigger implaus
-    // int throttle_diff = ABS((int)throttle1 - (int)throttle2);
-    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, 1); // ! disabled for now
+    int throttle_diff = ABS((int)throttle1 - (int)throttle2);
+    update_fault(FAULT_ID_APPS_IMPLAUSIBLE, throttle_diff);
     if (is_latched(FAULT_ID_APPS_IMPLAUSIBLE)) {
         throttle_command = 0;
     }
 
-    // FSAE 2026 EV.4.7: if both pedals are pressed, set throttle to 0
-    // todo: unlatch when throttle is released to 5%
-    bool is_brake_pressed = pedal_values.regen >= APPS_MECH_BRAKE_THRESHOLD;
-    bool is_throttle_pressed = pedal_values.throttle >= APPS_THROTTLE_THRESHOLD;
-    update_fault(FAULT_ID_APPS_BRAKE, is_brake_pressed && is_throttle_pressed);
+    // FSAE 2026 EV.4.7: if both pedals are pressed, set throttle to 0 until throttle is released
+    if (is_latched(FAULT_ID_APPS_BRAKE)) {
+        bool is_throttle_released = pedal_values.throttle <= APPS_THROTTLE_RELEASE_THRESHOLD;
+        update_fault(FAULT_ID_APPS_BRAKE, !is_throttle_released);
+    } else if (is_clear(FAULT_ID_APPS_BRAKE)) {
+        bool is_brake_pressed = pedal_values.brake >= APPS_MECH_BRAKE_THRESHOLD;
+        bool is_throttle_pressed = pedal_values.throttle >= APPS_THROTTLE_PRESSED_THRESHOLD;
+        update_fault(FAULT_ID_APPS_BRAKE, is_brake_pressed && is_throttle_pressed);
+    }
+
     if (is_latched(FAULT_ID_APPS_BRAKE)) {
         throttle_command = 0;
     }
-
+    
     CAN_SEND_pedals(throttle_command, pedal_values.regen, pedal_values.brake);
 }

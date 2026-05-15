@@ -58,8 +58,7 @@ void pedals_periodic(void) {
 
     // FSAE 2026 T.4.2.10: open/short circuit detection
     update_fault(FAULT_ID_APPS_WIRING_T1, 1);
-    update_fault(FAULT_ID_APPS_WIRING_T2, 1);
-
+    update_fault(FAULT_ID_APPS_WIRING_T2, throttle2);
     // saturate the raw values to the calibration range
     throttle1 = CLAMP(throttle1, THROTTLE1_MIN, THROTTLE1_MAX);
     throttle2 = CLAMP(throttle2, THROTTLE2_MIN, THROTTLE2_MAX);

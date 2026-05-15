@@ -244,7 +244,7 @@
         },
         {
             "fault_name": "APPS_wiring_t2",
-            "max": 1500,
+            "max": 3650,
             "min": 0,
             "priority": "error",
             "time_to_latch": 200,

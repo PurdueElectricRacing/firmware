@@ -275,7 +275,7 @@
             "min": 300,
             "priority": "error",
             "time_to_latch": 200,
-            "time_to_unlatch": 1000,
+            "time_to_unlatch": 50,
             "lcd_message": "Brake pressure disconnected"
         }
     ]

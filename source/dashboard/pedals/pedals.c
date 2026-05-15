@@ -56,9 +56,13 @@ void pedals_periodic(void) {
     uint16_t regen1    = raw_adc_values.brake1_pressure;  // ! harness flip
     uint16_t brake1    = raw_adc_values.regen1;
 
-    // FSAE 2026 T.4.2.10: open/short circuit detection
+    // FSAE 2026 T.4.2.10: throttle open/short circuit detection
     update_fault(FAULT_ID_APPS_WIRING_T1, 1);
     update_fault(FAULT_ID_APPS_WIRING_T2, throttle2);
+
+    // FSAE 2026 T.4.3: brake open/short circuit detection
+    update_fault(FAULT_ID_BSE, brake1);
+
     // saturate the raw values to the calibration range
     throttle1 = CLAMP(throttle1, THROTTLE1_MIN, THROTTLE1_MAX);
     throttle2 = CLAMP(throttle2, THROTTLE2_MIN, THROTTLE2_MAX);
@@ -94,7 +98,7 @@ void pedals_periodic(void) {
         update_fault(FAULT_ID_APPS_BRAKE, is_throttle_pressed);
     }
 
-    if (is_latched(FAULT_ID_APPS_BRAKE)) {
+    if (is_latched(FAULT_ID_APPS_BRAKE) || is_latched(FAULT_ID_BSE)) {
         throttle_command = 0;
     }
 

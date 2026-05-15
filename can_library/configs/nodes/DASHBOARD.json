@@ -235,7 +235,7 @@
     "faults": [
         {
             "fault_name": "APPS_wiring_t1",
-            "max": 1500,
+            "max": 4095,
             "min": 0,
             "priority": "error",
             "time_to_latch": 200,
@@ -268,6 +268,15 @@
             "time_to_latch": 200,
             "time_to_unlatch": 100,
             "lcd_message": "Release Both Pedals"
+        },
+        {
+            "fault_name": "BSE",
+            "max": 4000,
+            "min": 300,
+            "priority": "error",
+            "time_to_latch": 200,
+            "time_to_unlatch": 1000,
+            "lcd_message": "Brake pressure disconnected"
         }
     ]
 }

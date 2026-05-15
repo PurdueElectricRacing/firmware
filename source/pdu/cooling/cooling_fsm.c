@@ -34,21 +34,22 @@ static_assert(FAN_3_PWM_TIM == FAN_PWM_TIM);
 static_assert(FAN_4_PWM_TIM == FAN_PWM_TIM);
 
 // todo: decide thresholds
-static constexpr float MOTOR_PUMP_UPPER_LIMIT = 50.0f;
-static constexpr float MOTOR_PUMP_LOWER_LIMIT = 35.0f;
-static constexpr uint32_t MOTOR_PUMP_HYSTERESIS = 1000;
+static constexpr float MOTOR_PUMP_UPPER_LIMIT = 35.0f;
+static constexpr float MOTOR_PUMP_LOWER_LIMIT = 25.0f;
+static constexpr uint32_t MOTOR_PUMP_INTERVAL = 1000;
 
-static constexpr float INVERTER_PUMP_UPPER_LIMIT = 50.0f;
-static constexpr float INVERTER_PUMP_LOWER_LIMIT = 35.0f;
-static constexpr uint32_t INVERTER_PUMP_HYSTERESIS = 1000;
+static constexpr float INVERTER_PUMP_UPPER_LIMIT = 45.0f;
+static constexpr float INVERTER_PUMP_LOWER_LIMIT = 30.0f;
+static constexpr uint32_t INVERTER_PUMP_INTERVAL = 1000;
 
-static constexpr float HX_FAN_UPPER_LIMIT = 50.0f;
-static constexpr float HX_FAN_LOWER_LIMIT = 35.0f;
-static constexpr uint32_t HX_FAN_HYSTERESIS = 1000;
+// hx fan is unused for now
+static constexpr float HX_FAN_UPPER_LIMIT = 40.0f;
+static constexpr float HX_FAN_LOWER_LIMIT = 25.0f;
+static constexpr uint32_t HX_FAN_INVERVAL = 1000;
 
-static constexpr float BATTERY_FAN_UPPER_LIMIT = 50.0f;
-static constexpr float BATTERY_FAN_LOWER_LIMIT = 35.0f;
-static constexpr uint32_t BATTERY_FAN_HYSTERESIS = 1000;
+static constexpr float BATTERY_FAN_UPPER_LIMIT = 35.0f;
+static constexpr float BATTERY_FAN_LOWER_LIMIT = 25.0f;
+static constexpr uint32_t BATTERY_FAN_INTERVAL = 1000;
 
 INIT_BANG_BANG(
     motor_pump,
@@ -56,7 +57,7 @@ INIT_BANG_BANG(
     MOTOR_PUMP_LOWER_LIMIT,
     motor_pump_on,
     motor_pump_off,
-    MOTOR_PUMP_HYSTERESIS
+    MOTOR_PUMP_INTERVAL
 );
 INIT_BANG_BANG(
     inverter_pump,
@@ -64,7 +65,7 @@ INIT_BANG_BANG(
     INVERTER_PUMP_LOWER_LIMIT,
     inverter_pump_on,
     inverter_pump_off,
-    INVERTER_PUMP_HYSTERESIS
+    INVERTER_PUMP_INTERVAL
 );
 INIT_BANG_BANG(
     hx_fan,
@@ -72,7 +73,7 @@ INIT_BANG_BANG(
     HX_FAN_LOWER_LIMIT,
     hx_fan_on,
     hx_fan_off,
-    HX_FAN_HYSTERESIS
+    HX_FAN_INVERVAL
 );
 INIT_BANG_BANG(
     battery_fans,
@@ -80,10 +81,10 @@ INIT_BANG_BANG(
     BATTERY_FAN_LOWER_LIMIT,
     battery_fans_on,
     battery_fans_off,
-    BATTERY_FAN_HYSTERESIS
+    BATTERY_FAN_INTERVAL
 );
 
-static inline void auto_periodic(void) {
+static inline void update_bangbang(void) {
     uint32_t now = xTaskGetTickCount();
     
     if (can_data.motor_temps.is_stale()) {
@@ -145,7 +146,7 @@ void cooling_fsm_periodic(void) {
             }
             break;
         case COOLING_STATE_AUTO:
-            auto_periodic();
+            update_bangbang();
 
             // todo: driver request into manual
             break;

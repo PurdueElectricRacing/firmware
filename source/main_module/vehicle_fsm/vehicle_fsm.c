@@ -93,7 +93,7 @@ static void update_brake_light() {
 
 static void update_tsal() {
     // FSAE 2026 EV.5.11.5
-    if (is_latched(FAULT_ID_SDC2_BMS) || is_latched(FAULT_ID_IMD)) { 
+    if (is_latched(FAULT_ID_SDC2_BMS) || is_latched(FAULT_ID_SDC1_IMD)) { 
         g_car.tsal_green_enable = false;
         g_car.tsal_red_enable = true;
     } else {

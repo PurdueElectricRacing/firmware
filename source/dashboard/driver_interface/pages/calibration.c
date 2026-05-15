@@ -21,14 +21,20 @@
  * @note Only executes when current page is PAGE_CALIBRATION
  */
 void calibration_telemetry_update() {
-    if (is_latched(FAULT_ID_APPS_IMPLAUSIBLE)) {
+    if (is_latched(FAULT_ID_APPS_WIRING_T1)) {
+        NXT_setText(CALIBRATION_STATUS, "T1 WIRING FAULT");
+        NXT_setFontColor(CALIBRATION_STATUS, RED);
+    } else if (is_latched(FAULT_ID_APPS_WIRING_T2)) {
+        NXT_setText(CALIBRATION_STATUS, "T2 WIRING FAULT");
+        NXT_setFontColor(CALIBRATION_STATUS, RED);
+    } else if (is_latched(FAULT_ID_BSE)) {
+        NXT_setText(CALIBRATION_STATUS, "BSE");
+        NXT_setFontColor(CALIBRATION_STATUS, RED);
+    } else if (is_latched(FAULT_ID_APPS_IMPLAUSIBLE)) {
         NXT_setText(CALIBRATION_STATUS, "IMPLAUSIBLE");
         NXT_setFontColor(CALIBRATION_STATUS, RED);
     } else if (is_latched(FAULT_ID_APPS_BRAKE)){
         NXT_setText(CALIBRATION_STATUS, "BRAKE-THROTTLE");
-        NXT_setFontColor(CALIBRATION_STATUS, RED);
-    } else if (is_latched(FAULT_ID_APPS_WIRING_T1) || is_latched(FAULT_ID_APPS_WIRING_T2)) {
-        NXT_setText(CALIBRATION_STATUS, "WIRING FAULT");
         NXT_setFontColor(CALIBRATION_STATUS, RED);
     } else {
         NXT_setText(CALIBRATION_STATUS, "OK");

@@ -25,7 +25,7 @@ typedef struct {
 static constexpr size_t ROVER_TX_SIZE = NAV_PVT_TOTAL_LENGTH + NAV_RELPOSNED_TOTAL_LENGTH;
 extern volatile uint8_t rover_rx_buffer[ROVER_TX_SIZE]; // DMA target
 extern NAV_PVT_data_t nav_pvt;
-extern NAV_RELPOSNED_data_t nav_relpos;
+extern NAV_RELPOSNED_data_t nav_relposned;
 extern imu_data_t imu_data;
 
 static constexpr uint32_t GPS_THREAD_PERIOD_MS = 100;

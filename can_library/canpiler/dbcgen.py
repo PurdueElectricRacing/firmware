@@ -3,6 +3,7 @@ dbcgen.py
 
 Author: Irving Wang (irvingw@purdue.edu)
 """
+
 from typing import Optional
 from collections import OrderedDict
 from parser import SystemContext

@@ -16,7 +16,7 @@
 car_t g_car;
 torque_request_t g_torque_request;
 
-static void ready2drive_periodic() {
+static void update_torque_request() {
     if (can_data.pedals.is_stale()) {
         g_torque_request.front_right = 0;
         g_torque_request.front_left  = 0;
@@ -67,6 +67,16 @@ static inline bool is_start_button_pressed() {
     // "destructive read"
     can_data.start_button.is_pressed = false;
     return true;
+}
+
+static inline bool is_brakes_engaged() {
+    static constexpr uint16_t BRAKES_ENGAGED_THRESHOLD = 10; // 10 %
+
+    if (can_data.pedals.is_stale()) {
+        return false;
+    }
+
+    return can_data.pedals.brake > BRAKES_ENGAGED_THRESHOLD;
 }
 
 static inline bool is_buzzing_time_elapsed() {
@@ -170,7 +180,9 @@ void vehicle_fsm_periodic(void) {
         case CAR_STATE_ENERGIZED: {
             // do nothing for now
 
-            if (is_start_button_pressed() && is_all_AMKS_running()) {
+            // FSAE 2026 EV.9.6.2: driver must engage the brakes and press a button to enter R2D
+            bool is_driver_ready = is_start_button_pressed() && is_brakes_engaged();
+            if (is_driver_ready && is_all_AMKS_running()) {
                 g_car.buzzer_start_time = OS_TICKS;
                 g_car.next_state = CAR_STATE_BUZZING;
             }
@@ -185,7 +197,8 @@ void vehicle_fsm_periodic(void) {
             break;
         }
         case CAR_STATE_READY2DRIVE: {
-            ready2drive_periodic();
+            // FSAE 2026 EV.9.6.1: motors can only repond to apps in this state
+            update_torque_request();
 
             if (is_start_button_pressed()) {
                 g_car.next_state = CAR_STATE_ENERGIZED;

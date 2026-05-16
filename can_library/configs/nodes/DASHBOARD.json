@@ -236,7 +236,7 @@
         {
             "fault_name": "APPS_wiring_t1",
             "max": 4095,
-            "min": 0,
+            "min": 50,
             "priority": "error",
             "time_to_latch": 200,
             "time_to_unlatch": 1000,

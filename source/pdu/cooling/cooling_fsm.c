@@ -18,6 +18,7 @@ typedef enum {
     COOLING_STATE_INIT   = 0,
     COOLING_STATE_AUTO   = 1,
     COOLING_STATE_MANUAL = 2,
+    COOLING_STATE_DEBUG  = 3
 } cooling_state_t;
 
 static cooling_state_t cooling_state      = COOLING_STATE_INIT;
@@ -135,7 +136,7 @@ void cooling_fsm_periodic(void) {
     next_cooling_state = cooling_state; // default self loop
 
     switch (cooling_state) {
-        case COOLING_STATE_INIT:
+        case COOLING_STATE_INIT: {
             if (PHAL_initPWM(PWM_FREQUENCY_HZ, FAN_PWM_TIM, NUM_BATTERY_FANS)) {
                 // set the PWMS to full
                 PHAL_PWMsetPercent(FAN_1_PWM_TIM, FAN_1_PWM_TIM_CH, 95);
@@ -145,16 +146,27 @@ void cooling_fsm_periodic(void) {
                 next_cooling_state = COOLING_STATE_AUTO;
             }
             break;
-        case COOLING_STATE_AUTO:
+        }
+        case COOLING_STATE_AUTO: {
             update_bangbang();
 
             // todo: driver request into manual
             break;
-        case COOLING_STATE_MANUAL:
+        }
+        case COOLING_STATE_MANUAL: {
             // do nothing
 
             // todo: driver request into auto
             break;
+        }   
+        case COOLING_STATE_DEBUG: {
+            // full beans
+            motor_pump_on();
+            inverter_pump_on();
+            hx_fan_on();
+            battery_fans_on();
+            break;
+        }
     }
 
     CAN_SEND_coolant_out(

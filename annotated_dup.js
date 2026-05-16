@@ -71,7 +71,6 @@ var annotated_dup =
     [ "NAV_RELPOSNED_data_t", "structNAV__RELPOSNED__data__t.html", null ],
     [ "page_handler_t", "structpage__handler__t.html", null ],
     [ "pascals_t", "structpascals__t.html", null ],
-    [ "pdu_cooling_command_t", "structpdu__cooling__command__t.html", null ],
     [ "pdu_rail_fault_map_t", "structpdu__rail__fault__map__t.html", null ],
     [ "pdu_rail_voltage_mv_t", "structpdu__rail__voltage__mv__t.html", null ],
     [ "pdu_state_t", "structpdu__state__t.html", null ],

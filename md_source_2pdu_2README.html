@@ -136,13 +136,13 @@ Module Layout</h1>
 <li>Rail fault LED behavior.</li>
 </ul>
 </li>
-<li><code>cooling.c</code> / <code><a class="el" href="cooling_8h_source.html">cooling.h</a></code><ul>
+<li><code>cooling.c</code> / <code>cooling.h</code><ul>
 <li>Cooling policy computation.</li>
 <li>Cooling actuation (switches + fan PWM).</li>
 <li>Cooling CAN output publication.</li>
 </ul>
 </li>
-<li><code>cooling_bangbang.c</code> / <code><a class="el" href="cooling__bangbang_8h_source.html">cooling_bangbang.h</a></code><ul>
+<li><code>cooling_bangbang.c</code> / <code>cooling_bangbang.h</code><ul>
 <li>Optional bang-bang policy backend.</li>
 <li>Compiled in but disabled by default.</li>
 </ul>
@@ -188,7 +188,7 @@ Task Model</h1>
 Cooling Backend: Bang-Bang (Disabled by Default)</h1>
 <p>The bang-bang backend is present for future policy work, but disabled to preserve current behavior.</p>
 <ul>
-<li>Toggle: <code>COOLING_ENABLE_BANGBANG</code> in <code><a class="el" href="cooling__bangbang_8h_source.html">cooling_bangbang.h</a></code><ul>
+<li>Toggle: <code>COOLING_ENABLE_BANGBANG</code> in <code>cooling_bangbang.h</code><ul>
 <li><code>0</code> (default): backend is a no-op.</li>
 <li><code>1</code>: motor temp based bang-bang updates are applied.</li>
 </ul>

@@ -108,8 +108,8 @@ $(function(){initNavTree('pdu_2main_8c.html',''); initResizable(true); });
 <p>"PDU" node source code  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="pdu_2main_8h_source.html">main.h</a>&quot;</code><br />
-<code>#include &quot;can_library/generated/PDU.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="faults__common_8h_source.html">can_library/faults_common.h</a>&quot;</code><br />
+<code>#include &quot;can_library/generated/PDU.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="heartbeat_8h_source.html">common/heartbeat/heartbeat.h</a>&quot;</code><br />
 <code>#include &quot;common/phal/adc.h&quot;</code><br />
@@ -119,8 +119,7 @@ $(function(){initNavTree('pdu_2main_8c.html',''); initResizable(true); });
 <code>#include &quot;common/phal/rcc.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="countof_8h_source.html">common/utils/countof.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="watchdog_8h_source.html">common/watchdog/watchdog.h</a>&quot;</code><br />
-<code>#include &quot;cooling.h&quot;</code><br />
-<code>#include &quot;fan_control.h&quot;</code><br />
+<code>#include &quot;cooling_fsm.h&quot;</code><br />
 <code>#include &quot;faults.h&quot;</code><br />
 <code>#include &quot;flow_rate.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="led_8h_source.html">led.h</a>&quot;</code><br />
@@ -145,9 +144,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>HardFault_Handler</b>
 <tr class="memitem:a082f0f57c132876789ef9bbaa7b6b467" id="r_a082f0f57c132876789ef9bbaa7b6b467"><td class="memItemLeft" align="right" valign="top"><a id="a082f0f57c132876789ef9bbaa7b6b467" name="a082f0f57c132876789ef9bbaa7b6b467"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (switches_periodic, 15, osPriorityNormal, STACK_512)</td></tr>
 <tr class="separator:a082f0f57c132876789ef9bbaa7b6b467"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa31c61127e561e8f7115c1af197b20de" id="r_aa31c61127e561e8f7115c1af197b20de"><td class="memItemLeft" align="right" valign="top"><a id="aa31c61127e561e8f7115c1af197b20de" name="aa31c61127e561e8f7115c1af197b20de"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (cooling_periodic, 100, osPriorityNormal, STACK_1024)</td></tr>
-<tr class="separator:aa31c61127e561e8f7115c1af197b20de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abca5e74437217bd859bf1db3535b07f5" id="r_abca5e74437217bd859bf1db3535b07f5"><td class="memItemLeft" align="right" valign="top"><a id="abca5e74437217bd859bf1db3535b07f5" name="abca5e74437217bd859bf1db3535b07f5"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (cooling_fsm_periodic, COOLING_FSM_PERIOD_MS, osPriorityNormal, STACK_1024)</td></tr>
+<tr class="separator:abca5e74437217bd859bf1db3535b07f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aced1ebae29d08a597cc7838b9fbbe91e" id="r_aced1ebae29d08a597cc7838b9fbbe91e"><td class="memItemLeft" align="right" valign="top"><a id="aced1ebae29d08a597cc7838b9fbbe91e" name="aced1ebae29d08a597cc7838b9fbbe91e"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="led_8c.html#a1d38b8e14425dcbf14215634bcfa5290">LED_periodic</a>, 500, osPriorityLow, STACK_512)</td></tr>
 <tr class="separator:aced1ebae29d08a597cc7838b9fbbe91e"><td class="memSeparator" colspan="2">&#160;</td></tr>

@@ -217,8 +217,10 @@ var NAVTREEINDEX0 =
 "control__loop_8c.html":[32,0,2,8,0,0],
 "control__loop_8h.html":[32,0,2,8,0,1],
 "control__loop_8h_source.html":[32,0,2,8,0,1],
-"cooling_8h_source.html":[32,0,2,7,0,1],
-"cooling__bangbang_8h_source.html":[32,0,2,7,0,2],
+"cooling__callbacks_8c.html":[32,0,2,7,0,0],
+"cooling__callbacks_8h.html":[32,0,2,7,0,1],
+"cooling__callbacks_8h_source.html":[32,0,2,7,0,1],
+"cooling__fsm_8h_source.html":[32,0,2,7,0,2],
 "countof_8h.html":[32,0,1,16,2],
 "countof_8h_source.html":[32,0,1,16,2],
 "crc_8c.html":[32,0,1,10,2,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "dir_1d991c2a5c41d31c761e78fbfd9f46c4.html":[32,0,2,2,0],
 "dir_1e58ee294d93added638b3151c7c87cc.html":[32,0,1,11,4],
 "dir_1f58a266b0235ff01a1a3d64d0bb7dc7.html":[32,0,2,0,3],
-"dir_2529a79e5dbb50670000f2759231cf73.html":[32,0,2,8,1],
-"dir_26279b31032f3838120ccd2327025368.html":[32,0,1,4],
-"dir_35ec71336139549e9612d2514e88f20f.html":[32,0,2,1,3]
+"dir_2529a79e5dbb50670000f2759231cf73.html":[32,0,2,8,1]
 };

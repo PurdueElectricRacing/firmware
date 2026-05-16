@@ -9,8 +9,9 @@
 
 #include "main.h"
 
-#include "can_library/generated/PDU.h"
+// Library includes
 #include "can_library/faults_common.h"
+#include "can_library/generated/PDU.h"
 #include "common/freertos/freertos.h"
 #include "common/heartbeat/heartbeat.h"
 #include "common/phal/adc.h"
@@ -21,8 +22,8 @@
 #include "common/utils/countof.h"
 #include "common/watchdog/watchdog.h"
 
-#include "cooling.h"
-#include "fan_control.h"
+// Module includes
+#include "cooling_fsm.h"
 #include "faults.h"
 #include "flow_rate.h"
 #include "led.h"
@@ -48,67 +49,77 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(LED_CTRL_LAT_GPIO_Port, LED_CTRL_LAT_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, GPIO_OUTPUT_LOW_SPEED),
     // Flow Rate
-    GPIO_INIT_AF(FLOW_RATE_1_GPIO_Port,
-                 FLOW_RATE_1_Pin,
-                 FLOW_RATE_1_AF,
-                 GPIO_OUTPUT_HIGH_SPEED,
-                 GPIO_OUTPUT_OPEN_DRAIN,
-                 GPIO_INPUT_PULL_DOWN),
-    GPIO_INIT_AF(FLOW_RATE_2_GPIO_Port,
-                 FLOW_RATE_2_Pin,
-                 FLOW_RATE_2_AF,
-                 GPIO_OUTPUT_HIGH_SPEED,
-                 GPIO_OUTPUT_OPEN_DRAIN,
-                 GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_AF(
+        FLOW_RATE_1_GPIO_Port,
+        FLOW_RATE_1_Pin,
+        FLOW_RATE_1_AF,
+        GPIO_OUTPUT_HIGH_SPEED,
+        GPIO_OUTPUT_OPEN_DRAIN,
+        GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_AF(
+        FLOW_RATE_2_GPIO_Port,
+        FLOW_RATE_2_Pin,
+        FLOW_RATE_2_AF,
+        GPIO_OUTPUT_HIGH_SPEED,
+        GPIO_OUTPUT_OPEN_DRAIN,
+        GPIO_INPUT_PULL_DOWN),
     // Fan Control
-    GPIO_INIT_AF(FAN_1_PWM_GPIO_Port,
-                 FAN_1_PWM_Pin,
-                 FAN_1_PWM_AF,
-                 GPIO_OUTPUT_HIGH_SPEED,
-                 GPIO_OUTPUT_PUSH_PULL,
-                 GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_AF(FAN_2_PWM_GPIO_Port,
-                 FAN_2_PWM_Pin,
-                 FAN_2_PWM_AF,
-                 GPIO_OUTPUT_HIGH_SPEED,
-                 GPIO_OUTPUT_PUSH_PULL,
-                 GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_AF(FAN_3_PWM_GPIO_Port,
-                 FAN_3_PWM_Pin,
-                 FAN_3_PWM_AF,
-                 GPIO_OUTPUT_HIGH_SPEED,
-                 GPIO_OUTPUT_PUSH_PULL,
-                 GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_AF(FAN_4_PWM_GPIO_Port,
-                 FAN_4_PWM_Pin,
-                 FAN_4_PWM_AF,
-                 GPIO_OUTPUT_HIGH_SPEED,
-                 GPIO_OUTPUT_PUSH_PULL,
-                 GPIO_INPUT_OPEN_DRAIN),
-    GPIO_INIT_AF(FAN_1_TACH_GPIO_Port,
-                 FAN_1_TACH_Pin,
-                 FAN_1_TACH_AF,
-                 GPIO_OUTPUT_HIGH_SPEED,
-                 GPIO_OUTPUT_OPEN_DRAIN,
-                 GPIO_INPUT_PULL_DOWN),
-    GPIO_INIT_AF(FAN_2_TACH_GPIO_Port,
-                 FAN_2_TACH_Pin,
-                 FAN_2_TACH_AF,
-                 GPIO_OUTPUT_HIGH_SPEED,
-                 GPIO_OUTPUT_OPEN_DRAIN,
-                 GPIO_INPUT_PULL_DOWN),
-    GPIO_INIT_AF(FAN_3_TACH_GPIO_Port,
-                 FAN_3_TACH_Pin,
-                 FAN_3_TACH_AF,
-                 GPIO_OUTPUT_HIGH_SPEED,
-                 GPIO_OUTPUT_OPEN_DRAIN,
-                 GPIO_INPUT_PULL_UP),
-    GPIO_INIT_AF(FAN_4_TACH_GPIO_Port,
-                 FAN_4_TACH_Pin,
-                 FAN_4_TACH_AF,
-                 GPIO_OUTPUT_HIGH_SPEED,
-                 GPIO_OUTPUT_OPEN_DRAIN,
-                 GPIO_INPUT_PULL_UP),
+    GPIO_INIT_AF(
+        FAN_1_PWM_GPIO_Port,
+        FAN_1_PWM_Pin,
+        FAN_1_PWM_AF,
+        GPIO_OUTPUT_HIGH_SPEED,
+        GPIO_OUTPUT_PUSH_PULL,
+        GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_AF(
+        FAN_2_PWM_GPIO_Port,
+        FAN_2_PWM_Pin,
+        FAN_2_PWM_AF,
+        GPIO_OUTPUT_HIGH_SPEED,
+        GPIO_OUTPUT_PUSH_PULL,
+        GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_AF(
+        FAN_3_PWM_GPIO_Port,
+        FAN_3_PWM_Pin,
+        FAN_3_PWM_AF,
+        GPIO_OUTPUT_HIGH_SPEED,
+        GPIO_OUTPUT_PUSH_PULL,
+        GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_AF(
+        FAN_4_PWM_GPIO_Port,
+        FAN_4_PWM_Pin,
+        FAN_4_PWM_AF,
+        GPIO_OUTPUT_HIGH_SPEED,
+        GPIO_OUTPUT_PUSH_PULL,
+        GPIO_INPUT_OPEN_DRAIN),
+    GPIO_INIT_AF(
+        FAN_1_TACH_GPIO_Port,
+        FAN_1_TACH_Pin,
+        FAN_1_TACH_AF,
+        GPIO_OUTPUT_HIGH_SPEED,
+        GPIO_OUTPUT_OPEN_DRAIN,
+        GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_AF(
+        FAN_2_TACH_GPIO_Port,
+        FAN_2_TACH_Pin,
+        FAN_2_TACH_AF,
+        GPIO_OUTPUT_HIGH_SPEED,
+        GPIO_OUTPUT_OPEN_DRAIN,
+        GPIO_INPUT_PULL_DOWN),
+    GPIO_INIT_AF(
+        FAN_3_TACH_GPIO_Port,
+        FAN_3_TACH_Pin,
+        FAN_3_TACH_AF,
+        GPIO_OUTPUT_HIGH_SPEED,
+        GPIO_OUTPUT_OPEN_DRAIN,
+        GPIO_INPUT_PULL_UP),
+    GPIO_INIT_AF(
+        FAN_4_TACH_GPIO_Port,
+        FAN_4_TACH_Pin,
+        FAN_4_TACH_AF,
+        GPIO_OUTPUT_HIGH_SPEED,
+        GPIO_OUTPUT_OPEN_DRAIN,
+        GPIO_INPUT_PULL_UP),
     // Pump Switches
     GPIO_INIT_OUTPUT(PUMP_1_CTRL_GPIO_Port, PUMP_1_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_ANALOG(PUMP_1_IMON_GPIO_Port, PUMP_1_IMON_Pin),
@@ -258,7 +269,7 @@ static void heartbeat_led_sweep(void) {
 // Thread Defines
 DEFINE_CAN_TASKS();
 DEFINE_TASK(switches_periodic, 15, osPriorityNormal, STACK_512);
-DEFINE_TASK(cooling_periodic, 100, osPriorityNormal, STACK_1024);
+DEFINE_TASK(cooling_fsm_periodic, COOLING_FSM_PERIOD_MS, osPriorityNormal, STACK_1024);
 DEFINE_TASK(LED_periodic, 500, osPriorityLow, STACK_512);
 DEFINE_TASK(faults_periodic, 100, osPriorityLow, STACK_512);
 DEFINE_TASK(fault_library_periodic, 100, osPriorityLow, STACK_1024);
@@ -299,8 +310,6 @@ int main() {
     switches_init();
     faults_init();
 
-    fanControlInit();
-    cooling_init();
     flowRateInit();
 
     switches_enable_default_rails();
@@ -310,7 +319,7 @@ int main() {
     START_CAN_TASKS();
     CAN_SEND_pdu_init(WDG_get_CSR());
     START_TASK(switches_periodic);
-    START_TASK(cooling_periodic);
+    START_TASK(cooling_fsm_periodic);
     START_TASK(LED_periodic);
     START_TASK(faults_periodic);
     START_TASK(fault_library_periodic);

@@ -9,15 +9,4 @@ void state_init_defaults(void) {
 
     g_pdu_state.next_mux_channel               = 0;
     g_pdu_state.next_rail_fault_index          = 0;
-    g_pdu_state.cooling_command.fan1_percent   = 10;
-    g_pdu_state.cooling_command.fan2_percent   = 10;
-    g_pdu_state.cooling_command.fan3_percent   = 10;
-    g_pdu_state.cooling_command.fan4_percent   = 10;
-    g_pdu_state.cooling_command.fan1_enabled   = true;
-    g_pdu_state.cooling_command.fan2_enabled   = true;
-    g_pdu_state.cooling_command.fan3_enabled   = true;
-    g_pdu_state.cooling_command.fan4_enabled   = true;
-    g_pdu_state.cooling_command.pump1_enabled  = true;
-    g_pdu_state.cooling_command.pump2_enabled  = true;
-    g_pdu_state.cooling_command.hxfan_enabled  = true;
 }

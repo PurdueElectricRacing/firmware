@@ -1,11 +1,12 @@
 var NAVTREEINDEX2 =
 {
-"md_docs_2setup.html#autotoc_md94":[25,0,2],
-"md_docs_2setup.html#autotoc_md95":[25,1],
-"md_docs_2setup.html#autotoc_md96":[25,1,0],
-"md_docs_2setup.html#autotoc_md97":[25,1,1],
-"md_docs_2setup.html#autotoc_md98":[25,2],
-"md_docs_2setup.html#autotoc_md99":[25,2,0],
+"md_docs_2setup.html#autotoc_md93":[25,0,0],
+"md_docs_2setup.html#autotoc_md94":[25,0,1],
+"md_docs_2setup.html#autotoc_md95":[25,0,2],
+"md_docs_2setup.html#autotoc_md96":[25,1],
+"md_docs_2setup.html#autotoc_md97":[25,1,0],
+"md_docs_2setup.html#autotoc_md98":[25,1,1],
+"md_docs_2setup.html#autotoc_md99":[25,2],
 "md_source_2README.html":[10],
 "md_source_2README.html#autotoc_md35":[10,0],
 "md_source_2README.html#autotoc_md36":[10,1],
@@ -55,9 +56,9 @@ var NAVTREEINDEX2 =
 "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md54":[13,1,0],
 "md_source_2torque__vector_2vcu_2TV_01Interface.html#autotoc_md55":[13,1,0,0],
 "md_support_2README.html":[29],
-"md_support_2README.html#autotoc_md133":[29,0],
-"md_support_2README.html#autotoc_md134":[29,1],
-"md_support_2README.html#autotoc_md135":[29,2],
+"md_support_2README.html#autotoc_md134":[29,0],
+"md_support_2README.html#autotoc_md135":[29,1],
+"md_support_2README.html#autotoc_md136":[29,2],
 "menu__system_8c.html":[32,0,2,2,0,6],
 "menu__system_8c.html#a23c0189c067cb5dfd0a1ab4514e0ecc0":[32,0,2,2,0,6,2],
 "menu__system_8c.html#a28391906e0d6d059553293e1e2e6e7f4":[32,0,2,2,0,6,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "phal__F4__F7_2spi_2spi_8h_source.html":[32,0,1,10,9,1],
 "phal__F4__F7_2usart_2usart_8h.html":[32,0,1,10,10,1],
 "phal__F4__F7_2usart_2usart_8h.html#a05486d1804d8e159f343e9cd514e2a64":[32,0,1,10,10,1,14],
-"phal__F4__F7_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493":[32,0,1,10,10,1,8],
-"phal__F4__F7_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027":[32,0,1,10,10,1,8,0]
+"phal__F4__F7_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493":[32,0,1,10,10,1,8]
 };

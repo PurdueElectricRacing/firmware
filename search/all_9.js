@@ -7,7 +7,7 @@ var searchData=
   ['can_20configs_4',['CAN Configs',['../md_can__library_2configs_2README.html',1,'']]],
   ['can_20id_20assignment_20scheme_5',['2026 AMK CAN ID Assignment Scheme',['../md_common_2amk_2README.html#autotoc_md57',1,'']]],
   ['can_20library_6',['PER CAN Library',['../md_can__library_2README.html',1,'']]],
-  ['can_20message_20attributes_20tx_7',['CAN Message Attributes (TX)',['../md_can__library_2configs_2README.html#autotoc_md116',1,'']]],
+  ['can_20message_20attributes_20tx_7',['CAN Message Attributes (TX)',['../md_can__library_2configs_2README.html#autotoc_md117',1,'']]],
   ['can_2eh_8',['can.h',['../phal__F4__F7_2can_2can_8h.html',1,'']]],
   ['can_5fcommon_2eh_9',['can_common.h',['../can__common_8h.html',1,'']]],
   ['can_5finit_2ec_10',['can_init.c',['../can__init_8c.html',1,'']]],
@@ -32,7 +32,7 @@ var searchData=
   ['clamp_20h_20tt_29',['&lt;tt&gt;clamp.h&lt;/tt&gt;',['../md_common_2utils_2README.html#autotoc_md73',1,'']]],
   ['clamp_2eh_30',['clamp.h',['../clamp_8h.html',1,'']]],
   ['clockrateconfig_5ft_31',['ClockRateConfig_t',['../structClockRateConfig__t.html',1,'']]],
-  ['clone_20per_20repo_32',['Clone PER repo',['../md_docs_2setup.html#autotoc_md100',1,'']]],
+  ['clone_20per_20repo_32',['Clone PER repo',['../md_docs_2setup.html#autotoc_md101',1,'']]],
   ['codegen_33',['codegen',['../namespacecodegen.html',1,'']]],
   ['codestyle_34',['Codestyle',['../md_docs_2code__style.html',1,'']]],
   ['colors_2eh_35',['colors.h',['../colors_8h.html',1,'']]],
@@ -40,10 +40,10 @@ var searchData=
   ['commands_2eh_37',['commands.h',['../commands_8h.html',1,'']]],
   ['common_20modules_38',['Common Modules',['../md_common_2README.html',1,'']]],
   ['common_5fdefs_2eh_39',['common_defs.h',['../common__defs_8h.html',1,'']]],
-  ['components_40',['Components',['../md_docs_2datasheet__library.html#autotoc_md83',1,'']]],
+  ['components_40',['Components',['../md_docs_2library.html#autotoc_md88',1,'']]],
   ['configs_41',['CAN Configs',['../md_can__library_2configs_2README.html',1,'']]],
-  ['configs_20system_20bus_5fconfigs_20json_20tt_42',['Bus Definition (&lt;tt&gt;configs/system/bus_configs.json&lt;/tt&gt;)',['../md_can__library_2configs_2README.html#autotoc_md113',1,'']]],
-  ['configuration_43',['Fault Configuration',['../md_can__library_2configs_2README.html#autotoc_md124',1,'']]],
+  ['configs_20system_20bus_5fconfigs_20json_20tt_42',['Bus Definition (&lt;tt&gt;configs/system/bus_configs.json&lt;/tt&gt;)',['../md_can__library_2configs_2README.html#autotoc_md114',1,'']]],
+  ['configuration_43',['Fault Configuration',['../md_can__library_2configs_2README.html#autotoc_md125',1,'']]],
   ['cont_5frx_44',['cont_rx',['../structusart__active__transfer__t.html#a517754f4662afba43bb003cba2868140',1,'usart_active_transfer_t']]],
   ['contentprotectappli_45',['ContentProtectAppli',['../structSD__CSD.html#ae5d1c421553c1aef8c8814a27d64703a',1,'SD_CSD']]],
   ['control_20nodes_46',['Vehicle control nodes',['../md_source_2README.html#autotoc_md35',1,'']]],
@@ -62,5 +62,5 @@ var searchData=
   ['csdstruct_59',['CSDStruct',['../structSD__CSD.html#a7969da024916fa6a90017289e8aae62e',1,'SD_CSD']]],
   ['cts_60',['CTS',['../phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a97dc7d7bbe8a217f4bc934b4a868c521',1,'usart.h']]],
   ['cts_5frts_61',['CTS_RTS',['../phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a4e65306446c6c91076975dffc310218b',1,'usart.h']]],
-  ['custom_20types_62',['Custom Types',['../md_can__library_2configs_2README.html#autotoc_md122',1,'']]]
+  ['custom_20types_62',['Custom Types',['../md_can__library_2configs_2README.html#autotoc_md123',1,'']]]
 ];

@@ -81,6 +81,11 @@ class Message:
         """
         Calculate bit offsets, shifts, and masks for all signals.
         This is intrinsic to the message definition.
+
+        For big-endian messages, generated firmware treats multi-byte signals as
+        byte-wise MSB-first fields located at byte boundaries. DBC output uses
+        the corresponding Motorola start bit, while C packing keeps the LSB
+        shift into the host-order uint64_t staging buffer.
         """
         current_offset = 0
         for sig in self.signals:
@@ -88,6 +93,14 @@ class Message:
             sig.length = length
             
             if self.byte_order == 'big_endian':
+                if length > 8 and (current_offset % 8 != 0 or length not in (16, 32, 64)):
+                    print_as_error(
+                        f"Signal '{sig.name}' in big-endian message '{self.name}' "
+                        "must be byte-aligned with a 16, 32, or 64-bit length. "
+                        "Arbitrary Motorola bitfields are not supported."
+                    )
+                    raise ValueError("Unsupported big-endian signal layout")
+
                 msb_byte = current_offset // 8
                 msb_bit_in_byte = 7 - (current_offset % 8)
                 lsb_pos = current_offset + length - 1

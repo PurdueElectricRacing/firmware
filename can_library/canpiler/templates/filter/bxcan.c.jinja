@@ -1,0 +1,27 @@
+// bxCAN filter setup
+static inline void bxcan_set_filters() {
+    #ifdef USE_CAN2
+    CAN1->FMR  &= ~CAN_FMR_CAN2SB;
+    CAN1->FMR  |= (14 << CAN_FMR_CAN2SB_Pos);
+    #endif
+    CAN1->FM1R |= 0x0FFFFFFF; // Set banks 0-27 to id mode
+    CAN1->FS1R |= 0x0FFFFFFF; // Set banks 0-27 to 32-bit scale
+
+    {% for bxcan_ctx in ctx.filters.bxcan %}
+    {% if bxcan_ctx.accept_all %}
+    // Accept all messages for {{ bxcan_ctx.periph }}
+    CAN1->FM1R &= ~(1 << {{ bxcan_ctx.accept_bank_idx }}); // Mask mode
+    CAN1->FS1R |= (1 << {{ bxcan_ctx.accept_bank_idx }});  // 32-bit scale
+    CAN1->FA1R |= (1 << {{ bxcan_ctx.accept_bank_idx }});
+    CAN1->sFilterRegister[{{ bxcan_ctx.accept_bank_idx }}].FR1 = 0;
+    CAN1->sFilterRegister[{{ bxcan_ctx.accept_bank_idx }}].FR2 = 0;
+    {% else %}
+    {% for bank in bxcan_ctx.banks %}
+    // {{ bank.comment }}
+    CAN1->FA1R |= (1 << {{ bank.bank_idx }});
+    CAN1->sFilterRegister[{{ bank.bank_idx }}].FR1 = {{ bank.fr1 }};
+    CAN1->sFilterRegister[{{ bank.bank_idx }}].FR2 = {{ bank.fr2 }};
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+}

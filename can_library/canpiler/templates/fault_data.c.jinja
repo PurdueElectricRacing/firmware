@@ -1,9 +1,6 @@
-/**
- * @file fault_data.c
- * @brief Auto-generated implementation of the system-wide fault library.
- * @note This file is auto-generated; do not modify manually.
- * @author Irving Wang (irvingw@purdue.edu)
- */
+{% set file_name = "fault_data.c" %}
+{% set file_brief = "Auto-generated implementation of the system-wide fault library." %}
+{% include "common/file_banner.jinja" %}
 
 #include "can_library/generated/fault_data.h"
 #include "can_library/generated/can_router.h"
@@ -12,14 +9,14 @@ fault_t faults[TOTAL_NUM_FAULTS] = {
 {% for module in fault_modules %}
     // --- {{ module.node_name }} ---
 {% for fault in module.faults %}
-    [FAULT_ID_{{ fault.name|upper }}] = {
+    [{{ fault.id }}] = {
         .start_time_ms = 0,
         .max_value = {{ fault.max_val }},
         .min_value = {{ fault.min_val }},
-        .latch_time_ms = {{ fault.time_to_latch }},
-        .unlatch_time_ms = {{ fault.time_to_unlatch }},
+        .latch_time_ms = {{ fault.latch_time }},
+        .unlatch_time_ms = {{ fault.unlatch_time }},
         .state = FAULT_STATE_LATCHED, // start latched to sync initial state across MCUs
-        .priority = FAULT_PRIO_{{ fault.priority|upper }}
+        .priority = {{ fault.priority_macro }}
     },
 {% endfor %}
 {% endfor %}
@@ -30,7 +27,7 @@ const char* const fault_strings[TOTAL_NUM_FAULTS] = {
 {% for module in fault_modules %}
     // --- {{ module.node_name }} ---
 {% for fault in module.faults %}
-    [FAULT_ID_{{ fault.name|upper }}] = {% if fault.lcd_message %}"{{ fault.lcd_message }}"{% else %}nullptr{% endif %},
+    [{{ fault.id }}] = {{ fault.lcd_literal }},
 {% endfor %}
 {% endfor %}
 };
@@ -39,22 +36,22 @@ const char* const fault_strings[TOTAL_NUM_FAULTS] = {
 {% for module in fault_modules %}
 // --- {{ module.node_name }} Callbacks ---
 #ifdef FAULT_LIB_ENABLED
-#ifndef CAN_NODE_{{ module.node_name|upper }}
-void {{ module.node_name|lower }}_fault_sync_CALLBACK() {
+#ifndef CAN_NODE_{{ module.node_macro }}
+void {{ module.sync_callback }}() {
 {% for fault in module.faults %}
-    faults[FAULT_ID_{{ fault.name|upper }}].state = can_data.{{ module.node_name|lower }}_fault_sync.{{ fault.name }} ? FAULT_STATE_LATCHED : FAULT_STATE_CLEAR;
+    {{ fault.sync_assignment }}
 {% endfor %}
 }
 
-void {{ module.node_name|lower }}_fault_event_CALLBACK() {
-    uint16_t idx = can_data.{{ module.node_name|lower }}_fault_event.idx;
+void {{ module.event_callback }}() {
+    uint16_t idx = can_data.{{ module.node_lower }}_fault_event.idx;
     if (idx < TOTAL_NUM_FAULTS) {
-        faults[idx].state = (can_data.{{ module.node_name|lower }}_fault_event.state != 0) ? FAULT_STATE_LATCHED : FAULT_STATE_CLEAR;
+        faults[idx].state = (can_data.{{ module.node_lower }}_fault_event.state != 0) ? FAULT_STATE_LATCHED : FAULT_STATE_CLEAR;
     }
 }
 #else
-void {{ module.node_name|lower }}_fault_sync_CALLBACK() { }
-void {{ module.node_name|lower }}_fault_event_CALLBACK() { }
+void {{ module.sync_callback }}() { }
+void {{ module.event_callback }}() { }
 #endif
 #endif
 
@@ -63,10 +60,10 @@ void {{ module.node_name|lower }}_fault_event_CALLBACK() { }
 void tx_fault_sync(void) {
 #ifdef FAULT_LIB_ENABLED
 {% for module in fault_modules %}
-#ifdef CAN_NODE_{{ module.node_name|upper }}
-    CAN_SEND_{{ module.node_name|lower }}_fault_sync(
+#ifdef CAN_NODE_{{ module.node_macro }}
+    {{ module.sync_sender }}(
 {% for fault in module.faults %}
-        is_latched(FAULT_ID_{{ fault.name|upper }}){{ "," if not loop.last }}
+        {{ fault.sync_arg }}{{ "," if not loop.last }}
 {% endfor %}
     );
 #endif
@@ -77,9 +74,9 @@ void tx_fault_sync(void) {
 void tx_fault_event(fault_id_t idx, uint16_t value) {
 #ifdef FAULT_LIB_ENABLED
 {% for module in fault_modules %}
-#ifdef CAN_NODE_{{ module.node_name|upper }}
-    if (idx >= FAULT_ID_{{ module.faults[0].name|upper }} && idx <= FAULT_ID_{{ module.faults[-1].name|upper }}) {
-        CAN_SEND_{{ module.node_name|lower }}_fault_event(idx, (faults[idx].state == FAULT_STATE_LATCHED), value);
+#ifdef CAN_NODE_{{ module.node_macro }}
+    if (idx >= {{ module.first_fault_id }} && idx <= {{ module.last_fault_id }}) {
+        {{ module.event_sender }}(idx, (faults[idx].state == FAULT_STATE_LATCHED), value);
     }
 #endif
 {% endfor %}

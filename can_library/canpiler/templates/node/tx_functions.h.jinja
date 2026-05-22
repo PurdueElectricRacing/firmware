@@ -1,0 +1,33 @@
+// TX Functions
+{% for entry in ctx.tx_entries %}
+[[gnu::always_inline]]
+static inline void CAN_SEND_{{ entry.msg.name }}(
+{% for sig in entry.msg.signals %}
+    {{ sig.c_type }} {{ sig.name }}{{ "," if not loop.last }}
+{% endfor %}
+) {
+    CanMsgTypeDef_t outgoing = {
+        .Bus={{ entry.periph }},
+        {% if entry.msg.is_extended %}
+        .ExtId={{ entry.msg.macro_name }}_MSG_ID,
+        .IDE=1,
+        {% else %}
+        .StdId={{ entry.msg.macro_name }}_MSG_ID,
+        .IDE=0,
+        {% endif %}
+        .DLC={{ entry.msg.macro_name }}_DLC
+    };
+
+    uint64_t data = 0;
+    {% for codec in entry.codecs %}
+    {% for line in codec.tx_lines %}
+    {{ line }}
+    {% endfor %}
+    {% endfor %}
+
+    memcpy(outgoing.Data, &data, {{ entry.msg.macro_name }}_DLC);
+
+    CAN_enqueue_tx(&outgoing);
+}
+
+{% endfor %}

@@ -4,6 +4,7 @@ faultgen.py
 Author: Irving Wang (irvingw@purdue.edu)
 """
 
+import json
 from typing import List, Dict
 from parser import Node, Message, Signal, RxMessage, FaultModule, SystemContext
 from utils import GENERATED_DIR, print_as_success, print_as_ok, print_as_error, get_jinja_env, render_template
@@ -191,14 +192,7 @@ def generate_fault_data(context: SystemContext):
     print("Generating fault library implementation data...")
     
     env = get_jinja_env()
-    
-    total_faults = sum(len(m.faults) for m in context.fault_modules)
-    template_context = {
-        'nodes': context.nodes,
-        'fault_modules': context.fault_modules,
-        'total_faults': total_faults,
-        'version': context.version
-    }
+    template_context = build_fault_render_context(context)
 
     render_template(env, 'fault_data.h.jinja', GENERATED_DIR / "fault_data.h", **template_context)
     print_as_ok("Generated fault_data.h")
@@ -208,3 +202,57 @@ def generate_fault_data(context: SystemContext):
     
     print_as_success("Fault library implementation files generated")
 
+
+def build_fault_render_context(context: SystemContext) -> Dict:
+    owner_nodes = []
+    for node in context.nodes:
+        if not node.fault_library_enabled:
+            continue
+        owner_nodes.append({
+            "macro": node.name.upper(),
+            "has_faults": bool(node.faults),
+            "start_macro": f"FAULT_ID_{node.faults[0].name.upper()}" if node.faults else None,
+            "end_macro": f"FAULT_ID_{node.faults[-1].name.upper()}" if node.faults else None,
+            "generate_fault_strings": node.generate_fault_strings,
+        })
+
+    modules = []
+    for module in context.fault_modules:
+        fault_rows = []
+        for fault in module.faults:
+            fault_id = f"FAULT_ID_{fault.name.upper()}"
+            fault_rows.append({
+                "id": fault_id,
+                "name": fault.name,
+                "max_val": fault.max_val,
+                "min_val": fault.min_val,
+                "latch_time": fault.time_to_latch,
+                "unlatch_time": fault.time_to_unlatch,
+                "priority_macro": f"FAULT_PRIO_{fault.priority.upper()}",
+                "lcd_literal": json.dumps(fault.lcd_message) if fault.lcd_message else "nullptr",
+                "sync_assignment": (
+                    f"faults[{fault_id}].state = can_data.{module.node_name.lower()}_fault_sync.{fault.name} "
+                    "? FAULT_STATE_LATCHED : FAULT_STATE_CLEAR;"
+                ),
+                "sync_arg": f"is_latched({fault_id})",
+            })
+
+        modules.append({
+            "node_name": module.node_name,
+            "node_macro": module.node_name.upper(),
+            "node_lower": module.node_name.lower(),
+            "faults": fault_rows,
+            "first_fault_id": fault_rows[0]["id"],
+            "last_fault_id": fault_rows[-1]["id"],
+            "sync_callback": f"{module.node_name.lower()}_fault_sync_CALLBACK",
+            "event_callback": f"{module.node_name.lower()}_fault_event_CALLBACK",
+            "sync_sender": f"CAN_SEND_{module.node_name.lower()}_fault_sync",
+            "event_sender": f"CAN_SEND_{module.node_name.lower()}_fault_event",
+        })
+
+    return {
+        "owner_nodes": owner_nodes,
+        "fault_modules": modules,
+        "total_faults": sum(len(m.faults) for m in context.fault_modules),
+        "version": context.version,
+    }

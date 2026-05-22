@@ -107,6 +107,7 @@ def get_jinja_env():
         return s + "f"
     
     env.filters['format_float'] = format_float
+    env.filters['to_c_string'] = lambda v: json.dumps(v) if v else "nullptr"
     
     return env
 

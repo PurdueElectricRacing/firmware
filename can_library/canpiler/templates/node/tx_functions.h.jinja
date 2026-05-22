@@ -20,9 +20,27 @@ static inline void CAN_SEND_{{ entry.msg.name }}(
 
     uint64_t data = 0;
     {% for codec in entry.codecs %}
-    {% for line in codec.tx_lines %}
-    {{ line }}
-    {% endfor %}
+    uint64_t sig_raw_{{ codec.signal.name }} = 0;
+    {% if codec.is_float32 %}
+    union { float f; uint32_t u; } _{{ codec.signal.name }}_tx_u;
+    _{{ codec.signal.name }}_tx_u.f = {{ codec.signal.name }};
+    sig_raw_{{ codec.signal.name }} = _{{ codec.signal.name }}_tx_u.u;
+    {% elif codec.is_float64 %}
+    union { double f; uint64_t u; } _{{ codec.signal.name }}_tx_u;
+    _{{ codec.signal.name }}_tx_u.f = {{ codec.signal.name }};
+    sig_raw_{{ codec.signal.name }} = _{{ codec.signal.name }}_tx_u.u;
+    {% else %}
+    sig_raw_{{ codec.signal.name }} = (uint64_t){{ codec.signal.name }};
+    {% endif %}
+    sig_raw_{{ codec.signal.name }} &= {{ codec.signal.mask|to_c_hex }};
+    {% if codec.bswap_width == 16 %}
+    sig_raw_{{ codec.signal.name }} = __builtin_bswap16((uint16_t)sig_raw_{{ codec.signal.name }});
+    {% elif codec.bswap_width == 32 %}
+    sig_raw_{{ codec.signal.name }} = __builtin_bswap32((uint32_t)sig_raw_{{ codec.signal.name }});
+    {% elif codec.bswap_width == 64 %}
+    sig_raw_{{ codec.signal.name }} = __builtin_bswap64(sig_raw_{{ codec.signal.name }});
+    {% endif %}
+    data |= (sig_raw_{{ codec.signal.name }} & {{ codec.signal.mask|to_c_hex }}) << ({{ codec.signal.bit_shift }});
     {% endfor %}
 
     memcpy(outgoing.Data, &data, {{ entry.msg.macro_name }}_DLC);

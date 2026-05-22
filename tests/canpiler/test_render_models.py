@@ -54,8 +54,8 @@ class RenderModelTests(unittest.TestCase):
         angular = rx["IZZE_angular_rate"]
         self.assertEqual(angular.periph, "FDCAN2")
         self.assertEqual([codec.signal.name for codec in angular.codecs], ["X_axis", "Y_axis", "Z_axis", "reserved"])
-        self.assertTrue(any("__builtin_bswap16" in line for line in angular.codecs[0].rx_lines))
-        self.assertTrue(any("<< (48)" in line for line in angular.codecs[0].rx_lines))
+        self.assertEqual(angular.codecs[0].bswap_width, 16)
+        self.assertEqual(angular.codecs[0].sign_extend_shift, 48)
 
     def test_signal_codec_metadata_covers_core_shapes(self):
         msg = Message(
@@ -69,15 +69,16 @@ class RenderModelTests(unittest.TestCase):
         )
         msg.resolve_layout({})
 
-        be_signed_rx = build_signal_codec(msg.signals[0], "rx", msg)
-        be_float_tx = build_signal_codec(msg.signals[1], "tx", msg)
-        flag_rx = build_signal_codec(msg.signals[2], "rx", msg)
+        be_signed_rx = build_signal_codec(msg.signals[0], "rx")
+        be_float_tx = build_signal_codec(msg.signals[1], "tx")
+        flag_rx = build_signal_codec(msg.signals[2], "rx")
 
-        self.assertTrue(any("__builtin_bswap16" in line for line in be_signed_rx.rx_lines))
-        self.assertTrue(any("int64_t" in line for line in be_signed_rx.rx_lines))
-        self.assertTrue(any("union { float f; uint32_t u; }" in line for line in be_float_tx.tx_lines))
-        self.assertTrue(any("__builtin_bswap32" in line for line in be_float_tx.tx_lines))
-        self.assertFalse(any("__builtin_bswap" in line for line in flag_rx.rx_lines))
+        self.assertEqual(be_signed_rx.bswap_width, 16)
+        self.assertEqual(be_signed_rx.sign_extend_shift, 48)
+        self.assertTrue(be_float_tx.is_float32)
+        self.assertEqual(be_float_tx.bswap_width, 32)
+        self.assertIsNone(flag_rx.bswap_width)
+        self.assertIsNone(flag_rx.sign_extend_shift)
 
 
 if __name__ == "__main__":

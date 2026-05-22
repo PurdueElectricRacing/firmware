@@ -3,19 +3,37 @@ static inline void CAN_rx_dispatcher(uint32_t id, uint8_t *data, uint8_t len, ui
     switch(id) {
     {% for entry in ctx.rx_entries %}
         case {{ entry.msg.macro_name }}_MSG_ID:
-            if (peripheral_idx == {{ entry.peripheral_index }}) {
+            if (peripheral_idx == {{ entry.periph }}_INDEX) {
                 uint64_t host_data = 0;
                 memcpy(&host_data, data, len);
                 
                 {% for codec in entry.codecs %}
-                {% for line in codec.rx_lines %}
-                {{ line }}
-                {% endfor %}
+                uint64_t sig_raw_{{ codec.signal.name }} = (host_data >> {{ codec.signal.bit_shift }}) & {{ codec.signal.mask|to_c_hex }};
+                {% if codec.bswap_width == 16 %}
+                sig_raw_{{ codec.signal.name }} = __builtin_bswap16((uint16_t)sig_raw_{{ codec.signal.name }});
+                {% elif codec.bswap_width == 32 %}
+                sig_raw_{{ codec.signal.name }} = __builtin_bswap32((uint32_t)sig_raw_{{ codec.signal.name }});
+                {% elif codec.bswap_width == 64 %}
+                sig_raw_{{ codec.signal.name }} = __builtin_bswap64(sig_raw_{{ codec.signal.name }});
+                {% endif %}
+                {% if codec.is_float32 %}
+                union { float f; uint32_t u; } _{{ codec.signal.name }}_rx_u;
+                _{{ codec.signal.name }}_rx_u.u = (uint32_t)sig_raw_{{ codec.signal.name }};
+                can_data.{{ entry.msg.name }}.{{ codec.signal.name }} = ({{ codec.signal.c_type }})_{{ codec.signal.name }}_rx_u.f;
+                {% elif codec.is_float64 %}
+                union { double f; uint64_t u; } _{{ codec.signal.name }}_rx_u;
+                _{{ codec.signal.name }}_rx_u.u = sig_raw_{{ codec.signal.name }};
+                can_data.{{ entry.msg.name }}.{{ codec.signal.name }} = ({{ codec.signal.c_type }})_{{ codec.signal.name }}_rx_u.f;
+                {% elif codec.sign_extend_shift is not none %}
+                can_data.{{ entry.msg.name }}.{{ codec.signal.name }} = ({{ codec.signal.c_type }})((int64_t)(sig_raw_{{ codec.signal.name }} << ({{ codec.sign_extend_shift }})) >> ({{ codec.sign_extend_shift }}));
+                {% else %}
+                can_data.{{ entry.msg.name }}.{{ codec.signal.name }} = ({{ codec.signal.c_type }})sig_raw_{{ codec.signal.name }};
+                {% endif %}
                 {% endfor %}
                 
                 can_data.{{ entry.msg.name }}.last_rx = OS_TICKS;
-                {% if entry.callback_name %}
-                {{ entry.callback_name }};
+                {% if entry.rx_msg.callback %}
+                {{ entry.rx_msg.name }}_CALLBACK();
                 {% endif %}
             }
             break;

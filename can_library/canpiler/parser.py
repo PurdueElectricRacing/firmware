@@ -141,8 +141,14 @@ class Message:
         Raises ValueError if invalid.
         """
         total_length = sum(sig.get_bit_length(custom_types) for sig in self.signals)
+        signal_names: Set[str] = set()
 
         for sig in self.signals:
+            if sig.name in signal_names:
+                print_as_error(f"Message '{self.name}' has duplicate signal name '{sig.name}'")
+                raise ValueError(f"Duplicate signal name '{sig.name}' in message '{self.name}'")
+            signal_names.add(sig.name)
+
             if sig.datatype not in CTYPE_SIZES and sig.datatype not in custom_types:
                 print_as_error(f"Signal '{sig.name}' in message '{self.name}' has unknown type '{sig.datatype}'")
                 raise ValueError("Unknown signal type")
@@ -308,6 +314,9 @@ def load_custom_types() -> Dict:
         data = load_json(COMMON_TYPES_CONFIG_PATH)
         custom_types = {}
         for t in data.get("types", []):
+            if t["name"] in custom_types:
+                print_as_error(f"Duplicate custom type name '{t['name']}' in common_types.json")
+                raise ValueError(f"Duplicate custom type name '{t['name']}'")
             custom_types[t["name"]] = t
         return custom_types
     except FileNotFoundError:

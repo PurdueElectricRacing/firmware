@@ -5,8 +5,8 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#include "can_common.h"
-#include "generated/can_router.h"
+#include "can_library/can_common.h"
+#include "can_library/generated/can_router.h"
 
 // Guard against bad arch defines
 #if !defined(STM32F407xx) && !defined(STM32G474xx)

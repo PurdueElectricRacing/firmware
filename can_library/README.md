@@ -12,6 +12,7 @@ Standardized framework for CAN communication and system-wide fault management wi
 - [`source/can_rx.c`](source/can_rx.c): CAN RX task and the shared `can_data` instance.
 - [`source/can_tx.c`](source/can_tx.c): CAN TX task and per-peripheral software queues.
 - [`source/faults_common.c`](source/faults_common.c) / [`faults_common.h`](faults_common.h): System-wide fault management.
+- [`can_codec.h`](can_codec.h): Force-inlined helpers used by generated code for signal packing and unpacking.
 - `can_library.cmake`: CMake integration and node library generation.
 
 ## Logic

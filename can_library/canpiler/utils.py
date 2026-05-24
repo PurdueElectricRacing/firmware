@@ -25,7 +25,7 @@ CTYPE_SIZES = {
     "uint16_t": 16, "int16_t": 16,
     "uint32_t": 32, "int32_t": 32,
     "uint64_t": 64, "int64_t": 64,
-    "float": 32, "double": 64,
+    "float": 32,
     "bool": 1
 }
 
@@ -87,7 +87,7 @@ def get_layout_hash(message):
 
 
 def get_jinja_env():
-    template_dir = Path(__file__).parent / 'templates'
+    template_dir = BASE_DIR / 'templates'
     env = Environment(
         loader=FileSystemLoader(str(template_dir)),
         autoescape=select_autoescape(),
@@ -107,6 +107,7 @@ def get_jinja_env():
         return s + "f"
     
     env.filters['format_float'] = format_float
+    env.filters['to_c_string'] = lambda v: json.dumps(v) if v else "nullptr"
     
     return env
 

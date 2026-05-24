@@ -8,10 +8,11 @@ Standardized framework for CAN communication and system-wide fault management wi
 - `schema/`: JSON schemas for validating configuration files.
 
 **Core Files:**
-- [`can_init.c`](can_init.c) / [`can_common.h`](can_common.h): Bus/peripheral initialization and `CAN_init()`.
-- [`can_rx.c`](can_rx.c): CAN RX task and the shared `can_data` instance.
-- [`can_tx.c`](can_tx.c): CAN TX task and per-peripheral software queues.
-- `faults_common.c` / `faults_common.h`: System-wide fault management.
+- [`source/can_init.c`](source/can_init.c) / [`can_common.h`](can_common.h): Bus/peripheral initialization and `CAN_init()`.
+- [`source/can_rx.c`](source/can_rx.c): CAN RX task and the shared `can_data` instance.
+- [`source/can_tx.c`](source/can_tx.c): CAN TX task and per-peripheral software queues.
+- [`source/faults_common.c`](source/faults_common.c) / [`faults_common.h`](faults_common.h): System-wide fault management.
+- [`can_codec.h`](can_codec.h): Force-inlined helpers used by generated code for signal packing and unpacking.
 - `can_library.cmake`: CMake integration and node library generation.
 
 ## Logic

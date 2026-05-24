@@ -55,7 +55,7 @@ def generate_dbcs(context: SystemContext):
                     scale=sig.scale,
                     offset=sig.offset,
                     choices=choices,
-                    is_float=(sig.datatype in ['float', 'double'])
+                    is_float=(sig.datatype == 'float')
                 )
 
                 signals.append(database.can.Signal(
@@ -93,4 +93,3 @@ def generate_dbcs(context: SystemContext):
         print_as_ok(f"Generated {filename}")
 
     print_as_success("Successfully generated DBC files")
-

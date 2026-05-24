@@ -1,0 +1,37 @@
+// TX Functions
+{% for entry in ctx.tx_entries %}
+[[gnu::always_inline]]
+static inline void CAN_SEND_{{ entry.msg.name }}(
+{% for sig in entry.msg.signals %}
+    {{ sig.c_type }} {{ sig.name }}{{ "," if not loop.last }}
+{% endfor %}
+) {
+    CanMsgTypeDef_t outgoing = {
+        .Bus = {{ entry.periph }},
+        {% if entry.msg.is_extended %}
+        .ExtId = {{ entry.msg.macro_name }}_MSG_ID,
+        .IDE=1,
+        {% else %}
+        .StdId = {{ entry.msg.macro_name }}_MSG_ID,
+        .IDE = 0,
+        {% endif %}
+        .DLC = {{ entry.msg.macro_name }}_DLC,
+        .Data = {0}
+    };
+
+    uint64_t data = 0;
+    {% for codec in entry.codecs %}
+    {% if codec.is_float32 %}
+    uint64_t sig_raw_{{ codec.signal.name }} = CAN_float32_to_raw({{ codec.signal.name }});
+    {% else %}
+    uint64_t sig_raw_{{ codec.signal.name }} = (uint64_t){{ codec.signal.name }};
+    {% endif %}
+    data = CAN_pack_raw_signal(data, sig_raw_{{ codec.signal.name }}, {{ codec.signal.mask|to_c_hex }}, {{ codec.signal.bit_shift }}, {{ codec.bswap_width if codec.bswap_width is not none else 0 }});
+    {% endfor %}
+
+    CAN_store_payload_u64(outgoing.Data, data, {{ entry.msg.macro_name }}_DLC);
+
+    CAN_enqueue_tx(&outgoing);
+}
+
+{% endfor %}

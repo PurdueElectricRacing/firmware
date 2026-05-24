@@ -22,10 +22,6 @@
             "then": { "properties": { "length": { "const": 32 } } }
         },
         {
-            "if": { "properties": { "type": { "const": "double" } } },
-            "then": { "properties": { "length": { "const": 64 } } }
-        },
-        {
             "if": { "required": ["scale"] },
             "then": { "required": ["unit"] }
         }

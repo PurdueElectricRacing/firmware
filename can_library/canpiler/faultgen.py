@@ -191,14 +191,7 @@ def generate_fault_data(context: SystemContext):
     print("Generating fault library implementation data...")
     
     env = get_jinja_env()
-    
-    total_faults = sum(len(m.faults) for m in context.fault_modules)
-    template_context = {
-        'nodes': context.nodes,
-        'fault_modules': context.fault_modules,
-        'total_faults': total_faults,
-        'version': context.version
-    }
+    template_context = build_fault_render_context(context)
 
     render_template(env, 'fault_data.h.jinja', GENERATED_DIR / "fault_data.h", **template_context)
     print_as_ok("Generated fault_data.h")
@@ -208,3 +201,45 @@ def generate_fault_data(context: SystemContext):
     
     print_as_success("Fault library implementation files generated")
 
+
+def build_fault_render_context(context: SystemContext) -> Dict:
+    owner_nodes = []
+    for node in context.nodes:
+        if not node.fault_library_enabled:
+            continue
+        owner_nodes.append({
+            "name_upper": node.name.upper(),
+            "has_faults": bool(node.faults),
+            "start_fault_name_upper": node.faults[0].name.upper() if node.faults else None,
+            "end_fault_name_upper": node.faults[-1].name.upper() if node.faults else None,
+            "generate_fault_strings": node.generate_fault_strings,
+        })
+
+    modules = []
+    for module in context.fault_modules:
+        fault_rows = []
+        for fault in module.faults:
+            fault_rows.append({
+                "name": fault.name,
+                "name_upper": fault.name.upper(),
+                "max_val": fault.max_val,
+                "min_val": fault.min_val,
+                "latch_time": fault.time_to_latch,
+                "unlatch_time": fault.time_to_unlatch,
+                "priority_upper": fault.priority.upper(),
+                "lcd_message": fault.lcd_message,
+            })
+
+        modules.append({
+            "node_name": module.node_name,
+            "faults": fault_rows,
+            "first_fault": fault_rows[0],
+            "last_fault": fault_rows[-1],
+        })
+
+    return {
+        "owner_nodes": owner_nodes,
+        "fault_modules": modules,
+        "total_faults": sum(len(m.faults) for m in context.fault_modules),
+        "version": context.version,
+    }

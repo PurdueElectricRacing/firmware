@@ -44,7 +44,7 @@ class Signal:
 
     @property
     def is_floating_point(self) -> bool:
-        return self.datatype in ['float', 'double']
+        return self.datatype == 'float'
 
     def get_bit_length(self, custom_types: Optional[Dict] = None) -> int:
         if self.length > 0:
@@ -81,6 +81,11 @@ class Message:
         """
         Calculate bit offsets, shifts, and masks for all signals.
         This is intrinsic to the message definition.
+
+        For big-endian messages, generated firmware treats multi-byte signals as
+        byte-wise MSB-first fields located at byte boundaries. DBC output uses
+        the corresponding Motorola start bit, while C packing keeps the LSB
+        shift into the host-order uint64_t staging buffer.
         """
         current_offset = 0
         for sig in self.signals:
@@ -88,6 +93,14 @@ class Message:
             sig.length = length
             
             if self.byte_order == 'big_endian':
+                if length > 8 and (current_offset % 8 != 0 or length not in (16, 32, 64)):
+                    print_as_error(
+                        f"Signal '{sig.name}' in big-endian message '{self.name}' "
+                        "must be byte-aligned with a 16, 32, or 64-bit length. "
+                        "Arbitrary Motorola bitfields are not supported."
+                    )
+                    raise ValueError("Unsupported big-endian signal layout")
+
                 msb_byte = current_offset // 8
                 msb_bit_in_byte = 7 - (current_offset % 8)
                 lsb_pos = current_offset + length - 1
@@ -128,8 +141,14 @@ class Message:
         Raises ValueError if invalid.
         """
         total_length = sum(sig.get_bit_length(custom_types) for sig in self.signals)
+        signal_names: Set[str] = set()
 
         for sig in self.signals:
+            if sig.name in signal_names:
+                print_as_error(f"Message '{self.name}' has duplicate signal name '{sig.name}'")
+                raise ValueError(f"Duplicate signal name '{sig.name}' in message '{self.name}'")
+            signal_names.add(sig.name)
+
             if sig.datatype not in CTYPE_SIZES and sig.datatype not in custom_types:
                 print_as_error(f"Signal '{sig.name}' in message '{self.name}' has unknown type '{sig.datatype}'")
                 raise ValueError("Unknown signal type")
@@ -295,6 +314,9 @@ def load_custom_types() -> Dict:
         data = load_json(COMMON_TYPES_CONFIG_PATH)
         custom_types = {}
         for t in data.get("types", []):
+            if t["name"] in custom_types:
+                print_as_error(f"Duplicate custom type name '{t['name']}' in common_types.json")
+                raise ValueError(f"Duplicate custom type name '{t['name']}'")
             custom_types[t["name"]] = t
         return custom_types
     except FileNotFoundError:

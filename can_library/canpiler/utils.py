@@ -87,7 +87,7 @@ def get_layout_hash(message):
 
 
 def get_jinja_env():
-    template_dir = Path(__file__).parent / 'templates'
+    template_dir = BASE_DIR / 'templates'
     env = Environment(
         loader=FileSystemLoader(str(template_dir)),
         autoescape=select_autoescape(),

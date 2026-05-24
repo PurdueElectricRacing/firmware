@@ -7,7 +7,7 @@ Modeled After the traditional compiler pipeline. Written in python for ease of m
 
 `build.py`: Main entry point for CANpiler. Coordinates the top-level data flow.
 
-`templates/`: Directory containing Jinja2 templates for all generated build artifacts. Decouples the output formatting from the generation logic.
+`../templates/`: Directory containing Jinja2 templates for all generated build artifacts. Decouples the output formatting from the generation logic.
 
 `utils.py`: Shared helpers (`format_float`, `print_as_success`, etc.) used across the pipeline.
 
@@ -43,7 +43,7 @@ Modeled After the traditional compiler pipeline. Written in python for ease of m
 #### 5. Generation
 Produces the final build artifacts from the `SystemContext` using the **Jinja2** templating engine.
 - **C23 Standard**: All generated code targets the C23 standard, specifically utilizing `static constexpr` for type-safe constants and identifiers.
-- **Templates** (`templates/`): `bus_header.h.jinja`, `bxcan_filter.c.jinja`, `can_router.h.jinja`, `can_types.h.jinja`, `fault_data.c.jinja`, `fault_data.h.jinja`, `fdcan_filter.c.jinja`, `node_header.h.jinja`.
+- **Templates** (`../templates/`): `bus_header.h.jinja`, `can_router.h.jinja`, `can_types.h.jinja`, `fault_data.c.jinja`, `fault_data.h.jinja`, `filter/bxcan.c.jinja`, `filter/fdcan.c.jinja`, `node_header.h.jinja`, plus shared `common/` and `node/` partials.
 - `codegen.py`: Generates `can_types.h`, per-node headers (`<NODE>.h`), per-bus headers, and the central `can_router.h` from the Jinja templates. Packed bit-field structs, endianness-safe accessors, and hardened sign-extension for signed signals.
 - `dbcgen.py`: Produces deterministic, versioned DBC files using the `cantools` library.
 - `faultgen.py`: Injects `FAULT_SYNC` and `FAULT_EVENT` messages into node configurations and generates global fault tracking maps (`fault_data.c` / `fault_data.h`).

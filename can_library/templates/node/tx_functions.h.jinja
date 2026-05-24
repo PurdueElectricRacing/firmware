@@ -22,8 +22,6 @@ static inline void CAN_SEND_{{ entry.msg.name }}(
     {% for codec in entry.codecs %}
     {% if codec.is_float32 %}
     uint64_t sig_raw_{{ codec.signal.name }} = CAN_float32_to_raw({{ codec.signal.name }});
-    {% elif codec.is_float64 %}
-    uint64_t sig_raw_{{ codec.signal.name }} = CAN_float64_to_raw({{ codec.signal.name }});
     {% else %}
     uint64_t sig_raw_{{ codec.signal.name }} = (uint64_t){{ codec.signal.name }};
     {% endif %}

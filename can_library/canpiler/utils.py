@@ -25,7 +25,7 @@ CTYPE_SIZES = {
     "uint16_t": 16, "int16_t": 16,
     "uint32_t": 32, "int32_t": 32,
     "uint64_t": 64, "int64_t": 64,
-    "float": 32, "double": 64,
+    "float": 32,
     "bool": 1
 }
 

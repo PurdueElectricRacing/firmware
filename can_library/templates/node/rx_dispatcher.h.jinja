@@ -10,8 +10,6 @@ static inline void CAN_rx_dispatcher(uint32_t id, uint8_t *data, uint8_t len, ui
                 uint64_t sig_raw_{{ codec.signal.name }} = CAN_unpack_raw_signal(host_data, {{ codec.signal.mask|to_c_hex }}, {{ codec.signal.bit_shift }}, {{ codec.bswap_width if codec.bswap_width is not none else 0 }});
                 {% if codec.is_float32 %}
                 can_data.{{ entry.msg.name }}.{{ codec.signal.name }} = ({{ codec.signal.c_type }})CAN_raw_to_float32(sig_raw_{{ codec.signal.name }});
-                {% elif codec.is_float64 %}
-                can_data.{{ entry.msg.name }}.{{ codec.signal.name }} = ({{ codec.signal.c_type }})CAN_raw_to_float64(sig_raw_{{ codec.signal.name }});
                 {% elif codec.sign_extend_shift is not none %}
                 can_data.{{ entry.msg.name }}.{{ codec.signal.name }} = ({{ codec.signal.c_type }})CAN_sign_extend_raw(sig_raw_{{ codec.signal.name }}, {{ codec.signal.length }});
                 {% else %}

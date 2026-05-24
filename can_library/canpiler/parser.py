@@ -44,7 +44,7 @@ class Signal:
 
     @property
     def is_floating_point(self) -> bool:
-        return self.datatype in ['float', 'double']
+        return self.datatype == 'float'
 
     def get_bit_length(self, custom_types: Optional[Dict] = None) -> int:
         if self.length > 0:

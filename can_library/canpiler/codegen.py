@@ -16,7 +16,6 @@ class SignalCodec:
     bswap_width: Optional[int]
     sign_extend_shift: Optional[int]
     is_float32: bool
-    is_float64: bool
 
 
 @dataclass
@@ -137,7 +136,6 @@ def build_signal_codec(sig, direction: str) -> SignalCodec:
         bswap_width=sig.length if sig.byte_order == "big_endian" and sig.length in (16, 32, 64) else None,
         sign_extend_shift=64 - sig.length if sig.is_signed and sig.length < 64 else None,
         is_float32=sig.is_floating_point and sig.length == 32,
-        is_float64=sig.is_floating_point and sig.length == 64,
     )
 
 

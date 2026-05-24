@@ -114,18 +114,12 @@ static void test_sign_extend_helper(void) {
 
 static void test_float_helpers(void) {
     assert(CAN_float32_to_raw(1.0f) == 0x3F800000ULL);
-    assert(CAN_float64_to_raw(1.0) == 0x3FF0000000000000ULL);
 
     uint64_t raw_f32 = CAN_float32_to_raw(-12.5f);
     float value_f32  = CAN_raw_to_float32(raw_f32);
     assert(CAN_float32_to_raw(value_f32) == raw_f32);
 
-    uint64_t raw_f64 = CAN_float64_to_raw(123456.25);
-    double value_f64 = CAN_raw_to_float64(raw_f64);
-    assert(CAN_float64_to_raw(value_f64) == raw_f64);
-
     assert(CAN_float32_to_raw(CAN_raw_to_float32(0x40490FDBULL)) == 0x40490FDBULL);
-    assert(CAN_float64_to_raw(CAN_raw_to_float64(0x400921FB54442D18ULL)) == 0x400921FB54442D18ULL);
 }
 
 int main(void) {

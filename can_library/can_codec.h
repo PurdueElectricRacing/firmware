@@ -83,24 +83,10 @@ static inline uint64_t CAN_float32_to_raw(float value) {
 }
 
 [[gnu::always_inline]]
-static inline uint64_t CAN_float64_to_raw(double value) {
-    uint64_t raw = 0;
-    memcpy(&raw, &value, sizeof(raw));
-    return raw;
-}
-
-[[gnu::always_inline]]
 static inline float CAN_raw_to_float32(uint64_t raw) {
     uint32_t bits = (uint32_t)raw;
     float value   = 0.0f;
     memcpy(&value, &bits, sizeof(value));
-    return value;
-}
-
-[[gnu::always_inline]]
-static inline double CAN_raw_to_float64(uint64_t raw) {
-    double value = 0.0;
-    memcpy(&value, &raw, sizeof(value));
     return value;
 }
 

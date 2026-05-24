@@ -1,9 +1,12 @@
 #ifndef CAN_ROUTER_H
 #define CAN_ROUTER_H
 
-{% set file_name = "can_router.h" %}
-{% set file_brief = "Auto-generated system-wide CAN node inclusion router." %}
-{% include "common/file_banner.jinja" %}
+/**
+ * @file can_router.h
+ * @brief Auto-generated system-wide CAN node inclusion router.
+ * @note This file is auto-generated; do not modify manually.
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
 
 {% for node in router_nodes %}
 {% set directive = "#if" if loop.first else "#elif" %}

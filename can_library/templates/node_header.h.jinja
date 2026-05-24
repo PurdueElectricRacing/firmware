@@ -1,9 +1,12 @@
 #ifndef {{ ctx.node.name|upper }}_H
 #define {{ ctx.node.name|upper }}_H
 
-{% set file_name = ctx.node.name ~ ".h" %}
-{% set file_brief = "Auto-generated CAN driver for " ~ ctx.node.name ~ "." %}
-{% include "common/file_banner.jinja" %}
+/**
+ * @file {{ ctx.node.name }}.h
+ * @brief Auto-generated CAN driver for {{ ctx.node.name }}.
+ * @note This file is auto-generated; do not modify manually.
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
 
 #include <stdint.h>
 #include <string.h>

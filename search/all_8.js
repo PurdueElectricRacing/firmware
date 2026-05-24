@@ -38,5 +38,7 @@ var searchData=
   ['buslinker_35',['BusLinker',['../classlinker_1_1BusLinker.html',1,'linker']]],
   ['busses_20tt_36',['Node-to-Bus Mapping (per node JSON, under &lt;tt&gt;busses&lt;/tt&gt;)',['../md_can__library_2configs_2README.html#autotoc_md115',1,'']]],
   ['busview_37',['BusView',['../classparser_1_1BusView.html',1,'parser']]],
-  ['by_20default_38',['Cooling Backend: Bang-Bang (Disabled by Default)',['../md_source_2pdu_2README.html#autotoc_md33',1,'']]]
+  ['bxcanfilterbankcontext_38',['BxcanFilterBankContext',['../classcodegen_1_1BxcanFilterBankContext.html',1,'codegen']]],
+  ['bxcanfiltercontext_39',['BxcanFilterContext',['../classcodegen_1_1BxcanFilterContext.html',1,'codegen']]],
+  ['by_20default_40',['Cooling Backend: Bang-Bang (Disabled by Default)',['../md_source_2pdu_2README.html#autotoc_md33',1,'']]]
 ];

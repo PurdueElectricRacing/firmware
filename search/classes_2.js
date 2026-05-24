@@ -6,5 +6,7 @@ var searchData=
   ['bmi088_5fhandle_5ft_3',['BMI088_Handle_t',['../structBMI088__Handle__t.html',1,'']]],
   ['bus_4',['Bus',['../classparser_1_1Bus.html',1,'parser']]],
   ['buslinker_5',['BusLinker',['../classlinker_1_1BusLinker.html',1,'linker']]],
-  ['busview_6',['BusView',['../classparser_1_1BusView.html',1,'parser']]]
+  ['busview_6',['BusView',['../classparser_1_1BusView.html',1,'parser']]],
+  ['bxcanfilterbankcontext_7',['BxcanFilterBankContext',['../classcodegen_1_1BxcanFilterBankContext.html',1,'codegen']]],
+  ['bxcanfiltercontext_8',['BxcanFilterContext',['../classcodegen_1_1BxcanFilterContext.html',1,'codegen']]]
 ];

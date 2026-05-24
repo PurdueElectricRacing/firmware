@@ -9,5 +9,6 @@ var searchData=
   ['rtc_5fdate_5ft_6',['RTC_date_t',['../structRTC__date__t.html',1,'']]],
   ['rtc_5ftime_5ft_7',['RTC_time_t',['../structRTC__time__t.html',1,'']]],
   ['rtc_5ftimestamp_5ft_8',['RTC_timestamp_t',['../structRTC__timestamp__t.html',1,'']]],
-  ['rxmessage_9',['RxMessage',['../classparser_1_1RxMessage.html',1,'parser']]]
+  ['rxentry_9',['RxEntry',['../classcodegen_1_1RxEntry.html',1,'codegen']]],
+  ['rxmessage_10',['RxMessage',['../classparser_1_1RxMessage.html',1,'parser']]]
 ];

@@ -110,10 +110,11 @@ $(function(){initNavTree('md_can__library_2README.html',''); initResizable(true)
 <li><code>schema/</code>: JSON schemas for validating configuration files.</li>
 </ul>
 <p><b>Core Files:</b></p><ul>
-<li><a href="can_init.c"><code>can_init.c</code></a> / <a href="can_common.h"><code>can_common.h</code></a>: Bus/peripheral initialization and <code>CAN_init()</code>.</li>
-<li><a href="can_rx.c"><code>can_rx.c</code></a>: CAN RX task and the shared <code>can_data</code> instance.</li>
-<li><a href="can_tx.c"><code>can_tx.c</code></a>: CAN TX task and per-peripheral software queues.</li>
-<li><code><a class="el" href="faults__common_8c.html" title="Event-based FIDR system.">faults_common.c</a></code> / <code><a class="el" href="faults__common_8h.html" title="Event-based FIDR system.">faults_common.h</a></code>: System-wide fault management.</li>
+<li><a href="source/can_init.c"><code>source/can_init.c</code></a> / <a href="can_common.h"><code>can_common.h</code></a>: Bus/peripheral initialization and <code>CAN_init()</code>.</li>
+<li><a href="source/can_rx.c"><code>source/can_rx.c</code></a>: CAN RX task and the shared <code>can_data</code> instance.</li>
+<li><a href="source/can_tx.c"><code>source/can_tx.c</code></a>: CAN TX task and per-peripheral software queues.</li>
+<li><a href="source/faults_common.c"><code>source/faults_common.c</code></a> / <a href="faults_common.h"><code>faults_common.h</code></a>: System-wide fault management.</li>
+<li><a href="can_codec.h"><code>can_codec.h</code></a>: Force-inlined helpers used by generated code for signal packing and unpacking.</li>
 <li><code>can_library.cmake</code>: CMake integration and node library generation.</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md129"></a>

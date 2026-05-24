@@ -106,7 +106,7 @@ $(function(){initNavTree('md_can__library_2canpiler_2README.html',''); initResiz
 Software Architecture</h1>
 <p>Modeled After the traditional compiler pipeline. Written in python for ease of maintainence and development.</p>
 <p><code>build.py</code>: Main entry point for CANpiler. Coordinates the top-level data flow.</p>
-<p><code>templates/</code>: Directory containing Jinja2 templates for all generated build artifacts. Decouples the output formatting from the generation logic.</p>
+<p><code>../templates/</code>: Directory containing Jinja2 templates for all generated build artifacts. Decouples the output formatting from the generation logic.</p>
 <p><code>utils.py</code>: Shared helpers (<code>format_float</code>, <code>print_as_success</code>, etc.) used across the pipeline.</p>
 <h3><a class="anchor" id="autotoc_md105"></a>
 1. Schema Validation</h3>
@@ -147,7 +147,7 @@ Software Architecture</h1>
 5. Generation</h3>
 <p>Produces the final build artifacts from the <code>SystemContext</code> using the <b>Jinja2</b> templating engine.</p><ul>
 <li><b>C23 Standard</b>: All generated code targets the C23 standard, specifically utilizing <code>static constexpr</code> for type-safe constants and identifiers.</li>
-<li><b>Templates</b> (<code>templates/</code>): <code>bus_header.h.jinja</code>, <code>bxcan_filter.c.jinja</code>, <code>can_router.h.jinja</code>, <code>can_types.h.jinja</code>, <code>fault_data.c.jinja</code>, <code>fault_data.h.jinja</code>, <code>fdcan_filter.c.jinja</code>, <code>node_header.h.jinja</code>.</li>
+<li><b>Templates</b> (<code>../templates/</code>): <code>bus_header.h.jinja</code>, <code>can_router.h.jinja</code>, <code>can_types.h.jinja</code>, <code>fault_data.c.jinja</code>, <code>fault_data.h.jinja</code>, <code>filter/bxcan.c.jinja</code>, <code>filter/fdcan.c.jinja</code>, <code>node_header.h.jinja</code>, plus shared <code>node/</code> partials.</li>
 <li><code>codegen.py</code>: Generates <code>can_types.h</code>, per-node headers (<code>&lt;NODE&gt;.h</code>), per-bus headers, and the central <code>can_router.h</code> from the Jinja templates. Packed bit-field structs, endianness-safe accessors, and hardened sign-extension for signed signals.</li>
 <li><code>dbcgen.py</code>: Produces deterministic, versioned DBC files using the <code>cantools</code> library.</li>
 <li><code>faultgen.py</code>: Injects <code>FAULT_SYNC</code> and <code>FAULT_EVENT</code> messages into node configurations and generates global fault tracking maps (<code>fault_data.c</code> / <code>fault_data.h</code>).</li>

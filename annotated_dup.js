@@ -1,5 +1,18 @@
 var annotated_dup =
 [
+    [ "codegen", "namespacecodegen.html", [
+      [ "BxcanFilterBankContext", "classcodegen_1_1BxcanFilterBankContext.html", null ],
+      [ "BxcanFilterContext", "classcodegen_1_1BxcanFilterContext.html", null ],
+      [ "FdcanFilterContext", "classcodegen_1_1FdcanFilterContext.html", null ],
+      [ "FilterRenderContext", "classcodegen_1_1FilterRenderContext.html", null ],
+      [ "NodeRenderContext", "classcodegen_1_1NodeRenderContext.html", null ],
+      [ "PeripheralContext", "classcodegen_1_1PeripheralContext.html", null ],
+      [ "RxEntry", "classcodegen_1_1RxEntry.html", null ],
+      [ "ScalingMessage", "classcodegen_1_1ScalingMessage.html", null ],
+      [ "SignalCodec", "classcodegen_1_1SignalCodec.html", null ],
+      [ "TxEntry", "classcodegen_1_1TxEntry.html", null ],
+      [ "TypeRenderContext", "classcodegen_1_1TypeRenderContext.html", null ]
+    ] ],
     [ "linker", "namespacelinker.html", [
       [ "BusLinker", "classlinker_1_1BusLinker.html", "classlinker_1_1BusLinker" ]
     ] ],

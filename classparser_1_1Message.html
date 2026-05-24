@@ -127,7 +127,7 @@ Public Attributes</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>name</b></td></tr>
 <tr class="separator:a17a9b528445d06db1ed37142b649f183"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb62b9cdcbf3dc88ef769c7c30da12b4" id="r_afb62b9cdcbf3dc88ef769c7c30da12b4"><td class="memItemLeft" align="right" valign="top"><a id="afb62b9cdcbf3dc88ef769c7c30da12b4" name="afb62b9cdcbf3dc88ef769c7c30da12b4"></a>
-str&#160;</td><td class="memItemRight" valign="bottom"><b>byte_order</b> = current_offset // 8</td></tr>
+str&#160;</td><td class="memItemRight" valign="bottom"><b>byte_order</b> = 0 or length not in (16, 32, 64)):</td></tr>
 <tr class="separator:afb62b9cdcbf3dc88ef769c7c30da12b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
@@ -205,6 +205,11 @@ str&#160;</td><td class="memItemRight" valign="bottom"><b>layout_hash</b> = &quo
 </div><div class="memdoc">
 <pre class="fragment">Calculate bit offsets, shifts, and masks for all signals.
 This is intrinsic to the message definition.
+
+For big-endian messages, generated firmware treats multi-byte signals as
+byte-wise MSB-first fields located at byte boundaries. DBC output uses
+the corresponding Motorola start bit, while C packing keeps the LSB
+shift into the host-order uint64_t staging buffer.
 </pre> 
 </div>
 </div>

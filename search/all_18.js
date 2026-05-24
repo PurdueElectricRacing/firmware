@@ -43,6 +43,7 @@ var searchData=
   ['rx_5fbuf_40',['rx_buf',['../structadbms__bms__t.html#a0cddb3b0c704e3f172d4fa7653276acc',1,'adbms_bms_t']]],
   ['rx_5fdma_5fcfg_41',['rx_dma_cfg',['../structSPI__InitConfig__t.html#accb8a2f6b9a30e8e5bdbb4d553d76fb6',1,'SPI_InitConfig_t::rx_dma_cfg'],['../structusart__init__t.html#af5d23adc2cedc26541544b41b6a56701',1,'usart_init_t::rx_dma_cfg']]],
   ['rx_5ferrors_42',['rx_errors',['../structusart__init__t.html#a24612c03fe5128673f397644b7277840',1,'usart_init_t']]],
-  ['rxfer_5fsize_43',['rxfer_size',['../structusart__active__transfer__t.html#a6e3ea925b24b1ff38a1c5c910dd56010',1,'usart_active_transfer_t']]],
-  ['rxmessage_44',['RxMessage',['../classparser_1_1RxMessage.html',1,'parser']]]
+  ['rxentry_43',['RxEntry',['../classcodegen_1_1RxEntry.html',1,'codegen']]],
+  ['rxfer_5fsize_44',['rxfer_size',['../structusart__active__transfer__t.html#a6e3ea925b24b1ff38a1c5c910dd56010',1,'usart_active_transfer_t']]],
+  ['rxmessage_45',['RxMessage',['../classparser_1_1RxMessage.html',1,'parser']]]
 ];

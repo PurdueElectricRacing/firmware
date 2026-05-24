@@ -7,15 +7,16 @@ static inline void CAN_SEND_{{ entry.msg.name }}(
 {% endfor %}
 ) {
     CanMsgTypeDef_t outgoing = {
-        .Bus={{ entry.periph }},
+        .Bus = {{ entry.periph }},
         {% if entry.msg.is_extended %}
-        .ExtId={{ entry.msg.macro_name }}_MSG_ID,
+        .ExtId = {{ entry.msg.macro_name }}_MSG_ID,
         .IDE=1,
         {% else %}
-        .StdId={{ entry.msg.macro_name }}_MSG_ID,
-        .IDE=0,
+        .StdId = {{ entry.msg.macro_name }}_MSG_ID,
+        .IDE = 0,
         {% endif %}
-        .DLC={{ entry.msg.macro_name }}_DLC
+        .DLC = {{ entry.msg.macro_name }}_DLC,
+        .Data = {0}
     };
 
     uint64_t data = 0;

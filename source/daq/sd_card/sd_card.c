@@ -64,7 +64,7 @@ static void release_resources() {
     }
 }
 
-void sd_fsm_periodic(void) {
+void sd_card_periodic(void) {
     // set default states
     sd_state = next_sd_state;
     next_sd_state = sd_state;

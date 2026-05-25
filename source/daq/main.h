@@ -58,7 +58,7 @@ static_assert(PER == GREAT); // Long live daq loop
 constexpr TickType_t SD_BLOCKING_TIMEOUT_TICKS = pdMS_TO_TICKS(SD_BLOCKING_TIMEOUT_MS); 
 
 extern SemaphoreHandle_t spi1_lock;
-extern osThreadId_t sd_task_handle; // ! handle to be pointed to by SDIO ISR for notifications
+extern volatile osThreadId_t sd_task_handle; // ! handle to be pointed to by SDIO ISR for notifications
 
 void HardFault_Handler();
 

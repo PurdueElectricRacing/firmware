@@ -33,6 +33,6 @@ Notes:
 > [!NOTE]
 > todo more detailed docs
 
-![sd fsm](SD_thread_FSM.drawio.png)
+![sd fsm](sd_card/SD_FSM.drawio.png)
 
 ![timing diagram](SD_timing_diagram.drawio.png)

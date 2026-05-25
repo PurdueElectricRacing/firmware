@@ -11,6 +11,7 @@
 #include "common/sdio/sdio.h"
 #include "external/fatfs/ff.h"
 #include "spmc.h"
+#include "common/freertos/freertos.h"
 
 typedef enum {
     SD_STATE_DISABLED     = 0,
@@ -24,11 +25,14 @@ typedef enum {
     SD_STATE_FATAL        = 8
 } sd_state_t;
 
+static constexpr uint32_t SD_NEW_FILE_PERIOD_MS = 1 * 60 * 1000; // 1 min
+
 sd_state_t sd_state = SD_STATE_DISABLED;
 sd_state_t next_sd_state = SD_STATE_DISABLED;
 FATFS fat_fs;
 FIL file_pointer;
-int retry_attempts = 0;
+int recovery_attempts = 0;
+uint32_t last_open_time_ms = 0;
 
 static void get_next_filename(char *buffer, size_t buffer_size) {
     static int log_num = 0;
@@ -58,6 +62,7 @@ void sd_fsm_periodic(void) {
     next_sd_state = sd_state;
 
     bool is_logging_enabled = PHAL_readGPIO(LOG_ENABLE_PORT, LOG_ENABLE_PIN);
+    // todo: power loss begins a close and unmount sequence
 
     switch (sd_state) {
         case SD_STATE_DISABLED: {
@@ -88,6 +93,7 @@ void sd_fsm_periodic(void) {
             get_next_filename(filename, sizeof(filename));
 
             if (f_open(&file_pointer, filename, FA_OPEN_APPEND | FA_READ | FA_WRITE) == FR_OK) {
+                last_open_time_ms = xTaskGetTickCount();
                 next_sd_state = SD_STATE_READY2LOG;
             } else {
                 next_sd_state = SD_STATE_RECOVERING;
@@ -102,11 +108,12 @@ void sd_fsm_periodic(void) {
                 break;
             }
 
-            // f_write() calls with DMA, no need to wait for completion
+            // f_write() calls with DMA then blocks, no need to wait for completion notification
             PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 1);
             UINT bytes_written = 0; // updated to by f_write()
             size_t total_bytes = SPMC_CHUNK_NUM_FRAMES * sizeof(timestamped_frame_t);
             FRESULT result     = f_write(&file_pointer, first_frame, total_bytes, &bytes_written);
+            PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
             if (result != FR_OK) {
                 // todo check bytes written
                 next_sd_state = SD_STATE_RECOVERING;
@@ -114,16 +121,22 @@ void sd_fsm_periodic(void) {
             }
             // success
             SPMC_master_advance_tail(&g_spmc);
-            PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
 
-            if (!is_logging_enabled || file_is_large_enough) {
+            bool is_new_file_period_elapsed = xTaskGetTickCount() - last_open_time_ms > SD_NEW_FILE_PERIOD_MS;
+            if (!is_logging_enabled || is_new_file_period_elapsed) {
                 next_sd_state = SD_STATE_CLOSING_FILE;
             }
             break;
         }
         case SD_STATE_CLOSING_FILE: {
-            // call f_close()
-            // call f_sync()
+            if (f_sync(&file_pointer) != FR_OK) {
+                next_sd_state = SD_STATE_RECOVERING;
+                break;
+            }
+            if (f_close(&file_pointer) != FR_OK) {
+                next_sd_state = SD_STATE_RECOVERING;
+                break;
+            }
 
             if (!is_logging_enabled) {
                 next_sd_state = SD_STATE_UNMOUNTING;
@@ -133,7 +146,7 @@ void sd_fsm_periodic(void) {
             break;
         }
         case SD_STATE_UNMOUNTING: {
-            // call unmount
+            f_mount(NULL, "", 1); // unmount
 
             next_sd_state = SD_STATE_DISABLED;
             break;
@@ -141,11 +154,11 @@ void sd_fsm_periodic(void) {
         case SD_STATE_RECOVERING: {
             // recovery action?
             
-            retry_attempts++;
+            recovery_attempts++;
             if (recovery_success) {
-                retry_attempts = 0;
+                recovery_attempts = 0;
                 next_sd_state = SD_STATE_DISABLED;
-            } else if (retry_attempts > 3) {
+            } else if (recovery_attempts > 3) {
                 next_sd_state = SD_STATE_FATAL;
             }
             break;

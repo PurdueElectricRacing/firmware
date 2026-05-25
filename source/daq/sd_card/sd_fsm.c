@@ -1,4 +1,8 @@
 #include "common/phal/gpio.h"
+#include "common/phal/rtc.h"
+#include "common/sdio/sdio.h"
+#include <stdio.h>
+#include "external/fatfs/ff.h"
 
 typedef enum {
     SD_STATE_DISABLED      = 0,
@@ -15,6 +19,31 @@ typedef enum {
 
 sd_state_t sd_state = SD_STATE_DISABLED;
 sd_state_t next_sd_state = SD_STATE_DISABLED;
+FATFS fat_fs;
+FIL file_pointer;
+int retry_attempts = 0;
+
+static void get_next_filename(char *buffer, size_t buffer_size) {
+    static int log_num = 0;
+    RTC_timestamp_t time = {0};
+
+    if (PHAL_getTimeRTC(&time)) {
+        // Create file name from RTC
+        sprintf(
+            buffer, 
+            "log-20%02d-%02d-%02d--%02d-%02d-%02d.log", 
+            time.date.year_bcd,
+            time.date.month_bcd,
+            time.date.day_bcd,
+            time.time.hours_bcd,
+            time.time.minutes_bcd,
+            time.time.seconds_bcd
+        );
+    } else {
+        sprintf(buffer, "log-%d.log", log_num);
+        log_num++;
+    }
+}
 
 void sd_fsm_periodic(void) {
     // set default states
@@ -33,24 +62,28 @@ void sd_fsm_periodic(void) {
         }
         case SD_STATE_WAIT_FOR_CARD: {
 
-            bool is_card_detected = false; // todo check sd detect pin
-            if (is_card_detected) {
+            if (SD_Detect() == SD_PRESENT) {
                 next_sd_state = SD_STATE_MOUNTING;
             }
             break;
         }
         case SD_STATE_MOUNTING: {
 
-            bool is_mounted = false; // todo call f_mount()
-            if (is_mounted) {
+            if (f_mount(&fat_fs, "", 1) == FR_OK) {
                 next_sd_state = SD_STATE_OPENING_FILE;
+            } else {
+                next_sd_state = SD_STATE_RECOVERING;
             }
             break;
         }
         case SD_STATE_OPENING_FILE: {
-            bool is_open_successful = false; // todo call f_open()
-            if (is_open_successful) {
+            char filename[30];
+            get_next_filename(filename, sizeof(filename));
+
+            if (f_open(&file_pointer, filename, FA_OPEN_APPEND | FA_READ | FA_WRITE) == FR_OK) {
                 next_sd_state = SD_STATE_READY2LOG;
+            } else {
+                next_sd_state = SD_STATE_RECOVERING;
             }
             break;
         }
@@ -95,9 +128,19 @@ void sd_fsm_periodic(void) {
             break;
         }
         case SD_STATE_RECOVERING: {
+            // recovery action?
+            
+            retry_attempts++;
+            if (recovery_success) {
+                retry_attempts = 0;
+                next_sd_state = SD_STATE_DISABLED;
+            } else if (retry_attempts > 3) {
+                next_sd_state = SD_STATE_FATAL;
+            }
             break;
         }
         case SD_STATE_FATAL: {
+            PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 1);
             break;
         }
     }

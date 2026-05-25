@@ -13,7 +13,7 @@ from utils import GENERATED_DIR, print_as_success, print_as_ok, get_jinja_env, r
 @dataclass
 class SignalCodec:
     signal: Any
-    bswap_width: Optional[int]
+    bswap_width: str
     sign_extend_shift: Optional[int]
     is_float32: bool
 
@@ -131,9 +131,13 @@ def build_signal_codec(sig, direction: str) -> SignalCodec:
     if direction not in ("rx", "tx"):
         raise ValueError(f"Unknown codec direction: {direction}")
 
+    bswap_width = "BSWAP_NONE"
+    if sig.byte_order == "big_endian" and sig.length in (16, 32, 64):
+        bswap_width = f"BSWAP_{sig.length}"
+
     return SignalCodec(
         signal=sig,
-        bswap_width=sig.length if sig.byte_order == "big_endian" and sig.length in (16, 32, 64) else None,
+        bswap_width=bswap_width,
         sign_extend_shift=64 - sig.length if sig.is_signed and sig.length < 64 else None,
         is_float32=sig.is_floating_point and sig.length == 32,
     )

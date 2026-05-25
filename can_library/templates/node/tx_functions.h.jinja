@@ -26,7 +26,7 @@ static inline void CAN_SEND_{{ entry.msg.name }}(
     {% else %}
     uint64_t sig_raw_{{ codec.signal.name }} = (uint64_t){{ codec.signal.name }};
     {% endif %}
-    data = CAN_pack_raw_signal(data, sig_raw_{{ codec.signal.name }}, {{ codec.signal.mask|to_c_hex }}, {{ codec.signal.bit_shift }}, {{ codec.bswap_width if codec.bswap_width is not none else 0 }});
+    data = CAN_pack_raw_signal(data, sig_raw_{{ codec.signal.name }}, {{ codec.signal.mask|to_c_hex }}, {{ codec.signal.bit_shift }}, {{ codec.bswap_width }});
     {% endfor %}
 
     CAN_store_payload_u64(outgoing.Data, data, {{ entry.msg.macro_name }}_DLC);

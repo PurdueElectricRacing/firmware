@@ -201,9 +201,11 @@ static DRESULT _sdio_disk_write(
         return (res);
     }
 
+    (void)ulTaskNotifyTake(pdTRUE, 0); // clear any previous notifications
     sd_task_handle = xTaskGetCurrentTaskHandle();
     Status = SD_WriteMultiBlocks((uint8_t*)buff, sector << 9, BLOCK_SIZE, count); // 4GB Compliant
-    ulNotificationValue = ulTaskNotifyTake(pdFALSE, SD_BLOCKING_TIMEOUT_TICKS);
+    ulNotificationValue = ulTaskNotifyTake(pdTRUE, SD_BLOCKING_TIMEOUT_TICKS);
+    sd_task_handle = nullptr;
 
     if (Status == SD_OK && ulNotificationValue) {
         SDTransferState State;

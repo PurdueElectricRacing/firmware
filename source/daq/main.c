@@ -91,7 +91,7 @@ SPI_InitConfig_t eth_spi_config = {
 };
 
 DEFINE_MUTEX(spi1_lock);
-volatile osThreadId_t sd_task_handle = nullptr;
+volatile TaskHandle_t sd_task_handle = nullptr;
 
 static void configure_interrupts(void);
 void shutdown(void);

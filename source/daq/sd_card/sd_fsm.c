@@ -40,8 +40,9 @@ static void get_next_filename(char *buffer, size_t buffer_size) {
 
     if (PHAL_getTimeRTC(&time)) {
         // Create file name from RTC
-        sprintf(
+        snprintf(
             buffer, 
+            buffer_size,
             "log-20%02d-%02d-%02d--%02d-%02d-%02d.log", 
             time.date.year_bcd,
             time.date.month_bcd,
@@ -51,7 +52,7 @@ static void get_next_filename(char *buffer, size_t buffer_size) {
             time.time.seconds_bcd
         );
     } else {
-        sprintf(buffer, "log-%d.log", log_num);
+        snprintf(buffer, buffer_size, "log-%d.log", log_num);
         log_num++;
     }
 }
@@ -74,7 +75,9 @@ void sd_fsm_periodic(void) {
         }
         case SD_STATE_INSERT_CARD: {
 
-            if (SD_Detect() == SD_PRESENT) {
+            if (!is_logging_enabled) {
+                next_sd_state = SD_STATE_DISABLED;
+            } else if (SD_Detect() == SD_PRESENT) {
                 next_sd_state = SD_STATE_MOUNTING;
             }
             break;
@@ -102,25 +105,24 @@ void sd_fsm_periodic(void) {
         }
         case SD_STATE_READY2LOG: {
             // todo: block on notification from SPMC, polling for now
-            timestamped_frame_t *first_frame; // updated by SPMC_master_peek_chunk() on success
-            bool chunks_available = SPMC_master_peek_chunk(&g_spmc, &first_frame);
-            if (!chunks_available) {
-                break;
+            timestamped_frame_t *first_frame; // updated by SPMC_master_peek_chunk()
+            bool chunk_available = SPMC_master_peek_chunk(&g_spmc, &first_frame);
+            if (chunk_available) {
+                // f_write() calls with DMA then blocks, no need to wait for completion notification
+                PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 1);
+                UINT bytes_written = 0; // updated to by f_write()
+                size_t total_bytes = SPMC_CHUNK_NUM_FRAMES * sizeof(timestamped_frame_t);
+                FRESULT result     = f_write(&file_pointer, first_frame, total_bytes, &bytes_written);
+                PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
+                if (result != FR_OK) {
+                    // todo check bytes written
+                    next_sd_state = SD_STATE_RECOVERING;
+                    break;
+                }
+                // success
+                SPMC_master_advance_tail(&g_spmc);
+                recovery_attempts = 0; // reset recovery attempts on success
             }
-
-            // f_write() calls with DMA then blocks, no need to wait for completion notification
-            PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 1);
-            UINT bytes_written = 0; // updated to by f_write()
-            size_t total_bytes = SPMC_CHUNK_NUM_FRAMES * sizeof(timestamped_frame_t);
-            FRESULT result     = f_write(&file_pointer, first_frame, total_bytes, &bytes_written);
-            PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
-            if (result != FR_OK) {
-                // todo check bytes written
-                next_sd_state = SD_STATE_RECOVERING;
-                break;
-            }
-            // success
-            SPMC_master_advance_tail(&g_spmc);
 
             bool is_new_file_period_elapsed = xTaskGetTickCount() - last_open_time_ms > SD_NEW_FILE_PERIOD_MS;
             if (!is_logging_enabled || is_new_file_period_elapsed) {
@@ -152,14 +154,13 @@ void sd_fsm_periodic(void) {
             break;
         }
         case SD_STATE_RECOVERING: {
-            // recovery action?
+            // todo: recovery action
             
             recovery_attempts++;
-            if (recovery_success) {
-                recovery_attempts = 0;
-                next_sd_state = SD_STATE_DISABLED;
-            } else if (recovery_attempts > 3) {
+             if (recovery_attempts > 3) {
                 next_sd_state = SD_STATE_FATAL;
+            } else {
+                next_sd_state = SD_STATE_DISABLED;
             }
             break;
         }

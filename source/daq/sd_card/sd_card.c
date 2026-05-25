@@ -170,13 +170,13 @@ void sd_card_periodic(void) {
             break;
         }
         case SD_STATE_RECOVERING: {
-            release_resources();
-            osDelay(200); // wait a bit before trying again
             recovery_attempts++;
 
             if (recovery_attempts > 3) {
                 next_sd_state = SD_STATE_FATAL;
             } else {
+                release_resources();
+                osDelay(200); // wait a bit before trying again
                 next_sd_state = SD_STATE_DISABLED;
             }
             break;

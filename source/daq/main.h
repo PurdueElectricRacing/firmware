@@ -3,7 +3,6 @@
  * @brief "DAQ" node source code
  * 
  * @author Irving Wang (irvingw@purdue.edu)
- * @author Eileen Yoon (eyn@purdue.edu)
  * @author Luke Oxley (lcoxley@purdue.edu)
  */
 

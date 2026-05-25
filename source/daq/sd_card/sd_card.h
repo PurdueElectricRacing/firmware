@@ -25,5 +25,6 @@ typedef enum {
 
 static constexpr uint32_t SD_FSM_PERIOD_MS = 50;
 void sd_card_periodic(void);
+void sd_power_loss_callback(void);
 
 #endif // SD_CARD_H

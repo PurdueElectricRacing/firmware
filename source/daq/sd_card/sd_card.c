@@ -64,17 +64,17 @@ static void release_resources() {
     }
 }
 
+void sd_power_loss_callback(void) {
+    release_resources();
+    next_sd_state = SD_STATE_FATAL; // latch in fatal
+}
+
 void sd_card_periodic(void) {
     // set default states
     sd_state = next_sd_state;
     next_sd_state = sd_state;
 
     bool is_logging_enabled = PHAL_readGPIO(LOG_ENABLE_PORT, LOG_ENABLE_PIN);
-    bool is_power_lost = false; // todo power loss detection
-    if (is_power_lost) {
-        release_resources();
-        next_sd_state = SD_STATE_FATAL;
-    }
 
     switch (sd_state) {
         case SD_STATE_DISABLED: {

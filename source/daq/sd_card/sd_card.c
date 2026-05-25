@@ -3,74 +3,40 @@
  * @brief Logging of received bus messages onto an SD card
  * 
  * @author Irving Wang (irvingw@purdue.edu)
- * @author Eileen Yoon (eyn@purdue.edu)
- * @author Luke Oxley (lcoxley@purdue.edu)
  */
 
 #include "sd_card.h"
 
+#include <stdio.h>
+
+#include "common/freertos/freertos.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rtc.h"
-#include "ff.h"
-#include "main.h"
 #include "common/sdio/sdio.h"
-#include <stdio.h>
+#include "external/fatfs/ff.h"
+#include "main.h"
 #include "spmc.h"
 
-static constexpr uint32_t SD_WRITE_PERIOD_MS = 100;
 static constexpr uint32_t SD_NEW_FILE_PERIOD_MS = 1 * 60 * 1000; // 1 min
-static constexpr uint32_t SD_ERROR_RETRY_MS = 250;
 
-SD_manager_t sd_manager = {
-    // SD Card
-    .sd_state           = SD_STATE_IDLE,
-    .sd_error_ct        = 0,
-    .sd_last_error_time = 0,
-    .sd_last_err        = SD_ERROR_NONE,
-    .sd_last_err_res    = 0,
-    .sd_task_handle     = NULL,
-    .last_file_ms       = 0,
-    .last_write_ms      = 0,
-    .log_enable_sw      = false
-};
+static sd_state_t sd_state = SD_STATE_DISABLED;
+static sd_state_t next_sd_state = SD_STATE_DISABLED;
+static FATFS fat_fs;
+static FIL file_object;
+static bool is_file_open = false;
+static bool is_fs_mounted = false;
+static int recovery_attempts = 0;
+static uint32_t last_open_time_ms = 0;
 
-bool daq_request_sd_mount(void) {
-    return sd_manager.sd_state == SD_STATE_MOUNTED || sd_manager.sd_state == SD_STATE_ACTIVE;
-}
+static void get_next_filename(char *buffer, size_t buffer_size) {
+    static int log_num = 0;
+    RTC_timestamp_t time = {0};
 
-static void sd_handle_error(sd_error_t sd_error, FRESULT result) {
-    ++sd_manager.sd_error_ct;
-    sd_manager.sd_last_err        = sd_error;
-    sd_manager.sd_last_err_res    = result;
-    sd_manager.sd_last_error_time = xTaskGetTickCount();
-    PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 1);
-}
-
-static void sd_reset_error(void) {
-    // Do not retry immediately
-    if (!(xTaskGetTickCount() - sd_manager.sd_last_error_time > SD_ERROR_RETRY_MS)) {
-        return;
-    }
-
-    sd_manager.sd_last_error_time = xTaskGetTickCount();
-    if (sd_manager.sd_last_err != SD_ERROR_NONE) {
-        sd_manager.sd_state        = SD_STATE_IDLE; // Retry
-        sd_manager.sd_last_err     = SD_ERROR_NONE;
-        sd_manager.sd_last_err_res = 0;
-        PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 0);
-    }
-}
-
-static FRESULT sd_create_new_file(void) {
-    FRESULT result;
-    RTC_timestamp_t time;
-    static uint32_t log_num;
-
-    char f_name[30];
     if (PHAL_getTimeRTC(&time)) {
         // Create file name from RTC
-        sprintf(
-            f_name, 
+        snprintf(
+            buffer, 
+            buffer_size,
             "log-20%02d-%02d-%02d--%02d-%02d-%02d.log", 
             time.date.year_bcd,
             time.date.month_bcd,
@@ -80,128 +46,144 @@ static FRESULT sd_create_new_file(void) {
             time.time.seconds_bcd
         );
     } else {
-        sprintf(f_name, "log-%0ld.log", (unsigned long)log_num);
-    }
-
-    result = f_open(&sd_manager.log_fp, f_name, FA_OPEN_APPEND | FA_READ | FA_WRITE);
-    if (result != FR_OK) {
-        sd_handle_error(SD_ERROR_FOPEN, result);
-        return result;
-    }
-
-    log_num++;
-    sd_manager.last_file_ms = xTaskGetTickCount();
-
-    return result;
-}
-
-static inline void sd_file_sync(void) {
-    FRESULT res = f_sync(&sd_manager.log_fp);
-    if (res != FR_OK) {
-        sd_handle_error(SD_ERROR_SYNC, res);
+        snprintf(buffer, buffer_size, "log-%d.log", log_num);
+        log_num++;
     }
 }
 
-// todo reevaluate the logic here
-static void sd_write_periodic() {
-    if (sd_manager.sd_state != SD_STATE_ACTIVE) {
-        return;
+static void release_resources() {
+    if (is_file_open) {
+        f_sync(&file_object);
+        f_close(&file_object);
+        is_file_open = false;
     }
 
-    // Use the unread item count, not contiguous for the threshold
-    timestamped_frame_t *frame; // updated by SPMC_master_peek_chunk() on success
-
-    if (!SPMC_master_peek_chunk(&g_spmc, &frame)) {
-        return;
+    if (is_fs_mounted) {
+        f_mount(NULL, "", 1); // unmount
+        is_fs_mounted = false;
     }
-
-    // Write time :D
-    PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 1);
-
-    UINT bytes_written; // updated to by f_write()
-    size_t total_bytes = SPMC_CHUNK_NUM_FRAMES * sizeof(timestamped_frame_t);
-    FRESULT result     = f_write(&sd_manager.log_fp, frame, total_bytes, &bytes_written);
-    if (result != FR_OK) {
-        // todo check bytes written
-        sd_handle_error(SD_ERROR_WRITE, result);
-    } else {
-        // success
-        sd_manager.last_write_ms = xTaskGetTickCount();
-        SPMC_master_advance_tail(&g_spmc);
-        sd_file_sync(); // fsync takes only 4 ticks and ensures sure cache is flushed on close
-    }
-
-    PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
 }
 
-void sd_shutdown(void) {
-    switch (sd_manager.sd_state) {
-        case SD_STATE_ACTIVE:
-            // sd_write_periodic(true); // Finish write (bypass count limit)
-            sd_file_sync(); // Flush cache
-            f_close(&sd_manager.log_fp); // Close file
-            // ! intentional fall through
-        case SD_STATE_MOUNTED:
-            f_mount(0, "", 1); // Unmount drive
-            // ! intentional fall through
-        case SD_STATE_IDLE:
-            SD_DeInit(); // Shutdown SDIO peripheral
-            // ! intentional fall through
-        default:
-            sd_manager.sd_state = SD_STATE_IDLE;
-            PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
-            PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
-            // PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 0);
+void sd_fsm_periodic(void) {
+    // set default states
+    sd_state = next_sd_state;
+    next_sd_state = sd_state;
+
+    bool is_logging_enabled = PHAL_readGPIO(LOG_ENABLE_PORT, LOG_ENABLE_PIN);
+    bool is_power_lost = false; // todo power loss detection
+    if (is_power_lost) {
+        release_resources();
+        next_sd_state = SD_STATE_FATAL;
+    }
+
+    switch (sd_state) {
+        case SD_STATE_DISABLED: {
+
+            if (is_logging_enabled) {
+                next_sd_state = SD_STATE_INSERT_CARD;
+            }
             break;
-    }
-}
+        }
+        case SD_STATE_INSERT_CARD: {
 
-void sd_update_periodic(void) {
-    FRESULT result;
+            if (!is_logging_enabled) {
+                next_sd_state = SD_STATE_DISABLED;
+            } else if (SD_Detect() == SD_PRESENT) {
+                next_sd_state = SD_STATE_MOUNTING;
+            }
+            break;
+        }
+        case SD_STATE_MOUNTING: {
 
-    sd_manager.log_enable_sw = PHAL_readGPIO(LOG_ENABLE_PORT, LOG_ENABLE_PIN);
-    if (!sd_manager.log_enable_sw) {
-        PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
-        sd_shutdown();
-        return;
-    } else {
-        PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
-    }
+            if (f_mount(&fat_fs, "", 1) == FR_OK) {
+                is_fs_mounted = true;
+                next_sd_state = SD_STATE_OPENING_FILE;
+            } else {
+                next_sd_state = SD_STATE_RECOVERING;
+            }
+            break;
+        }
+        case SD_STATE_OPENING_FILE: {
+            char filename[30];
+            get_next_filename(filename, sizeof(filename));
 
-    switch (sd_manager.sd_state) {
-        case SD_STATE_IDLE:
-            if (SD_Detect() != SD_PRESENT) {
-                PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
+            if (f_open(&file_object, filename, FA_OPEN_APPEND | FA_READ | FA_WRITE) == FR_OK) {
+                is_file_open = true;
+                last_open_time_ms = xTaskGetTickCount();
+                next_sd_state = SD_STATE_READY2LOG;
+            } else {
+                next_sd_state = SD_STATE_RECOVERING;
+            }
+            break;
+        }
+        case SD_STATE_READY2LOG: {
+            // todo: block on notification from SPMC, polling for now
+            timestamped_frame_t *first_frame; // updated by SPMC_master_peek_chunk()
+            bool chunk_available = SPMC_master_peek_chunk(&g_spmc, &first_frame);
+            if (chunk_available) {
+                // f_write() calls with DMA then blocks, no need to wait for completion notification
+                PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 1);
+                UINT bytes_to_write = SPMC_BYTES_PER_CHUNK;
+                UINT bytes_written  = 0; // updated to by f_write()
+                FRESULT result      = f_write(&file_object, first_frame, bytes_to_write, &bytes_written);
+                PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
+                if (result != FR_OK) {
+                    // todo check bytes written
+                    next_sd_state = SD_STATE_RECOVERING;
+                    break;
+                }
+                // success
+                SPMC_master_advance_tail(&g_spmc);
+                recovery_attempts = 0; // reset recovery attempts on success
+            }
+
+            bool is_new_file_period_elapsed = xTaskGetTickCount() - last_open_time_ms > SD_NEW_FILE_PERIOD_MS;
+            if (!is_logging_enabled || is_new_file_period_elapsed) {
+                next_sd_state = SD_STATE_CLOSING_FILE;
+            }
+            break;
+        }
+        case SD_STATE_CLOSING_FILE: {
+            if (f_sync(&file_object) != FR_OK) {
+                next_sd_state = SD_STATE_RECOVERING;
+                break;
+            }
+            if (f_close(&file_object) != FR_OK) {
+                next_sd_state = SD_STATE_RECOVERING;
                 break;
             }
 
-            result = f_mount(&sd_manager.fat_fs, "", 1);
-            if (result != FR_OK) {
-                sd_handle_error(SD_ERROR_MOUNT, result);
-                PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
-                break;
-            }
+            is_file_open = false;
 
-            sd_manager.sd_state = SD_STATE_MOUNTED;
-            PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 1);
-            break;
-        case SD_STATE_MOUNTED:
-            result = sd_create_new_file();
-            if (result == FR_OK) {
-                sd_manager.sd_state     = SD_STATE_ACTIVE;
-                sd_manager.log_start_ms = xTaskGetTickCount();
+            if (!is_logging_enabled) {
+                next_sd_state = SD_STATE_UNMOUNTING;
+                is_fs_mounted = false;
+            } else {
+                next_sd_state = SD_STATE_OPENING_FILE;
             }
             break;
-        case SD_STATE_ACTIVE:
-            if (xTaskGetTickCount() - sd_manager.last_write_ms > SD_WRITE_PERIOD_MS) {
-                sd_write_periodic();
-            }
+        }
+        case SD_STATE_UNMOUNTING: {
+            f_mount(NULL, "", 1); // unmount
 
-            if (xTaskGetTickCount() - sd_manager.last_file_ms > SD_NEW_FILE_PERIOD_MS) {
-                sd_create_new_file();
+            next_sd_state = SD_STATE_DISABLED;
+            break;
+        }
+        case SD_STATE_RECOVERING: {
+            release_resources();
+            osDelay(200); // wait a bit before trying again
+            recovery_attempts++;
+
+            if (recovery_attempts > 3) {
+                next_sd_state = SD_STATE_FATAL;
+            } else {
+                next_sd_state = SD_STATE_DISABLED;
             }
             break;
+        }
+        case SD_STATE_FATAL: {
+            PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 1);
+            break;
+        }
     }
-
-    sd_reset_error();
 }

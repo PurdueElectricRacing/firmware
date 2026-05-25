@@ -3,7 +3,6 @@
  * @brief "DAQ" node source code
  * 
  * @author Irving Wang (irvingw@purdue.edu)
- * @author Eileen Yoon (eyn@purdue.edu)
  * @author Luke Oxley (lcoxley@purdue.edu)
  */
 
@@ -59,6 +58,7 @@ static_assert(PER == GREAT); // Long live daq loop
 constexpr TickType_t SD_BLOCKING_TIMEOUT_TICKS = pdMS_TO_TICKS(SD_BLOCKING_TIMEOUT_MS); 
 
 extern SemaphoreHandle_t spi1_lock;
+extern volatile TaskHandle_t sd_task_handle; // ! handle to be pointed to by SDIO ISR for notifications
 
 void HardFault_Handler();
 

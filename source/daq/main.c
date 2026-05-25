@@ -3,7 +3,6 @@
  * @brief "DAQ" node source code
  * 
  * @author Irving Wang (irvingw@purdue.edu)
- * @author Eileen Yoon (eyn@purdue.edu)
  * @author Luke Oxley (lcoxley@purdue.edu)
  */
 
@@ -92,11 +91,12 @@ SPI_InitConfig_t eth_spi_config = {
 };
 
 DEFINE_MUTEX(spi1_lock);
+volatile TaskHandle_t sd_task_handle = nullptr;
 
 static void configure_interrupts(void);
 void shutdown(void);
 
-DEFINE_TASK(sd_update_periodic, 100, osPriorityHigh, STACK_4096); // SD WRITE
+DEFINE_TASK(sd_card_periodic, SD_FSM_PERIOD_MS, osPriorityHigh, STACK_4096); // SD WRITE
 DEFINE_TASK(eth_thread_periodic, 0, osPriorityNormal, STACK_4096); // BULLET COMMS 
 DEFINE_TASK(RTC_sync_thread, 0, osPriorityLow, STACK_512);
 DEFINE_WATCHDOG_TASK();
@@ -132,7 +132,7 @@ int main() {
 
     INIT_MUTEX(spi1_lock);
 
-    START_TASK(sd_update_periodic);  // SD WRITE
+    START_TASK(sd_card_periodic); // SD WRITE
     START_TASK(eth_thread_periodic); // BULLET COMMS
     START_TASK(RTC_sync_thread);
     START_WATCHDOG_TASK();
@@ -154,14 +154,18 @@ static void configure_interrupts(void) {
     NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
-/**
- * @brief Disables high power consumption devices
- *        If file open, flushes it to the sd card
- *        Then unmounts sd card
- */
-[[gnu::always_inline]]
-static void inline shutdown_callback(void) {
-    // todo shutdown hook
+// disables high power devices to give time for the SD card to flush
+void power_loss_callback(void) {
+    // hold W5500 in reset
+    PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 0);
+
+    // turn off LEDs
+    PHAL_writeGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, 0);
+    PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 0);
+    PHAL_writeGPIO(ERROR_LED_PORT, ERROR_LED_PIN, 0);
+    PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
+    PHAL_writeGPIO(SD_ERROR_LED_PORT, SD_ERROR_LED_PIN, 0);
+    PHAL_writeGPIO(SD_DETECT_LED_PORT, SD_DETECT_LED_PIN, 0);
 }
 
 // Interrupt handler for power loss detection
@@ -169,7 +173,9 @@ static void inline shutdown_callback(void) {
 void EXTI15_10_IRQHandler() {
     if (EXTI->PR & EXTI_PR_PR15) {
         EXTI->PR |= EXTI_PR_PR15; // Clear interrupt
-        shutdown_callback();
+        // power_loss_callback();
+        // dont call it in the context of the ISR, instead use notify to trigger it
+        // sd_power_loss_callback();
     }
 }
 

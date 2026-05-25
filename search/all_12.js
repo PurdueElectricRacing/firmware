@@ -28,9 +28,8 @@ var searchData=
   ['load_5fcalc_25',['load_calc',['../namespaceload__calc.html',1,'']]],
   ['load_5fcustom_5ftypes_26',['load_custom_types',['../namespaceparser.html#a93720c5cd2352c25b61ee5783cfe2096',1,'parser']]],
   ['load_5fjson_27',['load_json',['../namespaceutils.html#a9bdd3064ac11001c40863580f4a2c86f',1,'utils']]],
-  ['log_5fenable_5fsw_28',['log_enable_sw',['../structSD__manager__t.html#a593a44f56454428ca5337946703192fd',1,'SD_manager_t']]],
-  ['logic_29',['Logic',['../md_can__library_2README.html#autotoc_md129',1,'']]],
-  ['lookup_20table_30',['Linearly Interpolating Lookup Table',['../md_common_2lerp__lut_2README.html',1,'']]],
-  ['lut_5fentry_5ft_31',['lut_entry_t',['../structlut__entry__t.html',1,'']]],
-  ['lut_5flookup_32',['lut_lookup',['../lerp__lut_8c.html#aa6730914e04aa912dcb777e28f9e4004',1,'lut_lookup(const lerp_lut_t *lut, float key):&#160;lerp_lut.c'],['../lerp__lut_8h.html#aa6730914e04aa912dcb777e28f9e4004',1,'lut_lookup(const lerp_lut_t *lut, float key):&#160;lerp_lut.c']]]
+  ['logic_28',['Logic',['../md_can__library_2README.html#autotoc_md129',1,'']]],
+  ['lookup_20table_29',['Linearly Interpolating Lookup Table',['../md_common_2lerp__lut_2README.html',1,'']]],
+  ['lut_5fentry_5ft_30',['lut_entry_t',['../structlut__entry__t.html',1,'']]],
+  ['lut_5flookup_31',['lut_lookup',['../lerp__lut_8c.html#aa6730914e04aa912dcb777e28f9e4004',1,'lut_lookup(const lerp_lut_t *lut, float key):&#160;lerp_lut.c'],['../lerp__lut_8h.html#aa6730914e04aa912dcb777e28f9e4004',1,'lut_lookup(const lerp_lut_t *lut, float key):&#160;lerp_lut.c']]]
 ];

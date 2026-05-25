@@ -98,8 +98,7 @@ $(function(){initNavTree('sd__card_8c.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">sd_card.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -107,66 +106,28 @@ $(function(){initNavTree('sd__card_8c.html',''); initResizable(true); });
 <p>Logging of received bus messages onto an SD card.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="sd__card_8h_source.html">sd_card.h</a>&quot;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
 <code>#include &quot;common/phal/gpio.h&quot;</code><br />
 <code>#include &quot;common/phal/rtc.h&quot;</code><br />
-<code>#include &quot;ff.h&quot;</code><br />
-<code>#include &quot;main.h&quot;</code><br />
 <code>#include &quot;common/sdio/sdio.h&quot;</code><br />
-<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &quot;external/fatfs/ff.h&quot;</code><br />
+<code>#include &quot;main.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="spmc_8h_source.html">spmc.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa98507a5803fa12ea49774a4f06e011c" id="r_aa98507a5803fa12ea49774a4f06e011c"><td class="memItemLeft" align="right" valign="top"><a id="aa98507a5803fa12ea49774a4f06e011c" name="aa98507a5803fa12ea49774a4f06e011c"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>daq_request_sd_mount</b> (void)</td></tr>
-<tr class="separator:aa98507a5803fa12ea49774a4f06e011c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf3c04470d415b596c5f5ab8a0c5e356" id="r_adf3c04470d415b596c5f5ab8a0c5e356"><td class="memItemLeft" align="right" valign="top"><a id="adf3c04470d415b596c5f5ab8a0c5e356" name="adf3c04470d415b596c5f5ab8a0c5e356"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>sd_shutdown</b> (void)</td></tr>
-<tr class="separator:adf3c04470d415b596c5f5ab8a0c5e356"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af86d040bc80cdb19b1b7cb0a9785d0b0" id="r_af86d040bc80cdb19b1b7cb0a9785d0b0"><td class="memItemLeft" align="right" valign="top"><a id="af86d040bc80cdb19b1b7cb0a9785d0b0" name="af86d040bc80cdb19b1b7cb0a9785d0b0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>sd_update_periodic</b> (void)</td></tr>
-<tr class="separator:af86d040bc80cdb19b1b7cb0a9785d0b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a98843ea865c12d404be48341619f9bd3" id="r_a98843ea865c12d404be48341619f9bd3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structSD__manager__t.html">SD_manager_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98843ea865c12d404be48341619f9bd3">sd_manager</a></td></tr>
-<tr class="separator:a98843ea865c12d404be48341619f9bd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a823960a0f57943634ea0f94d48861d65" id="r_a823960a0f57943634ea0f94d48861d65"><td class="memItemLeft" align="right" valign="top"><a id="a823960a0f57943634ea0f94d48861d65" name="a823960a0f57943634ea0f94d48861d65"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>sd_power_loss_callback</b> (void)</td></tr>
+<tr class="separator:a823960a0f57943634ea0f94d48861d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1be8d347ac90e89922850113d6c264df" id="r_a1be8d347ac90e89922850113d6c264df"><td class="memItemLeft" align="right" valign="top"><a id="a1be8d347ac90e89922850113d6c264df" name="a1be8d347ac90e89922850113d6c264df"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>sd_card_periodic</b> (void)</td></tr>
+<tr class="separator:a1be8d347ac90e89922850113d6c264df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Logging of received bus messages onto an SD card. </p>
-<dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
-<dd>
-Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">eyn@p<span class="obfuscator">.nosp@m.</span>urdu<span class="obfuscator">.nosp@m.</span>e.edu</a>) </dd>
-<dd>
-Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu'+'rdu'+'e.'+'edu'; return false;">lcoxl<span class="obfuscator">.nosp@m.</span>ey@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-</div><h2 class="groupheader">Variable Documentation</h2>
-<a id="a98843ea865c12d404be48341619f9bd3" name="a98843ea865c12d404be48341619f9bd3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98843ea865c12d404be48341619f9bd3">&#9670;&#160;</a></span>sd_manager</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structSD__manager__t.html">SD_manager_t</a> sd_manager</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    </div>
-<div class="line">    .sd_state           = SD_STATE_IDLE,</div>
-<div class="line">    .sd_error_ct        = 0,</div>
-<div class="line">    .sd_last_error_time = 0,</div>
-<div class="line">    .sd_last_err        = SD_ERROR_NONE,</div>
-<div class="line">    .sd_last_err_res    = 0,</div>
-<div class="line">    .sd_task_handle     = NULL,</div>
-<div class="line">    .last_file_ms       = 0,</div>
-<div class="line">    .last_write_ms      = 0,</div>
-<div class="line">    .log_enable_sw      = <span class="keyword">false</span></div>
-<div class="line">}</div>
-</div><!-- fragment -->
-</div>
-</div>
-</div><!-- contents -->
+<dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

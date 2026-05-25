@@ -98,71 +98,49 @@ $(function(){initNavTree('sd__card_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">sd_card.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>Logging of received bus messages onto an SD card.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;external/fatfs/ff.h&quot;</code><br />
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
 </div>
 <p><a href="sd__card_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSD__manager__t.html">SD_manager_t</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:acb425a95edaf884fd443c15be109f574" id="r_acb425a95edaf884fd443c15be109f574"><td class="memItemLeft" align="right" valign="top"><a id="acb425a95edaf884fd443c15be109f574" name="acb425a95edaf884fd443c15be109f574"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>sd_state_t</b> { <b>SD_STATE_IDLE</b> = 0
-, <b>SD_STATE_MOUNTED</b> = 1
-, <b>SD_STATE_ACTIVE</b> = 2
- }</td></tr>
-<tr class="separator:acb425a95edaf884fd443c15be109f574"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c11b271fd9ae607114102201c05c87d" id="r_a2c11b271fd9ae607114102201c05c87d"><td class="memItemLeft" align="right" valign="top"><a id="a2c11b271fd9ae607114102201c05c87d" name="a2c11b271fd9ae607114102201c05c87d"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>sd_error_t</b> { <br />
-&#160;&#160;<b>SD_ERROR_NONE</b> = 0
-, <b>SD_ERROR_MOUNT</b> = 1
-, <b>SD_ERROR_FOPEN</b> = 2
-, <b>SD_ERROR_FCLOSE</b> = 3
+<tr class="memitem:acb425a95edaf884fd443c15be109f574" id="r_acb425a95edaf884fd443c15be109f574"><td class="memItemLeft" align="right" valign="top"><a id="acb425a95edaf884fd443c15be109f574" name="acb425a95edaf884fd443c15be109f574"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>sd_state_t</b> { <br />
+&#160;&#160;<b>SD_STATE_DISABLED</b> = 0
+, <b>SD_STATE_INSERT_CARD</b> = 1
+, <b>SD_STATE_MOUNTING</b> = 2
+, <b>SD_STATE_OPENING_FILE</b> = 3
 , <br />
-&#160;&#160;<b>SD_ERROR_WRITE</b> = 4
-, <b>SD_ERROR_DETEC</b> = 5
-, <b>SD_ERROR_SYNC</b> = 6
+&#160;&#160;<b>SD_STATE_READY2LOG</b> = 4
+, <b>SD_STATE_CLOSING_FILE</b> = 5
+, <b>SD_STATE_UNMOUNTING</b> = 6
+, <b>SD_STATE_RECOVERING</b> = 7
+, <br />
+&#160;&#160;<b>SD_STATE_FATAL</b> = 8
 <br />
  }</td></tr>
-<tr class="separator:a2c11b271fd9ae607114102201c05c87d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:acb425a95edaf884fd443c15be109f574"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa98507a5803fa12ea49774a4f06e011c" id="r_aa98507a5803fa12ea49774a4f06e011c"><td class="memItemLeft" align="right" valign="top"><a id="aa98507a5803fa12ea49774a4f06e011c" name="aa98507a5803fa12ea49774a4f06e011c"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>daq_request_sd_mount</b> (void)</td></tr>
-<tr class="separator:aa98507a5803fa12ea49774a4f06e011c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf3c04470d415b596c5f5ab8a0c5e356" id="r_adf3c04470d415b596c5f5ab8a0c5e356"><td class="memItemLeft" align="right" valign="top"><a id="adf3c04470d415b596c5f5ab8a0c5e356" name="adf3c04470d415b596c5f5ab8a0c5e356"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>sd_shutdown</b> (void)</td></tr>
-<tr class="separator:adf3c04470d415b596c5f5ab8a0c5e356"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af86d040bc80cdb19b1b7cb0a9785d0b0" id="r_af86d040bc80cdb19b1b7cb0a9785d0b0"><td class="memItemLeft" align="right" valign="top"><a id="af86d040bc80cdb19b1b7cb0a9785d0b0" name="af86d040bc80cdb19b1b7cb0a9785d0b0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>sd_update_periodic</b> (void)</td></tr>
-<tr class="separator:af86d040bc80cdb19b1b7cb0a9785d0b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a98843ea865c12d404be48341619f9bd3" id="r_a98843ea865c12d404be48341619f9bd3"><td class="memItemLeft" align="right" valign="top"><a id="a98843ea865c12d404be48341619f9bd3" name="a98843ea865c12d404be48341619f9bd3"></a>
-<a class="el" href="structSD__manager__t.html">SD_manager_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>sd_manager</b></td></tr>
-<tr class="separator:a98843ea865c12d404be48341619f9bd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1be8d347ac90e89922850113d6c264df" id="r_a1be8d347ac90e89922850113d6c264df"><td class="memItemLeft" align="right" valign="top"><a id="a1be8d347ac90e89922850113d6c264df" name="a1be8d347ac90e89922850113d6c264df"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>sd_card_periodic</b> (void)</td></tr>
+<tr class="separator:a1be8d347ac90e89922850113d6c264df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a823960a0f57943634ea0f94d48861d65" id="r_a823960a0f57943634ea0f94d48861d65"><td class="memItemLeft" align="right" valign="top"><a id="a823960a0f57943634ea0f94d48861d65" name="a823960a0f57943634ea0f94d48861d65"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>sd_power_loss_callback</b> (void)</td></tr>
+<tr class="separator:a823960a0f57943634ea0f94d48861d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Logging of received bus messages onto an SD card. </p>
-<dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
-<dd>
-Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">eyn@p<span class="obfuscator">.nosp@m.</span>urdu<span class="obfuscator">.nosp@m.</span>e.edu</a>) </dd>
-<dd>
-Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu'+'rdu'+'e.'+'edu'; return false;">lcoxl<span class="obfuscator">.nosp@m.</span>ey@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

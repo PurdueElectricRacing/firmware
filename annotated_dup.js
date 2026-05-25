@@ -105,7 +105,6 @@ var annotated_dup =
     [ "SD_CardInfo", "structSD__CardInfo.html", "structSD__CardInfo" ],
     [ "SD_CID", "structSD__CID.html", "structSD__CID" ],
     [ "SD_CSD", "structSD__CSD.html", "structSD__CSD" ],
-    [ "SD_manager_t", "structSD__manager__t.html", "structSD__manager__t" ],
     [ "sdc_node_t", "structsdc__node__t.html", null ],
     [ "seconds_t", "structseconds__t.html", null ],
     [ "SPI_InitConfig_t", "structSPI__InitConfig__t.html", "structSPI__InitConfig__t" ],

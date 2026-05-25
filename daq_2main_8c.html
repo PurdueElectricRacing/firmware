@@ -137,9 +137,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a1c9d5e29ad8899afe0c34571ddee18f9" id="r_a1c9d5e29ad8899afe0c34571ddee18f9"><td class="memItemLeft" align="right" valign="top"><a id="a1c9d5e29ad8899afe0c34571ddee18f9" name="a1c9d5e29ad8899afe0c34571ddee18f9"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>shutdown</b> (void)</td></tr>
 <tr class="separator:a1c9d5e29ad8899afe0c34571ddee18f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04a40a012a21354c81dcf9b3cebb872b" id="r_a04a40a012a21354c81dcf9b3cebb872b"><td class="memItemLeft" align="right" valign="top"><a id="a04a40a012a21354c81dcf9b3cebb872b" name="a04a40a012a21354c81dcf9b3cebb872b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (sd_update_periodic, 100, osPriorityHigh, STACK_4096)</td></tr>
-<tr class="separator:a04a40a012a21354c81dcf9b3cebb872b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbf00664f37f4323061f84bc1920c246" id="r_adbf00664f37f4323061f84bc1920c246"><td class="memItemLeft" align="right" valign="top"><a id="adbf00664f37f4323061f84bc1920c246" name="adbf00664f37f4323061f84bc1920c246"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (sd_card_periodic, SD_FSM_PERIOD_MS, osPriorityHigh, STACK_4096)</td></tr>
+<tr class="separator:adbf00664f37f4323061f84bc1920c246"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47ec34f89d376175dddcb4600bf278e7" id="r_a47ec34f89d376175dddcb4600bf278e7"><td class="memItemLeft" align="right" valign="top"><a id="a47ec34f89d376175dddcb4600bf278e7" name="a47ec34f89d376175dddcb4600bf278e7"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (eth_thread_periodic, 0, osPriorityNormal, STACK_4096)</td></tr>
 <tr class="separator:a47ec34f89d376175dddcb4600bf278e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -155,6 +155,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>shutdown</b> (void)</
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top"><a id="ae66f6b31b5ad750f1fe042a706a4e3d4" name="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> ()</td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee75e971579a3bde03234c6ab1fdf840" id="r_aee75e971579a3bde03234c6ab1fdf840"><td class="memItemLeft" align="right" valign="top"><a id="aee75e971579a3bde03234c6ab1fdf840" name="aee75e971579a3bde03234c6ab1fdf840"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>power_loss_callback</b> (void)</td></tr>
+<tr class="separator:aee75e971579a3bde03234c6ab1fdf840"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2089b233bd8d6f7dbf78e075033696e3" id="r_a2089b233bd8d6f7dbf78e075033696e3"><td class="memItemLeft" align="right" valign="top"><a id="a2089b233bd8d6f7dbf78e075033696e3" name="a2089b233bd8d6f7dbf78e075033696e3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>EXTI15_10_IRQHandler</b> ()</td></tr>
 <tr class="separator:a2089b233bd8d6f7dbf78e075033696e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,12 +192,13 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>PLLClockRateHz</b
 <tr class="separator:ac9d88a12a20b964301d43f839eee3f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a42a1a6599015412816e4954c32f1bb" id="r_a9a42a1a6599015412816e4954c32f1bb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a42a1a6599015412816e4954c32f1bb">eth_spi_config</a></td></tr>
 <tr class="separator:a9a42a1a6599015412816e4954c32f1bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad54952590a1a2fba895bd31fb775ee09" id="r_ad54952590a1a2fba895bd31fb775ee09"><td class="memItemLeft" align="right" valign="top"><a id="ad54952590a1a2fba895bd31fb775ee09" name="ad54952590a1a2fba895bd31fb775ee09"></a>
+volatile TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>sd_task_handle</b> = nullptr</td></tr>
+<tr class="separator:ad54952590a1a2fba895bd31fb775ee09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>"DAQ" node source code </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
-<dd>
-Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">eyn@p<span class="obfuscator">.nosp@m.</span>urdu<span class="obfuscator">.nosp@m.</span>e.edu</a>) </dd>
 <dd>
 Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu'+'rdu'+'e.'+'edu'; return false;">lcoxl<span class="obfuscator">.nosp@m.</span>ey@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div><h2 class="groupheader">Variable Documentation</h2>

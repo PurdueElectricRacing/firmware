@@ -35,4 +35,4 @@ Notes:
 
 ![sd fsm](sd_card/SD_FSM.drawio.png)
 
-![timing diagram](SD_timing_diagram.drawio.png)
+![timing diagram](DAQ_timing_diagram.drawio.png)

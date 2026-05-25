@@ -1,20 +1,27 @@
+/**
+ * @file sd_fsm.c
+ * @brief Writing of received bus messages onto an SD card
+ * 
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
+#include <stdio.h>
 #include "common/phal/gpio.h"
 #include "common/phal/rtc.h"
 #include "common/sdio/sdio.h"
-#include <stdio.h>
 #include "external/fatfs/ff.h"
+#include "spmc.h"
 
 typedef enum {
-    SD_STATE_DISABLED      = 0,
-    SD_STATE_WAIT_FOR_CARD = 1,
-    SD_STATE_MOUNTING      = 2,
-    SD_STATE_OPENING_FILE  = 3,
-    SD_STATE_READY2LOG     = 4,
-    SD_STATE_WRITING       = 5,
-    SD_STATE_CLOSING_FILE  = 6,
-    SD_STATE_UNMOUNTING    = 7,
-    SD_STATE_RECOVERING    = 8,
-    SD_STATE_FATAL         = 9
+    SD_STATE_DISABLED     = 0,
+    SD_STATE_INSERT_CARD  = 1,
+    SD_STATE_MOUNTING     = 2,
+    SD_STATE_OPENING_FILE = 3,
+    SD_STATE_READY2LOG    = 4,
+    SD_STATE_CLOSING_FILE = 5,
+    SD_STATE_UNMOUNTING   = 6,
+    SD_STATE_RECOVERING   = 7,
+    SD_STATE_FATAL        = 8
 } sd_state_t;
 
 sd_state_t sd_state = SD_STATE_DISABLED;
@@ -56,11 +63,11 @@ void sd_fsm_periodic(void) {
         case SD_STATE_DISABLED: {
 
             if (is_logging_enabled) {
-                next_sd_state = SD_STATE_WAIT_FOR_CARD;
+                next_sd_state = SD_STATE_INSERT_CARD;
             }
             break;
         }
-        case SD_STATE_WAIT_FOR_CARD: {
+        case SD_STATE_INSERT_CARD: {
 
             if (SD_Detect() == SD_PRESENT) {
                 next_sd_state = SD_STATE_MOUNTING;
@@ -88,25 +95,29 @@ void sd_fsm_periodic(void) {
             break;
         }
         case SD_STATE_READY2LOG: {
-            // block on notification from SPMC
-
-            // peek chunks
-            // begin f_write() of the chunk with DMA
-            if (!is_logging_enabled) {
-                next_sd_state = SD_STATE_CLOSING_FILE;
-            } else {
-                next_sd_state = SD_STATE_WRITING;
+            // todo: block on notification from SPMC, polling for now
+            timestamped_frame_t *first_frame; // updated by SPMC_master_peek_chunk() on success
+            bool chunks_available = SPMC_master_peek_chunk(&g_spmc, &first_frame);
+            if (!chunks_available) {
+                break;
             }
-            break;
-        }
-        case SD_STATE_WRITING: {
-            // block on the DMA transfer to finish via notify
 
-            bool file_is_large_enough = false;
-            if (file_is_large_enough || !is_logging_enabled) {
+            // f_write() calls with DMA, no need to wait for completion
+            PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 1);
+            UINT bytes_written = 0; // updated to by f_write()
+            size_t total_bytes = SPMC_CHUNK_NUM_FRAMES * sizeof(timestamped_frame_t);
+            FRESULT result     = f_write(&file_pointer, first_frame, total_bytes, &bytes_written);
+            if (result != FR_OK) {
+                // todo check bytes written
+                next_sd_state = SD_STATE_RECOVERING;
+                break;
+            }
+            // success
+            SPMC_master_advance_tail(&g_spmc);
+            PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
+
+            if (!is_logging_enabled || file_is_large_enough) {
                 next_sd_state = SD_STATE_CLOSING_FILE;
-            } else {
-                next_sd_state = SD_STATE_READY2LOG;
             }
             break;
         }

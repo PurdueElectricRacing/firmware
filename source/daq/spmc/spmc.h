@@ -21,6 +21,7 @@ static_assert(
     "the SPMC capacity must be a multiple of SPMC_CHUNK_NUM_FRAMES "
     "to prevent DMA wraparound issues and fragmentation"
 );
+static constexpr size_t SPMC_BYTES_PER_CHUNK = SPMC_CHUNK_NUM_FRAMES * sizeof(timestamped_frame_t);
 
 static constexpr size_t SPMC_MINI_NUM_FRAMES = 16;
 static_assert(

@@ -30,7 +30,9 @@ static constexpr uint32_t SD_NEW_FILE_PERIOD_MS = 1 * 60 * 1000; // 1 min
 sd_state_t sd_state = SD_STATE_DISABLED;
 sd_state_t next_sd_state = SD_STATE_DISABLED;
 FATFS fat_fs;
-FIL file_pointer;
+FIL file_object;
+bool is_file_open = false;
+bool is_fs_mounted = false;
 int recovery_attempts = 0;
 uint32_t last_open_time_ms = 0;
 
@@ -54,6 +56,19 @@ static void get_next_filename(char *buffer, size_t buffer_size) {
     } else {
         snprintf(buffer, buffer_size, "log-%d.log", log_num);
         log_num++;
+    }
+}
+
+static void release_resources() {
+    if (is_file_open) {
+        f_sync(&file_object);
+        f_close(&file_object);
+        is_file_open = false;
+    }
+
+    if (is_fs_mounted) {
+        f_mount(NULL, "", 1); // unmount
+        is_fs_mounted = false;
     }
 }
 
@@ -85,6 +100,7 @@ void sd_fsm_periodic(void) {
         case SD_STATE_MOUNTING: {
 
             if (f_mount(&fat_fs, "", 1) == FR_OK) {
+                is_fs_mounted = true;
                 next_sd_state = SD_STATE_OPENING_FILE;
             } else {
                 next_sd_state = SD_STATE_RECOVERING;
@@ -95,7 +111,8 @@ void sd_fsm_periodic(void) {
             char filename[30];
             get_next_filename(filename, sizeof(filename));
 
-            if (f_open(&file_pointer, filename, FA_OPEN_APPEND | FA_READ | FA_WRITE) == FR_OK) {
+            if (f_open(&file_object, filename, FA_OPEN_APPEND | FA_READ | FA_WRITE) == FR_OK) {
+                is_file_open = true;
                 last_open_time_ms = xTaskGetTickCount();
                 next_sd_state = SD_STATE_READY2LOG;
             } else {
@@ -110,9 +127,9 @@ void sd_fsm_periodic(void) {
             if (chunk_available) {
                 // f_write() calls with DMA then blocks, no need to wait for completion notification
                 PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 1);
-                UINT bytes_written = 0; // updated to by f_write()
-                size_t total_bytes = SPMC_CHUNK_NUM_FRAMES * sizeof(timestamped_frame_t);
-                FRESULT result     = f_write(&file_pointer, first_frame, total_bytes, &bytes_written);
+                UINT bytes_to_write = SPMC_BYTES_PER_CHUNK;
+                UINT bytes_written  = 0; // updated to by f_write()
+                FRESULT result      = f_write(&file_object, first_frame, bytes_to_write, &bytes_written);
                 PHAL_writeGPIO(SD_ACTIVITY_LED_PORT, SD_ACTIVITY_LED_PIN, 0);
                 if (result != FR_OK) {
                     // todo check bytes written
@@ -131,17 +148,20 @@ void sd_fsm_periodic(void) {
             break;
         }
         case SD_STATE_CLOSING_FILE: {
-            if (f_sync(&file_pointer) != FR_OK) {
+            if (f_sync(&file_object) != FR_OK) {
                 next_sd_state = SD_STATE_RECOVERING;
                 break;
             }
-            if (f_close(&file_pointer) != FR_OK) {
+            if (f_close(&file_object) != FR_OK) {
                 next_sd_state = SD_STATE_RECOVERING;
                 break;
             }
 
+            is_file_open = false;
+
             if (!is_logging_enabled) {
                 next_sd_state = SD_STATE_UNMOUNTING;
+                is_fs_mounted = false;
             } else {
                 next_sd_state = SD_STATE_OPENING_FILE;
             }
@@ -154,10 +174,11 @@ void sd_fsm_periodic(void) {
             break;
         }
         case SD_STATE_RECOVERING: {
-            // todo: recovery action
-            
+            release_resources();
+            osDelay(200); // wait a bit before trying again
             recovery_attempts++;
-             if (recovery_attempts > 3) {
+
+            if (recovery_attempts > 3) {
                 next_sd_state = SD_STATE_FATAL;
             } else {
                 next_sd_state = SD_STATE_DISABLED;

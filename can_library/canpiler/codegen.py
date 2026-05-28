@@ -44,7 +44,16 @@ class ScalingMessage:
 @dataclass
 class PeripheralContext:
     name: str
+    can_peripheral: str
     index: int
+    bus_type: str
+    arch_define: str
+
+
+@dataclass
+class RxPeripheralContext:
+    peripheral: PeripheralContext
+    entries: List[RxEntry]
 
 
 @dataclass
@@ -97,6 +106,7 @@ class NodeRenderContext:
     context: SystemContext
     mapping: Any
     rx_entries: List[RxEntry]
+    rx_peripheral_entries: List[RxPeripheralContext]
     tx_entries: List[TxEntry]
     peripherals: List[str]
     peripheral_entries: List[PeripheralContext]
@@ -104,6 +114,14 @@ class NodeRenderContext:
     scaling_messages: List[ScalingMessage]
     stale_rx_entries: List[RxEntry]
     filters: FilterRenderContext
+
+
+@dataclass
+class NodeConfigContext:
+    node: Node
+    peripheral_entries: List[PeripheralContext]
+    bus_type: str
+    arch_define: str
 
 
 @dataclass
@@ -195,15 +213,49 @@ def build_filter_render_context(mapping, peripherals: List[str]) -> FilterRender
     return filters
 
 
+def build_peripheral_contexts(peripherals: List[str]) -> List[PeripheralContext]:
+    entries = []
+    for idx, periph in enumerate(peripherals):
+        if periph.startswith("FDCAN"):
+            bus_type = "FDCAN_GlobalTypeDef *"
+            arch_define = "STM32G474xx"
+        elif periph.startswith("CAN"):
+            bus_type = "CAN_TypeDef *"
+            arch_define = "STM32F407xx"
+        else:
+            raise ValueError(f"Unsupported CAN peripheral: {periph}")
+
+        entries.append(PeripheralContext(
+            name=periph,
+            can_peripheral=f"CAN_PERIPHERAL_{periph}",
+            index=idx,
+            bus_type=bus_type,
+            arch_define=arch_define,
+        ))
+    return entries
+
+
+def build_rx_peripheral_entries(
+    rx_entries: List[RxEntry],
+    peripheral_entries: List[PeripheralContext],
+) -> List[RxPeripheralContext]:
+    rx_by_periph: Dict[str, List[RxEntry]] = {periph.name: [] for periph in peripheral_entries}
+    for entry in rx_entries:
+        rx_by_periph[entry.periph].append(entry)
+
+    return [
+        RxPeripheralContext(peripheral=periph, entries=rx_by_periph[periph.name])
+        for periph in peripheral_entries
+        if rx_by_periph[periph.name]
+    ]
+
+
 def build_node_render_context(node: Node, context: SystemContext) -> NodeRenderContext:
     mapping = context.mappings.get(node.name)
     rx_entries: List[RxEntry] = []
     tx_entries: List[TxEntry] = []
     peripherals = sorted(list(set(bus.peripheral for bus in node.busses.values())))
-    peripheral_entries = [
-        PeripheralContext(name=periph, index=int(periph[-1]) - 1)
-        for periph in peripherals
-    ]
+    peripheral_entries = build_peripheral_contexts(peripherals)
     node_busses = sorted(node.busses.keys())
 
     for bus_name in node_busses:
@@ -231,6 +283,7 @@ def build_node_render_context(node: Node, context: SystemContext) -> NodeRenderC
         context=context,
         mapping=mapping,
         rx_entries=rx_entries,
+        rx_peripheral_entries=build_rx_peripheral_entries(rx_entries, peripheral_entries),
         tx_entries=tx_entries,
         peripherals=peripherals,
         peripheral_entries=peripheral_entries,
@@ -239,6 +292,24 @@ def build_node_render_context(node: Node, context: SystemContext) -> NodeRenderC
         stale_rx_entries=[entry for entry in rx_entries if entry.msg.period > 0],
         filters=build_filter_render_context(mapping, peripherals),
     )
+
+
+def build_node_config_context(node: Node) -> NodeConfigContext:
+    peripherals = sorted(list(set(bus.peripheral for bus in node.busses.values())))
+    peripheral_entries = build_peripheral_contexts(peripherals)
+    bus_types = {periph.bus_type for periph in peripheral_entries}
+    arch_defines = {periph.arch_define for periph in peripheral_entries}
+
+    if len(bus_types) != 1 or len(arch_defines) != 1:
+        raise ValueError(f"Node {node.name} mixes incompatible CAN peripheral families")
+
+    return NodeConfigContext(
+        node=node,
+        peripheral_entries=peripheral_entries,
+        bus_type=next(iter(bus_types)),
+        arch_define=next(iter(arch_defines)),
+    )
+
 
 def generate_headers(context: SystemContext):
     print("Generating headers...")
@@ -254,6 +325,9 @@ def generate_headers(context: SystemContext):
     for bus_name, view in context.busses.items():
         config = context.bus_configs.get(bus_name, {})
         generate_bus_header(env, bus_name, config, view.messages)
+
+    # Generate node-selected peripheral configuration
+    generate_node_config_header(env, context.nodes)
 
     # Generate header for each node
     generate_node_headers(env, context)
@@ -275,6 +349,16 @@ def generate_router_header(env, nodes: List[Node]):
                     nodes=nodes,
                     router_nodes=[node for node in nodes if not node.is_external])
     print_as_ok("Generated can_router.h")
+
+def generate_node_config_header(env, nodes: List[Node]):
+    render_template(env, 'can_node_config.h.jinja',
+                    GENERATED_DIR / "can_node_config.h",
+                    node_configs=[
+                        build_node_config_context(node)
+                        for node in nodes
+                        if not node.is_external
+                    ])
+    print_as_ok("Generated can_node_config.h")
 
 def generate_node_headers(env, context: SystemContext):
     for node in context.nodes:

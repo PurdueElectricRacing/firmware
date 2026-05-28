@@ -75,6 +75,11 @@ void CAN_enqueue_tx(CanMsgTypeDef_t *msg) {
     can_stats.tx_enqueue_count++;
     CAN_peripheral_t peripheral = BUS_TO_PERIPHERAL(msg->Bus);
 
+    if (peripheral == CAN_PERIPHERAL_INVALID) {
+        can_stats.tx_overflow++;
+        return;
+    }
+
     if (xQueueSendToBack(can_tx_queues[peripheral], msg, 0) != pdPASS) {
         can_stats.tx_overflow++;
         return;

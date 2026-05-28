@@ -1,0 +1,48 @@
+#ifndef CAN_NODE_CONFIG_H
+#define CAN_NODE_CONFIG_H
+
+/**
+ * @file can_node_config.h
+ * @brief Auto-generated node-specific CAN peripheral configuration.
+ * @note This file is auto-generated; do not modify manually.
+ * @author Irving Wang (irvingw@purdue.edu)
+ */
+
+#include <stdint.h>
+
+#include "common/phal/can.h"
+
+{% for cfg in node_configs %}
+{% set directive = "#if" if loop.first else "#elif" %}
+{{ directive }} defined(CAN_NODE_{{ cfg.node.macro_name }})
+#if !defined({{ cfg.arch_define }})
+#error "CAN_NODE_{{ cfg.node.macro_name }} uses peripherals for {{ cfg.arch_define }}"
+#endif
+
+{% for periph in cfg.peripheral_entries %}
+#define USE_{{ periph.name }}
+{% endfor %}
+
+typedef enum : uint8_t {
+{% for periph in cfg.peripheral_entries %}
+    {{ periph.can_peripheral }} = {{ periph.index }},
+{% endfor %}
+    CAN_NUM_PERIPHERALS    = {{ cfg.peripheral_entries|length }},
+    CAN_PERIPHERAL_INVALID = 0xFF
+} CAN_peripheral_t;
+
+static inline CAN_peripheral_t BUS_TO_PERIPHERAL({{ cfg.bus_type }}bus) {
+{% for periph in cfg.peripheral_entries %}
+    if (bus == {{ periph.name }}) return {{ periph.can_peripheral }};
+{% endfor %}
+    return CAN_PERIPHERAL_INVALID;
+}
+
+{% endfor %}
+{% if node_configs %}
+#else
+#error "Define a CAN_NODE_* macro before including can_node_config.h"
+#endif
+{% endif %}
+
+#endif // CAN_NODE_CONFIG_H

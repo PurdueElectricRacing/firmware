@@ -12,36 +12,7 @@
 
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
-
-#if defined(STM32G474xx)
-typedef enum : uint8_t {
-    CAN_PERIPHERAL1        = 0,
-    CAN_PERIPHERAL2        = 1,
-    CAN_PERIPHERAL3        = 2,
-    CAN_NUM_PERIPHERALS    = 3,
-    CAN_PERIPHERAL_INVALID = 0xFF
-} CAN_peripheral_t;
-
-static inline CAN_peripheral_t BUS_TO_PERIPHERAL(FDCAN_GlobalTypeDef *bus) {
-    if (bus == FDCAN1) return CAN_PERIPHERAL1;
-    else if (bus == FDCAN2) return CAN_PERIPHERAL2;
-    else if (bus == FDCAN3) return CAN_PERIPHERAL3;
-    else return CAN_PERIPHERAL_INVALID;
-}
-#else
-typedef enum : uint8_t {
-    CAN_PERIPHERAL1        = 0,
-    CAN_PERIPHERAL2        = 1,
-    CAN_NUM_PERIPHERALS    = 2,
-    CAN_PERIPHERAL_INVALID = 0xFF
-} CAN_peripheral_t;
-
-static inline CAN_peripheral_t BUS_TO_PERIPHERAL(CAN_TypeDef *bus) {
-    if (bus == CAN1) return CAN_PERIPHERAL1;
-    else if (bus == CAN2) return CAN_PERIPHERAL2;
-    else return CAN_PERIPHERAL_INVALID;
-}
-#endif
+#include "can_library/generated/can_node_config.h"
 
 typedef struct {
     uint32_t rx_overflow; // software queue overflow

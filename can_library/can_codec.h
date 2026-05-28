@@ -40,8 +40,8 @@ static inline uint64_t CAN_load_payload_u64(const uint8_t *data, uint8_t len) {
 }
 
 [[gnu::always_inline]]
-static inline void CAN_store_payload_u64(uint8_t *data, uint64_t payload, uint8_t len) {
-    memcpy(data, &payload, len);
+static inline void CAN_store_payload_u64(uint8_t *dest, uint64_t payload, uint8_t len) {
+    memcpy(dest, &payload, len);
 }
 
 [[gnu::always_inline]]

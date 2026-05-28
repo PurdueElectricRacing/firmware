@@ -19,7 +19,7 @@ static inline void CAN_SEND_{{ entry.msg.name }}(
         .Data = {0}
     };
 
-    uint64_t data = 0;
+    uint64_t payload = 0;
     {% for codec in entry.codecs %}
     {% if codec.signal.is_reserved %}
     uint64_t sig_raw_{{ codec.signal.name }} = 0;
@@ -28,10 +28,10 @@ static inline void CAN_SEND_{{ entry.msg.name }}(
     {% else %}
     uint64_t sig_raw_{{ codec.signal.name }} = (uint64_t){{ codec.signal.name }};
     {% endif %}
-    data = CAN_pack_raw_signal(data, sig_raw_{{ codec.signal.name }}, {{ codec.signal.mask|to_c_hex }}, {{ codec.signal.bit_shift }}, {{ codec.bswap_width }});
+    payload = CAN_pack_raw_signal(payload, sig_raw_{{ codec.signal.name }}, {{ codec.signal.mask|to_c_hex }}, {{ codec.signal.bit_shift }}, {{ codec.bswap_width }});
     {% endfor %}
 
-    CAN_store_payload_u64(outgoing.Data, data, {{ entry.msg.macro_name }}_DLC);
+    CAN_store_payload_u64(outgoing.Data, payload, {{ entry.msg.macro_name }}_DLC);
 
     {{ entry.enqueue_func }}(&outgoing);
 }

@@ -51,8 +51,8 @@ Validated by `node_schema.json`. Maps a firmware node onto hardware peripherals 
 > If `scale` is present, `unit` is required by the schema.
 
 > [!TIP]
-> **Scaling Constants:** The library generates `static constexpr float` constants for every signal with a scale != 1.0.
-> format: `PACK_COEFF_<MSG>_<SIG>` and `UNPACK_COEFF_<MSG>_<SIG>`. Use these to avoid magic numbers in your application code.
+> **Scaling Constants:** Node headers generate directional `static constexpr float` constants for every local signal with a scale != 1.0.
+> Use `PACK_COEFF_<MSG>_<SIG>` before passing physical values to local `CAN_SEND_*` TX helpers, and use `UNPACK_COEFF_<MSG>_<SIG>` when interpreting raw `can_data` values from local RX messages.
 
 ### Message Priority
 Lower = higher priority.

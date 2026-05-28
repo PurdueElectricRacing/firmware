@@ -42,8 +42,12 @@ void {{ periph.enqueue_func }}(CanMsgTypeDef_t *msg);
 {% for scaling in ctx.scaling_messages %}
 // {{ scaling.msg.name }}
 {% for sig in scaling.signals %}
+{% if scaling.emit_unpack %}
 static constexpr float UNPACK_COEFF_{{ scaling.msg.macro_name }}_{{ sig.macro_name }} = {{ sig.scale|format_float }};
+{% endif %}
+{% if scaling.emit_pack %}
 static constexpr float PACK_COEFF_{{ scaling.msg.macro_name }}_{{ sig.macro_name }} = {{ (1.0/sig.scale)|format_float }};
+{% endif %}
 {% endfor %}
 {% endfor %}
 

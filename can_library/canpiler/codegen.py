@@ -40,6 +40,8 @@ class TxEntry:
 class ScalingMessage:
     msg: Message
     signals: List[Any]
+    emit_unpack: bool = False
+    emit_pack: bool = False
 
 
 @dataclass
@@ -155,18 +157,23 @@ def build_signal_codec(sig, direction: str) -> SignalCodec:
 
 
 def build_scaling_messages(rx_entries: List[RxEntry], tx_entries: List[TxEntry]) -> List[ScalingMessage]:
-    by_name: Dict[str, Message] = {}
-    for entry in tx_entries:
-        by_name.setdefault(entry.msg.name, entry.msg)
-    for entry in rx_entries:
-        by_name.setdefault(entry.msg.name, entry.msg)
+    by_name: Dict[str, ScalingMessage] = {}
 
-    scaling_messages = []
-    for msg in sorted(by_name.values(), key=lambda m: m.name):
+    def register_msg(msg: Message, *, emit_unpack: bool = False, emit_pack: bool = False) -> None:
         signals = [sig for sig in msg.signals if sig.scale != 1.0]
-        if signals:
-            scaling_messages.append(ScalingMessage(msg=msg, signals=signals))
-    return scaling_messages
+        if not signals:
+            return
+
+        scaling_msg = by_name.setdefault(msg.name, ScalingMessage(msg=msg, signals=signals))
+        scaling_msg.emit_unpack |= emit_unpack
+        scaling_msg.emit_pack |= emit_pack
+
+    for entry in tx_entries:
+        register_msg(entry.msg, emit_pack=True)
+    for entry in rx_entries:
+        register_msg(entry.msg, emit_unpack=True)
+
+    return sorted(by_name.values(), key=lambda scaling: scaling.msg.name)
 
 
 def build_filter_render_context(mapping, peripherals: List[str]) -> FilterRenderContext:

@@ -184,7 +184,6 @@ class Message:
 class RxMessage:
     name: str
     callback: bool = False
-    irq: bool = False
     resolved_message: Optional[Message] = None # Resolved during linking stage
 
 @dataclass
@@ -400,8 +399,7 @@ def parse_message(data: Dict, bus_config: Dict) -> Message:
 def parse_rx_message(data: Dict) -> RxMessage:
     return RxMessage(
         name=data['msg_name'],
-        callback=data.get('callback', False),
-        irq=data.get('irq', False)
+        callback=data.get('callback', False)
     )
 
 def parse_fault(data: Dict) -> 'Fault':

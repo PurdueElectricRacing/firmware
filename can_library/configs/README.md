@@ -33,7 +33,6 @@ Validated by `node_schema.json`. Maps a firmware node onto hardware peripherals 
 ## RX Message Attributes
 - `msg_name`: Name of the message to receive (must exist on the bus).
 - `callback`: Boolean. If true, generates a weak-linked callback function in the driver.
-- `irq`: Boolean. If true, processes the message in the RX interrupt context.
 
 ## Signal Attributes
 - `sig_name`: Signal name. Must be unique within the message.

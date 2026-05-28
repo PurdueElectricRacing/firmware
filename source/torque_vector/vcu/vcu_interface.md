@@ -1,4 +1,4 @@
-# TV Interface
+# VCU Interface
 # Input
 ## `xVCU`
 - type: `xVCU_struct`

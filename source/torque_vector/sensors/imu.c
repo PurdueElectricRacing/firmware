@@ -114,8 +114,7 @@ void IZZE_angular_rate_CALLBACK(void) {
     CAN_SEND_IMU_angular_rate(
         imu_data.gyro_x * PACK_COEFF_IMU_ANGULAR_RATE_X_AXIS,
         imu_data.gyro_y * PACK_COEFF_IMU_ANGULAR_RATE_Y_AXIS,
-        imu_data.gyro_z * PACK_COEFF_IMU_ANGULAR_RATE_Z_AXIS,
-        0
+        imu_data.gyro_z * PACK_COEFF_IMU_ANGULAR_RATE_Z_AXIS
     );
 }
 

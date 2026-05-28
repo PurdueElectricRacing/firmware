@@ -46,6 +46,10 @@ class Signal:
     def is_floating_point(self) -> bool:
         return self.datatype == 'float'
 
+    @property
+    def is_reserved(self) -> bool:
+        return self.name.startswith('reserved')
+
     def get_bit_length(self, custom_types: Optional[Dict] = None) -> int:
         if self.length > 0:
             return self.length

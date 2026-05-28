@@ -350,9 +350,7 @@ def generate_node_headers(env, context: SystemContext):
 def generate_node_header(env, node: Node, context: SystemContext):
     filename = GENERATED_DIR / f"{node.name}.h"
     render_context = build_node_render_context(node, context)
-    
-    # TODO: don't require messages that start with "reserved_" to be used in the CAN_SEND_
-    # Instead have them get 0-ed automatically
+
     render_template(env, 'node_header.h.jinja',
                     filename,
                     ctx=render_context)

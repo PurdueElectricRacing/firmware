@@ -250,13 +250,13 @@ void sweep_external_leds() {
 void calibrate_LWS() {
     // CCW = command code word
     static constexpr uint8_t CONFIG_CCW_RESET = 0x5;
-    CAN_SEND_LWS_Config(CONFIG_CCW_RESET, 0, 0);
+    CAN_SEND_LWS_Config(CONFIG_CCW_RESET);
     
     osDelay(200);
 
     // CCW = command code word
     static constexpr uint8_t CONFIG_CCW_ZERO = 0x3;
-    CAN_SEND_LWS_Config(CONFIG_CCW_ZERO, 0, 0);
+    CAN_SEND_LWS_Config(CONFIG_CCW_ZERO);
 
     osThreadExit();
 }
@@ -269,4 +269,3 @@ void HardFault_Handler() {
         __asm__("NOP"); // spin
     }
 }
-

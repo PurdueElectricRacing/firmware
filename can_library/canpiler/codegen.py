@@ -32,6 +32,7 @@ class TxEntry:
     msg: Message
     periph: str
     bus_name: str
+    enqueue_func: str
     codecs: List[SignalCodec]
 
 
@@ -44,8 +45,8 @@ class ScalingMessage:
 @dataclass
 class PeripheralContext:
     name: str
-    can_peripheral: str
-    index: int
+    enqueue_func: str
+    queue_name: str
     bus_type: str
     arch_define: str
 
@@ -114,14 +115,6 @@ class NodeRenderContext:
     scaling_messages: List[ScalingMessage]
     stale_rx_entries: List[RxEntry]
     filters: FilterRenderContext
-
-
-@dataclass
-class NodeConfigContext:
-    node: Node
-    peripheral_entries: List[PeripheralContext]
-    bus_type: str
-    arch_define: str
 
 
 @dataclass
@@ -215,20 +208,20 @@ def build_filter_render_context(mapping, peripherals: List[str]) -> FilterRender
 
 def build_peripheral_contexts(peripherals: List[str]) -> List[PeripheralContext]:
     entries = []
-    for idx, periph in enumerate(peripherals):
+    for periph in peripherals:
         if periph.startswith("FDCAN"):
-            bus_type = "FDCAN_GlobalTypeDef *"
+            bus_type = "FDCAN_GlobalTypeDef"
             arch_define = "STM32G474xx"
         elif periph.startswith("CAN"):
-            bus_type = "CAN_TypeDef *"
+            bus_type = "CAN_TypeDef"
             arch_define = "STM32F407xx"
         else:
             raise ValueError(f"Unsupported CAN peripheral: {periph}")
 
         entries.append(PeripheralContext(
             name=periph,
-            can_peripheral=f"CAN_PERIPHERAL_{periph}",
-            index=idx,
+            enqueue_func=f"CAN_enqueue_tx_{periph}",
+            queue_name=f"can{periph[-1]}_tx_queue",
             bus_type=bus_type,
             arch_define=arch_define,
         ))
@@ -250,12 +243,22 @@ def build_rx_peripheral_entries(
     ]
 
 
+def build_enqueue_func(periph: str) -> str:
+    return f"CAN_enqueue_tx_{periph}"
+
+
 def build_node_render_context(node: Node, context: SystemContext) -> NodeRenderContext:
     mapping = context.mappings.get(node.name)
     rx_entries: List[RxEntry] = []
     tx_entries: List[TxEntry] = []
     peripherals = sorted(list(set(bus.peripheral for bus in node.busses.values())))
     peripheral_entries = build_peripheral_contexts(peripherals)
+    bus_types = {periph.bus_type for periph in peripheral_entries}
+    arch_defines = {periph.arch_define for periph in peripheral_entries}
+
+    if len(bus_types) != 1 or len(arch_defines) != 1:
+        raise ValueError(f"Node {node.name} mixes incompatible CAN peripheral families")
+
     node_busses = sorted(node.busses.keys())
 
     for bus_name in node_busses:
@@ -275,6 +278,7 @@ def build_node_render_context(node: Node, context: SystemContext) -> NodeRenderC
                 msg=msg,
                 periph=bus.peripheral,
                 bus_name=bus_name,
+                enqueue_func=build_enqueue_func(bus.peripheral),
                 codecs=[build_signal_codec(sig, "tx") for sig in msg.signals],
             ))
 
@@ -294,23 +298,6 @@ def build_node_render_context(node: Node, context: SystemContext) -> NodeRenderC
     )
 
 
-def build_node_config_context(node: Node) -> NodeConfigContext:
-    peripherals = sorted(list(set(bus.peripheral for bus in node.busses.values())))
-    peripheral_entries = build_peripheral_contexts(peripherals)
-    bus_types = {periph.bus_type for periph in peripheral_entries}
-    arch_defines = {periph.arch_define for periph in peripheral_entries}
-
-    if len(bus_types) != 1 or len(arch_defines) != 1:
-        raise ValueError(f"Node {node.name} mixes incompatible CAN peripheral families")
-
-    return NodeConfigContext(
-        node=node,
-        peripheral_entries=peripheral_entries,
-        bus_type=next(iter(bus_types)),
-        arch_define=next(iter(arch_defines)),
-    )
-
-
 def generate_headers(context: SystemContext):
     print("Generating headers...")
     env = get_jinja_env()
@@ -325,9 +312,6 @@ def generate_headers(context: SystemContext):
     for bus_name, view in context.busses.items():
         config = context.bus_configs.get(bus_name, {})
         generate_bus_header(env, bus_name, config, view.messages)
-
-    # Generate node-selected peripheral configuration
-    generate_node_config_header(env, context.nodes)
 
     # Generate header for each node
     generate_node_headers(env, context)
@@ -349,16 +333,6 @@ def generate_router_header(env, nodes: List[Node]):
                     nodes=nodes,
                     router_nodes=[node for node in nodes if not node.is_external])
     print_as_ok("Generated can_router.h")
-
-def generate_node_config_header(env, nodes: List[Node]):
-    render_template(env, 'can_node_config.h.jinja',
-                    GENERATED_DIR / "can_node_config.h",
-                    node_configs=[
-                        build_node_config_context(node)
-                        for node in nodes
-                        if not node.is_external
-                    ])
-    print_as_ok("Generated can_node_config.h")
 
 def generate_node_headers(env, context: SystemContext):
     for node in context.nodes:

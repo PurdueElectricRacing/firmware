@@ -12,7 +12,6 @@
 
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
-#include "can_library/generated/can_node_config.h"
 
 typedef struct {
     uint32_t rx_overflow; // software queue overflow
@@ -30,9 +29,7 @@ extern volatile uint32_t last_can_rx_time_ms;
 // todo: last tx time
 
 extern QueueHandle_t can_rx_queue;
-extern QueueHandle_t can_tx_queues[CAN_NUM_PERIPHERALS];
 
-void CAN_enqueue_tx(CanMsgTypeDef_t *msg);
 void CAN_tx_update(void);
 void CAN_rx_update(void);
 bool CAN_init(void);

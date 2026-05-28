@@ -27,7 +27,7 @@ void CAN_rx_update(void) {
             rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId,
             rx_msg.Data,
             rx_msg.DLC,
-            BUS_TO_PERIPHERAL(rx_msg.Bus)
+            rx_msg.Bus
         );
     }
 }

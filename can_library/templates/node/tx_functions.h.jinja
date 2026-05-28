@@ -31,7 +31,7 @@ static inline void CAN_SEND_{{ entry.msg.name }}(
 
     CAN_store_payload_u64(outgoing.Data, data, {{ entry.msg.macro_name }}_DLC);
 
-    CAN_enqueue_tx(&outgoing);
+    {{ entry.enqueue_func }}(&outgoing);
 }
 
 {% endfor %}

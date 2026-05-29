@@ -7,8 +7,6 @@ Modeled After the traditional compiler pipeline. Written in python for ease of m
 
 `build.py`: Main entry point for CANpiler. Coordinates the top-level data flow.
 
-`../templates/`: Directory containing Jinja2 templates for all generated build artifacts. Decouples the output formatting from the generation logic.
-
 `utils.py`: Shared helpers (`format_float`, `print_as_success`, etc.) used across the pipeline.
 
 #### 1. Schema Validation

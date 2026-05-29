@@ -11,7 +11,7 @@
 #include <stdint.h>
 #include <string.h>
 
-typedef enum {
+typedef enum : uint8_t {
     BSWAP_NONE = 0,
     BSWAP_16   = 16,
     BSWAP_32   = 32,

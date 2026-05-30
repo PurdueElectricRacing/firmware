@@ -10,5 +10,6 @@ var searchData=
   ['rtc_5ftime_5ft_7',['RTC_time_t',['../structRTC__time__t.html',1,'']]],
   ['rtc_5ftimestamp_5ft_8',['RTC_timestamp_t',['../structRTC__timestamp__t.html',1,'']]],
   ['rxentry_9',['RxEntry',['../classcodegen_1_1RxEntry.html',1,'codegen']]],
-  ['rxmessage_10',['RxMessage',['../classparser_1_1RxMessage.html',1,'parser']]]
+  ['rxmessage_10',['RxMessage',['../classparser_1_1RxMessage.html',1,'parser']]],
+  ['rxperipheralcontext_11',['RxPeripheralContext',['../classcodegen_1_1RxPeripheralContext.html',1,'codegen']]]
 ];

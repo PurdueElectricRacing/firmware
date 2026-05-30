@@ -98,7 +98,8 @@ $(function(){initNavTree('heartbeat_8c.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">heartbeat.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -107,13 +108,18 @@ $(function(){initNavTree('heartbeat_8c.html',''); initResizable(true); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="heartbeat_8h_source.html">heartbeat.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="can__common_8h_source.html">can_library/can_common.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ab2681be62cc27208946c262df62f4a06" id="r_ab2681be62cc27208946c262df62f4a06"><td class="memItemLeft" align="right" valign="top"><a id="ab2681be62cc27208946c262df62f4a06" name="ab2681be62cc27208946c262df62f4a06"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>heartbeat_task</b> (<a class="el" href="structstatus__leds__t.html">status_leds_t</a> *leds)</td></tr>
 <tr class="separator:ab2681be62cc27208946c262df62f4a06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a6d7ff913bb95222bc96d632a6e8d8ea4" id="r_a6d7ff913bb95222bc96d632a6e8d8ea4"><td class="memItemLeft" align="right" valign="top"><a id="a6d7ff913bb95222bc96d632a6e8d8ea4" name="a6d7ff913bb95222bc96d632a6e8d8ea4"></a>
+volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>last_can_rx_time_ms</b></td></tr>
+<tr class="separator:a6d7ff913bb95222bc96d632a6e8d8ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Shared heartbeat task implementation for status LEDs. </p>

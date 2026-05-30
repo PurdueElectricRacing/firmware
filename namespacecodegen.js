@@ -7,6 +7,7 @@ var namespacecodegen =
     [ "NodeRenderContext", "classcodegen_1_1NodeRenderContext.html", null ],
     [ "PeripheralContext", "classcodegen_1_1PeripheralContext.html", null ],
     [ "RxEntry", "classcodegen_1_1RxEntry.html", null ],
+    [ "RxPeripheralContext", "classcodegen_1_1RxPeripheralContext.html", null ],
     [ "ScalingMessage", "classcodegen_1_1ScalingMessage.html", null ],
     [ "SignalCodec", "classcodegen_1_1SignalCodec.html", null ],
     [ "TxEntry", "classcodegen_1_1TxEntry.html", null ],

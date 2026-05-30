@@ -29,8 +29,7 @@
             "unevaluatedProperties": false,
             "properties": {
                 "msg_name": { "type": "string" },
-                "callback": { "type": "boolean" },
-                "irq": { "type": "boolean" }
+                "callback": { "type": "boolean" }
             }
         }
     }

@@ -124,9 +124,9 @@ void control_loop() {
     xVCU.GS_RAW = nav_pvt.groundSpeed * 1E-3f; // convert mm/s to m/s
 
     static constexpr float deg2rad = 3.14f / 180.0f;
-    xVCU.AV_RAW[0] = imu_data.gyro_x * UNPACK_COEFF_IMU_ANGULAR_RATE_X_AXIS * deg2rad;
-    xVCU.AV_RAW[1] = imu_data.gyro_y * UNPACK_COEFF_IMU_ANGULAR_RATE_Y_AXIS * deg2rad;
-    xVCU.AV_RAW[2] = imu_data.gyro_z * UNPACK_COEFF_IMU_ANGULAR_RATE_Z_AXIS * deg2rad;
+    xVCU.AV_RAW[0] = imu_data.gyro_x * deg2rad;
+    xVCU.AV_RAW[1] = imu_data.gyro_y * deg2rad;
+    xVCU.AV_RAW[2] = imu_data.gyro_z * deg2rad;
     xVCU.IB_RAW = can_data.pack_stats.pack_current * UNPACK_COEFF_PACK_STATS_PACK_CURRENT;
 
     int16_t max_motor_temp = MAXOF(

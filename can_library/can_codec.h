@@ -11,14 +11,21 @@
 #include <stdint.h>
 #include <string.h>
 
+typedef enum : uint8_t {
+    BSWAP_NONE = 0,
+    BSWAP_16   = 16,
+    BSWAP_32   = 32,
+    BSWAP_64   = 64
+} bswap_width_t;
+
 [[gnu::always_inline]]
-static inline uint64_t CAN_apply_bswap(uint64_t raw, uint8_t bswap_width) {
+static inline uint64_t CAN_apply_bswap(uint64_t raw, bswap_width_t bswap_width) {
     switch (bswap_width) {
-        case 16:
+        case BSWAP_16:
             return __builtin_bswap16((uint16_t)raw);
-        case 32:
+        case BSWAP_32:
             return __builtin_bswap32((uint32_t)raw);
-        case 64:
+        case BSWAP_64:
             return __builtin_bswap64(raw);
         default:
             return raw;
@@ -33,8 +40,8 @@ static inline uint64_t CAN_load_payload_u64(const uint8_t *data, uint8_t len) {
 }
 
 [[gnu::always_inline]]
-static inline void CAN_store_payload_u64(uint8_t *data, uint64_t payload, uint8_t len) {
-    memcpy(data, &payload, len);
+static inline void CAN_store_payload_u64(uint8_t *dest, uint64_t payload, uint8_t len) {
+    memcpy(dest, &payload, len);
 }
 
 [[gnu::always_inline]]
@@ -43,7 +50,7 @@ static inline uint64_t CAN_pack_raw_signal(
     uint64_t raw,
     uint64_t mask,
     uint8_t bit_shift,
-    uint8_t bswap_width
+    bswap_width_t bswap_width
 ) {
     raw &= mask;
     raw = CAN_apply_bswap(raw, bswap_width);
@@ -56,7 +63,7 @@ static inline uint64_t CAN_unpack_raw_signal(
     uint64_t payload,
     uint64_t mask,
     uint8_t bit_shift,
-    uint8_t bswap_width
+    bswap_width_t bswap_width
 ) {
     uint64_t raw = (payload >> bit_shift) & mask;
     return CAN_apply_bswap(raw, bswap_width);

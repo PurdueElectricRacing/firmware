@@ -1,4 +1,4 @@
-# TV Interface
+# VCU Interface
 # Input
 ## `xVCU`
 - type: `xVCU_struct`
@@ -6,7 +6,7 @@
 - `VCU_MODE_REQ`
 	- Requested VCU mode from dashboard
 	-  0 = accel; 1 = skidpad; 2 = autocross; 3 = endurance; 4 = testing/tuning
-- `REGEN_REQ`
+- `REGEN_EN`
 	- Regen enabled
 	- 0 = off, 1 = enabled
 - `THROT_RAW`

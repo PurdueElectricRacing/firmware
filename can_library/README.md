@@ -6,6 +6,8 @@ Standardized framework for CAN communication and system-wide fault management wi
 - `generated/`: Auto-generated C files and headers for CAN nodes.
 - `dbc/`: CAN database (DBC) files for external analysis tools.
 - `schema/`: JSON schemas for validating configuration files.
+- `templates/`: Directory containing Jinja2 templates for all generated build artifacts. Decouples the output formatting from the generation logic.
+- `tests/`: Unit tests for both CANpiler and C source code.
 
 **Core Files:**
 - [`source/can_init.c`](source/can_init.c) / [`can_common.h`](can_common.h): Bus/peripheral initialization and `CAN_init()`.

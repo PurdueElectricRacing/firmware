@@ -32,8 +32,7 @@ Validated by `node_schema.json`. Maps a firmware node onto hardware peripherals 
 
 ## RX Message Attributes
 - `msg_name`: Name of the message to receive (must exist on the bus).
-- `callback`: Boolean. If true, generates a weak-linked callback function in the driver.
-- `irq`: Boolean. If true, processes the message in the RX interrupt context.
+- `callback`: Boolean. If true, the generated driver declares and calls `<msg_name>_CALLBACK()` after RX unpacking. Application code must define this function or the firmware link will fail.
 
 ## Signal Attributes
 - `sig_name`: Signal name. Must be unique within the message.
@@ -50,9 +49,12 @@ Validated by `node_schema.json`. Maps a firmware node onto hardware peripherals 
 > [!NOTE]
 > If `scale` is present, `unit` is required by the schema.
 
+> [!NOTE]
+> Signals named `reserved`, `reserved1`, etc. remain part of the message layout, RX data structs, and DBC output. For local TX helpers, reserved signals are omitted from the `CAN_SEND_*` arguments and automatically packed as zero.
+
 > [!TIP]
-> **Scaling Constants:** The library generates `static constexpr float` constants for every signal with a scale != 1.0.
-> format: `PACK_COEFF_<MSG>_<SIG>` and `UNPACK_COEFF_<MSG>_<SIG>`. Use these to avoid magic numbers in your application code.
+> **Scaling Constants:** Node headers generate directional `static constexpr float` constants for every local signal with a scale != 1.0.
+> Use `PACK_COEFF_<MSG>_<SIG>` before passing physical values to local `CAN_SEND_*` TX helpers, and use `UNPACK_COEFF_<MSG>_<SIG>` when interpreting raw `can_data` values from local RX messages.
 
 ### Message Priority
 Lower = higher priority.

@@ -46,6 +46,10 @@ class Signal:
     def is_floating_point(self) -> bool:
         return self.datatype == 'float'
 
+    @property
+    def is_reserved(self) -> bool:
+        return self.name.startswith('reserved')
+
     def get_bit_length(self, custom_types: Optional[Dict] = None) -> int:
         if self.length > 0:
             return self.length
@@ -184,7 +188,6 @@ class Message:
 class RxMessage:
     name: str
     callback: bool = False
-    irq: bool = False
     resolved_message: Optional[Message] = None # Resolved during linking stage
 
 @dataclass
@@ -400,8 +403,7 @@ def parse_message(data: Dict, bus_config: Dict) -> Message:
 def parse_rx_message(data: Dict) -> RxMessage:
     return RxMessage(
         name=data['msg_name'],
-        callback=data.get('callback', False),
-        irq=data.get('irq', False)
+        callback=data.get('callback', False)
     )
 
 def parse_fault(data: Dict) -> 'Fault':

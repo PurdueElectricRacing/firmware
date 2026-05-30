@@ -13,7 +13,7 @@ from utils import GENERATED_DIR, print_as_success, print_as_ok, get_jinja_env, r
 @dataclass
 class SignalCodec:
     signal: Any
-    bswap_width: Optional[int]
+    bswap_width: str
     sign_extend_shift: Optional[int]
     is_float32: bool
 
@@ -32,6 +32,7 @@ class TxEntry:
     msg: Message
     periph: str
     bus_name: str
+    enqueue_func: str
     codecs: List[SignalCodec]
 
 
@@ -39,12 +40,23 @@ class TxEntry:
 class ScalingMessage:
     msg: Message
     signals: List[Any]
+    emit_unpack: bool = False
+    emit_pack: bool = False
 
 
 @dataclass
 class PeripheralContext:
     name: str
-    index: int
+    enqueue_func: str
+    queue_name: str
+    bus_type: str
+    arch_define: str
+
+
+@dataclass
+class RxPeripheralContext:
+    peripheral: PeripheralContext
+    entries: List[RxEntry]
 
 
 @dataclass
@@ -97,6 +109,7 @@ class NodeRenderContext:
     context: SystemContext
     mapping: Any
     rx_entries: List[RxEntry]
+    rx_peripheral_entries: List[RxPeripheralContext]
     tx_entries: List[TxEntry]
     peripherals: List[str]
     peripheral_entries: List[PeripheralContext]
@@ -131,27 +144,36 @@ def build_signal_codec(sig, direction: str) -> SignalCodec:
     if direction not in ("rx", "tx"):
         raise ValueError(f"Unknown codec direction: {direction}")
 
+    bswap_width = "BSWAP_NONE"
+    if sig.byte_order == "big_endian" and sig.length in (16, 32, 64):
+        bswap_width = f"BSWAP_{sig.length}"
+
     return SignalCodec(
         signal=sig,
-        bswap_width=sig.length if sig.byte_order == "big_endian" and sig.length in (16, 32, 64) else None,
+        bswap_width=bswap_width,
         sign_extend_shift=64 - sig.length if sig.is_signed and sig.length < 64 else None,
         is_float32=sig.is_floating_point and sig.length == 32,
     )
 
 
 def build_scaling_messages(rx_entries: List[RxEntry], tx_entries: List[TxEntry]) -> List[ScalingMessage]:
-    by_name: Dict[str, Message] = {}
-    for entry in tx_entries:
-        by_name.setdefault(entry.msg.name, entry.msg)
-    for entry in rx_entries:
-        by_name.setdefault(entry.msg.name, entry.msg)
+    by_name: Dict[str, ScalingMessage] = {}
 
-    scaling_messages = []
-    for msg in sorted(by_name.values(), key=lambda m: m.name):
+    def register_msg(msg: Message, *, emit_unpack: bool = False, emit_pack: bool = False) -> None:
         signals = [sig for sig in msg.signals if sig.scale != 1.0]
-        if signals:
-            scaling_messages.append(ScalingMessage(msg=msg, signals=signals))
-    return scaling_messages
+        if not signals:
+            return
+
+        scaling_msg = by_name.setdefault(msg.name, ScalingMessage(msg=msg, signals=signals))
+        scaling_msg.emit_unpack |= emit_unpack
+        scaling_msg.emit_pack |= emit_pack
+
+    for entry in tx_entries:
+        register_msg(entry.msg, emit_pack=True)
+    for entry in rx_entries:
+        register_msg(entry.msg, emit_unpack=True)
+
+    return sorted(by_name.values(), key=lambda scaling: scaling.msg.name)
 
 
 def build_filter_render_context(mapping, peripherals: List[str]) -> FilterRenderContext:
@@ -191,15 +213,59 @@ def build_filter_render_context(mapping, peripherals: List[str]) -> FilterRender
     return filters
 
 
+def build_peripheral_contexts(peripherals: List[str]) -> List[PeripheralContext]:
+    entries = []
+    for periph in peripherals:
+        if periph.startswith("FDCAN"):
+            bus_type = "FDCAN_GlobalTypeDef"
+            arch_define = "STM32G474xx"
+        elif periph.startswith("CAN"):
+            bus_type = "CAN_TypeDef"
+            arch_define = "STM32F407xx"
+        else:
+            raise ValueError(f"Unsupported CAN peripheral: {periph}")
+
+        entries.append(PeripheralContext(
+            name=periph,
+            enqueue_func=f"CAN_enqueue_tx_{periph}",
+            queue_name=f"can{periph[-1]}_tx_queue",
+            bus_type=bus_type,
+            arch_define=arch_define,
+        ))
+    return entries
+
+
+def build_rx_peripheral_entries(
+    rx_entries: List[RxEntry],
+    peripheral_entries: List[PeripheralContext],
+) -> List[RxPeripheralContext]:
+    rx_by_periph: Dict[str, List[RxEntry]] = {periph.name: [] for periph in peripheral_entries}
+    for entry in rx_entries:
+        rx_by_periph[entry.periph].append(entry)
+
+    return [
+        RxPeripheralContext(peripheral=periph, entries=rx_by_periph[periph.name])
+        for periph in peripheral_entries
+        if rx_by_periph[periph.name]
+    ]
+
+
+def build_enqueue_func(periph: str) -> str:
+    return f"CAN_enqueue_tx_{periph}"
+
+
 def build_node_render_context(node: Node, context: SystemContext) -> NodeRenderContext:
     mapping = context.mappings.get(node.name)
     rx_entries: List[RxEntry] = []
     tx_entries: List[TxEntry] = []
     peripherals = sorted(list(set(bus.peripheral for bus in node.busses.values())))
-    peripheral_entries = [
-        PeripheralContext(name=periph, index=int(periph[-1]) - 1)
-        for periph in peripherals
-    ]
+    peripheral_entries = build_peripheral_contexts(peripherals)
+    bus_types = {periph.bus_type for periph in peripheral_entries}
+    arch_defines = {periph.arch_define for periph in peripheral_entries}
+
+    if len(bus_types) != 1 or len(arch_defines) != 1:
+        raise ValueError(f"Node {node.name} mixes incompatible CAN peripheral families")
+
     node_busses = sorted(node.busses.keys())
 
     for bus_name in node_busses:
@@ -219,6 +285,7 @@ def build_node_render_context(node: Node, context: SystemContext) -> NodeRenderC
                 msg=msg,
                 periph=bus.peripheral,
                 bus_name=bus_name,
+                enqueue_func=build_enqueue_func(bus.peripheral),
                 codecs=[build_signal_codec(sig, "tx") for sig in msg.signals],
             ))
 
@@ -227,6 +294,7 @@ def build_node_render_context(node: Node, context: SystemContext) -> NodeRenderC
         context=context,
         mapping=mapping,
         rx_entries=rx_entries,
+        rx_peripheral_entries=build_rx_peripheral_entries(rx_entries, peripheral_entries),
         tx_entries=tx_entries,
         peripherals=peripherals,
         peripheral_entries=peripheral_entries,
@@ -235,6 +303,7 @@ def build_node_render_context(node: Node, context: SystemContext) -> NodeRenderC
         stale_rx_entries=[entry for entry in rx_entries if entry.msg.period > 0],
         filters=build_filter_render_context(mapping, peripherals),
     )
+
 
 def generate_headers(context: SystemContext):
     print("Generating headers...")
@@ -281,9 +350,7 @@ def generate_node_headers(env, context: SystemContext):
 def generate_node_header(env, node: Node, context: SystemContext):
     filename = GENERATED_DIR / f"{node.name}.h"
     render_context = build_node_render_context(node, context)
-    
-    # TODO: don't require messages that start with "reserved_" to be used in the CAN_SEND_
-    # Instead have them get 0-ed automatically
+
     render_template(env, 'node_header.h.jinja',
                     filename,
                     ctx=render_context)

@@ -125,10 +125,7 @@ void charging_fsm_periodic(void) {
     CAN_SEND_elcon_command(
         scaled_charge_command_volts,
         scaled_charge_command_amps,
-        !charge_enable,
-        0, // reserved
-        0, // reserved
-        0  // reserved
+        !charge_enable
     );
 
     report_internal_state();

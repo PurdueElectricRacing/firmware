@@ -7,7 +7,8 @@
 
 #include "heartbeat.h"
 #include "common/freertos/freertos.h"
-#include "can_library/can_common.h"
+
+extern volatile uint32_t last_can_rx_time_ms;
 
 static void preflight_led_sweep(status_leds_t *leds) {
     static uint32_t sweep_index = 0;
@@ -56,4 +57,3 @@ void heartbeat_task(status_leds_t *leds) {
             break;
     }    
 }
-

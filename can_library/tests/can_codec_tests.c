@@ -52,45 +52,45 @@ static void test_payload_helpers(void) {
 }
 
 static void test_bswap_helper(void) {
-    assert(CAN_apply_bswap(0x123456789ABCDEF0ULL, 0) == 0x123456789ABCDEF0ULL);
-    assert(CAN_apply_bswap(0x1234ULL, 16) == 0x3412ULL);
-    assert(CAN_apply_bswap(0x12345678ULL, 32) == 0x78563412ULL);
-    assert(CAN_apply_bswap(0x0123456789ABCDEFULL, 64) == 0xEFCDAB8967452301ULL);
-    assert(CAN_apply_bswap(0x123456789ABCDEF0ULL, 7) == 0x123456789ABCDEF0ULL);
+    assert(CAN_apply_bswap(0x123456789ABCDEF0ULL, BSWAP_NONE) == 0x123456789ABCDEF0ULL);
+    assert(CAN_apply_bswap(0x1234ULL, BSWAP_16) == 0x3412ULL);
+    assert(CAN_apply_bswap(0x12345678ULL, BSWAP_32) == 0x78563412ULL);
+    assert(CAN_apply_bswap(0x0123456789ABCDEFULL, BSWAP_64) == 0xEFCDAB8967452301ULL);
+    assert(CAN_apply_bswap(0x123456789ABCDEF0ULL, (bswap_width_t)7) == 0x123456789ABCDEF0ULL);
 }
 
 static void test_raw_signal_helpers(void) {
     uint64_t payload = 0;
-    payload = CAN_pack_raw_signal(payload, 0xAB, 0xFF, 0, 0);
+    payload = CAN_pack_raw_signal(payload, 0xAB, 0xFF, 0, BSWAP_NONE);
     assert(payload == 0xAB);
-    assert(CAN_unpack_raw_signal(payload, 0xFF, 0, 0) == 0xAB);
+    assert(CAN_unpack_raw_signal(payload, 0xFF, 0, BSWAP_NONE) == 0xAB);
 
     payload = 0;
-    payload = CAN_pack_raw_signal(payload, 0x5, 0xF, 12, 0);
+    payload = CAN_pack_raw_signal(payload, 0x5, 0xF, 12, BSWAP_NONE);
     assert(payload == 0x5000);
-    assert(CAN_unpack_raw_signal(payload, 0xF, 12, 0) == 0x5);
+    assert(CAN_unpack_raw_signal(payload, 0xF, 12, BSWAP_NONE) == 0x5);
 
-    payload = CAN_pack_raw_signal(payload, 0xFFFF, 0x3, 0, 0);
+    payload = CAN_pack_raw_signal(payload, 0xFFFF, 0x3, 0, BSWAP_NONE);
     assert((payload & 0x3) == 0x3);
     assert((payload & ~0x3ULL) == 0x5000);
-    assert(CAN_unpack_raw_signal(payload, 0x3, 0, 0) == 0x3);
+    assert(CAN_unpack_raw_signal(payload, 0x3, 0, BSWAP_NONE) == 0x3);
 
     payload = 0xF000000000000000ULL;
-    payload = CAN_pack_raw_signal(payload, 0x12, 0xFF, 8, 0);
+    payload = CAN_pack_raw_signal(payload, 0x12, 0xFF, 8, BSWAP_NONE);
     assert((payload & 0xF000000000000000ULL) == 0xF000000000000000ULL);
-    assert(CAN_unpack_raw_signal(payload, 0xFF, 8, 0) == 0x12);
+    assert(CAN_unpack_raw_signal(payload, 0xFF, 8, BSWAP_NONE) == 0x12);
 
-    payload = CAN_pack_raw_signal(0, 0x1234, 0xFFFF, 0, 16);
+    payload = CAN_pack_raw_signal(0, 0x1234, 0xFFFF, 0, BSWAP_16);
     assert(payload == 0x3412);
-    assert(CAN_unpack_raw_signal(payload, 0xFFFF, 0, 16) == 0x1234);
+    assert(CAN_unpack_raw_signal(payload, 0xFFFF, 0, BSWAP_16) == 0x1234);
 
-    payload = CAN_pack_raw_signal(0, 0x12345678, 0xFFFFFFFFULL, 8, 32);
+    payload = CAN_pack_raw_signal(0, 0x12345678, 0xFFFFFFFFULL, 8, BSWAP_32);
     assert(payload == 0x7856341200ULL);
-    assert(CAN_unpack_raw_signal(payload, 0xFFFFFFFFULL, 8, 32) == 0x12345678);
+    assert(CAN_unpack_raw_signal(payload, 0xFFFFFFFFULL, 8, BSWAP_32) == 0x12345678);
 
-    payload = CAN_pack_raw_signal(0, 0x0123456789ABCDEFULL, UINT64_MAX, 0, 64);
+    payload = CAN_pack_raw_signal(0, 0x0123456789ABCDEFULL, UINT64_MAX, 0, BSWAP_64);
     assert(payload == 0xEFCDAB8967452301ULL);
-    assert(CAN_unpack_raw_signal(payload, UINT64_MAX, 0, 64) == 0x0123456789ABCDEFULL);
+    assert(CAN_unpack_raw_signal(payload, UINT64_MAX, 0, BSWAP_64) == 0x0123456789ABCDEFULL);
 }
 
 static void test_sign_extend_helper(void) {

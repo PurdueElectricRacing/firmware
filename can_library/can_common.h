@@ -13,36 +13,6 @@
 #include "common/freertos/freertos.h"
 #include "common/phal/can.h"
 
-#if defined(STM32G474xx)
-typedef enum : uint8_t {
-    CAN_PERIPHERAL1        = 0,
-    CAN_PERIPHERAL2        = 1,
-    CAN_PERIPHERAL3        = 2,
-    CAN_NUM_PERIPHERALS    = 3,
-    CAN_PERIPHERAL_INVALID = 0xFF
-} CAN_peripheral_t;
-
-static inline CAN_peripheral_t BUS_TO_PERIPHERAL(FDCAN_GlobalTypeDef *bus) {
-    if (bus == FDCAN1) return CAN_PERIPHERAL1;
-    else if (bus == FDCAN2) return CAN_PERIPHERAL2;
-    else if (bus == FDCAN3) return CAN_PERIPHERAL3;
-    else return CAN_PERIPHERAL_INVALID;
-}
-#else
-typedef enum : uint8_t {
-    CAN_PERIPHERAL1        = 0,
-    CAN_PERIPHERAL2        = 1,
-    CAN_NUM_PERIPHERALS    = 2,
-    CAN_PERIPHERAL_INVALID = 0xFF
-} CAN_peripheral_t;
-
-static inline CAN_peripheral_t BUS_TO_PERIPHERAL(CAN_TypeDef *bus) {
-    if (bus == CAN1) return CAN_PERIPHERAL1;
-    else if (bus == CAN2) return CAN_PERIPHERAL2;
-    else return CAN_PERIPHERAL_INVALID;
-}
-#endif
-
 typedef struct {
     uint32_t rx_overflow; // software queue overflow
     uint32_t tx_overflow; // software queue overflow
@@ -59,9 +29,7 @@ extern volatile uint32_t last_can_rx_time_ms;
 // todo: last tx time
 
 extern QueueHandle_t can_rx_queue;
-extern QueueHandle_t can_tx_queues[CAN_NUM_PERIPHERALS];
 
-void CAN_enqueue_tx(CanMsgTypeDef_t *msg);
 void CAN_tx_update(void);
 void CAN_rx_update(void);
 bool CAN_init(void);

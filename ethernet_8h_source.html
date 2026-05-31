@@ -107,13 +107,13 @@ $(function(){initNavTree('ethernet_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;w5500/wizchip_conf.h&quot;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    ETH_THREAD_HW_INIT    = 0,</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    ETH_THREAD_UDP_INIT   = 1,</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    ETH_THREAD_LINKING    = 2,</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    ETH_THREAD_READY      = 3,</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    ETH_THREAD_RECOVERING = 4,</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    ETH_THREAD_FATAL      = 5,</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>} eth_thread_state_t;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    ETHERNET_STATE_HW_INIT    = 0,</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    ETHERNET_STATE_UDP_INIT   = 1,</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    ETHERNET_STATE_LINKING    = 2,</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    ETHERNET_STATE_READY2TX   = 3,</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    ETHERNET_STATE_RECOVERING = 4,</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    ETHERNET_STATE_FATAL      = 5,</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>} ethernet_state_t;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="structethernet__config__t.html">   25</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
@@ -125,7 +125,7 @@ $(function(){initNavTree('ethernet_8h_source.html',''); initResizable(true); });
 </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keywordtype">void</span> w5500_register_callbacks(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keywordtype">void</span> eth_thread_periodic(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keywordtype">void</span> ethernet_periodic(<span class="keywordtype">void</span>);</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#endif </span><span class="comment">// ETHERNET_H</span></div>
 <div class="ttc" id="astructethernet__config__t_html"><div class="ttname"><a href="structethernet__config__t.html">ethernet_config_t</a></div><div class="ttdef"><b>Definition</b> ethernet.h:25</div></div>

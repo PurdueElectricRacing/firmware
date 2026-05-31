@@ -108,18 +108,18 @@ $(function(){initNavTree('driveline_2main_8c.html',''); initResizable(true); });
 <p>"Driveline" node source code  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;can_library/generated/DRIVELINE.h&quot;</code><br />
-<code>#include &quot;common/phal/can.h&quot;</code><br />
-<code>#include &quot;common/phal/gpio.h&quot;</code><br />
-<code>#include &quot;common/phal/rcc.h&quot;</code><br />
-<code>#include &quot;common/phal/adc.h&quot;</code><br />
-<code>#include &quot;common/phal/dma.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="heartbeat_8h_source.html">common/heartbeat/heartbeat.h</a>&quot;</code><br />
+<code>#include &quot;common/phal/adc.h&quot;</code><br />
+<code>#include &quot;common/phal/can.h&quot;</code><br />
+<code>#include &quot;common/phal/dma.h&quot;</code><br />
+<code>#include &quot;common/phal/gpio.h&quot;</code><br />
+<code>#include &quot;common/phal/rcc.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="countof_8h_source.html">common/utils/countof.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="watchdog_8h_source.html">common/watchdog/watchdog.h</a>&quot;</code><br />
 <code>#include &quot;config.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="pin__defs_8h_source.html">pin_defs.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="oil__temps__table_8h_source.html">oil_temps_table.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="pin__defs_8h_source.html">pin_defs.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -137,21 +137,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a2af56a8bf3197b2f06cac4c0b84ffc3e" id="r_a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memItemLeft" align="right" valign="top"><a id="a2af56a8bf3197b2f06cac4c0b84ffc3e" name="a2af56a8bf3197b2f06cac4c0b84ffc3e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>HardFault_Handler</b> ()</td></tr>
 <tr class="separator:a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a834433812aa752324e9d5ef254216c28" id="r_a834433812aa752324e9d5ef254216c28"><td class="memItemLeft" align="right" valign="top"><a id="a834433812aa752324e9d5ef254216c28" name="a834433812aa752324e9d5ef254216c28"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>shockpot_thread</b> ()</td></tr>
-<tr class="separator:a834433812aa752324e9d5ef254216c28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4ae434db5a96aaba9f0d71bf664fc18" id="r_ad4ae434db5a96aaba9f0d71bf664fc18"><td class="memItemLeft" align="right" valign="top"><a id="ad4ae434db5a96aaba9f0d71bf664fc18" name="ad4ae434db5a96aaba9f0d71bf664fc18"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>oil_temps_thread</b> ()</td></tr>
-<tr class="separator:ad4ae434db5a96aaba9f0d71bf664fc18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a972a003dd5f5a651601a8e19a6f58262" id="r_a972a003dd5f5a651601a8e19a6f58262"><td class="memItemLeft" align="right" valign="top"><a id="a972a003dd5f5a651601a8e19a6f58262" name="a972a003dd5f5a651601a8e19a6f58262"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>shockpots_periodic</b> ()</td></tr>
+<tr class="separator:a972a003dd5f5a651601a8e19a6f58262"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e053dc8eaef5ac3ca08188c1a766309" id="r_a9e053dc8eaef5ac3ca08188c1a766309"><td class="memItemLeft" align="right" valign="top"><a id="a9e053dc8eaef5ac3ca08188c1a766309" name="a9e053dc8eaef5ac3ca08188c1a766309"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>oil_temps_periodic</b> ()</td></tr>
+<tr class="separator:a9e053dc8eaef5ac3ca08188c1a766309"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a577e29103ef4d1e1121dc63cfb074498" id="r_a577e29103ef4d1e1121dc63cfb074498"><td class="memItemLeft" align="right" valign="top"><a id="a577e29103ef4d1e1121dc63cfb074498" name="a577e29103ef4d1e1121dc63cfb074498"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_CAN_TASKS</b> ()</td></tr>
 <tr class="separator:a577e29103ef4d1e1121dc63cfb074498"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4ef97ff24c7cf38705a4691cf337988" id="r_ae4ef97ff24c7cf38705a4691cf337988"><td class="memItemLeft" align="right" valign="top"><a id="ae4ef97ff24c7cf38705a4691cf337988" name="ae4ef97ff24c7cf38705a4691cf337988"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (shockpot_thread, FRONT_SHOCKPOTS_PERIOD_MS, osPriorityNormal, STACK_512)</td></tr>
-<tr class="separator:ae4ef97ff24c7cf38705a4691cf337988"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3189e6b21ddc43f5db1761cbf019e2b7" id="r_a3189e6b21ddc43f5db1761cbf019e2b7"><td class="memItemLeft" align="right" valign="top"><a id="a3189e6b21ddc43f5db1761cbf019e2b7" name="a3189e6b21ddc43f5db1761cbf019e2b7"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (oil_temps_thread, FRONT_OIL_TEMPS_PERIOD_MS, osPriorityNormal, STACK_512)</td></tr>
-<tr class="separator:a3189e6b21ddc43f5db1761cbf019e2b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0e581f4c0fc10216d323125d7297730" id="r_ac0e581f4c0fc10216d323125d7297730"><td class="memItemLeft" align="right" valign="top"><a id="ac0e581f4c0fc10216d323125d7297730" name="ac0e581f4c0fc10216d323125d7297730"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (shockpots_periodic, FRONT_SHOCKPOTS_PERIOD_MS, osPriorityNormal, STACK_512)</td></tr>
+<tr class="separator:ac0e581f4c0fc10216d323125d7297730"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab16b41915b8346f845ac00c8ea7adf91" id="r_ab16b41915b8346f845ac00c8ea7adf91"><td class="memItemLeft" align="right" valign="top"><a id="ab16b41915b8346f845ac00c8ea7adf91" name="ab16b41915b8346f845ac00c8ea7adf91"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (oil_temps_periodic, FRONT_OIL_TEMPS_PERIOD_MS, osPriorityNormal, STACK_512)</td></tr>
+<tr class="separator:ab16b41915b8346f845ac00c8ea7adf91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11a067a3a0541dc1ed61e5c9bb7591b5" id="r_a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memItemLeft" align="right" valign="top"><a id="a11a067a3a0541dc1ed61e5c9bb7591b5" name="a11a067a3a0541dc1ed61e5c9bb7591b5"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_WATCHDOG_TASK</b> ()</td></tr>
 <tr class="separator:a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memSeparator" colspan="2">&#160;</td></tr>

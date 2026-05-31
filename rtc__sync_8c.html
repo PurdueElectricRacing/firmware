@@ -98,6 +98,7 @@ $(function(){initNavTree('rtc__sync_8c.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">rtc_sync.c File Reference</div></div>
@@ -109,7 +110,14 @@ $(function(){initNavTree('rtc__sync_8c.html',''); initResizable(true); });
 <div class="textblock"><code>#include &quot;<a class="el" href="rtc__sync_8h_source.html">rtc_sync.h</a>&quot;</code><br />
 <code>#include &quot;common/phal/rtc.h&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
+<code>#include &quot;can_library/generated/VCAN.h&quot;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:afd0d0f8c26e20b86187a476436376eb4" id="r_afd0d0f8c26e20b86187a476436376eb4"><td class="memItemLeft" align="right" valign="top"><a id="afd0d0f8c26e20b86187a476436376eb4" name="afd0d0f8c26e20b86187a476436376eb4"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>PAYLOAD_OFFSET</b>&#160;&#160;&#160;(sizeof(uint32_t) + sizeof(bool (*)(void)))</td></tr>
+<tr class="separator:afd0d0f8c26e20b86187a476436376eb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a11f4e54f422c28611eb9ad8e4bf34e4e" id="r_a11f4e54f422c28611eb9ad8e4bf34e4e"><td class="memItemLeft" align="right" valign="top"><a id="a11f4e54f422c28611eb9ad8e4bf34e4e" name="a11f4e54f422c28611eb9ad8e4bf34e4e"></a>
@@ -118,9 +126,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a8608341944a4a63eb1d77d89ab17d9ba" id="r_a8608341944a4a63eb1d77d89ab17d9ba"><td class="memItemLeft" align="right" valign="top"><a id="a8608341944a4a63eb1d77d89ab17d9ba" name="a8608341944a4a63eb1d77d89ab17d9ba"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>RTC_sync_init</b> (void)</td></tr>
 <tr class="separator:a8608341944a4a63eb1d77d89ab17d9ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa960a6fcb65555c04db7c5b1149ea6c" id="r_aaa960a6fcb65555c04db7c5b1149ea6c"><td class="memItemLeft" align="right" valign="top"><a id="aaa960a6fcb65555c04db7c5b1149ea6c" name="aaa960a6fcb65555c04db7c5b1149ea6c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>RTC_sync_thread</b> (void)</td></tr>
-<tr class="separator:aaa960a6fcb65555c04db7c5b1149ea6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a456494b8b60c41ec7c458c7874e1dae7" id="r_a456494b8b60c41ec7c458c7874e1dae7"><td class="memItemLeft" align="right" valign="top"><a id="a456494b8b60c41ec7c458c7874e1dae7" name="a456494b8b60c41ec7c458c7874e1dae7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>RTC_sync</b> (void)</td></tr>
+<tr class="separator:a456494b8b60c41ec7c458c7874e1dae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>

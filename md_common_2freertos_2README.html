@@ -100,7 +100,7 @@ $(function(){initNavTree('md_common_2freertos_2README.html',''); initResizable(t
   <div class="headertitle"><div class="title">FreeRTOS</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md51"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md55"></a></p>
 <p>Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">eyn@p<span class="obfuscator">.nosp@m.</span>urdu<span class="obfuscator">.nosp@m.</span>e.edu</a>)</p>
 <p>usage as drop-in replacement for psched: </p><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="freertos_8h.html">common/freertos/freertos.h</a>&quot;</span> <span class="comment">// also add FREERTOS to cmake.txt LIBS =</span></div>
 <div class="line"> </div>
@@ -152,7 +152,7 @@ $(function(){initNavTree('md_common_2freertos_2README.html',''); initResizable(t
 <div class="line">            <span class="keywordflow">if</span> (eth_init() == ETH_ERROR_NONE)</div>
 <div class="line">            {</div>
 <div class="line">                dh.eth_state = ETH_LINK_UP;</div>
-<div class="line">                xTaskNotify(<a class="code hl_define" href="freertos_8h.html#a3de6343dd1d29b508dd7d52f93416750">getTaskHandle</a>(eth_send_udp_periodic), 0, eNoAction);</div>
+<div class="line">                xTaskNotify(getTaskHandle(eth_send_udp_periodic), 0, eNoAction);</div>
 <div class="line">            }</div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> eth_send_udp_periodic(<span class="keywordtype">void</span>)</div>
@@ -160,7 +160,6 @@ $(function(){initNavTree('md_common_2freertos_2README.html',''); initResizable(t
 <div class="line">    {</div>
 <div class="line">        ulTaskNotifyTake(pdTRUE, portMAX_DELAY);</div>
 <div class="line">    }</div>
-<div class="ttc" id="afreertos_8h_html_a3de6343dd1d29b508dd7d52f93416750"><div class="ttname"><a href="freertos_8h.html#a3de6343dd1d29b508dd7d52f93416750">getTaskHandle</a></div><div class="ttdeci">#define getTaskHandle(NAME)</div><div class="ttdoc">Retrieves the FreeRTOS task handle for the defined task.</div><div class="ttdef"><b>Definition</b> freertos.h:93</div></div>
 </div><!-- fragment --><ul>
 <li>note eth_send_udp_periodic child task has to be started before eth_update_connection_state so it can enter blocking state </li>
 </ul>

@@ -116,8 +116,11 @@ Notable Files</h1>
 </ul>
 </li>
 <li><a href="thermistor/thermistor.c"><code>thermistor.c</code></a> / <a href="thermistor/thermistor.h"><code>thermistor.h</code></a>: Datasheet-derived lookup table and <code>thermistor_R_to_T()</code> helper used by the ADBMS driver.</li>
-<li>Fault handling in <code>bms_task</code> (in <a href="main.c"><code>main.c</code></a>): raises <code>IMD</code>, <code>BMS_DISCONNECTED</code>, pack full/empty, cell under/overvoltage, and pack warm/cold/overtemp faults; <code>BMS_DISCONNECTED</code> also drives <code>BMS_SDC_CTRL</code>. </li>
+<li>Fault handling in <code>bms_task</code> (in <a href="main.c"><code>main.c</code></a>): raises <code>IMD</code>, <code>BMS_DISCONNECTED</code>, pack full/empty, cell under/overvoltage, and pack warm/cold/overtemp faults; <code>BMS_DISCONNECTED</code> also drives <code>BMS_SDC_CTRL</code>.</li>
 </ul>
+<h1><a class="anchor" id="autotoc_md19"></a>
+Charging</h1>
+<p><img src="charging_FSM.drawio.png" alt="" class="inline" title="charging fsm"/>     </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

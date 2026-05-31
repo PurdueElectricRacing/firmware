@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['queue_0',['DAQ SPMC Queue',['../md_source_2daq_2README.html#autotoc_md21',1,'']]]
+  ['queue_0',['SPMC Queue',['../md_source_2daq_2README.html#autotoc_md23',1,'']]]
 ];

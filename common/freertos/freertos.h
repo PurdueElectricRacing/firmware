@@ -90,7 +90,7 @@ void periodic_task_runner(void *arg);
 /**
  * @brief Retrieves the FreeRTOS task handle for the defined task.
  */
-#define getTaskHandle(NAME) (NAME##_handle)
+#define HANDLE_OF(NAME) (NAME##_handle)
 
 /**
  * @brief Scaffolds the static memory for a FreeRTOS queue.

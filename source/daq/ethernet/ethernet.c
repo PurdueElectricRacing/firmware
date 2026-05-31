@@ -16,7 +16,7 @@
 
 #include "ethernet.h"
 
-static constexpr uint8_t DAQ_UDP_SOCKET_NUM = 0;
+static constexpr uint8_t DAQ_UDP_SOCKET_NUM   = 0;
 static constexpr uint16_t DAQ_UDP_SOCKET_PORT = 5005;
 
 static ethernet_config_t config = {
@@ -140,10 +140,10 @@ void ethernet_periodic(void) {
             osDelay(200); // block for a bit between each link check
 
             if (is_linked()) {
-                next_state = ETHERNET_STATE_READY;
+                next_state = ETHERNET_STATE_READY2TX;
             }
             break;
-        case ETHERNET_STATE_READY:
+        case ETHERNET_STATE_READY2TX:
             eth_ready_periodic();
             osDelay(10); // 100 Hz tx rate
 

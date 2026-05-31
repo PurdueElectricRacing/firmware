@@ -17,7 +17,7 @@ typedef enum {
     ETHERNET_STATE_HW_INIT    = 0,
     ETHERNET_STATE_UDP_INIT   = 1,
     ETHERNET_STATE_LINKING    = 2,
-    ETHERNET_STATE_READY      = 3,
+    ETHERNET_STATE_READY2TX   = 3,
     ETHERNET_STATE_RECOVERING = 4,
     ETHERNET_STATE_FATAL      = 5,
 } ethernet_state_t;

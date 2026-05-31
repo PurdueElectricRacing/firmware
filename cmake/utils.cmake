@@ -1,6 +1,6 @@
 # Helper for generating common CMake targets in the components directroy
 
-function(postbuild_target TARGET_NAME COMPONENT_NAME OUTPUT_DIR_OVERRIDE)
+function(postbuild_target TARGET_NAME COMPONENT_NAME OUTPUT_DIR_OVERRIDE MAP_FILE)
     if(BOOTLOADER_BUILD)
       set(OUTPUT_FILE_NAME BL_${COMPONENT_NAME})
     else()
@@ -17,6 +17,7 @@ function(postbuild_target TARGET_NAME COMPONENT_NAME OUTPUT_DIR_OVERRIDE)
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E make_directory ${COMPONENT_OUTPUT_DIR}
         COMMAND ${CMAKE_COMMAND} -E copy ${TARGET_NAME} ${COMPONENT_OUTPUT_DIR}/${OUTPUT_FILE_NAME}.elf
+        COMMAND ${CMAKE_COMMAND} -E copy ${MAP_FILE} ${COMPONENT_OUTPUT_DIR}/${OUTPUT_FILE_NAME}.elf.map
         COMMENT "Archive target"
     )
 

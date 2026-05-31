@@ -16,7 +16,7 @@
 
 #include "ethernet.h"
 
-static constexpr uint8_t DAQ_UDP_SOCKET_NUM = 0;
+static constexpr uint8_t DAQ_UDP_SOCKET_NUM   = 0;
 static constexpr uint16_t DAQ_UDP_SOCKET_PORT = 5005;
 
 static ethernet_config_t config = {
@@ -36,8 +36,8 @@ static_assert(
     "UDP socket number should be less than WIZCHIP socket max"
 );
 
-static eth_thread_state_t current_state = ETH_THREAD_HW_INIT;
-static eth_thread_state_t next_state = ETH_THREAD_HW_INIT;
+static ethernet_state_t current_state = ETHERNET_STATE_HW_INIT;
+static ethernet_state_t next_state    = ETHERNET_STATE_HW_INIT;
 
 static inline bool is_linked(void) {
     volatile uint8_t phycfgr = getPHYCFGR();
@@ -117,44 +117,44 @@ static void eth_ready_periodic(void) {
     SPMC_follower_advance_tail(&g_spmc, minis_available);
 }
 
-void eth_thread_periodic(void) {
+void ethernet_periodic(void) {
     current_state = next_state;
     next_state = current_state; // default to no state change
 
     switch (current_state) {
-        case ETH_THREAD_HW_INIT:
+        case ETHERNET_STATE_HW_INIT:
             osDelay(200); // block for a bit between each init attempt
             
             if (init_w5500()) {
-                next_state = ETH_THREAD_UDP_INIT;
+                next_state = ETHERNET_STATE_UDP_INIT;
             }
             break;
-        case ETH_THREAD_UDP_INIT:
+        case ETHERNET_STATE_UDP_INIT:
             osDelay(200); // block for a bit between each init attempt
 
             if (init_udp()) {
-                next_state = ETH_THREAD_LINKING;
+                next_state = ETHERNET_STATE_LINKING;
             }
             break;
-        case ETH_THREAD_LINKING:
+        case ETHERNET_STATE_LINKING:
             osDelay(200); // block for a bit between each link check
 
             if (is_linked()) {
-                next_state = ETH_THREAD_READY;
+                next_state = ETHERNET_STATE_READY2TX;
             }
             break;
-        case ETH_THREAD_READY:
+        case ETHERNET_STATE_READY2TX:
             eth_ready_periodic();
             osDelay(10); // 100 Hz tx rate
 
             if (!is_linked()) {
-                next_state = ETH_THREAD_LINKING; // Link lost, try to relink
+                next_state = ETHERNET_STATE_LINKING; // Link lost, try to relink
             } 
             break;
-        case ETH_THREAD_RECOVERING:
+        case ETHERNET_STATE_RECOVERING:
             // todo timeout or error during TX
             break;
-        case ETH_THREAD_FATAL:
+        case ETHERNET_STATE_FATAL:
             // todo after a couple of tries, give up and wait for a reset
             break;
     }

@@ -1,5 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/PER/canpiler/message.schema.json",
     "type": "object",
     "unevaluatedProperties": false,
     "$defs": {
@@ -19,7 +20,7 @@
                 },
                 "signals": {
                     "type": "array",
-                    "items": { "$ref": "https://github.com/PER/canpiler/signal_schema.json" }
+                    "items": { "$ref": "https://github.com/PER/canpiler/signal.schema.json" }
                 }
             }
         },

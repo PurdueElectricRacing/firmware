@@ -5,11 +5,12 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#include "main.h"
+#include "sdc.h"
 
-#include "common/phal/gpio.h"
 #include "can_library/faults_common.h"
 #include "common/freertos/freertos.h"
+#include "common/phal/gpio.h"
+#include "main.h"
 
 // mux address to indicate the node is inaccessible
 static constexpr uint8_t SDC_UNREADABLE = 0xFF; 

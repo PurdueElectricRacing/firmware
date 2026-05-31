@@ -9,6 +9,7 @@
 #include "rtc_sync.h"
 #include "common/phal/rtc.h"
 #include "main.h"
+#include "can_library/generated/VCAN.h"
 
 RTC_timestamp_t fallback_timestamp ={
     .date = {
@@ -28,6 +29,17 @@ RTC_timestamp_t fallback_timestamp ={
 DEFINE_QUEUE(gps_time_queue, timestamped_frame_t, 1);
 volatile uint32_t last_RTC_sync_time = 0;
 volatile bool is_RTC_sync_complete = false;
+
+// PAYLOAD_OFFSET accounts for last_rx and is_stale function pointer to be at the beginning of the data struct
+static_assert(offsetof(gps_time_data_t, last_rx)  == 0);
+static_assert(offsetof(gps_time_data_t, is_stale) == sizeof(bool (*)(void)));
+#define PAYLOAD_OFFSET (sizeof(uint32_t) + sizeof(bool (*)(void)))
+static_assert(offsetof(gps_time_data_t, year)   == 0 + PAYLOAD_OFFSET, "RTC expects year to be at offset 0");
+static_assert(offsetof(gps_time_data_t, month)  == 1 + PAYLOAD_OFFSET, "RTC expects month to be at offset 1");
+static_assert(offsetof(gps_time_data_t, day)    == 2 + PAYLOAD_OFFSET, "RTC expects day to be at offset 2");
+static_assert(offsetof(gps_time_data_t, hour)   == 3 + PAYLOAD_OFFSET, "RTC expects hour to be at offset 3");
+static_assert(offsetof(gps_time_data_t, minute) == 4 + PAYLOAD_OFFSET, "RTC expects minute to be at offset 4");
+static_assert(offsetof(gps_time_data_t, second) == 5 + PAYLOAD_OFFSET, "RTC expects second to be at offset 5");
 
 static RTC_timestamp_t RTC_from_gps(timestamped_frame_t gps_time) {
     RTC_timestamp_t RTC_time = {0};
@@ -72,7 +84,7 @@ void RTC_sync_init(void) {
 }
 
 // static constexpr uint32_t RTC_SYNC_PERIOD_MS = 30 * 1000;
-void RTC_sync_thread(void) {
+void RTC_sync(void) {
     timestamped_frame_t gps_time;
 
     if (xQueueReceive(gps_time_queue, &gps_time, portMAX_DELAY) == pdPASS) {

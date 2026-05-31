@@ -8,9 +8,7 @@
 
 #include "main.h"
 
-#include <stdint.h>
-
-#include "adbms.h"
+/* System Includes */
 #include "can_library/faults_common.h"
 #include "can_library/generated/A_BOX.h"
 #include "charging_fsm.h"
@@ -20,6 +18,9 @@
 #include "common/phal/can.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
+
+/* Module Includes */
+#include "adbms.h"
 #include "common/utils/countof.h"
 #include "common/watchdog/watchdog.h"
 #include "telemetry.h"

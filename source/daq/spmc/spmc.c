@@ -6,8 +6,9 @@
  */
 
 #include "spmc.h"
-#include "stm32f407xx.h"
+
 #include "common/freertos/freertos.h"
+#include "stm32f407xx.h"
 
 // Singleton global allocation
 SPMC_t g_spmc;

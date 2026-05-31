@@ -12,3 +12,6 @@ A_BOX (short for "accumulator box") is the BMS master. It owns battery telemetry
   - 0.2 Hz: `abox_version` with `GIT_HASH`
 - [`thermistor.c`](thermistor/thermistor.c) / [`thermistor.h`](thermistor/thermistor.h): Datasheet-derived lookup table and `thermistor_R_to_T()` helper used by the ADBMS driver.
 - Fault handling in `bms_task` (in [`main.c`](main.c)): raises `IMD`, `BMS_DISCONNECTED`, pack full/empty, cell under/overvoltage, and pack warm/cold/overtemp faults; `BMS_DISCONNECTED` also drives `BMS_SDC_CTRL`.
+
+## Charging
+![charging fsm](charging_fsm/charging_FSM.drawio.png)

@@ -6,6 +6,7 @@
  */
 
 #include "telemetry.h"
+
 #include "can_library/generated/MAIN_MODULE.h"
 #include "vehicle_fsm.h"
 

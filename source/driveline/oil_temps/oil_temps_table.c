@@ -1,13 +1,15 @@
+/**
+ * @file oil_temps_table.c
+ * @brief Oil temp lookup table from datasheet.
+ *
+ * @author Anya Pokrovskaya (apokrovs@purdue.edu)
+ */
 
-#include <stdbool.h>
 #include <stdint.h>
 
 #include "common/lerp_lut/lerp_lut.h"
 
-/* Precomputed Oil Temperature Table */
-
 static constexpr size_t OIL_TEMPS_LUT_SIZE = 63;
-
 const lut_entry_t OIL_TEMPS[OIL_TEMPS_LUT_SIZE] = {
     {   90.0f, 110.0f },
     {  107.0f, 101.0f },

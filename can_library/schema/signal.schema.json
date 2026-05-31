@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://github.com/PER/canpiler/signal_schema.json",
+    "$id": "https://github.com/PER/canpiler/signal.schema.json",
     "type": "object",
     "required": ["sig_name", "type"],
     "unevaluatedProperties": false,

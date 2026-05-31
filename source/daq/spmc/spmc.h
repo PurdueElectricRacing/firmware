@@ -10,6 +10,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+
 #include "timestamped_frame.h"
 
 // todo tune values based on testing

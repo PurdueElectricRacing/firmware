@@ -8,20 +8,20 @@
 
 /* System Includes */
 #include "can_library/generated/DRIVELINE.h"
-#include "common/phal/can.h"
-#include "common/phal/gpio.h"
-#include "common/phal/rcc.h"
-#include "common/phal/adc.h"
-#include "common/phal/dma.h"
 #include "common/freertos/freertos.h"
 #include "common/heartbeat/heartbeat.h"
+#include "common/phal/adc.h"
+#include "common/phal/can.h"
+#include "common/phal/dma.h"
+#include "common/phal/gpio.h"
+#include "common/phal/rcc.h"
 #include "common/utils/countof.h"
 #include "common/watchdog/watchdog.h"
 
 /* Module Includes */
 #include "config.h"
-#include "pin_defs.h"
 #include "oil_temps_table.h"
+#include "pin_defs.h"
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {

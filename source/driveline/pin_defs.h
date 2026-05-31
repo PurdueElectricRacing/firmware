@@ -28,7 +28,6 @@
 #define SHOCKPOT_RIGHT_ADC_CHNL  (3)
 
 // Oil Temps
-
 #define OIL_TEMP_L_GPIO_Port (GPIOA)
 #define OIL_TEMP_L_Pin       (2)
 #define OIL_TEMP_L_ADC_CH    (3)

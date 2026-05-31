@@ -8,6 +8,7 @@
 
 #include "main.h"
 
+/* System Includes */
 #include "can_library/generated/MCAN.h"
 #include "can_library/generated/VCAN.h"
 #include "common/freertos/freertos.h"
@@ -19,6 +20,8 @@
 #include "common/phal/spi.h"
 #include "common/utils/countof.h"
 #include "common/watchdog/watchdog.h"
+
+/* Module Includes */
 #include "ethernet.h"
 #include "rtc_sync.h"
 #include "spmc.h"

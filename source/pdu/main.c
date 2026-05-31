@@ -9,7 +9,7 @@
 
 #include "main.h"
 
-// Library includes
+/* System Includes */
 #include "can_library/faults_common.h"
 #include "can_library/generated/PDU.h"
 #include "common/freertos/freertos.h"
@@ -22,7 +22,7 @@
 #include "common/utils/countof.h"
 #include "common/watchdog/watchdog.h"
 
-// Module includes
+/* Module Includes */
 #include "cooling_fsm.h"
 #include "faults.h"
 #include "flow_rate.h"

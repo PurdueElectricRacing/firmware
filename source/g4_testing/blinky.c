@@ -1,10 +1,9 @@
-
 #include "g4_testing.h"
 #if (G4_TESTING_CHOSEN == TEST_BLINKY)
 
+#include <stdint.h>
+
 #include "common/freertos/freertos.h"
-#include "common/phal/adc.h"
-#include "common/phal/dma.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
 #include "common/utils/countof.h"
@@ -15,38 +14,13 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(LED_RED_PORT, LED_RED_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(LED_BLUE_PORT, LED_BLUE_PIN, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_OUTPUT(LED_ORANGE_PORT, LED_ORANGE_PIN, GPIO_OUTPUT_LOW_SPEED),
-
-    GPIO_INIT_ANALOG(ADC1_CH1_GPIO_Port, ADC1_CH1_Pin),
-    GPIO_INIT_ANALOG(ADC1_CH2_GPIO_Port, ADC1_CH2_Pin),
-    GPIO_INIT_ANALOG(ADC1_CH3_GPIO_Port, ADC1_CH3_Pin),
-    GPIO_INIT_ANALOG(ADC1_CH4_GPIO_Port, ADC1_CH4_Pin),
 };
 
-ADCInitConfig_t adc_config = {
-    .periph         = ADC1,
-    .prescaler      = ADC_CLK_PRESC_0,
-    .resolution     = ADC_RES_12_BIT,
-    .data_align     = ADC_DATA_ALIGN_RIGHT,
-    .cont_conv_mode = true,
-    .dma_mode       = ADC_DMA_CIRCULAR,
-    .oversample     = ADC_OVERSAMPLE_16,
-};
-
-ADCChannelConfig_t adc_channel_config[] = {
-    {.channel = ADC_CHANNEL_1, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = ADC_CHANNEL_2, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = ADC_CHANNEL_3, .rank = 3, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = ADC_CHANNEL_4, .rank = 4, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-};
-
-volatile raw_adc_values_t raw_adc_values = {0};
-dma_init_t adc_dma_config                = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc_values, ADC_NUM_CHANNELS, 0b01);
-
-#define TargetCoreClockrateHz 16000000
+static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
 ClockRateConfig_t clock_config = {
     .clock_source              = CLOCK_SOURCE_HSI,
     .use_pll                   = false,
-    .vco_output_rate_target_hz = 160000000,
+    .vco_output_rate_target_hz = 16'000'000,
     .system_clock_target_hz    = TargetCoreClockrateHz,
     .ahb_clock_target_hz       = (TargetCoreClockrateHz / 1),
     .apb1_clock_target_hz      = (TargetCoreClockrateHz / (1)),
@@ -65,14 +39,12 @@ static void ledblink2(void);
 static void ledblink3(void);
 static void ledblink4(void);
 
-defineThreadStack(ledblink1, 250, osPriorityNormal, 64);
-defineThreadStack(ledblink2, 300, osPriorityNormal, 64);
-defineThreadStack(ledblink3, 500, osPriorityNormal, 64);
-defineThreadStack(ledblink4, 1000, osPriorityNormal, 64);
+DEFINE_TASK(ledblink1, 250, osPriorityNormal, 64);
+DEFINE_TASK(ledblink2, 300, osPriorityNormal, 64);
+DEFINE_TASK(ledblink3, 500, osPriorityNormal, 64);
+DEFINE_TASK(ledblink4, 1000, osPriorityNormal, 64);
 
 int main() {
-    osKernelInitialize();
-
     if (PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
@@ -81,27 +53,18 @@ int main() {
         HardFault_Handler();
     }
 
-    if (!PHAL_initADC(&adc_config, adc_channel_config, ADC_NUM_CHANNELS)) {
-        HardFault_Handler();
-    }
-
-    if (!PHAL_initDMA(&adc_dma_config)) {
-        HardFault_Handler();
-    }
-
-    PHAL_startTxfer(&adc_dma_config);
-    PHAL_startADC(&adc_config);
-
     PHAL_writeGPIO(LED_GREEN_PORT, LED_GREEN_PIN, 1);
     PHAL_writeGPIO(LED_RED_PORT, LED_RED_PIN, 1);
     PHAL_writeGPIO(LED_BLUE_PORT, LED_BLUE_PIN, 1);
     PHAL_writeGPIO(LED_ORANGE_PORT, LED_ORANGE_PIN, 1);
 
+    osKernelInitialize();
+
     // Create threads
-    createThread(ledblink1);
-    createThread(ledblink2);
-    createThread(ledblink3);
-    createThread(ledblink4);
+    START_TASK(ledblink1);
+    START_TASK(ledblink2);
+    START_TASK(ledblink3);
+    START_TASK(ledblink4);
 
     osKernelStart(); // Go!
 

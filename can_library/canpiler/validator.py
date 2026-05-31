@@ -37,7 +37,7 @@ def validate_against_schema(data, schema, schema_store=None, filename="<unknown>
     return False
 
 def validate_common_types() -> bool:
-    type_registry_schema = load_json(SCHEMA_DIR / 'type_registry.json')
+    type_registry_schema = load_json(SCHEMA_DIR / 'type_registry.schema.json')
     common_types = load_json(COMMON_TYPES_CONFIG_PATH)
     
     if validate_against_schema(common_types, type_registry_schema, filename='common_types.json'):
@@ -46,7 +46,7 @@ def validate_common_types() -> bool:
     return False
     
 def validate_bus_config(schema_store) -> bool:
-    bus_schema = load_json(SCHEMA_DIR / 'bus_schema.json')
+    bus_schema = load_json(SCHEMA_DIR / 'bus.schema.json')
     buses = load_json(BUS_CONFIG_PATH)
 
     if validate_against_schema(buses, bus_schema, schema_store, filename='bus_configs.json'):
@@ -57,7 +57,7 @@ def validate_bus_config(schema_store) -> bool:
         return False
 
 def validate_internal_nodes(schema_store) -> bool:
-    node_schema = load_json(SCHEMA_DIR / 'node_schema.json')
+    node_schema = load_json(SCHEMA_DIR / 'node.schema.json')
     all_valid = True
     
     for node_file in sorted(NODE_CONFIG_DIR.glob('*.json')):
@@ -70,7 +70,7 @@ def validate_internal_nodes(schema_store) -> bool:
     return all_valid
 
 def validate_external_nodes(schema_store) -> bool:
-    external_node_schema = load_json(SCHEMA_DIR / 'external_node_schema.json')
+    external_node_schema = load_json(SCHEMA_DIR / 'external_node.schema.json')
     all_valid = True
 
     for node_file in sorted(EXTERNAL_NODE_CONFIG_DIR.glob('*.json')):
@@ -88,14 +88,14 @@ def validate_all() -> bool:
     all_valid = True
     
     # Load shared schemas for references
-    message_schema = load_json(SCHEMA_DIR / 'message_schema.json')
-    signal_schema = load_json(SCHEMA_DIR / 'signal_schema.json')
-    fault_schema = load_json(SCHEMA_DIR / 'fault_schema.json')
+    message_schema = load_json(SCHEMA_DIR / 'message.schema.json')
+    signal_schema = load_json(SCHEMA_DIR / 'signal.schema.json')
+    fault_schema = load_json(SCHEMA_DIR / 'fault.schema.json')
     
     schema_store = {
-        'https://github.com/PER/canpiler/message_schema.json': message_schema,
-        'https://github.com/PER/canpiler/signal_schema.json': signal_schema,
-        'https://github.com/PER/canpiler/fault_schema.json': fault_schema,
+        'https://github.com/PER/canpiler/message.schema.json': message_schema,
+        'https://github.com/PER/canpiler/signal.schema.json': signal_schema,
+        'https://github.com/PER/canpiler/fault.schema.json': fault_schema,
     }
 
     # Validate custom types schema

@@ -21,7 +21,7 @@
         },
         "faults": {
             "type": "array",
-            "items": { "$ref": "https://github.com/PER/canpiler/fault_schema.json" },
+            "items": { "$ref": "https://github.com/PER/canpiler/fault.schema.json" },
             "uniqueItems": true
         }
     },
@@ -43,11 +43,11 @@
                 "accept_all_messages": { "type": "boolean" },
                 "tx": {
                     "type": "array",
-                    "items": { "$ref": "https://github.com/PER/canpiler/message_schema.json#/$defs/tx_message" }
+                    "items": { "$ref": "https://github.com/PER/canpiler/message.schema.json#/$defs/tx_message" }
                 },
                 "rx": {
                     "type": "array",
-                    "items": { "$ref": "https://github.com/PER/canpiler/message_schema.json#/$defs/rx_message" }
+                    "items": { "$ref": "https://github.com/PER/canpiler/message.schema.json#/$defs/rx_message" }
                 }
             }
         }

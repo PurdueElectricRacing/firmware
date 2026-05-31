@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://github.com/PER/canpiler/fault_schema.json",
+    "$id": "https://github.com/PER/canpiler/fault.schema.json",
     "type": "object",
     "required": ["fault_name", "max", "min", "priority", "time_to_latch", "time_to_unlatch", "lcd_message"],
     "unevaluatedProperties": false,

@@ -1,7 +1,7 @@
 # CAN Configs
 
 ## Bus Definition (`configs/system/bus_configs.json`)
-Validated by `bus_schema.json`. Describes each logical CAN bus (not how a node attaches to it).
+Validated by `bus.schema.json`. Describes each logical CAN bus (not how a node attaches to it).
 
 - `name`: Logical bus name (referenced by nodes and external nodes).
 - `baud_rate`: CAN bitrate for this bus.
@@ -10,7 +10,7 @@ Validated by `bus_schema.json`. Describes each logical CAN bus (not how a node a
 - `host_fault_library`: Boolean. If true, this bus is the primary uplink for fault communication (usually VCAN).
 
 ## Node-to-Bus Mapping (per node JSON, under `busses`)
-Validated by `node_schema.json`. Maps a firmware node onto hardware peripherals and message lists.
+Validated by `node.schema.json`. Maps a firmware node onto hardware peripherals and message lists.
 
 - `peripheral`: Hardware peripheral identifier. Allowed values: `CAN1`, `CAN2`, `FDCAN1`, `FDCAN2`, `FDCAN3`.
 - `accept_all_messages`: Boolean. If true, disables hardware filter optimization (promiscuous mode).
@@ -75,7 +75,7 @@ PER vehicle convention:
 	- IMU raw data, shock pots, battery current
 
 ## External Nodes
-External nodes (non-PER devices such as chargers or inverters) are defined in `configs/external_nodes/` and validated by `external_node_schema.json`.
+External nodes (non-PER devices such as chargers or inverters) are defined in `configs/external_nodes/` and validated by `external_node.schema.json`.
 
 ### Attributes
 - `node_name`: Name of the external device. Must be unique.
@@ -84,7 +84,7 @@ External nodes (non-PER devices such as chargers or inverters) are defined in `c
 - `rx`: Array of messages this device expects to receive.
 
 ## Custom Types
-Define reusable signal types (enums and aliases) in `configs/system/common_types.json`. Validated by `type_registry.json`.
+Define reusable signal types (enums and aliases) in `configs/system/common_types.json`. Validated by `type_registry.schema.json`.
 
 ### Type Attributes
 - `name`: Type name. Must end in `_t` (e.g. `car_state_t`).

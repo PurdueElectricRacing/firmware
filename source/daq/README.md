@@ -10,7 +10,10 @@ This directory contains the firmware source code for the Data Acquisition (DAQ) 
 - `sd_card/` - SD logging and file management
 - `ethernet/` - Real-time UDP streaming of CAN bus activity wirelessly
 
-## DAQ SPMC Queue
+## High Level
+![timing diagram](DAQ_timing_diagram.drawio.png)
+
+## SPMC Queue
 Specialized data structure designed specifically for DAQ.
 - Lockless
 - Priority aware
@@ -30,9 +33,11 @@ Notes:
     - Several buffer parameters can be tuned to reduce the likelihood of overflows.
 - If the ETH thread falls far behind the SD thread, it will fast-forward its tail to the location of the SD thread. The "dropped frames" are also tracked in a counter.
 
-> [!NOTE]
-> todo more detailed docs
-
+## SD Card
 ![sd fsm](sd_card/SD_FSM.drawio.png)
 
-![timing diagram](DAQ_timing_diagram.drawio.png)
+## Ethernet
+![ethernet fsm](ethernet/ethernet_FSM.drawio.png)
+
+> [!NOTE]
+> todo more detailed docs

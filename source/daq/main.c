@@ -97,8 +97,8 @@ static void configure_interrupts(void);
 void shutdown(void);
 
 DEFINE_TASK(sd_card_periodic, SD_FSM_PERIOD_MS, osPriorityHigh, STACK_4096); // SD WRITE
-DEFINE_TASK(eth_thread_periodic, 0, osPriorityNormal, STACK_4096); // BULLET COMMS 
-DEFINE_TASK(RTC_sync_thread, 0, osPriorityLow, STACK_512);
+DEFINE_TASK(ethernet_periodic, 0, osPriorityNormal, STACK_4096); // BULLET COMMS 
+DEFINE_TASK(RTC_sync, 0, osPriorityLow, STACK_512);
 DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(nullptr);
 
@@ -133,8 +133,8 @@ int main() {
     INIT_MUTEX(spi1_lock);
 
     START_TASK(sd_card_periodic); // SD WRITE
-    START_TASK(eth_thread_periodic); // BULLET COMMS
-    START_TASK(RTC_sync_thread);
+    START_TASK(ethernet_periodic); // BULLET COMMS
+    START_TASK(RTC_sync);
     START_WATCHDOG_TASK();
     START_HEARTBEAT_TASK();
 

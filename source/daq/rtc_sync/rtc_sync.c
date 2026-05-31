@@ -72,7 +72,7 @@ void RTC_sync_init(void) {
 }
 
 // static constexpr uint32_t RTC_SYNC_PERIOD_MS = 30 * 1000;
-void RTC_sync_thread(void) {
+void RTC_sync(void) {
     timestamped_frame_t gps_time;
 
     if (xQueueReceive(gps_time_queue, &gps_time, portMAX_DELAY) == pdPASS) {

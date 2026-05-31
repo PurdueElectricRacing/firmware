@@ -18,6 +18,6 @@ extern QueueHandle_t gps_time_queue;
 extern RTC_timestamp_t fallback_timestamp;
 
 void RTC_sync_init(void);
-void RTC_sync_thread(void);
+void RTC_sync(void);
 
 #endif // RTC_SYNC_h

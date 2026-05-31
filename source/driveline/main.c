@@ -151,12 +151,12 @@ extern uint32_t AHBClockRateHz;
 extern uint32_t PLLClockRateHz;
 
 extern void HardFault_Handler();
-void shockpot_thread();
-void oil_temps_thread();
+void shockpots_periodic();
+void oil_temps_periodic();
 
 DEFINE_CAN_TASKS();
-DEFINE_TASK(shockpot_thread, FRONT_SHOCKPOTS_PERIOD_MS, osPriorityNormal, STACK_512);
-DEFINE_TASK(oil_temps_thread, FRONT_OIL_TEMPS_PERIOD_MS, osPriorityNormal, STACK_512);
+DEFINE_TASK(shockpots_periodic, FRONT_SHOCKPOTS_PERIOD_MS, osPriorityNormal, STACK_512);
+DEFINE_TASK(oil_temps_periodic, FRONT_OIL_TEMPS_PERIOD_MS, osPriorityNormal, STACK_512);
 DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(nullptr);
 
@@ -214,8 +214,8 @@ int main(void) {
 
     START_CAN_TASKS();
     SEND_INIT(WDG_get_CSR());
-    START_TASK(shockpot_thread);
-    START_TASK(oil_temps_thread);
+    START_TASK(shockpots_periodic);
+    START_TASK(oil_temps_periodic);
     START_WATCHDOG_TASK();
     START_HEARTBEAT_TASK();
 
@@ -228,7 +228,7 @@ int main(void) {
 // globals for GDB
 uint16_t left_length_scaled = 0;
 uint16_t right_length_scaled = 0;
-void shockpot_thread() {
+void shockpots_periodic() {
     static_assert(FRONT_SHOCKPOTS_LAYOUT_HASH == REAR_SHOCKPOTS_LAYOUT_HASH, "Shockpot messages should be the same");
     static constexpr float ADC_MAX         = 4095.0f;
     static constexpr float STROKE_MM       = 75.0f;
@@ -257,7 +257,7 @@ void shockpot_thread() {
 // globals for GDB
 int16_t left_celsius_scaled = 0;
 int16_t right_celsius_scaled = 0;
-void oil_temps_thread() {
+void oil_temps_periodic() {
     static_assert(FRONT_OIL_TEMPS_LAYOUT_HASH == REAR_OIL_TEMPS_LAYOUT_HASH, "Oil temp messages should be the same");
     static constexpr float ADC_MAX      = 4095.0f;
     static constexpr float ADC_VREF     = 3.3f;

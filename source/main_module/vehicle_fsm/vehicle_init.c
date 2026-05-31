@@ -6,8 +6,9 @@
  */
 
 #include "vehicle_init.h"
-#include "vehicle_fsm.h"
+
 #include "can_library/generated/MAIN_MODULE.h"
+#include "vehicle_fsm.h"
 
 INVA_SET_data_t amk_set_front_right;
 INVA_SET_data_t amk_set_front_left;

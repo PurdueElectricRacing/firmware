@@ -53,6 +53,3 @@ Produces the final build artifacts from the `SystemContext` using the **Jinja2**
 - **Frame Estimation**: Calculates total bits per frame based on protocol overhead (Standard: 47 bits, Extended: 67 bits) and signal DLC.
 - **Bit-Stuffing**: Applies a $1.2\times$ factor to account for average bit-stuffing overhead.
 - **Health Monitoring**: Reports estimated bus utilization percentage with color-coded alerts (Green < 50%, Yellow < 70%, Red > 70%).
-
-#### Health Monitoring Features
-- **Per-message Stale-Checking**: For each RX message, the generator emits `is_<msg>_stale()` plus `<MSG>_STALE_TIMEOUT_MS` derived from **2.5x** the message period so consumers can flag frames that have not arrived within that window.

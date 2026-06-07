@@ -3,7 +3,9 @@ The CANpiler is the centralized code generation authority. It handles CAN messag
 
 
 ## Software Architecture
-Modeled After the traditional compiler pipeline. Written in python for ease of maintainence and development.
+Modeled After the traditional compiler pipeline.
+
+![canpiler system diagram](canpiler.drawio.png)
 
 `build.py`: Main entry point for CANpiler. Coordinates the top-level data flow.
 

@@ -28,6 +28,10 @@ The high-level logic flow of a TX is shown here:
 > [!NOTE]
 > The actual implementation of the CAN TX task manages up to 3 separate hardware peripherals at once, each with its own software queue.
 
+## Stale Detection
+Periodic CAN messages are assigned a deadline of 2.5x their expected period. If a message is not received within the window, it's associated data is no longer valid.
+![stale timing](stale_detection.drawio.png)
+
 ## Usage
 1. Define your CAN network and global faults in `can_library/configs/` using the provided JSON schemas.
     1. Use FDCAN peripherals on G4 and CAN peripherals on F4/F7.

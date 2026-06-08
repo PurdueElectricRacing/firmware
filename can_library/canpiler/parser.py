@@ -11,7 +11,7 @@ from utils import (
     load_json, NODE_CONFIG_DIR, EXTERNAL_NODE_CONFIG_DIR, 
     COMMON_TYPES_CONFIG_PATH, BUS_CONFIG_PATH, CTYPE_SIZES, 
     print_as_error, print_as_ok, print_as_success, to_macro_name, 
-    get_git_hash, get_layout_hash
+    get_git_hash, get_layout_hash, print_as_warning
 )
 
 @dataclass
@@ -370,6 +370,49 @@ def validate_node(node: Node, custom_types: Dict):
         for msg in bus.tx_messages:
             msg.validate_semantics(custom_types)
             msg.resolve_layout(custom_types)
+            warn_priority_period_convention(node, bus, msg)
+
+
+def _priority_period_convention_warning_reason(msg: Message) -> Optional[str]:
+    """Return the priority-period convention warning reason, if one applies."""
+    if msg.priority == 0 and msg.period > 0:
+        return (
+            "priority 0 is event-based, but msg_period is positive "
+            "(use 0 or omit msg_period for event-triggered messages)"
+        )
+
+    if msg.priority in (1, 2) and msg.period == 0:
+        return (
+            f"priority {msg.priority} is periodic by convention, but msg_period is 0 "
+            "(set a positive msg_period for periodic messages)"
+        )
+
+    if msg.priority == 4 and msg.period <= 200:
+        return (
+            "priority 4 is low-frequency periodic telemetry (<5 Hz), but msg_period "
+            "is not greater than 200 ms"
+        )
+
+    if msg.priority == 5 and (msg.period == 0 or msg.period >= 200):
+        return (
+            "priority 5 is high-frequency telemetry (>5 Hz), but msg_period is not "
+            "between 1 and 199 ms"
+        )
+
+    return None
+
+
+def warn_priority_period_convention(node: Node, bus: Bus, msg: Message) -> None:
+    """Warn when a message's period conflicts with the README priority convention."""
+    reason = _priority_period_convention_warning_reason(msg)
+    if reason is None:
+        return
+
+    print_as_warning(
+        f"Node '{node.name}': Bus '{bus.name}': Message '{msg.name}' violates "
+        f"priority-period convention: priority={msg.priority}, "
+        f"period={msg.period} ms. {reason}."
+    )
 
 def parse_signal(data: Dict) -> Signal:
     return Signal(

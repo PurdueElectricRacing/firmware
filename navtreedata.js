@@ -150,27 +150,28 @@ var NAVTREE =
       [ "Software Architecture", "md_can__library_2canpiler_2README.html#autotoc_md100", null ]
     ] ],
     [ "CAN Configs", "md_can__library_2configs_2README.html", [
-      [ "Bus Definition (configs/system/bus_configs.json)", "md_can__library_2configs_2README.html#autotoc_md110", null ],
-      [ "Node-to-Bus Mapping (per node JSON, under busses)", "md_can__library_2configs_2README.html#autotoc_md111", null ],
-      [ "Node Attributes", "md_can__library_2configs_2README.html#autotoc_md112", null ],
-      [ "CAN Message Attributes (TX)", "md_can__library_2configs_2README.html#autotoc_md113", null ],
-      [ "RX Message Attributes", "md_can__library_2configs_2README.html#autotoc_md114", null ],
-      [ "Signal Attributes", "md_can__library_2configs_2README.html#autotoc_md115", [
-        [ "Message Priority", "md_can__library_2configs_2README.html#autotoc_md116", null ]
+      [ "Bus Definition (configs/system/bus_configs.json)", "md_can__library_2configs_2README.html#autotoc_md109", null ],
+      [ "Node-to-Bus Mapping (per node JSON, under busses)", "md_can__library_2configs_2README.html#autotoc_md110", null ],
+      [ "Node Attributes", "md_can__library_2configs_2README.html#autotoc_md111", null ],
+      [ "CAN Message Attributes (TX)", "md_can__library_2configs_2README.html#autotoc_md112", null ],
+      [ "RX Message Attributes", "md_can__library_2configs_2README.html#autotoc_md113", null ],
+      [ "Signal Attributes", "md_can__library_2configs_2README.html#autotoc_md114", [
+        [ "Message Priority", "md_can__library_2configs_2README.html#autotoc_md115", null ]
       ] ],
-      [ "External Nodes", "md_can__library_2configs_2README.html#autotoc_md117", [
-        [ "Attributes", "md_can__library_2configs_2README.html#autotoc_md118", null ]
+      [ "External Nodes", "md_can__library_2configs_2README.html#autotoc_md116", [
+        [ "Attributes", "md_can__library_2configs_2README.html#autotoc_md117", null ]
       ] ],
-      [ "Custom Types", "md_can__library_2configs_2README.html#autotoc_md119", [
-        [ "Type Attributes", "md_can__library_2configs_2README.html#autotoc_md120", null ]
+      [ "Custom Types", "md_can__library_2configs_2README.html#autotoc_md118", [
+        [ "Type Attributes", "md_can__library_2configs_2README.html#autotoc_md119", null ]
       ] ],
-      [ "Fault Configuration", "md_can__library_2configs_2README.html#autotoc_md121", [
-        [ "Node Level", "md_can__library_2configs_2README.html#autotoc_md122", null ],
-        [ "Fault Attributes", "md_can__library_2configs_2README.html#autotoc_md123", null ]
+      [ "Fault Configuration", "md_can__library_2configs_2README.html#autotoc_md120", [
+        [ "Node Level", "md_can__library_2configs_2README.html#autotoc_md121", null ],
+        [ "Fault Attributes", "md_can__library_2configs_2README.html#autotoc_md122", null ]
       ] ]
     ] ],
     [ "PER CAN Library", "md_can__library_2README.html", [
-      [ "Logic", "md_can__library_2README.html#autotoc_md125", null ],
+      [ "Logic", "md_can__library_2README.html#autotoc_md124", null ],
+      [ "Stale Detection", "md_can__library_2README.html#autotoc_md125", null ],
       [ "Usage", "md_can__library_2README.html#autotoc_md126", null ],
       [ "Fault System", "md_can__library_2README.html#autotoc_md127", [
         [ "Usage:", "md_can__library_2README.html#autotoc_md128", null ]
@@ -214,9 +215,9 @@ var NAVTREEINDEX =
 [
 "FreeRTOSConfig_8h_source.html",
 "crc_8c.html",
-"md_common_2heartbeat_2README.html",
-"phal__F4__F7_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c",
-"structSD__CSD.html#a7b1f766965a62bee16196b71d3061541"
+"md_common_2freertos_2README.html",
+"phal__F4__F7_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a",
+"structSD__CSD.html#a661a34bd41f4c7daf1d9b084b3e6c221"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -137,6 +137,10 @@ Functions</h2></td></tr>
 <tr class="separator:ac28cd63716e84f8d0355c778ff6357e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe8bf0da5b89288baa73812d14e60f11" id="r_abe8bf0da5b89288baa73812d14e60f11"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe8bf0da5b89288baa73812d14e60f11">validate_node</a> (<a class="el" href="classparser_1_1Node.html">Node</a> node, Dict custom_types)</td></tr>
 <tr class="separator:abe8bf0da5b89288baa73812d14e60f11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd7610fd54fdb6342a797c79528d5326" id="r_abd7610fd54fdb6342a797c79528d5326"><td class="memItemLeft" align="right" valign="top">Optional[str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd7610fd54fdb6342a797c79528d5326">_priority_period_convention_warning_reason</a> (<a class="el" href="classparser_1_1Message.html">Message</a> msg)</td></tr>
+<tr class="separator:abd7610fd54fdb6342a797c79528d5326"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2689fefb020652c8c1cd58838d3d525d" id="r_a2689fefb020652c8c1cd58838d3d525d"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2689fefb020652c8c1cd58838d3d525d">warn_priority_period_convention</a> (<a class="el" href="classparser_1_1Node.html">Node</a> node, <a class="el" href="classparser_1_1Bus.html">Bus</a> bus, <a class="el" href="classparser_1_1Message.html">Message</a> msg)</td></tr>
+<tr class="separator:a2689fefb020652c8c1cd58838d3d525d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90baad7778cf81ec13770fcab78f00ec" id="r_a90baad7778cf81ec13770fcab78f00ec"><td class="memItemLeft" align="right" valign="top"><a id="a90baad7778cf81ec13770fcab78f00ec" name="a90baad7778cf81ec13770fcab78f00ec"></a>
 <a class="el" href="classparser_1_1Signal.html">Signal</a>&#160;</td><td class="memItemRight" valign="bottom"><b>parse_signal</b> (Dict data)</td></tr>
 <tr class="separator:a90baad7778cf81ec13770fcab78f00ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -168,6 +172,31 @@ Functions</h2></td></tr>
 
 Author: Irving Wang (irvingw@purdue.edu)
 </pre> </div><h2 class="groupheader">Function Documentation</h2>
+<a id="abd7610fd54fdb6342a797c79528d5326" name="abd7610fd54fdb6342a797c79528d5326"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd7610fd54fdb6342a797c79528d5326">&#9670;&#160;</a></span>_priority_period_convention_warning_reason()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Optional[str] parser._priority_period_convention_warning_reason </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classparser_1_1Message.html">Message</a></td>          <td class="paramname"><span class="paramname"><em>msg</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<pre class="fragment">Return the priority-period convention warning reason, if one applies.</pre> 
+</div>
+</div>
 <a id="a39dd231499813df1a4ab5cec0c23271b" name="a39dd231499813df1a4ab5cec0c23271b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a39dd231499813df1a4ab5cec0c23271b">&#9670;&#160;</a></span>_require_bus_in_system()</h2>
 
@@ -334,6 +363,32 @@ Performs semantic validation during parsing.
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Run semantic validation and resolve bit layouts for a node</pre> 
+</div>
+</div>
+<a id="a2689fefb020652c8c1cd58838d3d525d" name="a2689fefb020652c8c1cd58838d3d525d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2689fefb020652c8c1cd58838d3d525d">&#9670;&#160;</a></span>warn_priority_period_convention()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None parser.warn_priority_period_convention </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classparser_1_1Node.html">Node</a></td>          <td class="paramname"><span class="paramname"><em>node</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classparser_1_1Bus.html">Bus</a></td>          <td class="paramname"><span class="paramname"><em>bus</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classparser_1_1Message.html">Message</a></td>          <td class="paramname"><span class="paramname"><em>msg</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Warn when a message's period conflicts with the README priority convention.</pre> 
 </div>
 </div>
 </div><!-- contents -->

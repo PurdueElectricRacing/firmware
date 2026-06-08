@@ -104,8 +104,12 @@ $(function(){initNavTree('md_can__library_2canpiler_2README.html',''); initResiz
 <p>The CANpiler is the centralized code generation authority. It handles CAN message generation, fault library, and (soon) daq variable generation.</p>
 <h1><a class="anchor" id="autotoc_md100"></a>
 Software Architecture</h1>
-<p>Modeled After the traditional compiler pipeline. Written in python for ease of maintainence and development.</p>
-<p><code>build.py</code>: Main entry point for CANpiler. Coordinates the top-level data flow.</p>
+<p>Modeled After the traditional compiler pipeline.</p>
+<div class="image">
+<img src="canpiler.drawio.png" alt=""/>
+<div class="caption">
+canpiler system diagram</div></div>
+    <p><code>build.py</code>: Main entry point for CANpiler. Coordinates the top-level data flow.</p>
 <p><code>utils.py</code>: Shared helpers (<code>format_float</code>, <code>print_as_success</code>, etc.) used across the pipeline.</p>
 <h3><a class="anchor" id="autotoc_md101"></a>
 1. Schema Validation</h3>
@@ -156,12 +160,7 @@ Software Architecture</h1>
 <p><code>load_calc.py</code>: Performs post-generation capacity analysis for each bus in the system.</p><ul>
 <li><b>Frame Estimation</b>: Calculates total bits per frame based on protocol overhead (Standard: 47 bits, Extended: 67 bits) and signal DLC.</li>
 <li><b>Bit-Stuffing</b>: Applies a $1.2\times$ factor to account for average bit-stuffing overhead.</li>
-<li><b>Health Monitoring</b>: Reports estimated bus utilization percentage with color-coded alerts (Green &lt; 50%, Yellow &lt; 70%, Red &gt; 70%).</li>
-</ul>
-<h3><a class="anchor" id="autotoc_md108"></a>
-Health Monitoring Features</h3>
-<ul>
-<li><b>Per-message Stale-Checking</b>: For each RX message, the generator emits <code>is_&lt;msg&gt;_stale()</code> plus <code>&lt;MSG&gt;_STALE_TIMEOUT_MS</code> derived from <b>2.5x</b> the message period so consumers can flag frames that have not arrived within that window. </li>
+<li><b>Health Monitoring</b>: Reports estimated bus utilization percentage with color-coded alerts (Green &lt; 50%, Yellow &lt; 70%, Red &gt; 70%). </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

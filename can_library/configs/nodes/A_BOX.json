@@ -229,6 +229,31 @@
                     ],
                     "msg_priority": 5,
                     "msg_period": 10
+                },
+                {
+                    "msg_name": "thermistor_telemetry_ccan",
+                    "msg_desc": "Individual thermistor readings",
+                    "signals": [
+                        {
+                            "sig_name": "temperature",
+                            "sig_desc": "Individual thermistor temperature",
+                            "type": "uint16_t",
+                            "unit": "C",
+                            "scale": 0.1
+                        },
+                        {
+                            "sig_name": "module_num",
+                            "sig_desc": "Module number of the cell being reported, 0 indexed",
+                            "type": "uint8_t"
+                        },
+                        {
+                            "sig_name": "thermistor_num",
+                            "sig_desc": "Thermistor number within the module, 0 indexed",
+                            "type": "uint8_t"
+                        }
+                    ],
+                    "msg_priority": 5,
+                    "msg_period": 125
                 }
             ],
             "rx": [

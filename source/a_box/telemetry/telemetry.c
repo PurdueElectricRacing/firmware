@@ -112,6 +112,7 @@ void report_telemetry_8hz(void) {
     uint16_t scaled_temperature = (uint16_t)(thermistor_temperature * PACK_COEFF_THERMISTOR_TELEMETRY_TEMPERATURE);
 
     CAN_SEND_thermistor_telemetry(scaled_temperature, module_num, thermistor_num);
+    CAN_SEND_thermistor_telemetry_ccan(scaled_temperature, module_num, thermistor_num);
 
     if (++thermistor_num >= ADBMS6380_GPIO_COUNT) {
         thermistor_num = 0;

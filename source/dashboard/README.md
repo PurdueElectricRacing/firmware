@@ -15,4 +15,13 @@ Additionally, it hosts the main driver interface for the vehicle, displaying tel
 - `pages/`: Per-page implementations (`race`, `faults`, `calibration`, `amk`). Each page exposes the callback set required by `lcd.c`.
 - [`telemetry.c`](telemetry/telemetry.c) / [`telemetry.h`](telemetry/telemetry.h)
 
-![colors](PER26_colors.png)
+# Design Files
+![colors](design/PER26_colors.png)
+
+![race](design/RACE.png)
+
+![calibration](design/CALIBRATION.png)
+
+![fault](design/FAULT.png)
+
+![amk](design/AMK.png)

@@ -39,9 +39,9 @@ static constexpr float POWERTRAIN_PUMPS_LOWER_LIMIT = 25.0f;
 static constexpr uint32_t POWERTRAIN_PUMPS_INTERVAL = 1000;
 
 // hx fan is unused for now
-static constexpr float HX_FAN_UPPER_LIMIT = 40.0f;
+static constexpr float HX_FAN_UPPER_LIMIT = 35.0f;
 static constexpr float HX_FAN_LOWER_LIMIT = 25.0f;
-static constexpr uint32_t HX_FAN_INVERVAL = 1000;
+static constexpr uint32_t HX_FAN_INTERVAL = 1000;
 
 static constexpr float BATTERY_FAN_UPPER_LIMIT = 35.0f;
 static constexpr float BATTERY_FAN_LOWER_LIMIT = 25.0f;
@@ -61,7 +61,7 @@ INIT_BANG_BANG(
     HX_FAN_LOWER_LIMIT,
     hx_fan_on,
     hx_fan_off,
-    HX_FAN_INVERVAL
+    HX_FAN_INTERVAL
 );
 INIT_BANG_BANG(
     battery_fans,

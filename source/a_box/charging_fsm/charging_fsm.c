@@ -49,7 +49,6 @@ static inline void update_charge_command() {
         charge_command_volts = 0;
         charge_command_amps = 0;
         charge_enable = false;
-        g_bms.is_balancing_enabled = false;
         return;
     }
 
@@ -69,6 +68,14 @@ static inline void update_charge_command() {
     charge_command_volts = requested_voltage;
     charge_command_amps = requested_current;
     charge_enable = can_data.charge_request.charge_enable;
+}
+
+static inline void update_balance_command() {
+    if (can_data.charge_request.is_stale()) {
+        g_bms.is_balancing_enabled = false;
+        return;
+    }
+
     g_bms.is_balancing_enabled = can_data.charge_request.balance_enable;
 }
 
@@ -83,13 +90,14 @@ void charging_fsm_periodic(void) {
     charging_state = next_charging_state;
     next_charging_state = charging_state;
 
-    g_bms.is_balancing_enabled = false;
     charge_command_volts = 0;
     charge_command_amps = 0;
     charge_enable = false;
+    update_balance_command();
 
     if (!is_charging_permitted()) {
         charging_state = CHARGING_STATE_IDLE;
+        next_charging_state = CHARGING_STATE_IDLE;
     }
 
     switch (charging_state) {
@@ -101,8 +109,7 @@ void charging_fsm_periodic(void) {
             break;
         }
         case CHARGING_STATE_READY2CHARGE: {
-            // todo: allow balancing in this state if requested by daqapp
-            
+
             if (is_daqapp_requesting_charge()) {
                 next_charging_state = CHARGING_STATE_CHARGING;
             }
@@ -110,7 +117,7 @@ void charging_fsm_periodic(void) {
         }
         case CHARGING_STATE_CHARGING: {
             update_charge_command();
-            
+
             if (!is_daqapp_requesting_charge()) {
                 next_charging_state = CHARGING_STATE_READY2CHARGE;
             }

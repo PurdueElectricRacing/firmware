@@ -160,13 +160,8 @@
                     "msg_desc": "outputs to coolant loops",
                     "signals": [
                         {
-                            "sig_name": "is_motor_pump_enabled",
-                            "sig_desc": "Motor pump enabled",
-                            "type": "bool"
-                        },
-                        {
-                            "sig_name": "is_inverter_pump_enabled",
-                            "sig_desc": "Inverter pump enabled",
+                            "sig_name": "is_powertrain_pumps_enabled",
+                            "sig_desc": "Powertrain pumps enabled",
                             "type": "bool"
                         },
                         {

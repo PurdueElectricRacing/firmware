@@ -9,19 +9,13 @@
 
 #include "switches.h"
 
-void motor_pump_on(void) {
+void powertrain_pumps_on(void) {
     switches_set_state(SW_PUMP_1, true);
-}
-
-void motor_pump_off(void) {
-    switches_set_state(SW_PUMP_1, false);
-}
-
-void inverter_pump_on(void) {
     switches_set_state(SW_PUMP_2, true);
 }
 
-void inverter_pump_off(void) {
+void powertrain_pumps_off(void) {
+    switches_set_state(SW_PUMP_1, false);
     switches_set_state(SW_PUMP_2, false);
 }
 

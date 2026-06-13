@@ -75,7 +75,6 @@ static inline void update_charge_command() {
 static inline bool is_charging_permitted() {
     return is_clear(FAULT_ID_PACK_FULL)
         && is_clear(FAULT_ID_BMS_DISCONNECTED)
-        && is_latched(FAULT_ID_SDC16_TSMS) // car should not energize while charging
         && is_elcon_ready();
 }
 

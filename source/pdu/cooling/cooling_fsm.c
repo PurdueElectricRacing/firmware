@@ -34,39 +34,26 @@ static_assert(FAN_2_PWM_TIM == FAN_PWM_TIM);
 static_assert(FAN_3_PWM_TIM == FAN_PWM_TIM);
 static_assert(FAN_4_PWM_TIM == FAN_PWM_TIM);
 
-// todo: decide thresholds
-static constexpr float MOTOR_PUMP_UPPER_LIMIT = 35.0f;
-static constexpr float MOTOR_PUMP_LOWER_LIMIT = 25.0f;
-static constexpr uint32_t MOTOR_PUMP_INTERVAL = 1000;
-
-static constexpr float INVERTER_PUMP_UPPER_LIMIT = 45.0f;
-static constexpr float INVERTER_PUMP_LOWER_LIMIT = 30.0f;
-static constexpr uint32_t INVERTER_PUMP_INTERVAL = 1000;
+static constexpr float POWERTRAIN_PUMPS_UPPER_LIMIT = 35.0f;
+static constexpr float POWERTRAIN_PUMPS_LOWER_LIMIT = 25.0f;
+static constexpr uint32_t POWERTRAIN_PUMPS_INTERVAL = 1000;
 
 // hx fan is unused for now
-static constexpr float HX_FAN_UPPER_LIMIT = 40.0f;
+static constexpr float HX_FAN_UPPER_LIMIT = 35.0f;
 static constexpr float HX_FAN_LOWER_LIMIT = 25.0f;
-static constexpr uint32_t HX_FAN_INVERVAL = 1000;
+static constexpr uint32_t HX_FAN_INTERVAL = 1000;
 
 static constexpr float BATTERY_FAN_UPPER_LIMIT = 35.0f;
 static constexpr float BATTERY_FAN_LOWER_LIMIT = 25.0f;
 static constexpr uint32_t BATTERY_FAN_INTERVAL = 1000;
 
 INIT_BANG_BANG(
-    motor_pump,
-    MOTOR_PUMP_UPPER_LIMIT,
-    MOTOR_PUMP_LOWER_LIMIT,
-    motor_pump_on,
-    motor_pump_off,
-    MOTOR_PUMP_INTERVAL
-);
-INIT_BANG_BANG(
-    inverter_pump,
-    INVERTER_PUMP_UPPER_LIMIT,
-    INVERTER_PUMP_LOWER_LIMIT,
-    inverter_pump_on,
-    inverter_pump_off,
-    INVERTER_PUMP_INTERVAL
+    powertrain_pumps,
+    POWERTRAIN_PUMPS_UPPER_LIMIT,
+    POWERTRAIN_PUMPS_LOWER_LIMIT,
+    powertrain_pumps_on,
+    powertrain_pumps_off,
+    POWERTRAIN_PUMPS_INTERVAL
 );
 INIT_BANG_BANG(
     hx_fan,
@@ -74,7 +61,7 @@ INIT_BANG_BANG(
     HX_FAN_LOWER_LIMIT,
     hx_fan_on,
     hx_fan_off,
-    HX_FAN_INVERVAL
+    HX_FAN_INTERVAL
 );
 INIT_BANG_BANG(
     battery_fans,
@@ -88,9 +75,9 @@ INIT_BANG_BANG(
 static inline void update_bangbang(void) {
     uint32_t now = xTaskGetTickCount();
     
-    if (can_data.motor_temps.is_stale()) {
+    if (can_data.motor_temps.is_stale() || can_data.igbt_temps.is_stale()) {
         // force on
-        bangbang_update(&motor_pump, MOTOR_PUMP_UPPER_LIMIT + 1, now);
+        bangbang_update(&powertrain_pumps, POWERTRAIN_PUMPS_UPPER_LIMIT + 1, now);
     } else {
         int16_t max_motor_temp = MAXOF(
             can_data.motor_temps.front_right,
@@ -99,14 +86,6 @@ static inline void update_bangbang(void) {
             can_data.motor_temps.rear_right
         );
 
-        int16_t scaled_motor_temp = max_motor_temp * UNPACK_COEFF_MOTOR_TEMPS_FRONT_RIGHT;
-        bangbang_update(&motor_pump, scaled_motor_temp, now);
-    }
-
-    if (can_data.igbt_temps.is_stale()) {
-        // force on
-        bangbang_update(&inverter_pump, INVERTER_PUMP_UPPER_LIMIT + 1, now);
-    } else {
         int16_t max_igbt_temp = MAXOF(
             can_data.igbt_temps.front_right,
             can_data.igbt_temps.front_left,
@@ -114,8 +93,11 @@ static inline void update_bangbang(void) {
             can_data.igbt_temps.rear_right
         );
 
-        int16_t scaled_igbt_temp = max_igbt_temp * UNPACK_COEFF_IGBT_TEMPS_FRONT_RIGHT;
-        bangbang_update(&inverter_pump, scaled_igbt_temp, now);
+        float scaled_motor_temp = max_motor_temp * UNPACK_COEFF_MOTOR_TEMPS_FRONT_RIGHT;
+        float scaled_igbt_temp = max_igbt_temp * UNPACK_COEFF_IGBT_TEMPS_FRONT_RIGHT;
+
+        float higher_temp = MAXOF(scaled_motor_temp, scaled_igbt_temp);
+        bangbang_update(&powertrain_pumps, higher_temp, now);
     }
 
     if (can_data.pack_stats.is_stale()) {
@@ -126,8 +108,7 @@ static inline void update_bangbang(void) {
         bangbang_update(&battery_fans, max_temp, now);
     }
 
-    // todo: read water temps
-    // force on
+    // todo: read water temps, force on for now
     bangbang_update(&hx_fan, HX_FAN_UPPER_LIMIT + 1, now);
 }
 
@@ -161,8 +142,7 @@ void cooling_fsm_periodic(void) {
         }   
         case COOLING_STATE_DEBUG: {
             // full beans
-            motor_pump_on();
-            inverter_pump_on();
+            powertrain_pumps_on();
             hx_fan_on();
             battery_fans_on();
             break;
@@ -170,8 +150,7 @@ void cooling_fsm_periodic(void) {
     }
 
     CAN_SEND_coolant_out(
-        motor_pump.is_on,
-        inverter_pump.is_on,
+        powertrain_pumps.is_on,
         hx_fan.is_on,
         battery_fans.is_on
     );

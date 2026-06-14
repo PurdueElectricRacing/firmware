@@ -101,6 +101,6 @@ void pedals_periodic(void) {
     if (is_latched(FAULT_ID_APPS_BRAKE) || is_latched(FAULT_ID_BSE)) {
         throttle_command = 0;
     }
-    static constexpr float ENDURANCE_THROTTLE_SCALE = 150.0f / 210.0f;
-    CAN_SEND_pedals(throttle_command * ENDURANCE_THROTTLE_SCALE, pedal_values.regen, pedal_values.brake);
+
+    CAN_SEND_pedals(throttle_command, pedal_values.regen, pedal_values.brake);
 }

@@ -89,6 +89,13 @@ void vcu_driver_request_CALLBACK(void) {
     report_vcu_settings();
 }
 
+static inline bool is_any_crit_stale() {
+    return can_data.pedals.is_stale()
+        || can_data.steering_angle.is_stale()
+        || can_data.wheel_speeds.is_stale()
+        || can_data.IZZE_angular_rate.is_stale();
+}
+
 void control_loop() {
     volatile uint32_t now = xTaskGetTickCount();
     if ((now - last_vcu_settings_tx) >= VCU_SETTINGS_PERIOD_MS) { // periodic sync
@@ -96,12 +103,7 @@ void control_loop() {
         last_vcu_settings_tx = now;
     }
 
-    volatile bool pedals_stale = can_data.pedals.is_stale();
-    volatile bool steering_stale = can_data.steering_angle.is_stale();
-    volatile bool wheelspeed_stale = can_data.wheel_speeds.is_stale();
-    volatile bool izze_stale = can_data.IZZE_angular_rate.is_stale();
-    volatile bool is_crit_stale = pedals_stale || steering_stale || wheelspeed_stale || izze_stale;
-    if (is_crit_stale) {
+    if (is_any_crit_stale()) {
         is_tv_enabled = false;
         return;
     }

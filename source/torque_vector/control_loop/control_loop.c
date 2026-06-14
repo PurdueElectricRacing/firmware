@@ -116,17 +116,17 @@ void control_loop() {
 
     xVCU.ST_RAW = can_data.steering_angle.angle * UNPACK_COEFF_STEERING_ANGLE_ANGLE * -1;
     xVCU.VB_RAW = can_data.pack_stats.pack_voltage * UNPACK_COEFF_PACK_STATS_PACK_VOLTAGE;
-    static constexpr float rpm2rads = 2.0f * 3.14f / 60.0f;
-    xVCU.WM_RAW[0] = can_data.wheel_speeds.front_left * rpm2rads;
-    xVCU.WM_RAW[1] = can_data.wheel_speeds.front_right * rpm2rads;
-    xVCU.WM_RAW[2] = can_data.wheel_speeds.rear_left * rpm2rads;
-    xVCU.WM_RAW[3] = can_data.wheel_speeds.rear_right * rpm2rads;
+    static constexpr float RPM_TO_RADS = 2.0f * 3.14f / 60.0f;
+    xVCU.WM_RAW[0] = can_data.wheel_speeds.front_left * RPM_TO_RADS;
+    xVCU.WM_RAW[1] = can_data.wheel_speeds.front_right * RPM_TO_RADS;
+    xVCU.WM_RAW[2] = can_data.wheel_speeds.rear_left * RPM_TO_RADS;
+    xVCU.WM_RAW[3] = can_data.wheel_speeds.rear_right * RPM_TO_RADS;
     xVCU.GS_RAW = nav_pvt.groundSpeed * 1E-3f; // convert mm/s to m/s
 
-    static constexpr float deg2rad = 3.14f / 180.0f;
-    xVCU.AV_RAW[0] = imu_data.gyro_x * deg2rad;
-    xVCU.AV_RAW[1] = imu_data.gyro_y * deg2rad;
-    xVCU.AV_RAW[2] = imu_data.gyro_z * deg2rad;
+    static constexpr float DEG_TO_RAD = 3.14f / 180.0f;
+    xVCU.AV_RAW[0] = imu_data.gyro_x * DEG_TO_RAD;
+    xVCU.AV_RAW[1] = imu_data.gyro_y * DEG_TO_RAD;
+    xVCU.AV_RAW[2] = imu_data.gyro_z * DEG_TO_RAD;
     xVCU.IB_RAW = can_data.pack_stats.pack_current * UNPACK_COEFF_PACK_STATS_PACK_CURRENT;
 
     int16_t max_motor_temp = MAXOF(
@@ -135,8 +135,7 @@ void control_loop() {
         can_data.motor_temps.rear_left,
         can_data.motor_temps.rear_right
     );
-    int16_t scaled_motor_temp = max_motor_temp * UNPACK_COEFF_MOTOR_TEMPS_FRONT_RIGHT;
-    xVCU.MT_RAW = scaled_motor_temp;
+    xVCU.MT_RAW = max_motor_temp * UNPACK_COEFF_MOTOR_TEMPS_FRONT_RIGHT;
 
     int16_t max_igbt_temp = MAXOF(
         can_data.igbt_temps.front_right,
@@ -144,8 +143,7 @@ void control_loop() {
         can_data.igbt_temps.rear_left,
         can_data.igbt_temps.rear_right
     );
-    int16_t scaled_igbt_temp = max_igbt_temp * UNPACK_COEFF_IGBT_TEMPS_FRONT_RIGHT;
-    xVCU.IGBT_T_RAW = scaled_igbt_temp;
+    xVCU.IGBT_T_RAW = max_igbt_temp * UNPACK_COEFF_IGBT_TEMPS_FRONT_RIGHT;
 
     xVCU.BT_RAW = 30.0f; // ! hardcoded to 30C for now
 
@@ -162,11 +160,11 @@ void control_loop() {
     // step the VCU model
     vcu_step(&pVCU, &xVCU, &yVCU);
 
-    static constexpr float nm_to_pct = (1.0f / 9.8f) * 100.0f;
-    float torque_front_right_pct = yVCU.TORQUE_OUT[1] * nm_to_pct;
-    float torque_front_left_pct = yVCU.TORQUE_OUT[0] * nm_to_pct;
-    float torque_rear_left_pct = yVCU.TORQUE_OUT[2] * nm_to_pct;
-    float torque_rear_right_pct = yVCU.TORQUE_OUT[3] * nm_to_pct;
+    static constexpr float NM_TO_PCT = (1.0f / 9.8f) * 100.0f;
+    float torque_front_right_pct = yVCU.TORQUE_OUT[1] * NM_TO_PCT;
+    float torque_front_left_pct  = yVCU.TORQUE_OUT[0] * NM_TO_PCT;
+    float torque_rear_left_pct   = yVCU.TORQUE_OUT[2] * NM_TO_PCT;
+    float torque_rear_right_pct  = yVCU.TORQUE_OUT[3] * NM_TO_PCT;
 
     // send outputs on CAN
     CAN_SEND_vcu_torque_request(

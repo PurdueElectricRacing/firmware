@@ -84,9 +84,6 @@ void pedals_periodic(void) {
     // FSAE 2026 T.4.2.5: if the two throttle sensors differ by 10%, trigger implaus
     int throttle_diff = ABS((int)throttle1 - (int)throttle2);
     update_fault(FAULT_ID_APPS_IMPLAUSIBLE, throttle_diff);
-    if (is_latched(FAULT_ID_APPS_IMPLAUSIBLE)) {
-        throttle_command = 0;
-    }
 
     // FSAE 2026 EV.4.7: if both pedals are pressed, set throttle to 0 until throttle is released
     if (is_clear(FAULT_ID_APPS_BRAKE)) {
@@ -98,7 +95,12 @@ void pedals_periodic(void) {
         update_fault(FAULT_ID_APPS_BRAKE, is_throttle_pressed);
     }
 
-    if (is_latched(FAULT_ID_APPS_BRAKE) || is_latched(FAULT_ID_BSE)) {
+    // zero the throttle command if any faults are latched
+    if (is_latched(FAULT_ID_APPS_WIRING_T1) ||
+        is_latched(FAULT_ID_APPS_WIRING_T2) ||
+        is_latched(FAULT_ID_BSE) ||
+        is_latched(FAULT_ID_APPS_IMPLAUSIBLE) ||
+        is_latched(FAULT_ID_APPS_BRAKE)) {
         throttle_command = 0;
     }
 

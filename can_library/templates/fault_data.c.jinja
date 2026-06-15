@@ -18,7 +18,7 @@ fault_t faults[TOTAL_NUM_FAULTS] = {
         .min_value = {{ fault.min_val }},
         .latch_time_ms = {{ fault.latch_time }},
         .unlatch_time_ms = {{ fault.unlatch_time }},
-        .state = FAULT_STATE_CLEAR,
+        .state = FAULT_STATE_LATCHED, // start latched to sync initial state across MCUs
         .priority = FAULT_PRIO_{{ fault.priority_upper }}
     },
 {% endfor %}

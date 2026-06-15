@@ -383,10 +383,19 @@ void adbms_read_therms(adbms_bms_t *bms) {
 }
 
 void adbms_periodic(adbms_bms_t *bms, float min_voltage_for_balance, float min_delta_for_balance) {
+    static int connect_attempts = 0;
     adbms6380_wake(bms->spi, ADBMS_MODULE_COUNT);
     switch (bms->state) {
         case ADBMS_STATE_IDLE: {
             adbms_connect(bms);
+            if (bms->state == ADBMS_STATE_CONNECTED) {
+                connect_attempts = 0;
+            } else {
+                connect_attempts++;
+                if (connect_attempts >= 4) {
+                    bms->state = ADBMS_STATE_RECOVERING;
+                }
+            }
             break;
         }
         case ADBMS_STATE_CONNECTED: {
@@ -404,6 +413,7 @@ void adbms_periodic(adbms_bms_t *bms, float min_voltage_for_balance, float min_d
         case ADBMS_STATE_RECOVERING: {
             // Do a full sleep-wake cycle
             osDelay(2500); // ADBMS6380 chips sleep after 2.2s of inactivity
+            connect_attempts = 0;
             bms->state = ADBMS_STATE_IDLE;
             break;
         }

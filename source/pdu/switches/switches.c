@@ -47,7 +47,7 @@ static const pdu_switch_output_t PDU_SWITCH_OUTPUTS[] = {
     {.switch_id = SW_AMK2, .ctrl_port = nullptr, .ctrl_pin = 0, .has_ctrl_output = false, .led_id = LED_NONE},
     {.switch_id = SW_DASH, .ctrl_port = nullptr, .ctrl_pin = 0, .has_ctrl_output = false, .led_id = LED_DASH},
     {.switch_id = SW_ABOX, .ctrl_port = nullptr, .ctrl_pin = 0, .has_ctrl_output = false, .led_id = LED_ABOX},
-    {.switch_id = SW_MAIN, .ctrl_port = nullptr, .ctrl_pin = 0, .has_ctrl_output = false, .led_id = LED_MAIN},
+    {.switch_id = SW_MAIN, .ctrl_port = MAIN_CTRL_GPIO_Port, .ctrl_pin = MAIN_CTRL_Pin, .has_ctrl_output = true, .led_id = LED_MAIN},
     {.switch_id = SW_DLFR, .ctrl_port = DLFR_CTRL_GPIO_Port, .ctrl_pin = DLFR_CTRL_Pin, .has_ctrl_output = true, .led_id = LED_DLFR},
     {.switch_id = SW_DLBK, .ctrl_port = DLBK_CTRL_GPIO_Port, .ctrl_pin = DLBK_CTRL_Pin, .has_ctrl_output = true, .led_id = LED_DLBK},
     {.switch_id = SW_BLT, .ctrl_port = BLT_CTRL_GPIO_Port, .ctrl_pin = BLT_CTRL_Pin, .has_ctrl_output = true, .led_id = LED_BLT},

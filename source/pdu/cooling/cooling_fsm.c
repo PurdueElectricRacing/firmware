@@ -25,7 +25,10 @@ static cooling_state_t cooling_state      = COOLING_STATE_INIT;
 static cooling_state_t next_cooling_state = COOLING_STATE_INIT;
 
 static constexpr uint32_t PWM_FREQUENCY_HZ = 25'000; // 25kHz
-static constexpr uint8_t  NUM_BATTERY_FANS = 4;
+static constexpr uint8_t NUM_BATTERY_FANS  = 4;
+static constexpr uint8_t FANS_PWM_DUTY     = 50;
+static_assert(FANS_PWM_DUTY <= 99, "PWM duty cycle must be between 0 and 99");
+static_assert(FANS_PWM_DUTY >= 0, "PWM duty cycle must be between 0 and 99");
 
 // PWM init assumes they're all on the same channel
 #define FAN_PWM_TIM (TIM1)
@@ -36,9 +39,8 @@ static_assert(FAN_4_PWM_TIM == FAN_PWM_TIM);
 
 static constexpr float POWERTRAIN_PUMPS_UPPER_LIMIT = 40.0f;
 static constexpr float POWERTRAIN_PUMPS_LOWER_LIMIT = 35.0f;
-static constexpr uint32_t POWERTRAIN_PUMPS_INTERVAL = 1000;
+static constexpr uint32_t POWERTRAIN_PUMPS_INTERVAL = 5000;
 
-// hx fan is unused for now
 static constexpr float HX_FAN_UPPER_LIMIT = 35.0f;
 static constexpr float HX_FAN_LOWER_LIMIT = 25.0f;
 static constexpr uint32_t HX_FAN_INTERVAL = 1000;
@@ -120,10 +122,10 @@ void cooling_fsm_periodic(void) {
         case COOLING_STATE_INIT: {
             if (PHAL_initPWM(PWM_FREQUENCY_HZ, FAN_PWM_TIM, NUM_BATTERY_FANS)) {
                 // set the PWMS to full
-                PHAL_PWMsetPercent(FAN_1_PWM_TIM, FAN_1_PWM_TIM_CH, 95);
-                PHAL_PWMsetPercent(FAN_2_PWM_TIM, FAN_2_PWM_TIM_CH, 95);
-                PHAL_PWMsetPercent(FAN_3_PWM_TIM, FAN_3_PWM_TIM_CH, 95);
-                PHAL_PWMsetPercent(FAN_4_PWM_TIM, FAN_4_PWM_TIM_CH, 95);
+                PHAL_PWMsetPercent(FAN_1_PWM_TIM, FAN_1_PWM_TIM_CH, FANS_PWM_DUTY);
+                PHAL_PWMsetPercent(FAN_2_PWM_TIM, FAN_2_PWM_TIM_CH, FANS_PWM_DUTY);
+                PHAL_PWMsetPercent(FAN_3_PWM_TIM, FAN_3_PWM_TIM_CH, FANS_PWM_DUTY);
+                PHAL_PWMsetPercent(FAN_4_PWM_TIM, FAN_4_PWM_TIM_CH, FANS_PWM_DUTY);
                 next_cooling_state = COOLING_STATE_AUTO;
             }
             break;

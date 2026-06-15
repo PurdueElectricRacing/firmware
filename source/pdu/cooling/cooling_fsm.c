@@ -34,8 +34,8 @@ static_assert(FAN_2_PWM_TIM == FAN_PWM_TIM);
 static_assert(FAN_3_PWM_TIM == FAN_PWM_TIM);
 static_assert(FAN_4_PWM_TIM == FAN_PWM_TIM);
 
-static constexpr float POWERTRAIN_PUMPS_UPPER_LIMIT = 35.0f;
-static constexpr float POWERTRAIN_PUMPS_LOWER_LIMIT = 25.0f;
+static constexpr float POWERTRAIN_PUMPS_UPPER_LIMIT = 40.0f;
+static constexpr float POWERTRAIN_PUMPS_LOWER_LIMIT = 35.0f;
 static constexpr uint32_t POWERTRAIN_PUMPS_INTERVAL = 1000;
 
 // hx fan is unused for now

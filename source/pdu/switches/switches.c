@@ -187,7 +187,7 @@ void switches_enable_default_rails(void) {
     switches_set_state(SW_SDC, true);
     switches_set_state(SW_DAQ, true);
     switches_set_state(SW_TV, true);
-    switches_set_state(SW_MAIN, true);
+    switches_set_state(SW_MAIN, false);
     switches_set_state(SW_ABOX, true);
     switches_set_state(SW_DASH, true);
     switches_set_state(SW_CRIT_5V, true);

@@ -266,9 +266,16 @@ static void heartbeat_led_sweep(void) {
     }
 }
 
+static void tsal_delayed_start() {
+    osDelay(1000);
+    switches_set_state(SW_MAIN, true);
+    osThreadTerminate(NULL);
+}
+
 // Thread Defines
 DEFINE_CAN_TASKS();
 DEFINE_TASK(switches_periodic, 15, osPriorityNormal, STACK_512);
+DEFINE_TASK(tsal_delayed_start, 1000, osPriorityLow, STACK_512);
 DEFINE_TASK(cooling_fsm_periodic, COOLING_FSM_PERIOD_MS, osPriorityNormal, STACK_1024);
 DEFINE_TASK(LED_periodic, 500, osPriorityLow, STACK_512);
 DEFINE_TASK(faults_periodic, 100, osPriorityLow, STACK_512);
@@ -319,6 +326,7 @@ int main() {
     START_CAN_TASKS();
     CAN_SEND_pdu_init(WDG_get_CSR());
     START_TASK(switches_periodic);
+    START_TASK(tsal_delayed_start);
     START_TASK(cooling_fsm_periodic);
     START_TASK(LED_periodic);
     START_TASK(faults_periodic);

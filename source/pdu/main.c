@@ -143,7 +143,7 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_INPUT(DLBK_NFLT_GPIO_Port, DLBK_NFLT_Pin, GPIO_INPUT_OPEN_DRAIN),
     GPIO_INIT_ANALOG(DLBK_CS_GPIO_Port, DLBK_CS_Pin),
     // Main Module
-    // Disable software control GPIO_INIT_OUTPUT(MAIN_CTRL_GPIO_Port, MAIN_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
+    GPIO_INIT_OUTPUT(MAIN_CTRL_GPIO_Port, MAIN_CTRL_Pin, GPIO_OUTPUT_LOW_SPEED),
     GPIO_INIT_INPUT(MAIN_NFLT_GPIO_Port, MAIN_NFLT_Pin, GPIO_INPUT_OPEN_DRAIN),
     GPIO_INIT_ANALOG(MAIN_CS_GPIO_Port, MAIN_CS_Pin),
     // Dashboard
@@ -266,9 +266,16 @@ static void heartbeat_led_sweep(void) {
     }
 }
 
+static void tsal_delayed_start() {
+    osDelay(1000);
+    switches_set_state(SW_MAIN, true);
+    osThreadTerminate(NULL);
+}
+
 // Thread Defines
 DEFINE_CAN_TASKS();
 DEFINE_TASK(switches_periodic, 15, osPriorityNormal, STACK_512);
+DEFINE_TASK(tsal_delayed_start, 1000, osPriorityLow, STACK_512);
 DEFINE_TASK(cooling_fsm_periodic, COOLING_FSM_PERIOD_MS, osPriorityNormal, STACK_1024);
 DEFINE_TASK(LED_periodic, 500, osPriorityLow, STACK_512);
 DEFINE_TASK(faults_periodic, 100, osPriorityLow, STACK_512);
@@ -319,6 +326,7 @@ int main() {
     START_CAN_TASKS();
     CAN_SEND_pdu_init(WDG_get_CSR());
     START_TASK(switches_periodic);
+    START_TASK(tsal_delayed_start);
     START_TASK(cooling_fsm_periodic);
     START_TASK(LED_periodic);
     START_TASK(faults_periodic);

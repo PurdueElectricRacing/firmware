@@ -100,11 +100,14 @@ $(function(){initNavTree('md_source_2driveline_2README.html',''); initResizable(
   <div class="headertitle"><div class="title">Driveline</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md29"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md32"></a></p>
 <p>There are two nearly-identical driveline nodes on the vehicle. Front and rear.</p>
 <p>Driveline nodes are reponsible for interfacing with sensors, performing unit conversions, and publishing the telemetry to the CAN bus.</p>
 <p><a href="main.c"><code>main.c</code></a> implements the main logic, while any configuration/harnessing differences are specified in <code><a class="el" href="config_8h_source.html">config.h</a></code>.</p>
-<p>The front and rear nodes are built from the same source code, with CMake using different preprocessor definitions at compile time to generate two separate binaries </p>
+<p>The front and rear nodes are built from the same source code, with CMake using different preprocessor definitions at compile time to generate two separate binaries</p>
+<h1><a class="anchor" id="autotoc_md33"></a>
+Hardware Block Diagram</h1>
+<p><img src="driveline.drawio.png" alt="" class="inline" title="driveline"/>     </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

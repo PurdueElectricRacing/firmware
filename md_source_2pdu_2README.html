@@ -100,102 +100,13 @@ $(function(){initNavTree('md_source_2pdu_2README.html',''); initResizable(true);
   <div class="headertitle"><div class="title">PDU</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md33"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md38"></a></p>
 <p>PDU controls and monitors low-voltage power rails and cooling hardware for the car.</p>
-<h1><a class="anchor" id="autotoc_md34"></a>
-Responsibilities</h1>
-<ul>
-<li>Control switchable rails (GPIO outputs).</li>
-<li>Sample ADC channels for rail voltage/current telemetry.</li>
-<li>Scan rail nFAULT lines and report/latch faults.</li>
-<li>Control fan/pump/hxfan outputs and fan PWM duty cycles.</li>
-<li>Publish PDU telemetry and coolant output status over CAN.</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md35"></a>
-Module Layout</h1>
-<ul>
-<li><a href="main.c"><code>main.c</code></a><ul>
-<li>Board init, peripheral init, task definitions, task startup order.</li>
-<li>No business logic beyond orchestration.</li>
-</ul>
-</li>
-<li><code>state.c</code> / <code><a class="el" href="state_8h_source.html">state.h</a></code><ul>
-<li>Shared runtime state (<code>g_pdu_state</code>) for all PDU logic.</li>
-</ul>
-</li>
-<li><code>switches.c</code> / <code><a class="el" href="switches_8h_source.html">switches.h</a></code><ul>
-<li>Switch command/read API.</li>
-<li>ADC and mux measurement pipeline.</li>
-<li>Rail current/voltage conversions.</li>
-<li>Default-rail enable sequence.</li>
-</ul>
-</li>
-<li><a href="faults/faults.c"><code>faults.c</code></a> / <a href="faults/faults.h"><code>faults.h</code></a><ul>
-<li>Table-driven nFAULT polling.</li>
-<li>One-fault-slot-per-cycle update cadence.</li>
-<li>Rail fault LED behavior.</li>
-</ul>
-</li>
-<li><code>cooling.c</code> / <code>cooling.h</code><ul>
-<li>Cooling policy computation.</li>
-<li>Cooling actuation (switches + fan PWM).</li>
-<li>Cooling CAN output publication.</li>
-</ul>
-</li>
-<li><code>cooling_bangbang.c</code> / <code>cooling_bangbang.h</code><ul>
-<li>Optional bang-bang policy backend.</li>
-<li>Compiled in but disabled by default.</li>
-</ul>
-</li>
-<li><a href="telemetry/telemetry.c"><code>telemetry.c</code></a> / <a href="telemetry/telemetry.h"><code>telemetry.h</code></a><ul>
-<li>Power/thermal telemetry CAN publication.</li>
-<li>Flowrate telemetry CAN publication.</li>
-</ul>
-</li>
-<li>Hardware adapter modules (kept separate):<ul>
-<li><code>led/</code></li>
-<li><code>fan_control/</code></li>
-<li><code>flow_rate/</code></li>
-</ul>
-</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md36"></a>
-Runtime State (<code>g_pdu_state</code>)</h1>
-<p>The shared state contains:</p>
-<ul>
-<li><code>rail_voltage_mv</code> for 24V/5V/3V3 measurements.</li>
-<li><code>switch_current_ma[]</code> for sensed currents (switch and rail channels).</li>
-<li><code>mux_adc_counts[]</code> and <code>next_mux_channel</code> for mux-sampled inputs.</li>
-<li><code>next_rail_fault_index</code> for staggered rail fault scanning.</li>
-<li><code>cooling_command</code> for requested/applied cooling outputs.</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md37"></a>
-Task Model</h1>
-<p>Defined in <a href="main.c"><code>main.c</code></a>:</p>
-<ul>
-<li><code>CAN_rx_update</code> (0 ms)</li>
-<li><code>CAN_tx_update</code> (5 ms)</li>
-<li><code>switches_periodic</code> (15 ms)</li>
-<li><code>cooling_periodic</code> (100 ms)</li>
-<li><code>faults_periodic</code> (100 ms)</li>
-<li><code>fault_library_periodic</code> (100 ms)</li>
-<li><code>telemetry_flow_periodic</code> (200 ms)</li>
-<li><code>LED_periodic</code> (500 ms)</li>
-<li><code>telemetry_power_periodic</code> (500 ms)</li>
-<li>Heartbeat task (LED sweep callback)</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md38"></a>
-Cooling Backend: Bang-Bang (Disabled by Default)</h1>
-<p>The bang-bang backend is present for future policy work, but disabled to preserve current behavior.</p>
-<ul>
-<li>Toggle: <code>COOLING_ENABLE_BANGBANG</code> in <code>cooling_bangbang.h</code><ul>
-<li><code>0</code> (default): backend is a no-op.</li>
-<li><code>1</code>: motor temp based bang-bang updates are applied.</li>
-</ul>
-</li>
-</ul>
-<p>Current non-bangbang behavior remains the active policy path. </p>
-</div></div><!-- contents -->
+<div class="image">
+<img src="power_rails.png" alt=""/>
+<div class="caption">
+power rails</div></div>
+     </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -6,3 +6,6 @@ Driveline nodes are reponsible for interfacing with sensors, performing unit con
 [`main.c`](main.c) implements the main logic, while any configuration/harnessing differences are specified in `config.h`.
 
 The front and rear nodes are built from the same source code, with CMake using different preprocessor definitions at compile time to generate two separate binaries
+
+## Hardware Block Diagram
+![driveline](driveline.drawio.png)

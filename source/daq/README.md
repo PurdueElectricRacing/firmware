@@ -10,7 +10,10 @@ This directory contains the firmware source code for the Data Acquisition (DAQ) 
 - `sd_card/` - SD logging and file management
 - `ethernet/` - Real-time UDP streaming of CAN bus activity wirelessly
 
-## High Level
+## Hardware Block Diagram
+![daq](daq.drawio.png)
+
+## Software Timing Diagram
 ![timing diagram](DAQ_timing_diagram.drawio.png)
 
 ## SPMC Queue
@@ -38,6 +41,3 @@ Notes:
 
 ## Ethernet
 ![ethernet fsm](ethernet/ethernet_FSM.drawio.png)
-
-> [!NOTE]
-> todo more detailed docs

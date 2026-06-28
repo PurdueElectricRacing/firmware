@@ -1,4 +1,4 @@
-## Source
+# Source
 Firmware source code for PER's distributed vehicle software. One directory per node, each is compiled into a separate binary. See each node's own README for module-level details.
 
 ## Vehicle control nodes
@@ -17,3 +17,6 @@ Firmware source code for PER's distributed vehicle software. One directory per n
 ## Bench / dev nodes
 - `f4_testing` STM32F4-based bench testing target. Not deployed on the vehicle.
 - `g4_testing` STM32G4-based bench testing target. Not deployed on the vehicle.
+
+## Torque Path
+![torque path](./torque_path.drawio.png)

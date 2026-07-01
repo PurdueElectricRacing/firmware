@@ -9,6 +9,7 @@
 
 #include "can_library/generated/TORQUE_VECTOR.h"
 #include "sensors.h"
+#include "common/utils/clamp.h"
 
 /**
  * @brief Reports telemetry data at 100HZ rate
@@ -36,6 +37,6 @@ void report_telemetry_1hz(void) {
         nav_pvt.hour,
         nav_pvt.minute,
         nav_pvt.second,
-        nav_pvt.nano / 1000000
+        (uint16_t)clamp_int(nav_pvt.nano / 1e-6, 0, 999)
     );
 }

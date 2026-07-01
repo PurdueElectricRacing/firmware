@@ -36,6 +36,6 @@ void report_telemetry_1hz(void) {
         nav_pvt.hour,
         nav_pvt.minute,
         nav_pvt.second,
-        0
+        nav_pvt.nano / 1000000
     );
 }

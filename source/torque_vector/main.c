@@ -91,7 +91,7 @@ extern void HardFault_Handler(void);
 DEFINE_CAN_TASKS();
 DEFINE_TASK(control_loop, CONTROL_LOOP_PERIOD_MS, osPriorityNormal, STACK_4096);
 DEFINE_TASK(gps_periodic, GPS_THREAD_PERIOD_MS, osPriorityLow, STACK_1024);
-DEFINE_TASK(report_telemetry_100hz, TELEMETRY_100HZ_PERIOD_MS, osPriorityLow, STACK_512);
+DEFINE_TASK(report_telemetry_25hz, TELEMETRY_25HZ_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_TASK(report_telemetry_1hz, TELEMETRY_1HZ_PERIOD_MS, osPriorityLow, STACK_512);
 DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(nullptr);
@@ -130,7 +130,7 @@ int main(void) {
     CAN_SEND_tv_init(WDG_get_CSR());
     START_TASK(control_loop);
     START_TASK(gps_periodic);
-    START_TASK(report_telemetry_100hz);
+    START_TASK(report_telemetry_25hz);
     START_TASK(report_telemetry_1hz);
     START_HEARTBEAT_TASK();
     START_WATCHDOG_TASK();

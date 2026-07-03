@@ -33,7 +33,7 @@
                             "scale": 1e-3
                         }
                     ],
-                    "msg_period": 10,
+                    "msg_period": 40,
                     "msg_priority": 5
                 },
                 {
@@ -53,7 +53,7 @@
                             "scale": 1e-5
                         }
                     ],
-                    "msg_period": 10,
+                    "msg_period": 40,
                     "msg_priority": 3
                 },
                 {
@@ -73,7 +73,7 @@
                             "scale": 1e-7
                         }
                     ],
-                    "msg_period": 10,
+                    "msg_period": 40,
                     "msg_priority": 5
                 },
                 {

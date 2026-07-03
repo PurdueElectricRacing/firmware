@@ -1,4 +1,4 @@
-use crate::{action, app, assets, connection, formatter, messages, util};
+use crate::{action, app, assets, connection, formatter, messages, util, widget_constructor};
 use eframe::egui;
 
 pub fn select_dbc(
@@ -44,61 +44,66 @@ pub fn show(app: &mut app::DAQApp, ctx: &egui::Context) {
 
             if ui.button("Add CAN Viewer Table").clicked() {
                 app.action_queue.push(action::AppAction::SpawnWidget(
-                    action::WidgetType::ViewerTable,
+                    widget_constructor::WidgetConstructor::ViewerTable,
                 ));
             }
 
             if ui.button("Add CAN Viewer List").clicked() {
                 app.action_queue.push(action::AppAction::SpawnWidget(
-                    action::WidgetType::ViewerList,
+                    widget_constructor::WidgetConstructor::ViewerList,
                 ));
             }
 
             if ui.button("Add Bootloader").clicked() {
                 app.action_queue.push(action::AppAction::SpawnWidget(
-                    action::WidgetType::Bootloader,
+                    widget_constructor::WidgetConstructor::Bootloader,
                 ));
             }
 
             if ui.button("Add Log Parser").clicked() {
                 app.action_queue.push(action::AppAction::SpawnWidget(
-                    action::WidgetType::LogParser,
+                    widget_constructor::WidgetConstructor::LogParser,
                 ));
             }
 
             if ui.button("Add Message Sender").clicked() {
-                app.action_queue
-                    .push(action::AppAction::SpawnWidget(action::WidgetType::SendUi));
+                app.action_queue.push(action::AppAction::SpawnWidget(
+                    widget_constructor::WidgetConstructor::SendUi,
+                ));
             }
 
             if ui.button("Add Bus Load").clicked() {
-                app.action_queue
-                    .push(action::AppAction::SpawnWidget(action::WidgetType::BusLoad));
+                app.action_queue.push(action::AppAction::SpawnWidget(
+                    widget_constructor::WidgetConstructor::BusLoad,
+                ));
             }
 
             if ui.button("Add Battery Voltage").clicked() {
                 app.action_queue.push(action::AppAction::SpawnWidget(
-                    action::WidgetType::BatteryVoltage,
+                    widget_constructor::WidgetConstructor::BatteryVoltage,
                 ));
             }
 
             if ui.button("Add Battery Temps").clicked() {
                 app.action_queue.push(action::AppAction::SpawnWidget(
-                    action::WidgetType::BatteryTemps,
+                    widget_constructor::WidgetConstructor::BatteryTemps,
                 ));
             }
 
             if ui.button("Add G-G Plot").clicked() {
-                app.action_queue
-                    .push(action::AppAction::SpawnWidget(action::WidgetType::GgPlot));
+                app.action_queue.push(action::AppAction::SpawnWidget(
+                    widget_constructor::WidgetConstructor::GgPlot,
+                ));
             }
             if ui.button("Add Dynamics").clicked() {
-                app.action_queue
-                    .push(action::AppAction::SpawnWidget(action::WidgetType::Dynamics));
+                app.action_queue.push(action::AppAction::SpawnWidget(
+                    widget_constructor::WidgetConstructor::Dynamics,
+                ));
             }
             if ui.button("Add Jitter").clicked() {
-                app.action_queue
-                    .push(action::AppAction::SpawnWidget(action::WidgetType::Jitter));
+                app.action_queue.push(action::AppAction::SpawnWidget(
+                    widget_constructor::WidgetConstructor::Jitter,
+                ));
             }
 
             ui.separator();

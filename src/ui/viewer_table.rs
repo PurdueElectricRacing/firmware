@@ -1,4 +1,4 @@
-use crate::{action, app, formatter, frozen, messages};
+use crate::{action, app, formatter, frozen, messages, widget_constructor};
 use eframe::egui;
 
 type DecodedMsgMap = hashbrown::HashMap<u32, messages::ParsedMessage>;
@@ -393,7 +393,7 @@ impl MessageCard<'_> {
                                 |ui| {
                                     if ui.small_button("📊").clicked() {
                                         action_queue.push(action::AppAction::SpawnWidget(
-                                            action::WidgetType::Scope {
+                                            widget_constructor::WidgetConstructor::Scope {
                                                 msg_id: self.msg_id,
                                                 msg_name: self.msg_name.to_string(),
                                                 signal_name: sig_name.to_string(),

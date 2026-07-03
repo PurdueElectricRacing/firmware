@@ -1,6 +1,6 @@
 use crate::{
-    action, connection, formatter, messages, settings, shortcuts, theme, ui, util, widgets,
-    workspace,
+    action, connection, formatter, messages, settings, shortcuts, theme, ui, util, widget_ids,
+    widgets, workspace,
 };
 use eframe::egui;
 
@@ -39,18 +39,7 @@ pub struct DAQApp {
     pub is_sidebar_open: bool,
     pub command_palette: ui::command_palette::CommandPalette,
     pub tile_tree: egui_tiles::Tree<widgets::Widget>,
-    pub next_can_viewer_num: usize,
-    pub next_can_list_num: usize,
-    pub next_bootloader_num: usize,
-    pub next_scope_num: usize,
-    pub next_log_parser_num: usize,
-    pub next_send_ui_num: usize,
-    pub next_bus_load_num: usize,
-    pub next_battery_voltage_num: usize,
-    pub next_battery_temps_num: usize,
-    pub next_gg_plot_num: usize,
-    pub next_dynamics_num: usize,
-    pub next_jitter_num: usize,
+    pub widget_ids: widget_ids::WidgetIds,
     pub can_to_ui_rx: std::sync::mpsc::Receiver<messages::MsgFromCan>,
     pub ui_to_can_tx: std::sync::mpsc::Sender<messages::MsgFromUi>,
     pub action_queue: Vec<action::AppAction>,
@@ -95,18 +84,7 @@ impl DAQApp {
             is_sidebar_open: true,
             command_palette: ui::command_palette::CommandPalette::new(),
             tile_tree: egui_tiles::Tree::empty("workspace_tree"),
-            next_can_viewer_num: 1,
-            next_can_list_num: 1,
-            next_bootloader_num: 1,
-            next_scope_num: 1,
-            next_log_parser_num: 1,
-            next_send_ui_num: 1,
-            next_bus_load_num: 1,
-            next_battery_voltage_num: 1,
-            next_battery_temps_num: 1,
-            next_gg_plot_num: 1,
-            next_dynamics_num: 1,
-            next_jitter_num: 1,
+            widget_ids: widget_ids::WidgetIds::new(),
             can_to_ui_rx,
             ui_to_can_tx,
             action_queue: Vec::new(),
@@ -164,95 +142,8 @@ impl DAQApp {
     pub fn handle_action(&mut self, action: action::AppAction, ctx: &egui::Context) {
         match action {
             action::AppAction::SpawnWidget(widget_type) => {
-                let widget = match &widget_type {
-                    action::WidgetType::ViewerTable => widgets::Widget::ViewerTable(
-                        ui::viewer_table::ViewerTable::new(self.next_can_viewer_num),
-                    ),
-                    action::WidgetType::ViewerList => widgets::Widget::ViewerList(
-                        ui::viewer_list::ViewerList::new(self.next_can_list_num),
-                    ),
-                    action::WidgetType::Bootloader => widgets::Widget::Bootloader(
-                        ui::bootloader::Bootloader::new(self.next_bootloader_num),
-                    ),
-                    action::WidgetType::Scope {
-                        msg_id,
-                        msg_name,
-                        signal_name,
-                    } => widgets::Widget::Scope(ui::scope::Scope::new(
-                        self.next_scope_num,
-                        *msg_id,
-                        msg_name.clone(),
-                        signal_name.clone(),
-                    )),
-                    action::WidgetType::LogParser => widgets::Widget::LogParser(
-                        ui::log_parser::LogParser::new(self.next_log_parser_num),
-                    ),
-                    action::WidgetType::SendUi => widgets::Widget::SendUi(ui::send::SendUi::new(
-                        self.next_send_ui_num,
-                        self.ui_to_can_tx.clone(),
-                    )),
-                    action::WidgetType::BusLoad => {
-                        widgets::Widget::BusLoad(ui::bus_load::BusLoad::new(self.next_bus_load_num))
-                    }
-                    action::WidgetType::BatteryVoltage => widgets::Widget::BatteryVoltage(
-                        ui::battery::battery_voltage::BatteryVoltage::new(
-                            self.next_battery_voltage_num,
-                        ),
-                    ),
-                    action::WidgetType::BatteryTemps => widgets::Widget::BatteryTemps(
-                        ui::battery::battery_temps::BatteryTemps::new(self.next_battery_temps_num),
-                    ),
-                    action::WidgetType::GgPlot => {
-                        widgets::Widget::GgPlot(ui::gg_plot::GgPlot::new(self.next_gg_plot_num))
-                    }
-                    action::WidgetType::Dynamics => widgets::Widget::Dynamics(
-                        ui::dynamics::Dynamics::new(self.next_dynamics_num),
-                    ),
-                    action::WidgetType::Jitter => {
-                        widgets::Widget::Jitter(ui::jitter::Jitter::new(self.next_jitter_num))
-                    }
-                };
+                let widget = widget_type.create(&mut self.widget_ids, self.ui_to_can_tx.clone());
                 self.add_widget_to_tree(widget);
-
-                // Increment the appropriate counter
-                match widget_type {
-                    action::WidgetType::ViewerTable => {
-                        self.next_can_viewer_num += 1;
-                    }
-                    action::WidgetType::ViewerList => {
-                        self.next_can_list_num += 1;
-                    }
-                    action::WidgetType::Bootloader => {
-                        self.next_bootloader_num += 1;
-                    }
-                    action::WidgetType::Scope { .. } => {
-                        self.next_scope_num += 1;
-                    }
-                    action::WidgetType::LogParser => {
-                        self.next_log_parser_num += 1;
-                    }
-                    action::WidgetType::SendUi => {
-                        self.next_send_ui_num += 1;
-                    }
-                    action::WidgetType::BusLoad => {
-                        self.next_bus_load_num += 1;
-                    }
-                    action::WidgetType::BatteryVoltage => {
-                        self.next_battery_voltage_num += 1;
-                    }
-                    action::WidgetType::BatteryTemps => {
-                        self.next_battery_temps_num += 1;
-                    }
-                    action::WidgetType::GgPlot => {
-                        self.next_gg_plot_num += 1;
-                    }
-                    action::WidgetType::Dynamics => {
-                        self.next_dynamics_num += 1;
-                    }
-                    action::WidgetType::Jitter => {
-                        self.next_jitter_num += 1;
-                    }
-                }
             }
             action::AppAction::ToggleSidebar => {
                 self.is_sidebar_open = !self.is_sidebar_open;

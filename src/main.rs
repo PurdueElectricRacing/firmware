@@ -12,6 +12,8 @@ mod shortcuts;
 mod theme;
 mod ui;
 mod util;
+mod widget_constructor;
+mod widget_ids;
 mod widgets;
 mod workspace;
 

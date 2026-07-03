@@ -1,5 +1,7 @@
+use crate::widget_constructor;
+
 pub enum AppAction {
-    SpawnWidget(WidgetType),
+    SpawnWidget(widget_constructor::WidgetConstructor),
     ToggleSidebar,
     ToggleCommandPalette,
     CloseActiveWidget,
@@ -7,40 +9,53 @@ pub enum AppAction {
     DecreaseScale,
 }
 
-#[derive(Clone, Debug, PartialEq)]
-pub enum WidgetType {
-    ViewerTable,
-    ViewerList,
-    Bootloader,
-    Scope {
-        msg_id: u32,
-        msg_name: String,
-        signal_name: String,
-    },
-    LogParser,
-    SendUi,
-    BusLoad,
-    BatteryVoltage,
-    BatteryTemps,
-    GgPlot,
-    Dynamics,
-    Jitter,
-}
-
 impl AppAction {
-    pub fn cmd_palette_list() -> Vec<(&'static str, WidgetType)> {
+    pub fn cmd_palette_list() -> Vec<(&'static str, widget_constructor::WidgetConstructor)> {
         vec![
-            ("Spawn CAN Table", WidgetType::ViewerTable),
-            ("Spawn CAN List", WidgetType::ViewerList),
-            ("Spawn Bootloader", WidgetType::Bootloader),
-            ("Spawn Log Parser", WidgetType::LogParser),
-            ("Spawn Send UI", WidgetType::SendUi),
-            ("Spawn Bus Load", WidgetType::BusLoad),
-            ("Spawn Battery Voltage", WidgetType::BatteryVoltage),
-            ("Spawn Battery Temps", WidgetType::BatteryTemps),
-            ("Spawn G-G Plot", WidgetType::GgPlot),
-            ("Spawn Dynamics", WidgetType::Dynamics),
-            ("Spawn Jitter", WidgetType::Jitter),
+            (
+                "Spawn CAN Table",
+                widget_constructor::WidgetConstructor::ViewerTable,
+            ),
+            (
+                "Spawn CAN List",
+                widget_constructor::WidgetConstructor::ViewerList,
+            ),
+            (
+                "Spawn Bootloader",
+                widget_constructor::WidgetConstructor::Bootloader,
+            ),
+            (
+                "Spawn Log Parser",
+                widget_constructor::WidgetConstructor::LogParser,
+            ),
+            (
+                "Spawn Send UI",
+                widget_constructor::WidgetConstructor::SendUi,
+            ),
+            (
+                "Spawn Bus Load",
+                widget_constructor::WidgetConstructor::BusLoad,
+            ),
+            (
+                "Spawn Battery Voltage",
+                widget_constructor::WidgetConstructor::BatteryVoltage,
+            ),
+            (
+                "Spawn Battery Temps",
+                widget_constructor::WidgetConstructor::BatteryTemps,
+            ),
+            (
+                "Spawn G-G Plot",
+                widget_constructor::WidgetConstructor::GgPlot,
+            ),
+            (
+                "Spawn Dynamics",
+                widget_constructor::WidgetConstructor::Dynamics,
+            ),
+            (
+                "Spawn Jitter",
+                widget_constructor::WidgetConstructor::Jitter,
+            ),
         ]
     }
 }

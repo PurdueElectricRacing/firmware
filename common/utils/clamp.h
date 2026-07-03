@@ -13,7 +13,7 @@
 
 #define DEFINE_CLAMP(type, name)                                      \
 [[gnu::always_inline]]                                                \
-static inline type clamp_##name(type input, type lower, type upper) {  \
+static inline type clamp_##name(type input, type lower, type upper) { \
     if (input < lower) return lower;                                  \
     if (input > upper) return upper;                                  \
     return input;                                                     \

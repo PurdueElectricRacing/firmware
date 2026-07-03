@@ -34,6 +34,8 @@ void report_telemetry_25hz(void) {
 static_assert(GPS_TIME_PERIOD_MS == TELEMETRY_1HZ_PERIOD_MS);
 void report_telemetry_1hz(void) {
     if (is_clear(FAULT_ID_GPS_INVALID_FIX) && is_clear(FAULT_ID_GPS_INVALID_UTC)) {
+        uint16_t milliseconds = (uint16_t)CLAMP(nav_pvt.nano / 1'000'000, 0, 999);
+
         CAN_SEND_gps_time(
             (uint8_t)(nav_pvt.year - 2000),
             nav_pvt.month,
@@ -41,7 +43,7 @@ void report_telemetry_1hz(void) {
             nav_pvt.hour,
             nav_pvt.minute,
             nav_pvt.second,
-            (uint16_t)CLAMP(nav_pvt.nano / 1'000'000, 0, 999)
+            milliseconds
         );
     }
 }

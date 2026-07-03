@@ -308,22 +308,31 @@
     "generate_fault_messages": false,
     "faults": [
         {
-            "fault_name": "No_GPS_Fix",
+            "fault_name": "GPS_INVALID_FIX",
             "max": 1,
             "min": 0,
             "priority": "warning",
             "time_to_latch": 10,
             "time_to_unlatch": 10,
-            "lcd_message": "No GPS Fix"
+            "lcd_message": "Invalid GPS Fix"
         },
         {
-            "fault_name": "Yes_GPS_Fix",
+            "fault_name": "GPS_WEAK_FIX",
             "max": 1,
             "min": 0,
             "priority": "warning",
             "time_to_latch": 10,
             "time_to_unlatch": 10,
-            "lcd_message": "Yes GPS Fix"
+            "lcd_message": "Weak GPS Fix"
+        },
+        {
+            "fault_name": "GPS_INVALID_UTC",
+            "max": 1,
+            "min": 0,
+            "priority": "warning",
+            "time_to_latch": 10,
+            "time_to_unlatch": 10,
+            "lcd_message": "Invalid GPS UTC"
         }
     ]
 }

@@ -157,8 +157,10 @@ impl TableBuilder {
 
             let first_correlated_time: Option<String> =
                 chunk.correlation_fn.as_ref().and_then(|cf| {
-                    cf.correlate(first_time)
-                        .map(|dt| dt.format("%Y_%m_%d__%H_%M_%S").to_string())
+                    cf.correlate(first_time).map(|dt| {
+                        dt.to_rfc3339_opts(chrono::SecondsFormat::Millis, true)
+                            .replace(':', "-")
+                    })
                 });
 
             let out_file = match first_correlated_time {
@@ -181,7 +183,7 @@ impl TableBuilder {
                     .as_ref()
                     .and_then(|cf| cf.correlate(row_time))
                 {
-                    row[0] = ct.format("%H:%M:%S.%3f").to_string();
+                    row[0] = ct.to_rfc3339_opts(chrono::SecondsFormat::Millis, true);
                 }
                 row[1] = format!("{:.3}", row_time as f32 / 1000.0);
 

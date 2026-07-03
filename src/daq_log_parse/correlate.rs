@@ -18,11 +18,10 @@ pub struct CorrelationFunction {
 }
 
 impl CorrelationFunction {
-    pub fn correlate(&self, log_ts: u32) -> Option<chrono::DateTime<chrono::Local>> {
+    pub fn correlate(&self, log_ts: u32) -> Option<chrono::DateTime<chrono::Utc>> {
         let unix_ms = self.slope * log_ts as f64 + self.intercept_ms;
-
         match chrono::DateTime::from_timestamp_millis(unix_ms.round() as i64) {
-            Some(dt) => Some(dt.with_timezone(&chrono::Local)),
+            Some(dt) => Some(dt),
             None => {
                 log::error!(
                     "Correlated time {} ms for log time {} ms is out of range for chrono::DateTime",
@@ -122,19 +121,18 @@ pub fn time_correlate_chunk(chunk: Vec<ParsedMessage>) -> CorrelationChunkResult
                     })
                 {
                     let dt_utc = chrono::Utc.from_utc_datetime(&dt);
-                    let dt_local = chrono::DateTime::<chrono::Local>::from(dt_utc);
 
-                    let current_year = chrono::Local::now().year();
-                    if dt_local.year() < current_year - 2 || dt_local.year() > current_year + 2 {
+                    let current_year = chrono::Utc::now().year();
+                    if dt_utc.year() < current_year - 2 || dt_utc.year() > current_year + 2 {
                         log::warn!(
                             "GPS message at {} ms has suspicious year value {}, skipping",
                             msg.timestamp,
-                            dt_local.year()
+                            dt_utc.year()
                         );
                         continue;
                     }
 
-                    gps_points.push((msg.timestamp, dt_local));
+                    gps_points.push((msg.timestamp, dt_utc));
                 } else {
                     log::error!(
                         "GPS message at {} ms has invalid date/time values, skipping",

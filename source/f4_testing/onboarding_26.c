@@ -43,7 +43,7 @@ void HardFault_Handler();
 void ledblink1();
 // TODO add more function definitions here
 
-defineThreadStack(ledblink1, 250, osPriorityNormal, 64);
+defineThreadStack(ledblink1, 250, TASK_PRIORITY_NORMAL, 64);
 
 // TODO add thread definitions here
 

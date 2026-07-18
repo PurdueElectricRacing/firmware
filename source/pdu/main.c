@@ -274,13 +274,13 @@ static void tsal_delayed_start() {
 
 // Thread Defines
 DEFINE_CAN_TASKS();
-DEFINE_TASK(switches_periodic, 15, osPriorityNormal, STACK_512);
-DEFINE_TASK(tsal_delayed_start, 1000, osPriorityLow, STACK_512);
-DEFINE_TASK(cooling_fsm_periodic, COOLING_FSM_PERIOD_MS, osPriorityNormal, STACK_1024);
-DEFINE_TASK(LED_periodic, 500, osPriorityLow, STACK_512);
-DEFINE_TASK(faults_periodic, 100, osPriorityLow, STACK_512);
-DEFINE_TASK(fault_library_periodic, 100, osPriorityLow, STACK_1024);
-DEFINE_TASK(telemetry_10hz, 100, osPriorityLow, STACK_1024);
+DEFINE_TASK(switches_periodic, 15, TASK_PRIORITY_NORMAL, STACK_512);
+DEFINE_TASK(tsal_delayed_start, 1000, TASK_PRIORITY_LOW, STACK_512);
+DEFINE_TASK(cooling_fsm_periodic, COOLING_FSM_PERIOD_MS, TASK_PRIORITY_NORMAL, STACK_1024);
+DEFINE_TASK(LED_periodic, 500, TASK_PRIORITY_LOW, STACK_512);
+DEFINE_TASK(faults_periodic, 100, TASK_PRIORITY_LOW, STACK_512);
+DEFINE_TASK(fault_library_periodic, 100, TASK_PRIORITY_LOW, STACK_1024);
+DEFINE_TASK(telemetry_10hz, 100, TASK_PRIORITY_LOW, STACK_1024);
 DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(heartbeat_led_sweep);
 

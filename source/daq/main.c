@@ -99,9 +99,9 @@ volatile TaskHandle_t sd_task_handle = nullptr;
 static void configure_interrupts(void);
 void shutdown(void);
 
-DEFINE_TASK(sd_card_periodic, SD_FSM_PERIOD_MS, osPriorityHigh, STACK_4096); // SD WRITE
-DEFINE_TASK(ethernet_periodic, 0, osPriorityNormal, STACK_4096); // BULLET COMMS 
-DEFINE_TASK(RTC_sync, 0, osPriorityLow, STACK_512);
+DEFINE_TASK(sd_card_periodic, SD_FSM_PERIOD_MS, TASK_PRIORITY_HIGH, STACK_4096); // SD WRITE
+DEFINE_TASK(ethernet_periodic, 0, TASK_PRIORITY_NORMAL, STACK_4096); // BULLET COMMS 
+DEFINE_TASK(RTC_sync, 0, TASK_PRIORITY_LOW, STACK_512);
 DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(nullptr);
 

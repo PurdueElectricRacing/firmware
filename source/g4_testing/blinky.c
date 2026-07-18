@@ -39,10 +39,10 @@ static void ledblink2(void);
 static void ledblink3(void);
 static void ledblink4(void);
 
-DEFINE_TASK(ledblink1, 250, osPriorityNormal, 64);
-DEFINE_TASK(ledblink2, 300, osPriorityNormal, 64);
-DEFINE_TASK(ledblink3, 500, osPriorityNormal, 64);
-DEFINE_TASK(ledblink4, 1000, osPriorityNormal, 64);
+DEFINE_TASK(ledblink1, 250, TASK_PRIORITY_NORMAL, 64);
+DEFINE_TASK(ledblink2, 300, TASK_PRIORITY_NORMAL, 64);
+DEFINE_TASK(ledblink3, 500, TASK_PRIORITY_NORMAL, 64);
+DEFINE_TASK(ledblink4, 1000, TASK_PRIORITY_NORMAL, 64);
 
 int main() {
     if (PHAL_configureClockRates(&clock_config)) {

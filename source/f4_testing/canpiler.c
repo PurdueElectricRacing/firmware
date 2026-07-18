@@ -40,7 +40,7 @@ void send_periodic() {
 }
 
 DEFINE_CAN_TASKS();
-DEFINE_TASK(send_periodic, 100, osPriorityNormal, 1024);
+DEFINE_TASK(send_periodic, 100, TASK_PRIORITY_NORMAL, 1024);
 
 int main() {
     if (PHAL_configureClockRates(&clock_config)) {

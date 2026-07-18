@@ -72,11 +72,11 @@ void ledblink4();
 void usartSend();
 
 // Define up here so they're global
-DEFINE_TASK(ledblink1, 250, osPriorityNormal, 64);
-DEFINE_TASK(ledblink2, 300, osPriorityNormal, 64);
-DEFINE_TASK(ledblink3, 500, osPriorityNormal, 64);
-DEFINE_TASK(ledblink4, 1000, osPriorityNormal, 64);
-DEFINE_TASK(usartSend, 1000, osPriorityNormal, 1024);
+DEFINE_TASK(ledblink1, 250, TASK_PRIORITY_NORMAL, 64);
+DEFINE_TASK(ledblink2, 300, TASK_PRIORITY_NORMAL, 64);
+DEFINE_TASK(ledblink3, 500, TASK_PRIORITY_NORMAL, 64);
+DEFINE_TASK(ledblink4, 1000, TASK_PRIORITY_NORMAL, 64);
+DEFINE_TASK(usartSend, 1000, TASK_PRIORITY_NORMAL, 1024);
 
 DEFINE_QUEUE(myQueue, uint32_t, 0x45);
 DEFINE_MUTEX(mutex);

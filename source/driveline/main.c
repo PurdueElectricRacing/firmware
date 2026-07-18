@@ -155,8 +155,8 @@ void shockpots_periodic();
 void oil_temps_periodic();
 
 DEFINE_CAN_TASKS();
-DEFINE_TASK(shockpots_periodic, FRONT_SHOCKPOTS_PERIOD_MS, osPriorityNormal, STACK_512);
-DEFINE_TASK(oil_temps_periodic, FRONT_OIL_TEMPS_PERIOD_MS, osPriorityNormal, STACK_512);
+DEFINE_TASK(shockpots_periodic, FRONT_SHOCKPOTS_PERIOD_MS, TASK_PRIORITY_NORMAL, STACK_512);
+DEFINE_TASK(oil_temps_periodic, FRONT_OIL_TEMPS_PERIOD_MS, TASK_PRIORITY_NORMAL, STACK_512);
 DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(nullptr);
 

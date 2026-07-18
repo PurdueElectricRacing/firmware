@@ -44,10 +44,9 @@
 #define STACK_4096 (4096)
 
 // Priority aliases
-#define TASK_PRIORITY_LOW     (tskIDLE_PRIORITY + 1)
-#define TASK_PRIORITY_NORMAL  (tskIDLE_PRIORITY + 2)
-#define TASK_PRIORITY_HIGH    (tskIDLE_PRIORITY + 3)
-#define TASK_PRIORITY_HIGHEST (configMAX_PRIORITIES - 1)
+#define TASK_PRIORITY_LOW    (8)
+#define TASK_PRIORITY_NORMAL (24)
+#define TASK_PRIORITY_HIGH   (40)
 
 typedef struct {
     void (*taskFunction)(void);

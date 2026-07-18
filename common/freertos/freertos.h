@@ -6,7 +6,7 @@
  * @brief Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocation and initialization.
  * 
  * @author Irving Wang (irvingw@purdue.edu)
- * @author Eileen Yoon (eyn@purdue.edu)
+ * @author Millan Kumar (kumar798@purdue.edu)
  */
 
 // clang-format off

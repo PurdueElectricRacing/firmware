@@ -1,9 +1,9 @@
 /**
  * @file freertos.c
- * @brief Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocation and initialization.
- * 
+ * @brief Native FreeRTOS wrapper implementation.
+ *
  * @author Irving Wang (irvingw@purdue.edu)
- * @author Eileen Yoon (eyn@purdue.edu)
+ * @author Millan Kumar (kumar798@purdue.edu)
  */
 
 #include "freertos.h"
@@ -11,10 +11,14 @@
 void periodic_task_runner(void *arg) {
     periodic_task_params_t *wrapper = (periodic_task_params_t *)arg;
 
+    TickType_t lastWakeTime = xTaskGetTickCount();
+    const TickType_t period = pdMS_TO_TICKS(wrapper->period_ms);
+
     while (true) {
         wrapper->taskFunction();
-        osDelay(wrapper->period_ms);
+        vTaskDelayUntil(&lastWakeTime, period);
     }
 
-    osThreadTerminate(NULL);
+    // Unreachable!
+    vTaskDelete(NULL);
 }

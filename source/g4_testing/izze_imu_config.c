@@ -53,7 +53,8 @@ void config_imu() {
     if (OS_TICKS >= IMU_CONFIG_TIME_MS) {
         // set LED
         PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
-        osThreadExit();
+        // Delete task
+        vTaskDelete(NULL);
     }
 
     PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);

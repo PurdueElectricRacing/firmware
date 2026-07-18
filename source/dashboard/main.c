@@ -256,7 +256,8 @@ void calibrate_LWS() {
     static constexpr uint8_t CONFIG_CCW_ZERO = 0x3;
     CAN_SEND_LWS_Config(CONFIG_CCW_ZERO);
 
-    osThreadExit();
+    // Delete task
+    vTaskDelete(NULL);
 }
 
 void HardFault_Handler() {

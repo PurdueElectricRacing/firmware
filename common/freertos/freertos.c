@@ -28,6 +28,7 @@ void periodic_task_runner(void *arg) {
 }
 
 
+// Required FreeRTOS hook functions for static allocation of the Idle and Timer tasks.
 void vApplicationGetIdleTaskMemory(
     StaticTask_t **ppxIdleTaskTCBBuffer,
     StackType_t **ppxIdleTaskStackBuffer,

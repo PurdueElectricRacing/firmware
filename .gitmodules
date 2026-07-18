@@ -1,3 +1,15 @@
 [submodule "external/W5500/ioLibrary_Driver"]
 	path = external/W5500/ioLibrary_Driver
 	url = https://github.com/Wiznet/ioLibrary_Driver.git
+[submodule "external/cmsis-device-g4"]
+	path = external/cmsis-device-g4
+	url = https://github.com/STMicroelectronics/cmsis-device-g4.git
+[submodule "external/cmsis-device-f4"]
+	path = external/cmsis-device-f4
+	url = https://github.com/STMicroelectronics/cmsis-device-f4.git
+[submodule "external/CMSIS_6"]
+	path = external/CMSIS_6
+	url = https://github.com/ARM-software/CMSIS_6.git
+[submodule "external/FreeRTOS-Kernel"]
+	path = external/FreeRTOS-Kernel
+	url = https://github.com/FreeRTOS/FreeRTOS-Kernel.git

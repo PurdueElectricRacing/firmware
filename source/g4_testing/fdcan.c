@@ -68,8 +68,8 @@ static void can_rx_1khz(void);
 // static void ledblink3(void);
 // static void ledblink4(void);
 
-defineThreadStack(can_tx_100hz, 10, osPriorityHigh, 256);
-defineThreadStack(can_rx_1khz, 1, osPriorityHigh, 256);
+defineThreadStack(can_tx_100hz, 10, TASK_PRIORITY_HIGH, 256);
+defineThreadStack(can_rx_1khz, 1, TASK_PRIORITY_HIGH, 256);
 
 defineStaticQueue(q_can_rx, CanMsgTypeDef_t, 256);
 

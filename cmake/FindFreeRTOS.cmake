@@ -5,12 +5,11 @@ function(make_freertos_library LIB_NAME DIRNAME LINK_NAME)
 
     target_include_directories(${LIB_NAME}
         PUBLIC ${LIB_PATH}/include
-        PUBLIC ${LIB_PATH}/CMSIS_RTOS_V2
         PUBLIC ${LIB_PATH}/portable/GCC/ARM_CM4F
         PUBLIC ${CMAKE_SOURCE_DIR}/common/freertos
     )
 
-    file(GLOB glob_sources "${LIB_PATH}/*.c" "${LIB_PATH}/CMSIS_RTOS_V2/*.c" "${LIB_PATH}/portable/GCC/ARM_CM4F/*.c")
+    file(GLOB glob_sources "${LIB_PATH}/*.c" "${LIB_PATH}/portable/GCC/ARM_CM4F/*.c")
     target_sources(${LIB_NAME}
         PRIVATE ${glob_sources}
     )

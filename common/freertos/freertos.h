@@ -52,6 +52,7 @@
 typedef struct {
     void (*taskFunction)(void);
     uint32_t period_ms;
+    UBaseType_t priority;
 } periodic_task_params_t;
 
 // This is the function actually scheduled by freertos

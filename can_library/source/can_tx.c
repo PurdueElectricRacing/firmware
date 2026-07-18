@@ -8,7 +8,7 @@
 #include "can_library/can_common.h"
 #include "can_library/generated/can_router.h"
 
-extern osThreadId_t CAN_tx_update_handle;
+extern TaskHandle_t CAN_tx_update_handle;
 
 volatile can_stats_t can_stats;
 

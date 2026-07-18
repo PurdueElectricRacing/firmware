@@ -163,9 +163,6 @@ int main(void) {
     }
     CAN_init();
 
-    // Kernel initalization
-    osKernelInitialize();
-
     START_CAN_TASKS();
     CAN_SEND_abox_init(WDG_get_CSR());
     START_TASK(bms_task);
@@ -177,7 +174,7 @@ int main(void) {
     START_WATCHDOG_TASK();
     START_HEARTBEAT_TASK();
 
-    osKernelStart(); // no way home
+    vTaskStartScheduler();
 
     return 0;
 }

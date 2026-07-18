@@ -82,8 +82,6 @@ DEFINE_QUEUE(myQueue, uint32_t, 0x45);
 DEFINE_MUTEX(mutex);
 
 int main() {
-    osKernelInitialize();
-
     // Initialize hardware
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
@@ -107,7 +105,7 @@ int main() {
     INIT_QUEUE(myQueue, uint32_t, 0x45);
     INIT_MUTEX(mutex);
 
-    osKernelStart(); // Go!
+    vTaskStartScheduler();
 
     return 0;
 }

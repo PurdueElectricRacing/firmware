@@ -71,13 +71,11 @@ int main() {
     NVIC_SetPriority(FDCAN1_IT0_IRQn, 6);
     NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
 
-    osKernelInitialize();
-
     START_TASK(CAN_rx_update);
     START_TASK(CAN_tx_update);
     START_TASK(send_periodic);
 
-    osKernelStart();
+    vTaskStartScheduler();
 
     return 0;
 }

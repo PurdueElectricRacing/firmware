@@ -118,9 +118,6 @@ int main(void) {
 
     PHAL_writeGPIO(ECU_SDC_CTRL_PORT, ECU_SDC_CTRL_PIN, true); // set SDC high
 
-    // Software Initialization
-    osKernelInitialize();
-
     START_CAN_TASKS();
     CAN_SEND_main_init(WDG_get_CSR());
     START_TASK(vehicle_fsm_periodic);
@@ -132,8 +129,7 @@ int main(void) {
     START_WATCHDOG_TASK();
     START_HEARTBEAT_TASK();
 
-    // no way home
-    osKernelStart();
+    vTaskStartScheduler();
 
     return 0;
 }

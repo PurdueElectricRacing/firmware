@@ -85,12 +85,10 @@ int main() {
 
     CAN_init();
 
-    osKernelInitialize();
-
     START_CAN_TASKS();
     START_TASK(config_imu);
 
-    osKernelStart();
+    vTaskStartScheduler();
 
     return 0;
 }

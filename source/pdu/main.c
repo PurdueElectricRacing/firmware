@@ -321,8 +321,6 @@ int main() {
 
     switches_enable_default_rails();
 
-    osKernelInitialize();
-
     START_CAN_TASKS();
     CAN_SEND_pdu_init(WDG_get_CSR());
     START_TASK(switches_periodic);
@@ -335,8 +333,7 @@ int main() {
     START_WATCHDOG_TASK();
     START_HEARTBEAT_TASK();
 
-    // no way home
-    osKernelStart();
+    vTaskStartScheduler();
 
     return 0;
 }

@@ -40,7 +40,7 @@ This updates cell voltage, thermistor readings, and error flags
 #### For example
 
 ```c
-defineThreadStack(g_bms_periodic, 200, osPriorityHigh, 2048);
+defineThreadStack(g_bms_periodic, 200, TASK_PRIORITY_HIGH, 2048);
 
 int main() {
 	// ... GPIO and SPI initialization ...
@@ -51,7 +51,7 @@ int main() {
     createThread(g_bms_periodic);
 
 	// ... rest of main ...
-    osKernelStart();
+    vTaskStartScheduler();
 }
 ```
 

@@ -124,8 +124,6 @@ int main(void) {
     control_init();
 
     // Software Initialization
-    osKernelInitialize();
-
     START_CAN_TASKS();
     CAN_SEND_tv_init(WDG_get_CSR());
     START_TASK(control_loop);
@@ -135,8 +133,7 @@ int main(void) {
     START_HEARTBEAT_TASK();
     START_WATCHDOG_TASK();
 
-    // no way home
-    osKernelStart();
+    vTaskStartScheduler();
 
     return 0;
 }

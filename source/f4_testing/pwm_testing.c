@@ -65,8 +65,6 @@ void oldtim();
 
 
 int main() {
-    osKernelInitialize();
-
     // Initialize hardware
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
@@ -107,7 +105,8 @@ int main() {
     // PHAL_initPWM(25000, TIM11, 1);
     // PHAL_PWMsetPercent(TIM11, 1, 30);
     
-    osKernelStart(); 
+    vTaskStartScheduler();
+
     return 0;
 }
 

@@ -56,12 +56,10 @@ int main() {
     }
     CAN_init();
 
-    osKernelInitialize();
-
     START_CAN_TASKS();
     START_TASK(send_periodic);
     
-    osKernelStart();
+    vTaskStartScheduler();
 
     return 0;
 }

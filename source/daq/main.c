@@ -128,7 +128,6 @@ int main() {
 
     PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 1);
 
-    osKernelInitialize();
     RTC_sync_init();
     SPMC_init(&g_spmc); // also enables CAN interrupts
     configure_interrupts();
@@ -141,7 +140,7 @@ int main() {
     START_WATCHDOG_TASK();
     START_HEARTBEAT_TASK();
 
-    osKernelStart();
+    vTaskStartScheduler();
 
     return 0;
 }

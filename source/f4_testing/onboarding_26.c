@@ -48,8 +48,6 @@ defineThreadStack(ledblink1, 250, TASK_PRIORITY_NORMAL, 64);
 // TODO add thread definitions here
 
 int main() {
-    osKernelInitialize();
-
     // Initialize hardware
     if (0 != PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
@@ -62,7 +60,7 @@ int main() {
     createThread(ledblink1);
     // TODO: Create threads here
 
-    osKernelStart(); // Go!
+    vTaskStartScheduler();
 
     return 0;
 }

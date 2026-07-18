@@ -74,8 +74,6 @@ defineThreadStack(can_rx_1khz, 1, osPriorityHigh, 256);
 defineStaticQueue(q_can_rx, CanMsgTypeDef_t, 256);
 
 int main() {
-    osKernelInitialize();
-
     if (PHAL_configureClockRates(&clock_config)) {
         HardFault_Handler();
     }
@@ -118,7 +116,7 @@ int main() {
     NVIC_EnableIRQ(FDCAN2_IT0_IRQn);
     NVIC_EnableIRQ(FDCAN3_IT0_IRQn);
 
-    osKernelStart(); // Go!
+    vTaskStartScheduler();
 
     return 0;
 }

@@ -11,8 +11,6 @@ DEFINE_QUEUE(tcp_tx_queue, timestamped_frame_t, TCP_TX_ITEM_COUNT);
 
 int main(void)
 {
-    osKernelInitialize(); // s/schedInit/osKernelInitialize
-
     // Do all hardware initialization + rtos object creations here
     if(0 != PHAL_configureClockRates(&clock_config))
     {
@@ -23,7 +21,7 @@ int main(void)
     START_TASK(heartbeat_LED); // s/taskCreate/START_TASK/
     INIT_QUEUE(tcp_tx_queue, timestamped_frame_t, TCP_TX_ITEM_COUNT);
 
-    osKernelStart(); // s/schedStart/osKernelStart
+    vTaskStartScheduler(); // s/schedStart/vTaskStartScheduler
 }
 ```
 

@@ -210,8 +210,6 @@ int main(void) {
     CAN_init();
 
     // Software Initalization
-    osKernelInitialize();
-
     START_CAN_TASKS();
     SEND_INIT(WDG_get_CSR());
     START_TASK(shockpots_periodic);
@@ -219,8 +217,7 @@ int main(void) {
     START_WATCHDOG_TASK();
     START_HEARTBEAT_TASK();
 
-    // no way home
-    osKernelStart();
+    vTaskStartScheduler();
 
     return 0;
 }

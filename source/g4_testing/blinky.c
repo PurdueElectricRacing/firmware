@@ -58,15 +58,13 @@ int main() {
     PHAL_writeGPIO(LED_BLUE_PORT, LED_BLUE_PIN, 1);
     PHAL_writeGPIO(LED_ORANGE_PORT, LED_ORANGE_PIN, 1);
 
-    osKernelInitialize();
-
     // Create threads
     START_TASK(ledblink1);
     START_TASK(ledblink2);
     START_TASK(ledblink3);
     START_TASK(ledblink4);
 
-    osKernelStart(); // Go!
+    vTaskStartScheduler();
 
     return 0;
 }

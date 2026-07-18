@@ -305,7 +305,7 @@ void driver_interface_periodic(void) {
     switch (di_state) {
         case DI_STATE_LCD_INIT: {
             if (!was_reset_by_WDG()) {
-                osDelay(1000); // wait a bit for LCD to power-on
+                freertos_delay_ms(1000); // wait a bit for LCD to power-on
             }
             LCD_init(LCD_BAUD_RATE);
             next_di_state = DI_STATE_BUTTONS_INIT;

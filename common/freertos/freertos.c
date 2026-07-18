@@ -8,6 +8,10 @@
 
 #include "freertos.h"
 
+void freertos_delay_ms(uint32_t ms) {
+    vTaskDelay(pdMS_TO_TICKS(ms));
+}
+
 void periodic_task_runner(void *arg) {
     periodic_task_params_t *wrapper = (periodic_task_params_t *)arg;
 

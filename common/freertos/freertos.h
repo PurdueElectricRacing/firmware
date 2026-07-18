@@ -48,6 +48,17 @@
 #define TASK_PRIORITY_NORMAL (24)
 #define TASK_PRIORITY_HIGH   (40)
 
+
+/**
+ * @brief Delays the current task for the specified number of milliseconds.
+ *
+ * This is a convenience wrapper around vTaskDelay() that automatically
+ * converts milliseconds to FreeRTOS ticks.
+ *
+ * @param ms Delay duration in milliseconds.
+ */
+void freertos_delay_ms(uint32_t ms);
+
 typedef struct {
     void (*taskFunction)(void);
     uint32_t period_ms;

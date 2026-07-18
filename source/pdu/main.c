@@ -267,7 +267,7 @@ static void heartbeat_led_sweep(void) {
 }
 
 static void tsal_delayed_start() {
-    osDelay(1000);
+    freertos_delay_ms(1000);
     switches_set_state(SW_MAIN, true);
     osThreadTerminate(NULL);
 }

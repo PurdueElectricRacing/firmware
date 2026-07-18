@@ -250,7 +250,7 @@ void calibrate_LWS() {
     static constexpr uint8_t CONFIG_CCW_RESET = 0x5;
     CAN_SEND_LWS_Config(CONFIG_CCW_RESET);
     
-    osDelay(200);
+    freertos_delay_ms(200);
 
     // CCW = command code word
     static constexpr uint8_t CONFIG_CCW_ZERO = 0x3;

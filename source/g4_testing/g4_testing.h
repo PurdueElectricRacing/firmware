@@ -8,8 +8,9 @@
 #define TEST_SPI        3
 #define TEST_CANPILER   4
 #define IZZE_IMU_CONFIG 5
+#define TEST_FLASH      6
 
 // Change this define to set the test compiled
-#define G4_TESTING_CHOSEN TEST_BLINKY
+#define G4_TESTING_CHOSEN TEST_FLASH
 
 #endif // __G4_TESTING__

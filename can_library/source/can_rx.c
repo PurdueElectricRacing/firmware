@@ -21,7 +21,7 @@ void CAN_rx_update(void) {
     CanMsgTypeDef_t rx_msg;
 
     if (xQueueReceive(can_rx_queue, &rx_msg, portMAX_DELAY) == pdPASS) {
-        last_can_rx_time_ms = OS_TICKS;
+        last_can_rx_time_ms = xTaskGetTickCount();
 
         CAN_rx_dispatcher(
             rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId,

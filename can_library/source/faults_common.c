@@ -47,7 +47,7 @@ void update_fault(fault_id_t fault_id, float value) {
     }
 
     fault_t *fault = &faults[fault_id];
-    uint32_t now   = OS_TICKS;
+    uint32_t now   = xTaskGetTickCount();
     // min is inclusive, max is exclusive, so the healthy range is [min, max)
     bool is_out_of_bounds = (value >= fault->max_value) || (value < fault->min_value);
     if (value != value) {

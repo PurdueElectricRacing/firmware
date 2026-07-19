@@ -51,7 +51,7 @@ static inline bool is_buzzing_time_elapsed() {
     // FSAE 2026 EV.9.7.2: The Ready to Drive Sound must be sounded continuously for minimum 1 second and maximum 3 seconds
     static constexpr uint32_t MIN_BUZZING_TIME_MS = 2500;
 
-    return (OS_TICKS - g_car.buzzer_start_time >= MIN_BUZZING_TIME_MS);
+    return (xTaskGetTickCount() - g_car.buzzer_start_time >= MIN_BUZZING_TIME_MS);
 }
 
 static void update_brake_light() {
@@ -135,7 +135,7 @@ void vehicle_fsm_periodic(void) {
             // FSAE 2026 EV.9.6.2: driver must engage the brakes and press a button to enter R2D
             bool is_driver_ready = is_start_button_pressed() && is_brakes_engaged();
             if (is_driver_ready && is_powertrain_ready()) {
-                g_car.buzzer_start_time = OS_TICKS;
+                g_car.buzzer_start_time = xTaskGetTickCount();
                 g_car.next_state = CAR_STATE_BUZZING;
             }
             break;

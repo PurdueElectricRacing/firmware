@@ -50,7 +50,7 @@ static_assert(NEW_CAN_BASE_ID <= 0x7FF, "CAN Base ID must be less than or equal 
 
 static constexpr uint32_t IMU_CONFIG_TIME_MS = 12'000; // "at least 10 seconds"
 void config_imu() {
-    if (OS_TICKS >= IMU_CONFIG_TIME_MS) {
+    if (xTaskGetTickCount() >= IMU_CONFIG_TIME_MS) {
         // set LED
         PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
         // Delete task

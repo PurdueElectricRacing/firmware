@@ -18,7 +18,7 @@ static inline void CAN_rx_dispatcher(uint32_t id, uint8_t *data, uint8_t len, CA
                 {% endif %}
                 {% endfor %}
 
-                can_data.{{ entry.msg.name }}.last_rx = OS_TICKS;
+                can_data.{{ entry.msg.name }}.last_rx = xTaskGetTickCount();
                 {% if entry.rx_msg.callback %}
                 {{ entry.rx_msg.name }}_CALLBACK();
                 {% endif %}

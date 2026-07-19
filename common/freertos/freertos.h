@@ -57,7 +57,10 @@
  *
  * @param ms Delay duration in milliseconds.
  */
-void freertos_delay_ms(uint32_t ms);
+[[gnu::always_inline]]
+static inline void freertos_delay_ms(uint32_t ms) {
+    vTaskDelay(pdMS_TO_TICKS(ms));
+}
 
 typedef struct {
     void (*taskFunction)(void);

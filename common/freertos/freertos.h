@@ -37,16 +37,20 @@
 #include <stdbool.h>
 
 // Stack size aliases
-#define STACK_256  (256)
-#define STACK_512  (512)
-#define STACK_1024 (1024)
-#define STACK_2048 (2048)
-#define STACK_4096 (4096)
+typedef enum : size_t {
+    STACK_256  = 256,
+    STACK_512  = 512,
+    STACK_1024 = 1024,
+    STACK_2048 = 2048,
+    STACK_4096 = 4096,
+} stack_size_t;
 
 // Priority aliases
-#define TASK_PRIORITY_LOW    (8)
-#define TASK_PRIORITY_NORMAL (24)
-#define TASK_PRIORITY_HIGH   (40)
+typedef enum : UBaseType_t {
+    TASK_PRIORITY_LOW     = 8,
+    TASK_PRIORITY_NORMAL  = 24,
+    TASK_PRIORITY_HIGH    = 40,
+} task_priority_t;
 
 
 /**

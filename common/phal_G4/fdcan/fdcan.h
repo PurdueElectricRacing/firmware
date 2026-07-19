@@ -31,7 +31,7 @@ typedef struct {
  */
 typedef enum : uint32_t {
     FDCAN_BAUD_500K = 500000U,
-    FDCAN_BAUD_2M   = 2000000U
+    FDCAN_BAUD_1M   = 1000000U
 } PHAL_FDCAN_BaudRate_t;
 
 
@@ -39,7 +39,7 @@ typedef enum : uint32_t {
  * @brief Initialize an FDCAN peripheral for classic (non-FD) CAN operation
  *
  * - FDCAN kernel clock selection (PCLK1) and peripheral clock enable
- * - Nominal bit timing for ~87.5% sample point
+ * - ~87.5% sample point
  * - Classic CAN mode (FD/BRS off), auto-retransmission enabled, TX pause on
  * - TX FIFO mode
  * - RX FIFO0 new message (line 0) and TX complete interrupts (line 1)
@@ -93,21 +93,23 @@ bool PHAL_FDCAN_send(CanMsgTypeDef_t *msg);
 bool PHAL_FDCAN_txFifoFree(FDCAN_GlobalTypeDef *fdcan);
 
 /**
- * @brief Weak callback fired once per received frame.
+ * @brief Weak callback fired once per received frame
  *
  * Called from FDCANx_IT0_IRQHandler (interrupt context) for every frame
- * popped from RX FIFO0. Override this in application code; the default
- * implementation does nothing.
+ * popped from RX FIFO0.
+ *
+ * Default implementation does nothing.
  *
  * @param msg the received frame (valid only for the duration of the call)
  */
 extern void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg);
 
 /**
- * @brief Weak callback fired when a queued frame finishes transmitting.
+ * @brief Weak callback fired when a queued frame finishes transmitting
  *
- * Called from FDCANx_IT1_IRQHandler (interrupt context). Override this in
- * application code; the default implementation does nothing.
+ * Called from FDCANx_IT1_IRQHandler (interrupt context).
+ * 
+ * Default implementation does nothing.
  *
  * @param fdcan the peripheral instance that completed a transmission
  */

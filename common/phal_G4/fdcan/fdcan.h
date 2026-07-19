@@ -12,56 +12,58 @@
 /**
  * @brief A classic CAN frame, used for both TX and RX.
  *
- * On RX (delivered via PHAL_FDCAN_rxCallback), `Bus` identifies which
- * peripheral the frame arrived on. On TX (passed to PHAL_FDCAN_send),
- * `Bus` selects which peripheral transmits it.
+ * When RX - Bus = which peripheral the frame arrived on
+ * When TX - Bus =  which peripheral should transmits it
  */
 typedef struct {
-    FDCAN_GlobalTypeDef *Bus; /*!< Peripheral instance (FDCAN1/2/3). */
-    uint16_t StdId;           /*!< 11-bit standard identifier (used if IDE == 0). */
-    uint32_t ExtId;           /*!< 29-bit extended identifier (used if IDE == 1). */
-    uint32_t IDE;             /*!< 0 = standard frame, 1 = extended frame. */
-    uint32_t DLC;             /*!< Payload length in bytes, 0-8. */
-    uint8_t Data[8];          /*!< Payload bytes. */
+    FDCAN_GlobalTypeDef* Bus;
+    bool IsExtendedId;
+    union {
+        uint16_t StdId; /*!< valid when !IsExtendedId, 11-bit */
+        uint32_t ExtId; /*!< valid when IsExtendedId,  29-bit */
+    };
+    uint8_t DLC;        /*!< payload length, 0-8 */
+    uint8_t Data[8];    /*!< payload bytes */
 } CanMsgTypeDef_t;
 
 /**
- * @brief Initialize an FDCAN peripheral for classic (non-FD) CAN operation.
- *
- * This configures, and hides the details of:
- *  - FDCAN kernel clock selection (PCLK1) and peripheral clock enable
- *  - Nominal bit timing for one of a small set of supported bit rates,
- *    chosen for an ~87.5% sample point (62.5% at 2 Mbit/s)
- *  - Classic CAN mode (FD/BRS off), auto-retransmission enabled, TX pause on
- *  - TX FIFO (not queue) mode
- *  - RX FIFO0-new-message and TX-complete interrupts, routed to
- *    interrupt lines 0 and 1 respectively
- *  - A default "accept everything into RX FIFO0" filter policy, which
- *    PHAL_FDCAN_setFilters can narrow later
- *
- * @param fdcan peripheral instance (FDCAN1/2/3)
- * @param loopback true to enable internal loopback + bus monitoring, so the
- *                 peripheral can be exercised with no other node on the bus
- * @param bit_rate desired bit rate in bps; must be one of
- *                 125000, 250000, 500000, 1000000, 2000000
- * @return true on success; false if bit_rate is not one of the supported
- *         values above
+ * @brief Supported baud rates for PER G4 FDCAN HAL.
  */
-bool PHAL_FDCAN_init(FDCAN_GlobalTypeDef *fdcan, bool loopback, uint32_t bit_rate);
+typedef enum : uint32_t {
+    FDCAN_BAUD_500K = 500000U,
+    FDCAN_BAUD_2M   = 2000000U
+} PHAL_FDCAN_BaudRate_t;
+
 
 /**
- * @brief Configure exact-match acceptance filters for RX FIFO0.
+ * @brief Initialize an FDCAN peripheral for classic (non-FD) CAN operation
  *
- * Every ID in sid_list/xid_list is matched exactly and accepted into RX
- * FIFO0. Any frame whose ID is not in either list is rejected. Calling
- * this replaces any filter configuration set by a previous call (or by
- * the "accept everything" default from PHAL_FDCAN_init).
+ * - FDCAN kernel clock selection (PCLK1) and peripheral clock enable
+ * - Nominal bit timing for ~87.5% sample point
+ * - Classic CAN mode (FD/BRS off), auto-retransmission enabled, TX pause on
+ * - TX FIFO mode
+ * - RX FIFO0 new message (line 0) and TX complete interrupts (line 1)
+ * - Sets filter to accept everything into RX FIFO0
+ *    - Use PHAL_FDCAN_setFilters later
  *
- * @param fdcan peripheral instance
+ * @param fdcan Peripheral instance (FDCAN1/2/3)
+ * @param bit_rate desired bit rate in bits per second
+ */
+void PHAL_FDCAN_init(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_BaudRate_t bit_rate);
+
+/**
+ * @brief Configure exact-match acceptance filters for RX FIFO0
+ *
+ * Every ID in sid_list/xid_list is matched exactly.
+ * Any message whose ID is not in either list is rejected.
+ *
+ * Note: this replaces any previously existing filter configurations
+ *
+ * @param fdcan Peripheral instance (FDCAN1/2/3)
  * @param sid_list array of standard (11-bit) IDs to accept; may be NULL if num_sid == 0
- * @param num_sid number of entries in sid_list, up to MAX_NUM_SID_FILTER
+ * @param num_sid number of entries in sid_list, up to MAX_NUM_SID_FILTER allowed
  * @param xid_list array of extended (29-bit) IDs to accept; may be NULL if num_xid == 0
- * @param num_xid number of entries in xid_list, up to MAX_NUM_XID_FILTER
+ * @param num_xid number of entries in xid_list, up to MAX_NUM_XID_FILTER allowed
  * @return true on success; false if num_sid or num_xid exceeds its max
  */
 bool PHAL_FDCAN_setFilters(
@@ -73,13 +75,12 @@ bool PHAL_FDCAN_setFilters(
 );
 
 /**
- * @brief Queue a frame for transmission.
+ * @brief Queue a frame for transmission
  *
  * Non-blocking: if the TX FIFO is already full this returns false
- * immediately rather than waiting. Use PHAL_FDCAN_txFifoFree() to poll,
- * or retry from PHAL_FDCAN_txCallback() once a slot frees up.
+ * instead of blocking/waiting.
  *
- * @param msg frame to send; msg->Bus selects the peripheral
+ * @param msg frame to send; sent on msg->Bus peripheral
  * @return true if the frame was queued; false if the TX FIFO is full
  */
 bool PHAL_FDCAN_send(CanMsgTypeDef_t *msg);

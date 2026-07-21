@@ -11,6 +11,6 @@
 #define TEST_FLASH      6
 
 // Change this define to set the test compiled
-#define G4_TESTING_CHOSEN TEST_FLASH
+#define G4_TESTING_CHOSEN TEST_BLINKY
 
 #endif // __G4_TESTING__

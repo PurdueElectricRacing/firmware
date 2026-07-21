@@ -61,6 +61,7 @@ var annotated_dup =
     [ "fahrenheit_t", "structfahrenheit__t.html", null ],
     [ "fault_t", "structfault__t.html", null ],
     [ "feet_t", "structfeet__t.html", null ],
+    [ "flash_operation_context_t", "structflash__operation__context__t.html", null ],
     [ "GPIOInitConfig_t", "structGPIOInitConfig__t.html", null ],
     [ "grams_t", "structgrams__t.html", null ],
     [ "hours_t", "structhours__t.html", null ],

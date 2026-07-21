@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"md_common_2bmi088_2README.html":[14],
 "md_common_2freertos_2README.html":[15],
 "md_common_2heartbeat_2README.html":[16],
 "md_common_2lerp__lut_2README.html":[17],
@@ -232,6 +233,7 @@ var NAVTREEINDEX2 =
 "phal__F4__F7_2dma_2dma_8c.html":[31,0,1,10,3,0],
 "phal__F4__F7_2dma_2dma_8h.html":[31,0,1,10,3,1],
 "phal__F4__F7_2dma_2dma_8h_source.html":[31,0,1,10,3,1],
+"phal__F4__F7_2flash_2flash_8c.html":[31,0,1,10,4,0],
 "phal__F4__F7_2flash_2flash_8h.html":[31,0,1,10,4,1],
 "phal__F4__F7_2flash_2flash_8h_source.html":[31,0,1,10,4,1],
 "phal__F4__F7_2gpio_2gpio_8h.html":[31,0,1,10,5,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX2 =
 "phal__F4__F7_2gpio_2gpio_8h.html#a976b33799b2b8c4fe7d2a4415a88991baf0d3c2f5e6b6a52247a85482f03476bc":[31,0,1,10,5,0,8,3],
 "phal__F4__F7_2gpio_2gpio_8h.html#a9f3e383e90eea420ba388b6041e6c866":[31,0,1,10,5,0,2],
 "phal__F4__F7_2gpio_2gpio_8h.html#a9f473c8a74e27d069fa4de69fcbb4d60":[31,0,1,10,5,0,9],
-"phal__F4__F7_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641":[31,0,1,10,5,0,1],
-"phal__F4__F7_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23":[31,0,1,10,5,0,5],
-"phal__F4__F7_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef":[31,0,1,10,5,0,5,1]
+"phal__F4__F7_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641":[31,0,1,10,5,0,1]
 };

@@ -1,7 +1,7 @@
 #ifndef __G4_TESTING__
 #define __G4_TESTING__
 
-// To add new tests create a separate file (see led_blink.c) and it to the enum here
+// To add new tests create a separate file (see led_blink.c) and add it to the enum here
 #define TEST_BLINKY     0
 #define TEST_FDCAN      1
 #define TEST_USART      2
@@ -11,6 +11,7 @@
 #define TEST_FLASH      6
 #define TEST_FREERTOS   7
 #define TEST_CRC        8
+#define TEST_USB        9
 
 // Change this define to set the test compiled
 #define G4_TESTING_CHOSEN TEST_BLINKY

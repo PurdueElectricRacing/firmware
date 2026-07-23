@@ -1,3 +1,9 @@
+/**
+ * @file fdcan.h
+ * @brief G4 FDCAN public API implementation
+ * @author Millan Kumar (kumar798@purdue.edu)
+ */
+
 #ifndef __PHAL_G4_FDCAN_H__
 #define __PHAL_G4_FDCAN_H__
 

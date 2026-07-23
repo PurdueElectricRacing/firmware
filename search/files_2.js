@@ -2,7 +2,7 @@ var searchData=
 [
   ['calibration_2ec_0',['calibration.c',['../calibration_8c.html',1,'']]],
   ['calibration_2eh_1',['calibration.h',['../calibration_8h.html',1,'']]],
-  ['can_2eh_2',['can.h',['../phal__F4__F7_2can_2can_8h.html',1,'']]],
+  ['can_2eh_2',['can.h',['../phal__F4_2can_2can_8h.html',1,'']]],
   ['can_5fcodec_2eh_3',['can_codec.h',['../can__codec_8h.html',1,'']]],
   ['can_5fcodec_5ftests_2ec_4',['can_codec_tests.c',['../can__codec__tests_8c.html',1,'']]],
   ['can_5fcommon_2eh_5',['can_common.h',['../can__common_8h.html',1,'']]],
@@ -24,5 +24,5 @@ var searchData=
   ['cooling_5fcallbacks_2eh_21',['cooling_callbacks.h',['../cooling__callbacks_8h.html',1,'']]],
   ['countof_2eh_22',['countof.h',['../countof_8h.html',1,'']]],
   ['crc_2ec_23',['crc.c',['../crc_8c.html',1,'']]],
-  ['crc_2eh_24',['crc.h',['../phal__F4__F7_2crc_2crc_8h.html',1,'']]]
+  ['crc_2eh_24',['crc.h',['../phal__F4_2crc_2crc_8h.html',1,'']]]
 ];

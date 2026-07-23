@@ -10,7 +10,7 @@ var dir_bdd9a5d540de89e9fe90efdfc6973a4f =
     [ "lerp_lut", "dir_f0d476005fd60c6020cb81dc0b85194b.html", "dir_f0d476005fd60c6020cb81dc0b85194b" ],
     [ "nextion", "dir_a6b6b77475247ffa0f2bc1e504c8d48a.html", "dir_a6b6b77475247ffa0f2bc1e504c8d48a" ],
     [ "phal", "dir_a3c0d50f55deba8c32b4e660038b52ec.html", "dir_a3c0d50f55deba8c32b4e660038b52ec" ],
-    [ "phal_F4_F7", "dir_a828499ce5b3216570db528e38974466.html", "dir_a828499ce5b3216570db528e38974466" ],
+    [ "phal_F4", "dir_977239e98dcb81927fd2c50e4ca080d6.html", "dir_977239e98dcb81927fd2c50e4ca080d6" ],
     [ "phal_G4", "dir_537865b7fa0534ad07c686239f783682.html", "dir_537865b7fa0534ad07c686239f783682" ],
     [ "sdio", "dir_6bd8692ac8326d2f6b10c3d83e4ae569.html", "dir_6bd8692ac8326d2f6b10c3d83e4ae569" ],
     [ "strbuf", "dir_b326de142a01610c2e2fbdc361522621.html", "dir_b326de142a01610c2e2fbdc361522621" ],

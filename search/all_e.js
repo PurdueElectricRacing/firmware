@@ -10,7 +10,7 @@ var searchData=
   ['heartbeat_2ec_7',['heartbeat.c',['../heartbeat_8c.html',1,'']]],
   ['heartbeat_2eh_8',['heartbeat.h',['../heartbeat_8h.html',1,'']]],
   ['hours_5ft_9',['hours_t',['../structhours__t.html',1,'']]],
-  ['hw_5fdisable_10',['HW_DISABLE',['../phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6',1,'usart.h']]],
+  ['hw_5fdisable_10',['HW_DISABLE',['../phal__F4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6',1,'usart.h']]],
   ['hw_5fflow_5fctl_11',['hw_flow_ctl',['../structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4',1,'usart_init_t']]],
-  ['hw_5fflow_5fctl_5ft_12',['hw_flow_ctl_t',['../phal__F4__F7_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2',1,'usart.h']]]
+  ['hw_5fflow_5fctl_5ft_12',['hw_flow_ctl_t',['../phal__F4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2',1,'usart.h']]]
 ];

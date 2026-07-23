@@ -92,6 +92,13 @@ bool PHAL_FDCAN_setFilters(
 bool PHAL_FDCAN_send(CanMsgTypeDef_t *msg);
 
 /**
+ * @brief Check whether the TX FIFO has at least one free slot.
+ * @param fdcan peripheral instance
+ * @return true if a slot is free
+ */
+bool PHAL_FDCAN_txFifoFree(FDCAN_GlobalTypeDef *fdcan);
+
+/**
  * @brief Weak callback fired once per received frame
  *
  * Called from FDCANx_IT0_IRQHandler (interrupt context) for every frame

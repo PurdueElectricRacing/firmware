@@ -76,12 +76,12 @@ bool PHAL_FDCAN_setFilters(FDCAN_GlobalTypeDef *fdcan,
     return true;
 }
  
-static bool fdcan_txFifoFree(FDCAN_GlobalTypeDef *fdcan) {
+bool PHAL_FDCAN_txFifoFree(FDCAN_GlobalTypeDef *fdcan) {
     return !(fdcan->TXFQS & FDCAN_TXFQS_TFQF);
 }
  
 bool PHAL_FDCAN_send(CanMsgTypeDef_t *msg) {
-    if (!fdcan_txFifoFree(msg->Bus)) {
+    if (!PHAL_FDCAN_txFifoFree(msg->Bus)) {
         return false;
     }
  

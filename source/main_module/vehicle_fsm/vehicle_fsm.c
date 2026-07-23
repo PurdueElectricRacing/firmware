@@ -16,6 +16,37 @@
 car_t g_car;
 torque_request_t g_torque_request;
 
+static torque_request_t direct_mapped_regen() {
+    // assumes brake is in the range [0, 100]
+    int16_t regen_torque = can_data.pedals.brake * -1.0f;
+
+    torque_request_t torque_request = {
+        .front_left  = regen_torque,
+        .front_right = regen_torque,
+        .rear_left   = regen_torque,
+        .rear_right  = regen_torque
+    };
+
+    return torque_request;
+}
+
+static torque_request_t direct_mapped_throttle() {
+    // assumes throttle is in the range [0, 100]
+    int16_t rear_torque = can_data.pedals.throttle * 2.1f; // allow 110% over-torque
+    
+    // Bias to feel like a 40% - 60% torque split
+    int16_t front_torque = (40.0f / 60.0f) * rear_torque;
+
+    torque_request_t torque_request = {
+        .front_left  = front_torque,
+        .front_right = front_torque,
+        .rear_left   = rear_torque,
+        .rear_right  = rear_torque
+    };
+
+    return torque_request;
+}
+
 static void update_torque_request() {
     if (can_data.pedals.is_stale()) {
         g_torque_request.front_right = 0;
@@ -35,21 +66,8 @@ static void update_torque_request() {
         return;
     }
 
-    // Direct mapped throttle
-    // todo alternative throttle mapping (like S curve)
-
-    // assumes pedals.throttle is in the range [0, 100]
-    int16_t torque_req_percent = can_data.pedals.throttle;
-
-    int16_t rear_torque = torque_req_percent * 2.1f; // allow 110% over-torque
-
-    // Bias to feel like a 40% - 60% torque split
-    int16_t front_torque = (40.0f / 60.0f) * rear_torque;
-    
-    g_torque_request.front_right = front_torque;
-    g_torque_request.front_left  = front_torque;
-    g_torque_request.rear_left   = rear_torque;
-    g_torque_request.rear_right  = rear_torque;
+    bool is_regen = (can_data.pedals.brake) > 5 && (can_data.pedals.throttle == 0);
+    g_torque_request = is_regen ? direct_mapped_regen(): direct_mapped_throttle();
 }
 
 static inline bool is_all_AMKS_running() {

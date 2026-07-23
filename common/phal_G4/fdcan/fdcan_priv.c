@@ -57,6 +57,7 @@ uint32_t PHAL_FDCAN_priv_getNBTP(PHAL_FDCAN_BaudRate_t bit_rate) {
         case FDCAN_BAUD_1M:
             return buildNBTP16TQ(FDCAN_PRIV_KER_CLK_HZ / (1000000U * 16U));
     }
+    __builtin_unreachable();
 }
  
 void PHAL_FDCAN_priv_writeStandardFilters(FDCAN_GlobalTypeDef *fdcan, uint32_t *sid_list, uint32_t num_sid) {

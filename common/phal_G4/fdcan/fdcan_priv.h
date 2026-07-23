@@ -21,8 +21,11 @@ static constexpr uint32_t FDCAN_PRIV_KER_CLK_HZ = 16'000'000U;
 // FDCAN clock is derived from PCLK1
 static constexpr uint32_t FDCAN_PRIV_RCC_FDCANCLKSOURCE_PCLK1 = RCC_CCIPR_FDCANSEL_1;
 
-static constexpr uint32_t FDCAN_PRIV_FILTER_ACCEPT_IN_RX_FIFO0 = 0x00000000U;
-static constexpr uint32_t FDCAN_PRIV_FILTER_REJECT = 0x00000002U;
+// Filter action values for RXGFC register
+typedef enum : uint32_t {
+	FDCAN_PRIV_FILTER_ACCEPT_IN_RX_FIFO0 = 0x00000000U,
+	FDCAN_PRIV_FILTER_REJECT             = 0x00000002U
+} PHAL_FDCAN_FilterAction_t;
 
 // Message RAM layout. Same layout, different base offset for each peripheral
 
@@ -60,6 +63,9 @@ void PHAL_FDCAN_priv_enterConfig(FDCAN_GlobalTypeDef *fdcan);
 
 /// Leave INIT mode, ending configuration. Blocks until left
 void PHAL_FDCAN_priv_exitConfig(FDCAN_GlobalTypeDef *fdcan);
+
+// Write a filter action to RXGFC (accept/reject all)
+void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_FilterAction_t action);
 
 /// Compute the NBTP register value for one of the supported bit rates
 uint32_t PHAL_FDCAN_priv_getNBTP(PHAL_FDCAN_BaudRate_t bit_rate);

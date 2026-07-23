@@ -41,6 +41,13 @@ void PHAL_FDCAN_priv_exitConfig(FDCAN_GlobalTypeDef *fdcan) {
         __asm__("nop");
     }
 }
+
+void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_FilterAction_t action) {
+    fdcan->RXGFC = (action << FDCAN_RXGFC_ANFS_Pos)
+        | (action << FDCAN_RXGFC_ANFE_Pos)
+        | (action << FDCAN_RXGFC_RRFS_Pos)
+        | (action << FDCAN_RXGFC_RRFE_Pos);
+}
  
 // Builds nominal bit timing & prescaler register for a
 // 16-time-quantum nominal bit time (~87.5% sample point) at the given BRP

@@ -75,9 +75,9 @@ bool PHAL_FDCAN_setFilters(FDCAN_GlobalTypeDef *fdcan,
     PHAL_FDCAN_priv_exitConfig(fdcan);
     return true;
 }
- 
+
 bool PHAL_FDCAN_txFifoFree(FDCAN_GlobalTypeDef *fdcan) {
-    return !(fdcan->TXFQS & FDCAN_TXFQS_TFQF);
+    return !PHAL_FDCAN_priv_readTxFifoQueueStatusFullFlag(fdcan);
 }
  
 bool PHAL_FDCAN_send(CanMsgTypeDef_t *msg) {

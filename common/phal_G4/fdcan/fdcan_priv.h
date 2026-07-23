@@ -80,6 +80,9 @@ void PHAL_FDCAN_priv_writeTxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t 
  */
 bool PHAL_FDCAN_priv_readRxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t *msg);
 
+// Check whether the TX FIFO/Queue is full
+bool PHAL_FDCAN_priv_readTxFifoQueueStatusFullFlag(FDCAN_GlobalTypeDef *fdcan);
+
 // Check whether the RX FIFO0 new message interrupt flag is set
 bool PHAL_FDCAN_priv_readReceiveFifo0NewMessageInterruptFlag(FDCAN_GlobalTypeDef *fdcan);
 

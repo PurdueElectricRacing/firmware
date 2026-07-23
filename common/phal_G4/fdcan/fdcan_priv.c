@@ -169,6 +169,10 @@ bool PHAL_FDCAN_priv_readRxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t *
     return true;
 }
 
+bool PHAL_FDCAN_priv_readTxFifoQueueStatusFullFlag(FDCAN_GlobalTypeDef *fdcan) {
+    return (fdcan->TXFQS & FDCAN_TXFQS_TFQF) != 0;
+}
+
 bool PHAL_FDCAN_priv_readReceiveFifo0NewMessageInterruptFlag(FDCAN_GlobalTypeDef *fdcan) {
     return (fdcan->IR & FDCAN_IR_RF0N) != 0;
 }

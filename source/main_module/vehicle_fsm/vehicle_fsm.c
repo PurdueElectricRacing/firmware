@@ -17,7 +17,7 @@ car_t g_car;
 torque_request_t g_torque_request;
 
 static torque_request_t direct_mapped_regen() {
-    // assumes brake is in the range [0, 100]
+    // Map brake [0, 100] to torque [0, -100]
     int16_t regen_torque = can_data.pedals.brake * -1.0f;
 
     torque_request_t torque_request = {
@@ -31,8 +31,8 @@ static torque_request_t direct_mapped_regen() {
 }
 
 static torque_request_t direct_mapped_throttle() {
-    // assumes throttle is in the range [0, 100]
-    int16_t rear_torque = can_data.pedals.throttle * 2.1f; // allow 110% over-torque
+    // Map throttle [0, 100] to torque [0, 210]
+    int16_t rear_torque = can_data.pedals.throttle * 2.1f;
     
     // Bias to feel like a 40% - 60% torque split
     int16_t front_torque = (40.0f / 60.0f) * rear_torque;

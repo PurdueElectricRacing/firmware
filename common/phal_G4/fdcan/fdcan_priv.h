@@ -68,6 +68,9 @@ void PHAL_FDCAN_priv_exitConfig(FDCAN_GlobalTypeDef *fdcan);
 // Not FD, not BRS, not loopback, auto-retransmission enabled, TX pause on
 void PHAL_FDCAN_priv_controlConfig(FDCAN_GlobalTypeDef *fdcan);
 
+// Set TX FIFO/Queue mode to FIFO (not queue)
+void PHAL_FDCAN_priv_setTransmitFifoQueueModeToFifo(FDCAN_GlobalTypeDef *fdcan);
+
 // Write a filter action to RXGFC (accept/reject all)
 void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_FilterAction_t action);
 

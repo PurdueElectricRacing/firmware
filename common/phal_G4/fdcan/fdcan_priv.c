@@ -50,6 +50,11 @@ void PHAL_FDCAN_priv_controlConfig(FDCAN_GlobalTypeDef *fdcan) {
     fdcan->TEST &= ~FDCAN_TEST_LBCK; // disable loopback
 }
 
+void PHAL_FDCAN_priv_setTransmitFifoQueueModeToFifo(FDCAN_GlobalTypeDef *fdcan) {
+    fdcan->TXBC &= ~FDCAN_TXBC_TFQM;
+}
+
+
 void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_FilterAction_t action) {
     fdcan->RXGFC = (action << FDCAN_RXGFC_ANFS_Pos)
         | (action << FDCAN_RXGFC_ANFE_Pos)

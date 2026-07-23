@@ -17,21 +17,17 @@ void PHAL_FDCAN_init(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_BaudRate_t bit_rate)
  
     PHAL_FDCAN_priv_enterConfig(fdcan);
  
-    // Classic CAN config
+    // Classic CAN config (no FD/BRS/loopback, auto-retransmission enabled, TX pause on)
     PHAL_FDCAN_priv_controlConfig(fdcan);
  
     // Time quantum nominal bit
-    fdcan->NBTP  = PHAL_FDCAN_priv_getNBTP(bit_rate);
+    fdcan->NBTP = PHAL_FDCAN_priv_getNBTP(bit_rate);
 
     // FIFO mode for TX buffer
-    fdcan->TXBC &= ~FDCAN_TXBC_TFQM;
+    PHAL_FDCAN_priv_setTransmitFifoQueueModeToFifo(fdcan);
  
     // RX new message -> line 0, TX complete -> line 1
-    fdcan->ILS     = FDCAN_ILS_SMSG;
-    fdcan->ILE     = FDCAN_ILE_EINT0 | FDCAN_ILE_EINT1;
-    fdcan->IR      = FDCAN_IR_RF0N | FDCAN_IR_TC; // clear any stale flags
-    fdcan->IE     |= FDCAN_IE_RF0NE | FDCAN_IE_TCE;
-    fdcan->TXBTIE  = 0xFFFFFFFFU; // TX complete interrupt for every TX buffer
+    PHAL_FDCAN_setInteruptLines(fdcan);
  
     // Default filters: accept everything
     PHAL_FDCAN_priv_writeFilterAction(fdcan, FDCAN_PRIV_FILTER_ACCEPT_IN_RX_FIFO0);

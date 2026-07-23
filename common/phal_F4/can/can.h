@@ -33,14 +33,21 @@
 #define PHAL_CAN_24MHz_250k (0x003a0005) // sample point = 75%
 #define PHAL_CAN_36MHz_250k (0x003a0008) // sample point = 75%
 
-typedef struct
-{
-    CAN_TypeDef* Bus; /*!< Specifies the bus. */
-    uint16_t StdId; /*!< Specifies the standard identifier. */
-    uint32_t ExtId; /*!< Specifies the extended identifier. */
-    uint32_t IDE; /*!< Specifies the type of identifier for the message that will be transmitted.  */
-    uint32_t DLC; /*!< Specifies the length of the frame that will be transmitted. */
-    uint8_t Data[8]; /*!< Contains the data to be transmitted. */
+/**
+ * @brief Classic CAN frame
+ * 
+ * used for both TX and RX.
+ */
+typedef struct {
+    CAN_TypeDef* Bus; /*!< When RX - Bus = which peripheral the frame arrived on
+                                   When TX - Bus =  which peripheral should transmits it */
+    bool IsExtendedId;
+    union {
+        uint16_t StdId; /*!< valid when !IsExtendedId, 11-bit */
+        uint32_t ExtId; /*!< valid when IsExtendedId,  29-bit */
+    };
+    uint8_t DLC;        /*!< payload length, 0-8 */
+    uint8_t Data[8];    /*!< payload bytes */
 } CanMsgTypeDef_t;
 
 /**

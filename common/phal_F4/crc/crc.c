@@ -13,16 +13,8 @@
 
 void PHAL_CRC32_Reset(void) {
     // CRC initializaion
-#if defined(STM32F732xx)
-    RCC->AHB1ENR |= RCC_AHB1ENR_CRCEN; // Clock the CRC peripheral
-    CRC->INIT = 0xFFFFFFFF; // Reset initial value
-    CRC->CR &= ~CRC_CR_POLYSIZE_Msk; // Set 32 bit (00)
-    CRC->POL = 0x04C11DB7; // CRC-32b (Ethernet Polynomial)
-    CRC->CR |= CRC_CR_RESET; // Reset CRC
-#else
     RCC->AHB1ENR |= RCC_AHB1ENR_CRCEN; // F4 only supports CRC-32b
     CRC->CR = CRC_CR_RESET;
-#endif
 }
 
 void PHAL_CRC32_Init(void) {

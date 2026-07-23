@@ -25,23 +25,6 @@
 #define USART6_ACTIVE_IDX 5
 #define USART7_ACTIVE_IDX 6
 #define USART8_ACTIVE_IDX 7
-
-#elif defined(STM32F732xx)
-#define TOTAL_NUM_UART             8
-
-// Active Transfer list indexes (Add to this list if updating TOTAL_NUM_UART)
-#define USART1_ACTIVE_IDX          0
-#define USART2_ACTIVE_IDX          1
-#define USART3_ACTIVE_IDX          2
-#define USART4_ACTIVE_IDX          3
-#define USART5_ACTIVE_IDX          4
-#define USART6_ACTIVE_IDX          5
-#define USART7_ACTIVE_IDX          6
-#define USART8_ACTIVE_IDX          7
-
-// Defines that mean the same thing but are phrased differently in stm32f4xx and stm32f7xx
-#define USART_BRR_DIV_Fraction_Pos USART_BRR_DIV_FRACTION_Pos
-#define USART_BRR_DIV_Mantissa_Pos USART_BRR_DIV_MANTISSA_Pos
 #endif
 
 #include "common/phal_F4/dma/dma.h"

@@ -142,42 +142,10 @@ bool PHAL_configurePLLSystemClock(uint32_t system_clock_target_hz) {
 
     __DSB(); // Wait for explicit memory accesses to finish
 
-#if defined STM32F732xx
-    bool enable_overdrive = false;
-    RCC->APB1ENR |= RCC_APB1ENR_PWREN;
-    // Voltage regulator scaling based on system clock, see p. 14: https://www.st.com/resource/en/product_training/STM32F7_System_PWR.pdf
-    if (system_clock_target_hz > 180000000) {
-        PWR->CR1 &= ~PWR_CR1_VOS;
-        PWR->CR1 |= PWR_CR1_VOS;
-        enable_overdrive = true;
-    } else if (system_clock_target_hz > 168000000) {
-        PWR->CR1 &= ~PWR_CR1_VOS; //No need to use overdrive, but select scale 1 on voltage regulator
-        PWR->CR1 |= PWR_CR1_VOS;
-    } else if (system_clock_target_hz > 144000000) {
-        PWR->CR1 &= ~PWR_CR1_VOS; //No need to use overdrive, but select scale 2 on voltage regulator
-        PWR->CR1 |= PWR_CR1_VOS_1;
-    } else {
-        PWR->CR1 &= ~PWR_CR1_VOS; //No need to use overdrive, but select scale 3 on voltage regulator
-        PWR->CR1 |= PWR_CR1_VOS_0;
-    }
-
-#endif
     RCC->CR |= RCC_CR_PLLON; // Enable PLL
     while (!(RCC->CR & RCC_CR_PLLRDY))
         ; // Wait for PLL to turn on
     __DSB();
-
-//Set Level of Internal Voltage Regulator, see ST RM 0090/0431
-#if defined STM32F732xx
-    if (enable_overdrive) {
-        PWR->CR1 |= PWR_CR1_ODEN;
-        while (!(PWR->CSR1 & PWR_CSR1_ODRDY)) //Wait for regulator output to turn on
-            ;
-        PWR->CR1 |= PWR_CR1_ODSWEN; //Enable Overdrive
-        while (!(PWR->CSR1 & PWR_CSR1_ODSWRDY))
-            ; //Wait for overdrive to turn on
-    }
-#endif
 
     //Flash latency adjustment, see ST RM 0090 Pg. 80, ST RM 0431 Pg. 69
     uint32_t flash_acr_temp = FLASH->ACR;

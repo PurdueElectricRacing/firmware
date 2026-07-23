@@ -73,18 +73,6 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck) {
             return false;
     }
 #endif
-#ifdef STM32F732xx
-    switch ((ptr_int)handle->periph) {
-        case USART1_BASE:
-            RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
-            break;
-        case UART4_BASE:
-            RCC->APB1ENR |= RCC_APB1ENR_UART4EN;
-            break;
-        default:
-            return false;
-    }
-#endif
 
     // The following FBRG configuration is based off RM0090 p. 978 - 980
     over8 = 8 << !handle->ovsample;
@@ -165,18 +153,6 @@ void PHAL_usartTxBl(usart_init_t* handle, uint8_t* data, uint32_t len) {
 
 #endif
 
-#ifdef STM32F732xx
-
-    for (i = 0; i < len; i++) {
-        while (!(handle->periph->ISR & USART_ISR_TXE))
-            ;
-        handle->periph->TDR = data[i] & 0xff;
-    }
-
-    while (!(handle->periph->ISR & USART_ISR_TC))
-        ;
-
-#endif
 }
 
 void PHAL_usartRxBl(usart_init_t* handle, uint8_t* data, uint32_t len) {
@@ -193,26 +169,12 @@ void PHAL_usartRxBl(usart_init_t* handle, uint8_t* data, uint32_t len) {
 
 #endif
 
-#ifdef STM32F732xx
-
-    for (i = 0; i < len; i++) {
-        while (!(handle->periph->ISR & USART_ISR_RXNE))
-            ;
-        data[i] = handle->periph->RDR & 0xff;
-    }
-
-#endif
 }
 
 bool PHAL_usartTxDma(usart_init_t* handle, uint16_t* data, uint32_t len) {
     if (active_uarts[handle->usart_active_num].active_handle != handle)
         return false;
 
-#ifdef STM32F732xx
-    // Ensure any RX data is not overwritten before continuing with transfer
-    while ((active_uarts[handle->usart_active_num].active_handle->periph->ISR & USART_ISR_RXNE))
-        ;
-#endif
 // Enable All Interrupts needed to complete Tx transaction
 // ADD: Ensure you enable the TX DMA interrupt for a new UART peripheral
 // RM0090 PG 310
@@ -236,18 +198,6 @@ bool PHAL_usartTxDma(usart_init_t* handle, uint16_t* data, uint32_t len) {
             break;
         case USART6_BASE:
             NVIC_EnableIRQ(DMA2_Stream6_IRQn);
-            break;
-        default:
-            return false;
-    }
-#endif
-#ifdef STM32F732xx
-    switch ((ptr_int)handle->periph) {
-        case USART1_BASE:
-            NVIC_EnableIRQ(DMA2_Stream7_IRQn);
-            break;
-        case UART4_BASE:
-            NVIC_EnableIRQ(DMA1_Stream4_IRQn);
             break;
         default:
             return false;
@@ -314,20 +264,6 @@ bool PHAL_usartRxDma(usart_init_t* handle, uint16_t* data, uint32_t len, bool co
             return false;
     }
 #endif
-#ifdef STM32F732xx
-    switch ((ptr_int)handle->periph) {
-        case USART1_BASE:
-            NVIC_EnableIRQ(DMA2_Stream5_IRQn);
-            NVIC_EnableIRQ(USART1_IRQn);
-            break;
-        case UART4_BASE:
-            NVIC_EnableIRQ(DMA1_Stream2_IRQn);
-            NVIC_EnableIRQ(UART4_IRQn);
-            break;
-        default:
-            return false;
-    }
-#endif
     // Configure parts of DMA that will not change each transaction, and enable DMA on USART
     PHAL_DMA_setMemAddress(handle->rx_dma_cfg, (uint32_t)data);
     handle->periph->CR3 |= USART_CR3_DMAR;
@@ -368,20 +304,6 @@ bool PHAL_disableContinousRxDMA(usart_init_t* handle) {
         case USART6_BASE:
             NVIC_DisableIRQ(DMA2_Stream1_IRQn);
             NVIC_DisableIRQ(USART6_IRQn);
-            break;
-        default:
-            return false;
-    }
-#endif
-#ifdef STM32F732xx
-    switch ((ptr_int)handle->periph) {
-        case USART1_BASE:
-            NVIC_DisableIRQ(DMA2_Stream5_IRQn);
-            NVIC_DisableIRQ(USART1_IRQn);
-            break;
-        case USART2_BASE:
-            NVIC_DisableIRQ(DMA1_Stream2_IRQn);
-            NVIC_DisableIRQ(UART4_IRQn);
             break;
         default:
             return false;

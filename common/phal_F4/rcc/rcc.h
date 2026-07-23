@@ -34,16 +34,6 @@
 #define RCC_MAX_PLL_OUTPUT_MULTIPLIER (432U)
 #define RCC_MAX_SYSCLK_TARGET_HZ      (168000000)
 
-#elif defined(STM32F732xx)
-
-#define RCC_MAX_VCO_RATE_HZ           ((uint32_t)432e6)
-#define RCC_MIN_VCO_RATE_HZ           ((uint32_t)100e6)
-#define RCC_MIN_PLL_INPUT_DIVISOR     (2U)
-#define RCC_MAX_PLL_INPUT_DIVISOR     (63U)
-#define RCC_MIN_PLL_OUTPUT_MULTIPLIER (50U)
-#define RCC_MAX_PLL_OUTPUT_MULTIPLIER (432U)
-#define RCC_MAX_SYSCLK_TARGET_HZ      (216000000)
-
 #else
 #error "Please define a MCU arch"
 #endif

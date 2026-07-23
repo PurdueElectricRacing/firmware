@@ -32,10 +32,6 @@ uint8_t PHAL_configureRTC(RTC_timestamp_t* initial_time, bool force_time) {
     PWR->CR |= PWR_CR_DBP;
     while ((PWR->CR & PWR_CR_DBP) == 0)
         ;
-#elif defined(STM32F732xx)
-    PWR->CR1 |= PWR_CR1_DBP;
-    while ((PWR->CR1 & PWR_CR1_DBP) == 0)
-        ;
 #else
 #error "Please define a MCU arch"
 #endif
@@ -134,8 +130,6 @@ uint8_t PHAL_configureRTC(RTC_timestamp_t* initial_time, bool force_time) {
     // Relock registers
 #if defined(STM32F407xx)
     PWR->CR &= ~(PWR_CR_DBP);
-#elif defined(STM32F732xx)
-    PWR->CR1 &= ~(PWR_CR1_DBP);
 #else
 #error "Please define a MCU arch"
 #endif

@@ -1,7 +1,7 @@
 /**
  * @file spi.c
  * @author Aditya Anand (anand89@purdue.edu) - Port of L4 HAL by Adam Busch (busch8@purdue.edu)
- * @brief PER Serial Peripheral Interface Device driver for STM32F4 and STM32F7
+ * @brief PER Serial Peripheral Interface Device driver for STM32F4 
  * @version 0.1
  * @date 2023-12-4
  *
@@ -42,16 +42,6 @@ bool PHAL_SPI_init(SPI_InitConfig_t* cfg) {
     // Set data frame size for SPI transaction to 8/16 bits depending on user configuration
     cfg->periph->CR1 &= ~(SPI_CR1_DFF);
     cfg->periph->CR1 |= (cfg->data_len != 8) << SPI_CR1_DFF_Pos;
-#endif
-
-#ifdef STM32F732xx
-    // Disable Hardware Controlled NSS
-    cfg->periph->CR2 &= ~(SPI_CR2_NSSP);
-    // Data Size
-    cfg->periph->CR2 &= ~(SPI_CR2_DS_Msk);
-    cfg->periph->CR2 |= (CLAMP(cfg->data_len, 4, 16) - 1) << SPI_CR2_DS_Pos;
-    // RX Fifo full on 8 bits
-    cfg->periph->CR2 |= SPI_CR2_FRXTH;
 #endif
 
     // Data Rate

@@ -10,13 +10,13 @@
 #define MAX_NUM_XID_FILTER (8)
 
 /**
- * @brief A classic CAN frame, used for both TX and RX.
- *
- * When RX - Bus = which peripheral the frame arrived on
- * When TX - Bus =  which peripheral should transmits it
+ * @brief Classic CAN frame
+ * 
+ * used for both TX and RX.
  */
 typedef struct {
-    FDCAN_GlobalTypeDef* Bus;
+    FDCAN_GlobalTypeDef* Bus; /*!< When RX - Bus = which peripheral the frame arrived on
+                                   When TX - Bus =  which peripheral should transmits it */
     bool IsExtendedId;
     union {
         uint16_t StdId; /*!< valid when !IsExtendedId, 11-bit */

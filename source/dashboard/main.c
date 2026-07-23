@@ -187,12 +187,8 @@ int main(void) {
     PHAL_startTxfer(&adc_dma_config);
     PHAL_startADC(&adc_config);
 
-    if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
-        HardFault_Handler();
-    }
-    if (false == PHAL_FDCAN_init(FDCAN3, false, SCAN_BAUD_RATE)) {
-        HardFault_Handler();
-    }
+    PHAL_FDCAN_init(FDCAN2, VCAN_BAUD_RATE);
+    PHAL_FDCAN_init(FDCAN3, SCAN_BAUD_RATE);
     CAN_init();
 
     // Software Initialization

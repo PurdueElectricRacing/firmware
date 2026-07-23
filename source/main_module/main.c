@@ -106,12 +106,8 @@ int main(void) {
     }
 
     // CAN init
-    if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
-        HardFault_Handler();
-    }
-    if (false == PHAL_FDCAN_init(FDCAN3, false, MCAN_BAUD_RATE)) {
-        HardFault_Handler();
-    }
+    PHAL_FDCAN_init(FDCAN2, VCAN_BAUD_RATE);
+    PHAL_FDCAN_init(FDCAN3, MCAN_BAUD_RATE);
     CAN_init();
 
     powertrain_init();

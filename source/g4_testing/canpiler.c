@@ -61,9 +61,7 @@ int main() {
         HardFault_Handler();
     }
 
-    if (!PHAL_FDCAN_init(FDCAN1, false, VCAN_BAUD_RATE)) {
-        HardFault_Handler();
-    }
+    PHAL_FDCAN_init(FDCAN1, VCAN_BAUD_RATE);
 
     CAN_library_init();
 

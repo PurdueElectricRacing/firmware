@@ -93,12 +93,9 @@ int main() {
     PHAL_startADC(&adc_config);
 
     // Send on CAN2, receive on CAN3
-    if (!PHAL_FDCAN_init(FDCAN2, false, 500000U)) {
-        HardFault_Handler();
-    }
-    if (!PHAL_FDCAN_init(FDCAN3, false, 500000U)) {
-        HardFault_Handler();
-    }
+    PHAL_FDCAN_init(FDCAN2, 500000U);
+    PHAL_FDCAN_init(FDCAN3, 500000U);
+    
     uint32_t sids[8] = {0x300, 0x301};
     uint32_t xids[8] = {0x1ABCDE1, 0x1ABCDE2, 0x1ABCDE3};
     PHAL_FDCAN_setFilters(FDCAN2, sids, 2, xids, 3);

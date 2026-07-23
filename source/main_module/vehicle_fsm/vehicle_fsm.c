@@ -98,11 +98,11 @@ static void update_torque_request() {
     );
     bool is_vehicle_speed_high = min_wheelspeed * RPM_TO_MPH > 5;
     bool is_pack_low_enough = can_data.pack_stats.pack_voltage < 470;
-    bool is_regen = is_braking && is_vehicle_speed_high && is_pack_low_enough;
+    bool is_regen_allowed = is_braking && is_vehicle_speed_high && is_pack_low_enough;
 
     if (can_data.pedals.throttle > 0) {
         g_torque_request = direct_mapped_throttle();
-    } else if (is_regen) {
+    } else if (is_regen_allowed) {
         g_torque_request = direct_mapped_regen();
     } else {
         g_torque_request = zero_torque_request();

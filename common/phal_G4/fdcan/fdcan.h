@@ -6,8 +6,8 @@
 
 #include "common/phal_G4/phal_G4.h"
 
-#define MAX_NUM_SID_FILTER (28)
-#define MAX_NUM_XID_FILTER (8)
+#define PHAL_FDCAN_MAX_NUM_SID_FILTER (28)
+#define PHAL_FDCAN_MAX_NUM_XID_FILTER (8)
 
 /**
  * @brief Classic CAN frame

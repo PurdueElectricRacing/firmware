@@ -38,10 +38,10 @@ void PHAL_FDCAN_init(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_BaudRate_t bit_rate)
     fdcan->TXBTIE  = 0xFFFFFFFFU; // TX complete interrupt for every TX buffer
  
     // Default filters: accept everything
-    fdcan->RXGFC = (FDCAN_ACCEPT_IN_RX_FIFO0 << FDCAN_RXGFC_ANFS_Pos)
-        | (FDCAN_ACCEPT_IN_RX_FIFO0 << FDCAN_RXGFC_ANFE_Pos)
-        | (FDCAN_ACCEPT_IN_RX_FIFO0 << FDCAN_RXGFC_RRFS_Pos)
-        | (FDCAN_ACCEPT_IN_RX_FIFO0 << FDCAN_RXGFC_RRFE_Pos);
+    fdcan->RXGFC = (FDCAN_PRIV_FILTER_ACCEPT_IN_RX_FIFO0 << FDCAN_RXGFC_ANFS_Pos)
+        | (FDCAN_PRIV_FILTER_ACCEPT_IN_RX_FIFO0 << FDCAN_RXGFC_ANFE_Pos)
+        | (FDCAN_PRIV_FILTER_ACCEPT_IN_RX_FIFO0 << FDCAN_RXGFC_RRFS_Pos)
+        | (FDCAN_PRIV_FILTER_ACCEPT_IN_RX_FIFO0 << FDCAN_RXGFC_RRFE_Pos);
  
     PHAL_FDCAN_priv_exitConfig(fdcan);
 }
@@ -60,9 +60,10 @@ bool PHAL_FDCAN_setFilters(FDCAN_GlobalTypeDef *fdcan,
     PHAL_FDCAN_priv_enterConfig(fdcan);
  
     // Exact match: anything not in the list is rejected
-    fdcan->RXGFC = (FDCAN_REJECT << FDCAN_RXGFC_ANFS_Pos) | (FDCAN_REJECT << FDCAN_RXGFC_ANFE_Pos)
-        | (FDCAN_ACCEPT_IN_RX_FIFO0 << FDCAN_RXGFC_RRFS_Pos)
-        | (FDCAN_ACCEPT_IN_RX_FIFO0 << FDCAN_RXGFC_RRFE_Pos);
+    fdcan->RXGFC = (FDCAN_PRIV_FILTER_REJECT << FDCAN_RXGFC_ANFS_Pos)
+        | (FDCAN_PRIV_FILTER_REJECT << FDCAN_RXGFC_ANFE_Pos)
+        | (FDCAN_PRIV_FILTER_REJECT << FDCAN_RXGFC_RRFS_Pos)
+        | (FDCAN_PRIV_FILTER_REJECT << FDCAN_RXGFC_RRFE_Pos);
  
     if (num_sid > 0) {
         PHAL_FDCAN_priv_writeStandardFilters(fdcan, sid_list, num_sid);

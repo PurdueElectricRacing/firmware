@@ -12,8 +12,8 @@
 
 #include "common/phal_G4/phal_G4.h"
 
-#define PHAL_FDCAN_MAX_NUM_SID_FILTER (28)
-#define PHAL_FDCAN_MAX_NUM_XID_FILTER (8)
+static constexpr uint32_t PHAL_FDCAN_MAX_NUM_SID_FILTER = 28;
+static constexpr uint32_t PHAL_FDCAN_MAX_NUM_XID_FILTER = 8;
 
 /**
  * @brief Classic CAN frame
@@ -44,7 +44,7 @@ typedef enum : uint32_t {
 /**
  * @brief Initialize an FDCAN peripheral for classic (non-FD) CAN operation
  *
- * - FDCAN kernel clock selection (PCLK1) and peripheral clock enable
+ * - Setups up FDCAN clock (from PCLK1)
  * - ~87.5% sample point
  * - Classic CAN mode (FD/BRS off), auto-retransmission enabled, TX pause on
  * - TX FIFO mode

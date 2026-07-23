@@ -42,20 +42,21 @@ void PHAL_FDCAN_priv_exitConfig(FDCAN_GlobalTypeDef *fdcan) {
     }
 }
  
-// Builds an NBTP register for a 16-time-quantum nominal bit time (~87.5%
-// sample point) at the given BRP. (BRP=2 @ 500k, BRP=1 @ 1M).
-static uint32_t buildNBTP16TQ(uint32_t brp) {
+// Builds nominal bit timing & prescaler register for a
+// 16-time-quantum nominal bit time (~87.5% sample point) at the given BRP
+// (BRP=2 @ 500k, BRP=1 @ 1M)
+static uint32_t fdcan_buildNBTP16TQ(uint32_t brp) {
     const uint32_t seg1 = 13, seg2 = 2, sjw = 2;
     return ((brp - 1U) << FDCAN_NBTP_NBRP_Pos) | ((seg1 - 1U) << FDCAN_NBTP_NTSEG1_Pos)
         | ((seg2 - 1U) << FDCAN_NBTP_NTSEG2_Pos) | ((sjw - 1U) << FDCAN_NBTP_NSJW_Pos);
 }
- 
+
 uint32_t PHAL_FDCAN_priv_getNBTP(PHAL_FDCAN_BaudRate_t bit_rate) {
     switch (bit_rate) {
         case FDCAN_BAUD_500K:
-            return buildNBTP16TQ(FDCAN_PRIV_KER_CLK_HZ / (500000U * 16U));
+            return fdcan_buildNBTP16TQ(FDCAN_PRIV_KER_CLK_HZ / (500000U * 16U));
         case FDCAN_BAUD_1M:
-            return buildNBTP16TQ(FDCAN_PRIV_KER_CLK_HZ / (1000000U * 16U));
+            return fdcan_buildNBTP16TQ(FDCAN_PRIV_KER_CLK_HZ / (1000000U * 16U));
     }
     __builtin_unreachable();
 }
@@ -122,11 +123,6 @@ void PHAL_FDCAN_priv_writeTxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t 
     fdcan->TXBAR = (1U << put);
 }
  
-static uint8_t FDCAN_dlcCodeToLen(uint8_t dlc_code) {
-    static const uint8_t LEN_TABLE[16] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 12, 16, 20, 24, 32, 48, 64};
-    return LEN_TABLE[dlc_code & 0xF];
-}
- 
 bool PHAL_FDCAN_priv_readRxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t *msg) {
     uint32_t f0s = fdcan->RXF0S;
     if ((f0s & FDCAN_RXF0S_F0FL_Msk) == 0) {
@@ -154,7 +150,8 @@ bool PHAL_FDCAN_priv_readRxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t *
     }
  
     // Decode DLC
-    uint8_t len = FDCAN_dlcCodeToLen((w1 >> 16) & 0xF);
+    uint8_t dlc = ((w1 >> 16) & 0xF);
+    uint8_t len = dlc > 8U ? 8U : dlc; // classic CAN max payload is 8
     if (len > sizeof(msg->Data)) {
         len = sizeof(msg->Data);
     }
@@ -170,4 +167,20 @@ bool PHAL_FDCAN_priv_readRxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t *
     fdcan->RXF0A = get;
 
     return true;
+}
+
+bool PHAL_FDCAN_priv_readReceiveFifo0NewMessageInterruptFlag(FDCAN_GlobalTypeDef *fdcan) {
+    return (fdcan->IR & FDCAN_IR_RF0N) != 0;
+}
+
+void PHAL_FDCAN_priv_clearReceiveFifo0NewMessageInterruptFlag(FDCAN_GlobalTypeDef *fdcan) {
+    fdcan->IR = FDCAN_IR_RF0N;
+}
+
+bool PHAL_FDCAN_priv_readTransmitCompleteInterruptFlag(FDCAN_GlobalTypeDef *fdcan) {
+    return (fdcan->IR & FDCAN_IR_TC) != 0;
+}
+
+void PHAL_FDCAN_priv_clearTransmitCompleteInterruptFlag(FDCAN_GlobalTypeDef *fdcan) {
+    fdcan->IR = FDCAN_IR_TC;
 }

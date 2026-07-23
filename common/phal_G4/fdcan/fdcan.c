@@ -76,38 +76,38 @@ bool PHAL_FDCAN_setFilters(FDCAN_GlobalTypeDef *fdcan,
     return true;
 }
  
-bool PHAL_FDCAN_txFifoFree(FDCAN_GlobalTypeDef *fdcan) {
+static bool fdcan_txFifoFree(FDCAN_GlobalTypeDef *fdcan) {
     return !(fdcan->TXFQS & FDCAN_TXFQS_TFQF);
 }
  
 bool PHAL_FDCAN_send(CanMsgTypeDef_t *msg) {
-    if (!PHAL_FDCAN_txFifoFree(msg->Bus)) {
+    if (!fdcan_txFifoFree(msg->Bus)) {
         return false;
     }
  
     PHAL_FDCAN_priv_writeTxElement(msg->Bus, msg);
     return true;
 }
- 
+
 [[gnu::always_inline]]
-static inline void PHAL_FDCAN_rxIRQHandler(FDCAN_GlobalTypeDef *fdcan) {
-    if (!(fdcan->IR & FDCAN_IR_RF0N)) {
+static inline void fdcan_rxIRQHandler(FDCAN_GlobalTypeDef *fdcan) {
+    if (!PHAL_FDCAN_priv_readReceiveFifo0NewMessageInterruptFlag(fdcan)) {
         return;
     }
-    fdcan->IR = FDCAN_IR_RF0N;
- 
+    PHAL_FDCAN_priv_clearReceiveFifo0NewMessageInterruptFlag(fdcan);
+
     CanMsgTypeDef_t msg;
     while (PHAL_FDCAN_priv_readRxElement(fdcan, &msg)) {
         PHAL_FDCAN_rxCallback(&msg);
     }
 }
- 
+
 [[gnu::always_inline]]
-static inline void PHAL_FDCAN_txIRQHandler(FDCAN_GlobalTypeDef *fdcan) {
-    if (!(fdcan->IR & FDCAN_IR_TC)) {
+static inline void fdcan_txIRQHandler(FDCAN_GlobalTypeDef *fdcan) {
+    if (!PHAL_FDCAN_priv_readTransmitCompleteInterruptFlag(fdcan)) {
         return;
     }
-    fdcan->IR = FDCAN_IR_TC;
+    PHAL_FDCAN_priv_clearTransmitCompleteInterruptFlag(fdcan);
 
     PHAL_FDCAN_txCallback(fdcan);
 }
@@ -123,25 +123,25 @@ void PHAL_FDCAN_txCallback(FDCAN_GlobalTypeDef *fdcan) {
 }
  
 void FDCAN1_IT0_IRQHandler(void) {
-    PHAL_FDCAN_rxIRQHandler(FDCAN1);
+    fdcan_rxIRQHandler(FDCAN1);
 }
  
 void FDCAN1_IT1_IRQHandler(void) {
-    PHAL_FDCAN_txIRQHandler(FDCAN1);
+    fdcan_txIRQHandler(FDCAN1);
 }
  
 void FDCAN2_IT0_IRQHandler(void) {
-    PHAL_FDCAN_rxIRQHandler(FDCAN2);
+    fdcan_rxIRQHandler(FDCAN2);
 }
  
 void FDCAN2_IT1_IRQHandler(void) {
-    PHAL_FDCAN_txIRQHandler(FDCAN2);
+    fdcan_txIRQHandler(FDCAN2);
 }
  
 void FDCAN3_IT0_IRQHandler(void) {
-    PHAL_FDCAN_rxIRQHandler(FDCAN3);
+    fdcan_rxIRQHandler(FDCAN3);
 }
  
 void FDCAN3_IT1_IRQHandler(void) {
-    PHAL_FDCAN_txIRQHandler(FDCAN3);
+    fdcan_txIRQHandler(FDCAN3);
 }

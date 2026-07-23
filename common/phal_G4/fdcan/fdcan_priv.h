@@ -80,4 +80,16 @@ void PHAL_FDCAN_priv_writeTxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t 
  */
 bool PHAL_FDCAN_priv_readRxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t *msg);
 
+// Check whether the RX FIFO0 new message interrupt flag is set
+bool PHAL_FDCAN_priv_readReceiveFifo0NewMessageInterruptFlag(FDCAN_GlobalTypeDef *fdcan);
+
+// Clear the RX FIFO0 new message interrupt flag
+void PHAL_FDCAN_priv_clearReceiveFifo0NewMessageInterruptFlag(FDCAN_GlobalTypeDef *fdcan);
+
+// Check whether the TX complete interrupt flag is set
+bool PHAL_FDCAN_priv_readTransmitCompleteInterruptFlag(FDCAN_GlobalTypeDef *fdcan);
+
+// Clear the TX complete interrupt flag
+void PHAL_FDCAN_priv_clearTransmitCompleteInterruptFlag(FDCAN_GlobalTypeDef *fdcan);
+
 #endif // __PHAL_G4_FDCAN_PRIV_H__

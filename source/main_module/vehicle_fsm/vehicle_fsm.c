@@ -11,10 +11,32 @@
 #include "can_library/generated/MAIN_MODULE.h"
 #include "common/phal/gpio.h"
 #include "main.h"
+#include "common/utils/min.h"
+
+// For speed calcs
+static constexpr float WHEEL_RADIUS_IN = 8.0f;
+static constexpr float GEAR_RATIO = 12.51f;
+static constexpr float WHEEL_CIRCUMFERENCE_IN = 2.0f * 3.14159f * WHEEL_RADIUS_IN;
+static constexpr float OUTPUT_REV_PER_MOTOR_REV = 1.0f / GEAR_RATIO;
+static constexpr float INCHES_PER_MOTOR_REV = WHEEL_CIRCUMFERENCE_IN * OUTPUT_REV_PER_MOTOR_REV;
+static constexpr float MINUTES_PER_HOUR = 60.0f;
+static constexpr float INCHES_PER_MILE = 63360.0f;
+static constexpr float RPM_TO_MPH = INCHES_PER_MOTOR_REV * MINUTES_PER_HOUR / INCHES_PER_MILE;
 
 // Global data structures
 car_t g_car;
 torque_request_t g_torque_request;
+
+static torque_request_t zero_torque_request() {
+    torque_request_t torque_request = {
+        .front_left  = 0,
+        .front_right = 0,
+        .rear_left   = 0,
+        .rear_right  = 0
+    };
+
+    return torque_request;
+}
 
 static torque_request_t direct_mapped_regen() {
     // Map brake [0, 100] to torque [0, -100]
@@ -66,8 +88,25 @@ static void update_torque_request() {
         return;
     }
 
-    bool is_regen = (can_data.pedals.brake) > 5 && (can_data.pedals.throttle == 0);
-    g_torque_request = is_regen ? direct_mapped_regen(): direct_mapped_throttle();
+    // regen guards
+    bool is_braking = (can_data.pedals.brake) > 5;
+    int16_t min_wheelspeed = MINOF(
+        g_car.front_right.crit->AMK_ActualSpeed,
+        g_car.front_left.crit->AMK_ActualSpeed,
+        g_car.rear_left.crit->AMK_ActualSpeed,
+        g_car.rear_right.crit->AMK_ActualSpeed
+    );
+    bool is_vehicle_speed_high = min_wheelspeed * RPM_TO_MPH > 5;
+    bool is_pack_low_enough = can_data.pack_stats.pack_voltage < 470;
+    bool is_regen = is_braking && is_vehicle_speed_high && is_pack_low_enough;
+
+    if (can_data.pedals.throttle > 0) {
+        g_torque_request = direct_mapped_throttle();
+    } else if (is_regen) {
+        g_torque_request = direct_mapped_regen();
+    } else {
+        g_torque_request = zero_torque_request();
+    }
 }
 
 static inline bool is_all_AMKS_running() {

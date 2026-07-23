@@ -44,7 +44,7 @@ set(COMMON_MODULES
     common/heartbeat
     common/lerp_lut
     common/nextion
-    common/phal_F4_F7
+    common/phal_F4
     common/phal_G4
     common/sdio
     common/strbuf

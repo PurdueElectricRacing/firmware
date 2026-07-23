@@ -17,7 +17,7 @@ MAX_FDCAN_XID_FILTERS = 8
 
 @dataclass
 class FilterBank:
-    """bxCAN filter bank (F4/F7/L4)"""
+    """bxCAN filter bank (F4)"""
 
     bank_idx: int
     msg1: Optional[Message] = None
@@ -59,7 +59,7 @@ def map_hardware(nodes: List[Node], bus_configs: Dict) -> Dict[str, NodeMapping]
 
 
 def is_fdcan_peripheral(periph: str) -> bool:
-    """Check if peripheral is FDCAN (G4) vs bxCAN (F4/F7/L4)"""
+    """Check if peripheral is FDCAN (G4) vs bxCAN (F4)"""
     return periph.startswith("FDCAN")
 
 
@@ -101,7 +101,7 @@ def map_node_hardware(node: Node, bus_configs: Dict) -> NodeMapping:
             mapping.fdcan_filters[periph] = map_fdcan_filters(node.name, periph, msgs)
             mapping.filters[periph] = []  # Empty for FDCAN
         else:
-            # bxCAN filter bank mapping (F4/F7/L4)
+            # bxCAN filter bank mapping (F4)
             mapping.filters[periph] = map_bxcan_filters(node.name, periph, msgs)
             mapping.fdcan_filters[periph] = FDCANFilters()  # Empty for bxCAN
 

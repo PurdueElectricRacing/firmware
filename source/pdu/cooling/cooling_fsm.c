@@ -9,7 +9,7 @@
 
 #include "can_library/generated/PDU.h"
 #include "common/bangbang/bangbang.h"
-#include "common/phal_F4_F7/pwm/pwm.h"
+#include "common/phal_F4/pwm/pwm.h"
 #include "common/utils/max.h"
 #include "cooling_callbacks.h"
 #include "main.h"

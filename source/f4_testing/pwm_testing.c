@@ -1,7 +1,7 @@
 //testing playground for pwm hal on f4 devboard (cannot just use pdu code)
 
-#include "common/phal_F4_F7/pwm/pwm.h"
-#include "common/phal_F4_F7/gpio/gpio.h"
+#include "common/phal_F4/pwm/pwm.h"
+#include "common/phal_F4/gpio/gpio.h"
 #include "f4_testing.h"
 
 

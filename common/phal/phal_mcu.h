@@ -11,10 +11,8 @@
 
 // Architecture autodetect
 
-#if defined(STM32L432xx) || defined(STM32L471xx) || defined(STM32L496xx)
-#define PHAL_ARCH_L4
-#elif defined(STM32F407xx) || defined(STM32F732xx)
-#define PHAL_ARCH_F4_F7
+#if defined(STM32F407xx) || defined(STM32F732xx)
+#define PHAL_ARCH_F4
 #elif defined(STM32G474xx)
 #define PHAL_ARCH_G4
 #else

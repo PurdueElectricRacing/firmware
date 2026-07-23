@@ -54,6 +54,13 @@ void PHAL_FDCAN_priv_setTransmitFifoQueueModeToFifo(FDCAN_GlobalTypeDef *fdcan) 
     fdcan->TXBC &= ~FDCAN_TXBC_TFQM;
 }
 
+void PHAL_FDCAN_setInteruptLines(FDCAN_GlobalTypeDef *fdcan) {
+    fdcan->ILS     = FDCAN_ILS_SMSG;
+    fdcan->ILE     = FDCAN_ILE_EINT0 | FDCAN_ILE_EINT1;
+    fdcan->IR      = FDCAN_IR_RF0N | FDCAN_IR_TC; // clear any stale flags
+    fdcan->IE     |= FDCAN_IE_RF0NE | FDCAN_IE_TCE;
+    fdcan->TXBTIE  = 0xFFFFFFFFU; // TX complete interrupt for every TX buffer
+}
 
 void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_FilterAction_t action) {
     fdcan->RXGFC = (action << FDCAN_RXGFC_ANFS_Pos)

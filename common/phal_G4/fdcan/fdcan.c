@@ -13,6 +13,9 @@
 
 void PHAL_FDCAN_init(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_BaudRate_t bit_rate) {
     PHAL_FDCAN_priv_enableClock();
+
+    // All FDCAN peripherals are on GPIO Bank B
+    // So unconditionally enable it
     RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
  
     PHAL_FDCAN_priv_enterConfig(fdcan);

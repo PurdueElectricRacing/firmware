@@ -64,6 +64,10 @@ void PHAL_FDCAN_priv_enterConfig(FDCAN_GlobalTypeDef *fdcan);
 /// Leave INIT mode, ending configuration. Blocks until left
 void PHAL_FDCAN_priv_exitConfig(FDCAN_GlobalTypeDef *fdcan);
 
+// Configure CCCR and TEST registers for classic CAN operation
+// Not FD, not BRS, not loopback, auto-retransmission enabled, TX pause on
+void PHAL_FDCAN_priv_controlConfig(FDCAN_GlobalTypeDef *fdcan);
+
 // Write a filter action to RXGFC (accept/reject all)
 void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_FilterAction_t action);
 

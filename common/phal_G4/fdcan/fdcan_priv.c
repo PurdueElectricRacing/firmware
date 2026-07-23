@@ -42,6 +42,14 @@ void PHAL_FDCAN_priv_exitConfig(FDCAN_GlobalTypeDef *fdcan) {
     }
 }
 
+void PHAL_FDCAN_priv_controlConfig(FDCAN_GlobalTypeDef *fdcan) {
+    fdcan->CCCR &= ~(FDCAN_CCCR_FDOE | FDCAN_CCCR_BRSE | FDCAN_CCCR_MON | FDCAN_CCCR_ASM | FDCAN_CCCR_TEST);
+    fdcan->CCCR |= FDCAN_CCCR_PXHD;  // disable protocol exception handling
+    fdcan->CCCR &= ~FDCAN_CCCR_DAR;  // enable auto-retransmission
+    fdcan->CCCR |= FDCAN_CCCR_TXP;   // enable transmit pause
+    fdcan->TEST &= ~FDCAN_TEST_LBCK; // disable loopback
+}
+
 void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_FilterAction_t action) {
     fdcan->RXGFC = (action << FDCAN_RXGFC_ANFS_Pos)
         | (action << FDCAN_RXGFC_ANFE_Pos)

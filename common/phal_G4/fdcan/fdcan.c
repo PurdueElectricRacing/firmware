@@ -18,11 +18,7 @@ void PHAL_FDCAN_init(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_BaudRate_t bit_rate)
     PHAL_FDCAN_priv_enterConfig(fdcan);
  
     // Classic CAN config
-    fdcan->CCCR &= ~(FDCAN_CCCR_FDOE | FDCAN_CCCR_BRSE | FDCAN_CCCR_MON | FDCAN_CCCR_ASM | FDCAN_CCCR_TEST);
-    fdcan->CCCR |= FDCAN_CCCR_PXHD;  // disable protocol exception handling
-    fdcan->CCCR &= ~FDCAN_CCCR_DAR;  // enable auto-retransmission
-    fdcan->CCCR |= FDCAN_CCCR_TXP;   // enable transmit pause
-    fdcan->TEST &= ~FDCAN_TEST_LBCK; // disable loopback
+    PHAL_FDCAN_priv_controlConfig(fdcan);
  
     // Time quantum nominal bit
     fdcan->NBTP  = PHAL_FDCAN_priv_getNBTP(bit_rate);

@@ -18,39 +18,106 @@ uint32_t PHAL_FDCAN_priv_ramBase(FDCAN_GlobalTypeDef *fdcan) {
 }
  
 void PHAL_FDCAN_priv_enableClock(void) {
+    // RCC = Reset and Clock Control peripheral.
+    // CCIPR = Peripheral Independent Clock Configuration Register
+    // - select which clock source feeds peripherals
+    // FDCANSEL = FDCAN clock source Select field within CCIPR
+    // FDCANSEL_Msk = bitmask covering the full FDCANSEL field
+    // - (so it can be cleared before writing a new value into it)
     RCC->CCIPR &= ~RCC_CCIPR_FDCANSEL_Msk;
+
+    // Set FDCAN clock source to PCLK1
     RCC->CCIPR |= FDCAN_PRIV_RCC_FDCANCLKSOURCE_PCLK1;
+
+    // APB1ENR1 = Advanced Peripheral Bus 1 (APB1) (peripheral clock) Enable
+    // Register 1 - each bit gates the clock to one APB1 peripheral
+    // FDCANEN = FDCAN clock Enable bit within APB1ENR1
+    // - until this is set the peripheral's registers aren't clocked/accessible
     RCC->APB1ENR1 |= RCC_APB1ENR1_FDCANEN;
 }
  
 void PHAL_FDCAN_priv_enterConfig(FDCAN_GlobalTypeDef *fdcan) {
+    // CCCR = Communication Controller (CC) Control Register
+    // - main mode/state register for the FDCAN core
+    // CSR = Clock Stop Request bit
+    // - clear to ensure we are not requesting clock stop before we configure it
     fdcan->CCCR &= ~FDCAN_CCCR_CSR;
+
+    // CSA = Clock Stop Acknowledge bit
+    // - hardware sets this once it has entered clock-stop state in response to CSR
+    // - wait until the peripheral confirms it has left clock-stop state (CSA low)
+    // - then it's ready to accept further configuration
     while (fdcan->CCCR & FDCAN_CCCR_CSA) {
         __asm__("nop");
     }
+
+    // INIT = Initialization bit
+    // - must be set to 1 before configuring CCCR
+    // - now RAM configuration is allowed to change
     fdcan->CCCR |= FDCAN_CCCR_INIT;
+
+    // Wait until hardware reflects INIT=1 back
     while (!(fdcan->CCCR & FDCAN_CCCR_INIT)) {
         __asm__("nop");
     }
+
+    // CCE = Configuration Change Enable bit
+    // - CCE unlocks the protected configuration registers
+    //   (NBTP, TXBC, RXGFC) for writing
     fdcan->CCCR |= FDCAN_CCCR_CCE;
 }
  
 void PHAL_FDCAN_priv_exitConfig(FDCAN_GlobalTypeDef *fdcan) {
+    // Clearing INIT (Initialization bit) tells the core to leave
+    // initialization/configuration mode and resume normal bus operation
     fdcan->CCCR &= ~FDCAN_CCCR_INIT;
+
+    // Busy-wait until hardware confirms INIT is 0
     while (fdcan->CCCR & FDCAN_CCCR_INIT) {
         __asm__("nop");
     }
 }
 
 void PHAL_FDCAN_priv_controlConfig(FDCAN_GlobalTypeDef *fdcan) {
+    // FDOE = FD (Flexible Data-rate) Operation Enable bit
+    // - cleared: forces classic (non-FD) CAN only
+    // BRSE = Bit Rate Switch Enable bit
+    // - cleared: only matters for FD frames, cleared b/c FD is disabled
+    // MON = Bus Monitoring mode bit
+    // - cleared: otherwise puts the core in a listen-only mode (no ACK/TX/etc)
+    // ASM = Restricted Operation Mode bit
+    // - cleared: otherwise puts core in  a listen-and-limited-ACK mode
+    // TEST = Test Mode Enable bit
+    // - cleared: not configuring TEST register and not using loopback mode
     fdcan->CCCR &= ~(FDCAN_CCCR_FDOE | FDCAN_CCCR_BRSE | FDCAN_CCCR_MON | FDCAN_CCCR_ASM | FDCAN_CCCR_TEST);
-    fdcan->CCCR |= FDCAN_CCCR_PXHD;  // disable protocol exception handling
-    fdcan->CCCR &= ~FDCAN_CCCR_DAR;  // enable auto-retransmission
-    fdcan->CCCR |= FDCAN_CCCR_TXP;   // enable transmit pause
+
+    // PXHD = Protocol Exception Handling Disable bit
+    // - setting this to 1 disables "protocol exception" bus-off-avoidance handling
+    // - now: unusual bit sequences are treated as ordinary form errors instead
+    fdcan->CCCR |= FDCAN_CCCR_PXHD;
+
+    // DAR = Disable Automatic Retransmission bit
+    // - clearing this bit means automatic retransmission is enabled
+    // - now: a failed/aborted frame will be retried automatically by hardware
+    fdcan->CCCR &= ~FDCAN_CCCR_DAR;
+
+    // TXP = Transmit Pause bit
+    // - set: the core adds very short delay after each tx before starting the next
+    //   to give other nodes a fairer chance at the bus
+    fdcan->CCCR |= FDCAN_CCCR_TXP;
+
+    // TEST = the FDCAN Test register
+    // LBCK = Loop Back mode bit within TEST
+    // - not set: does not internally routes TX back to RX inside the peripheral
+    // - now: TX is sent to the bus and RX only sees what is actually on the bus
     fdcan->TEST &= ~FDCAN_TEST_LBCK; // disable loopback
 }
 
 void PHAL_FDCAN_priv_setTransmitFifoQueueModeToFifo(FDCAN_GlobalTypeDef *fdcan) {
+    // TXBC = TX Buffer Configuration register
+    // - controls how the TX buffer area is used
+    // TFQM = Tx FIFO/Queue Mode bit
+    // - clear: selects FIFO ordering (tx in the order they were queued)
     fdcan->TXBC &= ~FDCAN_TXBC_TFQM;
 }
 
@@ -197,21 +264,33 @@ bool PHAL_FDCAN_priv_readRxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t *
 }
 
 bool PHAL_FDCAN_priv_readTxFifoQueueStatusFullFlag(FDCAN_GlobalTypeDef *fdcan) {
+    // TXFQS = Tx FIFO/Queue Status register
+    // TFQF = Tx FIFO/Queue Full flag
+    // - 1 when every TX FIFO/queue element is currently occupied by a pending/queued frame
     return (fdcan->TXFQS & FDCAN_TXFQS_TFQF) != 0;
 }
 
 bool PHAL_FDCAN_priv_readReceiveFifo0NewMessageInterruptFlag(FDCAN_GlobalTypeDef *fdcan) {
+    // IR = Interrupt Register
+    // - latched interrupt flags
+    // RF0N = Receive FIFO 0 New message flag
+    // - set by hardware whenever a new frame has been stored into RX FIFO 0
     return (fdcan->IR & FDCAN_IR_RF0N) != 0;
 }
 
 void PHAL_FDCAN_priv_clearReceiveFifo0NewMessageInterruptFlag(FDCAN_GlobalTypeDef *fdcan) {
+    // IR bits are write-1-to-clear
+    // - writing RF0N (Receive FIFO 0 New message flag) back to IR clears only that flag
     fdcan->IR = FDCAN_IR_RF0N;
 }
 
 bool PHAL_FDCAN_priv_readTransmitCompleteInterruptFlag(FDCAN_GlobalTypeDef *fdcan) {
+    // TC = Transmission Completed flag within IR
+    // - set by hardware once a queued TX element has finished transmitting successfully
     return (fdcan->IR & FDCAN_IR_TC) != 0;
 }
 
 void PHAL_FDCAN_priv_clearTransmitCompleteInterruptFlag(FDCAN_GlobalTypeDef *fdcan) {
+    // Write-1-to-clear the TC (Transmission Completed) flag only
     fdcan->IR = FDCAN_IR_TC;
 }

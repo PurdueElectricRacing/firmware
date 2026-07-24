@@ -124,11 +124,40 @@ void PHAL_FDCAN_priv_setTransmitFifoQueueModeToFifo(FDCAN_GlobalTypeDef *fdcan) 
 }
 
 void PHAL_FDCAN_setInteruptLines(FDCAN_GlobalTypeDef *fdcan) {
-    fdcan->ILS     = FDCAN_ILS_SMSG;
-    fdcan->ILE     = FDCAN_ILE_EINT0 | FDCAN_ILE_EINT1;
-    fdcan->IR      = FDCAN_IR_RF0N | FDCAN_IR_TC; // clear any stale flags
-    fdcan->IE     |= FDCAN_IE_RF0NE | FDCAN_IE_TCE;
-    fdcan->TXBTIE  = 0xFFFFFFFFU; // TX complete interrupt for every TX buffer
+    // ILS = Interrupt Line Select register
+    // - chooses whether that group signals out on interrupt line 0 or 1
+    // SMSG = Status Message interrupt group bit within ILS
+    // - covers status-type interrupt sources (including Transmission Completed)
+    // - setting this bit routes that whole group to line 1
+    // Other bits left at 0, (ex: RX FIFO 0 group), stay on line 0
+    fdcan->ILS = FDCAN_ILS_SMSG;
+ 
+    // ILE = Interrupt Line Enable register
+    // - master enable per physical interrupt line
+    // EINT0 = Enable Interrupt line 0 bit
+    // EINT1 = Enable Interrupt line 1 bit
+    // Now: RX group (line 0) and the status group (line 1) can reach the NVIC
+    fdcan->ILE = FDCAN_ILE_EINT0 | FDCAN_ILE_EINT1;
+ 
+    // IR = Interrupt Register
+    // - holds latched (sticky) interrupt flags
+    // - writing a 1 to a bit clears that flag (write-1-to-clear)
+    // RF0N = Receive FIFO 0 New message flag
+    // TC = Transmission Completed flag
+    // Clear both to discard any stale flags
+    fdcan->IR = FDCAN_IR_RF0N | FDCAN_IR_TC;
+ 
+    // IE = Interrupt Enable register
+    // - per-flag enable controlling whether a set flag in IR asserts its interrupt line
+    // RF0NE = Receive FIFO 0 New message Interrupt Enable bit
+    // TCE = Transmission Completed Interrupt Enable bit
+    fdcan->IE |= FDCAN_IE_RF0NE | FDCAN_IE_TCE;
+ 
+    // TXBTIE = Tx Buffer Transmission Interrupt Enable register
+    // - one bit per TX buffer/FIFO element
+    // - setting all bits means every element (once tx-ed), sets the Transmission Completed
+    //   regardless of which slot it was queued in
+    fdcan->TXBTIE = 0xFFFFFFFFU;
 }
 
 void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_DefaultFilterAction_t action) {
@@ -199,12 +228,25 @@ void PHAL_FDCAN_priv_writeStandardFilters(FDCAN_GlobalTypeDef *fdcan, uint32_t *
  
     // Set up each filter element
     for (uint32_t i = 0; i < num_sid; i++) {
-        uint32_t sid = sid_list[i] & 0x7FFU;
+        uint32_t sid = sid_list[i] & 0x7FFU; // 11-bit standard ID
         // SFT=10 (classic mask), SFEC=001 (store to FIFO0), SFID1=sid, SFID2=mask (all 1s -> exact match)
+        // Packed:
+        // SFT = Standard Filter Type, bits[31:30]
+        // - 2: selects classic filter (match SFID1 exactly under mask SFID2)
+        // SFEC = Standard Filter Element Configuration, bits[29:27]
+        // - 1: on match, store frame into Rx FIFO 0
+        // SFID1: Standard Filter ID 1, bits[26:16]
+        // - the ID to match.
+        // SFID2: Standard Filter ID 2, bits[10:0]
+        // - comparison mask in classic filter mode
+        // - all-1s: every bit of SFID1 must match exactly
         ram[i] = (2U << 30) | (1U << 27) | (sid << 16) | 0x7FFU;
     }
  
     // Set the number of standard filters
+    // RXGFC = Rx Global Filter Configuration register
+    // LSS = List Size Standard field
+    // - tells the core how many standard filter elements (starting at FLSSA) are valid/set
     fdcan->RXGFC &= ~FDCAN_RXGFC_LSS_Msk;
     fdcan->RXGFC |= (num_sid << FDCAN_RXGFC_LSS_Pos);
 }
@@ -215,14 +257,33 @@ void PHAL_FDCAN_priv_writeExtendedFilters(FDCAN_GlobalTypeDef *fdcan, uint32_t *
  
     // Set up each filter element
     for (uint32_t i = 0; i < num_xid; i++) {
-        uint32_t xid = xid_list[i] & 0x1FFFFFFFU;
-        ram[i * 2 + 0] = (1U << 29) | xid;         // EFEC=001 (store to FIFO0), EFID1=id
-        ram[i * 2 + 1] = (2U << 30) | 0x1FFFFFFFU; // EFT=10 (classic mask), mask=all 1s -> exact match
+        uint32_t xid = xid_list[i] & 0x1FFFFFFFU; // 29-bit extended ID
+
+        // Word 0:
+        // - EFEC = Extended Filter Element Configuration, bits[31:29]
+        //   - 1: on match, store frame into Rx FIFO 0
+        // - EFID1 = Extended Filter ID1, bits[28:0]
+        //   - the ID to match
+        ram[i * 2 + 0] = (1U << 29) | xid;
+
+        // Word 1
+        // - EFT = Extended Filter Type, bits[31:30]
+        //   - 2: selects classic filter: match EFID1 exactly under a mask
+        // - [29:0]: the mask
+        //   - all-1s means every bit of EFID1 must match exactly
+        ram[i * 2 + 1] = (2U << 30) | 0x1FFFFFFFU;
     }
  
     // Set the number of extended filters
+    // LSE = List Size Extended field within RXGFC
+    // - how many extended filter elements (starting at FLESA) are valid/set
     fdcan->RXGFC &= ~FDCAN_RXGFC_LSE_Msk;
     fdcan->RXGFC |= (num_xid << FDCAN_RXGFC_LSE_Pos);
+
+    // XIDAM = Extended ID And Mask register
+    // - a single, global mask ANDed against every incoming extended ID before
+    //   filter matching
+    // - all-1s: means do not prematurely filter, only the per-filter-element masks are used
     fdcan->XIDAM = 0x1FFFFFFFU;
 }
  

@@ -51,7 +51,14 @@ static constexpr uint32_t FDCAN_PRIV_SRAMCAN_TEF_SIZE = 2 * 4;  // TX Event FIFO
 // Size in bytes of one TX FIFO/queue element (set by the hardware format)
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_TFQ_SIZE = 18 * 4;
 
-static constexpr uint32_t FDCAN_PRIV_SRAMCAN_FLSSA = 0; // Filter List Standard Start Address
+// Filter List Standard Start Address
+// - the byte offset, within this instance's Message RAM slice, where the
+//   array of standard (11-bit ID) filter elements begins
+static constexpr uint32_t FDCAN_PRIV_SRAMCAN_FLSSA = 0;
+
+// Filter List Extended Start Address
+// - the byte offset, within this instance's Message RAM slice, where the
+//   array of extended (29-bit ID) filter elements begins
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_FLESA = FDCAN_PRIV_SRAMCAN_FLSSA + FDCAN_PRIV_SRAMCAN_FLS_NBR * FDCAN_PRIV_SRAMCAN_FLS_SIZE;
 
 // Rx FIFO 0 Start Address

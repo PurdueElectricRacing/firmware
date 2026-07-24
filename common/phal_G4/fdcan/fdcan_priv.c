@@ -228,17 +228,37 @@ void PHAL_FDCAN_priv_writeExtendedFilters(FDCAN_GlobalTypeDef *fdcan, uint32_t *
  
 void PHAL_FDCAN_priv_writeTxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t *msg) {
     // Get the index of the next free TX FIFO slot
+    // TXFQS = Tx FIFO/Queue Status register
+    // - reports current state of the TX FIFO/queue area
+    // TFQPI = Tx FIFO/Queue Put Index field
+    // - the element index where the next frame to be queued should be written
     uint32_t put = (fdcan->TXFQS & FDCAN_TXFQS_TFQPI_Msk) >> FDCAN_TXFQS_TFQPI_Pos;
     volatile uint32_t *tx = (volatile uint32_t *)(PHAL_FDCAN_priv_ramBase(fdcan)
                                 + FDCAN_PRIV_SRAMCAN_TFQSA
                                 + (put * FDCAN_PRIV_SRAMCAN_TFQ_SIZE));
  
-    // Build the TX element header and payload
+    // Word 0 of a TX element header:
+    // Bit 30 = XTD (extended id flag)
+    // Standard id/extended id
+    if (msg->IsExtendedId) {
+        // Extended-ID frames place their 29-bit ID in bits [28:0]
+        tx[0] = (msg->ExtId & 0x1FFFFFFFU) | (1U << 30); // extended ID, IDE=1
+    } else {
+        // Standard-ID frames place their 11-bit ID in bits [28:18]
+        tx[0] = ((uint32_t)(msg->StdId & 0x7FFU) << 18);  // standard ID, IDE=0
+    }
+
+    // Word 1 of a TX element header:
+    // DLC (Data Length Code): bits[19:16].
+    // Left at 0:
+    // - BRS (Bit Rate Switch) = 0 (n/a, classic frame)
+    // - FDF (FD Format flag) = 0 (classic, non-FD frame)
+    // - EFC (Event FIFO Control) = 0 (don't add a TX event for this frame)
+    // - MM (Message Marker) = 0 (no user tag for the TX event)
+    // - RTR (Remote Transmission Request) = 0 (data frame, not remote/request frame)
+    // DLC -> length: for classic can, DLC=length <= 8
     uint32_t dlc = msg->DLC > 8U ? 8U : msg->DLC;
- 
-    tx[0] = msg->IsExtendedId ? ((msg->ExtId & 0x1FFFFFFFU) | (1U << 30)) // extended ID, IDE=1
-                              : ((uint32_t)(msg->StdId & 0x7FFU) << 18);  // standard ID, IDE=0
-    tx[1] = dlc << 16; // classic CAN: BRS=0, FDF=0, EFC=0, MM=0, RTR=0
+    tx[1] = dlc << 16;
  
     // Copy payload bytes into two 32-bit words
     uint32_t d0 = 0, d1 = 0;
@@ -252,16 +272,24 @@ void PHAL_FDCAN_priv_writeTxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t 
     tx[3] = d1;
  
     // Mark the element as ready to transmit
+    // TXBAR = Tx Buffer Add Request register
+    // - writing a 1 to the bit for this element's index tells core the element is ready for TX
     fdcan->TXBAR = (1U << put);
 }
  
 bool PHAL_FDCAN_priv_readRxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t *msg) {
+    // RXF0S = Rx FIFO 0 Status register
+    // - reports current state of RX FIFO 0
+    // F0FL = Fill Level field
+    // - how many unread elements are currently sitting in RX FIFO 0
     uint32_t f0s = fdcan->RXF0S;
     if ((f0s & FDCAN_RXF0S_F0FL_Msk) == 0) {
         return false; // FIFO0 empty
     }
  
     // Get the index of the oldest element in RX FIFO0
+    // F0GI = Get Index field
+    // - the element index of the oldest unread frame in RX FIFO 0
     uint32_t get = (f0s & FDCAN_RXF0S_F0GI_Msk) >> FDCAN_RXF0S_F0GI_Pos;
     volatile uint32_t *rx = (volatile uint32_t *)(PHAL_FDCAN_priv_ramBase(fdcan)
                                 + FDCAN_PRIV_SRAMCAN_RF0SA
@@ -273,12 +301,12 @@ bool PHAL_FDCAN_priv_readRxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t *
  
     *msg     = (CanMsgTypeDef_t) {0};
     msg->Bus = fdcan;
-    if (w0 & (1U << 30)) {
-        msg->IsExtendedId = true;
-        msg->ExtId        = w0 & 0x1FFFFFFFU;
+    msg->IsExtendedId = ((w0 & (1U << 30)) != 0); // bit 30 = XTD (extended id flag)
+    
+    if (msg->IsExtendedId) {
+        msg->ExtId = w0 & 0x1FFFFFFFU; // 29-bit extended ID
     } else {
-        msg->IsExtendedId = false;
-        msg->StdId        = (uint16_t)((w0 >> 18) & 0x7FFU);
+        msg->StdId = (uint16_t)((w0 >> 18) & 0x7FFU); // 11-bit standard id
     }
  
     // Decode DLC
@@ -296,6 +324,9 @@ bool PHAL_FDCAN_priv_readRxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t *
     }
  
     // Pop the element we just read
+    // RXF0A = Rx FIFO 0 Acknowledge register
+    // - writing an element's index here tells the core it can reclaim the slot
+    //   and advancing F0GI
     fdcan->RXF0A = get;
 
     return true;

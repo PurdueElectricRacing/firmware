@@ -41,16 +41,27 @@ static constexpr uint32_t FDCAN_PRIV_SRAMCAN_TFQ_NBR = 3;  // TX FIFO Elements N
 
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_FLS_SIZE = 1 * 4;  // Filter Standard Element Size in bytes
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_FLE_SIZE = 2 * 4;  // Filter Extended Element Size in bytes
-static constexpr uint32_t FDCAN_PRIV_SRAMCAN_RF0_SIZE = 18 * 4; // RX FIFO 0 Elements Size in bytes
+
+// Size in bytes of one RX FIFO 0 element (set by the hardware format)
+static constexpr uint32_t FDCAN_PRIV_SRAMCAN_RF0_SIZE = 18 * 4;
+
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_RF1_SIZE = 18 * 4; // RX FIFO 1 Elements Size in bytes
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_TEF_SIZE = 2 * 4;  // TX Event FIFO Elements Size in bytes
-static constexpr uint32_t FDCAN_PRIV_SRAMCAN_TFQ_SIZE = 18 * 4; // TX FIFO/Queue Elements Size in bytes
+
+// Size in bytes of one TX FIFO/queue element (set by the hardware format)
+static constexpr uint32_t FDCAN_PRIV_SRAMCAN_TFQ_SIZE = 18 * 4;
 
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_FLSSA = 0; // Filter List Standard Start Address
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_FLESA = FDCAN_PRIV_SRAMCAN_FLSSA + FDCAN_PRIV_SRAMCAN_FLS_NBR * FDCAN_PRIV_SRAMCAN_FLS_SIZE;
+
+// Rx FIFO 0 Start Address
+// - byte offset where the RX FIFO 0 element array begins in this instance's Message RAM slice
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_RF0SA = FDCAN_PRIV_SRAMCAN_FLESA + FDCAN_PRIV_SRAMCAN_FLE_NBR * FDCAN_PRIV_SRAMCAN_FLE_SIZE;
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_RF1SA = FDCAN_PRIV_SRAMCAN_RF0SA + FDCAN_PRIV_SRAMCAN_RF0_NBR * FDCAN_PRIV_SRAMCAN_RF0_SIZE;
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_TEFSA = FDCAN_PRIV_SRAMCAN_RF1SA + FDCAN_PRIV_SRAMCAN_RF1_NBR * FDCAN_PRIV_SRAMCAN_RF1_SIZE;
+
+// Tx FIFO/Queue Start Address
+// - byte offset where the TX FIFO/queue element array begins in this instance's Message RAM slice
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_TFQSA = FDCAN_PRIV_SRAMCAN_TEFSA + FDCAN_PRIV_SRAMCAN_TEF_NBR * FDCAN_PRIV_SRAMCAN_TEF_SIZE;
 
 // bytes consumed by one instance's full Message RAM layout (filters + RX FIFOs + TX event FIFO + TX FIFO)
@@ -80,7 +91,7 @@ void PHAL_FDCAN_priv_setTransmitFifoQueueModeToFifo(FDCAN_GlobalTypeDef *fdcan);
 void PHAL_FDCAN_setInteruptLines(FDCAN_GlobalTypeDef *fdcan);
 
 // Write a filter action to RXGFC (accept/reject all)
-void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan,  action);
+void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_DefaultFilterAction_t action);
 
 /// Compute the NBTP register value for one of the supported bit rates
 uint32_t PHAL_FDCAN_priv_getNBTP(PHAL_FDCAN_BaudRate_t bit_rate);

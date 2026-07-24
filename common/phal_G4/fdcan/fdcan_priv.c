@@ -8,6 +8,8 @@
 #include "common/phal_G4/fdcan/fdcan_priv.h"
  
 uint32_t PHAL_FDCAN_priv_ramBase(FDCAN_GlobalTypeDef *fdcan) {
+    // SRAMCAN_BASE = start address of the single block of SRAM
+    // It is shared by all FDCAN instances for their Message RAM (filters/FIFOs/TX buffers)
     if (fdcan == FDCAN1) {
         return SRAMCAN_BASE;
     } else if (fdcan == FDCAN2) {
@@ -129,7 +131,18 @@ void PHAL_FDCAN_setInteruptLines(FDCAN_GlobalTypeDef *fdcan) {
     fdcan->TXBTIE  = 0xFFFFFFFFU; // TX complete interrupt for every TX buffer
 }
 
-void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_FilterAction_t action) {
+void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_DefaultFilterAction_t action) {
+    // RXGFC = Rx Global Filter Configuration register
+    // - controls what happens to frames that no specific filter element matched
+    // ANFS = Accept Non-matching Frames Standard field
+    // - what to do with an unmatched STANDARD-ID frame
+    // ANFE = Accept Non-matching Frames Extended field
+    // - what to do with an unmatched EXTENDED-ID frames
+    // RRFS = Reject Remote Frames Standard bit
+    // - whether to reject Remote Transmission Request frames with a standard ID outright
+    // RRFE = Reject Remote Frames Extended bit
+    // - whether to reject Remote Transmission Request frames with an extended ID outright
+    // All 4 of these fields are written identically
     fdcan->RXGFC = (action << FDCAN_RXGFC_ANFS_Pos)
         | (action << FDCAN_RXGFC_ANFE_Pos)
         | (action << FDCAN_RXGFC_RRFS_Pos)
@@ -140,12 +153,37 @@ void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_Fi
 // 16-time-quantum nominal bit time (~87.5% sample point) at the given BRP
 // (BRP=2 @ 500k, BRP=1 @ 1M)
 static uint32_t fdcan_buildNBTP16TQ(uint32_t brp) {
-    const uint32_t seg1 = 13, seg2 = 2, sjw = 2;
-    return ((brp - 1U) << FDCAN_NBTP_NBRP_Pos) | ((seg1 - 1U) << FDCAN_NBTP_NTSEG1_Pos)
-        | ((seg2 - 1U) << FDCAN_NBTP_NTSEG2_Pos) | ((sjw - 1U) << FDCAN_NBTP_NSJW_Pos);
+    // seg1/seg2/sjw are in real time-quanta (TQ) units
+    // They require 
+    // TSEG1 = Time Segment 1
+    // - propagation + phase segment 1, before the sample point
+    // TSEG2 = Time Segment 2
+    // - phase segment 2, after the sample point
+    // SJW  = Synchronization Jump Width
+    // max TQ the core may lengthen/shorten a segment by to resynchronize with the bus
+    // 1 + 13 (TSEG1) + 2 (TSEG2) = 16 TQ per bit with a 
+    // sample point at (1+13)/16 = 87.5% into the bit
+    const uint32_t seg1 = 13;
+    const uint32_t seg2 = 2;
+    const uint32_t sjw = 2;
+
+    // NBTP = Nominal Bit Timing and Prescaler register
+    // - configures the bit timing used for the arbitration/nominal phase of every frame
+    // - Class CAN only has this one phase
+    // NBRP = Nominal Baud Rate Prescaler field
+    // - divides the FDCAN kernel clock down to produce 1 time quantum (TQ) per tick
+    // NTSEG1 = Nominal Time Segment 1 field
+    // NTSEG2 = Nominal Time Segment 2 field
+    // NSJW = Nominal (re)Synchronization Jump Width field
+    // Fields require a bias-correction (-1) to match hardware's internal encoding
+    return ((brp - 1U) << FDCAN_NBTP_NBRP_Pos)
+        | ((seg1 - 1U) << FDCAN_NBTP_NTSEG1_Pos)
+        | ((seg2 - 1U) << FDCAN_NBTP_NTSEG2_Pos)
+        | ((sjw - 1U) << FDCAN_NBTP_NSJW_Pos);
 }
 
 uint32_t PHAL_FDCAN_priv_getNBTP(PHAL_FDCAN_BaudRate_t bit_rate) {
+    // BRP (Baud Rate Prescaler) = kernel_clock_Hz / (bit_rate * TQ_per_bit)
     switch (bit_rate) {
         case FDCAN_BAUD_500K:
             return fdcan_buildNBTP16TQ(FDCAN_PRIV_KER_CLK_HZ / (500000U * 16U));

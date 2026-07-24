@@ -12,7 +12,9 @@
 
 #include "common/phal_G4/phal_G4.h"
 
-// FDCAN kernel clock. FDCAN is always clocked from PCLK1
+
+// The FDCAN kernel clock frequency (the clock NBTP's prescaler divides down.
+// Our HAL for FDCAN is always clocked from PCLK1.
 // NOTE: delicate to PCLK1 changes!!
 static constexpr uint32_t FDCAN_PRIV_KER_CLK_HZ = 16'000'000U;
 
@@ -22,10 +24,11 @@ static constexpr uint32_t FDCAN_PRIV_KER_CLK_HZ = 16'000'000U;
 static constexpr uint32_t FDCAN_PRIV_RCC_FDCANCLKSOURCE_PCLK1 = RCC_CCIPR_FDCANSEL_1;
 
 // Filter action values for RXGFC register
+// Controls what happens to any frame that does not match any of the configured filters
 typedef enum : uint32_t {
 	FDCAN_PRIV_FILTER_ACCEPT_IN_RX_FIFO0 = 0x00000000U,
 	FDCAN_PRIV_FILTER_REJECT             = 0x00000002U
-} PHAL_FDCAN_FilterAction_t;
+} PHAL_FDCAN_DefaultFilterAction_t;
 
 // Message RAM layout. Same layout, different base offset for each peripheral
 
@@ -49,6 +52,8 @@ static constexpr uint32_t FDCAN_PRIV_SRAMCAN_RF0SA = FDCAN_PRIV_SRAMCAN_FLESA + 
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_RF1SA = FDCAN_PRIV_SRAMCAN_RF0SA + FDCAN_PRIV_SRAMCAN_RF0_NBR * FDCAN_PRIV_SRAMCAN_RF0_SIZE;
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_TEFSA = FDCAN_PRIV_SRAMCAN_RF1SA + FDCAN_PRIV_SRAMCAN_RF1_NBR * FDCAN_PRIV_SRAMCAN_RF1_SIZE;
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_TFQSA = FDCAN_PRIV_SRAMCAN_TEFSA + FDCAN_PRIV_SRAMCAN_TEF_NBR * FDCAN_PRIV_SRAMCAN_TEF_SIZE;
+
+// bytes consumed by one instance's full Message RAM layout (filters + RX FIFOs + TX event FIFO + TX FIFO)
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_SIZE  = FDCAN_PRIV_SRAMCAN_TFQSA + FDCAN_PRIV_SRAMCAN_TFQ_NBR * FDCAN_PRIV_SRAMCAN_TFQ_SIZE;
 
 
@@ -75,7 +80,7 @@ void PHAL_FDCAN_priv_setTransmitFifoQueueModeToFifo(FDCAN_GlobalTypeDef *fdcan);
 void PHAL_FDCAN_setInteruptLines(FDCAN_GlobalTypeDef *fdcan);
 
 // Write a filter action to RXGFC (accept/reject all)
-void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_FilterAction_t action);
+void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan,  action);
 
 /// Compute the NBTP register value for one of the supported bit rates
 uint32_t PHAL_FDCAN_priv_getNBTP(PHAL_FDCAN_BaudRate_t bit_rate);

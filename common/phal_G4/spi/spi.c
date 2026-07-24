@@ -1,12 +1,16 @@
 /**
  * @file spi.c
- * @author Ronak Jain
+ * @author Ronak Jain (jain717@purdue.edu)
+ * @author Shriya Balu (balu@purdue.edu)
  * @brief G4 SPI
  * @version 0.1
  */
 
 #include "common/phal_G4/spi/spi.h"
+#include "common/phal_G4/spi/spi_priv.h"
+#include "common/phal_G4/gpio/gpio.h"
 #include "common/utils/clamp.h"
+#include "common/common_defs/common_defs.h"
 
 
 // Track active TX transfers per DMA controller/channel so multiple SPI instances can run concurrently
@@ -22,62 +26,27 @@ static inline uint32_t LOG2_DOWN(uint32_t x) {
 
 static void handleTxComplete(DMA_TypeDef *dma_periph, uint8_t channel);
 
+
+[[gnu::weak]]
+void PHAL_SPI_txCallback(SPI_InitConfig_t *spi) {
+    (void)spi;
+}
+
 bool PHAL_SPI_init(SPI_InitConfig_t *cfg) {
     zero = 0;
 
     // Enable RCC Clock for selected SPI on G4
-    switch ((uint32_t)cfg->periph) {
-        case SPI1_BASE:
-            RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
-            break;
-        case SPI2_BASE:
-            RCC->APB1ENR1 |= RCC_APB1ENR1_SPI2EN;
-            break;
-        case SPI3_BASE:
-            RCC->APB1ENR1 |= RCC_APB1ENR1_SPI3EN;
-            break;
-        default:
-            return false;
+    if (!PHAL_SPI_priv_enableClock(cfg->periph)) {
+        return false;
     }
 
-    // Mode configuration
-    if (cfg->mode == SPI_MODE_MASTER) {
-        // Master mode, software NSS
-        cfg->periph->CR1 |= SPI_CR1_MSTR | SPI_CR1_SSM | SPI_CR1_SSI;
-        // Baud rate prescaler (BR) in CR1, source depends on bus
-        uint32_t f_div;
-        if ((uint32_t)cfg->periph == SPI1_BASE)
-            f_div = LOG2_DOWN(PHAL_RCC_getAPB2ClockHz() / cfg->data_rate) - 1;
-        else
-            f_div = LOG2_DOWN(PHAL_RCC_getAPB1ClockHz() / cfg->data_rate) - 1;
-        f_div = CLAMP(f_div, 0, 0b111);
-        cfg->periph->CR1 &= ~SPI_CR1_BR_Msk;
-        cfg->periph->CR1 |= f_div << SPI_CR1_BR_Pos;
-    } else {
-        // Slave mode: clear MSTR.
-        cfg->periph->CR1 &= ~SPI_CR1_MSTR;
-        if (cfg->nss_sw) {
-            // Software NSS: internally select the slave (SSM=1, SSI=0)
-            cfg->periph->CR1 |= SPI_CR1_SSM;
-            cfg->periph->CR1 &= ~SPI_CR1_SSI;
-        } else {
-            // Hardware NSS: NSS managed by external pin (SSM=0). SSI ignored.
-            cfg->periph->CR1 &= ~SPI_CR1_SSM;
-        }
-        // BR ignored in slave
-    }
-    cfg->periph->CR1 &= ~(SPI_CR1_CPOL | SPI_CR1_CPHA);
-    if (cfg->cpol)
-        cfg->periph->CR1 |= SPI_CR1_CPOL;
-    if (cfg->cpha)
-        cfg->periph->CR1 |= SPI_CR1_CPHA;
-
-    // Frame size via CR2 DS[3:0] on G4
-    cfg->periph->CR2 &= ~(SPI_CR2_DS_Msk);
-    uint8_t ds = (CLAMP(cfg->data_len, 4, 16) - 1) & 0xF; // DS = bits-1
-    cfg->periph->CR2 |= (ds << SPI_CR2_DS_Pos);
-    // RX FIFO threshold: set FRXTH for 8-bit threshold
-    cfg->periph->CR2 |= SPI_CR2_FRXTH;
+    /// Peripheral configuration (See RM0440 42.5.7 Configuration of SPI section)
+    // Calculate baud rate prescaler based on requested data rate and bus clock
+    uint32_t f_div = PHAL_SPI_priv_calcBaudRatePrescaler(cfg->data_rate, cfg->periph);
+    // Write to the SPI_CR1 register (baud rate, CPOL/CPHA, simplex/half-duplex, frame format, CRC, slave select, master/slave configs)
+    PHAL_SPI_priv_configCR1(cfg, f_div);
+    // Write to SPI_CR2 register (transfer data length, slave select output enable, )
+    PHAL_SPI_priv_configCR2(cfg);
 
     // DMA setup if provided
     if (cfg->rx_dma && !PHAL_DMA_init(cfg->rx_dma))
@@ -297,6 +266,8 @@ static void handleTxComplete(DMA_TypeDef *dma_periph, uint8_t channel) {
         dma_periph->IFCR |= tcif_mask;
         dma_periph->IFCR |= gif_mask;
         active_table[channel] = NULL;
+
+        PHAL_SPI_txCallback(transfer);
     }
 
     if (dma_periph->ISR & htif_mask) {

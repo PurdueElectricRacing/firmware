@@ -1,5 +1,4 @@
 #include "g4_testing.h"
-#include "stm32g474xx.h"
 #if (G4_TESTING_CHOSEN == TEST_SPI)
 
 // #include <string.h>
@@ -7,6 +6,7 @@
 #include "common/phal_G4/dma/dma.h"
 #include "common/phal_G4/gpio/gpio.h"
 #include "common/phal_G4/rcc/rcc.h"
+#include "common/phal_G4/spi/spi_priv.h"
 #include "common/phal_G4/spi/spi.h"
 #include "common/utils/countof.h"
 

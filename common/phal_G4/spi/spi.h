@@ -1,6 +1,7 @@
 /**
  * @file spi.c
- * @author Ronak Jain
+ * @author Ronak Jain (jain717@purdue.edu)
+ * @author Shriya Balu (balu@purdue.edu)
  * @brief G4 SPI
  * @version 0.1
  */
@@ -11,11 +12,6 @@
 #include <stddef.h>
 
 #include "common/phal_G4/dma/dma.h"
-#include "common/phal_G4/gpio/gpio.h"
-#include "common/phal_G4/phal_G4.h"
-#include "common/phal_G4/rcc/rcc.h"
-
-typedef uint32_t ptr_int;
 
 typedef enum {
     SPI_MODE_MASTER = 0,
@@ -58,5 +54,13 @@ bool PHAL_SPI_busy(SPI_InitConfig_t *cfg);
 uint8_t PHAL_SPI_writeByte(SPI_InitConfig_t *spi, uint8_t address, uint8_t writeDat);
 uint8_t PHAL_SPI_readByte(SPI_InitConfig_t *spi, uint8_t address, bool skipDummy);
 void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi);
+
+/**
+ * @brief SPI transfer-complete callback.
+ *
+ * Called after a DMA-backed SPI transfer has fully completed and the handle has
+ * been marked idle.
+ */
+extern void PHAL_SPI_txCallback(SPI_InitConfig_t *spi);
 
 #endif /* _PHAL_G4_SPI_H */

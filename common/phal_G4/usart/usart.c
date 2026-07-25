@@ -3,6 +3,72 @@
 #include "common/phal_G4/dma/dma.h"
 #include "common/phal_G4/gpio/gpio.h"
 
+
+#define _DEF_USART_RXDMA_CONFIG(rx_addr_, priority_, USARTx, dma_num, channel_num, req_id) \
+    { \
+        .periph_addr = (uint32_t)&((USARTx)->RDR), \
+        .mem_addr    = (uint32_t)(rx_addr_), \
+        .tx_size     = 1, \
+        .circular    = false, \
+        .mem_inc     = true, \
+        .periph_inc  = false, \
+        .mem_to_mem  = false, \
+        .priority    = (priority_), \
+        .dir         = 0, \
+        .mem_size    = DMA_SIZE_8BIT, \
+        .periph_size = DMA_SIZE_8BIT, \
+        .tx_isr_en   = true, \
+        .mux_request = (req_id), \
+        .channel_idx = (channel_num), \
+        .periph      = DMA##dma_num, \
+    }
+
+    
+#define _DEF_USART_TXDMA_CONFIG(tx_addr_, priority_, USARTx, dma_num, channel_num, req_id) \
+    { \
+        .periph_addr = (uint32_t)&((USARTx)->TDR), \
+        .mem_addr    = (uint32_t)(tx_addr_), \
+        .tx_size     = 1, \
+        .circular    = false, \
+        .mem_inc     = true, \
+        .periph_inc  = false, \
+        .mem_to_mem  = false, \
+        .priority    = (priority_), \
+        .dir         = 1, \
+        .mem_size    = DMA_SIZE_8BIT, \
+        .periph_size = DMA_SIZE_8BIT, \
+        .tx_isr_en   = true, \
+        .mux_request = (req_id), \
+        .channel_idx = (channel_num), \
+        .periph      = DMA##dma_num, \
+    }
+
+
+#define USART1_RXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_RXDMA_CONFIG(a, p, USART1, 1, 5, DMA_REQUEST_USART1_RX)
+#define USART1_TXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_TXDMA_CONFIG(a, p, USART1, 1, 7, DMA_REQUEST_USART1_TX)
+
+#define USART2_RXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_RXDMA_CONFIG(a, p, USART2, 1, 3, DMA_REQUEST_USART2_RX)
+#define USART2_TXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_TXDMA_CONFIG(a, p, USART2, 1, 4, DMA_REQUEST_USART2_TX)
+
+#define USART3_RXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_RXDMA_CONFIG(a, p, USART3, 1, 1, DMA_REQUEST_USART3_RX)
+#define USART3_TXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_TXDMA_CONFIG(a, p, USART3, 1, 2, DMA_REQUEST_USART3_TX)
+
+#define UART4_RXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_RXDMA_CONFIG(a, p, UART4, 2, 5, DMA_REQUEST_UART4_RX)
+#define UART4_TXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_TXDMA_CONFIG(a, p, UART4, 2, 3, DMA_REQUEST_UART4_TX)
+
+#define LPUART1_RXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_RXDMA_CONFIG(a, p, LPUART1, 2, 6, DMA_REQUEST_LPUART1_RX)
+#define LPUART1_TXDMA_CONT_CONFIG(a, p) \
+    _DEF_USART_TXDMA_CONFIG(a, p, LPUART1, 2, 7, DMA_REQUEST_LPUART1_TX)
+
 // These items should not be used/modified by anybody other than the HAL
 typedef enum {
     USART_DMA_TX, //!< USART is transmitting over DMA

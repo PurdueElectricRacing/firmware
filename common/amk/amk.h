@@ -14,8 +14,7 @@
 #include <stdint.h>
 
 typedef struct {
-    void (*flush_function)(void);
-    INVA_SET_data_t   *set;
+    void (*set_function)(void);
     INVA_CRIT_data_t  *crit;
     INVA_INFO_data_t  *info;
     INVA_TEMPS_data_t *temps;
@@ -24,13 +23,13 @@ typedef struct {
 } AMK_config_t;
 
 typedef struct {
-    // Flush functions
-    // ! must not be an inline function
-    void (*flush_function)(void);
+    void (*set_function)(void);
 
-    // Direct pointers to CAN library data structures
+    // Outbound command data
+    INVA_SET_data_t set;
+
+    // Direct pointers to received CAN library data structures
     // ! cast all motor objects to INVA
-    INVA_SET_data_t   *set;
     INVA_CRIT_data_t  *crit;
     INVA_INFO_data_t  *info;
     INVA_TEMPS_data_t *temps;

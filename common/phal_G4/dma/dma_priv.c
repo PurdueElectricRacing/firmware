@@ -28,8 +28,9 @@ void PHAL_DMA_priv_enableClock(dma_init_t *dma) {
 
 void PHAL_DMA_priv_disableStream(DMA_Channel_TypeDef *channel) {
     channel->CCR &= ~(DMA_CCR_EN);
-    while (channel->CCR & DMA_CCR_EN)
-        ;
+    while (channel->CCR & DMA_CCR_EN) {
+    __asm__("nop");
+    }
 }
 
 void PHAL_DMA_priv_setChannel(DMA_TypeDef *periph, DMA_Channel_TypeDef **channel, uint8_t channel_idx) {

@@ -58,3 +58,7 @@
 "torque_vector config":
   - changed-files:
       - any-glob-to-any-file: ['can_library/configs/**/TORQUE_VECTOR.json']
+
+"phal":
+  - changed-files:
+      - any-glob-to-any-file: ['common/phal*/**']

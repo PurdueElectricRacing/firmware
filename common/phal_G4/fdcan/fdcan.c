@@ -41,9 +41,11 @@ bool PHAL_FDCAN_setFilters(FDCAN_GlobalTypeDef *fdcan,
                            uint32_t num_xid) {
     bool sid_exceeded = num_sid > PHAL_FDCAN_MAX_NUM_SID_FILTER;
     bool xid_exceeded = num_xid > PHAL_FDCAN_MAX_NUM_XID_FILTER;
-    if (sid_exceeded || xid_exceeded) {
-        return false;
-    }
+    bool sid_missing  = (num_sid > 0U) && (sid_list == nullptr);
+    bool xid_missing  = (num_xid > 0U) && (xid_list == nullptr);
+     if ((fdcan == nullptr) || sid_exceeded || xid_exceeded || sid_missing || xid_missing) {
+         return false;
+     }
  
     PHAL_FDCAN_priv_enterConfig(fdcan);
  

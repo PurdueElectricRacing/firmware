@@ -46,21 +46,21 @@ DEFINE_QUEUE(can3_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 
 void CAN_tx_init(void) {
 #ifdef USE_CAN1
-    INIT_QUEUE(can1_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    INIT_QUEUE(can1_tx_queue);
     CAN1->IER &= ~CAN_IER_TMEIE;
 #endif
 #ifdef USE_CAN2
-    INIT_QUEUE(can2_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    INIT_QUEUE(can2_tx_queue);
     CAN2->IER &= ~CAN_IER_TMEIE;
 #endif
 #ifdef USE_FDCAN1
-    INIT_QUEUE(can1_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    INIT_QUEUE(can1_tx_queue);
 #endif
 #ifdef USE_FDCAN2
-    INIT_QUEUE(can2_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    INIT_QUEUE(can2_tx_queue);
 #endif
 #ifdef USE_FDCAN3
-    INIT_QUEUE(can3_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+    INIT_QUEUE(can3_tx_queue);
 #endif
 }
 

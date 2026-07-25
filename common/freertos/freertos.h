@@ -137,20 +137,37 @@ void periodic_task_runner(void* arg);
  */
 #define HANDLE_OF(NAME) (NAME##_handle)
 
+
+typedef struct {
+    size_t item_size;
+    size_t item_count;
+} queue_params_t;
+
 /**
  * @brief Scaffolds the static memory for a FreeRTOS queue.
  */
 #define DEFINE_QUEUE(NAME, ITEM, COUNT)                                        \
     static_assert(COUNT > 0, "Queue count must be greater than 0");            \
-    QueueHandle_t NAME;                                                        \
+                                                                               \
     static StaticQueue_t NAME##_cb;                                            \
-    static uint8_t       NAME##_data[sizeof(ITEM) * (COUNT)];
+    static uint8_t       NAME##_data[sizeof(ITEM) * (COUNT)];                  \
+                                                                               \
+    static queue_params_t NAME##_params = {                                    \
+        .item_size  = sizeof(ITEM),                                            \
+        .item_count = (COUNT),                                                 \
+    };                                                                         \
+                                                                               \
+    QueueHandle_t NAME;                                                        \
 
 /**
  * @brief Initializes the defined static queue.
  */
-#define INIT_QUEUE(NAME, ITEM, COUNT)                                          \
-    (NAME = xQueueCreateStatic((COUNT), sizeof(ITEM), NAME##_data, &NAME##_cb))
+#define INIT_QUEUE(NAME)                                                       \
+    (NAME = xQueueCreateStatic(                                                \
+        NAME##_params.item_count,                                              \
+        NAME##_params.item_size,                                               \
+        NAME##_data,                                                           \
+        &NAME##_cb))
 
 /**
  * @brief Scaffolds the static memory for a semaphore (and related variants).

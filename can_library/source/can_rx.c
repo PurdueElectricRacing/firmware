@@ -14,7 +14,7 @@ volatile uint32_t last_can_rx_time_ms;
 DEFINE_QUEUE(can_rx_queue, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
 
 void CAN_rx_init(void) {
-    INIT_QUEUE(can_rx_queue, CanMsgTypeDef_t, CAN_RX_QUEUE_LENGTH);
+    INIT_QUEUE(can_rx_queue);
 }
 
 void CAN_rx_update(void) {

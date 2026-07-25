@@ -80,7 +80,7 @@ static RTC_timestamp_t RTC_from_gps(timestamped_frame_t gps_time) {
 }
 
 void RTC_sync_init(void) {
-    INIT_QUEUE(gps_time_queue, timestamped_frame_t, 1);
+    INIT_QUEUE(gps_time_queue);
 }
 
 // static constexpr uint32_t RTC_SYNC_PERIOD_MS = 30 * 1000;

@@ -102,7 +102,7 @@ int main() {
     START_TASK(usartSend);
 
     // Create objects
-    INIT_QUEUE(myQueue, uint32_t, 0x45);
+    INIT_QUEUE(myQueue);
     INIT_MUTEX(mutex);
 
     vTaskStartScheduler();

@@ -152,7 +152,7 @@ void EXTI15_10_IRQHandler() {
                           EXTI_IMR1_IM14 | EXTI_IMR1_IM15)
 
 static void init_buttons() {
-    INIT_QUEUE(action_queue, driver_interface_action_t, ACTION_QUEUE_LENGTH);
+    INIT_QUEUE(action_queue);
 
     // Enable SYSCFG clock
     RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;

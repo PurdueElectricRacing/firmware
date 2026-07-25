@@ -151,8 +151,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>was_reset_by_WDG</b> 
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="freertos_8h.html#aa06a84e1769e192e02a8bb7482aceeb5">DEFINE_TASK</a>(WDG_pet, WATCHDOG_PET_PERIOD_MS, osPriorityLow, STACK_256)</div>
-<div class="ttc" id="afreertos_8h_html_aa06a84e1769e192e02a8bb7482aceeb5"><div class="ttname"><a href="freertos_8h.html#aa06a84e1769e192e02a8bb7482aceeb5">DEFINE_TASK</a></div><div class="ttdeci">#define DEFINE_TASK(NAME, PERIOD_MS, PRIORITY, STACK_SIZE)</div><div class="ttdoc">Scaffolds the static memory for a FreeRTOS task.</div><div class="ttdef"><b>Definition</b> freertos.h:62</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="freertos_8h.html#a5cf4a3cffdbcee009fb985a5c44738c3">FREERTOS_DEFINE_TASK</a>(WDG_pet, WATCHDOG_PET_PERIOD_MS, TASK_PRIORITY_LOW, STACK_256)</div>
+<div class="ttc" id="afreertos_8h_html_a5cf4a3cffdbcee009fb985a5c44738c3"><div class="ttname"><a href="freertos_8h.html#a5cf4a3cffdbcee009fb985a5c44738c3">FREERTOS_DEFINE_TASK</a></div><div class="ttdeci">#define FREERTOS_DEFINE_TASK(NAME, PERIOD_MS, PRIORITY, STACK_SIZE)</div><div class="ttdoc">Defines a statically allocated periodic FreeRTOS task.</div><div class="ttdef"><b>Definition</b> freertos.h:95</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -170,8 +170,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>was_reset_by_WDG</b> 
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="freertos_8h.html#abe574562452fd3a573084481cb7a9cf3">START_TASK</a>(WDG_pet)</div>
-<div class="ttc" id="afreertos_8h_html_abe574562452fd3a573084481cb7a9cf3"><div class="ttname"><a href="freertos_8h.html#abe574562452fd3a573084481cb7a9cf3">START_TASK</a></div><div class="ttdeci">#define START_TASK(NAME)</div><div class="ttdoc">Initializes and starts the defined task.</div><div class="ttdef"><b>Definition</b> freertos.h:87</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="freertos_8h.html#a104de5f26cf1f5055419e92dcb119afe">FREERTOS_START_TASK</a>(WDG_pet)</div>
+<div class="ttc" id="afreertos_8h_html_a104de5f26cf1f5055419e92dcb119afe"><div class="ttname"><a href="freertos_8h.html#a104de5f26cf1f5055419e92dcb119afe">FREERTOS_START_TASK</a></div><div class="ttdeci">#define FREERTOS_START_TASK(NAME)</div><div class="ttdoc">Creates and starts a previously defined task.</div><div class="ttdef"><b>Definition</b> freertos.h:125</div></div>
 </div><!-- fragment -->
 </div>
 </div>

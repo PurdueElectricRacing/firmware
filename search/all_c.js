@@ -36,6 +36,19 @@ var searchData=
   ['freertos_33',['FreeRTOS',['../md_common_2freertos_2README.html',1,'']]],
   ['freertos_2ec_34',['freertos.c',['../freertos_8c.html',1,'']]],
   ['freertos_2eh_35',['freertos.h',['../freertos_8h.html',1,'']]],
-  ['fsae_36',['FSAE',['../md_docs_2library.html#autotoc_md85',1,'']]],
-  ['functions_37',['PER Utility Functions',['../md_common_2utils_2README.html',1,'']]]
+  ['freertos_5fdefine_5fqueue_36',['FREERTOS_DEFINE_QUEUE',['../freertos_8h.html#a28a900310fbbf645e770296da5b13103',1,'freertos.h']]],
+  ['freertos_5fdefine_5fsemaphore_37',['FREERTOS_DEFINE_SEMAPHORE',['../freertos_8h.html#a6e762f79bd44d9ee56830d8620a93f3b',1,'freertos.h']]],
+  ['freertos_5fdefine_5ftask_38',['FREERTOS_DEFINE_TASK',['../freertos_8h.html#a5cf4a3cffdbcee009fb985a5c44738c3',1,'freertos.h']]],
+  ['freertos_5fhandle_5fof_39',['FREERTOS_HANDLE_OF',['../freertos_8h.html#a92e451c2b06dbd181751fbcf904c1727',1,'freertos.h']]],
+  ['freertos_5finit_5fbinary_5fsemaphore_40',['FREERTOS_INIT_BINARY_SEMAPHORE',['../freertos_8h.html#adffda44b21d8dc0ee7fa3a4eac6559e2',1,'freertos.h']]],
+  ['freertos_5finit_5fcounting_5fsemaphore_41',['FREERTOS_INIT_COUNTING_SEMAPHORE',['../freertos_8h.html#a8a314769e021d34cf07da74c972cd76a',1,'freertos.h']]],
+  ['freertos_5finit_5fmutex_42',['FREERTOS_INIT_MUTEX',['../freertos_8h.html#a7472af9a925b0fcfc6d475d1e2bb2373',1,'freertos.h']]],
+  ['freertos_5finit_5fqueue_43',['FREERTOS_INIT_QUEUE',['../freertos_8h.html#aa730b13c8454185c8a3e057e6ea25679',1,'freertos.h']]],
+  ['freertos_5fperiodic_5ftask_5fparams_5ft_44',['FREERTOS_periodic_task_params_t',['../structFREERTOS__periodic__task__params__t.html',1,'']]],
+  ['freertos_5fqueue_5fparams_5ft_45',['FREERTOS_queue_params_t',['../structFREERTOS__queue__params__t.html',1,'']]],
+  ['freertos_5fstack_5fsize_5ft_46',['FREERTOS_stack_size_t',['../freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6a',1,'freertos.h']]],
+  ['freertos_5fstart_5ftask_47',['FREERTOS_START_TASK',['../freertos_8h.html#a104de5f26cf1f5055419e92dcb119afe',1,'freertos.h']]],
+  ['freertos_5ftask_5fpriority_5ft_48',['FREERTOS_task_priority_t',['../freertos_8h.html#a3013e468406586335b248c478350a33e',1,'freertos.h']]],
+  ['fsae_49',['FSAE',['../md_docs_2library.html#autotoc_md85',1,'']]],
+  ['functions_50',['PER Utility Functions',['../md_common_2utils_2README.html',1,'']]]
 ];

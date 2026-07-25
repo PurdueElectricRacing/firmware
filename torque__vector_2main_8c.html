@@ -128,18 +128,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>HardFault_Handler</b>
 <tr class="memitem:a577e29103ef4d1e1121dc63cfb074498" id="r_a577e29103ef4d1e1121dc63cfb074498"><td class="memItemLeft" align="right" valign="top"><a id="a577e29103ef4d1e1121dc63cfb074498" name="a577e29103ef4d1e1121dc63cfb074498"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_CAN_TASKS</b> ()</td></tr>
 <tr class="separator:a577e29103ef4d1e1121dc63cfb074498"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad92d6d74f8f4db7fb3bcf5d2aa1aac24" id="r_ad92d6d74f8f4db7fb3bcf5d2aa1aac24"><td class="memItemLeft" align="right" valign="top"><a id="ad92d6d74f8f4db7fb3bcf5d2aa1aac24" name="ad92d6d74f8f4db7fb3bcf5d2aa1aac24"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (control_loop, CONTROL_LOOP_PERIOD_MS, osPriorityNormal, STACK_4096)</td></tr>
-<tr class="separator:ad92d6d74f8f4db7fb3bcf5d2aa1aac24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5320e36a8e7d647192a619fb028b4e58" id="r_a5320e36a8e7d647192a619fb028b4e58"><td class="memItemLeft" align="right" valign="top"><a id="a5320e36a8e7d647192a619fb028b4e58" name="a5320e36a8e7d647192a619fb028b4e58"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (gps_periodic, GPS_THREAD_PERIOD_MS, osPriorityLow, STACK_1024)</td></tr>
-<tr class="separator:a5320e36a8e7d647192a619fb028b4e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf1e9c0c07a9c313dead8d80359d0d92" id="r_acf1e9c0c07a9c313dead8d80359d0d92"><td class="memItemLeft" align="right" valign="top"><a id="acf1e9c0c07a9c313dead8d80359d0d92" name="acf1e9c0c07a9c313dead8d80359d0d92"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="torque__vector_2telemetry_2telemetry_8c.html#a3a415946b37ab8a337c020a53dd8e7d1">report_telemetry_25hz</a>, TELEMETRY_25HZ_PERIOD_MS, osPriorityLow, STACK_512)</td></tr>
-<tr class="separator:acf1e9c0c07a9c313dead8d80359d0d92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7fb57622cb7edc7563416da2a85a894a" id="r_a7fb57622cb7edc7563416da2a85a894a"><td class="memItemLeft" align="right" valign="top"><a id="a7fb57622cb7edc7563416da2a85a894a" name="a7fb57622cb7edc7563416da2a85a894a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="main__module_2telemetry_2telemetry_8c.html#a6d0a75c0aee5808a962691e3973ee968">report_telemetry_1hz</a>, TELEMETRY_1HZ_PERIOD_MS, osPriorityLow, STACK_512)</td></tr>
-<tr class="separator:a7fb57622cb7edc7563416da2a85a894a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c25e8782117b185708701f4a5e60adc" id="r_a1c25e8782117b185708701f4a5e60adc"><td class="memItemLeft" align="right" valign="top"><a id="a1c25e8782117b185708701f4a5e60adc" name="a1c25e8782117b185708701f4a5e60adc"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (control_loop, CONTROL_LOOP_PERIOD_MS, TASK_PRIORITY_NORMAL, STACK_4096)</td></tr>
+<tr class="separator:a1c25e8782117b185708701f4a5e60adc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fa836ae2656bd24e0a503c0e099f209" id="r_a3fa836ae2656bd24e0a503c0e099f209"><td class="memItemLeft" align="right" valign="top"><a id="a3fa836ae2656bd24e0a503c0e099f209" name="a3fa836ae2656bd24e0a503c0e099f209"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (gps_periodic, GPS_THREAD_PERIOD_MS, TASK_PRIORITY_LOW, STACK_1024)</td></tr>
+<tr class="separator:a3fa836ae2656bd24e0a503c0e099f209"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bb645d6878a3685f2c506d1ede7dfd6" id="r_a5bb645d6878a3685f2c506d1ede7dfd6"><td class="memItemLeft" align="right" valign="top"><a id="a5bb645d6878a3685f2c506d1ede7dfd6" name="a5bb645d6878a3685f2c506d1ede7dfd6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (<a class="el" href="torque__vector_2telemetry_2telemetry_8c.html#a3a415946b37ab8a337c020a53dd8e7d1">report_telemetry_25hz</a>, TELEMETRY_25HZ_PERIOD_MS, TASK_PRIORITY_LOW, STACK_512)</td></tr>
+<tr class="separator:a5bb645d6878a3685f2c506d1ede7dfd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4007ee100805120861135ffeff77f678" id="r_a4007ee100805120861135ffeff77f678"><td class="memItemLeft" align="right" valign="top"><a id="a4007ee100805120861135ffeff77f678" name="a4007ee100805120861135ffeff77f678"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (<a class="el" href="main__module_2telemetry_2telemetry_8c.html#a6d0a75c0aee5808a962691e3973ee968">report_telemetry_1hz</a>, TELEMETRY_1HZ_PERIOD_MS, TASK_PRIORITY_LOW, STACK_512)</td></tr>
+<tr class="separator:a4007ee100805120861135ffeff77f678"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11a067a3a0541dc1ed61e5c9bb7591b5" id="r_a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memItemLeft" align="right" valign="top"><a id="a11a067a3a0541dc1ed61e5c9bb7591b5" name="a11a067a3a0541dc1ed61e5c9bb7591b5"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_WATCHDOG_TASK</b> ()</td></tr>
 <tr class="separator:a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memSeparator" colspan="2">&#160;</td></tr>

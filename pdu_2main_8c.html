@@ -141,27 +141,27 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>HardFault_Handler</b>
 <tr class="memitem:a577e29103ef4d1e1121dc63cfb074498" id="r_a577e29103ef4d1e1121dc63cfb074498"><td class="memItemLeft" align="right" valign="top"><a id="a577e29103ef4d1e1121dc63cfb074498" name="a577e29103ef4d1e1121dc63cfb074498"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_CAN_TASKS</b> ()</td></tr>
 <tr class="separator:a577e29103ef4d1e1121dc63cfb074498"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a082f0f57c132876789ef9bbaa7b6b467" id="r_a082f0f57c132876789ef9bbaa7b6b467"><td class="memItemLeft" align="right" valign="top"><a id="a082f0f57c132876789ef9bbaa7b6b467" name="a082f0f57c132876789ef9bbaa7b6b467"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (switches_periodic, 15, osPriorityNormal, STACK_512)</td></tr>
-<tr class="separator:a082f0f57c132876789ef9bbaa7b6b467"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ef049770d6c49d7b9d2a9752bc9627a" id="r_a6ef049770d6c49d7b9d2a9752bc9627a"><td class="memItemLeft" align="right" valign="top"><a id="a6ef049770d6c49d7b9d2a9752bc9627a" name="a6ef049770d6c49d7b9d2a9752bc9627a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (tsal_delayed_start, 1000, osPriorityLow, STACK_512)</td></tr>
-<tr class="separator:a6ef049770d6c49d7b9d2a9752bc9627a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abca5e74437217bd859bf1db3535b07f5" id="r_abca5e74437217bd859bf1db3535b07f5"><td class="memItemLeft" align="right" valign="top"><a id="abca5e74437217bd859bf1db3535b07f5" name="abca5e74437217bd859bf1db3535b07f5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (cooling_fsm_periodic, COOLING_FSM_PERIOD_MS, osPriorityNormal, STACK_1024)</td></tr>
-<tr class="separator:abca5e74437217bd859bf1db3535b07f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aced1ebae29d08a597cc7838b9fbbe91e" id="r_aced1ebae29d08a597cc7838b9fbbe91e"><td class="memItemLeft" align="right" valign="top"><a id="aced1ebae29d08a597cc7838b9fbbe91e" name="aced1ebae29d08a597cc7838b9fbbe91e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="led_8c.html#a1d38b8e14425dcbf14215634bcfa5290">LED_periodic</a>, 500, osPriorityLow, STACK_512)</td></tr>
-<tr class="separator:aced1ebae29d08a597cc7838b9fbbe91e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a108693c00f98ae0b66358fc4aa88a5d6" id="r_a108693c00f98ae0b66358fc4aa88a5d6"><td class="memItemLeft" align="right" valign="top"><a id="a108693c00f98ae0b66358fc4aa88a5d6" name="a108693c00f98ae0b66358fc4aa88a5d6"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (faults_periodic, 100, osPriorityLow, STACK_512)</td></tr>
-<tr class="separator:a108693c00f98ae0b66358fc4aa88a5d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf183b26e282ecdf7e2acfed5c37cd5c" id="r_abf183b26e282ecdf7e2acfed5c37cd5c"><td class="memItemLeft" align="right" valign="top"><a id="abf183b26e282ecdf7e2acfed5c37cd5c" name="abf183b26e282ecdf7e2acfed5c37cd5c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (fault_library_periodic, 100, osPriorityLow, STACK_1024)</td></tr>
-<tr class="separator:abf183b26e282ecdf7e2acfed5c37cd5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81be3b04d11ba1c0b56f1cbf6cee5830" id="r_a81be3b04d11ba1c0b56f1cbf6cee5830"><td class="memItemLeft" align="right" valign="top"><a id="a81be3b04d11ba1c0b56f1cbf6cee5830" name="a81be3b04d11ba1c0b56f1cbf6cee5830"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (telemetry_10hz, 100, osPriorityLow, STACK_1024)</td></tr>
-<tr class="separator:a81be3b04d11ba1c0b56f1cbf6cee5830"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82a33a2232b0c3df6ca605889d0e3dd4" id="r_a82a33a2232b0c3df6ca605889d0e3dd4"><td class="memItemLeft" align="right" valign="top"><a id="a82a33a2232b0c3df6ca605889d0e3dd4" name="a82a33a2232b0c3df6ca605889d0e3dd4"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (switches_periodic, 15, TASK_PRIORITY_NORMAL, STACK_512)</td></tr>
+<tr class="separator:a82a33a2232b0c3df6ca605889d0e3dd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78fd68446c15822ff4c551a624ceed4f" id="r_a78fd68446c15822ff4c551a624ceed4f"><td class="memItemLeft" align="right" valign="top"><a id="a78fd68446c15822ff4c551a624ceed4f" name="a78fd68446c15822ff4c551a624ceed4f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (tsal_delayed_start, 1000, TASK_PRIORITY_LOW, STACK_512)</td></tr>
+<tr class="separator:a78fd68446c15822ff4c551a624ceed4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9115e35e94e130b5747d8d5a08f9f9e8" id="r_a9115e35e94e130b5747d8d5a08f9f9e8"><td class="memItemLeft" align="right" valign="top"><a id="a9115e35e94e130b5747d8d5a08f9f9e8" name="a9115e35e94e130b5747d8d5a08f9f9e8"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (cooling_fsm_periodic, COOLING_FSM_PERIOD_MS, TASK_PRIORITY_NORMAL, STACK_1024)</td></tr>
+<tr class="separator:a9115e35e94e130b5747d8d5a08f9f9e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18a783200b46c5a12ea8838aec4bb29e" id="r_a18a783200b46c5a12ea8838aec4bb29e"><td class="memItemLeft" align="right" valign="top"><a id="a18a783200b46c5a12ea8838aec4bb29e" name="a18a783200b46c5a12ea8838aec4bb29e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (<a class="el" href="led_8c.html#a1d38b8e14425dcbf14215634bcfa5290">LED_periodic</a>, 500, TASK_PRIORITY_LOW, STACK_512)</td></tr>
+<tr class="separator:a18a783200b46c5a12ea8838aec4bb29e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90fdd802337a0f9a566013427cc2d738" id="r_a90fdd802337a0f9a566013427cc2d738"><td class="memItemLeft" align="right" valign="top"><a id="a90fdd802337a0f9a566013427cc2d738" name="a90fdd802337a0f9a566013427cc2d738"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (faults_periodic, 100, TASK_PRIORITY_LOW, STACK_512)</td></tr>
+<tr class="separator:a90fdd802337a0f9a566013427cc2d738"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a564e4343d1f181249c81a7c109fed3a4" id="r_a564e4343d1f181249c81a7c109fed3a4"><td class="memItemLeft" align="right" valign="top"><a id="a564e4343d1f181249c81a7c109fed3a4" name="a564e4343d1f181249c81a7c109fed3a4"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (fault_library_periodic, 100, TASK_PRIORITY_LOW, STACK_1024)</td></tr>
+<tr class="separator:a564e4343d1f181249c81a7c109fed3a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadca447c875714576f3be479553f6477" id="r_aadca447c875714576f3be479553f6477"><td class="memItemLeft" align="right" valign="top"><a id="aadca447c875714576f3be479553f6477" name="aadca447c875714576f3be479553f6477"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (telemetry_10hz, 100, TASK_PRIORITY_LOW, STACK_1024)</td></tr>
+<tr class="separator:aadca447c875714576f3be479553f6477"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11a067a3a0541dc1ed61e5c9bb7591b5" id="r_a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memItemLeft" align="right" valign="top"><a id="a11a067a3a0541dc1ed61e5c9bb7591b5" name="a11a067a3a0541dc1ed61e5c9bb7591b5"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_WATCHDOG_TASK</b> ()</td></tr>
 <tr class="separator:a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memSeparator" colspan="2">&#160;</td></tr>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['stop_5fbits_5ft_0',['stop_bits_t',['../phal__F4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553',1,'usart.h']]]
+  ['parity_5ft_0',['parity_t',['../phal__F4_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290',1,'usart.h']]]
 ];

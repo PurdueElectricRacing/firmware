@@ -146,12 +146,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>oil_temps_periodic</b
 <tr class="memitem:a577e29103ef4d1e1121dc63cfb074498" id="r_a577e29103ef4d1e1121dc63cfb074498"><td class="memItemLeft" align="right" valign="top"><a id="a577e29103ef4d1e1121dc63cfb074498" name="a577e29103ef4d1e1121dc63cfb074498"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_CAN_TASKS</b> ()</td></tr>
 <tr class="separator:a577e29103ef4d1e1121dc63cfb074498"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0e581f4c0fc10216d323125d7297730" id="r_ac0e581f4c0fc10216d323125d7297730"><td class="memItemLeft" align="right" valign="top"><a id="ac0e581f4c0fc10216d323125d7297730" name="ac0e581f4c0fc10216d323125d7297730"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (shockpots_periodic, FRONT_SHOCKPOTS_PERIOD_MS, osPriorityNormal, STACK_512)</td></tr>
-<tr class="separator:ac0e581f4c0fc10216d323125d7297730"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab16b41915b8346f845ac00c8ea7adf91" id="r_ab16b41915b8346f845ac00c8ea7adf91"><td class="memItemLeft" align="right" valign="top"><a id="ab16b41915b8346f845ac00c8ea7adf91" name="ab16b41915b8346f845ac00c8ea7adf91"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (oil_temps_periodic, FRONT_OIL_TEMPS_PERIOD_MS, osPriorityNormal, STACK_512)</td></tr>
-<tr class="separator:ab16b41915b8346f845ac00c8ea7adf91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f18412df62f106798be01f836fd8cff" id="r_a0f18412df62f106798be01f836fd8cff"><td class="memItemLeft" align="right" valign="top"><a id="a0f18412df62f106798be01f836fd8cff" name="a0f18412df62f106798be01f836fd8cff"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (shockpots_periodic, FRONT_SHOCKPOTS_PERIOD_MS, TASK_PRIORITY_NORMAL, STACK_512)</td></tr>
+<tr class="separator:a0f18412df62f106798be01f836fd8cff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e33e1b5b7f82dd4b52132f90a836acd" id="r_a5e33e1b5b7f82dd4b52132f90a836acd"><td class="memItemLeft" align="right" valign="top"><a id="a5e33e1b5b7f82dd4b52132f90a836acd" name="a5e33e1b5b7f82dd4b52132f90a836acd"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (oil_temps_periodic, FRONT_OIL_TEMPS_PERIOD_MS, TASK_PRIORITY_NORMAL, STACK_512)</td></tr>
+<tr class="separator:a5e33e1b5b7f82dd4b52132f90a836acd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11a067a3a0541dc1ed61e5c9bb7591b5" id="r_a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memItemLeft" align="right" valign="top"><a id="a11a067a3a0541dc1ed61e5c9bb7591b5" name="a11a067a3a0541dc1ed61e5c9bb7591b5"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_WATCHDOG_TASK</b> ()</td></tr>
 <tr class="separator:a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memSeparator" colspan="2">&#160;</td></tr>

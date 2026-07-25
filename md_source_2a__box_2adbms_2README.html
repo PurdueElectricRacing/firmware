@@ -125,7 +125,7 @@ Periodic Operation</h2>
 </div><!-- fragment --><p>This updates cell voltage, thermistor readings, and error flags (and all the aggregate statistics) in the <code><a class="el" href="structadbms__bms__t.html" title="Top-level ADBMS driver state, I/O buffers, measurements, and error flags.">adbms_bms_t</a> g_bms</code> struct.</p>
 <h3><a class="anchor" id="autotoc_md10"></a>
 For example</h3>
-<div class="fragment"><div class="line">defineThreadStack(g_bms_periodic, 200, osPriorityHigh, 2048);</div>
+<div class="fragment"><div class="line"><a class="code hl_define" href="freertos_8h.html#a5cf4a3cffdbcee009fb985a5c44738c3">FREERTOS_DEFINE_TASK</a>(g_bms_periodic, 200, TASK_PRIORITY_HIGH, 2048);</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
 <div class="line">    <span class="comment">// ... GPIO and SPI initialization ...</span></div>
@@ -133,11 +133,13 @@ For example</h3>
 <div class="line">    <a class="code hl_function" href="adbms_8c.html#a5cc683403abbabe7a848dd389b42489a">adbms_init</a>(&amp;g_bms, &amp;bms_spi_config, g_bms_tx_buf);</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Create periodic thread</span></div>
-<div class="line">    createThread(g_bms_periodic);</div>
+<div class="line">    <a class="code hl_define" href="freertos_8h.html#a104de5f26cf1f5055419e92dcb119afe">FREERTOS_START_TASK</a>(g_bms_periodic);</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// ... rest of main ...</span></div>
-<div class="line">    osKernelStart();</div>
+<div class="line">    vTaskStartScheduler();</div>
 <div class="line">}</div>
+<div class="ttc" id="afreertos_8h_html_a104de5f26cf1f5055419e92dcb119afe"><div class="ttname"><a href="freertos_8h.html#a104de5f26cf1f5055419e92dcb119afe">FREERTOS_START_TASK</a></div><div class="ttdeci">#define FREERTOS_START_TASK(NAME)</div><div class="ttdoc">Creates and starts a previously defined task.</div><div class="ttdef"><b>Definition</b> freertos.h:125</div></div>
+<div class="ttc" id="afreertos_8h_html_a5cf4a3cffdbcee009fb985a5c44738c3"><div class="ttname"><a href="freertos_8h.html#a5cf4a3cffdbcee009fb985a5c44738c3">FREERTOS_DEFINE_TASK</a></div><div class="ttdeci">#define FREERTOS_DEFINE_TASK(NAME, PERIOD_MS, PRIORITY, STACK_SIZE)</div><div class="ttdoc">Defines a statically allocated periodic FreeRTOS task.</div><div class="ttdef"><b>Definition</b> freertos.h:95</div></div>
 </div><!-- fragment --><p>BMS task should have high priority to ensure timely updates of measurements and so that SPI communication is not delayed/interrupted.</p>
 <h2><a class="anchor" id="autotoc_md11"></a>
 Accessing Measurements</h2>
@@ -203,7 +205,7 @@ File Structure</h1>
 Notes</h1>
 <ul>
 <li>The driver is designed for FreeRTOS-based systems with a 1000Hz tick rate (1ms tick period).<ul>
-<li>It's primary reliance on FreeRTOS comes from the use of <code>osDelay(ADBMS6380_WAKE_DELAY_MS)</code> in the wake-up sequence.</li>
+<li>Its primary reliance on FreeRTOS comes from the use of <code>FREERTOS_delay_ms(ADBMS6380_WAKE_DELAY_MS)</code> in the wake-up sequence.</li>
 </ul>
 </li>
 <li>All communication is performed via SPI, with manual CS control for timing.</li>

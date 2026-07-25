@@ -168,7 +168,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>heartbeat_task</b> (<
 <div class="line">        .state = HEARTBEAT_STATE_PREFLIGHT \</div>
 <div class="line">    }; \</div>
 <div class="line">    <span class="keywordtype">void</span> heartbeat_wrapper(<span class="keywordtype">void</span>) { heartbeat_task(&amp;status_leds); }; \</div>
-<div class="line">    DEFINE_TASK(heartbeat_wrapper, HEARTBEAT_PERIOD_MS, osPriorityLow, STACK_512)</div>
+<div class="line">    FREERTOS_DEFINE_TASK(heartbeat_wrapper, HEARTBEAT_PERIOD_MS, TASK_PRIORITY_LOW, STACK_512)</div>
 <div class="ttc" id="astructstatus__leds__t_html"><div class="ttname"><a href="structstatus__leds__t.html">status_leds_t</a></div><div class="ttdef"><b>Definition</b> heartbeat.h:23</div></div>
 </div><!-- fragment -->
 <p>Macro to define a heartbeat task with predefined behavior for status LEDs. </p>
@@ -201,8 +201,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>heartbeat_task</b> (<
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="freertos_8h.html#abe574562452fd3a573084481cb7a9cf3">START_TASK</a>(heartbeat_wrapper)</div>
-<div class="ttc" id="afreertos_8h_html_abe574562452fd3a573084481cb7a9cf3"><div class="ttname"><a href="freertos_8h.html#abe574562452fd3a573084481cb7a9cf3">START_TASK</a></div><div class="ttdeci">#define START_TASK(NAME)</div><div class="ttdoc">Initializes and starts the defined task.</div><div class="ttdef"><b>Definition</b> freertos.h:87</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="freertos_8h.html#a104de5f26cf1f5055419e92dcb119afe">FREERTOS_START_TASK</a>(heartbeat_wrapper)</div>
+<div class="ttc" id="afreertos_8h_html_a104de5f26cf1f5055419e92dcb119afe"><div class="ttname"><a href="freertos_8h.html#a104de5f26cf1f5055419e92dcb119afe">FREERTOS_START_TASK</a></div><div class="ttdeci">#define FREERTOS_START_TASK(NAME)</div><div class="ttdoc">Creates and starts a previously defined task.</div><div class="ttdef"><b>Definition</b> freertos.h:125</div></div>
 </div><!-- fragment -->
 </div>
 </div>

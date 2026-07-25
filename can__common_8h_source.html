@@ -135,12 +135,12 @@ $(function(){initNavTree('can__common_8h_source.html',''); initResizable(true); 
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keywordtype">void</span> CAN_tx_init(<span class="keywordtype">void</span>);</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#define DEFINE_CAN_TASKS() \</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">    DEFINE_TASK(CAN_rx_update, 0, osPriorityHigh, STACK_2048); \</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">    DEFINE_TASK(CAN_tx_update, 0, osPriorityHigh, STACK_1024);</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">    FREERTOS_DEFINE_TASK(CAN_rx_update, 0, TASK_PRIORITY_HIGH, STACK_2048); \</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">    FREERTOS_DEFINE_TASK(CAN_tx_update, 0, TASK_PRIORITY_HIGH, STACK_1024);</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#define START_CAN_TASKS() \</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">    START_TASK(CAN_rx_update); \</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">    START_TASK(CAN_tx_update); \</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">    FREERTOS_START_TASK(CAN_rx_update); \</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">    FREERTOS_START_TASK(CAN_tx_update); \</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">    CAN_enable_IRQs();</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#define CAN_TX_QUEUE_LENGTH (32) </span><span class="comment">// Length of software queue for each CAN peripheral</span></div>

@@ -143,10 +143,10 @@ $(function(){initNavTree('heartbeat_8h_source.html',''); initResizable(true); })
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">        .state = HEARTBEAT_STATE_PREFLIGHT \</span></div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">    }; \</span></div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">    void heartbeat_wrapper(void) { heartbeat_task(&amp;status_leds); }; \</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">    DEFINE_TASK(heartbeat_wrapper, HEARTBEAT_PERIOD_MS, osPriorityLow, STACK_512)</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">    FREERTOS_DEFINE_TASK(heartbeat_wrapper, HEARTBEAT_PERIOD_MS, TASK_PRIORITY_LOW, STACK_512)</span></div>
 </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#define START_HEARTBEAT_TASK() START_TASK(heartbeat_wrapper)</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#define START_HEARTBEAT_TASK() FREERTOS_START_TASK(heartbeat_wrapper)</span></div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#endif </span><span class="comment">// HEARTBEAT_H</span></div>
 <div class="ttc" id="afreertos_8h_html"><div class="ttname"><a href="freertos_8h.html">freertos.h</a></div><div class="ttdoc">Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati...</div></div>

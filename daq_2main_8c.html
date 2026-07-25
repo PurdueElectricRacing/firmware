@@ -131,21 +131,21 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a30675093a6c10a6b20735712e5123111" id="r_a30675093a6c10a6b20735712e5123111"><td class="memItemLeft" align="right" valign="top"><a id="a30675093a6c10a6b20735712e5123111" name="a30675093a6c10a6b20735712e5123111"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_MUTEX</b> (spi1_lock)</td></tr>
-<tr class="separator:a30675093a6c10a6b20735712e5123111"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2e66e52a97fd083e9b34a8aee1e026a" id="r_af2e66e52a97fd083e9b34a8aee1e026a"><td class="memItemLeft" align="right" valign="top"><a id="af2e66e52a97fd083e9b34a8aee1e026a" name="af2e66e52a97fd083e9b34a8aee1e026a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_MUTEX</b> (spi1_lock)</td></tr>
+<tr class="separator:af2e66e52a97fd083e9b34a8aee1e026a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c9d5e29ad8899afe0c34571ddee18f9" id="r_a1c9d5e29ad8899afe0c34571ddee18f9"><td class="memItemLeft" align="right" valign="top"><a id="a1c9d5e29ad8899afe0c34571ddee18f9" name="a1c9d5e29ad8899afe0c34571ddee18f9"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>shutdown</b> (void)</td></tr>
 <tr class="separator:a1c9d5e29ad8899afe0c34571ddee18f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbf00664f37f4323061f84bc1920c246" id="r_adbf00664f37f4323061f84bc1920c246"><td class="memItemLeft" align="right" valign="top"><a id="adbf00664f37f4323061f84bc1920c246" name="adbf00664f37f4323061f84bc1920c246"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (sd_card_periodic, SD_FSM_PERIOD_MS, osPriorityHigh, STACK_4096)</td></tr>
-<tr class="separator:adbf00664f37f4323061f84bc1920c246"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a030726fb77678496d0ee3fa9abcdfd6b" id="r_a030726fb77678496d0ee3fa9abcdfd6b"><td class="memItemLeft" align="right" valign="top"><a id="a030726fb77678496d0ee3fa9abcdfd6b" name="a030726fb77678496d0ee3fa9abcdfd6b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (ethernet_periodic, 0, osPriorityNormal, STACK_4096)</td></tr>
-<tr class="separator:a030726fb77678496d0ee3fa9abcdfd6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fa832ca0e3629eeb76f589ecb698e76" id="r_a1fa832ca0e3629eeb76f589ecb698e76"><td class="memItemLeft" align="right" valign="top"><a id="a1fa832ca0e3629eeb76f589ecb698e76" name="a1fa832ca0e3629eeb76f589ecb698e76"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (RTC_sync, 0, osPriorityLow, STACK_512)</td></tr>
-<tr class="separator:a1fa832ca0e3629eeb76f589ecb698e76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa61930e1c2f22406196702c18077d9cd" id="r_aa61930e1c2f22406196702c18077d9cd"><td class="memItemLeft" align="right" valign="top"><a id="aa61930e1c2f22406196702c18077d9cd" name="aa61930e1c2f22406196702c18077d9cd"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (sd_card_periodic, SD_FSM_PERIOD_MS, TASK_PRIORITY_HIGH, STACK_4096)</td></tr>
+<tr class="separator:aa61930e1c2f22406196702c18077d9cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51c088af00b7a8bb8a1c40f6bdd34cf9" id="r_a51c088af00b7a8bb8a1c40f6bdd34cf9"><td class="memItemLeft" align="right" valign="top"><a id="a51c088af00b7a8bb8a1c40f6bdd34cf9" name="a51c088af00b7a8bb8a1c40f6bdd34cf9"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (ethernet_periodic, 0, TASK_PRIORITY_NORMAL, STACK_4096)</td></tr>
+<tr class="separator:a51c088af00b7a8bb8a1c40f6bdd34cf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99c47a61e6e35499be478c429d83d756" id="r_a99c47a61e6e35499be478c429d83d756"><td class="memItemLeft" align="right" valign="top"><a id="a99c47a61e6e35499be478c429d83d756" name="a99c47a61e6e35499be478c429d83d756"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (RTC_sync, 0, TASK_PRIORITY_LOW, STACK_512)</td></tr>
+<tr class="separator:a99c47a61e6e35499be478c429d83d756"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11a067a3a0541dc1ed61e5c9bb7591b5" id="r_a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memItemLeft" align="right" valign="top"><a id="a11a067a3a0541dc1ed61e5c9bb7591b5" name="a11a067a3a0541dc1ed61e5c9bb7591b5"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_WATCHDOG_TASK</b> ()</td></tr>
 <tr class="separator:a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memSeparator" colspan="2">&#160;</td></tr>

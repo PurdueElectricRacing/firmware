@@ -143,18 +143,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>calibrate_LWS</b> ()<
 <tr class="memitem:a577e29103ef4d1e1121dc63cfb074498" id="r_a577e29103ef4d1e1121dc63cfb074498"><td class="memItemLeft" align="right" valign="top"><a id="a577e29103ef4d1e1121dc63cfb074498" name="a577e29103ef4d1e1121dc63cfb074498"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_CAN_TASKS</b> ()</td></tr>
 <tr class="separator:a577e29103ef4d1e1121dc63cfb074498"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89d8931061c6b05dbca3f3c36c8ac9ca" id="r_a89d8931061c6b05dbca3f3c36c8ac9ca"><td class="memItemLeft" align="right" valign="top"><a id="a89d8931061c6b05dbca3f3c36c8ac9ca" name="a89d8931061c6b05dbca3f3c36c8ac9ca"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="pedals_8c.html#a87b6cf4ba55de2c1523397cc21bbf501">pedals_periodic</a>, PEDALS_PERIOD_MS, osPriorityHigh, STACK_1024)</td></tr>
-<tr class="separator:a89d8931061c6b05dbca3f3c36c8ac9ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecd64d319898a803fca92ff39b399166" id="r_aecd64d319898a803fca92ff39b399166"><td class="memItemLeft" align="right" valign="top"><a id="aecd64d319898a803fca92ff39b399166" name="aecd64d319898a803fca92ff39b399166"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, osPriorityNormal, STACK_1024)</td></tr>
-<tr class="separator:aecd64d319898a803fca92ff39b399166"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ca860eab037bcd7392dc677b929eaad" id="r_a0ca860eab037bcd7392dc677b929eaad"><td class="memItemLeft" align="right" valign="top"><a id="a0ca860eab037bcd7392dc677b929eaad" name="a0ca860eab037bcd7392dc677b929eaad"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (driver_interface_periodic, DRIVER_INTERFACE_PERIOD_MS, osPriorityLow, STACK_1024)</td></tr>
-<tr class="separator:a0ca860eab037bcd7392dc677b929eaad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6760d120cd4ba27426aa85efb16495d" id="r_af6760d120cd4ba27426aa85efb16495d"><td class="memItemLeft" align="right" valign="top"><a id="af6760d120cd4ba27426aa85efb16495d" name="af6760d120cd4ba27426aa85efb16495d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_TASK</b> (<a class="el" href="a__box_2telemetry_2telemetry_8c.html#a74034e258280659c81e74c002594b2e2">report_telemetry_02hz</a>, TELEMETRY_02HZ_PERIOD_MS, osPriorityLow, STACK_512)</td></tr>
-<tr class="separator:af6760d120cd4ba27426aa85efb16495d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75365af5a758227710acea65a7bb9f13" id="r_a75365af5a758227710acea65a7bb9f13"><td class="memItemLeft" align="right" valign="top"><a id="a75365af5a758227710acea65a7bb9f13" name="a75365af5a758227710acea65a7bb9f13"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (<a class="el" href="pedals_8c.html#a87b6cf4ba55de2c1523397cc21bbf501">pedals_periodic</a>, PEDALS_PERIOD_MS, TASK_PRIORITY_HIGH, STACK_1024)</td></tr>
+<tr class="separator:a75365af5a758227710acea65a7bb9f13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8dd605caab0bd6ab69bdddab145be77" id="r_ac8dd605caab0bd6ab69bdddab145be77"><td class="memItemLeft" align="right" valign="top"><a id="ac8dd605caab0bd6ab69bdddab145be77" name="ac8dd605caab0bd6ab69bdddab145be77"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (fault_library_periodic, DASHBOARD_FAULT_SYNC_PERIOD_MS, TASK_PRIORITY_NORMAL, STACK_1024)</td></tr>
+<tr class="separator:ac8dd605caab0bd6ab69bdddab145be77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ff158e8b6bb17dfe40e2abd9d3be31d" id="r_a8ff158e8b6bb17dfe40e2abd9d3be31d"><td class="memItemLeft" align="right" valign="top"><a id="a8ff158e8b6bb17dfe40e2abd9d3be31d" name="a8ff158e8b6bb17dfe40e2abd9d3be31d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (driver_interface_periodic, DRIVER_INTERFACE_PERIOD_MS, TASK_PRIORITY_LOW, STACK_1024)</td></tr>
+<tr class="separator:a8ff158e8b6bb17dfe40e2abd9d3be31d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e927f46b264d39c7a76b7da4d57466e" id="r_a2e927f46b264d39c7a76b7da4d57466e"><td class="memItemLeft" align="right" valign="top"><a id="a2e927f46b264d39c7a76b7da4d57466e" name="a2e927f46b264d39c7a76b7da4d57466e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (<a class="el" href="a__box_2telemetry_2telemetry_8c.html#a74034e258280659c81e74c002594b2e2">report_telemetry_02hz</a>, TELEMETRY_02HZ_PERIOD_MS, TASK_PRIORITY_LOW, STACK_512)</td></tr>
+<tr class="separator:a2e927f46b264d39c7a76b7da4d57466e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11a067a3a0541dc1ed61e5c9bb7591b5" id="r_a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memItemLeft" align="right" valign="top"><a id="a11a067a3a0541dc1ed61e5c9bb7591b5" name="a11a067a3a0541dc1ed61e5c9bb7591b5"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_WATCHDOG_TASK</b> ()</td></tr>
 <tr class="separator:a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memSeparator" colspan="2">&#160;</td></tr>

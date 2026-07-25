@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['gpioinputpull_5ft_0',['GPIOInputPull_t',['../phal__F4_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23',1,'GPIOInputPull_t:&#160;gpio.h'],['../phal__G4_2gpio_2gpio_8h.html#ae55c4a0103f207b80bce6ee4413b8a23',1,'GPIOInputPull_t:&#160;gpio.h']]],
-  ['gpiooutputpull_5ft_1',['GPIOOutputPull_t',['../phal__F4_2gpio_2gpio_8h.html#a3dd7cce66aaf32796899d7ac03588ebd',1,'GPIOOutputPull_t:&#160;gpio.h'],['../phal__G4_2gpio_2gpio_8h.html#a3dd7cce66aaf32796899d7ac03588ebd',1,'GPIOOutputPull_t:&#160;gpio.h']]],
-  ['gpiooutputspeed_5ft_2',['GPIOOutputSpeed_t',['../phal__F4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8',1,'GPIOOutputSpeed_t:&#160;gpio.h'],['../phal__G4_2gpio_2gpio_8h.html#af0a10c1de7415b34f63dc68acc168ce8',1,'GPIOOutputSpeed_t:&#160;gpio.h']]],
-  ['gpiopintype_5ft_3',['GPIOPinType_t',['../phal__F4_2gpio_2gpio_8h.html#a976b33799b2b8c4fe7d2a4415a88991b',1,'GPIOPinType_t:&#160;gpio.h'],['../phal__G4_2gpio_2gpio_8h.html#a976b33799b2b8c4fe7d2a4415a88991b',1,'GPIOPinType_t:&#160;gpio.h']]]
+  ['freertos_5fstack_5fsize_5ft_0',['FREERTOS_stack_size_t',['../freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6a',1,'freertos.h']]],
+  ['freertos_5ftask_5fpriority_5ft_1',['FREERTOS_task_priority_t',['../freertos_8h.html#a3013e468406586335b248c478350a33e',1,'freertos.h']]]
 ];

@@ -189,10 +189,10 @@ typedef struct {
 
 /**
  * @brief Initializes the defined static counting semaphore.
- * @note initial count is set to max count (full by default)
+ * @note initial count is set to 0 (empty)
  */
 #define INIT_COUNTING_SEMAPHORE(NAME, MAX_COUNT)                               \
-    (NAME = xSemaphoreCreateCountingStatic((MAX_COUNT), (MAX_COUNT), &(NAME##_cb)))
+    (NAME = xSemaphoreCreateCountingStatic((MAX_COUNT), 0, &(NAME##_cb)))
     
 /**
  * @brief Initializes the defined static binary semaphore.

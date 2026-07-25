@@ -9,6 +9,7 @@
 #define TEST_CANPILER   4
 #define IZZE_IMU_CONFIG 5
 #define TEST_FLASH      6
+#define TEST_FREERTOS   7
 
 // Change this define to set the test compiled
 #define G4_TESTING_CHOSEN TEST_BLINKY

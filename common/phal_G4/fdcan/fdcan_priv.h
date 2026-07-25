@@ -18,7 +18,7 @@
 /// NOTE: delicate to PCLK1 changes!!
 static constexpr uint32_t FDCAN_PRIV_KER_CLK_HZ = 16'000'000U;
 
-// Values orginate from ST's HAL & documentation
+// Values originate from ST's HAL & documentation
 
 /// FDCAN clock is derived from PCLK1
 static constexpr uint32_t FDCAN_PRIV_RCC_FDCANCLKSOURCE_PCLK1 = RCC_CCIPR_FDCANSEL_1;

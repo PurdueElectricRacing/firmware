@@ -18,7 +18,6 @@ car_t g_car = {
     .current_state     = CAR_STATE_FATAL,
     .next_state        = CAR_STATE_FATAL,
     .buzzer_start_time = 0,
-    .last_start_button = false,
     .brake_light       = false,
     .tsal_green_enable = false,
     .tsal_red_enable   = false,

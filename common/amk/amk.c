@@ -20,7 +20,7 @@ static constexpr int16_t AMK_DEFAULT_NEG_LIMIT = -500;
 void AMK_init(AMK_t *amk, const AMK_config_t *config) {
     amk->next_state   = AMK_STATE_OFF;
     amk->state        = AMK_STATE_OFF;
-    amk->set_function = config->set_function;
+    amk->flush_function = config->flush_function;
     amk->set          = config->set;
     amk->crit         = config->crit;
     amk->info         = config->info;
@@ -136,7 +136,7 @@ void AMK_periodic(AMK_t *amk, bool is_precharge_complete) {
     }
 
     // flush the internal state to the CAN library
-    amk->set_function();
+    amk->flush_function();
 
     // clear error reset
     amk->set->AMK_Control_bErrorReset = false;

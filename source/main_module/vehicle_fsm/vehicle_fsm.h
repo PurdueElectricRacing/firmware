@@ -16,7 +16,6 @@ typedef struct {
 
     // internal state variables
     uint32_t buzzer_start_time;
-    bool last_start_button;
     bool brake_light;
     bool tsal_green_enable;
     bool tsal_red_enable;
@@ -27,7 +26,6 @@ extern car_t g_car;
 
 static constexpr uint32_t VEHICLE_FSM_PERIOD_MS = 15;
 
-void vehicle_fsm_init(void);
 void vehicle_fsm_periodic(void);
 
 #endif // VEHICLE_FSM_H

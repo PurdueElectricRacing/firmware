@@ -4,6 +4,7 @@
  *
  * @author Irving Wang (irvingw@purdue.edu)
  * @author Millan Kumar (kumar798@purdue.edu)
+ * @author Ronak Jain (jain717@purdue.edu)
  */
 
 #include "freertos.h"

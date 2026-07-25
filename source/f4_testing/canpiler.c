@@ -40,7 +40,7 @@ void send_periodic() {
 }
 
 DEFINE_CAN_TASKS();
-DEFINE_TASK(send_periodic, 100, osPriorityNormal, 1024);
+FREERTOS_DEFINE_TASK(send_periodic, 100, TASK_PRIORITY_NORMAL, 1024);
 
 int main() {
     if (PHAL_configureClockRates(&clock_config)) {
@@ -56,12 +56,10 @@ int main() {
     }
     CAN_init();
 
-    osKernelInitialize();
-
     START_CAN_TASKS();
-    START_TASK(send_periodic);
+    FREERTOS_START_TASK(send_periodic);
     
-    osKernelStart();
+    vTaskStartScheduler();
 
     return 0;
 }

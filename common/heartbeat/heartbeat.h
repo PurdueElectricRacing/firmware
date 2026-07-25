@@ -56,8 +56,8 @@ extern void heartbeat_task(status_leds_t *leds);
         .state = HEARTBEAT_STATE_PREFLIGHT \
     }; \
     void heartbeat_wrapper(void) { heartbeat_task(&status_leds); }; \
-    DEFINE_TASK(heartbeat_wrapper, HEARTBEAT_PERIOD_MS, osPriorityLow, STACK_512)
+    FREERTOS_DEFINE_TASK(heartbeat_wrapper, HEARTBEAT_PERIOD_MS, TASK_PRIORITY_LOW, STACK_512)
 
-#define START_HEARTBEAT_TASK() START_TASK(heartbeat_wrapper)
+#define START_HEARTBEAT_TASK() FREERTOS_START_TASK(heartbeat_wrapper)
 
 #endif // HEARTBEAT_H

@@ -40,7 +40,7 @@ This updates cell voltage, thermistor readings, and error flags
 #### For example
 
 ```c
-defineThreadStack(g_bms_periodic, 200, osPriorityHigh, 2048);
+FREERTOS_DEFINE_TASK(g_bms_periodic, 200, TASK_PRIORITY_HIGH, 2048);
 
 int main() {
 	// ... GPIO and SPI initialization ...
@@ -48,10 +48,10 @@ int main() {
 	adbms_init(&g_bms, &bms_spi_config, g_bms_tx_buf);
 
 	// Create periodic thread
-    createThread(g_bms_periodic);
+    FREERTOS_START_TASK(g_bms_periodic);
 
 	// ... rest of main ...
-    osKernelStart();
+    vTaskStartScheduler();
 }
 ```
 
@@ -108,7 +108,7 @@ The balancing algorithm is a simple threshold-based approach:
 ## Notes
 
 - The driver is designed for FreeRTOS-based systems with a 1000Hz tick rate (1ms tick period).
-  - It's primary reliance on FreeRTOS comes from the use of `osDelay(ADBMS6380_WAKE_DELAY_MS)` in the wake-up sequence.
+  - Its primary reliance on FreeRTOS comes from the use of `FREERTOS_delay_ms(ADBMS6380_WAKE_DELAY_MS)` in the wake-up sequence.
 - All communication is performed via SPI, with manual CS control for timing.
 - Error handling is robust, with flags for SPI, PEC, and register mismatches.
 - Make sure the `ADBMS_MODULE_COUNT` constant matches the actual number of modules in your daisy chain configuration!!

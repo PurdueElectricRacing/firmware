@@ -50,10 +50,11 @@ static_assert(NEW_CAN_BASE_ID <= 0x7FF, "CAN Base ID must be less than or equal 
 
 static constexpr uint32_t IMU_CONFIG_TIME_MS = 12'000; // "at least 10 seconds"
 void config_imu() {
-    if (OS_TICKS >= IMU_CONFIG_TIME_MS) {
+    if (xTaskGetTickCount() >= IMU_CONFIG_TIME_MS) {
         // set LED
         PHAL_writeGPIO(CONNECTION_LED_PORT, CONNECTION_LED_PIN, 1);
-        osThreadExit();
+        // Delete task
+        vTaskDelete(NULL);
     }
 
     PHAL_toggleGPIO(HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN);
@@ -65,7 +66,7 @@ void config_imu() {
 }
 
 DEFINE_CAN_TASKS();
-DEFINE_TASK(config_imu, IZZE_IMU_CONFIG_PERIOD_MS, osPriorityNormal, 1024);
+FREERTOS_DEFINE_TASK(config_imu, IZZE_IMU_CONFIG_PERIOD_MS, TASK_PRIORITY_NORMAL, 1024);
 
 int main() {
     if (PHAL_configureClockRates(&clock_config)) {
@@ -85,12 +86,10 @@ int main() {
 
     CAN_init();
 
-    osKernelInitialize();
-
     START_CAN_TASKS();
-    START_TASK(config_imu);
+    FREERTOS_START_TASK(config_imu);
 
-    osKernelStart();
+    vTaskStartScheduler();
 
     return 0;
 }

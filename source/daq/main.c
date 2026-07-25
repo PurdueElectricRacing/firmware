@@ -93,15 +93,15 @@ SPI_InitConfig_t eth_spi_config = {
     .periph        = SPI1,
 };
 
-DEFINE_MUTEX(spi1_lock);
+FREERTOS_DEFINE_MUTEX(spi1_lock);
 volatile TaskHandle_t sd_task_handle = nullptr;
 
 static void configure_interrupts(void);
 void shutdown(void);
 
-DEFINE_TASK(sd_card_periodic, SD_FSM_PERIOD_MS, osPriorityHigh, STACK_4096); // SD WRITE
-DEFINE_TASK(ethernet_periodic, 0, osPriorityNormal, STACK_4096); // BULLET COMMS 
-DEFINE_TASK(RTC_sync, 0, osPriorityLow, STACK_512);
+FREERTOS_DEFINE_TASK(sd_card_periodic, SD_FSM_PERIOD_MS, TASK_PRIORITY_HIGH, STACK_4096); // SD WRITE
+FREERTOS_DEFINE_TASK(ethernet_periodic, 0, TASK_PRIORITY_NORMAL, STACK_4096); // BULLET COMMS 
+FREERTOS_DEFINE_TASK(RTC_sync, 0, TASK_PRIORITY_LOW, STACK_512);
 DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(nullptr);
 
@@ -128,20 +128,19 @@ int main() {
 
     PHAL_writeGPIO(ETH_RST_PORT, ETH_RST_PIN, 1);
 
-    osKernelInitialize();
     RTC_sync_init();
     SPMC_init(&g_spmc); // also enables CAN interrupts
     configure_interrupts();
 
-    INIT_MUTEX(spi1_lock);
+    FREERTOS_INIT_MUTEX(spi1_lock);
 
-    START_TASK(sd_card_periodic); // SD WRITE
-    START_TASK(ethernet_periodic); // BULLET COMMS
-    START_TASK(RTC_sync);
+    FREERTOS_START_TASK(sd_card_periodic); // SD WRITE
+    FREERTOS_START_TASK(ethernet_periodic); // BULLET COMMS
+    FREERTOS_START_TASK(RTC_sync);
     START_WATCHDOG_TASK();
     START_HEARTBEAT_TASK();
 
-    osKernelStart();
+    vTaskStartScheduler();
 
     return 0;
 }

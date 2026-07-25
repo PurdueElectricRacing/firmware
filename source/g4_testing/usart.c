@@ -54,8 +54,6 @@ usart_init_t usart_config = {.periph           = USART2,
 
 
 int main() {
-    osKernelInitialize();
-
     if (PHAL_configureClockRates(&clock_config))
         HardFault_Handler();
     if (!PHAL_initGPIO(gpio_config, countof(gpio_config)))
@@ -68,7 +66,7 @@ int main() {
     // Start a continuous DMA reception. The callback will handle incoming data.
     PHAL_usartRxDma(&usart_config, rx_buffer, RX_BUFFER_SIZE, true);
 
-    osKernelStart();
+    vTaskStartScheduler();
 
     return 0;
 }

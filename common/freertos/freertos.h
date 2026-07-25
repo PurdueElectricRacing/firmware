@@ -6,7 +6,8 @@
  * @brief Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocation and initialization.
  * 
  * @author Irving Wang (irvingw@purdue.edu)
- * @author Eileen Yoon (eyn@purdue.edu)
+ * @author Millan Kumar (kumar798@purdue.edu)
+ * @author Ronak Jain (jain717@purdue.edu)
  */
 
 // clang-format off
@@ -25,7 +26,6 @@
 #endif
 
 #include _FREERTOS_PATH(include/FreeRTOS.h)
-#include _FREERTOS_PATH(CMSIS_RTOS_V2/cmsis_os2.h)
 
 #include _FREERTOS_PATH(include/list.h)
 #include _FREERTOS_PATH(include/queue.h)
@@ -36,106 +36,169 @@
 
 #include <stdint.h>
 
-// Stack size defs
-#define STACK_256  (256)
-#define STACK_512  (512)
-#define STACK_1024 (1024)
-#define STACK_2048 (2048)
-#define STACK_4096 (4096)
+/// Stack size aliases
+typedef enum : size_t {
+    STACK_256  = 256,
+    STACK_512  = 512,
+    STACK_1024 = 1024,
+    STACK_2048 = 2048,
+    STACK_4096 = 4096,
+} FREERTOS_stack_size_t;
+
+/// Priority aliases
+typedef enum : UBaseType_t {
+    TASK_PRIORITY_LOW     = 8,
+    TASK_PRIORITY_NORMAL  = 24,
+    TASK_PRIORITY_HIGH    = 40,
+} FREERTOS_task_priority_t;
+
+
+/**
+ * @brief Delays the current task for the specified number of milliseconds.
+ *
+ * This is a convenience wrapper around vTaskDelay() that automatically
+ * converts milliseconds to FreeRTOS ticks.
+ *
+ * @param ms Delay duration in milliseconds.
+ */
+[[gnu::always_inline]]
+static inline void FREERTOS_delay_ms(uint32_t ms) {
+    vTaskDelay(pdMS_TO_TICKS(ms));
+}
 
 typedef struct {
     void (*taskFunction)(void);
     uint32_t period_ms;
-} periodic_task_params_t;
+    UBaseType_t priority;
+} FREERTOS_periodic_task_params_t;
 
-// this is the function actually scheduled by freertos
-void periodic_task_runner(void *arg);
+// This is the function actually scheduled by freertos
+// Arg is of type FREERTOS_periodic_task_params_t*
+void FREERTOS_periodic_task_runner(void* arg);
+
 
 /**
- * @brief Scaffolds the static memory for a FreeRTOS task.
+ * @brief Defines a statically allocated periodic FreeRTOS task.
  *
- * @param NAME: The function name of the task.
- * @param PERIOD_MS: Task period in milliseconds.
- * @param PRIORITY: CMSIS-RTOS2 priority (e.g., osPriorityNormal).
- * @param STACK_SIZE: Stack size in bytes.
+ * Allocates memory statically here:
+ * task control block (TCB), stack, task parameters, and task handle
+ *
+ * The task is not created until FREERTOS_START_TASK is called.
+ *
+ * The task will be executed periodically by periodic_task_runner.
+ *
+ * @param NAME       Name of the task function.
+ * @param PERIOD_MS  Execution period in milliseconds.
+ * @param PRIORITY   FreeRTOS task priority.
+ * @param STACK_SIZE Stack size in bytes
  */
-#define DEFINE_TASK(NAME, PERIOD_MS, PRIORITY, STACK_SIZE)                     \
+#define FREERTOS_DEFINE_TASK(NAME, PERIOD_MS, PRIORITY, STACK_SIZE)            \
     static_assert(                                                             \
         (STACK_SIZE) % sizeof(StackType_t) == 0,                               \
         "Stack size must be a multiple of StackType_t"                         \
     );                                                                         \
+                                                                               \
     static StaticTask_t NAME##_tcb;                                            \
-    static StackType_t  NAME##_stack[(STACK_SIZE) / sizeof(StackType_t)];      \
-    periodic_task_params_t NAME##_params = {                                   \
+    static StackType_t NAME##_stack[(STACK_SIZE) / sizeof(StackType_t)];       \
+                                                                               \
+    static FREERTOS_periodic_task_params_t NAME##_params = {                            \
         .taskFunction = (void (*)(void))NAME,                                  \
         .period_ms    = (PERIOD_MS),                                           \
+        .priority     = (PRIORITY),                                            \
     };                                                                         \
-    osThreadAttr_t NAME##_attrs = {                                            \
-        .name       = #NAME,                                                   \
-        .attr_bits  = osThreadDetached,                                        \
-        .cb_mem     = &NAME##_tcb,                                             \
-        .cb_size    = sizeof(StaticTask_t),                                    \
-        .stack_mem  = NAME##_stack,                                            \
-        .stack_size = sizeof(NAME##_stack),                                    \
-        .priority   = (osPriority_t)(PRIORITY),                                \
-    };                                                                         \
-    osThreadId_t NAME##_handle;
+                                                                               \
+    TaskHandle_t NAME##_handle
 
 /**
- * @brief Initializes and starts the defined task.
+ * @brief Creates and starts a previously defined task
+ *
+ * Creates the task using xTaskCreateStatic() and stores the resulting
+ * task handle in the handle generated by FREERTOS_DEFINE_TASK.
+ *
+ * This macro should be called once after the scheduler has been
+ * initialized and before vTaskStartScheduler().
+ *
+ * @param NAME Name passed to FREERTOS_DEFINE_TASK.
+ *
+ * @return TaskHandle_t for the created task, or NULL if task creation failed.
  */
-#define START_TASK(NAME)                                                       \
-    (NAME##_handle = osThreadNew(periodic_task_runner, &NAME##_params, &NAME##_attrs))
+#define FREERTOS_START_TASK(NAME)                                              \
+    (NAME##_handle = xTaskCreateStatic(                                        \
+        FREERTOS_periodic_task_runner,                                         \
+        #NAME,                                                                 \
+        sizeof(NAME##_stack) / sizeof(StackType_t),                            \
+        &NAME##_params,                                                        \
+        NAME##_params.priority,                                                \
+        NAME##_stack,                                                          \
+        &NAME##_tcb))
+
 
 /**
  * @brief Retrieves the FreeRTOS task handle for the defined task.
  */
-#define HANDLE_OF(NAME) (NAME##_handle)
+#define FREERTOS_HANDLE_OF(NAME) (NAME##_handle)
+
+
+typedef struct {
+    size_t item_size;
+    size_t item_count;
+} FREERTOS_queue_params_t;
 
 /**
  * @brief Scaffolds the static memory for a FreeRTOS queue.
  */
-#define DEFINE_QUEUE(NAME, ITEM, COUNT)                                        \
+#define FREERTOS_DEFINE_QUEUE(NAME, ITEM, COUNT)                               \
     static_assert(COUNT > 0, "Queue count must be greater than 0");            \
-    QueueHandle_t NAME;                                                        \
+                                                                               \
     static StaticQueue_t NAME##_cb;                                            \
-    static uint8_t       NAME##_data[sizeof(ITEM) * (COUNT)];
+    static uint8_t       NAME##_data[sizeof(ITEM) * (COUNT)];                  \
+                                                                               \
+    static FREERTOS_queue_params_t NAME##_params = {                                    \
+        .item_size  = sizeof(ITEM),                                            \
+        .item_count = (COUNT),                                                 \
+    };                                                                         \
+                                                                               \
+    QueueHandle_t NAME;                                                        \
 
 /**
  * @brief Initializes the defined static queue.
  */
-#define INIT_QUEUE(NAME, ITEM, COUNT)                                          \
-    (NAME = xQueueCreateStatic((COUNT), sizeof(ITEM), NAME##_data, &NAME##_cb))
+#define FREERTOS_INIT_QUEUE(NAME)                                              \
+    (NAME = xQueueCreateStatic(                                                \
+        NAME##_params.item_count,                                              \
+        NAME##_params.item_size,                                               \
+        NAME##_data,                                                           \
+        &NAME##_cb))
 
 /**
  * @brief Scaffolds the static memory for a semaphore (and related variants).
  */
-#define DEFINE_SEMAPHORE(NAME)                                                 \
+#define FREERTOS_DEFINE_SEMAPHORE(NAME)                                        \
     SemaphoreHandle_t NAME;                                                    \
     static StaticSemaphore_t NAME##_cb;
 
 // Aliases for clarity
-#define DEFINE_MUTEX(NAME) DEFINE_SEMAPHORE(NAME)
-#define DEFINE_COUNTING_SEMAPHORE(NAME) DEFINE_SEMAPHORE(NAME)
-#define DEFINE_BINARY_SEMAPHORE(NAME) DEFINE_SEMAPHORE(NAME)
+#define FREERTOS_DEFINE_MUTEX(NAME) FREERTOS_DEFINE_SEMAPHORE(NAME)
+#define FREERTOS_DEFINE_COUNTING_SEMAPHORE(NAME) FREERTOS_DEFINE_SEMAPHORE(NAME)
+#define FREERTOS_DEFINE_BINARY_SEMAPHORE(NAME) FREERTOS_DEFINE_SEMAPHORE(NAME)
 
 /**
  * @brief Initializes the defined mutex.
  */
-#define INIT_MUTEX(NAME)                                                       \
+#define FREERTOS_INIT_MUTEX(NAME)                                              \
     (NAME = xSemaphoreCreateMutexStatic(&(NAME##_cb)))
 
 /**
  * @brief Initializes the defined static counting semaphore.
- * @note initial count is set to max count (full by default)
+ * @note initial count is set to 0 (empty)
  */
-#define INIT_COUNTING_SEMAPHORE(NAME, MAX_COUNT)                               \
-    (NAME = xSemaphoreCreateCountingStatic((MAX_COUNT), (MAX_COUNT), &(NAME##_cb)))
+#define FREERTOS_INIT_COUNTING_SEMAPHORE(NAME, MAX_COUNT)                      \
+    (NAME = xSemaphoreCreateCountingStatic((MAX_COUNT), 0, &(NAME##_cb)))
     
 /**
  * @brief Initializes the defined static binary semaphore.
  */
-#define INIT_BINARY_SEMAPHORE(NAME)                                            \
+#define FREERTOS_INIT_BINARY_SEMAPHORE(NAME)                                   \
     (NAME = xSemaphoreCreateBinaryStatic(&(NAME##_cb)))
 
 #endif // PER_FREERTOS_H

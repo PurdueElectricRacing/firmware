@@ -267,20 +267,20 @@ static void heartbeat_led_sweep(void) {
 }
 
 static void tsal_delayed_start() {
-    osDelay(1000);
+    FREERTOS_delay_ms(1000);
     switches_set_state(SW_MAIN, true);
-    osThreadTerminate(NULL);
+    vTaskDelete(NULL);
 }
 
 // Thread Defines
 DEFINE_CAN_TASKS();
-DEFINE_TASK(switches_periodic, 15, osPriorityNormal, STACK_512);
-DEFINE_TASK(tsal_delayed_start, 1000, osPriorityLow, STACK_512);
-DEFINE_TASK(cooling_fsm_periodic, COOLING_FSM_PERIOD_MS, osPriorityNormal, STACK_1024);
-DEFINE_TASK(LED_periodic, 500, osPriorityLow, STACK_512);
-DEFINE_TASK(faults_periodic, 100, osPriorityLow, STACK_512);
-DEFINE_TASK(fault_library_periodic, 100, osPriorityLow, STACK_1024);
-DEFINE_TASK(telemetry_10hz, 100, osPriorityLow, STACK_1024);
+FREERTOS_DEFINE_TASK(switches_periodic, 15, TASK_PRIORITY_NORMAL, STACK_512);
+FREERTOS_DEFINE_TASK(tsal_delayed_start, 1000, TASK_PRIORITY_LOW, STACK_512);
+FREERTOS_DEFINE_TASK(cooling_fsm_periodic, COOLING_FSM_PERIOD_MS, TASK_PRIORITY_NORMAL, STACK_1024);
+FREERTOS_DEFINE_TASK(LED_periodic, 500, TASK_PRIORITY_LOW, STACK_512);
+FREERTOS_DEFINE_TASK(faults_periodic, 100, TASK_PRIORITY_LOW, STACK_512);
+FREERTOS_DEFINE_TASK(fault_library_periodic, 100, TASK_PRIORITY_LOW, STACK_1024);
+FREERTOS_DEFINE_TASK(telemetry_10hz, 100, TASK_PRIORITY_LOW, STACK_1024);
 DEFINE_WATCHDOG_TASK();
 DEFINE_HEARTBEAT_TASK(heartbeat_led_sweep);
 
@@ -321,22 +321,19 @@ int main() {
 
     switches_enable_default_rails();
 
-    osKernelInitialize();
-
     START_CAN_TASKS();
     CAN_SEND_pdu_init(WDG_get_CSR());
-    START_TASK(switches_periodic);
-    START_TASK(tsal_delayed_start);
-    START_TASK(cooling_fsm_periodic);
-    START_TASK(LED_periodic);
-    START_TASK(faults_periodic);
-    START_TASK(fault_library_periodic);
-    START_TASK(telemetry_10hz);
+    FREERTOS_START_TASK(switches_periodic);
+    FREERTOS_START_TASK(tsal_delayed_start);
+    FREERTOS_START_TASK(cooling_fsm_periodic);
+    FREERTOS_START_TASK(LED_periodic);
+    FREERTOS_START_TASK(faults_periodic);
+    FREERTOS_START_TASK(fault_library_periodic);
+    FREERTOS_START_TASK(telemetry_10hz);
     START_WATCHDOG_TASK();
     START_HEARTBEAT_TASK();
 
-    // no way home
-    osKernelStart();
+    vTaskStartScheduler();
 
     return 0;
 }

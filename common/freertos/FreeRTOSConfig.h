@@ -71,7 +71,7 @@ extern uint32_t SystemCoreClock;
 
 #define configUSE_PREEMPTION 1
 #define configUSE_TIME_SLICING 1
-#define configUSE_IDLE_HOOK 1
+#define configUSE_IDLE_HOOK 0
 #define configUSE_TICK_HOOK 0
 #define configSUPPORT_STATIC_ALLOCATION 1
 #define configSUPPORT_DYNAMIC_ALLOCATION 0
@@ -200,6 +200,7 @@ header file. */
    standard names. */
 #define vPortSVCHandler SVC_Handler
 #define xPortPendSVHandler PendSV_Handler
+#define xPortSysTickHandler SysTick_Handler
 
 /* IMPORTANT: FreeRTOS is using the SysTick as internal time base, thus make
    sure the system and peripherials are using a different time base (TIM based

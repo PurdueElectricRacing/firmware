@@ -41,10 +41,10 @@
 typedef struct {
     CAN_TypeDef* Bus; /*!< When RX - Bus = which peripheral the frame arrived on
                                    When TX - Bus =  which peripheral should transmits it */
-    bool IsExtendedId;
+    bool IDE;
     union {
-        uint16_t StdId; /*!< valid when !IsExtendedId, 11-bit */
-        uint32_t ExtId; /*!< valid when IsExtendedId,  29-bit */
+        uint16_t StdId; /*!< valid when !IDE, 11-bit */
+        uint32_t ExtId; /*!< valid when IDE,  29-bit */
     };
     uint8_t DLC;        /*!< payload length, 0-8 */
     uint8_t Data[8];    /*!< payload bytes */

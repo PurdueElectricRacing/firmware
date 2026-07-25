@@ -301,7 +301,7 @@ void PHAL_FDCAN_priv_writeTxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t 
     // Word 0 of a TX element header:
     // Bit 30 = XTD (extended id flag)
     // Standard id/extended id
-    if (msg->IsExtendedId) {
+    if (msg->IDE) {
         // Extended-ID frames place their 29-bit ID in bits [28:0]
         tx[0] = (msg->ExtId & 0x1FFFFFFFU) | (1U << 30); // extended ID, IDE=1
     } else {
@@ -362,9 +362,9 @@ bool PHAL_FDCAN_priv_readRxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t *
  
     *msg     = (CanMsgTypeDef_t) {0};
     msg->Bus = fdcan;
-    msg->IsExtendedId = ((w0 & (1U << 30)) != 0); // bit 30 = XTD (extended id flag)
+    msg->IDE = ((w0 & (1U << 30)) != 0); // bit 30 = XTD (extended id flag)
     
-    if (msg->IsExtendedId) {
+    if (msg->IDE) {
         msg->ExtId = w0 & 0x1FFFFFFFU; // 29-bit extended ID
     } else {
         msg->StdId = (uint16_t)((w0 >> 18) & 0x7FFU); // 11-bit standard id

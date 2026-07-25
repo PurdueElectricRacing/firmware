@@ -23,13 +23,13 @@ static constexpr uint32_t PHAL_FDCAN_MAX_NUM_XID_FILTER = 8;
 typedef struct {
     FDCAN_GlobalTypeDef* Bus; /*!< When RX - Bus = which peripheral the frame arrived on
                                    When TX - Bus =  which peripheral should transmits it */
-    bool IsExtendedId;
+    bool IDE;                 /*!< true = extended ID, false = standard ID */
     union {
-        uint16_t StdId; /*!< valid when !IsExtendedId, 11-bit */
-        uint32_t ExtId; /*!< valid when IsExtendedId,  29-bit */
+        uint16_t StdId; /*!< valid when !IDE, 11-bit */
+        uint32_t ExtId; /*!< valid when IDE,  29-bit */
     };
-    uint8_t DLC;        /*!< payload length, 0-8 */
-    uint8_t Data[8];    /*!< payload bytes */
+    uint8_t DLC;     /*!< payload length, 0-8 */
+    uint8_t Data[8]; /*!< payload bytes */
 } CanMsgTypeDef_t;
 
 /**

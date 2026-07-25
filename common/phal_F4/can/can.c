@@ -193,7 +193,7 @@ bool PHAL_txCANMessage(CanMsgTypeDef_t* msg, uint8_t txMbox) {
     // }
     // else
     //     return false;   // Unable to find Mailbox
-    if (!msg->IsExtendedId) {
+    if (!msg->IDE) {
         msg->Bus->sTxMailBox[txMbox].TIR = (msg->StdId << CAN_TI0R_STID_Pos); // Standard ID
     } else {
         msg->Bus->sTxMailBox[txMbox].TIR = (msg->ExtId << CAN_TI0R_EXID_Pos) | 4; // Extended ID
@@ -266,10 +266,10 @@ bool PHAL_rxCANMessage(CAN_TypeDef *bus, uint8_t fifo, CanMsgTypeDef_t *msg) {
 
     msg->Bus = bus;
     if (bus->sFIFOMailBox[fifo].RIR & CAN_RI0R_IDE) {
-        msg->IsExtendedId = true;
+        msg->IDE = true;
         msg->ExtId = bus->sFIFOMailBox[fifo].RIR >> CAN_RI0R_EXID_Pos;
     } else {
-        msg->IsExtendedId = false;
+        msg->IDE = false;
         msg->StdId = bus->sFIFOMailBox[fifo].RIR >> CAN_RI0R_STID_Pos;
     }
 

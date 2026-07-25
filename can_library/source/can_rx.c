@@ -24,7 +24,7 @@ void CAN_rx_update(void) {
         last_can_rx_time_ms = xTaskGetTickCount();
 
         CAN_rx_dispatcher(
-            rx_msg.IsExtendedId == 0 ? rx_msg.StdId : rx_msg.ExtId,
+            rx_msg.IDE == 0 ? rx_msg.StdId : rx_msg.ExtId,
             rx_msg.Data,
             rx_msg.DLC,
             rx_msg.Bus

@@ -10,10 +10,10 @@ static inline void CAN_SEND_{{ entry.msg.name }}(
         .Bus = {{ entry.periph }},
         {% if entry.msg.is_extended %}
         .ExtId = {{ entry.msg.macro_name }}_MSG_ID,
-        .IsExtendedId=true,
+        .IDE=true,
         {% else %}
         .StdId = {{ entry.msg.macro_name }}_MSG_ID,
-        .IsExtendedId = false,
+        .IDE = false,
         {% endif %}
         .DLC = {{ entry.msg.macro_name }}_DLC,
         .Data = {0}

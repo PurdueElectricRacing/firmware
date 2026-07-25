@@ -129,7 +129,7 @@ void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
 static void PHAL_FDCAN_testExtended(void) {
     CanMsgTypeDef_t msg;
     msg.Bus            = FDCAN2;
-    msg.IsExtendedId   = true;
+    msg.IDE   = true;
     msg.ExtId          = 0x1ABCDE0 + 1;
     uint8_t payload[8] = {'E', 'X', 'T', 'I', 'D', '_', 'T', 'X'};
     msg.DLC            = sizeof(payload);
@@ -140,7 +140,7 @@ static void PHAL_FDCAN_testExtended(void) {
 // static void PHAL_FDCAN_testStandard(void) {
 //     CanMsgTypeDef_t msg;
 //     msg.Bus            = FDCAN3;
-//     msg.IsExtendedId   = false;
+//     msg.IDE   = false;
 //     msg.StdId          = 0x300 + 4;
 //     uint8_t payload[8] = {'S', 'T', 'D', 'I', 'D', '_', 'T', 'X'};
 //     msg.DLC            = sizeof(payload);

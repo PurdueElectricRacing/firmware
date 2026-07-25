@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: source/main_module/vehicle_fsm/vehicle_fsm.h File Reference</title>
+<title>PER Firmware: source/main_module/powertrain/powertrain.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('vehicle__fsm_8h.html',''); initResizable(true); });
+$(function(){initNavTree('powertrain_8c.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -98,45 +98,48 @@ $(function(){initNavTree('vehicle__fsm_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
-  <div class="headertitle"><div class="title">vehicle_fsm.h File Reference</div></div>
+  <div class="headertitle"><div class="title">powertrain.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Master vehicle state machine implementation.  
+<p>Powertrain implementation.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;can_library/generated/can_types.h&quot;</code><br />
-</div>
-<p><a href="vehicle__fsm_8h_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcar__t.html">car_t</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
+<div class="textblock"><code>#include &quot;<a class="el" href="powertrain_8h_source.html">powertrain.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="faults__common_8h_source.html">can_library/faults_common.h</a>&quot;</code><br />
+<code>#include &quot;can_library/generated/MAIN_MODULE.h&quot;</code><br />
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a17b274e6971a721080e708c8d6eed884" id="r_a17b274e6971a721080e708c8d6eed884"><td class="memItemLeft" align="right" valign="top"><a id="a17b274e6971a721080e708c8d6eed884" name="a17b274e6971a721080e708c8d6eed884"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>vehicle_fsm_periodic</b> (void)</td></tr>
-<tr class="separator:a17b274e6971a721080e708c8d6eed884"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02ec81ffc56b69d59884d5d0b95c33e9" id="r_a02ec81ffc56b69d59884d5d0b95c33e9"><td class="memItemLeft" align="right" valign="top"><a id="a02ec81ffc56b69d59884d5d0b95c33e9" name="a02ec81ffc56b69d59884d5d0b95c33e9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>powertrain_init</b> (void)</td></tr>
+<tr class="separator:a02ec81ffc56b69d59884d5d0b95c33e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abed3fa744fe602905132e7ef49701421" id="r_abed3fa744fe602905132e7ef49701421"><td class="memItemLeft" align="right" valign="top"><a id="abed3fa744fe602905132e7ef49701421" name="abed3fa744fe602905132e7ef49701421"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>powertrain_periodic</b> (void)</td></tr>
+<tr class="separator:abed3fa744fe602905132e7ef49701421"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab8a88dd8dded2b6c4dfdfbd6b2d8907" id="r_aab8a88dd8dded2b6c4dfdfbd6b2d8907"><td class="memItemLeft" align="right" valign="top"><a id="aab8a88dd8dded2b6c4dfdfbd6b2d8907" name="aab8a88dd8dded2b6c4dfdfbd6b2d8907"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>powertrain_set_torque_request</b> (<a class="el" href="structtorque__request__t.html">torque_request_t</a> request)</td></tr>
+<tr class="separator:aab8a88dd8dded2b6c4dfdfbd6b2d8907"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7e2db5a431b249dccc5755a63b25500" id="r_ab7e2db5a431b249dccc5755a63b25500"><td class="memItemLeft" align="right" valign="top"><a id="ab7e2db5a431b249dccc5755a63b25500" name="ab7e2db5a431b249dccc5755a63b25500"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_powertrain_ready</b> (void)</td></tr>
+<tr class="separator:ab7e2db5a431b249dccc5755a63b25500"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a0c603b6be14ee38a80f5b39fef2668da" id="r_a0c603b6be14ee38a80f5b39fef2668da"><td class="memItemLeft" align="right" valign="top"><a id="a0c603b6be14ee38a80f5b39fef2668da" name="a0c603b6be14ee38a80f5b39fef2668da"></a>
-<a class="el" href="structcar__t.html">car_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>g_car</b></td></tr>
-<tr class="separator:a0c603b6be14ee38a80f5b39fef2668da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07b2a922769a3755b4c94780afa4fb48" id="r_a07b2a922769a3755b4c94780afa4fb48"><td class="memItemLeft" align="right" valign="top"><a id="a07b2a922769a3755b4c94780afa4fb48" name="a07b2a922769a3755b4c94780afa4fb48"></a>
+<a class="el" href="structpowertrain__t.html">powertrain_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>g_powertrain</b></td></tr>
+<tr class="separator:a07b2a922769a3755b4c94780afa4fb48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Master vehicle state machine implementation. </p>
+<div class="textblock"><p>Powertrain implementation. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_92cd89fe1a7f4ffa14caa98c8985cc29.html">main_module</a></li><li class="navelem"><a class="el" href="dir_56133064f5814fde0698e97b1f76cfc6.html">vehicle_fsm</a></li><li class="navelem"><a class="el" href="vehicle__fsm_8h.html">vehicle_fsm.h</a></li>
+    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_92cd89fe1a7f4ffa14caa98c8985cc29.html">main_module</a></li><li class="navelem"><a class="el" href="dir_fde07448f8c4f29a4a274a448993566d.html">powertrain</a></li><li class="navelem"><a class="el" href="powertrain_8c.html">powertrain.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

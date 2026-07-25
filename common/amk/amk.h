@@ -30,7 +30,6 @@ typedef struct {
     // Internal state
     AMK_state_t state;
     AMK_state_t next_state;
-    bool *precharge_ptr; // owned pointer to precharge status from car module
 } AMK_t;
 
 void AMK_init(
@@ -41,12 +40,11 @@ void AMK_init(
     INVA_INFO_data_t *info,
     INVA_TEMPS_data_t *temps,
     INVA_ERR_1_data_t *err1,
-    INVA_ERR_2_data_t *err2,
-    bool *precharge_ptr
+    INVA_ERR_2_data_t *err2
 );
 
 void AMK_reset(AMK_t* amk);
 void AMK_set_torque(AMK_t* amk, int16_t torque_percent);
-void AMK_periodic(AMK_t* amk);
+void AMK_periodic(AMK_t* amk, bool is_precharge_complete);
 
 #endif // AMK_H

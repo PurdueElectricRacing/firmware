@@ -15,9 +15,14 @@
 
 // Global data structures
 car_t g_car = {
-    .current_state = CAR_STATE_FATAL,
-    .next_state = CAR_STATE_FATAL,
-
+    .current_state     = CAR_STATE_FATAL,
+    .next_state        = CAR_STATE_FATAL,
+    .buzzer_start_time = 0,
+    .last_start_button = false,
+    .brake_light       = false,
+    .tsal_green_enable = false,
+    .tsal_red_enable   = false,
+    .buzzer_enable     = false,
 };
 
 static_assert(VEHICLE_FSM_PERIOD_MS == POWERTRAIN_PERIOD_MS);
@@ -83,15 +88,12 @@ void vehicle_fsm_periodic(void) {
     g_car.buzzer_enable = false;
 
     powertrain_zero_torque_request();
-    powertrain_periodic();
     update_brake_light();
     update_tsal();
 
     // update precharge status
     bool precharge_pin = PHAL_readGPIO(NOT_PRECHARGE_COMPLETE_PORT, NOT_PRECHARGE_COMPLETE_PIN);
     update_fault(FAULT_ID_PRECHARGE_INCOMPLETE, precharge_pin == true);
-    // amks need a bool to point to for precharge status
-    g_car.is_precharge_complete = is_clear(FAULT_ID_PRECHARGE_INCOMPLETE);
 
     // any SDCs latched 1-15 faults will cause a fatal state
     if (is_latched(FAULT_ID_SDC15_REAR_INTERLOCK)) {
@@ -157,7 +159,7 @@ void vehicle_fsm_periodic(void) {
         }
     }
 
-    powertrain_apply_torque_request();
+    powertrain_periodic();
 
     CAN_SEND_main_hb(g_car.current_state);
 

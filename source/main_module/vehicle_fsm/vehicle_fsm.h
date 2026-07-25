@@ -16,13 +16,11 @@ typedef struct {
 
     // internal state variables
     uint32_t buzzer_start_time;
-    bool last_start_button_state;
+    bool last_start_button;
     bool brake_light;
     bool tsal_green_enable;
     bool tsal_red_enable;
     bool buzzer_enable;
-
-    bool is_precharge_complete; // AMKs are pointed to this variable
 } car_t;
 
 extern car_t g_car;

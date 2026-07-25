@@ -114,7 +114,7 @@ int main(void) {
     }
     CAN_init();
 
-    powertrain_init(&g_car.is_precharge_complete);
+    powertrain_init();
 
     PHAL_writeGPIO(ECU_SDC_CTRL_PORT, ECU_SDC_CTRL_PIN, true); // set SDC high
 

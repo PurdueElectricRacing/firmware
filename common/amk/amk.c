@@ -25,8 +25,7 @@ void AMK_init(
     INVA_INFO_data_t *info,
     INVA_TEMPS_data_t *temps,
     INVA_ERR_1_data_t *err1,
-    INVA_ERR_2_data_t *err2,
-    bool *precharge_ptr
+    INVA_ERR_2_data_t *err2
 ) {
     amk->next_state    = AMK_STATE_OFF;
     amk->state         = AMK_STATE_OFF;
@@ -37,7 +36,6 @@ void AMK_init(
     amk->temps         = temps;
     amk->err1          = err1;
     amk->err2          = err2;
-    amk->precharge_ptr = precharge_ptr;
 
     // explicitly set all control flags to safe defaults
     amk->set->AMK_Control_bDcOn       = false;
@@ -76,11 +74,11 @@ static void AMK_stop(AMK_t *amk) {
     amk->set->AMK_Control_bEnable     = false;
 }
 
-void AMK_periodic(AMK_t *amk) {
+void AMK_periodic(AMK_t *amk, bool is_precharge_complete) {
     amk->state      = amk->next_state;
     amk->next_state = amk->state; // default: stay in current state
 
-    bool is_system_ready = *(amk->precharge_ptr) && amk->info->AMK_Status_bSystemReady;
+    bool is_system_ready = is_precharge_complete && amk->info->AMK_Status_bSystemReady;
     bool is_error        = amk->info->AMK_Status_bError;
     bool is_simple_error = (amk->err1->AMK_DiagnosticNumber == AMK_CAN_ERR_ID
                             || amk->err1->AMK_DiagnosticNumber == AMK_DC_BUS_ID);

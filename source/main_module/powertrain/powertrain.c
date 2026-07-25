@@ -7,6 +7,7 @@
 
 #include "powertrain.h"
 
+#include "can_library/faults_common.h"
 #include "can_library/generated/MAIN_MODULE.h"
 #include "common/utils/min.h"
 
@@ -111,7 +112,7 @@ static void flush_invd(void) {
     );
 }
 
-void powertrain_init(bool *is_precharge_complete) {
+void powertrain_init(void) {
     // Inverter A
     AMK_init(
         &g_powertrain.front_right,
@@ -121,8 +122,7 @@ void powertrain_init(bool *is_precharge_complete) {
         (INVA_INFO_data_t *) &can_data.INVA_INFO,
         (INVA_TEMPS_data_t *) &can_data.INVA_TEMPS,
         (INVA_ERR_1_data_t *) &can_data.INVA_ERR_1,
-        (INVA_ERR_2_data_t *) &can_data.INVA_ERR_2,
-        is_precharge_complete
+        (INVA_ERR_2_data_t *) &can_data.INVA_ERR_2
     );
 
     // Inverter B
@@ -134,8 +134,7 @@ void powertrain_init(bool *is_precharge_complete) {
         (INVA_INFO_data_t *) &can_data.INVB_INFO,
         (INVA_TEMPS_data_t *) &can_data.INVB_TEMPS,
         (INVA_ERR_1_data_t *) &can_data.INVB_ERR_1,
-        (INVA_ERR_2_data_t *) &can_data.INVB_ERR_2,
-        is_precharge_complete
+        (INVA_ERR_2_data_t *) &can_data.INVB_ERR_2
     );
 
     // Inverter C
@@ -147,8 +146,7 @@ void powertrain_init(bool *is_precharge_complete) {
         (INVA_INFO_data_t *) &can_data.INVC_INFO,
         (INVA_TEMPS_data_t *) &can_data.INVC_TEMPS,
         (INVA_ERR_1_data_t *) &can_data.INVC_ERR_1,
-        (INVA_ERR_2_data_t *) &can_data.INVC_ERR_2,
-        is_precharge_complete
+        (INVA_ERR_2_data_t *) &can_data.INVC_ERR_2
     );
 
     // Inverter D
@@ -160,8 +158,7 @@ void powertrain_init(bool *is_precharge_complete) {
         (INVA_INFO_data_t *) &can_data.INVD_INFO,
         (INVA_TEMPS_data_t *) &can_data.INVD_TEMPS,
         (INVA_ERR_1_data_t *) &can_data.INVD_ERR_1,
-        (INVA_ERR_2_data_t *) &can_data.INVD_ERR_2,
-        is_precharge_complete
+        (INVA_ERR_2_data_t *) &can_data.INVD_ERR_2
     );
 }
 
@@ -207,6 +204,17 @@ static torque_request_t direct_mapped_throttle() {
     return torque_request;
 }
 
+static torque_request_t torque_vectoring_request() {
+    torque_request_t torque_request = {
+        .front_left  = can_data.vcu_torque_request.front_left,
+        .front_right = can_data.vcu_torque_request.front_right,
+        .rear_left   = can_data.vcu_torque_request.rear_left,
+        .rear_right  = can_data.vcu_torque_request.rear_right
+    };
+
+    return torque_request;
+}
+
 void powertrain_update_torque_request(void) {
     if (can_data.pedals.is_stale()) {
         g_powertrain.torque_request = zero_torque_request();
@@ -215,12 +223,7 @@ void powertrain_update_torque_request(void) {
 
     bool is_tv_stale = can_data.vcu_settings.is_stale() || can_data.vcu_torque_request.is_stale();
     if (!is_tv_stale && can_data.vcu_settings.is_tv_enabled) {
-        g_powertrain.torque_request = (torque_request_t) {
-            .front_right = can_data.vcu_torque_request.front_right,
-            .front_left  = can_data.vcu_torque_request.front_left,
-            .rear_left   = can_data.vcu_torque_request.rear_left,
-            .rear_right  = can_data.vcu_torque_request.rear_right
-        };
+        g_powertrain.torque_request = torque_vectoring_request();
         return;
     }
 
@@ -245,22 +248,21 @@ void powertrain_update_torque_request(void) {
 }
 
 void powertrain_periodic(void) {
-    // iterate the AMK fsms
-    AMK_periodic(&g_powertrain.front_right);
-    AMK_periodic(&g_powertrain.front_left);
-    AMK_periodic(&g_powertrain.rear_left);
-    AMK_periodic(&g_powertrain.rear_right);
-}
-
-void powertrain_zero_torque_request(void) {
-    g_powertrain.torque_request = zero_torque_request();
-}
-
-void powertrain_apply_torque_request(void) {
     AMK_set_torque(&g_powertrain.front_right, g_powertrain.torque_request.front_right);
     AMK_set_torque(&g_powertrain.front_left,  g_powertrain.torque_request.front_left);
     AMK_set_torque(&g_powertrain.rear_left,   g_powertrain.torque_request.rear_left);
     AMK_set_torque(&g_powertrain.rear_right,  g_powertrain.torque_request.rear_right);
+
+    // iterate the AMK fsms
+    bool is_precharge_complete = is_clear(FAULT_ID_PRECHARGE_INCOMPLETE);
+    AMK_periodic(&g_powertrain.front_right, is_precharge_complete);
+    AMK_periodic(&g_powertrain.front_left, is_precharge_complete);
+    AMK_periodic(&g_powertrain.rear_left, is_precharge_complete);
+    AMK_periodic(&g_powertrain.rear_right, is_precharge_complete);
+}
+
+void powertrain_zero_torque_request(void) {
+    g_powertrain.torque_request = zero_torque_request();
 }
 
 bool is_powertrain_ready(void) {

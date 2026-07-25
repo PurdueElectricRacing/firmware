@@ -31,11 +31,10 @@ extern powertrain_t g_powertrain;
 
 static constexpr uint32_t POWERTRAIN_PERIOD_MS = 15;
 
-void powertrain_init(bool *is_precharge_complete);
+void powertrain_init(void);
 void powertrain_periodic(void);
 void powertrain_zero_torque_request(void);
 void powertrain_update_torque_request(void);
-void powertrain_apply_torque_request(void);
 bool is_powertrain_ready(void);
 
 #endif // POWERTRAIN_H

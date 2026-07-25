@@ -12,6 +12,7 @@
 #include "common/phal/gpio.h"
 #include "main.h"
 #include "common/utils/min.h"
+#include "powertrain.h"
 
 // For speed calcs
 static constexpr float WHEEL_RADIUS_IN = 8.0f;
@@ -25,50 +26,6 @@ static constexpr float RPM_TO_MPH = INCHES_PER_MOTOR_REV * MINUTES_PER_HOUR / IN
 
 // Global data structures
 car_t g_car;
-torque_request_t g_torque_request;
-
-static torque_request_t zero_torque_request() {
-    torque_request_t torque_request = {
-        .front_left  = 0,
-        .front_right = 0,
-        .rear_left   = 0,
-        .rear_right  = 0
-    };
-
-    return torque_request;
-}
-
-static torque_request_t direct_mapped_regen() {
-    // Map brake [0, 100] to torque [0, -100]
-    int16_t regen_torque = can_data.pedals.brake * -1.0f;
-
-    torque_request_t torque_request = {
-        .front_left  = regen_torque,
-        .front_right = regen_torque,
-        .rear_left   = regen_torque,
-        .rear_right  = regen_torque
-    };
-
-    return torque_request;
-}
-
-static torque_request_t direct_mapped_throttle() {
-    // Map throttle [0, 100] to torque [0, 210]
-    int16_t rear_torque = can_data.pedals.throttle * 2.1f;
-    
-    // Bias to feel like a 40% - 60% torque split
-    int16_t front_torque = (40.0f / 60.0f) * rear_torque;
-
-    torque_request_t torque_request = {
-        .front_left  = front_torque,
-        .front_right = front_torque,
-        .rear_left   = rear_torque,
-        .rear_right  = rear_torque
-    };
-
-    return torque_request;
-}
-
 static void update_torque_request() {
     if (can_data.pedals.is_stale()) {
         g_torque_request.front_right = 0;
@@ -169,14 +126,6 @@ static void update_tsal() {
     }
 }
 
-static void update_amks() {
-    // iterate the AMK fsms
-    AMK_periodic(&g_car.front_right);
-    AMK_periodic(&g_car.front_left);
-    AMK_periodic(&g_car.rear_left);
-    AMK_periodic(&g_car.rear_right);
-}
-
 void vehicle_fsm_periodic(void) {
     // set default states
     g_car.current_state = g_car.next_state;
@@ -190,7 +139,7 @@ void vehicle_fsm_periodic(void) {
     g_torque_request.rear_left   = 0;
     g_torque_request.rear_right  = 0;
     
-    update_amks();
+    powertrain_periodic();
     update_brake_light();
     update_tsal();
 
@@ -265,10 +214,7 @@ void vehicle_fsm_periodic(void) {
     }
 
     // flush the internal state
-    AMK_set_torque(&g_car.front_right, g_torque_request.front_right);
-    AMK_set_torque(&g_car.front_left,  g_torque_request.front_left);
-    AMK_set_torque(&g_car.rear_left,   g_torque_request.rear_left);
-    AMK_set_torque(&g_car.rear_right,  g_torque_request.rear_right);
+    powertrain_flush();
 
     CAN_SEND_main_hb(g_car.current_state);
 

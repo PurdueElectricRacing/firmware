@@ -1,19 +1,20 @@
 /**
- * @file vehicle_init.c
- * @brief Vehicle initialization implementation
+ * @file powertrain.c
+ * @brief Powertrain implementation
  * 
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#include "vehicle_init.h"
+#include "powertrain.h"
 
 #include "can_library/generated/MAIN_MODULE.h"
 #include "vehicle_fsm.h"
 
-INVA_SET_data_t amk_set_front_right;
-INVA_SET_data_t amk_set_front_left;
-INVA_SET_data_t amk_set_rear_left;
-INVA_SET_data_t amk_set_rear_right;
+static powertrain_t g_powertrain;
+static INVA_SET_data_t amk_set_front_right;
+static INVA_SET_data_t amk_set_front_left;
+static INVA_SET_data_t amk_set_rear_left;
+static INVA_SET_data_t amk_set_rear_right;
 
 // ! important: assert that the layout hashes of all AMK messages match
 static_assert(INVA_SET_LAYOUT_HASH == INVB_SET_LAYOUT_HASH, "AMK INVA/B Struct Mismatch");
@@ -94,7 +95,7 @@ void flush_invd(void) {
     );
 }
 
-void init_amks(void) {
+void powertrain_init(void) {
     // Inverter A
     AMK_init(
         &g_car.front_right,
@@ -148,10 +149,61 @@ void init_amks(void) {
     );
 }
 
-void vehicle_init(void) {
-    // enter INIT at n_reset
-    g_car.current_state = CAR_STATE_FATAL;
-    g_car.next_state    = CAR_STATE_FATAL;
-    g_torque_request = (torque_request_t){0};
-    init_amks();
+static torque_request_t zero_torque_request() {
+    torque_request_t torque_request = {
+        .front_left  = 0,
+        .front_right = 0,
+        .rear_left   = 0,
+        .rear_right  = 0
+    };
+
+    return torque_request;
+}
+
+static torque_request_t direct_mapped_regen() {
+    // Map brake [0, 100] to torque [0, -100]
+    int16_t regen_torque = can_data.pedals.brake * -1.0f;
+
+    torque_request_t torque_request = {
+        .front_left  = regen_torque,
+        .front_right = regen_torque,
+        .rear_left   = regen_torque,
+        .rear_right  = regen_torque
+    };
+
+    return torque_request;
+}
+
+static torque_request_t direct_mapped_throttle() {
+    // Map throttle [0, 100] to torque [0, 210]
+    int16_t rear_torque = can_data.pedals.throttle * 2.1f;
+    
+    // Bias to feel like a 40% - 60% torque split
+    int16_t front_torque = (40.0f / 60.0f) * rear_torque;
+
+    torque_request_t torque_request = {
+        .front_left  = front_torque,
+        .front_right = front_torque,
+        .rear_left   = rear_torque,
+        .rear_right  = rear_torque
+    };
+
+    return torque_request;
+}
+
+
+void powertrain_periodic(void) {
+    // iterate the AMK fsms
+    AMK_periodic(&g_car.front_right);
+    AMK_periodic(&g_car.front_left);
+    AMK_periodic(&g_car.rear_left);
+    AMK_periodic(&g_car.rear_right);
+}
+
+
+void powertrain_flush(void) {
+    AMK_set_torque(&g_car.front_right, g_torque_request.front_right);
+    AMK_set_torque(&g_car.front_left,  g_torque_request.front_left);
+    AMK_set_torque(&g_car.rear_left,   g_torque_request.rear_left);
+    AMK_set_torque(&g_car.rear_right,  g_torque_request.rear_right);
 }

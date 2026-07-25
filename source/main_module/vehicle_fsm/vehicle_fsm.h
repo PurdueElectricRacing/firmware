@@ -14,10 +14,6 @@
 typedef struct {
     car_state_t current_state;
     car_state_t next_state;
-    AMK_t front_right; // INVA
-    AMK_t front_left;  // INVB
-    AMK_t rear_left;   // INVC
-    AMK_t rear_right;  // INVD
 
     // internal state variables
     uint32_t buzzer_start_time;
@@ -29,13 +25,6 @@ typedef struct {
 
     bool is_precharge_complete; // AMKs are pointed to this variable
 } car_t;
-
-typedef struct {
-    int16_t front_right;
-    int16_t front_left;
-    int16_t rear_left;
-    int16_t rear_right;
-} torque_request_t;
 
 extern car_t g_car;
 extern torque_request_t g_torque_request;

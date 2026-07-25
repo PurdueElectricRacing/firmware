@@ -1,7 +1,44 @@
 #include "common/phal_G4/usart/usart.h"
+#include "common/phal_G4/usart/usart_priv.h"
 
 #include "common/phal_G4/dma/dma.h"
 #include "common/phal_G4/gpio/gpio.h"
+
+static const PHAL_USART_HwMap_t USART_MAP[NUM_USART] = {
+    [USART1_IDX] = {
+        .rcc_enable_rg  = &RCC->APB2ENR,   
+        .rcc_enable_msk = RCC_APB2ENR_USART1EN,
+        .periph         = USART1,          
+        .dma            = DMA1,
+        .irq            = USART1_IRQn,
+        .tx_channel     = 7,               
+        .tx_request     = DMA_REQUEST_USART1_TX,
+        .rx_channel     = 5,               
+        .rx_request     = DMA_REQUEST_USART1_RX,
+    },
+    [USART2_IDX] = {
+        .rcc_enable_rg  = &RCC->APB1ENR1,  
+        .rcc_enable_msk = RCC_APB1ENR1_USART2EN,
+        .periph         = USART2,          
+        .dma            = DMA1,
+        .irq            = USART2_IRQn,
+        .tx_channel     = 4,               
+        .tx_request     = DMA_REQUEST_USART2_TX,
+        .rx_channel     = 3,               
+        .rx_request     = DMA_REQUEST_USART2_RX,
+    },
+    [USART3_IDX] = {
+        .rcc_enable_rg  = &RCC->APB1ENR1,  
+        .rcc_enable_msk = RCC_APB1ENR1_USART3EN,
+        .periph         = USART3,          
+        .dma            = DMA1,
+        .irq            = USART3_IRQn,
+        .tx_channel     = 2,               
+        .tx_request     = DMA_REQUEST_USART3_TX,
+        .rx_channel     = 1,               
+        .rx_request     = DMA_REQUEST_USART3_RX,
+    },
+};
 
 
 #define _DEF_USART_RXDMA_CONFIG(rx_addr_, priority_, USARTx, dma_num, channel_num, req_id) \
@@ -42,41 +79,13 @@
         .channel_idx = (channel_num), \
         .periph      = DMA##dma_num, \
     }
-
-
-#define USART1_RXDMA_CONT_CONFIG(a, p) \
-    _DEF_USART_RXDMA_CONFIG(a, p, USART1, 1, 5, DMA_REQUEST_USART1_RX)
-#define USART1_TXDMA_CONT_CONFIG(a, p) \
-    _DEF_USART_TXDMA_CONFIG(a, p, USART1, 1, 7, DMA_REQUEST_USART1_TX)
-
-#define USART2_RXDMA_CONT_CONFIG(a, p) \
-    _DEF_USART_RXDMA_CONFIG(a, p, USART2, 1, 3, DMA_REQUEST_USART2_RX)
-#define USART2_TXDMA_CONT_CONFIG(a, p) \
-    _DEF_USART_TXDMA_CONFIG(a, p, USART2, 1, 4, DMA_REQUEST_USART2_TX)
-
-#define USART3_RXDMA_CONT_CONFIG(a, p) \
-    _DEF_USART_RXDMA_CONFIG(a, p, USART3, 1, 1, DMA_REQUEST_USART3_RX)
-#define USART3_TXDMA_CONT_CONFIG(a, p) \
-    _DEF_USART_TXDMA_CONFIG(a, p, USART3, 1, 2, DMA_REQUEST_USART3_TX)
-
-#define UART4_RXDMA_CONT_CONFIG(a, p) \
-    _DEF_USART_RXDMA_CONFIG(a, p, UART4, 2, 5, DMA_REQUEST_UART4_RX)
-#define UART4_TXDMA_CONT_CONFIG(a, p) \
-    _DEF_USART_TXDMA_CONFIG(a, p, UART4, 2, 3, DMA_REQUEST_UART4_TX)
-
-#define LPUART1_RXDMA_CONT_CONFIG(a, p) \
-    _DEF_USART_RXDMA_CONFIG(a, p, LPUART1, 2, 6, DMA_REQUEST_LPUART1_RX)
-#define LPUART1_TXDMA_CONT_CONFIG(a, p) \
-    _DEF_USART_TXDMA_CONFIG(a, p, LPUART1, 2, 7, DMA_REQUEST_LPUART1_TX)
-
-// These items should not be used/modified by anybody other than the HAL
 typedef enum {
-    USART_DMA_TX, //!< USART is transmitting over DMA
-    USART_DMA_RX //!< USART is receiving over DMA
+    USART_DMA_TX,
+    USART_DMA_RX
 } usart_dma_mode_t;
 
 typedef struct {
-    usart_init_t* active_handle; //!< USART handle provided on initialization
+    PHAL_USART_Handle_t* active_handle; //!< USART handle provided on initialization
     uint8_t cont_rx; //!< Flag controlling RX rececption mode (once or continously)
     uint8_t _tx_busy; //!< Waiting on a transmission to finish
     volatile uint8_t _rx_busy; //!< Waiting on a reception to finish
@@ -84,7 +93,7 @@ typedef struct {
 } usart_active_transfer_t;
 
 // A global array to hold the state of each active USART peripheral.
-volatile usart_active_transfer_t active_uarts[TOTAL_NUM_UART];
+volatile usart_active_transfer_t active_uarts[NUM_USART];
 
 /**
  * @brief Initializes a USART peripheral on an STM32G4 microcontroller.
@@ -93,10 +102,10 @@ volatile usart_active_transfer_t active_uarts[TOTAL_NUM_UART];
  * baud rate, and enables the necessary clocks and DMA streams.
  *
  * @param handle Pointer to a usart_init_t struct containing the configuration.
- * @param fck The clock frequency of the peripheral in Hz.
+ * @param clock_rate The clock frequency of the peripheral in Hz.
  * @return true if initialization is successful, false otherwise.
  */
-bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck) {
+bool PHAL_USART_init(PHAL_USART_Handle_t* handle, const uint32_t clock_rate) {
     uint32_t div;
 
     // Add Handle to active peripheral set for keeping track of activity.
@@ -105,26 +114,13 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck) {
     // Disable peripheral until properly configured
     handle->periph->CR1 &= ~USART_CR1_UE;
 
-    // Enable peripheral clock in RCC for G4.
-    switch ((ptr_int)handle->periph) {
-        case USART1_BASE:
-            RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
-            break;
-        case USART2_BASE:
-            RCC->APB1ENR1 |= RCC_APB1ENR1_USART2EN;
-            break;
-        case USART3_BASE:
-            RCC->APB1ENR1 |= RCC_APB1ENR1_USART3EN;
-            break;
-        case UART4_BASE:
-            RCC->APB1ENR1 |= RCC_APB1ENR1_UART4EN;
-            break;
-        case LPUART1_BASE:
-            RCC->APB1ENR2 |= RCC_APB1ENR2_LPUART1EN;
-            break;
-        default:
-            return false;
+    // 
+    int idx = usart_idx_from_periph(handle->periph);
+    if (idx < 0) {
+        return false;
     }
+    const PHAL_USART_HwMap_t* row = &USART_MAP[idx];
+    *row->rcc_enable_rg |= row->rcc_enable_msk;
 
     if (handle->ovsample == OV_16) {
         div                 = (fck + (handle->baud_rate / 2U)) / handle->baud_rate;
@@ -182,40 +178,6 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck) {
 }
 
 /**
- * @brief Transmits data in blocking mode.
- *
- * @param handle Pointer to the USART handle.
- * @param data Pointer to the data to transmit.
- * @param len The length of the data in bytes.
- */
-void PHAL_usartTxBl(usart_init_t* handle, uint8_t* data, uint32_t len) {
-    handle->periph->CR1 |= USART_CR1_TE;
-    for (unsigned int i = 0; i < len; i++) {
-        while (!(handle->periph->ISR & USART_ISR_TXE_TXFNF))
-            ;
-        handle->periph->TDR = data[i] & 0xff;
-    }
-    while (!(handle->periph->ISR & USART_ISR_TC))
-        ;
-}
-
-/**
- * @brief Receives data in blocking mode.
- *
- * @param handle Pointer to the USART handle.
- * @param data Pointer to the buffer to store received data.
- * @param len The length of the data to receive in bytes.
- */
-void PHAL_usartRxBl(usart_init_t* handle, uint8_t* data, uint32_t len) {
-    handle->periph->CR1 |= USART_CR1_RE;
-    for (unsigned int i = 0; i < len; i++) {
-        while (!(handle->periph->ISR & USART_ISR_RXNE_RXFNE))
-            ;
-        data[i] = handle->periph->RDR & 0xff;
-    }
-}
-
-/**
  * @brief Starts a DMA-based transmission.
  *
  * @param handle Pointer to the USART handle.
@@ -223,7 +185,7 @@ void PHAL_usartRxBl(usart_init_t* handle, uint8_t* data, uint32_t len) {
  * @param len The length of the data in bytes.
  * @return true if the transfer was started, false otherwise.
  */
-bool PHAL_usartTxDma(usart_init_t* handle, uint8_t* data, uint32_t len) {
+bool PHAL_USART_txDMA(PHAL_USART_Handle_t* handle, uint8_t* data, uint32_t len) {
     if (active_uarts[handle->usart_active_num].active_handle != handle)
         return false;
 
@@ -258,16 +220,6 @@ bool PHAL_usartTxDma(usart_init_t* handle, uint8_t* data, uint32_t len) {
 }
 
 /**
- * @brief Checks if a DMA transmission is currently busy.
- *
- * @param handle Pointer to the USART handle.
- * @return true if the peripheral is busy, false otherwise.
- */
-volatile bool PHAL_usartTxBusy(usart_init_t* handle) {
-    return active_uarts[handle->usart_active_num]._tx_busy;
-}
-
-/**
  * @brief Starts a DMA-based reception.
  *
  * @param handle Pointer to the USART handle.
@@ -276,7 +228,7 @@ volatile bool PHAL_usartTxBusy(usart_init_t* handle) {
  * @param cont true for continuous reception, false for single reception.
  * @return true if the transfer was started, false otherwise.
  */
-bool PHAL_usartRxDma(usart_init_t* handle, uint8_t* data, uint32_t len, bool cont) {
+bool PHAL_USART_rxDMA(PHAL_USART_Handle_t* handle, uint8_t* data, uint32_t len, bool cont) {
     if (active_uarts[handle->usart_active_num].active_handle != handle) {
         return false;
     }
@@ -323,61 +275,13 @@ bool PHAL_usartRxDma(usart_init_t* handle, uint8_t* data, uint32_t len, bool con
 }
 
 /**
- * @brief Disables continuous DMA reception.
- *
- * @param handle Pointer to the USART handle.
- * @return true if the operation was successful, false otherwise.
- */
-bool PHAL_disableContinousRxDMA(usart_init_t* handle) {
-    if (active_uarts[handle->usart_active_num].active_handle != handle)
-        return false;
-
-    active_uarts[handle->usart_active_num].cont_rx = 0;
-    handle->periph->CR1 &= ~USART_CR1_RE;
-    handle->periph->CR3 &= ~USART_CR3_DMAR;
-
-    // Disable the correct DMA and USART interrupts for the G4
-    // NOTE: Verify these mappings in the G4 Reference Manual
-    switch ((ptr_int)handle->periph) {
-        case USART1_BASE:
-            NVIC_DisableIRQ(USART1_IRQn);
-            break;
-        case USART2_BASE:
-            NVIC_DisableIRQ(USART2_IRQn);
-            break;
-        case USART3_BASE:
-            NVIC_DisableIRQ(USART3_IRQn);
-            break;
-        case UART4_BASE:
-            NVIC_DisableIRQ(UART4_IRQn);
-            break;
-        case LPUART1_BASE:
-            NVIC_DisableIRQ(LPUART1_IRQn);
-            break;
-        default:
-            return false;
-    }
-
-    if (PHAL_DMA_getPeriph(handle->rx_dma) == DMA1) {
-        NVIC_DisableIRQ(DMA1_Channel1_IRQn + (PHAL_DMA_getChannelIdx(handle->rx_dma) - 1));
-    } else if (PHAL_DMA_getPeriph(handle->rx_dma) == DMA2) {
-        NVIC_DisableIRQ(DMA2_Channel1_IRQn + (PHAL_DMA_getChannelIdx(handle->rx_dma) - 1));
-    } else {
-        return false;
-    }
-
-    active_uarts[handle->usart_active_num]._rx_busy = 0;
-    return true;
-}
-
-/**
- * @brief Checks if a DMA reception is currently busy.
+ * @brief Checks if a DMA transmission is currently busy.
  *
  * @param handle Pointer to the USART handle.
  * @return true if the peripheral is busy, false otherwise.
  */
-bool PHAL_usartRxBusy(usart_init_t* handle) {
-    return active_uarts[handle->usart_active_num]._rx_busy;
+volatile bool PHAL_USART_txBusy(usart_init_t* handle) {
+    return active_uarts[handle->usart_active_num]._tx_busy;
 }
 
 /**
@@ -499,25 +403,15 @@ handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t dma_type, u
     dma_periph->IFCR |= gif_mask;
 }
 
-__WEAK void usart_receive_complete_callback(usart_init_t* handle) {
-    return;
-}
+__WEAK void PHAL_USART_rxCallback(PHAL_USART_Handle_t *handle) { }
 
 /* DMA Interrupt Handlers */
 __attribute__((weak)) void DMA1_Channel7_IRQHandler(void) {
     handleDMAxComplete(DMA1, 7, USART_DMA_TX, USART1_ACTIVE_IDX);
 }
 
-__attribute__((weak)) void DMA1_Channel5_IRQHandler(void) {
-    handleDMAxComplete(DMA1, 5, USART_DMA_RX, USART1_ACTIVE_IDX);
-}
-
 __attribute__((weak)) void DMA1_Channel4_IRQHandler(void) {
     handleDMAxComplete(DMA1, 4, USART_DMA_TX, USART2_ACTIVE_IDX);
-}
-
-__attribute__((weak)) void DMA1_Channel3_IRQHandler(void) {
-    handleDMAxComplete(DMA1, 3, USART_DMA_RX, USART2_ACTIVE_IDX);
 }
 
 __attribute__((weak)) void DMA1_Channel2_IRQHandler(void) {
@@ -554,8 +448,4 @@ void USART2_IRQHandler(void) {
 
 void USART3_IRQHandler(void) {
     handleUsartIRQ(USART3, USART3_ACTIVE_IDX);
-}
-
-void LPUART1_IRQHandler(void) {
-    handleUsartIRQ(LPUART1, LPUART1_ACTIVE_IDX);
 }

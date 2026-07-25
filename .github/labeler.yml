@@ -2,3 +2,59 @@
 "node configs":
   - changed-files:
       - any-glob-to-any-file: ['can_library/configs/**']
+
+"a_box":
+  - changed-files:
+      - any-glob-to-any-file: ['source/a_box/**']
+
+"a_box config":
+  - changed-files:
+      - any-glob-to-any-file: ['can_library/configs/**/A_BOX.json']
+
+"daq":
+  - changed-files:
+      - any-glob-to-any-file: ['source/daq/**']
+
+"daq config":
+  - changed-files:
+      - any-glob-to-any-file: ['can_library/configs/**/DAQ.json']
+
+"dashboard":
+  - changed-files:
+      - any-glob-to-any-file: ['source/dashboard/**']
+
+"dashboard config":
+  - changed-files:
+      - any-glob-to-any-file: ['can_library/configs/**/DASHBOARD.json']
+
+"driveline":
+  - changed-files:
+      - any-glob-to-any-file: ['source/driveline/**']
+
+"driveline config":
+  - changed-files:
+      - any-glob-to-any-file: ['can_library/configs/**/DRIVELINE.json']
+
+"main_module":
+  - changed-files:
+      - any-glob-to-any-file: ['source/main_module/**']
+
+"main_module config":
+  - changed-files:
+      - any-glob-to-any-file: ['can_library/configs/**/MAIN_MODULE.json']
+
+"pdu":
+  - changed-files:
+      - any-glob-to-any-file: ['source/pdu/**']
+
+"pdu config":
+  - changed-files:
+      - any-glob-to-any-file: ['can_library/configs/**/PDU.json']
+
+"torque_vector":
+  - changed-files:
+      - any-glob-to-any-file: ['source/torque_vector/**']
+
+"torque_vector config":
+  - changed-files:
+      - any-glob-to-any-file: ['can_library/configs/**/TORQUE_VECTOR.json']

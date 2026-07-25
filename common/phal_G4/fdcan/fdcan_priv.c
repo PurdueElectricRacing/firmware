@@ -123,7 +123,7 @@ void PHAL_FDCAN_priv_setTransmitFifoQueueModeToFifo(FDCAN_GlobalTypeDef *fdcan) 
     fdcan->TXBC &= ~FDCAN_TXBC_TFQM;
 }
 
-void PHAL_FDCAN_setInteruptLines(FDCAN_GlobalTypeDef *fdcan) {
+void PHAL_FDCAN_setInterruptLines(FDCAN_GlobalTypeDef *fdcan) {
     // ILS = Interrupt Line Select register
     // - chooses whether that group signals out on interrupt line 0 or 1
     // SMSG = Status Message interrupt group bit within ILS

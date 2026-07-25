@@ -26,7 +26,7 @@ void PHAL_FDCAN_init(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_BaudRate_t bit_rate)
     PHAL_FDCAN_priv_setTransmitFifoQueueModeToFifo(fdcan);
  
     // RX new message -> line 0, TX complete -> line 1
-    PHAL_FDCAN_setInteruptLines(fdcan);
+    PHAL_FDCAN_setInterruptLines(fdcan);
  
     // Default filters: accept everything
     PHAL_FDCAN_priv_writeFilterAction(fdcan, FDCAN_PRIV_FILTER_ACCEPT_IN_RX_FIFO0);

@@ -95,7 +95,7 @@ void PHAL_FDCAN_priv_controlConfig(FDCAN_GlobalTypeDef *fdcan);
 void PHAL_FDCAN_priv_setTransmitFifoQueueModeToFifo(FDCAN_GlobalTypeDef *fdcan);
 
 /// Set up RX new message -> line 0, TX complete -> line 1
-void PHAL_FDCAN_setInteruptLines(FDCAN_GlobalTypeDef *fdcan);
+void PHAL_FDCAN_setInterruptLines(FDCAN_GlobalTypeDef *fdcan);
 
 /// Write a filter action to RXGFC (accept/reject all)
 void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_DefaultFilterAction_t action);

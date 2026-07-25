@@ -34,7 +34,6 @@
 // clang-format on
 
 #include <stdint.h>
-#include <stdbool.h>
 
 // Stack size aliases
 typedef enum : size_t {

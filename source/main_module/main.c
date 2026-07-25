@@ -23,8 +23,8 @@
 /* Module Includes */
 #include "sdc.h"
 #include "telemetry.h"
+#include "powertrain.h"
 #include "vehicle_fsm.h"
-#include "vehicle_init.h"
 
 /* PER HAL Initialization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -114,7 +114,7 @@ int main(void) {
     }
     CAN_init();
 
-    vehicle_init(); // ! important for amks
+    powertrain_init();
 
     PHAL_writeGPIO(ECU_SDC_CTRL_PORT, ECU_SDC_CTRL_PIN, true); // set SDC high
 

@@ -14,13 +14,22 @@
 #include <stdint.h>
 
 typedef struct {
-    // Flush functions
-    // ! must not be an inline function
+    void (*set_function)(void);
+    INVA_CRIT_data_t  *crit;
+    INVA_INFO_data_t  *info;
+    INVA_TEMPS_data_t *temps;
+    INVA_ERR_1_data_t *err1;
+    INVA_ERR_2_data_t *err2;
+} AMK_config_t;
+
+typedef struct {
     void (*set_function)(void);
 
-    // Direct pointers to CAN library data structures
+    // Outbound command data
+    INVA_SET_data_t set;
+
+    // Direct pointers to received CAN library data structures
     // ! cast all motor objects to INVA
-    INVA_SET_data_t   *set;
     INVA_CRIT_data_t  *crit;
     INVA_INFO_data_t  *info;
     INVA_TEMPS_data_t *temps;
@@ -30,23 +39,12 @@ typedef struct {
     // Internal state
     AMK_state_t state;
     AMK_state_t next_state;
-    bool *precharge_ptr; // owned pointer to precharge status from car module
 } AMK_t;
 
-void AMK_init(
-    AMK_t *amk,
-    void (*set_func)(void),
-    INVA_SET_data_t *set,
-    INVA_CRIT_data_t *crit,
-    INVA_INFO_data_t *info,
-    INVA_TEMPS_data_t *temps,
-    INVA_ERR_1_data_t *err1,
-    INVA_ERR_2_data_t *err2,
-    bool *precharge_ptr
-);
+void AMK_init(AMK_t *amk, const AMK_config_t *config);
 
 void AMK_reset(AMK_t* amk);
 void AMK_set_torque(AMK_t* amk, int16_t torque_percent);
-void AMK_periodic(AMK_t* amk);
+void AMK_periodic(AMK_t* amk, bool is_precharge_complete);
 
 #endif // AMK_H

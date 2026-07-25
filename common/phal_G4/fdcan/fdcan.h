@@ -36,6 +36,7 @@ typedef struct {
  * @brief Supported baud rates for PER G4 FDCAN HAL.
  */
 typedef enum : uint32_t {
+    FDCAN_BAUD_250K = 250000U,
     FDCAN_BAUD_500K = 500000U,
     FDCAN_BAUD_1M   = 1000000U
 } PHAL_FDCAN_BaudRate_t;

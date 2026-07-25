@@ -214,6 +214,8 @@ static uint32_t fdcan_buildNBTP16TQ(uint32_t brp) {
 uint32_t PHAL_FDCAN_priv_getNBTP(PHAL_FDCAN_BaudRate_t bit_rate) {
     // BRP (Baud Rate Prescaler) = kernel_clock_Hz / (bit_rate * TQ_per_bit)
     switch (bit_rate) {
+        case FDCAN_BAUD_250K:
+            return fdcan_buildNBTP16TQ(FDCAN_PRIV_KER_CLK_HZ / (250000U * 16U));
         case FDCAN_BAUD_500K:
             return fdcan_buildNBTP16TQ(FDCAN_PRIV_KER_CLK_HZ / (500000U * 16U));
         case FDCAN_BAUD_1M:

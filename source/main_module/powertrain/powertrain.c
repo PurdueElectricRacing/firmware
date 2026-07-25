@@ -114,52 +114,52 @@ static void flush_invd(void) {
 
 void powertrain_init(void) {
     // Inverter A
-    AMK_init(
-        &g_powertrain.front_right,
-        flush_inva,
-        (INVA_SET_data_t *) &amk_set_front_right,
-        (INVA_CRIT_data_t *) &can_data.INVA_CRIT,
-        (INVA_INFO_data_t *) &can_data.INVA_INFO,
-        (INVA_TEMPS_data_t *) &can_data.INVA_TEMPS,
-        (INVA_ERR_1_data_t *) &can_data.INVA_ERR_1,
-        (INVA_ERR_2_data_t *) &can_data.INVA_ERR_2
-    );
+    AMK_config_t front_right_config = {
+        .set_function = flush_inva,
+        .set          = (INVA_SET_data_t *)&amk_set_front_right,
+        .crit         = (INVA_CRIT_data_t *)&can_data.INVA_CRIT,
+        .info         = (INVA_INFO_data_t *)&can_data.INVA_INFO,
+        .temps        = (INVA_TEMPS_data_t *)&can_data.INVA_TEMPS,
+        .err1         = (INVA_ERR_1_data_t *)&can_data.INVA_ERR_1,
+        .err2         = (INVA_ERR_2_data_t *)&can_data.INVA_ERR_2,
+    };
+    AMK_init(&g_powertrain.front_right, &front_right_config);
 
     // Inverter B
-    AMK_init(
-        &g_powertrain.front_left,
-        flush_invb,
-        (INVA_SET_data_t *) &amk_set_front_left,
-        (INVA_CRIT_data_t *) &can_data.INVB_CRIT,
-        (INVA_INFO_data_t *) &can_data.INVB_INFO,
-        (INVA_TEMPS_data_t *) &can_data.INVB_TEMPS,
-        (INVA_ERR_1_data_t *) &can_data.INVB_ERR_1,
-        (INVA_ERR_2_data_t *) &can_data.INVB_ERR_2
-    );
+    AMK_config_t front_left_config = {
+        .set_function = flush_invb,
+        .set          = (INVA_SET_data_t *)&amk_set_front_left,
+        .crit         = (INVA_CRIT_data_t *)&can_data.INVB_CRIT,
+        .info         = (INVA_INFO_data_t *)&can_data.INVB_INFO,
+        .temps        = (INVA_TEMPS_data_t *)&can_data.INVB_TEMPS,
+        .err1         = (INVA_ERR_1_data_t *)&can_data.INVB_ERR_1,
+        .err2         = (INVA_ERR_2_data_t *)&can_data.INVB_ERR_2,
+    };
+    AMK_init(&g_powertrain.front_left, &front_left_config);
 
     // Inverter C
-    AMK_init(
-        &g_powertrain.rear_left,
-        flush_invc,
-        (INVA_SET_data_t *) &amk_set_rear_left,
-        (INVA_CRIT_data_t *) &can_data.INVC_CRIT,
-        (INVA_INFO_data_t *) &can_data.INVC_INFO,
-        (INVA_TEMPS_data_t *) &can_data.INVC_TEMPS,
-        (INVA_ERR_1_data_t *) &can_data.INVC_ERR_1,
-        (INVA_ERR_2_data_t *) &can_data.INVC_ERR_2
-    );
+    AMK_config_t rear_left_config = {
+        .set_function = flush_invc,
+        .set          = (INVA_SET_data_t *)&amk_set_rear_left,
+        .crit         = (INVA_CRIT_data_t *)&can_data.INVC_CRIT,
+        .info         = (INVA_INFO_data_t *)&can_data.INVC_INFO,
+        .temps        = (INVA_TEMPS_data_t *)&can_data.INVC_TEMPS,
+        .err1         = (INVA_ERR_1_data_t *)&can_data.INVC_ERR_1,
+        .err2         = (INVA_ERR_2_data_t *)&can_data.INVC_ERR_2,
+    };
+    AMK_init(&g_powertrain.rear_left, &rear_left_config);
 
     // Inverter D
-    AMK_init(
-        &g_powertrain.rear_right,
-        flush_invd,
-        (INVA_SET_data_t *)&amk_set_rear_right,
-        (INVA_CRIT_data_t *) &can_data.INVD_CRIT,
-        (INVA_INFO_data_t *) &can_data.INVD_INFO,
-        (INVA_TEMPS_data_t *) &can_data.INVD_TEMPS,
-        (INVA_ERR_1_data_t *) &can_data.INVD_ERR_1,
-        (INVA_ERR_2_data_t *) &can_data.INVD_ERR_2
-    );
+    AMK_config_t rear_right_config = {
+        .set_function = flush_invd,
+        .set          = (INVA_SET_data_t *)&amk_set_rear_right,
+        .crit         = (INVA_CRIT_data_t *)&can_data.INVD_CRIT,
+        .info         = (INVA_INFO_data_t *)&can_data.INVD_INFO,
+        .temps        = (INVA_TEMPS_data_t *)&can_data.INVD_TEMPS,
+        .err1         = (INVA_ERR_1_data_t *)&can_data.INVD_ERR_1,
+        .err2         = (INVA_ERR_2_data_t *)&can_data.INVD_ERR_2,
+    };
+    AMK_init(&g_powertrain.rear_right, &rear_right_config);
 }
 
 static torque_request_t zero_torque_request() {

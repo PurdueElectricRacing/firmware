@@ -17,25 +17,16 @@ static constexpr uint32_t AMK_DC_BUS_ID  = 1049U;
 static constexpr int16_t AMK_DEFAULT_POS_LIMIT = 2140;
 static constexpr int16_t AMK_DEFAULT_NEG_LIMIT = -500;
 
-void AMK_init(
-    AMK_t *amk,
-    void (*set_function)(void),
-    INVA_SET_data_t *set,
-    INVA_CRIT_data_t *crit,
-    INVA_INFO_data_t *info,
-    INVA_TEMPS_data_t *temps,
-    INVA_ERR_1_data_t *err1,
-    INVA_ERR_2_data_t *err2
-) {
-    amk->next_state    = AMK_STATE_OFF;
-    amk->state         = AMK_STATE_OFF;
-    amk->set_function  = set_function;
-    amk->set           = set;
-    amk->crit          = crit;
-    amk->info          = info;
-    amk->temps         = temps;
-    amk->err1          = err1;
-    amk->err2          = err2;
+void AMK_init(AMK_t *amk, const AMK_config_t *config) {
+    amk->next_state   = AMK_STATE_OFF;
+    amk->state        = AMK_STATE_OFF;
+    amk->set_function = config->set_function;
+    amk->set          = config->set;
+    amk->crit         = config->crit;
+    amk->info         = config->info;
+    amk->temps        = config->temps;
+    amk->err1         = config->err1;
+    amk->err2         = config->err2;
 
     // explicitly set all control flags to safe defaults
     amk->set->AMK_Control_bDcOn       = false;

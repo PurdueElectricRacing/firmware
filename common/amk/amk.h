@@ -14,6 +14,16 @@
 #include <stdint.h>
 
 typedef struct {
+    void (*set_function)(void);
+    INVA_SET_data_t   *set;
+    INVA_CRIT_data_t  *crit;
+    INVA_INFO_data_t  *info;
+    INVA_TEMPS_data_t *temps;
+    INVA_ERR_1_data_t *err1;
+    INVA_ERR_2_data_t *err2;
+} AMK_config_t;
+
+typedef struct {
     // Flush functions
     // ! must not be an inline function
     void (*set_function)(void);
@@ -32,16 +42,7 @@ typedef struct {
     AMK_state_t next_state;
 } AMK_t;
 
-void AMK_init(
-    AMK_t *amk,
-    void (*set_func)(void),
-    INVA_SET_data_t *set,
-    INVA_CRIT_data_t *crit,
-    INVA_INFO_data_t *info,
-    INVA_TEMPS_data_t *temps,
-    INVA_ERR_1_data_t *err1,
-    INVA_ERR_2_data_t *err2
-);
+void AMK_init(AMK_t *amk, const AMK_config_t *config);
 
 void AMK_reset(AMK_t* amk);
 void AMK_set_torque(AMK_t* amk, int16_t torque_percent);

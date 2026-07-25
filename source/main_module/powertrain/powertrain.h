@@ -32,8 +32,7 @@ static constexpr uint32_t POWERTRAIN_PERIOD_MS = 15;
 
 void powertrain_init(void);
 void powertrain_periodic(void);
-void powertrain_zero_torque_request(void);
-void powertrain_update_torque_request(void);
+void powertrain_set_torque_request(torque_request_t request);
 bool is_powertrain_ready(void);
 
 #endif // POWERTRAIN_H

@@ -12,6 +12,7 @@
 #include "common/phal/gpio.h"
 #include "main.h"
 #include "powertrain.h"
+#include "torque_controller.h"
 
 // Global data structures
 car_t g_car = {
@@ -86,7 +87,7 @@ void vehicle_fsm_periodic(void) {
     g_car.brake_light   = false;
     g_car.buzzer_enable = false;
 
-    powertrain_zero_torque_request();
+    torque_request_t torque_request = {0};
     update_brake_light();
     update_tsal();
 
@@ -149,7 +150,7 @@ void vehicle_fsm_periodic(void) {
         }
         case CAR_STATE_READY2DRIVE: {
             // FSAE 2026 EV.9.6.1: motors can only repond to apps in this state
-            powertrain_update_torque_request();
+            torque_request = torque_controller_get_request();
 
             if (is_start_button_pressed()) {
                 g_car.next_state = CAR_STATE_ENERGIZED;
@@ -158,6 +159,7 @@ void vehicle_fsm_periodic(void) {
         }
     }
 
+    powertrain_set_torque_request(torque_request);
     powertrain_periodic();
 
     CAN_SEND_main_hb(g_car.current_state);

@@ -13,18 +13,18 @@
 #include "common/phal_G4/phal_G4.h"
 
 
-// The FDCAN kernel clock frequency (the clock NBTP's prescaler divides down.
-// Our HAL for FDCAN is always clocked from PCLK1.
-// NOTE: delicate to PCLK1 changes!!
+/// The FDCAN kernel clock frequency (the clock NBTP's prescaler divides down.
+/// Our HAL for FDCAN is always clocked from PCLK1.
+/// NOTE: delicate to PCLK1 changes!!
 static constexpr uint32_t FDCAN_PRIV_KER_CLK_HZ = 16'000'000U;
 
-// Values orginate from ST's HAL
+// Values orginate from ST's HAL & documentation
 
-// FDCAN clock is derived from PCLK1
+/// FDCAN clock is derived from PCLK1
 static constexpr uint32_t FDCAN_PRIV_RCC_FDCANCLKSOURCE_PCLK1 = RCC_CCIPR_FDCANSEL_1;
 
-// Filter action values for RXGFC register
-// Controls what happens to any frame that does not match any of the configured filters
+/// Filter action values for RXGFC register
+/// Controls what happens to any frame that does not match any of the configured filters
 typedef enum : uint32_t {
 	FDCAN_PRIV_FILTER_ACCEPT_IN_RX_FIFO0 = 0x00000000U,
 	FDCAN_PRIV_FILTER_REJECT             = 0x00000002U
@@ -32,46 +32,46 @@ typedef enum : uint32_t {
 
 // Message RAM layout. Same layout, different base offset for each peripheral
 
-static constexpr uint32_t FDCAN_PRIV_SRAMCAN_FLS_NBR = 28; // Max standard id filters
-static constexpr uint32_t FDCAN_PRIV_SRAMCAN_FLE_NBR = 8;  // Max extended id filters
-static constexpr uint32_t FDCAN_PRIV_SRAMCAN_RF0_NBR = 3;  // RX FIFO 0 Elements Number
-static constexpr uint32_t FDCAN_PRIV_SRAMCAN_RF1_NBR = 3;  // RX FIFO 1 Elements Number
-static constexpr uint32_t FDCAN_PRIV_SRAMCAN_TEF_NBR = 3;  // TX Event FIFO Elements Number
-static constexpr uint32_t FDCAN_PRIV_SRAMCAN_TFQ_NBR = 3;  // TX FIFO Elements Number
+static constexpr uint32_t FDCAN_PRIV_SRAMCAN_FLS_NBR = 28; /// Max standard id filters
+static constexpr uint32_t FDCAN_PRIV_SRAMCAN_FLE_NBR = 8;  /// Max extended id filters
+static constexpr uint32_t FDCAN_PRIV_SRAMCAN_RF0_NBR = 3;  /// RX FIFO 0 Elements Number
+static constexpr uint32_t FDCAN_PRIV_SRAMCAN_RF1_NBR = 3;  /// RX FIFO 1 Elements Number
+static constexpr uint32_t FDCAN_PRIV_SRAMCAN_TEF_NBR = 3;  /// TX Event FIFO Elements Number
+static constexpr uint32_t FDCAN_PRIV_SRAMCAN_TFQ_NBR = 3;  /// TX FIFO Elements Number
 
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_FLS_SIZE = 1 * 4;  // Filter Standard Element Size in bytes
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_FLE_SIZE = 2 * 4;  // Filter Extended Element Size in bytes
 
-// Size in bytes of one RX FIFO 0 element (set by the hardware format)
+/// Size in bytes of one RX FIFO 0 element (set by the hardware format)
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_RF0_SIZE = 18 * 4;
 
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_RF1_SIZE = 18 * 4; // RX FIFO 1 Elements Size in bytes
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_TEF_SIZE = 2 * 4;  // TX Event FIFO Elements Size in bytes
 
-// Size in bytes of one TX FIFO/queue element (set by the hardware format)
+/// Size in bytes of one TX FIFO/queue element (set by the hardware format)
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_TFQ_SIZE = 18 * 4;
 
-// Filter List Standard Start Address
-// - the byte offset, within this instance's Message RAM slice, where the
-//   array of standard (11-bit ID) filter elements begins
+/// Filter List Standard Start Address
+/// - the byte offset, within this instance's Message RAM slice, where the
+///   array of standard (11-bit ID) filter elements begins
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_FLSSA = 0;
 
-// Filter List Extended Start Address
-// - the byte offset, within this instance's Message RAM slice, where the
-//   array of extended (29-bit ID) filter elements begins
+/// Filter List Extended Start Address
+/// - the byte offset, within this instance's Message RAM slice, where the
+///   array of extended (29-bit ID) filter elements begins
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_FLESA = FDCAN_PRIV_SRAMCAN_FLSSA + FDCAN_PRIV_SRAMCAN_FLS_NBR * FDCAN_PRIV_SRAMCAN_FLS_SIZE;
 
-// Rx FIFO 0 Start Address
-// - byte offset where the RX FIFO 0 element array begins in this instance's Message RAM slice
+/// Rx FIFO 0 Start Address
+/// - byte offset where the RX FIFO 0 element array begins in this instance's Message RAM slice
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_RF0SA = FDCAN_PRIV_SRAMCAN_FLESA + FDCAN_PRIV_SRAMCAN_FLE_NBR * FDCAN_PRIV_SRAMCAN_FLE_SIZE;
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_RF1SA = FDCAN_PRIV_SRAMCAN_RF0SA + FDCAN_PRIV_SRAMCAN_RF0_NBR * FDCAN_PRIV_SRAMCAN_RF0_SIZE;
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_TEFSA = FDCAN_PRIV_SRAMCAN_RF1SA + FDCAN_PRIV_SRAMCAN_RF1_NBR * FDCAN_PRIV_SRAMCAN_RF1_SIZE;
 
-// Tx FIFO/Queue Start Address
-// - byte offset where the TX FIFO/queue element array begins in this instance's Message RAM slice
+/// Tx FIFO/Queue Start Address
+/// - byte offset where the TX FIFO/queue element array begins in this instance's Message RAM slice
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_TFQSA = FDCAN_PRIV_SRAMCAN_TEFSA + FDCAN_PRIV_SRAMCAN_TEF_NBR * FDCAN_PRIV_SRAMCAN_TEF_SIZE;
 
-// bytes consumed by one instance's full Message RAM layout (filters + RX FIFOs + TX event FIFO + TX FIFO)
+/// Bytes required/consumed by one instance's full Message RAM layout (filters + RX FIFOs + TX event FIFO + TX FIFO)
 static constexpr uint32_t FDCAN_PRIV_SRAMCAN_SIZE  = FDCAN_PRIV_SRAMCAN_TFQSA + FDCAN_PRIV_SRAMCAN_TFQ_NBR * FDCAN_PRIV_SRAMCAN_TFQ_SIZE;
 
 
@@ -91,13 +91,13 @@ void PHAL_FDCAN_priv_exitConfig(FDCAN_GlobalTypeDef *fdcan);
 // Not FD, not BRS, not loopback, auto-retransmission enabled, TX pause on
 void PHAL_FDCAN_priv_controlConfig(FDCAN_GlobalTypeDef *fdcan);
 
-// Set TX FIFO/Queue mode to FIFO (not queue)
+/// Set TX FIFO/Queue mode to FIFO (not queue)
 void PHAL_FDCAN_priv_setTransmitFifoQueueModeToFifo(FDCAN_GlobalTypeDef *fdcan);
 
-// Set up RX new message -> line 0, TX complete -> line 1
+/// Set up RX new message -> line 0, TX complete -> line 1
 void PHAL_FDCAN_setInteruptLines(FDCAN_GlobalTypeDef *fdcan);
 
-// Write a filter action to RXGFC (accept/reject all)
+/// Write a filter action to RXGFC (accept/reject all)
 void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_DefaultFilterAction_t action);
 
 /// Compute the NBTP register value for one of the supported bit rates
@@ -113,25 +113,23 @@ void PHAL_FDCAN_priv_writeExtendedFilters(FDCAN_GlobalTypeDef *fdcan, uint32_t *
 /// Not safe to call if the TX FIFO is full
 void PHAL_FDCAN_priv_writeTxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t *msg);
 
-/**
- * Pop and decode the oldest element from RX FIFO0
- * @return true and fills msg on success. False if RX FIFO0 is empty
- */
+/// Pop and decode the oldest element from RX FIFO0
+// return true and fills msg on success. False if RX FIFO0 is empty
 bool PHAL_FDCAN_priv_readRxElement(FDCAN_GlobalTypeDef *fdcan, CanMsgTypeDef_t *msg);
 
-// Check whether the TX FIFO/Queue is full
+/// Check whether the TX FIFO/Queue is full
 bool PHAL_FDCAN_priv_readTxFifoQueueStatusFullFlag(FDCAN_GlobalTypeDef *fdcan);
 
-// Check whether the RX FIFO0 new message interrupt flag is set
+/// Check whether the RX FIFO0 new message interrupt flag is set
 bool PHAL_FDCAN_priv_readReceiveFifo0NewMessageInterruptFlag(FDCAN_GlobalTypeDef *fdcan);
 
-// Clear the RX FIFO0 new message interrupt flag
+/// Clear the RX FIFO0 new message interrupt flag
 void PHAL_FDCAN_priv_clearReceiveFifo0NewMessageInterruptFlag(FDCAN_GlobalTypeDef *fdcan);
 
-// Check whether the TX complete interrupt flag is set
+/// Check whether the TX complete interrupt flag is set
 bool PHAL_FDCAN_priv_readTransmitCompleteInterruptFlag(FDCAN_GlobalTypeDef *fdcan);
 
-// Clear the TX complete interrupt flag
+/// Clear the TX complete interrupt flag
 void PHAL_FDCAN_priv_clearTransmitCompleteInterruptFlag(FDCAN_GlobalTypeDef *fdcan);
 
 #endif // __PHAL_G4_FDCAN_PRIV_H__

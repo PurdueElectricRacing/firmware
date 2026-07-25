@@ -1,7 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"md_common_2amk_2README.html":[13],
-"md_common_2amk_2README.html#autotoc_md56":[13,0],
 "md_common_2bmi088_2README.html":[14],
 "md_common_2freertos_2README.html":[15],
 "md_common_2heartbeat_2README.html":[16],
@@ -249,5 +247,7 @@ var NAVTREEINDEX2 =
 "phal__F4_2gpio_2gpio_8h.html#a976b33799b2b8c4fe7d2a4415a88991ba72133d3b8e4b2479ea80add2e9b8f00a":[31,0,1,10,5,0,8,0],
 "phal__F4_2gpio_2gpio_8h.html#a976b33799b2b8c4fe7d2a4415a88991ba9e41e0e3d9a09dbc9bcd8f73fb3c65b1":[31,0,1,10,5,0,8,1],
 "phal__F4_2gpio_2gpio_8h.html#a976b33799b2b8c4fe7d2a4415a88991baf0d3c2f5e6b6a52247a85482f03476bc":[31,0,1,10,5,0,8,3],
-"phal__F4_2gpio_2gpio_8h.html#a9f3e383e90eea420ba388b6041e6c866":[31,0,1,10,5,0,2]
+"phal__F4_2gpio_2gpio_8h.html#a9f3e383e90eea420ba388b6041e6c866":[31,0,1,10,5,0,2],
+"phal__F4_2gpio_2gpio_8h.html#a9f473c8a74e27d069fa4de69fcbb4d60":[31,0,1,10,5,0,9],
+"phal__F4_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641":[31,0,1,10,5,0,1]
 };

@@ -48,9 +48,9 @@ void send_periodic() {
     CAN_SEND_abox_version(GIT_HASH);
 }
 
-DEFINE_TASK(CAN_rx_update, 0, TASK_PRIORITY_HIGH, STACK_2048);
-DEFINE_TASK(CAN_tx_update, 2, TASK_PRIORITY_NORMAL, STACK_2048);
-DEFINE_TASK(send_periodic, 10, TASK_PRIORITY_NORMAL, 1024);
+FREERTOS_DEFINE_TASK(CAN_rx_update, 0, TASK_PRIORITY_HIGH, STACK_2048);
+FREERTOS_DEFINE_TASK(CAN_tx_update, 2, TASK_PRIORITY_NORMAL, STACK_2048);
+FREERTOS_DEFINE_TASK(send_periodic, 10, TASK_PRIORITY_NORMAL, 1024);
 
 int main() {
     if (PHAL_configureClockRates(&clock_config)) {
@@ -71,9 +71,9 @@ int main() {
     NVIC_SetPriority(FDCAN1_IT0_IRQn, 6);
     NVIC_EnableIRQ(FDCAN1_IT0_IRQn);
 
-    START_TASK(CAN_rx_update);
-    START_TASK(CAN_tx_update);
-    START_TASK(send_periodic);
+    FREERTOS_START_TASK(CAN_rx_update);
+    FREERTOS_START_TASK(CAN_tx_update);
+    FREERTOS_START_TASK(send_periodic);
 
     vTaskStartScheduler();
 

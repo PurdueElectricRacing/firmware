@@ -66,7 +66,7 @@ void config_imu() {
 }
 
 DEFINE_CAN_TASKS();
-DEFINE_TASK(config_imu, IZZE_IMU_CONFIG_PERIOD_MS, TASK_PRIORITY_NORMAL, 1024);
+FREERTOS_DEFINE_TASK(config_imu, IZZE_IMU_CONFIG_PERIOD_MS, TASK_PRIORITY_NORMAL, 1024);
 
 int main() {
     if (PHAL_configureClockRates(&clock_config)) {
@@ -87,7 +87,7 @@ int main() {
     CAN_init();
 
     START_CAN_TASKS();
-    START_TASK(config_imu);
+    FREERTOS_START_TASK(config_imu);
 
     vTaskStartScheduler();
 

@@ -38,12 +38,12 @@ void CAN_rx_init(void);
 void CAN_tx_init(void);
 
 #define DEFINE_CAN_TASKS() \
-    DEFINE_TASK(CAN_rx_update, 0, TASK_PRIORITY_HIGH, STACK_2048); \
-    DEFINE_TASK(CAN_tx_update, 0, TASK_PRIORITY_HIGH, STACK_1024);
+    FREERTOS_DEFINE_TASK(CAN_rx_update, 0, TASK_PRIORITY_HIGH, STACK_2048); \
+    FREERTOS_DEFINE_TASK(CAN_tx_update, 0, TASK_PRIORITY_HIGH, STACK_1024);
 
 #define START_CAN_TASKS() \
-    START_TASK(CAN_rx_update); \
-    START_TASK(CAN_tx_update); \
+    FREERTOS_START_TASK(CAN_rx_update); \
+    FREERTOS_START_TASK(CAN_tx_update); \
     CAN_enable_IRQs();
 
 #define CAN_TX_QUEUE_LENGTH (32) // Length of software queue for each CAN peripheral

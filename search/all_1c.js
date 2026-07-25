@@ -15,7 +15,5 @@ var searchData=
   ['vehicle_20firmware_20⚡️_12',['PER Vehicle Firmware ⚡️',['../md_README.html',1,'']]],
   ['vehicle_5ffsm_2ec_13',['vehicle_fsm.c',['../vehicle__fsm_8c.html',1,'']]],
   ['vehicle_5ffsm_2eh_14',['vehicle_fsm.h',['../vehicle__fsm_8h.html',1,'']]],
-  ['vehicle_5finit_2ec_15',['vehicle_init.c',['../vehicle__init_8c.html',1,'']]],
-  ['vehicle_5finit_2eh_16',['vehicle_init.h',['../vehicle__init_8h.html',1,'']]],
-  ['vscode_20setup_20all_20os_17',['2. VSCode Setup (All OS)',['../md_docs_2setup.html#autotoc_md95',1,'']]]
+  ['vscode_20setup_20all_20os_15',['2. VSCode Setup (All OS)',['../md_docs_2setup.html#autotoc_md95',1,'']]]
 ];

@@ -8,7 +8,6 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#include "amk.h"
 #include "can_library/generated/can_types.h"
 
 typedef struct {
@@ -27,16 +26,10 @@ typedef struct {
 } car_t;
 
 extern car_t g_car;
-extern torque_request_t g_torque_request;
 
 static constexpr uint32_t VEHICLE_FSM_PERIOD_MS = 15;
 
-// static assert that the FSM flushes the CAN messages it owns at least as fast as their defined periods
-static_assert(VEHICLE_FSM_PERIOD_MS == INVA_SET_PERIOD_MS);
-static_assert(VEHICLE_FSM_PERIOD_MS == INVB_SET_PERIOD_MS);
-static_assert(VEHICLE_FSM_PERIOD_MS == INVC_SET_PERIOD_MS);
-static_assert(VEHICLE_FSM_PERIOD_MS == INVD_SET_PERIOD_MS);
-
+void vehicle_fsm_init(void);
 void vehicle_fsm_periodic(void);
 
 #endif // VEHICLE_FSM_H

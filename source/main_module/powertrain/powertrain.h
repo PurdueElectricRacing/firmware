@@ -9,6 +9,7 @@
  */
 
 #include <stdint.h>
+#include <stdbool.h>
 #include "common/amk/amk.h"
 
 typedef struct {
@@ -28,8 +29,13 @@ typedef struct {
 
 extern powertrain_t g_powertrain;
 
-void powertrain_init(void);
+static constexpr uint32_t POWERTRAIN_PERIOD_MS = 15;
+
+void powertrain_init(bool *is_precharge_complete);
 void powertrain_periodic(void);
-void powertrain_flush(void);
+void powertrain_zero_torque_request(void);
+void powertrain_update_torque_request(void);
+void powertrain_apply_torque_request(void);
+bool is_powertrain_ready(void);
 
 #endif // POWERTRAIN_H

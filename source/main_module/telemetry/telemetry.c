@@ -8,7 +8,7 @@
 #include "telemetry.h"
 
 #include "can_library/generated/MAIN_MODULE.h"
-#include "vehicle_fsm.h"
+#include "powertrain.h"
 
 /**
  * @brief Reports telemetry data at 50 Hz rate
@@ -17,10 +17,10 @@
 static_assert(WHEEL_SPEEDS_PERIOD_MS == TELEMETRY_50HZ_PERIOD_MS);
 void report_telemetry_50hz(void) {
     CAN_SEND_wheel_speeds(
-        g_car.front_right.crit->AMK_ActualSpeed,
-        g_car.front_left.crit->AMK_ActualSpeed,
-        g_car.rear_left.crit->AMK_ActualSpeed,
-        g_car.rear_right.crit->AMK_ActualSpeed
+        g_powertrain.front_right.crit->AMK_ActualSpeed,
+        g_powertrain.front_left.crit->AMK_ActualSpeed,
+        g_powertrain.rear_left.crit->AMK_ActualSpeed,
+        g_powertrain.rear_right.crit->AMK_ActualSpeed
     );
 }
 
@@ -42,7 +42,12 @@ static_assert(INVB_DIAGNOSTICS_PERIOD_MS == TELEMETRY_1HZ_PERIOD_MS);
 static_assert(INVC_DIAGNOSTICS_PERIOD_MS == TELEMETRY_1HZ_PERIOD_MS);
 static_assert(INVD_DIAGNOSTICS_PERIOD_MS == TELEMETRY_1HZ_PERIOD_MS);
 void report_telemetry_1hz(void) {
-    AMK_t *amks[] = {&g_car.front_right, &g_car.front_left, &g_car.rear_left, &g_car.rear_right};
+    AMK_t *amks[] = {
+        &g_powertrain.front_right,
+        &g_powertrain.front_left,
+        &g_powertrain.rear_left,
+        &g_powertrain.rear_right
+    };
 
     CAN_SEND_inva_diagnostics(
         amks[0]->err1->AMK_DiagnosticNumber,
@@ -86,17 +91,17 @@ static_assert(IGBT_TEMPS_PERIOD_MS == TELEMETRY_02HZ_PERIOD_MS);
 static_assert(MAIN_VERSION_PERIOD_MS == TELEMETRY_02HZ_PERIOD_MS);
 void report_telemetry_02hz(void) {
     CAN_SEND_motor_temps(
-        g_car.front_right.temps->AMK_MotorTemp,
-        g_car.front_left.temps->AMK_MotorTemp,
-        g_car.rear_left.temps->AMK_MotorTemp,
-        g_car.rear_right.temps->AMK_MotorTemp
+        g_powertrain.front_right.temps->AMK_MotorTemp,
+        g_powertrain.front_left.temps->AMK_MotorTemp,
+        g_powertrain.rear_left.temps->AMK_MotorTemp,
+        g_powertrain.rear_right.temps->AMK_MotorTemp
     );
 
     CAN_SEND_igbt_temps(
-        g_car.front_right.temps->AMK_IGBTTemp,
-        g_car.front_left.temps->AMK_IGBTTemp,
-        g_car.rear_left.temps->AMK_IGBTTemp,
-        g_car.rear_right.temps->AMK_IGBTTemp
+        g_powertrain.front_right.temps->AMK_IGBTTemp,
+        g_powertrain.front_left.temps->AMK_IGBTTemp,
+        g_powertrain.rear_left.temps->AMK_IGBTTemp,
+        g_powertrain.rear_right.temps->AMK_IGBTTemp
     );
 
     CAN_SEND_main_version(GIT_HASH);

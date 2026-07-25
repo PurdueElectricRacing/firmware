@@ -1,5 +1,5 @@
 /**
- * @file fdcan_priv.h
+ * @file fdcan_priv.c
  * @brief G4 FDCAN private/register level implementation
  * @author Millan Kumar (kumar798@purdue.edu)
  */

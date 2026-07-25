@@ -40,7 +40,7 @@ This updates cell voltage, thermistor readings, and error flags
 #### For example
 
 ```c
-defineThreadStack(g_bms_periodic, 200, TASK_PRIORITY_HIGH, 2048);
+FREERTOS_DEFINE_TASK(g_bms_periodic, 200, TASK_PRIORITY_HIGH, 2048);
 
 int main() {
 	// ... GPIO and SPI initialization ...
@@ -48,7 +48,7 @@ int main() {
 	adbms_init(&g_bms, &bms_spi_config, g_bms_tx_buf);
 
 	// Create periodic thread
-    createThread(g_bms_periodic);
+    FREERTOS_START_TASK(g_bms_periodic);
 
 	// ... rest of main ...
     vTaskStartScheduler();

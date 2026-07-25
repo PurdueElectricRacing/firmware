@@ -66,7 +66,7 @@ void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi);
      .mem_size         = DMA_SIZE_8BIT, \
      .increment        = false, \
      .circular         = false, \
-     .dir              = 0, /* P2M */ \
+     .dir              = PERIPH_TO_MEMORY, /* P2M */ \
      .mem_inc          = true, \
      .periph_inc       = false, \
      .mem_to_mem       = false, \
@@ -85,7 +85,7 @@ void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi);
      .mem_size         = DMA_SIZE_8BIT, \
      .increment        = false, \
      .circular         = false, \
-     .dir              = 1, /* M2P */ \
+     .dir              = DMA_MEMORY_TO_PERIPH, /* M2P */ \
      .mem_inc          = true, \
      .periph_inc       = false, \
      .mem_to_mem       = false, \

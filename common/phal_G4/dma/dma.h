@@ -1,12 +1,10 @@
 /**
  * @file dma.h
- * @author Chris McGalliard - Port of L4 HAL by Dawson Moore (moore800@purdue.edu)
- * @brief
- * @version 0.1
- * @date 2023-08-19
- *
- * @copyright Copyright (c) 2023
- *
+ * @brief G4 DMA Peripheral public API implementation
+ * @author Shriya Balu (balu@purdue.edu)
+ * @author Chris McGalliard 
+ * @author Dawson Moore (moore800@purdue.edu)
+ * 
  */
 
 #ifndef __PHAL_G4_DMA_H__
@@ -17,8 +15,23 @@
 typedef enum {
     DMA_SIZE_8BIT  = 0,
     DMA_SIZE_16BIT = 1,
-    DMA_SIZE_32BIT = 2
+    DMA_SIZE_32BIT = 2,
+    DMA_SIZE_COUNT
 } dma_size_t;
+
+typedef enum {
+    DMA_PERIPH_TO_MEMORY = 0,
+    DMA_MEMORY_TO_PERIPH = 1,
+    DMA_DIR_COUNT
+} dma_dir_t;
+
+typedef enum {
+    DMA_PRIORITY_LOW       = 0,
+    DMA_PRIORITY_MEDIUM    = 1,
+    DMA_PRIORITY_HIGH      = 2,
+    DMA_PRIORITY_VERY_HIGH = 3,
+    DMA_PRIORITY_COUNT
+} dma_priority_t;
 
 // Mux requests (TODO support all)
 #define DMA_REQUEST_ADC1 5U
@@ -48,7 +61,7 @@ typedef struct {
 
     bool increment;
     bool circular;
-    uint8_t dir;
+    dma_dir_t dir;
     bool mem_inc;
     bool periph_inc;
     bool mem_to_mem;

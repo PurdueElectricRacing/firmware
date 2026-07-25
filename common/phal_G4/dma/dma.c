@@ -1,80 +1,45 @@
 /**
  * @file dma.c
- * @author Eileen Yoon
- * @brief Basic DMA Peripheral HAL library
- * @version 0.1
- * @date 2023-08-19
- *
- * @copyright Copyright (c) 2023
- *
+ * @brief G4 DMA Peripheral public API implementation
+ * @author Shriya Balu (balu@purdue.edu)
+ * 
  */
 
 #include "common/phal_G4/dma/dma.h"
+#include "common/phal_G4/dma/dma_priv.h"
 
 bool PHAL_initDMA(dma_init_t *dma) {
-    // Check we aren't going to break the peripheral
-    if (dma->mem_to_mem && dma->circular) {
-        return false;
-    } else if (dma->dir > 1) {
-        return false;
-    } else if (dma->priority > 3) {
-        return false;
-    } else if (dma->mem_size > 2 || dma->periph_size > 2) {
+
+    // Ensure all config parameters are valid
+    if (!PHAL_DMA_priv_validateConfig(dma)) {
         return false;
     }
 
-    // Enable clock in RCC
-    if (dma->periph == DMA1) {
-        dma->channel =
-            (DMA_Channel_TypeDef *)((uint32_t)DMA1_Channel1 + 0x14U * (dma->channel_idx - 1U));
-        RCC->AHB1ENR |= RCC_AHB1ENR_DMA1EN | RCC_AHB1ENR_DMAMUX1EN;
-    } else if (dma->periph == DMA2) {
-        dma->channel =
-            (DMA_Channel_TypeDef *)((uint32_t)DMA2_Channel1 + 0x14U * (dma->channel_idx - 1U));
-        RCC->AHB1ENR |= RCC_AHB1ENR_DMA2EN | RCC_AHB1ENR_DMAMUX1EN;
-    } else {
-        return false;
-    }
+    PHAL_DMA_priv_enableClock(dma);
 
-    // Ensure the stream is disabled, must be in order to configure the DMA control registers
-    dma->channel->CCR &= ~(DMA_CCR_EN);
-    while (dma->channel->CCR & DMA_CCR_EN)
-        ;
+    PHAL_DMA_priv_setChannel(dma->periph, &dma->channel, dma->channel_idx);
 
-    // Clear any stream dedicated status flags that may have been set previously
-    dma->periph->IFCR = (DMA_ISR_GIF1 | DMA_ISR_TCIF1 | DMA_ISR_HTIF1 | DMA_ISR_TEIF1)
-        << (4 * (dma->channel_idx - 1));
+    /* DMA Channel configuration procedure (see RM0440 12.4.5 DMA channels section) */
 
-    // Set peripheral address (src)
+    // Ensure the stream is disabled before attempting to configure the DMA control registers
+    PHAL_DMA_priv_disableStream(dma->channel);
+    // Clear any ISR status flags that may have been set previously for the target channel
+    PHAL_DMA_priv_clearFlags(dma->periph, dma->channel_idx);
+    // 1. Set the peripheral register address in the DMA_CPARx register
     dma->channel->CPAR = dma->periph_addr;
-    // Set memory address (dst)
+    // 2. Set the memory address in the DMA_CMARx register. 
     dma->channel->CMAR  = dma->mem_addr;
+    // 3. Configure the total number of data to transfer in the DMA_CNDTRx register.
     dma->channel->CNDTR = dma->tx_size;
-
-    // Reset preconfigured CR values
-    dma->channel->CCR = 0;
-    // Set channel, priority, memory data size
-    dma->channel->CCR |= ((dma->mem_size << DMA_CCR_MSIZE_Pos) & DMA_CCR_MSIZE_Msk)
-        | ((dma->periph_size << DMA_CCR_PSIZE_Pos) & DMA_CCR_PSIZE_Msk)
-        | ((dma->priority << DMA_CCR_PL_Pos) & DMA_CCR_PL_Msk)
-        | ((dma->mem_inc << DMA_CCR_MINC_Pos) & DMA_CCR_MINC_Msk)
-        | ((dma->periph_inc << DMA_CCR_PINC_Pos) & DMA_CCR_PINC_Msk)
-        | ((dma->circular << DMA_CCR_CIRC_Pos) & DMA_CCR_CIRC_Msk)
-        | ((dma->dir << DMA_CCR_DIR_Pos) & DMA_CCR_DIR_Msk)
-        | ((dma->tx_isr_en << DMA_CCR_TEIE_Pos) & DMA_CCR_TEIE_Msk)
-        | ((dma->tx_isr_en << DMA_CCR_TCIE_Pos) & DMA_CCR_TCIE_Msk)
-        | ((dma->mem_to_mem << DMA_CCR_MEM2MEM_Pos) & DMA_CCR_MEM2MEM_Msk);
+    // 4. Configure parameters in the DMA_CCRx register:
+    PHAL_DMA_priv_configParams(dma);
 
     /* DMA Mux */
-    // For category 3 and category 4 devices:
-    // DMAMUX channels 0 to 7 are connected to DMA1 channels 1 to 8
-    // DMAMUX channels 8 to 15 are connected to DMA2 channels 1 to 8
-    // DMAMUX Channel (usually equal to DMA channel number - 1)
-    
-    uint8_t mux_idx = (dma->periph == DMA2) ? (dma->channel_idx + 7) : (dma->channel_idx - 1);
-    DMAMUX_Channel_TypeDef* mux = (DMAMUX1_Channel0 + mux_idx);
-    mux->CCR = (mux->CCR & ~0x7F) | dma->mux_request;   
+    /// DMA Mux Channel configuration procedure (see RM0440 13.4.3 DMAMUX channels section)
+    PHAL_DMA_priv_configMUX(dma);
 
+    // 5. Activate the channel by setting the EN bit in the DMA_CCRx register
+    PHAL_DMA_priv_enableStream(dma->channel);
     return true;
 }
 

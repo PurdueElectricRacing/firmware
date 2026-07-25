@@ -248,6 +248,7 @@ void powertrain_update_torque_request(void) {
 }
 
 void powertrain_periodic(void) {
+    // send out the torque requests to the inverters
     AMK_set_torque(&g_powertrain.front_right, g_powertrain.torque_request.front_right);
     AMK_set_torque(&g_powertrain.front_left,  g_powertrain.torque_request.front_left);
     AMK_set_torque(&g_powertrain.rear_left,   g_powertrain.torque_request.rear_left);

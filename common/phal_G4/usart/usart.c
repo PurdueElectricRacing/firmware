@@ -10,6 +10,7 @@ static const PHAL_USART_HwMap_t USART_MAP[NUM_USART] = {
         .rcc_enable_msk = RCC_APB2ENR_USART1EN,
         .periph         = USART1,          
         .dma            = DMA1,
+        .tx_dma_irq     = DMA1_Channel7_IRQn,
         .irq            = USART1_IRQn,
         .tx_channel     = 7,               
         .tx_request     = DMA_REQUEST_USART1_TX,
@@ -21,6 +22,7 @@ static const PHAL_USART_HwMap_t USART_MAP[NUM_USART] = {
         .rcc_enable_msk = RCC_APB1ENR1_USART2EN,
         .periph         = USART2,          
         .dma            = DMA1,
+        .tx_dma_irq     = DMA1_Channel4_IRQn,
         .irq            = USART2_IRQn,
         .tx_channel     = 4,               
         .tx_request     = DMA_REQUEST_USART2_TX,
@@ -32,6 +34,7 @@ static const PHAL_USART_HwMap_t USART_MAP[NUM_USART] = {
         .rcc_enable_msk = RCC_APB1ENR1_USART3EN,
         .periph         = USART3,          
         .dma            = DMA1,
+        .tx_dma_irq     = DMA1_Channel2_IRQn,
         .irq            = USART3_IRQn,
         .tx_channel     = 2,               
         .tx_request     = DMA_REQUEST_USART3_TX,
@@ -40,11 +43,6 @@ static const PHAL_USART_HwMap_t USART_MAP[NUM_USART] = {
     },
 };
 
-typedef enum {
-    USART_DMA_TX,
-    USART_DMA_RX
-} usart_dma_mode_t;
-
 typedef struct {
     PHAL_USART_Handle_t*    handle; //!< USART handle provided on initialization
     dma_init_t              tx_dma;
@@ -52,9 +50,9 @@ typedef struct {
     volatile uint32_t       rxfer_size; //!< Size of data to receive over DMA
     uint8_t                 tx_busy; //!< Waiting on a transmission to finish
     uint8_t                 cont_rx; //!< Flag controlling RX rececption mode (once or continously)
-} usart_active_transfer_t;
+} PHAL_USART_state_t;
 
-usart_active_transfer_t usart_state[NUM_USART];
+PHAL_USART_state_t usart_state[NUM_USART];
 
 static int usart_idx_from_periph(USART_TypeDef *periph) {
     for (uint8_t i = 0; i < NUM_USART; i++) {
@@ -71,7 +69,7 @@ static int usart_idx_from_periph(USART_TypeDef *periph) {
  * This function configures the USART peripheral, calculates and sets the
  * baud rate, and enables the necessary clocks and DMA streams.
  *
- * @param handle Pointer to a usart_init_t struct containing the configuration.
+ * @param handle Pointer to a PHAL_USART_Handle_t struct containing the configuration.
  * @param clock_rate The clock frequency of the peripheral in Hz.
  * @return true if initialization is successful, false otherwise.
  */
@@ -82,9 +80,6 @@ bool PHAL_USART_init(PHAL_USART_Handle_t* handle, const uint32_t clock_rate) {
 
     // Add Handle to active peripheral set for keeping track of activity.
     usart_state[active_idx].handle = handle;
-
-    // Disable peripheral until properly configured
-    handle->periph->CR1 &= ~USART_CR1_UE;
 
     // Enable USART Register
     *usart_map->rcc_enable_rg |= usart_map->rcc_enable_msk;
@@ -98,8 +93,11 @@ bool PHAL_USART_init(PHAL_USART_Handle_t* handle, const uint32_t clock_rate) {
     // By default, USART set to 8 bit, oversampling by 16
     // and Parity control disabled
 
-    // USART interrupt enabled & IDLE interrupt enabled
-    handle->periph->CR1 |= USART_CR1_RXNEIE | USART_CR1_IDLEIE;
+    // IDLE interrupt enabled
+    handle->periph->CR1 |= USART_CR1_IDLEIE;
+
+    // Enable USART interrupt
+    NVIC_EnableIRQ(usart_map->tx_dma_irq);
 
     // Reset Control Register 2
     handle->periph->CR2 = 0U;
@@ -109,6 +107,33 @@ bool PHAL_USART_init(PHAL_USART_Handle_t* handle, const uint32_t clock_rate) {
 
     // Enable peripheral for use
     handle->periph->CR1 |= USART_CR1_UE;
+
+    // TX DMA Init
+    usart_state[active_idx].tx_dma = (dma_init_t) {
+        .periph_addr = (uint32_t)&handle->periph->TDR,
+        .periph = usart_map->dma,
+        .channel_idx = usart_map->tx_channel,
+        .mux_request = usart_map->tx_request,
+        .mem_size = DMA_SIZE_8BIT,
+        .periph_size = DMA_SIZE_8BIT,
+        .mem_inc = true,
+        .tx_isr_en = true,
+        .dir = 1,
+        .priority = 1
+    };
+
+    // RX DMA Init
+    usart_state[active_idx].rx_dma = (dma_init_t) {
+        .periph_addr = (uint32_t)&handle->periph->RDR,
+        .periph = usart_map->dma,
+        .channel_idx = usart_map->rx_channel,
+        .mux_request = usart_map->rx_request,
+        .mem_size = DMA_SIZE_8BIT,
+        .periph_size = DMA_SIZE_8BIT,
+        .mem_inc = true,
+        .dir = 0,
+        .priority = 2
+    };
 
     // Configure DMA
     if (!PHAL_initDMA(&usart_state[active_idx].tx_dma) || !PHAL_initDMA(&usart_state[active_idx].rx_dma)) {
@@ -128,28 +153,30 @@ bool PHAL_USART_init(PHAL_USART_Handle_t* handle, const uint32_t clock_rate) {
  */
 bool PHAL_USART_txDMA(PHAL_USART_Handle_t* handle, uint8_t* data, uint32_t len) {
     int active_idx = usart_idx_from_periph(handle->periph);
+
     if (active_idx < 0) return false;
     if (usart_state[active_idx].handle != handle) return false;
-    const PHAL_USART_HwMap_t* usart_map = &USART_MAP[active_idx];
 
-    // Ensure any RX data is not overwritten before continuing with transfer
-    while (usart_state[active_idx].handle->periph->ISR & USART_ISR_RXNE_RXFNE);
-
-    NVIC_EnableIRQ(usart_map->tx_dma_irq);
-
-    PHAL_DMA_stop(handle->tx_dma);
-
-    PHAL_DMA_setLength(handle->tx_dma, len);
-    PHAL_DMA_setMemAddress(handle->tx_dma, (uint32_t)data);
-
-    PHAL_DMA_restart(handle->tx_dma);
-
+    // Allows software to know transfer is in progress
     usart_state[active_idx].tx_busy = 1;
 
+    // Allows USART to request a new byte from DMA
+    // once its ready. This enables that DMA request
     handle->periph->CR3 |= USART_CR3_DMAT;
+
+    // Enable USART transmitter
     handle->periph->CR1 |= USART_CR1_TE;
 
-    PHAL_DMA_start(handle->tx_dma);
+    dma_init_t *tx_dma = &usart_state[active_idx].tx_dma;
+
+    // Configure DMA transfer
+    PHAL_stopTxfer(tx_dma);
+    PHAL_DMA_setTxferLength(tx_dma, len);
+    PHAL_DMA_setMemAddress(tx_dma, (uint32_t)data);
+    PHAL_reEnable(tx_dma);
+
+    PHAL_startTxfer(tx_dma);
+
     return true;
 }
 
@@ -164,28 +191,30 @@ bool PHAL_USART_txDMA(PHAL_USART_Handle_t* handle, uint8_t* data, uint32_t len) 
  */
 bool PHAL_USART_rxDMA(PHAL_USART_Handle_t* handle, uint8_t* data, uint32_t len, bool cont) {
     int active_idx = usart_idx_from_periph(handle->periph);
+    
     if (active_idx < 0) return false;
     if (usart_state[active_idx].handle != handle) return false;
 
     usart_state[active_idx].cont_rx = cont;
     usart_state[active_idx].rxfer_size = len;
+
+    // Enable USART receiver
+    // USART listens to that RX pin
     handle->periph->CR1 |= USART_CR1_RE;
 
-    NVIC_EnableIRQ(usart_map->irq);
-
-    if (handle->rx_dma_cfg->periph == DMA1) {
-        NVIC_EnableIRQ(DMA1_Channel1_IRQn + (handle->rx_dma_cfg->channel_idx - 1));
-    } else if (handle->rx_dma_cfg->periph == DMA2) {
-        NVIC_EnableIRQ(DMA2_Channel1_IRQn + (handle->rx_dma_cfg->channel_idx - 1));
-    } else {
-        return false;
-    }
-
-    PHAL_DMA_setMemAddress(handle->rx_dma, (uint32_t)data);
+    // Enable DMA receiver
+    // Automatically moves bytes into buffer
     handle->periph->CR3 |= USART_CR3_DMAR;
 
-    PHAL_DMA_setLength(handle->rx_dma, len);
-    PHAL_DMA_start(handle->rx_dma);
+    dma_init_t *rx_dma = &usart_state[active_idx].rx_dma;
+
+    // Set buffer address for receiving bytes
+    PHAL_DMA_setMemAddress(rx_dma, (uint32_t)data);
+
+    // Tells DMA how many bytes to move before stopping
+    PHAL_DMA_setTxferLength(rx_dma, len);
+
+    PHAL_startTxfer(rx_dma);
 
     return true;
 }
@@ -215,7 +244,7 @@ bool PHAL_USART_txBusy(PHAL_USART_Handle_t* handle) {
 static void handleUsartIRQ(USART_TypeDef* periph, uint8_t idx) {
     uint32_t isr = periph->ISR;
     int active_idx = usart_idx_from_periph(handle->periph);
-    if (active_idx < 0) return false;
+    if (active_idx < 0) return;
 
     // USART RX Not Empty interrupt flag
     if (isr & USART_ISR_RXNE_RXFNE) {

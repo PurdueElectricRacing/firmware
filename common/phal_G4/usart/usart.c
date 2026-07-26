@@ -45,8 +45,8 @@ static const PHAL_USART_HwMap_t USART_MAP[NUM_USART] = {
 
 typedef struct {
     PHAL_USART_Handle_t*    handle; //!< USART handle provided on initialization
-    dma_init_t              tx_dma;
-    dma_init_t              rx_dma;
+    dma_init_t              tx_dma; //!< USART transfer DMA configs
+    dma_init_t              rx_dma; //!< USART receive DMA configs
     volatile uint32_t       rxfer_size; //!< Size of data to receive over DMA
     uint8_t                 tx_busy; //!< Waiting on a transmission to finish
     uint8_t                 cont_rx; //!< Flag controlling RX rececption mode (once or continously)

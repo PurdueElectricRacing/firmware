@@ -15,6 +15,7 @@ typedef struct {
     volatile uint32_t*  rcc_enable_rg;
     USART_TypeDef*      periph;
     DMA_TypeDef*        dma;
+    IRQn_Type           tx_dma_irq;
     uint32_t            tx_request;
     uint32_t            rx_request;
     uint32_t            rcc_enable_msk;

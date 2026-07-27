@@ -107,42 +107,9 @@ volatile raw_adc_values_t raw_adc_values; // DMA target
 PHAL_ADC_Handle_t adc_handle;
 
 // USART Configuration for LCD
-PHAL_DMA_Handle_t usart_tx_dma = {
-    .wiring = &USART1_TX_DMA_WIRING,
-    .params = {
-        .mem_addr  = 0,
-        .tx_size   = 0,
-        .priority  = DMA_PRIORITY_HIGH,
-        .mode      = DMA_MODE_NORMAL,
-        .mem_inc   = true,
-        .tx_isr_en = true,
-    },
-};
-PHAL_DMA_Handle_t usart_rx_dma = {
-    .wiring = &USART1_RX_DMA_WIRING,
-    .params = {
-        .mem_addr  = 0,
-        .tx_size   = 0, 
-        .priority  = DMA_PRIORITY_HIGH,
-        .mode      = DMA_MODE_NORMAL,
-        .mem_inc   = true,
-        .tx_isr_en = true,
-    },
-};
-
-usart_init_t lcd = {
-    .baud_rate        = LCD_BAUD_RATE,
-    .word_length      = WORD_8,
-    .stop_bits        = SB_ONE,
-    .parity           = PT_NONE,
-    .hw_flow_ctl      = HW_DISABLE,
-    .ovsample         = OV_16,
-    .obsample         = OB_DISABLE,
-    .periph           = USART1,
-    .wake_addr        = false,
-    .usart_active_num = USART1_ACTIVE_IDX,
-    .tx_dma           = &usart_tx_dma,
-    .rx_dma           = &usart_rx_dma,
+PHAL_USART_Handle_t lcd = {
+    .periph    = USART1,
+    .baud_rate = LCD_BAUD_RATE,
 };
 
 /* Function Prototypes */
@@ -169,7 +136,7 @@ int main(void) {
     if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
-    if (false == PHAL_initUSART(&lcd, PHAL_RCC_getAPB2ClockHz())) {
+    if (false == PHAL_USART_init(&lcd, APB2ClockRateHz)) {
         HardFault_Handler();
     }
     if (false == PHAL_ADC_init(&adc_handle, &adc_config)) {

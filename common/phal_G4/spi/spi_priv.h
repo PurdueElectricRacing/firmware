@@ -130,4 +130,6 @@ bool PHAL_SPI_priv_enableClock(SPI_TypeDef *periph);
 void PHAL_SPI_priv_configCR1(SPI_InitConfig_t *cfg, uint32_t f_div);
 uint32_t PHAL_SPI_priv_calcBaudRatePrescaler(uint32_t data_rate, SPI_TypeDef *periph);
 void PHAL_SPI_priv_configCR2(SPI_InitConfig_t *cfg);
+void PHAL_SPI_priv_enableDMA_TX(SPI_InitConfig_t *cfg);
+void PHAL_SPI_priv_enableDMA_RX(SPI_InitConfig_t *cfg);
 #endif /* _PHAL_G4_SPI_PRIV_H */

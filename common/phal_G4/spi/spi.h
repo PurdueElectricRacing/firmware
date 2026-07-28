@@ -45,7 +45,7 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t *spi,
                        const uint8_t *out_data,
                        const uint32_t data_len,
                        uint8_t *in_data);
-bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t *spi,
+bool PHAL_SPI_transfer_blocking(SPI_InitConfig_t *spi,
                              const uint8_t *out_data,
                              uint32_t txlen,
                              uint32_t rxlen,

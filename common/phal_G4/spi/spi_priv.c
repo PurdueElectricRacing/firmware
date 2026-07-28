@@ -73,3 +73,11 @@ void PHAL_SPI_priv_configCR2(SPI_InitConfig_t *cfg) {
     // RX FIFO threshold: set FRXTH for 8-bit threshold
     cfg->periph->CR2 |= SPI_CR2_FRXTH;
 }
+
+void PHAL_SPI_priv_enableDMA_TX(SPI_InitConfig_t *cfg) {
+    cfg->periph->CR2 |= SPI_CR2_TXDMAEN;
+}
+
+void PHAL_SPI_priv_enableDMA_RX(SPI_InitConfig_t *cfg) {
+    cfg->periph->CR2 |= SPI_CR2_RXDMAEN;
+}

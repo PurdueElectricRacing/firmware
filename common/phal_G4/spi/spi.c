@@ -31,27 +31,40 @@ static void handleTxComplete(DMA_TypeDef *dma_periph, uint8_t channel);
 void PHAL_SPI_txCallback(SPI_InitConfig_t *spi) {
     (void)spi;
 }
+/* Map DMA channel IRQs to handler for common SPI usage. Adjust as needed per project. */
+
+[[gnu::weak]]
+void DMA1_Channel3_IRQHandler(void) { // example: SPI1_TX on DMA1 Ch3
+    handleTxComplete(DMA1, 3);
+}
+
+[[gnu::weak]]
+void DMA1_Channel5_IRQHandler(void) { // example: SPI2_TX on DMA1 Ch5
+    handleTxComplete(DMA1, 5);
+}
+
+[[gnu::weak]]
+void DMA2_Channel3_IRQHandler(void) { // example: SPI3_TX on DMA2 Ch3
+    handleTxComplete(DMA2, 3);
+}
 
 bool PHAL_SPI_init(SPI_InitConfig_t *cfg) {
-    zero = 0;
-
     // Enable RCC Clock for selected SPI on G4
-    if (!PHAL_SPI_priv_enableClock(cfg->periph)) {
-        return false;
-    }
+    if (!PHAL_SPI_priv_enableClock(cfg->periph)) return false;
 
     /// Peripheral configuration (See RM0440 42.5.7 Configuration of SPI section)
-    // Calculate baud rate prescaler based on requested data rate and bus clock
     uint32_t f_div = PHAL_SPI_priv_calcBaudRatePrescaler(cfg->data_rate, cfg->periph);
+
     // Write to the SPI_CR1 register (baud rate, CPOL/CPHA, simplex/half-duplex, frame format, CRC, slave select, master/slave configs)
     PHAL_SPI_priv_configCR1(cfg, f_div);
+
     // Write to SPI_CR2 register (transfer data length, slave select output enable, )
     PHAL_SPI_priv_configCR2(cfg);
 
-    // DMA setup if provided
-    if (cfg->rx_dma && !PHAL_DMA_init(cfg->rx_dma))
+    // DMA setup is required 
+    if (!PHAL_initDMA(cfg->rx_dma_cfg))
         return false;
-    if (cfg->tx_dma && !PHAL_DMA_init(cfg->tx_dma))
+    if (!PHAL_initDMA(cfg->tx_dma_cfg))
         return false;
 
     // Deassert CS in master when using software NSS
@@ -66,7 +79,7 @@ bool PHAL_SPI_init(SPI_InitConfig_t *cfg) {
     return true;
 }
 
-bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t *spi,
+bool PHAL_SPI_transfer_blocking(SPI_InitConfig_t *spi,
                              const uint8_t *out_data,
                              uint32_t txlen,
                              uint32_t rxlen,
@@ -92,7 +105,7 @@ bool PHAL_SPI_transfer_noDMA(SPI_InitConfig_t *spi,
         while (!(spi->periph->SR & SPI_SR_TXE))
             ;
         // Write byte
-        uint8_t b                             = out_data ? out_data[i] : 0;
+        uint8_t b = out_data ? out_data[i] : 0;
         *(volatile uint8_t *)&spi->periph->DR = b;
         // Wait for RXNE and read echo
         while (!(spi->periph->SR & SPI_SR_RXNE))
@@ -147,7 +160,7 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t *spi,
     spi->_busy = true;
 
     // TX DMA enable
-    spi->periph->CR2 |= SPI_CR2_TXDMAEN;
+    PHAL_SPI_priv_enableDMA_TX(spi);
     if (!out_data) {
         PHAL_DMA_setMemInc(spi->tx_dma, false);
         PHAL_DMA_setMemAddress(spi->tx_dma, (uint32_t)&zero);
@@ -157,19 +170,19 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t *spi,
     }
     PHAL_DMA_setLength(spi->tx_dma, data_len);
 
-    // RX DMA optional
-    if (spi->rx_dma) {
-        spi->periph->CR2 |= SPI_CR2_RXDMAEN;
-        if (!in_data) {
-            PHAL_DMA_setMemInc(spi->rx_dma, false);
-            PHAL_DMA_setMemAddress(spi->rx_dma, (uint32_t)&trash_can);
-        } else {
-            PHAL_DMA_setMemInc(spi->rx_dma, true);
-            PHAL_DMA_setMemAddress(spi->rx_dma, (uint32_t)in_data);
-        }
-        PHAL_DMA_setLength(spi->rx_dma, data_len);
-        PHAL_DMA_restart(spi->rx_dma);
+    // RX DMA  
+    if (!spi->rx_dma_cfg) return false;
+    PHAL_SPI_priv_enableDMA_RX(spi);
+
+    if (!in_data) {
+        PHAL_DMA_setMemInc(spi->rx_dma, false);
+        PHAL_DMA_setMemAddress(spi->rx_dma, (uint32_t)&trash_can);
+    } else {
+        PHAL_DMA_setMemInc(spi->rx_dma, true);
+        PHAL_DMA_setMemAddress(spi->rx_dma, (uint32_t)in_data);
     }
+    PHAL_DMA_setLength(spi->rx_dma, data_len);
+    PHAL_DMA_restart(spi->rx_dma);
 
     // Enable DMA IRQ for selected channel and track active transfer per-channel
     volatile SPI_InitConfig_t **active_table;
@@ -275,18 +288,7 @@ static void handleTxComplete(DMA_TypeDef *dma_periph, uint8_t channel) {
     }
 }
 
-/* Map DMA channel IRQs to handler for common SPI usage. Adjust as needed per project. */
-__attribute__((weak)) void DMA1_Channel3_IRQHandler(void) { // example: SPI1_TX on DMA1 Ch3
-    handleTxComplete(DMA1, 3);
-}
 
-__attribute__((weak)) void DMA1_Channel5_IRQHandler(void) { // example: SPI2_TX on DMA1 Ch5
-    handleTxComplete(DMA1, 5);
-}
-
-__attribute__((weak)) void DMA2_Channel3_IRQHandler(void) { // example: SPI3_TX on DMA2 Ch3
-    handleTxComplete(DMA2, 3);
-}
 
 uint8_t PHAL_SPI_readByte(SPI_InitConfig_t *spi, uint8_t address, bool skipDummy) {
     static uint8_t tx_cmd[4] = {(1 << 7), 0, 0};

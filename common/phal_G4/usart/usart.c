@@ -175,19 +175,19 @@ bool PHAL_usartTxDma(usart_init_t* handle, uint8_t* data, uint32_t len) {
         return false;
     }
 
-    PHAL_stopTxfer(handle->tx_dma_cfg);
+    PHAL_DMA_stopTxfer(handle->tx_dma_cfg);
 
     PHAL_DMA_setTxferLength(handle->tx_dma_cfg, len);
     PHAL_DMA_setMemAddress(handle->tx_dma_cfg, (uint32_t)data);
 
-    PHAL_reEnable(handle->tx_dma_cfg);
+    PHAL_DMA_reEnable(handle->tx_dma_cfg);
 
     active_uarts[handle->usart_active_num]._tx_busy = 1;
 
     handle->periph->CR3 |= USART_CR3_DMAT;
     handle->periph->CR1 |= USART_CR1_TE;
 
-    PHAL_startTxfer(handle->tx_dma_cfg);
+    PHAL_DMA_startTxfer(handle->tx_dma_cfg);
     return true;
 }
 
@@ -251,7 +251,7 @@ bool PHAL_usartRxDma(usart_init_t* handle, uint8_t* data, uint32_t len, bool con
     handle->periph->CR3 |= USART_CR3_DMAR;
 
     PHAL_DMA_setTxferLength(handle->rx_dma_cfg, len);
-    PHAL_startTxfer(handle->rx_dma_cfg);
+    PHAL_DMA_startTxfer(handle->rx_dma_cfg);
 
     return true;
 }
@@ -331,7 +331,7 @@ static void handleUsartIRQ(USART_TypeDef* periph, uint8_t idx) {
         active_uarts[idx]._rx_busy = 1;
         PHAL_DMA_setTxferLength(active_uarts[idx].active_handle->rx_dma_cfg,
                                 active_uarts[idx].rxfer_size);
-        PHAL_reEnable(active_uarts[idx].active_handle->rx_dma_cfg);
+        PHAL_DMA_reEnable(active_uarts[idx].active_handle->rx_dma_cfg);
         // Read RDR to clear RXNE flag if set
         (void)active_uarts[idx].active_handle->periph->RDR;
         active_uarts[idx].active_handle->periph->RQR = USART_RQR_RXFRQ;
@@ -366,7 +366,7 @@ static void handleUsartIRQ(USART_TypeDef* periph, uint8_t idx) {
 
     // Idle line detected
     if (isr & USART_ISR_IDLE) {
-        PHAL_stopTxfer(active_uarts[idx].active_handle->rx_dma_cfg);
+        PHAL_DMA_stopTxfer(active_uarts[idx].active_handle->rx_dma_cfg);
         if (active_uarts[idx].cont_rx) {
             // Read RDR to clear RXNE before re-enabling RXNEIE
             if (periph->ISR & USART_ISR_RXNE_RXFNE) {
@@ -407,7 +407,7 @@ handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t dma_type, u
         dma_periph->IFCR |= tcif_mask;
 
         if (dma_type == USART_DMA_TX) {
-            PHAL_stopTxfer(active_uarts[idx].active_handle->tx_dma_cfg);
+            PHAL_DMA_stopTxfer(active_uarts[idx].active_handle->tx_dma_cfg);
             active_uarts[idx]._tx_busy = 0;
         }
     }

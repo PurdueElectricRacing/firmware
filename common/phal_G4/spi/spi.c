@@ -199,7 +199,7 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t *spi,
             PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t)in_data);
         }
         PHAL_DMA_setTxferLength(spi->rx_dma_cfg, data_len);
-        PHAL_reEnable(spi->rx_dma_cfg);
+        PHAL_DMA_reEnable(spi->rx_dma_cfg);
     }
 
     // Enable DMA IRQ for selected channel and track active transfer per-channel
@@ -217,7 +217,7 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t *spi,
 
     // Start SPI and kick TX DMA
     spi->periph->CR1 |= SPI_CR1_SPE;
-    PHAL_reEnable(spi->tx_dma_cfg);
+    PHAL_DMA_reEnable(spi->tx_dma_cfg);
 
     return true;
 }
@@ -276,7 +276,7 @@ static void handleTxComplete(DMA_TypeDef *dma_periph, uint8_t channel) {
                 ;
             // Clear RX flags and stop RX
             rx_dma->IFCR |= rx_tc_mask;
-            PHAL_stopTxfer(transfer->rx_dma_cfg);
+            PHAL_DMA_stopTxfer(transfer->rx_dma_cfg);
         }
 
         // Deassert CS after both TX and RX complete
@@ -284,7 +284,7 @@ static void handleTxComplete(DMA_TypeDef *dma_periph, uint8_t channel) {
             PHAL_writeGPIO(transfer->nss_gpio_port, transfer->nss_gpio_pin, 1);
 
         if (transfer->tx_dma_cfg)
-            PHAL_stopTxfer(transfer->tx_dma_cfg);
+            PHAL_DMA_stopTxfer(transfer->tx_dma_cfg);
 
         transfer->periph->CR1 &= ~SPI_CR1_SPE;
         transfer->periph->CR2 &= ~(SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);

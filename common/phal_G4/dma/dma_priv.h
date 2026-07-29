@@ -15,3 +15,4 @@
  void PHAL_DMA_priv_setChannel(DMA_TypeDef *periph, DMA_Channel_TypeDef **channel, uint8_t channel_idx);
  void PHAL_DMA_priv_enableStream(DMA_Channel_TypeDef *channel);
  void PHAL_DMA_priv_configMUX(dma_init_t *dma);
+ void PHAL_DMA_priv_setPeriphAddress(dma_init_t *dma);

@@ -91,21 +91,21 @@ bool PHAL_initDMA(dma_init_t* dma);
  *
  * @param dma -> Address of initialization structure
  */
-void PHAL_startTxfer(dma_init_t* dma);
+void PHAL_DMA_startTxfer(dma_init_t* dma);
 
 /*
  * @brief Stop txfer
  *
  * @param dma -> Address of initialization structure
  */
-void PHAL_stopTxfer(dma_init_t* dma);
+void PHAL_DMA_stopTxfer(dma_init_t* dma);
 
 /*
  * @brief Re-enable DMA txfer after error ISR fires
  *
  * @param dma -> Address of initialization structure
  */
-void PHAL_reEnable(dma_init_t* dma);
+void PHAL_DMA_reEnable(dma_init_t* dma);
 
 /*
  * @brief Set memory address for DMA transfer. In Mem to Mem this acts as the source address

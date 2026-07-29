@@ -26,11 +26,11 @@ bool PHAL_initDMA(dma_init_t *dma) {
     // Clear any ISR status flags that may have been set previously for the target channel
     PHAL_DMA_priv_clearFlags(dma->periph, dma->channel_idx);
     // 1. Set the peripheral register address in the DMA_CPARx register
-    dma->channel->CPAR = dma->periph_addr;
+    PHAL_DMA_priv_setPeriphAddress(dma);
     // 2. Set the memory address in the DMA_CMARx register. 
-    dma->channel->CMAR  = dma->mem_addr;
+    PHAL_DMA_setMemAddress(dma);
     // 3. Configure the total number of data to transfer in the DMA_CNDTRx register.
-    dma->channel->CNDTR = dma->tx_size;
+    PHAL_DMA_setTxferLength(dma, dma->tx_size);
     // 4. Configure parameters in the DMA_CCRx register:
     PHAL_DMA_priv_configParams(dma);
 
@@ -43,17 +43,17 @@ bool PHAL_initDMA(dma_init_t *dma) {
     return true;
 }
 
-void PHAL_startTxfer(dma_init_t *dma) {
+void PHAL_DMA_startTxfer(dma_init_t *dma) {
     // Stream enable starts txfer
     dma->channel->CCR |= DMA_CCR_EN;
 }
 
-void PHAL_stopTxfer(dma_init_t *dma) {
+void PHAL_DMA_stopTxfer(dma_init_t *dma) {
     // Stream disable stops txfer
     dma->channel->CCR &= ~DMA_CCR_EN;
 }
 
-void PHAL_reEnable(dma_init_t *dma) {
+void PHAL_DMA_reEnable(dma_init_t *dma) {
     // Clear any stream dedicated status flags that may have been set previously
     dma->periph->IFCR = (DMA_ISR_GIF1 | DMA_ISR_TCIF1 | DMA_ISR_HTIF1 | DMA_ISR_TEIF1)
         << (4 * (dma->channel_idx - 1));

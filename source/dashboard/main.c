@@ -166,7 +166,7 @@ int main(void) {
     if (false == PHAL_initDMA(&adc_dma_config)) {
         HardFault_Handler();
     }
-    PHAL_startTxfer(&adc_dma_config);
+    PHAL_DMA_startTxfer(&adc_dma_config);
     PHAL_startADC(&adc_config);
 
     PHAL_FDCAN_init(FDCAN2, VCAN_BAUD_RATE);

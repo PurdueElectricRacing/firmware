@@ -177,10 +177,10 @@ int main(void) {
         HardFault_Handler();
     }
     
-    PHAL_startTxfer(&adc1_dma_config);
-    PHAL_startTxfer(&adc2_dma_config);
-    PHAL_startTxfer(&adc3_dma_config);
-    PHAL_startTxfer(&adc4_dma_config);
+    PHAL_DMA_startTxfer(&adc1_dma_config);
+    PHAL_DMA_startTxfer(&adc2_dma_config);
+    PHAL_DMA_startTxfer(&adc3_dma_config);
+    PHAL_DMA_startTxfer(&adc4_dma_config);
 
     PHAL_startADC(&adc1_config);
     PHAL_startADC(&adc2_config);

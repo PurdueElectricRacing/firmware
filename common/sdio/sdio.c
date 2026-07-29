@@ -1554,7 +1554,7 @@ void SD_LowLevel_DMA_TxConfig(uint32_t* BufferSRC, uint32_t BufferSize) {
     sdio_tx_config.stream->FCR |= DMA_SxFCR_DMDIS | DMA_SxFCR_FTH;
     // peripheral flow control, and burst transfer of 4 beats
     sdio_tx_config.stream->CR |= DMA_SxCR_PFCTRL | DMA_SxCR_MBURST_0 | DMA_SxCR_PBURST_0 | DMA_SxCR_TCIE;
-    PHAL_startTxfer(&sdio_tx_config);
+    PHAL_DMA_startTxfer(&sdio_tx_config);
 
     // TODO: if it doesn't work, look at why memory size is byte, peirph size is word, and fifo threshold half full, memory burst single
 }
@@ -1600,7 +1600,7 @@ void SD_LowLevel_DMA_RxConfig(uint32_t* BufferDST, uint32_t BufferSize) {
     // peripheral flow control, and burst transfer of 4 beats
     sdio_rx_config.stream->CR |= DMA_SxCR_PFCTRL | DMA_SxCR_MBURST_0 | DMA_SxCR_PBURST_0;
 
-    PHAL_startTxfer(&sdio_rx_config);
+    PHAL_DMA_startTxfer(&sdio_rx_config);
 }
 
 void SD_DeInit(void) {

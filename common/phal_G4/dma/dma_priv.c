@@ -81,3 +81,7 @@ void PHAL_DMA_priv_configMUX(dma_init_t *dma) {
     // Set the DMA request ID for the DMAMUX channel
     mux->CCR = (mux->CCR & ~DMAMUX_CxCR_DMAREQ_ID_Msk) | dma->mux_request;   
 }
+
+void PHAL_DMA_priv_setPeriphAddress(dma_init_t *dma) {
+    dma->channel->CPAR = dma->periph_addr;
+}

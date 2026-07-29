@@ -28,7 +28,7 @@ bool PHAL_initDMA(dma_init_t *dma) {
     // 1. Set the peripheral register address in the DMA_CPARx register
     PHAL_DMA_priv_setPeriphAddress(dma);
     // 2. Set the memory address in the DMA_CMARx register. 
-    PHAL_DMA_setMemAddress(dma);
+    PHAL_DMA_setMemAddress(dma, dma->mem_addr);
     // 3. Configure the total number of data to transfer in the DMA_CNDTRx register.
     PHAL_DMA_setTxferLength(dma, dma->tx_size);
     // 4. Configure parameters in the DMA_CCRx register:

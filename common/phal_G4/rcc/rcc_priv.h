@@ -12,35 +12,33 @@
 #include "common/phal_G4/phal_G4.h"
 #include "common/phal_G4/rcc/rcc.h"
 
+
 // This board's external oscillator input
 // HSI16 (High Speed Internal, 16 MHz) is fixed by hardware
 // HSE (High Speed External) depends on PCB/what is connected wired to the OSC_IN pin
 // and PER only uses 16 MHZ HSE fed bypass style
-#define HSE_CLOCK_RATE_HZ (16'000'000U)
-#define HSI_CLOCK_RATE_HZ (16'000'000U)
+static constexpr uint32_t RCC_PRIV_HSI_CLOCK_RATE_HZ = 16'000'000U;
+static constexpr uint32_t RCC_PRIV_HSE_CLOCK_RATE_HZ = 16'000'000U;
 
 // 170 MHz PLL
 // VCO input  = HSI16 or HSE / PLLM  (must be 2.66-16 MHz)
 // VCO output = VCO input * PLLN     (must be 96-344 MHz)
 // PLL output = VCO output / PLLR    (-> SYSCLK)
-#define RCC_PRIV_PLL_M (4U)
-#define RCC_PRIV_PLL_N (85U)
-#define RCC_PRIV_PLL_R (2U)
+static constexpr uint32_t RCC_PRIV_PLL_M = 4U;
+static constexpr uint32_t RCC_PRIV_PLL_N = 85U;
+static constexpr uint32_t RCC_PRIV_PLL_R = 2U;
 
-#define RCC_PRIV_PLL_VCO_INPUT_HZ  (HSI_CLOCK_RATE_HZ / RCC_PRIV_PLL_M)
-#define RCC_PRIV_PLL_VCO_OUTPUT_HZ (RCC_PRIV_PLL_VCO_INPUT_HZ * RCC_PRIV_PLL_N)
-#define RCC_PRIV_PLL_OUTPUT_HZ     (RCC_PRIV_PLL_VCO_OUTPUT_HZ / RCC_PRIV_PLL_R)
+static constexpr uint32_t RCC_PRIV_PLL_VCO_INPUT_HZ  = RCC_PRIV_HSI_CLOCK_RATE_HZ / RCC_PRIV_PLL_M;
+static constexpr uint32_t RCC_PRIV_PLL_VCO_OUTPUT_HZ = RCC_PRIV_PLL_VCO_INPUT_HZ * RCC_PRIV_PLL_N;
+static constexpr uint32_t RCC_PRIV_PLL_OUTPUT_HZ     = RCC_PRIV_PLL_VCO_OUTPUT_HZ / RCC_PRIV_PLL_R;
 
 // Compile time check that chosen M/N/R choice is legal and results in a perfect 170 MHZ
-static_assert(HSI_CLOCK_RATE_HZ == HSE_CLOCK_RATE_HZ,
-    "PLL config assumes HSI and HSE are the same rate (see RCC_PRIV_PLL_VCO_INPUT_HZ)");
-static_assert(RCC_PRIV_PLL_VCO_INPUT_HZ >= 2'660'000U && RCC_PRIV_PLL_VCO_INPUT_HZ <= 16'000'000U,
-    "PLL VCO input out of range, adjust PLLM");
-static_assert(RCC_PRIV_PLL_VCO_OUTPUT_HZ >= 96'000'000U && RCC_PRIV_PLL_VCO_OUTPUT_HZ <= 344'000'000U,
-    "PLL VCO output out of range, adjust PLLN");
-static_assert(RCC_PRIV_PLL_OUTPUT_HZ == 170'000'000U,
-    "PLL output must be exactly 170 MHz, adjust PLLM/PLLN/PLLR");
+static_assert(RCC_PRIV_HSI_CLOCK_RATE_HZ == RCC_PRIV_HSE_CLOCK_RATE_HZ, "PLL config assumes HSI and HSE");
+static_assert(RCC_PRIV_PLL_VCO_INPUT_HZ >= 2'660'000U && RCC_PRIV_PLL_VCO_INPUT_HZ <= 16'000'000U, "PLL VCO input out of valid range");
+static_assert(RCC_PRIV_PLL_VCO_OUTPUT_HZ >= 96'000'000U && RCC_PRIV_PLL_VCO_OUTPUT_HZ <= 344'000'000U, "PLL VCO output out of valid range");
+static_assert(RCC_PRIV_PLL_OUTPUT_HZ == 170'000'000U, "PLL output must be exactly 170 MHz");
 
+/// Oscillator source for RCC->PLLCFGR. Either HSI or HSE.
 typedef enum : uint32_t {
     RCC_PRIV_PLL_SRC_HSI = RCC_PLLCFGR_PLLSRC_HSI,
     RCC_PRIV_PLL_SRC_HSE = RCC_PLLCFGR_PLLSRC_HSE,

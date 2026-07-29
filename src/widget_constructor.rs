@@ -18,6 +18,7 @@ pub enum WidgetConstructor {
     GgPlot,
     Dynamics,
     Jitter,
+    Hil,
 }
 
 impl std::hash::Hash for WidgetConstructor {
@@ -66,6 +67,7 @@ impl WidgetConstructor {
                 widgets::Widget::Dynamics(ui::dynamics::Dynamics::new(id))
             }
             WidgetConstructor::Jitter => widgets::Widget::Jitter(ui::jitter::Jitter::new(id)),
+            WidgetConstructor::Hil => widgets::Widget::Hil(ui::hil::Hil::new(id)),
         }
     }
 }

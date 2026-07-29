@@ -6,6 +6,7 @@ mod connection;
 mod daq_log_parse;
 mod formatter;
 mod frozen;
+mod hil;
 mod messages;
 mod settings;
 mod shortcuts;

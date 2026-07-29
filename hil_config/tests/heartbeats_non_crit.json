@@ -1,0 +1,17 @@
+{
+	"$schema": "../schema.json",
+
+	"name": "Non-Critical Heartbeats",
+	"description": "Check that we receive a heartbeat (version hash) from non-critical boards",
+
+	"expect": [
+		{
+			"window": [0, 10000],
+			"msg_name": "front_driveline_version"
+		},
+		{
+			"window": [0, 10000],
+			"msg_name": "rear_driveline_version"
+		}
+	]
+}

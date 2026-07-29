@@ -14,6 +14,7 @@ pub enum Widget {
     GgPlot(ui::gg_plot::GgPlot),
     Dynamics(ui::dynamics::Dynamics),
     Jitter(ui::jitter::Jitter),
+    Hil(ui::hil::Hil),
 }
 
 impl Widget {
@@ -31,6 +32,7 @@ impl Widget {
             Widget::GgPlot(w) => &w.title,
             Widget::Dynamics(w) => &w.title,
             Widget::Jitter(w) => &w.title,
+            Widget::Hil(w) => &w.title,
         }
     }
 
@@ -68,6 +70,7 @@ impl Widget {
             Widget::GgPlot(w) => w.show(ui),
             Widget::Dynamics(w) => w.show(ui),
             Widget::Jitter(w) => w.show(ui, parser),
+            Widget::Hil(w) => w.show(ui),
         }
     }
 
@@ -83,6 +86,7 @@ impl Widget {
             Widget::GgPlot(w) => w.handle_can_message(msg),
             Widget::Dynamics(w) => w.handle_can_message(msg),
             Widget::Jitter(w) => w.handle_can_message(msg),
+            Widget::Hil(w) => w.handle_can_message(msg),
             _ => {}
         }
     }

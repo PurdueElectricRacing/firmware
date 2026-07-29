@@ -1,0 +1,25 @@
+{
+	"$schema": "../schema.json",
+
+	"name": "Critical Heartbeats",
+	"description": "Check that we receive a heartbeat (version hash) from every drive critical board",
+
+	"expect": [
+		{
+			"window": [0, 10000],
+			"msg_name": "abox_version"
+		},
+		{
+			"window": [0, 10000],
+			"msg_name": "dash_version"
+		},
+		{
+			"window": [0, 10000],
+			"msg_name": "main_version"
+		},
+		{
+			"window": [0, 10000],
+			"msg_name": "pdu_version"
+		}
+	]
+}

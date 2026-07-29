@@ -11,15 +11,6 @@
 
 void HardFault_Handler();
 
-static constexpr uint32_t kTargetCoreClockrateHz = 16'000'000;
-ClockRateConfig_t clock_config = {
-    .clock_source           = CLOCK_SOURCE_HSI,
-    .system_clock_target_hz = kTargetCoreClockrateHz,
-    .ahb_clock_target_hz    = (kTargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz   = (kTargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz   = (kTargetCoreClockrateHz / (1)),
-};
-
 #define FLASH_TEST_PAGE (FLASH_BASE + (508U * 1024U))
 
 GPIOInitConfig_t gpio_config[] = {
@@ -60,9 +51,9 @@ static bool flash_copy(uint32_t source_address, uint32_t destination_address, ui
 } 
 
 int main() {
-    if (PHAL_configureClockRates(&clock_config)) {
-        HardFault_Handler();
-    }
+    PHAL_RCC_init(PHAL_RCC_HSI_16MHZ);
+
+
     if (!PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }

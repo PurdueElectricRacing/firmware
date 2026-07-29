@@ -134,22 +134,6 @@ usart_init_t lcd = {
     .rx_dma_cfg       = &usart_rx_dma_config,
 };
 
-static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
-ClockRateConfig_t clock_config = {
-    .clock_source           = CLOCK_SOURCE_HSE,
-    .use_pll                = false,
-    .system_clock_target_hz = TargetCoreClockrateHz,
-    .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
-};
-
-/* Locals for Clock Rates */
-extern uint32_t APB1ClockRateHz;
-extern uint32_t APB2ClockRateHz;
-extern uint32_t AHBClockRateHz;
-extern uint32_t PLLClockRateHz;
-
 /* Function Prototypes */
 void sweep_external_leds();
 void service_start_button();
@@ -168,14 +152,13 @@ DEFINE_HEARTBEAT_TASK(sweep_external_leds);
 
 int main(void) {
     // Hardware Initialization
-    if (0 != PHAL_configureClockRates(&clock_config)) {
-        HardFault_Handler();
-    }
+    PHAL_RCC_init(PHAL_RCC_HSE_16MHZ);
+
     WDG_init();
     if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
-    if (false == PHAL_initUSART(&lcd, APB2ClockRateHz)) {
+    if (false == PHAL_initUSART(&lcd, PHAL_RCC_getAPB2ClockHz())) {
         HardFault_Handler();
     }
     if (false == PHAL_initADC(&adc_config, adc_channel_config, countof(adc_channel_config))) {

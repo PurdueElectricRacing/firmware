@@ -13,17 +13,6 @@
 // Prototypes
 void HardFault_Handler();
 
-// Clock Configuration
-#define TargetCoreClockrateHz 16000000
-ClockRateConfig_t clock_config = {
-    .clock_source           = CLOCK_SOURCE_HSI,
-    .system_clock_target_hz = TargetCoreClockrateHz,
-    .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
-};
-extern uint32_t APB1ClockRateHz;
-extern uint32_t APB2ClockRateHz;
 
 // GPIO Configuration: example pins for SPI1 (master) and SPI2 (slave)
 // Adjust to your board wiring. SPI1: PA5=SCK, PA7=MOSI, PA6=MISO; PA4=CS
@@ -85,8 +74,8 @@ static SPI_InitConfig_t spi2 = {
 };
 
 int main() {
-    if (PHAL_configureClockRates(&clock_config))
-        HardFault_Handler();
+    PHAL_RCC_init(PHAL_RCC_HSI_16MHZ);
+
     if (!PHAL_initGPIO(gpio_config, countof(gpio_config)))
         HardFault_Handler();
 

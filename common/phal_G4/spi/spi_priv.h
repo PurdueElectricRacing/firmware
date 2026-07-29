@@ -10,6 +10,7 @@
 
 #include "common/phal_G4/dma/dma.h"
 #include "common/phal_G4/spi/spi.h"
+#include "common/phal_G4/gpio/gpio.h"
 
 
 #define SPI1_RXDMA_CONT_CONFIG(rx_addr_, priority_) \
@@ -126,10 +127,24 @@
      .mux_request      = DMA_REQUEST_SPI3_TX, \
      .periph           = DMA2}
 
+/* Calculates the shift for a given DMA flag and channel (1-7) */
+#define DMA_FLAG_MASK(flag_base, channel) (((uint32_t)(flag_base)) << (4 * ((uint32_t)(channel) - 1)))
+
+/* DMA flag masks */
+#define DMA_TCIF_MASK(channel) DMA_FLAG_MASK(DMA_ISR_TCIF1, (channel))
+#define DMA_TEIF_MASK(channel) DMA_FLAG_MASK(DMA_ISR_TEIF1, (channel))
+#define DMA_HTIF_MASK(channel) DMA_FLAG_MASK(DMA_ISR_HTIF1, (channel))
+#define DMA_GIF_MASK(channel)  DMA_FLAG_MASK(DMA_ISR_GIF1,  (channel))
+
 bool PHAL_SPI_priv_enableClock(SPI_TypeDef *periph);
 void PHAL_SPI_priv_configCR1(SPI_InitConfig_t *cfg, uint32_t f_div);
 uint32_t PHAL_SPI_priv_calcBaudRatePrescaler(uint32_t data_rate, SPI_TypeDef *periph);
 void PHAL_SPI_priv_configCR2(SPI_InitConfig_t *cfg);
 void PHAL_SPI_priv_enableDMA_TX(SPI_InitConfig_t *cfg);
 void PHAL_SPI_priv_enableDMA_RX(SPI_InitConfig_t *cfg);
+void PHAL_SPI_priv_handleTxComplete(DMA_TypeDef *dma_periph, uint8_t channel);
+void PHAL_SPI_priv_resetTransferState(SPI_InitConfig_t *cfg);
+void PHAL_SPI_priv_registerActiveTx(SPI_InitConfig_t *spi);
+void PHAL_SPI_priv_Enable(SPI_InitConfig_t *spi);
+void PHAL_SPI_priv_Disable(SPI_InitConfig_t *spi);
 #endif /* _PHAL_G4_SPI_PRIV_H */

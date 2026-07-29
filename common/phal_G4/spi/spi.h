@@ -1,5 +1,5 @@
 /**
- * @file spi.c
+ * @file spi.h
  * @author Ronak Jain (jain717@purdue.edu)
  * @author Shriya Balu (balu@purdue.edu)
  * @brief G4 SPI
@@ -54,6 +54,7 @@ bool PHAL_SPI_busy(SPI_InitConfig_t *cfg);
 uint8_t PHAL_SPI_writeByte(SPI_InitConfig_t *spi, uint8_t address, uint8_t writeDat);
 uint8_t PHAL_SPI_readByte(SPI_InitConfig_t *spi, uint8_t address, bool skipDummy);
 void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi);
+
 
 /**
  * @brief SPI transfer-complete callback.

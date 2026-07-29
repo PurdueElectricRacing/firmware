@@ -31,21 +31,21 @@ static void handleTxComplete(DMA_TypeDef *dma_periph, uint8_t channel);
 void PHAL_SPI_txCallback(SPI_InitConfig_t *spi) {
     (void)spi;
 }
-/* Map DMA channel IRQs to handler for common SPI usage. Adjust as needed per project. */
 
+/* Map DMA channel IRQs to handler for common SPI usage. Adjust as needed per project. */
 [[gnu::weak]]
 void DMA1_Channel3_IRQHandler(void) { // example: SPI1_TX on DMA1 Ch3
-    handleTxComplete(DMA1, 3);
+    PHAL_SPI_priv_handleTxComplete(DMA1, 3);
 }
 
 [[gnu::weak]]
 void DMA1_Channel5_IRQHandler(void) { // example: SPI2_TX on DMA1 Ch5
-    handleTxComplete(DMA1, 5);
+    PHAL_SPI_priv_handleTxComplete(DMA1, 5);
 }
 
 [[gnu::weak]]
 void DMA2_Channel3_IRQHandler(void) { // example: SPI3_TX on DMA2 Ch3
-    handleTxComplete(DMA2, 3);
+    PHAL_SPI_priv_handleTxComplete(DMA2, 3);
 }
 
 bool PHAL_SPI_init(SPI_InitConfig_t *cfg) {
@@ -71,10 +71,7 @@ bool PHAL_SPI_init(SPI_InitConfig_t *cfg) {
     if (cfg->mode == SPI_MODE_MASTER && cfg->nss_sw)
         PHAL_writeGPIO(cfg->nss_gpio_port, cfg->nss_gpio_pin, 1);
 
-    cfg->_busy              = false;
-    cfg->_error             = false;
-    cfg->_direct_mode_error = false;
-    cfg->_fifo_overrun      = false;
+    PHAL_SPI_priv_resetTransferState(cfg);
 
     return true;
 }
@@ -108,8 +105,9 @@ bool PHAL_SPI_transfer_blocking(SPI_InitConfig_t *spi,
         uint8_t b = out_data ? out_data[i] : 0;
         *(volatile uint8_t *)&spi->periph->DR = b;
         // Wait for RXNE and read echo
-        while (!(spi->periph->SR & SPI_SR_RXNE))
-            ;
+        while (!(spi->periph->SR & SPI_SR_RXNE)) {
+            __asm__("nop");
+        }
         uint8_t rxb = *(volatile uint8_t *)&spi->periph->DR;
         if (in_data)
             in_data[i] = rxb;
@@ -117,30 +115,19 @@ bool PHAL_SPI_transfer_blocking(SPI_InitConfig_t *spi,
 
     // If additional rxlen bytes requested beyond txlen, clock out dummy
     for (uint32_t i = 0; i < rxlen; i++) {
-        while (!(spi->periph->SR & SPI_SR_TXE))
-            ;
+        while (!(spi->periph->SR & SPI_SR_TXE)) {
+            __asm__("nop");
+        }
         *(volatile uint8_t *)&spi->periph->DR = 0;
-        while (!(spi->periph->SR & SPI_SR_RXNE))
-            ;
+        while (!(spi->periph->SR & SPI_SR_RXNE)) {
+            __asm__("nop");
+        }
         uint8_t rb = *(volatile uint8_t *)&spi->periph->DR;
         if (rx_ptr)
             rx_ptr[i] = rb;
     }
 
-    // Wait until not busy and TXE set
-    while ((spi->periph->SR & SPI_SR_BSY))
-        ;
-    while (!(spi->periph->SR & SPI_SR_TXE))
-        ;
-
-    // Deassert CS for master only
-    if (spi->mode == SPI_MODE_MASTER && spi->nss_sw)
-        PHAL_writeGPIO(spi->nss_gpio_port, spi->nss_gpio_pin, 1);
-
-    // Disable SPI
-    spi->periph->CR1 &= ~SPI_CR1_SPE;
-
-    spi->_busy = false;
+    
     return true;
 }
 
@@ -198,7 +185,7 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t *spi,
     active_table[PHAL_DMA_getChannelIdx(spi->tx_dma)] = spi;
 
     // Start SPI and kick TX DMA
-    spi->periph->CR1 |= SPI_CR1_SPE;
+    PHAL_SPI_priv_Enable(spi);
     PHAL_DMA_restart(spi->tx_dma);
 
     return true;
@@ -295,14 +282,15 @@ uint8_t PHAL_SPI_readByte(SPI_InitConfig_t *spi, uint8_t address, bool skipDummy
     static uint8_t rx_dat[4] = {1, 1, 1, 1};
     tx_cmd[0] |= (address & 0x7F);
 
-    while (PHAL_SPI_busy(spi))
-        ;
+    while (PHAL_SPI_busy(spi)) {
+        __asm__("nop");
+    }
+
     if (spi->rx_dma != NULL)
         PHAL_SPI_transfer(spi, tx_cmd, skipDummy ? 2 : 3, rx_dat);
-    else
-        PHAL_SPI_transfer_noDMA(spi, tx_cmd, 1, skipDummy ? 1 : 2, rx_dat);
-    while (PHAL_SPI_busy(spi))
-        ;
+    while (PHAL_SPI_busy(spi)) {
+        __asm__("nop");
+    }
 
     return skipDummy ? rx_dat[1] : rx_dat[2];
 }
@@ -313,14 +301,14 @@ uint8_t PHAL_SPI_writeByte(SPI_InitConfig_t *spi, uint8_t address, uint8_t write
     tx_cmd[0] |= (address & 0x7F);
     tx_cmd[1] |= (writeDat);
 
-    while (PHAL_SPI_busy(spi))
-        ;
+    while (PHAL_SPI_busy(spi)) {
+        __asm__("nop");
+    }
     if (spi->tx_dma != NULL)
         PHAL_SPI_transfer(spi, tx_cmd, 2, rx_dat);
-    else
-        PHAL_SPI_transfer_noDMA(spi, tx_cmd, 2, 0, rx_dat);
-    while (PHAL_SPI_busy(spi))
-        ;
+    while (PHAL_SPI_busy(spi)) {
+        __asm__("nop");
+    }
 
     return rx_dat[1];
 }

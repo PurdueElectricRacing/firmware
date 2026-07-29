@@ -2,6 +2,7 @@
 
 void PHAL_CRC_init(void) {
     RCC->AHB1ENR |= RCC_AHB1ENR_CRCEN;
+    (void) RCC->AHB1ENR;
 }
 
 uint32_t PHAL_CRC_calculate(const uint32_t *data, uint32_t words) {
@@ -15,7 +16,7 @@ uint32_t PHAL_CRC_calculate(const uint32_t *data, uint32_t words) {
     return CRC->DR;
 }
 
-static const uint32_t crc32b_LUT[16] = {
+static const uint32_t crc32_LUT[16] = {
     0x00000000,
     0x04C11DB7,
     0x09823B6E,
@@ -34,16 +35,16 @@ static const uint32_t crc32b_LUT[16] = {
     0x384FBDBD,
 };
 
-static inline uint32_t crc_step(uint32_t crc, uint8_t data) {
+static inline uint32_t crc_step(uint32_t crc, uint32_t data) {
     crc ^= data;
 
     for (int i = 0; i < 8; i++) {
-        crc = (crc << 4) ^ crc32_mpeg2_lut[crc >> 28];
+        crc = (crc << 4) ^ crc32_LUT[crc >> 28];
     }
     return crc;
 }
 
-uint32_t PHAL_CRC_calculate_sw(const uint32_t *data, uint32_t words) {
+uint32_t PHAL_CRC_calculateSw(const uint32_t *data, uint32_t words) {
     uint32_t crc = 0xFFFFFFFF;
 
     for (uint32_t i = 0; i < words; i++) {

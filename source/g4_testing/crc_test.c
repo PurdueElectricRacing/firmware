@@ -39,21 +39,21 @@ static const uint32_t v_highbyte[] = {0xAABBCCDD};
 static const uint32_t v_two[] = {0x12345678, 0x9ABCDEF0};
 static const uint32_t v_four[]= {0x12345678, 0x9ABCDEF0, 0xDEADBEEF, 0xCAFEBABE};
 
-static const crc_vector_t vectors[] = {
-    {v_zero, sizeof(v_zero), 0xC704DD7B},
-    {v_ff, sizeof(v_ff), 0x00000000},
-    {v_single, sizeof(v_single), 0xDF8A8A2B},
-    {v_highbyte, sizeof(v_highbyte), 0x246E87F0},
-    {v_two, sizeof(v_two), 0x7D24A31B},
-    {v_four, sizeof(v_four), 0xA7BD0B1E},
-};
-
 volatile uint32_t crc_failed_index = -1;
 volatile uint32_t crc_failed_hw = 0;
 volatile uint32_t crc_failed_sw = 0;
 volatile uint32_t crc_failed_expected = 0;
 
 static bool run_crc_test(void) {
+    static const crc_vector_t vectors[] = {
+        {v_zero, countof(v_zero), 0xC704DD7B},
+        {v_ff, countof(v_ff), 0x00000000},
+        {v_single, countof(v_single), 0xDF8A8A2B},
+        {v_highbyte, countof(v_highbyte), 0x246E87F0},
+        {v_two, countof(v_two), 0x7D24A31B},
+        {v_four, countof(v_four), 0xF53DA296},
+    };
+
     for (uint32_t i = 0; i < countof(vectors); i++) {
         const crc_vector_t *v = &vectors[i];
 
@@ -98,4 +98,4 @@ void HardFault_Handler(void) {
     }
 }
 
-#endif
+#endif // G4_TESTING_CHOSEN == TEST_CRC

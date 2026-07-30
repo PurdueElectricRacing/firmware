@@ -2,20 +2,18 @@
 #include "common/phal_G4/crc/crc_priv.h"
 
 void PHAL_CRC_init(void) {
-    RCC->AHB1ENR |= RCC_AHB1ENR_CRCEN;
-    (void) RCC->AHB1ENR;
-
-    crc_setConfig();
+    CRC_PRIV_enableClock();
+    CRC_PRIV_setConfig();
 }
 
 uint32_t PHAL_CRC_calculate(const uint32_t *data, uint32_t words) {
-    crc_reset();
+    CRC_PRIV_reset();
 
     for (uint32_t i = 0; i < words; i++) {
-        crc_feedWord(data[i]);
+        CRC_PRIV_feedWord(data[i]);
     }
 
-    return crc_readResult();
+    return CRC_PRIV_readResult();
 }
 
 static const uint32_t crc32_LUT[16] = {
@@ -37,7 +35,7 @@ static const uint32_t crc32_LUT[16] = {
     0x384FBDBD,
 };
 
-static inline uint32_t crc_step(uint32_t crc, uint32_t data) {
+static uint32_t crc_step(uint32_t crc, uint32_t data) {
     crc ^= data;
 
     for (int i = 0; i < 8; i++) {

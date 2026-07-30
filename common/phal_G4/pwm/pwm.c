@@ -4,6 +4,8 @@
  * @date 2026-07-25
  */
 
+#include <stddef.h>
+
 #include "common/phal_G4/pwm/pwm.h"
 
 extern uint32_t APB1ClockRateHz;
@@ -118,41 +120,41 @@ bool PHAL_initPWM(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en) 
     tim->PSC = (timer_clock_hz / denominator) - 1U;
 
     switch (channels_en) {
-        case 4U:
-            tim->CCR4 = 0U;
-
+        case 4:
             tim->CCMR2 &= ~TIM_CCMR2_OC4M_Msk;
-            tim->CCMR |= TIM_CCMR2_OC4M_2 | TIM_CCMR1_OC4M_1;
+            tim->CCMR2 |= TIM_CCMR2_OC4M_2 | TIM_CCMR2_OC4M_1;
+
+            tim->CCR4 = 0;
 
             tim->CCMR2 |= TIM_CCMR2_OC4PE;
             tim->CCER |= TIM_CCER_CC4E;
         
-        case 3U:
-            tim->CCR3 = 0U;
-
+        case 3:
             tim->CCMR2 &= ~TIM_CCMR2_OC3M_Msk;
-            tim->CCMR |= TIM_CCMR2_OC3M_2 | TIM_CCMR1_OC3M_1;
+            tim->CCMR2 |= TIM_CCMR2_OC3M_2 | TIM_CCMR2_OC3M_1;
+
+            tim->CCR3 = 0;
 
             tim->CCMR2 |= TIM_CCMR2_OC3PE;
             tim->CCER |= TIM_CCER_CC3E;   
             
-        case 2U:
-            tim->CCR2 = 0U;
+        case 2:
+            tim->CCMR1 &= ~TIM_CCMR1_OC2M_Msk;
+            tim->CCMR1 |= TIM_CCMR1_OC2M_2 | TIM_CCMR1_OC2M_1;
 
-            tim->CCMR2 &= ~TIM_CCMR2_OC2M_Msk;
-            tim->CCMR |= TIM_CCMR2_OC2M_2 | TIM_CCMR1_OC2M_1;
+            tim->CCR2 = 0;
 
-            tim->CCMR2 |= TIM_CCMR2_OC2PE;
-            tim->CCER |= TIM_CCER_CC2E;       
+            tim->CCMR1 |= TIM_CCMR1_OC2PE;
+            tim->CCER |= TIM_CCER_CC2E;  
         
-        case 1U:
-            tim->CCR1 = 0U;
-
+        case 1:
             tim->CCMR1 &= ~TIM_CCMR1_OC1M_Msk;
-            tim->CCMR1 |= TIM_CCMR1_OC1M_2 | TIM_CCMR1_OC1M_1;
+            tim->CCMR1 |= TIM_CCMR1_OC2M_2 | TIM_CCMR1_OC2M_1;
+
+            tim->CCR1 = 0;
 
             tim->CCMR1 |= TIM_CCMR1_OC1PE;
-            tim->CCER |= TIM_CCER_CC1E;
+            tim->CCER |= TIM_CCER_CC1E;  
             break;
 
         default:
@@ -160,7 +162,7 @@ bool PHAL_initPWM(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en) 
     }
 
     if (requires_main_out_en) {
-        tim->BDTR |= TIm_BDTR_MOE;
+        tim->BDTR |= TIM_BDTR_MOE;
     }
 
     tim->CR1 &= ~TIM_CR1_DIR;

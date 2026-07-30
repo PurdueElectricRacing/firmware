@@ -45,7 +45,7 @@ static uint32_t crc_step(uint32_t crc, uint32_t data) {
 }
 
 uint32_t PHAL_CRC_calculateSw(const uint32_t *data, uint32_t words) {
-    uint32_t crc = 0xFFFFFFFF;
+    uint32_t crc = CRC_PRIV_INIT_VALUE;
 
     for (uint32_t i = 0; i < words; i++) {
         crc = crc_step(crc, data[i]);

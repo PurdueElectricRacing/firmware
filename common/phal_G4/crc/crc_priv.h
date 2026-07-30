@@ -3,8 +3,11 @@
 
 #include "common/phal_G4/phal_G4.h"
 
-#define CRC_POLY_CRC32 (0x04C11DB7)
-#define CRC_INIT_VALUE (0xFFFFFFFF)
+/// CRC-32/MPEG-2 polynomial.
+static constexpr uint32_t CRC_PRIV_POLY_CRC32 = 0x04C11DB7;
+
+/// Initial CRC value loaded into the data register on reset.
+static constexpr uint32_t CRC_PRIV_INIT_VALUE = 0xFFFFFFFF;
 
 void CRC_PRIV_enableClock(void);
 void CRC_PRIV_setConfig(void);

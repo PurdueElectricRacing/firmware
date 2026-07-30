@@ -1,6 +1,7 @@
 /**
  * @file pwm.c
  * @author Natasha Pandit (npandit@purdue.edu)
+ * @brief PWM driver for STM32G4
  * @date 2026-07-25
  */
 
@@ -64,7 +65,7 @@ bool PHAL_initPWM(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en) 
             max_channels = 4U;
             break;
 
-        // APB1 timer
+        // APB1 timers
         case (uint32_t)TIM2:
             RCC->APB1ENR1 |= RCC_APB1ENR1_TIM2EN;
             max_channels = 4U;
@@ -84,7 +85,8 @@ bool PHAL_initPWM(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en) 
             RCC->APB1ENR1 |= RCC_APB1ENR1_TIM5EN;
             max_channels = 4U;
             break;   
-            
+    
+        // TIM6 and TIM7 are basic timers
         case (uint32_t)TIM6:
         case (uint32_t)TIM7:
 
@@ -92,6 +94,7 @@ bool PHAL_initPWM(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en) 
             return false;
     }
 
+    // channels_en specifies amt of consecutive channels should be enabled - start at channel 1
     if (channels_en == 0U || channels_en > max_channels) {
         return false;
     }
@@ -119,6 +122,13 @@ bool PHAL_initPWM(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en) 
 
     tim->PSC = (timer_clock_hz / denominator) - 1U;
 
+    /*
+    * Intentional fallthrough:
+    * channels_en == 4 enables ch 1-4
+    * channels_en == 3 enables ch 1-3
+    * channels_en == 2 enables ch 1-2
+    * channels_en == 1 enables ch 1
+    */
     switch (channels_en) {
         case 4:
             tim->CCMR2 &= ~TIM_CCMR2_OC4M_Msk;
@@ -129,6 +139,7 @@ bool PHAL_initPWM(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en) 
             tim->CCMR2 |= TIM_CCMR2_OC4PE;
             tim->CCER |= TIM_CCER_CC4E;
         
+        // fall through
         case 3:
             tim->CCMR2 &= ~TIM_CCMR2_OC3M_Msk;
             tim->CCMR2 |= TIM_CCMR2_OC3M_2 | TIM_CCMR2_OC3M_1;
@@ -137,7 +148,8 @@ bool PHAL_initPWM(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en) 
 
             tim->CCMR2 |= TIM_CCMR2_OC3PE;
             tim->CCER |= TIM_CCER_CC3E;   
-            
+        
+        // fall through
         case 2:
             tim->CCMR1 &= ~TIM_CCMR1_OC2M_Msk;
             tim->CCMR1 |= TIM_CCMR1_OC2M_2 | TIM_CCMR1_OC2M_1;
@@ -147,9 +159,10 @@ bool PHAL_initPWM(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en) 
             tim->CCMR1 |= TIM_CCMR1_OC2PE;
             tim->CCER |= TIM_CCER_CC2E;  
         
+        // fall through
         case 1:
             tim->CCMR1 &= ~TIM_CCMR1_OC1M_Msk;
-            tim->CCMR1 |= TIM_CCMR1_OC2M_2 | TIM_CCMR1_OC2M_1;
+            tim->CCMR1 |= TIM_CCMR1_OC1M_2 | TIM_CCMR1_OC1M_1;
 
             tim->CCR1 = 0;
 
@@ -161,6 +174,10 @@ bool PHAL_initPWM(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en) 
             return false;
     }
 
+    /*
+    * Timers w/ break/dead-time functionality require moe before 
+    * outputs can appear on respective gpio pins
+    */
     if (requires_main_out_en) {
         tim->BDTR |= TIM_BDTR_MOE;
     }

@@ -13,6 +13,6 @@
 #define TEST_PWM        8
 
 // Change this define to set the test compiled
-#define G4_TESTING_CHOSEN TEST_PWM
+#define G4_TESTING_CHOSEN TEST_BLINKY
 
 #endif // __G4_TESTING__

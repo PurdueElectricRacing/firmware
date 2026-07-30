@@ -8,6 +8,13 @@
 #include "common/phal_G4/pwm/pwm.h"
 #include "common/utils/countof.h"
 
+/*
+* Initial test config:
+*
+* TIM1_CH1
+* 1 kHz
+* 50% duty cycle
+*/
 GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_AF(GPIOA, 8, 6, GPIO_OUTPUT_HIGH_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN),
 };

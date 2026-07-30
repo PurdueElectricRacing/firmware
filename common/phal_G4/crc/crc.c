@@ -1,19 +1,21 @@
 #include "common/phal_G4/crc/crc.h"
+#include "common/phal_G4/crc/crc_priv.h"
 
 void PHAL_CRC_init(void) {
     RCC->AHB1ENR |= RCC_AHB1ENR_CRCEN;
     (void) RCC->AHB1ENR;
+
+    crc_setConfig();
 }
 
 uint32_t PHAL_CRC_calculate(const uint32_t *data, uint32_t words) {
-    CRC->CR = CRC_CR_RESET;
-    __DSB();
+    crc_reset();
 
     for (uint32_t i = 0; i < words; i++) {
-        CRC->DR = data[i];
+        crc_feedWord(data[i]);
     }
 
-    return CRC->DR;
+    return crc_readResult();
 }
 
 static const uint32_t crc32_LUT[16] = {

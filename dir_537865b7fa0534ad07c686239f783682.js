@@ -1,6 +1,7 @@
 var dir_537865b7fa0534ad07c686239f783682 =
 [
     [ "adc", "dir_e2d872916054dced2b0c0cd6af07241b.html", "dir_e2d872916054dced2b0c0cd6af07241b" ],
+    [ "crc", "dir_14ec74d997a377ab9cb04d3bf35514b2.html", "dir_14ec74d997a377ab9cb04d3bf35514b2" ],
     [ "dma", "dir_eb95523fb33d24af980f98de3484abef.html", "dir_eb95523fb33d24af980f98de3484abef" ],
     [ "fdcan", "dir_e4bd514faee87035d0410937177ba928.html", "dir_e4bd514faee87035d0410937177ba928" ],
     [ "flash", "dir_82c781f82881016222e11c15de0c4bdf.html", "dir_82c781f82881016222e11c15de0c4bdf" ],

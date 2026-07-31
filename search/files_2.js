@@ -23,6 +23,6 @@ var searchData=
   ['cooling_5fcallbacks_2ec_20',['cooling_callbacks.c',['../cooling__callbacks_8c.html',1,'']]],
   ['cooling_5fcallbacks_2eh_21',['cooling_callbacks.h',['../cooling__callbacks_8h.html',1,'']]],
   ['countof_2eh_22',['countof.h',['../countof_8h.html',1,'']]],
-  ['crc_2ec_23',['crc.c',['../crc_8c.html',1,'']]],
+  ['crc_2ec_23',['crc.c',['../phal__F4_2crc_2crc_8c.html',1,'']]],
   ['crc_2eh_24',['crc.h',['../phal__F4_2crc_2crc_8h.html',1,'']]]
 ];

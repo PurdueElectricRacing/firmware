@@ -100,7 +100,8 @@ void PHAL_FDCAN_setInterruptLines(FDCAN_GlobalTypeDef *fdcan);
 /// Write a filter action to RXGFC (accept/reject all)
 void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_DefaultFilterAction_t action);
 
-/// Compute the NBTP register value for one of the supported bit rates
+/// Compute the NBTP register value for one of the supported bit rates.
+/// 16-time-quantum nominal bit time (~87.5% sample point)
 uint32_t PHAL_FDCAN_priv_getNBTP(PHAL_FDCAN_BaudRate_t bit_rate);
 
 /// Set num_sid exact-match standard filters and forward to RX FIFO0

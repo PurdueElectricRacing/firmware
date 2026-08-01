@@ -178,48 +178,41 @@ void PHAL_FDCAN_priv_writeFilterAction(FDCAN_GlobalTypeDef *fdcan, PHAL_FDCAN_De
         | (action << FDCAN_RXGFC_RRFE_Pos);
 }
  
-// Builds nominal bit timing & prescaler register for a
-// 16-time-quantum nominal bit time (~87.5% sample point) at the given BRP
-// (BRP=2 @ 500k, BRP=1 @ 1M)
-static uint32_t fdcan_buildNBTP16TQ(uint32_t brp) {
-    // seg1/seg2/sjw are in real time-quanta (TQ) units
-    // They require 
-    // TSEG1 = Time Segment 1
-    // - propagation + phase segment 1, before the sample point
-    // TSEG2 = Time Segment 2
-    // - phase segment 2, after the sample point
-    // SJW  = Synchronization Jump Width
-    // max TQ the core may lengthen/shorten a segment by to resynchronize with the bus
-    // 1 + 13 (TSEG1) + 2 (TSEG2) = 16 TQ per bit with a 
-    // sample point at (1+13)/16 = 87.5% into the bit
-    const uint32_t seg1 = 13;
-    const uint32_t seg2 = 2;
-    const uint32_t sjw = 2;
-
-    // NBTP = Nominal Bit Timing and Prescaler register
-    // - configures the bit timing used for the arbitration/nominal phase of every frame
-    // - Class CAN only has this one phase
-    // NBRP = Nominal Baud Rate Prescaler field
-    // - divides the FDCAN kernel clock down to produce 1 time quantum (TQ) per tick
-    // NTSEG1 = Nominal Time Segment 1 field
-    // NTSEG2 = Nominal Time Segment 2 field
-    // NSJW = Nominal (re)Synchronization Jump Width field
-    // Fields require a bias-correction (-1) to match hardware's internal encoding
-    return ((brp - 1U) << FDCAN_NBTP_NBRP_Pos)
-        | ((seg1 - 1U) << FDCAN_NBTP_NTSEG1_Pos)
-        | ((seg2 - 1U) << FDCAN_NBTP_NTSEG2_Pos)
-        | ((sjw - 1U) << FDCAN_NBTP_NSJW_Pos);
-}
-
 uint32_t PHAL_FDCAN_priv_getNBTP(PHAL_FDCAN_BaudRate_t bit_rate) {
     switch (bit_rate) {
         case FDCAN_BAUD_250K:
         case FDCAN_BAUD_500K:
         case FDCAN_BAUD_1M:
+            // seg1/seg2/sjw are in real time-quanta (TQ) units
+            // TSEG1 = Time Segment 1
+            // - propagation + phase segment 1, before the sample point
+            // TSEG2 = Time Segment 2
+            // - phase segment 2, after the sample point
+            // SJW  = Synchronization Jump Width
+            // max TQ the core may lengthen/shorten a segment by to resynchronize with the bus
+            // 1 + 13 (TSEG1) + 2 (TSEG2) = 16 TQ per bit with a 
+            // sample point at (1+13)/16 = 87.5% into the bit
+            const uint32_t seg1 = 13;
+            const uint32_t seg2 = 2;
+            const uint32_t sjw = 2;
+            const uint32_t tq_per_bit = 1 + seg1 + seg2; 
+
             // BRP (Baud Rate Prescaler) = kernel_clock_Hz / (bit_rate * TQ_per_bit)
-            const uint32_t tq_per_bit = 16U; // 1 + 13 + 2 = 16 TQ per bit
             uint32_t brp = FDCAN_PRIV_KER_CLK_HZ / ((uint32_t)bit_rate * tq_per_bit);
-            return fdcan_buildNBTP16TQ(brp);
+            
+            // NBTP = Nominal Bit Timing and Prescaler register
+            // - configures the bit timing used for the arbitration/nominal phase of every frame
+            // - Class CAN only has this one phase
+            // NBRP = Nominal Baud Rate Prescaler field
+            // - divides the FDCAN kernel clock down to produce 1 time quantum (TQ) per tick
+            // NTSEG1 = Nominal Time Segment 1 field
+            // NTSEG2 = Nominal Time Segment 2 field
+            // NSJW = Nominal (re)Synchronization Jump Width field
+            // Fields require a bias-correction (-1) to match hardware's internal encoding
+            return ((brp - 1U) << FDCAN_NBTP_NBRP_Pos)
+                | ((seg1 - 1U) << FDCAN_NBTP_NTSEG1_Pos)
+                | ((seg2 - 1U) << FDCAN_NBTP_NTSEG2_Pos)
+                | ((sjw - 1U) << FDCAN_NBTP_NSJW_Pos);
         default:
             __builtin_trap();
     }

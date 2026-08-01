@@ -8,16 +8,6 @@
 #include "common/phal_G4/dma/dma.h"
 #include "common/phal_G4/dma/dma_priv.h"
 
-bool PHAL_DMA_priv_validateConfig(dma_init_t *dma) {
-    if (dma->mem_to_mem && dma->circular) return false;                            // circular mode is not supported for memory-to-memory transfers
-    if (dma->dir <= 0 || dma->dir >= DMA_DIR_COUNT) return false;                  // valid values are 0 (periph to mem) or 1 (mem to periph)
-    if (dma->priority <= 0 || dma->priority >= DMA_PRIORITY_COUNT) return false;   // valid values are 0 (low), 1 (medium), 2 (high), or 3 (very high)
-    if (dma->mem_size <= 0 || dma->mem_size >= DMA_SIZE_COUNT) return false;       // valid values are 0 (8-bit), 1 (16-bit), or 2 (32-bit)
-    if (dma->periph_size <= 0 || dma->periph_size >= DMA_SIZE_COUNT) return false; // valid values are 0 (8-bit), 1 (16-bit), or 2 (32-bit)
-    if ((dma->periph != DMA1) && (dma->periph != DMA2)) return false;              // valid values are DMA1 or DMA2
-
-    return true;
-}
 void PHAL_DMA_priv_enableClock(dma_init_t *dma) {
     if (dma->periph == DMA1) {
         RCC->AHB1ENR |= RCC_AHB1ENR_DMA1EN;
@@ -56,11 +46,10 @@ void PHAL_DMA_priv_configParams(dma_init_t *dma) {
         | ((dma->priority << DMA_CCR_PL_Pos) & DMA_CCR_PL_Msk)              // channel priority
         | ((dma->mem_inc << DMA_CCR_MINC_Pos) & DMA_CCR_MINC_Msk)           // memory increment mode
         | ((dma->periph_inc << DMA_CCR_PINC_Pos) & DMA_CCR_PINC_Msk)        // peripheral increment mode
-        | ((dma->circular << DMA_CCR_CIRC_Pos) & DMA_CCR_CIRC_Msk)          // circular mode
         | ((dma->dir << DMA_CCR_DIR_Pos) & DMA_CCR_DIR_Msk)                 // data transfer direction
         | ((dma->tx_isr_en << DMA_CCR_TEIE_Pos) & DMA_CCR_TEIE_Msk)         // transfer error interrupt enable
         | ((dma->tx_isr_en << DMA_CCR_TCIE_Pos) & DMA_CCR_TCIE_Msk)         // transfer complete interrupt enable
-        | ((dma->mem_to_mem << DMA_CCR_MEM2MEM_Pos) & DMA_CCR_MEM2MEM_Msk); // memory-to-memory mode
+        | PHAL_DMA_priv_modeBits(dma->mode); // normal, circular or memory-to-memory mode
 
 }
 
@@ -84,4 +73,20 @@ void PHAL_DMA_priv_configMUX(dma_init_t *dma) {
 
 void PHAL_DMA_priv_setPeriphAddress(dma_init_t *dma) {
     dma->channel->CPAR = dma->periph_addr;
+}
+
+uint32_t PHAL_DMA_priv_modeBits(dma_mode_t mode)
+{
+    switch (mode) {
+    case DMA_MODE_NORMAL:
+        return 0;
+
+    case DMA_MODE_CIRCULAR:
+        return DMA_CCR_CIRC;
+
+    case DMA_MODE_MEM2MEM:
+        return DMA_CCR_MEM2MEM;
+    }
+
+    return 0;   // Should never happen if mode is valid
 }

@@ -190,10 +190,9 @@ extern void usart_receive_complete_callback(usart_init_t* handle);
         .periph_addr = (uint32_t)&((USARTx)->RDR), \
         .mem_addr    = (uint32_t)(rx_addr_), \
         .tx_size     = 1, \
-        .circular    = false, \
+        .mode        = DMA_MODE_NORMAL, \
         .mem_inc     = true, \
         .periph_inc  = false, \
-        .mem_to_mem  = false, \
         .priority    = (priority_), \
         .dir         = 0, \
         .mem_size    = DMA_SIZE_8BIT, \
@@ -209,10 +208,9 @@ extern void usart_receive_complete_callback(usart_init_t* handle);
         .periph_addr = (uint32_t)&((USARTx)->TDR), \
         .mem_addr    = (uint32_t)(tx_addr_), \
         .tx_size     = 1, \
-        .circular    = false, \
+        .mode        = DMA_MODE_NORMAL, \
         .mem_inc     = true, \
         .periph_inc  = false, \
-        .mem_to_mem  = false, \
         .priority    = (priority_), \
         .dir         = 1, \
         .mem_size    = DMA_SIZE_8BIT, \

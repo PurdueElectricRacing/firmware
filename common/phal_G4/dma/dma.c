@@ -9,12 +9,6 @@
 #include "common/phal_G4/dma/dma_priv.h"
 
 bool PHAL_initDMA(dma_init_t *dma) {
-
-    // Ensure all config parameters are valid
-    if (!PHAL_DMA_priv_validateConfig(dma)) {
-        return false;
-    }
-
     PHAL_DMA_priv_enableClock(dma);
 
     PHAL_DMA_priv_setChannel(dma->periph, &dma->channel, dma->channel_idx);
@@ -44,13 +38,11 @@ bool PHAL_initDMA(dma_init_t *dma) {
 }
 
 void PHAL_DMA_startTxfer(dma_init_t *dma) {
-    // Stream enable starts txfer
-    dma->channel->CCR |= DMA_CCR_EN;
+    PHAL_DMA_priv_enableStream(dma->channel);
 }
 
 void PHAL_DMA_stopTxfer(dma_init_t *dma) {
-    // Stream disable stops txfer
-    dma->channel->CCR &= ~DMA_CCR_EN;
+    PHAL_DMA_priv_disableStream(dma->channel);
 }
 
 void PHAL_DMA_reEnable(dma_init_t *dma) {

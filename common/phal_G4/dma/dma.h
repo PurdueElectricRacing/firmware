@@ -15,23 +15,26 @@
 typedef enum {
     DMA_SIZE_8BIT  = 0,
     DMA_SIZE_16BIT = 1,
-    DMA_SIZE_32BIT = 2,
-    DMA_SIZE_COUNT
+    DMA_SIZE_32BIT = 2
 } dma_size_t;
 
 typedef enum {
     DMA_PERIPH_TO_MEMORY = 0,
-    DMA_MEMORY_TO_PERIPH = 1,
-    DMA_DIR_COUNT
+    DMA_MEMORY_TO_PERIPH = 1
 } dma_dir_t;
 
 typedef enum {
     DMA_PRIORITY_LOW       = 0,
     DMA_PRIORITY_MEDIUM    = 1,
     DMA_PRIORITY_HIGH      = 2,
-    DMA_PRIORITY_VERY_HIGH = 3,
-    DMA_PRIORITY_COUNT
+    DMA_PRIORITY_VERY_HIGH = 3
 } dma_priority_t;
+
+typedef enum {
+    DMA_MODE_NORMAL   = 0,
+    DMA_MODE_CIRCULAR = 1,
+    DMA_MODE_MEM2MEM = 2
+} dma_mode_t;
 
 // Mux requests (TODO support all)
 #define DMA_REQUEST_ADC1 5U
@@ -60,11 +63,10 @@ typedef struct {
     uint8_t mem_size;
 
     bool increment;
-    bool circular;
     dma_dir_t dir;
     bool mem_inc;
     bool periph_inc;
-    bool mem_to_mem;
+    dma_mode_t mode;
     uint8_t priority;
     uint8_t periph_size;
     bool tx_isr_en;

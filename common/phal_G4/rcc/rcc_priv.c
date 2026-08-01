@@ -26,7 +26,10 @@ void PHAL_RCC_priv_disableHSI(void) {
     RCC->CR &= ~RCC_CR_HSION;
 
     // Wait until HSI16 is confirmed stopped
-    while (RCC->CR & RCC_CR_HSION) {
+    // HSIRDY = HSI16 Ready flag
+    // - the actual hardware-confirmed status bit
+    // - HSION only reflects the request and clears immediately on write
+    while (RCC->CR & RCC_CR_HSIRDY) {
         __asm__("nop");
     }
 }

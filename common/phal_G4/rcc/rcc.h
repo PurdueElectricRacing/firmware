@@ -30,9 +30,8 @@ typedef enum {
  *
  * - The *_16MHZ modes run directly from the input oscillator (HSI16, or
  *   the board's 16 MHz HSE input in bypass mode) with no PLL
- *   - AHB = APB1
- *   - APB2 = 16 MHz
  *   - 0 Flash wait states
+ *   - AHB = APB1 = APB2 = 16 MHz
  * - The *_170MHZ modes feed the input oscillator through the PLL
  *   (PLLM=4, PLLN=85, PLLR=2) for a clock speed of exactly 170 MHz
  *   - Enable Range 1 boost mode

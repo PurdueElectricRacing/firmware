@@ -126,6 +126,8 @@ void PHAL_RCC_priv_enableBoostMode(void) {
     // HPRE = AHB Prescaler field
     // - HCLK (AHB clock) to be temporarily halved while boost mode is being enabled
     // - restored afterward
+    //   - PHAL_RCC_priv_setBusPrescalersToDiv1() is called later once the switch
+    //     to PLL is confirmed
     RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE_Msk) | RCC_CFGR_HPRE_DIV2;
     __DSB(); // let the prescaler change and take effect
 
@@ -139,11 +141,6 @@ void PHAL_RCC_priv_enableBoostMode(void) {
     for (volatile uint32_t i = 0; i < 100U; i++) {
         __asm__("nop");
     }
-
-    // Restore HPRE (AHB Prescaler field) to divide-by-1 now that boost
-    // mode has had time to take effect
-    RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_HPRE_Msk) | RCC_CFGR_HPRE_DIV1;
-    __DSB();
 }
 
 void PHAL_RCC_priv_switchSysclkToHSI(void) {

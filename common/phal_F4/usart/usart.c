@@ -11,9 +11,14 @@
 
 #include "common/phal_F4/usart/usart.h"
 
-#include "common/common_defs/common_defs.h"
-
 // Comments labeled "ADD: " indicate that code needs to be modified in order to add extra peripherals
+
+static inline uint32_t ROUNDDOWN(uint32_t a, uint32_t n) {
+    return a - (a % n);
+}
+static inline uint32_t ROUNDUP(uint32_t a, uint32_t n) {
+    return ROUNDDOWN(a + n - 1, n);
+}
 
 // These items should not be used/modified by anybody other than the HAL
 typedef enum {

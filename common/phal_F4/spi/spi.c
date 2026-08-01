@@ -18,6 +18,10 @@ static volatile SPI_InitConfig_t* active_transfer = NULL;
 static uint16_t trash_can; //!< Used as an address for DMA to dump data into
 static uint16_t zero; //!< Used as a constant zero during transmissions
 
+static inline uint32_t LOG2_DOWN(uint32_t x) {
+    return 31U - (uint32_t)__builtin_clz(x);
+}
+
 static void handleTxComplete();
 
 bool PHAL_SPI_init(SPI_InitConfig_t* cfg) {

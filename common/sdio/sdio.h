@@ -16,7 +16,6 @@
 #include "common/phal/dma.h"
 #include "common/phal/gpio.h"
 #include "common/phal/rcc.h"
-#include "common_defs.h"
 #include "stm32f4xx.h"
 
 typedef enum {

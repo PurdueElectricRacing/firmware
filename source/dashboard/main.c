@@ -12,7 +12,6 @@
 /* System Includes */
 #include "can_library/faults_common.h"
 #include "can_library/generated/DASHBOARD.h"
-#include "common/common_defs/common_defs.h"
 #include "common/freertos/freertos.h"
 #include "common/heartbeat/heartbeat.h"
 #include "common/phal/adc.h"

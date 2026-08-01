@@ -12,7 +12,6 @@
 #include <stdint.h>
 
 #include "common/phal/spi.h"
-#include "common_defs.h"
 #include "main.h"
 
 static inline void BMI088_selectGyro(BMI088_Handle_t *bmi);

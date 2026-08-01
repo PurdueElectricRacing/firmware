@@ -17,7 +17,7 @@ function(add_firmware_component)
     add_executable(${TARGET_NAME})
 
     # Link common libs
-    target_link_libraries(${TARGET_NAME} PRIVATE common_defs SYSCALLS ${ARG_LIBS})
+    target_link_libraries(${TARGET_NAME} PRIVATE SYSCALLS ${ARG_LIBS})
 
     # Sources: include all .c files in current directory and subdirectories
     file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/*.c")

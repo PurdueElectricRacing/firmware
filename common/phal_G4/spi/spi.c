@@ -16,6 +16,10 @@ static volatile SPI_InitConfig_t *dma2_active_tx[8] = {0};
 static uint16_t trash_can; // For RX discard when in_data NULL
 static uint16_t zero;      // For TX dummy when out_data NULL
 
+static inline uint32_t LOG2_DOWN(uint32_t x) {
+    return 31U - (uint32_t)__builtin_clz(x);
+}
+
 static void handleTxComplete(DMA_TypeDef *dma_periph, uint8_t channel);
 
 bool PHAL_SPI_init(SPI_InitConfig_t *cfg) {

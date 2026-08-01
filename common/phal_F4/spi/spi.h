@@ -17,7 +17,6 @@
 #include "common/phal_F4/gpio/gpio.h"
 #include "common/phal_F4/phal_F4.h"
 #include "common/phal_F4/rcc/rcc.h"
-#include "common_defs.h"
 
 /**
  * @brief Configuration entry for SPI initilization

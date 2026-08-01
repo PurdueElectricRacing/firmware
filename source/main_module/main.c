@@ -11,7 +11,6 @@
 #include "can_library/faults_common.h"
 #include "can_library/generated/MAIN_MODULE.h"
 #include "common/amk/amk.h"
-#include "common/common_defs/common_defs.h"
 #include "common/freertos/freertos.h"
 #include "common/heartbeat/heartbeat.h"
 #include "common/phal/can.h"

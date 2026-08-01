@@ -7,7 +7,6 @@
 #ifndef PHAL_G4_FDCAN_PRIV_H
 #define PHAL_G4_FDCAN_PRIV_H
 
-#include <stdbool.h>
 #include <stdint.h>
 
 #include "common/phal_G4/phal_G4.h"

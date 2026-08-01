@@ -22,7 +22,7 @@ var searchData=
   ['devicesizemul_19',['DeviceSizeMul',['../structSD__CSD.html#ac349ed1725e44755b3cedd7149d119c6',1,'SD_CSD']]],
   ['diagram_20',['Diagram',['../md_source_2a__box_2README.html#autotoc_md19',1,'Hardware Block Diagram'],['../md_source_2daq_2README.html#autotoc_md23',1,'Hardware Block Diagram'],['../md_source_2dashboard_2README.html#autotoc_md30',1,'Hardware Block Diagram'],['../md_source_2driveline_2README.html#autotoc_md33',1,'Hardware Block Diagram'],['../md_source_2main__module_2README.html#autotoc_md37',1,'Hardware Block Diagram'],['../md_source_2torque__vector_2README.html#autotoc_md46',1,'Hardware Block Diagram'],['../md_source_2daq_2README.html#autotoc_md24',1,'Software Timing Diagram']]],
   ['directory_20structure_21',['Directory Structure',['../md_README.html#autotoc_md1',1,'Directory Structure'],['../md_source_2daq_2README.html#autotoc_md22',1,'Directory Structure']]],
-  ['dlc_22',['DLC',['../structCanMsgTypeDef__t.html#a27de06238e18ccb41d49595c239c8e5e',1,'CanMsgTypeDef_t']]],
+  ['dlc_22',['DLC',['../structCanMsgTypeDef__t.html#a54fcfb1b9e4c743c50169c7d6fcafb45',1,'CanMsgTypeDef_t']]],
   ['dma_2ec_23',['dma.c',['../phal__F4_2dma_2dma_8c.html',1,'(Global Namespace)'],['../phal__G4_2dma_2dma_8c.html',1,'(Global Namespace)']]],
   ['dma_2eh_24',['dma.h',['../phal__F4_2dma_2dma_8h.html',1,'(Global Namespace)'],['../phal__G4_2dma_2dma_8h.html',1,'(Global Namespace)']]],
   ['dma_5fdirect_5fmode_5ferror_25',['dma_direct_mode_error',['../structusart__rx__errors__t.html#a13b923a938610d2d78e427ef979bacd2',1,'usart_rx_errors_t::dma_direct_mode_error'],['../structusart__tx__errors__t.html#a080c7f4052d8d5f9b744c7538ba835a5',1,'usart_tx_errors_t::dma_direct_mode_error']]],

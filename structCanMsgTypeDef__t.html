@@ -103,25 +103,47 @@ $(function(){initNavTree('structCanMsgTypeDef__t.html',''); initResizable(true);
   <div class="headertitle"><div class="title">CanMsgTypeDef_t Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Classic CAN frame.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="phal__F4_2can_2can_8h_source.html">can.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a27b82ae932da76206323ac8268b3f1e6" id="r_a27b82ae932da76206323ac8268b3f1e6"><td class="memItemLeft" align="right" valign="top">CAN_TypeDef *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27b82ae932da76206323ac8268b3f1e6">Bus</a></td></tr>
 <tr class="separator:a27b82ae932da76206323ac8268b3f1e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b77a8cc916e8ddd9a3619f0a30c8655" id="r_a6b77a8cc916e8ddd9a3619f0a30c8655"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b77a8cc916e8ddd9a3619f0a30c8655">StdId</a></td></tr>
-<tr class="separator:a6b77a8cc916e8ddd9a3619f0a30c8655"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a184c6e876770b9bc3a766986921cc35c" id="r_a184c6e876770b9bc3a766986921cc35c"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a184c6e876770b9bc3a766986921cc35c">ExtId</a></td></tr>
-<tr class="separator:a184c6e876770b9bc3a766986921cc35c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9dea647c93d4bef0e061c85ad3b5cfa0" id="r_a9dea647c93d4bef0e061c85ad3b5cfa0"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9dea647c93d4bef0e061c85ad3b5cfa0">IDE</a></td></tr>
-<tr class="separator:a9dea647c93d4bef0e061c85ad3b5cfa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27de06238e18ccb41d49595c239c8e5e" id="r_a27de06238e18ccb41d49595c239c8e5e"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27de06238e18ccb41d49595c239c8e5e">DLC</a></td></tr>
-<tr class="separator:a27de06238e18ccb41d49595c239c8e5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ef176b7cb7b77511a9c477ed03004b5" id="r_a8ef176b7cb7b77511a9c477ed03004b5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8ef176b7cb7b77511a9c477ed03004b5">IDE</a></td></tr>
+<tr class="separator:a8ef176b7cb7b77511a9c477ed03004b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae809b6d184ebfd93ece000b773b5e410" id="r_ae809b6d184ebfd93ece000b773b5e410"><td class="memItemLeft" ><a id="ae809b6d184ebfd93ece000b773b5e410" name="ae809b6d184ebfd93ece000b773b5e410"></a>
+union {&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a1568be8b5505ac6512ce7946048cb7" id="r_a1a1568be8b5505ac6512ce7946048cb7"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="#a6b77a8cc916e8ddd9a3619f0a30c8655">StdId</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a1a1568be8b5505ac6512ce7946048cb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e217b7114be37033cb3112850103601" id="r_a9e217b7114be37033cb3112850103601"><td class="memItemLeft" >&#160;&#160;&#160;uint32_t&#160;&#160;&#160;<a class="el" href="#a184c6e876770b9bc3a766986921cc35c">ExtId</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a9e217b7114be37033cb3112850103601"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae809b6d184ebfd93ece000b773b5e410" id="r_ae809b6d184ebfd93ece000b773b5e410"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom">&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:ae809b6d184ebfd93ece000b773b5e410"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54fcfb1b9e4c743c50169c7d6fcafb45" id="r_a54fcfb1b9e4c743c50169c7d6fcafb45"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54fcfb1b9e4c743c50169c7d6fcafb45">DLC</a></td></tr>
+<tr class="separator:a54fcfb1b9e4c743c50169c7d6fcafb45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d52afc8b4b2d41691788a27de382b78" id="r_a0d52afc8b4b2d41691788a27de382b78"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d52afc8b4b2d41691788a27de382b78">Data</a> [8]</td></tr>
 <tr class="separator:a0d52afc8b4b2d41691788a27de382b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4aa42f4d25313b588ecb4323723d2ef6" id="r_a4aa42f4d25313b588ecb4323723d2ef6"><td class="memItemLeft" align="right" valign="top">FDCAN_GlobalTypeDef *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4aa42f4d25313b588ecb4323723d2ef6">Bus</a></td></tr>
 <tr class="separator:a4aa42f4d25313b588ecb4323723d2ef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f39a27c186838c9533509f4031b9a64" id="r_a7f39a27c186838c9533509f4031b9a64"><td class="memItemLeft" ><a id="a7f39a27c186838c9533509f4031b9a64" name="a7f39a27c186838c9533509f4031b9a64"></a>
+union {&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a709aa4ce02a4da485090fed76aaf049d" id="r_a709aa4ce02a4da485090fed76aaf049d"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="#a6b77a8cc916e8ddd9a3619f0a30c8655">StdId</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a709aa4ce02a4da485090fed76aaf049d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac353bf1c903b23a77c4d71871b44525c" id="r_ac353bf1c903b23a77c4d71871b44525c"><td class="memItemLeft" >&#160;&#160;&#160;uint32_t&#160;&#160;&#160;<a class="el" href="#a184c6e876770b9bc3a766986921cc35c">ExtId</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:ac353bf1c903b23a77c4d71871b44525c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f39a27c186838c9533509f4031b9a64" id="r_a7f39a27c186838c9533509f4031b9a64"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom">&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a7f39a27c186838c9533509f4031b9a64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Classic CAN frame. </p>
+<p>used for both TX and RX. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="a27b82ae932da76206323ac8268b3f1e6" name="a27b82ae932da76206323ac8268b3f1e6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a27b82ae932da76206323ac8268b3f1e6">&#9670;&#160;</a></span>Bus <span class="overload">[1/2]</span></h2>
 
@@ -133,7 +155,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Specifies the bus. </p>
+<p>When RX - Bus = which peripheral the frame arrived on When TX - Bus = which peripheral should transmits it </p>
 
 </div>
 </div>
@@ -148,7 +170,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Specifies the bus. </p>
+<p>When RX - Bus = which peripheral the frame arrived on When TX - Bus = which peripheral should transmits it </p>
 
 </div>
 </div>
@@ -163,22 +185,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Contains the data to be transmitted. </p>
+<p>payload bytes </p>
 
 </div>
 </div>
-<a id="a27de06238e18ccb41d49595c239c8e5e" name="a27de06238e18ccb41d49595c239c8e5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27de06238e18ccb41d49595c239c8e5e">&#9670;&#160;</a></span>DLC</h2>
+<a id="a54fcfb1b9e4c743c50169c7d6fcafb45" name="a54fcfb1b9e4c743c50169c7d6fcafb45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54fcfb1b9e4c743c50169c7d6fcafb45">&#9670;&#160;</a></span>DLC</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t CanMsgTypeDef_t::DLC</td>
+          <td class="memname">uint8_t CanMsgTypeDef_t::DLC</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Specifies the length of the frame that will be transmitted. </p>
+<p>payload length, 0-8 </p>
 
 </div>
 </div>
@@ -193,23 +215,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Specifies the extended identifier. </p>
+<p>valid when IDE, 29-bit </p>
 
 </div>
 </div>
-<a id="a9dea647c93d4bef0e061c85ad3b5cfa0" name="a9dea647c93d4bef0e061c85ad3b5cfa0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9dea647c93d4bef0e061c85ad3b5cfa0">&#9670;&#160;</a></span>IDE</h2>
+<a id="a8ef176b7cb7b77511a9c477ed03004b5" name="a8ef176b7cb7b77511a9c477ed03004b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ef176b7cb7b77511a9c477ed03004b5">&#9670;&#160;</a></span>IDE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t CanMsgTypeDef_t::IDE</td>
+          <td class="memname">bool CanMsgTypeDef_t::IDE</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Specifies the type of identifier for the message that will be transmitted. <br  />
- </p>
+<p>true = extended ID, false = standard ID </p>
 
 </div>
 </div>
@@ -224,7 +245,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Specifies the standard identifier. </p>
+<p>valid when !IDE, 11-bit </p>
 
 </div>
 </div>

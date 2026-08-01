@@ -1,7 +1,7 @@
 var searchData=
 [
   ['id_20assignment_20scheme_0',['2026 AMK CAN ID Assignment Scheme',['../md_common_2amk_2README.html#autotoc_md56',1,'']]],
-  ['ide_1',['IDE',['../structCanMsgTypeDef__t.html#a9dea647c93d4bef0e061c85ad3b5cfa0',1,'CanMsgTypeDef_t']]],
+  ['ide_1',['IDE',['../structCanMsgTypeDef__t.html#a8ef176b7cb7b77511a9c477ed03004b5',1,'CanMsgTypeDef_t']]],
   ['idx_2',['idx',['../structPHAL__SD__Cmd__t.html#ae1119095bd6a8e4a24627b97fe818eaa',1,'PHAL_SD_Cmd_t']]],
   ['imu_2ec_3',['imu.c',['../imu_8c.html',1,'']]],
   ['imu_5fdata_5ft_4',['IMU_data_t',['../structIMU__data__t.html',1,'']]],

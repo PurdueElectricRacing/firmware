@@ -36,6 +36,8 @@ void HardFault_Handler();
 static void can_tx_100hz(void);
 static void can_rx_1khz(void);
 
+static uint32_t rx_count = 0;
+
 FREERTOS_DEFINE_TASK(can_tx_100hz, 10, TASK_PRIORITY_HIGH, 256);
 FREERTOS_DEFINE_TASK(can_rx_1khz, 1, TASK_PRIORITY_HIGH, 256);
 
@@ -77,6 +79,7 @@ int main() {
 }
 
 void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
+    rx_count++;
     if (xTaskGetSchedulerState() == taskSCHEDULER_RUNNING) {
         BaseType_t xHigherPriorityTaskWoken = 0;
         xQueueSendFromISR(q_can_rx, msg, &xHigherPriorityTaskWoken);
@@ -84,31 +87,31 @@ void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
     }
 }
 
-static void PHAL_FDCAN_testExtended(void) {
-    CanMsgTypeDef_t msg;
-    msg.Bus            = FDCAN2;
-    msg.IDE   = true;
-    msg.ExtId          = 0x1ABCDE0 + 1;
-    uint8_t payload[8] = {'E', 'X', 'T', 'I', 'D', '_', 'T', 'X'};
-    msg.DLC            = sizeof(payload);
-    memcpy(msg.Data, payload, sizeof(payload));
-    PHAL_FDCAN_send(&msg);
-}
-
-// static void PHAL_FDCAN_testStandard(void) {
+// static void PHAL_FDCAN_testExtended(void) {
 //     CanMsgTypeDef_t msg;
-//     msg.Bus            = FDCAN3;
-//     msg.IDE   = false;
-//     msg.StdId          = 0x300 + 4;
-//     uint8_t payload[8] = {'S', 'T', 'D', 'I', 'D', '_', 'T', 'X'};
+//     msg.Bus            = FDCAN2;
+//     msg.IDE   = true;
+//     msg.ExtId          = 0x1ABCDE0 + 1;
+//     uint8_t payload[8] = {'E', 'X', 'T', 'I', 'D', '_', 'T', 'X'};
 //     msg.DLC            = sizeof(payload);
 //     memcpy(msg.Data, payload, sizeof(payload));
 //     PHAL_FDCAN_send(&msg);
 // }
 
+static void PHAL_FDCAN_testStandard(void) {
+    CanMsgTypeDef_t msg;
+    msg.Bus            = FDCAN2;
+    msg.IDE   = false;
+    msg.StdId          = 0x300 + 4;
+    uint8_t payload[8] = {'S', 'T', 'D', 'I', 'D', '_', 'T', 'X'};
+    msg.DLC            = sizeof(payload);
+    memcpy(msg.Data, payload, sizeof(payload));
+    PHAL_FDCAN_send(&msg);
+}
+
 static void can_tx_100hz(void) {
-    // PHAL_FDCAN_testStandard();
-    PHAL_FDCAN_testExtended();
+    PHAL_FDCAN_testStandard();
+    // PHAL_FDCAN_testExtended();
 }
 
 volatile CanMsgTypeDef_t rx_frame_0;

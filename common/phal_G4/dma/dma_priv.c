@@ -90,3 +90,11 @@ uint32_t PHAL_DMA_priv_modeBits(dma_mode_t mode)
 
     return 0;   // Should never happen if mode is valid
 }
+
+void PHAL_DMA_priv_writeTxferLength(dma_init_t *dma, const uint32_t length) {
+    dma->channel->CNDTR = length;
+}
+
+void PHAL_DMA_priv_writeMemAddress(dma_init_t *dma, const uint32_t address) {
+    dma->channel->CMAR = address;
+}

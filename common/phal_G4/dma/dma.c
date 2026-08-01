@@ -46,16 +46,14 @@ void PHAL_DMA_stopTxfer(dma_init_t *dma) {
 }
 
 void PHAL_DMA_reEnable(dma_init_t *dma) {
-    // Clear any stream dedicated status flags that may have been set previously
-    dma->periph->IFCR = (DMA_ISR_GIF1 | DMA_ISR_TCIF1 | DMA_ISR_HTIF1 | DMA_ISR_TEIF1)
-        << (4 * (dma->channel_idx - 1));
-    dma->channel->CCR |= DMA_CCR_EN;
+    PHAL_DMA_priv_clearFlags(dma->periph, dma->channel_idx);
+    PHAL_DMA_priv_enableStream(dma->channel);
 }
 
 void PHAL_DMA_setMemAddress(dma_init_t *dma, const uint32_t address) {
-    dma->channel->CMAR = address;
+    PHAL_DMA_priv_writeMemAddress(dma, address);
 }
 
 void PHAL_DMA_setTxferLength(dma_init_t *dma, const uint32_t length) {
-    dma->channel->CNDTR = length; // Set number of data to transfer
+    PHAL_DMA_priv_writeTxferLength(dma, length);
 }

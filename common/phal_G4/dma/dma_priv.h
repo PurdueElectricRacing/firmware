@@ -16,3 +16,5 @@
  void PHAL_DMA_priv_configMUX(dma_init_t *dma);
  void PHAL_DMA_priv_setPeriphAddress(dma_init_t *dma);
  uint32_t PHAL_DMA_priv_modeBits(dma_mode_t mode);
+ void PHAL_DMA_priv_writeTxferLength(dma_init_t *dma, const uint32_t length);
+ void PHAL_DMA_priv_writeMemAddress(dma_init_t *dma, const uint32_t address);

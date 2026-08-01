@@ -4,8 +4,8 @@
  * @author Millan Kumar (kumar798@purdue.edu)
  */
 
-#ifndef __PHAL_G4_FDCAN_H__
-#define __PHAL_G4_FDCAN_H__
+#ifndef PHAL_G4_FDCAN_H
+#define PHAL_G4_FDCAN_H
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -218,4 +218,4 @@ extern void PHAL_FDCAN_txCallback(FDCAN_GlobalTypeDef *fdcan);
                  GPIO_OUTPUT_PUSH_PULL, \
                  GPIO_INPUT_OPEN_DRAIN)
 
-#endif // __PHAL_G4_FDCAN_H__
+#endif // PHAL_G4_FDCAN_H

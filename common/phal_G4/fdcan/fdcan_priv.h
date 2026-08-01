@@ -4,8 +4,8 @@
  * @author Millan Kumar (kumar798@purdue.edu)
  */
 
-#ifndef __PHAL_G4_FDCAN_PRIV_H__
-#define __PHAL_G4_FDCAN_PRIV_H__
+#ifndef PHAL_G4_FDCAN_PRIV_H
+#define PHAL_G4_FDCAN_PRIV_H
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -133,4 +133,4 @@ bool PHAL_FDCAN_priv_readTransmitCompleteInterruptFlag(FDCAN_GlobalTypeDef *fdca
 /// Clear the TX complete interrupt flag
 void PHAL_FDCAN_priv_clearTransmitCompleteInterruptFlag(FDCAN_GlobalTypeDef *fdcan);
 
-#endif // __PHAL_G4_FDCAN_PRIV_H__
+#endif // PHAL_G4_FDCAN_PRIV_H

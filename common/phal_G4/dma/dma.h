@@ -143,20 +143,5 @@ uint8_t PHAL_DMA_getChannelIdx(PHAL_DMA_Handle_t *handle);
  */
 void PHAL_DMA_setMemInc(PHAL_DMA_Handle_t *handle, bool mem_inc);
 
-/**
- * @brief Weak callback for when a channel's transfer completes
- * 
- * Called from DMAx_ChannelY_IRQHandler. Override in application code.
- * Default implementation does nothing.
- */
-extern void PHAL_DMA_txCompleteCallback(DMA_TypeDef *periph, uint8_t channel_idx);
-
-/**
- * @brief Weak callback for when a channel reports a transfer error
- *
- * Called from DMAx_ChannelY_IRQHandler. Override in application code.
- * Default implementation does nothing.
- */
-extern void PHAL_DMA_txErrorCallback(DMA_TypeDef *periph, uint8_t channel_idx);
 
 #endif // PHAL_G4_DMA_H

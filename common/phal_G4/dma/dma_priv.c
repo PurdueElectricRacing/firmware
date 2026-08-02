@@ -78,17 +78,12 @@ void PHAL_DMA_priv_setPeriphAddress(dma_init_t *dma) {
 uint32_t PHAL_DMA_priv_modeBits(dma_mode_t mode)
 {
     switch (mode) {
-    case DMA_MODE_NORMAL:
-        return 0;
-
-    case DMA_MODE_CIRCULAR:
-        return DMA_CCR_CIRC;
-
-    case DMA_MODE_MEM2MEM:
-        return DMA_CCR_MEM2MEM;
+        case DMA_MODE_NORMAL:   return 0;
+        case DMA_MODE_CIRCULAR: return DMA_CCR_CIRC;
+        case DMA_MODE_MEM2MEM:  return DMA_CCR_MEM2MEM;
+        default:
+            __builtin_trap();
     }
-
-    return 0;   // Should never happen if mode is valid
 }
 
 void PHAL_DMA_priv_writeTxferLength(dma_init_t *dma, const uint32_t length) {

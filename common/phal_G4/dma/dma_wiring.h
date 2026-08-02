@@ -96,8 +96,8 @@ static const PHAL_DMA_Wiring_t USART1_TX_DMA_WIRING = {
 static const PHAL_DMA_Wiring_t USART2_RX_DMA_WIRING = {
     .periph      = DMA1,
     .channel_idx = 3,
-    .mux_request = DMA_REQUEST_USART1_RX,
-    .periph_reg  = &USART1->RDR,
+    .mux_request = DMA_REQUEST_USART2_RX,
+    .periph_reg  = &USART2->RDR,
     .dir         = DMA_PERIPH_TO_MEMORY,
     .data_size   = DMA_SIZE_8BIT,
 };
@@ -105,8 +105,8 @@ static const PHAL_DMA_Wiring_t USART2_RX_DMA_WIRING = {
 static const PHAL_DMA_Wiring_t USART2_TX_DMA_WIRING = {
     .periph      = DMA1,
     .channel_idx = 4,
-    .mux_request = DMA_REQUEST_USART1_TX,
-    .periph_reg  = &USART1->TDR,
+    .mux_request = DMA_REQUEST_USART2_TX,
+    .periph_reg  = &USART2->TDR,
     .dir         = DMA_MEMORY_TO_PERIPH,
     .data_size   = DMA_SIZE_8BIT,
 };
@@ -114,8 +114,8 @@ static const PHAL_DMA_Wiring_t USART2_TX_DMA_WIRING = {
 static const PHAL_DMA_Wiring_t USART3_RX_DMA_WIRING = {
     .periph      = DMA1,
     .channel_idx = 1,
-    .mux_request = DMA_REQUEST_USART1_RX,
-    .periph_reg  = &USART1->RDR,
+    .mux_request = DMA_REQUEST_USART3_RX,
+    .periph_reg  = &USART3->RDR,
     .dir         = DMA_PERIPH_TO_MEMORY,
     .data_size   = DMA_SIZE_8BIT,
 };
@@ -123,8 +123,8 @@ static const PHAL_DMA_Wiring_t USART3_RX_DMA_WIRING = {
 static const PHAL_DMA_Wiring_t USART3_TX_DMA_WIRING = {
     .periph      = DMA1,
     .channel_idx = 2,
-    .mux_request = DMA_REQUEST_USART1_TX,
-    .periph_reg  = &USART1->TDR,
+    .mux_request = DMA_REQUEST_USART3_TX,
+    .periph_reg  = &USART3->TDR,
     .dir         = DMA_MEMORY_TO_PERIPH,
     .data_size   = DMA_SIZE_8BIT,
 };

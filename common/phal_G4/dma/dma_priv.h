@@ -2,10 +2,12 @@
  * @file dma_priv.h
  * @brief G4 DMA Peripheral private/register level implementation 
  * @author Shriya Balu (balu@purdue.edu) 
- * 
  */
 
- #include "common/phal_G4/dma/dma.h"
+#ifndef PHAL_G4_DMA_PRIV_H
+#define PHAL_G4_DMA_PRIV_H
+
+#include "common/phal_G4/dma/dma.h"
 
 /// Enable the clock for the selected DMA peripheral
 void PHAL_DMA_priv_enableClock(dma_init_t *dma);
@@ -39,3 +41,5 @@ void PHAL_DMA_priv_writeTxferLength(dma_init_t *dma, const uint32_t length);
 
 /// Write the memory address to the DMA channel
 void PHAL_DMA_priv_writeMemAddress(dma_init_t *dma, const uint32_t address);
+
+#endif // PHAL_G4_DMA_PRIV_H

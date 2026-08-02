@@ -1,0 +1,11 @@
+<map id="PHAL_DMA_priv_enableClock" name="PHAL_DMA_priv_enableClock">
+<area shape="rect" id="Node000001" title="Enable DMAMUX1&#39;s clock plus the given DMA peripheral&#39;s clock." alt="" coords="345,55,544,80"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2dma_2dma_8c.html#a44be3f4d5e3f90d9fa73d1b808185d53" title="Claim a DMA channel and configure it from handle&#45;&gt;wiring and handle&#45;&gt;params." alt="" coords="180,55,297,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="329,70,297,70,297,65,329,65"/>
+<area shape="rect" id="Node000003" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="44,5,93,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="176,52,93,28,95,23,178,47"/>
+<area shape="rect" id="Node000004" href="$common_2phal__G4_2usart_2usart_8c.html#a1e13f03e291a90dcd93ffccf1b8edf65" title="Initializes a USART peripheral on an STM32G4 microcontroller." alt="" coords="5,55,132,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="164,70,132,70,132,65,164,65"/>
+<area shape="rect" id="Node000005" href="$common_2phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="13,104,124,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="178,88,116,106,115,101,176,83"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="PHAL_DMA_setMemInc" name="PHAL_DMA_setMemInc">
+<area shape="rect" id="Node000001" title="Set whether the memory address increments after each transfer and rebuild the channel configuration." alt="" coords="191,5,356,31"/>
+<area shape="rect" id="Node000002" href="$common_2phal__G4_2spi_2spi_8c.html#ab9da5be05aad59873975238094d15b27" title=" " alt="" coords="5,5,143,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,21,143,21,143,16,175,16"/>
+</map>

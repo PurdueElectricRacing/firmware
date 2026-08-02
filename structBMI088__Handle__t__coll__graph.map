@@ -1,9 +1,15 @@
 <map id="BMI088_Handle_t" name="BMI088_Handle_t">
-<area shape="rect" id="Node000001" title=" " alt="" coords="64,198,190,223"/>
-<area shape="rect" id="Node000002" href="$structSPI__InitConfig__t.html" title="Configuration entry for SPI initilization." alt="" coords="5,109,121,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,145,120,196,116,199,79,149"/>
-<area shape="rect" id="Node000003" href="$structdma__init__t.html" title=" " alt="" coords="22,5,104,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="66,47,66,109,60,109,60,47"/>
-<area shape="rect" id="Node000004" href="$structIMU__data__t.html" title=" " alt="" coords="145,109,234,135"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="174,149,138,199,133,196,170,146"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="98,286,223,312"/>
+<area shape="rect" id="Node000002" href="$structSPI__InitConfig__t.html" title="Configuration entry for SPI initilization." alt="" coords="39,198,154,223"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,234,154,284,150,288,112,237"/>
+<area shape="rect" id="Node000003" href="$structdma__init__t.html" title=" " alt="" coords="5,94,87,120"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="55,134,70,172,88,196,83,199,66,175,50,136"/>
+<area shape="rect" id="Node000004" href="$structPHAL__DMA__Handle__t.html" title="A configured DMA transfer: fixed wiring + chosen parameters." alt="" coords="111,94,264,120"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="173,134,140,175,114,199,111,195,136,172,169,131"/>
+<area shape="rect" id="Node000005" href="$structPHAL__DMA__Wiring__t.html" title="Fixed hardware wiring for one peripheral + direction&#39;s DMA use." alt="" coords="26,5,173,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="124,40,177,92,173,96,120,44"/>
+<area shape="rect" id="Node000006" href="$structPHAL__DMA__Params__t.html" title="Per&#45;transfer parameters (user can configure)" alt="" coords="197,5,354,31"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="254,44,201,96,198,92,251,40"/>
+<area shape="rect" id="Node000007" href="$structIMU__data__t.html" title=" " alt="" coords="179,198,268,223"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="208,238,171,288,167,284,203,235"/>
 </map>

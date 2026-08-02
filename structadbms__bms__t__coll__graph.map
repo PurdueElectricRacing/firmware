@@ -1,11 +1,17 @@
 <map id="adbms_bms_t" name="adbms_bms_t">
-<area shape="rect" id="Node000001" title="Top&#45;level ADBMS driver state, I/O buffers, measurements, and error flags." alt="" coords="155,198,258,223"/>
-<area shape="rect" id="Node000002" href="$structadbms__module__t.html" title="Per&#45;ADBMS module measurements, config, and error flags." alt="" coords="5,109,126,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,141,188,195,186,199,97,145"/>
-<area shape="rect" id="Node000003" href="$structSPI__InitConfig__t.html" title="Configuration entry for SPI initilization." alt="" coords="149,109,264,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="210,150,210,197,204,197,204,150"/>
-<area shape="rect" id="Node000004" href="$structdma__init__t.html" title=" " alt="" coords="166,5,248,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="210,47,210,109,204,109,204,47"/>
-<area shape="rect" id="Node000005" href="$structstrbuf__t.html" title=" " alt="" coords="289,109,354,135"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="295,146,225,199,221,195,292,142"/>
+<area shape="rect" id="Node000001" title="Top&#45;level ADBMS driver state, I/O buffers, measurements, and error flags." alt="" coords="155,286,258,312"/>
+<area shape="rect" id="Node000002" href="$structadbms__module__t.html" title="Per&#45;ADBMS module measurements, config, and error flags." alt="" coords="5,198,126,223"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,229,188,283,186,288,97,234"/>
+<area shape="rect" id="Node000003" href="$structSPI__InitConfig__t.html" title="Configuration entry for SPI initilization." alt="" coords="149,198,264,223"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="210,239,210,286,204,286,204,239"/>
+<area shape="rect" id="Node000004" href="$structdma__init__t.html" title=" " alt="" coords="105,94,186,120"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="154,134,170,172,192,195,188,199,165,175,149,136"/>
+<area shape="rect" id="Node000005" href="$structPHAL__DMA__Handle__t.html" title="A configured DMA transfer: fixed wiring + chosen parameters." alt="" coords="211,94,363,120"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="271,134,240,175,219,199,215,196,235,172,267,131"/>
+<area shape="rect" id="Node000006" href="$structPHAL__DMA__Wiring__t.html" title="Fixed hardware wiring for one peripheral + direction&#39;s DMA use." alt="" coords="125,5,272,31"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="224,40,277,92,273,96,220,44"/>
+<area shape="rect" id="Node000007" href="$structPHAL__DMA__Params__t.html" title="Per&#45;transfer parameters (user can configure)" alt="" coords="297,5,453,31"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="354,44,301,96,297,92,350,40"/>
+<area shape="rect" id="Node000008" href="$structstrbuf__t.html" title=" " alt="" coords="289,198,354,223"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="295,235,225,288,221,284,292,231"/>
 </map>

@@ -1,0 +1,13 @@
+<map id="PHAL_DMA_priv_setMemAddress" name="PHAL_DMA_priv_setMemAddress">
+<area shape="rect" id="Node000001" title="Write the memory&#45;side address (CMAR)" alt="" coords="423,80,646,106"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2dma_2dma_8c.html#a44be3f4d5e3f90d9fa73d1b808185d53" title="Claim a DMA channel and configure it from handle&#45;&gt;wiring and handle&#45;&gt;params." alt="" coords="219,55,336,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="407,83,336,76,337,71,408,78"/>
+<area shape="rect" id="Node000006" href="$phal__G4_2dma_2dma_8c.html#a9eb43b945a57050823579c2ec84d4ba5" title="Change the memory address for the next transfer." alt="" coords="180,104,375,130"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="407,107,376,110,375,105,407,102"/>
+<area shape="rect" id="Node000003" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="44,5,93,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="205,53,93,26,94,21,206,48"/>
+<area shape="rect" id="Node000004" href="$common_2phal__G4_2usart_2usart_8c.html#a1e13f03e291a90dcd93ffccf1b8edf65" title="Initializes a USART peripheral on an STM32G4 microcontroller." alt="" coords="5,55,132,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="203,70,132,70,132,65,203,65"/>
+<area shape="rect" id="Node000005" href="$common_2phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="13,104,124,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="206,87,125,106,124,101,204,82"/>
+</map>

@@ -1,0 +1,13 @@
+<map id="dma_channel_claim_slot" name="dma_channel_claim_slot">
+<area shape="rect" id="Node000001" title=" " alt="" coords="359,31,523,56"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2dma_2dma_8c.html#ae95c78d15b5cc38fc0d8efcc006c7106" title="Disable the channel and release its claim so another handle can use the periph/channel_idx afterward." alt="" coords="180,5,311,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="343,33,311,29,312,24,344,28"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2dma_2dma_8c.html#a44be3f4d5e3f90d9fa73d1b808185d53" title="Claim a DMA channel and configure it from handle&#45;&gt;wiring and handle&#45;&gt;params." alt="" coords="187,55,304,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="344,58,305,63,304,58,343,53"/>
+<area shape="rect" id="Node000004" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="44,5,93,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="181,52,93,27,94,22,183,47"/>
+<area shape="rect" id="Node000005" href="$common_2phal__G4_2usart_2usart_8c.html#a1e13f03e291a90dcd93ffccf1b8edf65" title="Initializes a USART peripheral on an STM32G4 microcontroller." alt="" coords="5,55,132,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="171,70,132,70,132,65,171,65"/>
+<area shape="rect" id="Node000006" href="$common_2phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="13,104,124,130"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="183,88,118,106,117,101,181,82"/>
+</map>

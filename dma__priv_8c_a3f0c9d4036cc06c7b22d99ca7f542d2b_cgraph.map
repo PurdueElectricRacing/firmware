@@ -1,0 +1,5 @@
+<map id="PHAL_DMA_priv_configChannel" name="PHAL_DMA_priv_configChannel">
+<area shape="rect" id="Node000001" title="Configure CCR (data sizes, priority, increment modes, mode, ISR enables) from wiring+params." alt="" coords="5,5,215,31"/>
+<area shape="rect" id="Node000002" href="$dma__priv_8c.html#a3ee5d0a2c1258bd0a664abd82aa1f60e" title=" " alt="" coords="263,5,339,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="215,16,247,16,247,21,215,21"/>
+</map>

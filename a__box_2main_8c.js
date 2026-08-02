@@ -15,7 +15,7 @@ var a__box_2main_8c =
     [ "adc1_dma_buffer", "a__box_2main_8c.html#ae25b2d4ee7535b3161795c5914bbd1d1", null ],
     [ "adc_channel_config", "a__box_2main_8c.html#a900ff7ac22bd3d9e8566f23458355b34", null ],
     [ "adc_config", "a__box_2main_8c.html#a6af434e991280036f038f6db015e26f9", null ],
-    [ "adc_dma_config", "a__box_2main_8c.html#aed595ebe33fb020bde82d6a1bcca6052", null ],
+    [ "adc_dma_config", "a__box_2main_8c.html#a80205baceacda4546612ae5eba0a6ece", null ],
     [ "bms_spi_config", "a__box_2main_8c.html#ad139ebffcf7f11feddfec40191b40aef", null ],
     [ "g_bms", "a__box_2main_8c.html#a54910fb29db8c9eac2409cc73cc828c5", null ],
     [ "g_bms_tx_buf", "a__box_2main_8c.html#a99b892b6086d375bba69c6a4985b3262", null ],

@@ -11,7 +11,7 @@ var torque__vector_2main_8c =
     [ "main", "torque__vector_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe", null ],
     [ "gpio_config", "torque__vector_2main_8c.html#a60563c6df24a123ae18e090bca85f555", null ],
     [ "GPS_BAUD_RATE", "torque__vector_2main_8c.html#a446cf1f11ef577601271779d15f827f8", null ],
-    [ "rover_rx_dma_config", "torque__vector_2main_8c.html#a234e9400810f03d0d93399841bef5fab", null ],
-    [ "rover_tx_dma_config", "torque__vector_2main_8c.html#a291ebde75dfbcaa1c7330dc473450812", null ],
+    [ "rover_rx_dma", "torque__vector_2main_8c.html#a4b3673654def5388e27fa649ec1d2d57", null ],
+    [ "rover_tx_dma", "torque__vector_2main_8c.html#aaf5f93d989135907a21a4004d38eb19e", null ],
     [ "usart3", "torque__vector_2main_8c.html#a7f2e2f846b93d9e8a93eb0cd40c13638", null ]
 ];

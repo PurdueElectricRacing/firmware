@@ -1,0 +1,17 @@
+<map id="modeBits" name="modeBits">
+<area shape="rect" id="Node000001" title=" " alt="" coords="661,105,738,131"/>
+<area shape="rect" id="Node000002" href="$dma__priv_8c.html#a3f0c9d4036cc06c7b22d99ca7f542d2b" title="Configure CCR (data sizes, priority, increment modes, mode, ISR enables) from wiring+params." alt="" coords="404,105,613,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="646,121,614,121,614,116,646,116"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2dma_2dma_8c.html#a44be3f4d5e3f90d9fa73d1b808185d53" title="Claim a DMA channel and configure it from handle&#45;&gt;wiring and handle&#45;&gt;params." alt="" coords="215,68,332,94"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="408,105,332,93,333,87,409,100"/>
+<area shape="rect" id="Node000007" href="$phal__G4_2dma_2dma_8c.html#a49368bc3e4395c69ec2fae7db5551b68" title="Set whether the memory address increments after each transfer and rebuild the channel configuration." alt="" coords="191,129,356,155"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="389,133,357,136,356,131,388,128"/>
+<area shape="rect" id="Node000004" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="49,5,99,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="215,65,98,28,100,23,216,60"/>
+<area shape="rect" id="Node000005" href="$common_2phal__G4_2usart_2usart_8c.html#a1e13f03e291a90dcd93ffccf1b8edf65" title="Initializes a USART peripheral on an STM32G4 microcontroller." alt="" coords="11,55,137,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="199,79,137,74,138,69,199,73"/>
+<area shape="rect" id="Node000006" href="$common_2phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="19,104,129,130"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="200,97,130,109,129,104,199,92"/>
+<area shape="rect" id="Node000008" href="$common_2phal__G4_2spi_2spi_8c.html#ab9da5be05aad59873975238094d15b27" title=" " alt="" coords="5,153,143,179"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="176,157,143,161,142,155,175,151"/>
+</map>

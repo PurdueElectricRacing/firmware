@@ -1,7 +1,13 @@
 <map id="handleTxComplete" name="handleTxComplete">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,134,56"/>
-<area shape="rect" id="Node000002" href="$phal__F4_2dma_2dma_8c.html#a31d09afa5679cb34c0c776051450e62a" title=" " alt="" coords="185,5,304,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,32,170,26,170,32,134,37"/>
-<area shape="rect" id="Node000003" href="$phal__F4_2gpio_2gpio_8h.html#a67db851520637ffa4de5968c9730220b" title="Write a logic value to an output pin." alt="" coords="182,55,307,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="134,50,166,54,166,59,134,55"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,80,134,106"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2dma_2dma_8c.html#a536791c4fb7895e2c7a118bea07e0ca1" title="Get the channel number (1&#45;8) for a given handle." alt="" coords="182,5,364,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,77,181,40,200,33,202,38,183,45,98,82"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2dma_2dma_8c.html#a587d74a4667a9047e033a39a3a2bb11a" title="Get the DMA peripheral (DMA1 or DMA2) for a given handle." alt="" coords="195,55,350,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="134,82,179,76,180,82,135,87"/>
+<area shape="rect" id="Node000004" href="$phal__G4_2dma_2dma_8c.html#a11e3f2f9fb30872d1d48264d91d614e7" title="Disable the channel, stopping the transfer immediately." alt="" coords="210,104,336,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="135,98,195,105,195,110,134,103"/>
+<area shape="rect" id="Node000006" href="$phal__F4_2gpio_2gpio_8h.html#a67db851520637ffa4de5968c9730220b" title="Write a logic value to an output pin." alt="" coords="210,153,336,179"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="99,104,183,140,202,146,200,151,181,145,97,109"/>
+<area shape="rect" id="Node000005" href="$dma__priv_8c.html#a5120208650c6c1774fe79c46127ea4c2" title="Disable a channel and block until hardware confirms it is off." alt="" coords="412,104,628,130"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="336,114,396,114,396,120,336,120"/>
 </map>

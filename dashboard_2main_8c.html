@@ -167,12 +167,12 @@ Variables</h2></td></tr>
 <tr class="separator:a900ff7ac22bd3d9e8566f23458355b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29bc293670e53a11d854f35bca555254" id="r_a29bc293670e53a11d854f35bca555254"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structraw__adc__values__t.html">raw_adc_values_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a29bc293670e53a11d854f35bca555254">raw_adc_values</a></td></tr>
 <tr class="separator:a29bc293670e53a11d854f35bca555254"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed595ebe33fb020bde82d6a1bcca6052" id="r_aed595ebe33fb020bde82d6a1bcca6052"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed595ebe33fb020bde82d6a1bcca6052">adc_dma_config</a></td></tr>
-<tr class="separator:aed595ebe33fb020bde82d6a1bcca6052"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f94964a4032ad7e8b644485a417b00f" id="r_a1f94964a4032ad7e8b644485a417b00f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f94964a4032ad7e8b644485a417b00f">usart_tx_dma_config</a> = <a class="el" href="phal__F4_2usart_2usart_8h.html#a207e6b60144d3609a73c96b42bfa3c1c">USART1_TXDMA_CONT_CONFIG</a>(NULL, 1)</td></tr>
-<tr class="separator:a1f94964a4032ad7e8b644485a417b00f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5e5c5f93446e92415dfe222fd3d0e6e" id="r_ab5e5c5f93446e92415dfe222fd3d0e6e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5e5c5f93446e92415dfe222fd3d0e6e">usart_rx_dma_config</a> = <a class="el" href="phal__F4_2usart_2usart_8h.html#aa2fb89650553d0f56438cc55669ed014">USART1_RXDMA_CONT_CONFIG</a>(NULL, 2)</td></tr>
-<tr class="separator:ab5e5c5f93446e92415dfe222fd3d0e6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80205baceacda4546612ae5eba0a6ece" id="r_a80205baceacda4546612ae5eba0a6ece"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPHAL__DMA__Handle__t.html">PHAL_DMA_Handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80205baceacda4546612ae5eba0a6ece">adc_dma_config</a></td></tr>
+<tr class="separator:a80205baceacda4546612ae5eba0a6ece"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb19612e985af8371e6f0f3fc743f971" id="r_acb19612e985af8371e6f0f3fc743f971"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPHAL__DMA__Handle__t.html">PHAL_DMA_Handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb19612e985af8371e6f0f3fc743f971">usart_tx_dma</a></td></tr>
+<tr class="separator:acb19612e985af8371e6f0f3fc743f971"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d7164971d7bf5c02e2f97ba69dfe60d" id="r_a8d7164971d7bf5c02e2f97ba69dfe60d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPHAL__DMA__Handle__t.html">PHAL_DMA_Handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d7164971d7bf5c02e2f97ba69dfe60d">usart_rx_dma</a></td></tr>
+<tr class="separator:a8d7164971d7bf5c02e2f97ba69dfe60d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf94e19caf3951d83556041d6f54d7e6" id="r_abf94e19caf3951d83556041d6f54d7e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structusart__init__t.html">usart_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf94e19caf3951d83556041d6f54d7e6">lcd</a></td></tr>
 <tr class="separator:abf94e19caf3951d83556041d6f54d7e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -523,25 +523,32 @@ Here is the call graph for this function:</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="aed595ebe33fb020bde82d6a1bcca6052" name="aed595ebe33fb020bde82d6a1bcca6052"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed595ebe33fb020bde82d6a1bcca6052">&#9670;&#160;</a></span>adc_dma_config</h2>
+<a id="a80205baceacda4546612ae5eba0a6ece" name="a80205baceacda4546612ae5eba0a6ece"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80205baceacda4546612ae5eba0a6ece">&#9670;&#160;</a></span>adc_dma_config</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> adc_dma_config</td>
+          <td class="memname"><a class="el" href="structPHAL__DMA__Handle__t.html">PHAL_DMA_Handle_t</a> adc_dma_config</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line"><a class="code hl_define" href="phal__F4_2adc_2adc_8h.html#a9bf789bb8843fa4ab14a8f71510b8868">ADC1_DMA_CONT_CONFIG</a>(</div>
-<div class="line">    (uint32_t)&amp;<a class="code hl_variable" href="#a29bc293670e53a11d854f35bca555254">raw_adc_values</a>,</div>
-<div class="line">    <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a29bc293670e53a11d854f35bca555254">raw_adc_values</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a29bc293670e53a11d854f35bca555254">raw_adc_values</a>.<a class="code hl_variable" href="structraw__adc__values__t.html#ad32d5b00639358f7787ea7aea5378a43">throttle1</a>), 0b01</div>
-<div class="line">)</div>
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .wiring = &amp;<a class="code hl_variable" href="dma__wiring_8h.html#a51c3230d7e90389602ccd9497e297b10">ADC1_DMA_WIRING</a>,</div>
+<div class="line">    .params = {</div>
+<div class="line">        .mem_addr  = (uint32_t)&amp;<a class="code hl_variable" href="#a29bc293670e53a11d854f35bca555254">raw_adc_values</a>,</div>
+<div class="line">        .tx_size   = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a29bc293670e53a11d854f35bca555254">raw_adc_values</a>) / <span class="keyword">sizeof</span>(uint16_t),</div>
+<div class="line">        .priority  = <a class="code hl_enumvalue" href="phal__G4_2dma_2dma_8h.html#add384422e2edbc33e683b72d9a241594a9f5a4768d89b1a1fb7439907ceba6c76">DMA_PRIORITY_HIGH</a>,</div>
+<div class="line">        .mode      = <a class="code hl_enumvalue" href="phal__G4_2dma_2dma_8h.html#a86c80a85f36932193bad2d032cff626ea0541b0c83083cd2c18ba14900f338368">DMA_MODE_CIRCULAR</a>,</div>
+<div class="line">        .mem_inc   = <span class="keyword">true</span>,</div>
+<div class="line">        .tx_isr_en = <span class="keyword">false</span>,</div>
+<div class="line">    },</div>
+<div class="line">}</div>
 <div class="ttc" id="adashboard_2main_8c_html_a29bc293670e53a11d854f35bca555254"><div class="ttname"><a href="#a29bc293670e53a11d854f35bca555254">raw_adc_values</a></div><div class="ttdeci">volatile raw_adc_values_t raw_adc_values</div><div class="ttdef"><b>Definition</b> main.c:110</div></div>
-<div class="ttc" id="aphal__F4_2adc_2adc_8h_html_a9bf789bb8843fa4ab14a8f71510b8868"><div class="ttname"><a href="phal__F4_2adc_2adc_8h.html#a9bf789bb8843fa4ab14a8f71510b8868">ADC1_DMA_CONT_CONFIG</a></div><div class="ttdeci">#define ADC1_DMA_CONT_CONFIG(mem_addr_, tx_size_, priority_)</div><div class="ttdef"><b>Definition</b> adc.h:66</div></div>
-<div class="ttc" id="astructraw__adc__values__t_html_ad32d5b00639358f7787ea7aea5378a43"><div class="ttname"><a href="structraw__adc__values__t.html#ad32d5b00639358f7787ea7aea5378a43">raw_adc_values_t::throttle1</a></div><div class="ttdeci">uint16_t throttle1</div><div class="ttdef"><b>Definition</b> main.h:17</div></div>
+<div class="ttc" id="adma__wiring_8h_html_a51c3230d7e90389602ccd9497e297b10"><div class="ttname"><a href="dma__wiring_8h.html#a51c3230d7e90389602ccd9497e297b10">ADC1_DMA_WIRING</a></div><div class="ttdeci">static const PHAL_DMA_Wiring_t ADC1_DMA_WIRING</div><div class="ttdef"><b>Definition</b> dma_wiring.h:192</div></div>
+<div class="ttc" id="aphal__G4_2dma_2dma_8h_html_a86c80a85f36932193bad2d032cff626ea0541b0c83083cd2c18ba14900f338368"><div class="ttname"><a href="phal__G4_2dma_2dma_8h.html#a86c80a85f36932193bad2d032cff626ea0541b0c83083cd2c18ba14900f338368">DMA_MODE_CIRCULAR</a></div><div class="ttdeci">@ DMA_MODE_CIRCULAR</div><div class="ttdef"><b>Definition</b> dma.h:28</div></div>
+<div class="ttc" id="aphal__G4_2dma_2dma_8h_html_add384422e2edbc33e683b72d9a241594a9f5a4768d89b1a1fb7439907ceba6c76"><div class="ttname"><a href="phal__G4_2dma_2dma_8h.html#add384422e2edbc33e683b72d9a241594a9f5a4768d89b1a1fb7439907ceba6c76">DMA_PRIORITY_HIGH</a></div><div class="ttdeci">@ DMA_PRIORITY_HIGH</div><div class="ttdef"><b>Definition</b> dma.h:21</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -581,11 +588,11 @@ Here is the call graph for this function:</div>
 <div class="line">    .periph           = USART1,</div>
 <div class="line">    .wake_addr        = <span class="keyword">false</span>,</div>
 <div class="line">    .usart_active_num = <a class="code hl_define" href="phal__G4_2usart_2usart_8h.html#a5e5a0ec370741e7f284f0557ee477c82">USART1_ACTIVE_IDX</a>,</div>
-<div class="line">    .tx_dma_cfg       = &amp;<a class="code hl_variable" href="#a1f94964a4032ad7e8b644485a417b00f">usart_tx_dma_config</a>,</div>
-<div class="line">    .rx_dma_cfg       = &amp;<a class="code hl_variable" href="#ab5e5c5f93446e92415dfe222fd3d0e6e">usart_rx_dma_config</a>,</div>
+<div class="line">    .tx_dma           = &amp;<a class="code hl_variable" href="#acb19612e985af8371e6f0f3fc743f971">usart_tx_dma</a>,</div>
+<div class="line">    .rx_dma           = &amp;<a class="code hl_variable" href="#a8d7164971d7bf5c02e2f97ba69dfe60d">usart_rx_dma</a>,</div>
 <div class="line">}</div>
-<div class="ttc" id="adashboard_2main_8c_html_a1f94964a4032ad7e8b644485a417b00f"><div class="ttname"><a href="#a1f94964a4032ad7e8b644485a417b00f">usart_tx_dma_config</a></div><div class="ttdeci">dma_init_t usart_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:119</div></div>
-<div class="ttc" id="adashboard_2main_8c_html_ab5e5c5f93446e92415dfe222fd3d0e6e"><div class="ttname"><a href="#ab5e5c5f93446e92415dfe222fd3d0e6e">usart_rx_dma_config</a></div><div class="ttdeci">dma_init_t usart_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:120</div></div>
+<div class="ttc" id="adashboard_2main_8c_html_a8d7164971d7bf5c02e2f97ba69dfe60d"><div class="ttname"><a href="#a8d7164971d7bf5c02e2f97ba69dfe60d">usart_rx_dma</a></div><div class="ttdeci">PHAL_DMA_Handle_t usart_rx_dma</div><div class="ttdef"><b>Definition</b> main.c:136</div></div>
+<div class="ttc" id="adashboard_2main_8c_html_acb19612e985af8371e6f0f3fc743f971"><div class="ttname"><a href="#acb19612e985af8371e6f0f3fc743f971">usart_tx_dma</a></div><div class="ttdeci">PHAL_DMA_Handle_t usart_tx_dma</div><div class="ttdef"><b>Definition</b> main.c:125</div></div>
 <div class="ttc" id="alcd_8h_html_ad09c19efeeec2514707662f506d2267a"><div class="ttname"><a href="lcd_8h.html#ad09c19efeeec2514707662f506d2267a">LCD_BAUD_RATE</a></div><div class="ttdeci">static constexpr uint32_t LCD_BAUD_RATE</div><div class="ttdef"><b>Definition</b> lcd.h:13</div></div>
 <div class="ttc" id="aphal__F4_2usart_2usart_8h_html_a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027"><div class="ttname"><a href="phal__F4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a></div><div class="ttdeci">@ WORD_8</div><div class="ttdoc">8-Bit word length</div><div class="ttdef"><b>Definition</b> usart.h:48</div></div>
 <div class="ttc" id="aphal__F4_2usart_2usart_8h_html_a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6"><div class="ttname"><a href="phal__F4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a></div><div class="ttdeci">@ HW_DISABLE</div><div class="ttdoc">Hardware flow control disable.</div><div class="ttdef"><b>Definition</b> usart.h:60</div></div>
@@ -611,32 +618,57 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="ab5e5c5f93446e92415dfe222fd3d0e6e" name="ab5e5c5f93446e92415dfe222fd3d0e6e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5e5c5f93446e92415dfe222fd3d0e6e">&#9670;&#160;</a></span>usart_rx_dma_config</h2>
+<a id="a8d7164971d7bf5c02e2f97ba69dfe60d" name="a8d7164971d7bf5c02e2f97ba69dfe60d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d7164971d7bf5c02e2f97ba69dfe60d">&#9670;&#160;</a></span>usart_rx_dma</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> usart_rx_dma_config = <a class="el" href="phal__F4_2usart_2usart_8h.html#aa2fb89650553d0f56438cc55669ed014">USART1_RXDMA_CONT_CONFIG</a>(NULL, 2)</td>
+          <td class="memname"><a class="el" href="structPHAL__DMA__Handle__t.html">PHAL_DMA_Handle_t</a> usart_rx_dma</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .wiring = &amp;<a class="code hl_variable" href="dma__wiring_8h.html#a2f1e50116d323d46ccdd8ace56847c95">USART1_RX_DMA_WIRING</a>,</div>
+<div class="line">    .params = {</div>
+<div class="line">        .mem_addr  = 0,</div>
+<div class="line">        .tx_size   = 0, </div>
+<div class="line">        .priority  = <a class="code hl_enumvalue" href="phal__G4_2dma_2dma_8h.html#add384422e2edbc33e683b72d9a241594a9f5a4768d89b1a1fb7439907ceba6c76">DMA_PRIORITY_HIGH</a>,</div>
+<div class="line">        .mode      = <a class="code hl_enumvalue" href="phal__G4_2dma_2dma_8h.html#a86c80a85f36932193bad2d032cff626ea712d4572ce85937168ea1e885ecbf763">DMA_MODE_NORMAL</a>,</div>
+<div class="line">        .mem_inc   = <span class="keyword">true</span>,</div>
+<div class="line">        .tx_isr_en = <span class="keyword">true</span>,</div>
+<div class="line">    },</div>
+<div class="line">}</div>
+<div class="ttc" id="adma__wiring_8h_html_a2f1e50116d323d46ccdd8ace56847c95"><div class="ttname"><a href="dma__wiring_8h.html#a2f1e50116d323d46ccdd8ace56847c95">USART1_RX_DMA_WIRING</a></div><div class="ttdeci">static const PHAL_DMA_Wiring_t USART1_RX_DMA_WIRING</div><div class="ttdef"><b>Definition</b> dma_wiring.h:78</div></div>
+<div class="ttc" id="aphal__G4_2dma_2dma_8h_html_a86c80a85f36932193bad2d032cff626ea712d4572ce85937168ea1e885ecbf763"><div class="ttname"><a href="phal__G4_2dma_2dma_8h.html#a86c80a85f36932193bad2d032cff626ea712d4572ce85937168ea1e885ecbf763">DMA_MODE_NORMAL</a></div><div class="ttdeci">@ DMA_MODE_NORMAL</div><div class="ttdef"><b>Definition</b> dma.h:27</div></div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="a1f94964a4032ad7e8b644485a417b00f" name="a1f94964a4032ad7e8b644485a417b00f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f94964a4032ad7e8b644485a417b00f">&#9670;&#160;</a></span>usart_tx_dma_config</h2>
+<a id="acb19612e985af8371e6f0f3fc743f971" name="acb19612e985af8371e6f0f3fc743f971"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb19612e985af8371e6f0f3fc743f971">&#9670;&#160;</a></span>usart_tx_dma</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> usart_tx_dma_config = <a class="el" href="phal__F4_2usart_2usart_8h.html#a207e6b60144d3609a73c96b42bfa3c1c">USART1_TXDMA_CONT_CONFIG</a>(NULL, 1)</td>
+          <td class="memname"><a class="el" href="structPHAL__DMA__Handle__t.html">PHAL_DMA_Handle_t</a> usart_tx_dma</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .wiring = &amp;<a class="code hl_variable" href="dma__wiring_8h.html#acc8aeb210eb714d438f53ef250a48669">USART1_TX_DMA_WIRING</a>,</div>
+<div class="line">    .params = {</div>
+<div class="line">        .mem_addr  = 0,</div>
+<div class="line">        .tx_size   = 0,</div>
+<div class="line">        .priority  = <a class="code hl_enumvalue" href="phal__G4_2dma_2dma_8h.html#add384422e2edbc33e683b72d9a241594a9f5a4768d89b1a1fb7439907ceba6c76">DMA_PRIORITY_HIGH</a>,</div>
+<div class="line">        .mode      = <a class="code hl_enumvalue" href="phal__G4_2dma_2dma_8h.html#a86c80a85f36932193bad2d032cff626ea712d4572ce85937168ea1e885ecbf763">DMA_MODE_NORMAL</a>,</div>
+<div class="line">        .mem_inc   = <span class="keyword">true</span>,</div>
+<div class="line">        .tx_isr_en = <span class="keyword">true</span>,</div>
+<div class="line">    },</div>
+<div class="line">}</div>
+<div class="ttc" id="adma__wiring_8h_html_acc8aeb210eb714d438f53ef250a48669"><div class="ttname"><a href="dma__wiring_8h.html#acc8aeb210eb714d438f53ef250a48669">USART1_TX_DMA_WIRING</a></div><div class="ttdeci">static const PHAL_DMA_Wiring_t USART1_TX_DMA_WIRING</div><div class="ttdef"><b>Definition</b> dma_wiring.h:87</div></div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

@@ -152,10 +152,10 @@ Variables</h2></td></tr>
 <tr class="separator:a60563c6df24a123ae18e090bca85f555"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a446cf1f11ef577601271779d15f827f8" id="r_a446cf1f11ef577601271779d15f827f8"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a446cf1f11ef577601271779d15f827f8">GPS_BAUD_RATE</a> = 460'800</td></tr>
 <tr class="separator:a446cf1f11ef577601271779d15f827f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a291ebde75dfbcaa1c7330dc473450812" id="r_a291ebde75dfbcaa1c7330dc473450812"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a291ebde75dfbcaa1c7330dc473450812">rover_tx_dma_config</a> = <a class="el" href="phal__G4_2usart_2usart_8h.html#a478257b475f027629670120ae2736f1c">USART3_TXDMA_CONT_CONFIG</a>(NULL, 2)</td></tr>
-<tr class="separator:a291ebde75dfbcaa1c7330dc473450812"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a234e9400810f03d0d93399841bef5fab" id="r_a234e9400810f03d0d93399841bef5fab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a234e9400810f03d0d93399841bef5fab">rover_rx_dma_config</a> = <a class="el" href="phal__G4_2usart_2usart_8h.html#a1c89a923dba05f43878a4bf9bddf9324">USART3_RXDMA_CONT_CONFIG</a>(NULL, 1)</td></tr>
-<tr class="separator:a234e9400810f03d0d93399841bef5fab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf5f93d989135907a21a4004d38eb19e" id="r_aaf5f93d989135907a21a4004d38eb19e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPHAL__DMA__Handle__t.html">PHAL_DMA_Handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf5f93d989135907a21a4004d38eb19e">rover_tx_dma</a></td></tr>
+<tr class="separator:aaf5f93d989135907a21a4004d38eb19e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b3673654def5388e27fa649ec1d2d57" id="r_a4b3673654def5388e27fa649ec1d2d57"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPHAL__DMA__Handle__t.html">PHAL_DMA_Handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b3673654def5388e27fa649ec1d2d57">rover_rx_dma</a></td></tr>
+<tr class="separator:a4b3673654def5388e27fa649ec1d2d57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f2e2f846b93d9e8a93eb0cd40c13638" id="r_a7f2e2f846b93d9e8a93eb0cd40c13638"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structusart__init__t.html">usart_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f2e2f846b93d9e8a93eb0cd40c13638">usart3</a></td></tr>
 <tr class="separator:a7f2e2f846b93d9e8a93eb0cd40c13638"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -465,32 +465,58 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a234e9400810f03d0d93399841bef5fab" name="a234e9400810f03d0d93399841bef5fab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a234e9400810f03d0d93399841bef5fab">&#9670;&#160;</a></span>rover_rx_dma_config</h2>
+<a id="a4b3673654def5388e27fa649ec1d2d57" name="a4b3673654def5388e27fa649ec1d2d57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b3673654def5388e27fa649ec1d2d57">&#9670;&#160;</a></span>rover_rx_dma</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> rover_rx_dma_config = <a class="el" href="phal__G4_2usart_2usart_8h.html#a1c89a923dba05f43878a4bf9bddf9324">USART3_RXDMA_CONT_CONFIG</a>(NULL, 1)</td>
+          <td class="memname"><a class="el" href="structPHAL__DMA__Handle__t.html">PHAL_DMA_Handle_t</a> rover_rx_dma</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .wiring = &amp;<a class="code hl_variable" href="dma__wiring_8h.html#a4396459854ee794efaf904c7bb9e7604">USART3_RX_DMA_WIRING</a>,</div>
+<div class="line">    .params = {</div>
+<div class="line">        .mem_addr = 0,</div>
+<div class="line">        .tx_size  = 0,</div>
+<div class="line">        .priority = <a class="code hl_enumvalue" href="phal__G4_2dma_2dma_8h.html#add384422e2edbc33e683b72d9a241594a9f5a4768d89b1a1fb7439907ceba6c76">DMA_PRIORITY_HIGH</a>,</div>
+<div class="line">        .mode     = <a class="code hl_enumvalue" href="phal__G4_2dma_2dma_8h.html#a86c80a85f36932193bad2d032cff626ea712d4572ce85937168ea1e885ecbf763">DMA_MODE_NORMAL</a>,</div>
+<div class="line">        .mem_inc  = <span class="keyword">true</span>,</div>
+<div class="line">        .tx_isr_en = <span class="keyword">true</span>,</div>
+<div class="line">    },</div>
+<div class="line">}</div>
+<div class="ttc" id="adma__wiring_8h_html_a4396459854ee794efaf904c7bb9e7604"><div class="ttname"><a href="dma__wiring_8h.html#a4396459854ee794efaf904c7bb9e7604">USART3_RX_DMA_WIRING</a></div><div class="ttdeci">static const PHAL_DMA_Wiring_t USART3_RX_DMA_WIRING</div><div class="ttdef"><b>Definition</b> dma_wiring.h:114</div></div>
+<div class="ttc" id="aphal__G4_2dma_2dma_8h_html_a86c80a85f36932193bad2d032cff626ea712d4572ce85937168ea1e885ecbf763"><div class="ttname"><a href="phal__G4_2dma_2dma_8h.html#a86c80a85f36932193bad2d032cff626ea712d4572ce85937168ea1e885ecbf763">DMA_MODE_NORMAL</a></div><div class="ttdeci">@ DMA_MODE_NORMAL</div><div class="ttdef"><b>Definition</b> dma.h:27</div></div>
+<div class="ttc" id="aphal__G4_2dma_2dma_8h_html_add384422e2edbc33e683b72d9a241594a9f5a4768d89b1a1fb7439907ceba6c76"><div class="ttname"><a href="phal__G4_2dma_2dma_8h.html#add384422e2edbc33e683b72d9a241594a9f5a4768d89b1a1fb7439907ceba6c76">DMA_PRIORITY_HIGH</a></div><div class="ttdeci">@ DMA_PRIORITY_HIGH</div><div class="ttdef"><b>Definition</b> dma.h:21</div></div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="a291ebde75dfbcaa1c7330dc473450812" name="a291ebde75dfbcaa1c7330dc473450812"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a291ebde75dfbcaa1c7330dc473450812">&#9670;&#160;</a></span>rover_tx_dma_config</h2>
+<a id="aaf5f93d989135907a21a4004d38eb19e" name="aaf5f93d989135907a21a4004d38eb19e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf5f93d989135907a21a4004d38eb19e">&#9670;&#160;</a></span>rover_tx_dma</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> rover_tx_dma_config = <a class="el" href="phal__G4_2usart_2usart_8h.html#a478257b475f027629670120ae2736f1c">USART3_TXDMA_CONT_CONFIG</a>(NULL, 2)</td>
+          <td class="memname"><a class="el" href="structPHAL__DMA__Handle__t.html">PHAL_DMA_Handle_t</a> rover_tx_dma</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .wiring = &amp;<a class="code hl_variable" href="dma__wiring_8h.html#aab80186cf53de8edc3d5cc6ec318a2a5">USART3_TX_DMA_WIRING</a>,</div>
+<div class="line">    .params = {</div>
+<div class="line">        .mem_addr = 0,</div>
+<div class="line">        .tx_size  = 0,</div>
+<div class="line">        .priority = <a class="code hl_enumvalue" href="phal__G4_2dma_2dma_8h.html#add384422e2edbc33e683b72d9a241594a9f5a4768d89b1a1fb7439907ceba6c76">DMA_PRIORITY_HIGH</a>,</div>
+<div class="line">        .mode     = <a class="code hl_enumvalue" href="phal__G4_2dma_2dma_8h.html#a86c80a85f36932193bad2d032cff626ea712d4572ce85937168ea1e885ecbf763">DMA_MODE_NORMAL</a>,</div>
+<div class="line">        .mem_inc  = <span class="keyword">true</span>,</div>
+<div class="line">        .tx_isr_en = <span class="keyword">true</span>,</div>
+<div class="line">    },</div>
+<div class="line">}</div>
+<div class="ttc" id="adma__wiring_8h_html_aab80186cf53de8edc3d5cc6ec318a2a5"><div class="ttname"><a href="dma__wiring_8h.html#aab80186cf53de8edc3d5cc6ec318a2a5">USART3_TX_DMA_WIRING</a></div><div class="ttdeci">static const PHAL_DMA_Wiring_t USART3_TX_DMA_WIRING</div><div class="ttdef"><b>Definition</b> dma_wiring.h:123</div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a7f2e2f846b93d9e8a93eb0cd40c13638" name="a7f2e2f846b93d9e8a93eb0cd40c13638"></a>
@@ -515,8 +541,8 @@ Here is the call graph for this function:</div>
 <div class="line">    .periph           = USART3,</div>
 <div class="line">    .wake_addr        = <span class="keyword">false</span>,</div>
 <div class="line">    .usart_active_num = <a class="code hl_define" href="phal__G4_2usart_2usart_8h.html#a5ebd9bcbd201bb2246248a824eca81d4">USART3_ACTIVE_IDX</a>,</div>
-<div class="line">    .tx_dma_cfg       = &amp;<a class="code hl_variable" href="#a291ebde75dfbcaa1c7330dc473450812">rover_tx_dma_config</a>,</div>
-<div class="line">    .rx_dma_cfg       = &amp;<a class="code hl_variable" href="#a234e9400810f03d0d93399841bef5fab">rover_rx_dma_config</a>,</div>
+<div class="line">    .tx_dma           = &amp;<a class="code hl_variable" href="#aaf5f93d989135907a21a4004d38eb19e">rover_tx_dma</a>,</div>
+<div class="line">    .rx_dma           = &amp;<a class="code hl_variable" href="#a4b3673654def5388e27fa649ec1d2d57">rover_rx_dma</a>,</div>
 <div class="line">}</div>
 <div class="ttc" id="aphal__F4_2usart_2usart_8h_html_a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027"><div class="ttname"><a href="phal__F4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027">WORD_8</a></div><div class="ttdeci">@ WORD_8</div><div class="ttdoc">8-Bit word length</div><div class="ttdef"><b>Definition</b> usart.h:48</div></div>
 <div class="ttc" id="aphal__F4_2usart_2usart_8h_html_a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6"><div class="ttname"><a href="phal__F4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6">HW_DISABLE</a></div><div class="ttdeci">@ HW_DISABLE</div><div class="ttdoc">Hardware flow control disable.</div><div class="ttdef"><b>Definition</b> usart.h:60</div></div>
@@ -525,9 +551,9 @@ Here is the call graph for this function:</div>
 <div class="ttc" id="aphal__F4_2usart_2usart_8h_html_a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da"><div class="ttname"><a href="phal__F4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da">SB_ONE</a></div><div class="ttdeci">@ SB_ONE</div><div class="ttdoc">One Stop bit.</div><div class="ttdef"><b>Definition</b> usart.h:53</div></div>
 <div class="ttc" id="aphal__F4_2usart_2usart_8h_html_a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6"><div class="ttname"><a href="phal__F4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a></div><div class="ttdeci">@ OV_16</div><div class="ttdoc">Oversample by 16.</div><div class="ttdef"><b>Definition</b> usart.h:67</div></div>
 <div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a5ebd9bcbd201bb2246248a824eca81d4"><div class="ttname"><a href="phal__G4_2usart_2usart_8h.html#a5ebd9bcbd201bb2246248a824eca81d4">USART3_ACTIVE_IDX</a></div><div class="ttdeci">#define USART3_ACTIVE_IDX</div><div class="ttdef"><b>Definition</b> usart.h:10</div></div>
-<div class="ttc" id="atorque__vector_2main_8c_html_a234e9400810f03d0d93399841bef5fab"><div class="ttname"><a href="#a234e9400810f03d0d93399841bef5fab">rover_rx_dma_config</a></div><div class="ttdeci">dma_init_t rover_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:56</div></div>
-<div class="ttc" id="atorque__vector_2main_8c_html_a291ebde75dfbcaa1c7330dc473450812"><div class="ttname"><a href="#a291ebde75dfbcaa1c7330dc473450812">rover_tx_dma_config</a></div><div class="ttdeci">dma_init_t rover_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:55</div></div>
 <div class="ttc" id="atorque__vector_2main_8c_html_a446cf1f11ef577601271779d15f827f8"><div class="ttname"><a href="#a446cf1f11ef577601271779d15f827f8">GPS_BAUD_RATE</a></div><div class="ttdeci">static constexpr uint32_t GPS_BAUD_RATE</div><div class="ttdef"><b>Definition</b> main.c:54</div></div>
+<div class="ttc" id="atorque__vector_2main_8c_html_a4b3673654def5388e27fa649ec1d2d57"><div class="ttname"><a href="#a4b3673654def5388e27fa649ec1d2d57">rover_rx_dma</a></div><div class="ttdeci">PHAL_DMA_Handle_t rover_rx_dma</div><div class="ttdef"><b>Definition</b> main.c:66</div></div>
+<div class="ttc" id="atorque__vector_2main_8c_html_aaf5f93d989135907a21a4004d38eb19e"><div class="ttname"><a href="#aaf5f93d989135907a21a4004d38eb19e">rover_tx_dma</a></div><div class="ttdeci">PHAL_DMA_Handle_t rover_tx_dma</div><div class="ttdef"><b>Definition</b> main.c:55</div></div>
 </div><!-- fragment -->
 </div>
 </div>

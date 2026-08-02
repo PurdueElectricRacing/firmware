@@ -14,10 +14,10 @@ var dashboard_2main_8c =
     [ "sweep_external_leds", "dashboard_2main_8c.html#afde7bfa6b37748d965fb66a4803f2ced", null ],
     [ "adc_channel_config", "dashboard_2main_8c.html#a900ff7ac22bd3d9e8566f23458355b34", null ],
     [ "adc_config", "dashboard_2main_8c.html#a6af434e991280036f038f6db015e26f9", null ],
-    [ "adc_dma_config", "dashboard_2main_8c.html#aed595ebe33fb020bde82d6a1bcca6052", null ],
+    [ "adc_dma_config", "dashboard_2main_8c.html#a80205baceacda4546612ae5eba0a6ece", null ],
     [ "gpio_config", "dashboard_2main_8c.html#a60563c6df24a123ae18e090bca85f555", null ],
     [ "lcd", "dashboard_2main_8c.html#abf94e19caf3951d83556041d6f54d7e6", null ],
     [ "raw_adc_values", "dashboard_2main_8c.html#a29bc293670e53a11d854f35bca555254", null ],
-    [ "usart_rx_dma_config", "dashboard_2main_8c.html#ab5e5c5f93446e92415dfe222fd3d0e6e", null ],
-    [ "usart_tx_dma_config", "dashboard_2main_8c.html#a1f94964a4032ad7e8b644485a417b00f", null ]
+    [ "usart_rx_dma", "dashboard_2main_8c.html#a8d7164971d7bf5c02e2f97ba69dfe60d", null ],
+    [ "usart_tx_dma", "dashboard_2main_8c.html#acb19612e985af8371e6f0f3fc743f971", null ]
 ];

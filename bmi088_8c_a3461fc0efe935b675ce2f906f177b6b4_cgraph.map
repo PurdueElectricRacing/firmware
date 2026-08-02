@@ -9,12 +9,12 @@
 <area shape="rect" id="Node000009" href="$common_2phal__F4_2spi_2spi_8c.html#a7593e1c8be8711c7bda6d7de43913816" title="SPI handle." alt="" coords="400,153,587,179"/>
 <area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="352,164,384,164,384,169,352,169"/>
 <area shape="poly" id="edge7_Node000004_Node000003" title=" " alt="" coords="564,127,589,139,604,151,613,165,622,177,637,189,659,199,657,204,634,194,618,181,609,168,600,155,586,143,562,132"/>
-<area shape="rect" id="Node000005" href="$phal__F4_2dma_2dma_8c.html#a2a989d2d9b7c591de33e96581ac3bb11" title=" " alt="" coords="635,55,831,80"/>
+<area shape="rect" id="Node000005" href="$phal__F4_2dma_2dma_8c.html#a87b11fd9c27f60363585940890fd2343" title=" " alt="" coords="658,55,808,80"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="559,101,652,81,653,87,560,106"/>
-<area shape="rect" id="Node000006" href="$phal__F4_2dma_2dma_8c.html#a14faecce0cd8bd38b14c987e17ce1033" title=" " alt="" coords="639,104,827,130"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="563,114,624,114,624,120,563,120"/>
-<area shape="rect" id="Node000007" href="$phal__F4_2dma_2dma_8c.html#af36fe9d375254e9bb0c09c760a761dc5" title=" " alt="" coords="676,5,790,31"/>
-<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="515,101,568,71,634,40,660,31,662,36,636,45,570,75,517,106"/>
+<area shape="rect" id="Node000006" href="$phal__F4_2dma_2dma_8c.html#a2a989d2d9b7c591de33e96581ac3bb11" title=" " alt="" coords="635,104,831,130"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="563,114,620,114,620,120,563,120"/>
+<area shape="rect" id="Node000007" href="$phal__F4_2dma_2dma_8c.html#a14faecce0cd8bd38b14c987e17ce1033" title=" " alt="" coords="639,5,827,31"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="515,101,568,71,634,40,653,33,655,38,636,45,570,75,517,106"/>
 <area shape="rect" id="Node000008" href="$phal__F4_2gpio_2gpio_8h.html#a67db851520637ffa4de5968c9730220b" title="Write a logic value to an output pin." alt="" coords="670,153,796,179"/>
 <area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="560,128,656,148,655,153,559,133"/>
 <area shape="poly" id="edge10_Node000009_Node000003" title=" " alt="" coords="560,177,658,197,657,203,559,182"/>

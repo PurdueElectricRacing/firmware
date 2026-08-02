@@ -27,8 +27,8 @@ var searchData=
   ['maxwrblocklen_24',['MaxWrBlockLen',['../structSD__CSD.html#a01b66a076abd050fffc3ecb8d658e9de',1,'SD_CSD']]],
   ['maxwrcurrentvddmax_25',['MaxWrCurrentVDDMax',['../structSD__CSD.html#aa9456344ada6f41b6ac228ef537360a5',1,'SD_CSD']]],
   ['maxwrcurrentvddmin_26',['MaxWrCurrentVDDMin',['../structSD__CSD.html#aefe327b7f473bdc99a40e7b66477147a',1,'SD_CSD']]],
-  ['mem_5faddr_27',['mem_addr',['../structdma__init__t.html#a66f5ecd22d3bf0c2a33c5b6c1dbdf32f',1,'dma_init_t']]],
-  ['mem_5finc_28',['mem_inc',['../structdma__init__t.html#a04a45cddca6ff1eb87116b3dcc0eeba5',1,'dma_init_t']]],
+  ['mem_5faddr_27',['mem_addr',['../structdma__init__t.html#a66f5ecd22d3bf0c2a33c5b6c1dbdf32f',1,'dma_init_t::mem_addr'],['../structPHAL__DMA__Params__t.html#ac3129b7dae2acd792877d4470c2dd742',1,'PHAL_DMA_Params_t::mem_addr']]],
+  ['mem_5finc_28',['mem_inc',['../structdma__init__t.html#a04a45cddca6ff1eb87116b3dcc0eeba5',1,'dma_init_t::mem_inc'],['../structPHAL__DMA__Params__t.html#af2d6b0030518f39a88e0e779e62e1a38',1,'PHAL_DMA_Params_t::mem_inc']]],
   ['mem_5fsize_29',['mem_size',['../structdma__init__t.html#af3022bd13e95bf356e01b8420aefb5df',1,'dma_init_t']]],
   ['mem_5fto_5fmem_30',['mem_to_mem',['../structdma__init__t.html#ae89a25d8eb9c645cc3bdfad69ddfee8d',1,'dma_init_t']]],
   ['messages_31',['messages',['../classparser_1_1BusView.html#ad7ca6c8fe5b952d020b5c00ff750274c',1,'parser::BusView']]],
@@ -42,7 +42,7 @@ var searchData=
   ['minute_39',['minute',['../structNAV__PVT__data__t.html#ada8607d4dcf386c4030e648dda856a7c',1,'NAV_PVT_data_t']]],
   ['minutes_5fbcd_40',['minutes_bcd',['../structRTC__time__t.html#ae9bb53398fdf1b3d0cb55f41bf5f8d19',1,'RTC_time_t']]],
   ['minutes_5fper_5fhour_41',['MINUTES_PER_HOUR',['../race_8c.html#a284e66719c46225b92910ec6a0eb5062',1,'MINUTES_PER_HOUR:&#160;race.c'],['../torque__controller_8c.html#a284e66719c46225b92910ec6a0eb5062',1,'MINUTES_PER_HOUR:&#160;torque_controller.c']]],
-  ['mode_42',['mode',['../structSPI__InitConfig__t.html#af9eedccb06edcc4fcf10f3eca321238d',1,'SPI_InitConfig_t']]],
+  ['mode_42',['mode',['../structPHAL__DMA__Params__t.html#a2162c398d2ecac8318ff5027831b695c',1,'PHAL_DMA_Params_t::mode'],['../structSPI__InitConfig__t.html#af9eedccb06edcc4fcf10f3eca321238d',1,'SPI_InitConfig_t::mode']]],
   ['modules_43',['modules',['../structadbms__bms__t.html#a18b6c94b1c0a31a05056466e4e86d595',1,'adbms_bms_t']]],
   ['month_44',['month',['../structNAV__PVT__data__t.html#ae629d9a5497bf85158304485f93ee754',1,'NAV_PVT_data_t']]],
   ['month_5fbcd_45',['month_bcd',['../structRTC__date__t.html#a4d3da0f5136f2a8887aeda4faf9184db',1,'RTC_date_t']]],
@@ -65,5 +65,5 @@ var searchData=
   ['mux_5fadc_5fcounts_62',['mux_adc_counts',['../structpdu__state__t.html#a729b23206940cdbec8cde436e60aa5e0',1,'pdu_state_t']]],
   ['mux_5faddr_63',['mux_addr',['../structsdc__node__t.html#afc450fbd57df7c3aef10390027fd46b6',1,'sdc_node_t']]],
   ['mux_5fout_64',['mux_out',['../struct____attribute____.html#aa789bd99d41fdf549b0a23c81b689144',1,'__attribute__']]],
-  ['mux_5frequest_65',['mux_request',['../structdma__init__t.html#a89d56b6aa15a185bb69dec4c78a2c279',1,'dma_init_t']]]
+  ['mux_5frequest_65',['mux_request',['../structPHAL__DMA__Wiring__t.html#aece37e77cec4cf216ed5ee0b16dc95d4',1,'PHAL_DMA_Wiring_t']]]
 ];

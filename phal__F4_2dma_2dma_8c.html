@@ -116,12 +116,12 @@ Include dependency graph for dma.c:</div>
 Functions</h2></td></tr>
 <tr class="memitem:a5eef9fdb02d8b29dc11d7e69328e7504" id="r_a5eef9fdb02d8b29dc11d7e69328e7504"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5eef9fdb02d8b29dc11d7e69328e7504">PHAL_initDMA</a> (<a class="el" href="structdma__init__t.html">dma_init_t</a> *init)</td></tr>
 <tr class="separator:a5eef9fdb02d8b29dc11d7e69328e7504"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab15d4afcf0988a8065caced65d1883fe" id="r_ab15d4afcf0988a8065caced65d1883fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab15d4afcf0988a8065caced65d1883fe">PHAL_startTxfer</a> (<a class="el" href="structdma__init__t.html">dma_init_t</a> *init)</td></tr>
-<tr class="separator:ab15d4afcf0988a8065caced65d1883fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31d09afa5679cb34c0c776051450e62a" id="r_a31d09afa5679cb34c0c776051450e62a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a31d09afa5679cb34c0c776051450e62a">PHAL_stopTxfer</a> (<a class="el" href="structdma__init__t.html">dma_init_t</a> *init)</td></tr>
-<tr class="separator:a31d09afa5679cb34c0c776051450e62a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af36fe9d375254e9bb0c09c760a761dc5" id="r_af36fe9d375254e9bb0c09c760a761dc5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af36fe9d375254e9bb0c09c760a761dc5">PHAL_reEnable</a> (<a class="el" href="structdma__init__t.html">dma_init_t</a> *init)</td></tr>
-<tr class="separator:af36fe9d375254e9bb0c09c760a761dc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6b23195df76a449c61b131a91ae424a" id="r_ac6b23195df76a449c61b131a91ae424a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6b23195df76a449c61b131a91ae424a">PHAL_DMA_startTxfer</a> (<a class="el" href="structdma__init__t.html">dma_init_t</a> *init)</td></tr>
+<tr class="separator:ac6b23195df76a449c61b131a91ae424a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad30451f8c2b3f2787deb02eeaaea43b0" id="r_ad30451f8c2b3f2787deb02eeaaea43b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad30451f8c2b3f2787deb02eeaaea43b0">PHAL_DMA_stopTxfer</a> (<a class="el" href="structdma__init__t.html">dma_init_t</a> *init)</td></tr>
+<tr class="separator:ad30451f8c2b3f2787deb02eeaaea43b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87b11fd9c27f60363585940890fd2343" id="r_a87b11fd9c27f60363585940890fd2343"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87b11fd9c27f60363585940890fd2343">PHAL_DMA_reEnable</a> (<a class="el" href="structdma__init__t.html">dma_init_t</a> *init)</td></tr>
+<tr class="separator:a87b11fd9c27f60363585940890fd2343"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a989d2d9b7c591de33e96581ac3bb11" id="r_a2a989d2d9b7c591de33e96581ac3bb11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a989d2d9b7c591de33e96581ac3bb11">PHAL_DMA_setMemAddress</a> (<a class="el" href="structdma__init__t.html">dma_init_t</a> *init, const uint32_t address)</td></tr>
 <tr class="separator:a2a989d2d9b7c591de33e96581ac3bb11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14faecce0cd8bd38b14c987e17ce1033" id="r_a14faecce0cd8bd38b14c987e17ce1033"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14faecce0cd8bd38b14c987e17ce1033">PHAL_DMA_setTxferLength</a> (<a class="el" href="structdma__init__t.html">dma_init_t</a> *init, const uint32_t length)</td></tr>
@@ -134,6 +134,28 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2023-08-19</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2023 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a87b11fd9c27f60363585940890fd2343" name="a87b11fd9c27f60363585940890fd2343"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87b11fd9c27f60363585940890fd2343">&#9670;&#160;</a></span>PHAL_DMA_reEnable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_DMA_reEnable </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdma__init__t.html">dma_init_t</a> *</td>          <td class="paramname"><span class="paramname"><em>init</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="phal__F4_2dma_2dma_8c_a87b11fd9c27f60363585940890fd2343_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
 <a id="a2a989d2d9b7c591de33e96581ac3bb11" name="a2a989d2d9b7c591de33e96581ac3bb11"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2a989d2d9b7c591de33e96581ac3bb11">&#9670;&#160;</a></span>PHAL_DMA_setMemAddress()</h2>
 
@@ -186,6 +208,50 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="ac6b23195df76a449c61b131a91ae424a" name="ac6b23195df76a449c61b131a91ae424a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6b23195df76a449c61b131a91ae424a">&#9670;&#160;</a></span>PHAL_DMA_startTxfer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_DMA_startTxfer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdma__init__t.html">dma_init_t</a> *</td>          <td class="paramname"><span class="paramname"><em>init</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="phal__F4_2dma_2dma_8c_ac6b23195df76a449c61b131a91ae424a_icgraph.svg" width="100%" height="438"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ad30451f8c2b3f2787deb02eeaaea43b0" name="ad30451f8c2b3f2787deb02eeaaea43b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad30451f8c2b3f2787deb02eeaaea43b0">&#9670;&#160;</a></span>PHAL_DMA_stopTxfer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_DMA_stopTxfer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdma__init__t.html">dma_init_t</a> *</td>          <td class="paramname"><span class="paramname"><em>init</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="phal__F4_2dma_2dma_8c_ad30451f8c2b3f2787deb02eeaaea43b0_icgraph.svg" width="604" height="480"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <a id="a5eef9fdb02d8b29dc11d7e69328e7504" name="a5eef9fdb02d8b29dc11d7e69328e7504"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5eef9fdb02d8b29dc11d7e69328e7504">&#9670;&#160;</a></span>PHAL_initDMA()</h2>
 
@@ -208,73 +274,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="phal__F4_2dma_2dma_8c_a5eef9fdb02d8b29dc11d7e69328e7504_icgraph.svg" width="559" height="286"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
-</div>
-</div>
-<a id="af36fe9d375254e9bb0c09c760a761dc5" name="af36fe9d375254e9bb0c09c760a761dc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af36fe9d375254e9bb0c09c760a761dc5">&#9670;&#160;</a></span>PHAL_reEnable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void PHAL_reEnable </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structdma__init__t.html">dma_init_t</a> *</td>          <td class="paramname"><span class="paramname"><em>init</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="phal__F4_2dma_2dma_8c_af36fe9d375254e9bb0c09c760a761dc5_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
-</div>
-
-</div>
-</div>
-<a id="ab15d4afcf0988a8065caced65d1883fe" name="ab15d4afcf0988a8065caced65d1883fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab15d4afcf0988a8065caced65d1883fe">&#9670;&#160;</a></span>PHAL_startTxfer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void PHAL_startTxfer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structdma__init__t.html">dma_init_t</a> *</td>          <td class="paramname"><span class="paramname"><em>init</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="phal__F4_2dma_2dma_8c_ab15d4afcf0988a8065caced65d1883fe_icgraph.svg" width="100%" height="549"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
-</div>
-
-</div>
-</div>
-<a id="a31d09afa5679cb34c0c776051450e62a" name="a31d09afa5679cb34c0c776051450e62a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31d09afa5679cb34c0c776051450e62a">&#9670;&#160;</a></span>PHAL_stopTxfer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void PHAL_stopTxfer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structdma__init__t.html">dma_init_t</a> *</td>          <td class="paramname"><span class="paramname"><em>init</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="phal__F4_2dma_2dma_8c_a31d09afa5679cb34c0c776051450e62a_icgraph.svg" width="568" height="480"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="phal__F4_2dma_2dma_8c_a5eef9fdb02d8b29dc11d7e69328e7504_icgraph.svg" width="559" height="234"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>

@@ -779,9 +779,9 @@ var sectionId = 'dynsection-2';
 <!-- Node30 -->
 <g id="Node000030" class="node">
 <title>Node30</title>
-<g id="a_Node000030"><a xlink:href="phal__F4_2dma_2dma_8c.html#ab15d4afcf0988a8065caced65d1883fe" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="565.75,-130.25 476.25,-130.25 476.25,-111 565.75,-111 565.75,-130.25"/>
-<text text-anchor="middle" x="521" y="-116.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_startTxfer</text>
+<g id="a_Node000030"><a xlink:href="phal__F4_2dma_2dma_8c.html#ac6b23195df76a449c61b131a91ae424a" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="579.25,-130.25 462.75,-130.25 462.75,-111 579.25,-111 579.25,-130.25"/>
+<text text-anchor="middle" x="521" y="-116.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_DMA_startTxfer</text>
 </a>
 </g>
 </g>

@@ -38,9 +38,9 @@
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="phal__F4_2dma_2dma_8c.html#a14faecce0cd8bd38b14c987e17ce1033" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="415.5,-141.88 275,-141.88 275,-122.62 415.5,-122.62 415.5,-141.88"/>
-<text text-anchor="middle" x="345.25" y="-128.38" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_DMA_setTxferLength</text>
+<g id="a_Node000003"><a xlink:href="phal__F4_2dma_2dma_8c.html#a87b11fd9c27f60363585940890fd2343" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="401.62,-141.88 288.88,-141.88 288.88,-122.62 401.62,-122.62 401.62,-141.88"/>
+<text text-anchor="middle" x="345.25" y="-128.38" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_DMA_reEnable</text>
 </a>
 </g>
 </g>
@@ -56,9 +56,9 @@
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="phal__F4_2dma_2dma_8c.html#af36fe9d375254e9bb0c09c760a761dc5" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="388.12,-104.88 302.38,-104.88 302.38,-85.62 388.12,-85.62 388.12,-104.88"/>
-<text text-anchor="middle" x="345.25" y="-91.38" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_reEnable</text>
+<g id="a_Node000004"><a xlink:href="phal__F4_2dma_2dma_8c.html#a14faecce0cd8bd38b14c987e17ce1033" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="415.5,-104.88 275,-104.88 275,-85.62 415.5,-85.62 415.5,-104.88"/>
+<text text-anchor="middle" x="345.25" y="-91.38" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_DMA_setTxferLength</text>
 </a>
 </g>
 </g>
@@ -66,17 +66,17 @@
 <g id="edge3_Node000002_Node000004" class="edge">
 <title>Node2&#45;&gt;Node4</title>
 <g id="a_edge3_Node000002_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M239.29,-81.69C255.45,-83.78 274.09,-86.19 291.15,-88.39"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="290.22,-91.8 300.58,-89.61 291.11,-84.86 290.22,-91.8"/>
+<path fill="none" stroke="#63b8ff" d="M239.29,-81.69C246.87,-82.67 255.01,-83.73 263.28,-84.79"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="262.72,-88.25 273.08,-86.06 263.61,-81.31 262.72,-88.25"/>
 </a>
 </g>
 </g>
 <!-- Node5 -->
 <g id="Node000005" class="node">
 <title>Node5</title>
-<g id="a_Node000005"><a xlink:href="phal__F4_2dma_2dma_8c.html#a31d09afa5679cb34c0c776051450e62a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="389.62,-67.88 300.88,-67.88 300.88,-48.62 389.62,-48.62 389.62,-67.88"/>
-<text text-anchor="middle" x="345.25" y="-54.38" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_stopTxfer</text>
+<g id="a_Node000005"><a xlink:href="phal__F4_2dma_2dma_8c.html#ad30451f8c2b3f2787deb02eeaaea43b0" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="403.12,-67.88 287.38,-67.88 287.38,-48.62 403.12,-48.62 403.12,-67.88"/>
+<text text-anchor="middle" x="345.25" y="-54.38" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_DMA_stopTxfer</text>
 </a>
 </g>
 </g>
@@ -84,8 +84,8 @@
 <g id="edge4_Node000002_Node000005" class="edge">
 <title>Node2&#45;&gt;Node5</title>
 <g id="a_edge4_Node000002_Node000005"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M239.29,-71.09C254.88,-69.18 272.79,-66.99 289.35,-64.97"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="289.54,-68.47 299.05,-63.78 288.69,-61.52 289.54,-68.47"/>
+<path fill="none" stroke="#63b8ff" d="M239.29,-71.09C250.66,-69.7 263.27,-68.16 275.69,-66.64"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="276,-70.13 285.5,-65.44 275.15,-63.18 276,-70.13"/>
 </a>
 </g>
 </g>

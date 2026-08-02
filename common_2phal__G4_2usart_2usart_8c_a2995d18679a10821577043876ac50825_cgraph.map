@@ -1,0 +1,7 @@
+<map id="PHAL_disableContinousRxDMA" name="PHAL_disableContinousRxDMA">
+<area shape="rect" id="Node000001" title="Disables continuous DMA reception." alt="" coords="5,31,213,56"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2dma_2dma_8c.html#a536791c4fb7895e2c7a118bea07e0ca1" title="Get the channel number (1&#45;8) for a given handle." alt="" coords="261,5,443,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="213,30,245,27,246,32,214,35"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2dma_2dma_8c.html#a587d74a4667a9047e033a39a3a2bb11a" title="Get the DMA peripheral (DMA1 or DMA2) for a given handle." alt="" coords="274,55,430,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="213,51,259,56,258,61,213,56"/>
+</map>

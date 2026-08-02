@@ -2,12 +2,12 @@
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,80,162,106"/>
 <area shape="rect" id="Node000002" href="$common_2phal__F4_2usart_2usart_8c.html#a7bb78a5ea8399c2c2fd4ca94be3ffed3" title=" " alt="" coords="210,80,324,106"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,90,194,90,194,96,162,96"/>
-<area shape="rect" id="Node000003" href="$phal__F4_2dma_2dma_8c.html#a14faecce0cd8bd38b14c987e17ce1033" title=" " alt="" coords="372,5,559,31"/>
+<area shape="rect" id="Node000003" href="$phal__F4_2dma_2dma_8c.html#a87b11fd9c27f60363585940890fd2343" title=" " alt="" coords="390,5,541,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="291,77,371,40,390,33,392,38,373,45,293,82"/>
-<area shape="rect" id="Node000004" href="$phal__F4_2dma_2dma_8c.html#af36fe9d375254e9bb0c09c760a761dc5" title=" " alt="" coords="408,55,523,80"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="324,83,393,74,394,79,325,88"/>
-<area shape="rect" id="Node000005" href="$phal__F4_2dma_2dma_8c.html#a31d09afa5679cb34c0c776051450e62a" title=" " alt="" coords="406,104,525,130"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="325,97,391,105,391,111,324,102"/>
+<area shape="rect" id="Node000004" href="$phal__F4_2dma_2dma_8c.html#a14faecce0cd8bd38b14c987e17ce1033" title=" " alt="" coords="372,55,559,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="324,83,356,79,357,84,325,88"/>
+<area shape="rect" id="Node000005" href="$phal__F4_2dma_2dma_8c.html#ad30451f8c2b3f2787deb02eeaaea43b0" title=" " alt="" coords="388,104,543,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="325,97,373,103,373,108,324,102"/>
 <area shape="rect" id="Node000006" href="$common_2phal__F4_2usart_2usart_8c.html#afd98e1acca0fdcf343db884ea257b819" title="Callback function called immediately after reception of a USART RX message Uses USART IDLE line inter..." alt="" coords="386,154,545,194"/>
 <area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="295,104,373,140,388,145,386,150,371,145,293,109"/>
 </map>

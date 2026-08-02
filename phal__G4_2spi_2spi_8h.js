@@ -1,12 +1,6 @@
 var phal__G4_2spi_2spi_8h =
 [
     [ "SPI_InitConfig_t", "structSPI__InitConfig__t.html", "structSPI__InitConfig__t" ],
-    [ "SPI1_RXDMA_CONT_CONFIG", "phal__G4_2spi_2spi_8h.html#a138f02a7cbb378847fbf648524342247", null ],
-    [ "SPI1_TXDMA_CONT_CONFIG", "phal__G4_2spi_2spi_8h.html#acd5de28146a1c969e3a445f45dbc94af", null ],
-    [ "SPI2_RXDMA_CONT_CONFIG", "phal__G4_2spi_2spi_8h.html#ad217bb70b78900c527c5a018b315a81b", null ],
-    [ "SPI2_TXDMA_CONT_CONFIG", "phal__G4_2spi_2spi_8h.html#a06e18d5b51b4646a94248ccb2ad3d083", null ],
-    [ "SPI3_RXDMA_CONT_CONFIG", "phal__G4_2spi_2spi_8h.html#a501a1a5f0041ba87da6bcbdbe4805deb", null ],
-    [ "SPI3_TXDMA_CONT_CONFIG", "phal__G4_2spi_2spi_8h.html#acf947bcc426bcc9bd2fc5ad3612888cf", null ],
     [ "SPI_Mode", "phal__G4_2spi_2spi_8h.html#a60a7e3d74577b38aa79ea6983362f942", [
       [ "SPI_MODE_MASTER", "phal__G4_2spi_2spi_8h.html#a60a7e3d74577b38aa79ea6983362f942ae68a8adf6e5b67a7bdbe9526b15dae99", null ],
       [ "SPI_MODE_SLAVE", "phal__G4_2spi_2spi_8h.html#a60a7e3d74577b38aa79ea6983362f942ad1131ed33ad43ab3f667070b04454439", null ]

@@ -10,10 +10,6 @@ var phal__G4_2adc_2adc_8h =
     [ "ADC1_CH3_Pin", "phal__G4_2adc_2adc_8h.html#a83d6651e6b23033e30bae7ecb408855f", null ],
     [ "ADC1_CH4_GPIO_Port", "phal__G4_2adc_2adc_8h.html#ac9f7347be93945c9fcafaf7a6f5f13e7", null ],
     [ "ADC1_CH4_Pin", "phal__G4_2adc_2adc_8h.html#af87ae98a5fdd706e72d9f4950dd13d66", null ],
-    [ "ADC1_DMA_CONT_CONFIG", "phal__G4_2adc_2adc_8h.html#a9bf789bb8843fa4ab14a8f71510b8868", null ],
-    [ "ADC2_DMA_CONT_CONFIG", "phal__G4_2adc_2adc_8h.html#ad14e097af25049dee4c0f2d67ae8f8a0", null ],
-    [ "ADC3_DMA_CONT_CONFIG", "phal__G4_2adc_2adc_8h.html#a6864a088dd91d4ac2ea3d8e066701c28", null ],
-    [ "ADC4_DMA_CONT_CONFIG", "phal__G4_2adc_2adc_8h.html#a5df1cb975fca25ded182e7ab071c9734", null ],
     [ "ADCChannel_t", "phal__G4_2adc_2adc_8h.html#aa3a86f84ddbe79b12a16c9f0765e4871", [
       [ "ADC_CHANNEL_1", "phal__G4_2adc_2adc_8h.html#aa3a86f84ddbe79b12a16c9f0765e4871a203b48944d019f4fda969a6fc2a9e492", null ],
       [ "ADC_CHANNEL_2", "phal__G4_2adc_2adc_8h.html#aa3a86f84ddbe79b12a16c9f0765e4871ab5ff3c915ec02ae6ac3980a1312a4815", null ],

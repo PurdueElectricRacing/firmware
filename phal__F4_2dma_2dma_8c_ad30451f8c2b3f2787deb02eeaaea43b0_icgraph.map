@@ -1,0 +1,29 @@
+<map id="PHAL_DMA_stopTxfer" name="PHAL_DMA_stopTxfer">
+<area shape="rect" id="Node000001" title=" " alt="" coords="444,228,598,254"/>
+<area shape="rect" id="Node000002" href="$common_2phal__F4_2usart_2usart_8c.html#a668005fd868c0e9c0c9318ca6685ad87" title="Handle DMA interrupts." alt="" coords="247,104,396,130"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="485,222,342,132,345,128,487,217"/>
+<area shape="rect" id="Node000007" href="$common_2phal__F4_2spi_2spi_8c.html#aed6ed13aeec426dcf483c8936300358d" title="Handle TCIF interrupt signaling end of TX transaction." alt="" coords="257,228,386,254"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="429,244,386,244,386,238,429,238"/>
+<area shape="rect" id="Node000010" href="$common_2phal__F4_2usart_2usart_8c.html#a7bb78a5ea8399c2c2fd4ca94be3ffed3" title=" " alt="" coords="264,351,378,376"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="487,264,346,352,343,348,484,260"/>
+<area shape="rect" id="Node000003" href="$common_2phal__G4_2usart_2usart_8c.html#af9aace1b44b73111e15aa39f06f43456" title=" " alt="" coords="54,5,150,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="289,97,247,70,198,45,150,30,152,25,200,40,249,65,292,93"/>
+<area shape="rect" id="Node000004" href="$common_2phal__G4_2usart_2usart_8c.html#a7b6fac3d670a4860ebec8a961d5c4a73" title=" " alt="" coords="5,55,199,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="245,103,162,84,163,78,247,97"/>
+<area shape="rect" id="Node000005" href="$common_2phal__G4_2usart_2usart_8c.html#ae57a79f62c50fe096d2720c28081e8aa" title=" " alt="" coords="5,104,199,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="231,120,199,120,199,114,231,114"/>
+<area shape="rect" id="Node000006" href="$common_2phal__G4_2usart_2usart_8c.html#aadbfdc5c96e7464ed3c1ef65de080fcd" title=" " alt="" coords="5,153,199,179"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="247,136,163,155,162,150,245,131"/>
+<area shape="rect" id="Node000008" href="$common_2phal__G4_2spi_2spi_8c.html#af9aace1b44b73111e15aa39f06f43456" title=" " alt="" coords="54,203,150,228"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="241,234,150,224,151,218,242,229"/>
+<area shape="rect" id="Node000009" href="$common_2phal__F4_2spi_2spi_8c.html#a69ff6bfb4062ba171cfaeb45ed976b95" title=" " alt="" coords="8,252,196,278"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="242,252,197,257,196,252,241,247"/>
+<area shape="rect" id="Node000011" href="$common_2phal__G4_2usart_2usart_8c.html#ad6426d36e0b02912ed0ca65f3bf92719" title=" " alt="" coords="24,301,180,327"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="248,350,162,330,163,325,250,345"/>
+<area shape="rect" id="Node000012" href="$common_2phal__G4_2usart_2usart_8c.html#a7139cd4baabbbcbab0c1fe6d7d4ae1cc" title=" " alt="" coords="28,351,176,376"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="249,366,177,366,177,361,249,361"/>
+<area shape="rect" id="Node000013" href="$common_2phal__G4_2usart_2usart_8c.html#a0ca6fd0e6f77921dd1123539857ba0a8" title=" " alt="" coords="28,400,176,426"/>
+<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="250,382,163,402,162,397,248,377"/>
+<area shape="rect" id="Node000014" href="$common_2phal__G4_2usart_2usart_8c.html#a0d108a3468b2051548183ee5ca2158a0" title=" " alt="" coords="28,449,176,475"/>
+<area shape="poly" id="edge13_Node000010_Node000014" title=" " alt="" coords="292,388,249,415,200,441,169,451,167,446,198,436,247,410,289,383"/>
+</map>

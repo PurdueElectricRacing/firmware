@@ -9,11 +9,11 @@
 <area shape="rect" id="Node000008" href="$phal__F4_2gpio_2gpio_8h.html#a67db851520637ffa4de5968c9730220b" title="Write a logic value to an output pin." alt="" coords="558,203,684,228"/>
 <area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="291,127,339,140,524,189,551,196,550,201,523,194,337,145,290,132"/>
 <area shape="poly" id="edge7_Node000004_Node000003" title=" " alt="" coords="423,101,466,71,522,40,545,31,547,36,524,45,469,75,426,106"/>
-<area shape="rect" id="Node000005" href="$phal__F4_2dma_2dma_8c.html#a2a989d2d9b7c591de33e96581ac3bb11" title=" " alt="" coords="523,55,719,80"/>
+<area shape="rect" id="Node000005" href="$phal__F4_2dma_2dma_8c.html#a87b11fd9c27f60363585940890fd2343" title=" " alt="" coords="546,55,696,80"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="465,101,547,82,548,87,466,106"/>
-<area shape="rect" id="Node000006" href="$phal__F4_2dma_2dma_8c.html#a14faecce0cd8bd38b14c987e17ce1033" title=" " alt="" coords="527,104,715,130"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="476,114,512,114,512,120,476,120"/>
-<area shape="rect" id="Node000007" href="$phal__F4_2dma_2dma_8c.html#af36fe9d375254e9bb0c09c760a761dc5" title=" " alt="" coords="564,153,678,179"/>
-<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="466,128,549,147,548,152,465,133"/>
+<area shape="rect" id="Node000006" href="$phal__F4_2dma_2dma_8c.html#a2a989d2d9b7c591de33e96581ac3bb11" title=" " alt="" coords="523,104,719,130"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="476,114,508,114,508,120,476,120"/>
+<area shape="rect" id="Node000007" href="$phal__F4_2dma_2dma_8c.html#a14faecce0cd8bd38b14c987e17ce1033" title=" " alt="" coords="527,153,715,179"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="466,128,548,147,547,152,465,133"/>
 <area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="426,128,469,159,524,189,545,197,543,202,522,194,466,163,423,132"/>
 </map>

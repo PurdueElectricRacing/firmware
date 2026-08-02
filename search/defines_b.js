@@ -36,12 +36,10 @@ var searchData=
   ['log_5fenable_5fport_33',['LOG_ENABLE_PORT',['../daq_2main_8h.html#adf17b767bb4e726a39c36c92eef8cad0',1,'main.h']]],
   ['long_5fgain_5fbutton_34',['LONG_GAIN_BUTTON',['../dashboard_2driver__interface_2pages_2vcu_8h.html#a7471ed6486c7bde0d56217c0ef7dbc25',1,'vcu.h']]],
   ['lpuart1_5factive_5fidx_35',['LPUART1_ACTIVE_IDX',['../phal__G4_2usart_2usart_8h.html#a474f4663baa65a1b0e9f06b0408419f8',1,'usart.h']]],
-  ['lpuart1_5frxdma_5fcont_5fconfig_36',['LPUART1_RXDMA_CONT_CONFIG',['../phal__G4_2usart_2usart_8h.html#ab6a694c2ac9e69a8842ba14f7bca513c',1,'usart.h']]],
-  ['lpuart1_5ftxdma_5fcont_5fconfig_37',['LPUART1_TXDMA_CONT_CONFIG',['../phal__G4_2usart_2usart_8h.html#ace43b1e37fc0dbe3d7570ac58446bb41',1,'usart.h']]],
-  ['lv_5fbms_5frx_5fgpio_5fport_38',['LV_BMS_RX_GPIO_Port',['../pdu_2main_8h.html#a2d4d2baed6d39c491b1b627ec73e52dd',1,'main.h']]],
-  ['lv_5fbms_5frx_5fpin_39',['LV_BMS_RX_Pin',['../pdu_2main_8h.html#ae761aac578de0cc45da81a5e01216caa',1,'main.h']]],
-  ['lv_5fbms_5fstat_5fgpio_5fport_40',['LV_BMS_STAT_GPIO_Port',['../pdu_2main_8h.html#a3ea8720813d67d9dfe5b5b782eab5189',1,'main.h']]],
-  ['lv_5fbms_5fstat_5fpin_41',['LV_BMS_STAT_Pin',['../pdu_2main_8h.html#ae827e48832d03eacbc00b782159e322a',1,'main.h']]],
-  ['lv_5fbms_5ftx_5fgpio_5fport_42',['LV_BMS_TX_GPIO_Port',['../pdu_2main_8h.html#a84085fc8c85c574d0aa926eede50f12e',1,'main.h']]],
-  ['lv_5fbms_5ftx_5fpin_43',['LV_BMS_TX_Pin',['../pdu_2main_8h.html#a4e16bb67f72daa09c303ca1690308bcf',1,'main.h']]]
+  ['lv_5fbms_5frx_5fgpio_5fport_36',['LV_BMS_RX_GPIO_Port',['../pdu_2main_8h.html#a2d4d2baed6d39c491b1b627ec73e52dd',1,'main.h']]],
+  ['lv_5fbms_5frx_5fpin_37',['LV_BMS_RX_Pin',['../pdu_2main_8h.html#ae761aac578de0cc45da81a5e01216caa',1,'main.h']]],
+  ['lv_5fbms_5fstat_5fgpio_5fport_38',['LV_BMS_STAT_GPIO_Port',['../pdu_2main_8h.html#a3ea8720813d67d9dfe5b5b782eab5189',1,'main.h']]],
+  ['lv_5fbms_5fstat_5fpin_39',['LV_BMS_STAT_Pin',['../pdu_2main_8h.html#ae827e48832d03eacbc00b782159e322a',1,'main.h']]],
+  ['lv_5fbms_5ftx_5fgpio_5fport_40',['LV_BMS_TX_GPIO_Port',['../pdu_2main_8h.html#a84085fc8c85c574d0aa926eede50f12e',1,'main.h']]],
+  ['lv_5fbms_5ftx_5fpin_41',['LV_BMS_TX_Pin',['../pdu_2main_8h.html#a4e16bb67f72daa09c303ca1690308bcf',1,'main.h']]]
 ];

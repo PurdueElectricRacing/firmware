@@ -13,6 +13,8 @@ var structSPI__InitConfig__t =
     [ "nss_gpio_port", "structSPI__InitConfig__t.html#ae82235e4faf01aa37ffcb212f626abc2", null ],
     [ "nss_sw", "structSPI__InitConfig__t.html#ac7b65af149334e39252e9d91e1d324ba", null ],
     [ "periph", "structSPI__InitConfig__t.html#a7d8e16b0433752f3d6d31b7ca211f874", null ],
-    [ "rx_dma_cfg", "structSPI__InitConfig__t.html#accb8a2f6b9a30e8e5bdbb4d553d76fb6", null ],
-    [ "tx_dma_cfg", "structSPI__InitConfig__t.html#aaa9a3f6785303663045a517526a64da1", null ]
+    [ "rx_dma", "structSPI__InitConfig__t.html#ac02b6e47a9ed988d3e835a6cfe3fe76e", null ],
+    [ "rx_dma_cfg", "structSPI__InitConfig__t.html#a49abaf6eb5a9e3afa89d511d433e31e2", null ],
+    [ "tx_dma", "structSPI__InitConfig__t.html#ac75a422add1ff6d8c63084fdcdadda2f", null ],
+    [ "tx_dma_cfg", "structSPI__InitConfig__t.html#a92647f9f9aff6346411f17e6343b93ad", null ]
 ];

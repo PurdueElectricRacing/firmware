@@ -11,5 +11,7 @@ var searchData=
   ['dma2_5fchannel7_5firqhandler_8',['DMA2_Channel7_IRQHandler',['../common_2phal__G4_2usart_2usart_8c.html#aadbfdc5c96e7464ed3c1ef65de080fcd',1,'usart.c']]],
   ['dma2_5fstream3_5firqhandler_9',['DMA2_Stream3_IRQHandler',['../common_2phal__F4_2spi_2spi_8c.html#a69ff6bfb4062ba171cfaeb45ed976b95',1,'spi.c']]],
   ['dma2_5fstream6_5firqhandler_10',['DMA2_Stream6_IRQHandler',['../sdio_8c.html#a76d38919f345dfea8ab0e0cd9e2c47e3',1,'sdio.c']]],
-  ['driver_5finterface_5fperiodic_11',['driver_interface_periodic',['../driver__interface_8c.html#ac599c66976c348cb0287266b60aa49c5',1,'driver_interface_periodic(void):&#160;driver_interface.c'],['../driver__interface_8h.html#ac599c66976c348cb0287266b60aa49c5',1,'driver_interface_periodic(void):&#160;driver_interface.c']]]
+  ['dma_5fchannel_5fclaim_5fslot_11',['dma_channel_claim_slot',['../phal__G4_2dma_2dma_8c.html#af12ff6bf938e0b8cf0882c4e64e2cdd4',1,'dma.c']]],
+  ['dma_5fwiring_5fis_5fvalid_12',['dma_wiring_is_valid',['../phal__G4_2dma_2dma_8c.html#a3355394f66e080a191644b3aa05bb7e6',1,'dma.c']]],
+  ['driver_5finterface_5fperiodic_13',['driver_interface_periodic',['../driver__interface_8c.html#ac599c66976c348cb0287266b60aa49c5',1,'driver_interface_periodic(void):&#160;driver_interface.c'],['../driver__interface_8h.html#ac599c66976c348cb0287266b60aa49c5',1,'driver_interface_periodic(void):&#160;driver_interface.c']]]
 ];

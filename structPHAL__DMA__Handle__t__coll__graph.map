@@ -1,0 +1,7 @@
+<map id="PHAL_DMA_Handle_t" name="PHAL_DMA_Handle_t">
+<area shape="rect" id="Node000001" title="A configured DMA transfer: fixed wiring + chosen parameters." alt="" coords="91,94,243,120"/>
+<area shape="rect" id="Node000002" href="$structPHAL__DMA__Wiring__t.html" title="Fixed hardware wiring for one peripheral + direction&#39;s DMA use." alt="" coords="5,5,153,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,40,157,92,153,96,100,44"/>
+<area shape="rect" id="Node000003" href="$structPHAL__DMA__Params__t.html" title="Per&#45;transfer parameters (user can configure)" alt="" coords="177,5,333,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="234,44,181,96,177,92,230,40"/>
+</map>

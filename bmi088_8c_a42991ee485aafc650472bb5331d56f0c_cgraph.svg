@@ -193,9 +193,9 @@ var sectionId = 'dynsection-19';
 <!-- Node7 -->
 <g id="Node000007" class="node">
 <title>Node7</title>
-<g id="a_Node000007"><a xlink:href="phal__F4_2dma_2dma_8c.html#a2a989d2d9b7c591de33e96581ac3bb11" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="608.5,-93.25 462,-93.25 462,-74 608.5,-74 608.5,-93.25"/>
-<text text-anchor="middle" x="535.25" y="-79.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_DMA_setMemAddress</text>
+<g id="a_Node000007"><a xlink:href="phal__F4_2dma_2dma_8c.html#a87b11fd9c27f60363585940890fd2343" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="591.62,-93.25 478.88,-93.25 478.88,-74 591.62,-74 591.62,-93.25"/>
+<text text-anchor="middle" x="535.25" y="-79.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_DMA_reEnable</text>
 </a>
 </g>
 </g>
@@ -203,17 +203,17 @@ var sectionId = 'dynsection-19';
 <g id="edge6_Node000006_Node000007" class="edge">
 <title>Node6&#45;&gt;Node7</title>
 <g id="a_edge6_Node000006_Node000007"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M407.61,-82.2C421,-82.35 435.81,-82.52 450.43,-82.68"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="450,-86.18 460.04,-82.79 450.08,-79.18 450,-86.18"/>
+<path fill="none" stroke="#63b8ff" d="M407.61,-82.2C426.11,-82.41 447.31,-82.65 467.01,-82.87"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="466.85,-86.37 476.89,-82.98 466.93,-79.37 466.85,-86.37"/>
 </a>
 </g>
 </g>
 <!-- Node8 -->
 <g id="Node000008" class="node">
 <title>Node8</title>
-<g id="a_Node000008"><a xlink:href="phal__F4_2dma_2dma_8c.html#a14faecce0cd8bd38b14c987e17ce1033" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="605.5,-56.25 465,-56.25 465,-37 605.5,-37 605.5,-56.25"/>
-<text text-anchor="middle" x="535.25" y="-42.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_DMA_setTxferLength</text>
+<g id="a_Node000008"><a xlink:href="phal__F4_2dma_2dma_8c.html#a2a989d2d9b7c591de33e96581ac3bb11" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="608.5,-56.25 462,-56.25 462,-37 608.5,-37 608.5,-56.25"/>
+<text text-anchor="middle" x="535.25" y="-42.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_DMA_setMemAddress</text>
 </a>
 </g>
 </g>
@@ -229,9 +229,9 @@ var sectionId = 'dynsection-19';
 <!-- Node9 -->
 <g id="Node000009" class="node">
 <title>Node9</title>
-<g id="a_Node000009"><a xlink:href="phal__F4_2dma_2dma_8c.html#af36fe9d375254e9bb0c09c760a761dc5" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="578.12,-19.25 492.38,-19.25 492.38,0 578.12,0 578.12,-19.25"/>
-<text text-anchor="middle" x="535.25" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_reEnable</text>
+<g id="a_Node000009"><a xlink:href="phal__F4_2dma_2dma_8c.html#a14faecce0cd8bd38b14c987e17ce1033" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="605.5,-19.25 465,-19.25 465,0 605.5,0 605.5,-19.25"/>
+<text text-anchor="middle" x="535.25" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_DMA_setTxferLength</text>
 </a>
 </g>
 </g>
@@ -239,8 +239,8 @@ var sectionId = 'dynsection-19';
 <g id="edge8_Node000006_Node000009" class="edge">
 <title>Node6&#45;&gt;Node9</title>
 <g id="a_edge8_Node000006_Node000009"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M373.34,-71.59C393.63,-59.68 429.31,-39.89 462,-27.62 468.12,-25.33 474.65,-23.23 481.18,-21.35"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="481.91,-24.78 490.65,-18.79 480.08,-18.03 481.91,-24.78"/>
+<path fill="none" stroke="#63b8ff" d="M373.34,-71.59C393.63,-59.68 429.31,-39.89 462,-27.62 466.62,-25.89 471.46,-24.28 476.37,-22.78"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="477.02,-26.23 485.68,-20.11 475.1,-19.5 477.02,-26.23"/>
 </a>
 </g>
 </g>

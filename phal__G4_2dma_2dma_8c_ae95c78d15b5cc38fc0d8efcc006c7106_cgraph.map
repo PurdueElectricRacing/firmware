@@ -1,0 +1,7 @@
+<map id="PHAL_DMA_deinit" name="PHAL_DMA_deinit">
+<area shape="rect" id="Node000001" title="Disable the channel and release its claim so another handle can use the periph/channel_idx afterward." alt="" coords="5,31,137,56"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2dma_2dma_8c.html#af12ff6bf938e0b8cf0882c4e64e2cdd4" title=" " alt="" coords="211,5,375,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,33,195,27,196,32,137,39"/>
+<area shape="rect" id="Node000003" href="$dma__priv_8c.html#a5120208650c6c1774fe79c46127ea4c2" title="Disable a channel and block until hardware confirms it is off." alt="" coords="185,55,401,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="137,48,169,51,169,57,137,53"/>
+</map>

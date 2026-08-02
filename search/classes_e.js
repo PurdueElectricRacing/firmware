@@ -7,11 +7,14 @@ var searchData=
   ['pdu_5fstate_5ft_4',['pdu_state_t',['../structpdu__state__t.html',1,'']]],
   ['pdu_5fswitch_5foutput_5ft_5',['pdu_switch_output_t',['../structpdu__switch__output__t.html',1,'']]],
   ['peripheralcontext_6',['PeripheralContext',['../classcodegen_1_1PeripheralContext.html',1,'codegen']]],
-  ['phal_5fsd_5fcmd_5ft_7',['PHAL_SD_Cmd_t',['../structPHAL__SD__Cmd__t.html',1,'']]],
-  ['phal_5fusb_5fevent_5ft_8',['PHAL_USB_Event_t',['../structPHAL__USB__Event__t.html',1,'']]],
-  ['phal_5fusb_5ftransferevent_5ft_9',['PHAL_USB_TransferEvent_t',['../structPHAL__USB__TransferEvent__t.html',1,'']]],
-  ['pounds_5ft_10',['pounds_t',['../structpounds__t.html',1,'']]],
-  ['powertrain_5ft_11',['powertrain_t',['../structpowertrain__t.html',1,'']]],
-  ['psi_5ft_12',['psi_t',['../structpsi__t.html',1,'']]],
-  ['pvcu_5fstruct_13',['pVCU_struct',['../structpVCU__struct.html',1,'']]]
+  ['phal_5fdma_5fhandle_5ft_7',['PHAL_DMA_Handle_t',['../structPHAL__DMA__Handle__t.html',1,'']]],
+  ['phal_5fdma_5fparams_5ft_8',['PHAL_DMA_Params_t',['../structPHAL__DMA__Params__t.html',1,'']]],
+  ['phal_5fdma_5fwiring_5ft_9',['PHAL_DMA_Wiring_t',['../structPHAL__DMA__Wiring__t.html',1,'']]],
+  ['phal_5fsd_5fcmd_5ft_10',['PHAL_SD_Cmd_t',['../structPHAL__SD__Cmd__t.html',1,'']]],
+  ['phal_5fusb_5fevent_5ft_11',['PHAL_USB_Event_t',['../structPHAL__USB__Event__t.html',1,'']]],
+  ['phal_5fusb_5ftransferevent_5ft_12',['PHAL_USB_TransferEvent_t',['../structPHAL__USB__TransferEvent__t.html',1,'']]],
+  ['pounds_5ft_13',['pounds_t',['../structpounds__t.html',1,'']]],
+  ['powertrain_5ft_14',['powertrain_t',['../structpowertrain__t.html',1,'']]],
+  ['psi_5ft_15',['psi_t',['../structpsi__t.html',1,'']]],
+  ['pvcu_5fstruct_16',['pVCU_struct',['../structpVCU__struct.html',1,'']]]
 ];

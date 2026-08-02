@@ -65,8 +65,8 @@ void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi);
      .tx_size          = 1, \
      .mem_size         = DMA_SIZE_8BIT, \
      .increment        = false, \
-     .mode            = DMA_MODE_NORMAL, \
-     .dir              = PERIPH_TO_MEMORY, /* P2M */ \
+     .mode             = DMA_MODE_NORMAL, \
+     .dir              = DMA_PERIPH_TO_MEMORY, \
      .mem_inc          = true, \
      .periph_inc       = false, \
      .priority         = (priority_), \

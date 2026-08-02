@@ -39,10 +39,50 @@ static uint8_t slave_tx[XFER_LEN]  = {0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12, 
 static uint8_t slave_rx[XFER_LEN]  = {0};
 
 // DMA configs
-static dma_init_t spi1_rx_dma = SPI1_RXDMA_CONT_CONFIG(NULL, 1);
-static dma_init_t spi1_tx_dma = SPI1_TXDMA_CONT_CONFIG(NULL, 2);
-static dma_init_t spi2_rx_dma = SPI2_RXDMA_CONT_CONFIG(NULL, 1);
-static dma_init_t spi2_tx_dma = SPI2_TXDMA_CONT_CONFIG(NULL, 2);
+static PHAL_DMA_Handle_t spi1_rx_dma = {
+    .wiring = &SPI1_RX_DMA_WIRING,
+    .params = {
+        .mem_addr = (uint32_t)master_rx,
+        .tx_size  = XFER_LEN,
+        .priority = DMA_PRIORITY_HIGH,
+        .mode     = DMA_MODE_NORMAL,
+        .mem_inc  = true,
+        .tx_isr_en = true,
+    },
+};
+static PHAL_DMA_Handle_t spi1_tx_dma = {
+    .wiring = &SPI1_TX_DMA_WIRING,
+    .params = {
+        .mem_addr = (uint32_t)master_tx,
+        .tx_size  = XFER_LEN,
+        .priority = DMA_PRIORITY_HIGH,
+        .mode     = DMA_MODE_NORMAL,
+        .mem_inc  = true,
+        .tx_isr_en = true,
+    },
+};
+static PHAL_DMA_Handle_t spi2_rx_dma = {
+    .wiring = &SPI2_RX_DMA_WIRING,
+    .params = {
+        .mem_addr = (uint32_t)slave_rx,
+        .tx_size  = XFER_LEN,
+        .priority = DMA_PRIORITY_HIGH,
+        .mode     = DMA_MODE_NORMAL,
+        .mem_inc  = true,
+        .tx_isr_en = true,
+    },
+};
+static PHAL_DMA_Handle_t spi2_tx_dma = {
+    .wiring = &SPI2_TX_DMA_WIRING,
+    .params = {
+        .mem_addr = (uint32_t)slave_tx,
+        .tx_size  = XFER_LEN,
+        .priority = DMA_PRIORITY_HIGH,
+        .mode     = DMA_MODE_NORMAL,
+        .mem_inc  = true,
+        .tx_isr_en = true,
+    },
+};
 
 // SPI configs
 static SPI_InitConfig_t spi1 = {
@@ -55,8 +95,8 @@ static SPI_InitConfig_t spi1 = {
     .nss_gpio_pin  = (1 << 4),
     .cpol          = 0,
     .cpha          = 0,
-    .rx_dma_cfg    = &spi1_rx_dma,
-    .tx_dma_cfg    = &spi1_tx_dma,
+    .rx_dma        = &spi1_rx_dma,
+    .tx_dma        = &spi1_tx_dma,
 };
 
 static SPI_InitConfig_t spi2 = {
@@ -69,8 +109,8 @@ static SPI_InitConfig_t spi2 = {
     .nss_gpio_pin  = (1 << 12),
     .cpol          = 0,
     .cpha          = 0,
-    .rx_dma_cfg    = &spi2_rx_dma,
-    .tx_dma_cfg    = &spi2_tx_dma,
+    .rx_dma        = &spi2_rx_dma,
+    .tx_dma        = &spi2_tx_dma,
 };
 
 int main() {
@@ -90,10 +130,7 @@ int main() {
     while (PHAL_SPI_busy(&spi1) || PHAL_SPI_busy(&spi2))
         ;
 
-    // Non-DMA loopback test: tie PA7 (MOSI) to PA6 (MISO)
-    PHAL_SPI_transfer_noDMA(&spi1, master_tx, XFER_LEN, XFER_LEN, master_rx);
-    while (PHAL_SPI_busy(&spi1))
-        ;
+    while (true) {
 
     return 0;
 }

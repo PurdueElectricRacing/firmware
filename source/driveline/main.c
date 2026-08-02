@@ -64,7 +64,18 @@ typedef struct {
 } raw_adc1_values_t;
 volatile raw_adc1_values_t raw_adc1_values;
 
-dma_init_t adc1_dma_config = ADC1_DMA_CONT_CONFIG((uint32_t)&raw_adc1_values, sizeof(raw_adc1_values) / sizeof(uint16_t), 0b01);
+PHAL_DMA_Handle_t adc1_dma = {
+    .wiring = &ADC1_DMA_WIRING,
+    .params = {
+        .mem_addr = (uint32_t)&raw_adc1_values,
+        .tx_size  = sizeof(raw_adc1_values) / sizeof(uint16_t),
+        .priority = DMA_PRIORITY_HIGH,
+        .mode     = DMA_MODE_CIRCULAR,
+        .mem_inc  = true,
+        .tx_isr_en = true,
+    },
+};
+
 
 ADCInitConfig_t adc2_config = {
     .prescaler      = ADC_CLK_PRESC_2,
@@ -84,7 +95,18 @@ typedef struct {
 } raw_adc2_values_t;
 volatile raw_adc2_values_t raw_adc2_values;
 
-dma_init_t adc2_dma_config = ADC2_DMA_CONT_CONFIG((uint32_t)&raw_adc2_values, sizeof(raw_adc2_values) / sizeof(uint16_t), 0b01);
+PHAL_DMA_Handle_t adc2_dma = {
+    .wiring = &ADC2_DMA_WIRING,
+    .params = {
+        .mem_addr = (uint32_t)&raw_adc2_values,
+        .tx_size  = sizeof(raw_adc2_values) / sizeof(uint16_t),
+        .priority = DMA_PRIORITY_HIGH,
+        .mode     = DMA_MODE_CIRCULAR,
+        .mem_inc  = true,
+        .tx_isr_en = true,
+    },
+};
+
 
 // ADC 3
 
@@ -106,7 +128,17 @@ typedef struct {
 } raw_adc3_values_t;
 volatile raw_adc3_values_t raw_adc3_values;
 
-dma_init_t adc3_dma_config = ADC3_DMA_CONT_CONFIG((uint32_t)&raw_adc3_values, sizeof(raw_adc3_values) / sizeof(uint16_t), 0b01);
+PHAL_DMA_Handle_t adc3_dma = {
+    .wiring = &ADC3_DMA_WIRING,
+    .params = {
+        .mem_addr = (uint32_t)&raw_adc3_values,
+        .tx_size  = sizeof(raw_adc3_values) / sizeof(uint16_t),
+        .priority = DMA_PRIORITY_HIGH,
+        .mode     = DMA_MODE_CIRCULAR,
+        .mem_inc  = true,
+        .tx_isr_en = true,
+    },
+};
 
 // ADC 4
 
@@ -127,7 +159,18 @@ typedef struct {
     uint16_t shock_r;
 } raw_adc4_values_t;
 volatile raw_adc4_values_t raw_adc4_values;
-dma_init_t adc4_dma_config = ADC4_DMA_CONT_CONFIG((uint32_t)&raw_adc4_values, sizeof(raw_adc4_values) / sizeof(uint16_t), 0b01);
+PHAL_DMA_Handle_t adc4_dma = {
+    .wiring = &ADC4_DMA_WIRING,
+    .params = {
+        .mem_addr = (uint32_t)&raw_adc4_values,
+        .tx_size  = sizeof(raw_adc4_values) / sizeof(uint16_t),
+        .priority = DMA_PRIORITY_HIGH,
+        .mode     = DMA_MODE_CIRCULAR,
+        .mem_inc  = true,
+        .tx_isr_en = true,
+    },
+};
+
 
 // note: this struct is the target of the DMA controller,
 // it's layout must match the order and size of the ADC channels in adc_channel_config
@@ -152,16 +195,16 @@ int main(void) {
     if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
-    if (false == PHAL_initDMA(&adc1_dma_config)) {
+    if (false == PHAL_DMA_init(&adc1_dma)) {
         HardFault_Handler();
     }
-    if (false == PHAL_initDMA(&adc2_dma_config)) {
+    if (false == PHAL_DMA_init(&adc2_dma)) {
         HardFault_Handler();
     }
-    if (false == PHAL_initDMA(&adc3_dma_config)) {
+    if (false == PHAL_DMA_init(&adc3_dma)) {
         HardFault_Handler();
     }
-    if (false == PHAL_initDMA(&adc4_dma_config)) {
+    if (false == PHAL_DMA_init(&adc4_dma)) {
         HardFault_Handler();
     }
     if (false == PHAL_initADC(&adc1_config, adc1_channel_config, countof(adc1_channel_config))) {
@@ -177,10 +220,10 @@ int main(void) {
         HardFault_Handler();
     }
     
-    PHAL_DMA_startTxfer(&adc1_dma_config);
-    PHAL_DMA_startTxfer(&adc2_dma_config);
-    PHAL_DMA_startTxfer(&adc3_dma_config);
-    PHAL_DMA_startTxfer(&adc4_dma_config);
+    PHAL_DMA_start(&adc1_dma);
+    PHAL_DMA_start(&adc2_dma);
+    PHAL_DMA_start(&adc3_dma);
+    PHAL_DMA_start(&adc4_dma);
 
     PHAL_startADC(&adc1_config);
     PHAL_startADC(&adc2_config);

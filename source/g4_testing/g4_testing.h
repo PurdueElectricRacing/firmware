@@ -14,6 +14,6 @@
 #define TEST_USB        9
 
 // Change this define to set the test compiled
-#define G4_TESTING_CHOSEN TEST_BLINKY
+#define G4_TESTING_CHOSEN TEST_SPI
 
 #endif // __G4_TESTING__

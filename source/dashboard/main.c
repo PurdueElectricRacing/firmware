@@ -109,15 +109,42 @@ static_assert(
 
 volatile raw_adc_values_t raw_adc_values; // DMA target
 
-dma_init_t adc_dma_config =
-ADC1_DMA_CONT_CONFIG(
-    (uint32_t)&raw_adc_values,
-    sizeof(raw_adc_values) / sizeof(raw_adc_values.throttle1), 0b01
-);
+PHAL_DMA_Handle_t adc_dma_config = {
+    .wiring = &ADC1_DMA_WIRING,
+    .params = {
+        .mem_addr = (uint32_t)&raw_adc_values,
+        .tx_size  = sizeof(raw_adc_values) / sizeof(uint16_t),
+        .priority = DMA_PRIORITY_HIGH,
+        .mode     = DMA_MODE_CIRCULAR,
+        .mem_inc  = true,
+        .tx_isr_en = true,
+    },
+};
 
 // USART Configuration for LCD
-dma_init_t usart_tx_dma_config = USART1_TXDMA_CONT_CONFIG(NULL, 1);
-dma_init_t usart_rx_dma_config = USART1_RXDMA_CONT_CONFIG(NULL, 2);
+PHAL_DMA_Handle_t usart_tx_dma = {
+    .wiring = &USART1_TX_DMA_WIRING,
+    .params = {
+        .mem_addr = 0,
+        .tx_size  = 0,
+        .priority = DMA_PRIORITY_HIGH,
+        .mode     = DMA_MODE_NORMAL,
+        .mem_inc  = true,
+        .tx_isr_en = true,
+    },
+};
+PHAL_DMA_Handle_t usart_rx_dma = {
+    .wiring = &USART1_RX_DMA_WIRING,
+    .params = {
+        .mem_addr = 0,
+        .tx_size  = 0, 
+        .priority = DMA_PRIORITY_HIGH,
+        .mode     = DMA_MODE_NORMAL,
+        .mem_inc  = true,
+        .tx_isr_en = true,
+    },
+};
+
 usart_init_t lcd = {
     .baud_rate        = LCD_BAUD_RATE,
     .word_length      = WORD_8,
@@ -129,8 +156,8 @@ usart_init_t lcd = {
     .periph           = USART1,
     .wake_addr        = false,
     .usart_active_num = USART1_ACTIVE_IDX,
-    .tx_dma_cfg       = &usart_tx_dma_config,
-    .rx_dma_cfg       = &usart_rx_dma_config,
+    .tx_dma           = &usart_tx_dma,
+    .rx_dma           = &usart_rx_dma,
 };
 
 /* Function Prototypes */
@@ -163,10 +190,10 @@ int main(void) {
     if (false == PHAL_initADC(&adc_config, adc_channel_config, countof(adc_channel_config))) {
         HardFault_Handler();
     }
-    if (false == PHAL_initDMA(&adc_dma_config)) {
+    if (false == PHAL_DMA_init(&adc_dma_config)) {
         HardFault_Handler();
     }
-    PHAL_DMA_startTxfer(&adc_dma_config);
+    PHAL_DMA_start(&adc_dma_config);
     PHAL_startADC(&adc_config);
 
     PHAL_FDCAN_init(FDCAN2, VCAN_BAUD_RATE);

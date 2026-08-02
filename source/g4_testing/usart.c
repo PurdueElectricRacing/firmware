@@ -27,20 +27,42 @@ GPIOInitConfig_t gpio_config[] = {
 uint8_t rx_buffer[RX_BUFFER_SIZE];
 uint8_t tx_buffer[TX_BUFFER_SIZE];
 
-dma_init_t usart_rx_dma_config = USART2_RXDMA_CONT_CONFIG(NULL, 1);
-dma_init_t usart_tx_dma_config = USART2_TXDMA_CONT_CONFIG(NULL, 2);
+PHAL_DMA_Handle_t usart_rx_dma = {
+    .wiring = &USART2_RX_DMA_WIRING,
+    .params = {
+        .mem_addr = 0,
+        .tx_size  = 0,
+        .priority = DMA_PRIORITY_HIGH,
+        .mode     = DMA_MODE_CIRCULAR,
+        .mem_inc  = true,
+        .tx_isr_en = true,
+    },
+};
+PHAL_DMA_Handle_t usart_tx_dma = {
+    .wiring = &USART2_TX_DMA_WIRING,
+    .params = {
+        .mem_addr = 0,
+        .tx_size  = 0,
+        .priority = DMA_PRIORITY_HIGH,
+        .mode     = DMA_MODE_NORMAL,
+        .mem_inc  = true,
+        .tx_isr_en = true,
+    },
+};
 
 // USART Configuration
-usart_init_t usart_config = {.periph           = USART2,
-                             .baud_rate        = 115200,
-                             .word_length      = WORD_8,
-                             .stop_bits        = SB_ONE,
-                             .parity           = PT_NONE,
-                             .ovsample         = OV_16,
-                             .obsample         = OB_DISABLE,
-                             .usart_active_num = USART2_ACTIVE_IDX,
-                             .tx_dma_cfg       = &usart_tx_dma_config,
-                             .rx_dma_cfg       = &usart_rx_dma_config};
+usart_init_t usart_config = {
+    .periph           = USART2,
+    .baud_rate        = 115200,
+    .word_length      = WORD_8,
+    .stop_bits        = SB_ONE,
+    .parity           = PT_NONE,
+    .ovsample         = OV_16,
+    .obsample         = OB_DISABLE,
+    .usart_active_num = USART2_ACTIVE_IDX,
+    .tx_dma           = &usart_tx_dma,
+    .rx_dma           = &usart_rx_dma
+};
 
 
 int main() {

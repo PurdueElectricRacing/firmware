@@ -1,111 +1,147 @@
 /**
  * @file dma.h
- * @author Chris McGalliard - Port of L4 HAL by Dawson Moore (moore800@purdue.edu)
- * @brief
- * @version 0.1
- * @date 2023-08-19
- *
- * @copyright Copyright (c) 2023
- *
+ * @brief G4 DMA Peripheral public API implementation
+ * @author Shriya Balu (balu@purdue.edu)
+ * @author Millan Kumar (kumar798@purdue.edu)
  */
 
-#ifndef __PHAL_G4_DMA_H__
-#define __PHAL_G4_DMA_H__
+#ifndef PHAL_G4_DMA_H
+#define PHAL_G4_DMA_H
+
+#include <stdint.h>
 
 #include "common/phal_G4/phal_G4.h"
 
+#include "common/phal_G4/dma/dma_wiring.h"
+
+/// Relative priority when multiple DMA requests are pending at once
 typedef enum {
-    DMA_SIZE_8BIT  = 0,
-    DMA_SIZE_16BIT = 1,
-    DMA_SIZE_32BIT = 2
-} dma_size_t;
+    DMA_PRIORITY_LOW       = 0,
+    DMA_PRIORITY_MEDIUM    = 1,
+    DMA_PRIORITY_HIGH      = 2,
+    DMA_PRIORITY_VERY_HIGH = 3,
+} PHAL_DMA_Priority_t;
 
-// Mux requests (TODO support all)
-#define DMA_REQUEST_ADC1 5U
-#define DMA_REQUEST_ADC2 36U
-#define DMA_REQUEST_ADC3 37U
-#define DMA_REQUEST_ADC4 38U
+/// What a channel does once its transfer count reaches zero
+typedef enum {
+    DMA_MODE_NORMAL   = 0, /**< Stops (call PHAL_DMA_restart() to re-run) */
+    DMA_MODE_CIRCULAR = 1, /**< Automatically reload the count and restart */
+    DMA_MODE_MEM2MEM  = 2, /**< Copy memory-to-memory (no DMAMUX request involved) */
+} PHAL_DMA_Mode_t;
 
-#define DMA_REQUEST_SPI1_RX 10U
-#define DMA_REQUEST_SPI1_TX 11U
-#define DMA_REQUEST_SPI2_RX 12U
-#define DMA_REQUEST_SPI2_TX 13U
-#define DMA_REQUEST_SPI3_RX 14U
-#define DMA_REQUEST_SPI3_TX 15U
-
-#define DMA_REQUEST_USART1_RX 24U
-#define DMA_REQUEST_USART1_TX 25U
-#define DMA_REQUEST_USART2_RX 26U
-#define DMA_REQUEST_USART2_TX 27U
-#define DMA_REQUEST_USART3_RX 28U
-#define DMA_REQUEST_USART3_TX 29U
-
+/**
+ * @brief Per-transfer parameters (user can configure)
+ */
 typedef struct {
-    uint32_t periph_addr;
-    uint32_t mem_addr;
-    uint16_t tx_size;
-    uint8_t mem_size;
+    uint32_t mem_addr;         /*!< Memory buffer address, second memory address for MEM2MEM */
+    uint16_t tx_size;          /*!< Number of data elements to transfer */
+    PHAL_DMA_Priority_t priority;
+    PHAL_DMA_Mode_t mode;
+    bool mem_inc;              /*!< Increment memory address after each transfer */
+    bool tx_isr_en;            /*!< Enable transfer-complete and transfer-error interrupts */
+} PHAL_DMA_Params_t;
 
-    bool increment;
-    bool circular;
-    uint8_t dir;
-    bool mem_inc;
-    bool periph_inc;
-    bool mem_to_mem;
-    uint8_t priority;
-    uint8_t periph_size;
-    bool tx_isr_en;
-    uint8_t dma_chan_request;
-    uint8_t channel_idx;
-    uint8_t mux_request;
-
-    DMA_TypeDef* periph;
-    DMA_Channel_TypeDef* channel; // Example DMA1_Stream0 or DMA2_Stream7
-} dma_init_t;
-
-/*
- * @brief Initialize DMA peripheral to set m2m, p2p, or p2m with set size
- *        and length of txfer
+/**
+ * @brief A configured DMA transfer: fixed wiring + chosen parameters
  *
- * @param dma -> Address of initialization structure
- * @return true -> Successful init (no clashing params)
- * @return false -> Init not complete (parameters clash)
+ * channel is populated by PHAL_DMA_init(), do not specify when constructing PHAL_DMA_Handle_t.
  */
-bool PHAL_initDMA(dma_init_t* dma);
+typedef struct {
+    const PHAL_DMA_Wiring_t *wiring;
+    PHAL_DMA_Params_t params;
+    DMA_Channel_TypeDef *channel; /**< Populated by PHAL_DMA_init()!! */
+} PHAL_DMA_Handle_t;
 
-/*
- * @brief Start txfer after sucessful DMA peripheral initialization
+
+/**
+ * @brief Claim a DMA channel and configure it from handle->wiring and handle->params
+ 
+ * Does not start the transfer (call PHAL_DMA_start() afterward).
  *
- * @param dma -> Address of initialization structure
+ * @param handle wiring + params to configure. handle->channel is populated in on success
+ * @return true on success; false if handle/wiring invalid (NULL, channel_idx
+ * is outside 1-8, periph isn't DMA1/DMA2, or that periph/channel_idx
+ * is already claimed by another live handle)
  */
-void PHAL_startTxfer(dma_init_t* dma);
+bool PHAL_DMA_init(PHAL_DMA_Handle_t *handle);
 
-/*
- * @brief Stop txfer
+/**
+ * @brief Disable the channel and release its claim so another handle can
+ * use the periph/channel_idx afterward
+ * @return true on success, false if handle was never successfully init-ed
+ */
+bool PHAL_DMA_deinit(PHAL_DMA_Handle_t *handle);
+
+/**
+ * @brief Enable the channel, starting the transfer configured by PHAL_DMA_init()
+ * @return true on success, false if handle was never successfully init-ed
+ */
+bool PHAL_DMA_start(PHAL_DMA_Handle_t *handle);
+
+/**
+ * @brief Disable the channel, stopping the transfer immediately
+ * 
+ * Whatever hasn't transferred yet is left un-transferred
+ * 
+ * @return true on success, false if handle was never successfully init-ed
+ */
+bool PHAL_DMA_stop(PHAL_DMA_Handle_t *handle);
+
+/**
+ * @brief Reload the transfer count from handle->params.tx_size and start again
+ * 
+ * Safe to call regardless of whether the channel state (enabled, mid-transfer, or stopped on an error),
+ * it always disables first.
  *
- * @param dma -> Address of initialization structure
+ * @return true on success, false if handle was never successfully init-ed
  */
-void PHAL_stopTxfer(dma_init_t* dma);
+bool PHAL_DMA_restart(PHAL_DMA_Handle_t *handle);
 
-/*
- * @brief Re-enable DMA txfer after error ISR fires
+/**
+ * @brief Change the memory address for the next transfer
+ * @return true on success, false if handle was never successfully
+ * init-ed or the channel is currently enabled
+ */
+bool PHAL_DMA_setMemAddress(PHAL_DMA_Handle_t *handle, uint32_t address);
+
+/**
+ * @brief Change the transfer length (element count) for the next transfer
+ * @return true on success, false if handle was never successfully
+ * init-ed, or the channel is currently enabled
+ */
+bool PHAL_DMA_setLength(PHAL_DMA_Handle_t *handle, uint16_t length);
+
+/**
+ * @brief Check whether the channel is currently enabled (transfer in
+ * progress, or in circular mode, running continuously)
  *
- * @param dma -> Address of initialization structure
+ * @return true if the channel is enabled, false if disabled or handle
+ * was never successfully init-ed
  */
-void PHAL_reEnable(dma_init_t* dma);
+bool PHAL_DMA_isBusy(PHAL_DMA_Handle_t *handle);
 
-/*
- * @brief Set memory address for DMA transfer. In Mem to Mem this acts as the source address
+/**
+ * @brief Get the DMA peripheral (DMA1 or DMA2) for a given handle
+ * 
+ * @return Return nullptr if handle is null otherwise return the DMA peripheral for the given handle
+ */
+DMA_TypeDef *PHAL_DMA_getPeriph(PHAL_DMA_Handle_t *handle);
+
+/**
+ * @brief Get the channel number (1-8) for a given handle
+ * 
+ * @return uint8_t Return 0 if handle is null otherwise return the channel number for the given handle
+ */
+uint8_t PHAL_DMA_getChannelIdx(PHAL_DMA_Handle_t *handle);
+
+/**
+ * @brief Set whether the memory address increments after each transfer and rebuild the channel configuration
  *
- * @param dma -> Address of initialization structure
+ * If the channel is currently enabled, this function will not change the configuration
+ * 
+ * @param mem_inc true to increment memory address after each transfer, false to keep it constant
  */
-void PHAL_DMA_setMemAddress(dma_init_t* dma, const uint32_t address);
+void PHAL_DMA_setMemInc(PHAL_DMA_Handle_t *handle, bool mem_inc);
 
-/*
- * @brief Set transfer length for DMA transaction
- *
- * @param dma -> Address of initialization structure
- */
-void PHAL_DMA_setTxferLength(dma_init_t* dma, const uint32_t length);
 
-#endif // __PHAL_G4_DMA_H__
+#endif // PHAL_G4_DMA_H

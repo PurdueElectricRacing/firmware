@@ -52,8 +52,29 @@ GPIOInitConfig_t gpio_config[] = {
 
 // USART Configuration for GPS
 static constexpr uint32_t GPS_BAUD_RATE = 460'800;
-dma_init_t rover_tx_dma_config = USART3_TXDMA_CONT_CONFIG(NULL, 2);
-dma_init_t rover_rx_dma_config = USART3_RXDMA_CONT_CONFIG(NULL, 1);
+PHAL_DMA_Handle_t rover_tx_dma = {
+    .wiring = &USART3_TX_DMA_WIRING,
+    .params = {
+        .mem_addr = 0,
+        .tx_size  = 0,
+        .priority = DMA_PRIORITY_HIGH,
+        .mode     = DMA_MODE_NORMAL,
+        .mem_inc  = true,
+        .tx_isr_en = true,
+    },
+};
+PHAL_DMA_Handle_t rover_rx_dma = {
+    .wiring = &USART3_RX_DMA_WIRING,
+    .params = {
+        .mem_addr = 0,
+        .tx_size  = 0,
+        .priority = DMA_PRIORITY_HIGH,
+        .mode     = DMA_MODE_NORMAL,
+        .mem_inc  = true,
+        .tx_isr_en = true,
+    },
+};
+
 usart_init_t usart3 = {
     .baud_rate        = GPS_BAUD_RATE,
     .word_length      = WORD_8,
@@ -65,8 +86,8 @@ usart_init_t usart3 = {
     .periph           = USART3,
     .wake_addr        = false,
     .usart_active_num = USART3_ACTIVE_IDX,
-    .tx_dma_cfg       = &rover_tx_dma_config,
-    .rx_dma_cfg       = &rover_rx_dma_config,
+    .tx_dma           = &rover_tx_dma,
+    .rx_dma           = &rover_rx_dma,
 };
 
 extern void HardFault_Handler(void);

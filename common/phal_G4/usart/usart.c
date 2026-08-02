@@ -104,11 +104,11 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck) {
     handle->periph->CR1 |= USART_CR1_UE;
 
     // Blocking is currently not supported without DMA configuration
-    if (!handle->rx_dma_cfg || !handle->tx_dma_cfg)
+    if (!handle->rx_dma || !handle->tx_dma)
         return false;
 
     // Configure DMA
-    if (!PHAL_initDMA(handle->tx_dma_cfg) || !PHAL_initDMA(handle->rx_dma_cfg)) {
+    if (!PHAL_DMA_init(handle->tx_dma) || !PHAL_DMA_init(handle->rx_dma)) {
         return false;
     }
 
@@ -167,27 +167,27 @@ bool PHAL_usartTxDma(usart_init_t* handle, uint8_t* data, uint32_t len) {
         ;
 
     // Enable the correct DMA interrupt for the G4
-    if (handle->tx_dma_cfg->periph == DMA1) {
-        NVIC_EnableIRQ(DMA1_Channel1_IRQn + (handle->tx_dma_cfg->channel_idx - 1));
-    } else if (handle->tx_dma_cfg->periph == DMA2) {
-        NVIC_EnableIRQ(DMA2_Channel1_IRQn + (handle->tx_dma_cfg->channel_idx - 1));
+    if (PHAL_DMA_getPeriph(handle->tx_dma) == DMA1) {
+        NVIC_EnableIRQ(DMA1_Channel1_IRQn + (PHAL_DMA_getChannelIdx(handle->tx_dma) - 1));
+    } else if (PHAL_DMA_getPeriph(handle->tx_dma) == DMA2) {
+        NVIC_EnableIRQ(DMA2_Channel1_IRQn + (PHAL_DMA_getChannelIdx(handle->tx_dma) - 1));
     } else {
         return false;
     }
 
-    PHAL_stopTxfer(handle->tx_dma_cfg);
+    PHAL_DMA_stop(handle->tx_dma);
 
-    PHAL_DMA_setTxferLength(handle->tx_dma_cfg, len);
-    PHAL_DMA_setMemAddress(handle->tx_dma_cfg, (uint32_t)data);
+    PHAL_DMA_setLength(handle->tx_dma, len);
+    PHAL_DMA_setMemAddress(handle->tx_dma, (uint32_t)data);
 
-    PHAL_reEnable(handle->tx_dma_cfg);
+    PHAL_DMA_restart(handle->tx_dma);
 
     active_uarts[handle->usart_active_num]._tx_busy = 1;
 
     handle->periph->CR3 |= USART_CR3_DMAT;
     handle->periph->CR1 |= USART_CR1_TE;
 
-    PHAL_startTxfer(handle->tx_dma_cfg);
+    PHAL_DMA_start(handle->tx_dma);
     return true;
 }
 
@@ -239,19 +239,19 @@ bool PHAL_usartRxDma(usart_init_t* handle, uint8_t* data, uint32_t len, bool con
             return false;
     }
 
-    if (handle->rx_dma_cfg->periph == DMA1) {
-        NVIC_EnableIRQ(DMA1_Channel1_IRQn + (handle->rx_dma_cfg->channel_idx - 1));
-    } else if (handle->rx_dma_cfg->periph == DMA2) {
-        NVIC_EnableIRQ(DMA2_Channel1_IRQn + (handle->rx_dma_cfg->channel_idx - 1));
+    if (PHAL_DMA_getPeriph(handle->rx_dma) == DMA1) {
+        NVIC_EnableIRQ(DMA1_Channel1_IRQn + (PHAL_DMA_getChannelIdx(handle->rx_dma) - 1));
+    } else if (PHAL_DMA_getPeriph(handle->rx_dma) == DMA2) {
+        NVIC_EnableIRQ(DMA2_Channel1_IRQn + (PHAL_DMA_getChannelIdx(handle->rx_dma) - 1));
     } else {
         return false;
     }
 
-    PHAL_DMA_setMemAddress(handle->rx_dma_cfg, (uint32_t)data);
+    PHAL_DMA_setMemAddress(handle->rx_dma, (uint32_t)data);
     handle->periph->CR3 |= USART_CR3_DMAR;
 
-    PHAL_DMA_setTxferLength(handle->rx_dma_cfg, len);
-    PHAL_startTxfer(handle->rx_dma_cfg);
+    PHAL_DMA_setLength(handle->rx_dma, len);
+    PHAL_DMA_start(handle->rx_dma);
 
     return true;
 }
@@ -292,10 +292,10 @@ bool PHAL_disableContinousRxDMA(usart_init_t* handle) {
             return false;
     }
 
-    if (handle->rx_dma_cfg->periph == DMA1) {
-        NVIC_DisableIRQ(DMA1_Channel1_IRQn + (handle->rx_dma_cfg->channel_idx - 1));
-    } else if (handle->rx_dma_cfg->periph == DMA2) {
-        NVIC_DisableIRQ(DMA2_Channel1_IRQn + (handle->rx_dma_cfg->channel_idx - 1));
+    if (PHAL_DMA_getPeriph(handle->rx_dma) == DMA1) {
+        NVIC_DisableIRQ(DMA1_Channel1_IRQn + (PHAL_DMA_getChannelIdx(handle->rx_dma) - 1));
+    } else if (PHAL_DMA_getPeriph(handle->rx_dma) == DMA2) {
+        NVIC_DisableIRQ(DMA2_Channel1_IRQn + (PHAL_DMA_getChannelIdx(handle->rx_dma) - 1));
     } else {
         return false;
     }
@@ -329,9 +329,9 @@ static void handleUsartIRQ(USART_TypeDef* periph, uint8_t idx) {
     // USART RX Not Empty interrupt flag
     if (isr & USART_ISR_RXNE_RXFNE) {
         active_uarts[idx]._rx_busy = 1;
-        PHAL_DMA_setTxferLength(active_uarts[idx].active_handle->rx_dma_cfg,
+        PHAL_DMA_setLength(active_uarts[idx].active_handle->rx_dma,
                                 active_uarts[idx].rxfer_size);
-        PHAL_reEnable(active_uarts[idx].active_handle->rx_dma_cfg);
+        PHAL_DMA_restart(active_uarts[idx].active_handle->rx_dma);
         // Read RDR to clear RXNE flag if set
         (void)active_uarts[idx].active_handle->periph->RDR;
         active_uarts[idx].active_handle->periph->RQR = USART_RQR_RXFRQ;
@@ -366,7 +366,7 @@ static void handleUsartIRQ(USART_TypeDef* periph, uint8_t idx) {
 
     // Idle line detected
     if (isr & USART_ISR_IDLE) {
-        PHAL_stopTxfer(active_uarts[idx].active_handle->rx_dma_cfg);
+        PHAL_DMA_stop(active_uarts[idx].active_handle->rx_dma);
         if (active_uarts[idx].cont_rx) {
             // Read RDR to clear RXNE before re-enabling RXNEIE
             if (periph->ISR & USART_ISR_RXNE_RXFNE) {
@@ -407,7 +407,7 @@ handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t dma_type, u
         dma_periph->IFCR |= tcif_mask;
 
         if (dma_type == USART_DMA_TX) {
-            PHAL_stopTxfer(active_uarts[idx].active_handle->tx_dma_cfg);
+            PHAL_DMA_stop(active_uarts[idx].active_handle->tx_dma);
             active_uarts[idx]._tx_busy = 0;
         }
     }

@@ -299,7 +299,7 @@ int main() {
     if (!PHAL_initDMA(&adc_dma_config)) {
         HardFault_Handler();
     }
-    PHAL_startTxfer(&adc_dma_config);
+    PHAL_DMA_startTxfer(&adc_dma_config);
     PHAL_startADC(ADC1);
 
     if (!PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {

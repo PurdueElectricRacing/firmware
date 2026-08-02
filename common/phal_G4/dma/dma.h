@@ -12,17 +12,38 @@
 
 #include "common/phal_G4/phal_G4.h"
 
+
+/**
+ * @brief DMA transfer data width
+ *
+ * Selects the size of each data element transferred by the DMA.
+ */
 typedef enum {
     DMA_SIZE_8BIT  = 0,
     DMA_SIZE_16BIT = 1,
     DMA_SIZE_32BIT = 2
 } dma_size_t;
 
+/**
+ * @brief DMA transfer direction
+ *
+ * Specifies whether the peripheral is the source or destination
+ * of the transfer.
+ *
+ * Memory-to-memory transfers should use DMA_MODE_MEM2MEM
+ * instead of a transfer direction.
+ */
 typedef enum {
     DMA_PERIPH_TO_MEMORY = 0,
     DMA_MEMORY_TO_PERIPH = 1
 } dma_dir_t;
 
+/**
+ * @brief DMA channel priority.
+ *
+ * Higher-priority channels are serviced before lower-priority channels
+ * when multiple DMA requests are pending simultaneously.
+ */
 typedef enum {
     DMA_PRIORITY_LOW       = 0,
     DMA_PRIORITY_MEDIUM    = 1,
@@ -30,10 +51,18 @@ typedef enum {
     DMA_PRIORITY_VERY_HIGH = 3
 } dma_priority_t;
 
+
+/**
+ * @brief DMA operating mode
+ *
+ * Selects how the DMA channel behaves after completing a transfer.
+ *
+ * Not all DMAs support memory-to-memory mode
+ */
 typedef enum {
-    DMA_MODE_NORMAL   = 0,
-    DMA_MODE_CIRCULAR = 1,
-    DMA_MODE_MEM2MEM = 2
+    DMA_MODE_NORMAL   = 0, /**< Stop after the requested transfer completes */
+    DMA_MODE_CIRCULAR = 1, /**< Automatically restart after completion */
+    DMA_MODE_MEM2MEM  = 2  /**< Copy data between memory regions */
 } dma_mode_t;
 
 // Mux requests (TODO support all)

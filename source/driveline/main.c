@@ -67,12 +67,12 @@ volatile raw_adc1_values_t raw_adc1_values;
 PHAL_DMA_Handle_t adc1_dma = {
     .wiring = &ADC1_DMA_WIRING,
     .params = {
-        .mem_addr = (uint32_t)&raw_adc1_values,
-        .tx_size  = sizeof(raw_adc1_values) / sizeof(uint16_t),
-        .priority = DMA_PRIORITY_HIGH,
-        .mode     = DMA_MODE_CIRCULAR,
-        .mem_inc  = true,
-        .tx_isr_en = true,
+        .mem_addr  = (uint32_t)&raw_adc1_values,
+        .tx_size   = sizeof(raw_adc1_values) / sizeof(uint16_t),
+        .priority  = DMA_PRIORITY_HIGH,
+        .mode      = DMA_MODE_CIRCULAR,
+        .mem_inc   = true,
+        .tx_isr_en = false,
     },
 };
 
@@ -98,12 +98,12 @@ volatile raw_adc2_values_t raw_adc2_values;
 PHAL_DMA_Handle_t adc2_dma = {
     .wiring = &ADC2_DMA_WIRING,
     .params = {
-        .mem_addr = (uint32_t)&raw_adc2_values,
-        .tx_size  = sizeof(raw_adc2_values) / sizeof(uint16_t),
-        .priority = DMA_PRIORITY_HIGH,
-        .mode     = DMA_MODE_CIRCULAR,
-        .mem_inc  = true,
-        .tx_isr_en = true,
+        .mem_addr  = (uint32_t)&raw_adc2_values,
+        .tx_size   = sizeof(raw_adc2_values) / sizeof(uint16_t),
+        .priority  = DMA_PRIORITY_HIGH,
+        .mode      = DMA_MODE_CIRCULAR,
+        .mem_inc   = true,
+        .tx_isr_en = false,
     },
 };
 
@@ -131,12 +131,12 @@ volatile raw_adc3_values_t raw_adc3_values;
 PHAL_DMA_Handle_t adc3_dma = {
     .wiring = &ADC3_DMA_WIRING,
     .params = {
-        .mem_addr = (uint32_t)&raw_adc3_values,
-        .tx_size  = sizeof(raw_adc3_values) / sizeof(uint16_t),
-        .priority = DMA_PRIORITY_HIGH,
-        .mode     = DMA_MODE_CIRCULAR,
-        .mem_inc  = true,
-        .tx_isr_en = true,
+        .mem_addr  = (uint32_t)&raw_adc3_values,
+        .tx_size   = sizeof(raw_adc3_values) / sizeof(uint16_t),
+        .priority  = DMA_PRIORITY_HIGH,
+        .mode      = DMA_MODE_CIRCULAR,
+        .mem_inc   = true,
+        .tx_isr_en = false,
     },
 };
 
@@ -162,12 +162,12 @@ volatile raw_adc4_values_t raw_adc4_values;
 PHAL_DMA_Handle_t adc4_dma = {
     .wiring = &ADC4_DMA_WIRING,
     .params = {
-        .mem_addr = (uint32_t)&raw_adc4_values,
-        .tx_size  = sizeof(raw_adc4_values) / sizeof(uint16_t),
-        .priority = DMA_PRIORITY_HIGH,
-        .mode     = DMA_MODE_CIRCULAR,
-        .mem_inc  = true,
-        .tx_isr_en = true,
+        .mem_addr  = (uint32_t)&raw_adc4_values,
+        .tx_size   = sizeof(raw_adc4_values) / sizeof(uint16_t),
+        .priority  = DMA_PRIORITY_HIGH,
+        .mode      = DMA_MODE_CIRCULAR,
+        .mem_inc   = true,
+        .tx_isr_en = false,
     },
 };
 

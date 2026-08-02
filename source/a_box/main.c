@@ -55,12 +55,12 @@ ADCChannelConfig_t adc_channel_config[] = {
 PHAL_DMA_Handle_t adc_dma_config = {
     .wiring = &ADC1_DMA_WIRING,
     .params = {
-        .mem_addr = (uint32_t)&adc1_dma_buffer,
-        .tx_size  = sizeof(adc1_dma_buffer) / sizeof(uint16_t),
-        .priority = DMA_PRIORITY_HIGH,
-        .mode     = DMA_MODE_CIRCULAR,
-        .mem_inc  = true,
-        .tx_isr_en = true,
+        .mem_addr  = (uint32_t)&adc1_dma_buffer,
+        .tx_size   = sizeof(adc1_dma_buffer) / sizeof(uint16_t),
+        .priority  = DMA_PRIORITY_HIGH,
+        .mode      = DMA_MODE_CIRCULAR,
+        .mem_inc   = true,
+        .tx_isr_en = false,
     },
 };
 

@@ -112,12 +112,12 @@ volatile raw_adc_values_t raw_adc_values; // DMA target
 PHAL_DMA_Handle_t adc_dma_config = {
     .wiring = &ADC1_DMA_WIRING,
     .params = {
-        .mem_addr = (uint32_t)&raw_adc_values,
-        .tx_size  = sizeof(raw_adc_values) / sizeof(uint16_t),
-        .priority = DMA_PRIORITY_HIGH,
-        .mode     = DMA_MODE_CIRCULAR,
-        .mem_inc  = true,
-        .tx_isr_en = true,
+        .mem_addr  = (uint32_t)&raw_adc_values,
+        .tx_size   = sizeof(raw_adc_values) / sizeof(uint16_t),
+        .priority  = DMA_PRIORITY_HIGH,
+        .mode      = DMA_MODE_CIRCULAR,
+        .mem_inc   = true,
+        .tx_isr_en = false,
     },
 };
 
@@ -125,22 +125,22 @@ PHAL_DMA_Handle_t adc_dma_config = {
 PHAL_DMA_Handle_t usart_tx_dma = {
     .wiring = &USART1_TX_DMA_WIRING,
     .params = {
-        .mem_addr = 0,
-        .tx_size  = 0,
-        .priority = DMA_PRIORITY_HIGH,
-        .mode     = DMA_MODE_NORMAL,
-        .mem_inc  = true,
+        .mem_addr  = 0,
+        .tx_size   = 0,
+        .priority  = DMA_PRIORITY_HIGH,
+        .mode      = DMA_MODE_NORMAL,
+        .mem_inc   = true,
         .tx_isr_en = true,
     },
 };
 PHAL_DMA_Handle_t usart_rx_dma = {
     .wiring = &USART1_RX_DMA_WIRING,
     .params = {
-        .mem_addr = 0,
-        .tx_size  = 0, 
-        .priority = DMA_PRIORITY_HIGH,
-        .mode     = DMA_MODE_NORMAL,
-        .mem_inc  = true,
+        .mem_addr  = 0,
+        .tx_size   = 0, 
+        .priority  = DMA_PRIORITY_HIGH,
+        .mode      = DMA_MODE_NORMAL,
+        .mem_inc   = true,
         .tx_isr_en = true,
     },
 };

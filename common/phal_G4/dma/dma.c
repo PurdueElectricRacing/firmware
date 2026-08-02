@@ -28,12 +28,12 @@ bool PHAL_initDMA(dma_init_t *dma) {
     // 4. Configure parameters in the DMA_CCRx register:
     PHAL_DMA_priv_configParams(dma);
 
-    /* DMA Mux */
-    /// DMA Mux Channel configuration procedure (see RM0440 13.4.3 DMAMUX channels section)
+    // DMA Mux Channel configuration procedure
     PHAL_DMA_priv_configMUX(dma);
 
-    // 5. Activate the channel by setting the EN bit in the DMA_CCRx register
-    PHAL_DMA_priv_enableStream(dma->channel);
+    // Leave channel disabled
+    // Start with PHAL_DMA_startTxfer()/PHAL_DMA_reEnable()
+
     return true;
 }
 

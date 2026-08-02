@@ -99,7 +99,8 @@ $(function(){initNavTree('rcc__priv_8h.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">rcc_priv.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -107,28 +108,36 @@ $(function(){initNavTree('rcc__priv_8h.html',''); initResizable(true); });
 <p>G4 RCC private/register level implementation.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &quot;common/phal_G4/phal_G4.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal__G4_8h_source.html">common/phal_G4/phal_G4.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__G4_2rcc_2rcc_8h_source.html">common/phal_G4/rcc/rcc.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for rcc_priv.h:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="rcc__priv_8h__incl.svg" width="312" height="288"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="rcc__priv_8h__dep__incl.svg" width="326" height="140"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <p><a href="rcc__priv_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a18e9398e61bff24078cc28c267ffaa48" id="r_a18e9398e61bff24078cc28c267ffaa48"><td class="memItemLeft" align="right" valign="top"><a id="a18e9398e61bff24078cc28c267ffaa48" name="a18e9398e61bff24078cc28c267ffaa48"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a18e9398e61bff24078cc28c267ffaa48">RCC_PRIV_PLLSource_t</a> : uint32_t { <b>RCC_PRIV_PLL_SRC_HSI</b> = RCC_PLLCFGR_PLLSRC_HSI
-, <b>RCC_PRIV_PLL_SRC_HSE</b> = RCC_PLLCFGR_PLLSRC_HSE
+<tr class="memitem:a18e9398e61bff24078cc28c267ffaa48" id="r_a18e9398e61bff24078cc28c267ffaa48"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a18e9398e61bff24078cc28c267ffaa48">RCC_PRIV_PLLSource_t</a> : uint32_t { <a class="el" href="#a18e9398e61bff24078cc28c267ffaa48a2bdbbbb1aeb4d6b554736635c2e641f7">RCC_PRIV_PLL_SRC_HSI</a> = RCC_PLLCFGR_PLLSRC_HSI
+, <a class="el" href="#a18e9398e61bff24078cc28c267ffaa48a7d7c131e03cbc31b0a033f566783cfde">RCC_PRIV_PLL_SRC_HSE</a> = RCC_PLLCFGR_PLLSRC_HSE
  }</td></tr>
-<tr class="memdesc:a18e9398e61bff24078cc28c267ffaa48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oscillator source for RCC-&gt;PLLCFGR. Either HSI or HSE. <br /></td></tr>
+<tr class="memdesc:a18e9398e61bff24078cc28c267ffaa48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oscillator source for RCC-&gt;PLLCFGR. Either HSI or HSE.  <a href="#a18e9398e61bff24078cc28c267ffaa48">More...</a><br /></td></tr>
 <tr class="separator:a18e9398e61bff24078cc28c267ffaa48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a300d3d7b11d4d40bdede8cf6809054ed" id="r_a300d3d7b11d4d40bdede8cf6809054ed"><td class="memItemLeft" align="right" valign="top"><a id="a300d3d7b11d4d40bdede8cf6809054ed" name="a300d3d7b11d4d40bdede8cf6809054ed"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_RCC_priv_enableHSI</b> (void)</td></tr>
-<tr class="memdesc:a300d3d7b11d4d40bdede8cf6809054ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable HSI16 and block until it's ready. <br /></td></tr>
+<tr class="memitem:a300d3d7b11d4d40bdede8cf6809054ed" id="r_a300d3d7b11d4d40bdede8cf6809054ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a300d3d7b11d4d40bdede8cf6809054ed">PHAL_RCC_priv_enableHSI</a> (void)</td></tr>
+<tr class="memdesc:a300d3d7b11d4d40bdede8cf6809054ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable HSI16 and block until it's ready.  <br /></td></tr>
 <tr class="separator:a300d3d7b11d4d40bdede8cf6809054ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6a23fb139af68392809e9f4b6df780c" id="r_af6a23fb139af68392809e9f4b6df780c"><td class="memItemLeft" align="right" valign="top"><a id="af6a23fb139af68392809e9f4b6df780c" name="af6a23fb139af68392809e9f4b6df780c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_RCC_priv_disableHSI</b> (void)</td></tr>
-<tr class="memdesc:af6a23fb139af68392809e9f4b6df780c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable HSI16 and block until it's off. <br /></td></tr>
+<tr class="memitem:af6a23fb139af68392809e9f4b6df780c" id="r_af6a23fb139af68392809e9f4b6df780c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6a23fb139af68392809e9f4b6df780c">PHAL_RCC_priv_disableHSI</a> (void)</td></tr>
+<tr class="memdesc:af6a23fb139af68392809e9f4b6df780c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable HSI16 and block until it's off.  <br /></td></tr>
 <tr class="separator:af6a23fb139af68392809e9f4b6df780c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32fe0492b8a8d72fdcc5cddbdaa6fb83" id="r_a32fe0492b8a8d72fdcc5cddbdaa6fb83"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a32fe0492b8a8d72fdcc5cddbdaa6fb83">PHAL_RCC_priv_enableHSE</a> (void)</td></tr>
 <tr class="separator:a32fe0492b8a8d72fdcc5cddbdaa6fb83"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -138,27 +147,63 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_RCC_priv_disable
 <tr class="separator:a50d76be796629d46a38a42d44eb66de8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbb9fd124f523af3b6897e508f23d8df" id="r_abbb9fd124f523af3b6897e508f23d8df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abbb9fd124f523af3b6897e508f23d8df">PHAL_RCC_priv_enableBoostMode</a> (void)</td></tr>
 <tr class="separator:abbb9fd124f523af3b6897e508f23d8df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d764d1ad952cbde1cde6d794b88add7" id="r_a9d764d1ad952cbde1cde6d794b88add7"><td class="memItemLeft" align="right" valign="top"><a id="a9d764d1ad952cbde1cde6d794b88add7" name="a9d764d1ad952cbde1cde6d794b88add7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_RCC_priv_switchSysclkToHSI</b> (void)</td></tr>
-<tr class="memdesc:a9d764d1ad952cbde1cde6d794b88add7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch SYSCLK to HSI16 and block until the switch is confirmed. <br /></td></tr>
+<tr class="memitem:a9d764d1ad952cbde1cde6d794b88add7" id="r_a9d764d1ad952cbde1cde6d794b88add7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9d764d1ad952cbde1cde6d794b88add7">PHAL_RCC_priv_switchSysclkToHSI</a> (void)</td></tr>
+<tr class="memdesc:a9d764d1ad952cbde1cde6d794b88add7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch SYSCLK to HSI16 and block until the switch is confirmed.  <br /></td></tr>
 <tr class="separator:a9d764d1ad952cbde1cde6d794b88add7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22006c33eaa9815180109be23241efd7" id="r_a22006c33eaa9815180109be23241efd7"><td class="memItemLeft" align="right" valign="top"><a id="a22006c33eaa9815180109be23241efd7" name="a22006c33eaa9815180109be23241efd7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_RCC_priv_switchSysclkToHSE</b> (void)</td></tr>
-<tr class="memdesc:a22006c33eaa9815180109be23241efd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch SYSCLK to HSE and block until the switch is confirmed. <br /></td></tr>
+<tr class="memitem:a22006c33eaa9815180109be23241efd7" id="r_a22006c33eaa9815180109be23241efd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a22006c33eaa9815180109be23241efd7">PHAL_RCC_priv_switchSysclkToHSE</a> (void)</td></tr>
+<tr class="memdesc:a22006c33eaa9815180109be23241efd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch SYSCLK to HSE and block until the switch is confirmed.  <br /></td></tr>
 <tr class="separator:a22006c33eaa9815180109be23241efd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a440b6372df82c3f5e994b5fd41a6d4" id="r_a8a440b6372df82c3f5e994b5fd41a6d4"><td class="memItemLeft" align="right" valign="top"><a id="a8a440b6372df82c3f5e994b5fd41a6d4" name="a8a440b6372df82c3f5e994b5fd41a6d4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_RCC_priv_switchSysclkToPLL</b> (void)</td></tr>
-<tr class="memdesc:a8a440b6372df82c3f5e994b5fd41a6d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch SYSCLK to the PLL and block until the switch is confirmed. <br /></td></tr>
+<tr class="memitem:a8a440b6372df82c3f5e994b5fd41a6d4" id="r_a8a440b6372df82c3f5e994b5fd41a6d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8a440b6372df82c3f5e994b5fd41a6d4">PHAL_RCC_priv_switchSysclkToPLL</a> (void)</td></tr>
+<tr class="memdesc:a8a440b6372df82c3f5e994b5fd41a6d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch SYSCLK to the PLL and block until the switch is confirmed.  <br /></td></tr>
 <tr class="separator:a8a440b6372df82c3f5e994b5fd41a6d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa3c315b2d9914f1f4a08f6e90b20b14" id="r_aaa3c315b2d9914f1f4a08f6e90b20b14"><td class="memItemLeft" align="right" valign="top"><a id="aaa3c315b2d9914f1f4a08f6e90b20b14" name="aaa3c315b2d9914f1f4a08f6e90b20b14"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_RCC_priv_setBusPrescalersToDiv1</b> (void)</td></tr>
-<tr class="memdesc:aaa3c315b2d9914f1f4a08f6e90b20b14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the AHB, APB1, and APB2 prescalers to divide-by-1 (undivided) <br /></td></tr>
+<tr class="memitem:aaa3c315b2d9914f1f4a08f6e90b20b14" id="r_aaa3c315b2d9914f1f4a08f6e90b20b14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa3c315b2d9914f1f4a08f6e90b20b14">PHAL_RCC_priv_setBusPrescalersToDiv1</a> (void)</td></tr>
+<tr class="memdesc:aaa3c315b2d9914f1f4a08f6e90b20b14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the AHB, APB1, and APB2 prescalers to divide-by-1 (undivided)  <br /></td></tr>
 <tr class="separator:aaa3c315b2d9914f1f4a08f6e90b20b14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a79bfdcf6e6b0f978d58cb8976c46f071" id="r_a79bfdcf6e6b0f978d58cb8976c46f071"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79bfdcf6e6b0f978d58cb8976c46f071">RCC_PRIV_HSI_CLOCK_RATE_HZ</a> = 16'000'000U</td></tr>
+<tr class="separator:a79bfdcf6e6b0f978d58cb8976c46f071"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8828522216c1b837abe8cad08f37728" id="r_aa8828522216c1b837abe8cad08f37728"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8828522216c1b837abe8cad08f37728">RCC_PRIV_HSE_CLOCK_RATE_HZ</a> = 16'000'000U</td></tr>
+<tr class="separator:aa8828522216c1b837abe8cad08f37728"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8318012bce144618362b41966d6a7a2" id="r_aa8318012bce144618362b41966d6a7a2"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8318012bce144618362b41966d6a7a2">RCC_PRIV_PLL_M</a> = 4U</td></tr>
+<tr class="separator:aa8318012bce144618362b41966d6a7a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c9ad0a144674254f78df130c24ca01b" id="r_a7c9ad0a144674254f78df130c24ca01b"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c9ad0a144674254f78df130c24ca01b">RCC_PRIV_PLL_N</a> = 85U</td></tr>
+<tr class="separator:a7c9ad0a144674254f78df130c24ca01b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d0569b96b21b90093b676028433f7b4" id="r_a7d0569b96b21b90093b676028433f7b4"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d0569b96b21b90093b676028433f7b4">RCC_PRIV_PLL_R</a> = 2U</td></tr>
+<tr class="separator:a7d0569b96b21b90093b676028433f7b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab6112a0d5c569f5add83d4ae5109995" id="r_aab6112a0d5c569f5add83d4ae5109995"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aab6112a0d5c569f5add83d4ae5109995">RCC_PRIV_PLL_VCO_INPUT_HZ</a> = <a class="el" href="#a79bfdcf6e6b0f978d58cb8976c46f071">RCC_PRIV_HSI_CLOCK_RATE_HZ</a> / <a class="el" href="#aa8318012bce144618362b41966d6a7a2">RCC_PRIV_PLL_M</a></td></tr>
+<tr class="separator:aab6112a0d5c569f5add83d4ae5109995"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa84a61d8619144aa1919b662594c3fef" id="r_aa84a61d8619144aa1919b662594c3fef"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa84a61d8619144aa1919b662594c3fef">RCC_PRIV_PLL_VCO_OUTPUT_HZ</a> = <a class="el" href="#aab6112a0d5c569f5add83d4ae5109995">RCC_PRIV_PLL_VCO_INPUT_HZ</a> * <a class="el" href="#a7c9ad0a144674254f78df130c24ca01b">RCC_PRIV_PLL_N</a></td></tr>
+<tr class="separator:aa84a61d8619144aa1919b662594c3fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7edf50cab55402f3287f70eba65a280" id="r_ae7edf50cab55402f3287f70eba65a280"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7edf50cab55402f3287f70eba65a280">RCC_PRIV_PLL_OUTPUT_HZ</a> = <a class="el" href="#aa84a61d8619144aa1919b662594c3fef">RCC_PRIV_PLL_VCO_OUTPUT_HZ</a> / <a class="el" href="#a7d0569b96b21b90093b676028433f7b4">RCC_PRIV_PLL_R</a></td></tr>
+<tr class="separator:ae7edf50cab55402f3287f70eba65a280"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>G4 RCC private/register level implementation. </p>
 <dl class="section author"><dt>Author</dt><dd>Millan Kumar (<a href="#" onclick="location.href='mai'+'lto:'+'kum'+'ar'+'798'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">kumar<span class="obfuscator">.nosp@m.</span>798@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a18e9398e61bff24078cc28c267ffaa48" name="a18e9398e61bff24078cc28c267ffaa48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18e9398e61bff24078cc28c267ffaa48">&#9670;&#160;</a></span>RCC_PRIV_PLLSource_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a18e9398e61bff24078cc28c267ffaa48">RCC_PRIV_PLLSource_t</a> : uint32_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Oscillator source for RCC-&gt;PLLCFGR. Either HSI or HSE. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a18e9398e61bff24078cc28c267ffaa48a2bdbbbb1aeb4d6b554736635c2e641f7" name="a18e9398e61bff24078cc28c267ffaa48a2bdbbbb1aeb4d6b554736635c2e641f7"></a>RCC_PRIV_PLL_SRC_HSI&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a18e9398e61bff24078cc28c267ffaa48a7d7c131e03cbc31b0a033f566783cfde" name="a18e9398e61bff24078cc28c267ffaa48a7d7c131e03cbc31b0a033f566783cfde"></a>RCC_PRIV_PLL_SRC_HSE&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
 <a id="a50d76be796629d46a38a42d44eb66de8" name="a50d76be796629d46a38a42d44eb66de8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a50d76be796629d46a38a42d44eb66de8">&#9670;&#160;</a></span>PHAL_RCC_priv_configurePLL()</h2>
 
@@ -174,6 +219,35 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_RCC_priv_setBusP
       </table>
 </div><div class="memdoc">
 <p>Configure and lock the PLL for RCC_PRIV_PLL_OUTPUT_HZ from the given source. Does not touch SYSCLK. PLL runs, unselected, until PHAL_RCC_priv_switchSysclkToPLL </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="rcc__priv_8h_a50d76be796629d46a38a42d44eb66de8_icgraph.svg" width="100%" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="af6a23fb139af68392809e9f4b6df780c" name="af6a23fb139af68392809e9f4b6df780c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6a23fb139af68392809e9f4b6df780c">&#9670;&#160;</a></span>PHAL_RCC_priv_disableHSI()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_RCC_priv_disableHSI </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disable HSI16 and block until it's off. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="rcc__priv_8h_af6a23fb139af68392809e9f4b6df780c_icgraph.svg" width="659" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -192,6 +266,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_RCC_priv_setBusP
       </table>
 </div><div class="memdoc">
 <p>Enable Range 1 boost mode, required before SYSCLK can exceed 150 MHz Call after the PLL is locked and before switching SYSCLK to it </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="rcc__priv_8h_abbb9fd124f523af3b6897e508f23d8df_icgraph.svg" width="100%" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -210,6 +289,59 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_RCC_priv_setBusP
       </table>
 </div><div class="memdoc">
 <p>Enable HSE in bypass mode (this board feeds it an external 16 MHz signal directly, not a crystal) and block until it's ready </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="rcc__priv_8h_a32fe0492b8a8d72fdcc5cddbdaa6fb83_icgraph.svg" width="659" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a300d3d7b11d4d40bdede8cf6809054ed" name="a300d3d7b11d4d40bdede8cf6809054ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a300d3d7b11d4d40bdede8cf6809054ed">&#9670;&#160;</a></span>PHAL_RCC_priv_enableHSI()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_RCC_priv_enableHSI </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable HSI16 and block until it's ready. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="rcc__priv_8h_a300d3d7b11d4d40bdede8cf6809054ed_icgraph.svg" width="655" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aaa3c315b2d9914f1f4a08f6e90b20b14" name="aaa3c315b2d9914f1f4a08f6e90b20b14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa3c315b2d9914f1f4a08f6e90b20b14">&#9670;&#160;</a></span>PHAL_RCC_priv_setBusPrescalersToDiv1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_RCC_priv_setBusPrescalersToDiv1 </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the AHB, APB1, and APB2 prescalers to divide-by-1 (undivided) </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="rcc__priv_8h_aaa3c315b2d9914f1f4a08f6e90b20b14_icgraph.svg" width="100%" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -228,6 +360,260 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_RCC_priv_setBusP
       </table>
 </div><div class="memdoc">
 <p>Set the flash wait states for the upcoming HCLK rate Safe to call before increasing the clock (more wait states than currently needed is fine) </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="rcc__priv_8h_a7132fb1976567126eda1d646d5004f4d_icgraph.svg" width="100%" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a22006c33eaa9815180109be23241efd7" name="a22006c33eaa9815180109be23241efd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22006c33eaa9815180109be23241efd7">&#9670;&#160;</a></span>PHAL_RCC_priv_switchSysclkToHSE()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_RCC_priv_switchSysclkToHSE </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Switch SYSCLK to HSE and block until the switch is confirmed. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="rcc__priv_8h_a22006c33eaa9815180109be23241efd7_icgraph.svg" width="100%" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a9d764d1ad952cbde1cde6d794b88add7" name="a9d764d1ad952cbde1cde6d794b88add7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d764d1ad952cbde1cde6d794b88add7">&#9670;&#160;</a></span>PHAL_RCC_priv_switchSysclkToHSI()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_RCC_priv_switchSysclkToHSI </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Switch SYSCLK to HSI16 and block until the switch is confirmed. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="rcc__priv_8h_a9d764d1ad952cbde1cde6d794b88add7_icgraph.svg" width="100%" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a8a440b6372df82c3f5e994b5fd41a6d4" name="a8a440b6372df82c3f5e994b5fd41a6d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a440b6372df82c3f5e994b5fd41a6d4">&#9670;&#160;</a></span>PHAL_RCC_priv_switchSysclkToPLL()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_RCC_priv_switchSysclkToPLL </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Switch SYSCLK to the PLL and block until the switch is confirmed. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="rcc__priv_8h_a8a440b6372df82c3f5e994b5fd41a6d4_icgraph.svg" width="100%" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aa8828522216c1b837abe8cad08f37728" name="aa8828522216c1b837abe8cad08f37728"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8828522216c1b837abe8cad08f37728">&#9670;&#160;</a></span>RCC_PRIV_HSE_CLOCK_RATE_HZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t RCC_PRIV_HSE_CLOCK_RATE_HZ = 16'000'000U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a79bfdcf6e6b0f978d58cb8976c46f071" name="a79bfdcf6e6b0f978d58cb8976c46f071"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79bfdcf6e6b0f978d58cb8976c46f071">&#9670;&#160;</a></span>RCC_PRIV_HSI_CLOCK_RATE_HZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t RCC_PRIV_HSI_CLOCK_RATE_HZ = 16'000'000U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa8318012bce144618362b41966d6a7a2" name="aa8318012bce144618362b41966d6a7a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8318012bce144618362b41966d6a7a2">&#9670;&#160;</a></span>RCC_PRIV_PLL_M</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t RCC_PRIV_PLL_M = 4U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7c9ad0a144674254f78df130c24ca01b" name="a7c9ad0a144674254f78df130c24ca01b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c9ad0a144674254f78df130c24ca01b">&#9670;&#160;</a></span>RCC_PRIV_PLL_N</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t RCC_PRIV_PLL_N = 85U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae7edf50cab55402f3287f70eba65a280" name="ae7edf50cab55402f3287f70eba65a280"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7edf50cab55402f3287f70eba65a280">&#9670;&#160;</a></span>RCC_PRIV_PLL_OUTPUT_HZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t RCC_PRIV_PLL_OUTPUT_HZ = <a class="el" href="#aa84a61d8619144aa1919b662594c3fef">RCC_PRIV_PLL_VCO_OUTPUT_HZ</a> / <a class="el" href="#a7d0569b96b21b90093b676028433f7b4">RCC_PRIV_PLL_R</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7d0569b96b21b90093b676028433f7b4" name="a7d0569b96b21b90093b676028433f7b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d0569b96b21b90093b676028433f7b4">&#9670;&#160;</a></span>RCC_PRIV_PLL_R</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t RCC_PRIV_PLL_R = 2U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aab6112a0d5c569f5add83d4ae5109995" name="aab6112a0d5c569f5add83d4ae5109995"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab6112a0d5c569f5add83d4ae5109995">&#9670;&#160;</a></span>RCC_PRIV_PLL_VCO_INPUT_HZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t RCC_PRIV_PLL_VCO_INPUT_HZ = <a class="el" href="#a79bfdcf6e6b0f978d58cb8976c46f071">RCC_PRIV_HSI_CLOCK_RATE_HZ</a> / <a class="el" href="#aa8318012bce144618362b41966d6a7a2">RCC_PRIV_PLL_M</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa84a61d8619144aa1919b662594c3fef" name="aa84a61d8619144aa1919b662594c3fef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa84a61d8619144aa1919b662594c3fef">&#9670;&#160;</a></span>RCC_PRIV_PLL_VCO_OUTPUT_HZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t RCC_PRIV_PLL_VCO_OUTPUT_HZ = <a class="el" href="#aab6112a0d5c569f5add83d4ae5109995">RCC_PRIV_PLL_VCO_INPUT_HZ</a> * <a class="el" href="#a7c9ad0a144674254f78df130c24ca01b">RCC_PRIV_PLL_N</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

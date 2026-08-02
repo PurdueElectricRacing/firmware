@@ -1,0 +1,9 @@
+<map id="common/phal/gpio.h" name="common/phal/gpio.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="21,5,159,31"/>
+<area shape="rect" id="Node000002" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="5,79,175,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,31,93,63,87,63,87,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="8,153,81,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="85,106,63,141,58,138,80,103"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="105,153,168,178"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="100,103,123,138,118,141,95,106"/>
+</map>

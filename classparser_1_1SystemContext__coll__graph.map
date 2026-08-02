@@ -1,0 +1,7 @@
+<map id="parser.SystemContext" name="parser.SystemContext">
+<area shape="rect" id="Node000001" title=" " alt="" coords="10,139,158,165"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,49,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="23,47,22,80,24,98,31,114,41,127,56,136,53,141,38,130,26,116,19,99,16,81,18,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="120,5,164,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="139,46,129,80,115,116,98,140,93,137,110,114,124,79,134,45"/>
+</map>

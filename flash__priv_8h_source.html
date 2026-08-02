@@ -100,7 +100,7 @@ $(function(){initNavTree('flash__priv_8h_source.html',''); initResizable(true); 
   <div class="headertitle"><div class="title">flash_priv.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef PHAL_G4_FLASH_PRIV_H</span></div>
+<a href="flash__priv_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef PHAL_G4_FLASH_PRIV_H</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define PHAL_G4_FLASH_PRIV_H</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
@@ -108,31 +108,41 @@ $(function(){initNavTree('flash__priv_8h_source.html',''); initResizable(true); 
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="foldopen" id="foldopen00007" data-start="{" data-end="};">
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="structflash__operation__context__t.html">    7</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keywordtype">bool</span> instruction_cache_enabled;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keywordtype">bool</span> data_cache_enabled;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="structflash__operation__context__t.html#a9ffb56cfa4cc97133c5f704a97f23b32">    8</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structflash__operation__context__t.html#a9ffb56cfa4cc97133c5f704a97f23b32">instruction_cache_enabled</a>;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="structflash__operation__context__t.html#a90188daedda12e8c4438ba12793f00fa">    9</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structflash__operation__context__t.html#a90188daedda12e8c4438ba12793f00fa">data_cache_enabled</a>;</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>} <a class="code hl_struct" href="structflash__operation__context__t.html">flash_operation_context_t</a>;</div>
 </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keywordtype">bool</span> FLASH_PRIV_begin_read(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keywordtype">bool</span> FLASH_PRIV_end_read(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keywordtype">bool</span> <a class="code hl_function" href="flash__priv_8h.html#a4ac8f186a122fa9f7e46931e9af4a628">FLASH_PRIV_begin_read</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keywordtype">bool</span> <a class="code hl_function" href="flash__priv_8h.html#ad702646df30f6e3334f9ff58e454f8f5">FLASH_PRIV_end_read</a>(<span class="keywordtype">void</span>);</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keywordtype">bool</span> FLASH_PRIV_begin_operation(<a class="code hl_struct" href="structflash__operation__context__t.html">flash_operation_context_t</a> *context);</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keywordtype">bool</span> FLASH_PRIV_end_operation(<span class="keyword">const</span> <a class="code hl_struct" href="structflash__operation__context__t.html">flash_operation_context_t</a> *context);</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keywordtype">bool</span> <a class="code hl_function" href="flash__priv_8h.html#a7cfacba7a408a420e261fcdceef04b8b">FLASH_PRIV_begin_operation</a>(<a class="code hl_struct" href="structflash__operation__context__t.html">flash_operation_context_t</a> *context);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keywordtype">bool</span> <a class="code hl_function" href="flash__priv_8h.html#a3bedf041eabbe2090e0bfb147c6b87de">FLASH_PRIV_end_operation</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structflash__operation__context__t.html">flash_operation_context_t</a> *context);</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>uint32_t FLASH_PRIV_get_size_bytes(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>uint32_t FLASH_PRIV_get_page_size_bytes(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>uint32_t <a class="code hl_function" href="flash__priv_8h.html#af211a09d69bec5e86a7f4f46e2e49fbf">FLASH_PRIV_get_size_bytes</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>uint32_t <a class="code hl_function" href="flash__priv_8h.html#a070e33cfa30b8f6f011c83d3816f0162">FLASH_PRIV_get_page_size_bytes</a>(<span class="keywordtype">void</span>);</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keywordtype">bool</span> FLASH_PRIV_program_double_word(uint32_t address, uint64_t data);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keywordtype">bool</span> FLASH_PRIV_erase_page(uint32_t page_address);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keywordtype">bool</span> <a class="code hl_function" href="flash__priv_8h.html#aa0cde7997567183172d72b73a523c3eb">FLASH_PRIV_program_double_word</a>(uint32_t address, uint64_t data);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keywordtype">bool</span> <a class="code hl_function" href="flash__priv_8h.html#a423e49b8e633590b99f63b00c9381645">FLASH_PRIV_erase_page</a>(uint32_t page_address);</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#endif </span><span class="comment">// PHAL_G4_FLASH_PRIV_H</span></div>
+<div class="ttc" id="aflash__priv_8h_html_a070e33cfa30b8f6f011c83d3816f0162"><div class="ttname"><a href="flash__priv_8h.html#a070e33cfa30b8f6f011c83d3816f0162">FLASH_PRIV_get_page_size_bytes</a></div><div class="ttdeci">uint32_t FLASH_PRIV_get_page_size_bytes(void)</div><div class="ttdef"><b>Definition</b> flash_priv.c:245</div></div>
+<div class="ttc" id="aflash__priv_8h_html_a3bedf041eabbe2090e0bfb147c6b87de"><div class="ttname"><a href="flash__priv_8h.html#a3bedf041eabbe2090e0bfb147c6b87de">FLASH_PRIV_end_operation</a></div><div class="ttdeci">bool FLASH_PRIV_end_operation(const flash_operation_context_t *context)</div><div class="ttdef"><b>Definition</b> flash_priv.c:216</div></div>
+<div class="ttc" id="aflash__priv_8h_html_a423e49b8e633590b99f63b00c9381645"><div class="ttname"><a href="flash__priv_8h.html#a423e49b8e633590b99f63b00c9381645">FLASH_PRIV_erase_page</a></div><div class="ttdeci">bool FLASH_PRIV_erase_page(uint32_t page_address)</div><div class="ttdef"><b>Definition</b> flash_priv.c:265</div></div>
+<div class="ttc" id="aflash__priv_8h_html_a4ac8f186a122fa9f7e46931e9af4a628"><div class="ttname"><a href="flash__priv_8h.html#a4ac8f186a122fa9f7e46931e9af4a628">FLASH_PRIV_begin_read</a></div><div class="ttdeci">bool FLASH_PRIV_begin_read(void)</div><div class="ttdef"><b>Definition</b> flash_priv.c:172</div></div>
+<div class="ttc" id="aflash__priv_8h_html_a7cfacba7a408a420e261fcdceef04b8b"><div class="ttname"><a href="flash__priv_8h.html#a7cfacba7a408a420e261fcdceef04b8b">FLASH_PRIV_begin_operation</a></div><div class="ttdeci">bool FLASH_PRIV_begin_operation(flash_operation_context_t *context)</div><div class="ttdef"><b>Definition</b> flash_priv.c:193</div></div>
+<div class="ttc" id="aflash__priv_8h_html_aa0cde7997567183172d72b73a523c3eb"><div class="ttname"><a href="flash__priv_8h.html#aa0cde7997567183172d72b73a523c3eb">FLASH_PRIV_program_double_word</a></div><div class="ttdeci">bool FLASH_PRIV_program_double_word(uint32_t address, uint64_t data)</div><div class="ttdef"><b>Definition</b> flash_priv.c:249</div></div>
+<div class="ttc" id="aflash__priv_8h_html_ad702646df30f6e3334f9ff58e454f8f5"><div class="ttname"><a href="flash__priv_8h.html#ad702646df30f6e3334f9ff58e454f8f5">FLASH_PRIV_end_read</a></div><div class="ttdeci">bool FLASH_PRIV_end_read(void)</div><div class="ttdef"><b>Definition</b> flash_priv.c:186</div></div>
+<div class="ttc" id="aflash__priv_8h_html_af211a09d69bec5e86a7f4f46e2e49fbf"><div class="ttname"><a href="flash__priv_8h.html#af211a09d69bec5e86a7f4f46e2e49fbf">FLASH_PRIV_get_size_bytes</a></div><div class="ttdeci">uint32_t FLASH_PRIV_get_size_bytes(void)</div><div class="ttdef"><b>Definition</b> flash_priv.c:234</div></div>
 <div class="ttc" id="astructflash__operation__context__t_html"><div class="ttname"><a href="structflash__operation__context__t.html">flash_operation_context_t</a></div><div class="ttdef"><b>Definition</b> flash_priv.h:7</div></div>
+<div class="ttc" id="astructflash__operation__context__t_html_a90188daedda12e8c4438ba12793f00fa"><div class="ttname"><a href="structflash__operation__context__t.html#a90188daedda12e8c4438ba12793f00fa">flash_operation_context_t::data_cache_enabled</a></div><div class="ttdeci">bool data_cache_enabled</div><div class="ttdef"><b>Definition</b> flash_priv.h:9</div></div>
+<div class="ttc" id="astructflash__operation__context__t_html_a9ffb56cfa4cc97133c5f704a97f23b32"><div class="ttname"><a href="structflash__operation__context__t.html#a9ffb56cfa4cc97133c5f704a97f23b32">flash_operation_context_t::instruction_cache_enabled</a></div><div class="ttdeci">bool instruction_cache_enabled</div><div class="ttdef"><b>Definition</b> flash_priv.h:8</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_bdd9a5d540de89e9fe90efdfc6973a4f.html">common</a></li><li class="navelem"><a class="el" href="dir_537865b7fa0534ad07c686239f783682.html">phal_G4</a></li><li class="navelem"><a class="el" href="dir_82c781f82881016222e11c15de0c4bdf.html">flash</a></li><li class="navelem"><b>flash_priv.h</b></li>
+    <li class="navelem"><a class="el" href="dir_bdd9a5d540de89e9fe90efdfc6973a4f.html">common</a></li><li class="navelem"><a class="el" href="dir_537865b7fa0534ad07c686239f783682.html">phal_G4</a></li><li class="navelem"><a class="el" href="dir_82c781f82881016222e11c15de0c4bdf.html">flash</a></li><li class="navelem"><a class="el" href="flash__priv_8h.html">flash_priv.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

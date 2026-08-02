@@ -1,0 +1,32 @@
+<map id="source/daq/ethernet/ethernet.c" name="source/daq/ethernet/ethernet.c">
+<area shape="rect" id="Node000001" title="Implementation of the ethernet thread for wireless data acquisition." alt="" coords="336,5,473,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="454,241,518,267"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="384,48,356,78,329,115,320,135,316,154,317,174,326,192,349,215,378,231,409,241,439,247,438,252,408,246,375,236,345,219,321,195,312,175,311,154,315,133,325,112,351,74,380,45"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="167,94,280,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="360,49,266,90,264,85,358,44"/>
+<area shape="rect" id="Node000004" href="$phal_2gpio_8h.html" title=" " alt="" coords="5,94,143,120"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="337,46,140,92,139,87,336,41"/>
+<area shape="rect" id="Node000007" href="$freertos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="335,168,512,193"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="410,46,423,152,417,152,404,47"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="442,94,501,120"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="423,45,453,80,449,83,419,48"/>
+<area shape="rect" id="Node000009" href="$spmc_8h.html" title="Custom SPMC designed for high throughput handling of CAN message streams." alt="" coords="566,94,630,120"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="454,44,555,85,553,90,452,49"/>
+<area shape="rect" id="Node000012" href="$ethernet_8h.html" title="Implementation of the ethernet thread for wireless data acquisition." alt="" coords="823,94,901,120"/>
+<area shape="poly" id="edge15_Node000001_Node000012" title=" " alt="" coords="474,36,808,94,807,99,473,41"/>
+<area shape="rect" id="Node000005" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="49,168,219,193"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="86,118,116,154,112,157,82,122"/>
+<area shape="poly" id="edge6_Node000005_Node000002" title=" " alt="" coords="195,191,440,241,439,246,194,197"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="97,241,171,267"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="137,194,137,226,131,226,131,194"/>
+<area shape="poly" id="edge8_Node000007_Node000002" title=" " alt="" coords="436,192,467,228,463,231,432,195"/>
+<area shape="poly" id="edge12_Node000009_Node000002" title=" " alt="" coords="591,122,507,231,502,227,587,118"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="587,168,654,193"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="604,119,615,152,610,153,599,121"/>
+<area shape="rect" id="Node000011" href="$timestamped__frame_8h.html" title="Definition for timestamped CAN frames." alt="" coords="678,168,824,193"/>
+<area shape="poly" id="edge13_Node000009_Node000011" title=" " alt="" coords="625,118,713,158,711,163,623,123"/>
+<area shape="poly" id="edge14_Node000011_Node000002" title=" " alt="" coords="707,196,533,243,532,238,706,191"/>
+<area shape="poly" id="edge16_Node000012_Node000002" title=" " alt="" coords="865,120,860,157,852,178,838,195,816,209,783,221,701,238,611,248,534,254,533,248,610,243,700,232,782,216,813,204,835,191,847,175,855,156,860,120"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="900,168,1048,193"/>
+<area shape="poly" id="edge17_Node000012_Node000013" title=" " alt="" coords="882,118,944,157,941,161,880,122"/>
+</map>

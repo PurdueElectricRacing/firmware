@@ -1,0 +1,13 @@
+<map id="common/phal/adc.h" name="common/phal/adc.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="370,5,504,31"/>
+<area shape="rect" id="Node000002" href="$a__box_2main_8c.html" title="&quot;Abox&quot; node source code" alt="" coords="5,79,146,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="361,37,137,81,136,76,360,32"/>
+<area shape="rect" id="Node000003" href="$dashboard_2main_8c.html" title="&quot;Dashboard&quot; node source code" alt="" coords="170,79,336,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="393,39,285,81,283,76,391,34"/>
+<area shape="rect" id="Node000004" href="$driveline_2main_8c.html" title="&quot;Driveline&quot; node source code" alt="" coords="360,79,514,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="440,46,440,79,434,79,434,46"/>
+<area shape="rect" id="Node000005" href="$f4__testing_2canpiler_8c.html" title=" " alt="" coords="539,79,719,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="484,34,597,76,595,81,483,39"/>
+<area shape="rect" id="Node000006" href="$pdu_2main_8c.html" title="&quot;PDU&quot; node source code" alt="" coords="742,79,870,105"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="515,32,744,76,743,81,514,37"/>
+</map>

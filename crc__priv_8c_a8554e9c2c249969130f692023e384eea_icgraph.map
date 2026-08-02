@@ -1,0 +1,5 @@
+<map id="CRC_PRIV_enableClock" name="CRC_PRIV_enableClock">
+<area shape="rect" id="Node000001" title="Enable the CRC peripheral clock on AHB1." alt="" coords="169,5,333,31"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2crc_2crc_8c.html#a3a4837055c8d841aaf92d3b129d6ac92" title="Initialize and configure the hardware CRC peripheral." alt="" coords="5,5,121,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,21,121,21,121,16,153,16"/>
+</map>

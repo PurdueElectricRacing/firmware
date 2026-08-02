@@ -1,12 +1,19 @@
 var searchData=
 [
-  ['pec_2ec_0',['pec.c',['../pec_8c.html',1,'']]],
-  ['pec_2eh_1',['pec.h',['../pec_8h.html',1,'']]],
-  ['pedals_2ec_2',['pedals.c',['../pedals_8c.html',1,'']]],
-  ['phal_5fmcu_2eh_3',['phal_mcu.h',['../phal__mcu_8h.html',1,'']]],
-  ['pin_5fdefs_2eh_4',['pin_defs.h',['../pin__defs_8h.html',1,'']]],
-  ['powertrain_2ec_5',['powertrain.c',['../powertrain_8c.html',1,'']]],
-  ['powertrain_2eh_6',['powertrain.h',['../powertrain_8h.html',1,'']]],
-  ['pwm_2ec_7',['pwm.c',['../pwm_8c.html',1,'']]],
-  ['pwm_2eh_8',['pwm.h',['../pwm_8h.html',1,'']]]
+  ['parser_2epy_0',['parser.py',['../parser_8py.html',1,'']]],
+  ['pec_2ec_1',['pec.c',['../pec_8c.html',1,'']]],
+  ['pec_2eh_2',['pec.h',['../pec_8h.html',1,'']]],
+  ['pedals_2ec_3',['pedals.c',['../pedals_8c.html',1,'']]],
+  ['pedals_2eh_4',['pedals.h',['../pedals_8h.html',1,'']]],
+  ['per26_5fcolors_2epng_5',['PER26_colors.png',['../PER26__colors_8png.html',1,'']]],
+  ['phal_5ff4_2eh_6',['phal_F4.h',['../phal__F4_8h.html',1,'']]],
+  ['phal_5fg4_2eh_7',['phal_G4.h',['../phal__G4_8h.html',1,'']]],
+  ['phal_5fmcu_2eh_8',['phal_mcu.h',['../phal__mcu_8h.html',1,'']]],
+  ['pin_5fdefs_2eh_9',['pin_defs.h',['../pin__defs_8h.html',1,'']]],
+  ['power_5frails_2epng_10',['power_rails.png',['../power__rails_8png.html',1,'']]],
+  ['powertrain_2ec_11',['powertrain.c',['../powertrain_8c.html',1,'']]],
+  ['powertrain_2eh_12',['powertrain.h',['../powertrain_8h.html',1,'']]],
+  ['pwm_2ec_13',['pwm.c',['../pwm_8c.html',1,'']]],
+  ['pwm_2eh_14',['pwm.h',['../pwm_8h.html',1,'']]],
+  ['pwm_5ftesting_2ec_15',['pwm_testing.c',['../pwm__testing_8c.html',1,'']]]
 ];

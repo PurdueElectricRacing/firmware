@@ -1,0 +1,7 @@
+<map id="source/daq/ethernet/ethernet.h" name="source/daq/ethernet/ethernet.h">
+<area shape="rect" id="Node000001" title="Implementation of the ethernet thread for wireless data acquisition." alt="" coords="83,5,219,46"/>
+<area shape="rect" id="Node000002" href="$ethernet_8c.html" title="Implementation of the ethernet thread for wireless data acquisition." alt="" coords="5,94,142,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,60,93,95,89,92,121,56"/>
+<area shape="rect" id="Node000003" href="$daq_2main_8c.html" title="&quot;DAQ&quot; node source code" alt="" coords="166,102,293,127"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="181,56,221,99,217,103,177,59"/>
+</map>

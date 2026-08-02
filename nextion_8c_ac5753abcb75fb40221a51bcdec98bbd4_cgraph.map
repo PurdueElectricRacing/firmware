@@ -1,0 +1,7 @@
+<map id="NXT_setPage" name="NXT_setPage">
+<area shape="rect" id="Node000001" title="Sets the current page on the Nextion display." alt="" coords="5,31,109,56"/>
+<area shape="rect" id="Node000002" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="157,5,260,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,32,141,27,142,32,110,37"/>
+<area shape="rect" id="Node000003" href="$strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf" title="Appends formatted data to the buffer using printf&#45;style formatting. !" alt="" coords="163,55,254,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="110,49,149,55,148,61,109,54"/>
+</map>

@@ -1,0 +1,19 @@
+<map id="can_library/source/can_init.c" name="can_library/source/can_init.c">
+<area shape="rect" id="Node000001" title="CAN library initialization, IRQ setup, and filter setup." alt="" coords="139,5,266,46"/>
+<area shape="rect" id="Node000002" href="$can__common_8h.html" title="Common functions and data structures used in every node in the CAN library." alt="" coords="23,102,198,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,48,136,93,132,89,180,45"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="222,94,367,135"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="225,45,265,81,261,85,221,48"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="79,330,142,356"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="100,129,53,182,29,218,12,257,8,270,11,281,35,307,66,324,63,329,32,311,7,283,3,270,7,255,25,215,49,178,96,126"/>
+<area shape="rect" id="Node000004" href="$freertos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="22,256,199,282"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="113,128,113,241,108,241,108,128"/>
+<area shape="rect" id="Node000005" href="$phal_2can_8h.html" title=" " alt="" coords="194,183,328,208"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="134,125,226,173,223,178,132,130"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="113,282,113,314,108,314,108,282"/>
+<area shape="rect" id="Node000006" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="223,256,392,282"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="271,207,294,242,289,245,267,210"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="275,285,158,327,156,322,273,280"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="271,330,344,356"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="310,282,310,314,305,314,305,282"/>
+</map>

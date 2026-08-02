@@ -1,0 +1,7 @@
+<map id="CAN_sign_extend_raw" name="CAN_sign_extend_raw">
+<area shape="rect" id="Node000001" title=" " alt="" coords="312,5,465,31"/>
+<area shape="rect" id="Node000002" href="$can__codec__tests_8c.html#a87889e33bd2dadf53dd5004eadf89f9b" title=" " alt="" coords="103,5,264,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="297,21,265,21,265,16,297,16"/>
+<area shape="rect" id="Node000003" href="$can__codec__tests_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,55,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>

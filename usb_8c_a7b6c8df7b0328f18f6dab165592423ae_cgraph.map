@@ -1,0 +1,5 @@
+<map id="PHAL_USB_setAddress" name="PHAL_USB_setAddress">
+<area shape="rect" id="Node000001" title="Apply the address assigned by a SET_ADDRESS request." alt="" coords="5,5,171,31"/>
+<area shape="rect" id="Node000002" href="$usb__priv_8c.html#aaea03d767f81299b62109832610473d2" title="Write the seven&#45;bit device address while keeping the device enabled." alt="" coords="219,5,379,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,16,203,16,203,21,171,21"/>
+</map>

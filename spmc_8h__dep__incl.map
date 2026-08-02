@@ -1,0 +1,16 @@
+<map id="source/daq/spmc/spmc.h" name="source/daq/spmc/spmc.h">
+<area shape="rect" id="Node000001" title="Custom SPMC designed for high throughput handling of CAN message streams." alt="" coords="301,5,468,31"/>
+<area shape="rect" id="Node000002" href="$can__irq_8c.html" title="Timestamped frame producers from CAN RX IRQ." alt="" coords="5,79,137,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="322,38,137,84,136,79,321,33"/>
+<area shape="rect" id="Node000003" href="$ethernet_8c.html" title="Implementation of the ethernet thread for wireless data acquisition." alt="" coords="160,79,296,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="348,41,268,81,266,76,346,36"/>
+<area shape="rect" id="Node000004" href="$daq_2main_8c.html" title="&quot;DAQ&quot; node source code" alt="" coords="321,168,448,193"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="373,46,362,80,359,99,362,119,370,145,380,166,375,168,365,147,356,120,354,99,356,78,368,44"/>
+<area shape="rect" id="Node000005" href="$daq_2main_8h.html" title="&quot;DAQ&quot; node source code" alt="" coords="371,86,499,112"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="402,43,429,85,425,87,398,46"/>
+<area shape="rect" id="Node000006" href="$sd__card_8c.html" title="Logging of received bus messages onto an SD card." alt="" coords="523,79,659,120"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="431,34,540,76,538,81,429,39"/>
+<area shape="rect" id="Node000007" href="$spmc_8c.html" title="Custom SPMC designed for high throughput handling of CAN message streams." alt="" coords="683,86,851,112"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="459,32,709,83,707,89,458,37"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="421,127,394,169,390,166,417,124"/>
+</map>

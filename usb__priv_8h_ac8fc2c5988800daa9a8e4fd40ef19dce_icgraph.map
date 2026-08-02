@@ -1,0 +1,5 @@
+<map id="USB_PRIV_read" name="USB_PRIV_read">
+<area shape="rect" id="Node000001" title="Copy one completed OUT packet from packet memory and rearm reception." alt="" coords="178,5,297,31"/>
+<area shape="rect" id="Node000002" href="$usb_8c.html#af25d0362dcd989b4805bf062366f2142" title="Consume one host&#45;to&#45;device packet." alt="" coords="5,5,130,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,21,130,21,130,16,162,16"/>
+</map>

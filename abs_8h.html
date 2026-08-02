@@ -98,20 +98,33 @@ $(function(){initNavTree('abs_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">abs.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>Absolute value functions utility header.  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="abs_8h__dep__incl.svg" width="358" height="126"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
 <p><a href="abs_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a996f7be338ccb40d1a2a5abc1ad61759" id="r_a996f7be338ccb40d1a2a5abc1ad61759"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a996f7be338ccb40d1a2a5abc1ad61759">ABS</a>(x)</td></tr>
 <tr class="separator:a996f7be338ccb40d1a2a5abc1ad61759"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a3a1e7b00a4532a85f31e5ac3156bcab9" id="r_a3a1e7b00a4532a85f31e5ac3156bcab9"><td class="memItemLeft" align="right" valign="top">static signed int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a1e7b00a4532a85f31e5ac3156bcab9">abs_i</a> (int x)</td></tr>
+<tr class="separator:a3a1e7b00a4532a85f31e5ac3156bcab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bac71bc07cae41285cab5ef33071c96" id="r_a5bac71bc07cae41285cab5ef33071c96"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5bac71bc07cae41285cab5ef33071c96">abs_f</a> (float x)</td></tr>
+<tr class="separator:a5bac71bc07cae41285cab5ef33071c96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Absolute value functions utility header. </p>
@@ -133,10 +146,63 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    _Generic((x) + 0, \</div>
-<div class="line">    <span class="keywordtype">int</span>: abs_i, \</div>
-<div class="line">    <span class="keywordtype">float</span>: abs_f \</div>
+<div class="line">    <span class="keywordtype">int</span>: <a class="code hl_function" href="#a3a1e7b00a4532a85f31e5ac3156bcab9">abs_i</a>, \</div>
+<div class="line">    <span class="keywordtype">float</span>: <a class="code hl_function" href="#a5bac71bc07cae41285cab5ef33071c96">abs_f</a> \</div>
 <div class="line">)((x))</div>
+<div class="ttc" id="aabs_8h_html_a3a1e7b00a4532a85f31e5ac3156bcab9"><div class="ttname"><a href="#a3a1e7b00a4532a85f31e5ac3156bcab9">abs_i</a></div><div class="ttdeci">static signed int abs_i(int x)</div><div class="ttdef"><b>Definition</b> abs.h:15</div></div>
+<div class="ttc" id="aabs_8h_html_a5bac71bc07cae41285cab5ef33071c96"><div class="ttname"><a href="#a5bac71bc07cae41285cab5ef33071c96">abs_f</a></div><div class="ttdeci">static float abs_f(float x)</div><div class="ttdef"><b>Definition</b> abs.h:20</div></div>
 </div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a5bac71bc07cae41285cab5ef33071c96" name="a5bac71bc07cae41285cab5ef33071c96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bac71bc07cae41285cab5ef33071c96">&#9670;&#160;</a></span>abs_f()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float abs_f </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3a1e7b00a4532a85f31e5ac3156bcab9" name="a3a1e7b00a4532a85f31e5ac3156bcab9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a1e7b00a4532a85f31e5ac3156bcab9">&#9670;&#160;</a></span>abs_i()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static signed int abs_i </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->

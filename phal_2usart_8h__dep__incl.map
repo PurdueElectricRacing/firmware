@@ -1,0 +1,9 @@
+<map id="common/phal/usart.h" name="common/phal/usart.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="202,5,345,31"/>
+<area shape="rect" id="Node000002" href="$lcd_8c.html" title="LCD display management." alt="" coords="5,79,166,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="232,40,133,81,131,76,230,35"/>
+<area shape="rect" id="Node000003" href="$dashboard_2main_8c.html" title="&quot;Dashboard&quot; node source code" alt="" coords="190,86,357,112"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="276,47,276,86,271,86,271,47"/>
+<area shape="rect" id="Node000004" href="$torque__vector_2main_8c.html" title="&quot;Torque Vector&quot; node source code" alt="" coords="380,79,524,120"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="316,35,409,76,407,81,314,40"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="faultgen.augment_system_with_faults" name="faultgen.augment_system_with_faults">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,104,175,145"/>
+<area shape="rect" id="Node000002" href="$namespacefaultgen.html#afe2e346a8ad428ca4e08342785a61c6a" title=" " alt="" coords="230,5,363,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,101,222,57,234,51,236,55,224,61,134,106"/>
+<area shape="rect" id="Node000003" href="$namespacefaultgen.html#a11190d4ffc206ee3ce93696a63e5dcc0" title=" " alt="" coords="230,71,363,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="174,108,214,102,215,107,175,113"/>
+<area shape="rect" id="Node000004" href="$namespacefaultgen.html#a68f5c4425c2486ac4b858fe2e3cd9603" title=" " alt="" coords="223,136,370,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="175,135,208,140,207,145,174,140"/>
+<area shape="rect" id="Node000005" href="$namespacefaultgen.html#a0e8b5f173761fe44d09f0e8662d1a652" title=" " alt="" coords="223,201,370,242"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="135,143,224,186,237,192,234,197,222,191,133,148"/>
+</map>

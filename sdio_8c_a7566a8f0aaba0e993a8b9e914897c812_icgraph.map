@@ -1,0 +1,36 @@
+<map id="CmdResp1Error" name="CmdResp1Error">
+<area shape="rect" id="Node000001" title="Checks for error conditions for R1 response." alt="" coords="926,183,1038,208"/>
+<area shape="rect" id="Node000002" href="$sdio_8c.html#a6a5fc4e4656231dfde1e7a157337aa17" title="Find the SD card SCR register value." alt="" coords="769,5,842,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="965,170,929,112,905,80,876,52,842,32,844,28,880,48,909,77,934,108,970,167"/>
+<area shape="rect" id="Node000003" href="$sdio_8c.html#a34c053adf6c432bad5d856d470094519" title="Enables or disables the SDIO wide bus mode." alt="" coords="553,56,660,82"/>
+<area shape="poly" id="edge18_Node000001_Node000003" title=" " alt="" coords="959,172,924,135,901,117,877,103,822,84,763,73,708,69,660,68,660,63,708,63,764,68,823,79,879,98,904,113,927,131,963,168"/>
+<area shape="rect" id="Node000007" href="$sdio_8c.html#a9fbd4dd6187701cbe286ddb163e9c312" title="Enquires cards about their operating voltage and configures clock controls." alt="" coords="331,107,434,132"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="946,177,913,160,877,147,817,134,755,125,631,115,520,115,435,118,435,113,520,109,631,110,755,119,818,129,879,142,915,156,948,172"/>
+<area shape="rect" id="Node000008" href="$sdio_8c.html#a56b7336165f2631d9142a513ea2d0d17" title="Allows to read blocks from a specified address in a card. The Data transfer can be managed by DMA mod..." alt="" coords="734,157,878,183"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="910,188,878,183,879,178,911,183"/>
+<area shape="rect" id="Node000009" href="$sdio_8c.html#a849eb0b385337453139a7567898dacb7" title="Selects od Deselects the corresponding card." alt="" coords="316,183,450,208"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="910,198,450,198,450,193,910,193"/>
+<area shape="rect" id="Node000010" href="$sdio_8c.html#a7de24baeb4c6a7c9e5668630b8797888" title="Returns the current card&#39;s status." alt="" coords="749,259,863,284"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="937,217,839,261,836,256,935,213"/>
+<area shape="rect" id="Node000013" href="$sdio_8c.html#ad3dc52f076ae8145e105cb4d8a37b043" title="Aborts an ongoing data transfer." alt="" coords="745,308,866,334"/>
+<area shape="poly" id="edge14_Node000001_Node000013" title=" " alt="" coords="963,222,927,261,879,299,858,310,855,305,877,295,923,257,959,219"/>
+<area shape="rect" id="Node000016" href="$sdio_8c.html#a64baac72a75a2c522e837935009cbe93" title="Allows to write blocks starting from a specified address in a card. The Data transfer can be managed ..." alt="" coords="734,357,878,383"/>
+<area shape="poly" id="edge17_Node000001_Node000016" title=" " alt="" coords="971,224,936,286,910,319,880,348,861,359,858,354,876,344,906,316,932,283,967,221"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="755,34,661,58,660,53,753,29"/>
+<area shape="rect" id="Node000004" href="$sdio_8c.html#a6569e73a229e639d2043549942d58d11" title="Enables wide bus opeartion for the requeseted card if supported by card." alt="" coords="286,57,479,83"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="538,72,480,72,480,67,538,67"/>
+<area shape="rect" id="Node000005" href="$sdio_8c.html#a3c927d4d98ffb6f3cc2442b09c19926c" title="Initializes the SD Card and put it into StandBy State (Ready for data transfer)." alt="" coords="174,107,238,132"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="311,90,287,97,239,111,238,106,285,92,310,85"/>
+<area shape="rect" id="Node000006" href="$sdio_8c.html#a7b441f99db323528145ce61011b5b204" title="Configures the SDIO peripheral." alt="" coords="5,107,126,132"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="158,122,126,122,126,117,158,117"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="315,122,239,122,239,117,315,117"/>
+<area shape="poly" id="edge10_Node000009_Node000005" title=" " alt="" coords="336,178,237,135,239,130,338,174"/>
+<area shape="rect" id="Node000011" href="$sdio_8c.html#a1c49d266e4f9ba33b7a425361a30d227" title="Returns the current card&#39;s state." alt="" coords="557,259,656,284"/>
+<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="733,274,656,274,656,269,733,269"/>
+<area shape="rect" id="Node000012" href="$sdio_8c.html#af3f228aaee7b2b18acc056b2f27ca3f7" title="Gets the cuurent sd card data transfer status." alt="" coords="330,259,435,284"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="542,274,436,274,436,269,542,269"/>
+<area shape="rect" id="Node000014" href="$sdio_8c.html#a42ab410b834d74d7f3ee757dc888b8cc" title="This function waits until the SDIO DMA data transfer is finished. This function should be called afte..." alt="" coords="527,308,686,334"/>
+<area shape="poly" id="edge15_Node000013_Node000014" title=" " alt="" coords="730,324,686,324,686,318,730,318"/>
+<area shape="rect" id="Node000015" href="$sdio_8c.html#ad55967ea67075f01671fb2144c7f7b0d" title="This function waits until the SDIO DMA data transfer is finished. This function should be called afte..." alt="" coords="527,357,686,383"/>
+<area shape="poly" id="edge16_Node000013_Node000015" title=" " alt="" coords="737,341,662,359,661,354,735,335"/>
+</map>

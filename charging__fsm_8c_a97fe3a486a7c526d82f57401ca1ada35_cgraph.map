@@ -1,0 +1,7 @@
+<map id="is_charging_permitted" name="is_charging_permitted">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,154,56"/>
+<area shape="rect" id="Node000002" href="$faults__common_8h.html#a22ea5f8bc7464c7728f4f9d67a9417cf" title=" " alt="" coords="222,5,288,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,30,207,22,207,28,155,35"/>
+<area shape="rect" id="Node000003" href="$charging__fsm_8c.html#ab281666eaa24da6546c73d18fe6c88ba" title=" " alt="" coords="202,55,309,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="155,51,187,55,186,61,154,56"/>
+</map>

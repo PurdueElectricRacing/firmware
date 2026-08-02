@@ -99,7 +99,8 @@ $(function(){initNavTree('sdc_8c.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">sdc.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -109,8 +110,13 @@ $(function(){initNavTree('sdc_8c.html',''); initResizable(true); });
 <div class="textblock"><code>#include &quot;<a class="el" href="sdc_8h_source.html">sdc.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="faults__common_8h_source.html">can_library/faults_common.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
-<code>#include &quot;common/phal/gpio.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2gpio_8h_source.html">common/phal/gpio.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for sdc.c:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="sdc_8c__incl.svg" width="100%" height="527"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -119,14 +125,137 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:abe061ee2b199bb82296440005e5d23fc" id="r_abe061ee2b199bb82296440005e5d23fc"><td class="memItemLeft" align="right" valign="top"><a id="abe061ee2b199bb82296440005e5d23fc" name="abe061ee2b199bb82296440005e5d23fc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SDC_task_periodic</b> (void)</td></tr>
+<tr class="memitem:abe061ee2b199bb82296440005e5d23fc" id="r_abe061ee2b199bb82296440005e5d23fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe061ee2b199bb82296440005e5d23fc">SDC_task_periodic</a> (void)</td></tr>
 <tr class="separator:abe061ee2b199bb82296440005e5d23fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a59bf7735bcdb47a09b0474324e8d9556" id="r_a59bf7735bcdb47a09b0474324e8d9556"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59bf7735bcdb47a09b0474324e8d9556">SDC_UNREADABLE</a> = 0xFF</td></tr>
+<tr class="separator:a59bf7735bcdb47a09b0474324e8d9556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1d2d338acd39c4c1b960d8eecbc5571" id="r_aa1d2d338acd39c4c1b960d8eecbc5571"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1d2d338acd39c4c1b960d8eecbc5571">NUM_SDC_NODES</a> = 17</td></tr>
+<tr class="separator:aa1d2d338acd39c4c1b960d8eecbc5571"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb02de51771aeefa48e90bc43814fd04" id="r_abb02de51771aeefa48e90bc43814fd04"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="structsdc__node__t.html">sdc_node_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abb02de51771aeefa48e90bc43814fd04">SDC_NODE_LUT</a> [<a class="el" href="#aa1d2d338acd39c4c1b960d8eecbc5571">NUM_SDC_NODES</a>]</td></tr>
+<tr class="separator:abb02de51771aeefa48e90bc43814fd04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>SDC task implementation. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="abe061ee2b199bb82296440005e5d23fc" name="abe061ee2b199bb82296440005e5d23fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe061ee2b199bb82296440005e5d23fc">&#9670;&#160;</a></span>SDC_task_periodic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SDC_task_periodic </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="sdc_8c_abe061ee2b199bb82296440005e5d23fc_cgraph.svg" width="344" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="sdc_8c_abe061ee2b199bb82296440005e5d23fc_icgraph.svg" width="240" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aa1d2d338acd39c4c1b960d8eecbc5571" name="aa1d2d338acd39c4c1b960d8eecbc5571"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1d2d338acd39c4c1b960d8eecbc5571">&#9670;&#160;</a></span>NUM_SDC_NODES</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int NUM_SDC_NODES = 17</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abb02de51771aeefa48e90bc43814fd04" name="abb02de51771aeefa48e90bc43814fd04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb02de51771aeefa48e90bc43814fd04">&#9670;&#160;</a></span>SDC_NODE_LUT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structsdc__node__t.html">sdc_node_t</a> SDC_NODE_LUT[<a class="el" href="#aa1d2d338acd39c4c1b960d8eecbc5571">NUM_SDC_NODES</a>]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    {FAULT_ID_SDC1_IMD,  11},</div>
+<div class="line">    {FAULT_ID_SDC2_BMS,  10},</div>
+<div class="line">    {FAULT_ID_SDC3_BSPD,  9},</div>
+<div class="line">    {FAULT_ID_SDC4_MAIN_OK,  8},</div>
+<div class="line">    {FAULT_ID_SDC5_BOTS,  7},</div>
+<div class="line">    {FAULT_ID_SDC6_INERTIA,  6},</div>
+<div class="line">    {FAULT_ID_SDC7_COCKPIT_ESTOP,  5},</div>
+<div class="line">    {0,  <a class="code hl_variable" href="#a59bf7735bcdb47a09b0474324e8d9556">SDC_UNREADABLE</a>}, </div>
+<div class="line">    {FAULT_ID_SDC9_FRONT_INTERLOCK,  4},</div>
+<div class="line">    {FAULT_ID_SDC10_RIGHT_ESTOP, 12},</div>
+<div class="line">    {FAULT_ID_SDC11_LEFT_ESTOP, 3},</div>
+<div class="line">    {FAULT_ID_SDC12_MSD, 2},</div>
+<div class="line">    {FAULT_ID_SDC13_E_METER, 13},</div>
+<div class="line">    {0, <a class="code hl_variable" href="#a59bf7735bcdb47a09b0474324e8d9556">SDC_UNREADABLE</a>}, </div>
+<div class="line">    {FAULT_ID_SDC15_REAR_INTERLOCK, 1}, </div>
+<div class="line">    {FAULT_ID_SDC16_TSMS, 14},</div>
+<div class="line">    {FAULT_ID_SDC17_AIR_M, 0}</div>
+<div class="line">}</div>
+<div class="ttc" id="asdc_8c_html_a59bf7735bcdb47a09b0474324e8d9556"><div class="ttname"><a href="#a59bf7735bcdb47a09b0474324e8d9556">SDC_UNREADABLE</a></div><div class="ttdeci">static constexpr uint8_t SDC_UNREADABLE</div><div class="ttdef"><b>Definition</b> sdc.c:16</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a59bf7735bcdb47a09b0474324e8d9556" name="a59bf7735bcdb47a09b0474324e8d9556"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59bf7735bcdb47a09b0474324e8d9556">&#9670;&#160;</a></span>SDC_UNREADABLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t SDC_UNREADABLE = 0xFF</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

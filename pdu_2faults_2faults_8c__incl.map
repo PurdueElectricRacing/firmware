@@ -1,0 +1,36 @@
+<map id="source/pdu/faults/faults.c" name="source/pdu/faults/faults.c">
+<area shape="rect" id="Node000001" title=" " alt="" coords="241,5,409,31"/>
+<area shape="rect" id="Node000002" href="$pdu_2faults_2faults_8h.html" title=" " alt="" coords="5,86,69,112"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="264,34,177,54,82,82,78,83,76,78,80,76,175,49,262,29"/>
+<area shape="rect" id="Node000003" href="$faults__common_8h.html" title="Event&#45;based FIDR system." alt="" coords="93,79,213,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="300,34,211,75,209,70,297,29"/>
+<area shape="rect" id="Node000006" href="$led_8h.html" title=" " alt="" coords="332,86,380,112"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="332,30,348,71,343,73,327,32"/>
+<area shape="rect" id="Node000008" href="$phal_2gpio_8h.html" title=" " alt="" coords="256,175,394,201"/>
+<area shape="poly" id="edge21_Node000001_Node000008" title=" " alt="" coords="326,32,322,79,322,120,325,159,320,160,317,120,317,79,321,31"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="454,86,513,112"/>
+<area shape="poly" id="edge14_Node000001_Node000011" title=" " alt="" coords="351,29,447,77,445,82,348,34"/>
+<area shape="rect" id="Node000012" href="$state_8h.html" title=" " alt="" coords="572,175,632,201"/>
+<area shape="poly" id="edge15_Node000001_Node000012" title=" " alt="" coords="340,30,444,117,475,134,501,144,561,165,563,166,561,171,559,170,499,149,473,139,441,122,337,34"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="309,330,373,356"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="94,119,56,139,40,153,27,169,20,188,27,207,53,238,84,263,119,284,156,301,231,324,294,335,293,340,229,329,154,306,116,289,81,268,49,242,23,210,15,188,23,166,36,149,53,135,92,114"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="37,168,181,208"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="145,121,128,155,124,152,141,119"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="332,110,286,131,264,148,247,169,234,199,229,225,234,251,247,281,269,305,297,323,294,327,265,309,243,283,229,252,224,225,228,197,243,166,261,144,284,127,330,105"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="544,330,618,356"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="381,104,647,166,657,185,661,206,658,227,651,248,629,288,605,320,600,317,625,285,646,246,653,226,655,206,652,187,643,170,380,109"/>
+<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="354,114,337,161,332,160,349,112"/>
+<area shape="rect" id="Node000010" href="$phal_2spi_8h.html" title=" " alt="" coords="417,175,548,201"/>
+<area shape="poly" id="edge12_Node000006_Node000010" title=" " alt="" coords="375,110,453,164,450,168,372,115"/>
+<area shape="rect" id="Node000009" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="256,256,426,282"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="330,201,338,240,333,241,325,202"/>
+<area shape="poly" id="edge11_Node000009_Node000004" title=" " alt="" coords="344,282,344,314,338,314,338,282"/>
+<area shape="poly" id="edge10_Node000009_Node000007" title=" " alt="" coords="382,280,531,324,529,329,381,285"/>
+<area shape="poly" id="edge13_Node000010_Node000009" title=" " alt="" coords="462,204,377,251,375,246,460,199"/>
+<area shape="poly" id="edge17_Node000012_Node000004" title=" " alt="" coords="583,204,376,324,374,319,580,199"/>
+<area shape="poly" id="edge16_Node000012_Node000007" title=" " alt="" coords="605,202,598,282,591,316,586,314,593,282,599,201"/>
+<area shape="rect" id="Node000013" href="$switches_8h.html" title=" " alt="" coords="501,256,584,282"/>
+<area shape="poly" id="edge18_Node000012_Node000013" title=" " alt="" coords="595,203,563,246,558,242,591,200"/>
+<area shape="poly" id="edge20_Node000013_Node000004" title=" " alt="" coords="509,285,389,328,387,323,507,280"/>
+<area shape="poly" id="edge19_Node000013_Node000007" title=" " alt="" coords="551,281,570,315,565,317,546,283"/>
+</map>

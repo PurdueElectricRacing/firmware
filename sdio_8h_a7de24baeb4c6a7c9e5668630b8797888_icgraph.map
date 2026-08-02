@@ -1,0 +1,7 @@
+<map id="SD_SendStatus" name="SD_SendStatus">
+<area shape="rect" id="Node000001" title="Returns the current card&#39;s status." alt="" coords="305,5,419,31"/>
+<area shape="rect" id="Node000002" href="$sdio_8c.html#a1c49d266e4f9ba33b7a425361a30d227" title="Returns the current card&#39;s state." alt="" coords="159,5,257,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="289,21,257,21,257,16,289,16"/>
+<area shape="rect" id="Node000003" href="$sdio_8c.html#af3f228aaee7b2b18acc056b2f27ca3f7" title="Gets the cuurent sd card data transfer status." alt="" coords="5,5,111,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="143,21,111,21,111,16,143,16"/>
+</map>

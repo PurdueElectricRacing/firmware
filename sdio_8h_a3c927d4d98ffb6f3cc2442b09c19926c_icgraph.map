@@ -1,0 +1,5 @@
+<map id="SD_Init" name="SD_Init">
+<area shape="rect" id="Node000001" title="Initializes the SD Card and put it into StandBy State (Ready for data transfer)." alt="" coords="174,5,238,31"/>
+<area shape="rect" id="Node000002" href="$sdio_8c.html#a7b441f99db323528145ce61011b5b204" title="Configures the SDIO peripheral." alt="" coords="5,5,126,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,21,126,21,126,16,158,16"/>
+</map>

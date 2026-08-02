@@ -1,0 +1,5 @@
+<map id="SD_LowLevel_DMA_RxConfig" name="SD_LowLevel_DMA_RxConfig">
+<area shape="rect" id="Node000001" title="Configures the DMA2 Channel4 for SDIO Rx request." alt="" coords="198,5,395,31"/>
+<area shape="rect" id="Node000002" href="$sdio_8c.html#a56b7336165f2631d9142a513ea2d0d17" title="Allows to read blocks from a specified address in a card. The Data transfer can be managed by DMA mod..." alt="" coords="5,5,150,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,21,150,21,150,16,182,16"/>
+</map>

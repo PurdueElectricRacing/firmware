@@ -98,20 +98,35 @@ $(function(){initNavTree('rescale_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">rescale.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>Utility header to linearly map values from one range to another.  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="rescale_8h__dep__incl.svg" width="178" height="126"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
 <p><a href="rescale_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a21face4f1d8ad6e12a49c985ed2d972d" id="r_a21face4f1d8ad6e12a49c985ed2d972d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a21face4f1d8ad6e12a49c985ed2d972d">RESCALE</a>(input,  input_min,  input_max,  output_min,  output_max)</td></tr>
 <tr class="separator:a21face4f1d8ad6e12a49c985ed2d972d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aaa419c0fce105b743e0bbe5f1f3145df" id="r_aaa419c0fce105b743e0bbe5f1f3145df"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa419c0fce105b743e0bbe5f1f3145df">rescale_float</a> (float input, float input_min, float input_max, float output_min, float output_max)</td></tr>
+<tr class="separator:aaa419c0fce105b743e0bbe5f1f3145df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88bcd471c06503267683142d4accfbe0" id="r_a88bcd471c06503267683142d4accfbe0"><td class="memItemLeft" align="right" valign="top">static signed int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88bcd471c06503267683142d4accfbe0">rescale_signed</a> (signed int input, signed int input_min, signed int input_max, signed int output_min, signed int output_max)</td></tr>
+<tr class="separator:a88bcd471c06503267683142d4accfbe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a59c88cfc4c5bec4664be310aae2201" id="r_a9a59c88cfc4c5bec4664be310aae2201"><td class="memItemLeft" align="right" valign="top">static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a59c88cfc4c5bec4664be310aae2201">rescale_unsigned</a> (unsigned int input, unsigned int input_min, unsigned int input_max, unsigned int output_min, unsigned int output_max)</td></tr>
+<tr class="separator:a9a59c88cfc4c5bec4664be310aae2201"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Utility header to linearly map values from one range to another. </p>
@@ -152,11 +167,162 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    _Generic((input) + (input_min) + (input_max) + (output_min) + (output_max), \</div>
-<div class="line">    <span class="keywordtype">signed</span> <span class="keywordtype">int</span>: rescale_signed, \</div>
-<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>: rescale_unsigned, \</div>
-<div class="line">    <span class="keywordtype">float</span>: rescale_float \</div>
+<div class="line">    <span class="keywordtype">signed</span> <span class="keywordtype">int</span>: <a class="code hl_function" href="#a88bcd471c06503267683142d4accfbe0">rescale_signed</a>, \</div>
+<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>: <a class="code hl_function" href="#a9a59c88cfc4c5bec4664be310aae2201">rescale_unsigned</a>, \</div>
+<div class="line">    <span class="keywordtype">float</span>: <a class="code hl_function" href="#aaa419c0fce105b743e0bbe5f1f3145df">rescale_float</a> \</div>
 <div class="line">)(input, input_min, input_max, output_min, output_max)</div>
+<div class="ttc" id="arescale_8h_html_a88bcd471c06503267683142d4accfbe0"><div class="ttname"><a href="#a88bcd471c06503267683142d4accfbe0">rescale_signed</a></div><div class="ttdeci">static signed int rescale_signed(signed int input, signed int input_min, signed int input_max, signed int output_min, signed int output_max)</div><div class="ttdef"><b>Definition</b> rescale.h:34</div></div>
+<div class="ttc" id="arescale_8h_html_a9a59c88cfc4c5bec4664be310aae2201"><div class="ttname"><a href="#a9a59c88cfc4c5bec4664be310aae2201">rescale_unsigned</a></div><div class="ttdeci">static unsigned int rescale_unsigned(unsigned int input, unsigned int input_min, unsigned int input_max, unsigned int output_min, unsigned int output_max)</div><div class="ttdef"><b>Definition</b> rescale.h:53</div></div>
+<div class="ttc" id="arescale_8h_html_aaa419c0fce105b743e0bbe5f1f3145df"><div class="ttname"><a href="#aaa419c0fce105b743e0bbe5f1f3145df">rescale_float</a></div><div class="ttdeci">static float rescale_float(float input, float input_min, float input_max, float output_min, float output_max)</div><div class="ttdef"><b>Definition</b> rescale.h:15</div></div>
 </div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="aaa419c0fce105b743e0bbe5f1f3145df" name="aaa419c0fce105b743e0bbe5f1f3145df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa419c0fce105b743e0bbe5f1f3145df">&#9670;&#160;</a></span>rescale_float()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float rescale_float </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>input</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>input_min</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>input_max</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>output_min</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>output_max</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="rescale_8h_aaa419c0fce105b743e0bbe5f1f3145df_icgraph.svg" width="276" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a88bcd471c06503267683142d4accfbe0" name="a88bcd471c06503267683142d4accfbe0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88bcd471c06503267683142d4accfbe0">&#9670;&#160;</a></span>rescale_signed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static signed int rescale_signed </td>
+          <td>(</td>
+          <td class="paramtype">signed int</td>          <td class="paramname"><span class="paramname"><em>input</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">signed int</td>          <td class="paramname"><span class="paramname"><em>input_min</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">signed int</td>          <td class="paramname"><span class="paramname"><em>input_max</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">signed int</td>          <td class="paramname"><span class="paramname"><em>output_min</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">signed int</td>          <td class="paramname"><span class="paramname"><em>output_max</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="rescale_8h_a88bcd471c06503267683142d4accfbe0_cgraph.svg" width="262" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a9a59c88cfc4c5bec4664be310aae2201" name="a9a59c88cfc4c5bec4664be310aae2201"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a59c88cfc4c5bec4664be310aae2201">&#9670;&#160;</a></span>rescale_unsigned()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static unsigned int rescale_unsigned </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int</td>          <td class="paramname"><span class="paramname"><em>input</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int</td>          <td class="paramname"><span class="paramname"><em>input_min</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int</td>          <td class="paramname"><span class="paramname"><em>input_max</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int</td>          <td class="paramname"><span class="paramname"><em>output_min</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int</td>          <td class="paramname"><span class="paramname"><em>output_max</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="rescale_8h_a9a59c88cfc4c5bec4664be310aae2201_cgraph.svg" width="276" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 </div><!-- contents -->

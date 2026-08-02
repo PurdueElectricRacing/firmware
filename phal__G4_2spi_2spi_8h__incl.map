@@ -1,0 +1,22 @@
+<map id="common/phal_G4/spi/spi.h" name="common/phal_G4/spi/spi.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="151,5,295,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,102,73,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,49,80,97,77,92,180,44"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2dma_2dma_8h.html" title=" " alt="" coords="147,94,299,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="226,47,226,78,220,78,220,47"/>
+<area shape="rect" id="Node000004" href="$phal__G4_8h.html" title=" " alt="" coords="301,183,486,208"/>
+<area shape="poly" id="edge8_Node000001_Node000004" title=" " alt="" coords="190,49,164,67,142,88,131,111,131,122,137,133,159,149,195,162,286,180,285,185,193,167,157,153,133,136,126,124,125,110,137,85,160,63,187,44"/>
+<area shape="rect" id="Node000007" href="$phal__G4_2gpio_2gpio_8h.html" title="GPIO Driver for STM32L432 Devices." alt="" coords="323,94,475,135"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="264,44,347,84,344,89,262,49"/>
+<area shape="rect" id="Node000008" href="$phal__G4_2rcc_2rcc_8h.html" title="G4 RCC public API implementation." alt="" coords="498,94,644,135"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="296,42,484,89,483,94,295,48"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="267,133,355,173,353,178,265,138"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="516,256,589,282"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="422,206,513,247,511,252,419,211"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="406,256,469,282"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="403,207,424,241,420,244,399,210"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="400,135,398,167,393,167,395,135"/>
+<area shape="poly" id="edge12_Node000008_Node000004" title=" " alt="" coords="528,138,436,178,434,174,526,133"/>
+<area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="571,135,558,241,553,240,566,135"/>
+<area shape="poly" id="edge11_Node000008_Node000006" title=" " alt="" coords="559,137,501,210,464,248,460,244,497,207,555,133"/>
+</map>

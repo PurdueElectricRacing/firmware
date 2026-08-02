@@ -1,0 +1,7 @@
+<map id="powertrain_t" name="powertrain_t">
+<area shape="rect" id="Node000001" title=" " alt="" coords="46,139,138,165"/>
+<area shape="rect" id="Node000002" href="$structAMK__t.html" title=" " alt="" coords="5,5,67,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="43,45,51,79,64,114,82,137,77,140,60,116,46,80,37,46"/>
+<area shape="rect" id="Node000003" href="$structtorque__request__t.html" title=" " alt="" coords="90,5,208,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="147,46,137,80,122,116,105,140,101,137,118,114,132,79,141,45"/>
+</map>

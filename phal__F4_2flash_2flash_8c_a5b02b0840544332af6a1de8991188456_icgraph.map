@@ -1,0 +1,5 @@
+<map id="flashGetSector" name="flashGetSector">
+<area shape="rect" id="Node000001" title="Convert address to sector number Assumes addr is within flash addr space." alt="" coords="178,5,285,31"/>
+<area shape="rect" id="Node000002" href="$phal__F4_2flash_2flash_8c.html#ac485437c5bd0991fd68791403c8cb3b3" title=" " alt="" coords="5,5,130,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,21,130,21,130,16,162,16"/>
+</map>

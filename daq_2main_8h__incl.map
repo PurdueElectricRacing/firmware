@@ -1,0 +1,19 @@
+<map id="source/daq/main.h" name="source/daq/main.h">
+<area shape="rect" id="Node000001" title="&quot;DAQ&quot; node source code" alt="" coords="134,5,262,31"/>
+<area shape="rect" id="Node000002" href="$freertos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="5,153,183,178"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,33,149,81,110,141,106,138,145,77,185,30"/>
+<area shape="rect" id="Node000004" href="$sd__card_8h.html" title="Logging of received bus messages onto an SD card." alt="" coords="159,79,237,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="201,31,201,63,195,63,195,31"/>
+<area shape="rect" id="Node000005" href="$spmc_8h.html" title="Custom SPMC designed for high throughput handling of CAN message streams." alt="" coords="262,79,326,105"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="216,29,268,68,264,72,213,34"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="214,226,278,252"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="121,176,207,217,205,222,119,181"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="182,107,126,146,123,141,179,103"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="204,104,240,211,235,212,199,106"/>
+<area shape="poly" id="edge8_Node000005_Node000003" title=" " alt="" coords="293,106,257,212,252,211,288,104"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="308,153,376,178"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="304,103,328,138,323,141,300,106"/>
+<area shape="rect" id="Node000007" href="$timestamped__frame_8h.html" title="Definition for timestamped CAN frames." alt="" coords="400,153,546,178"/>
+<area shape="poly" id="edge9_Node000005_Node000007" title=" " alt="" coords="325,103,429,144,427,149,323,108"/>
+<area shape="poly" id="edge10_Node000007_Node000003" title=" " alt="" coords="435,181,293,226,292,221,433,176"/>
+</map>

@@ -99,7 +99,8 @@ $(function(){initNavTree('watchdog_8h.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">watchdog.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -108,6 +109,16 @@ $(function(){initNavTree('watchdog_8h.html',''); initResizable(true); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for watchdog.h:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="watchdog_8h__incl.svg" width="264" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="watchdog_8h__dep__incl.svg" width="100%" height="394"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 </div>
 <p><a href="watchdog_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -120,18 +131,21 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a51d10c4e4d48fbc226b4b17aab1ca5eb" id="r_a51d10c4e4d48fbc226b4b17aab1ca5eb"><td class="memItemLeft" align="right" valign="top"><a id="a51d10c4e4d48fbc226b4b17aab1ca5eb" name="a51d10c4e4d48fbc226b4b17aab1ca5eb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>WDG_init</b> (void)</td></tr>
+<tr class="memitem:a51d10c4e4d48fbc226b4b17aab1ca5eb" id="r_a51d10c4e4d48fbc226b4b17aab1ca5eb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a51d10c4e4d48fbc226b4b17aab1ca5eb">WDG_init</a> (void)</td></tr>
 <tr class="separator:a51d10c4e4d48fbc226b4b17aab1ca5eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9f50b5ca658e88bed2fced52ca1789f" id="r_ac9f50b5ca658e88bed2fced52ca1789f"><td class="memItemLeft" align="right" valign="top"><a id="ac9f50b5ca658e88bed2fced52ca1789f" name="ac9f50b5ca658e88bed2fced52ca1789f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>WDG_pet</b> (void)</td></tr>
+<tr class="memitem:ac9f50b5ca658e88bed2fced52ca1789f" id="r_ac9f50b5ca658e88bed2fced52ca1789f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9f50b5ca658e88bed2fced52ca1789f">WDG_pet</a> (void)</td></tr>
 <tr class="separator:ac9f50b5ca658e88bed2fced52ca1789f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a2c1fa78af77115f11c0f47b19480cd" id="r_a6a2c1fa78af77115f11c0f47b19480cd"><td class="memItemLeft" align="right" valign="top"><a id="a6a2c1fa78af77115f11c0f47b19480cd" name="a6a2c1fa78af77115f11c0f47b19480cd"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>WDG_get_CSR</b> (void)</td></tr>
+<tr class="memitem:a6a2c1fa78af77115f11c0f47b19480cd" id="r_a6a2c1fa78af77115f11c0f47b19480cd"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a2c1fa78af77115f11c0f47b19480cd">WDG_get_CSR</a> (void)</td></tr>
 <tr class="separator:a6a2c1fa78af77115f11c0f47b19480cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9474fe50e70aad5e46b407a2cb66cfbf" id="r_a9474fe50e70aad5e46b407a2cb66cfbf"><td class="memItemLeft" align="right" valign="top"><a id="a9474fe50e70aad5e46b407a2cb66cfbf" name="a9474fe50e70aad5e46b407a2cb66cfbf"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>was_reset_by_WDG</b> (void)</td></tr>
+<tr class="memitem:a9474fe50e70aad5e46b407a2cb66cfbf" id="r_a9474fe50e70aad5e46b407a2cb66cfbf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9474fe50e70aad5e46b407a2cb66cfbf">was_reset_by_WDG</a> (void)</td></tr>
 <tr class="separator:a9474fe50e70aad5e46b407a2cb66cfbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a48f9b6ab9ba7b61703d6c7e4415ef574" id="r_a48f9b6ab9ba7b61703d6c7e4415ef574"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48f9b6ab9ba7b61703d6c7e4415ef574">WATCHDOG_TIMEOUT_MS</a> = 1000</td></tr>
+<tr class="separator:a48f9b6ab9ba7b61703d6c7e4415ef574"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9d77b28b3ce449e8e33d9879332d407" id="r_ae9d77b28b3ce449e8e33d9879332d407"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9d77b28b3ce449e8e33d9879332d407">WATCHDOG_PET_PERIOD_MS</a> = 100</td></tr>
+<tr class="separator:ae9d77b28b3ce449e8e33d9879332d407"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Basic watchdog implementation. </p>
@@ -151,8 +165,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>was_reset_by_WDG</b> 
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="freertos_8h.html#a5cf4a3cffdbcee009fb985a5c44738c3">FREERTOS_DEFINE_TASK</a>(WDG_pet, WATCHDOG_PET_PERIOD_MS, TASK_PRIORITY_LOW, STACK_256)</div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="freertos_8h.html#a5cf4a3cffdbcee009fb985a5c44738c3">FREERTOS_DEFINE_TASK</a>(<a class="code hl_function" href="#ac9f50b5ca658e88bed2fced52ca1789f">WDG_pet</a>, <a class="code hl_variable" href="#ae9d77b28b3ce449e8e33d9879332d407">WATCHDOG_PET_PERIOD_MS</a>, <a class="code hl_enumvalue" href="freertos_8h.html#a3013e468406586335b248c478350a33ea579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a>, <a class="code hl_enumvalue" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aa435fef8f51358101988c069f6d05c191">STACK_256</a>)</div>
+<div class="ttc" id="afreertos_8h_html_a3013e468406586335b248c478350a33ea579ef89a125d8a2c726f2e7f09e30514"><div class="ttname"><a href="freertos_8h.html#a3013e468406586335b248c478350a33ea579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a></div><div class="ttdeci">@ TASK_PRIORITY_LOW</div><div class="ttdef"><b>Definition</b> freertos.h:50</div></div>
 <div class="ttc" id="afreertos_8h_html_a5cf4a3cffdbcee009fb985a5c44738c3"><div class="ttname"><a href="freertos_8h.html#a5cf4a3cffdbcee009fb985a5c44738c3">FREERTOS_DEFINE_TASK</a></div><div class="ttdeci">#define FREERTOS_DEFINE_TASK(NAME, PERIOD_MS, PRIORITY, STACK_SIZE)</div><div class="ttdoc">Defines a statically allocated periodic FreeRTOS task.</div><div class="ttdef"><b>Definition</b> freertos.h:95</div></div>
+<div class="ttc" id="afreertos_8h_html_a7a58aa2d3913543d996a0de1fadd2f6aa435fef8f51358101988c069f6d05c191"><div class="ttname"><a href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aa435fef8f51358101988c069f6d05c191">STACK_256</a></div><div class="ttdeci">@ STACK_256</div><div class="ttdef"><b>Definition</b> freertos.h:41</div></div>
+<div class="ttc" id="awatchdog_8h_html_ac9f50b5ca658e88bed2fced52ca1789f"><div class="ttname"><a href="#ac9f50b5ca658e88bed2fced52ca1789f">WDG_pet</a></div><div class="ttdeci">void WDG_pet(void)</div><div class="ttdef"><b>Definition</b> watchdog.c:41</div></div>
+<div class="ttc" id="awatchdog_8h_html_ae9d77b28b3ce449e8e33d9879332d407"><div class="ttname"><a href="#ae9d77b28b3ce449e8e33d9879332d407">WATCHDOG_PET_PERIOD_MS</a></div><div class="ttdeci">static constexpr uint32_t WATCHDOG_PET_PERIOD_MS</div><div class="ttdef"><b>Definition</b> watchdog.h:20</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -170,9 +188,138 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>was_reset_by_WDG</b> 
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="freertos_8h.html#a104de5f26cf1f5055419e92dcb119afe">FREERTOS_START_TASK</a>(WDG_pet)</div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="freertos_8h.html#a104de5f26cf1f5055419e92dcb119afe">FREERTOS_START_TASK</a>(<a class="code hl_function" href="#ac9f50b5ca658e88bed2fced52ca1789f">WDG_pet</a>)</div>
 <div class="ttc" id="afreertos_8h_html_a104de5f26cf1f5055419e92dcb119afe"><div class="ttname"><a href="freertos_8h.html#a104de5f26cf1f5055419e92dcb119afe">FREERTOS_START_TASK</a></div><div class="ttdeci">#define FREERTOS_START_TASK(NAME)</div><div class="ttdoc">Creates and starts a previously defined task.</div><div class="ttdef"><b>Definition</b> freertos.h:125</div></div>
 </div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a9474fe50e70aad5e46b407a2cb66cfbf" name="a9474fe50e70aad5e46b407a2cb66cfbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9474fe50e70aad5e46b407a2cb66cfbf">&#9670;&#160;</a></span>was_reset_by_WDG()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool was_reset_by_WDG </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="watchdog_8h_a9474fe50e70aad5e46b407a2cb66cfbf_icgraph.svg" width="458" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a6a2c1fa78af77115f11c0f47b19480cd" name="a6a2c1fa78af77115f11c0f47b19480cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a2c1fa78af77115f11c0f47b19480cd">&#9670;&#160;</a></span>WDG_get_CSR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t WDG_get_CSR </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="watchdog_8h_a6a2c1fa78af77115f11c0f47b19480cd_icgraph.svg" width="220" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a51d10c4e4d48fbc226b4b17aab1ca5eb" name="a51d10c4e4d48fbc226b4b17aab1ca5eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51d10c4e4d48fbc226b4b17aab1ca5eb">&#9670;&#160;</a></span>WDG_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WDG_init </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="watchdog_8h_a51d10c4e4d48fbc226b4b17aab1ca5eb_icgraph.svg" width="184" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ac9f50b5ca658e88bed2fced52ca1789f" name="ac9f50b5ca658e88bed2fced52ca1789f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9f50b5ca658e88bed2fced52ca1789f">&#9670;&#160;</a></span>WDG_pet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WDG_pet </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="ae9d77b28b3ce449e8e33d9879332d407" name="ae9d77b28b3ce449e8e33d9879332d407"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9d77b28b3ce449e8e33d9879332d407">&#9670;&#160;</a></span>WATCHDOG_PET_PERIOD_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t WATCHDOG_PET_PERIOD_MS = 100</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a48f9b6ab9ba7b61703d6c7e4415ef574" name="a48f9b6ab9ba7b61703d6c7e4415ef574"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48f9b6ab9ba7b61703d6c7e4415ef574">&#9670;&#160;</a></span>WATCHDOG_TIMEOUT_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t WATCHDOG_TIMEOUT_MS = 1000</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->

@@ -1,0 +1,7 @@
+<map id="linker.BusLinker" name="linker.BusLinker">
+<area shape="rect" id="Node000001" title=" " alt="" coords="56,109,170,135"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,91,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="46,46,46,66,52,84,63,97,79,106,76,111,60,101,47,86,41,67,40,47"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="159,5,201,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="173,47,153,87,130,110,127,107,148,83,169,44"/>
+</map>

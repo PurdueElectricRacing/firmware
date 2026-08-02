@@ -110,69 +110,262 @@ $(function(){initNavTree('lcd_8c.html',''); initResizable(true); });
 <code>#include &lt;stddef.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="nextion_8h_source.html">common/nextion/nextion.h</a>&quot;</code><br />
-<code>#include &quot;common/phal/usart.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2usart_8h_source.html">common/phal/usart.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="race_8h_source.html">pages/race.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="calibration_8h_source.html">pages/calibration.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="dashboard_2driver__interface_2pages_2faults_8h_source.html">pages/faults.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="source_2dashboard_2driver__interface_2pages_2amk_8h_source.html">pages/amk.h</a>&quot;</code><br />
-<code>#include &quot;pages/vcu.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="dashboard_2driver__interface_2pages_2vcu_8h_source.html">pages/vcu.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for lcd.c:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="lcd_8c__incl.svg" width="100%" height="504"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a70b38ce0660d25aa6a9381518e9ac622" id="r_a70b38ce0660d25aa6a9381518e9ac622"><td class="memItemLeft" align="right" valign="top"><a id="a70b38ce0660d25aa6a9381518e9ac622" name="a70b38ce0660d25aa6a9381518e9ac622"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>ALLOCATE_STRBUF</b> (lcd_tx_buf, 2048)</td></tr>
+<tr class="memitem:a70b38ce0660d25aa6a9381518e9ac622" id="r_a70b38ce0660d25aa6a9381518e9ac622"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70b38ce0660d25aa6a9381518e9ac622">ALLOCATE_STRBUF</a> (<a class="el" href="nextion_8c.html#a233b6c1602a0d956759fa15d734873cb">lcd_tx_buf</a>, 2048)</td></tr>
 <tr class="separator:a70b38ce0660d25aa6a9381518e9ac622"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a249040ab9dd6b041b4412dbed6546ece" id="r_a249040ab9dd6b041b4412dbed6546ece"><td class="memItemLeft" align="right" valign="top"><a id="a249040ab9dd6b041b4412dbed6546ece" name="a249040ab9dd6b041b4412dbed6546ece"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>LCD_init</b> (uint32_t baud_rate)</td></tr>
+<tr class="memitem:a249040ab9dd6b041b4412dbed6546ece" id="r_a249040ab9dd6b041b4412dbed6546ece"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a249040ab9dd6b041b4412dbed6546ece">LCD_init</a> (uint32_t baud_rate)</td></tr>
 <tr class="separator:a249040ab9dd6b041b4412dbed6546ece"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1da20573be93be73a9d5e72e133b7e9" id="r_ab1da20573be93be73a9d5e72e133b7e9"><td class="memItemLeft" align="right" valign="top"><a id="ab1da20573be93be73a9d5e72e133b7e9" name="ab1da20573be93be73a9d5e72e133b7e9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>LCD_tx_update</b> (void)</td></tr>
-<tr class="memdesc:ab1da20573be93be73a9d5e72e133b7e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called periodically to send commands to the Nextion LCD display via USART. <br /></td></tr>
+<tr class="memitem:ab1da20573be93be73a9d5e72e133b7e9" id="r_ab1da20573be93be73a9d5e72e133b7e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1da20573be93be73a9d5e72e133b7e9">LCD_tx_update</a> (void)</td></tr>
+<tr class="memdesc:ab1da20573be93be73a9d5e72e133b7e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called periodically to send commands to the Nextion LCD display via USART.  <br /></td></tr>
 <tr class="separator:ab1da20573be93be73a9d5e72e133b7e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a685b031373d6540844434c69377f10d2" id="r_a685b031373d6540844434c69377f10d2"><td class="memItemLeft" align="right" valign="top"><a id="a685b031373d6540844434c69377f10d2" name="a685b031373d6540844434c69377f10d2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>advancePage</b> ()</td></tr>
-<tr class="memdesc:a685b031373d6540844434c69377f10d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances to the next selectable page. <br /></td></tr>
+<tr class="memitem:a685b031373d6540844434c69377f10d2" id="r_a685b031373d6540844434c69377f10d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a685b031373d6540844434c69377f10d2">advancePage</a> ()</td></tr>
+<tr class="memdesc:a685b031373d6540844434c69377f10d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances to the next selectable page.  <br /></td></tr>
 <tr class="separator:a685b031373d6540844434c69377f10d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab328996325a24df855157cc23430de3d" id="r_ab328996325a24df855157cc23430de3d"><td class="memItemLeft" align="right" valign="top"><a id="ab328996325a24df855157cc23430de3d" name="ab328996325a24df855157cc23430de3d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>backPage</b> ()</td></tr>
-<tr class="memdesc:ab328996325a24df855157cc23430de3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves to the previous selectable page. <br /></td></tr>
+<tr class="memitem:ab328996325a24df855157cc23430de3d" id="r_ab328996325a24df855157cc23430de3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab328996325a24df855157cc23430de3d">backPage</a> ()</td></tr>
+<tr class="memdesc:ab328996325a24df855157cc23430de3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves to the previous selectable page.  <br /></td></tr>
 <tr class="separator:ab328996325a24df855157cc23430de3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa13fa254ddd44573fd2a83874763cae8" id="r_aa13fa254ddd44573fd2a83874763cae8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa13fa254ddd44573fd2a83874763cae8">updatePage</a> ()</td></tr>
 <tr class="memdesc:aa13fa254ddd44573fd2a83874763cae8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates LCD display page.  <br /></td></tr>
 <tr class="separator:aa13fa254ddd44573fd2a83874763cae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75e03afeaf9e13a6399279ed36c0c59f" id="r_a75e03afeaf9e13a6399279ed36c0c59f"><td class="memItemLeft" align="right" valign="top"><a id="a75e03afeaf9e13a6399279ed36c0c59f" name="a75e03afeaf9e13a6399279ed36c0c59f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>moveUp</b> ()</td></tr>
+<tr class="memitem:a75e03afeaf9e13a6399279ed36c0c59f" id="r_a75e03afeaf9e13a6399279ed36c0c59f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75e03afeaf9e13a6399279ed36c0c59f">moveUp</a> ()</td></tr>
 <tr class="separator:a75e03afeaf9e13a6399279ed36c0c59f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a486267210dfc8118e23e6b1bc6090286" id="r_a486267210dfc8118e23e6b1bc6090286"><td class="memItemLeft" align="right" valign="top"><a id="a486267210dfc8118e23e6b1bc6090286" name="a486267210dfc8118e23e6b1bc6090286"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>moveDown</b> ()</td></tr>
+<tr class="memitem:a486267210dfc8118e23e6b1bc6090286" id="r_a486267210dfc8118e23e6b1bc6090286"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a486267210dfc8118e23e6b1bc6090286">moveDown</a> ()</td></tr>
 <tr class="separator:a486267210dfc8118e23e6b1bc6090286"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac609e22e16c9e8ab1b73acd57e5b7664" id="r_ac609e22e16c9e8ab1b73acd57e5b7664"><td class="memItemLeft" align="right" valign="top"><a id="ac609e22e16c9e8ab1b73acd57e5b7664" name="ac609e22e16c9e8ab1b73acd57e5b7664"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>selectItem</b> ()</td></tr>
+<tr class="memitem:ac609e22e16c9e8ab1b73acd57e5b7664" id="r_ac609e22e16c9e8ab1b73acd57e5b7664"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac609e22e16c9e8ab1b73acd57e5b7664">selectItem</a> ()</td></tr>
 <tr class="separator:ac609e22e16c9e8ab1b73acd57e5b7664"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ceeac8764aca15be67680bddfe70704" id="r_a9ceeac8764aca15be67680bddfe70704"><td class="memItemLeft" align="right" valign="top"><a id="a9ceeac8764aca15be67680bddfe70704" name="a9ceeac8764aca15be67680bddfe70704"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>updateTelemetryPages</b> ()</td></tr>
-<tr class="memdesc:a9ceeac8764aca15be67680bddfe70704"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates current telemetry page by calling its handler if available. <br /></td></tr>
+<tr class="memitem:a9ceeac8764aca15be67680bddfe70704" id="r_a9ceeac8764aca15be67680bddfe70704"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ceeac8764aca15be67680bddfe70704">updateTelemetryPages</a> ()</td></tr>
+<tr class="memdesc:a9ceeac8764aca15be67680bddfe70704"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates current telemetry page by calling its handler if available.  <br /></td></tr>
 <tr class="separator:a9ceeac8764aca15be67680bddfe70704"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:af64f99df8657acc696aa097fce871251" id="r_af64f99df8657acc696aa097fce871251"><td class="memItemLeft" align="right" valign="top"><a id="af64f99df8657acc696aa097fce871251" name="af64f99df8657acc696aa097fce871251"></a>
-volatile page_t&#160;</td><td class="memItemRight" valign="bottom"><b>curr_page</b> = PAGE_PREFLIGHT</td></tr>
+<tr class="memitem:af64f99df8657acc696aa097fce871251" id="r_af64f99df8657acc696aa097fce871251"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="lcd_8h.html#a99a5fddfe71e6e9cd0c559b9a9a41a99">page_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af64f99df8657acc696aa097fce871251">curr_page</a> = <a class="el" href="lcd_8h.html#a99a5fddfe71e6e9cd0c559b9a9a41a99aafba3cb7389f6d91e4c0b22fb7dd14a9">PAGE_PREFLIGHT</a></td></tr>
 <tr class="separator:af64f99df8657acc696aa097fce871251"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b71ea5d4f043abfa893e1d47cb51c06" id="r_a8b71ea5d4f043abfa893e1d47cb51c06"><td class="memItemLeft" align="right" valign="top"><a id="a8b71ea5d4f043abfa893e1d47cb51c06" name="a8b71ea5d4f043abfa893e1d47cb51c06"></a>
-volatile page_t&#160;</td><td class="memItemRight" valign="bottom"><b>prev_page</b> = PAGE_PREFLIGHT</td></tr>
+<tr class="memitem:a8b71ea5d4f043abfa893e1d47cb51c06" id="r_a8b71ea5d4f043abfa893e1d47cb51c06"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="lcd_8h.html#a99a5fddfe71e6e9cd0c559b9a9a41a99">page_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b71ea5d4f043abfa893e1d47cb51c06">prev_page</a> = <a class="el" href="lcd_8h.html#a99a5fddfe71e6e9cd0c559b9a9a41a99aafba3cb7389f6d91e4c0b22fb7dd14a9">PAGE_PREFLIGHT</a></td></tr>
 <tr class="separator:a8b71ea5d4f043abfa893e1d47cb51c06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0100435ab443897cfb77d50c768c71d" id="r_ac0100435ab443897cfb77d50c768c71d"><td class="memItemLeft" align="right" valign="top"><a id="ac0100435ab443897cfb77d50c768c71d" name="ac0100435ab443897cfb77d50c768c71d"></a>
-const <a class="el" href="structpage__handler__t.html">page_handler_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>page_handlers</b> [NUM_PAGES]</td></tr>
+<tr class="memitem:ac0100435ab443897cfb77d50c768c71d" id="r_ac0100435ab443897cfb77d50c768c71d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structpage__handler__t.html">page_handler_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0100435ab443897cfb77d50c768c71d">page_handlers</a> [<a class="el" href="lcd_8h.html#a99a5fddfe71e6e9cd0c559b9a9a41a99acd382a61c55aa2f67b15244ad7cd9618">NUM_PAGES</a>]</td></tr>
 <tr class="separator:ac0100435ab443897cfb77d50c768c71d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf94e19caf3951d83556041d6f54d7e6" id="r_abf94e19caf3951d83556041d6f54d7e6"><td class="memItemLeft" align="right" valign="top"><a id="abf94e19caf3951d83556041d6f54d7e6" name="abf94e19caf3951d83556041d6f54d7e6"></a>
-<a class="el" href="structusart__init__t.html">usart_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>lcd</b></td></tr>
+<tr class="memitem:abf94e19caf3951d83556041d6f54d7e6" id="r_abf94e19caf3951d83556041d6f54d7e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structusart__init__t.html">usart_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf94e19caf3951d83556041d6f54d7e6">lcd</a></td></tr>
 <tr class="separator:abf94e19caf3951d83556041d6f54d7e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>LCD display management. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a685b031373d6540844434c69377f10d2" name="a685b031373d6540844434c69377f10d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a685b031373d6540844434c69377f10d2">&#9670;&#160;</a></span>advancePage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void advancePage </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Advances to the next selectable page. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="lcd_8c_a685b031373d6540844434c69377f10d2_cgraph.svg" width="552" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="lcd_8c_a685b031373d6540844434c69377f10d2_icgraph.svg" width="591" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a70b38ce0660d25aa6a9381518e9ac622" name="a70b38ce0660d25aa6a9381518e9ac622"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70b38ce0660d25aa6a9381518e9ac622">&#9670;&#160;</a></span>ALLOCATE_STRBUF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ALLOCATE_STRBUF </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="nextion_8c.html#a233b6c1602a0d956759fa15d734873cb">lcd_tx_buf</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">2048</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab328996325a24df855157cc23430de3d" name="ab328996325a24df855157cc23430de3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab328996325a24df855157cc23430de3d">&#9670;&#160;</a></span>backPage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void backPage </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Moves to the previous selectable page. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="lcd_8c_ab328996325a24df855157cc23430de3d_cgraph.svg" width="531" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="lcd_8c_ab328996325a24df855157cc23430de3d_icgraph.svg" width="570" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a249040ab9dd6b041b4412dbed6546ece" name="a249040ab9dd6b041b4412dbed6546ece"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a249040ab9dd6b041b4412dbed6546ece">&#9670;&#160;</a></span>LCD_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LCD_init </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>baud_rate</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="lcd_8c_a249040ab9dd6b041b4412dbed6546ece_cgraph.svg" width="555" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="lcd_8c_a249040ab9dd6b041b4412dbed6546ece_icgraph.svg" width="390" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab1da20573be93be73a9d5e72e133b7e9" name="ab1da20573be93be73a9d5e72e133b7e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1da20573be93be73a9d5e72e133b7e9">&#9670;&#160;</a></span>LCD_tx_update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LCD_tx_update </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Called periodically to send commands to the Nextion LCD display via USART. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="lcd_8c_ab1da20573be93be73a9d5e72e133b7e9_cgraph.svg" width="550" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="lcd_8c_ab1da20573be93be73a9d5e72e133b7e9_icgraph.svg" width="430" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a486267210dfc8118e23e6b1bc6090286" name="a486267210dfc8118e23e6b1bc6090286"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a486267210dfc8118e23e6b1bc6090286">&#9670;&#160;</a></span>moveDown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void moveDown </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="lcd_8c_a486267210dfc8118e23e6b1bc6090286_icgraph.svg" width="576" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a75e03afeaf9e13a6399279ed36c0c59f" name="a75e03afeaf9e13a6399279ed36c0c59f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75e03afeaf9e13a6399279ed36c0c59f">&#9670;&#160;</a></span>moveUp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void moveUp </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="lcd_8c_a75e03afeaf9e13a6399279ed36c0c59f_icgraph.svg" width="560" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ac609e22e16c9e8ab1b73acd57e5b7664" name="ac609e22e16c9e8ab1b73acd57e5b7664"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac609e22e16c9e8ab1b73acd57e5b7664">&#9670;&#160;</a></span>selectItem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void selectItem </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="lcd_8c_ac609e22e16c9e8ab1b73acd57e5b7664_icgraph.svg" width="572" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <a id="aa13fa254ddd44573fd2a83874763cae8" name="aa13fa254ddd44573fd2a83874763cae8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa13fa254ddd44573fd2a83874763cae8">&#9670;&#160;</a></span>updatePage()</h2>
 
@@ -192,6 +385,105 @@ const <a class="el" href="structpage__handler__t.html">page_handler_t</a>&#160;<
 <p>Key behaviors:</p><ul>
 <li>Maintains display of error pages when active </li>
 </ul>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="lcd_8c_aa13fa254ddd44573fd2a83874763cae8_cgraph.svg" width="404" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="lcd_8c_aa13fa254ddd44573fd2a83874763cae8_icgraph.svg" width="100%" height="399"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a9ceeac8764aca15be67680bddfe70704" name="a9ceeac8764aca15be67680bddfe70704"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ceeac8764aca15be67680bddfe70704">&#9670;&#160;</a></span>updateTelemetryPages()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void updateTelemetryPages </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates current telemetry page by calling its handler if available. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="lcd_8c_a9ceeac8764aca15be67680bddfe70704_icgraph.svg" width="474" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="af64f99df8657acc696aa097fce871251" name="af64f99df8657acc696aa097fce871251"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af64f99df8657acc696aa097fce871251">&#9670;&#160;</a></span>curr_page</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile <a class="el" href="lcd_8h.html#a99a5fddfe71e6e9cd0c559b9a9a41a99">page_t</a> curr_page = <a class="el" href="lcd_8h.html#a99a5fddfe71e6e9cd0c559b9a9a41a99aafba3cb7389f6d91e4c0b22fb7dd14a9">PAGE_PREFLIGHT</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abf94e19caf3951d83556041d6f54d7e6" name="abf94e19caf3951d83556041d6f54d7e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf94e19caf3951d83556041d6f54d7e6">&#9670;&#160;</a></span>lcd</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structusart__init__t.html">usart_init_t</a> lcd</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac0100435ab443897cfb77d50c768c71d" name="ac0100435ab443897cfb77d50c768c71d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0100435ab443897cfb77d50c768c71d">&#9670;&#160;</a></span>page_handlers</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structpage__handler__t.html">page_handler_t</a> page_handlers[<a class="el" href="lcd_8h.html#a99a5fddfe71e6e9cd0c559b9a9a41a99acd382a61c55aa2f67b15244ad7cd9618">NUM_PAGES</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8b71ea5d4f043abfa893e1d47cb51c06" name="a8b71ea5d4f043abfa893e1d47cb51c06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b71ea5d4f043abfa893e1d47cb51c06">&#9670;&#160;</a></span>prev_page</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile <a class="el" href="lcd_8h.html#a99a5fddfe71e6e9cd0c559b9a9a41a99">page_t</a> prev_page = <a class="el" href="lcd_8h.html#a99a5fddfe71e6e9cd0c559b9a9a41a99aafba3cb7389f6d91e4c0b22fb7dd14a9">PAGE_PREFLIGHT</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

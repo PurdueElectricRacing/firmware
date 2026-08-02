@@ -1,0 +1,34 @@
+<map id="is_clear" name="is_clear">
+<area shape="rect" id="Node000001" title=" " alt="" coords="509,182,576,207"/>
+<area shape="rect" id="Node000002" href="$a__box_2main_8c.html#a78865f7731d4b7186cdc06c8ff03a0e4" title=" " alt="" coords="145,7,223,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="532,167,523,137,508,104,488,72,460,46,431,31,401,20,336,9,274,10,224,15,223,10,274,4,337,4,402,15,434,26,463,42,492,68,513,101,528,136,538,166"/>
+<area shape="rect" id="Node000004" href="$charging__fsm_8c.html#a97fe3a486a7c526d82f57401ca1ada35" title=" " alt="" coords="313,56,461,82"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="525,170,497,131,460,95,440,85,443,80,463,91,501,128,529,167"/>
+<area shape="rect" id="Node000006" href="$pedals_8c.html#a87b6cf4ba55de2c1523397cc21bbf501" title="Processes pedal sensor readings and sets faults as necessary." alt="" coords="128,355,240,381"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="537,223,528,253,513,287,491,320,463,346,436,361,408,371,348,383,290,384,240,380,240,375,290,379,348,377,406,366,434,356,460,342,487,316,508,284,523,251,532,221"/>
+<area shape="rect" id="Node000008" href="$powertrain_8c.html#abed3fa744fe602905132e7ef49701421" title=" " alt="" coords="320,106,454,131"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="504,176,460,153,420,134,422,129,463,148,506,171"/>
+<area shape="rect" id="Node000009" href="$vehicle__fsm_8c.html#a17b274e6971a721080e708c8d6eed884" title=" " alt="" coords="112,131,256,157"/>
+<area shape="poly" id="edge17_Node000001_Node000009" title=" " alt="" coords="493,190,256,157,256,151,494,185"/>
+<area shape="rect" id="Node000011" href="$torque__vector_2telemetry_2telemetry_8c.html#a6d0a75c0aee5808a962691e3973ee968" title="Reports telemetry data at 1HZ rate Includes: GPS time (UTC)" alt="" coords="316,256,458,282"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="512,219,463,248,436,258,434,253,460,243,509,214"/>
+<area shape="rect" id="Node000012" href="$torque__vector_2telemetry_2telemetry_8c.html#a3a415946b37ab8a337c020a53dd8e7d1" title="Reports telemetry data at 25HZ rate Includes: GPS coordinates, velocity, speed, heading." alt="" coords="313,306,461,331"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="529,222,501,260,463,297,443,307,440,303,460,292,497,257,524,219"/>
+<area shape="rect" id="Node000014" href="$driver__interface_8c.html#ac7b90a0489ad0ee285e2ddbc1d76de4a" title=" " alt="" coords="326,207,448,233"/>
+<area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="494,205,449,213,448,207,494,200"/>
+<area shape="rect" id="Node000003" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,32,55,58"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="130,31,56,44,55,39,129,26"/>
+<area shape="rect" id="Node000005" href="$charging__fsm_8c.html#a8dc3e50da5228cd6681c9df3a5db5dd2" title=" " alt="" coords="108,56,260,82"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="298,72,260,72,260,67,298,67"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="92,58,55,52,56,46,93,52"/>
+<area shape="rect" id="Node000007" href="$dashboard_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,292,55,318"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="117,352,102,346,52,321,54,316,104,341,119,347"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="306,131,256,138,256,132,305,126"/>
+<area shape="rect" id="Node000010" href="$main__module_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,131,55,157"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="96,147,55,147,55,141,96,141"/>
+<area shape="rect" id="Node000013" href="$torque__vector_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="159,306,208,331"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="298,321,209,321,209,316,298,316"/>
+<area shape="rect" id="Node000015" href="$driver__interface_8c.html#ac599c66976c348cb0287266b60aa49c5" title=" " alt="" coords="103,231,265,257"/>
+<area shape="poly" id="edge15_Node000014_Node000015" title=" " alt="" coords="311,231,266,237,265,232,310,226"/>
+<area shape="poly" id="edge16_Node000015_Node000007" title=" " alt="" coords="136,266,56,298,54,293,134,261"/>
+</map>

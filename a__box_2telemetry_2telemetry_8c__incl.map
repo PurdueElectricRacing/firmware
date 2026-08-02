@@ -1,0 +1,13 @@
+<map id="source/a_box/telemetry/telemetry.c" name="source/a_box/telemetry/telemetry.c">
+<area shape="rect" id="Node000001" title="ABOX Telemetry task implementations." alt="" coords="190,5,345,46"/>
+<area shape="rect" id="Node000002" href="$a__box_2telemetry_2telemetry_8h.html" title="ABOX Telemetry task implementations." alt="" coords="5,102,90,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,49,93,98,91,93,217,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="114,94,258,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="251,48,217,84,213,81,247,45"/>
+<area shape="rect" id="Node000005" href="$abs_8h.html" title="Absolute value functions utility header." alt="" coords="283,102,417,127"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="288,45,330,89,326,92,284,48"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="442,102,501,127"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="317,44,430,92,432,92,430,97,428,96,315,49"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="16,183,79,208"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="50,128,50,167,45,167,45,128"/>
+</map>

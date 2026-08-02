@@ -1,0 +1,11 @@
+<map id="FindSCR" name="FindSCR">
+<area shape="rect" id="Node000001" title="Find the SD card SCR register value." alt="" coords="682,5,755,31"/>
+<area shape="rect" id="Node000002" href="$sdio_8c.html#a34c053adf6c432bad5d856d470094519" title="Enables or disables the SDIO wide bus mode." alt="" coords="527,5,634,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="666,21,634,21,634,16,666,16"/>
+<area shape="rect" id="Node000003" href="$sdio_8c.html#a6569e73a229e639d2043549942d58d11" title="Enables wide bus opeartion for the requeseted card if supported by card." alt="" coords="286,5,479,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="512,21,480,21,480,16,512,16"/>
+<area shape="rect" id="Node000004" href="$sdio_8c.html#a3c927d4d98ffb6f3cc2442b09c19926c" title="Initializes the SD Card and put it into StandBy State (Ready for data transfer)." alt="" coords="174,5,238,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="271,21,238,21,238,16,271,16"/>
+<area shape="rect" id="Node000005" href="$sdio_8c.html#a7b441f99db323528145ce61011b5b204" title="Configures the SDIO peripheral." alt="" coords="5,5,126,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="158,21,126,21,126,16,158,16"/>
+</map>

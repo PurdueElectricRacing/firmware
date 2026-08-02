@@ -1,0 +1,9 @@
+<map id="NXT_setBrightness" name="NXT_setBrightness">
+<area shape="rect" id="Node000001" title="Sets the brightness of the Nextion display." alt="" coords="432,5,568,31"/>
+<area shape="rect" id="Node000002" href="$lcd_8c.html#a249040ab9dd6b041b4412dbed6546ece" title=" " alt="" coords="313,5,384,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="417,21,385,21,385,16,417,16"/>
+<area shape="rect" id="Node000003" href="$driver__interface_8c.html#ac599c66976c348cb0287266b60aa49c5" title=" " alt="" coords="103,5,265,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="297,21,265,21,265,16,297,16"/>
+<area shape="rect" id="Node000004" href="$dashboard_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,55,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>

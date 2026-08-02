@@ -1,0 +1,12 @@
+<map id="switches_select_mux_channel" name="switches_select_mux_channel">
+<area shape="rect" id="Node000001" title=" " alt="" coords="474,24,621,65"/>
+<area shape="rect" id="Node000002" href="$switches_8c.html#a1e5ebcb346c25e1755e3ccb1e9f3c9f9" title=" " alt="" coords="117,5,214,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="458,41,214,24,215,19,459,36"/>
+<area shape="rect" id="Node000004" href="$switches_8c.html#a356def06d7d75314665779877ee925ac" title=" " alt="" coords="276,52,426,93"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="459,60,427,65,426,59,459,55"/>
+<area shape="rect" id="Node000003" href="$pdu_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,32,55,58"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="102,33,56,43,54,37,101,28"/>
+<area shape="rect" id="Node000005" href="$switches_8c.html#a03794eeb58f3e98710c5deb68f56274e" title=" " alt="" coords="103,56,228,82"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="261,74,229,73,229,68,261,68"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="87,58,55,52,56,47,88,52"/>
+</map>

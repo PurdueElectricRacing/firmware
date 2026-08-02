@@ -1,0 +1,9 @@
+<map id="mapper.map_node_hardware" name="mapper.map_node_hardware">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,193,80"/>
+<area shape="rect" id="Node000002" href="$namespacemapper.html#ab89b192dd9148287787db079cf2ae320" title=" " alt="" coords="241,5,420,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,51,251,32,252,37,163,57"/>
+<area shape="rect" id="Node000003" href="$namespacemapper.html#a40b9de785ba4625391edc6ac4991b547" title=" " alt="" coords="245,55,416,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="193,65,229,65,229,70,193,70"/>
+<area shape="rect" id="Node000004" href="$namespacemapper.html#a2310369af1c7160b56362807e5c11e5c" title=" " alt="" coords="246,104,415,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="163,78,252,98,251,103,162,84"/>
+</map>

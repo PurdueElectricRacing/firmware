@@ -120,9 +120,9 @@ $(function(){initNavTree('phal__F4_2usart_2usart_8h_source.html',''); initResiza
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &quot;<a class="code" href="phal__F4_2dma_2dma_8h.html">common/phal_F4/dma/dma.h</a>&quot;</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &quot;common/phal_F4/phal_F4.h&quot;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &quot;<a class="code" href="phal__F4_8h.html">common/phal_F4/phal_F4.h</a>&quot;</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">typedef</span> uint32_t ptr_int;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="phal__F4_2usart_2usart_8h.html#a44e0b82277af9738fcb79164886954c9">   33</a></span><span class="keyword">typedef</span> uint32_t <a class="code hl_typedef" href="phal__F4_2usart_2usart_8h.html#a44e0b82277af9738fcb79164886954c9">ptr_int</a>;</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">// See USART section of Family reference manual (RM0090 for F4, or RM0431 for F7) for configuration information</span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
@@ -207,12 +207,12 @@ $(function(){initNavTree('phal__F4_2usart_2usart_8h_source.html',''); initResiza
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>{</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="comment">// Required parameters</span></div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="structusart__init__t.html#a04b3b0ed9212bf331d13b8c59ab974e2">  100</a></span>    uint32_t <a class="code hl_variable" href="structusart__init__t.html#a04b3b0ed9212bf331d13b8c59ab974e2">baud_rate</a>; </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="structusart__init__t.html#a05cc99e8162f284a52d93388d800c782">  101</a></span>    word_length_t <a class="code hl_variable" href="structusart__init__t.html#a05cc99e8162f284a52d93388d800c782">word_length</a>; </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="structusart__init__t.html#a0f6faad56d8fd91371b1486517023100">  102</a></span>    stop_bits_t <a class="code hl_variable" href="structusart__init__t.html#a0f6faad56d8fd91371b1486517023100">stop_bits</a>; </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="structusart__init__t.html#af7a973e7a9e5d4bf63c16310f38a51f5">  103</a></span>    parity_t <a class="code hl_variable" href="structusart__init__t.html#af7a973e7a9e5d4bf63c16310f38a51f5">parity</a>; </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4">  104</a></span>    hw_flow_ctl_t <a class="code hl_variable" href="structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4">hw_flow_ctl</a>; </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="structusart__init__t.html#a2820018bf22cf98f54b55244fe1ffc80">  105</a></span>    ovsample_t <a class="code hl_variable" href="structusart__init__t.html#a2820018bf22cf98f54b55244fe1ffc80">ovsample</a>; </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="structusart__init__t.html#a800535a10dcb513f67b6792ff478e957">  106</a></span>    obsample_t <a class="code hl_variable" href="structusart__init__t.html#a800535a10dcb513f67b6792ff478e957">obsample</a>; </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="structusart__init__t.html#a05cc99e8162f284a52d93388d800c782">  101</a></span>    <a class="code hl_enumeration" href="phal__G4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493">word_length_t</a> <a class="code hl_variable" href="structusart__init__t.html#a05cc99e8162f284a52d93388d800c782">word_length</a>; </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="structusart__init__t.html#a0f6faad56d8fd91371b1486517023100">  102</a></span>    <a class="code hl_enumeration" href="phal__G4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553">stop_bits_t</a> <a class="code hl_variable" href="structusart__init__t.html#a0f6faad56d8fd91371b1486517023100">stop_bits</a>; </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="structusart__init__t.html#af7a973e7a9e5d4bf63c16310f38a51f5">  103</a></span>    <a class="code hl_enumeration" href="phal__G4_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290">parity_t</a> <a class="code hl_variable" href="structusart__init__t.html#af7a973e7a9e5d4bf63c16310f38a51f5">parity</a>; </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4">  104</a></span>    <a class="code hl_enumeration" href="phal__G4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2">hw_flow_ctl_t</a> <a class="code hl_variable" href="structusart__init__t.html#ac36a6ddfa1405916862f19954981bea4">hw_flow_ctl</a>; </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="structusart__init__t.html#a2820018bf22cf98f54b55244fe1ffc80">  105</a></span>    <a class="code hl_enumeration" href="phal__G4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7">ovsample_t</a> <a class="code hl_variable" href="structusart__init__t.html#a2820018bf22cf98f54b55244fe1ffc80">ovsample</a>; </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="structusart__init__t.html#a800535a10dcb513f67b6792ff478e957">  106</a></span>    <a class="code hl_enumeration" href="phal__G4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9">obsample_t</a> <a class="code hl_variable" href="structusart__init__t.html#a800535a10dcb513f67b6792ff478e957">obsample</a>; </div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="structusart__init__t.html#a72b5f7df2bcce44b8d47c08e616df66f">  107</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structusart__init__t.html#a72b5f7df2bcce44b8d47c08e616df66f">wake_addr</a>; </div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="structusart__init__t.html#a793120df7198e36da9fa5342b1acd35a">  108</a></span>    uint8_t <a class="code hl_variable" href="structusart__init__t.html#a793120df7198e36da9fa5342b1acd35a">address</a>; </div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="structusart__init__t.html#a0901e487a0737b2e9ba85cbccc2346a3">  109</a></span>    uint8_t <a class="code hl_variable" href="structusart__init__t.html#a0901e487a0737b2e9ba85cbccc2346a3">usart_active_num</a>; </div>
@@ -331,7 +331,8 @@ $(function(){initNavTree('phal__F4_2usart_2usart_8h_source.html',''); initResiza
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span> </div>
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span><span class="preprocessor">#else</span></div>
 <div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="preprocessor">#define USART1_RXDMA_CONT_CONFIG(rx_addr_, priority_) \</span></div>
+<div class="foldopen" id="foldopen00286" data-start="" data-end="">
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno"><a class="line" href="phal__F4_2usart_2usart_8h.html#aa2fb89650553d0f56438cc55669ed014">  286</a></span><span class="preprocessor">#define USART1_RXDMA_CONT_CONFIG(rx_addr_, priority_) \</span></div>
 <div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span><span class="preprocessor">    { \</span></div>
 <div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span><span class="preprocessor">        .periph_addr      = (uint32_t)&amp;(USART1-&gt;RDR), \</span></div>
 <div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span><span class="preprocessor">        .mem_addr         = (uint32_t)(rx_addr_), \</span></div>
@@ -350,8 +351,10 @@ $(function(){initNavTree('phal__F4_2usart_2usart_8h_source.html',''); initResiza
 <div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span><span class="preprocessor">        .stream_idx       = 5, \</span></div>
 <div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="preprocessor">        .periph           = DMA2, \</span></div>
 <div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="preprocessor">        .stream           = DMA2_Stream5}</span></div>
+</div>
 <div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span> </div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span><span class="preprocessor">#define USART1_TXDMA_CONT_CONFIG(tx_addr_, priority_) \</span></div>
+<div class="foldopen" id="foldopen00306" data-start="" data-end="">
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno"><a class="line" href="phal__F4_2usart_2usart_8h.html#a207e6b60144d3609a73c96b42bfa3c1c">  306</a></span><span class="preprocessor">#define USART1_TXDMA_CONT_CONFIG(tx_addr_, priority_) \</span></div>
 <div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="preprocessor">    { \</span></div>
 <div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span><span class="preprocessor">        .periph_addr      = (uint32_t)&amp;(USART1-&gt;TDR), \</span></div>
 <div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="preprocessor">        .mem_addr         = (uint32_t)(tx_addr_), \</span></div>
@@ -370,8 +373,10 @@ $(function(){initNavTree('phal__F4_2usart_2usart_8h_source.html',''); initResiza
 <div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="preprocessor">        .stream_idx       = 7, \</span></div>
 <div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span><span class="preprocessor">        .periph           = DMA2, \</span></div>
 <div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span><span class="preprocessor">        .stream           = DMA2_Stream7}</span></div>
+</div>
 <div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="preprocessor">#define USART4_RXDMA_CONT_CONFIG(rx_addr_, priority_) \</span></div>
+<div class="foldopen" id="foldopen00326" data-start="" data-end="">
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno"><a class="line" href="phal__F4_2usart_2usart_8h.html#aa166abd04c0dedc6986d324a66989c51">  326</a></span><span class="preprocessor">#define USART4_RXDMA_CONT_CONFIG(rx_addr_, priority_) \</span></div>
 <div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="preprocessor">    { \</span></div>
 <div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span><span class="preprocessor">        .periph_addr      = (uint32_t)&amp;(UART4-&gt;RDR), \</span></div>
 <div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span><span class="preprocessor">        .mem_addr         = (uint32_t)(rx_addr_), \</span></div>
@@ -390,8 +395,10 @@ $(function(){initNavTree('phal__F4_2usart_2usart_8h_source.html',''); initResiza
 <div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span><span class="preprocessor">        .stream_idx       = 2, \</span></div>
 <div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span><span class="preprocessor">        .periph           = DMA1, \</span></div>
 <div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span><span class="preprocessor">        .stream           = DMA1_Stream2}</span></div>
+</div>
 <div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span> </div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span><span class="preprocessor">#define USART4_TXDMA_CONT_CONFIG(tx_addr_, priority_) \</span></div>
+<div class="foldopen" id="foldopen00346" data-start="" data-end="">
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno"><a class="line" href="phal__F4_2usart_2usart_8h.html#ae3f737a2390de88ed8b648ca0a18814a">  346</a></span><span class="preprocessor">#define USART4_TXDMA_CONT_CONFIG(tx_addr_, priority_) \</span></div>
 <div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span><span class="preprocessor">    { \</span></div>
 <div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span><span class="preprocessor">        .periph_addr      = (uint32_t)&amp;(UART4-&gt;TDR), \</span></div>
 <div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span><span class="preprocessor">        .mem_addr         = (uint32_t)(tx_addr_), \</span></div>
@@ -410,8 +417,10 @@ $(function(){initNavTree('phal__F4_2usart_2usart_8h_source.html',''); initResiza
 <div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span><span class="preprocessor">        .stream_idx       = 4, \</span></div>
 <div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span><span class="preprocessor">        .periph           = DMA1, \</span></div>
 <div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span><span class="preprocessor">        .stream           = DMA1_Stream4}</span></div>
+</div>
 <div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span> </div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span><span class="preprocessor">#define UART5_RXDMA_CONT_CONFIG(rx_addr_, priority_) \</span></div>
+<div class="foldopen" id="foldopen00366" data-start="" data-end="">
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno"><a class="line" href="phal__F4_2usart_2usart_8h.html#a87cbbe90cea66b62d095c20a8bc6c7a8">  366</a></span><span class="preprocessor">#define UART5_RXDMA_CONT_CONFIG(rx_addr_, priority_) \</span></div>
 <div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span><span class="preprocessor">    { \</span></div>
 <div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span><span class="preprocessor">        .periph_addr      = (uint32_t)&amp;(UART5-&gt;RDR), \</span></div>
 <div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span><span class="preprocessor">        .mem_addr         = (uint32_t)(rx_addr_), \</span></div>
@@ -430,7 +439,9 @@ $(function(){initNavTree('phal__F4_2usart_2usart_8h_source.html',''); initResiza
 <div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span><span class="preprocessor">        .stream_idx       = 0, \</span></div>
 <div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span><span class="preprocessor">        .periph           = DMA1, \</span></div>
 <div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span><span class="preprocessor">        .stream           = DMA1_Stream0}</span></div>
-<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span><span class="preprocessor">#define UART5_TXDMA_CONT_CONFIG(tx_addr_, priority_) \</span></div>
+</div>
+<div class="foldopen" id="foldopen00385" data-start="" data-end="">
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno"><a class="line" href="phal__F4_2usart_2usart_8h.html#ab4f69731eee38d79a38877765f1c1da9">  385</a></span><span class="preprocessor">#define UART5_TXDMA_CONT_CONFIG(tx_addr_, priority_) \</span></div>
 <div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span><span class="preprocessor">    { \</span></div>
 <div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span><span class="preprocessor">        .periph_addr      = (uint32_t)&amp;(UART5-&gt;TDR), \</span></div>
 <div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span><span class="preprocessor">        .mem_addr         = (uint32_t)(tx_addr_), \</span></div>
@@ -449,6 +460,7 @@ $(function(){initNavTree('phal__F4_2usart_2usart_8h_source.html',''); initResiza
 <div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span><span class="preprocessor">        .stream_idx       = 7, \</span></div>
 <div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span><span class="preprocessor">        .periph           = DMA1, \</span></div>
 <div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span><span class="preprocessor">        .stream           = DMA1_Stream7}</span></div>
+</div>
 <div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aphal__F4_2dma_2dma_8h_html"><div class="ttname"><a href="phal__F4_2dma_2dma_8h.html">dma.h</a></div></div>
@@ -458,6 +470,7 @@ $(function(){initNavTree('phal__F4_2usart_2usart_8h_source.html',''); initResiza
 <div class="ttc" id="aphal__F4_2usart_2usart_8h_html_a0c0f23ca19df3c59dfbc84e0d1e58493aaf384e56f1bc9d30d7733088c7ad3274"><div class="ttname"><a href="phal__F4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493aaf384e56f1bc9d30d7733088c7ad3274">WORD_9</a></div><div class="ttdeci">@ WORD_9</div><div class="ttdoc">9-Bit word length</div><div class="ttdef"><b>Definition</b> usart.h:49</div></div>
 <div class="ttc" id="aphal__F4_2usart_2usart_8h_html_a1e13f03e291a90dcd93ffccf1b8edf65"><div class="ttname"><a href="phal__F4_2usart_2usart_8h.html#a1e13f03e291a90dcd93ffccf1b8edf65">PHAL_initUSART</a></div><div class="ttdeci">bool PHAL_initUSART(usart_init_t *handle, const uint32_t fck)</div><div class="ttdoc">Initialize a USART Peripheral with desired settings.</div><div class="ttdef"><b>Definition</b> usart.c:39</div></div>
 <div class="ttc" id="aphal__F4_2usart_2usart_8h_html_a2995d18679a10821577043876ac50825"><div class="ttname"><a href="phal__F4_2usart_2usart_8h.html#a2995d18679a10821577043876ac50825">PHAL_disableContinousRxDMA</a></div><div class="ttdeci">bool PHAL_disableContinousRxDMA(usart_init_t *handle)</div><div class="ttdoc">Disables the Continous RX that was previously used.</div><div class="ttdef"><b>Definition</b> usart.c:278</div></div>
+<div class="ttc" id="aphal__F4_2usart_2usart_8h_html_a44e0b82277af9738fcb79164886954c9"><div class="ttname"><a href="phal__F4_2usart_2usart_8h.html#a44e0b82277af9738fcb79164886954c9">ptr_int</a></div><div class="ttdeci">uint32_t ptr_int</div><div class="ttdef"><b>Definition</b> usart.h:33</div></div>
 <div class="ttc" id="aphal__F4_2usart_2usart_8h_html_a48a7696afd720294a514208cd96d1791"><div class="ttname"><a href="phal__F4_2usart_2usart_8h.html#a48a7696afd720294a514208cd96d1791">PHAL_usartRxBusy</a></div><div class="ttdeci">bool PHAL_usartRxBusy(usart_init_t *handle)</div><div class="ttdoc">Returns whether USART peripheral is currently receiving data.</div><div class="ttdef"><b>Definition</b> usart.c:323</div></div>
 <div class="ttc" id="aphal__F4_2usart_2usart_8h_html_a55c4f79487a9ee75886ae1a2ccdeef27"><div class="ttname"><a href="phal__F4_2usart_2usart_8h.html#a55c4f79487a9ee75886ae1a2ccdeef27">PHAL_usartRxBl</a></div><div class="ttdeci">void PHAL_usartRxBl(usart_init_t *handle, uint8_t *data, uint32_t len)</div><div class="ttdoc">RX using no DMA (blocks until complete)</div><div class="ttdef"><b>Definition</b> usart.c:163</div></div>
 <div class="ttc" id="aphal__F4_2usart_2usart_8h_html_a56f2d3e8345497a11cd895adddb063e3"><div class="ttname"><a href="phal__F4_2usart_2usart_8h.html#a56f2d3e8345497a11cd895adddb063e3">PHAL_usartTxBusy</a></div><div class="ttdeci">bool PHAL_usartTxBusy(usart_init_t *handle)</div><div class="ttdoc">Returns whether USART peripheral is currently transmitting data.</div><div class="ttdef"><b>Definition</b> usart.c:228</div></div>
@@ -484,6 +497,13 @@ $(function(){initNavTree('phal__F4_2usart_2usart_8h_source.html',''); initResiza
 <div class="ttc" id="aphal__F4_2usart_2usart_8h_html_a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6"><div class="ttname"><a href="phal__F4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6">OV_16</a></div><div class="ttdeci">@ OV_16</div><div class="ttdoc">Oversample by 16.</div><div class="ttdef"><b>Definition</b> usart.h:67</div></div>
 <div class="ttc" id="aphal__F4_2usart_2usart_8h_html_a9fb60e9f8236a52b6c9bd8a310f589a7ad66b645e2c6b620132b08421b4a87736"><div class="ttname"><a href="phal__F4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7ad66b645e2c6b620132b08421b4a87736">OV_8</a></div><div class="ttdeci">@ OV_8</div><div class="ttdoc">Oversample by 8.</div><div class="ttdef"><b>Definition</b> usart.h:68</div></div>
 <div class="ttc" id="aphal__F4_2usart_2usart_8h_html_abbaa51dfa3243c22b4015aaff9eba9da"><div class="ttname"><a href="phal__F4_2usart_2usart_8h.html#abbaa51dfa3243c22b4015aaff9eba9da">PHAL_usartTxDma</a></div><div class="ttdeci">bool PHAL_usartTxDma(usart_init_t *handle, uint16_t *data, uint32_t len)</div><div class="ttdoc">Starts a tx using dma, use PHAL_usartTxDmaComplete to ensure the previous transmission is complete.</div><div class="ttdef"><b>Definition</b> usart.c:179</div></div>
+<div class="ttc" id="aphal__F4_8h_html"><div class="ttname"><a href="phal__F4_8h.html">phal_F4.h</a></div></div>
+<div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a0c0f23ca19df3c59dfbc84e0d1e58493"><div class="ttname"><a href="phal__G4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493">word_length_t</a></div><div class="ttdeci">word_length_t</div><div class="ttdef"><b>Definition</b> usart.h:31</div></div>
+<div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a764ee627968d428e2ca107a995cdf7c2"><div class="ttname"><a href="phal__G4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2">hw_flow_ctl_t</a></div><div class="ttdeci">hw_flow_ctl_t</div><div class="ttdef"><b>Definition</b> usart.h:44</div></div>
+<div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a898ff57758aab4eeeae844c6708938e9"><div class="ttname"><a href="phal__G4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9">obsample_t</a></div><div class="ttdeci">obsample_t</div><div class="ttdef"><b>Definition</b> usart.h:56</div></div>
+<div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a8c9f47bdc80c9f4db63b7bf8b1ad5290"><div class="ttname"><a href="phal__G4_2usart_2usart_8h.html#a8c9f47bdc80c9f4db63b7bf8b1ad5290">parity_t</a></div><div class="ttdeci">parity_t</div><div class="ttdef"><b>Definition</b> usart.h:25</div></div>
+<div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a93bf91b4ba41ceb7678694e06b1ac553"><div class="ttname"><a href="phal__G4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553">stop_bits_t</a></div><div class="ttdeci">stop_bits_t</div><div class="ttdef"><b>Definition</b> usart.h:37</div></div>
+<div class="ttc" id="aphal__G4_2usart_2usart_8h_html_a9fb60e9f8236a52b6c9bd8a310f589a7"><div class="ttname"><a href="phal__G4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7">ovsample_t</a></div><div class="ttdeci">ovsample_t</div><div class="ttdef"><b>Definition</b> usart.h:51</div></div>
 <div class="ttc" id="astructdma__init__t_html"><div class="ttname"><a href="structdma__init__t.html">dma_init_t</a></div><div class="ttdef"><b>Definition</b> dma.h:17</div></div>
 <div class="ttc" id="astructusart__init__t_html"><div class="ttname"><a href="structusart__init__t.html">usart_init_t</a></div><div class="ttdef"><b>Definition</b> usart.h:98</div></div>
 <div class="ttc" id="astructusart__init__t_html_a04b3b0ed9212bf331d13b8c59ab974e2"><div class="ttname"><a href="structusart__init__t.html#a04b3b0ed9212bf331d13b8c59ab974e2">usart_init_t::baud_rate</a></div><div class="ttdeci">uint32_t baud_rate</div><div class="ttdoc">Baud rate for communication.</div><div class="ttdef"><b>Definition</b> usart.h:100</div></div>

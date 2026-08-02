@@ -1,0 +1,17 @@
+<map id="source/main_module/telemetry/telemetry.c" name="source/main_module/telemetry/telemetry.c">
+<area shape="rect" id="Node000001" title="MAIN MODULE telemetry task implementations." alt="" coords="63,5,208,46"/>
+<area shape="rect" id="Node000002" href="$main__module_2telemetry_2telemetry_8h.html" title="MAIN MODULE telemetry task implementations." alt="" coords="5,183,90,208"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,49,74,69,54,95,48,113,45,132,45,167,40,168,39,131,42,111,49,93,70,65,97,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="63,94,208,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="138,47,138,78,133,78,133,47"/>
+<area shape="rect" id="Node000005" href="$powertrain_8h.html" title="Powertrain implementation." alt="" coords="231,102,322,127"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="169,44,246,91,243,96,166,49"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="122,264,186,290"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="65,207,127,252,124,257,62,211"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="259,130,228,153,198,184,178,217,165,250,160,248,173,215,193,181,225,149,256,126"/>
+<area shape="rect" id="Node000006" href="$common_2amk_2amk_8h.html" title="Modernized AMK driver." alt="" coords="207,183,346,208"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="280,128,280,167,274,167,274,128"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="260,211,187,258,184,253,257,207"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="210,256,354,297"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="280,209,282,241,277,241,275,209"/>
+</map>

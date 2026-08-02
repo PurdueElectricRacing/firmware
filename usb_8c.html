@@ -98,7 +98,8 @@ $(function(){initNavTree('usb_8c.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">usb.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -107,9 +108,18 @@ $(function(){initNavTree('usb_8c.html',''); initResizable(true); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="phal__G4_2usb_2usb_8h_source.html">common/phal_G4/usb/usb.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="usb__priv_8h_source.html">common/phal_G4/usb/usb_priv.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for usb.c:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb_8c__incl.svg" width="271" height="303"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a6bb0d538ececadd971fdc6c14f9c56e8" id="r_a6bb0d538ececadd971fdc6c14f9c56e8"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6bb0d538ececadd971fdc6c14f9c56e8">usb_endpoint_is_valid</a> (uint8_t endpoint)</td></tr>
+<tr class="separator:a6bb0d538ececadd971fdc6c14f9c56e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a313becaab70e94bcd34b00166857720f" id="r_a313becaab70e94bcd34b00166857720f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a313becaab70e94bcd34b00166857720f">usb_direction_is_valid</a> (<a class="el" href="phal__G4_2usb_2usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a> direction)</td></tr>
+<tr class="separator:a313becaab70e94bcd34b00166857720f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06c08ebbf291a1e1f7dca05a6660271d" id="r_a06c08ebbf291a1e1f7dca05a6660271d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06c08ebbf291a1e1f7dca05a6660271d">PHAL_USB_init</a> (void)</td></tr>
 <tr class="memdesc:a06c08ebbf291a1e1f7dca05a6660271d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the USB device hardware and endpoints.  <br /></td></tr>
 <tr class="separator:a06c08ebbf291a1e1f7dca05a6660271d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -137,12 +147,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a42f35c4042b4e0d58161e1761be95af5" id="r_a42f35c4042b4e0d58161e1761be95af5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a42f35c4042b4e0d58161e1761be95af5">PHAL_USB_callback</a> (const <a class="el" href="structPHAL__USB__Event__t.html">PHAL_USB_Event_t</a> *event)</td></tr>
 <tr class="memdesc:a42f35c4042b4e0d58161e1761be95af5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle USB events.  <br /></td></tr>
 <tr class="separator:a42f35c4042b4e0d58161e1761be95af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0abd6916df1318e9dd804cdfc96a56d" id="r_ab0abd6916df1318e9dd804cdfc96a56d"><td class="memItemLeft" align="right" valign="top"><a id="ab0abd6916df1318e9dd804cdfc96a56d" name="ab0abd6916df1318e9dd804cdfc96a56d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_LP_IRQHandler</b> (void)</td></tr>
+<tr class="memitem:ab0abd6916df1318e9dd804cdfc96a56d" id="r_ab0abd6916df1318e9dd804cdfc96a56d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab0abd6916df1318e9dd804cdfc96a56d">USB_LP_IRQHandler</a> (void)</td></tr>
 <tr class="separator:ab0abd6916df1318e9dd804cdfc96a56d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d29cbfce29da77f8c0e1feb84998aac" id="r_a3d29cbfce29da77f8c0e1feb84998aac"><td class="memItemLeft" align="right" valign="top"><a id="a3d29cbfce29da77f8c0e1feb84998aac" name="a3d29cbfce29da77f8c0e1feb84998aac"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_HP_IRQHandler</b> (void)</td></tr>
+<tr class="memitem:a3d29cbfce29da77f8c0e1feb84998aac" id="r_a3d29cbfce29da77f8c0e1feb84998aac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d29cbfce29da77f8c0e1feb84998aac">USB_HP_IRQHandler</a> (void)</td></tr>
 <tr class="separator:a3d29cbfce29da77f8c0e1feb84998aac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ae51dbc7e8f836d942c158d75aa6e345b" id="r_ae51dbc7e8f836d942c158d75aa6e345b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae51dbc7e8f836d942c158d75aa6e345b">g_initialized</a> = false</td></tr>
+<tr class="separator:ae51dbc7e8f836d942c158d75aa6e345b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Validation and state for the public STM32G4 USB API. </p>
@@ -170,6 +183,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_HP_IRQHandler</b>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb_8c_a42f35c4042b4e0d58161e1761be95af5_icgraph.svg" width="586" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -190,6 +208,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_HP_IRQHandler</b>
 
 <p>Attach the initialized USB device to the host. </p>
 <dl class="section return"><dt>Returns</dt><dd>true when the D+ pull-up is enabled; false when USB is inactive. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb_8c_aeb368b052e158657e657e27c236f70b5_cgraph.svg" width="344" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -210,6 +233,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_HP_IRQHandler</b>
 
 <p>Detach and disable the USB peripheral. </p>
 <dl class="section return"><dt>Returns</dt><dd>true when deinitialization completes; false when USB is inactive. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb_8c_ad9816be792171e057399097c4cd6c9a1_cgraph.svg" width="315" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -231,6 +259,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_HP_IRQHandler</b>
 <p>Read the USB peripheral's current 11-bit frame number. </p>
 <p>The value is maintained by the peripheral from Start-of-Frame packets and wraps after 2047.</p>
 <dl class="section return"><dt>Returns</dt><dd>The current frame number. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb_8c_a398a346b137c4e086e2542cc4fda6c75_cgraph.svg" width="455" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -252,6 +285,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_HP_IRQHandler</b>
 <p>Initialize the USB device hardware and endpoints. </p>
 <p>Initialization enables HSI48, USB, UCPD1, PA8/PA9 USB-C sink signaling, PA11/PA12 USB data signaling, USB packet memory, endpoint zero as control, endpoint one as bulk, and USB interrupts. The device remains detached until <a class="el" href="phal__G4_2usb_2usb_8h.html#aeb368b052e158657e657e27c236f70b5" title="Attach the initialized USB device to the host.">PHAL_USB_connect()</a> enables the D+ pull-up.</p>
 <dl class="section return"><dt>Returns</dt><dd>true when initialization completes; false when USB is active or the 48 MHz clock startup times out. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_a06c08ebbf291a1e1f7dca05a6660271d_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -296,6 +334,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_HP_IRQHandler</b>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true when the packet is consumed; false when a precondition fails, reception is pending, or the destination capacity is insufficient. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_af25d0362dcd989b4805bf062366f2142_cgraph.svg" width="100%" height="514"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -323,6 +366,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_HP_IRQHandler</b>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true when the address is applied; false for an inactive peripheral or an address above 127. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb_8c_a7b6c8df7b0328f18f6dab165592423ae_cgraph.svg" width="384" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -354,6 +402,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_HP_IRQHandler</b>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true when the endpoint is stalled; false when a precondition fails. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_ad334f9d5a0cf9ede82d354e1c17c02b3_cgraph.svg" width="100%" height="401"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -392,6 +445,138 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_HP_IRQHandler</b>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true when the packet is queued; false when a precondition fails or the endpoint is busy. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_a47d401544e89e5c4e84a478fa6c581b5_cgraph.svg" width="100%" height="514"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a313becaab70e94bcd34b00166857720f" name="a313becaab70e94bcd34b00166857720f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a313becaab70e94bcd34b00166857720f">&#9670;&#160;</a></span>usb_direction_is_valid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool usb_direction_is_valid </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="phal__G4_2usb_2usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb_8c_a313becaab70e94bcd34b00166857720f_icgraph.svg" width="332" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a6bb0d538ececadd971fdc6c14f9c56e8" name="a6bb0d538ececadd971fdc6c14f9c56e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bb0d538ececadd971fdc6c14f9c56e8">&#9670;&#160;</a></span>usb_endpoint_is_valid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool usb_endpoint_is_valid </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>endpoint</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb_8c_a6bb0d538ececadd971fdc6c14f9c56e8_icgraph.svg" width="336" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3d29cbfce29da77f8c0e1feb84998aac" name="a3d29cbfce29da77f8c0e1feb84998aac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d29cbfce29da77f8c0e1feb84998aac">&#9670;&#160;</a></span>USB_HP_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void USB_HP_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_a3d29cbfce29da77f8c0e1feb84998aac_cgraph.svg" width="100%" height="582"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ab0abd6916df1318e9dd804cdfc96a56d" name="ab0abd6916df1318e9dd804cdfc96a56d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0abd6916df1318e9dd804cdfc96a56d">&#9670;&#160;</a></span>USB_LP_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void USB_LP_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_ab0abd6916df1318e9dd804cdfc96a56d_cgraph.svg" width="100%" height="582"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="ae51dbc7e8f836d942c158d75aa6e345b" name="ae51dbc7e8f836d942c158d75aa6e345b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae51dbc7e8f836d942c158d75aa6e345b">&#9670;&#160;</a></span>g_initialized</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool g_initialized = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

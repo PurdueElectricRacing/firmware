@@ -1,0 +1,5 @@
+<map id="usart_receive_complete_callback" name="usart_receive_complete_callback">
+<area shape="rect" id="Node000001" title="Callback function called immediately after reception of a USART RX message Uses USART IDLE line inter..." alt="" coords="168,5,327,46"/>
+<area shape="rect" id="Node000002" href="$common_2phal__G4_2usart_2usart_8c.html#a99cd2a703a69e6506a975cc574e4966a" title="Handles the USART interrupt logic." alt="" coords="5,13,120,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,28,120,28,120,23,152,23"/>
+</map>

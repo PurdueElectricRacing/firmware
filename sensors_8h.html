@@ -110,6 +110,16 @@ $(function(){initNavTree('sensors_8h.html',''); initResizable(true); });
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="nav__pvt_8h_source.html">common/ublox/nav_pvt.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="nav__relposned_8h_source.html">common/ublox/nav_relposned.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for sensors.h:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="sensors_8h__incl.svg" width="420" height="199"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="sensors_8h__dep__incl.svg" width="100%" height="416"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 </div>
 <p><a href="sensors_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -120,12 +130,10 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a161c126f960b2347813a4616b1609cda" id="r_a161c126f960b2347813a4616b1609cda"><td class="memItemLeft" align="right" valign="top"><a id="a161c126f960b2347813a4616b1609cda" name="a161c126f960b2347813a4616b1609cda"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>gps_periodic</b> (void)</td></tr>
+<tr class="memitem:a161c126f960b2347813a4616b1609cda" id="r_a161c126f960b2347813a4616b1609cda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a161c126f960b2347813a4616b1609cda">gps_periodic</a> (void)</td></tr>
 <tr class="separator:a161c126f960b2347813a4616b1609cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3da0b33ad58b4a9b357b9ae12a3707b6" id="r_a3da0b33ad58b4a9b357b9ae12a3707b6"><td class="memItemLeft" align="right" valign="top"><a id="a3da0b33ad58b4a9b357b9ae12a3707b6" name="a3da0b33ad58b4a9b357b9ae12a3707b6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>initialize_calibration</b> (void)</td></tr>
-<tr class="memdesc:a3da0b33ad58b4a9b357b9ae12a3707b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the IMU decoupling calibration data structures and state. <br /></td></tr>
+<tr class="memitem:a3da0b33ad58b4a9b357b9ae12a3707b6" id="r_a3da0b33ad58b4a9b357b9ae12a3707b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3da0b33ad58b4a9b357b9ae12a3707b6">initialize_calibration</a> (void)</td></tr>
+<tr class="memdesc:a3da0b33ad58b4a9b357b9ae12a3707b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the IMU decoupling calibration data structures and state.  <br /></td></tr>
 <tr class="separator:a3da0b33ad58b4a9b357b9ae12a3707b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a033e363e85c9a7712d85b7fb947a94c0" id="r_a033e363e85c9a7712d85b7fb947a94c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a033e363e85c9a7712d85b7fb947a94c0">IZZE_angular_rate_CALLBACK</a> (void)</td></tr>
 <tr class="memdesc:a033e363e85c9a7712d85b7fb947a94c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalize the IMU decoupling calibration by deriving the rotation matrix from the accumulated accelerometer data.  <br /></td></tr>
@@ -136,23 +144,79 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>initialize_calibratio
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:af03363200e864b749b70d67a947369e9" id="r_af03363200e864b749b70d67a947369e9"><td class="memItemLeft" align="right" valign="top"><a id="af03363200e864b749b70d67a947369e9" name="af03363200e864b749b70d67a947369e9"></a>
-volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>rover_rx_buffer</b> [ROVER_TX_SIZE]</td></tr>
+<tr class="memitem:a9e20bdc21aff9bbcd4f862afae4c058d" id="r_a9e20bdc21aff9bbcd4f862afae4c058d"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e20bdc21aff9bbcd4f862afae4c058d">ROVER_TX_SIZE</a> = <a class="el" href="nav__pvt_8h.html#a71100d7e7e16e9fe669799a9a3021c1d">NAV_PVT_TOTAL_LENGTH</a> + <a class="el" href="nav__relposned_8h.html#a8343ef3aaa0932ccc23c634d3cf5fb4c">NAV_RELPOSNED_TOTAL_LENGTH</a></td></tr>
+<tr class="separator:a9e20bdc21aff9bbcd4f862afae4c058d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af03363200e864b749b70d67a947369e9" id="r_af03363200e864b749b70d67a947369e9"><td class="memItemLeft" align="right" valign="top">volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af03363200e864b749b70d67a947369e9">rover_rx_buffer</a> [<a class="el" href="#a9e20bdc21aff9bbcd4f862afae4c058d">ROVER_TX_SIZE</a>]</td></tr>
 <tr class="separator:af03363200e864b749b70d67a947369e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a645cb19c4f1bb0b1d1f8d2186ddf8ecb" id="r_a645cb19c4f1bb0b1d1f8d2186ddf8ecb"><td class="memItemLeft" align="right" valign="top"><a id="a645cb19c4f1bb0b1d1f8d2186ddf8ecb" name="a645cb19c4f1bb0b1d1f8d2186ddf8ecb"></a>
-<a class="el" href="structNAV__PVT__data__t.html">NAV_PVT_data_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>nav_pvt</b></td></tr>
+<tr class="memitem:a645cb19c4f1bb0b1d1f8d2186ddf8ecb" id="r_a645cb19c4f1bb0b1d1f8d2186ddf8ecb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structNAV__PVT__data__t.html">NAV_PVT_data_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a645cb19c4f1bb0b1d1f8d2186ddf8ecb">nav_pvt</a></td></tr>
 <tr class="separator:a645cb19c4f1bb0b1d1f8d2186ddf8ecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae821168a51499dd0faf338f31283be5e" id="r_ae821168a51499dd0faf338f31283be5e"><td class="memItemLeft" align="right" valign="top"><a id="ae821168a51499dd0faf338f31283be5e" name="ae821168a51499dd0faf338f31283be5e"></a>
-<a class="el" href="structNAV__RELPOSNED__data__t.html">NAV_RELPOSNED_data_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>nav_relposned</b></td></tr>
+<tr class="memitem:ae821168a51499dd0faf338f31283be5e" id="r_ae821168a51499dd0faf338f31283be5e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structNAV__RELPOSNED__data__t.html">NAV_RELPOSNED_data_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae821168a51499dd0faf338f31283be5e">nav_relposned</a></td></tr>
 <tr class="separator:ae821168a51499dd0faf338f31283be5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a531c8f27ae12bb661be20c1a0937ab41" id="r_a531c8f27ae12bb661be20c1a0937ab41"><td class="memItemLeft" align="right" valign="top"><a id="a531c8f27ae12bb661be20c1a0937ab41" name="a531c8f27ae12bb661be20c1a0937ab41"></a>
-<a class="el" href="structimu__data__t.html">imu_data_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>imu_data</b></td></tr>
+<tr class="memitem:a531c8f27ae12bb661be20c1a0937ab41" id="r_a531c8f27ae12bb661be20c1a0937ab41"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structimu__data__t.html">imu_data_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a531c8f27ae12bb661be20c1a0937ab41">imu_data</a></td></tr>
 <tr class="separator:a531c8f27ae12bb661be20c1a0937ab41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2acc69061a033de980eb623fbef7fbea" id="r_a2acc69061a033de980eb623fbef7fbea"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2acc69061a033de980eb623fbef7fbea">GPS_THREAD_PERIOD_MS</a> = 100</td></tr>
+<tr class="separator:a2acc69061a033de980eb623fbef7fbea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>TV Managed sensor header. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a161c126f960b2347813a4616b1609cda" name="a161c126f960b2347813a4616b1609cda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a161c126f960b2347813a4616b1609cda">&#9670;&#160;</a></span>gps_periodic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void gps_periodic </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="sensors_8h_a161c126f960b2347813a4616b1609cda_cgraph.svg" width="339" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="sensors_8h_a161c126f960b2347813a4616b1609cda_icgraph.svg" width="203" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3da0b33ad58b4a9b357b9ae12a3707b6" name="a3da0b33ad58b4a9b357b9ae12a3707b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3da0b33ad58b4a9b357b9ae12a3707b6">&#9670;&#160;</a></span>initialize_calibration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void initialize_calibration </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize the IMU decoupling calibration data structures and state. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="sensors_8h_a3da0b33ad58b4a9b357b9ae12a3707b6_cgraph.svg" width="270" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="sensors_8h_a3da0b33ad58b4a9b357b9ae12a3707b6_icgraph.svg" width="242" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <a id="a4e2ff3413851866d1385d942698f59e9" name="a4e2ff3413851866d1385d942698f59e9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4e2ff3413851866d1385d942698f59e9">&#9670;&#160;</a></span>IZZE_acceleration_CALLBACK()</h2>
 
@@ -170,6 +234,11 @@ volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>rover_rx_
 
 <p>Callback function for handling IZZE acceleration data. </p>
 <p>In calibration mode, accumulates the raw acceleration data to derive the calibration rotation. In active mode, applies the decoupling rotation to the raw acceleration data and sends it out as IMU acceleration. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="sensors_8h_a4e2ff3413851866d1385d942698f59e9_cgraph.svg" width="420" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -191,6 +260,144 @@ volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>rover_rx_
 <p>Finalize the IMU decoupling calibration by deriving the rotation matrix from the accumulated accelerometer data. </p>
 <p>Callback function for handling IZZE angular rate data.</p>
 <p>In active mode, applies the decoupling rotation to the raw angular rate data and sends it out as IMU angular rate. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="sensors_8h_a033e363e85c9a7712d85b7fb947a94c0_cgraph.svg" width="420" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a2acc69061a033de980eb623fbef7fbea" name="a2acc69061a033de980eb623fbef7fbea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2acc69061a033de980eb623fbef7fbea">&#9670;&#160;</a></span>GPS_THREAD_PERIOD_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t GPS_THREAD_PERIOD_MS = 100</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a531c8f27ae12bb661be20c1a0937ab41" name="a531c8f27ae12bb661be20c1a0937ab41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a531c8f27ae12bb661be20c1a0937ab41">&#9670;&#160;</a></span>imu_data</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structimu__data__t.html">imu_data_t</a> imu_data</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a645cb19c4f1bb0b1d1f8d2186ddf8ecb" name="a645cb19c4f1bb0b1d1f8d2186ddf8ecb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a645cb19c4f1bb0b1d1f8d2186ddf8ecb">&#9670;&#160;</a></span>nav_pvt</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structNAV__PVT__data__t.html">NAV_PVT_data_t</a> nav_pvt</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae821168a51499dd0faf338f31283be5e" name="ae821168a51499dd0faf338f31283be5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae821168a51499dd0faf338f31283be5e">&#9670;&#160;</a></span>nav_relposned</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structNAV__RELPOSNED__data__t.html">NAV_RELPOSNED_data_t</a> nav_relposned</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af03363200e864b749b70d67a947369e9" name="af03363200e864b749b70d67a947369e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af03363200e864b749b70d67a947369e9">&#9670;&#160;</a></span>rover_rx_buffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint8_t rover_rx_buffer[<a class="el" href="#a9e20bdc21aff9bbcd4f862afae4c058d">ROVER_TX_SIZE</a>]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9e20bdc21aff9bbcd4f862afae4c058d" name="a9e20bdc21aff9bbcd4f862afae4c058d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e20bdc21aff9bbcd4f862afae4c058d">&#9670;&#160;</a></span>ROVER_TX_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t ROVER_TX_SIZE = <a class="el" href="nav__pvt_8h.html#a71100d7e7e16e9fe669799a9a3021c1d">NAV_PVT_TOTAL_LENGTH</a> + <a class="el" href="nav__relposned_8h.html#a8343ef3aaa0932ccc23c634d3cf5fb4c">NAV_RELPOSNED_TOTAL_LENGTH</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

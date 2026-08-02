@@ -108,37 +108,38 @@ $(function(){initNavTree('rtc__sync_8c.html',''); initResizable(true); });
 <p>Synchronization of the RTC peripheral with the GPS UTC time.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="rtc__sync_8h_source.html">rtc_sync.h</a>&quot;</code><br />
-<code>#include &quot;common/phal/rtc.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2rtc_8h_source.html">common/phal/rtc.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
 <code>#include &quot;can_library/generated/VCAN.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for rtc_sync.c:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="rtc__sync_8c__incl.svg" width="619" height="362"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:afd0d0f8c26e20b86187a476436376eb4" id="r_afd0d0f8c26e20b86187a476436376eb4"><td class="memItemLeft" align="right" valign="top"><a id="afd0d0f8c26e20b86187a476436376eb4" name="afd0d0f8c26e20b86187a476436376eb4"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>PAYLOAD_OFFSET</b>&#160;&#160;&#160;(sizeof(uint32_t) + sizeof(bool (*)(void)))</td></tr>
+<tr class="memitem:afd0d0f8c26e20b86187a476436376eb4" id="r_afd0d0f8c26e20b86187a476436376eb4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd0d0f8c26e20b86187a476436376eb4">PAYLOAD_OFFSET</a>&#160;&#160;&#160;(sizeof(uint32_t) + sizeof(bool (*)(void)))</td></tr>
 <tr class="separator:afd0d0f8c26e20b86187a476436376eb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a432948236c9e6f48f142eb855ebff1fa" id="r_a432948236c9e6f48f142eb855ebff1fa"><td class="memItemLeft" align="right" valign="top"><a id="a432948236c9e6f48f142eb855ebff1fa" name="a432948236c9e6f48f142eb855ebff1fa"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_QUEUE</b> (gps_time_queue, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a>, 1)</td></tr>
+<tr class="memitem:a432948236c9e6f48f142eb855ebff1fa" id="r_a432948236c9e6f48f142eb855ebff1fa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a432948236c9e6f48f142eb855ebff1fa">FREERTOS_DEFINE_QUEUE</a> (<a class="el" href="rtc__sync_8h.html#a07974ba8771161bb4f55a345307a288d">gps_time_queue</a>, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a>, 1)</td></tr>
 <tr class="separator:a432948236c9e6f48f142eb855ebff1fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8608341944a4a63eb1d77d89ab17d9ba" id="r_a8608341944a4a63eb1d77d89ab17d9ba"><td class="memItemLeft" align="right" valign="top"><a id="a8608341944a4a63eb1d77d89ab17d9ba" name="a8608341944a4a63eb1d77d89ab17d9ba"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>RTC_sync_init</b> (void)</td></tr>
+<tr class="memitem:ac7d5935a8695ea3c13431172961bf35f" id="r_ac7d5935a8695ea3c13431172961bf35f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structRTC__timestamp__t.html">RTC_timestamp_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7d5935a8695ea3c13431172961bf35f">RTC_from_gps</a> (<a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> gps_time)</td></tr>
+<tr class="separator:ac7d5935a8695ea3c13431172961bf35f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8608341944a4a63eb1d77d89ab17d9ba" id="r_a8608341944a4a63eb1d77d89ab17d9ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8608341944a4a63eb1d77d89ab17d9ba">RTC_sync_init</a> (void)</td></tr>
 <tr class="separator:a8608341944a4a63eb1d77d89ab17d9ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a456494b8b60c41ec7c458c7874e1dae7" id="r_a456494b8b60c41ec7c458c7874e1dae7"><td class="memItemLeft" align="right" valign="top"><a id="a456494b8b60c41ec7c458c7874e1dae7" name="a456494b8b60c41ec7c458c7874e1dae7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>RTC_sync</b> (void)</td></tr>
+<tr class="memitem:a456494b8b60c41ec7c458c7874e1dae7" id="r_a456494b8b60c41ec7c458c7874e1dae7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a456494b8b60c41ec7c458c7874e1dae7">RTC_sync</a> (void)</td></tr>
 <tr class="separator:a456494b8b60c41ec7c458c7874e1dae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a4137e6409c902491154da4b630740e6c" id="r_a4137e6409c902491154da4b630740e6c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structRTC__timestamp__t.html">RTC_timestamp_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4137e6409c902491154da4b630740e6c">fallback_timestamp</a></td></tr>
 <tr class="separator:a4137e6409c902491154da4b630740e6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7765176daa11122836eb97dd03987db8" id="r_a7765176daa11122836eb97dd03987db8"><td class="memItemLeft" align="right" valign="top"><a id="a7765176daa11122836eb97dd03987db8" name="a7765176daa11122836eb97dd03987db8"></a>
-volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>last_RTC_sync_time</b> = 0</td></tr>
+<tr class="memitem:a7765176daa11122836eb97dd03987db8" id="r_a7765176daa11122836eb97dd03987db8"><td class="memItemLeft" align="right" valign="top">volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7765176daa11122836eb97dd03987db8">last_RTC_sync_time</a> = 0</td></tr>
 <tr class="separator:a7765176daa11122836eb97dd03987db8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d949a4a32a94ca4e448e294a8e0b4ed" id="r_a5d949a4a32a94ca4e448e294a8e0b4ed"><td class="memItemLeft" align="right" valign="top"><a id="a5d949a4a32a94ca4e448e294a8e0b4ed" name="a5d949a4a32a94ca4e448e294a8e0b4ed"></a>
-volatile bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_RTC_sync_complete</b> = false</td></tr>
+<tr class="memitem:a5d949a4a32a94ca4e448e294a8e0b4ed" id="r_a5d949a4a32a94ca4e448e294a8e0b4ed"><td class="memItemLeft" align="right" valign="top">volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d949a4a32a94ca4e448e294a8e0b4ed">is_RTC_sync_complete</a> = false</td></tr>
 <tr class="separator:a5d949a4a32a94ca4e448e294a8e0b4ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -146,7 +147,128 @@ volatile bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_RTC_sync_
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
 <dd>
 Shriya Balu (<a href="#" onclick="location.href='mai'+'lto:'+'bal'+'u@'+'pur'+'du'+'e.e'+'du'; return false;">balu@<span class="obfuscator">.nosp@m.</span>purd<span class="obfuscator">.nosp@m.</span>ue.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd></dl>
-</div><h2 class="groupheader">Variable Documentation</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="afd0d0f8c26e20b86187a476436376eb4" name="afd0d0f8c26e20b86187a476436376eb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd0d0f8c26e20b86187a476436376eb4">&#9670;&#160;</a></span>PAYLOAD_OFFSET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PAYLOAD_OFFSET&#160;&#160;&#160;(sizeof(uint32_t) + sizeof(bool (*)(void)))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a432948236c9e6f48f142eb855ebff1fa" name="a432948236c9e6f48f142eb855ebff1fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a432948236c9e6f48f142eb855ebff1fa">&#9670;&#160;</a></span>FREERTOS_DEFINE_QUEUE()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FREERTOS_DEFINE_QUEUE </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="rtc__sync_8h.html#a07974ba8771161bb4f55a345307a288d">gps_time_queue</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">1</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac7d5935a8695ea3c13431172961bf35f" name="ac7d5935a8695ea3c13431172961bf35f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7d5935a8695ea3c13431172961bf35f">&#9670;&#160;</a></span>RTC_from_gps()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structRTC__timestamp__t.html">RTC_timestamp_t</a> RTC_from_gps </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a></td>          <td class="paramname"><span class="paramname"><em>gps_time</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="rtc__sync_8c_ac7d5935a8695ea3c13431172961bf35f_icgraph.svg" width="346" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a456494b8b60c41ec7c458c7874e1dae7" name="a456494b8b60c41ec7c458c7874e1dae7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a456494b8b60c41ec7c458c7874e1dae7">&#9670;&#160;</a></span>RTC_sync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RTC_sync </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="rtc__sync_8c_a456494b8b60c41ec7c458c7874e1dae7_cgraph.svg" width="283" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="rtc__sync_8c_a456494b8b60c41ec7c458c7874e1dae7_icgraph.svg" width="190" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a8608341944a4a63eb1d77d89ab17d9ba" name="a8608341944a4a63eb1d77d89ab17d9ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8608341944a4a63eb1d77d89ab17d9ba">&#9670;&#160;</a></span>RTC_sync_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RTC_sync_init </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="rtc__sync_8c_a8608341944a4a63eb1d77d89ab17d9ba_icgraph.svg" width="214" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
 <a id="a4137e6409c902491154da4b630740e6c" name="a4137e6409c902491154da4b630740e6c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4137e6409c902491154da4b630740e6c">&#9670;&#160;</a></span>fallback_timestamp</h2>
 
@@ -160,8 +282,8 @@ Shriya Balu (<a href="#" onclick="location.href='mai'+'lto:'+'bal'+'u@'+'pur'+'d
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">={</div>
 <div class="line">    .date = {</div>
-<div class="line">        .month_bcd = RTC_MONTH_UNKNOWN,</div>
-<div class="line">        .weekday   = RTC_WEEKDAY_UNKNOWN,</div>
+<div class="line">        .month_bcd = <a class="code hl_enumvalue" href="phal__F4_2rtc_2rtc_8h.html#a7548f07f8ac92156152866f28f3ff199aa45359b3897461a2c5cdf181a5e6d21f">RTC_MONTH_UNKNOWN</a>,</div>
+<div class="line">        .weekday   = <a class="code hl_enumvalue" href="phal__F4_2rtc_2rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cba0b6fadc1d42cbc5f45a4b6dc21f9770d">RTC_WEEKDAY_UNKNOWN</a>,</div>
 <div class="line">        .day_bcd   = 0x00,</div>
 <div class="line">        .year_bcd  = 0x00</div>
 <div class="line">    },</div>
@@ -169,10 +291,41 @@ Shriya Balu (<a href="#" onclick="location.href='mai'+'lto:'+'bal'+'u@'+'pur'+'d
 <div class="line">        .hours_bcd   = 0x00,</div>
 <div class="line">        .minutes_bcd = 0x00,</div>
 <div class="line">        .seconds_bcd = 0x00,</div>
-<div class="line">        .time_format = RTC_FORMAT_24_HOUR</div>
+<div class="line">        .time_format = <a class="code hl_enumvalue" href="phal__F4_2rtc_2rtc_8h.html#a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d">RTC_FORMAT_24_HOUR</a></div>
 <div class="line">    },</div>
 <div class="line">}</div>
+<div class="ttc" id="aphal__F4_2rtc_2rtc_8h_html_a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d"><div class="ttname"><a href="phal__F4_2rtc_2rtc_8h.html#a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d">RTC_FORMAT_24_HOUR</a></div><div class="ttdeci">@ RTC_FORMAT_24_HOUR</div><div class="ttdef"><b>Definition</b> rtc.h:69</div></div>
+<div class="ttc" id="aphal__F4_2rtc_2rtc_8h_html_a7548f07f8ac92156152866f28f3ff199aa45359b3897461a2c5cdf181a5e6d21f"><div class="ttname"><a href="phal__F4_2rtc_2rtc_8h.html#a7548f07f8ac92156152866f28f3ff199aa45359b3897461a2c5cdf181a5e6d21f">RTC_MONTH_UNKNOWN</a></div><div class="ttdeci">@ RTC_MONTH_UNKNOWN</div><div class="ttdef"><b>Definition</b> rtc.h:42</div></div>
+<div class="ttc" id="aphal__F4_2rtc_2rtc_8h_html_aecb67a89a4f4f7cd1b5a29e62e5680cba0b6fadc1d42cbc5f45a4b6dc21f9770d"><div class="ttname"><a href="phal__F4_2rtc_2rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cba0b6fadc1d42cbc5f45a4b6dc21f9770d">RTC_WEEKDAY_UNKNOWN</a></div><div class="ttdeci">@ RTC_WEEKDAY_UNKNOWN</div><div class="ttdef"><b>Definition</b> rtc.h:58</div></div>
 </div><!-- fragment -->
+</div>
+</div>
+<a id="a5d949a4a32a94ca4e448e294a8e0b4ed" name="a5d949a4a32a94ca4e448e294a8e0b4ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d949a4a32a94ca4e448e294a8e0b4ed">&#9670;&#160;</a></span>is_RTC_sync_complete</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile bool is_RTC_sync_complete = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7765176daa11122836eb97dd03987db8" name="a7765176daa11122836eb97dd03987db8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7765176daa11122836eb97dd03987db8">&#9670;&#160;</a></span>last_RTC_sync_time</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t last_RTC_sync_time = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->

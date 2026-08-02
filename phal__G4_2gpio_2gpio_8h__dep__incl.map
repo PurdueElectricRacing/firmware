@@ -1,0 +1,11 @@
+<map id="common/phal_G4/gpio/gpio.h" name="common/phal_G4/gpio/gpio.h">
+<area shape="rect" id="Node000001" title="GPIO Driver for STM32L432 Devices." alt="" coords="177,5,329,46"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2gpio_2gpio_8c.html" title="GPIO Driver for STM32L432 Devices." alt="" coords="5,94,157,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,56,121,96,119,91,199,51"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2spi_2spi_8h.html" title=" " alt="" coords="181,94,325,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="256,62,256,94,250,94,250,62"/>
+<area shape="rect" id="Node000005" href="$common_2phal__G4_2usart_2usart_8c.html" title=" " alt="" coords="350,94,506,135"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="307,51,389,91,387,96,305,56"/>
+<area shape="rect" id="Node000004" href="$common_2phal__G4_2spi_2spi_8c.html" title="G4 SPI." alt="" coords="181,183,325,223"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="256,150,256,182,250,182,250,150"/>
+</map>

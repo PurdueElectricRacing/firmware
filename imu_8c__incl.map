@@ -1,0 +1,26 @@
+<map id="source/torque_vector/sensors/imu.c" name="source/torque_vector/sensors/imu.c">
+<area shape="rect" id="Node000001" title="IMU calibration and coordinate transformations." alt="" coords="305,5,448,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,94,156,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="310,49,163,92,162,87,308,44"/>
+<area shape="rect" id="Node000003" href="$linear__algebra_8h.html" title="Linear algebra functions utility header." alt="" coords="180,94,314,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="349,49,290,87,287,83,346,44"/>
+<area shape="rect" id="Node000005" href="$sensors_8h.html" title="TV Managed sensor header." alt="" coords="338,102,415,127"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="379,47,379,86,374,86,374,47"/>
+<area shape="rect" id="Node000010" href="$units_8h.html" title="SI and Imperial unit defs and conversion functions." alt="" coords="439,102,580,127"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="408,44,480,91,477,95,405,49"/>
+<area shape="rect" id="Node000011" href="$clamp_8h.html" title="Utility header to clamp a value to a bounded range." alt="" coords="605,102,753,127"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="446,44,623,94,622,99,445,49"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="105,183,165,208"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="221,137,166,175,163,171,218,133"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="449,256,512,282"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="408,125,428,132,454,139,478,141,521,142,541,144,560,150,578,162,596,181,602,194,602,206,586,226,559,243,528,256,526,251,557,239,583,223,597,204,597,195,592,184,575,166,557,155,539,149,520,147,477,146,453,144,426,137,407,130"/>
+<area shape="rect" id="Node000007" href="$nav__pvt_8h.html" title="UBX NAV&#45;PVT message definition and decoder function." alt="" coords="190,183,355,208"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="362,130,302,175,299,171,359,125"/>
+<area shape="rect" id="Node000009" href="$nav__relposned_8h.html" title="UBX NAV&#45;RELPOSNED message definition and decoder function." alt="" coords="379,183,582,208"/>
+<area shape="poly" id="edge9_Node000005_Node000009" title=" " alt="" coords="394,125,454,171,451,175,391,130"/>
+<area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="309,206,435,249,433,255,307,211"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="299,256,366,282"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="284,207,315,243,311,246,280,210"/>
+<area shape="poly" id="edge10_Node000009_Node000006" title=" " alt="" coords="483,209,483,241,478,241,478,209"/>
+<area shape="poly" id="edge11_Node000009_Node000008" title=" " alt="" coords="457,211,373,252,370,247,454,206"/>
+</map>

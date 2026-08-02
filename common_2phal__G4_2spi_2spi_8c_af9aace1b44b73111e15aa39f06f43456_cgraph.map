@@ -1,0 +1,9 @@
+<map id="__attribute__" name="__attribute__">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,102,56"/>
+<area shape="rect" id="Node000002" href="$common_2phal__F4_2spi_2spi_8c.html#aed6ed13aeec426dcf483c8936300358d" title="Handle TCIF interrupt signaling end of TX transaction." alt="" coords="150,31,278,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,41,134,41,134,46,102,46"/>
+<area shape="rect" id="Node000003" href="$phal__F4_2dma_2dma_8c.html#a31d09afa5679cb34c0c776051450e62a" title=" " alt="" coords="330,5,448,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="278,32,314,26,315,32,279,37"/>
+<area shape="rect" id="Node000004" href="$phal__F4_2gpio_2gpio_8h.html#a67db851520637ffa4de5968c9730220b" title="Write a logic value to an output pin." alt="" coords="326,55,451,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="279,50,311,54,310,59,278,55"/>
+</map>

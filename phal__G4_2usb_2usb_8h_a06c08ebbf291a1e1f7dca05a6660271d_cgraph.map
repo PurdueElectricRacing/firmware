@@ -1,0 +1,31 @@
+<map id="PHAL_USB_init" name="PHAL_USB_init">
+<area shape="rect" id="Node000001" title="Initialize the USB device hardware and endpoints." alt="" coords="5,212,122,238"/>
+<area shape="rect" id="Node000002" href="$usb__priv_8c.html#a6a84dcb07b21e54a2b506cec9165693b" title="Enable USB event interrupts and endpoint operation." alt="" coords="170,187,357,212"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,215,154,211,154,216,122,220"/>
+<area shape="rect" id="Node000003" href="$usb__priv_8c.html#a88feef2613c47bacaa4b3a2a768c8ae4" title="Enable and reset the USB hardware, configure pins and packet memory." alt="" coords="208,236,319,262"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="122,229,193,238,192,243,122,234"/>
+<area shape="rect" id="Node000004" href="$usb__priv_8c.html#a7a65179705ed513c172183fd44417b8a" title=" " alt="" coords="405,105,569,131"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="319,239,338,232,355,223,371,205,379,187,387,168,403,148,423,135,426,140,407,152,391,171,384,189,376,208,359,227,340,237,320,244"/>
+<area shape="rect" id="Node000007" href="$usb__priv_8c.html#a34ead234195e6e26e97662c2db3b9dbb" title=" " alt="" coords="823,156,971,182"/>
+<area shape="poly" id="edge13_Node000003_Node000007" title=" " alt="" coords="318,235,356,222,379,206,389,199,404,192,456,177,511,167,619,156,721,154,808,157,807,163,721,159,620,161,511,172,458,183,406,197,392,203,382,211,358,227,320,240"/>
+<area shape="rect" id="Node000010" href="$usb__priv_8c.html#ab350ec22eeaee49c28ca41cc6c1badf8" title=" " alt="" coords="421,207,553,232"/>
+<area shape="poly" id="edge10_Node000003_Node000010" title=" " alt="" coords="319,239,405,228,406,233,320,244"/>
+<area shape="rect" id="Node000011" href="$usb__priv_8c.html#ae5c38a37080513ad9b42fe2ae880ee00" title=" " alt="" coords="421,256,553,297"/>
+<area shape="poly" id="edge11_Node000003_Node000011" title=" " alt="" coords="320,253,406,264,405,269,319,258"/>
+<area shape="rect" id="Node000012" href="$usb__priv_8c.html#afde36da2f9f9310cd72f06a4b3b5ed45" title=" " alt="" coords="424,321,550,347"/>
+<area shape="poly" id="edge12_Node000003_Node000012" title=" " alt="" coords="294,260,406,306,427,314,425,319,404,311,292,265"/>
+<area shape="rect" id="Node000013" href="$usb__priv_8c.html#a1638950182f24a49c6002ae45e9656c0" title=" " alt="" coords="416,371,558,396"/>
+<area shape="poly" id="edge14_Node000003_Node000013" title=" " alt="" coords="280,260,332,307,368,334,406,357,417,362,415,367,404,362,365,338,329,311,276,264"/>
+<area shape="rect" id="Node000005" href="$usb__priv_8c.html#a1b35d5bd2473c452b714e669014e6b82" title=" " alt="" coords="617,105,775,131"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="570,116,602,116,602,121,570,121"/>
+<area shape="rect" id="Node000006" href="$usb__priv_8c.html#ae50319496e974387c6b5a0668b825cb9" title=" " alt="" coords="826,5,968,31"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="715,103,762,72,822,40,834,34,836,39,824,45,765,77,718,107"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="751,129,829,149,828,154,749,134"/>
+<area shape="rect" id="Node000008" href="$usb__priv_8c.html#aca373172c04b6704271473559fe35015" title=" " alt="" coords="825,55,969,80"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="749,102,828,82,829,87,751,107"/>
+<area shape="rect" id="Node000009" href="$usb__priv_8c.html#a80afa30e860ee2cbe11c0b317bd72e0e" title=" " alt="" coords="1019,80,1168,106"/>
+<area shape="poly" id="edge9_Node000005_Node000009" title=" " alt="" coords="775,111,1004,96,1004,101,775,116"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="970,74,1004,79,1003,84,969,79"/>
+<area shape="rect" id="Node000014" href="$usb__priv_8c.html#a24d7e42058ea841bacf7f122f1433161" title=" " alt="" coords="656,371,736,396"/>
+<area shape="poly" id="edge15_Node000013_Node000014" title=" " alt="" coords="558,381,641,381,641,386,558,386"/>
+</map>

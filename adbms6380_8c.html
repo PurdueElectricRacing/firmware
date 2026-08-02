@@ -112,9 +112,14 @@ $(function(){initNavTree('adbms6380_8c.html',''); initResizable(true); });
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="commands_8h_source.html">commands.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
-<code>#include &quot;common/phal/gpio.h&quot;</code><br />
-<code>#include &quot;common/phal/spi.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2gpio_8h_source.html">common/phal/gpio.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2spi_8h_source.html">common/phal/spi.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="pec_8h_source.html">pec.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for adbms6380.c:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c__incl.svg" width="100%" height="560"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -136,43 +141,43 @@ Functions</h2></td></tr>
 <tr class="memitem:a2e9f567aae9798e09e92280c8919a184" id="r_a2e9f567aae9798e09e92280c8919a184"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e9f567aae9798e09e92280c8919a184">adbms6380_raw_to_v</a> (int16_t raw)</td></tr>
 <tr class="memdesc:a2e9f567aae9798e09e92280c8919a184"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert raw voltage measurement from the ADBMS6380 to volts.  <br /></td></tr>
 <tr class="separator:a2e9f567aae9798e09e92280c8919a184"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5e12ae30b128ce06afa0c0dfc19e2ac" id="r_aa5e12ae30b128ce06afa0c0dfc19e2ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa5e12ae30b128ce06afa0c0dfc19e2ac">adbms6380_adcv</a> (uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE], bool rd, bool cont, bool dcp, bool rstf, uint8_t ow)</td></tr>
+<tr class="memitem:aa5e12ae30b128ce06afa0c0dfc19e2ac" id="r_aa5e12ae30b128ce06afa0c0dfc19e2ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa5e12ae30b128ce06afa0c0dfc19e2ac">adbms6380_adcv</a> (uint8_t output_cmd[<a class="el" href="adbms6380_8h.html#abb0d4748227668be895e371af4b96454">ADBMS6380_COMMAND_RAW_SIZE</a>], bool rd, bool cont, bool dcp, bool rstf, uint8_t ow)</td></tr>
 <tr class="memdesc:aa5e12ae30b128ce06afa0c0dfc19e2ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build ADCV command bytes.  <br /></td></tr>
 <tr class="separator:aa5e12ae30b128ce06afa0c0dfc19e2ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9849bfe4b93c2a5ce93af04ff58d79d5" id="r_a9849bfe4b93c2a5ce93af04ff58d79d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9849bfe4b93c2a5ce93af04ff58d79d5">adbms6380_adsv</a> (uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE], bool cont, bool dcp, uint8_t ow)</td></tr>
+<tr class="memitem:a9849bfe4b93c2a5ce93af04ff58d79d5" id="r_a9849bfe4b93c2a5ce93af04ff58d79d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9849bfe4b93c2a5ce93af04ff58d79d5">adbms6380_adsv</a> (uint8_t output_cmd[<a class="el" href="adbms6380_8h.html#abb0d4748227668be895e371af4b96454">ADBMS6380_COMMAND_RAW_SIZE</a>], bool cont, bool dcp, uint8_t ow)</td></tr>
 <tr class="memdesc:a9849bfe4b93c2a5ce93af04ff58d79d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build ADSV command bytes.  <br /></td></tr>
 <tr class="separator:a9849bfe4b93c2a5ce93af04ff58d79d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a810f35acf333d387896a733e2987cadd" id="r_a810f35acf333d387896a733e2987cadd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a810f35acf333d387896a733e2987cadd">adbms6380_adax</a> (uint8_t output_cmd[ADBMS6380_COMMAND_RAW_SIZE], bool ow, bool pup, uint8_t ch)</td></tr>
+<tr class="memitem:a810f35acf333d387896a733e2987cadd" id="r_a810f35acf333d387896a733e2987cadd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a810f35acf333d387896a733e2987cadd">adbms6380_adax</a> (uint8_t output_cmd[<a class="el" href="adbms6380_8h.html#abb0d4748227668be895e371af4b96454">ADBMS6380_COMMAND_RAW_SIZE</a>], bool ow, bool pup, uint8_t ch)</td></tr>
 <tr class="memdesc:a810f35acf333d387896a733e2987cadd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build ADAX (aux) command bytes.  <br /></td></tr>
 <tr class="separator:a810f35acf333d387896a733e2987cadd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87779ad64f4a74f4550870855d30d4a2" id="r_a87779ad64f4a74f4550870855d30d4a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87779ad64f4a74f4550870855d30d4a2">adbms6380_prepare_command</a> (<a class="el" href="structstrbuf__t.html">strbuf_t</a> *output_buffer, const uint8_t command[ADBMS6380_COMMAND_RAW_SIZE])</td></tr>
+<tr class="memitem:a87779ad64f4a74f4550870855d30d4a2" id="r_a87779ad64f4a74f4550870855d30d4a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87779ad64f4a74f4550870855d30d4a2">adbms6380_prepare_command</a> (<a class="el" href="structstrbuf__t.html">strbuf_t</a> *output_buffer, const uint8_t command[<a class="el" href="adbms6380_8h.html#abb0d4748227668be895e371af4b96454">ADBMS6380_COMMAND_RAW_SIZE</a>])</td></tr>
 <tr class="memdesc:a87779ad64f4a74f4550870855d30d4a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Append a command and its PEC to an output buffer.  <br /></td></tr>
 <tr class="separator:a87779ad64f4a74f4550870855d30d4a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c34ef8839dcd0f491ade5e2f7146e9b" id="r_a8c34ef8839dcd0f491ade5e2f7146e9b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c34ef8839dcd0f491ade5e2f7146e9b">adbms6380_prepare_data_packet</a> (<a class="el" href="structstrbuf__t.html">strbuf_t</a> *output_buffer, const uint8_t data[ADBMS6380_SINGLE_DATA_RAW_SIZE])</td></tr>
+<tr class="memitem:a8c34ef8839dcd0f491ade5e2f7146e9b" id="r_a8c34ef8839dcd0f491ade5e2f7146e9b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c34ef8839dcd0f491ade5e2f7146e9b">adbms6380_prepare_data_packet</a> (<a class="el" href="structstrbuf__t.html">strbuf_t</a> *output_buffer, const uint8_t data[<a class="el" href="adbms6380_8h.html#a05594a85d957953e99e26e8e75d9c9d7">ADBMS6380_SINGLE_DATA_RAW_SIZE</a>])</td></tr>
 <tr class="memdesc:a8c34ef8839dcd0f491ade5e2f7146e9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Append a data payload and its PEC to an output buffer.  <br /></td></tr>
 <tr class="separator:a8c34ef8839dcd0f491ade5e2f7146e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6309659e70a91acde06af856a1ff7c3" id="r_ad6309659e70a91acde06af856a1ff7c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6309659e70a91acde06af856a1ff7c3">adbms6380_calculate_cfg_rega</a> (uint8_t output_cfg_rega[ADBMS6380_SINGLE_DATA_RAW_SIZE], bool refon, uint8_t cth)</td></tr>
+<tr class="memitem:ad6309659e70a91acde06af856a1ff7c3" id="r_ad6309659e70a91acde06af856a1ff7c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6309659e70a91acde06af856a1ff7c3">adbms6380_calculate_cfg_rega</a> (uint8_t output_cfg_rega[<a class="el" href="adbms6380_8h.html#a05594a85d957953e99e26e8e75d9c9d7">ADBMS6380_SINGLE_DATA_RAW_SIZE</a>], bool refon, uint8_t cth)</td></tr>
 <tr class="memdesc:ad6309659e70a91acde06af856a1ff7c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the REG_A configuration register value.  <br /></td></tr>
 <tr class="separator:ad6309659e70a91acde06af856a1ff7c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7edc17528da09597a1ba5cd6d5e9671e" id="r_a7edc17528da09597a1ba5cd6d5e9671e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7edc17528da09597a1ba5cd6d5e9671e">adbms6380_calculate_cfg_regb</a> (uint8_t output_cfg_regb[ADBMS6380_SINGLE_DATA_RAW_SIZE], float overvoltage_threshold, float undervoltage_threshold, const bool is_discharging[ADBMS6380_CELL_COUNT])</td></tr>
+<tr class="memitem:a7edc17528da09597a1ba5cd6d5e9671e" id="r_a7edc17528da09597a1ba5cd6d5e9671e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7edc17528da09597a1ba5cd6d5e9671e">adbms6380_calculate_cfg_regb</a> (uint8_t output_cfg_regb[<a class="el" href="adbms6380_8h.html#a05594a85d957953e99e26e8e75d9c9d7">ADBMS6380_SINGLE_DATA_RAW_SIZE</a>], float overvoltage_threshold, float undervoltage_threshold, const bool is_discharging[<a class="el" href="adbms6380_8h.html#a9e8247a946b3c04fac7b53fe6ac5649b">ADBMS6380_CELL_COUNT</a>])</td></tr>
 <tr class="memdesc:a7edc17528da09597a1ba5cd6d5e9671e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the REG_B configuration register value.  <br /></td></tr>
 <tr class="separator:a7edc17528da09597a1ba5cd6d5e9671e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad065e19e0b9ff761f14abe8bf654750d" id="r_ad065e19e0b9ff761f14abe8bf654750d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad065e19e0b9ff761f14abe8bf654750d">adbms6380_check_data_pec</a> (const uint8_t *rx_bytes, size_t rx_len)</td></tr>
 <tr class="memdesc:ad065e19e0b9ff761f14abe8bf654750d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verify the PEC of received data.  <br /></td></tr>
 <tr class="separator:ad065e19e0b9ff761f14abe8bf654750d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabb23faf669f17e2bdb7360525b00581" id="r_aabb23faf669f17e2bdb7360525b00581"><td class="memItemLeft" align="right" valign="top"><a class="el" href="adbms6380_8h.html#a514ee53f3f0310557805cd8276287976">adbms6380_read_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aabb23faf669f17e2bdb7360525b00581">adbms6380_read</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, size_t module_count, const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE], uint8_t *rx_buffer, size_t rx_length_per_module)</td></tr>
+<tr class="memitem:aabb23faf669f17e2bdb7360525b00581" id="r_aabb23faf669f17e2bdb7360525b00581"><td class="memItemLeft" align="right" valign="top"><a class="el" href="adbms6380_8h.html#a514ee53f3f0310557805cd8276287976">adbms6380_read_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aabb23faf669f17e2bdb7360525b00581">adbms6380_read</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, size_t module_count, const uint8_t cmd_buffer[<a class="el" href="adbms6380_8h.html#ab8248c41f0c4b71fea53867726fa3b87">ADBMS6380_COMMAND_PKT_SIZE</a>], uint8_t *rx_buffer, size_t rx_length_per_module)</td></tr>
 <tr class="memdesc:aabb23faf669f17e2bdb7360525b00581"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a fixed-length response from all modules after a command.  <br /></td></tr>
 <tr class="separator:aabb23faf669f17e2bdb7360525b00581"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab36d258ca42374cc3ac985197dff0516" id="r_ab36d258ca42374cc3ac985197dff0516"><td class="memItemLeft" align="right" valign="top"><a class="el" href="adbms6380_8h.html#a514ee53f3f0310557805cd8276287976">adbms6380_read_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab36d258ca42374cc3ac985197dff0516">adbms6380_read_data_with_retries</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, size_t max_retries, size_t module_count, const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE], uint8_t *rx_buffer)</td></tr>
+<tr class="memitem:ab36d258ca42374cc3ac985197dff0516" id="r_ab36d258ca42374cc3ac985197dff0516"><td class="memItemLeft" align="right" valign="top"><a class="el" href="adbms6380_8h.html#a514ee53f3f0310557805cd8276287976">adbms6380_read_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab36d258ca42374cc3ac985197dff0516">adbms6380_read_data_with_retries</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, size_t max_retries, size_t module_count, const uint8_t cmd_buffer[<a class="el" href="adbms6380_8h.html#ab8248c41f0c4b71fea53867726fa3b87">ADBMS6380_COMMAND_PKT_SIZE</a>], uint8_t *rx_buffer)</td></tr>
 <tr class="memdesc:ab36d258ca42374cc3ac985197dff0516"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a single-data-packet response per module and retries on PEC failure.  <br /></td></tr>
 <tr class="separator:ab36d258ca42374cc3ac985197dff0516"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8650f2d32760e8714a197be510c7b82b" id="r_a8650f2d32760e8714a197be510c7b82b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="adbms6380_8h.html#a514ee53f3f0310557805cd8276287976">adbms6380_read_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8650f2d32760e8714a197be510c7b82b">adbms6380_read_data</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, size_t module_count, const uint8_t cmd_buffer[ADBMS6380_COMMAND_PKT_SIZE], uint8_t *rx_buffer)</td></tr>
+<tr class="memitem:a8650f2d32760e8714a197be510c7b82b" id="r_a8650f2d32760e8714a197be510c7b82b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="adbms6380_8h.html#a514ee53f3f0310557805cd8276287976">adbms6380_read_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8650f2d32760e8714a197be510c7b82b">adbms6380_read_data</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, size_t module_count, const uint8_t cmd_buffer[<a class="el" href="adbms6380_8h.html#ab8248c41f0c4b71fea53867726fa3b87">ADBMS6380_COMMAND_PKT_SIZE</a>], uint8_t *rx_buffer)</td></tr>
 <tr class="memdesc:a8650f2d32760e8714a197be510c7b82b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a single-data-packet response per module.  <br /></td></tr>
 <tr class="separator:a8650f2d32760e8714a197be510c7b82b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a46bb68d67c18378f018232362631a6" id="r_a4a46bb68d67c18378f018232362631a6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a46bb68d67c18378f018232362631a6">adbms6380_read_cell_voltages</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, <a class="el" href="structstrbuf__t.html">strbuf_t</a> *cmd_buffer, uint8_t *rx_buffer, float **cell_voltages, int16_t **cell_voltages_raw, bool pec_error_flags[ADBMS6380_RDCV_CMD_COUNT], size_t module_count, size_t max_retries_on_pec_failure)</td></tr>
+<tr class="memitem:a4a46bb68d67c18378f018232362631a6" id="r_a4a46bb68d67c18378f018232362631a6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a46bb68d67c18378f018232362631a6">adbms6380_read_cell_voltages</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, <a class="el" href="structstrbuf__t.html">strbuf_t</a> *cmd_buffer, uint8_t *rx_buffer, float **cell_voltages, int16_t **cell_voltages_raw, bool pec_error_flags[<a class="el" href="adbms6380_8h.html#a7eb87239e09a87dd438cebddb5ab9647">ADBMS6380_RDCV_CMD_COUNT</a>], size_t module_count, size_t max_retries_on_pec_failure)</td></tr>
 <tr class="memdesc:a4a46bb68d67c18378f018232362631a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read all cell voltages from each module.  <br /></td></tr>
 <tr class="separator:a4a46bb68d67c18378f018232362631a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bfb23ac7e49df096bc080f9808ea24f" id="r_a6bfb23ac7e49df096bc080f9808ea24f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6bfb23ac7e49df096bc080f9808ea24f">adbms6380_read_gpio_voltages</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, <a class="el" href="structstrbuf__t.html">strbuf_t</a> *cmd_buffer, uint8_t *rx_buffer, float **gpio_voltages, bool pec_error_flags[ADBMS6380_RDAUX_CMD_COUNT], size_t module_count, size_t max_retries_on_pec_failure)</td></tr>
+<tr class="memitem:a6bfb23ac7e49df096bc080f9808ea24f" id="r_a6bfb23ac7e49df096bc080f9808ea24f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6bfb23ac7e49df096bc080f9808ea24f">adbms6380_read_gpio_voltages</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, <a class="el" href="structstrbuf__t.html">strbuf_t</a> *cmd_buffer, uint8_t *rx_buffer, float **gpio_voltages, bool pec_error_flags[<a class="el" href="adbms6380_8h.html#a0d36f241a214c0e8a863de733f94e01d">ADBMS6380_RDAUX_CMD_COUNT</a>], size_t module_count, size_t max_retries_on_pec_failure)</td></tr>
 <tr class="memdesc:a6bfb23ac7e49df096bc080f9808ea24f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read all GPIO/aux voltages from each module.  <br /></td></tr>
 <tr class="separator:a6bfb23ac7e49df096bc080f9808ea24f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -219,6 +224,11 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a810f35acf333d387896a733e2987cadd_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -273,6 +283,11 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_aa5e12ae30b128ce06afa0c0dfc19e2ac_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -352,6 +367,11 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_ad6309659e70a91acde06af856a1ff7c3_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -395,6 +415,16 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a7edc17528da09597a1ba5cd6d5e9671e_cgraph.svg" width="380" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a7edc17528da09597a1ba5cd6d5e9671e_icgraph.svg" width="100%" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -426,6 +456,16 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the received PEC matches calculated value, false otherwise. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_ad065e19e0b9ff761f14abe8bf654750d_cgraph.svg" width="404" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_ad065e19e0b9ff761f14abe8bf654750d_icgraph.svg" width="100%" height="462"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -457,6 +497,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Signed 16-bit value. </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a5015be743738347dcf5a108a0fd276d6_icgraph.svg" width="100%" height="388"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -483,6 +528,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>12-bit configuration value suitable for VOV/VUV fields. </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a7dba9c62715355f360c6e4f1b150d334_icgraph.svg" width="100%" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -513,6 +563,16 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a87779ad64f4a74f4550870855d30d4a2_cgraph.svg" width="416" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a87779ad64f4a74f4550870855d30d4a2_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -543,6 +603,16 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a8c34ef8839dcd0f491ade5e2f7146e9b_cgraph.svg" width="384" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a8c34ef8839dcd0f491ade5e2f7146e9b_icgraph.svg" width="100%" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -569,6 +639,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Corresponding voltage in volts. </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a2e9f567aae9798e09e92280c8919a184_icgraph.svg" width="100%" height="388"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -619,6 +694,16 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A result code indicating success, PEC failure, or SPI failure. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_aabb23faf669f17e2bdb7360525b00581_cgraph.svg" width="574" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_aabb23faf669f17e2bdb7360525b00581_icgraph.svg" width="100%" height="462"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -687,6 +772,16 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True on success, false on SPI failure. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a4a46bb68d67c18378f018232362631a6_cgraph.svg" width="100%" height="499"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a4a46bb68d67c18378f018232362631a6_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -731,6 +826,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A result code indicating success, PEC failure, or SPI failure. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a8650f2d32760e8714a197be510c7b82b_cgraph.svg" width="100%" height="438"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -781,6 +881,16 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A result code indicating success, PEC failure, or SPI failure. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_ab36d258ca42374cc3ac985197dff0516_cgraph.svg" width="100%" height="438"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_ab36d258ca42374cc3ac985197dff0516_icgraph.svg" width="100%" height="462"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -843,6 +953,16 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True on success, false on SPI failure. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a6bfb23ac7e49df096bc080f9808ea24f_cgraph.svg" width="100%" height="499"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a6bfb23ac7e49df096bc080f9808ea24f_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -868,6 +988,16 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_ae50a5200f4ab61124ab070e8898f0cc9_cgraph.svg" width="350" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_ae50a5200f4ab61124ab070e8898f0cc9_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -893,6 +1023,16 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a12a7403f2f6b47af40cc7d278909ebe7_cgraph.svg" width="346" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a12a7403f2f6b47af40cc7d278909ebe7_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -924,6 +1064,16 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a98d7e305df1794e6146e9aa0e885bf65_cgraph.svg" width="524" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="adbms6380_8c_a98d7e305df1794e6146e9aa0e885bf65_icgraph.svg" width="522" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>

@@ -98,7 +98,8 @@ $(function(){initNavTree('main__module_2telemetry_2telemetry_8h.html',''); initR
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">telemetry.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -106,14 +107,23 @@ $(function(){initNavTree('main__module_2telemetry_2telemetry_8h.html',''); initR
 <p>MAIN MODULE telemetry task implementations.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for telemetry.h:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="main__module_2telemetry_2telemetry_8h__incl.svg" width="156" height="126"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="main__module_2telemetry_2telemetry_8h__dep__incl.svg" width="156" height="140"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <p><a href="main__module_2telemetry_2telemetry_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a14fa998ab27981c4409143eae0bde0e1" id="r_a14fa998ab27981c4409143eae0bde0e1"><td class="memItemLeft" align="right" valign="top"><a id="a14fa998ab27981c4409143eae0bde0e1" name="a14fa998ab27981c4409143eae0bde0e1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>report_telemetry_50hz</b> (void)</td></tr>
-<tr class="memdesc:a14fa998ab27981c4409143eae0bde0e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports telemetry data at 50 Hz rate Includes: AMK reported wheel_speeds. <br /></td></tr>
+<tr class="memitem:a14fa998ab27981c4409143eae0bde0e1" id="r_a14fa998ab27981c4409143eae0bde0e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14fa998ab27981c4409143eae0bde0e1">report_telemetry_50hz</a> (void)</td></tr>
+<tr class="memdesc:a14fa998ab27981c4409143eae0bde0e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports telemetry data at 50 Hz rate Includes: AMK reported wheel_speeds.  <br /></td></tr>
 <tr class="separator:a14fa998ab27981c4409143eae0bde0e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d0a75c0aee5808a962691e3973ee968" id="r_a6d0a75c0aee5808a962691e3973ee968"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d0a75c0aee5808a962691e3973ee968">report_telemetry_1hz</a> (void)</td></tr>
 <tr class="memdesc:a6d0a75c0aee5808a962691e3973ee968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports telemetry data at 1 Hz rate Includes: AMK diagnostics.  <br /></td></tr>
@@ -121,6 +131,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>report_telemetry_50hz
 <tr class="memitem:a74034e258280659c81e74c002594b2e2" id="r_a74034e258280659c81e74c002594b2e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74034e258280659c81e74c002594b2e2">report_telemetry_02hz</a> (void)</td></tr>
 <tr class="memdesc:a74034e258280659c81e74c002594b2e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports telemetry data at 0.2 Hz rate Includes: ABOX git hash.  <br /></td></tr>
 <tr class="separator:a74034e258280659c81e74c002594b2e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ad36b8024209724e842416047ea98c6aa" id="r_ad36b8024209724e842416047ea98c6aa"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad36b8024209724e842416047ea98c6aa">TELEMETRY_50HZ_PERIOD_MS</a> = 20</td></tr>
+<tr class="separator:ad36b8024209724e842416047ea98c6aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80e49f2161ae570d3daff89c3451bea7" id="r_a80e49f2161ae570d3daff89c3451bea7"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80e49f2161ae570d3daff89c3451bea7">TELEMETRY_1HZ_PERIOD_MS</a> = 1000</td></tr>
+<tr class="separator:a80e49f2161ae570d3daff89c3451bea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4449d362db0d4b464dc661c0682fbae9" id="r_a4449d362db0d4b464dc661c0682fbae9"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4449d362db0d4b464dc661c0682fbae9">TELEMETRY_02HZ_PERIOD_MS</a> = 5000</td></tr>
+<tr class="separator:a4449d362db0d4b464dc661c0682fbae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>MAIN MODULE telemetry task implementations. </p>
@@ -143,6 +162,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>report_telemetry_50hz
 
 <p>Reports telemetry data at 0.2 Hz rate Includes: ABOX git hash. </p>
 <p>Reports telemetry data at 0.2 Hz rate Includes: ABOX git hash. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="main__module_2telemetry_2telemetry_8h_a74034e258280659c81e74c002594b2e2_icgraph.svg" width="256" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -163,6 +187,97 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>report_telemetry_50hz
 
 <p>Reports telemetry data at 1 Hz rate Includes: AMK diagnostics. </p>
 <p>Reports telemetry data at 1 Hz rate Includes: AMK diagnostics. </p>
+
+</div>
+</div>
+<a id="a14fa998ab27981c4409143eae0bde0e1" name="a14fa998ab27981c4409143eae0bde0e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14fa998ab27981c4409143eae0bde0e1">&#9670;&#160;</a></span>report_telemetry_50hz()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void report_telemetry_50hz </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reports telemetry data at 50 Hz rate Includes: AMK reported wheel_speeds. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="main__module_2telemetry_2telemetry_8h_a14fa998ab27981c4409143eae0bde0e1_icgraph.svg" width="256" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a4449d362db0d4b464dc661c0682fbae9" name="a4449d362db0d4b464dc661c0682fbae9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4449d362db0d4b464dc661c0682fbae9">&#9670;&#160;</a></span>TELEMETRY_02HZ_PERIOD_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t TELEMETRY_02HZ_PERIOD_MS = 5000</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a80e49f2161ae570d3daff89c3451bea7" name="a80e49f2161ae570d3daff89c3451bea7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80e49f2161ae570d3daff89c3451bea7">&#9670;&#160;</a></span>TELEMETRY_1HZ_PERIOD_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t TELEMETRY_1HZ_PERIOD_MS = 1000</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad36b8024209724e842416047ea98c6aa" name="ad36b8024209724e842416047ea98c6aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad36b8024209724e842416047ea98c6aa">&#9670;&#160;</a></span>TELEMETRY_50HZ_PERIOD_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t TELEMETRY_50HZ_PERIOD_MS = 20</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

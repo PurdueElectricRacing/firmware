@@ -1,0 +1,49 @@
+<map id="source/driveline/main.c" name="source/driveline/main.c">
+<area shape="rect" id="Node000001" title="&quot;Driveline&quot; node source code" alt="" coords="763,5,917,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,150,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="763,26,499,45,334,61,169,82,165,82,164,77,168,76,333,55,498,39,763,21"/>
+<area shape="rect" id="Node000003" href="$freertos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="237,175,414,201"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="763,24,614,29,441,39,291,56,241,68,214,81,207,92,207,104,212,115,221,126,250,148,283,166,280,171,247,152,217,130,207,118,202,105,202,91,210,77,239,63,291,51,441,34,614,24,762,18"/>
+<area shape="rect" id="Node000005" href="$heartbeat_8h.html" title="Shared heartbeat task implementation for status LEDs." alt="" coords="451,86,648,112"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="796,34,610,85,608,79,795,29"/>
+<area shape="rect" id="Node000006" href="$phal_2gpio_8h.html" title=" " alt="" coords="492,175,629,201"/>
+<area shape="poly" id="edge16_Node000001_Node000006" title=" " alt="" coords="809,34,762,54,712,81,687,101,662,122,593,169,590,164,659,118,683,97,709,77,760,50,807,29"/>
+<area shape="rect" id="Node000009" href="$phal_2adc_8h.html" title=" " alt="" coords="653,175,787,201"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="842,31,837,73,829,98,817,121,791,149,762,169,759,165,788,145,813,118,824,96,831,72,837,31"/>
+<area shape="rect" id="Node000010" href="$phal_2can_8h.html" title=" " alt="" coords="812,175,946,201"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="847,30,861,78,877,160,872,161,856,80,842,32"/>
+<area shape="rect" id="Node000011" href="$phal_2dma_8h.html" title=" " alt="" coords="970,175,1108,201"/>
+<area shape="poly" id="edge14_Node000001_Node000011" title=" " alt="" coords="856,29,1015,163,1012,167,853,34"/>
+<area shape="rect" id="Node000012" href="$phal_2rcc_8h.html" title=" " alt="" coords="1132,175,1263,201"/>
+<area shape="poly" id="edge17_Node000001_Node000012" title=" " alt="" coords="866,29,956,77,987,98,1019,117,1083,145,1144,167,1142,172,1081,150,1016,122,984,102,953,81,864,34"/>
+<area shape="rect" id="Node000013" href="$countof_8h.html" title="macro&#45;based countof implementation" alt="" coords="1030,86,1186,112"/>
+<area shape="poly" id="edge19_Node000001_Node000013" title=" " alt="" coords="882,29,1053,79,1052,84,881,34"/>
+<area shape="rect" id="Node000014" href="$watchdog_8h.html" title="Basic watchdog implementation." alt="" coords="225,86,426,112"/>
+<area shape="poly" id="edge20_Node000001_Node000014" title=" " alt="" coords="763,33,439,82,412,86,411,81,438,76,762,28"/>
+<area shape="rect" id="Node000015" href="$config_8h.html" title=" " alt="" coords="1210,86,1276,112"/>
+<area shape="poly" id="edge23_Node000001_Node000015" title=" " alt="" coords="918,24,1051,43,1126,58,1200,76,1204,78,1203,83,1198,82,1125,63,1050,48,918,30"/>
+<area shape="rect" id="Node000016" href="$oil__temps__table_8h.html" title="Oil temp lookup table from datasheet." alt="" coords="1299,86,1421,112"/>
+<area shape="poly" id="edge24_Node000001_Node000016" title=" " alt="" coords="918,24,1089,44,1289,76,1304,80,1302,85,1288,82,1088,49,918,29"/>
+<area shape="rect" id="Node000019" href="$pin__defs_8h.html" title="&quot;Driveline&quot; node pin definitions and related constants" alt="" coords="723,86,803,112"/>
+<area shape="poly" id="edge27_Node000001_Node000019" title=" " alt="" coords="830,33,787,77,783,74,827,30"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="420,330,484,356"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="337,200,435,316,431,320,333,203"/>
+<area shape="poly" id="edge9_Node000005_Node000003" title=" " alt="" coords="519,115,372,172,370,167,517,110"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="554,112,560,160,554,160,548,113"/>
+<area shape="rect" id="Node000007" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="714,256,884,282"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="598,199,748,248,747,253,596,204"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="740,285,499,335,498,329,739,280"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="762,330,836,356"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="802,282,802,314,796,314,796,282"/>
+<area shape="poly" id="edge11_Node000009_Node000007" title=" " alt="" coords="734,199,778,243,774,247,730,203"/>
+<area shape="poly" id="edge13_Node000010_Node000007" title=" " alt="" coords="869,203,824,247,820,243,865,199"/>
+<area shape="poly" id="edge15_Node000011_Node000007" title=" " alt="" coords="1003,204,851,254,849,249,1001,199"/>
+<area shape="poly" id="edge18_Node000012_Node000007" title=" " alt="" coords="1151,204,1121,211,887,256,886,250,1120,206,1150,199"/>
+<area shape="poly" id="edge22_Node000014_Node000003" title=" " alt="" coords="328,113,328,159,323,159,323,113"/>
+<area shape="poly" id="edge21_Node000014_Node000004" title=" " alt="" coords="357,110,394,132,413,148,428,166,445,204,454,244,457,283,457,315,452,315,452,283,449,245,440,206,423,169,409,152,391,137,354,115"/>
+<area shape="rect" id="Node000017" href="$lerp__lut_8h.html" title="Linear interpolation lookup table (LUT)." alt="" coords="1289,168,1431,208"/>
+<area shape="poly" id="edge25_Node000016_Node000017" title=" " alt="" coords="1363,113,1363,153,1358,153,1358,113"/>
+<area shape="rect" id="Node000018" title=" " alt="" coords="1326,256,1394,282"/>
+<area shape="poly" id="edge26_Node000017_Node000018" title=" " alt="" coords="1363,209,1363,241,1358,241,1358,209"/>
+<area shape="poly" id="edge28_Node000019_Node000006" title=" " alt="" coords="735,115,603,171,601,166,733,110"/>
+</map>

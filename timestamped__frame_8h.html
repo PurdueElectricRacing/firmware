@@ -98,7 +98,8 @@ $(function(){initNavTree('timestamped__frame_8h.html',''); initResizable(true); 
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">timestamped_frame.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -106,6 +107,16 @@ $(function(){initNavTree('timestamped__frame_8h.html',''); initResizable(true); 
 <p>Definition for timestamped CAN frames.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for timestamped_frame.h:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="timestamped__frame_8h__incl.svg" width="211" height="126"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="timestamped__frame_8h__dep__incl.svg" width="100%" height="527"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 </div>
 <p><a href="timestamped__frame_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -113,11 +124,123 @@ $(function(){initNavTree('timestamped__frame_8h.html',''); initResizable(true); 
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ac28171e9120619fc3fac4b2ce4052f6b" id="r_ac28171e9120619fc3fac4b2ce4052f6b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac28171e9120619fc3fac4b2ce4052f6b">set_bus_id</a> (<a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> *frame, uint8_t bus_id)</td></tr>
+<tr class="separator:ac28171e9120619fc3fac4b2ce4052f6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a270cffe83263dd5f38b0bde6f9f83810" id="r_a270cffe83263dd5f38b0bde6f9f83810"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a270cffe83263dd5f38b0bde6f9f83810">set_xid</a> (<a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> *frame, bool is_xid)</td></tr>
+<tr class="separator:a270cffe83263dd5f38b0bde6f9f83810"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa49122d19022c27ac7ff1de84eb7bc61" id="r_aa49122d19022c27ac7ff1de84eb7bc61"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa49122d19022c27ac7ff1de84eb7bc61">set_can_id</a> (<a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> *frame, uint32_t can_id)</td></tr>
+<tr class="separator:aa49122d19022c27ac7ff1de84eb7bc61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Definition for timestamped CAN frames. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="ac28171e9120619fc3fac4b2ce4052f6b" name="ac28171e9120619fc3fac4b2ce4052f6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac28171e9120619fc3fac4b2ce4052f6b">&#9670;&#160;</a></span>set_bus_id()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void set_bus_id </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> *</td>          <td class="paramname"><span class="paramname"><em>frame</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>bus_id</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="timestamped__frame_8h_ac28171e9120619fc3fac4b2ce4052f6b_icgraph.svg" width="484" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aa49122d19022c27ac7ff1de84eb7bc61" name="aa49122d19022c27ac7ff1de84eb7bc61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa49122d19022c27ac7ff1de84eb7bc61">&#9670;&#160;</a></span>set_can_id()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void set_can_id </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> *</td>          <td class="paramname"><span class="paramname"><em>frame</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>can_id</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="timestamped__frame_8h_aa49122d19022c27ac7ff1de84eb7bc61_icgraph.svg" width="484" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a270cffe83263dd5f38b0bde6f9f83810" name="a270cffe83263dd5f38b0bde6f9f83810"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a270cffe83263dd5f38b0bde6f9f83810">&#9670;&#160;</a></span>set_xid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void set_xid </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> *</td>          <td class="paramname"><span class="paramname"><em>frame</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>is_xid</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="timestamped__frame_8h_a270cffe83263dd5f38b0bde6f9f83810_icgraph.svg" width="462" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

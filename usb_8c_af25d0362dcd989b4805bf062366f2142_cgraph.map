@@ -1,0 +1,25 @@
+<map id="PHAL_USB_read" name="PHAL_USB_read">
+<area shape="rect" id="Node000001" title="Consume one host&#45;to&#45;device packet." alt="" coords="5,108,130,134"/>
+<area shape="rect" id="Node000002" href="$usb_8c.html#a6bb0d538ececadd971fdc6c14f9c56e8" title=" " alt="" coords="178,83,327,108"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,110,162,105,162,111,130,115"/>
+<area shape="rect" id="Node000003" href="$usb__priv_8c.html#ac8fc2c5988800daa9a8e4fd40ef19dce" title="Copy one completed OUT packet from packet memory and rearm reception." alt="" coords="193,132,312,158"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="130,126,178,132,177,138,130,132"/>
+<area shape="rect" id="Node000004" href="$usb__priv_8c.html#a7312b4dfb274b8c4e34c683499ad5e76" title=" " alt="" coords="383,5,511,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="307,129,325,119,341,102,349,85,357,67,373,48,391,36,394,41,377,52,362,70,354,87,345,105,329,123,310,134"/>
+<area shape="rect" id="Node000005" href="$usb__priv_8c.html#a34ead234195e6e26e97662c2db3b9dbb" title=" " alt="" coords="568,56,716,82"/>
+<area shape="poly" id="edge8_Node000003_Node000005" title=" " alt="" coords="298,129,326,118,349,104,374,92,419,80,465,73,552,66,553,71,466,78,420,85,376,97,352,109,328,123,300,134"/>
+<area shape="rect" id="Node000006" href="$usb__priv_8c.html#a42c22576a1f6dd626e947d9a95ff6433" title=" " alt="" coords="376,205,518,231"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="286,156,376,192,392,197,390,202,374,197,284,161"/>
+<area shape="rect" id="Node000008" href="$usb__priv_8c.html#ae50319496e974387c6b5a0668b825cb9" title=" " alt="" coords="376,156,518,182"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="313,150,361,156,361,161,312,155"/>
+<area shape="rect" id="Node000009" href="$usb__priv_8c.html#aca373172c04b6704271473559fe35015" title=" " alt="" coords="375,255,519,280"/>
+<area shape="poly" id="edge9_Node000003_Node000009" title=" " alt="" coords="268,156,314,197,376,241,385,246,383,251,374,246,311,202,265,160"/>
+<area shape="rect" id="Node000011" href="$usb__priv_8c.html#aeac1c8e012ea840bd62b75d951b16358" title=" " alt="" coords="392,107,502,132"/>
+<area shape="poly" id="edge11_Node000003_Node000011" title=" " alt="" coords="312,134,376,126,377,131,313,140"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="500,29,576,49,575,54,499,34"/>
+<area shape="rect" id="Node000007" href="$usb__priv_8c.html#a3b7fce8b1f0de310ffffbe258ad7c6d7" title=" " alt="" coords="605,205,679,231"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="518,216,589,216,589,221,518,221"/>
+<area shape="rect" id="Node000010" href="$usb__priv_8c.html#a80afa30e860ee2cbe11c0b317bd72e0e" title=" " alt="" coords="567,255,717,280"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="520,265,552,265,552,270,520,270"/>
+<area shape="poly" id="edge12_Node000011_Node000005" title=" " alt="" coords="499,103,575,84,576,89,500,109"/>
+</map>

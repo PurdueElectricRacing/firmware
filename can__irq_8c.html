@@ -112,26 +112,125 @@ $(function(){initNavTree('can__irq_8c.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="spmc_8h_source.html">spmc.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="timestamped__frame_8h_source.html">timestamped_frame.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="rtc__sync_8h_source.html">rtc_sync.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for can_irq.c:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="can__irq_8c__incl.svg" width="100%" height="571"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a990c3a82a9723ab422570b787af03f72" id="r_a990c3a82a9723ab422570b787af03f72"><td class="memItemLeft" align="right" valign="top"><a id="a990c3a82a9723ab422570b787af03f72" name="a990c3a82a9723ab422570b787af03f72"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>CAN1_RX0_IRQHandler</b> ()</td></tr>
+<tr class="memitem:a9b0501722d06c68f87a4e482bc57c73e" id="r_a9b0501722d06c68f87a4e482bc57c73e"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b0501722d06c68f87a4e482bc57c73e">can_rx_irq_handler</a> (CAN_TypeDef *peripheral)</td></tr>
+<tr class="separator:a9b0501722d06c68f87a4e482bc57c73e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a990c3a82a9723ab422570b787af03f72" id="r_a990c3a82a9723ab422570b787af03f72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a990c3a82a9723ab422570b787af03f72">CAN1_RX0_IRQHandler</a> ()</td></tr>
 <tr class="separator:a990c3a82a9723ab422570b787af03f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b1e6757f968cf4456a655d61e249555" id="r_a8b1e6757f968cf4456a655d61e249555"><td class="memItemLeft" align="right" valign="top"><a id="a8b1e6757f968cf4456a655d61e249555" name="a8b1e6757f968cf4456a655d61e249555"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>CAN2_RX0_IRQHandler</b> ()</td></tr>
+<tr class="memitem:a8b1e6757f968cf4456a655d61e249555" id="r_a8b1e6757f968cf4456a655d61e249555"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b1e6757f968cf4456a655d61e249555">CAN2_RX0_IRQHandler</a> ()</td></tr>
 <tr class="separator:a8b1e6757f968cf4456a655d61e249555"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a6d7ff913bb95222bc96d632a6e8d8ea4" id="r_a6d7ff913bb95222bc96d632a6e8d8ea4"><td class="memItemLeft" align="right" valign="top"><a id="a6d7ff913bb95222bc96d632a6e8d8ea4" name="a6d7ff913bb95222bc96d632a6e8d8ea4"></a>
-volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>last_can_rx_time_ms</b> = 0</td></tr>
+<tr class="memitem:a6d7ff913bb95222bc96d632a6e8d8ea4" id="r_a6d7ff913bb95222bc96d632a6e8d8ea4"><td class="memItemLeft" align="right" valign="top">volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d7ff913bb95222bc96d632a6e8d8ea4">last_can_rx_time_ms</a> = 0</td></tr>
 <tr class="separator:a6d7ff913bb95222bc96d632a6e8d8ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Timestamped frame producers from CAN RX IRQ. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a990c3a82a9723ab422570b787af03f72" name="a990c3a82a9723ab422570b787af03f72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a990c3a82a9723ab422570b787af03f72">&#9670;&#160;</a></span>CAN1_RX0_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CAN1_RX0_IRQHandler </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__irq_8c_a990c3a82a9723ab422570b787af03f72_cgraph.svg" width="578" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a8b1e6757f968cf4456a655d61e249555" name="a8b1e6757f968cf4456a655d61e249555"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b1e6757f968cf4456a655d61e249555">&#9670;&#160;</a></span>CAN2_RX0_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CAN2_RX0_IRQHandler </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__irq_8c_a8b1e6757f968cf4456a655d61e249555_cgraph.svg" width="578" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a9b0501722d06c68f87a4e482bc57c73e" name="a9b0501722d06c68f87a4e482bc57c73e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b0501722d06c68f87a4e482bc57c73e">&#9670;&#160;</a></span>can_rx_irq_handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void can_rx_irq_handler </td>
+          <td>(</td>
+          <td class="paramtype">CAN_TypeDef *</td>          <td class="paramname"><span class="paramname"><em>peripheral</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__irq_8c_a9b0501722d06c68f87a4e482bc57c73e_cgraph.svg" width="366" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__irq_8c_a9b0501722d06c68f87a4e482bc57c73e_icgraph.svg" width="352" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a6d7ff913bb95222bc96d632a6e8d8ea4" name="a6d7ff913bb95222bc96d632a6e8d8ea4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d7ff913bb95222bc96d632a6e8d8ea4">&#9670;&#160;</a></span>last_can_rx_time_ms</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t last_can_rx_time_ms = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -1,0 +1,29 @@
+<map id="MS_refreshPage" name="MS_refreshPage">
+<area shape="rect" id="Node000001" title="Refreshes the menu page by resetting selection state and updating all elements." alt="" coords="5,116,124,142"/>
+<area shape="rect" id="Node000002" href="$menu__system_8c.html#a0e536353f8e34a992b1070bcf883320b" title=" " alt="" coords="172,55,336,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,113,196,83,198,88,108,118"/>
+<area shape="rect" id="Node000007" href="$menu__system_8c.html#a6173507fa7b7cf81afec896f80300c9a" title="Applies selected state styling to a menu element." alt="" coords="181,116,327,142"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="124,126,165,126,165,132,124,132"/>
+<area shape="rect" id="Node000010" href="$nextion_8c.html#ac7e3e9fc4674d17281069e97b8a5384d" title="Sets a value to a specified object on the Nextion display." alt="" coords="410,203,516,228"/>
+<area shape="poly" id="edge15_Node000001_Node000010" title=" " alt="" coords="121,140,172,152,395,199,394,204,171,157,120,145"/>
+<area shape="rect" id="Node000003" href="$nextion_8c.html#ab2a89fd8e292338a6e570a41a698ad3a" title="Sets the text of a Nextion display object." alt="" coords="414,55,512,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="337,65,398,65,398,70,337,70"/>
+<area shape="rect" id="Node000006" href="$nextion_8c.html#a8af8629d8160abf996231ff267e43564" title="Sets the text of a Nextion display object using printf&#45;style formatting." alt="" coords="384,5,541,31"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="311,51,390,33,391,38,312,57"/>
+<area shape="rect" id="Node000004" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="589,80,693,106"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="513,72,574,81,573,86,512,77"/>
+<area shape="rect" id="Node000005" href="$strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf" title="Appends formatted data to the buffer using printf&#45;style formatting. !" alt="" coords="596,129,686,155"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="513,78,542,89,591,116,598,120,596,125,588,121,540,94,511,83"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="513,29,542,40,605,70,602,75,540,45,511,34"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="525,29,543,40,560,59,568,78,576,97,591,116,594,119,591,123,587,120,571,100,564,80,556,62,540,44,522,34"/>
+<area shape="rect" id="Node000008" href="$nextion_8c.html#a19c3df8972af2eaea366cb65fad34d43" title="Sets the background color of a specified object on the Nextion display." alt="" coords="392,153,534,179"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="328,139,377,148,376,153,327,145"/>
+<area shape="rect" id="Node000009" href="$nextion_8c.html#ae995d182561a5fa3087569539bb551d2" title="Sets the border width of a specified object on the Nextion display." alt="" coords="390,104,535,130"/>
+<area shape="poly" id="edge12_Node000007_Node000009" title=" " alt="" coords="327,122,375,119,375,125,327,127"/>
+<area shape="poly" id="edge10_Node000008_Node000004" title=" " alt="" coords="511,150,540,140,588,114,597,110,599,115,591,119,542,145,513,155"/>
+<area shape="poly" id="edge11_Node000008_Node000005" title=" " alt="" coords="534,154,580,148,581,153,535,159"/>
+<area shape="poly" id="edge13_Node000009_Node000004" title=" " alt="" coords="535,104,573,99,574,104,536,110"/>
+<area shape="poly" id="edge14_Node000009_Node000005" title=" " alt="" coords="536,124,581,131,580,136,535,130"/>
+<area shape="poly" id="edge16_Node000010_Node000004" title=" " alt="" coords="515,202,540,189,556,172,564,154,571,135,587,115,591,112,594,116,591,119,576,138,568,156,560,175,543,194,518,207"/>
+<area shape="poly" id="edge17_Node000010_Node000005" title=" " alt="" coords="511,200,540,189,601,160,604,165,542,194,512,205"/>
+</map>

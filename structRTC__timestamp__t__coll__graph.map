@@ -1,0 +1,7 @@
+<map id="RTC_timestamp_t" name="RTC_timestamp_t">
+<area shape="rect" id="Node000001" title=" " alt="" coords="45,94,171,120"/>
+<area shape="rect" id="Node000002" href="$structRTC__date__t.html" title=" " alt="" coords="5,5,96,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,42,102,92,98,95,64,45"/>
+<area shape="rect" id="Node000003" href="$structRTC__time__t.html" title=" " alt="" coords="120,5,210,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="151,45,118,95,114,92,147,42"/>
+</map>

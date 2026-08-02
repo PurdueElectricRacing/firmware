@@ -1,0 +1,9 @@
+<map id="bangbang_update" name="bangbang_update">
+<area shape="rect" id="Node000001" title="Update the state of the bang&#45;bang controller based on the input value and current time...." alt="" coords="465,5,589,31"/>
+<area shape="rect" id="Node000002" href="$cooling__fsm_8c.html#a481313ccaccd49f2ea6eab2c52cc72d6" title=" " alt="" coords="294,5,417,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="449,21,418,21,418,16,449,16"/>
+<area shape="rect" id="Node000003" href="$cooling__fsm_8c.html#a7451962d8f0e593a9d72b536d858e9bf" title=" " alt="" coords="103,5,246,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="278,21,246,21,246,16,278,16"/>
+<area shape="rect" id="Node000004" href="$pdu_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>

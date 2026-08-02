@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['word_5f8_0',['WORD_8',['../phal__F4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493a0da70d8bed4bc53d9111d5d26ab6d027',1,'usart.h']]],
-  ['word_5f9_1',['WORD_9',['../phal__F4_2usart_2usart_8h.html#a0c0f23ca19df3c59dfbc84e0d1e58493aaf384e56f1bc9d30d7733088c7ad3274',1,'usart.h']]]
+  ['heartbeat_5fstate_5fnormal_0',['HEARTBEAT_STATE_NORMAL',['../heartbeat_8h.html#a0bcf4de1e57ca5568f188b209f8ee7a5acf3f95fa20b182905677773f66f00f98',1,'heartbeat.h']]],
+  ['heartbeat_5fstate_5fpreflight_1',['HEARTBEAT_STATE_PREFLIGHT',['../heartbeat_8h.html#a0bcf4de1e57ca5568f188b209f8ee7a5a3475881b5f396c0498fdb19f5aeeac58',1,'heartbeat.h']]],
+  ['hw_5fdisable_2',['HW_DISABLE',['../phal__F4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6',1,'HW_DISABLE:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a791d53ca9fd6a52d968f740e63288eb6',1,'HW_DISABLE:&#160;usart.h']]]
 ];

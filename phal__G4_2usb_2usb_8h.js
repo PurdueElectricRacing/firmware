@@ -14,5 +14,8 @@ var phal__G4_2usb_2usb_8h =
     [ "PHAL_USB_read", "phal__G4_2usb_2usb_8h.html#af25d0362dcd989b4805bf062366f2142", null ],
     [ "PHAL_USB_setAddress", "phal__G4_2usb_2usb_8h.html#a7b6c8df7b0328f18f6dab165592423ae", null ],
     [ "PHAL_USB_stall", "phal__G4_2usb_2usb_8h.html#ad334f9d5a0cf9ede82d354e1c17c02b3", null ],
-    [ "PHAL_USB_write", "phal__G4_2usb_2usb_8h.html#a47d401544e89e5c4e84a478fa6c581b5", null ]
+    [ "PHAL_USB_write", "phal__G4_2usb_2usb_8h.html#a47d401544e89e5c4e84a478fa6c581b5", null ],
+    [ "PHAL_USB_CONTROL_ENDPOINT", "phal__G4_2usb_2usb_8h.html#acde0a8d0ed50f0ee3866333c426744dd", null ],
+    [ "PHAL_USB_DATA_ENDPOINT", "phal__G4_2usb_2usb_8h.html#ac11d5e808a4d0ee4824043c138bed127", null ],
+    [ "PHAL_USB_PACKET_SIZE_BYTES", "phal__G4_2usb_2usb_8h.html#a2e6f1c105cb6578615bf45ec8d123a71", null ]
 ];

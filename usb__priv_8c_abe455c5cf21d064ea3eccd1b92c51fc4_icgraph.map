@@ -1,0 +1,5 @@
+<map id="USB_PRIV_stall" name="USB_PRIV_stall">
+<area shape="rect" id="Node000001" title="Set one endpoint direction to the USB STALL handshake state." alt="" coords="177,5,295,31"/>
+<area shape="rect" id="Node000002" href="$usb_8c.html#ad334f9d5a0cf9ede82d354e1c17c02b3" title="Stall one endpoint direction." alt="" coords="5,5,129,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,21,129,21,129,16,161,16"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="USB_PRIV_getFrameNumber" name="USB_PRIV_getFrameNumber">
+<area shape="rect" id="Node000001" title="Read the USB peripheral&#39;s current 11&#45;bit frame number." alt="" coords="254,5,449,31"/>
+<area shape="rect" id="Node000002" href="$usb_8c.html#a398a346b137c4e086e2542cc4fda6c75" title="Read the USB peripheral&#39;s current 11&#45;bit frame number." alt="" coords="5,5,206,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="238,21,206,21,206,16,238,16"/>
+</map>

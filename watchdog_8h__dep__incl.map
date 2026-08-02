@@ -1,0 +1,21 @@
+<map id="common/watchdog/watchdog.h" name="common/watchdog/watchdog.h">
+<area shape="rect" id="Node000001" title="Basic watchdog implementation." alt="" coords="733,5,935,31"/>
+<area shape="rect" id="Node000002" href="$watchdog_8c.html" title="Basic watchdog implementation." alt="" coords="5,86,207,112"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="718,31,487,51,218,82,173,88,172,83,218,76,486,46,718,26"/>
+<area shape="rect" id="Node000003" href="$a__box_2main_8c.html" title="&quot;Abox&quot; node source code" alt="" coords="230,86,371,112"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="718,34,559,54,382,82,350,88,349,83,382,76,558,49,718,29"/>
+<area shape="rect" id="Node000004" href="$daq_2main_8c.html" title="&quot;DAQ&quot; node source code" alt="" coords="394,86,522,112"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="754,37,535,82,506,88,504,83,533,76,753,32"/>
+<area shape="rect" id="Node000005" href="$driver__interface_8c.html" title="thread to manage driver&#45;facing LCD, buttons, LEDs" alt="" coords="546,79,727,120"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="790,40,687,81,685,76,788,35"/>
+<area shape="rect" id="Node000006" href="$dashboard_2main_8c.html" title="&quot;Dashboard&quot; node source code" alt="" coords="751,86,917,112"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="837,47,837,86,831,86,831,47"/>
+<area shape="rect" id="Node000007" href="$driveline_2main_8c.html" title="&quot;Driveline&quot; node source code" alt="" coords="941,86,1095,112"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="877,35,991,84,989,88,875,40"/>
+<area shape="rect" id="Node000008" href="$main__module_2main_8c.html" title="&quot;Main Module&quot; node source code" alt="" coords="1119,79,1261,120"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="906,32,1108,76,1119,79,1118,84,1107,82,905,37"/>
+<area shape="rect" id="Node000009" href="$pdu_2main_8c.html" title="&quot;PDU&quot; node source code" alt="" coords="1285,86,1412,112"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="950,29,1104,49,1273,76,1304,83,1303,89,1272,82,1104,54,950,34"/>
+<area shape="rect" id="Node000010" href="$torque__vector_2main_8c.html" title="&quot;Torque Vector&quot; node source code" alt="" coords="1437,79,1580,120"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="950,24,1171,44,1299,58,1425,76,1437,78,1436,84,1424,82,1298,63,1171,49,950,30"/>
+</map>

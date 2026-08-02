@@ -98,14 +98,20 @@ $(function(){initNavTree('max_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">max.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>Maximum value functions utility header.  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="max_8h__dep__incl.svg" width="494" height="140"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
 <p><a href="max_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
@@ -120,6 +126,15 @@ Macros</h2></td></tr>
 <tr class="separator:a4137f1216cf96bf255300343dce9fce7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad63987f4fc831534891c747ef1571a8c" id="r_ad63987f4fc831534891c747ef1571a8c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad63987f4fc831534891c747ef1571a8c">MAXOF</a>(...)</td></tr>
 <tr class="separator:ad63987f4fc831534891c747ef1571a8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a19d1e3e0d81879c835d60f24d5f4895e" id="r_a19d1e3e0d81879c835d60f24d5f4895e"><td class="memItemLeft" align="right" valign="top">static signed int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19d1e3e0d81879c835d60f24d5f4895e">max2_signed</a> (signed int a, signed int b)</td></tr>
+<tr class="separator:a19d1e3e0d81879c835d60f24d5f4895e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3be0bd21e8c2c2e9f409692e32cf085f" id="r_a3be0bd21e8c2c2e9f409692e32cf085f"><td class="memItemLeft" align="right" valign="top">static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3be0bd21e8c2c2e9f409692e32cf085f">max2_unsigned</a> (unsigned int a, unsigned int b)</td></tr>
+<tr class="separator:a3be0bd21e8c2c2e9f409692e32cf085f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b51a6b86e23114b99a328fe8c64c05a" id="r_a7b51a6b86e23114b99a328fe8c64c05a"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b51a6b86e23114b99a328fe8c64c05a">max2_float</a> (float a, float b)</td></tr>
+<tr class="separator:a7b51a6b86e23114b99a328fe8c64c05a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Maximum value functions utility header. </p>
@@ -182,7 +197,11 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">DISPATCH_MAXOF(__VA_ARGS__, MAXOF4, MAXOF3, MAXOF2)(__VA_ARGS__)</div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a4137f1216cf96bf255300343dce9fce7">DISPATCH_MAXOF</a>(__VA_ARGS__, <a class="code hl_define" href="#a3ed5e20d1256a173abf606b7f8c19c77">MAXOF4</a>, <a class="code hl_define" href="#ae8e96ee0247b9194e168c4b12959454e">MAXOF3</a>, <a class="code hl_define" href="#a6de9ebab418c589317854c601ee91161">MAXOF2</a>)(__VA_ARGS__)</div>
+<div class="ttc" id="amax_8h_html_a3ed5e20d1256a173abf606b7f8c19c77"><div class="ttname"><a href="#a3ed5e20d1256a173abf606b7f8c19c77">MAXOF4</a></div><div class="ttdeci">#define MAXOF4(a, b, c, d)</div><div class="ttdef"><b>Definition</b> max.h:37</div></div>
+<div class="ttc" id="amax_8h_html_a4137f1216cf96bf255300343dce9fce7"><div class="ttname"><a href="#a4137f1216cf96bf255300343dce9fce7">DISPATCH_MAXOF</a></div><div class="ttdeci">#define DISPATCH_MAXOF(_1, _2, _3, _4, NAME,...)</div><div class="ttdef"><b>Definition</b> max.h:41</div></div>
+<div class="ttc" id="amax_8h_html_a6de9ebab418c589317854c601ee91161"><div class="ttname"><a href="#a6de9ebab418c589317854c601ee91161">MAXOF2</a></div><div class="ttdeci">#define MAXOF2(a, b)</div><div class="ttdef"><b>Definition</b> max.h:30</div></div>
+<div class="ttc" id="amax_8h_html_ae8e96ee0247b9194e168c4b12959454e"><div class="ttname"><a href="#ae8e96ee0247b9194e168c4b12959454e">MAXOF3</a></div><div class="ttdeci">#define MAXOF3(a, b, c)</div><div class="ttdef"><b>Definition</b> max.h:36</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -205,10 +224,13 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    _Generic((a) + (b), \</div>
-<div class="line">    <span class="keywordtype">signed</span> <span class="keywordtype">int</span>: max2_signed, \</div>
-<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>: max2_unsigned, \</div>
-<div class="line">    <span class="keywordtype">float</span>: max2_float \</div>
+<div class="line">    <span class="keywordtype">signed</span> <span class="keywordtype">int</span>: <a class="code hl_function" href="#a19d1e3e0d81879c835d60f24d5f4895e">max2_signed</a>, \</div>
+<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>: <a class="code hl_function" href="#a3be0bd21e8c2c2e9f409692e32cf085f">max2_unsigned</a>, \</div>
+<div class="line">    <span class="keywordtype">float</span>: <a class="code hl_function" href="#a7b51a6b86e23114b99a328fe8c64c05a">max2_float</a> \</div>
 <div class="line">)(a, b)</div>
+<div class="ttc" id="amax_8h_html_a19d1e3e0d81879c835d60f24d5f4895e"><div class="ttname"><a href="#a19d1e3e0d81879c835d60f24d5f4895e">max2_signed</a></div><div class="ttdeci">static signed int max2_signed(signed int a, signed int b)</div><div class="ttdef"><b>Definition</b> max.h:16</div></div>
+<div class="ttc" id="amax_8h_html_a3be0bd21e8c2c2e9f409692e32cf085f"><div class="ttname"><a href="#a3be0bd21e8c2c2e9f409692e32cf085f">max2_unsigned</a></div><div class="ttdeci">static unsigned int max2_unsigned(unsigned int a, unsigned int b)</div><div class="ttdef"><b>Definition</b> max.h:21</div></div>
+<div class="ttc" id="amax_8h_html_a7b51a6b86e23114b99a328fe8c64c05a"><div class="ttname"><a href="#a7b51a6b86e23114b99a328fe8c64c05a">max2_float</a></div><div class="ttdeci">static float max2_float(float a, float b)</div><div class="ttdef"><b>Definition</b> max.h:26</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -235,7 +257,7 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">MAXOF2(MAXOF2(a, b), c)</div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a6de9ebab418c589317854c601ee91161">MAXOF2</a>(<a class="code hl_define" href="#a6de9ebab418c589317854c601ee91161">MAXOF2</a>(a, b), c)</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -267,8 +289,96 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">MAXOF2(MAXOF2(a, b), MAXOF2(c, d))</div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a6de9ebab418c589317854c601ee91161">MAXOF2</a>(<a class="code hl_define" href="#a6de9ebab418c589317854c601ee91161">MAXOF2</a>(a, b), <a class="code hl_define" href="#a6de9ebab418c589317854c601ee91161">MAXOF2</a>(c, d))</div>
 </div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a7b51a6b86e23114b99a328fe8c64c05a" name="a7b51a6b86e23114b99a328fe8c64c05a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b51a6b86e23114b99a328fe8c64c05a">&#9670;&#160;</a></span>max2_float()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float max2_float </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a19d1e3e0d81879c835d60f24d5f4895e" name="a19d1e3e0d81879c835d60f24d5f4895e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19d1e3e0d81879c835d60f24d5f4895e">&#9670;&#160;</a></span>max2_signed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static signed int max2_signed </td>
+          <td>(</td>
+          <td class="paramtype">signed int</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">signed int</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3be0bd21e8c2c2e9f409692e32cf085f" name="a3be0bd21e8c2c2e9f409692e32cf085f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3be0bd21e8c2c2e9f409692e32cf085f">&#9670;&#160;</a></span>max2_unsigned()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static unsigned int max2_unsigned </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->

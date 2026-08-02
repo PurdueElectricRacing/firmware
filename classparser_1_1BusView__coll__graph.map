@@ -1,0 +1,9 @@
+<map id="parser.BusView" name="parser.BusView">
+<area shape="rect" id="Node000001" title=" " alt="" coords="64,94,176,120"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,49,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="38,44,54,68,70,81,89,91,86,96,67,86,50,72,34,47"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="100,5,141,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="123,47,123,94,118,94,118,47"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="168,5,212,31"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="179,46,162,72,138,95,134,91,158,68,175,43"/>
+</map>

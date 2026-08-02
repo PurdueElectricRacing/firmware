@@ -99,7 +99,8 @@ $(function(){initNavTree('sd__card_8h.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">sd_card.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -108,40 +109,152 @@ $(function(){initNavTree('sd__card_8h.html',''); initResizable(true); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for sd_card.h:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="sd__card_8h__incl.svg" width="231" height="199"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="sd__card_8h__dep__incl.svg" width="299" height="214"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <p><a href="sd__card_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:acb425a95edaf884fd443c15be109f574" id="r_acb425a95edaf884fd443c15be109f574"><td class="memItemLeft" align="right" valign="top"><a id="acb425a95edaf884fd443c15be109f574" name="acb425a95edaf884fd443c15be109f574"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>sd_state_t</b> { <br />
-&#160;&#160;<b>SD_STATE_DISABLED</b> = 0
-, <b>SD_STATE_INSERT_CARD</b> = 1
-, <b>SD_STATE_MOUNTING</b> = 2
-, <b>SD_STATE_OPENING_FILE</b> = 3
+<tr class="memitem:acb425a95edaf884fd443c15be109f574" id="r_acb425a95edaf884fd443c15be109f574"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb425a95edaf884fd443c15be109f574">sd_state_t</a> { <br />
+&#160;&#160;<a class="el" href="#acb425a95edaf884fd443c15be109f574a56eb5c9dbda5178d288a806c2e47cd71">SD_STATE_DISABLED</a> = 0
+, <a class="el" href="#acb425a95edaf884fd443c15be109f574aaf6cf89d195407e98e155002db351fab">SD_STATE_INSERT_CARD</a> = 1
+, <a class="el" href="#acb425a95edaf884fd443c15be109f574af39a4df1fa551328d280312c2f779305">SD_STATE_MOUNTING</a> = 2
+, <a class="el" href="#acb425a95edaf884fd443c15be109f574acb9ff7b9d04c676559912ce8d74ffb33">SD_STATE_OPENING_FILE</a> = 3
 , <br />
-&#160;&#160;<b>SD_STATE_READY2LOG</b> = 4
-, <b>SD_STATE_CLOSING_FILE</b> = 5
-, <b>SD_STATE_UNMOUNTING</b> = 6
-, <b>SD_STATE_RECOVERING</b> = 7
+&#160;&#160;<a class="el" href="#acb425a95edaf884fd443c15be109f574a876317de67be1451e42a89a69f62b9cc">SD_STATE_READY2LOG</a> = 4
+, <a class="el" href="#acb425a95edaf884fd443c15be109f574a760cb3f2dceb39066fee2d5b4619d4b1">SD_STATE_CLOSING_FILE</a> = 5
+, <a class="el" href="#acb425a95edaf884fd443c15be109f574a56c516eb912a5cbc615f1a47718d27fe">SD_STATE_UNMOUNTING</a> = 6
+, <a class="el" href="#acb425a95edaf884fd443c15be109f574a209ba0ec113397e20696c6cb2d5bc5f8">SD_STATE_RECOVERING</a> = 7
 , <br />
-&#160;&#160;<b>SD_STATE_FATAL</b> = 8
+&#160;&#160;<a class="el" href="#acb425a95edaf884fd443c15be109f574add0ac8d4dbe870645623a63a047cc03b">SD_STATE_FATAL</a> = 8
 <br />
  }</td></tr>
 <tr class="separator:acb425a95edaf884fd443c15be109f574"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1be8d347ac90e89922850113d6c264df" id="r_a1be8d347ac90e89922850113d6c264df"><td class="memItemLeft" align="right" valign="top"><a id="a1be8d347ac90e89922850113d6c264df" name="a1be8d347ac90e89922850113d6c264df"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>sd_card_periodic</b> (void)</td></tr>
+<tr class="memitem:a1be8d347ac90e89922850113d6c264df" id="r_a1be8d347ac90e89922850113d6c264df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1be8d347ac90e89922850113d6c264df">sd_card_periodic</a> (void)</td></tr>
 <tr class="separator:a1be8d347ac90e89922850113d6c264df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a823960a0f57943634ea0f94d48861d65" id="r_a823960a0f57943634ea0f94d48861d65"><td class="memItemLeft" align="right" valign="top"><a id="a823960a0f57943634ea0f94d48861d65" name="a823960a0f57943634ea0f94d48861d65"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>sd_power_loss_callback</b> (void)</td></tr>
+<tr class="memitem:a823960a0f57943634ea0f94d48861d65" id="r_a823960a0f57943634ea0f94d48861d65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a823960a0f57943634ea0f94d48861d65">sd_power_loss_callback</a> (void)</td></tr>
 <tr class="separator:a823960a0f57943634ea0f94d48861d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a5baebc8abad93c04f29b9e894166d692" id="r_a5baebc8abad93c04f29b9e894166d692"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5baebc8abad93c04f29b9e894166d692">SD_FSM_PERIOD_MS</a> = 50</td></tr>
+<tr class="separator:a5baebc8abad93c04f29b9e894166d692"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Logging of received bus messages onto an SD card. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="acb425a95edaf884fd443c15be109f574" name="acb425a95edaf884fd443c15be109f574"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb425a95edaf884fd443c15be109f574">&#9670;&#160;</a></span>sd_state_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#acb425a95edaf884fd443c15be109f574">sd_state_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="acb425a95edaf884fd443c15be109f574a56eb5c9dbda5178d288a806c2e47cd71" name="acb425a95edaf884fd443c15be109f574a56eb5c9dbda5178d288a806c2e47cd71"></a>SD_STATE_DISABLED&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acb425a95edaf884fd443c15be109f574aaf6cf89d195407e98e155002db351fab" name="acb425a95edaf884fd443c15be109f574aaf6cf89d195407e98e155002db351fab"></a>SD_STATE_INSERT_CARD&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acb425a95edaf884fd443c15be109f574af39a4df1fa551328d280312c2f779305" name="acb425a95edaf884fd443c15be109f574af39a4df1fa551328d280312c2f779305"></a>SD_STATE_MOUNTING&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acb425a95edaf884fd443c15be109f574acb9ff7b9d04c676559912ce8d74ffb33" name="acb425a95edaf884fd443c15be109f574acb9ff7b9d04c676559912ce8d74ffb33"></a>SD_STATE_OPENING_FILE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acb425a95edaf884fd443c15be109f574a876317de67be1451e42a89a69f62b9cc" name="acb425a95edaf884fd443c15be109f574a876317de67be1451e42a89a69f62b9cc"></a>SD_STATE_READY2LOG&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acb425a95edaf884fd443c15be109f574a760cb3f2dceb39066fee2d5b4619d4b1" name="acb425a95edaf884fd443c15be109f574a760cb3f2dceb39066fee2d5b4619d4b1"></a>SD_STATE_CLOSING_FILE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acb425a95edaf884fd443c15be109f574a56c516eb912a5cbc615f1a47718d27fe" name="acb425a95edaf884fd443c15be109f574a56c516eb912a5cbc615f1a47718d27fe"></a>SD_STATE_UNMOUNTING&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acb425a95edaf884fd443c15be109f574a209ba0ec113397e20696c6cb2d5bc5f8" name="acb425a95edaf884fd443c15be109f574a209ba0ec113397e20696c6cb2d5bc5f8"></a>SD_STATE_RECOVERING&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acb425a95edaf884fd443c15be109f574add0ac8d4dbe870645623a63a047cc03b" name="acb425a95edaf884fd443c15be109f574add0ac8d4dbe870645623a63a047cc03b"></a>SD_STATE_FATAL&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a1be8d347ac90e89922850113d6c264df" name="a1be8d347ac90e89922850113d6c264df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1be8d347ac90e89922850113d6c264df">&#9670;&#160;</a></span>sd_card_periodic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sd_card_periodic </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="sd__card_8h_a1be8d347ac90e89922850113d6c264df_cgraph.svg" width="550" height="384"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="sd__card_8h_a1be8d347ac90e89922850113d6c264df_icgraph.svg" width="228" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a823960a0f57943634ea0f94d48861d65" name="a823960a0f57943634ea0f94d48861d65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a823960a0f57943634ea0f94d48861d65">&#9670;&#160;</a></span>sd_power_loss_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sd_power_loss_callback </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="sd__card_8h_a823960a0f57943634ea0f94d48861d65_cgraph.svg" width="350" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a5baebc8abad93c04f29b9e894166d692" name="a5baebc8abad93c04f29b9e894166d692"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5baebc8abad93c04f29b9e894166d692">&#9670;&#160;</a></span>SD_FSM_PERIOD_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SD_FSM_PERIOD_MS = 50</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

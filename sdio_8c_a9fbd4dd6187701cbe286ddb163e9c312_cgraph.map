@@ -1,0 +1,13 @@
+<map id="SD_PowerON" name="SD_PowerON">
+<area shape="rect" id="Node000001" title="Enquires cards about their operating voltage and configures clock controls." alt="" coords="5,104,109,130"/>
+<area shape="rect" id="Node000002" href="$sdio_8c.html#a9cb1b7845e3aa6fd9a0bee925a6fb209" title="Checks for error conditions for CMD0." alt="" coords="215,5,290,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="70,102,107,71,156,40,199,25,201,30,158,45,110,75,74,106"/>
+<area shape="rect" id="Node000003" href="$sdio_8c.html#a7566a8f0aaba0e993a8b9e914897c812" title="Checks for error conditions for R1 response." alt="" coords="197,55,309,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="108,101,156,89,183,82,185,87,157,94,110,106"/>
+<area shape="rect" id="Node000004" href="$sdio_8c.html#ab70454aba2121dc3573841173fa0c113" title="Checks for error conditions for R3 (OCR) response." alt="" coords="197,104,309,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="109,114,181,114,181,120,109,120"/>
+<area shape="rect" id="Node000005" href="$sdio_8c.html#ae8b612323f1004f8e7e8612b818dac64" title="Checks for error conditions for R7 response." alt="" coords="197,153,309,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="110,127,157,140,185,147,183,152,156,145,108,132"/>
+<area shape="rect" id="Node000006" href="$sdio_8c.html#a4b480281586b4fd1ccf150129fe21120" title="Send a command." alt="" coords="157,203,349,228"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="74,128,110,159,158,189,171,195,169,200,155,194,107,163,70,132"/>
+</map>

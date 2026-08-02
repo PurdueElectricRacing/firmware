@@ -101,15 +101,26 @@ $(function(){initNavTree('heartbeat_8h.html',''); initResizable(true); });
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">heartbeat.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>Shared heartbeat task implementation for status LEDs.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;common/phal/gpio.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="phal_2gpio_8h_source.html">common/phal/gpio.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for heartbeat.h:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="heartbeat_8h__incl.svg" width="382" height="258"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="heartbeat_8h__dep__incl.svg" width="100%" height="394"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 </div>
 <p><a href="heartbeat_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -128,16 +139,24 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a0bcf4de1e57ca5568f188b209f8ee7a5" id="r_a0bcf4de1e57ca5568f188b209f8ee7a5"><td class="memItemLeft" align="right" valign="top"><a id="a0bcf4de1e57ca5568f188b209f8ee7a5" name="a0bcf4de1e57ca5568f188b209f8ee7a5"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>heartbeat_state_t</b> : uint8_t { <b>HEARTBEAT_STATE_PREFLIGHT</b>
-, <b>HEARTBEAT_STATE_NORMAL</b>
+<tr class="memitem:a0bcf4de1e57ca5568f188b209f8ee7a5" id="r_a0bcf4de1e57ca5568f188b209f8ee7a5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0bcf4de1e57ca5568f188b209f8ee7a5">heartbeat_state_t</a> : uint8_t { <a class="el" href="#a0bcf4de1e57ca5568f188b209f8ee7a5a3475881b5f396c0498fdb19f5aeeac58">HEARTBEAT_STATE_PREFLIGHT</a>
+, <a class="el" href="#a0bcf4de1e57ca5568f188b209f8ee7a5acf3f95fa20b182905677773f66f00f98">HEARTBEAT_STATE_NORMAL</a>
  }</td></tr>
 <tr class="separator:a0bcf4de1e57ca5568f188b209f8ee7a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab2681be62cc27208946c262df62f4a06" id="r_ab2681be62cc27208946c262df62f4a06"><td class="memItemLeft" align="right" valign="top"><a id="ab2681be62cc27208946c262df62f4a06" name="ab2681be62cc27208946c262df62f4a06"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>heartbeat_task</b> (<a class="el" href="structstatus__leds__t.html">status_leds_t</a> *leds)</td></tr>
+<tr class="memitem:ab2681be62cc27208946c262df62f4a06" id="r_ab2681be62cc27208946c262df62f4a06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2681be62cc27208946c262df62f4a06">heartbeat_task</a> (<a class="el" href="structstatus__leds__t.html">status_leds_t</a> *leds)</td></tr>
 <tr class="separator:ab2681be62cc27208946c262df62f4a06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ade36a494f670d4c31af261ae9ebb1f29" id="r_ade36a494f670d4c31af261ae9ebb1f29"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade36a494f670d4c31af261ae9ebb1f29">PREFLIGHT_DURATION_MS</a> = 1500</td></tr>
+<tr class="separator:ade36a494f670d4c31af261ae9ebb1f29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba882a54e761d19d12cc40b3a2a91d8b" id="r_aba882a54e761d19d12cc40b3a2a91d8b"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba882a54e761d19d12cc40b3a2a91d8b">HEARTBEAT_PERIOD_MS</a> = 100</td></tr>
+<tr class="separator:aba882a54e761d19d12cc40b3a2a91d8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7734c719f4ed69952e7c2f622eacda52" id="r_a7734c719f4ed69952e7c2f622eacda52"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7734c719f4ed69952e7c2f622eacda52">CONN_LED_TIMEOUT_MS</a> = 1000</td></tr>
+<tr class="separator:a7734c719f4ed69952e7c2f622eacda52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Shared heartbeat task implementation for status LEDs. </p>
@@ -157,18 +176,30 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>heartbeat_task</b> (<
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_struct" href="structstatus__leds__t.html">status_leds_t</a> status_leds = { \</div>
-<div class="line">        .heartbeat_port = HEARTBEAT_LED_PORT, \</div>
-<div class="line">        .heartbeat_pin = HEARTBEAT_LED_PIN, \</div>
-<div class="line">        .connection_port = CONNECTION_LED_PORT, \</div>
-<div class="line">        .connection_pin = CONNECTION_LED_PIN, \</div>
-<div class="line">        .error_port = ERROR_LED_PORT, \</div>
-<div class="line">        .error_pin = ERROR_LED_PIN, \</div>
+<b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_struct" href="structstatus__leds__t.html">status_leds_t</a> <a class="code hl_variable" href="driver__interface_8c.html#ab358b4de0d227c3352c7bad61fd1dc9c">status_leds</a> = { \</div>
+<div class="line">        .heartbeat_port = <a class="code hl_define" href="a__box_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50">HEARTBEAT_LED_PORT</a>, \</div>
+<div class="line">        .heartbeat_pin = <a class="code hl_define" href="a__box_2main_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3">HEARTBEAT_LED_PIN</a>, \</div>
+<div class="line">        .connection_port = <a class="code hl_define" href="a__box_2main_8h.html#aa5bf4e4a187f66b98a273bb051ec3877">CONNECTION_LED_PORT</a>, \</div>
+<div class="line">        .connection_pin = <a class="code hl_define" href="a__box_2main_8h.html#a8437cdc43b488d816a5e56f7b6457b86">CONNECTION_LED_PIN</a>, \</div>
+<div class="line">        .error_port = <a class="code hl_define" href="a__box_2main_8h.html#a84357dafca10c0bedd27ddf562ec038f">ERROR_LED_PORT</a>, \</div>
+<div class="line">        .error_pin = <a class="code hl_define" href="a__box_2main_8h.html#a16617de3bb2ca54675ae2515d8515e12">ERROR_LED_PIN</a>, \</div>
 <div class="line">        .preflight_callback = (PREFLIGHT_CALLBACK), \</div>
-<div class="line">        .state = HEARTBEAT_STATE_PREFLIGHT \</div>
+<div class="line">        .state = <a class="code hl_enumvalue" href="#a0bcf4de1e57ca5568f188b209f8ee7a5a3475881b5f396c0498fdb19f5aeeac58">HEARTBEAT_STATE_PREFLIGHT</a> \</div>
 <div class="line">    }; \</div>
-<div class="line">    <span class="keywordtype">void</span> heartbeat_wrapper(<span class="keywordtype">void</span>) { heartbeat_task(&amp;status_leds); }; \</div>
-<div class="line">    FREERTOS_DEFINE_TASK(heartbeat_wrapper, HEARTBEAT_PERIOD_MS, TASK_PRIORITY_LOW, STACK_512)</div>
+<div class="line">    <span class="keywordtype">void</span> heartbeat_wrapper(<span class="keywordtype">void</span>) { <a class="code hl_function" href="#ab2681be62cc27208946c262df62f4a06">heartbeat_task</a>(&amp;<a class="code hl_variable" href="driver__interface_8c.html#ab358b4de0d227c3352c7bad61fd1dc9c">status_leds</a>); }; \</div>
+<div class="line">    FREERTOS_DEFINE_TASK(heartbeat_wrapper, <a class="code hl_variable" href="#aba882a54e761d19d12cc40b3a2a91d8b">HEARTBEAT_PERIOD_MS</a>, <a class="code hl_enumvalue" href="freertos_8h.html#a3013e468406586335b248c478350a33ea579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a>, <a class="code hl_enumvalue" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aae705b06e4f237bdce971224dd27bbd0d">STACK_512</a>)</div>
+<div class="ttc" id="aa__box_2main_8h_html_a16617de3bb2ca54675ae2515d8515e12"><div class="ttname"><a href="a__box_2main_8h.html#a16617de3bb2ca54675ae2515d8515e12">ERROR_LED_PIN</a></div><div class="ttdeci">#define ERROR_LED_PIN</div><div class="ttdef"><b>Definition</b> main.h:19</div></div>
+<div class="ttc" id="aa__box_2main_8h_html_a5e9e4203b861d671cdcd3bf5f08655a3"><div class="ttname"><a href="a__box_2main_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3">HEARTBEAT_LED_PIN</a></div><div class="ttdeci">#define HEARTBEAT_LED_PIN</div><div class="ttdef"><b>Definition</b> main.h:17</div></div>
+<div class="ttc" id="aa__box_2main_8h_html_a84357dafca10c0bedd27ddf562ec038f"><div class="ttname"><a href="a__box_2main_8h.html#a84357dafca10c0bedd27ddf562ec038f">ERROR_LED_PORT</a></div><div class="ttdeci">#define ERROR_LED_PORT</div><div class="ttdef"><b>Definition</b> main.h:18</div></div>
+<div class="ttc" id="aa__box_2main_8h_html_a8437cdc43b488d816a5e56f7b6457b86"><div class="ttname"><a href="a__box_2main_8h.html#a8437cdc43b488d816a5e56f7b6457b86">CONNECTION_LED_PIN</a></div><div class="ttdeci">#define CONNECTION_LED_PIN</div><div class="ttdef"><b>Definition</b> main.h:21</div></div>
+<div class="ttc" id="aa__box_2main_8h_html_a8a762e1254b034eba6b4993ae11cee50"><div class="ttname"><a href="a__box_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50">HEARTBEAT_LED_PORT</a></div><div class="ttdeci">#define HEARTBEAT_LED_PORT</div><div class="ttdef"><b>Definition</b> main.h:16</div></div>
+<div class="ttc" id="aa__box_2main_8h_html_aa5bf4e4a187f66b98a273bb051ec3877"><div class="ttname"><a href="a__box_2main_8h.html#aa5bf4e4a187f66b98a273bb051ec3877">CONNECTION_LED_PORT</a></div><div class="ttdeci">#define CONNECTION_LED_PORT</div><div class="ttdef"><b>Definition</b> main.h:20</div></div>
+<div class="ttc" id="adriver__interface_8c_html_ab358b4de0d227c3352c7bad61fd1dc9c"><div class="ttname"><a href="driver__interface_8c.html#ab358b4de0d227c3352c7bad61fd1dc9c">status_leds</a></div><div class="ttdeci">status_leds_t status_leds</div></div>
+<div class="ttc" id="afreertos_8h_html_a3013e468406586335b248c478350a33ea579ef89a125d8a2c726f2e7f09e30514"><div class="ttname"><a href="freertos_8h.html#a3013e468406586335b248c478350a33ea579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a></div><div class="ttdeci">@ TASK_PRIORITY_LOW</div><div class="ttdef"><b>Definition</b> freertos.h:50</div></div>
+<div class="ttc" id="afreertos_8h_html_a7a58aa2d3913543d996a0de1fadd2f6aae705b06e4f237bdce971224dd27bbd0d"><div class="ttname"><a href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aae705b06e4f237bdce971224dd27bbd0d">STACK_512</a></div><div class="ttdeci">@ STACK_512</div><div class="ttdef"><b>Definition</b> freertos.h:42</div></div>
+<div class="ttc" id="aheartbeat_8h_html_a0bcf4de1e57ca5568f188b209f8ee7a5a3475881b5f396c0498fdb19f5aeeac58"><div class="ttname"><a href="#a0bcf4de1e57ca5568f188b209f8ee7a5a3475881b5f396c0498fdb19f5aeeac58">HEARTBEAT_STATE_PREFLIGHT</a></div><div class="ttdeci">@ HEARTBEAT_STATE_PREFLIGHT</div><div class="ttdef"><b>Definition</b> heartbeat.h:19</div></div>
+<div class="ttc" id="aheartbeat_8h_html_ab2681be62cc27208946c262df62f4a06"><div class="ttname"><a href="#ab2681be62cc27208946c262df62f4a06">heartbeat_task</a></div><div class="ttdeci">void heartbeat_task(status_leds_t *leds)</div><div class="ttdef"><b>Definition</b> heartbeat.c:35</div></div>
+<div class="ttc" id="aheartbeat_8h_html_aba882a54e761d19d12cc40b3a2a91d8b"><div class="ttname"><a href="#aba882a54e761d19d12cc40b3a2a91d8b">HEARTBEAT_PERIOD_MS</a></div><div class="ttdeci">static constexpr uint32_t HEARTBEAT_PERIOD_MS</div><div class="ttdef"><b>Definition</b> heartbeat.h:15</div></div>
 <div class="ttc" id="astructstatus__leds__t_html"><div class="ttname"><a href="structstatus__leds__t.html">status_leds_t</a></div><div class="ttdef"><b>Definition</b> heartbeat.h:23</div></div>
 </div><!-- fragment -->
 <p>Macro to define a heartbeat task with predefined behavior for status LEDs. </p>
@@ -176,7 +207,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>heartbeat_task</b> (<
 <li>Ensure that the macros HEARTBEAT_LED_PORT, HEARTBEAT_LED_PIN, CONNECTION_LED_PORT, CONNECTION_LED_PIN, ERROR_LED_PORT, and ERROR_LED_PIN are defined</li>
 <li>Init the GPIOS for the LEDs as outputs.</li>
 <li>Call <a class="el" href="#ad40088e79e8c996b0974ded98e470497" title="Macro to define a heartbeat task with predefined behavior for status LEDs.">DEFINE_HEARTBEAT_TASK()</a> in your source file to define the task.</li>
-<li>Call START_HEARTBEAT_TASK() in your main function after initializing the kernel to start the task.</li>
+<li>Call <a class="el" href="#af26a1445fde81a0129f7cbc8df05234b">START_HEARTBEAT_TASK()</a> in your main function after initializing the kernel to start the task.</li>
 </ol>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -204,6 +235,123 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>heartbeat_task</b> (<
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="freertos_8h.html#a104de5f26cf1f5055419e92dcb119afe">FREERTOS_START_TASK</a>(heartbeat_wrapper)</div>
 <div class="ttc" id="afreertos_8h_html_a104de5f26cf1f5055419e92dcb119afe"><div class="ttname"><a href="freertos_8h.html#a104de5f26cf1f5055419e92dcb119afe">FREERTOS_START_TASK</a></div><div class="ttdeci">#define FREERTOS_START_TASK(NAME)</div><div class="ttdoc">Creates and starts a previously defined task.</div><div class="ttdef"><b>Definition</b> freertos.h:125</div></div>
 </div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a0bcf4de1e57ca5568f188b209f8ee7a5" name="a0bcf4de1e57ca5568f188b209f8ee7a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bcf4de1e57ca5568f188b209f8ee7a5">&#9670;&#160;</a></span>heartbeat_state_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a0bcf4de1e57ca5568f188b209f8ee7a5">heartbeat_state_t</a> : uint8_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a0bcf4de1e57ca5568f188b209f8ee7a5a3475881b5f396c0498fdb19f5aeeac58" name="a0bcf4de1e57ca5568f188b209f8ee7a5a3475881b5f396c0498fdb19f5aeeac58"></a>HEARTBEAT_STATE_PREFLIGHT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0bcf4de1e57ca5568f188b209f8ee7a5acf3f95fa20b182905677773f66f00f98" name="a0bcf4de1e57ca5568f188b209f8ee7a5acf3f95fa20b182905677773f66f00f98"></a>HEARTBEAT_STATE_NORMAL&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ab2681be62cc27208946c262df62f4a06" name="ab2681be62cc27208946c262df62f4a06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2681be62cc27208946c262df62f4a06">&#9670;&#160;</a></span>heartbeat_task()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void heartbeat_task </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structstatus__leds__t.html">status_leds_t</a> *</td>          <td class="paramname"><span class="paramname"><em>leds</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="heartbeat_8h_ab2681be62cc27208946c262df62f4a06_cgraph.svg" width="475" height="138"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a7734c719f4ed69952e7c2f622eacda52" name="a7734c719f4ed69952e7c2f622eacda52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7734c719f4ed69952e7c2f622eacda52">&#9670;&#160;</a></span>CONN_LED_TIMEOUT_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t CONN_LED_TIMEOUT_MS = 1000</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aba882a54e761d19d12cc40b3a2a91d8b" name="aba882a54e761d19d12cc40b3a2a91d8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba882a54e761d19d12cc40b3a2a91d8b">&#9670;&#160;</a></span>HEARTBEAT_PERIOD_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t HEARTBEAT_PERIOD_MS = 100</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ade36a494f670d4c31af261ae9ebb1f29" name="ade36a494f670d4c31af261ae9ebb1f29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade36a494f670d4c31af261ae9ebb1f29">&#9670;&#160;</a></span>PREFLIGHT_DURATION_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t PREFLIGHT_DURATION_MS = 1500</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->

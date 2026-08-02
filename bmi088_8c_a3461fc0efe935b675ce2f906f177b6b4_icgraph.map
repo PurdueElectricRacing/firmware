@@ -1,0 +1,5 @@
+<map id="BMI088_getGyroScale" name="BMI088_getGyroScale">
+<area shape="rect" id="Node000001" title=" " alt="" coords="179,5,330,31"/>
+<area shape="rect" id="Node000002" href="$bmi088_8c.html#a1dfbb27cde5d045d6291dba7fe0e709f" title="Blocking function to read the most recent Data Sample from the gyro." alt="" coords="5,5,131,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,21,131,21,131,16,163,16"/>
+</map>

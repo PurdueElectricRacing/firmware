@@ -1,0 +1,22 @@
+<map id="PHAL_SPI_transfer_noDMA_DAQW5500Only" name="PHAL_SPI_transfer_noDMA_DAQW5500Only">
+<area shape="rect" id="Node000001" title=" " alt="" coords="768,72,955,113"/>
+<area shape="rect" id="Node000002" href="$w5500__callbacks_8c.html#a46bd862c88490f1a6154ec3488786f5e" title=" " alt="" coords="643,5,699,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="792,69,698,31,700,26,794,64"/>
+<area shape="rect" id="Node000007" href="$w5500__callbacks_8c.html#a8af65df1e566a774d241b03116c919e0" title=" " alt="" coords="625,55,717,80"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="752,81,717,76,718,71,753,76"/>
+<area shape="rect" id="Node000008" href="$w5500__callbacks_8c.html#ad0d4468782a468debc8139fe25107c43" title=" " alt="" coords="640,104,702,130"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="753,109,703,116,702,110,752,104"/>
+<area shape="rect" id="Node000009" href="$w5500__callbacks_8c.html#a5821dc24f7a22e40a3630f554f4c33a7" title=" " alt="" coords="622,153,720,179"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="794,122,708,155,706,150,792,117"/>
+<area shape="rect" id="Node000003" href="$w5500__callbacks_8c.html#a45aed330f89610c0411f94d25250c49f" title=" " alt="" coords="402,80,574,106"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="629,38,523,82,521,77,627,33"/>
+<area shape="rect" id="Node000004" href="$ethernet_8c.html#a35a615d9efc9dc590f030ac374d57931" title=" " alt="" coords="271,80,354,106"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="387,96,355,96,355,90,387,90"/>
+<area shape="rect" id="Node000005" href="$ethernet_8c.html#a1ea4f11f8d51c291e709aa8730f23910" title=" " alt="" coords="103,80,223,106"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="255,96,224,96,224,90,255,90"/>
+<area shape="rect" id="Node000006" href="$daq_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,80,55,106"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="87,96,55,96,55,90,87,90"/>
+<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="610,79,574,84,574,78,609,73"/>
+<area shape="poly" id="edge9_Node000008_Node000003" title=" " alt="" coords="624,113,574,107,574,101,625,108"/>
+<area shape="poly" id="edge11_Node000009_Node000003" title=" " alt="" coords="621,149,521,109,523,104,623,144"/>
+</map>

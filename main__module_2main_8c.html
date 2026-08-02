@@ -112,62 +112,355 @@ $(function(){initNavTree('main__module_2main_8c.html',''); initResizable(true); 
 <code>#include &quot;<a class="el" href="common_2amk_2amk_8h_source.html">common/amk/amk.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="heartbeat_8h_source.html">common/heartbeat/heartbeat.h</a>&quot;</code><br />
-<code>#include &quot;common/phal/can.h&quot;</code><br />
-<code>#include &quot;common/phal/gpio.h&quot;</code><br />
-<code>#include &quot;common/phal/rcc.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2can_8h_source.html">common/phal/can.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2gpio_8h_source.html">common/phal/gpio.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2rcc_8h_source.html">common/phal/rcc.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="countof_8h_source.html">common/utils/countof.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="watchdog_8h_source.html">common/watchdog/watchdog.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="sdc_8h_source.html">sdc.h</a>&quot;</code><br />
 <code>#include &quot;telemetry.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="powertrain_8h_source.html">powertrain.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="vehicle__fsm_8h_source.html">vehicle_fsm.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for main.c:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="main__module_2main_8c__incl.svg" width="100%" height="593"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a2bffc10d5bd4106753b7c30e86903bea" id="r_a2bffc10d5bd4106753b7c30e86903bea"><td class="memItemLeft" align="right" valign="top"><a id="a2bffc10d5bd4106753b7c30e86903bea" name="a2bffc10d5bd4106753b7c30e86903bea"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>HardFault_Handler</b> (void)</td></tr>
+<tr class="memitem:a2bffc10d5bd4106753b7c30e86903bea" id="r_a2bffc10d5bd4106753b7c30e86903bea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2bffc10d5bd4106753b7c30e86903bea">HardFault_Handler</a> (void)</td></tr>
 <tr class="separator:a2bffc10d5bd4106753b7c30e86903bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a577e29103ef4d1e1121dc63cfb074498" id="r_a577e29103ef4d1e1121dc63cfb074498"><td class="memItemLeft" align="right" valign="top"><a id="a577e29103ef4d1e1121dc63cfb074498" name="a577e29103ef4d1e1121dc63cfb074498"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_CAN_TASKS</b> ()</td></tr>
+<tr class="memitem:a577e29103ef4d1e1121dc63cfb074498" id="r_a577e29103ef4d1e1121dc63cfb074498"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a577e29103ef4d1e1121dc63cfb074498">DEFINE_CAN_TASKS</a> ()</td></tr>
 <tr class="separator:a577e29103ef4d1e1121dc63cfb074498"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a919a635a6ee923de9b6d4a75d232b64a" id="r_a919a635a6ee923de9b6d4a75d232b64a"><td class="memItemLeft" align="right" valign="top"><a id="a919a635a6ee923de9b6d4a75d232b64a" name="a919a635a6ee923de9b6d4a75d232b64a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (vehicle_fsm_periodic, VEHICLE_FSM_PERIOD_MS, TASK_PRIORITY_NORMAL, STACK_2048)</td></tr>
+<tr class="memitem:a919a635a6ee923de9b6d4a75d232b64a" id="r_a919a635a6ee923de9b6d4a75d232b64a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a919a635a6ee923de9b6d4a75d232b64a">FREERTOS_DEFINE_TASK</a> (<a class="el" href="vehicle__fsm_8c.html#a17b274e6971a721080e708c8d6eed884">vehicle_fsm_periodic</a>, <a class="el" href="vehicle__fsm_8h.html#a4cb44cd2ac6900bf9dd51b22a839e1a2">VEHICLE_FSM_PERIOD_MS</a>, <a class="el" href="freertos_8h.html#a3013e468406586335b248c478350a33eaf3669a8c0116561e2fdb5a7f3ea9b136">TASK_PRIORITY_NORMAL</a>, <a class="el" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aabc866c4da846c7f9dafdcd4a540448b8">STACK_2048</a>)</td></tr>
 <tr class="separator:a919a635a6ee923de9b6d4a75d232b64a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5efecb45843e9f188620a231b42dca41" id="r_a5efecb45843e9f188620a231b42dca41"><td class="memItemLeft" align="right" valign="top"><a id="a5efecb45843e9f188620a231b42dca41" name="a5efecb45843e9f188620a231b42dca41"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (fault_library_periodic, MAIN_MODULE_FAULT_SYNC_PERIOD_MS, TASK_PRIORITY_NORMAL, STACK_1024)</td></tr>
+<tr class="memitem:a5efecb45843e9f188620a231b42dca41" id="r_a5efecb45843e9f188620a231b42dca41"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5efecb45843e9f188620a231b42dca41">FREERTOS_DEFINE_TASK</a> (<a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic</a>, MAIN_MODULE_FAULT_SYNC_PERIOD_MS, <a class="el" href="freertos_8h.html#a3013e468406586335b248c478350a33eaf3669a8c0116561e2fdb5a7f3ea9b136">TASK_PRIORITY_NORMAL</a>, <a class="el" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aab0d381b18ad3cc4d98b55792abefd67e">STACK_1024</a>)</td></tr>
 <tr class="separator:a5efecb45843e9f188620a231b42dca41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e86e18c7951e047d4398b17aa85a470" id="r_a3e86e18c7951e047d4398b17aa85a470"><td class="memItemLeft" align="right" valign="top"><a id="a3e86e18c7951e047d4398b17aa85a470" name="a3e86e18c7951e047d4398b17aa85a470"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (SDC_task_periodic, SDC_TASK_PERIOD_MS, TASK_PRIORITY_NORMAL, STACK_512)</td></tr>
+<tr class="memitem:a3e86e18c7951e047d4398b17aa85a470" id="r_a3e86e18c7951e047d4398b17aa85a470"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3e86e18c7951e047d4398b17aa85a470">FREERTOS_DEFINE_TASK</a> (<a class="el" href="sdc_8c.html#abe061ee2b199bb82296440005e5d23fc">SDC_task_periodic</a>, <a class="el" href="sdc_8h.html#a446798ef14115f9aec2aeed7cbb75f2a">SDC_TASK_PERIOD_MS</a>, <a class="el" href="freertos_8h.html#a3013e468406586335b248c478350a33eaf3669a8c0116561e2fdb5a7f3ea9b136">TASK_PRIORITY_NORMAL</a>, <a class="el" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aae705b06e4f237bdce971224dd27bbd0d">STACK_512</a>)</td></tr>
 <tr class="separator:a3e86e18c7951e047d4398b17aa85a470"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab66e3d72a410b58914a895ef454717dc" id="r_ab66e3d72a410b58914a895ef454717dc"><td class="memItemLeft" align="right" valign="top"><a id="ab66e3d72a410b58914a895ef454717dc" name="ab66e3d72a410b58914a895ef454717dc"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (<a class="el" href="main__module_2telemetry_2telemetry_8c.html#a14fa998ab27981c4409143eae0bde0e1">report_telemetry_50hz</a>, TELEMETRY_50HZ_PERIOD_MS, TASK_PRIORITY_LOW, STACK_512)</td></tr>
+<tr class="memitem:ab66e3d72a410b58914a895ef454717dc" id="r_ab66e3d72a410b58914a895ef454717dc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab66e3d72a410b58914a895ef454717dc">FREERTOS_DEFINE_TASK</a> (<a class="el" href="main__module_2telemetry_2telemetry_8c.html#a14fa998ab27981c4409143eae0bde0e1">report_telemetry_50hz</a>, <a class="el" href="main__module_2telemetry_2telemetry_8h.html#ad36b8024209724e842416047ea98c6aa">TELEMETRY_50HZ_PERIOD_MS</a>, <a class="el" href="freertos_8h.html#a3013e468406586335b248c478350a33ea579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a>, <a class="el" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aae705b06e4f237bdce971224dd27bbd0d">STACK_512</a>)</td></tr>
 <tr class="separator:ab66e3d72a410b58914a895ef454717dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4007ee100805120861135ffeff77f678" id="r_a4007ee100805120861135ffeff77f678"><td class="memItemLeft" align="right" valign="top"><a id="a4007ee100805120861135ffeff77f678" name="a4007ee100805120861135ffeff77f678"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (<a class="el" href="main__module_2telemetry_2telemetry_8c.html#a6d0a75c0aee5808a962691e3973ee968">report_telemetry_1hz</a>, TELEMETRY_1HZ_PERIOD_MS, TASK_PRIORITY_LOW, STACK_512)</td></tr>
+<tr class="memitem:a4007ee100805120861135ffeff77f678" id="r_a4007ee100805120861135ffeff77f678"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4007ee100805120861135ffeff77f678">FREERTOS_DEFINE_TASK</a> (<a class="el" href="main__module_2telemetry_2telemetry_8c.html#a6d0a75c0aee5808a962691e3973ee968">report_telemetry_1hz</a>, <a class="el" href="main__module_2telemetry_2telemetry_8h.html#a80e49f2161ae570d3daff89c3451bea7">TELEMETRY_1HZ_PERIOD_MS</a>, <a class="el" href="freertos_8h.html#a3013e468406586335b248c478350a33ea579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a>, <a class="el" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aae705b06e4f237bdce971224dd27bbd0d">STACK_512</a>)</td></tr>
 <tr class="separator:a4007ee100805120861135ffeff77f678"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e927f46b264d39c7a76b7da4d57466e" id="r_a2e927f46b264d39c7a76b7da4d57466e"><td class="memItemLeft" align="right" valign="top"><a id="a2e927f46b264d39c7a76b7da4d57466e" name="a2e927f46b264d39c7a76b7da4d57466e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (<a class="el" href="a__box_2telemetry_2telemetry_8c.html#a74034e258280659c81e74c002594b2e2">report_telemetry_02hz</a>, TELEMETRY_02HZ_PERIOD_MS, TASK_PRIORITY_LOW, STACK_512)</td></tr>
+<tr class="memitem:a2e927f46b264d39c7a76b7da4d57466e" id="r_a2e927f46b264d39c7a76b7da4d57466e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e927f46b264d39c7a76b7da4d57466e">FREERTOS_DEFINE_TASK</a> (<a class="el" href="a__box_2telemetry_2telemetry_8c.html#a74034e258280659c81e74c002594b2e2">report_telemetry_02hz</a>, <a class="el" href="a__box_2telemetry_2telemetry_8h.html#a4449d362db0d4b464dc661c0682fbae9">TELEMETRY_02HZ_PERIOD_MS</a>, <a class="el" href="freertos_8h.html#a3013e468406586335b248c478350a33ea579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a>, <a class="el" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aae705b06e4f237bdce971224dd27bbd0d">STACK_512</a>)</td></tr>
 <tr class="separator:a2e927f46b264d39c7a76b7da4d57466e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11a067a3a0541dc1ed61e5c9bb7591b5" id="r_a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memItemLeft" align="right" valign="top"><a id="a11a067a3a0541dc1ed61e5c9bb7591b5" name="a11a067a3a0541dc1ed61e5c9bb7591b5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_WATCHDOG_TASK</b> ()</td></tr>
+<tr class="memitem:a11a067a3a0541dc1ed61e5c9bb7591b5" id="r_a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11a067a3a0541dc1ed61e5c9bb7591b5">DEFINE_WATCHDOG_TASK</a> ()</td></tr>
 <tr class="separator:a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a845eaf447179a8baf75c69794c49856d" id="r_a845eaf447179a8baf75c69794c49856d"><td class="memItemLeft" align="right" valign="top"><a id="a845eaf447179a8baf75c69794c49856d" name="a845eaf447179a8baf75c69794c49856d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_HEARTBEAT_TASK</b> (nullptr)</td></tr>
+<tr class="memitem:a845eaf447179a8baf75c69794c49856d" id="r_a845eaf447179a8baf75c69794c49856d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a845eaf447179a8baf75c69794c49856d">DEFINE_HEARTBEAT_TASK</a> (nullptr)</td></tr>
 <tr class="separator:a845eaf447179a8baf75c69794c49856d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top"><a id="a840291bc02cba5474a4cb46a9b9566fe" name="a840291bc02cba5474a4cb46a9b9566fe"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (void)</td></tr>
+<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a60563c6df24a123ae18e090bca85f555" id="r_a60563c6df24a123ae18e090bca85f555"><td class="memItemLeft" align="right" valign="top"><a id="a60563c6df24a123ae18e090bca85f555" name="a60563c6df24a123ae18e090bca85f555"></a>
-<a class="el" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>gpio_config</b> []</td></tr>
+<tr class="memitem:a60563c6df24a123ae18e090bca85f555" id="r_a60563c6df24a123ae18e090bca85f555"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60563c6df24a123ae18e090bca85f555">gpio_config</a> []</td></tr>
 <tr class="separator:a60563c6df24a123ae18e090bca85f555"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>"Main Module" node source code </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a577e29103ef4d1e1121dc63cfb074498" name="a577e29103ef4d1e1121dc63cfb074498"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a577e29103ef4d1e1121dc63cfb074498">&#9670;&#160;</a></span>DEFINE_CAN_TASKS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_CAN_TASKS </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a845eaf447179a8baf75c69794c49856d" name="a845eaf447179a8baf75c69794c49856d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a845eaf447179a8baf75c69794c49856d">&#9670;&#160;</a></span>DEFINE_HEARTBEAT_TASK()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_HEARTBEAT_TASK </td>
+          <td>(</td>
+          <td class="paramtype">nullptr</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a11a067a3a0541dc1ed61e5c9bb7591b5" name="a11a067a3a0541dc1ed61e5c9bb7591b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11a067a3a0541dc1ed61e5c9bb7591b5">&#9670;&#160;</a></span>DEFINE_WATCHDOG_TASK()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_WATCHDOG_TASK </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5efecb45843e9f188620a231b42dca41" name="a5efecb45843e9f188620a231b42dca41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5efecb45843e9f188620a231b42dca41">&#9670;&#160;</a></span>FREERTOS_DEFINE_TASK() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FREERTOS_DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MAIN_MODULE_FAULT_SYNC_PERIOD_MS</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a3013e468406586335b248c478350a33eaf3669a8c0116561e2fdb5a7f3ea9b136">TASK_PRIORITY_NORMAL</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aab0d381b18ad3cc4d98b55792abefd67e">STACK_1024</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2e927f46b264d39c7a76b7da4d57466e" name="a2e927f46b264d39c7a76b7da4d57466e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e927f46b264d39c7a76b7da4d57466e">&#9670;&#160;</a></span>FREERTOS_DEFINE_TASK() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FREERTOS_DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a__box_2telemetry_2telemetry_8c.html#a74034e258280659c81e74c002594b2e2">report_telemetry_02hz</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a__box_2telemetry_2telemetry_8h.html#a4449d362db0d4b464dc661c0682fbae9">TELEMETRY_02HZ_PERIOD_MS</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a3013e468406586335b248c478350a33ea579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aae705b06e4f237bdce971224dd27bbd0d">STACK_512</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4007ee100805120861135ffeff77f678" name="a4007ee100805120861135ffeff77f678"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4007ee100805120861135ffeff77f678">&#9670;&#160;</a></span>FREERTOS_DEFINE_TASK() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FREERTOS_DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="main__module_2telemetry_2telemetry_8c.html#a6d0a75c0aee5808a962691e3973ee968">report_telemetry_1hz</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="main__module_2telemetry_2telemetry_8h.html#a80e49f2161ae570d3daff89c3451bea7">TELEMETRY_1HZ_PERIOD_MS</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a3013e468406586335b248c478350a33ea579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aae705b06e4f237bdce971224dd27bbd0d">STACK_512</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab66e3d72a410b58914a895ef454717dc" name="ab66e3d72a410b58914a895ef454717dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab66e3d72a410b58914a895ef454717dc">&#9670;&#160;</a></span>FREERTOS_DEFINE_TASK() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FREERTOS_DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="main__module_2telemetry_2telemetry_8c.html#a14fa998ab27981c4409143eae0bde0e1">report_telemetry_50hz</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="main__module_2telemetry_2telemetry_8h.html#ad36b8024209724e842416047ea98c6aa">TELEMETRY_50HZ_PERIOD_MS</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a3013e468406586335b248c478350a33ea579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aae705b06e4f237bdce971224dd27bbd0d">STACK_512</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3e86e18c7951e047d4398b17aa85a470" name="a3e86e18c7951e047d4398b17aa85a470"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e86e18c7951e047d4398b17aa85a470">&#9670;&#160;</a></span>FREERTOS_DEFINE_TASK() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FREERTOS_DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="sdc_8c.html#abe061ee2b199bb82296440005e5d23fc">SDC_task_periodic</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="sdc_8h.html#a446798ef14115f9aec2aeed7cbb75f2a">SDC_TASK_PERIOD_MS</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a3013e468406586335b248c478350a33eaf3669a8c0116561e2fdb5a7f3ea9b136">TASK_PRIORITY_NORMAL</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aae705b06e4f237bdce971224dd27bbd0d">STACK_512</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a919a635a6ee923de9b6d4a75d232b64a" name="a919a635a6ee923de9b6d4a75d232b64a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a919a635a6ee923de9b6d4a75d232b64a">&#9670;&#160;</a></span>FREERTOS_DEFINE_TASK() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FREERTOS_DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="vehicle__fsm_8c.html#a17b274e6971a721080e708c8d6eed884">vehicle_fsm_periodic</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="vehicle__fsm_8h.html#a4cb44cd2ac6900bf9dd51b22a839e1a2">VEHICLE_FSM_PERIOD_MS</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a3013e468406586335b248c478350a33eaf3669a8c0116561e2fdb5a7f3ea9b136">TASK_PRIORITY_NORMAL</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aabc866c4da846c7f9dafdcd4a540448b8">STACK_2048</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2bffc10d5bd4106753b7c30e86903bea" name="a2bffc10d5bd4106753b7c30e86903bea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bffc10d5bd4106753b7c30e86903bea">&#9670;&#160;</a></span>HardFault_Handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HardFault_Handler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a840291bc02cba5474a4cb46a9b9566fe" name="a840291bc02cba5474a4cb46a9b9566fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a840291bc02cba5474a4cb46a9b9566fe">&#9670;&#160;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="main__module_2main_8c_a840291bc02cba5474a4cb46a9b9566fe_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a60563c6df24a123ae18e090bca85f555" name="a60563c6df24a123ae18e090bca85f555"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60563c6df24a123ae18e090bca85f555">&#9670;&#160;</a></span>gpio_config</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a> gpio_config[]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -1,0 +1,5 @@
+<map id="USB_PRIV_deinit" name="USB_PRIV_deinit">
+<area shape="rect" id="Node000001" title="Detach, disable interrupts, and power down the USB peripheral." alt="" coords="184,5,309,31"/>
+<area shape="rect" id="Node000002" href="$usb_8c.html#ad9816be792171e057399097c4cd6c9a1" title="Detach and disable the USB peripheral." alt="" coords="5,5,136,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,21,136,21,136,16,168,16"/>
+</map>

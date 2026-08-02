@@ -1,0 +1,23 @@
+<map id="source/dashboard/pedals/pedals.c" name="source/dashboard/pedals/pedals.c">
+<area shape="rect" id="Node000001" title="Pedal processing logic." alt="" coords="336,5,502,46"/>
+<area shape="rect" id="Node000002" href="$pedals_8h.html" title=" " alt="" coords="115,102,184,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="348,49,197,97,193,98,191,93,195,91,347,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,183,150,223"/>
+<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="335,37,269,46,201,59,142,75,120,85,105,96,93,111,85,130,79,168,74,167,80,128,88,109,101,92,117,80,140,70,200,53,268,41,335,32"/>
+<area shape="rect" id="Node000005" href="$faults__common_8h.html" title="Event&#45;based FIDR system." alt="" coords="208,94,328,135"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="386,49,316,89,314,84,383,44"/>
+<area shape="rect" id="Node000007" href="$abs_8h.html" title="Absolute value functions utility header." alt="" coords="352,102,486,127"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="422,47,422,86,416,86,416,47"/>
+<area shape="rect" id="Node000008" href="$clamp_8h.html" title="Utility header to clamp a value to a bounded range." alt="" coords="510,102,658,127"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="458,44,549,92,546,96,455,49"/>
+<area shape="rect" id="Node000009" href="$rescale_8h.html" title="Utility header to linearly map values from one range to another." alt="" coords="682,102,838,127"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="497,44,698,95,697,100,496,49"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="862,102,922,127"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="503,31,665,51,759,68,850,91,855,93,853,98,849,97,757,74,664,56,502,36"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="174,190,237,216"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="160,126,192,176,187,178,155,129"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="142,129,105,173,101,169,137,126"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="256,137,225,179,221,176,252,134"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="261,183,406,223"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="285,134,312,169,307,172,281,137"/>
+</map>

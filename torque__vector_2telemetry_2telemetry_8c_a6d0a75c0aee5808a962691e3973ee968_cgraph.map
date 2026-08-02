@@ -1,0 +1,5 @@
+<map id="report_telemetry_1hz" name="report_telemetry_1hz">
+<area shape="rect" id="Node000001" title="Reports telemetry data at 1HZ rate Includes: GPS time (UTC)" alt="" coords="5,5,147,31"/>
+<area shape="rect" id="Node000002" href="$faults__common_8h.html#a22ea5f8bc7464c7728f4f9d67a9417cf" title=" " alt="" coords="195,5,261,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,16,179,16,179,21,147,21"/>
+</map>

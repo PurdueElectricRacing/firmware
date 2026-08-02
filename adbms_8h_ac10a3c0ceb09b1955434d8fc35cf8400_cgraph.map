@@ -1,0 +1,31 @@
+<map id="adbms_read_and_check_regb" name="adbms_read_and_check_regb">
+<area shape="rect" id="Node000001" title="Read back REGB and compare with cached configuration." alt="" coords="5,108,200,134"/>
+<area shape="rect" id="Node000002" href="$adbms6380_8c.html#a87779ad64f4a74f4550870855d30d4a2" title="Append a command and its PEC to an output buffer." alt="" coords="248,51,450,76"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,105,275,78,276,83,162,110"/>
+<area shape="rect" id="Node000005" href="$adbms6380_8c.html#ab36d258ca42374cc3ac985197dff0516" title="Read a single&#45;data&#45;packet response per module and retries on PEC failure." alt="" coords="273,100,425,141"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="200,118,257,118,257,124,200,124"/>
+<area shape="rect" id="Node000014" href="$strbuf_8c.html#a64d216f0276598d2d7f68c8a0c453fb7" title="Clears the buffer by resetting length to 0." alt="" coords="304,165,394,191"/>
+<area shape="poly" id="edge15_Node000001_Node000014" title=" " alt="" coords="162,132,290,162,288,167,160,137"/>
+<area shape="rect" id="Node000003" href="$pec_8c.html#acf61d2142265cf21d2a680bff41883b9" title="CRC15 Pec Calculation Function." alt="" coords="498,5,653,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="416,47,493,32,494,37,417,53"/>
+<area shape="rect" id="Node000004" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="524,55,627,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="450,63,509,64,509,69,450,68"/>
+<area shape="rect" id="Node000006" href="$adbms6380_8c.html#aabb23faf669f17e2bdb7360525b00581" title="Read a fixed&#45;length response from all modules after a command." alt="" coords="516,108,636,134"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="425,118,500,118,500,124,425,124"/>
+<area shape="rect" id="Node000007" href="$adbms6380_8c.html#ad065e19e0b9ff761f14abe8bf654750d" title="Verify the PEC of received data." alt="" coords="701,33,892,59"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="615,105,652,90,700,68,720,61,722,66,702,73,654,95,617,110"/>
+<area shape="rect" id="Node000009" href="$adbms6380_8c.html#ae50a5200f4ab61124ab070e8898f0cc9" title="Drive the ADBMS CS line to high." alt="" coords="714,83,879,108"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="636,111,699,104,699,109,636,117"/>
+<area shape="rect" id="Node000011" href="$adbms6380_8c.html#a12a7403f2f6b47af40cc7d278909ebe7" title="Drive the ADBMS CS line low." alt="" coords="716,132,877,158"/>
+<area shape="poly" id="edge10_Node000006_Node000011" title=" " alt="" coords="636,125,701,132,700,137,636,130"/>
+<area shape="rect" id="Node000012" href="$common_2phal__F4_2spi_2spi_8c.html#a7593e1c8be8711c7bda6d7de43913816" title="SPI handle." alt="" coords="703,181,890,207"/>
+<area shape="poly" id="edge12_Node000006_Node000012" title=" " alt="" coords="609,132,702,168,724,174,723,179,700,173,607,137"/>
+<area shape="rect" id="Node000008" href="$pec_8c.html#af26a3fb59c4ae59fb10ac19030eef174" title=" " alt="" coords="940,33,1095,59"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="892,44,924,44,924,49,892,49"/>
+<area shape="rect" id="Node000010" href="$phal__F4_2gpio_2gpio_8h.html#a67db851520637ffa4de5968c9730220b" title="Write a logic value to an output pin." alt="" coords="955,132,1080,158"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="858,106,942,125,941,131,857,112"/>
+<area shape="poly" id="edge11_Node000011_Node000010" title=" " alt="" coords="878,142,939,142,939,148,878,148"/>
+<area shape="poly" id="edge14_Node000012_Node000010" title=" " alt="" coords="857,178,941,159,942,164,858,183"/>
+<area shape="rect" id="Node000013" href="$common_2phal__F4_2spi_2spi_8c.html#a35fd94eb02f487e09065ddc0ecb92e53" title="Check for current SPI transaction to complete." alt="" coords="957,181,1078,207"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="890,192,942,192,942,197,890,197"/>
+</map>

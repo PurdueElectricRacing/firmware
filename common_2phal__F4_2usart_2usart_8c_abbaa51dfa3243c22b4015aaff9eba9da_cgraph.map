@@ -1,0 +1,9 @@
+<map id="PHAL_usartTxDma" name="PHAL_usartTxDma">
+<area shape="rect" id="Node000001" title="Starts a tx using dma, use PHAL_usartTxDmaComplete to ensure the previous transmission is complete." alt="" coords="5,55,140,80"/>
+<area shape="rect" id="Node000002" href="$phal__F4_2dma_2dma_8c.html#a2a989d2d9b7c591de33e96581ac3bb11" title=" " alt="" coords="188,5,383,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,51,211,32,213,38,132,57"/>
+<area shape="rect" id="Node000003" href="$phal__F4_2dma_2dma_8c.html#a14faecce0cd8bd38b14c987e17ce1033" title=" " alt="" coords="192,55,379,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="140,65,176,65,176,70,140,70"/>
+<area shape="rect" id="Node000004" href="$phal__F4_2dma_2dma_8c.html#ab15d4afcf0988a8065caced65d1883fe" title=" " alt="" coords="226,104,345,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="132,78,213,97,211,103,131,84"/>
+</map>

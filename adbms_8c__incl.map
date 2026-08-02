@@ -1,0 +1,47 @@
+<map id="source/a_box/adbms/adbms.c" name="source/a_box/adbms/adbms.c">
+<area shape="rect" id="Node000001" title="Primary logic and interface for ADBMS battery management system driver." alt="" coords="649,5,791,46"/>
+<area shape="rect" id="Node000002" href="$adbms_8h.html" title="Primary logic and interface for ADBMS battery management system driver." alt="" coords="584,94,654,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="697,49,648,86,644,82,693,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="218,404,291,429"/>
+<area shape="poly" id="edge18_Node000001_Node000003" title=" " alt="" coords="649,31,472,39,366,48,260,62,162,83,82,110,51,126,27,144,13,164,8,187,8,270,13,301,28,327,50,348,78,366,142,392,203,406,202,411,140,397,75,371,47,353,24,330,8,303,3,271,3,186,8,162,24,141,48,122,79,105,161,77,259,57,366,43,472,33,649,25"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="761,330,828,356"/>
+<area shape="poly" id="edge19_Node000001_Node000004" title=" " alt="" coords="731,45,764,135,782,194,796,256,799,314,794,315,791,257,777,196,759,136,726,47"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="648,404,712,429"/>
+<area shape="poly" id="edge20_Node000001_Node000005" title=" " alt="" coords="792,29,870,43,911,54,951,70,986,90,1014,116,1033,148,1040,186,1040,271,1037,284,1030,296,1004,319,966,340,919,359,817,389,727,409,726,404,815,384,917,354,963,335,1001,315,1026,293,1032,282,1035,270,1035,187,1028,150,1010,120,983,95,948,75,909,59,869,48,791,35"/>
+<area shape="rect" id="Node000006" href="$adbms6380_8h.html" title="Low level BMS driver specific to ADBMS6380 chip." alt="" coords="483,175,581,201"/>
+<area shape="poly" id="edge22_Node000001_Node000006" title=" " alt="" coords="651,49,610,68,574,96,553,128,540,161,535,160,548,125,570,92,607,64,649,44"/>
+<area shape="rect" id="Node000007" href="$phal_2spi_8h.html" title=" " alt="" coords="296,256,426,282"/>
+<area shape="poly" id="edge25_Node000001_Node000007" title=" " alt="" coords="650,47,594,65,532,91,471,126,417,170,390,206,373,243,368,241,386,203,413,166,468,121,530,86,592,60,648,42"/>
+<area shape="rect" id="Node000009" href="$strbuf_8h.html" title="Fixed&#45;size string builder. Useful for building large CMD strings before transmission." alt="" coords="602,256,758,282"/>
+<area shape="poly" id="edge26_Node000001_Node000009" title=" " alt="" coords="719,47,687,241,682,240,714,46"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="1126,94,1189,120"/>
+<area shape="poly" id="edge21_Node000001_Node000010" title=" " alt="" coords="792,36,1107,91,1111,92,1110,97,1106,97,791,41"/>
+<area shape="rect" id="Node000011" href="$commands_8h.html" title="Listing of all ADBMS commands." alt="" coords="1075,175,1170,201"/>
+<area shape="poly" id="edge23_Node000001_Node000011" title=" " alt="" coords="791,24,852,28,921,39,992,59,1026,74,1057,92,1076,107,1091,124,1114,160,1109,163,1087,128,1072,110,1055,96,1023,79,990,64,920,44,851,33,791,29"/>
+<area shape="rect" id="Node000012" href="$thermistor_8h.html" title="Thermistor lookup table from datasheet." alt="" coords="822,94,911,120"/>
+<area shape="poly" id="edge27_Node000001_Node000012" title=" " alt="" coords="758,44,832,84,830,89,755,49"/>
+<area shape="rect" id="Node000014" href="$freertos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="43,256,221,282"/>
+<area shape="poly" id="edge30_Node000001_Node000014" title=" " alt="" coords="649,39,563,56,458,82,347,119,293,143,241,170,192,208,153,247,149,243,188,204,239,165,291,138,345,114,457,77,562,50,649,34"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="584,117,520,132,440,158,398,177,357,200,319,227,286,258,266,282,253,303,247,325,247,355,251,388,246,389,241,356,241,325,248,300,262,278,282,254,316,223,355,195,396,172,438,153,519,126,583,111"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="637,118,702,172,739,211,772,255,785,285,793,314,788,316,780,287,767,258,735,214,699,176,634,122"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="654,106,730,110,823,119,909,137,941,150,963,166,982,193,989,216,986,238,973,258,951,279,922,302,841,358,814,375,784,389,727,407,726,402,782,384,811,370,839,353,919,297,948,275,969,255,981,236,984,217,977,195,959,170,939,154,907,142,822,124,730,115,654,111"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="607,122,558,166,555,163,604,118"/>
+<area shape="poly" id="edge16_Node000002_Node000007" title=" " alt="" coords="584,121,530,141,472,170,423,208,384,247,380,243,419,204,469,165,527,136,582,116"/>
+<area shape="poly" id="edge17_Node000002_Node000009" title=" " alt="" coords="624,119,653,207,669,241,664,243,648,209,619,121"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="531,202,521,233,502,275,476,319,440,358,409,378,374,394,307,411,306,406,373,389,406,374,437,354,471,316,498,273,516,231,526,201"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="539,200,558,239,573,261,592,280,629,302,670,318,747,334,745,340,668,323,627,307,589,284,569,265,553,242,534,202"/>
+<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="536,201,545,238,562,281,584,313,608,343,656,391,652,395,604,347,579,316,558,283,540,239,531,202"/>
+<area shape="poly" id="edge9_Node000006_Node000007" title=" " alt="" coords="507,204,402,252,400,247,505,199"/>
+<area shape="poly" id="edge13_Node000006_Node000009" title=" " alt="" coords="556,199,645,246,643,251,553,204"/>
+<area shape="rect" id="Node000008" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="257,330,426,356"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="361,283,351,316,346,314,355,282"/>
+<area shape="poly" id="edge11_Node000008_Node000003" title=" " alt="" coords="328,358,282,396,279,392,325,354"/>
+<area shape="poly" id="edge12_Node000008_Node000005" title=" " alt="" coords="400,354,634,403,633,408,399,359"/>
+<area shape="poly" id="edge15_Node000009_Node000004" title=" " alt="" coords="701,280,764,319,761,324,698,285"/>
+<area shape="poly" id="edge14_Node000009_Node000005" title=" " alt="" coords="683,282,683,388,677,388,677,282"/>
+<area shape="poly" id="edge24_Node000011_Node000005" title=" " alt="" coords="1124,202,1120,233,1109,276,1089,320,1075,341,1058,358,1032,372,997,384,906,401,809,411,727,416,727,411,809,406,906,395,995,378,1030,367,1054,354,1071,337,1085,318,1104,274,1115,232,1119,201"/>
+<area shape="rect" id="Node000013" href="$lerp__lut_8h.html" title="Linear interpolation lookup table (LUT)." alt="" coords="808,168,950,208"/>
+<area shape="poly" id="edge28_Node000012_Node000013" title=" " alt="" coords="871,120,876,152,871,153,866,120"/>
+<area shape="poly" id="edge29_Node000013_Node000004" title=" " alt="" coords="882,209,879,245,866,283,849,305,829,323,826,319,846,302,862,281,874,244,877,208"/>
+<area shape="poly" id="edge31_Node000014_Node000005" title=" " alt="" coords="145,280,187,317,215,337,245,353,296,372,350,386,458,404,556,412,633,414,633,419,556,418,457,410,349,391,295,377,243,358,212,342,183,322,141,284"/>
+</map>

@@ -1,0 +1,21 @@
+<map id="common/amk/amk.h" name="common/amk/amk.h">
+<area shape="rect" id="Node000001" title="Modernized AMK driver." alt="" coords="124,5,263,31"/>
+<area shape="rect" id="Node000002" href="$common_2amk_2amk_8c.html" title="Modernized AMK driver." alt="" coords="17,86,156,112"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,42,105,88,101,84,164,38"/>
+<area shape="rect" id="Node000003" href="$main__module_2main_8c.html" title="&quot;Main Module&quot; node source code" alt="" coords="5,175,147,216"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="194,47,186,84,170,121,143,153,111,177,108,173,139,149,166,118,181,82,189,46"/>
+<area shape="rect" id="Node000004" href="$powertrain_8h.html" title="Powertrain implementation." alt="" coords="259,79,418,120"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="230,36,304,76,302,81,227,41"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="270,128,132,177,130,172,269,123"/>
+<area shape="rect" id="Node000005" href="$powertrain_8c.html" title="Powertrain implementation." alt="" coords="171,175,330,216"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="312,133,271,177,267,173,308,129"/>
+<area shape="rect" id="Node000006" href="$main__module_2telemetry_2telemetry_8c.html" title="MAIN MODULE telemetry task implementations." alt="" coords="354,175,499,216"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="369,129,410,173,407,177,365,133"/>
+<area shape="rect" id="Node000007" href="$torque__controller_8h.html" title="Vehicle torque request calculation." alt="" coords="523,168,685,223"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="409,123,528,165,526,170,407,128"/>
+<area shape="rect" id="Node000009" href="$vehicle__fsm_8c.html" title="Master vehicle state machine implementation." alt="" coords="633,279,812,320"/>
+<area shape="poly" id="edge10_Node000004_Node000009" title=" " alt="" coords="434,104,510,112,588,124,655,141,681,153,699,166,717,192,726,223,728,253,728,279,722,278,723,253,721,224,712,194,695,170,678,157,653,147,586,129,509,117,434,109"/>
+<area shape="rect" id="Node000008" href="$torque__controller_8c.html" title="Vehicle torque request calculation." alt="" coords="447,271,609,327"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="577,238,551,272,546,269,572,234"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="649,232,702,276,698,280,645,236"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="source/dashboard/driver_interface/pages/faults.h" name="source/dashboard/driver_interface/pages/faults.h">
+<area shape="rect" id="Node000001" title="Faults page implementation." alt="" coords="96,5,259,46"/>
+<area shape="rect" id="Node000002" href="$lcd_8c.html" title="LCD display management." alt="" coords="5,94,166,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,59,108,96,104,92,144,55"/>
+<area shape="rect" id="Node000003" href="$dashboard_2driver__interface_2pages_2faults_8c.html" title="Faults page implementation." alt="" coords="189,94,352,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="212,55,252,92,248,96,208,59"/>
+</map>

@@ -1,0 +1,15 @@
+<map id="source/daq/ethernet/w5500_callbacks.c" name="source/daq/ethernet/w5500_callbacks.c">
+<area shape="rect" id="Node000001" title="Implementation of the W5500 SPI callbacks for ethernet communication." alt="" coords="175,5,312,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,94,154,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,49,119,89,117,85,201,44"/>
+<area shape="rect" id="Node000003" href="$phal_2spi_8h.html" title=" " alt="" coords="178,94,309,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="246,46,246,78,241,78,241,46"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="332,94,392,120"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="274,44,333,83,330,87,271,49"/>
+<area shape="rect" id="Node000004" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="159,168,328,193"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="246,120,246,152,241,152,241,120"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="162,241,235,267"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="238,195,216,230,212,227,234,192"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="258,241,322,267"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="253,192,276,227,272,230,249,195"/>
+</map>

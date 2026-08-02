@@ -1,0 +1,37 @@
+<map id="faults_move_up" name="faults_move_up">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,152,119,178"/>
+<area shape="rect" id="Node000002" href="$menu__system_8c.html#abb6e83f43c566270750060807da99fa4" title="Moves menu selection up or increments selected element value." alt="" coords="167,152,264,178"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,162,151,162,151,168,119,168"/>
+<area shape="rect" id="Node000003" href="$menu__system_8c.html#ad29034f2b375212cc2bb9d4ef615583d" title="Increments the value of a menu element and updates its display." alt="" coords="312,101,450,127"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="259,149,322,129,323,135,261,154"/>
+<area shape="rect" id="Node000010" href="$menu__system_8c.html#a7645a0be2314be1c0a9117b4b34b4ed3" title="Applies hover styling effect to a menu element." alt="" coords="515,153,646,179"/>
+<area shape="poly" id="edge13_Node000002_Node000010" title=" " alt="" coords="264,162,500,163,499,169,264,168"/>
+<area shape="rect" id="Node000013" href="$menu__system_8c.html#a52e23759a2403de35a5610f96cae0cd0" title="Applies normal (default) styling to a menu element." alt="" coords="512,203,649,228"/>
+<area shape="poly" id="edge20_Node000002_Node000013" title=" " alt="" coords="265,169,497,201,496,207,264,174"/>
+<area shape="rect" id="Node000004" href="$menu__system_8c.html#a0e536353f8e34a992b1070bcf883320b" title=" " alt="" coords="498,52,663,78"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="436,98,510,79,511,85,437,103"/>
+<area shape="rect" id="Node000009" href="$nextion_8c.html#ac7e3e9fc4674d17281069e97b8a5384d" title="Sets a value to a specified object on the Nextion display." alt="" coords="736,104,842,130"/>
+<area shape="poly" id="edge10_Node000003_Node000009" title=" " alt="" coords="451,112,720,114,720,119,451,117"/>
+<area shape="rect" id="Node000005" href="$nextion_8c.html#ab2a89fd8e292338a6e570a41a698ad3a" title="Sets the text of a Nextion display object." alt="" coords="740,55,838,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="663,63,725,64,725,69,663,69"/>
+<area shape="rect" id="Node000008" href="$nextion_8c.html#a8af8629d8160abf996231ff267e43564" title="Sets the text of a Nextion display object using printf&#45;style formatting." alt="" coords="711,5,868,31"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="641,49,713,32,714,38,642,54"/>
+<area shape="rect" id="Node000006" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="916,80,1019,106"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="840,72,901,81,900,86,839,77"/>
+<area shape="rect" id="Node000007" href="$strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf" title="Appends formatted data to the buffer using printf&#45;style formatting. !" alt="" coords="922,129,1013,155"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="840,78,869,89,917,116,925,120,923,125,915,121,867,94,838,83"/>
+<area shape="poly" id="edge8_Node000008_Node000006" title=" " alt="" coords="839,29,869,40,931,70,929,75,867,45,838,34"/>
+<area shape="poly" id="edge9_Node000008_Node000007" title=" " alt="" coords="851,29,870,40,887,59,895,78,903,97,918,116,921,119,917,123,914,120,898,100,890,80,882,62,866,44,849,34"/>
+<area shape="poly" id="edge11_Node000009_Node000006" title=" " alt="" coords="843,107,901,99,901,104,843,112"/>
+<area shape="poly" id="edge12_Node000009_Node000007" title=" " alt="" coords="843,122,908,131,907,136,843,127"/>
+<area shape="rect" id="Node000011" href="$nextion_8c.html#a19c3df8972af2eaea366cb65fad34d43" title="Sets the background color of a specified object on the Nextion display." alt="" coords="718,203,860,228"/>
+<area shape="poly" id="edge14_Node000010_Node000011" title=" " alt="" coords="639,177,718,196,716,201,638,182"/>
+<area shape="rect" id="Node000012" href="$nextion_8c.html#ae995d182561a5fa3087569539bb551d2" title="Sets the border width of a specified object on the Nextion display." alt="" coords="717,153,862,179"/>
+<area shape="poly" id="edge17_Node000010_Node000012" title=" " alt="" coords="646,164,702,164,702,169,646,169"/>
+<area shape="poly" id="edge15_Node000011_Node000006" title=" " alt="" coords="848,200,866,189,882,172,890,154,898,135,914,115,917,112,921,116,918,119,903,138,895,156,887,175,870,194,851,204"/>
+<area shape="poly" id="edge16_Node000011_Node000007" title=" " alt="" coords="837,200,867,189,928,160,930,165,869,194,839,205"/>
+<area shape="poly" id="edge18_Node000012_Node000006" title=" " alt="" coords="838,150,867,140,915,114,923,110,926,115,917,119,869,145,840,155"/>
+<area shape="poly" id="edge19_Node000012_Node000007" title=" " alt="" coords="862,154,907,148,907,153,862,159"/>
+<area shape="poly" id="edge21_Node000013_Node000011" title=" " alt="" coords="649,213,702,213,702,218,649,218"/>
+<area shape="poly" id="edge22_Node000013_Node000012" title=" " alt="" coords="638,199,716,181,718,186,639,205"/>
+</map>

@@ -1,0 +1,15 @@
+<map id="SD_GetStatus" name="SD_GetStatus">
+<area shape="rect" id="Node000001" title="Gets the cuurent sd card data transfer status." alt="" coords="5,31,111,56"/>
+<area shape="rect" id="Node000002" href="$sdio_8c.html#a1c49d266e4f9ba33b7a425361a30d227" title="Returns the current card&#39;s state." alt="" coords="159,31,257,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,41,143,41,143,46,111,46"/>
+<area shape="rect" id="Node000003" href="$sdio_8c.html#acb7415873dffa26068c5e46025efebfa" title="Detect if SD card is correctly plugged in the memory slot." alt="" coords="320,5,404,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="257,33,304,25,305,30,258,38"/>
+<area shape="rect" id="Node000005" href="$sdio_8c.html#a7de24baeb4c6a7c9e5668630b8797888" title="Returns the current card&#39;s status." alt="" coords="305,55,419,80"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="258,49,290,54,289,59,257,54"/>
+<area shape="rect" id="Node000004" href="$phal__F4_2gpio_2gpio_8h.html#a613ebbfff35a56132e58a75c773d7876" title="Read the state of the input register for the specific GPIO pin." alt="" coords="502,5,625,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="405,16,487,16,487,21,405,21"/>
+<area shape="rect" id="Node000006" href="$sdio_8c.html#a7566a8f0aaba0e993a8b9e914897c812" title="Checks for error conditions for R1 response." alt="" coords="507,55,620,80"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="420,65,492,65,492,70,420,70"/>
+<area shape="rect" id="Node000007" href="$sdio_8c.html#a4b480281586b4fd1ccf150129fe21120" title="Send a command." alt="" coords="467,104,660,130"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="418,78,494,97,493,102,417,84"/>
+</map>

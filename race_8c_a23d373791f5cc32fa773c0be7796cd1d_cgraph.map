@@ -1,0 +1,15 @@
+<map id="update_tv_telemetry" name="update_tv_telemetry">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,144,56"/>
+<area shape="rect" id="Node000002" href="$race_8c.html#ae54e1380740da10a82a20f9599c83c47" title=" " alt="" coords="192,31,295,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,41,176,41,176,46,144,46"/>
+<area shape="rect" id="Node000003" href="$nextion_8c.html#af603b7d431ae4f94d55bf04b2034a8cc" title="Sets the font color of a specified object on the Nextion display." alt="" coords="343,5,472,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="295,33,327,28,328,33,296,38"/>
+<area shape="rect" id="Node000006" href="$nextion_8c.html#ac7e3e9fc4674d17281069e97b8a5384d" title="Sets a value to a specified object on the Nextion display." alt="" coords="354,55,461,80"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="296,48,340,55,339,60,295,54"/>
+<area shape="rect" id="Node000004" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="520,5,624,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="473,16,505,16,505,21,473,21"/>
+<area shape="rect" id="Node000005" href="$strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf" title="Appends formatted data to the buffer using printf&#45;style formatting. !" alt="" coords="527,55,617,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="454,29,513,47,511,52,452,34"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="452,51,511,33,513,39,454,57"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="461,65,511,65,511,70,461,70"/>
+</map>

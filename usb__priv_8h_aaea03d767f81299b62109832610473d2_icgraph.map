@@ -1,0 +1,11 @@
+<map id="USB_PRIV_setAddress" name="USB_PRIV_setAddress">
+<area shape="rect" id="Node000001" title="Write the seven&#45;bit device address while keeping the device enabled." alt="" coords="432,31,592,56"/>
+<area shape="rect" id="Node000002" href="$usb_8c.html#a7b6c8df7b0328f18f6dab165592423ae" title="Apply the address assigned by a SET_ADDRESS request." alt="" coords="211,5,376,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="416,35,377,30,377,25,417,30"/>
+<area shape="rect" id="Node000003" href="$usb__priv_8c.html#a3b7fdac0fb67607273cf7aabc6f8494f" title="Decode one pending USB interrupt and notify the application." alt="" coords="204,55,384,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="417,57,385,60,384,55,416,51"/>
+<area shape="rect" id="Node000004" href="$usb_8c.html#a3d29cbfce29da77f8c0e1feb84998aac" title=" " alt="" coords="5,29,156,55"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="188,58,156,54,156,48,188,52"/>
+<area shape="rect" id="Node000005" href="$usb_8c.html#ab0abd6916df1318e9dd804cdfc96a56d" title=" " alt="" coords="6,79,155,104"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="188,82,155,86,154,81,188,77"/>
+</map>

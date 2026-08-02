@@ -1,0 +1,7 @@
+<map id="common/phal_G4/phal_G4.h" name="common/phal_G4/phal_G4.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,191,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="16,79,89,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,33,71,67,66,64,88,30"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="113,79,176,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="108,30,131,64,126,67,103,33"/>
+</map>

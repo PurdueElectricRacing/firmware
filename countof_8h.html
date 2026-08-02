@@ -105,7 +105,12 @@ $(function(){initNavTree('countof_8h.html',''); initResizable(true); });
 
 <p>macro-based countof implementation  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="countof_8h__dep__incl.svg" width="100%" height="394"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
 <p><a href="countof_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
@@ -153,10 +158,11 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    ({ \</div>
-<div class="line">        static_assert(_COUNTOF_IS_ARRAY(array), \</div>
+<div class="line">        static_assert(<a class="code hl_define" href="#acb0bb3364b84e0e9c1aa323def57ec44">_COUNTOF_IS_ARRAY</a>(array), \</div>
 <div class="line">        <span class="stringliteral">&quot;countof() argument must be an array&quot;</span>); \</div>
 <div class="line">        (<span class="keyword">sizeof</span>(array) / <span class="keyword">sizeof</span>((array)[0])); \</div>
 <div class="line">    }) \</div>
+<div class="ttc" id="acountof_8h_html_acb0bb3364b84e0e9c1aa323def57ec44"><div class="ttname"><a href="#acb0bb3364b84e0e9c1aa323def57ec44">_COUNTOF_IS_ARRAY</a></div><div class="ttdeci">#define _COUNTOF_IS_ARRAY(x)</div><div class="ttdef"><b>Definition</b> countof.h:17</div></div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -1,0 +1,9 @@
+<map id="SPMC_follower_peek_minis" name="SPMC_follower_peek_minis">
+<area shape="rect" id="Node000001" title="Peeks at the number of contiguous mini chunks available for the follower without lapping the master&#39;s..." alt="" coords="448,5,595,46"/>
+<area shape="rect" id="Node000002" href="$ethernet_8c.html#acd6ae1ee8d86a2dee49ec135ff03ed7c" title=" " alt="" coords="271,13,400,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="433,28,401,28,401,23,433,23"/>
+<area shape="rect" id="Node000003" href="$ethernet_8c.html#a1ea4f11f8d51c291e709aa8730f23910" title=" " alt="" coords="103,13,223,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="255,28,223,28,223,23,255,23"/>
+<area shape="rect" id="Node000004" href="$daq_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,55,38"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="87,28,55,28,55,23,87,23"/>
+</map>

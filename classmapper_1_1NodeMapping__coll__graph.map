@@ -1,0 +1,5 @@
+<map id="mapper.NodeMapping" name="mapper.NodeMapping">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,124,153,150"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="57,5,101,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="82,47,82,123,76,123,76,47"/>
+</map>

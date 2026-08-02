@@ -113,63 +113,78 @@ $(function(){initNavTree('driver__interface_8c.html',''); initResizable(true); }
 <code>#include &quot;can_library/generated/can_types.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="heartbeat_8h_source.html">common/heartbeat/heartbeat.h</a>&quot;</code><br />
-<code>#include &quot;common/phal/gpio.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2gpio_8h_source.html">common/phal/gpio.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="watchdog_8h_source.html">common/watchdog/watchdog.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="lcd_8h_source.html">lcd.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
-<code>#include &quot;pages/vcu.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="dashboard_2driver__interface_2pages_2vcu_8h_source.html">pages/vcu.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for driver_interface.c:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="driver__interface_8c__incl.svg" width="100%" height="582"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:aaf8ae7422c5c767ad5166f2df8fe25c0" id="r_aaf8ae7422c5c767ad5166f2df8fe25c0"><td class="memItemLeft" align="right" valign="top"><a id="aaf8ae7422c5c767ad5166f2df8fe25c0" name="aaf8ae7422c5c767ad5166f2df8fe25c0"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>ACTION_QUEUE_LENGTH</b>&#160;&#160;&#160;(10)</td></tr>
+<tr class="memitem:aaf8ae7422c5c767ad5166f2df8fe25c0" id="r_aaf8ae7422c5c767ad5166f2df8fe25c0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf8ae7422c5c767ad5166f2df8fe25c0">ACTION_QUEUE_LENGTH</a>&#160;&#160;&#160;(10)</td></tr>
 <tr class="separator:aaf8ae7422c5c767ad5166f2df8fe25c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5525abb49a0c0e242e8f44e1e1b1e489" id="r_a5525abb49a0c0e242e8f44e1e1b1e489"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5525abb49a0c0e242e8f44e1e1b1e489">BUTTON_EXTI_MASK</a></td></tr>
 <tr class="separator:a5525abb49a0c0e242e8f44e1e1b1e489"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a79dded9d3ad36a3fb1e00c884968d4e9" id="r_a79dded9d3ad36a3fb1e00c884968d4e9"><td class="memItemLeft" align="right" valign="top"><a id="a79dded9d3ad36a3fb1e00c884968d4e9" name="a79dded9d3ad36a3fb1e00c884968d4e9"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_QUEUE</b> (action_queue, driver_interface_action_t, ACTION_QUEUE_LENGTH)</td></tr>
+<tr class="memitem:a79dded9d3ad36a3fb1e00c884968d4e9" id="r_a79dded9d3ad36a3fb1e00c884968d4e9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79dded9d3ad36a3fb1e00c884968d4e9">FREERTOS_DEFINE_QUEUE</a> (action_queue, <a class="el" href="driver__interface_8h.html#a229e398c86c302f6e87d5be9a8570f89">driver_interface_action_t</a>, <a class="el" href="#aaf8ae7422c5c767ad5166f2df8fe25c0">ACTION_QUEUE_LENGTH</a>)</td></tr>
 <tr class="separator:a79dded9d3ad36a3fb1e00c884968d4e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac40e3efd9598191869ae6e4677df48ba" id="r_ac40e3efd9598191869ae6e4677df48ba"><td class="memItemLeft" align="right" valign="top"><a id="ac40e3efd9598191869ae6e4677df48ba" name="ac40e3efd9598191869ae6e4677df48ba"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>EXTI0_IRQHandler</b> ()</td></tr>
+<tr class="memitem:ac40e3efd9598191869ae6e4677df48ba" id="r_ac40e3efd9598191869ae6e4677df48ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac40e3efd9598191869ae6e4677df48ba">EXTI0_IRQHandler</a> ()</td></tr>
 <tr class="separator:ac40e3efd9598191869ae6e4677df48ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e9055d1f4a14ef6eb3990a77efc8983" id="r_a7e9055d1f4a14ef6eb3990a77efc8983"><td class="memItemLeft" align="right" valign="top"><a id="a7e9055d1f4a14ef6eb3990a77efc8983" name="a7e9055d1f4a14ef6eb3990a77efc8983"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>EXTI1_IRQHandler</b> ()</td></tr>
+<tr class="memitem:a7e9055d1f4a14ef6eb3990a77efc8983" id="r_a7e9055d1f4a14ef6eb3990a77efc8983"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e9055d1f4a14ef6eb3990a77efc8983">EXTI1_IRQHandler</a> ()</td></tr>
 <tr class="separator:a7e9055d1f4a14ef6eb3990a77efc8983"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd7f454d4f8ce7b9b1caebf717e40e55" id="r_acd7f454d4f8ce7b9b1caebf717e40e55"><td class="memItemLeft" align="right" valign="top"><a id="acd7f454d4f8ce7b9b1caebf717e40e55" name="acd7f454d4f8ce7b9b1caebf717e40e55"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>EXTI4_IRQHandler</b> ()</td></tr>
+<tr class="memitem:acd7f454d4f8ce7b9b1caebf717e40e55" id="r_acd7f454d4f8ce7b9b1caebf717e40e55"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd7f454d4f8ce7b9b1caebf717e40e55">EXTI4_IRQHandler</a> ()</td></tr>
 <tr class="separator:acd7f454d4f8ce7b9b1caebf717e40e55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f0a091727452df71a1760d1133bf9b4" id="r_a9f0a091727452df71a1760d1133bf9b4"><td class="memItemLeft" align="right" valign="top"><a id="a9f0a091727452df71a1760d1133bf9b4" name="a9f0a091727452df71a1760d1133bf9b4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>EXTI9_5_IRQHandler</b> ()</td></tr>
+<tr class="memitem:a9f0a091727452df71a1760d1133bf9b4" id="r_a9f0a091727452df71a1760d1133bf9b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f0a091727452df71a1760d1133bf9b4">EXTI9_5_IRQHandler</a> ()</td></tr>
 <tr class="separator:a9f0a091727452df71a1760d1133bf9b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2089b233bd8d6f7dbf78e075033696e3" id="r_a2089b233bd8d6f7dbf78e075033696e3"><td class="memItemLeft" align="right" valign="top"><a id="a2089b233bd8d6f7dbf78e075033696e3" name="a2089b233bd8d6f7dbf78e075033696e3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>EXTI15_10_IRQHandler</b> ()</td></tr>
+<tr class="memitem:a2089b233bd8d6f7dbf78e075033696e3" id="r_a2089b233bd8d6f7dbf78e075033696e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2089b233bd8d6f7dbf78e075033696e3">EXTI15_10_IRQHandler</a> ()</td></tr>
 <tr class="separator:a2089b233bd8d6f7dbf78e075033696e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ec7bb211c49e211d008f7c9bcdb2b8d" id="r_a6ec7bb211c49e211d008f7c9bcdb2b8d"><td class="memItemLeft" align="right" valign="top"><a id="a6ec7bb211c49e211d008f7c9bcdb2b8d" name="a6ec7bb211c49e211d008f7c9bcdb2b8d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>action_dispatcher</b> (void)</td></tr>
+<tr class="memitem:a8699128e5c732cfae429638ad9986d71" id="r_a8699128e5c732cfae429638ad9986d71"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8699128e5c732cfae429638ad9986d71">init_buttons</a> ()</td></tr>
+<tr class="separator:a8699128e5c732cfae429638ad9986d71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ec7bb211c49e211d008f7c9bcdb2b8d" id="r_a6ec7bb211c49e211d008f7c9bcdb2b8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ec7bb211c49e211d008f7c9bcdb2b8d">action_dispatcher</a> (void)</td></tr>
 <tr class="separator:a6ec7bb211c49e211d008f7c9bcdb2b8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7b90a0489ad0ee285e2ddbc1d76de4a" id="r_ac7b90a0489ad0ee285e2ddbc1d76de4a"><td class="memItemLeft" align="right" valign="top"><a id="ac7b90a0489ad0ee285e2ddbc1d76de4a" name="ac7b90a0489ad0ee285e2ddbc1d76de4a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_external_leds</b> (void)</td></tr>
+<tr class="memitem:ac7b90a0489ad0ee285e2ddbc1d76de4a" id="r_ac7b90a0489ad0ee285e2ddbc1d76de4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7b90a0489ad0ee285e2ddbc1d76de4a">set_external_leds</a> (void)</td></tr>
 <tr class="separator:ac7b90a0489ad0ee285e2ddbc1d76de4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac599c66976c348cb0287266b60aa49c5" id="r_ac599c66976c348cb0287266b60aa49c5"><td class="memItemLeft" align="right" valign="top"><a id="ac599c66976c348cb0287266b60aa49c5" name="ac599c66976c348cb0287266b60aa49c5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>driver_interface_periodic</b> (void)</td></tr>
+<tr class="memitem:ac599c66976c348cb0287266b60aa49c5" id="r_ac599c66976c348cb0287266b60aa49c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac599c66976c348cb0287266b60aa49c5">driver_interface_periodic</a> (void)</td></tr>
 <tr class="separator:ac599c66976c348cb0287266b60aa49c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aafe51baeb9040ea9a11bf193dfe76dd6" id="r_aafe51baeb9040ea9a11bf193dfe76dd6"><td class="memItemLeft" align="right" valign="top"><a id="aafe51baeb9040ea9a11bf193dfe76dd6" name="aafe51baeb9040ea9a11bf193dfe76dd6"></a>
-volatile uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>data_mark_index</b> = 0</td></tr>
+<tr class="memitem:a36d04d1347b8677b0acc106e46f52614" id="r_a36d04d1347b8677b0acc106e46f52614"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="driver__interface_8h.html#a0b28b74cdc60e16623b48a65bf3e3f41">driver_interface_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a36d04d1347b8677b0acc106e46f52614">di_state</a> = <a class="el" href="driver__interface_8h.html#a0b28b74cdc60e16623b48a65bf3e3f41a0c135022a7e237a5e97b8d19427863ce">DI_STATE_LCD_INIT</a></td></tr>
+<tr class="separator:a36d04d1347b8677b0acc106e46f52614"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab06bfda9afddaded068e2007ad8f3ade" id="r_ab06bfda9afddaded068e2007ad8f3ade"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="driver__interface_8h.html#a0b28b74cdc60e16623b48a65bf3e3f41">driver_interface_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab06bfda9afddaded068e2007ad8f3ade">next_di_state</a> = <a class="el" href="driver__interface_8h.html#a0b28b74cdc60e16623b48a65bf3e3f41a0c135022a7e237a5e97b8d19427863ce">DI_STATE_LCD_INIT</a></td></tr>
+<tr class="separator:ab06bfda9afddaded068e2007ad8f3ade"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafe51baeb9040ea9a11bf193dfe76dd6" id="r_aafe51baeb9040ea9a11bf193dfe76dd6"><td class="memItemLeft" align="right" valign="top">volatile uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aafe51baeb9040ea9a11bf193dfe76dd6">data_mark_index</a> = 0</td></tr>
 <tr class="separator:aafe51baeb9040ea9a11bf193dfe76dd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab358b4de0d227c3352c7bad61fd1dc9c" id="r_ab358b4de0d227c3352c7bad61fd1dc9c"><td class="memItemLeft" align="right" valign="top"><a id="ab358b4de0d227c3352c7bad61fd1dc9c" name="ab358b4de0d227c3352c7bad61fd1dc9c"></a>
-<a class="el" href="structstatus__leds__t.html">status_leds_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>status_leds</b></td></tr>
+<tr class="memitem:a8de3739e9dce51b304975ce41606129e" id="r_a8de3739e9dce51b304975ce41606129e"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8de3739e9dce51b304975ce41606129e">INTERRUPT_DEBOUNCE_MS</a> = 150</td></tr>
+<tr class="separator:a8de3739e9dce51b304975ce41606129e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab358b4de0d227c3352c7bad61fd1dc9c" id="r_ab358b4de0d227c3352c7bad61fd1dc9c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstatus__leds__t.html">status_leds_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab358b4de0d227c3352c7bad61fd1dc9c">status_leds</a></td></tr>
 <tr class="separator:ab358b4de0d227c3352c7bad61fd1dc9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>thread to manage driver-facing LCD, buttons, LEDs </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="aaf8ae7422c5c767ad5166f2df8fe25c0" name="aaf8ae7422c5c767ad5166f2df8fe25c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf8ae7422c5c767ad5166f2df8fe25c0">&#9670;&#160;</a></span>ACTION_QUEUE_LENGTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ACTION_QUEUE_LENGTH&#160;&#160;&#160;(10)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a5525abb49a0c0e242e8f44e1e1b1e489" name="a5525abb49a0c0e242e8f44e1e1b1e489"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5525abb49a0c0e242e8f44e1e1b1e489">&#9670;&#160;</a></span>BUTTON_EXTI_MASK</h2>
 
@@ -188,6 +203,332 @@ volatile uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>data_mar
 <div class="line">                          EXTI_IMR1_IM11 | EXTI_IMR1_IM13 | \</div>
 <div class="line">                          EXTI_IMR1_IM14 | EXTI_IMR1_IM15)</div>
 </div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a6ec7bb211c49e211d008f7c9bcdb2b8d" name="a6ec7bb211c49e211d008f7c9bcdb2b8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ec7bb211c49e211d008f7c9bcdb2b8d">&#9670;&#160;</a></span>action_dispatcher()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void action_dispatcher </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="driver__interface_8c_a6ec7bb211c49e211d008f7c9bcdb2b8d_cgraph.svg" width="100%" height="572"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="driver__interface_8c_a6ec7bb211c49e211d008f7c9bcdb2b8d_icgraph.svg" width="442" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ac599c66976c348cb0287266b60aa49c5" name="ac599c66976c348cb0287266b60aa49c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac599c66976c348cb0287266b60aa49c5">&#9670;&#160;</a></span>driver_interface_periodic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void driver_interface_periodic </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="driver__interface_8c_ac599c66976c348cb0287266b60aa49c5_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="driver__interface_8c_ac599c66976c348cb0287266b60aa49c5_icgraph.svg" width="271" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ac40e3efd9598191869ae6e4677df48ba" name="ac40e3efd9598191869ae6e4677df48ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac40e3efd9598191869ae6e4677df48ba">&#9670;&#160;</a></span>EXTI0_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EXTI0_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2089b233bd8d6f7dbf78e075033696e3" name="a2089b233bd8d6f7dbf78e075033696e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2089b233bd8d6f7dbf78e075033696e3">&#9670;&#160;</a></span>EXTI15_10_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EXTI15_10_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7e9055d1f4a14ef6eb3990a77efc8983" name="a7e9055d1f4a14ef6eb3990a77efc8983"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e9055d1f4a14ef6eb3990a77efc8983">&#9670;&#160;</a></span>EXTI1_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EXTI1_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acd7f454d4f8ce7b9b1caebf717e40e55" name="acd7f454d4f8ce7b9b1caebf717e40e55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd7f454d4f8ce7b9b1caebf717e40e55">&#9670;&#160;</a></span>EXTI4_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EXTI4_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9f0a091727452df71a1760d1133bf9b4" name="a9f0a091727452df71a1760d1133bf9b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f0a091727452df71a1760d1133bf9b4">&#9670;&#160;</a></span>EXTI9_5_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EXTI9_5_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a79dded9d3ad36a3fb1e00c884968d4e9" name="a79dded9d3ad36a3fb1e00c884968d4e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79dded9d3ad36a3fb1e00c884968d4e9">&#9670;&#160;</a></span>FREERTOS_DEFINE_QUEUE()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FREERTOS_DEFINE_QUEUE </td>
+          <td>(</td>
+          <td class="paramtype">action_queue</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="driver__interface_8h.html#a229e398c86c302f6e87d5be9a8570f89">driver_interface_action_t</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#aaf8ae7422c5c767ad5166f2df8fe25c0">ACTION_QUEUE_LENGTH</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8699128e5c732cfae429638ad9986d71" name="a8699128e5c732cfae429638ad9986d71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8699128e5c732cfae429638ad9986d71">&#9670;&#160;</a></span>init_buttons()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void init_buttons </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="driver__interface_8c_a8699128e5c732cfae429638ad9986d71_icgraph.svg" width="407" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ac7b90a0489ad0ee285e2ddbc1d76de4a" name="ac7b90a0489ad0ee285e2ddbc1d76de4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7b90a0489ad0ee285e2ddbc1d76de4a">&#9670;&#160;</a></span>set_external_leds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void set_external_leds </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="driver__interface_8c_ac7b90a0489ad0ee285e2ddbc1d76de4a_cgraph.svg" width="307" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="driver__interface_8c_ac7b90a0489ad0ee285e2ddbc1d76de4a_icgraph.svg" width="442" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aafe51baeb9040ea9a11bf193dfe76dd6" name="aafe51baeb9040ea9a11bf193dfe76dd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafe51baeb9040ea9a11bf193dfe76dd6">&#9670;&#160;</a></span>data_mark_index</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint16_t data_mark_index = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a36d04d1347b8677b0acc106e46f52614" name="a36d04d1347b8677b0acc106e46f52614"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36d04d1347b8677b0acc106e46f52614">&#9670;&#160;</a></span>di_state</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="driver__interface_8h.html#a0b28b74cdc60e16623b48a65bf3e3f41">driver_interface_state_t</a> di_state = <a class="el" href="driver__interface_8h.html#a0b28b74cdc60e16623b48a65bf3e3f41a0c135022a7e237a5e97b8d19427863ce">DI_STATE_LCD_INIT</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8de3739e9dce51b304975ce41606129e" name="a8de3739e9dce51b304975ce41606129e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8de3739e9dce51b304975ce41606129e">&#9670;&#160;</a></span>INTERRUPT_DEBOUNCE_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t INTERRUPT_DEBOUNCE_MS = 150</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab06bfda9afddaded068e2007ad8f3ade" name="ab06bfda9afddaded068e2007ad8f3ade"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab06bfda9afddaded068e2007ad8f3ade">&#9670;&#160;</a></span>next_di_state</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="driver__interface_8h.html#a0b28b74cdc60e16623b48a65bf3e3f41">driver_interface_state_t</a> next_di_state = <a class="el" href="driver__interface_8h.html#a0b28b74cdc60e16623b48a65bf3e3f41a0c135022a7e237a5e97b8d19427863ce">DI_STATE_LCD_INIT</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab358b4de0d227c3352c7bad61fd1dc9c" name="ab358b4de0d227c3352c7bad61fd1dc9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab358b4de0d227c3352c7bad61fd1dc9c">&#9670;&#160;</a></span>status_leds</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structstatus__leds__t.html">status_leds_t</a> status_leds</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->

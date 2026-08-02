@@ -108,23 +108,92 @@ $(function(){initNavTree('oil__temps__table_8c.html',''); initResizable(true); }
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="lerp__lut_8h_source.html">common/lerp_lut/lerp_lut.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for oil_temps_table.c:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="oil__temps__table_8c__incl.svg" width="240" height="214"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5f1fc2b36a96add5260efd5f0116c4b2" id="r_a5f1fc2b36a96add5260efd5f0116c4b2"><td class="memItemLeft" align="right" valign="top"><a id="a5f1fc2b36a96add5260efd5f0116c4b2" name="a5f1fc2b36a96add5260efd5f0116c4b2"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>LERP_LUT_INIT</b> (oil_temps_lut, OIL_TEMPS, OIL_TEMPS_LUT_SIZE)</td></tr>
+<tr class="memitem:a5f1fc2b36a96add5260efd5f0116c4b2" id="r_a5f1fc2b36a96add5260efd5f0116c4b2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f1fc2b36a96add5260efd5f0116c4b2">LERP_LUT_INIT</a> (<a class="el" href="oil__temps__table_8h.html#aee9a4559103621cdd956093dd9082b12">oil_temps_lut</a>, <a class="el" href="#a2761e86b7285299f36ad018b81fc7fce">OIL_TEMPS</a>, <a class="el" href="#af15ce6b27603d0194d684f63f722d762">OIL_TEMPS_LUT_SIZE</a>)</td></tr>
 <tr class="separator:a5f1fc2b36a96add5260efd5f0116c4b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a2761e86b7285299f36ad018b81fc7fce" id="r_a2761e86b7285299f36ad018b81fc7fce"><td class="memItemLeft" align="right" valign="top"><a id="a2761e86b7285299f36ad018b81fc7fce" name="a2761e86b7285299f36ad018b81fc7fce"></a>
-const <a class="el" href="structlut__entry__t.html">lut_entry_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>OIL_TEMPS</b> [OIL_TEMPS_LUT_SIZE]</td></tr>
+<tr class="memitem:af15ce6b27603d0194d684f63f722d762" id="r_af15ce6b27603d0194d684f63f722d762"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af15ce6b27603d0194d684f63f722d762">OIL_TEMPS_LUT_SIZE</a> = 63</td></tr>
+<tr class="separator:af15ce6b27603d0194d684f63f722d762"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2761e86b7285299f36ad018b81fc7fce" id="r_a2761e86b7285299f36ad018b81fc7fce"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structlut__entry__t.html">lut_entry_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2761e86b7285299f36ad018b81fc7fce">OIL_TEMPS</a> [<a class="el" href="#af15ce6b27603d0194d684f63f722d762">OIL_TEMPS_LUT_SIZE</a>]</td></tr>
 <tr class="separator:a2761e86b7285299f36ad018b81fc7fce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Oil temp lookup table from datasheet. </p>
 <dl class="section author"><dt>Author</dt><dd>Anya Pokrovskaya (<a href="#" onclick="location.href='mai'+'lto:'+'apo'+'kr'+'ovs'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">apokr<span class="obfuscator">.nosp@m.</span>ovs@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a5f1fc2b36a96add5260efd5f0116c4b2" name="a5f1fc2b36a96add5260efd5f0116c4b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f1fc2b36a96add5260efd5f0116c4b2">&#9670;&#160;</a></span>LERP_LUT_INIT()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">LERP_LUT_INIT </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="oil__temps__table_8h.html#aee9a4559103621cdd956093dd9082b12">oil_temps_lut</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a2761e86b7285299f36ad018b81fc7fce">OIL_TEMPS</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#af15ce6b27603d0194d684f63f722d762">OIL_TEMPS_LUT_SIZE</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a2761e86b7285299f36ad018b81fc7fce" name="a2761e86b7285299f36ad018b81fc7fce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2761e86b7285299f36ad018b81fc7fce">&#9670;&#160;</a></span>OIL_TEMPS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structlut__entry__t.html">lut_entry_t</a> OIL_TEMPS[<a class="el" href="#af15ce6b27603d0194d684f63f722d762">OIL_TEMPS_LUT_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af15ce6b27603d0194d684f63f722d762" name="af15ce6b27603d0194d684f63f722d762"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af15ce6b27603d0194d684f63f722d762">&#9670;&#160;</a></span>OIL_TEMPS_LUT_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t OIL_TEMPS_LUT_SIZE = 63</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

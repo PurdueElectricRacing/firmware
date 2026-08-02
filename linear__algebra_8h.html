@@ -98,7 +98,8 @@ $(function(){initNavTree('linear__algebra_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">linear_algebra.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -106,6 +107,16 @@ $(function(){initNavTree('linear__algebra_8h.html',''); initResizable(true); });
 <p>Linear algebra functions utility header.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;math.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for linear_algebra.h:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="linear__algebra_8h__incl.svg" width="146" height="126"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="linear__algebra_8h__dep__incl.svg" width="155" height="140"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <p><a href="linear__algebra_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -117,12 +128,231 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeuler__angles__t.html">euler_angles_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:acb3467d45efe252749a36d093d6d575d" id="r_acb3467d45efe252749a36d093d6d575d"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb3467d45efe252749a36d093d6d575d">vector3_magnitude</a> (const <a class="el" href="structvector3__t.html">vector3_t</a> vec)</td></tr>
+<tr class="memdesc:acb3467d45efe252749a36d093d6d575d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the magnitude of a 3D vector.  <br /></td></tr>
+<tr class="separator:acb3467d45efe252749a36d093d6d575d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93c54d7aa80562d69744ad203cdc698d" id="r_a93c54d7aa80562d69744ad203cdc698d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structvector3__t.html">vector3_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93c54d7aa80562d69744ad203cdc698d">vector3_normalize</a> (const <a class="el" href="structvector3__t.html">vector3_t</a> vec)</td></tr>
+<tr class="memdesc:a93c54d7aa80562d69744ad203cdc698d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalize a 3D vector.  <br /></td></tr>
+<tr class="separator:a93c54d7aa80562d69744ad203cdc698d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83aa13dae3f1ae7daf0505603258da34" id="r_a83aa13dae3f1ae7daf0505603258da34"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structvector3__t.html">vector3_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83aa13dae3f1ae7daf0505603258da34">matrix_multiply_vector3</a> (const <a class="el" href="structmatrix3x3__t.html">matrix3x3_t</a> *mat, const <a class="el" href="structvector3__t.html">vector3_t</a> *in)</td></tr>
+<tr class="memdesc:a83aa13dae3f1ae7daf0505603258da34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply a 3x3 matrix with a 3D vector.  <br /></td></tr>
+<tr class="separator:a83aa13dae3f1ae7daf0505603258da34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4a5a364956f491f1bbc973cac823959" id="r_ac4a5a364956f491f1bbc973cac823959"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structmatrix3x3__t.html">matrix3x3_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4a5a364956f491f1bbc973cac823959">matrix_multiply_matrix3x3</a> (const <a class="el" href="structmatrix3x3__t.html">matrix3x3_t</a> *a, const <a class="el" href="structmatrix3x3__t.html">matrix3x3_t</a> *b)</td></tr>
+<tr class="memdesc:ac4a5a364956f491f1bbc973cac823959"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply a 3x3 matrix with another 3x3 matrix.  <br /></td></tr>
+<tr class="separator:ac4a5a364956f491f1bbc973cac823959"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1ebdaa071a93ea81ce907ca9b1ffcb6" id="r_ab1ebdaa071a93ea81ce907ca9b1ffcb6"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structmatrix3x3__t.html">matrix3x3_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1ebdaa071a93ea81ce907ca9b1ffcb6">tait_bryan</a> (const <a class="el" href="structeuler__angles__t.html">euler_angles_t</a> angles)</td></tr>
+<tr class="memdesc:ab1ebdaa071a93ea81ce907ca9b1ffcb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform Tait-Bryan ZYX Euler angle to rotation matrix conversion.  <br /></td></tr>
+<tr class="separator:ab1ebdaa071a93ea81ce907ca9b1ffcb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Linear algebra functions utility header. </p>
 <p>Basic floating point vector and matrix types and operations.</p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="ac4a5a364956f491f1bbc973cac823959" name="ac4a5a364956f491f1bbc973cac823959"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4a5a364956f491f1bbc973cac823959">&#9670;&#160;</a></span>matrix_multiply_matrix3x3()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structmatrix3x3__t.html">matrix3x3_t</a> matrix_multiply_matrix3x3 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structmatrix3x3__t.html">matrix3x3_t</a> *</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structmatrix3x3__t.html">matrix3x3_t</a> *</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Multiply a 3x3 matrix with another 3x3 matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The first input matrix </td></tr>
+    <tr><td class="paramname">b</td><td>The second input matrix </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The resulting matrix AB. </dd></dl>
+
+</div>
+</div>
+<a id="a83aa13dae3f1ae7daf0505603258da34" name="a83aa13dae3f1ae7daf0505603258da34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83aa13dae3f1ae7daf0505603258da34">&#9670;&#160;</a></span>matrix_multiply_vector3()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structvector3__t.html">vector3_t</a> matrix_multiply_vector3 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structmatrix3x3__t.html">matrix3x3_t</a> *</td>          <td class="paramname"><span class="paramname"><em>mat</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structvector3__t.html">vector3_t</a> *</td>          <td class="paramname"><span class="paramname"><em>in</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Multiply a 3x3 matrix with a 3D vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mat</td><td>The input matrix </td></tr>
+    <tr><td class="paramname">in</td><td>The input vector </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The resulting vector. </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="linear__algebra_8h_a83aa13dae3f1ae7daf0505603258da34_icgraph.svg" width="420" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab1ebdaa071a93ea81ce907ca9b1ffcb6" name="ab1ebdaa071a93ea81ce907ca9b1ffcb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1ebdaa071a93ea81ce907ca9b1ffcb6">&#9670;&#160;</a></span>tait_bryan()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structmatrix3x3__t.html">matrix3x3_t</a> tait_bryan </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structeuler__angles__t.html">euler_angles_t</a></td>          <td class="paramname"><span class="paramname"><em>angles</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Perform Tait-Bryan ZYX Euler angle to rotation matrix conversion. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">angles</td><td>The Euler angles in radians. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The resulting rotation matrix. </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="linear__algebra_8h_ab1ebdaa071a93ea81ce907ca9b1ffcb6_icgraph.svg" width="367" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="acb3467d45efe252749a36d093d6d575d" name="acb3467d45efe252749a36d093d6d575d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb3467d45efe252749a36d093d6d575d">&#9670;&#160;</a></span>vector3_magnitude()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float vector3_magnitude </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structvector3__t.html">vector3_t</a></td>          <td class="paramname"><span class="paramname"><em>vec</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculate the magnitude of a 3D vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>The input vector </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The magnitude of the vector. </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="linear__algebra_8h_acb3467d45efe252749a36d093d6d575d_icgraph.svg" width="316" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a93c54d7aa80562d69744ad203cdc698d" name="a93c54d7aa80562d69744ad203cdc698d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93c54d7aa80562d69744ad203cdc698d">&#9670;&#160;</a></span>vector3_normalize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structvector3__t.html">vector3_t</a> vector3_normalize </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structvector3__t.html">vector3_t</a></td>          <td class="paramname"><span class="paramname"><em>vec</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Normalize a 3D vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>The input vector </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The normalized vector. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="linear__algebra_8h_a93c54d7aa80562d69744ad203cdc698d_cgraph.svg" width="316" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

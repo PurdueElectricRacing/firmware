@@ -98,7 +98,8 @@ $(function(){initNavTree('menu__system_8c.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">menu_system.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -109,9 +110,16 @@ $(function(){initNavTree('menu__system_8c.html',''); initResizable(true); });
 <code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="colors_8h_source.html">colors.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="nextion_8h_source.html">common/nextion/nextion.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for menu_system.c:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="menu__system_8c__incl.svg" width="459" height="272"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a0e536353f8e34a992b1070bcf883320b" id="r_a0e536353f8e34a992b1070bcf883320b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e536353f8e34a992b1070bcf883320b">MS_renderValueElement</a> (const <a class="el" href="structmenu__element__t.html">menu_element_t</a> *element)</td></tr>
+<tr class="separator:a0e536353f8e34a992b1070bcf883320b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52e23759a2403de35a5610f96cae0cd0" id="r_a52e23759a2403de35a5610f96cae0cd0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52e23759a2403de35a5610f96cae0cd0">MS_setStyleNormal</a> (<a class="el" href="structmenu__element__t.html">menu_element_t</a> *element)</td></tr>
 <tr class="memdesc:a52e23759a2403de35a5610f96cae0cd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies normal (default) styling to a menu element.  <br /></td></tr>
 <tr class="separator:a52e23759a2403de35a5610f96cae0cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,6 +150,13 @@ Functions</h2></td></tr>
 <tr class="memitem:a23c0189c067cb5dfd0a1ab4514e0ecc0" id="r_a23c0189c067cb5dfd0a1ab4514e0ecc0"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23c0189c067cb5dfd0a1ab4514e0ecc0">MS_listGetSelected</a> (<a class="el" href="structmenu__page__t.html">menu_page_t</a> *page)</td></tr>
 <tr class="memdesc:a23c0189c067cb5dfd0a1ab4514e0ecc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the index of the selected element in a menu page.  <br /></td></tr>
 <tr class="separator:a23c0189c067cb5dfd0a1ab4514e0ecc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a3c301bd8bfb775fb3e61da22899491ec" id="r_a3c301bd8bfb775fb3e61da22899491ec"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3c301bd8bfb775fb3e61da22899491ec">HOVER_BORDER_WIDTH</a> = 3</td></tr>
+<tr class="separator:a3c301bd8bfb775fb3e61da22899491ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1905c9ccf270185a84f5f2389a23c10" id="r_ab1905c9ccf270185a84f5f2389a23c10"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1905c9ccf270185a84f5f2389a23c10">NO_BORDER_WIDTH</a> = 0</td></tr>
+<tr class="separator:ab1905c9ccf270185a84f5f2389a23c10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of menu system for LCD display interface. </p>
@@ -171,6 +186,16 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="menu__system_8c_a28391906e0d6d059553293e1e2e6e7f4_cgraph.svg" width="100%" height="401"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="menu__system_8c_a28391906e0d6d059553293e1e2e6e7f4_icgraph.svg" width="494" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -197,6 +222,16 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="menu__system_8c_ad29034f2b375212cc2bb9d4ef615583d_cgraph.svg" width="100%" height="401"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="menu__system_8c_ad29034f2b375212cc2bb9d4ef615583d_icgraph.svg" width="456" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -248,6 +283,16 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="menu__system_8c_a7e670c0b8fc296a5cb8e5e5f340e508c_cgraph.svg" width="100%" height="475"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="menu__system_8c_a7e670c0b8fc296a5cb8e5e5f340e508c_icgraph.svg" width="303" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -273,6 +318,16 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="menu__system_8c_abb6e83f43c566270750060807da99fa4_cgraph.svg" width="100%" height="475"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="menu__system_8c_abb6e83f43c566270750060807da99fa4_icgraph.svg" width="270" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -298,6 +353,51 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="menu__system_8c_aaaa431be258445ad9f1278c488a3f502_cgraph.svg" width="100%" height="475"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="menu__system_8c_aaaa431be258445ad9f1278c488a3f502_icgraph.svg" width="276" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a0e536353f8e34a992b1070bcf883320b" name="a0e536353f8e34a992b1070bcf883320b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e536353f8e34a992b1070bcf883320b">&#9670;&#160;</a></span>MS_renderValueElement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void MS_renderValueElement </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structmenu__element__t.html">menu_element_t</a> *</td>          <td class="paramname"><span class="paramname"><em>element</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="menu__system_8c_a0e536353f8e34a992b1070bcf883320b_cgraph.svg" width="532" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="menu__system_8c_a0e536353f8e34a992b1070bcf883320b_icgraph.svg" width="100%" height="475"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -323,6 +423,16 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="menu__system_8c_a962aad262b004bf39deed9578941a89e_cgraph.svg" width="632" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="menu__system_8c_a962aad262b004bf39deed9578941a89e_icgraph.svg" width="238" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -348,6 +458,16 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="menu__system_8c_a7645a0be2314be1c0a9117b4b34b4ed3_cgraph.svg" width="486" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="menu__system_8c_a7645a0be2314be1c0a9117b4b34b4ed3_icgraph.svg" width="482" height="283"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -373,6 +493,16 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="menu__system_8c_a52e23759a2403de35a5610f96cae0cd0_cgraph.svg" width="492" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="menu__system_8c_a52e23759a2403de35a5610f96cae0cd0_icgraph.svg" width="488" height="283"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -398,6 +528,61 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="menu__system_8c_a6173507fa7b7cf81afec896f80300c9a_cgraph.svg" width="502" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="menu__system_8c_a6173507fa7b7cf81afec896f80300c9a_icgraph.svg" width="471" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a3c301bd8bfb775fb3e61da22899491ec" name="a3c301bd8bfb775fb3e61da22899491ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c301bd8bfb775fb3e61da22899491ec">&#9670;&#160;</a></span>HOVER_BORDER_WIDTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t HOVER_BORDER_WIDTH = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab1905c9ccf270185a84f5f2389a23c10" name="ab1905c9ccf270185a84f5f2389a23c10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1905c9ccf270185a84f5f2389a23c10">&#9670;&#160;</a></span>NO_BORDER_WIDTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t NO_BORDER_WIDTH = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

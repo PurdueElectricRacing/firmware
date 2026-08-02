@@ -1,0 +1,5 @@
+<map id="common/phal_F4/crc/crc.h" name="common/phal_F4/crc/crc.h">
+<area shape="rect" id="Node000001" title="Hardware CRC32 w/ software fallback." alt="" coords="5,5,149,46"/>
+<area shape="rect" id="Node000002" href="$phal__F4_2crc_2crc_8c.html" title="Hardware CRC32 w/ software fallback." alt="" coords="5,94,149,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,62,80,94,74,94,74,62"/>
+</map>

@@ -1,0 +1,34 @@
+<map id="source/main_module/vehicle_fsm/vehicle_fsm.c" name="source/main_module/vehicle_fsm/vehicle_fsm.c">
+<area shape="rect" id="Node000001" title="Master vehicle state machine implementation." alt="" coords="422,5,602,46"/>
+<area shape="rect" id="Node000002" href="$vehicle__fsm_8h.html" title="Master vehicle state machine implementation." alt="" coords="5,102,107,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="422,42,279,64,119,97,108,99,107,94,118,91,278,59,422,36"/>
+<area shape="rect" id="Node000004" href="$faults__common_8h.html" title="Event&#45;based FIDR system." alt="" coords="131,94,250,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="439,49,266,96,265,90,438,44"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="274,94,419,135"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="476,49,399,89,396,84,473,44"/>
+<area shape="rect" id="Node000007" href="$phal_2gpio_8h.html" title=" " alt="" coords="443,102,581,127"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="515,47,515,86,509,86,509,47"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="605,102,664,127"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="541,44,607,90,604,95,538,49"/>
+<area shape="rect" id="Node000011" href="$powertrain_8h.html" title="Powertrain implementation." alt="" coords="656,190,747,216"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="603,44,644,63,678,92,690,112,698,133,704,174,699,175,693,134,686,114,674,96,641,68,601,49"/>
+<area shape="rect" id="Node000014" href="$torque__controller_8h.html" title="Vehicle torque request calculation." alt="" coords="739,102,866,127"/>
+<area shape="poly" id="edge17_Node000001_Node000014" title=" " alt="" coords="579,44,748,94,747,99,578,49"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="57,183,202,223"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="68,126,105,169,101,173,64,129"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="179,137,154,171,150,168,175,134"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="478,352,541,378"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="217,133,484,341,480,345,214,137"/>
+<area shape="rect" id="Node000008" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="427,190,597,216"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="515,128,515,174,509,174,509,128"/>
+<area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="504,218,488,242,475,272,473,289,477,307,493,339,488,341,471,309,468,290,469,271,483,239,500,215"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="483,271,557,297"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="516,216,520,256,515,256,511,217"/>
+<area shape="poly" id="edge13_Node000011_Node000005" title=" " alt="" coords="689,218,622,273,537,345,533,341,618,269,685,214"/>
+<area shape="rect" id="Node000012" href="$common_2amk_2amk_8h.html" title="Modernized AMK driver." alt="" coords="632,271,771,297"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="704,216,704,255,699,255,699,216"/>
+<area shape="poly" id="edge16_Node000012_Node000005" title=" " alt="" coords="673,300,554,349,552,344,671,295"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="629,345,774,386"/>
+<area shape="poly" id="edge15_Node000012_Node000013" title=" " alt="" coords="704,297,704,330,699,330,699,297"/>
+<area shape="poly" id="edge18_Node000014_Node000011" title=" " alt="" coords="790,130,728,182,725,178,787,126"/>
+</map>

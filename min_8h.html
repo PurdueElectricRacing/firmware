@@ -98,14 +98,20 @@ $(function(){initNavTree('min_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">min.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>Minimum value functions utility header.  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="min_8h__dep__incl.svg" width="172" height="140"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
 <p><a href="min_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
@@ -120,6 +126,15 @@ Macros</h2></td></tr>
 <tr class="separator:a49494efb9c774a59e261bb8c710e683e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fa785b256880331b1ee6a2dc7d7d574" id="r_a4fa785b256880331b1ee6a2dc7d7d574"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4fa785b256880331b1ee6a2dc7d7d574">MINOF</a>(...)</td></tr>
 <tr class="separator:a4fa785b256880331b1ee6a2dc7d7d574"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ae98360315c410bcabab01f86a255c55c" id="r_ae98360315c410bcabab01f86a255c55c"><td class="memItemLeft" align="right" valign="top">static signed int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae98360315c410bcabab01f86a255c55c">min2_signed</a> (signed int a, signed int b)</td></tr>
+<tr class="separator:ae98360315c410bcabab01f86a255c55c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0184474d1fb65036d687cfacecae834f" id="r_a0184474d1fb65036d687cfacecae834f"><td class="memItemLeft" align="right" valign="top">static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0184474d1fb65036d687cfacecae834f">min2_unsigned</a> (unsigned int a, unsigned int b)</td></tr>
+<tr class="separator:a0184474d1fb65036d687cfacecae834f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af227243874a2f7f59e533fb94ec74606" id="r_af227243874a2f7f59e533fb94ec74606"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af227243874a2f7f59e533fb94ec74606">min2_float</a> (float a, float b)</td></tr>
+<tr class="separator:af227243874a2f7f59e533fb94ec74606"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Minimum value functions utility header. </p>
@@ -182,7 +197,11 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">DISPATCH_MINOF(__VA_ARGS__, MINOF4, MINOF3, MINOF2)(__VA_ARGS__)</div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a49494efb9c774a59e261bb8c710e683e">DISPATCH_MINOF</a>(__VA_ARGS__, <a class="code hl_define" href="#ae4f12229e296b73505c184e863ece275">MINOF4</a>, <a class="code hl_define" href="#a5d79d77f1895fe94e4d454ed5a259bf6">MINOF3</a>, <a class="code hl_define" href="#a0d2f7b4269b80bf93379ddee19feaa92">MINOF2</a>)(__VA_ARGS__)</div>
+<div class="ttc" id="amin_8h_html_a0d2f7b4269b80bf93379ddee19feaa92"><div class="ttname"><a href="#a0d2f7b4269b80bf93379ddee19feaa92">MINOF2</a></div><div class="ttdeci">#define MINOF2(a, b)</div><div class="ttdef"><b>Definition</b> min.h:30</div></div>
+<div class="ttc" id="amin_8h_html_a49494efb9c774a59e261bb8c710e683e"><div class="ttname"><a href="#a49494efb9c774a59e261bb8c710e683e">DISPATCH_MINOF</a></div><div class="ttdeci">#define DISPATCH_MINOF(_1, _2, _3, _4, NAME,...)</div><div class="ttdef"><b>Definition</b> min.h:41</div></div>
+<div class="ttc" id="amin_8h_html_a5d79d77f1895fe94e4d454ed5a259bf6"><div class="ttname"><a href="#a5d79d77f1895fe94e4d454ed5a259bf6">MINOF3</a></div><div class="ttdeci">#define MINOF3(a, b, c)</div><div class="ttdef"><b>Definition</b> min.h:36</div></div>
+<div class="ttc" id="amin_8h_html_ae4f12229e296b73505c184e863ece275"><div class="ttname"><a href="#ae4f12229e296b73505c184e863ece275">MINOF4</a></div><div class="ttdeci">#define MINOF4(a, b, c, d)</div><div class="ttdef"><b>Definition</b> min.h:37</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -205,10 +224,13 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    _Generic((a) + (b), \</div>
-<div class="line">    <span class="keywordtype">signed</span> <span class="keywordtype">int</span>: min2_signed, \</div>
-<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>: min2_unsigned, \</div>
-<div class="line">    <span class="keywordtype">float</span>: min2_float \</div>
+<div class="line">    <span class="keywordtype">signed</span> <span class="keywordtype">int</span>: <a class="code hl_function" href="#ae98360315c410bcabab01f86a255c55c">min2_signed</a>, \</div>
+<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>: <a class="code hl_function" href="#a0184474d1fb65036d687cfacecae834f">min2_unsigned</a>, \</div>
+<div class="line">    <span class="keywordtype">float</span>: <a class="code hl_function" href="#af227243874a2f7f59e533fb94ec74606">min2_float</a> \</div>
 <div class="line">)(a, b)</div>
+<div class="ttc" id="amin_8h_html_a0184474d1fb65036d687cfacecae834f"><div class="ttname"><a href="#a0184474d1fb65036d687cfacecae834f">min2_unsigned</a></div><div class="ttdeci">static unsigned int min2_unsigned(unsigned int a, unsigned int b)</div><div class="ttdef"><b>Definition</b> min.h:21</div></div>
+<div class="ttc" id="amin_8h_html_ae98360315c410bcabab01f86a255c55c"><div class="ttname"><a href="#ae98360315c410bcabab01f86a255c55c">min2_signed</a></div><div class="ttdeci">static signed int min2_signed(signed int a, signed int b)</div><div class="ttdef"><b>Definition</b> min.h:16</div></div>
+<div class="ttc" id="amin_8h_html_af227243874a2f7f59e533fb94ec74606"><div class="ttname"><a href="#af227243874a2f7f59e533fb94ec74606">min2_float</a></div><div class="ttdeci">static float min2_float(float a, float b)</div><div class="ttdef"><b>Definition</b> min.h:26</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -235,7 +257,7 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">MINOF2(MINOF2(a, b), c)</div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a0d2f7b4269b80bf93379ddee19feaa92">MINOF2</a>(<a class="code hl_define" href="#a0d2f7b4269b80bf93379ddee19feaa92">MINOF2</a>(a, b), c)</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -267,8 +289,96 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">MINOF2(MINOF2(a, b), MINOF2(c, d))</div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a0d2f7b4269b80bf93379ddee19feaa92">MINOF2</a>(<a class="code hl_define" href="#a0d2f7b4269b80bf93379ddee19feaa92">MINOF2</a>(a, b), <a class="code hl_define" href="#a0d2f7b4269b80bf93379ddee19feaa92">MINOF2</a>(c, d))</div>
 </div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="af227243874a2f7f59e533fb94ec74606" name="af227243874a2f7f59e533fb94ec74606"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af227243874a2f7f59e533fb94ec74606">&#9670;&#160;</a></span>min2_float()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float min2_float </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae98360315c410bcabab01f86a255c55c" name="ae98360315c410bcabab01f86a255c55c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae98360315c410bcabab01f86a255c55c">&#9670;&#160;</a></span>min2_signed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static signed int min2_signed </td>
+          <td>(</td>
+          <td class="paramtype">signed int</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">signed int</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0184474d1fb65036d687cfacecae834f" name="a0184474d1fb65036d687cfacecae834f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0184474d1fb65036d687cfacecae834f">&#9670;&#160;</a></span>min2_unsigned()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static unsigned int min2_unsigned </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->

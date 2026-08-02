@@ -1,0 +1,7 @@
+<map id="usb_copy_to_pma" name="usb_copy_to_pma">
+<area shape="rect" id="Node000001" title=" " alt="" coords="351,5,477,31"/>
+<area shape="rect" id="Node000002" href="$usb__priv_8c.html#ae29a55bc0c87c71b9820e6b8ef9c7780" title="Copy one IN packet to packet memory and make it available to the host." alt="" coords="181,5,303,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="335,21,303,21,303,16,335,16"/>
+<area shape="rect" id="Node000003" href="$usb_8c.html#a47d401544e89e5c4e84a478fa6c581b5" title="Queue one device&#45;to&#45;host packet." alt="" coords="5,5,133,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="165,21,133,21,133,16,165,16"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="PHAL_flashErase" name="PHAL_flashErase">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,130,56"/>
+<area shape="rect" id="Node000002" href="$phal__F4_2flash_2flash_8c.html#a5b02b0840544332af6a1de8991188456" title="Convert address to sector number Assumes addr is within flash addr space." alt="" coords="201,5,308,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,32,186,25,186,30,131,38"/>
+<area shape="rect" id="Node000003" href="$phal__F4_2flash_2flash_8c.html#ad25180dbc5296145ee08ce351cbcb5d8" title=" " alt="" coords="178,55,332,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="131,49,163,53,162,58,130,54"/>
+<area shape="rect" id="Node000004" href="$phal__F4_2flash_2flash_8c.html#a70928c6a8180eff48e7da7be757d98e7" title=" " alt="" coords="386,29,463,55"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="332,53,370,48,371,53,333,59"/>
+<area shape="rect" id="Node000005" href="$phal__F4_2flash_2flash_8c.html#afc76a39cb34a33ace01538bdd2b3b62d" title=" " alt="" coords="380,79,469,104"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="333,76,365,80,364,86,332,81"/>
+</map>

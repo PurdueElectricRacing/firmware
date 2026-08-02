@@ -111,34 +111,42 @@ $(function(){initNavTree('control__loop_8c.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="max_8h_source.html">common/utils/max.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="sensors_8h_source.html">sensors.h</a>&quot;</code><br />
 <code>#include &quot;vcu.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for control_loop.c:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="control__loop_8c__incl.svg" width="531" height="303"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa25f2f7d400183f548ec805c54eaa9fc" id="r_aa25f2f7d400183f548ec805c54eaa9fc"><td class="memItemLeft" align="right" valign="top"><a id="aa25f2f7d400183f548ec805c54eaa9fc" name="aa25f2f7d400183f548ec805c54eaa9fc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>control_init</b> (void)</td></tr>
+<tr class="memitem:aa25f2f7d400183f548ec805c54eaa9fc" id="r_aa25f2f7d400183f548ec805c54eaa9fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa25f2f7d400183f548ec805c54eaa9fc">control_init</a> (void)</td></tr>
 <tr class="separator:aa25f2f7d400183f548ec805c54eaa9fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af473b63657e6dcfab3ec6dba8fb68300" id="r_af473b63657e6dcfab3ec6dba8fb68300"><td class="memItemLeft" align="right" valign="top"><a id="af473b63657e6dcfab3ec6dba8fb68300" name="af473b63657e6dcfab3ec6dba8fb68300"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>vcu_driver_request_CALLBACK</b> (void)</td></tr>
+<tr class="memitem:aaedc0447ebe1ebb8a695426ed4a598f5" id="r_aaedc0447ebe1ebb8a695426ed4a598f5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaedc0447ebe1ebb8a695426ed4a598f5">report_vcu_settings</a> ()</td></tr>
+<tr class="separator:aaedc0447ebe1ebb8a695426ed4a598f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af473b63657e6dcfab3ec6dba8fb68300" id="r_af473b63657e6dcfab3ec6dba8fb68300"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af473b63657e6dcfab3ec6dba8fb68300">vcu_driver_request_CALLBACK</a> (void)</td></tr>
 <tr class="separator:af473b63657e6dcfab3ec6dba8fb68300"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c80a804f63cdf1b40bca055d0b2d77d" id="r_a0c80a804f63cdf1b40bca055d0b2d77d"><td class="memItemLeft" align="right" valign="top"><a id="a0c80a804f63cdf1b40bca055d0b2d77d" name="a0c80a804f63cdf1b40bca055d0b2d77d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>control_loop</b> ()</td></tr>
+<tr class="memitem:abb984c1eb357053f1fadc96d05c3c3f2" id="r_abb984c1eb357053f1fadc96d05c3c3f2"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abb984c1eb357053f1fadc96d05c3c3f2">is_any_crit_stale</a> ()</td></tr>
+<tr class="separator:abb984c1eb357053f1fadc96d05c3c3f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c80a804f63cdf1b40bca055d0b2d77d" id="r_a0c80a804f63cdf1b40bca055d0b2d77d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c80a804f63cdf1b40bca055d0b2d77d">control_loop</a> ()</td></tr>
 <tr class="separator:a0c80a804f63cdf1b40bca055d0b2d77d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a883ff9e4332ef2092552aa5dbfd3c4ac" id="r_a883ff9e4332ef2092552aa5dbfd3c4ac"><td class="memItemLeft" align="right" valign="top"><a id="a883ff9e4332ef2092552aa5dbfd3c4ac" name="a883ff9e4332ef2092552aa5dbfd3c4ac"></a>
-volatile vcu_mode_t&#160;</td><td class="memItemRight" valign="bottom"><b>vcu_mode</b> = VCU_MODE_TUNING</td></tr>
+<tr class="memitem:afcb65e01f1c2914ecdacbbe5f3bea3ab" id="r_afcb65e01f1c2914ecdacbbe5f3bea3ab"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structpVCU__struct.html">pVCU_struct</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afcb65e01f1c2914ecdacbbe5f3bea3ab">pVCU</a></td></tr>
+<tr class="separator:afcb65e01f1c2914ecdacbbe5f3bea3ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85c27795c006b8d4ac313020b0a8219a" id="r_a85c27795c006b8d4ac313020b0a8219a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structxVCU__struct.html">xVCU_struct</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a85c27795c006b8d4ac313020b0a8219a">xVCU</a></td></tr>
+<tr class="separator:a85c27795c006b8d4ac313020b0a8219a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4705d8316e435b499f4e2ded41d0a431" id="r_a4705d8316e435b499f4e2ded41d0a431"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structyVCU__struct.html">yVCU_struct</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4705d8316e435b499f4e2ded41d0a431">yVCU</a></td></tr>
+<tr class="separator:a4705d8316e435b499f4e2ded41d0a431"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a883ff9e4332ef2092552aa5dbfd3c4ac" id="r_a883ff9e4332ef2092552aa5dbfd3c4ac"><td class="memItemLeft" align="right" valign="top">volatile vcu_mode_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a883ff9e4332ef2092552aa5dbfd3c4ac">vcu_mode</a> = VCU_MODE_TUNING</td></tr>
 <tr class="separator:a883ff9e4332ef2092552aa5dbfd3c4ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a955c29aae1047ed8861dfee226e2a5c3" id="r_a955c29aae1047ed8861dfee226e2a5c3"><td class="memItemLeft" align="right" valign="top"><a id="a955c29aae1047ed8861dfee226e2a5c3" name="a955c29aae1047ed8861dfee226e2a5c3"></a>
-volatile bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_tv_enabled</b> = true</td></tr>
+<tr class="memitem:a955c29aae1047ed8861dfee226e2a5c3" id="r_a955c29aae1047ed8861dfee226e2a5c3"><td class="memItemLeft" align="right" valign="top">volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a955c29aae1047ed8861dfee226e2a5c3">is_tv_enabled</a> = true</td></tr>
 <tr class="separator:a955c29aae1047ed8861dfee226e2a5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d19203fbf83e42a08b57132c6906b0b" id="r_a9d19203fbf83e42a08b57132c6906b0b"><td class="memItemLeft" align="right" valign="top"><a id="a9d19203fbf83e42a08b57132c6906b0b" name="a9d19203fbf83e42a08b57132c6906b0b"></a>
-volatile bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_regen_enabled</b> = true</td></tr>
+<tr class="memitem:a9d19203fbf83e42a08b57132c6906b0b" id="r_a9d19203fbf83e42a08b57132c6906b0b"><td class="memItemLeft" align="right" valign="top">volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9d19203fbf83e42a08b57132c6906b0b">is_regen_enabled</a> = true</td></tr>
 <tr class="separator:a9d19203fbf83e42a08b57132c6906b0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20a4098961c7e4e17a30f2ef19b9547e" id="r_a20a4098961c7e4e17a30f2ef19b9547e"><td class="memItemLeft" align="right" valign="top">volatile vcu_settings_data_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20a4098961c7e4e17a30f2ef19b9547e">vcu_settings</a> [5]</td></tr>
 <tr class="separator:a20a4098961c7e4e17a30f2ef19b9547e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae016c05c95ecf003f340ce6994ad1185" id="r_ae016c05c95ecf003f340ce6994ad1185"><td class="memItemLeft" align="right" valign="top"><a id="ae016c05c95ecf003f340ce6994ad1185" name="ae016c05c95ecf003f340ce6994ad1185"></a>
-volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>last_vcu_settings_tx</b> = 0</td></tr>
+<tr class="memitem:ae016c05c95ecf003f340ce6994ad1185" id="r_ae016c05c95ecf003f340ce6994ad1185"><td class="memItemLeft" align="right" valign="top">volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae016c05c95ecf003f340ce6994ad1185">last_vcu_settings_tx</a> = 0</td></tr>
 <tr class="separator:ae016c05c95ecf003f340ce6994ad1185"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -146,7 +154,222 @@ volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>last_vcu
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
 <dd>
 Trevor Koessler (<a href="#" onclick="location.href='mai'+'lto:'+'tko'+'es'+'sle'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">tkoes<span class="obfuscator">.nosp@m.</span>sle@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd></dl>
-</div><h2 class="groupheader">Variable Documentation</h2>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="aa25f2f7d400183f548ec805c54eaa9fc" name="aa25f2f7d400183f548ec805c54eaa9fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa25f2f7d400183f548ec805c54eaa9fc">&#9670;&#160;</a></span>control_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void control_init </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="control__loop_8c_aa25f2f7d400183f548ec805c54eaa9fc_cgraph.svg" width="224" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="control__loop_8c_aa25f2f7d400183f548ec805c54eaa9fc_icgraph.svg" width="192" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a0c80a804f63cdf1b40bca055d0b2d77d" name="a0c80a804f63cdf1b40bca055d0b2d77d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c80a804f63cdf1b40bca055d0b2d77d">&#9670;&#160;</a></span>control_loop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void control_loop </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="control__loop_8c_a0c80a804f63cdf1b40bca055d0b2d77d_cgraph.svg" width="408" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="control__loop_8c_a0c80a804f63cdf1b40bca055d0b2d77d_icgraph.svg" width="200" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="abb984c1eb357053f1fadc96d05c3c3f2" name="abb984c1eb357053f1fadc96d05c3c3f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb984c1eb357053f1fadc96d05c3c3f2">&#9670;&#160;</a></span>is_any_crit_stale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool is_any_crit_stale </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="control__loop_8c_abb984c1eb357053f1fadc96d05c3c3f2_icgraph.svg" width="366" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aaedc0447ebe1ebb8a695426ed4a598f5" name="aaedc0447ebe1ebb8a695426ed4a598f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaedc0447ebe1ebb8a695426ed4a598f5">&#9670;&#160;</a></span>report_vcu_settings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void report_vcu_settings </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="control__loop_8c_aaedc0447ebe1ebb8a695426ed4a598f5_icgraph.svg" width="423" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af473b63657e6dcfab3ec6dba8fb68300" name="af473b63657e6dcfab3ec6dba8fb68300"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af473b63657e6dcfab3ec6dba8fb68300">&#9670;&#160;</a></span>vcu_driver_request_CALLBACK()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vcu_driver_request_CALLBACK </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="control__loop_8c_af473b63657e6dcfab3ec6dba8fb68300_cgraph.svg" width="326" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a9d19203fbf83e42a08b57132c6906b0b" name="a9d19203fbf83e42a08b57132c6906b0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d19203fbf83e42a08b57132c6906b0b">&#9670;&#160;</a></span>is_regen_enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile bool is_regen_enabled = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a955c29aae1047ed8861dfee226e2a5c3" name="a955c29aae1047ed8861dfee226e2a5c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a955c29aae1047ed8861dfee226e2a5c3">&#9670;&#160;</a></span>is_tv_enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile bool is_tv_enabled = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae016c05c95ecf003f340ce6994ad1185" name="ae016c05c95ecf003f340ce6994ad1185"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae016c05c95ecf003f340ce6994ad1185">&#9670;&#160;</a></span>last_vcu_settings_tx</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t last_vcu_settings_tx = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afcb65e01f1c2914ecdacbbe5f3bea3ab" name="afcb65e01f1c2914ecdacbbe5f3bea3ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcb65e01f1c2914ecdacbbe5f3bea3ab">&#9670;&#160;</a></span>pVCU</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structpVCU__struct.html">pVCU_struct</a> pVCU</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a883ff9e4332ef2092552aa5dbfd3c4ac" name="a883ff9e4332ef2092552aa5dbfd3c4ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a883ff9e4332ef2092552aa5dbfd3c4ac">&#9670;&#160;</a></span>vcu_mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile vcu_mode_t vcu_mode = VCU_MODE_TUNING</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a20a4098961c7e4e17a30f2ef19b9547e" name="a20a4098961c7e4e17a30f2ef19b9547e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a20a4098961c7e4e17a30f2ef19b9547e">&#9670;&#160;</a></span>vcu_settings</h2>
 
@@ -186,6 +409,50 @@ Trevor Koessler (<a href="#" onclick="location.href='mai'+'lto:'+'tko'+'es'+'sle
 <div class="line">    }</div>
 <div class="line">}</div>
 </div><!-- fragment -->
+</div>
+</div>
+<a id="a85c27795c006b8d4ac313020b0a8219a" name="a85c27795c006b8d4ac313020b0a8219a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85c27795c006b8d4ac313020b0a8219a">&#9670;&#160;</a></span>xVCU</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structxVCU__struct.html">xVCU_struct</a> xVCU</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4705d8316e435b499f4e2ded41d0a431" name="a4705d8316e435b499f4e2ded41d0a431"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4705d8316e435b499f4e2ded41d0a431">&#9670;&#160;</a></span>yVCU</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structyVCU__struct.html">yVCU_struct</a> yVCU</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->

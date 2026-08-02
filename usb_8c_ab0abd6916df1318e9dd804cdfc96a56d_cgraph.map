@@ -1,0 +1,31 @@
+<map id="USB_LP_IRQHandler" name="USB_LP_IRQHandler">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,171,154,196"/>
+<area shape="rect" id="Node000002" href="$usb__priv_8c.html#a3b7fdac0fb67607273cf7aabc6f8494f" title="Decode one pending USB interrupt and notify the application." alt="" coords="202,171,382,196"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,181,186,181,186,186,154,186"/>
+<area shape="rect" id="Node000003" href="$usb_8c.html#a42f35c4042b4e0d58161e1761be95af5" title="Handle USB events." alt="" coords="438,5,586,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="300,169,350,108,387,72,429,41,440,35,443,40,431,46,391,76,354,111,305,172"/>
+<area shape="rect" id="Node000004" href="$usb__priv_8c.html#a0d5abf3e4543ac89b6611ee7a1ae8a16" title=" " alt="" coords="446,55,578,96"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="318,168,429,112,452,101,454,105,431,117,321,172"/>
+<area shape="rect" id="Node000005" href="$usb__priv_8c.html#a7312b4dfb274b8c4e34c683499ad5e76" title=" " alt="" coords="657,171,785,196"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="383,181,642,181,642,186,383,186"/>
+<area shape="rect" id="Node000006" href="$usb__priv_8c.html#a34ead234195e6e26e97662c2db3b9dbb" title=" " alt="" coords="848,183,996,208"/>
+<area shape="poly" id="edge13_Node000002_Node000006" title=" " alt="" coords="383,191,574,205,687,209,800,206,832,204,832,209,800,211,687,214,574,211,382,196"/>
+<area shape="rect" id="Node000007" href="$usb__priv_8c.html#a7a65179705ed513c172183fd44417b8a" title=" " alt="" coords="430,321,594,347"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="306,195,356,249,392,281,431,308,440,313,438,317,429,312,389,285,353,253,302,199"/>
+<area shape="rect" id="Node000012" href="$usb__priv_8c.html#aaea03d767f81299b62109832610473d2" title="Write the seven&#45;bit device address while keeping the device enabled." alt="" coords="432,272,592,298"/>
+<area shape="poly" id="edge14_Node000002_Node000012" title=" " alt="" coords="319,195,431,250,462,263,460,268,429,255,317,199"/>
+<area shape="rect" id="Node000013" href="$usb__priv_8c.html#aeac1c8e012ea840bd62b75d951b16358" title=" " alt="" coords="666,121,776,147"/>
+<area shape="poly" id="edge15_Node000002_Node000013" title=" " alt="" coords="382,168,430,162,650,138,651,144,430,167,383,174"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="786,185,832,187,832,193,785,190"/>
+<area shape="rect" id="Node000008" href="$usb__priv_8c.html#a1b35d5bd2473c452b714e669014e6b82" title=" " alt="" coords="642,296,800,322"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="595,322,627,318,627,323,595,327"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="745,293,882,214,885,219,747,298"/>
+<area shape="rect" id="Node000009" href="$usb__priv_8c.html#ae50319496e974387c6b5a0668b825cb9" title=" " alt="" coords="851,296,992,322"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="800,306,835,306,835,312,800,312"/>
+<area shape="rect" id="Node000010" href="$usb__priv_8c.html#aca373172c04b6704271473559fe35015" title=" " alt="" coords="850,345,994,371"/>
+<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="777,320,852,338,851,344,776,325"/>
+<area shape="rect" id="Node000011" href="$usb__priv_8c.html#a80afa30e860ee2cbe11c0b317bd72e0e" title=" " alt="" coords="1044,296,1193,322"/>
+<area shape="poly" id="edge12_Node000008_Node000011" title=" " alt="" coords="776,293,847,281,922,276,996,281,1050,290,1049,295,996,286,922,281,848,286,777,298"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="976,342,1049,323,1050,329,977,347"/>
+<area shape="poly" id="edge16_Node000013_Node000006" title=" " alt="" coords="767,145,863,175,862,180,765,150"/>
+</map>

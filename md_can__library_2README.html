@@ -112,7 +112,7 @@ $(function(){initNavTree('md_can__library_2README.html',''); initResizable(true)
 <li><code>tests/</code>: Unit tests for both CANpiler and C source code.</li>
 </ul>
 <p><b>Core Files:</b></p><ul>
-<li><a href="source/can_init.c"><code>source/can_init.c</code></a> / <a href="can_common.h"><code>can_common.h</code></a>: Bus/peripheral initialization and <code>CAN_init()</code>.</li>
+<li><a href="source/can_init.c"><code>source/can_init.c</code></a> / <a href="can_common.h"><code>can_common.h</code></a>: Bus/peripheral initialization and <code><a class="el" href="can__common_8h.html#aecd3668d7c5e693e061db7650203b304">CAN_init()</a></code>.</li>
 <li><a href="source/can_rx.c"><code>source/can_rx.c</code></a>: CAN RX task and the shared <code>can_data</code> instance.</li>
 <li><a href="source/can_tx.c"><code>source/can_tx.c</code></a>: CAN TX task and per-peripheral software queues.</li>
 <li><a href="source/faults_common.c"><code>source/faults_common.c</code></a> / <a href="faults_common.h"><code>faults_common.h</code></a>: System-wide fault management.</li>
@@ -137,8 +137,8 @@ Usage</h1>
 </li>
 <li>Add <code>can_node_&lt;NODE_NAME&gt;</code> to <code>LIBS</code> in your board's <code>add_firmware_component(...)</code> call (must match the uppercase node name from CMake).</li>
 <li>Include the generated header for your node (e.g. <code>#include "can_library/generated/PDU.h"</code> / <code>#include "can_library/generated/&lt;NODE_NAME&gt;.h"</code>) in your <code>main.c</code>.</li>
-<li>Initialize the CAN library in your <code>main.c</code> with <code>CAN_init()</code>.</li>
-<li>Setup CAN tasks in your <code>main.c</code> using <code>DEFINE_CAN_TASKS()</code> and <code>START_CAN_TASKS()</code>.</li>
+<li>Initialize the CAN library in your <code>main.c</code> with <code><a class="el" href="can__common_8h.html#aecd3668d7c5e693e061db7650203b304">CAN_init()</a></code>.</li>
+<li>Setup CAN tasks in your <code>main.c</code> using <code><a class="el" href="can__common_8h.html#a35dcd4b006eb1dd53b4e6fdd725b0e31">DEFINE_CAN_TASKS()</a></code> and <code><a class="el" href="can__common_8h.html#ac317291d89637f7774465ae715792e48">START_CAN_TASKS()</a></code>.</li>
 </ol>
 <p>The most recent rx'd data is available in the <code>can_data</code> struct, which is updated by the CAN RX task. Sending CAN messages is done via the generated <code>CAN_SEND_&lt;message_name&gt;()</code> functions, which enqueue messages to be sent by the CAN TX task.</p>
 <h1><a class="anchor" id="autotoc_md130"></a>
@@ -151,10 +151,10 @@ Fault FSM Diagram</div></div>
     <h2><a class="anchor" id="autotoc_md131"></a>
 Usage:</h2>
 <ul>
-<li><code>update_fault(fault_id_t fault_id, float value)</code>: Called by the owner node to feed sensor/status data into the FSM.</li>
-<li><code>fault_library_periodic()</code>: Tally active faults and call <code>tx_fault_sync()</code>, which broadcasts the node-specific <code>&lt;node&gt;_fault_sync</code> CAN message.</li>
-<li><code>is_latched(fault_id_t fault_id)</code>: Check if a specific fault is active.</li>
-<li><code>is_clear(fault_id_t fault_id)</code>: Check if a specific fault is clear.</li>
+<li><code><a class="el" href="faults__common_8h.html#aa4e183a4c59cfe0ed7f3c02f15ad4171">update_fault(fault_id_t fault_id, float value)</a></code>: Called by the owner node to feed sensor/status data into the FSM.</li>
+<li><code><a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic()</a></code>: Tally active faults and call <code>tx_fault_sync()</code>, which broadcasts the node-specific <code>&lt;node&gt;_fault_sync</code> CAN message.</li>
+<li><code><a class="el" href="faults__common_8h.html#a34304ae5ca942d0605c4f3c030a71eb3">is_latched(fault_id_t fault_id)</a></code>: Check if a specific fault is active.</li>
+<li><code><a class="el" href="faults__common_8h.html#a22ea5f8bc7464c7728f4f9d67a9417cf">is_clear(fault_id_t fault_id)</a></code>: Check if a specific fault is clear.</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>Each node is assigned a specific range of faults (<code>MY_FAULT_START</code> to <code>MY_FAULT_END</code>). Only the "owner" node can update the state of these faults, ensuring a single source of truth. </dd></dl>
 </div></div><!-- contents -->

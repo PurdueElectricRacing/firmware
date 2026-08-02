@@ -1,0 +1,7 @@
+<map id="NXT_setBrightness" name="NXT_setBrightness">
+<area shape="rect" id="Node000001" title="Sets the brightness of the Nextion display." alt="" coords="5,31,141,56"/>
+<area shape="rect" id="Node000002" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="189,5,292,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,31,173,26,174,31,142,36"/>
+<area shape="rect" id="Node000003" href="$strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf" title="Appends formatted data to the buffer using printf&#45;style formatting. !" alt="" coords="195,55,286,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="142,51,180,56,180,62,141,56"/>
+</map>

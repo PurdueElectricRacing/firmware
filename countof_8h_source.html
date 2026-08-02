@@ -106,15 +106,17 @@ $(function(){initNavTree('countof_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// todo replace with &lt;stdcountof.h&gt; when gcc16 is released</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">// internal, do not use this</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#define _COUNTOF_IS_ARRAY(x) (!__builtin_types_compatible_p(typeof(x), typeof(&amp;(x)[0])))</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="countof_8h.html#acb0bb3364b84e0e9c1aa323def57ec44">   17</a></span><span class="preprocessor">#define _COUNTOF_IS_ARRAY(x) (!__builtin_types_compatible_p(typeof(x), typeof(&amp;(x)[0])))</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#define countof(array) \</span></div>
+<div class="foldopen" id="foldopen00019" data-start="" data-end="">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="countof_8h.html#ab317c73e51fb8a68f86165ac831f7b8c">   19</a></span><span class="preprocessor">#define countof(array) \</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">    ({ \</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">        static_assert(_COUNTOF_IS_ARRAY(array), \</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">        &quot;countof() argument must be an array&quot;); \</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">        (sizeof(array) / sizeof((array)[0])); \</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">    }) \</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor"></span> </div>
+</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#endif </span><span class="comment">// COUNTOF_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

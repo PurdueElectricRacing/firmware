@@ -1,0 +1,5 @@
+<map id="report_telemetry_100hz" name="report_telemetry_100hz">
+<area shape="rect" id="Node000001" title="Reports telemetry data at 100 Hz rate Includes: Pack stats, charging telemetry, cell telemetry." alt="" coords="5,5,161,31"/>
+<area shape="rect" id="Node000002" href="$a__box_2telemetry_2telemetry_8c.html#a67fad0cc41ef114ce940febe40180d97" title=" " alt="" coords="209,5,333,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,16,193,16,193,21,161,21"/>
+</map>

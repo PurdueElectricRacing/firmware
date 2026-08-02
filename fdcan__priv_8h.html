@@ -99,7 +99,8 @@ $(function(){initNavTree('fdcan__priv_8h.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">fdcan_priv.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -107,86 +108,135 @@ $(function(){initNavTree('fdcan__priv_8h.html',''); initResizable(true); });
 <p>G4 FDCAN private/register level implementation.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &quot;common/phal_G4/phal_G4.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal__G4_8h_source.html">common/phal_G4/phal_G4.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for fdcan_priv.h:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h__incl.svg" width="248" height="199"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h__dep__incl.svg" width="355" height="140"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <p><a href="fdcan__priv_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a0fed4338eaa5e76c37bdbb72648c1de9" id="r_a0fed4338eaa5e76c37bdbb72648c1de9"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0fed4338eaa5e76c37bdbb72648c1de9">PHAL_FDCAN_DefaultFilterAction_t</a> : uint32_t { <b>FDCAN_PRIV_FILTER_ACCEPT_IN_RX_FIFO0</b> = 0x00000000U
-, <b>FDCAN_PRIV_FILTER_REJECT</b> = 0x00000002U
+<tr class="memitem:a0fed4338eaa5e76c37bdbb72648c1de9" id="r_a0fed4338eaa5e76c37bdbb72648c1de9"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0fed4338eaa5e76c37bdbb72648c1de9">PHAL_FDCAN_DefaultFilterAction_t</a> : uint32_t { <a class="el" href="#a0fed4338eaa5e76c37bdbb72648c1de9af7f5f03de92524a264154c0edd787158">FDCAN_PRIV_FILTER_ACCEPT_IN_RX_FIFO0</a> = 0x00000000U
+, <a class="el" href="#a0fed4338eaa5e76c37bdbb72648c1de9a39cffdfaac94b513d79bb0810620e834">FDCAN_PRIV_FILTER_REJECT</a> = 0x00000002U
  }</td></tr>
 <tr class="separator:a0fed4338eaa5e76c37bdbb72648c1de9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a14ac1c62f9f7ec08496cda925598d136" id="r_a14ac1c62f9f7ec08496cda925598d136"><td class="memItemLeft" align="right" valign="top"><a id="a14ac1c62f9f7ec08496cda925598d136" name="a14ac1c62f9f7ec08496cda925598d136"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_priv_ramBase</b> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
-<tr class="memdesc:a14ac1c62f9f7ec08496cda925598d136"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of this peripheral's slice of shared message RAM. <br /></td></tr>
+<tr class="memitem:a14ac1c62f9f7ec08496cda925598d136" id="r_a14ac1c62f9f7ec08496cda925598d136"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14ac1c62f9f7ec08496cda925598d136">PHAL_FDCAN_priv_ramBase</a> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
+<tr class="memdesc:a14ac1c62f9f7ec08496cda925598d136"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of this peripheral's slice of shared message RAM.  <br /></td></tr>
 <tr class="separator:a14ac1c62f9f7ec08496cda925598d136"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a405fe02c05033e421fb70515453be08d" id="r_a405fe02c05033e421fb70515453be08d"><td class="memItemLeft" align="right" valign="top"><a id="a405fe02c05033e421fb70515453be08d" name="a405fe02c05033e421fb70515453be08d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_priv_enableClock</b> (void)</td></tr>
-<tr class="memdesc:a405fe02c05033e421fb70515453be08d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable FDCAN kernel + peripheral clocks (PCLK1) <br /></td></tr>
+<tr class="memitem:a405fe02c05033e421fb70515453be08d" id="r_a405fe02c05033e421fb70515453be08d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a405fe02c05033e421fb70515453be08d">PHAL_FDCAN_priv_enableClock</a> (void)</td></tr>
+<tr class="memdesc:a405fe02c05033e421fb70515453be08d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable FDCAN kernel + peripheral clocks (PCLK1)  <br /></td></tr>
 <tr class="separator:a405fe02c05033e421fb70515453be08d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab936d0060d65f2f18ed211714e7b0746" id="r_ab936d0060d65f2f18ed211714e7b0746"><td class="memItemLeft" align="right" valign="top"><a id="ab936d0060d65f2f18ed211714e7b0746" name="ab936d0060d65f2f18ed211714e7b0746"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_priv_enterConfig</b> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
-<tr class="memdesc:ab936d0060d65f2f18ed211714e7b0746"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enter INIT mode and unlock configuration registers. Blocks until entered. <br /></td></tr>
+<tr class="memitem:ab936d0060d65f2f18ed211714e7b0746" id="r_ab936d0060d65f2f18ed211714e7b0746"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab936d0060d65f2f18ed211714e7b0746">PHAL_FDCAN_priv_enterConfig</a> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
+<tr class="memdesc:ab936d0060d65f2f18ed211714e7b0746"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enter INIT mode and unlock configuration registers. Blocks until entered.  <br /></td></tr>
 <tr class="separator:ab936d0060d65f2f18ed211714e7b0746"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab58932032e5748d11d6fbcd04c68a322" id="r_ab58932032e5748d11d6fbcd04c68a322"><td class="memItemLeft" align="right" valign="top"><a id="ab58932032e5748d11d6fbcd04c68a322" name="ab58932032e5748d11d6fbcd04c68a322"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_priv_exitConfig</b> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
-<tr class="memdesc:ab58932032e5748d11d6fbcd04c68a322"><td class="mdescLeft">&#160;</td><td class="mdescRight">Leave INIT mode, ending configuration. Blocks until left. <br /></td></tr>
+<tr class="memitem:ab58932032e5748d11d6fbcd04c68a322" id="r_ab58932032e5748d11d6fbcd04c68a322"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab58932032e5748d11d6fbcd04c68a322">PHAL_FDCAN_priv_exitConfig</a> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
+<tr class="memdesc:ab58932032e5748d11d6fbcd04c68a322"><td class="mdescLeft">&#160;</td><td class="mdescRight">Leave INIT mode, ending configuration. Blocks until left.  <br /></td></tr>
 <tr class="separator:ab58932032e5748d11d6fbcd04c68a322"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5989bf0267b012b516dea18271539715" id="r_a5989bf0267b012b516dea18271539715"><td class="memItemLeft" align="right" valign="top"><a id="a5989bf0267b012b516dea18271539715" name="a5989bf0267b012b516dea18271539715"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_priv_controlConfig</b> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
+<tr class="memitem:a5989bf0267b012b516dea18271539715" id="r_a5989bf0267b012b516dea18271539715"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5989bf0267b012b516dea18271539715">PHAL_FDCAN_priv_controlConfig</a> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
 <tr class="separator:a5989bf0267b012b516dea18271539715"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a843742822e433814e97fe2ef38ae4bc6" id="r_a843742822e433814e97fe2ef38ae4bc6"><td class="memItemLeft" align="right" valign="top"><a id="a843742822e433814e97fe2ef38ae4bc6" name="a843742822e433814e97fe2ef38ae4bc6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_priv_setTransmitFifoQueueModeToFifo</b> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
-<tr class="memdesc:a843742822e433814e97fe2ef38ae4bc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set TX FIFO/Queue mode to FIFO (not queue) <br /></td></tr>
+<tr class="memitem:a843742822e433814e97fe2ef38ae4bc6" id="r_a843742822e433814e97fe2ef38ae4bc6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a843742822e433814e97fe2ef38ae4bc6">PHAL_FDCAN_priv_setTransmitFifoQueueModeToFifo</a> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
+<tr class="memdesc:a843742822e433814e97fe2ef38ae4bc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set TX FIFO/Queue mode to FIFO (not queue)  <br /></td></tr>
 <tr class="separator:a843742822e433814e97fe2ef38ae4bc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af69382ccb9d1b998edeece7d3403d74b" id="r_af69382ccb9d1b998edeece7d3403d74b"><td class="memItemLeft" align="right" valign="top"><a id="af69382ccb9d1b998edeece7d3403d74b" name="af69382ccb9d1b998edeece7d3403d74b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_setInterruptLines</b> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
-<tr class="memdesc:af69382ccb9d1b998edeece7d3403d74b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up RX new message -&gt; line 0, TX complete -&gt; line 1. <br /></td></tr>
+<tr class="memitem:af69382ccb9d1b998edeece7d3403d74b" id="r_af69382ccb9d1b998edeece7d3403d74b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af69382ccb9d1b998edeece7d3403d74b">PHAL_FDCAN_setInterruptLines</a> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
+<tr class="memdesc:af69382ccb9d1b998edeece7d3403d74b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up RX new message -&gt; line 0, TX complete -&gt; line 1.  <br /></td></tr>
 <tr class="separator:af69382ccb9d1b998edeece7d3403d74b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32bfa5f854b4e4c1744275bfbe7fbbcd" id="r_a32bfa5f854b4e4c1744275bfbe7fbbcd"><td class="memItemLeft" align="right" valign="top"><a id="a32bfa5f854b4e4c1744275bfbe7fbbcd" name="a32bfa5f854b4e4c1744275bfbe7fbbcd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_priv_writeFilterAction</b> (FDCAN_GlobalTypeDef *fdcan, <a class="el" href="#a0fed4338eaa5e76c37bdbb72648c1de9">PHAL_FDCAN_DefaultFilterAction_t</a> action)</td></tr>
-<tr class="memdesc:a32bfa5f854b4e4c1744275bfbe7fbbcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a filter action to RXGFC (accept/reject all) <br /></td></tr>
+<tr class="memitem:a32bfa5f854b4e4c1744275bfbe7fbbcd" id="r_a32bfa5f854b4e4c1744275bfbe7fbbcd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a32bfa5f854b4e4c1744275bfbe7fbbcd">PHAL_FDCAN_priv_writeFilterAction</a> (FDCAN_GlobalTypeDef *fdcan, <a class="el" href="#a0fed4338eaa5e76c37bdbb72648c1de9">PHAL_FDCAN_DefaultFilterAction_t</a> action)</td></tr>
+<tr class="memdesc:a32bfa5f854b4e4c1744275bfbe7fbbcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a filter action to RXGFC (accept/reject all)  <br /></td></tr>
 <tr class="separator:a32bfa5f854b4e4c1744275bfbe7fbbcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a200094d34b232f471ea5c829f0bdee4b" id="r_a200094d34b232f471ea5c829f0bdee4b"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a200094d34b232f471ea5c829f0bdee4b">PHAL_FDCAN_priv_getNBTP</a> (<a class="el" href="fdcan_8h.html#ab8c9770487a14259388dcada74c65d52">PHAL_FDCAN_BaudRate_t</a> bit_rate)</td></tr>
 <tr class="separator:a200094d34b232f471ea5c829f0bdee4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebd7c4453ce55c458c894e9106f02751" id="r_aebd7c4453ce55c458c894e9106f02751"><td class="memItemLeft" align="right" valign="top"><a id="aebd7c4453ce55c458c894e9106f02751" name="aebd7c4453ce55c458c894e9106f02751"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_priv_writeStandardFilters</b> (FDCAN_GlobalTypeDef *fdcan, uint32_t *sid_list, uint32_t num_sid)</td></tr>
-<tr class="memdesc:aebd7c4453ce55c458c894e9106f02751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set num_sid exact-match standard filters and forward to RX FIFO0. <br /></td></tr>
+<tr class="memitem:aebd7c4453ce55c458c894e9106f02751" id="r_aebd7c4453ce55c458c894e9106f02751"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aebd7c4453ce55c458c894e9106f02751">PHAL_FDCAN_priv_writeStandardFilters</a> (FDCAN_GlobalTypeDef *fdcan, uint32_t *sid_list, uint32_t num_sid)</td></tr>
+<tr class="memdesc:aebd7c4453ce55c458c894e9106f02751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set num_sid exact-match standard filters and forward to RX FIFO0.  <br /></td></tr>
 <tr class="separator:aebd7c4453ce55c458c894e9106f02751"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23081d4ce4e5cc261b727901696b7343" id="r_a23081d4ce4e5cc261b727901696b7343"><td class="memItemLeft" align="right" valign="top"><a id="a23081d4ce4e5cc261b727901696b7343" name="a23081d4ce4e5cc261b727901696b7343"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_priv_writeExtendedFilters</b> (FDCAN_GlobalTypeDef *fdcan, uint32_t *xid_list, uint32_t num_xid)</td></tr>
-<tr class="memdesc:a23081d4ce4e5cc261b727901696b7343"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set num_xid exact-match extended filters and forward to RX FIFO0. <br /></td></tr>
+<tr class="memitem:a23081d4ce4e5cc261b727901696b7343" id="r_a23081d4ce4e5cc261b727901696b7343"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23081d4ce4e5cc261b727901696b7343">PHAL_FDCAN_priv_writeExtendedFilters</a> (FDCAN_GlobalTypeDef *fdcan, uint32_t *xid_list, uint32_t num_xid)</td></tr>
+<tr class="memdesc:a23081d4ce4e5cc261b727901696b7343"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set num_xid exact-match extended filters and forward to RX FIFO0.  <br /></td></tr>
 <tr class="separator:a23081d4ce4e5cc261b727901696b7343"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0169c5cbd4f2273cd46051cdc2dd4da" id="r_ab0169c5cbd4f2273cd46051cdc2dd4da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab0169c5cbd4f2273cd46051cdc2dd4da">PHAL_FDCAN_priv_writeTxElement</a> (FDCAN_GlobalTypeDef *fdcan, <a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg)</td></tr>
 <tr class="separator:ab0169c5cbd4f2273cd46051cdc2dd4da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d7a1cca26ac694c42ace9f38507706e" id="r_a7d7a1cca26ac694c42ace9f38507706e"><td class="memItemLeft" align="right" valign="top"><a id="a7d7a1cca26ac694c42ace9f38507706e" name="a7d7a1cca26ac694c42ace9f38507706e"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_priv_readRxElement</b> (FDCAN_GlobalTypeDef *fdcan, <a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg)</td></tr>
-<tr class="memdesc:a7d7a1cca26ac694c42ace9f38507706e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pop and decode the oldest element from RX FIFO0. <br /></td></tr>
+<tr class="memitem:a7d7a1cca26ac694c42ace9f38507706e" id="r_a7d7a1cca26ac694c42ace9f38507706e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d7a1cca26ac694c42ace9f38507706e">PHAL_FDCAN_priv_readRxElement</a> (FDCAN_GlobalTypeDef *fdcan, <a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg)</td></tr>
+<tr class="memdesc:a7d7a1cca26ac694c42ace9f38507706e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pop and decode the oldest element from RX FIFO0.  <br /></td></tr>
 <tr class="separator:a7d7a1cca26ac694c42ace9f38507706e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e6c7d49a4e412b6f86a43abbdbd599d" id="r_a2e6c7d49a4e412b6f86a43abbdbd599d"><td class="memItemLeft" align="right" valign="top"><a id="a2e6c7d49a4e412b6f86a43abbdbd599d" name="a2e6c7d49a4e412b6f86a43abbdbd599d"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_priv_readTxFifoQueueStatusFullFlag</b> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
-<tr class="memdesc:a2e6c7d49a4e412b6f86a43abbdbd599d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether the TX FIFO/Queue is full. <br /></td></tr>
+<tr class="memitem:a2e6c7d49a4e412b6f86a43abbdbd599d" id="r_a2e6c7d49a4e412b6f86a43abbdbd599d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e6c7d49a4e412b6f86a43abbdbd599d">PHAL_FDCAN_priv_readTxFifoQueueStatusFullFlag</a> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
+<tr class="memdesc:a2e6c7d49a4e412b6f86a43abbdbd599d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether the TX FIFO/Queue is full.  <br /></td></tr>
 <tr class="separator:a2e6c7d49a4e412b6f86a43abbdbd599d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae17788ed13713f42f37fa0e2f82d5ad5" id="r_ae17788ed13713f42f37fa0e2f82d5ad5"><td class="memItemLeft" align="right" valign="top"><a id="ae17788ed13713f42f37fa0e2f82d5ad5" name="ae17788ed13713f42f37fa0e2f82d5ad5"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_priv_readReceiveFifo0NewMessageInterruptFlag</b> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
-<tr class="memdesc:ae17788ed13713f42f37fa0e2f82d5ad5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether the RX FIFO0 new message interrupt flag is set. <br /></td></tr>
+<tr class="memitem:ae17788ed13713f42f37fa0e2f82d5ad5" id="r_ae17788ed13713f42f37fa0e2f82d5ad5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae17788ed13713f42f37fa0e2f82d5ad5">PHAL_FDCAN_priv_readReceiveFifo0NewMessageInterruptFlag</a> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
+<tr class="memdesc:ae17788ed13713f42f37fa0e2f82d5ad5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether the RX FIFO0 new message interrupt flag is set.  <br /></td></tr>
 <tr class="separator:ae17788ed13713f42f37fa0e2f82d5ad5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71eb27961b47f7df2865cd21f529b15b" id="r_a71eb27961b47f7df2865cd21f529b15b"><td class="memItemLeft" align="right" valign="top"><a id="a71eb27961b47f7df2865cd21f529b15b" name="a71eb27961b47f7df2865cd21f529b15b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_priv_clearReceiveFifo0NewMessageInterruptFlag</b> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
-<tr class="memdesc:a71eb27961b47f7df2865cd21f529b15b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the RX FIFO0 new message interrupt flag. <br /></td></tr>
+<tr class="memitem:a71eb27961b47f7df2865cd21f529b15b" id="r_a71eb27961b47f7df2865cd21f529b15b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71eb27961b47f7df2865cd21f529b15b">PHAL_FDCAN_priv_clearReceiveFifo0NewMessageInterruptFlag</a> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
+<tr class="memdesc:a71eb27961b47f7df2865cd21f529b15b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the RX FIFO0 new message interrupt flag.  <br /></td></tr>
 <tr class="separator:a71eb27961b47f7df2865cd21f529b15b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada95fb8301def45f508c2495b8c3f3c0" id="r_ada95fb8301def45f508c2495b8c3f3c0"><td class="memItemLeft" align="right" valign="top"><a id="ada95fb8301def45f508c2495b8c3f3c0" name="ada95fb8301def45f508c2495b8c3f3c0"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_priv_readTransmitCompleteInterruptFlag</b> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
-<tr class="memdesc:ada95fb8301def45f508c2495b8c3f3c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether the TX complete interrupt flag is set. <br /></td></tr>
+<tr class="memitem:ada95fb8301def45f508c2495b8c3f3c0" id="r_ada95fb8301def45f508c2495b8c3f3c0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada95fb8301def45f508c2495b8c3f3c0">PHAL_FDCAN_priv_readTransmitCompleteInterruptFlag</a> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
+<tr class="memdesc:ada95fb8301def45f508c2495b8c3f3c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether the TX complete interrupt flag is set.  <br /></td></tr>
 <tr class="separator:ada95fb8301def45f508c2495b8c3f3c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7a314e6c60ea63ef66e061e99db33f4" id="r_ae7a314e6c60ea63ef66e061e99db33f4"><td class="memItemLeft" align="right" valign="top"><a id="ae7a314e6c60ea63ef66e061e99db33f4" name="ae7a314e6c60ea63ef66e061e99db33f4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_priv_clearTransmitCompleteInterruptFlag</b> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
-<tr class="memdesc:ae7a314e6c60ea63ef66e061e99db33f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the TX complete interrupt flag. <br /></td></tr>
+<tr class="memitem:ae7a314e6c60ea63ef66e061e99db33f4" id="r_ae7a314e6c60ea63ef66e061e99db33f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7a314e6c60ea63ef66e061e99db33f4">PHAL_FDCAN_priv_clearTransmitCompleteInterruptFlag</a> (FDCAN_GlobalTypeDef *fdcan)</td></tr>
+<tr class="memdesc:ae7a314e6c60ea63ef66e061e99db33f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the TX complete interrupt flag.  <br /></td></tr>
 <tr class="separator:ae7a314e6c60ea63ef66e061e99db33f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a5b41b35027be9010c2fd5129981bbb27" id="r_a5b41b35027be9010c2fd5129981bbb27"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b41b35027be9010c2fd5129981bbb27">FDCAN_PRIV_KER_CLK_HZ</a> = 16'000'000U</td></tr>
+<tr class="separator:a5b41b35027be9010c2fd5129981bbb27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52ae0b27629f4e7d7e3f80c87a0799f7" id="r_a52ae0b27629f4e7d7e3f80c87a0799f7"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52ae0b27629f4e7d7e3f80c87a0799f7">FDCAN_PRIV_RCC_FDCANCLKSOURCE_PCLK1</a> = RCC_CCIPR_FDCANSEL_1</td></tr>
+<tr class="memdesc:a52ae0b27629f4e7d7e3f80c87a0799f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">FDCAN clock is derived from PCLK1.  <br /></td></tr>
+<tr class="separator:a52ae0b27629f4e7d7e3f80c87a0799f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa49087e081996415878af4f695a88ded" id="r_aa49087e081996415878af4f695a88ded"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa49087e081996415878af4f695a88ded">FDCAN_PRIV_SRAMCAN_FLS_NBR</a> = 28</td></tr>
+<tr class="separator:aa49087e081996415878af4f695a88ded"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15bed663ea9659fd60723ad1f0ffa149" id="r_a15bed663ea9659fd60723ad1f0ffa149"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15bed663ea9659fd60723ad1f0ffa149">FDCAN_PRIV_SRAMCAN_FLE_NBR</a> = 8</td></tr>
+<tr class="memdesc:a15bed663ea9659fd60723ad1f0ffa149"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max standard id filters.  <br /></td></tr>
+<tr class="separator:a15bed663ea9659fd60723ad1f0ffa149"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace9da99ee106feb1e422e8f34fd200ff" id="r_ace9da99ee106feb1e422e8f34fd200ff"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace9da99ee106feb1e422e8f34fd200ff">FDCAN_PRIV_SRAMCAN_RF0_NBR</a> = 3</td></tr>
+<tr class="memdesc:ace9da99ee106feb1e422e8f34fd200ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max extended id filters.  <br /></td></tr>
+<tr class="separator:ace9da99ee106feb1e422e8f34fd200ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0472c0a3f1bad4132f88309758ae8d1c" id="r_a0472c0a3f1bad4132f88309758ae8d1c"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0472c0a3f1bad4132f88309758ae8d1c">FDCAN_PRIV_SRAMCAN_RF1_NBR</a> = 3</td></tr>
+<tr class="memdesc:a0472c0a3f1bad4132f88309758ae8d1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">RX FIFO 0 Elements Number.  <br /></td></tr>
+<tr class="separator:a0472c0a3f1bad4132f88309758ae8d1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad95bcb8fecc05e98052f8e049ef2a893" id="r_ad95bcb8fecc05e98052f8e049ef2a893"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad95bcb8fecc05e98052f8e049ef2a893">FDCAN_PRIV_SRAMCAN_TEF_NBR</a> = 3</td></tr>
+<tr class="memdesc:ad95bcb8fecc05e98052f8e049ef2a893"><td class="mdescLeft">&#160;</td><td class="mdescRight">RX FIFO 1 Elements Number.  <br /></td></tr>
+<tr class="separator:ad95bcb8fecc05e98052f8e049ef2a893"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec12f1fea36a9dfbf7e12a2b2a18994a" id="r_aec12f1fea36a9dfbf7e12a2b2a18994a"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec12f1fea36a9dfbf7e12a2b2a18994a">FDCAN_PRIV_SRAMCAN_TFQ_NBR</a> = 3</td></tr>
+<tr class="memdesc:aec12f1fea36a9dfbf7e12a2b2a18994a"><td class="mdescLeft">&#160;</td><td class="mdescRight">TX Event FIFO Elements Number.  <br /></td></tr>
+<tr class="separator:aec12f1fea36a9dfbf7e12a2b2a18994a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac933444c4967911d8f3ebda485f3951f" id="r_ac933444c4967911d8f3ebda485f3951f"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac933444c4967911d8f3ebda485f3951f">FDCAN_PRIV_SRAMCAN_FLS_SIZE</a> = 1 * 4</td></tr>
+<tr class="memdesc:ac933444c4967911d8f3ebda485f3951f"><td class="mdescLeft">&#160;</td><td class="mdescRight">TX FIFO Elements Number.  <br /></td></tr>
+<tr class="separator:ac933444c4967911d8f3ebda485f3951f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9402c2e9b630819faebac82ad3bf0550" id="r_a9402c2e9b630819faebac82ad3bf0550"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9402c2e9b630819faebac82ad3bf0550">FDCAN_PRIV_SRAMCAN_FLE_SIZE</a> = 2 * 4</td></tr>
+<tr class="separator:a9402c2e9b630819faebac82ad3bf0550"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad674462f99b44733b8097ff3bd514ca5" id="r_ad674462f99b44733b8097ff3bd514ca5"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad674462f99b44733b8097ff3bd514ca5">FDCAN_PRIV_SRAMCAN_RF0_SIZE</a> = 18 * 4</td></tr>
+<tr class="memdesc:ad674462f99b44733b8097ff3bd514ca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size in bytes of one RX FIFO 0 element (set by the hardware format)  <br /></td></tr>
+<tr class="separator:ad674462f99b44733b8097ff3bd514ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff893cb15d0c2e4affc03ac65f449fbe" id="r_aff893cb15d0c2e4affc03ac65f449fbe"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff893cb15d0c2e4affc03ac65f449fbe">FDCAN_PRIV_SRAMCAN_RF1_SIZE</a> = 18 * 4</td></tr>
+<tr class="separator:aff893cb15d0c2e4affc03ac65f449fbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84bddb906cb6c7a1742d6755b5ede868" id="r_a84bddb906cb6c7a1742d6755b5ede868"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a84bddb906cb6c7a1742d6755b5ede868">FDCAN_PRIV_SRAMCAN_TEF_SIZE</a> = 2 * 4</td></tr>
+<tr class="separator:a84bddb906cb6c7a1742d6755b5ede868"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4abf59ec6efa2b90ecb90744ad9d7c78" id="r_a4abf59ec6efa2b90ecb90744ad9d7c78"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4abf59ec6efa2b90ecb90744ad9d7c78">FDCAN_PRIV_SRAMCAN_TFQ_SIZE</a> = 18 * 4</td></tr>
+<tr class="memdesc:a4abf59ec6efa2b90ecb90744ad9d7c78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size in bytes of one TX FIFO/queue element (set by the hardware format)  <br /></td></tr>
+<tr class="separator:a4abf59ec6efa2b90ecb90744ad9d7c78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5e4e855a46c51d1c32391b4dc876afd" id="r_af5e4e855a46c51d1c32391b4dc876afd"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5e4e855a46c51d1c32391b4dc876afd">FDCAN_PRIV_SRAMCAN_FLSSA</a> = 0</td></tr>
+<tr class="separator:af5e4e855a46c51d1c32391b4dc876afd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e4c98b27913c3aeb3e1e029b74834e1" id="r_a7e4c98b27913c3aeb3e1e029b74834e1"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e4c98b27913c3aeb3e1e029b74834e1">FDCAN_PRIV_SRAMCAN_FLESA</a> = <a class="el" href="#af5e4e855a46c51d1c32391b4dc876afd">FDCAN_PRIV_SRAMCAN_FLSSA</a> + <a class="el" href="#aa49087e081996415878af4f695a88ded">FDCAN_PRIV_SRAMCAN_FLS_NBR</a> * <a class="el" href="#ac933444c4967911d8f3ebda485f3951f">FDCAN_PRIV_SRAMCAN_FLS_SIZE</a></td></tr>
+<tr class="separator:a7e4c98b27913c3aeb3e1e029b74834e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1467f8b61a30b65a61a967a0c84eaa13" id="r_a1467f8b61a30b65a61a967a0c84eaa13"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1467f8b61a30b65a61a967a0c84eaa13">FDCAN_PRIV_SRAMCAN_RF0SA</a> = <a class="el" href="#a7e4c98b27913c3aeb3e1e029b74834e1">FDCAN_PRIV_SRAMCAN_FLESA</a> + <a class="el" href="#a15bed663ea9659fd60723ad1f0ffa149">FDCAN_PRIV_SRAMCAN_FLE_NBR</a> * <a class="el" href="#a9402c2e9b630819faebac82ad3bf0550">FDCAN_PRIV_SRAMCAN_FLE_SIZE</a></td></tr>
+<tr class="separator:a1467f8b61a30b65a61a967a0c84eaa13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaeab2c6d992c7abb0c60efd59759a0a0" id="r_aaeab2c6d992c7abb0c60efd59759a0a0"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaeab2c6d992c7abb0c60efd59759a0a0">FDCAN_PRIV_SRAMCAN_RF1SA</a> = <a class="el" href="#a1467f8b61a30b65a61a967a0c84eaa13">FDCAN_PRIV_SRAMCAN_RF0SA</a> + <a class="el" href="#ace9da99ee106feb1e422e8f34fd200ff">FDCAN_PRIV_SRAMCAN_RF0_NBR</a> * <a class="el" href="#ad674462f99b44733b8097ff3bd514ca5">FDCAN_PRIV_SRAMCAN_RF0_SIZE</a></td></tr>
+<tr class="separator:aaeab2c6d992c7abb0c60efd59759a0a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20eef1561f37fd5b5e638dd9f3794828" id="r_a20eef1561f37fd5b5e638dd9f3794828"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20eef1561f37fd5b5e638dd9f3794828">FDCAN_PRIV_SRAMCAN_TEFSA</a> = <a class="el" href="#aaeab2c6d992c7abb0c60efd59759a0a0">FDCAN_PRIV_SRAMCAN_RF1SA</a> + <a class="el" href="#a0472c0a3f1bad4132f88309758ae8d1c">FDCAN_PRIV_SRAMCAN_RF1_NBR</a> * <a class="el" href="#aff893cb15d0c2e4affc03ac65f449fbe">FDCAN_PRIV_SRAMCAN_RF1_SIZE</a></td></tr>
+<tr class="separator:a20eef1561f37fd5b5e638dd9f3794828"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c95e2ed85574cceb022f9d170f434c3" id="r_a0c95e2ed85574cceb022f9d170f434c3"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c95e2ed85574cceb022f9d170f434c3">FDCAN_PRIV_SRAMCAN_TFQSA</a> = <a class="el" href="#a20eef1561f37fd5b5e638dd9f3794828">FDCAN_PRIV_SRAMCAN_TEFSA</a> + <a class="el" href="#ad95bcb8fecc05e98052f8e049ef2a893">FDCAN_PRIV_SRAMCAN_TEF_NBR</a> * <a class="el" href="#a84bddb906cb6c7a1742d6755b5ede868">FDCAN_PRIV_SRAMCAN_TEF_SIZE</a></td></tr>
+<tr class="separator:a0c95e2ed85574cceb022f9d170f434c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff2c042a1544cb55d1c114d14c4e3de0" id="r_aff2c042a1544cb55d1c114d14c4e3de0"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff2c042a1544cb55d1c114d14c4e3de0">FDCAN_PRIV_SRAMCAN_SIZE</a> = <a class="el" href="#a0c95e2ed85574cceb022f9d170f434c3">FDCAN_PRIV_SRAMCAN_TFQSA</a> + <a class="el" href="#aec12f1fea36a9dfbf7e12a2b2a18994a">FDCAN_PRIV_SRAMCAN_TFQ_NBR</a> * <a class="el" href="#a4abf59ec6efa2b90ecb90744ad9d7c78">FDCAN_PRIV_SRAMCAN_TFQ_SIZE</a></td></tr>
+<tr class="memdesc:aff2c042a1544cb55d1c114d14c4e3de0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes required/consumed by one instance's full Message RAM layout (filters + RX FIFOs + TX event FIFO + TX FIFO)  <br /></td></tr>
+<tr class="separator:aff2c042a1544cb55d1c114d14c4e3de0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>G4 FDCAN private/register level implementation. </p>
@@ -204,10 +254,156 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_priv_clear
       </table>
 </div><div class="memdoc">
 <p>Filter action values for RXGFC register Controls what happens to any frame that does not match any of the configured filters </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a0fed4338eaa5e76c37bdbb72648c1de9af7f5f03de92524a264154c0edd787158" name="a0fed4338eaa5e76c37bdbb72648c1de9af7f5f03de92524a264154c0edd787158"></a>FDCAN_PRIV_FILTER_ACCEPT_IN_RX_FIFO0&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0fed4338eaa5e76c37bdbb72648c1de9a39cffdfaac94b513d79bb0810620e834" name="a0fed4338eaa5e76c37bdbb72648c1de9a39cffdfaac94b513d79bb0810620e834"></a>FDCAN_PRIV_FILTER_REJECT&#160;</td><td class="fielddoc"></td></tr>
+</table>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a71eb27961b47f7df2865cd21f529b15b" name="a71eb27961b47f7df2865cd21f529b15b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71eb27961b47f7df2865cd21f529b15b">&#9670;&#160;</a></span>PHAL_FDCAN_priv_clearReceiveFifo0NewMessageInterruptFlag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_FDCAN_priv_clearReceiveFifo0NewMessageInterruptFlag </td>
+          <td>(</td>
+          <td class="paramtype">FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>fdcan</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clear the RX FIFO0 new message interrupt flag. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_a71eb27961b47f7df2865cd21f529b15b_icgraph.svg" width="639" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ae7a314e6c60ea63ef66e061e99db33f4" name="ae7a314e6c60ea63ef66e061e99db33f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7a314e6c60ea63ef66e061e99db33f4">&#9670;&#160;</a></span>PHAL_FDCAN_priv_clearTransmitCompleteInterruptFlag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_FDCAN_priv_clearTransmitCompleteInterruptFlag </td>
+          <td>(</td>
+          <td class="paramtype">FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>fdcan</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clear the TX complete interrupt flag. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_ae7a314e6c60ea63ef66e061e99db33f4_icgraph.svg" width="643" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a5989bf0267b012b516dea18271539715" name="a5989bf0267b012b516dea18271539715"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5989bf0267b012b516dea18271539715">&#9670;&#160;</a></span>PHAL_FDCAN_priv_controlConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_FDCAN_priv_controlConfig </td>
+          <td>(</td>
+          <td class="paramtype">FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>fdcan</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_a5989bf0267b012b516dea18271539715_icgraph.svg" width="510" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a405fe02c05033e421fb70515453be08d" name="a405fe02c05033e421fb70515453be08d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a405fe02c05033e421fb70515453be08d">&#9670;&#160;</a></span>PHAL_FDCAN_priv_enableClock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_FDCAN_priv_enableClock </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable FDCAN kernel + peripheral clocks (PCLK1) </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_a405fe02c05033e421fb70515453be08d_icgraph.svg" width="506" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab936d0060d65f2f18ed211714e7b0746" name="ab936d0060d65f2f18ed211714e7b0746"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab936d0060d65f2f18ed211714e7b0746">&#9670;&#160;</a></span>PHAL_FDCAN_priv_enterConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_FDCAN_priv_enterConfig </td>
+          <td>(</td>
+          <td class="paramtype">FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>fdcan</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enter INIT mode and unlock configuration registers. Blocks until entered. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_ab936d0060d65f2f18ed211714e7b0746_icgraph.svg" width="536" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab58932032e5748d11d6fbcd04c68a322" name="ab58932032e5748d11d6fbcd04c68a322"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab58932032e5748d11d6fbcd04c68a322">&#9670;&#160;</a></span>PHAL_FDCAN_priv_exitConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_FDCAN_priv_exitConfig </td>
+          <td>(</td>
+          <td class="paramtype">FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>fdcan</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Leave INIT mode, ending configuration. Blocks until left. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_ab58932032e5748d11d6fbcd04c68a322_icgraph.svg" width="527" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <a id="a200094d34b232f471ea5c829f0bdee4b" name="a200094d34b232f471ea5c829f0bdee4b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a200094d34b232f471ea5c829f0bdee4b">&#9670;&#160;</a></span>PHAL_FDCAN_priv_getNBTP()</h2>
 
@@ -223,6 +419,268 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_priv_clear
       </table>
 </div><div class="memdoc">
 <p>Compute the NBTP register value for one of the supported bit rates. 16-time-quantum nominal bit time (~87.5% sample point) </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_a200094d34b232f471ea5c829f0bdee4b_icgraph.svg" width="488" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a14ac1c62f9f7ec08496cda925598d136" name="a14ac1c62f9f7ec08496cda925598d136"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14ac1c62f9f7ec08496cda925598d136">&#9670;&#160;</a></span>PHAL_FDCAN_priv_ramBase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t PHAL_FDCAN_priv_ramBase </td>
+          <td>(</td>
+          <td class="paramtype">FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>fdcan</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base address of this peripheral's slice of shared message RAM. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_a14ac1c62f9f7ec08496cda925598d136_icgraph.svg" width="100%" height="499"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ae17788ed13713f42f37fa0e2f82d5ad5" name="ae17788ed13713f42f37fa0e2f82d5ad5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae17788ed13713f42f37fa0e2f82d5ad5">&#9670;&#160;</a></span>PHAL_FDCAN_priv_readReceiveFifo0NewMessageInterruptFlag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PHAL_FDCAN_priv_readReceiveFifo0NewMessageInterruptFlag </td>
+          <td>(</td>
+          <td class="paramtype">FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>fdcan</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check whether the RX FIFO0 new message interrupt flag is set. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_ae17788ed13713f42f37fa0e2f82d5ad5_icgraph.svg" width="636" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a7d7a1cca26ac694c42ace9f38507706e" name="a7d7a1cca26ac694c42ace9f38507706e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d7a1cca26ac694c42ace9f38507706e">&#9670;&#160;</a></span>PHAL_FDCAN_priv_readRxElement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PHAL_FDCAN_priv_readRxElement </td>
+          <td>(</td>
+          <td class="paramtype">FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>fdcan</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *</td>          <td class="paramname"><span class="paramname"><em>msg</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pop and decode the oldest element from RX FIFO0. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_a7d7a1cca26ac694c42ace9f38507706e_cgraph.svg" width="487" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_a7d7a1cca26ac694c42ace9f38507706e_icgraph.svg" width="651" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ada95fb8301def45f508c2495b8c3f3c0" name="ada95fb8301def45f508c2495b8c3f3c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada95fb8301def45f508c2495b8c3f3c0">&#9670;&#160;</a></span>PHAL_FDCAN_priv_readTransmitCompleteInterruptFlag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PHAL_FDCAN_priv_readTransmitCompleteInterruptFlag </td>
+          <td>(</td>
+          <td class="paramtype">FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>fdcan</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check whether the TX complete interrupt flag is set. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_ada95fb8301def45f508c2495b8c3f3c0_icgraph.svg" width="640" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a2e6c7d49a4e412b6f86a43abbdbd599d" name="a2e6c7d49a4e412b6f86a43abbdbd599d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e6c7d49a4e412b6f86a43abbdbd599d">&#9670;&#160;</a></span>PHAL_FDCAN_priv_readTxFifoQueueStatusFullFlag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PHAL_FDCAN_priv_readTxFifoQueueStatusFullFlag </td>
+          <td>(</td>
+          <td class="paramtype">FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>fdcan</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check whether the TX FIFO/Queue is full. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_a2e6c7d49a4e412b6f86a43abbdbd599d_icgraph.svg" width="631" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a843742822e433814e97fe2ef38ae4bc6" name="a843742822e433814e97fe2ef38ae4bc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a843742822e433814e97fe2ef38ae4bc6">&#9670;&#160;</a></span>PHAL_FDCAN_priv_setTransmitFifoQueueModeToFifo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_FDCAN_priv_setTransmitFifoQueueModeToFifo </td>
+          <td>(</td>
+          <td class="paramtype">FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>fdcan</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set TX FIFO/Queue mode to FIFO (not queue) </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_a843742822e433814e97fe2ef38ae4bc6_icgraph.svg" width="503" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a23081d4ce4e5cc261b727901696b7343" name="a23081d4ce4e5cc261b727901696b7343"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23081d4ce4e5cc261b727901696b7343">&#9670;&#160;</a></span>PHAL_FDCAN_priv_writeExtendedFilters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_FDCAN_priv_writeExtendedFilters </td>
+          <td>(</td>
+          <td class="paramtype">FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>fdcan</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t *</td>          <td class="paramname"><span class="paramname"><em>xid_list</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>num_xid</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set num_xid exact-match extended filters and forward to RX FIFO0. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_a23081d4ce4e5cc261b727901696b7343_cgraph.svg" width="480" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_a23081d4ce4e5cc261b727901696b7343_icgraph.svg" width="455" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a32bfa5f854b4e4c1744275bfbe7fbbcd" name="a32bfa5f854b4e4c1744275bfbe7fbbcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32bfa5f854b4e4c1744275bfbe7fbbcd">&#9670;&#160;</a></span>PHAL_FDCAN_priv_writeFilterAction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_FDCAN_priv_writeFilterAction </td>
+          <td>(</td>
+          <td class="paramtype">FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>fdcan</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a0fed4338eaa5e76c37bdbb72648c1de9">PHAL_FDCAN_DefaultFilterAction_t</a></td>          <td class="paramname"><span class="paramname"><em>action</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write a filter action to RXGFC (accept/reject all) </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_a32bfa5f854b4e4c1744275bfbe7fbbcd_icgraph.svg" width="528" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aebd7c4453ce55c458c894e9106f02751" name="aebd7c4453ce55c458c894e9106f02751"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebd7c4453ce55c458c894e9106f02751">&#9670;&#160;</a></span>PHAL_FDCAN_priv_writeStandardFilters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_FDCAN_priv_writeStandardFilters </td>
+          <td>(</td>
+          <td class="paramtype">FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>fdcan</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t *</td>          <td class="paramname"><span class="paramname"><em>sid_list</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>num_sid</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set num_sid exact-match standard filters and forward to RX FIFO0. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_aebd7c4453ce55c458c894e9106f02751_cgraph.svg" width="480" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_aebd7c4453ce55c458c894e9106f02751_icgraph.svg" width="454" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -245,6 +703,536 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>PHAL_FDCAN_priv_clear
       </table>
 </div><div class="memdoc">
 <p>Write one classic-CAN TX element for msg into the next free TX FIFO slot Not safe to call if the TX FIFO is full </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_ab0169c5cbd4f2273cd46051cdc2dd4da_cgraph.svg" width="488" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_ab0169c5cbd4f2273cd46051cdc2dd4da_icgraph.svg" width="436" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af69382ccb9d1b998edeece7d3403d74b" name="af69382ccb9d1b998edeece7d3403d74b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af69382ccb9d1b998edeece7d3403d74b">&#9670;&#160;</a></span>PHAL_FDCAN_setInterruptLines()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PHAL_FDCAN_setInterruptLines </td>
+          <td>(</td>
+          <td class="paramtype">FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>fdcan</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set up RX new message -&gt; line 0, TX complete -&gt; line 1. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="fdcan__priv_8h_af69382ccb9d1b998edeece7d3403d74b_icgraph.svg" width="504" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a5b41b35027be9010c2fd5129981bbb27" name="a5b41b35027be9010c2fd5129981bbb27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b41b35027be9010c2fd5129981bbb27">&#9670;&#160;</a></span>FDCAN_PRIV_KER_CLK_HZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_KER_CLK_HZ = 16'000'000U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The FDCAN kernel clock frequency (the clock NBTP's prescaler divides down. Our HAL for FDCAN is always clocked from PCLK1. NOTE: delicate to PCLK1 changes!! </p>
+
+</div>
+</div>
+<a id="a52ae0b27629f4e7d7e3f80c87a0799f7" name="a52ae0b27629f4e7d7e3f80c87a0799f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52ae0b27629f4e7d7e3f80c87a0799f7">&#9670;&#160;</a></span>FDCAN_PRIV_RCC_FDCANCLKSOURCE_PCLK1</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_RCC_FDCANCLKSOURCE_PCLK1 = RCC_CCIPR_FDCANSEL_1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>FDCAN clock is derived from PCLK1. </p>
+
+</div>
+</div>
+<a id="a15bed663ea9659fd60723ad1f0ffa149" name="a15bed663ea9659fd60723ad1f0ffa149"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15bed663ea9659fd60723ad1f0ffa149">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_FLE_NBR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_FLE_NBR = 8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Max standard id filters. </p>
+
+</div>
+</div>
+<a id="a9402c2e9b630819faebac82ad3bf0550" name="a9402c2e9b630819faebac82ad3bf0550"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9402c2e9b630819faebac82ad3bf0550">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_FLE_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_FLE_SIZE = 2 * 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7e4c98b27913c3aeb3e1e029b74834e1" name="a7e4c98b27913c3aeb3e1e029b74834e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e4c98b27913c3aeb3e1e029b74834e1">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_FLESA</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_FLESA = <a class="el" href="#af5e4e855a46c51d1c32391b4dc876afd">FDCAN_PRIV_SRAMCAN_FLSSA</a> + <a class="el" href="#aa49087e081996415878af4f695a88ded">FDCAN_PRIV_SRAMCAN_FLS_NBR</a> * <a class="el" href="#ac933444c4967911d8f3ebda485f3951f">FDCAN_PRIV_SRAMCAN_FLS_SIZE</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Filter List Extended Start Address</p><ul>
+<li>the byte offset, within this instance's Message RAM slice, where the array of extended (29-bit ID) filter elements begins </li>
+</ul>
+
+</div>
+</div>
+<a id="aa49087e081996415878af4f695a88ded" name="aa49087e081996415878af4f695a88ded"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa49087e081996415878af4f695a88ded">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_FLS_NBR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_FLS_NBR = 28</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac933444c4967911d8f3ebda485f3951f" name="ac933444c4967911d8f3ebda485f3951f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac933444c4967911d8f3ebda485f3951f">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_FLS_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_FLS_SIZE = 1 * 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>TX FIFO Elements Number. </p>
+
+</div>
+</div>
+<a id="af5e4e855a46c51d1c32391b4dc876afd" name="af5e4e855a46c51d1c32391b4dc876afd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5e4e855a46c51d1c32391b4dc876afd">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_FLSSA</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_FLSSA = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Filter List Standard Start Address</p><ul>
+<li>the byte offset, within this instance's Message RAM slice, where the array of standard (11-bit ID) filter elements begins </li>
+</ul>
+
+</div>
+</div>
+<a id="ace9da99ee106feb1e422e8f34fd200ff" name="ace9da99ee106feb1e422e8f34fd200ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace9da99ee106feb1e422e8f34fd200ff">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_RF0_NBR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_RF0_NBR = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Max extended id filters. </p>
+
+</div>
+</div>
+<a id="ad674462f99b44733b8097ff3bd514ca5" name="ad674462f99b44733b8097ff3bd514ca5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad674462f99b44733b8097ff3bd514ca5">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_RF0_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_RF0_SIZE = 18 * 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Size in bytes of one RX FIFO 0 element (set by the hardware format) </p>
+
+</div>
+</div>
+<a id="a1467f8b61a30b65a61a967a0c84eaa13" name="a1467f8b61a30b65a61a967a0c84eaa13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1467f8b61a30b65a61a967a0c84eaa13">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_RF0SA</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_RF0SA = <a class="el" href="#a7e4c98b27913c3aeb3e1e029b74834e1">FDCAN_PRIV_SRAMCAN_FLESA</a> + <a class="el" href="#a15bed663ea9659fd60723ad1f0ffa149">FDCAN_PRIV_SRAMCAN_FLE_NBR</a> * <a class="el" href="#a9402c2e9b630819faebac82ad3bf0550">FDCAN_PRIV_SRAMCAN_FLE_SIZE</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Rx FIFO 0 Start Address</p><ul>
+<li>byte offset where the RX FIFO 0 element array begins in this instance's Message RAM slice </li>
+</ul>
+
+</div>
+</div>
+<a id="a0472c0a3f1bad4132f88309758ae8d1c" name="a0472c0a3f1bad4132f88309758ae8d1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0472c0a3f1bad4132f88309758ae8d1c">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_RF1_NBR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_RF1_NBR = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>RX FIFO 0 Elements Number. </p>
+
+</div>
+</div>
+<a id="aff893cb15d0c2e4affc03ac65f449fbe" name="aff893cb15d0c2e4affc03ac65f449fbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff893cb15d0c2e4affc03ac65f449fbe">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_RF1_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_RF1_SIZE = 18 * 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaeab2c6d992c7abb0c60efd59759a0a0" name="aaeab2c6d992c7abb0c60efd59759a0a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaeab2c6d992c7abb0c60efd59759a0a0">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_RF1SA</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_RF1SA = <a class="el" href="#a1467f8b61a30b65a61a967a0c84eaa13">FDCAN_PRIV_SRAMCAN_RF0SA</a> + <a class="el" href="#ace9da99ee106feb1e422e8f34fd200ff">FDCAN_PRIV_SRAMCAN_RF0_NBR</a> * <a class="el" href="#ad674462f99b44733b8097ff3bd514ca5">FDCAN_PRIV_SRAMCAN_RF0_SIZE</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aff2c042a1544cb55d1c114d14c4e3de0" name="aff2c042a1544cb55d1c114d14c4e3de0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff2c042a1544cb55d1c114d14c4e3de0">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_SIZE = <a class="el" href="#a0c95e2ed85574cceb022f9d170f434c3">FDCAN_PRIV_SRAMCAN_TFQSA</a> + <a class="el" href="#aec12f1fea36a9dfbf7e12a2b2a18994a">FDCAN_PRIV_SRAMCAN_TFQ_NBR</a> * <a class="el" href="#a4abf59ec6efa2b90ecb90744ad9d7c78">FDCAN_PRIV_SRAMCAN_TFQ_SIZE</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bytes required/consumed by one instance's full Message RAM layout (filters + RX FIFOs + TX event FIFO + TX FIFO) </p>
+
+</div>
+</div>
+<a id="ad95bcb8fecc05e98052f8e049ef2a893" name="ad95bcb8fecc05e98052f8e049ef2a893"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad95bcb8fecc05e98052f8e049ef2a893">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_TEF_NBR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_TEF_NBR = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>RX FIFO 1 Elements Number. </p>
+
+</div>
+</div>
+<a id="a84bddb906cb6c7a1742d6755b5ede868" name="a84bddb906cb6c7a1742d6755b5ede868"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84bddb906cb6c7a1742d6755b5ede868">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_TEF_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_TEF_SIZE = 2 * 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a20eef1561f37fd5b5e638dd9f3794828" name="a20eef1561f37fd5b5e638dd9f3794828"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20eef1561f37fd5b5e638dd9f3794828">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_TEFSA</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_TEFSA = <a class="el" href="#aaeab2c6d992c7abb0c60efd59759a0a0">FDCAN_PRIV_SRAMCAN_RF1SA</a> + <a class="el" href="#a0472c0a3f1bad4132f88309758ae8d1c">FDCAN_PRIV_SRAMCAN_RF1_NBR</a> * <a class="el" href="#aff893cb15d0c2e4affc03ac65f449fbe">FDCAN_PRIV_SRAMCAN_RF1_SIZE</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aec12f1fea36a9dfbf7e12a2b2a18994a" name="aec12f1fea36a9dfbf7e12a2b2a18994a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec12f1fea36a9dfbf7e12a2b2a18994a">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_TFQ_NBR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_TFQ_NBR = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>TX Event FIFO Elements Number. </p>
+
+</div>
+</div>
+<a id="a4abf59ec6efa2b90ecb90744ad9d7c78" name="a4abf59ec6efa2b90ecb90744ad9d7c78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4abf59ec6efa2b90ecb90744ad9d7c78">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_TFQ_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_TFQ_SIZE = 18 * 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Size in bytes of one TX FIFO/queue element (set by the hardware format) </p>
+
+</div>
+</div>
+<a id="a0c95e2ed85574cceb022f9d170f434c3" name="a0c95e2ed85574cceb022f9d170f434c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c95e2ed85574cceb022f9d170f434c3">&#9670;&#160;</a></span>FDCAN_PRIV_SRAMCAN_TFQSA</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FDCAN_PRIV_SRAMCAN_TFQSA = <a class="el" href="#a20eef1561f37fd5b5e638dd9f3794828">FDCAN_PRIV_SRAMCAN_TEFSA</a> + <a class="el" href="#ad95bcb8fecc05e98052f8e049ef2a893">FDCAN_PRIV_SRAMCAN_TEF_NBR</a> * <a class="el" href="#a84bddb906cb6c7a1742d6755b5ede868">FDCAN_PRIV_SRAMCAN_TEF_SIZE</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Tx FIFO/Queue Start Address</p><ul>
+<li>byte offset where the TX FIFO/queue element array begins in this instance's Message RAM slice </li>
+</ul>
 
 </div>
 </div>

@@ -1,0 +1,5 @@
+<map id="vector3_normalize" name="vector3_normalize">
+<area shape="rect" id="Node000001" title="Normalize a 3D vector." alt="" coords="5,5,132,31"/>
+<area shape="rect" id="Node000002" href="$linear__algebra_8h.html#acb3467d45efe252749a36d093d6d575d" title="Calculate the magnitude of a 3D vector." alt="" coords="180,5,311,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,16,164,16,164,21,132,21"/>
+</map>

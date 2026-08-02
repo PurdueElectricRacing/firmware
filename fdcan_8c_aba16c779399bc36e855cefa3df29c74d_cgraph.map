@@ -1,0 +1,19 @@
+<map id="PHAL_FDCAN_init" name="PHAL_FDCAN_init">
+<area shape="rect" id="Node000001" title="Initialize an FDCAN peripheral for classic (non&#45;FD) CAN operation." alt="" coords="5,179,139,204"/>
+<area shape="rect" id="Node000002" href="$fdcan__priv_8c.html#a5989bf0267b012b516dea18271539715" title=" " alt="" coords="187,5,406,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,177,92,148,116,111,147,72,185,40,193,35,196,40,188,44,151,76,120,114,97,151,82,179"/>
+<area shape="rect" id="Node000003" href="$fdcan__priv_8c.html#a405fe02c05033e421fb70515453be08d" title="Enable FDCAN kernel + peripheral clocks (PCLK1)" alt="" coords="189,55,404,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="82,176,124,133,153,109,185,89,198,84,200,89,188,94,157,113,128,137,86,180"/>
+<area shape="rect" id="Node000004" href="$fdcan__priv_8c.html#ab936d0060d65f2f18ed211714e7b0746" title="Enter INIT mode and unlock configuration registers. Blocks until entered." alt="" coords="192,104,401,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="98,176,139,157,186,138,209,131,211,136,188,143,141,162,100,180"/>
+<area shape="rect" id="Node000005" href="$fdcan__priv_8c.html#ab58932032e5748d11d6fbcd04c68a322" title="Leave INIT mode, ending configuration. Blocks until left." alt="" coords="196,153,396,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="139,181,181,177,181,182,140,187"/>
+<area shape="rect" id="Node000006" href="$fdcan__priv_8c.html#a200094d34b232f471ea5c829f0bdee4b" title=" " alt="" coords="197,203,396,228"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="140,196,182,201,181,206,139,201"/>
+<area shape="rect" id="Node000007" href="$fdcan__priv_8c.html#a843742822e433814e97fe2ef38ae4bc6" title="Set TX FIFO/Queue mode to FIFO (not queue)" alt="" coords="190,252,403,293"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="102,202,188,238,207,245,205,250,186,243,100,207"/>
+<area shape="rect" id="Node000008" href="$fdcan__priv_8c.html#a32bfa5f854b4e4c1744275bfbe7fbbcd" title="Write a filter action to RXGFC (accept/reject all)" alt="" coords="196,318,397,358"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="85,203,126,252,156,279,188,303,200,309,197,313,185,307,152,283,123,255,81,207"/>
+<area shape="rect" id="Node000009" href="$fdcan__priv_8c.html#af69382ccb9d1b998edeece7d3403d74b" title="Set up RX new message &#45;&gt; line 0, TX complete &#45;&gt; line 1." alt="" coords="189,383,404,408"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="80,204,94,238,116,282,147,329,167,350,188,368,197,373,194,378,185,372,163,354,143,332,111,285,89,240,75,206"/>
+</map>

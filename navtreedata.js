@@ -191,16 +191,17 @@ var NAVTREE =
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ]
+        [ "Functions", "namespacemembers_func.html", null ],
+        [ "Variables", "namespacemembers_vars.html", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
+        [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "Variables", "functions_vars.html", "functions_vars" ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -208,9 +209,11 @@ var NAVTREE =
       [ "File Members", "globals.html", [
         [ "All", "globals.html", "globals_dup" ],
         [ "Functions", "globals_func.html", "globals_func" ],
+        [ "Variables", "globals_vars.html", "globals_vars" ],
+        [ "Typedefs", "globals_type.html", null ],
         [ "Enumerations", "globals_enum.html", null ],
-        [ "Enumerator", "globals_eval.html", null ],
-        [ "Macros", "globals_defs.html", null ]
+        [ "Enumerator", "globals_eval.html", "globals_eval" ],
+        [ "Macros", "globals_defs.html", "globals_defs" ]
       ] ]
     ] ]
   ] ]
@@ -218,12 +221,27 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"FreeRTOSConfig_8h_source.html",
-"daq_2main_8h_source.html",
-"lcd_8h.html#af43eed5065a4456cc5013ee59b7a2ce7",
-"nextion_8h.html#ae995d182561a5fa3087569539bb551d2",
-"rcc__priv_8h.html#a9d764d1ad952cbde1cde6d794b88add7",
-"structpascals__t.html"
+"AMK_8png.html",
+"blinky_8c.html#a16a34b44b57ab33a01ec47aad586fae9",
+"classcodegen_1_1NodeRenderContext.html#a93953974a548d1c522c3c809b77caf13",
+"classutils_1_1bcolors.html#a3d98c698113ee9cdeb89950d06a995dc",
+"common_2phal__F4_2usart_2usart_8c.html#afd98e1acca0fdcf343db884ea257b819",
+"dashboard_2main_8c.html#a358cf5443fb73a60b7d12d4c2c707728",
+"ethernet_8c.html#a35a615d9efc9dc590f030ac374d57931",
+"freertos_8h.html#a5cf4a3cffdbcee009fb985a5c44738c3",
+"imu_8c.html#a7d318a6a08b0b817d053725e1afd8404a3d5618b2efbea5e75dc5dd85f8e88c67",
+"md_common_2amk_2README.html#autotoc_md56",
+"nav__pvt_8h.html#aab0b940e0c2b2f588ef823a759194126a1acfb0ead3561d7c45331cb1b1a509a8",
+"pdu_2main_8h.html#a9574ae937665dd97695392399ddee7b6",
+"phal__F4_2gpio_2gpio_8h.html#a613ebbfff35a56132e58a75c773d7876",
+"phal__G4_2crc_2crc_8h_source.html",
+"powertrain_8c.html#a059575ddd2df3c7c23a2ad1eb3ee564b",
+"sdio_8h.html#a45a924a12fc702bebac386ed429a60ff",
+"structADCChannelConfig__t.html#ada8dc6abf7c4671fed77bc443913bd6b",
+"struct____attribute____.html#a6dba84a5980097d43b2209d8acfcaa50",
+"structpage__handler__t.html#a0f1ab0097d5d47b7fdc51880cf103ce2",
+"syscalls_8c.html#a41eef54307912a82d20e71c3d47315aa",
+"vcu_8c.html#ade667dee6c3f02f349ff062fc90a0b4ea69f154d6d5b9804e3544213da7c2221c"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

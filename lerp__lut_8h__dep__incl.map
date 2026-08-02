@@ -1,0 +1,17 @@
+<map id="common/lerp_lut/lerp_lut.h" name="common/lerp_lut/lerp_lut.h">
+<area shape="rect" id="Node000001" title="Linear interpolation lookup table (LUT)." alt="" coords="365,5,508,46"/>
+<area shape="rect" id="Node000002" href="$lerp__lut_8c.html" title="Linear interpolation lookup table (LUT)." alt="" coords="5,94,148,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="351,50,149,99,147,93,349,45"/>
+<area shape="rect" id="Node000003" href="$thermistor_8c.html" title="Thermistor lookup table from datasheet." alt="" coords="172,94,333,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="382,55,295,96,293,91,380,50"/>
+<area shape="rect" id="Node000004" href="$thermistor_8h.html" title="Thermistor lookup table from datasheet." alt="" coords="356,94,517,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="439,62,439,94,434,94,434,62"/>
+<area shape="rect" id="Node000006" href="$oil__temps__table_8c.html" title="Oil temp lookup table from datasheet." alt="" coords="541,94,710,135"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="494,50,584,91,582,96,492,55"/>
+<area shape="rect" id="Node000007" href="$oil__temps__table_8h.html" title="Oil temp lookup table from datasheet." alt="" coords="734,94,904,135"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="523,44,735,91,733,96,522,49"/>
+<area shape="rect" id="Node000005" href="$adbms_8c.html" title="Primary logic and interface for ADBMS battery management system driver." alt="" coords="366,183,507,223"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="439,150,439,182,434,182,434,150"/>
+<area shape="rect" id="Node000008" href="$driveline_2main_8c.html" title="&quot;Driveline&quot; node source code" alt="" coords="742,190,896,216"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="822,150,822,190,816,190,816,150"/>
+</map>

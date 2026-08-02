@@ -1,0 +1,5 @@
+<map id="faultgen.generate_fault_data" name="faultgen.generate_fault_data">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,13,190,38"/>
+<area shape="rect" id="Node000002" href="$namespacefaultgen.html#ab183ecd097f0767c70c2829185995add" title=" " alt="" coords="238,5,367,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="190,23,222,23,222,28,190,28"/>
+</map>

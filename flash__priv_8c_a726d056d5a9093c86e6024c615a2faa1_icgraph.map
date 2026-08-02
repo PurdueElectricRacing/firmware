@@ -1,0 +1,9 @@
+<map id="flash_voltage_allows_programming" name="flash_voltage_allows_programming">
+<area shape="rect" id="Node000001" title=" " alt="" coords="450,23,591,64"/>
+<area shape="rect" id="Node000002" href="$flash__priv_8c.html#a7cfacba7a408a420e261fcdceef04b8b" title=" " alt="" coords="201,31,402,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="435,46,403,46,403,41,435,41"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2flash_2flash_8c.html#ae5452e7ac6c1fd154de448cc8403653d" title="Erase every internal flash page touched by a range." alt="" coords="5,5,153,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="185,33,153,29,154,24,186,28"/>
+<area shape="rect" id="Node000004" href="$phal__G4_2flash_2flash_8c.html#a5c15aad9202332ef0384fafe9620e0ce" title="Program bytes into erased internal flash." alt="" coords="7,55,151,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="186,59,152,62,151,57,185,53"/>
+</map>

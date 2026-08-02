@@ -109,25 +109,25 @@ Software Architecture</h1>
 <img src="canpiler.drawio.png" alt=""/>
 <div class="caption">
 canpiler system diagram</div></div>
-    <p><code>build.py</code>: Main entry point for CANpiler. Coordinates the top-level data flow.</p>
-<p><code>utils.py</code>: Shared helpers (<code>format_float</code>, <code>print_as_success</code>, etc.) used across the pipeline.</p>
+    <p><code><a class="el" href="build_8py.html">build.py</a></code>: Main entry point for CANpiler. Coordinates the top-level data flow.</p>
+<p><code><a class="el" href="utils_8py.html">utils.py</a></code>: Shared helpers (<code>format_float</code>, <code>print_as_success</code>, etc.) used across the pipeline.</p>
 <h3><a class="anchor" id="autotoc_md104"></a>
 1. Schema Validation</h3>
-<p><code>validator.py</code>: Catches syntax errors in the configuration files using the <code>jsonschema</code> library (Draft 2020-12 validator).</p><ul>
+<p><code><a class="el" href="validator_8py.html">validator.py</a></code>: Catches syntax errors in the configuration files using the <code>jsonschema</code> library (Draft 2020-12 validator).</p><ul>
 <li>typos, missing fields, etc</li>
 </ul>
 <h3><a class="anchor" id="autotoc_md105"></a>
 2. Parsing and Semantic Validation</h3>
-<p><code>parser.py</code>: Parses configurations into IR <code>@dataclasses</code>. "Logical" config errors are caught during this phase.</p><ul>
+<p><code><a class="el" href="parser_8py.html">parser.py</a></code>: Parses configurations into IR <code>@dataclasses</code>. "Logical" config errors are caught during this phase.</p><ul>
 <li>Invalid types, signals exceeding 64 bits, etc.</li>
-<li>Produces parsed IR consumed by later stages; the unified <code>SystemContext</code> is assembled by <code>build.py</code> after linking and mapping.</li>
+<li>Produces parsed IR consumed by later stages; the unified <code>SystemContext</code> is assembled by <code><a class="el" href="build_8py.html">build.py</a></code> after linking and mapping.</li>
 </ul>
 <h3><a class="anchor" id="autotoc_md106"></a>
 2.5. Fault Message Injection</h3>
 <p><code><a class="el" href="namespacefaultgen.html#ab996a6dd47c2529b9a739520011f0843">faultgen.augment_system_with_faults</a></code>: Walks each fault-library-enabled node and injects <code>&lt;node&gt;_fault_event</code> + <code>&lt;node&gt;_fault_sync</code> TX messages before linking. This ensures fault messages get IDs assigned alongside everything else.</p>
 <h3><a class="anchor" id="autotoc_md107"></a>
 3. Linker</h3>
-<p><code>linker.py</code>: Transforms the IR into a linked IR with resolved message IDs using a two-pass "Water Level" algorithm.</p><ul>
+<p><code><a class="el" href="linker_8py.html">linker.py</a></code>: Transforms the IR into a linked IR with resolved message IDs using a two-pass "Water Level" algorithm.</p><ul>
 <li><b>Pass 1: Constraint Verification</b>: Ensures manual <code>msg_id_override</code> values respect priority monotonicity (messages in priority $N$ cannot have IDs higher than messages in priority $N+1$).</li>
 <li><b>Pass 2: ID Assignment</b>: Assigns remaining dynamic IDs priority-by-priority.<ul>
 <li>Within each priority group, messages are sorted alphabetically by <code>msg_name</code> to ensure deterministic builds.</li>
@@ -140,7 +140,7 @@ canpiler system diagram</div></div>
 </ul>
 <h3><a class="anchor" id="autotoc_md108"></a>
 4. Mapper</h3>
-<p><code>mapper.py</code>: Maps CAN IDs to physical hardware resources.</p><ul>
+<p><code><a class="el" href="mapper_8py.html">mapper.py</a></code>: Maps CAN IDs to physical hardware resources.</p><ul>
 <li><b>bxCAN Filter Groups</b>: Optimizes STM32 bxCAN filter bank usage. It groups messages into 32-bit identifier-mask pairs to maximize throughput while respecting bxCAN's <b>14 filter banks per peripheral</b> limit.</li>
 <li><b>FDCAN</b>: Separate paths apply FDCAN SID/XID filter caps (28 SID filters and 8 XID filters in code).</li>
 <li><b>Promiscuous Mode</b>: Configures all-pass filters for buses where <code>accept_all_messages</code> is enabled.</li>
@@ -151,13 +151,13 @@ canpiler system diagram</div></div>
 <p>Produces the final build artifacts from the <code>SystemContext</code> using the <b>Jinja2</b> templating engine.</p><ul>
 <li><b>C23 Standard</b>: All generated code targets the C23 standard, specifically utilizing <code>static constexpr</code> for type-safe constants and identifiers.</li>
 <li><b>Templates</b> (<code>../templates/</code>): <code>bus_header.h.jinja</code>, <code>can_router.h.jinja</code>, <code>can_types.h.jinja</code>, <code>fault_data.c.jinja</code>, <code>fault_data.h.jinja</code>, <code>filter/bxcan.c.jinja</code>, <code>filter/fdcan.c.jinja</code>, <code>node_header.h.jinja</code>, plus shared <code>node/</code> partials.</li>
-<li><code>codegen.py</code>: Generates <code>can_types.h</code>, per-node headers (<code>&lt;NODE&gt;.h</code>), per-bus headers, and the central <code>can_router.h</code> from the Jinja templates. Packed bit-field structs, endianness-safe accessors, and hardened sign-extension for signed signals.</li>
-<li><code>dbcgen.py</code>: Produces deterministic, versioned DBC files using the <code>cantools</code> library.</li>
-<li><code>faultgen.py</code>: Injects <code>FAULT_SYNC</code> and <code>FAULT_EVENT</code> messages into node configurations and generates global fault tracking maps (<code>fault_data.c</code> / <code>fault_data.h</code>).</li>
+<li><code><a class="el" href="codegen_8py.html">codegen.py</a></code>: Generates <code>can_types.h</code>, per-node headers (<code>&lt;NODE&gt;.h</code>), per-bus headers, and the central <code>can_router.h</code> from the Jinja templates. Packed bit-field structs, endianness-safe accessors, and hardened sign-extension for signed signals.</li>
+<li><code><a class="el" href="dbcgen_8py.html">dbcgen.py</a></code>: Produces deterministic, versioned DBC files using the <code>cantools</code> library.</li>
+<li><code><a class="el" href="faultgen_8py.html">faultgen.py</a></code>: Injects <code>FAULT_SYNC</code> and <code>FAULT_EVENT</code> messages into node configurations and generates global fault tracking maps (<code>fault_data.c</code> / <code>fault_data.h</code>).</li>
 </ul>
 <h3><a class="anchor" id="autotoc_md110"></a>
 6. Analysis</h3>
-<p><code>load_calc.py</code>: Performs post-generation capacity analysis for each bus in the system.</p><ul>
+<p><code><a class="el" href="load__calc_8py.html">load_calc.py</a></code>: Performs post-generation capacity analysis for each bus in the system.</p><ul>
 <li><b>Frame Estimation</b>: Calculates total bits per frame based on protocol overhead (Standard: 47 bits, Extended: 67 bits) and signal DLC.</li>
 <li><b>Bit-Stuffing</b>: Applies a $1.2\times$ factor to account for average bit-stuffing overhead.</li>
 <li><b>Health Monitoring</b>: Reports estimated bus utilization percentage with color-coded alerts (Green &lt; 50%, Yellow &lt; 70%, Red &gt; 70%). </li>

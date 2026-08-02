@@ -111,38 +111,402 @@ $(function(){initNavTree('charging__fsm_8c.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="faults__common_8h_source.html">can_library/faults_common.h</a>&quot;</code><br />
 <code>#include &quot;can_library/generated/A_BOX.h&quot;</code><br />
 <code>#include &quot;can_library/generated/can_types.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for charging_fsm.c:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="charging__fsm_8c__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8dc3e50da5228cd6681c9df3a5db5dd2" id="r_a8dc3e50da5228cd6681c9df3a5db5dd2"><td class="memItemLeft" align="right" valign="top"><a id="a8dc3e50da5228cd6681c9df3a5db5dd2" name="a8dc3e50da5228cd6681c9df3a5db5dd2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>charging_fsm_periodic</b> (void)</td></tr>
+<tr class="memitem:a1eeb74bea95978e6037605518acaa940" id="r_a1eeb74bea95978e6037605518acaa940"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1eeb74bea95978e6037605518acaa940">is_daqapp_requesting_charge</a> ()</td></tr>
+<tr class="separator:a1eeb74bea95978e6037605518acaa940"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab281666eaa24da6546c73d18fe6c88ba" id="r_ab281666eaa24da6546c73d18fe6c88ba"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab281666eaa24da6546c73d18fe6c88ba">is_elcon_ready</a> ()</td></tr>
+<tr class="separator:ab281666eaa24da6546c73d18fe6c88ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8d997ca74a3fb5e295f9298810ade03" id="r_ab8d997ca74a3fb5e295f9298810ade03"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab8d997ca74a3fb5e295f9298810ade03">report_internal_state</a> ()</td></tr>
+<tr class="separator:ab8d997ca74a3fb5e295f9298810ade03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc1d97b27be1eae8bcbf02119804f921" id="r_afc1d97b27be1eae8bcbf02119804f921"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afc1d97b27be1eae8bcbf02119804f921">update_charge_command</a> ()</td></tr>
+<tr class="separator:afc1d97b27be1eae8bcbf02119804f921"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfc841627e534342d5178be3b0255c54" id="r_acfc841627e534342d5178be3b0255c54"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acfc841627e534342d5178be3b0255c54">update_balance_command</a> ()</td></tr>
+<tr class="separator:acfc841627e534342d5178be3b0255c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97fe3a486a7c526d82f57401ca1ada35" id="r_a97fe3a486a7c526d82f57401ca1ada35"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a97fe3a486a7c526d82f57401ca1ada35">is_charging_permitted</a> ()</td></tr>
+<tr class="separator:a97fe3a486a7c526d82f57401ca1ada35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dc3e50da5228cd6681c9df3a5db5dd2" id="r_a8dc3e50da5228cd6681c9df3a5db5dd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8dc3e50da5228cd6681c9df3a5db5dd2">charging_fsm_periodic</a> (void)</td></tr>
 <tr class="separator:a8dc3e50da5228cd6681c9df3a5db5dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aab706e54584bb6957f39eebaa7e65a33" id="r_aab706e54584bb6957f39eebaa7e65a33"><td class="memItemLeft" align="right" valign="top"><a id="aab706e54584bb6957f39eebaa7e65a33" name="aab706e54584bb6957f39eebaa7e65a33"></a>
-charging_state_t&#160;</td><td class="memItemRight" valign="bottom"><b>charging_state</b> = CHARGING_STATE_IDLE</td></tr>
+<tr class="memitem:a7fdf8d00ad988db3ccf1f0e119a59189" id="r_a7fdf8d00ad988db3ccf1f0e119a59189"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7fdf8d00ad988db3ccf1f0e119a59189">MAX_PACK_CHARGING_VOLTS</a> = 540</td></tr>
+<tr class="separator:a7fdf8d00ad988db3ccf1f0e119a59189"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5bb36231c4fe7794781dc2d2c296601" id="r_ac5bb36231c4fe7794781dc2d2c296601"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5bb36231c4fe7794781dc2d2c296601">MAX_PACK_CHARGING_AMPS</a> = 20</td></tr>
+<tr class="separator:ac5bb36231c4fe7794781dc2d2c296601"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab706e54584bb6957f39eebaa7e65a33" id="r_aab706e54584bb6957f39eebaa7e65a33"><td class="memItemLeft" align="right" valign="top">charging_state_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aab706e54584bb6957f39eebaa7e65a33">charging_state</a> = CHARGING_STATE_IDLE</td></tr>
 <tr class="separator:aab706e54584bb6957f39eebaa7e65a33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9993cda911cc7c9521884e90ef3659d2" id="r_a9993cda911cc7c9521884e90ef3659d2"><td class="memItemLeft" align="right" valign="top"><a id="a9993cda911cc7c9521884e90ef3659d2" name="a9993cda911cc7c9521884e90ef3659d2"></a>
-charging_state_t&#160;</td><td class="memItemRight" valign="bottom"><b>next_charging_state</b> = CHARGING_STATE_IDLE</td></tr>
+<tr class="memitem:a9993cda911cc7c9521884e90ef3659d2" id="r_a9993cda911cc7c9521884e90ef3659d2"><td class="memItemLeft" align="right" valign="top">charging_state_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9993cda911cc7c9521884e90ef3659d2">next_charging_state</a> = CHARGING_STATE_IDLE</td></tr>
 <tr class="separator:a9993cda911cc7c9521884e90ef3659d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9955d4144fdd523fc0b010073bd99605" id="r_a9955d4144fdd523fc0b010073bd99605"><td class="memItemLeft" align="right" valign="top"><a id="a9955d4144fdd523fc0b010073bd99605" name="a9955d4144fdd523fc0b010073bd99605"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>charge_command_volts</b> = 0</td></tr>
+<tr class="memitem:a9955d4144fdd523fc0b010073bd99605" id="r_a9955d4144fdd523fc0b010073bd99605"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9955d4144fdd523fc0b010073bd99605">charge_command_volts</a> = 0</td></tr>
 <tr class="separator:a9955d4144fdd523fc0b010073bd99605"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6ab5b646c608cd15d0f1e2bbf1987e9" id="r_af6ab5b646c608cd15d0f1e2bbf1987e9"><td class="memItemLeft" align="right" valign="top"><a id="af6ab5b646c608cd15d0f1e2bbf1987e9" name="af6ab5b646c608cd15d0f1e2bbf1987e9"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>charge_command_amps</b> = 0</td></tr>
+<tr class="memitem:af6ab5b646c608cd15d0f1e2bbf1987e9" id="r_af6ab5b646c608cd15d0f1e2bbf1987e9"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6ab5b646c608cd15d0f1e2bbf1987e9">charge_command_amps</a> = 0</td></tr>
 <tr class="separator:af6ab5b646c608cd15d0f1e2bbf1987e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d21a1a57626ea5a3257c2170d9f0f34" id="r_a3d21a1a57626ea5a3257c2170d9f0f34"><td class="memItemLeft" align="right" valign="top"><a id="a3d21a1a57626ea5a3257c2170d9f0f34" name="a3d21a1a57626ea5a3257c2170d9f0f34"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>charge_enable</b> = false</td></tr>
+<tr class="memitem:a3d21a1a57626ea5a3257c2170d9f0f34" id="r_a3d21a1a57626ea5a3257c2170d9f0f34"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d21a1a57626ea5a3257c2170d9f0f34">charge_enable</a> = false</td></tr>
 <tr class="separator:a3d21a1a57626ea5a3257c2170d9f0f34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54910fb29db8c9eac2409cc73cc828c5" id="r_a54910fb29db8c9eac2409cc73cc828c5"><td class="memItemLeft" align="right" valign="top"><a id="a54910fb29db8c9eac2409cc73cc828c5" name="a54910fb29db8c9eac2409cc73cc828c5"></a>
-<a class="el" href="structadbms__bms__t.html">adbms_bms_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>g_bms</b></td></tr>
+<tr class="memitem:a54910fb29db8c9eac2409cc73cc828c5" id="r_a54910fb29db8c9eac2409cc73cc828c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structadbms__bms__t.html">adbms_bms_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54910fb29db8c9eac2409cc73cc828c5">g_bms</a></td></tr>
 <tr class="separator:a54910fb29db8c9eac2409cc73cc828c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Charger control state machine implementation. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a8dc3e50da5228cd6681c9df3a5db5dd2" name="a8dc3e50da5228cd6681c9df3a5db5dd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dc3e50da5228cd6681c9df3a5db5dd2">&#9670;&#160;</a></span>charging_fsm_periodic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void charging_fsm_periodic </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="charging__fsm_8c_a8dc3e50da5228cd6681c9df3a5db5dd2_cgraph.svg" width="542" height="274"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="charging__fsm_8c_a8dc3e50da5228cd6681c9df3a5db5dd2_icgraph.svg" width="260" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a97fe3a486a7c526d82f57401ca1ada35" name="a97fe3a486a7c526d82f57401ca1ada35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97fe3a486a7c526d82f57401ca1ada35">&#9670;&#160;</a></span>is_charging_permitted()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool is_charging_permitted </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="charging__fsm_8c_a97fe3a486a7c526d82f57401ca1ada35_cgraph.svg" width="315" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="charging__fsm_8c_a97fe3a486a7c526d82f57401ca1ada35_icgraph.svg" width="456" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a1eeb74bea95978e6037605518acaa940" name="a1eeb74bea95978e6037605518acaa940"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1eeb74bea95978e6037605518acaa940">&#9670;&#160;</a></span>is_daqapp_requesting_charge()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool is_daqapp_requesting_charge </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="charging__fsm_8c_a1eeb74bea95978e6037605518acaa940_icgraph.svg" width="455" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab281666eaa24da6546c73d18fe6c88ba" name="ab281666eaa24da6546c73d18fe6c88ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab281666eaa24da6546c73d18fe6c88ba">&#9670;&#160;</a></span>is_elcon_ready()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool is_elcon_ready </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="charging__fsm_8c_ab281666eaa24da6546c73d18fe6c88ba_icgraph.svg" width="611" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab8d997ca74a3fb5e295f9298810ade03" name="ab8d997ca74a3fb5e295f9298810ade03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8d997ca74a3fb5e295f9298810ade03">&#9670;&#160;</a></span>report_internal_state()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void report_internal_state </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="charging__fsm_8c_ab8d997ca74a3fb5e295f9298810ade03_icgraph.svg" width="447" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="acfc841627e534342d5178be3b0255c54" name="acfc841627e534342d5178be3b0255c54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfc841627e534342d5178be3b0255c54">&#9670;&#160;</a></span>update_balance_command()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void update_balance_command </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="charging__fsm_8c_acfc841627e534342d5178be3b0255c54_icgraph.svg" width="484" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="afc1d97b27be1eae8bcbf02119804f921" name="afc1d97b27be1eae8bcbf02119804f921"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc1d97b27be1eae8bcbf02119804f921">&#9670;&#160;</a></span>update_charge_command()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void update_charge_command </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="charging__fsm_8c_afc1d97b27be1eae8bcbf02119804f921_icgraph.svg" width="478" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="af6ab5b646c608cd15d0f1e2bbf1987e9" name="af6ab5b646c608cd15d0f1e2bbf1987e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6ab5b646c608cd15d0f1e2bbf1987e9">&#9670;&#160;</a></span>charge_command_amps</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t charge_command_amps = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9955d4144fdd523fc0b010073bd99605" name="a9955d4144fdd523fc0b010073bd99605"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9955d4144fdd523fc0b010073bd99605">&#9670;&#160;</a></span>charge_command_volts</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t charge_command_volts = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3d21a1a57626ea5a3257c2170d9f0f34" name="a3d21a1a57626ea5a3257c2170d9f0f34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d21a1a57626ea5a3257c2170d9f0f34">&#9670;&#160;</a></span>charge_enable</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool charge_enable = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aab706e54584bb6957f39eebaa7e65a33" name="aab706e54584bb6957f39eebaa7e65a33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab706e54584bb6957f39eebaa7e65a33">&#9670;&#160;</a></span>charging_state</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">charging_state_t charging_state = CHARGING_STATE_IDLE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a54910fb29db8c9eac2409cc73cc828c5" name="a54910fb29db8c9eac2409cc73cc828c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54910fb29db8c9eac2409cc73cc828c5">&#9670;&#160;</a></span>g_bms</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structadbms__bms__t.html">adbms_bms_t</a> g_bms</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac5bb36231c4fe7794781dc2d2c296601" name="ac5bb36231c4fe7794781dc2d2c296601"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5bb36231c4fe7794781dc2d2c296601">&#9670;&#160;</a></span>MAX_PACK_CHARGING_AMPS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t MAX_PACK_CHARGING_AMPS = 20</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7fdf8d00ad988db3ccf1f0e119a59189" name="a7fdf8d00ad988db3ccf1f0e119a59189"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fdf8d00ad988db3ccf1f0e119a59189">&#9670;&#160;</a></span>MAX_PACK_CHARGING_VOLTS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t MAX_PACK_CHARGING_VOLTS = 540</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9993cda911cc7c9521884e90ef3659d2" name="a9993cda911cc7c9521884e90ef3659d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9993cda911cc7c9521884e90ef3659d2">&#9670;&#160;</a></span>next_charging_state</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">charging_state_t next_charging_state = CHARGING_STATE_IDLE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

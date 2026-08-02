@@ -106,13 +106,18 @@ $(function(){initNavTree('pedals_8c.html',''); initResizable(true); });
 
 <p>Pedal processing logic.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;pedals.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="pedals_8h_source.html">pedals.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="faults__common_8h_source.html">can_library/faults_common.h</a>&quot;</code><br />
 <code>#include &quot;can_library/generated/DASHBOARD.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="abs_8h_source.html">common/utils/abs.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="clamp_8h_source.html">common/utils/clamp.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="rescale_8h_source.html">common/utils/rescale.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for pedals.c:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="pedals_8c__incl.svg" width="100%" height="472"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -122,6 +127,32 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a7ecaa09d241f96c6b3442c7b0f6e9fde" id="r_a7ecaa09d241f96c6b3442c7b0f6e9fde"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ecaa09d241f96c6b3442c7b0f6e9fde">THROTTLE1_MIN</a> = 200</td></tr>
+<tr class="separator:a7ecaa09d241f96c6b3442c7b0f6e9fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50b38032ee0ab56ca505bd670b45f2c9" id="r_a50b38032ee0ab56ca505bd670b45f2c9"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50b38032ee0ab56ca505bd670b45f2c9">THROTTLE1_MAX</a> = 710</td></tr>
+<tr class="separator:a50b38032ee0ab56ca505bd670b45f2c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93bc9856409b5361ca77db1b1f3a9a3a" id="r_a93bc9856409b5361ca77db1b1f3a9a3a"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93bc9856409b5361ca77db1b1f3a9a3a">THROTTLE2_MIN</a> = 3320</td></tr>
+<tr class="separator:a93bc9856409b5361ca77db1b1f3a9a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada52037ac8ecf8e91741ae67861ef03e" id="r_ada52037ac8ecf8e91741ae67861ef03e"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada52037ac8ecf8e91741ae67861ef03e">THROTTLE2_MAX</a> = 3470</td></tr>
+<tr class="separator:ada52037ac8ecf8e91741ae67861ef03e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4f84acc2b8bd01520be9af0ded28ca2" id="r_ae4f84acc2b8bd01520be9af0ded28ca2"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae4f84acc2b8bd01520be9af0ded28ca2">REGEN1_MIN</a> = 2550</td></tr>
+<tr class="separator:ae4f84acc2b8bd01520be9af0ded28ca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cf3d4c340e3c0a1c7006342f3cb8739" id="r_a4cf3d4c340e3c0a1c7006342f3cb8739"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4cf3d4c340e3c0a1c7006342f3cb8739">REGEN1_MAX</a> = 3000</td></tr>
+<tr class="separator:a4cf3d4c340e3c0a1c7006342f3cb8739"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98a3a4ce675601bacd4affa0de232839" id="r_a98a3a4ce675601bacd4affa0de232839"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98a3a4ce675601bacd4affa0de232839">BRAKE1_MIN</a> = 450</td></tr>
+<tr class="separator:a98a3a4ce675601bacd4affa0de232839"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8182fb64b059c1a510e2d938eb081a69" id="r_a8182fb64b059c1a510e2d938eb081a69"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8182fb64b059c1a510e2d938eb081a69">BRAKE1_MAX</a> = 1300</td></tr>
+<tr class="separator:a8182fb64b059c1a510e2d938eb081a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a959f822dff8758b41276c51147cf854d" id="r_a959f822dff8758b41276c51147cf854d"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a959f822dff8758b41276c51147cf854d">PEDAL_MAX</a> = 100</td></tr>
+<tr class="separator:a959f822dff8758b41276c51147cf854d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cc855e2d72aadd4588505dc3362903b" id="r_a6cc855e2d72aadd4588505dc3362903b"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6cc855e2d72aadd4588505dc3362903b">PEDAL_MIN</a> = 0</td></tr>
+<tr class="separator:a6cc855e2d72aadd4588505dc3362903b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a284cf49580f20ded4c3f79095de4fd4a" id="r_a284cf49580f20ded4c3f79095de4fd4a"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a284cf49580f20ded4c3f79095de4fd4a">APPS_THROTTLE_PRESSED_THRESHOLD</a> = 25</td></tr>
+<tr class="separator:a284cf49580f20ded4c3f79095de4fd4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f41dcb7a0d57e22895275374261bc2b" id="r_a5f41dcb7a0d57e22895275374261bc2b"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f41dcb7a0d57e22895275374261bc2b">APPS_THROTTLE_RELEASE_THRESHOLD</a> = 5</td></tr>
+<tr class="separator:a5f41dcb7a0d57e22895275374261bc2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9097bc6d032119e46d4248a073d4a02d" id="r_a9097bc6d032119e46d4248a073d4a02d"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9097bc6d032119e46d4248a073d4a02d">APPS_MECH_BRAKE_THRESHOLD</a> = 5</td></tr>
+<tr class="separator:a9097bc6d032119e46d4248a073d4a02d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fc28f3550c5299fff7fdd9b9f252e43" id="r_a8fc28f3550c5299fff7fdd9b9f252e43"><td class="memItemLeft" align="right" valign="top">volatile pedals_data_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8fc28f3550c5299fff7fdd9b9f252e43">pedal_values</a></td></tr>
 <tr class="separator:a8fc28f3550c5299fff7fdd9b9f252e43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -148,10 +179,174 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
 
 <p>Processes pedal sensor readings and sets faults as necessary. </p>
 <dl class="section note"><dt>Note</dt><dd>This function is called periodically by the scheduler </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="pedals_8c_a87b6cf4ba55de2c1523397cc21bbf501_cgraph.svg" width="263" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="pedals_8c_a87b6cf4ba55de2c1523397cc21bbf501_icgraph.svg" width="220" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="a9097bc6d032119e46d4248a073d4a02d" name="a9097bc6d032119e46d4248a073d4a02d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9097bc6d032119e46d4248a073d4a02d">&#9670;&#160;</a></span>APPS_MECH_BRAKE_THRESHOLD</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t APPS_MECH_BRAKE_THRESHOLD = 5</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a284cf49580f20ded4c3f79095de4fd4a" name="a284cf49580f20ded4c3f79095de4fd4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a284cf49580f20ded4c3f79095de4fd4a">&#9670;&#160;</a></span>APPS_THROTTLE_PRESSED_THRESHOLD</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t APPS_THROTTLE_PRESSED_THRESHOLD = 25</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5f41dcb7a0d57e22895275374261bc2b" name="a5f41dcb7a0d57e22895275374261bc2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f41dcb7a0d57e22895275374261bc2b">&#9670;&#160;</a></span>APPS_THROTTLE_RELEASE_THRESHOLD</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t APPS_THROTTLE_RELEASE_THRESHOLD = 5</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8182fb64b059c1a510e2d938eb081a69" name="a8182fb64b059c1a510e2d938eb081a69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8182fb64b059c1a510e2d938eb081a69">&#9670;&#160;</a></span>BRAKE1_MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t BRAKE1_MAX = 1300</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a98a3a4ce675601bacd4affa0de232839" name="a98a3a4ce675601bacd4affa0de232839"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98a3a4ce675601bacd4affa0de232839">&#9670;&#160;</a></span>BRAKE1_MIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t BRAKE1_MIN = 450</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a959f822dff8758b41276c51147cf854d" name="a959f822dff8758b41276c51147cf854d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a959f822dff8758b41276c51147cf854d">&#9670;&#160;</a></span>PEDAL_MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t PEDAL_MAX = 100</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6cc855e2d72aadd4588505dc3362903b" name="a6cc855e2d72aadd4588505dc3362903b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cc855e2d72aadd4588505dc3362903b">&#9670;&#160;</a></span>PEDAL_MIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t PEDAL_MIN = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a8fc28f3550c5299fff7fdd9b9f252e43" name="a8fc28f3550c5299fff7fdd9b9f252e43"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8fc28f3550c5299fff7fdd9b9f252e43">&#9670;&#160;</a></span>pedal_values</h2>
 
@@ -169,6 +364,138 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
 <div class="line">    .brake = 0</div>
 <div class="line">}</div>
 </div><!-- fragment -->
+</div>
+</div>
+<a id="a4cf3d4c340e3c0a1c7006342f3cb8739" name="a4cf3d4c340e3c0a1c7006342f3cb8739"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cf3d4c340e3c0a1c7006342f3cb8739">&#9670;&#160;</a></span>REGEN1_MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t REGEN1_MAX = 3000</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae4f84acc2b8bd01520be9af0ded28ca2" name="ae4f84acc2b8bd01520be9af0ded28ca2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4f84acc2b8bd01520be9af0ded28ca2">&#9670;&#160;</a></span>REGEN1_MIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t REGEN1_MIN = 2550</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a50b38032ee0ab56ca505bd670b45f2c9" name="a50b38032ee0ab56ca505bd670b45f2c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50b38032ee0ab56ca505bd670b45f2c9">&#9670;&#160;</a></span>THROTTLE1_MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t THROTTLE1_MAX = 710</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7ecaa09d241f96c6b3442c7b0f6e9fde" name="a7ecaa09d241f96c6b3442c7b0f6e9fde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ecaa09d241f96c6b3442c7b0f6e9fde">&#9670;&#160;</a></span>THROTTLE1_MIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t THROTTLE1_MIN = 200</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ada52037ac8ecf8e91741ae67861ef03e" name="ada52037ac8ecf8e91741ae67861ef03e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada52037ac8ecf8e91741ae67861ef03e">&#9670;&#160;</a></span>THROTTLE2_MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t THROTTLE2_MAX = 3470</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a93bc9856409b5361ca77db1b1f3a9a3a" name="a93bc9856409b5361ca77db1b1f3a9a3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93bc9856409b5361ca77db1b1f3a9a3a">&#9670;&#160;</a></span>THROTTLE2_MIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t THROTTLE2_MIN = 3320</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->

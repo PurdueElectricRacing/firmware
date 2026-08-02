@@ -1,0 +1,25 @@
+<map id="PHAL_RCC_init" name="PHAL_RCC_init">
+<area shape="rect" id="Node000001" title="Configure the system, AHB, APB1, and APB2 clocks for a supported clock tree." alt="" coords="5,232,121,258"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2rcc_2rcc_8c.html#af54790732c9560e8d675f78a03486d58" title=" " alt="" coords="169,232,317,258"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,242,153,242,153,248,121,248"/>
+<area shape="rect" id="Node000003" href="$rcc__priv_8c.html#a50d76be796629d46a38a42d44eb66de8" title=" " alt="" coords="378,5,582,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="245,230,259,192,282,140,317,86,339,61,363,40,369,36,372,41,367,44,342,65,321,89,287,143,264,194,251,232"/>
+<area shape="rect" id="Node000004" href="$rcc__priv_8c.html#af6a23fb139af68392809e9f4b6df780c" title="Disable HSI16 and block until it&#39;s off." alt="" coords="385,55,575,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="248,230,264,201,290,162,323,122,363,89,372,85,375,89,367,94,327,126,294,165,269,203,253,233"/>
+<area shape="rect" id="Node000005" href="$rcc__priv_8c.html#abbb9fd124f523af3b6897e508f23d8df" title=" " alt="" coords="365,104,595,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="253,230,298,184,329,159,364,138,377,133,379,138,366,143,332,164,302,188,257,233"/>
+<area shape="rect" id="Node000006" href="$rcc__priv_8c.html#a32fe0492b8a8d72fdcc5cddbdaa6fb83" title=" " alt="" coords="384,153,576,179"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="268,229,312,208,364,188,388,181,390,186,366,193,314,213,271,234"/>
+<area shape="rect" id="Node000007" href="$rcc__priv_8c.html#a300d3d7b11d4d40bdede8cf6809054ed" title="Enable HSI16 and block until it&#39;s ready." alt="" coords="386,203,574,228"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="317,233,371,226,371,232,317,238"/>
+<area shape="rect" id="Node000008" href="$rcc__priv_8c.html#aaa3c315b2d9914f1f4a08f6e90b20b14" title="Set the AHB, APB1, and APB2 prescalers to divide&#45;by&#45;1 (undivided)" alt="" coords="366,252,595,293"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="317,251,350,255,350,260,317,256"/>
+<area shape="rect" id="Node000009" href="$rcc__priv_8c.html#a7132fb1976567126eda1d646d5004f4d" title=" " alt="" coords="369,317,591,343"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="268,256,313,279,366,302,392,310,391,316,364,307,310,284,266,261"/>
+<area shape="rect" id="Node000010" href="$rcc__priv_8c.html#a22006c33eaa9815180109be23241efd7" title="Switch SYSCLK to HSE and block until the switch is confirmed." alt="" coords="378,367,582,408"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="257,256,302,304,332,330,366,353,376,358,374,363,364,358,329,335,298,308,253,260"/>
+<area shape="rect" id="Node000011" href="$rcc__priv_8c.html#a9d764d1ad952cbde1cde6d794b88add7" title="Switch SYSCLK to HSI16 and block until the switch is confirmed." alt="" coords="378,432,582,473"/>
+<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="252,257,267,290,292,333,325,379,367,417,375,423,372,427,363,422,321,382,287,336,263,292,247,259"/>
+<area shape="rect" id="Node000012" href="$rcc__priv_8c.html#a8a440b6372df82c3f5e994b5fd41a6d4" title="Switch SYSCLK to the PLL and block until the switch is confirmed." alt="" coords="378,498,582,538"/>
+<area shape="poly" id="edge11_Node000002_Node000012" title=" " alt="" coords="249,257,261,301,283,362,318,427,340,457,367,483,373,487,370,492,363,487,336,460,314,430,278,364,256,302,244,259"/>
+</map>

@@ -100,24 +100,28 @@ $(function(){initNavTree('phal__G4_2crc_2crc_8h_source.html',''); initResizable(
   <div class="headertitle"><div class="title">crc.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef __PHAL_G4_CRC_H__</span></div>
+<a href="phal__G4_2crc_2crc_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef __PHAL_G4_CRC_H__</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define __PHAL_G4_CRC_H__</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;common/phal_G4/phal_G4.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="phal__G4_8h.html">common/phal_G4/phal_G4.h</a>&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keywordtype">void</span> PHAL_CRC_init(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keywordtype">void</span> <a class="code hl_function" href="phal__G4_2crc_2crc_8h.html#a3a4837055c8d841aaf92d3b129d6ac92">PHAL_CRC_init</a>(<span class="keywordtype">void</span>);</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>uint32_t PHAL_CRC_calculate(<span class="keyword">const</span> uint32_t *data, uint32_t words);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>uint32_t <a class="code hl_function" href="phal__G4_2crc_2crc_8h.html#a9ebd7adedb01ce80f8512a427a80f6ef">PHAL_CRC_calculate</a>(<span class="keyword">const</span> uint32_t *data, uint32_t words);</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>uint32_t PHAL_CRC_calculateSw(<span class="keyword">const</span> uint32_t *data, uint32_t words);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>uint32_t <a class="code hl_function" href="phal__G4_2crc_2crc_8h.html#a44bc26d0f3ef0b794364da932890417b">PHAL_CRC_calculateSw</a>(<span class="keyword">const</span> uint32_t *data, uint32_t words);</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#endif </span><span class="comment">// __PHAL_G4_CRC_H__</span></div>
+<div class="ttc" id="aphal__G4_2crc_2crc_8h_html_a3a4837055c8d841aaf92d3b129d6ac92"><div class="ttname"><a href="phal__G4_2crc_2crc_8h.html#a3a4837055c8d841aaf92d3b129d6ac92">PHAL_CRC_init</a></div><div class="ttdeci">void PHAL_CRC_init(void)</div><div class="ttdoc">Initialize and configure the hardware CRC peripheral.</div><div class="ttdef"><b>Definition</b> crc.c:4</div></div>
+<div class="ttc" id="aphal__G4_2crc_2crc_8h_html_a44bc26d0f3ef0b794364da932890417b"><div class="ttname"><a href="phal__G4_2crc_2crc_8h.html#a44bc26d0f3ef0b794364da932890417b">PHAL_CRC_calculateSw</a></div><div class="ttdeci">uint32_t PHAL_CRC_calculateSw(const uint32_t *data, uint32_t words)</div><div class="ttdoc">Software reference implementation of PHAL_CRC_calculate().</div><div class="ttdef"><b>Definition</b> crc.c:47</div></div>
+<div class="ttc" id="aphal__G4_2crc_2crc_8h_html_a9ebd7adedb01ce80f8512a427a80f6ef"><div class="ttname"><a href="phal__G4_2crc_2crc_8h.html#a9ebd7adedb01ce80f8512a427a80f6ef">PHAL_CRC_calculate</a></div><div class="ttdeci">uint32_t PHAL_CRC_calculate(const uint32_t *data, uint32_t words)</div><div class="ttdoc">Compute a CRC-32/MPEG-2 over a word buffer using the hardware unit.</div><div class="ttdef"><b>Definition</b> crc.c:9</div></div>
+<div class="ttc" id="aphal__G4_8h_html"><div class="ttname"><a href="phal__G4_8h.html">phal_G4.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_bdd9a5d540de89e9fe90efdfc6973a4f.html">common</a></li><li class="navelem"><a class="el" href="dir_537865b7fa0534ad07c686239f783682.html">phal_G4</a></li><li class="navelem"><a class="el" href="dir_14ec74d997a377ab9cb04d3bf35514b2.html">crc</a></li><li class="navelem"><b>crc.h</b></li>
+    <li class="navelem"><a class="el" href="dir_bdd9a5d540de89e9fe90efdfc6973a4f.html">common</a></li><li class="navelem"><a class="el" href="dir_537865b7fa0534ad07c686239f783682.html">phal_G4</a></li><li class="navelem"><a class="el" href="dir_14ec74d997a377ab9cb04d3bf35514b2.html">crc</a></li><li class="navelem"><a class="el" href="phal__G4_2crc_2crc_8h.html">crc.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

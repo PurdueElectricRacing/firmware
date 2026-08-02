@@ -100,27 +100,31 @@ $(function(){initNavTree('phal__G4_2flash_2flash_8h_source.html',''); initResiza
   <div class="headertitle"><div class="title">flash.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef PHAL_G4_FLASH_H</span></div>
+<a href="phal__G4_2flash_2flash_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef PHAL_G4_FLASH_H</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define PHAL_G4_FLASH_H</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">static</span> <span class="keyword">constexpr</span> uint32_t PHAL_FLASH_WRITE_ALIGNMENT_BYTES = 8U;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="phal__G4_2flash_2flash_8h.html#add88d332c295ae474f1819e59cb5e6a8">    8</a></span><span class="keyword">static</span> <span class="keyword">constexpr</span> uint32_t <a class="code hl_variable" href="phal__G4_2flash_2flash_8h.html#add88d332c295ae474f1819e59cb5e6a8">PHAL_FLASH_WRITE_ALIGNMENT_BYTES</a> = 8U;</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keywordtype">bool</span> PHAL_FLASH_read(uint32_t address, <span class="keywordtype">void</span> *destination, uint32_t length_bytes);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keywordtype">bool</span> <a class="code hl_function" href="phal__G4_2flash_2flash_8h.html#a3b76c399c317f06b6463778aec2aaa10">PHAL_FLASH_read</a>(uint32_t address, <span class="keywordtype">void</span> *destination, uint32_t length_bytes);</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keywordtype">bool</span> PHAL_FLASH_write(uint32_t address, <span class="keyword">const</span> <span class="keywordtype">void</span> *source, uint32_t length_bytes);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keywordtype">bool</span> <a class="code hl_function" href="phal__G4_2flash_2flash_8h.html#a5c15aad9202332ef0384fafe9620e0ce">PHAL_FLASH_write</a>(uint32_t address, <span class="keyword">const</span> <span class="keywordtype">void</span> *source, uint32_t length_bytes);</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keywordtype">bool</span> PHAL_FLASH_erase(uint32_t address, uint32_t length_bytes);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keywordtype">bool</span> <a class="code hl_function" href="phal__G4_2flash_2flash_8h.html#ae5452e7ac6c1fd154de448cc8403653d">PHAL_FLASH_erase</a>(uint32_t address, uint32_t length_bytes);</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#endif </span><span class="comment">// PHAL_G4_FLASH_H</span></div>
+<div class="ttc" id="aphal__G4_2flash_2flash_8h_html_a3b76c399c317f06b6463778aec2aaa10"><div class="ttname"><a href="phal__G4_2flash_2flash_8h.html#a3b76c399c317f06b6463778aec2aaa10">PHAL_FLASH_read</a></div><div class="ttdeci">bool PHAL_FLASH_read(uint32_t address, void *destination, uint32_t length_bytes)</div><div class="ttdoc">Copy bytes from internal flash into a buffer.</div><div class="ttdef"><b>Definition</b> flash.c:82</div></div>
+<div class="ttc" id="aphal__G4_2flash_2flash_8h_html_a5c15aad9202332ef0384fafe9620e0ce"><div class="ttname"><a href="phal__G4_2flash_2flash_8h.html#a5c15aad9202332ef0384fafe9620e0ce">PHAL_FLASH_write</a></div><div class="ttdeci">bool PHAL_FLASH_write(uint32_t address, const void *source, uint32_t length_bytes)</div><div class="ttdoc">Program bytes into erased internal flash.</div><div class="ttdef"><b>Definition</b> flash.c:104</div></div>
+<div class="ttc" id="aphal__G4_2flash_2flash_8h_html_add88d332c295ae474f1819e59cb5e6a8"><div class="ttname"><a href="phal__G4_2flash_2flash_8h.html#add88d332c295ae474f1819e59cb5e6a8">PHAL_FLASH_WRITE_ALIGNMENT_BYTES</a></div><div class="ttdeci">static constexpr uint32_t PHAL_FLASH_WRITE_ALIGNMENT_BYTES</div><div class="ttdef"><b>Definition</b> flash.h:8</div></div>
+<div class="ttc" id="aphal__G4_2flash_2flash_8h_html_ae5452e7ac6c1fd154de448cc8403653d"><div class="ttname"><a href="phal__G4_2flash_2flash_8h.html#ae5452e7ac6c1fd154de448cc8403653d">PHAL_FLASH_erase</a></div><div class="ttdeci">bool PHAL_FLASH_erase(uint32_t address, uint32_t length_bytes)</div><div class="ttdoc">Erase every internal flash page touched by a range.</div><div class="ttdef"><b>Definition</b> flash.c:140</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_bdd9a5d540de89e9fe90efdfc6973a4f.html">common</a></li><li class="navelem"><a class="el" href="dir_537865b7fa0534ad07c686239f783682.html">phal_G4</a></li><li class="navelem"><a class="el" href="dir_82c781f82881016222e11c15de0c4bdf.html">flash</a></li><li class="navelem"><b>flash.h</b></li>
+    <li class="navelem"><a class="el" href="dir_bdd9a5d540de89e9fe90efdfc6973a4f.html">common</a></li><li class="navelem"><a class="el" href="dir_537865b7fa0534ad07c686239f783682.html">phal_G4</a></li><li class="navelem"><a class="el" href="dir_82c781f82881016222e11c15de0c4bdf.html">flash</a></li><li class="navelem"><a class="el" href="phal__G4_2flash_2flash_8h.html">flash.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

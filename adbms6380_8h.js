@@ -1,5 +1,14 @@
 var adbms6380_8h =
 [
+    [ "ADBMS6380_CELL_COUNT", "adbms6380_8h.html#a9e8247a946b3c04fac7b53fe6ac5649b", null ],
+    [ "ADBMS6380_COMMAND_PKT_SIZE", "adbms6380_8h.html#ab8248c41f0c4b71fea53867726fa3b87", null ],
+    [ "ADBMS6380_COMMAND_RAW_SIZE", "adbms6380_8h.html#abb0d4748227668be895e371af4b96454", null ],
+    [ "ADBMS6380_GPIO_COUNT", "adbms6380_8h.html#a15701e54939b221eae87fa42632efcc8", null ],
+    [ "ADBMS6380_PEC_SIZE", "adbms6380_8h.html#a17110e45f17ace625a624499ef3fdf8a", null ],
+    [ "ADBMS6380_RDAUX_CMD_COUNT", "adbms6380_8h.html#a0d36f241a214c0e8a863de733f94e01d", null ],
+    [ "ADBMS6380_RDCV_CMD_COUNT", "adbms6380_8h.html#a7eb87239e09a87dd438cebddb5ab9647", null ],
+    [ "ADBMS6380_SINGLE_DATA_PKT_SIZE", "adbms6380_8h.html#a77528740d7d216095cacce72abb4918c", null ],
+    [ "ADBMS6380_SINGLE_DATA_RAW_SIZE", "adbms6380_8h.html#a05594a85d957953e99e26e8e75d9c9d7", null ],
     [ "ADBMS6380_WAKE_DELAY_MS", "adbms6380_8h.html#ad47b8f14ed18c53ee180477fdf87bdbf", null ],
     [ "adbms6380_read_result_t", "adbms6380_8h.html#a514ee53f3f0310557805cd8276287976", [
       [ "ADBMS6380_READ_SUCCESS", "adbms6380_8h.html#a514ee53f3f0310557805cd8276287976a0470a9d1d2acf23110e5933111ecfa0b", null ],

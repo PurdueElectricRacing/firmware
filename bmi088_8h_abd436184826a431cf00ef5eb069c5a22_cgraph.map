@@ -1,0 +1,26 @@
+<map id="BMI088_gyroSelfTestPass" name="BMI088_gyroSelfTestPass">
+<area shape="rect" id="Node000001" title="Check the status of the most recent Gyro self test." alt="" coords="5,56,182,82"/>
+<area shape="rect" id="Node000002" href="$bmi088_8c.html#ac4f1ab4ba917c50c02fd65e77b331a75" title=" " alt="" coords="234,5,370,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,53,231,33,232,38,150,58"/>
+<area shape="rect" id="Node000003" href="$phal__F4_2gpio_2gpio_8h.html#a67db851520637ffa4de5968c9730220b" title="Write a logic value to an output pin." alt="" coords="692,69,818,95"/>
+<area shape="poly" id="edge14_Node000001_Node000003" title=" " alt="" coords="182,68,677,78,677,83,182,73"/>
+<area shape="rect" id="Node000004" href="$common_2phal__F4_2spi_2spi_8c.html#ac35bd14ad3b560e0ad69320caef4d4ac" title="Blocking function to read a single byte from a SPI device. Useful for Initilization functions that ju..." alt="" coords="230,132,374,158"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="132,80,251,124,249,129,130,85"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="370,20,482,31,610,48,686,63,685,68,609,53,482,36,370,26"/>
+<area shape="rect" id="Node000005" href="$common_2phal__F4_2spi_2spi_8c.html#a35fd94eb02f487e09065ddc0ecb92e53" title="Check for current SPI transaction to complete." alt="" coords="695,133,815,159"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="375,142,679,143,679,149,375,148"/>
+<area shape="rect" id="Node000006" href="$common_2phal__F4_2spi_2spi_8c.html#aa44c022e7bafc2f33240d3fa837a4244" title="Transfer data_len bytes from out_data to SPI device and place MISO data in in_data This function just..." alt="" coords="447,208,584,234"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="340,156,423,186,462,200,460,205,421,191,338,161"/>
+<area shape="rect" id="Node000010" href="$common_2phal__F4_2spi_2spi_8c.html#a7593e1c8be8711c7bda6d7de43913816" title="SPI handle." alt="" coords="422,107,609,132"/>
+<area shape="poly" id="edge11_Node000004_Node000010" title=" " alt="" coords="374,134,406,130,407,135,375,139"/>
+<area shape="poly" id="edge10_Node000006_Node000003" title=" " alt="" coords="531,205,585,164,656,118,699,99,702,103,659,123,588,168,535,210"/>
+<area shape="poly" id="edge9_Node000006_Node000005" title=" " alt="" coords="556,205,608,186,656,168,679,161,681,166,658,173,610,191,558,210"/>
+<area shape="rect" id="Node000007" href="$phal__F4_2dma_2dma_8c.html#a2a989d2d9b7c591de33e96581ac3bb11" title=" " alt="" coords="657,183,853,208"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="585,211,642,205,642,210,585,216"/>
+<area shape="rect" id="Node000008" href="$phal__F4_2dma_2dma_8c.html#a14faecce0cd8bd38b14c987e17ce1033" title=" " alt="" coords="661,232,849,258"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="585,225,646,231,645,237,585,230"/>
+<area shape="rect" id="Node000009" href="$phal__F4_2dma_2dma_8c.html#af36fe9d375254e9bb0c09c760a761dc5" title=" " alt="" coords="698,281,812,307"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="553,232,658,268,684,275,682,280,657,273,551,237"/>
+<area shape="poly" id="edge13_Node000010_Node000003" title=" " alt="" coords="602,103,676,92,677,97,603,109"/>
+<area shape="poly" id="edge12_Node000010_Node000005" title=" " alt="" coords="610,127,680,135,679,140,610,133"/>
+</map>

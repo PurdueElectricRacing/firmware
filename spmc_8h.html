@@ -110,6 +110,16 @@ $(function(){initNavTree('spmc_8h.html',''); initResizable(true); });
 <div class="textblock"><code>#include &lt;stddef.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="timestamped__frame_8h_source.html">timestamped_frame.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for spmc.h:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="spmc_8h__incl.svg" width="299" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="spmc_8h__dep__incl.svg" width="100%" height="449"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 </div>
 <p><a href="spmc_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -135,15 +145,23 @@ Functions</h2></td></tr>
 <tr class="memitem:a9ce4d496b1d03859046de565bb84b542" id="r_a9ce4d496b1d03859046de565bb84b542"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ce4d496b1d03859046de565bb84b542">SPMC_follower_peek_minis</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a> **first_item)</td></tr>
 <tr class="memdesc:a9ce4d496b1d03859046de565bb84b542"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peeks at the number of contiguous mini chunks available for the follower without lapping the master's tail without committing the tail.  <br /></td></tr>
 <tr class="separator:a9ce4d496b1d03859046de565bb84b542"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acac386d9c3934e6da2b92c20b4646247" id="r_acac386d9c3934e6da2b92c20b4646247"><td class="memItemLeft" align="right" valign="top"><a id="acac386d9c3934e6da2b92c20b4646247" name="acac386d9c3934e6da2b92c20b4646247"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SPMC_follower_advance_tail</b> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, size_t minis_consumed)</td></tr>
-<tr class="memdesc:acac386d9c3934e6da2b92c20b4646247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances the follower tail pointer by a given number of mini chunks. <br /></td></tr>
+<tr class="memitem:acac386d9c3934e6da2b92c20b4646247" id="r_acac386d9c3934e6da2b92c20b4646247"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acac386d9c3934e6da2b92c20b4646247">SPMC_follower_advance_tail</a> (<a class="el" href="structSPMC__t.html">SPMC_t</a> *spmc, size_t minis_consumed)</td></tr>
+<tr class="memdesc:acac386d9c3934e6da2b92c20b4646247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances the follower tail pointer by a given number of mini chunks.  <br /></td></tr>
 <tr class="separator:acac386d9c3934e6da2b92c20b4646247"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aea22837d4940a006332041eb9c4042cb" id="r_aea22837d4940a006332041eb9c4042cb"><td class="memItemLeft" align="right" valign="top"><a id="aea22837d4940a006332041eb9c4042cb" name="aea22837d4940a006332041eb9c4042cb"></a>
-<a class="el" href="structSPMC__t.html">SPMC_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>g_spmc</b></td></tr>
+<tr class="memitem:aad57eb1edac9069c6455a785995ef996" id="r_aad57eb1edac9069c6455a785995ef996"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad57eb1edac9069c6455a785995ef996">SPMC_CHUNK_NUM_FRAMES</a> = 512</td></tr>
+<tr class="separator:aad57eb1edac9069c6455a785995ef996"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace0ca9ff7adec23a69b50f32c2ea0ca5" id="r_ace0ca9ff7adec23a69b50f32c2ea0ca5"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace0ca9ff7adec23a69b50f32c2ea0ca5">SPMC_CHUNK_CAPACITY</a> = 12</td></tr>
+<tr class="separator:ace0ca9ff7adec23a69b50f32c2ea0ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc95c7ba1975a4f273ad20af07a707c0" id="r_acc95c7ba1975a4f273ad20af07a707c0"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc95c7ba1975a4f273ad20af07a707c0">SPMC_FRAME_CAPACITY</a> = <a class="el" href="#aad57eb1edac9069c6455a785995ef996">SPMC_CHUNK_NUM_FRAMES</a> * <a class="el" href="#ace0ca9ff7adec23a69b50f32c2ea0ca5">SPMC_CHUNK_CAPACITY</a></td></tr>
+<tr class="separator:acc95c7ba1975a4f273ad20af07a707c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbb7bb4ab3e0943657b43b1579e67c23" id="r_acbb7bb4ab3e0943657b43b1579e67c23"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acbb7bb4ab3e0943657b43b1579e67c23">SPMC_BYTES_PER_CHUNK</a> = <a class="el" href="#aad57eb1edac9069c6455a785995ef996">SPMC_CHUNK_NUM_FRAMES</a> * sizeof(<a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a>)</td></tr>
+<tr class="separator:acbb7bb4ab3e0943657b43b1579e67c23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae073bdf8adc0631e3629f02eeef29f45" id="r_ae073bdf8adc0631e3629f02eeef29f45"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae073bdf8adc0631e3629f02eeef29f45">SPMC_MINI_NUM_FRAMES</a> = 16</td></tr>
+<tr class="separator:ae073bdf8adc0631e3629f02eeef29f45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea22837d4940a006332041eb9c4042cb" id="r_aea22837d4940a006332041eb9c4042cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structSPMC__t.html">SPMC_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea22837d4940a006332041eb9c4042cb">g_spmc</a></td></tr>
 <tr class="separator:aea22837d4940a006332041eb9c4042cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -178,6 +196,39 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the frame was enqueued successfully, or false if the buffer is full and the frame was dropped. </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="spmc_8h_a1cceacc1cc78c112192bb84aaee313aa_icgraph.svg" width="578" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="acac386d9c3934e6da2b92c20b4646247" name="acac386d9c3934e6da2b92c20b4646247"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acac386d9c3934e6da2b92c20b4646247">&#9670;&#160;</a></span>SPMC_follower_advance_tail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SPMC_follower_advance_tail </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSPMC__t.html">SPMC_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spmc</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>minis_consumed</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Advances the follower tail pointer by a given number of mini chunks. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="spmc_8h_acac386d9c3934e6da2b92c20b4646247_icgraph.svg" width="646" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -202,6 +253,16 @@ Variables</h2></td></tr>
 
 <p>Peeks at the number of contiguous mini chunks available for the follower without lapping the master's tail without committing the tail. </p>
 <dl class="section return"><dt>Returns</dt><dd>The number of contiguous mini chunks available. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="spmc_8h_a9ce4d496b1d03859046de565bb84b542_cgraph.svg" width="284" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="spmc_8h_a9ce4d496b1d03859046de565bb84b542_icgraph.svg" width="600" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -227,6 +288,11 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="spmc_8h_a89cd8310ea92fcf7779b939853f6f6fc_icgraph.svg" width="192" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -253,6 +319,11 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="spmc_8h_a87e903c37208248544ce3feaa583e7a4_icgraph.svg" width="462" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -284,6 +355,149 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if a chunk is available, false if no items/not enough are available </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="spmc_8h_a59e1e77dc52c3fdf1fedb2f0525287ff_cgraph.svg" width="320" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="spmc_8h_a59e1e77dc52c3fdf1fedb2f0525287ff_icgraph.svg" width="459" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aea22837d4940a006332041eb9c4042cb" name="aea22837d4940a006332041eb9c4042cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea22837d4940a006332041eb9c4042cb">&#9670;&#160;</a></span>g_spmc</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structSPMC__t.html">SPMC_t</a> g_spmc</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acbb7bb4ab3e0943657b43b1579e67c23" name="acbb7bb4ab3e0943657b43b1579e67c23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbb7bb4ab3e0943657b43b1579e67c23">&#9670;&#160;</a></span>SPMC_BYTES_PER_CHUNK</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t SPMC_BYTES_PER_CHUNK = <a class="el" href="#aad57eb1edac9069c6455a785995ef996">SPMC_CHUNK_NUM_FRAMES</a> * sizeof(<a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a>)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ace0ca9ff7adec23a69b50f32c2ea0ca5" name="ace0ca9ff7adec23a69b50f32c2ea0ca5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace0ca9ff7adec23a69b50f32c2ea0ca5">&#9670;&#160;</a></span>SPMC_CHUNK_CAPACITY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t SPMC_CHUNK_CAPACITY = 12</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aad57eb1edac9069c6455a785995ef996" name="aad57eb1edac9069c6455a785995ef996"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad57eb1edac9069c6455a785995ef996">&#9670;&#160;</a></span>SPMC_CHUNK_NUM_FRAMES</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t SPMC_CHUNK_NUM_FRAMES = 512</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acc95c7ba1975a4f273ad20af07a707c0" name="acc95c7ba1975a4f273ad20af07a707c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc95c7ba1975a4f273ad20af07a707c0">&#9670;&#160;</a></span>SPMC_FRAME_CAPACITY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t SPMC_FRAME_CAPACITY = <a class="el" href="#aad57eb1edac9069c6455a785995ef996">SPMC_CHUNK_NUM_FRAMES</a> * <a class="el" href="#ace0ca9ff7adec23a69b50f32c2ea0ca5">SPMC_CHUNK_CAPACITY</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae073bdf8adc0631e3629f02eeef29f45" name="ae073bdf8adc0631e3629f02eeef29f45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae073bdf8adc0631e3629f02eeef29f45">&#9670;&#160;</a></span>SPMC_MINI_NUM_FRAMES</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t SPMC_MINI_NUM_FRAMES = 16</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

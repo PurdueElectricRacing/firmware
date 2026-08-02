@@ -1,0 +1,31 @@
+<map id="vcu_update" name="vcu_update">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,116,94,142"/>
+<area shape="rect" id="Node000002" href="$menu__system_8c.html#aaaa431be258445ad9f1278c488a3f502" title="Refreshes the menu page by resetting selection state and updating all elements." alt="" coords="142,116,260,142"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,126,126,126,126,132,94,132"/>
+<area shape="rect" id="Node000003" href="$menu__system_8c.html#a0e536353f8e34a992b1070bcf883320b" title=" " alt="" coords="308,55,472,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="242,113,333,83,334,88,244,118"/>
+<area shape="rect" id="Node000008" href="$menu__system_8c.html#a6173507fa7b7cf81afec896f80300c9a" title="Applies selected state styling to a menu element." alt="" coords="317,116,463,142"/>
+<area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="260,126,301,126,301,132,260,132"/>
+<area shape="rect" id="Node000011" href="$nextion_8c.html#ac7e3e9fc4674d17281069e97b8a5384d" title="Sets a value to a specified object on the Nextion display." alt="" coords="546,203,652,228"/>
+<area shape="poly" id="edge16_Node000002_Node000011" title=" " alt="" coords="258,140,309,152,531,199,530,204,307,157,256,145"/>
+<area shape="rect" id="Node000004" href="$nextion_8c.html#ab2a89fd8e292338a6e570a41a698ad3a" title="Sets the text of a Nextion display object." alt="" coords="550,55,648,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="473,65,534,65,534,70,473,70"/>
+<area shape="rect" id="Node000007" href="$nextion_8c.html#a8af8629d8160abf996231ff267e43564" title="Sets the text of a Nextion display object using printf&#45;style formatting." alt="" coords="520,5,678,31"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="447,51,526,33,527,38,448,57"/>
+<area shape="rect" id="Node000005" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="726,80,829,106"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="649,72,710,81,710,86,648,77"/>
+<area shape="rect" id="Node000006" href="$strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf" title="Appends formatted data to the buffer using printf&#45;style formatting. !" alt="" coords="732,129,822,155"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="650,78,679,89,727,116,735,120,732,125,724,121,677,94,648,83"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="649,29,679,40,741,70,739,75,677,45,647,34"/>
+<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="661,29,679,40,697,59,705,78,712,97,728,116,731,119,727,123,724,120,708,100,700,80,692,62,676,44,658,34"/>
+<area shape="rect" id="Node000009" href="$nextion_8c.html#a19c3df8972af2eaea366cb65fad34d43" title="Sets the background color of a specified object on the Nextion display." alt="" coords="528,153,670,179"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="464,139,513,148,512,153,463,145"/>
+<area shape="rect" id="Node000010" href="$nextion_8c.html#ae995d182561a5fa3087569539bb551d2" title="Sets the border width of a specified object on the Nextion display." alt="" coords="527,104,671,130"/>
+<area shape="poly" id="edge13_Node000008_Node000010" title=" " alt="" coords="463,122,511,119,511,125,464,127"/>
+<area shape="poly" id="edge11_Node000009_Node000005" title=" " alt="" coords="648,150,677,140,724,114,733,110,735,115,727,119,679,145,650,155"/>
+<area shape="poly" id="edge12_Node000009_Node000006" title=" " alt="" coords="670,154,717,148,717,153,671,159"/>
+<area shape="poly" id="edge14_Node000010_Node000005" title=" " alt="" coords="671,104,710,99,711,104,672,110"/>
+<area shape="poly" id="edge15_Node000010_Node000006" title=" " alt="" coords="672,124,717,131,716,136,671,130"/>
+<area shape="poly" id="edge17_Node000011_Node000005" title=" " alt="" coords="651,202,676,189,692,172,700,154,708,135,724,115,727,112,731,116,728,119,712,138,705,156,696,175,679,194,654,207"/>
+<area shape="poly" id="edge18_Node000011_Node000006" title=" " alt="" coords="647,200,677,189,738,160,740,165,679,194,649,205"/>
+</map>

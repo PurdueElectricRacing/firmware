@@ -1,0 +1,5 @@
+<map id="SPMC_master_peek_chunk" name="SPMC_master_peek_chunk">
+<area shape="rect" id="Node000001" title="Peeks at the next chunk for the master (SD logging) without committing the tail." alt="" coords="5,5,189,31"/>
+<area shape="rect" id="Node000002" href="$spmc_8c.html#a881ea749d2dbf855d34372a7313f0495" title="Helper function to compute the number of items in the buffer given head and tail indices,..." alt="" coords="237,5,315,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,16,221,16,221,21,189,21"/>
+</map>

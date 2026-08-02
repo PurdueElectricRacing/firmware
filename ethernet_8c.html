@@ -98,7 +98,8 @@ $(function(){initNavTree('ethernet_8c.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">ethernet.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -107,17 +108,42 @@ $(function(){initNavTree('ethernet_8c.html',''); initResizable(true); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;w5500/socket.h&quot;</code><br />
-<code>#include &quot;common/phal/gpio.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2gpio_8h_source.html">common/phal/gpio.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="spmc_8h_source.html">spmc.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ethernet_8h_source.html">ethernet.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for ethernet.c:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="ethernet_8c__incl.svg" width="100%" height="504"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1ea4f11f8d51c291e709aa8730f23910" id="r_a1ea4f11f8d51c291e709aa8730f23910"><td class="memItemLeft" align="right" valign="top"><a id="a1ea4f11f8d51c291e709aa8730f23910" name="a1ea4f11f8d51c291e709aa8730f23910"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ethernet_periodic</b> (void)</td></tr>
+<tr class="memitem:aefa2e840c764176e0dbf039099cbc349" id="r_aefa2e840c764176e0dbf039099cbc349"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aefa2e840c764176e0dbf039099cbc349">is_linked</a> (void)</td></tr>
+<tr class="separator:aefa2e840c764176e0dbf039099cbc349"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35a615d9efc9dc590f030ac374d57931" id="r_a35a615d9efc9dc590f030ac374d57931"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35a615d9efc9dc590f030ac374d57931">init_w5500</a> (void)</td></tr>
+<tr class="separator:a35a615d9efc9dc590f030ac374d57931"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3047cfafbe247efdb86c53ba878ea12" id="r_aa3047cfafbe247efdb86c53ba878ea12"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3047cfafbe247efdb86c53ba878ea12">init_udp</a> (void)</td></tr>
+<tr class="separator:aa3047cfafbe247efdb86c53ba878ea12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd6ae1ee8d86a2dee49ec135ff03ed7c" id="r_acd6ae1ee8d86a2dee49ec135ff03ed7c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd6ae1ee8d86a2dee49ec135ff03ed7c">eth_ready_periodic</a> (void)</td></tr>
+<tr class="separator:acd6ae1ee8d86a2dee49ec135ff03ed7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ea4f11f8d51c291e709aa8730f23910" id="r_a1ea4f11f8d51c291e709aa8730f23910"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ea4f11f8d51c291e709aa8730f23910">ethernet_periodic</a> (void)</td></tr>
 <tr class="separator:a1ea4f11f8d51c291e709aa8730f23910"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a9a9bbd2fef3bdfaf79ba88e72f95c976" id="r_a9a9bbd2fef3bdfaf79ba88e72f95c976"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a9bbd2fef3bdfaf79ba88e72f95c976">DAQ_UDP_SOCKET_NUM</a> = 0</td></tr>
+<tr class="separator:a9a9bbd2fef3bdfaf79ba88e72f95c976"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3a13285cfdd2f060f0efe1d1c520f59" id="r_ab3a13285cfdd2f060f0efe1d1c520f59"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3a13285cfdd2f060f0efe1d1c520f59">DAQ_UDP_SOCKET_PORT</a> = 5005</td></tr>
+<tr class="separator:ab3a13285cfdd2f060f0efe1d1c520f59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdcaea2c7210f2679ea25aefc7f9bfd4" id="r_afdcaea2c7210f2679ea25aefc7f9bfd4"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structethernet__config__t.html">ethernet_config_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdcaea2c7210f2679ea25aefc7f9bfd4">config</a></td></tr>
+<tr class="separator:afdcaea2c7210f2679ea25aefc7f9bfd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa97b19c7e27d42aa017b67ffbeac797" id="r_aaa97b19c7e27d42aa017b67ffbeac797"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="ethernet_8h.html#a41694caa7c2afa9fa0f9b3eae96246e5">ethernet_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa97b19c7e27d42aa017b67ffbeac797">current_state</a> = <a class="el" href="ethernet_8h.html#a41694caa7c2afa9fa0f9b3eae96246e5a73be830a71ffe551d1d65fcfe59ab16c">ETHERNET_STATE_HW_INIT</a></td></tr>
+<tr class="separator:aaa97b19c7e27d42aa017b67ffbeac797"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77807f986a651fa5f99e24be94bcc8c5" id="r_a77807f986a651fa5f99e24be94bcc8c5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="ethernet_8h.html#a41694caa7c2afa9fa0f9b3eae96246e5">ethernet_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a77807f986a651fa5f99e24be94bcc8c5">next_state</a> = <a class="el" href="ethernet_8h.html#a41694caa7c2afa9fa0f9b3eae96246e5a73be830a71ffe551d1d65fcfe59ab16c">ETHERNET_STATE_HW_INIT</a></td></tr>
+<tr class="separator:a77807f986a651fa5f99e24be94bcc8c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of the ethernet thread for wireless data acquisition. </p>
@@ -126,7 +152,289 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ethernet_periodic</b>
 Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">eyn@p<span class="obfuscator">.nosp@m.</span>urdu<span class="obfuscator">.nosp@m.</span>e.edu</a>) </dd>
 <dd>
 Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="acd6ae1ee8d86a2dee49ec135ff03ed7c" name="acd6ae1ee8d86a2dee49ec135ff03ed7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd6ae1ee8d86a2dee49ec135ff03ed7c">&#9670;&#160;</a></span>eth_ready_periodic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void eth_ready_periodic </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="ethernet_8c_acd6ae1ee8d86a2dee49ec135ff03ed7c_cgraph.svg" width="506" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="ethernet_8c_acd6ae1ee8d86a2dee49ec135ff03ed7c_icgraph.svg" width="406" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a1ea4f11f8d51c291e709aa8730f23910" name="a1ea4f11f8d51c291e709aa8730f23910"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ea4f11f8d51c291e709aa8730f23910">&#9670;&#160;</a></span>ethernet_periodic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ethernet_periodic </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="ethernet_8c_a1ea4f11f8d51c291e709aa8730f23910_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="ethernet_8c_a1ea4f11f8d51c291e709aa8730f23910_icgraph.svg" width="228" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aa3047cfafbe247efdb86c53ba878ea12" name="aa3047cfafbe247efdb86c53ba878ea12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3047cfafbe247efdb86c53ba878ea12">&#9670;&#160;</a></span>init_udp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool init_udp </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="ethernet_8c_aa3047cfafbe247efdb86c53ba878ea12_icgraph.svg" width="343" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a35a615d9efc9dc590f030ac374d57931" name="a35a615d9efc9dc590f030ac374d57931"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35a615d9efc9dc590f030ac374d57931">&#9670;&#160;</a></span>init_w5500()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool init_w5500 </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="ethernet_8c_a35a615d9efc9dc590f030ac374d57931_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="ethernet_8c_a35a615d9efc9dc590f030ac374d57931_icgraph.svg" width="360" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aefa2e840c764176e0dbf039099cbc349" name="aefa2e840c764176e0dbf039099cbc349"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefa2e840c764176e0dbf039099cbc349">&#9670;&#160;</a></span>is_linked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool is_linked </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="ethernet_8c_aefa2e840c764176e0dbf039099cbc349_icgraph.svg" width="350" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="afdcaea2c7210f2679ea25aefc7f9bfd4" name="afdcaea2c7210f2679ea25aefc7f9bfd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdcaea2c7210f2679ea25aefc7f9bfd4">&#9670;&#160;</a></span>config</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structethernet__config__t.html">ethernet_config_t</a> config</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .net_info = {</div>
+<div class="line">        .mac = {0x00, 0x08, 0xdc, 0xab, 0xcd, 0xef}, </div>
+<div class="line">        .ip  = {192, 168, 10, 41}, </div>
+<div class="line">        .sn  = {255, 255, 255, 0}, </div>
+<div class="line">        .gw  = {192, 168, 10, 1},  </div>
+<div class="line">    },</div>
+<div class="line">    .udp_address = {192, 168, 10, 255}, </div>
+<div class="line">    .udp_port = <a class="code hl_variable" href="#ab3a13285cfdd2f060f0efe1d1c520f59">DAQ_UDP_SOCKET_PORT</a>,</div>
+<div class="line">    .udp_socket = <a class="code hl_variable" href="#a9a9bbd2fef3bdfaf79ba88e72f95c976">DAQ_UDP_SOCKET_NUM</a></div>
+<div class="line">}</div>
+<div class="ttc" id="aethernet_8c_html_a9a9bbd2fef3bdfaf79ba88e72f95c976"><div class="ttname"><a href="#a9a9bbd2fef3bdfaf79ba88e72f95c976">DAQ_UDP_SOCKET_NUM</a></div><div class="ttdeci">static constexpr uint8_t DAQ_UDP_SOCKET_NUM</div><div class="ttdef"><b>Definition</b> ethernet.c:19</div></div>
+<div class="ttc" id="aethernet_8c_html_ab3a13285cfdd2f060f0efe1d1c520f59"><div class="ttname"><a href="#ab3a13285cfdd2f060f0efe1d1c520f59">DAQ_UDP_SOCKET_PORT</a></div><div class="ttdeci">static constexpr uint16_t DAQ_UDP_SOCKET_PORT</div><div class="ttdef"><b>Definition</b> ethernet.c:20</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aaa97b19c7e27d42aa017b67ffbeac797" name="aaa97b19c7e27d42aa017b67ffbeac797"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa97b19c7e27d42aa017b67ffbeac797">&#9670;&#160;</a></span>current_state</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ethernet_8h.html#a41694caa7c2afa9fa0f9b3eae96246e5">ethernet_state_t</a> current_state = <a class="el" href="ethernet_8h.html#a41694caa7c2afa9fa0f9b3eae96246e5a73be830a71ffe551d1d65fcfe59ab16c">ETHERNET_STATE_HW_INIT</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9a9bbd2fef3bdfaf79ba88e72f95c976" name="a9a9bbd2fef3bdfaf79ba88e72f95c976"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a9bbd2fef3bdfaf79ba88e72f95c976">&#9670;&#160;</a></span>DAQ_UDP_SOCKET_NUM</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t DAQ_UDP_SOCKET_NUM = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab3a13285cfdd2f060f0efe1d1c520f59" name="ab3a13285cfdd2f060f0efe1d1c520f59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3a13285cfdd2f060f0efe1d1c520f59">&#9670;&#160;</a></span>DAQ_UDP_SOCKET_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t DAQ_UDP_SOCKET_PORT = 5005</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a77807f986a651fa5f99e24be94bcc8c5" name="a77807f986a651fa5f99e24be94bcc8c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77807f986a651fa5f99e24be94bcc8c5">&#9670;&#160;</a></span>next_state</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ethernet_8h.html#a41694caa7c2afa9fa0f9b3eae96246e5">ethernet_state_t</a> next_state = <a class="el" href="ethernet_8h.html#a41694caa7c2afa9fa0f9b3eae96246e5a73be830a71ffe551d1d65fcfe59ab16c">ETHERNET_STATE_HW_INIT</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

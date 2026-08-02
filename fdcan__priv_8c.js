@@ -2,6 +2,7 @@ var fdcan__priv_8c =
 [
     [ "PHAL_FDCAN_priv_clearReceiveFifo0NewMessageInterruptFlag", "fdcan__priv_8c.html#a71eb27961b47f7df2865cd21f529b15b", null ],
     [ "PHAL_FDCAN_priv_clearTransmitCompleteInterruptFlag", "fdcan__priv_8c.html#ae7a314e6c60ea63ef66e061e99db33f4", null ],
+    [ "PHAL_FDCAN_priv_controlConfig", "fdcan__priv_8c.html#a5989bf0267b012b516dea18271539715", null ],
     [ "PHAL_FDCAN_priv_enableClock", "fdcan__priv_8c.html#a405fe02c05033e421fb70515453be08d", null ],
     [ "PHAL_FDCAN_priv_enterConfig", "fdcan__priv_8c.html#ab936d0060d65f2f18ed211714e7b0746", null ],
     [ "PHAL_FDCAN_priv_exitConfig", "fdcan__priv_8c.html#ab58932032e5748d11d6fbcd04c68a322", null ],

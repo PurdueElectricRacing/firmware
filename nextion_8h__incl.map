@@ -1,0 +1,10 @@
+<map id="common/nextion/nextion.h" name="common/nextion/nextion.h">
+<area shape="rect" id="Node000001" title="Nextion display driver interface." alt="" coords="5,5,177,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="25,153,88,178"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,32,65,138,60,137,86,31"/>
+<area shape="rect" id="Node000003" href="$strbuf_8h.html" title="Fixed&#45;size string builder. Useful for building large CMD strings before transmission." alt="" coords="94,79,158,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="99,30,115,64,111,66,94,32"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="116,107,80,143,77,140,112,103"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="112,153,179,178"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="132,104,141,137,136,138,126,106"/>
+</map>

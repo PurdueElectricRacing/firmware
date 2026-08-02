@@ -1,0 +1,9 @@
+<map id="can_library/can_common.h" name="can_library/can_common.h">
+<area shape="rect" id="Node000001" title="Common functions and data structures used in every node in the CAN library." alt="" coords="132,5,307,31"/>
+<area shape="rect" id="Node000002" href="$can__init_8c.html" title="CAN library initialization, IRQ setup, and filter setup." alt="" coords="5,79,132,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,41,107,81,104,76,182,36"/>
+<area shape="rect" id="Node000003" href="$can__rx_8c.html" title="Common CAN RX queue, task, and callback handling." alt="" coords="156,79,282,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="222,46,222,79,216,79,216,46"/>
+<area shape="rect" id="Node000004" href="$can__tx_8c.html" title="Common CAN TX queue, task, and callback handling." alt="" coords="307,79,433,120"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="257,36,334,76,331,81,254,41"/>
+</map>

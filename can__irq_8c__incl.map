@@ -1,0 +1,32 @@
+<map id="source/daq/can_irq/can_irq.c" name="source/daq/can_irq/can_irq.c">
+<area shape="rect" id="Node000001" title="Timestamped frame producers from CAN RX IRQ." alt="" coords="432,5,563,46"/>
+<area shape="rect" id="Node000002" href="$can__irq_8h.html" title="Timestamped frame producers from CAN RX IRQ." alt="" coords="614,256,688,282"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="532,44,565,68,601,99,635,138,661,182,666,212,662,241,657,241,661,212,656,184,631,141,597,103,561,72,529,49"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="721,94,866,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="564,44,712,87,711,92,563,49"/>
+<area shape="rect" id="Node000005" href="$freertos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="158,183,336,208"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="470,49,278,176,276,172,467,44"/>
+<area shape="rect" id="Node000006" href="$spmc_8h.html" title="Custom SPMC designed for high throughput handling of CAN message streams." alt="" coords="491,102,554,127"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="506,46,518,86,512,87,501,47"/>
+<area shape="rect" id="Node000008" href="$timestamped__frame_8h.html" title="Definition for timestamped CAN frames." alt="" coords="359,183,505,208"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="492,47,445,169,440,167,488,45"/>
+<area shape="rect" id="Node000009" href="$rtc__sync_8h.html" title="Synchronization of the RTC peripheral with the GPS UTC time." alt="" coords="232,102,312,127"/>
+<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="447,49,319,98,317,93,445,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="400,330,464,356"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="615,285,480,329,478,324,613,280"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="264,207,406,318,403,322,260,211"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="527,127,527,164,520,209,507,241,490,271,455,319,451,316,485,268,502,239,515,208,522,164,521,127"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="580,183,647,208"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="538,126,590,170,587,174,535,130"/>
+<area shape="poly" id="edge9_Node000006_Node000008" title=" " alt="" coords="511,130,459,174,456,170,507,126"/>
+<area shape="poly" id="edge10_Node000008_Node000003" title=" " alt="" coords="435,209,435,315,430,315,430,209"/>
+<area shape="poly" id="edge18_Node000009_Node000005" title=" " alt="" coords="271,128,258,168,253,167,266,127"/>
+<area shape="poly" id="edge13_Node000009_Node000008" title=" " alt="" coords="298,125,396,173,393,178,296,130"/>
+<area shape="rect" id="Node000010" href="$phal_2rtc_8h.html" title=" " alt="" coords="5,183,134,208"/>
+<area shape="poly" id="edge14_Node000009_Node000010" title=" " alt="" coords="242,130,116,179,114,174,240,125"/>
+<area shape="rect" id="Node000011" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="33,256,202,282"/>
+<area shape="poly" id="edge15_Node000010_Node000011" title=" " alt="" coords="80,207,103,242,99,245,75,210"/>
+<area shape="poly" id="edge17_Node000011_Node000003" title=" " alt="" coords="172,280,386,328,385,334,171,285"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="81,330,154,356"/>
+<area shape="poly" id="edge16_Node000011_Node000012" title=" " alt="" coords="120,282,120,314,115,314,115,282"/>
+</map>

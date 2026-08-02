@@ -1,0 +1,19 @@
+<map id="adbms6380_prepare_data_packet" name="adbms6380_prepare_data_packet">
+<area shape="rect" id="Node000001" title="Append a data payload and its PEC to an output buffer." alt="" coords="831,23,1001,64"/>
+<area shape="rect" id="Node000002" href="$adbms_8c.html#a6ceab739f8b66723399246ee5b0e7e8d" title="Calculate and write REGA configuration to all modules." alt="" coords="656,5,783,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="815,33,783,29,784,24,816,28"/>
+<area shape="rect" id="Node000007" href="$adbms_8c.html#a3a1de4cc72e92ed7719f251886fad5e4" title="Calculate and write REGB configuration to all modules." alt="" coords="656,55,783,80"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="816,58,783,62,783,57,815,53"/>
+<area shape="rect" id="Node000003" href="$adbms_8c.html#a27e3061d92f6ec452342978af2616bd8" title="Perform the connect/bring&#45;up sequence for all modules." alt="" coords="442,5,555,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="640,21,556,21,556,16,640,16"/>
+<area shape="rect" id="Node000004" href="$adbms_8c.html#a0a1de1018dba58040d4cab70ead2ca28" title="Periodic service routine for connection, measurements, and balancing." alt="" coords="229,31,341,56"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="427,29,342,39,342,34,426,24"/>
+<area shape="rect" id="Node000005" href="$a__box_2main_8c.html#a78865f7731d4b7186cdc06c8ff03a0e4" title=" " alt="" coords="103,31,181,56"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="214,46,181,46,181,41,214,41"/>
+<area shape="rect" id="Node000006" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,31,55,56"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="87,46,55,46,55,41,87,41"/>
+<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="644,53,607,45,555,33,556,28,608,40,645,48"/>
+<area shape="rect" id="Node000008" href="$adbms_8c.html#ab002d432c17c600b7ab08560de287272" title="Compute discharge flags and write REGB to apply balancing." alt="" coords="389,55,608,80"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="640,70,608,70,608,65,640,65"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="373,56,341,52,342,47,374,51"/>
+</map>

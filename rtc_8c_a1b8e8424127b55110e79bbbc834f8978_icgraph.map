@@ -1,0 +1,9 @@
+<map id="PHAL_getTimeRTC" name="PHAL_getTimeRTC">
+<area shape="rect" id="Node000001" title=" " alt="" coords="443,5,581,31"/>
+<area shape="rect" id="Node000002" href="$sd__card_8c.html#ac8e3e1c6c9d36eada7e3938c604a37ad" title=" " alt="" coords="270,5,395,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="428,21,396,21,396,16,428,16"/>
+<area shape="rect" id="Node000003" href="$sd__card_8c.html#a1be8d347ac90e89922850113d6c264df" title=" " alt="" coords="103,5,222,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="254,21,223,21,223,16,254,16"/>
+<area shape="rect" id="Node000004" href="$daq_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>

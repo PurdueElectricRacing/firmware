@@ -1,0 +1,38 @@
+<map id="SD_Init" name="SD_Init">
+<area shape="rect" id="Node000001" title="Initializes the SD Card and put it into StandBy State (Ready for data transfer)." alt="" coords="5,105,70,131"/>
+<area shape="rect" id="Node000002" href="$sdio_8c.html#a6569e73a229e639d2043549942d58d11" title="Enables wide bus opeartion for the requeseted card if supported by card." alt="" coords="118,5,311,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="47,103,76,71,116,40,127,35,129,39,119,44,79,75,51,106"/>
+<area shape="rect" id="Node000007" href="$sdio_8c.html#a5348c3c8f17f8c704bf00f1c5e21549d" title="Returns information about specific card." alt="" coords="156,55,272,80"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="69,107,151,83,153,88,71,112"/>
+<area shape="rect" id="Node000008" href="$sdio_8c.html#ab39f671413ee824a13bf1bd833f724e9" title="Intialises all cards or single card as the case may be Card(s) come into standby state." alt="" coords="151,180,278,206"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="71,129,169,171,167,176,69,134"/>
+<area shape="rect" id="Node000011" href="$sdio_8c.html#a9fbd4dd6187701cbe286ddb163e9c312" title="Enquires cards about their operating voltage and configures clock controls." alt="" coords="535,307,638,332"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="48,130,75,173,95,197,119,216,168,243,221,264,276,281,331,294,434,310,519,316,519,322,434,315,330,299,274,286,219,269,166,247,116,220,91,200,71,177,43,133"/>
+<area shape="rect" id="Node000015" href="$sdio_8c.html#a849eb0b385337453139a7567898dacb7" title="Selects od Deselects the corresponding card." alt="" coords="519,205,654,231"/>
+<area shape="poly" id="edge19_Node000001_Node000015" title=" " alt="" coords="70,110,145,100,247,96,304,99,362,106,419,120,473,141,489,153,498,167,507,181,521,195,523,196,520,200,518,199,503,185,494,170,485,157,470,146,417,125,361,112,304,104,247,101,145,105,71,115"/>
+<area shape="rect" id="Node000003" href="$sdio_8c.html#a34c053adf6c432bad5d856d470094519" title="Enables or disables the SDIO wide bus mode." alt="" coords="362,53,468,79"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="272,29,347,47,346,53,271,34"/>
+<area shape="rect" id="Node000004" href="$sdio_8c.html#a7566a8f0aaba0e993a8b9e914897c812" title="Checks for error conditions for R1 response." alt="" coords="742,131,854,156"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="469,65,556,73,654,89,706,104,753,122,752,127,705,109,653,94,556,78,469,71"/>
+<area shape="rect" id="Node000005" href="$sdio_8c.html#a6a5fc4e4656231dfde1e7a157337aa17" title="Find the SD card SCR register value." alt="" coords="550,104,623,130"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="462,77,535,99,534,104,460,82"/>
+<area shape="rect" id="Node000006" href="$sdio_8c.html#a4b480281586b4fd1ccf150129fe21120" title="Send a command." alt="" coords="702,205,894,231"/>
+<area shape="poly" id="edge7_Node000003_Node000006" title=" " alt="" coords="442,77,473,97,496,120,521,140,563,160,607,176,694,199,693,204,605,181,561,165,518,144,493,124,470,102,439,82"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="624,119,727,132,726,137,623,124"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="617,128,757,196,755,201,614,133"/>
+<area shape="poly" id="edge12_Node000008_Node000006" title=" " alt="" coords="246,204,298,224,360,241,441,252,506,253,653,241,719,232,720,237,654,246,506,259,441,257,358,246,296,229,244,209"/>
+<area shape="rect" id="Node000009" href="$sdio_8c.html#af08305e59ade894dfc710139006e0b92" title="Checks for error conditions for R2 (CID or CSD) response." alt="" coords="359,156,471,182"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="278,183,343,175,344,180,279,188"/>
+<area shape="rect" id="Node000010" href="$sdio_8c.html#aa300faf33b17c1a3cb9a315cebd374ca" title="Checks for error conditions for R6 (RCA) response." alt="" coords="359,205,471,231"/>
+<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="279,198,344,207,343,212,278,203"/>
+<area shape="poly" id="edge15_Node000011_Node000004" title=" " alt="" coords="597,304,700,191,749,161,752,166,703,195,601,308"/>
+<area shape="poly" id="edge18_Node000011_Node000006" title=" " alt="" coords="619,304,652,285,675,263,685,253,700,243,718,234,720,239,703,247,689,257,679,267,655,290,621,308"/>
+<area shape="rect" id="Node000012" href="$sdio_8c.html#a9cb1b7845e3aa6fd9a0bee925a6fb209" title="Checks for error conditions for CMD0." alt="" coords="760,257,836,283"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="638,305,744,280,745,285,639,310"/>
+<area shape="rect" id="Node000013" href="$sdio_8c.html#ab70454aba2121dc3573841173fa0c113" title="Checks for error conditions for R3 (OCR) response." alt="" coords="742,307,854,332"/>
+<area shape="poly" id="edge16_Node000011_Node000013" title=" " alt="" coords="638,317,726,317,726,322,638,322"/>
+<area shape="rect" id="Node000014" href="$sdio_8c.html#ae8b612323f1004f8e7e8612b818dac64" title="Checks for error conditions for R7 response." alt="" coords="742,356,854,382"/>
+<area shape="poly" id="edge17_Node000011_Node000014" title=" " alt="" coords="639,329,727,350,726,355,638,334"/>
+<area shape="poly" id="edge20_Node000015_Node000004" title=" " alt="" coords="624,202,744,160,746,165,626,207"/>
+<area shape="poly" id="edge21_Node000015_Node000006" title=" " alt="" coords="654,216,686,216,686,221,654,221"/>
+</map>

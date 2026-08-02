@@ -100,14 +100,20 @@ $(function(){initNavTree('units_8h.html',''); initResizable(true); });
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">units.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>SI and Imperial unit defs and conversion functions.  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="units_8h__dep__incl.svg" width="155" height="126"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
 <p><a href="units_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
@@ -163,8 +169,7 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:aaac7ee36cf9e2b7589295ad4379852a1" id="r_aaac7ee36cf9e2b7589295ad4379852a1"><td class="memItemLeft" align="right" valign="top"><a id="aaac7ee36cf9e2b7589295ad4379852a1" name="aaac7ee36cf9e2b7589295ad4379852a1"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>UNIT_FUNC_MODIFIERS</b>&#160;&#160;&#160;[[nodiscard, gnu::always_inline]] static inline</td></tr>
+<tr class="memitem:aaac7ee36cf9e2b7589295ad4379852a1" id="r_aaac7ee36cf9e2b7589295ad4379852a1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a>&#160;&#160;&#160;[[nodiscard, gnu::always_inline]] static inline</td></tr>
 <tr class="separator:aaac7ee36cf9e2b7589295ad4379852a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32cc5a7208b2e5f46b8fde514f7e4be4" id="r_a32cc5a7208b2e5f46b8fde514f7e4be4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a32cc5a7208b2e5f46b8fde514f7e4be4">meters_from</a>(x)</td></tr>
 <tr class="separator:a32cc5a7208b2e5f46b8fde514f7e4be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -175,75 +180,57 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a00b00093f92f39fa20021329c6a1f7c0" id="r_a00b00093f92f39fa20021329c6a1f7c0"><td class="memItemLeft" align="right" valign="top"><a id="a00b00093f92f39fa20021329c6a1f7c0" name="a00b00093f92f39fa20021329c6a1f7c0"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structfahrenheit__t.html">fahrenheit_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>fahrenheit_from</b> (<a class="el" href="structcelsius__t.html">celsius_t</a> c)</td></tr>
+<tr class="memitem:a00b00093f92f39fa20021329c6a1f7c0" id="r_a00b00093f92f39fa20021329c6a1f7c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structfahrenheit__t.html">fahrenheit_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a00b00093f92f39fa20021329c6a1f7c0">fahrenheit_from</a> (<a class="el" href="structcelsius__t.html">celsius_t</a> c)</td></tr>
 <tr class="separator:a00b00093f92f39fa20021329c6a1f7c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81cff0c3efe33ae0bd8bb3ed88b86579" id="r_a81cff0c3efe33ae0bd8bb3ed88b86579"><td class="memItemLeft" align="right" valign="top"><a id="a81cff0c3efe33ae0bd8bb3ed88b86579" name="a81cff0c3efe33ae0bd8bb3ed88b86579"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structcelsius__t.html">celsius_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>celsius_from</b> (<a class="el" href="structfahrenheit__t.html">fahrenheit_t</a> f)</td></tr>
+<tr class="memitem:a81cff0c3efe33ae0bd8bb3ed88b86579" id="r_a81cff0c3efe33ae0bd8bb3ed88b86579"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structcelsius__t.html">celsius_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a81cff0c3efe33ae0bd8bb3ed88b86579">celsius_from</a> (<a class="el" href="structfahrenheit__t.html">fahrenheit_t</a> f)</td></tr>
 <tr class="separator:a81cff0c3efe33ae0bd8bb3ed88b86579"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd4e79d872c9742fcbf24379538c859d" id="r_acd4e79d872c9742fcbf24379538c859d"><td class="memItemLeft" align="right" valign="top"><a id="acd4e79d872c9742fcbf24379538c859d" name="acd4e79d872c9742fcbf24379538c859d"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structmeters__t.html">meters_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>meters_from_centimeters</b> (<a class="el" href="structcentimeters__t.html">centimeters_t</a> cm)</td></tr>
+<tr class="memitem:acd4e79d872c9742fcbf24379538c859d" id="r_acd4e79d872c9742fcbf24379538c859d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structmeters__t.html">meters_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd4e79d872c9742fcbf24379538c859d">meters_from_centimeters</a> (<a class="el" href="structcentimeters__t.html">centimeters_t</a> cm)</td></tr>
 <tr class="separator:acd4e79d872c9742fcbf24379538c859d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91f7ff0ac01dfd942329208f9a05b62b" id="r_a91f7ff0ac01dfd942329208f9a05b62b"><td class="memItemLeft" align="right" valign="top"><a id="a91f7ff0ac01dfd942329208f9a05b62b" name="a91f7ff0ac01dfd942329208f9a05b62b"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structmeters__t.html">meters_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>meters_from_millimeters</b> (<a class="el" href="structmillimeters__t.html">millimeters_t</a> mm)</td></tr>
+<tr class="memitem:a91f7ff0ac01dfd942329208f9a05b62b" id="r_a91f7ff0ac01dfd942329208f9a05b62b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structmeters__t.html">meters_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91f7ff0ac01dfd942329208f9a05b62b">meters_from_millimeters</a> (<a class="el" href="structmillimeters__t.html">millimeters_t</a> mm)</td></tr>
 <tr class="separator:a91f7ff0ac01dfd942329208f9a05b62b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7fb36fd3e75594361c589f4302f12bd" id="r_ae7fb36fd3e75594361c589f4302f12bd"><td class="memItemLeft" align="right" valign="top"><a id="ae7fb36fd3e75594361c589f4302f12bd" name="ae7fb36fd3e75594361c589f4302f12bd"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structmeters__t.html">meters_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>meters_from_inches</b> (<a class="el" href="structinches__t.html">inches_t</a> in)</td></tr>
+<tr class="memitem:ae7fb36fd3e75594361c589f4302f12bd" id="r_ae7fb36fd3e75594361c589f4302f12bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structmeters__t.html">meters_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7fb36fd3e75594361c589f4302f12bd">meters_from_inches</a> (<a class="el" href="structinches__t.html">inches_t</a> in)</td></tr>
 <tr class="separator:ae7fb36fd3e75594361c589f4302f12bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3d619b7f51d445d37ab665fc9cbd0e4" id="r_aa3d619b7f51d445d37ab665fc9cbd0e4"><td class="memItemLeft" align="right" valign="top"><a id="aa3d619b7f51d445d37ab665fc9cbd0e4" name="aa3d619b7f51d445d37ab665fc9cbd0e4"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structmeters__t.html">meters_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>meters_from_feet</b> (<a class="el" href="structfeet__t.html">feet_t</a> ft)</td></tr>
+<tr class="memitem:aa3d619b7f51d445d37ab665fc9cbd0e4" id="r_aa3d619b7f51d445d37ab665fc9cbd0e4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structmeters__t.html">meters_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3d619b7f51d445d37ab665fc9cbd0e4">meters_from_feet</a> (<a class="el" href="structfeet__t.html">feet_t</a> ft)</td></tr>
 <tr class="separator:aa3d619b7f51d445d37ab665fc9cbd0e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a92f6b57f2276d418b016aa4a5d8b7a" id="r_a3a92f6b57f2276d418b016aa4a5d8b7a"><td class="memItemLeft" align="right" valign="top"><a id="a3a92f6b57f2276d418b016aa4a5d8b7a" name="a3a92f6b57f2276d418b016aa4a5d8b7a"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structmeters__t.html">meters_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>meters_from_miles</b> (<a class="el" href="structmiles__t.html">miles_t</a> mi)</td></tr>
+<tr class="memitem:a3a92f6b57f2276d418b016aa4a5d8b7a" id="r_a3a92f6b57f2276d418b016aa4a5d8b7a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structmeters__t.html">meters_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a92f6b57f2276d418b016aa4a5d8b7a">meters_from_miles</a> (<a class="el" href="structmiles__t.html">miles_t</a> mi)</td></tr>
 <tr class="separator:a3a92f6b57f2276d418b016aa4a5d8b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee81a04a04fddbff22b55e00ab0aa8ae" id="r_aee81a04a04fddbff22b55e00ab0aa8ae"><td class="memItemLeft" align="right" valign="top"><a id="aee81a04a04fddbff22b55e00ab0aa8ae" name="aee81a04a04fddbff22b55e00ab0aa8ae"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structseconds__t.html">seconds_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>seconds_from_milliseconds</b> (<a class="el" href="structmilliseconds__t.html">milliseconds_t</a> ms)</td></tr>
+<tr class="memitem:aee81a04a04fddbff22b55e00ab0aa8ae" id="r_aee81a04a04fddbff22b55e00ab0aa8ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structseconds__t.html">seconds_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee81a04a04fddbff22b55e00ab0aa8ae">seconds_from_milliseconds</a> (<a class="el" href="structmilliseconds__t.html">milliseconds_t</a> ms)</td></tr>
 <tr class="separator:aee81a04a04fddbff22b55e00ab0aa8ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66f7732ed9d8adc9a546ff5dadd8835d" id="r_a66f7732ed9d8adc9a546ff5dadd8835d"><td class="memItemLeft" align="right" valign="top"><a id="a66f7732ed9d8adc9a546ff5dadd8835d" name="a66f7732ed9d8adc9a546ff5dadd8835d"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structseconds__t.html">seconds_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>seconds_from_minutes</b> (<a class="el" href="structminutes__t.html">minutes_t</a> min)</td></tr>
+<tr class="memitem:a66f7732ed9d8adc9a546ff5dadd8835d" id="r_a66f7732ed9d8adc9a546ff5dadd8835d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structseconds__t.html">seconds_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a66f7732ed9d8adc9a546ff5dadd8835d">seconds_from_minutes</a> (<a class="el" href="structminutes__t.html">minutes_t</a> min)</td></tr>
 <tr class="separator:a66f7732ed9d8adc9a546ff5dadd8835d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70c55e65f2b0e384ca1f243cfcaa9cc6" id="r_a70c55e65f2b0e384ca1f243cfcaa9cc6"><td class="memItemLeft" align="right" valign="top"><a id="a70c55e65f2b0e384ca1f243cfcaa9cc6" name="a70c55e65f2b0e384ca1f243cfcaa9cc6"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structseconds__t.html">seconds_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>seconds_from_hours</b> (<a class="el" href="structhours__t.html">hours_t</a> hr)</td></tr>
+<tr class="memitem:a70c55e65f2b0e384ca1f243cfcaa9cc6" id="r_a70c55e65f2b0e384ca1f243cfcaa9cc6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structseconds__t.html">seconds_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70c55e65f2b0e384ca1f243cfcaa9cc6">seconds_from_hours</a> (<a class="el" href="structhours__t.html">hours_t</a> hr)</td></tr>
 <tr class="separator:a70c55e65f2b0e384ca1f243cfcaa9cc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8dbb3cff304a3c5abcba8e3ad7b1f49d" id="r_a8dbb3cff304a3c5abcba8e3ad7b1f49d"><td class="memItemLeft" align="right" valign="top"><a id="a8dbb3cff304a3c5abcba8e3ad7b1f49d" name="a8dbb3cff304a3c5abcba8e3ad7b1f49d"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structseconds__t.html">seconds_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>seconds_from_days</b> (<a class="el" href="structdays__t.html">days_t</a> d)</td></tr>
+<tr class="memitem:a8dbb3cff304a3c5abcba8e3ad7b1f49d" id="r_a8dbb3cff304a3c5abcba8e3ad7b1f49d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structseconds__t.html">seconds_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8dbb3cff304a3c5abcba8e3ad7b1f49d">seconds_from_days</a> (<a class="el" href="structdays__t.html">days_t</a> d)</td></tr>
 <tr class="separator:a8dbb3cff304a3c5abcba8e3ad7b1f49d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26dfa6ea5330d6e36fffea1cc12edd00" id="r_a26dfa6ea5330d6e36fffea1cc12edd00"><td class="memItemLeft" align="right" valign="top"><a id="a26dfa6ea5330d6e36fffea1cc12edd00" name="a26dfa6ea5330d6e36fffea1cc12edd00"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structradians__t.html">radians_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>radians_from</b> (<a class="el" href="structdegrees__t.html">degrees_t</a> deg)</td></tr>
+<tr class="memitem:a26dfa6ea5330d6e36fffea1cc12edd00" id="r_a26dfa6ea5330d6e36fffea1cc12edd00"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structradians__t.html">radians_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26dfa6ea5330d6e36fffea1cc12edd00">radians_from</a> (<a class="el" href="structdegrees__t.html">degrees_t</a> deg)</td></tr>
 <tr class="separator:a26dfa6ea5330d6e36fffea1cc12edd00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1092323bbc7d23b1dfce30f84effc8ca" id="r_a1092323bbc7d23b1dfce30f84effc8ca"><td class="memItemLeft" align="right" valign="top"><a id="a1092323bbc7d23b1dfce30f84effc8ca" name="a1092323bbc7d23b1dfce30f84effc8ca"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structdegrees__t.html">degrees_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>degrees_from</b> (<a class="el" href="structradians__t.html">radians_t</a> rad)</td></tr>
+<tr class="memitem:a1092323bbc7d23b1dfce30f84effc8ca" id="r_a1092323bbc7d23b1dfce30f84effc8ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structdegrees__t.html">degrees_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1092323bbc7d23b1dfce30f84effc8ca">degrees_from</a> (<a class="el" href="structradians__t.html">radians_t</a> rad)</td></tr>
 <tr class="separator:a1092323bbc7d23b1dfce30f84effc8ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba700b0949631122386f01405cfad9fd" id="r_aba700b0949631122386f01405cfad9fd"><td class="memItemLeft" align="right" valign="top"><a id="aba700b0949631122386f01405cfad9fd" name="aba700b0949631122386f01405cfad9fd"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structkilograms__t.html">kilograms_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>kilograms_from_grams</b> (<a class="el" href="structgrams__t.html">grams_t</a> g)</td></tr>
+<tr class="memitem:aba700b0949631122386f01405cfad9fd" id="r_aba700b0949631122386f01405cfad9fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structkilograms__t.html">kilograms_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba700b0949631122386f01405cfad9fd">kilograms_from_grams</a> (<a class="el" href="structgrams__t.html">grams_t</a> g)</td></tr>
 <tr class="separator:aba700b0949631122386f01405cfad9fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81ed4df9024fa4d85257945ce151547c" id="r_a81ed4df9024fa4d85257945ce151547c"><td class="memItemLeft" align="right" valign="top"><a id="a81ed4df9024fa4d85257945ce151547c" name="a81ed4df9024fa4d85257945ce151547c"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structkilograms__t.html">kilograms_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>kilograms_from_pounds</b> (<a class="el" href="structpounds__t.html">pounds_t</a> lb)</td></tr>
+<tr class="memitem:a81ed4df9024fa4d85257945ce151547c" id="r_a81ed4df9024fa4d85257945ce151547c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structkilograms__t.html">kilograms_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a81ed4df9024fa4d85257945ce151547c">kilograms_from_pounds</a> (<a class="el" href="structpounds__t.html">pounds_t</a> lb)</td></tr>
 <tr class="separator:a81ed4df9024fa4d85257945ce151547c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa95451fbd0b4f7b3e9c07aa67ff23ae3" id="r_aa95451fbd0b4f7b3e9c07aa67ff23ae3"><td class="memItemLeft" align="right" valign="top"><a id="aa95451fbd0b4f7b3e9c07aa67ff23ae3" name="aa95451fbd0b4f7b3e9c07aa67ff23ae3"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structpascals__t.html">pascals_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>pascals_from_psi</b> (<a class="el" href="structpsi__t.html">psi_t</a> p)</td></tr>
+<tr class="memitem:aa95451fbd0b4f7b3e9c07aa67ff23ae3" id="r_aa95451fbd0b4f7b3e9c07aa67ff23ae3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structpascals__t.html">pascals_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa95451fbd0b4f7b3e9c07aa67ff23ae3">pascals_from_psi</a> (<a class="el" href="structpsi__t.html">psi_t</a> p)</td></tr>
 <tr class="separator:aa95451fbd0b4f7b3e9c07aa67ff23ae3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57a124bae0d54ef30a0e9fdeb5159ba0" id="r_a57a124bae0d54ef30a0e9fdeb5159ba0"><td class="memItemLeft" align="right" valign="top"><a id="a57a124bae0d54ef30a0e9fdeb5159ba0" name="a57a124bae0d54ef30a0e9fdeb5159ba0"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structpascals__t.html">pascals_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>pascals_from_bar</b> (<a class="el" href="structbar__t.html">bar_t</a> b)</td></tr>
+<tr class="memitem:a57a124bae0d54ef30a0e9fdeb5159ba0" id="r_a57a124bae0d54ef30a0e9fdeb5159ba0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structpascals__t.html">pascals_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57a124bae0d54ef30a0e9fdeb5159ba0">pascals_from_bar</a> (<a class="el" href="structbar__t.html">bar_t</a> b)</td></tr>
 <tr class="separator:a57a124bae0d54ef30a0e9fdeb5159ba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67bf1ca6f464d8614a560fd6a5240797" id="r_a67bf1ca6f464d8614a560fd6a5240797"><td class="memItemLeft" align="right" valign="top"><a id="a67bf1ca6f464d8614a560fd6a5240797" name="a67bf1ca6f464d8614a560fd6a5240797"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structpsi__t.html">psi_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>psi_from_pascals</b> (<a class="el" href="structpascals__t.html">pascals_t</a> p)</td></tr>
+<tr class="memitem:a67bf1ca6f464d8614a560fd6a5240797" id="r_a67bf1ca6f464d8614a560fd6a5240797"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structpsi__t.html">psi_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a67bf1ca6f464d8614a560fd6a5240797">psi_from_pascals</a> (<a class="el" href="structpascals__t.html">pascals_t</a> p)</td></tr>
 <tr class="separator:a67bf1ca6f464d8614a560fd6a5240797"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ab2ad2b1b02f523213f889b5aa001a5" id="r_a9ab2ad2b1b02f523213f889b5aa001a5"><td class="memItemLeft" align="right" valign="top"><a id="a9ab2ad2b1b02f523213f889b5aa001a5" name="a9ab2ad2b1b02f523213f889b5aa001a5"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structbar__t.html">bar_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>bar_from_pascals</b> (<a class="el" href="structpascals__t.html">pascals_t</a> p)</td></tr>
+<tr class="memitem:a9ab2ad2b1b02f523213f889b5aa001a5" id="r_a9ab2ad2b1b02f523213f889b5aa001a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structbar__t.html">bar_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ab2ad2b1b02f523213f889b5aa001a5">bar_from_pascals</a> (<a class="el" href="structpascals__t.html">pascals_t</a> p)</td></tr>
 <tr class="separator:a9ab2ad2b1b02f523213f889b5aa001a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8390eb115b8b4f0decb0024c2f0db6d8" id="r_a8390eb115b8b4f0decb0024c2f0db6d8"><td class="memItemLeft" align="right" valign="top"><a id="a8390eb115b8b4f0decb0024c2f0db6d8" name="a8390eb115b8b4f0decb0024c2f0db6d8"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structmps__t.html">mps_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>mps_from_kph</b> (<a class="el" href="structkph__t.html">kph_t</a> k)</td></tr>
+<tr class="memitem:a8390eb115b8b4f0decb0024c2f0db6d8" id="r_a8390eb115b8b4f0decb0024c2f0db6d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structmps__t.html">mps_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8390eb115b8b4f0decb0024c2f0db6d8">mps_from_kph</a> (<a class="el" href="structkph__t.html">kph_t</a> k)</td></tr>
 <tr class="separator:a8390eb115b8b4f0decb0024c2f0db6d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a134a1af1447576f2d612effd3dd72987" id="r_a134a1af1447576f2d612effd3dd72987"><td class="memItemLeft" align="right" valign="top"><a id="a134a1af1447576f2d612effd3dd72987" name="a134a1af1447576f2d612effd3dd72987"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structmps__t.html">mps_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>mps_from_mph</b> (<a class="el" href="structmph__t.html">mph_t</a> m)</td></tr>
+<tr class="memitem:a134a1af1447576f2d612effd3dd72987" id="r_a134a1af1447576f2d612effd3dd72987"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structmps__t.html">mps_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a134a1af1447576f2d612effd3dd72987">mps_from_mph</a> (<a class="el" href="structmph__t.html">mph_t</a> m)</td></tr>
 <tr class="separator:a134a1af1447576f2d612effd3dd72987"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a152cfa8e2222cc6147fb8a96448aaafb" id="r_a152cfa8e2222cc6147fb8a96448aaafb"><td class="memItemLeft" align="right" valign="top"><a id="a152cfa8e2222cc6147fb8a96448aaafb" name="a152cfa8e2222cc6147fb8a96448aaafb"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structkph__t.html">kph_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>kph_from_mps</b> (<a class="el" href="structmps__t.html">mps_t</a> m)</td></tr>
+<tr class="memitem:a152cfa8e2222cc6147fb8a96448aaafb" id="r_a152cfa8e2222cc6147fb8a96448aaafb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structkph__t.html">kph_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a152cfa8e2222cc6147fb8a96448aaafb">kph_from_mps</a> (<a class="el" href="structmps__t.html">mps_t</a> m)</td></tr>
 <tr class="separator:a152cfa8e2222cc6147fb8a96448aaafb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab73a5822e863b2424a19260ef660e431" id="r_ab73a5822e863b2424a19260ef660e431"><td class="memItemLeft" align="right" valign="top"><a id="ab73a5822e863b2424a19260ef660e431" name="ab73a5822e863b2424a19260ef660e431"></a>
-UNIT_FUNC_MODIFIERS <a class="el" href="structmph__t.html">mph_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>mph_from_mps</b> (<a class="el" href="structmps__t.html">mps_t</a> m)</td></tr>
+<tr class="memitem:ab73a5822e863b2424a19260ef660e431" id="r_ab73a5822e863b2424a19260ef660e431"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structmph__t.html">mph_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab73a5822e863b2424a19260ef660e431">mph_from_mps</a> (<a class="el" href="structmps__t.html">mps_t</a> m)</td></tr>
 <tr class="separator:ab73a5822e863b2424a19260ef660e431"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a2d6b12d3f019b61b427ec3c63270143d" id="r_a2d6b12d3f019b61b427ec3c63270143d"><td class="memItemLeft" align="right" valign="top">static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2d6b12d3f019b61b427ec3c63270143d">PI_F</a> = 3.1415926535f</td></tr>
+<tr class="separator:a2d6b12d3f019b61b427ec3c63270143d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>SI and Imperial unit defs and conversion functions. </p>
@@ -265,11 +252,13 @@ UNIT_FUNC_MODIFIERS <a class="el" href="structmph__t.html">mph_t</a>&#160;</td><
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    _Generic((x), \</div>
-<div class="line">    <a class="code hl_struct" href="structgrams__t.html">grams_t</a>: kilograms_from_grams, \</div>
-<div class="line">    <a class="code hl_struct" href="structpounds__t.html">pounds_t</a>: kilograms_from_pounds \</div>
+<div class="line">    <a class="code hl_struct" href="structgrams__t.html">grams_t</a>: <a class="code hl_function" href="#aba700b0949631122386f01405cfad9fd">kilograms_from_grams</a>, \</div>
+<div class="line">    <a class="code hl_struct" href="structpounds__t.html">pounds_t</a>: <a class="code hl_function" href="#a81ed4df9024fa4d85257945ce151547c">kilograms_from_pounds</a> \</div>
 <div class="line">)(x)</div>
 <div class="ttc" id="astructgrams__t_html"><div class="ttname"><a href="structgrams__t.html">grams_t</a></div><div class="ttdef"><b>Definition</b> units.h:143</div></div>
 <div class="ttc" id="astructpounds__t_html"><div class="ttname"><a href="structpounds__t.html">pounds_t</a></div><div class="ttdef"><b>Definition</b> units.h:145</div></div>
+<div class="ttc" id="aunits_8h_html_a81ed4df9024fa4d85257945ce151547c"><div class="ttname"><a href="#a81ed4df9024fa4d85257945ce151547c">kilograms_from_pounds</a></div><div class="ttdeci">UNIT_FUNC_MODIFIERS kilograms_t kilograms_from_pounds(pounds_t lb)</div><div class="ttdef"><b>Definition</b> units.h:157</div></div>
+<div class="ttc" id="aunits_8h_html_aba700b0949631122386f01405cfad9fd"><div class="ttname"><a href="#aba700b0949631122386f01405cfad9fd">kilograms_from_grams</a></div><div class="ttdeci">UNIT_FUNC_MODIFIERS kilograms_t kilograms_from_grams(grams_t g)</div><div class="ttdef"><b>Definition</b> units.h:152</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -288,17 +277,22 @@ UNIT_FUNC_MODIFIERS <a class="el" href="structmph__t.html">mph_t</a>&#160;</td><
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    _Generic((x), \</div>
-<div class="line">    <a class="code hl_struct" href="structcentimeters__t.html">centimeters_t</a>: meters_from_centimeters, \</div>
-<div class="line">    <a class="code hl_struct" href="structmillimeters__t.html">millimeters_t</a>: meters_from_millimeters, \</div>
-<div class="line">    <a class="code hl_struct" href="structinches__t.html">inches_t</a>: meters_from_inches, \</div>
-<div class="line">    <a class="code hl_struct" href="structfeet__t.html">feet_t</a>: meters_from_feet, \</div>
-<div class="line">    <a class="code hl_struct" href="structmiles__t.html">miles_t</a>: meters_from_miles \</div>
+<div class="line">    <a class="code hl_struct" href="structcentimeters__t.html">centimeters_t</a>: <a class="code hl_function" href="#acd4e79d872c9742fcbf24379538c859d">meters_from_centimeters</a>, \</div>
+<div class="line">    <a class="code hl_struct" href="structmillimeters__t.html">millimeters_t</a>: <a class="code hl_function" href="#a91f7ff0ac01dfd942329208f9a05b62b">meters_from_millimeters</a>, \</div>
+<div class="line">    <a class="code hl_struct" href="structinches__t.html">inches_t</a>: <a class="code hl_function" href="#ae7fb36fd3e75594361c589f4302f12bd">meters_from_inches</a>, \</div>
+<div class="line">    <a class="code hl_struct" href="structfeet__t.html">feet_t</a>: <a class="code hl_function" href="#aa3d619b7f51d445d37ab665fc9cbd0e4">meters_from_feet</a>, \</div>
+<div class="line">    <a class="code hl_struct" href="structmiles__t.html">miles_t</a>: <a class="code hl_function" href="#a3a92f6b57f2276d418b016aa4a5d8b7a">meters_from_miles</a> \</div>
 <div class="line">)(x)</div>
 <div class="ttc" id="astructcentimeters__t_html"><div class="ttname"><a href="structcentimeters__t.html">centimeters_t</a></div><div class="ttdef"><b>Definition</b> units.h:39</div></div>
 <div class="ttc" id="astructfeet__t_html"><div class="ttname"><a href="structfeet__t.html">feet_t</a></div><div class="ttdef"><b>Definition</b> units.h:42</div></div>
 <div class="ttc" id="astructinches__t_html"><div class="ttname"><a href="structinches__t.html">inches_t</a></div><div class="ttdef"><b>Definition</b> units.h:41</div></div>
 <div class="ttc" id="astructmiles__t_html"><div class="ttname"><a href="structmiles__t.html">miles_t</a></div><div class="ttdef"><b>Definition</b> units.h:43</div></div>
 <div class="ttc" id="astructmillimeters__t_html"><div class="ttname"><a href="structmillimeters__t.html">millimeters_t</a></div><div class="ttdef"><b>Definition</b> units.h:40</div></div>
+<div class="ttc" id="aunits_8h_html_a3a92f6b57f2276d418b016aa4a5d8b7a"><div class="ttname"><a href="#a3a92f6b57f2276d418b016aa4a5d8b7a">meters_from_miles</a></div><div class="ttdeci">UNIT_FUNC_MODIFIERS meters_t meters_from_miles(miles_t mi)</div><div class="ttdef"><b>Definition</b> units.h:73</div></div>
+<div class="ttc" id="aunits_8h_html_a91f7ff0ac01dfd942329208f9a05b62b"><div class="ttname"><a href="#a91f7ff0ac01dfd942329208f9a05b62b">meters_from_millimeters</a></div><div class="ttdeci">UNIT_FUNC_MODIFIERS meters_t meters_from_millimeters(millimeters_t mm)</div><div class="ttdef"><b>Definition</b> units.h:58</div></div>
+<div class="ttc" id="aunits_8h_html_aa3d619b7f51d445d37ab665fc9cbd0e4"><div class="ttname"><a href="#aa3d619b7f51d445d37ab665fc9cbd0e4">meters_from_feet</a></div><div class="ttdeci">UNIT_FUNC_MODIFIERS meters_t meters_from_feet(feet_t ft)</div><div class="ttdef"><b>Definition</b> units.h:68</div></div>
+<div class="ttc" id="aunits_8h_html_acd4e79d872c9742fcbf24379538c859d"><div class="ttname"><a href="#acd4e79d872c9742fcbf24379538c859d">meters_from_centimeters</a></div><div class="ttdeci">UNIT_FUNC_MODIFIERS meters_t meters_from_centimeters(centimeters_t cm)</div><div class="ttdef"><b>Definition</b> units.h:53</div></div>
+<div class="ttc" id="aunits_8h_html_ae7fb36fd3e75594361c589f4302f12bd"><div class="ttname"><a href="#ae7fb36fd3e75594361c589f4302f12bd">meters_from_inches</a></div><div class="ttdeci">UNIT_FUNC_MODIFIERS meters_t meters_from_inches(inches_t in)</div><div class="ttdef"><b>Definition</b> units.h:63</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -317,16 +311,449 @@ UNIT_FUNC_MODIFIERS <a class="el" href="structmph__t.html">mph_t</a>&#160;</td><
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    _Generic((x), \</div>
-<div class="line">    <a class="code hl_struct" href="structmilliseconds__t.html">milliseconds_t</a>: seconds_from_milliseconds, \</div>
-<div class="line">    <a class="code hl_struct" href="structminutes__t.html">minutes_t</a>: seconds_from_minutes, \</div>
-<div class="line">    <a class="code hl_struct" href="structhours__t.html">hours_t</a>: seconds_from_hours, \</div>
-<div class="line">    <a class="code hl_struct" href="structdays__t.html">days_t</a>: seconds_from_days \</div>
+<div class="line">    <a class="code hl_struct" href="structmilliseconds__t.html">milliseconds_t</a>: <a class="code hl_function" href="#aee81a04a04fddbff22b55e00ab0aa8ae">seconds_from_milliseconds</a>, \</div>
+<div class="line">    <a class="code hl_struct" href="structminutes__t.html">minutes_t</a>: <a class="code hl_function" href="#a66f7732ed9d8adc9a546ff5dadd8835d">seconds_from_minutes</a>, \</div>
+<div class="line">    <a class="code hl_struct" href="structhours__t.html">hours_t</a>: <a class="code hl_function" href="#a70c55e65f2b0e384ca1f243cfcaa9cc6">seconds_from_hours</a>, \</div>
+<div class="line">    <a class="code hl_struct" href="structdays__t.html">days_t</a>: <a class="code hl_function" href="#a8dbb3cff304a3c5abcba8e3ad7b1f49d">seconds_from_days</a> \</div>
 <div class="line">)(x)</div>
 <div class="ttc" id="astructdays__t_html"><div class="ttname"><a href="structdays__t.html">days_t</a></div><div class="ttdef"><b>Definition</b> units.h:90</div></div>
 <div class="ttc" id="astructhours__t_html"><div class="ttname"><a href="structhours__t.html">hours_t</a></div><div class="ttdef"><b>Definition</b> units.h:89</div></div>
 <div class="ttc" id="astructmilliseconds__t_html"><div class="ttname"><a href="structmilliseconds__t.html">milliseconds_t</a></div><div class="ttdef"><b>Definition</b> units.h:86</div></div>
 <div class="ttc" id="astructminutes__t_html"><div class="ttname"><a href="structminutes__t.html">minutes_t</a></div><div class="ttdef"><b>Definition</b> units.h:88</div></div>
+<div class="ttc" id="aunits_8h_html_a66f7732ed9d8adc9a546ff5dadd8835d"><div class="ttname"><a href="#a66f7732ed9d8adc9a546ff5dadd8835d">seconds_from_minutes</a></div><div class="ttdeci">UNIT_FUNC_MODIFIERS seconds_t seconds_from_minutes(minutes_t min)</div><div class="ttdef"><b>Definition</b> units.h:104</div></div>
+<div class="ttc" id="aunits_8h_html_a70c55e65f2b0e384ca1f243cfcaa9cc6"><div class="ttname"><a href="#a70c55e65f2b0e384ca1f243cfcaa9cc6">seconds_from_hours</a></div><div class="ttdeci">UNIT_FUNC_MODIFIERS seconds_t seconds_from_hours(hours_t hr)</div><div class="ttdef"><b>Definition</b> units.h:109</div></div>
+<div class="ttc" id="aunits_8h_html_a8dbb3cff304a3c5abcba8e3ad7b1f49d"><div class="ttname"><a href="#a8dbb3cff304a3c5abcba8e3ad7b1f49d">seconds_from_days</a></div><div class="ttdeci">UNIT_FUNC_MODIFIERS seconds_t seconds_from_days(days_t d)</div><div class="ttdef"><b>Definition</b> units.h:114</div></div>
+<div class="ttc" id="aunits_8h_html_aee81a04a04fddbff22b55e00ab0aa8ae"><div class="ttname"><a href="#aee81a04a04fddbff22b55e00ab0aa8ae">seconds_from_milliseconds</a></div><div class="ttdeci">UNIT_FUNC_MODIFIERS seconds_t seconds_from_milliseconds(milliseconds_t ms)</div><div class="ttdef"><b>Definition</b> units.h:99</div></div>
 </div><!-- fragment -->
+</div>
+</div>
+<a id="aaac7ee36cf9e2b7589295ad4379852a1" name="aaac7ee36cf9e2b7589295ad4379852a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaac7ee36cf9e2b7589295ad4379852a1">&#9670;&#160;</a></span>UNIT_FUNC_MODIFIERS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UNIT_FUNC_MODIFIERS&#160;&#160;&#160;[[nodiscard, gnu::always_inline]] static inline</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a9ab2ad2b1b02f523213f889b5aa001a5" name="a9ab2ad2b1b02f523213f889b5aa001a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ab2ad2b1b02f523213f889b5aa001a5">&#9670;&#160;</a></span>bar_from_pascals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structbar__t.html">bar_t</a> bar_from_pascals </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpascals__t.html">pascals_t</a></td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a81cff0c3efe33ae0bd8bb3ed88b86579" name="a81cff0c3efe33ae0bd8bb3ed88b86579"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81cff0c3efe33ae0bd8bb3ed88b86579">&#9670;&#160;</a></span>celsius_from()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structcelsius__t.html">celsius_t</a> celsius_from </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfahrenheit__t.html">fahrenheit_t</a></td>          <td class="paramname"><span class="paramname"><em>f</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1092323bbc7d23b1dfce30f84effc8ca" name="a1092323bbc7d23b1dfce30f84effc8ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1092323bbc7d23b1dfce30f84effc8ca">&#9670;&#160;</a></span>degrees_from()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structdegrees__t.html">degrees_t</a> degrees_from </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structradians__t.html">radians_t</a></td>          <td class="paramname"><span class="paramname"><em>rad</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a00b00093f92f39fa20021329c6a1f7c0" name="a00b00093f92f39fa20021329c6a1f7c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00b00093f92f39fa20021329c6a1f7c0">&#9670;&#160;</a></span>fahrenheit_from()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structfahrenheit__t.html">fahrenheit_t</a> fahrenheit_from </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcelsius__t.html">celsius_t</a></td>          <td class="paramname"><span class="paramname"><em>c</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aba700b0949631122386f01405cfad9fd" name="aba700b0949631122386f01405cfad9fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba700b0949631122386f01405cfad9fd">&#9670;&#160;</a></span>kilograms_from_grams()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structkilograms__t.html">kilograms_t</a> kilograms_from_grams </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structgrams__t.html">grams_t</a></td>          <td class="paramname"><span class="paramname"><em>g</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a81ed4df9024fa4d85257945ce151547c" name="a81ed4df9024fa4d85257945ce151547c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81ed4df9024fa4d85257945ce151547c">&#9670;&#160;</a></span>kilograms_from_pounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structkilograms__t.html">kilograms_t</a> kilograms_from_pounds </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpounds__t.html">pounds_t</a></td>          <td class="paramname"><span class="paramname"><em>lb</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a152cfa8e2222cc6147fb8a96448aaafb" name="a152cfa8e2222cc6147fb8a96448aaafb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a152cfa8e2222cc6147fb8a96448aaafb">&#9670;&#160;</a></span>kph_from_mps()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structkph__t.html">kph_t</a> kph_from_mps </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structmps__t.html">mps_t</a></td>          <td class="paramname"><span class="paramname"><em>m</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acd4e79d872c9742fcbf24379538c859d" name="acd4e79d872c9742fcbf24379538c859d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd4e79d872c9742fcbf24379538c859d">&#9670;&#160;</a></span>meters_from_centimeters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structmeters__t.html">meters_t</a> meters_from_centimeters </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcentimeters__t.html">centimeters_t</a></td>          <td class="paramname"><span class="paramname"><em>cm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa3d619b7f51d445d37ab665fc9cbd0e4" name="aa3d619b7f51d445d37ab665fc9cbd0e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3d619b7f51d445d37ab665fc9cbd0e4">&#9670;&#160;</a></span>meters_from_feet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structmeters__t.html">meters_t</a> meters_from_feet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfeet__t.html">feet_t</a></td>          <td class="paramname"><span class="paramname"><em>ft</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae7fb36fd3e75594361c589f4302f12bd" name="ae7fb36fd3e75594361c589f4302f12bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7fb36fd3e75594361c589f4302f12bd">&#9670;&#160;</a></span>meters_from_inches()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structmeters__t.html">meters_t</a> meters_from_inches </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structinches__t.html">inches_t</a></td>          <td class="paramname"><span class="paramname"><em>in</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3a92f6b57f2276d418b016aa4a5d8b7a" name="a3a92f6b57f2276d418b016aa4a5d8b7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a92f6b57f2276d418b016aa4a5d8b7a">&#9670;&#160;</a></span>meters_from_miles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structmeters__t.html">meters_t</a> meters_from_miles </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structmiles__t.html">miles_t</a></td>          <td class="paramname"><span class="paramname"><em>mi</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a91f7ff0ac01dfd942329208f9a05b62b" name="a91f7ff0ac01dfd942329208f9a05b62b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91f7ff0ac01dfd942329208f9a05b62b">&#9670;&#160;</a></span>meters_from_millimeters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structmeters__t.html">meters_t</a> meters_from_millimeters </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structmillimeters__t.html">millimeters_t</a></td>          <td class="paramname"><span class="paramname"><em>mm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab73a5822e863b2424a19260ef660e431" name="ab73a5822e863b2424a19260ef660e431"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab73a5822e863b2424a19260ef660e431">&#9670;&#160;</a></span>mph_from_mps()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structmph__t.html">mph_t</a> mph_from_mps </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structmps__t.html">mps_t</a></td>          <td class="paramname"><span class="paramname"><em>m</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8390eb115b8b4f0decb0024c2f0db6d8" name="a8390eb115b8b4f0decb0024c2f0db6d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8390eb115b8b4f0decb0024c2f0db6d8">&#9670;&#160;</a></span>mps_from_kph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structmps__t.html">mps_t</a> mps_from_kph </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structkph__t.html">kph_t</a></td>          <td class="paramname"><span class="paramname"><em>k</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a134a1af1447576f2d612effd3dd72987" name="a134a1af1447576f2d612effd3dd72987"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a134a1af1447576f2d612effd3dd72987">&#9670;&#160;</a></span>mps_from_mph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structmps__t.html">mps_t</a> mps_from_mph </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structmph__t.html">mph_t</a></td>          <td class="paramname"><span class="paramname"><em>m</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a57a124bae0d54ef30a0e9fdeb5159ba0" name="a57a124bae0d54ef30a0e9fdeb5159ba0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57a124bae0d54ef30a0e9fdeb5159ba0">&#9670;&#160;</a></span>pascals_from_bar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structpascals__t.html">pascals_t</a> pascals_from_bar </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structbar__t.html">bar_t</a></td>          <td class="paramname"><span class="paramname"><em>b</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa95451fbd0b4f7b3e9c07aa67ff23ae3" name="aa95451fbd0b4f7b3e9c07aa67ff23ae3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa95451fbd0b4f7b3e9c07aa67ff23ae3">&#9670;&#160;</a></span>pascals_from_psi()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structpascals__t.html">pascals_t</a> pascals_from_psi </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpsi__t.html">psi_t</a></td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a67bf1ca6f464d8614a560fd6a5240797" name="a67bf1ca6f464d8614a560fd6a5240797"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67bf1ca6f464d8614a560fd6a5240797">&#9670;&#160;</a></span>psi_from_pascals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structpsi__t.html">psi_t</a> psi_from_pascals </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpascals__t.html">pascals_t</a></td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a26dfa6ea5330d6e36fffea1cc12edd00" name="a26dfa6ea5330d6e36fffea1cc12edd00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26dfa6ea5330d6e36fffea1cc12edd00">&#9670;&#160;</a></span>radians_from()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structradians__t.html">radians_t</a> radians_from </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdegrees__t.html">degrees_t</a></td>          <td class="paramname"><span class="paramname"><em>deg</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8dbb3cff304a3c5abcba8e3ad7b1f49d" name="a8dbb3cff304a3c5abcba8e3ad7b1f49d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dbb3cff304a3c5abcba8e3ad7b1f49d">&#9670;&#160;</a></span>seconds_from_days()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structseconds__t.html">seconds_t</a> seconds_from_days </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdays__t.html">days_t</a></td>          <td class="paramname"><span class="paramname"><em>d</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a70c55e65f2b0e384ca1f243cfcaa9cc6" name="a70c55e65f2b0e384ca1f243cfcaa9cc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70c55e65f2b0e384ca1f243cfcaa9cc6">&#9670;&#160;</a></span>seconds_from_hours()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structseconds__t.html">seconds_t</a> seconds_from_hours </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhours__t.html">hours_t</a></td>          <td class="paramname"><span class="paramname"><em>hr</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aee81a04a04fddbff22b55e00ab0aa8ae" name="aee81a04a04fddbff22b55e00ab0aa8ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee81a04a04fddbff22b55e00ab0aa8ae">&#9670;&#160;</a></span>seconds_from_milliseconds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structseconds__t.html">seconds_t</a> seconds_from_milliseconds </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structmilliseconds__t.html">milliseconds_t</a></td>          <td class="paramname"><span class="paramname"><em>ms</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a66f7732ed9d8adc9a546ff5dadd8835d" name="a66f7732ed9d8adc9a546ff5dadd8835d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66f7732ed9d8adc9a546ff5dadd8835d">&#9670;&#160;</a></span>seconds_from_minutes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aaac7ee36cf9e2b7589295ad4379852a1">UNIT_FUNC_MODIFIERS</a> <a class="el" href="structseconds__t.html">seconds_t</a> seconds_from_minutes </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structminutes__t.html">minutes_t</a></td>          <td class="paramname"><span class="paramname"><em>min</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a2d6b12d3f019b61b427ec3c63270143d" name="a2d6b12d3f019b61b427ec3c63270143d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d6b12d3f019b61b427ec3c63270143d">&#9670;&#160;</a></span>PI_F</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PI_F = 3.1415926535f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->

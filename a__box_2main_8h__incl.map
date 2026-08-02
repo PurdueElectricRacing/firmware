@@ -1,0 +1,31 @@
+<map id="source/a_box/main.h" name="source/a_box/main.h">
+<area shape="rect" id="Node000001" title="&quot;Abox&quot; node source code" alt="" coords="168,5,309,31"/>
+<area shape="rect" id="Node000002" href="$phal_2gpio_8h.html" title=" " alt="" coords="71,153,209,178"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="233,33,159,141,154,138,228,30"/>
+<area shape="rect" id="Node000006" href="$adbms_8h.html" title="Primary logic and interface for ADBMS battery management system driver." alt="" coords="302,79,372,105"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="257,29,310,68,307,72,254,34"/>
+<area shape="rect" id="Node000003" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="79,300,249,326"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="131,180,111,213,107,232,109,251,121,271,137,288,133,292,117,274,104,253,101,232,107,211,127,178"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="127,374,201,399"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="167,326,167,358,161,358,161,326"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="342,374,405,399"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="200,324,327,367,326,372,199,329"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="302,98,240,104,167,115,102,131,78,142,62,155,50,162,35,165,21,168,12,175,8,189,14,216,33,260,69,324,89,347,116,364,113,369,86,351,64,327,28,262,9,217,3,188,7,171,19,163,34,160,48,157,58,150,75,137,100,126,166,109,239,99,301,93"/>
+<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="373,93,434,103,506,125,541,142,572,164,598,192,616,226,620,258,610,286,589,310,560,331,525,347,489,361,421,379,419,374,487,356,523,343,557,326,585,306,605,284,615,257,611,227,593,195,569,168,538,147,504,130,433,108,372,98"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="469,300,536,326"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="373,97,425,111,487,136,518,152,547,173,573,197,594,225,599,246,589,265,570,282,548,295,545,291,567,277,585,262,593,245,590,227,569,200,544,177,515,157,485,140,424,116,372,102"/>
+<area shape="rect" id="Node000008" href="$adbms6380_8h.html" title="Low level BMS driver specific to ADBMS6380 chip." alt="" coords="288,153,386,178"/>
+<area shape="poly" id="edge9_Node000006_Node000008" title=" " alt="" coords="340,105,340,137,335,137,335,105"/>
+<area shape="rect" id="Node000009" href="$phal_2spi_8h.html" title=" " alt="" coords="119,226,249,252"/>
+<area shape="poly" id="edge18_Node000006_Node000009" title=" " alt="" coords="327,107,209,218,206,214,323,103"/>
+<area shape="rect" id="Node000010" href="$strbuf_8h.html" title="Fixed&#45;size string builder. Useful for building large CMD strings before transmission." alt="" coords="425,226,580,252"/>
+<area shape="poly" id="edge19_Node000006_Node000010" title=" " alt="" coords="353,103,479,214,476,218,349,107"/>
+<area shape="poly" id="edge10_Node000008_Node000004" title=" " alt="" coords="337,180,313,247,291,289,263,327,237,351,208,368,205,364,233,346,259,324,287,286,308,245,332,178"/>
+<area shape="poly" id="edge12_Node000008_Node000005" title=" " alt="" coords="342,178,372,358,366,359,337,179"/>
+<area shape="poly" id="edge11_Node000008_Node000007" title=" " alt="" coords="348,177,377,211,415,250,470,289,467,294,412,254,373,215,344,180"/>
+<area shape="poly" id="edge13_Node000008_Node000009" title=" " alt="" coords="312,181,225,222,223,217,310,176"/>
+<area shape="poly" id="edge15_Node000008_Node000010" title=" " alt="" coords="366,176,462,217,460,222,364,181"/>
+<area shape="poly" id="edge14_Node000009_Node000003" title=" " alt="" coords="183,253,174,286,169,284,178,252"/>
+<area shape="poly" id="edge16_Node000010_Node000005" title=" " alt="" coords="494,254,396,364,392,360,490,251"/>
+<area shape="poly" id="edge17_Node000010_Node000007" title=" " alt="" coords="505,252,505,284,500,284,500,252"/>
+</map>

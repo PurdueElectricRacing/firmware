@@ -1,0 +1,9 @@
+<map id="RTC_sync" name="RTC_sync">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,87,80"/>
+<area shape="rect" id="Node000002" href="$a__box_2main_8c.html#a2bffc10d5bd4106753b7c30e86903bea" title=" " alt="" coords="141,5,271,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,53,147,34,148,39,88,58"/>
+<area shape="rect" id="Node000003" href="$rtc_8c.html#a059df4130655bc5aa68ee006666cc437" title=" " alt="" coords="135,55,277,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="87,65,119,65,119,70,87,70"/>
+<area shape="rect" id="Node000004" href="$rtc__sync_8c.html#ac7d5935a8695ea3c13431172961bf35f" title=" " alt="" coords="152,104,260,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="88,77,148,96,147,101,86,82"/>
+</map>

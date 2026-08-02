@@ -1,0 +1,12 @@
+<map id="source/main_module/torque_controller/torque_controller.h" name="source/main_module/torque_controller/torque_controller.h">
+<area shape="rect" id="Node000001" title="Vehicle torque request calculation." alt="" coords="10,5,171,61"/>
+<area shape="rect" id="Node000002" href="$powertrain_8h.html" title="Powertrain implementation." alt="" coords="45,109,136,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,61,93,93,88,93,88,61"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,264,69,290"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="86,136,65,184,45,250,40,249,60,182,81,134"/>
+<area shape="rect" id="Node000004" href="$common_2amk_2amk_8h.html" title="Modernized AMK driver." alt="" coords="74,183,213,208"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="101,133,128,168,123,172,97,136"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="129,211,67,257,64,252,126,207"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="93,256,237,297"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="149,208,158,241,153,242,144,209"/>
+</map>

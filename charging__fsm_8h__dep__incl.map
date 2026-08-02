@@ -1,0 +1,7 @@
+<map id="source/a_box/charging_fsm/charging_fsm.h" name="source/a_box/charging_fsm/charging_fsm.h">
+<area shape="rect" id="Node000001" title="Charger control state machine implementation." alt="" coords="89,5,241,46"/>
+<area shape="rect" id="Node000002" href="$charging__fsm_8c.html" title="Charger control state machine implementation." alt="" coords="5,94,157,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,59,102,95,98,92,133,56"/>
+<area shape="rect" id="Node000003" href="$a__box_2main_8c.html" title="&quot;Abox&quot; node source code" alt="" coords="180,102,320,127"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="197,55,241,99,237,103,193,59"/>
+</map>

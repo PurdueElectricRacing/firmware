@@ -1,0 +1,19 @@
+<map id="MS_incrementValue" name="MS_incrementValue">
+<area shape="rect" id="Node000001" title="Increments the value of a menu element and updates its display." alt="" coords="5,79,144,104"/>
+<area shape="rect" id="Node000002" href="$menu__system_8c.html#a0e536353f8e34a992b1070bcf883320b" title=" " alt="" coords="192,53,356,79"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,80,176,76,176,81,144,85"/>
+<area shape="rect" id="Node000007" href="$nextion_8c.html#ac7e3e9fc4674d17281069e97b8a5384d" title="Sets a value to a specified object on the Nextion display." alt="" coords="430,104,536,130"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="144,93,414,110,413,115,144,98"/>
+<area shape="rect" id="Node000003" href="$nextion_8c.html#ab2a89fd8e292338a6e570a41a698ad3a" title="Sets the text of a Nextion display object." alt="" coords="434,55,532,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="357,64,418,64,418,70,357,69"/>
+<area shape="rect" id="Node000006" href="$nextion_8c.html#a8af8629d8160abf996231ff267e43564" title="Sets the text of a Nextion display object using printf&#45;style formatting." alt="" coords="404,5,561,31"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="333,50,408,32,409,38,334,55"/>
+<area shape="rect" id="Node000004" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="609,31,713,56"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="532,58,593,50,594,55,533,64"/>
+<area shape="rect" id="Node000005" href="$strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf" title="Appends formatted data to the buffer using printf&#45;style formatting. !" alt="" coords="616,80,706,106"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="533,72,601,82,600,87,532,77"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="562,27,594,31,593,37,561,32"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="534,29,562,40,611,66,618,70,616,75,608,71,560,45,532,34"/>
+<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="531,101,560,90,608,65,617,61,619,66,611,70,562,95,533,106"/>
+<area shape="poly" id="edge10_Node000007_Node000005" title=" " alt="" coords="536,107,601,98,601,104,537,112"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="CRC_PRIV_reset" name="CRC_PRIV_reset">
+<area shape="rect" id="Node000001" title="Reset the CRC unit, reloading the initial value into the data register." alt="" coords="204,5,326,31"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2crc_2crc_8c.html#a9ebd7adedb01ce80f8512a427a80f6ef" title="Compute a CRC&#45;32/MPEG&#45;2 over a word buffer using the hardware unit." alt="" coords="5,5,156,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,21,156,21,156,16,188,16"/>
+</map>

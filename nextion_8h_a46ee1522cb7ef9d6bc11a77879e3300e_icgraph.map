@@ -1,0 +1,7 @@
+<map id="NXT_setBorderColor" name="NXT_setBorderColor">
+<area shape="rect" id="Node000001" title="Sets the border color of a specified object on the Nextion display." alt="" coords="435,5,576,31"/>
+<area shape="rect" id="Node000002" href="$race_8c.html#af94dd7e3b6512b662e2e44124a1a660c" title=" " alt="" coords="206,5,387,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="419,21,387,21,387,16,419,16"/>
+<area shape="rect" id="Node000003" href="$race_8c.html#a07291ac7d61fe81b6a92f48d9b55b092" title="Updates telemetry data on the race dashboard LCD display." alt="" coords="5,5,158,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="190,21,158,21,158,16,190,16"/>
+</map>

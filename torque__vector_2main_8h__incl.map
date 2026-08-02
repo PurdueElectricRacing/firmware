@@ -1,0 +1,12 @@
+<map id="source/torque_vector/main.h" name="source/torque_vector/main.h">
+<area shape="rect" id="Node000001" title="&quot;Torque Vector&quot; node source code" alt="" coords="5,5,149,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="8,241,71,267"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="73,47,61,95,50,165,44,226,39,225,45,165,56,93,68,45"/>
+<area shape="rect" id="Node000003" href="$phal_2gpio_8h.html" title=" " alt="" coords="70,94,207,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="94,45,122,80,117,83,90,48"/>
+<area shape="rect" id="Node000004" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="62,168,231,193"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="142,120,146,152,141,153,137,120"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="130,196,72,235,69,230,127,192"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="110,241,183,267"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="149,194,149,226,144,226,144,194"/>
+</map>

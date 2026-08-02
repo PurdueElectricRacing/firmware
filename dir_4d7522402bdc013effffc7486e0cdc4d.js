@@ -4,6 +4,7 @@ var dir_4d7522402bdc013effffc7486e0cdc4d =
     [ "sensors", "dir_2529a79e5dbb50670000f2759231cf73.html", "dir_2529a79e5dbb50670000f2759231cf73" ],
     [ "telemetry", "dir_08d1102270f76996924a0ce5491e61fb.html", "dir_08d1102270f76996924a0ce5491e61fb" ],
     [ "vcu", "dir_06ff083ad7982b33af25878f732270e9.html", "dir_06ff083ad7982b33af25878f732270e9" ],
-    [ "main.c", "torque__vector_2main_8c.html", null ],
-    [ "main.h", "torque__vector_2main_8h.html", null ]
+    [ "main.c", "torque__vector_2main_8c.html", "torque__vector_2main_8c" ],
+    [ "main.h", "torque__vector_2main_8h.html", "torque__vector_2main_8h" ],
+    [ "torque_vectoring.drawio.png", "torque__vectoring_8drawio_8png.html", null ]
 ];

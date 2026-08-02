@@ -1,0 +1,19 @@
+<map id="USB_PRIV_write" name="USB_PRIV_write">
+<area shape="rect" id="Node000001" title="Copy one IN packet to packet memory and make it available to the host." alt="" coords="5,132,128,158"/>
+<area shape="rect" id="Node000002" href="$usb__priv_8c.html#a7312b4dfb274b8c4e34c683499ad5e76" title=" " alt="" coords="186,5,314,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,130,119,91,174,48,197,36,200,40,177,52,122,95,82,134"/>
+<area shape="rect" id="Node000003" href="$usb__priv_8c.html#a34ead234195e6e26e97662c2db3b9dbb" title=" " alt="" coords="373,56,521,82"/>
+<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="89,129,128,109,175,92,268,74,357,67,357,72,269,79,176,97,131,114,92,134"/>
+<area shape="rect" id="Node000004" href="$usb__priv_8c.html#a8cc0caddc361cdd67eaeed0a71762c82" title=" " alt="" coords="187,205,314,231"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="96,156,177,192,192,197,190,202,175,197,94,161"/>
+<area shape="rect" id="Node000006" href="$usb__priv_8c.html#ae50319496e974387c6b5a0668b825cb9" title=" " alt="" coords="180,156,321,182"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="129,150,165,155,164,160,128,155"/>
+<area shape="rect" id="Node000007" href="$usb__priv_8c.html#aeac1c8e012ea840bd62b75d951b16358" title=" " alt="" coords="195,107,306,132"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="128,134,180,126,181,132,129,139"/>
+<area shape="rect" id="Node000008" href="$usb__priv_8c.html#a80afa30e860ee2cbe11c0b317bd72e0e" title=" " alt="" coords="176,255,325,280"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="81,156,121,198,148,221,177,241,186,246,183,251,174,246,144,225,117,202,77,160"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="304,29,380,49,379,54,303,34"/>
+<area shape="rect" id="Node000005" href="$usb__priv_8c.html#a3b7fce8b1f0de310ffffbe258ad7c6d7" title=" " alt="" coords="410,205,484,231"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="314,216,395,216,395,221,314,221"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="303,103,379,84,380,89,304,109"/>
+</map>

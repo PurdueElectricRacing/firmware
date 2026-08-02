@@ -1,0 +1,9 @@
+<map id="PHAL_CRC_calculate" name="PHAL_CRC_calculate">
+<area shape="rect" id="Node000001" title="Compute a CRC&#45;32/MPEG&#45;2 over a word buffer using the hardware unit." alt="" coords="5,55,156,80"/>
+<area shape="rect" id="Node000002" href="$crc__priv_8c.html#ab1a0cc118e77cdc921bc336740e34772" title="Feed one 32&#45;bit word into the CRC data register." alt="" coords="207,5,356,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="135,51,210,33,212,38,137,57"/>
+<area shape="rect" id="Node000003" href="$crc__priv_8c.html#ac1a6c7dbe0062acdba1f9fe6a482c759" title="Read the accumulated CRC result from the data register." alt="" coords="204,55,359,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="156,65,188,65,188,70,156,70"/>
+<area shape="rect" id="Node000004" href="$crc__priv_8c.html#a105341215acce26dd1570c77e590e299" title="Reset the CRC unit, reloading the initial value into the data register." alt="" coords="220,104,342,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="137,78,212,97,210,102,135,84"/>
+</map>

@@ -1,0 +1,19 @@
+<map id="source/dashboard/driver_interface/pages/amk.c" name="source/dashboard/driver_interface/pages/amk.c">
+<area shape="rect" id="Node000001" title="AMK page implementation." alt="" coords="168,5,328,46"/>
+<area shape="rect" id="Node000002" href="$source_2dashboard_2driver__interface_2pages_2amk_8h.html" title="AMK page implementation." alt="" coords="5,102,62,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,49,75,96,73,97,71,92,72,92,193,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="85,94,230,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="229,48,191,85,187,81,226,45"/>
+<area shape="rect" id="Node000004" href="$nextion_8h.html" title="Nextion display driver interface." alt="" coords="253,102,424,127"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="271,45,317,89,314,93,267,48"/>
+<area shape="rect" id="Node000008" href="$colors_8h.html" title="Color definitions for LCD display." alt="" coords="428,183,495,208"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="330,35,387,56,415,72,438,92,450,110,458,129,464,167,459,168,453,131,445,112,434,96,411,76,385,60,328,40"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="370,256,433,282"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="346,127,393,241,388,243,341,129"/>
+<area shape="rect" id="Node000006" href="$strbuf_8h.html" title="Fixed&#45;size string builder. Useful for building large CMD strings before transmission." alt="" coords="289,183,354,208"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="339,128,330,168,325,167,334,127"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="337,207,379,244,375,248,333,211"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="278,256,346,282"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="323,209,318,241,313,241,317,208"/>
+<area shape="poly" id="edge9_Node000008_Node000005" title=" " alt="" coords="454,210,423,246,419,243,450,207"/>
+</map>

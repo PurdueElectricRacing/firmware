@@ -1,0 +1,7 @@
+<map id="common/freertos/freertos.c" name="common/freertos/freertos.c">
+<area shape="rect" id="Node000001" title="Native FreeRTOS wrapper implementation." alt="" coords="5,5,183,31"/>
+<area shape="rect" id="Node000002" href="$freertos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="56,79,132,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,31,97,63,91,63,91,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="62,153,126,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="97,105,97,137,91,137,91,105"/>
+</map>

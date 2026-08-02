@@ -98,7 +98,8 @@ $(function(){initNavTree('can__codec_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">can_codec.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -107,22 +108,377 @@ $(function(){initNavTree('can__codec_8h.html',''); initResizable(true); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for can_codec.h:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec_8h__incl.svg" width="171" height="111"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec_8h__dep__incl.svg" width="171" height="126"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <p><a href="can__codec_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a0321a1a94e67549bfb77eba5270e5de3" id="r_a0321a1a94e67549bfb77eba5270e5de3"><td class="memItemLeft" align="right" valign="top"><a id="a0321a1a94e67549bfb77eba5270e5de3" name="a0321a1a94e67549bfb77eba5270e5de3"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>bswap_width_t</b> : uint8_t { <b>BSWAP_NONE</b> = 0
-, <b>BSWAP_16</b> = 16
-, <b>BSWAP_32</b> = 32
-, <b>BSWAP_64</b> = 64
+<tr class="memitem:a0321a1a94e67549bfb77eba5270e5de3" id="r_a0321a1a94e67549bfb77eba5270e5de3"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0321a1a94e67549bfb77eba5270e5de3">bswap_width_t</a> : uint8_t { <a class="el" href="#a0321a1a94e67549bfb77eba5270e5de3a288ad93482de65078424d0a20670075e">BSWAP_NONE</a> = 0
+, <a class="el" href="#a0321a1a94e67549bfb77eba5270e5de3a14a6723f6515b40b36333436b6fea00b">BSWAP_16</a> = 16
+, <a class="el" href="#a0321a1a94e67549bfb77eba5270e5de3a3d0b1ec0c715a0c1ee03ddd3ca7706b9">BSWAP_32</a> = 32
+, <a class="el" href="#a0321a1a94e67549bfb77eba5270e5de3a6ae1f3849288b8b3db740f2bf6599723">BSWAP_64</a> = 64
  }</td></tr>
 <tr class="separator:a0321a1a94e67549bfb77eba5270e5de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a1ffbd7318559fdd74ae2cb491a424bda" id="r_a1ffbd7318559fdd74ae2cb491a424bda"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ffbd7318559fdd74ae2cb491a424bda">CAN_apply_bswap</a> (uint64_t raw, <a class="el" href="#a0321a1a94e67549bfb77eba5270e5de3">bswap_width_t</a> bswap_width)</td></tr>
+<tr class="separator:a1ffbd7318559fdd74ae2cb491a424bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2e8845d8bca9455b72e15d049753334" id="r_ab2e8845d8bca9455b72e15d049753334"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2e8845d8bca9455b72e15d049753334">CAN_load_payload_u64</a> (const uint8_t *data, uint8_t len)</td></tr>
+<tr class="separator:ab2e8845d8bca9455b72e15d049753334"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ba7cd673ebc72d6164e744be452602f" id="r_a2ba7cd673ebc72d6164e744be452602f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ba7cd673ebc72d6164e744be452602f">CAN_store_payload_u64</a> (uint8_t *dest, uint64_t payload, uint8_t len)</td></tr>
+<tr class="separator:a2ba7cd673ebc72d6164e744be452602f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4a71d75c81b7dee78d6c6b19ace0b97" id="r_ac4a71d75c81b7dee78d6c6b19ace0b97"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4a71d75c81b7dee78d6c6b19ace0b97">CAN_pack_raw_signal</a> (uint64_t payload, uint64_t raw, uint64_t mask, uint8_t bit_shift, <a class="el" href="#a0321a1a94e67549bfb77eba5270e5de3">bswap_width_t</a> bswap_width)</td></tr>
+<tr class="separator:ac4a71d75c81b7dee78d6c6b19ace0b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbc238a552603058cbc63c531e3792fd" id="r_adbc238a552603058cbc63c531e3792fd"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adbc238a552603058cbc63c531e3792fd">CAN_unpack_raw_signal</a> (uint64_t payload, uint64_t mask, uint8_t bit_shift, <a class="el" href="#a0321a1a94e67549bfb77eba5270e5de3">bswap_width_t</a> bswap_width)</td></tr>
+<tr class="separator:adbc238a552603058cbc63c531e3792fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8b66507795ad02e6db16a6e1d0cfafc" id="r_aa8b66507795ad02e6db16a6e1d0cfafc"><td class="memItemLeft" align="right" valign="top">static int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8b66507795ad02e6db16a6e1d0cfafc">CAN_sign_extend_raw</a> (uint64_t raw, uint8_t bit_length)</td></tr>
+<tr class="separator:aa8b66507795ad02e6db16a6e1d0cfafc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76430f63feb96801fb5857acdc455615" id="r_a76430f63feb96801fb5857acdc455615"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a76430f63feb96801fb5857acdc455615">CAN_float32_to_raw</a> (float value)</td></tr>
+<tr class="separator:a76430f63feb96801fb5857acdc455615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae79aa8aeb32351afeef8ee880d1c7de" id="r_aae79aa8aeb32351afeef8ee880d1c7de"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aae79aa8aeb32351afeef8ee880d1c7de">CAN_raw_to_float32</a> (uint64_t raw)</td></tr>
+<tr class="separator:aae79aa8aeb32351afeef8ee880d1c7de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Force-inlined helpers for generated CAN signal packing and unpacking. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a0321a1a94e67549bfb77eba5270e5de3" name="a0321a1a94e67549bfb77eba5270e5de3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0321a1a94e67549bfb77eba5270e5de3">&#9670;&#160;</a></span>bswap_width_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a0321a1a94e67549bfb77eba5270e5de3">bswap_width_t</a> : uint8_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a0321a1a94e67549bfb77eba5270e5de3a288ad93482de65078424d0a20670075e" name="a0321a1a94e67549bfb77eba5270e5de3a288ad93482de65078424d0a20670075e"></a>BSWAP_NONE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0321a1a94e67549bfb77eba5270e5de3a14a6723f6515b40b36333436b6fea00b" name="a0321a1a94e67549bfb77eba5270e5de3a14a6723f6515b40b36333436b6fea00b"></a>BSWAP_16&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0321a1a94e67549bfb77eba5270e5de3a3d0b1ec0c715a0c1ee03ddd3ca7706b9" name="a0321a1a94e67549bfb77eba5270e5de3a3d0b1ec0c715a0c1ee03ddd3ca7706b9"></a>BSWAP_32&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0321a1a94e67549bfb77eba5270e5de3a6ae1f3849288b8b3db740f2bf6599723" name="a0321a1a94e67549bfb77eba5270e5de3a6ae1f3849288b8b3db740f2bf6599723"></a>BSWAP_64&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a1ffbd7318559fdd74ae2cb491a424bda" name="a1ffbd7318559fdd74ae2cb491a424bda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ffbd7318559fdd74ae2cb491a424bda">&#9670;&#160;</a></span>CAN_apply_bswap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint64_t CAN_apply_bswap </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t</td>          <td class="paramname"><span class="paramname"><em>raw</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a0321a1a94e67549bfb77eba5270e5de3">bswap_width_t</a></td>          <td class="paramname"><span class="paramname"><em>bswap_width</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec_8h_a1ffbd7318559fdd74ae2cb491a424bda_icgraph.svg" width="664" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a76430f63feb96801fb5857acdc455615" name="a76430f63feb96801fb5857acdc455615"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76430f63feb96801fb5857acdc455615">&#9670;&#160;</a></span>CAN_float32_to_raw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint64_t CAN_float32_to_raw </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec_8h_a76430f63feb96801fb5857acdc455615_icgraph.svg" width="420" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab2e8845d8bca9455b72e15d049753334" name="ab2e8845d8bca9455b72e15d049753334"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2e8845d8bca9455b72e15d049753334">&#9670;&#160;</a></span>CAN_load_payload_u64()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint64_t CAN_load_payload_u64 </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t *</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>len</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec_8h_ab2e8845d8bca9455b72e15d049753334_icgraph.svg" width="459" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ac4a71d75c81b7dee78d6c6b19ace0b97" name="ac4a71d75c81b7dee78d6c6b19ace0b97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4a71d75c81b7dee78d6c6b19ace0b97">&#9670;&#160;</a></span>CAN_pack_raw_signal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint64_t CAN_pack_raw_signal </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t</td>          <td class="paramname"><span class="paramname"><em>payload</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t</td>          <td class="paramname"><span class="paramname"><em>raw</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t</td>          <td class="paramname"><span class="paramname"><em>mask</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>bit_shift</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a0321a1a94e67549bfb77eba5270e5de3">bswap_width_t</a></td>          <td class="paramname"><span class="paramname"><em>bswap_width</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec_8h_ac4a71d75c81b7dee78d6c6b19ace0b97_cgraph.svg" width="344" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec_8h_ac4a71d75c81b7dee78d6c6b19ace0b97_icgraph.svg" width="471" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aae79aa8aeb32351afeef8ee880d1c7de" name="aae79aa8aeb32351afeef8ee880d1c7de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae79aa8aeb32351afeef8ee880d1c7de">&#9670;&#160;</a></span>CAN_raw_to_float32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float CAN_raw_to_float32 </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t</td>          <td class="paramname"><span class="paramname"><em>raw</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec_8h_aae79aa8aeb32351afeef8ee880d1c7de_icgraph.svg" width="420" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aa8b66507795ad02e6db16a6e1d0cfafc" name="aa8b66507795ad02e6db16a6e1d0cfafc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8b66507795ad02e6db16a6e1d0cfafc">&#9670;&#160;</a></span>CAN_sign_extend_raw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int64_t CAN_sign_extend_raw </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t</td>          <td class="paramname"><span class="paramname"><em>raw</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>bit_length</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec_8h_aa8b66507795ad02e6db16a6e1d0cfafc_icgraph.svg" width="471" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a2ba7cd673ebc72d6164e744be452602f" name="a2ba7cd673ebc72d6164e744be452602f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ba7cd673ebc72d6164e744be452602f">&#9670;&#160;</a></span>CAN_store_payload_u64()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void CAN_store_payload_u64 </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t</td>          <td class="paramname"><span class="paramname"><em>payload</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>len</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec_8h_a2ba7cd673ebc72d6164e744be452602f_icgraph.svg" width="464" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="adbc238a552603058cbc63c531e3792fd" name="adbc238a552603058cbc63c531e3792fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbc238a552603058cbc63c531e3792fd">&#9670;&#160;</a></span>CAN_unpack_raw_signal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint64_t CAN_unpack_raw_signal </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t</td>          <td class="paramname"><span class="paramname"><em>payload</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t</td>          <td class="paramname"><span class="paramname"><em>mask</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>bit_shift</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a0321a1a94e67549bfb77eba5270e5de3">bswap_width_t</a></td>          <td class="paramname"><span class="paramname"><em>bswap_width</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec_8h_adbc238a552603058cbc63c531e3792fd_cgraph.svg" width="358" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec_8h_adbc238a552603058cbc63c531e3792fd_icgraph.svg" width="486" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

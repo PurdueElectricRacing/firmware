@@ -11,5 +11,5 @@ var dir_977239e98dcb81927fd2c50e4ca080d6 =
     [ "rtc", "dir_8830d50d1111122dbc3e775e0986b24a.html", "dir_8830d50d1111122dbc3e775e0986b24a" ],
     [ "spi", "dir_f842c9e0f1512106f6edbc50bbce86e5.html", "dir_f842c9e0f1512106f6edbc50bbce86e5" ],
     [ "usart", "dir_fed4094901a712712d3a7fdaf1adbfa0.html", "dir_fed4094901a712712d3a7fdaf1adbfa0" ],
-    [ "phal_F4.h", "phal__F4_8h_source.html", null ]
+    [ "phal_F4.h", "phal__F4_8h.html", null ]
 ];

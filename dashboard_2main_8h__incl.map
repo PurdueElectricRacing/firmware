@@ -1,0 +1,12 @@
+<map id="source/dashboard/main.h" name="source/dashboard/main.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,172,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="20,226,83,252"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,32,72,80,61,150,55,211,50,210,56,150,67,78,81,31"/>
+<area shape="rect" id="Node000003" href="$phal_2gpio_8h.html" title=" " alt="" coords="81,79,218,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="101,29,132,65,128,69,97,33"/>
+<area shape="rect" id="Node000004" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="73,153,242,178"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="154,105,157,137,152,138,149,105"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="141,181,83,220,81,215,138,177"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="121,226,194,252"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="160,179,160,211,155,211,155,179"/>
+</map>

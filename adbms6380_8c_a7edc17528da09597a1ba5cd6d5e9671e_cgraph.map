@@ -1,0 +1,5 @@
+<map id="adbms6380_calculate_cfg_regb" name="adbms6380_calculate_cfg_regb">
+<area shape="rect" id="Node000001" title="Calculate the REG_B configuration register value." alt="" coords="5,5,153,46"/>
+<area shape="rect" id="Node000002" href="$adbms6380_8c.html#a7dba9c62715355f360c6e4f1b150d334" title="Convert a voltage threshold (V) into 12&#45;bit REG_B threshold encoding." alt="" coords="201,5,374,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,23,185,23,185,28,153,28"/>
+</map>

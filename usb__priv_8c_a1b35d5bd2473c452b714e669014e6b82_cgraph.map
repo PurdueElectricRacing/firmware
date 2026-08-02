@@ -1,0 +1,12 @@
+<map id="usb_configure_endpoint" name="usb_configure_endpoint">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,80,163,106"/>
+<area shape="rect" id="Node000002" href="$usb__priv_8c.html#ae50319496e974387c6b5a0668b825cb9" title=" " alt="" coords="214,5,356,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,77,210,40,226,34,228,39,212,45,118,82"/>
+<area shape="rect" id="Node000003" href="$usb__priv_8c.html#a34ead234195e6e26e97662c2db3b9dbb" title=" " alt="" coords="211,55,359,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="163,80,195,76,196,81,163,86"/>
+<area shape="rect" id="Node000004" href="$usb__priv_8c.html#aca373172c04b6704271473559fe35015" title=" " alt="" coords="213,104,357,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="163,100,198,104,197,109,163,105"/>
+<area shape="rect" id="Node000005" href="$usb__priv_8c.html#a80afa30e860ee2cbe11c0b317bd72e0e" title=" " alt="" coords="407,129,556,155"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="112,104,157,124,211,140,303,149,391,148,391,153,303,154,210,145,156,129,110,109"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="358,123,392,128,391,133,357,129"/>
+</map>

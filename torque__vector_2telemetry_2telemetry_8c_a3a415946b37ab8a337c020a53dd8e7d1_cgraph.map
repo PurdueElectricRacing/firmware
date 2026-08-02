@@ -1,0 +1,5 @@
+<map id="report_telemetry_25hz" name="report_telemetry_25hz">
+<area shape="rect" id="Node000001" title="Reports telemetry data at 25HZ rate Includes: GPS coordinates, velocity, speed, heading." alt="" coords="5,5,154,31"/>
+<area shape="rect" id="Node000002" href="$faults__common_8h.html#a22ea5f8bc7464c7728f4f9d67a9417cf" title=" " alt="" coords="202,5,268,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,16,186,16,186,21,154,21"/>
+</map>

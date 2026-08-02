@@ -1,0 +1,9 @@
+<map id="LOG2_DOWN" name="LOG2_DOWN">
+<area shape="rect" id="Node000001" title=" " alt="" coords="261,31,365,56"/>
+<area shape="rect" id="Node000002" href="$common_2phal__F4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="103,31,213,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="246,46,213,46,213,41,246,41"/>
+<area shape="rect" id="Node000003" href="$daq_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="87,32,54,26,55,20,88,27"/>
+<area shape="rect" id="Node000004" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,55,55,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="88,59,55,66,54,60,87,54"/>
+</map>

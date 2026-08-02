@@ -1,0 +1,10 @@
+<map id="ROUNDDOWN" name="ROUNDDOWN">
+<area shape="rect" id="Node000001" title=" " alt="" coords="413,5,524,31"/>
+<area shape="rect" id="Node000002" href="$common_2phal__F4_2usart_2usart_8c.html#a1e13f03e291a90dcd93ffccf1b8edf65" title="Initialize a USART Peripheral with desired settings." alt="" coords="103,5,229,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="398,21,229,21,229,16,398,16"/>
+<area shape="rect" id="Node000004" href="$common_2phal__F4_2usart_2usart_8c.html#ad9b3fa34cf7fd298a0333cd51094762c" title=" " alt="" coords="277,31,365,56"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="399,33,366,39,365,33,398,28"/>
+<area shape="rect" id="Node000003" href="$dashboard_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,55,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="261,36,229,31,230,26,262,31"/>
+</map>

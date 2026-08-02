@@ -1,0 +1,7 @@
+<map id="NXT_setBackground" name="NXT_setBackground">
+<area shape="rect" id="Node000001" title="Sets the background color of a specified object on the Nextion display." alt="" coords="5,31,148,56"/>
+<area shape="rect" id="Node000002" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="196,5,299,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,30,180,25,181,31,149,36"/>
+<area shape="rect" id="Node000003" href="$strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf" title="Appends formatted data to the buffer using printf&#45;style formatting. !" alt="" coords="202,55,292,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="149,51,187,56,187,62,148,56"/>
+</map>

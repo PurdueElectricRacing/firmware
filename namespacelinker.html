@@ -112,9 +112,9 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a989cbadea09103abb45d35b5dbdf726e" id="r_a989cbadea09103abb45d35b5dbdf726e"><td class="memItemLeft" align="right" valign="top">TxProducerRegistry&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a989cbadea09103abb45d35b5dbdf726e">_build_tx_producer_registry</a> (List[<a class="el" href="classparser_1_1Node.html">Node</a>] nodes)</td></tr>
+<tr class="memitem:a989cbadea09103abb45d35b5dbdf726e" id="r_a989cbadea09103abb45d35b5dbdf726e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#abae50414e837f5b650c77c4b96e905a8">TxProducerRegistry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a989cbadea09103abb45d35b5dbdf726e">_build_tx_producer_registry</a> (List[<a class="el" href="classparser_1_1Node.html">Node</a>] nodes)</td></tr>
 <tr class="separator:a989cbadea09103abb45d35b5dbdf726e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afac9d251fe5e567fad2ffb4f162b81e1" id="r_afac9d251fe5e567fad2ffb4f162b81e1"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afac9d251fe5e567fad2ffb4f162b81e1">_resolve_rx_against_registry</a> (List[<a class="el" href="classparser_1_1Node.html">Node</a>] nodes, TxProducerRegistry tx_on_bus)</td></tr>
+<tr class="memitem:afac9d251fe5e567fad2ffb4f162b81e1" id="r_afac9d251fe5e567fad2ffb4f162b81e1"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afac9d251fe5e567fad2ffb4f162b81e1">_resolve_rx_against_registry</a> (List[<a class="el" href="classparser_1_1Node.html">Node</a>] nodes, <a class="el" href="#abae50414e837f5b650c77c4b96e905a8">TxProducerRegistry</a> tx_on_bus)</td></tr>
 <tr class="separator:afac9d251fe5e567fad2ffb4f162b81e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ee3b4eaa57a1af2475ac40ee7270f68" id="r_a7ee3b4eaa57a1af2475ac40ee7270f68"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ee3b4eaa57a1af2475ac40ee7270f68">_validate_standard_id_range</a> (List[<a class="el" href="classparser_1_1Node.html">Node</a>] nodes)</td></tr>
 <tr class="separator:a7ee3b4eaa57a1af2475ac40ee7270f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,8 +123,7 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:abae50414e837f5b650c77c4b96e905a8" id="r_abae50414e837f5b650c77c4b96e905a8"><td class="memItemLeft" align="right" valign="top"><a id="abae50414e837f5b650c77c4b96e905a8" name="abae50414e837f5b650c77c4b96e905a8"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>TxProducerRegistry</b> = Dict[str, Dict[str, Tuple[str, <a class="el" href="classparser_1_1Message.html">Message</a>]]]</td></tr>
+<tr class="memitem:abae50414e837f5b650c77c4b96e905a8" id="r_abae50414e837f5b650c77c4b96e905a8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abae50414e837f5b650c77c4b96e905a8">TxProducerRegistry</a> = Dict[str, Dict[str, Tuple[str, <a class="el" href="classparser_1_1Message.html">Message</a>]]]</td></tr>
 <tr class="separator:abae50414e837f5b650c77c4b96e905a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -142,7 +141,7 @@ Author: Irving Wang (irvingw@purdue.edu)
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"> TxProducerRegistry linker._build_tx_producer_registry </td>
+          <td class="memname"> <a class="el" href="#abae50414e837f5b650c77c4b96e905a8">TxProducerRegistry</a> linker._build_tx_producer_registry </td>
           <td>(</td>
           <td class="paramtype">List[<a class="el" href="classparser_1_1Node.html">Node</a>]</td>          <td class="paramname"><span class="paramname"><em>nodes</em></span></td><td>)</td>
           <td></td>
@@ -160,7 +159,12 @@ Rules (fail fast with ValueError):
 - Exactly one logical producer per (bus, msg_name): two different nodes may not
   both TX the same msg_name on the same bus.
 - A single node may not list the same msg_name twice in tx on the same bus.
-</pre> 
+</pre> <div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacelinker_a989cbadea09103abb45d35b5dbdf726e_icgraph.svg" width="318" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="afac9d251fe5e567fad2ffb4f162b81e1" name="afac9d251fe5e567fad2ffb4f162b81e1"></a>
@@ -180,7 +184,7 @@ Rules (fail fast with ValueError):
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TxProducerRegistry</td>          <td class="paramname"><span class="paramname"><em>tx_on_bus</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="#abae50414e837f5b650c77c4b96e905a8">TxProducerRegistry</a></td>          <td class="paramname"><span class="paramname"><em>tx_on_bus</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -194,7 +198,12 @@ Rules (fail fast with ValueError):
 Rules:
 - RX msg_name must have a TX on the same bus (not another bus with the same name).
 - The transmitter must be a different node than the subscriber (no self-RX).
-</pre> 
+</pre> <div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacelinker_afac9d251fe5e567fad2ffb4f162b81e1_icgraph.svg" width="276" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="a7ee3b4eaa57a1af2475ac40ee7270f68" name="a7ee3b4eaa57a1af2475ac40ee7270f68"></a>
@@ -219,7 +228,12 @@ Rules:
   </tr>
 </table>
 </div><div class="memdoc">
-<pre class="fragment">Standard-frame IDs must fit in 11 bits when is_extended is false.</pre> 
+<pre class="fragment">Standard-frame IDs must fit in 11 bits when is_extended is false.</pre> <div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacelinker_a7ee3b4eaa57a1af2475ac40ee7270f68_icgraph.svg" width="319" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="aed4b2af437cd3fe7ac809072fc8999d7" name="aed4b2af437cd3fe7ac809072fc8999d7"></a>
@@ -238,7 +252,27 @@ Rules:
 </div><div class="memdoc">
 <pre class="fragment">Main entry point for the Linker stage.
 Resolves CAN IDs for all messages across all buses.
-</pre> 
+</pre> <div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacelinker_aed4b2af437cd3fe7ac809072fc8999d7_cgraph.svg" width="319" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="abae50414e837f5b650c77c4b96e905a8" name="abae50414e837f5b650c77c4b96e905a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abae50414e837f5b650c77c4b96e905a8">&#9670;&#160;</a></span>TxProducerRegistry</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">linker.TxProducerRegistry = Dict[str, Dict[str, Tuple[str, <a class="el" href="classparser_1_1Message.html">Message</a>]]]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->

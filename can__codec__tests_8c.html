@@ -111,18 +111,230 @@ $(function(){initNavTree('can__codec__tests_8c.html',''); initResizable(true); }
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="can__codec_8h_source.html">../can_codec.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for can_codec_tests.c:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec__tests_8c__incl.svg" width="450" height="199"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top"><a id="a840291bc02cba5474a4cb46a9b9566fe" name="a840291bc02cba5474a4cb46a9b9566fe"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (void)</td></tr>
+<tr class="memitem:a1874864aa4a3b9845c360132b0bac35b" id="r_a1874864aa4a3b9845c360132b0bac35b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1874864aa4a3b9845c360132b0bac35b">test_payload_helpers</a> (void)</td></tr>
+<tr class="separator:a1874864aa4a3b9845c360132b0bac35b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af829f0ffc0d2396b5de8a846aa9a7c37" id="r_af829f0ffc0d2396b5de8a846aa9a7c37"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af829f0ffc0d2396b5de8a846aa9a7c37">test_bswap_helper</a> (void)</td></tr>
+<tr class="separator:af829f0ffc0d2396b5de8a846aa9a7c37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae06f7b0f3a1bf3fc6f7ed6f69eabc216" id="r_ae06f7b0f3a1bf3fc6f7ed6f69eabc216"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae06f7b0f3a1bf3fc6f7ed6f69eabc216">test_raw_signal_helpers</a> (void)</td></tr>
+<tr class="separator:ae06f7b0f3a1bf3fc6f7ed6f69eabc216"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87889e33bd2dadf53dd5004eadf89f9b" id="r_a87889e33bd2dadf53dd5004eadf89f9b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87889e33bd2dadf53dd5004eadf89f9b">test_sign_extend_helper</a> (void)</td></tr>
+<tr class="separator:a87889e33bd2dadf53dd5004eadf89f9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3590e8e602c5c3a30036b93713573e8f" id="r_a3590e8e602c5c3a30036b93713573e8f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3590e8e602c5c3a30036b93713573e8f">test_float_helpers</a> (void)</td></tr>
+<tr class="separator:a3590e8e602c5c3a30036b93713573e8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Standalone tests for CAN codec helper functions. </p>
 <dl class="section note"><dt>Note</dt><dd>does not run on the STM32 target, only on the host machine.</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a840291bc02cba5474a4cb46a9b9566fe" name="a840291bc02cba5474a4cb46a9b9566fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a840291bc02cba5474a4cb46a9b9566fe">&#9670;&#160;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec__tests_8c_a840291bc02cba5474a4cb46a9b9566fe_cgraph.svg" width="664" height="376"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af829f0ffc0d2396b5de8a846aa9a7c37" name="af829f0ffc0d2396b5de8a846aa9a7c37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af829f0ffc0d2396b5de8a846aa9a7c37">&#9670;&#160;</a></span>test_bswap_helper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void test_bswap_helper </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec__tests_8c_af829f0ffc0d2396b5de8a846aa9a7c37_cgraph.svg" width="320" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec__tests_8c_af829f0ffc0d2396b5de8a846aa9a7c37_icgraph.svg" width="239" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3590e8e602c5c3a30036b93713573e8f" name="a3590e8e602c5c3a30036b93713573e8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3590e8e602c5c3a30036b93713573e8f">&#9670;&#160;</a></span>test_float_helpers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void test_float_helpers </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec__tests_8c_a3590e8e602c5c3a30036b93713573e8f_cgraph.svg" width="323" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec__tests_8c_a3590e8e602c5c3a30036b93713573e8f_icgraph.svg" width="232" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a1874864aa4a3b9845c360132b0bac35b" name="a1874864aa4a3b9845c360132b0bac35b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1874864aa4a3b9845c360132b0bac35b">&#9670;&#160;</a></span>test_payload_helpers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void test_payload_helpers </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec__tests_8c_a1874864aa4a3b9845c360132b0bac35b_cgraph.svg" width="367" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec__tests_8c_a1874864aa4a3b9845c360132b0bac35b_icgraph.svg" width="252" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ae06f7b0f3a1bf3fc6f7ed6f69eabc216" name="ae06f7b0f3a1bf3fc6f7ed6f69eabc216"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae06f7b0f3a1bf3fc6f7ed6f69eabc216">&#9670;&#160;</a></span>test_raw_signal_helpers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void test_raw_signal_helpers </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec__tests_8c_ae06f7b0f3a1bf3fc6f7ed6f69eabc216_cgraph.svg" width="567" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec__tests_8c_ae06f7b0f3a1bf3fc6f7ed6f69eabc216_icgraph.svg" width="270" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a87889e33bd2dadf53dd5004eadf89f9b" name="a87889e33bd2dadf53dd5004eadf89f9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87889e33bd2dadf53dd5004eadf89f9b">&#9670;&#160;</a></span>test_sign_extend_helper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void test_sign_extend_helper </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec__tests_8c_a87889e33bd2dadf53dd5004eadf89f9b_cgraph.svg" width="374" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__codec__tests_8c_a87889e33bd2dadf53dd5004eadf89f9b_icgraph.svg" width="270" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

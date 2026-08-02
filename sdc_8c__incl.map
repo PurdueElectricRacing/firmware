@@ -1,0 +1,24 @@
+<map id="source/main_module/sdc/sdc.c" name="source/main_module/sdc/sdc.c">
+<area shape="rect" id="Node000001" title="SDC task implementation." alt="" coords="276,5,417,46"/>
+<area shape="rect" id="Node000002" href="$sdc_8h.html" title="SDC task implementation." alt="" coords="5,190,58,216"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="276,42,205,63,168,78,134,96,109,115,86,137,50,179,46,176,82,133,106,111,131,92,166,73,203,58,274,37"/>
+<area shape="rect" id="Node000004" href="$faults__common_8h.html" title="Event&#45;based FIDR system." alt="" coords="145,94,264,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="315,49,251,88,248,84,313,44"/>
+<area shape="rect" id="Node000006" href="$freertos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="302,190,479,216"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="354,46,375,134,386,174,381,176,370,135,348,47"/>
+<area shape="rect" id="Node000007" href="$phal_2gpio_8h.html" title=" " alt="" coords="384,102,522,127"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="372,44,428,90,425,94,369,49"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="546,102,605,127"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="406,44,535,92,538,93,536,97,533,96,405,49"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="212,271,275,297"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="59,213,78,221,198,264,196,269,76,226,57,218"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="169,137,143,157,123,184,117,203,123,222,138,239,156,253,198,271,196,276,154,257,134,243,119,225,112,203,118,181,139,154,165,133"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="133,183,277,223"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="208,135,208,167,202,167,202,135"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="369,219,281,266,278,261,367,214"/>
+<area shape="rect" id="Node000008" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="503,190,672,216"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="473,125,557,179,554,184,470,130"/>
+<area shape="poly" id="edge11_Node000008_Node000003" title=" " alt="" coords="535,219,291,275,289,270,534,214"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="551,271,624,297"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="590,216,590,255,585,255,585,216"/>
+</map>

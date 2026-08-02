@@ -108,15 +108,23 @@ $(function(){initNavTree('bmi088_8c.html',''); initResizable(true); });
 <div class="textblock"><code>#include &quot;<a class="el" href="bmi088_8h_source.html">bmi088.h</a>&quot;</code><br />
 <code>#include &lt;stdbool.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &quot;common/phal/spi.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2spi_8h_source.html">common/phal/spi.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for bmi088.c:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="bmi088_8c__incl.svg" width="567" height="331"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ac4f1ab4ba917c50c02fd65e77b331a75" id="r_ac4f1ab4ba917c50c02fd65e77b331a75"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4f1ab4ba917c50c02fd65e77b331a75">BMI088_selectGyro</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
+<tr class="separator:ac4f1ab4ba917c50c02fd65e77b331a75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3bd4a2c8631c42dfa1eca5e2fb468cf" id="r_ab3bd4a2c8631c42dfa1eca5e2fb468cf"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3bd4a2c8631c42dfa1eca5e2fb468cf">BMI088_selectAccel</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
+<tr class="separator:ab3bd4a2c8631c42dfa1eca5e2fb468cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa109c1cdfa5f5d238b52e566ef8230bd" id="r_aa109c1cdfa5f5d238b52e566ef8230bd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa109c1cdfa5f5d238b52e566ef8230bd">BMI088_init</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
 <tr class="separator:aa109c1cdfa5f5d238b52e566ef8230bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42991ee485aafc650472bb5331d56f0c" id="r_a42991ee485aafc650472bb5331d56f0c"><td class="memItemLeft" align="right" valign="top"><a id="a42991ee485aafc650472bb5331d56f0c" name="a42991ee485aafc650472bb5331d56f0c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>BMI088_wakeAccel</b> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
+<tr class="memitem:a42991ee485aafc650472bb5331d56f0c" id="r_a42991ee485aafc650472bb5331d56f0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a42991ee485aafc650472bb5331d56f0c">BMI088_wakeAccel</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
 <tr class="separator:a42991ee485aafc650472bb5331d56f0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e0d7e3a9df0a98ef46e4a6b4e000184" id="r_a9e0d7e3a9df0a98ef46e4a6b4e000184"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e0d7e3a9df0a98ef46e4a6b4e000184">BMI088_initAccel</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
 <tr class="memdesc:a9e0d7e3a9df0a98ef46e4a6b4e000184"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup the accelerometer, must be done 50ms or longer after POR.  <br /></td></tr>
@@ -133,9 +141,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>BMI088_wakeAccel</b> 
 <tr class="memitem:abd436184826a431cf00ef5eb069c5a22" id="r_abd436184826a431cf00ef5eb069c5a22"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd436184826a431cf00ef5eb069c5a22">BMI088_gyroSelfTestPass</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
 <tr class="memdesc:abd436184826a431cf00ef5eb069c5a22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the status of the most recent Gyro self test.  <br /></td></tr>
 <tr class="separator:abd436184826a431cf00ef5eb069c5a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7a40e5f374e0a6e8ebed8384ee23365" id="r_ab7a40e5f374e0a6e8ebed8384ee23365"><td class="memItemLeft" align="right" valign="top"><a id="ab7a40e5f374e0a6e8ebed8384ee23365" name="ab7a40e5f374e0a6e8ebed8384ee23365"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>BMI088_checkGyroHealth</b> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
+<tr class="memitem:ab7a40e5f374e0a6e8ebed8384ee23365" id="r_ab7a40e5f374e0a6e8ebed8384ee23365"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7a40e5f374e0a6e8ebed8384ee23365">BMI088_checkGyroHealth</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
 <tr class="separator:ab7a40e5f374e0a6e8ebed8384ee23365"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3461fc0efe935b675ce2f906f177b6b4" id="r_a3461fc0efe935b675ce2f906f177b6b4"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3461fc0efe935b675ce2f906f177b6b4">BMI088_getGyroScale</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi, bool range_up, bool range_down)</td></tr>
+<tr class="separator:a3461fc0efe935b675ce2f906f177b6b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1dfbb27cde5d045d6291dba7fe0e709f" id="r_a1dfbb27cde5d045d6291dba7fe0e709f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1dfbb27cde5d045d6291dba7fe0e709f">BMI088_readGyro</a> (<a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *bmi)</td></tr>
 <tr class="memdesc:a1dfbb27cde5d045d6291dba7fe0e709f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocking function to read the most recent Data Sample from the gyro.  <br /></td></tr>
 <tr class="separator:a1dfbb27cde5d045d6291dba7fe0e709f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,6 +158,72 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>BMI088_checkGyroHe
 <dd>
 Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="ab7a40e5f374e0a6e8ebed8384ee23365" name="ab7a40e5f374e0a6e8ebed8384ee23365"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7a40e5f374e0a6e8ebed8384ee23365">&#9670;&#160;</a></span>BMI088_checkGyroHealth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t BMI088_checkGyroHealth </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bmi</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="bmi088_8c_ab7a40e5f374e0a6e8ebed8384ee23365_cgraph.svg" width="100%" height="475"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a3461fc0efe935b675ce2f906f177b6b4" name="a3461fc0efe935b675ce2f906f177b6b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3461fc0efe935b675ce2f906f177b6b4">&#9670;&#160;</a></span>BMI088_getGyroScale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float BMI088_getGyroScale </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bmi</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>range_up</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>range_down</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="bmi088_8c_a3461fc0efe935b675ce2f906f177b6b4_cgraph.svg" width="100%" height="475"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="bmi088_8c_a3461fc0efe935b675ce2f906f177b6b4_icgraph.svg" width="336" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <a id="a7b7b6f413f7a504f78fe3feba4e522cb" name="a7b7b6f413f7a504f78fe3feba4e522cb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7b7b6f413f7a504f78fe3feba4e522cb">&#9670;&#160;</a></span>BMI088_gyroOK()</h2>
 
@@ -174,6 +249,11 @@ Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'p
 <dl class="section return"><dt>Returns</dt><dd>true gyro is OK </dd>
 <dd>
 false not good </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="bmi088_8c_a7b7b6f413f7a504f78fe3feba4e522cb_cgraph.svg" width="100%" height="590"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -196,6 +276,16 @@ false not good </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>true Self test passed, gyro data is good </dd>
 <dd>
 false Self test failed, gyro data bad or no test was conduced </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="bmi088_8c_ac1def4d891e980b505d36e5190d6b0d5_cgraph.svg" width="100%" height="534"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="bmi088_8c_ac1def4d891e980b505d36e5190d6b0d5_icgraph.svg" width="376" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -218,6 +308,16 @@ false Self test failed, gyro data bad or no test was conduced </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>true Self test passed, gyro data is good </dd>
 <dd>
 false Self test failed, gyro data bad or no test was conduced </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="bmi088_8c_abd436184826a431cf00ef5eb069c5a22_cgraph.svg" width="100%" height="534"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="bmi088_8c_abd436184826a431cf00ef5eb069c5a22_icgraph.svg" width="352" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -240,6 +340,16 @@ false Self test failed, gyro data bad or no test was conduced </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>true </dd>
 <dd>
 false </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="bmi088_8c_ac1650063ae6fa67cb32a921851025c57_cgraph.svg" width="100%" height="534"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="bmi088_8c_ac1650063ae6fa67cb32a921851025c57_icgraph.svg" width="350" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -266,6 +376,11 @@ false </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>true </dd>
 <dd>
 false </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="bmi088_8c_aa109c1cdfa5f5d238b52e566ef8230bd_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -294,6 +409,11 @@ false </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>true ACCEL responded sucessfully </dd>
 <dd>
 false not good </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="bmi088_8c_a9e0d7e3a9df0a98ef46e4a6b4e000184_cgraph.svg" width="100%" height="533"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -322,6 +442,11 @@ false not good </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>true </dd>
 <dd>
 false </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="bmi088_8c_a236059cb2cd1459e4d2c45949de64326_cgraph.svg" width="551" height="163"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -344,6 +469,103 @@ false </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>true Successful data Tx/Rx </dd>
 <dd>
 false Unsuccessful data Tx/Rx </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="bmi088_8c_a1dfbb27cde5d045d6291dba7fe0e709f_cgraph.svg" width="100%" height="513"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ab3bd4a2c8631c42dfa1eca5e2fb468cf" name="ab3bd4a2c8631c42dfa1eca5e2fb468cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3bd4a2c8631c42dfa1eca5e2fb468cf">&#9670;&#160;</a></span>BMI088_selectAccel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void BMI088_selectAccel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bmi</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="bmi088_8c_ab3bd4a2c8631c42dfa1eca5e2fb468cf_cgraph.svg" width="326" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="bmi088_8c_ab3bd4a2c8631c42dfa1eca5e2fb468cf_icgraph.svg" width="338" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ac4f1ab4ba917c50c02fd65e77b331a75" name="ac4f1ab4ba917c50c02fd65e77b331a75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4f1ab4ba917c50c02fd65e77b331a75">&#9670;&#160;</a></span>BMI088_selectGyro()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void BMI088_selectGyro </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bmi</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="bmi088_8c_ac4f1ab4ba917c50c02fd65e77b331a75_cgraph.svg" width="320" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="bmi088_8c_ac4f1ab4ba917c50c02fd65e77b331a75_icgraph.svg" width="560" height="236"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a42991ee485aafc650472bb5331d56f0c" name="a42991ee485aafc650472bb5331d56f0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42991ee485aafc650472bb5331d56f0c">&#9670;&#160;</a></span>BMI088_wakeAccel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BMI088_wakeAccel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structBMI088__Handle__t.html">BMI088_Handle_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bmi</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="bmi088_8c_a42991ee485aafc650472bb5331d56f0c_cgraph.svg" width="100%" height="503"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>

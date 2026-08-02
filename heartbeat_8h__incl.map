@@ -1,0 +1,14 @@
+<map id="common/heartbeat/heartbeat.h" name="common/heartbeat/heartbeat.h">
+<area shape="rect" id="Node000001" title="Shared heartbeat task implementation for status LEDs." alt="" coords="90,5,287,31"/>
+<area shape="rect" id="Node000002" href="$phal_2gpio_8h.html" title=" " alt="" coords="67,79,204,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,33,156,68,151,65,178,30"/>
+<area shape="rect" id="Node000006" href="$freertos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="199,153,376,178"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="199,30,273,138,269,141,195,33"/>
+<area shape="rect" id="Node000003" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="5,153,175,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="130,106,108,141,103,138,126,103"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="53,226,127,252"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="93,179,93,211,87,211,87,179"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="202,226,266,252"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="116,176,197,217,195,221,113,181"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="281,180,254,215,250,212,276,177"/>
+</map>

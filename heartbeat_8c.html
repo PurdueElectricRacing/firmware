@@ -108,23 +108,109 @@ $(function(){initNavTree('heartbeat_8c.html',''); initResizable(true); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="heartbeat_8h_source.html">heartbeat.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for heartbeat.c:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="heartbeat_8c__incl.svg" width="350" height="331"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab2681be62cc27208946c262df62f4a06" id="r_ab2681be62cc27208946c262df62f4a06"><td class="memItemLeft" align="right" valign="top"><a id="ab2681be62cc27208946c262df62f4a06" name="ab2681be62cc27208946c262df62f4a06"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>heartbeat_task</b> (<a class="el" href="structstatus__leds__t.html">status_leds_t</a> *leds)</td></tr>
+<tr class="memitem:a1d58d4db1dcf0ec5b290850c6ae31f3b" id="r_a1d58d4db1dcf0ec5b290850c6ae31f3b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d58d4db1dcf0ec5b290850c6ae31f3b">preflight_led_sweep</a> (<a class="el" href="structstatus__leds__t.html">status_leds_t</a> *leds)</td></tr>
+<tr class="separator:a1d58d4db1dcf0ec5b290850c6ae31f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2681be62cc27208946c262df62f4a06" id="r_ab2681be62cc27208946c262df62f4a06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2681be62cc27208946c262df62f4a06">heartbeat_task</a> (<a class="el" href="structstatus__leds__t.html">status_leds_t</a> *leds)</td></tr>
 <tr class="separator:ab2681be62cc27208946c262df62f4a06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a6d7ff913bb95222bc96d632a6e8d8ea4" id="r_a6d7ff913bb95222bc96d632a6e8d8ea4"><td class="memItemLeft" align="right" valign="top"><a id="a6d7ff913bb95222bc96d632a6e8d8ea4" name="a6d7ff913bb95222bc96d632a6e8d8ea4"></a>
-volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>last_can_rx_time_ms</b></td></tr>
+<tr class="memitem:a6d7ff913bb95222bc96d632a6e8d8ea4" id="r_a6d7ff913bb95222bc96d632a6e8d8ea4"><td class="memItemLeft" align="right" valign="top">volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d7ff913bb95222bc96d632a6e8d8ea4">last_can_rx_time_ms</a></td></tr>
 <tr class="separator:a6d7ff913bb95222bc96d632a6e8d8ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Shared heartbeat task implementation for status LEDs. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="ab2681be62cc27208946c262df62f4a06" name="ab2681be62cc27208946c262df62f4a06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2681be62cc27208946c262df62f4a06">&#9670;&#160;</a></span>heartbeat_task()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void heartbeat_task </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structstatus__leds__t.html">status_leds_t</a> *</td>          <td class="paramname"><span class="paramname"><em>leds</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="heartbeat_8c_ab2681be62cc27208946c262df62f4a06_cgraph.svg" width="475" height="138"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a1d58d4db1dcf0ec5b290850c6ae31f3b" name="a1d58d4db1dcf0ec5b290850c6ae31f3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d58d4db1dcf0ec5b290850c6ae31f3b">&#9670;&#160;</a></span>preflight_led_sweep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void preflight_led_sweep </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structstatus__leds__t.html">status_leds_t</a> *</td>          <td class="paramname"><span class="paramname"><em>leds</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="heartbeat_8c_a1d58d4db1dcf0ec5b290850c6ae31f3b_cgraph.svg" width="320" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="heartbeat_8c_a1d58d4db1dcf0ec5b290850c6ae31f3b_icgraph.svg" width="302" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a6d7ff913bb95222bc96d632a6e8d8ea4" name="a6d7ff913bb95222bc96d632a6e8d8ea4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d7ff913bb95222bc96d632a6e8d8ea4">&#9670;&#160;</a></span>last_can_rx_time_ms</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t last_can_rx_time_ms</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

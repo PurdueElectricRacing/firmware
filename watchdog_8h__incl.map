@@ -1,0 +1,8 @@
+<map id="common/watchdog/watchdog.h" name="common/watchdog/watchdog.h">
+<area shape="rect" id="Node000001" title="Basic watchdog implementation." alt="" coords="5,5,207,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="74,153,138,178"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,33,76,65,70,84,71,104,89,139,84,142,66,105,65,84,71,63,93,30"/>
+<area shape="rect" id="Node000003" href="$freertos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="81,79,259,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="119,29,151,66,147,69,115,33"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="161,107,129,143,125,139,157,103"/>
+</map>

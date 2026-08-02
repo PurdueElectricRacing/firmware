@@ -4,6 +4,7 @@ var dir_463a06e8c8df3dfb8722b56866f4fb0c =
     [ "charging_fsm", "dir_7542741782ec7b96c7ee11357d6003db.html", "dir_7542741782ec7b96c7ee11357d6003db" ],
     [ "telemetry", "dir_863c0072c27e19e4b5c381de25beb72a.html", "dir_863c0072c27e19e4b5c381de25beb72a" ],
     [ "thermistor", "dir_1f58a266b0235ff01a1a3d64d0bb7dc7.html", "dir_1f58a266b0235ff01a1a3d64d0bb7dc7" ],
-    [ "main.c", "a__box_2main_8c.html", null ],
+    [ "abox.drawio.png", "abox_8drawio_8png.html", null ],
+    [ "main.c", "a__box_2main_8c.html", "a__box_2main_8c" ],
     [ "main.h", "a__box_2main_8h.html", "a__box_2main_8h" ]
 ];

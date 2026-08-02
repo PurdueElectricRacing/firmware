@@ -1,0 +1,7 @@
+<map id="SD_StopTransfer" name="SD_StopTransfer">
+<area shape="rect" id="Node000001" title="Aborts an ongoing data transfer." alt="" coords="212,31,333,56"/>
+<area shape="rect" id="Node000002" href="$sdio_8c.html#a42ab410b834d74d7f3ee757dc888b8cc" title="This function waits until the SDIO DMA data transfer is finished. This function should be called afte..." alt="" coords="5,5,164,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,36,164,32,165,26,197,31"/>
+<area shape="rect" id="Node000003" href="$sdio_8c.html#ad55967ea67075f01671fb2144c7f7b0d" title="This function waits until the SDIO DMA data transfer is finished. This function should be called afte..." alt="" coords="5,55,164,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="197,56,165,60,164,55,196,51"/>
+</map>

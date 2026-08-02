@@ -1,0 +1,7 @@
+<map id="common/bangbang/bangbang.h" name="common/bangbang/bangbang.h">
+<area shape="rect" id="Node000001" title="Generic bang&#45;bang controller with hysteresis and minimum switch interval." alt="" coords="100,5,301,31"/>
+<area shape="rect" id="Node000002" href="$bangbang_8c.html" title="Generic bang&#45;bang controller with hysteresis and minimum switch interval." alt="" coords="5,86,207,112"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,43,122,88,119,84,173,39"/>
+<area shape="rect" id="Node000003" href="$cooling__fsm_8c.html" title=" " alt="" coords="230,79,360,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="228,39,274,77,270,81,225,43"/>
+</map>

@@ -100,7 +100,8 @@ $(function(){initNavTree('nav__relposned_8h.html',''); initResizable(true); });
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">nav_relposned.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -109,6 +110,16 @@ $(function(){initNavTree('nav__relposned_8h.html',''); initResizable(true); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;stddef.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for nav_relposned.h:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="nav__relposned_8h__incl.svg" width="215" height="111"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="nav__relposned_8h__dep__incl.svg" width="100%" height="472"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 </div>
 <p><a href="nav__relposned_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -119,33 +130,210 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:aeba8f34c9ae90ea0404882b5f54d3bf5" id="r_aeba8f34c9ae90ea0404882b5f54d3bf5"><td class="memItemLeft" align="right" valign="top"><a id="aeba8f34c9ae90ea0404882b5f54d3bf5" name="aeba8f34c9ae90ea0404882b5f54d3bf5"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>NAV_RELPOSNED_flags_t</b> : uint32_t { <br />
-&#160;&#160;<b>NAV_RELPOSNED_FLAGS_GNSS_FIX_OK</b> = 0x1
-, <b>NAV_RELPOSNED_FLAGS_DIFF_SOLN</b> = 0x2
-, <b>NAV_RELPOSNED_FLAGS_REL_POS_VALID</b> = 0x4
-, <b>NAV_RELPOSNED_FLAGS_CARR_SOLN_MASK</b> = 0x18
+<tr class="memitem:aeba8f34c9ae90ea0404882b5f54d3bf5" id="r_aeba8f34c9ae90ea0404882b5f54d3bf5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeba8f34c9ae90ea0404882b5f54d3bf5">NAV_RELPOSNED_flags_t</a> : uint32_t { <br />
+&#160;&#160;<a class="el" href="#aeba8f34c9ae90ea0404882b5f54d3bf5a74fe85468319d5c3c91447ab83fe7463">NAV_RELPOSNED_FLAGS_GNSS_FIX_OK</a> = 0x1
+, <a class="el" href="#aeba8f34c9ae90ea0404882b5f54d3bf5a77543c00f7f2aad18593a89bce98a15b">NAV_RELPOSNED_FLAGS_DIFF_SOLN</a> = 0x2
+, <a class="el" href="#aeba8f34c9ae90ea0404882b5f54d3bf5a876dca308f9ead3e7174bde6c1135d51">NAV_RELPOSNED_FLAGS_REL_POS_VALID</a> = 0x4
+, <a class="el" href="#aeba8f34c9ae90ea0404882b5f54d3bf5acac07a4c806dbecd93fd639e027446c3">NAV_RELPOSNED_FLAGS_CARR_SOLN_MASK</a> = 0x18
 , <br />
-&#160;&#160;<b>NAV_RELPOSNED_FLAGS_CARR_SOLN_NONE</b> = 0x0
-, <b>NAV_RELPOSNED_FLAGS_CARR_SOLN_FLOAT</b> = 0x8
-, <b>NAV_RELPOSNED_FLAGS_CARR_SOLN_FIXED</b> = 0x10
-, <b>NAV_RELPOSNED_FLAGS_IS_MOVING</b> = 0x20
+&#160;&#160;<a class="el" href="#aeba8f34c9ae90ea0404882b5f54d3bf5a464e532fea51c01329a81a5415df455e">NAV_RELPOSNED_FLAGS_CARR_SOLN_NONE</a> = 0x0
+, <a class="el" href="#aeba8f34c9ae90ea0404882b5f54d3bf5a2f5693fb555a0c687ca5d0903b337875">NAV_RELPOSNED_FLAGS_CARR_SOLN_FLOAT</a> = 0x8
+, <a class="el" href="#aeba8f34c9ae90ea0404882b5f54d3bf5a6b302400864d57225d1b3d16cea7c748">NAV_RELPOSNED_FLAGS_CARR_SOLN_FIXED</a> = 0x10
+, <a class="el" href="#aeba8f34c9ae90ea0404882b5f54d3bf5a6eb45d0c2247b96973e22bfc8edf860e">NAV_RELPOSNED_FLAGS_IS_MOVING</a> = 0x20
 , <br />
-&#160;&#160;<b>NAV_RELPOSNED_FLAGS_REF_POS_MISS</b> = 0x40
-, <b>NAV_RELPOSNED_FLAGS_REF_OBS_MISS</b> = 0x80
+&#160;&#160;<a class="el" href="#aeba8f34c9ae90ea0404882b5f54d3bf5a9d0032187d57ecb942ed21ec04ff86a3">NAV_RELPOSNED_FLAGS_REF_POS_MISS</a> = 0x40
+, <a class="el" href="#aeba8f34c9ae90ea0404882b5f54d3bf5aa2e42f95571811314a99ed4b48090305">NAV_RELPOSNED_FLAGS_REF_OBS_MISS</a> = 0x80
 <br />
  }</td></tr>
 <tr class="separator:aeba8f34c9ae90ea0404882b5f54d3bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac1beca0752f374e987c7ab5552eafe9c" id="r_ac1beca0752f374e987c7ab5552eafe9c"><td class="memItemLeft" align="right" valign="top"><a id="ac1beca0752f374e987c7ab5552eafe9c" name="ac1beca0752f374e987c7ab5552eafe9c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>NAV_RELPOSNED_decode</b> (<a class="el" href="structNAV__RELPOSNED__data__t.html">NAV_RELPOSNED_data_t</a> *relposned, const volatile uint8_t *rx_buffer)</td></tr>
+<tr class="memitem:ac1beca0752f374e987c7ab5552eafe9c" id="r_ac1beca0752f374e987c7ab5552eafe9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac1beca0752f374e987c7ab5552eafe9c">NAV_RELPOSNED_decode</a> (<a class="el" href="structNAV__RELPOSNED__data__t.html">NAV_RELPOSNED_data_t</a> *relposned, const volatile uint8_t *rx_buffer)</td></tr>
 <tr class="separator:ac1beca0752f374e987c7ab5552eafe9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a79c2857f59c5dea67d012a912b37000d" id="r_a79c2857f59c5dea67d012a912b37000d"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79c2857f59c5dea67d012a912b37000d">NAV_RELPOSNED_HEADER_B0</a> = 0xB5</td></tr>
+<tr class="separator:a79c2857f59c5dea67d012a912b37000d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b6c636104f5f9aba3048f49030e4389" id="r_a7b6c636104f5f9aba3048f49030e4389"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b6c636104f5f9aba3048f49030e4389">NAV_RELPOSNED_HEADER_B1</a> = 0x62</td></tr>
+<tr class="separator:a7b6c636104f5f9aba3048f49030e4389"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7260c780f418e6d3987ffe9703ec6e9" id="r_aa7260c780f418e6d3987ffe9703ec6e9"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa7260c780f418e6d3987ffe9703ec6e9">NAV_RELPOSNED_CLASS</a> = 0x01</td></tr>
+<tr class="separator:aa7260c780f418e6d3987ffe9703ec6e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac84bcc2ef10f3660ac77ee25757c8145" id="r_ac84bcc2ef10f3660ac77ee25757c8145"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac84bcc2ef10f3660ac77ee25757c8145">NAV_RELPOSNED_MSG_ID</a> = 0x3C</td></tr>
+<tr class="separator:ac84bcc2ef10f3660ac77ee25757c8145"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8343ef3aaa0932ccc23c634d3cf5fb4c" id="r_a8343ef3aaa0932ccc23c634d3cf5fb4c"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8343ef3aaa0932ccc23c634d3cf5fb4c">NAV_RELPOSNED_TOTAL_LENGTH</a> = 48</td></tr>
+<tr class="separator:a8343ef3aaa0932ccc23c634d3cf5fb4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>UBX NAV-RELPOSNED message definition and decoder function. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="aeba8f34c9ae90ea0404882b5f54d3bf5" name="aeba8f34c9ae90ea0404882b5f54d3bf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeba8f34c9ae90ea0404882b5f54d3bf5">&#9670;&#160;</a></span>NAV_RELPOSNED_flags_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#aeba8f34c9ae90ea0404882b5f54d3bf5">NAV_RELPOSNED_flags_t</a> : uint32_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aeba8f34c9ae90ea0404882b5f54d3bf5a74fe85468319d5c3c91447ab83fe7463" name="aeba8f34c9ae90ea0404882b5f54d3bf5a74fe85468319d5c3c91447ab83fe7463"></a>NAV_RELPOSNED_FLAGS_GNSS_FIX_OK&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aeba8f34c9ae90ea0404882b5f54d3bf5a77543c00f7f2aad18593a89bce98a15b" name="aeba8f34c9ae90ea0404882b5f54d3bf5a77543c00f7f2aad18593a89bce98a15b"></a>NAV_RELPOSNED_FLAGS_DIFF_SOLN&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aeba8f34c9ae90ea0404882b5f54d3bf5a876dca308f9ead3e7174bde6c1135d51" name="aeba8f34c9ae90ea0404882b5f54d3bf5a876dca308f9ead3e7174bde6c1135d51"></a>NAV_RELPOSNED_FLAGS_REL_POS_VALID&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aeba8f34c9ae90ea0404882b5f54d3bf5acac07a4c806dbecd93fd639e027446c3" name="aeba8f34c9ae90ea0404882b5f54d3bf5acac07a4c806dbecd93fd639e027446c3"></a>NAV_RELPOSNED_FLAGS_CARR_SOLN_MASK&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aeba8f34c9ae90ea0404882b5f54d3bf5a464e532fea51c01329a81a5415df455e" name="aeba8f34c9ae90ea0404882b5f54d3bf5a464e532fea51c01329a81a5415df455e"></a>NAV_RELPOSNED_FLAGS_CARR_SOLN_NONE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aeba8f34c9ae90ea0404882b5f54d3bf5a2f5693fb555a0c687ca5d0903b337875" name="aeba8f34c9ae90ea0404882b5f54d3bf5a2f5693fb555a0c687ca5d0903b337875"></a>NAV_RELPOSNED_FLAGS_CARR_SOLN_FLOAT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aeba8f34c9ae90ea0404882b5f54d3bf5a6b302400864d57225d1b3d16cea7c748" name="aeba8f34c9ae90ea0404882b5f54d3bf5a6b302400864d57225d1b3d16cea7c748"></a>NAV_RELPOSNED_FLAGS_CARR_SOLN_FIXED&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aeba8f34c9ae90ea0404882b5f54d3bf5a6eb45d0c2247b96973e22bfc8edf860e" name="aeba8f34c9ae90ea0404882b5f54d3bf5a6eb45d0c2247b96973e22bfc8edf860e"></a>NAV_RELPOSNED_FLAGS_IS_MOVING&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aeba8f34c9ae90ea0404882b5f54d3bf5a9d0032187d57ecb942ed21ec04ff86a3" name="aeba8f34c9ae90ea0404882b5f54d3bf5a9d0032187d57ecb942ed21ec04ff86a3"></a>NAV_RELPOSNED_FLAGS_REF_POS_MISS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aeba8f34c9ae90ea0404882b5f54d3bf5aa2e42f95571811314a99ed4b48090305" name="aeba8f34c9ae90ea0404882b5f54d3bf5aa2e42f95571811314a99ed4b48090305"></a>NAV_RELPOSNED_FLAGS_REF_OBS_MISS&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ac1beca0752f374e987c7ab5552eafe9c" name="ac1beca0752f374e987c7ab5552eafe9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1beca0752f374e987c7ab5552eafe9c">&#9670;&#160;</a></span>NAV_RELPOSNED_decode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NAV_RELPOSNED_decode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structNAV__RELPOSNED__data__t.html">NAV_RELPOSNED_data_t</a> *</td>          <td class="paramname"><span class="paramname"><em>relposned</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const volatile uint8_t *</td>          <td class="paramname"><span class="paramname"><em>rx_buffer</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="nav__relposned_8h_ac1beca0752f374e987c7ab5552eafe9c_icgraph.svg" width="436" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aa7260c780f418e6d3987ffe9703ec6e9" name="aa7260c780f418e6d3987ffe9703ec6e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7260c780f418e6d3987ffe9703ec6e9">&#9670;&#160;</a></span>NAV_RELPOSNED_CLASS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t NAV_RELPOSNED_CLASS = 0x01</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a79c2857f59c5dea67d012a912b37000d" name="a79c2857f59c5dea67d012a912b37000d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79c2857f59c5dea67d012a912b37000d">&#9670;&#160;</a></span>NAV_RELPOSNED_HEADER_B0</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t NAV_RELPOSNED_HEADER_B0 = 0xB5</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7b6c636104f5f9aba3048f49030e4389" name="a7b6c636104f5f9aba3048f49030e4389"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b6c636104f5f9aba3048f49030e4389">&#9670;&#160;</a></span>NAV_RELPOSNED_HEADER_B1</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t NAV_RELPOSNED_HEADER_B1 = 0x62</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac84bcc2ef10f3660ac77ee25757c8145" name="ac84bcc2ef10f3660ac77ee25757c8145"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac84bcc2ef10f3660ac77ee25757c8145">&#9670;&#160;</a></span>NAV_RELPOSNED_MSG_ID</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t NAV_RELPOSNED_MSG_ID = 0x3C</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8343ef3aaa0932ccc23c634d3cf5fb4c" name="a8343ef3aaa0932ccc23c634d3cf5fb4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8343ef3aaa0932ccc23c634d3cf5fb4c">&#9670;&#160;</a></span>NAV_RELPOSNED_TOTAL_LENGTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t NAV_RELPOSNED_TOTAL_LENGTH = 48</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -1,0 +1,9 @@
+<map id="updatePage" name="updatePage">
+<area shape="rect" id="Node000001" title="Updates LCD display page." alt="" coords="5,31,96,56"/>
+<area shape="rect" id="Node000002" href="$nextion_8c.html#ac5753abcb75fb40221a51bcdec98bbd4" title="Sets the current page on the Nextion display." alt="" coords="144,31,247,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,41,128,41,128,46,96,46"/>
+<area shape="rect" id="Node000003" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="295,5,398,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="247,32,279,27,280,32,248,37"/>
+<area shape="rect" id="Node000004" href="$strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf" title="Appends formatted data to the buffer using printf&#45;style formatting. !" alt="" coords="302,55,392,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="248,49,287,55,286,61,247,54"/>
+</map>

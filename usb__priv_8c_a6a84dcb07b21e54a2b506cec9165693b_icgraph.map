@@ -1,0 +1,5 @@
+<map id="USB_PRIV_enableInterrupts" name="USB_PRIV_enableInterrupts">
+<area shape="rect" id="Node000001" title="Enable USB event interrupts and endpoint operation." alt="" coords="170,5,357,31"/>
+<area shape="rect" id="Node000002" href="$usb_8c.html#a06c08ebbf291a1e1f7dca05a6660271d" title="Initialize the USB device hardware and endpoints." alt="" coords="5,5,122,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,21,122,21,122,16,154,16"/>
+</map>

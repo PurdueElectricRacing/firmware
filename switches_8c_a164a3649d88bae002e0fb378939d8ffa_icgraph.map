@@ -1,0 +1,7 @@
+<map id="switches_update_currents" name="switches_update_currents">
+<area shape="rect" id="Node000001" title=" " alt="" coords="276,5,449,31"/>
+<area shape="rect" id="Node000002" href="$switches_8c.html#a03794eeb58f3e98710c5deb68f56274e" title=" " alt="" coords="103,5,228,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="260,21,228,21,228,16,260,16"/>
+<area shape="rect" id="Node000003" href="$pdu_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>

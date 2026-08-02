@@ -107,25 +107,448 @@ $(function(){initNavTree('w5500__callbacks_8c.html',''); initResizable(true); })
 <p>Implementation of the W5500 SPI callbacks for ethernet communication.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;w5500/wizchip_conf.h&quot;</code><br />
-<code>#include &quot;common/phal/spi.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2spi_8h_source.html">common/phal/spi.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for w5500_callbacks.c:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c__incl.svg" width="398" height="272"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a45aed330f89610c0411f94d25250c49f" id="r_a45aed330f89610c0411f94d25250c49f"><td class="memItemLeft" align="right" valign="top"><a id="a45aed330f89610c0411f94d25250c49f" name="a45aed330f89610c0411f94d25250c49f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>w5500_register_callbacks</b> (void)</td></tr>
+<tr class="memitem:aaf8c150f0cd00ffc16c85b2915363f74" id="r_aaf8c150f0cd00ffc16c85b2915363f74"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf8c150f0cd00ffc16c85b2915363f74">cs_sel</a> (void)</td></tr>
+<tr class="separator:aaf8c150f0cd00ffc16c85b2915363f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab57999544133dfcd7a64022e34b6955d" id="r_ab57999544133dfcd7a64022e34b6955d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab57999544133dfcd7a64022e34b6955d">cs_desel</a> (void)</td></tr>
+<tr class="separator:ab57999544133dfcd7a64022e34b6955d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46bd862c88490f1a6154ec3488786f5e" id="r_a46bd862c88490f1a6154ec3488786f5e"><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46bd862c88490f1a6154ec3488786f5e">spi_rb</a> (uint32_t addr)</td></tr>
+<tr class="separator:a46bd862c88490f1a6154ec3488786f5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0d4468782a468debc8139fe25107c43" id="r_ad0d4468782a468debc8139fe25107c43"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad0d4468782a468debc8139fe25107c43">spi_wb</a> (uint32_t addr, uint8_t b)</td></tr>
+<tr class="separator:ad0d4468782a468debc8139fe25107c43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8af65df1e566a774d241b03116c919e0" id="r_a8af65df1e566a774d241b03116c919e0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8af65df1e566a774d241b03116c919e0">spi_rb_burst</a> (uint32_t addr, uint8_t *pBuf, uint16_t len)</td></tr>
+<tr class="separator:a8af65df1e566a774d241b03116c919e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5821dc24f7a22e40a3630f554f4c33a7" id="r_a5821dc24f7a22e40a3630f554f4c33a7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5821dc24f7a22e40a3630f554f4c33a7">spi_wb_burst</a> (uint32_t addr, uint8_t *pBuf, uint16_t len)</td></tr>
+<tr class="separator:a5821dc24f7a22e40a3630f554f4c33a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c13a685995358c074970a11d477d567" id="r_a2c13a685995358c074970a11d477d567"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c13a685995358c074970a11d477d567">crit_enter</a> (void)</td></tr>
+<tr class="separator:a2c13a685995358c074970a11d477d567"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab06c4ccee60050aa1d427e46dac09be6" id="r_ab06c4ccee60050aa1d427e46dac09be6"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab06c4ccee60050aa1d427e46dac09be6">crit_exit</a> (void)</td></tr>
+<tr class="separator:ab06c4ccee60050aa1d427e46dac09be6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2521eac51209efe4154a7cd9c63cda04" id="r_a2521eac51209efe4154a7cd9c63cda04"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2521eac51209efe4154a7cd9c63cda04">PHAL_SPI_transfer_noDMA_DAQW5500Only</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, uint32_t addr, const uint8_t *tx_data, uint32_t txlen, uint32_t rxlen, uint8_t *rx_data)</td></tr>
+<tr class="separator:a2521eac51209efe4154a7cd9c63cda04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45aed330f89610c0411f94d25250c49f" id="r_a45aed330f89610c0411f94d25250c49f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45aed330f89610c0411f94d25250c49f">w5500_register_callbacks</a> (void)</td></tr>
 <tr class="separator:a45aed330f89610c0411f94d25250c49f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a9a42a1a6599015412816e4954c32f1bb" id="r_a9a42a1a6599015412816e4954c32f1bb"><td class="memItemLeft" align="right" valign="top"><a id="a9a42a1a6599015412816e4954c32f1bb" name="a9a42a1a6599015412816e4954c32f1bb"></a>
-<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>eth_spi_config</b></td></tr>
+<tr class="memitem:a9a42a1a6599015412816e4954c32f1bb" id="r_a9a42a1a6599015412816e4954c32f1bb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a42a1a6599015412816e4954c32f1bb">eth_spi_config</a></td></tr>
 <tr class="separator:a9a42a1a6599015412816e4954c32f1bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of the W5500 SPI callbacks for ethernet communication. </p>
 <dl class="section author"><dt>Author</dt><dd>Eileen Yoon (<a href="#" onclick="location.href='mai'+'lto:'+'eyn'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">eyn@p<span class="obfuscator">.nosp@m.</span>urdu<span class="obfuscator">.nosp@m.</span>e.edu</a>) </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a2c13a685995358c074970a11d477d567" name="a2c13a685995358c074970a11d477d567"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c13a685995358c074970a11d477d567">&#9670;&#160;</a></span>crit_enter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void crit_enter </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c_a2c13a685995358c074970a11d477d567_cgraph.svg" width="264" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c_a2c13a685995358c074970a11d477d567_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ab06c4ccee60050aa1d427e46dac09be6" name="ab06c4ccee60050aa1d427e46dac09be6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab06c4ccee60050aa1d427e46dac09be6">&#9670;&#160;</a></span>crit_exit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void crit_exit </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c_ab06c4ccee60050aa1d427e46dac09be6_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ab57999544133dfcd7a64022e34b6955d" name="ab57999544133dfcd7a64022e34b6955d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab57999544133dfcd7a64022e34b6955d">&#9670;&#160;</a></span>cs_desel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void cs_desel </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c_ab57999544133dfcd7a64022e34b6955d_cgraph.svg" width="258" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c_ab57999544133dfcd7a64022e34b6955d_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="aaf8c150f0cd00ffc16c85b2915363f74" name="aaf8c150f0cd00ffc16c85b2915363f74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf8c150f0cd00ffc16c85b2915363f74">&#9670;&#160;</a></span>cs_sel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void cs_sel </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c_aaf8c150f0cd00ffc16c85b2915363f74_cgraph.svg" width="244" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c_aaf8c150f0cd00ffc16c85b2915363f74_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a2521eac51209efe4154a7cd9c63cda04" name="a2521eac51209efe4154a7cd9c63cda04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2521eac51209efe4154a7cd9c63cda04">&#9670;&#160;</a></span>PHAL_SPI_transfer_noDMA_DAQW5500Only()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void PHAL_SPI_transfer_noDMA_DAQW5500Only </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spi</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>addr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *</td>          <td class="paramname"><span class="paramname"><em>tx_data</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>txlen</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>rxlen</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>rx_data</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c_a2521eac51209efe4154a7cd9c63cda04_icgraph.svg" width="100%" height="438"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a46bd862c88490f1a6154ec3488786f5e" name="a46bd862c88490f1a6154ec3488786f5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46bd862c88490f1a6154ec3488786f5e">&#9670;&#160;</a></span>spi_rb()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint8_t spi_rb </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>addr</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c_a46bd862c88490f1a6154ec3488786f5e_cgraph.svg" width="303" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c_a46bd862c88490f1a6154ec3488786f5e_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a8af65df1e566a774d241b03116c919e0" name="a8af65df1e566a774d241b03116c919e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8af65df1e566a774d241b03116c919e0">&#9670;&#160;</a></span>spi_rb_burst()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void spi_rb_burst </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>addr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>pBuf</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>len</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c_a8af65df1e566a774d241b03116c919e0_cgraph.svg" width="339" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c_a8af65df1e566a774d241b03116c919e0_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ad0d4468782a468debc8139fe25107c43" name="ad0d4468782a468debc8139fe25107c43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0d4468782a468debc8139fe25107c43">&#9670;&#160;</a></span>spi_wb()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void spi_wb </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>addr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c_ad0d4468782a468debc8139fe25107c43_cgraph.svg" width="308" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c_ad0d4468782a468debc8139fe25107c43_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a5821dc24f7a22e40a3630f554f4c33a7" name="a5821dc24f7a22e40a3630f554f4c33a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5821dc24f7a22e40a3630f554f4c33a7">&#9670;&#160;</a></span>spi_wb_burst()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void spi_wb_burst </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>addr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>pBuf</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>len</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c_a5821dc24f7a22e40a3630f554f4c33a7_cgraph.svg" width="344" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c_a5821dc24f7a22e40a3630f554f4c33a7_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a45aed330f89610c0411f94d25250c49f" name="a45aed330f89610c0411f94d25250c49f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45aed330f89610c0411f94d25250c49f">&#9670;&#160;</a></span>w5500_register_callbacks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void w5500_register_callbacks </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c_a45aed330f89610c0411f94d25250c49f_cgraph.svg" width="564" height="434"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="w5500__callbacks_8c_a45aed330f89610c0411f94d25250c49f_icgraph.svg" width="579" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a9a42a1a6599015412816e4954c32f1bb" name="a9a42a1a6599015412816e4954c32f1bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a42a1a6599015412816e4954c32f1bb">&#9670;&#160;</a></span>eth_spi_config</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> eth_spi_config</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

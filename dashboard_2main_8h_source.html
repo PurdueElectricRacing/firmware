@@ -100,103 +100,112 @@ $(function(){initNavTree('dashboard_2main_8h_source.html',''); initResizable(tru
   <div class="headertitle"><div class="title">main.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<a href="dashboard_2main_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#ifndef MAIN_H</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#define MAIN_H</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;common/phal/gpio.h&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="phal_2gpio_8h.html">common/phal/gpio.h</a>&quot;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="structraw__adc__values__t.html">   16</a></span><span class="keyword">typedef</span> <span class="keyword">volatile</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    uint16_t throttle1;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    uint16_t throttle2;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    uint16_t regen1;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    uint16_t regen2;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    uint16_t brake1_pressure;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    uint16_t brake2_pressure;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>} <a class="code hl_struct" href="structraw__adc__values__t.html">raw_adc_values_t</a>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="structraw__adc__values__t.html#ad32d5b00639358f7787ea7aea5378a43">   17</a></span>    uint16_t <a class="code hl_variable" href="structraw__adc__values__t.html#ad32d5b00639358f7787ea7aea5378a43">throttle1</a>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structraw__adc__values__t.html#aa41de6f7e41206a7f021948f0d91e3ce">   18</a></span>    uint16_t <a class="code hl_variable" href="structraw__adc__values__t.html#aa41de6f7e41206a7f021948f0d91e3ce">throttle2</a>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="structraw__adc__values__t.html#aaa58fc936baddfd34bf71f2241da5022">   19</a></span>    uint16_t <a class="code hl_variable" href="structraw__adc__values__t.html#aaa58fc936baddfd34bf71f2241da5022">regen1</a>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="structraw__adc__values__t.html#aca352ec8adab129f19641ac24b1528cc">   20</a></span>    uint16_t <a class="code hl_variable" href="structraw__adc__values__t.html#aca352ec8adab129f19641ac24b1528cc">regen2</a>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="structraw__adc__values__t.html#a3848a97815776701119127e3544d163a">   21</a></span>    uint16_t <a class="code hl_variable" href="structraw__adc__values__t.html#a3848a97815776701119127e3544d163a">brake1_pressure</a>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="structraw__adc__values__t.html#af959ee919ea92d8c36b2396f1c0d909b">   22</a></span>    uint16_t <a class="code hl_variable" href="structraw__adc__values__t.html#af959ee919ea92d8c36b2396f1c0d909b">brake2_pressure</a>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>} <a class="code hl_variable" href="g4__testing_2main_8h.html#af796e3555932af2c8dce8e497f1e4734">raw_adc_values_t</a>;</div>
 </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">extern</span> <span class="keyword">volatile</span> <a class="code hl_struct" href="structraw__adc__values__t.html">raw_adc_values_t</a> raw_adc_values;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">extern</span> <span class="keyword">volatile</span> <a class="code hl_struct" href="structraw__adc__values__t.html">raw_adc_values_t</a> <a class="code hl_variable" href="dashboard_2main_8h.html#a29bc293670e53a11d854f35bca555254">raw_adc_values</a>;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">// On-board Status LEDs</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#define CONNECTION_LED_PORT (GPIOB)</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#define CONNECTION_LED_PIN  (7)</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#define HEARTBEAT_LED_PORT  (GPIOB)</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#define HEARTBEAT_LED_PIN   (9)</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#define ERROR_LED_PORT      (GPIOD)</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#define ERROR_LED_PIN       (2)</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#aa5bf4e4a187f66b98a273bb051ec3877">   27</a></span><span class="preprocessor">#define CONNECTION_LED_PORT (GPIOB)</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a8437cdc43b488d816a5e56f7b6457b86">   28</a></span><span class="preprocessor">#define CONNECTION_LED_PIN  (7)</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50">   29</a></span><span class="preprocessor">#define HEARTBEAT_LED_PORT  (GPIOB)</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a5e9e4203b861d671cdcd3bf5f08655a3">   30</a></span><span class="preprocessor">#define HEARTBEAT_LED_PIN   (9)</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a84357dafca10c0bedd27ddf562ec038f">   31</a></span><span class="preprocessor">#define ERROR_LED_PORT      (GPIOD)</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a16617de3bb2ca54675ae2515d8515e12">   32</a></span><span class="preprocessor">#define ERROR_LED_PIN       (2)</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">// External LEDs</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#define IMD_LED_PORT   (GPIOA)</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#define IMD_LED_PIN    (7)</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#define BMS_LED_PORT   (GPIOA)</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#define BMS_LED_PIN    (6)</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#define PRCHG_LED_PORT (GPIOC)</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#define PRCHG_LED_PIN  (4)</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#define REGEN_LED_PORT (GPIOC)</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#define REGEN_LED_PIN  (5)</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#aac27e7e6f4b917ce623b824bead7e910">   35</a></span><span class="preprocessor">#define IMD_LED_PORT   (GPIOA)</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a956e96d7e61e53ab4d30776a8b6067a7">   36</a></span><span class="preprocessor">#define IMD_LED_PIN    (7)</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#ad1b535ef0fb5e2372f01d19de020fe74">   37</a></span><span class="preprocessor">#define BMS_LED_PORT   (GPIOA)</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a1cd82a844570bac369ee02804ceb670f">   38</a></span><span class="preprocessor">#define BMS_LED_PIN    (6)</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a3d15ec5334f28944be69d9bae5a44b49">   39</a></span><span class="preprocessor">#define PRCHG_LED_PORT (GPIOC)</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a2c6705d9461ab7987893d3dcfba01694">   40</a></span><span class="preprocessor">#define PRCHG_LED_PIN  (4)</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#ae7eff457babe433b4bbb6d1ea2adf304">   41</a></span><span class="preprocessor">#define REGEN_LED_PORT (GPIOC)</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a99033f5d13d6b9740d65dbfeecd9cd2e">   42</a></span><span class="preprocessor">#define REGEN_LED_PIN  (5)</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">// Main Button inputs</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#define UP_BUTTON_PORT     (GPIOC)</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#define UP_BUTTON_PIN      (6)</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#define DOWN_BUTTON_PORT   (GPIOC)</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#define DOWN_BUTTON_PIN    (7)</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#define RIGHT_BUTTON_PORT  (GPIOC)</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#define RIGHT_BUTTON_PIN   (8)</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#define LEFT_BUTTON_PORT   (GPIOC)</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#define LEFT_BUTTON_PIN    (9)</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#define START_BUTTON_PORT  (GPIOB)</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#define START_BUTTON_PIN   (14)</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#define SELECT_BUTTON_PORT (GPIOB)</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#define SELECT_BUTTON_PIN  (15)</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a7094449ce96efd626936b33389e21395">   45</a></span><span class="preprocessor">#define UP_BUTTON_PORT     (GPIOC)</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#afd52094c7589001b63f550f3bbbaf513">   46</a></span><span class="preprocessor">#define UP_BUTTON_PIN      (6)</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a3d6d4b27f101400eb8658263c270a47a">   47</a></span><span class="preprocessor">#define DOWN_BUTTON_PORT   (GPIOC)</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a592ea744f4938ba661ad8fb3a0a29f59">   48</a></span><span class="preprocessor">#define DOWN_BUTTON_PIN    (7)</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#aa2c1799fd447b569b22a40dd9be88df9">   49</a></span><span class="preprocessor">#define RIGHT_BUTTON_PORT  (GPIOC)</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#ad956755d81d4eac050464e039d1b81ec">   50</a></span><span class="preprocessor">#define RIGHT_BUTTON_PIN   (8)</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a3affa4af55ae63e56c7bab07bc6e4f91">   51</a></span><span class="preprocessor">#define LEFT_BUTTON_PORT   (GPIOC)</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a13a28e027d9e8933a93a2f41641680ce">   52</a></span><span class="preprocessor">#define LEFT_BUTTON_PIN    (9)</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a09e189758b3c4107df2b48ecd1466897">   53</a></span><span class="preprocessor">#define START_BUTTON_PORT  (GPIOB)</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#af727d34dc72e3f32bd32754111724a0b">   54</a></span><span class="preprocessor">#define START_BUTTON_PIN   (14)</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a636a8047167ffb246bc6e7af2ea67094">   55</a></span><span class="preprocessor">#define SELECT_BUTTON_PORT (GPIOB)</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a22d6bc3e2e246b1d9f7e7fdfcbf586d9">   56</a></span><span class="preprocessor">#define SELECT_BUTTON_PIN  (15)</span></div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">// Steering Wheel Button inputs</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#define REGEN_TOGGLE_PORT (GPIOA)</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#define REGEN_TOGGLE_PIN  (4)</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#define MARK_DATA_PORT    (GPIOA)</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#define MARK_DATA_PIN     (5)</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#define EBB_MINUS_PORT    (GPIOB)</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#define EBB_MINUS_PIN     (0)</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#define EBB_PLUS_PORT     (GPIOB)</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#define EBB_PLUS_PIN      (1)</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#define TV1_PLUS_PORT     (GPIOB)</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#define TV1_PLUS_PIN      (11)</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#define TV1_MINUS_PORT    (GPIOB)</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#define TV1_MINUS_PIN     (13)</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a8168d5783caa70bc4230a106fe1f03cc">   59</a></span><span class="preprocessor">#define REGEN_TOGGLE_PORT (GPIOA)</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a85af915ca36983aa3867f03d8594157f">   60</a></span><span class="preprocessor">#define REGEN_TOGGLE_PIN  (4)</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a1e5cd5149732139197e222e6cb31ea00">   61</a></span><span class="preprocessor">#define MARK_DATA_PORT    (GPIOA)</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#af9f409b6b4ba3361509a77f230eb05ca">   62</a></span><span class="preprocessor">#define MARK_DATA_PIN     (5)</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#ae142476910b8902811c2ac65c2c62c70">   63</a></span><span class="preprocessor">#define EBB_MINUS_PORT    (GPIOB)</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#ac9fa874055700049b76103c6f107a2dd">   64</a></span><span class="preprocessor">#define EBB_MINUS_PIN     (0)</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#acda0a1ce723fb6b349996d31fead1096">   65</a></span><span class="preprocessor">#define EBB_PLUS_PORT     (GPIOB)</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#ab3a5aad39f41aae98021f3595454e589">   66</a></span><span class="preprocessor">#define EBB_PLUS_PIN      (1)</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#afbd235e96fd9d2eb9631e648e5595d2c">   67</a></span><span class="preprocessor">#define TV1_PLUS_PORT     (GPIOB)</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a060409d0e1c57a76e1488763a5569dc7">   68</a></span><span class="preprocessor">#define TV1_PLUS_PIN      (11)</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a7c58c4c4eab42860bb3ba131bdb36d8c">   69</a></span><span class="preprocessor">#define TV1_MINUS_PORT    (GPIOB)</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a066756c6be4dea791982891445aa58ad">   70</a></span><span class="preprocessor">#define TV1_MINUS_PIN     (13)</span></div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">// Throttle</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">#define THROTTLE1_PORT        (GPIOC) </span><span class="comment">// THROTTLE</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#define THROTTLE1_PIN         (2)</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#define THROTTLE1_ADC_CHANNEL (8)</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="preprocessor">#define THROTTLE2_PORT        (GPIOC) </span><span class="comment">// THROTTLE_INV</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#define THROTTLE2_PIN         (1)</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#define THROTTLE2_ADC_CHANNEL (7)</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a89d94e572a8ebeb83a341d190e6a6997">   73</a></span><span class="preprocessor">#define THROTTLE1_PORT        (GPIOC) </span><span class="comment">// THROTTLE</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a95de3cc5f90fd66607b1cf8c3ff3d6d1">   74</a></span><span class="preprocessor">#define THROTTLE1_PIN         (2)</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a04b9b836a648c2f855d71ef9bede3498">   75</a></span><span class="preprocessor">#define THROTTLE1_ADC_CHANNEL (8)</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#abb76b313bd4051960417f6437a41df9d">   76</a></span><span class="preprocessor">#define THROTTLE2_PORT        (GPIOC) </span><span class="comment">// THROTTLE_INV</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#ad9f3f902584d110bd59f142068f4502b">   77</a></span><span class="preprocessor">#define THROTTLE2_PIN         (1)</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a6b0a548cd0fd6e43aed5cf067948ba87">   78</a></span><span class="preprocessor">#define THROTTLE2_ADC_CHANNEL (7)</span></div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">// Brake</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="preprocessor">#define REGEN1_PORT        (GPIOC)</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">#define REGEN1_PIN         (3)</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">#define REGEN1_ADC_CHANNEL (9)</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="preprocessor">#define REGEN2_PORT        (GPIOA)</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">#define REGEN2_PIN         (0)</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">#define REGEN2_ADC_CHANNEL (1)</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#ad7fe508e03501311f6b2e61afa33f548">   81</a></span><span class="preprocessor">#define REGEN1_PORT        (GPIOC)</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a7518049084d0bd7581213a6006595716">   82</a></span><span class="preprocessor">#define REGEN1_PIN         (3)</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a8ae916ef9f01db897079d1fb17c9cb06">   83</a></span><span class="preprocessor">#define REGEN1_ADC_CHANNEL (9)</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#ac65699b2bd3c1965280e10ca033295ba">   84</a></span><span class="preprocessor">#define REGEN2_PORT        (GPIOA)</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a3f8c98122f01bcda87a426b5dc6982c4">   85</a></span><span class="preprocessor">#define REGEN2_PIN         (0)</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a38d499227f7c6f43e8c5ae4882863d53">   86</a></span><span class="preprocessor">#define REGEN2_ADC_CHANNEL (1)</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">// Brake Pressure</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="preprocessor">#define BRAKE1_PRESSURE_PORT        (GPIOA)</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">#define BRAKE1_PRESSURE_PIN         (1)</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="preprocessor">#define BRAKE1_PRESSURE_ADC_CHANNEL (2)</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="preprocessor">#define BRAKE2_PRESSURE_PORT        (GPIOA)</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="preprocessor">#define BRAKE2_PRESSURE_PIN         (2)</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">#define BRAKE2_PRESSURE_ADC_CHANNEL (3)</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a55908561fe9e0cc8eaa88886b4151250">   89</a></span><span class="preprocessor">#define BRAKE1_PRESSURE_PORT        (GPIOA)</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a7da205acaa89e46cdc0c70760f5ee4f6">   90</a></span><span class="preprocessor">#define BRAKE1_PRESSURE_PIN         (1)</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a06a0629f97e5fe14c4b5107d33449038">   91</a></span><span class="preprocessor">#define BRAKE1_PRESSURE_ADC_CHANNEL (2)</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a0ca56a8302d15d272f23e0f47c5cf746">   92</a></span><span class="preprocessor">#define BRAKE2_PRESSURE_PORT        (GPIOA)</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#a45ecf27cb237c2fdfc5bf51981081ff0">   93</a></span><span class="preprocessor">#define BRAKE2_PRESSURE_PIN         (2)</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="dashboard_2main_8h.html#add589bc27a19caa3ad522fcce67289ba">   94</a></span><span class="preprocessor">#define BRAKE2_PRESSURE_ADC_CHANNEL (3)</span></div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="preprocessor">#endif </span><span class="comment">// MAIN_H</span></div>
+<div class="ttc" id="adashboard_2main_8h_html_a29bc293670e53a11d854f35bca555254"><div class="ttname"><a href="dashboard_2main_8h.html#a29bc293670e53a11d854f35bca555254">raw_adc_values</a></div><div class="ttdeci">volatile raw_adc_values_t raw_adc_values</div><div class="ttdef"><b>Definition</b> main.c:110</div></div>
+<div class="ttc" id="ag4__testing_2main_8h_html_af796e3555932af2c8dce8e497f1e4734"><div class="ttname"><a href="g4__testing_2main_8h.html#af796e3555932af2c8dce8e497f1e4734">raw_adc_values_t</a></div><div class="ttdeci">raw_adc_values_t</div><div class="ttdef"><b>Definition</b> main.h:25</div></div>
+<div class="ttc" id="aphal_2gpio_8h_html"><div class="ttname"><a href="phal_2gpio_8h.html">gpio.h</a></div></div>
 <div class="ttc" id="astructraw__adc__values__t_html"><div class="ttname"><a href="structraw__adc__values__t.html">raw_adc_values_t</a></div><div class="ttdef"><b>Definition</b> main.h:16</div></div>
+<div class="ttc" id="astructraw__adc__values__t_html_a3848a97815776701119127e3544d163a"><div class="ttname"><a href="structraw__adc__values__t.html#a3848a97815776701119127e3544d163a">raw_adc_values_t::brake1_pressure</a></div><div class="ttdeci">uint16_t brake1_pressure</div><div class="ttdef"><b>Definition</b> main.h:21</div></div>
+<div class="ttc" id="astructraw__adc__values__t_html_aa41de6f7e41206a7f021948f0d91e3ce"><div class="ttname"><a href="structraw__adc__values__t.html#aa41de6f7e41206a7f021948f0d91e3ce">raw_adc_values_t::throttle2</a></div><div class="ttdeci">uint16_t throttle2</div><div class="ttdef"><b>Definition</b> main.h:18</div></div>
+<div class="ttc" id="astructraw__adc__values__t_html_aaa58fc936baddfd34bf71f2241da5022"><div class="ttname"><a href="structraw__adc__values__t.html#aaa58fc936baddfd34bf71f2241da5022">raw_adc_values_t::regen1</a></div><div class="ttdeci">uint16_t regen1</div><div class="ttdef"><b>Definition</b> main.h:19</div></div>
+<div class="ttc" id="astructraw__adc__values__t_html_aca352ec8adab129f19641ac24b1528cc"><div class="ttname"><a href="structraw__adc__values__t.html#aca352ec8adab129f19641ac24b1528cc">raw_adc_values_t::regen2</a></div><div class="ttdeci">uint16_t regen2</div><div class="ttdef"><b>Definition</b> main.h:20</div></div>
+<div class="ttc" id="astructraw__adc__values__t_html_ad32d5b00639358f7787ea7aea5378a43"><div class="ttname"><a href="structraw__adc__values__t.html#ad32d5b00639358f7787ea7aea5378a43">raw_adc_values_t::throttle1</a></div><div class="ttdeci">uint16_t throttle1</div><div class="ttdef"><b>Definition</b> main.h:17</div></div>
+<div class="ttc" id="astructraw__adc__values__t_html_af959ee919ea92d8c36b2396f1c0d909b"><div class="ttname"><a href="structraw__adc__values__t.html#af959ee919ea92d8c36b2396f1c0d909b">raw_adc_values_t::brake2_pressure</a></div><div class="ttdeci">uint16_t brake2_pressure</div><div class="ttdef"><b>Definition</b> main.h:22</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_fc3315dec08952c299e22f7c15049669.html">dashboard</a></li><li class="navelem"><b>main.h</b></li>
+    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_fc3315dec08952c299e22f7c15049669.html">dashboard</a></li><li class="navelem"><a class="el" href="dashboard_2main_8h.html">main.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

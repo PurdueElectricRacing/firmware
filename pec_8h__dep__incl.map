@@ -1,0 +1,7 @@
+<map id="source/a_box/adbms/pec.h" name="source/a_box/adbms/pec.h">
+<area shape="rect" id="Node000001" title="Calculation of PEC (CRC15, CRC10) for ADBMS communication." alt="" coords="88,5,229,46"/>
+<area shape="rect" id="Node000002" href="$adbms6380_8c.html" title="Low level BMS driver specific to ADBMS6380 chip." alt="" coords="5,94,147,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,59,97,95,93,92,127,56"/>
+<area shape="rect" id="Node000003" href="$pec_8c.html" title="Calculation of PEC (CRC15, CRC10) for ADBMS communication." alt="" coords="171,94,312,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="190,56,225,92,221,95,186,59"/>
+</map>

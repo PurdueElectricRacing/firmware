@@ -1,0 +1,18 @@
+<map id="PHAL_SPI_readByte" name="PHAL_SPI_readByte">
+<area shape="rect" id="Node000001" title="Blocking function to read a single byte from a SPI device. Useful for Initilization functions that ju..." alt="" coords="419,104,563,130"/>
+<area shape="rect" id="Node000002" href="$bmi088_8c.html#ab7a40e5f374e0a6e8ebed8384ee23365" title=" " alt="" coords="184,5,357,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="459,97,418,70,370,45,339,34,341,29,372,40,421,65,462,92"/>
+<area shape="rect" id="Node000003" href="$bmi088_8c.html#ac1def4d891e980b505d36e5190d6b0d5" title="Check the status of the most recent Gyro self test." alt="" coords="170,104,371,130"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="403,120,371,120,371,114,403,114"/>
+<area shape="rect" id="Node000005" href="$bmi088_8c.html#aa109c1cdfa5f5d238b52e566ef8230bd" title=" " alt="" coords="18,104,109,130"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="424,136,371,145,270,152,169,145,109,133,110,127,170,140,270,147,371,140,423,131"/>
+<area shape="rect" id="Node000006" href="$bmi088_8c.html#abd436184826a431cf00ef5eb069c5a22" title="Check the status of the most recent Gyro self test." alt="" coords="182,55,358,80"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="415,103,331,84,332,78,416,97"/>
+<area shape="rect" id="Node000007" href="$bmi088_8c.html#a9e0d7e3a9df0a98ef46e4a6b4e000184" title="Setup the accelerometer, must be done 50ms or longer after POR." alt="" coords="209,205,332,231"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="459,141,418,165,372,189,321,207,320,202,370,184,416,160,456,136"/>
+<area shape="rect" id="Node000004" href="$bmi088_8c.html#a7b7b6f413f7a504f78fe3feba4e522cb" title="Do self test of gyroscope." alt="" coords="5,55,122,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="198,102,120,84,121,78,199,97"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="154,120,109,120,109,114,154,114"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="167,70,122,70,122,65,167,65"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="199,87,110,109,108,104,198,82"/>
+</map>

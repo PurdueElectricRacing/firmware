@@ -1,0 +1,7 @@
+<map id="matrix_multiply_vector3" name="matrix_multiply_vector3">
+<area shape="rect" id="Node000001" title="Multiply a 3x3 matrix with a 3D vector." alt="" coords="258,31,415,56"/>
+<area shape="rect" id="Node000002" href="$imu_8c.html#a4e2ff3413851866d1385d942698f59e9" title="Callback function for handling IZZE acceleration data." alt="" coords="6,5,209,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="242,36,209,32,210,27,242,30"/>
+<area shape="rect" id="Node000003" href="$imu_8c.html#a033e363e85c9a7712d85b7fb947a94c0" title="Finalize the IMU decoupling calibration by deriving the rotation matrix from the accumulated accelero..." alt="" coords="5,55,210,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="242,56,210,59,210,54,242,51"/>
+</map>

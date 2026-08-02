@@ -1,0 +1,11 @@
+<map id="backPage" name="backPage">
+<area shape="rect" id="Node000001" title="Moves to the previous selectable page." alt="" coords="5,31,85,56"/>
+<area shape="rect" id="Node000002" href="$lcd_8c.html#aa13fa254ddd44573fd2a83874763cae8" title="Updates LCD display page." alt="" coords="133,31,223,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="85,41,117,41,117,46,85,46"/>
+<area shape="rect" id="Node000003" href="$nextion_8c.html#ac5753abcb75fb40221a51bcdec98bbd4" title="Sets the current page on the Nextion display." alt="" coords="271,31,374,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="223,41,256,41,256,46,223,46"/>
+<area shape="rect" id="Node000004" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="422,5,526,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="374,32,407,27,408,32,375,37"/>
+<area shape="rect" id="Node000005" href="$strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf" title="Appends formatted data to the buffer using printf&#45;style formatting. !" alt="" coords="429,55,519,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="375,49,414,55,413,61,374,54"/>
+</map>

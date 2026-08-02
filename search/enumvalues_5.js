@@ -1,7 +1,20 @@
 var searchData=
 [
-  ['sb_5fhalf_0',['SB_HALF',['../phal__F4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553ad0547d788f5201c0b3beb75bf289ecfb',1,'usart.h']]],
-  ['sb_5fone_1',['SB_ONE',['../phal__F4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da',1,'usart.h']]],
-  ['sb_5fone_5fhalf_2',['SB_ONE_HALF',['../phal__F4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553ab67ebf519fad921e7749842e16f9685c',1,'usart.h']]],
-  ['sb_5ftwo_3',['SB_TWO',['../phal__F4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553abd98b798e8db67c8f79d30573152cd87',1,'usart.h']]]
+  ['fault_5fprio_5ferror_0',['FAULT_PRIO_ERROR',['../faults__common_8h.html#a03cf0c7e0fba09e53e6aacd890b3d4eea99379ab89ada55dcfb2ff1b23e1cd25d',1,'faults_common.h']]],
+  ['fault_5fprio_5ffatal_1',['FAULT_PRIO_FATAL',['../faults__common_8h.html#a03cf0c7e0fba09e53e6aacd890b3d4eea801364c6df400da3e8d8cd1793c9a983',1,'faults_common.h']]],
+  ['fault_5fprio_5fwarning_2',['FAULT_PRIO_WARNING',['../faults__common_8h.html#a03cf0c7e0fba09e53e6aacd890b3d4eea9effc1f5abe62a434de0ea556c99d4ab',1,'faults_common.h']]],
+  ['fault_5fstate_5fclear_3',['FAULT_STATE_CLEAR',['../faults__common_8h.html#a6fd2f0abee328f348e5ac1888ead2ab8a6f74481d94fb5f6f9f5e1877e0a6b803',1,'faults_common.h']]],
+  ['fault_5fstate_5flatched_4',['FAULT_STATE_LATCHED',['../faults__common_8h.html#a6fd2f0abee328f348e5ac1888ead2ab8a66f055f0edeee92bbb5d35898e25e0e3',1,'faults_common.h']]],
+  ['fault_5fstate_5fpending_5',['FAULT_STATE_PENDING',['../faults__common_8h.html#a6fd2f0abee328f348e5ac1888ead2ab8a9ade13965a06b2093a58d7b9d48e580e',1,'faults_common.h']]],
+  ['fault_5fstate_5frecovering_6',['FAULT_STATE_RECOVERING',['../faults__common_8h.html#a6fd2f0abee328f348e5ac1888ead2ab8ac8b30f34db03517bc5a252401fd02a70',1,'faults_common.h']]],
+  ['fdcan_5fbaud_5f1m_7',['FDCAN_BAUD_1M',['../fdcan_8h.html#ab8c9770487a14259388dcada74c65d52a9cd01de5a2633a9af521f37c3519f54c',1,'fdcan.h']]],
+  ['fdcan_5fbaud_5f250k_8',['FDCAN_BAUD_250K',['../fdcan_8h.html#ab8c9770487a14259388dcada74c65d52aec5f29d942fce50530aac5a3dbccc7e4',1,'fdcan.h']]],
+  ['fdcan_5fbaud_5f500k_9',['FDCAN_BAUD_500K',['../fdcan_8h.html#ab8c9770487a14259388dcada74c65d52aaf9eb6196a8f422761e84b93f97205ed',1,'fdcan.h']]],
+  ['fdcan_5fpriv_5ffilter_5faccept_5fin_5frx_5ffifo0_10',['FDCAN_PRIV_FILTER_ACCEPT_IN_RX_FIFO0',['../fdcan__priv_8h.html#a0fed4338eaa5e76c37bdbb72648c1de9af7f5f03de92524a264154c0edd787158',1,'fdcan_priv.h']]],
+  ['fdcan_5fpriv_5ffilter_5freject_11',['FDCAN_PRIV_FILTER_REJECT',['../fdcan__priv_8h.html#a0fed4338eaa5e76c37bdbb72648c1de9a39cffdfaac94b513d79bb0810620e834',1,'fdcan_priv.h']]],
+  ['flash_5faddr_5fnot_5fcleared_12',['FLASH_ADDR_NOT_CLEARED',['../phal__F4_2flash_2flash_8h.html#a99fb83031ce9923c84392b4e92f956b5ae37fa4cb72874f85f6bfb8cf347c8836',1,'flash.h']]],
+  ['flash_5ffail_13',['FLASH_FAIL',['../phal__F4_2flash_2flash_8h.html#a99fb83031ce9923c84392b4e92f956b5a56a7812ea4ed6bd10aa7c16f34287da6',1,'flash.h']]],
+  ['flash_5fok_14',['FLASH_OK',['../phal__F4_2flash_2flash_8h.html#a99fb83031ce9923c84392b4e92f956b5aa61fd1fbf9781160f18a474a834723e7',1,'flash.h']]],
+  ['flash_5ftimeout_15',['FLASH_TIMEOUT',['../phal__F4_2flash_2flash_8h.html#a99fb83031ce9923c84392b4e92f956b5a90c514b6a619e3a4e6c2eec3154323f8',1,'flash.h']]],
+  ['forward_5fpage_16',['FORWARD_PAGE',['../driver__interface_8h.html#a229e398c86c302f6e87d5be9a8570f89a089497d194731c93fd022de4b4f284ea',1,'driver_interface.h']]]
 ];

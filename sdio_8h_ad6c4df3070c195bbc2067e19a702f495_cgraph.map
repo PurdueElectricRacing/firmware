@@ -1,0 +1,9 @@
+<map id="SD_LowLevel_DMA_RxConfig" name="SD_LowLevel_DMA_RxConfig">
+<area shape="rect" id="Node000001" title="Configures the DMA2 Channel4 for SDIO Rx request." alt="" coords="5,31,203,56"/>
+<area shape="rect" id="Node000002" href="$phal__F4_2dma_2dma_8c.html#a5eef9fdb02d8b29dc11d7e69328e7504" title=" " alt="" coords="255,5,366,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,29,239,24,240,29,203,34"/>
+<area shape="rect" id="Node000004" href="$phal__F4_2dma_2dma_8c.html#ab15d4afcf0988a8065caced65d1883fe" title=" " alt="" coords="251,55,370,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="203,52,236,56,235,61,203,58"/>
+<area shape="rect" id="Node000003" href="$phal__F4_2dma_2dma_8c.html#a14faecce0cd8bd38b14c987e17ce1033" title=" " alt="" coords="418,5,605,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="366,16,402,16,402,21,366,21"/>
+</map>

@@ -1,0 +1,15 @@
+<map id="common/phal/rtc.h" name="common/phal/rtc.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="212,5,340,31"/>
+<area shape="rect" id="Node000002" href="$daq_2main_8c.html" title="&quot;DAQ&quot; node source code" alt="" coords="5,175,133,201"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="220,39,180,57,143,81,120,104,101,130,77,176,72,173,97,128,116,101,139,77,177,52,218,34"/>
+<area shape="rect" id="Node000003" href="$rtc__sync_8c.html" title="Synchronization of the RTC peripheral with the GPS UTC time." alt="" coords="312,168,450,208"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="293,43,371,166,367,169,289,46"/>
+<area shape="rect" id="Node000004" href="$rtc__sync_8h.html" title="Synchronization of the RTC peripheral with the GPS UTC time." alt="" coords="153,79,292,120"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="261,45,238,80,233,77,257,42"/>
+<area shape="rect" id="Node000006" href="$sd__card_8c.html" title="Logging of received bus messages onto an SD card." alt="" coords="367,79,502,120"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="315,36,396,76,394,81,312,41"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="176,130,92,177,89,172,173,125"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="273,125,346,165,344,170,270,130"/>
+<area shape="rect" id="Node000005" href="$can__irq_8c.html" title="Timestamped frame producers from CAN RX IRQ." alt="" coords="157,168,288,208"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="225,135,225,167,220,167,220,135"/>
+</map>

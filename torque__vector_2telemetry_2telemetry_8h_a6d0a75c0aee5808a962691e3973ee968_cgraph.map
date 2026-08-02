@@ -1,0 +1,7 @@
+<map id="report_telemetry_1hz" name="report_telemetry_1hz">
+<area shape="rect" id="Node000001" title="Reports telemetry data at 1 Hz rate Includes: AMK diagnostics." alt="" coords="5,31,147,56"/>
+<area shape="rect" id="Node000002" href="$main__module_2telemetry_2telemetry_8c.html#a1e675b11e095a533b972887a23771d5d" title=" " alt="" coords="195,5,363,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,32,179,28,180,33,147,37"/>
+<area shape="rect" id="Node000003" href="$faults__common_8h.html#a22ea5f8bc7464c7728f4f9d67a9417cf" title=" " alt="" coords="246,55,312,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="147,49,231,59,230,64,146,54"/>
+</map>

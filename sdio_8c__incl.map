@@ -1,0 +1,27 @@
+<map id="common/sdio/sdio.c" name="common/sdio/sdio.c">
+<area shape="rect" id="Node000001" title="Secure Digital Input Output Interface driver for STM32F4." alt="" coords="340,5,477,31"/>
+<area shape="rect" id="Node000002" href="$sdio_8h.html" title=" " alt="" coords="299,79,355,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="396,34,354,71,350,67,393,30"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="379,79,438,105"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="411,31,411,63,406,63,406,31"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="462,79,525,105"/>
+<area shape="poly" id="edge13_Node000001_Node000012" title=" " alt="" coords="425,29,470,67,466,71,421,34"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,153,73,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="300,103,88,154,87,149,298,97"/>
+<area shape="rect" id="Node000004" href="$phal_2dma_8h.html" title=" " alt="" coords="96,153,235,178"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="301,108,208,148,206,144,299,103"/>
+<area shape="rect" id="Node000008" href="$phal_2gpio_8h.html" title=" " alt="" coords="258,153,396,178"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="330,105,330,137,324,137,324,105"/>
+<area shape="rect" id="Node000009" href="$phal_2rcc_8h.html" title=" " alt="" coords="420,153,551,178"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="355,103,446,144,444,148,353,108"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="575,153,666,178"/>
+<area shape="poly" id="edge11_Node000002_Node000010" title=" " alt="" coords="356,99,368,102,561,148,560,154,366,107,354,104"/>
+<area shape="rect" id="Node000005" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="242,226,412,252"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="194,176,287,217,285,222,192,181"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="245,300,318,326"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="322,254,300,288,295,285,317,251"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="342,300,405,326"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="337,251,360,285,355,288,332,254"/>
+<area shape="poly" id="edge8_Node000008_Node000005" title=" " alt="" coords="330,179,330,211,324,211,324,179"/>
+<area shape="poly" id="edge10_Node000009_Node000005" title=" " alt="" coords="460,181,369,222,367,217,458,176"/>
+</map>

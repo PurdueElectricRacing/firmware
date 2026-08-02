@@ -104,7 +104,8 @@ $(function(){initNavTree('rescale_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define RESCALE_H</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>[[gnu::always_inline]]</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">float</span> rescale_float(</div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="rescale_8h.html#aaa419c0fce105b743e0bbe5f1f3145df">   15</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">float</span> <a class="code hl_function" href="rescale_8h.html#aaa419c0fce105b743e0bbe5f1f3145df">rescale_float</a>(</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordtype">float</span> input,</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordtype">float</span> input_min,</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordtype">float</span> input_max,</div>
@@ -121,16 +122,18 @@ $(function(){initNavTree('rescale_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">return</span> output;</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>[[gnu::always_inline]]</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">signed</span> <span class="keywordtype">int</span> rescale_signed(</div>
+<div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="rescale_8h.html#a88bcd471c06503267683142d4accfbe0">   34</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">signed</span> <span class="keywordtype">int</span> <a class="code hl_function" href="rescale_8h.html#a88bcd471c06503267683142d4accfbe0">rescale_signed</a>(</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">signed</span> <span class="keywordtype">int</span> input,</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">signed</span> <span class="keywordtype">int</span> input_min,</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">signed</span> <span class="keywordtype">int</span> input_max,</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">signed</span> <span class="keywordtype">int</span> output_min,</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">signed</span> <span class="keywordtype">int</span> output_max</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>) {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">float</span> output = rescale_float(</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">float</span> output = <a class="code hl_function" href="rescale_8h.html#aaa419c0fce105b743e0bbe5f1f3145df">rescale_float</a>(</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        (<span class="keywordtype">float</span>)input,</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        (<span class="keywordtype">float</span>)input_min,</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        (<span class="keywordtype">float</span>)input_max,</div>
@@ -140,16 +143,18 @@ $(function(){initNavTree('rescale_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">return</span> (<span class="keywordtype">signed</span> <span class="keywordtype">int</span>)output;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
+</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>[[gnu::always_inline]]</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> rescale_unsigned(</div>
+<div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="rescale_8h.html#a9a59c88cfc4c5bec4664be310aae2201">   53</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="rescale_8h.html#a9a59c88cfc4c5bec4664be310aae2201">rescale_unsigned</a>(</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> input,</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> input_min,</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> input_max,</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> output_min,</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> output_max</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>) {</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordtype">float</span> output = rescale_float(</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordtype">float</span> output = <a class="code hl_function" href="rescale_8h.html#aaa419c0fce105b743e0bbe5f1f3145df">rescale_float</a>(</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        (<span class="keywordtype">float</span>)input,</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        (<span class="keywordtype">float</span>)input_min,</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        (<span class="keywordtype">float</span>)input_max,</div>
@@ -159,15 +164,21 @@ $(function(){initNavTree('rescale_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">return</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>)output;</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
+</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">#define RESCALE(input, input_min, input_max, output_min, output_max) \</span></div>
+<div class="foldopen" id="foldopen00071" data-start="" data-end="">
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="rescale_8h.html#a21face4f1d8ad6e12a49c985ed2d972d">   71</a></span><span class="preprocessor">#define RESCALE(input, input_min, input_max, output_min, output_max) \</span></div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">    _Generic((input) + (input_min) + (input_max) + (output_min) + (output_max), \</span></div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">    signed int: rescale_signed, \</span></div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">    unsigned int: rescale_unsigned, \</span></div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">    float: rescale_float \</span></div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="preprocessor">)(input, input_min, input_max, output_min, output_max)</span></div>
+</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#endif </span><span class="comment">// RESCALE_H</span></div>
+<div class="ttc" id="arescale_8h_html_a88bcd471c06503267683142d4accfbe0"><div class="ttname"><a href="rescale_8h.html#a88bcd471c06503267683142d4accfbe0">rescale_signed</a></div><div class="ttdeci">static signed int rescale_signed(signed int input, signed int input_min, signed int input_max, signed int output_min, signed int output_max)</div><div class="ttdef"><b>Definition</b> rescale.h:34</div></div>
+<div class="ttc" id="arescale_8h_html_a9a59c88cfc4c5bec4664be310aae2201"><div class="ttname"><a href="rescale_8h.html#a9a59c88cfc4c5bec4664be310aae2201">rescale_unsigned</a></div><div class="ttdeci">static unsigned int rescale_unsigned(unsigned int input, unsigned int input_min, unsigned int input_max, unsigned int output_min, unsigned int output_max)</div><div class="ttdef"><b>Definition</b> rescale.h:53</div></div>
+<div class="ttc" id="arescale_8h_html_aaa419c0fce105b743e0bbe5f1f3145df"><div class="ttname"><a href="rescale_8h.html#aaa419c0fce105b743e0bbe5f1f3145df">rescale_float</a></div><div class="ttdeci">static float rescale_float(float input, float input_min, float input_max, float output_min, float output_max)</div><div class="ttdef"><b>Definition</b> rescale.h:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -1,0 +1,7 @@
+<map id="common/phal/phal_mcu.h" name="common/phal/phal_mcu.h">
+<area shape="rect" id="Node000001" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="5,5,175,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="8,79,81,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="85,33,63,67,58,64,80,30"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="105,79,168,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="100,30,123,64,118,67,95,33"/>
+</map>

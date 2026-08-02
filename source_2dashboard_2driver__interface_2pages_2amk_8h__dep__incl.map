@@ -1,0 +1,7 @@
+<map id="source/dashboard/driver_interface/pages/amk.h" name="source/dashboard/driver_interface/pages/amk.h">
+<area shape="rect" id="Node000001" title="AMK page implementation." alt="" coords="97,5,258,46"/>
+<area shape="rect" id="Node000002" href="$lcd_8c.html" title="LCD display management." alt="" coords="5,94,166,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,59,108,96,104,92,144,55"/>
+<area shape="rect" id="Node000003" href="$source_2dashboard_2driver__interface_2pages_2amk_8c.html" title="AMK page implementation." alt="" coords="189,94,350,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="211,55,251,92,247,96,207,59"/>
+</map>

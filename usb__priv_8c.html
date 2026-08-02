@@ -98,7 +98,8 @@ $(function(){initNavTree('usb__priv_8c.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">usb_priv.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -106,32 +107,64 @@ $(function(){initNavTree('usb__priv_8c.html',''); initResizable(true); });
 <p>STM32G4 USB register and packet-memory implementation.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="usb__priv_8h_source.html">common/phal_G4/usb/usb_priv.h</a>&quot;</code><br />
-<code>#include &quot;common/phal_G4/phal_G4.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal__G4_8h_source.html">common/phal_G4/phal_G4.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for usb_priv.c:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c__incl.svg" width="368" height="303"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a34ead234195e6e26e97662c2db3b9dbb" id="r_a34ead234195e6e26e97662c2db3b9dbb"><td class="memItemLeft" align="right" valign="top">static volatile uint16_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34ead234195e6e26e97662c2db3b9dbb">usb_endpoint_register</a> (uint8_t endpoint)</td></tr>
+<tr class="separator:a34ead234195e6e26e97662c2db3b9dbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae50319496e974387c6b5a0668b825cb9" id="r_ae50319496e974387c6b5a0668b825cb9"><td class="memItemLeft" align="right" valign="top">static volatile uint16_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae50319496e974387c6b5a0668b825cb9">usb_descriptor_word</a> (uint8_t endpoint, uint8_t word)</td></tr>
+<tr class="separator:ae50319496e974387c6b5a0668b825cb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b7fce8b1f0de310ffffbe258ad7c6d7" id="r_a3b7fce8b1f0de310ffffbe258ad7c6d7"><td class="memItemLeft" align="right" valign="top">static volatile uint16_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b7fce8b1f0de310ffffbe258ad7c6d7">usb_pma</a> (uint16_t address)</td></tr>
+<tr class="separator:a3b7fce8b1f0de310ffffbe258ad7c6d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80afa30e860ee2cbe11c0b317bd72e0e" id="r_a80afa30e860ee2cbe11c0b317bd72e0e"><td class="memItemLeft" align="right" valign="top">static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80afa30e860ee2cbe11c0b317bd72e0e">usb_transmit_address</a> (uint8_t endpoint)</td></tr>
+<tr class="separator:a80afa30e860ee2cbe11c0b317bd72e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca373172c04b6704271473559fe35015" id="r_aca373172c04b6704271473559fe35015"><td class="memItemLeft" align="right" valign="top">static uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca373172c04b6704271473559fe35015">usb_receive_address</a> (uint8_t endpoint)</td></tr>
+<tr class="separator:aca373172c04b6704271473559fe35015"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24d7e42058ea841bacf7f122f1433161" id="r_a24d7e42058ea841bacf7f122f1433161"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24d7e42058ea841bacf7f122f1433161">usb_delay</a> (uint32_t iterations)</td></tr>
+<tr class="separator:a24d7e42058ea841bacf7f122f1433161"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afde36da2f9f9310cd72f06a4b3b5ed45" id="r_afde36da2f9f9310cd72f06a4b3b5ed45"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afde36da2f9f9310cd72f06a4b3b5ed45">usb_enable_clock</a> (void)</td></tr>
+<tr class="separator:afde36da2f9f9310cd72f06a4b3b5ed45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab350ec22eeaee49c28ca41cc6c1badf8" id="r_ab350ec22eeaee49c28ca41cc6c1badf8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab350ec22eeaee49c28ca41cc6c1badf8">usb_configure_pins</a> (void)</td></tr>
+<tr class="separator:ab350ec22eeaee49c28ca41cc6c1badf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5c38a37080513ad9b42fe2ae880ee00" id="r_ae5c38a37080513ad9b42fe2ae880ee00"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5c38a37080513ad9b42fe2ae880ee00">usb_configure_type_c_sink</a> (void)</td></tr>
+<tr class="separator:ae5c38a37080513ad9b42fe2ae880ee00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1638950182f24a49c6002ae45e9656c0" id="r_a1638950182f24a49c6002ae45e9656c0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1638950182f24a49c6002ae45e9656c0">usb_reset_peripheral</a> (void)</td></tr>
+<tr class="separator:a1638950182f24a49c6002ae45e9656c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeac1c8e012ea840bd62b75d951b16358" id="r_aeac1c8e012ea840bd62b75d951b16358"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeac1c8e012ea840bd62b75d951b16358">usb_set_status</a> (uint8_t endpoint, <a class="el" href="phal__G4_2usb_2usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a> direction, uint8_t status)</td></tr>
+<tr class="separator:aeac1c8e012ea840bd62b75d951b16358"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7312b4dfb274b8c4e34c683499ad5e76" id="r_a7312b4dfb274b8c4e34c683499ad5e76"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7312b4dfb274b8c4e34c683499ad5e76">usb_clear_transfer</a> (uint8_t endpoint, <a class="el" href="phal__G4_2usb_2usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a> direction)</td></tr>
+<tr class="separator:a7312b4dfb274b8c4e34c683499ad5e76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b35d5bd2473c452b714e669014e6b82" id="r_a1b35d5bd2473c452b714e669014e6b82"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b35d5bd2473c452b714e669014e6b82">usb_configure_endpoint</a> (uint8_t endpoint, uint16_t type_bits)</td></tr>
+<tr class="separator:a1b35d5bd2473c452b714e669014e6b82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a65179705ed513c172183fd44417b8a" id="r_a7a65179705ed513c172183fd44417b8a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7a65179705ed513c172183fd44417b8a">usb_configure_endpoints</a> (void)</td></tr>
+<tr class="separator:a7a65179705ed513c172183fd44417b8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cc0caddc361cdd67eaeed0a71762c82" id="r_a8cc0caddc361cdd67eaeed0a71762c82"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8cc0caddc361cdd67eaeed0a71762c82">usb_copy_to_pma</a> (uint16_t address, const void *source, uint16_t length_bytes)</td></tr>
+<tr class="separator:a8cc0caddc361cdd67eaeed0a71762c82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42c22576a1f6dd626e947d9a95ff6433" id="r_a42c22576a1f6dd626e947d9a95ff6433"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a42c22576a1f6dd626e947d9a95ff6433">usb_copy_from_pma</a> (uint16_t address, void *destination, uint16_t length_bytes)</td></tr>
+<tr class="separator:a42c22576a1f6dd626e947d9a95ff6433"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88feef2613c47bacaa4b3a2a768c8ae4" id="r_a88feef2613c47bacaa4b3a2a768c8ae4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88feef2613c47bacaa4b3a2a768c8ae4">USB_PRIV_init</a> (void)</td></tr>
 <tr class="memdesc:a88feef2613c47bacaa4b3a2a768c8ae4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable and reset the USB hardware, configure pins and packet memory.  <br /></td></tr>
 <tr class="separator:a88feef2613c47bacaa4b3a2a768c8ae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1b13854a90c8dbd100fae48a107ad4d" id="r_ae1b13854a90c8dbd100fae48a107ad4d"><td class="memItemLeft" align="right" valign="top"><a id="ae1b13854a90c8dbd100fae48a107ad4d" name="ae1b13854a90c8dbd100fae48a107ad4d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_PRIV_deinit</b> (void)</td></tr>
-<tr class="memdesc:ae1b13854a90c8dbd100fae48a107ad4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detach, disable interrupts, and power down the USB peripheral. <br /></td></tr>
+<tr class="memitem:ae1b13854a90c8dbd100fae48a107ad4d" id="r_ae1b13854a90c8dbd100fae48a107ad4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae1b13854a90c8dbd100fae48a107ad4d">USB_PRIV_deinit</a> (void)</td></tr>
+<tr class="memdesc:ae1b13854a90c8dbd100fae48a107ad4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detach, disable interrupts, and power down the USB peripheral.  <br /></td></tr>
 <tr class="separator:ae1b13854a90c8dbd100fae48a107ad4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a84dcb07b21e54a2b506cec9165693b" id="r_a6a84dcb07b21e54a2b506cec9165693b"><td class="memItemLeft" align="right" valign="top"><a id="a6a84dcb07b21e54a2b506cec9165693b" name="a6a84dcb07b21e54a2b506cec9165693b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_PRIV_enableInterrupts</b> (void)</td></tr>
-<tr class="memdesc:a6a84dcb07b21e54a2b506cec9165693b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable USB event interrupts and endpoint operation. <br /></td></tr>
+<tr class="memitem:a6a84dcb07b21e54a2b506cec9165693b" id="r_a6a84dcb07b21e54a2b506cec9165693b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a84dcb07b21e54a2b506cec9165693b">USB_PRIV_enableInterrupts</a> (void)</td></tr>
+<tr class="memdesc:a6a84dcb07b21e54a2b506cec9165693b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable USB event interrupts and endpoint operation.  <br /></td></tr>
 <tr class="separator:a6a84dcb07b21e54a2b506cec9165693b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f4223ca64ff2db2fdecae4d66c0d2ec" id="r_a8f4223ca64ff2db2fdecae4d66c0d2ec"><td class="memItemLeft" align="right" valign="top"><a id="a8f4223ca64ff2db2fdecae4d66c0d2ec" name="a8f4223ca64ff2db2fdecae4d66c0d2ec"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_PRIV_connect</b> (void)</td></tr>
-<tr class="memdesc:a8f4223ca64ff2db2fdecae4d66c0d2ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attach to the bus by enabling the internal D+ pull-up. <br /></td></tr>
+<tr class="memitem:a8f4223ca64ff2db2fdecae4d66c0d2ec" id="r_a8f4223ca64ff2db2fdecae4d66c0d2ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f4223ca64ff2db2fdecae4d66c0d2ec">USB_PRIV_connect</a> (void)</td></tr>
+<tr class="memdesc:a8f4223ca64ff2db2fdecae4d66c0d2ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attach to the bus by enabling the internal D+ pull-up.  <br /></td></tr>
 <tr class="separator:a8f4223ca64ff2db2fdecae4d66c0d2ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaea03d767f81299b62109832610473d2" id="r_aaea03d767f81299b62109832610473d2"><td class="memItemLeft" align="right" valign="top"><a id="aaea03d767f81299b62109832610473d2" name="aaea03d767f81299b62109832610473d2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_PRIV_setAddress</b> (uint8_t address)</td></tr>
-<tr class="memdesc:aaea03d767f81299b62109832610473d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write the seven-bit device address while keeping the device enabled. <br /></td></tr>
+<tr class="memitem:aaea03d767f81299b62109832610473d2" id="r_aaea03d767f81299b62109832610473d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaea03d767f81299b62109832610473d2">USB_PRIV_setAddress</a> (uint8_t address)</td></tr>
+<tr class="memdesc:aaea03d767f81299b62109832610473d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write the seven-bit device address while keeping the device enabled.  <br /></td></tr>
 <tr class="separator:aaea03d767f81299b62109832610473d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe455c5cf21d064ea3eccd1b92c51fc4" id="r_abe455c5cf21d064ea3eccd1b92c51fc4"><td class="memItemLeft" align="right" valign="top"><a id="abe455c5cf21d064ea3eccd1b92c51fc4" name="abe455c5cf21d064ea3eccd1b92c51fc4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_PRIV_stall</b> (uint8_t endpoint, <a class="el" href="phal__G4_2usb_2usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a> direction)</td></tr>
-<tr class="memdesc:abe455c5cf21d064ea3eccd1b92c51fc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set one endpoint direction to the USB STALL handshake state. <br /></td></tr>
+<tr class="memitem:abe455c5cf21d064ea3eccd1b92c51fc4" id="r_abe455c5cf21d064ea3eccd1b92c51fc4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe455c5cf21d064ea3eccd1b92c51fc4">USB_PRIV_stall</a> (uint8_t endpoint, <a class="el" href="phal__G4_2usb_2usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a> direction)</td></tr>
+<tr class="memdesc:abe455c5cf21d064ea3eccd1b92c51fc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set one endpoint direction to the USB STALL handshake state.  <br /></td></tr>
 <tr class="separator:abe455c5cf21d064ea3eccd1b92c51fc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae29a55bc0c87c71b9820e6b8ef9c7780" id="r_ae29a55bc0c87c71b9820e6b8ef9c7780"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae29a55bc0c87c71b9820e6b8ef9c7780">USB_PRIV_write</a> (uint8_t endpoint, const void *source, uint16_t length_bytes)</td></tr>
 <tr class="memdesc:ae29a55bc0c87c71b9820e6b8ef9c7780"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy one IN packet to packet memory and make it available to the host.  <br /></td></tr>
@@ -139,17 +172,595 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_PRIV_stall</b> (u
 <tr class="memitem:ac8fc2c5988800daa9a8e4fd40ef19dce" id="r_ac8fc2c5988800daa9a8e4fd40ef19dce"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8fc2c5988800daa9a8e4fd40ef19dce">USB_PRIV_read</a> (uint8_t endpoint, void *destination, uint16_t destination_capacity, uint16_t *received_length)</td></tr>
 <tr class="memdesc:ac8fc2c5988800daa9a8e4fd40ef19dce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy one completed OUT packet from packet memory and rearm reception.  <br /></td></tr>
 <tr class="separator:ac8fc2c5988800daa9a8e4fd40ef19dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b7fdac0fb67607273cf7aabc6f8494f" id="r_a3b7fdac0fb67607273cf7aabc6f8494f"><td class="memItemLeft" align="right" valign="top"><a id="a3b7fdac0fb67607273cf7aabc6f8494f" name="a3b7fdac0fb67607273cf7aabc6f8494f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_PRIV_handleInterrupt</b> (void)</td></tr>
-<tr class="memdesc:a3b7fdac0fb67607273cf7aabc6f8494f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode one pending USB interrupt and notify the application. <br /></td></tr>
+<tr class="memitem:a0d5abf3e4543ac89b6611ee7a1ae8a16" id="r_a0d5abf3e4543ac89b6611ee7a1ae8a16"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d5abf3e4543ac89b6611ee7a1ae8a16">usb_clear_interrupt_flags</a> (uint16_t interrupt_status)</td></tr>
+<tr class="separator:a0d5abf3e4543ac89b6611ee7a1ae8a16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b7fdac0fb67607273cf7aabc6f8494f" id="r_a3b7fdac0fb67607273cf7aabc6f8494f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b7fdac0fb67607273cf7aabc6f8494f">USB_PRIV_handleInterrupt</a> (void)</td></tr>
+<tr class="memdesc:a3b7fdac0fb67607273cf7aabc6f8494f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode one pending USB interrupt and notify the application.  <br /></td></tr>
 <tr class="separator:a3b7fdac0fb67607273cf7aabc6f8494f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a057acf6e380b2c8f1d44231ce40468ab" id="r_a057acf6e380b2c8f1d44231ce40468ab"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a057acf6e380b2c8f1d44231ce40468ab">USB_PRIV_getFrameNumber</a> (void)</td></tr>
 <tr class="memdesc:a057acf6e380b2c8f1d44231ce40468ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the USB peripheral's current 11-bit frame number.  <br /></td></tr>
 <tr class="separator:a057acf6e380b2c8f1d44231ce40468ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a1e2497f838cccd3d4b46eca09fd0b98c" id="r_a1e2497f838cccd3d4b46eca09fd0b98c"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e2497f838cccd3d4b46eca09fd0b98c">USB_PRIV_BTABLE_OFFSET</a> = 0U</td></tr>
+<tr class="separator:a1e2497f838cccd3d4b46eca09fd0b98c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d4db77e61b126198a743fb5f9f52ffa" id="r_a5d4db77e61b126198a743fb5f9f52ffa"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d4db77e61b126198a743fb5f9f52ffa">USB_PRIV_BUFFER_START</a> = 64U</td></tr>
+<tr class="separator:a5d4db77e61b126198a743fb5f9f52ffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab40484a57581b40e534841e1b2611789" id="r_ab40484a57581b40e534841e1b2611789"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab40484a57581b40e534841e1b2611789">USB_PRIV_CLOCK_TIMEOUT</a> = 1'000'000U</td></tr>
+<tr class="separator:ab40484a57581b40e534841e1b2611789"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a903b8c8bdb945431d0a10f9380d79c3f" id="r_a903b8c8bdb945431d0a10f9380d79c3f"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a903b8c8bdb945431d0a10f9380d79c3f">USB_PRIV_STARTUP_DELAY</a> = 1'000U</td></tr>
+<tr class="separator:a903b8c8bdb945431d0a10f9380d79c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98fe09c9cc6f65fcb000b0a51517ff57" id="r_a98fe09c9cc6f65fcb000b0a51517ff57"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98fe09c9cc6f65fcb000b0a51517ff57">USB_PRIV_STATUS_STALL</a> = 1U</td></tr>
+<tr class="separator:a98fe09c9cc6f65fcb000b0a51517ff57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91d7c09215a281e70b9b48cc1583303c" id="r_a91d7c09215a281e70b9b48cc1583303c"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91d7c09215a281e70b9b48cc1583303c">USB_PRIV_STATUS_NAK</a> = 2U</td></tr>
+<tr class="separator:a91d7c09215a281e70b9b48cc1583303c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11a84a6e5cfb7633c2db88163ca2b0d4" id="r_a11a84a6e5cfb7633c2db88163ca2b0d4"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11a84a6e5cfb7633c2db88163ca2b0d4">USB_PRIV_STATUS_VALID</a> = 3U</td></tr>
+<tr class="separator:a11a84a6e5cfb7633c2db88163ca2b0d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b1804f208a12b6effc3c2eddbd324a1" id="r_a9b1804f208a12b6effc3c2eddbd324a1"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b1804f208a12b6effc3c2eddbd324a1">USB_PRIV_DM_PIN</a> = 11U</td></tr>
+<tr class="separator:a9b1804f208a12b6effc3c2eddbd324a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07fb28d2d71d12f2e0ca244702ddcbf2" id="r_a07fb28d2d71d12f2e0ca244702ddcbf2"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a07fb28d2d71d12f2e0ca244702ddcbf2">USB_PRIV_DP_PIN</a> = 12U</td></tr>
+<tr class="separator:a07fb28d2d71d12f2e0ca244702ddcbf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a9d7f2e75c1eea8afd69a6f5c39160a" id="r_a7a9d7f2e75c1eea8afd69a6f5c39160a"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7a9d7f2e75c1eea8afd69a6f5c39160a">USB_PRIV_CC1_PIN</a> = 8U</td></tr>
+<tr class="separator:a7a9d7f2e75c1eea8afd69a6f5c39160a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3cad4e4ef7fde76fc1a6692736ee4a6" id="r_ac3cad4e4ef7fde76fc1a6692736ee4a6"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac3cad4e4ef7fde76fc1a6692736ee4a6">USB_PRIV_CC2_PIN</a> = 9U</td></tr>
+<tr class="separator:ac3cad4e4ef7fde76fc1a6692736ee4a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af415075b0182f3a9bc7d505d8e6e37a0" id="r_af415075b0182f3a9bc7d505d8e6e37a0"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af415075b0182f3a9bc7d505d8e6e37a0">USB_PRIV_GPIO_MODE_BITS</a> = 0b11U</td></tr>
+<tr class="separator:af415075b0182f3a9bc7d505d8e6e37a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7680f938f4ba0ec0d5ccddf87ee8065" id="r_ae7680f938f4ba0ec0d5ccddf87ee8065"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7680f938f4ba0ec0d5ccddf87ee8065">USB_PRIV_GPIO_MODE_BIT_WIDTH</a> = 2U</td></tr>
+<tr class="separator:ae7680f938f4ba0ec0d5ccddf87ee8065"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60613d1b017746f55ada4a2d5411f49e" id="r_a60613d1b017746f55ada4a2d5411f49e"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60613d1b017746f55ada4a2d5411f49e">USB_PRIV_ENDPOINT_REGISTER_STRIDE</a> = 2U</td></tr>
+<tr class="separator:a60613d1b017746f55ada4a2d5411f49e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a000ab6ef954fda40332c98e5340b0c7f" id="r_a000ab6ef954fda40332c98e5340b0c7f"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a000ab6ef954fda40332c98e5340b0c7f">USB_PRIV_BTABLE_ENTRY_SIZE_BYTES</a> = 8U</td></tr>
+<tr class="separator:a000ab6ef954fda40332c98e5340b0c7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89de2cf9c668165b6f5e89ae6c5ad461" id="r_a89de2cf9c668165b6f5e89ae6c5ad461"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89de2cf9c668165b6f5e89ae6c5ad461">USB_PRIV_BTABLE_WORD_SIZE_BYTES</a> = 2U</td></tr>
+<tr class="separator:a89de2cf9c668165b6f5e89ae6c5ad461"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08789726fbadf0b06fa1d6a9deca3350" id="r_a08789726fbadf0b06fa1d6a9deca3350"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08789726fbadf0b06fa1d6a9deca3350">USB_PRIV_BUFFERS_PER_ENDPOINT</a> = 2U</td></tr>
+<tr class="separator:a08789726fbadf0b06fa1d6a9deca3350"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa45018000c40bb1056b57a45ca52108c" id="r_aa45018000c40bb1056b57a45ca52108c"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa45018000c40bb1056b57a45ca52108c">USB_PRIV_ENDPOINT_COUNT</a> = 8U</td></tr>
+<tr class="separator:aa45018000c40bb1056b57a45ca52108c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a839a5f0d51c881737e25e5b22b5aa3b3" id="r_a839a5f0d51c881737e25e5b22b5aa3b3"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a839a5f0d51c881737e25e5b22b5aa3b3">USB_PRIV_STATUS_TX_SHIFT</a> = 4U</td></tr>
+<tr class="separator:a839a5f0d51c881737e25e5b22b5aa3b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d2fe3e4c89e329f83d0455f2f6fd3a8" id="r_a0d2fe3e4c89e329f83d0455f2f6fd3a8"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d2fe3e4c89e329f83d0455f2f6fd3a8">USB_PRIV_STATUS_RX_SHIFT</a> = 12U</td></tr>
+<tr class="separator:a0d2fe3e4c89e329f83d0455f2f6fd3a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a046073e31de02bc3b5a3d385c06d71f5" id="r_a046073e31de02bc3b5a3d385c06d71f5"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a046073e31de02bc3b5a3d385c06d71f5">USB_PRIV_RX_BLOCK_COUNT</a> = 1U</td></tr>
+<tr class="separator:a046073e31de02bc3b5a3d385c06d71f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc488b6b4e40e9d3491ee8d4a8f0b0a2" id="r_abc488b6b4e40e9d3491ee8d4a8f0b0a2"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc488b6b4e40e9d3491ee8d4a8f0b0a2">USB_PRIV_RX_BLOCK_COUNT_SHIFT</a> = 10U</td></tr>
+<tr class="separator:abc488b6b4e40e9d3491ee8d4a8f0b0a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>STM32G4 USB register and packet-memory implementation. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a0d5abf3e4543ac89b6611ee7a1ae8a16" name="a0d5abf3e4543ac89b6611ee7a1ae8a16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d5abf3e4543ac89b6611ee7a1ae8a16">&#9670;&#160;</a></span>usb_clear_interrupt_flags()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void usb_clear_interrupt_flags </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>interrupt_status</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Acknowledge non-endpoint flags present in an ISTR snapshot. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a0d5abf3e4543ac89b6611ee7a1ae8a16_icgraph.svg" width="570" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a7312b4dfb274b8c4e34c683499ad5e76" name="a7312b4dfb274b8c4e34c683499ad5e76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7312b4dfb274b8c4e34c683499ad5e76">&#9670;&#160;</a></span>usb_clear_transfer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void usb_clear_transfer </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>endpoint</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="phal__G4_2usb_2usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Acknowledge one endpoint transfer without clearing the opposite direction. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a7312b4dfb274b8c4e34c683499ad5e76_cgraph.svg" width="336" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a7312b4dfb274b8c4e34c683499ad5e76_icgraph.svg" width="566" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a1b35d5bd2473c452b714e669014e6b82" name="a1b35d5bd2473c452b714e669014e6b82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b35d5bd2473c452b714e669014e6b82">&#9670;&#160;</a></span>usb_configure_endpoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void usb_configure_endpoint </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>endpoint</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>type_bits</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Populate one BTABLE entry and enable its IN and OUT directions. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a1b35d5bd2473c452b714e669014e6b82_cgraph.svg" width="562" height="160"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a1b35d5bd2473c452b714e669014e6b82_icgraph.svg" width="100%" height="401"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a7a65179705ed513c172183fd44417b8a" name="a7a65179705ed513c172183fd44417b8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a65179705ed513c172183fd44417b8a">&#9670;&#160;</a></span>usb_configure_endpoints()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void usb_configure_endpoints </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Restore the fixed control and bulk endpoint configuration. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a7a65179705ed513c172183fd44417b8a_cgraph.svg" width="100%" height="420"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a7a65179705ed513c172183fd44417b8a_icgraph.svg" width="602" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab350ec22eeaee49c28ca41cc6c1badf8" name="ab350ec22eeaee49c28ca41cc6c1badf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab350ec22eeaee49c28ca41cc6c1badf8">&#9670;&#160;</a></span>usb_configure_pins()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void usb_configure_pins </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Release the USB-C CC and USB data pins from their GPIO digital paths. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_ab350ec22eeaee49c28ca41cc6c1badf8_icgraph.svg" width="467" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ae5c38a37080513ad9b42fe2ae880ee00" name="ae5c38a37080513ad9b42fe2ae880ee00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5c38a37080513ad9b42fe2ae880ee00">&#9670;&#160;</a></span>usb_configure_type_c_sink()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void usb_configure_type_c_sink </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Configure UCPD1 to advertise this board as a USB-C power sink. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_ae5c38a37080513ad9b42fe2ae880ee00_icgraph.svg" width="467" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a42c22576a1f6dd626e947d9a95ff6433" name="a42c22576a1f6dd626e947d9a95ff6433"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42c22576a1f6dd626e947d9a95ff6433">&#9670;&#160;</a></span>usb_copy_from_pma()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void usb_copy_from_pma </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>address</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>destination</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>length_bytes</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Copy a packet from STM32 packet memory into application memory. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a42c22576a1f6dd626e947d9a95ff6433_cgraph.svg" width="275" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a42c22576a1f6dd626e947d9a95ff6433_icgraph.svg" width="492" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a8cc0caddc361cdd67eaeed0a71762c82" name="a8cc0caddc361cdd67eaeed0a71762c82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cc0caddc361cdd67eaeed0a71762c82">&#9670;&#160;</a></span>usb_copy_to_pma()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void usb_copy_to_pma </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>address</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *</td>          <td class="paramname"><span class="paramname"><em>source</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>length_bytes</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Copy an application packet into the STM32's 16-bit packet memory. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a8cc0caddc361cdd67eaeed0a71762c82_cgraph.svg" width="260" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a8cc0caddc361cdd67eaeed0a71762c82_icgraph.svg" width="483" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a24d7e42058ea841bacf7f122f1433161" name="a24d7e42058ea841bacf7f122f1433161"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24d7e42058ea841bacf7f122f1433161">&#9670;&#160;</a></span>usb_delay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void usb_delay </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>iterations</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Provide the minimum peripheral power-up delay without requiring a timer. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a24d7e42058ea841bacf7f122f1433161_icgraph.svg" width="603" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ae50319496e974387c6b5a0668b825cb9" name="ae50319496e974387c6b5a0668b825cb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae50319496e974387c6b5a0668b825cb9">&#9670;&#160;</a></span>usb_descriptor_word()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static volatile uint16_t * usb_descriptor_word </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>endpoint</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>word</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Return one 16-bit field from an endpoint's four-word BTABLE entry. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_ae50319496e974387c6b5a0668b825cb9_icgraph.svg" width="100%" height="456"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="afde36da2f9f9310cd72f06a4b3b5ed45" name="afde36da2f9f9310cd72f06a4b3b5ed45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afde36da2f9f9310cd72f06a4b3b5ed45">&#9670;&#160;</a></span>usb_enable_clock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool usb_enable_clock </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Enable HSI48 and wait a bounded period for clock-ready acknowledgement. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_afde36da2f9f9310cd72f06a4b3b5ed45_icgraph.svg" width="460" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a34ead234195e6e26e97662c2db3b9dbb" name="a34ead234195e6e26e97662c2db3b9dbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34ead234195e6e26e97662c2db3b9dbb">&#9670;&#160;</a></span>usb_endpoint_register()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static volatile uint16_t * usb_endpoint_register </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>endpoint</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Return the register that controls both directions of one endpoint. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a34ead234195e6e26e97662c2db3b9dbb_icgraph.svg" width="100%" height="593"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a3b7fce8b1f0de310ffffbe258ad7c6d7" name="a3b7fce8b1f0de310ffffbe258ad7c6d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b7fce8b1f0de310ffffbe258ad7c6d7">&#9670;&#160;</a></span>usb_pma()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static volatile uint16_t * usb_pma </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>address</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Convert a USB byte address to its memory-mapped packet-memory address. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a3b7fce8b1f0de310ffffbe258ad7c6d7_icgraph.svg" width="620" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a8f4223ca64ff2db2fdecae4d66c0d2ec" name="a8f4223ca64ff2db2fdecae4d66c0d2ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f4223ca64ff2db2fdecae4d66c0d2ec">&#9670;&#160;</a></span>USB_PRIV_connect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void USB_PRIV_connect </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Attach to the bus by enabling the internal D+ pull-up. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a8f4223ca64ff2db2fdecae4d66c0d2ec_icgraph.svg" width="344" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ae1b13854a90c8dbd100fae48a107ad4d" name="ae1b13854a90c8dbd100fae48a107ad4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1b13854a90c8dbd100fae48a107ad4d">&#9670;&#160;</a></span>USB_PRIV_deinit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void USB_PRIV_deinit </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Detach, disable interrupts, and power down the USB peripheral. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_ae1b13854a90c8dbd100fae48a107ad4d_icgraph.svg" width="315" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a6a84dcb07b21e54a2b506cec9165693b" name="a6a84dcb07b21e54a2b506cec9165693b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a84dcb07b21e54a2b506cec9165693b">&#9670;&#160;</a></span>USB_PRIV_enableInterrupts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void USB_PRIV_enableInterrupts </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable USB event interrupts and endpoint operation. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a6a84dcb07b21e54a2b506cec9165693b_icgraph.svg" width="363" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <a id="a057acf6e380b2c8f1d44231ce40468ab" name="a057acf6e380b2c8f1d44231ce40468ab"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a057acf6e380b2c8f1d44231ce40468ab">&#9670;&#160;</a></span>USB_PRIV_getFrameNumber()</h2>
 
@@ -167,6 +778,40 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_PRIV_handleInterr
 
 <p>Read the USB peripheral's current 11-bit frame number. </p>
 <dl class="section return"><dt>Returns</dt><dd>The frame number maintained from Start-of-Frame packets. </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a057acf6e380b2c8f1d44231ce40468ab_icgraph.svg" width="455" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3b7fdac0fb67607273cf7aabc6f8494f" name="a3b7fdac0fb67607273cf7aabc6f8494f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b7fdac0fb67607273cf7aabc6f8494f">&#9670;&#160;</a></span>USB_PRIV_handleInterrupt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void USB_PRIV_handleInterrupt </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Decode one pending USB interrupt and notify the application. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a3b7fdac0fb67607273cf7aabc6f8494f_cgraph.svg" width="100%" height="582"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a3b7fdac0fb67607273cf7aabc6f8494f_icgraph.svg" width="390" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -187,6 +832,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_PRIV_handleInterr
 
 <p>Enable and reset the USB hardware, configure pins and packet memory. </p>
 <dl class="section return"><dt>Returns</dt><dd>true once HSI48 is ready and initialization completes. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a88feef2613c47bacaa4b3a2a768c8ae4_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a88feef2613c47bacaa4b3a2a768c8ae4_icgraph.svg" width="287" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -222,6 +877,73 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_PRIV_handleInterr
 <p>Copy one completed OUT packet from packet memory and rearm reception. </p>
 <p>The received length is reported even when the destination is too small; in that case the packet remains pending and the OUT endpoint is not rearmed.</p>
 <dl class="section return"><dt>Returns</dt><dd>true when a complete packet fit in the destination and was consumed. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_ac8fc2c5988800daa9a8e4fd40ef19dce_cgraph.svg" width="520" height="286"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_ac8fc2c5988800daa9a8e4fd40ef19dce_icgraph.svg" width="303" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aaea03d767f81299b62109832610473d2" name="aaea03d767f81299b62109832610473d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaea03d767f81299b62109832610473d2">&#9670;&#160;</a></span>USB_PRIV_setAddress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void USB_PRIV_setAddress </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>address</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write the seven-bit device address while keeping the device enabled. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_aaea03d767f81299b62109832610473d2_icgraph.svg" width="598" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="abe455c5cf21d064ea3eccd1b92c51fc4" name="abe455c5cf21d064ea3eccd1b92c51fc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe455c5cf21d064ea3eccd1b92c51fc4">&#9670;&#160;</a></span>USB_PRIV_stall()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void USB_PRIV_stall </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>endpoint</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="phal__G4_2usb_2usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set one endpoint direction to the USB STALL handshake state. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_abe455c5cf21d064ea3eccd1b92c51fc4_cgraph.svg" width="484" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_abe455c5cf21d064ea3eccd1b92c51fc4_icgraph.svg" width="300" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -251,6 +973,649 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>USB_PRIV_handleInterr
 
 <p>Copy one IN packet to packet memory and make it available to the host. </p>
 <dl class="section return"><dt>Returns</dt><dd>true when the endpoint was idle and accepted the packet. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_ae29a55bc0c87c71b9820e6b8ef9c7780_cgraph.svg" width="527" height="286"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_ae29a55bc0c87c71b9820e6b8ef9c7780_icgraph.svg" width="308" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aca373172c04b6704271473559fe35015" name="aca373172c04b6704271473559fe35015"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca373172c04b6704271473559fe35015">&#9670;&#160;</a></span>usb_receive_address()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint16_t usb_receive_address </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>endpoint</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Calculate the packet-memory byte address of an endpoint's OUT buffer. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_aca373172c04b6704271473559fe35015_cgraph.svg" width="352" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_aca373172c04b6704271473559fe35015_icgraph.svg" width="100%" height="419"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a1638950182f24a49c6002ae45e9656c0" name="a1638950182f24a49c6002ae45e9656c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1638950182f24a49c6002ae45e9656c0">&#9670;&#160;</a></span>usb_reset_peripheral()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void usb_reset_peripheral </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Reset and power up USB into a detached, interrupt-disabled state. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a1638950182f24a49c6002ae45e9656c0_cgraph.svg" width="280" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a1638950182f24a49c6002ae45e9656c0_icgraph.svg" width="476" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aeac1c8e012ea840bd62b75d951b16358" name="aeac1c8e012ea840bd62b75d951b16358"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeac1c8e012ea840bd62b75d951b16358">&#9670;&#160;</a></span>usb_set_status()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void usb_set_status </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>endpoint</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="phal__G4_2usb_2usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>status</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Change the hardware handshake state for one endpoint direction. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_aeac1c8e012ea840bd62b75d951b16358_cgraph.svg" width="318" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_aeac1c8e012ea840bd62b75d951b16358_icgraph.svg" width="548" height="234"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a80afa30e860ee2cbe11c0b317bd72e0e" name="a80afa30e860ee2cbe11c0b317bd72e0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80afa30e860ee2cbe11c0b317bd72e0e">&#9670;&#160;</a></span>usb_transmit_address()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint16_t usb_transmit_address </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>endpoint</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Calculate the packet-memory byte address of an endpoint's IN buffer. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb__priv_8c_a80afa30e860ee2cbe11c0b317bd72e0e_icgraph.svg" width="100%" height="419"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a000ab6ef954fda40332c98e5340b0c7f" name="a000ab6ef954fda40332c98e5340b0c7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a000ab6ef954fda40332c98e5340b0c7f">&#9670;&#160;</a></span>USB_PRIV_BTABLE_ENTRY_SIZE_BYTES</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRIV_BTABLE_ENTRY_SIZE_BYTES = 8U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1e2497f838cccd3d4b46eca09fd0b98c" name="a1e2497f838cccd3d4b46eca09fd0b98c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e2497f838cccd3d4b46eca09fd0b98c">&#9670;&#160;</a></span>USB_PRIV_BTABLE_OFFSET</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t USB_PRIV_BTABLE_OFFSET = 0U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a89de2cf9c668165b6f5e89ae6c5ad461" name="a89de2cf9c668165b6f5e89ae6c5ad461"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89de2cf9c668165b6f5e89ae6c5ad461">&#9670;&#160;</a></span>USB_PRIV_BTABLE_WORD_SIZE_BYTES</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRIV_BTABLE_WORD_SIZE_BYTES = 2U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5d4db77e61b126198a743fb5f9f52ffa" name="a5d4db77e61b126198a743fb5f9f52ffa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d4db77e61b126198a743fb5f9f52ffa">&#9670;&#160;</a></span>USB_PRIV_BUFFER_START</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t USB_PRIV_BUFFER_START = 64U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a08789726fbadf0b06fa1d6a9deca3350" name="a08789726fbadf0b06fa1d6a9deca3350"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08789726fbadf0b06fa1d6a9deca3350">&#9670;&#160;</a></span>USB_PRIV_BUFFERS_PER_ENDPOINT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRIV_BUFFERS_PER_ENDPOINT = 2U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7a9d7f2e75c1eea8afd69a6f5c39160a" name="a7a9d7f2e75c1eea8afd69a6f5c39160a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a9d7f2e75c1eea8afd69a6f5c39160a">&#9670;&#160;</a></span>USB_PRIV_CC1_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRIV_CC1_PIN = 8U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac3cad4e4ef7fde76fc1a6692736ee4a6" name="ac3cad4e4ef7fde76fc1a6692736ee4a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3cad4e4ef7fde76fc1a6692736ee4a6">&#9670;&#160;</a></span>USB_PRIV_CC2_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRIV_CC2_PIN = 9U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab40484a57581b40e534841e1b2611789" name="ab40484a57581b40e534841e1b2611789"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab40484a57581b40e534841e1b2611789">&#9670;&#160;</a></span>USB_PRIV_CLOCK_TIMEOUT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t USB_PRIV_CLOCK_TIMEOUT = 1'000'000U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9b1804f208a12b6effc3c2eddbd324a1" name="a9b1804f208a12b6effc3c2eddbd324a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b1804f208a12b6effc3c2eddbd324a1">&#9670;&#160;</a></span>USB_PRIV_DM_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRIV_DM_PIN = 11U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a07fb28d2d71d12f2e0ca244702ddcbf2" name="a07fb28d2d71d12f2e0ca244702ddcbf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07fb28d2d71d12f2e0ca244702ddcbf2">&#9670;&#160;</a></span>USB_PRIV_DP_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRIV_DP_PIN = 12U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa45018000c40bb1056b57a45ca52108c" name="aa45018000c40bb1056b57a45ca52108c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa45018000c40bb1056b57a45ca52108c">&#9670;&#160;</a></span>USB_PRIV_ENDPOINT_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRIV_ENDPOINT_COUNT = 8U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a60613d1b017746f55ada4a2d5411f49e" name="a60613d1b017746f55ada4a2d5411f49e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60613d1b017746f55ada4a2d5411f49e">&#9670;&#160;</a></span>USB_PRIV_ENDPOINT_REGISTER_STRIDE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRIV_ENDPOINT_REGISTER_STRIDE = 2U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae7680f938f4ba0ec0d5ccddf87ee8065" name="ae7680f938f4ba0ec0d5ccddf87ee8065"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7680f938f4ba0ec0d5ccddf87ee8065">&#9670;&#160;</a></span>USB_PRIV_GPIO_MODE_BIT_WIDTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRIV_GPIO_MODE_BIT_WIDTH = 2U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af415075b0182f3a9bc7d505d8e6e37a0" name="af415075b0182f3a9bc7d505d8e6e37a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af415075b0182f3a9bc7d505d8e6e37a0">&#9670;&#160;</a></span>USB_PRIV_GPIO_MODE_BITS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRIV_GPIO_MODE_BITS = 0b11U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a046073e31de02bc3b5a3d385c06d71f5" name="a046073e31de02bc3b5a3d385c06d71f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a046073e31de02bc3b5a3d385c06d71f5">&#9670;&#160;</a></span>USB_PRIV_RX_BLOCK_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRIV_RX_BLOCK_COUNT = 1U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abc488b6b4e40e9d3491ee8d4a8f0b0a2" name="abc488b6b4e40e9d3491ee8d4a8f0b0a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc488b6b4e40e9d3491ee8d4a8f0b0a2">&#9670;&#160;</a></span>USB_PRIV_RX_BLOCK_COUNT_SHIFT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRIV_RX_BLOCK_COUNT_SHIFT = 10U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a903b8c8bdb945431d0a10f9380d79c3f" name="a903b8c8bdb945431d0a10f9380d79c3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a903b8c8bdb945431d0a10f9380d79c3f">&#9670;&#160;</a></span>USB_PRIV_STARTUP_DELAY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t USB_PRIV_STARTUP_DELAY = 1'000U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a91d7c09215a281e70b9b48cc1583303c" name="a91d7c09215a281e70b9b48cc1583303c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91d7c09215a281e70b9b48cc1583303c">&#9670;&#160;</a></span>USB_PRIV_STATUS_NAK</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRIV_STATUS_NAK = 2U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0d2fe3e4c89e329f83d0455f2f6fd3a8" name="a0d2fe3e4c89e329f83d0455f2f6fd3a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d2fe3e4c89e329f83d0455f2f6fd3a8">&#9670;&#160;</a></span>USB_PRIV_STATUS_RX_SHIFT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRIV_STATUS_RX_SHIFT = 12U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a98fe09c9cc6f65fcb000b0a51517ff57" name="a98fe09c9cc6f65fcb000b0a51517ff57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98fe09c9cc6f65fcb000b0a51517ff57">&#9670;&#160;</a></span>USB_PRIV_STATUS_STALL</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRIV_STATUS_STALL = 1U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a839a5f0d51c881737e25e5b22b5aa3b3" name="a839a5f0d51c881737e25e5b22b5aa3b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a839a5f0d51c881737e25e5b22b5aa3b3">&#9670;&#160;</a></span>USB_PRIV_STATUS_TX_SHIFT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRIV_STATUS_TX_SHIFT = 4U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a11a84a6e5cfb7633c2db88163ca2b0d4" name="a11a84a6e5cfb7633c2db88163ca2b0d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11a84a6e5cfb7633c2db88163ca2b0d4">&#9670;&#160;</a></span>USB_PRIV_STATUS_VALID</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRIV_STATUS_VALID = 3U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

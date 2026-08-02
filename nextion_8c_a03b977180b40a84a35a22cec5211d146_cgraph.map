@@ -1,0 +1,7 @@
+<map id="NXT_setFloat" name="NXT_setFloat">
+<area shape="rect" id="Node000001" title="Sets a float value to a specified object parameter on the Nextion display." alt="" coords="5,31,108,56"/>
+<area shape="rect" id="Node000002" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="156,5,259,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,32,140,27,141,32,108,38"/>
+<area shape="rect" id="Node000003" href="$strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf" title="Appends formatted data to the buffer using printf&#45;style formatting. !" alt="" coords="162,55,252,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="108,49,147,55,147,61,108,54"/>
+</map>

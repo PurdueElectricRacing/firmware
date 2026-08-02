@@ -1,0 +1,7 @@
+<map id="common/bangbang/bangbang.c" name="common/bangbang/bangbang.c">
+<area shape="rect" id="Node000001" title="Generic bang&#45;bang controller with hysteresis and minimum switch interval." alt="" coords="5,5,207,31"/>
+<area shape="rect" id="Node000002" href="$bangbang_8h.html" title="Generic bang&#45;bang controller with hysteresis and minimum switch interval." alt="" coords="62,79,150,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,31,109,63,103,63,103,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="74,153,138,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="109,105,109,137,103,137,103,105"/>
+</map>

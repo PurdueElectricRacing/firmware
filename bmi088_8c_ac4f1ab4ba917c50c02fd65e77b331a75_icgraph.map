@@ -1,0 +1,20 @@
+<map id="BMI088_selectGyro" name="BMI088_selectGyro">
+<area shape="rect" id="Node000001" title=" " alt="" coords="419,104,554,130"/>
+<area shape="rect" id="Node000002" href="$bmi088_8c.html#ac1def4d891e980b505d36e5190d6b0d5" title="Check the status of the most recent Gyro self test." alt="" coords="170,5,371,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="456,97,416,69,370,45,340,34,341,29,372,40,419,65,459,92"/>
+<area shape="rect" id="Node000004" href="$bmi088_8c.html#aa109c1cdfa5f5d238b52e566ef8230bd" title=" " alt="" coords="18,104,109,130"/>
+<area shape="poly" id="edge10_Node000001_Node000004" title=" " alt="" coords="422,136,371,145,270,152,169,145,109,133,110,127,170,140,270,147,371,140,421,131"/>
+<area shape="rect" id="Node000005" href="$bmi088_8c.html#abd436184826a431cf00ef5eb069c5a22" title="Check the status of the most recent Gyro self test." alt="" coords="182,55,358,80"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="411,103,329,84,331,78,413,97"/>
+<area shape="rect" id="Node000006" href="$bmi088_8c.html#ac1650063ae6fa67cb32a921851025c57" title="Start the gyro self test." alt="" coords="183,104,358,130"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="404,120,358,120,358,114,404,114"/>
+<area shape="rect" id="Node000007" href="$bmi088_8c.html#a1dfbb27cde5d045d6291dba7fe0e709f" title="Blocking function to read the most recent Data Sample from the gyro." alt="" coords="208,205,333,231"/>
+<area shape="poly" id="edge11_Node000001_Node000007" title=" " alt="" coords="455,141,416,165,372,189,322,207,320,202,370,184,414,161,452,137"/>
+<area shape="rect" id="Node000003" href="$bmi088_8c.html#a7b7b6f413f7a504f78fe3feba4e522cb" title="Do self test of gyroscope." alt="" coords="5,55,122,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="199,38,121,57,120,51,198,33"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="181,40,171,44,156,56,147,68,138,81,123,95,104,106,101,101,120,91,134,78,143,65,153,52,168,40,178,35"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="167,70,122,70,122,65,167,65"/>
+<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="199,87,110,109,108,104,198,82"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="198,102,120,84,121,78,199,97"/>
+<area shape="poly" id="edge9_Node000006_Node000004" title=" " alt="" coords="168,120,109,120,109,114,168,114"/>
+</map>

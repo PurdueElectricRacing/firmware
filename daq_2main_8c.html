@@ -112,88 +112,75 @@ $(function(){initNavTree('daq_2main_8c.html',''); initResizable(true); });
 <code>#include &quot;can_library/generated/VCAN.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="heartbeat_8h_source.html">common/heartbeat/heartbeat.h</a>&quot;</code><br />
-<code>#include &quot;common/phal/can.h&quot;</code><br />
-<code>#include &quot;common/phal/gpio.h&quot;</code><br />
-<code>#include &quot;common/phal/rcc.h&quot;</code><br />
-<code>#include &quot;common/phal/rtc.h&quot;</code><br />
-<code>#include &quot;common/phal/spi.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2can_8h_source.html">common/phal/can.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2gpio_8h_source.html">common/phal/gpio.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2rcc_8h_source.html">common/phal/rcc.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2rtc_8h_source.html">common/phal/rtc.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2spi_8h_source.html">common/phal/spi.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="countof_8h_source.html">common/utils/countof.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="watchdog_8h_source.html">common/watchdog/watchdog.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ethernet_8h_source.html">ethernet.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="rtc__sync_8h_source.html">rtc_sync.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="spmc_8h_source.html">spmc.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for main.c:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="daq_2main_8c__incl.svg" width="100%" height="560"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a041cbdf351ae1da6f864d0d249c93008" id="r_a041cbdf351ae1da6f864d0d249c93008"><td class="memItemLeft" align="right" valign="top"><a id="a041cbdf351ae1da6f864d0d249c93008" name="a041cbdf351ae1da6f864d0d249c93008"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>TargetCoreClockrateHz</b>&#160;&#160;&#160;168'000'000</td></tr>
+<tr class="memitem:a041cbdf351ae1da6f864d0d249c93008" id="r_a041cbdf351ae1da6f864d0d249c93008"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>&#160;&#160;&#160;168'000'000</td></tr>
 <tr class="separator:a041cbdf351ae1da6f864d0d249c93008"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af2e66e52a97fd083e9b34a8aee1e026a" id="r_af2e66e52a97fd083e9b34a8aee1e026a"><td class="memItemLeft" align="right" valign="top"><a id="af2e66e52a97fd083e9b34a8aee1e026a" name="af2e66e52a97fd083e9b34a8aee1e026a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_MUTEX</b> (spi1_lock)</td></tr>
+<tr class="memitem:af2e66e52a97fd083e9b34a8aee1e026a" id="r_af2e66e52a97fd083e9b34a8aee1e026a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af2e66e52a97fd083e9b34a8aee1e026a">FREERTOS_DEFINE_MUTEX</a> (<a class="el" href="daq_2main_8h.html#ae22098d7a44a0de1e81110ffc31e5377">spi1_lock</a>)</td></tr>
 <tr class="separator:af2e66e52a97fd083e9b34a8aee1e026a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c9d5e29ad8899afe0c34571ddee18f9" id="r_a1c9d5e29ad8899afe0c34571ddee18f9"><td class="memItemLeft" align="right" valign="top"><a id="a1c9d5e29ad8899afe0c34571ddee18f9" name="a1c9d5e29ad8899afe0c34571ddee18f9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>shutdown</b> (void)</td></tr>
+<tr class="memitem:aabdbaa50d97bdb9d077e752af668866d" id="r_aabdbaa50d97bdb9d077e752af668866d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aabdbaa50d97bdb9d077e752af668866d">configure_interrupts</a> (void)</td></tr>
+<tr class="separator:aabdbaa50d97bdb9d077e752af668866d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c9d5e29ad8899afe0c34571ddee18f9" id="r_a1c9d5e29ad8899afe0c34571ddee18f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1c9d5e29ad8899afe0c34571ddee18f9">shutdown</a> (void)</td></tr>
 <tr class="separator:a1c9d5e29ad8899afe0c34571ddee18f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa61930e1c2f22406196702c18077d9cd" id="r_aa61930e1c2f22406196702c18077d9cd"><td class="memItemLeft" align="right" valign="top"><a id="aa61930e1c2f22406196702c18077d9cd" name="aa61930e1c2f22406196702c18077d9cd"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (sd_card_periodic, SD_FSM_PERIOD_MS, TASK_PRIORITY_HIGH, STACK_4096)</td></tr>
+<tr class="memitem:aa61930e1c2f22406196702c18077d9cd" id="r_aa61930e1c2f22406196702c18077d9cd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa61930e1c2f22406196702c18077d9cd">FREERTOS_DEFINE_TASK</a> (<a class="el" href="sd__card_8c.html#a1be8d347ac90e89922850113d6c264df">sd_card_periodic</a>, <a class="el" href="sd__card_8h.html#a5baebc8abad93c04f29b9e894166d692">SD_FSM_PERIOD_MS</a>, <a class="el" href="freertos_8h.html#a3013e468406586335b248c478350a33ea853af49cf23aa50140b8d8341f42b4cf">TASK_PRIORITY_HIGH</a>, <a class="el" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aa00b7ae515d6733894f27cac357fd4c54">STACK_4096</a>)</td></tr>
 <tr class="separator:aa61930e1c2f22406196702c18077d9cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51c088af00b7a8bb8a1c40f6bdd34cf9" id="r_a51c088af00b7a8bb8a1c40f6bdd34cf9"><td class="memItemLeft" align="right" valign="top"><a id="a51c088af00b7a8bb8a1c40f6bdd34cf9" name="a51c088af00b7a8bb8a1c40f6bdd34cf9"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (ethernet_periodic, 0, TASK_PRIORITY_NORMAL, STACK_4096)</td></tr>
+<tr class="memitem:a51c088af00b7a8bb8a1c40f6bdd34cf9" id="r_a51c088af00b7a8bb8a1c40f6bdd34cf9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a51c088af00b7a8bb8a1c40f6bdd34cf9">FREERTOS_DEFINE_TASK</a> (<a class="el" href="ethernet_8c.html#a1ea4f11f8d51c291e709aa8730f23910">ethernet_periodic</a>, 0, <a class="el" href="freertos_8h.html#a3013e468406586335b248c478350a33eaf3669a8c0116561e2fdb5a7f3ea9b136">TASK_PRIORITY_NORMAL</a>, <a class="el" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aa00b7ae515d6733894f27cac357fd4c54">STACK_4096</a>)</td></tr>
 <tr class="separator:a51c088af00b7a8bb8a1c40f6bdd34cf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99c47a61e6e35499be478c429d83d756" id="r_a99c47a61e6e35499be478c429d83d756"><td class="memItemLeft" align="right" valign="top"><a id="a99c47a61e6e35499be478c429d83d756" name="a99c47a61e6e35499be478c429d83d756"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FREERTOS_DEFINE_TASK</b> (RTC_sync, 0, TASK_PRIORITY_LOW, STACK_512)</td></tr>
+<tr class="memitem:a99c47a61e6e35499be478c429d83d756" id="r_a99c47a61e6e35499be478c429d83d756"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99c47a61e6e35499be478c429d83d756">FREERTOS_DEFINE_TASK</a> (<a class="el" href="rtc__sync_8c.html#a456494b8b60c41ec7c458c7874e1dae7">RTC_sync</a>, 0, <a class="el" href="freertos_8h.html#a3013e468406586335b248c478350a33ea579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a>, <a class="el" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aae705b06e4f237bdce971224dd27bbd0d">STACK_512</a>)</td></tr>
 <tr class="separator:a99c47a61e6e35499be478c429d83d756"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11a067a3a0541dc1ed61e5c9bb7591b5" id="r_a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memItemLeft" align="right" valign="top"><a id="a11a067a3a0541dc1ed61e5c9bb7591b5" name="a11a067a3a0541dc1ed61e5c9bb7591b5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_WATCHDOG_TASK</b> ()</td></tr>
+<tr class="memitem:a11a067a3a0541dc1ed61e5c9bb7591b5" id="r_a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11a067a3a0541dc1ed61e5c9bb7591b5">DEFINE_WATCHDOG_TASK</a> ()</td></tr>
 <tr class="separator:a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a845eaf447179a8baf75c69794c49856d" id="r_a845eaf447179a8baf75c69794c49856d"><td class="memItemLeft" align="right" valign="top"><a id="a845eaf447179a8baf75c69794c49856d" name="a845eaf447179a8baf75c69794c49856d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DEFINE_HEARTBEAT_TASK</b> (nullptr)</td></tr>
+<tr class="memitem:a845eaf447179a8baf75c69794c49856d" id="r_a845eaf447179a8baf75c69794c49856d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a845eaf447179a8baf75c69794c49856d">DEFINE_HEARTBEAT_TASK</a> (nullptr)</td></tr>
 <tr class="separator:a845eaf447179a8baf75c69794c49856d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top"><a id="ae66f6b31b5ad750f1fe042a706a4e3d4" name="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> ()</td></tr>
+<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee75e971579a3bde03234c6ab1fdf840" id="r_aee75e971579a3bde03234c6ab1fdf840"><td class="memItemLeft" align="right" valign="top"><a id="aee75e971579a3bde03234c6ab1fdf840" name="aee75e971579a3bde03234c6ab1fdf840"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>power_loss_callback</b> (void)</td></tr>
+<tr class="memitem:aee75e971579a3bde03234c6ab1fdf840" id="r_aee75e971579a3bde03234c6ab1fdf840"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee75e971579a3bde03234c6ab1fdf840">power_loss_callback</a> (void)</td></tr>
 <tr class="separator:aee75e971579a3bde03234c6ab1fdf840"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2089b233bd8d6f7dbf78e075033696e3" id="r_a2089b233bd8d6f7dbf78e075033696e3"><td class="memItemLeft" align="right" valign="top"><a id="a2089b233bd8d6f7dbf78e075033696e3" name="a2089b233bd8d6f7dbf78e075033696e3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>EXTI15_10_IRQHandler</b> ()</td></tr>
+<tr class="memitem:a2089b233bd8d6f7dbf78e075033696e3" id="r_a2089b233bd8d6f7dbf78e075033696e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2089b233bd8d6f7dbf78e075033696e3">EXTI15_10_IRQHandler</a> ()</td></tr>
 <tr class="separator:a2089b233bd8d6f7dbf78e075033696e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2af56a8bf3197b2f06cac4c0b84ffc3e" id="r_a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memItemLeft" align="right" valign="top"><a id="a2af56a8bf3197b2f06cac4c0b84ffc3e" name="a2af56a8bf3197b2f06cac4c0b84ffc3e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>HardFault_Handler</b> ()</td></tr>
+<tr class="memitem:a2af56a8bf3197b2f06cac4c0b84ffc3e" id="r_a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2af56a8bf3197b2f06cac4c0b84ffc3e">HardFault_Handler</a> ()</td></tr>
 <tr class="separator:a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a60563c6df24a123ae18e090bca85f555" id="r_a60563c6df24a123ae18e090bca85f555"><td class="memItemLeft" align="right" valign="top"><a id="a60563c6df24a123ae18e090bca85f555" name="a60563c6df24a123ae18e090bca85f555"></a>
-<a class="el" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>gpio_config</b> []</td></tr>
+<tr class="memitem:a60563c6df24a123ae18e090bca85f555" id="r_a60563c6df24a123ae18e090bca85f555"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60563c6df24a123ae18e090bca85f555">gpio_config</a> []</td></tr>
 <tr class="separator:a60563c6df24a123ae18e090bca85f555"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3f547c0ac514dd12e5bab27a6b60bec" id="r_ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memItemLeft" align="right" valign="top"><a id="ae3f547c0ac514dd12e5bab27a6b60bec" name="ae3f547c0ac514dd12e5bab27a6b60bec"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>APB1ClockRateHz</b></td></tr>
+<tr class="memitem:ae3f547c0ac514dd12e5bab27a6b60bec" id="r_ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3f547c0ac514dd12e5bab27a6b60bec">APB1ClockRateHz</a></td></tr>
 <tr class="separator:ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdc1120bbc54485ac4c735d8f9756743" id="r_afdc1120bbc54485ac4c735d8f9756743"><td class="memItemLeft" align="right" valign="top"><a id="afdc1120bbc54485ac4c735d8f9756743" name="afdc1120bbc54485ac4c735d8f9756743"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>APB2ClockRateHz</b></td></tr>
+<tr class="memitem:afdc1120bbc54485ac4c735d8f9756743" id="r_afdc1120bbc54485ac4c735d8f9756743"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdc1120bbc54485ac4c735d8f9756743">APB2ClockRateHz</a></td></tr>
 <tr class="separator:afdc1120bbc54485ac4c735d8f9756743"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c40deeaa6aeb002bafb0bc892484e0c" id="r_a2c40deeaa6aeb002bafb0bc892484e0c"><td class="memItemLeft" align="right" valign="top"><a id="a2c40deeaa6aeb002bafb0bc892484e0c" name="a2c40deeaa6aeb002bafb0bc892484e0c"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>AHBClockRateHz</b></td></tr>
+<tr class="memitem:a2c40deeaa6aeb002bafb0bc892484e0c" id="r_a2c40deeaa6aeb002bafb0bc892484e0c"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c40deeaa6aeb002bafb0bc892484e0c">AHBClockRateHz</a></td></tr>
 <tr class="separator:a2c40deeaa6aeb002bafb0bc892484e0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac132aa42c20a1d3744db9df04f31c54" id="r_aac132aa42c20a1d3744db9df04f31c54"><td class="memItemLeft" align="right" valign="top"><a id="aac132aa42c20a1d3744db9df04f31c54" name="aac132aa42c20a1d3744db9df04f31c54"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>PLLClockRateHz</b></td></tr>
+<tr class="memitem:aac132aa42c20a1d3744db9df04f31c54" id="r_aac132aa42c20a1d3744db9df04f31c54"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac132aa42c20a1d3744db9df04f31c54">PLLClockRateHz</a></td></tr>
 <tr class="separator:aac132aa42c20a1d3744db9df04f31c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e372d6fcb26e99141502c56d908f788" id="r_a2e372d6fcb26e99141502c56d908f788"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structClockRateConfig__t.html">ClockRateConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e372d6fcb26e99141502c56d908f788">clock_config</a></td></tr>
 <tr class="separator:a2e372d6fcb26e99141502c56d908f788"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a048ceaccc44b006a77f0c988ae1877ce" id="r_a048ceaccc44b006a77f0c988ae1877ce"><td class="memItemLeft" align="right" valign="top"><a id="a048ceaccc44b006a77f0c988ae1877ce" name="a048ceaccc44b006a77f0c988ae1877ce"></a>
-<a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>spi_rx_dma_config</b> = SPI1_RXDMA_CONT_CONFIG(NULL, 2)</td></tr>
+<tr class="memitem:a048ceaccc44b006a77f0c988ae1877ce" id="r_a048ceaccc44b006a77f0c988ae1877ce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a> = <a class="el" href="phal__F4_2spi_2spi_8h.html#a138f02a7cbb378847fbf648524342247">SPI1_RXDMA_CONT_CONFIG</a>(NULL, 2)</td></tr>
 <tr class="separator:a048ceaccc44b006a77f0c988ae1877ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9d88a12a20b964301d43f839eee3f94" id="r_ac9d88a12a20b964301d43f839eee3f94"><td class="memItemLeft" align="right" valign="top"><a id="ac9d88a12a20b964301d43f839eee3f94" name="ac9d88a12a20b964301d43f839eee3f94"></a>
-<a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>spi_tx_dma_config</b> = SPI1_TXDMA_CONT_CONFIG(NULL, 1)</td></tr>
+<tr class="memitem:ac9d88a12a20b964301d43f839eee3f94" id="r_ac9d88a12a20b964301d43f839eee3f94"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdma__init__t.html">dma_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a> = <a class="el" href="phal__F4_2spi_2spi_8h.html#acd5de28146a1c969e3a445f45dbc94af">SPI1_TXDMA_CONT_CONFIG</a>(NULL, 1)</td></tr>
 <tr class="separator:ac9d88a12a20b964301d43f839eee3f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a42a1a6599015412816e4954c32f1bb" id="r_a9a42a1a6599015412816e4954c32f1bb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a42a1a6599015412816e4954c32f1bb">eth_spi_config</a></td></tr>
 <tr class="separator:a9a42a1a6599015412816e4954c32f1bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad54952590a1a2fba895bd31fb775ee09" id="r_ad54952590a1a2fba895bd31fb775ee09"><td class="memItemLeft" align="right" valign="top"><a id="ad54952590a1a2fba895bd31fb775ee09" name="ad54952590a1a2fba895bd31fb775ee09"></a>
-volatile TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>sd_task_handle</b> = nullptr</td></tr>
+<tr class="memitem:ad54952590a1a2fba895bd31fb775ee09" id="r_ad54952590a1a2fba895bd31fb775ee09"><td class="memItemLeft" align="right" valign="top">volatile TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad54952590a1a2fba895bd31fb775ee09">sd_task_handle</a> = nullptr</td></tr>
 <tr class="separator:ad54952590a1a2fba895bd31fb775ee09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -201,7 +188,358 @@ volatile TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>sd_t
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
 <dd>
 Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu'+'rdu'+'e.'+'edu'; return false;">lcoxl<span class="obfuscator">.nosp@m.</span>ey@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-</div><h2 class="groupheader">Variable Documentation</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a041cbdf351ae1da6f864d0d249c93008" name="a041cbdf351ae1da6f864d0d249c93008"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a041cbdf351ae1da6f864d0d249c93008">&#9670;&#160;</a></span>TargetCoreClockrateHz</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TargetCoreClockrateHz&#160;&#160;&#160;168'000'000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="aabdbaa50d97bdb9d077e752af668866d" name="aabdbaa50d97bdb9d077e752af668866d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabdbaa50d97bdb9d077e752af668866d">&#9670;&#160;</a></span>configure_interrupts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void configure_interrupts </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="daq_2main_8c_aabdbaa50d97bdb9d077e752af668866d_icgraph.svg" width="243" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a845eaf447179a8baf75c69794c49856d" name="a845eaf447179a8baf75c69794c49856d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a845eaf447179a8baf75c69794c49856d">&#9670;&#160;</a></span>DEFINE_HEARTBEAT_TASK()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_HEARTBEAT_TASK </td>
+          <td>(</td>
+          <td class="paramtype">nullptr</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a11a067a3a0541dc1ed61e5c9bb7591b5" name="a11a067a3a0541dc1ed61e5c9bb7591b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11a067a3a0541dc1ed61e5c9bb7591b5">&#9670;&#160;</a></span>DEFINE_WATCHDOG_TASK()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_WATCHDOG_TASK </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2089b233bd8d6f7dbf78e075033696e3" name="a2089b233bd8d6f7dbf78e075033696e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2089b233bd8d6f7dbf78e075033696e3">&#9670;&#160;</a></span>EXTI15_10_IRQHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EXTI15_10_IRQHandler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af2e66e52a97fd083e9b34a8aee1e026a" name="af2e66e52a97fd083e9b34a8aee1e026a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2e66e52a97fd083e9b34a8aee1e026a">&#9670;&#160;</a></span>FREERTOS_DEFINE_MUTEX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FREERTOS_DEFINE_MUTEX </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="daq_2main_8h.html#ae22098d7a44a0de1e81110ffc31e5377">spi1_lock</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a51c088af00b7a8bb8a1c40f6bdd34cf9" name="a51c088af00b7a8bb8a1c40f6bdd34cf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51c088af00b7a8bb8a1c40f6bdd34cf9">&#9670;&#160;</a></span>FREERTOS_DEFINE_TASK() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FREERTOS_DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ethernet_8c.html#a1ea4f11f8d51c291e709aa8730f23910">ethernet_periodic</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">0</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a3013e468406586335b248c478350a33eaf3669a8c0116561e2fdb5a7f3ea9b136">TASK_PRIORITY_NORMAL</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aa00b7ae515d6733894f27cac357fd4c54">STACK_4096</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a99c47a61e6e35499be478c429d83d756" name="a99c47a61e6e35499be478c429d83d756"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99c47a61e6e35499be478c429d83d756">&#9670;&#160;</a></span>FREERTOS_DEFINE_TASK() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FREERTOS_DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="rtc__sync_8c.html#a456494b8b60c41ec7c458c7874e1dae7">RTC_sync</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">0</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a3013e468406586335b248c478350a33ea579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aae705b06e4f237bdce971224dd27bbd0d">STACK_512</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa61930e1c2f22406196702c18077d9cd" name="aa61930e1c2f22406196702c18077d9cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa61930e1c2f22406196702c18077d9cd">&#9670;&#160;</a></span>FREERTOS_DEFINE_TASK() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FREERTOS_DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="sd__card_8c.html#a1be8d347ac90e89922850113d6c264df">sd_card_periodic</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="sd__card_8h.html#a5baebc8abad93c04f29b9e894166d692">SD_FSM_PERIOD_MS</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a3013e468406586335b248c478350a33ea853af49cf23aa50140b8d8341f42b4cf">TASK_PRIORITY_HIGH</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aa00b7ae515d6733894f27cac357fd4c54">STACK_4096</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2af56a8bf3197b2f06cac4c0b84ffc3e" name="a2af56a8bf3197b2f06cac4c0b84ffc3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2af56a8bf3197b2f06cac4c0b84ffc3e">&#9670;&#160;</a></span>HardFault_Handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HardFault_Handler </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae66f6b31b5ad750f1fe042a706a4e3d4" name="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">&#9670;&#160;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="daq_2main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="aee75e971579a3bde03234c6ab1fdf840" name="aee75e971579a3bde03234c6ab1fdf840"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee75e971579a3bde03234c6ab1fdf840">&#9670;&#160;</a></span>power_loss_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void power_loss_callback </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="daq_2main_8c_aee75e971579a3bde03234c6ab1fdf840_cgraph.svg" width="327" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a1c9d5e29ad8899afe0c34571ddee18f9" name="a1c9d5e29ad8899afe0c34571ddee18f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c9d5e29ad8899afe0c34571ddee18f9">&#9670;&#160;</a></span>shutdown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void shutdown </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a2c40deeaa6aeb002bafb0bc892484e0c" name="a2c40deeaa6aeb002bafb0bc892484e0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c40deeaa6aeb002bafb0bc892484e0c">&#9670;&#160;</a></span>AHBClockRateHz</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t AHBClockRateHz</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae3f547c0ac514dd12e5bab27a6b60bec" name="ae3f547c0ac514dd12e5bab27a6b60bec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3f547c0ac514dd12e5bab27a6b60bec">&#9670;&#160;</a></span>APB1ClockRateHz</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t APB1ClockRateHz</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afdc1120bbc54485ac4c735d8f9756743" name="afdc1120bbc54485ac4c735d8f9756743"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdc1120bbc54485ac4c735d8f9756743">&#9670;&#160;</a></span>APB2ClockRateHz</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t APB2ClockRateHz</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2e372d6fcb26e99141502c56d908f788" name="a2e372d6fcb26e99141502c56d908f788"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2e372d6fcb26e99141502c56d908f788">&#9670;&#160;</a></span>clock_config</h2>
 
@@ -214,15 +552,18 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .clock_source              = CLOCK_SOURCE_HSE,</div>
+<div class="line">    .clock_source              = <a class="code hl_enumvalue" href="phal__F4_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a>,</div>
 <div class="line">    .use_pll                   = <span class="keyword">true</span>,</div>
-<div class="line">    .pll_src                   = PLL_SRC_HSE,</div>
+<div class="line">    .pll_src                   = <a class="code hl_enumvalue" href="phal__F4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078">PLL_SRC_HSE</a>,</div>
 <div class="line">    .vco_output_rate_target_hz = 336&#39;000&#39;000,</div>
-<div class="line">    .system_clock_target_hz    = TargetCoreClockrateHz,</div>
-<div class="line">    .ahb_clock_target_hz       = (TargetCoreClockrateHz / 1),</div>
-<div class="line">    .apb1_clock_target_hz      = (TargetCoreClockrateHz / 4),</div>
-<div class="line">    .apb2_clock_target_hz      = (TargetCoreClockrateHz / 4),</div>
+<div class="line">    .system_clock_target_hz    = <a class="code hl_define" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a>,</div>
+<div class="line">    .ahb_clock_target_hz       = (<a class="code hl_define" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 1),</div>
+<div class="line">    .apb1_clock_target_hz      = (<a class="code hl_define" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
+<div class="line">    .apb2_clock_target_hz      = (<a class="code hl_define" href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a> / 4),</div>
 <div class="line">}</div>
+<div class="ttc" id="adaq_2main_8c_html_a041cbdf351ae1da6f864d0d249c93008"><div class="ttname"><a href="#a041cbdf351ae1da6f864d0d249c93008">TargetCoreClockrateHz</a></div><div class="ttdeci">#define TargetCoreClockrateHz</div><div class="ttdef"><b>Definition</b> main.c:71</div></div>
+<div class="ttc" id="aphal__F4_2rcc_2rcc_8h_html_a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23"><div class="ttname"><a href="phal__F4_2rcc_2rcc_8h.html#a02e55ce66a310468cd5996a5769a1e77a83999f711affe9959bfc98c0dd47ed23">CLOCK_SOURCE_HSE</a></div><div class="ttdeci">@ CLOCK_SOURCE_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:65</div></div>
+<div class="ttc" id="aphal__F4_2rcc_2rcc_8h_html_adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078"><div class="ttname"><a href="phal__F4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522a90c35a70486e9eacb68fe3febf7dd078">PLL_SRC_HSE</a></div><div class="ttdeci">@ PLL_SRC_HSE</div><div class="ttdef"><b>Definition</b> rcc.h:43</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -240,13 +581,96 @@ Luke Oxley (<a href="#" onclick="location.href='mai'+'lto:'+'lco'+'xl'+'ey@'+'pu
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
 <div class="line">    .data_len      = 8,</div>
 <div class="line">    .nss_sw        = <span class="keyword">false</span>,</div>
-<div class="line">    .nss_gpio_port = ETH_CS_PORT,</div>
-<div class="line">    .nss_gpio_pin  = ETH_CS_PIN,</div>
-<div class="line">    .rx_dma_cfg    = &amp;spi_rx_dma_config,</div>
-<div class="line">    .tx_dma_cfg    = &amp;spi_tx_dma_config,</div>
-<div class="line">    .periph        = SPI1,</div>
+<div class="line">    .nss_gpio_port = <a class="code hl_define" href="daq_2main_8h.html#a2107ae7691edb9a15edccada3ee54a43">ETH_CS_PORT</a>,</div>
+<div class="line">    .nss_gpio_pin  = <a class="code hl_define" href="daq_2main_8h.html#a8c72b0130a3a8067c2e9ce362cd305b9">ETH_CS_PIN</a>,</div>
+<div class="line">    .rx_dma_cfg    = &amp;<a class="code hl_variable" href="#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a>,</div>
+<div class="line">    .tx_dma_cfg    = &amp;<a class="code hl_variable" href="#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a>,</div>
+<div class="line">    .<a class="code hl_variable" href="structdma__init__t.html#a190bea09bd8d062bb2f4a97056cfe9c3">periph</a>        = SPI1,</div>
 <div class="line">}</div>
+<div class="ttc" id="adaq_2main_8c_html_a048ceaccc44b006a77f0c988ae1877ce"><div class="ttname"><a href="#a048ceaccc44b006a77f0c988ae1877ce">spi_rx_dma_config</a></div><div class="ttdeci">dma_init_t spi_rx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:84</div></div>
+<div class="ttc" id="adaq_2main_8c_html_ac9d88a12a20b964301d43f839eee3f94"><div class="ttname"><a href="#ac9d88a12a20b964301d43f839eee3f94">spi_tx_dma_config</a></div><div class="ttdeci">dma_init_t spi_tx_dma_config</div><div class="ttdef"><b>Definition</b> main.c:85</div></div>
+<div class="ttc" id="adaq_2main_8h_html_a2107ae7691edb9a15edccada3ee54a43"><div class="ttname"><a href="daq_2main_8h.html#a2107ae7691edb9a15edccada3ee54a43">ETH_CS_PORT</a></div><div class="ttdeci">#define ETH_CS_PORT</div><div class="ttdef"><b>Definition</b> main.h:36</div></div>
+<div class="ttc" id="adaq_2main_8h_html_a8c72b0130a3a8067c2e9ce362cd305b9"><div class="ttname"><a href="daq_2main_8h.html#a8c72b0130a3a8067c2e9ce362cd305b9">ETH_CS_PIN</a></div><div class="ttdeci">#define ETH_CS_PIN</div><div class="ttdef"><b>Definition</b> main.h:37</div></div>
+<div class="ttc" id="astructdma__init__t_html_a190bea09bd8d062bb2f4a97056cfe9c3"><div class="ttname"><a href="structdma__init__t.html#a190bea09bd8d062bb2f4a97056cfe9c3">dma_init_t::periph</a></div><div class="ttdeci">DMA_TypeDef * periph</div><div class="ttdef"><b>Definition</b> dma.h:35</div></div>
 </div><!-- fragment -->
+</div>
+</div>
+<a id="a60563c6df24a123ae18e090bca85f555" name="a60563c6df24a123ae18e090bca85f555"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60563c6df24a123ae18e090bca85f555">&#9670;&#160;</a></span>gpio_config</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a> gpio_config[]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aac132aa42c20a1d3744db9df04f31c54" name="aac132aa42c20a1d3744db9df04f31c54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac132aa42c20a1d3744db9df04f31c54">&#9670;&#160;</a></span>PLLClockRateHz</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t PLLClockRateHz</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad54952590a1a2fba895bd31fb775ee09" name="ad54952590a1a2fba895bd31fb775ee09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad54952590a1a2fba895bd31fb775ee09">&#9670;&#160;</a></span>sd_task_handle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile TaskHandle_t sd_task_handle = nullptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a048ceaccc44b006a77f0c988ae1877ce" name="a048ceaccc44b006a77f0c988ae1877ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a048ceaccc44b006a77f0c988ae1877ce">&#9670;&#160;</a></span>spi_rx_dma_config</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> spi_rx_dma_config = <a class="el" href="phal__F4_2spi_2spi_8h.html#a138f02a7cbb378847fbf648524342247">SPI1_RXDMA_CONT_CONFIG</a>(NULL, 2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac9d88a12a20b964301d43f839eee3f94" name="ac9d88a12a20b964301d43f839eee3f94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9d88a12a20b964301d43f839eee3f94">&#9670;&#160;</a></span>spi_tx_dma_config</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structdma__init__t.html">dma_init_t</a> spi_tx_dma_config = <a class="el" href="phal__F4_2spi_2spi_8h.html#acd5de28146a1c969e3a445f45dbc94af">SPI1_TXDMA_CONT_CONFIG</a>(NULL, 1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->

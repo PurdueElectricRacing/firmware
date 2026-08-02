@@ -1,0 +1,26 @@
+<map id="common/phal_G4/spi/spi.c" name="common/phal_G4/spi/spi.c">
+<area shape="rect" id="Node000001" title="G4 SPI." alt="" coords="236,5,380,46"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2spi_2spi_8h.html" title=" " alt="" coords="151,94,295,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="291,48,255,85,251,81,287,45"/>
+<area shape="rect" id="Node000010" href="$clamp_8h.html" title="Utility header to clamp a value to a bounded range." alt="" coords="320,102,468,127"/>
+<area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="330,45,373,88,369,92,326,48"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,190,73,216"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="182,138,80,186,77,181,180,133"/>
+<area shape="rect" id="Node000004" href="$phal__G4_2dma_2dma_8h.html" title=" " alt="" coords="147,183,299,223"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="226,135,226,167,220,167,220,135"/>
+<area shape="rect" id="Node000005" href="$phal__G4_8h.html" title=" " alt="" coords="301,271,486,297"/>
+<area shape="poly" id="edge9_Node000002_Node000005" title=" " alt="" coords="190,137,164,156,142,177,131,200,131,211,137,222,159,237,195,250,286,269,285,274,193,256,157,242,133,225,126,212,125,199,137,174,160,151,187,133"/>
+<area shape="rect" id="Node000008" href="$phal__G4_2gpio_2gpio_8h.html" title="GPIO Driver for STM32L432 Devices." alt="" coords="323,183,475,223"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="264,133,347,173,344,178,262,138"/>
+<area shape="rect" id="Node000009" href="$phal__G4_2rcc_2rcc_8h.html" title="G4 RCC public API implementation." alt="" coords="498,183,644,223"/>
+<area shape="poly" id="edge10_Node000002_Node000009" title=" " alt="" coords="296,131,484,177,483,183,295,136"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="267,222,355,262,353,267,265,226"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="516,345,589,371"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="422,295,513,336,511,341,419,300"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="406,345,469,371"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="403,296,424,330,420,333,399,299"/>
+<area shape="poly" id="edge8_Node000008_Node000005" title=" " alt="" coords="400,224,398,256,393,256,395,224"/>
+<area shape="poly" id="edge13_Node000009_Node000005" title=" " alt="" coords="528,226,436,267,434,262,526,222"/>
+<area shape="poly" id="edge11_Node000009_Node000006" title=" " alt="" coords="571,224,558,330,553,329,566,223"/>
+<area shape="poly" id="edge12_Node000009_Node000007" title=" " alt="" coords="559,225,501,299,464,336,460,333,497,295,555,222"/>
+</map>

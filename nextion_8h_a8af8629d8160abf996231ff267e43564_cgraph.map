@@ -1,0 +1,7 @@
+<map id="NXT_setTextFormatted" name="NXT_setTextFormatted">
+<area shape="rect" id="Node000001" title="Sets the text of a Nextion display object using printf&#45;style formatting." alt="" coords="5,31,163,56"/>
+<area shape="rect" id="Node000002" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="211,5,314,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,30,195,25,195,30,163,35"/>
+<area shape="rect" id="Node000003" href="$strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf" title="Appends formatted data to the buffer using printf&#45;style formatting. !" alt="" coords="217,55,308,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="163,51,202,57,201,62,163,57"/>
+</map>

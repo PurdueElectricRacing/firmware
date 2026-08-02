@@ -1,0 +1,12 @@
+<map id="common/ublox/nav_pvt.c" name="common/ublox/nav_pvt.c">
+<area shape="rect" id="Node000001" title="UBX NAV&#45;PVT message definition and decoder function." alt="" coords="5,5,171,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="24,153,88,178"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,33,60,54,47,80,44,109,49,137,44,138,38,109,41,78,56,51,74,30"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="56,79,120,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="91,31,91,63,85,63,85,31"/>
+<area shape="rect" id="Node000004" href="$nav__pvt_8h.html" title="UBX NAV&#45;PVT message definition and decoder function." alt="" coords="144,79,221,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="106,29,156,67,153,72,102,34"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="162,108,92,147,89,142,160,103"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="149,153,216,178"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="185,105,185,137,180,137,180,105"/>
+</map>

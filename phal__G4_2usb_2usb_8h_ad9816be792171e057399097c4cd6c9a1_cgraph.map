@@ -1,0 +1,5 @@
+<map id="PHAL_USB_deinit" name="PHAL_USB_deinit">
+<area shape="rect" id="Node000001" title="Detach and disable the USB peripheral." alt="" coords="5,5,136,31"/>
+<area shape="rect" id="Node000002" href="$usb__priv_8c.html#ae1b13854a90c8dbd100fae48a107ad4d" title="Detach, disable interrupts, and power down the USB peripheral." alt="" coords="184,5,309,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="136,16,168,16,168,21,136,21"/>
+</map>

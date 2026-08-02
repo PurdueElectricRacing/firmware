@@ -108,7 +108,17 @@ $(function(){initNavTree('phal__F4_2gpio_2gpio_8h.html',''); initResizable(true)
 
 <p>GPIO Driver for STM32F4 Devices.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;common/phal_F4/phal_F4.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="phal__F4_8h_source.html">common/phal_F4/phal_F4.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for gpio.h:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="phal__F4_2gpio_2gpio_8h__incl.svg" width="192" height="199"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="phal__F4_2gpio_2gpio_8h__dep__incl.svg" width="504" height="230"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <p><a href="phal__F4_2gpio_2gpio_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -134,61 +144,62 @@ Macros</h2></td></tr>
 <tr class="memitem:ae395785147afb18096f8082644e49641" id="r_ae395785147afb18096f8082644e49641"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(gpio_bank,  pin_num,  alt_func_num,  ospeed_sel,  otype_sel,  input_pull_sel)</td></tr>
 <tr class="memdesc:ae395785147afb18096f8082644e49641"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create GPIO Init struct to intilize a GPIO pin for alternate function.  <br /></td></tr>
 <tr class="separator:ae395785147afb18096f8082644e49641"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7a7e83c92511ee52bb89d28a5b52fb3" id="r_ae7a7e83c92511ee52bb89d28a5b52fb3"><td class="memItemLeft" align="right" valign="top"><a id="ae7a7e83c92511ee52bb89d28a5b52fb3" name="ae7a7e83c92511ee52bb89d28a5b52fb3"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>GPIO_INIT_SDIO_CLK</b>&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOC, 12, 12, GPIO_OUTPUT_ULTRA_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_UP)</td></tr>
+<tr class="memitem:ae7a7e83c92511ee52bb89d28a5b52fb3" id="r_ae7a7e83c92511ee52bb89d28a5b52fb3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7a7e83c92511ee52bb89d28a5b52fb3">GPIO_INIT_SDIO_CLK</a>&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOC, 12, 12, <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c">GPIO_OUTPUT_ULTRA_SPEED</a>, <a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef">GPIO_INPUT_PULL_UP</a>)</td></tr>
 <tr class="separator:ae7a7e83c92511ee52bb89d28a5b52fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88b363794fe4f8c5034f72ee157ddbcd" id="r_a88b363794fe4f8c5034f72ee157ddbcd"><td class="memItemLeft" align="right" valign="top"><a id="a88b363794fe4f8c5034f72ee157ddbcd" name="a88b363794fe4f8c5034f72ee157ddbcd"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>GPIO_INIT_SDIO_CMD</b>&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOD, 2, 12, GPIO_OUTPUT_ULTRA_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_UP)</td></tr>
+<tr class="memitem:a88b363794fe4f8c5034f72ee157ddbcd" id="r_a88b363794fe4f8c5034f72ee157ddbcd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88b363794fe4f8c5034f72ee157ddbcd">GPIO_INIT_SDIO_CMD</a>&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOD, 2, 12, <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c">GPIO_OUTPUT_ULTRA_SPEED</a>, <a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef">GPIO_INPUT_PULL_UP</a>)</td></tr>
 <tr class="separator:a88b363794fe4f8c5034f72ee157ddbcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26c482a4cad6faedaca9b37c1b98d74b" id="r_a26c482a4cad6faedaca9b37c1b98d74b"><td class="memItemLeft" align="right" valign="top"><a id="a26c482a4cad6faedaca9b37c1b98d74b" name="a26c482a4cad6faedaca9b37c1b98d74b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>GPIO_INIT_SDIO_DT0</b>&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOC, 8, 12, GPIO_OUTPUT_ULTRA_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_UP)</td></tr>
+<tr class="memitem:a26c482a4cad6faedaca9b37c1b98d74b" id="r_a26c482a4cad6faedaca9b37c1b98d74b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26c482a4cad6faedaca9b37c1b98d74b">GPIO_INIT_SDIO_DT0</a>&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOC, 8, 12, <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c">GPIO_OUTPUT_ULTRA_SPEED</a>, <a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef">GPIO_INPUT_PULL_UP</a>)</td></tr>
 <tr class="separator:a26c482a4cad6faedaca9b37c1b98d74b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad218dc69d5d4bb96baf68003fed14340" id="r_ad218dc69d5d4bb96baf68003fed14340"><td class="memItemLeft" align="right" valign="top"><a id="ad218dc69d5d4bb96baf68003fed14340" name="ad218dc69d5d4bb96baf68003fed14340"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>GPIO_INIT_SDIO_DT1</b>&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOC, 9, 12, GPIO_OUTPUT_ULTRA_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_UP)</td></tr>
+<tr class="memitem:ad218dc69d5d4bb96baf68003fed14340" id="r_ad218dc69d5d4bb96baf68003fed14340"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad218dc69d5d4bb96baf68003fed14340">GPIO_INIT_SDIO_DT1</a>&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOC, 9, 12, <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c">GPIO_OUTPUT_ULTRA_SPEED</a>, <a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef">GPIO_INPUT_PULL_UP</a>)</td></tr>
 <tr class="separator:ad218dc69d5d4bb96baf68003fed14340"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abecf0ada9b3911882c9b825de9d9a85c" id="r_abecf0ada9b3911882c9b825de9d9a85c"><td class="memItemLeft" align="right" valign="top"><a id="abecf0ada9b3911882c9b825de9d9a85c" name="abecf0ada9b3911882c9b825de9d9a85c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>GPIO_INIT_SDIO_DT2</b>&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOC, 10, 12, GPIO_OUTPUT_ULTRA_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_UP)</td></tr>
+<tr class="memitem:abecf0ada9b3911882c9b825de9d9a85c" id="r_abecf0ada9b3911882c9b825de9d9a85c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abecf0ada9b3911882c9b825de9d9a85c">GPIO_INIT_SDIO_DT2</a>&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOC, 10, 12, <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c">GPIO_OUTPUT_ULTRA_SPEED</a>, <a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef">GPIO_INPUT_PULL_UP</a>)</td></tr>
 <tr class="separator:abecf0ada9b3911882c9b825de9d9a85c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af21ca806681aa376af548363dc40ff95" id="r_af21ca806681aa376af548363dc40ff95"><td class="memItemLeft" align="right" valign="top"><a id="af21ca806681aa376af548363dc40ff95" name="af21ca806681aa376af548363dc40ff95"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>GPIO_INIT_SDIO_DT3</b>&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOC, 11, 12, GPIO_OUTPUT_ULTRA_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_PULL_UP)</td></tr>
+<tr class="memitem:af21ca806681aa376af548363dc40ff95" id="r_af21ca806681aa376af548363dc40ff95"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af21ca806681aa376af548363dc40ff95">GPIO_INIT_SDIO_DT3</a>&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOC, 11, 12, <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c">GPIO_OUTPUT_ULTRA_SPEED</a>, <a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef">GPIO_INPUT_PULL_UP</a>)</td></tr>
 <tr class="separator:af21ca806681aa376af548363dc40ff95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a3d1ee6f8528bb65733a87ed1d539d3" id="r_a2a3d1ee6f8528bb65733a87ed1d539d3"><td class="memItemLeft" align="right" valign="top"><a id="a2a3d1ee6f8528bb65733a87ed1d539d3" name="a2a3d1ee6f8528bb65733a87ed1d539d3"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>GPIO_INIT_MCO1_PA8</b>&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOA, 8, 0, GPIO_OUTPUT_ULTRA_SPEED, GPIO_OUTPUT_PUSH_PULL, GPIO_INPUT_OPEN_DRAIN)</td></tr>
+<tr class="memitem:a2a3d1ee6f8528bb65733a87ed1d539d3" id="r_a2a3d1ee6f8528bb65733a87ed1d539d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a3d1ee6f8528bb65733a87ed1d539d3">GPIO_INIT_MCO1_PA8</a>&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOA, 8, 0, <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c">GPIO_OUTPUT_ULTRA_SPEED</a>, <a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23a7dfaecf9a2876e9573415842538af8d8">GPIO_INPUT_OPEN_DRAIN</a>)</td></tr>
 <tr class="separator:a2a3d1ee6f8528bb65733a87ed1d539d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a976b33799b2b8c4fe7d2a4415a88991b" id="r_a976b33799b2b8c4fe7d2a4415a88991b"><td class="memItemLeft" align="right" valign="top"><a id="a976b33799b2b8c4fe7d2a4415a88991b" name="a976b33799b2b8c4fe7d2a4415a88991b"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a976b33799b2b8c4fe7d2a4415a88991b">GPIOPinType_t</a> { <b>GPIO_TYPE_INPUT</b> = 0b00
-, <b>GPIO_TYPE_OUTPUT</b> = 0b01
-, <b>GPIO_TYPE_AF</b> = 0b10
-, <b>GPIO_TYPE_ANALOG</b> = 0b11
+<tr class="memitem:a976b33799b2b8c4fe7d2a4415a88991b" id="r_a976b33799b2b8c4fe7d2a4415a88991b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a976b33799b2b8c4fe7d2a4415a88991b">GPIOPinType_t</a> { <a class="el" href="#a976b33799b2b8c4fe7d2a4415a88991ba72133d3b8e4b2479ea80add2e9b8f00a">GPIO_TYPE_INPUT</a> = 0b00
+, <a class="el" href="#a976b33799b2b8c4fe7d2a4415a88991ba9e41e0e3d9a09dbc9bcd8f73fb3c65b1">GPIO_TYPE_OUTPUT</a> = 0b01
+, <a class="el" href="#a976b33799b2b8c4fe7d2a4415a88991ba2e971f8f1da5eb3ff891017f22c98927">GPIO_TYPE_AF</a> = 0b10
+, <a class="el" href="#a976b33799b2b8c4fe7d2a4415a88991baf0d3c2f5e6b6a52247a85482f03476bc">GPIO_TYPE_ANALOG</a> = 0b11
  }</td></tr>
-<tr class="memdesc:a976b33799b2b8c4fe7d2a4415a88991b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration type for GPIO Pin. <br /></td></tr>
+<tr class="memdesc:a976b33799b2b8c4fe7d2a4415a88991b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration type for GPIO Pin.  <a href="#a976b33799b2b8c4fe7d2a4415a88991b">More...</a><br /></td></tr>
 <tr class="separator:a976b33799b2b8c4fe7d2a4415a88991b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0a10c1de7415b34f63dc68acc168ce8" id="r_af0a10c1de7415b34f63dc68acc168ce8"><td class="memItemLeft" align="right" valign="top"><a id="af0a10c1de7415b34f63dc68acc168ce8" name="af0a10c1de7415b34f63dc68acc168ce8"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8">GPIOOutputSpeed_t</a> { <b>GPIO_OUTPUT_LOW_SPEED</b> = 0b00
-, <b>GPIO_OUTPUT_MED_SPEED</b> = 0b01
-, <b>GPIO_OUTPUT_HIGH_SPEED</b> = 0b10
-, <b>GPIO_OUTPUT_ULTRA_SPEED</b> = 0b11
+<tr class="memitem:af0a10c1de7415b34f63dc68acc168ce8" id="r_af0a10c1de7415b34f63dc68acc168ce8"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8">GPIOOutputSpeed_t</a> { <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0">GPIO_OUTPUT_LOW_SPEED</a> = 0b00
+, <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8a52246368f0bd10db139eedc61ebc25a6">GPIO_OUTPUT_MED_SPEED</a> = 0b01
+, <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a">GPIO_OUTPUT_HIGH_SPEED</a> = 0b10
+, <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c">GPIO_OUTPUT_ULTRA_SPEED</a> = 0b11
  }</td></tr>
-<tr class="memdesc:af0a10c1de7415b34f63dc68acc168ce8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Slew rate control for output pins. <br /></td></tr>
+<tr class="memdesc:af0a10c1de7415b34f63dc68acc168ce8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Slew rate control for output pins.  <a href="#af0a10c1de7415b34f63dc68acc168ce8">More...</a><br /></td></tr>
 <tr class="separator:af0a10c1de7415b34f63dc68acc168ce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3dd7cce66aaf32796899d7ac03588ebd" id="r_a3dd7cce66aaf32796899d7ac03588ebd"><td class="memItemLeft" align="right" valign="top"><a id="a3dd7cce66aaf32796899d7ac03588ebd" name="a3dd7cce66aaf32796899d7ac03588ebd"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebd">GPIOOutputPull_t</a> { <b>GPIO_OUTPUT_PUSH_PULL</b> = 0b0
-, <b>GPIO_OUTPUT_OPEN_DRAIN</b> = 0b1
+<tr class="memitem:a3dd7cce66aaf32796899d7ac03588ebd" id="r_a3dd7cce66aaf32796899d7ac03588ebd"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebd">GPIOOutputPull_t</a> { <a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a> = 0b0
+, <a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b">GPIO_OUTPUT_OPEN_DRAIN</a> = 0b1
  }</td></tr>
-<tr class="memdesc:a3dd7cce66aaf32796899d7ac03588ebd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output drive mode selection. <br /></td></tr>
+<tr class="memdesc:a3dd7cce66aaf32796899d7ac03588ebd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output drive mode selection.  <a href="#a3dd7cce66aaf32796899d7ac03588ebd">More...</a><br /></td></tr>
 <tr class="separator:a3dd7cce66aaf32796899d7ac03588ebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae55c4a0103f207b80bce6ee4413b8a23" id="r_ae55c4a0103f207b80bce6ee4413b8a23"><td class="memItemLeft" align="right" valign="top"><a id="ae55c4a0103f207b80bce6ee4413b8a23" name="ae55c4a0103f207b80bce6ee4413b8a23"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23">GPIOInputPull_t</a> { <b>GPIO_INPUT_OPEN_DRAIN</b> = 0b00
-, <b>GPIO_INPUT_PULL_UP</b> = 0b01
-, <b>GPIO_INPUT_PULL_DOWN</b> = 0b10
+<tr class="memitem:ae55c4a0103f207b80bce6ee4413b8a23" id="r_ae55c4a0103f207b80bce6ee4413b8a23"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23">GPIOInputPull_t</a> { <a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23a7dfaecf9a2876e9573415842538af8d8">GPIO_INPUT_OPEN_DRAIN</a> = 0b00
+, <a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef">GPIO_INPUT_PULL_UP</a> = 0b01
+, <a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3">GPIO_INPUT_PULL_DOWN</a> = 0b10
  }</td></tr>
-<tr class="memdesc:ae55c4a0103f207b80bce6ee4413b8a23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable internal pullup/down resistors. <br /></td></tr>
+<tr class="memdesc:ae55c4a0103f207b80bce6ee4413b8a23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable internal pullup/down resistors.  <a href="#ae55c4a0103f207b80bce6ee4413b8a23">More...</a><br /></td></tr>
 <tr class="separator:ae55c4a0103f207b80bce6ee4413b8a23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a9f473c8a74e27d069fa4de69fcbb4d60" id="r_a9f473c8a74e27d069fa4de69fcbb4d60"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f473c8a74e27d069fa4de69fcbb4d60">PHAL_initGPIO</a> (<a class="el" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a> config[], uint8_t config_len)</td></tr>
+<tr class="memitem:a9f473c8a74e27d069fa4de69fcbb4d60" id="r_a9f473c8a74e27d069fa4de69fcbb4d60"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f473c8a74e27d069fa4de69fcbb4d60">PHAL_initGPIO</a> (<a class="el" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a> <a class="el" href="ethernet_8c.html#afdcaea2c7210f2679ea25aefc7f9bfd4">config</a>[], uint8_t config_len)</td></tr>
 <tr class="memdesc:a9f473c8a74e27d069fa4de69fcbb4d60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initilize the GPIO perpheral given a list of configuration fields for all of the GPIO pins. Will also enable the GPIO RCC clock.  <br /></td></tr>
 <tr class="separator:a9f473c8a74e27d069fa4de69fcbb4d60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a613ebbfff35a56132e58a75c773d7876" id="r_a613ebbfff35a56132e58a75c773d7876"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a613ebbfff35a56132e58a75c773d7876">PHAL_readGPIO</a> (GPIO_TypeDef *bank, uint8_t pin)</td></tr>
+<tr class="memdesc:a613ebbfff35a56132e58a75c773d7876"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the state of the input register for the specific GPIO pin.  <br /></td></tr>
+<tr class="separator:a613ebbfff35a56132e58a75c773d7876"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67db851520637ffa4de5968c9730220b" id="r_a67db851520637ffa4de5968c9730220b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a67db851520637ffa4de5968c9730220b">PHAL_writeGPIO</a> (GPIO_TypeDef *bank, uint8_t pin, bool value)</td></tr>
+<tr class="memdesc:a67db851520637ffa4de5968c9730220b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a logic value to an output pin.  <br /></td></tr>
+<tr class="separator:a67db851520637ffa4de5968c9730220b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae07cde77ad92538f5b12aa3359762399" id="r_ae07cde77ad92538f5b12aa3359762399"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae07cde77ad92538f5b12aa3359762399">PHAL_toggleGPIO</a> (GPIO_TypeDef *bank, uint8_t pin)</td></tr>
+<tr class="separator:ae07cde77ad92538f5b12aa3359762399"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>GPIO Driver for STM32F4 Devices. </p>
@@ -236,11 +247,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    { \</div>
-<div class="line">        .bank = gpio_bank, .pin = pin_num, .type = GPIO_TYPE_AF, .config = {.af_num = alt_func_num, \</div>
+<div class="line">        .bank = gpio_bank, .pin = pin_num, .type = <a class="code hl_enumvalue" href="#a976b33799b2b8c4fe7d2a4415a88991ba2e971f8f1da5eb3ff891017f22c98927">GPIO_TYPE_AF</a>, .config = {.af_num = alt_func_num, \</div>
 <div class="line">                                                                            .ospeed = ospeed_sel, \</div>
 <div class="line">                                                                            .otype  = otype_sel, \</div>
 <div class="line">                                                                            .pull   = input_pull_sel } \</div>
 <div class="line">    }</div>
+<div class="ttc" id="aphal__F4_2gpio_2gpio_8h_html_a976b33799b2b8c4fe7d2a4415a88991ba2e971f8f1da5eb3ff891017f22c98927"><div class="ttname"><a href="#a976b33799b2b8c4fe7d2a4415a88991ba2e971f8f1da5eb3ff891017f22c98927">GPIO_TYPE_AF</a></div><div class="ttdeci">@ GPIO_TYPE_AF</div><div class="ttdef"><b>Definition</b> gpio.h:24</div></div>
 </div><!-- fragment -->
 <p>Create GPIO Init struct to intilize a GPIO pin for alternate function. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -278,7 +290,8 @@ Functions</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">    { \</div>
 <div class="line">        .bank = gpio_bank, \</div>
 <div class="line">        .pin  = pin_num, \</div>
-<div class="line">        .type = GPIO_TYPE_ANALOG}</div>
+<div class="line">        .type = <a class="code hl_enumvalue" href="#a976b33799b2b8c4fe7d2a4415a88991baf0d3c2f5e6b6a52247a85482f03476bc">GPIO_TYPE_ANALOG</a>}</div>
+<div class="ttc" id="aphal__F4_2gpio_2gpio_8h_html_a976b33799b2b8c4fe7d2a4415a88991baf0d3c2f5e6b6a52247a85482f03476bc"><div class="ttname"><a href="#a976b33799b2b8c4fe7d2a4415a88991baf0d3c2f5e6b6a52247a85482f03476bc">GPIO_TYPE_ANALOG</a></div><div class="ttdeci">@ GPIO_TYPE_ANALOG</div><div class="ttdef"><b>Definition</b> gpio.h:25</div></div>
 </div><!-- fragment -->
 <p>Create GPIO Init struct to intilize a GPIO pin for analog. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -315,8 +328,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    { \</div>
-<div class="line">        .bank = gpio_bank, .pin = pin_num, .type = GPIO_TYPE_INPUT, .config = {.pull = input_pull_sel } \</div>
+<div class="line">        .bank = gpio_bank, .pin = pin_num, .type = <a class="code hl_enumvalue" href="#a976b33799b2b8c4fe7d2a4415a88991ba72133d3b8e4b2479ea80add2e9b8f00a">GPIO_TYPE_INPUT</a>, .config = {.pull = input_pull_sel } \</div>
 <div class="line">    }</div>
+<div class="ttc" id="aphal__F4_2gpio_2gpio_8h_html_a976b33799b2b8c4fe7d2a4415a88991ba72133d3b8e4b2479ea80add2e9b8f00a"><div class="ttname"><a href="#a976b33799b2b8c4fe7d2a4415a88991ba72133d3b8e4b2479ea80add2e9b8f00a">GPIO_TYPE_INPUT</a></div><div class="ttdeci">@ GPIO_TYPE_INPUT</div><div class="ttdef"><b>Definition</b> gpio.h:22</div></div>
 </div><!-- fragment -->
 <p>Create GPIO Init struct to intilize a GPIO pin for input. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -327,6 +341,20 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a2a3d1ee6f8528bb65733a87ed1d539d3" name="a2a3d1ee6f8528bb65733a87ed1d539d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a3d1ee6f8528bb65733a87ed1d539d3">&#9670;&#160;</a></span>GPIO_INIT_MCO1_PA8</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPIO_INIT_MCO1_PA8&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOA, 8, 0, <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c">GPIO_OUTPUT_ULTRA_SPEED</a>, <a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23a7dfaecf9a2876e9573415842538af8d8">GPIO_INPUT_OPEN_DRAIN</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -354,9 +382,11 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    { \</div>
-<div class="line">        .bank = gpio_bank, .pin = pin_num, .type = GPIO_TYPE_OUTPUT, .config = {.ospeed = ospeed_sel, \</div>
-<div class="line">                                                                                .otype  = GPIO_OUTPUT_PUSH_PULL } \</div>
+<div class="line">        .bank = gpio_bank, .pin = pin_num, .type = <a class="code hl_enumvalue" href="#a976b33799b2b8c4fe7d2a4415a88991ba9e41e0e3d9a09dbc9bcd8f73fb3c65b1">GPIO_TYPE_OUTPUT</a>, .config = {.ospeed = ospeed_sel, \</div>
+<div class="line">                                                                                .otype  = <a class="code hl_enumvalue" href="#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a> } \</div>
 <div class="line">    }</div>
+<div class="ttc" id="aphal__F4_2gpio_2gpio_8h_html_a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9"><div class="ttname"><a href="#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a></div><div class="ttdeci">@ GPIO_OUTPUT_PUSH_PULL</div><div class="ttdef"><b>Definition</b> gpio.h:42</div></div>
+<div class="ttc" id="aphal__F4_2gpio_2gpio_8h_html_a976b33799b2b8c4fe7d2a4415a88991ba9e41e0e3d9a09dbc9bcd8f73fb3c65b1"><div class="ttname"><a href="#a976b33799b2b8c4fe7d2a4415a88991ba9e41e0e3d9a09dbc9bcd8f73fb3c65b1">GPIO_TYPE_OUTPUT</a></div><div class="ttdeci">@ GPIO_TYPE_OUTPUT</div><div class="ttdef"><b>Definition</b> gpio.h:23</div></div>
 </div><!-- fragment -->
 <p>Create GPIO Init struct to intilize a GPIO pin for output. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -394,10 +424,181 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    { \</div>
-<div class="line">        .bank = gpio_bank, .pin = pin_num, .type = GPIO_TYPE_OUTPUT, .config = {.ospeed = ospeed_sel, \</div>
-<div class="line">                                                                                .otype  = GPIO_OUTPUT_OPEN_DRAIN } \</div>
+<div class="line">        .bank = gpio_bank, .pin = pin_num, .type = <a class="code hl_enumvalue" href="#a976b33799b2b8c4fe7d2a4415a88991ba9e41e0e3d9a09dbc9bcd8f73fb3c65b1">GPIO_TYPE_OUTPUT</a>, .config = {.ospeed = ospeed_sel, \</div>
+<div class="line">                                                                                .otype  = <a class="code hl_enumvalue" href="#a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b">GPIO_OUTPUT_OPEN_DRAIN</a> } \</div>
 <div class="line">    }</div>
+<div class="ttc" id="aphal__F4_2gpio_2gpio_8h_html_a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b"><div class="ttname"><a href="#a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b">GPIO_OUTPUT_OPEN_DRAIN</a></div><div class="ttdeci">@ GPIO_OUTPUT_OPEN_DRAIN</div><div class="ttdef"><b>Definition</b> gpio.h:43</div></div>
 </div><!-- fragment -->
+</div>
+</div>
+<a id="ae7a7e83c92511ee52bb89d28a5b52fb3" name="ae7a7e83c92511ee52bb89d28a5b52fb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7a7e83c92511ee52bb89d28a5b52fb3">&#9670;&#160;</a></span>GPIO_INIT_SDIO_CLK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPIO_INIT_SDIO_CLK&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOC, 12, 12, <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c">GPIO_OUTPUT_ULTRA_SPEED</a>, <a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef">GPIO_INPUT_PULL_UP</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a88b363794fe4f8c5034f72ee157ddbcd" name="a88b363794fe4f8c5034f72ee157ddbcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88b363794fe4f8c5034f72ee157ddbcd">&#9670;&#160;</a></span>GPIO_INIT_SDIO_CMD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPIO_INIT_SDIO_CMD&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOD, 2, 12, <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c">GPIO_OUTPUT_ULTRA_SPEED</a>, <a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef">GPIO_INPUT_PULL_UP</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a26c482a4cad6faedaca9b37c1b98d74b" name="a26c482a4cad6faedaca9b37c1b98d74b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26c482a4cad6faedaca9b37c1b98d74b">&#9670;&#160;</a></span>GPIO_INIT_SDIO_DT0</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPIO_INIT_SDIO_DT0&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOC, 8, 12, <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c">GPIO_OUTPUT_ULTRA_SPEED</a>, <a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef">GPIO_INPUT_PULL_UP</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad218dc69d5d4bb96baf68003fed14340" name="ad218dc69d5d4bb96baf68003fed14340"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad218dc69d5d4bb96baf68003fed14340">&#9670;&#160;</a></span>GPIO_INIT_SDIO_DT1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPIO_INIT_SDIO_DT1&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOC, 9, 12, <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c">GPIO_OUTPUT_ULTRA_SPEED</a>, <a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef">GPIO_INPUT_PULL_UP</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abecf0ada9b3911882c9b825de9d9a85c" name="abecf0ada9b3911882c9b825de9d9a85c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abecf0ada9b3911882c9b825de9d9a85c">&#9670;&#160;</a></span>GPIO_INIT_SDIO_DT2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPIO_INIT_SDIO_DT2&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOC, 10, 12, <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c">GPIO_OUTPUT_ULTRA_SPEED</a>, <a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef">GPIO_INPUT_PULL_UP</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af21ca806681aa376af548363dc40ff95" name="af21ca806681aa376af548363dc40ff95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af21ca806681aa376af548363dc40ff95">&#9670;&#160;</a></span>GPIO_INIT_SDIO_DT3</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPIO_INIT_SDIO_DT3&#160;&#160;&#160;<a class="el" href="#ae395785147afb18096f8082644e49641">GPIO_INIT_AF</a>(GPIOC, 11, 12, <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c">GPIO_OUTPUT_ULTRA_SPEED</a>, <a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9">GPIO_OUTPUT_PUSH_PULL</a>, <a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef">GPIO_INPUT_PULL_UP</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ae55c4a0103f207b80bce6ee4413b8a23" name="ae55c4a0103f207b80bce6ee4413b8a23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae55c4a0103f207b80bce6ee4413b8a23">&#9670;&#160;</a></span>GPIOInputPull_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#ae55c4a0103f207b80bce6ee4413b8a23">GPIOInputPull_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable internal pullup/down resistors. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae55c4a0103f207b80bce6ee4413b8a23a7dfaecf9a2876e9573415842538af8d8" name="ae55c4a0103f207b80bce6ee4413b8a23a7dfaecf9a2876e9573415842538af8d8"></a>GPIO_INPUT_OPEN_DRAIN&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef" name="ae55c4a0103f207b80bce6ee4413b8a23a50ef5b89bbd5942e2df573b784793cef"></a>GPIO_INPUT_PULL_UP&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3" name="ae55c4a0103f207b80bce6ee4413b8a23aae87f6bb5af54ad09b302360cec2c3c3"></a>GPIO_INPUT_PULL_DOWN&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a3dd7cce66aaf32796899d7ac03588ebd" name="a3dd7cce66aaf32796899d7ac03588ebd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dd7cce66aaf32796899d7ac03588ebd">&#9670;&#160;</a></span>GPIOOutputPull_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a3dd7cce66aaf32796899d7ac03588ebd">GPIOOutputPull_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Output drive mode selection. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9" name="a3dd7cce66aaf32796899d7ac03588ebda98ad18441bf40d98b3e21c6b1e4f23a9"></a>GPIO_OUTPUT_PUSH_PULL&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b" name="a3dd7cce66aaf32796899d7ac03588ebda8d500adc2f6982a9ddc8dcdd66c80c4b"></a>GPIO_OUTPUT_OPEN_DRAIN&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="af0a10c1de7415b34f63dc68acc168ce8" name="af0a10c1de7415b34f63dc68acc168ce8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0a10c1de7415b34f63dc68acc168ce8">&#9670;&#160;</a></span>GPIOOutputSpeed_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#af0a10c1de7415b34f63dc68acc168ce8">GPIOOutputSpeed_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Slew rate control for output pins. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0" name="af0a10c1de7415b34f63dc68acc168ce8a912bef37dd84a191580798f7606a74a0"></a>GPIO_OUTPUT_LOW_SPEED&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af0a10c1de7415b34f63dc68acc168ce8a52246368f0bd10db139eedc61ebc25a6" name="af0a10c1de7415b34f63dc68acc168ce8a52246368f0bd10db139eedc61ebc25a6"></a>GPIO_OUTPUT_MED_SPEED&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a" name="af0a10c1de7415b34f63dc68acc168ce8a00eb235434653a9ace1f2075cb6b709a"></a>GPIO_OUTPUT_HIGH_SPEED&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c" name="af0a10c1de7415b34f63dc68acc168ce8a93fedf3088c945f42d4b134256c1381c"></a>GPIO_OUTPUT_ULTRA_SPEED&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a976b33799b2b8c4fe7d2a4415a88991b" name="a976b33799b2b8c4fe7d2a4415a88991b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a976b33799b2b8c4fe7d2a4415a88991b">&#9670;&#160;</a></span>GPIOPinType_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a976b33799b2b8c4fe7d2a4415a88991b">GPIOPinType_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configuration type for GPIO Pin. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a976b33799b2b8c4fe7d2a4415a88991ba72133d3b8e4b2479ea80add2e9b8f00a" name="a976b33799b2b8c4fe7d2a4415a88991ba72133d3b8e4b2479ea80add2e9b8f00a"></a>GPIO_TYPE_INPUT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a976b33799b2b8c4fe7d2a4415a88991ba9e41e0e3d9a09dbc9bcd8f73fb3c65b1" name="a976b33799b2b8c4fe7d2a4415a88991ba9e41e0e3d9a09dbc9bcd8f73fb3c65b1"></a>GPIO_TYPE_OUTPUT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a976b33799b2b8c4fe7d2a4415a88991ba2e971f8f1da5eb3ff891017f22c98927" name="a976b33799b2b8c4fe7d2a4415a88991ba2e971f8f1da5eb3ff891017f22c98927"></a>GPIO_TYPE_AF&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a976b33799b2b8c4fe7d2a4415a88991baf0d3c2f5e6b6a52247a85482f03476bc" name="a976b33799b2b8c4fe7d2a4415a88991baf0d3c2f5e6b6a52247a85482f03476bc"></a>GPIO_TYPE_ANALOG&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
@@ -431,6 +632,140 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>true All GPIOs were a valid configuration format </dd>
 <dd>
 false Some of the GPIOs had an invalid configuration format </dd></dl>
+
+</div>
+</div>
+<a id="a613ebbfff35a56132e58a75c773d7876" name="a613ebbfff35a56132e58a75c773d7876"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a613ebbfff35a56132e58a75c773d7876">&#9670;&#160;</a></span>PHAL_readGPIO()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool PHAL_readGPIO </td>
+          <td>(</td>
+          <td class="paramtype">GPIO_TypeDef *</td>          <td class="paramname"><span class="paramname"><em>bank</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>pin</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Read the state of the input register for the specific GPIO pin. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bank</td><td>GPIO Bank of the pin </td></tr>
+    <tr><td class="paramname">pin</td><td>GPIO pin number </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true GPIO Input true </dd>
+<dd>
+false GPIO Input false </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="phal__F4_2gpio_2gpio_8h_a613ebbfff35a56132e58a75c773d7876_icgraph.svg" width="646" height="555"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ae07cde77ad92538f5b12aa3359762399" name="ae07cde77ad92538f5b12aa3359762399"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae07cde77ad92538f5b12aa3359762399">&#9670;&#160;</a></span>PHAL_toggleGPIO()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void PHAL_toggleGPIO </td>
+          <td>(</td>
+          <td class="paramtype">GPIO_TypeDef *</td>          <td class="paramname"><span class="paramname"><em>bank</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>pin</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="phal__F4_2gpio_2gpio_8h_ae07cde77ad92538f5b12aa3359762399_cgraph.svg" width="316" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="phal__F4_2gpio_2gpio_8h_ae07cde77ad92538f5b12aa3359762399_icgraph.svg" width="396" height="283"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a67db851520637ffa4de5968c9730220b" name="a67db851520637ffa4de5968c9730220b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67db851520637ffa4de5968c9730220b">&#9670;&#160;</a></span>PHAL_writeGPIO()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void PHAL_writeGPIO </td>
+          <td>(</td>
+          <td class="paramtype">GPIO_TypeDef *</td>          <td class="paramname"><span class="paramname"><em>bank</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>pin</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Write a logic value to an output pin. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bank</td><td>GPIO Bank of the pin </td></tr>
+    <tr><td class="paramname">pin</td><td>GPIO pin number </td></tr>
+    <tr><td class="paramname">value</td><td>Logical value to write </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="phal__F4_2gpio_2gpio_8h_a67db851520637ffa4de5968c9730220b_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>

@@ -1,0 +1,19 @@
+<map id="source/main_module/powertrain/powertrain.c" name="source/main_module/powertrain/powertrain.c">
+<area shape="rect" id="Node000001" title="Powertrain implementation." alt="" coords="135,5,294,46"/>
+<area shape="rect" id="Node000002" href="$powertrain_8h.html" title="Powertrain implementation." alt="" coords="169,102,260,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="217,47,217,86,212,86,212,47"/>
+<area shape="rect" id="Node000006" href="$faults__common_8h.html" title="Event&#45;based FIDR system." alt="" coords="26,94,145,135"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="187,49,129,87,126,83,184,44"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="284,94,428,135"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="248,44,313,84,310,88,245,49"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="163,279,226,304"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="216,128,200,264,195,263,211,127"/>
+<area shape="rect" id="Node000004" href="$common_2amk_2amk_8h.html" title="Modernized AMK driver." alt="" coords="242,190,382,216"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="230,126,289,178,286,182,226,130"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="297,218,225,271,222,267,294,214"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="250,271,395,312"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="316,216,321,256,316,257,311,217"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="58,137,36,156,17,177,8,200,9,211,14,222,41,249,76,267,113,279,148,285,147,290,112,284,74,272,38,253,10,225,4,212,3,199,13,175,32,152,54,133"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="24,183,168,223"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="90,135,94,167,89,167,85,136"/>
+</map>

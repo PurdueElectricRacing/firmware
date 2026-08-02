@@ -110,6 +110,11 @@ $(function(){initNavTree('source_2dashboard_2driver__interface_2pages_2amk_8c.ht
 <code>#include &quot;can_library/generated/DASHBOARD.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="nextion_8h_source.html">common/nextion/nextion.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="colors_8h_source.html">colors.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for amk.c:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="source_2dashboard_2driver__interface_2pages_2amk_8c__incl.svg" width="500" height="288"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -118,8 +123,9 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a062432901dfe910f61a8fdfa5b2a71ba" id="r_a062432901dfe910f61a8fdfa5b2a71ba"><td class="memItemLeft" align="right" valign="top"><a id="a062432901dfe910f61a8fdfa5b2a71ba" name="a062432901dfe910f61a8fdfa5b2a71ba"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>amk_telemetry_update</b> ()</td></tr>
+<tr class="memitem:a5f6b536f6321e775c008ec56b941c1cb" id="r_a5f6b536f6321e775c008ec56b941c1cb"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f6b536f6321e775c008ec56b941c1cb">update_diagnostic_display</a> (<a class="el" href="structAMK__objects__t.html">AMK_objects_t</a> objects, uint32_t diagnostic_number, AMK_state_t inverter_state, bool has_error, bool inverter_on, bool any_stale, bool is_stale)</td></tr>
+<tr class="separator:a5f6b536f6321e775c008ec56b941c1cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a062432901dfe910f61a8fdfa5b2a71ba" id="r_a062432901dfe910f61a8fdfa5b2a71ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a062432901dfe910f61a8fdfa5b2a71ba">amk_telemetry_update</a> ()</td></tr>
 <tr class="separator:a062432901dfe910f61a8fdfa5b2a71ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -127,7 +133,94 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>amk_telemetry_update<
 <dl class="section author"><dt>Author</dt><dd>Amruth Nadimpally (<a href="#" onclick="location.href='mai'+'lto:'+'nad'+'im'+'paa'+'@p'+'urd'+'ue'+'.ed'+'u'; return false;">nadim<span class="obfuscator">.nosp@m.</span>paa@<span class="obfuscator">.nosp@m.</span>purdu<span class="obfuscator">.nosp@m.</span>e.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd>
 <dd>
 Aditya Saini (<a href="#" onclick="location.href='mai'+'lto:'+'sai'+'n9'+'1@p'+'ur'+'due'+'.e'+'du'; return false;">sain9<span class="obfuscator">.nosp@m.</span>1@pu<span class="obfuscator">.nosp@m.</span>rdue.<span class="obfuscator">.nosp@m.</span>edu</a>) </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a062432901dfe910f61a8fdfa5b2a71ba" name="a062432901dfe910f61a8fdfa5b2a71ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a062432901dfe910f61a8fdfa5b2a71ba">&#9670;&#160;</a></span>amk_telemetry_update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void amk_telemetry_update </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="source_2dashboard_2driver__interface_2pages_2amk_8c_a062432901dfe910f61a8fdfa5b2a71ba_cgraph.svg" width="100%" height="401"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a5f6b536f6321e775c008ec56b941c1cb" name="a5f6b536f6321e775c008ec56b941c1cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f6b536f6321e775c008ec56b941c1cb">&#9670;&#160;</a></span>update_diagnostic_display()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void update_diagnostic_display </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structAMK__objects__t.html">AMK_objects_t</a></td>          <td class="paramname"><span class="paramname"><em>objects</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>diagnostic_number</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AMK_state_t</td>          <td class="paramname"><span class="paramname"><em>inverter_state</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>has_error</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>inverter_on</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>any_stale</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>is_stale</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="source_2dashboard_2driver__interface_2pages_2amk_8c_a5f6b536f6321e775c008ec56b941c1cb_cgraph.svg" width="542" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="source_2dashboard_2driver__interface_2pages_2amk_8c_a5f6b536f6321e775c008ec56b941c1cb_icgraph.svg" width="384" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

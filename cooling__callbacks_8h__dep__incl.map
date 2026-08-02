@@ -1,0 +1,7 @@
+<map id="source/pdu/cooling/cooling_callbacks.h" name="source/pdu/cooling/cooling_callbacks.h">
+<area shape="rect" id="Node000001" title="callback functions for bang&#45;bang control" alt="" coords="84,5,222,46"/>
+<area shape="rect" id="Node000002" href="$cooling__callbacks_8c.html" title="callback functions for bang&#45;bang control" alt="" coords="5,94,144,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,60,94,95,90,92,123,56"/>
+<area shape="rect" id="Node000003" href="$cooling__fsm_8c.html" title=" " alt="" coords="168,94,298,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="183,56,217,92,213,95,180,59"/>
+</map>

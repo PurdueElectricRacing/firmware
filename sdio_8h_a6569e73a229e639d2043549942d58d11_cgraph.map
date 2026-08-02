@@ -1,0 +1,13 @@
+<map id="SD_EnableWideBusOperation" name="SD_EnableWideBusOperation">
+<area shape="rect" id="Node000001" title="Enables wide bus opeartion for the requeseted card if supported by card." alt="" coords="5,29,199,55"/>
+<area shape="rect" id="Node000002" href="$sdio_8c.html#a34c053adf6c432bad5d856d470094519" title="Enables or disables the SDIO wide bus mode." alt="" coords="247,29,353,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,40,231,40,231,45,199,45"/>
+<area shape="rect" id="Node000003" href="$sdio_8c.html#a7566a8f0aaba0e993a8b9e914897c812" title="Checks for error conditions for R1 response." alt="" coords="562,5,675,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="344,26,401,14,476,9,547,10,547,16,476,15,401,19,345,31"/>
+<area shape="rect" id="Node000004" href="$sdio_8c.html#a6a5fc4e4656231dfde1e7a157337aa17" title="Find the SD card SCR register value." alt="" coords="401,29,474,55"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="353,40,385,40,385,45,353,45"/>
+<area shape="rect" id="Node000005" href="$sdio_8c.html#a4b480281586b4fd1ccf150129fe21120" title="Send a command." alt="" coords="522,55,715,80"/>
+<area shape="poly" id="edge6_Node000002_Node000005" title=" " alt="" coords="345,53,401,65,507,70,507,75,401,70,344,58"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="474,35,547,25,547,30,475,40"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="475,45,508,49,507,55,474,50"/>
+</map>

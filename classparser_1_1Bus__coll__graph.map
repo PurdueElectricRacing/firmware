@@ -1,0 +1,5 @@
+<map id="parser.Bus" name="parser.Bus">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,109,89,135"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="25,5,69,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="50,47,50,109,44,109,44,47"/>
+</map>

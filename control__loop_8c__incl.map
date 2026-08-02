@@ -1,0 +1,23 @@
+<map id="source/torque_vector/control_loop/control_loop.c" name="source/torque_vector/control_loop/control_loop.c">
+<area shape="rect" id="Node000001" title="Main torque vectoring control loop." alt="" coords="141,5,284,61"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="39,271,103,297"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,46,109,55,78,68,50,86,27,111,12,139,8,164,13,190,24,222,34,242,48,259,44,262,30,245,19,224,8,192,3,164,7,137,22,107,46,82,76,63,108,50,140,41"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="137,109,288,150"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="215,62,215,94,210,94,210,62"/>
+<area shape="rect" id="Node000004" href="$max_8h.html" title="Maximum value functions utility header." alt="" coords="312,116,449,142"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="262,59,347,106,344,111,260,64"/>
+<area shape="rect" id="Node000005" href="$sensors_8h.html" title="TV Managed sensor header." alt="" coords="36,116,114,142"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="174,64,107,110,104,105,171,59"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="473,116,525,142"/>
+<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="285,50,371,74,463,107,464,107,462,112,461,111,369,79,284,55"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="65,144,46,168,31,198,29,214,33,229,50,258,46,261,28,231,24,214,26,197,42,165,61,141"/>
+<area shape="rect" id="Node000006" href="$nav__pvt_8h.html" title="UBX NAV&#45;PVT message definition and decoder function." alt="" coords="40,198,206,223"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="85,141,110,183,106,186,80,144"/>
+<area shape="rect" id="Node000008" href="$nav__relposned_8h.html" title="UBX NAV&#45;RELPOSNED message definition and decoder function." alt="" coords="229,198,433,223"/>
+<area shape="poly" id="edge9_Node000005_Node000008" title=" " alt="" coords="107,140,127,147,272,191,270,196,125,152,105,145"/>
+<area shape="poly" id="edge7_Node000006_Node000002" title=" " alt="" coords="117,225,91,260,87,257,112,222"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="141,271,209,297"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="134,222,160,257,155,260,130,225"/>
+<area shape="poly" id="edge10_Node000008_Node000002" title=" " alt="" coords="288,226,118,273,117,268,286,221"/>
+<area shape="poly" id="edge11_Node000008_Node000007" title=" " alt="" coords="306,226,217,267,214,262,304,221"/>
+</map>

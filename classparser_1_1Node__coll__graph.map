@@ -1,0 +1,7 @@
+<map id="parser.Node" name="parser.Node">
+<area shape="rect" id="Node000001" title=" " alt="" coords="19,94,110,120"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,50,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="27,46,32,69,40,81,50,92,46,95,35,85,27,71,22,47"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="82,5,125,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="94,46,73,95,68,93,89,44"/>
+</map>

@@ -1,0 +1,16 @@
+<map id="FLASH_PRIV_get_size_bytes" name="FLASH_PRIV_get_size_bytes">
+<area shape="rect" id="Node000001" title=" " alt="" coords="617,27,776,68"/>
+<area shape="rect" id="Node000002" href="$flash__priv_8c.html#a423e49b8e633590b99f63b00c9381645" title=" " alt="" coords="392,8,569,34"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="602,38,570,34,570,29,602,33"/>
+<area shape="rect" id="Node000004" href="$phal__G4_2flash_2flash_8c.html#a56beaa2bee86f3862b7da4503a7983e7" title=" " alt="" coords="412,59,550,84"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="602,61,551,66,550,61,602,55"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2flash_2flash_8c.html#ae5452e7ac6c1fd154de448cc8403653d" title="Erase every internal flash page touched by a range." alt="" coords="197,5,344,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="377,22,345,22,345,16,377,17"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="412,57,323,34,325,29,413,52"/>
+<area shape="rect" id="Node000005" href="$phal__G4_2flash_2flash_8c.html#af6bbb048a9a066ae1f1b6a5c8a5155f9" title=" " alt="" coords="201,55,340,96"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="396,76,341,77,340,72,396,70"/>
+<area shape="rect" id="Node000007" href="$phal__G4_2flash_2flash_8c.html#a3b76c399c317f06b6463778aec2aaa10" title="Copy bytes from internal flash into a buffer." alt="" coords="200,120,340,146"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="420,92,318,122,316,117,419,87"/>
+<area shape="rect" id="Node000006" href="$phal__G4_2flash_2flash_8c.html#a5c15aad9202332ef0384fafe9620e0ce" title="Program bytes into erased internal flash." alt="" coords="5,63,149,88"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="185,78,149,78,149,73,185,73"/>
+</map>

@@ -1,0 +1,20 @@
+<map id="NXT_setPage" name="NXT_setPage">
+<area shape="rect" id="Node000001" title="Sets the current page on the Nextion display." alt="" coords="771,51,874,77"/>
+<area shape="rect" id="Node000002" href="$lcd_8c.html#aa13fa254ddd44573fd2a83874763cae8" title="Updates LCD display page." alt="" coords="633,51,723,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="755,67,724,67,724,61,755,61"/>
+<area shape="rect" id="Node000003" href="$driver__interface_8c.html#a6ec7bb211c49e211d008f7c9bcdb2b8d" title=" " alt="" coords="313,51,436,77"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="645,44,616,28,584,16,535,8,485,16,438,32,399,53,396,48,436,27,484,11,535,3,585,11,618,23,647,40"/>
+<area shape="rect" id="Node000006" href="$lcd_8c.html#a685b031373d6540844434c69377f10d2" title="Advances to the next selectable page." alt="" coords="484,26,585,51"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="617,56,585,50,586,45,618,51"/>
+<area shape="rect" id="Node000007" href="$lcd_8c.html#ab328996325a24df855157cc23430de3d" title="Moves to the previous selectable page." alt="" coords="495,75,574,101"/>
+<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="618,77,575,84,574,79,617,71"/>
+<area shape="rect" id="Node000008" href="$lcd_8c.html#a249040ab9dd6b041b4412dbed6546ece" title=" " alt="" coords="339,100,410,126"/>
+<area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="647,88,618,104,585,116,539,124,491,126,411,121,411,116,491,121,538,118,584,111,616,99,644,83"/>
+<area shape="rect" id="Node000004" href="$driver__interface_8c.html#ac599c66976c348cb0287266b60aa49c5" title=" " alt="" coords="103,76,265,102"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="298,77,266,81,265,76,297,72"/>
+<area shape="rect" id="Node000005" href="$dashboard_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,76,55,102"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="87,92,55,92,55,87,87,87"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="469,52,437,57,436,52,468,46"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="479,82,436,76,437,71,480,77"/>
+<area shape="poly" id="edge10_Node000008_Node000004" title=" " alt="" coords="323,110,265,102,266,97,324,104"/>
+</map>

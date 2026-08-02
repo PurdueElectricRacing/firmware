@@ -1,0 +1,9 @@
+<map id="BMI088_selectAccel" name="BMI088_selectAccel">
+<area shape="rect" id="Node000001" title=" " alt="" coords="191,55,332,80"/>
+<area shape="rect" id="Node000002" href="$bmi088_8c.html#a9e0d7e3a9df0a98ef46e4a6b4e000184" title="Setup the accelerometer, must be done 50ms or longer after POR." alt="" coords="12,5,136,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,53,125,34,126,29,196,48"/>
+<area shape="rect" id="Node000003" href="$bmi088_8c.html#a236059cb2cd1459e4d2c45949de64326" title="Blocking function to read the acceleration values form the device." alt="" coords="8,55,140,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="175,70,140,70,140,65,175,65"/>
+<area shape="rect" id="Node000004" href="$bmi088_8c.html#a42991ee485aafc650472bb5331d56f0c" title=" " alt="" coords="5,104,143,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="196,87,126,106,125,101,194,82"/>
+</map>

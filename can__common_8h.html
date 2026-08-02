@@ -110,7 +110,17 @@ $(function(){initNavTree('can__common_8h.html',''); initResizable(true); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
-<code>#include &quot;common/phal/can.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal_2can_8h_source.html">common/phal/can.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for can_common.h:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__common_8h__incl.svg" width="398" height="258"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__common_8h__dep__incl.svg" width="439" height="126"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div>
 <p><a href="can__common_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -125,56 +135,71 @@ Macros</h2></td></tr>
 <tr class="separator:a35dcd4b006eb1dd53b4e6fdd725b0e31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac317291d89637f7774465ae715792e48" id="r_ac317291d89637f7774465ae715792e48"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac317291d89637f7774465ae715792e48">START_CAN_TASKS</a>()</td></tr>
 <tr class="separator:ac317291d89637f7774465ae715792e48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1248665f89d7c3c1ff3fc0c66dfc5ee8" id="r_a1248665f89d7c3c1ff3fc0c66dfc5ee8"><td class="memItemLeft" align="right" valign="top"><a id="a1248665f89d7c3c1ff3fc0c66dfc5ee8" name="a1248665f89d7c3c1ff3fc0c66dfc5ee8"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_TX_QUEUE_LENGTH</b>&#160;&#160;&#160;(32)</td></tr>
+<tr class="memitem:a1248665f89d7c3c1ff3fc0c66dfc5ee8" id="r_a1248665f89d7c3c1ff3fc0c66dfc5ee8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1248665f89d7c3c1ff3fc0c66dfc5ee8">CAN_TX_QUEUE_LENGTH</a>&#160;&#160;&#160;(32)</td></tr>
 <tr class="separator:a1248665f89d7c3c1ff3fc0c66dfc5ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b0586f06e0aa453bb34475f8ac577d1" id="r_a3b0586f06e0aa453bb34475f8ac577d1"><td class="memItemLeft" align="right" valign="top"><a id="a3b0586f06e0aa453bb34475f8ac577d1" name="a3b0586f06e0aa453bb34475f8ac577d1"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_RX_QUEUE_LENGTH</b>&#160;&#160;&#160;(32)</td></tr>
+<tr class="memitem:a3b0586f06e0aa453bb34475f8ac577d1" id="r_a3b0586f06e0aa453bb34475f8ac577d1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b0586f06e0aa453bb34475f8ac577d1">CAN_RX_QUEUE_LENGTH</a>&#160;&#160;&#160;(32)</td></tr>
 <tr class="separator:a3b0586f06e0aa453bb34475f8ac577d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a609c1a91f4658ea5fc210af380af8b72" id="r_a609c1a91f4658ea5fc210af380af8b72"><td class="memItemLeft" align="right" valign="top"><a id="a609c1a91f4658ea5fc210af380af8b72" name="a609c1a91f4658ea5fc210af380af8b72"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>NVIC_RX_IRQ_PRIO</b>&#160;&#160;&#160;(6)</td></tr>
+<tr class="memitem:a609c1a91f4658ea5fc210af380af8b72" id="r_a609c1a91f4658ea5fc210af380af8b72"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a609c1a91f4658ea5fc210af380af8b72">NVIC_RX_IRQ_PRIO</a>&#160;&#160;&#160;(6)</td></tr>
 <tr class="separator:a609c1a91f4658ea5fc210af380af8b72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ffa339c97f16ac674f3d8bbe43ed9b4" id="r_a6ffa339c97f16ac674f3d8bbe43ed9b4"><td class="memItemLeft" align="right" valign="top"><a id="a6ffa339c97f16ac674f3d8bbe43ed9b4" name="a6ffa339c97f16ac674f3d8bbe43ed9b4"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>NVIC_TX_IRQ_PRIO</b>&#160;&#160;&#160;(7)</td></tr>
+<tr class="memitem:a6ffa339c97f16ac674f3d8bbe43ed9b4" id="r_a6ffa339c97f16ac674f3d8bbe43ed9b4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ffa339c97f16ac674f3d8bbe43ed9b4">NVIC_TX_IRQ_PRIO</a>&#160;&#160;&#160;(7)</td></tr>
 <tr class="separator:a6ffa339c97f16ac674f3d8bbe43ed9b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0a32f054a0f3baae0270d9845d2897e6" id="r_a0a32f054a0f3baae0270d9845d2897e6"><td class="memItemLeft" align="right" valign="top"><a id="a0a32f054a0f3baae0270d9845d2897e6" name="a0a32f054a0f3baae0270d9845d2897e6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_tx_update</b> (void)</td></tr>
+<tr class="memitem:a0a32f054a0f3baae0270d9845d2897e6" id="r_a0a32f054a0f3baae0270d9845d2897e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a32f054a0f3baae0270d9845d2897e6">CAN_tx_update</a> (void)</td></tr>
 <tr class="separator:a0a32f054a0f3baae0270d9845d2897e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17c3ccba85ec0a1100ae04581b8f5d09" id="r_a17c3ccba85ec0a1100ae04581b8f5d09"><td class="memItemLeft" align="right" valign="top"><a id="a17c3ccba85ec0a1100ae04581b8f5d09" name="a17c3ccba85ec0a1100ae04581b8f5d09"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_rx_update</b> (void)</td></tr>
+<tr class="memitem:a17c3ccba85ec0a1100ae04581b8f5d09" id="r_a17c3ccba85ec0a1100ae04581b8f5d09"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a17c3ccba85ec0a1100ae04581b8f5d09">CAN_rx_update</a> (void)</td></tr>
 <tr class="separator:a17c3ccba85ec0a1100ae04581b8f5d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecd3668d7c5e693e061db7650203b304" id="r_aecd3668d7c5e693e061db7650203b304"><td class="memItemLeft" align="right" valign="top"><a id="aecd3668d7c5e693e061db7650203b304" name="aecd3668d7c5e693e061db7650203b304"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_init</b> (void)</td></tr>
+<tr class="memitem:aecd3668d7c5e693e061db7650203b304" id="r_aecd3668d7c5e693e061db7650203b304"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aecd3668d7c5e693e061db7650203b304">CAN_init</a> (void)</td></tr>
 <tr class="separator:aecd3668d7c5e693e061db7650203b304"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07e18f33cac0ec4f9597c0b46cde9c17" id="r_a07e18f33cac0ec4f9597c0b46cde9c17"><td class="memItemLeft" align="right" valign="top"><a id="a07e18f33cac0ec4f9597c0b46cde9c17" name="a07e18f33cac0ec4f9597c0b46cde9c17"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_enable_IRQs</b> (void)</td></tr>
+<tr class="memitem:a07e18f33cac0ec4f9597c0b46cde9c17" id="r_a07e18f33cac0ec4f9597c0b46cde9c17"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a07e18f33cac0ec4f9597c0b46cde9c17">CAN_enable_IRQs</a> (void)</td></tr>
 <tr class="separator:a07e18f33cac0ec4f9597c0b46cde9c17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41290208a3af5ab8710a8eacc7bd76c8" id="r_a41290208a3af5ab8710a8eacc7bd76c8"><td class="memItemLeft" align="right" valign="top"><a id="a41290208a3af5ab8710a8eacc7bd76c8" name="a41290208a3af5ab8710a8eacc7bd76c8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_rx_init</b> (void)</td></tr>
+<tr class="memitem:a41290208a3af5ab8710a8eacc7bd76c8" id="r_a41290208a3af5ab8710a8eacc7bd76c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41290208a3af5ab8710a8eacc7bd76c8">CAN_rx_init</a> (void)</td></tr>
 <tr class="separator:a41290208a3af5ab8710a8eacc7bd76c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b594cd4b29fc669fcd91dbf783c47d8" id="r_a4b594cd4b29fc669fcd91dbf783c47d8"><td class="memItemLeft" align="right" valign="top"><a id="a4b594cd4b29fc669fcd91dbf783c47d8" name="a4b594cd4b29fc669fcd91dbf783c47d8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>CAN_tx_init</b> (void)</td></tr>
+<tr class="memitem:a4b594cd4b29fc669fcd91dbf783c47d8" id="r_a4b594cd4b29fc669fcd91dbf783c47d8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b594cd4b29fc669fcd91dbf783c47d8">CAN_tx_init</a> (void)</td></tr>
 <tr class="separator:a4b594cd4b29fc669fcd91dbf783c47d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:acb614f4b76cd9ed45ad02f050b892a52" id="r_acb614f4b76cd9ed45ad02f050b892a52"><td class="memItemLeft" align="right" valign="top"><a id="acb614f4b76cd9ed45ad02f050b892a52" name="acb614f4b76cd9ed45ad02f050b892a52"></a>
-volatile <a class="el" href="structcan__stats__t.html">can_stats_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>can_stats</b></td></tr>
+<tr class="memitem:acb614f4b76cd9ed45ad02f050b892a52" id="r_acb614f4b76cd9ed45ad02f050b892a52"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structcan__stats__t.html">can_stats_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb614f4b76cd9ed45ad02f050b892a52">can_stats</a></td></tr>
 <tr class="separator:acb614f4b76cd9ed45ad02f050b892a52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d7ff913bb95222bc96d632a6e8d8ea4" id="r_a6d7ff913bb95222bc96d632a6e8d8ea4"><td class="memItemLeft" align="right" valign="top"><a id="a6d7ff913bb95222bc96d632a6e8d8ea4" name="a6d7ff913bb95222bc96d632a6e8d8ea4"></a>
-volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>last_can_rx_time_ms</b></td></tr>
+<tr class="memitem:a6d7ff913bb95222bc96d632a6e8d8ea4" id="r_a6d7ff913bb95222bc96d632a6e8d8ea4"><td class="memItemLeft" align="right" valign="top">volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d7ff913bb95222bc96d632a6e8d8ea4">last_can_rx_time_ms</a></td></tr>
 <tr class="separator:a6d7ff913bb95222bc96d632a6e8d8ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85bbec7878e1ba477036c7e0ad229906" id="r_a85bbec7878e1ba477036c7e0ad229906"><td class="memItemLeft" align="right" valign="top"><a id="a85bbec7878e1ba477036c7e0ad229906" name="a85bbec7878e1ba477036c7e0ad229906"></a>
-QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>can_rx_queue</b></td></tr>
+<tr class="memitem:a85bbec7878e1ba477036c7e0ad229906" id="r_a85bbec7878e1ba477036c7e0ad229906"><td class="memItemLeft" align="right" valign="top">QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a85bbec7878e1ba477036c7e0ad229906">can_rx_queue</a></td></tr>
 <tr class="separator:a85bbec7878e1ba477036c7e0ad229906"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Common functions and data structures used in every node in the CAN library. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a3b0586f06e0aa453bb34475f8ac577d1" name="a3b0586f06e0aa453bb34475f8ac577d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b0586f06e0aa453bb34475f8ac577d1">&#9670;&#160;</a></span>CAN_RX_QUEUE_LENGTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CAN_RX_QUEUE_LENGTH&#160;&#160;&#160;(32)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1248665f89d7c3c1ff3fc0c66dfc5ee8" name="a1248665f89d7c3c1ff3fc0c66dfc5ee8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1248665f89d7c3c1ff3fc0c66dfc5ee8">&#9670;&#160;</a></span>CAN_TX_QUEUE_LENGTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CAN_TX_QUEUE_LENGTH&#160;&#160;&#160;(32)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a35dcd4b006eb1dd53b4e6fdd725b0e31" name="a35dcd4b006eb1dd53b4e6fdd725b0e31"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a35dcd4b006eb1dd53b4e6fdd725b0e31">&#9670;&#160;</a></span>DEFINE_CAN_TASKS</h2>
 
@@ -189,10 +214,43 @@ QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>can_rx_queue
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="freertos_8h.html#a5cf4a3cffdbcee009fb985a5c44738c3">FREERTOS_DEFINE_TASK</a>(CAN_rx_update, 0, TASK_PRIORITY_HIGH, STACK_2048); \</div>
-<div class="line">    FREERTOS_DEFINE_TASK(CAN_tx_update, 0, TASK_PRIORITY_HIGH, STACK_1024);</div>
+<b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="freertos_8h.html#a5cf4a3cffdbcee009fb985a5c44738c3">FREERTOS_DEFINE_TASK</a>(<a class="code hl_function" href="#a17c3ccba85ec0a1100ae04581b8f5d09">CAN_rx_update</a>, 0, <a class="code hl_enumvalue" href="freertos_8h.html#a3013e468406586335b248c478350a33ea853af49cf23aa50140b8d8341f42b4cf">TASK_PRIORITY_HIGH</a>, <a class="code hl_enumvalue" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aabc866c4da846c7f9dafdcd4a540448b8">STACK_2048</a>); \</div>
+<div class="line">    FREERTOS_DEFINE_TASK(<a class="code hl_function" href="#a0a32f054a0f3baae0270d9845d2897e6">CAN_tx_update</a>, 0, <a class="code hl_enumvalue" href="freertos_8h.html#a3013e468406586335b248c478350a33ea853af49cf23aa50140b8d8341f42b4cf">TASK_PRIORITY_HIGH</a>, <a class="code hl_enumvalue" href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aab0d381b18ad3cc4d98b55792abefd67e">STACK_1024</a>);</div>
+<div class="ttc" id="acan__common_8h_html_a0a32f054a0f3baae0270d9845d2897e6"><div class="ttname"><a href="#a0a32f054a0f3baae0270d9845d2897e6">CAN_tx_update</a></div><div class="ttdeci">void CAN_tx_update(void)</div><div class="ttdef"><b>Definition</b> can_tx.c:160</div></div>
+<div class="ttc" id="acan__common_8h_html_a17c3ccba85ec0a1100ae04581b8f5d09"><div class="ttname"><a href="#a17c3ccba85ec0a1100ae04581b8f5d09">CAN_rx_update</a></div><div class="ttdeci">void CAN_rx_update(void)</div><div class="ttdef"><b>Definition</b> can_rx.c:20</div></div>
+<div class="ttc" id="afreertos_8h_html_a3013e468406586335b248c478350a33ea853af49cf23aa50140b8d8341f42b4cf"><div class="ttname"><a href="freertos_8h.html#a3013e468406586335b248c478350a33ea853af49cf23aa50140b8d8341f42b4cf">TASK_PRIORITY_HIGH</a></div><div class="ttdeci">@ TASK_PRIORITY_HIGH</div><div class="ttdef"><b>Definition</b> freertos.h:52</div></div>
 <div class="ttc" id="afreertos_8h_html_a5cf4a3cffdbcee009fb985a5c44738c3"><div class="ttname"><a href="freertos_8h.html#a5cf4a3cffdbcee009fb985a5c44738c3">FREERTOS_DEFINE_TASK</a></div><div class="ttdeci">#define FREERTOS_DEFINE_TASK(NAME, PERIOD_MS, PRIORITY, STACK_SIZE)</div><div class="ttdoc">Defines a statically allocated periodic FreeRTOS task.</div><div class="ttdef"><b>Definition</b> freertos.h:95</div></div>
+<div class="ttc" id="afreertos_8h_html_a7a58aa2d3913543d996a0de1fadd2f6aab0d381b18ad3cc4d98b55792abefd67e"><div class="ttname"><a href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aab0d381b18ad3cc4d98b55792abefd67e">STACK_1024</a></div><div class="ttdeci">@ STACK_1024</div><div class="ttdef"><b>Definition</b> freertos.h:43</div></div>
+<div class="ttc" id="afreertos_8h_html_a7a58aa2d3913543d996a0de1fadd2f6aabc866c4da846c7f9dafdcd4a540448b8"><div class="ttname"><a href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aabc866c4da846c7f9dafdcd4a540448b8">STACK_2048</a></div><div class="ttdeci">@ STACK_2048</div><div class="ttdef"><b>Definition</b> freertos.h:44</div></div>
 </div><!-- fragment -->
+</div>
+</div>
+<a id="a609c1a91f4658ea5fc210af380af8b72" name="a609c1a91f4658ea5fc210af380af8b72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a609c1a91f4658ea5fc210af380af8b72">&#9670;&#160;</a></span>NVIC_RX_IRQ_PRIO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NVIC_RX_IRQ_PRIO&#160;&#160;&#160;(6)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6ffa339c97f16ac674f3d8bbe43ed9b4" name="a6ffa339c97f16ac674f3d8bbe43ed9b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ffa339c97f16ac674f3d8bbe43ed9b4">&#9670;&#160;</a></span>NVIC_TX_IRQ_PRIO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NVIC_TX_IRQ_PRIO&#160;&#160;&#160;(7)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 </div>
 </div>
 <a id="ac317291d89637f7774465ae715792e48" name="ac317291d89637f7774465ae715792e48"></a>
@@ -209,11 +267,201 @@ QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>can_rx_queue
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="freertos_8h.html#a104de5f26cf1f5055419e92dcb119afe">FREERTOS_START_TASK</a>(CAN_rx_update); \</div>
-<div class="line">    FREERTOS_START_TASK(CAN_tx_update); \</div>
+<b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="freertos_8h.html#a104de5f26cf1f5055419e92dcb119afe">FREERTOS_START_TASK</a>(<a class="code hl_function" href="#a17c3ccba85ec0a1100ae04581b8f5d09">CAN_rx_update</a>); \</div>
+<div class="line">    FREERTOS_START_TASK(<a class="code hl_function" href="#a0a32f054a0f3baae0270d9845d2897e6">CAN_tx_update</a>); \</div>
 <div class="line">    CAN_enable_IRQs();</div>
 <div class="ttc" id="afreertos_8h_html_a104de5f26cf1f5055419e92dcb119afe"><div class="ttname"><a href="freertos_8h.html#a104de5f26cf1f5055419e92dcb119afe">FREERTOS_START_TASK</a></div><div class="ttdeci">#define FREERTOS_START_TASK(NAME)</div><div class="ttdoc">Creates and starts a previously defined task.</div><div class="ttdef"><b>Definition</b> freertos.h:125</div></div>
 </div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a07e18f33cac0ec4f9597c0b46cde9c17" name="a07e18f33cac0ec4f9597c0b46cde9c17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07e18f33cac0ec4f9597c0b46cde9c17">&#9670;&#160;</a></span>CAN_enable_IRQs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CAN_enable_IRQs </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aecd3668d7c5e693e061db7650203b304" name="aecd3668d7c5e693e061db7650203b304"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecd3668d7c5e693e061db7650203b304">&#9670;&#160;</a></span>CAN_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CAN_init </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__common_8h_aecd3668d7c5e693e061db7650203b304_cgraph.svg" width="258" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__common_8h_aecd3668d7c5e693e061db7650203b304_icgraph.svg" width="182" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a41290208a3af5ab8710a8eacc7bd76c8" name="a41290208a3af5ab8710a8eacc7bd76c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41290208a3af5ab8710a8eacc7bd76c8">&#9670;&#160;</a></span>CAN_rx_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CAN_rx_init </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__common_8h_a41290208a3af5ab8710a8eacc7bd76c8_icgraph.svg" width="320" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a17c3ccba85ec0a1100ae04581b8f5d09" name="a17c3ccba85ec0a1100ae04581b8f5d09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17c3ccba85ec0a1100ae04581b8f5d09">&#9670;&#160;</a></span>CAN_rx_update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CAN_rx_update </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4b594cd4b29fc669fcd91dbf783c47d8" name="a4b594cd4b29fc669fcd91dbf783c47d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b594cd4b29fc669fcd91dbf783c47d8">&#9670;&#160;</a></span>CAN_tx_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CAN_tx_init </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__common_8h_a4b594cd4b29fc669fcd91dbf783c47d8_icgraph.svg" width="320" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a0a32f054a0f3baae0270d9845d2897e6" name="a0a32f054a0f3baae0270d9845d2897e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a32f054a0f3baae0270d9845d2897e6">&#9670;&#160;</a></span>CAN_tx_update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CAN_tx_update </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a85bbec7878e1ba477036c7e0ad229906" name="a85bbec7878e1ba477036c7e0ad229906"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85bbec7878e1ba477036c7e0ad229906">&#9670;&#160;</a></span>can_rx_queue</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QueueHandle_t can_rx_queue</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acb614f4b76cd9ed45ad02f050b892a52" name="acb614f4b76cd9ed45ad02f050b892a52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb614f4b76cd9ed45ad02f050b892a52">&#9670;&#160;</a></span>can_stats</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile <a class="el" href="structcan__stats__t.html">can_stats_t</a> can_stats</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6d7ff913bb95222bc96d632a6e8d8ea4" name="a6d7ff913bb95222bc96d632a6e8d8ea4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d7ff913bb95222bc96d632a6e8d8ea4">&#9670;&#160;</a></span>last_can_rx_time_ms</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t last_can_rx_time_ms</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->

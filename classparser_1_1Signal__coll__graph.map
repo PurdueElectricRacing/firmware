@@ -1,0 +1,7 @@
+<map id="parser.Signal" name="parser.Signal">
+<area shape="rect" id="Node000001" title=" " alt="" coords="36,139,132,165"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,75,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="41,46,43,80,53,114,71,137,67,140,48,116,38,81,36,47"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="99,5,157,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="123,46,101,116,92,140,87,138,96,114,118,45"/>
+</map>

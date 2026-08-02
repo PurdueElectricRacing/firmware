@@ -1,0 +1,5 @@
+<map id="SPMC_follower_peek_minis" name="SPMC_follower_peek_minis">
+<area shape="rect" id="Node000001" title="Peeks at the number of contiguous mini chunks available for the follower without lapping the master&#39;s..." alt="" coords="5,5,152,46"/>
+<area shape="rect" id="Node000002" href="$spmc_8c.html#a881ea749d2dbf855d34372a7313f0495" title="Helper function to compute the number of items in the buffer given head and tail indices,..." alt="" coords="200,13,278,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,23,184,23,184,28,152,28"/>
+</map>

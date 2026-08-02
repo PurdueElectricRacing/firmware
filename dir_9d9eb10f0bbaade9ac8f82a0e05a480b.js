@@ -7,6 +7,7 @@ var dir_9d9eb10f0bbaade9ac8f82a0e05a480b =
     [ "state", "dir_62306c604981c0f435931512e20193f7.html", "dir_62306c604981c0f435931512e20193f7" ],
     [ "switches", "dir_f7e35a9e69447d9c1d00c5c1b80b8d66.html", "dir_f7e35a9e69447d9c1d00c5c1b80b8d66" ],
     [ "telemetry", "dir_9f978d10842e53e683ee8d53cbb8681a.html", "dir_9f978d10842e53e683ee8d53cbb8681a" ],
-    [ "main.c", "pdu_2main_8c.html", null ],
-    [ "main.h", "pdu_2main_8h.html", "pdu_2main_8h" ]
+    [ "main.c", "pdu_2main_8c.html", "pdu_2main_8c" ],
+    [ "main.h", "pdu_2main_8h.html", "pdu_2main_8h" ],
+    [ "power_rails.png", "power__rails_8png.html", null ]
 ];

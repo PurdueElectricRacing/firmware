@@ -1,0 +1,7 @@
+<map id="usb_copy_from_pma" name="usb_copy_from_pma">
+<area shape="rect" id="Node000001" title=" " alt="" coords="345,5,486,31"/>
+<area shape="rect" id="Node000002" href="$usb__priv_8c.html#ac8fc2c5988800daa9a8e4fd40ef19dce" title="Copy one completed OUT packet from packet memory and rearm reception." alt="" coords="178,5,297,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="329,21,298,21,298,16,329,16"/>
+<area shape="rect" id="Node000003" href="$usb_8c.html#af25d0362dcd989b4805bf062366f2142" title="Consume one host&#45;to&#45;device packet." alt="" coords="5,5,130,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="162,21,130,21,130,16,162,16"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="PHAL_toggleGPIO" name="PHAL_toggleGPIO">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,138,56"/>
+<area shape="rect" id="Node000002" href="$phal__F4_2gpio_2gpio_8h.html#a613ebbfff35a56132e58a75c773d7876" title="Read the state of the input register for the specific GPIO pin." alt="" coords="187,5,310,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,31,172,26,172,32,139,37"/>
+<area shape="rect" id="Node000003" href="$phal__F4_2gpio_2gpio_8h.html#a67db851520637ffa4de5968c9730220b" title="Write a logic value to an output pin." alt="" coords="186,55,311,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="139,50,171,54,170,60,138,55"/>
+</map>

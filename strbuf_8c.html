@@ -109,12 +109,16 @@ $(function(){initNavTree('strbuf_8c.html',''); initResizable(true); });
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;stdarg.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for strbuf.c:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="strbuf_8c__incl.svg" width="382" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a64d216f0276598d2d7f68c8a0c453fb7" id="r_a64d216f0276598d2d7f68c8a0c453fb7"><td class="memItemLeft" align="right" valign="top"><a id="a64d216f0276598d2d7f68c8a0c453fb7" name="a64d216f0276598d2d7f68c8a0c453fb7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>strbuf_clear</b> (<a class="el" href="structstrbuf__t.html">strbuf_t</a> *sb)</td></tr>
-<tr class="memdesc:a64d216f0276598d2d7f68c8a0c453fb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the buffer by resetting length to 0. <br /></td></tr>
+<tr class="memitem:a64d216f0276598d2d7f68c8a0c453fb7" id="r_a64d216f0276598d2d7f68c8a0c453fb7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64d216f0276598d2d7f68c8a0c453fb7">strbuf_clear</a> (<a class="el" href="structstrbuf__t.html">strbuf_t</a> *sb)</td></tr>
+<tr class="memdesc:a64d216f0276598d2d7f68c8a0c453fb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the buffer by resetting length to 0.  <br /></td></tr>
 <tr class="separator:a64d216f0276598d2d7f68c8a0c453fb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15380dc153a462b38a9b54f274c9c3b5" id="r_a15380dc153a462b38a9b54f274c9c3b5"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15380dc153a462b38a9b54f274c9c3b5">strbuf_append</a> (<a class="el" href="structstrbuf__t.html">strbuf_t</a> *sb, const void *data, size_t length)</td></tr>
 <tr class="memdesc:a15380dc153a462b38a9b54f274c9c3b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended.  <br /></td></tr>
@@ -153,6 +157,35 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>strbuf_clear</b> (<a 
 
 <p>Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended. </p>
 <dl class="section return"><dt>Returns</dt><dd>Num bytes written to the buffer </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="strbuf_8c_a15380dc153a462b38a9b54f274c9c3b5_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a64d216f0276598d2d7f68c8a0c453fb7" name="a64d216f0276598d2d7f68c8a0c453fb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64d216f0276598d2d7f68c8a0c453fb7">&#9670;&#160;</a></span>strbuf_clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void strbuf_clear </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structstrbuf__t.html">strbuf_t</a> *</td>          <td class="paramname"><span class="paramname"><em>sb</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clears the buffer by resetting length to 0. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="strbuf_8c_a64d216f0276598d2d7f68c8a0c453fb7_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -182,6 +215,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>strbuf_clear</b> (<a 
 
 <p>Appends formatted data to the buffer using printf-style formatting. ! </p>
 <dl class="section warning"><dt>Warning</dt><dd>This function is unsafe if the formatted string exceeds the remaining buffer space. </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="strbuf_8c_a52ce36e86451c208f1846411e1f67dcf_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>

@@ -1,0 +1,7 @@
+<map id="common/phal_G4/rcc/rcc_priv.h" name="common/phal_G4/rcc/rcc_priv.h">
+<area shape="rect" id="Node000001" title="G4 RCC private/register level implementation." alt="" coords="89,5,235,46"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2rcc_2rcc_8c.html" title="G4 RCC public API implementation." alt="" coords="5,94,151,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,59,99,95,95,92,130,56"/>
+<area shape="rect" id="Node000003" href="$rcc__priv_8c.html" title="G4 RCC private/register level implementation." alt="" coords="175,94,320,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="194,55,230,92,226,95,190,59"/>
+</map>

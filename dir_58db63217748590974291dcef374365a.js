@@ -5,6 +5,8 @@ var dir_58db63217748590974291dcef374365a =
     [ "rtc_sync", "dir_172d6692f9e900a1cb07278c048accbd.html", "dir_172d6692f9e900a1cb07278c048accbd" ],
     [ "sd_card", "dir_35ec71336139549e9612d2514e88f20f.html", "dir_35ec71336139549e9612d2514e88f20f" ],
     [ "spmc", "dir_e67555d1f5fe7292c6a7c448ab46b58b.html", "dir_e67555d1f5fe7292c6a7c448ab46b58b" ],
-    [ "main.c", "daq_2main_8c.html", null ],
-    [ "main.h", "daq_2main_8h.html", null ]
+    [ "daq.drawio.png", "daq_8drawio_8png.html", null ],
+    [ "DAQ_timing_diagram.drawio.png", "DAQ__timing__diagram_8drawio_8png.html", null ],
+    [ "main.c", "daq_2main_8c.html", "daq_2main_8c" ],
+    [ "main.h", "daq_2main_8h.html", "daq_2main_8h" ]
 ];

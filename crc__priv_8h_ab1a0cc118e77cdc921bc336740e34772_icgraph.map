@@ -1,0 +1,5 @@
+<map id="CRC_PRIV_feedWord" name="CRC_PRIV_feedWord">
+<area shape="rect" id="Node000001" title="Feed one 32&#45;bit word into the CRC data register." alt="" coords="204,5,352,31"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2crc_2crc_8c.html#a9ebd7adedb01ce80f8512a427a80f6ef" title="Compute a CRC&#45;32/MPEG&#45;2 over a word buffer using the hardware unit." alt="" coords="5,5,156,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,21,156,21,156,16,188,16"/>
+</map>

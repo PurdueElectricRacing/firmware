@@ -8,5 +8,10 @@ var usb_8c =
     [ "PHAL_USB_read", "usb_8c.html#af25d0362dcd989b4805bf062366f2142", null ],
     [ "PHAL_USB_setAddress", "usb_8c.html#a7b6c8df7b0328f18f6dab165592423ae", null ],
     [ "PHAL_USB_stall", "usb_8c.html#ad334f9d5a0cf9ede82d354e1c17c02b3", null ],
-    [ "PHAL_USB_write", "usb_8c.html#a47d401544e89e5c4e84a478fa6c581b5", null ]
+    [ "PHAL_USB_write", "usb_8c.html#a47d401544e89e5c4e84a478fa6c581b5", null ],
+    [ "usb_direction_is_valid", "usb_8c.html#a313becaab70e94bcd34b00166857720f", null ],
+    [ "usb_endpoint_is_valid", "usb_8c.html#a6bb0d538ececadd971fdc6c14f9c56e8", null ],
+    [ "USB_HP_IRQHandler", "usb_8c.html#a3d29cbfce29da77f8c0e1feb84998aac", null ],
+    [ "USB_LP_IRQHandler", "usb_8c.html#ab0abd6916df1318e9dd804cdfc96a56d", null ],
+    [ "g_initialized", "usb_8c.html#ae51dbc7e8f836d942c158d75aa6e345b", null ]
 ];

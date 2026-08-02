@@ -1,0 +1,10 @@
+<map id="common/phal_G4/fdcan/fdcan.h" name="common/phal_G4/fdcan/fdcan.h">
+<area shape="rect" id="Node000001" title="G4 FDCAN public API implementation." alt="" coords="5,5,165,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="8,168,71,193"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="72,48,59,70,48,95,42,124,41,152,35,152,37,124,42,93,54,67,68,45"/>
+<area shape="rect" id="Node000003" href="$phal__G4_8h.html" title=" " alt="" coords="58,94,243,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="103,45,133,80,129,83,99,48"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="133,122,73,161,70,157,130,118"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="114,168,187,193"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="153,120,153,152,148,152,148,120"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="PHAL_RCC_getAPB1ClockHz" name="PHAL_RCC_getAPB1ClockHz">
+<area shape="rect" id="Node000001" title=" " alt="" coords="164,31,363,56"/>
+<area shape="rect" id="Node000002" href="$torque__vector_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="36,5,85,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,32,85,24,86,19,149,26"/>
+<area shape="rect" id="Node000003" href="$common_2phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="5,55,116,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="148,60,117,64,116,58,148,55"/>
+</map>

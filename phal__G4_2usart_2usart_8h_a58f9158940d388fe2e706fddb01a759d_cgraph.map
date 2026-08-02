@@ -1,0 +1,9 @@
+<map id="PHAL_usartRxDma" name="PHAL_usartRxDma">
+<area shape="rect" id="Node000001" title="Starts an rx using dma of a specific length." alt="" coords="5,55,141,80"/>
+<area shape="rect" id="Node000002" href="$phal__F4_2dma_2dma_8c.html#a2a989d2d9b7c591de33e96581ac3bb11" title=" " alt="" coords="189,5,384,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,51,212,32,213,38,133,57"/>
+<area shape="rect" id="Node000003" href="$phal__F4_2dma_2dma_8c.html#a14faecce0cd8bd38b14c987e17ce1033" title=" " alt="" coords="193,55,380,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="141,65,177,65,177,70,141,70"/>
+<area shape="rect" id="Node000004" href="$phal__F4_2dma_2dma_8c.html#ab15d4afcf0988a8065caced65d1883fe" title=" " alt="" coords="227,104,346,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="133,78,213,97,212,103,131,84"/>
+</map>

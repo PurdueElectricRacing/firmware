@@ -1,0 +1,7 @@
+<map id="adbms6380_prepare_command" name="adbms6380_prepare_command">
+<area shape="rect" id="Node000001" title="Append a command and its PEC to an output buffer." alt="" coords="5,31,208,56"/>
+<area shape="rect" id="Node000002" href="$pec_8c.html#acf61d2142265cf21d2a680bff41883b9" title="CRC15 Pec Calculation Function." alt="" coords="256,5,411,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,30,240,26,240,31,208,35"/>
+<area shape="rect" id="Node000003" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="282,55,385,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="208,52,267,58,266,63,208,57"/>
+</map>

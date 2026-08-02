@@ -1,0 +1,30 @@
+<map id="adbms_write_rega" name="adbms_write_rega">
+<area shape="rect" id="Node000001" title="Calculate and write REGA configuration to all modules." alt="" coords="5,185,133,210"/>
+<area shape="rect" id="Node000002" href="$adbms6380_8c.html#ad6309659e70a91acde06af856a1ff7c3" title="Calculate the REG_A configuration register value." alt="" coords="208,5,356,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,183,114,122,144,86,179,56,193,47,196,52,182,60,147,90,118,125,79,186"/>
+<area shape="rect" id="Node000003" href="$adbms6380_8c.html#a87779ad64f4a74f4550870855d30d4a2" title="Append a command and its PEC to an output buffer." alt="" coords="181,70,383,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="81,183,122,145,150,124,179,106,196,99,198,104,182,111,153,128,125,149,84,187"/>
+<area shape="rect" id="Node000006" href="$adbms6380_8c.html#a8c34ef8839dcd0f491ade5e2f7146e9b" title="Append a data payload and its PEC to an output buffer." alt="" coords="197,120,367,161"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="119,182,188,163,190,168,120,187"/>
+<area shape="rect" id="Node000008" href="$adbms6380_8c.html#ae50a5200f4ab61124ab070e8898f0cc9" title="Drive the ADBMS CS line to high." alt="" coords="199,185,364,210"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="133,195,184,195,184,200,133,200"/>
+<area shape="rect" id="Node000010" href="$adbms6380_8c.html#a12a7403f2f6b47af40cc7d278909ebe7" title="Drive the ADBMS CS line low." alt="" coords="201,234,362,260"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="128,209,209,227,208,233,127,214"/>
+<area shape="rect" id="Node000011" href="$common_2phal__F4_2spi_2spi_8c.html#a7593e1c8be8711c7bda6d7de43913816" title="SPI handle." alt="" coords="188,284,376,309"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="88,209,129,240,182,270,197,276,195,281,180,275,126,244,84,213"/>
+<area shape="rect" id="Node000013" href="$strbuf_8c.html#a64d216f0276598d2d7f68c8a0c453fb7" title="Clears the buffer by resetting length to 0." alt="" coords="237,333,326,358"/>
+<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="80,209,119,263,148,294,182,319,223,335,221,340,179,324,145,298,115,267,76,212"/>
+<area shape="rect" id="Node000004" href="$pec_8c.html#acf61d2142265cf21d2a680bff41883b9" title="CRC15 Pec Calculation Function." alt="" coords="431,50,586,76"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="383,71,415,69,415,74,384,77"/>
+<area shape="rect" id="Node000005" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="457,100,560,125"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="384,93,442,101,442,106,383,99"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="367,127,442,118,442,123,368,132"/>
+<area shape="rect" id="Node000007" href="$pec_8c.html#af26a3fb59c4ae59fb10ac19030eef174" title=" " alt="" coords="431,149,586,174"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="368,146,416,150,415,156,367,151"/>
+<area shape="rect" id="Node000009" href="$phal__F4_2gpio_2gpio_8h.html#a67db851520637ffa4de5968c9730220b" title="Write a logic value to an output pin." alt="" coords="446,234,571,260"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="345,209,432,228,431,233,344,214"/>
+<area shape="poly" id="edge11_Node000010_Node000009" title=" " alt="" coords="363,244,431,244,431,250,363,250"/>
+<area shape="poly" id="edge14_Node000011_Node000009" title=" " alt="" coords="344,280,431,261,432,266,345,285"/>
+<area shape="rect" id="Node000012" href="$common_2phal__F4_2spi_2spi_8c.html#a35fd94eb02f487e09065ddc0ecb92e53" title="Check for current SPI transaction to complete." alt="" coords="448,284,569,309"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="376,294,433,294,433,299,376,299"/>
+</map>

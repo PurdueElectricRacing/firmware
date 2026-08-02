@@ -106,6 +106,11 @@ $(function(){initNavTree('common_2phal__F4_2usart_2usart_8c.html',''); initResiz
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="phal__F4_2usart_2usart_8h_source.html">common/phal_F4/usart/usart.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for usart.c:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="common_2phal__F4_2usart_2usart_8c__incl.svg" width="232" height="376"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -121,6 +126,10 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a7790c59a206addb5b0bcc7a34667a1da" id="r_a7790c59a206addb5b0bcc7a34667a1da"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7790c59a206addb5b0bcc7a34667a1da">ROUNDDOWN</a> (uint32_t a, uint32_t n)</td></tr>
+<tr class="separator:a7790c59a206addb5b0bcc7a34667a1da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9b3fa34cf7fd298a0333cd51094762c" id="r_ad9b3fa34cf7fd298a0333cd51094762c"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad9b3fa34cf7fd298a0333cd51094762c">ROUNDUP</a> (uint32_t a, uint32_t n)</td></tr>
+<tr class="separator:ad9b3fa34cf7fd298a0333cd51094762c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e13f03e291a90dcd93ffccf1b8edf65" id="r_a1e13f03e291a90dcd93ffccf1b8edf65"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e13f03e291a90dcd93ffccf1b8edf65">PHAL_initUSART</a> (<a class="el" href="structusart__init__t.html">usart_init_t</a> *handle, const uint32_t fck)</td></tr>
 <tr class="memdesc:a1e13f03e291a90dcd93ffccf1b8edf65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a USART Peripheral with desired settings.  <br /></td></tr>
 <tr class="separator:a1e13f03e291a90dcd93ffccf1b8edf65"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,14 +154,18 @@ Functions</h2></td></tr>
 <tr class="memitem:a48a7696afd720294a514208cd96d1791" id="r_a48a7696afd720294a514208cd96d1791"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48a7696afd720294a514208cd96d1791">PHAL_usartRxBusy</a> (<a class="el" href="structusart__init__t.html">usart_init_t</a> *handle)</td></tr>
 <tr class="memdesc:a48a7696afd720294a514208cd96d1791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether USART peripheral is currently receiving data.  <br /></td></tr>
 <tr class="separator:a48a7696afd720294a514208cd96d1791"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bb78a5ea8399c2c2fd4ca94be3ffed3" id="r_a7bb78a5ea8399c2c2fd4ca94be3ffed3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7bb78a5ea8399c2c2fd4ca94be3ffed3">handleUsartIRQ</a> (USART_TypeDef *handle, uint8_t idx)</td></tr>
+<tr class="separator:a7bb78a5ea8399c2c2fd4ca94be3ffed3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a668005fd868c0e9c0c9318ca6685ad87" id="r_a668005fd868c0e9c0c9318ca6685ad87"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a668005fd868c0e9c0c9318ca6685ad87">handleDMAxComplete</a> (uint8_t idx, uint32_t irq, uint8_t dma_type)</td></tr>
+<tr class="memdesc:a668005fd868c0e9c0c9318ca6685ad87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle DMA interrupts.  <br /></td></tr>
+<tr class="separator:a668005fd868c0e9c0c9318ca6685ad87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd98e1acca0fdcf343db884ea257b819" id="r_afd98e1acca0fdcf343db884ea257b819"><td class="memItemLeft" align="right" valign="top">__WEAK void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd98e1acca0fdcf343db884ea257b819">usart_recieve_complete_callback</a> (<a class="el" href="structusart__init__t.html">usart_init_t</a> *handle)</td></tr>
 <tr class="memdesc:afd98e1acca0fdcf343db884ea257b819"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function called immediately after reception of a USART RX message Uses USART IDLE line interrupt.  <br /></td></tr>
 <tr class="separator:afd98e1acca0fdcf343db884ea257b819"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aa60b7883befa64719dce13560b391074" id="r_aa60b7883befa64719dce13560b391074"><td class="memItemLeft" align="right" valign="top"><a id="aa60b7883befa64719dce13560b391074" name="aa60b7883befa64719dce13560b391074"></a>
-volatile <a class="el" href="structusart__active__transfer__t.html">usart_active_transfer_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>active_uarts</b> [TOTAL_NUM_UART]</td></tr>
+<tr class="memitem:aa60b7883befa64719dce13560b391074" id="r_aa60b7883befa64719dce13560b391074"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structusart__active__transfer__t.html">usart_active_transfer_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa60b7883befa64719dce13560b391074">active_uarts</a> [<a class="el" href="phal__G4_2usart_2usart_8h.html#a2453dc4454b52f01649f125384e237d1">TOTAL_NUM_UART</a>]</td></tr>
 <tr class="separator:aa60b7883befa64719dce13560b391074"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -182,6 +195,91 @@ volatile <a class="el" href="structusart__active__transfer__t.html">usart_active
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a668005fd868c0e9c0c9318ca6685ad87" name="a668005fd868c0e9c0c9318ca6685ad87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a668005fd868c0e9c0c9318ca6685ad87">&#9670;&#160;</a></span>handleDMAxComplete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void handleDMAxComplete </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>idx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>irq</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>dma_type</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Handle DMA interrupts. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="common_2phal__F4_2usart_2usart_8c_a668005fd868c0e9c0c9318ca6685ad87_cgraph.svg" width="327" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="common_2phal__F4_2usart_2usart_8c_a668005fd868c0e9c0c9318ca6685ad87_icgraph.svg" width="402" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a7bb78a5ea8399c2c2fd4ca94be3ffed3" name="a7bb78a5ea8399c2c2fd4ca94be3ffed3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bb78a5ea8399c2c2fd4ca94be3ffed3">&#9670;&#160;</a></span>handleUsartIRQ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void handleUsartIRQ </td>
+          <td>(</td>
+          <td class="paramtype">USART_TypeDef *</td>          <td class="paramname"><span class="paramname"><em>handle</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>idx</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="common_2phal__F4_2usart_2usart_8c_a7bb78a5ea8399c2c2fd4ca94be3ffed3_cgraph.svg" width="360" height="200"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="common_2phal__F4_2usart_2usart_8c_a7bb78a5ea8399c2c2fd4ca94be3ffed3_icgraph.svg" width="330" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <a id="a2995d18679a10821577043876ac50825" name="a2995d18679a10821577043876ac50825"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2995d18679a10821577043876ac50825">&#9670;&#160;</a></span>PHAL_disableContinousRxDMA()</h2>
 
@@ -237,6 +335,16 @@ volatile <a class="el" href="structusart__active__transfer__t.html">usart_active
 <dl class="section return"><dt>Returns</dt><dd>true Successfully initialized USART peripheral </dd>
 <dd>
 false Failed to initialize USART peripheral </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="common_2phal__F4_2usart_2usart_8c_a1e13f03e291a90dcd93ffccf1b8edf65_cgraph.svg" width="531" height="138"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="common_2phal__F4_2usart_2usart_8c_a1e13f03e291a90dcd93ffccf1b8edf65_icgraph.svg" width="235" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -343,6 +451,16 @@ false USART peripheal is not currently receiving a message </dd></dl>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="common_2phal__F4_2usart_2usart_8c_a716a03068c8b5c1138c217cfd2c5e689_cgraph.svg" width="390" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="common_2phal__F4_2usart_2usart_8c_a716a03068c8b5c1138c217cfd2c5e689_icgraph.svg" width="244" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -407,6 +525,11 @@ false USART peripheal is not currently receiving a message </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>true USART peripheral is currently sending a message </dd>
 <dd>
 false USART peripheal is not currently sending a message </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="common_2phal__F4_2usart_2usart_8c_accfcc099ca86755feae42c7acca653a0_icgraph.svg" width="614" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -443,6 +566,89 @@ false USART peripheal is not currently sending a message </dd></dl>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="common_2phal__F4_2usart_2usart_8c_abbaa51dfa3243c22b4015aaff9eba9da_cgraph.svg" width="388" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="common_2phal__F4_2usart_2usart_8c_abbaa51dfa3243c22b4015aaff9eba9da_icgraph.svg" width="611" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a7790c59a206addb5b0bcc7a34667a1da" name="a7790c59a206addb5b0bcc7a34667a1da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7790c59a206addb5b0bcc7a34667a1da">&#9670;&#160;</a></span>ROUNDDOWN()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint32_t ROUNDDOWN </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>n</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="common_2phal__F4_2usart_2usart_8c_a7790c59a206addb5b0bcc7a34667a1da_icgraph.svg" width="530" height="62"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ad9b3fa34cf7fd298a0333cd51094762c" name="ad9b3fa34cf7fd298a0333cd51094762c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9b3fa34cf7fd298a0333cd51094762c">&#9670;&#160;</a></span>ROUNDUP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint32_t ROUNDUP </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>n</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="common_2phal__F4_2usart_2usart_8c_ad9b3fa34cf7fd298a0333cd51094762c_cgraph.svg" width="258" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="common_2phal__F4_2usart_2usart_8c_ad9b3fa34cf7fd298a0333cd51094762c_icgraph.svg" width="371" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -469,6 +675,26 @@ false USART peripheal is not currently sending a message </dd></dl>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="common_2phal__F4_2usart_2usart_8c_afd98e1acca0fdcf343db884ea257b819_icgraph.svg" width="538" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aa60b7883befa64719dce13560b391074" name="aa60b7883befa64719dce13560b391074"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa60b7883befa64719dce13560b391074">&#9670;&#160;</a></span>active_uarts</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile <a class="el" href="structusart__active__transfer__t.html">usart_active_transfer_t</a> active_uarts[<a class="el" href="phal__G4_2usart_2usart_8h.html#a2453dc4454b52f01649f125384e237d1">TOTAL_NUM_UART</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

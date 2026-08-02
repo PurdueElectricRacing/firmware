@@ -8,5 +8,6 @@ var dir_b2f33c71d4aa5e7af42a1ca61ff5af1b =
     [ "g4_testing", "dir_044aef65200486a75d86f593c39f6fb0.html", "dir_044aef65200486a75d86f593c39f6fb0" ],
     [ "main_module", "dir_92cd89fe1a7f4ffa14caa98c8985cc29.html", "dir_92cd89fe1a7f4ffa14caa98c8985cc29" ],
     [ "pdu", "dir_9d9eb10f0bbaade9ac8f82a0e05a480b.html", "dir_9d9eb10f0bbaade9ac8f82a0e05a480b" ],
-    [ "torque_vector", "dir_4d7522402bdc013effffc7486e0cdc4d.html", "dir_4d7522402bdc013effffc7486e0cdc4d" ]
+    [ "torque_vector", "dir_4d7522402bdc013effffc7486e0cdc4d.html", "dir_4d7522402bdc013effffc7486e0cdc4d" ],
+    [ "torque_path.drawio.png", "torque__path_8drawio_8png.html", null ]
 ];

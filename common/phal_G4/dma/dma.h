@@ -85,25 +85,32 @@ typedef enum {
 #define DMA_REQUEST_USART3_RX 28U
 #define DMA_REQUEST_USART3_TX 29U
 
+/**
+ * @brief DMA channel initialization parameters
+ *
+ * The DMA channel must be disabled before modifying configuration fields after initialization.
+ * Not all peripherals support every transfer direction or data width.
+ * Memory-to-memory mode does not use a peripheral request and is not compatible with
+ * circular mode.
+ */
 typedef struct {
-    uint32_t periph_addr;
-    uint32_t mem_addr;
-    uint16_t tx_size;
-    uint8_t mem_size;
+    uint32_t periph_addr;     /**< Peripheral register address (DMA source or destination) */
+    uint32_t mem_addr;        /**< Memory buffer address (DMA source or destination) */
+    uint16_t tx_size;         /**< Number of data elements to transfer */
+    dma_size_t mem_size;      /**< Memory transfer width */
+    dma_dir_t dir;            /**< DMA transfer direction */
+    bool mem_inc;             /**< Enable automatic memory address increment */
+    bool periph_inc;          /**< Enable automatic peripheral address increment */
+    dma_mode_t mode;          /**< DMA operating mode */
+    dma_priority_t priority;  /**< DMA channel priority */
+    dma_size_t periph_size;   /**< Peripheral transfer width */
+    bool tx_isr_en;           /**< Enable transfer complete and transfer error interrupts */
+    uint8_t dma_chan_request; /**< DMA request ID for the selected peripheral */
+    uint8_t channel_idx;      /**< DMA channel number (1-8) */
+    uint8_t mux_request;      /**< DMAMUX request ID used to route the peripheral request */
+    DMA_TypeDef *periph;      /**< DMA peripheral instance */
 
-    dma_dir_t dir;
-    bool mem_inc;
-    bool periph_inc;
-    dma_mode_t mode;
-    uint8_t priority;
-    uint8_t periph_size;
-    bool tx_isr_en;
-    uint8_t dma_chan_request;
-    uint8_t channel_idx;
-    uint8_t mux_request;
-
-    DMA_TypeDef* periph;
-    DMA_Channel_TypeDef* channel; // Example DMA1_Stream0 or DMA2_Stream7
+    DMA_Channel_TypeDef *channel; /**< Populated internally by PHAL_initDMA() based on periph & channel_idx */
 } dma_init_t;
 
 /**

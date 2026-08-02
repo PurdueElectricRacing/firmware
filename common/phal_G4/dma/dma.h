@@ -26,7 +26,7 @@ typedef enum {
 typedef enum {
     DMA_MODE_NORMAL   = 0, /**< Stops (call PHAL_DMA_restart() to re-run) */
     DMA_MODE_CIRCULAR = 1, /**< Automatically reload the count and restart */
-    DMA_MODE_MEM2MEM  = 2, /**< Copy memory-to-memory (no DMAMUX request involved_ */
+    DMA_MODE_MEM2MEM  = 2, /**< Copy memory-to-memory (no DMAMUX request involved) */
 } PHAL_DMA_Mode_t;
 
 /**

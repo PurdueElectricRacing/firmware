@@ -9,6 +9,9 @@
 #include "common/phal_G4/dma/dma_priv.h"
 
 void PHAL_DMA_priv_enableClock(dma_init_t *dma) {
+    // DMAMUX1 clock is required to route peripheral requests to DMA channels
+    RCC->AHB1ENR |= RCC_AHB1ENR_DMAMUX1EN;
+
     if (dma->periph == DMA1) {
         RCC->AHB1ENR |= RCC_AHB1ENR_DMA1EN;
     } else if (dma->periph == DMA2) {

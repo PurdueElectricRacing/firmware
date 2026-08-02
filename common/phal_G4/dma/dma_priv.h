@@ -1,7 +1,8 @@
 /**
  * @file dma_priv.h
- * @brief G4 DMA Peripheral private/register level implementation 
- * @author Shriya Balu (balu@purdue.edu) 
+ * @brief G4 DMA Peripheral private/register level implementation
+ * @author Shriya Balu (balu@purdue.edu)
+ * @author Millan Kumar (kumar798@purdue.edu)
  */
 
 #ifndef PHAL_G4_DMA_PRIV_H
@@ -9,37 +10,45 @@
 
 #include "common/phal_G4/dma/dma.h"
 
-/// Enable the clock for the selected DMA peripheral
-void PHAL_DMA_priv_enableClock(dma_init_t *dma);
+/// Enable DMAMUX1's clock plus the given DMA peripheral's clock
+void PHAL_DMA_priv_enableClock(DMA_TypeDef *periph);
 
-/// Disable a DMA channel and wait until it is fully disabled
-void PHAL_DMA_priv_disableStream(DMA_Channel_TypeDef *channel);
+/// Look up the channel instance for (periph, channel_idx). channel_idx must be 1-8
+DMA_Channel_TypeDef *PHAL_DMA_priv_getChannel(DMA_TypeDef *periph, uint8_t channel_idx);
 
-/// Clear all pending status flags for a DMA channel
-void PHAL_DMA_priv_clearFlags(DMA_TypeDef *dma_periph, uint8_t channel_idx);
+/// Disable a channel and block until hardware confirms it is off
+void PHAL_DMA_priv_disableChannel(DMA_Channel_TypeDef *channel);
 
-/// Configure the DMA channel control register from the initialization structure
-void PHAL_DMA_priv_configParams(dma_init_t *dma);
+/// Enable a channel, starting its transfer
+void PHAL_DMA_priv_enableChannel(DMA_Channel_TypeDef *channel);
 
-/// Get the DMA channel instance corresponding to a DMA peripheral and channel index
-void PHAL_DMA_priv_setChannel(DMA_TypeDef *periph, DMA_Channel_TypeDef **channel, uint8_t channel_idx);
+/// True if the channel is currently enabled
+bool PHAL_DMA_priv_isChannelEnabled(DMA_Channel_TypeDef *channel);
 
-/// Enable a DMA channel
-void PHAL_DMA_priv_enableStream(DMA_Channel_TypeDef *channel);
+/// Clear every latched status flag (global/complete/half/error) for one channel
+void PHAL_DMA_priv_clearFlags(DMA_TypeDef *periph, uint8_t channel_idx);
 
-/// Configure the DMAMUX request for a DMA channel
-void PHAL_DMA_priv_configMUX(dma_init_t *dma);
+/// Configure CCR (data sizes, priority, increment modes, mode, ISR enables) from wiring+params
+void PHAL_DMA_priv_configChannel(DMA_Channel_TypeDef *channel,
+	                             const PHAL_DMA_Wiring_t *wiring,
+								 const PHAL_DMA_Params_t *params);
 
-/// Write the peripheral address to the DMA channel
-void PHAL_DMA_priv_setPeriphAddress(dma_init_t *dma);
+/// Route wiring->mux_request to (periph, channel_idx)'s DMAMUX channel
+void PHAL_DMA_priv_configMux(const PHAL_DMA_Wiring_t *wiring);
 
-/// Convert a DMA mode into the corresponding CCR register bits
-uint32_t PHAL_DMA_priv_modeBits(dma_mode_t mode);
+/// Write the peripheral-side address (CPAR)
+void PHAL_DMA_priv_setPeriphAddress(DMA_Channel_TypeDef *channel, uint32_t address);
 
-/// Write the DMA transfer length to the channel
-void PHAL_DMA_priv_writeTxferLength(dma_init_t *dma, const uint32_t length);
+/// Write the memory-side address (CMAR)
+void PHAL_DMA_priv_setMemAddress(DMA_Channel_TypeDef *channel, uint32_t address);
 
-/// Write the memory address to the DMA channel
-void PHAL_DMA_priv_writeMemAddress(dma_init_t *dma, const uint32_t address);
+/// Write the transfer length (CNDTR)
+void PHAL_DMA_priv_setLength(DMA_Channel_TypeDef *channel, uint16_t length);
+
+/// True if the transfer-complete flag is currently set for (periph, channel_idx)
+bool PHAL_DMA_priv_readCompleteFlag(DMA_TypeDef *periph, uint8_t channel_idx);
+
+/// True if the transfer-error flag is currently set for (periph, channel_idx)
+bool PHAL_DMA_priv_readErrorFlag(DMA_TypeDef *periph, uint8_t channel_idx);
 
 #endif // PHAL_G4_DMA_PRIV_H

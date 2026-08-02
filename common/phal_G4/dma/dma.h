@@ -78,7 +78,7 @@ typedef struct {
     DMA_Channel_TypeDef* channel; // Example DMA1_Stream0 or DMA2_Stream7
 } dma_init_t;
 
-/*
+/**
  * @brief Initialize DMA peripheral to set m2m, p2p, or p2m with set size
  *        and length of txfer
  *
@@ -88,35 +88,35 @@ typedef struct {
  */
 bool PHAL_initDMA(dma_init_t* dma);
 
-/*
+/**
  * @brief Start txfer after sucessful DMA peripheral initialization
  *
  * @param dma -> Address of initialization structure
  */
 void PHAL_DMA_startTxfer(dma_init_t* dma);
 
-/*
+/**
  * @brief Stop txfer
  *
  * @param dma -> Address of initialization structure
  */
 void PHAL_DMA_stopTxfer(dma_init_t* dma);
 
-/*
+/**
  * @brief Re-enable DMA txfer after error ISR fires
  *
  * @param dma -> Address of initialization structure
  */
 void PHAL_DMA_reEnable(dma_init_t* dma);
 
-/*
+/**
  * @brief Set memory address for DMA transfer. In Mem to Mem this acts as the source address
  *
  * @param dma -> Address of initialization structure
  */
 void PHAL_DMA_setMemAddress(dma_init_t* dma, const uint32_t address);
 
-/*
+/**
  * @brief Set transfer length for DMA transaction
  *
  * @param dma -> Address of initialization structure

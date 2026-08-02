@@ -10,6 +10,11 @@
 
 #include "common/phal_G4/dma/dma.h"
 
+
+// Every DMA1/DMA2 channel register block is this many bytes apart
+// (RM0440 11: CCR, CNDTR, CPAR, CMAR, plus one reserved word = 20 bytes)
+static constexpr uint32_t PHAL_DMA_PRIV_DMA_CHANNEL_MEM_STRIDE = 0x14U;
+
 /// Enable DMAMUX1's clock plus the given DMA peripheral's clock
 void PHAL_DMA_priv_enableClock(DMA_TypeDef *periph);
 

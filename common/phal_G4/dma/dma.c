@@ -1,6 +1,8 @@
 /**
  * @file dma.c
  * @brief G4 DMA Peripheral public API implementation
+ * @author Shriya Balu (balu@purdue.edu)
+ * @author Millan Kumar (kumar798@purdue.edu)
  */
 
 #include "common/phal_G4/dma/dma.h"

@@ -2,7 +2,6 @@
  * @file dma_priv.c
  * @brief G4 DMA Peripheral private/register level implementation 
  * @author Shriya Balu (balu@purdue.edu) 
- * 
  */
 
 #include "common/phal_G4/dma/dma.h"

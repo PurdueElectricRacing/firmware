@@ -4,11 +4,10 @@
  * @author Shriya Balu (balu@purdue.edu)
  * @author Chris McGalliard 
  * @author Dawson Moore (moore800@purdue.edu)
- * 
  */
 
-#ifndef __PHAL_G4_DMA_H__
-#define __PHAL_G4_DMA_H__
+#ifndef PHAL_G4_DMA_H
+#define PHAL_G4_DMA_H
 
 #include "common/phal_G4/phal_G4.h"
 
@@ -159,4 +158,4 @@ void PHAL_DMA_setMemAddress(dma_init_t* dma, const uint32_t address);
  */
 void PHAL_DMA_setTxferLength(dma_init_t* dma, const uint32_t length);
 
-#endif // __PHAL_G4_DMA_H__
+#endif // PHAL_G4_DMA_H

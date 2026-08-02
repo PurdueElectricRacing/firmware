@@ -22,8 +22,6 @@ static inline uint32_t LOG2_DOWN(uint32_t x) {
     return 31U - (uint32_t)__builtin_clz(x);
 }
 
-static void handleTxComplete();
-
 bool PHAL_SPI_init(SPI_InitConfig_t* cfg) {
     zero = 0;
     // Enable RCC Clock - Add new cases for each SPI Peripheral, to enable their clocks

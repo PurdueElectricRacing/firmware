@@ -7,14 +7,18 @@
  */
  #include "common/phal_G4/spi/spi.h"
  #include "common/phal_G4/spi/spi_priv.h"
+ #include "common/phal_G4/rcc/rcc.h"
 #include "common/utils/clamp.h"
-#include "common/common_defs/common_defs.h"
 
 extern uint32_t APB2ClockRateHz;
 extern uint32_t APB1ClockRateHz;
 
 static volatile SPI_InitConfig_t *dma1_active_tx[8] = {0};
 static volatile SPI_InitConfig_t *dma2_active_tx[8] = {0};
+
+static inline uint32_t LOG2_DOWN(uint32_t x) {
+    return 31U - (uint32_t)__builtin_clz(x);
+}
 
 bool PHAL_SPI_priv_enableClock(SPI_TypeDef *periph) {
     if (periph == SPI1) {
@@ -106,9 +110,9 @@ void PHAL_SPI_priv_handleTxComplete(DMA_TypeDef *dma_periph, uint8_t channel) {
             __asm__("nop");
         }
         // If RX DMA is used, wait until its TC flag also asserts before teardown
-        if (transfer->rx_dma_cfg) {
-            DMA_TypeDef *rx_dma = transfer->rx_dma_cfg->periph;
-            uint8_t rx_ch       = transfer->rx_dma_cfg->channel_idx;
+        if (transfer->rx_dma) {
+            DMA_TypeDef *rx_dma = transfer->rx_dma->wiring->periph;
+            uint8_t rx_ch       = transfer->rx_dma->wiring->channel_idx;
             uint32_t rx_tc_mask = DMA_FLAG_MASK(DMA_ISR_TCIF1, rx_ch);
             // Busy-wait for RX complete
             while (!(rx_dma->ISR & rx_tc_mask)) {
@@ -116,15 +120,15 @@ void PHAL_SPI_priv_handleTxComplete(DMA_TypeDef *dma_periph, uint8_t channel) {
             }
             // Clear RX flags and stop RX
             rx_dma->IFCR |= rx_tc_mask;
-            PHAL_stopTxfer(transfer->rx_dma_cfg);
+            PHAL_DMA_stop(transfer->rx_dma);
         }
 
         // Deassert CS after both TX and RX complete
         if (transfer->nss_sw)
             PHAL_writeGPIO(transfer->nss_gpio_port, transfer->nss_gpio_pin, 1);
 
-        if (transfer->tx_dma_cfg)
-            PHAL_stopTxfer(transfer->tx_dma_cfg);
+        if (transfer->tx_dma)
+            PHAL_DMA_stop(transfer->tx_dma);
 
         transfer->periph->CR1 &= ~SPI_CR1_SPE;
         transfer->periph->CR2 &= ~(SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
@@ -152,14 +156,14 @@ void PHAL_SPI_priv_resetTransferState(SPI_InitConfig_t *cfg) {
 
 
 void PHAL_SPI_priv_registerActiveTx(SPI_InitConfig_t *spi) {
-    if (!spi || !spi->tx_dma_cfg) return;
+    if (!spi || !spi->tx_dma) return;
 
-    uint8_t ch = spi->tx_dma_cfg->channel_idx;
+    uint8_t ch = spi->tx_dma->wiring->channel_idx;
     if (ch < 1 || ch > 8) return;
 
-    if (spi->tx_dma_cfg->periph == DMA1) {
+    if (spi->tx_dma->wiring->periph == DMA1) {
         dma1_active_tx[ch - 1] = spi; 
-    } else if (spi->tx_dma_cfg->periph == DMA2) {
+    } else if (spi->tx_dma->wiring->periph == DMA2) {
         dma2_active_tx[ch - 1] = spi;
     }
 }

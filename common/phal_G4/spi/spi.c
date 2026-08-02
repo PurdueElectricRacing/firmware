@@ -9,9 +9,8 @@
 #include "common/phal_G4/spi/spi.h"
 #include "common/phal_G4/spi/spi_priv.h"
 #include "common/phal_G4/gpio/gpio.h"
+#include "common/phal_G4/dma/dma.h"
 #include "common/utils/clamp.h"
-#include "common/common_defs/common_defs.h"
-
 
 // Track active TX transfers per DMA controller/channel so multiple SPI instances can run concurrently
 static volatile SPI_InitConfig_t *dma1_active_tx[8] = {0};
@@ -19,13 +18,6 @@ static volatile SPI_InitConfig_t *dma2_active_tx[8] = {0};
 
 static uint16_t trash_can; // For RX discard when in_data NULL
 static uint16_t zero;      // For TX dummy when out_data NULL
-
-static inline uint32_t LOG2_DOWN(uint32_t x) {
-    return 31U - (uint32_t)__builtin_clz(x);
-}
-
-static void handleTxComplete(DMA_TypeDef *dma_periph, uint8_t channel);
-
 
 [[gnu::weak]]
 void PHAL_SPI_txCallback(SPI_InitConfig_t *spi) {
@@ -62,9 +54,9 @@ bool PHAL_SPI_init(SPI_InitConfig_t *cfg) {
     PHAL_SPI_priv_configCR2(cfg);
 
     // DMA setup is required 
-    if (!PHAL_initDMA(cfg->rx_dma_cfg))
+    if (!PHAL_DMA_init(cfg->rx_dma))
         return false;
-    if (!PHAL_initDMA(cfg->tx_dma_cfg))
+    if (!PHAL_DMA_init(cfg->tx_dma))
         return false;
 
     // Deassert CS in master when using software NSS
@@ -158,7 +150,7 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t *spi,
     PHAL_DMA_setLength(spi->tx_dma, data_len);
 
     // RX DMA  
-    if (!spi->rx_dma_cfg) return false;
+    if (!spi->rx_dma) return false;
     PHAL_SPI_priv_enableDMA_RX(spi);
 
     if (!in_data) {
@@ -213,69 +205,6 @@ void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi) {
             break;
     }
 }
-
-static void handleTxComplete(DMA_TypeDef *dma_periph, uint8_t channel) {
-    volatile SPI_InitConfig_t **active_table =
-        (dma_periph == DMA1) ? dma1_active_tx : dma2_active_tx;
-    SPI_InitConfig_t *transfer = (channel < 8) ? (SPI_InitConfig_t *)active_table[channel] : NULL;
-    if (transfer == NULL)
-        return;
-
-    uint32_t tcif_mask = DMA_ISR_TCIF1 << (4 * (channel - 1));
-    uint32_t teif_mask = DMA_ISR_TEIF1 << (4 * (channel - 1));
-    uint32_t htif_mask = DMA_ISR_HTIF1 << (4 * (channel - 1));
-    uint32_t gif_mask  = DMA_ISR_GIF1 << (4 * (channel - 1));
-
-    if (dma_periph->ISR & teif_mask) {
-        dma_periph->IFCR |= teif_mask;
-        transfer->_error = true;
-    }
-    if (dma_periph->ISR & tcif_mask) {
-        // Wait for TXE and not busy
-        while (!(transfer->periph->SR & SPI_SR_TXE) || (transfer->periph->SR & SPI_SR_BSY))
-            ;
-
-        // If RX DMA is used, wait until its TC flag also asserts before teardown
-        if (transfer->rx_dma) {
-            DMA_TypeDef *rx_dma = PHAL_DMA_getPeriph(transfer->rx_dma);
-            uint8_t rx_ch       = PHAL_DMA_getChannelIdx(transfer->rx_dma);
-            uint32_t rx_tc_mask = DMA_ISR_TCIF1 << (4 * (rx_ch - 1));
-            // Busy-wait for RX complete
-            while (!(rx_dma->ISR & rx_tc_mask))
-                ;
-            // Clear RX flags and stop RX
-            rx_dma->IFCR |= rx_tc_mask;
-            PHAL_DMA_stop(transfer->rx_dma);
-        }
-
-        // Deassert CS after both TX and RX complete
-        if (transfer->nss_sw)
-            PHAL_writeGPIO(transfer->nss_gpio_port, transfer->nss_gpio_pin, 1);
-
-        if (transfer->tx_dma)
-            PHAL_DMA_stop(transfer->tx_dma);
-
-        transfer->periph->CR1 &= ~SPI_CR1_SPE;
-        transfer->periph->CR2 &= ~(SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
-
-        transfer->_busy              = false;
-        transfer->_error             = false;
-        transfer->_direct_mode_error = false;
-        transfer->_fifo_overrun      = false;
-
-        dma_periph->IFCR |= tcif_mask;
-        dma_periph->IFCR |= gif_mask;
-        active_table[channel] = NULL;
-
-        PHAL_SPI_txCallback(transfer);
-    }
-
-    if (dma_periph->ISR & htif_mask) {
-        dma_periph->IFCR |= htif_mask;
-    }
-}
-
-
 
 uint8_t PHAL_SPI_readByte(SPI_InitConfig_t *spi, uint8_t address, bool skipDummy) {
     static uint8_t tx_cmd[4] = {(1 << 7), 0, 0};

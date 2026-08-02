@@ -129,7 +129,6 @@ uint16_t PHAL_readADC(ADCInitConfig_t* config);
     {.periph_addr      = (uint32_t)&(ADC1->DR), \
      .mem_addr         = mem_addr_, \
      .tx_size          = tx_size_, \
-     .increment        = true, \
      .mode             = DMA_MODE_CIRCULAR, \
      .dir              = 0b0, \
      .mem_inc          = true, \
@@ -148,7 +147,6 @@ uint16_t PHAL_readADC(ADCInitConfig_t* config);
     {.periph_addr      = (uint32_t)&(ADC2->DR), \
      .mem_addr         = mem_addr_, \
      .tx_size          = tx_size_, \
-     .increment        = true, \
      .mode             = DMA_MODE_CIRCULAR, \
      .dir              = 0b0, \
      .mem_inc          = true, \
@@ -167,8 +165,7 @@ uint16_t PHAL_readADC(ADCInitConfig_t* config);
     {.periph_addr      = (uint32_t)&(ADC3->DR), \
      .mem_addr         = mem_addr_, \
      .tx_size          = tx_size_, \
-     .increment        = true, \
-     .mode            = DMA_MODE_CIRCULAR, \
+     .mode             = DMA_MODE_CIRCULAR, \
      .dir              = 0b0, \
      .mem_inc          = true, \
      .periph_inc       = false, \
@@ -186,8 +183,7 @@ uint16_t PHAL_readADC(ADCInitConfig_t* config);
     {.periph_addr      = (uint32_t)&(ADC4->DR), \
      .mem_addr         = mem_addr_, \
      .tx_size          = tx_size_, \
-     .increment        = true, \
-     .mode            = DMA_MODE_CIRCULAR, \
+     .mode             = DMA_MODE_CIRCULAR, \
      .dir              = 0b0, \
      .mem_inc          = true, \
      .periph_inc       = false, \

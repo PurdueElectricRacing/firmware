@@ -64,7 +64,6 @@ void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi);
      .mem_addr         = (uint32_t)(rx_addr_), \
      .tx_size          = 1, \
      .mem_size         = DMA_SIZE_8BIT, \
-     .increment        = false, \
      .mode             = DMA_MODE_NORMAL, \
      .dir              = DMA_PERIPH_TO_MEMORY, \
      .mem_inc          = true, \
@@ -82,7 +81,6 @@ void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi);
      .mem_addr         = (uint32_t)(tx_addr_), \
      .tx_size          = 1, \
      .mem_size         = DMA_SIZE_8BIT, \
-     .increment        = false, \
      .mode             = DMA_MODE_NORMAL, \
      .dir              = DMA_MEMORY_TO_PERIPH, \
      .mem_inc          = true, \
@@ -101,7 +99,6 @@ void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi);
      .mem_addr         = (uint32_t)(rx_addr_), \
      .tx_size          = 1, \
      .mem_size         = DMA_SIZE_8BIT, \
-     .increment        = false, \
      .mode             = DMA_MODE_NORMAL, \
      .dir              = DMA_PERIPH_TO_MEMORY, \
      .mem_inc          = true, \
@@ -119,7 +116,6 @@ void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi);
      .mem_addr         = (uint32_t)(tx_addr_), \
      .tx_size          = 1, \
      .mem_size         = DMA_SIZE_8BIT, \
-     .increment        = false, \
      .mode             = DMA_MODE_NORMAL, \
      .dir              = DMA_MEMORY_TO_PERIPH, \
      .mem_inc          = true, \
@@ -138,7 +134,6 @@ void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi);
      .mem_addr         = (uint32_t)(rx_addr_), \
      .tx_size          = 1, \
      .mem_size         = DMA_SIZE_8BIT, \
-     .increment        = false, \
      .mode             = DMA_MODE_NORMAL, \
      .dir              = DMA_PERIPH_TO_MEMORY, \
      .mem_inc          = true, \
@@ -156,7 +151,6 @@ void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi);
      .mem_addr         = (uint32_t)(tx_addr_), \
      .tx_size          = 1, \
      .mem_size         = DMA_SIZE_8BIT, \
-     .increment        = false, \
      .mode             = DMA_MODE_NORMAL, \
      .dir              = DMA_MEMORY_TO_PERIPH, \
      .mem_inc          = true, \

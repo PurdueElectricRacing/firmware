@@ -1524,7 +1524,6 @@ void DMA2_Stream6_IRQHandler(void) {
         .periph_addr      = (uint32_t)&(SDIO->FIFO), \
         .mem_addr         = (uint32_t)(tx_addr_), \
         .tx_size          = 1, \
-        .increment        = false, \
         .circular         = false, \
         .dir              = 0b1, \
         .mem_inc          = true, \
@@ -1564,7 +1563,6 @@ void SD_LowLevel_DMA_TxConfig(uint32_t* BufferSRC, uint32_t BufferSize) {
         .periph_addr      = (uint32_t)&(SDIO->FIFO), \
         .mem_addr         = (uint32_t)(rx_addr_), \
         .tx_size          = 1, \
-        .increment        = false, \
         .circular         = false, \
         .dir              = 0b0, \
         .mem_inc          = true, \

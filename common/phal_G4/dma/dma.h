@@ -91,7 +91,6 @@ typedef struct {
     uint16_t tx_size;
     uint8_t mem_size;
 
-    bool increment;
     dma_dir_t dir;
     bool mem_inc;
     bool periph_inc;

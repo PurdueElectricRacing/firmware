@@ -14,7 +14,6 @@
 #include "common/phal_G4/gpio/gpio.h"
 #include "common/phal_G4/phal_G4.h"
 #include "common/phal_G4/rcc/rcc.h"
-#include "common_defs.h"
 
 typedef uint32_t ptr_int;
 

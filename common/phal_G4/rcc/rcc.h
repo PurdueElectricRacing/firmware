@@ -1,171 +1,62 @@
 /**
  * @file rcc.h
- * @author Eileen Yoon - Port of L4 RCC by Adam Busch (busch8@purdue.edu)
- * @brief RCC Configuration Driver for STM32F4 Devices
- * @version 0.1
- * @date 2023-08-16
- *
- * @copyright Copyright (c) 2023
- *
+ * @brief G4 RCC public API implementation.
+ * @author Millan Kumar (kumar798@purdue.edu)
  */
+
 #ifndef __PHAL_G4_RCC_H__
 #define __PHAL_G4_RCC_H__
 
+#include <stdbool.h>
+#include <stdint.h>
+
 #include "common/phal_G4/phal_G4.h"
 
-#define HSE_CLOCK_RATE_HZ (16'000'000)
-
-#define HSE_CLOCK_RATE_HZ_INVALID (1) /* High Speed External oscilator value */
-#ifndef HSE_CLOCK_RATE_HZ
-#define HSE_CLOCK_RATE_HZ HSE_CLOCK_RATE_HZ_INVALID /* Define this in order to configure clocks to use the HSE clock */
-#endif // HSE_CLOCK_RATE_HZ
-
-#define HSI_CLOCK_RATE_HZ (16'000'000)
-#define MCO_OUT_PIN       (8)
-
-// RCC Constants
-#if defined(STM32G474xx)
-
-// TODO: update these based on voltage scaling, current max/min VCO rates are for range 1 voltage scaling
-#define RCC_MAX_VCO_RATE_HZ           ((uint32_t)344e6)
-#define RCC_MIN_VCO_RATE_HZ           ((uint32_t)64e6)
-
-// RM0440 section 7.2.4 PLL defines PLL input divisor (PLLM) 
-#define RCC_MIN_PLL_INPUT_DIVISOR     (1U)
-#define RCC_MAX_PLL_INPUT_DIVISOR     (16U)
-#define RCC_MIN_PLL_OUTPUT_MULTIPLIER (8U)
-#define RCC_MAX_PLL_OUTPUT_MULTIPLIER (127U)
-#define RCC_MAX_SYSCLK_TARGET_HZ      (170'000'000)
-
-#else
-#error "Please define a MCU arch"
-#endif
-
+/**
+ * @brief Supported system clock configurations.
+ *
+ * Every mode configures AHB, APB1, and APB2 to run undivided at the
+ * resulting system clock rate
+ */
 typedef enum {
-    PLL_SRC_HSI16,
-    PLL_SRC_HSE
-} PLLSrc_t;
-
-typedef enum {
-    MCO1_SRC_HSI = 0,
-    MCO1_SRC_LSE = 1,
-    MCO1_SRC_HSE = 2,
-    MCO1_SRC_PLL = 3,
-
-} MCO1Source_t;
-
-typedef enum {
-    MCO_DIV_NONE = 0,
-    MCO_DIV_2    = 4,
-    MCO_DIV_3    = 5,
-    MCO_DIV_4    = 6,
-    MCO_DIV_5    = 7
-
-} MCODivisor_t;
-
-typedef enum {
-    CLOCK_SOURCE_HSI = 0,
-    CLOCK_SOURCE_HSE = 1,
-} ClockSrc_t;
-
-typedef enum {
-    RCC_ERROR_AHB_INIT    = 0,
-    RCC_ERROR_APB1_INIT   = 1,
-    RCC_ERROR_APB2_INIT   = 2,
-    RCC_ERROR_HSI_INIT    = 3,
-    RCC_ERROR_PLLSYS_INIT = 4,
-    RCC_ERROR_PLLVCO_INIT = 5,
-    RCC_ERROR_HSE_INIT    = 6,
-} RCCErrors_t;
-
-typedef struct {
-    ClockSrc_t clock_source; /* Use HSE or not */
-    bool use_pll; /* Use PLL or not */
-    uint32_t system_clock_target_hz; /* System Core Clock rate */
-    uint32_t ahb_clock_target_hz; /* AHB clock rate target */
-    uint32_t apb1_clock_target_hz; /* APB1 clock rate target */
-    uint32_t apb2_clock_target_hz; /* APB2 clock rate target */
-
-    /* Only used for use_pll == true */
-    PLLSrc_t pll_src; /* Input source for PLL VCO */
-    uint32_t vco_output_rate_target_hz; /* VCO output target rate */
-    uint32_t msi_output_rate_target_hz; /* Use if pll_src == MSI */
-} ClockRateConfig_t;
+    PHAL_RCC_HSI_16MHZ,  /*!< HSI16 direct, no PLL, 16 MHz system clock   */
+    PHAL_RCC_HSI_170MHZ, /*!< HSI16 through the PLL, 170 MHz (boost mode) */
+    PHAL_RCC_HSE_16MHZ,  /*!< HSE direct, no PLL, 16 MHz system clock     */
+    PHAL_RCC_HSE_170MHZ, /*!< HSE through the PLL, 170 MHz (boost mode)   */
+} PHAL_RCC_Mode_t;
 
 /**
- * @brief Configure all AHB/APB/System clocks from the provided configuration.
+ * @brief Configure the system, AHB, APB1, and APB2 clocks for a supported clock tree
  *
- * @param config Configuration to try to match
- * @return Binary encoded representation of which clocks were unsuccessfuly configured.
- *  return value of 0 means all clocks were sucessfully configured.
+ * - The *_16MHZ modes run directly from the input oscillator (HSI16, or
+ *   the board's 16 MHz HSE input in bypass mode) with no PLL
+ *   - 0 Flash wait states
+ *   - AHB = APB1 = APB2 = 16 MHz
+ * - The *_170MHZ modes feed the input oscillator through the PLL
+ *   (PLLM=4, PLLN=85, PLLR=2) for a clock speed of exactly 170 MHz
+ *   - Enable Range 1 boost mode
+ *   - Set 4 Flash wait states
+ *   - AHB = APB1 = APB2 = 170 MHz
+ *
+ * The unselected input oscillator will be disabled once this function ends:
+ * - HSI is on by default out of reset
+ * - If HSI is selected, we don't turn it off
+ * - For an HSE mode, HSI is switched off once it's no longer needed
+ *
+ * @param mode one of the four supported clock configurations
  */
-uint8_t PHAL_configureClockRates(ClockRateConfig_t* config);
+void PHAL_RCC_init(PHAL_RCC_Mode_t mode);
 
-/**
- * @brief Configure PLL VCO Clock rate
- * The VCO clock is the input clock for the different PLL outputs.
- * Each PLL output will divide the VCO clock to get its output.
- *
- * @param PLL Input rate for PLL, determined by PLL source
- * @param vco_output_rate_target_hz Target rate for PLL output
- * @return true
- * @return false
- */
-bool PHAL_configurePLLVCO(PLLSrc_t pll_source, uint32_t vco_output_rate_target_hz);
+/// @return the current system clock (SYSCLK) rate in Hz
+uint32_t PHAL_RCC_getSystemClockHz(void);
 
-/**
- * @brief Configure PLL CLK as the System Clock at the desired target frequency.
- * SHOULD BE DONE BEFORE ANY OF THE AHB OR APB CLOCKS ARE CHANGED
- *
- * @param system_clock_target_hz
- * @return true Successfully configured PLL clock as system clock
- * @return false
- */
-bool PHAL_configurePLLSystemClock(uint32_t system_clock_target_hz);
+/// @return the current AHB (HCLK) rate in Hz
+uint32_t PHAL_RCC_getAHBClockHz(void);
 
-/**
- * @brief Configure HSI CLK as the System Clock.
- * SHOULD BE DONE BEFORE ANY OF THE AHB OR APB CLOCKS ARE CHANGED
- *
- * @return true Successfully configured HSI clock as system clock
- * @return false
- */
-bool PHAL_configureHSISystemClock();
+/// @return the current APB1 (PCLK1) rate in Hz
+uint32_t PHAL_RCC_getAPB1ClockHz(void);
 
-/**
- * @brief Configure HSE CLK as the System Clock.
- * SHOULD BE DONE BEFORE ANY OF THE AHB OR APB CLOCKS ARE CHANGED
- *
- * @return true Successfully configured HSE clock as system clock
- * @return false
- */
-bool PHAL_configureHSESystemClock();
-
-/**
- * @brief Configure AHB Clock rate by modifying the AHB prescaler value.
- *
- * @param ahb_clock_target_hz
- * @return true Successfully configured AHB clock rate to @param ahb_clock_target_hz
- * @return false
- */
-bool PHAL_configureAHBClock(uint32_t ahb_clock_target_hz);
-
-/**
- * @brief Configure APB1 Clock rate by modifying the APB1 prescaler value.
- *
- * @param apb1_clock_target_hz
- * @return true Successfully configured AHB clock rate to @param apb1_clock_target_hz
- * @return false
- */
-bool PHAL_configureAPB1Clock(uint32_t apb1_clock_target_hz);
-
-/**
- * @brief Configure APB1 Clock rate by modifying the APB2 prescaler value.
- *
- * @param apb2_clock_target_hz
- * @return true Successfully configured AHB clock rate to @param apb2_clock_target_hz
- * @return false
- */
-bool PHAL_configureAPB2Clock(uint32_t apb2_clock_target_hz);
+/// @return the current APB2 (PCLK2) rate in Hz
+uint32_t PHAL_RCC_getAPB2ClockHz(void);
 
 #endif // __PHAL_G4_RCC_H__

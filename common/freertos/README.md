@@ -12,10 +12,8 @@ FREERTOS_DEFINE_QUEUE(tcp_tx_queue, timestamped_frame_t, TCP_TX_ITEM_COUNT);
 int main(void)
 {
     // Do all hardware initialization + rtos object creations here
-    if(0 != PHAL_configureClockRates(&clock_config))
-    {
-        HardFault_Handler();
-    }
+    PHAL_RCC_init(PHAL_RCC_HSI_16MHZ);
+
     NVIC_SetPriority(CAN1_RX0_IRQn, 6); // set priority >= 6, see configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY in FreeRTOSConfig.h
 
     FREERTOS_START_TASK(heartbeat_LED); // s/taskCreate/FREERTOS_START_TASK/

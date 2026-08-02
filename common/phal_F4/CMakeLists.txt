@@ -9,7 +9,7 @@ MACRO(MAKE_PHAL_LIBRARY lib_name lib_link)
     # Find directories for '#include'
     target_include_directories(${TARGET_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 
-    target_link_libraries(${TARGET_NAME} INTERFACE ${lib_link} common_defs)
+    target_link_libraries(${TARGET_NAME} INTERFACE ${lib_link})
 ENDMACRO(MAKE_PHAL_LIBRARY)
 
 MAKE_PHAL_LIBRARY(PHAL_F407 CMSIS_F407)

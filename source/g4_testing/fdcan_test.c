@@ -20,33 +20,21 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_FDCAN3TX_PB4,
 };
 
-#define TargetCoreClockrateHz 16000000
-ClockRateConfig_t clock_config = {
-    .clock_source              = CLOCK_SOURCE_HSI,
-    .use_pll                   = false,
-    .vco_output_rate_target_hz = 16000000,
-    .system_clock_target_hz    = TargetCoreClockrateHz,
-    .ahb_clock_target_hz       = (TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz      = (TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz      = (TargetCoreClockrateHz / (1)),
-};
-
 void HardFault_Handler();
 
 static void can_tx_100hz(void);
 static void can_rx_1khz(void);
 
 static uint32_t rx_count = 0;
+static uint32_t tx_count = 0;
 
-FREERTOS_DEFINE_TASK(can_tx_100hz, 10, TASK_PRIORITY_HIGH, 256);
-FREERTOS_DEFINE_TASK(can_rx_1khz, 1, TASK_PRIORITY_HIGH, 256);
+FREERTOS_DEFINE_TASK(can_tx_100hz, 10, TASK_PRIORITY_HIGH, STACK_256);
+FREERTOS_DEFINE_TASK(can_rx_1khz, 1, TASK_PRIORITY_HIGH, STACK_256);
 
 FREERTOS_DEFINE_QUEUE(q_can_rx, CanMsgTypeDef_t, 256);
 
 int main() {
-    if (PHAL_configureClockRates(&clock_config)) {
-        HardFault_Handler();
-    }
+    PHAL_RCC_init(PHAL_RCC_HSI_170MHZ);
 
     if (!PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
@@ -112,6 +100,7 @@ static void PHAL_FDCAN_testStandard(void) {
 static void can_tx_100hz(void) {
     PHAL_FDCAN_testStandard();
     // PHAL_FDCAN_testExtended();
+    tx_count++;
 }
 
 volatile CanMsgTypeDef_t rx_frame_0;

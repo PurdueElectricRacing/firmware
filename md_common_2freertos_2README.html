@@ -111,10 +111,8 @@ $(function(){initNavTree('md_common_2freertos_2README.html',''); initResizable(t
 <div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">void</span>)</div>
 <div class="line">{</div>
 <div class="line">    <span class="comment">// Do all hardware initialization + rtos object creations here</span></div>
-<div class="line">    <span class="keywordflow">if</span>(0 != PHAL_configureClockRates(&amp;clock_config))</div>
-<div class="line">    {</div>
-<div class="line">        HardFault_Handler();</div>
-<div class="line">    }</div>
+<div class="line">    <a class="code hl_function" href="phal__G4_2rcc_2rcc_8c.html#a2da5f97897f406d973bb5d92c934224b">PHAL_RCC_init</a>(<a class="code hl_enumvalue" href="phal__G4_2rcc_2rcc_8h.html#a1c73ccee559be5aa0946979a99aeff4fa06bd221257220764f8a7ad60e29a82fe">PHAL_RCC_HSI_16MHZ</a>);</div>
+<div class="line"> </div>
 <div class="line">    NVIC_SetPriority(CAN1_RX0_IRQn, 6); <span class="comment">// set priority &gt;= 6, see configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY in FreeRTOSConfig.h</span></div>
 <div class="line"> </div>
 <div class="line">    <a class="code hl_define" href="freertos_8h.html#a104de5f26cf1f5055419e92dcb119afe">FREERTOS_START_TASK</a>(heartbeat_LED); <span class="comment">// s/taskCreate/FREERTOS_START_TASK/</span></div>
@@ -127,6 +125,8 @@ $(function(){initNavTree('md_common_2freertos_2README.html',''); initResizable(t
 <div class="ttc" id="afreertos_8h_html_a28a900310fbbf645e770296da5b13103"><div class="ttname"><a href="freertos_8h.html#a28a900310fbbf645e770296da5b13103">FREERTOS_DEFINE_QUEUE</a></div><div class="ttdeci">#define FREERTOS_DEFINE_QUEUE(NAME, ITEM, COUNT)</div><div class="ttdoc">Scaffolds the static memory for a FreeRTOS queue.</div><div class="ttdef"><b>Definition</b> freertos.h:150</div></div>
 <div class="ttc" id="afreertos_8h_html_a5cf4a3cffdbcee009fb985a5c44738c3"><div class="ttname"><a href="freertos_8h.html#a5cf4a3cffdbcee009fb985a5c44738c3">FREERTOS_DEFINE_TASK</a></div><div class="ttdeci">#define FREERTOS_DEFINE_TASK(NAME, PERIOD_MS, PRIORITY, STACK_SIZE)</div><div class="ttdoc">Defines a statically allocated periodic FreeRTOS task.</div><div class="ttdef"><b>Definition</b> freertos.h:95</div></div>
 <div class="ttc" id="afreertos_8h_html_aa730b13c8454185c8a3e057e6ea25679"><div class="ttname"><a href="freertos_8h.html#aa730b13c8454185c8a3e057e6ea25679">FREERTOS_INIT_QUEUE</a></div><div class="ttdeci">#define FREERTOS_INIT_QUEUE(NAME)</div><div class="ttdoc">Initializes the defined static queue.</div><div class="ttdef"><b>Definition</b> freertos.h:166</div></div>
+<div class="ttc" id="aphal__G4_2rcc_2rcc_8c_html_a2da5f97897f406d973bb5d92c934224b"><div class="ttname"><a href="phal__G4_2rcc_2rcc_8c.html#a2da5f97897f406d973bb5d92c934224b">PHAL_RCC_init</a></div><div class="ttdeci">void PHAL_RCC_init(PHAL_RCC_Mode_t mode)</div><div class="ttdoc">Configure the system, AHB, APB1, and APB2 clocks for a supported clock tree.</div><div class="ttdef"><b>Definition</b> rcc.c:56</div></div>
+<div class="ttc" id="aphal__G4_2rcc_2rcc_8h_html_a1c73ccee559be5aa0946979a99aeff4fa06bd221257220764f8a7ad60e29a82fe"><div class="ttname"><a href="phal__G4_2rcc_2rcc_8h.html#a1c73ccee559be5aa0946979a99aeff4fa06bd221257220764f8a7ad60e29a82fe">PHAL_RCC_HSI_16MHZ</a></div><div class="ttdeci">@ PHAL_RCC_HSI_16MHZ</div><div class="ttdef"><b>Definition</b> rcc.h:22</div></div>
 <div class="ttc" id="astructtimestamped__frame__t_html"><div class="ttname"><a href="structtimestamped__frame__t.html">timestamped_frame_t</a></div><div class="ttdef"><b>Definition</b> timestamped_frame.h:13</div></div>
 </div><!-- fragment --><p>Very good resource: Mastering the FreeRTOS™ Real Time Kernel <a href="https://www.freertos.org/Documentation/02-Kernel/07-Books-and-manual/01-RTOS_book">https://www.freertos.org/Documentation/02-Kernel/07-Books-and-manual/01-RTOS_book</a></p>
 <p>Key notes:</p><ul>

@@ -109,7 +109,6 @@ $(function(){initNavTree('dashboard_2main_8c.html',''); initResizable(true); });
 <div class="textblock"><code>#include &quot;main.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="faults__common_8h_source.html">can_library/faults_common.h</a>&quot;</code><br />
 <code>#include &quot;can_library/generated/DASHBOARD.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="common__defs_8h_source.html">common/common_defs/common_defs.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="heartbeat_8h_source.html">common/heartbeat/heartbeat.h</a>&quot;</code><br />
 <code>#include &quot;common/phal/adc.h&quot;</code><br />
@@ -187,20 +186,6 @@ volatile <a class="el" href="structraw__adc__values__t.html">raw_adc_values_t</a
 <tr class="separator:ab5e5c5f93446e92415dfe222fd3d0e6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf94e19caf3951d83556041d6f54d7e6" id="r_abf94e19caf3951d83556041d6f54d7e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structusart__init__t.html">usart_init_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf94e19caf3951d83556041d6f54d7e6">lcd</a></td></tr>
 <tr class="separator:abf94e19caf3951d83556041d6f54d7e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e372d6fcb26e99141502c56d908f788" id="r_a2e372d6fcb26e99141502c56d908f788"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structClockRateConfig__t.html">ClockRateConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e372d6fcb26e99141502c56d908f788">clock_config</a></td></tr>
-<tr class="separator:a2e372d6fcb26e99141502c56d908f788"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3f547c0ac514dd12e5bab27a6b60bec" id="r_ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memItemLeft" align="right" valign="top"><a id="ae3f547c0ac514dd12e5bab27a6b60bec" name="ae3f547c0ac514dd12e5bab27a6b60bec"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>APB1ClockRateHz</b></td></tr>
-<tr class="separator:ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdc1120bbc54485ac4c735d8f9756743" id="r_afdc1120bbc54485ac4c735d8f9756743"><td class="memItemLeft" align="right" valign="top"><a id="afdc1120bbc54485ac4c735d8f9756743" name="afdc1120bbc54485ac4c735d8f9756743"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>APB2ClockRateHz</b></td></tr>
-<tr class="separator:afdc1120bbc54485ac4c735d8f9756743"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c40deeaa6aeb002bafb0bc892484e0c" id="r_a2c40deeaa6aeb002bafb0bc892484e0c"><td class="memItemLeft" align="right" valign="top"><a id="a2c40deeaa6aeb002bafb0bc892484e0c" name="a2c40deeaa6aeb002bafb0bc892484e0c"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>AHBClockRateHz</b></td></tr>
-<tr class="separator:a2c40deeaa6aeb002bafb0bc892484e0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac132aa42c20a1d3744db9df04f31c54" id="r_aac132aa42c20a1d3744db9df04f31c54"><td class="memItemLeft" align="right" valign="top"><a id="aac132aa42c20a1d3744db9df04f31c54" name="aac132aa42c20a1d3744db9df04f31c54"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>PLLClockRateHz</b></td></tr>
-<tr class="separator:aac132aa42c20a1d3744db9df04f31c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>"Dashboard" node source code </p>
@@ -270,28 +255,6 @@ Chris Mcgalliard (<a href="#" onclick="location.href='mai'+'lto:'+'cpm'+'cg'+'al
 <div class="line">    (uint32_t)&amp;raw_adc_values,</div>
 <div class="line">    <span class="keyword">sizeof</span>(raw_adc_values) / <span class="keyword">sizeof</span>(raw_adc_values.throttle1), 0b01</div>
 <div class="line">)</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a2e372d6fcb26e99141502c56d908f788" name="a2e372d6fcb26e99141502c56d908f788"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e372d6fcb26e99141502c56d908f788">&#9670;&#160;</a></span>clock_config</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structClockRateConfig__t.html">ClockRateConfig_t</a> clock_config</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .clock_source           = CLOCK_SOURCE_HSE,</div>
-<div class="line">    .use_pll                = <span class="keyword">false</span>,</div>
-<div class="line">    .system_clock_target_hz = TargetCoreClockrateHz,</div>
-<div class="line">    .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),</div>
-<div class="line">    .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),</div>
-<div class="line">    .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),</div>
-<div class="line">}</div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -17,12 +17,11 @@ var searchData=
   ['colors_2eh_14',['colors.h',['../colors_8h.html',1,'']]],
   ['commands_2ec_15',['commands.c',['../commands_8c.html',1,'']]],
   ['commands_2eh_16',['commands.h',['../commands_8h.html',1,'']]],
-  ['common_5fdefs_2eh_17',['common_defs.h',['../common__defs_8h.html',1,'']]],
-  ['control_5floop_2ec_18',['control_loop.c',['../control__loop_8c.html',1,'']]],
-  ['control_5floop_2eh_19',['control_loop.h',['../control__loop_8h.html',1,'']]],
-  ['cooling_5fcallbacks_2ec_20',['cooling_callbacks.c',['../cooling__callbacks_8c.html',1,'']]],
-  ['cooling_5fcallbacks_2eh_21',['cooling_callbacks.h',['../cooling__callbacks_8h.html',1,'']]],
-  ['countof_2eh_22',['countof.h',['../countof_8h.html',1,'']]],
-  ['crc_2ec_23',['crc.c',['../phal__F4_2crc_2crc_8c.html',1,'']]],
-  ['crc_2eh_24',['crc.h',['../phal__F4_2crc_2crc_8h.html',1,'']]]
+  ['control_5floop_2ec_17',['control_loop.c',['../control__loop_8c.html',1,'']]],
+  ['control_5floop_2eh_18',['control_loop.h',['../control__loop_8h.html',1,'']]],
+  ['cooling_5fcallbacks_2ec_19',['cooling_callbacks.c',['../cooling__callbacks_8c.html',1,'']]],
+  ['cooling_5fcallbacks_2eh_20',['cooling_callbacks.h',['../cooling__callbacks_8h.html',1,'']]],
+  ['countof_2eh_21',['countof.h',['../countof_8h.html',1,'']]],
+  ['crc_2ec_22',['crc.c',['../phal__F4_2crc_2crc_8c.html',1,'']]],
+  ['crc_2eh_23',['crc.h',['../phal__F4_2crc_2crc_8h.html',1,'']]]
 ];

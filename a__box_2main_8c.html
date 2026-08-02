@@ -176,20 +176,6 @@ volatile <a class="el" href="structadc1__dma__buffer__t.html">adc1_dma_buffer_t<
 <tr class="memitem:a60563c6df24a123ae18e090bca85f555" id="r_a60563c6df24a123ae18e090bca85f555"><td class="memItemLeft" align="right" valign="top"><a id="a60563c6df24a123ae18e090bca85f555" name="a60563c6df24a123ae18e090bca85f555"></a>
 <a class="el" href="structGPIOInitConfig__t.html">GPIOInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>gpio_config</b> []</td></tr>
 <tr class="separator:a60563c6df24a123ae18e090bca85f555"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e372d6fcb26e99141502c56d908f788" id="r_a2e372d6fcb26e99141502c56d908f788"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structClockRateConfig__t.html">ClockRateConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e372d6fcb26e99141502c56d908f788">clock_config</a></td></tr>
-<tr class="separator:a2e372d6fcb26e99141502c56d908f788"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3f547c0ac514dd12e5bab27a6b60bec" id="r_ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memItemLeft" align="right" valign="top"><a id="ae3f547c0ac514dd12e5bab27a6b60bec" name="ae3f547c0ac514dd12e5bab27a6b60bec"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>APB1ClockRateHz</b></td></tr>
-<tr class="separator:ae3f547c0ac514dd12e5bab27a6b60bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdc1120bbc54485ac4c735d8f9756743" id="r_afdc1120bbc54485ac4c735d8f9756743"><td class="memItemLeft" align="right" valign="top"><a id="afdc1120bbc54485ac4c735d8f9756743" name="afdc1120bbc54485ac4c735d8f9756743"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>APB2ClockRateHz</b></td></tr>
-<tr class="separator:afdc1120bbc54485ac4c735d8f9756743"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c40deeaa6aeb002bafb0bc892484e0c" id="r_a2c40deeaa6aeb002bafb0bc892484e0c"><td class="memItemLeft" align="right" valign="top"><a id="a2c40deeaa6aeb002bafb0bc892484e0c" name="a2c40deeaa6aeb002bafb0bc892484e0c"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>AHBClockRateHz</b></td></tr>
-<tr class="separator:a2c40deeaa6aeb002bafb0bc892484e0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac132aa42c20a1d3744db9df04f31c54" id="r_aac132aa42c20a1d3744db9df04f31c54"><td class="memItemLeft" align="right" valign="top"><a id="aac132aa42c20a1d3744db9df04f31c54" name="aac132aa42c20a1d3744db9df04f31c54"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>PLLClockRateHz</b></td></tr>
-<tr class="separator:aac132aa42c20a1d3744db9df04f31c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54910fb29db8c9eac2409cc73cc828c5" id="r_a54910fb29db8c9eac2409cc73cc828c5"><td class="memItemLeft" align="right" valign="top"><a id="a54910fb29db8c9eac2409cc73cc828c5" name="a54910fb29db8c9eac2409cc73cc828c5"></a>
 <a class="el" href="structadbms__bms__t.html">adbms_bms_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>g_bms</b> = {0}</td></tr>
 <tr class="separator:a54910fb29db8c9eac2409cc73cc828c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -283,28 +269,6 @@ Millan Kumar (<a href="#" onclick="location.href='mai'+'lto:'+'kum'+'ar'+'798'+'
 <div class="line">    .cpol          = 0,</div>
 <div class="line">    .cpha          = 0,</div>
 <div class="line">    .data_rate     = 500&#39;000, </div>
-<div class="line">}</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a2e372d6fcb26e99141502c56d908f788" name="a2e372d6fcb26e99141502c56d908f788"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e372d6fcb26e99141502c56d908f788">&#9670;&#160;</a></span>clock_config</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structClockRateConfig__t.html">ClockRateConfig_t</a> clock_config</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .clock_source           = CLOCK_SOURCE_HSE,</div>
-<div class="line">    .use_pll                = <span class="keyword">false</span>,</div>
-<div class="line">    .system_clock_target_hz = TargetCoreClockrateHz,</div>
-<div class="line">    .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),</div>
-<div class="line">    .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),</div>
-<div class="line">    .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),</div>
 <div class="line">}</div>
 </div><!-- fragment -->
 </div>

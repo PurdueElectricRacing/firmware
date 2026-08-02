@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['usart_5fdma_5fmode_5ft_0',['usart_dma_mode_t',['../common_2phal__F4_2usart_2usart_8c.html#a7bd69e038fbf6f28b02d943c2748241f',1,'usart.c']]]
+  ['stop_5fbits_5ft_0',['stop_bits_t',['../phal__F4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553',1,'usart.h']]]
 ];

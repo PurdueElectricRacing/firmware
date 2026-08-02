@@ -3,7 +3,6 @@ var dir_bdd9a5d540de89e9fe90efdfc6973a4f =
     [ "amk", "dir_4806829e1f7f35fab185c60a177bdae6.html", "dir_4806829e1f7f35fab185c60a177bdae6" ],
     [ "bangbang", "dir_3ff6104c05cc3b58fb49010561da754f.html", "dir_3ff6104c05cc3b58fb49010561da754f" ],
     [ "bmi088", "dir_3b210a51bdfb7207c4ccc3bce16efa01.html", "dir_3b210a51bdfb7207c4ccc3bce16efa01" ],
-    [ "common_defs", "dir_d14dad6d4dd0a53ace723c1f049478ea.html", "dir_d14dad6d4dd0a53ace723c1f049478ea" ],
     [ "freertos", "dir_26279b31032f3838120ccd2327025368.html", "dir_26279b31032f3838120ccd2327025368" ],
     [ "heartbeat", "dir_563894f7215726e0b3ecac9d309826e0.html", "dir_563894f7215726e0b3ecac9d309826e0" ],
     [ "izze_imu", "dir_3d869cf79cc855611296189de4de01e3.html", "dir_3d869cf79cc855611296189de4de01e3" ],

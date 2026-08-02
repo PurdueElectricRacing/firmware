@@ -1,12 +1,14 @@
 var phal__G4_2rcc_2rcc_8h =
 [
-    [ "ClockRateConfig_t", "structClockRateConfig__t.html", null ],
-    [ "PHAL_configureAHBClock", "phal__G4_2rcc_2rcc_8h.html#a1509d2e2c10b134bcc26f1465881db33", null ],
-    [ "PHAL_configureAPB1Clock", "phal__G4_2rcc_2rcc_8h.html#a0bbab857de2d2d1e08975dc977b68342", null ],
-    [ "PHAL_configureAPB2Clock", "phal__G4_2rcc_2rcc_8h.html#acb32cd6570e5e56268df32a141c188f0", null ],
-    [ "PHAL_configureClockRates", "phal__G4_2rcc_2rcc_8h.html#a7e9d115c0ba7b71bc58eafed17751479", null ],
-    [ "PHAL_configureHSESystemClock", "phal__G4_2rcc_2rcc_8h.html#ac2cfc3641ee4abbb3480dc5f401a7235", null ],
-    [ "PHAL_configureHSISystemClock", "phal__G4_2rcc_2rcc_8h.html#a29b119d6f21bf411f02442d651ac4ff9", null ],
-    [ "PHAL_configurePLLSystemClock", "phal__G4_2rcc_2rcc_8h.html#abd0ea1bcc85ce9ff20dc37966d0286d0", null ],
-    [ "PHAL_configurePLLVCO", "phal__G4_2rcc_2rcc_8h.html#ae8e3a1b142cf74b1b38984c805673cf5", null ]
+    [ "PHAL_RCC_Mode_t", "phal__G4_2rcc_2rcc_8h.html#a1c73ccee559be5aa0946979a99aeff4f", [
+      [ "PHAL_RCC_HSI_16MHZ", "phal__G4_2rcc_2rcc_8h.html#a1c73ccee559be5aa0946979a99aeff4fa06bd221257220764f8a7ad60e29a82fe", null ],
+      [ "PHAL_RCC_HSI_170MHZ", "phal__G4_2rcc_2rcc_8h.html#a1c73ccee559be5aa0946979a99aeff4fa00d1268d18078cd9593b2f0066a45a2a", null ],
+      [ "PHAL_RCC_HSE_16MHZ", "phal__G4_2rcc_2rcc_8h.html#a1c73ccee559be5aa0946979a99aeff4fa662377d944f372712cf717b376c320be", null ],
+      [ "PHAL_RCC_HSE_170MHZ", "phal__G4_2rcc_2rcc_8h.html#a1c73ccee559be5aa0946979a99aeff4fad62da5488489c62f6acca1445d744803", null ]
+    ] ],
+    [ "PHAL_RCC_getAHBClockHz", "phal__G4_2rcc_2rcc_8h.html#ac6c0661fa09c0c76a597c5b394bc3ebb", null ],
+    [ "PHAL_RCC_getAPB1ClockHz", "phal__G4_2rcc_2rcc_8h.html#aa351cc1ef8604fe3082fd812ad88a71b", null ],
+    [ "PHAL_RCC_getAPB2ClockHz", "phal__G4_2rcc_2rcc_8h.html#ab76710442224b6b571ada816cb46c840", null ],
+    [ "PHAL_RCC_getSystemClockHz", "phal__G4_2rcc_2rcc_8h.html#a6758e583bda1056bc7233177323c0f09", null ],
+    [ "PHAL_RCC_init", "phal__G4_2rcc_2rcc_8h.html#a2da5f97897f406d973bb5d92c934224b", null ]
 ];

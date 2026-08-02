@@ -129,8 +129,12 @@ int main() {
     PHAL_SPI_transfer(&spi1, master_tx, XFER_LEN, master_rx);
     while (PHAL_SPI_busy(&spi1) || PHAL_SPI_busy(&spi2))
         ;
+    
+    // Non-DMA loopback test: tie PA7 (MOSI) to PA6 (MISO)
+    PHAL_SPI_transfer_noDMA(&spi1, master_tx, XFER_LEN, XFER_LEN, master_rx);
+    while (PHAL_SPI_busy(&spi1))
+        ;
 
-    while (true) {
 
     return 0;
 }

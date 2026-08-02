@@ -1,15 +1,16 @@
 var searchData=
 [
   ['ecc_0',['ECC',['../structSD__CSD.html#a3f15a69d00564e8c1e6c5bbda4ffefd7',1,'SD_CSD']]],
-  ['erasegrmul_1',['EraseGrMul',['../structSD__CSD.html#a7aac5c37c5a01ad59f8e54c35985df00',1,'SD_CSD']]],
-  ['erasegrsize_2',['EraseGrSize',['../structSD__CSD.html#ab96f260933654d16a42b4682dbe9b823',1,'SD_CSD']]],
-  ['err_5fcell_5fvoltage_5fpecs_3',['err_cell_voltage_pecs',['../structadbms__bms__t.html#a2f5a5ff3ffb9b1466aad745ca1a063eb',1,'adbms_bms_t']]],
-  ['err_5fconnect_4',['err_connect',['../structadbms__bms__t.html#a3f35a3debc951e3533be8f8142a6c398',1,'adbms_bms_t']]],
-  ['err_5fgpio_5fvoltage_5fpecs_5',['err_gpio_voltage_pecs',['../structadbms__bms__t.html#a6adba977011dc6761a31748bd740a16f',1,'adbms_bms_t']]],
-  ['err_5frega_5fmismatch_6',['err_rega_mismatch',['../structadbms__module__t.html#a0aec88e2a6e003dc2ac0e84f75585089',1,'adbms_module_t::err_rega_mismatch'],['../structadbms__bms__t.html#a5bf82d8f5b88621abee2f73ce7a56640',1,'adbms_bms_t::err_rega_mismatch']]],
-  ['err_5frega_5fpec_7',['err_rega_pec',['../structadbms__bms__t.html#ab6b9d27ff449a8cb200328724045f2db',1,'adbms_bms_t']]],
-  ['err_5fregb_5fmismatch_8',['err_regb_mismatch',['../structadbms__module__t.html#ad890a4c86776701d2548cd0b447767df',1,'adbms_module_t::err_regb_mismatch'],['../structadbms__bms__t.html#a2bb229e3800846e87da3e599b5f7526e',1,'adbms_bms_t::err_regb_mismatch']]],
-  ['err_5fregb_5fpec_9',['err_regb_pec',['../structadbms__bms__t.html#a71c09b1df557cb246e4784fb4d1a6ff5',1,'adbms_bms_t']]],
-  ['err_5fspi_10',['err_spi',['../structadbms__bms__t.html#a888891baf62b77d0c0ecdf617d736f79',1,'adbms_bms_t']]],
-  ['extid_11',['ExtId',['../structCanMsgTypeDef__t.html#a184c6e876770b9bc3a766986921cc35c',1,'CanMsgTypeDef_t']]]
+  ['endpoint_1',['endpoint',['../structPHAL__USB__TransferEvent__t.html#ae35eb5b84240c6933ec592d17f33c6a5',1,'PHAL_USB_TransferEvent_t']]],
+  ['erasegrmul_2',['EraseGrMul',['../structSD__CSD.html#a7aac5c37c5a01ad59f8e54c35985df00',1,'SD_CSD']]],
+  ['erasegrsize_3',['EraseGrSize',['../structSD__CSD.html#ab96f260933654d16a42b4682dbe9b823',1,'SD_CSD']]],
+  ['err_5fcell_5fvoltage_5fpecs_4',['err_cell_voltage_pecs',['../structadbms__bms__t.html#a2f5a5ff3ffb9b1466aad745ca1a063eb',1,'adbms_bms_t']]],
+  ['err_5fconnect_5',['err_connect',['../structadbms__bms__t.html#a3f35a3debc951e3533be8f8142a6c398',1,'adbms_bms_t']]],
+  ['err_5fgpio_5fvoltage_5fpecs_6',['err_gpio_voltage_pecs',['../structadbms__bms__t.html#a6adba977011dc6761a31748bd740a16f',1,'adbms_bms_t']]],
+  ['err_5frega_5fmismatch_7',['err_rega_mismatch',['../structadbms__module__t.html#a0aec88e2a6e003dc2ac0e84f75585089',1,'adbms_module_t::err_rega_mismatch'],['../structadbms__bms__t.html#a5bf82d8f5b88621abee2f73ce7a56640',1,'adbms_bms_t::err_rega_mismatch']]],
+  ['err_5frega_5fpec_8',['err_rega_pec',['../structadbms__bms__t.html#ab6b9d27ff449a8cb200328724045f2db',1,'adbms_bms_t']]],
+  ['err_5fregb_5fmismatch_9',['err_regb_mismatch',['../structadbms__module__t.html#ad890a4c86776701d2548cd0b447767df',1,'adbms_module_t::err_regb_mismatch'],['../structadbms__bms__t.html#a2bb229e3800846e87da3e599b5f7526e',1,'adbms_bms_t::err_regb_mismatch']]],
+  ['err_5fregb_5fpec_10',['err_regb_pec',['../structadbms__bms__t.html#a71c09b1df557cb246e4784fb4d1a6ff5',1,'adbms_bms_t']]],
+  ['err_5fspi_11',['err_spi',['../structadbms__bms__t.html#a888891baf62b77d0c0ecdf617d736f79',1,'adbms_bms_t']]],
+  ['extid_12',['ExtId',['../structCanMsgTypeDef__t.html#a184c6e876770b9bc3a766986921cc35c',1,'CanMsgTypeDef_t']]]
 ];

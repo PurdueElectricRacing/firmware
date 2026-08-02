@@ -8,8 +8,10 @@ var searchData=
   ['pdu_5fswitch_5foutput_5ft_5',['pdu_switch_output_t',['../structpdu__switch__output__t.html',1,'']]],
   ['peripheralcontext_6',['PeripheralContext',['../classcodegen_1_1PeripheralContext.html',1,'codegen']]],
   ['phal_5fsd_5fcmd_5ft_7',['PHAL_SD_Cmd_t',['../structPHAL__SD__Cmd__t.html',1,'']]],
-  ['pounds_5ft_8',['pounds_t',['../structpounds__t.html',1,'']]],
-  ['powertrain_5ft_9',['powertrain_t',['../structpowertrain__t.html',1,'']]],
-  ['psi_5ft_10',['psi_t',['../structpsi__t.html',1,'']]],
-  ['pvcu_5fstruct_11',['pVCU_struct',['../structpVCU__struct.html',1,'']]]
+  ['phal_5fusb_5fevent_5ft_8',['PHAL_USB_Event_t',['../structPHAL__USB__Event__t.html',1,'']]],
+  ['phal_5fusb_5ftransferevent_5ft_9',['PHAL_USB_TransferEvent_t',['../structPHAL__USB__TransferEvent__t.html',1,'']]],
+  ['pounds_5ft_10',['pounds_t',['../structpounds__t.html',1,'']]],
+  ['powertrain_5ft_11',['powertrain_t',['../structpowertrain__t.html',1,'']]],
+  ['psi_5ft_12',['psi_t',['../structpsi__t.html',1,'']]],
+  ['pvcu_5fstruct_13',['pVCU_struct',['../structpVCU__struct.html',1,'']]]
 ];

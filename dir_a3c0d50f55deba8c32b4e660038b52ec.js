@@ -10,5 +10,6 @@ var dir_a3c0d50f55deba8c32b4e660038b52ec =
     [ "rcc.h", "phal_2rcc_8h_source.html", null ],
     [ "rtc.h", "phal_2rtc_8h_source.html", null ],
     [ "spi.h", "phal_2spi_8h_source.html", null ],
-    [ "usart.h", "phal_2usart_8h_source.html", null ]
+    [ "usart.h", "phal_2usart_8h_source.html", null ],
+    [ "usb.h", "phal_2usb_8h_source.html", null ]
 ];

@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"lcd_8h.html#af43eed5065a4456cc5013ee59b7a2ce7":[31,0,2,2,0,5,5],
 "lcd_8h_source.html":[31,0,2,2,0,5],
 "led_8c.html":[31,0,2,7,3,0],
 "led_8c.html#a1d38b8e14425dcbf14215634bcfa5290":[31,0,2,7,3,0,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "nextion_8h.html#ab2a89fd8e292338a6e570a41a698ad3a":[31,0,1,7,1,8],
 "nextion_8h.html#ac5753abcb75fb40221a51bcdec98bbd4":[31,0,1,7,1,7],
 "nextion_8h.html#ac7e3e9fc4674d17281069e97b8a5384d":[31,0,1,7,1,10],
-"nextion_8h.html#ae7d537c10e1e85e6537850a02a315fd7":[31,0,1,7,1,1],
-"nextion_8h.html#ae995d182561a5fa3087569539bb551d2":[31,0,1,7,1,3]
+"nextion_8h.html#ae7d537c10e1e85e6537850a02a315fd7":[31,0,1,7,1,1]
 };

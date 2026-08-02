@@ -94,6 +94,8 @@ var annotated_dup =
     [ "pdu_state_t", "structpdu__state__t.html", null ],
     [ "pdu_switch_output_t", "structpdu__switch__output__t.html", null ],
     [ "PHAL_SD_Cmd_t", "structPHAL__SD__Cmd__t.html", "structPHAL__SD__Cmd__t" ],
+    [ "PHAL_USB_Event_t", "structPHAL__USB__Event__t.html", "structPHAL__USB__Event__t" ],
+    [ "PHAL_USB_TransferEvent_t", "structPHAL__USB__TransferEvent__t.html", "structPHAL__USB__TransferEvent__t" ],
     [ "pounds_t", "structpounds__t.html", null ],
     [ "powertrain_t", "structpowertrain__t.html", null ],
     [ "psi_t", "structpsi__t.html", null ],

@@ -93,10 +93,7 @@ void PHAL_DMA_priv_configChannel(DMA_Channel_TypeDef *channel,
     bool mem2mem = params->mode == DMA_MODE_MEM2MEM;
 
     // MINC/PINC = Memory/Peripheral increment mode bit
-    // - a single peripheral data register never increments between elements
-    //   - the memory buffer always does
-    // - In MEM2MEM mode both sides are memory buffers, so both increment
-    uint32_t minc = DMA_CCR_MINC;
+    uint32_t minc = params->mem_inc ? DMA_CCR_MINC : 0;
     uint32_t pinc = mem2mem ? DMA_CCR_PINC : 0;
 
     channel->CCR =

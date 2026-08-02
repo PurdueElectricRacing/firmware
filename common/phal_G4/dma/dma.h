@@ -37,6 +37,7 @@ typedef struct {
     uint16_t tx_size;          /*!< Number of data elements to transfer */
     PHAL_DMA_Priority_t priority;
     PHAL_DMA_Mode_t mode;
+    bool mem_inc;              /*!< Increment memory address after each transfer */
     bool tx_isr_en;            /*!< Enable transfer-complete and transfer-error interrupts */
 } PHAL_DMA_Params_t;
 
@@ -118,6 +119,29 @@ bool PHAL_DMA_setLength(PHAL_DMA_Handle_t *handle, uint16_t length);
  * was never successfully init-ed
  */
 bool PHAL_DMA_isBusy(PHAL_DMA_Handle_t *handle);
+
+/**
+ * @brief Get the DMA peripheral (DMA1 or DMA2) for a given handle
+ * 
+ * @return Return nullptr if handle is null otherwise return the DMA peripheral for the given handle
+ */
+DMA_TypeDef *PHAL_DMA_getPeriph(PHAL_DMA_Handle_t *handle);
+
+/**
+ * @brief Get the channel number (1-8) for a given handle
+ * 
+ * @return uint8_t Return 0 if handle is null otherwise return the channel number for the given handle
+ */
+uint8_t PHAL_DMA_getChannelIdx(PHAL_DMA_Handle_t *handle);
+
+/**
+ * @brief Set whether the memory address increments after each transfer and rebuild the channel configuration
+ *
+ * If the channel is currently enabled, this function will not change the configuration
+ * 
+ * @param mem_inc true to increment memory address after each transfer, false to keep it constant
+ */
+void PHAL_DMA_setMemInc(PHAL_DMA_Handle_t *handle, bool mem_inc);
 
 /**
  * @brief Weak callback for when a channel's transfer completes

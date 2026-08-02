@@ -12,19 +12,19 @@ bool PHAL_initDMA(dma_init_t *dma) {
 
     PHAL_DMA_priv_setChannel(dma->periph, &dma->channel, dma->channel_idx);
 
-    /* DMA Channel configuration procedure (see RM0440 12.4.5 DMA channels section) */
+    // DMA Channel configuration procedure
 
     // Ensure the stream is disabled before attempting to configure the DMA control registers
     PHAL_DMA_priv_disableStream(dma->channel);
     // Clear any ISR status flags that may have been set previously for the target channel
     PHAL_DMA_priv_clearFlags(dma->periph, dma->channel_idx);
-    // 1. Set the peripheral register address in the DMA_CPARx register
+    // Set the peripheral register address in the DMA_CPARx register
     PHAL_DMA_priv_setPeriphAddress(dma);
-    // 2. Set the memory address in the DMA_CMARx register. 
+    // Set the memory address in the DMA_CMARx register
     PHAL_DMA_setMemAddress(dma, dma->mem_addr);
-    // 3. Configure the total number of data to transfer in the DMA_CNDTRx register.
+    // Configure the total number of data to transfer in the DMA_CNDTRx register
     PHAL_DMA_setTxferLength(dma, dma->tx_size);
-    // 4. Configure parameters in the DMA_CCRx register:
+    // Configure parameters in the DMA_CCRx register
     PHAL_DMA_priv_configParams(dma);
 
     // DMA Mux Channel configuration procedure

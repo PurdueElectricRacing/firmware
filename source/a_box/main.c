@@ -91,22 +91,6 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(BMS_SDC_CTRL_PORT, BMS_SDC_CTRL_PIN, GPIO_OUTPUT_LOW_SPEED)
 };
 
-static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
-ClockRateConfig_t clock_config = {
-    .clock_source           = CLOCK_SOURCE_HSE,
-    .use_pll                = false,
-    .system_clock_target_hz = TargetCoreClockrateHz,
-    .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
-};
-
-/* Locals for Clock Rates */
-extern uint32_t APB1ClockRateHz;
-extern uint32_t APB2ClockRateHz;
-extern uint32_t AHBClockRateHz;
-extern uint32_t PLLClockRateHz;
-
 adbms_bms_t g_bms                              = {0};
 uint8_t g_bms_tx_buf[ADBMS_SPI_TX_BUFFER_SIZE] = {0};
 
@@ -129,9 +113,8 @@ DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
     // Hardware Initilization
-    if (0 != PHAL_configureClockRates(&clock_config)) {
-        HardFault_Handler();
-    }
+    PHAL_RCC_init(PHAL_RCC_HSE_16MHZ);
+
     WDG_init();
     if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
@@ -155,12 +138,8 @@ int main(void) {
     PHAL_startADC(&adc_config);
     PHAL_startTxfer(&adc_dma_config);
 
-    if (false == PHAL_FDCAN_init(FDCAN1, false, VCAN_BAUD_RATE)) {
-        HardFault_Handler();
-    }
-    if (false == PHAL_FDCAN_init(FDCAN2, false, CCAN_BAUD_RATE)) {
-        HardFault_Handler();
-    }
+    PHAL_FDCAN_init(FDCAN1, VCAN_BAUD_RATE);
+    PHAL_FDCAN_init(FDCAN2, CCAN_BAUD_RATE);
     CAN_init();
 
     START_CAN_TASKS();

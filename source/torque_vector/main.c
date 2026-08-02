@@ -50,22 +50,6 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(BASE_RESET_PORT, BASE_RESET_PIN, GPIO_OUTPUT_LOW_SPEED),
 };
 
-static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
-ClockRateConfig_t clock_config = {
-    .clock_source           = CLOCK_SOURCE_HSE,
-    .use_pll                = false,
-    .system_clock_target_hz = TargetCoreClockrateHz,
-    .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
-};
-
-/* Locals for Clock Rates */
-extern uint32_t APB1ClockRateHz;
-extern uint32_t APB2ClockRateHz;
-extern uint32_t AHBClockRateHz;
-extern uint32_t PLLClockRateHz;
-
 // USART Configuration for GPS
 static constexpr uint32_t GPS_BAUD_RATE = 460'800;
 dma_init_t rover_tx_dma_config = USART3_TXDMA_CONT_CONFIG(NULL, 2);
@@ -98,22 +82,19 @@ DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
     // Hardware Initialization
-    if (0 != PHAL_configureClockRates(&clock_config)) {
-        HardFault_Handler();
-    }
+    PHAL_RCC_init(PHAL_RCC_HSE_16MHZ);
+
     WDG_init();
     if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
-    if (false == PHAL_initUSART(&usart3, APB1ClockRateHz)) {
+    if (false == PHAL_initUSART(&usart3, PHAL_RCC_getAPB1ClockHz())) {
         HardFault_Handler();
     }
     if (false == PHAL_usartRxDma(&usart3, (uint8_t *)rover_rx_buffer, sizeof(rover_rx_buffer), 1)) {
         HardFault_Handler();
     }
-    if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
-        HardFault_Handler();
-    }
+    PHAL_FDCAN_init(FDCAN2, VCAN_BAUD_RATE);
     CAN_init();
 
     initialize_calibration();

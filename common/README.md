@@ -21,7 +21,6 @@ Libraries, drivers, generic data structures, and other utilities.
 - `syscalls` Syscall shims used by embedded runtime/newlib.
 
 ## Utility libraries
-- `common_defs` Shared compile-time/runtime definitions.
 - `utils` General-purpose math and macro helpers (`min/max/clamp/rescale`, etc.).
 - `strbuf` Fixed-size string buffer utilities.
 - `lerp_lut` Lookup-table interpolation utilities.

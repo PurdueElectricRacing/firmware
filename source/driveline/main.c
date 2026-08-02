@@ -44,16 +44,6 @@ GPIOInitConfig_t gpio_config[] = {
 
 };
 
-static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
-ClockRateConfig_t clock_config = {
-    .clock_source           = CLOCK_SOURCE_HSI, // todo change to HSE
-    .use_pll                = false,
-    .system_clock_target_hz = TargetCoreClockrateHz,
-    .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
-};
-
 /* ADC Configuration */
 
 // ADC 1
@@ -144,12 +134,6 @@ dma_init_t adc4_dma_config = ADC4_DMA_CONT_CONFIG((uint32_t)&raw_adc4_values, si
 // additonally, it must have no padding and members must be uint16_t to match the ADC resolution and data alignment
 
 
-/* Locals for Clock Rates */
-extern uint32_t APB1ClockRateHz;
-extern uint32_t APB2ClockRateHz;
-extern uint32_t AHBClockRateHz;
-extern uint32_t PLLClockRateHz;
-
 extern void HardFault_Handler();
 void shockpots_periodic();
 void oil_temps_periodic();
@@ -162,9 +146,8 @@ DEFINE_HEARTBEAT_TASK(nullptr);
 
 int main(void) {
     // Hardware Initilization
-    if (0 != PHAL_configureClockRates(&clock_config)) {
-        HardFault_Handler();
-    }
+    PHAL_RCC_init(PHAL_RCC_HSE_16MHZ);
+
     WDG_init();
     if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
@@ -204,9 +187,7 @@ int main(void) {
     PHAL_startADC(&adc3_config);
     PHAL_startADC(&adc4_config);
 
-    if (false == PHAL_FDCAN_init(FDCAN2, false, VCAN_BAUD_RATE)) {
-        HardFault_Handler();
-    }
+    PHAL_FDCAN_init(FDCAN2, VCAN_BAUD_RATE);
     CAN_init();
 
     // Software Initalization

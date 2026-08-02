@@ -14,16 +14,6 @@
 // Prototypes
 void HardFault_Handler();
 
-// Clock Configuration
-#define TargetCoreClockrateHz 16000000
-ClockRateConfig_t clock_config = {
-    .clock_source           = CLOCK_SOURCE_HSI,
-    .system_clock_target_hz = TargetCoreClockrateHz,
-    .ahb_clock_target_hz    = (TargetCoreClockrateHz / 1),
-    .apb1_clock_target_hz   = (TargetCoreClockrateHz / (1)),
-    .apb2_clock_target_hz   = (TargetCoreClockrateHz / (1)),
-};
-extern uint32_t APB1ClockRateHz;
 
 // GPIO Configuration for LPUART1
 GPIOInitConfig_t gpio_config[] = {
@@ -54,13 +44,13 @@ usart_init_t usart_config = {.periph           = USART2,
 
 
 int main() {
-    if (PHAL_configureClockRates(&clock_config))
-        HardFault_Handler();
+    PHAL_RCC_init(PHAL_RCC_HSI_16MHZ);
+
     if (!PHAL_initGPIO(gpio_config, countof(gpio_config)))
         HardFault_Handler();
 
     // Initialize USART, passing the peripheral clock frequency
-    if (!PHAL_initUSART(&usart_config, APB1ClockRateHz))
+    if (!PHAL_initUSART(&usart_config, PHAL_RCC_getAPB1ClockHz()))
         HardFault_Handler();
 
     // Start a continuous DMA reception. The callback will handle incoming data.

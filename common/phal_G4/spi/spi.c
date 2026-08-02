@@ -8,8 +8,6 @@
 #include "common/phal_G4/spi/spi.h"
 #include "common/utils/clamp.h"
 
-extern uint32_t APB2ClockRateHz;
-extern uint32_t APB1ClockRateHz;
 
 // Track active TX transfers per DMA controller/channel so multiple SPI instances can run concurrently
 static volatile SPI_InitConfig_t *dma1_active_tx[8] = {0};
@@ -17,6 +15,10 @@ static volatile SPI_InitConfig_t *dma2_active_tx[8] = {0};
 
 static uint16_t trash_can; // For RX discard when in_data NULL
 static uint16_t zero;      // For TX dummy when out_data NULL
+
+static inline uint32_t LOG2_DOWN(uint32_t x) {
+    return 31U - (uint32_t)__builtin_clz(x);
+}
 
 static void handleTxComplete(DMA_TypeDef *dma_periph, uint8_t channel);
 
@@ -45,9 +47,9 @@ bool PHAL_SPI_init(SPI_InitConfig_t *cfg) {
         // Baud rate prescaler (BR) in CR1, source depends on bus
         uint32_t f_div;
         if ((uint32_t)cfg->periph == SPI1_BASE)
-            f_div = LOG2_DOWN(APB2ClockRateHz / cfg->data_rate) - 1;
+            f_div = LOG2_DOWN(PHAL_RCC_getAPB2ClockHz() / cfg->data_rate) - 1;
         else
-            f_div = LOG2_DOWN(APB1ClockRateHz / cfg->data_rate) - 1;
+            f_div = LOG2_DOWN(PHAL_RCC_getAPB1ClockHz() / cfg->data_rate) - 1;
         f_div = CLAMP(f_div, 0, 0b111);
         cfg->periph->CR1 &= ~SPI_CR1_BR_Msk;
         cfg->periph->CR1 |= f_div << SPI_CR1_BR_Pos;

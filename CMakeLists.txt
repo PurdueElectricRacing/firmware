@@ -39,7 +39,6 @@ include(can_library/can_library.cmake)
 set(COMMON_MODULES
     common/amk
     common/bangbang
-    common/common_defs
     common/freertos
     common/heartbeat
     common/lerp_lut

@@ -14,17 +14,6 @@ GPIOInitConfig_t gpio_config[] = {
     GPIO_INIT_OUTPUT(LED_GREEN_PORT, LED_GREEN_PIN, GPIO_OUTPUT_LOW_SPEED),
 };
 
-static constexpr uint32_t TargetCoreClockrateHz = 16'000'000;
-ClockRateConfig_t clock_config = {
-    .clock_source              = CLOCK_SOURCE_HSI,
-    .use_pll                   = false,
-    .vco_output_rate_target_hz = 16'000'000,
-    .system_clock_target_hz    = TargetCoreClockrateHz,
-    .ahb_clock_target_hz       = TargetCoreClockrateHz,
-    .apb1_clock_target_hz      = TargetCoreClockrateHz,
-    .apb2_clock_target_hz      = TargetCoreClockrateHz,
-};
-
 static volatile uint32_t produced       = 0;
 static volatile uint32_t consumed       = 0;
 static volatile uint32_t shared_counter = 0;
@@ -51,9 +40,8 @@ FREERTOS_DEFINE_COUNTING_SEMAPHORE(work_sem);
 
 
 int main() {
-    if (PHAL_configureClockRates(&clock_config)) {
-        HardFault_Handler();
-    }
+    PHAL_RCC_init(PHAL_RCC_HSI_16MHZ);
+
 
     if (!PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();

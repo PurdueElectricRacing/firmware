@@ -83,8 +83,8 @@ void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi);
      .tx_size          = 1, \
      .mem_size         = DMA_SIZE_8BIT, \
      .increment        = false, \
-     .mode            = DMA_MODE_NORMAL, \
-     .dir              = DMA_MEMORY_TO_PERIPH, /* M2P */ \
+     .mode             = DMA_MODE_NORMAL, \
+     .dir              = DMA_MEMORY_TO_PERIPH, \
      .mem_inc          = true, \
      .periph_inc       = false, \
      .priority         = (priority_), \
@@ -102,8 +102,8 @@ void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi);
      .tx_size          = 1, \
      .mem_size         = DMA_SIZE_8BIT, \
      .increment        = false, \
-     .mode           = DMA_MODE_NORMAL, \
-     .dir              = 0, \
+     .mode             = DMA_MODE_NORMAL, \
+     .dir              = DMA_PERIPH_TO_MEMORY, \
      .mem_inc          = true, \
      .periph_inc       = false, \
      .priority         = (priority_), \
@@ -121,7 +121,7 @@ void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi);
      .mem_size         = DMA_SIZE_8BIT, \
      .increment        = false, \
      .mode             = DMA_MODE_NORMAL, \
-     .dir              = 1, \
+     .dir              = DMA_MEMORY_TO_PERIPH, \
      .mem_inc          = true, \
      .periph_inc       = false, \
      .priority         = (priority_), \
@@ -139,8 +139,8 @@ void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi);
      .tx_size          = 1, \
      .mem_size         = DMA_SIZE_8BIT, \
      .increment        = false, \
-     .mode            = DMA_MODE_NORMAL, \
-     .dir              = 0, \
+     .mode             = DMA_MODE_NORMAL, \
+     .dir              = DMA_PERIPH_TO_MEMORY, \
      .mem_inc          = true, \
      .periph_inc       = false, \
      .priority         = (priority_), \
@@ -158,7 +158,7 @@ void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi);
      .mem_size         = DMA_SIZE_8BIT, \
      .increment        = false, \
      .mode             = DMA_MODE_NORMAL, \
-     .dir              = 1, \
+     .dir              = DMA_MEMORY_TO_PERIPH, \
      .mem_inc          = true, \
      .periph_inc       = false, \
      .priority         = (priority_), \

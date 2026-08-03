@@ -1,16 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"blinky_8c.html#a16a34b44b57ab33a01ec47aad586fae9":[31,0,3,5,0,7],
-"blinky_8c.html#a26523b6d1f04edb5b46ea0fc23af8e96":[31,0,3,5,0,5],
-"blinky_8c.html#a2af56a8bf3197b2f06cac4c0b84ffc3e":[31,0,3,5,0,4],
-"blinky_8c.html#a39f01820ad552979df9f72e65f1da1a2":[31,0,3,5,0,2],
-"blinky_8c.html#a60563c6df24a123ae18e090bca85f555":[31,0,3,5,0,10],
-"blinky_8c.html#a6312dae81a730823b198c3005cfbc3b2":[31,0,3,5,0,8],
-"blinky_8c.html#a8176596718eaeadbe7b2853dce8be573":[31,0,3,5,0,1],
-"blinky_8c.html#ab97457896cb16b88d7d29b6499caff54":[31,0,3,5,0,0],
-"blinky_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4":[31,0,3,5,0,9],
-"blinky_8c.html#af1732b68a532fd4dbaa6e34152c49585":[31,0,3,5,0,6],
-"bmi088_8c.html":[31,0,1,2,0],
 "bmi088_8c.html#a1dfbb27cde5d045d6291dba7fe0e709f":[31,0,1,2,0,9],
 "bmi088_8c.html#a236059cb2cd1459e4d2c45949de64326":[31,0,1,2,0,8],
 "bmi088_8c.html#a3461fc0efe935b675ce2f906f177b6b4":[31,0,1,2,0,1],
@@ -249,5 +238,16 @@ var NAVTREEINDEX1 =
 "classcodegen_1_1NodeRenderContext.html#a806161c0032207959ce2d6d44d262f49":[29,0,1,4,4],
 "classcodegen_1_1NodeRenderContext.html#a806161c0032207959ce2d6d44d262f49":[30,0,0,4,4],
 "classcodegen_1_1NodeRenderContext.html#a8a25297c97106d28b576293328d7f6f8":[29,0,1,4,0],
-"classcodegen_1_1NodeRenderContext.html#a8a25297c97106d28b576293328d7f6f8":[30,0,0,4,0]
+"classcodegen_1_1NodeRenderContext.html#a8a25297c97106d28b576293328d7f6f8":[30,0,0,4,0],
+"classcodegen_1_1NodeRenderContext.html#a93953974a548d1c522c3c809b77caf13":[29,0,1,4,6],
+"classcodegen_1_1NodeRenderContext.html#a93953974a548d1c522c3c809b77caf13":[30,0,0,4,6],
+"classcodegen_1_1NodeRenderContext.html#aa425578767a8e88524a67b3489122dd7":[29,0,1,4,3],
+"classcodegen_1_1NodeRenderContext.html#aa425578767a8e88524a67b3489122dd7":[30,0,0,4,3],
+"classcodegen_1_1NodeRenderContext.html#abf12254af0241a474a50b89eed70e515":[29,0,1,4,2],
+"classcodegen_1_1NodeRenderContext.html#abf12254af0241a474a50b89eed70e515":[30,0,0,4,2],
+"classcodegen_1_1NodeRenderContext.html#ac8d36ef891b28f755bf78e83f7e50a16":[29,0,1,4,1],
+"classcodegen_1_1NodeRenderContext.html#ac8d36ef891b28f755bf78e83f7e50a16":[30,0,0,4,1],
+"classcodegen_1_1NodeRenderContext.html#acd4bf9ccf4b062775d3a84cd92f57a0c":[29,0,1,4,5],
+"classcodegen_1_1NodeRenderContext.html#acd4bf9ccf4b062775d3a84cd92f57a0c":[30,0,0,4,5],
+"classcodegen_1_1PeripheralContext.html":[29,0,1,5]
 };

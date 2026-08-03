@@ -103,7 +103,7 @@ var sectionId = 'dynsection-2';
 <!-- Node13 -->
 <g id="Node000013" class="node">
 <title>Node13</title>
-<g id="a_Node000013"><a xlink:href="pwm_8c.html#ab72396114a93e461ec3d59ba61aaa976" target="_top" xlink:title=" ">
+<g id="a_Node000013"><a xlink:href="phal__F4_2pwm_2pwm_8c.html#ab72396114a93e461ec3d59ba61aaa976" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="245.75,-130.25 160.75,-130.25 160.75,-111 245.75,-111 245.75,-130.25"/>
 <text text-anchor="middle" x="203.25" y="-116.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_initPWM</text>
 </a>
@@ -121,7 +121,7 @@ var sectionId = 'dynsection-2';
 <!-- Node14 -->
 <g id="Node000014" class="node">
 <title>Node14</title>
-<g id="a_Node000014"><a xlink:href="pwm_8c.html#a0feea9f1d41ed207ccc9901fb1ec3be2" target="_top" xlink:title=" ">
+<g id="a_Node000014"><a xlink:href="phal__F4_2pwm_2pwm_8c.html#a0feea9f1d41ed207ccc9901fb1ec3be2" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="263,-93.25 143.5,-93.25 143.5,-74 263,-74 263,-93.25"/>
 <text text-anchor="middle" x="203.25" y="-79.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_PWMsetPercent</text>
 </a>

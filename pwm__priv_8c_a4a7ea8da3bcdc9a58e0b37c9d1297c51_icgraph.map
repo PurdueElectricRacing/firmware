@@ -1,0 +1,7 @@
+<map id="PHAL_PWM_priv_initTimer" name="PHAL_PWM_priv_initTimer">
+<area shape="rect" id="Node000001" title="Configure timer registers for PWM operation." alt="" coords="271,5,452,31"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2pwm_2pwm_8c.html#a8dfd9bea13ee093add3d12b69100eda4" title="Initialize consecutive PWM channels beginning at channel 1." alt="" coords="103,5,223,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="256,21,223,21,223,16,256,16"/>
+<area shape="rect" id="Node000003" href="$g4__testing_2pwm__testing_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>

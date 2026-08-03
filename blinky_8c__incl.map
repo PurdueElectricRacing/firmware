@@ -1,25 +1,5 @@
 <map id="source/g4_testing/blinky.c" name="source/g4_testing/blinky.c">
-<area shape="rect" id="Node000001" title=" " alt="" coords="186,5,357,31"/>
-<area shape="rect" id="Node000002" href="$g4__testing_8h.html" title=" " alt="" coords="42,79,133,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="241,34,134,75,132,71,239,29"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="222,226,286,252"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="270,32,255,94,249,136,249,178,252,211,247,211,243,178,244,135,250,93,265,31"/>
-<area shape="rect" id="Node000004" href="$freertos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="5,153,183,178"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="259,33,122,145,119,141,255,29"/>
-<area shape="rect" id="Node000005" href="$phal_2gpio_8h.html" title=" " alt="" coords="644,79,781,105"/>
-<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="347,29,629,74,628,80,346,34"/>
-<area shape="rect" id="Node000008" href="$phal_2rcc_8h.html" title=" " alt="" coords="308,79,440,105"/>
-<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="290,29,346,68,343,72,287,34"/>
-<area shape="rect" id="Node000009" href="$countof_8h.html" title="macro&#45;based countof implementation" alt="" coords="464,79,620,105"/>
-<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="318,29,482,72,480,77,317,34"/>
-<area shape="rect" id="Node000010" href="$g4__testing_2main_8h.html" title=" " alt="" coords="258,153,317,178"/>
-<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="275,31,287,137,282,138,270,32"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="122,176,214,217,212,222,120,181"/>
-<area shape="rect" id="Node000006" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="341,153,511,178"/>
-<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="665,108,490,151,489,146,663,103"/>
-<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="398,181,298,222,296,218,396,176"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="389,226,463,252"/>
-<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="429,179,429,211,423,211,423,179"/>
-<area shape="poly" id="edge10_Node000008_Node000006" title=" " alt="" coords="385,103,410,138,406,142,380,106"/>
-<area shape="poly" id="edge13_Node000010_Node000003" title=" " alt="" coords="284,180,269,213,264,211,279,177"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,177,31"/>
+<area shape="rect" id="Node000002" href="$g4__testing_8h.html" title=" " alt="" coords="45,79,137,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,31,94,63,88,63,88,31"/>
 </map>

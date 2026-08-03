@@ -60,9 +60,9 @@
 <area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="266,464,372,464,372,469,266,469"/>
 <area shape="rect" id="Node000017" href="$cooling__callbacks_8c.html#a3d7af8ec7b3820c6e1d8a70d81a539de" title=" " alt="" coords="404,503,484,528"/>
 <area shape="poly" id="edge11_Node000006_Node000017" title=" " alt="" coords="264,477,389,502,388,507,263,482"/>
-<area shape="rect" id="Node000018" href="$pwm_8c.html#ab72396114a93e461ec3d59ba61aaa976" title=" " alt="" coords="388,256,501,282"/>
+<area shape="rect" id="Node000018" href="$phal__F4_2pwm_2pwm_8c.html#ab72396114a93e461ec3d59ba61aaa976" title=" " alt="" coords="388,256,501,282"/>
 <area shape="poly" id="edge13_Node000006_Node000018" title=" " alt="" coords="265,453,284,440,298,423,305,405,307,367,309,329,317,309,332,291,351,278,372,271,374,276,353,283,336,295,322,312,314,330,312,367,310,406,303,425,288,444,268,457"/>
-<area shape="rect" id="Node000019" href="$pwm_8c.html#a0feea9f1d41ed207ccc9901fb1ec3be2" title=" " alt="" coords="364,305,524,331"/>
+<area shape="rect" id="Node000019" href="$phal__F4_2pwm_2pwm_8c.html#a0feea9f1d41ed207ccc9901fb1ec3be2" title=" " alt="" coords="364,305,524,331"/>
 <area shape="poly" id="edge14_Node000006_Node000019" title=" " alt="" coords="265,452,284,440,295,429,302,417,307,391,313,365,320,352,332,340,349,330,352,334,336,344,325,356,318,367,312,392,307,419,300,432,288,444,268,456"/>
 <area shape="rect" id="Node000020" href="$cooling__callbacks_8c.html#aa951da7b5aaa3453cc637a7bfa031797" title=" " alt="" coords="370,404,518,430"/>
 <area shape="poly" id="edge15_Node000006_Node000020" title=" " alt="" coords="263,450,360,431,361,436,264,455"/>

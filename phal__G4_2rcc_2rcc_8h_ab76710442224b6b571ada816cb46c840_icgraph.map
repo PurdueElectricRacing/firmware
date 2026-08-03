@@ -1,7 +1,13 @@
 <map id="PHAL_RCC_getAPB2ClockHz" name="PHAL_RCC_getAPB2ClockHz">
-<area shape="rect" id="Node000001" title=" " alt="" coords="164,31,363,56"/>
-<area shape="rect" id="Node000002" href="$dashboard_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="36,5,85,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,32,85,24,86,19,149,26"/>
-<area shape="rect" id="Node000003" href="$common_2phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="5,55,116,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="148,60,117,64,116,58,148,55"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="523,55,723,80"/>
+<area shape="rect" id="Node000002" href="$dashboard_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="348,5,398,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="539,54,398,26,399,20,540,48"/>
+<area shape="rect" id="Node000003" href="$pwm__priv_8c.html#a7eb5094e1f6ca9e94bb0fe31a397a683" title="Get timer specific information." alt="" coords="271,55,475,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="508,70,476,70,476,65,508,65"/>
+<area shape="rect" id="Node000006" href="$common_2phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="318,104,428,130"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="540,87,429,109,428,103,539,81"/>
+<area shape="rect" id="Node000004" href="$phal__G4_2pwm_2pwm_8c.html#a8dfd9bea13ee093add3d12b69100eda4" title="Initialize consecutive PWM channels beginning at channel 1." alt="" coords="103,55,223,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="255,70,224,70,224,65,255,65"/>
+<area shape="rect" id="Node000005" href="$g4__testing_2pwm__testing_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,55,55,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="87,70,55,70,55,65,87,65"/>
 </map>

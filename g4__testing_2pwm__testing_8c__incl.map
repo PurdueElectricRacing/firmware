@@ -1,0 +1,29 @@
+<map id="source/g4_testing/pwm_testing.c" name="source/g4_testing/pwm_testing.c">
+<area shape="rect" id="Node000001" title="Test file for PWM on STM32G4." alt="" coords="306,5,462,46"/>
+<area shape="rect" id="Node000002" href="$g4__testing_8h.html" title=" " alt="" coords="5,102,97,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="306,48,116,97,106,99,105,94,114,91,305,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="355,256,419,282"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="323,49,255,77,221,94,191,114,167,135,153,158,151,182,162,207,173,216,190,225,236,240,340,260,339,265,235,245,188,230,170,221,158,210,145,183,148,156,163,132,188,110,218,90,253,72,321,44"/>
+<area shape="rect" id="Node000004" href="$freertos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="172,183,349,208"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="350,49,322,69,297,96,278,132,268,168,262,167,273,130,293,92,319,65,347,44"/>
+<area shape="rect" id="Node000005" href="$phal__G4_2gpio_2gpio_8h.html" title="GPIO Driver for STM32L432 Devices." alt="" coords="486,94,637,135"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="426,44,509,85,507,89,423,49"/>
+<area shape="rect" id="Node000008" href="$phal__G4_2rcc_2rcc_8h.html" title="G4 RCC public API implementation." alt="" coords="661,94,806,135"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="464,44,646,89,645,94,463,49"/>
+<area shape="rect" id="Node000009" href="$phal__G4_2pwm_2pwm_8h.html" title="PWM driver for STM32G4." alt="" coords="307,94,462,135"/>
+<area shape="poly" id="edge13_Node000001_Node000009" title=" " alt="" coords="387,47,387,78,382,78,382,47"/>
+<area shape="rect" id="Node000010" href="$countof_8h.html" title="macro&#45;based countof implementation" alt="" coords="830,102,986,127"/>
+<area shape="poly" id="edge17_Node000001_Node000010" title=" " alt="" coords="463,35,628,59,819,91,839,95,838,100,819,97,627,65,463,40"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="283,207,354,246,351,251,281,211"/>
+<area shape="rect" id="Node000006" href="$phal__G4_8h.html" title=" " alt="" coords="476,183,661,208"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="566,135,569,167,563,167,561,135"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="539,211,433,253,431,248,537,206"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="532,256,605,282"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="571,209,571,241,566,241,566,209"/>
+<area shape="poly" id="edge11_Node000008_Node000003" title=" " alt="" coords="729,137,709,175,694,194,675,211,631,229,567,245,435,265,434,260,566,239,629,224,672,206,690,191,704,172,724,134"/>
+<area shape="poly" id="edge12_Node000008_Node000006" title=" " alt="" coords="694,138,609,178,606,173,691,133"/>
+<area shape="poly" id="edge10_Node000008_Node000007" title=" " alt="" coords="738,135,736,172,730,192,720,210,699,230,673,245,621,263,619,258,671,240,695,226,716,207,725,190,731,171,733,135"/>
+<area shape="poly" id="edge16_Node000009_Node000003" title=" " alt="" coords="387,135,389,241,384,241,382,135"/>
+<area shape="poly" id="edge14_Node000009_Node000006" title=" " alt="" coords="431,133,527,174,525,179,429,138"/>
+<area shape="poly" id="edge15_Node000009_Node000007" title=" " alt="" coords="400,133,429,169,466,206,497,228,530,247,527,251,495,233,463,210,425,173,396,137"/>
+</map>

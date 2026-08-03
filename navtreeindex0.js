@@ -249,5 +249,5 @@ var NAVTREEINDEX0 =
 "bangbang_8h.html#a6e64fa5703d5bbbc0b47d207bd44983c":[31,0,1,1,1,2],
 "bangbang_8h_source.html":[31,0,1,1,1],
 "blinky_8c.html":[31,0,3,5,0],
-"blinky_8c.html#a0a3ab7fe7d610f0f4997916fe277e5bc":[31,0,3,5,0,3]
+"bmi088_8c.html":[31,0,1,2,0]
 };

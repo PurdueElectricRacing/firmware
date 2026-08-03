@@ -16,5 +16,6 @@ var searchData=
   ['pounds_5ft_13',['pounds_t',['../structpounds__t.html',1,'']]],
   ['powertrain_5ft_14',['powertrain_t',['../structpowertrain__t.html',1,'']]],
   ['psi_5ft_15',['psi_t',['../structpsi__t.html',1,'']]],
-  ['pvcu_5fstruct_16',['pVCU_struct',['../structpVCU__struct.html',1,'']]]
+  ['pvcu_5fstruct_16',['pVCU_struct',['../structpVCU__struct.html',1,'']]],
+  ['pwm_5fpriv_5ftimerinfo_5ft_17',['PWM_PRIV_TimerInfo_t',['../structPWM__PRIV__TimerInfo__t.html',1,'']]]
 ];

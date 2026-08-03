@@ -76,7 +76,7 @@
 <!-- Node6 -->
 <g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_Node000006"><a xlink:href="pwm_8h.html" target="_top" xlink:title=" ">
+<g id="a_Node000006"><a xlink:href="phal__F4_2pwm_2pwm_8h.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="326.5,-196.25 211.5,-196.25 211.5,-165.75 326.5,-165.75 326.5,-196.25"/>
 <text text-anchor="start" x="219.5" y="-182.75" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_F4/pwm</text>
 <text text-anchor="middle" x="269" y="-171.5" font-family="Helvetica,sans-Serif" font-size="10.00">/pwm.h</text>

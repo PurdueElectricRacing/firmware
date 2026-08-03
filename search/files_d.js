@@ -13,7 +13,9 @@ var searchData=
   ['power_5frails_2epng_10',['power_rails.png',['../power__rails_8png.html',1,'']]],
   ['powertrain_2ec_11',['powertrain.c',['../powertrain_8c.html',1,'']]],
   ['powertrain_2eh_12',['powertrain.h',['../powertrain_8h.html',1,'']]],
-  ['pwm_2ec_13',['pwm.c',['../pwm_8c.html',1,'']]],
-  ['pwm_2eh_14',['pwm.h',['../pwm_8h.html',1,'']]],
-  ['pwm_5ftesting_2ec_15',['pwm_testing.c',['../pwm__testing_8c.html',1,'']]]
+  ['pwm_2ec_13',['pwm.c',['../phal__F4_2pwm_2pwm_8c.html',1,'(Global Namespace)'],['../phal__G4_2pwm_2pwm_8c.html',1,'(Global Namespace)']]],
+  ['pwm_2eh_14',['pwm.h',['../phal__F4_2pwm_2pwm_8h.html',1,'(Global Namespace)'],['../phal__G4_2pwm_2pwm_8h.html',1,'(Global Namespace)']]],
+  ['pwm_5fpriv_2ec_15',['pwm_priv.c',['../pwm__priv_8c.html',1,'']]],
+  ['pwm_5fpriv_2eh_16',['pwm_priv.h',['../pwm__priv_8h.html',1,'']]],
+  ['pwm_5ftesting_2ec_17',['pwm_testing.c',['../f4__testing_2pwm__testing_8c.html',1,'(Global Namespace)'],['../g4__testing_2pwm__testing_8c.html',1,'(Global Namespace)']]]
 ];

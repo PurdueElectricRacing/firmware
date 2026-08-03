@@ -103,6 +103,7 @@ var annotated_dup =
     [ "powertrain_t", "structpowertrain__t.html", "structpowertrain__t" ],
     [ "psi_t", "structpsi__t.html", "structpsi__t" ],
     [ "pVCU_struct", "structpVCU__struct.html", "structpVCU__struct" ],
+    [ "PWM_PRIV_TimerInfo_t", "structPWM__PRIV__TimerInfo__t.html", "structPWM__PRIV__TimerInfo__t" ],
     [ "radians_t", "structradians__t.html", "structradians__t" ],
     [ "raw_adc1_values_t", "structraw__adc1__values__t.html", "structraw__adc1__values__t" ],
     [ "raw_adc2_values_t", "structraw__adc2__values__t.html", "structraw__adc2__values__t" ],

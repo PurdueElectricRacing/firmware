@@ -6,7 +6,7 @@
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="540,47,540,78,535,78,535,47"/>
 <area shape="rect" id="Node000005" href="$bangbang_8h.html" title="Generic bang&#45;bang controller with hysteresis and minimum switch interval." alt="" coords="131,183,333,208"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="472,31,425,36,373,48,323,67,278,96,263,112,253,130,239,169,234,167,248,128,259,109,274,92,320,62,372,43,424,31,471,26"/>
-<area shape="rect" id="Node000006" href="$pwm_8h.html" title=" " alt="" coords="287,94,441,135"/>
+<area shape="rect" id="Node000006" href="$phal__F4_2pwm_2pwm_8h.html" title=" " alt="" coords="287,94,441,135"/>
 <area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="499,49,418,89,416,84,497,44"/>
 <area shape="rect" id="Node000011" href="$max_8h.html" title="Maximum value functions utility header." alt="" coords="634,102,771,127"/>
 <area shape="poly" id="edge14_Node000001_Node000011" title=" " alt="" coords="576,44,667,92,665,96,574,49"/>

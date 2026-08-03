@@ -1,0 +1,7 @@
+<map id="PHAL_PWM_setPercent" name="PHAL_PWM_setPercent">
+<area shape="rect" id="Node000001" title="Set a PWM channel&#39;s duty cycle." alt="" coords="5,31,172,56"/>
+<area shape="rect" id="Node000002" href="$pwm__priv_8c.html#abd733b1b6566e76a094805c81022dded" title="Get the timer auto&#45;reload register value." alt="" coords="220,5,436,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,32,204,29,204,34,172,37"/>
+<area shape="rect" id="Node000003" href="$pwm__priv_8c.html#a6add682c80e933c5f8a25219dbdc2ba7" title="Set the capture/compare value for a PWM channel." alt="" coords="227,55,428,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="172,49,212,53,211,58,172,54"/>
+</map>

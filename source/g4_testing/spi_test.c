@@ -171,7 +171,7 @@ int main() {
         } else {
             /// Blocking transfer test
             
-            PHAL_SPI_transfer_blocking(&spi2, slave_tx, XFER_LEN, slave_rx);
+            PHAL_SPI_transfer(&spi2, slave_tx, XFER_LEN, slave_rx);
             PHAL_SPI_transfer_blocking(&spi1, master_tx, XFER_LEN, master_rx);
 
             while (PHAL_SPI_busy(&spi1) || PHAL_SPI_busy(&spi2)) {

@@ -5,11 +5,11 @@
  * @author Ronak Jain (jain717@purdue.edu)
  * 
  */
- #include "common/phal_G4/spi/spi.h"
- #include "common/phal_G4/spi/spi_priv.h"
- #include "common/phal_G4/rcc/rcc.h"
-#include "common/utils/clamp.h"
 
+#include "common/phal_G4/spi/spi.h"
+#include "common/phal_G4/spi/spi_priv.h"
+#include "common/phal_G4/rcc/rcc.h"
+#include "common/utils/clamp.h"
 
 static volatile SPI_InitConfig_t *dma1_active_tx[8] = {0};
 static volatile SPI_InitConfig_t *dma2_active_tx[8] = {0};

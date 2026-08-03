@@ -76,7 +76,8 @@ void PHAL_SPI_init(SPI_InitConfig_t *handle);
  * @brief Start a DMA-backed SPI transfer.
  *
  * Non-blocking: returns immediately after the DMA transfer has been started.
- * If another transfer is already in progress, no new transfer is started.
+ * If another transfer is already in progress, block until it completes before
+ * starting the new transfer.
  *
  * Passing NULL for either buffer transmits or receives dummy data.
  *

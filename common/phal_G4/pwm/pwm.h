@@ -1,8 +1,7 @@
 /**
  * @file pwm.h
- * @author Natasha Pandit (npandit@purdue.edu)
  * @brief PWM driver for STM32G4
- * @date 2026-07-26
+ * @author Natasha Pandit (npandit@purdue.edu)
  */
 
 #ifndef _PHAL_PWM_H
@@ -13,10 +12,26 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-// initialize PWM outputs on timer
+/**
+* @brief Initialize consecutive PWM channels beginning at channel 1.
+*
+* @param tim Timer peripheral.
+* @param frequency_hz Requested PWM frequency.
+* @param channels_en Channels to enable.
+*
+* @return true if initialized properly; false if tim is NULL, frequency_hz is 0, or initialization fails.
+*/
 bool PHAL_initPWM(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en);
 
-// set PWM duty cycle for timer channel
-void PHAL_PWMsetPercent(TIM_TypeDef* tim, uint8_t channel, uint8_t percent);
+/**
+* @brief Set a PWM channel's duty cycle.
+*
+* @param tim Timer peripheral.
+* @param channel Specific channel to set duty cycle of.
+* @param percent Duty cycle percentage to set, 0-100.
+*
+* @return true if duty cycle is set properly; false if tim is NULL or setting cycle fails. 
+*/
+bool PHAL_PWMsetPercent(TIM_TypeDef* tim, uint8_t channel, uint8_t percent);
 
 #endif

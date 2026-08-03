@@ -1,227 +1,69 @@
 /**
- * @file pwm.c
- * @author Natasha Pandit (npandit@purdue.edu)
- * @brief PWM driver for STM32G4
- * @date 2026-07-25
- */
-
+* @file pwm.c
+* @brief Public PWM driver interface for STM32G4
+* @author Natasha Pandit (npandit@purdue.edu)
+*/
 #include <stddef.h>
 
 #include "common/phal_G4/pwm/pwm.h"
-
-extern uint32_t APB1ClockRateHz;
-extern uint32_t APB2ClockRateHz;
+#include "common/phal_G4/pwm/pwm_priv.h"
 
 bool PHAL_initPWM(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en) {
-    bool uses_apb2 = false;
-    bool requires_main_out_en = false;
-    uint8_t max_channels = 0U;
-
     if (tim == NULL || frequency_hz == 0U) {
         return false;
     }
 
-    switch((uint32_t)tim) {
-        // APB2 timers
-        case (uint32_t)TIM1:
-            RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;
-            uses_apb2 = true;
-            requires_main_out_en = true;
-            max_channels = 4U;
-            break;
+    PWM_PRIV_TimerInfo_t timer_info;
 
-        case (uint32_t)TIM8:
-            RCC->APB2ENR |= RCC_APB2ENR_TIM8EN;
-            uses_apb2 = true;
-            requires_main_out_en = true;
-            max_channels = 4U;
-            break;
-
-        case (uint32_t)TIM15:
-            RCC->APB2ENR |= RCC_APB2ENR_TIM15EN;
-            uses_apb2 = true;
-            requires_main_out_en = true;
-            max_channels = 2U;
-            break;
-
-        case (uint32_t)TIM16:
-            RCC->APB2ENR |= RCC_APB2ENR_TIM16EN;
-            uses_apb2 = true;
-            requires_main_out_en = true;
-            max_channels = 1U;
-            break;
-
-        case (uint32_t)TIM17:
-            RCC->APB2ENR |= RCC_APB2ENR_TIM17EN;
-            uses_apb2 = true;
-            requires_main_out_en = true;
-            max_channels = 1U;
-            break;
-
-        case (uint32_t)TIM20:
-            RCC->APB2ENR |= RCC_APB2ENR_TIM20EN;
-            uses_apb2 = true;
-            requires_main_out_en = true;
-            max_channels = 4U;
-            break;
-
-        // APB1 timers
-        case (uint32_t)TIM2:
-            RCC->APB1ENR1 |= RCC_APB1ENR1_TIM2EN;
-            max_channels = 4U;
-            break;
-
-        case (uint32_t)TIM3:
-            RCC->APB1ENR1 |= RCC_APB1ENR1_TIM3EN;
-            max_channels = 4U;
-            break;
-        
-        case (uint32_t)TIM4:
-            RCC->APB1ENR1 |= RCC_APB1ENR1_TIM4EN;
-            max_channels = 4U;
-            break;
-
-        case (uint32_t)TIM5:
-            RCC->APB1ENR1 |= RCC_APB1ENR1_TIM5EN;
-            max_channels = 4U;
-            break;   
-    
-        // TIM6 and TIM7 are basic timers
-        case (uint32_t)TIM6:
-        case (uint32_t)TIM7:
-
-        default:
-            return false;
-    }
-
-    // channels_en specifies amt of consecutive channels should be enabled - start at channel 1
-    if (channels_en == 0U || channels_en > max_channels) {
+    if (!PWM_PRIV_getTimerInfo(tim, &timer_info)) {
         return false;
     }
 
-    tim->CR1 &= ~TIM_CR1_CEN;
+    if (channels_en == 0U || channels_en > timer_info.max_channel) {
+        return false;
+    }
 
     /*
-     * PWM frequency:
+     * Keep ARR at 99 to provide 100 duty-cycle steps.
      *
-     * frequency =
-     * timer_clock /
-     * ((ARR + 1) * (PSC + 1))
-     *
-     * ARR is fixed at 99 so there are 100 duty-cycle steps.
+     * frequency = timer_clock / ((ARR + 1) * (PSC + 1))
      */
+    const uint32_t auto_reload = 99U;
+    const uint32_t period_steps = auto_reload + 1U;
 
-    tim->ARR = 100U - 1U;
-     
-    uint32_t timer_clock_hz = uses_apb2 ? APB2ClockRateHz : APB1ClockRateHz;
-    uint32_t denominator = frequency_hz * (tim->ARR + 1U);
-
-    if (denominator == 0U || denominator > timer_clock_hz) {
+    /*
+     * Check for multiplication overflow before calculating
+     * frequency_hz * period_steps.
+     */
+    if (frequency_hz > UINT32_MAX / period_steps) {
         return false;
     }
 
-    tim->PSC = (timer_clock_hz / denominator) - 1U;
+    const uint32_t denominator = frequency_hz * period_steps;
 
-    /*
-    * Intentional fallthrough:
-    * channels_en == 4 enables ch 1-4
-    * channels_en == 3 enables ch 1-3
-    * channels_en == 2 enables ch 1-2
-    * channels_en == 1 enables ch 1
-    */
-    switch (channels_en) {
-        case 4:
-            tim->CCMR2 &= ~TIM_CCMR2_OC4M_Msk;
-            tim->CCMR2 |= TIM_CCMR2_OC4M_2 | TIM_CCMR2_OC4M_1;
-
-            tim->CCR4 = 0;
-
-            tim->CCMR2 |= TIM_CCMR2_OC4PE;
-            tim->CCER |= TIM_CCER_CC4E;
-        
-        // fall through
-        case 3:
-            tim->CCMR2 &= ~TIM_CCMR2_OC3M_Msk;
-            tim->CCMR2 |= TIM_CCMR2_OC3M_2 | TIM_CCMR2_OC3M_1;
-
-            tim->CCR3 = 0;
-
-            tim->CCMR2 |= TIM_CCMR2_OC3PE;
-            tim->CCER |= TIM_CCER_CC3E;   
-        
-        // fall through
-        case 2:
-            tim->CCMR1 &= ~TIM_CCMR1_OC2M_Msk;
-            tim->CCMR1 |= TIM_CCMR1_OC2M_2 | TIM_CCMR1_OC2M_1;
-
-            tim->CCR2 = 0;
-
-            tim->CCMR1 |= TIM_CCMR1_OC2PE;
-            tim->CCER |= TIM_CCER_CC2E;  
-        
-        // fall through
-        case 1:
-            tim->CCMR1 &= ~TIM_CCMR1_OC1M_Msk;
-            tim->CCMR1 |= TIM_CCMR1_OC1M_2 | TIM_CCMR1_OC1M_1;
-
-            tim->CCR1 = 0;
-
-            tim->CCMR1 |= TIM_CCMR1_OC1PE;
-            tim->CCER |= TIM_CCER_CC1E;  
-            break;
-
-        default:
-            return false;
+    if (denominator == 0U || denominator > timer_info.timer_clock_hz) {
+        return false;
     }
 
-    /*
-    * Timers w/ break/dead-time functionality require moe before 
-    * outputs can appear on respective gpio pins
-    */
-    if (requires_main_out_en) {
-        tim->BDTR |= TIM_BDTR_MOE;
+    const uint32_t divider = timer_info.timer_clock_hz / denominator;
+
+    if (divider == 0U || divider > 65536U) {
+        return false;
     }
 
-    tim->CR1 &= ~TIM_CR1_DIR;
-    tim->CR1 |= TIM_CR1_ARPE;
+    const uint32_t prescaler = divider - 1U;
 
-    tim->CNT = 0U;
-    tim->EGR |= TIM_EGR_UG;
-
-    tim->CR1 |= TIM_CR1_CEN;
-
-    return true;
+    return PWM_PRIV_initTimer(tim, (uint16_t)prescaler, (uint16_t)auto_reload, channels_en, timer_info.requires_main_out_en);    
 }
 
-void PHAL_PWMsetPercent(TIM_TypeDef *tim, uint8_t channel, uint8_t percent) {
-    if (tim == NULL) {
-        return;
+bool PHAL_PWMsetPercent(TIM_TypeDef *tim, uint8_t channel, uint8_t percent) {
+    if (tim == NULL || channel < 1U || channel > 4U || percent > 100U) {
+        return false;
     }
 
-    if (percent > 100U) {
-        percent = 100U;
-    }
+    const uint32_t auto_reload = PWM_PRIV_getAutoReload(tim);
 
-    uint32_t compare_value = ((tim->ARR + 1U) * percent) / 100U;
+    const uint32_t compare_value = ((auto_reload + 1U) * percent) / 100U;
 
-    switch (channel) {
-        case 1U:
-            tim->CCR1 = compare_value;
-            break;
-
-        case 2U:
-            tim->CCR2 = compare_value;
-            break;  
-
-        case 3U:
-            tim->CCR3 = compare_value;
-            break;
-
-        case 4U:
-            tim->CCR4 = compare_value;
-            break;
-
-        default:
-            break;
-    }
+    return PWM_PRIV_setCompare(tim, channel, compare_value);
 }

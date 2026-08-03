@@ -134,6 +134,31 @@ bool PHAL_DMA_isBusy(PHAL_DMA_Handle_t *handle) {
     return PHAL_DMA_priv_isChannelEnabled(handle->channel);
 }
 
+bool PHAL_DMA_isComplete(PHAL_DMA_Handle_t *handle) {
+    if (handle == nullptr || handle->channel == nullptr) {
+        return false;
+    }
+
+    return PHAL_DMA_priv_readCompleteFlag(handle->wiring->periph, handle->wiring->channel_idx);
+}
+
+bool PHAL_DMA_isError(PHAL_DMA_Handle_t *handle) {
+    if (handle == nullptr || handle->channel == nullptr) {
+        return false;
+    }
+
+    return PHAL_DMA_priv_readErrorFlag(handle->wiring->periph, handle->wiring->channel_idx);
+}
+
+bool PHAL_DMA_clearFlags(PHAL_DMA_Handle_t *handle) {
+    if (handle == nullptr || handle->channel == nullptr) {
+        return false;
+    }
+
+    PHAL_DMA_priv_clearFlags(handle->wiring->periph, handle->wiring->channel_idx);
+    return true;
+}
+
 DMA_TypeDef *PHAL_DMA_getPeriph(PHAL_DMA_Handle_t *handle) {
     if (handle == nullptr || handle->channel == nullptr) {
         return nullptr;

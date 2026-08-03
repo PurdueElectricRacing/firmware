@@ -121,6 +121,37 @@ bool PHAL_DMA_setLength(PHAL_DMA_Handle_t *handle, uint16_t length);
 bool PHAL_DMA_isBusy(PHAL_DMA_Handle_t *handle);
 
 /**
+ * @brief Check whether the channel has finished its transfer (TC flag set)
+ *
+ * A normal-mode channel clears EN and latches this flag on its own when the
+ * transfer count reaches zero, so this is the flag a blocking wrapper should
+ * busy-wait on.
+ *
+ * @param handle initialized DMA handle
+ * @return true if the transfer-complete flag is set, false otherwise
+ */
+bool PHAL_DMA_isComplete(PHAL_DMA_Handle_t *handle);
+
+/**
+ * @brief Check whether the channel reported a transfer error (TE flag set)
+ *
+ * A bus error during the transfer latches this flag and stops the channel.
+ *
+ * @param handle initialized DMA handle
+ * @return true if the transfer-error flag is set, false otherwise
+ */
+bool PHAL_DMA_isError(PHAL_DMA_Handle_t *handle);
+
+/**
+ * @brief Clear every latched status flag (complete/error/global) for the
+ * channel, so a finished transfer can be reused
+ *
+ * @param handle initialized DMA handle
+ * @return true on success, false if handle was never successfully initialized
+ */
+bool PHAL_DMA_clearFlags(PHAL_DMA_Handle_t *handle);
+
+/**
  * @brief Get the DMA peripheral (DMA1 or DMA2) for a given handle
  * 
  * @return Return nullptr if handle is null otherwise return the DMA peripheral for the given handle

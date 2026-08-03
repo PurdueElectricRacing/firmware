@@ -9,6 +9,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include "common/phal/adc.h"
 #include "common/phal/gpio.h"
 #include "adbms.h"
 
@@ -55,6 +56,8 @@ typedef struct {
     uint16_t vbatt_raw;
 } adc1_dma_buffer_t;
 extern volatile adc1_dma_buffer_t adc1_dma_buffer;
+
+extern PHAL_ADC_Handle_t adc_handle;
 
 extern adbms_bms_t g_bms;
 

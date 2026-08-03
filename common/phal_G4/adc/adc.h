@@ -1,127 +1,160 @@
 /**
  * @file adc.h
- * @author Chris McGalliard - port of L4 HAL by Luke Oxley (lcoxley@purdue.edu)
- * @brief
- * @version 0.1
- * @date 2023-09-17
+ * @brief G4 ADC public API. DMA-only, DMA-first conversions.
+ * @author Ronak Jain (jain717@purdue.edu)
  */
 
-#ifndef __PHAL_G4_ADC_H__
-#define __PHAL_G4_ADC_H__
+#ifndef PHAL_G4_ADC_H
+#define PHAL_G4_ADC_H
+
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
 
 #include "common/phal_G4/phal_G4.h"
 
-typedef enum {
-    ADC_RES_12_BIT = 0b00,
-    ADC_RES_10_BIT = 0b01,
-    ADC_RES_8_BIT  = 0b10,
-    ADC_RES_6_BIT  = 0b11
-} ADCResolution_t;
+#include "common/phal_G4/dma/dma.h"
 
-typedef enum {
-    ADC_CLK_PRESC_0 = 0b0000,
-    ADC_CLK_PRESC_2 = 0b0001,
-    ADC_CLK_PRESC_4 = 0b0010,
-    ADC_CLK_PRESC_6 = 0b0011,
-    ADC_CLK_PRESC_8 = 0b0100,
-} ADCClkPrescaler_t;
+/// Maximum number of channels one ADC conversion sequence can hold
+static constexpr uint8_t PHAL_ADC_MAX_CHANNEL_COUNT = 16U;
 
-typedef enum {
-    ADC_DMA_OFF      = 0b00,
-    ADC_DMA_ONESHOT  = 0b01,
-    ADC_DMA_CIRCULAR = 0b11
-} ADCDMAMode_t;
+/// Highest ADC channel number (IN18 on the G474)
+static constexpr uint8_t PHAL_ADC_MAX_CHANNEL_NUMBER = 18U;
 
-typedef enum {
-    ADC_DATA_ALIGN_RIGHT = 0b0,
-    ADC_DATA_ALIGN_LEFT  = 0b1
-} ADCDataAlign_t;
-
-typedef enum {
-    ADC_OVERSAMPLE_NONE = 0,
-    ADC_OVERSAMPLE_2    = 2,
-    ADC_OVERSAMPLE_4    = 4,
-    ADC_OVERSAMPLE_8    = 8,
-    ADC_OVERSAMPLE_16   = 16,
-    ADC_OVERSAMPLE_32   = 32,
-    ADC_OVERSAMPLE_64   = 64,
-    ADC_OVERSAMPLE_128  = 128,
-    ADC_OVERSAMPLE_256  = 256,
-} ADCOversampleCount_t;
-
+/**
+ * @brief One entry in the conversion sequence
+ *
+ * Channels are converted in array order (channels[0] first). The sampling
+ * time is fixed to the maximum (640.5 cycles) for every channel.
+ */
 typedef struct {
-    ADCClkPrescaler_t prescaler;
-    ADCResolution_t resolution;
-    ADCDataAlign_t data_align;
-    bool cont_conv_mode;
-    ADCOversampleCount_t oversample;
-    ADCDMAMode_t dma_mode;
-    ADC_TypeDef* periph;
-} ADCInitConfig_t;
+    uint8_t channel; /*!< ADC channel number, 1 - 18 (IN1..IN18) */
+} PHAL_ADC_ChannelConfig_t;
 
-typedef enum {
-    ADC_CHN_SMP_CYCLES_3   = 0b000,
-    ADC_CHN_SMP_CYCLES_15  = 0b001,
-    ADC_CHN_SMP_CYCLES_28  = 0b010,
-    ADC_CHN_SMP_CYCLES_56  = 0b011,
-    ADC_CHN_SMP_CYCLES_84  = 0b100,
-    ADC_CHN_SMP_CYCLES_112 = 0b101,
-    ADC_CHN_SMP_CYCLES_144 = 0b110,
-    ADC_CHN_SMP_CYCLES_480 = 0b111,
-} ADCChannelSampleCycles_t;
-
-typedef enum {
-    ADC_CHANNEL_1 = 1,
-    ADC_CHANNEL_2 = 2,
-    ADC_CHANNEL_3 = 3,
-    ADC_CHANNEL_4 = 4,
-} ADCChannel_t;
-
+/**
+ * @brief Static configuration for one ADC instance
+ *
+ * Everything else is fixed by the driver:
+ * - 12-bit resolution, right-aligned data
+ * - continuous conversion engine with circular DMA (each transfer keeps
+ *   refreshing the destination buffer)
+ * - ADC clock = HCLK / 4 (4 MHz @ 16 MHz HCLK, 42.5 MHz @ 170 MHz HCLK)
+ * - no oversampling, no hardware trigger (software start only)
+ */
 typedef struct {
-    ADCChannel_t channel; // not the GPIO channel, use the ADC channel
-    uint32_t rank; // order at which the channels will be polled, starting at 0
-    ADCChannelSampleCycles_t sampling_time;
-} ADCChannelConfig_t;
-
-#define ADC1_CH1_GPIO_Port (GPIOA)
-#define ADC1_CH1_Pin       (0)
-#define ADC1_CH2_GPIO_Port (GPIOA)
-#define ADC1_CH2_Pin       (1)
-#define ADC1_CH3_GPIO_Port (GPIOA)
-#define ADC1_CH3_Pin       (2)
-#define ADC1_CH4_GPIO_Port (GPIOA)
-#define ADC1_CH4_Pin       (3)
+    ADC_TypeDef *instance;               /*!< ADC1, ADC2, ADC3 or ADC4 */
+    const PHAL_ADC_ChannelConfig_t *channels; /*!< sequence, converted in array order */
+    size_t channel_count;                /*!< entries in channels[], 1 - 16 */
+} PHAL_ADC_Config_t;
 
 /**
- * @brief Initializes the ADC, requires GPIO config prior
+ * @brief Runtime handle for one ADC instance
  *
- * @param adc ADC handle
- * @param config ADC initial config settings
- * @param channels List of channel configurations
- * @param num_channels Number of channels in the channel configuration list
-**/
-bool PHAL_initADC(ADCInitConfig_t* config, ADCChannelConfig_t channels[], uint8_t num_channels);
+ * Zero-initialize (or `static` declare) and pass to PHAL_ADC_init().
+ * Do not touch the fields yourself.
+ */
+typedef struct {
+    const PHAL_ADC_Config_t *config; /*!< the config passed to PHAL_ADC_init() */
+    PHAL_DMA_Handle_t dma;           /*!< DMA channel claimed for this ADC */
+    volatile bool busy;              /*!< true while a transfer is in flight */
+    volatile bool transfer_error;    /*!< set if the last in-flight transfer hit a DMA error */
+} PHAL_ADC_Handle_t;
 
 /**
- * @brief Starts the ADC conversions, requires PHAL_initADC to be called prior
+ * @brief Configure an ADC instance and its DMA channel
  *
- * @param adc ADC handle
-**/
-bool PHAL_startADC(ADCInitConfig_t* config);
+ * What this does, in order:
+ * 1. Enables the ADC (and DMA) clocks
+ * 2. Runs the ADC hardware calibration
+ * 3. Configures the conversion sequence, sample times, and fixed conversion
+ *    options (12-bit, right-aligned, continuous, DMA-enabled, no oversampling)
+ * 4. Enables the ADC and waits until it reports ready
+ * 5. Claims the ADC's dedicated DMA channel and enables its interrupt
+ *
+ * The DMA channel is fixed per instance (ADC1 -> DMA1 ch1, ADC2 -> DMA2 ch1,
+ * ADC3 -> DMA2 ch2, ADC4 -> DMA2 ch3). Only one handle may claim each ADC
+ * instance; handles remain claimed for the lifetime of the application.
+ *
+ * @param handle zero-initialized handle to populate
+ * @param config static configuration to use; must stay valid for the
+ *        lifetime of the handle
+ * @return true on success, false if the config is invalid, the instance is
+ *         already claimed, calibration fails, or the DMA channel is taken
+ * @note Initialization configures the ADC and DMA but does not start sampling;
+ *       call PHAL_ADC_readDMA() once after initialization to start background
+ *       acquisition.
+ */
+bool PHAL_ADC_init(PHAL_ADC_Handle_t *handle, const PHAL_ADC_Config_t *config);
 
 /**
- * @brief Stops the ADC conversions, requires PHAL_initADC to be called prior
+ * @brief Start an asynchronous circular-DMA conversion into `buffer`
  *
- * @param adc ADC handle
-**/
-bool PHAL_stopADC(ADCInitConfig_t* config);
+ * The ADC continuously refreshes `buffer` and remains active until
+ * PHAL_ADC_stop() is called. `PHAL_ADC_conversionCompleteCallback()` fires
+ * (from the DMA interrupt context) after each buffer wrap.
+ *
+ * If `length` is not a multiple of the sequence length, the final burst is a
+ * partial sequence (still one sample per conversion).
+ *
+ * Fails without starting anything if a transfer is already in flight, the
+ * handle was never initialized, `buffer` is null or not halfword-aligned, or
+ * `length` is zero.
+ *
+ * @param handle initialized handle
+ * @param buffer destination, must stay valid until PHAL_ADC_stop() is called
+ * @param length number of 16-bit samples to collect (1 - 65535)
+ * @return true if the transfer was started, false otherwise
+ * @note Only one background transfer may be active for a handle.
+ */
+bool PHAL_ADC_readDMA(PHAL_ADC_Handle_t *handle, uint16_t *buffer, uint16_t length);
 
 /**
- * @brief Reads the ADC data register
+ * @brief Synchronous one-buffer conversion using the DMA engine
  *
- * @param adc ADC handle
- * @return contents of the data register
-**/
-uint16_t PHAL_readADC(ADCInitConfig_t* config);
+ * Starts the circular acquisition, blocks until one buffer has completed, then
+ * stops the acquisition. A successful transfer fires
+ * `PHAL_ADC_conversionCompleteCallback()` before returning.
+ *
+ * Note: `timeout` is a count of busy-wait iterations, not a wall-clock time.
+ * At 16 MHz one iteration is a handful of CPU cycles; the ADC itself takes
+ * roughly (640.5 + 12.5) / fADC seconds per sample (about 163 us at 4 MHz fADC).
+ *
+ * @param handle initialized handle
+ * @param buffer destination for the samples
+ * @param length number of 16-bit samples to collect
+ * @param timeout busy-wait iteration budget (0 = return immediately)
+ * @return true if all samples were collected, false on timeout or DMA error
+ */
+bool PHAL_ADC_readBlocking(PHAL_ADC_Handle_t *handle, uint16_t *buffer, uint16_t length, uint32_t timeout);
 
-#endif // __PHAL_G4_ADC_H__
+/**
+ * @brief Abort any transfer in flight and leave the ADC idle
+ *
+ * Safe to call at any time, even with no transfer running (it is then a no-op).
+ * Does not fire the completion callback.
+ *
+ * @param handle initialized handle
+ * @return true if the handle is initialized, false otherwise
+ */
+bool PHAL_ADC_stop(PHAL_ADC_Handle_t *handle);
+
+/**
+ * @brief Check whether a transfer is currently in flight
+ * @param handle initialized handle
+ * @return true while a PHAL_ADC_readDMA() transfer is running
+ */
+bool PHAL_ADC_busy(const PHAL_ADC_Handle_t *handle);
+
+/**
+ * @brief Weak callback fired once per completed DMA buffer
+ *
+ * Called from the DMA interrupt context after each asynchronous circular-DMA
+ * buffer completes, and from the caller's context at the end of a successful
+ * PHAL_ADC_readBlocking(). On a DMA error, `handle->transfer_error` is true.
+ * Keep it short; the default implementation does nothing.
+ *
+ * @param handle the handle whose transfer just completed
+ */
+extern void PHAL_ADC_conversionCompleteCallback(PHAL_ADC_Handle_t *handle);
+
+#endif // PHAL_G4_ADC_H

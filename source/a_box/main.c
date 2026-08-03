@@ -59,31 +59,18 @@ SPI_InitConfig_t bms_spi_config = {
     .data_rate     = 500'000, // 500 kHz SPI clock for ADBMS6380
 };
 
-ADCInitConfig_t adc_config = {
-    .prescaler      = ADC_CLK_PRESC_2,
-    .resolution     = ADC_RES_12_BIT,
-    .data_align     = ADC_DATA_ALIGN_RIGHT,
-    .cont_conv_mode = true,
-    .dma_mode       = ADC_DMA_CIRCULAR,
-    .periph         = ADC1,
-};
-
 volatile adc1_dma_buffer_t adc1_dma_buffer;
-ADCChannelConfig_t adc_channel_config[] = {
-    {.channel = ISENSE_ADC_CHANNEL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-    {.channel = VBATT_ADC_CHANNEL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480}
+
+static const PHAL_ADC_ChannelConfig_t adc_channels[] = {
+    {.channel = ISENSE_ADC_CHANNEL},
+    {.channel = VBATT_ADC_CHANNEL},
 };
-PHAL_DMA_Handle_t adc_dma_config = {
-    .wiring = &ADC1_DMA_WIRING,
-    .params = {
-        .mem_addr  = (uint32_t)&adc1_dma_buffer,
-        .tx_size   = sizeof(adc1_dma_buffer) / sizeof(uint16_t),
-        .priority  = DMA_PRIORITY_HIGH,
-        .mode      = DMA_MODE_CIRCULAR,
-        .mem_inc   = true,
-        .tx_isr_en = false,
-    },
+static const PHAL_ADC_Config_t adc_config = {
+    .instance      = ADC1,
+    .channels      = adc_channels,
+    .channel_count = sizeof(adc_channels) / sizeof(adc_channels[0]),
 };
+PHAL_ADC_Handle_t adc_handle;
 
 
 
@@ -159,14 +146,13 @@ int main(void) {
 
     adbms_init(&g_bms, &bms_spi_config, g_bms_tx_buf);
 
-    if (false == PHAL_initADC(&adc_config, adc_channel_config, countof(adc_channel_config))) {
+    if (false == PHAL_ADC_init(&adc_handle, &adc_config)) {
         HardFault_Handler();
     }
-    if (false == PHAL_DMA_init(&adc_dma_config)) {
+    if (!PHAL_ADC_readDMA(&adc_handle, (uint16_t *)&adc1_dma_buffer,
+                          sizeof(adc1_dma_buffer) / sizeof(uint16_t))) {
         HardFault_Handler();
     }
-    PHAL_startADC(&adc_config);
-    PHAL_DMA_start(&adc_dma_config);
 
     PHAL_FDCAN_init(FDCAN1, VCAN_BAUD_RATE);
     PHAL_FDCAN_init(FDCAN2, CCAN_BAUD_RATE);

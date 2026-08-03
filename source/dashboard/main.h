@@ -11,6 +11,7 @@
 #define MAIN_H
 
 #include <stdint.h>
+#include "common/phal/adc.h"
 #include "common/phal/gpio.h"
 
 typedef volatile struct {
@@ -22,6 +23,8 @@ typedef volatile struct {
     uint16_t brake2_pressure;
 } raw_adc_values_t;
 extern volatile raw_adc_values_t raw_adc_values;
+
+extern PHAL_ADC_Handle_t adc_handle;
 
 // On-board Status LEDs
 #define CONNECTION_LED_PORT (GPIOB)

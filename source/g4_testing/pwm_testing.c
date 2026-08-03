@@ -21,6 +21,7 @@ GPIOInitConfig_t gpio_config[] = {
 
 void HardFault_Handler(void);
 
+/// Cycle through PWM duty-cycle values every two seconds.
 static void pwm_update_2s(void);
 
 FREERTOS_DEFINE_TASK(pwm_update_2s, 2'000, TASK_PRIORITY_HIGH, STACK_256);
@@ -46,13 +47,8 @@ int main() {
 }
 
 static void pwm_update_2s(void) {
-    static constexpr uint8_t duty_cycles[] = {
-        0,
-        25,
-        50,
-        75,
-        100,
-    };
+    /// Duty-cycle percentages applied sequentially by the test task.
+    static constexpr uint8_t duty_cycles[] = {0, 25, 50, 75, 100,};
 
     static uint8_t duty_cycle_index = 0;
 

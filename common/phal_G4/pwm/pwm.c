@@ -3,6 +3,7 @@
 * @brief Public PWM driver interface for STM32G4
 * @author Natasha Pandit (npandit@purdue.edu)
 */
+
 #include <stddef.h>
 
 #include "common/phal_G4/pwm/pwm.h"
@@ -28,7 +29,9 @@ bool PHAL_initPWM(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en) 
      *
      * frequency = timer_clock / ((ARR + 1) * (PSC + 1))
      */
+    /// Auto-reload value providing 100 duty-cycle steps.
     const uint32_t auto_reload = 99U;
+    /// Number of timer counts in one PWM period.
     const uint32_t period_steps = auto_reload + 1U;
 
     /*
@@ -39,18 +42,21 @@ bool PHAL_initPWM(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en) 
         return false;
     }
 
+    /// Divisor needed to produce the requested PWM frequency.
     const uint32_t denominator = frequency_hz * period_steps;
 
     if (denominator == 0U || denominator > timer_info.timer_clock_hz) {
         return false;
     }
 
+    /// Required timer clock divider.
     const uint32_t divider = timer_info.timer_clock_hz / denominator;
 
     if (divider == 0U || divider > 65536U) {
         return false;
     }
 
+    /// Prescalar register value corresponding to the clock divider.
     const uint32_t prescaler = divider - 1U;
 
     return PWM_PRIV_initTimer(tim, (uint16_t)prescaler, (uint16_t)auto_reload, channels_en, timer_info.requires_main_out_en);    
@@ -61,8 +67,10 @@ bool PHAL_PWMsetPercent(TIM_TypeDef *tim, uint8_t channel, uint8_t percent) {
         return false;
     }
 
+    /// Configured timer auto-reload value.
     const uint32_t auto_reload = PWM_PRIV_getAutoReload(tim);
 
+    /// Capture/compare value corresponding to requested duty cycle.
     const uint32_t compare_value = ((auto_reload + 1U) * percent) / 100U;
 
     return PWM_PRIV_setCompare(tim, channel, compare_value);

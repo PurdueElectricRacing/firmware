@@ -9,15 +9,8 @@
 #include "common/phal_G4/pwm/pwm_priv.h"
 #include "common/phal_G4/rcc/rcc.h"
 
-/*
-should:
-- enable rcc timer clock
-- write psc, arr, ccr, ccmr, ccer, bdtr, etc.
-- start and stop timer
-- configure individual pwm channels
-- be included by only pwm.c
-*/
 
+/// Configure and enable a timer channel for PWM output.
 static bool PWM_PRIV_enableChannel(TIM_TypeDef *tim, uint8_t channel) {
     if (tim == NULL) {
         return false;

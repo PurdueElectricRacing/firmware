@@ -11,10 +11,11 @@
 
 #include "stm32g4xx.h"
 
+/// Timer-specific information required to configure PWM.
 typedef struct {
-    uint32_t timer_clock_hz;
-    uint8_t max_channel;
-    bool requires_main_out_en;
+    uint32_t timer_clock_hz; /// Timer input clock frequency in Hz.
+    uint8_t max_channel; /// Highest PWM channel supported by timer.
+    bool requires_main_out_en; /// Whether the timer requires main output enable bit.
 } PWM_PRIV_TimerInfo_t;
 
 /// Get timer specific information.
@@ -29,5 +30,5 @@ bool PWM_PRIV_initTimer(TIM_TypeDef *tim, uint16_t prescaler, uint16_t auto_relo
 /// Set the capture/compare value for a PWM channel.
 bool PWM_PRIV_setCompare(TIM_TypeDef *tim, uint8_t channel, uint32_t compare_value);
 
-/// Get the timer auto-related register value.
+/// Get the timer auto-reload register value.
 uint32_t PWM_PRIV_getAutoReload(const TIM_TypeDef *tim);

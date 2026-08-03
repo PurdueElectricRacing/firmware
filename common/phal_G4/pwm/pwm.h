@@ -15,6 +15,9 @@
 /**
 * @brief Initialize consecutive PWM channels beginning at channel 1.
 *
+* Configures the selected timer to generate PWM at the requested frequency and
+* enables channels 1 through @p channels_en.
+*
 * @param tim Timer peripheral.
 * @param frequency_hz Requested PWM frequency.
 * @param channels_en Channels to enable.

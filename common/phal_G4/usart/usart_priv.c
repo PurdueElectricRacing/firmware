@@ -70,7 +70,7 @@ void USART_PRIV_build_dma(ssize_t idx, PHAL_DMA_Handle_t *tx_dma, PHAL_DMA_Handl
             .priority  = DMA_PRIORITY_MEDIUM,
             .mode      = DMA_MODE_NORMAL,
             .mem_inc   = true,
-            .tx_isr_en = true, // TX completion is signalled by the DMA interrupt
+            .tx_isr_en = true,
         },
     };
 
@@ -80,7 +80,7 @@ void USART_PRIV_build_dma(ssize_t idx, PHAL_DMA_Handle_t *tx_dma, PHAL_DMA_Handl
             .priority = DMA_PRIORITY_HIGH,
             .mode     = DMA_MODE_NORMAL,
             .mem_inc  = true,
-            // no tx_isr_en: RX completion comes from the USART IDLE line, not DMA
+            .tx_isr_en = false,
         },
     };
 }

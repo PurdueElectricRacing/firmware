@@ -146,7 +146,7 @@ int main() {
         HardFault_Handler();
     }
 
-    // Alternate bewteen testing blocking and non-blocking SPI transfers
+    // Alternate between testing blocking and non-blocking SPI transfers
     while (iteration < TEST_ITERATIONS) {
         iteration++;
 

@@ -1,6 +1,7 @@
 /**
  * @file usb_priv.h
  * @brief Register-level interface used by the STM32G4 USB public layer.
+ * @author Ronak Jain (jain717@purdue.edu)
  *
  * These functions assume that the public layer has validated endpoint numbers,
  * directions, pointers, packet lengths, and peripheral lifecycle state.

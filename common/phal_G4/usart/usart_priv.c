@@ -1,27 +1,35 @@
 #include "common/phal_G4/usart/usart_priv.h"
 
-// Single source of truth for per-UART hardware wiring.
+// Single source of truth for per-UART hardware wiring. DMA channel/request
+// wiring itself now lives in the DMA HAL's own constants (dma_wiring.h) —
+// this table just points at the right ones per USART.
 static const PHAL_USART_HwMap_t USART_MAP[NUM_USART] = {
     [USART1_IDX] = {
-        .rcc_enable_rg  = &RCC->APB2ENR,   .rcc_enable_msk = RCC_APB2ENR_USART1EN,
-        .periph         = USART1,          .dma            = DMA1,
-        .irq            = USART1_IRQn,     .tx_dma_irq     = DMA1_Channel7_IRQn,
-        .tx_channel     = 7,               .tx_request     = DMA_REQUEST_USART1_TX,
-        .rx_channel     = 5,               .rx_request     = DMA_REQUEST_USART1_RX,
+        .rcc_enable_rg  = &RCC->APB2ENR,   
+        .rcc_enable_msk = RCC_APB2ENR_USART1EN,
+        .periph         = USART1,
+        .irq            = USART1_IRQn,     
+        .tx_dma_irq     = DMA1_Channel7_IRQn,
+        .tx_wiring      = &USART1_TX_DMA_WIRING,
+        .rx_wiring      = &USART1_RX_DMA_WIRING,
     },
     [USART2_IDX] = {
-        .rcc_enable_rg  = &RCC->APB1ENR1,  .rcc_enable_msk = RCC_APB1ENR1_USART2EN,
-        .periph         = USART2,          .dma            = DMA1,
-        .irq            = USART2_IRQn,     .tx_dma_irq     = DMA1_Channel4_IRQn,
-        .tx_channel     = 4,               .tx_request     = DMA_REQUEST_USART2_TX,
-        .rx_channel     = 3,               .rx_request     = DMA_REQUEST_USART2_RX,
+        .rcc_enable_rg  = &RCC->APB1ENR1,  
+        .rcc_enable_msk = RCC_APB1ENR1_USART2EN,
+        .periph         = USART2,
+        .irq            = USART2_IRQn,     
+        .tx_dma_irq     = DMA1_Channel4_IRQn,
+        .tx_wiring      = &USART2_TX_DMA_WIRING,
+        .rx_wiring      = &USART2_RX_DMA_WIRING,
     },
     [USART3_IDX] = {
-        .rcc_enable_rg  = &RCC->APB1ENR1,  .rcc_enable_msk = RCC_APB1ENR1_USART3EN,
-        .periph         = USART3,          .dma            = DMA1,
-        .irq            = USART3_IRQn,     .tx_dma_irq     = DMA1_Channel2_IRQn,
-        .tx_channel     = 2,               .tx_request     = DMA_REQUEST_USART3_TX,
-        .rx_channel     = 1,               .rx_request     = DMA_REQUEST_USART3_RX,
+        .rcc_enable_rg  = &RCC->APB1ENR1,  
+        .rcc_enable_msk = RCC_APB1ENR1_USART3EN,
+        .periph         = USART3,
+        .irq            = USART3_IRQn,     
+        .tx_dma_irq     = DMA1_Channel2_IRQn,
+        .tx_wiring      = &USART3_TX_DMA_WIRING,
+        .rx_wiring      = &USART3_RX_DMA_WIRING,
     },
 };
 
@@ -53,33 +61,27 @@ void USART_PRIV_configure(ssize_t idx, uint32_t baud_rate, uint32_t clock_rate) 
     NVIC_EnableIRQ(map->tx_dma_irq);
 }
 
-void USART_PRIV_build_dma(ssize_t idx, dma_init_t *tx_dma, dma_init_t *rx_dma) {
+void USART_PRIV_build_dma(ssize_t idx, PHAL_DMA_Handle_t *tx_dma, PHAL_DMA_Handle_t *rx_dma) {
     const PHAL_USART_HwMap_t *map = &USART_MAP[idx];
 
-    *tx_dma = (dma_init_t) {
-        .periph_addr = (uint32_t)&map->periph->TDR,
-        .periph      = map->dma,
-        .channel_idx = map->tx_channel,
-        .mux_request = map->tx_request,
-        .mem_size    = DMA_SIZE_8BIT,
-        .periph_size = DMA_SIZE_8BIT,
-        .mem_inc     = true,
-        .tx_isr_en   = true, // TX completion is signalled by the DMA interrupt
-        .dir         = 1,
-        .priority    = 1,
+    *tx_dma = (PHAL_DMA_Handle_t) {
+        .wiring = map->tx_wiring,
+        .params = {
+            .priority  = DMA_PRIORITY_MEDIUM,
+            .mode      = DMA_MODE_NORMAL,
+            .mem_inc   = true,
+            .tx_isr_en = true, // TX completion is signalled by the DMA interrupt
+        },
     };
 
-    *rx_dma = (dma_init_t) {
-        .periph_addr = (uint32_t)&map->periph->RDR,
-        .periph      = map->dma,
-        .channel_idx = map->rx_channel,
-        .mux_request = map->rx_request,
-        .mem_size    = DMA_SIZE_8BIT,
-        .periph_size = DMA_SIZE_8BIT,
-        .mem_inc     = true,
-        // no tx_isr_en: RX completion comes from the USART IDLE line, not DMA
-        .dir         = 0,
-        .priority    = 2,
+    *rx_dma = (PHAL_DMA_Handle_t) {
+        .wiring = map->rx_wiring,
+        .params = {
+            .priority = DMA_PRIORITY_HIGH,
+            .mode     = DMA_MODE_NORMAL,
+            .mem_inc  = true,
+            // no tx_isr_en: RX completion comes from the USART IDLE line, not DMA
+        },
     };
 }
 
@@ -108,14 +110,14 @@ void USART_PRIV_clear_status_flags(USART_TypeDef *periph) {
 }
 
 bool USART_PRIV_tx_dma_complete(ssize_t idx) {
-    const PHAL_USART_HwMap_t *map = &USART_MAP[idx];
-    uint32_t shift = 4U * (map->tx_channel - 1U);
-    return (map->dma->ISR & (DMA_ISR_TCIF1 << shift)) != 0U;
+    const PHAL_DMA_Wiring_t *wiring = USART_MAP[idx].tx_wiring;
+    uint32_t shift = 4U * (wiring->channel_idx - 1U);
+    return (wiring->periph->ISR & (DMA_ISR_TCIF1 << shift)) != 0U;
 }
 
 void USART_PRIV_clear_tx_dma_flags(ssize_t idx) {
-    const PHAL_USART_HwMap_t *map = &USART_MAP[idx];
-    uint32_t shift = 4U * (map->tx_channel - 1U);
+    const PHAL_DMA_Wiring_t *wiring = USART_MAP[idx].tx_wiring;
+    uint32_t shift = 4U * (wiring->channel_idx - 1U);
     // CGIF clears TCIF/HTIF/TEIF/GIF for the channel (RM0440, DMA_IFCR).
-    map->dma->IFCR = DMA_IFCR_CGIF1 << shift;
+    wiring->periph->IFCR = DMA_IFCR_CGIF1 << shift;
 }

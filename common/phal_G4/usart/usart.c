@@ -5,8 +5,8 @@
 
 typedef struct {
     PHAL_USART_Handle_t *handle; //!< handle registered at init
-    dma_init_t tx_dma;           //!< TX DMA descriptor (built in init)
-    dma_init_t rx_dma;           //!< RX DMA descriptor (built in init)
+    PHAL_DMA_Handle_t tx_dma;    //!< TX DMA handle (built in init)
+    PHAL_DMA_Handle_t rx_dma;    //!< RX DMA handle (built in init)
     volatile uint32_t rxfer_size; //!< configured RX length (for continuous re-arm)
     volatile bool tx_busy;       //!< set when a TX is in flight, cleared by the DMA ISR
     volatile bool rx_busy;       //!< set while a frame is in flight, cleared by the IDLE-line ISR
@@ -40,7 +40,7 @@ bool PHAL_USART_init(PHAL_USART_Handle_t *handle, const uint32_t clock_rate) {
     USART_PRIV_configure(idx, handle->baud_rate, clock_rate);
     USART_PRIV_build_dma(idx, &usart_state[idx].tx_dma, &usart_state[idx].rx_dma);
 
-    if (!PHAL_initDMA(&usart_state[idx].tx_dma) || !PHAL_initDMA(&usart_state[idx].rx_dma)) {
+    if (!PHAL_DMA_init(&usart_state[idx].tx_dma) || !PHAL_DMA_init(&usart_state[idx].rx_dma)) {
         return false;
     }
 
@@ -63,12 +63,12 @@ bool PHAL_USART_txDMA(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len) 
     USART_PRIV_start_tx(USART_PRIV_periph(idx));
 
     // Re-target the TX channel at this buffer (channel must be disabled to set
-    // length/address); reEnable clears stale flags and starts the transfer.
-    dma_init_t *tx_dma = &usart_state[idx].tx_dma;
-    PHAL_stopTxfer(tx_dma);
-    PHAL_DMA_setTxferLength(tx_dma, len);
+    // length/address); restart clears stale flags and starts the transfer.
+    PHAL_DMA_Handle_t *tx_dma = &usart_state[idx].tx_dma;
+    PHAL_DMA_stop(tx_dma);
+    PHAL_DMA_setLength(tx_dma, len);
     PHAL_DMA_setMemAddress(tx_dma, (uint32_t)data);
-    PHAL_reEnable(tx_dma);
+    PHAL_DMA_restart(tx_dma);
 
     return true;
 }
@@ -94,13 +94,13 @@ bool PHAL_USART_rxDMA(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len, 
 
     USART_PRIV_start_rx(USART_PRIV_periph(idx));
 
-    // Channel must be disabled to set address/length; reEnable clears stale
+    // Channel must be disabled to set address/length; restart clears stale
     // flags and starts reception.
-    dma_init_t *rx_dma = &usart_state[idx].rx_dma;
-    PHAL_stopTxfer(rx_dma);
+    PHAL_DMA_Handle_t *rx_dma = &usart_state[idx].rx_dma;
+    PHAL_DMA_stop(rx_dma);
     PHAL_DMA_setMemAddress(rx_dma, (uint32_t)data);
-    PHAL_DMA_setTxferLength(rx_dma, len);
-    PHAL_reEnable(rx_dma);
+    PHAL_DMA_setLength(rx_dma, len);
+    PHAL_DMA_restart(rx_dma);
 
     return true;
 }
@@ -148,15 +148,15 @@ static void PHAL_USART_HandleIRQ(ssize_t idx) {
     USART_TypeDef *periph = USART_PRIV_periph(idx);
 
     if (USART_PRIV_idle_active(periph)) {
-        dma_init_t *rx_dma = &usart_state[idx].rx_dma;
-        PHAL_stopTxfer(rx_dma);
+        PHAL_DMA_Handle_t *rx_dma = &usart_state[idx].rx_dma;
+        PHAL_DMA_stop(rx_dma);
         usart_state[idx].rx_busy = false;
 
         if (usart_state[idx].cont_rx) {
             // The transfer length has counted down to 0; reload it and re-arm.
-            // reEnable clears stale channel flags so a prior TEIF can't stall re-arm.
-            PHAL_DMA_setTxferLength(rx_dma, usart_state[idx].rxfer_size);
-            PHAL_reEnable(rx_dma);
+            // restart clears stale channel flags so a prior TEIF can't stall re-arm.
+            PHAL_DMA_setLength(rx_dma, usart_state[idx].rxfer_size);
+            PHAL_DMA_restart(rx_dma);
         } else {
             USART_PRIV_stop_rx(periph);
         }
@@ -170,7 +170,7 @@ static void PHAL_USART_HandleIRQ(ssize_t idx) {
 //! On TX DMA completion, mark the transmitter free and clear the channel flags.
 static void PHAL_USART_HandleDMA(ssize_t idx) {
     if (USART_PRIV_tx_dma_complete(idx)) {
-        PHAL_stopTxfer(&usart_state[idx].tx_dma);
+        PHAL_DMA_stop(&usart_state[idx].tx_dma);
         usart_state[idx].tx_busy = false;
     }
     USART_PRIV_clear_tx_dma_flags(idx);

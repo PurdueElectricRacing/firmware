@@ -39,7 +39,7 @@ int main() {
         HardFault_Handler();
 
     // Initialize USART, passing the peripheral clock frequency
-    if (!PHAL_USART_init(&usart_config, APB1ClockRateHz))
+    if (!PHAL_USART_init(&usart_config, PHAL_RCC_getAPB1ClockHz()))
         HardFault_Handler();
 
     // Start a continuous DMA reception. PHAL_USART_rxCallback handles incoming data.

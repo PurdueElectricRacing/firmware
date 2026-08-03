@@ -76,7 +76,7 @@ int main(void) {
     if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
-    if (false == PHAL_USART_init(&usart3, APB1ClockRateHz)) {
+    if (false == PHAL_USART_init(&usart3, PHAL_RCC_getAPB1ClockHz())) {
         HardFault_Handler();
     }
     if (false == PHAL_USART_rxDMA(&usart3, (uint8_t *)rover_rx_buffer, sizeof(rover_rx_buffer), true)) {

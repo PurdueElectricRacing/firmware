@@ -30,8 +30,8 @@ SPI_InitConfig_t bms_spi_config = {
     .nss_sw        = false, // BMS drive CS pin manually to ensure correct timing
     .nss_gpio_port = SPI1_CS_PORT,
     .nss_gpio_pin  = SPI1_CS_PIN,
-    .rx_dma_cfg    = nullptr,
-    .tx_dma_cfg    = nullptr,
+    .rx_dma        = nullptr,
+    .tx_dma        = nullptr,
     .periph        = SPI1,
     .cpol          = 0,
     .cpha          = 0,
@@ -52,10 +52,19 @@ ADCChannelConfig_t adc_channel_config[] = {
     {.channel = ISENSE_ADC_CHANNEL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
     {.channel = VBATT_ADC_CHANNEL, .rank = 2, .sampling_time = ADC_CHN_SMP_CYCLES_480}
 };
-dma_init_t adc_dma_config = ADC1_DMA_CONT_CONFIG(
-    (uint32_t)&adc1_dma_buffer,
-    sizeof(adc1_dma_buffer) / sizeof(uint16_t), 0b01
-);
+PHAL_DMA_Handle_t adc_dma_config = {
+    .wiring = &ADC1_DMA_WIRING,
+    .params = {
+        .mem_addr  = (uint32_t)&adc1_dma_buffer,
+        .tx_size   = sizeof(adc1_dma_buffer) / sizeof(uint16_t),
+        .priority  = DMA_PRIORITY_HIGH,
+        .mode      = DMA_MODE_CIRCULAR,
+        .mem_inc   = true,
+        .tx_isr_en = false,
+    },
+};
+
+
 
 /* PER HAL Initilization Structures */
 GPIOInitConfig_t gpio_config[] = {
@@ -132,11 +141,11 @@ int main(void) {
     if (false == PHAL_initADC(&adc_config, adc_channel_config, countof(adc_channel_config))) {
         HardFault_Handler();
     }
-    if (false == PHAL_initDMA(&adc_dma_config)) {
+    if (false == PHAL_DMA_init(&adc_dma_config)) {
         HardFault_Handler();
     }
     PHAL_startADC(&adc_config);
-    PHAL_startTxfer(&adc_dma_config);
+    PHAL_DMA_start(&adc_dma_config);
 
     PHAL_FDCAN_init(FDCAN1, VCAN_BAUD_RATE);
     PHAL_FDCAN_init(FDCAN2, CCAN_BAUD_RATE);

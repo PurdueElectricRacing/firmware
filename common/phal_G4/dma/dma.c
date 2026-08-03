@@ -1,104 +1,160 @@
 /**
  * @file dma.c
- * @author Eileen Yoon
- * @brief Basic DMA Peripheral HAL library
- * @version 0.1
- * @date 2023-08-19
- *
- * @copyright Copyright (c) 2023
- *
+ * @brief G4 DMA Peripheral public API implementation
+ * @author Shriya Balu (balu@purdue.edu)
+ * @author Millan Kumar (kumar798@purdue.edu)
  */
 
 #include "common/phal_G4/dma/dma.h"
 
-bool PHAL_initDMA(dma_init_t *dma) {
-    // Check we aren't going to break the peripheral
-    if (dma->mem_to_mem && dma->circular) {
-        return false;
-    } else if (dma->dir > 1) {
-        return false;
-    } else if (dma->priority > 3) {
-        return false;
-    } else if (dma->mem_size > 2 || dma->periph_size > 2) {
-        return false;
-    }
+#include "common/phal_G4/dma/dma_priv.h"
 
-    // Enable clock in RCC
-    if (dma->periph == DMA1) {
-        dma->channel =
-            (DMA_Channel_TypeDef *)((uint32_t)DMA1_Channel1 + 0x14U * (dma->channel_idx - 1U));
-        RCC->AHB1ENR |= RCC_AHB1ENR_DMA1EN | RCC_AHB1ENR_DMAMUX1EN;
-    } else if (dma->periph == DMA2) {
-        dma->channel =
-            (DMA_Channel_TypeDef *)((uint32_t)DMA2_Channel1 + 0x14U * (dma->channel_idx - 1U));
-        RCC->AHB1ENR |= RCC_AHB1ENR_DMA2EN | RCC_AHB1ENR_DMAMUX1EN;
-    } else {
+// Tracks which (periph, channel_idx) pairs are currently claimed by a live handle,
+// so two handles can never conflict fight over the same channel.
+// Index 0 is unused (channel numbering is 1-8).
+
+static bool g_dma1_channel_claimed[9];
+static bool g_dma2_channel_claimed[9];
+
+
+
+static bool *dma_channel_claim_slot(DMA_TypeDef *periph, uint8_t channel_idx) {
+    bool *table = (periph == DMA1) ? g_dma1_channel_claimed : g_dma2_channel_claimed;
+    return &table[channel_idx];
+}
+
+static bool dma_wiring_is_valid(const PHAL_DMA_Wiring_t *wiring) {
+    if (wiring == nullptr || (wiring->periph != DMA1 && wiring->periph != DMA2)) {
         return false;
     }
-
-    // Ensure the stream is disabled, must be in order to configure the DMA control registers
-    dma->channel->CCR &= ~(DMA_CCR_EN);
-    while (dma->channel->CCR & DMA_CCR_EN)
-        ;
-
-    // Clear any stream dedicated status flags that may have been set previously
-    dma->periph->IFCR = (DMA_ISR_GIF1 | DMA_ISR_TCIF1 | DMA_ISR_HTIF1 | DMA_ISR_TEIF1)
-        << (4 * (dma->channel_idx - 1));
-
-    // Set peripheral address (src)
-    dma->channel->CPAR = dma->periph_addr;
-    // Set memory address (dst)
-    dma->channel->CMAR  = dma->mem_addr;
-    dma->channel->CNDTR = dma->tx_size;
-
-    // Reset preconfigured CR values
-    dma->channel->CCR = 0;
-    // Set channel, priority, memory data size
-    dma->channel->CCR |= ((dma->mem_size << DMA_CCR_MSIZE_Pos) & DMA_CCR_MSIZE_Msk)
-        | ((dma->periph_size << DMA_CCR_PSIZE_Pos) & DMA_CCR_PSIZE_Msk)
-        | ((dma->priority << DMA_CCR_PL_Pos) & DMA_CCR_PL_Msk)
-        | ((dma->mem_inc << DMA_CCR_MINC_Pos) & DMA_CCR_MINC_Msk)
-        | ((dma->periph_inc << DMA_CCR_PINC_Pos) & DMA_CCR_PINC_Msk)
-        | ((dma->circular << DMA_CCR_CIRC_Pos) & DMA_CCR_CIRC_Msk)
-        | ((dma->dir << DMA_CCR_DIR_Pos) & DMA_CCR_DIR_Msk)
-        | ((dma->tx_isr_en << DMA_CCR_TEIE_Pos) & DMA_CCR_TEIE_Msk)
-        | ((dma->tx_isr_en << DMA_CCR_TCIE_Pos) & DMA_CCR_TCIE_Msk)
-        | ((dma->mem_to_mem << DMA_CCR_MEM2MEM_Pos) & DMA_CCR_MEM2MEM_Msk);
-
-    /* DMA Mux */
-    // For category 3 and category 4 devices:
-    // DMAMUX channels 0 to 7 are connected to DMA1 channels 1 to 8
-    // DMAMUX channels 8 to 15 are connected to DMA2 channels 1 to 8
-    // DMAMUX Channel (usually equal to DMA channel number - 1)
-    
-    uint8_t mux_idx = (dma->periph == DMA2) ? (dma->channel_idx + 7) : (dma->channel_idx - 1);
-    DMAMUX_Channel_TypeDef* mux = (DMAMUX1_Channel0 + mux_idx);
-    mux->CCR = (mux->CCR & ~0x7F) | dma->mux_request;   
-
+    if (wiring->channel_idx < 1U || wiring->channel_idx > 8U) {
+        return false;
+    }
     return true;
 }
 
-void PHAL_startTxfer(dma_init_t *dma) {
-    // Stream enable starts txfer
-    dma->channel->CCR |= DMA_CCR_EN;
+bool PHAL_DMA_init(PHAL_DMA_Handle_t *handle) {
+    if (handle == nullptr || !dma_wiring_is_valid(handle->wiring)) {
+        return false;
+    }
+
+    const PHAL_DMA_Wiring_t *wiring = handle->wiring;
+    bool *claimed = dma_channel_claim_slot(wiring->periph, wiring->channel_idx);
+    if (*claimed) {
+        // Already claimed by another handle
+        return false;
+    }
+
+    PHAL_DMA_priv_enableClock(wiring->periph);
+    handle->channel = PHAL_DMA_priv_getChannel(wiring->periph, wiring->channel_idx);
+
+    PHAL_DMA_priv_disableChannel(handle->channel);
+    PHAL_DMA_priv_clearFlags(wiring->periph, wiring->channel_idx);
+    PHAL_DMA_priv_setPeriphAddress(handle->channel, (uint32_t)wiring->periph_reg);
+    PHAL_DMA_priv_setMemAddress(handle->channel, handle->params.mem_addr);
+    PHAL_DMA_priv_setLength(handle->channel, handle->params.tx_size);
+    PHAL_DMA_priv_configChannel(handle->channel, wiring, &handle->params);
+
+    // MEM2MEM transfers aren't triggered by a peripheral request line
+    // No DMAMUX routing to configure
+    if (handle->params.mode != DMA_MODE_MEM2MEM) {
+        PHAL_DMA_priv_configMux(wiring);
+    }
+
+    *claimed = true;
+    return true;
 }
 
-void PHAL_stopTxfer(dma_init_t *dma) {
-    // Stream disable stops txfer
-    dma->channel->CCR &= ~DMA_CCR_EN;
+bool PHAL_DMA_deinit(PHAL_DMA_Handle_t *handle) {
+    if (handle == nullptr || handle->channel == nullptr) {
+        return false;
+    }
+
+    PHAL_DMA_priv_disableChannel(handle->channel);
+    *dma_channel_claim_slot(handle->wiring->periph, handle->wiring->channel_idx) = false;
+    handle->channel = nullptr;
+    return true;
 }
 
-void PHAL_reEnable(dma_init_t *dma) {
-    // Clear any stream dedicated status flags that may have been set previously
-    dma->periph->IFCR = (DMA_ISR_GIF1 | DMA_ISR_TCIF1 | DMA_ISR_HTIF1 | DMA_ISR_TEIF1)
-        << (4 * (dma->channel_idx - 1));
-    dma->channel->CCR |= DMA_CCR_EN;
+bool PHAL_DMA_start(PHAL_DMA_Handle_t *handle) {
+    if (handle == nullptr || handle->channel == nullptr) {
+        return false;
+    }
+
+    PHAL_DMA_priv_enableChannel(handle->channel);
+    return true;
 }
 
-void PHAL_DMA_setMemAddress(dma_init_t *dma, const uint32_t address) {
-    dma->channel->CMAR = address;
+bool PHAL_DMA_stop(PHAL_DMA_Handle_t *handle) {
+    if (handle == nullptr || handle->channel == nullptr) {
+        return false;
+    }
+
+    PHAL_DMA_priv_disableChannel(handle->channel);
+    return true;
 }
 
-void PHAL_DMA_setTxferLength(dma_init_t *dma, const uint32_t length) {
-    dma->channel->CNDTR = length; // Set number of data to transfer
+bool PHAL_DMA_restart(PHAL_DMA_Handle_t *handle) {
+    if (handle == nullptr || handle->channel == nullptr) {
+        return false;
+    }
+
+    PHAL_DMA_priv_disableChannel(handle->channel);
+    PHAL_DMA_priv_clearFlags(handle->wiring->periph, handle->wiring->channel_idx);
+    PHAL_DMA_priv_setLength(handle->channel, handle->params.tx_size);
+    PHAL_DMA_priv_enableChannel(handle->channel);
+    return true;
+}
+
+bool PHAL_DMA_setMemAddress(PHAL_DMA_Handle_t *handle, uint32_t address) {
+    if (handle == nullptr || handle->channel == nullptr || PHAL_DMA_priv_isChannelEnabled(handle->channel)) {
+        return false;
+    }
+
+    handle->params.mem_addr = address;
+    PHAL_DMA_priv_setMemAddress(handle->channel, address);
+    return true;
+}
+
+bool PHAL_DMA_setLength(PHAL_DMA_Handle_t *handle, uint16_t length) {
+    if (handle == nullptr || handle->channel == nullptr || PHAL_DMA_priv_isChannelEnabled(handle->channel)) {
+        return false;
+    }
+
+    handle->params.tx_size = length;
+    PHAL_DMA_priv_setLength(handle->channel, length);
+    return true;
+}
+
+bool PHAL_DMA_isBusy(PHAL_DMA_Handle_t *handle) {
+    if (handle == nullptr || handle->channel == nullptr) {
+        return false;
+    }
+
+    return PHAL_DMA_priv_isChannelEnabled(handle->channel);
+}
+
+DMA_TypeDef *PHAL_DMA_getPeriph(PHAL_DMA_Handle_t *handle) {
+    if (handle == nullptr || handle->channel == nullptr) {
+        return nullptr;
+    }
+
+    return handle->wiring->periph;
+}
+
+uint8_t PHAL_DMA_getChannelIdx(PHAL_DMA_Handle_t *handle) {
+    if (handle == nullptr || handle->channel == nullptr) {
+        return 0;
+    }
+
+    return handle->wiring->channel_idx;
+}
+
+void PHAL_DMA_setMemInc(PHAL_DMA_Handle_t *handle, bool mem_inc) {
+    if (handle == nullptr || handle->channel == nullptr || PHAL_DMA_priv_isChannelEnabled(handle->channel)) {
+        return;
+    }
+
+    handle->params.mem_inc = mem_inc;
+    PHAL_DMA_priv_configChannel(handle->channel, handle->wiring, &handle->params);
 }

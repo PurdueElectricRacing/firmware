@@ -91,17 +91,17 @@ bool PHAL_initDMA(dma_init_t* init) {
     return true;
 }
 
-void PHAL_startTxfer(dma_init_t* init) {
+void PHAL_DMA_startTxfer(dma_init_t* init) {
     // Stream enable starts txfer
     init->stream->CR |= DMA_SxCR_EN;
 }
 
-void PHAL_stopTxfer(dma_init_t* init) {
+void PHAL_DMA_stopTxfer(dma_init_t* init) {
     // Stream disable stops txfer
     init->stream->CR &= ~DMA_SxCR_EN;
 }
 
-void PHAL_reEnable(dma_init_t* init) {
+void PHAL_DMA_reEnable(dma_init_t* init) {
     // Clear any stream dedicated status flags that may have been set previously
     switch (init->stream_idx) {
         case 0:

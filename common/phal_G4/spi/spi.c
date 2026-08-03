@@ -80,9 +80,9 @@ bool PHAL_SPI_init(SPI_InitConfig_t *cfg) {
     cfg->periph->CR2 |= SPI_CR2_FRXTH;
 
     // DMA setup if provided
-    if (cfg->rx_dma_cfg && !PHAL_initDMA(cfg->rx_dma_cfg))
+    if (cfg->rx_dma && !PHAL_DMA_init(cfg->rx_dma))
         return false;
-    if (cfg->tx_dma_cfg && !PHAL_initDMA(cfg->tx_dma_cfg))
+    if (cfg->tx_dma && !PHAL_DMA_init(cfg->tx_dma))
         return false;
 
     // Deassert CS in master when using software NSS
@@ -166,7 +166,7 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t *spi,
                        const uint8_t *out_data,
                        const uint32_t data_len,
                        uint8_t *in_data) {
-    if (spi->tx_dma_cfg == 0)
+    if (spi->tx_dma == 0)
         return false;
     if (PHAL_SPI_busy(spi))
         return false;
@@ -180,44 +180,44 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t *spi,
     // TX DMA enable
     spi->periph->CR2 |= SPI_CR2_TXDMAEN;
     if (!out_data) {
-        spi->tx_dma_cfg->mem_inc = false;
-        PHAL_DMA_setMemAddress(spi->tx_dma_cfg, (uint32_t)&zero);
+        PHAL_DMA_setMemInc(spi->tx_dma, false);
+        PHAL_DMA_setMemAddress(spi->tx_dma, (uint32_t)&zero);
     } else {
-        spi->tx_dma_cfg->mem_inc = true;
-        PHAL_DMA_setMemAddress(spi->tx_dma_cfg, (uint32_t)out_data);
+        PHAL_DMA_setMemInc(spi->tx_dma, true);
+        PHAL_DMA_setMemAddress(spi->tx_dma, (uint32_t)out_data);
     }
-    PHAL_DMA_setTxferLength(spi->tx_dma_cfg, data_len);
+    PHAL_DMA_setLength(spi->tx_dma, data_len);
 
     // RX DMA optional
-    if (spi->rx_dma_cfg) {
+    if (spi->rx_dma) {
         spi->periph->CR2 |= SPI_CR2_RXDMAEN;
         if (!in_data) {
-            spi->rx_dma_cfg->mem_inc = false;
-            PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t)&trash_can);
+            PHAL_DMA_setMemInc(spi->rx_dma, false);
+            PHAL_DMA_setMemAddress(spi->rx_dma, (uint32_t)&trash_can);
         } else {
-            spi->rx_dma_cfg->mem_inc = true;
-            PHAL_DMA_setMemAddress(spi->rx_dma_cfg, (uint32_t)in_data);
+            PHAL_DMA_setMemInc(spi->rx_dma, true);
+            PHAL_DMA_setMemAddress(spi->rx_dma, (uint32_t)in_data);
         }
-        PHAL_DMA_setTxferLength(spi->rx_dma_cfg, data_len);
-        PHAL_reEnable(spi->rx_dma_cfg);
+        PHAL_DMA_setLength(spi->rx_dma, data_len);
+        PHAL_DMA_restart(spi->rx_dma);
     }
 
     // Enable DMA IRQ for selected channel and track active transfer per-channel
     volatile SPI_InitConfig_t **active_table;
-    if (spi->tx_dma_cfg->periph == DMA1) {
-        NVIC_EnableIRQ(DMA1_Channel1_IRQn + (spi->tx_dma_cfg->channel_idx - 1));
+    if (PHAL_DMA_getPeriph(spi->tx_dma) == DMA1) {
+        NVIC_EnableIRQ(DMA1_Channel1_IRQn + (PHAL_DMA_getChannelIdx(spi->tx_dma) - 1));
         active_table = dma1_active_tx;
-    } else if (spi->tx_dma_cfg->periph == DMA2) {
-        NVIC_EnableIRQ(DMA2_Channel1_IRQn + (spi->tx_dma_cfg->channel_idx - 1));
+    } else if (PHAL_DMA_getPeriph(spi->tx_dma) == DMA2) {
+        NVIC_EnableIRQ(DMA2_Channel1_IRQn + (PHAL_DMA_getChannelIdx(spi->tx_dma) - 1));
         active_table = dma2_active_tx;
     } else {
         return false;
     }
-    active_table[spi->tx_dma_cfg->channel_idx] = spi;
+    active_table[PHAL_DMA_getChannelIdx(spi->tx_dma)] = spi;
 
     // Start SPI and kick TX DMA
     spi->periph->CR1 |= SPI_CR1_SPE;
-    PHAL_reEnable(spi->tx_dma_cfg);
+    PHAL_DMA_restart(spi->tx_dma);
 
     return true;
 }
@@ -267,24 +267,24 @@ static void handleTxComplete(DMA_TypeDef *dma_periph, uint8_t channel) {
             ;
 
         // If RX DMA is used, wait until its TC flag also asserts before teardown
-        if (transfer->rx_dma_cfg) {
-            DMA_TypeDef *rx_dma = transfer->rx_dma_cfg->periph;
-            uint8_t rx_ch       = transfer->rx_dma_cfg->channel_idx;
+        if (transfer->rx_dma) {
+            DMA_TypeDef *rx_dma = PHAL_DMA_getPeriph(transfer->rx_dma);
+            uint8_t rx_ch       = PHAL_DMA_getChannelIdx(transfer->rx_dma);
             uint32_t rx_tc_mask = DMA_ISR_TCIF1 << (4 * (rx_ch - 1));
             // Busy-wait for RX complete
             while (!(rx_dma->ISR & rx_tc_mask))
                 ;
             // Clear RX flags and stop RX
             rx_dma->IFCR |= rx_tc_mask;
-            PHAL_stopTxfer(transfer->rx_dma_cfg);
+            PHAL_DMA_stop(transfer->rx_dma);
         }
 
         // Deassert CS after both TX and RX complete
         if (transfer->nss_sw)
             PHAL_writeGPIO(transfer->nss_gpio_port, transfer->nss_gpio_pin, 1);
 
-        if (transfer->tx_dma_cfg)
-            PHAL_stopTxfer(transfer->tx_dma_cfg);
+        if (transfer->tx_dma)
+            PHAL_DMA_stop(transfer->tx_dma);
 
         transfer->periph->CR1 &= ~SPI_CR1_SPE;
         transfer->periph->CR2 &= ~(SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
@@ -324,7 +324,7 @@ uint8_t PHAL_SPI_readByte(SPI_InitConfig_t *spi, uint8_t address, bool skipDummy
 
     while (PHAL_SPI_busy(spi))
         ;
-    if (spi->rx_dma_cfg != NULL)
+    if (spi->rx_dma != NULL)
         PHAL_SPI_transfer(spi, tx_cmd, skipDummy ? 2 : 3, rx_dat);
     else
         PHAL_SPI_transfer_noDMA(spi, tx_cmd, 1, skipDummy ? 1 : 2, rx_dat);
@@ -342,7 +342,7 @@ uint8_t PHAL_SPI_writeByte(SPI_InitConfig_t *spi, uint8_t address, uint8_t write
 
     while (PHAL_SPI_busy(spi))
         ;
-    if (spi->tx_dma_cfg != NULL)
+    if (spi->tx_dma != NULL)
         PHAL_SPI_transfer(spi, tx_cmd, 2, rx_dat);
     else
         PHAL_SPI_transfer_noDMA(spi, tx_cmd, 2, 0, rx_dat);

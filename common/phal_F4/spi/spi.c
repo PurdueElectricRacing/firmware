@@ -186,7 +186,7 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uin
         PHAL_DMA_setTxferLength(spi->rx_dma_cfg, data_len);
 
         // We must clear interrupt flags before enabling DMA
-        PHAL_reEnable(spi->rx_dma_cfg);
+        PHAL_DMA_reEnable(spi->rx_dma_cfg);
     }
 
     // Enable the DMA IRQ - copy + paste enabling selected SPI peripheral's TX DMA Stream ISR
@@ -198,7 +198,7 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t* spi, const uint8_t* out_data, const uin
     spi->periph->CR1 |= SPI_CR1_SPE;
 
     // STM32 HAL Libraries start TX Dma transaction last
-    PHAL_reEnable(spi->tx_dma_cfg);
+    PHAL_DMA_reEnable(spi->tx_dma_cfg);
 
     return true;
 }
@@ -361,8 +361,8 @@ static void handleTxComplete() {
             PHAL_writeGPIO(active_transfer->nss_gpio_port, active_transfer->nss_gpio_pin, 1);
 
         // Disable DMA channels
-        PHAL_stopTxfer(active_transfer->rx_dma_cfg);
-        PHAL_stopTxfer(active_transfer->tx_dma_cfg);
+        PHAL_DMA_stopTxfer(active_transfer->rx_dma_cfg);
+        PHAL_DMA_stopTxfer(active_transfer->tx_dma_cfg);
 
         // Revert to mem_inc if trash_can used
         if (active_transfer->rx_dma_cfg->mem_inc)

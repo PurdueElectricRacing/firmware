@@ -221,7 +221,7 @@ bool PHAL_usartTxDma(usart_init_t* handle, uint16_t* data, uint32_t len) {
 //     ;
 #endif
     // Start DMA transaction
-    PHAL_startTxfer(handle->tx_dma_cfg);
+    PHAL_DMA_startTxfer(handle->tx_dma_cfg);
     return true;
 }
 
@@ -332,7 +332,7 @@ static void handleUsartIRQ(USART_TypeDef* handle, uint8_t idx) {
         // Rx transaction is beginning, so set rx to busy and enable DMA to recieve this message
         active_uarts[idx]._rx_busy = 1;
         PHAL_DMA_setTxferLength(active_uarts[idx].active_handle->rx_dma_cfg, active_uarts[idx].rxfer_size);
-        PHAL_reEnable(active_uarts[idx].active_handle->rx_dma_cfg);
+        PHAL_DMA_reEnable(active_uarts[idx].active_handle->rx_dma_cfg);
         active_uarts[idx].active_handle->periph->SR &= ~USART_SR_RXNE; // Clear RXNE interrupt flag
         // We only need to enable DMA immediately after the reception of the first bit
         // We also do not want this interrupt activating for every single bit recieved on the rx buffer
@@ -376,7 +376,7 @@ static void handleUsartIRQ(USART_TypeDef* handle, uint8_t idx) {
     // This is the last flag handled, so that important info can be updated before callback function
     if (sr & USART_SR_IDLE) {
         // Stop DMA Transaction
-        PHAL_stopTxfer(active_uarts[idx].active_handle->rx_dma_cfg);
+        PHAL_DMA_stopTxfer(active_uarts[idx].active_handle->rx_dma_cfg);
         if (active_uarts[idx].cont_rx) {
             // Re-enable the RX not empty interrupt to accept the next message
             active_uarts[idx].active_handle->periph->CR1 |= USART_CR1_RXNEIE;
@@ -400,7 +400,7 @@ static void handleUsartIRQ(USART_TypeDef* handle, uint8_t idx) {
         // Rx transaction is beginning, so set rx to busy and enable DMA to recieve this message
         active_uarts[idx]._rx_busy = 1;
         PHAL_DMA_setTxferLength(active_uarts[idx].active_handle->rx_dma_cfg, active_uarts[idx].rxfer_size);
-        PHAL_reEnable(active_uarts[idx].active_handle->rx_dma_cfg);
+        PHAL_DMA_reEnable(active_uarts[idx].active_handle->rx_dma_cfg);
         // QUESTION:
         // active_uarts[idx].active_handle->periph->ICR |= USART_ICR_RXNECF; // Clear RXNE interrupt flag
         // (void)active_uarts[idx].active_handle->periph->; // Clear RXNE interrupt flag
@@ -450,7 +450,7 @@ static void handleUsartIRQ(USART_TypeDef* handle, uint8_t idx) {
     // This is the last flag handled, so that important info can be updated before callback function
     if (sr & USART_ISR_IDLE) {
         // Stop DMA Transaction
-        PHAL_stopTxfer(active_uarts[idx].active_handle->rx_dma_cfg);
+        PHAL_DMA_stopTxfer(active_uarts[idx].active_handle->rx_dma_cfg);
         if (active_uarts[idx].cont_rx) {
             // Re-enable the RX not empty interrupt to accept the next message
             active_uarts[idx].active_handle->periph->CR1 |= USART_CR1_RXNEIE;
@@ -594,7 +594,7 @@ static void handleDMAxComplete(uint8_t idx, uint32_t irq, uint8_t dma_type) {
     if (*sr_reg & tcif_flag) {
         if (dma_type == USART_DMA_TX) {
             // TX is complete, so we no longer need this DMA stream active
-            PHAL_stopTxfer(active_uarts[idx].active_handle->tx_dma_cfg);
+            PHAL_DMA_stopTxfer(active_uarts[idx].active_handle->tx_dma_cfg);
 #ifdef STM32F732xx
 // Wait for the transfer complete bit to be set, indicating the completion of USART transaction
 // while (!(active_uarts[idx].active_handle->periph->ISR & USART_ISR_TC))

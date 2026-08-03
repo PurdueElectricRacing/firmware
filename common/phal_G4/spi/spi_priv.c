@@ -10,8 +10,6 @@
  #include "common/phal_G4/rcc/rcc.h"
 #include "common/utils/clamp.h"
 
-extern uint32_t APB2ClockRateHz;
-extern uint32_t APB1ClockRateHz;
 
 static volatile SPI_InitConfig_t *dma1_active_tx[8] = {0};
 static volatile SPI_InitConfig_t *dma2_active_tx[8] = {0};

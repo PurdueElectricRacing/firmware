@@ -25,13 +25,34 @@
 #include "common/watchdog/watchdog.h"
 #include "telemetry.h"
 
+
+static PHAL_DMA_Handle_t spi1_rx_dma = {
+    .wiring = &SPI1_RX_DMA_WIRING,
+    .params = {
+        .priority  = DMA_PRIORITY_HIGH,
+        .mode      = DMA_MODE_NORMAL,
+        .mem_inc   = true,
+        .tx_isr_en = true,
+    },
+};
+
+static PHAL_DMA_Handle_t spi1_tx_dma = {
+    .wiring = &SPI1_TX_DMA_WIRING,
+    .params = {
+        .priority  = DMA_PRIORITY_HIGH,
+        .mode      = DMA_MODE_NORMAL,
+        .mem_inc   = true,
+        .tx_isr_en = true,
+    },
+};
+
 SPI_InitConfig_t bms_spi_config = {
     .data_len      = 8,
     .nss_sw        = false, // BMS drive CS pin manually to ensure correct timing
     .nss_gpio_port = SPI1_CS_PORT,
     .nss_gpio_pin  = SPI1_CS_PIN,
-    .rx_dma        = nullptr,
-    .tx_dma        = nullptr,
+    .rx_dma        = &spi1_rx_dma,
+    .tx_dma        = &spi1_tx_dma,
     .periph        = SPI1,
     .cpol = SPI_CPOL_IDLE_LOW,
     .cpha = SPI_CPHA_FIRST_EDGE,

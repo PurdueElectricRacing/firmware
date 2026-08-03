@@ -51,8 +51,8 @@ typedef struct {
     SPI_CPOL cpol;               /*!< Clock idle polarity */
     SPI_CPHA cpha;               /*!< Clock sampling phase */
 
-    PHAL_DMA_Handle_t *rx_dma;   /*!< RX DMA handle (optional) */
-    PHAL_DMA_Handle_t *tx_dma;   /*!< TX DMA handle (required) */
+    PHAL_DMA_Handle_t *rx_dma;   /*!< RX DMA handle (required, all transfers are DMA backed) */
+    PHAL_DMA_Handle_t *tx_dma;   /*!< TX DMA handle (required, all transfers are DMA backed) */
 
     volatile bool _busy;                 /*!< Internal transfer busy flag */
     volatile bool _error;                /*!< Internal DMA transfer error flag */

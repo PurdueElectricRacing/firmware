@@ -118,36 +118,6 @@ void PHAL_SPI_transfer_blocking(SPI_InitConfig_t *spi,
 bool PHAL_SPI_busy(SPI_InitConfig_t *cfg);
 
 /**
- * @brief Write a single register over SPI.
- *
- * Performs a blocking SPI transaction consisting of the register address
- * followed by one data byte.
- *
- * @param spi SPI configuration.
- * @param address Register address.
- * @param writeDat Value to write.
- * @return Byte received during the data phase.
- */
-uint8_t PHAL_SPI_writeByte(SPI_InitConfig_t *spi,
-                           uint8_t address,
-                           uint8_t writeDat);
-
-/**
- * @brief Read a single register over SPI.
- *
- * Performs a blocking SPI transaction consisting of the register address
- * followed by one or more receive bytes.
- *
- * @param spi SPI configuration.
- * @param address Register address.
- * @param skipDummy true if the device omits the dummy byte before returning data.
- * @return Register value read from the device.
- */
-uint8_t PHAL_SPI_readByte(SPI_InitConfig_t *spi,
-                          uint8_t address,
-                          bool skipDummy);
-
-/**
  * @brief Weak callback fired when a DMA-backed SPI transfer completes.
  *
  * Called after the transfer has completed and the SPI handle has been

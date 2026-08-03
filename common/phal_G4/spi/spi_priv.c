@@ -11,8 +11,8 @@
 #include "common/phal_G4/rcc/rcc.h"
 #include "common/utils/clamp.h"
 
-static volatile SPI_InitConfig_t *dma1_active_tx[8] = {0};
-static volatile SPI_InitConfig_t *dma2_active_tx[8] = {0};
+static volatile SPI_InitConfig_t *g_dma1_active_tx[8] = {0};
+static volatile SPI_InitConfig_t *g_dma2_active_tx[8] = {0};
 
 static inline uint32_t LOG2_DOWN(uint32_t x) {
     return 31U - (uint32_t)__builtin_clz(x);
@@ -89,7 +89,7 @@ void PHAL_SPI_priv_enableDMA_RX(SPI_InitConfig_t *cfg) {
 void PHAL_SPI_priv_handleTxComplete(DMA_TypeDef *dma_periph, uint8_t channel) {
     if (channel < 1 || channel > 8) return;
     volatile SPI_InitConfig_t **active_table =
-        (dma_periph == DMA1) ? dma1_active_tx : dma2_active_tx;
+        (dma_periph == DMA1) ? g_dma1_active_tx : g_dma2_active_tx;
     
     SPI_InitConfig_t *transfer = (SPI_InitConfig_t *)active_table[channel - 1];
 
@@ -159,9 +159,9 @@ void PHAL_SPI_priv_registerActiveTx(SPI_InitConfig_t *spi) {
     if (ch < 1 || ch > 8) return;
 
     if (spi->tx_dma->wiring->periph == DMA1) {
-        dma1_active_tx[ch - 1] = spi; 
+        g_dma1_active_tx[ch - 1] = spi; 
     } else if (spi->tx_dma->wiring->periph == DMA2) {
-        dma2_active_tx[ch - 1] = spi;
+        g_dma2_active_tx[ch - 1] = spi;
     }
 }
 

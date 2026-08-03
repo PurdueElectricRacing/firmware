@@ -40,9 +40,9 @@ void DMA2_Channel3_IRQHandler(void) { // example: SPI3_TX on DMA2 Ch3
     PHAL_SPI_priv_handleTxComplete(DMA2, 3);
 }
 
-bool PHAL_SPI_init(SPI_InitConfig_t *cfg) {
+void PHAL_SPI_init(SPI_InitConfig_t *cfg) {
     // Enable RCC Clock for selected SPI on G4
-    if (!PHAL_SPI_priv_enableClock(cfg->periph)) return false;
+    PHAL_SPI_priv_enableClock(cfg->periph);
 
     /// Peripheral configuration (See RM0440 42.5.7 Configuration of SPI section)
     uint32_t f_div = PHAL_SPI_priv_calcBaudRatePrescaler(cfg->data_rate, cfg->periph);
@@ -54,83 +54,39 @@ bool PHAL_SPI_init(SPI_InitConfig_t *cfg) {
     PHAL_SPI_priv_configCR2(cfg);
 
     // DMA setup is required 
-    if (!PHAL_DMA_init(cfg->rx_dma))
-        return false;
-    if (!PHAL_DMA_init(cfg->tx_dma))
-        return false;
+    PHAL_DMA_init(cfg->rx_dma);
+    PHAL_DMA_init(cfg->tx_dma);
 
     // Deassert CS in master when using software NSS
     if (cfg->mode == SPI_MODE_MASTER && cfg->nss_sw)
         PHAL_writeGPIO(cfg->nss_gpio_port, cfg->nss_gpio_pin, 1);
 
     PHAL_SPI_priv_resetTransferState(cfg);
-
-    return true;
 }
 
-bool PHAL_SPI_transfer_blocking(SPI_InitConfig_t *spi,
+
+/// Wrapper around SPI transfer that busy waits for completion 
+void PHAL_SPI_transfer_blocking(SPI_InitConfig_t *spi,
                              const uint8_t *out_data,
                              uint32_t txlen,
-                             uint32_t rxlen,
                              uint8_t *in_data) {
-    // Prepare RX pointer to skip echoed TX bytes
-    uint8_t *rx_ptr = in_data ? (in_data + txlen) : NULL;
-
-    if (PHAL_SPI_busy(spi))
-        return false;
-
-    spi->_busy = true;
-
-    // Assert CS for master only
-    if (spi->mode == SPI_MODE_MASTER && spi->nss_sw)
-        PHAL_writeGPIO(spi->nss_gpio_port, spi->nss_gpio_pin, 0);
-
-    // Enable SPI
-    spi->periph->CR1 |= SPI_CR1_SPE;
-
-    // Transmit txlen bytes and capture echoed RX into in_data if provided
-    for (uint32_t i = 0; i < txlen; i++) {
-        // Wait for TXE
-        while (!(spi->periph->SR & SPI_SR_TXE))
-            ;
-        // Write byte
-        uint8_t b = out_data ? out_data[i] : 0;
-        *(volatile uint8_t *)&spi->periph->DR = b;
-        // Wait for RXNE and read echo
-        while (!(spi->periph->SR & SPI_SR_RXNE)) {
-            __asm__("nop");
-        }
-        uint8_t rxb = *(volatile uint8_t *)&spi->periph->DR;
-        if (in_data)
-            in_data[i] = rxb;
+    // Start the transfer
+    PHAL_SPI_transfer(spi, out_data, txlen, in_data);
+    // Wait for this transfer to complete
+    while (PHAL_SPI_busy(spi)) {
+        __asm__("nop");
     }
-
-    // If additional rxlen bytes requested beyond txlen, clock out dummy
-    for (uint32_t i = 0; i < rxlen; i++) {
-        while (!(spi->periph->SR & SPI_SR_TXE)) {
-            __asm__("nop");
-        }
-        *(volatile uint8_t *)&spi->periph->DR = 0;
-        while (!(spi->periph->SR & SPI_SR_RXNE)) {
-            __asm__("nop");
-        }
-        uint8_t rb = *(volatile uint8_t *)&spi->periph->DR;
-        if (rx_ptr)
-            rx_ptr[i] = rb;
-    }
-
-    
-    return true;
 }
 
-bool PHAL_SPI_transfer(SPI_InitConfig_t *spi,
+void PHAL_SPI_transfer(SPI_InitConfig_t *spi,
                        const uint8_t *out_data,
                        const uint32_t data_len,
                        uint8_t *in_data) {
-    if (spi->tx_dma == 0)
-        return false;
-    if (PHAL_SPI_busy(spi))
-        return false;
+
+    // Wait for any previous transfer to complete
+    while (PHAL_SPI_busy(spi)) {
+        __asm__("nop");
+    }
 
     // Assert CS for master only
     if (spi->mode == SPI_MODE_MASTER && spi->nss_sw)
@@ -150,7 +106,6 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t *spi,
     PHAL_DMA_setLength(spi->tx_dma, data_len);
 
     // RX DMA  
-    if (!spi->rx_dma) return false;
     PHAL_SPI_priv_enableDMA_RX(spi);
 
     if (!in_data) {
@@ -168,43 +123,23 @@ bool PHAL_SPI_transfer(SPI_InitConfig_t *spi,
     if (PHAL_DMA_getPeriph(spi->tx_dma) == DMA1) {
         NVIC_EnableIRQ(DMA1_Channel1_IRQn + (PHAL_DMA_getChannelIdx(spi->tx_dma) - 1));
         active_table = dma1_active_tx;
-    } else if (PHAL_DMA_getPeriph(spi->tx_dma) == DMA2) {
+    } else if (PHAL_DMA_getPeriph(spi->tx_dma) == DMA2) { 
         NVIC_EnableIRQ(DMA2_Channel1_IRQn + (PHAL_DMA_getChannelIdx(spi->tx_dma) - 1));
         active_table = dma2_active_tx;
     } else {
-        return false;
+        __builtin_trap();
     }
     active_table[PHAL_DMA_getChannelIdx(spi->tx_dma)] = spi;
 
     // Start SPI and kick TX DMA
     PHAL_SPI_priv_Enable(spi);
     PHAL_DMA_restart(spi->tx_dma);
-
-    return true;
 }
 
 bool PHAL_SPI_busy(SPI_InitConfig_t *cfg) {
     return cfg->_busy;
 }
 
-void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi) {
-    switch ((uint32_t)spi->periph) {
-        case SPI1_BASE:
-            RCC->APB2RSTR |= RCC_APB2RSTR_SPI1RST;
-            RCC->APB2RSTR &= ~RCC_APB2RSTR_SPI1RST;
-            break;
-        case SPI2_BASE:
-            RCC->APB1RSTR1 |= RCC_APB1RSTR1_SPI2RST;
-            RCC->APB1RSTR1 &= ~RCC_APB1RSTR1_SPI2RST;
-            break;
-        case SPI3_BASE:
-            RCC->APB1RSTR1 |= RCC_APB1RSTR1_SPI3RST;
-            RCC->APB1RSTR1 &= ~RCC_APB1RSTR1_SPI3RST;
-            break;
-        default:
-            break;
-    }
-}
 
 uint8_t PHAL_SPI_readByte(SPI_InitConfig_t *spi, uint8_t address, bool skipDummy) {
     static uint8_t tx_cmd[4] = {(1 << 7), 0, 0};

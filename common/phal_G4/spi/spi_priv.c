@@ -20,17 +20,14 @@ static inline uint32_t LOG2_DOWN(uint32_t x) {
     return 31U - (uint32_t)__builtin_clz(x);
 }
 
-bool PHAL_SPI_priv_enableClock(SPI_TypeDef *periph) {
+void PHAL_SPI_priv_enableClock(SPI_TypeDef *periph) {
     if (periph == SPI1) {
         RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
     } else if (periph == SPI2) {
         RCC->APB1ENR1 |= RCC_APB1ENR1_SPI2EN;
     } else if (periph == SPI3) {
         RCC->APB1ENR1 |= RCC_APB1ENR1_SPI3EN;
-    } else {
-        return false;
     }
-    return true;
 }
 
 void PHAL_SPI_priv_configCR1(SPI_InitConfig_t *cfg, uint32_t f_div) {

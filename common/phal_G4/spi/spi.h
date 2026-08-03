@@ -40,20 +40,18 @@ typedef struct {
     SPI_TypeDef *periph; // SPI peripheral base
 } SPI_InitConfig_t;
 
-bool PHAL_SPI_init(SPI_InitConfig_t *handle);
-bool PHAL_SPI_transfer(SPI_InitConfig_t *spi,
+void PHAL_SPI_init(SPI_InitConfig_t *handle);
+void PHAL_SPI_transfer(SPI_InitConfig_t *spi,
                        const uint8_t *out_data,
                        const uint32_t data_len,
                        uint8_t *in_data);
-bool PHAL_SPI_transfer_blocking(SPI_InitConfig_t *spi,
+void PHAL_SPI_transfer_blocking(SPI_InitConfig_t *spi,
                              const uint8_t *out_data,
                              uint32_t txlen,
-                             uint32_t rxlen,
                              uint8_t *in_data);
 bool PHAL_SPI_busy(SPI_InitConfig_t *cfg);
 uint8_t PHAL_SPI_writeByte(SPI_InitConfig_t *spi, uint8_t address, uint8_t writeDat);
 uint8_t PHAL_SPI_readByte(SPI_InitConfig_t *spi, uint8_t address, bool skipDummy);
-void PHAL_SPI_ForceReset(SPI_InitConfig_t *spi);
 
 
 /**

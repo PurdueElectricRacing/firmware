@@ -136,7 +136,7 @@
 #define DMA_HTIF_MASK(channel) DMA_FLAG_MASK(DMA_ISR_HTIF1, (channel))
 #define DMA_GIF_MASK(channel)  DMA_FLAG_MASK(DMA_ISR_GIF1,  (channel))
 
-bool PHAL_SPI_priv_enableClock(SPI_TypeDef *periph);
+void PHAL_SPI_priv_enableClock(SPI_TypeDef *periph);
 void PHAL_SPI_priv_configCR1(SPI_InitConfig_t *cfg, uint32_t f_div);
 uint32_t PHAL_SPI_priv_calcBaudRatePrescaler(uint32_t data_rate, SPI_TypeDef *periph);
 void PHAL_SPI_priv_configCR2(SPI_InitConfig_t *cfg);

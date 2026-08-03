@@ -1,6 +1,7 @@
 /**
  * @file usb.h
  * @brief STM32G4 USB full-speed device API.
+ * @author Ronak Jain (jain717@purdue.edu)
  *
  * The HAL provides one control endpoint and one bulk data endpoint. Applications
  * supply USB descriptors, control-request handling, and data queues through the

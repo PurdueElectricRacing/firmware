@@ -132,7 +132,9 @@ int main(void) {
     // Set CS high to start
     adbms6380_set_cs_high(&bms_spi_config);
 
-    PHAL_SPI_init(&bms_spi_config);
+    if (!PHAL_SPI_init(&bms_spi_config)) {
+        HardFault_Handler();
+    }
 
     adbms_init(&g_bms, &bms_spi_config, g_bms_tx_buf);
 

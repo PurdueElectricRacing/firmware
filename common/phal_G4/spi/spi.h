@@ -69,8 +69,10 @@ typedef struct {
  * and prepares the peripheral for subsequent transfers.
  *
  * @param handle SPI configuration structure.
+ * @return true if initialization was successful, false otherwise.
+           Only can be false if DMA initialization fails.
  */
-void PHAL_SPI_init(SPI_InitConfig_t *handle);
+bool PHAL_SPI_init(SPI_InitConfig_t *handle);
 
 /**
  * @brief Start a DMA-backed SPI transfer.

@@ -37,7 +37,7 @@ void DMA2_Channel3_IRQHandler(void) { // example: SPI3_TX on DMA2 Ch3
     PHAL_SPI_priv_handleTxComplete(DMA2, 3);
 }
 
-void PHAL_SPI_init(SPI_InitConfig_t *cfg) {
+bool PHAL_SPI_init(SPI_InitConfig_t *cfg) {
     // Enable RCC Clock for selected SPI on G4
     PHAL_SPI_priv_enableClock(cfg->periph);
 
@@ -51,14 +51,17 @@ void PHAL_SPI_init(SPI_InitConfig_t *cfg) {
     PHAL_SPI_priv_configCR2(cfg);
 
     // DMA setup is required 
-    PHAL_DMA_init(cfg->rx_dma);
-    PHAL_DMA_init(cfg->tx_dma);
+    if (!PHAL_DMA_init(cfg->rx_dma) || !PHAL_DMA_init(cfg->tx_dma)) {
+        return false;
+    }
 
     // Deassert CS in master when using software NSS
     if (cfg->mode == SPI_MODE_MASTER && cfg->nss_sw)
         PHAL_writeGPIO(cfg->nss_gpio_port, cfg->nss_gpio_pin, 1);
 
     PHAL_SPI_priv_resetTransferState(cfg);
+
+    return true;
 }
 
 

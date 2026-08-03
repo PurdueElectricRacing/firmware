@@ -135,11 +135,16 @@ int main() {
     // Config systick for 1 ms
     SysTick_Config(SystemCoreClock / 1000);
 
-    if (!PHAL_initGPIO(gpio_config, countof(gpio_config)))
+    if (!PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
+    }
 
-    PHAL_SPI_init(&spi1);
-    PHAL_SPI_init(&spi2);
+    if (!PHAL_SPI_init(&spi1)) {
+        HardFault_Handler();
+    }
+    if (!PHAL_SPI_init(&spi2)) {
+        HardFault_Handler();
+    }
 
     // Alternate bewteen testing blocking and non-blocking SPI transfers
     while (iteration < TEST_ITERATIONS) {
@@ -163,7 +168,9 @@ int main() {
             PHAL_SPI_transfer(&spi1, master_tx, master_rx, XFER_LEN);
 
             uint32_t timeout = TIMEOUT;
-            while ((PHAL_SPI_busy(&spi1) || PHAL_SPI_busy(&spi2)) && --timeout > 0);
+            while ((PHAL_SPI_busy(&spi1) || PHAL_SPI_busy(&spi2)) && --timeout > 0) {
+                __asm__("nop");
+            }
 
             if (timeout == 0) {
                 fail_count++; // Timed out waiting for DMA

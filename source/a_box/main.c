@@ -33,8 +33,8 @@ SPI_InitConfig_t bms_spi_config = {
     .rx_dma        = nullptr,
     .tx_dma        = nullptr,
     .periph        = SPI1,
-    .cpol          = 0,
-    .cpha          = 0,
+    .cpol = SPI_CPOL_IDLE_LOW,
+    .cpha = SPI_CPHA_FIRST_EDGE,
     .data_rate     = 500'000, // 500 kHz SPI clock for ADBMS6380
 };
 
@@ -132,9 +132,7 @@ int main(void) {
     // Set CS high to start
     adbms6380_set_cs_high(&bms_spi_config);
 
-    if (!PHAL_SPI_init(&bms_spi_config)) {
-        HardFault_Handler();
-    }
+    PHAL_SPI_init(&bms_spi_config);
 
     adbms_init(&g_bms, &bms_spi_config, g_bms_tx_buf);
 

@@ -18,6 +18,16 @@ typedef enum {
     SPI_MODE_SLAVE  = 1,
 } SPI_Mode;
 
+typedef enum {
+    SPI_CPOL_IDLE_LOW = 0,
+    SPI_CPOL_IDLE_HIGH = 1,
+} SPI_CPOL;
+
+typedef enum {
+    SPI_CPHA_FIRST_EDGE = 0,
+    SPI_CPHA_SECOND_EDGE = 1,
+} SPI_CPHA;
+
 typedef struct {
     uint32_t data_rate;
     uint8_t data_len;
@@ -26,8 +36,8 @@ typedef struct {
     GPIO_TypeDef *nss_gpio_port;
     uint32_t nss_gpio_pin;
 
-    uint8_t cpol;
-    uint8_t cpha;
+    SPI_CPOL cpol;
+    SPI_CPHA cpha;
 
     PHAL_DMA_Handle_t *rx_dma; // DMA RX config (optional)
     PHAL_DMA_Handle_t *tx_dma; // DMA TX config (required for DMA path)

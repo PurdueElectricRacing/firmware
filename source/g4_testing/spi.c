@@ -93,8 +93,8 @@ static SPI_InitConfig_t spi1 = {
     .nss_sw        = true,
     .nss_gpio_port = GPIOA,
     .nss_gpio_pin  = (1 << 4),
-    .cpol          = 0,
-    .cpha          = 0,
+    .cpol = SPI_CPOL_IDLE_LOW,
+    .cpha = SPI_CPHA_FIRST_EDGE,
     .rx_dma        = &spi1_rx_dma,
     .tx_dma        = &spi1_tx_dma,
 };
@@ -107,8 +107,8 @@ static SPI_InitConfig_t spi2 = {
     .nss_sw        = false, // use hardware NSS via PB12
     .nss_gpio_port = GPIOB,
     .nss_gpio_pin  = (1 << 12),
-    .cpol          = 0,
-    .cpha          = 0,
+    .cpol          = SPI_CPOL_IDLE_LOW,
+    .cpha          = SPI_CPHA_FIRST_EDGE,
     .rx_dma        = &spi2_rx_dma,
     .tx_dma        = &spi2_tx_dma,
 };
@@ -119,10 +119,8 @@ int main() {
     if (!PHAL_initGPIO(gpio_config, countof(gpio_config)))
         HardFault_Handler();
 
-    if (!PHAL_SPI_init(&spi1))
-        HardFault_Handler();
-    if (!PHAL_SPI_init(&spi2))
-        HardFault_Handler();
+    PHAL_SPI_init(&spi1);
+    PHAL_SPI_init(&spi2);
 
     // DMA two-device test: SPI1 master -> SPI2 slave
     PHAL_SPI_transfer(&spi2, slave_tx, XFER_LEN, slave_rx);

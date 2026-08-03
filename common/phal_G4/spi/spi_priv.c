@@ -27,6 +27,8 @@ void PHAL_SPI_priv_enableClock(SPI_TypeDef *periph) {
         RCC->APB1ENR1 |= RCC_APB1ENR1_SPI2EN;
     } else if (periph == SPI3) {
         RCC->APB1ENR1 |= RCC_APB1ENR1_SPI3EN;
+    } else {
+        __builtin_trap();
     }
 }
 

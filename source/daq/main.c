@@ -113,9 +113,9 @@ int main() {
     if (!PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
-    if (!PHAL_SPI_init(&eth_spi_config)) {
-        HardFault_Handler();
-    }
+
+    PHAL_SPI_init(&eth_spi_config);
+
     if (!PHAL_configureRTC(&fallback_timestamp, false)) {
         HardFault_Handler();
     }

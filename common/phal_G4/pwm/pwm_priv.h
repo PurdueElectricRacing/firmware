@@ -19,16 +19,16 @@ typedef struct {
 } PWM_PRIV_TimerInfo_t;
 
 /// Get timer specific information.
-bool PWM_PRIV_getTimerInfo(TIM_TypeDef *tim, PWM_PRIV_TimerInfo_t *info);
+bool PHAL_PWM_priv_getTimerInfo(TIM_TypeDef *tim, PWM_PRIV_TimerInfo_t *info);
 
 /// Enable the peripheral clock for a timer.
-bool PWM_PRIV_enableTimerClock(TIM_TypeDef *tim);
+bool PHAL_PWM_priv_enableTimerClock(TIM_TypeDef *tim);
 
 /// Configure timer registers for PWM operation.
-bool PWM_PRIV_initTimer(TIM_TypeDef *tim, uint16_t prescaler, uint16_t auto_reload, uint8_t channels_en, bool requires_main_out_en);
+bool PHAL_PWM_priv_initTimer(TIM_TypeDef *tim, uint16_t prescaler, uint16_t auto_reload, uint8_t channels_en, bool requires_main_out_en);
 
 /// Set the capture/compare value for a PWM channel.
-bool PWM_PRIV_setCompare(TIM_TypeDef *tim, uint8_t channel, uint32_t compare_value);
+bool PHAL_PWM_priv_setCompare(TIM_TypeDef *tim, uint8_t channel, uint32_t compare_value);
 
 /// Get the timer auto-reload register value.
-uint32_t PWM_PRIV_getAutoReload(const TIM_TypeDef *tim);
+uint32_t PHAL_PWM_priv_getAutoReload(const TIM_TypeDef *tim);

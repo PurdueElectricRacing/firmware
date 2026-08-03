@@ -4,8 +4,8 @@
  * @author Natasha Pandit (npandit@purdue.edu)
  */
 
-#ifndef _PHAL_PWM_H
-#define _PHAL_PWM_H
+#ifndef PHAL_PWM_H
+#define PHAL_PWM_H
 
 #include "common/phal_G4/phal_G4.h"
 
@@ -24,7 +24,7 @@
 *
 * @return true if initialized properly; false if tim is NULL, frequency_hz is 0, or initialization fails.
 */
-bool PHAL_initPWM(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en);
+bool PHAL_PWM_init(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en);
 
 /**
 * @brief Set a PWM channel's duty cycle.
@@ -35,6 +35,6 @@ bool PHAL_initPWM(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en);
 *
 * @return true if duty cycle is set properly; false if tim is NULL or setting cycle fails. 
 */
-bool PHAL_PWMsetPercent(TIM_TypeDef* tim, uint8_t channel, uint8_t percent);
+bool PHAL_PWM_setPercent(TIM_TypeDef* tim, uint8_t channel, uint8_t percent);
 
 #endif

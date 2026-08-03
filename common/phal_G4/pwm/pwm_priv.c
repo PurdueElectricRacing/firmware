@@ -11,7 +11,7 @@
 
 
 /// Configure and enable a timer channel for PWM output.
-static bool PWM_PRIV_enableChannel(TIM_TypeDef *tim, uint8_t channel) {
+static bool PHAL_PWM_priv_enableChannel(TIM_TypeDef *tim, uint8_t channel) {
     if (tim == NULL) {
         return false;
     }
@@ -62,7 +62,7 @@ static bool PWM_PRIV_enableChannel(TIM_TypeDef *tim, uint8_t channel) {
     }
 }
 
-bool PWM_PRIV_getTimerInfo(TIM_TypeDef *tim, PWM_PRIV_TimerInfo_t *info) {
+bool PHAL_PWM_priv_getTimerInfo(TIM_TypeDef *tim, PWM_PRIV_TimerInfo_t *info) {
     if (tim == NULL || info == NULL) {
         return false;
     }
@@ -123,7 +123,7 @@ bool PWM_PRIV_getTimerInfo(TIM_TypeDef *tim, PWM_PRIV_TimerInfo_t *info) {
     }
 }
 
-bool PWM_PRIV_enableTimerClock(TIM_TypeDef *tim) {
+bool PHAL_PWM_priv_enableTimerClock(TIM_TypeDef *tim) {
     if (tim == NULL) {
         return false;
     }
@@ -176,12 +176,12 @@ bool PWM_PRIV_enableTimerClock(TIM_TypeDef *tim) {
     }
 }
 
-bool PWM_PRIV_initTimer(TIM_TypeDef *tim, uint16_t prescaler, uint16_t auto_reload, uint8_t channels_en, bool requires_main_out_en) {
+bool PHAL_PWM_priv_initTimer(TIM_TypeDef *tim, uint16_t prescaler, uint16_t auto_reload, uint8_t channels_en, bool requires_main_out_en) {
     if (tim == NULL || channels_en == 0U || channels_en > 4U) {
         return false;
     }
 
-    if (!PWM_PRIV_enableTimerClock(tim)) {
+    if (!PHAL_PWM_priv_enableTimerClock(tim)) {
         return false;
     }
 
@@ -197,7 +197,7 @@ bool PWM_PRIV_initTimer(TIM_TypeDef *tim, uint16_t prescaler, uint16_t auto_relo
      * Configure consecutive PWM channels beginning with channel 1.
      */
     for (uint8_t channel = 1U; channel <= channels_en; channel++) {
-        if (!PWM_PRIV_enableChannel(tim, channel)) {
+        if (!PHAL_PWM_priv_enableChannel(tim, channel)) {
             return false;
         }
     }
@@ -230,7 +230,7 @@ bool PWM_PRIV_initTimer(TIM_TypeDef *tim, uint16_t prescaler, uint16_t auto_relo
     return true;
 }
 
-bool PWM_PRIV_setCompare(TIM_TypeDef *tim, uint8_t channel, uint32_t compare_value) {
+bool PHAL_PWM_priv_setCompare(TIM_TypeDef *tim, uint8_t channel, uint32_t compare_value) {
     if (tim == NULL) {
         return false;
     }
@@ -257,7 +257,7 @@ bool PWM_PRIV_setCompare(TIM_TypeDef *tim, uint8_t channel, uint32_t compare_val
     }
 }
 
-uint32_t PWM_PRIV_getAutoReload(const TIM_TypeDef *tim) {
+uint32_t PHAL_PWM_priv_getAutoReload(const TIM_TypeDef *tim) {
     if (tim == NULL) {
         return 0U;
     }

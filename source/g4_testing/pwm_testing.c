@@ -33,7 +33,7 @@ int main() {
         HardFault_Handler();
     }
 
-    if(!PHAL_initPWM(TIM1, 1'000, 1)) {
+    if(!PHAL_PWM_init(TIM1, 1'000, 1)) {
         HardFault_Handler();
     }
 
@@ -52,7 +52,7 @@ static void pwm_update_2s(void) {
 
     static uint8_t duty_cycle_index = 0;
 
-    PHAL_PWMsetPercent(TIM1, 1, duty_cycles[duty_cycle_index]);
+    PHAL_PWM_setPercent(TIM1, 1, duty_cycles[duty_cycle_index]);
 
     duty_cycle_index = (duty_cycle_index + 1) % countof(duty_cycles);
 }

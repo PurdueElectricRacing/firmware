@@ -9,14 +9,14 @@
 #include "common/phal_G4/pwm/pwm.h"
 #include "common/phal_G4/pwm/pwm_priv.h"
 
-bool PHAL_initPWM(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en) {
+bool PHAL_PWM_init(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en) {
     if (tim == NULL || frequency_hz == 0U) {
         return false;
     }
 
     PWM_PRIV_TimerInfo_t timer_info;
 
-    if (!PWM_PRIV_getTimerInfo(tim, &timer_info)) {
+    if (!PHAL_PWM_priv_getTimerInfo(tim, &timer_info)) {
         return false;
     }
 
@@ -59,19 +59,19 @@ bool PHAL_initPWM(TIM_TypeDef* tim, uint32_t frequency_hz, uint8_t channels_en) 
     /// Prescalar register value corresponding to the clock divider.
     const uint32_t prescaler = divider - 1U;
 
-    return PWM_PRIV_initTimer(tim, (uint16_t)prescaler, (uint16_t)auto_reload, channels_en, timer_info.requires_main_out_en);    
+    return PHAL_PWM_priv_initTimer(tim, (uint16_t)prescaler, (uint16_t)auto_reload, channels_en, timer_info.requires_main_out_en);    
 }
 
-bool PHAL_PWMsetPercent(TIM_TypeDef *tim, uint8_t channel, uint8_t percent) {
+bool PHAL_PWM_setPercent(TIM_TypeDef *tim, uint8_t channel, uint8_t percent) {
     if (tim == NULL || channel < 1U || channel > 4U || percent > 100U) {
         return false;
     }
 
     /// Configured timer auto-reload value.
-    const uint32_t auto_reload = PWM_PRIV_getAutoReload(tim);
+    const uint32_t auto_reload = PHAL_PWM_priv_getAutoReload(tim);
 
     /// Capture/compare value corresponding to requested duty cycle.
     const uint32_t compare_value = ((auto_reload + 1U) * percent) / 100U;
 
-    return PWM_PRIV_setCompare(tim, channel, compare_value);
+    return PHAL_PWM_priv_setCompare(tim, channel, compare_value);
 }

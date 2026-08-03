@@ -12,9 +12,6 @@
 #include "common/phal_G4/dma/dma.h"
 #include "common/utils/clamp.h"
 
-// Track active TX transfers per DMA controller/channel so multiple SPI instances can run concurrently
-static volatile SPI_InitConfig_t *dma1_active_tx[8] = {0};
-static volatile SPI_InitConfig_t *dma2_active_tx[8] = {0};
 
 static uint16_t trash_can; // For RX discard when in_data NULL
 static uint16_t zero;      // For TX dummy when out_data NULL
@@ -118,18 +115,15 @@ void PHAL_SPI_transfer(SPI_InitConfig_t *spi,
     PHAL_DMA_setLength(spi->rx_dma, data_len);
     PHAL_DMA_restart(spi->rx_dma);
 
-    // Enable DMA IRQ for selected channel and track active transfer per-channel
-    volatile SPI_InitConfig_t **active_table;
+    PHAL_SPI_priv_registerActiveTx(spi);
+
     if (PHAL_DMA_getPeriph(spi->tx_dma) == DMA1) {
         NVIC_EnableIRQ(DMA1_Channel1_IRQn + (PHAL_DMA_getChannelIdx(spi->tx_dma) - 1));
-        active_table = dma1_active_tx;
-    } else if (PHAL_DMA_getPeriph(spi->tx_dma) == DMA2) { 
+    } else if (PHAL_DMA_getPeriph(spi->tx_dma) == DMA2) {
         NVIC_EnableIRQ(DMA2_Channel1_IRQn + (PHAL_DMA_getChannelIdx(spi->tx_dma) - 1));
-        active_table = dma2_active_tx;
     } else {
         __builtin_trap();
     }
-    active_table[PHAL_DMA_getChannelIdx(spi->tx_dma)] = spi;
 
     // Start SPI and kick TX DMA
     PHAL_SPI_priv_Enable(spi);

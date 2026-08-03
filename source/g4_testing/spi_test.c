@@ -213,7 +213,7 @@ void SysTick_Handler(void) {
     ms_ticks++;
 }
 
-void delay_ms(uint32_t ms) {
+static void delay_ms(uint32_t ms) {
     uint32_t start = ms_ticks;
     while ((ms_ticks - start) < ms);
 }

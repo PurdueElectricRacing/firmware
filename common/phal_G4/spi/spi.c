@@ -62,23 +62,10 @@ void PHAL_SPI_init(SPI_InitConfig_t *cfg) {
 }
 
 
-/// Wrapper around SPI transfer that busy waits for completion 
-void PHAL_SPI_transfer_blocking(SPI_InitConfig_t *spi,
-                             const uint8_t *out_data,
-                             uint32_t txlen,
-                             uint8_t *in_data) {
-    // Start the transfer
-    PHAL_SPI_transfer(spi, out_data, txlen, in_data);
-    // Wait for this transfer to complete
-    while (PHAL_SPI_busy(spi)) {
-        __asm__("nop");
-    }
-}
-
 void PHAL_SPI_transfer(SPI_InitConfig_t *spi,
                        const uint8_t *out_data,
-                       const uint32_t data_len,
-                       uint8_t *in_data) {
+                       uint8_t *in_data,
+                       uint32_t data_len) {
 
     // Wait for any previous transfer to complete
     while (PHAL_SPI_busy(spi)) {
@@ -128,6 +115,19 @@ void PHAL_SPI_transfer(SPI_InitConfig_t *spi,
     // Start SPI and kick TX DMA
     PHAL_SPI_priv_Enable(spi);
     PHAL_DMA_restart(spi->tx_dma);
+}
+
+
+void PHAL_SPI_transferBlocking(SPI_InitConfig_t *spi,
+                       const uint8_t *out_data,
+                       uint8_t *in_data,
+                       uint32_t data_len) {
+    // Start the transfer
+    PHAL_SPI_transfer(spi, out_data, in_data, data_len);
+    // Wait for this transfer to complete
+    while (PHAL_SPI_busy(spi)) {
+        __asm__("nop");
+    }
 }
 
 bool PHAL_SPI_busy(SPI_InitConfig_t *cfg) {

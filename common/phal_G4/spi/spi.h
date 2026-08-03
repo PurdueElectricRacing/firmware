@@ -82,17 +82,17 @@ void PHAL_SPI_init(SPI_InitConfig_t *handle);
  * Passing NULL for either buffer transmits or receives dummy data.
  *
  * @param spi SPI configuration.
- * @param out_data Transmit buffer, or NULL to transmit dummy bytes.
- * @param data_len Number of bytes to transfer.
+ * @param out_data Transmit buffer, or NULL to transmit dummy (zero) bytes.
  * @param in_data Receive buffer, or NULL to discard received bytes.
+ * @param data_len Number of bytes to transfer (includes both TX and RX).
  */
 void PHAL_SPI_transfer(SPI_InitConfig_t *spi,
                        const uint8_t *out_data,
-                       const uint32_t data_len,
-                       uint8_t *in_data);
+                       uint8_t *in_data,
+                       uint32_t data_len);
 
 /**
- * @brief Perform a blocking DMA-backed SPI transfer.
+ * @brief Perform a blocking DMA-backed SPI transfer. (Wrapper around PHAL_SPI_transfer.)
  *
  * Blocks until the SPI peripheral is available, starts the transfer,
  * and does not return until the transfer has completed.
@@ -100,14 +100,14 @@ void PHAL_SPI_transfer(SPI_InitConfig_t *spi,
  * Passing NULL for either buffer transmits or receives dummy data.
  *
  * @param spi SPI configuration.
- * @param out_data Transmit buffer, or NULL to transmit dummy bytes.
- * @param txlen Number of bytes to transfer.
+ * @param out_data Transmit buffer, or NULL to transmit dummy (zero) bytes.
  * @param in_data Receive buffer, or NULL to discard received bytes.
+ * @param data_len Number of bytes to transfer (includes both TX and RX).
  */
-void PHAL_SPI_transfer_blocking(SPI_InitConfig_t *spi,
-                                const uint8_t *out_data,
-                                uint32_t txlen,
-                                uint8_t *in_data);
+void PHAL_SPI_transferBlocking(SPI_InitConfig_t *spi,
+                       const uint8_t *out_data,
+                       uint8_t *in_data,
+                       uint32_t data_len);
 
 /**
  * @brief Check whether the SPI peripheral is busy.

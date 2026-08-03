@@ -159,8 +159,8 @@ int main() {
         if (!is_blocking) {
             /// Non-blocking transfer test
             
-            PHAL_SPI_transfer(&spi2, slave_tx, XFER_LEN, slave_rx);
-            PHAL_SPI_transfer(&spi1, master_tx, XFER_LEN, master_rx);
+            PHAL_SPI_transfer(&spi2, slave_tx, slave_rx, XFER_LEN);
+            PHAL_SPI_transfer(&spi1, master_tx, master_rx, XFER_LEN);
 
             uint32_t timeout = TIMEOUT;
             while ((PHAL_SPI_busy(&spi1) || PHAL_SPI_busy(&spi2)) && --timeout > 0);
@@ -171,8 +171,8 @@ int main() {
         } else {
             /// Blocking transfer test
             
-            PHAL_SPI_transfer(&spi2, slave_tx, XFER_LEN, slave_rx);
-            PHAL_SPI_transfer_blocking(&spi1, master_tx, XFER_LEN, master_rx);
+            PHAL_SPI_transfer(&spi2, slave_tx, slave_rx, XFER_LEN);
+            PHAL_SPI_transferBlocking(&spi1, master_tx, master_rx, XFER_LEN);
 
             while (PHAL_SPI_busy(&spi1) || PHAL_SPI_busy(&spi2)) {
                 __asm__("nop");

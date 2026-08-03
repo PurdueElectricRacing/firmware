@@ -29,11 +29,10 @@ static PHAL_USART_state_t usart_state[NUM_USART];
  *
  * @param handle Handle identifying the peripheral and desired baud rate
  * @param clock_rate Frequency (Hz) of the bus clock feeding this USART (APB1/APB2)
- * @return true on success, false if the peripheral is unsupported or DMA init failed
+ * @return true on success, false if DMA init failed
  */
 bool PHAL_USART_init(PHAL_USART_Handle_t *handle, const uint32_t clock_rate) {
-    ssize_t idx = USART_PRIV_idx_from_periph(handle->periph);
-    if (idx < 0) return false;
+    ssize_t idx = handle->periph;
 
     // Register the handle so the interrupt handlers can reach it.
     usart_state[idx].handle = handle;
@@ -57,12 +56,11 @@ bool PHAL_USART_init(PHAL_USART_Handle_t *handle, const uint32_t clock_rate) {
  * @return true if the transfer started, false otherwise
  */
 bool PHAL_USART_txDMA(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len) {
-    ssize_t idx = USART_PRIV_idx_from_periph(handle->periph);
-    if (idx < 0) return false;
+    ssize_t idx = handle->periph;
     if (usart_state[idx].handle != handle) return false;
 
     usart_state[idx].tx_busy = true;
-    USART_PRIV_start_tx(handle->periph);
+    USART_PRIV_start_tx(USART_PRIV_periph(idx));
 
     // Re-target the TX channel at this buffer (channel must be disabled to set
     // length/address); reEnable clears stale flags and starts the transfer.
@@ -87,15 +85,14 @@ bool PHAL_USART_txDMA(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len) 
  * @return true if reception started, false otherwise
  */
 bool PHAL_USART_rxDMA(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len, bool cont) {
-    ssize_t idx = USART_PRIV_idx_from_periph(handle->periph);
-    if (idx < 0) return false;
+    ssize_t idx = handle->periph;
     if (usart_state[idx].handle != handle) return false;
 
     usart_state[idx].cont_rx = cont;
     usart_state[idx].rxfer_size = len;
     usart_state[idx].rx_busy = true;
 
-    USART_PRIV_start_rx(handle->periph);
+    USART_PRIV_start_rx(USART_PRIV_periph(idx));
 
     // Channel must be disabled to set address/length; reEnable clears stale
     // flags and starts reception.
@@ -115,9 +112,7 @@ bool PHAL_USART_rxDMA(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len, 
  * @return true if a transmission is in flight, false otherwise
  */
 bool PHAL_USART_txBusy(PHAL_USART_Handle_t *handle) {
-    ssize_t idx = USART_PRIV_idx_from_periph(handle->periph);
-    if (idx < 0) return false;
-    return usart_state[idx].tx_busy;
+    return usart_state[handle->periph].tx_busy;
 }
 
 /**
@@ -143,11 +138,8 @@ bool PHAL_USART_txBl(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len) {
  * @return true if the reception completed, false if it failed to start
  */
 bool PHAL_USART_rxBl(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len) {
-    ssize_t idx = USART_PRIV_idx_from_periph(handle->periph);
-    if (idx < 0) return false;
     if (!PHAL_USART_rxDMA(handle, data, len, false)) return false;
-    
-    while (usart_state[idx].rx_busy);
+    while (usart_state[handle->periph].rx_busy);
     return true;
 }
 

@@ -53,7 +53,7 @@ GPIOInitConfig_t gpio_config[] = {
 // USART Configuration for GPS
 static constexpr uint32_t GPS_BAUD_RATE = 460'800;
 PHAL_USART_Handle_t usart3 = {
-    .periph    = USART3,
+    .periph    = USART3_IDX,
     .baud_rate = GPS_BAUD_RATE,
 };
 

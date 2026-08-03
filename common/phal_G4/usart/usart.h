@@ -3,8 +3,15 @@
 
 #include "common/phal_G4/phal_G4.h"
 
+typedef enum {
+    USART1_IDX,
+    USART2_IDX,
+    USART3_IDX,
+    NUM_USART
+} PHAL_USART_Idx_t;
+
 typedef struct {
-    USART_TypeDef *periph;
+    PHAL_USART_Idx_t periph;
     uint32_t baud_rate;
 } PHAL_USART_Handle_t;
 
@@ -24,7 +31,7 @@ typedef struct {
  *
  * @param handle Handle identifying the peripheral and desired baud rate
  * @param clock_rate Frequency (Hz) of the bus clock feeding this USART (APBx)
- * @return true on success, false if the peripheral is unsupported or DMA init failed
+ * @return true on success, false if DMA init failed
  */
 bool PHAL_USART_init(PHAL_USART_Handle_t *handle, const uint32_t clock_rate);
 

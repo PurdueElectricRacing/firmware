@@ -5,15 +5,7 @@
 
 #include "common/phal_G4/dma/dma.h"
 #include "common/phal_G4/phal_G4.h"
-
-// Internal slot index for each wired UART. NUM_USART auto-counts the entries
-// and sizes both USART_MAP and the runtime-state array.
-typedef enum {
-    USART1_IDX,
-    USART2_IDX,
-    USART3_IDX,
-    NUM_USART
-} PHAL_USART_Idx_t;
+#include "common/phal_G4/usart/usart.h" // PHAL_USART_Idx_t
 
 // Fixed hardware wiring for one UART. Every field is dictated by the datasheet
 // (RM0440 / STM32G474). This table is the single source of truth that replaces
@@ -35,9 +27,6 @@ typedef struct {
  * Private register-level operations. All USART/DMA/RCC/NVIC bit-and-register
  * business lives here so the public source (usart.c) reads as pure orchestration.
  */
-
-//! @return slot index for periph, or -1 if it is not a supported USART.
-ssize_t USART_PRIV_idx_from_periph(USART_TypeDef *periph);
 
 //! @return the peripheral instance for a slot (used by the interrupt handlers).
 USART_TypeDef *USART_PRIV_periph(ssize_t idx);

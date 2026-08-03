@@ -108,7 +108,7 @@ PHAL_ADC_Handle_t adc_handle;
 
 // USART Configuration for LCD
 PHAL_USART_Handle_t lcd = {
-    .periph    = USART1,
+    .periph    = USART1_IDX,
     .baud_rate = LCD_BAUD_RATE,
 };
 

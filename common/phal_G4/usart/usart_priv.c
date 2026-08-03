@@ -25,15 +25,6 @@ static const PHAL_USART_HwMap_t USART_MAP[NUM_USART] = {
     },
 };
 
-ssize_t USART_PRIV_idx_from_periph(USART_TypeDef *periph) {
-    for (uint8_t i = 0; i < NUM_USART; i++) {
-        if (USART_MAP[i].periph == periph) {
-            return i;
-        }
-    }
-    return -1;
-}
-
 USART_TypeDef *USART_PRIV_periph(ssize_t idx) {
     return USART_MAP[idx].periph;
 }

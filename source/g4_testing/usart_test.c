@@ -28,7 +28,7 @@ uint8_t tx_buffer[TX_BUFFER_SIZE];
 
 // USART Configuration
 PHAL_USART_Handle_t usart_config = {
-    .periph    = USART2,
+    .periph    = USART2_IDX,
     .baud_rate = 115200,
 };
 

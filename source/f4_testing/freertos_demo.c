@@ -60,8 +60,8 @@ usart_init_t usart_config      = {
     .periph           = USART2,
     .wake_addr        = false,
     .usart_active_num = USART2_ACTIVE_IDX,
-    .tx_dma       = &usart_tx_dma_config,
-    .rx_dma       = &usart_rx_dma_config
+    .tx_dma_cfg       = &usart_tx_dma_config,
+    .rx_dma_cfg       = &usart_rx_dma_config
 };
 
 void HardFault_Handler();

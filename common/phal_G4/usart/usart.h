@@ -60,6 +60,32 @@ bool PHAL_USART_rxDMA(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len, 
 bool PHAL_USART_txBusy(PHAL_USART_Handle_t *handle);
 
 /**
+ * @brief Transmit data, blocking until the transfer completes.
+ *
+ * Starts a DMA transmission (see PHAL_USART_txDMA) and busy-waits until it
+ * finishes. Do not call from an ISR.
+ *
+ * @param handle Handle of the USART to transmit on
+ * @param data Buffer to send
+ * @param len Number of bytes to send
+ * @return true if the transfer completed, false if it failed to start
+ */
+bool PHAL_USART_txBl(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len);
+
+/**
+ * @brief Receive data, blocking until a one-shot reception completes.
+ *
+ * Starts a one-shot DMA reception (see PHAL_USART_rxDMA) and busy-waits until
+ * the IDLE-line ISR signals the frame is complete. Do not call from an ISR.
+ *
+ * @param handle Handle of the USART to receive on
+ * @param data Buffer to receive into
+ * @param len Number of bytes to receive
+ * @return true if the reception completed, false if it failed to start
+ */
+bool PHAL_USART_rxBl(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len);
+
+/**
  * @brief Weak callback invoked when a full RX frame is received. Override in
  *        application code. Runs in ISR context, so keep it light.
  *

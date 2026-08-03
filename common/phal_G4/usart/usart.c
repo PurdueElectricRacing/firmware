@@ -9,6 +9,7 @@ typedef struct {
     dma_init_t rx_dma;           //!< RX DMA descriptor (built in init)
     volatile uint32_t rxfer_size; //!< configured RX length (for continuous re-arm)
     volatile bool tx_busy;       //!< set when a TX is in flight, cleared by the DMA ISR
+    volatile bool rx_busy;       //!< set while a frame is in flight, cleared by the IDLE-line ISR
     bool cont_rx;                //!< continuous vs one-shot reception
 } PHAL_USART_state_t;
 
@@ -92,6 +93,7 @@ bool PHAL_USART_rxDMA(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len, 
 
     usart_state[idx].cont_rx = cont;
     usart_state[idx].rxfer_size = len;
+    usart_state[idx].rx_busy = true;
 
     USART_PRIV_start_rx(handle->periph);
 
@@ -118,6 +120,37 @@ bool PHAL_USART_txBusy(PHAL_USART_Handle_t *handle) {
     return usart_state[idx].tx_busy;
 }
 
+/**
+ * @brief Transmit data, blocking until the transfer completes.
+ *
+ * @param handle Handle of the USART to transmit on
+ * @param data Buffer to send
+ * @param len Number of bytes to send
+ * @return true if the transfer completed, false if it failed to start
+ */
+bool PHAL_USART_txBl(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len) {
+    if (!PHAL_USART_txDMA(handle, data, len)) return false;
+    while (PHAL_USART_txBusy(handle));
+    return true;
+}
+
+/**
+ * @brief Receive data, blocking until a one-shot reception completes.
+ *
+ * @param handle Handle of the USART to receive on
+ * @param data Buffer to receive into
+ * @param len Number of bytes to receive
+ * @return true if the reception completed, false if it failed to start
+ */
+bool PHAL_USART_rxBl(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len) {
+    ssize_t idx = USART_PRIV_idx_from_periph(handle->periph);
+    if (idx < 0) return false;
+    if (!PHAL_USART_rxDMA(handle, data, len, false)) return false;
+    
+    while (usart_state[idx].rx_busy);
+    return true;
+}
+
 //! On the IDLE line, finish the frame, re-arm if continuous, and notify the app.
 static void PHAL_USART_HandleIRQ(ssize_t idx) {
     USART_TypeDef *periph = USART_PRIV_periph(idx);
@@ -125,6 +158,7 @@ static void PHAL_USART_HandleIRQ(ssize_t idx) {
     if (USART_PRIV_idle_active(periph)) {
         dma_init_t *rx_dma = &usart_state[idx].rx_dma;
         PHAL_stopTxfer(rx_dma);
+        usart_state[idx].rx_busy = false;
 
         if (usart_state[idx].cont_rx) {
             // The transfer length has counted down to 0; reload it and re-arm.

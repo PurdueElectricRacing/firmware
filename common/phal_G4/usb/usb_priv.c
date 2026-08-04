@@ -1,6 +1,7 @@
 /**
  * @file usb_priv.c
  * @brief STM32G4 USB register and packet-memory implementation.
+ * @author Ronak Jain (jain717@purdue.edu)
  */
 
 #include "common/phal_G4/usb/usb_priv.h"

@@ -1,3 +1,9 @@
+/**
+ * @file usb.h
+ * @brief Architecture-selecting USB HAL include.
+ * @author Ronak Jain (jain717@purdue.edu)
+ */
+
 #ifndef _PHAL_COMMON_USB_H
 #define _PHAL_COMMON_USB_H
 

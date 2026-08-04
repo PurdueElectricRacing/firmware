@@ -1,6 +1,7 @@
 /**
  * @file usb.c
  * @brief Validation and state for the public STM32G4 USB API.
+ * @author Ronak Jain (jain717@purdue.edu)
  */
 
 #include "common/phal_G4/usb/usb.h"

@@ -1,3 +1,9 @@
+/**
+ * @file crc_priv.h
+ * @brief STM32G4 CRC register-level implementation interface.
+ * @author Hannah Song (song892@purdue.edu)
+ */
+
 #ifndef __PHAL_G4_CRC_PRIV_H__
 #define __PHAL_G4_CRC_PRIV_H__
 

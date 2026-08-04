@@ -1,3 +1,9 @@
+/**
+ * @file crc_priv.c
+ * @brief STM32G4 CRC register-level implementation.
+ * @author Hannah Song (song892@purdue.edu)
+ */
+
 #include "common/phal_G4/crc/crc_priv.h"
 
 void CRC_PRIV_enableClock(void) {

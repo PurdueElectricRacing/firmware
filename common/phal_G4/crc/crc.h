@@ -1,3 +1,9 @@
+/**
+ * @file crc.h
+ * @brief STM32G4 CRC public API.
+ * @author Hannah Song (song892@purdue.edu)
+ */
+
 #ifndef __PHAL_G4_CRC_H__
 #define __PHAL_G4_CRC_H__
 

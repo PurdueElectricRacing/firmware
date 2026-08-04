@@ -103,6 +103,9 @@ $(function(){initNavTree('phal__G4_2flash_2flash_8h.html',''); initResizable(tru
   <div class="headertitle"><div class="title">flash.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>STM32G4 internal-flash public API.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdbool.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -135,7 +138,11 @@ Variables</h2></td></tr>
 <tr class="memitem:add88d332c295ae474f1819e59cb5e6a8" id="r_add88d332c295ae474f1819e59cb5e6a8"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#add88d332c295ae474f1819e59cb5e6a8">PHAL_FLASH_WRITE_ALIGNMENT_BYTES</a> = 8U</td></tr>
 <tr class="separator:add88d332c295ae474f1819e59cb5e6a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>STM32G4 internal-flash public API. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronak Jain (<a href="#" onclick="location.href='mai'+'lto:'+'jai'+'n7'+'17@'+'pu'+'rdu'+'e.'+'edu'; return false;">jain7<span class="obfuscator">.nosp@m.</span>17@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>)</dd></dl>
+<p>The public layer accepts byte ranges and hides controller unlock, cache, bank, page, and status-register details in <a class="el" href="flash__priv_8c.html" title="STM32G4 internal-flash register-level implementation.">flash_priv.c</a>. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="ae5452e7ac6c1fd154de448cc8403653d" name="ae5452e7ac6c1fd154de448cc8403653d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae5452e7ac6c1fd154de448cc8403653d">&#9670;&#160;</a></span>PHAL_FLASH_erase()</h2>
 
@@ -156,7 +163,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Erase every internal flash page touched by a range. </p>
-<p>The address may be unaligned. A zero-length erase succeeds without modifying flash.</p>
+<p>The address may be unaligned. Every complete page touched by the range is erased. A zero-length erase succeeds without modifying flash.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">address</td><td>Address of the first byte in the range. </td></tr>
@@ -166,6 +173,7 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true when every affected page is erased and verified; false on an invalid range or flash error. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>Erase operates on complete pages. Bytes outside the range are erased when they share an affected page. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Erase and write operations are serialized and temporarily manage the flash controller's cache and lock state. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -199,7 +207,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Copy bytes from internal flash into a buffer. </p>
-<p>The requested range must be within internal flash. A zero-length read succeeds without accessing either pointer.</p>
+<p>The requested range must be within internal flash. The address is a CPU address, not an offset from FLASH_BASE. A zero-length read succeeds without accessing either pointer.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">address</td><td>Address of the first byte to read. </td></tr>
@@ -242,7 +250,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Program bytes into erased internal flash. </p>
-<p>The destination must be erased before writing. A zero-length write succeeds without accessing either pointer.</p>
+<p>The destination must be erased before writing. The complete programmed range is checked for erased-state bytes before any programming starts. A zero-length write succeeds without accessing either pointer.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">address</td><td>Address of the first byte to write; must be 8-byte aligned. </td></tr>
@@ -252,7 +260,9 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true when all bytes are programmed and verified; false on invalid input or flash error. </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>A partial final double word is padded with 0xFF. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>A partial final double word is padded with 0xFF. </dd>
+<dd>
+The source buffer is read only while this call is active. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -281,7 +291,8 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>STM32G4 flash programming granularity. </p>
+<p>STM32G4 flash programming granularity.</p>
+<p>Writes are padded with erased-state bytes (0xFF) to this size when the requested length is not a multiple of the programming granularity. </p>
 
 </div>
 </div>

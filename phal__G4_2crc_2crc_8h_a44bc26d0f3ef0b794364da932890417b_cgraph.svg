@@ -31,7 +31,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="phal__G4_2crc_2crc_8c.html#a4abef7273acd65e3a23ba80525a825b0" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="phal__G4_2crc_2crc_8c.html#a4abef7273acd65e3a23ba80525a825b0" target="_top" xlink:title="Fold one 32&#45;bit word into the running CRC, four bits at a time, MSB&#45;first.">
 <polygon fill="white" stroke="#666666" points="216.5,-19.25 163,-19.25 163,0 216.5,0 216.5,-19.25"/>
 <text text-anchor="middle" x="189.75" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">crc_step</text>
 </a>

@@ -1,5 +1,5 @@
 <map id="FLASH_PRIV_begin_operation" name="FLASH_PRIV_begin_operation">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,211,207,236"/>
+<area shape="rect" id="Node000001" title="Prepare the controller for programming or page erase." alt="" coords="5,211,207,236"/>
 <area shape="rect" id="Node000002" href="$flash__priv_8c.html#a047660148edba340f7b41398a518fa2c" title=" " alt="" coords="291,5,388,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,209,132,175,164,130,204,82,253,41,275,30,277,35,256,46,208,86,168,133,137,178,117,212"/>
 <area shape="rect" id="Node000003" href="$flash__priv_8c.html#a6645ffedbc8c651dd49b77830da9d1eb" title=" " alt="" coords="276,55,402,96"/>

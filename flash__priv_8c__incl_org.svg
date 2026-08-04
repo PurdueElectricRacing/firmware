@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="STM32G4 internal&#45;flash register&#45;level implementation.">
 <polygon fill="#999999" stroke="#666666" points="187.75,-152.25 72,-152.25 72,-121.75 187.75,-121.75 187.75,-152.25"/>
 <text text-anchor="start" x="80" y="-138.75" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_G4/flash</text>
 <text text-anchor="middle" x="129.88" y="-127.5" font-family="Helvetica,sans-Serif" font-size="10.00">/flash_priv.c</text>
@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="flash__priv_8h.html" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="flash__priv_8h.html" target="_top" xlink:title="STM32G4 internal&#45;flash register&#45;level implementation interface.">
 <polygon fill="white" stroke="#666666" points="115.75,-85.75 0,-85.75 0,-55.25 115.75,-55.25 115.75,-85.75"/>
 <text text-anchor="start" x="8" y="-72.25" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_G4/flash</text>
 <text text-anchor="middle" x="57.88" y="-61" font-family="Helvetica,sans-Serif" font-size="10.00">/flash_priv.h</text>

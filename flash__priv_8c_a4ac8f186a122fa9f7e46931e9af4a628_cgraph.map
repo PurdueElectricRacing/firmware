@@ -1,5 +1,5 @@
 <map id="FLASH_PRIV_begin_read" name="FLASH_PRIV_begin_read">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,92,179,118"/>
+<area shape="rect" id="Node000001" title="Acquire the flash operation lock, wait for idle, and clear status." alt="" coords="5,92,179,118"/>
 <area shape="rect" id="Node000002" href="$flash__priv_8c.html#a047660148edba340f7b41398a518fa2c" title=" " alt="" coords="263,5,360,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,89,226,41,247,34,248,39,228,46,121,94"/>
 <area shape="rect" id="Node000003" href="$flash__priv_8c.html#a6645ffedbc8c651dd49b77830da9d1eb" title=" " alt="" coords="248,55,374,96"/>

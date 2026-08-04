@@ -1,5 +1,5 @@
 <map id="FLASH_PRIV_program_double_word" name="FLASH_PRIV_program_double_word">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,63,163,103"/>
+<area shape="rect" id="Node000001" title="Program one STM32G4 double word." alt="" coords="5,63,163,103"/>
 <area shape="rect" id="Node000002" href="$flash__priv_8c.html#a6645ffedbc8c651dd49b77830da9d1eb" title=" " alt="" coords="212,5,338,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,60,197,46,198,52,155,65"/>
 <area shape="rect" id="Node000003" href="$flash__priv_8c.html#addc1891c1d459ba255e26f37ca4ba285" title=" " alt="" coords="605,98,705,124"/>

@@ -1,6 +1,6 @@
 <map id="FLASH_PRIV_get_page_size_bytes" name="FLASH_PRIV_get_page_size_bytes">
-<area shape="rect" id="Node000001" title=" " alt="" coords="426,23,589,64"/>
-<area shape="rect" id="Node000002" href="$flash__priv_8c.html#a423e49b8e633590b99f63b00c9381645" title=" " alt="" coords="201,5,378,31"/>
+<area shape="rect" id="Node000001" title="Determine the active page size from the dual&#45;bank option bit." alt="" coords="426,23,589,64"/>
+<area shape="rect" id="Node000002" href="$flash__priv_8c.html#a423e49b8e633590b99f63b00c9381645" title="Erase one complete flash page." alt="" coords="201,5,378,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="410,35,378,31,379,26,411,30"/>
 <area shape="rect" id="Node000003" href="$phal__G4_2flash_2flash_8c.html#ae5452e7ac6c1fd154de448cc8403653d" title="Erase every internal flash page touched by a range." alt="" coords="5,31,153,56"/>
 <area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="411,46,153,46,153,41,411,41"/>

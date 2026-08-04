@@ -1,5 +1,5 @@
 <map id="FLASH_PRIV_end_read" name="FLASH_PRIV_end_read">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,42,169,68"/>
+<area shape="rect" id="Node000001" title="Finish a read operation and release the operation lock." alt="" coords="5,42,169,68"/>
 <area shape="rect" id="Node000002" href="$flash__priv_8c.html#a6645ffedbc8c651dd49b77830da9d1eb" title=" " alt="" coords="217,5,343,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,40,201,35,202,40,169,45"/>
 <area shape="rect" id="Node000003" href="$flash__priv_8c.html#af3494fc55f0caf8044453f4d4cfba50a" title=" " alt="" coords="231,70,328,96"/>

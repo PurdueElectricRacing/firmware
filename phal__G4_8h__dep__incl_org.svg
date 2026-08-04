@@ -39,7 +39,7 @@
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="phal__G4_2crc_2crc_8h.html" target="_top" xlink:title=" ">
+<g id="a_Node000004"><a xlink:href="phal__G4_2crc_2crc_8h.html" target="_top" xlink:title="STM32G4 CRC public API.">
 <polygon fill="white" stroke="#666666" points="238.12,-230 129.12,-230 129.12,-199.5 238.12,-199.5 238.12,-230"/>
 <text text-anchor="start" x="137.12" y="-216.5" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_G4/crc</text>
 <text text-anchor="middle" x="183.62" y="-205.25" font-family="Helvetica,sans-Serif" font-size="10.00">/crc.h</text>
@@ -58,7 +58,7 @@
 <!-- Node6 -->
 <g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_Node000006"><a xlink:href="crc__priv_8h.html" target="_top" xlink:title=" ">
+<g id="a_Node000006"><a xlink:href="crc__priv_8h.html" target="_top" xlink:title="STM32G4 CRC register&#45;level implementation interface.">
 <polygon fill="white" stroke="#666666" points="365.12,-230 256.12,-230 256.12,-199.5 365.12,-199.5 365.12,-230"/>
 <text text-anchor="start" x="264.12" y="-216.5" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_G4/crc</text>
 <text text-anchor="middle" x="310.62" y="-205.25" font-family="Helvetica,sans-Serif" font-size="10.00">/crc_priv.h</text>
@@ -191,7 +191,7 @@
 <!-- Node21 -->
 <g id="Node000021" class="node">
 <title>Node21</title>
-<g id="a_Node000021"><a xlink:href="phal__G4_2flash_2flash_8c.html" target="_top" xlink:title=" ">
+<g id="a_Node000021"><a xlink:href="phal__G4_2flash_2flash_8c.html" target="_top" xlink:title="STM32G4 internal&#45;flash public&#45;layer implementation.">
 <polygon fill="white" stroke="#666666" points="1620.5,-230 1504.75,-230 1504.75,-199.5 1620.5,-199.5 1620.5,-230"/>
 <text text-anchor="start" x="1512.75" y="-216.5" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_G4/flash</text>
 <text text-anchor="middle" x="1562.62" y="-205.25" font-family="Helvetica,sans-Serif" font-size="10.00">/flash.c</text>
@@ -210,7 +210,7 @@
 <!-- Node22 -->
 <g id="Node000022" class="node">
 <title>Node22</title>
-<g id="a_Node000022"><a xlink:href="flash__priv_8c.html" target="_top" xlink:title=" ">
+<g id="a_Node000022"><a xlink:href="flash__priv_8c.html" target="_top" xlink:title="STM32G4 internal&#45;flash register&#45;level implementation.">
 <polygon fill="white" stroke="#666666" points="1754.5,-230 1638.75,-230 1638.75,-199.5 1754.5,-199.5 1754.5,-230"/>
 <text text-anchor="start" x="1646.75" y="-216.5" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_G4/flash</text>
 <text text-anchor="middle" x="1696.62" y="-205.25" font-family="Helvetica,sans-Serif" font-size="10.00">/flash_priv.c</text>
@@ -343,7 +343,7 @@
 <!-- Node5 -->
 <g id="Node000005" class="node">
 <title>Node5</title>
-<g id="a_Node000005"><a xlink:href="phal__G4_2crc_2crc_8c.html" target="_top" xlink:title=" ">
+<g id="a_Node000005"><a xlink:href="phal__G4_2crc_2crc_8c.html" target="_top" xlink:title="STM32G4 CRC public&#45;layer implementation.">
 <polygon fill="white" stroke="#666666" points="238.12,-163.5 129.12,-163.5 129.12,-133 238.12,-133 238.12,-163.5"/>
 <text text-anchor="start" x="137.12" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_G4/crc</text>
 <text text-anchor="middle" x="183.62" y="-138.75" font-family="Helvetica,sans-Serif" font-size="10.00">/crc.c</text>
@@ -371,7 +371,7 @@
 <!-- Node7 -->
 <g id="Node000007" class="node">
 <title>Node7</title>
-<g id="a_Node000007"><a xlink:href="crc__priv_8c.html" target="_top" xlink:title=" ">
+<g id="a_Node000007"><a xlink:href="crc__priv_8c.html" target="_top" xlink:title="STM32G4 CRC register&#45;level implementation.">
 <polygon fill="white" stroke="#666666" points="365.12,-163.5 256.12,-163.5 256.12,-133 365.12,-133 365.12,-163.5"/>
 <text text-anchor="start" x="264.12" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_G4/crc</text>
 <text text-anchor="middle" x="310.62" y="-138.75" font-family="Helvetica,sans-Serif" font-size="10.00">/crc_priv.c</text>

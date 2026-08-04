@@ -22,7 +22,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="Fold one 32&#45;bit word into the running CRC, four bits at a time, MSB&#45;first.">
 <polygon fill="#999999" stroke="#666666" points="216.5,-19.25 163,-19.25 163,0 216.5,0 216.5,-19.25"/>
 <text text-anchor="middle" x="189.75" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">crc_step</text>
 </a>

@@ -2,9 +2,9 @@
 <area shape="rect" id="Node000001" title=" " alt="" coords="1050,5,1235,31"/>
 <area shape="rect" id="Node000002" href="$phal__G4_2adc_2adc_8h.html" title=" " alt="" coords="5,79,154,120"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1034,23,866,27,649,37,408,54,165,82,155,83,154,78,164,76,407,49,649,32,866,22,1034,18"/>
-<area shape="rect" id="Node000004" href="$phal__G4_2crc_2crc_8h.html" title=" " alt="" coords="178,79,323,120"/>
+<area shape="rect" id="Node000004" href="$phal__G4_2crc_2crc_8h.html" title="STM32G4 CRC public API." alt="" coords="178,79,323,120"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1034,25,720,42,528,58,336,82,324,84,323,78,335,76,527,53,720,36,1034,20"/>
-<area shape="rect" id="Node000006" href="$crc__priv_8h.html" title=" " alt="" coords="347,79,492,120"/>
+<area shape="rect" id="Node000006" href="$crc__priv_8h.html" title="STM32G4 CRC register&#45;level implementation interface." alt="" coords="347,79,492,120"/>
 <area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1034,29,794,48,653,63,512,82,493,85,492,80,511,76,652,58,794,43,1034,23"/>
 <area shape="rect" id="Node000008" href="$phal__G4_2dma_2dma_8h.html" title="G4 DMA Peripheral public API implementation." alt="" coords="550,168,702,208"/>
 <area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="1034,25,896,32,747,43,621,59,579,69,557,81,551,91,550,101,559,124,577,146,600,165,596,169,573,150,554,126,545,102,546,89,554,77,578,64,620,54,746,37,896,27,1034,20"/>
@@ -18,9 +18,9 @@
 <area shape="poly" id="edge20_Node000001_Node000017" title=" " alt="" coords="1250,28,1426,49,1625,76,1644,79,1643,85,1624,82,1426,54,1250,33"/>
 <area shape="rect" id="Node000020" href="$fdcan__priv_8h.html" title="G4 FDCAN private/register level implementation." alt="" coords="1828,79,1987,120"/>
 <area shape="poly" id="edge23_Node000001_Node000020" title=" " alt="" coords="1250,23,1509,41,1662,57,1816,76,1828,78,1827,84,1815,82,1662,62,1508,47,1250,28"/>
-<area shape="rect" id="Node000021" href="$phal__G4_2flash_2flash_8c.html" title=" " alt="" coords="2012,79,2166,120"/>
+<area shape="rect" id="Node000021" href="$phal__G4_2flash_2flash_8c.html" title="STM32G4 internal&#45;flash public&#45;layer implementation." alt="" coords="2012,79,2166,120"/>
 <area shape="poly" id="edge26_Node000001_Node000021" title=" " alt="" coords="1251,19,1586,36,1793,52,2000,76,2012,78,2011,83,1999,82,1792,58,1586,41,1250,25"/>
-<area shape="rect" id="Node000022" href="$flash__priv_8c.html" title=" " alt="" coords="2190,79,2345,120"/>
+<area shape="rect" id="Node000022" href="$flash__priv_8c.html" title="STM32G4 internal&#45;flash register&#45;level implementation." alt="" coords="2190,79,2345,120"/>
 <area shape="poly" id="edge27_Node000001_Node000022" title=" " alt="" coords="1250,18,1428,22,1659,31,1918,48,2179,76,2190,78,2189,83,2178,82,1918,54,1659,36,1428,27,1250,23"/>
 <area shape="rect" id="Node000023" href="$phal__G4_2gpio_2gpio_8h.html" title="GPIO Driver for STM32L432 Devices." alt="" coords="978,79,1130,120"/>
 <area shape="poly" id="edge28_Node000001_Node000023" title=" " alt="" coords="1119,44,1078,81,1074,77,1116,40"/>
@@ -34,10 +34,10 @@
 <area shape="poly" id="edge47_Node000001_Node000033" title=" " alt="" coords="1250,16,1456,18,1731,26,2043,44,2202,58,2357,76,2369,78,2369,83,2356,82,2201,64,2042,49,1731,31,1456,23,1250,21"/>
 <area shape="rect" id="Node000003" href="$phal__G4_2adc_2adc_8c.html" title=" " alt="" coords="5,168,154,208"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="82,135,82,167,77,167,77,135"/>
-<area shape="rect" id="Node000005" href="$phal__G4_2crc_2crc_8c.html" title=" " alt="" coords="178,168,323,208"/>
+<area shape="rect" id="Node000005" href="$phal__G4_2crc_2crc_8c.html" title="STM32G4 CRC public&#45;layer implementation." alt="" coords="178,168,323,208"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="253,135,253,167,248,167,248,135"/>
 <area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="369,129,290,170,287,165,366,125"/>
-<area shape="rect" id="Node000007" href="$crc__priv_8c.html" title=" " alt="" coords="347,168,492,208"/>
+<area shape="rect" id="Node000007" href="$crc__priv_8c.html" title="STM32G4 CRC register&#45;level implementation." alt="" coords="347,168,492,208"/>
 <area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="422,135,422,167,417,167,417,135"/>
 <area shape="rect" id="Node000009" href="$phal__G4_2dma_2dma_8c.html" title="G4 DMA Peripheral public API implementation." alt="" coords="315,345,468,386"/>
 <area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="536,203,478,223,450,239,427,258,412,278,403,301,395,345,390,344,398,300,408,276,423,255,447,234,475,218,534,198"/>

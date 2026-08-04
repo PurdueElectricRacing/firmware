@@ -22,7 +22,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="Prepare the controller for programming or page erase.">
 <polygon fill="#999999" stroke="#666666" points="151,-160.25 0,-160.25 0,-141 151,-141 151,-160.25"/>
 <text text-anchor="middle" x="75.5" y="-146.75" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_begin_operation</text>
 </a>

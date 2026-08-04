@@ -1,6 +1,6 @@
 <map id="flash_lock" name="flash_lock">
 <area shape="rect" id="Node000001" title=" " alt="" coords="440,31,519,56"/>
-<area shape="rect" id="Node000002" href="$flash__priv_8c.html#a3bedf041eabbe2090e0bfb147c6b87de" title=" " alt="" coords="201,31,392,56"/>
+<area shape="rect" id="Node000002" href="$flash__priv_8c.html#a3bedf041eabbe2090e0bfb147c6b87de" title="Finalize a completed operation, restore cache state, lock the controller, and release the operation l..." alt="" coords="201,31,392,56"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="424,46,392,46,392,41,424,41"/>
 <area shape="rect" id="Node000003" href="$phal__G4_2flash_2flash_8c.html#ae5452e7ac6c1fd154de448cc8403653d" title="Erase every internal flash page touched by a range." alt="" coords="5,5,153,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="185,33,153,29,154,24,185,28"/>

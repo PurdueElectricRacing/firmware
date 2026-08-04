@@ -67,7 +67,7 @@ var sectionId = 'dynsection-3';
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="flash__priv_8c.html#a4ac8f186a122fa9f7e46931e9af4a628" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="flash__priv_8c.html#a4ac8f186a122fa9f7e46931e9af4a628" target="_top" xlink:title="Acquire the flash operation lock, wait for idle, and clear status.">
 <polygon fill="white" stroke="#666666" points="271.25,-116.88 141.25,-116.88 141.25,-97.62 271.25,-97.62 271.25,-116.88"/>
 <text text-anchor="middle" x="206.25" y="-103.38" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_begin_read</text>
 </a>
@@ -85,7 +85,7 @@ var sectionId = 'dynsection-3';
 <!-- Node8 -->
 <g id="Node000008" class="node">
 <title>Node8</title>
-<g id="a_Node000008"><a xlink:href="flash__priv_8c.html#ad702646df30f6e3334f9ff58e454f8f5" target="_top" xlink:title=" ">
+<g id="a_Node000008"><a xlink:href="flash__priv_8c.html#ad702646df30f6e3334f9ff58e454f8f5" target="_top" xlink:title="Finish a read operation and release the operation lock.">
 <polygon fill="white" stroke="#666666" points="267.5,-76.88 145,-76.88 145,-57.62 267.5,-57.62 267.5,-76.88"/>
 <text text-anchor="middle" x="206.25" y="-63.38" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_end_read</text>
 </a>
@@ -230,7 +230,7 @@ var sectionId = 'dynsection-3';
 <!-- Node10 -->
 <g id="Node000010" class="node">
 <title>Node10</title>
-<g id="a_Node000010"><a xlink:href="flash__priv_8c.html#af211a09d69bec5e86a7f4f46e2e49fbf" target="_top" xlink:title=" ">
+<g id="a_Node000010"><a xlink:href="flash__priv_8c.html#af211a09d69bec5e86a7f4f46e2e49fbf" target="_top" xlink:title="Read the device&#45;reported internal flash capacity.">
 <polygon fill="white" stroke="#666666" points="430.12,-30.5 311.38,-30.5 311.38,0 430.12,0 430.12,-30.5"/>
 <text text-anchor="start" x="319.38" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_get_size</text>
 <text text-anchor="middle" x="370.75" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">_bytes</text>

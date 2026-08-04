@@ -1,5 +1,5 @@
 <map id="FLASH_PRIV_erase_page" name="FLASH_PRIV_erase_page">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,177,183,203"/>
+<area shape="rect" id="Node000001" title="Erase one complete flash page." alt="" coords="5,177,183,203"/>
 <area shape="rect" id="Node000002" href="$flash__priv_8c.html#a9cee4cff22669c0a2913f0f490d5628c" title=" " alt="" coords="238,5,387,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,175,151,112,187,74,229,41,240,35,243,40,232,46,191,78,155,115,106,179"/>
 <area shape="rect" id="Node000003" href="$flash__priv_8c.html#a6645ffedbc8c651dd49b77830da9d1eb" title=" " alt="" coords="249,55,376,96"/>
@@ -8,9 +8,9 @@
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="140,174,230,156,332,150,428,152,428,157,332,155,231,161,141,179"/>
 <area shape="rect" id="Node000005" href="$flash__priv_8c.html#addc1891c1d459ba255e26f37ca4ba285" title=" " alt="" coords="659,296,759,322"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="150,201,231,220,458,263,644,296,643,301,457,269,230,225,149,206"/>
-<area shape="rect" id="Node000006" href="$flash__priv_8c.html#a070e33cfa30b8f6f011c83d3816f0162" title=" " alt="" coords="231,170,394,210"/>
+<area shape="rect" id="Node000006" href="$flash__priv_8c.html#a070e33cfa30b8f6f011c83d3816f0162" title="Determine the active page size from the dual&#45;bank option bit." alt="" coords="231,170,394,210"/>
 <area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="183,188,215,188,215,193,183,193"/>
-<area shape="rect" id="Node000007" href="$flash__priv_8c.html#af211a09d69bec5e86a7f4f46e2e49fbf" title=" " alt="" coords="233,284,392,325"/>
+<area shape="rect" id="Node000007" href="$flash__priv_8c.html#af211a09d69bec5e86a7f4f46e2e49fbf" title="Read the device&#45;reported internal flash capacity." alt="" coords="233,284,392,325"/>
 <area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="119,201,232,264,254,275,252,280,229,269,117,206"/>
 <area shape="rect" id="Node000008" href="$flash__priv_8c.html#a5d839db8c7942bcb1b129a9e4fadb5c3" title=" " alt="" coords="248,350,377,390"/>
 <area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="106,202,156,264,192,301,232,335,240,340,238,344,229,339,188,305,152,268,102,205"/>

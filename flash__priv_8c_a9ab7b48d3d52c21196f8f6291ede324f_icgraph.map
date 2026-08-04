@@ -1,8 +1,8 @@
 <map id="flash_restore_caches" name="flash_restore_caches">
 <area shape="rect" id="Node000001" title=" " alt="" coords="450,31,594,56"/>
-<area shape="rect" id="Node000002" href="$flash__priv_8c.html#a7cfacba7a408a420e261fcdceef04b8b" title=" " alt="" coords="201,5,402,31"/>
+<area shape="rect" id="Node000002" href="$flash__priv_8c.html#a7cfacba7a408a420e261fcdceef04b8b" title="Prepare the controller for programming or page erase." alt="" coords="201,5,402,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="434,36,402,32,403,27,435,31"/>
-<area shape="rect" id="Node000005" href="$flash__priv_8c.html#a3bedf041eabbe2090e0bfb147c6b87de" title=" " alt="" coords="206,55,397,80"/>
+<area shape="rect" id="Node000005" href="$flash__priv_8c.html#a3bedf041eabbe2090e0bfb147c6b87de" title="Finalize a completed operation, restore cache state, lock the controller, and release the operation l..." alt="" coords="206,55,397,80"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="435,56,398,60,397,54,434,50"/>
 <area shape="rect" id="Node000003" href="$phal__G4_2flash_2flash_8c.html#ae5452e7ac6c1fd154de448cc8403653d" title="Erase every internal flash page touched by a range." alt="" coords="5,5,153,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="185,21,153,21,153,16,185,16"/>

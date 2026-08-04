@@ -4,7 +4,7 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2135,26,1723,44,1459,61,1192,82,897,113,603,155,556,163,555,157,602,150,897,108,1192,76,1459,55,1723,39,2134,20"/>
 <area shape="rect" id="Node000008" href="$phal_2can_8h.html" title=" " alt="" coords="792,160,926,186"/>
 <area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="2149,37,1921,72,1644,107,1446,122,1290,126,1135,132,1045,141,938,155,904,162,903,157,937,150,1044,136,1135,127,1290,121,1445,117,1644,102,1920,67,2148,31"/>
-<area shape="rect" id="Node000016" href="$phal_2crc_8h.html" title=" " alt="" coords="3986,79,4118,105"/>
+<area shape="rect" id="Node000016" href="$phal_2crc_8h.html" title="Architecture&#45;selecting CRC HAL include." alt="" coords="3986,79,4118,105"/>
 <area shape="poly" id="edge19_Node000001_Node000016" title=" " alt="" coords="2335,16,2617,17,3022,25,3494,43,3737,57,3975,76,3986,78,3986,83,3975,82,3737,63,3494,48,3022,30,2617,23,2335,22"/>
 <area shape="rect" id="Node000017" href="$phal_2dma_8h.html" title=" " alt="" coords="630,160,768,186"/>
 <area shape="poly" id="edge20_Node000001_Node000017" title=" " alt="" coords="2135,30,1450,84,1063,121,781,155,746,162,745,157,780,150,1062,115,1449,79,2135,24"/>
@@ -20,7 +20,7 @@
 <area shape="poly" id="edge91_Node000001_Node000051" title=" " alt="" coords="2335,20,2911,42,3692,76,3832,84,3832,89,3692,82,2911,48,2335,26"/>
 <area shape="rect" id="Node000057" href="$phal_2usart_8h.html" title=" " alt="" coords="14,160,157,186"/>
 <area shape="poly" id="edge107_Node000001_Node000057" title=" " alt="" coords="2135,25,1623,44,1285,60,942,82,570,111,201,155,154,162,154,157,200,150,570,106,941,76,1285,55,1623,38,2134,20"/>
-<area shape="rect" id="Node000059" href="$phal_2usb_8h.html" title=" " alt="" coords="4306,79,4441,105"/>
+<area shape="rect" id="Node000059" href="$phal_2usb_8h.html" title="Architecture&#45;selecting USB HAL include." alt="" coords="4306,79,4441,105"/>
 <area shape="poly" id="edge111_Node000001_Node000059" title=" " alt="" coords="2335,18,3304,36,3876,54,4114,64,4295,76,4306,77,4305,83,4295,82,4114,70,3875,59,3304,42,2335,24"/>
 <area shape="rect" id="Node000003" href="$a__box_2main_8c.html" title="&quot;Abox&quot; node source code" alt="" coords="1883,419,2024,444"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="433,194,399,214,385,227,373,243,366,262,373,281,402,313,431,335,461,348,493,355,565,359,652,368,764,383,913,395,1269,412,1625,422,1883,427,1883,432,1625,428,1269,417,912,400,764,388,652,373,564,365,492,360,459,353,428,340,398,317,369,283,361,262,368,240,381,224,396,210,431,190"/>

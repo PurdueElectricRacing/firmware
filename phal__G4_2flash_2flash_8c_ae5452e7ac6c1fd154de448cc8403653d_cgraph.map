@@ -2,13 +2,13 @@
 <area shape="rect" id="Node000001" title="Erase every internal flash page touched by a range." alt="" coords="5,532,153,558"/>
 <area shape="rect" id="Node000002" href="$phal__G4_2flash_2flash_8c.html#a36a1e9148b20635a7eae090ddc91594f" title=" " alt="" coords="228,211,374,236"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,531,87,478,106,401,122,359,142,317,167,279,199,245,212,236,215,241,202,250,172,282,146,320,126,361,111,403,92,479,84,532"/>
-<area shape="rect" id="Node000003" href="$flash__priv_8c.html#a7cfacba7a408a420e261fcdceef04b8b" title=" " alt="" coords="201,260,402,286"/>
+<area shape="rect" id="Node000003" href="$flash__priv_8c.html#a7cfacba7a408a420e261fcdceef04b8b" title="Prepare the controller for programming or page erase." alt="" coords="201,260,402,286"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="89,530,278,296,282,299,93,533"/>
-<area shape="rect" id="Node000013" href="$flash__priv_8c.html#a3bedf041eabbe2090e0bfb147c6b87de" title=" " alt="" coords="206,421,397,447"/>
+<area shape="rect" id="Node000013" href="$flash__priv_8c.html#a3bedf041eabbe2090e0bfb147c6b87de" title="Finalize a completed operation, restore cache state, lock the controller, and release the operation l..." alt="" coords="206,421,397,447"/>
 <area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="106,529,259,452,261,457,108,534"/>
-<area shape="rect" id="Node000015" href="$flash__priv_8c.html#a423e49b8e633590b99f63b00c9381645" title=" " alt="" coords="213,640,390,666"/>
+<area shape="rect" id="Node000015" href="$flash__priv_8c.html#a423e49b8e633590b99f63b00c9381645" title="Erase one complete flash page." alt="" coords="213,640,390,666"/>
 <area shape="poly" id="edge18_Node000001_Node000015" title=" " alt="" coords="109,556,260,630,258,635,107,561"/>
-<area shape="rect" id="Node000018" href="$flash__priv_8c.html#a070e33cfa30b8f6f011c83d3816f0162" title=" " alt="" coords="450,766,613,806"/>
+<area shape="rect" id="Node000018" href="$flash__priv_8c.html#a070e33cfa30b8f6f011c83d3816f0162" title="Determine the active page size from the dual&#45;bank option bit." alt="" coords="450,766,613,806"/>
 <area shape="poly" id="edge28_Node000001_Node000018" title=" " alt="" coords="91,557,134,614,166,647,202,676,259,707,320,732,380,752,436,766,434,771,378,757,318,737,257,712,199,680,162,651,130,618,87,560"/>
 <area shape="rect" id="Node000021" href="$phal__G4_2flash_2flash_8c.html#a56beaa2bee86f3862b7da4503a7983e7" title=" " alt="" coords="232,795,370,820"/>
 <area shape="poly" id="edge29_Node000001_Node000021" title=" " alt="" coords="88,557,130,638,163,689,203,738,232,763,263,784,260,789,229,768,199,741,159,693,126,640,84,559"/>
@@ -43,7 +43,7 @@
 <area shape="rect" id="Node000017" href="$flash__priv_8c.html#a8d13aaf00ddc306902761486dc0291ec" title=" " alt="" coords="663,744,829,770"/>
 <area shape="poly" id="edge21_Node000015_Node000017" title=" " alt="" coords="338,664,451,701,552,724,648,740,647,746,551,729,449,706,336,669"/>
 <area shape="poly" id="edge23_Node000015_Node000018" title=" " alt="" coords="337,664,370,680,404,700,428,723,452,745,469,756,466,760,448,750,424,727,400,704,367,684,335,669"/>
-<area shape="rect" id="Node000019" href="$flash__priv_8c.html#af211a09d69bec5e86a7f4f46e2e49fbf" title=" " alt="" coords="452,831,611,872"/>
+<area shape="rect" id="Node000019" href="$flash__priv_8c.html#af211a09d69bec5e86a7f4f46e2e49fbf" title="Read the device&#45;reported internal flash capacity." alt="" coords="452,831,611,872"/>
 <area shape="poly" id="edge25_Node000015_Node000019" title=" " alt="" coords="314,665,367,735,407,778,452,816,460,821,457,826,448,820,403,782,363,739,309,668"/>
 <area shape="rect" id="Node000020" href="$flash__priv_8c.html#a5d839db8c7942bcb1b129a9e4fadb5c3" title=" " alt="" coords="467,550,596,590"/>
 <area shape="poly" id="edge26_Node000015_Node000020" title=" " alt="" coords="339,637,458,594,460,599,341,642"/>

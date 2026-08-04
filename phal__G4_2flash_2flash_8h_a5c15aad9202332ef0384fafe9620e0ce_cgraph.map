@@ -4,11 +4,11 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="82,362,98,333,123,295,155,255,195,221,203,217,206,221,198,226,159,259,127,298,103,336,87,365"/>
 <area shape="rect" id="Node000003" href="$phal__G4_2flash_2flash_8c.html#a37e4dfe710c4a0d059ea2b3a1332c846" title=" " alt="" coords="205,236,390,262"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="88,362,132,317,162,292,195,270,207,265,209,270,198,275,165,296,135,321,92,365"/>
-<area shape="rect" id="Node000004" href="$flash__priv_8c.html#a7cfacba7a408a420e261fcdceef04b8b" title=" " alt="" coords="197,285,398,311"/>
+<area shape="rect" id="Node000004" href="$flash__priv_8c.html#a7cfacba7a408a420e261fcdceef04b8b" title="Prepare the controller for programming or page erase." alt="" coords="197,285,398,311"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="114,361,244,314,246,319,116,366"/>
-<area shape="rect" id="Node000014" href="$flash__priv_8c.html#a3bedf041eabbe2090e0bfb147c6b87de" title=" " alt="" coords="202,364,393,390"/>
+<area shape="rect" id="Node000014" href="$flash__priv_8c.html#a3bedf041eabbe2090e0bfb147c6b87de" title="Finalize a completed operation, restore cache state, lock the controller, and release the operation l..." alt="" coords="202,364,393,390"/>
 <area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="149,374,186,374,186,380,149,380"/>
-<area shape="rect" id="Node000016" href="$flash__priv_8c.html#aa0cde7997567183172d72b73a523c3eb" title=" " alt="" coords="219,414,376,454"/>
+<area shape="rect" id="Node000016" href="$flash__priv_8c.html#aa0cde7997567183172d72b73a523c3eb" title="Program one STM32G4 double word." alt="" coords="219,414,376,454"/>
 <area shape="poly" id="edge19_Node000001_Node000016" title=" " alt="" coords="130,388,204,407,203,412,129,393"/>
 <area shape="rect" id="Node000018" href="$phal__G4_2flash_2flash_8c.html#a4b6fe76dac2c22a10aaec0f288ba9563" title=" " alt="" coords="222,479,372,504"/>
 <area shape="poly" id="edge24_Node000001_Node000018" title=" " alt="" coords="94,388,138,426,167,446,198,464,215,471,213,476,195,469,164,451,135,430,90,392"/>
@@ -45,6 +45,6 @@
 <area shape="poly" id="edge23_Node000017_Node000012" title=" " alt="" coords="583,559,622,553,623,559,584,564"/>
 <area shape="rect" id="Node000020" href="$phal__G4_2flash_2flash_8c.html#a56beaa2bee86f3862b7da4503a7983e7" title=" " alt="" coords="449,668,587,694"/>
 <area shape="poly" id="edge26_Node000019_Node000020" title=" " alt="" coords="356,618,468,660,466,665,354,623"/>
-<area shape="rect" id="Node000021" href="$flash__priv_8c.html#af211a09d69bec5e86a7f4f46e2e49fbf" title=" " alt="" coords="644,664,802,705"/>
+<area shape="rect" id="Node000021" href="$flash__priv_8c.html#af211a09d69bec5e86a7f4f46e2e49fbf" title="Read the device&#45;reported internal flash capacity." alt="" coords="644,664,802,705"/>
 <area shape="poly" id="edge27_Node000020_Node000021" title=" " alt="" coords="588,680,628,680,628,686,588,685"/>
 </map>

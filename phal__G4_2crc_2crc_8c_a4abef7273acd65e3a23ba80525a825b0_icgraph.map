@@ -1,5 +1,5 @@
 <map id="crc_step" name="crc_step">
-<area shape="rect" id="Node000001" title=" " alt="" coords="223,5,294,31"/>
+<area shape="rect" id="Node000001" title="Fold one 32&#45;bit word into the running CRC, four bits at a time, MSB&#45;first." alt="" coords="223,5,294,31"/>
 <area shape="rect" id="Node000002" href="$phal__G4_2crc_2crc_8c.html#a44bc26d0f3ef0b794364da932890417b" title="Software reference implementation of PHAL_CRC_calculate()." alt="" coords="5,5,175,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="207,21,175,21,175,16,207,16"/>
 </map>

@@ -1,6 +1,6 @@
 <map id="FLASH_PRIV_get_size_bytes" name="FLASH_PRIV_get_size_bytes">
-<area shape="rect" id="Node000001" title=" " alt="" coords="617,27,776,68"/>
-<area shape="rect" id="Node000002" href="$flash__priv_8c.html#a423e49b8e633590b99f63b00c9381645" title=" " alt="" coords="392,8,569,34"/>
+<area shape="rect" id="Node000001" title="Read the device&#45;reported internal flash capacity." alt="" coords="617,27,776,68"/>
+<area shape="rect" id="Node000002" href="$flash__priv_8c.html#a423e49b8e633590b99f63b00c9381645" title="Erase one complete flash page." alt="" coords="392,8,569,34"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="602,38,570,34,570,29,602,33"/>
 <area shape="rect" id="Node000004" href="$phal__G4_2flash_2flash_8c.html#a56beaa2bee86f3862b7da4503a7983e7" title=" " alt="" coords="412,59,550,84"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="602,61,551,66,550,61,602,55"/>

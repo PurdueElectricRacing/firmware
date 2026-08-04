@@ -1,5 +1,5 @@
 <map id="FLASH_PRIV_end_operation" name="FLASH_PRIV_end_operation">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,120,197,145"/>
+<area shape="rect" id="Node000001" title="Finalize a completed operation, restore cache state, lock the controller, and release the operation l..." alt="" coords="5,120,197,145"/>
 <area shape="rect" id="Node000002" href="$flash__priv_8c.html#a6645ffedbc8c651dd49b77830da9d1eb" title=" " alt="" coords="254,5,380,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="126,117,243,55,253,51,256,55,246,60,128,121"/>
 <area shape="rect" id="Node000003" href="$flash__priv_8c.html#addc1891c1d459ba255e26f37ca4ba285" title=" " alt="" coords="267,70,366,96"/>

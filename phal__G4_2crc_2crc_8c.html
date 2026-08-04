@@ -103,6 +103,9 @@ $(function(){initNavTree('phal__G4_2crc_2crc_8c.html',''); initResizable(true); 
   <div class="headertitle"><div class="title">crc.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>STM32G4 CRC public-layer implementation.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="phal__G4_2crc_2crc_8h_source.html">common/phal_G4/crc/crc.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="crc__priv_8h_source.html">common/phal_G4/crc/crc_priv.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -120,6 +123,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a9ebd7adedb01ce80f8512a427a80f6ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute a CRC-32/MPEG-2 over a word buffer using the hardware unit.  <br /></td></tr>
 <tr class="separator:a9ebd7adedb01ce80f8512a427a80f6ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4abef7273acd65e3a23ba80525a825b0" id="r_a4abef7273acd65e3a23ba80525a825b0"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4abef7273acd65e3a23ba80525a825b0">crc_step</a> (uint32_t crc, uint32_t data)</td></tr>
+<tr class="memdesc:a4abef7273acd65e3a23ba80525a825b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fold one 32-bit word into the running CRC, four bits at a time, MSB-first.  <br /></td></tr>
 <tr class="separator:a4abef7273acd65e3a23ba80525a825b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44bc26d0f3ef0b794364da932890417b" id="r_a44bc26d0f3ef0b794364da932890417b"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44bc26d0f3ef0b794364da932890417b">PHAL_CRC_calculateSw</a> (const uint32_t *data, uint32_t words)</td></tr>
 <tr class="memdesc:a44bc26d0f3ef0b794364da932890417b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Software reference implementation of <a class="el" href="phal__G4_2crc_2crc_8h.html#a9ebd7adedb01ce80f8512a427a80f6ef" title="Compute a CRC-32/MPEG-2 over a word buffer using the hardware unit.">PHAL_CRC_calculate()</a>.  <br /></td></tr>
@@ -128,9 +132,13 @@ Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:afc81d2c5b571da81765fcda63790aa29" id="r_afc81d2c5b571da81765fcda63790aa29"><td class="memItemLeft" align="right" valign="top">static const uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afc81d2c5b571da81765fcda63790aa29">crc32_LUT</a> [16]</td></tr>
+<tr class="memdesc:afc81d2c5b571da81765fcda63790aa29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lookup table for the CRC-32/MPEG-2 polynomial 0x04C11DB7.  <br /></td></tr>
 <tr class="separator:afc81d2c5b571da81765fcda63790aa29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>STM32G4 CRC public-layer implementation. </p>
+<dl class="section author"><dt>Author</dt><dd>Hannah Song (<a href="#" onclick="location.href='mai'+'lto:'+'son'+'g8'+'92@'+'pu'+'rdu'+'e.'+'edu'; return false;">song8<span class="obfuscator">.nosp@m.</span>92@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a4abef7273acd65e3a23ba80525a825b0" name="a4abef7273acd65e3a23ba80525a825b0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4abef7273acd65e3a23ba80525a825b0">&#9670;&#160;</a></span>crc_step()</h2>
 
@@ -157,6 +165,8 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Fold one 32-bit word into the running CRC, four bits at a time, MSB-first. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -305,6 +315,8 @@ Here is the call graph for this function:</div>
 <div class="line">    0x384FBDBD,</div>
 <div class="line">}</div>
 </div><!-- fragment -->
+<p>Lookup table for the CRC-32/MPEG-2 polynomial 0x04C11DB7. </p>
+
 </div>
 </div>
 </div><!-- contents -->

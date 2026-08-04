@@ -58,7 +58,7 @@ var sectionId = 'dynsection-10';
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="Erase one complete flash page.">
 <polygon fill="#999999" stroke="#666666" points="133,-159.88 0,-159.88 0,-140.62 133,-140.62 133,-159.88"/>
 <text text-anchor="middle" x="66.5" y="-146.38" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_erase_page</text>
 </a>
@@ -140,7 +140,7 @@ var sectionId = 'dynsection-10';
 <!-- Node6 -->
 <g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_Node000006"><a xlink:href="flash__priv_8c.html#a070e33cfa30b8f6f011c83d3816f0162" target="_top" xlink:title=" ">
+<g id="a_Node000006"><a xlink:href="flash__priv_8c.html#a070e33cfa30b8f6f011c83d3816f0162" target="_top" xlink:title="Determine the active page size from the dual&#45;bank option bit.">
 <polygon fill="white" stroke="#666666" points="291.5,-165.5 169,-165.5 169,-135 291.5,-135 291.5,-165.5"/>
 <text text-anchor="start" x="177" y="-152" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_get_page</text>
 <text text-anchor="middle" x="230.25" y="-140.75" font-family="Helvetica,sans-Serif" font-size="10.00">_size_bytes</text>
@@ -159,7 +159,7 @@ var sectionId = 'dynsection-10';
 <!-- Node7 -->
 <g id="Node000007" class="node">
 <title>Node7</title>
-<g id="a_Node000007"><a xlink:href="flash__priv_8c.html#af211a09d69bec5e86a7f4f46e2e49fbf" target="_top" xlink:title=" ">
+<g id="a_Node000007"><a xlink:href="flash__priv_8c.html#af211a09d69bec5e86a7f4f46e2e49fbf" target="_top" xlink:title="Read the device&#45;reported internal flash capacity.">
 <polygon fill="white" stroke="#666666" points="289.62,-79.5 170.88,-79.5 170.88,-49 289.62,-49 289.62,-79.5"/>
 <text text-anchor="start" x="178.88" y="-66" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_get_size</text>
 <text text-anchor="middle" x="230.25" y="-54.75" font-family="Helvetica,sans-Serif" font-size="10.00">_bytes</text>

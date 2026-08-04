@@ -103,6 +103,9 @@ $(function(){initNavTree('flash__priv_8h.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">flash_priv.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>STM32G4 internal-flash register-level implementation interface.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdbool.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -126,23 +129,35 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a4ac8f186a122fa9f7e46931e9af4a628" id="r_a4ac8f186a122fa9f7e46931e9af4a628"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ac8f186a122fa9f7e46931e9af4a628">FLASH_PRIV_begin_read</a> (void)</td></tr>
+<tr class="memdesc:a4ac8f186a122fa9f7e46931e9af4a628"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acquire the flash operation lock, wait for idle, and clear status.  <br /></td></tr>
 <tr class="separator:a4ac8f186a122fa9f7e46931e9af4a628"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad702646df30f6e3334f9ff58e454f8f5" id="r_ad702646df30f6e3334f9ff58e454f8f5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad702646df30f6e3334f9ff58e454f8f5">FLASH_PRIV_end_read</a> (void)</td></tr>
+<tr class="memdesc:ad702646df30f6e3334f9ff58e454f8f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finish a read operation and release the operation lock.  <br /></td></tr>
 <tr class="separator:ad702646df30f6e3334f9ff58e454f8f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cfacba7a408a420e261fcdceef04b8b" id="r_a7cfacba7a408a420e261fcdceef04b8b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7cfacba7a408a420e261fcdceef04b8b">FLASH_PRIV_begin_operation</a> (<a class="el" href="structflash__operation__context__t.html">flash_operation_context_t</a> *context)</td></tr>
+<tr class="memdesc:a7cfacba7a408a420e261fcdceef04b8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepare the controller for programming or page erase.  <br /></td></tr>
 <tr class="separator:a7cfacba7a408a420e261fcdceef04b8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bedf041eabbe2090e0bfb147c6b87de" id="r_a3bedf041eabbe2090e0bfb147c6b87de"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3bedf041eabbe2090e0bfb147c6b87de">FLASH_PRIV_end_operation</a> (const <a class="el" href="structflash__operation__context__t.html">flash_operation_context_t</a> *context)</td></tr>
+<tr class="memdesc:a3bedf041eabbe2090e0bfb147c6b87de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalize a completed operation, restore cache state, lock the controller, and release the operation lock.  <br /></td></tr>
 <tr class="separator:a3bedf041eabbe2090e0bfb147c6b87de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af211a09d69bec5e86a7f4f46e2e49fbf" id="r_af211a09d69bec5e86a7f4f46e2e49fbf"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af211a09d69bec5e86a7f4f46e2e49fbf">FLASH_PRIV_get_size_bytes</a> (void)</td></tr>
+<tr class="memdesc:af211a09d69bec5e86a7f4f46e2e49fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the device-reported internal flash capacity.  <br /></td></tr>
 <tr class="separator:af211a09d69bec5e86a7f4f46e2e49fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a070e33cfa30b8f6f011c83d3816f0162" id="r_a070e33cfa30b8f6f011c83d3816f0162"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a070e33cfa30b8f6f011c83d3816f0162">FLASH_PRIV_get_page_size_bytes</a> (void)</td></tr>
+<tr class="memdesc:a070e33cfa30b8f6f011c83d3816f0162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine the active page size from the dual-bank option bit.  <br /></td></tr>
 <tr class="separator:a070e33cfa30b8f6f011c83d3816f0162"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0cde7997567183172d72b73a523c3eb" id="r_aa0cde7997567183172d72b73a523c3eb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa0cde7997567183172d72b73a523c3eb">FLASH_PRIV_program_double_word</a> (uint32_t address, uint64_t data)</td></tr>
+<tr class="memdesc:aa0cde7997567183172d72b73a523c3eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Program one STM32G4 double word.  <br /></td></tr>
 <tr class="separator:aa0cde7997567183172d72b73a523c3eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a423e49b8e633590b99f63b00c9381645" id="r_a423e49b8e633590b99f63b00c9381645"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a423e49b8e633590b99f63b00c9381645">FLASH_PRIV_erase_page</a> (uint32_t page_address)</td></tr>
+<tr class="memdesc:a423e49b8e633590b99f63b00c9381645"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase one complete flash page.  <br /></td></tr>
 <tr class="separator:a423e49b8e633590b99f63b00c9381645"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>STM32G4 internal-flash register-level implementation interface. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronak Jain (<a href="#" onclick="location.href='mai'+'lto:'+'jai'+'n7'+'17@'+'pu'+'rdu'+'e.'+'edu'; return false;">jain7<span class="obfuscator">.nosp@m.</span>17@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>)</dd></dl>
+<p>Only flash.c and <a class="el" href="flash__priv_8c.html" title="STM32G4 internal-flash register-level implementation.">flash_priv.c</a> should include this header. The public API operates on byte ranges; this interface owns controller lock, cache, bank, page, and status-register details. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a7cfacba7a408a420e261fcdceef04b8b" name="a7cfacba7a408a420e261fcdceef04b8b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7cfacba7a408a420e261fcdceef04b8b">&#9670;&#160;</a></span>FLASH_PRIV_begin_operation()</h2>
 
@@ -157,6 +172,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Prepare the controller for programming or page erase. </p>
+<p>This validates the operating voltage, waits for idle, disables data cache, unlocks the controller, and clears stale status flags.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">context</td><td>Output cache state restored by <a class="el" href="#a3bedf041eabbe2090e0bfb147c6b87de" title="Finalize a completed operation, restore cache state, lock the controller, and release the operation l...">FLASH_PRIV_end_operation()</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true when the controller is ready; false when unavailable or invalid. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -184,6 +209,9 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Acquire the flash operation lock, wait for idle, and clear status. </p>
+<dl class="section return"><dt>Returns</dt><dd>true when a read operation may proceed; false if already in use or the busy wait times out. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -211,6 +239,15 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Finalize a completed operation, restore cache state, lock the controller, and release the operation lock. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">context</td><td>Cache state returned by <a class="el" href="#a7cfacba7a408a420e261fcdceef04b8b" title="Prepare the controller for programming or page erase.">FLASH_PRIV_begin_operation()</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true when the controller is idle, error-free, and locked again. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -238,6 +275,9 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Finish a read operation and release the operation lock. </p>
+<dl class="section return"><dt>Returns</dt><dd>true when no flash error flags were set. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -265,6 +305,16 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Erase one complete flash page. </p>
+<p>The page number and bank are derived from the absolute page address and the current device bank configuration.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">page_address</td><td>Address of the page start. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true when erase completes without a flash error. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -292,6 +342,9 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Determine the active page size from the dual-bank option bit. </p>
+<dl class="section return"><dt>Returns</dt><dd>2 KiB for dual-bank mode or 4 KiB for single-bank mode. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -319,6 +372,9 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Read the device-reported internal flash capacity. </p>
+<dl class="section return"><dt>Returns</dt><dd>Flash size in bytes, using the supported-device fallback if invalid. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -345,6 +401,16 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Program one STM32G4 double word. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>8-byte-aligned flash destination. </td></tr>
+    <tr><td class="paramname">data</td><td>64-bit value written low word first. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true when programming completes without a flash error. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

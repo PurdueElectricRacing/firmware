@@ -1,5 +1,5 @@
 <map id="FLASH_PRIV_erase_page" name="FLASH_PRIV_erase_page">
-<area shape="rect" id="Node000001" title=" " alt="" coords="201,5,378,31"/>
+<area shape="rect" id="Node000001" title="Erase one complete flash page." alt="" coords="201,5,378,31"/>
 <area shape="rect" id="Node000002" href="$phal__G4_2flash_2flash_8c.html#ae5452e7ac6c1fd154de448cc8403653d" title="Erase every internal flash page touched by a range." alt="" coords="5,5,153,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,21,153,21,153,16,185,16"/>
 </map>

@@ -102,6 +102,9 @@ $(function(){initNavTree('phal__G4_2flash_2flash_8c.html',''); initResizable(tru
   <div class="headertitle"><div class="title">flash.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>STM32G4 internal-flash public-layer implementation.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="phal__G4_2flash_2flash_8h_source.html">common/phal_G4/flash/flash.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="flash__priv_8h_source.html">common/phal_G4/flash/flash_priv.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__G4_8h_source.html">common/phal_G4/phal_G4.h</a>&quot;</code><br />
@@ -135,7 +138,11 @@ Functions</h2></td></tr>
 <tr class="memdesc:ae5452e7ac6c1fd154de448cc8403653d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase every internal flash page touched by a range.  <br /></td></tr>
 <tr class="separator:ae5452e7ac6c1fd154de448cc8403653d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>STM32G4 internal-flash public-layer implementation. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronak Jain (<a href="#" onclick="location.href='mai'+'lto:'+'jai'+'n7'+'17@'+'pu'+'rdu'+'e.'+'edu'; return false;">jain7<span class="obfuscator">.nosp@m.</span>17@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>)</dd></dl>
+<p>This layer validates byte ranges, derives page/programming boundaries, and verifies results without exposing FLASH controller registers to callers. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="af8505ef6b79f56b5e291fd66e7f1e849" name="af8505ef6b79f56b5e291fd66e7f1e849"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af8505ef6b79f56b5e291fd66e7f1e849">&#9670;&#160;</a></span>flash_build_double_word()</h2>
 
@@ -162,6 +169,7 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Build an erased-padded 64-bit value for one programming operation. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -196,6 +204,7 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Verify both 32-bit halves after a double-word program operation. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -230,6 +239,7 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Verify every word in a complete erased page. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -264,6 +274,7 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Confirm every double word in a write range is still erased (all 0xFF). </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -298,6 +309,7 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Validate an absolute flash address range without wrapping arithmetic. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -342,6 +354,7 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Validate write alignment and round the requested range to double-word size. The rounded range is checked because padding bytes are also programmed. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -375,7 +388,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Erase every internal flash page touched by a range. </p>
-<p>The address may be unaligned. A zero-length erase succeeds without modifying flash.</p>
+<p>The address may be unaligned. Every complete page touched by the range is erased. A zero-length erase succeeds without modifying flash.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">address</td><td>Address of the first byte in the range. </td></tr>
@@ -385,6 +398,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true when every affected page is erased and verified; false on an invalid range or flash error. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>Erase operates on complete pages. Bytes outside the range are erased when they share an affected page. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Erase and write operations are serialized and temporarily manage the flash controller's cache and lock state. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -418,7 +432,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Copy bytes from internal flash into a buffer. </p>
-<p>The requested range must be within internal flash. A zero-length read succeeds without accessing either pointer.</p>
+<p>The requested range must be within internal flash. The address is a CPU address, not an offset from FLASH_BASE. A zero-length read succeeds without accessing either pointer.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">address</td><td>Address of the first byte to read. </td></tr>
@@ -461,7 +475,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Program bytes into erased internal flash. </p>
-<p>The destination must be erased before writing. A zero-length write succeeds without accessing either pointer.</p>
+<p>The destination must be erased before writing. The complete programmed range is checked for erased-state bytes before any programming starts. A zero-length write succeeds without accessing either pointer.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">address</td><td>Address of the first byte to write; must be 8-byte aligned. </td></tr>
@@ -471,7 +485,9 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true when all bytes are programmed and verified; false on invalid input or flash error. </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>A partial final double word is padded with 0xFF. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>A partial final double word is padded with 0xFF. </dd>
+<dd>
+The source buffer is read only while this call is active. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="Acquire the flash operation lock, wait for idle, and clear status.">
 <polygon fill="#999999" stroke="#666666" points="130,-77.25 0,-77.25 0,-58 130,-58 130,-77.25"/>
 <text text-anchor="middle" x="65" y="-63.75" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_begin_read</text>
 </a>

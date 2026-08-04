@@ -20,7 +20,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="flash__priv_8c.html#a3bedf041eabbe2090e0bfb147c6b87de" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="flash__priv_8c.html#a3bedf041eabbe2090e0bfb147c6b87de" target="_top" xlink:title="Finalize a completed operation, restore cache state, lock the controller, and release the operation l...">
 <polygon fill="white" stroke="#666666" points="290,-37.25 146.5,-37.25 146.5,-18 290,-18 290,-37.25"/>
 <text text-anchor="middle" x="218.25" y="-23.75" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_end_operation</text>
 </a>

@@ -85,7 +85,7 @@ var sectionId = 'dynsection-2';
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="flash__priv_8c.html#a7cfacba7a408a420e261fcdceef04b8b" target="_top" xlink:title=" ">
+<g id="a_Node000003"><a xlink:href="flash__priv_8c.html#a7cfacba7a408a420e261fcdceef04b8b" target="_top" xlink:title="Prepare the controller for programming or page erase.">
 <polygon fill="white" stroke="#666666" points="297.5,-458.88 146.5,-458.88 146.5,-439.62 297.5,-439.62 297.5,-458.88"/>
 <text text-anchor="middle" x="222" y="-445.38" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_begin_operation</text>
 </a>
@@ -103,7 +103,7 @@ var sectionId = 'dynsection-2';
 <!-- Node13 -->
 <g id="Node000013" class="node">
 <title>Node13</title>
-<g id="a_Node000013"><a xlink:href="flash__priv_8c.html#a3bedf041eabbe2090e0bfb147c6b87de" target="_top" xlink:title=" ">
+<g id="a_Node000013"><a xlink:href="flash__priv_8c.html#a3bedf041eabbe2090e0bfb147c6b87de" target="_top" xlink:title="Finalize a completed operation, restore cache state, lock the controller, and release the operation l...">
 <polygon fill="white" stroke="#666666" points="293.75,-337.88 150.25,-337.88 150.25,-318.62 293.75,-318.62 293.75,-337.88"/>
 <text text-anchor="middle" x="222" y="-324.38" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_end_operation</text>
 </a>
@@ -121,7 +121,7 @@ var sectionId = 'dynsection-2';
 <!-- Node15 -->
 <g id="Node000015" class="node">
 <title>Node15</title>
-<g id="a_Node000015"><a xlink:href="flash__priv_8c.html#a423e49b8e633590b99f63b00c9381645" target="_top" xlink:title=" ">
+<g id="a_Node000015"><a xlink:href="flash__priv_8c.html#a423e49b8e633590b99f63b00c9381645" target="_top" xlink:title="Erase one complete flash page.">
 <polygon fill="white" stroke="#666666" points="288.5,-173.88 155.5,-173.88 155.5,-154.62 288.5,-154.62 288.5,-173.88"/>
 <text text-anchor="middle" x="222" y="-160.38" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_erase_page</text>
 </a>
@@ -139,7 +139,7 @@ var sectionId = 'dynsection-2';
 <!-- Node18 -->
 <g id="Node000018" class="node">
 <title>Node18</title>
-<g id="a_Node000018"><a xlink:href="flash__priv_8c.html#a070e33cfa30b8f6f011c83d3816f0162" target="_top" xlink:title=" ">
+<g id="a_Node000018"><a xlink:href="flash__priv_8c.html#a070e33cfa30b8f6f011c83d3816f0162" target="_top" xlink:title="Determine the active page size from the dual&#45;bank option bit.">
 <polygon fill="white" stroke="#666666" points="456,-79.5 333.5,-79.5 333.5,-49 456,-49 456,-79.5"/>
 <text text-anchor="start" x="341.5" y="-66" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_get_page</text>
 <text text-anchor="middle" x="394.75" y="-54.75" font-family="Helvetica,sans-Serif" font-size="10.00">_size_bytes</text>
@@ -458,7 +458,7 @@ var sectionId = 'dynsection-2';
 <!-- Node19 -->
 <g id="Node000019" class="node">
 <title>Node19</title>
-<g id="a_Node000019"><a xlink:href="flash__priv_8c.html#af211a09d69bec5e86a7f4f46e2e49fbf" target="_top" xlink:title=" ">
+<g id="a_Node000019"><a xlink:href="flash__priv_8c.html#af211a09d69bec5e86a7f4f46e2e49fbf" target="_top" xlink:title="Read the device&#45;reported internal flash capacity.">
 <polygon fill="white" stroke="#666666" points="454.12,-30.5 335.38,-30.5 335.38,0 454.12,0 454.12,-30.5"/>
 <text text-anchor="start" x="343.38" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_get_size</text>
 <text text-anchor="middle" x="394.75" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">_bytes</text>

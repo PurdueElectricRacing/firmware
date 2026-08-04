@@ -103,6 +103,9 @@ $(function(){initNavTree('flash__priv_8c.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">flash_priv.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>STM32G4 internal-flash register-level implementation.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="flash__priv_8h_source.html">common/phal_G4/flash/flash_priv.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__G4_8h_source.html">common/phal_G4/phal_G4.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -140,20 +143,28 @@ Functions</h2></td></tr>
 <tr class="memitem:a9cee4cff22669c0a2913f0f490d5628c" id="r_a9cee4cff22669c0a2913f0f490d5628c"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9cee4cff22669c0a2913f0f490d5628c">flash_banks_swapped</a> (void)</td></tr>
 <tr class="separator:a9cee4cff22669c0a2913f0f490d5628c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ac8f186a122fa9f7e46931e9af4a628" id="r_a4ac8f186a122fa9f7e46931e9af4a628"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ac8f186a122fa9f7e46931e9af4a628">FLASH_PRIV_begin_read</a> (void)</td></tr>
+<tr class="memdesc:a4ac8f186a122fa9f7e46931e9af4a628"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acquire the flash operation lock, wait for idle, and clear status.  <br /></td></tr>
 <tr class="separator:a4ac8f186a122fa9f7e46931e9af4a628"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad702646df30f6e3334f9ff58e454f8f5" id="r_ad702646df30f6e3334f9ff58e454f8f5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad702646df30f6e3334f9ff58e454f8f5">FLASH_PRIV_end_read</a> (void)</td></tr>
+<tr class="memdesc:ad702646df30f6e3334f9ff58e454f8f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finish a read operation and release the operation lock.  <br /></td></tr>
 <tr class="separator:ad702646df30f6e3334f9ff58e454f8f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cfacba7a408a420e261fcdceef04b8b" id="r_a7cfacba7a408a420e261fcdceef04b8b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7cfacba7a408a420e261fcdceef04b8b">FLASH_PRIV_begin_operation</a> (<a class="el" href="structflash__operation__context__t.html">flash_operation_context_t</a> *context)</td></tr>
+<tr class="memdesc:a7cfacba7a408a420e261fcdceef04b8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepare the controller for programming or page erase.  <br /></td></tr>
 <tr class="separator:a7cfacba7a408a420e261fcdceef04b8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bedf041eabbe2090e0bfb147c6b87de" id="r_a3bedf041eabbe2090e0bfb147c6b87de"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3bedf041eabbe2090e0bfb147c6b87de">FLASH_PRIV_end_operation</a> (const <a class="el" href="structflash__operation__context__t.html">flash_operation_context_t</a> *context)</td></tr>
+<tr class="memdesc:a3bedf041eabbe2090e0bfb147c6b87de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalize a completed operation, restore cache state, lock the controller, and release the operation lock.  <br /></td></tr>
 <tr class="separator:a3bedf041eabbe2090e0bfb147c6b87de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af211a09d69bec5e86a7f4f46e2e49fbf" id="r_af211a09d69bec5e86a7f4f46e2e49fbf"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af211a09d69bec5e86a7f4f46e2e49fbf">FLASH_PRIV_get_size_bytes</a> (void)</td></tr>
+<tr class="memdesc:af211a09d69bec5e86a7f4f46e2e49fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the device-reported internal flash capacity.  <br /></td></tr>
 <tr class="separator:af211a09d69bec5e86a7f4f46e2e49fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a070e33cfa30b8f6f011c83d3816f0162" id="r_a070e33cfa30b8f6f011c83d3816f0162"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a070e33cfa30b8f6f011c83d3816f0162">FLASH_PRIV_get_page_size_bytes</a> (void)</td></tr>
+<tr class="memdesc:a070e33cfa30b8f6f011c83d3816f0162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine the active page size from the dual-bank option bit.  <br /></td></tr>
 <tr class="separator:a070e33cfa30b8f6f011c83d3816f0162"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0cde7997567183172d72b73a523c3eb" id="r_aa0cde7997567183172d72b73a523c3eb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa0cde7997567183172d72b73a523c3eb">FLASH_PRIV_program_double_word</a> (uint32_t address, uint64_t data)</td></tr>
+<tr class="memdesc:aa0cde7997567183172d72b73a523c3eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Program one STM32G4 double word.  <br /></td></tr>
 <tr class="separator:aa0cde7997567183172d72b73a523c3eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a423e49b8e633590b99f63b00c9381645" id="r_a423e49b8e633590b99f63b00c9381645"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a423e49b8e633590b99f63b00c9381645">FLASH_PRIV_erase_page</a> (uint32_t page_address)</td></tr>
+<tr class="memdesc:a423e49b8e633590b99f63b00c9381645"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase one complete flash page.  <br /></td></tr>
 <tr class="separator:a423e49b8e633590b99f63b00c9381645"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -179,7 +190,11 @@ Variables</h2></td></tr>
 <tr class="memitem:aac8b3a07f95adb85b7c24abc50693119" id="r_aac8b3a07f95adb85b7c24abc50693119"><td class="memItemLeft" align="right" valign="top">static volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac8b3a07f95adb85b7c24abc50693119">g_flash_operation_active</a> = false</td></tr>
 <tr class="separator:aac8b3a07f95adb85b7c24abc50693119"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>STM32G4 internal-flash register-level implementation. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronak Jain (<a href="#" onclick="location.href='mai'+'lto:'+'jai'+'n7'+'17@'+'pu'+'rdu'+'e.'+'edu'; return false;">jain7<span class="obfuscator">.nosp@m.</span>17@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>)</dd></dl>
+<p>This file owns FLASH, PWR, RCC, and SYSCFG register access. The public layer supplies validated requests and receives simple success/failure results. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a047660148edba340f7b41398a518fa2c" name="a047660148edba340f7b41398a518fa2c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a047660148edba340f7b41398a518fa2c">&#9670;&#160;</a></span>flash_acquire()</h2>
 
@@ -202,6 +217,7 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Acquire the software operation lock with interrupts masked briefly. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -232,6 +248,7 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Read SYSCFG bank remap state without leaving its clock enabled. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -262,6 +279,7 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Clear completed/error flags using FLASH_SR's write-one-to-clear behavior. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -292,6 +310,7 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Save cache state and disable D-cache before modifying flash. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -322,6 +341,7 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Read FLASH_OPTR.DBANK to select 2 KiB or 4 KiB page geometry. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -352,6 +372,7 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>FLASH_SR.BSY indicates that the controller still owns the flash array. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -382,6 +403,7 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Relock the controller and verify FLASH_CR.LOCK was set. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -404,6 +426,16 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Prepare the controller for programming or page erase. </p>
+<p>This validates the operating voltage, waits for idle, disables data cache, unlocks the controller, and clears stale status flags.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">context</td><td>Output cache state restored by <a class="el" href="flash__priv_8h.html#a3bedf041eabbe2090e0bfb147c6b87de" title="Finalize a completed operation, restore cache state, lock the controller, and release the operation l...">FLASH_PRIV_end_operation()</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true when the controller is ready; false when unavailable or invalid. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -431,6 +463,9 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Acquire the flash operation lock, wait for idle, and clear status. </p>
+<dl class="section return"><dt>Returns</dt><dd>true when a read operation may proceed; false if already in use or the busy wait times out. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -458,6 +493,15 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Finalize a completed operation, restore cache state, lock the controller, and release the operation lock. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">context</td><td>Cache state returned by <a class="el" href="flash__priv_8h.html#a7cfacba7a408a420e261fcdceef04b8b" title="Prepare the controller for programming or page erase.">FLASH_PRIV_begin_operation()</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true when the controller is idle, error-free, and locked again. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -485,6 +529,9 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Finish a read operation and release the operation lock. </p>
+<dl class="section return"><dt>Returns</dt><dd>true when no flash error flags were set. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -512,6 +559,16 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Erase one complete flash page. </p>
+<p>The page number and bank are derived from the absolute page address and the current device bank configuration.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">page_address</td><td>Address of the page start. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true when erase completes without a flash error. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -539,6 +596,9 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Determine the active page size from the dual-bank option bit. </p>
+<dl class="section return"><dt>Returns</dt><dd>2 KiB for dual-bank mode or 4 KiB for single-bank mode. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -566,6 +626,9 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Read the device-reported internal flash capacity. </p>
+<dl class="section return"><dt>Returns</dt><dd>Flash size in bytes, using the supported-device fallback if invalid. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -592,6 +655,16 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Program one STM32G4 double word. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>8-byte-aligned flash destination. </td></tr>
+    <tr><td class="paramname">data</td><td>64-bit value written low word first. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true when programming completes without a flash error. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -627,6 +700,7 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Release the software operation lock while preserving interrupt state. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -657,6 +731,7 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Restore the cache states saved before a write or erase operation. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -687,6 +762,7 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Unlock FLASH_CR with the required two-key sequence. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -717,6 +793,8 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Confirm voltage scaling range 1 and a stable VOS transition.</p>
+<p>PWR is clocked only for the duration of this check when necessary, and the caller's interrupt mask is restored before returning. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -747,6 +825,7 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Wait for BSY, collect errors, and clear EOP/error flags. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -782,6 +861,7 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Wait for BSY to clear with a bounded, clock-scaled timeout. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

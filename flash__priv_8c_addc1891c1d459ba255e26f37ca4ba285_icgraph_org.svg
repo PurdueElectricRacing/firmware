@@ -20,7 +20,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="flash__priv_8c.html#a3bedf041eabbe2090e0bfb147c6b87de" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="flash__priv_8c.html#a3bedf041eabbe2090e0bfb147c6b87de" target="_top" xlink:title="Finalize a completed operation, restore cache state, lock the controller, and release the operation l...">
 <polygon fill="white" stroke="#666666" points="293.75,-157.47 150.25,-157.47 150.25,-138.22 293.75,-138.22 293.75,-157.47"/>
 <text text-anchor="middle" x="222" y="-143.97" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_end_operation</text>
 </a>
@@ -38,7 +38,7 @@
 <!-- Node5 -->
 <g id="Node000005" class="node">
 <title>Node5</title>
-<g id="a_Node000005"><a xlink:href="flash__priv_8c.html#a423e49b8e633590b99f63b00c9381645" target="_top" xlink:title=" ">
+<g id="a_Node000005"><a xlink:href="flash__priv_8c.html#a423e49b8e633590b99f63b00c9381645" target="_top" xlink:title="Erase one complete flash page.">
 <polygon fill="white" stroke="#666666" points="288.5,-194.47 155.5,-194.47 155.5,-175.22 288.5,-175.22 288.5,-194.47"/>
 <text text-anchor="middle" x="222" y="-180.97" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_erase_page</text>
 </a>
@@ -56,7 +56,7 @@
 <!-- Node6 -->
 <g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_Node000006"><a xlink:href="flash__priv_8c.html#aa0cde7997567183172d72b73a523c3eb" target="_top" xlink:title=" ">
+<g id="a_Node000006"><a xlink:href="flash__priv_8c.html#aa0cde7997567183172d72b73a523c3eb" target="_top" xlink:title="Program one STM32G4 double word.">
 <polygon fill="white" stroke="#666666" points="281,-45.1 163,-45.1 163,-14.6 281,-14.6 281,-45.1"/>
 <text text-anchor="start" x="171" y="-31.6" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_program</text>
 <text text-anchor="middle" x="222" y="-20.35" font-family="Helvetica,sans-Serif" font-size="10.00">_double_word</text>
@@ -147,7 +147,7 @@
 <!-- Node8 -->
 <g id="Node000008" class="node">
 <title>Node8</title>
-<g id="a_Node000008"><a xlink:href="flash__priv_8c.html#a7cfacba7a408a420e261fcdceef04b8b" target="_top" xlink:title=" ">
+<g id="a_Node000008"><a xlink:href="flash__priv_8c.html#a7cfacba7a408a420e261fcdceef04b8b" target="_top" xlink:title="Prepare the controller for programming or page erase.">
 <polygon fill="white" stroke="#666666" points="297.5,-120.47 146.5,-120.47 146.5,-101.22 297.5,-101.22 297.5,-120.47"/>
 <text text-anchor="middle" x="222" y="-106.97" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_begin_operation</text>
 </a>
@@ -165,7 +165,7 @@
 <!-- Node9 -->
 <g id="Node000009" class="node">
 <title>Node9</title>
-<g id="a_Node000009"><a xlink:href="flash__priv_8c.html#a4ac8f186a122fa9f7e46931e9af4a628" target="_top" xlink:title=" ">
+<g id="a_Node000009"><a xlink:href="flash__priv_8c.html#a4ac8f186a122fa9f7e46931e9af4a628" target="_top" xlink:title="Acquire the flash operation lock, wait for idle, and clear status.">
 <polygon fill="white" stroke="#666666" points="463.5,-82.47 333.5,-82.47 333.5,-63.22 463.5,-63.22 463.5,-82.47"/>
 <text text-anchor="middle" x="398.5" y="-68.97" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_begin_read</text>
 </a>

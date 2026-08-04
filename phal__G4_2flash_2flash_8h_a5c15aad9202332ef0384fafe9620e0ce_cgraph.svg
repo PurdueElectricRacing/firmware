@@ -103,7 +103,7 @@ var sectionId = 'dynsection-4';
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="flash__priv_8c.html#a7cfacba7a408a420e261fcdceef04b8b" target="_top" xlink:title=" ">
+<g id="a_Node000004"><a xlink:href="flash__priv_8c.html#a7cfacba7a408a420e261fcdceef04b8b" target="_top" xlink:title="Prepare the controller for programming or page erase.">
 <polygon fill="white" stroke="#666666" points="294.5,-314.88 143.5,-314.88 143.5,-295.62 294.5,-295.62 294.5,-314.88"/>
 <text text-anchor="middle" x="219" y="-301.38" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_begin_operation</text>
 </a>
@@ -121,7 +121,7 @@ var sectionId = 'dynsection-4';
 <!-- Node14 -->
 <g id="Node000014" class="node">
 <title>Node14</title>
-<g id="a_Node000014"><a xlink:href="flash__priv_8c.html#a3bedf041eabbe2090e0bfb147c6b87de" target="_top" xlink:title=" ">
+<g id="a_Node000014"><a xlink:href="flash__priv_8c.html#a3bedf041eabbe2090e0bfb147c6b87de" target="_top" xlink:title="Finalize a completed operation, restore cache state, lock the controller, and release the operation l...">
 <polygon fill="white" stroke="#666666" points="290.75,-255.88 147.25,-255.88 147.25,-236.62 290.75,-236.62 290.75,-255.88"/>
 <text text-anchor="middle" x="219" y="-242.38" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_end_operation</text>
 </a>
@@ -139,7 +139,7 @@ var sectionId = 'dynsection-4';
 <!-- Node16 -->
 <g id="Node000016" class="node">
 <title>Node16</title>
-<g id="a_Node000016"><a xlink:href="flash__priv_8c.html#aa0cde7997567183172d72b73a523c3eb" target="_top" xlink:title=" ">
+<g id="a_Node000016"><a xlink:href="flash__priv_8c.html#aa0cde7997567183172d72b73a523c3eb" target="_top" xlink:title="Program one STM32G4 double word.">
 <polygon fill="white" stroke="#666666" points="278,-218.5 160,-218.5 160,-188 278,-188 278,-218.5"/>
 <text text-anchor="start" x="168" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_program</text>
 <text text-anchor="middle" x="219" y="-193.75" font-family="Helvetica,sans-Serif" font-size="10.00">_double_word</text>
@@ -478,7 +478,7 @@ var sectionId = 'dynsection-4';
 <!-- Node21 -->
 <g id="Node000021" class="node">
 <title>Node21</title>
-<g id="a_Node000021"><a xlink:href="flash__priv_8c.html#af211a09d69bec5e86a7f4f46e2e49fbf" target="_top" xlink:title=" ">
+<g id="a_Node000021"><a xlink:href="flash__priv_8c.html#af211a09d69bec5e86a7f4f46e2e49fbf" target="_top" xlink:title="Read the device&#45;reported internal flash capacity.">
 <polygon fill="white" stroke="#666666" points="597.62,-30.5 478.88,-30.5 478.88,0 597.62,0 597.62,-30.5"/>
 <text text-anchor="start" x="486.88" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_get_size</text>
 <text text-anchor="middle" x="538.25" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">_bytes</text>

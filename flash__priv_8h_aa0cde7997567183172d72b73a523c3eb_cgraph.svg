@@ -58,7 +58,7 @@ var sectionId = 'dynsection-15';
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="Program one STM32G4 double word.">
 <polygon fill="#999999" stroke="#666666" points="118,-73.5 0,-73.5 0,-43 118,-43 118,-73.5"/>
 <text text-anchor="start" x="8" y="-60" font-family="Helvetica,sans-Serif" font-size="10.00">FLASH_PRIV_program</text>
 <text text-anchor="middle" x="59" y="-48.75" font-family="Helvetica,sans-Serif" font-size="10.00">_double_word</text>

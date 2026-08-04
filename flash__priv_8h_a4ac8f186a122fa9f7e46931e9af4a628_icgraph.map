@@ -1,5 +1,5 @@
 <map id="FLASH_PRIV_begin_read" name="FLASH_PRIV_begin_read">
-<area shape="rect" id="Node000001" title=" " alt="" coords="194,5,367,31"/>
+<area shape="rect" id="Node000001" title="Acquire the flash operation lock, wait for idle, and clear status." alt="" coords="194,5,367,31"/>
 <area shape="rect" id="Node000002" href="$phal__G4_2flash_2flash_8c.html#a3b76c399c317f06b6463778aec2aaa10" title="Copy bytes from internal flash into a buffer." alt="" coords="5,5,146,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="178,21,146,21,146,16,178,16"/>
 </map>

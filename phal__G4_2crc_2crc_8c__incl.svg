@@ -22,7 +22,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="STM32G4 CRC public&#45;layer implementation.">
 <polygon fill="#999999" stroke="#666666" points="172,-207.5 63,-207.5 63,-177 172,-177 172,-207.5"/>
 <text text-anchor="start" x="71" y="-194" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_G4/crc</text>
 <text text-anchor="middle" x="117.5" y="-182.75" font-family="Helvetica,sans-Serif" font-size="10.00">/crc.c</text>
@@ -32,7 +32,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="phal__G4_2crc_2crc_8h.html" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="phal__G4_2crc_2crc_8h.html" target="_top" xlink:title="STM32G4 CRC public API.">
 <polygon fill="white" stroke="#666666" points="109,-141 0,-141 0,-110.5 109,-110.5 109,-141"/>
 <text text-anchor="start" x="8" y="-127.5" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_G4/crc</text>
 <text text-anchor="middle" x="54.5" y="-116.25" font-family="Helvetica,sans-Serif" font-size="10.00">/crc.h</text>
@@ -51,7 +51,7 @@
 <!-- Node6 -->
 <g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_Node000006"><a xlink:href="crc__priv_8h.html" target="_top" xlink:title=" ">
+<g id="a_Node000006"><a xlink:href="crc__priv_8h.html" target="_top" xlink:title="STM32G4 CRC register&#45;level implementation interface.">
 <polygon fill="white" stroke="#666666" points="236,-141 127,-141 127,-110.5 236,-110.5 236,-141"/>
 <text text-anchor="start" x="135" y="-127.5" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_G4/crc</text>
 <text text-anchor="middle" x="181.5" y="-116.25" font-family="Helvetica,sans-Serif" font-size="10.00">/crc_priv.h</text>

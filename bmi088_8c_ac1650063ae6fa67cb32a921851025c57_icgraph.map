@@ -1,7 +1,0 @@
-<map id="BMI088_gyroSelfTestStart" name="BMI088_gyroSelfTestStart">
-<area shape="rect" id="Node000001" title="Start the gyro self test." alt="" coords="170,31,344,56"/>
-<area shape="rect" id="Node000002" href="$bmi088_8c.html#a7b7b6f413f7a504f78fe3feba4e522cb" title="Do self test of gyroscope." alt="" coords="5,5,122,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,33,122,28,122,23,154,27"/>
-<area shape="rect" id="Node000003" href="$bmi088_8c.html#aa109c1cdfa5f5d238b52e566ef8230bd" title=" " alt="" coords="18,55,109,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="154,59,110,65,109,59,154,54"/>
-</map>

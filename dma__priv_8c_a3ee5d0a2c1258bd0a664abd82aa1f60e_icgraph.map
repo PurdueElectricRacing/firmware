@@ -10,8 +10,8 @@
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="215,65,98,28,100,23,216,60"/>
 <area shape="rect" id="Node000005" href="$common_2phal__G4_2usart_2usart_8c.html#a1e13f03e291a90dcd93ffccf1b8edf65" title="Initializes a USART peripheral on an STM32G4 microcontroller." alt="" coords="11,55,137,80"/>
 <area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="199,79,137,74,138,69,199,73"/>
-<area shape="rect" id="Node000006" href="$common_2phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="19,104,129,130"/>
+<area shape="rect" id="Node000006" href="$phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="19,104,129,130"/>
 <area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="200,97,130,109,129,104,199,92"/>
-<area shape="rect" id="Node000008" href="$common_2phal__G4_2spi_2spi_8c.html#ab9da5be05aad59873975238094d15b27" title=" " alt="" coords="5,153,143,179"/>
+<area shape="rect" id="Node000008" href="$phal__G4_2spi_2spi_8c.html#a9af893d97bde29796f60bc6df9b05fd0" title="Start a DMA&#45;backed SPI transfer." alt="" coords="5,153,143,179"/>
 <area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="176,157,143,161,142,155,175,151"/>
 </map>

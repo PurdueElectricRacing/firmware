@@ -92,7 +92,7 @@
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="common_2phal__F4_2spi_2spi_8c.html#a35fd94eb02f487e09065ddc0ecb92e53" target="_top" xlink:title="Check for current SPI transaction to complete.">
+<g id="a_Node000004"><a xlink:href="phal__F4_2spi_2spi_8c.html#a35fd94eb02f487e09065ddc0ecb92e53" target="_top" xlink:title="Check for current SPI transaction to complete.">
 <polygon fill="white" stroke="#666666" points="657.12,-206.25 566.88,-206.25 566.88,-187 657.12,-187 657.12,-206.25"/>
 <text text-anchor="middle" x="612" y="-192.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_SPI_busy</text>
 </a>
@@ -110,7 +110,7 @@
 <!-- Node5 -->
 <g id="Node000005" class="node">
 <title>Node5</title>
-<g id="a_Node000005"><a xlink:href="common_2phal__F4_2spi_2spi_8c.html#aa44c022e7bafc2f33240d3fa837a4244" target="_top" xlink:title="Transfer data_len bytes from out_data to SPI device and place MISO data in in_data This function just...">
+<g id="a_Node000005"><a xlink:href="phal__F4_2spi_2spi_8c.html#aa44c022e7bafc2f33240d3fa837a4244" target="_top" xlink:title="Transfer data_len bytes from out_data to SPI device and place MISO data in in_data This function just...">
 <polygon fill="white" stroke="#666666" points="502.75,-133.25 399.75,-133.25 399.75,-114 502.75,-114 502.75,-133.25"/>
 <text text-anchor="middle" x="451.25" y="-119.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_SPI_transfer</text>
 </a>

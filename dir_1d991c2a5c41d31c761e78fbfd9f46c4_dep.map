@@ -1,20 +1,20 @@
 <map id="source/dashboard/driver_interface" name="source/dashboard/driver_interface">
 <area shape="rect" id="node1" href="dir_7d1268d878ebb53f0d1f03000315f147.html" title="pedals" alt="" coords="89,210,148,236"/>
 <area shape="rect" id="node3" href="dir_f765ea92361f85119ed2ec32d2c3e943.html" title="pages" alt="" coords="90,137,147,162"/>
-<area shape="poly" id="edge3" href="dir_000025_000044.html" alt="" coords="99,87,111,121,106,123,94,89"/>
-<area shape="rect" id="edge3-headlabel" href="dir_000025_000044.html" title="6" alt="" coords="112,109,119,124"/>
+<area shape="poly" id="edge3" href="dir_000024_000043.html" alt="" coords="99,87,111,121,106,123,94,89"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000024_000043.html" title="6" alt="" coords="112,109,119,124"/>
 <area shape="rect" id="node4" href="dir_8502334a6043706973c6191d10d5a04e.html" title="can_library" alt="" coords="178,210,262,236"/>
-<area shape="poly" id="edge1" href="dir_000025_000009.html" alt="" coords="108,87,161,135,207,196,203,199,157,138,105,91"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000025_000009.html" title="2" alt="" coords="207,183,214,198"/>
+<area shape="poly" id="edge1" href="dir_000024_000008.html" alt="" coords="108,87,161,135,207,196,203,199,157,138,105,91"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000024_000008.html" title="2" alt="" coords="207,183,214,198"/>
 <area shape="rect" id="node5" href="dir_bdd9a5d540de89e9fe90efdfc6973a4f.html" title="common" alt="" coords="286,210,357,236"/>
-<area shape="poly" id="edge2" href="dir_000025_000012.html" alt="" coords="113,86,193,134,293,199,290,204,191,139,110,91"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000025_000012.html" title="13" alt="" coords="286,185,300,200"/>
-<area shape="poly" id="edge4" href="dir_000044_000046.html" alt="" coords="121,163,121,195,116,195,116,163"/>
-<area shape="rect" id="edge4-headlabel" href="dir_000044_000046.html" title="1" alt="" coords="124,184,131,199"/>
-<area shape="poly" id="edge5" href="dir_000044_000009.html" alt="" coords="137,161,192,199,189,203,134,165"/>
-<area shape="rect" id="edge5-headlabel" href="dir_000044_000009.html" title="1" alt="" coords="189,185,196,200"/>
-<area shape="poly" id="edge6" href="dir_000044_000012.html" alt="" coords="148,158,273,202,272,207,146,163"/>
-<area shape="rect" id="edge6-headlabel" href="dir_000044_000012.html" title="6" alt="" coords="269,188,276,203"/>
+<area shape="poly" id="edge2" href="dir_000024_000011.html" alt="" coords="113,86,193,134,293,199,290,204,191,139,110,91"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000024_000011.html" title="13" alt="" coords="286,185,300,200"/>
+<area shape="poly" id="edge4" href="dir_000043_000045.html" alt="" coords="121,163,121,195,116,195,116,163"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000043_000045.html" title="1" alt="" coords="124,184,131,199"/>
+<area shape="poly" id="edge5" href="dir_000043_000008.html" alt="" coords="137,161,192,199,189,203,134,165"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000043_000008.html" title="1" alt="" coords="189,185,196,200"/>
+<area shape="poly" id="edge6" href="dir_000043_000011.html" alt="" coords="148,158,273,202,272,207,146,163"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000043_000011.html" title="6" alt="" coords="269,188,276,203"/>
 <area shape="rect" id="clust2" href="dir_1d991c2a5c41d31c761e78fbfd9f46c4.html" alt="" coords="27,52,157,173"/>
 <area shape="rect" id="clust1" href="dir_fc3315dec08952c299e22f7c15049669.html" title="dashboard" alt="" coords="16,16,168,247"/>
 </map>

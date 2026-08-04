@@ -1,7 +1,7 @@
 <map id="common/phal_F4/pwm" name="common/phal_F4/pwm">
 <area shape="rect" id="node1" href="dir_de432cc68697d74d0162853d35518ac3.html" title="pwm" alt="" coords="27,52,77,78"/>
 <area shape="rect" id="node2" href="dir_a3c0d50f55deba8c32b4e660038b52ec.html" title="phal" alt="" coords="29,126,75,152"/>
-<area shape="poly" id="edge1" href="dir_000051_000047.html" alt="" coords="55,78,55,110,49,110,49,78"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000051_000047.html" title="1" alt="" coords="57,100,64,115"/>
+<area shape="poly" id="edge1" href="dir_000050_000046.html" alt="" coords="55,78,55,110,49,110,49,78"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000050_000046.html" title="1" alt="" coords="57,100,64,115"/>
 <area shape="rect" id="clust1" href="dir_977239e98dcb81927fd2c50e4ca080d6.html" title="phal_F4" alt="" coords="16,16,88,89"/>
 </map>

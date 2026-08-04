@@ -42,7 +42,7 @@ var searchData=
   ['transfer_5fdata_39',['transfer_data',['../structPHAL__USB__Event__t.html#ad06713990d921f6ce7320cd51eecf517',1,'PHAL_USB_Event_t']]],
   ['transferend_40',['TransferEnd',['../sdio_8c.html#a674dd7110bb05a30aea8530db5e6b74d',1,'sdio.c']]],
   ['transfererror_41',['TransferError',['../sdio_8c.html#a0c5a80166fc0941496f4259c276156e9',1,'sdio.c']]],
-  ['trash_5fcan_42',['trash_can',['../common_2phal__F4_2spi_2spi_8c.html#a756235ee84f91148d0e0d83b3bf8396f',1,'trash_can:&#160;spi.c'],['../common_2phal__G4_2spi_2spi_8c.html#a756235ee84f91148d0e0d83b3bf8396f',1,'trash_can:&#160;spi.c']]],
+  ['trash_5fcan_42',['trash_can',['../phal__F4_2spi_2spi_8c.html#a756235ee84f91148d0e0d83b3bf8396f',1,'trash_can:&#160;spi.c'],['../phal__G4_2spi_2spi_8c.html#a756235ee84f91148d0e0d83b3bf8396f',1,'trash_can:&#160;spi.c']]],
   ['ts_5ffr_5fsplit_43',['TS_FR_split',['../structyVCU__struct.html#a46286569b17265e313ba6121e4b90a63',1,'yVCU_struct']]],
   ['ts_5ffr_5fsplit_5flb_44',['TS_FR_split_lb',['../structpVCU__struct.html#a64c9a232083c84f3b2f23295fce77f63',1,'pVCU_struct']]],
   ['ts_5ffr_5fsplit_5fraw_45',['TS_FR_split_RAW',['../structxVCU__struct.html#a4c7177d9153309db081ade4fb84dadae',1,'xVCU_struct']]],

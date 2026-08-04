@@ -1,8 +1,8 @@
 <map id="LED_control" name="LED_control">
 <area shape="rect" id="Node000001" title="Set, clear, or toggle a specified LED pin." alt="" coords="5,104,98,130"/>
-<area shape="rect" id="Node000002" href="$common_2phal__F4_2spi_2spi_8c.html#a35fd94eb02f487e09065ddc0ecb92e53" title="Check for current SPI transaction to complete." alt="" coords="368,5,489,31"/>
+<area shape="rect" id="Node000002" href="$phal__F4_2spi_2spi_8c.html#a35fd94eb02f487e09065ddc0ecb92e53" title="Check for current SPI transaction to complete." alt="" coords="368,5,489,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,102,145,89,330,40,358,33,359,38,332,45,146,94,99,107"/>
-<area shape="rect" id="Node000003" href="$common_2phal__F4_2spi_2spi_8c.html#aa44c022e7bafc2f33240d3fa837a4244" title="Transfer data_len bytes from out_data to SPI device and place MISO data in in_data This function just..." alt="" coords="146,104,283,130"/>
+<area shape="rect" id="Node000003" href="$phal__F4_2spi_2spi_8c.html#aa44c022e7bafc2f33240d3fa837a4244" title="Transfer data_len bytes from out_data to SPI device and place MISO data in in_data This function just..." alt="" coords="146,104,283,130"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="98,114,130,114,130,120,98,120"/>
 <area shape="rect" id="Node000007" href="$phal__F4_2gpio_2gpio_8h.html#a67db851520637ffa4de5968c9730220b" title="Write a logic value to an output pin." alt="" coords="366,203,491,228"/>
 <area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="99,127,146,140,332,189,359,196,358,201,330,194,145,145,97,132"/>

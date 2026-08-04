@@ -46,11 +46,9 @@ var searchData=
   ['is_5frtc_5fsync_5fcomplete_43',['is_RTC_sync_complete',['../rtc__sync_8c.html#a5d949a4a32a94ca4e448e294a8e0b4ed',1,'rtc_sync.c']]],
   ['is_5fsigned_44',['is_signed',['../classparser_1_1Signal.html#a9b880c06ac146df487344bea4045e50b',1,'parser::Signal']]],
   ['is_5ftv_5fenabled_45',['is_tv_enabled',['../control__loop_8c.html#a955c29aae1047ed8861dfee226e2a5c3',1,'control_loop.c']]],
-  ['isaccelready_46',['isAccelReady',['../structBMI088__Handle__t.html#a7115088258f083e1b9d8015c29c7df45',1,'BMI088_Handle_t']]],
-  ['isense_5fraw_47',['isense_raw',['../structadc1__dma__buffer__t.html#a785c6883cfac53c137c26a3da346c488',1,'adc1_dma_buffer_t']]],
-  ['isgyrook_48',['isGyroOK',['../structBMI088__Handle__t.html#af4658bd547ae80f93ad66536d721bc7b',1,'BMI088_Handle_t']]],
-  ['item_5fcount_49',['item_count',['../structFREERTOS__queue__params__t.html#a34be4a1c0becae087ddf6f778a7f37e1',1,'FREERTOS_queue_params_t']]],
-  ['item_5fsize_50',['item_size',['../structFREERTOS__queue__params__t.html#a06979498471dec74b6061f4e0f14633a',1,'FREERTOS_queue_params_t']]],
-  ['itow_51',['iTOW',['../structNAV__PVT__data__t.html#a6669ed9293e1772467ca2ed26526edb1',1,'NAV_PVT_data_t::iTOW'],['../structNAV__RELPOSNED__data__t.html#ad1baad75a43b39bd045b44f06a4bf3ca',1,'NAV_RELPOSNED_data_t::iTOW']]],
-  ['izze_5fimu_5fprogramming_5fconstant_52',['IZZE_IMU_PROGRAMMING_CONSTANT',['../izze__imu_8h.html#a838dbb8e41bcf270aba226d360042204',1,'izze_imu.h']]]
+  ['isense_5fraw_46',['isense_raw',['../structadc1__dma__buffer__t.html#a785c6883cfac53c137c26a3da346c488',1,'adc1_dma_buffer_t']]],
+  ['item_5fcount_47',['item_count',['../structFREERTOS__queue__params__t.html#a34be4a1c0becae087ddf6f778a7f37e1',1,'FREERTOS_queue_params_t']]],
+  ['item_5fsize_48',['item_size',['../structFREERTOS__queue__params__t.html#a06979498471dec74b6061f4e0f14633a',1,'FREERTOS_queue_params_t']]],
+  ['itow_49',['iTOW',['../structNAV__PVT__data__t.html#a6669ed9293e1772467ca2ed26526edb1',1,'NAV_PVT_data_t::iTOW'],['../structNAV__RELPOSNED__data__t.html#ad1baad75a43b39bd045b44f06a4bf3ca',1,'NAV_RELPOSNED_data_t::iTOW']]],
+  ['izze_5fimu_5fprogramming_5fconstant_50',['IZZE_IMU_PROGRAMMING_CONSTANT',['../izze__imu_8h.html#a838dbb8e41bcf270aba226d360042204',1,'izze_imu.h']]]
 ];

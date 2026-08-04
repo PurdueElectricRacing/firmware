@@ -100,7 +100,7 @@ $(function(){initNavTree('md_common_2lerp__lut_2README.html',''); initResizable(
   <div class="headertitle"><div class="title">Linearly Interpolating Lookup Table</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md60"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md59"></a></p>
 <p>The <code>lerp_lut</code> module provides a simple way to create and use lookup tables (LUTs) for linear interpolation in C.</p><ul>
 <li>keys outside the LUT range will be clamped to the nearest endpoint</li>
 <li>the LUT must have at least 2 entries to be valid</li>
@@ -108,7 +108,7 @@ $(function(){initNavTree('md_common_2lerp__lut_2README.html',''); initResizable(
 <li>binary search is used to find the interval for interpolation to remain efficient for larger LUTs</li>
 <li>of course, accuracy depends on the size of the LUT and the range of keys.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md61"></a>
+<h3><a class="anchor" id="autotoc_md60"></a>
 Usage Example:</h3>
 <p>This example demonstrates a LUT being created for the exponential function. It is much faster to look up values from the LUT than to compute the exponential function directly, especially on our target platforms (Cortex-M4 with FPU). </p><div class="fragment"><div class="line"> ++</div>
 <div class="line"><span class="preprocessor">#include &quot;<a class="code" href="lerp__lut_8h.html">lerp_lut.h</a>&quot;</span></div>
@@ -138,7 +138,7 @@ Usage Example:</h3>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="aa__box_2main_8c_html_a840291bc02cba5474a4cb46a9b9566fe"><div class="ttname"><a href="a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a></div><div class="ttdeci">int main(void)</div><div class="ttdef"><b>Definition</b> main.c:123</div></div>
+<div class="ttc" id="aa__box_2main_8c_html_a840291bc02cba5474a4cb46a9b9566fe"><div class="ttname"><a href="a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a></div><div class="ttdeci">int main(void)</div><div class="ttdef"><b>Definition</b> main.c:144</div></div>
 <div class="ttc" id="alerp__lut_8c_html_aa6730914e04aa912dcb777e28f9e4004"><div class="ttname"><a href="lerp__lut_8c.html#aa6730914e04aa912dcb777e28f9e4004">lut_lookup</a></div><div class="ttdeci">float lut_lookup(const lerp_lut_t *lut, float key)</div><div class="ttdoc">Lookup a value in a linear interpolation lookup table (LUT).</div><div class="ttdef"><b>Definition</b> lerp_lut.c:20</div></div>
 <div class="ttc" id="alerp__lut_8h_html"><div class="ttname"><a href="lerp__lut_8h.html">lerp_lut.h</a></div><div class="ttdoc">Linear interpolation lookup table (LUT).</div></div>
 <div class="ttc" id="alerp__lut_8h_html_a0b5e49448d9451f321ee947d30651f78"><div class="ttname"><a href="lerp__lut_8h.html#a0b5e49448d9451f321ee947d30651f78">LERP_LUT_INIT</a></div><div class="ttdeci">#define LERP_LUT_INIT(name, _entries, _size)</div><div class="ttdef"><b>Definition</b> lerp_lut.h:23</div></div>

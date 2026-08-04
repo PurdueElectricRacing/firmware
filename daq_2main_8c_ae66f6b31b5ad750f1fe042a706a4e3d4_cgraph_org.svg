@@ -164,7 +164,7 @@
 <!-- Node35 -->
 <g id="Node000035" class="node">
 <title>Node35</title>
-<g id="a_Node000035"><a xlink:href="common_2phal__F4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" target="_top" xlink:title="Initilize SPI peripheral with the configuired structure.">
+<g id="a_Node000035"><a xlink:href="phal__F4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" target="_top" xlink:title="Initilize SPI peripheral with the configuired structure.">
 <polygon fill="white" stroke="#666666" points="183.12,-340.25 100.38,-340.25 100.38,-321 183.12,-321 183.12,-340.25"/>
 <text text-anchor="middle" x="141.75" y="-326.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_SPI_init</text>
 </a>
@@ -768,7 +768,7 @@
 <!-- Node36 -->
 <g id="Node000036" class="node">
 <title>Node36</title>
-<g id="a_Node000036"><a xlink:href="common_2phal__F4_2spi_2spi_8c.html#a8e9e5ef753602ac9e7822dee0923dd38" target="_top" xlink:title=" ">
+<g id="a_Node000036"><a xlink:href="phal__F4_2spi_2spi_8c.html#a8e9e5ef753602ac9e7822dee0923dd38" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="368.25,-354.25 290,-354.25 290,-335 368.25,-335 368.25,-354.25"/>
 <text text-anchor="middle" x="329.12" y="-340.75" font-family="Helvetica,sans-Serif" font-size="10.00">LOG2_DOWN</text>
 </a>

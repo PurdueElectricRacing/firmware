@@ -1,5 +1,5 @@
 <map id="common/phal_F4/spi/spi.h" name="common/phal_F4/spi/spi.h">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,5,148,46"/>
-<area shape="rect" id="Node000002" href="$common_2phal__F4_2spi_2spi_8c.html" title="PER Serial Peripheral Interface Device driver for STM32F4." alt="" coords="5,94,148,135"/>
+<area shape="rect" id="Node000002" href="$phal__F4_2spi_2spi_8c.html" title="PER Serial Peripheral Interface Device driver for STM32F4." alt="" coords="5,94,148,135"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,62,79,94,74,94,74,62"/>
 </map>

@@ -2,9 +2,9 @@
 <area shape="rect" id="Node000001" title="Periodic LED function that toggles LEDs that need to be toggled." alt="" coords="5,104,104,130"/>
 <area shape="rect" id="Node000002" href="$led_8c.html#a25f4f6c595a65e2015d9d76af5fab4ac" title="Set, clear, or toggle a specified LED pin." alt="" coords="152,104,244,130"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,114,136,114,136,120,104,120"/>
-<area shape="rect" id="Node000003" href="$common_2phal__F4_2spi_2spi_8c.html#a35fd94eb02f487e09065ddc0ecb92e53" title="Check for current SPI transaction to complete." alt="" coords="515,5,635,31"/>
+<area shape="rect" id="Node000003" href="$phal__F4_2spi_2spi_8c.html#a35fd94eb02f487e09065ddc0ecb92e53" title="Check for current SPI transaction to complete." alt="" coords="515,5,635,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="244,102,291,89,477,40,504,33,505,38,478,45,293,94,245,107"/>
-<area shape="rect" id="Node000004" href="$common_2phal__F4_2spi_2spi_8c.html#aa44c022e7bafc2f33240d3fa837a4244" title="Transfer data_len bytes from out_data to SPI device and place MISO data in in_data This function just..." alt="" coords="292,104,429,130"/>
+<area shape="rect" id="Node000004" href="$phal__F4_2spi_2spi_8c.html#aa44c022e7bafc2f33240d3fa837a4244" title="Transfer data_len bytes from out_data to SPI device and place MISO data in in_data This function just..." alt="" coords="292,104,429,130"/>
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="245,114,277,114,277,120,245,120"/>
 <area shape="rect" id="Node000008" href="$phal__F4_2gpio_2gpio_8h.html#a67db851520637ffa4de5968c9730220b" title="Write a logic value to an output pin." alt="" coords="512,203,638,228"/>
 <area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="245,127,293,140,478,189,505,196,504,201,477,194,291,145,244,132"/>

@@ -1,0 +1,33 @@
+<map id="common/phal_G4/spi/spi_priv.c" name="common/phal_G4/spi/spi_priv.c">
+<area shape="rect" id="Node000001" title="G4 SPI Peripheral private/register level implementation." alt="" coords="324,5,468,46"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2spi_2spi_8h.html" title="G4 SPI public API." alt="" coords="46,183,190,223"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="325,43,261,64,230,78,201,96,164,132,137,171,133,168,160,128,197,92,227,73,260,59,323,38"/>
+<area shape="rect" id="Node000009" href="$spi__priv_8h.html" title="Internal G4 SPI helpers and DMA configuration macros." alt="" coords="211,94,355,135"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="372,49,322,87,319,82,369,44"/>
+<area shape="rect" id="Node000011" href="$phal__G4_2rcc_2rcc_8h.html" title="G4 RCC public API implementation." alt="" coords="381,360,526,401"/>
+<area shape="poly" id="edge15_Node000001_Node000011" title=" " alt="" coords="403,46,431,182,453,344,447,345,426,183,398,47"/>
+<area shape="rect" id="Node000012" href="$clamp_8h.html" title="Utility header to clamp a value to a bounded range." alt="" coords="492,102,640,127"/>
+<area shape="poly" id="edge19_Node000001_Node000012" title=" " alt="" coords="436,44,530,92,527,97,434,49"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,279,73,304"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="102,226,62,269,58,265,98,222"/>
+<area shape="rect" id="Node000004" href="$phal__G4_2dma_2dma_8h.html" title="G4 DMA Peripheral public API implementation." alt="" coords="96,271,248,312"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="132,222,154,257,150,260,128,225"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="241,522,304,548"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="158,314,143,336,132,361,129,380,132,400,145,440,170,472,199,496,229,513,227,518,195,500,166,476,140,442,127,401,123,380,127,359,139,333,153,311"/>
+<area shape="rect" id="Node000006" href="$phal__G4_8h.html" title=" " alt="" coords="180,449,365,474"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="160,314,149,333,140,355,137,378,144,399,168,424,199,440,196,445,165,428,139,402,132,379,135,354,144,331,156,311"/>
+<area shape="rect" id="Node000008" href="$dma__wiring_8h.html" title="G4 DMA Peripheral wiring configuration and definitions." alt="" coords="154,360,306,401"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="188,311,211,346,206,349,183,314"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="275,475,275,507,270,507,270,475"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="372,522,445,548"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="297,473,373,512,371,517,294,477"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="243,400,261,433,256,436,238,402"/>
+<area shape="poly" id="edge12_Node000009_Node000002" title=" " alt="" coords="247,138,170,178,167,173,244,133"/>
+<area shape="poly" id="edge11_Node000009_Node000004" title=" " alt="" coords="273,136,195,260,190,257,268,134"/>
+<area shape="rect" id="Node000010" href="$phal__G4_2gpio_2gpio_8h.html" title="GPIO Driver for STM32L432 Devices." alt="" coords="265,183,416,223"/>
+<area shape="poly" id="edge13_Node000009_Node000010" title=" " alt="" coords="298,134,321,168,317,171,294,137"/>
+<area shape="poly" id="edge14_Node000010_Node000006" title=" " alt="" coords="344,224,342,303,335,353,320,402,297,438,292,436,315,400,329,352,337,303,339,223"/>
+<area shape="poly" id="edge17_Node000011_Node000005" title=" " alt="" coords="443,403,416,439,379,476,347,499,315,517,312,513,345,495,376,472,412,435,439,400"/>
+<area shape="poly" id="edge18_Node000011_Node000006" title=" " alt="" coords="409,404,315,445,313,440,407,399"/>
+<area shape="poly" id="edge16_Node000011_Node000007" title=" " alt="" coords="450,402,419,508,414,507,445,400"/>
+</map>

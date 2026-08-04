@@ -92,7 +92,7 @@
 <!-- Node5 -->
 <g id="Node000005" class="node">
 <title>Node5</title>
-<g id="a_Node000005"><a xlink:href="common_2phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" target="_top" xlink:title="Initilize SPI peripheral with the configuired structure.">
+<g id="a_Node000005"><a xlink:href="phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" target="_top" xlink:title="Initilize SPI peripheral with the configuired structure.">
 <polygon fill="white" stroke="#666666" points="92.88,-56.25 10.12,-56.25 10.12,-37 92.88,-37 92.88,-56.25"/>
 <text text-anchor="middle" x="51.5" y="-42.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_SPI_init</text>
 </a>
@@ -110,7 +110,7 @@
 <!-- Node7 -->
 <g id="Node000007" class="node">
 <title>Node7</title>
-<g id="a_Node000007"><a xlink:href="common_2phal__G4_2spi_2spi_8c.html#ab9da5be05aad59873975238094d15b27" target="_top" xlink:title=" ">
+<g id="a_Node000007"><a xlink:href="phal__G4_2spi_2spi_8c.html#a9af893d97bde29796f60bc6df9b05fd0" target="_top" xlink:title="Start a DMA&#45;backed SPI transfer.">
 <polygon fill="white" stroke="#666666" points="103,-19.25 0,-19.25 0,0 103,0 103,-19.25"/>
 <text text-anchor="middle" x="51.5" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_SPI_transfer</text>
 </a>

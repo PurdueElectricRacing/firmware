@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Change the transfer length (element count) for the next transfer." alt="" coords="191,80,349,106"/>
 <area shape="rect" id="Node000002" href="$common_2phal__G4_2usart_2usart_8c.html#a99cd2a703a69e6506a975cc574e4966a" title="Handles the USART interrupt logic." alt="" coords="17,5,131,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,76,142,45,113,34,115,29,144,40,223,71"/>
-<area shape="rect" id="Node000003" href="$common_2phal__G4_2spi_2spi_8c.html#ab9da5be05aad59873975238094d15b27" title=" " alt="" coords="5,55,143,80"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2spi_2spi_8c.html#a9af893d97bde29796f60bc6df9b05fd0" title="Start a DMA&#45;backed SPI transfer." alt="" coords="5,55,143,80"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="175,83,143,79,143,74,176,78"/>
 <area shape="rect" id="Node000004" href="$common_2phal__G4_2usart_2usart_8c.html#a58f9158940d388fe2e706fddb01a759d" title="Starts a DMA&#45;based reception." alt="" coords="6,104,142,130"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="176,107,142,111,142,106,175,102"/>

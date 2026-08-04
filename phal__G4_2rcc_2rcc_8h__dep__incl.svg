@@ -88,9 +88,9 @@ var sectionId = 'dynsection-1';
 <g id="Node000003" class="node">
 <title>Node3</title>
 <g id="a_Node000003"><a xlink:href="phal__G4_2rcc_2rcc_8c.html" target="_top" xlink:title="G4 RCC public API implementation.">
-<polygon fill="white" stroke="#666666" points="176.75,-30.5 67.75,-30.5 67.75,0 176.75,0 176.75,-30.5"/>
-<text text-anchor="start" x="75.75" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_G4/rcc</text>
-<text text-anchor="middle" x="122.25" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">/rcc.c</text>
+<polygon fill="white" stroke="#666666" points="198.75,-30.5 89.75,-30.5 89.75,0 198.75,0 198.75,-30.5"/>
+<text text-anchor="start" x="97.75" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_G4/rcc</text>
+<text text-anchor="middle" x="144.25" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">/rcc.c</text>
 </a>
 </g>
 </g>
@@ -98,8 +98,8 @@ var sectionId = 'dynsection-1';
 <g id="edge2_Node000001_Node000003" class="edge">
 <title>Node1&#45;&gt;Node3</title>
 <g id="a_edge2_Node000001_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M195.41,-125.99C184.65,-117.79 173.12,-107.78 164.25,-97 147.28,-76.38 134.41,-47.79 127.63,-30.74"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="193.23,-128.73 203.37,-131.81 197.36,-123.08 193.23,-128.73"/>
+<path fill="none" stroke="#63b8ff" d="M192.65,-126.13C182.15,-118.18 171.49,-108.3 164.25,-97 151.08,-76.45 146.58,-47.84 145.04,-30.77"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="190.33,-128.77 200.51,-131.72 194.39,-123.07 190.33,-128.77"/>
 </a>
 </g>
 </g>
@@ -125,10 +125,10 @@ var sectionId = 'dynsection-1';
 <!-- Node6 -->
 <g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_Node000006"><a xlink:href="phal__G4_2spi_2spi_8h.html" target="_top" xlink:title=" ">
+<g id="a_Node000006"><a xlink:href="spi__priv_8c.html" target="_top" xlink:title="G4 SPI Peripheral private/register level implementation.">
 <polygon fill="white" stroke="#666666" points="408.38,-97 300.12,-97 300.12,-66.5 408.38,-66.5 408.38,-97"/>
 <text text-anchor="start" x="308.12" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_G4/spi</text>
-<text text-anchor="middle" x="354.25" y="-72.25" font-family="Helvetica,sans-Serif" font-size="10.00">/spi.h</text>
+<text text-anchor="middle" x="354.25" y="-72.25" font-family="Helvetica,sans-Serif" font-size="10.00">/spi_priv.c</text>
 </a>
 </g>
 </g>
@@ -141,20 +141,20 @@ var sectionId = 'dynsection-1';
 </a>
 </g>
 </g>
-<!-- Node8 -->
-<g id="Node000008" class="node">
-<title>Node8</title>
-<g id="a_Node000008"><a xlink:href="g4__testing_2pwm__testing_8c.html" target="_top" xlink:title="Test file for PWM on STM32G4.">
+<!-- Node7 -->
+<g id="Node000007" class="node">
+<title>Node7</title>
+<g id="a_Node000007"><a xlink:href="g4__testing_2pwm__testing_8c.html" target="_top" xlink:title="Test file for PWM on STM32G4.">
 <polygon fill="white" stroke="#666666" points="543.88,-97 426.62,-97 426.62,-66.5 543.88,-66.5 543.88,-97"/>
 <text text-anchor="start" x="434.62" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00">source/g4_testing/pwm</text>
 <text text-anchor="middle" x="485.25" y="-72.25" font-family="Helvetica,sans-Serif" font-size="10.00">_testing.c</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node8 -->
-<g id="edge8_Node000001_Node000008" class="edge">
-<title>Node1&#45;&gt;Node8</title>
-<g id="a_edge8_Node000001_Node000008"><a xlink:title=" ">
+<!-- Node1&#45;&gt;Node7 -->
+<g id="edge7_Node000001_Node000007" class="edge">
+<title>Node1&#45;&gt;Node7</title>
+<g id="a_edge7_Node000001_Node000007"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M292.99,-130.82C334.17,-120.52 386.8,-107.36 426.57,-97.42"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="292.29,-127.38 283.43,-133.2 293.98,-134.17 292.29,-127.38"/>
 </a>
@@ -164,8 +164,8 @@ var sectionId = 'dynsection-1';
 <g id="edge4_Node000004_Node000003" class="edge">
 <title>Node4&#45;&gt;Node3</title>
 <g id="a_edge4_Node000004_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M193.66,-60.11C178.13,-50.58 160.06,-39.48 145.98,-30.83"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="191.78,-63.07 202.13,-65.32 195.45,-57.11 191.78,-63.07"/>
+<path fill="none" stroke="#63b8ff" d="M199.64,-59.29C187.61,-49.94 173.82,-39.23 163.01,-30.83"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="197.18,-61.81 207.22,-65.19 201.47,-56.29 197.18,-61.81"/>
 </a>
 </g>
 </g>
@@ -173,9 +173,9 @@ var sectionId = 'dynsection-1';
 <g id="Node000005" class="node">
 <title>Node5</title>
 <g id="a_Node000005"><a xlink:href="rcc__priv_8c.html" target="_top" xlink:title="G4 RCC private/register level implementation.">
-<polygon fill="white" stroke="#666666" points="303.75,-30.5 194.75,-30.5 194.75,0 303.75,0 303.75,-30.5"/>
-<text text-anchor="start" x="202.75" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_G4/rcc</text>
-<text text-anchor="middle" x="249.25" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">/rcc_priv.c</text>
+<polygon fill="white" stroke="#666666" points="325.75,-30.5 216.75,-30.5 216.75,0 325.75,0 325.75,-30.5"/>
+<text text-anchor="start" x="224.75" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_G4/rcc</text>
+<text text-anchor="middle" x="271.25" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">/rcc_priv.c</text>
 </a>
 </g>
 </g>
@@ -183,27 +183,8 @@ var sectionId = 'dynsection-1';
 <g id="edge5_Node000004_Node000005" class="edge">
 <title>Node4&#45;&gt;Node5</title>
 <g id="a_edge5_Node000004_Node000005"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M235.9,-55.38C238.75,-47.05 241.81,-38.08 244.28,-30.83"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="232.65,-54.09 232.73,-64.68 239.27,-56.35 232.65,-54.09"/>
-</a>
-</g>
-</g>
-<!-- Node7 -->
-<g id="Node000007" class="node">
-<title>Node7</title>
-<g id="a_Node000007"><a xlink:href="common_2phal__G4_2spi_2spi_8c.html" target="_top" xlink:title="G4 SPI.">
-<polygon fill="white" stroke="#666666" points="430.38,-30.5 322.12,-30.5 322.12,0 430.38,0 430.38,-30.5"/>
-<text text-anchor="start" x="330.12" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_G4/spi</text>
-<text text-anchor="middle" x="376.25" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">/spi.c</text>
-</a>
-</g>
-</g>
-<!-- Node6&#45;&gt;Node7 -->
-<g id="edge7_Node000006_Node000007" class="edge">
-<title>Node6&#45;&gt;Node7</title>
-<g id="a_edge7_Node000006_Node000007"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M362.9,-55.38C365.75,-47.05 368.81,-38.08 371.28,-30.83"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="359.65,-54.09 359.73,-64.68 366.27,-56.35 359.65,-54.09"/>
+<path fill="none" stroke="#63b8ff" d="M243.6,-56.79C249.54,-48.07 256.08,-38.49 261.31,-30.83"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="240.83,-54.63 238.09,-64.86 246.61,-58.58 240.83,-54.63"/>
 </a>
 </g>
 </g>

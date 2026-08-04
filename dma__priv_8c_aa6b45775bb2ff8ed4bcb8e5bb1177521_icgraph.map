@@ -10,11 +10,11 @@
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="229,87,142,45,98,28,100,23,144,40,232,82"/>
 <area shape="rect" id="Node000004" href="$common_2phal__G4_2usart_2usart_8c.html#a1e13f03e291a90dcd93ffccf1b8edf65" title="Initializes a USART peripheral on an STM32G4 microcontroller." alt="" coords="11,55,137,80"/>
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="195,93,137,82,138,77,196,88"/>
-<area shape="rect" id="Node000005" href="$common_2phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="19,104,129,130"/>
+<area shape="rect" id="Node000005" href="$phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="19,104,129,130"/>
 <area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="196,112,129,116,129,111,195,107"/>
 <area shape="rect" id="Node000007" href="$common_2phal__G4_2usart_2usart_8c.html#a99cd2a703a69e6506a975cc574e4966a" title="Handles the USART interrupt logic." alt="" coords="17,153,131,179"/>
 <area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="186,176,131,172,132,167,186,170"/>
-<area shape="rect" id="Node000008" href="$common_2phal__G4_2spi_2spi_8c.html#ab9da5be05aad59873975238094d15b27" title=" " alt="" coords="5,203,143,228"/>
+<area shape="rect" id="Node000008" href="$phal__G4_2spi_2spi_8c.html#a9af893d97bde29796f60bc6df9b05fd0" title="Start a DMA&#45;backed SPI transfer." alt="" coords="5,203,143,228"/>
 <area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="187,197,144,205,143,200,186,191"/>
 <area shape="rect" id="Node000009" href="$common_2phal__G4_2usart_2usart_8c.html#a61183ec430b48e9dc2eef1a49f292a65" title="Starts a DMA&#45;based transmission." alt="" coords="7,252,141,278"/>
 <area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="202,200,192,204,168,223,144,243,121,254,119,249,141,239,165,219,189,200,200,195"/>

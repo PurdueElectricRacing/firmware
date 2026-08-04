@@ -7,11 +7,14 @@ var searchData=
   ['direct_5fmapped_5fregen_4',['direct_mapped_regen',['../torque__controller_8c.html#aa4f3e4883f61cccb23ec6992906839ff',1,'torque_controller.c']]],
   ['direct_5fmapped_5fthrottle_5',['direct_mapped_throttle',['../torque__controller_8c.html#ab7320f81a23d044892df3f66cc8e6473',1,'torque_controller.c']]],
   ['dma1_5fchannel1_5firqhandler_6',['DMA1_Channel1_IRQHandler',['../common_2phal__G4_2usart_2usart_8c.html#a7b6fac3d670a4860ebec8a961d5c4a73',1,'usart.c']]],
-  ['dma2_5fchannel6_5firqhandler_7',['DMA2_Channel6_IRQHandler',['../common_2phal__G4_2usart_2usart_8c.html#ae57a79f62c50fe096d2720c28081e8aa',1,'usart.c']]],
-  ['dma2_5fchannel7_5firqhandler_8',['DMA2_Channel7_IRQHandler',['../common_2phal__G4_2usart_2usart_8c.html#aadbfdc5c96e7464ed3c1ef65de080fcd',1,'usart.c']]],
-  ['dma2_5fstream3_5firqhandler_9',['DMA2_Stream3_IRQHandler',['../common_2phal__F4_2spi_2spi_8c.html#a69ff6bfb4062ba171cfaeb45ed976b95',1,'spi.c']]],
-  ['dma2_5fstream6_5firqhandler_10',['DMA2_Stream6_IRQHandler',['../sdio_8c.html#a76d38919f345dfea8ab0e0cd9e2c47e3',1,'sdio.c']]],
-  ['dma_5fchannel_5fclaim_5fslot_11',['dma_channel_claim_slot',['../phal__G4_2dma_2dma_8c.html#af12ff6bf938e0b8cf0882c4e64e2cdd4',1,'dma.c']]],
-  ['dma_5fwiring_5fis_5fvalid_12',['dma_wiring_is_valid',['../phal__G4_2dma_2dma_8c.html#a3355394f66e080a191644b3aa05bb7e6',1,'dma.c']]],
-  ['driver_5finterface_5fperiodic_13',['driver_interface_periodic',['../driver__interface_8c.html#ac599c66976c348cb0287266b60aa49c5',1,'driver_interface_periodic(void):&#160;driver_interface.c'],['../driver__interface_8h.html#ac599c66976c348cb0287266b60aa49c5',1,'driver_interface_periodic(void):&#160;driver_interface.c']]]
+  ['dma1_5fchannel3_5firqhandler_7',['DMA1_Channel3_IRQHandler',['../phal__G4_2spi_2spi_8c.html#aadb8937353693c94b0d8e32fc6f18fc2',1,'spi.c']]],
+  ['dma1_5fchannel5_5firqhandler_8',['DMA1_Channel5_IRQHandler',['../phal__G4_2spi_2spi_8c.html#abd16b3391557c4a3a8020d675e2c452f',1,'spi.c']]],
+  ['dma2_5fchannel3_5firqhandler_9',['DMA2_Channel3_IRQHandler',['../phal__G4_2spi_2spi_8c.html#a66857fec7bb282eed8204a690f4ce5ae',1,'spi.c']]],
+  ['dma2_5fchannel6_5firqhandler_10',['DMA2_Channel6_IRQHandler',['../common_2phal__G4_2usart_2usart_8c.html#ae57a79f62c50fe096d2720c28081e8aa',1,'usart.c']]],
+  ['dma2_5fchannel7_5firqhandler_11',['DMA2_Channel7_IRQHandler',['../common_2phal__G4_2usart_2usart_8c.html#aadbfdc5c96e7464ed3c1ef65de080fcd',1,'usart.c']]],
+  ['dma2_5fstream3_5firqhandler_12',['DMA2_Stream3_IRQHandler',['../phal__F4_2spi_2spi_8c.html#a69ff6bfb4062ba171cfaeb45ed976b95',1,'spi.c']]],
+  ['dma2_5fstream6_5firqhandler_13',['DMA2_Stream6_IRQHandler',['../sdio_8c.html#a76d38919f345dfea8ab0e0cd9e2c47e3',1,'sdio.c']]],
+  ['dma_5fchannel_5fclaim_5fslot_14',['dma_channel_claim_slot',['../phal__G4_2dma_2dma_8c.html#af12ff6bf938e0b8cf0882c4e64e2cdd4',1,'dma.c']]],
+  ['dma_5fwiring_5fis_5fvalid_15',['dma_wiring_is_valid',['../phal__G4_2dma_2dma_8c.html#a3355394f66e080a191644b3aa05bb7e6',1,'dma.c']]],
+  ['driver_5finterface_5fperiodic_16',['driver_interface_periodic',['../driver__interface_8c.html#ac599c66976c348cb0287266b60aa49c5',1,'driver_interface_periodic(void):&#160;driver_interface.c'],['../driver__interface_8h.html#ac599c66976c348cb0287266b60aa49c5',1,'driver_interface_periodic(void):&#160;driver_interface.c']]]
 ];

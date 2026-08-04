@@ -155,6 +155,10 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a74b59d963c2e2e12058d027a4392f3e8" id="r_a74b59d963c2e2e12058d027a4392f3e8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structPHAL__DMA__Handle__t.html">PHAL_DMA_Handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74b59d963c2e2e12058d027a4392f3e8">spi1_rx_dma</a></td></tr>
+<tr class="separator:a74b59d963c2e2e12058d027a4392f3e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40a59859bbadb9d8ab250430b7793916" id="r_a40a59859bbadb9d8ab250430b7793916"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structPHAL__DMA__Handle__t.html">PHAL_DMA_Handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a40a59859bbadb9d8ab250430b7793916">spi1_tx_dma</a></td></tr>
+<tr class="separator:a40a59859bbadb9d8ab250430b7793916"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad139ebffcf7f11feddfec40191b40aef" id="r_ad139ebffcf7f11feddfec40191b40aef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad139ebffcf7f11feddfec40191b40aef">bms_spi_config</a></td></tr>
 <tr class="separator:ad139ebffcf7f11feddfec40191b40aef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6af434e991280036f038f6db015e26f9" id="r_a6af434e991280036f038f6db015e26f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structADCInitConfig__t.html">ADCInitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6af434e991280036f038f6db015e26f9">adc_config</a></td></tr>
@@ -582,7 +586,7 @@ Here is the call graph for this function:</div>
 <div class="line">        .tx_isr_en = <span class="keyword">false</span>,</div>
 <div class="line">    },</div>
 <div class="line">}</div>
-<div class="ttc" id="aa__box_2main_8c_html_ae25b2d4ee7535b3161795c5914bbd1d1"><div class="ttname"><a href="#ae25b2d4ee7535b3161795c5914bbd1d1">adc1_dma_buffer</a></div><div class="ttdeci">volatile adc1_dma_buffer_t adc1_dma_buffer</div><div class="ttdef"><b>Definition</b> main.c:50</div></div>
+<div class="ttc" id="aa__box_2main_8c_html_ae25b2d4ee7535b3161795c5914bbd1d1"><div class="ttname"><a href="#ae25b2d4ee7535b3161795c5914bbd1d1">adc1_dma_buffer</a></div><div class="ttdeci">volatile adc1_dma_buffer_t adc1_dma_buffer</div><div class="ttdef"><b>Definition</b> main.c:71</div></div>
 <div class="ttc" id="adma__wiring_8h_html_a51c3230d7e90389602ccd9497e297b10"><div class="ttname"><a href="dma__wiring_8h.html#a51c3230d7e90389602ccd9497e297b10">ADC1_DMA_WIRING</a></div><div class="ttdeci">static const PHAL_DMA_Wiring_t ADC1_DMA_WIRING</div><div class="ttdef"><b>Definition</b> dma_wiring.h:192</div></div>
 <div class="ttc" id="aphal__G4_2dma_2dma_8h_html_a86c80a85f36932193bad2d032cff626ea0541b0c83083cd2c18ba14900f338368"><div class="ttname"><a href="phal__G4_2dma_2dma_8h.html#a86c80a85f36932193bad2d032cff626ea0541b0c83083cd2c18ba14900f338368">DMA_MODE_CIRCULAR</a></div><div class="ttdeci">@ DMA_MODE_CIRCULAR</div><div class="ttdef"><b>Definition</b> dma.h:28</div></div>
 <div class="ttc" id="aphal__G4_2dma_2dma_8h_html_add384422e2edbc33e683b72d9a241594a9f5a4768d89b1a1fb7439907ceba6c76"><div class="ttname"><a href="phal__G4_2dma_2dma_8h.html#add384422e2edbc33e683b72d9a241594a9f5a4768d89b1a1fb7439907ceba6c76">DMA_PRIORITY_HIGH</a></div><div class="ttdeci">@ DMA_PRIORITY_HIGH</div><div class="ttdef"><b>Definition</b> dma.h:21</div></div>
@@ -605,15 +609,19 @@ Here is the call graph for this function:</div>
 <div class="line">    .nss_sw        = <span class="keyword">false</span>, </div>
 <div class="line">    .nss_gpio_port = <a class="code hl_define" href="a__box_2main_8h.html#a898214e0ac884181dd81f34d8821829f">SPI1_CS_PORT</a>,</div>
 <div class="line">    .nss_gpio_pin  = <a class="code hl_define" href="a__box_2main_8h.html#a28e3b9a83990e6c65c180a9c03d9747a">SPI1_CS_PIN</a>,</div>
-<div class="line">    .rx_dma        = <span class="keyword">nullptr</span>,</div>
-<div class="line">    .tx_dma        = <span class="keyword">nullptr</span>,</div>
+<div class="line">    .rx_dma        = &amp;<a class="code hl_variable" href="#a74b59d963c2e2e12058d027a4392f3e8">spi1_rx_dma</a>,</div>
+<div class="line">    .tx_dma        = &amp;<a class="code hl_variable" href="#a40a59859bbadb9d8ab250430b7793916">spi1_tx_dma</a>,</div>
 <div class="line">    .periph        = SPI1,</div>
-<div class="line">    .cpol          = 0,</div>
-<div class="line">    .cpha          = 0,</div>
+<div class="line">    .cpol = <a class="code hl_enumvalue" href="phal__G4_2spi_2spi_8h.html#a4e5a98687b27cf02a47ed2a539426653ac140bfd59e1a5baa75aedc6f0421a061">SPI_CPOL_IDLE_LOW</a>,</div>
+<div class="line">    .cpha = <a class="code hl_enumvalue" href="phal__G4_2spi_2spi_8h.html#a26da2bbd284e1fb8d8517cac6bd79bf4a938aa9bf0d6f5c65656fbc49b478b55f">SPI_CPHA_FIRST_EDGE</a>,</div>
 <div class="line">    .data_rate     = 500&#39;000, </div>
 <div class="line">}</div>
+<div class="ttc" id="aa__box_2main_8c_html_a40a59859bbadb9d8ab250430b7793916"><div class="ttname"><a href="#a40a59859bbadb9d8ab250430b7793916">spi1_tx_dma</a></div><div class="ttdeci">static PHAL_DMA_Handle_t spi1_tx_dma</div><div class="ttdef"><b>Definition</b> main.c:39</div></div>
+<div class="ttc" id="aa__box_2main_8c_html_a74b59d963c2e2e12058d027a4392f3e8"><div class="ttname"><a href="#a74b59d963c2e2e12058d027a4392f3e8">spi1_rx_dma</a></div><div class="ttdeci">static PHAL_DMA_Handle_t spi1_rx_dma</div><div class="ttdef"><b>Definition</b> main.c:29</div></div>
 <div class="ttc" id="aa__box_2main_8h_html_a28e3b9a83990e6c65c180a9c03d9747a"><div class="ttname"><a href="a__box_2main_8h.html#a28e3b9a83990e6c65c180a9c03d9747a">SPI1_CS_PIN</a></div><div class="ttdeci">#define SPI1_CS_PIN</div><div class="ttdef"><b>Definition</b> main.h:31</div></div>
 <div class="ttc" id="aa__box_2main_8h_html_a898214e0ac884181dd81f34d8821829f"><div class="ttname"><a href="a__box_2main_8h.html#a898214e0ac884181dd81f34d8821829f">SPI1_CS_PORT</a></div><div class="ttdeci">#define SPI1_CS_PORT</div><div class="ttdef"><b>Definition</b> main.h:30</div></div>
+<div class="ttc" id="aphal__G4_2spi_2spi_8h_html_a26da2bbd284e1fb8d8517cac6bd79bf4a938aa9bf0d6f5c65656fbc49b478b55f"><div class="ttname"><a href="phal__G4_2spi_2spi_8h.html#a26da2bbd284e1fb8d8517cac6bd79bf4a938aa9bf0d6f5c65656fbc49b478b55f">SPI_CPHA_FIRST_EDGE</a></div><div class="ttdeci">@ SPI_CPHA_FIRST_EDGE</div><div class="ttdef"><b>Definition</b> spi.h:35</div></div>
+<div class="ttc" id="aphal__G4_2spi_2spi_8h_html_a4e5a98687b27cf02a47ed2a539426653ac140bfd59e1a5baa75aedc6f0421a061"><div class="ttname"><a href="phal__G4_2spi_2spi_8h.html#a4e5a98687b27cf02a47ed2a539426653ac140bfd59e1a5baa75aedc6f0421a061">SPI_CPOL_IDLE_LOW</a></div><div class="ttdeci">@ SPI_CPOL_IDLE_LOW</div><div class="ttdef"><b>Definition</b> spi.h:27</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -701,6 +709,71 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
+</div>
+</div>
+<a id="a74b59d963c2e2e12058d027a4392f3e8" name="a74b59d963c2e2e12058d027a4392f3e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74b59d963c2e2e12058d027a4392f3e8">&#9670;&#160;</a></span>spi1_rx_dma</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structPHAL__DMA__Handle__t.html">PHAL_DMA_Handle_t</a> spi1_rx_dma</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .wiring = &amp;<a class="code hl_variable" href="dma__wiring_8h.html#a9974ab25651fd7bf6d63803c9e26781d">SPI1_RX_DMA_WIRING</a>,</div>
+<div class="line">    .params = {</div>
+<div class="line">        .priority  = <a class="code hl_enumvalue" href="phal__G4_2dma_2dma_8h.html#add384422e2edbc33e683b72d9a241594a9f5a4768d89b1a1fb7439907ceba6c76">DMA_PRIORITY_HIGH</a>,</div>
+<div class="line">        .mode      = <a class="code hl_enumvalue" href="phal__G4_2dma_2dma_8h.html#a86c80a85f36932193bad2d032cff626ea712d4572ce85937168ea1e885ecbf763">DMA_MODE_NORMAL</a>,</div>
+<div class="line">        .mem_inc   = <span class="keyword">true</span>,</div>
+<div class="line">        .tx_isr_en = <span class="keyword">true</span>,</div>
+<div class="line">    },</div>
+<div class="line">}</div>
+<div class="ttc" id="adma__wiring_8h_html_a9974ab25651fd7bf6d63803c9e26781d"><div class="ttname"><a href="dma__wiring_8h.html#a9974ab25651fd7bf6d63803c9e26781d">SPI1_RX_DMA_WIRING</a></div><div class="ttdeci">static const PHAL_DMA_Wiring_t SPI1_RX_DMA_WIRING</div><div class="ttdef"><b>Definition</b> dma_wiring.h:135</div></div>
+<div class="ttc" id="aphal__G4_2dma_2dma_8h_html_a86c80a85f36932193bad2d032cff626ea712d4572ce85937168ea1e885ecbf763"><div class="ttname"><a href="phal__G4_2dma_2dma_8h.html#a86c80a85f36932193bad2d032cff626ea712d4572ce85937168ea1e885ecbf763">DMA_MODE_NORMAL</a></div><div class="ttdeci">@ DMA_MODE_NORMAL</div><div class="ttdef"><b>Definition</b> dma.h:27</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a40a59859bbadb9d8ab250430b7793916" name="a40a59859bbadb9d8ab250430b7793916"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40a59859bbadb9d8ab250430b7793916">&#9670;&#160;</a></span>spi1_tx_dma</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structPHAL__DMA__Handle__t.html">PHAL_DMA_Handle_t</a> spi1_tx_dma</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .wiring = &amp;<a class="code hl_variable" href="dma__wiring_8h.html#a063b8c0e555a110a470ad767e9a6dc4c">SPI1_TX_DMA_WIRING</a>,</div>
+<div class="line">    .params = {</div>
+<div class="line">        .priority  = <a class="code hl_enumvalue" href="phal__G4_2dma_2dma_8h.html#add384422e2edbc33e683b72d9a241594a9f5a4768d89b1a1fb7439907ceba6c76">DMA_PRIORITY_HIGH</a>,</div>
+<div class="line">        .mode      = <a class="code hl_enumvalue" href="phal__G4_2dma_2dma_8h.html#a86c80a85f36932193bad2d032cff626ea712d4572ce85937168ea1e885ecbf763">DMA_MODE_NORMAL</a>,</div>
+<div class="line">        .mem_inc   = <span class="keyword">true</span>,</div>
+<div class="line">        .tx_isr_en = <span class="keyword">true</span>,</div>
+<div class="line">    },</div>
+<div class="line">}</div>
+<div class="ttc" id="adma__wiring_8h_html_a063b8c0e555a110a470ad767e9a6dc4c"><div class="ttname"><a href="dma__wiring_8h.html#a063b8c0e555a110a470ad767e9a6dc4c">SPI1_TX_DMA_WIRING</a></div><div class="ttdeci">static const PHAL_DMA_Wiring_t SPI1_TX_DMA_WIRING</div><div class="ttdef"><b>Definition</b> dma_wiring.h:144</div></div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

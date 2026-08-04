@@ -32,7 +32,7 @@
 <area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="779,136,774,168,769,167,774,135"/>
 <area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="832,125,905,165,902,170,830,130"/>
 <area shape="poly" id="edge11_Node000008_Node000012" title=" " alt="" coords="727,129,636,170,634,165,724,124"/>
-<area shape="rect" id="Node000011" href="$common_2phal__F4_2spi_2spi_8c.html" title="PER Serial Peripheral Interface Device driver for STM32F4." alt="" coords="867,256,1010,297"/>
+<area shape="rect" id="Node000011" href="$phal__F4_2spi_2spi_8c.html" title="PER Serial Peripheral Interface Device driver for STM32F4." alt="" coords="867,256,1010,297"/>
 <area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="941,224,941,256,936,256,936,224"/>
 <area shape="rect" id="Node000013" href="$common_2phal__F4_2usart_2usart_8c.html" title=" " alt="" coords="515,256,669,297"/>
 <area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="594,224,594,256,589,256,589,224"/>

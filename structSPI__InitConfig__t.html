@@ -154,10 +154,10 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a7d8e16b0433752f3d6d31b7ca211f874"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9eedccb06edcc4fcf10f3eca321238d" id="r_af9eedccb06edcc4fcf10f3eca321238d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="phal__G4_2spi_2spi_8h.html#a60a7e3d74577b38aa79ea6983362f942">SPI_Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9eedccb06edcc4fcf10f3eca321238d">mode</a></td></tr>
 <tr class="separator:af9eedccb06edcc4fcf10f3eca321238d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60837a27921b841752bce51ab78a27a8" id="r_a60837a27921b841752bce51ab78a27a8"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60837a27921b841752bce51ab78a27a8">cpol</a></td></tr>
-<tr class="separator:a60837a27921b841752bce51ab78a27a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af60113b05737ecb5f5e33531c914ad51" id="r_af60113b05737ecb5f5e33531c914ad51"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af60113b05737ecb5f5e33531c914ad51">cpha</a></td></tr>
-<tr class="separator:af60113b05737ecb5f5e33531c914ad51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78b3215df4119fcd02c1d4e6822648e7" id="r_a78b3215df4119fcd02c1d4e6822648e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="phal__G4_2spi_2spi_8h.html#a4e5a98687b27cf02a47ed2a539426653">SPI_CPOL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78b3215df4119fcd02c1d4e6822648e7">cpol</a></td></tr>
+<tr class="separator:a78b3215df4119fcd02c1d4e6822648e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf07ab5b69592a0549da59ce4b6a26a1" id="r_acf07ab5b69592a0549da59ce4b6a26a1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="phal__G4_2spi_2spi_8h.html#a26da2bbd284e1fb8d8517cac6bd79bf4">SPI_CPHA</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf07ab5b69592a0549da59ce4b6a26a1">cpha</a></td></tr>
+<tr class="separator:acf07ab5b69592a0549da59ce4b6a26a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac02b6e47a9ed988d3e835a6cfe3fe76e" id="r_ac02b6e47a9ed988d3e835a6cfe3fe76e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPHAL__DMA__Handle__t.html">PHAL_DMA_Handle_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac02b6e47a9ed988d3e835a6cfe3fe76e">rx_dma</a></td></tr>
 <tr class="separator:ac02b6e47a9ed988d3e835a6cfe3fe76e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac75a422add1ff6d8c63084fdcdadda2f" id="r_ac75a422add1ff6d8c63084fdcdadda2f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPHAL__DMA__Handle__t.html">PHAL_DMA_Handle_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac75a422add1ff6d8c63084fdcdadda2f">tx_dma</a></td></tr>
@@ -165,6 +165,7 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Configuration entry for SPI initilization. </p>
+<p>SPI peripheral configuration. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="a0359b0800a83162884d8d67f6d68f9d1" name="a0359b0800a83162884d8d67f6d68f9d1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0359b0800a83162884d8d67f6d68f9d1">&#9670;&#160;</a></span>_busy</h2>
@@ -179,6 +180,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>SPI Peripheral currently in a transaction. </p>
+<p>Internal transfer busy flag </p>
 
 </div>
 </div>
@@ -195,6 +197,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>DMA error while attempting to operate in direct mode. </p>
+<p>Internal DMA direct mode error flag </p>
 
 </div>
 </div>
@@ -211,6 +214,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>SPI Peripheral current transaction error. </p>
+<p>Internal DMA transfer error flag </p>
 
 </div>
 </div>
@@ -227,34 +231,37 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>DMA FIFO has been overrun - this should never occur, as it should never be enabled. </p>
+<p>Internal DMA FIFO overrun flag </p>
 
 </div>
 </div>
-<a id="af60113b05737ecb5f5e33531c914ad51" name="af60113b05737ecb5f5e33531c914ad51"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af60113b05737ecb5f5e33531c914ad51">&#9670;&#160;</a></span>cpha</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t SPI_InitConfig_t::cpha</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a60837a27921b841752bce51ab78a27a8" name="a60837a27921b841752bce51ab78a27a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60837a27921b841752bce51ab78a27a8">&#9670;&#160;</a></span>cpol</h2>
+<a id="acf07ab5b69592a0549da59ce4b6a26a1" name="acf07ab5b69592a0549da59ce4b6a26a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf07ab5b69592a0549da59ce4b6a26a1">&#9670;&#160;</a></span>cpha</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t SPI_InitConfig_t::cpol</td>
+          <td class="memname"><a class="el" href="phal__G4_2spi_2spi_8h.html#a26da2bbd284e1fb8d8517cac6bd79bf4">SPI_CPHA</a> SPI_InitConfig_t::cpha</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Clock sampling phase </p>
+
+</div>
+</div>
+<a id="a78b3215df4119fcd02c1d4e6822648e7" name="a78b3215df4119fcd02c1d4e6822648e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78b3215df4119fcd02c1d4e6822648e7">&#9670;&#160;</a></span>cpol</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="phal__G4_2spi_2spi_8h.html#a4e5a98687b27cf02a47ed2a539426653">SPI_CPOL</a> SPI_InitConfig_t::cpol</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Clock idle polarity </p>
 
 </div>
 </div>
@@ -271,6 +278,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Number of bits per transaction. </p>
+<p>Transfer width in bits </p>
 
 </div>
 </div>
@@ -287,6 +295,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Target baudrate in b/s (might be different depending on peripheral clock divison) </p>
+<p>Desired SPI clock frequency (Hz) </p>
 
 </div>
 </div>
@@ -301,6 +310,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Master or slave mode </p>
 
 </div>
 </div>
@@ -317,6 +327,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>GPIO Pin of SPI CS Pin. </p>
+<p>Chip select GPIO pin (master only) </p>
 
 </div>
 </div>
@@ -333,6 +344,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>GPIO Port of SPI CS Pin. </p>
+<p>Chip select GPIO port (master only) </p>
 
 </div>
 </div>
@@ -349,6 +361,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Save Select controlled by Software. </p>
+<p>true = software-controlled chip select </p>
 
 </div>
 </div>
@@ -365,6 +378,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>SPI Peripheral. </p>
+<p>SPI peripheral instance </p>
 
 </div>
 </div>
@@ -379,6 +393,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>RX DMA handle (required, all transfers are DMA backed) </p>
 
 </div>
 </div>
@@ -409,6 +424,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>TX DMA handle (required, all transfers are DMA backed) </p>
 
 </div>
 </div>

@@ -337,7 +337,7 @@ var sectionId = 'dynsection-2';
 <!-- Node45 -->
 <g id="Node000045" class="node">
 <title>Node45</title>
-<g id="a_Node000045"><a xlink:href="common_2phal__F4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" target="_top" xlink:title="Initilize SPI peripheral with the configuired structure.">
+<g id="a_Node000045"><a xlink:href="phal__F4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" target="_top" xlink:title="Initilize SPI peripheral with the configuired structure.">
 <polygon fill="white" stroke="#666666" points="183.12,-130.25 100.38,-130.25 100.38,-111 183.12,-111 183.12,-130.25"/>
 <text text-anchor="middle" x="141.75" y="-116.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_SPI_init</text>
 </a>
@@ -986,7 +986,7 @@ var sectionId = 'dynsection-2';
 <!-- Node46 -->
 <g id="Node000046" class="node">
 <title>Node46</title>
-<g id="a_Node000046"><a xlink:href="common_2phal__F4_2spi_2spi_8c.html#a8e9e5ef753602ac9e7822dee0923dd38" target="_top" xlink:title=" ">
+<g id="a_Node000046"><a xlink:href="phal__F4_2spi_2spi_8c.html#a8e9e5ef753602ac9e7822dee0923dd38" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="368.25,-129.25 290,-129.25 290,-110 368.25,-110 368.25,-129.25"/>
 <text text-anchor="middle" x="329.12" y="-115.75" font-family="Helvetica,sans-Serif" font-size="10.00">LOG2_DOWN</text>
 </a>

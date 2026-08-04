@@ -99,93 +99,92 @@ var NAVTREE =
     [ "AMK Documentation", "md_common_2amk_2README.html", [
       [ "2026 AMK CAN ID Assignment Scheme", "md_common_2amk_2README.html#autotoc_md56", null ]
     ] ],
-    [ "BMI088", "md_common_2bmi088_2README.html", null ],
     [ "FreeRTOS", "md_common_2freertos_2README.html", null ],
     [ "Heartbeat Module", "md_common_2heartbeat_2README.html", null ],
     [ "Linearly Interpolating Lookup Table", "md_common_2lerp__lut_2README.html", null ],
     [ "Common Modules", "md_common_2README.html", [
-      [ "Core platform layers", "md_common_2README.html#autotoc_md63", null ],
-      [ "Device / protocol drivers", "md_common_2README.html#autotoc_md64", null ],
-      [ "System services", "md_common_2README.html#autotoc_md65", null ],
-      [ "Utility libraries", "md_common_2README.html#autotoc_md66", null ]
+      [ "Core platform layers", "md_common_2README.html#autotoc_md62", null ],
+      [ "Device / protocol drivers", "md_common_2README.html#autotoc_md63", null ],
+      [ "System services", "md_common_2README.html#autotoc_md64", null ],
+      [ "Utility libraries", "md_common_2README.html#autotoc_md65", null ]
     ] ],
     [ "String Buffer", "md_common_2strbuf_2README.html", null ],
     [ "PER Utility Functions", "md_common_2utils_2README.html", [
-      [ "max.h / min.h", "md_common_2utils_2README.html#autotoc_md70", null ],
-      [ "abs.h", "md_common_2utils_2README.html#autotoc_md71", null ],
-      [ "clamp.h", "md_common_2utils_2README.html#autotoc_md72", null ],
-      [ "rescale.h", "md_common_2utils_2README.html#autotoc_md73", null ],
-      [ "countof.h", "md_common_2utils_2README.html#autotoc_md74", null ],
-      [ "units.h", "md_common_2utils_2README.html#autotoc_md75", null ],
-      [ "linear_algebra.h", "md_common_2utils_2README.html#autotoc_md76", null ]
+      [ "max.h / min.h", "md_common_2utils_2README.html#autotoc_md69", null ],
+      [ "abs.h", "md_common_2utils_2README.html#autotoc_md70", null ],
+      [ "clamp.h", "md_common_2utils_2README.html#autotoc_md71", null ],
+      [ "rescale.h", "md_common_2utils_2README.html#autotoc_md72", null ],
+      [ "countof.h", "md_common_2utils_2README.html#autotoc_md73", null ],
+      [ "units.h", "md_common_2utils_2README.html#autotoc_md74", null ],
+      [ "linear_algebra.h", "md_common_2utils_2README.html#autotoc_md75", null ]
     ] ],
     [ "Codestyle", "md_docs_2code__style.html", [
-      [ "About", "md_docs_2code__style.html#autotoc_md78", null ],
-      [ "Rules and Suggestions", "md_docs_2code__style.html#autotoc_md79", null ]
+      [ "About", "md_docs_2code__style.html#autotoc_md77", null ],
+      [ "Rules and Suggestions", "md_docs_2code__style.html#autotoc_md78", null ]
     ] ],
     [ "Deployment and Debugging", "md_docs_2deploy__n__debug.html", [
-      [ "About", "md_docs_2deploy__n__debug.html#autotoc_md81", null ],
-      [ "Flashing Firmware", "md_docs_2deploy__n__debug.html#autotoc_md82", null ],
-      [ "Using the Debugging Tools", "md_docs_2deploy__n__debug.html#autotoc_md83", null ]
+      [ "About", "md_docs_2deploy__n__debug.html#autotoc_md80", null ],
+      [ "Flashing Firmware", "md_docs_2deploy__n__debug.html#autotoc_md81", null ],
+      [ "Using the Debugging Tools", "md_docs_2deploy__n__debug.html#autotoc_md82", null ]
     ] ],
     [ "Library", "md_docs_2library.html", [
-      [ "FSAE", "md_docs_2library.html#autotoc_md85", null ],
-      [ "About the microcontrollers", "md_docs_2library.html#autotoc_md86", null ],
-      [ "Components", "md_docs_2library.html#autotoc_md87", null ],
-      [ "Sensors", "md_docs_2library.html#autotoc_md88", null ],
-      [ "Hardware", "md_docs_2library.html#autotoc_md89", null ]
+      [ "FSAE", "md_docs_2library.html#autotoc_md84", null ],
+      [ "About the microcontrollers", "md_docs_2library.html#autotoc_md85", null ],
+      [ "Components", "md_docs_2library.html#autotoc_md86", null ],
+      [ "Sensors", "md_docs_2library.html#autotoc_md87", null ],
+      [ "Hardware", "md_docs_2library.html#autotoc_md88", null ]
     ] ],
     [ "PER Firmware Setup Instructions", "md_docs_2setup.html", [
-      [ "Tools", "md_docs_2setup.html#autotoc_md91", [
-        [ "MacOS Tools Setup", "md_docs_2setup.html#autotoc_md92", null ],
-        [ "Windows Tools Setup", "md_docs_2setup.html#autotoc_md93", null ],
-        [ "Linux Tools Setup", "md_docs_2setup.html#autotoc_md94", null ]
+      [ "Tools", "md_docs_2setup.html#autotoc_md90", [
+        [ "MacOS Tools Setup", "md_docs_2setup.html#autotoc_md91", null ],
+        [ "Windows Tools Setup", "md_docs_2setup.html#autotoc_md92", null ],
+        [ "Linux Tools Setup", "md_docs_2setup.html#autotoc_md93", null ]
       ] ],
-      [ "VSCode Setup (All OS)", "md_docs_2setup.html#autotoc_md95", [
-        [ "Install Extensions", "md_docs_2setup.html#autotoc_md96", null ],
-        [ "Turn on Autosave", "md_docs_2setup.html#autotoc_md97", null ]
+      [ "VSCode Setup (All OS)", "md_docs_2setup.html#autotoc_md94", [
+        [ "Install Extensions", "md_docs_2setup.html#autotoc_md95", null ],
+        [ "Turn on Autosave", "md_docs_2setup.html#autotoc_md96", null ]
       ] ],
-      [ "Repository Setup (All OS)", "md_docs_2setup.html#autotoc_md98", [
-        [ "Open a new terminal", "md_docs_2setup.html#autotoc_md99", null ],
-        [ "Clone PER repo", "md_docs_2setup.html#autotoc_md100", null ],
-        [ "Setup & Build", "md_docs_2setup.html#autotoc_md101", null ]
+      [ "Repository Setup (All OS)", "md_docs_2setup.html#autotoc_md97", [
+        [ "Open a new terminal", "md_docs_2setup.html#autotoc_md98", null ],
+        [ "Clone PER repo", "md_docs_2setup.html#autotoc_md99", null ],
+        [ "Setup & Build", "md_docs_2setup.html#autotoc_md100", null ]
       ] ]
     ] ],
     [ "CANpiler", "md_can__library_2canpiler_2README.html", [
-      [ "Software Architecture", "md_can__library_2canpiler_2README.html#autotoc_md103", null ]
+      [ "Software Architecture", "md_can__library_2canpiler_2README.html#autotoc_md102", null ]
     ] ],
     [ "CAN Configs", "md_can__library_2configs_2README.html", [
-      [ "Bus Definition (configs/system/bus_configs.json)", "md_can__library_2configs_2README.html#autotoc_md112", null ],
-      [ "Node-to-Bus Mapping (per node JSON, under busses)", "md_can__library_2configs_2README.html#autotoc_md113", null ],
-      [ "Node Attributes", "md_can__library_2configs_2README.html#autotoc_md114", null ],
-      [ "CAN Message Attributes (TX)", "md_can__library_2configs_2README.html#autotoc_md115", null ],
-      [ "RX Message Attributes", "md_can__library_2configs_2README.html#autotoc_md116", null ],
-      [ "Signal Attributes", "md_can__library_2configs_2README.html#autotoc_md117", [
-        [ "Message Priority", "md_can__library_2configs_2README.html#autotoc_md118", null ]
+      [ "Bus Definition (configs/system/bus_configs.json)", "md_can__library_2configs_2README.html#autotoc_md111", null ],
+      [ "Node-to-Bus Mapping (per node JSON, under busses)", "md_can__library_2configs_2README.html#autotoc_md112", null ],
+      [ "Node Attributes", "md_can__library_2configs_2README.html#autotoc_md113", null ],
+      [ "CAN Message Attributes (TX)", "md_can__library_2configs_2README.html#autotoc_md114", null ],
+      [ "RX Message Attributes", "md_can__library_2configs_2README.html#autotoc_md115", null ],
+      [ "Signal Attributes", "md_can__library_2configs_2README.html#autotoc_md116", [
+        [ "Message Priority", "md_can__library_2configs_2README.html#autotoc_md117", null ]
       ] ],
-      [ "External Nodes", "md_can__library_2configs_2README.html#autotoc_md119", [
-        [ "Attributes", "md_can__library_2configs_2README.html#autotoc_md120", null ]
+      [ "External Nodes", "md_can__library_2configs_2README.html#autotoc_md118", [
+        [ "Attributes", "md_can__library_2configs_2README.html#autotoc_md119", null ]
       ] ],
-      [ "Custom Types", "md_can__library_2configs_2README.html#autotoc_md121", [
-        [ "Type Attributes", "md_can__library_2configs_2README.html#autotoc_md122", null ]
+      [ "Custom Types", "md_can__library_2configs_2README.html#autotoc_md120", [
+        [ "Type Attributes", "md_can__library_2configs_2README.html#autotoc_md121", null ]
       ] ],
-      [ "Fault Configuration", "md_can__library_2configs_2README.html#autotoc_md123", [
-        [ "Node Level", "md_can__library_2configs_2README.html#autotoc_md124", null ],
-        [ "Fault Attributes", "md_can__library_2configs_2README.html#autotoc_md125", null ]
+      [ "Fault Configuration", "md_can__library_2configs_2README.html#autotoc_md122", [
+        [ "Node Level", "md_can__library_2configs_2README.html#autotoc_md123", null ],
+        [ "Fault Attributes", "md_can__library_2configs_2README.html#autotoc_md124", null ]
       ] ]
     ] ],
     [ "PER CAN Library", "md_can__library_2README.html", [
-      [ "Logic", "md_can__library_2README.html#autotoc_md127", null ],
-      [ "Stale Detection", "md_can__library_2README.html#autotoc_md128", null ],
-      [ "Usage", "md_can__library_2README.html#autotoc_md129", null ],
-      [ "Fault System", "md_can__library_2README.html#autotoc_md130", [
-        [ "Usage:", "md_can__library_2README.html#autotoc_md131", null ]
+      [ "Logic", "md_can__library_2README.html#autotoc_md126", null ],
+      [ "Stale Detection", "md_can__library_2README.html#autotoc_md127", null ],
+      [ "Usage", "md_can__library_2README.html#autotoc_md128", null ],
+      [ "Fault System", "md_can__library_2README.html#autotoc_md129", [
+        [ "Usage:", "md_can__library_2README.html#autotoc_md130", null ]
       ] ]
     ] ],
     [ "Support", "md_support_2README.html", [
-      [ "linker/", "md_support_2README.html#autotoc_md133", null ],
-      [ "svd/", "md_support_2README.html#autotoc_md134", null ],
-      [ "openocd/", "md_support_2README.html#autotoc_md135", null ]
+      [ "linker/", "md_support_2README.html#autotoc_md132", null ],
+      [ "svd/", "md_support_2README.html#autotoc_md133", null ],
+      [ "openocd/", "md_support_2README.html#autotoc_md134", null ]
     ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -222,26 +221,26 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AMK_8png.html",
-"bmi088_8c.html#a1dfbb27cde5d045d6291dba7fe0e709f",
-"classcodegen_1_1PeripheralContext.html",
-"classutils_1_1bcolors.html#aba4a255fea08c1dee4d1a8c228ba2425",
-"common_2phal__G4_2spi_2spi_8c.html#ab9da5be05aad59873975238094d15b27",
-"dashboard_2main_8c.html#acb19612e985af8371e6f0f3fc743f971",
-"driveline_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe",
-"flash__priv_8c.html#a0ff550e1b6aa720a4ef4809f0aa7073a",
-"globals_func_z.html",
-"main__module_2main_8h.html#aeb9de7b22216c1e933aca0492f612625",
-"namespacemapper.html#ab89b192dd9148287787db079cf2ae320",
-"pdu_2main_8h.html#a39c6fe8086ea517baf16ed887acb3bc3",
-"phal__F4_2can_2can_8h.html#a85b586d21e0dbd8b6226fdf04ea539c8",
-"phal__F4_2usart_2usart_8h_source.html",
-"phal__G4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a97dc7d7bbe8a217f4bc934b4a868c521",
-"sdio_8c.html#a64baac72a75a2c522e837935009cbe93",
-"sensors_8h_source.html",
-"structRTC__time__t.html#a9e98540c8057580c8e558925dca0f9d3",
-"structmenu__element__t.html#a6fd95caacc421c9a90a44adee2237a92",
-"structyVCU__struct.html#a4106077379b126d0530b97aa785c0df5",
-"usb__priv_8c.html#a34ead234195e6e26e97662c2db3b9dbb"
+"blinky_8c.html",
+"classmapper_1_1NodeMapping.html#a87b711faafb32c852604878dcfd5b3d0",
+"commands_8c.html#aa047568ad670887b23d9a9a9d92bf621",
+"crc__priv_8h.html#a4c0ef2e4a1fcf222aff3d8a7ef9b1a32",
+"dir_6ab0cb3ffa99672cd30e7ad528a629a1.html",
+"faultgen_8py.html#a0b8f1265d8faeba6a2d68e2e1509389d",
+"functions_u.html",
+"izze__imu__config_8c.html",
+"md_docs_2setup.html#autotoc_md99",
+"nav__relposned_8h.html#aeba8f34c9ae90ea0404882b5f54d3bf5a9d0032187d57ecb942ed21ec04ff86a3",
+"pdu_2main_8h.html#acfe7bd03d6dcee8964e06f9275776527",
+"phal__F4_2rcc_2rcc_8c.html#a0bbab857de2d2d1e08975dc977b68342",
+"phal__G4_2dma_2dma_8h.html",
+"powertrain_8h.html#a07b2a922769a3755b4c94780afa4fb48",
+"sdio_8h.html#a4f58bfcb28f68b87113fea12b172a247",
+"spmc_8h.html#acc95c7ba1975a4f273ad20af07a707c0",
+"structSPI__InitConfig__t.html#a5020aa67597cd45fb1912e0f6a1fa89e",
+"structpVCU__struct.html#a98799efdbcebdad04c3109bd3c7a34f9",
+"switches_8h.html#acc4561d15b7443975c53953d7f857df8",
+"utils_8py.html#ac362a6b5ef2c9f6c3a36ed75b9e19470"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

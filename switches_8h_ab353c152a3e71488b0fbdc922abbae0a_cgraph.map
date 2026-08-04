@@ -6,9 +6,9 @@
 <area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="140,214,582,213,582,218,140,219"/>
 <area shape="rect" id="Node000009" href="$switches_8c.html#acea7adf6b3c7467cbfdc370909323858" title=" " alt="" coords="188,255,329,280"/>
 <area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="123,228,195,248,194,253,122,233"/>
-<area shape="rect" id="Node000003" href="$common_2phal__F4_2spi_2spi_8c.html#a35fd94eb02f487e09065ddc0ecb92e53" title="Check for current SPI transaction to complete." alt="" coords="600,5,720,31"/>
+<area shape="rect" id="Node000003" href="$phal__F4_2spi_2spi_8c.html#a35fd94eb02f487e09065ddc0ecb92e53" title="Check for current SPI transaction to complete." alt="" coords="600,5,720,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="286,125,376,88,468,61,562,40,589,33,590,38,563,45,470,66,378,93,288,130"/>
-<area shape="rect" id="Node000004" href="$common_2phal__F4_2spi_2spi_8c.html#aa44c022e7bafc2f33240d3fa837a4244" title="Transfer data_len bytes from out_data to SPI device and place MISO data in in_data This function just..." alt="" coords="377,103,514,128"/>
+<area shape="rect" id="Node000004" href="$phal__F4_2spi_2spi_8c.html#aa44c022e7bafc2f33240d3fa837a4244" title="Transfer data_len bytes from out_data to SPI device and place MISO data in in_data This function just..." alt="" coords="377,103,514,128"/>
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="304,132,361,124,362,129,305,137"/>
 <area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="306,147,582,199,581,204,305,152"/>
 <area shape="poly" id="edge7_Node000004_Node000003" title=" " alt="" coords="462,100,506,70,561,40,584,31,586,36,563,45,509,74,466,104"/>

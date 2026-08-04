@@ -8,6 +8,6 @@
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="181,52,93,27,94,22,183,47"/>
 <area shape="rect" id="Node000005" href="$common_2phal__G4_2usart_2usart_8c.html#a1e13f03e291a90dcd93ffccf1b8edf65" title="Initializes a USART peripheral on an STM32G4 microcontroller." alt="" coords="5,55,132,80"/>
 <area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="171,70,132,70,132,65,171,65"/>
-<area shape="rect" id="Node000006" href="$common_2phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="13,104,124,130"/>
+<area shape="rect" id="Node000006" href="$phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="13,104,124,130"/>
 <area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="183,88,118,106,117,101,181,82"/>
 </map>

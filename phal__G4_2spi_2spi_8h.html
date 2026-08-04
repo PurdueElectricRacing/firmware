@@ -104,20 +104,20 @@ $(function(){initNavTree('phal__G4_2spi_2spi_8h.html',''); initResizable(true); 
   <div class="headertitle"><div class="title">spi.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>G4 SPI public API.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stddef.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="phal__G4_2dma_2dma_8h_source.html">common/phal_G4/dma/dma.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__G4_2gpio_2gpio_8h_source.html">common/phal_G4/gpio/gpio.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__G4_8h_source.html">common/phal_G4/phal_G4.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__G4_2rcc_2rcc_8h_source.html">common/phal_G4/rcc/rcc.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for spi.h:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="phal__G4_2spi_2spi_8h__incl.svg" width="651" height="376"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="phal__G4_2spi_2spi_8h__incl.svg" width="367" height="376"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="phal__G4_2spi_2spi_8h__dep__incl.svg" width="155" height="140"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="phal__G4_2spi_2spi_8h__dep__incl.svg" width="348" height="230"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="phal__G4_2spi_2spi_8h_source.html">Go to the source code of this file.</a></p>
@@ -133,31 +133,83 @@ Enumerations</h2></td></tr>
 <tr class="memitem:a60a7e3d74577b38aa79ea6983362f942" id="r_a60a7e3d74577b38aa79ea6983362f942"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60a7e3d74577b38aa79ea6983362f942">SPI_Mode</a> { <a class="el" href="#a60a7e3d74577b38aa79ea6983362f942ae68a8adf6e5b67a7bdbe9526b15dae99">SPI_MODE_MASTER</a> = 0
 , <a class="el" href="#a60a7e3d74577b38aa79ea6983362f942ad1131ed33ad43ab3f667070b04454439">SPI_MODE_SLAVE</a> = 1
  }</td></tr>
+<tr class="memdesc:a60a7e3d74577b38aa79ea6983362f942"><td class="mdescLeft">&#160;</td><td class="mdescRight">SPI operating mode.  <a href="#a60a7e3d74577b38aa79ea6983362f942">More...</a><br /></td></tr>
 <tr class="separator:a60a7e3d74577b38aa79ea6983362f942"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e5a98687b27cf02a47ed2a539426653" id="r_a4e5a98687b27cf02a47ed2a539426653"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e5a98687b27cf02a47ed2a539426653">SPI_CPOL</a> { <a class="el" href="#a4e5a98687b27cf02a47ed2a539426653ac140bfd59e1a5baa75aedc6f0421a061">SPI_CPOL_IDLE_LOW</a> = 0
+, <a class="el" href="#a4e5a98687b27cf02a47ed2a539426653a96454ec5ff36335d70576c17112246a7">SPI_CPOL_IDLE_HIGH</a> = 1
+ }</td></tr>
+<tr class="memdesc:a4e5a98687b27cf02a47ed2a539426653"><td class="mdescLeft">&#160;</td><td class="mdescRight">SPI clock polarity.  <a href="#a4e5a98687b27cf02a47ed2a539426653">More...</a><br /></td></tr>
+<tr class="separator:a4e5a98687b27cf02a47ed2a539426653"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26da2bbd284e1fb8d8517cac6bd79bf4" id="r_a26da2bbd284e1fb8d8517cac6bd79bf4"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26da2bbd284e1fb8d8517cac6bd79bf4">SPI_CPHA</a> { <a class="el" href="#a26da2bbd284e1fb8d8517cac6bd79bf4a938aa9bf0d6f5c65656fbc49b478b55f">SPI_CPHA_FIRST_EDGE</a> = 0
+, <a class="el" href="#a26da2bbd284e1fb8d8517cac6bd79bf4aa2aeb931791a2d3a0718081ebbf54cee">SPI_CPHA_SECOND_EDGE</a> = 1
+ }</td></tr>
+<tr class="memdesc:a26da2bbd284e1fb8d8517cac6bd79bf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">SPI clock phase.  <a href="#a26da2bbd284e1fb8d8517cac6bd79bf4">More...</a><br /></td></tr>
+<tr class="separator:a26da2bbd284e1fb8d8517cac6bd79bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a79c721ebb76d3dea8c1aa1f42e4b21d3" id="r_a79c721ebb76d3dea8c1aa1f42e4b21d3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79c721ebb76d3dea8c1aa1f42e4b21d3">PHAL_SPI_init</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *handle)</td></tr>
-<tr class="memdesc:a79c721ebb76d3dea8c1aa1f42e4b21d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initilize SPI peripheral with the configuired structure.  <br /></td></tr>
+<tr class="memdesc:a79c721ebb76d3dea8c1aa1f42e4b21d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize an SPI peripheral for DMA-based transfers.  <br /></td></tr>
 <tr class="separator:a79c721ebb76d3dea8c1aa1f42e4b21d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9da5be05aad59873975238094d15b27" id="r_ab9da5be05aad59873975238094d15b27"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab9da5be05aad59873975238094d15b27">PHAL_SPI_transfer</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, const uint8_t *out_data, const uint32_t data_len, uint8_t *in_data)</td></tr>
-<tr class="separator:ab9da5be05aad59873975238094d15b27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7593e1c8be8711c7bda6d7de43913816" id="r_a7593e1c8be8711c7bda6d7de43913816"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7593e1c8be8711c7bda6d7de43913816">PHAL_SPI_transfer_noDMA</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, const uint8_t *out_data, uint32_t txlen, uint32_t rxlen, uint8_t *in_data)</td></tr>
-<tr class="memdesc:a7593e1c8be8711c7bda6d7de43913816"><td class="mdescLeft">&#160;</td><td class="mdescRight">SPI handle.  <br /></td></tr>
-<tr class="separator:a7593e1c8be8711c7bda6d7de43913816"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9af893d97bde29796f60bc6df9b05fd0" id="r_a9af893d97bde29796f60bc6df9b05fd0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9af893d97bde29796f60bc6df9b05fd0">PHAL_SPI_transfer</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, const uint8_t *out_data, uint8_t *in_data, uint32_t data_len)</td></tr>
+<tr class="memdesc:a9af893d97bde29796f60bc6df9b05fd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a DMA-backed SPI transfer.  <br /></td></tr>
+<tr class="separator:a9af893d97bde29796f60bc6df9b05fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f2d185a5b44a18fb9a1d7fe225a7581" id="r_a4f2d185a5b44a18fb9a1d7fe225a7581"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4f2d185a5b44a18fb9a1d7fe225a7581">PHAL_SPI_transferBlocking</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, const uint8_t *out_data, uint8_t *in_data, uint32_t data_len)</td></tr>
+<tr class="memdesc:a4f2d185a5b44a18fb9a1d7fe225a7581"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a blocking DMA-backed SPI transfer. (Wrapper around PHAL_SPI_transfer.)  <br /></td></tr>
+<tr class="separator:a4f2d185a5b44a18fb9a1d7fe225a7581"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35fd94eb02f487e09065ddc0ecb92e53" id="r_a35fd94eb02f487e09065ddc0ecb92e53"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35fd94eb02f487e09065ddc0ecb92e53">PHAL_SPI_busy</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *cfg)</td></tr>
-<tr class="memdesc:a35fd94eb02f487e09065ddc0ecb92e53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check for current SPI transaction to complete.  <br /></td></tr>
+<tr class="memdesc:a35fd94eb02f487e09065ddc0ecb92e53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether the SPI peripheral is busy.  <br /></td></tr>
 <tr class="separator:a35fd94eb02f487e09065ddc0ecb92e53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a214be7044d1c8a6193ccf7f3e883fab2" id="r_a214be7044d1c8a6193ccf7f3e883fab2"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a214be7044d1c8a6193ccf7f3e883fab2">PHAL_SPI_writeByte</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, uint8_t address, uint8_t writeDat)</td></tr>
-<tr class="memdesc:a214be7044d1c8a6193ccf7f3e883fab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocking function to write a single byte to a SPI device. Useful for Initilization functions that just need to write a single byte in a blocking function.  <br /></td></tr>
-<tr class="separator:a214be7044d1c8a6193ccf7f3e883fab2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac35bd14ad3b560e0ad69320caef4d4ac" id="r_ac35bd14ad3b560e0ad69320caef4d4ac"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac35bd14ad3b560e0ad69320caef4d4ac">PHAL_SPI_readByte</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi, uint8_t address, bool skipDummy)</td></tr>
-<tr class="memdesc:ac35bd14ad3b560e0ad69320caef4d4ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocking function to read a single byte from a SPI device. Useful for Initilization functions that just need to read a single byte in a blocking function.  <br /></td></tr>
-<tr class="separator:ac35bd14ad3b560e0ad69320caef4d4ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebd7fc8129153c417096d7d4c99b3674" id="r_aebd7fc8129153c417096d7d4c99b3674"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aebd7fc8129153c417096d7d4c99b3674">PHAL_SPI_ForceReset</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi)</td></tr>
-<tr class="separator:aebd7fc8129153c417096d7d4c99b3674"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf04b58bde10df9ab774c8e4b776bb06" id="r_acf04b58bde10df9ab774c8e4b776bb06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf04b58bde10df9ab774c8e4b776bb06">PHAL_SPI_txCallback</a> (<a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *spi)</td></tr>
+<tr class="memdesc:acf04b58bde10df9ab774c8e4b776bb06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Weak callback fired when a DMA-backed SPI transfer completes.  <br /></td></tr>
+<tr class="separator:acf04b58bde10df9ab774c8e4b776bb06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>G4 SPI public API. </p>
+<dl class="section author"><dt>Author</dt><dd>Ronak Jain (<a href="#" onclick="location.href='mai'+'lto:'+'jai'+'n7'+'17@'+'pu'+'rdu'+'e.'+'edu'; return false;">jain7<span class="obfuscator">.nosp@m.</span>17@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd>
+<dd>
+Shriya Balu (<a href="#" onclick="location.href='mai'+'lto:'+'bal'+'u@'+'pur'+'du'+'e.e'+'du'; return false;">balu@<span class="obfuscator">.nosp@m.</span>purd<span class="obfuscator">.nosp@m.</span>ue.ed<span class="obfuscator">.nosp@m.</span>u</a>) </dd></dl>
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a26da2bbd284e1fb8d8517cac6bd79bf4" name="a26da2bbd284e1fb8d8517cac6bd79bf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26da2bbd284e1fb8d8517cac6bd79bf4">&#9670;&#160;</a></span>SPI_CPHA</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a26da2bbd284e1fb8d8517cac6bd79bf4">SPI_CPHA</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SPI clock phase. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a26da2bbd284e1fb8d8517cac6bd79bf4a938aa9bf0d6f5c65656fbc49b478b55f" name="a26da2bbd284e1fb8d8517cac6bd79bf4a938aa9bf0d6f5c65656fbc49b478b55f"></a>SPI_CPHA_FIRST_EDGE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a26da2bbd284e1fb8d8517cac6bd79bf4aa2aeb931791a2d3a0718081ebbf54cee" name="a26da2bbd284e1fb8d8517cac6bd79bf4aa2aeb931791a2d3a0718081ebbf54cee"></a>SPI_CPHA_SECOND_EDGE&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a4e5a98687b27cf02a47ed2a539426653" name="a4e5a98687b27cf02a47ed2a539426653"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e5a98687b27cf02a47ed2a539426653">&#9670;&#160;</a></span>SPI_CPOL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a4e5a98687b27cf02a47ed2a539426653">SPI_CPOL</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SPI clock polarity. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a4e5a98687b27cf02a47ed2a539426653ac140bfd59e1a5baa75aedc6f0421a061" name="a4e5a98687b27cf02a47ed2a539426653ac140bfd59e1a5baa75aedc6f0421a061"></a>SPI_CPOL_IDLE_LOW&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4e5a98687b27cf02a47ed2a539426653a96454ec5ff36335d70576c17112246a7" name="a4e5a98687b27cf02a47ed2a539426653a96454ec5ff36335d70576c17112246a7"></a>SPI_CPOL_IDLE_HIGH&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="a60a7e3d74577b38aa79ea6983362f942" name="a60a7e3d74577b38aa79ea6983362f942"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a60a7e3d74577b38aa79ea6983362f942">&#9670;&#160;</a></span>SPI_Mode</h2>
 
@@ -169,6 +221,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>SPI operating mode. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a60a7e3d74577b38aa79ea6983362f942ae68a8adf6e5b67a7bdbe9526b15dae99" name="a60a7e3d74577b38aa79ea6983362f942ae68a8adf6e5b67a7bdbe9526b15dae99"></a>SPI_MODE_MASTER&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a60a7e3d74577b38aa79ea6983362f942ad1131ed33ad43ab3f667070b04454439" name="a60a7e3d74577b38aa79ea6983362f942ad1131ed33ad43ab3f667070b04454439"></a>SPI_MODE_SLAVE&#160;</td><td class="fielddoc"></td></tr>
@@ -192,7 +246,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Check for current SPI transaction to complete. </p>
+<p>Check whether the SPI peripheral is busy. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cfg</td><td>SPI configuration. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if a transfer is currently in progress.</dd></dl>
+<p>Check whether the SPI peripheral is busy.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cfg</td><td>Spi config</td></tr>
@@ -207,23 +269,6 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="phal__G4_2spi_2spi_8h_a35fd94eb02f487e09065ddc0ecb92e53_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
-
-</div>
-</div>
-<a id="aebd7fc8129153c417096d7d4c99b3674" name="aebd7fc8129153c417096d7d4c99b3674"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebd7fc8129153c417096d7d4c99b3674">&#9670;&#160;</a></span>PHAL_SPI_ForceReset()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void PHAL_SPI_ForceReset </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spi</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -242,7 +287,16 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Initilize SPI peripheral with the configuired structure. </p>
+<p>Initialize an SPI peripheral for DMA-based transfers. </p>
+<p>Configures the SPI peripheral, initializes the associated DMA channels, and prepares the peripheral for subsequent transfers.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">handle</td><td>SPI configuration structure. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if initialization was successful, false otherwise. Only can be false if DMA initialization fails.</dd></dl>
+<p>Initialize an SPI peripheral for DMA-based transfers.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">handle</td><td>SPI handle to configure. </td></tr>
@@ -252,6 +306,7 @@ Here is the caller graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>true </dd>
 <dd>
 false </dd></dl>
+<p>Peripheral configuration (See RM0440 42.5.7 Configuration of SPI section)</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -265,60 +320,14 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="ac35bd14ad3b560e0ad69320caef4d4ac" name="ac35bd14ad3b560e0ad69320caef4d4ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac35bd14ad3b560e0ad69320caef4d4ac">&#9670;&#160;</a></span>PHAL_SPI_readByte()</h2>
+<a id="a9af893d97bde29796f60bc6df9b05fd0" name="a9af893d97bde29796f60bc6df9b05fd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9af893d97bde29796f60bc6df9b05fd0">&#9670;&#160;</a></span>PHAL_SPI_transfer()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t PHAL_SPI_readByte </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spi</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>address</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>skipDummy</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Blocking function to read a single byte from a SPI device. Useful for Initilization functions that just need to read a single byte in a blocking function. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">spi</td><td>Spi handle </td></tr>
-    <tr><td class="paramname">address</td><td>Address of data to read </td></tr>
-    <tr><td class="paramname">skipDummy</td><td>Return the 3rd byte read instead of the 2nd byte </td></tr>
-  </table>
-  </dd>
-</dl>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="phal__G4_2spi_2spi_8h_ac35bd14ad3b560e0ad69320caef4d4ac_cgraph.svg" width="634" height="234"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="phal__G4_2spi_2spi_8h_ac35bd14ad3b560e0ad69320caef4d4ac_icgraph.svg" width="570" height="236"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
-</div>
-</div>
-<a id="ab9da5be05aad59873975238094d15b27" name="ab9da5be05aad59873975238094d15b27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9da5be05aad59873975238094d15b27">&#9670;&#160;</a></span>PHAL_SPI_transfer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool PHAL_SPI_transfer </td>
+          <td class="memname">void PHAL_SPI_transfer </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spi</em></span>, </td>
         </tr>
@@ -330,31 +339,44 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>data_len</em></span>, </td>
+          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>in_data</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>in_data</em></span>&#160;)</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>data_len</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Start a DMA-backed SPI transfer. </p>
+<p>Non-blocking: returns immediately after the DMA transfer has been started. If another transfer is already in progress, block until it completes before starting the new transfer.</p>
+<p>Passing NULL for either buffer transmits or receives dummy data.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spi</td><td>SPI configuration. </td></tr>
+    <tr><td class="paramname">out_data</td><td>Transmit buffer, or NULL to transmit dummy (zero) bytes. </td></tr>
+    <tr><td class="paramname">in_data</td><td>Receive buffer, or NULL to discard received bytes. </td></tr>
+    <tr><td class="paramname">data_len</td><td>Number of bytes to transfer (includes both TX and RX). </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="phal__G4_2spi_2spi_8h_ab9da5be05aad59873975238094d15b27_cgraph.svg" width="100%" height="586"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="phal__G4_2spi_2spi_8h_a9af893d97bde29796f60bc6df9b05fd0_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
 </div>
-<a id="a7593e1c8be8711c7bda6d7de43913816" name="a7593e1c8be8711c7bda6d7de43913816"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7593e1c8be8711c7bda6d7de43913816">&#9670;&#160;</a></span>PHAL_SPI_transfer_noDMA()</h2>
+<a id="a4f2d185a5b44a18fb9a1d7fe225a7581" name="a4f2d185a5b44a18fb9a1d7fe225a7581"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f2d185a5b44a18fb9a1d7fe225a7581">&#9670;&#160;</a></span>PHAL_SPI_transferBlocking()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool PHAL_SPI_transfer_noDMA </td>
+          <td class="memname">void PHAL_SPI_transferBlocking </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spi</em></span>, </td>
         </tr>
@@ -366,90 +388,77 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>txlen</em></span>, </td>
+          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>in_data</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>rxlen</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>in_data</em></span>&#160;)</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>data_len</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>SPI handle. </p>
+<p>Perform a blocking DMA-backed SPI transfer. (Wrapper around PHAL_SPI_transfer.) </p>
+<p>Blocks until the SPI peripheral is available, starts the transfer, and does not return until the transfer has completed.</p>
+<p>Passing NULL for either buffer transmits or receives dummy data.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">spi</td><td>SPI handle </td></tr>
-    <tr><td class="paramname">out_data</td><td>Address of data buffer to put on MOSI line </td></tr>
-    <tr><td class="paramname">txlen</td><td>Number of SPI Packets to Send </td></tr>
-    <tr><td class="paramname">rxlen</td><td>Number of SPI Packets to Receive </td></tr>
-    <tr><td class="paramname">in_data</td><td>Address of data buffer to put data coming in MISO line </td></tr>
+    <tr><td class="paramname">spi</td><td>SPI configuration. </td></tr>
+    <tr><td class="paramname">out_data</td><td>Transmit buffer, or NULL to transmit dummy (zero) bytes. </td></tr>
+    <tr><td class="paramname">in_data</td><td>Receive buffer, or NULL to discard received bytes. </td></tr>
+    <tr><td class="paramname">data_len</td><td>Number of bytes to transfer (includes both TX and RX). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true Successfully completed non-DMA SPI transaction </dd>
-<dd>
-false Unable to complete non-DMA SPI transaction </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="phal__G4_2spi_2spi_8h_a7593e1c8be8711c7bda6d7de43913816_cgraph.svg" width="372" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="phal__G4_2spi_2spi_8h_a4f2d185a5b44a18fb9a1d7fe225a7581_cgraph.svg" width="627" height="234"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="phal__G4_2spi_2spi_8h_a7593e1c8be8711c7bda6d7de43913816_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="phal__G4_2spi_2spi_8h_a4f2d185a5b44a18fb9a1d7fe225a7581_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
 </div>
-<a id="a214be7044d1c8a6193ccf7f3e883fab2" name="a214be7044d1c8a6193ccf7f3e883fab2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a214be7044d1c8a6193ccf7f3e883fab2">&#9670;&#160;</a></span>PHAL_SPI_writeByte()</h2>
+<a id="acf04b58bde10df9ab774c8e4b776bb06" name="acf04b58bde10df9ab774c8e4b776bb06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf04b58bde10df9ab774c8e4b776bb06">&#9670;&#160;</a></span>PHAL_SPI_txCallback()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t PHAL_SPI_writeByte </td>
+          <td class="memname">void PHAL_SPI_txCallback </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spi</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="structSPI__InitConfig__t.html">SPI_InitConfig_t</a> *</td>          <td class="paramname"><span class="paramname"><em>spi</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>address</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>writeDat</em></span>&#160;)</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Blocking function to write a single byte to a SPI device. Useful for Initilization functions that just need to write a single byte in a blocking function. </p>
+<p>Weak callback fired when a DMA-backed SPI transfer completes. </p>
+<p>Called after the transfer has completed and the SPI handle has been marked idle.</p>
+<p>Default implementation does nothing.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">spi</td><td>Spi handle </td></tr>
-    <tr><td class="paramname">address</td><td>Address of data to read </td></tr>
-    <tr><td class="paramname">writeDat</td><td>Data to write to address </td></tr>
+    <tr><td class="paramname">spi</td><td>SPI configuration that completed the transfer. </td></tr>
   </table>
   </dd>
 </dl>
 <div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="phal__G4_2spi_2spi_8h_a214be7044d1c8a6193ccf7f3e883fab2_cgraph.svg" width="638" height="234"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="phal__G4_2spi_2spi_8h_a214be7044d1c8a6193ccf7f3e883fab2_icgraph.svg" width="554" height="236"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="phal__G4_2spi_2spi_8h_acf04b58bde10df9ab774c8e4b776bb06_icgraph.svg" width="440" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>

@@ -47,7 +47,7 @@
   </g>
 </defs>
 <script type="application/ecmascript">
-var viewWidth = 1526;
+var viewWidth = 1518;
 var viewHeight = 105;
 var sectionId = 'dynsection-0';
 </script>
@@ -218,9 +218,10 @@ var sectionId = 'dynsection-0';
 <!-- Node10 -->
 <g id="Node000010" class="node">
 <title>Node10</title>
-<g id="a_Node000010"><a xlink:href="source_2g4__testing_2spi_8c.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="1244.5,-24.88 1128,-24.88 1128,-5.63 1244.5,-5.63 1244.5,-24.88"/>
-<text text-anchor="middle" x="1186.25" y="-11.38" font-family="Helvetica,sans-Serif" font-size="10.00">source/g4_testing/spi.c</text>
+<g id="a_Node000010"><a xlink:href="spi__test_8c.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="1236.75,-30.5 1127.75,-30.5 1127.75,0 1236.75,0 1236.75,-30.5"/>
+<text text-anchor="start" x="1135.75" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">source/g4_testing/spi</text>
+<text text-anchor="middle" x="1182.25" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">_test.c</text>
 </a>
 </g>
 </g>
@@ -228,8 +229,8 @@ var sectionId = 'dynsection-0';
 <g id="edge9_Node000001_Node000010" class="edge">
 <title>Node1&#45;&gt;Node10</title>
 <g id="a_edge9_Node000001_Node000010"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M844.86,-72.39C913.21,-63.27 1024.13,-47.65 1119.25,-30.5 1127.79,-28.96 1136.91,-27.14 1145.58,-25.32"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="844.8,-68.87 835.35,-73.66 845.72,-75.81 844.8,-68.87"/>
+<path fill="none" stroke="#63b8ff" d="M844.9,-72.64C913.3,-63.72 1024.24,-48.26 1119.25,-30.5 1121.9,-30.01 1124.6,-29.48 1127.33,-28.93"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="844.86,-69.12 835.39,-73.87 845.76,-76.06 844.86,-69.12"/>
 </a>
 </g>
 </g>
@@ -237,8 +238,8 @@ var sectionId = 'dynsection-0';
 <g id="Node000011" class="node">
 <title>Node11</title>
 <g id="a_Node000011"><a xlink:href="source_2g4__testing_2usart_8c.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="1388,-24.88 1262.5,-24.88 1262.5,-5.63 1388,-5.63 1388,-24.88"/>
-<text text-anchor="middle" x="1325.25" y="-11.38" font-family="Helvetica,sans-Serif" font-size="10.00">source/g4_testing/usart.c</text>
+<polygon fill="white" stroke="#666666" points="1380,-24.88 1254.5,-24.88 1254.5,-5.63 1380,-5.63 1380,-24.88"/>
+<text text-anchor="middle" x="1317.25" y="-11.38" font-family="Helvetica,sans-Serif" font-size="10.00">source/g4_testing/usart.c</text>
 </a>
 </g>
 </g>
@@ -246,8 +247,8 @@ var sectionId = 'dynsection-0';
 <g id="edge10_Node000001_Node000011" class="edge">
 <title>Node1&#45;&gt;Node11</title>
 <g id="a_edge10_Node000001_Node000011"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M845.29,-75.7C936.69,-68.17 1108.21,-52.51 1253.25,-30.5 1262.82,-29.05 1273.06,-27.2 1282.72,-25.32"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="845.2,-72.19 835.51,-76.49 845.77,-79.17 845.2,-72.19"/>
+<path fill="none" stroke="#63b8ff" d="M845.34,-75.61C935.64,-68.05 1103.91,-52.41 1246.25,-30.5 1255.69,-29.05 1265.79,-27.2 1275.31,-25.32"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="845.1,-72.11 835.43,-76.43 845.68,-79.09 845.1,-72.11"/>
 </a>
 </g>
 </g>
@@ -255,9 +256,9 @@ var sectionId = 'dynsection-0';
 <g id="Node000012" class="node">
 <title>Node12</title>
 <g id="a_Node000012"><a xlink:href="usb__test_8c.html" target="_top" xlink:title="Minimal vendor bulk&#45;echo device using the STM32G4 USB HAL.">
-<polygon fill="white" stroke="#666666" points="1518.25,-30.5 1406.25,-30.5 1406.25,0 1518.25,0 1518.25,-30.5"/>
-<text text-anchor="start" x="1414.25" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">source/g4_testing/usb</text>
-<text text-anchor="middle" x="1462.25" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">_test.c</text>
+<polygon fill="white" stroke="#666666" points="1510.25,-30.5 1398.25,-30.5 1398.25,0 1510.25,0 1510.25,-30.5"/>
+<text text-anchor="start" x="1406.25" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">source/g4_testing/usb</text>
+<text text-anchor="middle" x="1454.25" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">_test.c</text>
 </a>
 </g>
 </g>
@@ -265,8 +266,8 @@ var sectionId = 'dynsection-0';
 <g id="edge11_Node000001_Node000012" class="edge">
 <title>Node1&#45;&gt;Node12</title>
 <g id="a_edge11_Node000001_Node000012"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M845.26,-78.33C958.1,-73.5 1197.33,-60.42 1397.25,-30.5 1400.11,-30.07 1403.02,-29.59 1405.97,-29.07"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="845.12,-74.84 835.27,-78.75 845.41,-81.83 845.12,-74.84"/>
+<path fill="none" stroke="#63b8ff" d="M845.28,-78.24C957.01,-73.28 1192.42,-60.06 1389.25,-30.5 1392.11,-30.07 1395.02,-29.59 1397.97,-29.07"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="845.24,-74.73 835.4,-78.67 845.54,-81.73 845.24,-74.73"/>
 </a>
 </g>
 </g>

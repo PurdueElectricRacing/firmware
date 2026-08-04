@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="Initilize SPI peripheral with the configuired structure.">
+<g id="a_Node000001"><a xlink:title="Initialize an SPI peripheral for DMA&#45;based transfers.">
 <polygon fill="#999999" stroke="#666666" points="155.75,-37.25 73,-37.25 73,-18 155.75,-18 155.75,-37.25"/>
 <text text-anchor="middle" x="114.38" y="-23.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_SPI_init</text>
 </a>

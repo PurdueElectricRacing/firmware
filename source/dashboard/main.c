@@ -106,12 +106,6 @@ static_assert(
 volatile raw_adc_values_t raw_adc_values; // DMA target
 PHAL_ADC_Handle_t adc_handle;
 
-// USART Configuration for LCD
-PHAL_USART_Handle_t lcd = {
-    .periph    = USART1_IDX,
-    .baud_rate = LCD_BAUD_RATE,
-};
-
 /* Function Prototypes */
 void sweep_external_leds();
 void service_start_button();
@@ -136,7 +130,7 @@ int main(void) {
     if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
-    if (false == PHAL_USART_init(&lcd, PHAL_RCC_getAPB2ClockHz())) {
+    if (false == PHAL_USART_init(LCD_USART, LCD_BAUD_RATE, PHAL_RCC_getAPB2ClockHz())) {
         HardFault_Handler();
     }
     if (false == PHAL_ADC_init(&adc_handle, &adc_config)) {

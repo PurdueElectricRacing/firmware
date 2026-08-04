@@ -4,7 +4,6 @@
 #include "common/phal_G4/dma/dma.h"
 
 typedef struct {
-    PHAL_USART_Handle_t *handle; //!< handle registered at init
     PHAL_DMA_Handle_t tx_dma;    //!< TX DMA handle (built in init)
     PHAL_DMA_Handle_t rx_dma;    //!< RX DMA handle (built in init)
     volatile uint32_t rxfer_size; //!< configured RX length (for continuous re-arm)
@@ -18,26 +17,15 @@ static PHAL_USART_state_t usart_state[NUM_USART];
 /**
  * @brief Initialize a USART peripheral for DMA-driven communication.
  *
- * Enables the peripheral clock and applies a fixed frame format of 8 data bits,
- * no parity, 1 stop bit (8N1) with 16x oversampling and no hardware flow control.
- * Derives the baud-rate divisor from @p clock_rate, enables the IDLE-line
- * interrupt (used to signal RX frame completion) and the TX DMA transfer-complete
- * interrupt, then initializes the TX and RX DMA channels.
- *
- * Call once per USART before any tx/rx. The USART GPIO pins must already be
- * configured by the caller.
- *
- * @param handle Handle identifying the peripheral and desired baud rate
+ * @param periph Which USART peripheral to initialize
+ * @param baud_rate Desired baud rate
  * @param clock_rate Frequency (Hz) of the bus clock feeding this USART (APB1/APB2)
  * @return true on success, false if DMA init failed
  */
-bool PHAL_USART_init(PHAL_USART_Handle_t *handle, const uint32_t clock_rate) {
-    ssize_t idx = handle->periph;
+bool PHAL_USART_init(PHAL_USART_Idx_t periph, uint32_t baud_rate, const uint32_t clock_rate) {
+    ssize_t idx = periph;
 
-    // Register the handle so the interrupt handlers can reach it.
-    usart_state[idx].handle = handle;
-
-    USART_PRIV_configure(idx, handle->baud_rate, clock_rate);
+    USART_PRIV_configure(idx, baud_rate, clock_rate);
     USART_PRIV_build_dma(idx, &usart_state[idx].tx_dma, &usart_state[idx].rx_dma);
 
     if (!PHAL_DMA_init(&usart_state[idx].tx_dma) || !PHAL_DMA_init(&usart_state[idx].rx_dma)) {
@@ -50,43 +38,44 @@ bool PHAL_USART_init(PHAL_USART_Handle_t *handle, const uint32_t clock_rate) {
 /**
  * @brief Start a DMA-based transmission.
  *
- * @param handle Handle of the USART to transmit on
+ * @param periph Which USART peripheral to transmit on
  * @param data Buffer to send
  * @param len Number of bytes to send
- * @return true if the transfer started, false otherwise
+ * @return true if every DMA reconfiguration step succeeded, false otherwise
  */
-bool PHAL_USART_txDMA(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len) {
-    ssize_t idx = handle->periph;
-    if (usart_state[idx].handle != handle) return false;
+bool PHAL_USART_txDMA(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len) {
+    ssize_t idx = periph;
 
     usart_state[idx].tx_busy = true;
     USART_PRIV_start_tx(USART_PRIV_periph(idx));
 
     // Re-target the TX channel at this buffer (channel must be disabled to set
     // length/address); restart clears stale flags and starts the transfer.
+    // Run every step regardless of earlier ones failing - skipping restart
+    // after a partial reconfiguration would leave the channel worse off, not
+    // better - then report whether they all actually succeeded.
     PHAL_DMA_Handle_t *tx_dma = &usart_state[idx].tx_dma;
-    PHAL_DMA_stop(tx_dma);
-    PHAL_DMA_setLength(tx_dma, len);
-    PHAL_DMA_setMemAddress(tx_dma, (uint32_t)data);
-    PHAL_DMA_restart(tx_dma);
+    bool stopped     = PHAL_DMA_stop(tx_dma);
+    bool length_set  = PHAL_DMA_setLength(tx_dma, len);
+    bool address_set = PHAL_DMA_setMemAddress(tx_dma, (uint32_t)data);
+    bool restarted   = PHAL_DMA_restart(tx_dma);
 
-    return true;
+    return stopped && length_set && address_set && restarted;
 }
 
 /**
  * @brief Start a DMA-based reception, completed on the IDLE line.
  *
- * @param handle Handle of the USART to receive on
+ * @param periph Which USART peripheral to receive on
  * @param data Buffer to receive into
  * @param len Maximum number of bytes to receive (buffer size)
  * @param cont Enable continuous RX. When set, call this once and the HAL keeps
  *             receiving frames of the same maximum length, invoking
  *             PHAL_USART_rxCallback after each.
- * @return true if reception started, false otherwise
+ * @return true if every DMA reconfiguration step succeeded, false otherwise
  */
-bool PHAL_USART_rxDMA(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len, bool cont) {
-    ssize_t idx = handle->periph;
-    if (usart_state[idx].handle != handle) return false;
+bool PHAL_USART_rxDMA(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len, bool cont) {
+    ssize_t idx = periph;
 
     usart_state[idx].cont_rx = cont;
     usart_state[idx].rxfer_size = len;
@@ -95,56 +84,57 @@ bool PHAL_USART_rxDMA(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len, 
     USART_PRIV_start_rx(USART_PRIV_periph(idx));
 
     // Channel must be disabled to set address/length; restart clears stale
-    // flags and starts reception.
+    // flags and starts reception. Same reasoning as txDMA above: run every
+    // step, then report whether they all actually succeeded.
     PHAL_DMA_Handle_t *rx_dma = &usart_state[idx].rx_dma;
-    PHAL_DMA_stop(rx_dma);
-    PHAL_DMA_setMemAddress(rx_dma, (uint32_t)data);
-    PHAL_DMA_setLength(rx_dma, len);
-    PHAL_DMA_restart(rx_dma);
+    bool stopped     = PHAL_DMA_stop(rx_dma);
+    bool address_set = PHAL_DMA_setMemAddress(rx_dma, (uint32_t)data);
+    bool length_set  = PHAL_DMA_setLength(rx_dma, len);
+    bool restarted   = PHAL_DMA_restart(rx_dma);
 
-    return true;
+    return stopped && address_set && length_set && restarted;
 }
 
 /**
  * @brief Check whether a DMA transmission is still in progress.
  *
- * @param handle Handle of the USART to check
+ * @param periph Which USART peripheral to check
  * @return true if a transmission is in flight, false otherwise
  */
-bool PHAL_USART_txBusy(PHAL_USART_Handle_t *handle) {
-    return usart_state[handle->periph].tx_busy;
+bool PHAL_USART_txBusy(PHAL_USART_Idx_t periph) {
+    return usart_state[periph].tx_busy;
 }
 
 /**
  * @brief Transmit data, blocking until the transfer completes.
  *
- * @param handle Handle of the USART to transmit on
+ * @param periph Which USART peripheral to transmit on
  * @param data Buffer to send
  * @param len Number of bytes to send
  * @return true if the transfer completed, false if it failed to start
  */
-bool PHAL_USART_txBl(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len) {
-    if (!PHAL_USART_txDMA(handle, data, len)) return false;
-    while (PHAL_USART_txBusy(handle));
+bool PHAL_USART_txBl(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len) {
+    if (!PHAL_USART_txDMA(periph, data, len)) return false;
+    while (PHAL_USART_txBusy(periph));
     return true;
 }
 
 /**
  * @brief Receive data, blocking until a one-shot reception completes.
  *
- * @param handle Handle of the USART to receive on
+ * @param periph Which USART peripheral to receive on
  * @param data Buffer to receive into
  * @param len Number of bytes to receive
  * @return true if the reception completed, false if it failed to start
  */
-bool PHAL_USART_rxBl(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len) {
-    if (!PHAL_USART_rxDMA(handle, data, len, false)) return false;
-    while (usart_state[handle->periph].rx_busy);
+bool PHAL_USART_rxBl(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len) {
+    if (!PHAL_USART_rxDMA(periph, data, len, false)) return false;
+    while (usart_state[periph].rx_busy);
     return true;
 }
 
 //! On the IDLE line, finish the frame, re-arm if continuous, and notify the app.
-static void PHAL_USART_HandleIRQ(ssize_t idx) {
+static void PHAL_USART_HandleIRQ(PHAL_USART_Idx_t idx) {
     USART_TypeDef *periph = USART_PRIV_periph(idx);
 
     if (USART_PRIV_idle_active(periph)) {
@@ -161,14 +151,14 @@ static void PHAL_USART_HandleIRQ(ssize_t idx) {
             USART_PRIV_stop_rx(periph);
         }
 
-        PHAL_USART_rxCallback(usart_state[idx].handle);
+        PHAL_USART_rxCallback(idx);
     }
 
     USART_PRIV_clear_status_flags(periph);
 }
 
 //! On TX DMA completion, mark the transmitter free and clear the channel flags.
-static void PHAL_USART_HandleDMA(ssize_t idx) {
+static void PHAL_USART_HandleDMA(PHAL_USART_Idx_t idx) {
     if (USART_PRIV_tx_dma_complete(idx)) {
         PHAL_DMA_stop(&usart_state[idx].tx_dma);
         usart_state[idx].tx_busy = false;
@@ -177,8 +167,8 @@ static void PHAL_USART_HandleDMA(ssize_t idx) {
 }
 
 [[gnu::weak]]
-void PHAL_USART_rxCallback(PHAL_USART_Handle_t *handle) {
-    (void)handle;
+void PHAL_USART_rxCallback(PHAL_USART_Idx_t periph) {
+    (void)periph;
 }
 
 /* DMA transfer-complete interrupt handlers (TX channels) */

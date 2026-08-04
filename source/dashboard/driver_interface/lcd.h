@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#include "common/phal/usart.h"
+
 /**
  * @file lcd.h
  * @brief LCD display management
@@ -11,6 +13,7 @@
  */
 
 static constexpr uint32_t LCD_BAUD_RATE = 115'200;
+static constexpr PHAL_USART_Idx_t LCD_USART = USART1_IDX;
 
 typedef enum : uint8_t {
     PAGE_RACE        = 0,

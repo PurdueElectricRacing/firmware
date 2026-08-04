@@ -10,11 +10,6 @@ typedef enum {
     NUM_USART
 } PHAL_USART_Idx_t;
 
-typedef struct {
-    PHAL_USART_Idx_t periph;
-    uint32_t baud_rate;
-} PHAL_USART_Handle_t;
-
 /**
  * @brief Initialize a USART peripheral for DMA-driven communication.
  *
@@ -29,42 +24,43 @@ typedef struct {
  * Call once per USART before any tx/rx. The USART GPIO pins must already be
  * configured by the caller.
  *
- * @param handle Handle identifying the peripheral and desired baud rate
+ * @param periph Which USART peripheral to initialize
+ * @param baud_rate Desired baud rate
  * @param clock_rate Frequency (Hz) of the bus clock feeding this USART (APBx)
  * @return true on success, false if DMA init failed
  */
-bool PHAL_USART_init(PHAL_USART_Handle_t *handle, const uint32_t clock_rate);
+bool PHAL_USART_init(PHAL_USART_Idx_t periph, uint32_t baud_rate, const uint32_t clock_rate);
 
 /**
  * @brief Start a transmission using DMA.
  *
- * @param handle The handle for the USART configuration
+ * @param periph Which USART peripheral to transmit on
  * @param data The address of the data to send
  * @param len Number of bytes
- * @return true if the transfer started, false otherwise
+ * @return true if every DMA reconfiguration step succeeded, false otherwise
  */
-bool PHAL_USART_txDMA(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len);
+bool PHAL_USART_txDMA(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len);
 
 /**
  * @brief Start a reception using DMA of a specific length.
  *
- * @param handle The handle for the USART configuration
+ * @param periph Which USART peripheral to receive on
  * @param data The address to put the received data
  * @param len Number of bytes
  * @param cont Enable continuous RX using the IDLE-line interrupt. When set, call
  *             this function once and the HAL keeps receiving frames of the same
  *             length, invoking PHAL_USART_rxCallback after each.
- * @return true if receiving started, false otherwise
+ * @return true if every DMA reconfiguration step succeeded, false otherwise
  */
-bool PHAL_USART_rxDMA(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len, bool cont);
+bool PHAL_USART_rxDMA(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len, bool cont);
 
 /**
  * @brief Returns whether the USART peripheral is currently transmitting data.
  *
- * @param handle Handle of USART peripheral to check
+ * @param periph Which USART peripheral to check
  * @return true if the peripheral is currently sending a message, false otherwise
  */
-bool PHAL_USART_txBusy(PHAL_USART_Handle_t *handle);
+bool PHAL_USART_txBusy(PHAL_USART_Idx_t periph);
 
 /**
  * @brief Transmit data, blocking until the transfer completes.
@@ -72,12 +68,12 @@ bool PHAL_USART_txBusy(PHAL_USART_Handle_t *handle);
  * Starts a DMA transmission (see PHAL_USART_txDMA) and busy-waits until it
  * finishes. Do not call from an ISR.
  *
- * @param handle Handle of the USART to transmit on
+ * @param periph Which USART peripheral to transmit on
  * @param data Buffer to send
  * @param len Number of bytes to send
  * @return true if the transfer completed, false if it failed to start
  */
-bool PHAL_USART_txBl(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len);
+bool PHAL_USART_txBl(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len);
 
 /**
  * @brief Receive data, blocking until a one-shot reception completes.
@@ -85,19 +81,19 @@ bool PHAL_USART_txBl(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len);
  * Starts a one-shot DMA reception (see PHAL_USART_rxDMA) and busy-waits until
  * the IDLE-line ISR signals the frame is complete. Do not call from an ISR.
  *
- * @param handle Handle of the USART to receive on
+ * @param periph Which USART peripheral to receive on
  * @param data Buffer to receive into
  * @param len Number of bytes to receive
  * @return true if the reception completed, false if it failed to start
  */
-bool PHAL_USART_rxBl(PHAL_USART_Handle_t *handle, uint8_t *data, uint32_t len);
+bool PHAL_USART_rxBl(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len);
 
 /**
  * @brief Weak callback invoked when a full RX frame is received. Override in
  *        application code. Runs in ISR context, so keep it light.
  *
- * @param handle Handle of the USART that received the frame
+ * @param periph Which USART peripheral received the frame
  */
-extern void PHAL_USART_rxCallback(PHAL_USART_Handle_t *handle);
+extern void PHAL_USART_rxCallback(PHAL_USART_Idx_t periph);
 
 #endif // __PHAL_G4_USART_H__

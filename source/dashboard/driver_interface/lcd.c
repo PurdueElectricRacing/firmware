@@ -69,8 +69,6 @@ const page_handler_t page_handlers[NUM_PAGES] = { // Order must match page_t enu
 
 // Communication queues
 ALLOCATE_STRBUF(lcd_tx_buf, 2048);
-extern PHAL_USART_Handle_t lcd;
-
 
 // Initialize the LCD screen
 // Preflight will be shown on power on, then reset to RACE
@@ -87,7 +85,7 @@ void LCD_init(uint32_t baud_rate) {
  * @brief Called periodically to send commands to the Nextion LCD display via USART
  */
 void LCD_tx_update(void) {
-    if (PHAL_USART_txBusy(&lcd)) {
+    if (PHAL_USART_txBusy(LCD_USART)) {
         return;
     }
 
@@ -95,7 +93,7 @@ void LCD_tx_update(void) {
         return;
     }
 
-    PHAL_USART_txDMA(&lcd, (uint8_t *)lcd_tx_buf.data, lcd_tx_buf.length);
+    PHAL_USART_txDMA(LCD_USART, (uint8_t *)lcd_tx_buf.data, lcd_tx_buf.length);
     strbuf_clear(&lcd_tx_buf);
 }
 

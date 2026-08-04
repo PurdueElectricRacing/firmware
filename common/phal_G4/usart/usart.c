@@ -4,12 +4,12 @@
 #include "common/phal_G4/dma/dma.h"
 
 typedef struct {
-    PHAL_DMA_Handle_t tx_dma;    //!< TX DMA handle (built in init)
-    PHAL_DMA_Handle_t rx_dma;    //!< RX DMA handle (built in init)
-    volatile uint32_t rxfer_size; //!< configured RX length (for continuous re-arm)
-    volatile bool tx_busy;       //!< set when a TX is in flight, cleared by the DMA ISR
-    volatile bool rx_busy;       //!< set while a frame is in flight, cleared by the IDLE-line ISR
-    bool cont_rx;                //!< continuous vs one-shot reception
+    PHAL_DMA_Handle_t tx_dma;    /*!< TX DMA handle (built in init) */
+    PHAL_DMA_Handle_t rx_dma;    /*!< RX DMA handle (built in init) */
+    volatile uint32_t rxfer_size; /*!< configured RX length (for continuous re-arm) */
+    volatile bool tx_busy;       /*!< set when a TX is in flight, cleared by the DMA ISR */
+    volatile bool rx_busy;       /*!< set while a frame is in flight, cleared by the IDLE-line ISR */
+    bool cont_rx;                /*!< continuous vs one-shot reception */
 } PHAL_USART_state_t;
 
 static PHAL_USART_state_t usart_state[NUM_USART];
@@ -141,7 +141,7 @@ bool PHAL_USART_rxBlocking(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len)
     return true;
 }
 
-//! On the IDLE line, finish the frame, re-arm if continuous, and notify the app.
+/// On the IDLE line, finish the frame, re-arm if continuous, and notify the app.
 static void PHAL_USART_HandleIRQ(PHAL_USART_Idx_t idx) {
     USART_TypeDef *periph = USART_PRIV_periph(idx);
 
@@ -165,7 +165,7 @@ static void PHAL_USART_HandleIRQ(PHAL_USART_Idx_t idx) {
     USART_PRIV_clear_status_flags(periph);
 }
 
-//! On TX DMA completion, mark the transmitter free and clear the channel flags.
+/// On TX DMA completion, mark the transmitter free and clear the channel flags.
 static void PHAL_USART_HandleDMA(PHAL_USART_Idx_t idx) {
     if (USART_PRIV_tx_dma_complete(idx)) {
         PHAL_DMA_stop(&usart_state[idx].tx_dma);

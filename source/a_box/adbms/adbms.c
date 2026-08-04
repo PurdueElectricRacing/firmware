@@ -63,11 +63,7 @@ bool adbms_write_rega(adbms_bms_t *bms) {
     }
 
     adbms6380_set_cs_low(bms->spi);
-    if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
-        adbms6380_set_cs_high(bms->spi);
-        bms->err_spi = true;
-        return false;
-    }
+    PHAL_SPI_transferBlocking(bms->spi, bms->tx_strbuf.data, NULL, bms->tx_strbuf.length);
     adbms6380_set_cs_high(bms->spi);
 
     return true;
@@ -86,11 +82,7 @@ bool adbms_write_regb(adbms_bms_t *bms) {
     }
 
     adbms6380_set_cs_low(bms->spi);
-    if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
-        adbms6380_set_cs_high(bms->spi);
-        bms->err_spi = true;
-        return false;
-    }
+    PHAL_SPI_transferBlocking(bms->spi, bms->tx_strbuf.data, NULL, bms->tx_strbuf.length);
     adbms6380_set_cs_high(bms->spi);
     return true;
 }
@@ -196,13 +188,7 @@ void adbms_connect(adbms_bms_t *bms) {
                    ADBMS_ADCV_OW);
     adbms6380_prepare_command(&bms->tx_strbuf, adcv_cmd);
     adbms6380_set_cs_low(bms->spi);
-    if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
-        adbms6380_set_cs_high(bms->spi);
-        bms->state       = ADBMS_STATE_IDLE;
-        bms->err_spi     = true;
-        bms->err_connect = true;
-        return;
-    }
+    PHAL_SPI_transferBlocking(bms->spi, bms->tx_strbuf.data, NULL, bms->tx_strbuf.length);
     adbms6380_set_cs_high(bms->spi);
 
     bms->err_connect = false;
@@ -319,11 +305,7 @@ void adbms_read_therms(adbms_bms_t *bms) {
     adbms6380_adax(adax_cmd, ADBMS_ADAX_OW, ADBMS_ADAX_PUP, ADBMS_ADAX_CH);
     adbms6380_prepare_command(&bms->tx_strbuf, adax_cmd);
     adbms6380_set_cs_low(bms->spi);
-    if (!PHAL_SPI_transfer_noDMA(bms->spi, bms->tx_strbuf.data, bms->tx_strbuf.length, 0, NULL)) {
-        adbms6380_set_cs_high(bms->spi);
-        bms->err_spi = true;
-        return;
-    }
+    PHAL_SPI_transferBlocking(bms->spi, bms->tx_strbuf.data, NULL, bms->tx_strbuf.length);
     adbms6380_set_cs_high(bms->spi);
 
     if (!adbms6380_read_gpio_voltages(bms->spi,

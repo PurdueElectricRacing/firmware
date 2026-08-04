@@ -311,6 +311,7 @@ int main() {
     if (!PHAL_SPI_init(&spi_config)) {
         HardFault_Handler();
     }
+
     PHAL_writeGPIO(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, 1);
 
     state_init_defaults();

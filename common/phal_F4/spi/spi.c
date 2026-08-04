@@ -22,8 +22,6 @@ static inline uint32_t LOG2_DOWN(uint32_t x) {
     return 31U - (uint32_t)__builtin_clz(x);
 }
 
-static void handleTxComplete();
-
 bool PHAL_SPI_init(SPI_InitConfig_t* cfg) {
     zero = 0;
     // Enable RCC Clock - Add new cases for each SPI Peripheral, to enable their clocks
@@ -226,7 +224,7 @@ void PHAL_SPI_ForceReset(SPI_InitConfig_t* spi) {
  * @brief Handle TCIF interrupt signaling end of TX transaction
  *
  */
-static void handleTxComplete() {
+static void PHAL_SPI_priv_handleTxComplete() {
     if (active_transfer == NULL) {
         return;
     }
@@ -406,7 +404,7 @@ static void handleTxComplete() {
 
 //DMA TX ISR - copy + paste for selected SPI peripheral's DMA ISR
 void DMA2_Stream3_IRQHandler() {
-    handleTxComplete();
+    PHAL_SPI_priv_handleTxComplete();
 }
 
 uint8_t PHAL_SPI_readByte(SPI_InitConfig_t* spi, uint8_t address, bool skipDummy) {

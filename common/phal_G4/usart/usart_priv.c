@@ -91,7 +91,7 @@ void PHAL_USART_priv_startTx(USART_TypeDef *periph) {
 }
 
 void PHAL_USART_priv_startRx(USART_TypeDef *periph) {
-    // 
+    // clear RXNE and discard the byte in data register
     periph->RQR |= USART_RQR_RXFRQ; 
 
     // write-1-to-clear status & error flags

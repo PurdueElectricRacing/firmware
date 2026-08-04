@@ -43,7 +43,7 @@ bool PHAL_USART_init(PHAL_USART_Idx_t periph, uint32_t baud_rate, const uint32_t
  * @param len Number of bytes to send
  * @return true if every DMA reconfiguration step succeeded, false otherwise
  */
-bool PHAL_USART_txDMA(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len) {
+bool PHAL_USART_tx(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len) {
     ssize_t idx = periph;
 
     usart_state[idx].tx_busy = true;
@@ -74,7 +74,7 @@ bool PHAL_USART_txDMA(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len) {
  *             PHAL_USART_rxCallback after each.
  * @return true if every DMA reconfiguration step succeeded, false otherwise
  */
-bool PHAL_USART_rxDMA(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len, bool cont) {
+bool PHAL_USART_rx(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len, bool cont) {
     ssize_t idx = periph;
 
     usart_state[idx].cont_rx = cont;
@@ -113,9 +113,13 @@ bool PHAL_USART_txBusy(PHAL_USART_Idx_t periph) {
  * @param len Number of bytes to send
  * @return true if the transfer completed, false if it failed to start
  */
-bool PHAL_USART_txBl(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len) {
-    if (!PHAL_USART_txDMA(periph, data, len)) return false;
-    while (PHAL_USART_txBusy(periph));
+bool PHAL_USART_txBlocking(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len) {
+    if (!PHAL_USART_tx(periph, data, len)) return false;
+
+    while (PHAL_USART_txBusy(periph)) {
+        __asm__("nop");
+    }
+    
     return true;
 }
 
@@ -127,9 +131,13 @@ bool PHAL_USART_txBl(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len) {
  * @param len Number of bytes to receive
  * @return true if the reception completed, false if it failed to start
  */
-bool PHAL_USART_rxBl(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len) {
-    if (!PHAL_USART_rxDMA(periph, data, len, false)) return false;
-    while (usart_state[periph].rx_busy);
+bool PHAL_USART_rxBlocking(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len) {
+    if (!PHAL_USART_rx(periph, data, len, false)) return false;
+
+    while (usart_state[periph].rx_busy) {
+        __asm__("nop");
+    }
+
     return true;
 }
 

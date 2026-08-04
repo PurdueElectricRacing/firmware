@@ -137,11 +137,11 @@ static bool buffers_equal(usart_subtest_id_t id, const uint8_t *expected, const 
 static bool run_roundtrip(PHAL_USART_Idx_t periph, usart_subtest_id_t id, uint8_t seed) {
     prep_frame(seed);
 
-    if (!PHAL_USART_rxDMA(periph, rx_buf, FRAME_LEN, false))
+    if (!PHAL_USART_rx(periph, rx_buf, FRAME_LEN, false))
         return record_failure(id, TIMEOUT_MARKER, 0, 0); // rxDMA failed to arm
 
     uint32_t before = rx_frame_success_count;
-    if (!PHAL_USART_txDMA(periph, tx_buf, FRAME_LEN))
+    if (!PHAL_USART_tx(periph, tx_buf, FRAME_LEN))
         return record_failure(id, TIMEOUT_MARKER, 0, 1); // txDMA failed to start
     if (!wait_for_frame(before))
         return record_failure(id, TIMEOUT_MARKER, 0, 2); // frame never arrived
@@ -154,7 +154,7 @@ static bool test_usart2_roundtrip(void) { return run_roundtrip(USART2_IDX, SUBTE
 static bool test_usart3_roundtrip(void) { return run_roundtrip(USART3_IDX, SUBTEST_USART3_ROUNDTRIP, 0xC0); }
 
 /**
- * @brief Exercise PHAL_USART_txBl specifically. RX is armed non-blocking
+ * @brief Exercise PHAL_USART_txBlocking specifically. RX is armed non-blocking
  * first; starting txBl afterwards is safe because a UART bit time (tens of
  * microseconds) vastly exceeds the handful of instructions between the two
  * calls, so the frame can't arrive before the receiver is armed.
@@ -162,11 +162,11 @@ static bool test_usart3_roundtrip(void) { return run_roundtrip(USART3_IDX, SUBTE
 static bool test_txBl_blocking_send(void) {
     prep_frame(0xD0);
 
-    if (!PHAL_USART_rxDMA(TEST_PERIPH, rx_buf, FRAME_LEN, false))
+    if (!PHAL_USART_rx(TEST_PERIPH, rx_buf, FRAME_LEN, false))
         return record_failure(SUBTEST_TXBL, TIMEOUT_MARKER, 0, 0);
 
     uint32_t before = rx_frame_success_count;
-    if (!PHAL_USART_txBl(TEST_PERIPH, tx_buf, FRAME_LEN))
+    if (!PHAL_USART_txBlocking(TEST_PERIPH, tx_buf, FRAME_LEN))
         return record_failure(SUBTEST_TXBL, TIMEOUT_MARKER, 0, 1); // txBl reported failure to start
     if (!wait_for_frame(before))
         return record_failure(SUBTEST_TXBL, TIMEOUT_MARKER, 0, 2); // txBl returned before data was actually sent
@@ -175,16 +175,16 @@ static bool test_txBl_blocking_send(void) {
 }
 
 /**
- * @brief Exercise PHAL_USART_rxBl specifically. TX is started non-blocking
+ * @brief Exercise PHAL_USART_rxBlocking specifically. TX is started non-blocking
  * first (same timing argument as above), then rxBl arms RX and blocks until
  * the IDLE line signals the frame is complete.
  */
 static bool test_rxBl_blocking_receive(void) {
     prep_frame(0xE0);
 
-    if (!PHAL_USART_txDMA(TEST_PERIPH, tx_buf, FRAME_LEN))
+    if (!PHAL_USART_tx(TEST_PERIPH, tx_buf, FRAME_LEN))
         return record_failure(SUBTEST_RXBL, TIMEOUT_MARKER, 0, 0);
-    if (!PHAL_USART_rxBl(TEST_PERIPH, rx_buf, FRAME_LEN))
+    if (!PHAL_USART_rxBlocking(TEST_PERIPH, rx_buf, FRAME_LEN))
         return record_failure(SUBTEST_RXBL, TIMEOUT_MARKER, 0, 1); // rxBl reported failure to start
 
     return buffers_equal(SUBTEST_RXBL, tx_buf, rx_buf, FRAME_LEN);
@@ -197,7 +197,7 @@ static bool test_txBusy_tracks_transfer(void) {
         return record_failure(SUBTEST_TXBUSY, 0, 0, 1); // busy before any transfer was started
 
     fill_pattern(tx_buf, FRAME_LEN, 0xF0);
-    if (!PHAL_USART_txDMA(TEST_PERIPH, tx_buf, FRAME_LEN))
+    if (!PHAL_USART_tx(TEST_PERIPH, tx_buf, FRAME_LEN))
         return record_failure(SUBTEST_TXBUSY, TIMEOUT_MARKER, 0, 2);
 
     if (!PHAL_USART_txBusy(TEST_PERIPH))
@@ -215,11 +215,11 @@ static bool test_txBusy_tracks_transfer(void) {
  */
 static bool test_oneshot_rx_does_not_rearm(void) {
     prep_frame(0x10);
-    if (!PHAL_USART_rxDMA(TEST_PERIPH, rx_buf, FRAME_LEN, false))
+    if (!PHAL_USART_rx(TEST_PERIPH, rx_buf, FRAME_LEN, false))
         return record_failure(SUBTEST_ONESHOT, TIMEOUT_MARKER, 0, 0);
 
     uint32_t before = rx_frame_success_count;
-    if (!PHAL_USART_txDMA(TEST_PERIPH, tx_buf, FRAME_LEN))
+    if (!PHAL_USART_tx(TEST_PERIPH, tx_buf, FRAME_LEN))
         return record_failure(SUBTEST_ONESHOT, TIMEOUT_MARKER, 0, 1);
     if (!wait_for_frame(before))
         return record_failure(SUBTEST_ONESHOT, TIMEOUT_MARKER, 0, 2);
@@ -230,7 +230,7 @@ static bool test_oneshot_rx_does_not_rearm(void) {
     // must be dropped, not silently captured into the stale rx_buf.
     uint32_t after_first = rx_frame_success_count;
     fill_pattern(tx_buf, FRAME_LEN, 0x11);
-    if (!PHAL_USART_txDMA(TEST_PERIPH, tx_buf, FRAME_LEN))
+    if (!PHAL_USART_tx(TEST_PERIPH, tx_buf, FRAME_LEN))
         return record_failure(SUBTEST_ONESHOT, TIMEOUT_MARKER, 0, 3);
     delay_iters(usart_test_timeout_iters);
     if (rx_frame_success_count != after_first)
@@ -238,10 +238,10 @@ static bool test_oneshot_rx_does_not_rearm(void) {
 
     // Re-arming should cleanly capture the next frame.
     memset(rx_buf, 0, FRAME_LEN);
-    if (!PHAL_USART_rxDMA(TEST_PERIPH, rx_buf, FRAME_LEN, false))
+    if (!PHAL_USART_rx(TEST_PERIPH, rx_buf, FRAME_LEN, false))
         return record_failure(SUBTEST_ONESHOT, TIMEOUT_MARKER, 0, 5);
     fill_pattern(tx_buf, FRAME_LEN, 0x12);
-    if (!PHAL_USART_txDMA(TEST_PERIPH, tx_buf, FRAME_LEN))
+    if (!PHAL_USART_tx(TEST_PERIPH, tx_buf, FRAME_LEN))
         return record_failure(SUBTEST_ONESHOT, TIMEOUT_MARKER, 0, 6);
     if (!wait_for_frame(after_first))
         return record_failure(SUBTEST_ONESHOT, TIMEOUT_MARKER, 0, 7); // re-arm after stop failed to start receiving again
@@ -259,14 +259,14 @@ static constexpr uint32_t CONT_RX_FRAMES = 8;
  */
 static bool test_continuous_rx_multiframe(void) {
     memset(rx_buf, 0, FRAME_LEN);
-    if (!PHAL_USART_rxDMA(TEST_PERIPH, rx_buf, FRAME_LEN, true))
+    if (!PHAL_USART_rx(TEST_PERIPH, rx_buf, FRAME_LEN, true))
         return record_failure(SUBTEST_CONTINUOUS, TIMEOUT_MARKER, 0, 0);
 
     for (uint32_t frame = 0; frame < CONT_RX_FRAMES; frame++) {
         uint32_t before = rx_frame_success_count;
         fill_pattern(tx_buf, FRAME_LEN, (uint8_t)(0x20 + frame));
 
-        if (!PHAL_USART_txDMA(TEST_PERIPH, tx_buf, FRAME_LEN))
+        if (!PHAL_USART_tx(TEST_PERIPH, tx_buf, FRAME_LEN))
             return record_failure(SUBTEST_CONTINUOUS, frame, 0, 1);
         if (!wait_for_frame(before))
             return record_failure(SUBTEST_CONTINUOUS, frame, 0, 2); // re-arm stalled on this frame

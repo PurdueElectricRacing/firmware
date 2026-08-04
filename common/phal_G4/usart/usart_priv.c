@@ -1,8 +1,5 @@
 #include "common/phal_G4/usart/usart_priv.h"
 
-// Single source of truth for per-UART hardware wiring. DMA channel/request
-// wiring itself now lives in the DMA HAL's own constants (dma_wiring.h) —
-// this table just points at the right ones per USART.
 static const PHAL_USART_HwMap_t USART_MAP[NUM_USART] = {
     [USART1_IDX] = {
         .rcc_enable_rg  = &RCC->APB2ENR,   
@@ -44,19 +41,22 @@ void USART_PRIV_configure(ssize_t idx, uint32_t baud_rate, uint32_t clock_rate) 
     // Enable the peripheral clock.
     *map->rcc_enable_rg |= map->rcc_enable_msk;
 
-    // Reset control registers. The all-zero defaults give the desired frame
-    // format: 8 data bits, no parity, 1 stop bit, 16x oversampling.
+    // Reset control registers. We want: 
+    // 8 data bits, no parity, 1 stop bit,
+    // 16x oversampling, disabled peripheral
     periph->CR1 = 0U;
     periph->CR2 = 0U;
     periph->CR3 = 0U;
 
+    // Per original source code
     periph->BRR = (clock_rate + (baud_rate / 2U)) / baud_rate;
 
     // IDLE-line interrupt signals RX frame completion.
     periph->CR1 |= USART_CR1_IDLEIE;
+
+    // Enable USART 
     periph->CR1 |= USART_CR1_UE;
 
-    // Route interrupts to the CPU: USART IDLE (RX) and TX DMA complete.
     NVIC_EnableIRQ(map->irq);
     NVIC_EnableIRQ(map->tx_dma_irq);
 }

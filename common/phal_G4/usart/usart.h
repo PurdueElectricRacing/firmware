@@ -39,7 +39,7 @@ bool PHAL_USART_init(PHAL_USART_Idx_t periph, uint32_t baud_rate, const uint32_t
  * @param len Number of bytes
  * @return true if every DMA reconfiguration step succeeded, false otherwise
  */
-bool PHAL_USART_txDMA(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len);
+bool PHAL_USART_tx(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len);
 
 /**
  * @brief Start a reception using DMA of a specific length.
@@ -52,7 +52,7 @@ bool PHAL_USART_txDMA(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len);
  *             length, invoking PHAL_USART_rxCallback after each.
  * @return true if every DMA reconfiguration step succeeded, false otherwise
  */
-bool PHAL_USART_rxDMA(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len, bool cont);
+bool PHAL_USART_rx(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len, bool cont);
 
 /**
  * @brief Returns whether the USART peripheral is currently transmitting data.
@@ -65,7 +65,7 @@ bool PHAL_USART_txBusy(PHAL_USART_Idx_t periph);
 /**
  * @brief Transmit data, blocking until the transfer completes.
  *
- * Starts a DMA transmission (see PHAL_USART_txDMA) and busy-waits until it
+ * Starts a DMA transmission (see PHAL_USART_tx) and busy-waits until it
  * finishes. Do not call from an ISR.
  *
  * @param periph Which USART peripheral to transmit on
@@ -73,12 +73,12 @@ bool PHAL_USART_txBusy(PHAL_USART_Idx_t periph);
  * @param len Number of bytes to send
  * @return true if the transfer completed, false if it failed to start
  */
-bool PHAL_USART_txBl(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len);
+bool PHAL_USART_txBlocking(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len);
 
 /**
  * @brief Receive data, blocking until a one-shot reception completes.
  *
- * Starts a one-shot DMA reception (see PHAL_USART_rxDMA) and busy-waits until
+ * Starts a one-shot DMA reception (see PHAL_USART_rx) and busy-waits until
  * the IDLE-line ISR signals the frame is complete. Do not call from an ISR.
  *
  * @param periph Which USART peripheral to receive on
@@ -86,7 +86,7 @@ bool PHAL_USART_txBl(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len);
  * @param len Number of bytes to receive
  * @return true if the reception completed, false if it failed to start
  */
-bool PHAL_USART_rxBl(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len);
+bool PHAL_USART_rxBlocking(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len);
 
 /**
  * @brief Weak callback invoked when a full RX frame is received. Override in

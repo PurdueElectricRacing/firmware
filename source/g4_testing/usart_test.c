@@ -226,7 +226,7 @@ static bool test_oneshot_rx_does_not_rearm(void) {
     if (!buffers_equal(SUBTEST_ONESHOT, tx_buf, rx_buf, FRAME_LEN))
         return false;
 
-    // Receiver should now be disabled (USART_PRIV_stop_rx) - a second frame
+    // Receiver should now be disabled (PHAL_USART_priv_stopRx) - a second frame
     // must be dropped, not silently captured into the stale rx_buf.
     uint32_t after_first = rx_frame_success_count;
     fill_pattern(tx_buf, FRAME_LEN, 0x11);

@@ -27,33 +27,33 @@ typedef struct {
  */
 
 /// @return the peripheral instance for a slot (used by the interrupt handlers).
-USART_TypeDef *USART_PRIV_periph(ssize_t idx);
+USART_TypeDef *PHAL_USART_priv_periph(ssize_t idx);
 
 /// Enable the clock, program 8N1 + baud, and enable the IDLE + TX-DMA interrupts.
-void USART_PRIV_configure(ssize_t idx, uint32_t baud_rate, uint32_t clock_rate);
+void PHAL_USART_priv_configure(ssize_t idx, uint32_t baud_rate, uint32_t clock_rate);
 
 /// Fill the TX and RX DMA handles from the hardware map.
-void USART_PRIV_build_dma(ssize_t idx, PHAL_DMA_Handle_t *tx_dma, PHAL_DMA_Handle_t *rx_dma);
+void PHAL_USART_priv_buildDma(ssize_t idx, PHAL_DMA_Handle_t *tx_dma, PHAL_DMA_Handle_t *rx_dma);
 
 /// Enable the transmitter and its DMA request line (CR3.DMAT, CR1.TE).
-void USART_PRIV_start_tx(USART_TypeDef *periph);
+void PHAL_USART_priv_startTx(USART_TypeDef *periph);
 
 /// Enable the receiver and its DMA request line (CR1.RE, CR3.DMAR).
-void USART_PRIV_start_rx(USART_TypeDef *periph);
+void PHAL_USART_priv_startRx(USART_TypeDef *periph);
 
 /// Disable the receiver (CR1.RE) — used to end a one-shot reception.
-void USART_PRIV_stop_rx(USART_TypeDef *periph);
+void PHAL_USART_priv_stopRx(USART_TypeDef *periph);
 
 /// @return true if the IDLE-line flag is set (an RX frame just completed).
-bool USART_PRIV_idle_active(USART_TypeDef *periph);
+bool PHAL_USART_priv_idleActive(USART_TypeDef *periph);
 
 /// Clear the IDLE and RX error status flags (write-1-to-clear).
-void USART_PRIV_clear_status_flags(USART_TypeDef *periph);
+void PHAL_USART_priv_clearStatusFlags(USART_TypeDef *periph);
 
 /// @return true if the slot's TX DMA channel signalled transfer complete.
-bool USART_PRIV_tx_dma_complete(ssize_t idx);
+bool PHAL_USART_priv_txDmaComplete(ssize_t idx);
 
 /// Clear all interrupt flags for the slot's TX DMA channel.
-void USART_PRIV_clear_tx_dma_flags(ssize_t idx);
+void PHAL_USART_priv_clearTxDmaFlags(ssize_t idx);
 
 #endif // __PHAL_G4_USART_PRIV_H__

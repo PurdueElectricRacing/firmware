@@ -25,8 +25,8 @@ static PHAL_USART_state_t usart_state[NUM_USART];
 bool PHAL_USART_init(PHAL_USART_Idx_t periph, uint32_t baud_rate, const uint32_t clock_rate) {
     ssize_t idx = periph;
 
-    USART_PRIV_configure(idx, baud_rate, clock_rate);
-    USART_PRIV_build_dma(idx, &usart_state[idx].tx_dma, &usart_state[idx].rx_dma);
+    PHAL_USART_priv_configure(idx, baud_rate, clock_rate);
+    PHAL_USART_priv_buildDma(idx, &usart_state[idx].tx_dma, &usart_state[idx].rx_dma);
 
     if (!PHAL_DMA_init(&usart_state[idx].tx_dma) || !PHAL_DMA_init(&usart_state[idx].rx_dma)) {
         return false;
@@ -47,7 +47,7 @@ bool PHAL_USART_tx(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len) {
     ssize_t idx = periph;
 
     usart_state[idx].tx_busy = true;
-    USART_PRIV_start_tx(USART_PRIV_periph(idx));
+    PHAL_USART_priv_startTx(PHAL_USART_priv_periph(idx));
 
     // Re-target the TX channel at this buffer (channel must be disabled to set
     // length/address); restart clears stale flags and starts the transfer.
@@ -81,7 +81,7 @@ bool PHAL_USART_rx(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len, bool co
     usart_state[idx].rxfer_size = len;
     usart_state[idx].rx_busy = true;
 
-    USART_PRIV_start_rx(USART_PRIV_periph(idx));
+    PHAL_USART_priv_startRx(PHAL_USART_priv_periph(idx));
 
     // Channel must be disabled to set address/length; restart clears stale
     // flags and starts reception. Same reasoning as txDMA above: run every
@@ -143,9 +143,9 @@ bool PHAL_USART_rxBlocking(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len)
 
 /// On the IDLE line, finish the frame, re-arm if continuous, and notify the app.
 static void PHAL_USART_HandleIRQ(PHAL_USART_Idx_t idx) {
-    USART_TypeDef *periph = USART_PRIV_periph(idx);
+    USART_TypeDef *periph = PHAL_USART_priv_periph(idx);
 
-    if (USART_PRIV_idle_active(periph)) {
+    if (PHAL_USART_priv_idleActive(periph)) {
         PHAL_DMA_Handle_t *rx_dma = &usart_state[idx].rx_dma;
         PHAL_DMA_stop(rx_dma);
         usart_state[idx].rx_busy = false;
@@ -156,22 +156,22 @@ static void PHAL_USART_HandleIRQ(PHAL_USART_Idx_t idx) {
             PHAL_DMA_setLength(rx_dma, usart_state[idx].rxfer_size);
             PHAL_DMA_restart(rx_dma);
         } else {
-            USART_PRIV_stop_rx(periph);
+            PHAL_USART_priv_stopRx(periph);
         }
 
         PHAL_USART_rxCallback(idx);
     }
 
-    USART_PRIV_clear_status_flags(periph);
+    PHAL_USART_priv_clearStatusFlags(periph);
 }
 
 /// On TX DMA completion, mark the transmitter free and clear the channel flags.
 static void PHAL_USART_HandleDMA(PHAL_USART_Idx_t idx) {
-    if (USART_PRIV_tx_dma_complete(idx)) {
+    if (PHAL_USART_priv_txDmaComplete(idx)) {
         PHAL_DMA_stop(&usart_state[idx].tx_dma);
         usart_state[idx].tx_busy = false;
     }
-    USART_PRIV_clear_tx_dma_flags(idx);
+    PHAL_USART_priv_clearTxDmaFlags(idx);
 }
 
 [[gnu::weak]]

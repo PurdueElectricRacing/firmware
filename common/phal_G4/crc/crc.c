@@ -1,3 +1,9 @@
+/**
+ * @file crc.c
+ * @brief STM32G4 CRC public-layer implementation.
+ * @author Hannah Song (song892@purdue.edu)
+ */
+
 #include "common/phal_G4/crc/crc.h"
 #include "common/phal_G4/crc/crc_priv.h"
 
@@ -16,6 +22,7 @@ uint32_t PHAL_CRC_calculate(const uint32_t *data, uint32_t words) {
     return CRC_PRIV_readResult();
 }
 
+/// Lookup table for the CRC-32/MPEG-2 polynomial 0x04C11DB7.
 static const uint32_t crc32_LUT[16] = {
     0x00000000,
     0x04C11DB7,
@@ -35,6 +42,7 @@ static const uint32_t crc32_LUT[16] = {
     0x384FBDBD,
 };
 
+/// Fold one 32-bit word into the running CRC, four bits at a time, MSB-first.
 static uint32_t crc_step(uint32_t crc, uint32_t data) {
     crc ^= data;
 

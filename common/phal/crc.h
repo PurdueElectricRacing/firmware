@@ -1,3 +1,9 @@
+/**
+ * @file crc.h
+ * @brief Architecture-selecting CRC HAL include.
+ * @author Hannah Song (song892@purdue.edu)
+ */
+
 #ifndef _PHAL_COMMON_CRC_H
 #define _PHAL_COMMON_CRC_H
 

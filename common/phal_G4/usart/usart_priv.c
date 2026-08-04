@@ -91,6 +91,10 @@ void PHAL_USART_priv_startTx(USART_TypeDef *periph) {
 }
 
 void PHAL_USART_priv_startRx(USART_TypeDef *periph) {
+    // Discard any stale RXNE/shift-register content
+    periph->RQR |= USART_RQR_RXFRQ;
+    periph->ICR = USART_ICR_ORECF;
+
     periph->CR1 |= USART_CR1_RE;
     periph->CR3 |= USART_CR3_DMAR;
 }

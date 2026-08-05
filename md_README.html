@@ -122,16 +122,16 @@ Getting Started</h1>
 <h1><a class="anchor" id="autotoc_md4"></a>
 Building Firmware</h1>
 <p>Firmware is built using a python-based build system. The python script <code>per_build.py</code> handles CMake configuration and ninja build steps automatically.</p>
-<p>To build the firmware, run: </p><div class="fragment"><div class="line">python3 per_build.py</div>
+<p>From the repository root, enter the firmware project directory: </p><div class="fragment"><div class="line">cd firmware</div>
+</div><!-- fragment --><p>To build the firmware, run: </p><div class="fragment"><div class="line">python3 per_build.py</div>
 </div><!-- fragment --><p>You can view available build targets and options with: </p><div class="fragment"><div class="line">python3 per_build.py --help</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md5"></a>
 Hardware Debugging</h1>
 <p>In VS Code, go to <b>View → Run and Debug</b>, select the appropriate MCU target from the dropdown, then press the green ▶️ arrow to flash and live-debug the firmware.</p>
-<p>Once everything is<img src="setup.md" alt="" class="inline" title="set up"/>     , you can build the firmware by pressing:</p>
+<p>Once everything is <a class="el" href="md_docs_2setup.html">set up</a>, open the firmware project with <code>cd firmware &amp;&amp; code .</code>. You can then build the firmware by pressing:</p>
 <div class="fragment"><div class="line">Ctrl + Shift + B on Windows/Linux</div>
 <div class="line">Cmd + Shift + B on macOS</div>
-</div><!-- fragment --><p>This triggers the default build task configured in .vscode/tasks.json, which runs the firmware build process automatically.</p>
-<p>Make sure you're in the root of the <code>firmware</code> repo (code .) before triggering the build. </p>
+</div><!-- fragment --><p>This triggers the default build task configured in <code>.vscode/tasks.json</code>, which runs the firmware build process automatically. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

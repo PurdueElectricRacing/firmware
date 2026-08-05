@@ -82,8 +82,6 @@ bool PHAL_USART_rx(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len, bool co
     usart_state[idx].rxfer_size = len;
     usart_state[idx].rx_busy = true;
 
-    PHAL_USART_priv_startRx(PHAL_USART_priv_periph(idx));
-
     // Channel must be disabled to set address/length; restart clears stale
     // flags and starts reception. Same reasoning as txDMA above: run every
     // step, then report whether they all actually succeeded.
@@ -92,6 +90,8 @@ bool PHAL_USART_rx(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len, bool co
     bool address_set = PHAL_DMA_setMemAddress(rx_dma, (uint32_t)data);
     bool length_set  = PHAL_DMA_setLength(rx_dma, len);
     bool restarted   = PHAL_DMA_restart(rx_dma);
+
+    PHAL_USART_priv_startRx(PHAL_USART_priv_periph(idx));
 
     return stopped && address_set && length_set && restarted;
 }

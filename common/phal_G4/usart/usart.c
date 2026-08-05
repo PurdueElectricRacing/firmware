@@ -47,7 +47,6 @@ bool PHAL_USART_tx(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len) {
     ssize_t idx = periph;
 
     usart_state[idx].tx_busy = true;
-    PHAL_USART_priv_startTx(PHAL_USART_priv_periph(idx));
 
     // Re-target the TX channel at this buffer (channel must be disabled to set
     // length/address); restart clears stale flags and starts the transfer.
@@ -59,6 +58,8 @@ bool PHAL_USART_tx(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len) {
     bool length_set  = PHAL_DMA_setLength(tx_dma, len);
     bool address_set = PHAL_DMA_setMemAddress(tx_dma, (uint32_t)data);
     bool restarted   = PHAL_DMA_restart(tx_dma);
+
+    PHAL_USART_priv_startTx(PHAL_USART_priv_periph(idx));
 
     return stopped && length_set && address_set && restarted;
 }

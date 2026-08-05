@@ -14,6 +14,8 @@
 typedef struct {
     volatile uint32_t *rcc_enable_rg;   /*!< RCC enable register for this UART */
     uint32_t rcc_enable_msk;            /*!< enable bit within rcc_enable_rg */
+    volatile uint32_t *rcc_reset_rg;    /*!< RCC reset register for this UART */
+    uint32_t rcc_reset_msk;             /*!< reset bit within rcc_reset_rg */
     USART_TypeDef *periph;              /*!< peripheral instance */
     IRQn_Type irq;                      /*!< USART global interrupt (carries IDLE) */
     IRQn_Type tx_dma_irq;               /*!< NVIC line for the TX DMA channel */

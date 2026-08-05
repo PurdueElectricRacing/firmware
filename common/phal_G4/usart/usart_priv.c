@@ -2,28 +2,34 @@
 
 static const PHAL_USART_HwMap_t USART_MAP[NUM_USART] = {
     [USART1_IDX] = {
-        .rcc_enable_rg  = &RCC->APB2ENR,   
+        .rcc_enable_rg  = &RCC->APB2ENR,
         .rcc_enable_msk = RCC_APB2ENR_USART1EN,
+        .rcc_reset_rg   = &RCC->APB2RSTR,
+        .rcc_reset_msk  = RCC_APB2RSTR_USART1RST,
         .periph         = USART1,
-        .irq            = USART1_IRQn,     
+        .irq            = USART1_IRQn,
         .tx_dma_irq     = DMA1_Channel7_IRQn,
         .tx_wiring      = &USART1_TX_DMA_WIRING,
         .rx_wiring      = &USART1_RX_DMA_WIRING,
     },
     [USART2_IDX] = {
-        .rcc_enable_rg  = &RCC->APB1ENR1,  
+        .rcc_enable_rg  = &RCC->APB1ENR1,
         .rcc_enable_msk = RCC_APB1ENR1_USART2EN,
+        .rcc_reset_rg   = &RCC->APB1RSTR1,
+        .rcc_reset_msk  = RCC_APB1RSTR1_USART2RST,
         .periph         = USART2,
-        .irq            = USART2_IRQn,     
+        .irq            = USART2_IRQn,
         .tx_dma_irq     = DMA1_Channel4_IRQn,
         .tx_wiring      = &USART2_TX_DMA_WIRING,
         .rx_wiring      = &USART2_RX_DMA_WIRING,
     },
     [USART3_IDX] = {
-        .rcc_enable_rg  = &RCC->APB1ENR1,  
+        .rcc_enable_rg  = &RCC->APB1ENR1,
         .rcc_enable_msk = RCC_APB1ENR1_USART3EN,
+        .rcc_reset_rg   = &RCC->APB1RSTR1,
+        .rcc_reset_msk  = RCC_APB1RSTR1_USART3RST,
         .periph         = USART3,
-        .irq            = USART3_IRQn,     
+        .irq            = USART3_IRQn,
         .tx_dma_irq     = DMA1_Channel2_IRQn,
         .tx_wiring      = &USART3_TX_DMA_WIRING,
         .rx_wiring      = &USART3_RX_DMA_WIRING,
@@ -38,10 +44,17 @@ void PHAL_USART_priv_configure(ssize_t idx, uint32_t baud_rate, uint32_t clock_r
     const PHAL_USART_HwMap_t *map = &USART_MAP[idx];
     USART_TypeDef *periph = map->periph;
 
-    // Enable the peripheral clock.
+    // Pulse the peripheral reset
+    *map->rcc_reset_rg |= map->rcc_reset_msk;
+    *map->rcc_reset_rg &= ~map->rcc_reset_msk;
+
+    // Enable the register clock
     *map->rcc_enable_rg |= map->rcc_enable_msk;
 
-    // Reset control registers. We want: 
+    // Dummy read to ensure the register write has taken effect
+    (void)*map->rcc_enable_rg;
+
+    // Reset control registers. We want:
     // 8 data bits, no parity, 1 stop bit,
     // 16x oversampling, disabled peripheral
     periph->CR1 = 0U;
@@ -57,7 +70,10 @@ void PHAL_USART_priv_configure(ssize_t idx, uint32_t baud_rate, uint32_t clock_r
     // Enable USART 
     periph->CR1 |= USART_CR1_UE;
 
+    NVIC_ClearPendingIRQ(map->irq);
     NVIC_EnableIRQ(map->irq);
+
+    NVIC_ClearPendingIRQ(map->tx_dma_irq);
     NVIC_EnableIRQ(map->tx_dma_irq);
 }
 
@@ -103,6 +119,9 @@ void PHAL_USART_priv_startRx(USART_TypeDef *periph) {
 
 void PHAL_USART_priv_stopRx(USART_TypeDef *periph) {
     periph->CR1 &= ~USART_CR1_RE;
+    periph->CR3 &= ~USART_CR3_DMAR;
+
+    (void)periph->RDR;
 }
 
 bool PHAL_USART_priv_idleActive(USART_TypeDef *periph) {

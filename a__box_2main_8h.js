@@ -30,5 +30,6 @@ var a__box_2main_8h =
     [ "VBATT_GPIO_PIN", "a__box_2main_8h.html#abdaa3e7d170ea80d239400ff9e90e021", null ],
     [ "VBATT_GPIO_PORT", "a__box_2main_8h.html#a802fb40a654626a5c82ce20086596cae", null ],
     [ "adc1_dma_buffer", "a__box_2main_8h.html#ae25b2d4ee7535b3161795c5914bbd1d1", null ],
+    [ "adc_handle", "a__box_2main_8h.html#ae13307269d9ab97e7be91b0569eca21b", null ],
     [ "g_bms", "a__box_2main_8h.html#a54910fb29db8c9eac2409cc73cc828c5", null ]
 ];

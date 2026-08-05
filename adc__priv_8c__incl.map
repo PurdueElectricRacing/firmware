@@ -1,0 +1,27 @@
+<map id="common/phal_G4/adc/adc_priv.c" name="common/phal_G4/adc/adc_priv.c">
+<area shape="rect" id="Node000001" title="Register&#45;level implementation of the STM32G4 ADC PHAL." alt="" coords="64,5,213,46"/>
+<area shape="rect" id="Node000002" href="$adc__priv_8h.html" title="Private register&#45;level API for the STM32G4 ADC PHAL." alt="" coords="64,94,213,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,47,141,78,136,78,136,47"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="110,522,183,548"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="111,137,79,164,45,200,19,242,11,266,8,290,8,382,11,403,18,423,43,460,77,489,110,512,107,516,73,494,39,463,13,426,5,404,3,382,3,290,6,265,14,240,41,196,75,160,108,133"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="42,279,110,304"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="131,136,109,184,85,264,80,263,104,182,126,134"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="468,522,532,548"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="214,127,323,152,442,188,495,210,538,234,568,261,576,275,579,290,579,382,573,419,559,455,541,486,523,512,518,508,537,483,554,453,568,418,573,381,573,291,571,277,563,264,535,238,493,215,441,193,322,157,213,132"/>
+<area shape="rect" id="Node000006" href="$phal__G4_2adc_2adc_8h.html" title="G4 ADC public API. DMA&#45;only, DMA&#45;first conversions." alt="" coords="119,183,268,223"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="153,134,175,168,171,171,149,137"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="193,224,153,507,148,506,188,224"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="168,226,106,272,103,267,165,222"/>
+<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="268,213,375,235,421,251,451,269,472,296,488,327,498,360,505,393,509,457,506,507,501,507,503,457,499,394,493,361,483,329,468,299,448,273,419,256,373,240,267,218"/>
+<area shape="rect" id="Node000007" href="$phal__G4_8h.html" title=" " alt="" coords="218,449,403,474"/>
+<area shape="poly" id="edge9_Node000006_Node000007" title=" " alt="" coords="194,224,193,259,195,305,205,354,225,399,245,422,270,439,267,443,241,426,220,402,200,355,190,306,187,259,189,224"/>
+<area shape="rect" id="Node000008" href="$phal__G4_2dma_2dma_8h.html" title="G4 DMA Peripheral public API implementation." alt="" coords="285,271,438,312"/>
+<area shape="poly" id="edge12_Node000006_Node000008" title=" " alt="" coords="233,221,311,262,309,266,230,226"/>
+<area shape="poly" id="edge10_Node000007_Node000003" title=" " alt="" coords="284,477,189,518,187,513,282,472"/>
+<area shape="poly" id="edge11_Node000007_Node000005" title=" " alt="" coords="344,472,455,514,453,519,342,477"/>
+<area shape="poly" id="edge13_Node000008_Node000005" title=" " alt="" coords="383,311,422,359,465,438,493,506,488,508,460,440,418,361,379,314"/>
+<area shape="poly" id="edge14_Node000008_Node000007" title=" " alt="" coords="380,311,392,330,402,353,407,378,401,402,382,426,357,443,354,439,378,422,396,399,401,378,397,355,387,333,375,314"/>
+<area shape="rect" id="Node000009" href="$dma__wiring_8h.html" title="G4 DMA Peripheral wiring configuration and definitions." alt="" coords="234,360,387,401"/>
+<area shape="poly" id="edge15_Node000008_Node000009" title=" " alt="" coords="352,314,332,348,328,345,348,311"/>
+<area shape="poly" id="edge16_Node000009_Node000007" title=" " alt="" coords="313,401,313,433,308,433,308,401"/>
+</map>

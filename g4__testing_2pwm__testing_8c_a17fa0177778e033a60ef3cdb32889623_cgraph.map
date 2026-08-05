@@ -1,9 +1,0 @@
-<map id="pwm_update_2s" name="pwm_update_2s">
-<area shape="rect" id="Node000001" title="Cycle through PWM duty&#45;cycle values every two seconds." alt="" coords="5,31,122,56"/>
-<area shape="rect" id="Node000002" href="$phal__G4_2pwm_2pwm_8c.html#af64e20c068902d60cff3cbc911c43b5a" title="Set a PWM channel&#39;s duty cycle." alt="" coords="170,31,336,56"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,41,154,41,154,46,122,46"/>
-<area shape="rect" id="Node000003" href="$pwm__priv_8c.html#abd733b1b6566e76a094805c81022dded" title="Get the timer auto&#45;reload register value." alt="" coords="384,5,600,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="336,32,368,29,369,34,337,37"/>
-<area shape="rect" id="Node000004" href="$pwm__priv_8c.html#a6add682c80e933c5f8a25219dbdc2ba7" title="Set the capture/compare value for a PWM channel." alt="" coords="392,55,593,80"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="337,49,376,53,376,58,336,54"/>
-</map>

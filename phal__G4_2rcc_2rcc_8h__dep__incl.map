@@ -1,15 +1,13 @@
 <map id="common/phal_G4/rcc/rcc.h" name="common/phal_G4/rcc/rcc.h">
-<area shape="rect" id="Node000001" title="G4 RCC public API implementation." alt="" coords="236,5,381,46"/>
+<area shape="rect" id="Node000001" title="G4 RCC public API implementation." alt="" coords="180,5,325,46"/>
 <area shape="rect" id="Node000002" href="$pwm__priv_8c.html" title="Private STM32G4 PWM register implementation." alt="" coords="5,94,161,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="244,54,135,96,133,91,242,49"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,56,122,96,120,91,199,51"/>
 <area shape="rect" id="Node000003" href="$phal__G4_2rcc_2rcc_8c.html" title="G4 RCC public API implementation." alt="" coords="125,183,270,223"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="264,57,244,75,227,95,216,117,208,141,201,183,196,182,203,139,211,115,222,93,240,71,260,53"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="240,62,227,95,204,183,199,182,222,93,235,60"/>
 <area shape="rect" id="Node000004" href="$rcc__priv_8h.html" title="G4 RCC private/register level implementation." alt="" coords="236,94,381,135"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="311,62,311,94,306,94,306,62"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="276,58,298,92,293,95,271,61"/>
 <area shape="rect" id="Node000006" href="$spi__priv_8c.html" title="G4 SPI Peripheral private/register level implementation." alt="" coords="406,94,550,135"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="362,51,441,91,438,96,359,56"/>
-<area shape="rect" id="Node000007" href="$g4__testing_2pwm__testing_8c.html" title="Test file for PWM on STM32G4." alt="" coords="574,94,730,135"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="397,46,575,91,573,96,395,51"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="319,49,427,91,425,96,317,54"/>
 <area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="273,146,224,184,221,180,270,142"/>
 <area shape="rect" id="Node000005" href="$rcc__priv_8c.html" title="G4 RCC private/register level implementation." alt="" coords="294,183,440,223"/>
 <area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="332,146,356,181,352,184,328,149"/>

@@ -57,5 +57,6 @@ var dashboard_2main_8h =
     [ "TV1_PLUS_PORT", "dashboard_2main_8h.html#afbd235e96fd9d2eb9631e648e5595d2c", null ],
     [ "UP_BUTTON_PIN", "dashboard_2main_8h.html#afd52094c7589001b63f550f3bbbaf513", null ],
     [ "UP_BUTTON_PORT", "dashboard_2main_8h.html#a7094449ce96efd626936b33389e21395", null ],
+    [ "adc_handle", "dashboard_2main_8h.html#ae13307269d9ab97e7be91b0569eca21b", null ],
     [ "raw_adc_values", "dashboard_2main_8h.html#a29bc293670e53a11d854f35bca555254", null ]
 ];

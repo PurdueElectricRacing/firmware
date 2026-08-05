@@ -1,9 +1,15 @@
 <map id="PHAL_DMA_restart" name="PHAL_DMA_restart">
-<area shape="rect" id="Node000001" title="Reload the transfer count from handle&#45;&gt;params.tx_size and start again." alt="" coords="191,55,328,80"/>
-<area shape="rect" id="Node000002" href="$common_2phal__G4_2usart_2usart_8c.html#a99cd2a703a69e6506a975cc574e4966a" title="Handles the USART interrupt logic." alt="" coords="17,5,131,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,53,124,34,126,29,194,48"/>
-<area shape="rect" id="Node000003" href="$phal__G4_2spi_2spi_8c.html#a9af893d97bde29796f60bc6df9b05fd0" title="Start a DMA&#45;backed SPI transfer." alt="" coords="5,55,143,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="175,70,143,70,143,65,175,65"/>
-<area shape="rect" id="Node000004" href="$common_2phal__G4_2usart_2usart_8c.html#a61183ec430b48e9dc2eef1a49f292a65" title="Starts a DMA&#45;based transmission." alt="" coords="7,104,141,130"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="194,87,126,106,124,101,193,82"/>
+<area shape="rect" id="Node000001" title="Reload the transfer count from handle&#45;&gt;params.tx_size and start again." alt="" coords="427,80,564,106"/>
+<area shape="rect" id="Node000002" href="$common_2phal__G4_2usart_2usart_8c.html#a99cd2a703a69e6506a975cc574e4966a" title="Handles the USART interrupt logic." alt="" coords="246,5,360,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="452,76,378,45,348,34,350,29,380,40,454,71"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2adc_2adc_8c.html#a429677cda7cd755ee9c4148b73159e76" title="Start an asynchronous circular&#45;DMA conversion into buffer" alt="" coords="227,55,379,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="411,84,379,80,380,75,412,79"/>
+<area shape="rect" id="Node000006" href="$phal__G4_2spi_2spi_8c.html#a9af893d97bde29796f60bc6df9b05fd0" title="Start a DMA&#45;backed SPI transfer." alt="" coords="234,104,372,130"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="412,106,372,111,371,106,411,101"/>
+<area shape="rect" id="Node000007" href="$common_2phal__G4_2usart_2usart_8c.html#a61183ec430b48e9dc2eef1a49f292a65" title="Starts a DMA&#45;based transmission." alt="" coords="236,153,370,179"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="452,115,380,145,349,155,347,150,378,140,450,110"/>
+<area shape="rect" id="Node000004" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="67,31,117,56"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="211,60,117,49,118,44,212,54"/>
+<area shape="rect" id="Node000005" href="$phal__G4_2adc_2adc_8c.html#a182c3e08bcff1970109448d9c24cb39c" title="Synchronous one&#45;buffer conversion using the DMA engine." alt="" coords="5,80,179,106"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="212,81,179,85,179,80,211,76"/>
 </map>

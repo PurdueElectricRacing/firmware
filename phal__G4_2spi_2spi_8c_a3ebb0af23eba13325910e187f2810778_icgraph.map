@@ -1,0 +1,5 @@
+<map id="PHAL_SPI_DMA2_Channel3_IRQHandler" name="PHAL_SPI_DMA2_Channel3_IRQHandler">
+<area shape="rect" id="Node000001" title="Service SPI3 TX when it owns DMA2 channel 3." alt="" coords="247,5,437,46"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2adc_2adc_8c.html#a66857fec7bb282eed8204a690f4ce5ae" title="Dispatch DMA2 channel 3 to ADC4 or its SPI3 TX fallback owner." alt="" coords="5,13,199,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="231,28,199,28,199,23,231,23"/>
+</map>

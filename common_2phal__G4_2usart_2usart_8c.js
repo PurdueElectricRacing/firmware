@@ -6,7 +6,6 @@ var common_2phal__G4_2usart_2usart_8c =
       [ "USART_DMA_RX", "common_2phal__G4_2usart_2usart_8c.html#a7bd69e038fbf6f28b02d943c2748241fa4356783521c3dcfe6f39116287ea3271", null ]
     ] ],
     [ "__attribute__", "common_2phal__G4_2usart_2usart_8c.html#af9aace1b44b73111e15aa39f06f43456", null ],
-    [ "DMA1_Channel1_IRQHandler", "common_2phal__G4_2usart_2usart_8c.html#a7b6fac3d670a4860ebec8a961d5c4a73", null ],
     [ "DMA2_Channel6_IRQHandler", "common_2phal__G4_2usart_2usart_8c.html#ae57a79f62c50fe096d2720c28081e8aa", null ],
     [ "DMA2_Channel7_IRQHandler", "common_2phal__G4_2usart_2usart_8c.html#aadbfdc5c96e7464ed3c1ef65de080fcd", null ],
     [ "handleDMAxComplete", "common_2phal__G4_2usart_2usart_8c.html#a97a5c06c33b4014a512b54d72196ccdb", null ],
@@ -14,6 +13,7 @@ var common_2phal__G4_2usart_2usart_8c =
     [ "LPUART1_IRQHandler", "common_2phal__G4_2usart_2usart_8c.html#ad6426d36e0b02912ed0ca65f3bf92719", null ],
     [ "PHAL_disableContinousRxDMA", "common_2phal__G4_2usart_2usart_8c.html#a2995d18679a10821577043876ac50825", null ],
     [ "PHAL_initUSART", "common_2phal__G4_2usart_2usart_8c.html#a1e13f03e291a90dcd93ffccf1b8edf65", null ],
+    [ "PHAL_USART_DMA1_Channel1_IRQHandler", "common_2phal__G4_2usart_2usart_8c.html#ae7e18ecf6be5d9fa93045398fbe8a272", null ],
     [ "PHAL_usartRxBl", "common_2phal__G4_2usart_2usart_8c.html#a55c4f79487a9ee75886ae1a2ccdeef27", null ],
     [ "PHAL_usartRxBusy", "common_2phal__G4_2usart_2usart_8c.html#a48a7696afd720294a514208cd96d1791", null ],
     [ "PHAL_usartRxDma", "common_2phal__G4_2usart_2usart_8c.html#a58f9158940d388fe2e706fddb01a759d", null ],

@@ -1,29 +1,38 @@
 <map id="common/phal_G4/dma/dma_wiring.h" name="common/phal_G4/dma/dma_wiring.h">
-<area shape="rect" id="Node000001" title="G4 DMA Peripheral wiring configuration and definitions." alt="" coords="404,5,556,46"/>
-<area shape="rect" id="Node000002" href="$phal__G4_2dma_2dma_8h.html" title="G4 DMA Peripheral public API implementation." alt="" coords="404,94,556,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="483,62,483,94,478,94,478,62"/>
-<area shape="rect" id="Node000003" href="$phal__G4_2dma_2dma_8c.html" title="G4 DMA Peripheral public API implementation." alt="" coords="5,271,158,312"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="389,122,336,129,280,141,223,159,171,185,146,204,125,228,94,273,90,270,120,224,142,200,168,180,221,154,279,136,335,124,388,117"/>
-<area shape="rect" id="Node000004" href="$dma__priv_8h.html" title="G4 DMA Peripheral private/register level implementation." alt="" coords="181,183,334,223"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="416,143,309,185,307,180,415,138"/>
-<area shape="rect" id="Node000006" href="$phal__G4_2spi_2spi_8c.html" title="G4 SPI." alt="" coords="349,360,494,401"/>
-<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="432,146,413,163,399,184,391,206,387,230,390,279,401,324,415,359,410,360,396,326,385,280,382,230,385,205,394,181,409,160,428,142"/>
-<area shape="rect" id="Node000007" href="$phal__G4_2spi_2spi_8h.html" title="G4 SPI public API." alt="" coords="408,183,552,223"/>
-<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="483,150,483,182,478,182,478,150"/>
-<area shape="rect" id="Node000009" href="$spi__priv_8h.html" title="Internal G4 SPI helpers and DMA configuration macros." alt="" coords="517,271,662,312"/>
-<area shape="poly" id="edge13_Node000002_Node000009" title=" " alt="" coords="528,142,549,160,566,181,578,204,585,228,591,271,586,271,580,229,573,206,562,184,545,163,525,146"/>
-<area shape="rect" id="Node000010" href="$common_2phal__G4_2usart_2usart_8c.html" title=" " alt="" coords="714,271,870,312"/>
-<area shape="poly" id="edge14_Node000002_Node000010" title=" " alt="" coords="572,120,638,128,705,140,762,157,783,168,798,181,809,203,811,227,802,271,797,270,806,227,804,204,794,184,780,173,760,162,704,145,638,133,572,125"/>
-<area shape="rect" id="Node000011" href="$phal__G4_2usart_2usart_8h.html" title=" " alt="" coords="627,183,784,223"/>
-<area shape="poly" id="edge15_Node000002_Node000011" title=" " alt="" coords="547,138,655,180,653,185,545,143"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="205,233,122,273,120,268,203,228"/>
-<area shape="rect" id="Node000005" href="$dma__priv_8c.html" title="G4 DMA Peripheral private/register level implementation." alt="" coords="181,271,334,312"/>
-<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="260,239,260,271,255,271,255,239"/>
-<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="471,239,431,360,426,359,466,237"/>
-<area shape="rect" id="Node000008" href="$spi__priv_8c.html" title="G4 SPI Peripheral private/register level implementation." alt="" coords="517,360,662,401"/>
-<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="485,238,492,275,508,311,530,337,557,357,554,362,527,341,503,313,487,276,480,239"/>
-<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="519,231,566,269,563,273,515,235"/>
-<area shape="poly" id="edge11_Node000009_Node000006" title=" " alt="" coords="539,322,461,362,458,357,537,317"/>
-<area shape="poly" id="edge12_Node000009_Node000008" title=" " alt="" coords="592,328,592,360,587,360,587,328"/>
-<area shape="poly" id="edge16_Node000011_Node000010" title=" " alt="" coords="738,233,774,269,771,273,734,236"/>
+<area shape="rect" id="Node000001" title="G4 DMA Peripheral wiring configuration and definitions." alt="" coords="603,5,756,46"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2dma_2dma_8h.html" title="G4 DMA Peripheral public API implementation." alt="" coords="603,94,756,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="682,62,682,94,677,94,677,62"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2adc_2adc_8h.html" title="G4 ADC public API. DMA&#45;only, DMA&#45;first conversions." alt="" coords="177,183,326,223"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="589,137,327,189,326,184,588,131"/>
+<area shape="rect" id="Node000007" href="$phal__G4_2dma_2dma_8c.html" title="G4 DMA Peripheral public API implementation." alt="" coords="289,271,441,312"/>
+<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="589,132,520,152,486,167,454,185,430,205,409,228,378,273,373,269,405,225,426,201,451,180,484,162,518,147,587,127"/>
+<area shape="rect" id="Node000008" href="$dma__priv_8h.html" title="G4 DMA Peripheral private/register level implementation." alt="" coords="465,183,617,223"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="637,145,574,184,571,180,634,141"/>
+<area shape="rect" id="Node000010" href="$phal__G4_2spi_2spi_8c.html" title="G4 SPI." alt="" coords="683,360,828,401"/>
+<area shape="poly" id="edge11_Node000002_Node000010" title=" " alt="" coords="674,150,669,185,666,226,670,270,682,311,700,337,724,357,721,362,696,341,677,313,664,271,661,226,663,185,669,149"/>
+<area shape="rect" id="Node000011" href="$phal__G4_2spi_2spi_8h.html" title="G4 SPI public API." alt="" coords="742,183,886,223"/>
+<area shape="poly" id="edge12_Node000002_Node000011" title=" " alt="" coords="724,141,785,180,782,184,721,145"/>
+<area shape="rect" id="Node000013" href="$spi__priv_8h.html" title="Internal G4 SPI helpers and DMA configuration macros." alt="" coords="691,271,836,312"/>
+<area shape="poly" id="edge18_Node000002_Node000013" title=" " alt="" coords="697,148,733,222,756,270,751,272,728,224,692,150"/>
+<area shape="rect" id="Node000014" href="$common_2phal__G4_2usart_2usart_8c.html" title=" " alt="" coords="961,271,1118,312"/>
+<area shape="poly" id="edge19_Node000002_Node000014" title=" " alt="" coords="772,133,836,153,899,180,926,199,951,221,1014,269,1011,273,947,225,923,204,897,185,834,158,770,138"/>
+<area shape="rect" id="Node000015" href="$phal__G4_2usart_2usart_8h.html" title=" " alt="" coords="961,183,1118,223"/>
+<area shape="poly" id="edge20_Node000002_Node000015" title=" " alt="" coords="772,135,962,180,960,185,771,140"/>
+<area shape="rect" id="Node000004" href="$phal__G4_2adc_2adc_8c.html" title="G4 ADC public API implementation. All register&#45;level detail lives in adc_priv.c; this file only coord..." alt="" coords="177,360,326,401"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="254,239,254,360,249,360,249,239"/>
+<area shape="rect" id="Node000005" href="$adc__priv_8h.html" title="Private register&#45;level API for the STM32G4 ADC PHAL." alt="" coords="65,271,214,312"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="216,235,166,273,163,269,213,231"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="178,319,228,357,225,362,175,324"/>
+<area shape="rect" id="Node000006" href="$adc__priv_8c.html" title="Register&#45;level implementation of the STM32G4 ADC PHAL." alt="" coords="5,360,154,401"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="119,326,95,361,91,358,115,323"/>
+<area shape="poly" id="edge9_Node000008_Node000007" title=" " alt="" coords="488,233,406,273,403,268,486,228"/>
+<area shape="rect" id="Node000009" href="$dma__priv_8c.html" title="G4 DMA Peripheral private/register level implementation." alt="" coords="465,271,617,312"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="544,239,544,271,538,271,538,239"/>
+<area shape="poly" id="edge13_Node000011_Node000010" title=" " alt="" coords="839,235,854,273,855,293,850,313,828,341,800,362,797,357,824,337,845,311,850,293,849,274,834,237"/>
+<area shape="rect" id="Node000012" href="$spi__priv_8c.html" title="G4 SPI Peripheral private/register level implementation." alt="" coords="851,360,996,401"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="844,234,871,270,898,317,918,359,913,361,893,319,867,273,840,237"/>
+<area shape="poly" id="edge15_Node000011_Node000013" title=" " alt="" coords="797,238,777,272,773,270,793,236"/>
+<area shape="poly" id="edge16_Node000013_Node000010" title=" " alt="" coords="763,328,760,360,755,359,758,327"/>
+<area shape="poly" id="edge17_Node000013_Node000012" title=" " alt="" coords="814,317,889,357,886,362,812,322"/>
+<area shape="poly" id="edge21_Node000015_Node000014" title=" " alt="" coords="1042,239,1042,271,1037,271,1037,239"/>
 </map>

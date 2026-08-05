@@ -1,0 +1,5 @@
+<map id="PHAL_ADC_Config_t" name="PHAL_ADC_Config_t">
+<area shape="rect" id="Node000001" title="Static configuration for one ADC instance." alt="" coords="29,94,174,120"/>
+<area shape="rect" id="Node000002" href="$structPHAL__ADC__ChannelConfig__t.html" title="One entry in the conversion sequence." alt="" coords="5,5,198,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,47,104,94,99,94,99,47"/>
+</map>

@@ -1,0 +1,29 @@
+<map id="ADC_PRIV_configure" name="ADC_PRIV_configure">
+<area shape="rect" id="Node000001" title="Configure and calibrate a disabled ADC instance." alt="" coords="5,153,151,179"/>
+<area shape="rect" id="Node000002" href="$adc__priv_8c.html#aa9f503d5c4306dfcbeebd828b786b0c4" title="Run single&#45;ended ADC calibration and wait for completion." alt="" coords="463,5,561,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="85,151,127,95,160,64,198,40,261,18,328,7,392,5,448,8,448,13,392,10,329,13,263,23,200,45,163,68,131,99,89,155"/>
+<area shape="rect" id="Node000004" href="$adc__priv_8c.html#a497a62c24dd03f65a68b0c11d7483cc1" title="Select the synchronous HCLK/4 ADC clock if it is not already configured." alt="" coords="215,55,354,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="96,151,141,120,198,89,212,83,214,88,200,94,143,125,99,155"/>
+<area shape="rect" id="Node000006" href="$adc__priv_8c.html#ace7087980070b4763edf77c577fb91bb" title="Apply the driver&#39;s fixed resolution, trigger, and DMA conversion settings." alt="" coords="199,104,370,130"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="134,150,212,131,213,136,136,155"/>
+<area shape="rect" id="Node000007" href="$adc__priv_8c.html#a54285aeb010313cf359e3ceee0e47f93" title="Program the configured channel order and sampling times." alt="" coords="202,153,366,179"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="151,164,187,164,187,169,151,169"/>
+<area shape="rect" id="Node000010" href="$adc__priv_8c.html#ad3262ac785543c903e694fc6e3e19d73" title="Enable and synchronize the peripheral clock for an ADC instance." alt="" coords="222,203,347,228"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="136,177,213,196,212,201,134,182"/>
+<area shape="rect" id="Node000011" href="$adc__priv_8c.html#aa3afc5f94f7567e81486566389fea45c" title="Stop and disable an ADC instance." alt="" coords="217,252,352,278"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="99,177,143,208,200,238,214,244,212,249,198,243,141,212,96,182"/>
+<area shape="rect" id="Node000013" href="$adc__priv_8c.html#aaae9006c12e90aa9625c64017e059c75" title="Wait at least the ADC regulator startup interval." alt="" coords="216,301,352,327"/>
+<area shape="poly" id="edge14_Node000001_Node000013" title=" " alt="" coords="91,178,134,232,165,262,200,288,209,293,206,297,197,292,161,266,130,235,86,181"/>
+<area shape="rect" id="Node000003" href="$adc__priv_8c.html#a1f3fd5c3bc414a1a102e8c12c2ee18fa" title="Wait for masked register bits to reach the requested state." alt="" coords="654,204,800,230"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="562,21,586,28,608,40,645,74,676,114,700,154,717,188,712,191,695,157,672,117,642,77,605,44,584,33,561,26"/>
+<area shape="rect" id="Node000005" href="$adc__priv_8c.html#afb224045594ce20e2052c6807f88868a" title="Return the common register bank containing an ADC instance." alt="" coords="434,55,590,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="354,65,418,65,418,70,354,70"/>
+<area shape="rect" id="Node000008" href="$adc__priv_8c.html#a570d40baf00864172f3ff6de188c556f" title="Set one channel to the driver&#39;s fixed maximum sampling time." alt="" coords="438,104,586,130"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="347,150,434,131,435,136,348,155"/>
+<area shape="rect" id="Node000009" href="$adc__priv_8c.html#abb339aec852af2c290ce96fafcea1d0e" title="Program one channel into a regular conversion sequence rank." alt="" coords="433,153,591,179"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="367,164,417,164,417,169,367,169"/>
+<area shape="poly" id="edge13_Node000011_Node000003" title=" " alt="" coords="352,250,418,240,639,219,639,225,418,245,353,255"/>
+<area shape="rect" id="Node000012" href="$adc__priv_8c.html#a01d9929d1c92f9a3ad55a90edd7ffa04" title="Stop an active regular conversion sequence." alt="" coords="418,255,606,280"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="352,263,402,264,402,269,352,268"/>
+<area shape="poly" id="edge12_Node000012_Node000003" title=" " alt="" coords="569,251,654,231,655,236,570,257"/>
+</map>

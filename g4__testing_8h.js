@@ -2,6 +2,7 @@ var g4__testing_8h =
 [
     [ "G4_TESTING_CHOSEN", "g4__testing_8h.html#a076661df55e8b1174dd8803261ddfb39", null ],
     [ "IZZE_IMU_CONFIG", "g4__testing_8h.html#aca08c4804fee3d695d3277c241b784b1", null ],
+    [ "TEST_ADC", "g4__testing_8h.html#aaa101e52d770ddd28cf31c5cb5fc7691", null ],
     [ "TEST_BLINKY", "g4__testing_8h.html#a2455bf6a6eb220dc21d497c9354997af", null ],
     [ "TEST_CANPILER", "g4__testing_8h.html#a001aa042dc8fa24b816cbf13d20a0779", null ],
     [ "TEST_CRC", "g4__testing_8h.html#a035e6e3a1384beb252cc3372f1b764ba", null ],

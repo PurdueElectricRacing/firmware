@@ -1,12 +1,15 @@
 <map id="source/dashboard/main.h" name="source/dashboard/main.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,172,31"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="20,226,83,252"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,32,72,80,61,150,55,211,50,210,56,150,67,78,81,31"/>
-<area shape="rect" id="Node000003" href="$phal_2gpio_8h.html" title=" " alt="" coords="81,79,218,105"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="101,29,132,65,128,69,97,33"/>
-<area shape="rect" id="Node000004" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="73,153,242,178"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="154,105,157,137,152,138,149,105"/>
-<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="141,181,83,220,81,215,138,177"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="121,226,194,252"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="160,179,160,211,155,211,155,179"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="42,5,208,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,226,69,252"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,34,72,53,49,80,37,113,32,148,35,211,29,211,26,148,31,112,44,78,68,49,97,29"/>
+<area shape="rect" id="Node000003" href="$phal_2adc_8h.html" title=" " alt="" coords="58,79,192,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="128,31,128,63,122,63,122,31"/>
+<area shape="rect" id="Node000006" href="$phal_2gpio_8h.html" title=" " alt="" coords="216,79,354,105"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="153,29,245,70,243,75,151,34"/>
+<area shape="rect" id="Node000004" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="59,153,228,178"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="131,104,139,137,134,138,126,106"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="127,181,69,220,66,215,124,177"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="107,226,180,252"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="146,179,146,211,141,211,141,179"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="262,108,183,148,180,143,260,103"/>
 </map>

@@ -30,12 +30,13 @@ var searchData=
   ['dlc_27',['DLC',['../structCanMsgTypeDef__t.html#a54fcfb1b9e4c743c50169c7d6fcafb45',1,'CanMsgTypeDef_t']]],
   ['dlc_28',['dlc',['../classparser_1_1Message.html#ab11594e4dc32e40ae4b76e3a3e45f376',1,'parser::Message']]],
   ['dlfr_5fcs_29',['dlfr_cs',['../struct____attribute____.html#a5061783d1a2d7d4cd3e928108d7647f3',1,'__attribute__']]],
-  ['dma_5fchan_5frequest_30',['dma_chan_request',['../structdma__init__t.html#a54fd89cee651d7fc97d622e87ae4db49',1,'dma_init_t']]],
-  ['dma_5fdirect_5fmode_5ferror_31',['dma_direct_mode_error',['../structusart__rx__errors__t.html#a13b923a938610d2d78e427ef979bacd2',1,'usart_rx_errors_t::dma_direct_mode_error'],['../structusart__tx__errors__t.html#a080c7f4052d8d5f9b744c7538ba835a5',1,'usart_tx_errors_t::dma_direct_mode_error']]],
-  ['dma_5ffifo_5foverrun_32',['dma_fifo_overrun',['../structusart__rx__errors__t.html#a866c2a8c6e6c060aa73b115c789f39e3',1,'usart_rx_errors_t::dma_fifo_overrun'],['../structusart__tx__errors__t.html#a4619827b6121000a0e72015da7ba738e',1,'usart_tx_errors_t::dma_fifo_overrun']]],
-  ['dma_5fmode_33',['dma_mode',['../structADCInitConfig__t.html#a8799d8b638ede0adaf02915ae1d8abb3',1,'ADCInitConfig_t']]],
-  ['dma_5ftransfer_5ferror_34',['dma_transfer_error',['../structusart__rx__errors__t.html#a24cc295a841e26485897a83f7e62138e',1,'usart_rx_errors_t::dma_transfer_error'],['../structusart__tx__errors__t.html#a5f78132d149494385100ed372f8e0885',1,'usart_tx_errors_t::dma_transfer_error']]],
-  ['dmaendoftransfer_35',['DMAEndOfTransfer',['../sdio_8c.html#a928ef806ccdf828249e4a31bcd2f6ad7',1,'sdio.c']]],
-  ['driver_5finterface_5fperiod_5fms_36',['DRIVER_INTERFACE_PERIOD_MS',['../driver__interface_8h.html#ae018e4f4f0007e56a28debba30f30fa5',1,'driver_interface.h']]],
-  ['dsrimpl_37',['DSRImpl',['../structSD__CSD.html#a1a3df7f40e9afd86c1f811a54e2c63c9',1,'SD_CSD']]]
+  ['dma_30',['dma',['../structPHAL__ADC__Handle__t.html#a02beb838500f93e535fba7c58477180d',1,'PHAL_ADC_Handle_t']]],
+  ['dma_5fchan_5frequest_31',['dma_chan_request',['../structdma__init__t.html#a54fd89cee651d7fc97d622e87ae4db49',1,'dma_init_t']]],
+  ['dma_5fdirect_5fmode_5ferror_32',['dma_direct_mode_error',['../structusart__rx__errors__t.html#a13b923a938610d2d78e427ef979bacd2',1,'usart_rx_errors_t::dma_direct_mode_error'],['../structusart__tx__errors__t.html#a080c7f4052d8d5f9b744c7538ba835a5',1,'usart_tx_errors_t::dma_direct_mode_error']]],
+  ['dma_5ffifo_5foverrun_33',['dma_fifo_overrun',['../structusart__rx__errors__t.html#a866c2a8c6e6c060aa73b115c789f39e3',1,'usart_rx_errors_t::dma_fifo_overrun'],['../structusart__tx__errors__t.html#a4619827b6121000a0e72015da7ba738e',1,'usart_tx_errors_t::dma_fifo_overrun']]],
+  ['dma_5fmode_34',['dma_mode',['../structADCInitConfig__t.html#a8799d8b638ede0adaf02915ae1d8abb3',1,'ADCInitConfig_t']]],
+  ['dma_5ftransfer_5ferror_35',['dma_transfer_error',['../structusart__rx__errors__t.html#a24cc295a841e26485897a83f7e62138e',1,'usart_rx_errors_t::dma_transfer_error'],['../structusart__tx__errors__t.html#a5f78132d149494385100ed372f8e0885',1,'usart_tx_errors_t::dma_transfer_error']]],
+  ['dmaendoftransfer_36',['DMAEndOfTransfer',['../sdio_8c.html#a928ef806ccdf828249e4a31bcd2f6ad7',1,'sdio.c']]],
+  ['driver_5finterface_5fperiod_5fms_37',['DRIVER_INTERFACE_PERIOD_MS',['../driver__interface_8h.html#ae018e4f4f0007e56a28debba30f30fa5',1,'driver_interface.h']]],
+  ['dsrimpl_38',['DSRImpl',['../structSD__CSD.html#a1a3df7f40e9afd86c1f811a54e2c63c9',1,'SD_CSD']]]
 ];

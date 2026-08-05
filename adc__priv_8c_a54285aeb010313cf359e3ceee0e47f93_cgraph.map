@@ -1,0 +1,7 @@
+<map id="adc_configure_sequence" name="adc_configure_sequence">
+<area shape="rect" id="Node000001" title="Program the configured channel order and sampling times." alt="" coords="5,31,170,56"/>
+<area shape="rect" id="Node000002" href="$adc__priv_8c.html#a570d40baf00864172f3ff6de188c556f" title="Set one channel to the driver&#39;s fixed maximum sampling time." alt="" coords="223,5,371,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,31,207,26,207,32,170,36"/>
+<area shape="rect" id="Node000003" href="$adc__priv_8c.html#abb339aec852af2c290ce96fafcea1d0e" title="Program one channel into a regular conversion sequence rank." alt="" coords="218,55,376,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="170,50,202,54,202,59,170,56"/>
+</map>

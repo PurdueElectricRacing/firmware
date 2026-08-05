@@ -1,9 +1,11 @@
 <map id="DMA2_Channel3_IRQHandler" name="DMA2_Channel3_IRQHandler">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,31,199,56"/>
-<area shape="rect" id="Node000002" href="$phal__F4_2spi_2spi_8c.html#ae45aa58f4fed151ef2f982b1ae226f3e" title="Handle TCIF interrupt signaling end of TX transaction." alt="" coords="247,31,475,56"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2spi_2spi_8c.html#a3ebb0af23eba13325910e187f2810778" title="Service SPI3 TX when it owns DMA2 channel 3." alt="" coords="247,23,437,64"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,41,231,41,231,46,199,46"/>
-<area shape="rect" id="Node000003" href="$phal__F4_2dma_2dma_8c.html#ad30451f8c2b3f2787deb02eeaaea43b0" title=" " alt="" coords="523,5,677,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="475,29,507,25,508,31,476,34"/>
-<area shape="rect" id="Node000004" href="$phal__F4_2gpio_2gpio_8h.html#a67db851520637ffa4de5968c9730220b" title="Write a logic value to an output pin." alt="" coords="538,55,663,80"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="476,52,522,57,522,62,475,58"/>
+<area shape="rect" id="Node000003" href="$phal__F4_2spi_2spi_8c.html#ae45aa58f4fed151ef2f982b1ae226f3e" title="Handle TCIF interrupt signaling end of TX transaction." alt="" coords="485,31,713,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="438,41,469,41,469,46,438,46"/>
+<area shape="rect" id="Node000004" href="$phal__F4_2dma_2dma_8c.html#ad30451f8c2b3f2787deb02eeaaea43b0" title=" " alt="" coords="761,5,916,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="714,29,746,25,746,31,714,34"/>
+<area shape="rect" id="Node000005" href="$phal__F4_2gpio_2gpio_8h.html#a67db851520637ffa4de5968c9730220b" title="Write a logic value to an output pin." alt="" coords="776,55,901,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="714,52,761,57,760,62,714,58"/>
 </map>

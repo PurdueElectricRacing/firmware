@@ -1,5 +1,0 @@
-<map id="pwm_update_2s" name="pwm_update_2s">
-<area shape="rect" id="Node000001" title="Cycle through PWM duty&#45;cycle values every two seconds." alt="" coords="103,5,219,31"/>
-<area shape="rect" id="Node000002" href="$g4__testing_2pwm__testing_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
-</map>

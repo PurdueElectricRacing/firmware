@@ -46,12 +46,12 @@
 <area shape="poly" id="edge43_Node000001_Node000028" title=" " alt="" coords="2057,19,2419,35,2645,52,2873,76,2914,83,2913,89,2872,82,2645,57,2418,40,2057,24"/>
 <area shape="rect" id="Node000029" href="$f4__testing_2canpiler_8c.html" title=" " alt="" coords="3076,86,3256,112"/>
 <area shape="poly" id="edge47_Node000001_Node000029" title=" " alt="" coords="2056,18,2245,22,2496,32,2779,49,3065,76,3109,83,3108,89,3064,82,2779,54,2496,37,2245,27,2056,23"/>
-<area shape="rect" id="Node000030" href="$g4__testing_2pwm__testing_8c.html" title="Test file for PWM on STM32G4." alt="" coords="3280,79,3436,120"/>
-<area shape="poly" id="edge48_Node000001_Node000030" title=" " alt="" coords="2057,16,2277,17,2578,24,2922,43,3097,57,3269,76,3279,78,3279,83,3268,82,3097,63,2921,48,2578,29,2277,22,2057,21"/>
-<area shape="rect" id="Node000031" href="$sdc_8c.html" title="SDC task implementation." alt="" coords="3460,79,3602,120"/>
-<area shape="poly" id="edge50_Node000001_Node000031" title=" " alt="" coords="2057,18,2762,36,3159,53,3324,64,3449,76,3460,78,3460,83,3448,82,3323,69,3158,58,2762,41,2057,24"/>
-<area shape="rect" id="Node000032" href="$gps_8c.html" title="GPS RX and parsing thread." alt="" coords="3626,79,3770,120"/>
-<area shape="poly" id="edge53_Node000001_Node000032" title=" " alt="" coords="2056,18,2390,23,2839,34,3287,51,3473,63,3614,76,3626,78,3625,83,3614,82,3473,68,3287,57,2839,39,2390,29,2056,23"/>
+<area shape="rect" id="Node000030" href="$blinky_8c.html" title=" " alt="" coords="3280,86,3452,112"/>
+<area shape="poly" id="edge48_Node000001_Node000030" title=" " alt="" coords="2057,16,2277,18,2578,26,2921,44,3097,58,3269,76,3312,83,3311,89,3268,82,3096,64,2921,50,2578,32,2277,24,2057,22"/>
+<area shape="rect" id="Node000031" href="$sdc_8c.html" title="SDC task implementation." alt="" coords="3475,79,3616,120"/>
+<area shape="poly" id="edge50_Node000001_Node000031" title=" " alt="" coords="2057,18,2769,36,3170,53,3337,64,3464,76,3475,78,3474,83,3463,82,3336,69,3170,58,2769,41,2057,24"/>
+<area shape="rect" id="Node000032" href="$gps_8c.html" title="GPS RX and parsing thread." alt="" coords="3641,79,3784,120"/>
+<area shape="poly" id="edge53_Node000001_Node000032" title=" " alt="" coords="2057,18,2393,23,2847,34,3298,51,3486,63,3629,76,3641,78,3640,83,3628,82,3486,68,3298,56,2847,39,2393,28,2057,23"/>
 <area shape="rect" id="Node000003" href="$can__init_8c.html" title="CAN library initialization, IRQ setup, and filter setup." alt="" coords="5,168,132,208"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="186,122,104,170,101,165,184,118"/>
 <area shape="rect" id="Node000004" href="$can__rx_8c.html" title="Common CAN RX queue, task, and callback handling." alt="" coords="156,168,282,208"/>

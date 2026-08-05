@@ -1,7 +1,0 @@
-<map id="PHAL_initADC" name="PHAL_initADC">
-<area shape="rect" id="Node000001" title="Initializes the ADC, requires GPIO config prior." alt="" coords="5,31,114,56"/>
-<area shape="rect" id="Node000002" href="$phal__G4_2adc_2adc_8c.html#a4ea092d64e90983548c5af7ae9b50af2" title=" " alt="" coords="162,5,359,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,34,146,30,147,35,114,39"/>
-<area shape="rect" id="Node000003" href="$phal__G4_2adc_2adc_8c.html#a77ebfe573b72a67840f5c624f3d693ba" title=" " alt="" coords="162,55,358,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="114,47,147,51,146,57,114,53"/>
-</map>

@@ -1,0 +1,7 @@
+<map id="PHAL_ADC_readDMA" name="PHAL_ADC_readDMA">
+<area shape="rect" id="Node000001" title="Start an asynchronous circular&#45;DMA conversion into buffer" alt="" coords="227,31,379,56"/>
+<area shape="rect" id="Node000002" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="67,5,117,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="211,35,117,24,118,18,212,30"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2adc_2adc_8c.html#a182c3e08bcff1970109448d9c24cb39c" title="Synchronous one&#45;buffer conversion using the DMA engine." alt="" coords="5,55,179,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="212,57,179,60,179,55,211,51"/>
+</map>

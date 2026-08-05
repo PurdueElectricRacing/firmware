@@ -106,13 +106,14 @@ var searchData=
   ['busses_103',['busses',['../classparser_1_1Node.html#ad0dfbd376d00b64c4453ff6a9215302d',1,'parser.Node.busses'],['../classparser_1_1SystemContext.html#ac69d407c6fb1d994efa03651e30ff471',1,'parser.SystemContext.busses']]],
   ['busses_20tt_104',['Node-to-Bus Mapping (per node JSON, under &lt;tt&gt;busses&lt;/tt&gt;)',['../md_can__library_2configs_2README.html#autotoc_md112',1,'']]],
   ['busview_105',['BusView',['../classparser_1_1BusView.html',1,'parser']]],
-  ['button_5fexti_5fmask_106',['BUTTON_EXTI_MASK',['../driver__interface_8c.html#a5525abb49a0c0e242e8f44e1e1b1e489',1,'driver_interface.c']]],
-  ['buzzer_5fenable_107',['buzzer_enable',['../structcar__t.html#a1ed45443eee3c1f1c8ff8926bdfd89ad',1,'car_t']]],
-  ['buzzer_5fpin_108',['BUZZER_PIN',['../main__module_2main_8h.html#ab61d0981ed42df9e18211b273d22cfcd',1,'main.h']]],
-  ['buzzer_5fport_109',['BUZZER_PORT',['../main__module_2main_8h.html#abf0d28f731e836936a87086ea8b798da',1,'main.h']]],
-  ['buzzer_5fstart_5ftime_110',['buzzer_start_time',['../structcar__t.html#ae1b2cfa00a8296e503bfce011f51e8d5',1,'car_t']]],
-  ['bxcan_111',['bxcan',['../classcodegen_1_1FilterRenderContext.html#a76922d37a515010a87b4602c91ac0700',1,'codegen::FilterRenderContext']]],
-  ['bxcanfilterbankcontext_112',['BxcanFilterBankContext',['../classcodegen_1_1BxcanFilterBankContext.html',1,'codegen']]],
-  ['bxcanfiltercontext_113',['BxcanFilterContext',['../classcodegen_1_1BxcanFilterContext.html',1,'codegen']]],
-  ['byte_5forder_114',['byte_order',['../classparser_1_1Signal.html#aae685f17ed27395decd0311ed2b660f6',1,'parser.Signal.byte_order'],['../classparser_1_1Message.html#a1b55f82cdcfefc7bbf5e0b5c23206c80',1,'parser.Message.byte_order'],['../classparser_1_1Message.html#afb62b9cdcbf3dc88ef769c7c30da12b4',1,'parser.Message.byte_order']]]
+  ['busy_106',['busy',['../structPHAL__ADC__Handle__t.html#a224a675307a5bfd35a864265bed8caf0',1,'PHAL_ADC_Handle_t']]],
+  ['button_5fexti_5fmask_107',['BUTTON_EXTI_MASK',['../driver__interface_8c.html#a5525abb49a0c0e242e8f44e1e1b1e489',1,'driver_interface.c']]],
+  ['buzzer_5fenable_108',['buzzer_enable',['../structcar__t.html#a1ed45443eee3c1f1c8ff8926bdfd89ad',1,'car_t']]],
+  ['buzzer_5fpin_109',['BUZZER_PIN',['../main__module_2main_8h.html#ab61d0981ed42df9e18211b273d22cfcd',1,'main.h']]],
+  ['buzzer_5fport_110',['BUZZER_PORT',['../main__module_2main_8h.html#abf0d28f731e836936a87086ea8b798da',1,'main.h']]],
+  ['buzzer_5fstart_5ftime_111',['buzzer_start_time',['../structcar__t.html#ae1b2cfa00a8296e503bfce011f51e8d5',1,'car_t']]],
+  ['bxcan_112',['bxcan',['../classcodegen_1_1FilterRenderContext.html#a76922d37a515010a87b4602c91ac0700',1,'codegen::FilterRenderContext']]],
+  ['bxcanfilterbankcontext_113',['BxcanFilterBankContext',['../classcodegen_1_1BxcanFilterBankContext.html',1,'codegen']]],
+  ['bxcanfiltercontext_114',['BxcanFilterContext',['../classcodegen_1_1BxcanFilterContext.html',1,'codegen']]],
+  ['byte_5forder_115',['byte_order',['../classparser_1_1Signal.html#aae685f17ed27395decd0311ed2b660f6',1,'parser.Signal.byte_order'],['../classparser_1_1Message.html#a1b55f82cdcfefc7bbf5e0b5c23206c80',1,'parser.Message.byte_order'],['../classparser_1_1Message.html#afb62b9cdcbf3dc88ef769c7c30da12b4',1,'parser.Message.byte_order']]]
 ];

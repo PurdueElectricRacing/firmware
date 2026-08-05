@@ -1,4 +1,7 @@
 <map id="common/phal_G4/adc" name="common/phal_G4/adc">
-<area shape="rect" id="node1" href="dir_e2d872916054dced2b0c0cd6af07241b.html" title="adc" alt="" coords="30,52,72,78"/>
-<area shape="rect" id="clust1" href="dir_537865b7fa0534ad07c686239f783682.html" title="phal_G4" alt="" coords="16,16,85,89"/>
+<area shape="rect" id="node1" href="dir_eb95523fb33d24af980f98de3484abef.html" title="dma" alt="" coords="28,126,74,152"/>
+<area shape="rect" id="node2" href="dir_e2d872916054dced2b0c0cd6af07241b.html" title="adc" alt="" coords="30,52,72,78"/>
+<area shape="poly" id="edge1" href="dir_000003_000021.html" alt="" coords="53,78,53,110,48,110,48,78"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000003_000021.html" title="1" alt="" coords="56,100,63,115"/>
+<area shape="rect" id="clust1" href="dir_537865b7fa0534ad07c686239f783682.html" title="phal_G4" alt="" coords="16,16,85,162"/>
 </map>

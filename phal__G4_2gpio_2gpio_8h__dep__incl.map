@@ -1,15 +1,13 @@
 <map id="common/phal_G4/gpio/gpio.h" name="common/phal_G4/gpio/gpio.h">
-<area shape="rect" id="Node000001" title="GPIO Driver for STM32L432 Devices." alt="" coords="228,5,379,46"/>
+<area shape="rect" id="Node000001" title="GPIO Driver for STM32L432 Devices." alt="" coords="173,5,325,46"/>
 <area shape="rect" id="Node000002" href="$phal__G4_2gpio_2gpio_8c.html" title="GPIO Driver for STM32L432 Devices." alt="" coords="5,94,157,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="240,54,133,96,131,91,238,49"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,56,120,96,118,91,196,51"/>
 <area shape="rect" id="Node000003" href="$phal__G4_2spi_2spi_8c.html" title="G4 SPI." alt="" coords="122,183,266,223"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="259,57,239,75,222,95,211,117,204,140,198,183,192,182,199,139,206,115,217,93,235,71,256,53"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="235,61,222,95,200,183,195,182,217,93,230,59"/>
 <area shape="rect" id="Node000004" href="$spi__priv_8h.html" title="Internal G4 SPI helpers and DMA configuration macros." alt="" coords="232,94,376,135"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="306,62,306,94,301,94,301,62"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="272,58,294,92,289,95,267,61"/>
 <area shape="rect" id="Node000006" href="$common_2phal__G4_2usart_2usart_8c.html" title=" " alt="" coords="400,94,556,135"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="358,51,440,91,438,96,356,56"/>
-<area shape="rect" id="Node000007" href="$g4__testing_2pwm__testing_8c.html" title="Test file for PWM on STM32G4." alt="" coords="580,94,736,135"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="395,46,581,91,579,97,394,52"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="316,49,427,91,425,96,314,54"/>
 <area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="268,147,221,184,217,180,265,143"/>
 <area shape="rect" id="Node000005" href="$spi__priv_8c.html" title="G4 SPI Peripheral private/register level implementation." alt="" coords="290,183,434,223"/>
 <area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="328,146,351,181,347,184,323,149"/>

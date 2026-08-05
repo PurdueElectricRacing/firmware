@@ -31,8 +31,9 @@ var searchData=
   ['bus_5fconfigs_28',['bus_configs',['../classparser_1_1SystemContext.html#a43f8aa2f11a3a59e1f936d8f0b8b08a5',1,'parser::SystemContext']]],
   ['bus_5fname_29',['bus_name',['../classlinker_1_1BusLinker.html#a363864656a4426d8e46f90f34d1cd07d',1,'linker::BusLinker']]],
   ['busses_30',['busses',['../classparser_1_1Node.html#ad0dfbd376d00b64c4453ff6a9215302d',1,'parser.Node.busses'],['../classparser_1_1SystemContext.html#ac69d407c6fb1d994efa03651e30ff471',1,'parser.SystemContext.busses']]],
-  ['buzzer_5fenable_31',['buzzer_enable',['../structcar__t.html#a1ed45443eee3c1f1c8ff8926bdfd89ad',1,'car_t']]],
-  ['buzzer_5fstart_5ftime_32',['buzzer_start_time',['../structcar__t.html#ae1b2cfa00a8296e503bfce011f51e8d5',1,'car_t']]],
-  ['bxcan_33',['bxcan',['../classcodegen_1_1FilterRenderContext.html#a76922d37a515010a87b4602c91ac0700',1,'codegen::FilterRenderContext']]],
-  ['byte_5forder_34',['byte_order',['../classparser_1_1Signal.html#aae685f17ed27395decd0311ed2b660f6',1,'parser.Signal.byte_order'],['../classparser_1_1Message.html#a1b55f82cdcfefc7bbf5e0b5c23206c80',1,'parser.Message.byte_order'],['../classparser_1_1Message.html#afb62b9cdcbf3dc88ef769c7c30da12b4',1,'parser.Message.byte_order']]]
+  ['busy_31',['busy',['../structPHAL__ADC__Handle__t.html#a224a675307a5bfd35a864265bed8caf0',1,'PHAL_ADC_Handle_t']]],
+  ['buzzer_5fenable_32',['buzzer_enable',['../structcar__t.html#a1ed45443eee3c1f1c8ff8926bdfd89ad',1,'car_t']]],
+  ['buzzer_5fstart_5ftime_33',['buzzer_start_time',['../structcar__t.html#ae1b2cfa00a8296e503bfce011f51e8d5',1,'car_t']]],
+  ['bxcan_34',['bxcan',['../classcodegen_1_1FilterRenderContext.html#a76922d37a515010a87b4602c91ac0700',1,'codegen::FilterRenderContext']]],
+  ['byte_5forder_35',['byte_order',['../classparser_1_1Signal.html#aae685f17ed27395decd0311ed2b660f6',1,'parser.Signal.byte_order'],['../classparser_1_1Message.html#a1b55f82cdcfefc7bbf5e0b5c23206c80',1,'parser.Message.byte_order'],['../classparser_1_1Message.html#afb62b9cdcbf3dc88ef769c7c30da12b4',1,'parser.Message.byte_order']]]
 ];

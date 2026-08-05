@@ -47,7 +47,7 @@
   </g>
 </defs>
 <script type="application/ecmascript">
-var viewWidth = 2831;
+var viewWidth = 2842;
 var viewHeight = 216;
 var sectionId = 'dynsection-1';
 </script>
@@ -491,10 +491,9 @@ var sectionId = 'dynsection-1';
 <!-- Node30 -->
 <g id="Node000030" class="node">
 <title>Node30</title>
-<g id="a_Node000030"><a xlink:href="g4__testing_2pwm__testing_8c.html" target="_top" xlink:title="Test file for PWM on STM32G4.">
-<polygon fill="white" stroke="#666666" points="2573,-152.25 2455.75,-152.25 2455.75,-121.75 2573,-121.75 2573,-152.25"/>
-<text text-anchor="start" x="2463.75" y="-138.75" font-family="Helvetica,sans-Serif" font-size="10.00">source/g4_testing/pwm</text>
-<text text-anchor="middle" x="2514.38" y="-127.5" font-family="Helvetica,sans-Serif" font-size="10.00">_testing.c</text>
+<g id="a_Node000030"><a xlink:href="blinky_8c.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="2584.62,-146.62 2456.12,-146.62 2456.12,-127.38 2584.62,-127.38 2584.62,-146.62"/>
+<text text-anchor="middle" x="2520.38" y="-133.12" font-family="Helvetica,sans-Serif" font-size="10.00">source/g4_testing/blinky.c</text>
 </a>
 </g>
 </g>
@@ -502,8 +501,8 @@ var sectionId = 'dynsection-1';
 <g id="edge48_Node000001_Node000030" class="edge">
 <title>Node1&#45;&gt;Node30</title>
 <g id="a_edge48_Node000001_Node000030"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1538.52,-197.69C1705.9,-198.48 2111.16,-195.31 2447.38,-152.25 2449.97,-151.92 2452.61,-151.54 2455.28,-151.12"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1538.66,-194.19 1528.64,-197.64 1538.62,-201.19 1538.66,-194.19"/>
+<path fill="none" stroke="#63b8ff" d="M1538.47,-197.25C1705.75,-197.19 2110.82,-192.48 2447.38,-152.25 2457.89,-150.99 2469.16,-149.08 2479.62,-147.06"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1538.59,-193.75 1528.59,-197.25 1538.59,-200.75 1538.59,-193.75"/>
 </a>
 </g>
 </g>
@@ -511,9 +510,9 @@ var sectionId = 'dynsection-1';
 <g id="Node000031" class="node">
 <title>Node31</title>
 <g id="a_Node000031"><a xlink:href="sdc_8c.html" target="_top" xlink:title="SDC task implementation.">
-<polygon fill="white" stroke="#666666" points="2697.38,-152.25 2591.38,-152.25 2591.38,-121.75 2697.38,-121.75 2697.38,-152.25"/>
-<text text-anchor="start" x="2599.38" y="-138.75" font-family="Helvetica,sans-Serif" font-size="10.00">source/main_module</text>
-<text text-anchor="middle" x="2644.38" y="-127.5" font-family="Helvetica,sans-Serif" font-size="10.00">/sdc/sdc.c</text>
+<polygon fill="white" stroke="#666666" points="2708.38,-152.25 2602.38,-152.25 2602.38,-121.75 2708.38,-121.75 2708.38,-152.25"/>
+<text text-anchor="start" x="2610.38" y="-138.75" font-family="Helvetica,sans-Serif" font-size="10.00">source/main_module</text>
+<text text-anchor="middle" x="2655.38" y="-127.5" font-family="Helvetica,sans-Serif" font-size="10.00">/sdc/sdc.c</text>
 </a>
 </g>
 </g>
@@ -521,8 +520,8 @@ var sectionId = 'dynsection-1';
 <g id="edge50_Node000001_Node000031" class="edge">
 <title>Node1&#45;&gt;Node31</title>
 <g id="a_edge50_Node000001_Node000031"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1538.72,-195.66C1758.88,-191.93 2380.2,-179.26 2582.38,-152.25 2585.22,-151.87 2588.13,-151.42 2591.06,-150.92"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1538.74,-192.16 1528.8,-195.82 1538.86,-199.15 1538.74,-192.16"/>
+<path fill="none" stroke="#63b8ff" d="M1538.7,-195.69C1760.33,-192.04 2388.98,-179.52 2593.38,-152.25 2596.22,-151.87 2599.13,-151.42 2602.06,-150.92"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1538.66,-192.19 1528.72,-195.85 1538.77,-199.19 1538.66,-192.19"/>
 </a>
 </g>
 </g>
@@ -530,9 +529,9 @@ var sectionId = 'dynsection-1';
 <g id="Node000032" class="node">
 <title>Node32</title>
 <g id="a_Node000032"><a xlink:href="gps_8c.html" target="_top" xlink:title="GPS RX and parsing thread.">
-<polygon fill="white" stroke="#666666" points="2823.12,-152.25 2715.62,-152.25 2715.62,-121.75 2823.12,-121.75 2823.12,-152.25"/>
-<text text-anchor="start" x="2723.62" y="-138.75" font-family="Helvetica,sans-Serif" font-size="10.00">source/torque_vector</text>
-<text text-anchor="middle" x="2769.38" y="-127.5" font-family="Helvetica,sans-Serif" font-size="10.00">/sensors/gps.c</text>
+<polygon fill="white" stroke="#666666" points="2834.12,-152.25 2726.62,-152.25 2726.62,-121.75 2834.12,-121.75 2834.12,-152.25"/>
+<text text-anchor="start" x="2734.62" y="-138.75" font-family="Helvetica,sans-Serif" font-size="10.00">source/torque_vector</text>
+<text text-anchor="middle" x="2780.38" y="-127.5" font-family="Helvetica,sans-Serif" font-size="10.00">/sensors/gps.c</text>
 </a>
 </g>
 </g>
@@ -540,8 +539,8 @@ var sectionId = 'dynsection-1';
 <g id="edge53_Node000001_Node000032" class="edge">
 <title>Node1&#45;&gt;Node32</title>
 <g id="a_edge53_Node000001_Node000032"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M1538.3,-195.99C1774.3,-193 2478.94,-181.78 2706.38,-152.25 2709.27,-151.87 2712.22,-151.43 2715.19,-150.93"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="1538.56,-192.48 1528.6,-196.11 1538.64,-199.48 1538.56,-192.48"/>
+<path fill="none" stroke="#63b8ff" d="M1538.57,-196.01C1776.24,-193.09 2487.8,-182.02 2717.38,-152.25 2720.27,-151.88 2723.22,-151.43 2726.19,-150.93"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="1538.75,-192.51 1528.8,-196.13 1538.84,-199.51 1538.75,-192.51"/>
 </a>
 </g>
 </g>

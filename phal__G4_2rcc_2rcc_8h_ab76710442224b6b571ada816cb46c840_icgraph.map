@@ -1,15 +1,13 @@
 <map id="PHAL_RCC_getAPB2ClockHz" name="PHAL_RCC_getAPB2ClockHz">
-<area shape="rect" id="Node000001" title=" " alt="" coords="523,55,723,80"/>
-<area shape="rect" id="Node000002" href="$dashboard_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="348,5,398,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="539,54,398,26,399,20,540,48"/>
-<area shape="rect" id="Node000003" href="$pwm__priv_8c.html#a7eb5094e1f6ca9e94bb0fe31a397a683" title="Get timer specific information." alt="" coords="271,55,475,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="508,70,476,70,476,65,508,65"/>
-<area shape="rect" id="Node000006" href="$spi__priv_8c.html#a7b8f558ba30544fcae726c02b845dde5" title="Calculate the SPI baud&#45;rate prescaler." alt="" coords="272,104,474,145"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="550,87,466,106,464,101,548,82"/>
-<area shape="rect" id="Node000004" href="$phal__G4_2pwm_2pwm_8c.html#a8dfd9bea13ee093add3d12b69100eda4" title="Initialize consecutive PWM channels beginning at channel 1." alt="" coords="103,55,223,80"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="255,70,224,70,224,65,255,65"/>
-<area shape="rect" id="Node000005" href="$g4__testing_2pwm__testing_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,55,55,80"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="87,70,55,70,55,65,87,65"/>
-<area shape="rect" id="Node000007" href="$phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="108,112,218,138"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="257,128,218,128,218,122,257,122"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="426,55,625,80"/>
+<area shape="rect" id="Node000002" href="$dashboard_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="251,5,300,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="441,54,301,26,302,20,442,48"/>
+<area shape="rect" id="Node000003" href="$pwm__priv_8c.html#a7eb5094e1f6ca9e94bb0fe31a397a683" title="Get timer specific information." alt="" coords="174,55,378,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="411,70,379,70,379,65,411,65"/>
+<area shape="rect" id="Node000005" href="$spi__priv_8c.html#a7b8f558ba30544fcae726c02b845dde5" title="Calculate the SPI baud&#45;rate prescaler." alt="" coords="175,104,377,145"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="452,87,368,106,367,101,451,82"/>
+<area shape="rect" id="Node000004" href="$phal__G4_2pwm_2pwm_8c.html#a8dfd9bea13ee093add3d12b69100eda4" title="Initialize consecutive PWM channels beginning at channel 1." alt="" coords="5,55,126,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="158,70,126,70,126,65,158,65"/>
+<area shape="rect" id="Node000006" href="$phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="10,112,121,138"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="159,128,121,128,121,122,159,122"/>
 </map>

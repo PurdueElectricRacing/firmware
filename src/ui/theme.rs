@@ -45,7 +45,7 @@ impl ThemeSelection {
             ThemeSelection::OneDark => Some(ONEDARK_THEME_PATH),
             ThemeSelection::Default => None,
         };
-        path.and_then(|p| ThemeColors::load_from_file(p))
+        path.and_then(ThemeColors::load_from_file)
             .unwrap_or_default()
     }
 

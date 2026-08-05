@@ -5,7 +5,7 @@ const READ_RETRY_SLEEP_MS: u64 = 2;
 const BUS_LOAD_UPDATE_MS: u128 = 200;
 
 // Returns the number of payload data bytes in the CAN frame if it was a Can2 frame
-fn process_can_frame(frame: slcan::CanFrame, state: &can::state::State) -> usize {
+fn process_can_frame(frame: &slcan::CanFrame, state: &can::state::State) -> usize {
     match frame {
         slcan::CanFrame::Can2(frame2) => {
             let decode_msg_id = util::can::slcan_to_u32_with_extid_flag(&frame2.id());
@@ -80,9 +80,11 @@ pub fn start_can_thread(
     can_to_ui_tx: std::sync::mpsc::Sender<messages::MsgFromCan>,
     ui_to_can_rx: std::sync::mpsc::Receiver<messages::MsgFromUi>,
     selected_source: Option<connection::ConnectionSource>,
+    log_folder: std::path::PathBuf,
 ) -> std::thread::JoinHandle<()> {
     std::thread::spawn(move || {
         let mut state = can::state::State::new(can_to_ui_tx, ui_to_can_rx, selected_source);
+        let mut daq_logger = can::daq_parser::DaqLogger::new(log_folder);
 
         // MAIN LOOP
         loop {
@@ -115,6 +117,9 @@ pub fn start_can_thread(
                     }
                     messages::MsgFromUi::DeleteSendMessage { msg_id } => {
                         state.delete_send_message(msg_id);
+                    }
+                    messages::MsgFromUi::UpdateLogFolder(path) => {
+                        daq_logger.update_folder(path);
                     }
                 }
             }
@@ -198,6 +203,7 @@ pub fn start_can_thread(
                                 .can_to_ui_tx
                                 .send(messages::MsgFromCan::ConnectionSuccessful)
                                 .expect("Failed to send connection successful message");
+                            daq_logger.reset_start_time();
                             log::info!("Connected to {:?}", source);
                         }
                         Err(e) => {
@@ -229,9 +235,17 @@ pub fn start_can_thread(
             match active_driver.read_frames() {
                 Ok(frames) => {
                     for frame in frames {
-                        let data_bytes = process_can_frame(frame, &state);
+                        let data_bytes = process_can_frame(&frame, &state);
                         state.bus_load_tracker.record_frame(data_bytes);
+
+                        // Log each frame (buffered, not flushed yet)
+                        match &frame {
+                            slcan::CanFrame::Can2(f2) => daq_logger.log_can2_frame(f2, false),
+                            // RawFrame is fixed at 8 bytes (CAN 2.0 format); FD frames are not logged
+                            slcan::CanFrame::CanFd(_) => {}
+                        }
                     }
+
                     // Send bus load updates periodically
                     if state.last_bus_load_update.elapsed().as_millis() >= BUS_LOAD_UPDATE_MS {
                         state.bus_load_tracker.cleanup();
@@ -288,6 +302,7 @@ pub fn start_can_thread(
                 }
             }
         }
+
         unreachable!("CAN thread should never exit on its own");
     })
 }

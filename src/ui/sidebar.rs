@@ -1,4 +1,6 @@
-use crate::{action, app, assets, connection, formatter, messages, util, widget_constructor};
+use crate::{
+    action, app, assets, connection, formatter, messages, settings, util, widget_constructor,
+};
 use eframe::egui;
 
 pub fn select_dbc(
@@ -276,6 +278,25 @@ pub fn show(app: &mut app::DAQApp, ctx: &egui::Context) {
                 } else {
                     ui.label("DBC: None selected");
                 }
+            });
+
+            ui.horizontal(|ui| {
+                if ui.button("Select Log Folder").clicked()
+                    && let Some(path) = rfd::FileDialog::new().pick_folder()
+                {
+                    app.ui_to_can_tx
+                        .send(messages::MsgFromUi::UpdateLogFolder(path.clone()))
+                        .expect("Failed to send log folder update");
+                    app.log_folder = Some(path);
+                    app.save_settings();
+                }
+
+                let log_display = app
+                    .log_folder
+                    .clone()
+                    .unwrap_or_else(|| std::path::PathBuf::from(settings::DEFAULT_LOG_FOLDER));
+
+                ui.label(log_display.display().to_string());
             });
 
             ui.separator();

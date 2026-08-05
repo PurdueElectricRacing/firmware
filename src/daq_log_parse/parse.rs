@@ -11,10 +11,10 @@ pub struct ParsedMessage {
 #[repr(C)]
 #[derive(Pod, Zeroable, Copy, Clone)]
 // based on definition of timestamped_frame_t in timestamped_frame.h in firmware repo
-struct RawFrame {
-    ticks_ms: u32,
-    identity: u32,
-    data: [u8; 8],
+pub struct RawFrame {
+    pub ticks_ms: u32,
+    pub identity: u32,
+    pub data: [u8; 8],
 }
 
 pub fn parse_log_files(

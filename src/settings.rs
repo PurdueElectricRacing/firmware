@@ -1,6 +1,7 @@
 use crate::{connection, theme};
 
 pub const SETTINGS_PATH: &str = "settings.json";
+pub const DEFAULT_LOG_FOLDER: &str = "logs";
 const DEFAULT_UDP_PORT: u16 = 5005;
 const DEFAULT_CAN_SPEED: connection::CanBusSpeed = connection::CanBusSpeed::Kbps500;
 
@@ -12,6 +13,8 @@ pub struct Settings {
     pub udp_port: u16,
     pub theme: theme::ThemeSelection,
     pub pixels_per_point: Option<f32>,
+    #[serde(default)]
+    pub log_folder: Option<std::path::PathBuf>,
 }
 
 impl Default for Settings {
@@ -23,6 +26,7 @@ impl Default for Settings {
             udp_port: DEFAULT_UDP_PORT,
             theme: theme::ThemeSelection::Default,
             pixels_per_point: None,
+            log_folder: None,
         }
     }
 }

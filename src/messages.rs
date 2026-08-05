@@ -5,6 +5,7 @@ pub enum MsgFromUi {
     Connect(connection::ConnectionSource),
     AddSendMessage(AddSendMessage),
     DeleteSendMessage { msg_id: u32 },
+    UpdateLogFolder(std::path::PathBuf),
 }
 
 pub enum MsgFromCan {

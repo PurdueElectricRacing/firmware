@@ -193,7 +193,7 @@ void DMA1_Channel4_IRQHandler(void) {
 
 /// Service USART3 RX when it owns DMA1 channel 1.
 void PHAL_USART_DMA1_Channel1_IRQHandler(void) {
-    handleDMAxComplete(DMA1, 1, USART_DMA_RX, USART3_ACTIVE_IDX);
+    PHAL_USART_HandleDMA(USART3_IDX);
 }
 
 // ADC provides the strong shared vector when linked and delegates here when

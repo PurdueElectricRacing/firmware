@@ -1,0 +1,7 @@
+background   = "#1e1e2e"
+panel_bg     = "#313244"
+text         = "#fab387"
+accent       = "#fab387"
+button       = "#45475a"
+button_hover = "#585b70"
+button_text  = "#fab387"

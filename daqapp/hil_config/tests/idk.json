@@ -1,0 +1,27 @@
+{
+	"$schema": "../schema.json",
+
+	"name": "Pack sanity check",
+	"description": "Verify thermistor response",
+
+	"tx": [
+		{
+			"timestamp": 15,
+			"msg_name": "pack_stats",
+			"signals": {
+				"pack_voltage": 540.0,
+				"pack_current": 10.0,
+				"max_temp": 35.0
+			}
+		}
+	],
+	"expect": [
+		{
+			"window": [15, 20],
+			"msg_name": "thermistor_telemetry",
+			"signals": {
+				"temperature": [30.0, 40.0]
+			}
+		}
+	]
+}

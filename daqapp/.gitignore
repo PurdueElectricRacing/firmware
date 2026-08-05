@@ -1,0 +1,9 @@
+.envrc
+.direnv
+.DS_Store
+
+/target
+colors.toml
+settings.json
+
+/logs

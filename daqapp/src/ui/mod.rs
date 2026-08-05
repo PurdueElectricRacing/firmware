@@ -1,0 +1,17 @@
+pub mod battery;
+pub mod bootloader;
+pub mod bus_load;
+pub mod command_palette;
+pub mod dbc_msg_picker;
+pub mod dynamics;
+pub mod gg_plot;
+pub mod gps_plot;
+pub mod hil;
+pub mod jitter;
+pub mod log_parser;
+pub mod scope;
+pub mod send;
+pub mod sidebar;
+pub mod theme;
+pub mod viewer_list;
+pub mod viewer_table;

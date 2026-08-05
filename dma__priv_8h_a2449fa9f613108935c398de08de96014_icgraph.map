@@ -1,15 +1,17 @@
 <map id="PHAL_DMA_priv_setMemAddress" name="PHAL_DMA_priv_setMemAddress">
-<area shape="rect" id="Node000001" title="Write the memory&#45;side address (CMAR)" alt="" coords="520,80,744,106"/>
-<area shape="rect" id="Node000002" href="$phal__G4_2dma_2dma_8c.html#a44be3f4d5e3f90d9fa73d1b808185d53" title="Claim a DMA channel and configure it from handle&#45;&gt;wiring and handle&#45;&gt;params." alt="" coords="316,55,433,80"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="504,83,434,76,434,71,505,78"/>
-<area shape="rect" id="Node000007" href="$phal__G4_2dma_2dma_8c.html#a9eb43b945a57050823579c2ec84d4ba5" title="Change the memory address for the next transfer." alt="" coords="277,104,472,130"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="505,107,473,110,472,105,504,102"/>
-<area shape="rect" id="Node000003" href="$phal__G4_2adc_2adc_8c.html#adf65563b732ce6a236058dc45a5c04a1" title="Configure an ADC instance and its DMA channel." alt="" coords="108,5,224,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="302,53,223,34,224,29,303,48"/>
-<area shape="rect" id="Node000005" href="$common_2phal__G4_2usart_2usart_8c.html#a1e13f03e291a90dcd93ffccf1b8edf65" title="Initializes a USART peripheral on an STM32G4 microcontroller." alt="" coords="103,55,229,80"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="300,70,229,70,229,65,300,65"/>
-<area shape="rect" id="Node000006" href="$phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="111,104,221,130"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="303,87,222,106,221,101,302,82"/>
+<area shape="rect" id="Node000001" title="Write the memory&#45;side address (CMAR)" alt="" coords="527,80,751,106"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2dma_2dma_8c.html#a44be3f4d5e3f90d9fa73d1b808185d53" title="Claim a DMA channel and configure it from handle&#45;&gt;wiring and handle&#45;&gt;params." alt="" coords="323,55,440,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="511,83,441,76,441,71,512,78"/>
+<area shape="rect" id="Node000008" href="$phal__G4_2dma_2dma_8c.html#a9eb43b945a57050823579c2ec84d4ba5" title="Change the memory address for the next transfer." alt="" coords="284,104,479,130"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="512,107,480,110,479,105,511,102"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2adc_2adc_8c.html#adf65563b732ce6a236058dc45a5c04a1" title="Configure an ADC instance and its DMA channel." alt="" coords="112,5,227,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="308,53,227,34,228,29,309,48"/>
+<area shape="rect" id="Node000005" href="$phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="114,55,224,80"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="307,70,225,70,225,65,307,65"/>
+<area shape="rect" id="Node000006" href="$phal__G4_2usart_2usart_8c.html#a111a81e667da7f8dfcf9d39836664970" title="Initialize a USART peripheral for DMA&#45;driven communication." alt="" coords="103,104,236,130"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="309,87,229,106,227,101,308,82"/>
 <area shape="rect" id="Node000004" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,55,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="92,21,55,21,55,16,92,16"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="96,21,55,21,55,16,96,16"/>
+<area shape="rect" id="Node000007" href="$dashboard_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,104,55,130"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="87,120,55,120,55,114,87,114"/>
 </map>

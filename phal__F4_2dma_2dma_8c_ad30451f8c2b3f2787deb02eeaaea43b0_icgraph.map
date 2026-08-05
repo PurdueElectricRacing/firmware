@@ -1,35 +1,19 @@
 <map id="PHAL_DMA_stopTxfer" name="PHAL_DMA_stopTxfer">
-<area shape="rect" id="Node000001" title=" " alt="" coords="784,293,939,319"/>
-<area shape="rect" id="Node000002" href="$common_2phal__F4_2usart_2usart_8c.html#a668005fd868c0e9c0c9318ca6685ad87" title="Handle DMA interrupts." alt="" coords="548,104,697,130"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="830,286,638,132,641,128,834,282"/>
-<area shape="rect" id="Node000007" href="$common_2phal__F4_2usart_2usart_8c.html#a7bb78a5ea8399c2c2fd4ca94be3ffed3" title=" " alt="" coords="565,293,679,319"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="769,309,680,309,680,304,769,304"/>
-<area shape="rect" id="Node000012" href="$phal__F4_2spi_2spi_8c.html#ae45aa58f4fed151ef2f982b1ae226f3e" title="Handle TCIF interrupt signaling end of TX transaction." alt="" coords="508,465,736,491"/>
-<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="831,331,644,467,640,463,828,326"/>
-<area shape="rect" id="Node000003" href="$common_2phal__G4_2usart_2usart_8c.html#af9aace1b44b73111e15aa39f06f43456" title=" " alt="" coords="305,5,402,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="582,99,525,71,459,45,401,29,403,24,461,40,527,66,584,94"/>
-<area shape="rect" id="Node000004" href="$common_2phal__G4_2usart_2usart_8c.html#ae57a79f62c50fe096d2720c28081e8aa" title=" " alt="" coords="257,55,450,80"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="533,103,427,84,428,78,534,98"/>
-<area shape="rect" id="Node000005" href="$common_2phal__G4_2usart_2usart_8c.html#aadbfdc5c96e7464ed3c1ef65de080fcd" title=" " alt="" coords="257,104,450,130"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="532,120,451,120,451,114,532,114"/>
-<area shape="rect" id="Node000006" href="$common_2phal__G4_2usart_2usart_8c.html#ae7e18ecf6be5d9fa93045398fbe8a272" title="Service USART3 RX when it owns DMA1 channel 1." alt="" coords="247,154,460,194"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="544,136,453,156,452,151,543,131"/>
-<area shape="rect" id="Node000008" href="$common_2phal__G4_2usart_2usart_8c.html#ad6426d36e0b02912ed0ca65f3bf92719" title=" " alt="" coords="275,219,432,244"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="566,291,459,258,417,247,418,242,461,253,568,285"/>
-<area shape="rect" id="Node000009" href="$common_2phal__G4_2usart_2usart_8c.html#a7139cd4baabbbcbab0c1fe6d7d4ae1cc" title=" " alt="" coords="279,268,428,294"/>
-<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="549,302,427,290,428,285,550,297"/>
-<area shape="rect" id="Node000010" href="$common_2phal__G4_2usart_2usart_8c.html#a0ca6fd0e6f77921dd1123539857ba0a8" title=" " alt="" coords="279,317,428,343"/>
-<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="550,315,428,326,427,321,549,310"/>
-<area shape="rect" id="Node000011" href="$common_2phal__G4_2usart_2usart_8c.html#a0d108a3468b2051548183ee5ca2158a0" title=" " alt="" coords="279,367,428,392"/>
-<area shape="poly" id="edge10_Node000007_Node000011" title=" " alt="" coords="566,327,461,358,418,369,417,363,459,353,565,322"/>
-<area shape="rect" id="Node000013" href="$phal__G4_2spi_2spi_8c.html#aadb8937353693c94b0d8e32fc6f18fc2" title=" " alt="" coords="257,416,450,442"/>
-<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="533,465,427,445,428,440,534,459"/>
-<area shape="rect" id="Node000014" href="$phal__G4_2spi_2spi_8c.html#abd16b3391557c4a3a8020d675e2c452f" title=" " alt="" coords="257,465,450,491"/>
-<area shape="poly" id="edge13_Node000012_Node000014" title=" " alt="" coords="492,481,451,481,451,476,492,476"/>
-<area shape="rect" id="Node000015" href="$phal__F4_2spi_2spi_8c.html#a69ff6bfb4062ba171cfaeb45ed976b95" title=" " alt="" coords="259,515,448,540"/>
-<area shape="poly" id="edge14_Node000012_Node000015" title=" " alt="" coords="534,497,428,517,427,511,533,492"/>
-<area shape="rect" id="Node000016" href="$phal__G4_2spi_2spi_8c.html#a3ebb0af23eba13325910e187f2810778" title="Service SPI3 TX when it owns DMA2 channel 3." alt="" coords="258,564,448,605"/>
-<area shape="poly" id="edge15_Node000012_Node000016" title=" " alt="" coords="583,501,461,555,429,566,427,561,459,550,580,496"/>
-<area shape="rect" id="Node000017" href="$phal__G4_2adc_2adc_8c.html#a66857fec7bb282eed8204a690f4ce5ae" title="Dispatch DMA2 channel 3 to ADC4 or its SPI3 TX fallback owner." alt="" coords="5,572,199,598"/>
-<area shape="poly" id="edge16_Node000016_Node000017" title=" " alt="" coords="243,588,199,588,199,582,243,582"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="764,55,919,80"/>
+<area shape="rect" id="Node000002" href="$phal__F4_2usart_2usart_8c.html#a668005fd868c0e9c0c9318ca6685ad87" title="Handle DMA interrupts." alt="" coords="528,5,677,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="760,54,668,34,669,29,761,48"/>
+<area shape="rect" id="Node000003" href="$phal__F4_2usart_2usart_8c.html#a7bb78a5ea8399c2c2fd4ca94be3ffed3" title=" " alt="" coords="545,55,659,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="749,70,660,70,660,65,749,65"/>
+<area shape="rect" id="Node000004" href="$phal__F4_2spi_2spi_8c.html#ae45aa58f4fed151ef2f982b1ae226f3e" title="Handle TCIF interrupt signaling end of TX transaction." alt="" coords="488,104,716,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="761,87,669,106,668,101,760,81"/>
+<area shape="rect" id="Node000005" href="$phal__G4_2spi_2spi_8c.html#aadb8937353693c94b0d8e32fc6f18fc2" title=" " alt="" coords="247,29,440,55"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="508,102,487,95,463,82,439,69,407,58,409,53,441,64,465,77,489,90,509,97"/>
+<area shape="rect" id="Node000006" href="$phal__G4_2spi_2spi_8c.html#abd16b3391557c4a3a8020d675e2c452f" title=" " alt="" coords="247,79,440,104"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="472,107,440,104,441,98,473,101"/>
+<area shape="rect" id="Node000007" href="$phal__F4_2spi_2spi_8c.html#a69ff6bfb4062ba171cfaeb45ed976b95" title=" " alt="" coords="249,128,438,154"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="472,132,438,135,438,129,472,126"/>
+<area shape="rect" id="Node000008" href="$phal__G4_2spi_2spi_8c.html#a3ebb0af23eba13325910e187f2810778" title="Service SPI3 TX when it owns DMA2 channel 3." alt="" coords="248,178,438,218"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="545,137,411,180,410,175,543,132"/>
+<area shape="rect" id="Node000009" href="$phal__G4_2adc_2adc_8c.html#a66857fec7bb282eed8204a690f4ce5ae" title="Dispatch DMA2 channel 3 to ADC4 or its SPI3 TX fallback owner." alt="" coords="5,185,199,211"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="233,201,199,201,199,196,233,196"/>
 </map>

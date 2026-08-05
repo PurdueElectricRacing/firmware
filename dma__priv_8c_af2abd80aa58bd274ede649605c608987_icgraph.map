@@ -1,44 +1,65 @@
 <map id="PHAL_DMA_priv_clearFlags" name="PHAL_DMA_priv_clearFlags">
-<area shape="rect" id="Node000001" title="Clear every latched status flag (global/complete/half/error) for one channel." alt="" coords="877,227,1065,252"/>
-<area shape="rect" id="Node000002" href="$phal__G4_2dma_2dma_8c.html#a1308cdd88736a6cd7d72f8665bea5f29" title="Clear every latched status flag (complete/error/global) for the channel, so a finished transfer can b..." alt="" coords="668,128,829,154"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="925,222,779,157,781,152,927,218"/>
-<area shape="rect" id="Node000011" href="$phal__G4_2dma_2dma_8c.html#a44be3f4d5e3f90d9fa73d1b808185d53" title="Claim a DMA channel and configure it from handle&#45;&gt;wiring and handle&#45;&gt;params." alt="" coords="690,227,807,252"/>
-<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="861,242,807,242,807,237,861,237"/>
-<area shape="rect" id="Node000016" href="$phal__G4_2dma_2dma_8c.html#a255ed862b5b1ce7cb71408a8f9dc5627" title="Reload the transfer count from handle&#45;&gt;params.tx_size and start again." alt="" coords="680,375,817,400"/>
-<area shape="poly" id="edge16_Node000001_Node000016" title=" " alt="" coords="939,264,771,376,768,372,936,259"/>
-<area shape="rect" id="Node000003" href="$phal__G4_2adc_2adc_8c.html#a88783c4b103049de64fc356c016ccae2" title="Process DMA completion or error status for an ADC handle." alt="" coords="261,79,406,104"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="672,127,620,118,507,106,406,98,406,93,508,100,621,113,673,122"/>
-<area shape="rect" id="Node000008" href="$phal__G4_2adc_2adc_8c.html#a125ced4dc8f5f9e7dee7cbbefcd125b7" title="Stop the ADC and DMA channel, then clear the DMA status flags." alt="" coords="493,128,595,154"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="653,144,596,144,596,138,653,138"/>
-<area shape="rect" id="Node000004" href="$phal__G4_2adc_2adc_8c.html#a7b6fac3d670a4860ebec8a961d5c4a73" title="Dispatch DMA1 channel 1 to ADC1 or its USART3 RX fallback owner." alt="" coords="5,5,199,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="284,75,198,45,160,34,162,29,199,40,286,70"/>
-<area shape="rect" id="Node000005" href="$phal__G4_2adc_2adc_8c.html#a51ffa654c18679a6e437027eeaea5bed" title="Dispatch the ADC2 DMA transfer interrupt." alt="" coords="5,55,199,80"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="246,85,199,80,199,75,246,80"/>
-<area shape="rect" id="Node000006" href="$phal__G4_2adc_2adc_8c.html#a5387957d667639fdc36a98493fc6a121" title="Dispatch the ADC3 DMA transfer interrupt." alt="" coords="5,104,199,130"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="246,104,199,109,199,104,246,98"/>
-<area shape="rect" id="Node000007" href="$phal__G4_2adc_2adc_8c.html#a66857fec7bb282eed8204a690f4ce5ae" title="Dispatch DMA2 channel 3 to ADC4 or its SPI3 TX fallback owner." alt="" coords="5,153,199,179"/>
-<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="264,112,248,118,224,131,200,145,167,155,166,150,198,140,221,127,246,113,262,107"/>
-<area shape="poly" id="edge8_Node000008_Node000003" title=" " alt="" coords="477,128,391,108,392,102,478,123"/>
-<area shape="rect" id="Node000009" href="$phal__G4_2adc_2adc_8c.html#a182c3e08bcff1970109448d9c24cb39c" title="Synchronous one&#45;buffer conversion using the DMA engine." alt="" coords="247,201,420,227"/>
-<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="486,161,469,167,371,203,369,198,467,162,485,156"/>
-<area shape="rect" id="Node000010" href="$phal__G4_2adc_2adc_8c.html#a293b748ece5364814af3ba56e3572f06" title="Abort any transfer in flight and leave the ADC idle." alt="" coords="272,128,395,154"/>
-<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="477,144,395,144,395,138,477,138"/>
-<area shape="rect" id="Node000012" href="$phal__G4_2adc_2adc_8c.html#adf65563b732ce6a236058dc45a5c04a1" title="Configure an ADC instance and its DMA channel." alt="" coords="486,276,602,302"/>
-<area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="678,259,601,278,600,273,677,254"/>
-<area shape="rect" id="Node000014" href="$common_2phal__G4_2usart_2usart_8c.html#a1e13f03e291a90dcd93ffccf1b8edf65" title="Initializes a USART peripheral on an STM32G4 microcontroller." alt="" coords="481,177,607,203"/>
-<area shape="poly" id="edge14_Node000011_Node000014" title=" " alt="" coords="677,225,600,206,601,201,678,220"/>
-<area shape="rect" id="Node000015" href="$phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="489,227,599,252"/>
-<area shape="poly" id="edge15_Node000011_Node000015" title=" " alt="" coords="674,242,600,242,600,237,674,237"/>
-<area shape="rect" id="Node000013" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="309,300,358,326"/>
-<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="471,300,359,313,358,307,470,294"/>
-<area shape="rect" id="Node000017" href="$common_2phal__G4_2usart_2usart_8c.html#a99cd2a703a69e6506a975cc574e4966a" title="Handles the USART interrupt logic." alt="" coords="487,424,601,450"/>
-<area shape="poly" id="edge17_Node000016_Node000017" title=" " alt="" coords="678,407,601,426,600,421,677,402"/>
-<area shape="rect" id="Node000018" href="$phal__G4_2adc_2adc_8c.html#a429677cda7cd755ee9c4148b73159e76" title="Start an asynchronous circular&#45;DMA conversion into buffer" alt="" coords="468,325,620,351"/>
-<area shape="poly" id="edge18_Node000016_Node000018" title=" " alt="" coords="677,373,600,354,601,349,678,368"/>
-<area shape="rect" id="Node000019" href="$phal__G4_2spi_2spi_8c.html#a9af893d97bde29796f60bc6df9b05fd0" title="Start a DMA&#45;backed SPI transfer." alt="" coords="476,473,613,499"/>
-<area shape="poly" id="edge21_Node000016_Node000019" title=" " alt="" coords="716,411,672,438,621,465,594,475,592,470,619,460,670,434,714,407"/>
-<area shape="rect" id="Node000020" href="$common_2phal__G4_2usart_2usart_8c.html#a61183ec430b48e9dc2eef1a49f292a65" title="Starts a DMA&#45;based transmission." alt="" coords="477,375,611,400"/>
-<area shape="poly" id="edge22_Node000016_Node000020" title=" " alt="" coords="664,390,612,390,612,385,664,385"/>
-<area shape="poly" id="edge20_Node000018_Node000009" title=" " alt="" coords="477,322,467,316,398,272,347,230,351,226,401,268,469,312,480,317"/>
-<area shape="poly" id="edge19_Node000018_Node000013" title=" " alt="" coords="452,330,358,318,359,313,453,325"/>
+<area shape="rect" id="Node000001" title="Clear every latched status flag (global/complete/half/error) for one channel." alt="" coords="1005,229,1193,255"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2dma_2dma_8c.html#a1308cdd88736a6cd7d72f8665bea5f29" title="Clear every latched status flag (complete/error/global) for the channel, so a finished transfer can b..." alt="" coords="797,128,957,154"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1054,225,906,157,908,152,1056,220"/>
+<area shape="rect" id="Node000011" href="$phal__G4_2dma_2dma_8c.html#a44be3f4d5e3f90d9fa73d1b808185d53" title="Claim a DMA channel and configure it from handle&#45;&gt;wiring and handle&#45;&gt;params." alt="" coords="818,229,936,255"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="990,245,936,245,936,240,990,240"/>
+<area shape="rect" id="Node000017" href="$phal__G4_2dma_2dma_8c.html#a255ed862b5b1ce7cb71408a8f9dc5627" title="Reload the transfer count from handle&#45;&gt;params.tx_size and start again." alt="" coords="808,401,946,427"/>
+<area shape="poly" id="edge17_Node000001_Node000017" title=" " alt="" coords="1070,267,897,403,894,399,1067,263"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2adc_2adc_8c.html#a88783c4b103049de64fc356c016ccae2" title="Process DMA completion or error status for an ADC handle." alt="" coords="360,79,504,104"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="801,127,748,118,619,105,504,97,505,92,620,99,749,113,801,122"/>
+<area shape="rect" id="Node000008" href="$phal__G4_2adc_2adc_8c.html#a125ced4dc8f5f9e7dee7cbbefcd125b7" title="Stop the ADC and DMA channel, then clear the DMA status flags." alt="" coords="607,128,710,154"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="781,144,710,144,710,138,781,138"/>
+<area shape="rect" id="Node000004" href="$phal__G4_2adc_2adc_8c.html#a7b6fac3d670a4860ebec8a961d5c4a73" title="Dispatch DMA1 channel 1 to ADC1 or its USART3 RX fallback owner." alt="" coords="103,104,296,130"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="345,104,297,109,296,104,345,98"/>
+<area shape="rect" id="Node000005" href="$phal__G4_2adc_2adc_8c.html#a51ffa654c18679a6e437027eeaea5bed" title="Dispatch the ADC2 DMA transfer interrupt." alt="" coords="103,153,296,179"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="361,112,345,118,321,131,297,145,265,155,263,150,295,140,319,127,343,113,359,107"/>
+<area shape="rect" id="Node000006" href="$phal__G4_2adc_2adc_8c.html#a5387957d667639fdc36a98493fc6a121" title="Dispatch the ADC3 DMA transfer interrupt." alt="" coords="103,5,296,31"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="382,75,295,45,257,34,259,29,297,40,384,70"/>
+<area shape="rect" id="Node000007" href="$phal__G4_2adc_2adc_8c.html#a66857fec7bb282eed8204a690f4ce5ae" title="Dispatch DMA2 channel 3 to ADC4 or its SPI3 TX fallback owner." alt="" coords="103,55,296,80"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="345,85,296,80,297,75,345,80"/>
+<area shape="poly" id="edge8_Node000008_Node000003" title=" " alt="" coords="592,129,494,108,495,102,593,124"/>
+<area shape="rect" id="Node000009" href="$phal__G4_2adc_2adc_8c.html#a182c3e08bcff1970109448d9c24cb39c" title="Synchronous one&#45;buffer conversion using the DMA engine." alt="" coords="346,229,519,255"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="615,163,464,231,462,226,613,158"/>
+<area shape="rect" id="Node000010" href="$phal__G4_2adc_2adc_8c.html#a293b748ece5364814af3ba56e3572f06" title="Abort any transfer in flight and leave the ADC idle." alt="" coords="370,128,494,154"/>
+<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="592,144,494,144,494,138,592,138"/>
+<area shape="rect" id="Node000012" href="$phal__G4_2adc_2adc_8c.html#adf65563b732ce6a236058dc45a5c04a1" title="Configure an ADC instance and its DMA channel." alt="" coords="601,279,716,304"/>
+<area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="804,261,717,281,716,276,802,256"/>
+<area shape="rect" id="Node000014" href="$phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="603,229,714,255"/>
+<area shape="poly" id="edge14_Node000011_Node000014" title=" " alt="" coords="803,245,714,245,714,240,803,240"/>
+<area shape="rect" id="Node000015" href="$phal__G4_2usart_2usart_8c.html#a111a81e667da7f8dfcf9d39836664970" title="Initialize a USART peripheral for DMA&#45;driven communication." alt="" coords="133,240,266,266"/>
+<area shape="poly" id="edge15_Node000011_Node000015" title=" " alt="" coords="805,228,748,219,635,209,546,205,458,208,344,219,292,229,243,242,242,237,290,224,344,214,457,202,546,199,635,204,749,214,806,223"/>
+<area shape="rect" id="Node000013" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="408,279,457,304"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="586,294,457,294,457,289,586,289"/>
+<area shape="rect" id="Node000016" href="$dashboard_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,340,55,366"/>
+<area shape="poly" id="edge16_Node000015_Node000016" title=" " alt="" coords="164,276,55,342,52,337,161,272"/>
+<area shape="rect" id="Node000018" href="$phal__G4_2adc_2adc_8c.html#a429677cda7cd755ee9c4148b73159e76" title="Start an asynchronous circular&#45;DMA conversion into buffer" alt="" coords="582,328,735,354"/>
+<area shape="poly" id="edge18_Node000017_Node000018" title=" " alt="" coords="829,398,748,367,712,357,714,352,750,362,831,393"/>
+<area shape="rect" id="Node000019" href="$phal__G4_2spi_2spi_8c.html#a9af893d97bde29796f60bc6df9b05fd0" title="Start a DMA&#45;backed SPI transfer." alt="" coords="590,476,727,502"/>
+<area shape="poly" id="edge21_Node000017_Node000019" title=" " alt="" coords="832,436,750,467,714,478,713,473,748,462,830,431"/>
+<area shape="rect" id="Node000020" href="$phal__G4_2usart_2usart_8c.html#a27c45d01ef8393b2dbfdf1d31f74799d" title="On the IDLE line, finish the frame, re&#45;arm if continuous, and notify the app." alt="" coords="568,549,749,575"/>
+<area shape="poly" id="edge22_Node000017_Node000020" title=" " alt="" coords="851,439,805,477,750,516,689,551,686,547,747,512,802,473,847,435"/>
+<area shape="rect" id="Node000024" href="$phal__G4_2usart_2usart_8c.html#af1ae0dd646b0734a12ba38e4a47f40bc" title="Start a DMA&#45;based reception, completed on the IDLE line." alt="" coords="595,377,722,403"/>
+<area shape="poly" id="edge26_Node000017_Node000024" title=" " alt="" coords="792,408,722,400,722,394,793,402"/>
+<area shape="rect" id="Node000027" href="$phal__G4_2usart_2usart_8c.html#a672de6b26342923923f57cb89300c9e0" title="Start a DMA&#45;based transmission." alt="" coords="595,427,722,452"/>
+<area shape="poly" id="edge29_Node000017_Node000027" title=" " alt="" coords="793,427,722,435,722,430,792,421"/>
+<area shape="poly" id="edge20_Node000018_Node000009" title=" " alt="" coords="576,324,567,319,551,306,542,293,533,280,519,268,497,258,499,253,522,264,537,277,547,290,555,303,570,315,578,319"/>
+<area shape="poly" id="edge19_Node000018_Node000013" title=" " alt="" coords="581,327,457,299,458,294,582,321"/>
+<area shape="rect" id="Node000021" href="$phal__G4_2usart_2usart_8c.html#a7139cd4baabbbcbab0c1fe6d7d4ae1cc" title=" " alt="" coords="358,575,506,600"/>
+<area shape="poly" id="edge23_Node000020_Node000021" title=" " alt="" coords="553,577,507,582,506,577,553,571"/>
+<area shape="rect" id="Node000022" href="$phal__G4_2usart_2usart_8c.html#a0ca6fd0e6f77921dd1123539857ba0a8" title=" " alt="" coords="358,624,506,650"/>
+<area shape="poly" id="edge24_Node000020_Node000022" title=" " alt="" coords="610,583,521,615,486,626,484,621,520,610,609,578"/>
+<area shape="rect" id="Node000023" href="$phal__G4_2usart_2usart_8c.html#a0d108a3468b2051548183ee5ca2158a0" title=" " alt="" coords="358,525,506,551"/>
+<area shape="poly" id="edge25_Node000020_Node000023" title=" " alt="" coords="553,554,507,549,507,543,553,548"/>
+<area shape="rect" id="Node000025" href="$torque__vector_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="408,377,457,403"/>
+<area shape="poly" id="edge27_Node000024_Node000025" title=" " alt="" coords="580,393,457,393,457,388,580,388"/>
+<area shape="rect" id="Node000026" href="$phal__G4_2usart_2usart_8c.html#ad2db9efef368135a8f151683e2a957e1" title="Receive data, blocking until a one&#45;shot reception completes." alt="" coords="344,328,520,354"/>
+<area shape="poly" id="edge28_Node000024_Node000026" title=" " alt="" coords="581,376,494,357,495,352,582,371"/>
+<area shape="rect" id="Node000028" href="$lcd_8c.html#ab1da20573be93be73a9d5e72e133b7e9" title="Called periodically to send commands to the Nextion LCD display via USART." alt="" coords="377,427,487,452"/>
+<area shape="poly" id="edge30_Node000027_Node000028" title=" " alt="" coords="580,442,488,442,488,437,580,437"/>
+<area shape="rect" id="Node000030" href="$phal__G4_2usart_2usart_8c.html#ad11bf42d69736d0413541a2e4957a486" title="Transmit data, blocking until the transfer completes." alt="" coords="344,476,520,502"/>
+<area shape="poly" id="edge33_Node000027_Node000030" title=" " alt="" coords="582,459,495,478,494,473,581,454"/>
+<area shape="rect" id="Node000029" href="$driver__interface_8c.html#ac599c66976c348cb0287266b60aa49c5" title=" " alt="" coords="118,364,280,390"/>
+<area shape="poly" id="edge31_Node000028_Node000029" title=" " alt="" coords="366,425,249,393,251,388,367,419"/>
+<area shape="poly" id="edge32_Node000029_Node000016" title=" " alt="" coords="102,366,55,359,56,354,103,360"/>
 </map>

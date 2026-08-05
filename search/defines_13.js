@@ -1,19 +1,12 @@
 var searchData=
 [
-  ['uart4_5factive_5fidx_0',['UART4_ACTIVE_IDX',['../phal__G4_2usart_2usart_8h.html#afb8d550666a41d2bc71bdc784fcd54bd',1,'usart.h']]],
-  ['uart5_5frxdma_5fcont_5fconfig_1',['UART5_RXDMA_CONT_CONFIG',['../phal__F4_2usart_2usart_8h.html#a87cbbe90cea66b62d095c20a8bc6c7a8',1,'usart.h']]],
-  ['uart5_5ftxdma_5fcont_5fconfig_2',['UART5_TXDMA_CONT_CONFIG',['../phal__F4_2usart_2usart_8h.html#ab4f69731eee38d79a38877765f1c1da9',1,'usart.h']]],
-  ['unit_5ffunc_5fmodifiers_3',['UNIT_FUNC_MODIFIERS',['../units_8h.html#aaac7ee36cf9e2b7589295ad4379852a1',1,'units.h']]],
-  ['up_5fbutton_5fpin_4',['UP_BUTTON_PIN',['../dashboard_2main_8h.html#afd52094c7589001b63f550f3bbbaf513',1,'main.h']]],
-  ['up_5fbutton_5fport_5',['UP_BUTTON_PORT',['../dashboard_2main_8h.html#a7094449ce96efd626936b33389e21395',1,'main.h']]],
-  ['usart1_5factive_5fidx_6',['USART1_ACTIVE_IDX',['../phal__G4_2usart_2usart_8h.html#a5e5a0ec370741e7f284f0557ee477c82',1,'usart.h']]],
-  ['usart1_5frxdma_5fcont_5fconfig_7',['USART1_RXDMA_CONT_CONFIG',['../phal__F4_2usart_2usart_8h.html#aa2fb89650553d0f56438cc55669ed014',1,'usart.h']]],
-  ['usart1_5ftxdma_5fcont_5fconfig_8',['USART1_TXDMA_CONT_CONFIG',['../phal__F4_2usart_2usart_8h.html#a207e6b60144d3609a73c96b42bfa3c1c',1,'usart.h']]],
-  ['usart2_5factive_5fidx_9',['USART2_ACTIVE_IDX',['../phal__G4_2usart_2usart_8h.html#a9a32f811e86729607d003123d5b7a2e1',1,'usart.h']]],
-  ['usart3_5factive_5fidx_10',['USART3_ACTIVE_IDX',['../phal__G4_2usart_2usart_8h.html#a5ebd9bcbd201bb2246248a824eca81d4',1,'usart.h']]],
-  ['usart4_5frxdma_5fcont_5fconfig_11',['USART4_RXDMA_CONT_CONFIG',['../phal__F4_2usart_2usart_8h.html#aa166abd04c0dedc6986d324a66989c51',1,'usart.h']]],
-  ['usart4_5ftxdma_5fcont_5fconfig_12',['USART4_TXDMA_CONT_CONFIG',['../phal__F4_2usart_2usart_8h.html#ae3f737a2390de88ed8b648ca0a18814a',1,'usart.h']]],
-  ['usart5_5factive_5fidx_13',['USART5_ACTIVE_IDX',['../phal__G4_2usart_2usart_8h.html#a87bd8bf500c87be61e0505a48b02d6df',1,'usart.h']]],
-  ['usart6_5factive_5fidx_14',['USART6_ACTIVE_IDX',['../phal__G4_2usart_2usart_8h.html#a6b883dc4ffb31b3614620d0b358bea8c',1,'usart.h']]],
-  ['usart7_5factive_5fidx_15',['USART7_ACTIVE_IDX',['../phal__G4_2usart_2usart_8h.html#aeb472129ce1cf84d7fbfb0ea9f3ff269',1,'usart.h']]]
+  ['uart5_5frxdma_5fcont_5fconfig_0',['UART5_RXDMA_CONT_CONFIG',['../phal__F4_2usart_2usart_8h.html#a87cbbe90cea66b62d095c20a8bc6c7a8',1,'usart.h']]],
+  ['uart5_5ftxdma_5fcont_5fconfig_1',['UART5_TXDMA_CONT_CONFIG',['../phal__F4_2usart_2usart_8h.html#ab4f69731eee38d79a38877765f1c1da9',1,'usart.h']]],
+  ['unit_5ffunc_5fmodifiers_2',['UNIT_FUNC_MODIFIERS',['../units_8h.html#aaac7ee36cf9e2b7589295ad4379852a1',1,'units.h']]],
+  ['up_5fbutton_5fpin_3',['UP_BUTTON_PIN',['../dashboard_2main_8h.html#afd52094c7589001b63f550f3bbbaf513',1,'main.h']]],
+  ['up_5fbutton_5fport_4',['UP_BUTTON_PORT',['../dashboard_2main_8h.html#a7094449ce96efd626936b33389e21395',1,'main.h']]],
+  ['usart1_5frxdma_5fcont_5fconfig_5',['USART1_RXDMA_CONT_CONFIG',['../phal__F4_2usart_2usart_8h.html#aa2fb89650553d0f56438cc55669ed014',1,'usart.h']]],
+  ['usart1_5ftxdma_5fcont_5fconfig_6',['USART1_TXDMA_CONT_CONFIG',['../phal__F4_2usart_2usart_8h.html#a207e6b60144d3609a73c96b42bfa3c1c',1,'usart.h']]],
+  ['usart4_5frxdma_5fcont_5fconfig_7',['USART4_RXDMA_CONT_CONFIG',['../phal__F4_2usart_2usart_8h.html#aa166abd04c0dedc6986d324a66989c51',1,'usart.h']]],
+  ['usart4_5ftxdma_5fcont_5fconfig_8',['USART4_TXDMA_CONT_CONFIG',['../phal__F4_2usart_2usart_8h.html#ae3f737a2390de88ed8b648ca0a18814a',1,'usart.h']]]
 ];

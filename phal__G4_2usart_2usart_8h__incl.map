@@ -1,16 +1,9 @@
 <map id="common/phal_G4/usart/usart.h" name="common/phal_G4/usart/usart.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="95,5,251,46"/>
-<area shape="rect" id="Node000002" href="$phal__G4_2dma_2dma_8h.html" title="G4 DMA Peripheral public API implementation." alt="" coords="41,94,193,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,48,140,82,136,79,158,45"/>
-<area shape="rect" id="Node000004" href="$phal__G4_8h.html" title=" " alt="" coords="63,271,248,297"/>
-<area shape="poly" id="edge8_Node000001_Node000004" title=" " alt="" coords="196,45,227,79,257,124,268,149,273,175,273,200,263,225,241,250,213,267,210,262,238,246,259,222,267,199,268,175,263,151,252,127,223,82,192,48"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,345,69,371"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="104,137,77,184,63,222,53,262,42,330,37,329,48,261,58,221,72,182,100,134"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="106,136,86,177,83,200,87,222,102,243,122,260,118,264,98,247,83,224,77,200,81,176,101,134"/>
-<area shape="rect" id="Node000006" href="$dma__wiring_8h.html" title="G4 DMA Peripheral wiring configuration and definitions." alt="" coords="97,183,249,223"/>
-<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="132,134,154,168,150,171,127,137"/>
-<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="137,300,71,339,69,334,134,295"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="119,345,192,371"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="158,297,158,329,153,329,153,297"/>
-<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="171,224,164,256,159,255,166,223"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="20,5,176,46"/>
+<area shape="rect" id="Node000002" href="$phal__G4_8h.html" title=" " alt="" coords="5,94,191,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,46,101,78,95,78,95,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="16,168,89,193"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,121,71,156,66,153,88,118"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="113,168,176,193"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="108,118,131,153,126,156,103,121"/>
 </map>

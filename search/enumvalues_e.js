@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['sb_5fhalf_0',['SB_HALF',['../phal__F4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553ad0547d788f5201c0b3beb75bf289ecfb',1,'SB_HALF:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553ad0547d788f5201c0b3beb75bf289ecfb',1,'SB_HALF:&#160;usart.h']]],
-  ['sb_5fone_1',['SB_ONE',['../phal__F4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da',1,'SB_ONE:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da',1,'SB_ONE:&#160;usart.h']]],
-  ['sb_5fone_5fhalf_2',['SB_ONE_HALF',['../phal__F4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553ab67ebf519fad921e7749842e16f9685c',1,'SB_ONE_HALF:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553ab67ebf519fad921e7749842e16f9685c',1,'SB_ONE_HALF:&#160;usart.h']]],
-  ['sb_5ftwo_3',['SB_TWO',['../phal__F4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553abd98b798e8db67c8f79d30573152cd87',1,'SB_TWO:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553abd98b798e8db67c8f79d30573152cd87',1,'SB_TWO:&#160;usart.h']]],
+  ['sb_5fhalf_0',['SB_HALF',['../phal__F4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553ad0547d788f5201c0b3beb75bf289ecfb',1,'usart.h']]],
+  ['sb_5fone_1',['SB_ONE',['../phal__F4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553af586c0b77373cd4fe301abe9a1a819da',1,'usart.h']]],
+  ['sb_5fone_5fhalf_2',['SB_ONE_HALF',['../phal__F4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553ab67ebf519fad921e7749842e16f9685c',1,'usart.h']]],
+  ['sb_5ftwo_3',['SB_TWO',['../phal__F4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553abd98b798e8db67c8f79d30573152cd87',1,'usart.h']]],
   ['sd_5faddr_5fmisaligned_4',['SD_ADDR_MISALIGNED',['../sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8cac862cc999fa6648eeb631ea82a07a51e',1,'sdio.h']]],
   ['sd_5faddr_5fout_5fof_5frange_5',['SD_ADDR_OUT_OF_RANGE',['../sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8ca82b0b9ba6052f6f2bd0bee7e79cf8ef3',1,'sdio.h']]],
   ['sd_5fake_5fseq_5ferror_6',['SD_AKE_SEQ_ERROR',['../sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8cafbcf7369094d1a0fa1932c552ab45382',1,'sdio.h']]],

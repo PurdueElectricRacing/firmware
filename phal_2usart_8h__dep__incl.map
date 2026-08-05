@@ -1,9 +1,17 @@
 <map id="common/phal/usart.h" name="common/phal/usart.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="202,5,345,31"/>
-<area shape="rect" id="Node000002" href="$lcd_8c.html" title="LCD display management." alt="" coords="5,79,166,120"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="232,40,133,81,131,76,230,35"/>
-<area shape="rect" id="Node000003" href="$dashboard_2main_8c.html" title="&quot;Dashboard&quot; node source code" alt="" coords="190,86,357,112"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="276,47,276,86,271,86,271,47"/>
-<area shape="rect" id="Node000004" href="$torque__vector_2main_8c.html" title="&quot;Torque Vector&quot; node source code" alt="" coords="380,79,524,120"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="316,35,409,76,407,81,314,40"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="365,5,507,31"/>
+<area shape="rect" id="Node000002" href="$lcd_8c.html" title="LCD display management." alt="" coords="5,168,166,208"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="389,39,287,81,196,127,120,169,118,165,193,123,284,77,387,34"/>
+<area shape="rect" id="Node000003" href="$lcd_8h.html" title="LCD display management." alt="" coords="297,79,458,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="420,45,394,80,390,77,416,42"/>
+<area shape="rect" id="Node000006" href="$dashboard_2main_8c.html" title="&quot;Dashboard&quot; node source code" alt="" coords="580,175,746,201"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="454,42,483,80,522,118,575,150,627,172,625,177,573,155,519,122,479,84,450,45"/>
+<area shape="rect" id="Node000007" href="$torque__vector_2main_8c.html" title="&quot;Torque Vector&quot; node source code" alt="" coords="532,79,676,120"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="477,36,563,76,561,81,475,41"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="297,127,153,170,151,165,296,122"/>
+<area shape="rect" id="Node000004" href="$driver__interface_8c.html" title="thread to manage driver&#45;facing LCD, buttons, LEDs" alt="" coords="190,168,371,208"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="346,132,304,169,300,165,343,128"/>
+<area shape="rect" id="Node000005" href="$vcu_8c.html" title="VCU page implementation." alt="" coords="395,168,555,208"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="412,128,455,165,451,169,409,132"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="458,122,623,172,622,177,456,127"/>
 </map>

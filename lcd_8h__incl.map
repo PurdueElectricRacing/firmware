@@ -1,5 +1,12 @@
 <map id="source/dashboard/driver_interface/lcd.h" name="source/dashboard/driver_interface/lcd.h">
 <area shape="rect" id="Node000001" title="LCD display management." alt="" coords="5,5,166,46"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="54,94,117,120"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,46,88,78,83,78,83,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="16,241,80,267"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,47,67,95,56,165,52,226,47,225,51,165,62,93,75,46"/>
+<area shape="rect" id="Node000003" href="$phal_2usart_8h.html" title=" " alt="" coords="76,94,218,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="103,45,130,80,126,83,99,48"/>
+<area shape="rect" id="Node000004" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="70,168,240,193"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="151,120,154,152,149,153,146,120"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="138,196,80,235,78,230,135,192"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="118,241,192,267"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="158,194,158,226,152,226,152,194"/>
 </map>

@@ -1,11 +1,5 @@
 <map id="PHAL_DMA_getPeriph" name="PHAL_DMA_getPeriph">
-<area shape="rect" id="Node000001" title="Get the DMA peripheral (DMA1 or DMA2) for a given handle." alt="" coords="261,80,416,106"/>
-<area shape="rect" id="Node000002" href="$common_2phal__G4_2usart_2usart_8c.html#a2995d18679a10821577043876ac50825" title="Disables continuous DMA reception." alt="" coords="5,5,213,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="293,76,212,45,174,34,175,29,214,40,295,71"/>
-<area shape="rect" id="Node000003" href="$phal__G4_2spi_2spi_8c.html#a9af893d97bde29796f60bc6df9b05fd0" title="Start a DMA&#45;backed SPI transfer." alt="" coords="40,55,178,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="245,85,178,78,179,72,245,80"/>
-<area shape="rect" id="Node000004" href="$common_2phal__G4_2usart_2usart_8c.html#a58f9158940d388fe2e706fddb01a759d" title="Starts a DMA&#45;based reception." alt="" coords="41,104,177,130"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="246,105,177,112,177,107,245,100"/>
-<area shape="rect" id="Node000005" href="$common_2phal__G4_2usart_2usart_8c.html#a61183ec430b48e9dc2eef1a49f292a65" title="Starts a DMA&#45;based transmission." alt="" coords="42,153,176,179"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="294,115,213,145,175,155,173,150,212,140,292,110"/>
+<area shape="rect" id="Node000001" title="Get the DMA peripheral (DMA1 or DMA2) for a given handle." alt="" coords="191,5,346,31"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2spi_2spi_8c.html#a9af893d97bde29796f60bc6df9b05fd0" title="Start a DMA&#45;backed SPI transfer." alt="" coords="5,5,143,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,21,143,21,143,16,175,16"/>
 </map>

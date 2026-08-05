@@ -36,5 +36,5 @@ var searchData=
   ['rtc_5fweekday_5ftuesday_33',['RTC_WEEKDAY_TUESDAY',['../phal__F4_2rtc_2rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cbafe80f95805621ca9dde6cb21dc571c2f',1,'rtc.h']]],
   ['rtc_5fweekday_5funknown_34',['RTC_WEEKDAY_UNKNOWN',['../phal__F4_2rtc_2rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cba0b6fadc1d42cbc5f45a4b6dc21f9770d',1,'rtc.h']]],
   ['rtc_5fweekday_5fwednesday_35',['RTC_WEEKDAY_WEDNESDAY',['../phal__F4_2rtc_2rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cbacd3b8087b488dd92ade90e5a65447564',1,'rtc.h']]],
-  ['rts_36',['RTS',['../phal__F4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2ae58caa68ff8b6e4838007985c7e3ae66',1,'RTS:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2ae58caa68ff8b6e4838007985c7e3ae66',1,'RTS:&#160;usart.h']]]
+  ['rts_36',['RTS',['../phal__F4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2ae58caa68ff8b6e4838007985c7e3ae66',1,'usart.h']]]
 ];

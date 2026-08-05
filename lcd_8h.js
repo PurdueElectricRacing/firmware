@@ -20,5 +20,6 @@ var lcd_8h =
     [ "updatePage", "lcd_8h.html#a369866d09e16f8c47bef3ad8d90e6bf7", null ],
     [ "updateTelemetryPages", "lcd_8h.html#af43eed5065a4456cc5013ee59b7a2ce7", null ],
     [ "curr_page", "lcd_8h.html#af64f99df8657acc696aa097fce871251", null ],
-    [ "LCD_BAUD_RATE", "lcd_8h.html#ad09c19efeeec2514707662f506d2267a", null ]
+    [ "LCD_BAUD_RATE", "lcd_8h.html#ad09c19efeeec2514707662f506d2267a", null ],
+    [ "LCD_USART", "lcd_8h.html#af86b26fbe1f76e9d70776d7863afbd04", null ]
 ];

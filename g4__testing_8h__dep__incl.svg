@@ -47,7 +47,7 @@
   </g>
 </defs>
 <script type="application/ecmascript">
-var viewWidth = 1648;
+var viewWidth = 1641;
 var viewHeight = 105;
 var sectionId = 'dynsection-0';
 </script>
@@ -256,9 +256,10 @@ var sectionId = 'dynsection-0';
 <!-- Node12 -->
 <g id="Node000012" class="node">
 <title>Node12</title>
-<g id="a_Node000012"><a xlink:href="source_2g4__testing_2usart_8c.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="1509.75,-24.88 1384.25,-24.88 1384.25,-5.63 1509.75,-5.63 1509.75,-24.88"/>
-<text text-anchor="middle" x="1447" y="-11.38" font-family="Helvetica,sans-Serif" font-size="10.00">source/g4_testing/usart.c</text>
+<g id="a_Node000012"><a xlink:href="usart__test_8c.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="1503,-30.5 1385,-30.5 1385,0 1503,0 1503,-30.5"/>
+<text text-anchor="start" x="1393" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">source/g4_testing/usart</text>
+<text text-anchor="middle" x="1444" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">_test.c</text>
 </a>
 </g>
 </g>
@@ -266,8 +267,8 @@ var sectionId = 'dynsection-0';
 <g id="edge11_Node000001_Node000012" class="edge">
 <title>Node1&#45;&gt;Node12</title>
 <g id="a_edge11_Node000001_Node000012"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M901.18,-76.91C1002.94,-70.41 1205.56,-55.46 1376,-30.5 1385.58,-29.1 1395.82,-27.25 1405.45,-25.35"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="901.14,-73.4 891.39,-77.53 901.59,-80.39 901.14,-73.4"/>
+<path fill="none" stroke="#63b8ff" d="M900.81,-77.11C1002.47,-70.86 1205.45,-56.22 1376,-30.5 1378.86,-30.07 1381.79,-29.59 1384.73,-29.08"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="900.79,-73.6 891.02,-77.7 901.22,-80.59 900.79,-73.6"/>
 </a>
 </g>
 </g>
@@ -275,9 +276,9 @@ var sectionId = 'dynsection-0';
 <g id="Node000013" class="node">
 <title>Node13</title>
 <g id="a_Node000013"><a xlink:href="usb__test_8c.html" target="_top" xlink:title="Minimal vendor bulk&#45;echo device using the STM32G4 USB HAL.">
-<polygon fill="white" stroke="#666666" points="1640,-30.5 1528,-30.5 1528,0 1640,0 1640,-30.5"/>
-<text text-anchor="start" x="1536" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">source/g4_testing/usb</text>
-<text text-anchor="middle" x="1584" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">_test.c</text>
+<polygon fill="white" stroke="#666666" points="1633,-30.5 1521,-30.5 1521,0 1633,0 1633,-30.5"/>
+<text text-anchor="start" x="1529" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">source/g4_testing/usb</text>
+<text text-anchor="middle" x="1577" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">_test.c</text>
 </a>
 </g>
 </g>
@@ -285,8 +286,8 @@ var sectionId = 'dynsection-0';
 <g id="edge12_Node000001_Node000013" class="edge">
 <title>Node1&#45;&gt;Node13</title>
 <g id="a_edge12_Node000001_Node000013"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M901.18,-79.04C1023.08,-75.16 1293.61,-63.33 1519,-30.5 1521.86,-30.08 1524.78,-29.61 1527.72,-29.1"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="901.25,-75.54 891.37,-79.35 901.47,-82.53 901.25,-75.54"/>
+<path fill="none" stroke="#63b8ff" d="M900.97,-78.98C1021.84,-75.01 1289.2,-63.04 1512,-30.5 1514.86,-30.08 1517.78,-29.61 1520.72,-29.1"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="901.13,-75.47 891.25,-79.29 901.36,-82.47 901.13,-75.47"/>
 </a>
 </g>
 </g>

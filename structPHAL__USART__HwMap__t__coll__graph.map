@@ -1,0 +1,5 @@
+<map id="PHAL_USART_HwMap_t" name="PHAL_USART_HwMap_t">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,109,178,135"/>
+<area shape="rect" id="Node000002" href="$structPHAL__DMA__Wiring__t.html" title="Fixed hardware wiring for one peripheral + direction&#39;s DMA use." alt="" coords="18,5,165,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,47,94,109,89,109,89,47"/>
+</map>

@@ -20,8 +20,8 @@
 <area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1207,39,1490,91,1502,94,1501,99,1489,97,1206,45"/>
 <area shape="rect" id="Node000011" href="$spi__test_8c.html" title=" " alt="" coords="1682,94,1827,135"/>
 <area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="1207,32,1418,55,1671,91,1682,93,1681,99,1670,97,1418,60,1206,37"/>
-<area shape="rect" id="Node000012" href="$source_2g4__testing_2usart_8c.html" title=" " alt="" coords="1851,102,2018,127"/>
-<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="1207,29,1489,51,1665,69,1840,91,1880,98,1879,103,1840,97,1664,74,1489,56,1207,35"/>
-<area shape="rect" id="Node000013" href="$usb__test_8c.html" title="Minimal vendor bulk&#45;echo device using the STM32G4 USB HAL." alt="" coords="2043,94,2192,135"/>
-<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="1207,27,1362,33,1567,45,1798,63,2031,91,2043,93,2042,98,2030,97,1798,69,1567,50,1362,38,1207,32"/>
+<area shape="rect" id="Node000012" href="$usart__test_8c.html" title=" " alt="" coords="1852,94,2009,135"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="1207,29,1489,51,1664,68,1840,91,1852,93,1851,99,1840,97,1664,74,1489,56,1206,35"/>
+<area shape="rect" id="Node000013" href="$usb__test_8c.html" title="Minimal vendor bulk&#45;echo device using the STM32G4 USB HAL." alt="" coords="2033,94,2183,135"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="1207,27,1563,45,1792,64,2022,91,2033,93,2033,99,2021,97,1791,69,1563,50,1206,32"/>
 </map>

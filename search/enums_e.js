@@ -7,6 +7,6 @@ var searchData=
   ['spi_5fcpha_4',['SPI_CPHA',['../phal__G4_2spi_2spi_8h.html#a26da2bbd284e1fb8d8517cac6bd79bf4',1,'spi.h']]],
   ['spi_5fcpol_5',['SPI_CPOL',['../phal__G4_2spi_2spi_8h.html#a4e5a98687b27cf02a47ed2a539426653',1,'spi.h']]],
   ['spi_5fmode_6',['SPI_Mode',['../phal__G4_2spi_2spi_8h.html#a60a7e3d74577b38aa79ea6983362f942',1,'spi.h']]],
-  ['stop_5fbits_5ft_7',['stop_bits_t',['../phal__F4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553',1,'stop_bits_t:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553',1,'stop_bits_t:&#160;usart.h']]],
+  ['stop_5fbits_5ft_7',['stop_bits_t',['../phal__F4_2usart_2usart_8h.html#a93bf91b4ba41ceb7678694e06b1ac553',1,'usart.h']]],
   ['switches_5ft_8',['switches_t',['../switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908',1,'switches.h']]]
 ];

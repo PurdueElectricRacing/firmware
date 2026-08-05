@@ -1,0 +1,15 @@
+<map id="PHAL_USART_priv_clearTxDmaFlags" name="PHAL_USART_priv_clearTxDmaFlags">
+<area shape="rect" id="Node000001" title="Clear all interrupt flags for the slot&#39;s TX DMA channel." alt="" coords="742,72,956,113"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2usart_2usart_8c.html#acd6af24fc5fb57a706d3bb58b464b2e6" title="On TX DMA completion, mark the transmitter free and clear the channel flags." alt="" coords="508,80,694,106"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="727,96,695,96,695,90,727,90"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2usart_2usart_8c.html#a0c3390d4dc5cfceccbeda71aa672d99d" title=" " alt="" coords="257,5,450,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="551,76,459,45,419,34,420,29,461,40,553,71"/>
+<area shape="rect" id="Node000004" href="$phal__G4_2usart_2usart_8c.html#a9b75ef44037d7ed50a1078c024ae853a" title=" " alt="" coords="257,55,450,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="492,84,450,80,451,75,493,79"/>
+<area shape="rect" id="Node000005" href="$phal__G4_2usart_2usart_8c.html#a7a964205d5b1ce4b9c69ae6a105145ca" title=" " alt="" coords="257,104,450,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="493,106,451,110,450,105,492,101"/>
+<area shape="rect" id="Node000006" href="$phal__G4_2usart_2usart_8c.html#ae7e18ecf6be5d9fa93045398fbe8a272" title="Service USART3 RX when it owns DMA1 channel 1." alt="" coords="247,154,460,194"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="550,114,461,145,426,156,424,151,459,140,548,109"/>
+<area shape="rect" id="Node000007" href="$phal__G4_2usart_2usart_8c.html#a7b6fac3d670a4860ebec8a961d5c4a73" title=" " alt="" coords="5,161,199,187"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="231,177,199,177,199,172,231,172"/>
+</map>

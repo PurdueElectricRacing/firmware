@@ -1,0 +1,11 @@
+<map id="PHAL_USART_HandleDMA" name="PHAL_USART_HandleDMA">
+<area shape="rect" id="Node000001" title="On TX DMA completion, mark the transmitter free and clear the channel flags." alt="" coords="5,63,192,88"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2dma_2dma_8c.html#a11e3f2f9fb30872d1d48264d91d614e7" title="Disable the channel, stopping the transfer immediately." alt="" coords="295,5,420,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,59,239,41,279,32,280,37,240,46,159,65"/>
+<area shape="rect" id="Node000004" href="$usart__priv_8c.html#a4c8350b8935806d7ba0e20aa4430afbf" title="Clear all interrupt flags for the slot&#39;s TX DMA channel." alt="" coords="251,55,464,96"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="192,73,236,73,236,78,192,78"/>
+<area shape="rect" id="Node000005" href="$usart__priv_8c.html#a5f34d6da32b05ba300f0d6a1de171cd9" title=" " alt="" coords="240,120,476,146"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="159,86,240,105,280,114,279,119,239,110,157,92"/>
+<area shape="rect" id="Node000003" href="$dma__priv_8c.html#a5120208650c6c1774fe79c46127ea4c2" title="Disable a channel and block until hardware confirms it is off." alt="" coords="524,5,740,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="421,16,509,16,509,21,421,21"/>
+</map>

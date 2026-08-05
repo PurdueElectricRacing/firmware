@@ -1,0 +1,13 @@
+<map id="PHAL_USART_DMA1_Channel1_IRQHandler" name="PHAL_USART_DMA1_Channel1_IRQHandler">
+<area shape="rect" id="Node000001" title="Service USART3 RX when it owns DMA1 channel 1." alt="" coords="5,55,219,96"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2usart_2usart_8c.html#acd6af24fc5fb57a706d3bb58b464b2e6" title="On TX DMA completion, mark the transmitter free and clear the channel flags." alt="" coords="267,63,453,88"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,73,251,73,251,78,219,78"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2dma_2dma_8c.html#a11e3f2f9fb30872d1d48264d91d614e7" title="Disable the channel, stopping the transfer immediately." alt="" coords="556,5,682,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="419,59,500,41,541,32,542,37,502,46,420,65"/>
+<area shape="rect" id="Node000005" href="$usart__priv_8c.html#a4c8350b8935806d7ba0e20aa4430afbf" title="Clear all interrupt flags for the slot&#39;s TX DMA channel." alt="" coords="512,55,726,96"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="453,73,497,73,497,78,453,78"/>
+<area shape="rect" id="Node000006" href="$usart__priv_8c.html#a5f34d6da32b05ba300f0d6a1de171cd9" title=" " alt="" coords="501,120,737,146"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="420,86,502,105,541,114,540,119,500,110,419,92"/>
+<area shape="rect" id="Node000004" href="$dma__priv_8c.html#a5120208650c6c1774fe79c46127ea4c2" title="Disable a channel and block until hardware confirms it is off." alt="" coords="785,5,1002,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="682,16,770,16,770,21,682,21"/>
+</map>

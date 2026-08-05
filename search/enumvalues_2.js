@@ -9,6 +9,6 @@ var searchData=
   ['cs_5f24v_6',['CS_24V',['../switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908ab5b4046bdc5d93263b8d3c19ad499854',1,'switches.h']]],
   ['cs_5f5v_7',['CS_5V',['../switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a356c97a954aeb970d489c92243d3e24e',1,'switches.h']]],
   ['cs_5fswitch_5fcount_8',['CS_SWITCH_COUNT',['../switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a65288571c443d6b008a416108b2aa47d',1,'switches.h']]],
-  ['cts_9',['CTS',['../phal__F4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a97dc7d7bbe8a217f4bc934b4a868c521',1,'CTS:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a97dc7d7bbe8a217f4bc934b4a868c521',1,'CTS:&#160;usart.h']]],
-  ['cts_5frts_10',['CTS_RTS',['../phal__F4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a4e65306446c6c91076975dffc310218b',1,'CTS_RTS:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a4e65306446c6c91076975dffc310218b',1,'CTS_RTS:&#160;usart.h']]]
+  ['cts_9',['CTS',['../phal__F4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a97dc7d7bbe8a217f4bc934b4a868c521',1,'usart.h']]],
+  ['cts_5frts_10',['CTS_RTS',['../phal__F4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a4e65306446c6c91076975dffc310218b',1,'usart.h']]]
 ];

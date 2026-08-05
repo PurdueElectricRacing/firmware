@@ -2,22 +2,20 @@
 <area shape="rect" id="Node000001" title=" " alt="" coords="443,104,553,130"/>
 <area shape="rect" id="Node000002" href="$pdu_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="272,5,321,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="470,96,435,69,394,45,356,31,321,24,322,19,358,26,396,40,438,64,473,92"/>
-<area shape="rect" id="Node000003" href="$common_2phal__F4_2usart_2usart_8c.html#a1e13f03e291a90dcd93ffccf1b8edf65" title="Initialize a USART Peripheral with desired settings." alt="" coords="233,55,360,80"/>
+<area shape="rect" id="Node000003" href="$phal__F4_2usart_2usart_8c.html#a1e13f03e291a90dcd93ffccf1b8edf65" title="Initialize a USART Peripheral with desired settings." alt="" coords="233,55,360,80"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="427,102,394,94,352,84,353,78,396,89,429,97"/>
-<area shape="rect" id="Node000005" href="$phal__F4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="241,104,352,130"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="427,120,352,120,352,114,427,114"/>
-<area shape="rect" id="Node000008" href="$sdio_8c.html#ad6c4df3070c195bbc2067e19a702f495" title="Configures the DMA2 Channel4 for SDIO Rx request." alt="" coords="198,153,395,179"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="429,137,396,145,353,155,352,150,394,140,427,131"/>
-<area shape="rect" id="Node000010" href="$sdio_8c.html#ab5b450ca3307efda90446fe2a8cca8f4" title="Configures the DMA 2 Channel 6 for SDIO Tx request." alt="" coords="198,203,394,228"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="473,142,438,169,396,194,367,205,365,200,394,189,435,165,470,138"/>
-<area shape="rect" id="Node000004" href="$dashboard_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="53,5,102,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="220,53,102,26,103,21,222,48"/>
-<area shape="rect" id="Node000006" href="$daq_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="53,55,102,80"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="226,104,102,75,103,70,227,99"/>
-<area shape="rect" id="Node000007" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="53,104,102,130"/>
-<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="226,120,102,120,102,114,226,114"/>
-<area shape="rect" id="Node000009" href="$sdio_8c.html#a56b7336165f2631d9142a513ea2d0d17" title="Allows to read blocks from a specified address in a card. The Data transfer can be managed by DMA mod..." alt="" coords="5,153,150,179"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="182,169,150,169,150,164,182,164"/>
-<area shape="rect" id="Node000011" href="$sdio_8c.html#a64baac72a75a2c522e837935009cbe93" title="Allows to write blocks starting from a specified address in a card. The Data transfer can be managed ..." alt="" coords="5,203,150,228"/>
-<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="182,218,150,218,150,213,182,213"/>
+<area shape="rect" id="Node000004" href="$phal__F4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="241,104,352,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="427,120,352,120,352,114,427,114"/>
+<area shape="rect" id="Node000007" href="$sdio_8c.html#ad6c4df3070c195bbc2067e19a702f495" title="Configures the DMA2 Channel4 for SDIO Rx request." alt="" coords="198,153,395,179"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="429,137,396,145,353,155,352,150,394,140,427,131"/>
+<area shape="rect" id="Node000009" href="$sdio_8c.html#ab5b450ca3307efda90446fe2a8cca8f4" title="Configures the DMA 2 Channel 6 for SDIO Tx request." alt="" coords="198,203,394,228"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="473,142,438,169,396,194,367,205,365,200,394,189,435,165,470,138"/>
+<area shape="rect" id="Node000005" href="$daq_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="53,55,102,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="226,104,102,75,103,70,227,99"/>
+<area shape="rect" id="Node000006" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="53,104,102,130"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="226,120,102,120,102,114,226,114"/>
+<area shape="rect" id="Node000008" href="$sdio_8c.html#a56b7336165f2631d9142a513ea2d0d17" title="Allows to read blocks from a specified address in a card. The Data transfer can be managed by DMA mod..." alt="" coords="5,153,150,179"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="182,169,150,169,150,164,182,164"/>
+<area shape="rect" id="Node000010" href="$sdio_8c.html#a64baac72a75a2c522e837935009cbe93" title="Allows to write blocks starting from a specified address in a card. The Data transfer can be managed ..." alt="" coords="5,203,150,228"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="182,218,150,218,150,213,182,213"/>
 </map>

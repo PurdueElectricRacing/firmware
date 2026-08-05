@@ -1,7 +1,0 @@
-<map id="PHAL_DMA_start" name="PHAL_DMA_start">
-<area shape="rect" id="Node000001" title="Enable the channel, starting the transfer configured by PHAL_DMA_init()" alt="" coords="189,31,315,56"/>
-<area shape="rect" id="Node000002" href="$common_2phal__G4_2usart_2usart_8c.html#a58f9158940d388fe2e706fddb01a759d" title="Starts a DMA&#45;based reception." alt="" coords="5,5,141,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,35,141,30,142,25,174,30"/>
-<area shape="rect" id="Node000003" href="$common_2phal__G4_2usart_2usart_8c.html#a61183ec430b48e9dc2eef1a49f292a65" title="Starts a DMA&#45;based transmission." alt="" coords="6,55,140,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="174,57,141,61,140,56,173,51"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="handleDMAxComplete" name="handleDMAxComplete">
-<area shape="rect" id="Node000001" title="Handles DMA interrupts for a specific channel." alt="" coords="5,5,155,31"/>
-<area shape="rect" id="Node000002" href="$phal__G4_2dma_2dma_8c.html#a11e3f2f9fb30872d1d48264d91d614e7" title="Disable the channel, stopping the transfer immediately." alt="" coords="203,5,328,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,16,187,16,187,21,155,21"/>
-<area shape="rect" id="Node000003" href="$dma__priv_8c.html#a5120208650c6c1774fe79c46127ea4c2" title="Disable a channel and block until hardware confirms it is off." alt="" coords="376,5,592,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="329,16,361,16,361,21,329,21"/>
-</map>

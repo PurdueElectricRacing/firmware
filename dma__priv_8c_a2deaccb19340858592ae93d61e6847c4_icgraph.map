@@ -1,13 +1,15 @@
 <map id="PHAL_DMA_priv_setPeriphAddress" name="PHAL_DMA_priv_setPeriphAddress">
-<area shape="rect" id="Node000001" title="Write the peripheral&#45;side address (CPAR)" alt="" coords="442,55,674,80"/>
-<area shape="rect" id="Node000002" href="$phal__G4_2dma_2dma_8c.html#a44be3f4d5e3f90d9fa73d1b808185d53" title="Claim a DMA channel and configure it from handle&#45;&gt;wiring and handle&#45;&gt;params." alt="" coords="277,55,394,80"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="427,70,395,70,395,65,427,65"/>
-<area shape="rect" id="Node000003" href="$phal__G4_2adc_2adc_8c.html#adf65563b732ce6a236058dc45a5c04a1" title="Configure an ADC instance and its DMA channel." alt="" coords="108,5,224,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="274,52,212,34,214,29,275,47"/>
-<area shape="rect" id="Node000005" href="$common_2phal__G4_2usart_2usart_8c.html#a1e13f03e291a90dcd93ffccf1b8edf65" title="Initializes a USART peripheral on an STM32G4 microcontroller." alt="" coords="103,55,229,80"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="261,70,230,70,230,65,261,65"/>
-<area shape="rect" id="Node000006" href="$phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="111,104,221,130"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="275,88,214,106,212,101,274,83"/>
+<area shape="rect" id="Node000001" title="Write the peripheral&#45;side address (CPAR)" alt="" coords="449,55,681,80"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2dma_2dma_8c.html#a44be3f4d5e3f90d9fa73d1b808185d53" title="Claim a DMA channel and configure it from handle&#45;&gt;wiring and handle&#45;&gt;params." alt="" coords="284,55,401,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="434,70,402,70,402,65,434,65"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2adc_2adc_8c.html#adf65563b732ce6a236058dc45a5c04a1" title="Configure an ADC instance and its DMA channel." alt="" coords="112,5,227,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="279,52,217,34,218,29,281,47"/>
+<area shape="rect" id="Node000005" href="$phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="114,55,224,80"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="269,70,225,70,225,65,269,65"/>
+<area shape="rect" id="Node000006" href="$phal__G4_2usart_2usart_8c.html#a111a81e667da7f8dfcf9d39836664970" title="Initialize a USART peripheral for DMA&#45;driven communication." alt="" coords="103,104,236,130"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="281,88,218,106,217,101,279,83"/>
 <area shape="rect" id="Node000004" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,55,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="92,21,55,21,55,16,92,16"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="96,21,55,21,55,16,96,16"/>
+<area shape="rect" id="Node000007" href="$dashboard_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,104,55,130"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="87,120,55,120,55,114,87,114"/>
 </map>

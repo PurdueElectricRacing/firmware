@@ -98,6 +98,8 @@ var annotated_dup =
     [ "PHAL_DMA_Params_t", "structPHAL__DMA__Params__t.html", "structPHAL__DMA__Params__t" ],
     [ "PHAL_DMA_Wiring_t", "structPHAL__DMA__Wiring__t.html", "structPHAL__DMA__Wiring__t" ],
     [ "PHAL_SD_Cmd_t", "structPHAL__SD__Cmd__t.html", "structPHAL__SD__Cmd__t" ],
+    [ "PHAL_USART_HwMap_t", "structPHAL__USART__HwMap__t.html", "structPHAL__USART__HwMap__t" ],
+    [ "PHAL_USART_state_t", "structPHAL__USART__state__t.html", "structPHAL__USART__state__t" ],
     [ "PHAL_USB_Event_t", "structPHAL__USB__Event__t.html", "structPHAL__USB__Event__t" ],
     [ "PHAL_USB_TransferEvent_t", "structPHAL__USB__TransferEvent__t.html", "structPHAL__USB__TransferEvent__t" ],
     [ "pounds_t", "structpounds__t.html", "structpounds__t" ],

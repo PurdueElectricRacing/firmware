@@ -12,6 +12,6 @@ var dir_044aef65200486a75d86f593c39f6fb0 =
     [ "main.h", "g4__testing_2main_8h.html", "g4__testing_2main_8h" ],
     [ "pwm_testing.c", "g4__testing_2pwm__testing_8c.html", null ],
     [ "spi_test.c", "spi__test_8c.html", null ],
-    [ "usart.c", "source_2g4__testing_2usart_8c.html", null ],
+    [ "usart_test.c", "usart__test_8c.html", null ],
     [ "usb_test.c", "usb__test_8c.html", null ]
 ];

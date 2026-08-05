@@ -42,7 +42,7 @@ var searchData=
   ['connection_5fpin_39',['connection_pin',['../structstatus__leds__t.html#a6b12aabe85d35381b40851d9473f747a',1,'status_leds_t']]],
   ['connection_5fport_40',['connection_port',['../structstatus__leds__t.html#a6cc07c4442bf7158ab552581c3ae924e',1,'status_leds_t']]],
   ['cont_5fconv_5fmode_41',['cont_conv_mode',['../structADCInitConfig__t.html#af08893e9d1b2085d5b9090c9ee265f57',1,'ADCInitConfig_t']]],
-  ['cont_5frx_42',['cont_rx',['../structusart__active__transfer__t.html#a517754f4662afba43bb003cba2868140',1,'usart_active_transfer_t']]],
+  ['cont_5frx_42',['cont_rx',['../structusart__active__transfer__t.html#a517754f4662afba43bb003cba2868140',1,'usart_active_transfer_t::cont_rx'],['../structPHAL__USART__state__t.html#a8504b33bd73f80dcab91e4db68d9e415',1,'PHAL_USART_state_t::cont_rx']]],
   ['contentprotectappli_43',['ContentProtectAppli',['../structSD__CSD.html#ae5d1c421553c1aef8c8814a27d64703a',1,'SD_CSD']]],
   ['control_5floop_5fperiod_5fms_44',['CONTROL_LOOP_PERIOD_MS',['../control__loop_8h.html#a41c613c22d8a10408faafe935789ac56',1,'control_loop.h']]],
   ['cooling_5ffsm_5fperiod_5fms_45',['COOLING_FSM_PERIOD_MS',['../cooling__fsm_8h.html#a69c178a2ea48d1e08e9a16ebbbd253af',1,'cooling_fsm.h']]],

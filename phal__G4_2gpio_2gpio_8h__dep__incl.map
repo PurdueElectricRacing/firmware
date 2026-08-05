@@ -1,13 +1,11 @@
 <map id="common/phal_G4/gpio/gpio.h" name="common/phal_G4/gpio/gpio.h">
-<area shape="rect" id="Node000001" title="GPIO Driver for STM32L432 Devices." alt="" coords="173,5,325,46"/>
+<area shape="rect" id="Node000001" title="GPIO Driver for STM32L432 Devices." alt="" coords="119,5,270,46"/>
 <area shape="rect" id="Node000002" href="$phal__G4_2gpio_2gpio_8c.html" title="GPIO Driver for STM32L432 Devices." alt="" coords="5,94,157,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,56,120,96,118,91,196,51"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,58,108,96,105,91,155,53"/>
 <area shape="rect" id="Node000003" href="$phal__G4_2spi_2spi_8c.html" title="G4 SPI." alt="" coords="122,183,266,223"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="235,61,222,95,200,183,195,182,217,93,230,59"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="197,61,197,182,192,182,192,61"/>
 <area shape="rect" id="Node000004" href="$spi__priv_8h.html" title="Internal G4 SPI helpers and DMA configuration macros." alt="" coords="232,94,376,135"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="272,58,294,92,289,95,267,61"/>
-<area shape="rect" id="Node000006" href="$common_2phal__G4_2usart_2usart_8c.html" title=" " alt="" coords="400,94,556,135"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="316,49,427,91,425,96,314,54"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="233,54,281,91,277,96,230,58"/>
 <area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="268,147,221,184,217,180,265,143"/>
 <area shape="rect" id="Node000005" href="$spi__priv_8c.html" title="G4 SPI Peripheral private/register level implementation." alt="" coords="290,183,434,223"/>
 <area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="328,146,351,181,347,184,323,149"/>

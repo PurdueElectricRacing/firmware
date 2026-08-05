@@ -1,0 +1,5 @@
+<map id="PHAL_USART_DMA1_Channel1_IRQHandler" name="PHAL_USART_DMA1_Channel1_IRQHandler">
+<area shape="rect" id="Node000001" title="Service USART3 RX when it owns DMA1 channel 1." alt="" coords="247,5,460,46"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2usart_2usart_8c.html#a7b6fac3d670a4860ebec8a961d5c4a73" title=" " alt="" coords="5,13,199,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="231,28,199,28,199,23,231,23"/>
+</map>

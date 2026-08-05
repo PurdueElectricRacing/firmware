@@ -11,7 +11,6 @@ var lcd_8c =
     [ "updatePage", "lcd_8c.html#aa13fa254ddd44573fd2a83874763cae8", null ],
     [ "updateTelemetryPages", "lcd_8c.html#a9ceeac8764aca15be67680bddfe70704", null ],
     [ "curr_page", "lcd_8c.html#af64f99df8657acc696aa097fce871251", null ],
-    [ "lcd", "lcd_8c.html#abf94e19caf3951d83556041d6f54d7e6", null ],
     [ "page_handlers", "lcd_8c.html#ac0100435ab443897cfb77d50c768c71d", null ],
     [ "prev_page", "lcd_8c.html#a8b71ea5d4f043abfa893e1d47cb51c06", null ]
 ];

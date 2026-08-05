@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['ob_5fdisable_0',['OB_DISABLE',['../phal__F4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b',1,'OB_DISABLE:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b',1,'OB_DISABLE:&#160;usart.h']]],
-  ['ob_5fenable_1',['OB_ENABLE',['../phal__F4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9a30aee904e3e05a145ae611bc8de5c41b',1,'OB_ENABLE:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9a30aee904e3e05a145ae611bc8de5c41b',1,'OB_ENABLE:&#160;usart.h']]],
+  ['ob_5fdisable_0',['OB_DISABLE',['../phal__F4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9ab1d6a2d7fdc63253da1d7d78adbadb4b',1,'usart.h']]],
+  ['ob_5fenable_1',['OB_ENABLE',['../phal__F4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9a30aee904e3e05a145ae611bc8de5c41b',1,'usart.h']]],
   ['object_5fname_2',['object_name',['../structmenu__element__t.html#ae8a67b2ebe969da700aa5211116c2b30',1,'menu_element_t']]],
   ['obsample_3',['obsample',['../structusart__init__t.html#a800535a10dcb513f67b6792ff478e957',1,'usart_init_t']]],
-  ['obsample_5ft_4',['obsample_t',['../phal__F4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9',1,'obsample_t:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9',1,'obsample_t:&#160;usart.h']]],
+  ['obsample_5ft_4',['obsample_t',['../phal__F4_2usart_2usart_8h.html#a898ff57758aab4eeeae844c6708938e9',1,'usart.h']]],
   ['odr_5f104hz_5',['ODR_104HZ',['../izze__imu_8h.html#a044be3dd587ce19e0580925a67234a2fae5e9e029c565aa13fffc57b001db625b',1,'izze_imu.h']]],
   ['odr_5f12hz_6',['ODR_12HZ',['../izze__imu_8h.html#a044be3dd587ce19e0580925a67234a2fa89615d12ea9e62c36ab0f666ba0d3d94',1,'izze_imu.h']]],
   ['odr_5f1667hz_7',['ODR_1667HZ',['../izze__imu_8h.html#a044be3dd587ce19e0580925a67234a2faa3fe3855238515c573971dd71964f196',1,'izze_imu.h']]],
@@ -52,8 +52,8 @@ var searchData=
   ['output_5fdata_5frate_5ft_49',['output_data_rate_t',['../izze__imu_8h.html#a044be3dd587ce19e0580925a67234a2f',1,'izze_imu.h']]],
   ['output_5frev_5fper_5fmotor_5frev_50',['OUTPUT_REV_PER_MOTOR_REV',['../race_8c.html#aadaa167f92c7d7e6d0a3c341d93b0220',1,'OUTPUT_REV_PER_MOTOR_REV:&#160;race.c'],['../torque__controller_8c.html#aadaa167f92c7d7e6d0a3c341d93b0220',1,'OUTPUT_REV_PER_MOTOR_REV:&#160;torque_controller.c']]],
   ['outputs_3a_51',['Outputs:',['../md_source_2torque__vector_2vcu_2vcu__interface.html#autotoc_md54',1,'']]],
-  ['ov_5f16_52',['OV_16',['../phal__F4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6',1,'OV_16:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6',1,'OV_16:&#160;usart.h']]],
-  ['ov_5f8_53',['OV_8',['../phal__F4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7ad66b645e2c6b620132b08421b4a87736',1,'OV_8:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7ad66b645e2c6b620132b08421b4a87736',1,'OV_8:&#160;usart.h']]],
+  ['ov_5f16_52',['OV_16',['../phal__F4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7a7211a2296fe5e47bf58bd037edce0ac6',1,'usart.h']]],
+  ['ov_5f8_53',['OV_8',['../phal__F4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7ad66b645e2c6b620132b08421b4a87736',1,'usart.h']]],
   ['ov_5finv_54',['OV_INV',['../structxVCU__struct.html#a9e5c235b578340551db3344b31e0ba02',1,'xVCU_struct::OV_INV'],['../structyVCU__struct.html#a20c59ecf472ddd33b700a2ad73d93afe',1,'yVCU_struct::OV_INV']]],
   ['ov_5finv_5fderating_5ffull_5ft_55',['OV_INV_derating_full_T',['../structpVCU__struct.html#a31dbe2e7f85774fd2ecdb4a38d5423df',1,'pVCU_struct']]],
   ['ov_5finv_5fderating_5fzero_5ft_56',['OV_INV_derating_zero_T',['../structpVCU__struct.html#a527f9e92aa51283b56b2a2e8c3b7e955',1,'pVCU_struct']]],
@@ -64,5 +64,5 @@ var searchData=
   ['overrides_5fby_5fprio_61',['overrides_by_prio',['../classlinker_1_1BusLinker.html#a23e3b19f205574d834a149b4e05c9091',1,'linker::BusLinker']]],
   ['overrun_62',['overrun',['../structusart__rx__errors__t.html#abf71439361d0c2575b46c7eb42f61f8b',1,'usart_rx_errors_t']]],
   ['ovsample_63',['ovsample',['../structusart__init__t.html#a2820018bf22cf98f54b55244fe1ffc80',1,'usart_init_t']]],
-  ['ovsample_5ft_64',['ovsample_t',['../phal__F4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7',1,'ovsample_t:&#160;usart.h'],['../phal__G4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7',1,'ovsample_t:&#160;usart.h']]]
+  ['ovsample_5ft_64',['ovsample_t',['../phal__F4_2usart_2usart_8h.html#a9fb60e9f8236a52b6c9bd8a310f589a7',1,'usart.h']]]
 ];

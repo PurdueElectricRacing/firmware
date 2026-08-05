@@ -109,10 +109,11 @@ $(function(){initNavTree('lcd_8h.html',''); initResizable(true); });
 <p>LCD display management.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="phal_2usart_8h_source.html">common/phal/usart.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for lcd.h:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="lcd_8h__incl.svg" width="171" height="126"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="lcd_8h__incl.svg" width="246" height="272"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -172,6 +173,8 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:ad09c19efeeec2514707662f506d2267a" id="r_ad09c19efeeec2514707662f506d2267a"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad09c19efeeec2514707662f506d2267a">LCD_BAUD_RATE</a> = 115'200</td></tr>
 <tr class="separator:ad09c19efeeec2514707662f506d2267a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af86b26fbe1f76e9d70776d7863afbd04" id="r_af86b26fbe1f76e9d70776d7863afbd04"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="phal__G4_2usart_2usart_8h.html#a5a99a5b20a6e9a0b6aa2a54103a94252">PHAL_USART_Idx_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af86b26fbe1f76e9d70776d7863afbd04">LCD_USART</a> = <a class="el" href="phal__G4_2usart_2usart_8h.html#a5a99a5b20a6e9a0b6aa2a54103a94252af1e9820a41fe92a92e5c09875e0eb087">USART1_IDX</a></td></tr>
+<tr class="separator:af86b26fbe1f76e9d70776d7863afbd04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af64f99df8657acc696aa097fce871251" id="r_af64f99df8657acc696aa097fce871251"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="#a99a5fddfe71e6e9cd0c559b9a9a41a99">page_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af64f99df8657acc696aa097fce871251">curr_page</a></td></tr>
 <tr class="separator:af64f99df8657acc696aa097fce871251"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -307,7 +310,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="lcd_8h_ab1da20573be93be73a9d5e72e133b7e9_cgraph.svg" width="550" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="lcd_8h_ab1da20573be93be73a9d5e72e133b7e9_cgraph.svg" width="100%" height="549"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -473,6 +476,28 @@ Here is the caller graph for this function:</div>
       <table class="memname">
         <tr>
           <td class="memname">uint32_t LCD_BAUD_RATE = 115'200</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af86b26fbe1f76e9d70776d7863afbd04" name="af86b26fbe1f76e9d70776d7863afbd04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af86b26fbe1f76e9d70776d7863afbd04">&#9670;&#160;</a></span>LCD_USART</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="phal__G4_2usart_2usart_8h.html#a5a99a5b20a6e9a0b6aa2a54103a94252">PHAL_USART_Idx_t</a> LCD_USART = <a class="el" href="phal__G4_2usart_2usart_8h.html#a5a99a5b20a6e9a0b6aa2a54103a94252af1e9820a41fe92a92e5c09875e0eb087">USART1_IDX</a></td>
         </tr>
       </table>
   </td>

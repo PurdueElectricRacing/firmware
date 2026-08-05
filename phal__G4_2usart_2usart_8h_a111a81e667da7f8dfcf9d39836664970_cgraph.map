@@ -1,0 +1,33 @@
+<map id="PHAL_USART_init" name="PHAL_USART_init">
+<area shape="rect" id="Node000001" title="Initialize a USART peripheral for DMA&#45;driven communication." alt="" coords="5,301,139,327"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2dma_2dma_8c.html#a44be3f4d5e3f90d9fa73d1b808185d53" title="Claim a DMA channel and configure it from handle&#45;&gt;wiring and handle&#45;&gt;params." alt="" coords="227,252,344,278"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,298,212,279,213,284,132,303"/>
+<area shape="rect" id="Node000015" href="$usart__priv_8c.html#ae5dde09b3f94cf11fdf68976beb8288e" title="Fill the TX and RX DMA handles from the hardware map." alt="" coords="187,301,385,327"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="139,312,171,312,171,317,139,317"/>
+<area shape="rect" id="Node000016" href="$usart__priv_8c.html#a6effeddfc26f53a30dace58a43fce781" title="Enable the clock, program 8N1 + baud, and enable the IDLE + TX&#45;DMA interrupts." alt="" coords="188,351,384,376"/>
+<area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="132,325,213,344,212,349,130,330"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2dma_2dma_8c.html#af12ff6bf938e0b8cf0882c4e64e2cdd4" title=" " alt="" coords="466,5,631,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="289,251,306,209,335,152,377,91,403,63,432,40,451,30,453,34,434,44,406,67,381,94,340,154,311,211,294,253"/>
+<area shape="rect" id="Node000004" href="$phal__G4_2dma_2dma_8c.html#a3355394f66e080a191644b3aa05bb7e6" title=" " alt="" coords="480,55,618,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="292,250,312,217,343,173,383,127,432,89,464,75,466,80,434,94,387,131,347,176,316,220,297,253"/>
+<area shape="rect" id="Node000005" href="$dma__priv_8c.html#af2abd80aa58bd274ede649605c608987" title="Clear every latched status flag (global/complete/half/error) for one channel." alt="" coords="454,104,643,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="297,250,351,195,389,164,432,138,445,133,447,138,434,143,392,169,354,199,300,253"/>
+<area shape="rect" id="Node000006" href="$dma__priv_8c.html#a3f0c9d4036cc06c7b22d99ca7f542d2b" title="Configure CCR (data sizes, priority, increment modes, mode, ISR enables) from wiring+params." alt="" coords="444,153,653,179"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="307,249,363,218,432,188,454,181,456,186,434,193,365,223,310,254"/>
+<area shape="rect" id="Node000008" href="$dma__priv_8c.html#a8587b5521d3115d25b6bfe0bdca3848b" title="Route wiring&#45;&gt;mux_request to (periph, channel_idx)&#39;s DMAMUX channel." alt="" coords="456,203,642,228"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="344,251,461,229,462,234,345,257"/>
+<area shape="rect" id="Node000009" href="$dma__priv_8c.html#a5120208650c6c1774fe79c46127ea4c2" title="Disable a channel and block until hardware confirms it is off." alt="" coords="440,252,657,278"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="345,262,425,262,425,268,345,268"/>
+<area shape="rect" id="Node000010" href="$dma__priv_8c.html#a98c01cf2ce77f94763ff918f7f939e0e" title="Enable DMAMUX1&#39;s clock plus the given DMA peripheral&#39;s clock." alt="" coords="449,301,648,327"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="345,273,462,295,461,300,344,278"/>
+<area shape="rect" id="Node000011" href="$dma__priv_8c.html#ae2f74296c8912f0000fa614d49bd1ab8" title="Look up the channel instance for (periph, channel_idx). channel_idx must be 1&#45;8." alt="" coords="452,351,645,376"/>
+<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="346,271,386,287,402,299,411,313,420,326,434,337,445,342,442,347,432,342,416,329,407,316,398,303,384,291,344,276"/>
+<area shape="rect" id="Node000012" href="$dma__priv_8c.html#aa6b45775bb2ff8ed4bcb8e5bb1177521" title="Write the transfer length (CNDTR)" alt="" coords="456,400,642,426"/>
+<area shape="poly" id="edge11_Node000002_Node000012" title=" " alt="" coords="346,268,367,275,387,287,399,299,406,312,411,339,417,364,424,375,435,387,443,393,440,397,431,391,419,379,412,366,406,340,401,314,394,302,383,291,365,280,344,273"/>
+<area shape="rect" id="Node000013" href="$dma__priv_8c.html#a2449fa9f613108935c398de08de96014" title="Write the memory&#45;side address (CMAR)" alt="" coords="437,449,660,475"/>
+<area shape="poly" id="edge12_Node000002_Node000013" title=" " alt="" coords="346,266,367,274,387,287,402,306,409,325,411,364,413,401,420,419,435,436,437,438,434,442,431,440,416,422,408,402,406,364,404,326,397,308,383,291,365,279,344,271"/>
+<area shape="rect" id="Node000014" href="$dma__priv_8c.html#a2deaccb19340858592ae93d61e6847c4" title="Write the peripheral&#45;side address (CPAR)" alt="" coords="433,499,664,524"/>
+<area shape="poly" id="edge13_Node000002_Node000014" title=" " alt="" coords="346,266,368,273,387,287,405,312,413,338,414,363,411,389,409,414,410,438,417,462,435,486,436,487,433,491,431,489,412,465,404,439,403,414,406,388,409,363,408,339,400,314,383,291,365,278,344,271"/>
+<area shape="rect" id="Node000007" href="$dma__priv_8c.html#a3ee5d0a2c1258bd0a664abd82aa1f60e" title=" " alt="" coords="712,153,789,179"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="654,164,696,164,696,169,654,169"/>
+</map>

@@ -1,5 +1,10 @@
 <map id="common/phal_G4/usart/usart.h" name="common/phal_G4/usart/usart.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,162,46"/>
-<area shape="rect" id="Node000002" href="$common_2phal__G4_2usart_2usart_8c.html" title=" " alt="" coords="5,94,162,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,62,86,94,81,94,81,62"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="63,5,219,46"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2usart_2usart_8c.html" title=" " alt="" coords="5,183,162,223"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="126,61,111,95,98,142,89,183,84,182,93,141,106,93,121,59"/>
+<area shape="rect" id="Node000003" href="$usart__priv_8h.html" title=" " alt="" coords="121,94,278,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="165,57,188,92,184,95,160,60"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="162,146,111,184,108,180,159,142"/>
+<area shape="rect" id="Node000004" href="$usart__priv_8c.html" title=" " alt="" coords="185,183,342,223"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="225,146,251,181,247,184,221,149"/>
 </map>

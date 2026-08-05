@@ -14,11 +14,13 @@ var searchData=
   ['phal_5fdma_5fparams_5ft_11',['PHAL_DMA_Params_t',['../structPHAL__DMA__Params__t.html',1,'']]],
   ['phal_5fdma_5fwiring_5ft_12',['PHAL_DMA_Wiring_t',['../structPHAL__DMA__Wiring__t.html',1,'']]],
   ['phal_5fsd_5fcmd_5ft_13',['PHAL_SD_Cmd_t',['../structPHAL__SD__Cmd__t.html',1,'']]],
-  ['phal_5fusb_5fevent_5ft_14',['PHAL_USB_Event_t',['../structPHAL__USB__Event__t.html',1,'']]],
-  ['phal_5fusb_5ftransferevent_5ft_15',['PHAL_USB_TransferEvent_t',['../structPHAL__USB__TransferEvent__t.html',1,'']]],
-  ['pounds_5ft_16',['pounds_t',['../structpounds__t.html',1,'']]],
-  ['powertrain_5ft_17',['powertrain_t',['../structpowertrain__t.html',1,'']]],
-  ['psi_5ft_18',['psi_t',['../structpsi__t.html',1,'']]],
-  ['pvcu_5fstruct_19',['pVCU_struct',['../structpVCU__struct.html',1,'']]],
-  ['pwm_5fpriv_5ftimerinfo_5ft_20',['PWM_PRIV_TimerInfo_t',['../structPWM__PRIV__TimerInfo__t.html',1,'']]]
+  ['phal_5fusart_5fhwmap_5ft_14',['PHAL_USART_HwMap_t',['../structPHAL__USART__HwMap__t.html',1,'']]],
+  ['phal_5fusart_5fstate_5ft_15',['PHAL_USART_state_t',['../structPHAL__USART__state__t.html',1,'']]],
+  ['phal_5fusb_5fevent_5ft_16',['PHAL_USB_Event_t',['../structPHAL__USB__Event__t.html',1,'']]],
+  ['phal_5fusb_5ftransferevent_5ft_17',['PHAL_USB_TransferEvent_t',['../structPHAL__USB__TransferEvent__t.html',1,'']]],
+  ['pounds_5ft_18',['pounds_t',['../structpounds__t.html',1,'']]],
+  ['powertrain_5ft_19',['powertrain_t',['../structpowertrain__t.html',1,'']]],
+  ['psi_5ft_20',['psi_t',['../structpsi__t.html',1,'']]],
+  ['pvcu_5fstruct_21',['pVCU_struct',['../structpVCU__struct.html',1,'']]],
+  ['pwm_5fpriv_5ftimerinfo_5ft_22',['PWM_PRIV_TimerInfo_t',['../structPWM__PRIV__TimerInfo__t.html',1,'']]]
 ];

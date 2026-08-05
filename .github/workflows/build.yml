@@ -32,6 +32,7 @@ jobs:
           echo "branch=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
       - name: Run per_build.py
+        working-directory: firmware
         run: python3 per_build.py --package
 
       - name: Upload build artifacts
@@ -39,8 +40,8 @@ jobs:
         with:
           name: firmware-${{ steps.git_info.outputs.branch }}-${{ steps.git_info.outputs.short_hash }}
           path: |
-            output/**/*.elf
-            output/**/*.hex
-            output/**/*.tar.gz
-            can_library/dbc/*.dbc
+            firmware/output/**/*.elf
+            firmware/output/**/*.hex
+            firmware/output/**/*.tar.gz
+            firmware/can_library/dbc/*.dbc
           retention-days: ${{ github.ref == 'refs/heads/master' && 90 || 7 }}

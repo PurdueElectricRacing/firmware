@@ -1,16 +1,18 @@
 # Directory Structure
 The codebase represents a real-time distributed system for an FSAE electric vehicle.
-- Node source code is located in `source/`
-- Shared library code and drivers are located in `common/`
+These instructions apply to the embedded project under `firmware/`.
+- Node source code is located in `firmware/source/`
+- Shared library code and drivers are located in `firmware/common/`
 
 ## Build System Context
 - The code is built using CMake, with separate targets for each node and shared libraries.
 - The compiler toolchain is `arm-none-eabi-gcc` targeting ARM Cortex-M microcontrollers (STM32).
-- Code generation related to CAN bus communication is in `can_library/`.
+- Code generation related to CAN bus communication is in
+  `firmware/can_library/`.
 - The standard is set to C23, so keywords like `constexpr`, `static_assert`, `bool` are available.
 
 ## Code Standards
-- Codestyle is defined in `docs/code_style.md`
+- Codestyle is defined in `firmware/docs/code_style.md`
 - Dynamic memory allocation is FORBIDDEN
 - In-repo documentation should be updated in the same PR as code changes.
 

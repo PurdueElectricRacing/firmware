@@ -47,134 +47,73 @@ GPIOInitConfig_t gpio_config[] = {
 /* ADC Configuration */
 
 // ADC 1
-ADCInitConfig_t adc1_config = {
-    .prescaler      = ADC_CLK_PRESC_2,
-    .resolution     = ADC_RES_12_BIT,
-    .data_align     = ADC_DATA_ALIGN_RIGHT,
-    .cont_conv_mode = true,
-    .dma_mode       = ADC_DMA_CIRCULAR,
-    .periph         = ADC1,
+static const PHAL_ADC_ChannelConfig_t adc1_channels[] = {
+    {.channel = OIL_TEMP_L_ADC_CH},
 };
-
-ADCChannelConfig_t adc1_channel_config[] = {
- {.channel = OIL_TEMP_L_ADC_CH, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
-}; 
+static const PHAL_ADC_Config_t adc1_config = {
+    .instance      = ADC1,
+    .channels      = adc1_channels,
+    .channel_count = sizeof(adc1_channels) / sizeof(adc1_channels[0]),
+};
 typedef struct {
     uint16_t oil_temp_left;
 } raw_adc1_values_t;
 volatile raw_adc1_values_t raw_adc1_values;
+static PHAL_ADC_Handle_t adc1_handle;
 
-PHAL_DMA_Handle_t adc1_dma = {
-    .wiring = &ADC1_DMA_WIRING,
-    .params = {
-        .mem_addr  = (uint32_t)&raw_adc1_values,
-        .tx_size   = sizeof(raw_adc1_values) / sizeof(uint16_t),
-        .priority  = DMA_PRIORITY_HIGH,
-        .mode      = DMA_MODE_CIRCULAR,
-        .mem_inc   = true,
-        .tx_isr_en = false,
-    },
-};
-
-
-ADCInitConfig_t adc2_config = {
-    .prescaler      = ADC_CLK_PRESC_2,
-    .resolution     = ADC_RES_12_BIT,
-    .data_align     = ADC_DATA_ALIGN_RIGHT,
-    .cont_conv_mode = true,
-    .dma_mode       = ADC_DMA_CIRCULAR,
-    .periph         = ADC2,
-};
 
 // ADC 2
-ADCChannelConfig_t adc2_channel_config[] = {
-{.channel = OIL_TEMP_R_ADC_CH, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+static const PHAL_ADC_ChannelConfig_t adc2_channels[] = {
+    {.channel = OIL_TEMP_R_ADC_CH},
+};
+static const PHAL_ADC_Config_t adc2_config = {
+    .instance      = ADC2,
+    .channels      = adc2_channels,
+    .channel_count = sizeof(adc2_channels) / sizeof(adc2_channels[0]),
 };
 typedef struct {
     uint16_t oil_temp_right;
 } raw_adc2_values_t;
 volatile raw_adc2_values_t raw_adc2_values;
-
-PHAL_DMA_Handle_t adc2_dma = {
-    .wiring = &ADC2_DMA_WIRING,
-    .params = {
-        .mem_addr  = (uint32_t)&raw_adc2_values,
-        .tx_size   = sizeof(raw_adc2_values) / sizeof(uint16_t),
-        .priority  = DMA_PRIORITY_HIGH,
-        .mode      = DMA_MODE_CIRCULAR,
-        .mem_inc   = true,
-        .tx_isr_en = false,
-    },
-};
+static PHAL_ADC_Handle_t adc2_handle;
 
 
 // ADC 3
 
-ADCInitConfig_t adc3_config = {
-    .prescaler      = ADC_CLK_PRESC_2,
-    .resolution     = ADC_RES_12_BIT,
-    .data_align     = ADC_DATA_ALIGN_RIGHT,
-    .cont_conv_mode = true,
-    .dma_mode       = ADC_DMA_CIRCULAR,
-    .periph         = ADC3,
+static const PHAL_ADC_ChannelConfig_t adc3_channels[] = {
+    {.channel = SHOCKPOT_LEFT_ADC_CHNL},
 };
-
-ADCChannelConfig_t adc3_channel_config[] = {
-    {.channel = SHOCKPOT_LEFT_ADC_CHNL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+static const PHAL_ADC_Config_t adc3_config = {
+    .instance      = ADC3,
+    .channels      = adc3_channels,
+    .channel_count = sizeof(adc3_channels) / sizeof(adc3_channels[0]),
 };
-
 typedef struct {
     uint16_t shock_l;
 } raw_adc3_values_t;
 volatile raw_adc3_values_t raw_adc3_values;
-
-PHAL_DMA_Handle_t adc3_dma = {
-    .wiring = &ADC3_DMA_WIRING,
-    .params = {
-        .mem_addr  = (uint32_t)&raw_adc3_values,
-        .tx_size   = sizeof(raw_adc3_values) / sizeof(uint16_t),
-        .priority  = DMA_PRIORITY_HIGH,
-        .mode      = DMA_MODE_CIRCULAR,
-        .mem_inc   = true,
-        .tx_isr_en = false,
-    },
-};
+static PHAL_ADC_Handle_t adc3_handle;
 
 // ADC 4
 
-ADCInitConfig_t adc4_config = {
-    .prescaler      = ADC_CLK_PRESC_2,
-    .resolution     = ADC_RES_12_BIT,
-    .data_align     = ADC_DATA_ALIGN_RIGHT,
-    .cont_conv_mode = true,
-    .dma_mode       = ADC_DMA_CIRCULAR,
-    .periph         = ADC4,
+static const PHAL_ADC_ChannelConfig_t adc4_channels[] = {
+    {.channel = SHOCKPOT_RIGHT_ADC_CHNL},
 };
-
-ADCChannelConfig_t adc4_channel_config[] = {
-    {.channel = SHOCKPOT_RIGHT_ADC_CHNL, .rank = 1, .sampling_time = ADC_CHN_SMP_CYCLES_480},
+static const PHAL_ADC_Config_t adc4_config = {
+    .instance      = ADC4,
+    .channels      = adc4_channels,
+    .channel_count = sizeof(adc4_channels) / sizeof(adc4_channels[0]),
 };
-
 typedef struct {
     uint16_t shock_r;
 } raw_adc4_values_t;
 volatile raw_adc4_values_t raw_adc4_values;
-PHAL_DMA_Handle_t adc4_dma = {
-    .wiring = &ADC4_DMA_WIRING,
-    .params = {
-        .mem_addr  = (uint32_t)&raw_adc4_values,
-        .tx_size   = sizeof(raw_adc4_values) / sizeof(uint16_t),
-        .priority  = DMA_PRIORITY_HIGH,
-        .mode      = DMA_MODE_CIRCULAR,
-        .mem_inc   = true,
-        .tx_isr_en = false,
-    },
-};
+static PHAL_ADC_Handle_t adc4_handle;
 
 
-// note: this struct is the target of the DMA controller,
-// it's layout must match the order and size of the ADC channels in adc_channel_config
-// additonally, it must have no padding and members must be uint16_t to match the ADC resolution and data alignment
+// note: the raw_*_values structs are the DMA destinations for each ADC's
+// read, so their layout must match the channel order and they must be
+// uint16_t-aligned (a single uint16_t member is both)
 
 
 extern void HardFault_Handler();
@@ -195,40 +134,24 @@ int main(void) {
     if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
-    if (false == PHAL_DMA_init(&adc1_dma)) {
+    if (false == PHAL_ADC_init(&adc1_handle, &adc1_config)) {
         HardFault_Handler();
     }
-    if (false == PHAL_DMA_init(&adc2_dma)) {
+    if (false == PHAL_ADC_init(&adc2_handle, &adc2_config)) {
         HardFault_Handler();
     }
-    if (false == PHAL_DMA_init(&adc3_dma)) {
+    if (false == PHAL_ADC_init(&adc3_handle, &adc3_config)) {
         HardFault_Handler();
     }
-    if (false == PHAL_DMA_init(&adc4_dma)) {
+    if (false == PHAL_ADC_init(&adc4_handle, &adc4_config)) {
         HardFault_Handler();
     }
-    if (false == PHAL_initADC(&adc1_config, adc1_channel_config, countof(adc1_channel_config))) {
+    if (!PHAL_ADC_readDMA(&adc1_handle, (uint16_t *)&raw_adc1_values, 1U)
+        || !PHAL_ADC_readDMA(&adc2_handle, (uint16_t *)&raw_adc2_values, 1U)
+        || !PHAL_ADC_readDMA(&adc3_handle, (uint16_t *)&raw_adc3_values, 1U)
+        || !PHAL_ADC_readDMA(&adc4_handle, (uint16_t *)&raw_adc4_values, 1U)) {
         HardFault_Handler();
     }
-    if (false == PHAL_initADC(&adc2_config, adc2_channel_config, countof(adc2_channel_config))) {
-        HardFault_Handler();
-    }
-    if (false == PHAL_initADC(&adc3_config, adc3_channel_config, countof(adc3_channel_config))) {
-        HardFault_Handler();
-    }
-    if (false == PHAL_initADC(&adc4_config, adc4_channel_config, countof(adc4_channel_config))) {
-        HardFault_Handler();
-    }
-    
-    PHAL_DMA_start(&adc1_dma);
-    PHAL_DMA_start(&adc2_dma);
-    PHAL_DMA_start(&adc3_dma);
-    PHAL_DMA_start(&adc4_dma);
-
-    PHAL_startADC(&adc1_config);
-    PHAL_startADC(&adc2_config);
-    PHAL_startADC(&adc3_config);
-    PHAL_startADC(&adc4_config);
 
     PHAL_FDCAN_init(FDCAN2, VCAN_BAUD_RATE);
     CAN_init();

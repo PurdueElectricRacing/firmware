@@ -1,207 +1,293 @@
 /**
  * @file adc.c
- * @author Eilen Yoon - Port of F4 HAL by Aditya Anand, Chris McGalliard
- * @brief
- * @version 0.1
- * @date 2023-09-17
+ * @brief G4 ADC public API implementation. All register-level detail lives
+ *        in adc_priv.c; this file only coordinates the ADC with its DMA channel.
+ * @author Ronak Jain (jain717@purdue.edu)
  */
 
 #include "common/phal_G4/adc/adc.h"
 
-// Oversample count must be 2,4,8,16,32,64,128,256
-// The shift is automatically set as log2(oversample_count)
-static bool PHAL_configureOversampling(ADCInitConfig_t* config) {
-    ADC_TypeDef* adc = config->periph;
+#include "common/phal_G4/adc/adc_priv.h"
 
-    uint16_t oversample_count = config->oversample;
-    if (oversample_count == ADC_OVERSAMPLE_NONE)
-        return true;
-    if (oversample_count < 2 || oversample_count > 256)
-        return false;
+// One active handle per ADC instance, so the DMA interrupt can find the
+// handle that owns the channel that fired.
+static PHAL_ADC_Handle_t *g_active_adc[4];
 
-    // Check power of two
-    if ((oversample_count & (oversample_count - 1)) != 0)
-        return false;
+/// USART DMA fallback used when DMA1 channel 1 is not owned by ADC1.
+extern void PHAL_USART_DMA1_Channel1_IRQHandler(void) __attribute__((weak));
 
-    // Map oversample_count to OVSR encoding:
-    // OVSR = log2(oversample_count) - 1 (0 means no oversampling)
-    // e.g. 2 => OVSR=0, 4=>1, 8=>2, 16=>3, 32=>4, 64=>5, 128=>6, 256=>7
-    uint8_t ovsr = 0;
-    uint16_t tmp = oversample_count;
-    while (tmp > 2) {
-        tmp >>= 1;
-        ovsr++;
+/// SPI DMA fallback used when DMA2 channel 3 is not owned by ADC4.
+extern void PHAL_SPI_DMA2_Channel3_IRQHandler(void) __attribute__((weak));
+
+/// Map a supported ADC instance to its zero-based active-handle slot.
+static uint8_t adc_instance_index(ADC_TypeDef *instance) {
+    if (instance == ADC1) {
+        return 0;
     }
-
-    // Shift = log2(oversample_count) (to scale sum to average)
-    uint8_t ovss = 0;
-    tmp          = oversample_count;
-    while (tmp > 1) {
-        tmp >>= 1;
-        ovss++;
+    if (instance == ADC2) {
+        return 1;
     }
-
-    // Clear previous oversampling bits
-    adc->CFGR2 &= ~(ADC_CFGR2_OVSR_Msk | ADC_CFGR2_OVSS_Msk);
-
-    // Set new oversampling ratio and shift
-    adc->CFGR2 |= (ovsr << ADC_CFGR2_OVSR_Pos) | (ovss << ADC_CFGR2_OVSS_Pos);
-
-    return true;
+    if (instance == ADC3) {
+        return 2;
+    }
+    return 3; // ADC4
 }
 
-static bool PHAL_configureADCChannels(ADCInitConfig_t* config, ADCChannelConfig_t channels[], uint8_t num_channels) {
-    ADC_TypeDef* adc = config->periph;
+/// Return the fixed DMA wiring assigned to an ADC instance.
+static const PHAL_DMA_Wiring_t *adc_dma_wiring(ADC_TypeDef *instance) {
+    switch (adc_instance_index(instance)) {
+        case 0: return &ADC1_DMA_WIRING;
+        case 1: return &ADC2_DMA_WIRING;
+        case 2: return &ADC3_DMA_WIRING;
+        default: return &ADC4_DMA_WIRING;
+    }
+}
 
-    // Clear all SQR ranks
-    adc->SQR1 = 0;
-    adc->SQR2 = 0;
-    adc->SQR3 = 0;
-    adc->SQR4 = 0;
-
-    // Set number of channels
-    adc->SQR1 |= (num_channels - 1) << ADC_SQR1_L_Pos;
-
-    // Configure sequence and sample time ---
-    for (uint8_t i = 0; i < num_channels; i++) {
-        uint8_t ch   = channels[i].channel;
-        uint8_t rank = channels[i].rank;
-        if (rank <= 0)
-            return false;
-        rank = rank - 1; // PHAL does 1-based start
-
-        // Set rank for channel
-        if (rank < 4) {
-            adc->SQR1 &= ~(0b111111 << (6 + rank * 6));
-            adc->SQR1 |= ((uint32_t)ch << (6 + rank * 6));
-        } else if (rank < 9) {
-            adc->SQR2 &= ~(0b111111 << ((rank - 4) * 6));
-            adc->SQR2 |= ((uint32_t)ch << ((rank - 4) * 6));
-        } else if (rank < 14) {
-            adc->SQR3 &= ~(0b111111 << ((rank - 9) * 6));
-            adc->SQR3 |= ((uint32_t)ch << ((rank - 9) * 6));
-        } else if (rank < 16) {
-            adc->SQR4 &= ~(0b111111 << ((rank - 14) * 6));
-            adc->SQR4 |= ((uint32_t)ch << ((rank - 14) * 6));
-        } else {
+/// Validate a public ADC configuration before touching hardware.
+static bool adc_config_is_valid(const PHAL_ADC_Config_t *config) {
+    if (config == nullptr || config->channels == nullptr) {
+        return false;
+    }
+    if (!ADC_PRIV_instance_is_supported(config->instance)) {
+        return false;
+    }
+    if (config->channel_count == 0U || config->channel_count > PHAL_ADC_MAX_CHANNEL_COUNT) {
+        return false;
+    }
+    for (size_t i = 0U; i < config->channel_count; i++) {
+        uint8_t channel = config->channels[i].channel;
+        if (channel < 1U || channel > PHAL_ADC_MAX_CHANNEL_NUMBER) {
             return false;
         }
+    }
+    return true;
+}
 
-        // Set sampling time for channel
-        if (ch <= 9) {
-            adc->SMPR1 &= ~(0b111 << (ch * 3));
-            adc->SMPR1 |= (channels[i].sampling_time << (ch * 3));
-        } else {
-            uint8_t ch2 = ch - 10;
-            adc->SMPR2 &= ~(0b111 << (ch2 * 3));
-            adc->SMPR2 |= (channels[i].sampling_time << (ch2 * 3));
+/// Return the NVIC interrupt assigned to an ADC instance's DMA channel.
+static IRQn_Type adc_dma_irqn(ADC_TypeDef *instance) {
+    const PHAL_DMA_Wiring_t *wiring = adc_dma_wiring(instance);
+    // DMA channel IRQ numbers are consecutive within each controller.
+    IRQn_Type base = (wiring->periph == DMA1) ? DMA1_Channel1_IRQn : DMA2_Channel1_IRQn;
+    return (IRQn_Type)(base + wiring->channel_idx - 1);
+}
+
+/// Enable the NVIC interrupt for an ADC instance's DMA channel.
+static void adc_nvic_enable(ADC_TypeDef *instance) {
+    NVIC_EnableIRQ(adc_dma_irqn(instance));
+}
+
+// --- transfer plumbing -------------------------------------------------------
+
+/// Atomically claim transfer completion for either polling or interrupt code.
+static bool adc_claim_completion(PHAL_ADC_Handle_t *handle) {
+    uint32_t interrupt_state = __get_PRIMASK();
+    __disable_irq();
+    bool claimed = handle->busy;
+    handle->busy = false;
+    if (interrupt_state == 0U) {
+        __enable_irq();
+    }
+    return claimed;
+}
+
+/// Stop the ADC and DMA channel, then clear the DMA status flags.
+static void adc_teardown(PHAL_ADC_Handle_t *handle) {
+    ADC_PRIV_stop_conversion(handle->config->instance);
+    PHAL_DMA_stop(&handle->dma);
+    PHAL_DMA_clearFlags(&handle->dma);
+}
+
+bool PHAL_ADC_init(PHAL_ADC_Handle_t *handle, const PHAL_ADC_Config_t *config) {
+    if (handle == nullptr || !adc_config_is_valid(config)) {
+        return false;
+    }
+    uint8_t index = adc_instance_index(config->instance);
+    if (g_active_adc[index] != nullptr) {
+        return false; // instance already claimed by another handle
+    }
+
+    if (!ADC_PRIV_configure(config->instance, config->channels, config->channel_count)) {
+        return false;
+    }
+    if (!ADC_PRIV_enable(config->instance)) {
+        return false;
+    }
+
+    handle->config         = config;
+    handle->busy           = false;
+    handle->transfer_error = false;
+    handle->dma.wiring     = adc_dma_wiring(config->instance);
+    handle->dma.params     = (PHAL_DMA_Params_t){
+        .mem_addr   = 0U,
+        .tx_size    = 0U,
+        .priority   = DMA_PRIORITY_HIGH,
+        .mode       = DMA_MODE_CIRCULAR,
+        .mem_inc    = true,
+        .tx_isr_en  = true, // transfer-complete interrupt drives the callback
+    };
+    if (!PHAL_DMA_init(&handle->dma)) {
+        ADC_PRIV_disable(config->instance);
+        handle->config = nullptr;
+        return false;
+    }
+
+    g_active_adc[index] = handle;
+    adc_nvic_enable(config->instance);
+    return true;
+}
+
+bool PHAL_ADC_readDMA(PHAL_ADC_Handle_t *handle, uint16_t *buffer, uint16_t length) {
+    if (handle == nullptr || handle->dma.channel == nullptr || buffer == nullptr) {
+        return false;
+    }
+    if (handle->busy || length == 0U || ((uint32_t)buffer & 1U) != 0U) {
+        return false;
+    }
+
+    // (Re)arm the DMA channel: fresh flags, new buffer/length, channel enabled
+    handle->dma.params.tx_size = length;
+    if (!PHAL_DMA_setMemAddress(&handle->dma, (uint32_t)buffer)
+        || !PHAL_DMA_restart(&handle->dma)) {
+        return false;
+    }
+
+    handle->busy           = true;
+    handle->transfer_error = false;
+    ADC_PRIV_prepare_transfer(handle->config->instance, true);
+    ADC_PRIV_start_conversion(handle->config->instance);
+    return true;
+}
+
+bool PHAL_ADC_readBlocking(PHAL_ADC_Handle_t *handle, uint16_t *buffer, uint16_t length, uint32_t timeout) {
+    if (handle == nullptr || handle->config == nullptr || handle->dma.channel == nullptr) {
+        return false;
+    }
+
+    // Keep completion in the caller's context. Any IRQ raised while polling is
+    // cleared after teardown, before restoring the channel's prior NVIC state.
+    IRQn_Type irqn = adc_dma_irqn(handle->config->instance);
+    bool irq_was_enabled = NVIC_GetEnableIRQ(irqn) != 0U;
+    NVIC_DisableIRQ(irqn);
+
+    if (!PHAL_ADC_readDMA(handle, buffer, length)) {
+        if (irq_was_enabled) {
+            NVIC_EnableIRQ(irqn);
         }
-    }
-
-    return true;
-}
-
-bool PHAL_initADC(ADCInitConfig_t* config, ADCChannelConfig_t channels[], uint8_t num_channels) {
-    if (num_channels >= 16)
-        return false;
-
-    ADC_TypeDef* adc = config->periph;
-    if (adc == ADC1 || adc == ADC2) {
-        // Enable clock to the selected peripheral
-        RCC->AHB2ENR |= RCC_AHB2ENR_ADC12EN;
-
-        RCC->CCIPR &= ~RCC_CCIPR_ADC12SEL; // Clear bits
-        RCC->CCIPR |= RCC_CCIPR_ADC12SEL_0; // Select system clock (PCLK) as ADC clock
-
-        ADC12_COMMON->CCR &= ~ADC_CCR_CKMODE;
-        ADC12_COMMON->CCR |= (0x1UL << ADC_CCR_CKMODE_Pos);
-        ADC12_COMMON->CCR &= ~ADC_CCR_PRESC_Msk;
-        ADC12_COMMON->CCR |= (config->prescaler << ADC_CCR_PRESC_Pos) & ADC_CCR_PRESC_Msk;
-    } else if (adc == ADC3 || adc == ADC4 || adc == ADC5) {
-        RCC->AHB2ENR |= RCC_AHB2ENR_ADC345EN;
-
-        RCC->CCIPR &= ~RCC_CCIPR_ADC345SEL;
-        RCC->CCIPR |= RCC_CCIPR_ADC345SEL_0; 
-
-        ADC345_COMMON->CCR &= ~ADC_CCR_CKMODE;
-        ADC345_COMMON->CCR |= (0x1UL << ADC_CCR_CKMODE_Pos);
-        ADC345_COMMON->CCR &= ~(ADC_CCR_PRESC_Msk);
-        ADC345_COMMON->CCR |= (config->prescaler << ADC_CCR_PRESC_Pos) & ADC_CCR_PRESC_Msk;
-    } else {
         return false;
     }
 
-    adc->CR &= ~ADC_CR_DEEPPWD;
-    adc->CR |= ADC_CR_ADVREGEN;
-    for (volatile int i = 0; i < 1000; ++i)
-        ; // Short delay
-
-    // 1. Ensure ADC is disabled before calibration
-    if (adc->CR & ADC_CR_ADEN) {
-        adc->CR |= ADC_CR_ADDIS; // Disable ADC if it was enabled
-        while (adc->CR & ADC_CR_ADEN)
-            ; // Wait until disabled
+    while (handle->busy && !PHAL_DMA_isComplete(&handle->dma)
+           && !PHAL_DMA_isError(&handle->dma) && timeout > 0U) {
+        timeout--;
     }
 
-    // Calibrate ADC
-    adc->CR |= ADC_CR_ADCAL;
-    while (adc->CR & ADC_CR_ADCAL)
-        ; // Wait for calibration to finish
+    bool claimed = adc_claim_completion(handle);
+    bool dma_error = claimed && PHAL_DMA_isError(&handle->dma);
+    bool complete = claimed && !dma_error && PHAL_DMA_isComplete(&handle->dma);
+    if (claimed) {
+        handle->transfer_error = dma_error;
+        adc_teardown(handle);
+    }
 
-    // Set conversion mode on regular channels
-    adc->CFGR &= ~(ADC_CFGR_CONT | ADC_CFGR_DISCEN);
-    config->cont_conv_mode ? (adc->CFGR |= (ADC_CFGR_CONT)) : (adc->CFGR |= (ADC_CFGR_DISCEN));
+    NVIC_ClearPendingIRQ(irqn);
+    if (irq_was_enabled) {
+        NVIC_EnableIRQ(irqn);
+    }
 
-    // Set resolution
-    adc->CFGR &= ~(ADC_CFGR_RES);
-    adc->CFGR |= (config->resolution << ADC_CFGR_RES_Pos) & ADC_CFGR_RES_Msk; // 12-bit resolution
+    if (complete) {
+        PHAL_ADC_conversionCompleteCallback(handle);
+    }
+    return complete;
+}
 
-    // Set data alignment
-    adc->CFGR &= ~(ADC_CFGR_ALIGN);
-    adc->CFGR |= (config->data_align << ADC_CFGR_ALIGN_Pos) & ADC_CFGR_ALIGN_Msk;
-
-    if (!PHAL_configureADCChannels(config, channels, num_channels))
+bool PHAL_ADC_stop(PHAL_ADC_Handle_t *handle) {
+    if (handle == nullptr || handle->dma.channel == nullptr) {
         return false;
+    }
 
-    if (!PHAL_configureOversampling(config))
+    if (adc_claim_completion(handle)) {
+        adc_teardown(handle);
+        handle->transfer_error = false;
+    }
+    return true;
+}
+
+bool PHAL_ADC_busy(const PHAL_ADC_Handle_t *handle) {
+    if (handle == nullptr) {
         return false;
-
-    adc->CFGR &= ~(ADC_CFGR_CONT | ADC_CFGR_DMAEN | ADC_CFGR_DMACFG);
-    if (config->dma_mode == ADC_DMA_ONESHOT) {
-        adc->CFGR |= ADC_CFGR_DMAEN | ADC_CFGR_DMACFG;
-    } else if (config->dma_mode == ADC_DMA_CIRCULAR) {
-        adc->CFGR |= ADC_CFGR_CONT | ADC_CFGR_DMAEN | ADC_CFGR_DMACFG;
     }
-
-    // Enable ADC
-    adc->ISR |= ADC_ISR_ADRDY; // Clear ready flag
-    adc->CR |= ADC_CR_ADEN; // Enable ADC
-    while (!(adc->ISR & ADC_ISR_ADRDY))
-        ; // Wait until ready
-
-    return true;
+    return handle->busy;
 }
 
-bool PHAL_startADC(ADCInitConfig_t* config) {
-    config->periph->CR |= ADC_CR_ADSTART;
-    return true;
+// --- interrupt handling --------------------------------------------------------
+
+/// Process DMA completion or error status for an ADC handle.
+static void adc_dma_irq_handler(PHAL_ADC_Handle_t *handle) {
+    if (handle == nullptr) {
+        return;
+    }
+
+    if (PHAL_DMA_isError(&handle->dma)) {
+        if (adc_claim_completion(handle)) {
+            handle->transfer_error = true;
+            adc_teardown(handle);
+            PHAL_ADC_conversionCompleteCallback(handle);
+        }
+        return;
+    }
+    if (!PHAL_DMA_isComplete(&handle->dma)) {
+        return;
+    }
+
+    if (handle->dma.params.mode == DMA_MODE_CIRCULAR) {
+        // Circular transfers remain active and report each completed buffer.
+        // Clear the status before invoking user code so the next wrap can
+        // raise a fresh interrupt.
+        PHAL_DMA_clearFlags(&handle->dma);
+        handle->transfer_error = false;
+        if (handle->busy) {
+            PHAL_ADC_conversionCompleteCallback(handle);
+        }
+        return;
+    }
+
+    if (adc_claim_completion(handle)) {
+        adc_teardown(handle);
+        PHAL_ADC_conversionCompleteCallback(handle);
+    }
 }
 
-bool PHAL_stopADC(ADCInitConfig_t* config) {
-    ADC_TypeDef* adc = config->periph;
-    if (adc->CR & ADC_CR_ADSTART) {
-        adc->CR |= ADC_CR_ADSTP;
+// These vectors are strong so ADC completion is deterministic. Contested
+// channels delegate to the other PHAL only when no ADC owns that DMA channel;
+// DMA channel claiming prevents both peripherals from being active at once.
+/// Dispatch DMA1 channel 1 to ADC1 or its USART3 RX fallback owner.
+void DMA1_Channel1_IRQHandler(void) {
+    if (g_active_adc[0] != nullptr) {
+        adc_dma_irq_handler(g_active_adc[0]);
+    } else if (PHAL_USART_DMA1_Channel1_IRQHandler != nullptr) {
+        PHAL_USART_DMA1_Channel1_IRQHandler();
     }
-    adc->CR &= ~ADC_CR_ADSTART;
-    return true;
 }
 
-uint16_t PHAL_readADC(ADCInitConfig_t* config) {
-    ADC_TypeDef* adc = config->periph;
-    if (!config->cont_conv_mode) {
-        adc->CR |= ADC_CR_ADSTART; // Start conversion if single-shot mode
+/// Dispatch the ADC2 DMA transfer interrupt.
+void DMA2_Channel1_IRQHandler(void) {
+    adc_dma_irq_handler(g_active_adc[1]);
+}
+
+/// Dispatch the ADC3 DMA transfer interrupt.
+void DMA2_Channel2_IRQHandler(void) {
+    adc_dma_irq_handler(g_active_adc[2]);
+}
+
+/// Dispatch DMA2 channel 3 to ADC4 or its SPI3 TX fallback owner.
+void DMA2_Channel3_IRQHandler(void) {
+    if (g_active_adc[3] != nullptr) {
+        adc_dma_irq_handler(g_active_adc[3]);
+    } else if (PHAL_SPI_DMA2_Channel3_IRQHandler != nullptr) {
+        PHAL_SPI_DMA2_Channel3_IRQHandler();
     }
-    while (!(adc->ISR & ADC_ISR_EOC))
-        ; // Wait for end of conversion
-    return (uint16_t)adc->DR; // Read result
+}
+
+[[gnu::weak]] void PHAL_ADC_conversionCompleteCallback(PHAL_ADC_Handle_t *handle) {
+    (void)handle;
 }

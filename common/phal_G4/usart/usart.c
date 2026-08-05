@@ -458,8 +458,15 @@ __attribute__((weak)) void DMA1_Channel2_IRQHandler(void) {
     handleDMAxComplete(DMA1, 2, USART_DMA_TX, USART3_ACTIVE_IDX);
 }
 
-void DMA1_Channel1_IRQHandler(void) {
+/// Service USART3 RX when it owns DMA1 channel 1.
+void PHAL_USART_DMA1_Channel1_IRQHandler(void) {
     handleDMAxComplete(DMA1, 1, USART_DMA_RX, USART3_ACTIVE_IDX);
+}
+
+// ADC provides the strong shared vector when linked and delegates here when
+// ADC1 does not own the channel. This weak vector covers USART-only builds.
+__attribute__((weak)) void DMA1_Channel1_IRQHandler(void) {
+    PHAL_USART_DMA1_Channel1_IRQHandler();
 }
 
 void DMA2_Channel7_IRQHandler(void) {

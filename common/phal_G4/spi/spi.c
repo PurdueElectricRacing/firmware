@@ -32,9 +32,15 @@ void DMA1_Channel5_IRQHandler(void) { // example: SPI2_TX on DMA1 Ch5
     PHAL_SPI_priv_handleTxComplete(DMA1, 5);
 }
 
-[[gnu::weak]]
-void DMA2_Channel3_IRQHandler(void) { // example: SPI3_TX on DMA2 Ch3
+/// Service SPI3 TX when it owns DMA2 channel 3.
+void PHAL_SPI_DMA2_Channel3_IRQHandler(void) {
     PHAL_SPI_priv_handleTxComplete(DMA2, 3);
+}
+
+// ADC4 provides the strong shared vector when it owns DMA2 channel 3.
+[[gnu::weak]]
+void DMA2_Channel3_IRQHandler(void) {
+    PHAL_SPI_DMA2_Channel3_IRQHandler();
 }
 
 bool PHAL_SPI_init(SPI_InitConfig_t *cfg) {

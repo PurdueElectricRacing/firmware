@@ -1,114 +1,34 @@
 #include "common/phal_G4/usart/usart.h"
+#include "common/phal_G4/usart/usart_priv.h"
 
 #include "common/phal_G4/dma/dma.h"
-#include "common/phal_G4/gpio/gpio.h"
-
-// These items should not be used/modified by anybody other than the HAL
-typedef enum {
-    USART_DMA_TX, //!< USART is transmitting over DMA
-    USART_DMA_RX //!< USART is receiving over DMA
-} usart_dma_mode_t;
 
 typedef struct {
-    usart_init_t* active_handle; //!< USART handle provided on initialization
-    uint8_t cont_rx; //!< Flag controlling RX rececption mode (once or continously)
-    uint8_t _tx_busy; //!< Waiting on a transmission to finish
-    volatile uint8_t _rx_busy; //!< Waiting on a reception to finish
-    volatile uint32_t rxfer_size; //!< Size of data to receive over DMA
-} usart_active_transfer_t;
+    PHAL_DMA_Handle_t tx_dma;    /*!< TX DMA handle (built in init) */
+    PHAL_DMA_Handle_t rx_dma;    /*!< RX DMA handle (built in init) */
+    volatile uint32_t rxfer_size; /*!< configured RX length (for continuous re-arm) */
+    volatile bool tx_busy;       /*!< set when a TX is in flight, cleared by the DMA ISR */
+    volatile bool rx_busy;       /*!< set while a frame is in flight, cleared by the IDLE-line ISR */
+    bool cont_rx;                /*!< continuous vs one-shot reception */
+} PHAL_USART_state_t;
 
-// A global array to hold the state of each active USART peripheral.
-volatile usart_active_transfer_t active_uarts[TOTAL_NUM_UART];
+static PHAL_USART_state_t usart_state[NUM_USART];
 
 /**
- * @brief Initializes a USART peripheral on an STM32G4 microcontroller.
+ * @brief Initialize a USART peripheral for DMA-driven communication.
  *
- * This function configures the USART peripheral, calculates and sets the
- * baud rate, and enables the necessary clocks and DMA streams.
- *
- * @param handle Pointer to a usart_init_t struct containing the configuration.
- * @param fck The clock frequency of the peripheral in Hz.
- * @return true if initialization is successful, false otherwise.
+ * @param periph Which USART peripheral to initialize
+ * @param baud_rate Desired baud rate
+ * @param clock_rate Frequency (Hz) of the bus clock feeding this USART (APB1/APB2)
+ * @return true on success, false if DMA init failed
  */
-bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck) {
-    uint32_t div;
+bool PHAL_USART_init(PHAL_USART_Idx_t periph, uint32_t baud_rate, const uint32_t clock_rate) {
+    ssize_t idx = periph;
 
-    // Add Handle to active peripheral set for keeping track of activity.
-    active_uarts[handle->usart_active_num].active_handle = handle;
+    PHAL_USART_priv_configure(idx, baud_rate, clock_rate);
+    PHAL_USART_priv_buildDma(idx, &usart_state[idx].tx_dma, &usart_state[idx].rx_dma);
 
-    // Disable peripheral until properly configured
-    handle->periph->CR1 &= ~USART_CR1_UE;
-
-    // Enable peripheral clock in RCC for G4.
-    switch ((ptr_int)handle->periph) {
-        case USART1_BASE:
-            RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
-            break;
-        case USART2_BASE:
-            RCC->APB1ENR1 |= RCC_APB1ENR1_USART2EN;
-            break;
-        case USART3_BASE:
-            RCC->APB1ENR1 |= RCC_APB1ENR1_USART3EN;
-            break;
-        case UART4_BASE:
-            RCC->APB1ENR1 |= RCC_APB1ENR1_UART4EN;
-            break;
-        case LPUART1_BASE:
-            RCC->APB1ENR2 |= RCC_APB1ENR2_LPUART1EN;
-            break;
-        default:
-            return false;
-    }
-
-    if (handle->ovsample == OV_16) {
-        div                 = (fck + (handle->baud_rate / 2U)) / handle->baud_rate;
-        handle->periph->BRR = div;
-    } else {
-        div                 = (2U * fck + (handle->baud_rate / 2U)) / handle->baud_rate;
-        uint32_t mantissa   = div & 0xFFF0;
-        uint32_t fraction   = (div & 0x000F) >> 1;
-        handle->periph->BRR = mantissa | fraction;
-    }
-
-    // Set CR1 parameters
-    handle->periph->CR1 = 0U;
-    handle->periph->CR1 |= (handle->parity != PT_NONE) << USART_CR1_PCE_Pos;
-
-    switch (handle->word_length) {
-        case WORD_7:
-            handle->periph->CR1 |= USART_CR1_M1; // bit 28 = 1, bit 12 = 0
-            break;
-
-        case WORD_9:
-            handle->periph->CR1 |= USART_CR1_M0; // bit 12 = 1, bit 28 = 0
-            break;
-
-        default: // WL_8B
-            // both bits 0
-            break;
-    }
-
-    handle->periph->CR1 |= (handle->parity >> 2) << USART_CR1_PS_Pos;
-    handle->periph->CR1 |= handle->ovsample << USART_CR1_OVER8_Pos;
-    handle->periph->CR1 |= USART_CR1_RXNEIE | USART_CR1_IDLEIE;
-
-    // Set CR2 parameters
-    handle->periph->CR2 = 0U;
-    handle->periph->CR2 |= (handle->address & 0xF) << USART_CR2_ADD_Pos;
-    handle->periph->CR2 |= handle->stop_bits << USART_CR2_STOP_Pos;
-
-    // Set CR3 parameters
-    handle->periph->CR3 |= handle->obsample << USART_CR3_ONEBIT_Pos;
-
-    // Enable peripheral for use
-    handle->periph->CR1 |= USART_CR1_UE;
-
-    // Blocking is currently not supported without DMA configuration
-    if (!handle->rx_dma || !handle->tx_dma)
-        return false;
-
-    // Configure DMA
-    if (!PHAL_DMA_init(handle->tx_dma) || !PHAL_DMA_init(handle->rx_dma)) {
+    if (!PHAL_DMA_init(&usart_state[idx].tx_dma) || !PHAL_DMA_init(&usart_state[idx].rx_dma)) {
         return false;
     }
 
@@ -116,380 +36,188 @@ bool PHAL_initUSART(usart_init_t* handle, const uint32_t fck) {
 }
 
 /**
- * @brief Transmits data in blocking mode.
+ * @brief Start a DMA-based transmission.
  *
- * @param handle Pointer to the USART handle.
- * @param data Pointer to the data to transmit.
- * @param len The length of the data in bytes.
+ * @param periph Which USART peripheral to transmit on
+ * @param data Buffer to send
+ * @param len Number of bytes to send
+ * @return true if every DMA reconfiguration step succeeded, false otherwise
  */
-void PHAL_usartTxBl(usart_init_t* handle, uint8_t* data, uint32_t len) {
-    handle->periph->CR1 |= USART_CR1_TE;
-    for (unsigned int i = 0; i < len; i++) {
-        while (!(handle->periph->ISR & USART_ISR_TXE_TXFNF))
-            ;
-        handle->periph->TDR = data[i] & 0xff;
-    }
-    while (!(handle->periph->ISR & USART_ISR_TC))
-        ;
+bool PHAL_USART_tx(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len) {
+    ssize_t idx = periph;
+
+    usart_state[idx].tx_busy = true;
+
+    // Re-target the TX channel at this buffer (channel must be disabled to set
+    // length/address); restart clears stale flags and starts the transfer.
+    // Run every step regardless of earlier ones failing - skipping restart
+    // after a partial reconfiguration would leave the channel worse off, not
+    // better - then report whether they all actually succeeded.
+    PHAL_DMA_Handle_t *tx_dma = &usart_state[idx].tx_dma;
+    bool stopped     = PHAL_DMA_stop(tx_dma);
+    bool length_set  = PHAL_DMA_setLength(tx_dma, len);
+    bool address_set = PHAL_DMA_setMemAddress(tx_dma, (uint32_t)data);
+    bool restarted   = PHAL_DMA_restart(tx_dma);
+
+    PHAL_USART_priv_startTx(PHAL_USART_priv_periph(idx));
+
+    return stopped && length_set && address_set && restarted;
 }
 
 /**
- * @brief Receives data in blocking mode.
+ * @brief Start a DMA-based reception, completed on the IDLE line.
  *
- * @param handle Pointer to the USART handle.
- * @param data Pointer to the buffer to store received data.
- * @param len The length of the data to receive in bytes.
+ * @param periph Which USART peripheral to receive on
+ * @param data Buffer to receive into
+ * @param len Maximum number of bytes to receive (buffer size)
+ * @param cont Enable continuous RX. When set, call this once and the HAL keeps
+ *             receiving frames of the same maximum length, invoking
+ *             PHAL_USART_rxCallback after each.
+ * @return true if every DMA reconfiguration step succeeded, false otherwise
  */
-void PHAL_usartRxBl(usart_init_t* handle, uint8_t* data, uint32_t len) {
-    handle->periph->CR1 |= USART_CR1_RE;
-    for (unsigned int i = 0; i < len; i++) {
-        while (!(handle->periph->ISR & USART_ISR_RXNE_RXFNE))
-            ;
-        data[i] = handle->periph->RDR & 0xff;
-    }
+bool PHAL_USART_rx(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len, bool cont) {
+    ssize_t idx = periph;
+
+    usart_state[idx].cont_rx = cont;
+    usart_state[idx].rxfer_size = len;
+    usart_state[idx].rx_busy = true;
+
+    // Channel must be disabled to set address/length; restart clears stale
+    // flags and starts reception. Same reasoning as txDMA above: run every
+    // step, then report whether they all actually succeeded.
+    PHAL_DMA_Handle_t *rx_dma = &usart_state[idx].rx_dma;
+    bool stopped     = PHAL_DMA_stop(rx_dma);
+    bool address_set = PHAL_DMA_setMemAddress(rx_dma, (uint32_t)data);
+    bool length_set  = PHAL_DMA_setLength(rx_dma, len);
+    bool restarted   = PHAL_DMA_restart(rx_dma);
+
+    PHAL_USART_priv_startRx(PHAL_USART_priv_periph(idx));
+
+    return stopped && address_set && length_set && restarted;
 }
 
 /**
- * @brief Starts a DMA-based transmission.
+ * @brief Check whether a DMA transmission is still in progress.
  *
- * @param handle Pointer to the USART handle.
- * @param data Pointer to the data to transmit.
- * @param len The length of the data in bytes.
- * @return true if the transfer was started, false otherwise.
+ * @param periph Which USART peripheral to check
+ * @return true if a transmission is in flight, false otherwise
  */
-bool PHAL_usartTxDma(usart_init_t* handle, uint8_t* data, uint32_t len) {
-    if (active_uarts[handle->usart_active_num].active_handle != handle)
-        return false;
+bool PHAL_USART_txBusy(PHAL_USART_Idx_t periph) {
+    return usart_state[periph].tx_busy;
+}
 
-    // Ensure any RX data is not overwritten before continuing with transfer
-    while (
-        (active_uarts[handle->usart_active_num].active_handle->periph->ISR & USART_ISR_RXNE_RXFNE))
-        ;
+/**
+ * @brief Transmit data, blocking until the transfer completes.
+ *
+ * @param periph Which USART peripheral to transmit on
+ * @param data Buffer to send
+ * @param len Number of bytes to send
+ * @return true if the transfer completed, false if it failed to start
+ */
+bool PHAL_USART_txBlocking(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len) {
+    if (!PHAL_USART_tx(periph, data, len)) return false;
 
-    // Enable the correct DMA interrupt for the G4
-    if (PHAL_DMA_getPeriph(handle->tx_dma) == DMA1) {
-        NVIC_EnableIRQ(DMA1_Channel1_IRQn + (PHAL_DMA_getChannelIdx(handle->tx_dma) - 1));
-    } else if (PHAL_DMA_getPeriph(handle->tx_dma) == DMA2) {
-        NVIC_EnableIRQ(DMA2_Channel1_IRQn + (PHAL_DMA_getChannelIdx(handle->tx_dma) - 1));
-    } else {
-        return false;
+    while (PHAL_USART_txBusy(periph)) {
+        __asm__("nop");
     }
-
-    PHAL_DMA_stop(handle->tx_dma);
-
-    PHAL_DMA_setLength(handle->tx_dma, len);
-    PHAL_DMA_setMemAddress(handle->tx_dma, (uint32_t)data);
-
-    PHAL_DMA_restart(handle->tx_dma);
-
-    active_uarts[handle->usart_active_num]._tx_busy = 1;
-
-    handle->periph->CR3 |= USART_CR3_DMAT;
-    handle->periph->CR1 |= USART_CR1_TE;
-
-    PHAL_DMA_start(handle->tx_dma);
+    
     return true;
 }
 
 /**
- * @brief Checks if a DMA transmission is currently busy.
+ * @brief Receive data, blocking until a one-shot reception completes.
  *
- * @param handle Pointer to the USART handle.
- * @return true if the peripheral is busy, false otherwise.
+ * @param periph Which USART peripheral to receive on
+ * @param data Buffer to receive into
+ * @param len Number of bytes to receive
+ * @return true if the reception completed, false if it failed to start
  */
-volatile bool PHAL_usartTxBusy(usart_init_t* handle) {
-    return active_uarts[handle->usart_active_num]._tx_busy;
-}
+bool PHAL_USART_rxBlocking(PHAL_USART_Idx_t periph, uint8_t *data, uint32_t len) {
+    if (!PHAL_USART_rx(periph, data, len, false)) return false;
 
-/**
- * @brief Starts a DMA-based reception.
- *
- * @param handle Pointer to the USART handle.
- * @param data Pointer to the buffer to store received data.
- * @param len The length of the data to receive in bytes.
- * @param cont true for continuous reception, false for single reception.
- * @return true if the transfer was started, false otherwise.
- */
-bool PHAL_usartRxDma(usart_init_t* handle, uint8_t* data, uint32_t len, bool cont) {
-    if (active_uarts[handle->usart_active_num].active_handle != handle) {
-        return false;
+    while (usart_state[periph].rx_busy) {
+        __asm__("nop");
     }
-
-    active_uarts[handle->usart_active_num].cont_rx    = cont;
-    active_uarts[handle->usart_active_num].rxfer_size = len;
-    handle->periph->CR1 |= USART_CR1_RE;
-
-    switch ((ptr_int)handle->periph) {
-        case USART1_BASE:
-            NVIC_EnableIRQ(USART1_IRQn);
-            break;
-        case USART2_BASE:
-            NVIC_EnableIRQ(USART2_IRQn);
-            break;
-        case USART3_BASE:
-            NVIC_EnableIRQ(USART3_IRQn);
-            break;
-        case UART4_BASE:
-            NVIC_EnableIRQ(UART4_IRQn);
-            break;
-        case LPUART1_BASE:
-            NVIC_EnableIRQ(LPUART1_IRQn);
-            break;
-        default:
-            return false;
-    }
-
-    if (PHAL_DMA_getPeriph(handle->rx_dma) == DMA1) {
-        NVIC_EnableIRQ(DMA1_Channel1_IRQn + (PHAL_DMA_getChannelIdx(handle->rx_dma) - 1));
-    } else if (PHAL_DMA_getPeriph(handle->rx_dma) == DMA2) {
-        NVIC_EnableIRQ(DMA2_Channel1_IRQn + (PHAL_DMA_getChannelIdx(handle->rx_dma) - 1));
-    } else {
-        return false;
-    }
-
-    PHAL_DMA_setMemAddress(handle->rx_dma, (uint32_t)data);
-    handle->periph->CR3 |= USART_CR3_DMAR;
-
-    PHAL_DMA_setLength(handle->rx_dma, len);
-    PHAL_DMA_start(handle->rx_dma);
 
     return true;
 }
 
-/**
- * @brief Disables continuous DMA reception.
- *
- * @param handle Pointer to the USART handle.
- * @return true if the operation was successful, false otherwise.
- */
-bool PHAL_disableContinousRxDMA(usart_init_t* handle) {
-    if (active_uarts[handle->usart_active_num].active_handle != handle)
-        return false;
+/// On the IDLE line, finish the frame, re-arm if continuous, and notify the app.
+static void PHAL_USART_HandleIRQ(PHAL_USART_Idx_t idx) {
+    USART_TypeDef *periph = PHAL_USART_priv_periph(idx);
 
-    active_uarts[handle->usart_active_num].cont_rx = 0;
-    handle->periph->CR1 &= ~USART_CR1_RE;
-    handle->periph->CR3 &= ~USART_CR3_DMAR;
+    if (PHAL_USART_priv_idleActive(periph)) {
+        PHAL_DMA_Handle_t *rx_dma = &usart_state[idx].rx_dma;
+        PHAL_DMA_stop(rx_dma);
+        usart_state[idx].rx_busy = false;
 
-    // Disable the correct DMA and USART interrupts for the G4
-    // NOTE: Verify these mappings in the G4 Reference Manual
-    switch ((ptr_int)handle->periph) {
-        case USART1_BASE:
-            NVIC_DisableIRQ(USART1_IRQn);
-            break;
-        case USART2_BASE:
-            NVIC_DisableIRQ(USART2_IRQn);
-            break;
-        case USART3_BASE:
-            NVIC_DisableIRQ(USART3_IRQn);
-            break;
-        case UART4_BASE:
-            NVIC_DisableIRQ(UART4_IRQn);
-            break;
-        case LPUART1_BASE:
-            NVIC_DisableIRQ(LPUART1_IRQn);
-            break;
-        default:
-            return false;
-    }
-
-    if (PHAL_DMA_getPeriph(handle->rx_dma) == DMA1) {
-        NVIC_DisableIRQ(DMA1_Channel1_IRQn + (PHAL_DMA_getChannelIdx(handle->rx_dma) - 1));
-    } else if (PHAL_DMA_getPeriph(handle->rx_dma) == DMA2) {
-        NVIC_DisableIRQ(DMA2_Channel1_IRQn + (PHAL_DMA_getChannelIdx(handle->rx_dma) - 1));
-    } else {
-        return false;
-    }
-
-    active_uarts[handle->usart_active_num]._rx_busy = 0;
-    return true;
-}
-
-/**
- * @brief Checks if a DMA reception is currently busy.
- *
- * @param handle Pointer to the USART handle.
- * @return true if the peripheral is busy, false otherwise.
- */
-bool PHAL_usartRxBusy(usart_init_t* handle) {
-    return active_uarts[handle->usart_active_num]._rx_busy;
-}
-
-/**
- * @brief Handles the USART interrupt logic.
- *
- * This function checks for various USART flags and manages DMA transfers and
- * error handling.
- *
- * @param periph The USART peripheral instance.
- * @param idx The index of the USART in the active_uarts array.
- */
-static void handleUsartIRQ(USART_TypeDef* periph, uint8_t idx) {
-    uint32_t isr = periph->ISR;
-
-    // USART RX Not Empty interrupt flag
-    if (isr & USART_ISR_RXNE_RXFNE) {
-        active_uarts[idx]._rx_busy = 1;
-        PHAL_DMA_setLength(active_uarts[idx].active_handle->rx_dma,
-                                active_uarts[idx].rxfer_size);
-        PHAL_DMA_restart(active_uarts[idx].active_handle->rx_dma);
-        // Read RDR to clear RXNE flag if set
-        (void)active_uarts[idx].active_handle->periph->RDR;
-        active_uarts[idx].active_handle->periph->RQR = USART_RQR_RXFRQ;
-        active_uarts[idx].active_handle->periph->CR1 &= ~USART_CR1_RXNEIE;
-        // Clear any errors that may have been set in the previous Rx
-        active_uarts[idx].active_handle->rx_errors.framing_error  = 0;
-        active_uarts[idx].active_handle->rx_errors.noise_detected = 0;
-        active_uarts[idx].active_handle->rx_errors.overrun        = 0;
-        active_uarts[idx].active_handle->rx_errors.parity_error   = 0;
-    }
-
-    // Overrun Error Flag
-    if (isr & USART_ISR_ORE) {
-        active_uarts[idx].active_handle->rx_errors.overrun = 1;
-        periph->ICR |= USART_ICR_ORECF;
-    }
-    // Noise Error Flag
-    if (isr & USART_ISR_NE) {
-        active_uarts[idx].active_handle->rx_errors.noise_detected = 1;
-        periph->ICR |= USART_ICR_NECF;
-    }
-    // Framing Error Flag
-    if (isr & USART_ISR_FE) {
-        active_uarts[idx].active_handle->rx_errors.framing_error = 1;
-        periph->ICR |= USART_ICR_FECF;
-    }
-    // Parity Error Flag
-    if (isr & USART_ISR_PE) {
-        active_uarts[idx].active_handle->rx_errors.parity_error = 1;
-        periph->ICR |= USART_ICR_PECF;
-    }
-
-    // Idle line detected
-    if (isr & USART_ISR_IDLE) {
-        PHAL_DMA_stop(active_uarts[idx].active_handle->rx_dma);
-        if (active_uarts[idx].cont_rx) {
-            // Read RDR to clear RXNE before re-enabling RXNEIE
-            if (periph->ISR & USART_ISR_RXNE_RXFNE) {
-                (void)periph->RDR;
-            }
-            active_uarts[idx].active_handle->periph->CR1 |= USART_CR1_RXNEIE;
+        if (usart_state[idx].cont_rx) {
+            // The transfer length has counted down to 0; reload it and re-arm.
+            // restart clears stale channel flags so a prior TEIF can't stall re-arm.
+            PHAL_DMA_setLength(rx_dma, usart_state[idx].rxfer_size);
+            PHAL_DMA_restart(rx_dma);
         } else {
-            active_uarts[idx].active_handle->periph->CR1 &= ~USART_CR1_RE;
+            PHAL_USART_priv_stopRx(periph);
         }
-        active_uarts[idx]._rx_busy = 0;
-        periph->ICR |= USART_ICR_IDLECF;
-        usart_receive_complete_callback(active_uarts[idx].active_handle);
-    }
-}
 
-/**
- * @brief Handles DMA interrupts for a specific channel.
- *
- * This function checks for transfer complete and error flags on the DMA channel
- * and handles the post-transfer cleanup.
- *
- * @param dma_periph The DMA controller instance (DMA1 or DMA2).
- * @param channel The channel number (1-8).
- * @param dma_type The DMA transfer type (TX or RX).
- * @param idx The index of the USART in the active_uarts array.
- */
-static void
-handleDMAxComplete(DMA_TypeDef* dma_periph, uint8_t channel, uint8_t dma_type, uint8_t idx) {
-    // The bit masks for each channel's flags
-    uint32_t tcif_mask = DMA_ISR_TCIF1 << (4 * (channel - 1));
-    uint32_t teif_mask = DMA_ISR_TEIF1 << (4 * (channel - 1));
-    uint32_t htif_mask = DMA_ISR_HTIF1 << (4 * (channel - 1));
-    uint32_t gif_mask  = DMA_ISR_GIF1 << (4 * (channel - 1));
-
-    // Check for a Transfer Complete interrupt
-    if (dma_periph->ISR & tcif_mask) {
-        // Clear the transfer complete flag
-        dma_periph->IFCR |= tcif_mask;
-
-        if (dma_type == USART_DMA_TX) {
-            PHAL_DMA_stop(active_uarts[idx].active_handle->tx_dma);
-            active_uarts[idx]._tx_busy = 0;
-        }
+        PHAL_USART_rxCallback(idx);
     }
 
-    // Check for a Transfer Error interrupt
-    if (dma_periph->ISR & teif_mask) {
-        // Clear the transfer error flag
-        dma_periph->IFCR |= teif_mask;
+    PHAL_USART_priv_clearStatusFlags(periph);
+}
 
-        if (dma_type == USART_DMA_TX) {
-            active_uarts[idx].active_handle->tx_errors.dma_transfer_error = 1;
-        } else {
-            active_uarts[idx].active_handle->rx_errors.dma_transfer_error = 1;
-        }
+/// On TX DMA completion, mark the transmitter free and clear the channel flags.
+static void PHAL_USART_HandleDMA(PHAL_USART_Idx_t idx) {
+    if (PHAL_USART_priv_txDmaComplete(idx)) {
+        PHAL_DMA_stop(&usart_state[idx].tx_dma);
+        usart_state[idx].tx_busy = false;
     }
-
-    // Check for Half Transfer Complete interrupt (if enabled)
-    if (dma_periph->ISR & htif_mask) {
-        dma_periph->IFCR |= htif_mask;
-    }
-
-    // Clear any other global flags for this channel
-    dma_periph->IFCR |= gif_mask;
+    PHAL_USART_priv_clearTxDmaFlags(idx);
 }
 
-__WEAK void usart_receive_complete_callback(usart_init_t* handle) {
-    return;
+[[gnu::weak]]
+void PHAL_USART_rxCallback(PHAL_USART_Idx_t periph) {
+    (void)periph;
 }
 
-/* DMA Interrupt Handlers */
-__attribute__((weak)) void DMA1_Channel7_IRQHandler(void) {
-    handleDMAxComplete(DMA1, 7, USART_DMA_TX, USART1_ACTIVE_IDX);
+/* DMA transfer-complete interrupt handlers (TX channels) */
+[[gnu::weak]]
+void DMA1_Channel7_IRQHandler(void) {
+    PHAL_USART_HandleDMA(USART1_IDX);
 }
 
-__attribute__((weak)) void DMA1_Channel5_IRQHandler(void) {
-    handleDMAxComplete(DMA1, 5, USART_DMA_RX, USART1_ACTIVE_IDX);
-}
-
-__attribute__((weak)) void DMA1_Channel4_IRQHandler(void) {
-    handleDMAxComplete(DMA1, 4, USART_DMA_TX, USART2_ACTIVE_IDX);
-}
-
-__attribute__((weak)) void DMA1_Channel3_IRQHandler(void) {
-    handleDMAxComplete(DMA1, 3, USART_DMA_RX, USART2_ACTIVE_IDX);
-}
-
-__attribute__((weak)) void DMA1_Channel2_IRQHandler(void) {
-    handleDMAxComplete(DMA1, 2, USART_DMA_TX, USART3_ACTIVE_IDX);
+[[gnu::weak]]
+void DMA1_Channel4_IRQHandler(void) {
+    PHAL_USART_HandleDMA(USART2_IDX);
 }
 
 /// Service USART3 RX when it owns DMA1 channel 1.
 void PHAL_USART_DMA1_Channel1_IRQHandler(void) {
-    handleDMAxComplete(DMA1, 1, USART_DMA_RX, USART3_ACTIVE_IDX);
+    PHAL_USART_HandleDMA(USART3_IDX);
 }
 
 // ADC provides the strong shared vector when linked and delegates here when
 // ADC1 does not own the channel. This weak vector covers USART-only builds.
-__attribute__((weak)) void DMA1_Channel1_IRQHandler(void) {
+[[gnu::weak]]
+void DMA1_Channel1_IRQHandler(void) {
     PHAL_USART_DMA1_Channel1_IRQHandler();
 }
 
-void DMA2_Channel7_IRQHandler(void) {
-    handleDMAxComplete(DMA2, 7, USART_DMA_TX, LPUART1_ACTIVE_IDX);
-}
-
-void DMA2_Channel6_IRQHandler(void) {
-    handleDMAxComplete(DMA2, 6, USART_DMA_RX, LPUART1_ACTIVE_IDX);
-}
-
 /* USART Interrupt Handlers */
+[[gnu::weak]]
+void DMA1_Channel2_IRQHandler(void) {
+    PHAL_USART_HandleDMA(USART3_IDX);
+}
+
+/* USART interrupt handlers (IDLE line) */
 void USART1_IRQHandler(void) {
-    handleUsartIRQ(USART1, USART1_ACTIVE_IDX);
+    PHAL_USART_HandleIRQ(USART1_IDX);
 }
 
 void USART2_IRQHandler(void) {
-    handleUsartIRQ(USART2, USART2_ACTIVE_IDX);
+    PHAL_USART_HandleIRQ(USART2_IDX);
 }
 
 void USART3_IRQHandler(void) {
-    handleUsartIRQ(USART3, USART3_ACTIVE_IDX);
-}
-
-void LPUART1_IRQHandler(void) {
-    handleUsartIRQ(LPUART1, LPUART1_ACTIVE_IDX);
+    PHAL_USART_HandleIRQ(USART3_IDX);
 }

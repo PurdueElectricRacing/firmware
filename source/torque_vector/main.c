@@ -52,43 +52,7 @@ GPIOInitConfig_t gpio_config[] = {
 
 // USART Configuration for GPS
 static constexpr uint32_t GPS_BAUD_RATE = 460'800;
-PHAL_DMA_Handle_t rover_tx_dma = {
-    .wiring = &USART3_TX_DMA_WIRING,
-    .params = {
-        .mem_addr = 0,
-        .tx_size  = 0,
-        .priority = DMA_PRIORITY_HIGH,
-        .mode     = DMA_MODE_NORMAL,
-        .mem_inc  = true,
-        .tx_isr_en = true,
-    },
-};
-PHAL_DMA_Handle_t rover_rx_dma = {
-    .wiring = &USART3_RX_DMA_WIRING,
-    .params = {
-        .mem_addr = 0,
-        .tx_size  = 0,
-        .priority = DMA_PRIORITY_HIGH,
-        .mode     = DMA_MODE_NORMAL,
-        .mem_inc  = true,
-        .tx_isr_en = true,
-    },
-};
-
-usart_init_t usart3 = {
-    .baud_rate        = GPS_BAUD_RATE,
-    .word_length      = WORD_8,
-    .stop_bits        = SB_ONE,
-    .parity           = PT_NONE,
-    .hw_flow_ctl      = HW_DISABLE,
-    .ovsample         = OV_16,
-    .obsample         = OB_DISABLE,
-    .periph           = USART3,
-    .wake_addr        = false,
-    .usart_active_num = USART3_ACTIVE_IDX,
-    .tx_dma           = &rover_tx_dma,
-    .rx_dma           = &rover_rx_dma,
-};
+static constexpr PHAL_USART_Idx_t GPS_USART = USART3_IDX;
 
 extern void HardFault_Handler(void);
 
@@ -109,10 +73,10 @@ int main(void) {
     if (false == PHAL_initGPIO(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
-    if (false == PHAL_initUSART(&usart3, PHAL_RCC_getAPB1ClockHz())) {
+    if (false == PHAL_USART_init(GPS_USART, GPS_BAUD_RATE, PHAL_RCC_getAPB1ClockHz())) {
         HardFault_Handler();
     }
-    if (false == PHAL_usartRxDma(&usart3, (uint8_t *)rover_rx_buffer, sizeof(rover_rx_buffer), 1)) {
+    if (false == PHAL_USART_rx(GPS_USART, (uint8_t *)rover_rx_buffer, sizeof(rover_rx_buffer), true)) {
         HardFault_Handler();
     }
     PHAL_FDCAN_init(FDCAN2, VCAN_BAUD_RATE);

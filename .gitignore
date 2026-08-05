@@ -1,5 +1,6 @@
 .envrc
 .direnv
+.DS_Store
 
 /target
 colors.toml

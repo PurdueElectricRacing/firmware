@@ -16,6 +16,7 @@ pub enum WidgetConstructor {
     BatteryVoltage,
     BatteryTemps,
     GgPlot,
+    GpsPlot,
     Dynamics,
     Jitter,
     Hil,
@@ -63,6 +64,7 @@ impl WidgetConstructor {
                 widgets::Widget::BatteryTemps(ui::battery::battery_temps::BatteryTemps::new(id))
             }
             WidgetConstructor::GgPlot => widgets::Widget::GgPlot(ui::gg_plot::GgPlot::new(id)),
+            WidgetConstructor::GpsPlot => widgets::Widget::GpsPlot(ui::gps_plot::GpsPlot::new(id)),
             WidgetConstructor::Dynamics => {
                 widgets::Widget::Dynamics(ui::dynamics::Dynamics::new(id))
             }

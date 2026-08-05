@@ -49,6 +49,10 @@ impl AppAction {
                 widget_constructor::WidgetConstructor::GgPlot,
             ),
             (
+                "Spawn GPS Plot",
+                widget_constructor::WidgetConstructor::GpsPlot,
+            ),
+            (
                 "Spawn Dynamics",
                 widget_constructor::WidgetConstructor::Dynamics,
             ),

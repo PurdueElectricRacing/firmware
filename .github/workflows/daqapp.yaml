@@ -1,0 +1,41 @@
+name: DaqApp CI/CD Build
+
+on:
+  pull_request:
+  push:
+    branches: ["master"]
+
+jobs:
+  daqapp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install system dependencies (libudev)
+        run: sudo apt-get update && sudo apt-get install -y libudev-dev
+
+      - name: Set toolchain env
+        run: echo "toolchain=stable" >> $GITHUB_ENV
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+
+      - name: Cache Cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Cargo Format (fail on bad formatting)
+        working-directory: daqapp
+        run: cargo fmt --all --check
+
+      - name: Build DAQ app
+        run: python3 per_build.py daqapp --all-targets
+
+      - name: Show compiler warnings (does not stop CI)
+        working-directory: daqapp
+        run: |
+          echo "Compiler warnings:"
+          cargo check --all-targets --message-format short
+        continue-on-error: true

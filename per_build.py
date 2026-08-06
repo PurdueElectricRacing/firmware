@@ -14,7 +14,7 @@ PROJECT_TARGETS = ["firmware", "daqapp", "tests"]
 
 def test_commands(target_args: list[str]) -> list[tuple[list[str], Path]]:
     parser = argparse.ArgumentParser(prog="per_build.py tests", description="Build and run host tests.")
-    parser.add_argument("layer", nargs="?", choices=("all", "unit"), default="all")
+    parser.add_argument("layer", nargs="?", choices=("all", "unit", "integration"), default="all")
     parser.add_argument("--sanitizers", action="store_true", help="enable AddressSanitizer and UBSan")
     args = parser.parse_args(target_args)
 

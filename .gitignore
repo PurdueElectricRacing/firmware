@@ -28,6 +28,7 @@ firmware/can_library/dbc/
 
 # cargo build artifacts
 daqapp/target/
+tests/integration/bridges/daqapp/rust/target/
 
 # daqapp runtime files
 daqapp/settings.json

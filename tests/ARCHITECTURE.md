@@ -43,7 +43,7 @@ ctest --test-dir firmware/build/host-tests --output-on-failure
 Unit tests live under `tests/unit/firmware`:
 
 - `lerp_lut_test.cpp` covers exact lookup points, interpolation, and upper and lower clamping in `firmware/common/lerp_lut/lerp_lut.c`.
-- `can_codec_test.cpp` covers payload loading and storage, byte swapping, signal packing and unpacking, sign extension, and float bit conversion in `firmware/can_library/can_codec.h`.
+- `can_codec_test.cpp` covers payload loading and storage, byte swapping, signal packing and unpacking, sign extension, and float bit conversion in `firmware/can_library/can_codec.h`. A C23 shim ensures these header-only inline functions are compiled as C rather than as part of the C++17 GoogleTest translation unit.
 
 `tests/cmake/FirmwareUnitTest.cmake` provides `add_firmware_unit_test`. It configures production C sources as C23 static libraries, test sources as C++17, strict compiler warnings, GoogleTest discovery, the CTest `unit` label, and optional sanitizers.
 
@@ -111,7 +111,7 @@ tests/
    )
    ```
 
-3. Use `SOURCES` for production `.c` files. Header-only modules need `TEST_SOURCES` and `INCLUDE_DIRECTORIES`.
+3. Use `SOURCES` for production `.c` files. For header-only C modules, add a `.c` shim to `SOURCES` and call it from the C++ test so inline implementation code is compiled under C23 rather than C++17.
 4. Run `python3 per_build.py tests unit --sanitizers`.
 
 CTest discovers each GoogleTest case from the registered target automatically.

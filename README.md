@@ -1,18 +1,16 @@
-# PER Vehicle Firmware ⚡️
+# PER Software ⚡️
 
-![Workflow Status](https://github.com/PurdueElectricRacing/firmware/actions/workflows/build.yml/badge.svg)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/PurdueElectricRacing/firmware?style=flat-square)
+![Firmware](https://github.com/PurdueElectricRacing/monorepo/actions/workflows/firmware_build.yml/badge.svg)
+![DaqApp](https://github.com/PurdueElectricRacing/monorepo/actions/workflows/daqapp.yml/badge.svg)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/PurdueElectricRacing/monorepo?style=flat-square)
 
-A monorepo of all firmware projects, build tools, and scripts driving the PER vehicle.
+A monorepo of all firmware projects, shared libraries, code generation, and off-car tooling for PER FSAE EV.
 
 
 ## Directory Structure
-- `can_library/` - In-house distributed CAN library and generation infrastructure
-- `common/` - Common libraries shared across the codebase
-- `docs/` - Documentation files
-- `external/` - External dependencies and third-party libraries
-- `source/` - Source code for each vehicle PCB
-
+- `firmware/` - Embedded firmware, including its CAN library and shared C code
+- `daqapp/` - Desktop DAQ application
+- `docs/` - Shared documentation
 
 ## Doxygen
 Most recent doxygen deployment (master branch): https://purdueelectricracing.github.io/firmware/
@@ -26,31 +24,32 @@ To compile software for the PER vehicle, make sure your system is set up by foll
 > [setup.md](docs/setup.md) is here!
 
 
-## Building Firmware
+## Building
 
-Firmware is built using a python-based build system. The python script `per_build.py` handles CMake configuration and ninja build steps automatically.
+`per_build.py` is the repository-level build entry point. It invokes each
+project's own build system from the appropriate directory.
 
-From the repository root, enter the firmware project directory:
-```bash
-cd firmware
-```
-
-To build the firmware, run:
+From the repository root, build all projects with:
 ```bash
 python3 per_build.py
 ```
 
-You can view available build targets and options with:
+To build only firmware:
 ```bash
-python3 per_build.py --help
+python3 per_build.py firmware --package
+```
+
+To build DaqApp only only:
+```bash
+python3 per_build.py daqapp
 ```
 
 ## Hardware Debugging 
 
 In VS Code, go to **View → Run and Debug**, select the appropriate MCU target from the dropdown, then press the green ▶️ arrow to flash and live-debug the firmware.
 
-Once everything is [set up](docs/setup.md), open the firmware project with
-`cd firmware && code .`. You can then build the firmware by pressing:
+Once everything is [set up](docs/setup.md), open the repository with `code .`.
+You can then build all projects by pressing:
 
 ```
 Ctrl + Shift + B on Windows/Linux
@@ -58,4 +57,4 @@ Cmd + Shift + B on macOS
 ```
 
 This triggers the default build task configured in `.vscode/tasks.json`,
-which runs the firmware build process automatically.
+which runs the monorepo build process automatically.

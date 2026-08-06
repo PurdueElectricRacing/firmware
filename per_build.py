@@ -1,210 +1,67 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
+"""Build one or more projects in the PER monorepo."""
 
-# Wrapper for command line tools to build, clean, and debug firmware modules
-from optparse import OptionParser
-import pathlib
+import argparse
+from pathlib import Path
 import subprocess
 import sys
-import tarfile
-import zlib
-
-# Logging helper functions
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-
-def log_error(phrase):
-    print(f"{bcolors.FAIL}ERROR: {phrase}{bcolors.ENDC}")
-
-def log_warning(phrase):
-    print(f"{bcolors.WARNING}WARNING: {phrase}{bcolors.ENDC}")
-
-def log_success(phrase):
-    print(f"{bcolors.OKGREEN}{phrase}{bcolors.ENDC}")
-
-BOARD_TARGETS = [
-        "main_module",
-        "a_box",
-        "torque_vector",
-        "dashboard",
-        "pdu",
-        "daq",
-        "front_driveline",
-        "rear_driveline"
-    ]
 
 
-# Get build directory path
-CWD = pathlib.Path.cwd()
-BUILD_DIR = CWD/"build"
-SOURCE_DIR = CWD
-OUT_DIR = CWD/"output"
-CAN_GEN_DIR = SOURCE_DIR/"can_library"/"generated"
+ROOT = Path(__file__).resolve().parent
+PROJECT_TARGETS = ["firmware", "daqapp"]
 
-# Setup cli arguments
-parser = OptionParser()
+def command_for(target: str, target_args: list[str]) -> tuple[list[str], Path]:
+    if target == "firmware":
+        return [sys.executable, "firmware_build.py", *target_args], ROOT / "firmware"
+    if target == "daqapp":
+        return ["cargo", "build", *target_args], ROOT / "daqapp"
+    raise ValueError(f"Unknown project target: {target}")
 
-parser.add_option("-t", "--target",
-    type="string",
-    help="Space-separated list of boards targets to build"
-)
 
-parser.add_option("-l", "--list",
-    action="store_true", default=False,
-    help="List boards targets available to build"
-)
+def run_target(target: str, target_args: list[str]) -> None:
+    command, working_directory = command_for(target, target_args)
+    print("\nBuilding project:", target)
+    print(f"Build command: {target} - '{' '.join(command)}'")
+    print("=" * 80)
+    subprocess.run(command, cwd=working_directory, check=True)
 
-parser.add_option("-b", "--bootloader",
-    dest="bootloader",
-    action="store_true", default=False,
-    help="build bootloader components"
-)
 
-parser.add_option("-v", "--verbose",
-    dest="verbose",
-    action="store_true", default=False,
-    help="verbose build command output"
-)
+def main() -> int:
+    parser = argparse.ArgumentParser(
+        description="Build projects in the PER monorepo.",
+        epilog=(
+            "Examples:\n"
+            "  python3 per_build.py                      # build every project\n"
+            "  python3 per_build.py firmware --package   # pass options to firmware_build.py\n"
+            "  python3 per_build.py daqapp --all-targets # pass options to cargo build"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument(
+        "target",
+        nargs="?",
+        choices=(*PROJECT_TARGETS, "all"),
+        default="all",
+        help="project to build (default: all)",
+    )
+    parser.add_argument(
+        "target_args",
+        nargs=argparse.REMAINDER,
+        help="arguments forwarded to the selected project's build system",
+    )
+    args = parser.parse_args()
 
-parser.add_option("-p", "--package",
-    dest="package",
-    action="store_true", default=False,
-    help="package build output into tarball with CRCs, suffixed by Git hash"
-)
+    targets = PROJECT_TARGETS if args.target == "all" else (args.target,)
+    if args.target == "all" and args.target_args:
+        parser.error("arguments can only be forwarded when a single target is selected")
 
-def print_available_targets():
-    modules = [
-        "main_module",
-        "bootloader",
-        "f4_testing",
-        "g4_testing",
-        "a_box",
-        "torque_vector",
-        "dashboard",
-        "pdu",
-        "daq",
-        "driveline"
-    ]
-    modules_sorted = sorted(modules)
-    print("Available targets to build:")
-    for m in modules_sorted:
-        print(f'\t{m}')
-
-(options, args) = parser.parse_args()
-if options.list:
-    # User ran `-t` with no argument: print available targets
-    print_available_targets()
-    sys.exit(0)
-
-VERBOSE = "--verbose" if options.verbose else ""
-
-# Prepare MODULES string for CMake
-if options.target:
-    target_list = options.target.split()
-    cmake_modules_str = ";".join(target_list)
-    ninja_targets = [t + ".elf" for t in target_list]
-else:
-    cmake_modules_str = ""
-    ninja_targets = ["all"]
-
-# Always clean for a fresh build environment
-subprocess.run(["cmake", "-E", "rm", "-rf", str(BUILD_DIR), str(OUT_DIR), str(CAN_GEN_DIR)])
-print("Build, output, and generated CAN directories clean.")
-
-# Configure and Build
-CMAKE_OPTIONS = [
-    "-S", str(SOURCE_DIR),
-    "-B", str(BUILD_DIR),
-    "-G", "Ninja",
-    f"-DBOOTLOADER_BUILD={'ON' if options.bootloader else 'OFF'}",
-    f"-DMODULES={cmake_modules_str}"
-]
-
-NINJA_OPTIONS = ["-C", str(BUILD_DIR)] + ninja_targets
-NINJA_COMMAND = ["ninja"] + NINJA_OPTIONS
-
-try:
-    subprocess.run(["cmake"] + CMAKE_OPTIONS, check=True)
-except subprocess.CalledProcessError as e:
-    log_error("Unable to configure CMake, see the CMake output above.")
-    sys.exit(1)
-
-log_success("Sucessfully generated build files.")
-print(f"Running Build command {' '.join(NINJA_COMMAND)}")
-
-try:
-    ninja_build = subprocess.run(NINJA_COMMAND)
-except subprocess.CalledProcessError as e:
-    log_error("Unable to configure compile sources, see the Ninja output above.")
-    sys.exit(1)
-
-if ninja_build.returncode != 0:
-    log_error("Unable to generate targets.")
-    sys.exit(1)
-else:
-    log_success("Sucessfully built targets.")
-
-# package logic
-def get_git_hash_or_tag():
     try:
-        # Check if current commit has a tag
-        tag = subprocess.check_output(
-            ["git", "describe", "--tags", "--exact-match"],
-            stderr=subprocess.DEVNULL
-        ).strip().decode()
-        return tag
-    except subprocess.CalledProcessError:
-        # No tag on this commit, fallback to short hash
-        return subprocess.check_output(
-            ["git", "rev-parse", "--short", "HEAD"]
-        ).strip().decode()
+        for target in targets:
+            run_target(target, args.target_args)
+    except subprocess.CalledProcessError as error:
+        return error.returncode
+    return 0
 
-def add_crc_to_files():
-    if not OUT_DIR.exists():
-        log_error(f"Output directory does not exist: {OUT_DIR}")
-        sys.exit(1)
-    for board in BOARD_TARGETS:
-        hex_path = OUT_DIR / board / f"{board}.hex"
-        if hex_path.exists():
-            with open(hex_path, "rb") as f:
-                data = f.read()
-                crc = format(zlib.crc32(data) & 0xFFFFFFFF, '08X')
-            crc_file = hex_path.with_suffix(".crc")
-            with open(crc_file, "w") as cf:
-                cf.write(crc + "\n")
-            log_success(f"CRC written for {hex_path.name}: {crc}")
-        else:
-            print(f"[WARNING] HEX not found for {board}: {hex_path}")
 
-def create_tarball():
-    git_hash = get_git_hash_or_tag()
-    tarball_name = OUT_DIR / f"firmware_{git_hash}.tar.gz"
-
-    with tarfile.open(tarball_name, "w:gz") as tar:
-        for board in BOARD_TARGETS:
-            hex_path = OUT_DIR / board / f"{board}.hex"
-            crc_path = OUT_DIR / board / f"{board}.crc"
-
-            if hex_path.exists():
-                tar.add(hex_path, arcname=f"{board}.hex")
-                log_success(f"Added {hex_path.name} to tarball.")
-
-            if crc_path.exists():
-                tar.add(crc_path, arcname=f"{board}.crc")
-                log_success(f"Added {crc_path.name} to tarball.")
-
-    log_success(f"Tarball created: {tarball_name}")
-    return tarball_name
-
-# Package output if requested
-if options.package:
-    log_success("Packaging firmware...")
-    add_crc_to_files()
-    create_tarball()
+if __name__ == "__main__":
+    raise SystemExit(main())

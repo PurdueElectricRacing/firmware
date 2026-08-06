@@ -1,4 +1,12 @@
 # label: globs (relative to repo root) that trigger it
+"firmware":
+  - changed-files:
+      - any-glob-to-any-file: ['firmware/**']
+
+"daqapp":
+  - changed-files:
+      - any-glob-to-any-file: ['daqapp/**']
+
 "node configs":
   - changed-files:
       - any-glob-to-any-file: ['firmware/can_library/configs/**']

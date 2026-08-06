@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  firmware_build:
     runs-on: ubuntu-latest
     container:
       image: irvingywang/per-firmware:latest
@@ -21,7 +21,7 @@ jobs:
           submodules: recursive
 
       - name: Fix git ownership
-        run: git config --global --add safe.directory /__w/firmware/firmware
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: Get short hash
         id: git_info
@@ -31,9 +31,8 @@ jobs:
           BRANCH_NAME=${GITHUB_REF##*/}
           echo "branch=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
-      - name: Run per_build.py
-        working-directory: firmware
-        run: python3 per_build.py --package
+      - name: Build firmware
+        run: python3 per_build.py firmware --package
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4

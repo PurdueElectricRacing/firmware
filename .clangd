@@ -2,7 +2,7 @@ Completion:
   HeaderInsertion: Never
 
 CompileFlags:
-  CompilationDatabase: build
+  CompilationDatabase: firmware/build
 
 Index:
   Background: Build

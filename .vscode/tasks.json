@@ -1,0 +1,44 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build all",
+            "type": "shell",
+            "command": "clear && python3 per_build.py",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "build firmware",
+            "type": "shell",
+            "command": "clear && python3 per_build.py firmware",
+            "group": {
+                "kind": "build",
+            }
+        },
+        {
+            "label": "build daqapp",
+            "type": "shell",
+            "command": "clear && python3 per_build.py daqapp",
+            "group": {
+                "kind": "build",
+            }
+        },
+        {
+            "label": "generate can library",
+            "type": "shell",
+            "command": "python3 ./firmware/can_library/canpiler/build.py",
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "run doxygen",
+            "type": "shell",
+            "command": "doxygen ./docs/Doxyfile",
+            "problemMatcher": []
+        }
+    ]
+}

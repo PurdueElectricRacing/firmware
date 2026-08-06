@@ -1,25 +1,60 @@
-# Purdue Electric Racing Vehicle Software
+# PER Software ⚡️
 
-This repository contains the software used to operate and support Purdue
-Electric Racing vehicles.
+![Firmware](https://github.com/PurdueElectricRacing/monorepo/actions/workflows/firmware_build.yml/badge.svg)
+![DaqApp](https://github.com/PurdueElectricRacing/monorepo/actions/workflows/daqapp.yml/badge.svg)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/PurdueElectricRacing/monorepo?style=flat-square)
 
-## Projects
+A monorepo of all firmware projects, shared libraries, code generation, and off-car tooling for PER FSAE EV.
 
-- [firmware](firmware/README.md) contains the embedded firmware, shared
-  libraries, build tools, and hardware documentation.
-- [daqapp](daqapp/) contains the Rust desktop application for live vehicle
-  data acquisition, visualization, and hardware-in-the-loop testing.
+
+## Directory Structure
+- `firmware/` - Embedded firmware, including its CAN library and shared C code
+- `daqapp/` - Desktop DAQ application
+- `docs/` - Shared documentation
+
+## Doxygen
+Most recent doxygen deployment (master branch): https://purdueelectricracing.github.io/firmware/
+
 
 ## Getting Started
 
-Each project keeps its own build system and should be run from its directory:
+To compile software for the PER vehicle, make sure your system is set up by following the steps in [setup.md](docs/setup.md) if you haven’t already.
 
+> [!NOTE]
+> [setup.md](docs/setup.md) is here!
+
+
+## Building
+
+`per_build.py` is the repository-level build entry point. It invokes each
+project's own build system from the appropriate directory.
+
+From the repository root, build all projects with:
 ```bash
-cd firmware
 python3 per_build.py
 ```
 
+To build only firmware:
 ```bash
-cd daqapp
-cargo build --all-targets
+python3 per_build.py firmware --package
 ```
+
+To build DaqApp only only:
+```bash
+python3 per_build.py daqapp
+```
+
+## Hardware Debugging 
+
+In VS Code, go to **View → Run and Debug**, select the appropriate MCU target from the dropdown, then press the green ▶️ arrow to flash and live-debug the firmware.
+
+Once everything is [set up](docs/setup.md), open the repository with `code .`.
+You can then build all projects by pressing:
+
+```
+Ctrl + Shift + B on Windows/Linux
+Cmd + Shift + B on macOS
+```
+
+This triggers the default build task configured in `.vscode/tasks.json`,
+which runs the monorepo build process automatically.

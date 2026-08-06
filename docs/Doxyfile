@@ -1035,11 +1035,11 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = README.md \
-                         source \
-                         common \
+                         firmware/source \
+                         firmware/common \
                          docs \
-                         can_library \
-                         support
+                         firmware/can_library \
+                         firmware/support
 
 # This tag can be used to specify the character encoding of the source files
 # that Doxygen parses. Internally Doxygen uses the UTF-8 encoding. Doxygen uses

@@ -14,8 +14,8 @@
 
 #include "commands.h"
 #include "common/freertos/freertos.h"
-#include "common/phal/gpio.h"
-#include "common/phal/spi.h"
+#include "common/phal_G4/gpio/gpio.h"
+#include "common/phal_G4/spi/spi.h"
 #include "pec.h"
 
 void adbms6380_set_cs_low(SPI_InitConfig_t *spi) {

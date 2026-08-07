@@ -14,10 +14,10 @@
 #include "charging_fsm.h"
 #include "common/freertos/freertos.h"
 #include "common/heartbeat/heartbeat.h"
-#include "common/phal/adc.h"
-#include "common/phal/can.h"
-#include "common/phal/gpio.h"
-#include "common/phal/rcc.h"
+#include "common/phal_G4/adc/adc.h"
+#include "common/phal_G4/fdcan/fdcan.h"
+#include "common/phal_G4/gpio/gpio.h"
+#include "common/phal_G4/rcc/rcc.h"
 
 /* Module Includes */
 #include "adbms.h"

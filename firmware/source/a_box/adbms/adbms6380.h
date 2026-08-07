@@ -12,7 +12,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "common/phal/spi.h"
+#include "common/phal_G4/spi/spi.h"
 #include "common/strbuf/strbuf.h"
 
 // Number of cells per ADBMS6380 device.

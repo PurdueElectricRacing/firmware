@@ -13,9 +13,9 @@
 
 #include <stdint.h>
 
-#include "common/phal/gpio.h"
-#include "common/phal/rcc.h"
-#include "common/phal/usb.h"
+#include "common/phal_G4/gpio/gpio.h"
+#include "common/phal_G4/rcc/rcc.h"
+#include "common/phal_G4/usb/usb.h"
 #include "common/utils/countof.h"
 #include "main.h"
 

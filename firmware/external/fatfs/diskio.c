@@ -9,7 +9,7 @@
 
 #include "diskio.h" /* Declarations of disk functions */
 
-#include "common/phal/rtc.h"
+#include "common/phal_F4/rtc/rtc.h"
 
 /* Set in defines.h file if you want it */
 #ifndef TM_FATFS_CUSTOM_FATTIME

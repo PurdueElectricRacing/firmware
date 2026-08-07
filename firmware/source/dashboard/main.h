@@ -11,8 +11,8 @@
 #define MAIN_H
 
 #include <stdint.h>
-#include "common/phal/adc.h"
-#include "common/phal/gpio.h"
+#include "common/phal_G4/adc/adc.h"
+#include "common/phal_G4/gpio/gpio.h"
 
 typedef volatile struct {
     uint16_t throttle1;

@@ -8,8 +8,8 @@
 #if (F4_TESTING_CHOSEN == TEST_PWM)
 
 #include "common/freertos/freertos.h"
-#include "common/phal/gpio.h"
-#include "common/phal/rcc.h"
+#include "common/phal_F4/gpio/gpio.h"
+#include "common/phal_F4/rcc/rcc.h"
 #include "common/utils/countof.h"
 
 GPIOInitConfig_t gpio_config[] = {

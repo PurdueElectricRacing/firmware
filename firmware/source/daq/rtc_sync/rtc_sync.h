@@ -10,7 +10,7 @@
 #define RTC_SYNC_H
 
 #include "timestamped_frame.h"
-#include "common/phal/rtc.h"
+#include "common/phal_F4/rtc/rtc.h"
 #include "common/freertos/freertos.h"
 
 extern volatile uint32_t last_RTC_sync_time;

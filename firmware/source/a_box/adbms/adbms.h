@@ -13,7 +13,7 @@
 #include <stdint.h>
 
 #include "adbms6380.h"
-#include "common/phal/spi.h"
+#include "common/phal_G4/spi/spi.h"
 #include "common/strbuf/strbuf.h"
 
 // Number of ADBMS modules in the daisy chain.

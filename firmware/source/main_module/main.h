@@ -8,7 +8,7 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#include "common/phal/gpio.h"
+#include "common/phal_G4/gpio/gpio.h"
 
 // Status LEDs
 #define HEARTBEAT_LED_PORT  (GPIOA)

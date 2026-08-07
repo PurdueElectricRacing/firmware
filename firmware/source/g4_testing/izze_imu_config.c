@@ -2,9 +2,9 @@
 #if (G4_TESTING_CHOSEN == IZZE_IMU_CONFIG)
 
 #include "can_library/generated/G4_TESTING.h"
-#include "common/phal/can.h"
-#include "common/phal/gpio.h"
-#include "common/phal/rcc.h"
+#include "common/phal_G4/fdcan/fdcan.h"
+#include "common/phal_G4/gpio/gpio.h"
+#include "common/phal_G4/rcc/rcc.h"
 #include "common/freertos/freertos.h"
 #include "common/izze_imu/izze_imu.h"
 #include "common/utils/countof.h"

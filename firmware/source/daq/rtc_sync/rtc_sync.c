@@ -7,7 +7,7 @@
  */
 
 #include "rtc_sync.h"
-#include "common/phal/rtc.h"
+#include "common/phal_F4/rtc/rtc.h"
 #include "main.h"
 #include "can_library/generated/VCAN.h"
 

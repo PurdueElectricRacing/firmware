@@ -5,7 +5,7 @@
 #include "main.h"
 #include "state.h"
 
-#include "common/phal/gpio.h"
+#include "common/phal_F4/gpio/gpio.h"
 
 typedef struct {
     fault_id_t fault_id;

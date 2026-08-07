@@ -9,8 +9,8 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include "common/phal/adc.h"
-#include "common/phal/gpio.h"
+#include "common/phal_G4/adc/adc.h"
+#include "common/phal_G4/gpio/gpio.h"
 #include "adbms.h"
 
 // Status LEDs

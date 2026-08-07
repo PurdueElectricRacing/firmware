@@ -14,7 +14,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "common/phal/rcc.h"
+#include "common/phal_G4/rcc/rcc.h"
 #include "common/phal_G4/adc/adc.h"
 #include "common/phal_G4/gpio/gpio.h"
 #include "common/utils/countof.h"

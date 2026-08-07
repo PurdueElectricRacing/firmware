@@ -9,7 +9,7 @@
 
 #include <stdint.h>
 #include "w5500/socket.h"
-#include "common/phal/gpio.h"
+#include "common/phal_F4/gpio/gpio.h"
 #include "common/freertos/freertos.h"
 #include "main.h"
 #include "spmc.h"

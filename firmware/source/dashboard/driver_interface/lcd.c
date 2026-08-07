@@ -11,7 +11,7 @@
 #include <stdint.h>
 
 #include "common/nextion/nextion.h"
-#include "common/phal/usart.h"
+#include "common/phal_G4/usart/usart.h"
 
 // pages
 #include "pages/race.h"

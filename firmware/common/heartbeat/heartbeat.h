@@ -8,7 +8,13 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#include "common/phal/gpio.h"
+#if defined(STM32F407xx)
+#include "common/phal_F4/gpio/gpio.h"
+#elif defined(STM32G474xx)
+#include "common/phal_G4/gpio/gpio.h"
+#else
+#error "Unsupported heartbeat target"
+#endif
 #include "common/freertos/freertos.h"
 
 static constexpr uint32_t PREFLIGHT_DURATION_MS = 1500;

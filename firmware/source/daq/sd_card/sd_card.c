@@ -10,8 +10,8 @@
 #include <stdio.h>
 
 #include "common/freertos/freertos.h"
-#include "common/phal/gpio.h"
-#include "common/phal/rtc.h"
+#include "common/phal_F4/gpio/gpio.h"
+#include "common/phal_F4/rtc/rtc.h"
 #include "common/sdio/sdio.h"
 #include "external/fatfs/ff.h"
 #include "main.h"

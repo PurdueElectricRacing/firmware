@@ -14,8 +14,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "common/phal/gpio.h"
-#include "common/phal/spi.h"
+#include "common/phal_F4/gpio/gpio.h"
+#include "common/phal_F4/spi/spi.h"
 
 #define MAX_NUM_LED 14
 

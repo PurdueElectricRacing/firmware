@@ -11,7 +11,13 @@
 #include <stdint.h>
 
 #include "common/freertos/freertos.h"
-#include "common/phal/can.h"
+#if defined(STM32F407xx)
+#include "common/phal_F4/can/can.h"
+#elif defined(STM32G474xx)
+#include "common/phal_G4/fdcan/fdcan.h"
+#else
+#error "Unsupported CAN target"
+#endif
 
 typedef struct {
     uint32_t rx_overflow; // software queue overflow

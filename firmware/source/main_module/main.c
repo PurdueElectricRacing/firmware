@@ -13,9 +13,9 @@
 #include "common/amk/amk.h"
 #include "common/freertos/freertos.h"
 #include "common/heartbeat/heartbeat.h"
-#include "common/phal/can.h"
-#include "common/phal/gpio.h"
-#include "common/phal/rcc.h"
+#include "common/phal_G4/fdcan/fdcan.h"
+#include "common/phal_G4/gpio/gpio.h"
+#include "common/phal_G4/rcc/rcc.h"
 #include "common/utils/countof.h"
 #include "common/watchdog/watchdog.h"
 

@@ -12,7 +12,7 @@
 #include "can_library/generated/can_types.h"
 #include "common/freertos/freertos.h"
 #include "common/heartbeat/heartbeat.h"
-#include "common/phal/gpio.h"
+#include "common/phal_G4/gpio/gpio.h"
 #include "common/watchdog/watchdog.h"
 #include "lcd.h"
 #include "main.h"

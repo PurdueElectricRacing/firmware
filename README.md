@@ -39,10 +39,19 @@ To build only firmware:
 python3 per_build.py firmware --package
 ```
 
-To build DaqApp only only:
+To build DaqApp only:
 ```bash
 python3 per_build.py daqapp
 ```
+
+To run all host unit and firmware/DAQApp CAN compatibility tests:
+```bash
+python3 per_build.py tests
+```
+
+Run one test layer with `python3 per_build.py tests unit` or
+`python3 per_build.py tests integration`. See
+[tests/ARCHITECTURE.md](tests/ARCHITECTURE.md) for details.
 
 ## Hardware Debugging 
 

@@ -1,0 +1,16 @@
+[package]
+name = "daqapp-bridge"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+can_decode = "=0.7.2"
+can-dbc = "=9.0.0"
+log = "=0.4.29"
+rand = "=0.10.1"
+serde = { version = "1.0", features = ["derive"] }
+serialport = "=4.8.1"
+slcan = { git = "https://github.com/LelsersLasers/slcan", features = ["sync"] }

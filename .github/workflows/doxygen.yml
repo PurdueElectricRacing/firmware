@@ -19,10 +19,10 @@ jobs:
         uses: mattnotmitt/doxygen-action@v1.12.0
         with:
           doxyfile-path: "./docs/Doxyfile"
-          working-directory: "./firmware"
+          working-directory: "."
     
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./firmware/docs/doxygen/html
+          publish_dir: ./docs/doxygen/html

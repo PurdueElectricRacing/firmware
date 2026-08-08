@@ -1,5 +1,5 @@
-<map id="source/dashboard/main.h" name="source/dashboard/main.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,172,31"/>
-<area shape="rect" id="Node000002" href="$dashboard_2main_8c.html" title="&quot;Dashboard&quot; node source code" alt="" coords="5,79,172,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,46,91,79,86,79,86,46"/>
+<map id="firmware/source/dashboard/main.h" name="firmware/source/dashboard/main.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,183,46"/>
+<area shape="rect" id="Node000002" href="$dashboard_2main_8c.html" title="&quot;Dashboard&quot; node source code" alt="" coords="5,94,183,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,62,97,94,91,94,91,62"/>
 </map>

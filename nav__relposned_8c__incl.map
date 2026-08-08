@@ -1,11 +1,11 @@
-<map id="common/ublox/nav_relposned.c" name="common/ublox/nav_relposned.c">
-<area shape="rect" id="Node000001" title="UBX NAV&#45;RELPOSNED message definition and decoder function." alt="" coords="35,5,239,31"/>
-<area shape="rect" id="Node000002" href="$nav__relposned_8h.html" title="UBX NAV&#45;RELPOSNED message definition and decoder function." alt="" coords="23,79,139,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,33,102,68,98,65,126,30"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="163,79,226,105"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="149,30,177,65,173,68,144,33"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,153,69,178"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="76,106,55,141,50,138,71,103"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="93,153,160,178"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="91,103,113,138,108,141,86,106"/>
+<map id="firmware/common/ublox/nav_relposned.c" name="firmware/common/ublox/nav_relposned.c">
+<area shape="rect" id="Node000001" title="UBX NAV&#45;RELPOSNED message definition and decoder function." alt="" coords="58,5,216,46"/>
+<area shape="rect" id="Node000002" href="$nav__relposned_8h.html" title="UBX NAV&#45;RELPOSNED message definition and decoder function." alt="" coords="23,94,139,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,48,101,83,96,79,121,45"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="163,94,226,120"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="153,45,179,79,174,83,149,48"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,168,69,193"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="76,121,55,156,50,153,71,118"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="93,168,160,193"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="91,118,113,153,108,156,86,121"/>
 </map>

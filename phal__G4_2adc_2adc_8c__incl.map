@@ -1,5 +1,5 @@
-<map id="common/phal_G4/adc/adc.c" name="common/phal_G4/adc/adc.c">
-<area shape="rect" id="Node000001" title="G4 ADC public API implementation. All register&#45;level detail lives in adc_priv.c; this file only coord..." alt="" coords="318,5,466,46"/>
+<map id="firmware/common/phal_G4/adc/adc.c" name="firmware/common/phal_G4/adc/adc.c">
+<area shape="rect" id="Node000001" title="G4 ADC public API implementation. All register&#45;level detail lives in adc_priv.c; this file only coord..." alt="" coords="316,5,468,46"/>
 <area shape="rect" id="Node000002" href="$phal__G4_2adc_2adc_8h.html" title="G4 ADC public API. DMA&#45;only, DMA&#45;first conversions." alt="" coords="262,183,410,223"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="384,48,364,95,345,168,340,167,359,93,379,45"/>
 <area shape="rect" id="Node000009" href="$adc__priv_8h.html" title="Private register&#45;level API for the STM32G4 ADC PHAL." alt="" coords="374,94,522,135"/>

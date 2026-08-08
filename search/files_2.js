@@ -4,7 +4,7 @@ var searchData=
   ['calibration_2eh_1',['calibration.h',['../calibration_8h.html',1,'']]],
   ['calibration_2epng_2',['CALIBRATION.png',['../CALIBRATION_8png.html',1,'']]],
   ['can_2ec_3',['can.c',['../can_8c.html',1,'']]],
-  ['can_2eh_4',['can.h',['../phal_2can_8h.html',1,'(Global Namespace)'],['../phal__F4_2can_2can_8h.html',1,'(Global Namespace)']]],
+  ['can_2eh_4',['can.h',['../can_8h.html',1,'']]],
   ['can_5fcodec_2eh_5',['can_codec.h',['../can__codec_8h.html',1,'']]],
   ['can_5fcodec_5ftests_2ec_6',['can_codec_tests.c',['../can__codec__tests_8c.html',1,'']]],
   ['can_5fcommon_2eh_7',['can_common.h',['../can__common_8h.html',1,'']]],
@@ -35,7 +35,7 @@ var searchData=
   ['cooling_5ffsm_2eh_32',['cooling_fsm.h',['../cooling__fsm_8h.html',1,'']]],
   ['countof_2eh_33',['countof.h',['../countof_8h.html',1,'']]],
   ['crc_2ec_34',['crc.c',['../phal__F4_2crc_2crc_8c.html',1,'(Global Namespace)'],['../phal__G4_2crc_2crc_8c.html',1,'(Global Namespace)']]],
-  ['crc_2eh_35',['crc.h',['../phal_2crc_8h.html',1,'(Global Namespace)'],['../phal__F4_2crc_2crc_8h.html',1,'(Global Namespace)'],['../phal__G4_2crc_2crc_8h.html',1,'(Global Namespace)']]],
+  ['crc_2eh_35',['crc.h',['../phal__F4_2crc_2crc_8h.html',1,'(Global Namespace)'],['../phal__G4_2crc_2crc_8h.html',1,'(Global Namespace)']]],
   ['crc_5fpriv_2ec_36',['crc_priv.c',['../crc__priv_8c.html',1,'']]],
   ['crc_5fpriv_2eh_37',['crc_priv.h',['../crc__priv_8h.html',1,'']]],
   ['crc_5ftest_2ec_38',['crc_test.c',['../crc__test_8c.html',1,'']]]

@@ -10,7 +10,7 @@ var searchData=
   ['sensors_2eh_7',['sensors.h',['../sensors_8h.html',1,'']]],
   ['setup_2emd_8',['setup.md',['../setup_8md.html',1,'']]],
   ['spi_2ec_9',['spi.c',['../phal__F4_2spi_2spi_8c.html',1,'(Global Namespace)'],['../phal__G4_2spi_2spi_8c.html',1,'(Global Namespace)']]],
-  ['spi_2eh_10',['spi.h',['../phal_2spi_8h.html',1,'(Global Namespace)'],['../phal__F4_2spi_2spi_8h.html',1,'(Global Namespace)'],['../phal__G4_2spi_2spi_8h.html',1,'(Global Namespace)']]],
+  ['spi_2eh_10',['spi.h',['../phal__F4_2spi_2spi_8h.html',1,'(Global Namespace)'],['../phal__G4_2spi_2spi_8h.html',1,'(Global Namespace)']]],
   ['spi_5fpriv_2ec_11',['spi_priv.c',['../spi__priv_8c.html',1,'']]],
   ['spi_5fpriv_2eh_12',['spi_priv.h',['../spi__priv_8h.html',1,'']]],
   ['spi_5ftest_2ec_13',['spi_test.c',['../spi__test_8c.html',1,'']]],

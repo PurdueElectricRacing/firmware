@@ -1,21 +1,21 @@
-<map id="common/sdio/sdio.h" name="common/sdio/sdio.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="258,5,396,31"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,73,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="278,34,88,81,87,76,277,29"/>
-<area shape="rect" id="Node000003" href="$phal_2dma_8h.html" title=" " alt="" coords="96,79,235,105"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="301,34,208,75,206,70,299,29"/>
-<area shape="rect" id="Node000007" href="$phal_2gpio_8h.html" title=" " alt="" coords="258,79,396,105"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="330,31,330,63,324,63,324,31"/>
-<area shape="rect" id="Node000008" href="$phal_2rcc_8h.html" title=" " alt="" coords="420,79,551,105"/>
-<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="355,29,446,70,444,75,353,34"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="575,79,666,105"/>
-<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="377,29,561,73,559,79,376,34"/>
-<area shape="rect" id="Node000004" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="242,153,412,178"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="194,103,287,144,285,148,192,108"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="245,226,318,252"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="322,180,300,215,295,212,317,177"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="342,226,405,252"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="337,177,360,212,355,215,332,180"/>
-<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="330,105,330,137,324,137,324,105"/>
-<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="460,108,369,148,367,144,458,103"/>
+<map id="firmware/common/sdio/sdio.h" name="firmware/common/sdio/sdio.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="270,5,422,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,102,73,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="270,46,181,69,86,97,82,98,80,93,85,91,180,63,269,41"/>
+<area shape="rect" id="Node000003" href="$phal__F4_2dma_2dma_8h.html" title=" " alt="" coords="97,94,248,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="308,49,226,89,224,84,305,44"/>
+<area shape="rect" id="Node000007" href="$phal__F4_2gpio_2gpio_8h.html" title="GPIO Driver for STM32F4 Devices." alt="" coords="271,94,420,135"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="348,47,348,78,343,78,343,47"/>
+<area shape="rect" id="Node000008" href="$phal__F4_2rcc_2rcc_8h.html" title="RCC Configuration Driver for STM32F4 Devices." alt="" coords="445,94,588,135"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="386,44,465,84,463,89,383,49"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="612,102,703,127"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="423,43,601,91,609,94,608,99,600,97,422,48"/>
+<area shape="rect" id="Node000004" href="$phal__F4_8h.html" title=" " alt="" coords="255,183,436,208"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="217,133,306,173,304,178,215,138"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="264,256,337,282"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="340,210,318,245,314,242,336,207"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="361,256,424,282"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="356,207,378,242,374,245,351,210"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="348,135,348,167,343,167,343,135"/>
+<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="475,138,387,178,384,173,473,133"/>
 </map>

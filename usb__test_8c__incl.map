@@ -1,5 +1,5 @@
-<map id="source/g4_testing/usb_test.c" name="source/g4_testing/usb_test.c">
-<area shape="rect" id="Node000001" title="Minimal vendor bulk&#45;echo device using the STM32G4 USB HAL." alt="" coords="5,5,155,46"/>
-<area shape="rect" id="Node000002" href="$g4__testing_8h.html" title=" " alt="" coords="34,94,126,120"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,46,83,78,77,78,77,46"/>
+<map id="firmware/source/g4_testing/usb_test.c" name="firmware/source/g4_testing/usb_test.c">
+<area shape="rect" id="Node000001" title="Minimal vendor bulk&#45;echo device using the STM32G4 USB HAL." alt="" coords="5,5,137,46"/>
+<area shape="rect" id="Node000002" href="$g4__testing_8h.html" title=" " alt="" coords="25,94,117,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="74,46,74,78,68,78,68,46"/>
 </map>

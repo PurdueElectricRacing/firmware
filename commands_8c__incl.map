@@ -1,5 +1,5 @@
-<map id="source/a_box/adbms/commands.c" name="source/a_box/adbms/commands.c">
-<area shape="rect" id="Node000001" title="Listing of all ADBMS commands." alt="" coords="25,5,166,46"/>
+<map id="firmware/source/a_box/adbms/commands.c" name="firmware/source/a_box/adbms/commands.c">
+<area shape="rect" id="Node000001" title="Listing of all ADBMS commands." alt="" coords="20,5,171,46"/>
 <area shape="rect" id="Node000002" href="$commands_8h.html" title="Listing of all ADBMS commands." alt="" coords="5,94,101,120"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,48,69,81,65,79,83,45"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="64,168,127,193"/>

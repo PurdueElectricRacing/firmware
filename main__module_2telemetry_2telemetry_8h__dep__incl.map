@@ -1,5 +1,5 @@
-<map id="source/main_module/telemetry/telemetry.h" name="source/main_module/telemetry/telemetry.h">
-<area shape="rect" id="Node000001" title="MAIN MODULE telemetry task implementations." alt="" coords="5,5,151,46"/>
-<area shape="rect" id="Node000002" href="$main__module_2telemetry_2telemetry_8c.html" title="MAIN MODULE telemetry task implementations." alt="" coords="5,94,151,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,62,81,94,75,94,75,62"/>
+<map id="firmware/source/main_module/telemetry/telemetry.h" name="firmware/source/main_module/telemetry/telemetry.h">
+<area shape="rect" id="Node000001" title="MAIN MODULE telemetry task implementations." alt="" coords="5,5,200,46"/>
+<area shape="rect" id="Node000002" href="$main__module_2telemetry_2telemetry_8c.html" title="MAIN MODULE telemetry task implementations." alt="" coords="5,94,200,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,62,105,94,100,94,100,62"/>
 </map>

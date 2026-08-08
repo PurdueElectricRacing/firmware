@@ -1,5 +1,5 @@
-<map id="common/freertos/freertos.h" name="common/freertos/freertos.h">
-<area shape="rect" id="Node000001" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="5,5,183,31"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="62,79,126,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,31,97,63,91,63,91,31"/>
+<map id="firmware/common/freertos/freertos.h" name="firmware/common/freertos/freertos.h">
+<area shape="rect" id="Node000001" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="5,5,178,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="60,94,123,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,46,94,78,89,78,89,46"/>
 </map>

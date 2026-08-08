@@ -1,16 +1,25 @@
-<map id="source/pdu/led/led.h" name="source/pdu/led/led.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="103,5,240,31"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="67,226,140,252"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,30,55,48,34,62,17,80,10,98,9,115,13,134,22,152,48,186,78,214,74,218,44,190,18,155,8,136,3,116,5,96,13,78,31,58,53,43,101,25"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="209,226,272,252"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="241,25,292,42,315,57,333,78,342,96,343,116,338,136,328,155,301,190,270,218,267,214,297,187,324,152,333,134,338,116,337,98,329,80,311,61,289,47,239,30"/>
-<area shape="rect" id="Node000004" href="$phal_2gpio_8h.html" title=" " alt="" coords="181,79,319,105"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="186,30,227,66,224,70,183,34"/>
-<area shape="rect" id="Node000006" href="$phal_2spi_8h.html" title=" " alt="" coords="27,79,158,105"/>
-<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="160,34,119,70,115,66,156,30"/>
-<area shape="rect" id="Node000005" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="88,153,257,178"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="239,107,198,144,195,140,235,103"/>
-<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="163,180,127,217,123,213,159,177"/>
-<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="186,177,221,213,217,217,182,180"/>
-<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="108,103,150,140,146,144,104,107"/>
+<map id="firmware/source/pdu/led/led.h" name="firmware/source/pdu/led/led.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="414,5,552,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="102,345,176,371"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="413,29,319,37,265,47,210,61,155,81,103,107,57,141,18,184,9,204,9,225,17,246,30,266,68,304,108,334,104,338,64,308,26,270,12,248,4,226,4,203,14,181,53,137,100,103,153,76,208,56,264,41,319,32,413,24"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="234,345,297,371"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="520,44,570,77,619,121,637,146,649,172,650,198,638,225,606,261,567,290,524,313,478,330,388,351,313,358,312,353,387,345,476,325,522,308,564,286,602,257,634,222,644,197,643,173,633,149,615,125,567,82,517,49"/>
+<area shape="rect" id="Node000004" href="$phal__F4_2gpio_2gpio_8h.html" title="GPIO Driver for STM32F4 Devices." alt="" coords="475,183,624,223"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="493,45,539,167,534,169,488,47"/>
+<area shape="rect" id="Node000006" href="$phal__F4_2spi_2spi_8h.html" title=" " alt="" coords="281,94,423,135"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="455,49,396,87,393,83,452,44"/>
+<area shape="rect" id="Node000005" href="$phal__F4_8h.html" title=" " alt="" coords="112,271,294,297"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="475,224,272,270,271,265,474,219"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="194,299,162,335,158,332,190,295"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="215,295,247,331,243,335,211,299"/>
+<area shape="poly" id="edge11_Node000006_Node000004" title=" " alt="" coords="398,133,492,174,490,179,396,138"/>
+<area shape="poly" id="edge12_Node000006_Node000005" title=" " alt="" coords="281,123,211,130,136,143,72,160,48,172,33,184,26,198,26,210,32,222,45,232,82,251,126,265,125,270,80,256,42,237,28,225,21,212,20,197,29,181,46,167,70,155,135,137,210,125,280,118"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="384,190,451,216"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="369,134,402,176,397,179,365,137"/>
+<area shape="rect" id="Node000008" href="$phal__F4_2dma_2dma_8h.html" title=" " alt="" coords="42,183,193,223"/>
+<area shape="poly" id="edge9_Node000006_Node000008" title=" " alt="" coords="300,138,186,179,184,174,298,133"/>
+<area shape="rect" id="Node000009" href="$phal__F4_2rcc_2rcc_8h.html" title="RCC Configuration Driver for STM32F4 Devices." alt="" coords="217,183,360,223"/>
+<area shape="poly" id="edge13_Node000006_Node000009" title=" " alt="" coords="340,137,314,172,310,169,336,134"/>
+<area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="140,222,180,259,177,262,137,226"/>
+<area shape="poly" id="edge14_Node000009_Node000005" title=" " alt="" coords="269,226,229,262,225,259,265,222"/>
 </map>

@@ -1,9 +1,9 @@
-<map id="source/dashboard/driver_interface/pages/vcu.h" name="source/dashboard/driver_interface/pages/vcu.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="210,5,371,46"/>
-<area shape="rect" id="Node000002" href="$driver__interface_8c.html" title="thread to manage driver&#45;facing LCD, buttons, LEDs" alt="" coords="5,94,187,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="234,55,141,96,139,91,231,50"/>
-<area shape="rect" id="Node000003" href="$lcd_8c.html" title="LCD display management." alt="" coords="210,94,371,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="293,62,293,94,288,94,288,62"/>
-<area shape="rect" id="Node000004" href="$vcu_8c.html" title="VCU page implementation." alt="" coords="394,94,555,135"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="347,50,434,91,432,96,345,55"/>
+<map id="firmware/source/dashboard/driver_interface/pages/vcu.h" name="firmware/source/dashboard/driver_interface/pages/vcu.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="201,5,390,46"/>
+<area shape="rect" id="Node000002" href="$driver__interface_8c.html" title="thread to manage driver&#45;facing LCD, buttons, LEDs" alt="" coords="5,94,183,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="241,55,153,96,151,91,238,51"/>
+<area shape="rect" id="Node000003" href="$lcd_8c.html" title="LCD display management." alt="" coords="207,102,384,142"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="298,62,298,101,293,101,293,62"/>
+<area shape="rect" id="Node000004" href="$vcu_8c.html" title="VCU page implementation." alt="" coords="408,102,596,142"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="354,50,460,98,458,103,351,55"/>
 </map>

@@ -1,5 +1,5 @@
-<map id="common/phal_G4/usart/usart.c" name="common/phal_G4/usart/usart.c">
-<area shape="rect" id="Node000001" title=" " alt="" coords="148,5,304,46"/>
+<map id="firmware/common/phal_G4/usart/usart.c" name="firmware/common/phal_G4/usart/usart.c">
+<area shape="rect" id="Node000001" title=" " alt="" coords="150,5,302,46"/>
 <area shape="rect" id="Node000002" href="$phal__G4_2usart_2usart_8h.html" title=" " alt="" coords="5,183,162,223"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,49,164,70,138,96,114,132,97,169,93,167,109,129,133,92,161,66,190,44"/>
 <area shape="rect" id="Node000006" href="$usart__priv_8h.html" title=" " alt="" coords="148,94,304,135"/>

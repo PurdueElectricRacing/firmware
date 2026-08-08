@@ -6,7 +6,7 @@ var searchData=
   ['dbcgen_2epy_3',['dbcgen.py',['../dbcgen_8py.html',1,'']]],
   ['deploy_5fn_5fdebug_2emd_4',['deploy_n_debug.md',['../deploy__n__debug_8md.html',1,'']]],
   ['dma_2ec_5',['dma.c',['../phal__F4_2dma_2dma_8c.html',1,'(Global Namespace)'],['../phal__G4_2dma_2dma_8c.html',1,'(Global Namespace)']]],
-  ['dma_2eh_6',['dma.h',['../phal_2dma_8h.html',1,'(Global Namespace)'],['../phal__F4_2dma_2dma_8h.html',1,'(Global Namespace)'],['../phal__G4_2dma_2dma_8h.html',1,'(Global Namespace)']]],
+  ['dma_2eh_6',['dma.h',['../phal__F4_2dma_2dma_8h.html',1,'(Global Namespace)'],['../phal__G4_2dma_2dma_8h.html',1,'(Global Namespace)']]],
   ['dma_5fpriv_2ec_7',['dma_priv.c',['../dma__priv_8c.html',1,'']]],
   ['dma_5fpriv_2eh_8',['dma_priv.h',['../dma__priv_8h.html',1,'']]],
   ['dma_5fwiring_2eh_9',['dma_wiring.h',['../dma__wiring_8h.html',1,'']]],

@@ -1,5 +1,5 @@
-<map id="common/phal_G4/pwm/pwm_priv.c" name="common/phal_G4/pwm/pwm_priv.c">
-<area shape="rect" id="Node000001" title="Private STM32G4 PWM register implementation." alt="" coords="92,5,247,46"/>
+<map id="firmware/common/phal_G4/pwm/pwm_priv.c" name="firmware/common/phal_G4/pwm/pwm_priv.c">
+<area shape="rect" id="Node000001" title="Private STM32G4 PWM register implementation." alt="" coords="94,5,246,46"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,102,73,127"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,49,72,95,69,90,139,44"/>
 <area shape="rect" id="Node000003" href="$pwm__priv_8h.html" title="Header file for private STM32G4 PWM register implementation." alt="" coords="304,183,459,223"/>

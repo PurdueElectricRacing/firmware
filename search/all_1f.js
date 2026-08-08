@@ -6,6 +6,6 @@ var searchData=
   ['year_5fbcd_3',['year_bcd',['../structRTC__date__t.html#aa4e963fd0afe128ba6b328d3d2330d17',1,'RTC_date_t']]],
   ['yellow_4',['YELLOW',['../colors_8h.html#a58cac47c00b7e846610c487128c8a0ca',1,'colors.h']]],
   ['yvcu_5',['yVCU',['../control__loop_8c.html#a4705d8316e435b499f4e2ded41d0a431',1,'control_loop.c']]],
-  ['yvcu_20tt_6',['&lt;tt&gt;yVCU&lt;/tt&gt;',['../md_source_2torque__vector_2vcu_2vcu__interface.html#autotoc_md53',1,'']]],
+  ['yvcu_20tt_6',['&lt;tt&gt;yVCU&lt;/tt&gt;',['../md_firmware_2source_2torque__vector_2vcu_2vcu__interface.html#autotoc_md53',1,'']]],
   ['yvcu_5fstruct_7',['yVCU_struct',['../structyVCU__struct.html',1,'']]]
 ];

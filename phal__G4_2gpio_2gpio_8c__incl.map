@@ -1,4 +1,4 @@
-<map id="common/phal_G4/gpio/gpio.c" name="common/phal_G4/gpio/gpio.c">
+<map id="firmware/common/phal_G4/gpio/gpio.c" name="firmware/common/phal_G4/gpio/gpio.c">
 <area shape="rect" id="Node000001" title="GPIO Driver for STM32L432 Devices." alt="" coords="22,5,174,46"/>
 <area shape="rect" id="Node000002" href="$phal__G4_2gpio_2gpio_8h.html" title="GPIO Driver for STM32L432 Devices." alt="" coords="22,94,174,135"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,47,101,78,95,78,95,47"/>

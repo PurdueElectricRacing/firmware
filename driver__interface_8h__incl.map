@@ -1,5 +1,5 @@
-<map id="source/dashboard/driver_interface/driver_interface.h" name="source/dashboard/driver_interface/driver_interface.h">
-<area shape="rect" id="Node000001" title="thread to manage driver&#45;facing LCD, buttons, LEDs" alt="" coords="5,5,187,46"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="64,94,128,120"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,46,99,78,93,78,93,46"/>
+<map id="firmware/source/dashboard/driver_interface/driver_interface.h" name="firmware/source/dashboard/driver_interface/driver_interface.h">
+<area shape="rect" id="Node000001" title="thread to manage driver&#45;facing LCD, buttons, LEDs" alt="" coords="5,5,183,61"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="62,109,126,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,61,97,93,91,93,91,61"/>
 </map>

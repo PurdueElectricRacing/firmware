@@ -1,10 +1,24 @@
-<map id="common/phal_G4/usart/usart.h" name="common/phal_G4/usart/usart.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="63,5,219,46"/>
-<area shape="rect" id="Node000002" href="$phal__G4_2usart_2usart_8c.html" title=" " alt="" coords="5,183,162,223"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="126,61,111,95,98,142,89,183,84,182,93,141,106,93,121,59"/>
-<area shape="rect" id="Node000003" href="$usart__priv_8h.html" title=" " alt="" coords="121,94,278,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="165,57,188,92,184,95,160,60"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="162,146,111,184,108,180,159,142"/>
-<area shape="rect" id="Node000004" href="$usart__priv_8c.html" title=" " alt="" coords="185,183,342,223"/>
-<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="225,146,251,181,247,184,221,149"/>
+<map id="firmware/common/phal_G4/usart/usart.h" name="firmware/common/phal_G4/usart/usart.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="452,5,604,46"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2usart_2usart_8c.html" title=" " alt="" coords="5,190,158,231"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="437,39,286,62,218,78,171,96,145,117,123,142,93,191,88,188,119,139,141,113,168,92,216,73,285,57,436,34"/>
+<area shape="rect" id="Node000003" href="$usart__priv_8h.html" title=" " alt="" coords="181,94,334,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="453,54,320,96,318,91,451,49"/>
+<area shape="rect" id="Node000005" href="$lcd_8c.html" title="LCD display management." alt="" coords="358,190,536,231"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="516,61,458,191,453,189,511,59"/>
+<area shape="rect" id="Node000006" href="$lcd_8h.html" title="LCD display management." alt="" coords="541,94,718,135"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="564,54,608,92,605,96,561,58"/>
+<area shape="rect" id="Node000009" href="$dashboard_2main_8c.html" title="&quot;Dashboard&quot; node source code" alt="" coords="973,190,1150,231"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="620,47,676,67,732,92,758,113,769,123,784,132,988,187,987,192,782,137,766,127,755,117,729,96,675,71,618,52"/>
+<area shape="rect" id="Node000010" href="$torque__vector_2main_8c.html" title="&quot;Torque Vector&quot; node source code" alt="" coords="794,94,948,135"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="620,47,795,91,793,96,619,52"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="209,145,120,192,117,187,206,140"/>
+<area shape="rect" id="Node000004" href="$usart__priv_8c.html" title=" " alt="" coords="181,190,334,231"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="260,150,260,190,255,190,255,150"/>
+<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="579,145,486,192,484,187,577,140"/>
+<area shape="rect" id="Node000007" href="$driver__interface_8c.html" title="thread to manage driver&#45;facing LCD, buttons, LEDs" alt="" coords="560,183,737,238"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="639,150,645,181,640,183,634,151"/>
+<area shape="rect" id="Node000008" href="$vcu_8c.html" title="VCU page implementation." alt="" coords="761,190,949,231"/>
+<area shape="poly" id="edge9_Node000006_Node000008" title=" " alt="" coords="692,139,809,187,807,192,690,144"/>
+<area shape="poly" id="edge10_Node000006_Node000009" title=" " alt="" coords="734,132,962,180,990,187,989,192,961,185,733,138"/>
 </map>

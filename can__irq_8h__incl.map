@@ -1,5 +1,5 @@
-<map id="source/daq/can_irq/can_irq.h" name="source/daq/can_irq/can_irq.h">
-<area shape="rect" id="Node000001" title="Timestamped frame producers from CAN RX IRQ." alt="" coords="5,5,137,46"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="39,94,103,120"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="74,46,74,78,68,78,68,46"/>
+<map id="firmware/source/daq/can_irq/can_irq.h" name="firmware/source/daq/can_irq/can_irq.h">
+<area shape="rect" id="Node000001" title="Timestamped frame producers from CAN RX IRQ." alt="" coords="5,5,144,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="43,94,106,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,46,77,78,72,78,72,46"/>
 </map>

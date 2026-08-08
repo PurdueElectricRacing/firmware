@@ -1,10 +1,10 @@
-<map id="source/daq/spmc/spmc.h" name="source/daq/spmc/spmc.h">
-<area shape="rect" id="Node000001" title="Custom SPMC designed for high throughput handling of CAN message streams." alt="" coords="26,5,193,31"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,73,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,33,63,70,60,66,96,29"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="133,153,196,178"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="115,30,137,104,153,137,148,140,133,106,110,32"/>
-<area shape="rect" id="Node000004" href="$timestamped__frame_8h.html" title="Definition for timestamped CAN frames." alt="" coords="147,79,294,105"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="130,29,190,68,187,73,127,34"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="213,107,185,142,181,139,209,103"/>
+<map id="firmware/source/daq/spmc/spmc.h" name="firmware/source/daq/spmc/spmc.h">
+<area shape="rect" id="Node000001" title="Custom SPMC designed for high throughput handling of CAN message streams." alt="" coords="40,5,179,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,94,73,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,48,62,84,58,80,90,45"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="133,168,196,193"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="116,46,138,119,153,153,148,155,132,121,111,47"/>
+<area shape="rect" id="Node000004" href="$timestamped__frame_8h.html" title="Definition for timestamped CAN frames." alt="" coords="147,94,294,120"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="139,44,192,82,189,87,135,49"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="213,122,185,157,181,154,209,118"/>
 </map>

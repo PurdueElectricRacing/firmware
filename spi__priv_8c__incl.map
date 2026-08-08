@@ -1,7 +1,7 @@
-<map id="common/phal_G4/spi/spi_priv.c" name="common/phal_G4/spi/spi_priv.c">
-<area shape="rect" id="Node000001" title="G4 SPI Peripheral private/register level implementation." alt="" coords="324,5,468,46"/>
+<map id="firmware/common/phal_G4/spi/spi_priv.c" name="firmware/common/phal_G4/spi/spi_priv.c">
+<area shape="rect" id="Node000001" title="G4 SPI Peripheral private/register level implementation." alt="" coords="320,5,472,46"/>
 <area shape="rect" id="Node000002" href="$phal__G4_2spi_2spi_8h.html" title="G4 SPI public API." alt="" coords="46,183,190,223"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="325,43,261,64,230,78,201,96,164,132,137,171,133,168,160,128,197,92,227,73,260,59,323,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="321,44,259,64,229,79,201,96,164,132,137,171,133,168,160,128,197,92,226,74,257,60,319,39"/>
 <area shape="rect" id="Node000009" href="$spi__priv_8h.html" title="Internal G4 SPI helpers and DMA configuration macros." alt="" coords="211,94,355,135"/>
 <area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="372,49,322,87,319,82,369,44"/>
 <area shape="rect" id="Node000011" href="$phal__G4_2rcc_2rcc_8h.html" title="G4 RCC public API implementation." alt="" coords="381,360,526,401"/>

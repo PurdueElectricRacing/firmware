@@ -1,10 +1,22 @@
-<map id="common/phal_G4/adc/adc.h" name="common/phal_G4/adc/adc.h">
-<area shape="rect" id="Node000001" title="G4 ADC public API. DMA&#45;only, DMA&#45;first conversions." alt="" coords="61,5,210,46"/>
-<area shape="rect" id="Node000002" href="$phal__G4_2adc_2adc_8c.html" title="G4 ADC public API implementation. All register&#45;level detail lives in adc_priv.c; this file only coord..." alt="" coords="5,183,154,223"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,61,107,95,94,142,85,183,80,182,89,141,102,93,116,59"/>
-<area shape="rect" id="Node000003" href="$adc__priv_8h.html" title="Private register&#45;level API for the STM32G4 ADC PHAL." alt="" coords="117,94,266,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="159,58,181,92,177,95,154,61"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="156,146,106,184,103,180,153,142"/>
-<area shape="rect" id="Node000004" href="$adc__priv_8c.html" title="Register&#45;level implementation of the STM32G4 ADC PHAL." alt="" coords="177,183,326,223"/>
-<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="216,146,240,181,236,184,212,149"/>
+<map id="firmware/common/phal_G4/adc/adc.h" name="firmware/common/phal_G4/adc/adc.h">
+<area shape="rect" id="Node000001" title="G4 ADC public API. DMA&#45;only, DMA&#45;first conversions." alt="" coords="357,5,510,46"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2adc_2adc_8c.html" title="G4 ADC public API implementation. All register&#45;level detail lives in adc_priv.c; this file only coord..." alt="" coords="5,183,158,223"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="342,39,213,61,157,77,121,96,105,115,95,138,85,183,80,182,90,137,100,113,117,92,155,72,212,56,341,34"/>
+<area shape="rect" id="Node000003" href="$adc__priv_8h.html" title="Private register&#45;level API for the STM32G4 ADC PHAL." alt="" coords="131,94,283,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="369,54,259,96,258,91,367,49"/>
+<area shape="rect" id="Node000005" href="$a__box_2main_8c.html" title="&quot;Abox&quot; node source code" alt="" coords="358,183,509,223"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="383,57,363,74,348,95,342,114,348,133,368,160,395,180,392,184,365,164,343,136,337,114,343,93,359,71,379,53"/>
+<area shape="rect" id="Node000006" href="$a__box_2main_8h.html" title="&quot;Abox&quot; node source code" alt="" coords="358,94,509,135"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="436,62,436,94,431,94,431,62"/>
+<area shape="rect" id="Node000007" href="$dashboard_2main_8c.html" title="&quot;Dashboard&quot; node source code" alt="" coords="558,183,736,223"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="473,53,523,92,627,180,623,184,520,96,470,58"/>
+<area shape="rect" id="Node000008" href="$dashboard_2main_8h.html" title=" " alt="" coords="585,94,762,135"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="503,49,620,91,618,96,501,54"/>
+<area shape="rect" id="Node000009" href="$driveline_2main_8c.html" title="&quot;Driveline&quot; node source code" alt="" coords="787,94,952,135"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="525,42,775,91,787,94,786,99,774,97,524,47"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="168,146,111,184,108,180,165,141"/>
+<area shape="rect" id="Node000004" href="$adc__priv_8c.html" title="Register&#45;level implementation of the STM32G4 ADC PHAL." alt="" coords="181,183,334,223"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="228,147,248,181,244,184,224,150"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="436,150,436,182,431,182,431,150"/>
+<area shape="poly" id="edge10_Node000008_Node000007" title=" " alt="" coords="666,150,655,183,650,181,660,149"/>
 </map>

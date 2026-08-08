@@ -1,5 +1,5 @@
-<map id="source/torque_vector/control_loop/control_loop.h" name="source/torque_vector/control_loop/control_loop.h">
-<area shape="rect" id="Node000001" title="Main torque vectoring control loop." alt="" coords="5,5,149,61"/>
-<area shape="rect" id="Node000002" href="$torque__vector_2main_8c.html" title="&quot;Torque Vector&quot; node source code" alt="" coords="5,109,149,150"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,77,80,109,74,109,74,77"/>
+<map id="firmware/source/torque_vector/control_loop/control_loop.h" name="firmware/source/torque_vector/control_loop/control_loop.h">
+<area shape="rect" id="Node000001" title="Main torque vectoring control loop." alt="" coords="5,5,187,61"/>
+<area shape="rect" id="Node000002" href="$torque__vector_2main_8c.html" title="&quot;Torque Vector&quot; node source code" alt="" coords="19,109,173,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,77,99,109,93,109,93,77"/>
 </map>

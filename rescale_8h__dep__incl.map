@@ -1,5 +1,5 @@
-<map id="common/utils/rescale.h" name="common/utils/rescale.h">
-<area shape="rect" id="Node000001" title="Utility header to linearly map values from one range to another." alt="" coords="11,5,166,31"/>
-<area shape="rect" id="Node000002" href="$pedals_8c.html" title="Pedal processing logic." alt="" coords="5,79,172,120"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,46,91,79,86,79,86,46"/>
+<map id="firmware/common/utils/rescale.h" name="firmware/common/utils/rescale.h">
+<area shape="rect" id="Node000001" title="Utility header to linearly map values from one range to another." alt="" coords="18,5,170,46"/>
+<area shape="rect" id="Node000002" href="$pedals_8c.html" title="Pedal processing logic." alt="" coords="5,94,183,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,62,97,94,91,94,91,62"/>
 </map>

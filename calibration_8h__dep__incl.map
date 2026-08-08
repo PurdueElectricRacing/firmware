@@ -1,7 +1,7 @@
-<map id="source/dashboard/driver_interface/pages/calibration.h" name="source/dashboard/driver_interface/pages/calibration.h">
-<area shape="rect" id="Node000001" title="Calibration page implementation." alt="" coords="90,5,281,46"/>
-<area shape="rect" id="Node000002" href="$lcd_8c.html" title="LCD display management." alt="" coords="5,94,166,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,58,110,96,106,92,150,54"/>
-<area shape="rect" id="Node000003" href="$calibration_8c.html" title="Calibration page implementation." alt="" coords="190,94,381,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="221,54,265,92,261,96,218,58"/>
+<map id="firmware/source/dashboard/driver_interface/pages/calibration.h" name="firmware/source/dashboard/driver_interface/pages/calibration.h">
+<area shape="rect" id="Node000001" title="Calibration page implementation." alt="" coords="105,5,283,61"/>
+<area shape="rect" id="Node000002" href="$lcd_8c.html" title="LCD display management." alt="" coords="5,116,183,157"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,74,115,118,111,114,155,70"/>
+<area shape="rect" id="Node000003" href="$calibration_8c.html" title="Calibration page implementation." alt="" coords="207,109,384,165"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="234,70,270,106,266,110,230,74"/>
 </map>

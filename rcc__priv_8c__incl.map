@@ -1,5 +1,5 @@
-<map id="common/phal_G4/rcc/rcc_priv.c" name="common/phal_G4/rcc/rcc_priv.c">
-<area shape="rect" id="Node000001" title="G4 RCC private/register level implementation." alt="" coords="42,5,187,46"/>
+<map id="firmware/common/phal_G4/rcc/rcc_priv.c" name="firmware/common/phal_G4/rcc/rcc_priv.c">
+<area shape="rect" id="Node000001" title="G4 RCC private/register level implementation." alt="" coords="38,5,191,46"/>
 <area shape="rect" id="Node000002" href="$rcc__priv_8h.html" title="G4 RCC private/register level implementation." alt="" coords="42,94,187,135"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,47,117,78,112,78,112,47"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="83,345,146,371"/>

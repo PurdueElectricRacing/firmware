@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: common/phal_G4/usb/usb_priv.h File Reference</title>
+<title>PER Firmware: firmware/common/phal_G4/usb/usb_priv.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -106,16 +106,16 @@ $(function(){initNavTree('usb__priv_8h.html',''); initResizable(true); });
 <p>Register-level interface used by the STM32G4 USB public layer.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="phal__G4_2usb_2usb_8h_source.html">common/phal_G4/usb/usb.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="usb_8h_source.html">common/phal_G4/usb/usb.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for usb_priv.h:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8h__incl.svg" width="215" height="214"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8h__incl.svg" width="218" height="214"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8h__dep__incl.svg" width="331" height="140"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8h__dep__incl.svg" width="339" height="140"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="usb__priv_8h_source.html">Go to the source code of this file.</a></p>
@@ -137,7 +137,7 @@ Functions</h2></td></tr>
 <tr class="memitem:aaea03d767f81299b62109832610473d2" id="r_aaea03d767f81299b62109832610473d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaea03d767f81299b62109832610473d2">USB_PRIV_setAddress</a> (uint8_t address)</td></tr>
 <tr class="memdesc:aaea03d767f81299b62109832610473d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write the seven-bit device address while keeping the device enabled.  <br /></td></tr>
 <tr class="separator:aaea03d767f81299b62109832610473d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe455c5cf21d064ea3eccd1b92c51fc4" id="r_abe455c5cf21d064ea3eccd1b92c51fc4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe455c5cf21d064ea3eccd1b92c51fc4">USB_PRIV_stall</a> (uint8_t endpoint, <a class="el" href="phal__G4_2usb_2usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a> direction)</td></tr>
+<tr class="memitem:abe455c5cf21d064ea3eccd1b92c51fc4" id="r_abe455c5cf21d064ea3eccd1b92c51fc4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe455c5cf21d064ea3eccd1b92c51fc4">USB_PRIV_stall</a> (uint8_t endpoint, <a class="el" href="usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a> direction)</td></tr>
 <tr class="memdesc:abe455c5cf21d064ea3eccd1b92c51fc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set one endpoint direction to the USB STALL handshake state.  <br /></td></tr>
 <tr class="separator:abe455c5cf21d064ea3eccd1b92c51fc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae29a55bc0c87c71b9820e6b8ef9c7780" id="r_ae29a55bc0c87c71b9820e6b8ef9c7780"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae29a55bc0c87c71b9820e6b8ef9c7780">USB_PRIV_write</a> (uint8_t endpoint, const void *source, uint16_t length_bytes)</td></tr>
@@ -397,7 +397,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="phal__G4_2usb_2usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -460,7 +460,7 @@ Here is the caller graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_bdd9a5d540de89e9fe90efdfc6973a4f.html">common</a></li><li class="navelem"><a class="el" href="dir_537865b7fa0534ad07c686239f783682.html">phal_G4</a></li><li class="navelem"><a class="el" href="dir_0a689d59fa81b6ecd9dfd1df7810e02d.html">usb</a></li><li class="navelem"><a class="el" href="usb__priv_8h.html">usb_priv.h</a></li>
+    <li class="navelem"><a class="el" href="dir_d9edf6c004b4a7ff14fe9ae7a92214ee.html">firmware</a></li><li class="navelem"><a class="el" href="dir_5e269a536bf5351fb01f412fd1d14980.html">common</a></li><li class="navelem"><a class="el" href="dir_48b3ded520845e3cf7cf37478d1eb6dc.html">phal_G4</a></li><li class="navelem"><a class="el" href="dir_aefd7c9339d9fef856ef2416e6084163.html">usb</a></li><li class="navelem"><a class="el" href="usb__priv_8h.html">usb_priv.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

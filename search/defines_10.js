@@ -22,7 +22,7 @@ var searchData=
   ['rover_5freset_5fpin_19',['ROVER_RESET_PIN',['../torque__vector_2main_8h.html#ac346578ff0559ead46bd7f69c12776d4',1,'main.h']]],
   ['rover_5freset_5fport_20',['ROVER_RESET_PORT',['../torque__vector_2main_8h.html#aa1c07450d014e439e64091e53b2910e3',1,'main.h']]],
   ['rr_5fbar_21',['RR_BAR',['../race_8h.html#a6f4deff86b034f68083e782d0acbd8af',1,'race.h']]],
-  ['rtc_5fasync_5fprescal_22',['RTC_ASYNC_PRESCAL',['../phal__F4_2rtc_2rtc_8h.html#a23265a91627f354343a8bf32bdcab608',1,'rtc.h']]],
-  ['rtc_5fconv_5fto_5fbcd_23',['RTC_CONV_TO_BCD',['../phal__F4_2rtc_2rtc_8h.html#a3056be58546c4e25fed72a5eb743f94a',1,'rtc.h']]],
-  ['rtc_5fsync_5fprescal_24',['RTC_SYNC_PRESCAL',['../phal__F4_2rtc_2rtc_8h.html#a74e42a61f38d2bc8242923e3ce6a68f8',1,'rtc.h']]]
+  ['rtc_5fasync_5fprescal_22',['RTC_ASYNC_PRESCAL',['../rtc_8h.html#a23265a91627f354343a8bf32bdcab608',1,'rtc.h']]],
+  ['rtc_5fconv_5fto_5fbcd_23',['RTC_CONV_TO_BCD',['../rtc_8h.html#a3056be58546c4e25fed72a5eb743f94a',1,'rtc.h']]],
+  ['rtc_5fsync_5fprescal_24',['RTC_SYNC_PRESCAL',['../rtc_8h.html#a74e42a61f38d2bc8242923e3ce6a68f8',1,'rtc.h']]]
 ];

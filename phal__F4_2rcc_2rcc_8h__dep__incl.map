@@ -1,9 +1,33 @@
-<map id="common/phal_F4/rcc/rcc.h" name="common/phal_F4/rcc/rcc.h">
-<area shape="rect" id="Node000001" title="RCC Configuration Driver for STM32F4 Devices." alt="" coords="88,5,231,46"/>
-<area shape="rect" id="Node000002" href="$phal__F4_2rcc_2rcc_8c.html" title=" " alt="" coords="5,94,149,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,59,98,95,94,92,128,56"/>
-<area shape="rect" id="Node000003" href="$phal__F4_2spi_2spi_8h.html" title=" " alt="" coords="172,94,315,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="191,56,227,92,223,95,188,59"/>
-<area shape="rect" id="Node000004" href="$phal__F4_2spi_2spi_8c.html" title="PER Serial Peripheral Interface Device driver for STM32F4." alt="" coords="172,183,315,223"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="246,150,246,182,241,182,241,150"/>
+<map id="firmware/common/phal_F4/rcc/rcc.h" name="firmware/common/phal_F4/rcc/rcc.h">
+<area shape="rect" id="Node000001" title="RCC Configuration Driver for STM32F4 Devices." alt="" coords="628,5,780,46"/>
+<area shape="rect" id="Node000002" href="$phal__F4_2rcc_2rcc_8c.html" title=" " alt="" coords="261,94,414,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="614,51,414,98,413,93,612,46"/>
+<area shape="rect" id="Node000003" href="$phal__F4_2spi_2spi_8h.html" title=" " alt="" coords="437,94,590,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="648,55,558,96,555,91,646,50"/>
+<area shape="rect" id="Node000006" href="$daq_2main_8c.html" title="&quot;DAQ&quot; node source code" alt="" coords="555,183,693,223"/>
+<area shape="poly" id="edge14_Node000001_Node000006" title=" " alt="" coords="691,61,635,183,631,181,687,59"/>
+<area shape="rect" id="Node000010" href="$pdu_2main_8c.html" title="&quot;PDU&quot; node source code" alt="" coords="662,271,800,312"/>
+<area shape="poly" id="edge16_Node000001_Node000010" title=" " alt="" coords="710,61,732,271,726,271,705,62"/>
+<area shape="rect" id="Node000012" href="$sdio_8h.html" title=" " alt="" coords="768,94,920,135"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="750,52,814,91,811,96,748,57"/>
+<area shape="rect" id="Node000015" href="$f4__testing_2canpiler_8c.html" title=" " alt="" coords="944,94,1072,135"/>
+<area shape="poly" id="edge15_Node000001_Node000015" title=" " alt="" coords="788,48,945,92,943,97,787,53"/>
+<area shape="rect" id="Node000004" href="$phal__F4_2spi_2spi_8c.html" title="PER Serial Peripheral Interface Device driver for STM32F4." alt="" coords="5,183,158,223"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="422,138,170,185,159,188,158,182,169,180,421,133"/>
+<area shape="rect" id="Node000005" href="$w5500__callbacks_8c.html" title="Implementation of the W5500 SPI callbacks for ethernet communication." alt="" coords="182,183,368,223"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="446,143,330,185,328,180,444,138"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="552,142,601,180,598,184,549,146"/>
+<area shape="rect" id="Node000007" href="$led_8h.html" title=" " alt="" coords="392,183,531,223"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="496,149,476,184,471,181,492,147"/>
+<area shape="rect" id="Node000008" href="$pdu_2faults_2faults_8c.html" title=" " alt="" coords="168,271,307,312"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="397,232,289,273,288,268,395,227"/>
+<area shape="rect" id="Node000009" href="$led_8c.html" title=" " alt="" coords="331,271,469,312"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="441,238,416,272,412,269,437,235"/>
+<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="538,226,670,268,669,273,537,231"/>
+<area shape="rect" id="Node000011" href="$switches_8c.html" title=" " alt="" coords="494,271,637,312"/>
+<area shape="poly" id="edge10_Node000007_Node000011" title=" " alt="" coords="498,231,544,269,540,273,495,235"/>
+<area shape="rect" id="Node000013" href="$sdio_8c.html" title="Secure Digital Input Output Interface driver for STM32F4." alt="" coords="768,183,920,223"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="847,150,847,182,842,182,842,150"/>
+<area shape="rect" id="Node000014" href="$sd__card_8c.html" title="Logging of received bus messages onto an SD card." alt="" coords="944,183,1083,223"/>
+<area shape="poly" id="edge13_Node000012_Node000014" title=" " alt="" coords="897,140,976,180,974,185,895,144"/>
 </map>

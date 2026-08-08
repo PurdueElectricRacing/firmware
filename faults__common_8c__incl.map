@@ -1,5 +1,5 @@
-<map id="can_library/source/faults_common.c" name="can_library/source/faults_common.c">
-<area shape="rect" id="Node000001" title="Event&#45;based FIDR system." alt="" coords="194,5,320,46"/>
+<map id="firmware/can_library/source/faults_common.c" name="firmware/can_library/source/faults_common.c">
+<area shape="rect" id="Node000001" title="Event&#45;based FIDR system." alt="" coords="173,5,341,46"/>
 <area shape="rect" id="Node000002" href="$faults__common_8h.html" title="Event&#45;based FIDR system." alt="" coords="41,94,161,135"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="223,49,151,89,148,84,220,44"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="185,94,329,135"/>

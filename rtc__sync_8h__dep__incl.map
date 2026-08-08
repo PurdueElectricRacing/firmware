@@ -1,9 +1,9 @@
-<map id="source/daq/rtc_sync/rtc_sync.h" name="source/daq/rtc_sync/rtc_sync.h">
-<area shape="rect" id="Node000001" title="Synchronization of the RTC peripheral with the GPS UTC time." alt="" coords="155,5,294,46"/>
-<area shape="rect" id="Node000002" href="$can__irq_8c.html" title="Timestamped frame producers from CAN RX IRQ." alt="" coords="5,94,137,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="178,56,107,96,104,91,175,51"/>
-<area shape="rect" id="Node000003" href="$daq_2main_8c.html" title="&quot;DAQ&quot; node source code" alt="" coords="161,102,288,127"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="227,62,227,101,222,101,222,62"/>
-<area shape="rect" id="Node000004" href="$rtc__sync_8c.html" title="Synchronization of the RTC peripheral with the GPS UTC time." alt="" coords="312,94,451,135"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="275,51,347,91,345,96,272,56"/>
+<map id="firmware/source/daq/rtc_sync/rtc_sync.h" name="firmware/source/daq/rtc_sync/rtc_sync.h">
+<area shape="rect" id="Node000001" title="Synchronization of the RTC peripheral with the GPS UTC time." alt="" coords="168,5,306,46"/>
+<area shape="rect" id="Node000002" href="$can__irq_8c.html" title="Timestamped frame producers from CAN RX IRQ." alt="" coords="5,94,144,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,56,113,96,110,91,186,51"/>
+<area shape="rect" id="Node000003" href="$daq_2main_8c.html" title="&quot;DAQ&quot; node source code" alt="" coords="168,94,306,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="240,62,240,94,234,94,234,62"/>
+<area shape="rect" id="Node000004" href="$rtc__sync_8c.html" title="Synchronization of the RTC peripheral with the GPS UTC time." alt="" coords="331,94,469,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="289,51,364,91,362,96,286,56"/>
 </map>

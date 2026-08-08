@@ -1,19 +1,19 @@
-<map id="common/nextion/nextion.c" name="common/nextion/nextion.c">
-<area shape="rect" id="Node000001" title="Nextion display driver interface." alt="" coords="152,5,323,31"/>
-<area shape="rect" id="Node000002" href="$nextion_8h.html" title="Nextion display driver interface." alt="" coords="59,79,131,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="215,34,134,74,132,69,212,29"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="97,226,160,252"/>
-<area shape="poly" id="edge8_Node000001_Node000003" title=" " alt="" coords="229,33,196,80,162,151,139,213,134,211,158,149,191,78,225,30"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="206,79,269,105"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="240,31,240,63,235,63,235,31"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="293,79,353,105"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="254,29,299,67,296,71,250,34"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="377,79,445,105"/>
-<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="268,29,368,70,366,75,266,34"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="100,104,125,210,120,212,95,106"/>
-<area shape="rect" id="Node000004" href="$strbuf_8h.html" title="Fixed&#45;size string builder. Useful for building large CMD strings before transmission." alt="" coords="16,153,80,178"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="90,106,67,141,62,138,85,103"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="64,177,106,214,102,218,60,181"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="5,226,73,252"/>
-<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="49,179,45,211,40,211,44,178"/>
+<map id="firmware/common/nextion/nextion.c" name="firmware/common/nextion/nextion.c">
+<area shape="rect" id="Node000001" title="Nextion display driver interface." alt="" coords="153,5,322,46"/>
+<area shape="rect" id="Node000002" href="$nextion_8h.html" title="Nextion display driver interface." alt="" coords="59,94,131,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,49,132,88,129,84,201,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="97,241,160,267"/>
+<area shape="poly" id="edge8_Node000001_Node000003" title=" " alt="" coords="226,48,196,95,163,166,140,227,135,226,158,164,191,93,221,45"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="206,94,269,120"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="240,46,240,78,235,78,235,46"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="293,94,353,120"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="261,44,301,81,297,85,257,48"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="377,94,445,120"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="282,44,372,85,369,90,280,49"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="100,119,125,225,120,227,95,121"/>
+<area shape="rect" id="Node000004" href="$strbuf_8h.html" title="Fixed&#45;size string builder. Useful for building large CMD strings before transmission." alt="" coords="16,168,80,193"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="90,121,67,156,62,153,85,118"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="64,192,106,229,102,233,60,196"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="5,241,73,267"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="49,194,45,226,40,226,44,193"/>
 </map>

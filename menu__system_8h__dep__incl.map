@@ -1,9 +1,9 @@
-<map id="source/dashboard/driver_interface/menu_system.h" name="source/dashboard/driver_interface/menu_system.h">
-<area shape="rect" id="Node000001" title="Implementation of menu system for LCD display interface." alt="" coords="197,5,371,46"/>
-<area shape="rect" id="Node000002" href="$menu__system_8c.html" title="Implementation of menu system for LCD display interface." alt="" coords="5,94,179,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,55,136,96,134,91,226,50"/>
-<area shape="rect" id="Node000003" href="$dashboard_2driver__interface_2pages_2faults_8c.html" title="Faults page implementation." alt="" coords="202,94,366,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="287,62,287,94,281,94,281,62"/>
-<area shape="rect" id="Node000004" href="$vcu_8c.html" title="VCU page implementation." alt="" coords="389,94,550,135"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="341,50,429,91,426,96,339,55"/>
+<map id="firmware/source/dashboard/driver_interface/menu_system.h" name="firmware/source/dashboard/driver_interface/menu_system.h">
+<area shape="rect" id="Node000001" title="Implementation of menu system for LCD display interface." alt="" coords="207,5,384,61"/>
+<area shape="rect" id="Node000002" href="$menu__system_8c.html" title="Implementation of menu system for LCD display interface." alt="" coords="5,109,183,165"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="229,71,149,111,147,106,227,66"/>
+<area shape="rect" id="Node000003" href="$dashboard_2driver__interface_2pages_2faults_8c.html" title="Faults page implementation." alt="" coords="207,109,384,165"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="298,77,298,108,293,108,293,77"/>
+<area shape="rect" id="Node000004" href="$vcu_8c.html" title="VCU page implementation." alt="" coords="408,116,596,157"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="365,66,463,114,461,118,363,71"/>
 </map>

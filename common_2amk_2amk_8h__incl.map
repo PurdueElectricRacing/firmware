@@ -1,7 +1,7 @@
-<map id="common/amk/amk.h" name="common/amk/amk.h">
-<area shape="rect" id="Node000001" title="Modernized AMK driver." alt="" coords="72,5,211,31"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,150,120"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,33,105,68,101,65,130,30"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="174,86,237,112"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="153,30,188,72,184,76,149,33"/>
+<map id="firmware/common/amk/amk.h" name="firmware/common/amk/amk.h">
+<area shape="rect" id="Node000001" title="Modernized AMK driver." alt="" coords="65,5,218,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,94,150,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="129,48,103,83,99,80,125,45"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="174,102,237,127"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="158,45,190,88,186,91,154,48"/>
 </map>

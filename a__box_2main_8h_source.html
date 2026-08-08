@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: source/a_box/main.h Source File</title>
+<title>PER Firmware: firmware/source/a_box/main.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -104,8 +104,8 @@ $(function(){initNavTree('a__box_2main_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#ifndef MAIN_H</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#define MAIN_H</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="phal_2adc_8h.html">common/phal/adc.h</a>&quot;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="phal_2gpio_8h.html">common/phal/gpio.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="phal__G4_2adc_2adc_8h.html">common/phal_G4/adc/adc.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="phal__G4_2gpio_2gpio_8h.html">common/phal_G4/gpio/gpio.h</a>&quot;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="adbms_8h.html">adbms.h</a>&quot;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">// Status LEDs</span></div>
@@ -163,8 +163,8 @@ $(function(){initNavTree('a__box_2main_8h_source.html',''); initResizable(true);
 <div class="ttc" id="aa__box_2main_8h_html_ae13307269d9ab97e7be91b0569eca21b"><div class="ttname"><a href="a__box_2main_8h.html#ae13307269d9ab97e7be91b0569eca21b">adc_handle</a></div><div class="ttdeci">PHAL_ADC_Handle_t adc_handle</div><div class="ttdef"><b>Definition</b> main.c:73</div></div>
 <div class="ttc" id="aa__box_2main_8h_html_ae25b2d4ee7535b3161795c5914bbd1d1"><div class="ttname"><a href="a__box_2main_8h.html#ae25b2d4ee7535b3161795c5914bbd1d1">adc1_dma_buffer</a></div><div class="ttdeci">volatile adc1_dma_buffer_t adc1_dma_buffer</div><div class="ttdef"><b>Definition</b> main.c:62</div></div>
 <div class="ttc" id="aadbms_8h_html"><div class="ttname"><a href="adbms_8h.html">adbms.h</a></div><div class="ttdoc">Primary logic and interface for ADBMS battery management system driver.</div></div>
-<div class="ttc" id="aphal_2adc_8h_html"><div class="ttname"><a href="phal_2adc_8h.html">adc.h</a></div></div>
-<div class="ttc" id="aphal_2gpio_8h_html"><div class="ttname"><a href="phal_2gpio_8h.html">gpio.h</a></div></div>
+<div class="ttc" id="aphal__G4_2adc_2adc_8h_html"><div class="ttname"><a href="phal__G4_2adc_2adc_8h.html">adc.h</a></div><div class="ttdoc">G4 ADC public API. DMA-only, DMA-first conversions.</div></div>
+<div class="ttc" id="aphal__G4_2gpio_2gpio_8h_html"><div class="ttname"><a href="phal__G4_2gpio_2gpio_8h.html">gpio.h</a></div><div class="ttdoc">GPIO Driver for STM32L432 Devices.</div></div>
 <div class="ttc" id="astructPHAL__ADC__Handle__t_html"><div class="ttname"><a href="structPHAL__ADC__Handle__t.html">PHAL_ADC_Handle_t</a></div><div class="ttdoc">Runtime handle for one ADC instance.</div><div class="ttdef"><b>Definition</b> adc.h:56</div></div>
 <div class="ttc" id="astructadbms__bms__t_html"><div class="ttname"><a href="structadbms__bms__t.html">adbms_bms_t</a></div><div class="ttdoc">Top-level ADBMS driver state, I/O buffers, measurements, and error flags.</div><div class="ttdef"><b>Definition</b> adbms.h:104</div></div>
 <div class="ttc" id="astructadc1__dma__buffer__t_html"><div class="ttname"><a href="structadc1__dma__buffer__t.html">adc1_dma_buffer_t</a></div><div class="ttdef"><b>Definition</b> main.h:54</div></div>
@@ -175,7 +175,7 @@ $(function(){initNavTree('a__box_2main_8h_source.html',''); initResizable(true);
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_463a06e8c8df3dfb8722b56866f4fb0c.html">a_box</a></li><li class="navelem"><a class="el" href="a__box_2main_8h.html">main.h</a></li>
+    <li class="navelem"><a class="el" href="dir_d9edf6c004b4a7ff14fe9ae7a92214ee.html">firmware</a></li><li class="navelem"><a class="el" href="dir_05e217f700315e70ae47203d567fe0c9.html">source</a></li><li class="navelem"><a class="el" href="dir_c5ffd08ff9aa00277f014903005f1bc0.html">a_box</a></li><li class="navelem"><a class="el" href="a__box_2main_8h.html">main.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

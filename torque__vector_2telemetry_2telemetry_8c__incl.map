@@ -1,7 +1,7 @@
-<map id="source/torque_vector/telemetry/telemetry.c" name="source/torque_vector/telemetry/telemetry.c">
-<area shape="rect" id="Node000001" title="TORQUE VECTOR telemetry task implementations." alt="" coords="280,5,426,46"/>
+<map id="firmware/source/torque_vector/telemetry/telemetry.c" name="firmware/source/torque_vector/telemetry/telemetry.c">
+<area shape="rect" id="Node000001" title="TORQUE VECTOR telemetry task implementations." alt="" coords="259,5,447,46"/>
 <area shape="rect" id="Node000002" href="$torque__vector_2telemetry_2telemetry_8h.html" title="TORQUE VECTOR telemetry task implementations." alt="" coords="5,190,90,216"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="281,46,220,67,160,96,108,138,68,180,64,176,104,134,157,92,218,62,279,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="272,49,215,69,160,96,108,138,68,180,64,176,104,134,157,92,213,64,270,44"/>
 <area shape="rect" id="Node000004" href="$faults__common_8h.html" title="Event&#45;based FIDR system." alt="" coords="170,94,290,135"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="327,49,272,87,269,83,323,44"/>
 <area shape="rect" id="Node000006" title=" " alt="" coords="415,94,565,135"/>

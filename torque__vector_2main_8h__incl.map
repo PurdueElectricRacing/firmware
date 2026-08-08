@@ -1,12 +1,12 @@
-<map id="source/torque_vector/main.h" name="source/torque_vector/main.h">
-<area shape="rect" id="Node000001" title="&quot;Torque Vector&quot; node source code" alt="" coords="5,5,149,46"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="8,241,71,267"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="73,47,61,95,50,165,44,226,39,225,45,165,56,93,68,45"/>
-<area shape="rect" id="Node000003" href="$phal_2gpio_8h.html" title=" " alt="" coords="70,94,207,120"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="94,45,122,80,117,83,90,48"/>
-<area shape="rect" id="Node000004" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="62,168,231,193"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="142,120,146,152,141,153,137,120"/>
-<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="130,196,72,235,69,230,127,192"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="110,241,183,267"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="149,194,149,226,144,226,144,194"/>
+<map id="firmware/source/torque_vector/main.h" name="firmware/source/torque_vector/main.h">
+<area shape="rect" id="Node000001" title="&quot;Torque Vector&quot; node source code" alt="" coords="5,5,159,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="14,256,78,282"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="76,47,62,95,52,174,49,241,43,241,46,174,57,93,71,46"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2gpio_2gpio_8h.html" title="GPIO Driver for STM32L432 Devices." alt="" coords="72,94,223,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="99,45,126,80,121,83,95,48"/>
+<area shape="rect" id="Node000004" href="$phal__G4_8h.html" title=" " alt="" coords="64,183,249,208"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="152,135,156,167,151,167,147,135"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="139,211,79,250,76,245,136,207"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="120,256,193,282"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="159,209,159,241,154,241,154,209"/>
 </map>

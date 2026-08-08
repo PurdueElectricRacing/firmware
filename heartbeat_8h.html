@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: common/heartbeat/heartbeat.h File Reference</title>
+<title>PER Firmware: firmware/common/heartbeat/heartbeat.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -109,17 +109,16 @@ $(function(){initNavTree('heartbeat_8h.html',''); initResizable(true); });
 
 <p>Shared heartbeat task implementation for status LEDs.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="phal_2gpio_8h_source.html">common/phal/gpio.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="freertos_8h_source.html">common/freertos/freertos.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for heartbeat.h:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="heartbeat_8h__incl.svg" width="382" height="258"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="heartbeat_8h__incl.svg" width="194" height="199"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="heartbeat_8h__dep__incl.svg" width="100%" height="394"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="heartbeat_8h__dep__incl.svg" width="100%" height="416"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="heartbeat_8h_source.html">Go to the source code of this file.</a></p>
@@ -197,10 +196,10 @@ Variables</h2></td></tr>
 <div class="ttc" id="adriver__interface_8c_html_ab358b4de0d227c3352c7bad61fd1dc9c"><div class="ttname"><a href="driver__interface_8c.html#ab358b4de0d227c3352c7bad61fd1dc9c">status_leds</a></div><div class="ttdeci">status_leds_t status_leds</div></div>
 <div class="ttc" id="afreertos_8h_html_a3013e468406586335b248c478350a33ea579ef89a125d8a2c726f2e7f09e30514"><div class="ttname"><a href="freertos_8h.html#a3013e468406586335b248c478350a33ea579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a></div><div class="ttdeci">@ TASK_PRIORITY_LOW</div><div class="ttdef"><b>Definition</b> freertos.h:50</div></div>
 <div class="ttc" id="afreertos_8h_html_a7a58aa2d3913543d996a0de1fadd2f6aae705b06e4f237bdce971224dd27bbd0d"><div class="ttname"><a href="freertos_8h.html#a7a58aa2d3913543d996a0de1fadd2f6aae705b06e4f237bdce971224dd27bbd0d">STACK_512</a></div><div class="ttdeci">@ STACK_512</div><div class="ttdef"><b>Definition</b> freertos.h:42</div></div>
-<div class="ttc" id="aheartbeat_8h_html_a0bcf4de1e57ca5568f188b209f8ee7a5a3475881b5f396c0498fdb19f5aeeac58"><div class="ttname"><a href="#a0bcf4de1e57ca5568f188b209f8ee7a5a3475881b5f396c0498fdb19f5aeeac58">HEARTBEAT_STATE_PREFLIGHT</a></div><div class="ttdeci">@ HEARTBEAT_STATE_PREFLIGHT</div><div class="ttdef"><b>Definition</b> heartbeat.h:19</div></div>
+<div class="ttc" id="aheartbeat_8h_html_a0bcf4de1e57ca5568f188b209f8ee7a5a3475881b5f396c0498fdb19f5aeeac58"><div class="ttname"><a href="#a0bcf4de1e57ca5568f188b209f8ee7a5a3475881b5f396c0498fdb19f5aeeac58">HEARTBEAT_STATE_PREFLIGHT</a></div><div class="ttdeci">@ HEARTBEAT_STATE_PREFLIGHT</div><div class="ttdef"><b>Definition</b> heartbeat.h:25</div></div>
 <div class="ttc" id="aheartbeat_8h_html_ab2681be62cc27208946c262df62f4a06"><div class="ttname"><a href="#ab2681be62cc27208946c262df62f4a06">heartbeat_task</a></div><div class="ttdeci">void heartbeat_task(status_leds_t *leds)</div><div class="ttdef"><b>Definition</b> heartbeat.c:35</div></div>
-<div class="ttc" id="aheartbeat_8h_html_aba882a54e761d19d12cc40b3a2a91d8b"><div class="ttname"><a href="#aba882a54e761d19d12cc40b3a2a91d8b">HEARTBEAT_PERIOD_MS</a></div><div class="ttdeci">static constexpr uint32_t HEARTBEAT_PERIOD_MS</div><div class="ttdef"><b>Definition</b> heartbeat.h:15</div></div>
-<div class="ttc" id="astructstatus__leds__t_html"><div class="ttname"><a href="structstatus__leds__t.html">status_leds_t</a></div><div class="ttdef"><b>Definition</b> heartbeat.h:23</div></div>
+<div class="ttc" id="aheartbeat_8h_html_aba882a54e761d19d12cc40b3a2a91d8b"><div class="ttname"><a href="#aba882a54e761d19d12cc40b3a2a91d8b">HEARTBEAT_PERIOD_MS</a></div><div class="ttdeci">static constexpr uint32_t HEARTBEAT_PERIOD_MS</div><div class="ttdef"><b>Definition</b> heartbeat.h:21</div></div>
+<div class="ttc" id="astructstatus__leds__t_html"><div class="ttname"><a href="structstatus__leds__t.html">status_leds_t</a></div><div class="ttdef"><b>Definition</b> heartbeat.h:29</div></div>
 </div><!-- fragment -->
 <p>Macro to define a heartbeat task with predefined behavior for status LEDs. </p>
 <p>Usage:</p><ol type="1">
@@ -359,7 +358,7 @@ Here is the call graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_bdd9a5d540de89e9fe90efdfc6973a4f.html">common</a></li><li class="navelem"><a class="el" href="dir_563894f7215726e0b3ecac9d309826e0.html">heartbeat</a></li><li class="navelem"><a class="el" href="heartbeat_8h.html">heartbeat.h</a></li>
+    <li class="navelem"><a class="el" href="dir_d9edf6c004b4a7ff14fe9ae7a92214ee.html">firmware</a></li><li class="navelem"><a class="el" href="dir_5e269a536bf5351fb01f412fd1d14980.html">common</a></li><li class="navelem"><a class="el" href="dir_4a6ec368b086351a0f762154441fb88d.html">heartbeat</a></li><li class="navelem"><a class="el" href="heartbeat_8h.html">heartbeat.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

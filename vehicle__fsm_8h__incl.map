@@ -1,5 +1,5 @@
-<map id="source/main_module/vehicle_fsm/vehicle_fsm.h" name="source/main_module/vehicle_fsm/vehicle_fsm.h">
-<area shape="rect" id="Node000001" title="Master vehicle state machine implementation." alt="" coords="5,5,185,46"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="23,94,167,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,47,98,78,92,78,92,47"/>
+<map id="firmware/source/main_module/vehicle_fsm/vehicle_fsm.h" name="firmware/source/main_module/vehicle_fsm/vehicle_fsm.h">
+<area shape="rect" id="Node000001" title="Master vehicle state machine implementation." alt="" coords="5,5,234,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="47,94,192,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,47,122,78,117,78,117,47"/>
 </map>

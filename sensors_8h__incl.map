@@ -1,5 +1,5 @@
-<map id="source/torque_vector/sensors/sensors.h" name="source/torque_vector/sensors/sensors.h">
-<area shape="rect" id="Node000001" title="TV Managed sensor header." alt="" coords="52,5,196,46"/>
+<map id="firmware/source/torque_vector/sensors/sensors.h" name="firmware/source/torque_vector/sensors/sensors.h">
+<area shape="rect" id="Node000001" title="TV Managed sensor header." alt="" coords="37,5,211,46"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="92,168,156,193"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,49,42,63,20,79,9,98,9,108,13,118,26,134,42,147,79,165,76,170,39,151,22,138,8,121,3,109,4,97,16,76,39,58,66,44"/>
 <area shape="rect" id="Node000003" href="$nav__pvt_8h.html" title="UBX NAV&#45;PVT message definition and decoder function." alt="" coords="249,94,415,120"/>

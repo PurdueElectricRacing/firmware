@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: PER Vehicle Firmware ⚡️</title>
+<title>PER Firmware: PER Software ⚡️</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -97,41 +97,39 @@ $(function(){initNavTree('md_README.html',''); initResizable(true); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">PER Vehicle Firmware ⚡️</div></div>
+  <div class="headertitle"><div class="title">PER Software ⚡️</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="autotoc_md0"></a></p>
-<p><img src="https://github.com/PurdueElectricRacing/firmware/actions/workflows/build.yml/badge.svg" alt="Workflow Status" style="pointer-events: none;" class="inline"/> <img src="https://img.shields.io/github/commit-activity/m/PurdueElectricRacing/firmware?style=flat-square" alt="GitHub commit activity" class="inline"/></p>
-<p>A monorepo of all firmware projects, build tools, and scripts driving the PER vehicle.</p>
+<p><img src="https://github.com/PurdueElectricRacing/monorepo/actions/workflows/firmware_build.yml/badge.svg" alt="Firmware" style="pointer-events: none;" class="inline"/> <img src="https://github.com/PurdueElectricRacing/monorepo/actions/workflows/daqapp.yml/badge.svg" alt="DaqApp" style="pointer-events: none;" class="inline"/> <img src="https://img.shields.io/github/commit-activity/m/PurdueElectricRacing/monorepo?style=flat-square" alt="GitHub commit activity" class="inline"/></p>
+<p>A monorepo of all firmware projects, shared libraries, code generation, and off-car tooling for PER FSAE EV.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Directory Structure</h1>
 <ul>
-<li><code>can_library/</code> - In-house distributed CAN library and generation infrastructure</li>
-<li><code>common/</code> - Common libraries shared across the codebase</li>
-<li><code>docs/</code> - Documentation files</li>
-<li><code>external/</code> - External dependencies and third-party libraries</li>
-<li><code>source/</code> - Source code for each vehicle PCB</li>
+<li><code>firmware/</code> - Embedded firmware, including its CAN library and shared C code</li>
+<li><code>daqapp/</code> - Desktop DAQ application</li>
+<li><code>docs/</code> - Shared documentation</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Doxygen</h1>
-<p>Most recent doxygen deployment (master branch): <a href="https://purdueelectricracing.github.io/firmware/">https://purdueelectricracing.github.io/firmware/</a></p>
+<p>Most recent doxygen deployment (master branch): <a href="https://purdueelectricracing.github.io/monorepo/">https://purdueelectricracing.github.io/monorepo/</a></p>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Getting Started</h1>
 <p>To compile software for the PER vehicle, make sure your system is set up by following the steps in <a class="el" href="md_docs_2setup.html">setup.md</a> if you haven’t already.</p>
 <dl class="section note"><dt>Note</dt><dd><a class="el" href="md_docs_2setup.html">setup.md</a> is here!</dd></dl>
 <h1><a class="anchor" id="autotoc_md4"></a>
-Building Firmware</h1>
-<p>Firmware is built using a python-based build system. The python script <code>per_build.py</code> handles CMake configuration and ninja build steps automatically.</p>
-<p>From the repository root, enter the firmware project directory: </p><div class="fragment"><div class="line">cd firmware</div>
-</div><!-- fragment --><p>To build the firmware, run: </p><div class="fragment"><div class="line">python3 per_build.py</div>
-</div><!-- fragment --><p>You can view available build targets and options with: </p><div class="fragment"><div class="line">python3 per_build.py --help</div>
+Building</h1>
+<p><code>per_build.py</code> is the repository-level build entry point. It invokes each project's own build system from the appropriate directory.</p>
+<p>From the repository root, build all projects with: </p><div class="fragment"><div class="line">python3 per_build.py</div>
+</div><!-- fragment --><p>To build only firmware: </p><div class="fragment"><div class="line">python3 per_build.py firmware --package</div>
+</div><!-- fragment --><p>To build DaqApp only only: </p><div class="fragment"><div class="line">python3 per_build.py daqapp</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md5"></a>
 Hardware Debugging</h1>
 <p>In VS Code, go to <b>View → Run and Debug</b>, select the appropriate MCU target from the dropdown, then press the green ▶️ arrow to flash and live-debug the firmware.</p>
-<p>Once everything is <a class="el" href="md_docs_2setup.html">set up</a>, open the firmware project with <code>cd firmware &amp;&amp; code .</code>. You can then build the firmware by pressing:</p>
+<p>Once everything is <a class="el" href="md_docs_2setup.html">set up</a>, open the repository with <code>code .</code>. You can then build all projects by pressing:</p>
 <div class="fragment"><div class="line">Ctrl + Shift + B on Windows/Linux</div>
 <div class="line">Cmd + Shift + B on macOS</div>
-</div><!-- fragment --><p>This triggers the default build task configured in <code>.vscode/tasks.json</code>, which runs the firmware build process automatically. </p>
+</div><!-- fragment --><p>This triggers the default build task configured in <code>.vscode/tasks.json</code>, which runs the monorepo build process automatically. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

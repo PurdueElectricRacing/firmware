@@ -1,5 +1,5 @@
-<map id="common/utils/linear_algebra.h" name="common/utils/linear_algebra.h">
-<area shape="rect" id="Node000001" title="Linear algebra functions utility header." alt="" coords="5,5,140,46"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="42,94,103,120"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,46,75,78,70,78,70,46"/>
+<map id="firmware/common/utils/linear_algebra.h" name="firmware/common/utils/linear_algebra.h">
+<area shape="rect" id="Node000001" title="Linear algebra functions utility header." alt="" coords="5,5,158,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="51,94,112,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,46,84,78,79,78,79,46"/>
 </map>

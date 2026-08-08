@@ -1,5 +1,5 @@
-<map id="common/phal_F4/spi/spi.c" name="common/phal_F4/spi/spi.c">
-<area shape="rect" id="Node000001" title="PER Serial Peripheral Interface Device driver for STM32F4." alt="" coords="297,5,440,46"/>
+<map id="firmware/common/phal_F4/spi/spi.c" name="firmware/common/phal_F4/spi/spi.c">
+<area shape="rect" id="Node000001" title="PER Serial Peripheral Interface Device driver for STM32F4." alt="" coords="292,5,444,46"/>
 <area shape="rect" id="Node000002" href="$phal__F4_2spi_2spi_8h.html" title=" " alt="" coords="213,94,356,135"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="351,48,316,84,312,81,347,45"/>
 <area shape="rect" id="Node000010" href="$clamp_8h.html" title="Utility header to clamp a value to a bounded range." alt="" coords="380,102,528,127"/>

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['g4_20testing_0',['G4 Testing',['../md_source_2g4__testing_2README.html',1,'']]],
+  ['g4_20testing_0',['G4 Testing',['../md_firmware_2source_2g4__testing_2README.html',1,'']]],
   ['g4_5ftesting_2eh_1',['g4_testing.h',['../g4__testing_8h.html',1,'']]],
   ['g4_5ftesting_5fchosen_2',['G4_TESTING_CHOSEN',['../g4__testing_8h.html#a076661df55e8b1174dd8803261ddfb39',1,'g4_testing.h']]],
   ['g_5factive_5fadc_3',['g_active_adc',['../phal__G4_2adc_2adc_8c.html#a2677668645f2130a28459226cdc395c3',1,'adc.c']]],
@@ -31,7 +31,7 @@ var searchData=
   ['generate_5frouter_5fheader_28',['generate_router_header',['../namespacecodegen.html#a23ed5be22f539d58a71ab0214251cbe2',1,'codegen']]],
   ['generate_5ftypes_5fheader_29',['generate_types_header',['../namespacecodegen.html#aa6aa65b39bbfb073cdd730cc1f9e2f9c',1,'codegen']]],
   ['generated_5fdir_30',['GENERATED_DIR',['../namespaceutils.html#ac362a6b5ef2c9f6c3a36ed75b9e19470',1,'utils']]],
-  ['generation_31',['5. Generation',['../md_can__library_2canpiler_2README.html#autotoc_md108',1,'']]],
+  ['generation_31',['5. Generation',['../md_firmware_2can__library_2canpiler_2README.html#autotoc_md108',1,'']]],
   ['get_5fbit_5flength_32',['get_bit_length',['../classparser_1_1Signal.html#af3dc99fc949cf5b51711231b53f371fe',1,'parser::Signal']]],
   ['get_5fcount_33',['get_count',['../spmc_8c.html#a881ea749d2dbf855d34372a7313f0495',1,'spmc.c']]],
   ['get_5fdlc_34',['get_dlc',['../classparser_1_1Message.html#a3fd1133766bdda2d92a6a0fda552fb29',1,'parser::Message']]],
@@ -45,7 +45,7 @@ var searchData=
   ['getflowrate2_42',['getFlowRate2',['../flow__rate_8c.html#a741b10091a7e4da3b7de70531d41b7ad',1,'getFlowRate2():&#160;flow_rate.c'],['../flow__rate_8h.html#a741b10091a7e4da3b7de70531d41b7ad',1,'getFlowRate2():&#160;flow_rate.c']]],
   ['getting_20started_43',['Getting Started',['../md_README.html#autotoc_md3',1,'']]],
   ['gpio_2ec_44',['gpio.c',['../phal__F4_2gpio_2gpio_8c.html',1,'(Global Namespace)'],['../phal__G4_2gpio_2gpio_8c.html',1,'(Global Namespace)']]],
-  ['gpio_2eh_45',['gpio.h',['../phal_2gpio_8h.html',1,'(Global Namespace)'],['../phal__F4_2gpio_2gpio_8h.html',1,'(Global Namespace)'],['../phal__G4_2gpio_2gpio_8h.html',1,'(Global Namespace)']]],
+  ['gpio_2eh_45',['gpio.h',['../phal__F4_2gpio_2gpio_8h.html',1,'(Global Namespace)'],['../phal__G4_2gpio_2gpio_8h.html',1,'(Global Namespace)']]],
   ['gpio_5fconfig_46',['gpio_config',['../a__box_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../daq_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../dashboard_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../driveline_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../f4__testing_2canpiler_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;canpiler.c'],['../blinky_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;blinky.c'],['../main__module_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../pdu_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c'],['../torque__vector_2main_8c.html#a60563c6df24a123ae18e090bca85f555',1,'gpio_config:&#160;main.c']]],
   ['gpio_5finit_5faf_47',['GPIO_INIT_AF',['../phal__F4_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641',1,'GPIO_INIT_AF:&#160;gpio.h'],['../phal__G4_2gpio_2gpio_8h.html#ae395785147afb18096f8082644e49641',1,'GPIO_INIT_AF:&#160;gpio.h']]],
   ['gpio_5finit_5fanalog_48',['GPIO_INIT_ANALOG',['../phal__F4_2gpio_2gpio_8h.html#a9f3e383e90eea420ba388b6041e6c866',1,'GPIO_INIT_ANALOG:&#160;gpio.h'],['../phal__G4_2gpio_2gpio_8h.html#a9f3e383e90eea420ba388b6041e6c866',1,'GPIO_INIT_ANALOG:&#160;gpio.h']]],

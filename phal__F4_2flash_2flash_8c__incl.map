@@ -1,4 +1,4 @@
-<map id="common/phal_F4/flash/flash.c" name="common/phal_F4/flash/flash.c">
+<map id="firmware/common/phal_F4/flash/flash.c" name="firmware/common/phal_F4/flash/flash.c">
 <area shape="rect" id="Node000001" title=" " alt="" coords="20,5,172,46"/>
 <area shape="rect" id="Node000002" href="$phal__F4_2flash_2flash_8h.html" title=" " alt="" coords="20,94,172,135"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,47,99,78,93,78,93,47"/>

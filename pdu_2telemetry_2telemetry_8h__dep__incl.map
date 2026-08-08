@@ -1,5 +1,5 @@
-<map id="source/pdu/telemetry/telemetry.h" name="source/pdu/telemetry/telemetry.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,148,46"/>
-<area shape="rect" id="Node000002" href="$pdu_2telemetry_2telemetry_8c.html" title=" " alt="" coords="5,94,148,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,62,79,94,74,94,74,62"/>
+<map id="firmware/source/pdu/telemetry/telemetry.h" name="firmware/source/pdu/telemetry/telemetry.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,151,46"/>
+<area shape="rect" id="Node000002" href="$pdu_2telemetry_2telemetry_8c.html" title=" " alt="" coords="5,94,151,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,62,81,94,75,94,75,62"/>
 </map>

@@ -1,9 +1,9 @@
-<map id="common/utils/max.h" name="common/utils/max.h">
-<area shape="rect" id="Node000001" title="Maximum value functions utility header." alt="" coords="186,5,324,31"/>
-<area shape="rect" id="Node000002" href="$race_8c.html" title="Race page implementation." alt="" coords="5,86,166,127"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,41,125,89,122,84,216,36"/>
-<area shape="rect" id="Node000003" href="$cooling__fsm_8c.html" title=" " alt="" coords="190,86,320,127"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="258,47,258,86,252,86,252,47"/>
-<area shape="rect" id="Node000004" href="$control__loop_8c.html" title="Main torque vectoring control loop." alt="" coords="344,79,488,135"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="292,36,367,76,364,81,290,41"/>
+<map id="firmware/common/utils/max.h" name="firmware/common/utils/max.h">
+<area shape="rect" id="Node000001" title="Maximum value functions utility header." alt="" coords="221,5,374,46"/>
+<area shape="rect" id="Node000002" href="$race_8c.html" title="Race page implementation." alt="" coords="5,102,198,142"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="244,55,144,103,141,99,242,51"/>
+<area shape="rect" id="Node000003" href="$cooling__fsm_8c.html" title=" " alt="" coords="222,102,373,142"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="300,62,300,101,295,101,295,62"/>
+<area shape="rect" id="Node000004" href="$control__loop_8c.html" title="Main torque vectoring control loop." alt="" coords="396,94,578,150"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="352,51,433,91,431,96,350,56"/>
 </map>

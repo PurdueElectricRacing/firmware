@@ -1,5 +1,5 @@
-<map id="common/phal_G4/pwm/pwm.c" name="common/phal_G4/pwm/pwm.c">
-<area shape="rect" id="Node000001" title="Public PWM driver interface for STM32G4." alt="" coords="97,5,253,46"/>
+<map id="firmware/common/phal_G4/pwm/pwm.c" name="firmware/common/phal_G4/pwm/pwm.c">
+<area shape="rect" id="Node000001" title="Public PWM driver interface for STM32G4." alt="" coords="99,5,251,46"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,102,73,127"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,49,72,95,69,91,143,44"/>
 <area shape="rect" id="Node000003" href="$phal__G4_2pwm_2pwm_8h.html" title="PWM driver for STM32G4." alt="" coords="97,94,253,135"/>

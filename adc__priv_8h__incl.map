@@ -1,11 +1,11 @@
-<map id="common/phal_G4/adc/adc_priv.h" name="common/phal_G4/adc/adc_priv.h">
-<area shape="rect" id="Node000001" title="Private register&#45;level API for the STM32G4 ADC PHAL." alt="" coords="64,5,213,46"/>
+<map id="firmware/common/phal_G4/adc/adc_priv.h" name="firmware/common/phal_G4/adc/adc_priv.h">
+<area shape="rect" id="Node000001" title="Private register&#45;level API for the STM32G4 ADC PHAL." alt="" coords="62,5,215,46"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="110,434,183,459"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,48,79,75,45,111,19,154,11,177,8,202,8,293,11,315,18,335,43,371,77,401,110,423,107,428,73,405,39,375,13,337,5,316,3,293,3,202,6,176,14,152,41,108,75,71,108,44"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="42,190,110,216"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="131,48,109,95,85,176,80,174,104,93,126,45"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="468,434,532,459"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="214,38,323,63,442,99,495,121,538,145,568,172,576,187,579,201,579,293,573,331,559,366,541,398,523,423,518,420,537,395,554,364,568,329,573,293,573,202,571,188,563,175,535,150,493,126,441,104,322,68,213,43"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="216,39,325,64,444,100,496,122,539,146,568,172,576,187,579,201,579,293,573,331,559,366,541,398,523,423,518,420,537,395,554,364,568,329,573,293,573,202,571,188,564,175,536,150,494,126,442,105,324,69,215,44"/>
 <area shape="rect" id="Node000005" href="$phal__G4_2adc_2adc_8h.html" title="G4 ADC public API. DMA&#45;only, DMA&#45;first conversions." alt="" coords="119,94,268,135"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="153,45,175,79,171,82,149,48"/>
 <area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="193,136,153,418,148,418,188,135"/>

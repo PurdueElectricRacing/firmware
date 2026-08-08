@@ -1,5 +1,5 @@
-<map id="common/phal_G4/fdcan/fdcan_priv.c" name="common/phal_G4/fdcan/fdcan_priv.c">
-<area shape="rect" id="Node000001" title="G4 FDCAN private/register level implementation." alt="" coords="97,5,257,46"/>
+<map id="firmware/common/phal_G4/fdcan/fdcan_priv.c" name="firmware/common/phal_G4/fdcan/fdcan_priv.c">
+<area shape="rect" id="Node000001" title="G4 FDCAN private/register level implementation." alt="" coords="99,5,255,46"/>
 <area shape="rect" id="Node000002" href="$fdcan_8h.html" title="G4 FDCAN public API implementation." alt="" coords="189,94,349,135"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,45,239,81,235,85,196,48"/>
 <area shape="rect" id="Node000006" href="$fdcan__priv_8h.html" title="G4 FDCAN private/register level implementation." alt="" coords="5,94,165,135"/>

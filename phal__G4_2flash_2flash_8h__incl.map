@@ -1,5 +1,5 @@
-<map id="common/phal_G4/flash/flash.h" name="common/phal_G4/flash/flash.h">
-<area shape="rect" id="Node000001" title="STM32G4 internal&#45;flash public API." alt="" coords="10,5,164,46"/>
+<map id="firmware/common/phal_G4/flash/flash.h" name="firmware/common/phal_G4/flash/flash.h">
+<area shape="rect" id="Node000001" title="STM32G4 internal&#45;flash public API." alt="" coords="11,5,164,46"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,94,79,120"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,48,59,82,54,79,74,45"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="102,94,166,120"/>

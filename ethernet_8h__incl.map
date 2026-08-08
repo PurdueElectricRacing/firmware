@@ -1,5 +1,5 @@
-<map id="source/daq/ethernet/ethernet.h" name="source/daq/ethernet/ethernet.h">
-<area shape="rect" id="Node000001" title="Implementation of the ethernet thread for wireless data acquisition." alt="" coords="33,5,169,46"/>
+<map id="firmware/source/daq/ethernet/ethernet.h" name="firmware/source/daq/ethernet/ethernet.h">
+<area shape="rect" id="Node000001" title="Implementation of the ethernet thread for wireless data acquisition." alt="" coords="32,5,170,46"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,94,69,120"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,48,58,83,54,80,83,45"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="92,94,240,120"/>

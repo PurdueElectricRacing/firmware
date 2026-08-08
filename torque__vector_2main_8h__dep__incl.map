@@ -1,5 +1,5 @@
-<map id="source/torque_vector/main.h" name="source/torque_vector/main.h">
-<area shape="rect" id="Node000001" title="&quot;Torque Vector&quot; node source code" alt="" coords="5,5,149,46"/>
-<area shape="rect" id="Node000002" href="$torque__vector_2main_8c.html" title="&quot;Torque Vector&quot; node source code" alt="" coords="5,94,149,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,62,80,94,74,94,74,62"/>
+<map id="firmware/source/torque_vector/main.h" name="firmware/source/torque_vector/main.h">
+<area shape="rect" id="Node000001" title="&quot;Torque Vector&quot; node source code" alt="" coords="5,5,159,46"/>
+<area shape="rect" id="Node000002" href="$torque__vector_2main_8c.html" title="&quot;Torque Vector&quot; node source code" alt="" coords="5,94,159,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="85,62,85,94,79,94,79,62"/>
 </map>

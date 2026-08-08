@@ -1,5 +1,5 @@
-<map id="common/phal_G4/flash/flash_priv.c" name="common/phal_G4/flash/flash_priv.c">
-<area shape="rect" id="Node000001" title="STM32G4 internal&#45;flash register&#45;level implementation." alt="" coords="101,5,256,46"/>
+<map id="firmware/common/phal_G4/flash/flash_priv.c" name="firmware/common/phal_G4/flash/flash_priv.c">
+<area shape="rect" id="Node000001" title="STM32G4 internal&#45;flash register&#45;level implementation." alt="" coords="102,5,255,46"/>
 <area shape="rect" id="Node000002" href="$flash__priv_8h.html" title="STM32G4 internal&#45;flash register&#45;level implementation interface." alt="" coords="5,94,160,135"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,49,117,85,114,81,155,45"/>
 <area shape="rect" id="Node000005" href="$phal__G4_8h.html" title=" " alt="" coords="183,102,368,127"/>

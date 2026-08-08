@@ -1,8 +1,8 @@
-<map id="common/phal_G4/usb/usb_priv.h" name="common/phal_G4/usb/usb_priv.h">
-<area shape="rect" id="Node000001" title="Register&#45;level interface used by the STM32G4 USB public layer." alt="" coords="5,5,154,46"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="48,183,111,208"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="70,47,60,70,51,95,48,114,51,134,66,168,61,170,46,135,43,114,46,93,55,68,66,45"/>
-<area shape="rect" id="Node000003" href="$phal__G4_2usb_2usb_8h.html" title="STM32G4 USB full&#45;speed device API." alt="" coords="61,94,210,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="94,45,117,79,112,82,90,48"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="124,137,99,171,95,168,119,134"/>
+<map id="firmware/common/phal_G4/usb/usb_priv.h" name="firmware/common/phal_G4/usb/usb_priv.h">
+<area shape="rect" id="Node000001" title="Register&#45;level interface used by the STM32G4 USB public layer." alt="" coords="5,5,158,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="50,183,113,208"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="72,47,62,70,53,95,50,114,53,134,68,168,63,170,48,135,45,114,48,93,57,68,68,45"/>
+<area shape="rect" id="Node000003" href="$usb_8h.html" title="STM32G4 USB full&#45;speed device API." alt="" coords="63,94,212,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="96,45,119,79,114,82,92,48"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="126,137,101,171,97,168,121,134"/>
 </map>

@@ -1,5 +1,5 @@
-<map id="source/main_module/torque_controller/torque_controller.c" name="source/main_module/torque_controller/torque_controller.c">
-<area shape="rect" id="Node000001" title="Vehicle torque request calculation." alt="" coords="170,5,331,61"/>
+<map id="firmware/source/main_module/torque_controller/torque_controller.c" name="firmware/source/main_module/torque_controller/torque_controller.c">
+<area shape="rect" id="Node000001" title="Vehicle torque request calculation." alt="" coords="165,5,336,61"/>
 <area shape="rect" id="Node000002" href="$torque__controller_8h.html" title="Vehicle torque request calculation." alt="" coords="27,116,154,142"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="205,64,125,111,122,106,203,59"/>
 <area shape="rect" id="Node000007" title=" " alt="" coords="178,109,322,150"/>

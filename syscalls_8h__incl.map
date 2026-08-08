@@ -1,5 +1,5 @@
-<map id="common/syscalls/syscalls.h" name="common/syscalls/syscalls.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,189,31"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="58,79,136,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,31,100,63,94,63,94,31"/>
+<map id="firmware/common/syscalls/syscalls.h" name="firmware/common/syscalls/syscalls.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,181,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="54,94,132,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,46,96,78,90,78,90,46"/>
 </map>

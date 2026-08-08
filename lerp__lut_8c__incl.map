@@ -1,7 +1,7 @@
-<map id="common/lerp_lut/lerp_lut.c" name="common/lerp_lut/lerp_lut.c">
-<area shape="rect" id="Node000001" title="Linear interpolation lookup table (LUT)." alt="" coords="5,5,148,46"/>
-<area shape="rect" id="Node000002" href="$lerp__lut_8h.html" title="Linear interpolation lookup table (LUT)." alt="" coords="40,94,113,120"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,46,79,78,74,78,74,46"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="43,168,110,193"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="79,120,79,152,74,152,74,120"/>
+<map id="firmware/common/lerp_lut/lerp_lut.c" name="firmware/common/lerp_lut/lerp_lut.c">
+<area shape="rect" id="Node000001" title="Linear interpolation lookup table (LUT)." alt="" coords="5,5,155,46"/>
+<area shape="rect" id="Node000002" href="$lerp__lut_8h.html" title="Linear interpolation lookup table (LUT)." alt="" coords="43,94,117,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,46,83,78,77,78,77,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="46,168,114,193"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="83,120,83,152,77,152,77,120"/>
 </map>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: common/sdio/sdio.h Source File</title>
+<title>PER Firmware: firmware/common/sdio/sdio.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -106,9 +106,9 @@ $(function(){initNavTree('sdio_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;stddef.h&gt;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="phal_2dma_8h.html">common/phal/dma.h</a>&quot;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="phal_2gpio_8h.html">common/phal/gpio.h</a>&quot;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="phal_2rcc_8h.html">common/phal/rcc.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="phal__F4_2dma_2dma_8h.html">common/phal_F4/dma/dma.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="phal__F4_2gpio_2gpio_8h.html">common/phal_F4/gpio/gpio.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="phal__F4_2rcc_2rcc_8h.html">common/phal_F4/rcc/rcc.h</a>&quot;</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;stm32f4xx.h&quot;</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="foldopen" id="foldopen00021" data-start="{" data-end="};">
@@ -437,9 +437,9 @@ $(function(){initNavTree('sdio_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span><a class="code hl_enumeration" href="sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8c">SD_Error</a> <a class="code hl_function" href="sdio_8h.html#ad55967ea67075f01671fb2144c7f7b0d">SD_WaitWriteOperation</a>(<span class="keywordtype">void</span>);</div>
 <div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span> </div>
 <div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span><span class="preprocessor">#endif </span><span class="comment">/* _PHAL_SDIO_H */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aphal_2dma_8h_html"><div class="ttname"><a href="phal_2dma_8h.html">dma.h</a></div></div>
-<div class="ttc" id="aphal_2gpio_8h_html"><div class="ttname"><a href="phal_2gpio_8h.html">gpio.h</a></div></div>
-<div class="ttc" id="aphal_2rcc_8h_html"><div class="ttname"><a href="phal_2rcc_8h.html">rcc.h</a></div></div>
+<div class="ttc" id="aphal__F4_2dma_2dma_8h_html"><div class="ttname"><a href="phal__F4_2dma_2dma_8h.html">dma.h</a></div></div>
+<div class="ttc" id="aphal__F4_2gpio_2gpio_8h_html"><div class="ttname"><a href="phal__F4_2gpio_2gpio_8h.html">gpio.h</a></div><div class="ttdoc">GPIO Driver for STM32F4 Devices.</div></div>
+<div class="ttc" id="aphal__F4_2rcc_2rcc_8h_html"><div class="ttname"><a href="phal__F4_2rcc_2rcc_8h.html">rcc.h</a></div><div class="ttdoc">RCC Configuration Driver for STM32F4 Devices.</div></div>
 <div class="ttc" id="asdio_8h_html_a1c49d266e4f9ba33b7a425361a30d227"><div class="ttname"><a href="sdio_8h.html#a1c49d266e4f9ba33b7a425361a30d227">SD_GetState</a></div><div class="ttdeci">SDCardState SD_GetState(void)</div><div class="ttdoc">Returns the current card's state.</div><div class="ttdef"><b>Definition</b> sdio.c:171</div></div>
 <div class="ttc" id="asdio_8h_html_a3c927d4d98ffb6f3cc2442b09c19926c"><div class="ttname"><a href="sdio_8h.html#a3c927d4d98ffb6f3cc2442b09c19926c">SD_Init</a></div><div class="ttdeci">SD_Error SD_Init(void)</div><div class="ttdoc">Initializes the SD Card and put it into StandBy State (Ready for data transfer).</div><div class="ttdef"><b>Definition</b> sdio.c:78</div></div>
 <div class="ttc" id="asdio_8h_html_a42ab410b834d74d7f3ee757dc888b8cc"><div class="ttname"><a href="sdio_8h.html#a42ab410b834d74d7f3ee757dc888b8cc">SD_WaitReadOperation</a></div><div class="ttdeci">SD_Error SD_WaitReadOperation(void)</div><div class="ttdoc">This function waits until the SDIO DMA data transfer is finished. This function should be called afte...</div><div class="ttdef"><b>Definition</b> sdio.c:757</div></div>
@@ -586,7 +586,7 @@ $(function(){initNavTree('sdio_8h_source.html',''); initResizable(true); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_bdd9a5d540de89e9fe90efdfc6973a4f.html">common</a></li><li class="navelem"><a class="el" href="dir_6bd8692ac8326d2f6b10c3d83e4ae569.html">sdio</a></li><li class="navelem"><a class="el" href="sdio_8h.html">sdio.h</a></li>
+    <li class="navelem"><a class="el" href="dir_d9edf6c004b4a7ff14fe9ae7a92214ee.html">firmware</a></li><li class="navelem"><a class="el" href="dir_5e269a536bf5351fb01f412fd1d14980.html">common</a></li><li class="navelem"><a class="el" href="dir_23e36ccbe14f91db8bc9e4d4330cfa21.html">sdio</a></li><li class="navelem"><a class="el" href="sdio_8h.html">sdio.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

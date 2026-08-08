@@ -1,5 +1,5 @@
-<map id="source/dashboard/driver_interface/pages/race.c" name="source/dashboard/driver_interface/pages/race.c">
-<area shape="rect" id="Node000001" title="Race page implementation." alt="" coords="249,5,410,46"/>
+<map id="firmware/source/dashboard/driver_interface/pages/race.c" name="firmware/source/dashboard/driver_interface/pages/race.c">
+<area shape="rect" id="Node000001" title="Race page implementation." alt="" coords="233,5,426,46"/>
 <area shape="rect" id="Node000002" href="$race_8h.html" title="Race page implementation." alt="" coords="5,94,62,120"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="253,49,78,96,76,91,252,44"/>
 <area shape="rect" id="Node000003" href="$nextion_8h.html" title="Nextion display driver interface." alt="" coords="85,94,256,120"/>
@@ -11,7 +11,7 @@
 <area shape="rect" id="Node000009" href="$max_8h.html" title="Maximum value functions utility header." alt="" coords="425,94,562,120"/>
 <area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="372,44,456,85,454,89,369,49"/>
 <area shape="rect" id="Node000010" href="$colors_8h.html" title="Color definitions for LCD display." alt="" coords="531,175,597,201"/>
-<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="410,36,509,58,551,73,577,92,585,109,586,127,579,162,573,161,581,127,580,110,573,96,548,78,508,63,409,41"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="427,39,517,60,554,75,577,92,585,109,586,127,579,162,573,161,581,127,580,110,573,96,551,79,515,65,425,44"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="299,256,362,282"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="179,118,203,160,239,206,266,228,295,246,292,251,263,233,236,210,198,163,174,121"/>
 <area shape="rect" id="Node000005" href="$strbuf_8h.html" title="Fixed&#45;size string builder. Useful for building large CMD strings before transmission." alt="" coords="111,175,175,201"/>

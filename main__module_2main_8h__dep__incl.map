@@ -1,5 +1,5 @@
-<map id="source/main_module/main.h" name="source/main_module/main.h">
-<area shape="rect" id="Node000001" title="&quot;Main Module&quot; node source code" alt="" coords="5,5,147,46"/>
-<area shape="rect" id="Node000002" href="$main__module_2main_8c.html" title="&quot;Main Module&quot; node source code" alt="" coords="5,94,147,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,62,79,94,73,94,73,62"/>
+<map id="firmware/source/main_module/main.h" name="firmware/source/main_module/main.h">
+<area shape="rect" id="Node000001" title="&quot;Main Module&quot; node source code" alt="" coords="5,5,151,46"/>
+<area shape="rect" id="Node000002" href="$main__module_2main_8c.html" title="&quot;Main Module&quot; node source code" alt="" coords="5,94,151,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,62,81,94,75,94,75,62"/>
 </map>

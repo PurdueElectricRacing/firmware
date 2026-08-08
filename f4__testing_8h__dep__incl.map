@@ -1,11 +1,11 @@
-<map id="source/f4_testing/f4_testing.h" name="source/f4_testing/f4_testing.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="335,5,472,46"/>
-<area shape="rect" id="Node000002" href="$f4__testing_2canpiler_8c.html" title=" " alt="" coords="5,102,186,127"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="321,53,140,103,138,98,320,48"/>
-<area shape="rect" id="Node000003" href="$freertos__demo_8c.html" title=" " alt="" coords="210,94,379,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="368,58,321,96,317,91,365,54"/>
-<area shape="rect" id="Node000004" href="$onboarding__26_8c.html" title="Onboarding 26 starter file." alt="" coords="403,102,622,127"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="442,54,500,99,496,103,438,58"/>
-<area shape="rect" id="Node000005" href="$f4__testing_2pwm__testing_8c.html" title=" " alt="" coords="647,94,800,135"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="487,47,651,91,650,96,486,52"/>
+<map id="firmware/source/f4_testing/f4_testing.h" name="firmware/source/f4_testing/f4_testing.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="266,5,404,46"/>
+<area shape="rect" id="Node000002" href="$f4__testing_2canpiler_8c.html" title=" " alt="" coords="5,94,134,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="261,54,131,96,129,91,260,49"/>
+<area shape="rect" id="Node000003" href="$freertos__demo_8c.html" title=" " alt="" coords="158,94,322,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="304,59,263,96,260,92,300,55"/>
+<area shape="rect" id="Node000004" href="$onboarding__26_8c.html" title="Onboarding 26 starter file." alt="" coords="347,94,512,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="369,55,410,92,406,96,366,59"/>
+<area shape="rect" id="Node000005" href="$f4__testing_2pwm__testing_8c.html" title=" " alt="" coords="536,94,691,135"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="413,48,551,91,549,96,412,54"/>
 </map>

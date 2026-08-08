@@ -1,5 +1,5 @@
-<map id="source/a_box/adbms/pec.c" name="source/a_box/adbms/pec.c">
-<area shape="rect" id="Node000001" title="Calculation of PEC (CRC15, CRC10) for ADBMS communication." alt="" coords="18,5,159,46"/>
+<map id="firmware/source/a_box/adbms/pec.c" name="firmware/source/a_box/adbms/pec.c">
+<area shape="rect" id="Node000001" title="Calculation of PEC (CRC15, CRC10) for ADBMS communication." alt="" coords="13,5,164,46"/>
 <area shape="rect" id="Node000002" href="$pec_8h.html" title="Calculation of PEC (CRC15, CRC10) for ADBMS communication." alt="" coords="62,94,115,120"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,46,91,78,86,78,86,46"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="5,168,79,193"/>

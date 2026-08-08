@@ -12,6 +12,6 @@ var searchData=
   ['phal_5frcc_5fmode_5ft_9',['PHAL_RCC_Mode_t',['../phal__G4_2rcc_2rcc_8h.html#a1c73ccee559be5aa0946979a99aeff4f',1,'rcc.h']]],
   ['phal_5fsd_5fcmdresp_5ft_10',['PHAL_SD_CmdResp_t',['../sdio_8h.html#addc5cf2423f043d0ffbfc2c51e0fbc1c',1,'sdio.h']]],
   ['phal_5fusart_5fidx_5ft_11',['PHAL_USART_Idx_t',['../phal__G4_2usart_2usart_8h.html#a5a99a5b20a6e9a0b6aa2a54103a94252',1,'usart.h']]],
-  ['phal_5fusb_5fendpointdirection_5ft_12',['PHAL_USB_EndpointDirection_t',['../phal__G4_2usb_2usb_8h.html#a91122876321080a57ca676c6155454cf',1,'usb.h']]],
+  ['phal_5fusb_5fendpointdirection_5ft_12',['PHAL_USB_EndpointDirection_t',['../usb_8h.html#a91122876321080a57ca676c6155454cf',1,'usb.h']]],
   ['pllsrc_5ft_13',['PLLSrc_t',['../phal__F4_2rcc_2rcc_8h.html#adeb732f119f49950327326f5e4d20522',1,'rcc.h']]]
 ];

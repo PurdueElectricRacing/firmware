@@ -1,5 +1,5 @@
-<map id="source/a_box/telemetry/telemetry.c" name="source/a_box/telemetry/telemetry.c">
-<area shape="rect" id="Node000001" title="ABOX Telemetry task implementations." alt="" coords="190,5,345,46"/>
+<map id="firmware/source/a_box/telemetry/telemetry.c" name="firmware/source/a_box/telemetry/telemetry.c">
+<area shape="rect" id="Node000001" title="ABOX Telemetry task implementations." alt="" coords="192,5,343,46"/>
 <area shape="rect" id="Node000002" href="$a__box_2telemetry_2telemetry_8h.html" title="ABOX Telemetry task implementations." alt="" coords="5,102,90,127"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,49,93,98,91,93,217,44"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="114,94,258,135"/>

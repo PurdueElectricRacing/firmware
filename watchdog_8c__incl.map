@@ -1,10 +1,10 @@
-<map id="common/watchdog/watchdog.c" name="common/watchdog/watchdog.c">
-<area shape="rect" id="Node000001" title="Basic watchdog implementation." alt="" coords="5,5,207,31"/>
-<area shape="rect" id="Node000002" href="$watchdog_8h.html" title="Basic watchdog implementation." alt="" coords="62,79,150,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,31,109,63,103,63,103,31"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="74,226,138,252"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="97,106,76,139,70,158,71,178,89,213,84,215,66,179,65,157,71,136,93,103"/>
-<area shape="rect" id="Node000004" href="$freertos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="81,153,259,178"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="119,103,151,139,147,143,115,107"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="161,180,129,217,125,213,157,177"/>
+<map id="firmware/common/watchdog/watchdog.c" name="firmware/common/watchdog/watchdog.c">
+<area shape="rect" id="Node000001" title="Basic watchdog implementation." alt="" coords="5,5,190,46"/>
+<area shape="rect" id="Node000002" href="$watchdog_8h.html" title="Basic watchdog implementation." alt="" coords="54,94,141,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,46,100,78,95,78,95,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="66,241,129,267"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="89,121,68,154,62,173,63,193,81,228,76,230,58,194,56,172,63,151,84,118"/>
+<area shape="rect" id="Node000004" href="$freertos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="73,168,250,193"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="110,118,143,154,139,158,106,122"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="153,195,120,232,116,228,149,192"/>
 </map>

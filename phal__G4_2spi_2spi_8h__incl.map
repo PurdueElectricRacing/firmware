@@ -1,5 +1,5 @@
-<map id="common/phal_G4/spi/spi.h" name="common/phal_G4/spi/spi.h">
-<area shape="rect" id="Node000001" title="G4 SPI public API." alt="" coords="34,5,178,46"/>
+<map id="firmware/common/phal_G4/spi/spi.h" name="firmware/common/phal_G4/spi/spi.h">
+<area shape="rect" id="Node000001" title="G4 SPI public API." alt="" coords="29,5,182,46"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,102,73,127"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,48,60,91,55,87,88,45"/>
 <area shape="rect" id="Node000003" href="$phal__G4_2dma_2dma_8h.html" title="G4 DMA Peripheral public API implementation." alt="" coords="96,94,248,135"/>

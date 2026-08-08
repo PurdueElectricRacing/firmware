@@ -1,11 +1,30 @@
-<map id="common/phal_G4/spi/spi.h" name="common/phal_G4/spi/spi.h">
-<area shape="rect" id="Node000001" title="G4 SPI public API." alt="" coords="103,5,247,46"/>
-<area shape="rect" id="Node000002" href="$phal__G4_2spi_2spi_8c.html" title="G4 SPI." alt="" coords="5,183,150,223"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,57,109,75,93,95,84,117,80,140,78,182,73,182,74,140,79,115,89,93,105,71,125,53"/>
-<area shape="rect" id="Node000003" href="$spi__priv_8c.html" title="G4 SPI Peripheral private/register level implementation." alt="" coords="199,183,343,223"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="225,53,245,71,261,93,270,115,275,140,276,182,270,182,270,140,265,117,257,95,241,75,221,57"/>
-<area shape="rect" id="Node000004" href="$spi__priv_8h.html" title="Internal G4 SPI helpers and DMA configuration macros." alt="" coords="103,94,247,135"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="178,62,178,94,172,94,172,62"/>
-<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="143,147,101,184,98,180,140,143"/>
-<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="210,143,251,180,247,184,206,147"/>
+<map id="firmware/common/phal_G4/spi/spi.h" name="firmware/common/phal_G4/spi/spi.h">
+<area shape="rect" id="Node000001" title="G4 SPI public API." alt="" coords="295,5,447,46"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2spi_2spi_8c.html" title="G4 SPI." alt="" coords="5,183,158,223"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="280,33,238,40,196,52,156,70,121,96,105,116,95,139,85,183,80,182,90,137,101,113,117,92,153,66,194,47,237,35,279,28"/>
+<area shape="rect" id="Node000003" href="$spi__priv_8c.html" title="G4 SPI Peripheral private/register level implementation." alt="" coords="181,183,334,223"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="352,60,272,184,268,181,348,58"/>
+<area shape="rect" id="Node000004" href="$spi__priv_8h.html" title="Internal G4 SPI helpers and DMA configuration macros." alt="" coords="131,94,283,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="321,56,245,96,243,91,319,51"/>
+<area shape="rect" id="Node000005" href="$adbms_8c.html" title="Primary logic and interface for ADBMS battery management system driver." alt="" coords="370,271,521,312"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="373,61,378,137,386,180,399,222,412,248,429,269,425,272,408,250,394,224,380,182,373,137,367,61"/>
+<area shape="rect" id="Node000006" href="$adbms_8h.html" title="Primary logic and interface for ADBMS battery management system driver." alt="" coords="635,183,786,223"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="463,35,584,57,636,73,671,92,688,112,700,137,711,182,706,183,695,138,684,115,668,96,634,78,582,63,462,41"/>
+<area shape="rect" id="Node000010" href="$adbms6380_8c.html" title="Low level BMS driver specific to ADBMS6380 chip." alt="" coords="408,183,560,223"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="394,58,474,181,469,184,389,60"/>
+<area shape="rect" id="Node000011" href="$adbms6380_8h.html" title="Low level BMS driver specific to ADBMS6380 chip." alt="" coords="506,94,657,135"/>
+<area shape="poly" id="edge14_Node000001_Node000011" title=" " alt="" coords="433,50,535,91,533,96,431,55"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="168,146,111,184,108,180,165,141"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="228,147,248,181,244,184,224,150"/>
+<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="637,231,507,273,505,268,636,226"/>
+<area shape="rect" id="Node000007" href="$charging__fsm_8c.html" title="Charger control state machine implementation." alt="" coords="545,271,740,312"/>
+<area shape="poly" id="edge9_Node000006_Node000007" title=" " alt="" coords="688,237,660,273,656,269,684,234"/>
+<area shape="rect" id="Node000008" href="$a__box_2main_8c.html" title="&quot;Abox&quot; node source code" alt="" coords="758,360,909,401"/>
+<area shape="poly" id="edge10_Node000006_Node000008" title=" " alt="" coords="735,234,822,358,818,361,731,237"/>
+<area shape="rect" id="Node000009" href="$a__box_2main_8h.html" title="&quot;Abox&quot; node source code" alt="" coords="815,271,966,312"/>
+<area shape="poly" id="edge11_Node000006_Node000009" title=" " alt="" coords="767,228,851,268,849,273,764,233"/>
+<area shape="poly" id="edge12_Node000009_Node000008" title=" " alt="" coords="872,326,849,361,844,358,867,323"/>
+<area shape="poly" id="edge15_Node000011_Node000005" title=" " alt="" coords="589,150,588,188,583,207,574,225,546,254,511,273,509,269,543,249,570,222,578,205,583,187,584,150"/>
+<area shape="poly" id="edge16_Node000011_Node000006" title=" " alt="" coords="625,141,683,180,680,184,622,146"/>
+<area shape="poly" id="edge17_Node000011_Node000010" title=" " alt="" coords="550,147,508,184,504,180,547,143"/>
 </map>

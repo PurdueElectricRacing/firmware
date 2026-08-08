@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: source/daq/rtc_sync/rtc_sync.c File Reference</title>
+<title>PER Firmware: firmware/source/daq/rtc_sync/rtc_sync.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -108,13 +108,13 @@ $(function(){initNavTree('rtc__sync_8c.html',''); initResizable(true); });
 <p>Synchronization of the RTC peripheral with the GPS UTC time.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="rtc__sync_8h_source.html">rtc_sync.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal_2rtc_8h_source.html">common/phal/rtc.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="rtc_8h_source.html">common/phal_F4/rtc/rtc.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
 <code>#include &quot;can_library/generated/VCAN.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for rtc_sync.c:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="rtc__sync_8c__incl.svg" width="619" height="362"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="rtc__sync_8c__incl.svg" width="623" height="376"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
@@ -282,8 +282,8 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">={</div>
 <div class="line">    .date = {</div>
-<div class="line">        .month_bcd = <a class="code hl_enumvalue" href="phal__F4_2rtc_2rtc_8h.html#a7548f07f8ac92156152866f28f3ff199aa45359b3897461a2c5cdf181a5e6d21f">RTC_MONTH_UNKNOWN</a>,</div>
-<div class="line">        .weekday   = <a class="code hl_enumvalue" href="phal__F4_2rtc_2rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cba0b6fadc1d42cbc5f45a4b6dc21f9770d">RTC_WEEKDAY_UNKNOWN</a>,</div>
+<div class="line">        .month_bcd = <a class="code hl_enumvalue" href="rtc_8h.html#a7548f07f8ac92156152866f28f3ff199aa45359b3897461a2c5cdf181a5e6d21f">RTC_MONTH_UNKNOWN</a>,</div>
+<div class="line">        .weekday   = <a class="code hl_enumvalue" href="rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cba0b6fadc1d42cbc5f45a4b6dc21f9770d">RTC_WEEKDAY_UNKNOWN</a>,</div>
 <div class="line">        .day_bcd   = 0x00,</div>
 <div class="line">        .year_bcd  = 0x00</div>
 <div class="line">    },</div>
@@ -291,12 +291,12 @@ Here is the caller graph for this function:</div>
 <div class="line">        .hours_bcd   = 0x00,</div>
 <div class="line">        .minutes_bcd = 0x00,</div>
 <div class="line">        .seconds_bcd = 0x00,</div>
-<div class="line">        .time_format = <a class="code hl_enumvalue" href="phal__F4_2rtc_2rtc_8h.html#a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d">RTC_FORMAT_24_HOUR</a></div>
+<div class="line">        .time_format = <a class="code hl_enumvalue" href="rtc_8h.html#a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d">RTC_FORMAT_24_HOUR</a></div>
 <div class="line">    },</div>
 <div class="line">}</div>
-<div class="ttc" id="aphal__F4_2rtc_2rtc_8h_html_a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d"><div class="ttname"><a href="phal__F4_2rtc_2rtc_8h.html#a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d">RTC_FORMAT_24_HOUR</a></div><div class="ttdeci">@ RTC_FORMAT_24_HOUR</div><div class="ttdef"><b>Definition</b> rtc.h:69</div></div>
-<div class="ttc" id="aphal__F4_2rtc_2rtc_8h_html_a7548f07f8ac92156152866f28f3ff199aa45359b3897461a2c5cdf181a5e6d21f"><div class="ttname"><a href="phal__F4_2rtc_2rtc_8h.html#a7548f07f8ac92156152866f28f3ff199aa45359b3897461a2c5cdf181a5e6d21f">RTC_MONTH_UNKNOWN</a></div><div class="ttdeci">@ RTC_MONTH_UNKNOWN</div><div class="ttdef"><b>Definition</b> rtc.h:42</div></div>
-<div class="ttc" id="aphal__F4_2rtc_2rtc_8h_html_aecb67a89a4f4f7cd1b5a29e62e5680cba0b6fadc1d42cbc5f45a4b6dc21f9770d"><div class="ttname"><a href="phal__F4_2rtc_2rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cba0b6fadc1d42cbc5f45a4b6dc21f9770d">RTC_WEEKDAY_UNKNOWN</a></div><div class="ttdeci">@ RTC_WEEKDAY_UNKNOWN</div><div class="ttdef"><b>Definition</b> rtc.h:58</div></div>
+<div class="ttc" id="artc_8h_html_a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d"><div class="ttname"><a href="rtc_8h.html#a543d1397ac774876c1389cc6ca782fe3ad1b5c770ea37e9291de45f27ca3f835d">RTC_FORMAT_24_HOUR</a></div><div class="ttdeci">@ RTC_FORMAT_24_HOUR</div><div class="ttdef"><b>Definition</b> rtc.h:69</div></div>
+<div class="ttc" id="artc_8h_html_a7548f07f8ac92156152866f28f3ff199aa45359b3897461a2c5cdf181a5e6d21f"><div class="ttname"><a href="rtc_8h.html#a7548f07f8ac92156152866f28f3ff199aa45359b3897461a2c5cdf181a5e6d21f">RTC_MONTH_UNKNOWN</a></div><div class="ttdeci">@ RTC_MONTH_UNKNOWN</div><div class="ttdef"><b>Definition</b> rtc.h:42</div></div>
+<div class="ttc" id="artc_8h_html_aecb67a89a4f4f7cd1b5a29e62e5680cba0b6fadc1d42cbc5f45a4b6dc21f9770d"><div class="ttname"><a href="rtc_8h.html#aecb67a89a4f4f7cd1b5a29e62e5680cba0b6fadc1d42cbc5f45a4b6dc21f9770d">RTC_WEEKDAY_UNKNOWN</a></div><div class="ttdeci">@ RTC_WEEKDAY_UNKNOWN</div><div class="ttdef"><b>Definition</b> rtc.h:58</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -333,7 +333,7 @@ Here is the caller graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_58db63217748590974291dcef374365a.html">daq</a></li><li class="navelem"><a class="el" href="dir_172d6692f9e900a1cb07278c048accbd.html">rtc_sync</a></li><li class="navelem"><a class="el" href="rtc__sync_8c.html">rtc_sync.c</a></li>
+    <li class="navelem"><a class="el" href="dir_d9edf6c004b4a7ff14fe9ae7a92214ee.html">firmware</a></li><li class="navelem"><a class="el" href="dir_05e217f700315e70ae47203d567fe0c9.html">source</a></li><li class="navelem"><a class="el" href="dir_2b02b501065b23f92c4fe933d9aa551d.html">daq</a></li><li class="navelem"><a class="el" href="dir_68be53a9479f920066f565c67aa080c7.html">rtc_sync</a></li><li class="navelem"><a class="el" href="rtc__sync_8c.html">rtc_sync.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

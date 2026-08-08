@@ -1,7 +1,7 @@
-<map id="source/main_module/sdc/sdc.h" name="source/main_module/sdc/sdc.h">
-<area shape="rect" id="Node000001" title="SDC task implementation." alt="" coords="88,5,229,46"/>
-<area shape="rect" id="Node000002" href="$main__module_2main_8c.html" title="&quot;Main Module&quot; node source code" alt="" coords="5,94,147,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,59,97,95,93,92,127,56"/>
-<area shape="rect" id="Node000003" href="$sdc_8c.html" title="SDC task implementation." alt="" coords="171,94,312,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="190,56,225,92,221,95,186,59"/>
+<map id="firmware/source/main_module/sdc/sdc.h" name="firmware/source/main_module/sdc/sdc.h">
+<area shape="rect" id="Node000001" title="SDC task implementation." alt="" coords="89,5,235,46"/>
+<area shape="rect" id="Node000002" href="$main__module_2main_8c.html" title="&quot;Main Module&quot; node source code" alt="" coords="5,94,151,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,59,99,95,95,92,130,56"/>
+<area shape="rect" id="Node000003" href="$sdc_8c.html" title="SDC task implementation." alt="" coords="175,94,320,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="194,55,230,92,226,95,190,59"/>
 </map>

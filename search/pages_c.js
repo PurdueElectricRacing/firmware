@@ -1,7 +1,8 @@
 var searchData=
 [
   ['setup_20instructions_0',['PER Firmware Setup Instructions',['../md_docs_2setup.html',1,'']]],
-  ['source_1',['Source',['../md_source_2README.html',1,'']]],
-  ['string_20buffer_2',['String Buffer',['../md_common_2strbuf_2README.html',1,'']]],
-  ['support_3',['Support',['../md_support_2README.html',1,'']]]
+  ['software_20⚡️_1',['PER Software ⚡️',['../md_README.html',1,'']]],
+  ['source_2',['Source',['../md_firmware_2source_2README.html',1,'']]],
+  ['string_20buffer_3',['String Buffer',['../md_firmware_2common_2strbuf_2README.html',1,'']]],
+  ['support_4',['Support',['../md_firmware_2support_2README.html',1,'']]]
 ];

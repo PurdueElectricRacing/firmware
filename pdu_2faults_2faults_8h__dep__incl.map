@@ -1,5 +1,5 @@
-<map id="source/pdu/faults/faults.h" name="source/pdu/faults/faults.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,173,31"/>
-<area shape="rect" id="Node000002" href="$pdu_2faults_2faults_8c.html" title=" " alt="" coords="5,79,173,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,46,92,79,86,79,86,46"/>
+<map id="firmware/source/pdu/faults/faults.h" name="firmware/source/pdu/faults/faults.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,144,46"/>
+<area shape="rect" id="Node000002" href="$pdu_2faults_2faults_8c.html" title=" " alt="" coords="5,94,144,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,62,77,94,72,94,72,62"/>
 </map>

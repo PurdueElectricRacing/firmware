@@ -1,5 +1,5 @@
-<map id="common/lerp_lut/lerp_lut.h" name="common/lerp_lut/lerp_lut.h">
-<area shape="rect" id="Node000001" title="Linear interpolation lookup table (LUT)." alt="" coords="5,5,148,46"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="43,94,110,120"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,46,79,78,74,78,74,46"/>
+<map id="firmware/common/lerp_lut/lerp_lut.h" name="firmware/common/lerp_lut/lerp_lut.h">
+<area shape="rect" id="Node000001" title="Linear interpolation lookup table (LUT)." alt="" coords="5,5,155,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="46,94,114,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,46,83,78,77,78,77,46"/>
 </map>

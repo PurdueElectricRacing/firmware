@@ -1,22 +1,17 @@
-<map id="source/f4_testing/pwm_testing.c" name="source/f4_testing/pwm_testing.c">
-<area shape="rect" id="Node000001" title=" " alt="" coords="195,5,349,46"/>
-<area shape="rect" id="Node000002" href="$phal__F4_2pwm_2pwm_8h.html" title=" " alt="" coords="195,94,349,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="275,47,275,78,269,78,269,47"/>
-<area shape="rect" id="Node000008" href="$phal__F4_2gpio_2gpio_8h.html" title="GPIO Driver for STM32F4 Devices." alt="" coords="21,94,171,135"/>
-<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="233,49,151,89,148,84,231,44"/>
-<area shape="rect" id="Node000009" href="$f4__testing_8h.html" title=" " alt="" coords="373,102,462,127"/>
-<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="306,44,385,91,383,96,304,49"/>
-<area shape="rect" id="Node000003" href="$phal__F4_8h.html" title=" " alt="" coords="5,256,187,282"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="251,137,123,248,120,244,248,133"/>
-<area shape="rect" id="Node000006" href="$phal_2gpio_8h.html" title=" " alt="" coords="215,183,353,208"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="278,135,282,167,277,167,272,135"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="113,330,186,356"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="107,281,133,316,129,319,103,284"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="236,330,300,356"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="126,280,226,321,224,326,124,285"/>
-<area shape="rect" id="Node000007" href="$phal__mcu_8h.html" title="MCU architecture selector for PHAL layer (auto&#45;defines PHAL_ARCH_*)" alt="" coords="211,256,381,282"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="289,208,294,240,289,241,283,209"/>
-<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="272,285,189,325,187,320,270,280"/>
-<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="294,283,281,316,276,314,289,281"/>
-<area shape="poly" id="edge10_Node000008_Node000003" title=" " alt="" coords="99,135,99,241,93,241,93,135"/>
+<map id="firmware/source/f4_testing/pwm_testing.c" name="firmware/source/f4_testing/pwm_testing.c">
+<area shape="rect" id="Node000001" title=" " alt="" coords="119,5,274,46"/>
+<area shape="rect" id="Node000002" href="$phal__F4_2pwm_2pwm_8h.html" title=" " alt="" coords="5,94,159,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,49,122,87,118,82,169,44"/>
+<area shape="rect" id="Node000006" href="$phal__F4_2gpio_2gpio_8h.html" title="GPIO Driver for STM32F4 Devices." alt="" coords="119,183,269,223"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="199,46,197,167,192,167,194,46"/>
+<area shape="rect" id="Node000007" href="$f4__testing_8h.html" title=" " alt="" coords="234,102,322,127"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="217,45,259,89,255,92,213,48"/>
+<area shape="rect" id="Node000003" href="$phal__F4_8h.html" title=" " alt="" coords="47,271,229,297"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="88,135,96,176,110,222,126,257,121,259,105,224,91,177,82,136"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="109,133,158,171,155,175,106,137"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="56,345,129,371"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="133,299,111,333,106,330,128,296"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="153,345,216,371"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="148,296,171,330,166,333,143,299"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="182,225,158,260,153,257,178,222"/>
 </map>

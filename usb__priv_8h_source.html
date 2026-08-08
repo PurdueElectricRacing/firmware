@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PER Firmware: common/phal_G4/usb/usb_priv.h Source File</title>
+<title>PER Firmware: firmware/common/phal_G4/usb/usb_priv.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -106,7 +106,7 @@ $(function(){initNavTree('usb__priv_8h_source.html',''); initResizable(true); })
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="phal__G4_2usb_2usb_8h.html">common/phal_G4/usb/usb.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="usb_8h.html">common/phal_G4/usb/usb.h</a>&quot;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keywordtype">bool</span> <a class="code hl_function" href="usb__priv_8h.html#a88feef2613c47bacaa4b3a2a768c8ae4">USB_PRIV_init</a>(<span class="keywordtype">void</span>);</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
@@ -118,7 +118,7 @@ $(function(){initNavTree('usb__priv_8h_source.html',''); initResizable(true); })
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keywordtype">void</span> <a class="code hl_function" href="usb__priv_8h.html#aaea03d767f81299b62109832610473d2">USB_PRIV_setAddress</a>(uint8_t address);</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">void</span> <a class="code hl_function" href="usb__priv_8h.html#abe455c5cf21d064ea3eccd1b92c51fc4">USB_PRIV_stall</a>(uint8_t endpoint, <a class="code hl_enumeration" href="phal__G4_2usb_2usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a> direction);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">void</span> <a class="code hl_function" href="usb__priv_8h.html#abe455c5cf21d064ea3eccd1b92c51fc4">USB_PRIV_stall</a>(uint8_t endpoint, <a class="code hl_enumeration" href="usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a> direction);</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keywordtype">bool</span> <a class="code hl_function" href="usb__priv_8h.html#ae29a55bc0c87c71b9820e6b8ef9c7780">USB_PRIV_write</a>(uint8_t endpoint, <span class="keyword">const</span> <span class="keywordtype">void</span> *source, uint16_t length_bytes);</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
@@ -132,8 +132,8 @@ $(function(){initNavTree('usb__priv_8h_source.html',''); initResizable(true); })
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>uint16_t <a class="code hl_function" href="usb__priv_8h.html#a057acf6e380b2c8f1d44231ce40468ab">USB_PRIV_getFrameNumber</a>(<span class="keywordtype">void</span>);</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#endif </span><span class="comment">// PHAL_G4_USB_PRIV_H</span></div>
-<div class="ttc" id="aphal__G4_2usb_2usb_8h_html"><div class="ttname"><a href="phal__G4_2usb_2usb_8h.html">usb.h</a></div><div class="ttdoc">STM32G4 USB full-speed device API.</div></div>
-<div class="ttc" id="aphal__G4_2usb_2usb_8h_html_a91122876321080a57ca676c6155454cf"><div class="ttname"><a href="phal__G4_2usb_2usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a></div><div class="ttdeci">PHAL_USB_EndpointDirection_t</div><div class="ttdef"><b>Definition</b> usb.h:26</div></div>
+<div class="ttc" id="ausb_8h_html"><div class="ttname"><a href="usb_8h.html">usb.h</a></div><div class="ttdoc">STM32G4 USB full-speed device API.</div></div>
+<div class="ttc" id="ausb_8h_html_a91122876321080a57ca676c6155454cf"><div class="ttname"><a href="usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a></div><div class="ttdeci">PHAL_USB_EndpointDirection_t</div><div class="ttdef"><b>Definition</b> usb.h:26</div></div>
 <div class="ttc" id="ausb__priv_8h_html_a057acf6e380b2c8f1d44231ce40468ab"><div class="ttname"><a href="usb__priv_8h.html#a057acf6e380b2c8f1d44231ce40468ab">USB_PRIV_getFrameNumber</a></div><div class="ttdeci">uint16_t USB_PRIV_getFrameNumber(void)</div><div class="ttdoc">Read the USB peripheral's current 11-bit frame number.</div><div class="ttdef"><b>Definition</b> usb_priv.c:412</div></div>
 <div class="ttc" id="ausb__priv_8h_html_a3b7fdac0fb67607273cf7aabc6f8494f"><div class="ttname"><a href="usb__priv_8h.html#a3b7fdac0fb67607273cf7aabc6f8494f">USB_PRIV_handleInterrupt</a></div><div class="ttdeci">void USB_PRIV_handleInterrupt(void)</div><div class="ttdoc">Decode one pending USB interrupt and notify the application.</div><div class="ttdef"><b>Definition</b> usb_priv.c:368</div></div>
 <div class="ttc" id="ausb__priv_8h_html_a6a84dcb07b21e54a2b506cec9165693b"><div class="ttname"><a href="usb__priv_8h.html#a6a84dcb07b21e54a2b506cec9165693b">USB_PRIV_enableInterrupts</a></div><div class="ttdeci">void USB_PRIV_enableInterrupts(void)</div><div class="ttdoc">Enable USB event interrupts and endpoint operation.</div><div class="ttdef"><b>Definition</b> usb_priv.c:287</div></div>
@@ -149,7 +149,7 @@ $(function(){initNavTree('usb__priv_8h_source.html',''); initResizable(true); })
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_bdd9a5d540de89e9fe90efdfc6973a4f.html">common</a></li><li class="navelem"><a class="el" href="dir_537865b7fa0534ad07c686239f783682.html">phal_G4</a></li><li class="navelem"><a class="el" href="dir_0a689d59fa81b6ecd9dfd1df7810e02d.html">usb</a></li><li class="navelem"><a class="el" href="usb__priv_8h.html">usb_priv.h</a></li>
+    <li class="navelem"><a class="el" href="dir_d9edf6c004b4a7ff14fe9ae7a92214ee.html">firmware</a></li><li class="navelem"><a class="el" href="dir_5e269a536bf5351fb01f412fd1d14980.html">common</a></li><li class="navelem"><a class="el" href="dir_48b3ded520845e3cf7cf37478d1eb6dc.html">phal_G4</a></li><li class="navelem"><a class="el" href="dir_aefd7c9339d9fef856ef2416e6084163.html">usb</a></li><li class="navelem"><a class="el" href="usb__priv_8h.html">usb_priv.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>

@@ -13,7 +13,7 @@ A monorepo of all firmware projects, shared libraries, code generation, and off-
 - `docs/` - Shared documentation
 
 ## Doxygen
-Most recent doxygen deployment (master branch): https://purdueelectricracing.github.io/firmware/
+Most recent doxygen deployment (master branch): https://purdueelectricracing.github.io/monorepo/
 
 
 ## Getting Started

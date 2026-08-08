@@ -2,7 +2,9 @@ name: Generate Documentation
 
 on:
   push:
-    branches: [master]
+    branches:
+      - master
+      - irving/fix-docs-deploy
   workflow_dispatch:
 
 permissions:

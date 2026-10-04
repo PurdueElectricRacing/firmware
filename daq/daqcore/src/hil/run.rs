@@ -1,6 +1,4 @@
-use eframe::egui;
-
-use crate::{hil, messages};
+use crate::hil;
 
 #[derive(PartialEq, Eq, Clone, Copy)]
 pub enum ExpectResult {
@@ -59,17 +57,6 @@ impl ExpectResult {
         }
     }
 
-    pub fn as_color32(&self) -> egui::Color32 {
-        match self {
-            ExpectResult::NotInWindow => egui::Color32::GRAY,
-            ExpectResult::InProgress => egui::Color32::YELLOW,
-            ExpectResult::Passed => egui::Color32::GREEN,
-            ExpectResult::FailedNoMessage | ExpectResult::FailedValueOutOfRange => {
-                egui::Color32::RED
-            }
-        }
-    }
-
     pub fn is_finished(&self) -> bool {
         matches!(
             self,
@@ -81,13 +68,13 @@ impl ExpectResult {
 }
 
 impl HilRunningTest {
-    pub fn new(test_info: &hil::config::TestInfo) -> Result<Self, String> {
-        let test = hil::config::load_test_from_file(&test_info.basename)?;
+    pub fn new(base: &std::path::Path, test_info: &hil::config::TestInfo) -> Result<Self, String> {
+        let test = hil::config::load_test_from_file(base, &test_info.basename)?;
         Ok(Self::from_parts(test_info.clone(), test))
     }
 
-    pub fn from_basename(basename: &str) -> Result<Self, String> {
-        let test = hil::config::load_test_from_file(basename)?;
+    pub fn from_basename(base: &std::path::Path, basename: &str) -> Result<Self, String> {
+        let test = hil::config::load_test_from_file(base, basename)?;
         let test_info = hil::config::TestInfo {
             basename: basename.to_string(),
             name: test.name.clone(),
@@ -134,10 +121,10 @@ impl HilRunningTest {
 
     pub fn process_can(
         &mut self,
-        parsed: &messages::ParsedMessage,
-        start_time: std::time::Instant,
+        decoded: &can_decode::DecodedMessage,
+        elapsed: std::time::Duration,
     ) {
-        self.process_can_at(&parsed.decoded, start_time.elapsed().as_millis());
+        self.process_can_at(&decoded, elapsed.as_millis());
     }
 
     fn process_can_at(&mut self, decoded: &can_decode::DecodedMessage, ts: u128) {

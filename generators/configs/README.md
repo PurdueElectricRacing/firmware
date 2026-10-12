@@ -37,6 +37,7 @@ Maps a firmware node onto hardware peripherals and message lists.
 
 ## Signal Attributes
 - `signal_name`: Signal name. Must be unique within the message.
+	- Must not end with `_enum`, which is reserved for enum-label columns in DAQ CSV exports
 - `description`: (Optional) Short description of signal purpose.
 - `data_type`: C type (`uint8_t`...`float`) or a custom type defined in `configs/system/common_types.json`.
 - `length`: (Optional for standard types) Bit-length. Required for custom packing or sub-byte types.

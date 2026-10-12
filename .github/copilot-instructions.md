@@ -34,8 +34,8 @@ These review checks capture the essence of consistent, safe, and maintainable co
 - Dynamic memory allocation is forbidden in embedded firmware, including FreeRTOS objects. Check stack and buffer bounds.
 - Rust `.unwrap()` and `.unwrap_err()` are forbidden, including in tests/examples. Production `.expect()`/`.expect_err()` must be exceptional and require a code-established invariant, nearby justification, and an explanatory message. Tests may use descriptive `expect`/`expect_err` calls for setup and assertions. Only safe Rust is allowed; no `unsafe` blocks.
 - Check that types enforce units, valid states, ownership, and API contracts where possible, rather than relying only on runtime checks or comments.
-- Check that changed behavior has relevant tests and updated in-repo documentation.
-- Ground findings in changed code and affected consumers; explain the concrete failure or regression rather than reporting speculative issues.
+- Check that existing tests are updated when required by changed behavior
+- Check that affected in-repo documentation is always kept in sync in the same PR
 
 ## Documentation and Instruction Drift
 

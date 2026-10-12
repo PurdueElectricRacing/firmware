@@ -13,6 +13,18 @@ from core.declarations import (
 )
 
 
+def test_reserved_enum_suffix_rejected() -> None:
+    message = MessageDeclaration(
+        message_name="reserved_suffix_message",
+        description="signal name uses reserved suffix",
+        priority=1,
+        signals=[SignalDeclaration(signal_name="mode_enum", data_type="uint8_t")],
+    )
+
+    with pytest.raises(ValueError, match="_enum"):
+        compile_message(declaration=message, is_extended=False, custom_types={})
+
+
 def test_compiles_message() -> None:
     message = MessageDeclaration(
         message_name="good_message",

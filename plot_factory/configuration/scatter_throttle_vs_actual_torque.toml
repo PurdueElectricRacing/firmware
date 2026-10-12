@@ -1,0 +1,33 @@
+type = "scatter"
+title = "Throttle Commanded vs Actual Torque"
+filename = "scatter_throttle_vs_actual_torque.png"
+width = 10
+height = 8
+time_column = "real_time"
+match_tolerance_seconds = 0.1
+x_label = "Throttle commanded (%)"
+y_label = "AMK actual torque (%)"
+
+[[traces]]
+x_column = "VCAN.DASHBOARD.pedals.throttle"
+y_column = "MCAN.INVERTER_A.INVA_CRIT.AMK_ActualTorque"
+label = "Inverter A"
+color = "tab:blue"
+
+[[traces]]
+x_column = "VCAN.DASHBOARD.pedals.throttle"
+y_column = "MCAN.INVERTER_B.INVB_CRIT.AMK_ActualTorque"
+label = "Inverter B"
+color = "tab:orange"
+
+[[traces]]
+x_column = "VCAN.DASHBOARD.pedals.throttle"
+y_column = "MCAN.INVERTER_C.INVC_CRIT.AMK_ActualTorque"
+label = "Inverter C"
+color = "tab:green"
+
+[[traces]]
+x_column = "VCAN.DASHBOARD.pedals.throttle"
+y_column = "MCAN.INVERTER_D.INVD_CRIT.AMK_ActualTorque"
+label = "Inverter D"
+color = "tab:red"

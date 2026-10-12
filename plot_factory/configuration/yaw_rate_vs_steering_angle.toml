@@ -1,0 +1,15 @@
+type = "scatter"
+title = "Yaw Rate vs Steering Angle"
+filename = "yaw_rate_vs_steering_angle.png"
+width = 10
+height = 8
+time_column = "real_time"
+match_tolerance_seconds = 0.1
+x_label = "Steering angle (deg)"
+y_label = "Yaw rate (deg/s)"
+
+[[traces]]
+x_column = "VCAN.DASHBOARD.steering_angle.angle"
+y_column = "VCAN.TORQUE_VECTOR.IMU_angular_rate.Z_axis"
+label = "Yaw rate"
+color = "tab:blue"

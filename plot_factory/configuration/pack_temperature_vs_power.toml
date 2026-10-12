@@ -1,0 +1,15 @@
+type = "scatter"
+title = "Pack Temperature vs Total Battery Power"
+filename = "pack_temperature_vs_power.png"
+width = 10
+height = 8
+time_column = "real_time"
+match_tolerance_seconds = 0.1
+x_label = "Total battery power (W, positive discharge)"
+y_label = "Maximum pack temperature (C)"
+
+[[traces]]
+x_column = "battery.power_w"
+y_column = "VCAN.A_BOX.pack_stats.max_temp"
+label = "Maximum pack temperature"
+color = "tab:blue"

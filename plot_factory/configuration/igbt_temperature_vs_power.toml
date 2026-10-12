@@ -1,0 +1,33 @@
+type = "scatter"
+title = "IGBT Temperature vs Total Battery Power"
+filename = "igbt_temperature_vs_power.png"
+width = 10
+height = 8
+time_column = "real_time"
+match_tolerance_seconds = 0.1
+x_label = "Total battery power (W, positive discharge)"
+y_label = "IGBT temperature (C)"
+
+[[traces]]
+x_column = "battery.power_w"
+y_column = "MCAN.INVERTER_A.INVA_TEMPS.AMK_IGBTTemp"
+label = "Inverter A"
+color = "tab:blue"
+
+[[traces]]
+x_column = "battery.power_w"
+y_column = "MCAN.INVERTER_B.INVB_TEMPS.AMK_IGBTTemp"
+label = "Inverter B"
+color = "tab:orange"
+
+[[traces]]
+x_column = "battery.power_w"
+y_column = "MCAN.INVERTER_C.INVC_TEMPS.AMK_IGBTTemp"
+label = "Inverter C"
+color = "tab:green"
+
+[[traces]]
+x_column = "battery.power_w"
+y_column = "MCAN.INVERTER_D.INVD_TEMPS.AMK_IGBTTemp"
+label = "Inverter D"
+color = "tab:red"

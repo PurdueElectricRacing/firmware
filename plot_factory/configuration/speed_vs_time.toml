@@ -1,0 +1,15 @@
+type = "time_series"
+title = "GPS Ground Speed"
+filename = "speed_vs_time.png"
+width = 12
+height = 6
+time_column = "real_time"
+forward_fill = true
+
+[[panels]]
+label = "GPS ground speed"
+
+[[panels.traces]]
+column = "VCAN.TORQUE_VECTOR.gps_speed_heading.gps_speed"
+label = "GPS ground speed"
+color = "tab:blue"

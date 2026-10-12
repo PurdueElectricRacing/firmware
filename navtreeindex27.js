@@ -1,5 +1,7 @@
 var NAVTREEINDEX27 =
 {
+"structpVCU__struct.html#afbca91accfdb087a053f9aa8ad0b67cf":[32,0,228,56],
+"structpVCU__struct.html#afe0b1a55649fda15349d4ca769b23d2e":[32,0,228,5],
 "structpVCU__struct.html#afe66ee6502962d8c8a87ba6c5cd77ab3":[32,0,228,51],
 "structpack__analog__ccan__data__t.html":[32,0,191],
 "structpack__analog__ccan__data__t.html#a14799ccbaa3671d44d0e9d077e63a15b":[32,0,191,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX27 =
 "structtorque__vector__version__data__t.html#aaa36f2d534b2701d65125e5761f3f46d":[32,0,272,2],
 "structtv__init__data__t.html":[32,0,273],
 "structtv__init__data__t.html#a5321903cbfdcea795c4a1184701c5285":[32,0,273,1],
-"structtv__init__data__t.html#a793f322f62ef3ebaa7df8c3c84576c50":[32,0,273,0],
-"structusart__active__transfer__t.html":[32,0,274],
-"structusart__active__transfer__t.html#a029784e5a36ccffb9b9fdd3eaef6a4c7":[32,0,274,2]
+"structtv__init__data__t.html#a793f322f62ef3ebaa7df8c3c84576c50":[32,0,273,0]
 };

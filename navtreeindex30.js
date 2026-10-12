@@ -1,5 +1,7 @@
 var NAVTREEINDEX30 =
 {
+"w5500__callbacks_8c.html#a8af65df1e566a774d241b03116c919e0":[33,0,1,2,2,1,3,6],
+"w5500__callbacks_8c.html#a9a42a1a6599015412816e4954c32f1bb":[33,0,1,2,2,1,3,10],
 "w5500__callbacks_8c.html#aaf8c150f0cd00ffc16c85b2915363f74":[33,0,1,2,2,1,3,3],
 "w5500__callbacks_8c.html#ab06c4ccee60050aa1d427e46dac09be6":[33,0,1,2,2,1,3,1],
 "w5500__callbacks_8c.html#ab57999544133dfcd7a64022e34b6955d":[33,0,1,2,2,1,3,2],

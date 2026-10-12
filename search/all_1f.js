@@ -142,7 +142,7 @@ var searchData=
   ['version_5fperiodic_139',['version_periodic',['../driveline_2main_8c.html#a4bd637396bfd3f2e389802ecfc0f6f56',1,'main.c']]],
   ['verticalaccuracy_140',['verticalAccuracy',['../structNAV__PVT__data__t.html#ab72797a5db6811b0672378ed84c7bdbc',1,'NAV_PVT_data_t']]],
   ['violation_141',['violation',['../structE__METER__STATUS__data__t.html#ad08b13dc072dbfbdbba963393f6ab316',1,'E_METER_STATUS_data_t']]],
-  ['visual_20studio_20code_142',['2. Install Visual Studio Code',['../md_docs_2setup.html#autotoc_md117',1,'']]],
+  ['visual_20studio_20code_142',['2. Install Visual Studio Code',['../md_docs_2setup.html#autotoc_md119',1,'']]],
   ['vmc_5fecu_5fpin_143',['VMC_ECU_PIN',['../main__module_2main_8h.html#afb0098d6fc9f1ae08086a5d9afce7a02',1,'main.h']]],
   ['vmc_5fecu_5fport_144',['VMC_ECU_PORT',['../main__module_2main_8h.html#adcfa35b93911e834dacbcc9e90a6cf79',1,'main.h']]],
   ['volt_5ffrom_5fmillivolt_145',['volt_from_millivolt',['../dearunits_8h.html#a03f7d264c57d2d90b342563ce3e8bf14',1,'dearunits.h']]],
@@ -151,6 +151,6 @@ var searchData=
   ['voltage_5ffrom_148',['voltage_from',['../dearunits_8h.html#ae800f6ec5c7eb8826a5e2aeae661db43',1,'dearunits.h']]],
   ['voltage_5flimit_149',['voltage_limit',['../structelcon__command__data__t.html#a1c05aef4f8e91f98aa3812ca52fec185',1,'elcon_command_data_t::voltage_limit'],['../structcharging__fsm__internals__data__t.html#a2f452922ddb52fb45249d76ac4d0cb33',1,'charging_fsm_internals_data_t::voltage_limit']]],
   ['vportsvchandler_150',['vPortSVCHandler',['../FreeRTOSConfig_8h.html#ad43047b3ea0a146673e30637488bf754',1,'FreeRTOSConfig.h']]],
-  ['vs_20code_151',['8. Build from VS Code',['../md_docs_2setup.html#autotoc_md142',1,'']]],
-  ['vs_20code_20inside_20of_20wsl_152',['3C.3 Use VS Code inside of WSL',['../md_docs_2setup.html#autotoc_md130',1,'']]]
+  ['vs_20code_151',['8. Build from VS Code',['../md_docs_2setup.html#autotoc_md144',1,'']]],
+  ['vs_20code_20inside_20of_20wsl_152',['3C.3 Use VS Code inside of WSL',['../md_docs_2setup.html#autotoc_md132',1,'']]]
 ];

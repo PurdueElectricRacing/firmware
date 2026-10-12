@@ -1,5 +1,7 @@
 var NAVTREEINDEX28 =
 {
+"structusart__active__transfer__t.html":[32,0,274],
+"structusart__active__transfer__t.html#a029784e5a36ccffb9b9fdd3eaef6a4c7":[32,0,274,2],
 "structusart__active__transfer__t.html#a517754f4662afba43bb003cba2868140":[32,0,274,3],
 "structusart__active__transfer__t.html#a6e3ea925b24b1ff38a1c5c910dd56010":[32,0,274,4],
 "structusart__active__transfer__t.html#ad5705eb4be605cd9bc3d9fd1e5dbda1c":[32,0,274,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX28 =
 "thermistor_8h.html#a8302cb9eebdd6ddbaca93f268a5cd7f8":[33,0,1,2,0,3,1,1],
 "thermistor_8h_source.html":[33,0,1,2,0,3,1],
 "timestamped__frame_8h.html":[33,0,1,2,2,4,2],
-"timestamped__frame_8h.html#a270cffe83263dd5f38b0bde6f9f83810":[33,0,1,2,2,4,2,3],
-"timestamped__frame_8h.html#aa49122d19022c27ac7ff1de84eb7bc61":[33,0,1,2,2,4,2,2],
-"timestamped__frame_8h.html#ac28171e9120619fc3fac4b2ce4052f6b":[33,0,1,2,2,4,2,1]
+"timestamped__frame_8h.html#a270cffe83263dd5f38b0bde6f9f83810":[33,0,1,2,2,4,2,3]
 };

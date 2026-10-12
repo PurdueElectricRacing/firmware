@@ -105,7 +105,7 @@ var searchData=
   ['example_102',['For example',['../md_firmware_2source_2a__box_2adbms_2README.html#autotoc_md10',1,'']]],
   ['example_3a_103',['Example:',['../md_firmware_2common_2lerp__lut_2README.html#autotoc_md70',1,'Usage Example:'],['../md_firmware_2common_2strbuf_2README.html#autotoc_md78',1,'Usage Example:']]],
   ['exitcritical_104',['exitCritical',['../usart__priv_8c.html#aa00be98e4959c28c2d915d3159cb65fd',1,'usart_priv.c']]],
-  ['extensions_105',['2.1 Install Recommended Extensions',['../md_docs_2setup.html#autotoc_md118',1,'']]],
+  ['extensions_105',['2.1 Install Recommended Extensions',['../md_docs_2setup.html#autotoc_md120',1,'']]],
   ['exti_2ec_106',['exti.c',['../exti_8c.html',1,'']]],
   ['exti_2eh_107',['exti.h',['../exti_8h.html',1,'']]],
   ['exti0_5firqhandler_108',['EXTI0_IRQHandler',['../exti_8c.html#a17e9789a29a87d2df54f12b94dd1a0b6',1,'exti.c']]],

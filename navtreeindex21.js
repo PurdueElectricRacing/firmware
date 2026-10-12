@@ -1,5 +1,7 @@
 var NAVTREEINDEX21 =
 {
+"spmc_8c.html#a881ea749d2dbf855d34372a7313f0495":[33,0,1,2,2,4,0,0],
+"spmc_8c.html#a89cd8310ea92fcf7779b939853f6f6fc":[33,0,1,2,2,4,0,4],
 "spmc_8c.html#a9ce4d496b1d03859046de565bb84b542":[33,0,1,2,2,4,0,3],
 "spmc_8c.html#aa5d44422fa9926dd46517b00c1416841":[33,0,1,2,2,4,0,1],
 "spmc_8c.html#aba59e7da3f2ab8a7e4ba029e5cf24c87":[33,0,1,2,2,4,0,7],
@@ -247,7 +249,5 @@ var NAVTREEINDEX21 =
 "structINVB__ERR__2__data__t.html#a508e057fd0020e00ee7462b2090a21dc":[32,0,124,1],
 "structINVB__ERR__2__data__t.html#a60856a2864649ec5459184e34ca6218f":[32,0,124,0],
 "structINVB__ERR__2__data__t.html#acfea069812679dc92594c0069a19ed5d":[32,0,124,2],
-"structINVB__ERR__2__data__t.html#afe67a3ba363abcb5fa10b04d003929e8":[32,0,124,3],
-"structINVB__INFO__data__t.html":[32,0,125],
-"structINVB__INFO__data__t.html#a031c7b18e98fe55e074456d870afa0fd":[32,0,125,7]
+"structINVB__ERR__2__data__t.html#afe67a3ba363abcb5fa10b04d003929e8":[32,0,124,3]
 };

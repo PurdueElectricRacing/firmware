@@ -228,8 +228,10 @@ impl TableBuilder {
                             };
                         }
                         if let Some(&enum_col_idx) = self.enum_indexer.get(&key) {
-                            row[enum_col_idx] =
-                                sig_value.value.enum_label.clone().unwrap_or_default();
+                            row[enum_col_idx] = match &sig_value.value.enum_label {
+                                Some(label) => label.clone(),
+                                None => "[UNKNOWN]".to_string(),
+                            };
                         }
                     }
                 }

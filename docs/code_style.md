@@ -173,7 +173,6 @@ Firmware allocation and naming rules do not apply to Rust or Python host tools.
     2. Order your variables in descending size (this saves space from padding)
     3. However exceptions can be made for logical/clarity purposes
     4. Remember that we target 32-bit architecture for firmware (pointers are 4 bytes)
-    5. Exact sizes depend on the target ABI, so do not assume reordering alone guarantees a wire-compatible layout
 
     ```c
     // bad, 24 bytes of padding

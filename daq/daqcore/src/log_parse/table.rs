@@ -138,16 +138,27 @@ impl TableBuilder {
                                 String::new()
                             },
                             signal: sig.name.clone(),
-                            signal_desc: sig_desc.clone(),
+                            signal_desc: sig_desc,
                             signal_unit: sig.unit.to_string(),
                         },
                     );
-                    let has_enum = parser
+
+                    let enum_map = parser
                         .msg_entry(msg_id_u32)
                         .and_then(|entry| entry.signal_meta.get(&sig.name))
-                        .is_some_and(|meta| !meta.enum_map.is_empty());
-
-                    if has_enum {
+                        .map(|meta| &meta.enum_map)
+                        .filter(|enum_map| !enum_map.is_empty());
+                    if let Some(enum_map) = enum_map {
+                        let mut states: Vec<_> = enum_map.iter().collect();
+                        states.sort_by_key(|(value, _)| **value);
+                        let enum_desc = format!(
+                            "choices: {}",
+                            states
+                                .iter()
+                                .map(|(_, label)| label.as_str())
+                                .collect::<Vec<_>>()
+                                .join(", ")
+                        );
                         self.push_enum_column(
                             (bus_id.to_string(), msg.name.clone(), sig.name.clone()),
                             TableColumn {
@@ -156,7 +167,7 @@ impl TableBuilder {
                                 message: msg.name.clone(),
                                 message_desc: String::new(),
                                 signal: format!("{}_enum", sig.name),
-                                signal_desc: sig_desc,
+                                signal_desc: enum_desc,
                                 signal_unit: String::new(),
                             },
                         );

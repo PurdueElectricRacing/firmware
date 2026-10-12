@@ -385,6 +385,12 @@ def _compile_signal(
     bit_shift: int,
     custom_types: Mapping[str, CustomTypeDeclaration],
 ) -> CompiledSignal:
+    if signal.signal_name.endswith("_enum"):
+        raise ValueError(
+            f"Signal '{signal.signal_name}' in message '{message_name}' "
+            "must not end with '_enum'; this suffix is reserved for "
+            "enum-label columns in DAQ CSV exports. Rename the signal."
+        )
     base_type = _resolve_signal_base_type(signal, message_name, custom_types)
     length = signal.length or CTYPE_SIZES[base_type]
     choices = _resolve_signal_choices(signal, custom_types)

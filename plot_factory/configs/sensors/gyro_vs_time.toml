@@ -1,0 +1,32 @@
+type = "time_series"
+title = "Vehicle-Axis Gyroscope vs Time"
+filename = "gyro_vs_time.png"
+time_column = "real_time"
+width = 12
+height = 9
+forward_fill = true
+
+[[panels]]
+label = "Roll (X)"
+
+[[panels.traces]]
+column = "VCAN.TORQUE_VECTOR.IMU_angular_rate.X_axis"
+label = "Roll (X)"
+color = "tab:blue"
+
+[[panels]]
+label = "Pitch (Y)"
+
+[[panels.traces]]
+column = "VCAN.TORQUE_VECTOR.IMU_angular_rate.Y_axis"
+label = "Pitch (Y)"
+color = "tab:orange"
+
+[[panels]]
+label = "Yaw (Z)"
+
+[[panels.traces]]
+column = "VCAN.TORQUE_VECTOR.IMU_angular_rate.Z_axis"
+label = "Yaw (Z)"
+color = "tab:green"
+

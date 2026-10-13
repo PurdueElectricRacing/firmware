@@ -36,7 +36,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Saved plot to {output_path}")
 
     for failure in result.failed_plots:
-        print(f"FAILED {failure.configuration_path.name}: {failure.message}")
+        print(f"FAILED {failure.configuration_path}: {failure.message}")
 
     print(
         f"Analysis complete: {len(result.successful_plots)} succeeded, "

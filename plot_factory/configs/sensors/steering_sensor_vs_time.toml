@@ -1,0 +1,23 @@
+type = "time_series"
+title = "Steering Sensor vs Time"
+filename = "steering_sensor_vs_time.png"
+time_column = "real_time"
+width = 12
+height = 6
+forward_fill = true
+
+[[panels]]
+label = "Steering angle"
+
+[[panels.traces]]
+column = "VCAN.DASHBOARD.steering_angle.angle"
+label = "Steering angle"
+color = "tab:blue"
+
+[[panels]]
+label = "Steering angular rate"
+
+[[panels.traces]]
+column = "VCAN.DASHBOARD.steering_angle.angular_rate"
+label = "Steering angular rate"
+color = "tab:blue"

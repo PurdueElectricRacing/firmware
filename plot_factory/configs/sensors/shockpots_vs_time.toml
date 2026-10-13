@@ -1,0 +1,40 @@
+type = "time_series"
+title = "Shockpot Displacements vs Time"
+filename = "shockpots_vs_time.png"
+time_column = "real_time"
+width = 12
+height = 12
+forward_fill = true
+
+[[panels]]
+label = "Front left"
+
+[[panels.traces]]
+column = "VCAN.DRIVELINE.front_shockpots.left"
+label = "Front left"
+color = "tab:blue"
+
+[[panels]]
+label = "Front right"
+
+[[panels.traces]]
+column = "VCAN.DRIVELINE.front_shockpots.right"
+label = "Front right"
+color = "tab:orange"
+
+[[panels]]
+label = "Rear left"
+
+[[panels.traces]]
+column = "VCAN.DRIVELINE.rear_shockpots.left"
+label = "Rear left"
+color = "tab:green"
+
+[[panels]]
+label = "Rear right"
+
+[[panels.traces]]
+column = "VCAN.DRIVELINE.rear_shockpots.right"
+label = "Rear right"
+color = "tab:red"
+

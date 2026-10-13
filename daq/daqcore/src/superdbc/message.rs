@@ -2,11 +2,14 @@
 
 use std::collections::{BTreeMap, HashMap};
 
-use crate::{superdbc::{
-    error::ParseError,
-    extract::Codec,
-    model::{MessageModel, SignalModel},
-}, frame::CanIdentity};
+use crate::{
+    frame::CanIdentity,
+    superdbc::{
+        error::ParseError,
+        extract::Codec,
+        model::{MessageModel, SignalModel},
+    },
+};
 
 /// Complete lookup key within one active database version.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -97,11 +100,7 @@ impl Message {
     /// Returns [`ParseError::InvalidDefinition`] for invalid metadata or CAN
     /// identity, duplicate signal names, invalid signal definitions, overlapping
     /// bits, or layouts extending beyond the declared payload.
-    pub fn compile(
-        bus_id: u8,
-        model: MessageModel,
-        context: &str,
-    ) -> Result<Self, ParseError> {
+    pub fn compile(bus_id: u8, model: MessageModel, context: &str) -> Result<Self, ParseError> {
         nonempty(&model.message_name, context, "message_name")?;
         nonempty(&model.transmitter, context, "transmitter")?;
 

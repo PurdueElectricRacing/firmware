@@ -1,6 +1,6 @@
 use crate::{
     log_parse::{consts, correlate},
-    superdbc
+    superdbc,
 };
 
 const HEADER_ROW_COUNT: usize = 7;

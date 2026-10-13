@@ -2,7 +2,7 @@ use crate::{
     can::driver::{self, Driver, DriverError, DriverResult},
     connection::{self, ConnectionSource},
     frame::CanFrame,
-    superdbc
+    superdbc,
 };
 
 use std::time::{Duration, Instant};

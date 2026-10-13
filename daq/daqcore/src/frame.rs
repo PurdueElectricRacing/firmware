@@ -1,7 +1,5 @@
 //! Transport-neutral frames; owned by the receiving thread until moved to its caller.
-use crate::{
-    superdbc,
-    Time, can};
+use crate::{Time, can, superdbc};
 
 /// Complete CAN identity. Ordering follows the packed identity representation.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]

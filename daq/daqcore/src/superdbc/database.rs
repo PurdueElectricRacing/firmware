@@ -5,12 +5,15 @@ use std::{
     path::{Path, PathBuf},
 };
 
-use crate::{superdbc::{
-    decode::DecodedMessage,
-    error::{DecodeError, EncodeError, LoadError, ParseError},
-    message::{Message, MessageKey, RawValue, nonempty},
-    model::{self, Document, VersionProbe},
-}, frame::CanIdentity};
+use crate::{
+    frame::CanIdentity,
+    superdbc::{
+        decode::DecodedMessage,
+        error::{DecodeError, EncodeError, LoadError, ParseError},
+        message::{Message, MessageKey, RawValue, nonempty},
+        model::{self, Document, VersionProbe},
+    },
+};
 
 /// An owned, validated SuperDBC database containing all of its buses.
 ///

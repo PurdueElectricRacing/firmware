@@ -3,8 +3,7 @@ use crate::{
     can,
     connection::{CanBusSpeed, ConnectionSource},
     frame::{CanFrame, CanIdentity},
-    log_parse,
-    superdbc
+    log_parse, superdbc,
 };
 
 use std::time::{Duration, Instant};

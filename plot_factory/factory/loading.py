@@ -3,7 +3,7 @@ from pathlib import Path
 
 import polars as pl
 
-from .telemetry_dataset import SignalMetadata, TelemetryDataset
+from .dataset import SignalMetadata, TelemetryDataset
 
 
 METADATA_ROW_COUNT = 7

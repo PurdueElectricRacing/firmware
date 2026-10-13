@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import polars as pl
 from matplotlib.figure import Figure
 
-from ..preprocessing.telemetry_dataset import TelemetryDataset
+from ..dataset import TelemetryDataset
 
 
 PlotCreator = Callable[[TelemetryDataset, dict[str, Any]], Figure]

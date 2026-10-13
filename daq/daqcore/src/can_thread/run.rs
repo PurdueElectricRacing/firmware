@@ -101,6 +101,11 @@ fn run_with_connection(
                         result: Ok(source)
                     });
                     emit!(Event::Hil(hil.snapshot(now)));
+                    if decoder.bus_id() > 1 {
+                        emit!(Event::Diagnostic(format!(
+                            "Legacy logging is unavailable for bus {}; only buses 0/1 are supported.",
+                            decoder.bus_id()
+                        )));
                     }
                 }
                 Command::AddSendMessage(message) => {
@@ -146,7 +151,7 @@ fn run_with_connection(
 
         // Reconnect the selected source when its retry delay has elapsed.
         let now = Instant::now();
-        if let Some(result) = connection.connect(now) {
+        if let Some(result) = connection.connect(now, decoder.bus()) {
             match result {
                 Ok(()) => {
                     if let Some(logger) = &mut logger {
@@ -239,8 +244,9 @@ fn run_with_connection(
                     got_frames = !frames.is_empty();
                     for frame in frames {
                         load.record_frame(frame.data.len(), Instant::now());
-                        if let Some(logger) = &mut logger
-                            && let Err(error) = logger.log_frame(&frame)
+                        if decoder.bus_id() <= 1
+                            && let Some(logger) = &mut logger
+                            && let Err(error) = logger.log_frame(&frame, decoder.bus_id())
                         {
                             emit!(Event::Diagnostic(error));
                         }

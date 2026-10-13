@@ -1,26 +1,21 @@
 //! Owned decoded values, retaining both physical values and raw wire values.
 
-use indexmap::IndexMap;
-
-use crate::superdbc::{
-    error::DecodeError,
-    message::{Message, MessageKey, RawType, RawValue},
-};
+use crate::superdbc;
 
 /// A decoded frame whose names, labels, and signal values are fully owned.
 ///
 /// Signals retain declaration order.
 #[derive(Debug, Clone)]
 pub struct DecodedMessage {
-    key: MessageKey,
+    key: superdbc::message::MessageKey,
     name: String,
     tx_node: String,
-    signals: IndexMap<String, DecodedSignalValue>,
+    signals: indexmap::IndexMap<String, DecodedSignalValue>,
 }
 
 impl DecodedMessage {
     /// Return the original bus ID and standard/extended CAN identity.
-    pub fn key(&self) -> MessageKey {
+    pub fn key(&self) -> superdbc::message::MessageKey {
         self.key
     }
 
@@ -63,7 +58,7 @@ impl DecodedMessage {
 #[derive(Debug, Clone)]
 pub struct DecodedSignalValue {
     physical: f64,
-    raw: RawValue,
+    raw: superdbc::message::RawValue,
     enum_label: Option<String>,
 }
 
@@ -82,7 +77,7 @@ impl DecodedSignalValue {
     /// Integers retain their full signed or unsigned 64-bit value in `i128`.
     /// Float32 values retain the interpreted IEEE-754 value, including non-finite
     /// telemetry, which encoders reject.
-    pub fn raw(&self) -> RawValue {
+    pub fn raw(&self) -> superdbc::message::RawValue {
         self.raw
     }
 
@@ -102,13 +97,13 @@ impl DecodedSignalValue {
     /// original Float32 value rather than this presentation conversion.
     pub fn int_rounded(&self) -> i128 {
         match self.raw {
-            RawValue::Integer(raw) => raw,
-            RawValue::Float32(_) => self.physical.round() as i128,
+            superdbc::message::RawValue::Integer(raw) => raw,
+            superdbc::message::RawValue::Float32(_) => self.physical.round() as i128,
         }
     }
 }
 
-impl Message {
+impl superdbc::message::Message {
     /// Decode a payload using this definition, returning fully owned signal values.
     ///
     /// Accepts the declared byte length through eight bytes; trailing padding is
@@ -125,12 +120,12 @@ impl Message {
     ///
     /// # Errors
     ///
-    /// Returns [`DecodeError::InvalidPayloadLength`] when the payload is shorter
+    /// Returns [`crate::superdbc::error::DecodeError::InvalidPayloadLength`] when the payload is shorter
     /// than the declared length or longer than eight bytes. Layout validation was
     /// already performed when loading the definition.
-    pub fn decode(&self, data: &[u8]) -> Result<DecodedMessage, DecodeError> {
+    pub fn decode(&self, data: &[u8]) -> Result<DecodedMessage, superdbc::error::DecodeError> {
         if data.len() < usize::from(self.length_bytes()) || data.len() > 8 {
-            return Err(DecodeError::InvalidPayloadLength {
+            return Err(superdbc::error::DecodeError::InvalidPayloadLength {
                 key: self.key(),
                 expected_min: self.length_bytes(),
                 actual: data.len(),
@@ -140,22 +135,28 @@ impl Message {
         // Restrict extraction to declared bytes; padding belongs to the log or
         // transport and must not alter the decoded message.
         let data = &data[..usize::from(self.length_bytes())];
-        let mut signals = IndexMap::with_capacity(self.signals.len());
+        let mut signals = indexmap::IndexMap::with_capacity(self.signals.len());
 
         for signal in &self.signals {
             let bits = signal.codec.extract(data);
             let raw = match signal.raw_type() {
-                RawType::Unsigned => RawValue::Integer(i128::from(bits)),
-                RawType::Signed => RawValue::Integer(signal.codec.signed(bits)),
-                RawType::Float32 => RawValue::Float32(f32::from_bits(bits as u32)),
+                superdbc::message::RawType::Unsigned => {
+                    superdbc::message::RawValue::Integer(i128::from(bits))
+                }
+                superdbc::message::RawType::Signed => {
+                    superdbc::message::RawValue::Integer(signal.codec.signed(bits))
+                }
+                superdbc::message::RawType::Float32 => {
+                    superdbc::message::RawValue::Float32(f32::from_bits(bits as u32))
+                }
             };
             // Keep the exact raw value alongside the approximate physical f64.
             // Enum keys refer to wire integers, so resolve labels before scaling.
             let (numeric_raw, enum_label) = match raw {
-                RawValue::Integer(value) => {
+                superdbc::message::RawValue::Integer(value) => {
                     (value as f64, signal.choice_label(value).map(str::to_owned))
                 }
-                RawValue::Float32(value) => (f64::from(value), None),
+                superdbc::message::RawValue::Float32(value) => (f64::from(value), None),
             };
             signals.insert(
                 signal.name().to_owned(),

@@ -1,27 +1,25 @@
 use crate::{
     action, paths, settings, shortcuts, telemetry, ui, util, widget_ids, widgets, workspace,
 };
+use std::{error, mem, path, sync::mpsc};
 
 const UI_SCALE_STEP: f32 = 0.2;
-pub struct ParserInfo {
-    pub dbc_path: std::path::PathBuf,
-    pub parser: can_decode::Parser,
+
+pub struct DatabaseSelection {
+    pub database: daqcore::superdbc::database::Database,
+    pub bus_id: u8,
 }
 
-impl ParserInfo {
-    // Returns None if parsing fails (missing file, invalid file, etc)
-    pub fn new(dbc_path: std::path::PathBuf) -> Option<Self> {
-        let parser = can_decode::Parser::from_dbc_file(&dbc_path)
-            .map_err(|e| {
-                log::error!("Failed to parse DBC file at {}: {}", dbc_path.display(), e);
-                e
-            })
-            .ok()?;
-        Some(Self { dbc_path, parser })
+impl DatabaseSelection {
+    pub fn bus(&self) -> Option<&daqcore::superdbc::database::Bus> {
+        self.database.bus_by_id(self.bus_id)
     }
 
-    pub fn new_maybe(dbc_path: Option<std::path::PathBuf>) -> Option<Self> {
-        dbc_path.and_then(Self::new)
+    pub fn source(&self) -> Option<daqcore::can_thread::DatabaseSource> {
+        Some(daqcore::can_thread::DatabaseSource {
+            path: self.database.path()?.to_owned(),
+            bus_id: self.bus_id,
+        })
     }
 }
 
@@ -39,30 +37,37 @@ pub struct DAQApp {
     pub command_palette: ui::command_palette::CommandPalette,
     pub tile_tree: egui_tiles::Tree<widgets::Widget>,
     pub widget_ids: widget_ids::WidgetIds,
-    pub can_to_ui_rx: std::sync::mpsc::Receiver<daqcore::can_thread::CanThreadEvent>,
-    pub ui_to_can_tx: std::sync::mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
+    pub can_to_ui_rx: mpsc::Receiver<daqcore::can_thread::CanThreadEvent>,
+    pub ui_to_can_tx: mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
     pub action_queue: Vec<action::AppAction>,
     pub selected_source: Option<daqcore::connection::ConnectionSource>,
     pub theme: eframe::egui::Style,
     pub theme_selection: ui::theme::ThemeSelection,
     pub pixels_per_point: Option<f32>,
     pub serial_ports: Vec<serialport::SerialPortInfo>,
-    pub parser: Option<ParserInfo>,
+    pub database: Option<DatabaseSelection>,
+    pending_database: Option<u64>,
+    selection_request: u64,
     pub can_bus_speed: daqcore::connection::CanBusSpeed,
     pub udp_port: u16,
-    pub session: daqcore::Session,
+    pub session: daqcore::session::Session,
     pub bus_load_samples: Vec<telemetry::BusLoadSample>,
     pub can_thread: daqcore::can_thread::CanThreadHandle,
     hil_snapshot: daqcore::hil::engine::HilSnapshot,
     active_source: Option<daqcore::connection::ConnectionSource>,
     pub diagnostic: Option<String>,
-    pub log_folder: Option<std::path::PathBuf>,
+    pub log_folder: Option<path::PathBuf>,
 }
 
 impl DAQApp {
     pub fn save_settings(&self) {
         let settings = settings::Settings {
-            dbc_path: self.parser.as_ref().map(|p| p.dbc_path.clone()),
+            superdbc_path: self
+                .database
+                .as_ref()
+                .and_then(|selection| selection.source())
+                .map(|source| source.path),
+            bus_id: self.database.as_ref().map(|selection| selection.bus_id),
             selected_source: self.selected_source.clone(),
             selected_speed: self.can_bus_speed,
             udp_port: self.udp_port,
@@ -75,11 +80,11 @@ impl DAQApp {
     }
 
     pub fn new(
-        can_to_ui_rx: std::sync::mpsc::Receiver<daqcore::can_thread::CanThreadEvent>,
+        can_to_ui_rx: mpsc::Receiver<daqcore::can_thread::CanThreadEvent>,
         can_thread: daqcore::can_thread::CanThreadHandle,
         settings: settings::Settings,
         cc: &eframe::CreationContext,
-    ) -> Result<Self, Box<dyn std::error::Error + Send + Sync>> {
+    ) -> Result<Self, Box<dyn error::Error + Send + Sync>> {
         let theme_selection = settings.theme;
         let theme_style = theme_selection.get_style();
         ui::theme::store_theme(&cc.egui_ctx, theme_selection.get_colors());
@@ -92,9 +97,9 @@ impl DAQApp {
             30.0
         };
 
-        let session = daqcore::Session::live(daqcore::Time::now(), window_secs)?;
+        let session = daqcore::session::Session::live(daqcore::time::Time::now(), window_secs)?;
 
-        Ok(Self {
+        let mut app = Self {
             connection_status: ConnectionStatus::Disconnected,
             value_formatter: load_formatter(),
             is_sidebar_open: true,
@@ -110,7 +115,9 @@ impl DAQApp {
             theme_selection,
             pixels_per_point: settings.pixels_per_point,
             serial_ports: util::get_available_serial_ports(),
-            parser: ParserInfo::new_maybe(settings.dbc_path),
+            database: None,
+            pending_database: None,
+            selection_request: 0,
             can_bus_speed: settings.selected_speed,
             udp_port: settings.udp_port,
             session,
@@ -119,7 +126,92 @@ impl DAQApp {
             active_source: None,
             diagnostic: None,
             log_folder: settings.log_folder,
-        })
+        };
+        if let Some(path) = settings.superdbc_path {
+            app.request_database(&path, settings.bus_id);
+        }
+        Ok(app)
+    }
+
+    pub fn selection_pending(&self) -> bool {
+        self.pending_database.is_some()
+    }
+
+    pub fn request_database(&mut self, path: &path::Path, preferred_bus: Option<u8>) {
+        self.request_selection(daqcore::can_thread::DatabaseRequest::Load {
+            path: path.to_owned(),
+            preferred_bus,
+        });
+    }
+
+    pub fn request_bus(&mut self, bus_id: u8) {
+        let Some(selection) = &self.database else {
+            return;
+        };
+        if selection.bus_id == bus_id {
+            return;
+        }
+        if selection.database.bus_by_id(bus_id).is_none() {
+            self.diagnostic = Some(format!("SuperDBC has no bus {bus_id}"));
+            return;
+        }
+        self.request_selection(daqcore::can_thread::DatabaseRequest::Bus { bus_id });
+    }
+
+    fn request_selection(&mut self, selection: daqcore::can_thread::DatabaseRequest) {
+        if self.selection_pending() {
+            return;
+        }
+        self.selection_request += 1;
+        let request_id = self.selection_request;
+        let command = daqcore::can_thread::CanThreadCommand::SelectDatabase {
+            request_id,
+            selection,
+        };
+        match self.ui_to_can_tx.send(command) {
+            Ok(()) => self.pending_database = Some(request_id),
+            Err(error) => self.diagnostic = Some(error.to_string()),
+        }
+    }
+
+    fn apply_database_result(
+        &mut self,
+        request_id: u64,
+        result: Result<daqcore::can_thread::DatabaseUpdate, String>,
+    ) -> bool {
+        if self.pending_database != Some(request_id) {
+            return false;
+        }
+        self.pending_database = None;
+        match result {
+            Ok(daqcore::can_thread::DatabaseUpdate::Loaded { database, bus_id }) => {
+                self.database = Some(DatabaseSelection {
+                    database: *database,
+                    bus_id,
+                });
+            }
+            Ok(daqcore::can_thread::DatabaseUpdate::Bus { bus_id }) => {
+                let Some(selection) = &mut self.database else {
+                    self.diagnostic = Some("No UI database is loaded".to_owned());
+                    return false;
+                };
+                selection.bus_id = bus_id;
+            }
+            Err(error) => {
+                self.diagnostic = Some(error);
+                return false;
+            }
+        }
+        self.session.reset(daqcore::time::Time::now());
+        self.bus_load_samples.clear();
+        self.hil_snapshot = daqcore::hil::engine::HilSnapshot::idle();
+        self.diagnostic = None;
+        for tile in self.tile_tree.tiles.tiles_mut() {
+            if let egui_tiles::Tile::Pane(widget) = tile {
+                widget.reset_database();
+            }
+        }
+        true
     }
 
     fn add_widget_to_tree(&mut self, widget: widgets::Widget) {
@@ -244,12 +336,17 @@ impl eframe::App for DAQApp {
             }
 
             match event {
+                daqcore::can_thread::CanThreadEvent::DatabaseSelected { request_id, result } => {
+                    if self.apply_database_result(request_id, result) {
+                        self.save_settings();
+                    }
+                }
                 daqcore::can_thread::CanThreadEvent::Frame(frame) => {
                     self.session.ingest_frame(frame);
                 }
                 daqcore::can_thread::CanThreadEvent::SourceSelected(Some(source)) => {
                     if self.active_source.as_ref() != Some(&source) {
-                        self.session.reset(daqcore::Time::now());
+                        self.session.reset(daqcore::time::Time::now());
                         self.bus_load_samples.clear();
                     }
                     self.active_source = Some(source);
@@ -303,7 +400,7 @@ impl eframe::App for DAQApp {
         self.action_queue.extend(self.command_palette.ui(ctx));
 
         // Drain the action queue and handle all actions
-        for action in std::mem::take(&mut self.action_queue) {
+        for action in mem::take(&mut self.action_queue) {
             self.handle_action(action, ctx);
         }
 

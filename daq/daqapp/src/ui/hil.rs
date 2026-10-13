@@ -1,18 +1,18 @@
+use std::{path, sync::mpsc};
+
 pub struct Hil {
     pub title: String,
     pub found_presets: Vec<daqcore::hil::config::PresetInfo>,
     pub found_tests: Vec<daqcore::hil::config::TestInfo>,
     pub load_errors: Vec<String>,
     pub snapshot: daqcore::hil::engine::HilSnapshot,
-    ui_to_can_tx: std::sync::mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
+    ui_to_can_tx: mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
 }
 
 impl Hil {
-    pub fn new(
-        ui_to_can_tx: std::sync::mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
-    ) -> Self {
+    pub fn new(ui_to_can_tx: mpsc::Sender<daqcore::can_thread::CanThreadCommand>) -> Self {
         let (presets, tests, errors) =
-            daqcore::hil::config::list_available_tests(std::path::Path::new("hil_config"));
+            daqcore::hil::config::list_available_tests(path::Path::new("hil_config"));
 
         Self {
             title: "HIL".to_string(),
@@ -41,7 +41,7 @@ impl Hil {
 
     fn reload_tests(&mut self) {
         let (presets, tests, errors) =
-            daqcore::hil::config::list_available_tests(std::path::Path::new("hil_config"));
+            daqcore::hil::config::list_available_tests(path::Path::new("hil_config"));
         self.found_presets = presets;
         self.found_tests = tests;
         self.load_errors = errors;

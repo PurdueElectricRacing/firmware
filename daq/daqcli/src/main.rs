@@ -1,50 +1,29 @@
-use std::path::PathBuf;
-use std::process::ExitCode;
+use clap::Parser as _;
+use std::{path, process};
 
-use clap::Parser as ClapParser;
-
-#[derive(ClapParser)]
+#[derive(clap::Parser)]
 #[command(name = "daqcli", about = "Parse DAQ logs into CSV tables")]
 struct Cli {
     #[arg(long)]
-    logs_dir: PathBuf,
+    logs_dir: path::PathBuf,
     #[arg(long)]
-    output_dir: PathBuf,
+    output_dir: path::PathBuf,
     #[arg(long, default_value = "out")]
     prefix: String,
     #[arg(long)]
-    bus0_dbc: PathBuf,
-    #[arg(long, default_value = "VCAN")]
-    bus0_name: String,
-    #[arg(long)]
-    bus1_dbc: PathBuf,
-    #[arg(long, default_value = "MCAN")]
-    bus1_name: String,
+    superdbc: path::PathBuf,
 }
 
-fn main() -> ExitCode {
+fn main() -> process::ExitCode {
     env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info")).init();
 
     let cli = Cli::parse();
 
-    let parser_bus_0 = match can_decode::Parser::from_dbc_file(&cli.bus0_dbc) {
-        Ok(p) => p,
-        Err(e) => {
-            log::error!(
-                "DBC load failed for bus 0 ({}): {e}",
-                cli.bus0_dbc.display()
-            );
-            return ExitCode::FAILURE;
-        }
-    };
-    let parser_bus_1 = match can_decode::Parser::from_dbc_file(&cli.bus1_dbc) {
-        Ok(p) => p,
-        Err(e) => {
-            log::error!(
-                "DBC load failed for bus 1 ({}): {e}",
-                cli.bus1_dbc.display()
-            );
-            return ExitCode::FAILURE;
+    let database = match daqcore::superdbc::database::Database::load(&cli.superdbc) {
+        Ok(database) => database,
+        Err(error) => {
+            log::error!("SuperDBC load failed ({}): {error}", cli.superdbc.display());
+            return process::ExitCode::FAILURE;
         }
     };
 
@@ -52,15 +31,12 @@ fn main() -> ExitCode {
         &cli.logs_dir,
         &cli.output_dir,
         &cli.prefix,
-        &parser_bus_0,
-        &cli.bus0_name,
-        &parser_bus_1,
-        &cli.bus1_name,
+        &database,
     ) {
-        Ok(()) => ExitCode::SUCCESS,
+        Ok(()) => process::ExitCode::SUCCESS,
         Err(e) => {
             log::error!("log parsing failed: {e}");
-            ExitCode::FAILURE
+            process::ExitCode::FAILURE
         }
     }
 }

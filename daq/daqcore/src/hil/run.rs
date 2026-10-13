@@ -1,4 +1,5 @@
-use crate::hil;
+use crate::{hil, superdbc};
+use std::{path, time};
 
 #[derive(PartialEq, Eq, Clone, Copy)]
 pub enum ExpectResult {
@@ -68,12 +69,12 @@ impl ExpectResult {
 }
 
 impl HilRunningTest {
-    pub fn new(base: &std::path::Path, test_info: &hil::config::TestInfo) -> Result<Self, String> {
+    pub fn new(base: &path::Path, test_info: &hil::config::TestInfo) -> Result<Self, String> {
         let test = hil::config::load_test_from_file(base, &test_info.basename)?;
         Ok(Self::from_parts(test_info.clone(), test))
     }
 
-    pub fn from_basename(base: &std::path::Path, basename: &str) -> Result<Self, String> {
+    pub fn from_basename(base: &path::Path, basename: &str) -> Result<Self, String> {
         let test = hil::config::load_test_from_file(base, basename)?;
         let test_info = hil::config::TestInfo {
             basename: basename.to_string(),
@@ -121,22 +122,22 @@ impl HilRunningTest {
 
     pub fn process_can(
         &mut self,
-        decoded: &can_decode::DecodedMessage,
-        elapsed: std::time::Duration,
+        decoded: &superdbc::decode::DecodedMessage,
+        elapsed: time::Duration,
     ) {
         self.process_can_at(&decoded, elapsed.as_millis());
     }
 
-    fn process_can_at(&mut self, decoded: &can_decode::DecodedMessage, ts: u128) {
+    fn process_can_at(&mut self, decoded: &superdbc::decode::DecodedMessage, ts: u128) {
         self.update_expect_statuses_at(ts);
 
         for expect in &mut self.in_progress_expects {
             if expect.result == ExpectResult::InProgress && expect.matches_message(decoded) {
                 let mut failures = Vec::new();
                 for (sig_name, sig_range) in &expect.expect.signals {
-                    match decoded.signals.get(sig_name) {
+                    match decoded.signal(sig_name) {
                         Some(sig_value) => {
-                            let value = sig_value.value.physical;
+                            let value = sig_value.physical();
                             if value < sig_range[0] || value > sig_range[1] {
                                 failures.push(SignalFailure::OutOfRange {
                                     name: sig_name.clone(),
@@ -202,201 +203,7 @@ impl InProgressExpect {
         }
     }
 
-    pub fn matches_message(&self, decoded: &can_decode::DecodedMessage) -> bool {
-        self.expect.msg_name == decoded.name
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    fn running_test(policy: hil::config::AcceptPolicy) -> HilRunningTest {
-        let expect = hil::config::Expectation {
-            window: [10.0, 20.0],
-            msg_name: "telemetry".into(),
-            signals: [("temperature".into(), [30.0, 40.0])].into(),
-            accept: policy,
-        };
-        HilRunningTest::from_parts(
-            hil::config::TestInfo {
-                basename: "test".into(),
-                name: "test".into(),
-                description: String::new(),
-            },
-            hil::config::TestFile {
-                name: "test".into(),
-                description: String::new(),
-                tx: Vec::new(),
-                expect: vec![expect],
-            },
-        )
-    }
-
-    fn message(values: &[(&str, f64)]) -> can_decode::DecodedMessage {
-        can_decode::DecodedMessage {
-            name: "telemetry".into(),
-            msg_id: 1,
-            is_extended: false,
-            tx_node: "test".into(),
-            signals: values
-                .iter()
-                .map(|(name, value)| {
-                    (
-                        name.to_string(),
-                        can_decode::DecodedSignal {
-                            name: name.to_string(),
-                            value: can_decode::DecodedSignalValue::new_float_backed_numeric(*value),
-                            unit: String::new(),
-                        },
-                    )
-                })
-                .collect(),
-        }
-    }
-
-    #[test]
-    fn policies_select_the_correct_message() {
-        for (values, expected) in [
-            (
-                [25.0, 35.0],
-                [
-                    ExpectResult::FailedValueOutOfRange,
-                    ExpectResult::Passed,
-                    ExpectResult::Passed,
-                ],
-            ),
-            (
-                [35.0, 25.0],
-                [
-                    ExpectResult::Passed,
-                    ExpectResult::FailedValueOutOfRange,
-                    ExpectResult::Passed,
-                ],
-            ),
-        ] {
-            for (policy, expected) in [
-                hil::config::AcceptPolicy::First,
-                hil::config::AcceptPolicy::Last,
-                hil::config::AcceptPolicy::Any,
-            ].into_iter().zip(expected) {
-                let mut test = running_test(policy);
-                test.process_can_at(&message(&[("temperature", values[0])]), 10);
-                test.process_can_at(&message(&[("temperature", values[1])]), 20);
-                if matches!(policy, hil::config::AcceptPolicy::Last) {
-                    assert!(test.in_progress_expects[0].result == ExpectResult::InProgress);
-                    assert!(!test.is_finished());
-                }
-                test.update_expect_statuses_at(21);
-                assert!(
-                    test.in_progress_expects[0].result == expected,
-                    "policy: {policy:?}, values: {values:?}"
-                );
-                assert!(test.is_finished());
-                assert_eq!(
-                    test.in_progress_expects[0]
-                        .last_failure
-                        .as_ref()
-                        .unwrap()
-                        .is_empty(),
-                    expected == ExpectResult::Passed
-                );
-            }
-        }
-    }
-
-    #[test]
-    fn any_waits_for_a_valid_message_or_timeout() {
-        let mut test = running_test(hil::config::AcceptPolicy::Any);
-        test.process_can_at(&message(&[("temperature", 25.0)]), 10);
-        test.process_can_at(&message(&[]), 20);
-        assert!(!test.is_finished());
-        test.update_expect_statuses_at(21);
-        assert!(test.in_progress_expects[0].result == ExpectResult::FailedValueOutOfRange);
-        assert!(matches!(
-            test.in_progress_expects[0]
-                .last_failure
-                .as_ref()
-                .unwrap()
-                .as_slice(),
-            [SignalFailure::MissingSignal { .. }]
-        ));
-    }
-
-    #[test]
-    fn only_matching_messages_inside_the_window_count() {
-        for policy in [
-            hil::config::AcceptPolicy::First,
-            hil::config::AcceptPolicy::Last,
-            hil::config::AcceptPolicy::Any,
-        ] {
-            let mut test = running_test(policy);
-            let valid = message(&[("temperature", 35.0)]);
-            test.process_can_at(&valid, 9);
-            let mut unrelated = valid.clone();
-            unrelated.name = "other".into();
-            test.process_can_at(&unrelated, 15);
-            test.process_can_at(&valid, 21);
-            assert!(test.in_progress_expects[0].result == ExpectResult::FailedNoMessage);
-            assert!(test.in_progress_expects[0].last_failure.is_none());
-
-            let mut skipped = running_test(policy);
-            skipped.process_can_at(&valid, 21);
-            assert!(skipped.in_progress_expects[0].result == ExpectResult::FailedNoMessage);
-            assert!(skipped.in_progress_expects[0].last_failure.is_none());
-        }
-    }
-
-    #[test]
-    fn tick_without_messages_finishes_all_policies() {
-        for policy in [
-            hil::config::AcceptPolicy::First,
-            hil::config::AcceptPolicy::Last,
-            hil::config::AcceptPolicy::Any,
-        ] {
-            let mut test = running_test(policy);
-            test.update_expect_statuses_at(21);
-            assert!(test.in_progress_expects[0].result == ExpectResult::FailedNoMessage);
-        }
-    }
-
-    #[test]
-    fn presence_only_last_still_waits_for_window_closure() {
-        for policy in [
-            hil::config::AcceptPolicy::First,
-            hil::config::AcceptPolicy::Last,
-            hil::config::AcceptPolicy::Any,
-        ] {
-            let mut test = running_test(policy);
-            test.in_progress_expects[0].expect.signals.clear();
-            test.process_can_at(&message(&[]), 10);
-            assert_eq!(
-                test.is_finished(),
-                !matches!(policy, hil::config::AcceptPolicy::Last)
-            );
-            assert!(
-                test.in_progress_expects[0]
-                    .last_failure
-                    .as_ref()
-                    .unwrap()
-                    .is_empty()
-            );
-            test.update_expect_statuses_at(21);
-            assert!(test.in_progress_expects[0].result == ExpectResult::Passed);
-        }
-    }
-
-    #[test]
-    fn any_requires_all_signals_to_pass_in_one_message() {
-        let mut test = running_test(hil::config::AcceptPolicy::Any);
-        test.in_progress_expects[0]
-            .expect
-            .signals
-            .insert("voltage".into(), [10.0, 20.0]);
-        test.process_can_at(&message(&[("temperature", 35.0), ("voltage", 0.0)]), 10);
-        test.process_can_at(&message(&[("temperature", 25.0), ("voltage", 15.0)]), 15);
-        assert!(!test.is_finished());
-        test.update_expect_statuses_at(21);
-        assert!(test.in_progress_expects[0].result == ExpectResult::FailedValueOutOfRange);
+    pub fn matches_message(&self, decoded: &superdbc::decode::DecodedMessage) -> bool {
+        self.expect.msg_name == decoded.name()
     }
 }

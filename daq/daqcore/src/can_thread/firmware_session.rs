@@ -1,9 +1,8 @@
-use crate::firmware::{self, FirmwarePackage, FirmwareProgress, FirmwareUpdater, TickResult};
-
-use std::time::Instant;
+use crate::firmware;
+use std::time;
 
 #[derive(Default)]
-pub struct FirmwareSession(Option<FirmwareUpdater>);
+pub struct FirmwareSession(Option<firmware::updater::FirmwareUpdater>);
 
 impl FirmwareSession {
     pub fn active(&self) -> bool {
@@ -12,11 +11,11 @@ impl FirmwareSession {
 
     pub fn start(
         &mut self,
-        package: FirmwarePackage,
+        package: firmware::protocol::FirmwarePackage,
         armed: bool,
         connected: bool,
-        now: Instant,
-    ) -> FirmwareProgress {
+        now: time::Instant,
+    ) -> firmware::FirmwareProgress {
         let invalid_image = package.images.iter().any(|image| {
             image.bytes.is_empty() || image.bytes.len() > firmware::protocol::APPLICATION_SLOT_SIZE
         });
@@ -36,7 +35,7 @@ impl FirmwareSession {
         };
 
         if let Some(error) = error {
-            return FirmwareProgress {
+            return firmware::FirmwareProgress {
                 board: String::new(),
                 board_index: 0,
                 board_count: package.images.len(),
@@ -48,22 +47,22 @@ impl FirmwareSession {
         }
 
         let (updater, progress) = if armed {
-            FirmwareUpdater::new_armed(package, now)
+            firmware::updater::FirmwareUpdater::new_armed(package, now)
         } else {
-            FirmwareUpdater::new(package, now)
+            firmware::updater::FirmwareUpdater::new(package, now)
         };
         self.0 = Some(updater);
         progress
     }
 
-    pub fn cancel(&mut self) -> Option<FirmwareProgress> {
+    pub fn cancel(&mut self) -> Option<firmware::FirmwareProgress> {
         self.0.take().map(|mut u| u.cancel())
     }
 
-    pub fn tick(&mut self, now: Instant) -> TickResult {
+    pub fn tick(&mut self, now: time::Instant) -> firmware::updater::TickResult {
         let result = match &mut self.0 {
             Some(updater) => updater.tick(now),
-            None => TickResult {
+            None => firmware::updater::TickResult {
                 frame: None,
                 progress: None,
             },
@@ -73,7 +72,12 @@ impl FirmwareSession {
         result
     }
 
-    pub fn receive(&mut self, id: u32, data: &[u8], now: Instant) -> Option<FirmwareProgress> {
+    pub fn receive(
+        &mut self,
+        id: u32,
+        data: &[u8],
+        now: time::Instant,
+    ) -> Option<firmware::FirmwareProgress> {
         let progress = self
             .0
             .as_mut()

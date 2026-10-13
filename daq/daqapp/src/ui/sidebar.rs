@@ -1,24 +1,14 @@
 use crate::{action, app, assets, settings, util, widget_constructor};
+use std::path;
 
-pub fn select_dbc(
-    app: &mut app::DAQApp,
-    ui_to_can_tx: &std::sync::mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
-) {
-    let mut dialog = rfd::FileDialog::new().add_filter("DBC Files", &["dbc"]);
-    if let Some(dir) = settings::dbc_dir() {
+pub fn select_database(app: &mut app::DAQApp) {
+    let mut dialog = rfd::FileDialog::new().add_filter("SuperDBC JSON", &["json"]);
+    if let Some(dir) = settings::database_dir() {
         dialog = dialog.set_directory(dir);
     }
-
-    if let Some(path) = dialog.pick_file()
-        && let Some(parser) = app::ParserInfo::new(path.clone())
-    {
-        match ui_to_can_tx.send(daqcore::can_thread::CanThreadCommand::DbcSelected(path)) {
-            Ok(()) => {
-                app.parser = Some(parser);
-                app.save_settings();
-            }
-            Err(error) => log::error!("Failed to submit DBC reload: {error}"),
-        }
+    if let Some(path) = dialog.pick_file() {
+        let preferred = app.database.as_ref().map(|selection| selection.bus_id);
+        app.request_database(&path, preferred);
     }
 }
 
@@ -216,17 +206,14 @@ pub fn show(app: &mut app::DAQApp, ctx: &eframe::egui::Context) {
                         }
                         ui.separator();
                         ui.label("Simulated");
-                        let dbc_path = app.parser.as_ref().map(|p| p.dbc_path.clone());
                         let sim_sources = [
                             (true, "Simulated (connected)"),
                             (false, "Simulated (disconnected)"),
                         ];
 
                         for (connected, label) in sim_sources {
-                            let sim_source = daqcore::connection::ConnectionSource::Simulated(
-                                connected,
-                                dbc_path.clone(),
-                            );
+                            let sim_source =
+                                daqcore::connection::ConnectionSource::Simulated(connected);
 
                             if ui
                                 .selectable_value(
@@ -277,24 +264,47 @@ pub fn show(app: &mut app::DAQApp, ctx: &eframe::egui::Context) {
                 ui.label(eframe::egui::RichText::new(status_icon).color(status_color));
             });
 
-            ui.horizontal(|ui| {
-                // Clone the sender so we don’t borrow app immutably yet
-                let ui_to_can_tx = app.ui_to_can_tx.clone();
-
-                if ui.button("📁 Select DBC").clicked() {
-                    select_dbc(app, &ui_to_can_tx); // mutable borrow is fine
+            ui.add_enabled_ui(!app.selection_pending(), |ui| {
+                if ui.button("📁 Select SuperDBC").clicked() {
+                    select_database(app);
                 }
-
-                if let Some(path) = app.parser.as_ref().map(|p| &p.dbc_path) {
-                    let dbc_name = path
-                        .file_name()
-                        .map(|n| n.to_string_lossy())
-                        .unwrap_or_else(|| path.display().to_string().into());
-                    ui.label(format!("{}", dbc_name));
+                if let Some(selection) = &app.database {
+                    if let Some(source) = selection.source() {
+                        ui.label(
+                            source
+                                .path
+                                .file_name()
+                                .unwrap_or_default()
+                                .to_string_lossy(),
+                        );
+                    }
+                    let mut bus_id = selection.bus_id;
+                    if let Some(bus) = selection.bus() {
+                        eframe::egui::ComboBox::from_label("CAN Bus")
+                            .selected_text(format!("{} ({})", bus.name(), bus_id))
+                            .show_ui(ui, |ui| {
+                                for bus in selection.database.buses() {
+                                    ui.selectable_value(
+                                        &mut bus_id,
+                                        bus.bus_id(),
+                                        format!("{} ({})", bus.name(), bus.bus_id()),
+                                    );
+                                }
+                            });
+                    }
+                    if bus_id != selection.bus_id {
+                        app.request_bus(bus_id);
+                    }
                 } else {
-                    ui.label("DBC: None selected");
+                    ui.label("SuperDBC: None selected");
                 }
             });
+            if app.selection_pending() {
+                ui.label("Applying database selection…");
+            }
+            if let Some(error) = &app.diagnostic {
+                ui.colored_label(ui.visuals().error_fg_color, error);
+            }
 
             ui.horizontal(|ui| {
                 if ui.button("Select Log Folder").clicked()
@@ -316,7 +326,7 @@ pub fn show(app: &mut app::DAQApp, ctx: &eframe::egui::Context) {
                 let log_display = app
                     .log_folder
                     .clone()
-                    .unwrap_or_else(|| std::path::PathBuf::from(settings::DEFAULT_LOG_FOLDER));
+                    .unwrap_or_else(|| path::PathBuf::from(settings::DEFAULT_LOG_FOLDER));
 
                 ui.label(log_display.display().to_string());
             });

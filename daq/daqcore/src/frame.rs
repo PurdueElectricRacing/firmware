@@ -1,7 +1,9 @@
 //! Transport-neutral frames; owned by the receiving thread until moved to its caller.
-use crate::{Time, can};
 
-/// Complete CAN identity. Ordering follows the flagged DBC representation.
+use crate::{can, superdbc, time};
+use std::{error, fmt};
+
+/// Complete CAN identity. Ordering follows the packed identity representation.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CanIdentity(u32);
 
@@ -12,8 +14,8 @@ pub struct InvalidCanId {
     pub extended: bool,
 }
 
-impl std::fmt::Display for InvalidCanId {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl fmt::Display for InvalidCanId {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         let format = if self.extended {
             "extended"
         } else {
@@ -24,7 +26,7 @@ impl std::fmt::Display for InvalidCanId {
     }
 }
 
-impl std::error::Error for InvalidCanId {}
+impl error::Error for InvalidCanId {}
 
 impl CanIdentity {
     pub fn new(id: u32, extended: bool) -> Result<Self, InvalidCanId> {
@@ -50,14 +52,10 @@ impl CanIdentity {
     pub fn is_extended(self) -> bool {
         self.0 & can::EXTENDED_ID_FLAG != 0
     }
-
-    pub fn dbc_id(self) -> u32 {
-        self.0
-    }
 }
 
-impl std::fmt::Display for CanIdentity {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl fmt::Display for CanIdentity {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let format = if self.is_extended() {
             "extended"
         } else {
@@ -101,20 +99,20 @@ impl CanFrame {
 
 #[derive(Debug, Clone)]
 pub struct ParsedFrame {
-    pub timestamp: Time,
+    pub timestamp: time::Time,
     pub kind: FrameKind,
     pub dlc: u8,
     pub identity: CanIdentity,
     pub raw_bytes: Vec<u8>,
-    pub decoded: Option<can_decode::DecodedMessage>,
+    pub decoded: Option<superdbc::decode::DecodedMessage>,
 }
 
 /// Borrowed decoded view; no frame or decoded-message clone is required for projections.
 pub struct DecodedFrame<'a> {
-    pub timestamp: Time,
+    pub timestamp: time::Time,
     pub identity: CanIdentity,
     pub raw_bytes: &'a [u8],
-    pub decoded: &'a can_decode::DecodedMessage,
+    pub decoded: &'a superdbc::decode::DecodedMessage,
 }
 
 impl ParsedFrame {

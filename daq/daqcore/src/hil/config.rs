@@ -1,13 +1,12 @@
+use std::{fs, path};
+
 // Read HIL config files (preset and tests)
 
-use indexmap::IndexMap;
-use serde::{Deserialize, Serialize};
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(transparent)]
-pub struct PresetsFile(pub IndexMap<String, Vec<String>>);
+pub struct PresetsFile(pub indexmap::IndexMap<String, Vec<String>>);
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct TestFile {
     pub name: String,
     pub description: String,
@@ -18,7 +17,7 @@ pub struct TestFile {
     pub expect: Vec<Expectation>,
 }
 
-#[derive(Debug, Clone, Copy, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, Default, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "lowercase")]
 pub enum AcceptPolicy {
     #[default]
@@ -27,22 +26,22 @@ pub enum AcceptPolicy {
     Any,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct TxMessage {
     pub timestamp: f64,
     pub msg_name: String,
 
-    pub signals: IndexMap<String, f64>,
+    pub signals: indexmap::IndexMap<String, f64>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct Expectation {
     pub window: [f64; 2],
 
     pub msg_name: String,
 
     #[serde(default)]
-    pub signals: IndexMap<String, [f64; 2]>,
+    pub signals: indexmap::IndexMap<String, [f64; 2]>,
 
     #[serde(default)]
     pub accept: AcceptPolicy,
@@ -62,15 +61,13 @@ pub struct TestInfo {
     pub description: String,
 }
 
-pub fn list_available_tests(
-    base: &std::path::Path,
-) -> (Vec<PresetInfo>, Vec<TestInfo>, Vec<String>) {
+pub fn list_available_tests(base: &path::Path) -> (Vec<PresetInfo>, Vec<TestInfo>, Vec<String>) {
     let mut errors = Vec::new();
 
     // Load individual tests from the caller-provided resource directory.
     let tests_folder = base.join("tests");
     let mut individual_tests = Vec::new();
-    if let Ok(entries) = std::fs::read_dir(&tests_folder) {
+    if let Ok(entries) = fs::read_dir(&tests_folder) {
         for entry in entries.flatten() {
             let path = entry.path();
             if !path.is_file() || path.extension().and_then(|e| e.to_str()) != Some("json") {
@@ -88,7 +85,7 @@ pub fn list_available_tests(
                 }
             };
 
-            let content = match std::fs::read_to_string(&path) {
+            let content = match fs::read_to_string(&path) {
                 Ok(c) => c,
                 Err(_) => {
                     errors.push(format!("Failed to read test file: {:?}", path));
@@ -117,7 +114,7 @@ pub fn list_available_tests(
     // Load presets from the caller-provided resource directory.
     let presets_path = base.join("presets.json");
     let mut presets = Vec::new();
-    if let Ok(presets_file) = std::fs::read_to_string(&presets_path) {
+    if let Ok(presets_file) = fs::read_to_string(&presets_path) {
         if let Ok(presets_data) = serde_json::from_str::<PresetsFile>(&presets_file) {
             for (preset_name, subtests) in presets_data.0 {
                 if subtests.is_empty() {
@@ -170,9 +167,9 @@ pub fn list_available_tests(
     (presets, individual_tests, errors)
 }
 
-pub fn load_test_from_file(base: &std::path::Path, basename: &str) -> Result<TestFile, String> {
+pub fn load_test_from_file(base: &path::Path, basename: &str) -> Result<TestFile, String> {
     let path = base.join("tests").join(format!("{basename}.json"));
-    match std::fs::read_to_string(&path) {
+    match fs::read_to_string(&path) {
         Ok(content) => match serde_json::from_str::<TestFile>(&content) {
             Ok(test_data) => Ok(test_data),
             Err(_) => Err(format!("Failed to parse test file: {}", path.display())),

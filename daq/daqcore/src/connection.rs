@@ -2,7 +2,7 @@
 pub enum ConnectionSource {
     Serial(String, CanBusSpeed),
     Udp(u16),
-    Simulated(bool, Option<std::path::PathBuf>), // true for connected, false for disconnected, path to dbc file for sim
+    Simulated(bool), // true for connected, false for disconnected
     Loopback,
 }
 
@@ -41,9 +41,10 @@ impl<'de> serde::Deserialize<'de> for ConnectionSource {
         }
 
         if let Some(simulated) = object.get("Simulated") {
-            let values: (bool, Option<std::path::PathBuf>) =
-                serde_json::from_value(simulated.clone()).map_err(serde::de::Error::custom)?;
-            return Ok(Self::Simulated(values.0, values.1));
+            let connected = simulated
+                .as_bool()
+                .ok_or_else(|| serde::de::Error::custom("invalid simulated connection source"))?;
+            return Ok(Self::Simulated(connected));
         }
 
         if object.get("Loopback").is_some() {
@@ -67,7 +68,7 @@ impl ConnectionSource {
                 format!("Serial: {} ({})", path, speed.display_name())
             }
             ConnectionSource::Udp(port) => format!("UDP: {}", port),
-            ConnectionSource::Simulated(connected, _) => {
+            ConnectionSource::Simulated(connected) => {
                 if *connected {
                     "Simulated (connected)".into()
                 } else {

@@ -1,8 +1,4 @@
-use crate::{
-    telemetry,
-    ui::{self, battery::common},
-    util,
-};
+use crate::{telemetry, ui, util};
 
 const T_MIN: f64 = 15.0;
 const T_MAX: f64 = 45.0;
@@ -58,7 +54,7 @@ impl BatteryTemps {
         view: &telemetry::TelemetryView<'_>,
     ) -> egui_tiles::UiResponse {
         let (modules, last_update) = thermistor_temperatures(view.setpoint_frames);
-        let (stale, elapsed) = common::sample_age(last_update, view.view_time());
+        let (stale, elapsed) = ui::battery::common::sample_age(last_update, view.view_time());
 
         let theme = ui::theme::get_theme(ui.ctx());
 
@@ -86,7 +82,7 @@ impl BatteryTemps {
             ui.heading(&self.title);
             ui.add_space(4.0);
 
-            common::stale_banner(ui, &theme, stale, elapsed);
+            ui::battery::common::stale_banner(ui, &theme, stale, elapsed);
 
             ui.add_space(8.0);
             ui.label(
@@ -97,7 +93,7 @@ impl BatteryTemps {
             ui.add_space(4.0);
 
             ui.columns(4, |cols| {
-                common::stat_card(
+                ui::battery::common::stat_card(
                     &mut cols[0],
                     &theme,
                     "TEMP MIN",
@@ -106,7 +102,7 @@ impl BatteryTemps {
                     stale,
                     None,
                 );
-                common::stat_card(
+                ui::battery::common::stat_card(
                     &mut cols[1],
                     &theme,
                     "TEMP AVG",
@@ -115,7 +111,7 @@ impl BatteryTemps {
                     stale,
                     None,
                 );
-                common::stat_card(
+                ui::battery::common::stat_card(
                     &mut cols[2],
                     &theme,
                     "TEMP MAX",
@@ -124,7 +120,7 @@ impl BatteryTemps {
                     stale,
                     None,
                 );
-                common::stat_card(
+                ui::battery::common::stat_card(
                     &mut cols[3],
                     &theme,
                     "TEMP RANGE",
@@ -177,7 +173,7 @@ impl BatteryTemps {
                             ui.label(
                                 eframe::egui::RichText::new(format!(
                                     "avg {} °C",
-                                    common::reading(module_avg, 1)
+                                    ui::battery::common::reading(module_avg, 1)
                                 ))
                                 .size(10.0)
                                 .color(theme.text_color().linear_multiply(0.55)),
@@ -185,7 +181,7 @@ impl BatteryTemps {
                             ui.label(
                                 eframe::egui::RichText::new(format!(
                                     "min {} °C",
-                                    common::reading(module_min, 1)
+                                    ui::battery::common::reading(module_min, 1)
                                 ))
                                 .size(10.0)
                                 .color(theme.text_color().linear_multiply(0.55)),
@@ -193,7 +189,7 @@ impl BatteryTemps {
                             ui.label(
                                 eframe::egui::RichText::new(format!(
                                     "max {} °C",
-                                    common::reading(module_max, 1)
+                                    ui::battery::common::reading(module_max, 1)
                                 ))
                                 .size(10.0)
                                 .color(theme.text_color().linear_multiply(0.55)),
@@ -204,7 +200,7 @@ impl BatteryTemps {
 
                         let available_width = ui.available_width();
                         let cell_spacing = ui.spacing().item_spacing.x;
-                        let cell_count = common::THERMISTORS_PER_MODULE as f32;
+                        let cell_count = ui::battery::common::THERMISTORS_PER_MODULE as f32;
                         let bar_width =
                             ((available_width - cell_spacing * cell_count) / cell_count).max(8.0);
 
@@ -291,48 +287,46 @@ fn temp_bar(
 }
 
 fn thermistor_sample(
-    frame: &daqcore::ParsedFrame,
+    frame: &daqcore::frame::ParsedFrame,
 ) -> Option<(usize, usize, ThermistorTemperature)> {
     let decoded = frame.decoded.as_ref()?;
     if !matches!(
-        decoded.name.as_str(),
+        decoded.name(),
         "thermistor_telemetry" | "thermistor_telemetry_ccan"
     ) {
         return None;
     }
 
-    let module = decoded.signals.get("module_num")?.value.physical.round() as usize;
-    let thermistor = decoded
-        .signals
-        .get("thermistor_num")?
-        .value
-        .physical
-        .round() as usize;
-    let temperature = decoded.signals.get("temperature")?.value.physical;
+    let module = decoded.signal("module_num")?.physical().round() as usize;
+    let thermistor = decoded.signal("thermistor_num")?.physical().round() as usize;
+    let temperature = decoded.signal("temperature")?.physical();
     let value = ThermistorTemperature { temperature };
 
     Some((module, thermistor, value))
 }
 
 fn thermistor_temperatures(
-    frames: &[daqcore::ParsedFrame],
-) -> (Vec<Vec<ThermistorTemperature>>, Option<daqcore::Time>) {
-    let mut modules = vec![
-        vec![ThermistorTemperature::default(); common::THERMISTORS_PER_MODULE];
-        common::NUM_MODULES
-    ];
+    frames: &[daqcore::frame::ParsedFrame],
+) -> (Vec<Vec<ThermistorTemperature>>, Option<daqcore::time::Time>) {
+    let mut modules =
+        vec![
+            vec![ThermistorTemperature::default(); ui::battery::common::THERMISTORS_PER_MODULE];
+            ui::battery::common::NUM_MODULES
+        ];
     let mut last_update = None;
     let mut filled = 0;
     for frame in frames.iter().rev() {
         if let Some((module, thermistor, value)) = thermistor_sample(frame)
-            && module < common::NUM_MODULES
-            && thermistor < common::THERMISTORS_PER_MODULE
+            && module < ui::battery::common::NUM_MODULES
+            && thermistor < ui::battery::common::THERMISTORS_PER_MODULE
             && modules[module][thermistor].temperature.is_nan()
         {
             modules[module][thermistor] = value;
             last_update = last_update.max(Some(frame.timestamp));
             filled += 1;
-            if filled == common::NUM_MODULES * common::THERMISTORS_PER_MODULE {
+            if filled
+                == ui::battery::common::NUM_MODULES * ui::battery::common::THERMISTORS_PER_MODULE
+            {
                 break;
             }
         }

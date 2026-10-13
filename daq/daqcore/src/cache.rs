@@ -1,13 +1,13 @@
-use crate::{ParsedFrame, Time, frame::CanIdentity};
-use std::{collections::HashMap, ops::RangeInclusive};
+use crate::{frame, time};
+use std::{collections::HashMap, mem, ops};
 
-pub type CachedFrame = ParsedFrame;
+pub type CachedFrame = frame::ParsedFrame;
 
 #[derive(Default)]
 pub struct RamCache {
     frames: Vec<CachedFrame>,
     first_index: usize,
-    latest: HashMap<CanIdentity, CachedFrame>,
+    latest: HashMap<frame::CanIdentity, CachedFrame>,
 }
 
 impl RamCache {
@@ -29,18 +29,18 @@ impl RamCache {
         self.len() == 0
     }
 
-    pub fn time_span(&self) -> Option<(Time, Time)> {
+    pub fn time_span(&self) -> Option<(time::Time, time::Time)> {
         let first = self.active().first()?.timestamp;
         let last = self.active().last()?.timestamp;
 
         Some((first, last))
     }
 
-    pub fn latest(&self, id: CanIdentity) -> Option<&CachedFrame> {
+    pub fn latest(&self, id: frame::CanIdentity) -> Option<&CachedFrame> {
         self.latest.get(&id)
     }
 
-    pub fn latest_map(&self) -> &HashMap<CanIdentity, CachedFrame> {
+    pub fn latest_map(&self) -> &HashMap<frame::CanIdentity, CachedFrame> {
         &self.latest
     }
 
@@ -73,7 +73,7 @@ impl RamCache {
 
         let retained_count = self.len();
         let mut merged = Vec::with_capacity(retained_count + batch.len());
-        let mut old = std::mem::take(&mut self.frames)
+        let mut old = mem::take(&mut self.frames)
             .into_iter()
             .skip(self.first_index)
             .peekable();
@@ -105,7 +105,7 @@ impl RamCache {
         }
     }
 
-    pub fn evict(&mut self, floor: Time) -> usize {
+    pub fn evict(&mut self, floor: time::Time) -> usize {
         let removed = self.active().partition_point(|f| f.timestamp < floor);
         self.first_index += removed;
 
@@ -126,7 +126,7 @@ impl RamCache {
         removed
     }
 
-    pub fn frames_in_range(&self, range: RangeInclusive<Time>) -> &[CachedFrame] {
+    pub fn frames_in_range(&self, range: ops::RangeInclusive<time::Time>) -> &[CachedFrame] {
         let frames = self.active();
         if range.is_empty() {
             return &frames[..0];
@@ -137,7 +137,7 @@ impl RamCache {
         &frames[start..end]
     }
 
-    pub fn frames_before(&self, time: Time, count: usize) -> &[CachedFrame] {
+    pub fn frames_before(&self, time: time::Time, count: usize) -> &[CachedFrame] {
         let frames = self.active();
         let end = frames.partition_point(|f| f.timestamp <= time);
         &frames[end.saturating_sub(count)..end]
@@ -145,16 +145,16 @@ impl RamCache {
 
     pub fn signal_series(
         &self,
-        id: CanIdentity,
+        id: frame::CanIdentity,
         signal: &str,
-        range: RangeInclusive<Time>,
-    ) -> Vec<(Time, f64)> {
+        range: ops::RangeInclusive<time::Time>,
+    ) -> Vec<(time::Time, f64)> {
         self.frames_in_range(range)
             .iter()
             .filter(|f| f.identity == id)
             .filter_map(|f| {
                 let decoded = f.decoded.as_ref()?;
-                let value = decoded.signals.get(signal)?.value.physical;
+                let value = decoded.signal(signal)?.physical();
 
                 Some((f.timestamp, value))
             })

@@ -1,4 +1,5 @@
 use crate::paths;
+use std::path;
 
 const NORD_THEME_PATH: &str = "themes/nord.toml";
 const CATPPUCCIN_THEME_PATH: &str = "themes/catppuccin.toml";
@@ -245,7 +246,7 @@ impl ThemeColors {
         style
     }
 
-    pub fn load_from_file(path: impl AsRef<std::path::Path>) -> Option<Self> {
+    pub fn load_from_file(path: impl AsRef<path::Path>) -> Option<Self> {
         paths::read_file(path).and_then(|data| Self::from_toml(&data))
     }
 

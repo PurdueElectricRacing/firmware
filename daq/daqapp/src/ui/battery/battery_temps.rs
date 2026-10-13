@@ -295,20 +295,15 @@ fn thermistor_sample(
 ) -> Option<(usize, usize, ThermistorTemperature)> {
     let decoded = frame.decoded.as_ref()?;
     if !matches!(
-        decoded.name.as_str(),
+        decoded.name(),
         "thermistor_telemetry" | "thermistor_telemetry_ccan"
     ) {
         return None;
     }
 
-    let module = decoded.signals.get("module_num")?.value.physical.round() as usize;
-    let thermistor = decoded
-        .signals
-        .get("thermistor_num")?
-        .value
-        .physical
-        .round() as usize;
-    let temperature = decoded.signals.get("temperature")?.value.physical;
+    let module = decoded.signal("module_num")?.physical().round() as usize;
+    let thermistor = decoded.signal("thermistor_num")?.physical().round() as usize;
+    let temperature = decoded.signal("temperature")?.physical();
     let value = ThermistorTemperature { temperature };
 
     Some((module, thermistor, value))

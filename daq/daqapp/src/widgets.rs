@@ -21,7 +21,7 @@ pub struct WidgetContext<'a> {
     pub view: &'a telemetry::TelemetryView<'a>,
     pub bus_load: &'a [telemetry::BusLoadSample],
     pub action_queue: &'a mut Vec<action::AppAction>,
-    pub parser: Option<&'a app::ParserInfo>,
+    pub database: Option<&'a app::DatabaseSelection>,
     pub ui_to_can_tx: std::sync::mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
     pub formatter: &'a Option<daqcore::formatter::Formatter>,
 }
@@ -75,22 +75,32 @@ impl Widget {
                 ui,
                 context.action_queue,
                 context.formatter,
-                context.parser,
+                context.database,
                 context.view,
             ),
-            Widget::ViewerList(w) => w.show(ui, context.formatter, context.parser, context.view),
+            Widget::ViewerList(w) => w.show(ui, context.formatter, context.database, context.view),
             Widget::Bootloader(w) => w.show(ui, &context.ui_to_can_tx),
-            Widget::Scope(w) => w.show(ui, context.parser, context.view),
-            Widget::LogParser(w) => w.show(ui, context.parser),
-            Widget::SendUi(w) => w.show(ui, context.parser, context.formatter),
+            Widget::Scope(w) => w.show(ui, context.database, context.view),
+            Widget::LogParser(w) => w.show(ui, context.database),
+            Widget::SendUi(w) => w.show(ui, context.database, context.formatter),
             Widget::BusLoad(w) => w.show(ui, context.bus_load, context.view),
             Widget::BatteryVoltage(w) => w.show(ui, context.view),
             Widget::BatteryTemps(w) => w.show(ui, context.view),
             Widget::GgPlot(w) => w.show(ui, context.view),
             Widget::GpsPlot(w) => w.show(ui, context.view),
             Widget::Dynamics(w) => w.show(ui, context.view),
-            Widget::Jitter(w) => w.show(ui, context.parser, context.view),
+            Widget::Jitter(w) => w.show(ui, context.database, context.view),
             Widget::Hil(w) => w.show(ui),
+        }
+    }
+
+    pub fn reset_database(&mut self) {
+        match self {
+            Widget::SendUi(widget) => widget.reset_database(),
+            Widget::Bootloader(widget) => widget.reset_database(),
+            Widget::Scope(widget) => widget.reset_database(),
+            Widget::Jitter(widget) => widget.reset_database(),
+            _ => {}
         }
     }
 

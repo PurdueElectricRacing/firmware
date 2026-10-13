@@ -1,0 +1,55 @@
+type = "time_series"
+title = "GPS Sensor vs Time"
+filename = "gps_vs_time.png"
+time_column = "real_time"
+width = 12
+height = 18
+forward_fill = true
+
+[[panels]]
+label = "Ground speed"
+
+[[panels.traces]]
+column = "VCAN.TORQUE_VECTOR.gps_speed_heading.gps_speed"
+label = "GPS ground speed"
+color = "tab:blue"
+
+[[panels]]
+label = "Heading"
+
+[[panels.traces]]
+column = "VCAN.TORQUE_VECTOR.gps_speed_heading.gps_heading"
+label = "GPS heading"
+color = "tab:orange"
+
+[[panels]]
+label = "East velocity"
+
+[[panels.traces]]
+column = "VCAN.TORQUE_VECTOR.gps_velocity.gps_vel_e"
+label = "East velocity"
+color = "tab:green"
+
+[[panels]]
+label = "North velocity"
+
+[[panels.traces]]
+column = "VCAN.TORQUE_VECTOR.gps_velocity.gps_vel_n"
+label = "North velocity"
+color = "tab:red"
+
+[[panels]]
+label = "Latitude"
+
+[[panels.traces]]
+column = "VCAN.TORQUE_VECTOR.gps_coordinates.latitude"
+label = "Latitude"
+color = "tab:purple"
+
+[[panels]]
+label = "Longitude"
+
+[[panels.traces]]
+column = "VCAN.TORQUE_VECTOR.gps_coordinates.longitude"
+label = "Longitude"
+color = "tab:brown"

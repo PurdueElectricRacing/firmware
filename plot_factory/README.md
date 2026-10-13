@@ -8,4 +8,7 @@ python3 plot_factory/run_plot_factory.py
 The default data folder is `plot_factory/data/`. You can select another folder with
 `python3 plot_factory/run_plot_factory.py /path/to/data`.
 
-The output folder is `plot_factory/output/`
+The output folder is `plot_factory/output/`.
+
+Plot configs are discovered recursively under `plot_factory/configs/`.
+The output folder structure mirrors the config folder structure.

@@ -7,6 +7,10 @@
   - changed-files:
       - any-glob-to-any-file: ['firmware/**']
 
+"plot factory":
+  - changed-files:
+      - any-glob-to-any-file: ['plot_factory/**']
+
 "daqapp":
   - changed-files:
       - any-glob-to-any-file: ['daq/daqapp/**', 'daq/Cargo.toml', 'daq/Cargo.lock']

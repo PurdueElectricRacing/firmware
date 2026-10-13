@@ -225,8 +225,14 @@ impl Database {
 
     /// Look up a message using both its bus ID and CAN identity.
     pub fn message(&self, bus_id: u8, identity: CanIdentity) -> Option<&Message> {
+        self.message_by_key(MessageKey { bus_id, identity })
+    }
+
+    /// Resolve a complete key from a decoded message or retained UI selection.
+    /// Returns `None` if this database lacks the key.
+    pub fn message_by_key(&self, key: MessageKey) -> Option<&Message> {
         self.message_index
-            .get(&MessageKey { bus_id, identity })
+            .get(&key)
             .map(|&(bus, message)| &self.buses[bus].messages[message])
     }
 

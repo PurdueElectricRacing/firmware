@@ -59,9 +59,9 @@ impl Database {
     ///
     /// Use this for downloaded or embedded artifacts. The database owns all
     /// metadata and retains no reference to `json`; [`Self::path`] returns `None`.
-    /// Only schema version 1.1 is accepted. Unknown fields, missing required
-    /// nullable fields, duplicate definitions, and invalid signal layouts are
-    /// rejected during loading rather than during encoding or decoding.
+    /// Only schema version 1.1 is accepted. Missing nullable metadata is treated
+    /// as null. Unknown fields, missing decoding fields, duplicate definitions,
+    /// and invalid signal layouts are rejected during loading.
     ///
     /// # Errors
     ///
@@ -70,7 +70,7 @@ impl Database {
     /// or [`crate::superdbc::error::ParseError::InvalidDefinition`] for invalid metadata or wire layouts.
     pub fn from_json(json: &str) -> Result<Self, superdbc::error::ParseError> {
         // Probe the version before interpreting fields under the 1.1 schema.
-        // Deserialize from the original text to retain order and duplicate keys.
+        // Deserialize from the original text to retain bus order.
         let probe: superdbc::model::VersionProbe = serde_json::from_str(json)?;
 
         if probe.versions.schema_version != superdbc::model::SCHEMA_VERSION {

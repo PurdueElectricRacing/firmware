@@ -37,9 +37,9 @@ def content_hash(buses: dict, schema_version: str = SCHEMA_VERSION) -> str:
 def _signal(signal: CompiledSignal, linked: LinkedCan) -> SignalExport:
     custom = linked.custom_types.get(signal.data_type)
     base = custom.base_type if custom else signal.data_type
-    choices = {str(choice.value): choice.name for choice in signal.choices or ()}
+    choices = {choice.value: choice.name for choice in signal.choices or ()}
     if not choices and base == "bool":
-        choices = {"0": "OFF", "1": "ON"}
+        choices = {0: "OFF", 1: "ON"}
     raw_type = "float32" if base == "float" else (
         "signed" if base.startswith("int") else "unsigned"
     )

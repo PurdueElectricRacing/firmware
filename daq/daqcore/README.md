@@ -27,5 +27,13 @@ when the schema appears or disappears. Unchanged generated files are not
 rewritten. Schema-present builds need write access to the checked-in fallback
 when it is stale.
 
-The generated types are private deserialization models. Runtime database types,
-CAN codecs, duplicate-key handling, and semantic validation remain handwritten.
+The generated types are private deserialization models. Rust treats missing
+nullable metadata (`limits`, `choices`, `nominal_period_ms`, and `display_format`)
+the same as explicit null. These defaults are declared in the Pydantic models;
+Rust generates directly from their exported schema without modifying it.
+
+Maps preserve bus order and use ordinary Serde deserialization, including
+replacing earlier values when a JSON map key repeats. Canpiler validates bus
+IDs, message definitions, and choices before exporting its dictionary-based
+JSON. Runtime database types, CAN codecs, and semantic validation remain
+handwritten.

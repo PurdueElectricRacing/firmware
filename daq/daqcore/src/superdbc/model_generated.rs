@@ -247,7 +247,7 @@ pub struct MessageExport {
     pub is_extended_id: bool,
     pub length_bytes: i64,
     pub message_name: MessageName,
-    #[serde(deserialize_with = "required_nullable")]
+    #[serde(deserialize_with = "::std::option::Option::deserialize")]
     pub nominal_period_ms: ::std::option::Option<::std::num::NonZeroU64>,
     pub priority: i64,
     pub receivers: ::std::vec::Vec<ReceiversItem>,
@@ -488,15 +488,15 @@ impl<'de> ::serde::Deserialize<'de> for ReceiversItem {
 pub struct SignalExport {
     pub bit_length: ::std::num::NonZeroU64,
     pub byte_order: ByteOrder,
-    #[serde(deserialize_with = "nullable_unique_map")]
+    #[serde(deserialize_with = "::std::option::Option::deserialize")]
     pub choices: ::std::option::Option<
         ::indexmap::IndexMap<::std::string::String, ::std::string::String>,
     >,
     pub data_type: DataType,
     pub description: ::std::string::String,
-    #[serde(skip_serializing_if = "::std::option::Option::is_none")]
+    #[serde(deserialize_with = "::std::option::Option::deserialize")]
     pub display_format: ::std::option::Option<SignalExportDisplayFormat>,
-    #[serde(deserialize_with = "required_nullable")]
+    #[serde(deserialize_with = "::std::option::Option::deserialize")]
     pub limits: ::std::option::Option<LimitsExport>,
     pub offset: f64,
     pub raw_type: RawType,
@@ -654,7 +654,6 @@ impl<'de> ::serde::Deserialize<'de> for SignalName {
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug)]
 #[serde(deny_unknown_fields)]
 pub struct SuperDbcExport {
-    #[serde(deserialize_with = "unique_map")]
     pub buses: ::indexmap::IndexMap<SuperDbcExportBusesKey, BusExport>,
     pub content_hash: ContentHash,
     pub versions: VersionsExport,

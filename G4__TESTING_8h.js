@@ -6,7 +6,7 @@ var G4__TESTING_8h =
     [ "CAN_enqueue_tx_FDCAN2", "G4__TESTING_8h.html#a0da956162efe3e0016f181cee58961e6", null ],
     [ "CAN_rx_dispatcher", "G4__TESTING_8h.html#ade3f5e1a8ff8333cbee9aa8d9409d19b", null ],
     [ "CAN_SEND_canpiler_test", "G4__TESTING_8h.html#a539b4afe5ea8cb23ea3a1b4628107887", null ],
-    [ "CAN_SEND_IZZE_IMU_config", "G4__TESTING_8h.html#a25649bfabc8f1ec33bae023f60bcaa70", null ],
+    [ "CAN_SEND_IZZE_IMU_config", "G4__TESTING_8h.html#a1dd169a014710a024d96f6504fa03fa8", null ],
     [ "FDCAN2_set_filters", "G4__TESTING_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81", null ],
     [ "can_data", "G4__TESTING_8h.html#a9cc3168cebc21b033138ae90b755e5a8", null ],
     [ "OFFSET_CANPILER_TEST_PRESSURE", "G4__TESTING_8h.html#aa2f439cdf15a38617a044f98ea8d70df", null ],

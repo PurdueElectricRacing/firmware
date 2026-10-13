@@ -1,5 +1,6 @@
 var NAVTREEINDEX24 =
 {
+"structamp__hour__t.html#ab59c086ac50bfdaeb1db9cb8d22392d0":[32,0,13,0],
 "structamp__t.html":[32,0,14],
 "structamp__t.html#a786d59be60f5076df3a0f12ff7faed14":[32,0,14,0],
 "structbangbang__t.html":[32,0,15],
@@ -248,6 +249,5 @@ var NAVTREEINDEX24 =
 "structcan__data__t.html#ad0bbc7e9946475c19f99bff39846a5b7":[32,0,57,2],
 "structcan__data__t.html#ad346a4d5534935c620bb9121876d3a9d":[32,0,57,58],
 "structcan__data__t.html#ad4199874a0e75c7bcf418abc294cd189":[32,0,57,75],
-"structcan__data__t.html#ad4c953d3738996829894546ba31ba9de":[32,0,57,67],
-"structcan__data__t.html#ad90503c172a7ed253212172364ca47b2":[32,0,57,24]
+"structcan__data__t.html#ad4c953d3738996829894546ba31ba9de":[32,0,57,67]
 };

@@ -291,6 +291,5 @@ var searchData=
   ['izze_5fimu_5fconfig_5flayout_5fhash_288',['IZZE_IMU_CONFIG_LAYOUT_HASH',['../TEST__CAN_8h.html#a7c9f5fe0dabf2ac2242364f7d7013a21',1,'TEST_CAN.h']]],
   ['izze_5fimu_5fconfig_5fmsg_5fid_289',['IZZE_IMU_CONFIG_MSG_ID',['../TEST__CAN_8h.html#a439565a11315fbe1f4f92d04d0a90088',1,'TEST_CAN.h']]],
   ['izze_5fimu_5fconfig_5fperiod_5fms_290',['IZZE_IMU_CONFIG_PERIOD_MS',['../TEST__CAN_8h.html#a781377247a7fd3bdcef2eaca5d60249f',1,'TEST_CAN.h']]],
-  ['izze_5fimu_5fconfig_5fstale_5ftimeout_5fms_291',['IZZE_IMU_CONFIG_STALE_TIMEOUT_MS',['../TEST__CAN_8h.html#aa4132c017f7536438e562ce86d20f7b1',1,'TEST_CAN.h']]],
-  ['izze_5fimu_5fprogramming_5fconstant_292',['IZZE_IMU_PROGRAMMING_CONSTANT',['../izze__imu_8h.html#a838dbb8e41bcf270aba226d360042204',1,'izze_imu.h']]]
+  ['izze_5fimu_5fconfig_5fstale_5ftimeout_5fms_291',['IZZE_IMU_CONFIG_STALE_TIMEOUT_MS',['../TEST__CAN_8h.html#aa4132c017f7536438e562ce86d20f7b1',1,'TEST_CAN.h']]]
 ];

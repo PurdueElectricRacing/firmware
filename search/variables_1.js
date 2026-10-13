@@ -27,7 +27,7 @@ var searchData=
   ['ac_5fspeed_5ftable_24',['AC_speed_table',['../structpVCU__struct.html#ac04ea2cf3abee6353af03d15552b3683',1,'pVCU_struct']]],
   ['accd_25',['accD',['../structNAV__RELPOSNED__data__t.html#a5ded9867ed3dfa0d3383aa604e009529',1,'NAV_RELPOSNED_data_t']]],
   ['acce_26',['accE',['../structNAV__RELPOSNED__data__t.html#a2cbab19089519f590577a5c5d6f9d653',1,'NAV_RELPOSNED_data_t']]],
-  ['accel_5fscale_27',['accel_scale',['../structIZZE__IMU__config__data__t.html#ab0a1dd5ca565a5333e54f6f8cd35569c',1,'IZZE_IMU_config_data_t']]],
+  ['accel_5fscale_27',['accel_scale',['../structIZZE__IMU__config__data__t.html#ad91ccb7a2bc8e9cb5dc68ad67dc46f4c',1,'IZZE_IMU_config_data_t']]],
   ['accel_5fx_28',['accel_x',['../structimu__data__t.html#ac369c312b21135a6f3d5e98b0ed6c555',1,'imu_data_t']]],
   ['accel_5fy_29',['accel_y',['../structimu__data__t.html#a9db4032132e022048cd0f7b20282f202',1,'imu_data_t']]],
   ['accel_5fz_30',['accel_z',['../structimu__data__t.html#a26bcef494a39b7d457dcca0bd367ea43',1,'imu_data_t']]],

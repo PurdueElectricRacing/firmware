@@ -67,7 +67,7 @@ var searchData=
   ['gs_5fraw_64',['GS_RAW',['../structxVCU__struct.html#a37baeef44404a6b4711805ce6ccfd121',1,'xVCU_struct']]],
   ['gs_5frg_5fderating_5ffull_65',['GS_RG_derating_full',['../structpVCU__struct.html#af1c90f23434645f0fdac01e58d96a196',1,'pVCU_struct']]],
   ['gs_5frg_5fderating_5fzero_66',['GS_RG_derating_zero',['../structpVCU__struct.html#acc8264e8082f65a07a24e1f7810c6f0d',1,'pVCU_struct']]],
-  ['gyro_5fscale_67',['gyro_scale',['../structIZZE__IMU__config__data__t.html#ad943b2513c1bccecdfbb3c88ddad8e75',1,'IZZE_IMU_config_data_t']]],
+  ['gyro_5fscale_67',['gyro_scale',['../structIZZE__IMU__config__data__t.html#a6636b919d72cbd58ee4f2e273b27eff6',1,'IZZE_IMU_config_data_t']]],
   ['gyro_5fx_68',['gyro_x',['../structimu__data__t.html#a2206c9cfef818d53d18c4f9c5d4754b2',1,'imu_data_t']]],
   ['gyro_5fy_69',['gyro_y',['../structimu__data__t.html#a915d1e16fdfad2b8e8230047243563c9',1,'imu_data_t']]],
   ['gyro_5fz_70',['gyro_z',['../structimu__data__t.html#ae721c469e16c6c4cd0b7e8d0e266bcee',1,'imu_data_t']]]

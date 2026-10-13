@@ -141,8 +141,8 @@ Functions</h2></td></tr>
 <tr class="separator:ade3f5e1a8ff8333cbee9aa8d9409d19b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7648a5b3e6b1d5a97d23a27cfdecde87" id="r_a7648a5b3e6b1d5a97d23a27cfdecde87"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7648a5b3e6b1d5a97d23a27cfdecde87">CAN_data_init</a> ()</td></tr>
 <tr class="separator:a7648a5b3e6b1d5a97d23a27cfdecde87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25649bfabc8f1ec33bae023f60bcaa70" id="r_a25649bfabc8f1ec33bae023f60bcaa70"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25649bfabc8f1ec33bae023f60bcaa70">CAN_SEND_IZZE_IMU_config</a> (uint16_t value_programming_constant, uint16_t value_NEW_CAN_BASE_ID, uint8_t value_gyro_scale, uint8_t value_accel_scale, uint8_t value_output_data_rate, uint8_t value_bit_rate)</td></tr>
-<tr class="separator:a25649bfabc8f1ec33bae023f60bcaa70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dd169a014710a024d96f6504fa03fa8" id="r_a1dd169a014710a024d96f6504fa03fa8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1dd169a014710a024d96f6504fa03fa8">CAN_SEND_IZZE_IMU_config</a> (uint16_t value_programming_constant, uint16_t value_NEW_CAN_BASE_ID, <a class="el" href="can__types_8h.html#a0fa2eb21105888473f77c19fcc765f33">izze_gyro_scale_t</a> value_gyro_scale, <a class="el" href="can__types_8h.html#af24ee168f1f45392a7283176708bf46f">izze_accel_scale_t</a> value_accel_scale, <a class="el" href="can__types_8h.html#ad285c396350863ac8dcac9fe63d06c0d">izze_output_data_rate_t</a> value_output_data_rate, <a class="el" href="can__types_8h.html#ac53123818bf3c22481006fdf5ae0ceaf">izze_bit_rate_t</a> value_bit_rate)</td></tr>
+<tr class="separator:a1dd169a014710a024d96f6504fa03fa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a539b4afe5ea8cb23ea3a1b4628107887" id="r_a539b4afe5ea8cb23ea3a1b4628107887"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a539b4afe5ea8cb23ea3a1b4628107887">CAN_SEND_canpiler_test</a> (uint8_t value_temperature, int16_t value_current, uint16_t value_voltage, uint8_t value_pressure, uint8_t value_status)</td></tr>
 <tr class="separator:a539b4afe5ea8cb23ea3a1b4628107887"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5353dcc79f7d3b1a2d1ef18933d5e81" id="r_ae5353dcc79f7d3b1a2d1ef18933d5e81"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5353dcc79f7d3b1a2d1ef18933d5e81">FDCAN2_set_filters</a> ()</td></tr>
@@ -320,8 +320,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a25649bfabc8f1ec33bae023f60bcaa70" name="a25649bfabc8f1ec33bae023f60bcaa70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25649bfabc8f1ec33bae023f60bcaa70">&#9670;&#160;</a></span>CAN_SEND_IZZE_IMU_config()</h2>
+<a id="a1dd169a014710a024d96f6504fa03fa8" name="a1dd169a014710a024d96f6504fa03fa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dd169a014710a024d96f6504fa03fa8">&#9670;&#160;</a></span>CAN_SEND_IZZE_IMU_config()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -342,22 +342,22 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>value_gyro_scale</em></span>, </td>
+          <td class="paramtype"><a class="el" href="can__types_8h.html#a0fa2eb21105888473f77c19fcc765f33">izze_gyro_scale_t</a></td>          <td class="paramname"><span class="paramname"><em>value_gyro_scale</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>value_accel_scale</em></span>, </td>
+          <td class="paramtype"><a class="el" href="can__types_8h.html#af24ee168f1f45392a7283176708bf46f">izze_accel_scale_t</a></td>          <td class="paramname"><span class="paramname"><em>value_accel_scale</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>value_output_data_rate</em></span>, </td>
+          <td class="paramtype"><a class="el" href="can__types_8h.html#ad285c396350863ac8dcac9fe63d06c0d">izze_output_data_rate_t</a></td>          <td class="paramname"><span class="paramname"><em>value_output_data_rate</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>value_bit_rate</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="can__types_8h.html#ac53123818bf3c22481006fdf5ae0ceaf">izze_bit_rate_t</a></td>          <td class="paramname"><span class="paramname"><em>value_bit_rate</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -369,7 +369,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="G4__TESTING_8h_a25649bfabc8f1ec33bae023f60bcaa70_cgraph.svg" width="620" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="G4__TESTING_8h_a1dd169a014710a024d96f6504fa03fa8_cgraph.svg" width="620" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>

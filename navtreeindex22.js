@@ -1,5 +1,6 @@
 var NAVTREEINDEX22 =
 {
+"structINVB__ERR__2__data__t.html#afe67a3ba363abcb5fa10b04d003929e8":[32,0,124,3],
 "structINVB__INFO__data__t.html":[32,0,125],
 "structINVB__INFO__data__t.html#a031c7b18e98fe55e074456d870afa0fd":[32,0,125,7],
 "structINVB__INFO__data__t.html#a113cae7f32676bf13ce32af76be26e59":[32,0,125,6],
@@ -141,13 +142,13 @@ var NAVTREEINDEX22 =
 "structINVD__TEMPS__data__t.html#ae716e44f2a2bf4a16033b62707388e67":[32,0,144,1],
 "structIZZE__IMU__config__data__t.html":[32,0,147],
 "structIZZE__IMU__config__data__t.html#a20934113c08136fd343d480cf6b5be71":[32,0,147,5],
-"structIZZE__IMU__config__data__t.html#a3a73b4a509c974fb7355d47811154150":[32,0,147,6],
 "structIZZE__IMU__config__data__t.html#a617e4c9997a77892e4dee521380419af":[32,0,147,4],
-"structIZZE__IMU__config__data__t.html#a85ba9472b1fb1c3fab0ddcbfe042f226":[32,0,147,1],
+"structIZZE__IMU__config__data__t.html#a6636b919d72cbd58ee4f2e273b27eff6":[32,0,147,2],
+"structIZZE__IMU__config__data__t.html#a907519cf552e8b4c7198a3fe4eb2353e":[32,0,147,1],
 "structIZZE__IMU__config__data__t.html#a9ea421eaf891c14b3af283c6910f9060":[32,0,147,7],
 "structIZZE__IMU__config__data__t.html#aace2741fd801cca2cb8671c56076fb7c":[32,0,147,3],
-"structIZZE__IMU__config__data__t.html#ab0a1dd5ca565a5333e54f6f8cd35569c":[32,0,147,0],
-"structIZZE__IMU__config__data__t.html#ad943b2513c1bccecdfbb3c88ddad8e75":[32,0,147,2],
+"structIZZE__IMU__config__data__t.html#ac1b4d1dfccfddc1b4d4e3fed3f8b4319":[32,0,147,6],
+"structIZZE__IMU__config__data__t.html#ad91ccb7a2bc8e9cb5dc68ad67dc46f4c":[32,0,147,0],
 "structIZZE__acceleration__data__t.html":[32,0,145],
 "structIZZE__acceleration__data__t.html#a9438f2817b7862a43479ffd04e3ceef0":[32,0,145,2],
 "structIZZE__acceleration__data__t.html#a9dce52a41c23c3b6d78a4d6ac0657c31":[32,0,145,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX22 =
 "structPHAL__DMA__Params__t.html":[32,0,213],
 "structPHAL__DMA__Params__t.html#a2162c398d2ecac8318ff5027831b695c":[32,0,213,2],
 "structPHAL__DMA__Params__t.html#a21a76525476e15cc3df0e6c55d8f650c":[32,0,213,5],
-"structPHAL__DMA__Params__t.html#a3a75661f82071fbd4b305ca724aba5ee":[32,0,213,4],
-"structPHAL__DMA__Params__t.html#ac3129b7dae2acd792877d4470c2dd742":[32,0,213,0]
+"structPHAL__DMA__Params__t.html#a3a75661f82071fbd4b305ca724aba5ee":[32,0,213,4]
 };

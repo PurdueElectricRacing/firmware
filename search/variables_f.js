@@ -31,7 +31,7 @@ var searchData=
   ['out_5f5v_28',['out_5v',['../structv__rails__data__t.html#a2886cf35111dd06912303a6ea8fec792',1,'v_rails_data_t']]],
   ['out_5f5v_5fmv_29',['out_5v_mv',['../structpdu__rail__voltage__mv__t.html#a665a842e96fbbf91ba4cce59a26ca702',1,'pdu_rail_voltage_mv_t']]],
   ['output_30',['output',['../structPHAL__GPIO__InitConfig__t.html#af5b855bab912b3ac6501c77633f8a264',1,'PHAL_GPIO_InitConfig_t']]],
-  ['output_5fdata_5frate_31',['output_data_rate',['../structIZZE__IMU__config__data__t.html#a3a73b4a509c974fb7355d47811154150',1,'IZZE_IMU_config_data_t']]],
+  ['output_5fdata_5frate_31',['output_data_rate',['../structIZZE__IMU__config__data__t.html#ac1b4d1dfccfddc1b4d4e3fed3f8b4319',1,'IZZE_IMU_config_data_t']]],
   ['output_5frev_5fper_5fmotor_5frev_32',['OUTPUT_REV_PER_MOTOR_REV',['../torque__controller_8c.html#aadaa167f92c7d7e6d0a3c341d93b0220',1,'torque_controller.c']]],
   ['ov_5finv_33',['OV_INV',['../structxVCU__struct.html#a9e5c235b578340551db3344b31e0ba02',1,'xVCU_struct::OV_INV'],['../structyVCU__struct.html#a20c59ecf472ddd33b700a2ad73d93afe',1,'yVCU_struct::OV_INV']]],
   ['ov_5finv_5fderating_5ffull_5ft_34',['OV_INV_derating_full_T',['../structpVCU__struct.html#a31dbe2e7f85774fd2ecdb4a38d5423df',1,'pVCU_struct']]],

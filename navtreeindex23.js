@@ -1,5 +1,6 @@
 var NAVTREEINDEX23 =
 {
+"structPHAL__DMA__Params__t.html#ac3129b7dae2acd792877d4470c2dd742":[32,0,213,0],
 "structPHAL__DMA__Params__t.html#af2d6b0030518f39a88e0e779e62e1a38":[32,0,213,1],
 "structPHAL__DMA__Params__t.html#af83c6c23d26741f2f8f57e29dbe96b79":[32,0,213,3],
 "structPHAL__DMA__Wiring__t.html":[32,0,214],
@@ -248,6 +249,5 @@ var NAVTREEINDEX23 =
 "structadc1__dma__buffer__t.html":[32,0,7],
 "structadc1__dma__buffer__t.html#a56c855217254a640ee5e06655d912aff":[32,0,7,1],
 "structadc1__dma__buffer__t.html#a785c6883cfac53c137c26a3da346c488":[32,0,7,0],
-"structamp__hour__t.html":[32,0,13],
-"structamp__hour__t.html#ab59c086ac50bfdaeb1db9cb8d22392d0":[32,0,13,0]
+"structamp__hour__t.html":[32,0,13]
 };

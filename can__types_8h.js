@@ -81,6 +81,42 @@ var can__types_8h =
       [ "FAULT_ID_GPS_WEAK_FIX", "can__types_8h.html#aaeae5c1fa29868d0578987e428ecfb63af7804985bf80515189bc8d8af1aca4a1", null ],
       [ "FAULT_ID_GPS_INVALID_UTC", "can__types_8h.html#aaeae5c1fa29868d0578987e428ecfb63a355737722dc81c11da9e999650875628", null ]
     ] ],
+    [ "izze_accel_scale_t", "can__types_8h.html#af24ee168f1f45392a7283176708bf46f", [
+      [ "IZZE_ACCEL_SCALE_RESERVED", "can__types_8h.html#af24ee168f1f45392a7283176708bf46fa26d8087c5492e300a3d607097fb11220", null ],
+      [ "IZZE_ACCEL_SCALE_2G", "can__types_8h.html#af24ee168f1f45392a7283176708bf46fa55957ac257468498d5ec7f9b3c869cd6", null ],
+      [ "IZZE_ACCEL_SCALE_4G", "can__types_8h.html#af24ee168f1f45392a7283176708bf46faffec2e0ca44125230cc38597242175ed", null ],
+      [ "IZZE_ACCEL_SCALE_8G", "can__types_8h.html#af24ee168f1f45392a7283176708bf46fa3b0bb6ecc6ee257bdc2a6de19c9da269", null ],
+      [ "IZZE_ACCEL_SCALE_16G", "can__types_8h.html#af24ee168f1f45392a7283176708bf46fafa2809a927df45b63c34b46b38964c3e", null ]
+    ] ],
+    [ "izze_bit_rate_t", "can__types_8h.html#ac53123818bf3c22481006fdf5ae0ceaf", [
+      [ "IZZE_BIT_RATE_RESERVED", "can__types_8h.html#ac53123818bf3c22481006fdf5ae0ceafa177adb266c219bb86db7793e10af6183", null ],
+      [ "IZZE_BIT_RATE_1MBPS", "can__types_8h.html#ac53123818bf3c22481006fdf5ae0ceafa30118b1b013faa92f0356681b35e6ffe", null ],
+      [ "IZZE_BIT_RATE_500KBPS", "can__types_8h.html#ac53123818bf3c22481006fdf5ae0ceafa31f1b85bbb0e947a3f534690c185c60d", null ],
+      [ "IZZE_BIT_RATE_250KBPS", "can__types_8h.html#ac53123818bf3c22481006fdf5ae0ceafa37ffd5a6bfcf93ab24aef4a556033fcd", null ],
+      [ "IZZE_BIT_RATE_125KBPS", "can__types_8h.html#ac53123818bf3c22481006fdf5ae0ceafa4e2be6e0e3e75ddfa7a12f5f0efcae87", null ]
+    ] ],
+    [ "izze_gyro_scale_t", "can__types_8h.html#a0fa2eb21105888473f77c19fcc765f33", [
+      [ "IZZE_GYRO_SCALE_RESERVED", "can__types_8h.html#a0fa2eb21105888473f77c19fcc765f33aa9a52339c5d089c3c346a3962d8bce94", null ],
+      [ "IZZE_GYRO_SCALE_125DPS", "can__types_8h.html#a0fa2eb21105888473f77c19fcc765f33af831cb2809b30db3a2b2f786e513ab6d", null ],
+      [ "IZZE_GYRO_SCALE_250DPS", "can__types_8h.html#a0fa2eb21105888473f77c19fcc765f33a324d35161c577502f2eb8dd90459f6d6", null ],
+      [ "IZZE_GYRO_SCALE_500DPS", "can__types_8h.html#a0fa2eb21105888473f77c19fcc765f33a1a4fa1f92905afd6ef8949166a3c58c6", null ],
+      [ "IZZE_GYRO_SCALE_1000DPS", "can__types_8h.html#a0fa2eb21105888473f77c19fcc765f33a222c841fd0d32b600404321fed6294be", null ],
+      [ "IZZE_GYRO_SCALE_2000DPS", "can__types_8h.html#a0fa2eb21105888473f77c19fcc765f33a9aa79509e88b5370c25b2cbe8be01414", null ],
+      [ "IZZE_GYRO_SCALE_4000DPS", "can__types_8h.html#a0fa2eb21105888473f77c19fcc765f33a06a3870bc90ed6c01a6546f6b6cda7b5", null ]
+    ] ],
+    [ "izze_output_data_rate_t", "can__types_8h.html#ad285c396350863ac8dcac9fe63d06c0d", [
+      [ "IZZE_OUTPUT_DATA_RATE_RESERVED", "can__types_8h.html#ad285c396350863ac8dcac9fe63d06c0da39bf406ed1d4d1ad1224bf37e4ea0925", null ],
+      [ "IZZE_OUTPUT_DATA_RATE_12HZ", "can__types_8h.html#ad285c396350863ac8dcac9fe63d06c0da9267a8970014dce20143975f2031a70f", null ],
+      [ "IZZE_OUTPUT_DATA_RATE_26HZ", "can__types_8h.html#ad285c396350863ac8dcac9fe63d06c0da6057c1eae079805b256ba9a981152863", null ],
+      [ "IZZE_OUTPUT_DATA_RATE_52HZ", "can__types_8h.html#ad285c396350863ac8dcac9fe63d06c0da0c314248f81c7e89f2db301a0d59c399", null ],
+      [ "IZZE_OUTPUT_DATA_RATE_104HZ", "can__types_8h.html#ad285c396350863ac8dcac9fe63d06c0da60923a4b79e6ee1fa7494b8d3c07f742", null ],
+      [ "IZZE_OUTPUT_DATA_RATE_208HZ", "can__types_8h.html#ad285c396350863ac8dcac9fe63d06c0da5c031e5e1e61652be86774a4554b7a3b", null ],
+      [ "IZZE_OUTPUT_DATA_RATE_416HZ", "can__types_8h.html#ad285c396350863ac8dcac9fe63d06c0da0149d1ac575ded57a3412f41e09ce731", null ],
+      [ "IZZE_OUTPUT_DATA_RATE_833HZ", "can__types_8h.html#ad285c396350863ac8dcac9fe63d06c0dab48d6f00346a516c7390d7238d064ad7", null ],
+      [ "IZZE_OUTPUT_DATA_RATE_1667HZ", "can__types_8h.html#ad285c396350863ac8dcac9fe63d06c0da51e57bb52a4bd3fef72957f0157697e4", null ],
+      [ "IZZE_OUTPUT_DATA_RATE_3333HZ", "can__types_8h.html#ad285c396350863ac8dcac9fe63d06c0da700dfbcf98504e94a0d0457dd0022173", null ],
+      [ "IZZE_OUTPUT_DATA_RATE_6667HZ", "can__types_8h.html#ad285c396350863ac8dcac9fe63d06c0da48a1e906a44cb0aa0a95638bf12d0c58", null ]
+    ] ],
     [ "vcu_mode_t", "can__types_8h.html#a82019ed8603553c37b4aac2361f53a1a", [
       [ "VCU_MODE_ACCEL", "can__types_8h.html#a82019ed8603553c37b4aac2361f53a1aae2cceb011e18c2ffc2a0445d8e24ef38", null ],
       [ "VCU_MODE_SKIDPAD", "can__types_8h.html#a82019ed8603553c37b4aac2361f53a1aa692b197a3f6ee751e38725bcf3a84272", null ],

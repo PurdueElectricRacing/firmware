@@ -165,15 +165,8 @@ var searchData=
   ['gs_5fraw_162',['GS_RAW',['../structxVCU__struct.html#a37baeef44404a6b4711805ce6ccfd121',1,'xVCU_struct']]],
   ['gs_5frg_5fderating_5ffull_163',['GS_RG_derating_full',['../structpVCU__struct.html#af1c90f23434645f0fdac01e58d96a196',1,'pVCU_struct']]],
   ['gs_5frg_5fderating_5fzero_164',['GS_RG_derating_zero',['../structpVCU__struct.html#acc8264e8082f65a07a24e1f7810c6f0d',1,'pVCU_struct']]],
-  ['gyro_5fscale_165',['gyro_scale',['../structIZZE__IMU__config__data__t.html#ad943b2513c1bccecdfbb3c88ddad8e75',1,'IZZE_IMU_config_data_t']]],
-  ['gyro_5fscale_5f1000dps_166',['GYRO_SCALE_1000DPS',['../izze__imu_8h.html#a40203eb9892b3f173a1180e6d30401ffad921df7234a5e5f1a674a5dd8b25015c',1,'izze_imu.h']]],
-  ['gyro_5fscale_5f125dps_167',['GYRO_SCALE_125DPS',['../izze__imu_8h.html#a40203eb9892b3f173a1180e6d30401ffaab9fb0bbe3b4c91277fa9669247c8542',1,'izze_imu.h']]],
-  ['gyro_5fscale_5f2000dps_168',['GYRO_SCALE_2000DPS',['../izze__imu_8h.html#a40203eb9892b3f173a1180e6d30401ffa273d59d1ea152eed94f714fdaee51987',1,'izze_imu.h']]],
-  ['gyro_5fscale_5f250dps_169',['GYRO_SCALE_250DPS',['../izze__imu_8h.html#a40203eb9892b3f173a1180e6d30401ffab8210ec1918dff0f9cb599efe953b80f',1,'izze_imu.h']]],
-  ['gyro_5fscale_5f4000dps_170',['GYRO_SCALE_4000DPS',['../izze__imu_8h.html#a40203eb9892b3f173a1180e6d30401ffa49c16f67b7a71e16f8909d0b3ca94554',1,'izze_imu.h']]],
-  ['gyro_5fscale_5f500dps_171',['GYRO_SCALE_500DPS',['../izze__imu_8h.html#a40203eb9892b3f173a1180e6d30401ffa5e0787a0969a7af6f8a08bf114fc496f',1,'izze_imu.h']]],
-  ['gyro_5fscale_5ft_172',['gyro_scale_t',['../izze__imu_8h.html#a40203eb9892b3f173a1180e6d30401ff',1,'izze_imu.h']]],
-  ['gyro_5fx_173',['gyro_x',['../structimu__data__t.html#a2206c9cfef818d53d18c4f9c5d4754b2',1,'imu_data_t']]],
-  ['gyro_5fy_174',['gyro_y',['../structimu__data__t.html#a915d1e16fdfad2b8e8230047243563c9',1,'imu_data_t']]],
-  ['gyro_5fz_175',['gyro_z',['../structimu__data__t.html#ae721c469e16c6c4cd0b7e8d0e266bcee',1,'imu_data_t']]]
+  ['gyro_5fscale_165',['gyro_scale',['../structIZZE__IMU__config__data__t.html#a6636b919d72cbd58ee4f2e273b27eff6',1,'IZZE_IMU_config_data_t']]],
+  ['gyro_5fx_166',['gyro_x',['../structimu__data__t.html#a2206c9cfef818d53d18c4f9c5d4754b2',1,'imu_data_t']]],
+  ['gyro_5fy_167',['gyro_y',['../structimu__data__t.html#a915d1e16fdfad2b8e8230047243563c9',1,'imu_data_t']]],
+  ['gyro_5fz_168',['gyro_z',['../structimu__data__t.html#ae721c469e16c6c4cd0b7e8d0e266bcee',1,'imu_data_t']]]
 ];

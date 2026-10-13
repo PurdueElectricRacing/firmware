@@ -114,7 +114,7 @@ var searchData=
   ['can_5fsend_5finvc_5fset_111',['CAN_SEND_INVC_SET',['../MAIN__MODULE_8h.html#a7f47b2d84430f9866fa3ff468dc9233d',1,'MAIN_MODULE.h']]],
   ['can_5fsend_5finvd_5fdiagnostics_112',['CAN_SEND_invd_diagnostics',['../MAIN__MODULE_8h.html#aabf0685d6933f10e58d9171d134b1885',1,'MAIN_MODULE.h']]],
   ['can_5fsend_5finvd_5fset_113',['CAN_SEND_INVD_SET',['../MAIN__MODULE_8h.html#a93d1225ac75f03cc7e2c62ad349e043f',1,'MAIN_MODULE.h']]],
-  ['can_5fsend_5fizze_5fimu_5fconfig_114',['CAN_SEND_IZZE_IMU_config',['../G4__TESTING_8h.html#a25649bfabc8f1ec33bae023f60bcaa70',1,'G4_TESTING.h']]],
+  ['can_5fsend_5fizze_5fimu_5fconfig_114',['CAN_SEND_IZZE_IMU_config',['../G4__TESTING_8h.html#a1dd169a014710a024d96f6504fa03fa8',1,'G4_TESTING.h']]],
   ['can_5fsend_5flws_5fconfig_115',['CAN_SEND_LWS_Config',['../DASHBOARD_8h.html#a32ac3a8cd82581d8bf18aecc96b1ba4d',1,'DASHBOARD.h']]],
   ['can_5fsend_5fmain_5fhb_116',['CAN_SEND_main_hb',['../MAIN__MODULE_8h.html#aba339c1c7f4d7557e12e2c5830314490',1,'MAIN_MODULE.h']]],
   ['can_5fsend_5fmain_5fhb_5famk_117',['CAN_SEND_main_hb_amk',['../MAIN__MODULE_8h.html#a63eff556f2a4943ff5fb61175f5e2df7',1,'MAIN_MODULE.h']]],

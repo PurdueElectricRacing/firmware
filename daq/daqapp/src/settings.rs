@@ -3,7 +3,7 @@ use crate::ui::theme;
 pub const SETTINGS_PATH: &str = "settings.json";
 pub const DEFAULT_LOG_FOLDER: &str = "logs";
 
-pub fn dbc_dir() -> Option<std::path::PathBuf> {
+pub fn database_dir() -> Option<std::path::PathBuf> {
     let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../dbc");
     path.is_dir().then_some(path)
 }
@@ -14,7 +14,8 @@ const DEFAULT_CAN_SPEED: daqcore::connection::CanBusSpeed =
 
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct Settings {
-    pub dbc_path: Option<std::path::PathBuf>,
+    pub superdbc_path: Option<std::path::PathBuf>,
+    pub bus_id: Option<u8>,
     pub selected_source: Option<daqcore::connection::ConnectionSource>,
     pub selected_speed: daqcore::connection::CanBusSpeed,
     pub udp_port: u16,
@@ -27,7 +28,8 @@ pub struct Settings {
 impl Default for Settings {
     fn default() -> Self {
         Self {
-            dbc_path: None,
+            superdbc_path: None,
+            bus_id: None,
             selected_source: None,
             selected_speed: DEFAULT_CAN_SPEED,
             udp_port: DEFAULT_UDP_PORT,

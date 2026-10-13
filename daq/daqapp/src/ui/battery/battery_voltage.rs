@@ -309,20 +309,18 @@ fn cell_bar(
 
 fn cell_sample(frame: &daqcore::ParsedFrame) -> Option<(usize, usize, CellVoltage)> {
     let decoded = frame.decoded.as_ref()?;
-    if !matches!(
-        decoded.name.as_str(),
-        "cell_telemetry" | "cell_telemetry_ccan"
-    ) {
+    if !matches!(decoded.name(), "cell_telemetry" | "cell_telemetry_ccan") {
         return None;
     }
 
-    let module = decoded.signals.get("module_num")?.value.physical.round() as usize;
-    let cell = decoded.signals.get("cell_num")?.value.physical.round() as usize;
-    let voltage = decoded.signals.get("voltage")?.value.physical;
-    let balance = &decoded.signals.get("balance_status")?.value;
-    let balancing = balance
-        .raw
-        .map_or(balance.physical > 0.5, |value| value != 0);
+    let module = decoded.signal("module_num")?.physical().round() as usize;
+    let cell = decoded.signal("cell_num")?.physical().round() as usize;
+    let voltage = decoded.signal("voltage")?.physical();
+    let balance = decoded.signal("balance_status")?;
+    let balancing = match balance.raw() {
+        daqcore::superdbc::message::RawValue::Integer(value) => value != 0,
+        daqcore::superdbc::message::RawValue::Float32(_) => balance.physical() > 0.5,
+    };
     let value = CellVoltage { voltage, balancing };
 
     Some((module, cell, value))
@@ -363,10 +361,10 @@ fn charging_voltages(
             continue;
         };
 
-        match decoded.name.as_str() {
+        match decoded.name() {
             "pack_bms" | "pack_bms_ccan" => {
-                for (_, signal) in &decoded.signals {
-                    let field = match signal.name.as_str() {
+                for (name, signal) in decoded.iter() {
+                    let field = match name {
                         "pack_voltage" => &mut values.get_or_insert_default().pack_voltage,
                         "min_cell_voltage" => &mut values.get_or_insert_default().min_cell_voltage,
                         "max_cell_voltage" => &mut values.get_or_insert_default().max_cell_voltage,
@@ -374,16 +372,16 @@ fn charging_voltages(
                     };
 
                     if field.is_nan() {
-                        *field = signal.value.physical;
+                        *field = signal.physical();
                     }
                 }
                 last_update = last_update.max(Some(frame.timestamp));
             }
             "pack_analog" | "pack_analog_ccan" => {
-                if let Some(signal) = decoded.signals.get("pack_current") {
+                if let Some(signal) = decoded.signal("pack_current") {
                     let field = &mut values.get_or_insert_default().pack_current;
                     if field.is_nan() {
-                        *field = signal.value.physical;
+                        *field = signal.physical();
                     }
                 }
                 last_update = last_update.max(Some(frame.timestamp));

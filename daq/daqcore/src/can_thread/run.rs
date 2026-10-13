@@ -92,7 +92,6 @@ fn run_with_connection(
                     hil_finished = false;
                     load = BusLoadTracker::default();
                     load_last = now;
-                    connection.database_changed(now);
                     if let Some(logger) = &mut logger {
                         logger.flush();
                     }

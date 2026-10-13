@@ -227,7 +227,7 @@
                         {
                             "signal_name": "imd_status",
                             "data_type": "bool",
-                            "description": "digital IMD status"
+                            "description": "raw IMD status pin, high = OK, low = faulted"
                         }
                     ],
                     "priority": 4,

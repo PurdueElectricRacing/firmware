@@ -14,6 +14,14 @@
 
 static uint8_t g_imd_duty_pct = 0;
 
+// for noise resilience
+static uint8_t imd_median3(uint8_t a, uint8_t b, uint8_t c) {
+    if (a > b) { uint8_t t = a; a = b; b = t; }
+    if (b > c) { uint8_t t = b; b = c; c = t; }
+    if (a > b) { uint8_t t = a; a = b; b = t; }
+    return b;
+}
+
 static bool imd_freq_near(uint8_t freq_hz, uint8_t nominal_hz) {
     uint8_t low  = (nominal_hz > IMD_FREQ_TOLERANCE_HZ) ? (nominal_hz - IMD_FREQ_TOLERANCE_HZ) : 0;
     uint8_t high = nominal_hz + IMD_FREQ_TOLERANCE_HZ;
@@ -65,7 +73,10 @@ void imd_init(void) {
     tim->CR1 = TIM_CR1_CEN;
 }
 
-// runs once a second: read the timer, figure out IMD state, send it on CAN
+// TIM1 captures the PWM period (CCR1) and high time (CCR2) on every
+// cycle, so the most recent cycle is always sitting in the capture registers. 
+// imd_periodic() samples those latched values once a
+// second.
 void imd_periodic(void) {
     TIM_TypeDef *tim = IMD_PWM_LS_TIM;
 
@@ -86,7 +97,14 @@ void imd_periodic(void) {
         g_imd_duty_pct = 0;
     }
 
-    imd_state_t state = imd_state_from_measurement(valid, freq_hz);
+    // Track the last 3 samples so a noisy cycle doesn't change the reported state.
+    static uint8_t freq_history[3] = {0};
+    freq_history[2] = freq_history[1];
+    freq_history[1] = freq_history[0];
+    freq_history[0] = valid ? freq_hz : 0U;
+    uint8_t filtered_hz = imd_median3(freq_history[0], freq_history[1], freq_history[2]);
+
+    imd_state_t state = imd_state_from_measurement(filtered_hz != 0U, filtered_hz);
     bool imd_status = PHAL_GPIO_read(IMD_STATUS_PORT, IMD_STATUS_PIN);
 
     CAN_SEND_imd_state(state, imd_status);

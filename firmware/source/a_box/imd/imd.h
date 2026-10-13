@@ -8,7 +8,6 @@
 #ifndef IMD_H
 #define IMD_H
 
-#include <stdbool.h>
 #include <stdint.h>
 
 static constexpr uint32_t IMD_PERIOD_MS = 1000;

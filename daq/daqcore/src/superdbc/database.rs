@@ -20,7 +20,7 @@ use crate::{
 /// Load a replacement database when switching artifacts at runtime. Only schema
 /// version 1.1 is supported; decoded results own their data and remain usable
 /// after the database that produced them is dropped.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Database {
     path: Option<PathBuf>,
     content_hash: String,
@@ -333,7 +333,7 @@ impl Database {
 ///
 /// Use its lookup and codec methods when the bus is already known, so callers
 /// only need to supply the CAN identity rather than repeating the bus ID.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Bus {
     name: String,
     bus_id: u8,

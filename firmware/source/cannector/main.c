@@ -58,16 +58,16 @@ void main() {
     if (!PHAL_GPIO_init(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
-    
+
+    RTOS_INIT_QUEUE(can_queue);
+
     PHAL_FDCAN_init(FDCAN1, VCAN_BAUD_RATE);
     PHAL_FDCAN_init(FDCAN2, MCAN_BAUD_RATE);
     PHAL_FDCAN_init(FDCAN3, SCAN_BAUD_RATE);
 
-    if (!PHAL_USB_init()) {
+    if (!PHAL_USB_init() || !PHAL_USB_connect()) {
         HardFault_Handler();
     }
-
-    RTOS_INIT_QUEUE(can_queue);
 
     NVIC_SetPriority(FDCAN1_IT0_IRQn, 5);
     NVIC_SetPriority(FDCAN2_IT0_IRQn, 5);

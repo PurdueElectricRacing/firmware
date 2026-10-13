@@ -59,9 +59,6 @@ impl Database {
     ///
     /// Use this for downloaded or embedded artifacts. The database owns all
     /// metadata and retains no reference to `json`; [`Self::path`] returns `None`.
-    /// Only schema version 1.1 is accepted. Missing nullable metadata is treated
-    /// as null. Unknown fields, missing decoding fields, duplicate definitions,
-    /// and invalid signal layouts are rejected during loading.
     ///
     /// # Errors
     ///

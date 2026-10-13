@@ -28,6 +28,10 @@ jobs:
       - name: Generate firmware artifacts and SuperDBC schema
         run: python3 generators/generate.py
 
+      - name: Regenerate SuperDBC models
+        working-directory: daq
+        run: cargo check -p daqcore --locked
+
       - name: Verify checked-in models are current
         run: git diff --exit-code -- daq/daqcore/src/superdbc/model_generated.rs
 

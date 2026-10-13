@@ -1,4 +1,4 @@
-//! Private generated wire models. Missing nullable metadata is treated as null.
+//! Private generated wire models. Includes the generated schema/deserialization models.
 
 include!(concat!(env!("OUT_DIR"), "/superdbc_models.rs"));
 

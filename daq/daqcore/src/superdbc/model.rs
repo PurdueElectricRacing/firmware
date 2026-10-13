@@ -3,7 +3,24 @@
 use serde::Deserialize as _;
 use std::{fmt, marker};
 
-pub const SCHEMA_VERSION: &str = "1.1";
+include!(concat!(env!("OUT_DIR"), "/superdbc_models.rs"));
+
+pub use MessageExport as MessageModel;
+pub use SignalExport as SignalModel;
+pub use SuperDbcExport as Document;
+
+pub fn narrow<T: TryInto<U>, U>(
+    value: T,
+    context: &str,
+    field: &str,
+) -> Result<U, super::error::ParseError> {
+    value.try_into().map_err(|_| {
+        super::error::ParseError::definition(
+            context,
+            format!("{field} is outside its supported numeric range"),
+        )
+    })
+}
 
 #[derive(serde::Deserialize)]
 pub struct VersionProbe {
@@ -16,85 +33,22 @@ pub struct SchemaProbe {
 }
 
 #[derive(serde::Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct Document {
-    pub content_hash: String,
-    pub versions: Versions,
+struct UniqueEntries<K: Eq + std::hash::Hash + fmt::Debug, T>(
     #[serde(deserialize_with = "unique_map")]
-    pub buses: indexmap::IndexMap<String, BusModel>,
-}
-
-#[derive(serde::Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct Versions {
-    pub schema_version: String,
-    pub hash: String,
-}
-
-#[derive(serde::Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct BusModel {
-    pub bus_id: u8,
-    pub baud_rate: u64,
-    pub nodes: Vec<NodeModel>,
-    pub messages: Vec<MessageModel>,
-}
-
-#[derive(serde::Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct NodeModel {
-    pub name: String,
-    pub is_external: bool,
-}
-
-#[derive(serde::Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct MessageModel {
-    pub id: u32,
-    pub is_extended_id: bool,
-    pub message_name: String,
-    pub transmitter: String,
-    pub receivers: Vec<String>,
-    pub length_bytes: u8,
-    #[serde(deserialize_with = "required_nullable")]
-    pub nominal_period_ms: Option<u32>,
-    pub priority: u8,
-    pub description: String,
-    pub signals: Vec<SignalModel>,
-}
-
-#[derive(serde::Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct SignalModel {
-    pub signal_name: String,
-    pub description: String,
-    pub data_type: String,
-    pub raw_type: String,
-    pub start_bit: u8,
-    pub bit_length: u8,
-    pub byte_order: String,
-    pub scale: f64,
-    pub offset: f64,
-    #[serde(deserialize_with = "required_nullable")]
-    pub limits: Option<LimitsModel>,
-    pub unit: String,
-    #[serde(deserialize_with = "required_nullable")]
-    pub choices: Option<Choices>,
-    #[serde(default)]
-    pub display_format: Option<String>,
-}
-
-#[derive(serde::Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct LimitsModel {
-    pub min: f64,
-    pub max: f64,
-}
-
-#[derive(serde::Deserialize)]
-pub struct Choices(
-    #[serde(deserialize_with = "unique_map")] pub indexmap::IndexMap<String, String>,
+    #[serde(bound(deserialize = "K: serde::Deserialize<'de>, T: serde::Deserialize<'de>"))]
+    indexmap::IndexMap<K, T>,
 );
+
+fn nullable_unique_map<'de, D, K, T>(
+    deserializer: D,
+) -> Result<Option<indexmap::IndexMap<K, T>>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    K: serde::Deserialize<'de> + Eq + std::hash::Hash + fmt::Debug,
+    T: serde::Deserialize<'de>,
+{
+    Ok(Option::<UniqueEntries<K, T>>::deserialize(deserializer)?.map(|entries| entries.0))
+}
 
 fn required_nullable<'de, D, T>(deserializer: D) -> Result<Option<T>, D::Error>
 where
@@ -108,14 +62,19 @@ where
 
 // A normal map deserializer silently overwrites repeated JSON property names.
 // Reject them instead, while preserving document order without serde_json::Value.
-fn unique_map<'de, D, T>(deserializer: D) -> Result<indexmap::IndexMap<String, T>, D::Error>
+fn unique_map<'de, D, K, T>(deserializer: D) -> Result<indexmap::IndexMap<K, T>, D::Error>
 where
     D: serde::Deserializer<'de>,
+    K: serde::Deserialize<'de> + Eq + std::hash::Hash + fmt::Debug,
     T: serde::Deserialize<'de>,
 {
-    struct UniqueMap<T>(marker::PhantomData<T>);
-    impl<'de, T: serde::Deserialize<'de>> serde::de::Visitor<'de> for UniqueMap<T> {
-        type Value = indexmap::IndexMap<String, T>;
+    struct UniqueMap<K, T>(marker::PhantomData<(K, T)>);
+    impl<'de, K, T> serde::de::Visitor<'de> for UniqueMap<K, T>
+    where
+        K: serde::Deserialize<'de> + Eq + std::hash::Hash + fmt::Debug,
+        T: serde::Deserialize<'de>,
+    {
+        type Value = indexmap::IndexMap<K, T>;
         fn expecting(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.write_str("an object with unique keys")
         }
@@ -126,7 +85,7 @@ where
             let mut result = indexmap::IndexMap::new();
             // Consume the original object entries before a normal map could
             // silently replace repeated keys and hide ambiguous definitions.
-            while let Some((key, value)) = map.next_entry::<String, T>()? {
+            while let Some((key, value)) = map.next_entry::<K, T>()? {
                 if result.contains_key(&key) {
                     return Err(serde::de::Error::custom(format!("duplicate key {key:?}")));
                 }

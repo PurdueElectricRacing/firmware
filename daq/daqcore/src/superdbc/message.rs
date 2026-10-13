@@ -72,7 +72,7 @@ pub enum DisplayFormat {
 }
 
 /// Message metadata and compiled signal codecs, validated during loading.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Message {
     key: MessageKey,
     name: String,
@@ -232,7 +232,7 @@ impl Message {
 }
 
 /// Signal metadata. Bit layout, numeric ranges and choices are validated at load.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct SignalDefinition {
     name: String,
     description: String,

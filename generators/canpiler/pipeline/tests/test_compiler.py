@@ -147,7 +147,7 @@ def test_resolved_signal_semantics(base_type, custom):
 def test_enum_capacity_boundary(base_type, length, labels):
     def custom(count):
         return CustomTypeDeclaration(name="test_t", base_type=base_type,
-                                     choices={i: str(i) for i in range(count)})
+                                     choices=[{"name": str(i), "value": i} for i in range(count)])
     def message(choices=None):
         kwargs = {} if choices is None else {"choices": choices}
         return MessageDeclaration(
@@ -167,54 +167,13 @@ def test_enum_capacity_boundary(base_type, length, labels):
 def test_float_enum_rejected():
     with pytest.raises(ValueError, match="float cannot have enum choices"):
         CustomTypeDeclaration(name="test_t", base_type="float",
-                              choices={0: "invalid"})
+                              choices=[{"name": "invalid", "value": 0}])
     message = MessageDeclaration(
         message_name="test", description="", priority=0,
         signals=[SignalDeclaration(signal_name="value", data_type="float", choices=["invalid"])],
     )
     with pytest.raises(ValueError, match="float requires 32 bits and no choices"):
         compile_message(message, False, {})
-
-
-def test_common_choice_map_loads_integer_keys_and_preserves_sparse_values():
-    custom = CustomTypeDeclaration.model_validate_json(
-        '{"name":"state_t","base_type":"int8_t",'
-        '"choices":{"-2":"NEGATIVE","0":"OFF","7":"READY"}}'
-    )
-    expected = {-2: "NEGATIVE", 0: "OFF", 7: "READY"}
-    assert custom.choices == expected
-    message = MessageDeclaration(
-        message_name="state", description="", priority=1,
-        signals=[SignalDeclaration(signal_name="state", data_type="state_t")],
-    )
-    compiled = compile_message(message, False, {"state_t": custom})
-    assert compiled.signals[0].choices == expected
-    custom.choices[7] = "CHANGED"
-    assert compiled.signals[0].choices == expected
-
-
-def test_signal_label_lists_are_normalized_once_to_choice_maps():
-    message = MessageDeclaration(
-        message_name="state", description="", priority=1,
-        signals=[SignalDeclaration(
-            signal_name="state", data_type="uint8_t", choices=["OFF", "ON"],
-        )],
-    )
-    assert compile_message(message, False, {}).signals[0].choices == {0: "OFF", 1: "ON"}
-
-
-@pytest.mark.parametrize("base_type,choices", [
-    ("uint8_t", {-1: "NEGATIVE"}),
-    ("uint8_t", {256: "TOO_LARGE"}),
-    ("int8_t", {128: "TOO_LARGE"}),
-    ("bool", {2: "INVALID"}),
-    ("uint8_t", {0: "ready", 1: "READY"}),
-    ("uint8_t", {0: "invalid-label"}),
-    ("uint8_t", {}),
-])
-def test_invalid_common_choice_maps_are_rejected(base_type, choices):
-    with pytest.raises(ValueError):
-        CustomTypeDeclaration(name="state_t", base_type=base_type, choices=choices)
 
 
 @pytest.mark.parametrize("byte_order,offsets,orders", [

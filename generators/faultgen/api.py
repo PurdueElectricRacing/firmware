@@ -8,6 +8,7 @@ from core.artifacts import Artifact
 from core.declarations import (
     CanDeclarations,
     CustomTypeDeclaration,
+    EnumChoiceDeclaration,
     FaultDeclaration,
     MessageDeclaration,
     RxSubscriptionDeclaration,
@@ -170,7 +171,8 @@ class FaultGenerator:
                 CustomTypeContribution(
                     CustomTypeDeclaration(
                         name="fault_id_t",
-                        choices=dict(enumerate(choices)),
+                        choices=[EnumChoiceDeclaration(name=name, value=value)
+                                 for value, name in enumerate(choices)],
                         base_type=plan.fault_id_base_type,
                     ),
                     mode="replace",

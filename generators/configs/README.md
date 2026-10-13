@@ -108,7 +108,7 @@ Define reusable signal types (enums and aliases) in `configs/system/common_types
 ### Type Attributes
 - `name`: Type name. Must end in `_t` (e.g. `car_state_t`).
 - `base_type`: One of `uint8_t` ... `uint64_t`, `int8_t` ... `int64_t`, `bool`.
-- `choices`: (Optional) Map of explicit raw values to enum labels: `{"0": "READY", "1": "RUNNING"}`. JSON keys are converted to integers when loading. 
+- `choices`: (Optional) Enum choices require explicit values: `[{"name": "READY", "value": 0}]`
 
 ## G4 CAN bootloader
 

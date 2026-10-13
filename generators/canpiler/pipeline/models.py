@@ -14,6 +14,7 @@ from core.declarations import (
     BusDeclaration,
     ByteOrder,
     CustomTypeDeclaration,
+    EnumChoiceDeclaration,
     DisplayFormat,
 )
 from core.contributions import RxDeclaration, TxDeclaration
@@ -55,7 +56,7 @@ class CompiledSignal:
     description: str
     length: int
     unit: str | None
-    choices: Mapping[int, str] | None
+    choices: tuple[EnumChoiceDeclaration, ...] | None
     scale: int | float | None
     offset: int | float | None
     min: int | float | None
@@ -65,7 +66,7 @@ class CompiledSignal:
     bit_shift: int
     is_signed: bool
     mask: int
-    display_format: DisplayFormat | None
+    display_format: DisplayFormat | None = None
 
     @property
     def macro_name(self) -> str:

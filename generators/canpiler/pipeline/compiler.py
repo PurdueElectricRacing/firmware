@@ -12,7 +12,7 @@ from decimal import Decimal
 from typing import get_args
 
 from core.declarations import (
-    ByteOrder, CanDeclarations, CustomTypeDeclaration, DisplayFormat,
+    ByteOrder, CanDeclarations, CustomTypeDeclaration, DisplayFormat, EnumChoiceDeclaration,
     MessageDeclaration, Number, SignalDeclaration,
 )
 from core.contributions import DeclarationContribution, RxDeclaration, TxDeclaration
@@ -329,14 +329,15 @@ def _resolve_signal_base_type(
 def _resolve_signal_choices(
     signal: SignalDeclaration,
     custom_types: Mapping[str, CustomTypeDeclaration],
-) -> Mapping[int, str] | None:
+) -> list[EnumChoiceDeclaration] | None:
     custom = custom_types.get(signal.data_type)
     if custom and custom.choices:
         if signal.choices:
             raise ValueError(f"Signal '{signal.signal_name}' cannot override common enum choices")
         return custom.choices
     if signal.choices:
-        return dict(enumerate(signal.choices))
+        return [EnumChoiceDeclaration(name=name, value=value)
+                for value, name in enumerate(signal.choices)]
     return None
 
 
@@ -345,7 +346,7 @@ def _validate_signal_encoding(
     message_name: str,
     base_type: str,
     length: int,
-    choices: Mapping[int, str] | None,
+    choices: list[EnumChoiceDeclaration] | None,
 ) -> None:
     """Check that every raw enum value fits the signal encoding."""
     if base_type == "float":
@@ -358,7 +359,7 @@ def _validate_signal_encoding(
         value_bits = length - int(base_type.startswith("int"))
         low = -(1 << value_bits) if base_type.startswith("int") else 0
         high = (1 << value_bits) - 1
-        if any(not low <= value <= high for value in choices):
+        if any(not low <= choice.value <= high for choice in choices):
             raise ValueError(
                 f"Signal '{signal_name}' in message "
                 f"'{message_name}': enum values do not fit {length}-bit {base_type}"
@@ -410,7 +411,7 @@ def _compile_signal(
         description=signal.description,
         length=length,
         unit=signal.unit,
-        choices=frozen_mapping(choices) if choices else None,
+        choices=tuple(choices) if choices else None,
         scale=signal.scale,
         offset=signal.offset,
         min=signal.min,

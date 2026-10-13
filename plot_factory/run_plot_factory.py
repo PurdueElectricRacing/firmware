@@ -9,7 +9,7 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
     __package__ = "plot_factory"
 
-from .pipeline import DATA_DIRECTORY, run_analysis
+from .factory.pipeline import DATA_DIRECTORY, run_analysis
 
 
 def main(argv: list[str] | None = None) -> int:

@@ -29,7 +29,7 @@ import polars as pl
 from pydantic import ConfigDict, Field
 
 from ..config import NonEmptyString, StrictConfig
-from ..preprocessing.telemetry_dataset import SignalMetadata, TelemetryDataset
+from ..dataset import SignalMetadata, TelemetryDataset
 from .expression import ExpressionError, parse_expression
 
 

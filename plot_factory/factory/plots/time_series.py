@@ -6,7 +6,7 @@ from matplotlib.figure import Figure
 from pydantic import Field, model_validator
 
 from ..config import NonEmptyString, PlotConfig, StrictConfig
-from ..preprocessing.telemetry_dataset import TelemetryDataset
+from ..dataset import TelemetryDataset
 from .common import require_columns
 
 

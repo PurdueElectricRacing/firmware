@@ -3,7 +3,7 @@ from typing import Any
 
 from matplotlib.figure import Figure
 
-from ..preprocessing.telemetry_dataset import TelemetryDataset
+from ..dataset import TelemetryDataset
 from .common import PlotCreator, render_figure
 from .gps_scatter import create_gps_scatter_figure
 from .scatter import create_scatter_figure

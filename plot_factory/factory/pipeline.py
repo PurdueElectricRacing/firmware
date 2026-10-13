@@ -6,13 +6,13 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from .plots.factory import render_plot
-from .preprocessing.raw_to_polars import load_from_folder
-from .preprocessing.telemetry_dataset import TelemetryDataset
+from .plots.rendering import render_plot
+from .loading import load_from_folder
+from .dataset import TelemetryDataset
 from .signals.library import SignalLibrary
 
 
-ANALYSIS_DIRECTORY = Path(__file__).resolve().parent
+ANALYSIS_DIRECTORY = Path(__file__).resolve().parents[1]
 DATA_DIRECTORY = ANALYSIS_DIRECTORY / "data"
 CONFIGURATION_DIRECTORY = ANALYSIS_DIRECTORY / "configs"
 SIGNALS_DIRECTORY = CONFIGURATION_DIRECTORY / "derived_signals"

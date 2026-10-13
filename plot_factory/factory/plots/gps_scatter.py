@@ -7,7 +7,7 @@ from matplotlib.figure import Figure
 from pydantic import model_validator
 
 from ..config import FiniteFloat, NonEmptyString, PlotConfig, PositiveFiniteFloat
-from ..preprocessing.telemetry_dataset import TelemetryDataset
+from ..dataset import TelemetryDataset
 from .common import match_nearest, require_columns, signal_samples
 
 

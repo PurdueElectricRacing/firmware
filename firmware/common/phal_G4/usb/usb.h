@@ -22,6 +22,60 @@ static constexpr uint8_t PHAL_USB_DATA_ENDPOINT = 1U;
 /** Maximum packet size for both endpoints. */
 static constexpr uint16_t PHAL_USB_PACKET_SIZE_BYTES = 64U;
 
+/** Standard control requests (bRequest) */
+typedef enum : uint8_t {
+    PHAL_USB_REQUEST_GET_STATUS = 0U,
+    PHAL_USB_REQUEST_CLEAR_FEATURE = 1U,
+    PHAL_USB_REQUEST_SET_FEATURE = 3U,
+    PHAL_USB_REQUEST_SET_ADDRESS = 5U,
+    PHAL_USB_REQUEST_GET_DESCRIPTOR = 6U,
+    PHAL_USB_REQUEST_GET_CONFIGURATION = 8U,
+    PHAL_USB_REQUEST_SET_CONFIGURATION = 9U,
+    PHAL_USB_REQUEST_GET_INTERFACE = 10U,
+    PHAL_USB_REQUEST_SET_INTERFACE = 11U,
+} PHAL_USB_Request_t;
+
+/** Descriptor types used in bDescriptorType and the high byte of wValue. */
+typedef enum : uint8_t {
+    PHAL_USB_DESCRIPTOR_DEVICE = 1U,
+    PHAL_USB_DESCRIPTOR_CONFIGURATION = 2U,
+    PHAL_USB_DESCRIPTOR_STRING = 3U,
+    PHAL_USB_DESCRIPTOR_INTERFACE = 4U,
+    PHAL_USB_DESCRIPTOR_ENDPOINT = 5U,
+} PHAL_USB_DescriptorType_t;
+
+/** Standard bmRequestType combinations, including direction and recipient. */
+typedef enum : uint8_t {
+    PHAL_USB_REQUEST_TYPE_DEVICE_OUT = 0x00U,
+    PHAL_USB_REQUEST_TYPE_INTERFACE_OUT = 0x01U,
+    PHAL_USB_REQUEST_TYPE_ENDPOINT_OUT = 0x02U,
+    PHAL_USB_REQUEST_TYPE_DEVICE_IN = 0x80U,
+    PHAL_USB_REQUEST_TYPE_INTERFACE_IN = 0x81U,
+    PHAL_USB_REQUEST_TYPE_ENDPOINT_IN = 0x82U,
+} PHAL_USB_RequestType_t;
+
+static constexpr uint8_t PHAL_USB_REQUEST_TYPE_MASK = 0x60U;
+static constexpr uint8_t PHAL_USB_REQUEST_TYPE_STANDARD = 0U;
+static constexpr uint16_t PHAL_USB_FEATURE_ENDPOINT_HALT = 0U;
+static constexpr uint8_t PHAL_USB_ENDPOINT_ADDRESS_IN = 0x80U;
+static constexpr uint8_t PHAL_USB_DEVICE_DESCRIPTOR_LENGTH = 18U;
+static constexpr uint8_t PHAL_USB_CONFIGURATION_DESCRIPTOR_LENGTH = 9U;
+static constexpr uint8_t PHAL_USB_INTERFACE_DESCRIPTOR_LENGTH = 9U;
+static constexpr uint8_t PHAL_USB_ENDPOINT_DESCRIPTOR_LENGTH = 7U;
+static constexpr uint8_t PHAL_USB_DEVICE_CLASS_VENDOR_SPECIFIC = 0xFFU;
+static constexpr uint8_t PHAL_USB_CONFIGURATION_ATTRIBUTES_BUS_POWERED = 0x80U;
+static constexpr uint8_t PHAL_USB_ENDPOINT_TRANSFER_TYPE_BULK = 2U;
+
+/** Eight-byte USB SETUP wire header; multibyte fields are little endian. */
+typedef struct __attribute__((packed)) {
+    uint8_t type;     /**< bmRequestType: direction, category, and recipient. */
+    uint8_t request;  /**< bRequest; standard values are PHAL_USB_Request_t. */
+    uint16_t value;   /**< wValue: request-specific value or descriptor type/index. */
+    uint16_t index;   /**< wIndex: interface, endpoint, or language. */
+    uint16_t length;  /**< wLength: maximum data-stage byte count. */
+} PHAL_USB_SetupPacket_t;
+static_assert(sizeof(PHAL_USB_SetupPacket_t) == 8U, "USB SETUP header must be eight bytes");
+
 /** USB-standard transfer direction, named from the host perspective. */
 typedef enum : uint8_t {
     PHAL_USB_ENDPOINT_DIRECTION_OUT = 0U, /**< Host to device. */
@@ -50,7 +104,8 @@ typedef struct {
  * packets, and IN completions. Check event->transfer before accessing
  * transfer_data. The HAL provides a weak empty implementation. OUT data remains
  * available through PHAL_USB_read(). An IN completion marks the endpoint ready
- * for PHAL_USB_write().
+ * for PHAL_USB_write(). If SETUP and a prior IN completion are both pending,
+ * the HAL delivers the IN completion first so SETUP cannot erase pending state.
  *
  * @param event USB event for the current interrupt.
  */
@@ -105,12 +160,22 @@ bool PHAL_USB_setAddress(uint8_t address);
 bool PHAL_USB_stall(uint8_t endpoint, PHAL_USB_EndpointDirection_t direction);
 
 /**
+ * @brief Clear endpoint halt, discard any pending transfer, and reset to DATA0.
+ *
+ * Use for CLEAR_FEATURE(ENDPOINT_HALT) and bulk endpoint configuration changes.
+ * IN returns to NAK; OUT is rearmed. Call with USB interrupts excluded.
+ * @return false for an inactive peripheral or invalid endpoint/direction.
+ */
+bool PHAL_USB_clearHalt(uint8_t endpoint, PHAL_USB_EndpointDirection_t direction);
+
+/**
  * @brief Queue one device-to-host packet.
  *
  * The HAL copies exactly length_bytes into USB packet memory, where
  * length_bytes may be zero through PHAL_USB_PACKET_SIZE_BYTES. A zero-length
  * packet accepts a null source. The endpoint is ready for its next packet when
- * the IN completion callback runs.
+ * the IN completion callback runs. Success does not establish host presence or
+ * delivery: without host polling the packet stays pending and later writes fail.
  *
  * @param endpoint PHAL_USB_CONTROL_ENDPOINT or PHAL_USB_DATA_ENDPOINT.
  * @param source Packet bytes, or null for a zero-length packet.

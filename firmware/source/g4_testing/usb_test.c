@@ -21,40 +21,11 @@
 
 static constexpr uint8_t CONFIGURATION_VALUE = 1U;
 static constexpr uint16_t NO_PENDING_ADDRESS = UINT16_MAX;
-static constexpr uint8_t USB_DEVICE_DESCRIPTOR_LENGTH = 18U;
-static constexpr uint8_t USB_CONFIGURATION_DESCRIPTOR_LENGTH = 9U;
 static constexpr uint8_t USB_CONFIGURATION_TOTAL_LENGTH = 32U;
-static constexpr uint8_t USB_INTERFACE_DESCRIPTOR_LENGTH = 9U;
-static constexpr uint8_t USB_ENDPOINT_DESCRIPTOR_LENGTH = 7U;
 static constexpr uint8_t USB_INTERFACE_COUNT = 1U;
 static constexpr uint8_t USB_ENDPOINT_COUNT = 2U;
-static constexpr uint8_t USB_DEVICE_CLASS_VENDOR_SPECIFIC = 0xFFU;
-static constexpr uint8_t USB_CONFIGURATION_ATTRIBUTES_BUS_POWERED = 0x80U;
 static constexpr uint8_t USB_CONFIGURATION_MAX_POWER_100MA = 50U;
-static constexpr uint8_t USB_ENDPOINT_TRANSFER_TYPE_BULK = 2U;
-static constexpr uint8_t USB_ENDPOINT_IN_ADDRESS = 0x80U | PHAL_USB_DATA_ENDPOINT;
-
-typedef enum : uint8_t {
-    USB_REQUEST_GET_STATUS = 0U,
-    USB_REQUEST_SET_ADDRESS = 5U,
-    USB_REQUEST_GET_DESCRIPTOR = 6U,
-    USB_REQUEST_GET_CONFIGURATION = 8U,
-    USB_REQUEST_SET_CONFIGURATION = 9U,
-} USB_Request_t;
-
-typedef enum : uint8_t {
-    USB_DESCRIPTOR_DEVICE = 1U,
-    USB_DESCRIPTOR_CONFIGURATION = 2U,
-} USB_DescriptorType_t;
-
-/** The host sends this fixed eight-byte SETUP header for every control request. */
-typedef struct __attribute__((packed)) {
-    uint8_t type;      /**< Direction, request category, and recipient. */
-    uint8_t request;   /**< Request selected from USB_Request_t. */
-    uint16_t value;    /**< Request-specific value or descriptor type/index. */
-    uint16_t index;    /**< Request-specific interface, endpoint, or language. */
-    uint16_t length;   /**< Maximum number of bytes in the data stage. */
-} USB_SetupPacket_t;
+static constexpr uint8_t USB_ENDPOINT_IN_ADDRESS = PHAL_USB_ENDPOINT_ADDRESS_IN | PHAL_USB_DATA_ENDPOINT;
 
 PHAL_GPIO_InitConfig_t gpio_config[] = {
     PHAL_GPIO_INIT_OUTPUT(LED_GREEN_PORT, LED_GREEN_PIN, GPIO_OUTPUT_LOW_SPEED),
@@ -66,9 +37,9 @@ void HardFault_Handler(void);
 // The device descriptor identifies a vendor-specific USB 2.0 device. Zero
 // string indexes keep this example focused on the requests required to operate.
 static const uint8_t g_device_descriptor[] = {
-    USB_DEVICE_DESCRIPTOR_LENGTH, USB_DESCRIPTOR_DEVICE,
+    PHAL_USB_DEVICE_DESCRIPTOR_LENGTH, PHAL_USB_DESCRIPTOR_DEVICE,
     0x00U, 0x02U, // USB 2.0
-    USB_DEVICE_CLASS_VENDOR_SPECIFIC, 0U, 0U, // Vendor-specific device
+    PHAL_USB_DEVICE_CLASS_VENDOR_SPECIFIC, 0U, 0U, // Vendor-specific device
     PHAL_USB_PACKET_SIZE_BYTES,
     0x09U, 0x12U, // VID 0x1209
     0x03U, 0x00U, // PID 0x0003
@@ -80,25 +51,25 @@ static const uint8_t g_device_descriptor[] = {
 // endpoint supplied by the HAL. Bit 7 of bmAttributes marks the required
 // bus-powered configuration; bMaxPower is expressed in 2 mA units.
 static const uint8_t g_configuration_descriptor[] = {
-    USB_CONFIGURATION_DESCRIPTOR_LENGTH, USB_DESCRIPTOR_CONFIGURATION,
+    PHAL_USB_CONFIGURATION_DESCRIPTOR_LENGTH, PHAL_USB_DESCRIPTOR_CONFIGURATION,
     USB_CONFIGURATION_TOTAL_LENGTH, 0U,
     USB_INTERFACE_COUNT, CONFIGURATION_VALUE, 0U,
-    USB_CONFIGURATION_ATTRIBUTES_BUS_POWERED, USB_CONFIGURATION_MAX_POWER_100MA,
+    PHAL_USB_CONFIGURATION_ATTRIBUTES_BUS_POWERED, USB_CONFIGURATION_MAX_POWER_100MA,
 
-    USB_INTERFACE_DESCRIPTOR_LENGTH, 4U, 0U, 0U,
-    USB_ENDPOINT_COUNT, USB_DEVICE_CLASS_VENDOR_SPECIFIC, 0U, 0U, 0U,
+    PHAL_USB_INTERFACE_DESCRIPTOR_LENGTH, PHAL_USB_DESCRIPTOR_INTERFACE, 0U, 0U,
+    USB_ENDPOINT_COUNT, PHAL_USB_DEVICE_CLASS_VENDOR_SPECIFIC, 0U, 0U, 0U,
     // Vendor interface with two endpoints
 
-    USB_ENDPOINT_DESCRIPTOR_LENGTH, 5U, PHAL_USB_DATA_ENDPOINT,
-    USB_ENDPOINT_TRANSFER_TYPE_BULK,
+    PHAL_USB_ENDPOINT_DESCRIPTOR_LENGTH, PHAL_USB_DESCRIPTOR_ENDPOINT, PHAL_USB_DATA_ENDPOINT,
+    PHAL_USB_ENDPOINT_TRANSFER_TYPE_BULK,
     PHAL_USB_PACKET_SIZE_BYTES, 0U, 0U, // Bulk OUT endpoint
 
-    USB_ENDPOINT_DESCRIPTOR_LENGTH, 5U, USB_ENDPOINT_IN_ADDRESS,
-    USB_ENDPOINT_TRANSFER_TYPE_BULK,
+    PHAL_USB_ENDPOINT_DESCRIPTOR_LENGTH, PHAL_USB_DESCRIPTOR_ENDPOINT, USB_ENDPOINT_IN_ADDRESS,
+    PHAL_USB_ENDPOINT_TRANSFER_TYPE_BULK,
     PHAL_USB_PACKET_SIZE_BYTES, 0U, 0U, // Bulk IN endpoint
 };
 
-static USB_SetupPacket_t g_setup_packet = {0};
+static PHAL_USB_SetupPacket_t g_setup_packet = {0};
 static uint8_t g_echo_packet[PHAL_USB_PACKET_SIZE_BYTES] = {0};
 static uint16_t g_pending_address = NO_PENDING_ADDRESS;
 static bool g_configured = false;
@@ -128,12 +99,12 @@ static void send_control_response(const void *data,
 
 /** Select the descriptor named by the high byte of the request's wValue. */
 static void send_descriptor(uint16_t descriptor, uint16_t requested_length) {
-    switch ((USB_DescriptorType_t)(descriptor >> 8U)) {
-        case USB_DESCRIPTOR_DEVICE:
+    switch ((PHAL_USB_DescriptorType_t)(descriptor >> 8U)) {
+        case PHAL_USB_DESCRIPTOR_DEVICE:
             send_control_response(
                 g_device_descriptor, sizeof(g_device_descriptor), requested_length);
             break;
-        case USB_DESCRIPTOR_CONFIGURATION:
+        case PHAL_USB_DESCRIPTOR_CONFIGURATION:
             send_control_response(g_configuration_descriptor,
                                   sizeof(g_configuration_descriptor),
                                   requested_length);
@@ -148,21 +119,21 @@ static void send_descriptor(uint16_t descriptor, uint16_t requested_length) {
 static void handle_setup_packet(void) {
     // bmRequestType bits 6:5 are zero for standard requests. This example has no
     // class or vendor control protocol, so all other request categories stall.
-    if ((g_setup_packet.type & 0x60U) != 0U) {
+    if ((g_setup_packet.type & PHAL_USB_REQUEST_TYPE_MASK) != PHAL_USB_REQUEST_TYPE_STANDARD) {
         stall_control_endpoint();
         return;
     }
 
-    switch ((USB_Request_t)g_setup_packet.request) {
-        case USB_REQUEST_GET_STATUS: {
+    switch ((PHAL_USB_Request_t)g_setup_packet.request) {
+        case PHAL_USB_REQUEST_GET_STATUS: {
             static const uint8_t status[] = {0U, 0U};
             send_control_response(status, sizeof(status), g_setup_packet.length);
             break;
         }
-        case USB_REQUEST_GET_DESCRIPTOR:
+        case PHAL_USB_REQUEST_GET_DESCRIPTOR:
             send_descriptor(g_setup_packet.value, g_setup_packet.length);
             break;
-        case USB_REQUEST_SET_ADDRESS:
+        case PHAL_USB_REQUEST_SET_ADDRESS:
             if (g_setup_packet.value > 127U) {
                 stall_control_endpoint();
                 break;
@@ -172,12 +143,12 @@ static void handle_setup_packet(void) {
             g_pending_address = g_setup_packet.value;
             send_control_response(nullptr, 0U, 0U);
             break;
-        case USB_REQUEST_GET_CONFIGURATION: {
+        case PHAL_USB_REQUEST_GET_CONFIGURATION: {
             uint8_t configuration = g_configured ? CONFIGURATION_VALUE : 0U;
             send_control_response(&configuration, sizeof(configuration), g_setup_packet.length);
             break;
         }
-        case USB_REQUEST_SET_CONFIGURATION:
+        case PHAL_USB_REQUEST_SET_CONFIGURATION:
             // Configuration zero returns to the addressed state; configuration
             // one enables application traffic on the bulk endpoint.
             if (g_setup_packet.value == 0U

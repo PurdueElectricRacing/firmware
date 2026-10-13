@@ -71,7 +71,13 @@ impl DaqLogger {
         }
     }
 
-    pub fn log_frame(&mut self, frame: &frame::CanFrame) -> Result<(), String> {
+    pub fn log_frame(&mut self, frame: &frame::CanFrame, bus_id: u8) -> Result<(), String> {
+        if bus_id > 1 {
+            return Err(format!(
+                "legacy logging is unavailable for bus {bus_id}; only buses 0/1 are supported"
+            ));
+        }
+
         if matches!(frame.kind, frame::FrameKind::Fd { .. }) {
             return Ok(());
         }
@@ -88,9 +94,12 @@ impl DaqLogger {
             0
         };
 
+        let bus_id_flag = if bus_id == 1 { consts::BUS_ID_MASK } else { 0 };
+        let logged_id = frame.identity.raw_id() | identity_flag | bus_id_flag;
+
         self.add_frame(parse::RawFrame {
             ticks_ms: self.start_time.elapsed().as_millis() as u32,
-            identity: frame.identity.raw_id() | identity_flag,
+            identity: logged_id,
             data,
         });
 

@@ -154,7 +154,7 @@ impl RamCache {
             .filter(|f| f.identity == id)
             .filter_map(|f| {
                 let decoded = f.decoded.as_ref()?;
-                let value = decoded.signals.get(signal)?.value.physical;
+                let value = decoded.signal(signal)?.physical();
 
                 Some((f.timestamp, value))
             })

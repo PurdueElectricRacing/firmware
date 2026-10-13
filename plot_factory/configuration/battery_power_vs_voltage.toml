@@ -1,0 +1,15 @@
+type = "scatter"
+title = "Total Battery Power vs Battery Voltage"
+filename = "battery_power_vs_voltage.png"
+width = 10
+height = 8
+time_column = "real_time"
+match_tolerance_seconds = 0.1
+x_label = "Battery voltage (V, vbatt source)"
+y_label = "Total battery power (W)"
+
+[[traces]]
+x_column = "battery.voltage_v"
+y_column = "battery.power_w"
+label = "Battery power"
+color = "tab:blue"

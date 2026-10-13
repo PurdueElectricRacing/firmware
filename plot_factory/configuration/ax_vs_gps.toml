@@ -1,6 +1,6 @@
 type = "gps_scatter"
 title = "Longitudinal Acceleration on GPS Track"
-filename = "gps_track_longitudinal_acceleration.png"
+filename = "ax_vs_gps.png"
 width = 12
 height = 8
 time_column = "real_time"

@@ -1,6 +1,6 @@
 type = "scatter"
 title = "Yaw Rate vs Lateral Acceleration"
-filename = "scatter_yaw_rate_vs_ay.png"
+filename = "yaw_rate_vs_ay.png"
 width = 10
 height = 8
 time_column = "real_time"

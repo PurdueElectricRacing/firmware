@@ -1,6 +1,6 @@
 type = "scatter"
 title = "Shockpot Displacement vs Lateral Acceleration"
-filename = "scatter_shockpots_vs_ay.png"
+filename = "shockpots_vs_ay.png"
 width = 10
 height = 8
 time_column = "real_time"

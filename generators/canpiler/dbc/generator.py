@@ -58,11 +58,11 @@ def generate_dbcs(
                 # Resolve choices (enums) for VAL_ table in DBC
                 choices: Optional[OrderedDict[int, str | NamedSignalValue]] = None
                 if sig.choices:
-                    choices = OrderedDict((i, c) for i, c in enumerate(sig.choices))
+                    choices = OrderedDict((c.value, c.name) for c in sig.choices)
                 elif sig.data_type in context.custom_types:
                     type_info = context.custom_types[sig.data_type]
                     if type_info.choices:
-                        choices = OrderedDict((i, c) for i, c in enumerate(type_info.choices))
+                        choices = OrderedDict((c.value, c.name) for c in type_info.choices)
                 elif sig.data_type == 'bool':
                     choices = OrderedDict({0: "OFF", 1: "ON"})
 

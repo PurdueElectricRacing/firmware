@@ -11,11 +11,15 @@
 #include <stdint.h>
 
 {% for type in types %}
-typedef enum {% if type.base_type %}: {{ type.base_type }}{% endif %} {
+{% if type.choices %}
+typedef enum : {{ type.base_type }} {
 {% for choice in type.choices or [] %}
-    {{ type.name|enum_prefix }}_{{ choice|upper }} = {{ loop.index0 }},
+    {{ type.name|enum_prefix }}_{{ choice.name|upper }} = {{ choice.value }},
 {% endfor %}
 } {{ type.name }};
+{% else %}
+typedef {{ type.base_type }} {{ type.name }};
+{% endif %}
 
 {% endfor %}
 #endif // CAN_TYPES_H

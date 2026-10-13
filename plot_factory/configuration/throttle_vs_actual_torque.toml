@@ -1,6 +1,6 @@
 type = "scatter"
 title = "Throttle Commanded vs Actual Torque"
-filename = "scatter_throttle_vs_actual_torque.png"
+filename = "throttle_vs_actual_torque.png"
 width = 10
 height = 8
 time_column = "real_time"

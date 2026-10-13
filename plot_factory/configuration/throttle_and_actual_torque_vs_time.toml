@@ -1,6 +1,6 @@
 type = "time_series"
-title = "Throttle and AMK Actual Torque"
-filename = "torque_vs_pedals.png"
+title = "Throttle and AMK Actual Torque vs Time"
+filename = "throttle_and_actual_torque_vs_time.png"
 time_column = "real_time"
 width = 12
 height = 8

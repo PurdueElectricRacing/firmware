@@ -20,7 +20,7 @@ pub struct DatabaseSource {
 }
 
 /// A file replacement loads on the worker.
-///Aa bus change reuses its active database.
+/// A bus change reuses its active database.
 #[derive(Debug, Clone)]
 pub enum DatabaseRequest {
     Load {

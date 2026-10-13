@@ -11,18 +11,28 @@ use crate::{ParsedFrame, Time, connection::ConnectionSource, firmware, frame::Ca
 use std::{path::PathBuf, sync::mpsc, thread::JoinHandle};
 pub use tx::{AddSendMessage, SendAmount};
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct DatabaseSource {
+    pub path: PathBuf,
+    pub bus_id: u8,
+}
+
 #[derive(Default)]
 pub struct CanThreadConfig {
-    pub dbc_path: Option<PathBuf>,
     pub log_folder: Option<PathBuf>,
     pub hil_dir: PathBuf,
 }
 
 pub enum CanThreadCommand {
     Connect(Option<ConnectionSource>),
-    DbcSelected(PathBuf),
+    SelectDatabase {
+        request_id: u64,
+        source: DatabaseSource,
+    },
     AddSendMessage(AddSendMessage),
-    DeleteSendMessage { identity: CanIdentity },
+    DeleteSendMessage {
+        identity: CanIdentity,
+    },
     UpdateLogFolder(PathBuf),
     Stop,
     Hil(hil::engine::HilCommand),
@@ -32,6 +42,10 @@ pub enum CanThreadCommand {
 }
 
 pub enum CanThreadEvent {
+    DatabaseSelected {
+        request_id: u64,
+        result: Result<DatabaseSource, String>,
+    },
     Frame(ParsedFrame),
     SourceSelected(Option<ConnectionSource>),
     Disconnection,

@@ -28,5 +28,12 @@ void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
 
     memcpy(&frame.payload, msg->Data, msg->DLC);
 
-    xQueueSendToBackFromISR(can_queue, &frame, 0);
+    // If full, discard the oldest frame and append the new frame
+    // All CAN producers use the same IRQ priority, so they cannot
+    // preempt this sequence and the USB consumer runs in a task context.
+    if (xQueueSendToBackFromISR(can_queue, &frame, nullptr) != pdTRUE) {
+        timestamped_frame_t oldest;
+        xQueueReceiveFromISR(can_queue, &oldest, nullptr);
+        xQueueSendToBackFromISR(can_queue, &frame, nullptr);
+    }
 }

@@ -1,4 +1,5 @@
-use crate::{ParsedFrame, hil};
+use crate::{frame, hil};
+use std::{path, time};
 
 pub enum HilCommand {
     StartTest(hil::config::TestInfo),
@@ -38,7 +39,7 @@ enum HilState {
         start_error: Option<String>,
     },
     Running {
-        start_time: std::time::Instant,
+        start_time: time::Instant,
         preset: Option<hil::config::PresetInfo>,
         tests: Vec<hil::run::HilRunningTest>,
     },
@@ -46,11 +47,11 @@ enum HilState {
 
 pub struct HilEngine {
     state: HilState,
-    base: std::path::PathBuf,
+    base: path::PathBuf,
 }
 
 impl HilEngine {
-    pub fn new(base: std::path::PathBuf) -> Self {
+    pub fn new(base: path::PathBuf) -> Self {
         Self {
             state: HilState::Idle { start_error: None },
             base,
@@ -68,7 +69,7 @@ impl HilEngine {
         }
     }
 
-    pub fn handle_command(&mut self, command: HilCommand, now: std::time::Instant) {
+    pub fn handle_command(&mut self, command: HilCommand, now: time::Instant) {
         match command {
             HilCommand::StartTest(test_info) => {
                 match hil::run::HilRunningTest::new(&self.base, &test_info) {
@@ -96,7 +97,7 @@ impl HilEngine {
         }
     }
 
-    pub fn process_parsed(&mut self, parsed: &ParsedFrame, now: std::time::Instant) {
+    pub fn process_parsed(&mut self, parsed: &frame::ParsedFrame, now: time::Instant) {
         if let HilState::Running {
             start_time, tests, ..
         } = &mut self.state
@@ -109,7 +110,7 @@ impl HilEngine {
         }
     }
 
-    pub fn tick(&mut self, now: std::time::Instant) {
+    pub fn tick(&mut self, now: time::Instant) {
         if let HilState::Running {
             start_time, tests, ..
         } = &mut self.state
@@ -120,7 +121,7 @@ impl HilEngine {
         }
     }
 
-    pub fn snapshot(&self, now: std::time::Instant) -> HilSnapshot {
+    pub fn snapshot(&self, now: time::Instant) -> HilSnapshot {
         match &self.state {
             HilState::Idle { start_error } => HilSnapshot {
                 status: HilStatus::Idle,
@@ -147,7 +148,7 @@ impl HilEngine {
         &mut self,
         preset: Option<hil::config::PresetInfo>,
         tests: Vec<hil::run::HilRunningTest>,
-        now: std::time::Instant,
+        now: time::Instant,
     ) {
         self.state = HilState::Running {
             start_time: now,

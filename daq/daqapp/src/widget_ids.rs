@@ -1,13 +1,14 @@
 use crate::widget_constructor;
+use std::collections::HashMap;
 
 pub struct WidgetIds {
-    counters: std::collections::HashMap<widget_constructor::WidgetKind, usize>,
+    counters: HashMap<widget_constructor::WidgetKind, usize>,
 }
 
 impl WidgetIds {
     pub fn new() -> Self {
         Self {
-            counters: std::collections::HashMap::new(),
+            counters: HashMap::new(),
         }
     }
 

@@ -15,7 +15,7 @@ impl ViewerList {
         &self,
         ui: &mut eframe::egui::Ui,
         formatter: &Option<daqcore::formatter::Formatter>,
-        parser: Option<&app::ParserInfo>,
+        database: Option<&app::DatabaseSelection>,
         view: &telemetry::TelemetryView<'_>,
     ) -> egui_tiles::UiResponse {
         ui.heading(&self.title);
@@ -38,20 +38,19 @@ impl ViewerList {
             .body(|mut body| {
                 for frame in view.setpoint_frames.iter().rev().take(200) {
                     if let Some(decoded) = &frame.decoded {
-                        let id = frame.identity.dbc_id();
-                        let def = parser.and_then(|p| p.parser.msg_def(id));
-                        for (name, sig) in &decoded.signals {
-                            let signal_definition = def.and_then(|message| {
-                                message.signals.iter().find(|s| s.name == *name)
-                            });
+                        let key = decoded.key();
+                        let def =
+                            database.and_then(|selection| selection.database.message_by_key(key));
+                        for (name, sig) in decoded.iter() {
+                            let signal_definition = def.and_then(|message| message.signal(name));
 
                             let value = daqcore::formatter::try_format(
                                 formatter,
-                                &decoded.name,
+                                decoded.name(),
                                 name,
                                 signal_definition,
-                                Some(&sig.unit),
-                                &sig.value,
+                                None,
+                                sig,
                             );
                             body.row(18.0, |mut row| {
                                 row.col(|ui| {
@@ -60,7 +59,7 @@ impl ViewerList {
                                 row.col(|ui| {
                                     ui.label(format!(
                                         "{} (0x{:X})",
-                                        decoded.name,
+                                        decoded.name(),
                                         frame.identity.raw_id()
                                     ));
                                 });

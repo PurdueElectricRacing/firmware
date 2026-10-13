@@ -41,12 +41,12 @@ impl GgPlot {
             .iter()
             .filter_map(|f| {
                 let d = f.decoded.as_ref()?;
-                if d.name != "IMU_acceleration" {
+                if d.name() != "IMU_acceleration" {
                     return None;
                 }
                 Some(vehicle_accel_to_plot_xy(
-                    d.signals.get("X_axis")?.value.physical as f32,
-                    d.signals.get("Y_axis")?.value.physical as f32,
+                    d.signal("X_axis")?.physical() as f32,
+                    d.signal("Y_axis")?.physical() as f32,
                 ))
             })
             .collect();

@@ -12,8 +12,6 @@ edition = "2024"
 [workspace.dependencies]
 daqcore = { path = "daqcore" }
 
-can_decode = "0.7.2"
-can-dbc = "9.0.0"
 chrono = "0.4.44"
 log = "0.4.29"
 bytemuck = { version = "1.25.0", features = ["derive"] }

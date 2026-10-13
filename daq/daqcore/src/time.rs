@@ -1,10 +1,13 @@
 //! Wall-clock timestamps; arithmetic is integer milliseconds, labels only use chrono.
+
+use std::time;
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Time(i64);
 
 impl Time {
     pub fn now() -> Self {
-        let ms = match std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH) {
+        let ms = match time::SystemTime::now().duration_since(time::UNIX_EPOCH) {
             Ok(d) => d.as_millis().min(i64::MAX as u128) as i64,
             Err(e) => -(e.duration().as_millis().min(i64::MAX as u128) as i64),
         };

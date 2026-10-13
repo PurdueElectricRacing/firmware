@@ -1,27 +1,27 @@
-use crate::{ParsedFrame, Time, cache::RamCache, timeline::Timeline};
+use crate::{cache, frame, time, timeline};
 pub struct Session {
-    cache: RamCache,
-    timeline: Timeline,
+    cache: cache::RamCache,
+    timeline: timeline::Timeline,
 }
 
 impl Session {
-    pub fn live(now: Time, window_secs: f64) -> Result<Self, String> {
-        let timeline = Timeline::live(now, window_secs)?;
+    pub fn live(now: time::Time, window_secs: f64) -> Result<Self, String> {
+        let timeline = timeline::Timeline::live(now, window_secs)?;
 
         Ok(Self {
-            cache: RamCache::new(),
+            cache: cache::RamCache::new(),
             timeline,
         })
     }
 
-    pub fn ingest_frame(&mut self, frame: ParsedFrame) -> bool {
+    pub fn ingest_frame(&mut self, frame: frame::ParsedFrame) -> bool {
         let timestamp = frame.timestamp;
         self.cache.push(frame);
 
         self.timeline.observe(timestamp)
     }
 
-    pub fn push_batch(&mut self, frames: Vec<ParsedFrame>) {
+    pub fn push_batch(&mut self, frames: Vec<frame::ParsedFrame>) {
         let latest = frames.iter().map(|f| f.timestamp).max();
         self.cache.push_batch(frames);
 
@@ -34,20 +34,20 @@ impl Session {
         self.cache.evict(self.timeline.start())
     }
 
-    pub fn reset(&mut self, now: Time) {
+    pub fn reset(&mut self, now: time::Time) {
         self.cache.clear();
         self.timeline.reset(now);
     }
 
-    pub fn cache(&self) -> &RamCache {
+    pub fn cache(&self) -> &cache::RamCache {
         &self.cache
     }
 
-    pub fn timeline(&self) -> &Timeline {
+    pub fn timeline(&self) -> &timeline::Timeline {
         &self.timeline
     }
 
-    pub fn timeline_mut(&mut self) -> &mut Timeline {
+    pub fn timeline_mut(&mut self) -> &mut timeline::Timeline {
         &mut self.timeline
     }
 }

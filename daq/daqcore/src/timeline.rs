@@ -1,6 +1,7 @@
 //! Three independent tracks, owned by the UI/main thread.
-use crate::Time;
-use std::ops::RangeInclusive;
+
+use crate::time;
+use std::ops;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Track {
@@ -10,14 +11,14 @@ pub enum Track {
 
 #[derive(Debug, Clone)]
 pub struct Timeline {
-    start: Time,
-    end: Time,
-    setpoint: Time,
+    start: time::Time,
+    end: time::Time,
+    setpoint: time::Time,
     start_track: Track,
     end_track: Track,
     setpoint_track: Track,
     window_ms: i64,
-    latest: Time,
+    latest: time::Time,
 }
 
 fn millis(seconds: f64) -> Result<i64, String> {
@@ -32,7 +33,7 @@ fn millis(seconds: f64) -> Result<i64, String> {
 }
 
 impl Timeline {
-    pub fn live(now: Time, window_secs: f64) -> Result<Self, String> {
+    pub fn live(now: time::Time, window_secs: f64) -> Result<Self, String> {
         let window_ms = millis(window_secs)?;
 
         Ok(Self {
@@ -47,7 +48,7 @@ impl Timeline {
         })
     }
 
-    pub fn reset(&mut self, now: Time) {
+    pub fn reset(&mut self, now: time::Time) {
         self.start = now.offset(-self.window_ms);
         self.end = now;
         self.setpoint = now;
@@ -55,15 +56,15 @@ impl Timeline {
         self.go_live();
     }
 
-    pub fn start(&self) -> Time {
+    pub fn start(&self) -> time::Time {
         self.start
     }
 
-    pub fn end(&self) -> Time {
+    pub fn end(&self) -> time::Time {
         self.end
     }
 
-    pub fn setpoint(&self) -> Time {
+    pub fn setpoint(&self) -> time::Time {
         self.setpoint
     }
 
@@ -87,15 +88,15 @@ impl Timeline {
         self.setpoint_track == Track::Marching && self.end_track == Track::Marching
     }
 
-    pub fn range(&self) -> RangeInclusive<Time> {
+    pub fn range(&self) -> ops::RangeInclusive<time::Time> {
         self.start..=self.end
     }
 
-    pub fn setpoint_range(&self) -> RangeInclusive<Time> {
+    pub fn setpoint_range(&self) -> ops::RangeInclusive<time::Time> {
         self.start..=self.setpoint
     }
 
-    pub fn observe(&mut self, latest: Time) -> bool {
+    pub fn observe(&mut self, latest: time::Time) -> bool {
         self.latest = self.latest.max(latest);
         self.recompute()
     }
@@ -128,7 +129,7 @@ impl Timeline {
         before != (self.start, self.end, self.setpoint)
     }
 
-    pub fn set_start(&mut self, time: Time) {
+    pub fn set_start(&mut self, time: time::Time) {
         let upper_bound = if self.setpoint_track == Track::Frozen {
             self.setpoint
         } else {
@@ -140,7 +141,7 @@ impl Timeline {
         self.recompute();
     }
 
-    pub fn set_end(&mut self, time: Time) {
+    pub fn set_end(&mut self, time: time::Time) {
         let mut end = time;
 
         if self.start_track == Track::Frozen {
@@ -156,7 +157,7 @@ impl Timeline {
         self.recompute();
     }
 
-    pub fn set_setpoint(&mut self, time: Time) {
+    pub fn set_setpoint(&mut self, time: time::Time) {
         self.setpoint = time.clamp(self.start, self.end);
         self.setpoint_track = Track::Frozen;
         self.recompute();

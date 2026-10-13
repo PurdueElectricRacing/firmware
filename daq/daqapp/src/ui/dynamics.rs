@@ -1,7 +1,5 @@
 use crate::{telemetry, ui};
 
-use std::f32::consts::PI;
-
 const STALE_TIMEOUT_SECONDS: u64 = 1;
 const WHEELBASE_M: f32 = 1.530; // Standard Formula Student wheelbase
 const CHASSIS_WIDTH_M: f32 = 1.4;
@@ -9,8 +7,8 @@ const CHASSIS_LENGTH_M: f32 = 2.5;
 const ACCEL_VECTOR_SCALE: f32 = 20.0;
 const SPEED_VECTOR_SCALE: f32 = 2.0;
 const YAW_RATE_MAX_FOR_DRAW: f32 = 2.0; // rad/s clamp for visualization
-const YAW_ARC_MIN_SWEEP_RAD: f32 = PI / 8.0;
-const YAW_ARC_MAX_SWEEP_RAD: f32 = PI * 1.4;
+const YAW_ARC_MIN_SWEEP_RAD: f32 = std::f32::consts::PI / 8.0;
+const YAW_ARC_MAX_SWEEP_RAD: f32 = std::f32::consts::PI * 1.4;
 const YAW_ARC_SEGMENTS: usize = 28;
 
 pub struct Dynamics {
@@ -89,10 +87,10 @@ struct DynamicsValues {
     steer_angle_rad: f32,
     yaw_rate_rads: f32,
 
-    last_update: Option<daqcore::Time>,
+    last_update: Option<daqcore::time::Time>,
 }
 
-fn dynamics_values(frames: &[daqcore::ParsedFrame]) -> DynamicsValues {
+fn dynamics_values(frames: &[daqcore::frame::ParsedFrame]) -> DynamicsValues {
     let mut values = DynamicsValues {
         velocity_mps: 0.0,
         accel_x: 0.0,
@@ -104,29 +102,29 @@ fn dynamics_values(frames: &[daqcore::ParsedFrame]) -> DynamicsValues {
 
     for frame in frames {
         if let Some(parsed) = frame.decoded_view() {
-            match parsed.decoded.name.as_str() {
+            match parsed.decoded.name() {
                 "IMU_acceleration" => {
-                    for (_, sig) in parsed.decoded.signals.iter() {
-                        match sig.name.as_str() {
-                            "X_axis" => values.accel_x = sig.value.physical as f32,
-                            "Y_axis" => values.accel_y = sig.value.physical as f32,
+                    for (name, sig) in parsed.decoded.iter() {
+                        match name {
+                            "X_axis" => values.accel_x = sig.physical() as f32,
+                            "Y_axis" => values.accel_y = sig.physical() as f32,
                             _ => {}
                         }
                     }
                     values.last_update = Some(parsed.timestamp);
                 }
                 "IMU_angular_rate" => {
-                    for (_, sig) in parsed.decoded.signals.iter() {
-                        if sig.name.as_str() == "Z_axis" {
-                            values.yaw_rate_rads = sig.value.physical.to_radians() as f32
+                    for (name, sig) in parsed.decoded.iter() {
+                        if name == "Z_axis" {
+                            values.yaw_rate_rads = sig.physical().to_radians() as f32
                         }
                     }
                     values.last_update = Some(parsed.timestamp);
                 }
                 "steering_angle" => {
-                    for (_, sig) in parsed.decoded.signals.iter() {
-                        if sig.name == "angle" {
-                            values.steer_angle_rad = sig.value.physical.to_radians() as f32;
+                    for (name, sig) in parsed.decoded.iter() {
+                        if name == "angle" {
+                            values.steer_angle_rad = sig.physical().to_radians() as f32;
                         }
                     }
                     values.last_update = Some(parsed.timestamp);
@@ -318,7 +316,7 @@ fn draw_yaw_rotation_arrow(
         1.0
     };
 
-    let start_angle = -PI / 2.0;
+    let start_angle = -std::f32::consts::PI / 2.0;
     let end_angle = start_angle + direction * sweep;
     let radius = pixels_per_meter * (CHASSIS_WIDTH_M * 0.75);
     let stroke = eframe::egui::Stroke::new(1.5 + 1.5 * yaw_norm, theme.success_color());

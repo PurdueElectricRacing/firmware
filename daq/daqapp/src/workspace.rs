@@ -1,4 +1,5 @@
 use crate::{action, app, telemetry, ui, widgets};
+use std::sync::mpsc;
 
 pub fn show(app: &mut app::DAQApp, ctx: &eframe::egui::Context) {
     ui::timeline::show(app, ctx);
@@ -8,6 +9,7 @@ pub fn show(app: &mut app::DAQApp, ctx: &eframe::egui::Context) {
         .bus_load_samples
         .partition_point(|s| s.timestamp < start);
     app.bus_load_samples.drain(..removed);
+    let selection_pending = app.selection_pending();
     let view = telemetry::TelemetryView::new(&app.session);
     eframe::egui::CentralPanel::default().show(ctx, |ui| {
         if app.tile_tree.is_empty() {
@@ -21,11 +23,13 @@ pub fn show(app: &mut app::DAQApp, ctx: &eframe::egui::Context) {
                 view: &view,
                 bus_load: &app.bus_load_samples,
                 action_queue: &mut app.action_queue,
-                parser: app.parser.as_ref(),
+                database: app.database.as_ref(),
                 ui_to_can_tx: app.ui_to_can_tx.clone(),
                 formatter: &app.value_formatter,
             };
-            app.tile_tree.ui(&mut behavior, ui);
+            ui.add_enabled_ui(!selection_pending, |ui| {
+                app.tile_tree.ui(&mut behavior, ui);
+            });
         }
     });
 }
@@ -34,8 +38,8 @@ struct WorkspaceTileBehavior<'a> {
     view: &'a telemetry::TelemetryView<'a>,
     bus_load: &'a [telemetry::BusLoadSample],
     action_queue: &'a mut Vec<action::AppAction>,
-    parser: Option<&'a app::ParserInfo>,
-    ui_to_can_tx: std::sync::mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
+    database: Option<&'a app::DatabaseSelection>,
+    ui_to_can_tx: mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
     formatter: &'a Option<daqcore::formatter::Formatter>,
 }
 
@@ -52,7 +56,7 @@ impl egui_tiles::Behavior<widgets::Widget> for WorkspaceTileBehavior<'_> {
                 view: self.view,
                 bus_load: self.bus_load,
                 action_queue: self.action_queue,
-                parser: self.parser,
+                database: self.database,
                 ui_to_can_tx: self.ui_to_can_tx.clone(),
                 formatter: self.formatter,
             },

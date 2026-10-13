@@ -1,11 +1,8 @@
 //! Physical and exact raw encoding methods for validated message definitions.
 
-use crate::superdbc::{
-    error::EncodeError,
-    message::{Message, RawType, RawValue, SignalDefinition},
-};
+use crate::superdbc;
 
-impl Message {
+impl superdbc::message::Message {
     /// Encode named physical values into a payload of the declared byte length.
     ///
     /// Supply every signal exactly once, in any order. Each input is converted with
@@ -30,34 +27,32 @@ impl Message {
     /// 0.1 and offset 0, physical 25.0 and raw integer 250 encode the same payload:
     ///
     /// ```no_run
-    /// use daqcore::superdbc::error::EncodeError;
-    /// use daqcore::superdbc::message::{Message, RawValue};
     ///
-    /// # fn example(message: &Message) -> Result<(), EncodeError> {
+    /// # fn example(message: &daqcore::superdbc::message::Message) -> Result<(), daqcore::superdbc::error::EncodeError> {
     /// let physical = message.encode(&[("temperature", 25.0)])?;
-    /// let raw = message.encode_raw(&[("temperature", RawValue::Integer(250))])?;
+    /// let raw = message.encode_raw(&[("temperature", daqcore::superdbc::message::RawValue::Integer(250))])?;
     /// assert_eq!(physical, raw);
     /// # Ok(())
     /// # }
     /// ```
-    pub fn encode(&self, values: &[(&str, f64)]) -> Result<Vec<u8>, EncodeError> {
+    pub fn encode(&self, values: &[(&str, f64)]) -> Result<Vec<u8>, superdbc::error::EncodeError> {
         self.encode_values(values, |signal, physical| {
             // Undo physical interpretation before converting to integer or IEEE
             // bits; Float32 signals also have scale and offset.
             let numeric_raw = (physical - signal.offset()) / signal.scale();
 
             if !physical.is_finite() || !numeric_raw.is_finite() {
-                return Err(EncodeError::NonFiniteValue {
+                return Err(superdbc::error::EncodeError::NonFiniteValue {
                     key: self.key(),
                     signal: signal.name().to_owned(),
                 });
             }
             match signal.raw_type() {
-                RawType::Float32 => {
+                superdbc::message::RawType::Float32 => {
                     let raw = numeric_raw as f32;
 
                     if !raw.is_finite() {
-                        return Err(EncodeError::Float32Overflow {
+                        return Err(superdbc::error::EncodeError::Float32Overflow {
                             key: self.key(),
                             signal: signal.name().to_owned(),
                         });
@@ -71,7 +66,7 @@ impl Message {
                     // when a 64-bit maximum integer itself does not.
                     if rounded < signal.codec.min as f64 || rounded >= (signal.codec.max + 1) as f64
                     {
-                        return Err(EncodeError::PhysicalOutOfRange {
+                        return Err(superdbc::error::EncodeError::PhysicalOutOfRange {
                             key: self.key(),
                             signal: signal.name().to_owned(),
                             physical,
@@ -90,8 +85,8 @@ impl Message {
     ///
     /// No scaling or offset is applied. Use this for exact counters, bitfields, or
     /// constructing test payloads. Supply every signal exactly once, in any order.
-    /// [`RawValue::Integer`] serves both signed and unsigned integer signals and is
-    /// checked against their bit-width range; [`RawValue::Float32`] serves Float32
+    /// [`crate::superdbc::message::RawValue::Integer`] serves both signed and unsigned integer signals and is
+    /// checked against their bit-width range; [`crate::superdbc::message::RawValue::Float32`] serves Float32
     /// signals and preserves the finite value's bit pattern, including signed zero.
     ///
     /// Returns the declared payload length with unused bits zero. Physical limits
@@ -103,11 +98,17 @@ impl Message {
     /// Returns an error for unknown, duplicate, or missing signals, a mismatched
     /// raw-value type, an integer outside the signal's wire range, or a non-finite
     /// Float32 value. Decoding accepts non-finite telemetry, but encoding rejects it.
-    pub fn encode_raw(&self, values: &[(&str, RawValue)]) -> Result<Vec<u8>, EncodeError> {
+    pub fn encode_raw(
+        &self,
+        values: &[(&str, superdbc::message::RawValue)],
+    ) -> Result<Vec<u8>, superdbc::error::EncodeError> {
         self.encode_values(values, |signal, raw| match (signal.raw_type(), raw) {
-            (RawType::Unsigned | RawType::Signed, RawValue::Integer(value)) => {
+            (
+                superdbc::message::RawType::Unsigned | superdbc::message::RawType::Signed,
+                superdbc::message::RawValue::Integer(value),
+            ) => {
                 if value < signal.codec.min || value > signal.codec.max {
-                    return Err(EncodeError::RawOutOfRange {
+                    return Err(superdbc::error::EncodeError::RawOutOfRange {
                         key: self.key(),
                         signal: signal.name().to_owned(),
                         value,
@@ -120,9 +121,9 @@ impl Message {
                 // compiled segments select only the signal's declared width.
                 Ok(value as u64)
             }
-            (RawType::Float32, RawValue::Float32(value)) => {
+            (superdbc::message::RawType::Float32, superdbc::message::RawValue::Float32(value)) => {
                 if !value.is_finite() {
-                    return Err(EncodeError::NonFiniteValue {
+                    return Err(superdbc::error::EncodeError::NonFiniteValue {
                         key: self.key(),
                         signal: signal.name().to_owned(),
                     });
@@ -130,7 +131,7 @@ impl Message {
 
                 Ok(u64::from(value.to_bits()))
             }
-            _ => Err(EncodeError::TypeMismatch {
+            _ => Err(superdbc::error::EncodeError::TypeMismatch {
                 key: self.key(),
                 signal: signal.name().to_owned(),
                 expected: signal.raw_type(),
@@ -141,8 +142,11 @@ impl Message {
     fn encode_values<T: Copy>(
         &self,
         values: &[(&str, T)],
-        encode: impl Fn(&SignalDefinition, T) -> Result<u64, EncodeError>,
-    ) -> Result<Vec<u8>, EncodeError> {
+        encode: impl Fn(
+            &superdbc::message::SignalDefinition,
+            T,
+        ) -> Result<u64, superdbc::error::EncodeError>,
+    ) -> Result<Vec<u8>, superdbc::error::EncodeError> {
         // Both APIs share name validation and packing. T is f64 or RawValue;
         // Copy lets slots own values from the borrowed input, while the supplied
         // conversion function handles only the numeric differences.
@@ -151,16 +155,15 @@ impl Message {
         // Resolve arbitrary input order into definition positions. Replacing an
         // occupied slot detects duplicates without another set of names.
         for &(name, value) in values {
-            let &index = self
-                .signal_index
-                .get(name)
-                .ok_or_else(|| EncodeError::UnknownSignal {
+            let &index = self.signal_index.get(name).ok_or_else(|| {
+                superdbc::error::EncodeError::UnknownSignal {
                     key: self.key(),
                     signal: name.to_owned(),
-                })?;
+                }
+            })?;
 
             if ordered[index].replace(value).is_some() {
-                return Err(EncodeError::DuplicateSignal {
+                return Err(superdbc::error::EncodeError::DuplicateSignal {
                     key: self.key(),
                     signal: name.to_owned(),
                 });
@@ -174,7 +177,7 @@ impl Message {
         // Empty slots identify missing signals. Convert and pack in declaration
         // order so the two entry points use the same completeness checks.
         for (signal, value) in self.signals.iter().zip(ordered) {
-            let value = value.ok_or_else(|| EncodeError::MissingSignal {
+            let value = value.ok_or_else(|| superdbc::error::EncodeError::MissingSignal {
                 key: self.key(),
                 signal: signal.name().to_owned(),
             })?;

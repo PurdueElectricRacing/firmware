@@ -1,13 +1,12 @@
 //! Operation-specific errors: loading/parsing, decoding, and encoding.
 
-use std::{error::Error, fmt};
-
-use crate::superdbc::message::{MessageKey, RawType};
+use crate::superdbc;
+use std::{error, fmt, io};
 
 /// Reading a file or parsing its contents failed.
 #[derive(Debug)]
 pub enum LoadError {
-    Io(std::io::Error),
+    Io(io::Error),
     Parse(ParseError),
 }
 
@@ -35,10 +34,10 @@ pub enum DecodeError {
         bus_id: u8,
     },
     UnknownMessage {
-        key: MessageKey,
+        key: superdbc::message::MessageKey,
     },
     InvalidPayloadLength {
-        key: MessageKey,
+        key: superdbc::message::MessageKey,
         expected_min: u8,
         actual: usize,
     },
@@ -51,40 +50,40 @@ pub enum EncodeError {
         bus_id: u8,
     },
     UnknownMessage {
-        key: MessageKey,
+        key: superdbc::message::MessageKey,
     },
     MissingSignal {
-        key: MessageKey,
+        key: superdbc::message::MessageKey,
         signal: String,
     },
     UnknownSignal {
-        key: MessageKey,
+        key: superdbc::message::MessageKey,
         signal: String,
     },
     DuplicateSignal {
-        key: MessageKey,
+        key: superdbc::message::MessageKey,
         signal: String,
     },
     TypeMismatch {
-        key: MessageKey,
+        key: superdbc::message::MessageKey,
         signal: String,
-        expected: RawType,
+        expected: superdbc::message::RawType,
     },
     NonFiniteValue {
-        key: MessageKey,
+        key: superdbc::message::MessageKey,
         signal: String,
     },
     Float32Overflow {
-        key: MessageKey,
+        key: superdbc::message::MessageKey,
         signal: String,
     },
     PhysicalOutOfRange {
-        key: MessageKey,
+        key: superdbc::message::MessageKey,
         signal: String,
         physical: f64,
     },
     RawOutOfRange {
-        key: MessageKey,
+        key: superdbc::message::MessageKey,
         signal: String,
         value: i128,
         min: i128,
@@ -92,7 +91,7 @@ pub enum EncodeError {
     },
 }
 
-impl fmt::Display for MessageKey {
+impl fmt::Display for superdbc::message::MessageKey {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "bus {} / {}", self.bus_id, self.identity)
     }
@@ -182,8 +181,8 @@ impl fmt::Display for EncodeError {
     }
 }
 
-impl Error for LoadError {
-    fn source(&self) -> Option<&(dyn Error + 'static)> {
+impl error::Error for LoadError {
+    fn source(&self) -> Option<&(dyn error::Error + 'static)> {
         Some(match self {
             Self::Io(error) => error,
             Self::Parse(error) => error,
@@ -191,8 +190,8 @@ impl Error for LoadError {
     }
 }
 
-impl Error for ParseError {
-    fn source(&self) -> Option<&(dyn Error + 'static)> {
+impl error::Error for ParseError {
+    fn source(&self) -> Option<&(dyn error::Error + 'static)> {
         match self {
             Self::InvalidJson(error) => Some(error),
             _ => None,
@@ -200,11 +199,11 @@ impl Error for ParseError {
     }
 }
 
-impl Error for DecodeError {}
-impl Error for EncodeError {}
+impl error::Error for DecodeError {}
+impl error::Error for EncodeError {}
 
-impl From<std::io::Error> for LoadError {
-    fn from(error: std::io::Error) -> Self {
+impl From<io::Error> for LoadError {
+    fn from(error: io::Error) -> Self {
         Self::Io(error)
     }
 }

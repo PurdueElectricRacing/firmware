@@ -1,14 +1,7 @@
 //! Message identities, validated signal definitions, and presentation metadata.
 
+use crate::{frame, superdbc};
 use std::collections::{BTreeMap, HashMap};
-
-use crate::frame::CanIdentity;
-
-use crate::superdbc::{
-    error::ParseError,
-    extract::Codec,
-    model::{MessageModel, SignalModel},
-};
 
 /// Complete lookup key within one active database version.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -16,7 +9,7 @@ pub struct MessageKey {
     /// Bus containing the message; numeric IDs may repeat across buses.
     pub bus_id: u8,
     /// CAN identifier including the standard/extended distinction.
-    pub identity: CanIdentity,
+    pub identity: frame::CanIdentity,
 }
 
 /// Numeric interpretation of the signal bits before scaling and offset.
@@ -71,7 +64,7 @@ pub enum DisplayFormat {
 }
 
 /// Message metadata and compiled signal codecs, validated during loading.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Message {
     key: MessageKey,
     name: String,
@@ -96,10 +89,14 @@ impl Message {
     ///
     /// # Errors
     ///
-    /// Returns [`ParseError::InvalidDefinition`] for invalid metadata or CAN
+    /// Returns [`crate::superdbc::error::ParseError::InvalidDefinition`] for invalid metadata or CAN
     /// identity, duplicate signal names, invalid signal definitions, overlapping
     /// bits, or layouts extending beyond the declared payload.
-    pub fn compile(bus_id: u8, model: MessageModel, context: &str) -> Result<Self, ParseError> {
+    pub fn compile(
+        bus_id: u8,
+        model: superdbc::model::MessageModel,
+        context: &str,
+    ) -> Result<Self, superdbc::error::ParseError> {
         nonempty(&model.message_name, context, "message_name")?;
         nonempty(&model.transmitter, context, "transmitter")?;
 
@@ -108,25 +105,28 @@ impl Message {
         }
 
         if model.length_bytes > 8 {
-            return Err(ParseError::definition(
+            return Err(superdbc::error::ParseError::definition(
                 context,
                 "length_bytes must be 0..=8",
             ));
         }
 
         if model.priority > 5 {
-            return Err(ParseError::definition(context, "priority must be 0..=5"));
+            return Err(superdbc::error::ParseError::definition(
+                context,
+                "priority must be 0..=5",
+            ));
         }
 
         if model.nominal_period_ms == Some(0) {
-            return Err(ParseError::definition(
+            return Err(superdbc::error::ParseError::definition(
                 context,
                 "nominal_period_ms must be positive or null",
             ));
         }
 
-        let identity = CanIdentity::new(model.id, model.is_extended_id)
-            .map_err(|error| ParseError::definition(context, error.to_string()))?;
+        let identity = frame::CanIdentity::new(model.id, model.is_extended_id)
+            .map_err(|error| superdbc::error::ParseError::definition(context, error.to_string()))?;
         let mut signals = Vec::with_capacity(model.signals.len());
         let mut signal_index = HashMap::with_capacity(model.signals.len());
         let mut occupied = 0u64;
@@ -138,7 +138,7 @@ impl Message {
                 .insert(signal.signal_name.clone(), signals.len())
                 .is_some()
             {
-                return Err(ParseError::definition(
+                return Err(superdbc::error::ParseError::definition(
                     signal_context,
                     "duplicate signal name",
                 ));
@@ -149,7 +149,7 @@ impl Message {
             // Compare actual occupied wire bits, so overlaps are rejected even
             // when signals use different byte orders.
             if occupied & signal.codec.occupied != 0 {
-                return Err(ParseError::definition(
+                return Err(superdbc::error::ParseError::definition(
                     signal_context,
                     "signal overlaps another signal's wire bits",
                 ));
@@ -178,7 +178,7 @@ impl Message {
     }
 
     /// Return the CAN identity; use [`Self::key`] when the bus must also be identified.
-    pub fn identity(&self) -> CanIdentity {
+    pub fn identity(&self) -> frame::CanIdentity {
         self.key.identity
     }
 
@@ -231,7 +231,7 @@ impl Message {
 }
 
 /// Signal metadata. Bit layout, numeric ranges and choices are validated at load.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct SignalDefinition {
     name: String,
     description: String,
@@ -247,11 +247,15 @@ pub struct SignalDefinition {
     display_format: Option<DisplayFormat>,
     choices: BTreeMap<i128, String>,
     /// Compiled layout used for extraction, insertion, and integer range checks.
-    pub codec: Codec,
+    pub codec: superdbc::extract::Codec,
 }
 
 impl SignalDefinition {
-    fn compile(model: SignalModel, payload_length: u8, context: &str) -> Result<Self, ParseError> {
+    fn compile(
+        model: superdbc::model::SignalModel,
+        payload_length: u8,
+        context: &str,
+    ) -> Result<Self, superdbc::error::ParseError> {
         nonempty(&model.signal_name, context, "signal_name")?;
         nonempty(&model.data_type, context, "data_type")?;
         let raw_type = match model.raw_type.as_str() {
@@ -259,18 +263,24 @@ impl SignalDefinition {
             "signed" => RawType::Signed,
             "float32" => RawType::Float32,
             _ => {
-                return Err(ParseError::definition(context, "unsupported raw_type"));
+                return Err(superdbc::error::ParseError::definition(
+                    context,
+                    "unsupported raw_type",
+                ));
             }
         };
         let byte_order = match model.byte_order.as_str() {
             "little_endian" => ByteOrder::LittleEndian,
             "big_endian" => ByteOrder::BigEndian,
             _ => {
-                return Err(ParseError::definition(context, "unsupported byte_order"));
+                return Err(superdbc::error::ParseError::definition(
+                    context,
+                    "unsupported byte_order",
+                ));
             }
         };
         if !model.scale.is_finite() || model.scale == 0.0 || !model.offset.is_finite() {
-            return Err(ParseError::definition(
+            return Err(superdbc::error::ParseError::definition(
                 context,
                 "scale must be finite and nonzero; offset must be finite",
             ));
@@ -283,7 +293,7 @@ impl SignalDefinition {
         if limits.is_some_and(|limits| {
             !limits.min.is_finite() || !limits.max.is_finite() || limits.min > limits.max
         }) {
-            return Err(ParseError::definition(
+            return Err(superdbc::error::ParseError::definition(
                 context,
                 "limits must be finite and ordered",
             ));
@@ -291,7 +301,7 @@ impl SignalDefinition {
 
         // Validate and compile once; runtime codecs can then work by byte
         // segments without checking the layout or walking individual bits.
-        let codec = Codec::compile(
+        let codec = superdbc::extract::Codec::compile(
             model.start_bit,
             model.bit_length,
             byte_order,
@@ -307,7 +317,10 @@ impl SignalDefinition {
             // The canonical decimal syntax also prevents two textual keys
             // (e.g. "01" and "1") from aliasing the same numeric value.
             let raw = key.parse::<i128>().map_err(|_| {
-                ParseError::definition(context, format!("invalid integer choice key {key:?}"))
+                superdbc::error::ParseError::definition(
+                    context,
+                    format!("invalid integer choice key {key:?}"),
+                )
             })?;
 
             if raw.to_string() != key
@@ -315,7 +328,7 @@ impl SignalDefinition {
                 || raw > codec.max
                 || raw_type == RawType::Float32
             {
-                return Err(ParseError::definition(
+                return Err(superdbc::error::ParseError::definition(
                     context,
                     format!(
                         "choice key {key:?} is noncanonical or outside the integer signal range"
@@ -338,7 +351,7 @@ impl SignalDefinition {
                 Some(DisplayFormat::Decimal(precision))
             }
             Some(format) => {
-                return Err(ParseError::definition(
+                return Err(superdbc::error::ParseError::definition(
                     context,
                     format!("unsupported display_format {format:?}"),
                 ));
@@ -459,10 +472,14 @@ impl SignalDefinition {
 ///
 /// # Errors
 ///
-/// Returns [`ParseError::InvalidDefinition`] when `value` is empty.
-pub fn nonempty(value: &str, context: &str, field: &str) -> Result<(), ParseError> {
+/// Returns [`crate::superdbc::error::ParseError::InvalidDefinition`] when `value` is empty.
+pub fn nonempty(
+    value: &str,
+    context: &str,
+    field: &str,
+) -> Result<(), superdbc::error::ParseError> {
     if value.is_empty() {
-        Err(ParseError::definition(
+        Err(superdbc::error::ParseError::definition(
             context,
             format!("{field} must not be empty"),
         ))

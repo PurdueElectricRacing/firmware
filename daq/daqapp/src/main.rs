@@ -1,3 +1,5 @@
+use std::{env, error, sync::mpsc};
+
 mod action;
 mod app;
 mod assets;
@@ -12,19 +14,18 @@ mod widget_ids;
 mod widgets;
 mod workspace;
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<(), Box<dyn error::Error>> {
     env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info")).init();
 
     let settings = settings::Settings::load();
-    let (can_to_ui_tx, can_to_ui_rx) = std::sync::mpsc::channel();
+    let (can_to_ui_tx, can_to_ui_rx) = mpsc::channel();
     let log_folder = settings
         .log_folder
         .clone()
         .unwrap_or_else(|| settings::DEFAULT_LOG_FOLDER.into());
-    let hil_dir = std::env::current_dir()?.join("hil_config");
+    let hil_dir = env::current_dir()?.join("hil_config");
 
     let config = daqcore::can_thread::CanThreadConfig {
-        dbc_path: settings.dbc_path.clone(),
         log_folder: Some(log_folder),
         hil_dir,
     };

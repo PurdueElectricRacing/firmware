@@ -1,10 +1,11 @@
-use crate::ui::theme;
+use crate::ui;
+use std::{fs, path};
 
 pub const SETTINGS_PATH: &str = "settings.json";
 pub const DEFAULT_LOG_FOLDER: &str = "logs";
 
-pub fn dbc_dir() -> Option<std::path::PathBuf> {
-    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../dbc");
+pub fn database_dir() -> Option<path::PathBuf> {
+    let path = path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../dbc");
     path.is_dir().then_some(path)
 }
 
@@ -14,24 +15,26 @@ const DEFAULT_CAN_SPEED: daqcore::connection::CanBusSpeed =
 
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct Settings {
-    pub dbc_path: Option<std::path::PathBuf>,
+    pub superdbc_path: Option<path::PathBuf>,
+    pub bus_id: Option<u8>,
     pub selected_source: Option<daqcore::connection::ConnectionSource>,
     pub selected_speed: daqcore::connection::CanBusSpeed,
     pub udp_port: u16,
-    pub theme: theme::ThemeSelection,
+    pub theme: ui::theme::ThemeSelection,
     pub pixels_per_point: Option<f32>,
-    pub log_folder: Option<std::path::PathBuf>,
+    pub log_folder: Option<path::PathBuf>,
     pub window_secs: f64,
 }
 
 impl Default for Settings {
     fn default() -> Self {
         Self {
-            dbc_path: None,
+            superdbc_path: None,
+            bus_id: None,
             selected_source: None,
             selected_speed: DEFAULT_CAN_SPEED,
             udp_port: DEFAULT_UDP_PORT,
-            theme: theme::ThemeSelection::Default,
+            theme: ui::theme::ThemeSelection::Default,
             pixels_per_point: None,
             log_folder: None,
             window_secs: 30.0,
@@ -40,13 +43,13 @@ impl Default for Settings {
 }
 
 impl Settings {
-    fn path() -> std::path::PathBuf {
-        std::path::PathBuf::from(SETTINGS_PATH)
+    fn path() -> path::PathBuf {
+        path::PathBuf::from(SETTINGS_PATH)
     }
 
     pub fn load() -> Self {
         let path = Self::path();
-        if let Ok(json) = std::fs::read_to_string(&path) {
+        if let Ok(json) = fs::read_to_string(&path) {
             serde_json::from_str(&json).unwrap_or_default()
         } else {
             let default = Settings::default();
@@ -65,7 +68,7 @@ impl Settings {
         };
 
         let path = Self::path();
-        if let Err(error) = std::fs::write(&path, json) {
+        if let Err(error) = fs::write(&path, json) {
             log::error!("Failed to write {}: {error}", path.display());
         }
     }

@@ -1,7 +1,5 @@
-use crate::{
-    can,
-    log_parse::{consts, correlate},
-};
+use crate::{log_parse, superdbc};
+use std::{collections::HashMap, fs, path};
 
 const HEADER_ROW_COUNT: usize = 7;
 const HEADER_COLUMN_COUNT: usize = 3; // real time, daq timestamp, then per-row header label
@@ -44,8 +42,8 @@ pub struct TableBuilder {
     header_columns: Vec<TableColumn>,
 
     // Key is (bus name, msg name, signal name), value is numeric column index
-    indexer: std::collections::HashMap<(String, String, String), usize>,
-    enum_indexer: std::collections::HashMap<(String, String, String), usize>,
+    indexer: HashMap<(String, String, String), usize>,
+    enum_indexer: HashMap<(String, String, String), usize>,
     next_col_idx: usize,
 }
 
@@ -54,8 +52,8 @@ impl Default for TableBuilder {
         Self {
             header_columns: Vec::new(),
             next_col_idx: HEADER_COLUMN_COUNT,
-            indexer: std::collections::HashMap::new(),
-            enum_indexer: std::collections::HashMap::new(),
+            indexer: HashMap::new(),
+            enum_indexer: HashMap::new(),
         }
     }
 }
@@ -101,77 +99,53 @@ impl TableBuilder {
         rows
     }
 
-    pub fn create_header(&mut self, parser: &can_decode::Parser, bus_name: &str) {
-        let mut message_defs = parser.msg_defs();
-        message_defs.sort_by_key(|m| can::can_dbc_to_u32_without_extid_flag(&m.id));
-
-        for msg in message_defs {
-            let bus_id = bus_name;
-            let node = match msg.transmitter {
-                can_dbc::Transmitter::NodeName(n) => n,
-                can_dbc::Transmitter::VectorXXX => "N/A".to_string(),
-            };
-
-            let msg_id_u32 = can::can_dbc_to_u32_with_extid_flag(&msg.id);
-            let msg_desc = parser
-                .msg_desc(msg_id_u32)
-                .map(|d| d.to_string())
-                .unwrap_or_default();
-
-            for (i, sig) in msg.signals.iter().enumerate() {
-                let key = (bus_id.to_string(), msg.name.clone(), sig.name.clone());
-                if !self.indexer.contains_key(&key) {
-                    let sig_desc = parser
-                        .signal_desc(msg_id_u32, &sig.name)
-                        .map(|d| d.to_string())
-                        .unwrap_or_default();
-
-                    self.push_column(
+    pub fn create_header(&mut self, bus: &superdbc::database::Bus) {
+        let mut messages: Vec<_> = bus.messages().iter().collect();
+        messages.sort_by_key(|message| {
+            (
+                message.identity().raw_id(),
+                message.identity().is_extended(),
+            )
+        });
+        for message in messages {
+            for (i, signal) in message.signals().iter().enumerate() {
+                let key = (
+                    bus.name().to_owned(),
+                    message.name().to_owned(),
+                    signal.name().to_owned(),
+                );
+                if self.indexer.contains_key(&key) {
+                    continue;
+                }
+                self.push_column(
+                    key.clone(),
+                    TableColumn {
+                        bus: bus.name().to_owned(),
+                        node: message.transmitter().to_owned(),
+                        message: message.name().to_owned(),
+                        message_desc: if i == 0 {
+                            message.description().to_owned()
+                        } else {
+                            String::new()
+                        },
+                        signal: signal.name().to_owned(),
+                        signal_desc: signal.description().to_owned(),
+                        signal_unit: signal.unit().to_owned(),
+                    },
+                );
+                let choices: Vec<_> = signal.choices().map(|(_, label)| label).collect();
+                if !choices.is_empty() {
+                    self.push_enum_column(
                         key,
                         TableColumn {
-                            bus: bus_id.to_string(),
-                            node: node.clone(),
-                            message: msg.name.clone(),
-                            message_desc: if i == 0 {
-                                msg_desc.clone()
-                            } else {
-                                String::new()
-                            },
-                            signal: sig.name.clone(),
-                            signal_desc: sig_desc,
-                            signal_unit: sig.unit.to_string(),
+                            bus: bus.name().to_owned(),
+                            node: message.transmitter().to_owned(),
+                            message: message.name().to_owned(),
+                            signal: format!("{}_enum", signal.name()),
+                            signal_desc: format!("choices: {}", choices.join(", ")),
+                            ..TableColumn::default()
                         },
                     );
-
-                    let enum_map = parser
-                        .msg_entry(msg_id_u32)
-                        .and_then(|entry| entry.signal_meta.get(&sig.name))
-                        .map(|meta| &meta.enum_map)
-                        .filter(|enum_map| !enum_map.is_empty());
-                    if let Some(enum_map) = enum_map {
-                        let mut states: Vec<_> = enum_map.iter().collect();
-                        states.sort_by_key(|(value, _)| **value);
-                        let enum_desc = format!(
-                            "choices: {}",
-                            states
-                                .iter()
-                                .map(|(_, label)| label.as_str())
-                                .collect::<Vec<_>>()
-                                .join(", ")
-                        );
-                        self.push_enum_column(
-                            (bus_id.to_string(), msg.name.clone(), sig.name.clone()),
-                            TableColumn {
-                                bus: bus_id.to_string(),
-                                node: node.clone(),
-                                message: msg.name.clone(),
-                                message_desc: String::new(),
-                                signal: format!("{}_enum", sig.name),
-                                signal_desc: enum_desc,
-                                signal_unit: String::new(),
-                            },
-                        );
-                    }
                 }
             }
         }
@@ -179,17 +153,17 @@ impl TableBuilder {
 
     pub fn create_and_write_tables(
         &self,
-        out_folder: &std::path::Path,
+        out_folder: &path::Path,
         output_prefix: &str,
-        correlated_chunks: Vec<correlate::CorrelationChunkResult>,
+        correlated_chunks: Vec<log_parse::correlate::CorrelationChunkResult>,
     ) -> Result<(), csv::Error> {
-        std::fs::create_dir_all(out_folder)?;
+        fs::create_dir_all(out_folder)?;
 
         for (chunk_idx, chunk) in correlated_chunks.iter().enumerate() {
             let first_time = chunk.parsed_msgs.first().map(|m| m.timestamp).unwrap_or(0);
             let last_time = chunk.parsed_msgs.last().map(|m| m.timestamp).unwrap_or(0);
 
-            let bin_width = u64::from(consts::BIN_WIDTH_MS);
+            let bin_width = u64::from(log_parse::consts::BIN_WIDTH_MS);
             let first_row_time = u64::from(first_time) / bin_width * bin_width;
             let last_row_time = u64::from(last_time).div_ceil(bin_width) * bin_width;
             let num_rows = last_row_time.saturating_sub(first_row_time) / bin_width + 1;
@@ -229,18 +203,22 @@ impl TableBuilder {
 
                 while let Some(msg) = msg_iter.next_if(|msg| u64::from(msg.timestamp) < row_end) {
                     let decoded = &msg.decoded;
-                    for (sig_name, sig_value) in &decoded.signals {
-                        let key = (msg.bus_name.clone(), decoded.name.clone(), sig_name.clone());
+                    for (sig_name, sig_value) in decoded.iter() {
+                        let key = (
+                            msg.bus_name.clone(),
+                            decoded.name().to_owned(),
+                            sig_name.to_owned(),
+                        );
                         if let Some(&col_idx) = self.indexer.get(&key) {
-                            row[col_idx] = if sig_value.value.enum_label.is_some() {
-                                sig_value.value.int_rounded().to_string()
+                            row[col_idx] = if sig_value.enum_label().is_some() {
+                                sig_value.int_rounded().to_string()
                             } else {
-                                sig_value.value.physical.to_string()
+                                sig_value.physical().to_string()
                             };
                         }
                         if let Some(&enum_col_idx) = self.enum_indexer.get(&key) {
-                            row[enum_col_idx] = match &sig_value.value.enum_label {
-                                Some(label) => label.clone(),
+                            row[enum_col_idx] = match sig_value.enum_label() {
+                                Some(label) => label.to_owned(),
                                 None => "[UNKNOWN]".to_string(),
                             };
                         }

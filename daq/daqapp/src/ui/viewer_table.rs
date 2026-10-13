@@ -20,7 +20,7 @@ impl ViewerTable {
         ui: &mut eframe::egui::Ui,
         actions: &mut Vec<action::AppAction>,
         formatter: &Option<daqcore::formatter::Formatter>,
-        parser: Option<&app::ParserInfo>,
+        database: Option<&app::DatabaseSelection>,
         view: &telemetry::TelemetryView<'_>,
     ) -> egui_tiles::UiResponse {
         ui.heading(&self.title);
@@ -30,7 +30,7 @@ impl ViewerTable {
             let mut nodes: Vec<_> = view
                 .latest_setpoint_frames
                 .values()
-                .filter_map(|f| f.decoded.as_ref().map(|d| d.tx_node.clone()))
+                .filter_map(|f| f.decoded.as_ref().map(|d| d.tx_node().to_owned()))
                 .collect();
             nodes.sort();
             nodes.dedup();
@@ -52,8 +52,8 @@ impl ViewerTable {
         eframe::egui::ScrollArea::vertical().show(ui, |ui| {
             for frame in view.latest_setpoint_frames.values() {
                 let decoded = frame.decoded.as_ref();
-                let name = decoded.map_or("Error: Unknown", |d| d.name.as_str());
-                let node = decoded.map_or("Unparsed", |d| d.tx_node.as_str());
+                let name = decoded.map_or("Error: Unknown", |d| d.name());
+                let node = decoded.map_or("Unparsed", |d| d.tx_node());
                 if self.tx_node != "Any" && self.tx_node != node {
                     continue;
                 }
@@ -65,30 +65,31 @@ impl ViewerTable {
                         .to_lowercase()
                         .contains(&search)
                     && !decoded.is_some_and(|d| {
-                        d.signals.keys().any(|s| s.to_lowercase().contains(&search))
+                        d.iter()
+                            .any(|(name, _)| name.to_lowercase().contains(&search))
                     })
                 {
                     continue;
                 }
 
-                let id = frame.identity.dbc_id();
-                let definition = parser.and_then(|p| p.parser.msg_def(id));
+                let definition = decoded.and_then(|decoded| {
+                    let key = decoded.key();
+                    database?.database.message_by_key(key)
+                });
                 let signals = decoded
                     .map(|d| {
-                        d.signals
-                            .iter()
+                        d.iter()
                             .map(|(name, sig)| {
-                                let def = definition
-                                    .and_then(|m| m.signals.iter().find(|s| s.name == *name));
+                                let def = definition.and_then(|message| message.signal(name));
                                 (
-                                    name.as_str(),
+                                    name,
                                     daqcore::formatter::try_format(
                                         formatter,
-                                        &d.name,
+                                        d.name(),
                                         name,
                                         def,
-                                        Some(&sig.unit),
-                                        &sig.value,
+                                        None,
+                                        sig,
                                     ),
                                 )
                             })

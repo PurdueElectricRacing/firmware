@@ -1,4 +1,5 @@
-use crate::hil;
+use crate::{hil, superdbc};
+use std::{path, time};
 
 #[derive(PartialEq, Eq, Clone, Copy)]
 pub enum ExpectResult {
@@ -67,12 +68,12 @@ impl ExpectResult {
 }
 
 impl HilRunningTest {
-    pub fn new(base: &std::path::Path, test_info: &hil::config::TestInfo) -> Result<Self, String> {
+    pub fn new(base: &path::Path, test_info: &hil::config::TestInfo) -> Result<Self, String> {
         let test = hil::config::load_test_from_file(base, &test_info.basename)?;
         Ok(Self::from_parts(test_info.clone(), test))
     }
 
-    pub fn from_basename(base: &std::path::Path, basename: &str) -> Result<Self, String> {
+    pub fn from_basename(base: &path::Path, basename: &str) -> Result<Self, String> {
         let test = hil::config::load_test_from_file(base, basename)?;
         let test_info = hil::config::TestInfo {
             basename: basename.to_string(),
@@ -96,7 +97,7 @@ impl HilRunningTest {
         }
     }
 
-    pub fn update_expect_statuses(&mut self, elapsed: std::time::Duration) {
+    pub fn update_expect_statuses(&mut self, elapsed: time::Duration) {
         let ts = elapsed.as_millis();
         for expect in &mut self.in_progress_expects {
             match expect.result {
@@ -117,8 +118,8 @@ impl HilRunningTest {
 
     pub fn process_can(
         &mut self,
-        decoded: &can_decode::DecodedMessage,
-        elapsed: std::time::Duration,
+        decoded: &superdbc::decode::DecodedMessage,
+        elapsed: time::Duration,
     ) {
         self.update_expect_statuses(elapsed);
 
@@ -129,9 +130,9 @@ impl HilRunningTest {
                 } else {
                     let mut failures = Vec::new();
                     for (sig_name, sig_range) in &expect.expect.signals {
-                        match decoded.signals.get(sig_name) {
+                        match decoded.signal(sig_name) {
                             Some(sig_value) => {
-                                let value = sig_value.value.physical;
+                                let value = sig_value.physical();
                                 if !value.is_finite()
                                     || value < sig_range[0]
                                     || value > sig_range[1]
@@ -193,7 +194,7 @@ impl InProgressExpect {
         }
     }
 
-    pub fn matches_message(&self, decoded: &can_decode::DecodedMessage) -> bool {
-        self.expect.msg_name == decoded.name
+    pub fn matches_message(&self, decoded: &superdbc::decode::DecodedMessage) -> bool {
+        self.expect.msg_name == decoded.name()
     }
 }

@@ -4,125 +4,296 @@
             "name": "car_state_t",
             "base_type": "uint8_t",
             "choices": [
-                "fatal",
-                "idle",
-                "precharging",
-                "energized",
-                "buzzing",
-                "ready2drive"
+                {
+                    "name": "fatal",
+                    "value": 0
+                },
+                {
+                    "name": "idle",
+                    "value": 1
+                },
+                {
+                    "name": "precharging",
+                    "value": 2
+                },
+                {
+                    "name": "energized",
+                    "value": 3
+                },
+                {
+                    "name": "buzzing",
+                    "value": 4
+                },
+                {
+                    "name": "ready2drive",
+                    "value": 5
+                }
             ]
         },
         {
             "name": "fault_id_t",
-            "base_type": "uint16_t",
-            "choices": [
-                "CANpiler will inject faults here"
-            ]
+            "base_type": "uint16_t"
         },
         {
             "name": "charging_state_t",
             "base_type": "uint8_t",
             "choices": [
-                "idle",
-                "ready2charge",
-                "charging"
+                {
+                    "name": "idle",
+                    "value": 0
+                },
+                {
+                    "name": "ready2charge",
+                    "value": 1
+                },
+                {
+                    "name": "charging",
+                    "value": 2
+                }
             ]
         },
         {
             "name": "vcu_mode_t",
             "base_type": "uint8_t",
             "choices": [
-                "ACCEL",
-                "SKIDPAD",
-                "AUTOCROSS",
-                "ENDURANCE",
-                "TUNING"
+                {
+                    "name": "ACCEL",
+                    "value": 0
+                },
+                {
+                    "name": "SKIDPAD",
+                    "value": 1
+                },
+                {
+                    "name": "AUTOCROSS",
+                    "value": 2
+                },
+                {
+                    "name": "ENDURANCE",
+                    "value": 3
+                },
+                {
+                    "name": "TUNING",
+                    "value": 4
+                }
             ]
         },
         {
             "name": "AMK_state_t",
             "base_type": "uint8_t",
             "choices": [
-                "OFF",
-                "STARTING",
-                "RUNNING",
-                "RECOVERING",
-                "FATAL"
+                {
+                    "name": "OFF",
+                    "value": 0
+                },
+                {
+                    "name": "STARTING",
+                    "value": 1
+                },
+                {
+                    "name": "RUNNING",
+                    "value": 2
+                },
+                {
+                    "name": "RECOVERING",
+                    "value": 3
+                },
+                {
+                    "name": "FATAL",
+                    "value": 4
+                }
             ]
         },
         {
             "name": "bootloader_status_t",
             "base_type": "uint8_t",
             "choices": [
-                "READY",
-                "ACK",
-                "ERROR",
-                "CRC_ERROR"
+                {
+                    "name": "READY",
+                    "value": 0
+                },
+                {
+                    "name": "ACK",
+                    "value": 1
+                },
+                {
+                    "name": "ERROR",
+                    "value": 2
+                },
+                {
+                    "name": "CRC_ERROR",
+                    "value": 3
+                }
             ]
         },
         {
             "name": "bootloader_target_id_t",
             "base_type": "uint8_t",
             "choices": [
-                "INVALID",
-                "MAIN_MODULE",
-                "DASHBOARD",
-                "A_BOX",
-                "TORQUE_VECTOR",
-                "FRONT_DRIVELINE",
-                "REAR_DRIVELINE"
+                {
+                    "name": "INVALID",
+                    "value": 0
+                },
+                {
+                    "name": "MAIN_MODULE",
+                    "value": 1
+                },
+                {
+                    "name": "DASHBOARD",
+                    "value": 2
+                },
+                {
+                    "name": "A_BOX",
+                    "value": 3
+                },
+                {
+                    "name": "TORQUE_VECTOR",
+                    "value": 4
+                },
+                {
+                    "name": "FRONT_DRIVELINE",
+                    "value": 5
+                },
+                {
+                    "name": "REAR_DRIVELINE",
+                    "value": 6
+                }
             ]
         },
         {
             "name": "izze_gyro_scale_t",
             "base_type": "uint8_t",
             "choices": [
-                "RESERVED",
-                "125DPS",
-                "250DPS",
-                "500DPS",
-                "1000DPS",
-                "2000DPS",
-                "4000DPS"
+                {
+                    "name": "RESERVED",
+                    "value": 0
+                },
+                {
+                    "name": "125DPS",
+                    "value": 1
+                },
+                {
+                    "name": "250DPS",
+                    "value": 2
+                },
+                {
+                    "name": "500DPS",
+                    "value": 3
+                },
+                {
+                    "name": "1000DPS",
+                    "value": 4
+                },
+                {
+                    "name": "2000DPS",
+                    "value": 5
+                },
+                {
+                    "name": "4000DPS",
+                    "value": 6
+                }
             ]
         },
         {
             "name": "izze_accel_scale_t",
             "base_type": "uint8_t",
             "choices": [
-                "RESERVED",
-                "2G",
-                "4G",
-                "8G",
-                "16G"
+                {
+                    "name": "RESERVED",
+                    "value": 0
+                },
+                {
+                    "name": "2G",
+                    "value": 1
+                },
+                {
+                    "name": "4G",
+                    "value": 2
+                },
+                {
+                    "name": "8G",
+                    "value": 3
+                },
+                {
+                    "name": "16G",
+                    "value": 4
+                }
             ]
         },
         {
             "name": "izze_output_data_rate_t",
             "base_type": "uint8_t",
             "choices": [
-                "RESERVED",
-                "12HZ",
-                "26HZ",
-                "52HZ",
-                "104HZ",
-                "208HZ",
-                "416HZ",
-                "833HZ",
-                "1667HZ",
-                "3333HZ",
-                "6667HZ"
+                {
+                    "name": "RESERVED",
+                    "value": 0
+                },
+                {
+                    "name": "12HZ",
+                    "value": 1
+                },
+                {
+                    "name": "26HZ",
+                    "value": 2
+                },
+                {
+                    "name": "52HZ",
+                    "value": 3
+                },
+                {
+                    "name": "104HZ",
+                    "value": 4
+                },
+                {
+                    "name": "208HZ",
+                    "value": 5
+                },
+                {
+                    "name": "416HZ",
+                    "value": 6
+                },
+                {
+                    "name": "833HZ",
+                    "value": 7
+                },
+                {
+                    "name": "1667HZ",
+                    "value": 8
+                },
+                {
+                    "name": "3333HZ",
+                    "value": 9
+                },
+                {
+                    "name": "6667HZ",
+                    "value": 10
+                }
             ]
         },
         {
             "name": "izze_bit_rate_t",
             "base_type": "uint8_t",
             "choices": [
-                "RESERVED",
-                "1MBPS",
-                "500KBPS",
-                "250KBPS",
-                "125KBPS"
+                {
+                    "name": "RESERVED",
+                    "value": 0
+                },
+                {
+                    "name": "1MBPS",
+                    "value": 1
+                },
+                {
+                    "name": "500KBPS",
+                    "value": 2
+                },
+                {
+                    "name": "250KBPS",
+                    "value": 3
+                },
+                {
+                    "name": "125KBPS",
+                    "value": 4
+                }
             ]
         }
     ]

@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from dataclasses import dataclass
+import re
 from typing import Annotated, Literal, Self
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
@@ -227,17 +228,40 @@ class BusDeclarations(DeclarationModel):
         return self
 
 
+class EnumChoiceDeclaration(DeclarationModel):
+    name: str = Field(min_length=1)
+    value: int
+
+
 class CustomTypeDeclaration(DeclarationModel):
     name: str = Field(pattern=r"^[a-zA-Z_][a-zA-Z0-9_]*_t$")
     base_type: BaseType
-    choices: Annotated[list[str], Field(min_length=1)] | None = None
+    choices: Annotated[list[EnumChoiceDeclaration], Field(min_length=1)] | None = None
 
-    @field_validator("choices")
-    @classmethod
-    def choices_are_unique(cls, choices: list[str] | None) -> list[str] | None:
-        if choices is not None and _duplicate_value(choices) is not None:
-            raise ValueError("choices must contain unique values")
-        return choices
+    @model_validator(mode="after")
+    def validate_enum(self) -> Self:
+        if not self.choices:
+            return self
+        # Labels may start with digits: generated C names have a type prefix.
+        if any(not re.fullmatch(r"[a-zA-Z0-9_]+", choice.name) for choice in self.choices):
+            raise ValueError("enum names must contain only letters, digits, and underscores")
+        names = [choice.name.upper() for choice in self.choices]
+        if _duplicate_value(names) is not None:
+            raise ValueError("choices must have unique generated C names")
+        if _duplicate_value([choice.value for choice in self.choices]) is not None:
+            raise ValueError("choices must have unique numeric values")
+        if self.base_type == "float":
+            raise ValueError("float cannot have enum choices")
+        if self.base_type == "bool":
+            low, high = 0, 1
+        else:
+            signed = self.base_type.startswith("int")
+            bits = int(self.base_type.removeprefix("uint").removeprefix("int").removesuffix("_t"))
+            low = -(1 << (bits - 1)) if signed else 0
+            high = (1 << (bits - int(signed))) - 1
+        if any(not low <= choice.value <= high for choice in self.choices):
+            raise ValueError(f"enum values do not fit {self.base_type}")
+        return self
 
 
 class TypeDeclarations(DeclarationModel):
@@ -249,6 +273,12 @@ class TypeDeclarations(DeclarationModel):
         duplicate = _duplicate_value(names)
         if duplicate is not None:
             raise ValueError(f"duplicate custom type name '{duplicate}'")
+        symbols = [
+            f"{custom_type.name[:-2].upper()}_{choice.name.upper()}"
+            for custom_type in self.types for choice in custom_type.choices or []
+        ]
+        if _duplicate_value(symbols) is not None:
+            raise ValueError("custom types contain duplicate generated C enum names")
         return self
 
 

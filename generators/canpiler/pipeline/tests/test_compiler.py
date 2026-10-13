@@ -8,6 +8,7 @@ import pytest
 
 from canpiler.pipeline.compiler import compile_message
 from core.declarations import (
+    CustomTypeDeclaration,
     MessageDeclaration,
     SignalDeclaration,
 )
@@ -141,49 +142,38 @@ def test_resolved_signal_semantics(base_type, custom):
 
 
 @pytest.mark.parametrize("base_type,length,labels", [
-    ("uint8_t", 2, 4), ("int8_t", 2, 2), ("bool", 1, 2),
+    ("uint8_t", 2, 4), ("int8_t", 2, 2),
 ])
 def test_enum_capacity_boundary(base_type, length, labels):
-    from core.declarations import CustomTypeDeclaration
-
-    types = {"test_t": CustomTypeDeclaration(
-        name="test_t", base_type=base_type, choices=[str(i) for i in range(labels)],
-    )}
+    def custom(count):
+        return CustomTypeDeclaration(name="test_t", base_type=base_type,
+                                     choices=[{"name": str(i), "value": i} for i in range(count)])
     def message(choices=None):
         kwargs = {} if choices is None else {"choices": choices}
         return MessageDeclaration(
             message_name="test", description="", priority=0,
             signals=[SignalDeclaration(signal_name="value", data_type="test_t", length=length, **kwargs)],
         )
-    compile_message(message(), False, types)
-    types["test_t"] = CustomTypeDeclaration(
-        name="test_t", base_type=base_type, choices=[str(i) for i in range(labels + 1)],
-    )
+    compile_message(message(), False, {"test_t": custom(labels)})
+    types = {"test_t": custom(labels + 1)}
     with pytest.raises(ValueError, match="enum values do not fit"):
         compile_message(message(), False, types)
-    # Explicit choices take precedence over an oversized custom-type enum.
-    compile_message(message(["override"]), False, types)
-    # Empty signal choices retain the existing custom-type fallback.
+    with pytest.raises(ValueError, match="cannot override"):
+        compile_message(message(["override"]), False, types)
     with pytest.raises(ValueError, match="enum values do not fit"):
         compile_message(message([]), False, types)
 
 
-@pytest.mark.parametrize("custom", [False, True])
-def test_float_enum_rejected(custom):
-    from core.declarations import CustomTypeDeclaration
-
-    types = {"test_t": CustomTypeDeclaration(
-        name="test_t", base_type="float", choices=["invalid"],
-    )} if custom else {}
-    kwargs = {} if custom else {"choices": ["invalid"]}
+def test_float_enum_rejected():
+    with pytest.raises(ValueError, match="float cannot have enum choices"):
+        CustomTypeDeclaration(name="test_t", base_type="float",
+                              choices=[{"name": "invalid", "value": 0}])
     message = MessageDeclaration(
         message_name="test", description="", priority=0,
-        signals=[SignalDeclaration(
-            signal_name="value", data_type="test_t" if custom else "float", **kwargs,
-        )],
+        signals=[SignalDeclaration(signal_name="value", data_type="float", choices=["invalid"])],
     )
     with pytest.raises(ValueError, match="float requires 32 bits and no choices"):
-        compile_message(message, False, types)
+        compile_message(message, False, {})
 
 
 @pytest.mark.parametrize("byte_order,offsets,orders", [

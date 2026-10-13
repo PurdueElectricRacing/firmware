@@ -11,24 +11,21 @@ DaqCLI takes explicit paths as arguments, so it can be run from any working
 directory:
 
 ```bash
-cargo run -p daqcli -- \
+cargo run -- \
     --logs-dir <dir with .log files> \
     --output-dir <dir for CSV output> \
-    --bus0-dbc <path to VCAN .dbc> \
-    --bus1-dbc <path to MCAN .dbc>
+    --superdbc <path to superdbc_*.json>
 ```
 
-DBCs are an output of the firmware build process and are found in `monorepo/dbc`.
+SuperDBC artifacts are firmware build outputs found in `monorepo/dbc`.
 
 ## Options
 
 - `--logs-dir` (required) - directory containing the raw `.log` files
 - `--output-dir` (required) - directory to write CSV tables into
-- `--bus0-dbc` (required) - DBC file for bus 0 (VCAN)
-- `--bus1-dbc` (required) - DBC file for bus 1 (MCAN)
+- `--superdbc` (required) - SuperDBC JSON artifact containing the bus definitions
 - `--prefix` - output filename prefix (default: `out`)
-- `--bus0-name` - column label for bus 0 (default: `VCAN`)
-- `--bus1-name` - column label for bus 1 (default: `MCAN`)
 
-Set `RUST_LOG` to control log verbosity (for example `RUST_LOG=debug`); it defaults
-to `info`.
+
+Set `RUST_LOG` to control log verbosity (for example `RUST_LOG=debug`).
+Defaults to `info`.

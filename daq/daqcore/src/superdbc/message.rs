@@ -2,13 +2,11 @@
 
 use std::collections::{BTreeMap, HashMap};
 
-use crate::frame::CanIdentity;
-
-use crate::superdbc::{
+use crate::{superdbc::{
     error::ParseError,
     extract::Codec,
     model::{MessageModel, SignalModel},
-};
+}, frame::CanIdentity};
 
 /// Complete lookup key within one active database version.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]

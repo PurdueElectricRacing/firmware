@@ -1,9 +1,9 @@
-use crate::{app, telemetry, ui::dbc_msg_picker};
+use crate::{app, telemetry, ui::message_picker};
 
 pub struct Jitter {
     pub title: String,
-    msg_picker: dbc_msg_picker::DbcMsgPickerState,
-    selected_msg: Option<can_dbc::Message>,
+    msg_picker: message_picker::MessagePickerState,
+    selected_msg: Option<daqcore::superdbc::message::MessageKey>,
     period_ms: usize,
 }
 
@@ -11,28 +11,38 @@ impl Jitter {
     pub fn new(instance: usize) -> Self {
         Self {
             title: format!("Jitter #{instance}"),
-            msg_picker: dbc_msg_picker::DbcMsgPickerState::default(),
+            msg_picker: message_picker::MessagePickerState::default(),
             selected_msg: None,
             period_ms: 100,
         }
     }
 
+    pub fn reset_database(&mut self) {
+        self.selected_msg = None;
+        self.msg_picker = message_picker::MessagePickerState::default();
+    }
+
     pub fn show(
         &mut self,
         ui: &mut eframe::egui::Ui,
-        parser: Option<&app::ParserInfo>,
+        database: Option<&app::DatabaseSelection>,
         view: &telemetry::TelemetryView<'_>,
     ) -> egui_tiles::UiResponse {
-        let Some(parser) = parser else {
-            dbc_msg_picker::no_dbc_placeholder(ui);
+        let Some(database) = database else {
+            message_picker::no_database_placeholder(ui);
             return egui_tiles::UiResponse::None;
         };
 
         if let Some(msg) = self
             .msg_picker
-            .show(ui, &parser.parser, self.selected_msg.is_none())
+            .show(ui, database.bus(), self.selected_msg.is_none())
         {
             self.selected_msg = Some(msg);
+            self.period_ms = database
+                .bus()
+                .message(msg.identity)
+                .and_then(|message| message.nominal_period_ms())
+                .map_or(100, |ms| ms as usize);
         }
         ui.horizontal(|ui| {
             ui.label("Nominal period:");
@@ -42,16 +52,12 @@ impl Jitter {
                     .suffix(" ms"),
             );
         });
-        if let Some(msg) = &self.selected_msg {
-            let id = daqcore::can::can_dbc_to_u32_without_extid_flag(&msg.id);
-            ui.label(format!("{} (0x{id:X})", msg.name));
-            let identity = match daqcore::can::can_dbc_identity(&msg.id) {
-                Ok(identity) => identity,
-                Err(error) => {
-                    ui.colored_label(ui.visuals().error_fg_color, error.to_string());
-                    return egui_tiles::UiResponse::None;
-                }
-            };
+        if let Some(msg) = self
+            .selected_msg
+            .and_then(|key| database.bus().message(key.identity))
+        {
+            let identity = msg.identity();
+            ui.label(format!("{} ({identity})", msg.name()));
 
             let deviations = interval_deviations(view.setpoint_frames, identity, self.period_ms);
             ui.label("Absolute deviation from nominal period over the shared interval");

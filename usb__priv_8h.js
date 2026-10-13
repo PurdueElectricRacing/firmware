@@ -1,5 +1,6 @@
 var usb__priv_8h =
 [
+    [ "USB_PRIV_clearHalt", "usb__priv_8h.html#af1d8fa52f1c05ec5a597b2f6bfae225b", null ],
     [ "USB_PRIV_connect", "usb__priv_8h.html#a8f4223ca64ff2db2fdecae4d66c0d2ec", null ],
     [ "USB_PRIV_deinit", "usb__priv_8h.html#ae1b13854a90c8dbd100fae48a107ad4d", null ],
     [ "USB_PRIV_enableInterrupts", "usb__priv_8h.html#a6a84dcb07b21e54a2b506cec9165693b", null ],

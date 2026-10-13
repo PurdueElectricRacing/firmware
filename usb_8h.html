@@ -117,7 +117,7 @@ Include dependency graph for usb.h:</div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="usb_8h__dep__incl.svg" width="339" height="230"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8h__dep__incl.svg" width="100%" height="472"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="usb_8h_source.html">Go to the source code of this file.</a></p>
@@ -131,6 +131,42 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:af6e0b6af837339137cf0e3648a382e96" id="r_af6e0b6af837339137cf0e3648a382e96"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6e0b6af837339137cf0e3648a382e96">PHAL_USB_Request_t</a> : uint8_t { <br />
+&#160;&#160;<a class="el" href="#af6e0b6af837339137cf0e3648a382e96a49f608d1939718acdcb3e8a46358f662">PHAL_USB_REQUEST_GET_STATUS</a> = 0U
+, <a class="el" href="#af6e0b6af837339137cf0e3648a382e96ae7365d506620aac272cfbf584f84aef7">PHAL_USB_REQUEST_CLEAR_FEATURE</a> = 1U
+, <a class="el" href="#af6e0b6af837339137cf0e3648a382e96aa7b056735d19681e5c4afba9927ff8d3">PHAL_USB_REQUEST_SET_FEATURE</a> = 3U
+, <a class="el" href="#af6e0b6af837339137cf0e3648a382e96a703207a867505981cb1506435bd7287e">PHAL_USB_REQUEST_SET_ADDRESS</a> = 5U
+, <br />
+&#160;&#160;<a class="el" href="#af6e0b6af837339137cf0e3648a382e96ab5487e0c317f0f627ccab06588bbfa38">PHAL_USB_REQUEST_GET_DESCRIPTOR</a> = 6U
+, <a class="el" href="#af6e0b6af837339137cf0e3648a382e96a1491bcf00ca0b990e3f689a6cedf5a52">PHAL_USB_REQUEST_GET_CONFIGURATION</a> = 8U
+, <a class="el" href="#af6e0b6af837339137cf0e3648a382e96a5e5280a3d0b8699182d75c56568f34bd">PHAL_USB_REQUEST_SET_CONFIGURATION</a> = 9U
+, <a class="el" href="#af6e0b6af837339137cf0e3648a382e96ab1b55c1a9464da092cb67bde7f428bd1">PHAL_USB_REQUEST_GET_INTERFACE</a> = 10U
+, <br />
+&#160;&#160;<a class="el" href="#af6e0b6af837339137cf0e3648a382e96a2af10c7809ece2791826a410467db498">PHAL_USB_REQUEST_SET_INTERFACE</a> = 11U
+<br />
+ }</td></tr>
+<tr class="separator:af6e0b6af837339137cf0e3648a382e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87a54ce368555d72fe2a96153d73d430" id="r_a87a54ce368555d72fe2a96153d73d430"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87a54ce368555d72fe2a96153d73d430">PHAL_USB_DescriptorType_t</a> : uint8_t { <br />
+&#160;&#160;<a class="el" href="#a87a54ce368555d72fe2a96153d73d430a348861592e6e6db50a83ccd1dde61d17">PHAL_USB_DESCRIPTOR_DEVICE</a> = 1U
+, <a class="el" href="#a87a54ce368555d72fe2a96153d73d430acb6f2eb03bceb0312cf82f83cf85f827">PHAL_USB_DESCRIPTOR_CONFIGURATION</a> = 2U
+, <a class="el" href="#a87a54ce368555d72fe2a96153d73d430a09b754c7e349f84b9e67e39b444f9db3">PHAL_USB_DESCRIPTOR_STRING</a> = 3U
+, <a class="el" href="#a87a54ce368555d72fe2a96153d73d430a621301ac09a42e2fb7000aa14817f477">PHAL_USB_DESCRIPTOR_INTERFACE</a> = 4U
+, <br />
+&#160;&#160;<a class="el" href="#a87a54ce368555d72fe2a96153d73d430a242fce5b3e0e47ad29fa64eeb818a6a4">PHAL_USB_DESCRIPTOR_ENDPOINT</a> = 5U
+<br />
+ }</td></tr>
+<tr class="separator:a87a54ce368555d72fe2a96153d73d430"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1d132fd391618b2db627138bd69ca7f" id="r_af1d132fd391618b2db627138bd69ca7f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af1d132fd391618b2db627138bd69ca7f">PHAL_USB_RequestType_t</a> : uint8_t { <br />
+&#160;&#160;<a class="el" href="#af1d132fd391618b2db627138bd69ca7fa9aadb253ca267ebc263b2a55b9023922">PHAL_USB_REQUEST_TYPE_DEVICE_OUT</a> = 0x00U
+, <a class="el" href="#af1d132fd391618b2db627138bd69ca7fa66210d37dcbc9bbb564804c1ddc51bc8">PHAL_USB_REQUEST_TYPE_INTERFACE_OUT</a> = 0x01U
+, <a class="el" href="#af1d132fd391618b2db627138bd69ca7fa401694c52b6317941f38ee45de18455d">PHAL_USB_REQUEST_TYPE_ENDPOINT_OUT</a> = 0x02U
+, <a class="el" href="#af1d132fd391618b2db627138bd69ca7fac7b240145629739b3e1443ee3743b7c3">PHAL_USB_REQUEST_TYPE_DEVICE_IN</a> = 0x80U
+, <br />
+&#160;&#160;<a class="el" href="#af1d132fd391618b2db627138bd69ca7fa87356fae23751cd14e6aa6fecea81146">PHAL_USB_REQUEST_TYPE_INTERFACE_IN</a> = 0x81U
+, <a class="el" href="#af1d132fd391618b2db627138bd69ca7fafadaab4e932934d310009c865c39512b">PHAL_USB_REQUEST_TYPE_ENDPOINT_IN</a> = 0x82U
+<br />
+ }</td></tr>
+<tr class="separator:af1d132fd391618b2db627138bd69ca7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91122876321080a57ca676c6155454cf" id="r_a91122876321080a57ca676c6155454cf"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a> : uint8_t { <a class="el" href="#a91122876321080a57ca676c6155454cfaf97c7e158f068a73b03059fcb4b2b918">PHAL_USB_ENDPOINT_DIRECTION_OUT</a> = 0U
 , <a class="el" href="#a91122876321080a57ca676c6155454cfae2763871200cdc780543c5ad61ef4db2">PHAL_USB_ENDPOINT_DIRECTION_IN</a> = 1U
  }</td></tr>
@@ -138,6 +174,8 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ab898071398b359603a35c202e9c65f3b" id="r_ab898071398b359603a35c202e9c65f3b"><td class="memItemLeft" align="right" valign="top">struct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab898071398b359603a35c202e9c65f3b">__attribute__</a> ((packed))</td></tr>
+<tr class="separator:ab898071398b359603a35c202e9c65f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42f35c4042b4e0d58161e1761be95af5" id="r_a42f35c4042b4e0d58161e1761be95af5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a42f35c4042b4e0d58161e1761be95af5">PHAL_USB_callback</a> (const <a class="el" href="structPHAL__USB__Event__t.html">PHAL_USB_Event_t</a> *event)</td></tr>
 <tr class="memdesc:a42f35c4042b4e0d58161e1761be95af5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle USB events.  <br /></td></tr>
 <tr class="separator:a42f35c4042b4e0d58161e1761be95af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -156,6 +194,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ad334f9d5a0cf9ede82d354e1c17c02b3" id="r_ad334f9d5a0cf9ede82d354e1c17c02b3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad334f9d5a0cf9ede82d354e1c17c02b3">PHAL_USB_stall</a> (uint8_t endpoint, <a class="el" href="#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a> direction)</td></tr>
 <tr class="memdesc:ad334f9d5a0cf9ede82d354e1c17c02b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stall one endpoint direction.  <br /></td></tr>
 <tr class="separator:ad334f9d5a0cf9ede82d354e1c17c02b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacf324a625d71aedd88a105f9cbd8fcd" id="r_aacf324a625d71aedd88a105f9cbd8fcd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aacf324a625d71aedd88a105f9cbd8fcd">PHAL_USB_clearHalt</a> (uint8_t endpoint, <a class="el" href="#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a> direction)</td></tr>
+<tr class="memdesc:aacf324a625d71aedd88a105f9cbd8fcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear endpoint halt, discard any pending transfer, and reset to DATA0.  <br /></td></tr>
+<tr class="separator:aacf324a625d71aedd88a105f9cbd8fcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47d401544e89e5c4e84a478fa6c581b5" id="r_a47d401544e89e5c4e84a478fa6c581b5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47d401544e89e5c4e84a478fa6c581b5">PHAL_USB_write</a> (uint8_t endpoint, const void *source, uint16_t length_bytes)</td></tr>
 <tr class="memdesc:a47d401544e89e5c4e84a478fa6c581b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queue one device-to-host packet.  <br /></td></tr>
 <tr class="separator:a47d401544e89e5c4e84a478fa6c581b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,12 +215,58 @@ Variables</h2></td></tr>
 <tr class="separator:ac11d5e808a4d0ee4824043c138bed127"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e6f1c105cb6578615bf45ec8d123a71" id="r_a2e6f1c105cb6578615bf45ec8d123a71"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e6f1c105cb6578615bf45ec8d123a71">PHAL_USB_PACKET_SIZE_BYTES</a> = 64U</td></tr>
 <tr class="separator:a2e6f1c105cb6578615bf45ec8d123a71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf5cf25f98003109cb716d20cc1cd6af" id="r_acf5cf25f98003109cb716d20cc1cd6af"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf5cf25f98003109cb716d20cc1cd6af">PHAL_USB_REQUEST_TYPE_MASK</a> = 0x60U</td></tr>
+<tr class="separator:acf5cf25f98003109cb716d20cc1cd6af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a428b9fff64307749faa95d442b80c438" id="r_a428b9fff64307749faa95d442b80c438"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a428b9fff64307749faa95d442b80c438">PHAL_USB_REQUEST_TYPE_STANDARD</a> = 0U</td></tr>
+<tr class="separator:a428b9fff64307749faa95d442b80c438"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abecd53986840909775458dbcf7956508" id="r_abecd53986840909775458dbcf7956508"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abecd53986840909775458dbcf7956508">PHAL_USB_FEATURE_ENDPOINT_HALT</a> = 0U</td></tr>
+<tr class="separator:abecd53986840909775458dbcf7956508"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaaabf1c2b49fc467d6ccec4b32a0c7b" id="r_adaaabf1c2b49fc467d6ccec4b32a0c7b"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adaaabf1c2b49fc467d6ccec4b32a0c7b">PHAL_USB_ENDPOINT_ADDRESS_IN</a> = 0x80U</td></tr>
+<tr class="separator:adaaabf1c2b49fc467d6ccec4b32a0c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7b27e04257ea1117d2a4cb4d121ab90" id="r_ad7b27e04257ea1117d2a4cb4d121ab90"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad7b27e04257ea1117d2a4cb4d121ab90">PHAL_USB_DEVICE_DESCRIPTOR_LENGTH</a> = 18U</td></tr>
+<tr class="separator:ad7b27e04257ea1117d2a4cb4d121ab90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57125ddd42c894583185869bfaee876c" id="r_a57125ddd42c894583185869bfaee876c"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57125ddd42c894583185869bfaee876c">PHAL_USB_CONFIGURATION_DESCRIPTOR_LENGTH</a> = 9U</td></tr>
+<tr class="separator:a57125ddd42c894583185869bfaee876c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11d79542b34b72b711fd123c077a8ef6" id="r_a11d79542b34b72b711fd123c077a8ef6"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11d79542b34b72b711fd123c077a8ef6">PHAL_USB_INTERFACE_DESCRIPTOR_LENGTH</a> = 9U</td></tr>
+<tr class="separator:a11d79542b34b72b711fd123c077a8ef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59dcbaadcbb0bab0fd6a3eaa29c8bff9" id="r_a59dcbaadcbb0bab0fd6a3eaa29c8bff9"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59dcbaadcbb0bab0fd6a3eaa29c8bff9">PHAL_USB_ENDPOINT_DESCRIPTOR_LENGTH</a> = 7U</td></tr>
+<tr class="separator:a59dcbaadcbb0bab0fd6a3eaa29c8bff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdfd00458fb0eca20f1ef62ad1292085" id="r_abdfd00458fb0eca20f1ef62ad1292085"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abdfd00458fb0eca20f1ef62ad1292085">PHAL_USB_DEVICE_CLASS_VENDOR_SPECIFIC</a> = 0xFFU</td></tr>
+<tr class="separator:abdfd00458fb0eca20f1ef62ad1292085"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ce7da2a5aa8bb7fb01cd9878d4d8860" id="r_a4ce7da2a5aa8bb7fb01cd9878d4d8860"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ce7da2a5aa8bb7fb01cd9878d4d8860">PHAL_USB_CONFIGURATION_ATTRIBUTES_BUS_POWERED</a> = 0x80U</td></tr>
+<tr class="separator:a4ce7da2a5aa8bb7fb01cd9878d4d8860"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cca51c8df582dd1fd37f782fdac92d7" id="r_a8cca51c8df582dd1fd37f782fdac92d7"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8cca51c8df582dd1fd37f782fdac92d7">PHAL_USB_ENDPOINT_TRANSFER_TYPE_BULK</a> = 2U</td></tr>
+<tr class="separator:a8cca51c8df582dd1fd37f782fdac92d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1190b6980f0026e636348c5a78a29fe1" id="r_a1190b6980f0026e636348c5a78a29fe1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1190b6980f0026e636348c5a78a29fe1">PHAL_USB_SetupPacket_t</a></td></tr>
+<tr class="separator:a1190b6980f0026e636348c5a78a29fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>STM32G4 USB full-speed device API. </p>
 <dl class="section author"><dt>Author</dt><dd>Ronak Jain (<a href="#" onclick="location.href='mai'+'lto:'+'jai'+'n7'+'17@'+'pu'+'rdu'+'e.'+'edu'; return false;">jain7<span class="obfuscator">.nosp@m.</span>17@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>)</dd></dl>
 <p>The HAL provides one control endpoint and one bulk data endpoint. Applications supply USB descriptors, control-request handling, and data queues through the callback and packet-transfer functions below. </p>
 </div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a87a54ce368555d72fe2a96153d73d430" name="a87a54ce368555d72fe2a96153d73d430"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87a54ce368555d72fe2a96153d73d430">&#9670;&#160;</a></span>PHAL_USB_DescriptorType_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a87a54ce368555d72fe2a96153d73d430">PHAL_USB_DescriptorType_t</a> : uint8_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Descriptor types used in bDescriptorType and the high byte of wValue. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a87a54ce368555d72fe2a96153d73d430a348861592e6e6db50a83ccd1dde61d17" name="a87a54ce368555d72fe2a96153d73d430a348861592e6e6db50a83ccd1dde61d17"></a>PHAL_USB_DESCRIPTOR_DEVICE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a87a54ce368555d72fe2a96153d73d430acb6f2eb03bceb0312cf82f83cf85f827" name="a87a54ce368555d72fe2a96153d73d430acb6f2eb03bceb0312cf82f83cf85f827"></a>PHAL_USB_DESCRIPTOR_CONFIGURATION&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a87a54ce368555d72fe2a96153d73d430a09b754c7e349f84b9e67e39b444f9db3" name="a87a54ce368555d72fe2a96153d73d430a09b754c7e349f84b9e67e39b444f9db3"></a>PHAL_USB_DESCRIPTOR_STRING&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a87a54ce368555d72fe2a96153d73d430a621301ac09a42e2fb7000aa14817f477" name="a87a54ce368555d72fe2a96153d73d430a621301ac09a42e2fb7000aa14817f477"></a>PHAL_USB_DESCRIPTOR_INTERFACE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a87a54ce368555d72fe2a96153d73d430a242fce5b3e0e47ad29fa64eeb818a6a4" name="a87a54ce368555d72fe2a96153d73d430a242fce5b3e0e47ad29fa64eeb818a6a4"></a>PHAL_USB_DESCRIPTOR_ENDPOINT&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="a91122876321080a57ca676c6155454cf" name="a91122876321080a57ca676c6155454cf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a91122876321080a57ca676c6155454cf">&#9670;&#160;</a></span>PHAL_USB_EndpointDirection_t</h2>
 
@@ -201,7 +288,79 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="af6e0b6af837339137cf0e3648a382e96" name="af6e0b6af837339137cf0e3648a382e96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6e0b6af837339137cf0e3648a382e96">&#9670;&#160;</a></span>PHAL_USB_Request_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#af6e0b6af837339137cf0e3648a382e96">PHAL_USB_Request_t</a> : uint8_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Standard control requests (bRequest) </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af6e0b6af837339137cf0e3648a382e96a49f608d1939718acdcb3e8a46358f662" name="af6e0b6af837339137cf0e3648a382e96a49f608d1939718acdcb3e8a46358f662"></a>PHAL_USB_REQUEST_GET_STATUS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af6e0b6af837339137cf0e3648a382e96ae7365d506620aac272cfbf584f84aef7" name="af6e0b6af837339137cf0e3648a382e96ae7365d506620aac272cfbf584f84aef7"></a>PHAL_USB_REQUEST_CLEAR_FEATURE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af6e0b6af837339137cf0e3648a382e96aa7b056735d19681e5c4afba9927ff8d3" name="af6e0b6af837339137cf0e3648a382e96aa7b056735d19681e5c4afba9927ff8d3"></a>PHAL_USB_REQUEST_SET_FEATURE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af6e0b6af837339137cf0e3648a382e96a703207a867505981cb1506435bd7287e" name="af6e0b6af837339137cf0e3648a382e96a703207a867505981cb1506435bd7287e"></a>PHAL_USB_REQUEST_SET_ADDRESS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af6e0b6af837339137cf0e3648a382e96ab5487e0c317f0f627ccab06588bbfa38" name="af6e0b6af837339137cf0e3648a382e96ab5487e0c317f0f627ccab06588bbfa38"></a>PHAL_USB_REQUEST_GET_DESCRIPTOR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af6e0b6af837339137cf0e3648a382e96a1491bcf00ca0b990e3f689a6cedf5a52" name="af6e0b6af837339137cf0e3648a382e96a1491bcf00ca0b990e3f689a6cedf5a52"></a>PHAL_USB_REQUEST_GET_CONFIGURATION&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af6e0b6af837339137cf0e3648a382e96a5e5280a3d0b8699182d75c56568f34bd" name="af6e0b6af837339137cf0e3648a382e96a5e5280a3d0b8699182d75c56568f34bd"></a>PHAL_USB_REQUEST_SET_CONFIGURATION&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af6e0b6af837339137cf0e3648a382e96ab1b55c1a9464da092cb67bde7f428bd1" name="af6e0b6af837339137cf0e3648a382e96ab1b55c1a9464da092cb67bde7f428bd1"></a>PHAL_USB_REQUEST_GET_INTERFACE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af6e0b6af837339137cf0e3648a382e96a2af10c7809ece2791826a410467db498" name="af6e0b6af837339137cf0e3648a382e96a2af10c7809ece2791826a410467db498"></a>PHAL_USB_REQUEST_SET_INTERFACE&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="af1d132fd391618b2db627138bd69ca7f" name="af1d132fd391618b2db627138bd69ca7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1d132fd391618b2db627138bd69ca7f">&#9670;&#160;</a></span>PHAL_USB_RequestType_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#af1d132fd391618b2db627138bd69ca7f">PHAL_USB_RequestType_t</a> : uint8_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Standard bmRequestType combinations, including direction and recipient. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af1d132fd391618b2db627138bd69ca7fa9aadb253ca267ebc263b2a55b9023922" name="af1d132fd391618b2db627138bd69ca7fa9aadb253ca267ebc263b2a55b9023922"></a>PHAL_USB_REQUEST_TYPE_DEVICE_OUT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af1d132fd391618b2db627138bd69ca7fa66210d37dcbc9bbb564804c1ddc51bc8" name="af1d132fd391618b2db627138bd69ca7fa66210d37dcbc9bbb564804c1ddc51bc8"></a>PHAL_USB_REQUEST_TYPE_INTERFACE_OUT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af1d132fd391618b2db627138bd69ca7fa401694c52b6317941f38ee45de18455d" name="af1d132fd391618b2db627138bd69ca7fa401694c52b6317941f38ee45de18455d"></a>PHAL_USB_REQUEST_TYPE_ENDPOINT_OUT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af1d132fd391618b2db627138bd69ca7fac7b240145629739b3e1443ee3743b7c3" name="af1d132fd391618b2db627138bd69ca7fac7b240145629739b3e1443ee3743b7c3"></a>PHAL_USB_REQUEST_TYPE_DEVICE_IN&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af1d132fd391618b2db627138bd69ca7fa87356fae23751cd14e6aa6fecea81146" name="af1d132fd391618b2db627138bd69ca7fa87356fae23751cd14e6aa6fecea81146"></a>PHAL_USB_REQUEST_TYPE_INTERFACE_IN&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af1d132fd391618b2db627138bd69ca7fafadaab4e932934d310009c865c39512b" name="af1d132fd391618b2db627138bd69ca7fafadaab4e932934d310009c865c39512b"></a>PHAL_USB_REQUEST_TYPE_ENDPOINT_IN&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ab898071398b359603a35c202e9c65f3b" name="ab898071398b359603a35c202e9c65f3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab898071398b359603a35c202e9c65f3b">&#9670;&#160;</a></span>__attribute__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct __attribute__ </td>
+          <td>(</td>
+          <td class="paramtype">(packed)</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Eight-byte USB SETUP wire header; multibyte fields are little endian. </p>
+<p>&lt; bmRequestType: direction, category, and recipient.</p>
+<p>&lt; bRequest; standard values are PHAL_USB_Request_t.</p>
+<p>&lt; wValue: request-specific value or descriptor type/index.</p>
+<p>&lt; wIndex: interface, endpoint, or language.</p>
+<p>&lt; wLength: maximum data-stage byte count.</p>
+
+</div>
+</div>
 <a id="a42f35c4042b4e0d58161e1761be95af5" name="a42f35c4042b4e0d58161e1761be95af5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a42f35c4042b4e0d58161e1761be95af5">&#9670;&#160;</a></span>PHAL_USB_callback()</h2>
 
@@ -218,7 +377,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Handle USB events. </p>
-<p>Applications define this callback to process bus resets, SETUP packets, OUT packets, and IN completions. Check event-&gt;transfer before accessing transfer_data. The HAL provides a weak empty implementation. OUT data remains available through <a class="el" href="#af25d0362dcd989b4805bf062366f2142" title="Consume one host-to-device packet.">PHAL_USB_read()</a>. An IN completion marks the endpoint ready for <a class="el" href="#a47d401544e89e5c4e84a478fa6c581b5" title="Queue one device-to-host packet.">PHAL_USB_write()</a>.</p>
+<p>Applications define this callback to process bus resets, SETUP packets, OUT packets, and IN completions. Check event-&gt;transfer before accessing transfer_data. The HAL provides a weak empty implementation. OUT data remains available through <a class="el" href="#af25d0362dcd989b4805bf062366f2142" title="Consume one host-to-device packet.">PHAL_USB_read()</a>. An IN completion marks the endpoint ready for <a class="el" href="#a47d401544e89e5c4e84a478fa6c581b5" title="Queue one device-to-host packet.">PHAL_USB_write()</a>. If SETUP and a prior IN completion are both pending, the HAL delivers the IN completion first so SETUP cannot erase pending state.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">event</td><td>USB event for the current interrupt. </td></tr>
@@ -226,9 +385,48 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8h_a42f35c4042b4e0d58161e1761be95af5_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="usb_8h_a42f35c4042b4e0d58161e1761be95af5_icgraph.svg" width="586" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aacf324a625d71aedd88a105f9cbd8fcd" name="aacf324a625d71aedd88a105f9cbd8fcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacf324a625d71aedd88a105f9cbd8fcd">&#9670;&#160;</a></span>PHAL_USB_clearHalt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PHAL_USB_clearHalt </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>endpoint</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clear endpoint halt, discard any pending transfer, and reset to DATA0. </p>
+<p>Use for CLEAR_FEATURE(ENDPOINT_HALT) and bulk endpoint configuration changes. IN returns to NAK; OUT is rearmed. Call with USB interrupts excluded. </p><dl class="section return"><dt>Returns</dt><dd>false for an inactive peripheral or invalid endpoint/direction. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8h_aacf324a625d71aedd88a105f9cbd8fcd_cgraph.svg" width="100%" height="439"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8h_aacf324a625d71aedd88a105f9cbd8fcd_icgraph.svg" width="100%" height="402"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -254,6 +452,11 @@ Here is the caller graph for this function:</div>
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="usb_8h_aeb368b052e158657e657e27c236f70b5_cgraph.svg" width="344" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb_8h_aeb368b052e158657e657e27c236f70b5_icgraph.svg" width="254" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -332,6 +535,11 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8h_a06c08ebbf291a1e1f7dca05a6660271d_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb_8h_a06c08ebbf291a1e1f7dca05a6660271d_icgraph.svg" width="224" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -381,6 +589,11 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8h_af25d0362dcd989b4805bf062366f2142_cgraph.svg" width="100%" height="514"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8h_af25d0362dcd989b4805bf062366f2142_icgraph.svg" width="100%" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -412,6 +625,11 @@ Here is the call graph for this function:</div>
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="usb_8h_a7b6c8df7b0328f18f6dab165592423ae_cgraph.svg" width="384" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8h_a7b6c8df7b0328f18f6dab165592423ae_icgraph.svg" width="100%" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -449,6 +667,11 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8h_ad334f9d5a0cf9ede82d354e1c17c02b3_cgraph.svg" width="100%" height="401"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8h_ad334f9d5a0cf9ede82d354e1c17c02b3_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -477,7 +700,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Queue one device-to-host packet. </p>
-<p>The HAL copies exactly length_bytes into USB packet memory, where length_bytes may be zero through PHAL_USB_PACKET_SIZE_BYTES. A zero-length packet accepts a null source. The endpoint is ready for its next packet when the IN completion callback runs.</p>
+<p>The HAL copies exactly length_bytes into USB packet memory, where length_bytes may be zero through PHAL_USB_PACKET_SIZE_BYTES. A zero-length packet accepts a null source. The endpoint is ready for its next packet when the IN completion callback runs. Success does not establish host presence or delivery: without host polling the packet stays pending and later writes fail.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">endpoint</td><td>PHAL_USB_CONTROL_ENDPOINT or PHAL_USB_DATA_ENDPOINT. </td></tr>
@@ -492,10 +715,59 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8h_a47d401544e89e5c4e84a478fa6c581b5_cgraph.svg" width="100%" height="514"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8h_a47d401544e89e5c4e84a478fa6c581b5_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="a4ce7da2a5aa8bb7fb01cd9878d4d8860" name="a4ce7da2a5aa8bb7fb01cd9878d4d8860"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ce7da2a5aa8bb7fb01cd9878d4d8860">&#9670;&#160;</a></span>PHAL_USB_CONFIGURATION_ATTRIBUTES_BUS_POWERED</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t PHAL_USB_CONFIGURATION_ATTRIBUTES_BUS_POWERED = 0x80U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a57125ddd42c894583185869bfaee876c" name="a57125ddd42c894583185869bfaee876c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57125ddd42c894583185869bfaee876c">&#9670;&#160;</a></span>PHAL_USB_CONFIGURATION_DESCRIPTOR_LENGTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t PHAL_USB_CONFIGURATION_DESCRIPTOR_LENGTH = 9U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="acde0a8d0ed50f0ee3866333c426744dd" name="acde0a8d0ed50f0ee3866333c426744dd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acde0a8d0ed50f0ee3866333c426744dd">&#9670;&#160;</a></span>PHAL_USB_CONTROL_ENDPOINT</h2>
 
@@ -542,6 +814,160 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<a id="abdfd00458fb0eca20f1ef62ad1292085" name="abdfd00458fb0eca20f1ef62ad1292085"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdfd00458fb0eca20f1ef62ad1292085">&#9670;&#160;</a></span>PHAL_USB_DEVICE_CLASS_VENDOR_SPECIFIC</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t PHAL_USB_DEVICE_CLASS_VENDOR_SPECIFIC = 0xFFU</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad7b27e04257ea1117d2a4cb4d121ab90" name="ad7b27e04257ea1117d2a4cb4d121ab90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7b27e04257ea1117d2a4cb4d121ab90">&#9670;&#160;</a></span>PHAL_USB_DEVICE_DESCRIPTOR_LENGTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t PHAL_USB_DEVICE_DESCRIPTOR_LENGTH = 18U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adaaabf1c2b49fc467d6ccec4b32a0c7b" name="adaaabf1c2b49fc467d6ccec4b32a0c7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adaaabf1c2b49fc467d6ccec4b32a0c7b">&#9670;&#160;</a></span>PHAL_USB_ENDPOINT_ADDRESS_IN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t PHAL_USB_ENDPOINT_ADDRESS_IN = 0x80U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a59dcbaadcbb0bab0fd6a3eaa29c8bff9" name="a59dcbaadcbb0bab0fd6a3eaa29c8bff9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59dcbaadcbb0bab0fd6a3eaa29c8bff9">&#9670;&#160;</a></span>PHAL_USB_ENDPOINT_DESCRIPTOR_LENGTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t PHAL_USB_ENDPOINT_DESCRIPTOR_LENGTH = 7U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8cca51c8df582dd1fd37f782fdac92d7" name="a8cca51c8df582dd1fd37f782fdac92d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cca51c8df582dd1fd37f782fdac92d7">&#9670;&#160;</a></span>PHAL_USB_ENDPOINT_TRANSFER_TYPE_BULK</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t PHAL_USB_ENDPOINT_TRANSFER_TYPE_BULK = 2U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abecd53986840909775458dbcf7956508" name="abecd53986840909775458dbcf7956508"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abecd53986840909775458dbcf7956508">&#9670;&#160;</a></span>PHAL_USB_FEATURE_ENDPOINT_HALT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t PHAL_USB_FEATURE_ENDPOINT_HALT = 0U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a11d79542b34b72b711fd123c077a8ef6" name="a11d79542b34b72b711fd123c077a8ef6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11d79542b34b72b711fd123c077a8ef6">&#9670;&#160;</a></span>PHAL_USB_INTERFACE_DESCRIPTOR_LENGTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t PHAL_USB_INTERFACE_DESCRIPTOR_LENGTH = 9U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2e6f1c105cb6578615bf45ec8d123a71" name="a2e6f1c105cb6578615bf45ec8d123a71"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2e6f1c105cb6578615bf45ec8d123a71">&#9670;&#160;</a></span>PHAL_USB_PACKET_SIZE_BYTES</h2>
 
@@ -562,6 +988,64 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>Maximum packet size for both endpoints. </p>
+
+</div>
+</div>
+<a id="acf5cf25f98003109cb716d20cc1cd6af" name="acf5cf25f98003109cb716d20cc1cd6af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf5cf25f98003109cb716d20cc1cd6af">&#9670;&#160;</a></span>PHAL_USB_REQUEST_TYPE_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t PHAL_USB_REQUEST_TYPE_MASK = 0x60U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a428b9fff64307749faa95d442b80c438" name="a428b9fff64307749faa95d442b80c438"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a428b9fff64307749faa95d442b80c438">&#9670;&#160;</a></span>PHAL_USB_REQUEST_TYPE_STANDARD</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t PHAL_USB_REQUEST_TYPE_STANDARD = 0U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1190b6980f0026e636348c5a78a29fe1" name="a1190b6980f0026e636348c5a78a29fe1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1190b6980f0026e636348c5a78a29fe1">&#9670;&#160;</a></span>PHAL_USB_SetupPacket_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PHAL_USB_SetupPacket_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

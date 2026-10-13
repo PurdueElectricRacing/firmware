@@ -47,7 +47,7 @@
   </g>
 </defs>
 <script type="application/ecmascript">
-var viewWidth = 605;
+var viewWidth = 678;
 var viewHeight = 101;
 var sectionId = 'dynsection-5';
 </script>
@@ -59,8 +59,8 @@ var sectionId = 'dynsection-5';
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title=" ">
-<polygon fill="#999999" stroke="#666666" points="597.25,-37.25 479.25,-37.25 479.25,-18 597.25,-18 597.25,-37.25"/>
-<text text-anchor="middle" x="538.25" y="-23.75" font-family="Helvetica,sans-Serif" font-size="10.00">usb_configure_endpoint</text>
+<polygon fill="#999999" stroke="#666666" points="670.25,-37.25 552.25,-37.25 552.25,-18 670.25,-18 670.25,-37.25"/>
+<text text-anchor="middle" x="611.25" y="-23.75" font-family="Helvetica,sans-Serif" font-size="10.00">usb_configure_endpoint</text>
 </a>
 </g>
 </g>
@@ -68,8 +68,8 @@ var sectionId = 'dynsection-5';
 <g id="Node000002" class="node">
 <title>Node2</title>
 <g id="a_Node000002"><a xlink:href="usb__priv_8c.html#a7a65179705ed513c172183fd44417b8a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="443.25,-37.25 320,-37.25 320,-18 443.25,-18 443.25,-37.25"/>
-<text text-anchor="middle" x="381.62" y="-23.75" font-family="Helvetica,sans-Serif" font-size="10.00">usb_configure_endpoints</text>
+<polygon fill="white" stroke="#666666" points="516.25,-37.25 393,-37.25 393,-18 516.25,-18 516.25,-37.25"/>
+<text text-anchor="middle" x="454.62" y="-23.75" font-family="Helvetica,sans-Serif" font-size="10.00">usb_configure_endpoints</text>
 </a>
 </g>
 </g>
@@ -77,8 +77,8 @@ var sectionId = 'dynsection-5';
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M467.36,-27.62C459.48,-27.62 451.5,-27.62 443.74,-27.62"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="467.28,-31.13 477.28,-27.63 467.28,-24.13 467.28,-31.13"/>
+<path fill="none" stroke="#63b8ff" d="M540.36,-27.62C532.48,-27.62 524.5,-27.62 516.74,-27.62"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="540.28,-31.13 550.28,-27.63 540.28,-24.13 540.28,-31.13"/>
 </a>
 </g>
 </g>
@@ -86,8 +86,8 @@ var sectionId = 'dynsection-5';
 <g id="Node000003" class="node">
 <title>Node3</title>
 <g id="a_Node000003"><a xlink:href="usb__priv_8c.html#a3b7fdac0fb67607273cf7aabc6f8494f" target="_top" xlink:title="Decode one pending USB interrupt and notify the application.">
-<polygon fill="white" stroke="#666666" points="284,-56.25 148.75,-56.25 148.75,-37 284,-37 284,-56.25"/>
-<text text-anchor="middle" x="216.38" y="-42.75" font-family="Helvetica,sans-Serif" font-size="10.00">USB_PRIV_handleInterrupt</text>
+<polygon fill="white" stroke="#666666" points="357,-56.25 221.75,-56.25 221.75,-37 357,-37 357,-56.25"/>
+<text text-anchor="middle" x="289.38" y="-42.75" font-family="Helvetica,sans-Serif" font-size="10.00">USB_PRIV_handleInterrupt</text>
 </a>
 </g>
 </g>
@@ -95,8 +95,8 @@ var sectionId = 'dynsection-5';
 <g id="edge2_Node000002_Node000003" class="edge">
 <title>Node2&#45;&gt;Node3</title>
 <g id="a_edge2_Node000002_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M308.53,-36.02C300.46,-36.96 292.25,-37.91 284.25,-38.84"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="308.81,-39.51 318.33,-34.87 308,-32.55 308.81,-39.51"/>
+<path fill="none" stroke="#63b8ff" d="M381.53,-36.02C373.46,-36.96 365.25,-37.91 357.25,-38.84"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="381.81,-39.51 391.33,-34.87 381,-32.55 381.81,-39.51"/>
 </a>
 </g>
 </g>
@@ -104,8 +104,8 @@ var sectionId = 'dynsection-5';
 <g id="Node000006" class="node">
 <title>Node6</title>
 <g id="a_Node000006"><a xlink:href="usb__priv_8c.html#a88feef2613c47bacaa4b3a2a768c8ae4" target="_top" xlink:title="Enable and reset the USB hardware, configure pins and packet memory.">
-<polygon fill="white" stroke="#666666" points="258.12,-19.25 174.62,-19.25 174.62,0 258.12,0 258.12,-19.25"/>
-<text text-anchor="middle" x="216.38" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">USB_PRIV_init</text>
+<polygon fill="white" stroke="#666666" points="331.12,-19.25 247.62,-19.25 247.62,0 331.12,0 331.12,-19.25"/>
+<text text-anchor="middle" x="289.38" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">USB_PRIV_init</text>
 </a>
 </g>
 </g>
@@ -113,8 +113,8 @@ var sectionId = 'dynsection-5';
 <g id="edge5_Node000002_Node000006" class="edge">
 <title>Node2&#45;&gt;Node6</title>
 <g id="a_edge5_Node000002_Node000006"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M308.64,-19.69C291.43,-17.79 273.64,-15.83 258.39,-14.15"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="308.01,-23.14 318.33,-20.76 308.78,-16.18 308.01,-23.14"/>
+<path fill="none" stroke="#63b8ff" d="M381.64,-19.69C364.43,-17.79 346.64,-15.83 331.39,-14.15"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="381.01,-23.14 391.33,-20.76 381.78,-16.18 381.01,-23.14"/>
 </a>
 </g>
 </g>
@@ -122,8 +122,8 @@ var sectionId = 'dynsection-5';
 <g id="Node000004" class="node">
 <title>Node4</title>
 <g id="a_Node000004"><a xlink:href="usb_8c.html#a3d29cbfce29da77f8c0e1feb84998aac" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="112.75,-93.25 0,-93.25 0,-74 112.75,-74 112.75,-93.25"/>
-<text text-anchor="middle" x="56.38" y="-79.75" font-family="Helvetica,sans-Serif" font-size="10.00">USB_HP_IRQHandler</text>
+<polygon fill="white" stroke="#666666" points="185.75,-93.25 73,-93.25 73,-74 185.75,-74 185.75,-93.25"/>
+<text text-anchor="middle" x="129.38" y="-79.75" font-family="Helvetica,sans-Serif" font-size="10.00">USB_HP_IRQHandler</text>
 </a>
 </g>
 </g>
@@ -131,8 +131,8 @@ var sectionId = 'dynsection-5';
 <g id="edge3_Node000003_Node000004" class="edge">
 <title>Node3&#45;&gt;Node4</title>
 <g id="a_edge3_Node000003_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M161.16,-59.32C141.34,-63.96 119.21,-69.14 100.5,-73.53"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="161.79,-62.77 170.73,-57.08 160.19,-55.95 161.79,-62.77"/>
+<path fill="none" stroke="#63b8ff" d="M234.16,-59.32C214.34,-63.96 192.21,-69.14 173.5,-73.53"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="234.79,-62.77 243.73,-57.08 233.19,-55.95 234.79,-62.77"/>
 </a>
 </g>
 </g>
@@ -140,8 +140,8 @@ var sectionId = 'dynsection-5';
 <g id="Node000005" class="node">
 <title>Node5</title>
 <g id="a_Node000005"><a xlink:href="usb_8c.html#ab0abd6916df1318e9dd804cdfc96a56d" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="112,-56.25 0.75,-56.25 0.75,-37 112,-37 112,-56.25"/>
-<text text-anchor="middle" x="56.38" y="-42.75" font-family="Helvetica,sans-Serif" font-size="10.00">USB_LP_IRQHandler</text>
+<polygon fill="white" stroke="#666666" points="185,-56.25 73.75,-56.25 73.75,-37 185,-37 185,-56.25"/>
+<text text-anchor="middle" x="129.38" y="-42.75" font-family="Helvetica,sans-Serif" font-size="10.00">USB_LP_IRQHandler</text>
 </a>
 </g>
 </g>
@@ -149,8 +149,8 @@ var sectionId = 'dynsection-5';
 <g id="edge4_Node000003_Node000005" class="edge">
 <title>Node3&#45;&gt;Node5</title>
 <g id="a_edge4_Node000003_Node000005"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M136.94,-46.62C128.52,-46.62 120.1,-46.62 112.05,-46.62"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="136.86,-50.13 146.86,-46.63 136.86,-43.13 136.86,-50.13"/>
+<path fill="none" stroke="#63b8ff" d="M209.94,-46.62C201.52,-46.62 193.1,-46.62 185.05,-46.62"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="209.86,-50.13 219.86,-46.63 209.86,-43.13 209.86,-50.13"/>
 </a>
 </g>
 </g>
@@ -158,8 +158,8 @@ var sectionId = 'dynsection-5';
 <g id="Node000007" class="node">
 <title>Node7</title>
 <g id="a_Node000007"><a xlink:href="usb_8c.html#a06c08ebbf291a1e1f7dca05a6660271d" target="_top" xlink:title="Initialize the USB device hardware and endpoints.">
-<polygon fill="white" stroke="#666666" points="100,-19.25 12.75,-19.25 12.75,0 100,0 100,-19.25"/>
-<text text-anchor="middle" x="56.38" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_USB_init</text>
+<polygon fill="white" stroke="#666666" points="173,-19.25 85.75,-19.25 85.75,0 173,0 173,-19.25"/>
+<text text-anchor="middle" x="129.38" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_USB_init</text>
 </a>
 </g>
 </g>
@@ -167,8 +167,26 @@ var sectionId = 'dynsection-5';
 <g id="edge6_Node000006_Node000007" class="edge">
 <title>Node6&#45;&gt;Node7</title>
 <g id="a_edge6_Node000006_Node000007"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M163,-9.62C142.72,-9.62 119.78,-9.62 100.48,-9.62"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="162.76,-13.13 172.76,-9.63 162.76,-6.13 162.76,-13.13"/>
+<path fill="none" stroke="#63b8ff" d="M236,-9.62C215.72,-9.62 192.78,-9.62 173.48,-9.62"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="235.76,-13.13 245.76,-9.63 235.76,-6.13 235.76,-13.13"/>
+</a>
+</g>
+</g>
+<!-- Node8 -->
+<g id="Node000008" class="node">
+<title>Node8</title>
+<g id="a_Node000008"><a xlink:href="cannector_2main_8c.html#acdef7a1fd863a6d3770c1268cb06add3" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="37,-19.25 0,-19.25 0,0 37,0 37,-19.25"/>
+<text text-anchor="middle" x="18.5" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">main</text>
+</a>
+</g>
+</g>
+<!-- Node7&#45;&gt;Node8 -->
+<g id="edge7_Node000007_Node000008" class="edge">
+<title>Node7&#45;&gt;Node8</title>
+<g id="a_edge7_Node000007_Node000008"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M74.2,-9.62C60.84,-9.62 47.46,-9.62 37.28,-9.62"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="73.83,-13.13 83.83,-9.63 73.83,-6.13 73.83,-13.13"/>
 </a>
 </g>
 </g>

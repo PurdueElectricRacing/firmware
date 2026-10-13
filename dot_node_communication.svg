@@ -62,7 +62,7 @@ var viewHeight = 715;
 <text text-anchor="middle" x="482.88" y="-521.58" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">A_BOX</text>
 </g>
 <!-- node:DAQ_APP -->
-<g id="node11" class="node">
+<g id="node12" class="node">
 <title>node:DAQ_APP</title>
 <polygon fill="#d5d5d5" stroke="#777777" stroke-dasharray="5,2" points="975.38,-659 894.88,-659 894.88,-623 975.38,-623 975.38,-659"/>
 <text text-anchor="middle" x="935.12" y="-635.58" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">DAQ_APP</text>
@@ -76,7 +76,7 @@ var viewHeight = 715;
 <text text-anchor="middle" x="728.62" y="-670.01" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#333333">CCAN</text>
 </g>
 <!-- node:DASHBOARD -->
-<g id="node12" class="node">
+<g id="node13" class="node">
 <title>node:DASHBOARD</title>
 <polygon fill="#d5d5d5" stroke="#777777" points="779.75,-181 677.5,-181 677.5,-145 779.75,-145 779.75,-181"/>
 <text text-anchor="middle" x="728.62" y="-157.57" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">DASHBOARD</text>
@@ -90,7 +90,7 @@ var viewHeight = 715;
 <text text-anchor="middle" x="596.38" y="-195.7" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#333333">VCAN</text>
 </g>
 <!-- node:ELCON_CHARGER -->
-<g id="node14" class="node">
+<g id="node15" class="node">
 <title>node:ELCON_CHARGER</title>
 <polygon fill="#d5d5d5" stroke="#777777" stroke-dasharray="5,2" points="798.5,-629 658.75,-629 658.75,-593 798.5,-593 798.5,-629"/>
 <text text-anchor="middle" x="728.62" y="-605.58" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">ELCON_CHARGER</text>
@@ -104,7 +104,7 @@ var viewHeight = 715;
 <text text-anchor="middle" x="596.38" y="-605.85" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#333333">CCAN</text>
 </g>
 <!-- node:MAIN_MODULE -->
-<g id="node22" class="node">
+<g id="node23" class="node">
 <title>node:MAIN_MODULE</title>
 <polygon fill="#d5d5d5" stroke="#777777" points="994.5,-285 875.75,-285 875.75,-249 994.5,-249 994.5,-285"/>
 <text text-anchor="middle" x="935.12" y="-261.57" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">MAIN_MODULE</text>
@@ -118,7 +118,7 @@ var viewHeight = 715;
 <text text-anchor="middle" x="728.62" y="-491.17" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#333333">VCAN</text>
 </g>
 <!-- node:PDU -->
-<g id="node23" class="node">
+<g id="node24" class="node">
 <title>node:PDU</title>
 <polygon fill="#d5d5d5" stroke="#777777" points="1134.88,-270 1080.88,-270 1080.88,-234 1134.88,-234 1134.88,-270"/>
 <text text-anchor="middle" x="1107.88" y="-246.57" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">PDU</text>
@@ -132,7 +132,7 @@ var viewHeight = 715;
 <text text-anchor="middle" x="837.12" y="-502.35" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#333333">VCAN</text>
 </g>
 <!-- node:TORQUE_VECTOR -->
-<g id="node24" class="node">
+<g id="node25" class="node">
 <title>node:TORQUE_VECTOR</title>
 <polygon fill="#d5d5d5" stroke="#777777" points="1362.5,-163 1221.25,-163 1221.25,-127 1362.5,-127 1362.5,-163"/>
 <text text-anchor="middle" x="1291.88" y="-139.57" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">TORQUE_VECTOR</text>
@@ -250,7 +250,7 @@ var viewHeight = 715;
 <text text-anchor="middle" x="482.88" y="-163.58" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#333333">VCAN</text>
 </g>
 <!-- node:DRIVELINE -->
-<g id="node13" class="node">
+<g id="node14" class="node">
 <title>node:DRIVELINE</title>
 <polygon fill="#d5d5d5" stroke="#777777" points="640.75,-36 552,-36 552,0 640.75,0 640.75,-36"/>
 <text text-anchor="middle" x="596.38" y="-12.57" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">DRIVELINE</text>
@@ -289,8 +289,14 @@ var viewHeight = 715;
 <polygon fill="#2f70ad" stroke="#2f70ad" points="673.82,-143.75 684.41,-144.1 676.35,-137.22 673.82,-143.75"/>
 <text text-anchor="middle" x="596.38" y="-131.7" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#333333">SCAN</text>
 </g>
-<!-- node:DAQ -->
+<!-- node:CANNECTOR -->
 <g id="node10" class="node">
+<title>node:CANNECTOR</title>
+<polygon fill="#d5d5d5" stroke="#777777" stroke-dasharray="5,2" points="137.12,-366 32.62,-366 32.62,-330 137.12,-330 137.12,-366"/>
+<text text-anchor="middle" x="84.88" y="-342.57" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">CANNECTOR</text>
+</g>
+<!-- node:DAQ -->
+<g id="node11" class="node">
 <title>node:DAQ</title>
 <polygon fill="#d5d5d5" stroke="#777777" stroke-dasharray="5,2" points="1490.75,-163 1436.75,-163 1436.75,-127 1490.75,-127 1490.75,-163"/>
 <text text-anchor="middle" x="1463.75" y="-139.57" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">DAQ</text>
@@ -334,19 +340,19 @@ var viewHeight = 715;
 <text text-anchor="middle" x="837.12" y="-632.02" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#333333">CCAN</text>
 </g>
 <!-- node:E_METER -->
-<g id="node15" class="node">
+<g id="node16" class="node">
 <title>node:E_METER</title>
-<polygon fill="#d5d5d5" stroke="#777777" stroke-dasharray="5,2" points="125.5,-366 44.25,-366 44.25,-330 125.5,-330 125.5,-366"/>
-<text text-anchor="middle" x="84.88" y="-342.57" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">E_METER</text>
+<polygon fill="#d5d5d5" stroke="#777777" stroke-dasharray="5,2" points="125.5,-420 44.25,-420 44.25,-384 125.5,-384 125.5,-420"/>
+<text text-anchor="middle" x="84.88" y="-396.57" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">E_METER</text>
 </g>
 <!-- node:G4_TESTING -->
-<g id="node16" class="node">
+<g id="node17" class="node">
 <title>node:G4_TESTING</title>
-<polygon fill="#d5d5d5" stroke="#777777" points="136,-420 33.75,-420 33.75,-384 136,-384 136,-420"/>
-<text text-anchor="middle" x="84.88" y="-396.57" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">G4_TESTING</text>
+<polygon fill="#d5d5d5" stroke="#777777" points="136,-474 33.75,-474 33.75,-438 136,-438 136,-474"/>
+<text text-anchor="middle" x="84.88" y="-450.57" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">G4_TESTING</text>
 </g>
 <!-- node:INVERTER_A -->
-<g id="node17" class="node">
+<g id="node18" class="node">
 <title>node:INVERTER_A</title>
 <polygon fill="#d5d5d5" stroke="#777777" stroke-dasharray="5,2" points="779.75,-285 677.5,-285 677.5,-249 779.75,-249 779.75,-285"/>
 <text text-anchor="middle" x="728.62" y="-261.57" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">INVERTER_A</text>
@@ -360,7 +366,7 @@ var viewHeight = 715;
 <text text-anchor="middle" x="837.12" y="-269.45" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#333333">MCAN</text>
 </g>
 <!-- node:INVERTER_B -->
-<g id="node18" class="node">
+<g id="node19" class="node">
 <title>node:INVERTER_B</title>
 <polygon fill="#d5d5d5" stroke="#777777" stroke-dasharray="5,2" points="779.75,-447 677.5,-447 677.5,-411 779.75,-411 779.75,-447"/>
 <text text-anchor="middle" x="728.62" y="-423.57" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">INVERTER_B</text>
@@ -374,7 +380,7 @@ var viewHeight = 715;
 <text text-anchor="middle" x="837.12" y="-393.91" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#333333">MCAN</text>
 </g>
 <!-- node:INVERTER_C -->
-<g id="node19" class="node">
+<g id="node20" class="node">
 <title>node:INVERTER_C</title>
 <polygon fill="#d5d5d5" stroke="#777777" stroke-dasharray="5,2" points="780.12,-393 677.12,-393 677.12,-357 780.12,-357 780.12,-393"/>
 <text text-anchor="middle" x="728.62" y="-369.57" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">INVERTER_C</text>
@@ -388,7 +394,7 @@ var viewHeight = 715;
 <text text-anchor="middle" x="837.12" y="-341.7" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#333333">MCAN</text>
 </g>
 <!-- node:INVERTER_D -->
-<g id="node20" class="node">
+<g id="node21" class="node">
 <title>node:INVERTER_D</title>
 <polygon fill="#d5d5d5" stroke="#777777" stroke-dasharray="5,2" points="780.12,-339 677.12,-339 677.12,-303 780.12,-303 780.12,-339"/>
 <text text-anchor="middle" x="728.62" y="-315.57" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">INVERTER_D</text>
@@ -402,7 +408,7 @@ var viewHeight = 715;
 <text text-anchor="middle" x="837.12" y="-299.68" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#333333">MCAN</text>
 </g>
 <!-- node:IZZE_IMU -->
-<g id="node21" class="node">
+<g id="node22" class="node">
 <title>node:IZZE_IMU</title>
 <polygon fill="#d5d5d5" stroke="#777777" stroke-dasharray="5,2" points="1147,-117 1068.75,-117 1068.75,-81 1147,-81 1147,-117"/>
 <text text-anchor="middle" x="1107.88" y="-93.58" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#111111">IZZE_IMU</text>

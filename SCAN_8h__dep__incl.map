@@ -1,7 +1,9 @@
 <map id="firmware/can_library/generated/SCAN.h" name="firmware/can_library/generated/SCAN.h">
-<area shape="rect" id="Node000001" title="Auto&#45;generated CAN bus definitions for SCAN." alt="" coords="546,5,682,46"/>
+<area shape="rect" id="Node000001" title="Auto&#45;generated CAN bus definitions for SCAN." alt="" coords="646,5,782,46"/>
 <area shape="rect" id="Node000002" href="$DASHBOARD_8h.html" title="Auto&#45;generated CAN driver for DASHBOARD." alt="" coords="524,94,704,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="617,62,617,94,611,94,611,62"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="682,58,638,96,635,92,678,54"/>
+<area shape="rect" id="Node000012" href="$cannector_2main_8c.html" title="&quot;CANnector&quot; node source code" alt="" coords="728,94,902,135"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="750,54,794,92,791,96,747,58"/>
 <area shape="rect" id="Node000003" href="$driver__interface_8c.html" title="thread to manage driver&#45;facing LCD, buttons, LEDs" alt="" coords="5,183,183,238"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="509,132,360,155,196,185,183,188,182,183,195,180,360,150,508,127"/>
 <area shape="rect" id="Node000004" href="$source_2dashboard_2driver__interface_2pages_2amk_8c.html" title="AMK page implementation." alt="" coords="207,190,400,231"/>
@@ -11,7 +13,7 @@
 <area shape="rect" id="Node000006" href="$vcu_8c.html" title="VCU page implementation." alt="" coords="778,190,967,231"/>
 <area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="683,138,819,187,818,192,681,143"/>
 <area shape="rect" id="Node000007" href="$lap__timer_8c.html" title="DASHBOARD lap timer task implementations." alt="" coords="991,190,1168,231"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="719,130,844,152,980,180,1009,187,1007,192,979,185,843,158,718,135"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="720,132,852,155,980,180,1009,187,1007,192,979,185,851,160,719,138"/>
 <area shape="rect" id="Node000008" href="$dashboard_2main_8c.html" title="&quot;Dashboard&quot; node source code" alt="" coords="488,286,665,327"/>
 <area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="555,145,533,162,516,184,509,210,516,237,532,263,553,284,549,288,528,266,512,239,504,210,512,181,529,159,551,141"/>
 <area shape="rect" id="Node000009" href="$pedals_8c.html" title="Pedal processing logic." alt="" coords="689,286,867,327"/>
@@ -19,7 +21,7 @@
 <area shape="rect" id="Node000010" href="$pedals_8h.html" title=" " alt="" coords="525,190,703,231"/>
 <area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="617,150,617,190,611,190,611,150"/>
 <area shape="rect" id="Node000011" href="$dashboard_2telemetry_2telemetry_8c.html" title="DASHBOARD telemetry task implementations." alt="" coords="1192,190,1369,231"/>
-<area shape="poly" id="edge13_Node000002_Node000011" title=" " alt="" coords="719,121,933,143,1058,159,1181,180,1213,187,1212,192,1180,185,1057,165,933,148,719,126"/>
+<area shape="poly" id="edge13_Node000002_Node000011" title=" " alt="" coords="719,132,850,147,952,153,1054,161,1181,180,1213,187,1212,192,1180,185,1053,166,952,158,850,152,719,138"/>
 <area shape="poly" id="edge10_Node000010_Node000005" title=" " alt="" coords="549,239,420,288,418,283,547,234"/>
 <area shape="poly" id="edge11_Node000010_Node000008" title=" " alt="" coords="603,246,587,287,582,285,598,244"/>
 <area shape="poly" id="edge12_Node000010_Node000009" title=" " alt="" coords="663,237,745,283,742,288,660,241"/>

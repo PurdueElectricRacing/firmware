@@ -1,0 +1,15 @@
+<map id="stall_control" name="stall_control">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,97,80"/>
+<area shape="rect" id="Node000002" href="$usb_8c.html#ad334f9d5a0cf9ede82d354e1c17c02b3" title="Stall one endpoint direction." alt="" coords="145,55,268,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,65,129,65,129,70,97,70"/>
+<area shape="rect" id="Node000003" href="$usb_8c.html#a313becaab70e94bcd34b00166857720f" title=" " alt="" coords="316,5,465,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="257,51,325,33,326,38,258,57"/>
+<area shape="rect" id="Node000004" href="$usb_8c.html#a6bb0d538ececadd971fdc6c14f9c56e8" title=" " alt="" coords="316,55,465,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="269,65,300,65,300,70,269,70"/>
+<area shape="rect" id="Node000005" href="$usb__priv_8c.html#abe455c5cf21d064ea3eccd1b92c51fc4" title="Set one endpoint direction to the USB STALL handshake state." alt="" coords="332,104,450,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="258,78,326,97,325,102,257,84"/>
+<area shape="rect" id="Node000006" href="$usb__priv_8c.html#aeac1c8e012ea840bd62b75d951b16358" title=" " alt="" coords="513,104,624,130"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="450,114,498,114,498,120,450,120"/>
+<area shape="rect" id="Node000007" href="$usb__priv_8c.html#a34ead234195e6e26e97662c2db3b9dbb" title=" " alt="" coords="672,104,820,130"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="624,114,657,114,657,120,624,120"/>
+</map>

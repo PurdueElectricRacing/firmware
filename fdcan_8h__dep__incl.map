@@ -1,22 +1,26 @@
 <map id="firmware/common/phal_G4/fdcan/fdcan.h" name="firmware/common/phal_G4/fdcan/fdcan.h">
-<area shape="rect" id="Node000001" title="G4 FDCAN public API implementation." alt="" coords="600,5,752,46"/>
+<area shape="rect" id="Node000001" title="G4 FDCAN public API implementation." alt="" coords="800,5,952,46"/>
 <area shape="rect" id="Node000002" href="$fdcan_8c.html" title="G4 FDCAN public API implementation." alt="" coords="5,94,158,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="585,40,393,63,170,97,159,99,158,93,169,91,393,58,584,34"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="785,35,509,56,339,74,170,97,159,99,158,93,169,91,339,69,508,51,784,30"/>
 <area shape="rect" id="Node000003" href="$fdcan__priv_8c.html" title="G4 FDCAN private/register level implementation." alt="" coords="181,94,336,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="586,48,349,97,337,99,336,94,348,91,584,43"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="785,39,584,62,349,97,337,99,336,93,348,91,583,57,784,34"/>
 <area shape="rect" id="Node000004" href="$a__box_2main_8c.html" title="&quot;Abox&quot; node source code" alt="" coords="360,94,512,135"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="608,54,492,96,490,91,607,49"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="785,47,531,97,513,100,512,95,530,91,784,42"/>
 <area shape="rect" id="Node000005" href="$bootloader_8c.html" title=" " alt="" coords="524,183,701,223"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="617,56,595,74,579,95,573,117,577,140,587,162,599,181,594,184,582,164,572,141,568,117,574,93,591,70,614,52"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="785,38,723,46,661,58,610,75,591,85,578,96,571,116,574,138,585,161,598,181,593,184,580,164,569,140,565,115,574,92,588,80,608,70,660,53,722,41,784,32"/>
 <area shape="rect" id="Node000006" href="$node__defs_8h.html" title=" " alt="" coords="588,94,765,135"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="679,62,679,94,674,94,674,62"/>
-<area shape="rect" id="Node000007" href="$dashboard_2main_8c.html" title="&quot;Dashboard&quot; node source code" alt="" coords="789,94,966,135"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="737,50,833,91,831,96,735,55"/>
-<area shape="rect" id="Node000008" href="$driveline_2main_8c.html" title="&quot;Driveline&quot; node source code" alt="" coords="991,94,1156,135"/>
-<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="768,44,991,92,990,98,767,49"/>
-<area shape="rect" id="Node000009" href="$main__module_2main_8c.html" title="&quot;Main Module&quot; node source code" alt="" coords="1181,94,1326,135"/>
-<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="768,34,953,58,1169,91,1181,94,1180,99,1168,97,952,63,767,40"/>
-<area shape="rect" id="Node000010" href="$torque__vector_2main_8c.html" title="&quot;Torque Vector&quot; node source code" alt="" coords="1350,94,1504,135"/>
-<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="768,30,1026,52,1182,70,1339,91,1350,93,1349,98,1338,97,1182,75,1025,58,767,36"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="818,55,723,96,721,91,816,50"/>
+<area shape="rect" id="Node000007" href="$can__callback_8c.html" title="CAN callback implementation." alt="" coords="789,94,963,135"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="879,62,879,94,874,94,874,62"/>
+<area shape="rect" id="Node000008" href="$cannector_2main_8c.html" title="&quot;CANnector&quot; node source code" alt="" coords="988,94,1162,135"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="936,50,1031,91,1029,96,934,55"/>
+<area shape="rect" id="Node000009" href="$dashboard_2main_8c.html" title="&quot;Dashboard&quot; node source code" alt="" coords="1186,94,1364,135"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="968,44,1186,91,1185,96,967,49"/>
+<area shape="rect" id="Node000010" href="$driveline_2main_8c.html" title="&quot;Driveline&quot; node source code" alt="" coords="1388,94,1554,135"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="968,35,1157,59,1377,91,1388,93,1387,99,1376,97,1156,64,967,40"/>
+<area shape="rect" id="Node000011" href="$main__module_2main_8c.html" title="&quot;Main Module&quot; node source code" alt="" coords="1578,94,1724,135"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="968,30,1237,51,1401,69,1566,91,1578,94,1577,99,1565,97,1401,74,1236,56,967,35"/>
+<area shape="rect" id="Node000012" href="$torque__vector_2main_8c.html" title="&quot;Torque Vector&quot; node source code" alt="" coords="1748,94,1901,135"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="968,27,1307,46,1521,65,1737,91,1747,93,1747,98,1736,97,1521,70,1306,52,967,33"/>
 <area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="655,149,629,184,624,181,651,146"/>
 </map>

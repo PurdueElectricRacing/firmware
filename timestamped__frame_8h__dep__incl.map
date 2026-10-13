@@ -1,22 +1,27 @@
-<map id="firmware/source/daq/spmc/timestamped_frame.h" name="firmware/source/daq/spmc/timestamped_frame.h">
-<area shape="rect" id="Node000001" title="Definition for timestamped CAN frames." alt="" coords="307,5,493,46"/>
-<area shape="rect" id="Node000002" href="$can__irq_8c.html" title="Timestamped frame producers from CAN RX IRQ." alt="" coords="331,183,469,223"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="402,61,402,182,397,182,397,61"/>
-<area shape="rect" id="Node000003" href="$rtc__sync_8h.html" title="Synchronization of the RTC peripheral with the GPS UTC time." alt="" coords="196,94,334,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="358,57,297,96,294,91,355,52"/>
-<area shape="rect" id="Node000006" href="$spmc_8h.html" title="Custom SPMC designed for high throughput handling of CAN message streams." alt="" coords="465,94,604,135"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="444,52,505,91,503,96,441,57"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="310,141,371,180,368,184,307,145"/>
-<area shape="rect" id="Node000004" href="$daq_2main_8c.html" title="&quot;DAQ&quot; node source code" alt="" coords="168,183,306,223"/>
-<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="257,150,246,183,241,181,252,149"/>
-<area shape="rect" id="Node000005" href="$rtc__sync_8c.html" title="Synchronization of the RTC peripheral with the GPS UTC time." alt="" coords="5,183,144,223"/>
-<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="209,144,119,185,116,180,207,139"/>
-<area shape="poly" id="edge7_Node000006_Node000002" title=" " alt="" coords="493,145,432,184,429,180,490,141"/>
-<area shape="poly" id="edge9_Node000006_Node000004" title=" " alt="" coords="453,142,305,185,304,180,451,137"/>
-<area shape="rect" id="Node000007" href="$ethernet_8c.html" title="Implementation of the ethernet thread for wireless data acquisition." alt="" coords="493,183,632,223"/>
-<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="548,149,559,181,554,183,543,150"/>
-<area shape="rect" id="Node000008" href="$sd__card_8c.html" title="Logging of received bus messages onto an SD card." alt="" coords="656,183,794,223"/>
-<area shape="poly" id="edge10_Node000006_Node000008" title=" " alt="" coords="593,139,683,180,681,185,590,144"/>
-<area shape="rect" id="Node000009" href="$spmc_8c.html" title="Custom SPMC designed for high throughput handling of CAN message streams." alt="" coords="819,183,957,223"/>
-<area shape="poly" id="edge11_Node000006_Node000009" title=" " alt="" coords="620,134,819,182,818,187,618,139"/>
+<map id="firmware/common/timestamped_frame/timestamped_frame.h" name="firmware/common/timestamped_frame/timestamped_frame.h">
+<area shape="rect" id="Node000001" title="Definition for timestamped CAN frames." alt="" coords="300,5,504,46"/>
+<area shape="rect" id="Node000002" href="$can__callback_8c.html" title="CAN callback implementation." alt="" coords="5,94,180,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="317,53,163,96,162,91,316,48"/>
+<area shape="rect" id="Node000003" href="$cannector_2main_8c.html" title="&quot;CANnector&quot; node source code" alt="" coords="55,183,229,223"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="325,54,283,73,243,96,194,140,158,184,154,180,190,137,240,92,281,68,323,49"/>
+<area shape="rect" id="Node000004" href="$usb__device_8h.html" title="USB tx thread." alt="" coords="253,94,428,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="381,60,357,95,352,92,377,57"/>
+<area shape="rect" id="Node000006" href="$can__irq_8c.html" title="Timestamped frame producers from CAN RX IRQ." alt="" coords="451,183,590,223"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="426,58,509,181,505,184,421,61"/>
+<area shape="rect" id="Node000007" href="$rtc__sync_8c.html" title="Synchronization of the RTC peripheral with the GPS UTC time." alt="" coords="502,94,640,135"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="455,51,534,91,532,96,453,56"/>
+<area shape="rect" id="Node000008" href="$spmc_8h.html" title="Custom SPMC designed for high throughput handling of CAN message streams." alt="" coords="721,94,859,135"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="506,47,721,95,720,100,504,52"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="283,144,188,185,186,180,281,139"/>
+<area shape="rect" id="Node000005" href="$usb__device_8c.html" title="Periodic CAN&#45;to&#45;USB forwarding; enumeration lives in usb/usb_control.c." alt="" coords="253,183,428,223"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="343,150,343,182,338,182,338,150"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="715,142,583,185,581,180,713,137"/>
+<area shape="rect" id="Node000009" href="$ethernet_8c.html" title="Implementation of the ethernet thread for wireless data acquisition." alt="" coords="614,183,752,223"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="756,147,709,184,706,180,752,143"/>
+<area shape="rect" id="Node000010" href="$daq_2main_8c.html" title="&quot;DAQ&quot; node source code" alt="" coords="777,183,915,223"/>
+<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="813,147,835,181,831,184,809,149"/>
+<area shape="rect" id="Node000011" href="$sd__card_8c.html" title="Logging of received bus messages onto an SD card." alt="" coords="939,183,1078,223"/>
+<area shape="poly" id="edge12_Node000008_Node000011" title=" " alt="" coords="854,138,960,180,958,185,852,143"/>
+<area shape="rect" id="Node000012" href="$spmc_8c.html" title="Custom SPMC designed for high throughput handling of CAN message streams." alt="" coords="1102,183,1240,223"/>
+<area shape="poly" id="edge13_Node000008_Node000012" title=" " alt="" coords="875,132,1090,180,1102,183,1101,188,1089,185,874,137"/>
 </map>

@@ -1,0 +1,17 @@
+<map id="PHAL_USB_clearHalt" name="PHAL_USB_clearHalt">
+<area shape="rect" id="Node000001" title="Clear endpoint halt, discard any pending transfer, and reset to DATA0." alt="" coords="5,55,157,80"/>
+<area shape="rect" id="Node000002" href="$usb_8c.html#a313becaab70e94bcd34b00166857720f" title=" " alt="" coords="205,5,354,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="135,51,209,33,211,38,136,57"/>
+<area shape="rect" id="Node000003" href="$usb_8c.html#a6bb0d538ececadd971fdc6c14f9c56e8" title=" " alt="" coords="205,55,354,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="157,65,189,65,189,70,157,70"/>
+<area shape="rect" id="Node000004" href="$usb__priv_8c.html#af1d8fa52f1c05ec5a597b2f6bfae225b" title="Discard a transfer, clear STALL, and reset the direction to DATA0." alt="" coords="206,104,352,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="136,78,211,97,209,102,135,84"/>
+<area shape="rect" id="Node000005" href="$usb__priv_8c.html#a7312b4dfb274b8c4e34c683499ad5e76" title=" " alt="" coords="402,53,530,79"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="329,101,401,81,402,86,330,106"/>
+<area shape="rect" id="Node000006" href="$usb__priv_8c.html#a34ead234195e6e26e97662c2db3b9dbb" title=" " alt="" coords="578,104,727,130"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="353,114,563,114,563,120,353,120"/>
+<area shape="rect" id="Node000007" href="$usb__priv_8c.html#aeac1c8e012ea840bd62b75d951b16358" title=" " alt="" coords="411,155,521,180"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="330,128,402,148,401,153,329,133"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="517,77,589,97,588,102,516,82"/>
+<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="516,151,588,132,589,137,517,157"/>
+</map>

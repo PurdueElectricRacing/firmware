@@ -135,6 +135,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ad334f9d5a0cf9ede82d354e1c17c02b3" id="r_ad334f9d5a0cf9ede82d354e1c17c02b3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad334f9d5a0cf9ede82d354e1c17c02b3">PHAL_USB_stall</a> (uint8_t endpoint, <a class="el" href="usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a> direction)</td></tr>
 <tr class="memdesc:ad334f9d5a0cf9ede82d354e1c17c02b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stall one endpoint direction.  <br /></td></tr>
 <tr class="separator:ad334f9d5a0cf9ede82d354e1c17c02b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacf324a625d71aedd88a105f9cbd8fcd" id="r_aacf324a625d71aedd88a105f9cbd8fcd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aacf324a625d71aedd88a105f9cbd8fcd">PHAL_USB_clearHalt</a> (uint8_t endpoint, <a class="el" href="usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a> direction)</td></tr>
+<tr class="memdesc:aacf324a625d71aedd88a105f9cbd8fcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear endpoint halt, discard any pending transfer, and reset to DATA0.  <br /></td></tr>
+<tr class="separator:aacf324a625d71aedd88a105f9cbd8fcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47d401544e89e5c4e84a478fa6c581b5" id="r_a47d401544e89e5c4e84a478fa6c581b5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47d401544e89e5c4e84a478fa6c581b5">PHAL_USB_write</a> (uint8_t endpoint, const void *source, uint16_t length_bytes)</td></tr>
 <tr class="memdesc:a47d401544e89e5c4e84a478fa6c581b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queue one device-to-host packet.  <br /></td></tr>
 <tr class="separator:a47d401544e89e5c4e84a478fa6c581b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -177,17 +180,46 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Handle USB events. </p>
-<p>Applications define this callback to process bus resets, SETUP packets, OUT packets, and IN completions. Check event-&gt;transfer before accessing transfer_data. The HAL provides a weak empty implementation. OUT data remains available through <a class="el" href="usb_8h.html#af25d0362dcd989b4805bf062366f2142" title="Consume one host-to-device packet.">PHAL_USB_read()</a>. An IN completion marks the endpoint ready for <a class="el" href="usb_8h.html#a47d401544e89e5c4e84a478fa6c581b5" title="Queue one device-to-host packet.">PHAL_USB_write()</a>.</p>
+<p>Applications define this callback to process bus resets, SETUP packets, OUT packets, and IN completions. Check event-&gt;transfer before accessing transfer_data. The HAL provides a weak empty implementation. OUT data remains available through <a class="el" href="usb_8h.html#af25d0362dcd989b4805bf062366f2142" title="Consume one host-to-device packet.">PHAL_USB_read()</a>. An IN completion marks the endpoint ready for <a class="el" href="usb_8h.html#a47d401544e89e5c4e84a478fa6c581b5" title="Queue one device-to-host packet.">PHAL_USB_write()</a>. If SETUP and a prior IN completion are both pending, the HAL delivers the IN completion first so SETUP cannot erase pending state.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">event</td><td>USB event for the current interrupt. </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="aacf324a625d71aedd88a105f9cbd8fcd" name="aacf324a625d71aedd88a105f9cbd8fcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacf324a625d71aedd88a105f9cbd8fcd">&#9670;&#160;</a></span>PHAL_USB_clearHalt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PHAL_USB_clearHalt </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>endpoint</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clear endpoint halt, discard any pending transfer, and reset to DATA0. </p>
+<p>Use for CLEAR_FEATURE(ENDPOINT_HALT) and bulk endpoint configuration changes. IN returns to NAK; OUT is rearmed. Call with USB interrupts excluded. </p><dl class="section return"><dt>Returns</dt><dd>false for an inactive peripheral or invalid endpoint/direction. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_aacf324a625d71aedd88a105f9cbd8fcd_cgraph.svg" width="100%" height="439"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="usb_8c_a42f35c4042b4e0d58161e1761be95af5_icgraph.svg" width="586" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_aacf324a625d71aedd88a105f9cbd8fcd_icgraph.svg" width="100%" height="402"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -213,6 +245,11 @@ Here is the caller graph for this function:</div>
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="usb_8c_aeb368b052e158657e657e27c236f70b5_cgraph.svg" width="344" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb_8c_aeb368b052e158657e657e27c236f70b5_icgraph.svg" width="254" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -291,6 +328,11 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_a06c08ebbf291a1e1f7dca05a6660271d_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb_8c_a06c08ebbf291a1e1f7dca05a6660271d_icgraph.svg" width="224" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -340,6 +382,11 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_af25d0362dcd989b4805bf062366f2142_cgraph.svg" width="100%" height="514"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_af25d0362dcd989b4805bf062366f2142_icgraph.svg" width="100%" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -371,6 +418,11 @@ Here is the call graph for this function:</div>
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="usb_8c_a7b6c8df7b0328f18f6dab165592423ae_cgraph.svg" width="384" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_a7b6c8df7b0328f18f6dab165592423ae_icgraph.svg" width="100%" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -408,6 +460,11 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_ad334f9d5a0cf9ede82d354e1c17c02b3_cgraph.svg" width="100%" height="401"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_ad334f9d5a0cf9ede82d354e1c17c02b3_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -436,7 +493,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Queue one device-to-host packet. </p>
-<p>The HAL copies exactly length_bytes into USB packet memory, where length_bytes may be zero through PHAL_USB_PACKET_SIZE_BYTES. A zero-length packet accepts a null source. The endpoint is ready for its next packet when the IN completion callback runs.</p>
+<p>The HAL copies exactly length_bytes into USB packet memory, where length_bytes may be zero through PHAL_USB_PACKET_SIZE_BYTES. A zero-length packet accepts a null source. The endpoint is ready for its next packet when the IN completion callback runs. Success does not establish host presence or delivery: without host polling the packet stays pending and later writes fail.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">endpoint</td><td>PHAL_USB_CONTROL_ENDPOINT or PHAL_USB_DATA_ENDPOINT. </td></tr>
@@ -450,6 +507,11 @@ Here is the call graph for this function:</div>
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_a47d401544e89e5c4e84a478fa6c581b5_cgraph.svg" width="100%" height="514"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_a47d401544e89e5c4e84a478fa6c581b5_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -479,7 +541,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="usb_8c_a313becaab70e94bcd34b00166857720f_icgraph.svg" width="332" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_a313becaab70e94bcd34b00166857720f_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -509,7 +571,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="usb_8c_a6bb0d538ececadd971fdc6c14f9c56e8_icgraph.svg" width="336" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_a6bb0d538ececadd971fdc6c14f9c56e8_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -531,7 +593,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_a3d29cbfce29da77f8c0e1feb84998aac_cgraph.svg" width="100%" height="582"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_a3d29cbfce29da77f8c0e1feb84998aac_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -553,7 +615,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_ab0abd6916df1318e9dd804cdfc96a56d_cgraph.svg" width="100%" height="582"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb_8c_ab0abd6916df1318e9dd804cdfc96a56d_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>

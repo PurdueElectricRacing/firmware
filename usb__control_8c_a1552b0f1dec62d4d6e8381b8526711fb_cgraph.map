@@ -1,0 +1,23 @@
+<map id="handle_control_in" name="handle_control_in">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,105,128,131"/>
+<area shape="rect" id="Node000002" href="$usb_8c.html#aacf324a625d71aedd88a105f9cbd8fcd" title="Clear endpoint halt, discard any pending transfer, and reset to DATA0." alt="" coords="183,80,334,106"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,107,167,102,168,107,129,113"/>
+<area shape="rect" id="Node000009" href="$usb_8c.html#a7b6c8df7b0328f18f6dab165592423ae" title="Apply the address assigned by a SET_ADDRESS request." alt="" coords="176,129,341,155"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="129,123,160,127,160,132,128,128"/>
+<area shape="rect" id="Node000003" href="$usb_8c.html#a313becaab70e94bcd34b00166857720f" title=" " alt="" coords="394,5,544,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="291,77,388,40,406,34,408,39,390,45,293,82"/>
+<area shape="rect" id="Node000004" href="$usb_8c.html#a6bb0d538ececadd971fdc6c14f9c56e8" title=" " alt="" coords="394,55,544,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="334,81,379,76,380,81,335,86"/>
+<area shape="rect" id="Node000005" href="$usb__priv_8c.html#af1d8fa52f1c05ec5a597b2f6bfae225b" title="Discard a transfer, clear STALL, and reset the direction to DATA0." alt="" coords="396,104,542,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="335,99,381,104,380,109,334,104"/>
+<area shape="rect" id="Node000006" href="$usb__priv_8c.html#a7312b4dfb274b8c4e34c683499ad5e76" title=" " alt="" coords="597,53,726,79"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="520,101,595,81,596,86,522,106"/>
+<area shape="rect" id="Node000007" href="$usb__priv_8c.html#a34ead234195e6e26e97662c2db3b9dbb" title=" " alt="" coords="774,104,922,130"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="543,114,758,114,758,120,543,120"/>
+<area shape="rect" id="Node000008" href="$usb__priv_8c.html#aeac1c8e012ea840bd62b75d951b16358" title=" " alt="" coords="606,155,717,180"/>
+<area shape="poly" id="edge8_Node000005_Node000008" title=" " alt="" coords="522,128,596,148,595,153,520,133"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="712,77,784,97,783,102,711,82"/>
+<area shape="poly" id="edge9_Node000008_Node000007" title=" " alt="" coords="711,151,783,132,784,137,712,157"/>
+<area shape="rect" id="Node000010" href="$usb__priv_8c.html#aaea03d767f81299b62109832610473d2" title="Write the seven&#45;bit device address while keeping the device enabled." alt="" coords="389,153,549,179"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="342,149,374,153,373,158,341,154"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="firmware/source/cannector/main.h" name="firmware/source/cannector/main.h">
+<area shape="rect" id="Node000001" title="&quot;CANnector&quot; node source code" alt="" coords="204,5,378,46"/>
+<area shape="rect" id="Node000002" href="$can__callback_8c.html" title="CAN callback implementation." alt="" coords="5,94,180,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="233,55,139,96,137,91,231,50"/>
+<area shape="rect" id="Node000003" href="$cannector_2main_8c.html" title="&quot;CANnector&quot; node source code" alt="" coords="204,94,378,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="294,62,294,94,288,94,288,62"/>
+<area shape="rect" id="Node000004" href="$usb__device_8c.html" title="Periodic CAN&#45;to&#45;USB forwarding; enumeration lives in usb/usb_control.c." alt="" coords="403,94,577,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="351,50,446,91,444,96,349,55"/>
+</map>

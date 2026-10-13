@@ -14,6 +14,7 @@ var dir_5e269a536bf5351fb01f412fd1d14980 =
     [ "sdio", "dir_23e36ccbe14f91db8bc9e4d4330cfa21.html", "dir_23e36ccbe14f91db8bc9e4d4330cfa21" ],
     [ "strbuf", "dir_7ec637bfc31da7b7e8f627b5f7998436.html", "dir_7ec637bfc31da7b7e8f627b5f7998436" ],
     [ "syscalls", "dir_8c3026df184eebebd1dea273b1017bdc.html", "dir_8c3026df184eebebd1dea273b1017bdc" ],
+    [ "timestamped_frame", "dir_f8e100fb83106eb4e7b1b7855d95032d.html", "dir_f8e100fb83106eb4e7b1b7855d95032d" ],
     [ "ublox", "dir_cb00f44e36b7ca6ede9bf15cc9d13dca.html", "dir_cb00f44e36b7ca6ede9bf15cc9d13dca" ],
     [ "utils", "dir_43b58effa8f021174a1d652cabb0d2a8.html", "dir_43b58effa8f021174a1d652cabb0d2a8" ],
     [ "watchdog", "dir_8aa6a0f71c2af4585bc025f0c75df80a.html", "dir_8aa6a0f71c2af4585bc025f0c75df80a" ]

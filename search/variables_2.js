@@ -202,11 +202,13 @@ var searchData=
   ['bt_5fderating_5fzero_5ft_199',['BT_derating_zero_T',['../structpVCU__struct.html#af4a570c7da020aed2b281b6565014430',1,'pVCU_struct']]],
   ['bt_5fraw_200',['BT_RAW',['../structxVCU__struct.html#a2773a69174b901a61bf64dbd76826e52',1,'xVCU_struct']]],
   ['buf_5fsize_201',['BUF_SIZE',['../strbuf__test_8cpp.html#a88eedfea24beeca03acb3cfe393c4133',1,'strbuf_test.cpp']]],
-  ['bullet_5frail_202',['bullet_rail',['../structpdu__fault__sync__data__t.html#abc27795fd6656a2cfa07309bde89ff6e',1,'pdu_fault_sync_data_t']]],
-  ['bus_203',['Bus',['../structCanMsgTypeDef__t.html#a27b82ae932da76206323ac8268b3f1e6',1,'CanMsgTypeDef_t::Bus'],['../structCanMsgTypeDef__t.html#a4aa42f4d25313b588ecb4323723d2ef6',1,'CanMsgTypeDef_t::Bus']]],
-  ['busy_204',['busy',['../structPHAL__ADC__Handle__t.html#a224a675307a5bfd35a864265bed8caf0',1,'PHAL_ADC_Handle_t']]],
-  ['button_5fexti_5fconfig_205',['button_exti_config',['../driver__interface_8c.html#ad50689b9adac1ceb68f7ef0b7fd428b0',1,'driver_interface.c']]],
-  ['button_5fexti_5firq_5fpriority_206',['BUTTON_EXTI_IRQ_PRIORITY',['../driver__interface_8c.html#aded0fb2b3dcc8dc1459eb07e60e0ef2d',1,'driver_interface.c']]],
-  ['buzzer_5fenable_207',['buzzer_enable',['../structcar__t.html#a1ed45443eee3c1f1c8ff8926bdfd89ad',1,'car_t']]],
-  ['buzzer_5fstart_5ftime_208',['buzzer_start_time',['../structcar__t.html#ae1b2cfa00a8296e503bfce011f51e8d5',1,'car_t']]]
+  ['bulk_5fhalted_202',['bulk_halted',['../structusb__context__t.html#aa74eb53226a77a04dacc8d4776359248',1,'usb_context_t']]],
+  ['bulk_5fin_5faddress_203',['BULK_IN_ADDRESS',['../usb__descriptors_8h.html#a0b3c17bf918cef3aa66d8b67557e7242',1,'usb_descriptors.h']]],
+  ['bullet_5frail_204',['bullet_rail',['../structpdu__fault__sync__data__t.html#abc27795fd6656a2cfa07309bde89ff6e',1,'pdu_fault_sync_data_t']]],
+  ['bus_205',['Bus',['../structCanMsgTypeDef__t.html#a27b82ae932da76206323ac8268b3f1e6',1,'CanMsgTypeDef_t::Bus'],['../structCanMsgTypeDef__t.html#a4aa42f4d25313b588ecb4323723d2ef6',1,'CanMsgTypeDef_t::Bus']]],
+  ['busy_206',['busy',['../structPHAL__ADC__Handle__t.html#a224a675307a5bfd35a864265bed8caf0',1,'PHAL_ADC_Handle_t']]],
+  ['button_5fexti_5fconfig_207',['button_exti_config',['../driver__interface_8c.html#ad50689b9adac1ceb68f7ef0b7fd428b0',1,'driver_interface.c']]],
+  ['button_5fexti_5firq_5fpriority_208',['BUTTON_EXTI_IRQ_PRIORITY',['../driver__interface_8c.html#aded0fb2b3dcc8dc1459eb07e60e0ef2d',1,'driver_interface.c']]],
+  ['buzzer_5fenable_209',['buzzer_enable',['../structcar__t.html#a1ed45443eee3c1f1c8ff8926bdfd89ad',1,'car_t']]],
+  ['buzzer_5fstart_5ftime_210',['buzzer_start_time',['../structcar__t.html#ae1b2cfa00a8296e503bfce011f51e8d5',1,'car_t']]]
 ];

@@ -1,6 +1,7 @@
 var usb_8c =
 [
     [ "PHAL_USB_callback", "usb_8c.html#a42f35c4042b4e0d58161e1761be95af5", null ],
+    [ "PHAL_USB_clearHalt", "usb_8c.html#aacf324a625d71aedd88a105f9cbd8fcd", null ],
     [ "PHAL_USB_connect", "usb_8c.html#aeb368b052e158657e657e27c236f70b5", null ],
     [ "PHAL_USB_deinit", "usb_8c.html#ad9816be792171e057399097c4cd6c9a1", null ],
     [ "PHAL_USB_getFrameNumber", "usb_8c.html#a398a346b137c4e086e2542cc4fda6c75", null ],

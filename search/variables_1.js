@@ -65,7 +65,7 @@ var searchData=
   ['adc_5fpriv_5fsample_5ftime_5fmax_62',['ADC_PRIV_SAMPLE_TIME_MAX',['../adc__priv_8c.html#a483368b3d67b55c5c08176e083ed5c32',1,'adc_priv.c']]],
   ['adc_5fpriv_5fwait_5fiterations_63',['ADC_PRIV_WAIT_ITERATIONS',['../adc__priv_8c.html#a909732f0f8cd11fed62eaf39083c5c79',1,'adc_priv.c']]],
   ['adc_5freadings_64',['adc_readings',['../pdu_2main_8c.html#a27666df6fadbd9638916906797be5ebe',1,'adc_readings:&#160;main.c'],['../pdu_2main_8h.html#a27666df6fadbd9638916906797be5ebe',1,'adc_readings:&#160;main.c']]],
-  ['address_65',['address',['../structusart__init__t.html#a793120df7198e36da9fa5342b1acd35a',1,'usart_init_t']]],
+  ['address_65',['address',['../structusb__context__t.html#ac7b35f05514bca4b3a38f5bf0c813bb0',1,'usb_context_t::address'],['../structusart__init__t.html#a793120df7198e36da9fa5342b1acd35a',1,'usart_init_t::address']]],
   ['af_66',['af',['../structPHAL__GPIO__InitConfig__t.html#a8dd700438f193ea73bfdac139f456b61',1,'PHAL_GPIO_InitConfig_t']]],
   ['af_5fnum_67',['af_num',['../structGPIOInitConfig__t.html#a68e727cefe42c5c140ebbfea6fa19856',1,'GPIOInitConfig_t::af_num'],['../structPHAL__GPIO__InitConfig__t.html#ac41c07d1b77d868def99e7a52e57a252',1,'PHAL_GPIO_InitConfig_t::af_num']]],
   ['ahb_5fclock_5ftarget_5fhz_68',['ahb_clock_target_hz',['../structClockRateConfig__t.html#adab496a2d868acbceaedfbfd335d23f8',1,'ClockRateConfig_t']]],

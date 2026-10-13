@@ -236,7 +236,7 @@ var searchData=
   ['adcinitconfig_5ft_233',['ADCInitConfig_t',['../structADCInitConfig__t.html',1,'']]],
   ['adcresolution_5ft_234',['ADCResolution_t',['../phal__F4_2adc_2adc_8h.html#a38dd045d0d6e9cf4304cc0792e57c52b',1,'adc.h']]],
   ['adding_20a_20g4_20node_235',['Adding a G4 node',['../md_firmware_2common_2bootloader_2README.html#autotoc_md65',1,'']]],
-  ['address_236',['address',['../structusart__init__t.html#a793120df7198e36da9fa5342b1acd35a',1,'usart_init_t']]],
+  ['address_236',['address',['../structusb__context__t.html#ac7b35f05514bca4b3a38f5bf0c813bb0',1,'usb_context_t::address'],['../structusart__init__t.html#a793120df7198e36da9fa5342b1acd35a',1,'usart_init_t::address']]],
   ['advancepage_237',['advancePage',['../lcd_8c.html#a685b031373d6540844434c69377f10d2',1,'advancePage():&#160;lcd.c'],['../lcd_8h.html#a3cbb41b9f4346a9e29d896d57c695b20',1,'advancePage(void):&#160;lcd.c']]],
   ['af_238',['af',['../structPHAL__GPIO__InitConfig__t.html#a8dd700438f193ea73bfdac139f456b61',1,'PHAL_GPIO_InitConfig_t']]],
   ['af_5fnum_239',['af_num',['../structGPIOInitConfig__t.html#a68e727cefe42c5c140ebbfea6fa19856',1,'GPIOInitConfig_t::af_num'],['../structPHAL__GPIO__InitConfig__t.html#ac41c07d1b77d868def99e7a52e57a252',1,'PHAL_GPIO_InitConfig_t::af_num']]],

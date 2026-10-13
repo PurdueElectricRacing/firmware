@@ -1,52 +1,51 @@
 <map id="firmware/source/daq/can_irq/can_irq.c" name="firmware/source/daq/can_irq/can_irq.c">
-<area shape="rect" id="Node000001" title="Timestamped frame producers from CAN RX IRQ." alt="" coords="558,5,696,46"/>
+<area shape="rect" id="Node000001" title="Timestamped frame producers from CAN RX IRQ." alt="" coords="292,5,430,46"/>
 <area shape="rect" id="Node000002" href="$can__irq_8h.html" title="Timestamped frame producers from CAN RX IRQ." alt="" coords="5,279,79,304"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="558,33,460,40,349,53,246,71,206,83,177,96,154,113,133,134,98,180,71,226,54,265,49,263,67,224,93,177,129,130,150,109,174,92,204,78,245,66,348,47,460,35,557,28"/>
-<area shape="rect" id="Node000004" href="$VCAN_8h.html" title="Auto&#45;generated CAN bus definitions for VCAN." alt="" coords="187,94,332,135"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="558,46,347,95,346,90,557,41"/>
-<area shape="rect" id="Node000006" href="$rtos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="623,279,757,304"/>
-<area shape="poly" id="edge17_Node000001_Node000006" title=" " alt="" coords="655,44,683,69,714,101,744,139,766,182,771,203,766,224,748,251,725,272,721,268,744,247,761,222,766,203,761,184,739,142,710,104,679,72,651,48"/>
-<area shape="rect" id="Node000014" href="$spmc_8h.html" title="Custom SPMC designed for high throughput handling of CAN message streams." alt="" coords="530,102,594,127"/>
-<area shape="poly" id="edge18_Node000001_Node000014" title=" " alt="" coords="615,48,582,91,578,88,610,45"/>
-<area shape="rect" id="Node000016" href="$timestamped__frame_8h.html" title="Definition for timestamped CAN frames." alt="" coords="605,190,751,216"/>
-<area shape="poly" id="edge23_Node000001_Node000016" title=" " alt="" coords="636,46,673,174,668,176,630,47"/>
-<area shape="rect" id="Node000017" href="$rtc__sync_8h.html" title="Synchronization of the RTC peripheral with the GPS UTC time." alt="" coords="826,102,906,127"/>
-<area shape="poly" id="edge24_Node000001_Node000017" title=" " alt="" coords="682,44,819,93,817,98,681,49"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="320,360,383,386"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="72,303,92,309,206,339,305,360,304,365,205,345,91,315,71,308"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="256,136,250,177,250,200,254,223,269,259,289,293,331,347,327,350,285,296,264,261,249,224,244,200,244,176,251,135"/>
-<area shape="rect" id="Node000005" href="$can__common_8h.html" title="Common functions and data structures used in every node in the CAN library." alt="" coords="264,190,439,216"/>
-<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="282,133,329,177,326,181,278,137"/>
-<area shape="rect" id="Node000013" href="$can__types_8h.html" title="Auto&#45;generated custom types and enums for the CAN library." alt="" coords="103,271,248,312"/>
-<area shape="poly" id="edge15_Node000004_Node000013" title=" " alt="" coords="243,137,226,159,210,184,195,221,185,257,179,256,190,219,205,181,221,155,239,133"/>
-<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="354,216,354,344,349,344,349,216"/>
-<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="400,214,628,272,627,277,398,219"/>
-<area shape="poly" id="edge14_Node000006_Node000003" title=" " alt="" coords="635,308,399,362,397,357,634,302"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="767,360,861,386"/>
-<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="710,303,784,349,781,354,707,307"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="884,360,933,386"/>
-<area shape="poly" id="edge9_Node000006_Node000008" title=" " alt="" coords="725,303,871,355,869,360,723,308"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="408,360,474,386"/>
-<area shape="poly" id="edge10_Node000006_Node000009" title=" " alt="" coords="652,308,490,359,488,354,651,303"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="498,360,572,386"/>
-<area shape="poly" id="edge11_Node000006_Node000010" title=" " alt="" coords="667,307,573,355,571,350,665,303"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="596,360,653,386"/>
-<area shape="poly" id="edge12_Node000006_Node000011" title=" " alt="" coords="682,307,646,350,642,346,678,303"/>
-<area shape="rect" id="Node000012" title=" " alt="" coords="676,360,744,386"/>
-<area shape="poly" id="edge13_Node000006_Node000012" title=" " alt="" coords="696,304,706,344,701,346,690,306"/>
-<area shape="poly" id="edge16_Node000013_Node000003" title=" " alt="" coords="220,310,312,351,309,356,218,315"/>
-<area shape="poly" id="edge20_Node000014_Node000003" title=" " alt="" coords="553,130,504,184,372,349,368,346,500,181,549,126"/>
-<area shape="rect" id="Node000015" title=" " alt="" coords="514,190,581,216"/>
-<area shape="poly" id="edge19_Node000014_Node000015" title=" " alt="" coords="563,128,555,175,549,175,557,127"/>
-<area shape="poly" id="edge21_Node000014_Node000016" title=" " alt="" coords="580,125,651,178,648,183,577,130"/>
-<area shape="poly" id="edge22_Node000016_Node000003" title=" " alt="" coords="661,218,590,263,497,314,399,357,396,352,494,310,587,258,658,214"/>
-<area shape="poly" id="edge30_Node000017_Node000006" title=" " alt="" coords="864,129,845,174,829,201,809,225,774,253,736,274,733,270,771,249,805,221,825,198,840,172,860,127"/>
-<area shape="poly" id="edge25_Node000017_Node000016" title=" " alt="" coords="841,130,719,186,717,181,838,125"/>
-<area shape="rect" id="Node000018" href="$rtc_8h.html" title="RTC Configuration Driver for STM32F4 Devices." alt="" coords="877,183,1018,223"/>
-<area shape="poly" id="edge26_Node000017_Node000018" title=" " alt="" coords="879,126,921,170,917,173,875,129"/>
-<area shape="rect" id="Node000019" href="$phal__F4_8h.html" title=" " alt="" coords="857,279,1038,304"/>
-<area shape="poly" id="edge27_Node000018_Node000019" title=" " alt="" coords="950,224,950,263,945,263,945,224"/>
-<area shape="poly" id="edge29_Node000019_Node000003" title=" " alt="" coords="856,305,619,332,398,363,398,357,619,327,856,300"/>
-<area shape="rect" id="Node000020" title=" " alt="" coords="957,360,1031,386"/>
-<area shape="poly" id="edge28_Node000019_Node000020" title=" " alt="" coords="957,304,981,345,977,348,952,306"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="292,40,226,56,154,84,119,103,87,126,58,153,35,184,28,203,26,224,34,263,29,264,21,224,23,202,30,181,54,149,83,122,116,98,151,79,224,51,290,35"/>
+<area shape="rect" id="Node000004" href="$VCAN_8h.html" title="Auto&#45;generated CAN bus definitions for VCAN." alt="" coords="366,94,510,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="380,45,412,80,408,84,376,48"/>
+<area shape="rect" id="Node000006" href="$rtos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="626,279,759,304"/>
+<area shape="poly" id="edge17_Node000001_Node000006" title=" " alt="" coords="431,35,497,52,569,80,604,99,637,122,667,150,691,181,700,201,703,223,701,264,696,263,698,224,695,203,686,184,663,153,634,127,602,104,567,85,495,57,430,40"/>
+<area shape="rect" id="Node000014" href="$spmc_8h.html" title="Custom SPMC designed for high throughput handling of CAN message streams." alt="" coords="258,102,322,127"/>
+<area shape="poly" id="edge18_Node000001_Node000014" title=" " alt="" coords="347,48,311,91,307,88,343,45"/>
+<area shape="rect" id="Node000016" href="$timestamped__frame_8h.html" title="Definition for timestamped CAN frames." alt="" coords="44,183,234,223"/>
+<area shape="poly" id="edge23_Node000001_Node000016" title=" " alt="" coords="323,49,285,70,248,96,204,135,167,173,164,169,200,131,244,92,282,66,320,44"/>
+<area shape="rect" id="Node000017" href="$rtc__sync_8h.html" title="Synchronization of the RTC peripheral with the GPS UTC time." alt="" coords="751,102,832,127"/>
+<area shape="poly" id="edge24_Node000001_Node000017" title=" " alt="" coords="431,34,571,57,733,91,743,94,742,99,732,97,570,62,430,39"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="338,360,402,386"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="80,299,324,358,323,363,78,304"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="435,136,398,272,379,346,374,344,393,271,430,135"/>
+<area shape="rect" id="Node000005" href="$can__common_8h.html" title="Common functions and data structures used in every node in the CAN library." alt="" coords="501,190,676,216"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="474,133,556,180,553,185,471,137"/>
+<area shape="rect" id="Node000013" href="$can__types_8h.html" title="Auto&#45;generated custom types and enums for the CAN library." alt="" coords="407,271,552,312"/>
+<area shape="poly" id="edge15_Node000004_Node000013" title=" " alt="" coords="445,134,474,256,469,257,440,136"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="592,217,589,263,581,290,565,314,510,334,417,361,416,356,508,329,562,310,576,288,583,262,587,216"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="605,214,669,267,665,271,601,218"/>
+<area shape="poly" id="edge14_Node000006_Node000003" title=" " alt="" coords="642,308,417,362,416,357,641,302"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="786,360,879,386"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="715,303,799,350,797,354,713,307"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="903,360,952,386"/>
+<area shape="poly" id="edge9_Node000006_Node000008" title=" " alt="" coords="730,303,889,356,887,361,728,308"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="426,360,492,386"/>
+<area shape="poly" id="edge10_Node000006_Node000009" title=" " alt="" coords="658,308,508,358,506,353,656,303"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="517,360,591,386"/>
+<area shape="poly" id="edge11_Node000006_Node000010" title=" " alt="" coords="673,307,590,354,587,350,670,303"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="615,360,672,386"/>
+<area shape="poly" id="edge12_Node000006_Node000011" title=" " alt="" coords="687,306,661,348,657,345,683,304"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="695,360,762,386"/>
+<area shape="poly" id="edge13_Node000006_Node000012" title=" " alt="" coords="701,304,719,345,715,347,696,306"/>
+<area shape="poly" id="edge16_Node000013_Node000003" title=" " alt="" coords="454,315,401,353,398,348,451,310"/>
+<area shape="poly" id="edge20_Node000014_Node000003" title=" " alt="" coords="292,127,292,170,299,223,326,290,356,345,351,348,321,293,294,224,287,170,287,127"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="308,190,376,216"/>
+<area shape="poly" id="edge19_Node000014_Node000015" title=" " alt="" coords="300,126,329,176,325,178,295,129"/>
+<area shape="poly" id="edge21_Node000014_Node000016" title=" " alt="" coords="270,130,188,177,185,172,268,125"/>
+<area shape="poly" id="edge22_Node000016_Node000003" title=" " alt="" coords="158,222,200,265,254,310,291,333,328,351,326,356,289,337,251,314,196,268,154,225"/>
+<area shape="poly" id="edge29_Node000017_Node000006" title=" " alt="" coords="787,129,735,225,710,267,706,264,730,222,783,126"/>
+<area shape="rect" id="Node000018" href="$rtc_8h.html" title="RTC Configuration Driver for STM32F4 Devices." alt="" coords="804,183,944,223"/>
+<area shape="poly" id="edge25_Node000017_Node000018" title=" " alt="" coords="805,126,847,170,843,173,801,129"/>
+<area shape="rect" id="Node000019" href="$phal__F4_8h.html" title=" " alt="" coords="783,279,965,304"/>
+<area shape="poly" id="edge26_Node000018_Node000019" title=" " alt="" coords="877,224,877,263,871,263,871,224"/>
+<area shape="poly" id="edge28_Node000019_Node000003" title=" " alt="" coords="812,308,772,315,674,328,596,336,517,346,418,362,417,357,517,340,595,331,673,323,771,309,811,303"/>
+<area shape="rect" id="Node000020" title=" " alt="" coords="976,360,1049,386"/>
+<area shape="poly" id="edge27_Node000019_Node000020" title=" " alt="" coords="896,303,980,350,977,354,894,307"/>
 </map>

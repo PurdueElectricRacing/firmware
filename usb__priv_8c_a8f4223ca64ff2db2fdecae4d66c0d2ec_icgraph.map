@@ -1,5 +1,7 @@
 <map id="USB_PRIV_connect" name="USB_PRIV_connect">
-<area shape="rect" id="Node000001" title="Attach to the bus by enabling the internal D+ pull&#45;up." alt="" coords="199,5,339,31"/>
-<area shape="rect" id="Node000002" href="$usb_8c.html#aeb368b052e158657e657e27c236f70b5" title="Attach the initialized USB device to the host." alt="" coords="5,5,151,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,21,151,21,151,16,183,16"/>
+<area shape="rect" id="Node000001" title="Attach to the bus by enabling the internal D+ pull&#45;up." alt="" coords="296,5,436,31"/>
+<area shape="rect" id="Node000002" href="$usb_8c.html#aeb368b052e158657e657e27c236f70b5" title="Attach the initialized USB device to the host." alt="" coords="103,5,248,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="281,21,248,21,248,16,281,16"/>
+<area shape="rect" id="Node000003" href="$cannector_2main_8c.html#acdef7a1fd863a6d3770c1268cb06add3" title=" " alt="" coords="5,5,55,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
 </map>

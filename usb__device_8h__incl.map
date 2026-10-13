@@ -1,0 +1,13 @@
+<map id="firmware/source/cannector/usb_device.h" name="firmware/source/cannector/usb_device.h">
+<area shape="rect" id="Node000001" title="USB tx thread." alt="" coords="78,5,253,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,102,73,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,49,71,95,68,90,135,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="190,183,253,208"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="154,48,143,67,135,89,132,112,137,133,155,156,179,173,176,177,152,160,133,136,127,112,130,88,139,65,149,45"/>
+<area shape="rect" id="Node000004" href="$usb_8h.html" title="STM32G4 USB full&#45;speed device API." alt="" coords="148,94,296,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="181,45,203,79,198,82,176,48"/>
+<area shape="rect" id="Node000005" href="$timestamped__frame_8h.html" title="Definition for timestamped CAN frames." alt="" coords="320,94,510,135"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="223,44,345,86,343,91,221,49"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="224,135,224,167,219,167,219,135"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="368,138,266,179,264,174,366,133"/>
+</map>

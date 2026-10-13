@@ -278,6 +278,7 @@ var annotated_dup =
     [ "usart_init_t", "structusart__init__t.html", "structusart__init__t" ],
     [ "usart_rx_errors_t", "structusart__rx__errors__t.html", "structusart__rx__errors__t" ],
     [ "usart_tx_errors_t", "structusart__tx__errors__t.html", "structusart__tx__errors__t" ],
+    [ "usb_context_t", "structusb__context__t.html", "structusb__context__t" ],
     [ "v_rails_data_t", "structv__rails__data__t.html", "structv__rails__data__t" ],
     [ "vcu_driver_request_data_t", "structvcu__driver__request__data__t.html", "structvcu__driver__request__data__t" ],
     [ "vcu_settings_data_t", "structvcu__settings__data__t.html", "structvcu__settings__data__t" ],

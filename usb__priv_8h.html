@@ -140,6 +140,9 @@ Functions</h2></td></tr>
 <tr class="memitem:abe455c5cf21d064ea3eccd1b92c51fc4" id="r_abe455c5cf21d064ea3eccd1b92c51fc4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe455c5cf21d064ea3eccd1b92c51fc4">USB_PRIV_stall</a> (uint8_t endpoint, <a class="el" href="usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a> direction)</td></tr>
 <tr class="memdesc:abe455c5cf21d064ea3eccd1b92c51fc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set one endpoint direction to the USB STALL handshake state.  <br /></td></tr>
 <tr class="separator:abe455c5cf21d064ea3eccd1b92c51fc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1d8fa52f1c05ec5a597b2f6bfae225b" id="r_af1d8fa52f1c05ec5a597b2f6bfae225b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af1d8fa52f1c05ec5a597b2f6bfae225b">USB_PRIV_clearHalt</a> (uint8_t endpoint, <a class="el" href="usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a> direction)</td></tr>
+<tr class="memdesc:af1d8fa52f1c05ec5a597b2f6bfae225b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Discard a transfer, clear STALL, and reset the direction to DATA0.  <br /></td></tr>
+<tr class="separator:af1d8fa52f1c05ec5a597b2f6bfae225b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae29a55bc0c87c71b9820e6b8ef9c7780" id="r_ae29a55bc0c87c71b9820e6b8ef9c7780"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae29a55bc0c87c71b9820e6b8ef9c7780">USB_PRIV_write</a> (uint8_t endpoint, const void *source, uint16_t length_bytes)</td></tr>
 <tr class="memdesc:ae29a55bc0c87c71b9820e6b8ef9c7780"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy one IN packet to packet memory and make it available to the host.  <br /></td></tr>
 <tr class="separator:ae29a55bc0c87c71b9820e6b8ef9c7780"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,6 +161,39 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Ronak Jain (<a href="#" onclick="location.href='mai'+'lto:'+'jai'+'n7'+'17@'+'pu'+'rdu'+'e.'+'edu'; return false;">jain7<span class="obfuscator">.nosp@m.</span>17@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>)</dd></dl>
 <p>These functions assume that the public layer has validated endpoint numbers, directions, pointers, packet lengths, and peripheral lifecycle state. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="af1d8fa52f1c05ec5a597b2f6bfae225b" name="af1d8fa52f1c05ec5a597b2f6bfae225b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1d8fa52f1c05ec5a597b2f6bfae225b">&#9670;&#160;</a></span>USB_PRIV_clearHalt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void USB_PRIV_clearHalt </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>endpoint</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="usb_8h.html#a91122876321080a57ca676c6155454cf">PHAL_USB_EndpointDirection_t</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Discard a transfer, clear STALL, and reset the direction to DATA0. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8h_af1d8fa52f1c05ec5a597b2f6bfae225b_cgraph.svg" width="530" height="138"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb__priv_8h_af1d8fa52f1c05ec5a597b2f6bfae225b_icgraph.svg" width="100%" height="402"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
 <a id="a8f4223ca64ff2db2fdecae4d66c0d2ec" name="a8f4223ca64ff2db2fdecae4d66c0d2ec"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8f4223ca64ff2db2fdecae4d66c0d2ec">&#9670;&#160;</a></span>USB_PRIV_connect()</h2>
 
@@ -177,7 +213,7 @@ Functions</h2></td></tr>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8h_a8f4223ca64ff2db2fdecae4d66c0d2ec_icgraph.svg" width="344" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8h_a8f4223ca64ff2db2fdecae4d66c0d2ec_icgraph.svg" width="442" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -225,7 +261,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8h_a6a84dcb07b21e54a2b506cec9165693b_icgraph.svg" width="363" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8h_a6a84dcb07b21e54a2b506cec9165693b_icgraph.svg" width="460" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -274,7 +310,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb__priv_8h_a3b7fdac0fb67607273cf7aabc6f8494f_cgraph.svg" width="100%" height="582"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb__priv_8h_a3b7fdac0fb67607273cf7aabc6f8494f_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -309,7 +345,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8h_a88feef2613c47bacaa4b3a2a768c8ae4_icgraph.svg" width="287" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8h_a88feef2613c47bacaa4b3a2a768c8ae4_icgraph.svg" width="384" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -354,7 +390,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8h_ac8fc2c5988800daa9a8e4fd40ef19dce_icgraph.svg" width="303" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb__priv_8h_ac8fc2c5988800daa9a8e4fd40ef19dce_icgraph.svg" width="100%" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -378,7 +414,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8h_aaea03d767f81299b62109832610473d2_icgraph.svg" width="598" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb__priv_8h_aaea03d767f81299b62109832610473d2_icgraph.svg" width="100%" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -411,7 +447,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8h_abe455c5cf21d064ea3eccd1b92c51fc4_icgraph.svg" width="300" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb__priv_8h_abe455c5cf21d064ea3eccd1b92c51fc4_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -450,7 +486,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="usb__priv_8h_ae29a55bc0c87c71b9820e6b8ef9c7780_icgraph.svg" width="308" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="usb__priv_8h_ae29a55bc0c87c71b9820e6b8ef9c7780_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>

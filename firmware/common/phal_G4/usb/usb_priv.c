@@ -24,8 +24,8 @@ static constexpr uint8_t USB_PRIV_STATUS_VALID = 3U;
 
 static constexpr uint8_t USB_PRIV_DM_PIN = 11U;
 static constexpr uint8_t USB_PRIV_DP_PIN = 12U;
-static constexpr uint8_t USB_PRIV_CC1_PIN = 8U;
-static constexpr uint8_t USB_PRIV_CC2_PIN = 9U;
+// static constexpr uint8_t USB_PRIV_CC1_PIN = 8U;
+// static constexpr uint8_t USB_PRIV_CC2_PIN = 9U;
 static constexpr uint8_t USB_PRIV_GPIO_MODE_BITS = 0b11U;
 static constexpr uint8_t USB_PRIV_GPIO_MODE_BIT_WIDTH = 2U;
 static constexpr uint8_t USB_PRIV_ENDPOINT_REGISTER_STRIDE = 2U;
@@ -92,38 +92,29 @@ static bool usb_enable_clock(void) {
     return false;
 }
 
-/** Release the USB-C CC and USB data pins from their GPIO digital paths. */
+/** Release the USB data pins from their GPIO digital paths. */
 static void usb_configure_pins(void) {
-    // GPIOA must be clocked before changing PA8/PA9 (USB-C CC lines) or
-    // PA11/PA12 (USB D-/D+). The barrier ensures the clock write takes effect
+    // GPIOA must be clocked before changing PA11/PA12 (USB D-/D+).
+    // The barrier ensures the clock write takes effect
     // before the following peripheral access.
     RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
     __DSB();
 
-    constexpr uint32_t cc_mask =
-        (USB_PRIV_GPIO_MODE_BITS << (USB_PRIV_CC1_PIN * USB_PRIV_GPIO_MODE_BIT_WIDTH))
-        | (USB_PRIV_GPIO_MODE_BITS << (USB_PRIV_CC2_PIN * USB_PRIV_GPIO_MODE_BIT_WIDTH));
     constexpr uint32_t data_mask =
         (USB_PRIV_GPIO_MODE_BITS << (USB_PRIV_DM_PIN * USB_PRIV_GPIO_MODE_BIT_WIDTH))
         | (USB_PRIV_GPIO_MODE_BITS << (USB_PRIV_DP_PIN * USB_PRIV_GPIO_MODE_BIT_WIDTH));
-    // Analog mode disconnects the GPIO digital paths so UCPD and USB can own
-    // their pins. Neither signaling block uses GPIO pull resistors.
-    GPIOA->MODER = (GPIOA->MODER & ~(cc_mask | data_mask)) | cc_mask | data_mask;
-    GPIOA->PUPDR &= ~(cc_mask | data_mask);
+    // Analog mode disconnects the GPIO digital paths so USB can own its pins.
+    GPIOA->MODER = (GPIOA->MODER & ~data_mask) | data_mask;
+    GPIOA->PUPDR &= ~data_mask;
 }
 
-/** Configure UCPD1 to advertise this board as a USB-C power sink. */
+/** Use external USB-C sink resistors and disable internal dead-battery pulls. */
 static void usb_configure_type_c_sink(void) {
-    // UCPD1 presents the USB-C sink pull-downs on PA8/PA9. PWR controls the
-    // dead-battery pull-downs that otherwise remain connected during startup.
+    // Leave PA8/PA9 available for other peripherals (PA8 is FDCAN3 RX).
+    // PWR controls the dead-battery pull-downs connected during startup.
     RCC->APB1ENR1 |= RCC_APB1ENR1_PWREN;
-    RCC->APB1ENR2 |= RCC_APB1ENR2_UCPD1EN;
     __DSB();
 
-    // Enable the UCPD analog block and both CC channels in sink mode, then
-    // disconnect the separate dead-battery resistors to avoid double loading.
-    UCPD1->CFG1 = UCPD_CFG1_UCPDEN;
-    UCPD1->CR = UCPD_CR_ANAMODE | UCPD_CR_CCENABLE;
     PWR->CR3 |= PWR_CR3_UCPD_DBDIS;
 }
 
@@ -309,6 +300,21 @@ void USB_PRIV_stall(uint8_t endpoint, PHAL_USB_EndpointDirection_t direction) {
     usb_set_status(endpoint, direction, USB_PRIV_STATUS_STALL);
 }
 
+void USB_PRIV_clearHalt(uint8_t endpoint, PHAL_USB_EndpointDirection_t direction) {
+    // Stop accepting tokens before discarding/resetting a potentially live pipe.
+    usb_set_status(endpoint, direction, USB_PRIV_STATUS_NAK);
+    usb_clear_transfer(endpoint, direction);
+
+    // DTOG is toggle-on-write: write its current value to return it to DATA0.
+    volatile uint16_t *reg = usb_endpoint_register(endpoint);
+    uint16_t current = *reg;
+    uint16_t toggle = direction == PHAL_USB_ENDPOINT_DIRECTION_IN ? USB_EP_DTOG_TX : USB_EP_DTOG_RX;
+    *reg = (current & (USB_EPREG_MASK & ~USB_EP_SETUP)) | (current & toggle);
+    
+    uint8_t status = direction == PHAL_USB_ENDPOINT_DIRECTION_IN ? USB_PRIV_STATUS_NAK : USB_PRIV_STATUS_VALID;
+    usb_set_status(endpoint, direction, status);
+}
+
 bool USB_PRIV_write(uint8_t endpoint, const void *source, uint16_t length_bytes) {
     // NAK is the idle IN state. VALID means a packet is already queued, while
     // STALL requires host recovery before another normal transfer can begin.
@@ -366,8 +372,8 @@ static void usb_clear_interrupt_flags(uint16_t interrupt_status) {
 }
 
 void USB_PRIV_handleInterrupt(void) {
-    // Snapshot ISTR once so the callback receives one coherent event. If more
-    // events arrive concurrently, their flags remain set and retrigger the ISR.
+    // Snapshot ISTR once. If more events arrive concurrently, their flags
+    // remain set and retrigger the ISR. SETUP may also report a prior IN completion.
     uint16_t interrupt_status = USB->ISTR;
     PHAL_USB_Event_t event = {0};
 
@@ -389,6 +395,31 @@ void USB_PRIV_handleInterrupt(void) {
             event.transfer_data.direction == PHAL_USB_ENDPOINT_DIRECTION_OUT
             && ((*usb_endpoint_register(event.transfer_data.endpoint) & USB_EP_SETUP) != 0U);
 
+        if (event.transfer_data.setup) {
+            // OUT takes priority in ISTR when both completion flags are set.
+            // Deliver an already completed IN status stage before the new SETUP
+            // cancels application pending state (address/configuration changes).
+            if ((*usb_endpoint_register(event.transfer_data.endpoint) & USB_EP_CTR_TX) != 0U) {
+                usb_clear_transfer(event.transfer_data.endpoint, PHAL_USB_ENDPOINT_DIRECTION_IN);
+                usb_set_status(event.transfer_data.endpoint,
+                               PHAL_USB_ENDPOINT_DIRECTION_IN, USB_PRIV_STATUS_NAK);
+                PHAL_USB_Event_t completed = {
+                    .transfer = true,
+                    .transfer_data = {
+                        .endpoint = event.transfer_data.endpoint,
+                        .direction = PHAL_USB_ENDPOINT_DIRECTION_IN,
+                        .setup = false,
+                    },
+                };
+                PHAL_USB_callback(&completed);
+            }
+
+            // SETUP aborts any previous control-IN packet, including a STALL.
+            // Hardware sets the control data toggle for the new request.
+            usb_clear_transfer(event.transfer_data.endpoint, PHAL_USB_ENDPOINT_DIRECTION_IN);
+            usb_set_status(event.transfer_data.endpoint,
+                           PHAL_USB_ENDPOINT_DIRECTION_IN, USB_PRIV_STATUS_NAK);
+        }
         if (event.transfer_data.direction == PHAL_USB_ENDPOINT_DIRECTION_IN) {
             // Retire an IN packet before the callback. NAK makes the endpoint
             // available for PHAL_USB_write() to queue its next packet immediately.

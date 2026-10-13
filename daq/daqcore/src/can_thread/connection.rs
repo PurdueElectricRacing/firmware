@@ -2,6 +2,7 @@ use crate::{
     can::driver::{self, Driver, DriverError, DriverResult},
     connection::{self, ConnectionSource},
     frame::CanFrame,
+    superdbc
 };
 
 use std::time::{Duration, Instant};
@@ -27,7 +28,11 @@ impl ConnectionManager {
         self.retry_at = now;
     }
 
-    pub fn connect(&mut self, now: Instant) -> Option<Result<(), String>> {
+    pub fn connect(
+        &mut self,
+        now: Instant,
+        bus: Option<&superdbc::database::Bus>,
+    ) -> Option<Result<(), String>> {
         if self.driver.is_some() || now < self.retry_at {
             return None;
         }
@@ -35,7 +40,7 @@ impl ConnectionManager {
         let source = self.source.as_ref()?;
         self.retry_at = now + Duration::from_millis(200);
 
-        let result = match driver::create_driver(source) {
+        let result = match driver::create_driver(source, bus) {
             Ok(driver) => {
                 self.driver = Some(driver);
                 Ok(())

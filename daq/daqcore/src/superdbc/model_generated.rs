@@ -2,6 +2,7 @@
 // HOWEVER MAKE SURE THIS IS CHECKED IN TO GIT!
 
 pub const SCHEMA_VERSION: &str = "1.1";
+// manual
 
 ///`BusExport`
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug)]

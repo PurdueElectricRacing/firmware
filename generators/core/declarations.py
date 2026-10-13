@@ -19,6 +19,8 @@ FaultPriority = Literal["warning", "error", "fatal"]
 Peripheral = Literal["CAN1", "CAN2", "FDCAN1", "FDCAN2", "FDCAN3"]
 Number = int | float
 FiniteNumber = Annotated[Number, Field(allow_inf_nan=False)]
+# JSON object keys are strings; Pydantic converts raw enum keys to integers.
+EnumValue = Annotated[int, Field(strict=False)]
 BaseType = Literal[
     "uint8_t", "uint16_t", "uint32_t", "uint64_t",
     "int8_t", "int16_t", "int32_t", "int64_t",
@@ -228,28 +230,21 @@ class BusDeclarations(DeclarationModel):
         return self
 
 
-class EnumChoiceDeclaration(DeclarationModel):
-    name: str = Field(min_length=1)
-    value: int
-
-
 class CustomTypeDeclaration(DeclarationModel):
     name: str = Field(pattern=r"^[a-zA-Z_][a-zA-Z0-9_]*_t$")
     base_type: BaseType
-    choices: Annotated[list[EnumChoiceDeclaration], Field(min_length=1)] | None = None
+    choices: Annotated[dict[EnumValue, str], Field(min_length=1)] | None = None
 
     @model_validator(mode="after")
     def validate_enum(self) -> Self:
         if not self.choices:
             return self
         # Labels may start with digits: generated C names have a type prefix.
-        if any(not re.fullmatch(r"[a-zA-Z0-9_]+", choice.name) for choice in self.choices):
+        if any(not re.fullmatch(r"[a-zA-Z0-9_]+", name) for name in self.choices.values()):
             raise ValueError("enum names must contain only letters, digits, and underscores")
-        names = [choice.name.upper() for choice in self.choices]
+        names = [name.upper() for name in self.choices.values()]
         if _duplicate_value(names) is not None:
             raise ValueError("choices must have unique generated C names")
-        if _duplicate_value([choice.value for choice in self.choices]) is not None:
-            raise ValueError("choices must have unique numeric values")
         if self.base_type == "float":
             raise ValueError("float cannot have enum choices")
         if self.base_type == "bool":
@@ -259,7 +254,7 @@ class CustomTypeDeclaration(DeclarationModel):
             bits = int(self.base_type.removeprefix("uint").removeprefix("int").removesuffix("_t"))
             low = -(1 << (bits - 1)) if signed else 0
             high = (1 << (bits - int(signed))) - 1
-        if any(not low <= choice.value <= high for choice in self.choices):
+        if any(not low <= value <= high for value in self.choices):
             raise ValueError(f"enum values do not fit {self.base_type}")
         return self
 
@@ -274,8 +269,8 @@ class TypeDeclarations(DeclarationModel):
         if duplicate is not None:
             raise ValueError(f"duplicate custom type name '{duplicate}'")
         symbols = [
-            f"{custom_type.name[:-2].upper()}_{choice.name.upper()}"
-            for custom_type in self.types for choice in custom_type.choices or []
+            f"{custom_type.name[:-2].upper()}_{name.upper()}"
+            for custom_type in self.types for name in (custom_type.choices or {}).values()
         ]
         if _duplicate_value(symbols) is not None:
             raise ValueError("custom types contain duplicate generated C enum names")

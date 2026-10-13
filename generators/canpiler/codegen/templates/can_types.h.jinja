@@ -13,8 +13,8 @@
 {% for type in types %}
 {% if type.choices %}
 typedef enum : {{ type.base_type }} {
-{% for choice in type.choices or [] %}
-    {{ type.name|enum_prefix }}_{{ choice.name|upper }} = {{ choice.value }},
+{% for value, name in type.choices.items() %}
+    {{ type.name|enum_prefix }}_{{ name|upper }} = {{ value }},
 {% endfor %}
 } {{ type.name }};
 {% else %}

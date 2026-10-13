@@ -1,10 +1,10 @@
-use crate::{frame::CanIdentity, log_parse::consts};
+use crate::{frame::CanIdentity, log_parse::consts, superdbc};
 use bytemuck::{Pod, Zeroable};
 
 #[derive(Debug)]
 pub struct ParsedMessage {
     pub timestamp: u32,
-    pub decoded: can_decode::DecodedMessage,
+    pub decoded: superdbc::decode::DecodedMessage,
     pub bus_name: String,
 }
 
@@ -19,8 +19,7 @@ pub struct RawFrame {
 
 pub fn parse_log_files(
     in_folder: &std::path::Path,
-    parser_bus_0: &can_decode::Parser,
-    parser_bus_1: &can_decode::Parser,
+    database: &superdbc::database::Database,
 ) -> std::io::Result<Vec<ParsedMessage>> {
     let mut all_parsed = Vec::new();
     let entries = std::fs::read_dir(in_folder)?;
@@ -35,7 +34,7 @@ pub fn parse_log_files(
     file_paths.sort();
     for path in file_paths {
         log::info!("Parsing log file: {}", path.display());
-        let parsed = parse_log_file(&path, parser_bus_0, parser_bus_1)?;
+        let parsed = parse_log_file(&path, database)?;
         all_parsed.extend(parsed);
     }
 
@@ -44,8 +43,7 @@ pub fn parse_log_files(
 
 fn parse_log_file(
     in_file: &std::path::Path,
-    parser_bus_0: &can_decode::Parser,
-    parser_bus_1: &can_decode::Parser,
+    database: &superdbc::database::Database,
 ) -> std::io::Result<Vec<ParsedMessage>> {
     let mut content = std::fs::read(in_file)?;
     let frame_size = std::mem::size_of::<RawFrame>();
@@ -96,18 +94,15 @@ fn parse_log_file(
             0
         };
 
-        let parser = if bus_id == 0 {
-            parser_bus_0
-        } else {
-            parser_bus_1
-        };
-
-        if let Some(decoded) = parser.decode_msg(identity.dbc_id(), &frame.data) {
-            let bus_name = if bus_id == 0 { "VCAN" } else { "MCAN" };
+        if let Ok(decoded) = database.decode(bus_id, identity, &frame.data) {
+            let bus_name = database
+                .bus_by_id(bus_id)
+                .expect("decoded bus exists")
+                .name();
             parsed.push(ParsedMessage {
                 timestamp: frame.ticks_ms,
                 decoded,
-                bus_name: bus_name.to_string(),
+                bus_name: bus_name.to_owned(),
             });
         } else {
             log::error!(

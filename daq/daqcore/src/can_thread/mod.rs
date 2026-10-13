@@ -7,7 +7,9 @@ mod firmware_session;
 mod run;
 mod tx;
 
-use crate::{superdbc, ParsedFrame, Time, connection::ConnectionSource, firmware, frame::CanIdentity, hil};
+use crate::{
+    ParsedFrame, Time, connection::ConnectionSource, firmware, frame::CanIdentity, hil, superdbc,
+};
 use std::{path::PathBuf, sync::mpsc, thread::JoinHandle};
 pub use tx::{AddSendMessage, SendAmount};
 
@@ -37,7 +39,9 @@ pub enum DatabaseUpdate {
         database: Box<superdbc::database::Database>,
         bus_id: u8,
     },
-    Bus { bus_id: u8 },
+    Bus {
+        bus_id: u8,
+    },
 }
 
 #[derive(Default)]

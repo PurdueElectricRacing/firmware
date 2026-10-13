@@ -28,6 +28,9 @@ static_assert(sizeof(DEVICE_DESCRIPTOR) == PHAL_USB_DEVICE_DESCRIPTOR_LENGTH);
 static_assert(sizeof(CONFIGURATION_DESCRIPTOR) == 25U);
 
 static usb_context_t g_usb_context = {
+    .configured = false,
+    .bulk_halted = false,
+    .address = 0U,
     .pending_address = NO_PENDING_VALUE,
     .pending_configuration = NO_PENDING_VALUE,
 };

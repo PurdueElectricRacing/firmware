@@ -11,7 +11,7 @@ DaqCLI takes explicit paths as arguments, so it can be run from any working
 directory:
 
 ```bash
-cargo run -- \
+cargo run -p daqcli -- \
     --logs-dir <dir with .log files> \
     --output-dir <dir for CSV output> \
     --superdbc <path to superdbc_*.json>

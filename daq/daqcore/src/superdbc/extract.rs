@@ -4,7 +4,7 @@ use crate::superdbc::{
     message::{ByteOrder, RawType},
 };
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct Segment {
     byte: usize,
     wire_shift: u8,
@@ -13,7 +13,7 @@ struct Segment {
 }
 
 /// Validated byte segments and integer bounds for one signal layout.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Codec {
     segments: Vec<Segment>,
     /// Bitmap of occupied payload bits, used to reject overlapping signals.

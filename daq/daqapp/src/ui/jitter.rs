@@ -32,14 +32,13 @@ impl Jitter {
             message_picker::no_database_placeholder(ui);
             return egui_tiles::UiResponse::None;
         };
+        let Some(bus) = database.bus() else {
+            return egui_tiles::UiResponse::None;
+        };
 
-        if let Some(msg) = self
-            .msg_picker
-            .show(ui, database.bus(), self.selected_msg.is_none())
-        {
+        if let Some(msg) = self.msg_picker.show(ui, bus, self.selected_msg.is_none()) {
             self.selected_msg = Some(msg);
-            self.period_ms = database
-                .bus()
+            self.period_ms = bus
                 .message(msg.identity)
                 .and_then(|message| message.nominal_period_ms())
                 .map_or(100, |ms| ms as usize);
@@ -52,10 +51,7 @@ impl Jitter {
                     .suffix(" ms"),
             );
         });
-        if let Some(msg) = self
-            .selected_msg
-            .and_then(|key| database.bus().message(key.identity))
-        {
+        if let Some(msg) = self.selected_msg.and_then(|key| bus.message(key.identity)) {
             let identity = msg.identity();
             ui.label(format!("{} ({identity})", msg.name()));
 

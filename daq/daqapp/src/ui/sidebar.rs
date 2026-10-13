@@ -268,27 +268,30 @@ pub fn show(app: &mut app::DAQApp, ctx: &eframe::egui::Context) {
                     select_database(app);
                 }
                 if let Some(selection) = &app.database {
-                    let source = selection.source();
-                    ui.label(
-                        source
-                            .path
-                            .file_name()
-                            .unwrap_or_default()
-                            .to_string_lossy(),
-                    );
+                    if let Some(source) = selection.source() {
+                        ui.label(
+                            source
+                                .path
+                                .file_name()
+                                .unwrap_or_default()
+                                .to_string_lossy(),
+                        );
+                    }
                     let mut bus_id = selection.bus_id;
-                    eframe::egui::ComboBox::from_label("CAN Bus")
-                        .selected_text(format!("{} ({})", selection.bus().name(), bus_id))
-                        .show_ui(ui, |ui| {
-                            for bus in selection.database.buses() {
-                                ui.selectable_value(
-                                    &mut bus_id,
-                                    bus.bus_id(),
-                                    format!("{} ({})", bus.name(), bus.bus_id()),
-                                );
-                            }
-                        });
-                    if bus_id != source.bus_id {
+                    if let Some(bus) = selection.bus() {
+                        eframe::egui::ComboBox::from_label("CAN Bus")
+                            .selected_text(format!("{} ({})", bus.name(), bus_id))
+                            .show_ui(ui, |ui| {
+                                for bus in selection.database.buses() {
+                                    ui.selectable_value(
+                                        &mut bus_id,
+                                        bus.bus_id(),
+                                        format!("{} ({})", bus.name(), bus.bus_id()),
+                                    );
+                                }
+                            });
+                    }
+                    if bus_id != selection.bus_id {
                         app.request_bus(bus_id);
                     }
                 } else {

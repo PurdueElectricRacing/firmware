@@ -10,21 +10,15 @@ pub struct DatabaseSelection {
 }
 
 impl DatabaseSelection {
-    pub fn bus(&self) -> &daqcore::superdbc::database::Bus {
-        self.database
-            .bus_by_id(self.bus_id)
-            .expect("selected bus was validated")
+    pub fn bus(&self) -> Option<&daqcore::superdbc::database::Bus> {
+        self.database.bus_by_id(self.bus_id)
     }
 
-    pub fn source(&self) -> daqcore::can_thread::DatabaseSource {
-        daqcore::can_thread::DatabaseSource {
-            path: self
-                .database
-                .path()
-                .expect("UI databases are loaded from files")
-                .to_owned(),
+    pub fn source(&self) -> Option<daqcore::can_thread::DatabaseSource> {
+        Some(daqcore::can_thread::DatabaseSource {
+            path: self.database.path()?.to_owned(),
             bus_id: self.bus_id,
-        }
+        })
     }
 }
 
@@ -70,7 +64,8 @@ impl DAQApp {
             superdbc_path: self
                 .database
                 .as_ref()
-                .map(|selection| selection.source().path),
+                .and_then(|selection| selection.source())
+                .map(|source| source.path),
             bus_id: self.database.as_ref().map(|selection| selection.bus_id),
             selected_source: self.selected_source.clone(),
             selected_speed: self.can_bus_speed,

@@ -94,15 +94,16 @@ fn parse_log_file(
             0
         };
 
-        if let Ok(decoded) = database.decode(bus_id, identity, &frame.data) {
-            let bus_name = database
-                .bus_by_id(bus_id)
-                .expect("decoded bus exists")
-                .name();
+        let Some(bus) = database.bus_by_id(bus_id) else {
+            log::error!("Unknown bus {bus_id} in {}", in_file.display());
+            continue;
+        };
+
+        if let Ok(decoded) = bus.decode(identity, &frame.data) {
             parsed.push(ParsedMessage {
                 timestamp: frame.ticks_ms,
                 decoded,
-                bus_name: bus_name.to_owned(),
+                bus_name: bus.name().to_owned(),
             });
         } else {
             log::error!(

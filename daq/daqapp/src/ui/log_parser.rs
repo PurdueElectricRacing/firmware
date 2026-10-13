@@ -37,7 +37,9 @@ impl LogParser {
         let path = if self.use_override {
             self.database_override.clone()
         } else {
-            sidebar_database.map(|selection| selection.source().path)
+            sidebar_database
+                .and_then(|selection| selection.source())
+                .map(|source| source.path)
         };
         let Some(path) = path else {
             self.parse_text = "Error: No SuperDBC file selected".to_owned();
@@ -127,7 +129,9 @@ impl LogParser {
             let path = if self.use_override {
                 self.database_override.clone()
             } else {
-                sidebar_database.map(|selection| selection.source().path)
+                sidebar_database
+                    .and_then(|selection| selection.source())
+                    .map(|source| source.path)
             };
             ui.label(path.as_ref().map_or_else(
                 || "None selected".to_owned(),

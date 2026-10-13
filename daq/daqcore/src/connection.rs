@@ -41,10 +41,9 @@ impl<'de> serde::Deserialize<'de> for ConnectionSource {
         }
 
         if let Some(simulated) = object.get("Simulated") {
-            let connected =
-                simulated
-                    .as_bool()
-                    .ok_or_else(|| serde::de::Error::custom("invalid simulated connection source"))?;
+            let connected = simulated
+                .as_bool()
+                .ok_or_else(|| serde::de::Error::custom("invalid simulated connection source"))?;
             return Ok(Self::Simulated(connected));
         }
 

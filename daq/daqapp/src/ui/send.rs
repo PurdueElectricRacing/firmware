@@ -115,21 +115,19 @@ impl SendUi {
             message_picker::no_database_placeholder(ui);
             return egui_tiles::UiResponse::None;
         };
+        let Some(bus) = database.bus() else {
+            return egui_tiles::UiResponse::None;
+        };
 
         eframe::egui::Frame::group(ui.style())
             .inner_margin(eframe::egui::Margin::symmetric(8, 6))
             .stroke(eframe::egui::Stroke::NONE)
             .show(ui, |ui| {
                 eframe::egui::ScrollArea::vertical().show(ui, |ui| {
-                    if let Some(msg) =
-                        self.msg_picker
-                            .show(ui, database.bus(), self.selected_msg.is_none())
+                    if let Some(picked) = self.msg_picker.show(ui, bus, self.selected_msg.is_none())
+                        && let Some(msg) = bus.message(picked.identity)
                     {
-                        self.selected_msg = Some(msg);
-                        let msg = database
-                            .bus()
-                            .message(msg.identity)
-                            .expect("picked message exists");
+                        self.selected_msg = Some(picked);
                         self.period_ms = msg.nominal_period_ms().map_or(1000, |ms| ms as usize);
                         self.signal_values = msg
                             .signals()
@@ -147,9 +145,8 @@ impl SendUi {
                         self.error = None;
                     }
 
-                    if let Some(selected_msg) = self
-                        .selected_msg
-                        .and_then(|key| database.bus().message(key.identity))
+                    if let Some(selected_msg) =
+                        self.selected_msg.and_then(|key| bus.message(key.identity))
                     {
                         ui.separator();
 
@@ -233,7 +230,7 @@ impl SendUi {
 
                         if ui.button("Send Message").clicked() {
                             let msg_bytes = match encode_msg_from_signals(
-                                database.bus(),
+                                bus,
                                 selected_msg.identity(),
                                 &self.signal_values,
                             ) {
@@ -317,11 +314,8 @@ impl SendUi {
                             continue;
                         }
 
-                        let encoded = encode_msg_from_signals(
-                            database.bus(),
-                            msg.identity,
-                            &msg.signal_values,
-                        );
+                        let encoded =
+                            encode_msg_from_signals(bus, msg.identity, &msg.signal_values);
                         let msg_bytes = match encoded {
                             Ok(bytes) => bytes,
                             Err(error) => {

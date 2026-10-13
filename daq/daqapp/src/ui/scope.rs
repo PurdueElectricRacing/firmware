@@ -60,18 +60,21 @@ impl Scope {
         ui: &mut eframe::egui::Ui,
         database: &app::DatabaseSelection,
     ) -> bool {
+        let Some(bus) = database.bus() else {
+            return false;
+        };
         let state = std::mem::take(&mut self.state);
 
         let (new_state, just_configured) = match state {
             ScopeState::PickingMessage { mut picker } => {
-                let picked = picker.show(ui, database.bus(), true);
+                let picked = picker.show(ui, bus, true);
                 match picked {
                     Some(msg) => (ScopeState::PickingSignal { selected_msg: msg }, false),
                     None => (ScopeState::PickingMessage { picker }, false),
                 }
             }
             ScopeState::PickingSignal { selected_msg } => {
-                let Some(message) = database.bus().message(selected_msg.identity) else {
+                let Some(message) = bus.message(selected_msg.identity) else {
                     self.state = ScopeState::default();
                     return false;
                 };

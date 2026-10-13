@@ -1,7 +1,7 @@
 use chrono::Datelike as _;
 use chrono::TimeZone as _;
 
-use crate::log_parse::parse::ParsedMessage;
+use crate::{log_parse::parse::ParsedMessage, superdbc};
 
 // In that case we use this fallback slope value. It is generally safe to assume a
 // slope of 1.0 since the DAQ runs at 1 tick = 1 ms, but in post-processing there
@@ -59,8 +59,8 @@ impl CorrelationChunkResult {
     }
 }
 
-pub fn physical_to_u64(dsv: &can_decode::DecodedSignalValue) -> u64 {
-    dsv.physical.round() as u64
+pub fn physical_to_u64(dsv: &superdbc::decode::DecodedSignalValue) -> u64 {
+    dsv.physical().round() as u64
 }
 
 pub fn time_correlate_chunk(chunk: Vec<ParsedMessage>) -> CorrelationChunkResult {
@@ -73,42 +73,14 @@ pub fn time_correlate_chunk(chunk: Vec<ParsedMessage>) -> CorrelationChunkResult
     // First, find all GPS messages and extract their timestamps and real times
     let mut gps_points = Vec::new();
     for msg in &chunk {
-        if msg.decoded.name == "gps_time" {
-            let millisecond = msg
-                .decoded
-                .signals
-                .get("millisecond")
-                .map(|sig| physical_to_u64(&sig.value));
-            let second = msg
-                .decoded
-                .signals
-                .get("second")
-                .map(|sig| physical_to_u64(&sig.value));
-            let minute = msg
-                .decoded
-                .signals
-                .get("minute")
-                .map(|sig| physical_to_u64(&sig.value));
-            let hour = msg
-                .decoded
-                .signals
-                .get("hour")
-                .map(|sig| physical_to_u64(&sig.value));
-            let day = msg
-                .decoded
-                .signals
-                .get("day")
-                .map(|sig| physical_to_u64(&sig.value));
-            let month = msg
-                .decoded
-                .signals
-                .get("month")
-                .map(|sig| physical_to_u64(&sig.value));
-            let year = msg
-                .decoded
-                .signals
-                .get("year")
-                .map(|sig| physical_to_u64(&sig.value));
+        if msg.decoded.name() == "gps_time" {
+            let millisecond = msg.decoded.signal("millisecond").map(physical_to_u64);
+            let second = msg.decoded.signal("second").map(physical_to_u64);
+            let minute = msg.decoded.signal("minute").map(physical_to_u64);
+            let hour = msg.decoded.signal("hour").map(physical_to_u64);
+            let day = msg.decoded.signal("day").map(physical_to_u64);
+            let month = msg.decoded.signal("month").map(physical_to_u64);
+            let year = msg.decoded.signal("year").map(physical_to_u64);
 
             if let (Some(ms), Some(s), Some(min), Some(h), Some(d), Some(mon), Some(y)) =
                 (millisecond, second, minute, hour, day, month, year)

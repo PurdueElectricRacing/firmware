@@ -11,7 +11,6 @@ SCHEMA_VERSION = get_args(SchemaVersion)[0]
 
 Name = Annotated[str, Field(min_length=1)]
 Finite = Annotated[float, Field(allow_inf_nan=False)]
-RawKey = Annotated[str, Field(pattern=r"^(0|-?[1-9][0-9]*)$")]
 
 
 class ExportModel(BaseModel):
@@ -35,8 +34,8 @@ class SignalExport(ExportModel):
     offset: Finite
     limits: LimitsExport | None
     unit: str
-    choices: dict[RawKey, str] | None
-    display_format: DisplayFormat | None = None
+    choices: dict[int, str] | None
+    display_format: DisplayFormat | None
 
 
 class MessageExport(ExportModel):

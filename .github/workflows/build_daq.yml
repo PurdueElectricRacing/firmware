@@ -12,6 +12,29 @@ permissions:
   contents: read
 
 jobs:
+  superdbc_models:
+    name: Check generated SuperDBC models
+    runs-on: ubuntu-latest
+    container:
+      image: irvingywang/per-firmware:latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Fix git ownership
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Generate firmware artifacts and SuperDBC schema
+        run: python3 generators/generate.py
+
+      - name: Regenerate SuperDBC models
+        working-directory: daq
+        run: cargo check -p daqcore --locked
+
+      - name: Verify checked-in models are current
+        run: git diff --exit-code -- daq/daqcore/src/superdbc/model_generated.rs
+
   build:
     name: Build DAQ Workspace
     runs-on: ubuntu-latest

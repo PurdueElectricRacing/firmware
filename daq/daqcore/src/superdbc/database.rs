@@ -59,9 +59,6 @@ impl Database {
     ///
     /// Use this for downloaded or embedded artifacts. The database owns all
     /// metadata and retains no reference to `json`; [`Self::path`] returns `None`.
-    /// Only schema version 1.1 is accepted. Unknown fields, missing required
-    /// nullable fields, duplicate definitions, and invalid signal layouts are
-    /// rejected during loading rather than during encoding or decoding.
     ///
     /// # Errors
     ///
@@ -70,7 +67,7 @@ impl Database {
     /// or [`crate::superdbc::error::ParseError::InvalidDefinition`] for invalid metadata or wire layouts.
     pub fn from_json(json: &str) -> Result<Self, superdbc::error::ParseError> {
         // Probe the version before interpreting fields under the 1.1 schema.
-        // Deserialize from the original text to retain order and duplicate keys.
+        // Deserialize from the original text to retain bus order.
         let probe: superdbc::model::VersionProbe = serde_json::from_str(json)?;
 
         if probe.versions.schema_version != superdbc::model::SCHEMA_VERSION {
@@ -88,26 +85,21 @@ impl Database {
         let mut message_index = HashMap::new();
 
         for (name, model) in document.buses {
+            let name: String = name.into();
             let context = format!("bus {name:?}");
             superdbc::message::nonempty(&name, &context, "bus name")?;
+            let bus_id: u8 = superdbc::model::narrow(model.bus_id, &context, "bus_id")?;
 
-            if model.bus_id > 7 {
+            if bus_id > 7 {
                 return Err(superdbc::error::ParseError::definition(
                     &context,
                     "bus_id must be 0..=7",
                 ));
             }
 
-            if model.baud_rate == 0 {
-                return Err(superdbc::error::ParseError::definition(
-                    &context,
-                    "baud_rate must be positive",
-                ));
-            }
-
             let bus_index = buses.len();
 
-            if bus_ids.insert(model.bus_id, bus_index).is_some() {
+            if bus_ids.insert(bus_id, bus_index).is_some() {
                 return Err(superdbc::error::ParseError::definition(
                     &context,
                     "duplicate bus_id",
@@ -120,7 +112,7 @@ impl Database {
             for node in model.nodes {
                 superdbc::message::nonempty(&node.name, &context, "node name")?;
                 nodes.push(Node {
-                    name: node.name,
+                    name: node.name.into(),
                     is_external: node.is_external,
                 });
             }
@@ -140,7 +132,7 @@ impl Database {
                 }
 
                 let message =
-                    superdbc::message::Message::compile(model.bus_id, message, &message_context)?;
+                    superdbc::message::Message::compile(bus_id, message, &message_context)?;
                 let message_position = messages.len();
 
                 if identities
@@ -161,8 +153,8 @@ impl Database {
 
             buses.push(Bus {
                 name,
-                bus_id: model.bus_id,
-                baud_rate: model.baud_rate,
+                bus_id,
+                baud_rate: model.baud_rate.get(),
                 nodes,
                 messages,
                 message_index: identities,
@@ -172,8 +164,8 @@ impl Database {
         // Hashes are metadata supplied by the generator, not load-time checks.
         Ok(Self {
             path: None,
-            content_hash: document.content_hash,
-            version_hash: document.versions.hash,
+            content_hash: document.content_hash.into(),
+            version_hash: document.versions.hash.into(),
             schema_version: document.versions.schema_version,
             buses,
             bus_names,

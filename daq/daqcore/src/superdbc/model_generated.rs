@@ -1,5 +1,5 @@
-// Generated from canpiler's Pydantic SuperDBC schema. Do not edit.
-// Refresh: python3 generators/generate.py, then cargo build --manifest-path daq/Cargo.toml -p daqcore.
+// Generated from canpiler's Pydantic SuperDBC schema. Do not edit manually.
+// HOWEVER MAKE SURE THIS IS CHECKED IN TO GIT!
 
 pub const SCHEMA_VERSION: &str = "1.1";
 

@@ -1,3 +1,7 @@
+use crate::superdbc::{
+    decode::DecodedSignalValue,
+    message::{RawType, SignalDefinition},
+};
 use indexmap::IndexMap;
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
@@ -123,9 +127,9 @@ impl Formatter {
         &self,
         msg_name: &str,
         signal_name: &str,
-        sig_def: Option<&can_dbc::Signal>,
+        sig_def: Option<&SignalDefinition>,
         unit: Option<&str>,
-        value: &can_decode::DecodedSignalValue,
+        value: &DecodedSignalValue,
     ) -> String {
         for (msg_glob, signal_vec) in &self.compiled_config {
             if !msg_glob.is_match(msg_name) {
@@ -141,14 +145,14 @@ impl Formatter {
                     (Formatting::Hex, Some(definition)) => format_hex(definition, value),
                     (Formatting::Binary, Some(definition)) => format_binary(definition, value),
                     (Formatting::Decimal(places), _) => {
-                        format!("{:.*}", *places, value.physical)
+                        format!("{:.*}", *places, value.physical())
                     }
                     // These formats need a signal definition; try the next rule.
                     _ => continue,
                 };
 
                 let maybe_unit = unit
-                    .or_else(|| sig_def.map(|signal| signal.unit.as_str()))
+                    .or_else(|| sig_def.map(|signal| signal.unit()))
                     .filter(|unit| !unit.is_empty());
 
                 if let Some(unit) = maybe_unit {
@@ -160,7 +164,7 @@ impl Formatter {
         }
 
         let maybe_unit = unit
-            .or_else(|| sig_def.map(|s| s.unit.as_str()))
+            .or_else(|| sig_def.map(|s| s.unit()))
             .filter(|u| !u.is_empty());
         default_format(maybe_unit, value)
     }
@@ -183,38 +187,38 @@ pub fn try_format(
     formatter: &Option<Formatter>,
     msg_name: &str,
     signal_name: &str,
-    sig_def: Option<&can_dbc::Signal>,
+    sig_def: Option<&SignalDefinition>,
     unit: Option<&str>,
-    value: &can_decode::DecodedSignalValue,
+    value: &DecodedSignalValue,
 ) -> String {
     if let Some(fmt) = formatter {
         fmt.format(msg_name, signal_name, sig_def, unit, value)
     } else {
         let maybe_unit = unit
-            .or_else(|| sig_def.map(|s| s.unit.as_str()))
+            .or_else(|| sig_def.map(|s| s.unit()))
             .filter(|u| !u.is_empty());
         default_format(maybe_unit, value)
     }
 }
 
-pub fn default_format(unit: Option<&str>, value: &can_decode::DecodedSignalValue) -> String {
-    if let Some(enum_label) = &value.enum_label {
+pub fn default_format(unit: Option<&str>, value: &DecodedSignalValue) -> String {
+    if let Some(enum_label) = value.enum_label() {
         format!("{} ({})", enum_label, value.int_rounded())
     } else if let Some(u) = unit
         && !u.is_empty()
     {
-        format!("{:.2} {}", value.physical, u)
+        format!("{:.2} {}", value.physical(), u)
     } else {
-        format!("{:.2}", value.physical)
+        format!("{:.2}", value.physical())
     }
 }
 
-fn format_hex(sig_def: &can_dbc::Signal, value: &can_decode::DecodedSignalValue) -> String {
-    let bits = sig_def.size.clamp(1, 64) as u32;
+fn format_hex(sig_def: &SignalDefinition, value: &DecodedSignalValue) -> String {
+    let bits = sig_def.bit_length() as u32;
     let nybbles = bits.div_ceil(4) as usize;
 
-    match sig_def.value_type {
-        can_dbc::ValueType::Unsigned => {
+    match sig_def.raw_type() {
+        RawType::Unsigned | RawType::Float32 => {
             let mask = if bits == 64 {
                 u64::MAX
             } else {
@@ -226,7 +230,7 @@ fn format_hex(sig_def: &can_dbc::Signal, value: &can_decode::DecodedSignalValue)
             format!("0x{:0width$X}", val, width = nybbles)
         }
 
-        can_dbc::ValueType::Signed => {
+        RawType::Signed => {
             let val = value.int_rounded();
 
             if val < 0 {
@@ -238,11 +242,11 @@ fn format_hex(sig_def: &can_dbc::Signal, value: &can_decode::DecodedSignalValue)
     }
 }
 
-fn format_binary(sig_def: &can_dbc::Signal, value: &can_decode::DecodedSignalValue) -> String {
-    let bits = sig_def.size.clamp(1, 64) as usize;
+fn format_binary(sig_def: &SignalDefinition, value: &DecodedSignalValue) -> String {
+    let bits = sig_def.bit_length() as usize;
 
-    match sig_def.value_type {
-        can_dbc::ValueType::Unsigned => {
+    match sig_def.raw_type() {
+        RawType::Unsigned | RawType::Float32 => {
             let mask = if bits == 64 {
                 u64::MAX
             } else {
@@ -254,7 +258,7 @@ fn format_binary(sig_def: &can_dbc::Signal, value: &can_decode::DecodedSignalVal
             format!("0b{:0width$b}", val, width = bits)
         }
 
-        can_dbc::ValueType::Signed => {
+        RawType::Signed => {
             let val = value.int_rounded();
 
             if val < 0 {
